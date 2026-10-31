@@ -44,7 +44,7 @@ class PebbleV2ObjstorageRemoteObjectReader extends GoHandle {
 
   /// Go: `func (remote.ObjectReader).Close() error`.
   void close() {
-    $callSync(4978, $W()..h(this));
+    $callSync(4987, $W()..h(this));
   }
 
   /// Go: `func (remote.ObjectReader).ReadAt(ctx context.Context, p []byte, offset int64) error`.
@@ -52,7 +52,7 @@ class PebbleV2ObjstorageRemoteObjectReader extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> readAt($context.Context ctx, Uint8List p, int offset) async {
     await $call(
-        4979,
+        4988,
         $W()
           ..h(this)
           ..h(ctx)
@@ -72,7 +72,7 @@ mixin PebbleV2ObjstorageRemoteStorage$ on GoHandle {
   /// Go: `func (remote.Storage).CreateObject(objName string) (io.WriteCloser, error)`.
   $io.IoWriteCloser createObject(String objName) {
     final $r = $callSync(
-        4981,
+        4990,
         $W()
           ..h(this)
           ..str(objName));
@@ -82,7 +82,7 @@ mixin PebbleV2ObjstorageRemoteStorage$ on GoHandle {
   /// Go: `func (remote.Storage).Delete(objName string) error`.
   void delete(String objName) {
     $callSync(
-        4982,
+        4991,
         $W()
           ..h(this)
           ..str(objName));
@@ -91,7 +91,7 @@ mixin PebbleV2ObjstorageRemoteStorage$ on GoHandle {
   /// Go: `func (remote.Storage).List(prefix string, delimiter string) ([]string, error)`.
   List<String> list(String prefix, String delimiter) {
     final $r = $callSync(
-        4983,
+        4992,
         $W()
           ..h(this)
           ..str(prefix)
@@ -105,7 +105,7 @@ mixin PebbleV2ObjstorageRemoteStorage$ on GoHandle {
   Future<(PebbleV2ObjstorageRemoteObjectReader, int)> readObject(
       $context.Context ctx, String objName) async {
     final $r = await $call(
-        4984,
+        4993,
         $W()
           ..h(this)
           ..h(ctx)
@@ -116,7 +116,7 @@ mixin PebbleV2ObjstorageRemoteStorage$ on GoHandle {
   /// Go: `func (remote.Storage).Size(objName string) (int64, error)`.
   int size(String objName) {
     final $r = $callSync(
-        4985,
+        4994,
         $W()
           ..h(this)
           ..str(objName));
@@ -135,7 +135,7 @@ mixin PebbleV2ObjstorageRemoteStorageFactory$ on GoHandle {
   /// Go: `func (remote.StorageFactory).CreateStorage(locator remote.Locator) (remote.Storage, error)`.
   PebbleV2ObjstorageRemoteStorage createStorage(String locator) {
     final $r = $callSync(
-        4986,
+        4995,
         $W()
           ..h(this)
           ..str(locator));
@@ -150,7 +150,7 @@ extension GoCockroachdbPebbleV2ObjstorageRemoteApi
   PebbleV2ObjstorageRemoteObjectKey makeObjectKey(
       String locator, String objectName) {
     final $r = $callSync(
-        4974,
+        4983,
         $W()
           ..str(locator)
           ..str(objectName));
@@ -161,13 +161,13 @@ extension GoCockroachdbPebbleV2ObjstorageRemoteApi
   PebbleV2ObjstorageRemoteStorageFactory makeSimpleFactory(
       Map<String, PebbleV2ObjstorageRemoteStorage> m) {
     final $r = $callSync(
-        4975, $W()..map(m, (w0, k0) => w0.str(k0), (w0, v0) => w0.h(v0)));
+        4984, $W()..map(m, (w0, k0) => w0.str(k0), (w0, v0) => w0.h(v0)));
     return $r.hnn(PebbleV2ObjstorageRemoteStorageFactory.$h);
   }
 
   /// Go: `func remote.NewInMem() remote.Storage`.
   PebbleV2ObjstorageRemoteStorage newInMem() {
-    final $r = $callSync(4976);
+    final $r = $callSync(4985);
     return $r.hnn(PebbleV2ObjstorageRemoteStorage.$h);
   }
 
@@ -175,7 +175,7 @@ extension GoCockroachdbPebbleV2ObjstorageRemoteApi
   PebbleV2ObjstorageRemoteStorage newLocalFs(
       String dirname, $vfs.PebbleV2VfsFs fs) {
     final $r = $callSync(
-        4977,
+        4986,
         $W()
           ..str(dirname)
           ..h(fs));
@@ -185,7 +185,7 @@ extension GoCockroachdbPebbleV2ObjstorageRemoteApi
   /// Go: `func remote.ShouldCreateShared(strategy remote.CreateOnSharedStrategy, level int) bool`.
   bool shouldCreateShared(int strategy, int level) {
     final $r = $callSync(
-        4980,
+        4989,
         $W()
           ..i64(strategy)
           ..i64(level));

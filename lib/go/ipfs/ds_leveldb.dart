@@ -56,7 +56,7 @@ class DsLeveldbDatastore extends $datastore.Datastore
   /// Go: `func leveldb.NewDatastore(path string, opts *leveldb.Options) (*leveldb.Datastore, error)`.
   factory DsLeveldbDatastore(String path, DsLeveldbOptions opts) {
     final $r = $callSync(
-        10793,
+        10802,
         $W()
           ..str(path)
           ..dto(opts));
@@ -68,7 +68,7 @@ class DsLeveldbDatastore extends $datastore.Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<$datastore.DatastoreBatch> batch($context.Context ctx) async {
     final $r = await $call(
-        10782,
+        10791,
         $W()
           ..h(this)
           ..h(ctx));
@@ -77,7 +77,7 @@ class DsLeveldbDatastore extends $datastore.Datastore
 
   /// Go: `func (*leveldb.Datastore).Close() error`.
   void close() {
-    $callSync(10783, $W()..h(this));
+    $callSync(10792, $W()..h(this));
   }
 
   /// Go: `func (*leveldb.accessor).Delete(ctx context.Context, key datastore.Key) (err error)`.
@@ -85,7 +85,7 @@ class DsLeveldbDatastore extends $datastore.Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> delete($context.Context ctx, $datastore.DatastoreKey key) async {
     await $call(
-        10784,
+        10793,
         $W()
           ..h(this)
           ..h(ctx)
@@ -97,7 +97,7 @@ class DsLeveldbDatastore extends $datastore.Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> diskUsage($context.Context ctx) async {
     final $r = await $call(
-        10785,
+        10794,
         $W()
           ..h(this)
           ..h(ctx));
@@ -110,7 +110,7 @@ class DsLeveldbDatastore extends $datastore.Datastore
   Future<Uint8List> get(
       $context.Context ctx, $datastore.DatastoreKey key) async {
     final $r = await $call(
-        10786,
+        10795,
         $W()
           ..h(this)
           ..h(ctx)
@@ -123,7 +123,7 @@ class DsLeveldbDatastore extends $datastore.Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getSize($context.Context ctx, $datastore.DatastoreKey key) async {
     final $r = await $call(
-        10787,
+        10796,
         $W()
           ..h(this)
           ..h(ctx)
@@ -136,7 +136,7 @@ class DsLeveldbDatastore extends $datastore.Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> has($context.Context ctx, $datastore.DatastoreKey key) async {
     final $r = await $call(
-        10788,
+        10797,
         $W()
           ..h(this)
           ..h(ctx)
@@ -150,7 +150,7 @@ class DsLeveldbDatastore extends $datastore.Datastore
   Future<$datastore.DatastoreTxn> newTransaction(
       $context.Context ctx, bool readOnly) async {
     final $r = await $call(
-        10789,
+        10798,
         $W()
           ..h(this)
           ..h(ctx)
@@ -164,7 +164,7 @@ class DsLeveldbDatastore extends $datastore.Datastore
   Future<void> put($context.Context ctx, $datastore.DatastoreKey key,
       Uint8List value) async {
     await $call(
-        10790,
+        10799,
         $W()
           ..h(this)
           ..h(ctx)
@@ -178,7 +178,7 @@ class DsLeveldbDatastore extends $datastore.Datastore
   Future<$query.DatastoreQueryResults> query(
       $context.Context ctx, $query.DatastoreQuery q) async {
     final $r = await $call(
-        10791,
+        10800,
         $W()
           ..h(this)
           ..h(ctx)
@@ -192,7 +192,7 @@ class DsLeveldbDatastore extends $datastore.Datastore
   Future<void> sync(
       $context.Context ctx, $datastore.DatastoreKey prefix) async {
     await $call(
-        10792,
+        10801,
         $W()
           ..h(this)
           ..h(ctx)

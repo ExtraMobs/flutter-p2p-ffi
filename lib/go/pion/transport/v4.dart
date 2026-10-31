@@ -27,7 +27,7 @@ mixin TransportV4Dialer$ on GoHandle {
   /// Go: `func (transport.Dialer).Dial(network string, address string) (net.Conn, error)`.
   $net.NetConn dial(String network, String address) {
     final $r = $callSync(
-        17423,
+        17429,
         $W()
           ..h(this)
           ..str(network)
@@ -37,31 +37,31 @@ mixin TransportV4Dialer$ on GoHandle {
 
   /// Go: type assertion `x.(*stdnet.Net)`: null if the object is not one.
   $stdnet.TransportV3StdnetNet? asTransportV3StdnetNet() {
-    final $r = $callSync(1629, $W()..h(this));
+    final $r = $callSync(1634, $W()..h(this));
     return $r.hn($stdnet.TransportV3StdnetNet.$h);
   }
 
   /// Go: type assertion `x.(*vnet.Net)`: null if the object is not one.
   $vnet.TransportV3VnetNet? asTransportV3VnetNet() {
-    final $r = $callSync(1630, $W()..h(this));
+    final $r = $callSync(1635, $W()..h(this));
     return $r.hn($vnet.TransportV3VnetNet.$h);
   }
 
   /// Go: type assertion `x.(*stdnet.Net)`: null if the object is not one.
   $stdnet2.TransportV4StdnetNet? asTransportV4StdnetNet() {
-    final $r = $callSync(1631, $W()..h(this));
+    final $r = $callSync(1636, $W()..h(this));
     return $r.hn($stdnet2.TransportV4StdnetNet.$h);
   }
 
   /// Go: type assertion `x.(*proxy.PerHost)`: null if the object is not one.
   $proxy.NetProxyPerHost? asNetProxyPerHost() {
-    final $r = $callSync(1632, $W()..h(this));
+    final $r = $callSync(1637, $W()..h(this));
     return $r.hn($proxy.NetProxyPerHost.$h);
   }
 
   /// Go: type assertion `x.(*net.Dialer)`: null if the object is not one.
   $net.NetDialer? asNetDialer() {
-    final $r = $callSync(1633, $W()..h(this));
+    final $r = $callSync(1638, $W()..h(this));
     return $r.hn($net.NetDialer.$h);
   }
 }
@@ -86,14 +86,14 @@ class TransportV4Interface extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func transport.NewInterface(ifc net.Interface) *transport.Interface`.
   factory TransportV4Interface($net.NetInterface ifc) {
-    final $r = $callSync(17443, $W()..dto(ifc));
+    final $r = $callSync(17449, $W()..dto(ifc));
     return $r.hnn(TransportV4Interface.$h);
   }
 
   /// Go: `func (*transport.Interface).AddAddress(addr net.Addr)`.
   void addAddress($net.NetAddr addr) {
     $callSync(
-        17424,
+        17430,
         $W()
           ..h(this)
           ..dto(addr));
@@ -101,14 +101,14 @@ class TransportV4Interface extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*transport.Interface).Addrs() ([]net.Addr, error)`.
   List<$net.NetAddr> addrs() {
-    final $r = $callSync(17425, $W()..h(this));
+    final $r = $callSync(17431, $W()..h(this));
     return $r.list(() => $r.p() ? $net.NetAddr.$dec($r) : $nil());
   }
 
   /// Go: `func (*transport.Interface).RemoveAddress(ip net.IP) bool`.
   bool removeAddress(Uint8List ip) {
     final $r = $callSync(
-        17426,
+        17432,
         $W()
           ..h(this)
           ..bytes(ip));
@@ -129,7 +129,7 @@ mixin TransportV4ListenConfig$ on GoHandle {
   Future<$net.NetListener> listen(
       $context.Context ctx, String network, String address) async {
     final $r = await $call(
-        17427,
+        17433,
         $W()
           ..h(this)
           ..h(ctx)
@@ -144,7 +144,7 @@ mixin TransportV4ListenConfig$ on GoHandle {
   Future<$net.NetPacketConn> listenPacket(
       $context.Context ctx, String network, String address) async {
     final $r = await $call(
-        17428,
+        17434,
         $W()
           ..h(this)
           ..h(ctx)
@@ -155,7 +155,7 @@ mixin TransportV4ListenConfig$ on GoHandle {
 
   /// Go: type assertion `x.(*net.ListenConfig)`: null if the object is not one.
   $net.NetListenConfig? asNetListenConfig() {
-    final $r = $callSync(1634, $W()..h(this));
+    final $r = $callSync(1639, $W()..h(this));
     return $r.hn($net.NetListenConfig.$h);
   }
 }
@@ -170,7 +170,7 @@ mixin TransportV4Net$ on GoHandle {
   /// Go: `func (transport.Net).CreateDialer(dialer *net.Dialer) transport.Dialer`.
   TransportV4Dialer createDialer($net.NetDialer dialer) {
     final $r = $callSync(
-        17429,
+        17435,
         $W()
           ..h(this)
           ..h(dialer));
@@ -181,7 +181,7 @@ mixin TransportV4Net$ on GoHandle {
   TransportV4ListenConfig createListenConfig(
       $net.NetListenConfig listenerConfig) {
     final $r = $callSync(
-        17430,
+        17436,
         $W()
           ..h(this)
           ..h(listenerConfig));
@@ -191,7 +191,7 @@ mixin TransportV4Net$ on GoHandle {
   /// Go: `func (transport.Net).Dial(network string, address string) (net.Conn, error)`.
   $net.NetConn dial(String network, String address) {
     final $r = $callSync(
-        17431,
+        17437,
         $W()
           ..h(this)
           ..str(network)
@@ -203,7 +203,7 @@ mixin TransportV4Net$ on GoHandle {
   TransportV4TcpConn dialTcp(
       String network, $net.NetTcpAddr laddr, $net.NetTcpAddr raddr) {
     final $r = $callSync(
-        17432,
+        17438,
         $W()
           ..h(this)
           ..str(network)
@@ -216,7 +216,7 @@ mixin TransportV4Net$ on GoHandle {
   TransportV4UdpConn dialUdp(
       String network, $net.NetUdpAddr laddr, $net.NetUdpAddr raddr) {
     final $r = $callSync(
-        17433,
+        17439,
         $W()
           ..h(this)
           ..str(network)
@@ -228,7 +228,7 @@ mixin TransportV4Net$ on GoHandle {
   /// Go: `func (transport.Net).InterfaceByIndex(index int) (*transport.Interface, error)`.
   TransportV4Interface interfaceByIndex(int index) {
     final $r = $callSync(
-        17434,
+        17440,
         $W()
           ..h(this)
           ..i64(index));
@@ -238,7 +238,7 @@ mixin TransportV4Net$ on GoHandle {
   /// Go: `func (transport.Net).InterfaceByName(name string) (*transport.Interface, error)`.
   TransportV4Interface interfaceByName(String name) {
     final $r = $callSync(
-        17435,
+        17441,
         $W()
           ..h(this)
           ..str(name));
@@ -247,14 +247,14 @@ mixin TransportV4Net$ on GoHandle {
 
   /// Go: `func (transport.Net).Interfaces() ([]*transport.Interface, error)`.
   List<TransportV4Interface> interfaces() {
-    final $r = $callSync(17436, $W()..h(this));
+    final $r = $callSync(17442, $W()..h(this));
     return $r.list(() => $r.hnn(TransportV4Interface.$h));
   }
 
   /// Go: `func (transport.Net).ListenPacket(network string, address string) (net.PacketConn, error)`.
   $net.NetPacketConn listenPacket(String network, String address) {
     final $r = $callSync(
-        17437,
+        17443,
         $W()
           ..h(this)
           ..str(network)
@@ -265,7 +265,7 @@ mixin TransportV4Net$ on GoHandle {
   /// Go: `func (transport.Net).ListenTCP(network string, laddr *net.TCPAddr) (transport.TCPListener, error)`.
   TransportV4TcpListener listenTcp(String network, $net.NetTcpAddr laddr) {
     final $r = $callSync(
-        17438,
+        17444,
         $W()
           ..h(this)
           ..str(network)
@@ -276,7 +276,7 @@ mixin TransportV4Net$ on GoHandle {
   /// Go: `func (transport.Net).ListenUDP(network string, locAddr *net.UDPAddr) (transport.UDPConn, error)`.
   TransportV4UdpConn listenUdp(String network, $net.NetUdpAddr locAddr) {
     final $r = $callSync(
-        17439,
+        17445,
         $W()
           ..h(this)
           ..str(network)
@@ -287,7 +287,7 @@ mixin TransportV4Net$ on GoHandle {
   /// Go: `func (transport.Net).ResolveIPAddr(network string, address string) (*net.IPAddr, error)`.
   $net.NetIpAddr resolveIpAddr(String network, String address) {
     final $r = $callSync(
-        17440,
+        17446,
         $W()
           ..h(this)
           ..str(network)
@@ -298,7 +298,7 @@ mixin TransportV4Net$ on GoHandle {
   /// Go: `func (transport.Net).ResolveTCPAddr(network string, address string) (*net.TCPAddr, error)`.
   $net.NetTcpAddr resolveTcpAddr(String network, String address) {
     final $r = $callSync(
-        17441,
+        17447,
         $W()
           ..h(this)
           ..str(network)
@@ -309,7 +309,7 @@ mixin TransportV4Net$ on GoHandle {
   /// Go: `func (transport.Net).ResolveUDPAddr(network string, address string) (*net.UDPAddr, error)`.
   $net.NetUdpAddr resolveUdpAddr(String network, String address) {
     final $r = $callSync(
-        17442,
+        17448,
         $W()
           ..h(this)
           ..str(network)
@@ -319,7 +319,7 @@ mixin TransportV4Net$ on GoHandle {
 
   /// Go: type assertion `x.(*stdnet.Net)`: null if the object is not one.
   $stdnet2.TransportV4StdnetNet? asTransportV4StdnetNet() {
-    final $r = $callSync(1635, $W()..h(this));
+    final $r = $callSync(1640, $W()..h(this));
     return $r.hn($stdnet2.TransportV4StdnetNet.$h);
   }
 }
@@ -333,18 +333,18 @@ class TransportV4TcpConn extends $net.NetConn with TransportV4TcpConn$ {
 mixin TransportV4TcpConn$ on GoHandle {
   /// Go: `func (transport.TCPConn).CloseRead() error`.
   void closeRead() {
-    $callSync(17444, $W()..h(this));
+    $callSync(17450, $W()..h(this));
   }
 
   /// Go: `func (transport.TCPConn).CloseWrite() error`.
   void closeWrite() {
-    $callSync(17445, $W()..h(this));
+    $callSync(17451, $W()..h(this));
   }
 
   /// Go: `func (transport.TCPConn).ReadFrom(r io.Reader) (int64, error)`.
   int readFrom(Object r) {
     final $r = $callSync(
-        17446,
+        17452,
         $W()
           ..h(this)
           ..reader(r));
@@ -354,7 +354,7 @@ mixin TransportV4TcpConn$ on GoHandle {
   /// Go: `func (transport.TCPConn).SetKeepAlive(keepalive bool) error`.
   void setKeepAlive(bool keepalive) {
     $callSync(
-        17447,
+        17453,
         $W()
           ..h(this)
           ..b(keepalive));
@@ -363,7 +363,7 @@ mixin TransportV4TcpConn$ on GoHandle {
   /// Go: `func (transport.TCPConn).SetKeepAlivePeriod(d time.Duration) error`.
   void setKeepAlivePeriod(Duration d) {
     $callSync(
-        17448,
+        17454,
         $W()
           ..h(this)
           ..i64((d).inMicroseconds * 1000));
@@ -372,7 +372,7 @@ mixin TransportV4TcpConn$ on GoHandle {
   /// Go: `func (transport.TCPConn).SetLinger(sec int) error`.
   void setLinger(int sec) {
     $callSync(
-        17449,
+        17455,
         $W()
           ..h(this)
           ..i64(sec));
@@ -381,7 +381,7 @@ mixin TransportV4TcpConn$ on GoHandle {
   /// Go: `func (transport.TCPConn).SetNoDelay(noDelay bool) error`.
   void setNoDelay(bool noDelay) {
     $callSync(
-        17450,
+        17456,
         $W()
           ..h(this)
           ..b(noDelay));
@@ -390,7 +390,7 @@ mixin TransportV4TcpConn$ on GoHandle {
   /// Go: `func (transport.TCPConn).SetReadBuffer(bytes int) error`.
   void setReadBuffer(int bytes) {
     $callSync(
-        17451,
+        17457,
         $W()
           ..h(this)
           ..i64(bytes));
@@ -399,7 +399,7 @@ mixin TransportV4TcpConn$ on GoHandle {
   /// Go: `func (transport.TCPConn).SetWriteBuffer(bytes int) error`.
   void setWriteBuffer(int bytes) {
     $callSync(
-        17452,
+        17458,
         $W()
           ..h(this)
           ..i64(bytes));
@@ -407,7 +407,7 @@ mixin TransportV4TcpConn$ on GoHandle {
 
   /// Go: type assertion `x.(*net.TCPConn)`: null if the object is not one.
   $net.NetTcpConn? asNetTcpConn() {
-    final $r = $callSync(1636, $W()..h(this));
+    final $r = $callSync(1641, $W()..h(this));
     return $r.hn($net.NetTcpConn.$h);
   }
 }
@@ -422,14 +422,14 @@ class TransportV4TcpListener extends $net.NetListener
 mixin TransportV4TcpListener$ on GoHandle {
   /// Go: `func (transport.TCPListener).AcceptTCP() (transport.TCPConn, error)`.
   TransportV4TcpConn acceptTcp() {
-    final $r = $callSync(17453, $W()..h(this));
+    final $r = $callSync(17459, $W()..h(this));
     return $r.hnn(TransportV4TcpConn.$h);
   }
 
   /// Go: `func (transport.TCPListener).SetDeadline(t time.Time) error`.
   void setDeadline(DateTime t) {
     $callSync(
-        17454,
+        17460,
         $W()
           ..h(this)
           ..time(t));
@@ -445,19 +445,19 @@ class TransportV4UdpConn extends GoHandle with TransportV4UdpConn$ {
 mixin TransportV4UdpConn$ on GoHandle {
   /// Go: `func (transport.UDPConn).Close() error`.
   void close() {
-    $callSync(17455, $W()..h(this));
+    $callSync(17461, $W()..h(this));
   }
 
   /// Go: `func (transport.UDPConn).LocalAddr() net.Addr`.
   $net.NetAddr localAddr() {
-    final $r = $callSync(17456, $W()..h(this));
+    final $r = $callSync(17462, $W()..h(this));
     return $r.p() ? $net.NetAddr.$dec($r) : $nil();
   }
 
   /// Go: `func (transport.UDPConn).Read(b []byte) (n int, err error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        17457,
+        17463,
         $W()
           ..h(this)
           ..i64(n));
@@ -467,7 +467,7 @@ mixin TransportV4UdpConn$ on GoHandle {
   /// Go: `func (transport.UDPConn).ReadFrom(p []byte) (n int, addr net.Addr, err error)`.
   (int, $net.NetAddr) readFrom(Uint8List p) {
     final $r = $callSync(
-        17458,
+        17464,
         $W()
           ..h(this)
           ..bytes(p));
@@ -477,7 +477,7 @@ mixin TransportV4UdpConn$ on GoHandle {
   /// Go: `func (transport.UDPConn).ReadFromUDP(b []byte) (n int, addr *net.UDPAddr, err error)`.
   (int, $net.NetUdpAddr) readFromUdp(Uint8List b) {
     final $r = $callSync(
-        17459,
+        17465,
         $W()
           ..h(this)
           ..bytes(b));
@@ -487,7 +487,7 @@ mixin TransportV4UdpConn$ on GoHandle {
   /// Go: `func (transport.UDPConn).ReadMsgUDP(b []byte, oob []byte) (n int, oobn int, flags int, addr *net.UDPAddr, err error)`.
   (int, int, int, $net.NetUdpAddr) readMsgUdp(Uint8List b, Uint8List oob) {
     final $r = $callSync(
-        17460,
+        17466,
         $W()
           ..h(this)
           ..bytes(b)
@@ -502,14 +502,14 @@ mixin TransportV4UdpConn$ on GoHandle {
 
   /// Go: `func (transport.UDPConn).RemoteAddr() net.Addr`.
   $net.NetAddr remoteAddr() {
-    final $r = $callSync(17461, $W()..h(this));
+    final $r = $callSync(17467, $W()..h(this));
     return $r.p() ? $net.NetAddr.$dec($r) : $nil();
   }
 
   /// Go: `func (transport.UDPConn).SetDeadline(t time.Time) error`.
   void setDeadline(DateTime t) {
     $callSync(
-        17462,
+        17468,
         $W()
           ..h(this)
           ..time(t));
@@ -518,7 +518,7 @@ mixin TransportV4UdpConn$ on GoHandle {
   /// Go: `func (transport.UDPConn).SetReadBuffer(bytes int) error`.
   void setReadBuffer(int bytes) {
     $callSync(
-        17463,
+        17469,
         $W()
           ..h(this)
           ..i64(bytes));
@@ -527,7 +527,7 @@ mixin TransportV4UdpConn$ on GoHandle {
   /// Go: `func (transport.UDPConn).SetReadDeadline(t time.Time) error`.
   void setReadDeadline(DateTime t) {
     $callSync(
-        17464,
+        17470,
         $W()
           ..h(this)
           ..time(t));
@@ -536,7 +536,7 @@ mixin TransportV4UdpConn$ on GoHandle {
   /// Go: `func (transport.UDPConn).SetWriteBuffer(bytes int) error`.
   void setWriteBuffer(int bytes) {
     $callSync(
-        17465,
+        17471,
         $W()
           ..h(this)
           ..i64(bytes));
@@ -545,7 +545,7 @@ mixin TransportV4UdpConn$ on GoHandle {
   /// Go: `func (transport.UDPConn).SetWriteDeadline(t time.Time) error`.
   void setWriteDeadline(DateTime t) {
     $callSync(
-        17466,
+        17472,
         $W()
           ..h(this)
           ..time(t));
@@ -554,7 +554,7 @@ mixin TransportV4UdpConn$ on GoHandle {
   /// Go: `func (transport.UDPConn).Write(b []byte) (n int, err error)`.
   int write(Uint8List b) {
     final $r = $callSync(
-        17467,
+        17473,
         $W()
           ..h(this)
           ..bytes(b));
@@ -564,7 +564,7 @@ mixin TransportV4UdpConn$ on GoHandle {
   /// Go: `func (transport.UDPConn).WriteMsgUDP(b []byte, oob []byte, addr *net.UDPAddr) (n int, oobn int, err error)`.
   (int, int) writeMsgUdp(Uint8List b, Uint8List oob, $net.NetUdpAddr addr) {
     final $r = $callSync(
-        17468,
+        17474,
         $W()
           ..h(this)
           ..bytes(b)
@@ -576,7 +576,7 @@ mixin TransportV4UdpConn$ on GoHandle {
   /// Go: `func (transport.UDPConn).WriteTo(p []byte, addr net.Addr) (n int, err error)`.
   int writeTo(Uint8List p, $net.NetAddr addr) {
     final $r = $callSync(
-        17469,
+        17475,
         $W()
           ..h(this)
           ..bytes(p)
@@ -587,7 +587,7 @@ mixin TransportV4UdpConn$ on GoHandle {
   /// Go: `func (transport.UDPConn).WriteToUDP(b []byte, addr *net.UDPAddr) (int, error)`.
   int writeToUdp(Uint8List b, $net.NetUdpAddr addr) {
     final $r = $callSync(
-        17470,
+        17476,
         $W()
           ..h(this)
           ..bytes(b)
@@ -597,13 +597,13 @@ mixin TransportV4UdpConn$ on GoHandle {
 
   /// Go: type assertion `x.(*vnet.UDPConn)`: null if the object is not one.
   $vnet.TransportV3VnetUdpConn? asTransportV3VnetUdpConn() {
-    final $r = $callSync(1637, $W()..h(this));
+    final $r = $callSync(1642, $W()..h(this));
     return $r.hn($vnet.TransportV3VnetUdpConn.$h);
   }
 
   /// Go: type assertion `x.(*net.UDPConn)`: null if the object is not one.
   $net.NetUdpConn? asNetUdpConn() {
-    final $r = $callSync(1638, $W()..h(this));
+    final $r = $callSync(1643, $W()..h(this));
     return $r.hn($net.NetUdpConn.$h);
   }
 }

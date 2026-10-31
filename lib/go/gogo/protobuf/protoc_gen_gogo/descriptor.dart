@@ -165,13 +165,13 @@ final class ProtobufProtocGenGogoDescriptorProto implements GoDto {
 
   /// Go: `func (*descriptor.DescriptorProto).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(6856, $W()..dto(this));
+    final $r = $callSync(6865, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptor.DescriptorProto).GetEnumType() []*descriptor.EnumDescriptorProto`.
   List<ProtobufProtocGenGogoDescriptorEnumDescriptorProto> getEnumType() {
-    final $r = $callSync(6857, $W()..dto(this));
+    final $r = $callSync(6866, $W()..dto(this));
     return $r.list(() => $r.p()
         ? ProtobufProtocGenGogoDescriptorEnumDescriptorProto.$dec($r)
         : $nil());
@@ -179,7 +179,7 @@ final class ProtobufProtocGenGogoDescriptorProto implements GoDto {
 
   /// Go: `func (*descriptor.DescriptorProto).GetExtension() []*descriptor.FieldDescriptorProto`.
   List<ProtobufProtocGenGogoDescriptorFieldDescriptorProto> getExtension() {
-    final $r = $callSync(6858, $W()..dto(this));
+    final $r = $callSync(6867, $W()..dto(this));
     return $r.list(() => $r.p()
         ? ProtobufProtocGenGogoDescriptorFieldDescriptorProto.$dec($r)
         : $nil());
@@ -187,7 +187,7 @@ final class ProtobufProtocGenGogoDescriptorProto implements GoDto {
 
   /// Go: `func (*descriptor.DescriptorProto).GetExtensionRange() []*descriptor.DescriptorProto_ExtensionRange`.
   List<ProtobufProtocGenGogoDescriptorProtoExtensionRange> getExtensionRange() {
-    final $r = $callSync(6859, $W()..dto(this));
+    final $r = $callSync(6868, $W()..dto(this));
     return $r.list(() => $r.p()
         ? ProtobufProtocGenGogoDescriptorProtoExtensionRange.$dec($r)
         : $nil());
@@ -195,7 +195,7 @@ final class ProtobufProtocGenGogoDescriptorProto implements GoDto {
 
   /// Go: `func (*descriptor.DescriptorProto).GetField() []*descriptor.FieldDescriptorProto`.
   List<ProtobufProtocGenGogoDescriptorFieldDescriptorProto> getField() {
-    final $r = $callSync(6860, $W()..dto(this));
+    final $r = $callSync(6869, $W()..dto(this));
     return $r.list(() => $r.p()
         ? ProtobufProtocGenGogoDescriptorFieldDescriptorProto.$dec($r)
         : $nil());
@@ -205,7 +205,7 @@ final class ProtobufProtocGenGogoDescriptorProto implements GoDto {
   ProtobufProtocGenGogoDescriptorFieldDescriptorProto getFieldDescriptor(
       String fieldName) {
     final $r = $callSync(
-        6861,
+        6870,
         $W()
           ..dto(this)
           ..str(fieldName));
@@ -219,7 +219,7 @@ final class ProtobufProtocGenGogoDescriptorProto implements GoDto {
     ProtobufProtocGenGogoDescriptorFieldDescriptorProto,
     ProtobufProtocGenGogoDescriptorFieldDescriptorProto
   ) getMapFields() {
-    final $r = $callSync(6862, $W()..dto(this));
+    final $r = $callSync(6871, $W()..dto(this));
     return (
       $r.p()
           ? ProtobufProtocGenGogoDescriptorFieldDescriptorProto.$dec($r)
@@ -232,20 +232,20 @@ final class ProtobufProtocGenGogoDescriptorProto implements GoDto {
 
   /// Go: `func (*descriptor.DescriptorProto).GetName() string`.
   String getName() {
-    final $r = $callSync(6863, $W()..dto(this));
+    final $r = $callSync(6872, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.DescriptorProto).GetNestedType() []*descriptor.DescriptorProto`.
   List<ProtobufProtocGenGogoDescriptorProto> getNestedType() {
-    final $r = $callSync(6864, $W()..dto(this));
+    final $r = $callSync(6873, $W()..dto(this));
     return $r.list(
         () => $r.p() ? ProtobufProtocGenGogoDescriptorProto.$dec($r) : $nil());
   }
 
   /// Go: `func (*descriptor.DescriptorProto).GetOneofDecl() []*descriptor.OneofDescriptorProto`.
   List<ProtobufProtocGenGogoDescriptorOneofDescriptorProto> getOneofDecl() {
-    final $r = $callSync(6865, $W()..dto(this));
+    final $r = $callSync(6874, $W()..dto(this));
     return $r.list(() => $r.p()
         ? ProtobufProtocGenGogoDescriptorOneofDescriptorProto.$dec($r)
         : $nil());
@@ -253,7 +253,7 @@ final class ProtobufProtocGenGogoDescriptorProto implements GoDto {
 
   /// Go: `func (*descriptor.DescriptorProto).GetOptions() *descriptor.MessageOptions`.
   ProtobufProtocGenGogoDescriptorMessageOptions getOptions() {
-    final $r = $callSync(6866, $W()..dto(this));
+    final $r = $callSync(6875, $W()..dto(this));
     return $r.p()
         ? ProtobufProtocGenGogoDescriptorMessageOptions.$dec($r)
         : $nil();
@@ -261,13 +261,13 @@ final class ProtobufProtocGenGogoDescriptorProto implements GoDto {
 
   /// Go: `func (*descriptor.DescriptorProto).GetReservedName() []string`.
   List<String> getReservedName() {
-    final $r = $callSync(6867, $W()..dto(this));
+    final $r = $callSync(6876, $W()..dto(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (*descriptor.DescriptorProto).GetReservedRange() []*descriptor.DescriptorProto_ReservedRange`.
   List<ProtobufProtocGenGogoDescriptorProtoReservedRange> getReservedRange() {
-    final $r = $callSync(6868, $W()..dto(this));
+    final $r = $callSync(6877, $W()..dto(this));
     return $r.list(() => $r.p()
         ? ProtobufProtocGenGogoDescriptorProtoReservedRange.$dec($r)
         : $nil());
@@ -275,47 +275,47 @@ final class ProtobufProtocGenGogoDescriptorProto implements GoDto {
 
   /// Go: `func (*descriptor.DescriptorProto).GoString() string`.
   String goString() {
-    final $r = $callSync(6869, $W()..dto(this));
+    final $r = $callSync(6878, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.DescriptorProto).HasExtension() bool`.
   bool hasExtension() {
-    final $r = $callSync(6870, $W()..dto(this));
+    final $r = $callSync(6879, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptor.DescriptorProto).IsExtendable() bool`.
   bool isExtendable() {
-    final $r = $callSync(6871, $W()..dto(this));
+    final $r = $callSync(6880, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptor.DescriptorProto).ProtoMessage()`.
   void protoMessage() {
-    $callSync(6872, $W()..dto(this));
+    $callSync(6881, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.DescriptorProto).Reset()`.
   void reset() {
-    $callSync(6873, $W()..dto(this));
+    $callSync(6882, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.DescriptorProto).String() string`.
   String string() {
-    final $r = $callSync(6874, $W()..dto(this));
+    final $r = $callSync(6883, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.DescriptorProto).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(6875, $W()..dto(this));
+    $callSync(6884, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.DescriptorProto).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        6876,
+        6885,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -326,7 +326,7 @@ final class ProtobufProtocGenGogoDescriptorProto implements GoDto {
   /// Go: `func (*descriptor.DescriptorProto).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        6877,
+        6886,
         $W()
           ..dto(this)
           ..h(src));
@@ -334,14 +334,14 @@ final class ProtobufProtocGenGogoDescriptorProto implements GoDto {
 
   /// Go: `func (*descriptor.DescriptorProto).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(6878, $W()..dto(this));
+    final $r = $callSync(6887, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptor.DescriptorProto).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        6879,
+        6888,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -401,19 +401,19 @@ final class ProtobufProtocGenGogoDescriptorProtoExtensionRange
 
   /// Go: `func (*descriptor.DescriptorProto_ExtensionRange).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(6880, $W()..dto(this));
+    final $r = $callSync(6889, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptor.DescriptorProto_ExtensionRange).GetEnd() int32`.
   int getEnd() {
-    final $r = $callSync(6881, $W()..dto(this));
+    final $r = $callSync(6890, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptor.DescriptorProto_ExtensionRange).GetOptions() *descriptor.ExtensionRangeOptions`.
   ProtobufProtocGenGogoDescriptorExtensionRangeOptions getOptions() {
-    final $r = $callSync(6882, $W()..dto(this));
+    final $r = $callSync(6891, $W()..dto(this));
     return $r.p()
         ? ProtobufProtocGenGogoDescriptorExtensionRangeOptions.$dec($r)
         : $nil();
@@ -421,41 +421,41 @@ final class ProtobufProtocGenGogoDescriptorProtoExtensionRange
 
   /// Go: `func (*descriptor.DescriptorProto_ExtensionRange).GetStart() int32`.
   int getStart() {
-    final $r = $callSync(6883, $W()..dto(this));
+    final $r = $callSync(6892, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptor.DescriptorProto_ExtensionRange).GoString() string`.
   String goString() {
-    final $r = $callSync(6884, $W()..dto(this));
+    final $r = $callSync(6893, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.DescriptorProto_ExtensionRange).ProtoMessage()`.
   void protoMessage() {
-    $callSync(6885, $W()..dto(this));
+    $callSync(6894, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.DescriptorProto_ExtensionRange).Reset()`.
   void reset() {
-    $callSync(6886, $W()..dto(this));
+    $callSync(6895, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.DescriptorProto_ExtensionRange).String() string`.
   String string() {
-    final $r = $callSync(6887, $W()..dto(this));
+    final $r = $callSync(6896, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.DescriptorProto_ExtensionRange).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(6888, $W()..dto(this));
+    $callSync(6897, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.DescriptorProto_ExtensionRange).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        6889,
+        6898,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -466,7 +466,7 @@ final class ProtobufProtocGenGogoDescriptorProtoExtensionRange
   /// Go: `func (*descriptor.DescriptorProto_ExtensionRange).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        6890,
+        6899,
         $W()
           ..dto(this)
           ..h(src));
@@ -474,14 +474,14 @@ final class ProtobufProtocGenGogoDescriptorProtoExtensionRange
 
   /// Go: `func (*descriptor.DescriptorProto_ExtensionRange).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(6891, $W()..dto(this));
+    final $r = $callSync(6900, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptor.DescriptorProto_ExtensionRange).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        6892,
+        6901,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -528,53 +528,53 @@ final class ProtobufProtocGenGogoDescriptorProtoReservedRange implements GoDto {
 
   /// Go: `func (*descriptor.DescriptorProto_ReservedRange).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(6893, $W()..dto(this));
+    final $r = $callSync(6902, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptor.DescriptorProto_ReservedRange).GetEnd() int32`.
   int getEnd() {
-    final $r = $callSync(6894, $W()..dto(this));
+    final $r = $callSync(6903, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptor.DescriptorProto_ReservedRange).GetStart() int32`.
   int getStart() {
-    final $r = $callSync(6895, $W()..dto(this));
+    final $r = $callSync(6904, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptor.DescriptorProto_ReservedRange).GoString() string`.
   String goString() {
-    final $r = $callSync(6896, $W()..dto(this));
+    final $r = $callSync(6905, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.DescriptorProto_ReservedRange).ProtoMessage()`.
   void protoMessage() {
-    $callSync(6897, $W()..dto(this));
+    $callSync(6906, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.DescriptorProto_ReservedRange).Reset()`.
   void reset() {
-    $callSync(6898, $W()..dto(this));
+    $callSync(6907, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.DescriptorProto_ReservedRange).String() string`.
   String string() {
-    final $r = $callSync(6899, $W()..dto(this));
+    final $r = $callSync(6908, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.DescriptorProto_ReservedRange).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(6900, $W()..dto(this));
+    $callSync(6909, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.DescriptorProto_ReservedRange).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        6901,
+        6910,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -585,7 +585,7 @@ final class ProtobufProtocGenGogoDescriptorProtoReservedRange implements GoDto {
   /// Go: `func (*descriptor.DescriptorProto_ReservedRange).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        6902,
+        6911,
         $W()
           ..dto(this)
           ..h(src));
@@ -593,14 +593,14 @@ final class ProtobufProtocGenGogoDescriptorProtoReservedRange implements GoDto {
 
   /// Go: `func (*descriptor.DescriptorProto_ReservedRange).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(6903, $W()..dto(this));
+    final $r = $callSync(6912, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptor.DescriptorProto_ReservedRange).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        6904,
+        6913,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -680,19 +680,19 @@ final class ProtobufProtocGenGogoDescriptorEnumDescriptorProto
 
   /// Go: `func (*descriptor.EnumDescriptorProto).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(6905, $W()..dto(this));
+    final $r = $callSync(6914, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptor.EnumDescriptorProto).GetName() string`.
   String getName() {
-    final $r = $callSync(6906, $W()..dto(this));
+    final $r = $callSync(6915, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.EnumDescriptorProto).GetOptions() *descriptor.EnumOptions`.
   ProtobufProtocGenGogoDescriptorEnumOptions getOptions() {
-    final $r = $callSync(6907, $W()..dto(this));
+    final $r = $callSync(6916, $W()..dto(this));
     return $r.p()
         ? ProtobufProtocGenGogoDescriptorEnumOptions.$dec($r)
         : $nil();
@@ -700,14 +700,14 @@ final class ProtobufProtocGenGogoDescriptorEnumDescriptorProto
 
   /// Go: `func (*descriptor.EnumDescriptorProto).GetReservedName() []string`.
   List<String> getReservedName() {
-    final $r = $callSync(6908, $W()..dto(this));
+    final $r = $callSync(6917, $W()..dto(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (*descriptor.EnumDescriptorProto).GetReservedRange() []*descriptor.EnumDescriptorProto_EnumReservedRange`.
   List<ProtobufProtocGenGogoDescriptorEnumDescriptorProtoEnumReservedRange>
       getReservedRange() {
-    final $r = $callSync(6909, $W()..dto(this));
+    final $r = $callSync(6918, $W()..dto(this));
     return $r.list(() => $r.p()
         ? ProtobufProtocGenGogoDescriptorEnumDescriptorProtoEnumReservedRange
             .$dec($r)
@@ -716,7 +716,7 @@ final class ProtobufProtocGenGogoDescriptorEnumDescriptorProto
 
   /// Go: `func (*descriptor.EnumDescriptorProto).GetValue() []*descriptor.EnumValueDescriptorProto`.
   List<ProtobufProtocGenGogoDescriptorEnumValueDescriptorProto> getValue() {
-    final $r = $callSync(6910, $W()..dto(this));
+    final $r = $callSync(6919, $W()..dto(this));
     return $r.list(() => $r.p()
         ? ProtobufProtocGenGogoDescriptorEnumValueDescriptorProto.$dec($r)
         : $nil());
@@ -724,35 +724,35 @@ final class ProtobufProtocGenGogoDescriptorEnumDescriptorProto
 
   /// Go: `func (*descriptor.EnumDescriptorProto).GoString() string`.
   String goString() {
-    final $r = $callSync(6911, $W()..dto(this));
+    final $r = $callSync(6920, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.EnumDescriptorProto).ProtoMessage()`.
   void protoMessage() {
-    $callSync(6912, $W()..dto(this));
+    $callSync(6921, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.EnumDescriptorProto).Reset()`.
   void reset() {
-    $callSync(6913, $W()..dto(this));
+    $callSync(6922, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.EnumDescriptorProto).String() string`.
   String string() {
-    final $r = $callSync(6914, $W()..dto(this));
+    final $r = $callSync(6923, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.EnumDescriptorProto).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(6915, $W()..dto(this));
+    $callSync(6924, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.EnumDescriptorProto).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        6916,
+        6925,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -763,7 +763,7 @@ final class ProtobufProtocGenGogoDescriptorEnumDescriptorProto
   /// Go: `func (*descriptor.EnumDescriptorProto).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        6917,
+        6926,
         $W()
           ..dto(this)
           ..h(src));
@@ -771,14 +771,14 @@ final class ProtobufProtocGenGogoDescriptorEnumDescriptorProto
 
   /// Go: `func (*descriptor.EnumDescriptorProto).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(6918, $W()..dto(this));
+    final $r = $callSync(6927, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptor.EnumDescriptorProto).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        6919,
+        6928,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -826,53 +826,53 @@ final class ProtobufProtocGenGogoDescriptorEnumDescriptorProtoEnumReservedRange
 
   /// Go: `func (*descriptor.EnumDescriptorProto_EnumReservedRange).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(6920, $W()..dto(this));
+    final $r = $callSync(6929, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptor.EnumDescriptorProto_EnumReservedRange).GetEnd() int32`.
   int getEnd() {
-    final $r = $callSync(6921, $W()..dto(this));
+    final $r = $callSync(6930, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptor.EnumDescriptorProto_EnumReservedRange).GetStart() int32`.
   int getStart() {
-    final $r = $callSync(6922, $W()..dto(this));
+    final $r = $callSync(6931, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptor.EnumDescriptorProto_EnumReservedRange).GoString() string`.
   String goString() {
-    final $r = $callSync(6923, $W()..dto(this));
+    final $r = $callSync(6932, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.EnumDescriptorProto_EnumReservedRange).ProtoMessage()`.
   void protoMessage() {
-    $callSync(6924, $W()..dto(this));
+    $callSync(6933, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.EnumDescriptorProto_EnumReservedRange).Reset()`.
   void reset() {
-    $callSync(6925, $W()..dto(this));
+    $callSync(6934, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.EnumDescriptorProto_EnumReservedRange).String() string`.
   String string() {
-    final $r = $callSync(6926, $W()..dto(this));
+    final $r = $callSync(6935, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.EnumDescriptorProto_EnumReservedRange).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(6927, $W()..dto(this));
+    $callSync(6936, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.EnumDescriptorProto_EnumReservedRange).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        6928,
+        6937,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -883,7 +883,7 @@ final class ProtobufProtocGenGogoDescriptorEnumDescriptorProtoEnumReservedRange
   /// Go: `func (*descriptor.EnumDescriptorProto_EnumReservedRange).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        6929,
+        6938,
         $W()
           ..dto(this)
           ..h(src));
@@ -891,14 +891,14 @@ final class ProtobufProtocGenGogoDescriptorEnumDescriptorProtoEnumReservedRange
 
   /// Go: `func (*descriptor.EnumDescriptorProto_EnumReservedRange).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(6930, $W()..dto(this));
+    final $r = $callSync(6939, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptor.EnumDescriptorProto_EnumReservedRange).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        6931,
+        6940,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -966,33 +966,33 @@ final class ProtobufProtocGenGogoDescriptorEnumOptions implements GoDto {
 
   /// Go: `func (*descriptor.EnumOptions).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(6932, $W()..dto(this));
+    final $r = $callSync(6941, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptor.EnumOptions).ExtensionRangeArray() []proto.ExtensionRange`.
   List<$proto.ProtobufProtoExtensionRange> extensionRangeArray() {
-    final $r = $callSync(6933, $W()..dto(this));
+    final $r = $callSync(6942, $W()..dto(this));
     return $r.list(
         () => $r.p() ? $proto.ProtobufProtoExtensionRange.$dec($r) : $nil());
   }
 
   /// Go: `func (*descriptor.EnumOptions).GetAllowAlias() bool`.
   bool getAllowAlias() {
-    final $r = $callSync(6934, $W()..dto(this));
+    final $r = $callSync(6943, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptor.EnumOptions).GetDeprecated() bool`.
   bool getDeprecated() {
-    final $r = $callSync(6935, $W()..dto(this));
+    final $r = $callSync(6944, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptor.EnumOptions).GetUninterpretedOption() []*descriptor.UninterpretedOption`.
   List<ProtobufProtocGenGogoDescriptorUninterpretedOption>
       getUninterpretedOption() {
-    final $r = $callSync(6936, $W()..dto(this));
+    final $r = $callSync(6945, $W()..dto(this));
     return $r.list(() => $r.p()
         ? ProtobufProtocGenGogoDescriptorUninterpretedOption.$dec($r)
         : $nil());
@@ -1000,35 +1000,35 @@ final class ProtobufProtocGenGogoDescriptorEnumOptions implements GoDto {
 
   /// Go: `func (*descriptor.EnumOptions).GoString() string`.
   String goString() {
-    final $r = $callSync(6937, $W()..dto(this));
+    final $r = $callSync(6946, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.EnumOptions).ProtoMessage()`.
   void protoMessage() {
-    $callSync(6938, $W()..dto(this));
+    $callSync(6947, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.EnumOptions).Reset()`.
   void reset() {
-    $callSync(6939, $W()..dto(this));
+    $callSync(6948, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.EnumOptions).String() string`.
   String string() {
-    final $r = $callSync(6940, $W()..dto(this));
+    final $r = $callSync(6949, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.EnumOptions).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(6941, $W()..dto(this));
+    $callSync(6950, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.EnumOptions).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        6942,
+        6951,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -1039,7 +1039,7 @@ final class ProtobufProtocGenGogoDescriptorEnumOptions implements GoDto {
   /// Go: `func (*descriptor.EnumOptions).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        6943,
+        6952,
         $W()
           ..dto(this)
           ..h(src));
@@ -1047,14 +1047,14 @@ final class ProtobufProtocGenGogoDescriptorEnumOptions implements GoDto {
 
   /// Go: `func (*descriptor.EnumOptions).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(6944, $W()..dto(this));
+    final $r = $callSync(6953, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptor.EnumOptions).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        6945,
+        6954,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -1114,25 +1114,25 @@ final class ProtobufProtocGenGogoDescriptorEnumValueDescriptorProto
 
   /// Go: `func (*descriptor.EnumValueDescriptorProto).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(6946, $W()..dto(this));
+    final $r = $callSync(6955, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptor.EnumValueDescriptorProto).GetName() string`.
   String getName() {
-    final $r = $callSync(6947, $W()..dto(this));
+    final $r = $callSync(6956, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.EnumValueDescriptorProto).GetNumber() int32`.
   int getNumber() {
-    final $r = $callSync(6948, $W()..dto(this));
+    final $r = $callSync(6957, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptor.EnumValueDescriptorProto).GetOptions() *descriptor.EnumValueOptions`.
   ProtobufProtocGenGogoDescriptorEnumValueOptions getOptions() {
-    final $r = $callSync(6949, $W()..dto(this));
+    final $r = $callSync(6958, $W()..dto(this));
     return $r.p()
         ? ProtobufProtocGenGogoDescriptorEnumValueOptions.$dec($r)
         : $nil();
@@ -1140,35 +1140,35 @@ final class ProtobufProtocGenGogoDescriptorEnumValueDescriptorProto
 
   /// Go: `func (*descriptor.EnumValueDescriptorProto).GoString() string`.
   String goString() {
-    final $r = $callSync(6950, $W()..dto(this));
+    final $r = $callSync(6959, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.EnumValueDescriptorProto).ProtoMessage()`.
   void protoMessage() {
-    $callSync(6951, $W()..dto(this));
+    $callSync(6960, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.EnumValueDescriptorProto).Reset()`.
   void reset() {
-    $callSync(6952, $W()..dto(this));
+    $callSync(6961, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.EnumValueDescriptorProto).String() string`.
   String string() {
-    final $r = $callSync(6953, $W()..dto(this));
+    final $r = $callSync(6962, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.EnumValueDescriptorProto).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(6954, $W()..dto(this));
+    $callSync(6963, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.EnumValueDescriptorProto).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        6955,
+        6964,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -1179,7 +1179,7 @@ final class ProtobufProtocGenGogoDescriptorEnumValueDescriptorProto
   /// Go: `func (*descriptor.EnumValueDescriptorProto).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        6956,
+        6965,
         $W()
           ..dto(this)
           ..h(src));
@@ -1187,14 +1187,14 @@ final class ProtobufProtocGenGogoDescriptorEnumValueDescriptorProto
 
   /// Go: `func (*descriptor.EnumValueDescriptorProto).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(6957, $W()..dto(this));
+    final $r = $callSync(6966, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptor.EnumValueDescriptorProto).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        6958,
+        6967,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -1255,27 +1255,27 @@ final class ProtobufProtocGenGogoDescriptorEnumValueOptions implements GoDto {
 
   /// Go: `func (*descriptor.EnumValueOptions).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(6959, $W()..dto(this));
+    final $r = $callSync(6968, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptor.EnumValueOptions).ExtensionRangeArray() []proto.ExtensionRange`.
   List<$proto.ProtobufProtoExtensionRange> extensionRangeArray() {
-    final $r = $callSync(6960, $W()..dto(this));
+    final $r = $callSync(6969, $W()..dto(this));
     return $r.list(
         () => $r.p() ? $proto.ProtobufProtoExtensionRange.$dec($r) : $nil());
   }
 
   /// Go: `func (*descriptor.EnumValueOptions).GetDeprecated() bool`.
   bool getDeprecated() {
-    final $r = $callSync(6961, $W()..dto(this));
+    final $r = $callSync(6970, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptor.EnumValueOptions).GetUninterpretedOption() []*descriptor.UninterpretedOption`.
   List<ProtobufProtocGenGogoDescriptorUninterpretedOption>
       getUninterpretedOption() {
-    final $r = $callSync(6962, $W()..dto(this));
+    final $r = $callSync(6971, $W()..dto(this));
     return $r.list(() => $r.p()
         ? ProtobufProtocGenGogoDescriptorUninterpretedOption.$dec($r)
         : $nil());
@@ -1283,35 +1283,35 @@ final class ProtobufProtocGenGogoDescriptorEnumValueOptions implements GoDto {
 
   /// Go: `func (*descriptor.EnumValueOptions).GoString() string`.
   String goString() {
-    final $r = $callSync(6963, $W()..dto(this));
+    final $r = $callSync(6972, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.EnumValueOptions).ProtoMessage()`.
   void protoMessage() {
-    $callSync(6964, $W()..dto(this));
+    $callSync(6973, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.EnumValueOptions).Reset()`.
   void reset() {
-    $callSync(6965, $W()..dto(this));
+    $callSync(6974, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.EnumValueOptions).String() string`.
   String string() {
-    final $r = $callSync(6966, $W()..dto(this));
+    final $r = $callSync(6975, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.EnumValueOptions).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(6967, $W()..dto(this));
+    $callSync(6976, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.EnumValueOptions).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        6968,
+        6977,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -1322,7 +1322,7 @@ final class ProtobufProtocGenGogoDescriptorEnumValueOptions implements GoDto {
   /// Go: `func (*descriptor.EnumValueOptions).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        6969,
+        6978,
         $W()
           ..dto(this)
           ..h(src));
@@ -1330,14 +1330,14 @@ final class ProtobufProtocGenGogoDescriptorEnumValueOptions implements GoDto {
 
   /// Go: `func (*descriptor.EnumValueOptions).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(6970, $W()..dto(this));
+    final $r = $callSync(6979, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptor.EnumValueOptions).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        6971,
+        6980,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -1392,13 +1392,13 @@ final class ProtobufProtocGenGogoDescriptorExtensionRangeOptions
 
   /// Go: `func (*descriptor.ExtensionRangeOptions).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(6972, $W()..dto(this));
+    final $r = $callSync(6981, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptor.ExtensionRangeOptions).ExtensionRangeArray() []proto.ExtensionRange`.
   List<$proto.ProtobufProtoExtensionRange> extensionRangeArray() {
-    final $r = $callSync(6973, $W()..dto(this));
+    final $r = $callSync(6982, $W()..dto(this));
     return $r.list(
         () => $r.p() ? $proto.ProtobufProtoExtensionRange.$dec($r) : $nil());
   }
@@ -1406,7 +1406,7 @@ final class ProtobufProtocGenGogoDescriptorExtensionRangeOptions
   /// Go: `func (*descriptor.ExtensionRangeOptions).GetUninterpretedOption() []*descriptor.UninterpretedOption`.
   List<ProtobufProtocGenGogoDescriptorUninterpretedOption>
       getUninterpretedOption() {
-    final $r = $callSync(6974, $W()..dto(this));
+    final $r = $callSync(6983, $W()..dto(this));
     return $r.list(() => $r.p()
         ? ProtobufProtocGenGogoDescriptorUninterpretedOption.$dec($r)
         : $nil());
@@ -1414,35 +1414,35 @@ final class ProtobufProtocGenGogoDescriptorExtensionRangeOptions
 
   /// Go: `func (*descriptor.ExtensionRangeOptions).GoString() string`.
   String goString() {
-    final $r = $callSync(6975, $W()..dto(this));
+    final $r = $callSync(6984, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.ExtensionRangeOptions).ProtoMessage()`.
   void protoMessage() {
-    $callSync(6976, $W()..dto(this));
+    $callSync(6985, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.ExtensionRangeOptions).Reset()`.
   void reset() {
-    $callSync(6977, $W()..dto(this));
+    $callSync(6986, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.ExtensionRangeOptions).String() string`.
   String string() {
-    final $r = $callSync(6978, $W()..dto(this));
+    final $r = $callSync(6987, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.ExtensionRangeOptions).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(6979, $W()..dto(this));
+    $callSync(6988, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.ExtensionRangeOptions).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        6980,
+        6989,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -1453,7 +1453,7 @@ final class ProtobufProtocGenGogoDescriptorExtensionRangeOptions
   /// Go: `func (*descriptor.ExtensionRangeOptions).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        6981,
+        6990,
         $W()
           ..dto(this)
           ..h(src));
@@ -1461,14 +1461,14 @@ final class ProtobufProtocGenGogoDescriptorExtensionRangeOptions
 
   /// Go: `func (*descriptor.ExtensionRangeOptions).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(6982, $W()..dto(this));
+    final $r = $callSync(6991, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptor.ExtensionRangeOptions).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        6983,
+        6992,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -1562,79 +1562,79 @@ final class ProtobufProtocGenGogoDescriptorFieldDescriptorProto
 
   /// Go: `func (*descriptor.FieldDescriptorProto).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(6984, $W()..dto(this));
+    final $r = $callSync(6993, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptor.FieldDescriptorProto).GetDefaultValue() string`.
   String getDefaultValue() {
-    final $r = $callSync(6985, $W()..dto(this));
+    final $r = $callSync(6994, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.FieldDescriptorProto).GetExtendee() string`.
   String getExtendee() {
-    final $r = $callSync(6986, $W()..dto(this));
+    final $r = $callSync(6995, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.FieldDescriptorProto).GetJsonName() string`.
   String getJsonName() {
-    final $r = $callSync(6987, $W()..dto(this));
+    final $r = $callSync(6996, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.FieldDescriptorProto).GetKey() []byte`.
   Uint8List getKey() {
-    final $r = $callSync(6988, $W()..dto(this));
+    final $r = $callSync(6997, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*descriptor.FieldDescriptorProto).GetKey3() []byte`.
   Uint8List getKey3() {
-    final $r = $callSync(6989, $W()..dto(this));
+    final $r = $callSync(6998, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*descriptor.FieldDescriptorProto).GetKey3Uint64() (x uint64)`.
   int getKey3Uint64() {
-    final $r = $callSync(6990, $W()..dto(this));
+    final $r = $callSync(6999, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptor.FieldDescriptorProto).GetKeyUint64() (x uint64)`.
   int getKeyUint64() {
-    final $r = $callSync(6991, $W()..dto(this));
+    final $r = $callSync(7000, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptor.FieldDescriptorProto).GetLabel() descriptor.FieldDescriptorProto_Label`.
   int getLabel() {
-    final $r = $callSync(6992, $W()..dto(this));
+    final $r = $callSync(7001, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptor.FieldDescriptorProto).GetName() string`.
   String getName() {
-    final $r = $callSync(6993, $W()..dto(this));
+    final $r = $callSync(7002, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.FieldDescriptorProto).GetNumber() int32`.
   int getNumber() {
-    final $r = $callSync(6994, $W()..dto(this));
+    final $r = $callSync(7003, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptor.FieldDescriptorProto).GetOneofIndex() int32`.
   int getOneofIndex() {
-    final $r = $callSync(6995, $W()..dto(this));
+    final $r = $callSync(7004, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptor.FieldDescriptorProto).GetOptions() *descriptor.FieldOptions`.
   ProtobufProtocGenGogoDescriptorFieldOptions getOptions() {
-    final $r = $callSync(6996, $W()..dto(this));
+    final $r = $callSync(7005, $W()..dto(this));
     return $r.p()
         ? ProtobufProtocGenGogoDescriptorFieldOptions.$dec($r)
         : $nil();
@@ -1642,113 +1642,113 @@ final class ProtobufProtocGenGogoDescriptorFieldDescriptorProto
 
   /// Go: `func (*descriptor.FieldDescriptorProto).GetType() descriptor.FieldDescriptorProto_Type`.
   int getType() {
-    final $r = $callSync(6997, $W()..dto(this));
+    final $r = $callSync(7006, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptor.FieldDescriptorProto).GetTypeName() string`.
   String getTypeName() {
-    final $r = $callSync(6998, $W()..dto(this));
+    final $r = $callSync(7007, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.FieldDescriptorProto).GoString() string`.
   String goString() {
-    final $r = $callSync(6999, $W()..dto(this));
+    final $r = $callSync(7008, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.FieldDescriptorProto).IsBool() bool`.
   bool isBool() {
-    final $r = $callSync(7000, $W()..dto(this));
+    final $r = $callSync(7009, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptor.FieldDescriptorProto).IsBytes() bool`.
   bool isBytes() {
-    final $r = $callSync(7001, $W()..dto(this));
+    final $r = $callSync(7010, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptor.FieldDescriptorProto).IsEnum() bool`.
   bool isEnum() {
-    final $r = $callSync(7002, $W()..dto(this));
+    final $r = $callSync(7011, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptor.FieldDescriptorProto).IsMessage() bool`.
   bool isMessage() {
-    final $r = $callSync(7003, $W()..dto(this));
+    final $r = $callSync(7012, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptor.FieldDescriptorProto).IsPacked() bool`.
   bool isPacked() {
-    final $r = $callSync(7004, $W()..dto(this));
+    final $r = $callSync(7013, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptor.FieldDescriptorProto).IsPacked3() bool`.
   bool isPacked3() {
-    final $r = $callSync(7005, $W()..dto(this));
+    final $r = $callSync(7014, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptor.FieldDescriptorProto).IsRepeated() bool`.
   bool isRepeated() {
-    final $r = $callSync(7006, $W()..dto(this));
+    final $r = $callSync(7015, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptor.FieldDescriptorProto).IsRequired() bool`.
   bool isRequired() {
-    final $r = $callSync(7007, $W()..dto(this));
+    final $r = $callSync(7016, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptor.FieldDescriptorProto).IsScalar() bool`.
   bool isScalar() {
-    final $r = $callSync(7008, $W()..dto(this));
+    final $r = $callSync(7017, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptor.FieldDescriptorProto).IsString() bool`.
   bool isString() {
-    final $r = $callSync(7009, $W()..dto(this));
+    final $r = $callSync(7018, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptor.FieldDescriptorProto).ProtoMessage()`.
   void protoMessage() {
-    $callSync(7010, $W()..dto(this));
+    $callSync(7019, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.FieldDescriptorProto).Reset()`.
   void reset() {
-    $callSync(7011, $W()..dto(this));
+    $callSync(7020, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.FieldDescriptorProto).String() string`.
   String string() {
-    final $r = $callSync(7012, $W()..dto(this));
+    final $r = $callSync(7021, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.FieldDescriptorProto).WireType() (wire int)`.
   int wireType() {
-    final $r = $callSync(7013, $W()..dto(this));
+    final $r = $callSync(7022, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptor.FieldDescriptorProto).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(7014, $W()..dto(this));
+    $callSync(7023, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.FieldDescriptorProto).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        7015,
+        7024,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -1759,7 +1759,7 @@ final class ProtobufProtocGenGogoDescriptorFieldDescriptorProto
   /// Go: `func (*descriptor.FieldDescriptorProto).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        7016,
+        7025,
         $W()
           ..dto(this)
           ..h(src));
@@ -1767,14 +1767,14 @@ final class ProtobufProtocGenGogoDescriptorFieldDescriptorProto
 
   /// Go: `func (*descriptor.FieldDescriptorProto).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(7017, $W()..dto(this));
+    final $r = $callSync(7026, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptor.FieldDescriptorProto).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        7018,
+        7027,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -1856,51 +1856,51 @@ final class ProtobufProtocGenGogoDescriptorFieldOptions implements GoDto {
 
   /// Go: `func (*descriptor.FieldOptions).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(7023, $W()..dto(this));
+    final $r = $callSync(7032, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptor.FieldOptions).ExtensionRangeArray() []proto.ExtensionRange`.
   List<$proto.ProtobufProtoExtensionRange> extensionRangeArray() {
-    final $r = $callSync(7024, $W()..dto(this));
+    final $r = $callSync(7033, $W()..dto(this));
     return $r.list(
         () => $r.p() ? $proto.ProtobufProtoExtensionRange.$dec($r) : $nil());
   }
 
   /// Go: `func (*descriptor.FieldOptions).GetCtype() descriptor.FieldOptions_CType`.
   int getCtype() {
-    final $r = $callSync(7025, $W()..dto(this));
+    final $r = $callSync(7034, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptor.FieldOptions).GetDeprecated() bool`.
   bool getDeprecated() {
-    final $r = $callSync(7026, $W()..dto(this));
+    final $r = $callSync(7035, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptor.FieldOptions).GetJstype() descriptor.FieldOptions_JSType`.
   int getJstype() {
-    final $r = $callSync(7027, $W()..dto(this));
+    final $r = $callSync(7036, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptor.FieldOptions).GetLazy() bool`.
   bool getLazy() {
-    final $r = $callSync(7028, $W()..dto(this));
+    final $r = $callSync(7037, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptor.FieldOptions).GetPacked() bool`.
   bool getPacked() {
-    final $r = $callSync(7029, $W()..dto(this));
+    final $r = $callSync(7038, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptor.FieldOptions).GetUninterpretedOption() []*descriptor.UninterpretedOption`.
   List<ProtobufProtocGenGogoDescriptorUninterpretedOption>
       getUninterpretedOption() {
-    final $r = $callSync(7030, $W()..dto(this));
+    final $r = $callSync(7039, $W()..dto(this));
     return $r.list(() => $r.p()
         ? ProtobufProtocGenGogoDescriptorUninterpretedOption.$dec($r)
         : $nil());
@@ -1908,41 +1908,41 @@ final class ProtobufProtocGenGogoDescriptorFieldOptions implements GoDto {
 
   /// Go: `func (*descriptor.FieldOptions).GetWeak() bool`.
   bool getWeak() {
-    final $r = $callSync(7031, $W()..dto(this));
+    final $r = $callSync(7040, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptor.FieldOptions).GoString() string`.
   String goString() {
-    final $r = $callSync(7032, $W()..dto(this));
+    final $r = $callSync(7041, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.FieldOptions).ProtoMessage()`.
   void protoMessage() {
-    $callSync(7033, $W()..dto(this));
+    $callSync(7042, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.FieldOptions).Reset()`.
   void reset() {
-    $callSync(7034, $W()..dto(this));
+    $callSync(7043, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.FieldOptions).String() string`.
   String string() {
-    final $r = $callSync(7035, $W()..dto(this));
+    final $r = $callSync(7044, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.FieldOptions).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(7036, $W()..dto(this));
+    $callSync(7045, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.FieldOptions).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        7037,
+        7046,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -1953,7 +1953,7 @@ final class ProtobufProtocGenGogoDescriptorFieldOptions implements GoDto {
   /// Go: `func (*descriptor.FieldOptions).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        7038,
+        7047,
         $W()
           ..dto(this)
           ..h(src));
@@ -1961,14 +1961,14 @@ final class ProtobufProtocGenGogoDescriptorFieldOptions implements GoDto {
 
   /// Go: `func (*descriptor.FieldOptions).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(7039, $W()..dto(this));
+    final $r = $callSync(7048, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptor.FieldOptions).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        7040,
+        7049,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -2099,19 +2099,19 @@ final class ProtobufProtocGenGogoDescriptorFileDescriptorProto
 
   /// Go: `func (*descriptor.FileDescriptorProto).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(7045, $W()..dto(this));
+    final $r = $callSync(7054, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptor.FileDescriptorProto).GetDependency() []string`.
   List<String> getDependency() {
-    final $r = $callSync(7046, $W()..dto(this));
+    final $r = $callSync(7055, $W()..dto(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (*descriptor.FileDescriptorProto).GetEnumType() []*descriptor.EnumDescriptorProto`.
   List<ProtobufProtocGenGogoDescriptorEnumDescriptorProto> getEnumType() {
-    final $r = $callSync(7047, $W()..dto(this));
+    final $r = $callSync(7056, $W()..dto(this));
     return $r.list(() => $r.p()
         ? ProtobufProtocGenGogoDescriptorEnumDescriptorProto.$dec($r)
         : $nil());
@@ -2119,7 +2119,7 @@ final class ProtobufProtocGenGogoDescriptorFileDescriptorProto
 
   /// Go: `func (*descriptor.FileDescriptorProto).GetExtension() []*descriptor.FieldDescriptorProto`.
   List<ProtobufProtocGenGogoDescriptorFieldDescriptorProto> getExtension() {
-    final $r = $callSync(7048, $W()..dto(this));
+    final $r = $callSync(7057, $W()..dto(this));
     return $r.list(() => $r.p()
         ? ProtobufProtocGenGogoDescriptorFieldDescriptorProto.$dec($r)
         : $nil());
@@ -2128,7 +2128,7 @@ final class ProtobufProtocGenGogoDescriptorFileDescriptorProto
   /// Go: `func (*descriptor.FileDescriptorProto).GetMessage(typeName string) *descriptor.DescriptorProto`.
   ProtobufProtocGenGogoDescriptorProto getMessage(String typeName) {
     final $r = $callSync(
-        7049,
+        7058,
         $W()
           ..dto(this)
           ..str(typeName));
@@ -2137,14 +2137,14 @@ final class ProtobufProtocGenGogoDescriptorFileDescriptorProto
 
   /// Go: `func (*descriptor.FileDescriptorProto).GetMessageType() []*descriptor.DescriptorProto`.
   List<ProtobufProtocGenGogoDescriptorProto> getMessageType() {
-    final $r = $callSync(7050, $W()..dto(this));
+    final $r = $callSync(7059, $W()..dto(this));
     return $r.list(
         () => $r.p() ? ProtobufProtocGenGogoDescriptorProto.$dec($r) : $nil());
   }
 
   /// Go: `func (*descriptor.FileDescriptorProto).GetName() string`.
   String getName() {
-    final $r = $callSync(7051, $W()..dto(this));
+    final $r = $callSync(7060, $W()..dto(this));
     return $r.str();
   }
 
@@ -2152,7 +2152,7 @@ final class ProtobufProtocGenGogoDescriptorFileDescriptorProto
   ProtobufProtocGenGogoDescriptorProto getNestedMessage(
       ProtobufProtocGenGogoDescriptorProto msg, String typeName) {
     final $r = $callSync(
-        7052,
+        7061,
         $W()
           ..dto(this)
           ..dto(msg)
@@ -2162,7 +2162,7 @@ final class ProtobufProtocGenGogoDescriptorFileDescriptorProto
 
   /// Go: `func (*descriptor.FileDescriptorProto).GetOptions() *descriptor.FileOptions`.
   ProtobufProtocGenGogoDescriptorFileOptions getOptions() {
-    final $r = $callSync(7053, $W()..dto(this));
+    final $r = $callSync(7062, $W()..dto(this));
     return $r.p()
         ? ProtobufProtocGenGogoDescriptorFileOptions.$dec($r)
         : $nil();
@@ -2170,19 +2170,19 @@ final class ProtobufProtocGenGogoDescriptorFileDescriptorProto
 
   /// Go: `func (*descriptor.FileDescriptorProto).GetPackage() string`.
   String getPackage() {
-    final $r = $callSync(7054, $W()..dto(this));
+    final $r = $callSync(7063, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.FileDescriptorProto).GetPublicDependency() []int32`.
   List<int> getPublicDependency() {
-    final $r = $callSync(7055, $W()..dto(this));
+    final $r = $callSync(7064, $W()..dto(this));
     return $r.list(() => $r.i64());
   }
 
   /// Go: `func (*descriptor.FileDescriptorProto).GetService() []*descriptor.ServiceDescriptorProto`.
   List<ProtobufProtocGenGogoDescriptorServiceDescriptorProto> getService() {
-    final $r = $callSync(7056, $W()..dto(this));
+    final $r = $callSync(7065, $W()..dto(this));
     return $r.list(() => $r.p()
         ? ProtobufProtocGenGogoDescriptorServiceDescriptorProto.$dec($r)
         : $nil());
@@ -2190,7 +2190,7 @@ final class ProtobufProtocGenGogoDescriptorFileDescriptorProto
 
   /// Go: `func (*descriptor.FileDescriptorProto).GetSourceCodeInfo() *descriptor.SourceCodeInfo`.
   ProtobufProtocGenGogoDescriptorSourceCodeInfo getSourceCodeInfo() {
-    final $r = $callSync(7057, $W()..dto(this));
+    final $r = $callSync(7066, $W()..dto(this));
     return $r.p()
         ? ProtobufProtocGenGogoDescriptorSourceCodeInfo.$dec($r)
         : $nil();
@@ -2198,47 +2198,47 @@ final class ProtobufProtocGenGogoDescriptorFileDescriptorProto
 
   /// Go: `func (*descriptor.FileDescriptorProto).GetSyntax() string`.
   String getSyntax() {
-    final $r = $callSync(7058, $W()..dto(this));
+    final $r = $callSync(7067, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.FileDescriptorProto).GetWeakDependency() []int32`.
   List<int> getWeakDependency() {
-    final $r = $callSync(7059, $W()..dto(this));
+    final $r = $callSync(7068, $W()..dto(this));
     return $r.list(() => $r.i64());
   }
 
   /// Go: `func (*descriptor.FileDescriptorProto).GoString() string`.
   String goString() {
-    final $r = $callSync(7060, $W()..dto(this));
+    final $r = $callSync(7069, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.FileDescriptorProto).ProtoMessage()`.
   void protoMessage() {
-    $callSync(7061, $W()..dto(this));
+    $callSync(7070, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.FileDescriptorProto).Reset()`.
   void reset() {
-    $callSync(7062, $W()..dto(this));
+    $callSync(7071, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.FileDescriptorProto).String() string`.
   String string() {
-    final $r = $callSync(7063, $W()..dto(this));
+    final $r = $callSync(7072, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.FileDescriptorProto).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(7064, $W()..dto(this));
+    $callSync(7073, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.FileDescriptorProto).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        7065,
+        7074,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -2249,7 +2249,7 @@ final class ProtobufProtocGenGogoDescriptorFileDescriptorProto
   /// Go: `func (*descriptor.FileDescriptorProto).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        7066,
+        7075,
         $W()
           ..dto(this)
           ..h(src));
@@ -2257,14 +2257,14 @@ final class ProtobufProtocGenGogoDescriptorFileDescriptorProto
 
   /// Go: `func (*descriptor.FileDescriptorProto).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(7067, $W()..dto(this));
+    final $r = $callSync(7076, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptor.FileDescriptorProto).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        7068,
+        7077,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -2309,7 +2309,7 @@ final class ProtobufProtocGenGogoDescriptorFileDescriptorSet implements GoDto {
 
   /// Go: `func (*descriptor.FileDescriptorSet).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(7069, $W()..dto(this));
+    final $r = $callSync(7078, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
@@ -2317,7 +2317,7 @@ final class ProtobufProtocGenGogoDescriptorFileDescriptorSet implements GoDto {
   (String, ProtobufProtocGenGogoDescriptorFieldDescriptorProto) findExtension(
       String packageName, String typeName, String fieldName) {
     final $r = $callSync(
-        7070,
+        7079,
         $W()
           ..dto(this)
           ..str(packageName)
@@ -2336,7 +2336,7 @@ final class ProtobufProtocGenGogoDescriptorFileDescriptorSet implements GoDto {
       findExtensionByFieldNumber(
           String packageName, String typeName, int fieldNum) {
     final $r = $callSync(
-        7071,
+        7080,
         $W()
           ..dto(this)
           ..str(packageName)
@@ -2354,7 +2354,7 @@ final class ProtobufProtocGenGogoDescriptorFileDescriptorSet implements GoDto {
   (String, String) findMessage(
       String packageName, String typeName, String fieldName) {
     final $r = $callSync(
-        7072,
+        7081,
         $W()
           ..dto(this)
           ..str(packageName)
@@ -2367,7 +2367,7 @@ final class ProtobufProtocGenGogoDescriptorFileDescriptorSet implements GoDto {
   ProtobufProtocGenGogoDescriptorEnumDescriptorProto getEnum(
       String packageName, String typeName) {
     final $r = $callSync(
-        7073,
+        7082,
         $W()
           ..dto(this)
           ..str(packageName)
@@ -2381,7 +2381,7 @@ final class ProtobufProtocGenGogoDescriptorFileDescriptorSet implements GoDto {
   ProtobufProtocGenGogoDescriptorFieldDescriptorProto getField(
       String packageName, String messageName, String fieldName) {
     final $r = $callSync(
-        7074,
+        7083,
         $W()
           ..dto(this)
           ..str(packageName)
@@ -2394,7 +2394,7 @@ final class ProtobufProtocGenGogoDescriptorFileDescriptorSet implements GoDto {
 
   /// Go: `func (*descriptor.FileDescriptorSet).GetFile() []*descriptor.FileDescriptorProto`.
   List<ProtobufProtocGenGogoDescriptorFileDescriptorProto> getFile() {
-    final $r = $callSync(7075, $W()..dto(this));
+    final $r = $callSync(7084, $W()..dto(this));
     return $r.list(() => $r.p()
         ? ProtobufProtocGenGogoDescriptorFileDescriptorProto.$dec($r)
         : $nil());
@@ -2404,7 +2404,7 @@ final class ProtobufProtocGenGogoDescriptorFileDescriptorSet implements GoDto {
   ProtobufProtocGenGogoDescriptorProto getMessage(
       String packageName, String typeName) {
     final $r = $callSync(
-        7076,
+        7085,
         $W()
           ..dto(this)
           ..str(packageName)
@@ -2414,14 +2414,14 @@ final class ProtobufProtocGenGogoDescriptorFileDescriptorSet implements GoDto {
 
   /// Go: `func (*descriptor.FileDescriptorSet).GoString() string`.
   String goString() {
-    final $r = $callSync(7077, $W()..dto(this));
+    final $r = $callSync(7086, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.FileDescriptorSet).IsProto3(packageName string, typeName string) bool`.
   bool isProto3(String packageName, String typeName) {
     final $r = $callSync(
-        7078,
+        7087,
         $W()
           ..dto(this)
           ..str(packageName)
@@ -2431,29 +2431,29 @@ final class ProtobufProtocGenGogoDescriptorFileDescriptorSet implements GoDto {
 
   /// Go: `func (*descriptor.FileDescriptorSet).ProtoMessage()`.
   void protoMessage() {
-    $callSync(7079, $W()..dto(this));
+    $callSync(7088, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.FileDescriptorSet).Reset()`.
   void reset() {
-    $callSync(7080, $W()..dto(this));
+    $callSync(7089, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.FileDescriptorSet).String() string`.
   String string() {
-    final $r = $callSync(7081, $W()..dto(this));
+    final $r = $callSync(7090, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.FileDescriptorSet).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(7082, $W()..dto(this));
+    $callSync(7091, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.FileDescriptorSet).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        7083,
+        7092,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -2464,7 +2464,7 @@ final class ProtobufProtocGenGogoDescriptorFileDescriptorSet implements GoDto {
   /// Go: `func (*descriptor.FileDescriptorSet).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        7084,
+        7093,
         $W()
           ..dto(this)
           ..h(src));
@@ -2472,14 +2472,14 @@ final class ProtobufProtocGenGogoDescriptorFileDescriptorSet implements GoDto {
 
   /// Go: `func (*descriptor.FileDescriptorSet).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(7085, $W()..dto(this));
+    final $r = $callSync(7094, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptor.FileDescriptorSet).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        7086,
+        7095,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -2666,142 +2666,142 @@ final class ProtobufProtocGenGogoDescriptorFileOptions implements GoDto {
 
   /// Go: `func (*descriptor.FileOptions).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(7087, $W()..dto(this));
+    final $r = $callSync(7096, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptor.FileOptions).ExtensionRangeArray() []proto.ExtensionRange`.
   List<$proto.ProtobufProtoExtensionRange> extensionRangeArray() {
-    final $r = $callSync(7088, $W()..dto(this));
+    final $r = $callSync(7097, $W()..dto(this));
     return $r.list(
         () => $r.p() ? $proto.ProtobufProtoExtensionRange.$dec($r) : $nil());
   }
 
   /// Go: `func (*descriptor.FileOptions).GetCcEnableArenas() bool`.
   bool getCcEnableArenas() {
-    final $r = $callSync(7089, $W()..dto(this));
+    final $r = $callSync(7098, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptor.FileOptions).GetCcGenericServices() bool`.
   bool getCcGenericServices() {
-    final $r = $callSync(7090, $W()..dto(this));
+    final $r = $callSync(7099, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptor.FileOptions).GetCsharpNamespace() string`.
   String getCsharpNamespace() {
-    final $r = $callSync(7091, $W()..dto(this));
+    final $r = $callSync(7100, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.FileOptions).GetDeprecated() bool`.
   bool getDeprecated() {
-    final $r = $callSync(7092, $W()..dto(this));
+    final $r = $callSync(7101, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptor.FileOptions).GetGoPackage() string`.
   String getGoPackage() {
-    final $r = $callSync(7093, $W()..dto(this));
+    final $r = $callSync(7102, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.FileOptions).GetJavaGenerateEqualsAndHash() bool`.
   @Deprecated("Do not use.")
   bool getJavaGenerateEqualsAndHash() {
-    final $r = $callSync(7094, $W()..dto(this));
+    final $r = $callSync(7103, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptor.FileOptions).GetJavaGenericServices() bool`.
   bool getJavaGenericServices() {
-    final $r = $callSync(7095, $W()..dto(this));
+    final $r = $callSync(7104, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptor.FileOptions).GetJavaMultipleFiles() bool`.
   bool getJavaMultipleFiles() {
-    final $r = $callSync(7096, $W()..dto(this));
+    final $r = $callSync(7105, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptor.FileOptions).GetJavaOuterClassname() string`.
   String getJavaOuterClassname() {
-    final $r = $callSync(7097, $W()..dto(this));
+    final $r = $callSync(7106, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.FileOptions).GetJavaPackage() string`.
   String getJavaPackage() {
-    final $r = $callSync(7098, $W()..dto(this));
+    final $r = $callSync(7107, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.FileOptions).GetJavaStringCheckUtf8() bool`.
   bool getJavaStringCheckUtf8() {
-    final $r = $callSync(7099, $W()..dto(this));
+    final $r = $callSync(7108, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptor.FileOptions).GetObjcClassPrefix() string`.
   String getObjcClassPrefix() {
-    final $r = $callSync(7100, $W()..dto(this));
+    final $r = $callSync(7109, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.FileOptions).GetOptimizeFor() descriptor.FileOptions_OptimizeMode`.
   int getOptimizeFor() {
-    final $r = $callSync(7101, $W()..dto(this));
+    final $r = $callSync(7110, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptor.FileOptions).GetPhpClassPrefix() string`.
   String getPhpClassPrefix() {
-    final $r = $callSync(7102, $W()..dto(this));
+    final $r = $callSync(7111, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.FileOptions).GetPhpGenericServices() bool`.
   bool getPhpGenericServices() {
-    final $r = $callSync(7103, $W()..dto(this));
+    final $r = $callSync(7112, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptor.FileOptions).GetPhpMetadataNamespace() string`.
   String getPhpMetadataNamespace() {
-    final $r = $callSync(7104, $W()..dto(this));
+    final $r = $callSync(7113, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.FileOptions).GetPhpNamespace() string`.
   String getPhpNamespace() {
-    final $r = $callSync(7105, $W()..dto(this));
+    final $r = $callSync(7114, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.FileOptions).GetPyGenericServices() bool`.
   bool getPyGenericServices() {
-    final $r = $callSync(7106, $W()..dto(this));
+    final $r = $callSync(7115, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptor.FileOptions).GetRubyPackage() string`.
   String getRubyPackage() {
-    final $r = $callSync(7107, $W()..dto(this));
+    final $r = $callSync(7116, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.FileOptions).GetSwiftPrefix() string`.
   String getSwiftPrefix() {
-    final $r = $callSync(7108, $W()..dto(this));
+    final $r = $callSync(7117, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.FileOptions).GetUninterpretedOption() []*descriptor.UninterpretedOption`.
   List<ProtobufProtocGenGogoDescriptorUninterpretedOption>
       getUninterpretedOption() {
-    final $r = $callSync(7109, $W()..dto(this));
+    final $r = $callSync(7118, $W()..dto(this));
     return $r.list(() => $r.p()
         ? ProtobufProtocGenGogoDescriptorUninterpretedOption.$dec($r)
         : $nil());
@@ -2809,35 +2809,35 @@ final class ProtobufProtocGenGogoDescriptorFileOptions implements GoDto {
 
   /// Go: `func (*descriptor.FileOptions).GoString() string`.
   String goString() {
-    final $r = $callSync(7110, $W()..dto(this));
+    final $r = $callSync(7119, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.FileOptions).ProtoMessage()`.
   void protoMessage() {
-    $callSync(7111, $W()..dto(this));
+    $callSync(7120, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.FileOptions).Reset()`.
   void reset() {
-    $callSync(7112, $W()..dto(this));
+    $callSync(7121, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.FileOptions).String() string`.
   String string() {
-    final $r = $callSync(7113, $W()..dto(this));
+    final $r = $callSync(7122, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.FileOptions).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(7114, $W()..dto(this));
+    $callSync(7123, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.FileOptions).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        7115,
+        7124,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -2848,7 +2848,7 @@ final class ProtobufProtocGenGogoDescriptorFileOptions implements GoDto {
   /// Go: `func (*descriptor.FileOptions).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        7116,
+        7125,
         $W()
           ..dto(this)
           ..h(src));
@@ -2856,14 +2856,14 @@ final class ProtobufProtocGenGogoDescriptorFileOptions implements GoDto {
 
   /// Go: `func (*descriptor.FileOptions).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(7117, $W()..dto(this));
+    final $r = $callSync(7126, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptor.FileOptions).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        7118,
+        7127,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -2909,14 +2909,14 @@ final class ProtobufProtocGenGogoDescriptorGeneratedCodeInfo implements GoDto {
 
   /// Go: `func (*descriptor.GeneratedCodeInfo).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(7122, $W()..dto(this));
+    final $r = $callSync(7131, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptor.GeneratedCodeInfo).GetAnnotation() []*descriptor.GeneratedCodeInfo_Annotation`.
   List<ProtobufProtocGenGogoDescriptorGeneratedCodeInfoAnnotation>
       getAnnotation() {
-    final $r = $callSync(7123, $W()..dto(this));
+    final $r = $callSync(7132, $W()..dto(this));
     return $r.list(() => $r.p()
         ? ProtobufProtocGenGogoDescriptorGeneratedCodeInfoAnnotation.$dec($r)
         : $nil());
@@ -2924,35 +2924,35 @@ final class ProtobufProtocGenGogoDescriptorGeneratedCodeInfo implements GoDto {
 
   /// Go: `func (*descriptor.GeneratedCodeInfo).GoString() string`.
   String goString() {
-    final $r = $callSync(7124, $W()..dto(this));
+    final $r = $callSync(7133, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.GeneratedCodeInfo).ProtoMessage()`.
   void protoMessage() {
-    $callSync(7125, $W()..dto(this));
+    $callSync(7134, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.GeneratedCodeInfo).Reset()`.
   void reset() {
-    $callSync(7126, $W()..dto(this));
+    $callSync(7135, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.GeneratedCodeInfo).String() string`.
   String string() {
-    final $r = $callSync(7127, $W()..dto(this));
+    final $r = $callSync(7136, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.GeneratedCodeInfo).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(7128, $W()..dto(this));
+    $callSync(7137, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.GeneratedCodeInfo).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        7129,
+        7138,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -2963,7 +2963,7 @@ final class ProtobufProtocGenGogoDescriptorGeneratedCodeInfo implements GoDto {
   /// Go: `func (*descriptor.GeneratedCodeInfo).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        7130,
+        7139,
         $W()
           ..dto(this)
           ..h(src));
@@ -2971,14 +2971,14 @@ final class ProtobufProtocGenGogoDescriptorGeneratedCodeInfo implements GoDto {
 
   /// Go: `func (*descriptor.GeneratedCodeInfo).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(7131, $W()..dto(this));
+    final $r = $callSync(7140, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptor.GeneratedCodeInfo).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        7132,
+        7141,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -3043,65 +3043,65 @@ final class ProtobufProtocGenGogoDescriptorGeneratedCodeInfoAnnotation
 
   /// Go: `func (*descriptor.GeneratedCodeInfo_Annotation).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(7133, $W()..dto(this));
+    final $r = $callSync(7142, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptor.GeneratedCodeInfo_Annotation).GetBegin() int32`.
   int getBegin() {
-    final $r = $callSync(7134, $W()..dto(this));
+    final $r = $callSync(7143, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptor.GeneratedCodeInfo_Annotation).GetEnd() int32`.
   int getEnd() {
-    final $r = $callSync(7135, $W()..dto(this));
+    final $r = $callSync(7144, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptor.GeneratedCodeInfo_Annotation).GetPath() []int32`.
   List<int> getPath() {
-    final $r = $callSync(7136, $W()..dto(this));
+    final $r = $callSync(7145, $W()..dto(this));
     return $r.list(() => $r.i64());
   }
 
   /// Go: `func (*descriptor.GeneratedCodeInfo_Annotation).GetSourceFile() string`.
   String getSourceFile() {
-    final $r = $callSync(7137, $W()..dto(this));
+    final $r = $callSync(7146, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.GeneratedCodeInfo_Annotation).GoString() string`.
   String goString() {
-    final $r = $callSync(7138, $W()..dto(this));
+    final $r = $callSync(7147, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.GeneratedCodeInfo_Annotation).ProtoMessage()`.
   void protoMessage() {
-    $callSync(7139, $W()..dto(this));
+    $callSync(7148, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.GeneratedCodeInfo_Annotation).Reset()`.
   void reset() {
-    $callSync(7140, $W()..dto(this));
+    $callSync(7149, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.GeneratedCodeInfo_Annotation).String() string`.
   String string() {
-    final $r = $callSync(7141, $W()..dto(this));
+    final $r = $callSync(7150, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.GeneratedCodeInfo_Annotation).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(7142, $W()..dto(this));
+    $callSync(7151, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.GeneratedCodeInfo_Annotation).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        7143,
+        7152,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -3112,7 +3112,7 @@ final class ProtobufProtocGenGogoDescriptorGeneratedCodeInfoAnnotation
   /// Go: `func (*descriptor.GeneratedCodeInfo_Annotation).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        7144,
+        7153,
         $W()
           ..dto(this)
           ..h(src));
@@ -3120,14 +3120,14 @@ final class ProtobufProtocGenGogoDescriptorGeneratedCodeInfoAnnotation
 
   /// Go: `func (*descriptor.GeneratedCodeInfo_Annotation).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(7145, $W()..dto(this));
+    final $r = $callSync(7154, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptor.GeneratedCodeInfo_Annotation).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        7146,
+        7155,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -3144,730 +3144,730 @@ class ProtobufProtocGenGogoDescriptorMessage extends $proto.ProtobufProtoMessage
 mixin ProtobufProtocGenGogoDescriptorMessage$ on GoHandle {
   /// Go: `func (descriptor.Message).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(7147, $W()..h(this));
+    final $r = $callSync(7156, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: type assertion `x.(*pb.Message)`: null if the object is not one.
   $pb.BoxoBitswapMessagePbMessage? asBoxoBitswapMessagePbMessage() {
-    final $r = $callSync(673, $W()..h(this));
+    final $r = $callSync(676, $W()..h(this));
     return $r.hn($pb.BoxoBitswapMessagePbMessage.$h);
   }
 
   /// Go: type assertion `x.(*pb.Message_Block)`: null if the object is not one.
   $pb.BoxoBitswapMessagePbMessageBlock? asBoxoBitswapMessagePbMessageBlock() {
-    final $r = $callSync(674, $W()..h(this));
+    final $r = $callSync(677, $W()..h(this));
     return $r.hn($pb.BoxoBitswapMessagePbMessageBlock.$h);
   }
 
   /// Go: type assertion `x.(*pb.Message_BlockPresence)`: null if the object is not one.
   $pb.BoxoBitswapMessagePbMessageBlockPresence?
       asBoxoBitswapMessagePbMessageBlockPresence() {
-    final $r = $callSync(675, $W()..h(this));
+    final $r = $callSync(678, $W()..h(this));
     return $r.hn($pb.BoxoBitswapMessagePbMessageBlockPresence.$h);
   }
 
   /// Go: type assertion `x.(*pb.Message_Wantlist)`: null if the object is not one.
   $pb.BoxoBitswapMessagePbMessageWantlist?
       asBoxoBitswapMessagePbMessageWantlist() {
-    final $r = $callSync(676, $W()..h(this));
+    final $r = $callSync(679, $W()..h(this));
     return $r.hn($pb.BoxoBitswapMessagePbMessageWantlist.$h);
   }
 
   /// Go: type assertion `x.(*pb.Message_Wantlist_Entry)`: null if the object is not one.
   $pb.BoxoBitswapMessagePbMessageWantlistEntry?
       asBoxoBitswapMessagePbMessageWantlistEntry() {
-    final $r = $callSync(677, $W()..h(this));
+    final $r = $callSync(680, $W()..h(this));
     return $r.hn($pb.BoxoBitswapMessagePbMessageWantlistEntry.$h);
   }
 
   /// Go: type assertion `x.(*pb.DataObj)`: null if the object is not one.
   $pb2.BoxoFilestorePbDataObj? asBoxoFilestorePbDataObj() {
-    final $r = $callSync(678, $W()..h(this));
+    final $r = $callSync(681, $W()..h(this));
     return $r.hn($pb2.BoxoFilestorePbDataObj.$h);
   }
 
   /// Go: type assertion `x.(*pb.PBLink)`: null if the object is not one.
   $pb3.BoxoIpldMerkledagPbLink? asBoxoIpldMerkledagPbLink() {
-    final $r = $callSync(679, $W()..h(this));
+    final $r = $callSync(682, $W()..h(this));
     return $r.hn($pb3.BoxoIpldMerkledagPbLink.$h);
   }
 
   /// Go: type assertion `x.(*pb.PBNode)`: null if the object is not one.
   $pb3.BoxoIpldMerkledagPbNode? asBoxoIpldMerkledagPbNode() {
-    final $r = $callSync(680, $W()..h(this));
+    final $r = $callSync(683, $W()..h(this));
     return $r.hn($pb3.BoxoIpldMerkledagPbNode.$h);
   }
 
   /// Go: type assertion `x.(*pb.Data)`: null if the object is not one.
   $pb4.BoxoIpldUnixfsPbData? asBoxoIpldUnixfsPbData() {
-    final $r = $callSync(681, $W()..h(this));
+    final $r = $callSync(684, $W()..h(this));
     return $r.hn($pb4.BoxoIpldUnixfsPbData.$h);
   }
 
   /// Go: type assertion `x.(*pb.IPFSTimestamp)`: null if the object is not one.
   $pb4.BoxoIpldUnixfsPbIpfsTimestamp? asBoxoIpldUnixfsPbIpfsTimestamp() {
-    final $r = $callSync(682, $W()..h(this));
+    final $r = $callSync(685, $W()..h(this));
     return $r.hn($pb4.BoxoIpldUnixfsPbIpfsTimestamp.$h);
   }
 
   /// Go: type assertion `x.(*pb.Metadata)`: null if the object is not one.
   $pb4.BoxoIpldUnixfsPbMetadata? asBoxoIpldUnixfsPbMetadata() {
-    final $r = $callSync(683, $W()..h(this));
+    final $r = $callSync(686, $W()..h(this));
     return $r.hn($pb4.BoxoIpldUnixfsPbMetadata.$h);
   }
 
   /// Go: type assertion `x.(*pb.IpnsRecord)`: null if the object is not one.
   $pb5.BoxoIpnsPbIpnsRecord? asBoxoIpnsPbIpnsRecord() {
-    final $r = $callSync(684, $W()..h(this));
+    final $r = $callSync(687, $W()..h(this));
     return $r.hn($pb5.BoxoIpnsPbIpnsRecord.$h);
   }
 
   /// Go: type assertion `x.(*dht_pb.Message)`: null if the object is not one.
   $pb6.Libp2pKadDhtPbMessage? asLibp2pKadDhtPbMessage() {
-    final $r = $callSync(685, $W()..h(this));
+    final $r = $callSync(688, $W()..h(this));
     return $r.hn($pb6.Libp2pKadDhtPbMessage.$h);
   }
 
   /// Go: type assertion `x.(*dht_pb.Message_Peer)`: null if the object is not one.
   $pb6.Libp2pKadDhtPbMessagePeer? asLibp2pKadDhtPbMessagePeer() {
-    final $r = $callSync(686, $W()..h(this));
+    final $r = $callSync(689, $W()..h(this));
     return $r.hn($pb6.Libp2pKadDhtPbMessagePeer.$h);
   }
 
   /// Go: type assertion `x.(*pubsub.RPC)`: null if the object is not one.
   $libp2p_pubsub.Libp2pPubsubRpc? asLibp2pPubsubRpc() {
-    final $r = $callSync(687, $W()..h(this));
+    final $r = $callSync(690, $W()..h(this));
     return $r.hn($libp2p_pubsub.Libp2pPubsubRpc.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.ControlExtensions)`: null if the object is not one.
   $pb7.Libp2pPubsubPbControlExtensions? asLibp2pPubsubPbControlExtensions() {
-    final $r = $callSync(688, $W()..h(this));
+    final $r = $callSync(691, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbControlExtensions.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.ControlGraft)`: null if the object is not one.
   $pb7.Libp2pPubsubPbControlGraft? asLibp2pPubsubPbControlGraft() {
-    final $r = $callSync(689, $W()..h(this));
+    final $r = $callSync(692, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbControlGraft.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.ControlIDontWant)`: null if the object is not one.
   $pb7.Libp2pPubsubPbControlIDontWant? asLibp2pPubsubPbControlIDontWant() {
-    final $r = $callSync(690, $W()..h(this));
+    final $r = $callSync(693, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbControlIDontWant.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.ControlIHave)`: null if the object is not one.
   $pb7.Libp2pPubsubPbControlIHave? asLibp2pPubsubPbControlIHave() {
-    final $r = $callSync(691, $W()..h(this));
+    final $r = $callSync(694, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbControlIHave.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.ControlIWant)`: null if the object is not one.
   $pb7.Libp2pPubsubPbControlIWant? asLibp2pPubsubPbControlIWant() {
-    final $r = $callSync(692, $W()..h(this));
+    final $r = $callSync(695, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbControlIWant.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.ControlMessage)`: null if the object is not one.
   $pb7.Libp2pPubsubPbControlMessage? asLibp2pPubsubPbControlMessage() {
-    final $r = $callSync(693, $W()..h(this));
+    final $r = $callSync(696, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbControlMessage.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.ControlPrune)`: null if the object is not one.
   $pb7.Libp2pPubsubPbControlPrune? asLibp2pPubsubPbControlPrune() {
-    final $r = $callSync(694, $W()..h(this));
+    final $r = $callSync(697, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbControlPrune.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.Message)`: null if the object is not one.
   $pb7.Libp2pPubsubPbMessage? asLibp2pPubsubPbMessage() {
-    final $r = $callSync(695, $W()..h(this));
+    final $r = $callSync(698, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbMessage.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.PartialMessagesExtension)`: null if the object is not one.
   $pb7.Libp2pPubsubPbPartialMessagesExtension?
       asLibp2pPubsubPbPartialMessagesExtension() {
-    final $r = $callSync(696, $W()..h(this));
+    final $r = $callSync(699, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbPartialMessagesExtension.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.PeerInfo)`: null if the object is not one.
   $pb7.Libp2pPubsubPbPeerInfo? asLibp2pPubsubPbPeerInfo() {
-    final $r = $callSync(697, $W()..h(this));
+    final $r = $callSync(700, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbPeerInfo.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.RPC)`: null if the object is not one.
   $pb7.Libp2pPubsubPbRpc? asLibp2pPubsubPbRpc() {
-    final $r = $callSync(698, $W()..h(this));
+    final $r = $callSync(701, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbRpc.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.RPC_SubOpts)`: null if the object is not one.
   $pb7.Libp2pPubsubPbRpcSubOpts? asLibp2pPubsubPbRpcSubOpts() {
-    final $r = $callSync(699, $W()..h(this));
+    final $r = $callSync(702, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbRpcSubOpts.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.TestExtension)`: null if the object is not one.
   $pb7.Libp2pPubsubPbTestExtension? asLibp2pPubsubPbTestExtension() {
-    final $r = $callSync(700, $W()..h(this));
+    final $r = $callSync(703, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbTestExtension.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.TraceEvent)`: null if the object is not one.
   $pb7.Libp2pPubsubPbTraceEvent? asLibp2pPubsubPbTraceEvent() {
-    final $r = $callSync(701, $W()..h(this));
+    final $r = $callSync(704, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbTraceEvent.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.TraceEventBatch)`: null if the object is not one.
   $pb7.Libp2pPubsubPbTraceEventBatch? asLibp2pPubsubPbTraceEventBatch() {
-    final $r = $callSync(702, $W()..h(this));
+    final $r = $callSync(705, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbTraceEventBatch.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.TraceEvent_ControlGraftMeta)`: null if the object is not one.
   $pb7.Libp2pPubsubPbTraceEventControlGraftMeta?
       asLibp2pPubsubPbTraceEventControlGraftMeta() {
-    final $r = $callSync(703, $W()..h(this));
+    final $r = $callSync(706, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbTraceEventControlGraftMeta.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.TraceEvent_ControlIDontWantMeta)`: null if the object is not one.
   $pb7.Libp2pPubsubPbTraceEventControlIDontWantMeta?
       asLibp2pPubsubPbTraceEventControlIDontWantMeta() {
-    final $r = $callSync(704, $W()..h(this));
+    final $r = $callSync(707, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbTraceEventControlIDontWantMeta.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.TraceEvent_ControlIHaveMeta)`: null if the object is not one.
   $pb7.Libp2pPubsubPbTraceEventControlIHaveMeta?
       asLibp2pPubsubPbTraceEventControlIHaveMeta() {
-    final $r = $callSync(705, $W()..h(this));
+    final $r = $callSync(708, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbTraceEventControlIHaveMeta.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.TraceEvent_ControlIWantMeta)`: null if the object is not one.
   $pb7.Libp2pPubsubPbTraceEventControlIWantMeta?
       asLibp2pPubsubPbTraceEventControlIWantMeta() {
-    final $r = $callSync(706, $W()..h(this));
+    final $r = $callSync(709, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbTraceEventControlIWantMeta.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.TraceEvent_ControlMeta)`: null if the object is not one.
   $pb7.Libp2pPubsubPbTraceEventControlMeta?
       asLibp2pPubsubPbTraceEventControlMeta() {
-    final $r = $callSync(707, $W()..h(this));
+    final $r = $callSync(710, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbTraceEventControlMeta.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.TraceEvent_ControlPruneMeta)`: null if the object is not one.
   $pb7.Libp2pPubsubPbTraceEventControlPruneMeta?
       asLibp2pPubsubPbTraceEventControlPruneMeta() {
-    final $r = $callSync(708, $W()..h(this));
+    final $r = $callSync(711, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbTraceEventControlPruneMeta.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.TraceEvent_DeliverMessage)`: null if the object is not one.
   $pb7.Libp2pPubsubPbTraceEventDeliverMessage?
       asLibp2pPubsubPbTraceEventDeliverMessage() {
-    final $r = $callSync(709, $W()..h(this));
+    final $r = $callSync(712, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbTraceEventDeliverMessage.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.TraceEvent_DropRPC)`: null if the object is not one.
   $pb7.Libp2pPubsubPbTraceEventDropRpc? asLibp2pPubsubPbTraceEventDropRpc() {
-    final $r = $callSync(710, $W()..h(this));
+    final $r = $callSync(713, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbTraceEventDropRpc.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.TraceEvent_DuplicateMessage)`: null if the object is not one.
   $pb7.Libp2pPubsubPbTraceEventDuplicateMessage?
       asLibp2pPubsubPbTraceEventDuplicateMessage() {
-    final $r = $callSync(711, $W()..h(this));
+    final $r = $callSync(714, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbTraceEventDuplicateMessage.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.TraceEvent_Graft)`: null if the object is not one.
   $pb7.Libp2pPubsubPbTraceEventGraft? asLibp2pPubsubPbTraceEventGraft() {
-    final $r = $callSync(712, $W()..h(this));
+    final $r = $callSync(715, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbTraceEventGraft.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.TraceEvent_Join)`: null if the object is not one.
   $pb7.Libp2pPubsubPbTraceEventJoin? asLibp2pPubsubPbTraceEventJoin() {
-    final $r = $callSync(713, $W()..h(this));
+    final $r = $callSync(716, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbTraceEventJoin.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.TraceEvent_Leave)`: null if the object is not one.
   $pb7.Libp2pPubsubPbTraceEventLeave? asLibp2pPubsubPbTraceEventLeave() {
-    final $r = $callSync(714, $W()..h(this));
+    final $r = $callSync(717, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbTraceEventLeave.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.TraceEvent_MessageMeta)`: null if the object is not one.
   $pb7.Libp2pPubsubPbTraceEventMessageMeta?
       asLibp2pPubsubPbTraceEventMessageMeta() {
-    final $r = $callSync(715, $W()..h(this));
+    final $r = $callSync(718, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbTraceEventMessageMeta.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.TraceEvent_OnClosedOutboundStream)`: null if the object is not one.
   $pb7.Libp2pPubsubPbTraceEventOnClosedOutboundStream?
       asLibp2pPubsubPbTraceEventOnClosedOutboundStream() {
-    final $r = $callSync(716, $W()..h(this));
+    final $r = $callSync(719, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbTraceEventOnClosedOutboundStream.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.TraceEvent_OnNewOutboundStream)`: null if the object is not one.
   $pb7.Libp2pPubsubPbTraceEventOnNewOutboundStream?
       asLibp2pPubsubPbTraceEventOnNewOutboundStream() {
-    final $r = $callSync(717, $W()..h(this));
+    final $r = $callSync(720, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbTraceEventOnNewOutboundStream.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.TraceEvent_Prune)`: null if the object is not one.
   $pb7.Libp2pPubsubPbTraceEventPrune? asLibp2pPubsubPbTraceEventPrune() {
-    final $r = $callSync(718, $W()..h(this));
+    final $r = $callSync(721, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbTraceEventPrune.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.TraceEvent_PublishMessage)`: null if the object is not one.
   $pb7.Libp2pPubsubPbTraceEventPublishMessage?
       asLibp2pPubsubPbTraceEventPublishMessage() {
-    final $r = $callSync(719, $W()..h(this));
+    final $r = $callSync(722, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbTraceEventPublishMessage.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.TraceEvent_RPCMeta)`: null if the object is not one.
   $pb7.Libp2pPubsubPbTraceEventRpcMeta? asLibp2pPubsubPbTraceEventRpcMeta() {
-    final $r = $callSync(720, $W()..h(this));
+    final $r = $callSync(723, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbTraceEventRpcMeta.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.TraceEvent_RecvRPC)`: null if the object is not one.
   $pb7.Libp2pPubsubPbTraceEventRecvRpc? asLibp2pPubsubPbTraceEventRecvRpc() {
-    final $r = $callSync(721, $W()..h(this));
+    final $r = $callSync(724, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbTraceEventRecvRpc.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.TraceEvent_RejectMessage)`: null if the object is not one.
   $pb7.Libp2pPubsubPbTraceEventRejectMessage?
       asLibp2pPubsubPbTraceEventRejectMessage() {
-    final $r = $callSync(722, $W()..h(this));
+    final $r = $callSync(725, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbTraceEventRejectMessage.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.TraceEvent_SendRPC)`: null if the object is not one.
   $pb7.Libp2pPubsubPbTraceEventSendRpc? asLibp2pPubsubPbTraceEventSendRpc() {
-    final $r = $callSync(723, $W()..h(this));
+    final $r = $callSync(726, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbTraceEventSendRpc.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.TraceEvent_SubMeta)`: null if the object is not one.
   $pb7.Libp2pPubsubPbTraceEventSubMeta? asLibp2pPubsubPbTraceEventSubMeta() {
-    final $r = $callSync(724, $W()..h(this));
+    final $r = $callSync(727, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbTraceEventSubMeta.$h);
   }
 
   /// Go: type assertion `x.(*pb.Record)`: null if the object is not one.
   $pb8.Libp2pRecordPbRecord? asLibp2pRecordPbRecord() {
-    final $r = $callSync(725, $W()..h(this));
+    final $r = $callSync(728, $W()..h(this));
     return $r.hn($pb8.Libp2pRecordPbRecord.$h);
   }
 
   /// Go: type assertion `x.(*pb.PrivateKey)`: null if the object is not one.
   $pb9.Libp2pCoreCryptoPbPrivateKey? asLibp2pCoreCryptoPbPrivateKey() {
-    final $r = $callSync(726, $W()..h(this));
+    final $r = $callSync(729, $W()..h(this));
     return $r.hn($pb9.Libp2pCoreCryptoPbPrivateKey.$h);
   }
 
   /// Go: type assertion `x.(*pb.PublicKey)`: null if the object is not one.
   $pb9.Libp2pCoreCryptoPbPublicKey? asLibp2pCoreCryptoPbPublicKey() {
-    final $r = $callSync(727, $W()..h(this));
+    final $r = $callSync(730, $W()..h(this));
     return $r.hn($pb9.Libp2pCoreCryptoPbPublicKey.$h);
   }
 
   /// Go: type assertion `x.(*pb.PeerRecord)`: null if the object is not one.
   $pb10.Libp2pCorePeerPbPeerRecord? asLibp2pCorePeerPbPeerRecord() {
-    final $r = $callSync(728, $W()..h(this));
+    final $r = $callSync(731, $W()..h(this));
     return $r.hn($pb10.Libp2pCorePeerPbPeerRecord.$h);
   }
 
   /// Go: type assertion `x.(*pb.PeerRecord_AddressInfo)`: null if the object is not one.
   $pb10.Libp2pCorePeerPbPeerRecordAddressInfo?
       asLibp2pCorePeerPbPeerRecordAddressInfo() {
-    final $r = $callSync(729, $W()..h(this));
+    final $r = $callSync(732, $W()..h(this));
     return $r.hn($pb10.Libp2pCorePeerPbPeerRecordAddressInfo.$h);
   }
 
   /// Go: type assertion `x.(*pb.Envelope)`: null if the object is not one.
   $pb11.Libp2pCoreRecordPbEnvelope? asLibp2pCoreRecordPbEnvelope() {
-    final $r = $callSync(730, $W()..h(this));
+    final $r = $callSync(733, $W()..h(this));
     return $r.hn($pb11.Libp2pCoreRecordPbEnvelope.$h);
   }
 
   /// Go: type assertion `x.(*pb.Message)`: null if the object is not one.
   $pb12.Libp2pP2pHostAutonatPbMessage? asLibp2pP2pHostAutonatPbMessage() {
-    final $r = $callSync(731, $W()..h(this));
+    final $r = $callSync(734, $W()..h(this));
     return $r.hn($pb12.Libp2pP2pHostAutonatPbMessage.$h);
   }
 
   /// Go: type assertion `x.(*pb.Message_Dial)`: null if the object is not one.
   $pb12.Libp2pP2pHostAutonatPbMessageDial?
       asLibp2pP2pHostAutonatPbMessageDial() {
-    final $r = $callSync(732, $W()..h(this));
+    final $r = $callSync(735, $W()..h(this));
     return $r.hn($pb12.Libp2pP2pHostAutonatPbMessageDial.$h);
   }
 
   /// Go: type assertion `x.(*pb.Message_DialResponse)`: null if the object is not one.
   $pb12.Libp2pP2pHostAutonatPbMessageDialResponse?
       asLibp2pP2pHostAutonatPbMessageDialResponse() {
-    final $r = $callSync(733, $W()..h(this));
+    final $r = $callSync(736, $W()..h(this));
     return $r.hn($pb12.Libp2pP2pHostAutonatPbMessageDialResponse.$h);
   }
 
   /// Go: type assertion `x.(*pb.Message_PeerInfo)`: null if the object is not one.
   $pb12.Libp2pP2pHostAutonatPbMessagePeerInfo?
       asLibp2pP2pHostAutonatPbMessagePeerInfo() {
-    final $r = $callSync(734, $W()..h(this));
+    final $r = $callSync(737, $W()..h(this));
     return $r.hn($pb12.Libp2pP2pHostAutonatPbMessagePeerInfo.$h);
   }
 
   /// Go: type assertion `x.(*pb.DialBack)`: null if the object is not one.
   $pb13.Libp2pP2pProtocolAutonatv2PbDialBack?
       asLibp2pP2pProtocolAutonatv2PbDialBack() {
-    final $r = $callSync(735, $W()..h(this));
+    final $r = $callSync(738, $W()..h(this));
     return $r.hn($pb13.Libp2pP2pProtocolAutonatv2PbDialBack.$h);
   }
 
   /// Go: type assertion `x.(*pb.DialBackResponse)`: null if the object is not one.
   $pb13.Libp2pP2pProtocolAutonatv2PbDialBackResponse?
       asLibp2pP2pProtocolAutonatv2PbDialBackResponse() {
-    final $r = $callSync(736, $W()..h(this));
+    final $r = $callSync(739, $W()..h(this));
     return $r.hn($pb13.Libp2pP2pProtocolAutonatv2PbDialBackResponse.$h);
   }
 
   /// Go: type assertion `x.(*pb.DialDataRequest)`: null if the object is not one.
   $pb13.Libp2pP2pProtocolAutonatv2PbDialDataRequest?
       asLibp2pP2pProtocolAutonatv2PbDialDataRequest() {
-    final $r = $callSync(737, $W()..h(this));
+    final $r = $callSync(740, $W()..h(this));
     return $r.hn($pb13.Libp2pP2pProtocolAutonatv2PbDialDataRequest.$h);
   }
 
   /// Go: type assertion `x.(*pb.DialDataResponse)`: null if the object is not one.
   $pb13.Libp2pP2pProtocolAutonatv2PbDialDataResponse?
       asLibp2pP2pProtocolAutonatv2PbDialDataResponse() {
-    final $r = $callSync(738, $W()..h(this));
+    final $r = $callSync(741, $W()..h(this));
     return $r.hn($pb13.Libp2pP2pProtocolAutonatv2PbDialDataResponse.$h);
   }
 
   /// Go: type assertion `x.(*pb.DialRequest)`: null if the object is not one.
   $pb13.Libp2pP2pProtocolAutonatv2PbDialRequest?
       asLibp2pP2pProtocolAutonatv2PbDialRequest() {
-    final $r = $callSync(739, $W()..h(this));
+    final $r = $callSync(742, $W()..h(this));
     return $r.hn($pb13.Libp2pP2pProtocolAutonatv2PbDialRequest.$h);
   }
 
   /// Go: type assertion `x.(*pb.DialResponse)`: null if the object is not one.
   $pb13.Libp2pP2pProtocolAutonatv2PbDialResponse?
       asLibp2pP2pProtocolAutonatv2PbDialResponse() {
-    final $r = $callSync(740, $W()..h(this));
+    final $r = $callSync(743, $W()..h(this));
     return $r.hn($pb13.Libp2pP2pProtocolAutonatv2PbDialResponse.$h);
   }
 
   /// Go: type assertion `x.(*pb.Message)`: null if the object is not one.
   $pb13.Libp2pP2pProtocolAutonatv2PbMessage?
       asLibp2pP2pProtocolAutonatv2PbMessage() {
-    final $r = $callSync(741, $W()..h(this));
+    final $r = $callSync(744, $W()..h(this));
     return $r.hn($pb13.Libp2pP2pProtocolAutonatv2PbMessage.$h);
   }
 
   /// Go: type assertion `x.(*pb.HopMessage)`: null if the object is not one.
   $pb14.Libp2pP2pProtocolCircuitv2PbHopMessage?
       asLibp2pP2pProtocolCircuitv2PbHopMessage() {
-    final $r = $callSync(742, $W()..h(this));
+    final $r = $callSync(745, $W()..h(this));
     return $r.hn($pb14.Libp2pP2pProtocolCircuitv2PbHopMessage.$h);
   }
 
   /// Go: type assertion `x.(*pb.Limit)`: null if the object is not one.
   $pb14.Libp2pP2pProtocolCircuitv2PbLimit?
       asLibp2pP2pProtocolCircuitv2PbLimit() {
-    final $r = $callSync(743, $W()..h(this));
+    final $r = $callSync(746, $W()..h(this));
     return $r.hn($pb14.Libp2pP2pProtocolCircuitv2PbLimit.$h);
   }
 
   /// Go: type assertion `x.(*pb.Peer)`: null if the object is not one.
   $pb14.Libp2pP2pProtocolCircuitv2PbPeer? asLibp2pP2pProtocolCircuitv2PbPeer() {
-    final $r = $callSync(744, $W()..h(this));
+    final $r = $callSync(747, $W()..h(this));
     return $r.hn($pb14.Libp2pP2pProtocolCircuitv2PbPeer.$h);
   }
 
   /// Go: type assertion `x.(*pb.Reservation)`: null if the object is not one.
   $pb14.Libp2pP2pProtocolCircuitv2PbReservation?
       asLibp2pP2pProtocolCircuitv2PbReservation() {
-    final $r = $callSync(745, $W()..h(this));
+    final $r = $callSync(748, $W()..h(this));
     return $r.hn($pb14.Libp2pP2pProtocolCircuitv2PbReservation.$h);
   }
 
   /// Go: type assertion `x.(*pb.ReservationVoucher)`: null if the object is not one.
   $pb14.Libp2pP2pProtocolCircuitv2PbReservationVoucher?
       asLibp2pP2pProtocolCircuitv2PbReservationVoucher() {
-    final $r = $callSync(746, $W()..h(this));
+    final $r = $callSync(749, $W()..h(this));
     return $r.hn($pb14.Libp2pP2pProtocolCircuitv2PbReservationVoucher.$h);
   }
 
   /// Go: type assertion `x.(*pb.StopMessage)`: null if the object is not one.
   $pb14.Libp2pP2pProtocolCircuitv2PbStopMessage?
       asLibp2pP2pProtocolCircuitv2PbStopMessage() {
-    final $r = $callSync(747, $W()..h(this));
+    final $r = $callSync(750, $W()..h(this));
     return $r.hn($pb14.Libp2pP2pProtocolCircuitv2PbStopMessage.$h);
   }
 
   /// Go: type assertion `x.(*pb.HolePunch)`: null if the object is not one.
   $pb15.Libp2pP2pProtocolHolepunchPbHolePunch?
       asLibp2pP2pProtocolHolepunchPbHolePunch() {
-    final $r = $callSync(748, $W()..h(this));
+    final $r = $callSync(751, $W()..h(this));
     return $r.hn($pb15.Libp2pP2pProtocolHolepunchPbHolePunch.$h);
   }
 
   /// Go: type assertion `x.(*pb.Identify)`: null if the object is not one.
   $pb16.Libp2pP2pProtocolIdentifyPbIdentify?
       asLibp2pP2pProtocolIdentifyPbIdentify() {
-    final $r = $callSync(749, $W()..h(this));
+    final $r = $callSync(752, $W()..h(this));
     return $r.hn($pb16.Libp2pP2pProtocolIdentifyPbIdentify.$h);
   }
 
   /// Go: type assertion `x.(*pb.Exchange)`: null if the object is not one.
   $pb17.Libp2pP2pSecurityInsecurePbExchange?
       asLibp2pP2pSecurityInsecurePbExchange() {
-    final $r = $callSync(750, $W()..h(this));
+    final $r = $callSync(753, $W()..h(this));
     return $r.hn($pb17.Libp2pP2pSecurityInsecurePbExchange.$h);
   }
 
   /// Go: type assertion `x.(*pb.NoiseExtensions)`: null if the object is not one.
   $pb18.Libp2pP2pSecurityNoisePbNoiseExtensions?
       asLibp2pP2pSecurityNoisePbNoiseExtensions() {
-    final $r = $callSync(751, $W()..h(this));
+    final $r = $callSync(754, $W()..h(this));
     return $r.hn($pb18.Libp2pP2pSecurityNoisePbNoiseExtensions.$h);
   }
 
   /// Go: type assertion `x.(*pb.NoiseHandshakePayload)`: null if the object is not one.
   $pb18.Libp2pP2pSecurityNoisePbNoiseHandshakePayload?
       asLibp2pP2pSecurityNoisePbNoiseHandshakePayload() {
-    final $r = $callSync(752, $W()..h(this));
+    final $r = $callSync(755, $W()..h(this));
     return $r.hn($pb18.Libp2pP2pSecurityNoisePbNoiseHandshakePayload.$h);
   }
 
   /// Go: type assertion `x.(*pb.Message)`: null if the object is not one.
   $pb19.Libp2pP2pTransportWebrtcPbMessage?
       asLibp2pP2pTransportWebrtcPbMessage() {
-    final $r = $callSync(753, $W()..h(this));
+    final $r = $callSync(756, $W()..h(this));
     return $r.hn($pb19.Libp2pP2pTransportWebrtcPbMessage.$h);
   }
 
   /// Go: type assertion `x.(*io_prometheus_client.Bucket)`: null if the object is not one.
   $go.ClientModelGoBucket? asClientModelGoBucket() {
-    final $r = $callSync(754, $W()..h(this));
+    final $r = $callSync(757, $W()..h(this));
     return $r.hn($go.ClientModelGoBucket.$h);
   }
 
   /// Go: type assertion `x.(*io_prometheus_client.BucketSpan)`: null if the object is not one.
   $go.ClientModelGoBucketSpan? asClientModelGoBucketSpan() {
-    final $r = $callSync(755, $W()..h(this));
+    final $r = $callSync(758, $W()..h(this));
     return $r.hn($go.ClientModelGoBucketSpan.$h);
   }
 
   /// Go: type assertion `x.(*io_prometheus_client.Counter)`: null if the object is not one.
   $go.ClientModelGoCounter? asClientModelGoCounter() {
-    final $r = $callSync(756, $W()..h(this));
+    final $r = $callSync(759, $W()..h(this));
     return $r.hn($go.ClientModelGoCounter.$h);
   }
 
   /// Go: type assertion `x.(*io_prometheus_client.Exemplar)`: null if the object is not one.
   $go.ClientModelGoExemplar? asClientModelGoExemplar() {
-    final $r = $callSync(757, $W()..h(this));
+    final $r = $callSync(760, $W()..h(this));
     return $r.hn($go.ClientModelGoExemplar.$h);
   }
 
   /// Go: type assertion `x.(*io_prometheus_client.Gauge)`: null if the object is not one.
   $go.ClientModelGoGauge? asClientModelGoGauge() {
-    final $r = $callSync(758, $W()..h(this));
+    final $r = $callSync(761, $W()..h(this));
     return $r.hn($go.ClientModelGoGauge.$h);
   }
 
   /// Go: type assertion `x.(*io_prometheus_client.Histogram)`: null if the object is not one.
   $go.ClientModelGoHistogram? asClientModelGoHistogram() {
-    final $r = $callSync(759, $W()..h(this));
+    final $r = $callSync(762, $W()..h(this));
     return $r.hn($go.ClientModelGoHistogram.$h);
   }
 
   /// Go: type assertion `x.(*io_prometheus_client.LabelPair)`: null if the object is not one.
   $go.ClientModelGoLabelPair? asClientModelGoLabelPair() {
-    final $r = $callSync(760, $W()..h(this));
+    final $r = $callSync(763, $W()..h(this));
     return $r.hn($go.ClientModelGoLabelPair.$h);
   }
 
   /// Go: type assertion `x.(*io_prometheus_client.Metric)`: null if the object is not one.
   $go.ClientModelGoMetric? asClientModelGoMetric() {
-    final $r = $callSync(761, $W()..h(this));
+    final $r = $callSync(764, $W()..h(this));
     return $r.hn($go.ClientModelGoMetric.$h);
   }
 
   /// Go: type assertion `x.(*io_prometheus_client.MetricFamily)`: null if the object is not one.
   $go.ClientModelGoMetricFamily? asClientModelGoMetricFamily() {
-    final $r = $callSync(762, $W()..h(this));
+    final $r = $callSync(765, $W()..h(this));
     return $r.hn($go.ClientModelGoMetricFamily.$h);
   }
 
   /// Go: type assertion `x.(*io_prometheus_client.Quantile)`: null if the object is not one.
   $go.ClientModelGoQuantile? asClientModelGoQuantile() {
-    final $r = $callSync(763, $W()..h(this));
+    final $r = $callSync(766, $W()..h(this));
     return $r.hn($go.ClientModelGoQuantile.$h);
   }
 
   /// Go: type assertion `x.(*io_prometheus_client.Summary)`: null if the object is not one.
   $go.ClientModelGoSummary? asClientModelGoSummary() {
-    final $r = $callSync(764, $W()..h(this));
+    final $r = $callSync(767, $W()..h(this));
     return $r.hn($go.ClientModelGoSummary.$h);
   }
 
   /// Go: type assertion `x.(*io_prometheus_client.Untyped)`: null if the object is not one.
   $go.ClientModelGoUntyped? asClientModelGoUntyped() {
-    final $r = $callSync(765, $W()..h(this));
+    final $r = $callSync(768, $W()..h(this));
     return $r.hn($go.ClientModelGoUntyped.$h);
   }
 
   /// Go: type assertion `x.(*v1.ExportTracePartialSuccess)`: null if the object is not one.
   $v1.OtlpCollectorTraceV1ExportTracePartialSuccess?
       asOtlpCollectorTraceV1ExportTracePartialSuccess() {
-    final $r = $callSync(766, $W()..h(this));
+    final $r = $callSync(769, $W()..h(this));
     return $r.hn($v1.OtlpCollectorTraceV1ExportTracePartialSuccess.$h);
   }
 
   /// Go: type assertion `x.(*v1.ExportTraceServiceRequest)`: null if the object is not one.
   $v1.OtlpCollectorTraceV1ExportTraceServiceRequest?
       asOtlpCollectorTraceV1ExportTraceServiceRequest() {
-    final $r = $callSync(767, $W()..h(this));
+    final $r = $callSync(770, $W()..h(this));
     return $r.hn($v1.OtlpCollectorTraceV1ExportTraceServiceRequest.$h);
   }
 
   /// Go: type assertion `x.(*v1.ExportTraceServiceResponse)`: null if the object is not one.
   $v1.OtlpCollectorTraceV1ExportTraceServiceResponse?
       asOtlpCollectorTraceV1ExportTraceServiceResponse() {
-    final $r = $callSync(768, $W()..h(this));
+    final $r = $callSync(771, $W()..h(this));
     return $r.hn($v1.OtlpCollectorTraceV1ExportTraceServiceResponse.$h);
   }
 
   /// Go: type assertion `x.(*v1.AnyValue)`: null if the object is not one.
   $v12.OtlpCommonV1AnyValue? asOtlpCommonV1AnyValue() {
-    final $r = $callSync(769, $W()..h(this));
+    final $r = $callSync(772, $W()..h(this));
     return $r.hn($v12.OtlpCommonV1AnyValue.$h);
   }
 
   /// Go: type assertion `x.(*v1.ArrayValue)`: null if the object is not one.
   $v12.OtlpCommonV1ArrayValue? asOtlpCommonV1ArrayValue() {
-    final $r = $callSync(770, $W()..h(this));
+    final $r = $callSync(773, $W()..h(this));
     return $r.hn($v12.OtlpCommonV1ArrayValue.$h);
   }
 
   /// Go: type assertion `x.(*v1.EntityRef)`: null if the object is not one.
   $v12.OtlpCommonV1EntityRef? asOtlpCommonV1EntityRef() {
-    final $r = $callSync(771, $W()..h(this));
+    final $r = $callSync(774, $W()..h(this));
     return $r.hn($v12.OtlpCommonV1EntityRef.$h);
   }
 
   /// Go: type assertion `x.(*v1.InstrumentationScope)`: null if the object is not one.
   $v12.OtlpCommonV1InstrumentationScope? asOtlpCommonV1InstrumentationScope() {
-    final $r = $callSync(772, $W()..h(this));
+    final $r = $callSync(775, $W()..h(this));
     return $r.hn($v12.OtlpCommonV1InstrumentationScope.$h);
   }
 
   /// Go: type assertion `x.(*v1.KeyValue)`: null if the object is not one.
   $v12.OtlpCommonV1KeyValue? asOtlpCommonV1KeyValue() {
-    final $r = $callSync(773, $W()..h(this));
+    final $r = $callSync(776, $W()..h(this));
     return $r.hn($v12.OtlpCommonV1KeyValue.$h);
   }
 
   /// Go: type assertion `x.(*v1.KeyValueList)`: null if the object is not one.
   $v12.OtlpCommonV1KeyValueList? asOtlpCommonV1KeyValueList() {
-    final $r = $callSync(774, $W()..h(this));
+    final $r = $callSync(777, $W()..h(this));
     return $r.hn($v12.OtlpCommonV1KeyValueList.$h);
   }
 
   /// Go: type assertion `x.(*v1.Resource)`: null if the object is not one.
   $v13.OtlpResourceV1Resource? asOtlpResourceV1Resource() {
-    final $r = $callSync(775, $W()..h(this));
+    final $r = $callSync(778, $W()..h(this));
     return $r.hn($v13.OtlpResourceV1Resource.$h);
   }
 
   /// Go: type assertion `x.(*v1.ResourceSpans)`: null if the object is not one.
   $v14.OtlpTraceV1ResourceSpans? asOtlpTraceV1ResourceSpans() {
-    final $r = $callSync(776, $W()..h(this));
+    final $r = $callSync(779, $W()..h(this));
     return $r.hn($v14.OtlpTraceV1ResourceSpans.$h);
   }
 
   /// Go: type assertion `x.(*v1.ScopeSpans)`: null if the object is not one.
   $v14.OtlpTraceV1ScopeSpans? asOtlpTraceV1ScopeSpans() {
-    final $r = $callSync(777, $W()..h(this));
+    final $r = $callSync(780, $W()..h(this));
     return $r.hn($v14.OtlpTraceV1ScopeSpans.$h);
   }
 
   /// Go: type assertion `x.(*v1.Span)`: null if the object is not one.
   $v14.OtlpTraceV1Span? asOtlpTraceV1Span() {
-    final $r = $callSync(778, $W()..h(this));
+    final $r = $callSync(781, $W()..h(this));
     return $r.hn($v14.OtlpTraceV1Span.$h);
   }
 
   /// Go: type assertion `x.(*v1.Span_Event)`: null if the object is not one.
   $v14.OtlpTraceV1SpanEvent? asOtlpTraceV1SpanEvent() {
-    final $r = $callSync(779, $W()..h(this));
+    final $r = $callSync(782, $W()..h(this));
     return $r.hn($v14.OtlpTraceV1SpanEvent.$h);
   }
 
   /// Go: type assertion `x.(*v1.Span_Link)`: null if the object is not one.
   $v14.OtlpTraceV1SpanLink? asOtlpTraceV1SpanLink() {
-    final $r = $callSync(780, $W()..h(this));
+    final $r = $callSync(783, $W()..h(this));
     return $r.hn($v14.OtlpTraceV1SpanLink.$h);
   }
 
   /// Go: type assertion `x.(*v1.Status)`: null if the object is not one.
   $v14.OtlpTraceV1Status? asOtlpTraceV1Status() {
-    final $r = $callSync(781, $W()..h(this));
+    final $r = $callSync(784, $W()..h(this));
     return $r.hn($v14.OtlpTraceV1Status.$h);
   }
 
   /// Go: type assertion `x.(*v1.TracesData)`: null if the object is not one.
   $v14.OtlpTraceV1TracesData? asOtlpTraceV1TracesData() {
-    final $r = $callSync(782, $W()..h(this));
+    final $r = $callSync(785, $W()..h(this));
     return $r.hn($v14.OtlpTraceV1TracesData.$h);
   }
 
   /// Go: type assertion `x.(*httpbody.HttpBody)`: null if the object is not one.
   $httpbody.GenprotoGoogleapisApiHttpbodyHttpBody?
       asGenprotoGoogleapisApiHttpbodyHttpBody() {
-    final $r = $callSync(783, $W()..h(this));
+    final $r = $callSync(786, $W()..h(this));
     return $r.hn($httpbody.GenprotoGoogleapisApiHttpbodyHttpBody.$h);
   }
 
   /// Go: type assertion `x.(*errdetails.BadRequest)`: null if the object is not one.
   $errdetails.GenprotoGoogleapisRpcErrdetailsBadRequest?
       asGenprotoGoogleapisRpcErrdetailsBadRequest() {
-    final $r = $callSync(784, $W()..h(this));
+    final $r = $callSync(787, $W()..h(this));
     return $r.hn($errdetails.GenprotoGoogleapisRpcErrdetailsBadRequest.$h);
   }
 
   /// Go: type assertion `x.(*errdetails.BadRequest_FieldViolation)`: null if the object is not one.
   $errdetails.GenprotoGoogleapisRpcErrdetailsBadRequestFieldViolation?
       asGenprotoGoogleapisRpcErrdetailsBadRequestFieldViolation() {
-    final $r = $callSync(785, $W()..h(this));
+    final $r = $callSync(788, $W()..h(this));
     return $r.hn(
         $errdetails.GenprotoGoogleapisRpcErrdetailsBadRequestFieldViolation.$h);
   }
@@ -3875,35 +3875,35 @@ mixin ProtobufProtocGenGogoDescriptorMessage$ on GoHandle {
   /// Go: type assertion `x.(*errdetails.DebugInfo)`: null if the object is not one.
   $errdetails.GenprotoGoogleapisRpcErrdetailsDebugInfo?
       asGenprotoGoogleapisRpcErrdetailsDebugInfo() {
-    final $r = $callSync(786, $W()..h(this));
+    final $r = $callSync(789, $W()..h(this));
     return $r.hn($errdetails.GenprotoGoogleapisRpcErrdetailsDebugInfo.$h);
   }
 
   /// Go: type assertion `x.(*errdetails.ErrorInfo)`: null if the object is not one.
   $errdetails.GenprotoGoogleapisRpcErrdetailsErrorInfo?
       asGenprotoGoogleapisRpcErrdetailsErrorInfo() {
-    final $r = $callSync(787, $W()..h(this));
+    final $r = $callSync(790, $W()..h(this));
     return $r.hn($errdetails.GenprotoGoogleapisRpcErrdetailsErrorInfo.$h);
   }
 
   /// Go: type assertion `x.(*errdetails.Help)`: null if the object is not one.
   $errdetails.GenprotoGoogleapisRpcErrdetailsHelp?
       asGenprotoGoogleapisRpcErrdetailsHelp() {
-    final $r = $callSync(788, $W()..h(this));
+    final $r = $callSync(791, $W()..h(this));
     return $r.hn($errdetails.GenprotoGoogleapisRpcErrdetailsHelp.$h);
   }
 
   /// Go: type assertion `x.(*errdetails.Help_Link)`: null if the object is not one.
   $errdetails.GenprotoGoogleapisRpcErrdetailsHelpLink?
       asGenprotoGoogleapisRpcErrdetailsHelpLink() {
-    final $r = $callSync(789, $W()..h(this));
+    final $r = $callSync(792, $W()..h(this));
     return $r.hn($errdetails.GenprotoGoogleapisRpcErrdetailsHelpLink.$h);
   }
 
   /// Go: type assertion `x.(*errdetails.LocalizedMessage)`: null if the object is not one.
   $errdetails.GenprotoGoogleapisRpcErrdetailsLocalizedMessage?
       asGenprotoGoogleapisRpcErrdetailsLocalizedMessage() {
-    final $r = $callSync(790, $W()..h(this));
+    final $r = $callSync(793, $W()..h(this));
     return $r
         .hn($errdetails.GenprotoGoogleapisRpcErrdetailsLocalizedMessage.$h);
   }
@@ -3911,7 +3911,7 @@ mixin ProtobufProtocGenGogoDescriptorMessage$ on GoHandle {
   /// Go: type assertion `x.(*errdetails.PreconditionFailure)`: null if the object is not one.
   $errdetails.GenprotoGoogleapisRpcErrdetailsPreconditionFailure?
       asGenprotoGoogleapisRpcErrdetailsPreconditionFailure() {
-    final $r = $callSync(791, $W()..h(this));
+    final $r = $callSync(794, $W()..h(this));
     return $r
         .hn($errdetails.GenprotoGoogleapisRpcErrdetailsPreconditionFailure.$h);
   }
@@ -3919,7 +3919,7 @@ mixin ProtobufProtocGenGogoDescriptorMessage$ on GoHandle {
   /// Go: type assertion `x.(*errdetails.PreconditionFailure_Violation)`: null if the object is not one.
   $errdetails.GenprotoGoogleapisRpcErrdetailsPreconditionFailureViolation?
       asGenprotoGoogleapisRpcErrdetailsPreconditionFailureViolation() {
-    final $r = $callSync(792, $W()..h(this));
+    final $r = $callSync(795, $W()..h(this));
     return $r.hn($errdetails
         .GenprotoGoogleapisRpcErrdetailsPreconditionFailureViolation.$h);
   }
@@ -3927,14 +3927,14 @@ mixin ProtobufProtocGenGogoDescriptorMessage$ on GoHandle {
   /// Go: type assertion `x.(*errdetails.QuotaFailure)`: null if the object is not one.
   $errdetails.GenprotoGoogleapisRpcErrdetailsQuotaFailure?
       asGenprotoGoogleapisRpcErrdetailsQuotaFailure() {
-    final $r = $callSync(793, $W()..h(this));
+    final $r = $callSync(796, $W()..h(this));
     return $r.hn($errdetails.GenprotoGoogleapisRpcErrdetailsQuotaFailure.$h);
   }
 
   /// Go: type assertion `x.(*errdetails.QuotaFailure_Violation)`: null if the object is not one.
   $errdetails.GenprotoGoogleapisRpcErrdetailsQuotaFailureViolation?
       asGenprotoGoogleapisRpcErrdetailsQuotaFailureViolation() {
-    final $r = $callSync(794, $W()..h(this));
+    final $r = $callSync(797, $W()..h(this));
     return $r.hn(
         $errdetails.GenprotoGoogleapisRpcErrdetailsQuotaFailureViolation.$h);
   }
@@ -3942,41 +3942,41 @@ mixin ProtobufProtocGenGogoDescriptorMessage$ on GoHandle {
   /// Go: type assertion `x.(*errdetails.RequestInfo)`: null if the object is not one.
   $errdetails.GenprotoGoogleapisRpcErrdetailsRequestInfo?
       asGenprotoGoogleapisRpcErrdetailsRequestInfo() {
-    final $r = $callSync(795, $W()..h(this));
+    final $r = $callSync(798, $W()..h(this));
     return $r.hn($errdetails.GenprotoGoogleapisRpcErrdetailsRequestInfo.$h);
   }
 
   /// Go: type assertion `x.(*errdetails.ResourceInfo)`: null if the object is not one.
   $errdetails.GenprotoGoogleapisRpcErrdetailsResourceInfo?
       asGenprotoGoogleapisRpcErrdetailsResourceInfo() {
-    final $r = $callSync(796, $W()..h(this));
+    final $r = $callSync(799, $W()..h(this));
     return $r.hn($errdetails.GenprotoGoogleapisRpcErrdetailsResourceInfo.$h);
   }
 
   /// Go: type assertion `x.(*errdetails.RetryInfo)`: null if the object is not one.
   $errdetails.GenprotoGoogleapisRpcErrdetailsRetryInfo?
       asGenprotoGoogleapisRpcErrdetailsRetryInfo() {
-    final $r = $callSync(797, $W()..h(this));
+    final $r = $callSync(800, $W()..h(this));
     return $r.hn($errdetails.GenprotoGoogleapisRpcErrdetailsRetryInfo.$h);
   }
 
   /// Go: type assertion `x.(*status.Status)`: null if the object is not one.
   $status.GenprotoGoogleapisRpcStatus? asGenprotoGoogleapisRpcStatus() {
-    final $r = $callSync(798, $W()..h(this));
+    final $r = $callSync(801, $W()..h(this));
     return $r.hn($status.GenprotoGoogleapisRpcStatus.$h);
   }
 
   /// Go: type assertion `x.(*grpc_binarylog_v1.Address)`: null if the object is not one.
   $grpc_binarylog_v1.GrpcBinarylogGrpcBinarylogV1Address?
       asGrpcBinarylogGrpcBinarylogV1Address() {
-    final $r = $callSync(799, $W()..h(this));
+    final $r = $callSync(802, $W()..h(this));
     return $r.hn($grpc_binarylog_v1.GrpcBinarylogGrpcBinarylogV1Address.$h);
   }
 
   /// Go: type assertion `x.(*grpc_binarylog_v1.ClientHeader)`: null if the object is not one.
   $grpc_binarylog_v1.GrpcBinarylogGrpcBinarylogV1ClientHeader?
       asGrpcBinarylogGrpcBinarylogV1ClientHeader() {
-    final $r = $callSync(800, $W()..h(this));
+    final $r = $callSync(803, $W()..h(this));
     return $r
         .hn($grpc_binarylog_v1.GrpcBinarylogGrpcBinarylogV1ClientHeader.$h);
   }
@@ -3984,7 +3984,7 @@ mixin ProtobufProtocGenGogoDescriptorMessage$ on GoHandle {
   /// Go: type assertion `x.(*grpc_binarylog_v1.GrpcLogEntry)`: null if the object is not one.
   $grpc_binarylog_v1.GrpcBinarylogGrpcBinarylogV1GrpcLogEntry?
       asGrpcBinarylogGrpcBinarylogV1GrpcLogEntry() {
-    final $r = $callSync(801, $W()..h(this));
+    final $r = $callSync(804, $W()..h(this));
     return $r
         .hn($grpc_binarylog_v1.GrpcBinarylogGrpcBinarylogV1GrpcLogEntry.$h);
   }
@@ -3992,21 +3992,21 @@ mixin ProtobufProtocGenGogoDescriptorMessage$ on GoHandle {
   /// Go: type assertion `x.(*grpc_binarylog_v1.Message)`: null if the object is not one.
   $grpc_binarylog_v1.GrpcBinarylogGrpcBinarylogV1Message?
       asGrpcBinarylogGrpcBinarylogV1Message() {
-    final $r = $callSync(802, $W()..h(this));
+    final $r = $callSync(805, $W()..h(this));
     return $r.hn($grpc_binarylog_v1.GrpcBinarylogGrpcBinarylogV1Message.$h);
   }
 
   /// Go: type assertion `x.(*grpc_binarylog_v1.Metadata)`: null if the object is not one.
   $grpc_binarylog_v1.GrpcBinarylogGrpcBinarylogV1Metadata?
       asGrpcBinarylogGrpcBinarylogV1Metadata() {
-    final $r = $callSync(803, $W()..h(this));
+    final $r = $callSync(806, $W()..h(this));
     return $r.hn($grpc_binarylog_v1.GrpcBinarylogGrpcBinarylogV1Metadata.$h);
   }
 
   /// Go: type assertion `x.(*grpc_binarylog_v1.MetadataEntry)`: null if the object is not one.
   $grpc_binarylog_v1.GrpcBinarylogGrpcBinarylogV1MetadataEntry?
       asGrpcBinarylogGrpcBinarylogV1MetadataEntry() {
-    final $r = $callSync(804, $W()..h(this));
+    final $r = $callSync(807, $W()..h(this));
     return $r
         .hn($grpc_binarylog_v1.GrpcBinarylogGrpcBinarylogV1MetadataEntry.$h);
   }
@@ -4014,7 +4014,7 @@ mixin ProtobufProtocGenGogoDescriptorMessage$ on GoHandle {
   /// Go: type assertion `x.(*grpc_binarylog_v1.ServerHeader)`: null if the object is not one.
   $grpc_binarylog_v1.GrpcBinarylogGrpcBinarylogV1ServerHeader?
       asGrpcBinarylogGrpcBinarylogV1ServerHeader() {
-    final $r = $callSync(805, $W()..h(this));
+    final $r = $callSync(808, $W()..h(this));
     return $r
         .hn($grpc_binarylog_v1.GrpcBinarylogGrpcBinarylogV1ServerHeader.$h);
   }
@@ -4022,49 +4022,49 @@ mixin ProtobufProtocGenGogoDescriptorMessage$ on GoHandle {
   /// Go: type assertion `x.(*grpc_binarylog_v1.Trailer)`: null if the object is not one.
   $grpc_binarylog_v1.GrpcBinarylogGrpcBinarylogV1Trailer?
       asGrpcBinarylogGrpcBinarylogV1Trailer() {
-    final $r = $callSync(806, $W()..h(this));
+    final $r = $callSync(809, $W()..h(this));
     return $r.hn($grpc_binarylog_v1.GrpcBinarylogGrpcBinarylogV1Trailer.$h);
   }
 
   /// Go: type assertion `x.(*grpc_health_v1.HealthCheckRequest)`: null if the object is not one.
   $grpc_health_v1.GrpcHealthGrpcHealthV1HealthCheckRequest?
       asGrpcHealthGrpcHealthV1HealthCheckRequest() {
-    final $r = $callSync(807, $W()..h(this));
+    final $r = $callSync(810, $W()..h(this));
     return $r.hn($grpc_health_v1.GrpcHealthGrpcHealthV1HealthCheckRequest.$h);
   }
 
   /// Go: type assertion `x.(*grpc_health_v1.HealthCheckResponse)`: null if the object is not one.
   $grpc_health_v1.GrpcHealthGrpcHealthV1HealthCheckResponse?
       asGrpcHealthGrpcHealthV1HealthCheckResponse() {
-    final $r = $callSync(808, $W()..h(this));
+    final $r = $callSync(811, $W()..h(this));
     return $r.hn($grpc_health_v1.GrpcHealthGrpcHealthV1HealthCheckResponse.$h);
   }
 
   /// Go: type assertion `x.(*grpc_health_v1.HealthListRequest)`: null if the object is not one.
   $grpc_health_v1.GrpcHealthGrpcHealthV1HealthListRequest?
       asGrpcHealthGrpcHealthV1HealthListRequest() {
-    final $r = $callSync(809, $W()..h(this));
+    final $r = $callSync(812, $W()..h(this));
     return $r.hn($grpc_health_v1.GrpcHealthGrpcHealthV1HealthListRequest.$h);
   }
 
   /// Go: type assertion `x.(*grpc_health_v1.HealthListResponse)`: null if the object is not one.
   $grpc_health_v1.GrpcHealthGrpcHealthV1HealthListResponse?
       asGrpcHealthGrpcHealthV1HealthListResponse() {
-    final $r = $callSync(810, $W()..h(this));
+    final $r = $callSync(813, $W()..h(this));
     return $r.hn($grpc_health_v1.GrpcHealthGrpcHealthV1HealthListResponse.$h);
   }
 
   /// Go: type assertion `x.(*descriptorpb.DescriptorProto)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbDescriptorProto?
       asProtobufTypesDescriptorpbDescriptorProto() {
-    final $r = $callSync(811, $W()..h(this));
+    final $r = $callSync(814, $W()..h(this));
     return $r.hn($descriptorpb.ProtobufTypesDescriptorpbDescriptorProto.$h);
   }
 
   /// Go: type assertion `x.(*descriptorpb.DescriptorProto_ExtensionRange)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbDescriptorProtoExtensionRange?
       asProtobufTypesDescriptorpbDescriptorProtoExtensionRange() {
-    final $r = $callSync(812, $W()..h(this));
+    final $r = $callSync(815, $W()..h(this));
     return $r.hn($descriptorpb
         .ProtobufTypesDescriptorpbDescriptorProtoExtensionRange.$h);
   }
@@ -4072,7 +4072,7 @@ mixin ProtobufProtocGenGogoDescriptorMessage$ on GoHandle {
   /// Go: type assertion `x.(*descriptorpb.DescriptorProto_ReservedRange)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbDescriptorProtoReservedRange?
       asProtobufTypesDescriptorpbDescriptorProtoReservedRange() {
-    final $r = $callSync(813, $W()..h(this));
+    final $r = $callSync(816, $W()..h(this));
     return $r.hn(
         $descriptorpb.ProtobufTypesDescriptorpbDescriptorProtoReservedRange.$h);
   }
@@ -4080,14 +4080,14 @@ mixin ProtobufProtocGenGogoDescriptorMessage$ on GoHandle {
   /// Go: type assertion `x.(*descriptorpb.EnumDescriptorProto)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbEnumDescriptorProto?
       asProtobufTypesDescriptorpbEnumDescriptorProto() {
-    final $r = $callSync(814, $W()..h(this));
+    final $r = $callSync(817, $W()..h(this));
     return $r.hn($descriptorpb.ProtobufTypesDescriptorpbEnumDescriptorProto.$h);
   }
 
   /// Go: type assertion `x.(*descriptorpb.EnumDescriptorProto_EnumReservedRange)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbEnumDescriptorProtoEnumReservedRange?
       asProtobufTypesDescriptorpbEnumDescriptorProtoEnumReservedRange() {
-    final $r = $callSync(815, $W()..h(this));
+    final $r = $callSync(818, $W()..h(this));
     return $r.hn($descriptorpb
         .ProtobufTypesDescriptorpbEnumDescriptorProtoEnumReservedRange.$h);
   }
@@ -4095,14 +4095,14 @@ mixin ProtobufProtocGenGogoDescriptorMessage$ on GoHandle {
   /// Go: type assertion `x.(*descriptorpb.EnumOptions)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbEnumOptions?
       asProtobufTypesDescriptorpbEnumOptions() {
-    final $r = $callSync(816, $W()..h(this));
+    final $r = $callSync(819, $W()..h(this));
     return $r.hn($descriptorpb.ProtobufTypesDescriptorpbEnumOptions.$h);
   }
 
   /// Go: type assertion `x.(*descriptorpb.EnumValueDescriptorProto)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbEnumValueDescriptorProto?
       asProtobufTypesDescriptorpbEnumValueDescriptorProto() {
-    final $r = $callSync(817, $W()..h(this));
+    final $r = $callSync(820, $W()..h(this));
     return $r
         .hn($descriptorpb.ProtobufTypesDescriptorpbEnumValueDescriptorProto.$h);
   }
@@ -4110,14 +4110,14 @@ mixin ProtobufProtocGenGogoDescriptorMessage$ on GoHandle {
   /// Go: type assertion `x.(*descriptorpb.EnumValueOptions)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbEnumValueOptions?
       asProtobufTypesDescriptorpbEnumValueOptions() {
-    final $r = $callSync(818, $W()..h(this));
+    final $r = $callSync(821, $W()..h(this));
     return $r.hn($descriptorpb.ProtobufTypesDescriptorpbEnumValueOptions.$h);
   }
 
   /// Go: type assertion `x.(*descriptorpb.ExtensionRangeOptions)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbExtensionRangeOptions?
       asProtobufTypesDescriptorpbExtensionRangeOptions() {
-    final $r = $callSync(819, $W()..h(this));
+    final $r = $callSync(822, $W()..h(this));
     return $r
         .hn($descriptorpb.ProtobufTypesDescriptorpbExtensionRangeOptions.$h);
   }
@@ -4125,7 +4125,7 @@ mixin ProtobufProtocGenGogoDescriptorMessage$ on GoHandle {
   /// Go: type assertion `x.(*descriptorpb.ExtensionRangeOptions_Declaration)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbExtensionRangeOptionsDeclaration?
       asProtobufTypesDescriptorpbExtensionRangeOptionsDeclaration() {
-    final $r = $callSync(820, $W()..h(this));
+    final $r = $callSync(823, $W()..h(this));
     return $r.hn($descriptorpb
         .ProtobufTypesDescriptorpbExtensionRangeOptionsDeclaration.$h);
   }
@@ -4133,14 +4133,14 @@ mixin ProtobufProtocGenGogoDescriptorMessage$ on GoHandle {
   /// Go: type assertion `x.(*descriptorpb.FeatureSet)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbFeatureSet?
       asProtobufTypesDescriptorpbFeatureSet() {
-    final $r = $callSync(821, $W()..h(this));
+    final $r = $callSync(824, $W()..h(this));
     return $r.hn($descriptorpb.ProtobufTypesDescriptorpbFeatureSet.$h);
   }
 
   /// Go: type assertion `x.(*descriptorpb.FeatureSetDefaults)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbFeatureSetDefaults?
       asProtobufTypesDescriptorpbFeatureSetDefaults() {
-    final $r = $callSync(822, $W()..h(this));
+    final $r = $callSync(825, $W()..h(this));
     return $r.hn($descriptorpb.ProtobufTypesDescriptorpbFeatureSetDefaults.$h);
   }
 
@@ -4148,7 +4148,7 @@ mixin ProtobufProtocGenGogoDescriptorMessage$ on GoHandle {
   $descriptorpb
       .ProtobufTypesDescriptorpbFeatureSetDefaultsFeatureSetEditionDefault?
       asProtobufTypesDescriptorpbFeatureSetDefaultsFeatureSetEditionDefault() {
-    final $r = $callSync(823, $W()..h(this));
+    final $r = $callSync(826, $W()..h(this));
     return $r.hn($descriptorpb
         .ProtobufTypesDescriptorpbFeatureSetDefaultsFeatureSetEditionDefault
         .$h);
@@ -4157,7 +4157,7 @@ mixin ProtobufProtocGenGogoDescriptorMessage$ on GoHandle {
   /// Go: type assertion `x.(*descriptorpb.FeatureSet_VisibilityFeature)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbFeatureSetVisibilityFeature?
       asProtobufTypesDescriptorpbFeatureSetVisibilityFeature() {
-    final $r = $callSync(824, $W()..h(this));
+    final $r = $callSync(827, $W()..h(this));
     return $r.hn(
         $descriptorpb.ProtobufTypesDescriptorpbFeatureSetVisibilityFeature.$h);
   }
@@ -4165,7 +4165,7 @@ mixin ProtobufProtocGenGogoDescriptorMessage$ on GoHandle {
   /// Go: type assertion `x.(*descriptorpb.FieldDescriptorProto)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbFieldDescriptorProto?
       asProtobufTypesDescriptorpbFieldDescriptorProto() {
-    final $r = $callSync(825, $W()..h(this));
+    final $r = $callSync(828, $W()..h(this));
     return $r
         .hn($descriptorpb.ProtobufTypesDescriptorpbFieldDescriptorProto.$h);
   }
@@ -4173,14 +4173,14 @@ mixin ProtobufProtocGenGogoDescriptorMessage$ on GoHandle {
   /// Go: type assertion `x.(*descriptorpb.FieldOptions)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbFieldOptions?
       asProtobufTypesDescriptorpbFieldOptions() {
-    final $r = $callSync(826, $W()..h(this));
+    final $r = $callSync(829, $W()..h(this));
     return $r.hn($descriptorpb.ProtobufTypesDescriptorpbFieldOptions.$h);
   }
 
   /// Go: type assertion `x.(*descriptorpb.FieldOptions_EditionDefault)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbFieldOptionsEditionDefault?
       asProtobufTypesDescriptorpbFieldOptionsEditionDefault() {
-    final $r = $callSync(827, $W()..h(this));
+    final $r = $callSync(830, $W()..h(this));
     return $r.hn(
         $descriptorpb.ProtobufTypesDescriptorpbFieldOptionsEditionDefault.$h);
   }
@@ -4188,7 +4188,7 @@ mixin ProtobufProtocGenGogoDescriptorMessage$ on GoHandle {
   /// Go: type assertion `x.(*descriptorpb.FieldOptions_FeatureSupport)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbFieldOptionsFeatureSupport?
       asProtobufTypesDescriptorpbFieldOptionsFeatureSupport() {
-    final $r = $callSync(828, $W()..h(this));
+    final $r = $callSync(831, $W()..h(this));
     return $r.hn(
         $descriptorpb.ProtobufTypesDescriptorpbFieldOptionsFeatureSupport.$h);
   }
@@ -4196,35 +4196,35 @@ mixin ProtobufProtocGenGogoDescriptorMessage$ on GoHandle {
   /// Go: type assertion `x.(*descriptorpb.FileDescriptorProto)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbFileDescriptorProto?
       asProtobufTypesDescriptorpbFileDescriptorProto() {
-    final $r = $callSync(829, $W()..h(this));
+    final $r = $callSync(832, $W()..h(this));
     return $r.hn($descriptorpb.ProtobufTypesDescriptorpbFileDescriptorProto.$h);
   }
 
   /// Go: type assertion `x.(*descriptorpb.FileDescriptorSet)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbFileDescriptorSet?
       asProtobufTypesDescriptorpbFileDescriptorSet() {
-    final $r = $callSync(830, $W()..h(this));
+    final $r = $callSync(833, $W()..h(this));
     return $r.hn($descriptorpb.ProtobufTypesDescriptorpbFileDescriptorSet.$h);
   }
 
   /// Go: type assertion `x.(*descriptorpb.FileOptions)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbFileOptions?
       asProtobufTypesDescriptorpbFileOptions() {
-    final $r = $callSync(831, $W()..h(this));
+    final $r = $callSync(834, $W()..h(this));
     return $r.hn($descriptorpb.ProtobufTypesDescriptorpbFileOptions.$h);
   }
 
   /// Go: type assertion `x.(*descriptorpb.GeneratedCodeInfo)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbGeneratedCodeInfo?
       asProtobufTypesDescriptorpbGeneratedCodeInfo() {
-    final $r = $callSync(832, $W()..h(this));
+    final $r = $callSync(835, $W()..h(this));
     return $r.hn($descriptorpb.ProtobufTypesDescriptorpbGeneratedCodeInfo.$h);
   }
 
   /// Go: type assertion `x.(*descriptorpb.GeneratedCodeInfo_Annotation)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbGeneratedCodeInfoAnnotation?
       asProtobufTypesDescriptorpbGeneratedCodeInfoAnnotation() {
-    final $r = $callSync(833, $W()..h(this));
+    final $r = $callSync(836, $W()..h(this));
     return $r.hn(
         $descriptorpb.ProtobufTypesDescriptorpbGeneratedCodeInfoAnnotation.$h);
   }
@@ -4232,14 +4232,14 @@ mixin ProtobufProtocGenGogoDescriptorMessage$ on GoHandle {
   /// Go: type assertion `x.(*descriptorpb.MessageOptions)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbMessageOptions?
       asProtobufTypesDescriptorpbMessageOptions() {
-    final $r = $callSync(834, $W()..h(this));
+    final $r = $callSync(837, $W()..h(this));
     return $r.hn($descriptorpb.ProtobufTypesDescriptorpbMessageOptions.$h);
   }
 
   /// Go: type assertion `x.(*descriptorpb.MethodDescriptorProto)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbMethodDescriptorProto?
       asProtobufTypesDescriptorpbMethodDescriptorProto() {
-    final $r = $callSync(835, $W()..h(this));
+    final $r = $callSync(838, $W()..h(this));
     return $r
         .hn($descriptorpb.ProtobufTypesDescriptorpbMethodDescriptorProto.$h);
   }
@@ -4247,14 +4247,14 @@ mixin ProtobufProtocGenGogoDescriptorMessage$ on GoHandle {
   /// Go: type assertion `x.(*descriptorpb.MethodOptions)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbMethodOptions?
       asProtobufTypesDescriptorpbMethodOptions() {
-    final $r = $callSync(836, $W()..h(this));
+    final $r = $callSync(839, $W()..h(this));
     return $r.hn($descriptorpb.ProtobufTypesDescriptorpbMethodOptions.$h);
   }
 
   /// Go: type assertion `x.(*descriptorpb.OneofDescriptorProto)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbOneofDescriptorProto?
       asProtobufTypesDescriptorpbOneofDescriptorProto() {
-    final $r = $callSync(837, $W()..h(this));
+    final $r = $callSync(840, $W()..h(this));
     return $r
         .hn($descriptorpb.ProtobufTypesDescriptorpbOneofDescriptorProto.$h);
   }
@@ -4262,14 +4262,14 @@ mixin ProtobufProtocGenGogoDescriptorMessage$ on GoHandle {
   /// Go: type assertion `x.(*descriptorpb.OneofOptions)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbOneofOptions?
       asProtobufTypesDescriptorpbOneofOptions() {
-    final $r = $callSync(838, $W()..h(this));
+    final $r = $callSync(841, $W()..h(this));
     return $r.hn($descriptorpb.ProtobufTypesDescriptorpbOneofOptions.$h);
   }
 
   /// Go: type assertion `x.(*descriptorpb.ServiceDescriptorProto)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbServiceDescriptorProto?
       asProtobufTypesDescriptorpbServiceDescriptorProto() {
-    final $r = $callSync(839, $W()..h(this));
+    final $r = $callSync(842, $W()..h(this));
     return $r
         .hn($descriptorpb.ProtobufTypesDescriptorpbServiceDescriptorProto.$h);
   }
@@ -4277,21 +4277,21 @@ mixin ProtobufProtocGenGogoDescriptorMessage$ on GoHandle {
   /// Go: type assertion `x.(*descriptorpb.ServiceOptions)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbServiceOptions?
       asProtobufTypesDescriptorpbServiceOptions() {
-    final $r = $callSync(840, $W()..h(this));
+    final $r = $callSync(843, $W()..h(this));
     return $r.hn($descriptorpb.ProtobufTypesDescriptorpbServiceOptions.$h);
   }
 
   /// Go: type assertion `x.(*descriptorpb.SourceCodeInfo)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbSourceCodeInfo?
       asProtobufTypesDescriptorpbSourceCodeInfo() {
-    final $r = $callSync(841, $W()..h(this));
+    final $r = $callSync(844, $W()..h(this));
     return $r.hn($descriptorpb.ProtobufTypesDescriptorpbSourceCodeInfo.$h);
   }
 
   /// Go: type assertion `x.(*descriptorpb.SourceCodeInfo_Location)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbSourceCodeInfoLocation?
       asProtobufTypesDescriptorpbSourceCodeInfoLocation() {
-    final $r = $callSync(842, $W()..h(this));
+    final $r = $callSync(845, $W()..h(this));
     return $r
         .hn($descriptorpb.ProtobufTypesDescriptorpbSourceCodeInfoLocation.$h);
   }
@@ -4299,14 +4299,14 @@ mixin ProtobufProtocGenGogoDescriptorMessage$ on GoHandle {
   /// Go: type assertion `x.(*descriptorpb.UninterpretedOption)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbUninterpretedOption?
       asProtobufTypesDescriptorpbUninterpretedOption() {
-    final $r = $callSync(843, $W()..h(this));
+    final $r = $callSync(846, $W()..h(this));
     return $r.hn($descriptorpb.ProtobufTypesDescriptorpbUninterpretedOption.$h);
   }
 
   /// Go: type assertion `x.(*descriptorpb.UninterpretedOption_NamePart)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbUninterpretedOptionNamePart?
       asProtobufTypesDescriptorpbUninterpretedOptionNamePart() {
-    final $r = $callSync(844, $W()..h(this));
+    final $r = $callSync(847, $W()..h(this));
     return $r.hn(
         $descriptorpb.ProtobufTypesDescriptorpbUninterpretedOptionNamePart.$h);
   }
@@ -4314,118 +4314,118 @@ mixin ProtobufProtocGenGogoDescriptorMessage$ on GoHandle {
   /// Go: type assertion `x.(*gofeaturespb.GoFeatures)`: null if the object is not one.
   $gofeaturespb.ProtobufTypesGofeaturespbGoFeatures?
       asProtobufTypesGofeaturespbGoFeatures() {
-    final $r = $callSync(845, $W()..h(this));
+    final $r = $callSync(848, $W()..h(this));
     return $r.hn($gofeaturespb.ProtobufTypesGofeaturespbGoFeatures.$h);
   }
 
   /// Go: type assertion `x.(*anypb.Any)`: null if the object is not one.
   $anypb.ProtobufTypesKnownAnypbAny? asProtobufTypesKnownAnypbAny() {
-    final $r = $callSync(846, $W()..h(this));
+    final $r = $callSync(849, $W()..h(this));
     return $r.hn($anypb.ProtobufTypesKnownAnypbAny.$h);
   }
 
   /// Go: type assertion `x.(*durationpb.Duration)`: null if the object is not one.
   $durationpb.ProtobufTypesKnownDurationpbDuration?
       asProtobufTypesKnownDurationpbDuration() {
-    final $r = $callSync(847, $W()..h(this));
+    final $r = $callSync(850, $W()..h(this));
     return $r.hn($durationpb.ProtobufTypesKnownDurationpbDuration.$h);
   }
 
   /// Go: type assertion `x.(*fieldmaskpb.FieldMask)`: null if the object is not one.
   $fieldmaskpb.ProtobufTypesKnownFieldmaskpbFieldMask?
       asProtobufTypesKnownFieldmaskpbFieldMask() {
-    final $r = $callSync(848, $W()..h(this));
+    final $r = $callSync(851, $W()..h(this));
     return $r.hn($fieldmaskpb.ProtobufTypesKnownFieldmaskpbFieldMask.$h);
   }
 
   /// Go: type assertion `x.(*structpb.ListValue)`: null if the object is not one.
   $structpb.ProtobufTypesKnownStructpbListValue?
       asProtobufTypesKnownStructpbListValue() {
-    final $r = $callSync(849, $W()..h(this));
+    final $r = $callSync(852, $W()..h(this));
     return $r.hn($structpb.ProtobufTypesKnownStructpbListValue.$h);
   }
 
   /// Go: type assertion `x.(*structpb.Struct)`: null if the object is not one.
   $structpb.ProtobufTypesKnownStructpbStruct?
       asProtobufTypesKnownStructpbStruct() {
-    final $r = $callSync(850, $W()..h(this));
+    final $r = $callSync(853, $W()..h(this));
     return $r.hn($structpb.ProtobufTypesKnownStructpbStruct.$h);
   }
 
   /// Go: type assertion `x.(*structpb.Value)`: null if the object is not one.
   $structpb.ProtobufTypesKnownStructpbValue?
       asProtobufTypesKnownStructpbValue() {
-    final $r = $callSync(851, $W()..h(this));
+    final $r = $callSync(854, $W()..h(this));
     return $r.hn($structpb.ProtobufTypesKnownStructpbValue.$h);
   }
 
   /// Go: type assertion `x.(*timestamppb.Timestamp)`: null if the object is not one.
   $timestamppb.ProtobufTypesKnownTimestamppbTimestamp?
       asProtobufTypesKnownTimestamppbTimestamp() {
-    final $r = $callSync(852, $W()..h(this));
+    final $r = $callSync(855, $W()..h(this));
     return $r.hn($timestamppb.ProtobufTypesKnownTimestamppbTimestamp.$h);
   }
 
   /// Go: type assertion `x.(*wrapperspb.BoolValue)`: null if the object is not one.
   $wrapperspb.ProtobufTypesKnownWrapperspbBoolValue?
       asProtobufTypesKnownWrapperspbBoolValue() {
-    final $r = $callSync(853, $W()..h(this));
+    final $r = $callSync(856, $W()..h(this));
     return $r.hn($wrapperspb.ProtobufTypesKnownWrapperspbBoolValue.$h);
   }
 
   /// Go: type assertion `x.(*wrapperspb.BytesValue)`: null if the object is not one.
   $wrapperspb.ProtobufTypesKnownWrapperspbBytesValue?
       asProtobufTypesKnownWrapperspbBytesValue() {
-    final $r = $callSync(854, $W()..h(this));
+    final $r = $callSync(857, $W()..h(this));
     return $r.hn($wrapperspb.ProtobufTypesKnownWrapperspbBytesValue.$h);
   }
 
   /// Go: type assertion `x.(*wrapperspb.DoubleValue)`: null if the object is not one.
   $wrapperspb.ProtobufTypesKnownWrapperspbDoubleValue?
       asProtobufTypesKnownWrapperspbDoubleValue() {
-    final $r = $callSync(855, $W()..h(this));
+    final $r = $callSync(858, $W()..h(this));
     return $r.hn($wrapperspb.ProtobufTypesKnownWrapperspbDoubleValue.$h);
   }
 
   /// Go: type assertion `x.(*wrapperspb.FloatValue)`: null if the object is not one.
   $wrapperspb.ProtobufTypesKnownWrapperspbFloatValue?
       asProtobufTypesKnownWrapperspbFloatValue() {
-    final $r = $callSync(856, $W()..h(this));
+    final $r = $callSync(859, $W()..h(this));
     return $r.hn($wrapperspb.ProtobufTypesKnownWrapperspbFloatValue.$h);
   }
 
   /// Go: type assertion `x.(*wrapperspb.Int32Value)`: null if the object is not one.
   $wrapperspb.ProtobufTypesKnownWrapperspbInt32Value?
       asProtobufTypesKnownWrapperspbInt32Value() {
-    final $r = $callSync(857, $W()..h(this));
+    final $r = $callSync(860, $W()..h(this));
     return $r.hn($wrapperspb.ProtobufTypesKnownWrapperspbInt32Value.$h);
   }
 
   /// Go: type assertion `x.(*wrapperspb.Int64Value)`: null if the object is not one.
   $wrapperspb.ProtobufTypesKnownWrapperspbInt64Value?
       asProtobufTypesKnownWrapperspbInt64Value() {
-    final $r = $callSync(858, $W()..h(this));
+    final $r = $callSync(861, $W()..h(this));
     return $r.hn($wrapperspb.ProtobufTypesKnownWrapperspbInt64Value.$h);
   }
 
   /// Go: type assertion `x.(*wrapperspb.StringValue)`: null if the object is not one.
   $wrapperspb.ProtobufTypesKnownWrapperspbStringValue?
       asProtobufTypesKnownWrapperspbStringValue() {
-    final $r = $callSync(859, $W()..h(this));
+    final $r = $callSync(862, $W()..h(this));
     return $r.hn($wrapperspb.ProtobufTypesKnownWrapperspbStringValue.$h);
   }
 
   /// Go: type assertion `x.(*wrapperspb.UInt32Value)`: null if the object is not one.
   $wrapperspb.ProtobufTypesKnownWrapperspbUInt32Value?
       asProtobufTypesKnownWrapperspbUInt32Value() {
-    final $r = $callSync(860, $W()..h(this));
+    final $r = $callSync(863, $W()..h(this));
     return $r.hn($wrapperspb.ProtobufTypesKnownWrapperspbUInt32Value.$h);
   }
 
   /// Go: type assertion `x.(*wrapperspb.UInt64Value)`: null if the object is not one.
   $wrapperspb.ProtobufTypesKnownWrapperspbUInt64Value?
       asProtobufTypesKnownWrapperspbUInt64Value() {
-    final $r = $callSync(861, $W()..h(this));
+    final $r = $callSync(864, $W()..h(this));
     return $r.hn($wrapperspb.ProtobufTypesKnownWrapperspbUInt64Value.$h);
   }
 }
@@ -4505,45 +4505,45 @@ final class ProtobufProtocGenGogoDescriptorMessageOptions implements GoDto {
 
   /// Go: `func (*descriptor.MessageOptions).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(7148, $W()..dto(this));
+    final $r = $callSync(7157, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptor.MessageOptions).ExtensionRangeArray() []proto.ExtensionRange`.
   List<$proto.ProtobufProtoExtensionRange> extensionRangeArray() {
-    final $r = $callSync(7149, $W()..dto(this));
+    final $r = $callSync(7158, $W()..dto(this));
     return $r.list(
         () => $r.p() ? $proto.ProtobufProtoExtensionRange.$dec($r) : $nil());
   }
 
   /// Go: `func (*descriptor.MessageOptions).GetDeprecated() bool`.
   bool getDeprecated() {
-    final $r = $callSync(7150, $W()..dto(this));
+    final $r = $callSync(7159, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptor.MessageOptions).GetMapEntry() bool`.
   bool getMapEntry() {
-    final $r = $callSync(7151, $W()..dto(this));
+    final $r = $callSync(7160, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptor.MessageOptions).GetMessageSetWireFormat() bool`.
   bool getMessageSetWireFormat() {
-    final $r = $callSync(7152, $W()..dto(this));
+    final $r = $callSync(7161, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptor.MessageOptions).GetNoStandardDescriptorAccessor() bool`.
   bool getNoStandardDescriptorAccessor() {
-    final $r = $callSync(7153, $W()..dto(this));
+    final $r = $callSync(7162, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptor.MessageOptions).GetUninterpretedOption() []*descriptor.UninterpretedOption`.
   List<ProtobufProtocGenGogoDescriptorUninterpretedOption>
       getUninterpretedOption() {
-    final $r = $callSync(7154, $W()..dto(this));
+    final $r = $callSync(7163, $W()..dto(this));
     return $r.list(() => $r.p()
         ? ProtobufProtocGenGogoDescriptorUninterpretedOption.$dec($r)
         : $nil());
@@ -4551,35 +4551,35 @@ final class ProtobufProtocGenGogoDescriptorMessageOptions implements GoDto {
 
   /// Go: `func (*descriptor.MessageOptions).GoString() string`.
   String goString() {
-    final $r = $callSync(7155, $W()..dto(this));
+    final $r = $callSync(7164, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.MessageOptions).ProtoMessage()`.
   void protoMessage() {
-    $callSync(7156, $W()..dto(this));
+    $callSync(7165, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.MessageOptions).Reset()`.
   void reset() {
-    $callSync(7157, $W()..dto(this));
+    $callSync(7166, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.MessageOptions).String() string`.
   String string() {
-    final $r = $callSync(7158, $W()..dto(this));
+    final $r = $callSync(7167, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.MessageOptions).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(7159, $W()..dto(this));
+    $callSync(7168, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.MessageOptions).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        7160,
+        7169,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -4590,7 +4590,7 @@ final class ProtobufProtocGenGogoDescriptorMessageOptions implements GoDto {
   /// Go: `func (*descriptor.MessageOptions).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        7161,
+        7170,
         $W()
           ..dto(this)
           ..h(src));
@@ -4598,14 +4598,14 @@ final class ProtobufProtocGenGogoDescriptorMessageOptions implements GoDto {
 
   /// Go: `func (*descriptor.MessageOptions).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(7162, $W()..dto(this));
+    final $r = $callSync(7171, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptor.MessageOptions).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        7163,
+        7172,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -4685,31 +4685,31 @@ final class ProtobufProtocGenGogoDescriptorMethodDescriptorProto
 
   /// Go: `func (*descriptor.MethodDescriptorProto).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(7164, $W()..dto(this));
+    final $r = $callSync(7173, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptor.MethodDescriptorProto).GetClientStreaming() bool`.
   bool getClientStreaming() {
-    final $r = $callSync(7165, $W()..dto(this));
+    final $r = $callSync(7174, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptor.MethodDescriptorProto).GetInputType() string`.
   String getInputType() {
-    final $r = $callSync(7166, $W()..dto(this));
+    final $r = $callSync(7175, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.MethodDescriptorProto).GetName() string`.
   String getName() {
-    final $r = $callSync(7167, $W()..dto(this));
+    final $r = $callSync(7176, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.MethodDescriptorProto).GetOptions() *descriptor.MethodOptions`.
   ProtobufProtocGenGogoDescriptorMethodOptions getOptions() {
-    final $r = $callSync(7168, $W()..dto(this));
+    final $r = $callSync(7177, $W()..dto(this));
     return $r.p()
         ? ProtobufProtocGenGogoDescriptorMethodOptions.$dec($r)
         : $nil();
@@ -4717,47 +4717,47 @@ final class ProtobufProtocGenGogoDescriptorMethodDescriptorProto
 
   /// Go: `func (*descriptor.MethodDescriptorProto).GetOutputType() string`.
   String getOutputType() {
-    final $r = $callSync(7169, $W()..dto(this));
+    final $r = $callSync(7178, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.MethodDescriptorProto).GetServerStreaming() bool`.
   bool getServerStreaming() {
-    final $r = $callSync(7170, $W()..dto(this));
+    final $r = $callSync(7179, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptor.MethodDescriptorProto).GoString() string`.
   String goString() {
-    final $r = $callSync(7171, $W()..dto(this));
+    final $r = $callSync(7180, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.MethodDescriptorProto).ProtoMessage()`.
   void protoMessage() {
-    $callSync(7172, $W()..dto(this));
+    $callSync(7181, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.MethodDescriptorProto).Reset()`.
   void reset() {
-    $callSync(7173, $W()..dto(this));
+    $callSync(7182, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.MethodDescriptorProto).String() string`.
   String string() {
-    final $r = $callSync(7174, $W()..dto(this));
+    final $r = $callSync(7183, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.MethodDescriptorProto).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(7175, $W()..dto(this));
+    $callSync(7184, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.MethodDescriptorProto).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        7176,
+        7185,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -4768,7 +4768,7 @@ final class ProtobufProtocGenGogoDescriptorMethodDescriptorProto
   /// Go: `func (*descriptor.MethodDescriptorProto).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        7177,
+        7186,
         $W()
           ..dto(this)
           ..h(src));
@@ -4776,14 +4776,14 @@ final class ProtobufProtocGenGogoDescriptorMethodDescriptorProto
 
   /// Go: `func (*descriptor.MethodDescriptorProto).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(7178, $W()..dto(this));
+    final $r = $callSync(7187, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptor.MethodDescriptorProto).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        7179,
+        7188,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -4844,33 +4844,33 @@ final class ProtobufProtocGenGogoDescriptorMethodOptions implements GoDto {
 
   /// Go: `func (*descriptor.MethodOptions).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(7180, $W()..dto(this));
+    final $r = $callSync(7189, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptor.MethodOptions).ExtensionRangeArray() []proto.ExtensionRange`.
   List<$proto.ProtobufProtoExtensionRange> extensionRangeArray() {
-    final $r = $callSync(7181, $W()..dto(this));
+    final $r = $callSync(7190, $W()..dto(this));
     return $r.list(
         () => $r.p() ? $proto.ProtobufProtoExtensionRange.$dec($r) : $nil());
   }
 
   /// Go: `func (*descriptor.MethodOptions).GetDeprecated() bool`.
   bool getDeprecated() {
-    final $r = $callSync(7182, $W()..dto(this));
+    final $r = $callSync(7191, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptor.MethodOptions).GetIdempotencyLevel() descriptor.MethodOptions_IdempotencyLevel`.
   int getIdempotencyLevel() {
-    final $r = $callSync(7183, $W()..dto(this));
+    final $r = $callSync(7192, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptor.MethodOptions).GetUninterpretedOption() []*descriptor.UninterpretedOption`.
   List<ProtobufProtocGenGogoDescriptorUninterpretedOption>
       getUninterpretedOption() {
-    final $r = $callSync(7184, $W()..dto(this));
+    final $r = $callSync(7193, $W()..dto(this));
     return $r.list(() => $r.p()
         ? ProtobufProtocGenGogoDescriptorUninterpretedOption.$dec($r)
         : $nil());
@@ -4878,35 +4878,35 @@ final class ProtobufProtocGenGogoDescriptorMethodOptions implements GoDto {
 
   /// Go: `func (*descriptor.MethodOptions).GoString() string`.
   String goString() {
-    final $r = $callSync(7185, $W()..dto(this));
+    final $r = $callSync(7194, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.MethodOptions).ProtoMessage()`.
   void protoMessage() {
-    $callSync(7186, $W()..dto(this));
+    $callSync(7195, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.MethodOptions).Reset()`.
   void reset() {
-    $callSync(7187, $W()..dto(this));
+    $callSync(7196, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.MethodOptions).String() string`.
   String string() {
-    final $r = $callSync(7188, $W()..dto(this));
+    final $r = $callSync(7197, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.MethodOptions).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(7189, $W()..dto(this));
+    $callSync(7198, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.MethodOptions).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        7190,
+        7199,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -4917,7 +4917,7 @@ final class ProtobufProtocGenGogoDescriptorMethodOptions implements GoDto {
   /// Go: `func (*descriptor.MethodOptions).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        7191,
+        7200,
         $W()
           ..dto(this)
           ..h(src));
@@ -4925,14 +4925,14 @@ final class ProtobufProtocGenGogoDescriptorMethodOptions implements GoDto {
 
   /// Go: `func (*descriptor.MethodOptions).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(7192, $W()..dto(this));
+    final $r = $callSync(7201, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptor.MethodOptions).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        7193,
+        7202,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -4984,19 +4984,19 @@ final class ProtobufProtocGenGogoDescriptorOneofDescriptorProto
 
   /// Go: `func (*descriptor.OneofDescriptorProto).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(7196, $W()..dto(this));
+    final $r = $callSync(7205, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptor.OneofDescriptorProto).GetName() string`.
   String getName() {
-    final $r = $callSync(7197, $W()..dto(this));
+    final $r = $callSync(7206, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.OneofDescriptorProto).GetOptions() *descriptor.OneofOptions`.
   ProtobufProtocGenGogoDescriptorOneofOptions getOptions() {
-    final $r = $callSync(7198, $W()..dto(this));
+    final $r = $callSync(7207, $W()..dto(this));
     return $r.p()
         ? ProtobufProtocGenGogoDescriptorOneofOptions.$dec($r)
         : $nil();
@@ -5004,35 +5004,35 @@ final class ProtobufProtocGenGogoDescriptorOneofDescriptorProto
 
   /// Go: `func (*descriptor.OneofDescriptorProto).GoString() string`.
   String goString() {
-    final $r = $callSync(7199, $W()..dto(this));
+    final $r = $callSync(7208, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.OneofDescriptorProto).ProtoMessage()`.
   void protoMessage() {
-    $callSync(7200, $W()..dto(this));
+    $callSync(7209, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.OneofDescriptorProto).Reset()`.
   void reset() {
-    $callSync(7201, $W()..dto(this));
+    $callSync(7210, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.OneofDescriptorProto).String() string`.
   String string() {
-    final $r = $callSync(7202, $W()..dto(this));
+    final $r = $callSync(7211, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.OneofDescriptorProto).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(7203, $W()..dto(this));
+    $callSync(7212, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.OneofDescriptorProto).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        7204,
+        7213,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -5043,7 +5043,7 @@ final class ProtobufProtocGenGogoDescriptorOneofDescriptorProto
   /// Go: `func (*descriptor.OneofDescriptorProto).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        7205,
+        7214,
         $W()
           ..dto(this)
           ..h(src));
@@ -5051,14 +5051,14 @@ final class ProtobufProtocGenGogoDescriptorOneofDescriptorProto
 
   /// Go: `func (*descriptor.OneofDescriptorProto).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(7206, $W()..dto(this));
+    final $r = $callSync(7215, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptor.OneofDescriptorProto).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        7207,
+        7216,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -5112,13 +5112,13 @@ final class ProtobufProtocGenGogoDescriptorOneofOptions implements GoDto {
 
   /// Go: `func (*descriptor.OneofOptions).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(7208, $W()..dto(this));
+    final $r = $callSync(7217, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptor.OneofOptions).ExtensionRangeArray() []proto.ExtensionRange`.
   List<$proto.ProtobufProtoExtensionRange> extensionRangeArray() {
-    final $r = $callSync(7209, $W()..dto(this));
+    final $r = $callSync(7218, $W()..dto(this));
     return $r.list(
         () => $r.p() ? $proto.ProtobufProtoExtensionRange.$dec($r) : $nil());
   }
@@ -5126,7 +5126,7 @@ final class ProtobufProtocGenGogoDescriptorOneofOptions implements GoDto {
   /// Go: `func (*descriptor.OneofOptions).GetUninterpretedOption() []*descriptor.UninterpretedOption`.
   List<ProtobufProtocGenGogoDescriptorUninterpretedOption>
       getUninterpretedOption() {
-    final $r = $callSync(7210, $W()..dto(this));
+    final $r = $callSync(7219, $W()..dto(this));
     return $r.list(() => $r.p()
         ? ProtobufProtocGenGogoDescriptorUninterpretedOption.$dec($r)
         : $nil());
@@ -5134,35 +5134,35 @@ final class ProtobufProtocGenGogoDescriptorOneofOptions implements GoDto {
 
   /// Go: `func (*descriptor.OneofOptions).GoString() string`.
   String goString() {
-    final $r = $callSync(7211, $W()..dto(this));
+    final $r = $callSync(7220, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.OneofOptions).ProtoMessage()`.
   void protoMessage() {
-    $callSync(7212, $W()..dto(this));
+    $callSync(7221, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.OneofOptions).Reset()`.
   void reset() {
-    $callSync(7213, $W()..dto(this));
+    $callSync(7222, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.OneofOptions).String() string`.
   String string() {
-    final $r = $callSync(7214, $W()..dto(this));
+    final $r = $callSync(7223, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.OneofOptions).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(7215, $W()..dto(this));
+    $callSync(7224, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.OneofOptions).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        7216,
+        7225,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -5173,7 +5173,7 @@ final class ProtobufProtocGenGogoDescriptorOneofOptions implements GoDto {
   /// Go: `func (*descriptor.OneofOptions).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        7217,
+        7226,
         $W()
           ..dto(this)
           ..h(src));
@@ -5181,14 +5181,14 @@ final class ProtobufProtocGenGogoDescriptorOneofOptions implements GoDto {
 
   /// Go: `func (*descriptor.OneofOptions).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(7218, $W()..dto(this));
+    final $r = $callSync(7227, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptor.OneofOptions).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        7219,
+        7228,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -5250,13 +5250,13 @@ final class ProtobufProtocGenGogoDescriptorServiceDescriptorProto
 
   /// Go: `func (*descriptor.ServiceDescriptorProto).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(7220, $W()..dto(this));
+    final $r = $callSync(7229, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptor.ServiceDescriptorProto).GetMethod() []*descriptor.MethodDescriptorProto`.
   List<ProtobufProtocGenGogoDescriptorMethodDescriptorProto> getMethod() {
-    final $r = $callSync(7221, $W()..dto(this));
+    final $r = $callSync(7230, $W()..dto(this));
     return $r.list(() => $r.p()
         ? ProtobufProtocGenGogoDescriptorMethodDescriptorProto.$dec($r)
         : $nil());
@@ -5264,13 +5264,13 @@ final class ProtobufProtocGenGogoDescriptorServiceDescriptorProto
 
   /// Go: `func (*descriptor.ServiceDescriptorProto).GetName() string`.
   String getName() {
-    final $r = $callSync(7222, $W()..dto(this));
+    final $r = $callSync(7231, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.ServiceDescriptorProto).GetOptions() *descriptor.ServiceOptions`.
   ProtobufProtocGenGogoDescriptorServiceOptions getOptions() {
-    final $r = $callSync(7223, $W()..dto(this));
+    final $r = $callSync(7232, $W()..dto(this));
     return $r.p()
         ? ProtobufProtocGenGogoDescriptorServiceOptions.$dec($r)
         : $nil();
@@ -5278,35 +5278,35 @@ final class ProtobufProtocGenGogoDescriptorServiceDescriptorProto
 
   /// Go: `func (*descriptor.ServiceDescriptorProto).GoString() string`.
   String goString() {
-    final $r = $callSync(7224, $W()..dto(this));
+    final $r = $callSync(7233, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.ServiceDescriptorProto).ProtoMessage()`.
   void protoMessage() {
-    $callSync(7225, $W()..dto(this));
+    $callSync(7234, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.ServiceDescriptorProto).Reset()`.
   void reset() {
-    $callSync(7226, $W()..dto(this));
+    $callSync(7235, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.ServiceDescriptorProto).String() string`.
   String string() {
-    final $r = $callSync(7227, $W()..dto(this));
+    final $r = $callSync(7236, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.ServiceDescriptorProto).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(7228, $W()..dto(this));
+    $callSync(7237, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.ServiceDescriptorProto).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        7229,
+        7238,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -5317,7 +5317,7 @@ final class ProtobufProtocGenGogoDescriptorServiceDescriptorProto
   /// Go: `func (*descriptor.ServiceDescriptorProto).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        7230,
+        7239,
         $W()
           ..dto(this)
           ..h(src));
@@ -5325,14 +5325,14 @@ final class ProtobufProtocGenGogoDescriptorServiceDescriptorProto
 
   /// Go: `func (*descriptor.ServiceDescriptorProto).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(7231, $W()..dto(this));
+    final $r = $callSync(7240, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptor.ServiceDescriptorProto).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        7232,
+        7241,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -5393,27 +5393,27 @@ final class ProtobufProtocGenGogoDescriptorServiceOptions implements GoDto {
 
   /// Go: `func (*descriptor.ServiceOptions).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(7233, $W()..dto(this));
+    final $r = $callSync(7242, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptor.ServiceOptions).ExtensionRangeArray() []proto.ExtensionRange`.
   List<$proto.ProtobufProtoExtensionRange> extensionRangeArray() {
-    final $r = $callSync(7234, $W()..dto(this));
+    final $r = $callSync(7243, $W()..dto(this));
     return $r.list(
         () => $r.p() ? $proto.ProtobufProtoExtensionRange.$dec($r) : $nil());
   }
 
   /// Go: `func (*descriptor.ServiceOptions).GetDeprecated() bool`.
   bool getDeprecated() {
-    final $r = $callSync(7235, $W()..dto(this));
+    final $r = $callSync(7244, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptor.ServiceOptions).GetUninterpretedOption() []*descriptor.UninterpretedOption`.
   List<ProtobufProtocGenGogoDescriptorUninterpretedOption>
       getUninterpretedOption() {
-    final $r = $callSync(7236, $W()..dto(this));
+    final $r = $callSync(7245, $W()..dto(this));
     return $r.list(() => $r.p()
         ? ProtobufProtocGenGogoDescriptorUninterpretedOption.$dec($r)
         : $nil());
@@ -5421,35 +5421,35 @@ final class ProtobufProtocGenGogoDescriptorServiceOptions implements GoDto {
 
   /// Go: `func (*descriptor.ServiceOptions).GoString() string`.
   String goString() {
-    final $r = $callSync(7237, $W()..dto(this));
+    final $r = $callSync(7246, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.ServiceOptions).ProtoMessage()`.
   void protoMessage() {
-    $callSync(7238, $W()..dto(this));
+    $callSync(7247, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.ServiceOptions).Reset()`.
   void reset() {
-    $callSync(7239, $W()..dto(this));
+    $callSync(7248, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.ServiceOptions).String() string`.
   String string() {
-    final $r = $callSync(7240, $W()..dto(this));
+    final $r = $callSync(7249, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.ServiceOptions).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(7241, $W()..dto(this));
+    $callSync(7250, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.ServiceOptions).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        7242,
+        7251,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -5460,7 +5460,7 @@ final class ProtobufProtocGenGogoDescriptorServiceOptions implements GoDto {
   /// Go: `func (*descriptor.ServiceOptions).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        7243,
+        7252,
         $W()
           ..dto(this)
           ..h(src));
@@ -5468,14 +5468,14 @@ final class ProtobufProtocGenGogoDescriptorServiceOptions implements GoDto {
 
   /// Go: `func (*descriptor.ServiceOptions).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(7244, $W()..dto(this));
+    final $r = $callSync(7253, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptor.ServiceOptions).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        7245,
+        7254,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -5520,13 +5520,13 @@ final class ProtobufProtocGenGogoDescriptorSourceCodeInfo implements GoDto {
 
   /// Go: `func (*descriptor.SourceCodeInfo).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(7246, $W()..dto(this));
+    final $r = $callSync(7255, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptor.SourceCodeInfo).GetLocation() []*descriptor.SourceCodeInfo_Location`.
   List<ProtobufProtocGenGogoDescriptorSourceCodeInfoLocation> getLocation() {
-    final $r = $callSync(7247, $W()..dto(this));
+    final $r = $callSync(7256, $W()..dto(this));
     return $r.list(() => $r.p()
         ? ProtobufProtocGenGogoDescriptorSourceCodeInfoLocation.$dec($r)
         : $nil());
@@ -5534,35 +5534,35 @@ final class ProtobufProtocGenGogoDescriptorSourceCodeInfo implements GoDto {
 
   /// Go: `func (*descriptor.SourceCodeInfo).GoString() string`.
   String goString() {
-    final $r = $callSync(7248, $W()..dto(this));
+    final $r = $callSync(7257, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.SourceCodeInfo).ProtoMessage()`.
   void protoMessage() {
-    $callSync(7249, $W()..dto(this));
+    $callSync(7258, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.SourceCodeInfo).Reset()`.
   void reset() {
-    $callSync(7250, $W()..dto(this));
+    $callSync(7259, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.SourceCodeInfo).String() string`.
   String string() {
-    final $r = $callSync(7251, $W()..dto(this));
+    final $r = $callSync(7260, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.SourceCodeInfo).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(7252, $W()..dto(this));
+    $callSync(7261, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.SourceCodeInfo).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        7253,
+        7262,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -5573,7 +5573,7 @@ final class ProtobufProtocGenGogoDescriptorSourceCodeInfo implements GoDto {
   /// Go: `func (*descriptor.SourceCodeInfo).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        7254,
+        7263,
         $W()
           ..dto(this)
           ..h(src));
@@ -5581,14 +5581,14 @@ final class ProtobufProtocGenGogoDescriptorSourceCodeInfo implements GoDto {
 
   /// Go: `func (*descriptor.SourceCodeInfo).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(7255, $W()..dto(this));
+    final $r = $callSync(7264, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptor.SourceCodeInfo).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        7256,
+        7265,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -5660,71 +5660,71 @@ final class ProtobufProtocGenGogoDescriptorSourceCodeInfoLocation
 
   /// Go: `func (*descriptor.SourceCodeInfo_Location).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(7257, $W()..dto(this));
+    final $r = $callSync(7266, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptor.SourceCodeInfo_Location).GetLeadingComments() string`.
   String getLeadingComments() {
-    final $r = $callSync(7258, $W()..dto(this));
+    final $r = $callSync(7267, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.SourceCodeInfo_Location).GetLeadingDetachedComments() []string`.
   List<String> getLeadingDetachedComments() {
-    final $r = $callSync(7259, $W()..dto(this));
+    final $r = $callSync(7268, $W()..dto(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (*descriptor.SourceCodeInfo_Location).GetPath() []int32`.
   List<int> getPath() {
-    final $r = $callSync(7260, $W()..dto(this));
+    final $r = $callSync(7269, $W()..dto(this));
     return $r.list(() => $r.i64());
   }
 
   /// Go: `func (*descriptor.SourceCodeInfo_Location).GetSpan() []int32`.
   List<int> getSpan() {
-    final $r = $callSync(7261, $W()..dto(this));
+    final $r = $callSync(7270, $W()..dto(this));
     return $r.list(() => $r.i64());
   }
 
   /// Go: `func (*descriptor.SourceCodeInfo_Location).GetTrailingComments() string`.
   String getTrailingComments() {
-    final $r = $callSync(7262, $W()..dto(this));
+    final $r = $callSync(7271, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.SourceCodeInfo_Location).GoString() string`.
   String goString() {
-    final $r = $callSync(7263, $W()..dto(this));
+    final $r = $callSync(7272, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.SourceCodeInfo_Location).ProtoMessage()`.
   void protoMessage() {
-    $callSync(7264, $W()..dto(this));
+    $callSync(7273, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.SourceCodeInfo_Location).Reset()`.
   void reset() {
-    $callSync(7265, $W()..dto(this));
+    $callSync(7274, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.SourceCodeInfo_Location).String() string`.
   String string() {
-    final $r = $callSync(7266, $W()..dto(this));
+    final $r = $callSync(7275, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.SourceCodeInfo_Location).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(7267, $W()..dto(this));
+    $callSync(7276, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.SourceCodeInfo_Location).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        7268,
+        7277,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -5735,7 +5735,7 @@ final class ProtobufProtocGenGogoDescriptorSourceCodeInfoLocation
   /// Go: `func (*descriptor.SourceCodeInfo_Location).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        7269,
+        7278,
         $W()
           ..dto(this)
           ..h(src));
@@ -5743,14 +5743,14 @@ final class ProtobufProtocGenGogoDescriptorSourceCodeInfoLocation
 
   /// Go: `func (*descriptor.SourceCodeInfo_Location).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(7270, $W()..dto(this));
+    final $r = $callSync(7279, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptor.SourceCodeInfo_Location).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        7271,
+        7280,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -5838,31 +5838,31 @@ final class ProtobufProtocGenGogoDescriptorUninterpretedOption
 
   /// Go: `func (*descriptor.UninterpretedOption).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(7272, $W()..dto(this));
+    final $r = $callSync(7281, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptor.UninterpretedOption).GetAggregateValue() string`.
   String getAggregateValue() {
-    final $r = $callSync(7273, $W()..dto(this));
+    final $r = $callSync(7282, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.UninterpretedOption).GetDoubleValue() float64`.
   double getDoubleValue() {
-    final $r = $callSync(7274, $W()..dto(this));
+    final $r = $callSync(7283, $W()..dto(this));
     return $r.f64();
   }
 
   /// Go: `func (*descriptor.UninterpretedOption).GetIdentifierValue() string`.
   String getIdentifierValue() {
-    final $r = $callSync(7275, $W()..dto(this));
+    final $r = $callSync(7284, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.UninterpretedOption).GetName() []*descriptor.UninterpretedOption_NamePart`.
   List<ProtobufProtocGenGogoDescriptorUninterpretedOptionNamePart> getName() {
-    final $r = $callSync(7276, $W()..dto(this));
+    final $r = $callSync(7285, $W()..dto(this));
     return $r.list(() => $r.p()
         ? ProtobufProtocGenGogoDescriptorUninterpretedOptionNamePart.$dec($r)
         : $nil());
@@ -5870,53 +5870,53 @@ final class ProtobufProtocGenGogoDescriptorUninterpretedOption
 
   /// Go: `func (*descriptor.UninterpretedOption).GetNegativeIntValue() int64`.
   int getNegativeIntValue() {
-    final $r = $callSync(7277, $W()..dto(this));
+    final $r = $callSync(7286, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptor.UninterpretedOption).GetPositiveIntValue() uint64`.
   int getPositiveIntValue() {
-    final $r = $callSync(7278, $W()..dto(this));
+    final $r = $callSync(7287, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptor.UninterpretedOption).GetStringValue() []byte`.
   Uint8List getStringValue() {
-    final $r = $callSync(7279, $W()..dto(this));
+    final $r = $callSync(7288, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*descriptor.UninterpretedOption).GoString() string`.
   String goString() {
-    final $r = $callSync(7280, $W()..dto(this));
+    final $r = $callSync(7289, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.UninterpretedOption).ProtoMessage()`.
   void protoMessage() {
-    $callSync(7281, $W()..dto(this));
+    $callSync(7290, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.UninterpretedOption).Reset()`.
   void reset() {
-    $callSync(7282, $W()..dto(this));
+    $callSync(7291, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.UninterpretedOption).String() string`.
   String string() {
-    final $r = $callSync(7283, $W()..dto(this));
+    final $r = $callSync(7292, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.UninterpretedOption).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(7284, $W()..dto(this));
+    $callSync(7293, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.UninterpretedOption).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        7285,
+        7294,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -5927,7 +5927,7 @@ final class ProtobufProtocGenGogoDescriptorUninterpretedOption
   /// Go: `func (*descriptor.UninterpretedOption).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        7286,
+        7295,
         $W()
           ..dto(this)
           ..h(src));
@@ -5935,14 +5935,14 @@ final class ProtobufProtocGenGogoDescriptorUninterpretedOption
 
   /// Go: `func (*descriptor.UninterpretedOption).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(7287, $W()..dto(this));
+    final $r = $callSync(7296, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptor.UninterpretedOption).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        7288,
+        7297,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -5993,53 +5993,53 @@ final class ProtobufProtocGenGogoDescriptorUninterpretedOptionNamePart
 
   /// Go: `func (*descriptor.UninterpretedOption_NamePart).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(7289, $W()..dto(this));
+    final $r = $callSync(7298, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptor.UninterpretedOption_NamePart).GetIsExtension() bool`.
   bool getIsExtension() {
-    final $r = $callSync(7290, $W()..dto(this));
+    final $r = $callSync(7299, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptor.UninterpretedOption_NamePart).GetNamePart() string`.
   String getNamePart() {
-    final $r = $callSync(7291, $W()..dto(this));
+    final $r = $callSync(7300, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.UninterpretedOption_NamePart).GoString() string`.
   String goString() {
-    final $r = $callSync(7292, $W()..dto(this));
+    final $r = $callSync(7301, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.UninterpretedOption_NamePart).ProtoMessage()`.
   void protoMessage() {
-    $callSync(7293, $W()..dto(this));
+    $callSync(7302, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.UninterpretedOption_NamePart).Reset()`.
   void reset() {
-    $callSync(7294, $W()..dto(this));
+    $callSync(7303, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.UninterpretedOption_NamePart).String() string`.
   String string() {
-    final $r = $callSync(7295, $W()..dto(this));
+    final $r = $callSync(7304, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptor.UninterpretedOption_NamePart).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(7296, $W()..dto(this));
+    $callSync(7305, $W()..dto(this));
   }
 
   /// Go: `func (*descriptor.UninterpretedOption_NamePart).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        7297,
+        7306,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -6050,7 +6050,7 @@ final class ProtobufProtocGenGogoDescriptorUninterpretedOptionNamePart
   /// Go: `func (*descriptor.UninterpretedOption_NamePart).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        7298,
+        7307,
         $W()
           ..dto(this)
           ..h(src));
@@ -6058,14 +6058,14 @@ final class ProtobufProtocGenGogoDescriptorUninterpretedOptionNamePart
 
   /// Go: `func (*descriptor.UninterpretedOption_NamePart).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(7299, $W()..dto(this));
+    final $r = $callSync(7308, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptor.UninterpretedOption_NamePart).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        7300,
+        7309,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -6077,61 +6077,61 @@ extension GoGogoProtobufProtocGenGogoDescriptorApi
     on GoGogoProtobufProtocGenGogoDescriptor {
   /// Go: `var descriptor.FieldDescriptorProto_Label_name map[int32]string`.
   Map<int, String> get fieldDescriptorProtoLabelName {
-    final $r = $callSync(7019);
+    final $r = $callSync(7028);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var descriptor.FieldDescriptorProto_Label_value map[string]int32`.
   Map<String, int> get fieldDescriptorProtoLabelValue {
-    final $r = $callSync(7020);
+    final $r = $callSync(7029);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `var descriptor.FieldDescriptorProto_Type_name map[int32]string`.
   Map<int, String> get fieldDescriptorProtoTypeName {
-    final $r = $callSync(7021);
+    final $r = $callSync(7030);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var descriptor.FieldDescriptorProto_Type_value map[string]int32`.
   Map<String, int> get fieldDescriptorProtoTypeValue {
-    final $r = $callSync(7022);
+    final $r = $callSync(7031);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `var descriptor.FieldOptions_CType_name map[int32]string`.
   Map<int, String> get fieldOptionsCTypeName {
-    final $r = $callSync(7041);
+    final $r = $callSync(7050);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var descriptor.FieldOptions_CType_value map[string]int32`.
   Map<String, int> get fieldOptionsCTypeValue {
-    final $r = $callSync(7042);
+    final $r = $callSync(7051);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `var descriptor.FieldOptions_JSType_name map[int32]string`.
   Map<int, String> get fieldOptionsJsTypeName {
-    final $r = $callSync(7043);
+    final $r = $callSync(7052);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var descriptor.FieldOptions_JSType_value map[string]int32`.
   Map<String, int> get fieldOptionsJsTypeValue {
-    final $r = $callSync(7044);
+    final $r = $callSync(7053);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `var descriptor.FileOptions_OptimizeMode_name map[int32]string`.
   Map<int, String> get fileOptionsOptimizeModeName {
-    final $r = $callSync(7119);
+    final $r = $callSync(7128);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var descriptor.FileOptions_OptimizeMode_value map[string]int32`.
   Map<String, int> get fileOptionsOptimizeModeValue {
-    final $r = $callSync(7120);
+    final $r = $callSync(7129);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
@@ -6140,7 +6140,7 @@ extension GoGogoProtobufProtocGenGogoDescriptorApi
     ProtobufProtocGenGogoDescriptorFileDescriptorProto,
     ProtobufProtocGenGogoDescriptorProto
   ) forMessage(ProtobufProtocGenGogoDescriptorMessage msg) {
-    final $r = $callSync(7121, $W()..h(msg));
+    final $r = $callSync(7130, $W()..h(msg));
     return (
       $r.p()
           ? ProtobufProtocGenGogoDescriptorFileDescriptorProto.$dec($r)
@@ -6151,13 +6151,13 @@ extension GoGogoProtobufProtocGenGogoDescriptorApi
 
   /// Go: `var descriptor.MethodOptions_IdempotencyLevel_name map[int32]string`.
   Map<int, String> get methodOptionsIdempotencyLevelName {
-    final $r = $callSync(7194);
+    final $r = $callSync(7203);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var descriptor.MethodOptions_IdempotencyLevel_value map[string]int32`.
   Map<String, int> get methodOptionsIdempotencyLevelValue {
-    final $r = $callSync(7195);
+    final $r = $callSync(7204);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 }

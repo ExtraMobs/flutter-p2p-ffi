@@ -12,7 +12,7 @@ extension GoUnicodeUtf8Api on GoUnicodeUtf8 {
   /// Go: `func utf8.AppendRune(p []byte, r rune) []byte`.
   Uint8List appendRune(Uint8List p, int r) {
     final $r = $callSync(
-        27976,
+        27977,
         $W()
           ..bytes(p)
           ..i64(r));
@@ -21,32 +21,32 @@ extension GoUnicodeUtf8Api on GoUnicodeUtf8 {
 
   /// Go: `func utf8.DecodeLastRune(p []byte) (r rune, size int)`.
   (int, int) decodeLastRune(Uint8List p) {
-    final $r = $callSync(27977, $W()..bytes(p));
+    final $r = $callSync(27978, $W()..bytes(p));
     return ($r.i64(), $r.i64());
   }
 
   /// Go: `func utf8.DecodeLastRuneInString(s string) (r rune, size int)`.
   (int, int) decodeLastRuneInString(String s) {
-    final $r = $callSync(27978, $W()..str(s));
+    final $r = $callSync(27979, $W()..str(s));
     return ($r.i64(), $r.i64());
   }
 
   /// Go: `func utf8.DecodeRune(p []byte) (r rune, size int)`.
   (int, int) decodeRune(Uint8List p) {
-    final $r = $callSync(27979, $W()..bytes(p));
+    final $r = $callSync(27980, $W()..bytes(p));
     return ($r.i64(), $r.i64());
   }
 
   /// Go: `func utf8.DecodeRuneInString(s string) (r rune, size int)`.
   (int, int) decodeRuneInString(String s) {
-    final $r = $callSync(27980, $W()..str(s));
+    final $r = $callSync(27981, $W()..str(s));
     return ($r.i64(), $r.i64());
   }
 
   /// Go: `func utf8.EncodeRune(p []byte, r rune) int`.
   int encodeRune(Uint8List p, int r) {
     final $r = $callSync(
-        27981,
+        27982,
         $W()
           ..bytes(p)
           ..i64(r));
@@ -55,55 +55,55 @@ extension GoUnicodeUtf8Api on GoUnicodeUtf8 {
 
   /// Go: `func utf8.FullRune(p []byte) bool`.
   bool fullRune(Uint8List p) {
-    final $r = $callSync(27982, $W()..bytes(p));
+    final $r = $callSync(27983, $W()..bytes(p));
     return $r.b();
   }
 
   /// Go: `func utf8.FullRuneInString(s string) bool`.
   bool fullRuneInString(String s) {
-    final $r = $callSync(27983, $W()..str(s));
+    final $r = $callSync(27984, $W()..str(s));
     return $r.b();
   }
 
   /// Go: `func utf8.RuneCount(p []byte) int`.
   int runeCount(Uint8List p) {
-    final $r = $callSync(27984, $W()..bytes(p));
+    final $r = $callSync(27985, $W()..bytes(p));
     return $r.i64();
   }
 
   /// Go: `func utf8.RuneCountInString(s string) (n int)`.
   int runeCountInString(String s) {
-    final $r = $callSync(27985, $W()..str(s));
+    final $r = $callSync(27986, $W()..str(s));
     return $r.i64();
   }
 
   /// Go: `func utf8.RuneLen(r rune) int`.
   int runeLen(int r) {
-    final $r = $callSync(27986, $W()..i64(r));
+    final $r = $callSync(27987, $W()..i64(r));
     return $r.i64();
   }
 
   /// Go: `func utf8.RuneStart(b byte) bool`.
   bool runeStart(int b) {
-    final $r = $callSync(27987, $W()..i64(b));
+    final $r = $callSync(27988, $W()..i64(b));
     return $r.b();
   }
 
   /// Go: `func utf8.Valid(p []byte) bool`.
   bool valid(Uint8List p) {
-    final $r = $callSync(27988, $W()..bytes(p));
+    final $r = $callSync(27989, $W()..bytes(p));
     return $r.b();
   }
 
   /// Go: `func utf8.ValidRune(r rune) bool`.
   bool validRune(int r) {
-    final $r = $callSync(27989, $W()..i64(r));
+    final $r = $callSync(27990, $W()..i64(r));
     return $r.b();
   }
 
   /// Go: `func utf8.ValidString(s string) bool`.
   bool validString(String s) {
-    final $r = $callSync(27990, $W()..str(s));
+    final $r = $callSync(27991, $W()..str(s));
     return $r.b();
   }
 }

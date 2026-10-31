@@ -45,41 +45,41 @@ class Libp2pP2pSecurityInsecurePbExchange
   /// Go: `func (*pb.Exchange).Descriptor() ([]byte, []int)`.
   @Deprecated("Use Exchange.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(14960, $W()..h(this));
+    final $r = $callSync(14966, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pb.Exchange).GetId() []byte`.
   Uint8List getId() {
-    final $r = $callSync(14961, $W()..h(this));
+    final $r = $callSync(14967, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pb.Exchange).GetPubkey() *pb.PublicKey`.
   $pb.Libp2pCoreCryptoPbPublicKey getPubkey() {
-    final $r = $callSync(14962, $W()..h(this));
+    final $r = $callSync(14968, $W()..h(this));
     return $r.hnn($pb.Libp2pCoreCryptoPbPublicKey.$h);
   }
 
   /// Go: `func (*pb.Exchange).ProtoMessage()`.
   void protoMessage() {
-    $callSync(14963, $W()..h(this));
+    $callSync(14969, $W()..h(this));
   }
 
   /// Go: `func (*pb.Exchange).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(14964, $W()..h(this));
+    final $r = $callSync(14970, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pb.Exchange).Reset()`.
   void reset() {
-    $callSync(14965, $W()..h(this));
+    $callSync(14971, $W()..h(this));
   }
 
   /// Go: `func (*pb.Exchange).String() string`.
   String string() {
-    final $r = $callSync(14966, $W()..h(this));
+    final $r = $callSync(14972, $W()..h(this));
     return $r.str();
   }
 }
@@ -90,7 +90,7 @@ extension GoLibp2pLibp2pP2pSecurityInsecurePbApi
   /// Go: `var pb.File_p2p_security_insecure_pb_plaintext_proto protoreflect.FileDescriptor`.
   $protoreflect.ProtobufReflectProtoreflectFileDescriptor
       get fileP2pSecurityInsecurePbPlaintextProto {
-    final $r = $callSync(14967);
+    final $r = $callSync(14973);
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectFileDescriptor.$h);
   }
 }

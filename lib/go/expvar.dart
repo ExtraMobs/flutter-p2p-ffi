@@ -36,14 +36,14 @@ class ExpvarFloat extends $ewma.EwmaMovingAverage
 
   /// Go: `func expvar.NewFloat(name string) *expvar.Float`.
   factory ExpvarFloat(String name) {
-    final $r = $callSync(3808, $W()..str(name));
+    final $r = $callSync(3817, $W()..str(name));
     return $r.hnn(ExpvarFloat.$h);
   }
 
   /// Go: `func (*expvar.Float).Add(delta float64)`.
   void add(double delta) {
     $callSync(
-        3788,
+        3797,
         $W()
           ..h(this)
           ..f64(delta));
@@ -52,7 +52,7 @@ class ExpvarFloat extends $ewma.EwmaMovingAverage
   /// Go: `func (*expvar.Float).Set(value float64)`.
   void set(double value) {
     $callSync(
-        3789,
+        3798,
         $W()
           ..h(this)
           ..f64(value));
@@ -60,13 +60,13 @@ class ExpvarFloat extends $ewma.EwmaMovingAverage
 
   /// Go: `func (*expvar.Float).String() string`.
   String string() {
-    final $r = $callSync(3790, $W()..h(this));
+    final $r = $callSync(3799, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*expvar.Float).Value() float64`.
   double value$() {
-    final $r = $callSync(3791, $W()..h(this));
+    final $r = $callSync(3800, $W()..h(this));
     return $r.f64();
   }
 }
@@ -91,13 +91,13 @@ class ExpvarFunc extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (expvar.Func).String() string`.
   String string() {
-    final $r = $callSync(3792, $W()..h(this));
+    final $r = $callSync(3801, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (expvar.Func).Value() any`.
   Object? value$() {
-    final $r = $callSync(3793, $W()..h(this));
+    final $r = $callSync(3802, $W()..h(this));
     return $r.any();
   }
 }
@@ -122,14 +122,14 @@ class ExpvarInt extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func expvar.NewInt(name string) *expvar.Int`.
   factory ExpvarInt(String name) {
-    final $r = $callSync(3809, $W()..str(name));
+    final $r = $callSync(3818, $W()..str(name));
     return $r.hnn(ExpvarInt.$h);
   }
 
   /// Go: `func (*expvar.Int).Add(delta int64)`.
   void add(int delta) {
     $callSync(
-        3796,
+        3805,
         $W()
           ..h(this)
           ..i64(delta));
@@ -138,7 +138,7 @@ class ExpvarInt extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*expvar.Int).Set(value int64)`.
   void set(int value) {
     $callSync(
-        3797,
+        3806,
         $W()
           ..h(this)
           ..i64(value));
@@ -146,13 +146,13 @@ class ExpvarInt extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*expvar.Int).String() string`.
   String string() {
-    final $r = $callSync(3798, $W()..h(this));
+    final $r = $callSync(3807, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*expvar.Int).Value() int64`.
   int value$() {
-    final $r = $callSync(3799, $W()..h(this));
+    final $r = $callSync(3808, $W()..h(this));
     return $r.i64();
   }
 }
@@ -194,14 +194,14 @@ class ExpvarMap extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func expvar.NewMap(name string) *expvar.Map`.
   factory ExpvarMap(String name) {
-    final $r = $callSync(3810, $W()..str(name));
+    final $r = $callSync(3819, $W()..str(name));
     return $r.hnn(ExpvarMap.$h);
   }
 
   /// Go: `func (*expvar.Map).Add(key string, delta int64)`.
   void add(String key, int delta) {
     $callSync(
-        3800,
+        3809,
         $W()
           ..h(this)
           ..str(key)
@@ -211,7 +211,7 @@ class ExpvarMap extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*expvar.Map).AddFloat(key string, delta float64)`.
   void addFloat(String key, double delta) {
     $callSync(
-        3801,
+        3810,
         $W()
           ..h(this)
           ..str(key)
@@ -221,7 +221,7 @@ class ExpvarMap extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*expvar.Map).Delete(key string)`.
   void delete(String key) {
     $callSync(
-        3802,
+        3811,
         $W()
           ..h(this)
           ..str(key));
@@ -236,7 +236,7 @@ class ExpvarMap extends $crypto.CryptoDecrypterOpts
   /// each invocation (a retained callback, WIRE.md).
   Future<void> do$(FutureOr<void> Function(ExpvarKeyValue keyValue) f) async {
     await $call(
-        3803,
+        3812,
         $W()
           ..h(this)
           ..cb((r) => f(r.p() ? ExpvarKeyValue.$dec(r) : $nil()), true));
@@ -245,7 +245,7 @@ class ExpvarMap extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*expvar.Map).Get(key string) expvar.Var`.
   ExpvarVar get(String key) {
     final $r = $callSync(
-        3804,
+        3813,
         $W()
           ..h(this)
           ..str(key));
@@ -254,14 +254,14 @@ class ExpvarMap extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*expvar.Map).Init() *expvar.Map`.
   ExpvarMap init() {
-    final $r = $callSync(3805, $W()..h(this));
+    final $r = $callSync(3814, $W()..h(this));
     return $r.hnn(ExpvarMap.$h);
   }
 
   /// Go: `func (*expvar.Map).Set(key string, av expvar.Var)`.
   void set(String key, ExpvarVar av) {
     $callSync(
-        3806,
+        3815,
         $W()
           ..h(this)
           ..str(key)
@@ -270,7 +270,7 @@ class ExpvarMap extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*expvar.Map).String() string`.
   String string() {
-    final $r = $callSync(3807, $W()..h(this));
+    final $r = $callSync(3816, $W()..h(this));
     return $r.str();
   }
 }
@@ -295,14 +295,14 @@ class ExpvarString extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func expvar.NewString(name string) *expvar.String`.
   factory ExpvarString(String name) {
-    final $r = $callSync(3811, $W()..str(name));
+    final $r = $callSync(3820, $W()..str(name));
     return $r.hnn(ExpvarString.$h);
   }
 
   /// Go: `func (*expvar.String).Set(value string)`.
   void set(String value) {
     $callSync(
-        3813,
+        3822,
         $W()
           ..h(this)
           ..str(value));
@@ -310,13 +310,13 @@ class ExpvarString extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*expvar.String).String() string`.
   String string() {
-    final $r = $callSync(3814, $W()..h(this));
+    final $r = $callSync(3823, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*expvar.String).Value() string`.
   String value$() {
-    final $r = $callSync(3815, $W()..h(this));
+    final $r = $callSync(3824, $W()..h(this));
     return $r.str();
   }
 }
@@ -347,26 +347,26 @@ extension GoExpvarApi on GoExpvar {
   /// later for as long as it holds it (nobody checked which), and waits for
   /// each invocation (a retained callback, WIRE.md).
   Future<void> do$(FutureOr<void> Function(ExpvarKeyValue keyValue) f) async {
-    await $call(3787,
+    await $call(3796,
         $W()..cb((r) => f(r.p() ? ExpvarKeyValue.$dec(r) : $nil()), true));
   }
 
   /// Go: `func expvar.Get(name string) expvar.Var`.
   ExpvarVar get(String name) {
-    final $r = $callSync(3794, $W()..str(name));
+    final $r = $callSync(3803, $W()..str(name));
     return $r.p() ? ExpvarVar.$dec($r) : $nil();
   }
 
   /// Go: `func expvar.Handler() http.Handler`.
   $http.NetHttpHandler handler() {
-    final $r = $callSync(3795);
+    final $r = $callSync(3804);
     return $r.hnn($http.NetHttpHandler.$h);
   }
 
   /// Go: `func expvar.Publish(name string, v expvar.Var)`.
   void publish(String name, ExpvarVar v) {
     $callSync(
-        3812,
+        3821,
         $W()
           ..str(name)
           ..dto(v));

@@ -44,19 +44,19 @@ class DsqueueDsQueue extends $io.IoCloser
 
   /// Go: `func (*dsqueue.DSQueue).Clear() int`.
   int clear() {
-    final $r = $callSync(10808, $W()..h(this));
+    final $r = $callSync(10817, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*dsqueue.DSQueue).Close() error`.
   void close() {
-    $callSync(10809, $W()..h(this));
+    $callSync(10818, $W()..h(this));
   }
 
   /// Go: `func (*dsqueue.DSQueue).GetN(n int) ([][]byte, error)`.
   List<Uint8List> getN(int n) {
     final $r = $callSync(
-        10810,
+        10819,
         $W()
           ..h(this)
           ..i64(n));
@@ -65,18 +65,18 @@ class DsqueueDsQueue extends $io.IoCloser
 
   /// Go: `func (*dsqueue.DSQueue).Name() string`.
   String name() {
-    final $r = $callSync(10811, $W()..h(this));
+    final $r = $callSync(10820, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*dsqueue.DSQueue).Out() <-chan []byte`.
   Stream<Uint8List> out() =>
-      $stream(10812, $W()..h(this)).map((r) => r.bytes() ?? Uint8List(0));
+      $stream(10821, $W()..h(this)).map((r) => r.bytes() ?? Uint8List(0));
 
   /// Go: `func (*dsqueue.DSQueue).Put(item []byte) (err error)`.
   void put(Uint8List item) {
     $callSync(
-        10813,
+        10822,
         $W()
           ..h(this)
           ..bytes(item));
@@ -94,7 +94,7 @@ extension GoIpfsDsqueueApi on GoIpfsDsqueue {
   DsqueueDsQueue new$($datastore.DatastoreBatching ds, String name,
       [List<DsqueueOption> options = const []]) {
     final $r = $callSync(
-        10814,
+        10823,
         $W()
           ..h(ds)
           ..str(name)

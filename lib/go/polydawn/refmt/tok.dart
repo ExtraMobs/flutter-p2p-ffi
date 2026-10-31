@@ -94,19 +94,19 @@ final class RefmtTokToken implements GoDto {
 
   /// Go: `func (tok.Token).String() string`.
   String string() {
-    final $r = $callSync(17956, $W()..dto(this));
+    final $r = $callSync(17962, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (tok.Token).StringSansTag() string`.
   String stringSansTag() {
-    final $r = $callSync(17957, $W()..dto(this));
+    final $r = $callSync(17963, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (tok.Token).Value() interface{}`.
   Object? value$() {
-    final $r = $callSync(17958, $W()..dto(this));
+    final $r = $callSync(17964, $W()..dto(this));
     return $r.any();
   }
 }
@@ -116,7 +116,7 @@ extension GoPolydawnRefmtTokApi on GoPolydawnRefmtTok {
   /// Go: `func tok.IsTokenEqual(t1 tok.Token, t2 tok.Token) bool`.
   bool isTokenEqual(RefmtTokToken t1, RefmtTokToken t2) {
     final $r = $callSync(
-        17953,
+        17959,
         $W()
           ..dto(t1)
           ..dto(t2));
@@ -125,13 +125,13 @@ extension GoPolydawnRefmtTokApi on GoPolydawnRefmtTok {
 
   /// Go: `func tok.TokInt(x int64) tok.Token`.
   RefmtTokToken tokInt(int x) {
-    final $r = $callSync(17954, $W()..i64(x));
+    final $r = $callSync(17960, $W()..i64(x));
     return $r.p() ? RefmtTokToken.$dec($r) : $nil();
   }
 
   /// Go: `func tok.TokStr(x string) tok.Token`.
   RefmtTokToken tokStr(String x) {
-    final $r = $callSync(17955, $W()..str(x));
+    final $r = $callSync(17961, $W()..str(x));
     return $r.p() ? RefmtTokToken.$dec($r) : $nil();
   }
 }

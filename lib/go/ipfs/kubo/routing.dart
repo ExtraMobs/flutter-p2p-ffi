@@ -66,7 +66,7 @@ final class KuboRoutingComposer implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> bootstrap($context.Context ctx) async {
     await $call(
-        11867,
+        11873,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -78,7 +78,7 @@ final class KuboRoutingComposer implements GoDto {
   Future<$peer.Libp2pCorePeerAddrInfo> findPeer(
       $context.Context ctx, $peer.Libp2pCorePeerId pid) async {
     final $r = await $call(
-        11868,
+        11874,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -90,7 +90,7 @@ final class KuboRoutingComposer implements GoDto {
   Stream<$peer.Libp2pCorePeerAddrInfo> findProvidersAsync(
           $context.Context ctx, $cid.Cid cid, int count) =>
       $stream(
-              11869,
+              11875,
               $W()
                 ..dto(this)
                 ..h(ctx)
@@ -104,7 +104,7 @@ final class KuboRoutingComposer implements GoDto {
   Future<Uint8List> getValue($context.Context ctx, String key,
       [List<$routing.Libp2pCoreRoutingOption> opts = const []]) async {
     final $r = await $call(
-        11870,
+        11876,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -118,7 +118,7 @@ final class KuboRoutingComposer implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> provide($context.Context ctx, $cid.Cid cid, bool provide) async {
     await $call(
-        11871,
+        11877,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -131,7 +131,7 @@ final class KuboRoutingComposer implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> provideMany($context.Context ctx, List<Uint8List> keys) async {
     await $call(
-        11872,
+        11878,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -144,7 +144,7 @@ final class KuboRoutingComposer implements GoDto {
   Future<void> putValue($context.Context ctx, String key, Uint8List val,
       [List<$routing.Libp2pCoreRoutingOption> opts = const []]) async {
     await $call(
-        11873,
+        11879,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -155,7 +155,7 @@ final class KuboRoutingComposer implements GoDto {
 
   /// Go: `func (*routing.Composer).Ready() bool`.
   bool ready() {
-    final $r = $callSync(11874, $W()..dto(this));
+    final $r = $callSync(11880, $W()..dto(this));
     return $r.b();
   }
 
@@ -163,7 +163,7 @@ final class KuboRoutingComposer implements GoDto {
   Stream<Uint8List> searchValue($context.Context ctx, String key,
           [List<$routing.Libp2pCoreRoutingOption> opts = const []]) =>
       $stream(
-              11875,
+              11881,
               $W()
                 ..dto(this)
                 ..h(ctx)
@@ -192,7 +192,7 @@ class KuboRoutingProvideManyRouter extends $routing.Libp2pCoreRouting
 mixin KuboRoutingProvideManyRouter$ on GoHandle {
   /// Go: type assertion `x.(*fullrt.FullRT)`: null if the object is not one.
   $fullrt.Libp2pKadDhtFullrtFullRt? asLibp2pKadDhtFullrtFullRt() {
-    final $r = $callSync(1210, $W()..h(this));
+    final $r = $callSync(1213, $W()..h(this));
     return $r.hn($fullrt.Libp2pKadDhtFullrtFullRt.$h);
   }
 }
@@ -219,20 +219,20 @@ class KuboRoutingParamNeededError extends GolangException {
 extension GoIpfsKuboRoutingApi on GoIpfsKuboRouting {
   /// Go: `var routing.DHTDatastoreKey datastore.Key`.
   $datastore.DatastoreKey get dhtDatastoreKey {
-    final $r = $callSync(11876);
+    final $r = $callSync(11882);
     return $r.hnn($datastore.DatastoreKey.$h);
   }
 
   /// Go: `func routing.DHTValueDatastore(base datastore.Datastore) datastore.Batching`.
   $datastore.DatastoreBatching dhtValueDatastore($datastore.Datastore base) {
-    final $r = $callSync(11877, $W()..h(base));
+    final $r = $callSync(11883, $W()..h(base));
     return $r.hnn($datastore.DatastoreBatching.$h);
   }
 
   /// Go: `func routing.NewParamNeededErr(param string, routing config.RouterType) error`.
   void newParamNeededErr(String param, String routing) {
     $callSync(
-        11878,
+        11884,
         $W()
           ..str(param)
           ..str(routing));

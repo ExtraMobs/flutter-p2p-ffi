@@ -61,7 +61,7 @@ class MultihashReader extends GoHandle with MultihashReader$ {
 
   /// Go: `func multihash.NewReader(r io.Reader) multihash.Reader`.
   factory MultihashReader(Object r) {
-    final $r = $callSync(16001, $W()..reader(r));
+    final $r = $callSync(16007, $W()..reader(r));
     return $r.hnn(MultihashReader.$h);
   }
 }
@@ -70,7 +70,7 @@ class MultihashReader extends GoHandle with MultihashReader$ {
 mixin MultihashReader$ on GoHandle {
   /// Go: `func (multihash.Reader).ReadMultihash() (multihash.Multihash, error)`.
   Uint8List readMultihash() {
-    final $r = $callSync(16004, $W()..h(this));
+    final $r = $callSync(16010, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 }
@@ -95,7 +95,7 @@ class MultihashSet extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func multihash.NewSet() *multihash.Set`.
   factory MultihashSet() {
-    final $r = $callSync(16002);
+    final $r = $callSync(16008);
     return $r.hnn(MultihashSet.$h);
   }
 
@@ -109,7 +109,7 @@ class MultihashSet extends $crypto.CryptoDecrypterOpts
   Future<void> forEach(FutureOr<void> Function(Uint8List m) f,
       {int? batchSize}) async {
     await $callCb(
-        16007,
+        16013,
         $W()
           ..h(this)
           ..u32(batchSize ?? 0),
@@ -119,7 +119,7 @@ class MultihashSet extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*multihash.Set).Add(m multihash.Multihash)`.
   void add(Uint8List m) {
     $callSync(
-        16005,
+        16011,
         $W()
           ..h(this)
           ..bytes(m));
@@ -127,14 +127,14 @@ class MultihashSet extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*multihash.Set).All() []multihash.Multihash`.
   List<Uint8List> all() {
-    final $r = $callSync(16006, $W()..h(this));
+    final $r = $callSync(16012, $W()..h(this));
     return $r.list(() => $r.bytes() ?? Uint8List(0));
   }
 
   /// Go: `func (*multihash.Set).Has(m multihash.Multihash) bool`.
   bool has(Uint8List m) {
     final $r = $callSync(
-        16008,
+        16014,
         $W()
           ..h(this)
           ..bytes(m));
@@ -143,14 +143,14 @@ class MultihashSet extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*multihash.Set).Len() int`.
   int len() {
-    final $r = $callSync(16009, $W()..h(this));
+    final $r = $callSync(16015, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*multihash.Set).Remove(m multihash.Multihash)`.
   void remove(Uint8List m) {
     $callSync(
-        16010,
+        16016,
         $W()
           ..h(this)
           ..bytes(m));
@@ -159,7 +159,7 @@ class MultihashSet extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*multihash.Set).Visit(m multihash.Multihash) bool`.
   bool visit(Uint8List m) {
     final $r = $callSync(
-        16011,
+        16017,
         $W()
           ..h(this)
           ..bytes(m));
@@ -173,7 +173,7 @@ class MultihashWriter extends GoHandle with MultihashWriter$ {
 
   /// Go: `func multihash.NewWriter(w io.Writer) multihash.Writer`.
   factory MultihashWriter(GoHandle? w) {
-    final $r = $callSync(16003, $W()..h(w));
+    final $r = $callSync(16009, $W()..h(w));
     return $r.hnn(MultihashWriter.$h);
   }
 }
@@ -183,7 +183,7 @@ mixin MultihashWriter$ on GoHandle {
   /// Go: `func (multihash.Writer).WriteMultihash(multihash.Multihash) error`.
   void writeMultihash(Uint8List arg0) {
     $callSync(
-        16014,
+        16020,
         $W()
           ..h(this)
           ..bytes(arg0));
@@ -284,32 +284,32 @@ class MultihashErrVarintTooLong extends GolangException {
 extension GoMultiformatsMultihashApi on GoMultiformatsMultihash {
   /// Go: `func multihash.Cast(buf []byte) (multihash.Multihash, error)`.
   Uint8List cast(Uint8List buf) {
-    final $r = $callSync(15990, $W()..bytes(buf));
+    final $r = $callSync(15996, $W()..bytes(buf));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `var multihash.Codes map[uint64]string`.
   Map<int, String> get codes {
-    final $r = $callSync(15991);
+    final $r = $callSync(15997);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `func multihash.Decode(buf []byte) (*multihash.DecodedMultihash, error)`.
   MultihashDecodedMultihash decode(Uint8List buf) {
-    final $r = $callSync(15992, $W()..bytes(buf));
+    final $r = $callSync(15998, $W()..bytes(buf));
     return $r.p() ? MultihashDecodedMultihash.$dec($r) : $nil();
   }
 
   /// Go: `var multihash.DefaultLengths map[uint64]int`.
   Map<int, int> get defaultLengths {
-    final $r = $callSync(15993);
+    final $r = $callSync(15999);
     return $r.map(() => $r.i64(), () => $r.i64());
   }
 
   /// Go: `func multihash.Encode(buf []byte, code uint64) ([]byte, error)`.
   Uint8List encode(Uint8List buf, int code) {
     final $r = $callSync(
-        15994,
+        16000,
         $W()
           ..bytes(buf)
           ..i64(code));
@@ -319,7 +319,7 @@ extension GoMultiformatsMultihashApi on GoMultiformatsMultihash {
   /// Go: `func multihash.EncodeName(buf []byte, name string) ([]byte, error)`.
   Uint8List encodeName(Uint8List buf, String name) {
     final $r = $callSync(
-        15995,
+        16001,
         $W()
           ..bytes(buf)
           ..str(name));
@@ -328,38 +328,38 @@ extension GoMultiformatsMultihashApi on GoMultiformatsMultihash {
 
   /// Go: `func multihash.FromB58String(s string) (m multihash.Multihash, err error)`.
   Uint8List fromB58String(String s) {
-    final $r = $callSync(15996, $W()..str(s));
+    final $r = $callSync(16002, $W()..str(s));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func multihash.FromHexString(s string) (multihash.Multihash, error)`.
   Uint8List fromHexString(String s) {
-    final $r = $callSync(15997, $W()..str(s));
+    final $r = $callSync(16003, $W()..str(s));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func multihash.GetHasher(indicator uint64) (hash.Hash, error)`.
   $hash.Hash getHasher(int indicator) {
-    final $r = $callSync(15998, $W()..i64(indicator));
+    final $r = $callSync(16004, $W()..i64(indicator));
     return $r.hnn($hash.Hash.$h);
   }
 
   /// Go: `func multihash.MHFromBytes(buf []byte) (int, multihash.Multihash, error)`.
   (int, Uint8List) mhFromBytes(Uint8List buf) {
-    final $r = $callSync(15999, $W()..bytes(buf));
+    final $r = $callSync(16005, $W()..bytes(buf));
     return ($r.i64(), $r.bytes() ?? Uint8List(0));
   }
 
   /// Go: `var multihash.Names map[string]uint64`.
   Map<String, int> get names {
-    final $r = $callSync(16000);
+    final $r = $callSync(16006);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `func multihash.Sum(data []byte, code uint64, length int) (multihash.Multihash, error)`.
   Uint8List sum(Uint8List data, int code, int length) {
     final $r = $callSync(
-        16012,
+        16018,
         $W()
           ..bytes(data)
           ..i64(code)
@@ -370,7 +370,7 @@ extension GoMultiformatsMultihashApi on GoMultiformatsMultihash {
   /// Go: `func multihash.SumStream(r io.Reader, code uint64, length int) (multihash.Multihash, error)`.
   Uint8List sumStream(Object r, int code, int length) {
     final $r = $callSync(
-        16013,
+        16019,
         $W()
           ..reader(r)
           ..i64(code)

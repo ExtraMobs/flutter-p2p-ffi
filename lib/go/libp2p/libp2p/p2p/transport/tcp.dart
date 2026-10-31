@@ -34,7 +34,7 @@ mixin Libp2pP2pTransportTcpContextDialer$ on GoHandle {
   Future<$net.NetConn> dialContext(
       $context.Context ctx, String network, String address) async {
     final $r = await $call(
-        15032,
+        15038,
         $W()
           ..h(this)
           ..h(ctx)
@@ -45,13 +45,13 @@ mixin Libp2pP2pTransportTcpContextDialer$ on GoHandle {
 
   /// Go: type assertion `x.(*proxy.PerHost)`: null if the object is not one.
   $proxy.NetProxyPerHost? asNetProxyPerHost() {
-    final $r = $callSync(1446, $W()..h(this));
+    final $r = $callSync(1449, $W()..h(this));
     return $r.hn($proxy.NetProxyPerHost.$h);
   }
 
   /// Go: type assertion `x.(*net.Dialer)`: null if the object is not one.
   $net.NetDialer? asNetDialer() {
-    final $r = $callSync(1447, $W()..h(this));
+    final $r = $callSync(1450, $W()..h(this));
     return $r.hn($net.NetDialer.$h);
   }
 }
@@ -103,7 +103,7 @@ class Libp2pP2pTransportTcpTransport extends $transport.Libp2pCoreTransport
   /// Go: `func (*tcp.TcpTransport).CanDial(addr multiaddr.Multiaddr) bool`.
   bool canDial($multiaddr.Multiaddr addr) {
     final $r = $callSync(
-        15034,
+        15040,
         $W()
           ..h(this)
           ..val(addr));
@@ -116,7 +116,7 @@ class Libp2pP2pTransportTcpTransport extends $transport.Libp2pCoreTransport
   Future<$transport.Libp2pCoreTransportCapableConn> dial($context.Context ctx,
       $multiaddr.Multiaddr raddr, $peer.Libp2pCorePeerId p) async {
     final $r = await $call(
-        15035,
+        15041,
         $W()
           ..h(this)
           ..h(ctx)
@@ -128,7 +128,7 @@ class Libp2pP2pTransportTcpTransport extends $transport.Libp2pCoreTransport
   /// Go: `func (*tcp.TcpTransport).Listen(laddr multiaddr.Multiaddr) (transport.Listener, error)`.
   $transport.Libp2pCoreTransportListener listen($multiaddr.Multiaddr laddr) {
     final $r = $callSync(
-        15036,
+        15042,
         $W()
           ..h(this)
           ..val(laddr));
@@ -137,25 +137,25 @@ class Libp2pP2pTransportTcpTransport extends $transport.Libp2pCoreTransport
 
   /// Go: `func (*tcp.TcpTransport).Protocols() []int`.
   List<int> protocols() {
-    final $r = $callSync(15037, $W()..h(this));
+    final $r = $callSync(15043, $W()..h(this));
     return $r.list(() => $r.i64());
   }
 
   /// Go: `func (*tcp.TcpTransport).Proxy() bool`.
   bool proxy() {
-    final $r = $callSync(15038, $W()..h(this));
+    final $r = $callSync(15044, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*tcp.TcpTransport).String() string`.
   String string() {
-    final $r = $callSync(15039, $W()..h(this));
+    final $r = $callSync(15045, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*tcp.TcpTransport).UseReuseport() bool`.
   bool useReuseport() {
-    final $r = $callSync(15040, $W()..h(this));
+    final $r = $callSync(15046, $W()..h(this));
     return $r.b();
   }
 }
@@ -169,7 +169,7 @@ extension GoLibp2pLibp2pP2pTransportTcpApi on GoLibp2pLibp2pP2pTransportTcp {
       $tcpreuse.Libp2pP2pTransportTcpreuseConnMgr sharedTcp,
       [List<Libp2pP2pTransportTcpOption> opts = const []]) {
     final $r = $callSync(
-        15033,
+        15039,
         $W()
           ..h(upgrader)
           ..h(rcmgr)

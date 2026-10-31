@@ -53,13 +53,13 @@ class BoxoBitswapServer extends $network.BoxoBitswapNetworkReceiver
 
   /// Go: `func (*server.Server).Close()`.
   void close() {
-    $callSync(9302, $W()..h(this));
+    $callSync(9311, $W()..h(this));
   }
 
   /// Go: `func (*server.Server).LedgerForPeer(p peer.ID) *decision.Receipt`.
   BoxoBitswapServerReceipt ledgerForPeer($peer.Libp2pCorePeerId p) {
     final $r = $callSync(
-        9303,
+        9312,
         $W()
           ..h(this)
           ..val(p));
@@ -72,7 +72,7 @@ class BoxoBitswapServer extends $network.BoxoBitswapNetworkReceiver
   Future<void> notifyNewBlocks($context.Context ctx,
       [List<$block_format.BlockFormatBlock> blks = const []]) async {
     await $call(
-        9304,
+        9313,
         $W()
           ..h(this)
           ..h(ctx)
@@ -82,7 +82,7 @@ class BoxoBitswapServer extends $network.BoxoBitswapNetworkReceiver
   /// Go: `func (*server.Server).PeerConnected(p peer.ID)`.
   void peerConnected($peer.Libp2pCorePeerId p) {
     $callSync(
-        9305,
+        9314,
         $W()
           ..h(this)
           ..val(p));
@@ -91,7 +91,7 @@ class BoxoBitswapServer extends $network.BoxoBitswapNetworkReceiver
   /// Go: `func (*server.Server).PeerDisconnected(p peer.ID)`.
   void peerDisconnected($peer.Libp2pCorePeerId p) {
     $callSync(
-        9306,
+        9315,
         $W()
           ..h(this)
           ..val(p));
@@ -103,7 +103,7 @@ class BoxoBitswapServer extends $network.BoxoBitswapNetworkReceiver
   Future<void> receiveMessage($context.Context ctx, $peer.Libp2pCorePeerId p,
       $message.BoxoBitswapMessageBitSwapMessage incoming) async {
     await $call(
-        9307,
+        9316,
         $W()
           ..h(this)
           ..h(ctx)
@@ -115,7 +115,7 @@ class BoxoBitswapServer extends $network.BoxoBitswapNetworkReceiver
   void receivedBlocks(
       $peer.Libp2pCorePeerId from, List<$block_format.BlockFormatBlock> blks) {
     $callSync(
-        9308,
+        9317,
         $W()
           ..h(this)
           ..val(from)
@@ -124,14 +124,14 @@ class BoxoBitswapServer extends $network.BoxoBitswapNetworkReceiver
 
   /// Go: `func (*server.Server).Stat() (server.Stat, error)`.
   BoxoBitswapServerStat stat() {
-    final $r = $callSync(9309, $W()..h(this));
+    final $r = $callSync(9318, $W()..h(this));
     return $r.p() ? BoxoBitswapServerStat.$dec($r) : $nil();
   }
 
   /// Go: `func (*server.Server).WantlistForPeer(p peer.ID) []cid.Cid`.
   List<$cid.Cid> wantlistForPeer($peer.Libp2pCorePeerId p) {
     final $r = $callSync(
-        9310,
+        9319,
         $W()
           ..h(this)
           ..val(p));
@@ -301,7 +301,7 @@ extension GoIpfsBoxoBitswapServerApi on GoIpfsBoxoBitswapServer {
       $blockstore.BoxoBlockstore bstore,
       [List<BoxoBitswapServerOption> options = const []]) async {
     final $r = await $call(
-        9301,
+        9310,
         $W()
           ..h(ctx)
           ..h(network)

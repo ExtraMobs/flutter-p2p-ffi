@@ -32,7 +32,7 @@ class Libp2pGologshimConfig extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*gologshim.Config).LevelForSystem(system string) slog.Level`.
   int levelForSystem(String system) {
     final $r = $callSync(
-        14318,
+        14324,
         $W()
           ..h(this)
           ..str(system));
@@ -44,12 +44,12 @@ class Libp2pGologshimConfig extends $crypto.CryptoDecrypterOpts
 extension GoLibp2pLibp2pGologshimApi on GoLibp2pLibp2pGologshim {
   /// Go: `func gologshim.Logger(system string) *slog.Logger`.
   $slog.LogSlogLogger logger(String system) {
-    final $r = $callSync(14319, $W()..str(system));
+    final $r = $callSync(14325, $W()..str(system));
     return $r.hnn($slog.LogSlogLogger.$h);
   }
 
   /// Go: `func gologshim.SetDefaultHandler(handler slog.Handler)`.
   void setDefaultHandler($slog.LogSlogHandler handler) {
-    $callSync(14320, $W()..h(handler));
+    $callSync(14326, $W()..h(handler));
   }
 }

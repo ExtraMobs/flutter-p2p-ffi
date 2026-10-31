@@ -73,7 +73,7 @@ final class ProtobufEncodingProtojsonMarshalOptions implements GoDto {
   /// Go: `func (protojson.MarshalOptions).Format(m proto.Message) string`.
   String format($protoreflect.ProtobufReflectProtoreflectProtoMessage m) {
     final $r = $callSync(
-        24732,
+        24738,
         $W()
           ..dto(this)
           ..h(m));
@@ -83,7 +83,7 @@ final class ProtobufEncodingProtojsonMarshalOptions implements GoDto {
   /// Go: `func (protojson.MarshalOptions).Marshal(m proto.Message) ([]byte, error)`.
   Uint8List marshal($protoreflect.ProtobufReflectProtoreflectProtoMessage m) {
     final $r = $callSync(
-        24733,
+        24739,
         $W()
           ..dto(this)
           ..h(m));
@@ -94,7 +94,7 @@ final class ProtobufEncodingProtojsonMarshalOptions implements GoDto {
   Uint8List marshalAppend(
       Uint8List b, $protoreflect.ProtobufReflectProtoreflectProtoMessage m) {
     final $r = $callSync(
-        24734,
+        24740,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -139,7 +139,7 @@ final class ProtobufEncodingProtojsonUnmarshalOptions implements GoDto {
   void unmarshal(
       Uint8List b, $protoreflect.ProtobufReflectProtoreflectProtoMessage m) {
     $callSync(
-        24736,
+        24742,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -151,13 +151,13 @@ final class ProtobufEncodingProtojsonUnmarshalOptions implements GoDto {
 extension GoProtobufEncodingProtojsonApi on GoProtobufEncodingProtojson {
   /// Go: `func protojson.Format(m proto.Message) string`.
   String format($protoreflect.ProtobufReflectProtoreflectProtoMessage m) {
-    final $r = $callSync(24730, $W()..h(m));
+    final $r = $callSync(24736, $W()..h(m));
     return $r.str();
   }
 
   /// Go: `func protojson.Marshal(m proto.Message) ([]byte, error)`.
   Uint8List marshal($protoreflect.ProtobufReflectProtoreflectProtoMessage m) {
-    final $r = $callSync(24731, $W()..h(m));
+    final $r = $callSync(24737, $W()..h(m));
     return $r.bytes() ?? Uint8List(0);
   }
 
@@ -165,7 +165,7 @@ extension GoProtobufEncodingProtojsonApi on GoProtobufEncodingProtojson {
   void unmarshal(
       Uint8List b, $protoreflect.ProtobufReflectProtoreflectProtoMessage m) {
     $callSync(
-        24735,
+        24741,
         $W()
           ..bytes(b)
           ..h(m));

@@ -52,7 +52,7 @@ class PebbleV2SstableBitmapRunLengthEncoder extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*sstable.BitmapRunLengthEncoder).FinishAndAppend(buf []byte) []byte`.
   Uint8List finishAndAppend(Uint8List buf) {
     final $r = $callSync(
-        5008,
+        5017,
         $W()
           ..h(this)
           ..bytes(buf));
@@ -61,13 +61,13 @@ class PebbleV2SstableBitmapRunLengthEncoder extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*sstable.BitmapRunLengthEncoder).Init()`.
   void init() {
-    $callSync(5009, $W()..h(this));
+    $callSync(5018, $W()..h(this));
   }
 
   /// Go: `func (*sstable.BitmapRunLengthEncoder).Set(i int)`.
   void set(int i) {
     $callSync(
-        5010,
+        5019,
         $W()
           ..h(this)
           ..i64(i));
@@ -75,7 +75,7 @@ class PebbleV2SstableBitmapRunLengthEncoder extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*sstable.BitmapRunLengthEncoder).Size() int`.
   int size() {
-    final $r = $callSync(5011, $W()..h(this));
+    final $r = $callSync(5020, $W()..h(this));
     return $r.i64();
   }
 }
@@ -158,7 +158,7 @@ final class PebbleV2SstableBlockInterval implements GoDto {
   /// Go: `func (sstable.BlockInterval).Intersects(other sstable.BlockInterval) bool`.
   bool intersects(PebbleV2SstableBlockInterval other) {
     final $r = $callSync(
-        5012,
+        5021,
         $W()
           ..dto(this)
           ..dto(other));
@@ -167,14 +167,14 @@ final class PebbleV2SstableBlockInterval implements GoDto {
 
   /// Go: `func (sstable.BlockInterval).IsEmpty() bool`.
   bool isEmpty() {
-    final $r = $callSync(5013, $W()..dto(this));
+    final $r = $callSync(5022, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*sstable.BlockInterval).UnionWith(other sstable.BlockInterval)`.
   void unionWith(PebbleV2SstableBlockInterval other) {
     $callSync(
-        5014,
+        5023,
         $W()
           ..dto(this)
           ..dto(other));
@@ -206,7 +206,7 @@ class PebbleV2SstableBlockIntervalCollector
   void addCollectedWithSuffixReplacement(
       Uint8List oldProp, Uint8List oldSuffix, Uint8List newSuffix) {
     $callSync(
-        5015,
+        5024,
         $W()
           ..h(this)
           ..bytes(oldProp)
@@ -216,13 +216,13 @@ class PebbleV2SstableBlockIntervalCollector
 
   /// Go: `func (*sstable.BlockIntervalCollector).AddPrevDataBlockToIndexBlock()`.
   void addPrevDataBlockToIndexBlock() {
-    $callSync(5016, $W()..h(this));
+    $callSync(5025, $W()..h(this));
   }
 
   /// Go: `func (*sstable.BlockIntervalCollector).AddRangeKeys(span sstable.Span) error`.
   void addRangeKeys($rangekey.PebbleV2RangekeySpan span) {
     $callSync(
-        5017,
+        5026,
         $W()
           ..h(this)
           ..dto(span));
@@ -231,7 +231,7 @@ class PebbleV2SstableBlockIntervalCollector
   /// Go: `func (*sstable.BlockIntervalCollector).FinishDataBlock(buf []byte) ([]byte, error)`.
   Uint8List finishDataBlock(Uint8List buf) {
     final $r = $callSync(
-        5018,
+        5027,
         $W()
           ..h(this)
           ..bytes(buf));
@@ -241,7 +241,7 @@ class PebbleV2SstableBlockIntervalCollector
   /// Go: `func (*sstable.BlockIntervalCollector).FinishIndexBlock(buf []byte) ([]byte, error)`.
   Uint8List finishIndexBlock(Uint8List buf) {
     final $r = $callSync(
-        5019,
+        5028,
         $W()
           ..h(this)
           ..bytes(buf));
@@ -251,7 +251,7 @@ class PebbleV2SstableBlockIntervalCollector
   /// Go: `func (*sstable.BlockIntervalCollector).FinishTable(buf []byte) ([]byte, error)`.
   Uint8List finishTable(Uint8List buf) {
     final $r = $callSync(
-        5020,
+        5029,
         $W()
           ..h(this)
           ..bytes(buf));
@@ -260,13 +260,13 @@ class PebbleV2SstableBlockIntervalCollector
 
   /// Go: `func (*sstable.BlockIntervalCollector).Name() string`.
   String name() {
-    final $r = $callSync(5021, $W()..h(this));
+    final $r = $callSync(5030, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*sstable.BlockIntervalCollector).SupportsSuffixReplacement() bool`.
   bool supportsSuffixReplacement() {
-    final $r = $callSync(5022, $W()..h(this));
+    final $r = $callSync(5031, $W()..h(this));
     return $r.b();
   }
 }
@@ -293,7 +293,7 @@ class PebbleV2SstableBlockIntervalFilter extends $crypto.CryptoDecrypterOpts
   factory PebbleV2SstableBlockIntervalFilter(String name, int lower, int upper,
       PebbleV2SstableBlockIntervalSuffixReplacer suffixReplacer) {
     final $r = $callSync(
-        5059,
+        5068,
         $W()
           ..str(name)
           ..i64(lower)
@@ -306,7 +306,7 @@ class PebbleV2SstableBlockIntervalFilter extends $crypto.CryptoDecrypterOpts
   void init(String name, int lower, int upper,
       PebbleV2SstableBlockIntervalSuffixReplacer suffixReplacer) {
     $callSync(
-        5023,
+        5032,
         $W()
           ..h(this)
           ..str(name)
@@ -318,7 +318,7 @@ class PebbleV2SstableBlockIntervalFilter extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*sstable.BlockIntervalFilter).Intersects(prop []byte) (bool, error)`.
   bool intersects(Uint8List prop) {
     final $r = $callSync(
-        5024,
+        5033,
         $W()
           ..h(this)
           ..bytes(prop));
@@ -327,14 +327,14 @@ class PebbleV2SstableBlockIntervalFilter extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*sstable.BlockIntervalFilter).Name() string`.
   String name() {
-    final $r = $callSync(5025, $W()..h(this));
+    final $r = $callSync(5034, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*sstable.BlockIntervalFilter).SetInterval(lower uint64, upper uint64)`.
   void setInterval(int lower, int upper) {
     $callSync(
-        5026,
+        5035,
         $W()
           ..h(this)
           ..i64(lower)
@@ -344,7 +344,7 @@ class PebbleV2SstableBlockIntervalFilter extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*sstable.BlockIntervalFilter).SyntheticSuffixIntersects(prop []byte, suffix []byte) (bool, error)`.
   bool syntheticSuffixIntersects(Uint8List prop, Uint8List suffix) {
     final $r = $callSync(
-        5027,
+        5036,
         $W()
           ..h(this)
           ..bytes(prop)
@@ -365,7 +365,7 @@ mixin PebbleV2SstableBlockIntervalSuffixReplacer$ on GoHandle {
   PebbleV2SstableBlockInterval applySuffixReplacement(
       PebbleV2SstableBlockInterval interval, Uint8List newSuffix) {
     final $r = $callSync(
-        5028,
+        5037,
         $W()
           ..h(this)
           ..dto(interval)
@@ -405,7 +405,7 @@ mixin PebbleV2SstableBlockPropertyCollector$ on GoHandle {
   void addCollectedWithSuffixReplacement(
       Uint8List oldProp, Uint8List oldSuffix, Uint8List newSuffix) {
     $callSync(
-        5029,
+        5038,
         $W()
           ..h(this)
           ..bytes(oldProp)
@@ -415,13 +415,13 @@ mixin PebbleV2SstableBlockPropertyCollector$ on GoHandle {
 
   /// Go: `func (sstable.BlockPropertyCollector).AddPrevDataBlockToIndexBlock()`.
   void addPrevDataBlockToIndexBlock() {
-    $callSync(5030, $W()..h(this));
+    $callSync(5039, $W()..h(this));
   }
 
   /// Go: `func (sstable.BlockPropertyCollector).AddRangeKeys(span sstable.Span) error`.
   void addRangeKeys($rangekey.PebbleV2RangekeySpan span) {
     $callSync(
-        5031,
+        5040,
         $W()
           ..h(this)
           ..dto(span));
@@ -430,7 +430,7 @@ mixin PebbleV2SstableBlockPropertyCollector$ on GoHandle {
   /// Go: `func (sstable.BlockPropertyCollector).FinishDataBlock(buf []byte) ([]byte, error)`.
   Uint8List finishDataBlock(Uint8List buf) {
     final $r = $callSync(
-        5032,
+        5041,
         $W()
           ..h(this)
           ..bytes(buf));
@@ -440,7 +440,7 @@ mixin PebbleV2SstableBlockPropertyCollector$ on GoHandle {
   /// Go: `func (sstable.BlockPropertyCollector).FinishIndexBlock(buf []byte) ([]byte, error)`.
   Uint8List finishIndexBlock(Uint8List buf) {
     final $r = $callSync(
-        5033,
+        5042,
         $W()
           ..h(this)
           ..bytes(buf));
@@ -450,7 +450,7 @@ mixin PebbleV2SstableBlockPropertyCollector$ on GoHandle {
   /// Go: `func (sstable.BlockPropertyCollector).FinishTable(buf []byte) ([]byte, error)`.
   Uint8List finishTable(Uint8List buf) {
     final $r = $callSync(
-        5034,
+        5043,
         $W()
           ..h(this)
           ..bytes(buf));
@@ -459,20 +459,20 @@ mixin PebbleV2SstableBlockPropertyCollector$ on GoHandle {
 
   /// Go: `func (sstable.BlockPropertyCollector).Name() string`.
   String name() {
-    final $r = $callSync(5035, $W()..h(this));
+    final $r = $callSync(5044, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (sstable.BlockPropertyCollector).SupportsSuffixReplacement() bool`.
   bool supportsSuffixReplacement() {
-    final $r = $callSync(5036, $W()..h(this));
+    final $r = $callSync(5045, $W()..h(this));
     return $r.b();
   }
 
   /// Go: type assertion `x.(*sstable.BlockIntervalCollector)`: null if the object is not one.
   PebbleV2SstableBlockIntervalCollector?
       asPebbleV2SstableBlockIntervalCollector() {
-    final $r = $callSync(400, $W()..h(this));
+    final $r = $callSync(403, $W()..h(this));
     return $r.hn(PebbleV2SstableBlockIntervalCollector.$h);
   }
 }
@@ -488,7 +488,7 @@ mixin PebbleV2SstableBoundLimitedBlockPropertyFilter$ on GoHandle {
   /// Go: `func (sstable.BoundLimitedBlockPropertyFilter).KeyIsWithinLowerBound(key []byte) bool`.
   bool keyIsWithinLowerBound(Uint8List key) {
     final $r = $callSync(
-        5037,
+        5046,
         $W()
           ..h(this)
           ..bytes(key));
@@ -498,7 +498,7 @@ mixin PebbleV2SstableBoundLimitedBlockPropertyFilter$ on GoHandle {
   /// Go: `func (sstable.BoundLimitedBlockPropertyFilter).KeyIsWithinUpperBound(key []byte) bool`.
   bool keyIsWithinUpperBound(Uint8List key) {
     final $r = $callSync(
-        5038,
+        5047,
         $W()
           ..h(this)
           ..bytes(key));
@@ -663,13 +663,13 @@ final class PebbleV2SstableCommonProperties implements GoDto {
 
   /// Go: `func (*sstable.CommonProperties).NumPointDeletions() uint64`.
   int numPointDeletions() {
-    final $r = $callSync(5039, $W()..dto(this));
+    final $r = $callSync(5048, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*sstable.CommonProperties).String() string`.
   String string() {
-    final $r = $callSync(5040, $W()..dto(this));
+    final $r = $callSync(5049, $W()..dto(this));
     return $r.str();
   }
 }
@@ -718,7 +718,7 @@ class PebbleV2SstableFilterMetricsTracker extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*sstable.FilterMetricsTracker).Load() sstable.FilterMetrics`.
   PebbleV2SstableFilterMetrics load() {
-    final $r = $callSync(5047, $W()..h(this));
+    final $r = $callSync(5056, $W()..h(this));
     return $r.p() ? PebbleV2SstableFilterMetrics.$dec($r) : $nil();
   }
 }
@@ -735,7 +735,7 @@ mixin PebbleV2SstableIntervalMapper$ on GoHandle {
   PebbleV2SstableBlockInterval mapRangeKeys(
       $rangekey.PebbleV2RangekeySpan span) {
     final $r = $callSync(
-        5050,
+        5059,
         $W()
           ..h(this)
           ..dto(span));
@@ -828,7 +828,7 @@ mixin PebbleV2SstableIterator$ on GoHandle {
   /// each invocation (a retained callback, WIRE.md).
   Future<void> setCloseHook(FutureOr<void> Function() callback) async {
     await $call(
-        5051,
+        5060,
         $W()
           ..h(this)
           ..cb((r) => callback(), true));
@@ -946,7 +946,7 @@ final class PebbleV2SstableLayout implements GoDto {
   /// Go: `func (*sstable.Layout).FilterByName(name string) (block.Handle, bool)`.
   ($block.PebbleV2SstableBlockHandle, bool) filterByName(String name) {
     final $r = $callSync(
-        5053,
+        5062,
         $W()
           ..dto(this)
           ..str(name));
@@ -1033,19 +1033,19 @@ final class PebbleV2SstableParsedKvOrSpan implements GoDto {
 
   /// Go: `func (sstable.ParsedKVOrSpan).HasBlobValue() bool`.
   bool hasBlobValue() {
-    final $r = $callSync(5073, $W()..dto(this));
+    final $r = $callSync(5082, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (sstable.ParsedKVOrSpan).IsKeySpan() bool`.
   bool isKeySpan() {
-    final $r = $callSync(5074, $W()..dto(this));
+    final $r = $callSync(5083, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (sstable.ParsedKVOrSpan).String() string`.
   String string() {
-    final $r = $callSync(5075, $W()..dto(this));
+    final $r = $callSync(5084, $W()..dto(this));
     return $r.str();
   }
 }
@@ -1288,7 +1288,7 @@ final class PebbleV2SstableProperties implements GoDto {
   PebbleV2SstableCommonProperties getScaledProperties(
       int backingSize, int size) {
     final $r = $callSync(
-        5076,
+        5085,
         $W()
           ..dto(this)
           ..i64(backingSize)
@@ -1298,19 +1298,19 @@ final class PebbleV2SstableProperties implements GoDto {
 
   /// Go: `func (*sstable.Properties).NumPointDeletions() uint64`.
   int numPointDeletions() {
-    final $r = $callSync(5077, $W()..dto(this));
+    final $r = $callSync(5086, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*sstable.Properties).NumRangeKeys() uint64`.
   int numRangeKeys() {
-    final $r = $callSync(5078, $W()..dto(this));
+    final $r = $callSync(5087, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*sstable.Properties).String() string`.
   String string() {
-    final $r = $callSync(5079, $W()..dto(this));
+    final $r = $callSync(5088, $W()..dto(this));
     return $r.str();
   }
 }
@@ -1341,13 +1341,13 @@ class PebbleV2SstableRawColumnWriter extends PebbleV2SstableRawWriter
 
   /// Go: `func (*sstable.RawColumnWriter).Close() (err error)`.
   void close() {
-    $callSync(5080, $W()..h(this));
+    $callSync(5089, $W()..h(this));
   }
 
   /// Go: `func (*sstable.RawColumnWriter).ComparePrev(k []byte) int`.
   int comparePrev(Uint8List k) {
     final $r = $callSync(
-        5081,
+        5090,
         $W()
           ..h(this)
           ..bytes(k));
@@ -1357,7 +1357,7 @@ class PebbleV2SstableRawColumnWriter extends PebbleV2SstableRawWriter
   /// Go: `func (*sstable.RawColumnWriter).EncodeSpan(span keyspan.Span) error`.
   void encodeSpan($rangekey.PebbleV2RangekeySpan span) {
     $callSync(
-        5082,
+        5091,
         $W()
           ..h(this)
           ..dto(span));
@@ -1365,18 +1365,18 @@ class PebbleV2SstableRawColumnWriter extends PebbleV2SstableRawWriter
 
   /// Go: `func (*sstable.RawColumnWriter).Error() error`.
   void error() {
-    $callSync(5083, $W()..h(this));
+    $callSync(5092, $W()..h(this));
   }
 
   /// Go: `func (*sstable.RawColumnWriter).EstimatedSize() uint64`.
   int estimatedSize() {
-    final $r = $callSync(5084, $W()..h(this));
+    final $r = $callSync(5093, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*sstable.RawColumnWriter).Metadata() (*sstable.WriterMetadata, error)`.
   PebbleV2SstableWriterMetadata metadata() {
-    final $r = $callSync(5085, $W()..h(this));
+    final $r = $callSync(5094, $W()..h(this));
     return $r.p() ? PebbleV2SstableWriterMetadata.$dec($r) : $nil();
   }
 
@@ -1384,7 +1384,7 @@ class PebbleV2SstableRawColumnWriter extends PebbleV2SstableRawWriter
   void setSnapshotPinnedProperties(
       int pinnedKeyCount, int pinnedKeySize, int pinnedValueSize) {
     $callSync(
-        5086,
+        5095,
         $W()
           ..h(this)
           ..i64(pinnedKeyCount)
@@ -1419,13 +1419,13 @@ class PebbleV2SstableRawRowWriter extends PebbleV2SstableRawWriter
 
   /// Go: `func (*sstable.RawRowWriter).Close() (err error)`.
   void close() {
-    $callSync(5087, $W()..h(this));
+    $callSync(5096, $W()..h(this));
   }
 
   /// Go: `func (*sstable.RawRowWriter).ComparePrev(k []byte) int`.
   int comparePrev(Uint8List k) {
     final $r = $callSync(
-        5088,
+        5097,
         $W()
           ..h(this)
           ..bytes(k));
@@ -1435,7 +1435,7 @@ class PebbleV2SstableRawRowWriter extends PebbleV2SstableRawWriter
   /// Go: `func (*sstable.RawRowWriter).EncodeSpan(span keyspan.Span) error`.
   void encodeSpan($rangekey.PebbleV2RangekeySpan span) {
     $callSync(
-        5089,
+        5098,
         $W()
           ..h(this)
           ..dto(span));
@@ -1443,18 +1443,18 @@ class PebbleV2SstableRawRowWriter extends PebbleV2SstableRawWriter
 
   /// Go: `func (*sstable.RawRowWriter).Error() error`.
   void error() {
-    $callSync(5090, $W()..h(this));
+    $callSync(5099, $W()..h(this));
   }
 
   /// Go: `func (*sstable.RawRowWriter).EstimatedSize() uint64`.
   int estimatedSize() {
-    final $r = $callSync(5091, $W()..h(this));
+    final $r = $callSync(5100, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*sstable.RawRowWriter).Metadata() (*sstable.WriterMetadata, error)`.
   PebbleV2SstableWriterMetadata metadata() {
-    final $r = $callSync(5092, $W()..h(this));
+    final $r = $callSync(5101, $W()..h(this));
     return $r.p() ? PebbleV2SstableWriterMetadata.$dec($r) : $nil();
   }
 
@@ -1462,7 +1462,7 @@ class PebbleV2SstableRawRowWriter extends PebbleV2SstableRawWriter
   void setSnapshotPinnedProperties(
       int pinnedKeyCount, int pinnedKeySize, int pinnedValueSize) {
     $callSync(
-        5093,
+        5102,
         $W()
           ..h(this)
           ..i64(pinnedKeyCount)
@@ -1480,7 +1480,7 @@ class PebbleV2SstableRawWriter extends GoHandle with PebbleV2SstableRawWriter$ {
       $objstorage.PebbleV2ObjstorageWritable writable,
       PebbleV2SstableWriterOptions o) {
     final $r = $callSync(
-        5061,
+        5070,
         $W()
           ..h(writable)
           ..h(o));
@@ -1492,13 +1492,13 @@ class PebbleV2SstableRawWriter extends GoHandle with PebbleV2SstableRawWriter$ {
 mixin PebbleV2SstableRawWriter$ on GoHandle {
   /// Go: `func (sstable.RawWriter).Close() error`.
   void close() {
-    $callSync(5094, $W()..h(this));
+    $callSync(5103, $W()..h(this));
   }
 
   /// Go: `func (sstable.RawWriter).ComparePrev(k []byte) int`.
   int comparePrev(Uint8List k) {
     final $r = $callSync(
-        5095,
+        5104,
         $W()
           ..h(this)
           ..bytes(k));
@@ -1508,7 +1508,7 @@ mixin PebbleV2SstableRawWriter$ on GoHandle {
   /// Go: `func (sstable.RawWriter).EncodeSpan(span keyspan.Span) error`.
   void encodeSpan($rangekey.PebbleV2RangekeySpan span) {
     $callSync(
-        5096,
+        5105,
         $W()
           ..h(this)
           ..dto(span));
@@ -1516,25 +1516,25 @@ mixin PebbleV2SstableRawWriter$ on GoHandle {
 
   /// Go: `func (sstable.RawWriter).Error() error`.
   void error() {
-    $callSync(5097, $W()..h(this));
+    $callSync(5106, $W()..h(this));
   }
 
   /// Go: `func (sstable.RawWriter).EstimatedSize() uint64`.
   int estimatedSize() {
-    final $r = $callSync(5098, $W()..h(this));
+    final $r = $callSync(5107, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (sstable.RawWriter).Metadata() (*sstable.WriterMetadata, error)`.
   PebbleV2SstableWriterMetadata metadata() {
-    final $r = $callSync(5099, $W()..h(this));
+    final $r = $callSync(5108, $W()..h(this));
     return $r.p() ? PebbleV2SstableWriterMetadata.$dec($r) : $nil();
   }
 
   /// Go: `func (sstable.RawWriter).SetSnapshotPinnedProperties(keyCount uint64, keySize uint64, valueSize uint64)`.
   void setSnapshotPinnedProperties(int keyCount, int keySize, int valueSize) {
     $callSync(
-        5100,
+        5109,
         $W()
           ..h(this)
           ..i64(keyCount)
@@ -1544,13 +1544,13 @@ mixin PebbleV2SstableRawWriter$ on GoHandle {
 
   /// Go: type assertion `x.(*sstable.RawColumnWriter)`: null if the object is not one.
   PebbleV2SstableRawColumnWriter? asPebbleV2SstableRawColumnWriter() {
-    final $r = $callSync(401, $W()..h(this));
+    final $r = $callSync(404, $W()..h(this));
     return $r.hn(PebbleV2SstableRawColumnWriter.$h);
   }
 
   /// Go: type assertion `x.(*sstable.RawRowWriter)`: null if the object is not one.
   PebbleV2SstableRawRowWriter? asPebbleV2SstableRawRowWriter() {
-    final $r = $callSync(402, $W()..h(this));
+    final $r = $callSync(405, $W()..h(this));
     return $r.hn(PebbleV2SstableRawRowWriter.$h);
   }
 }
@@ -1599,7 +1599,7 @@ class PebbleV2SstableReadableFile extends $io.IoCloser
 mixin PebbleV2SstableReadableFile$ on GoHandle {
   /// Go: `func (sstable.ReadableFile).Stat() (vfs.FileInfo, error)`.
   $vfs.PebbleV2VfsFileInfo stat() {
-    final $r = $callSync(5101, $W()..h(this));
+    final $r = $callSync(5110, $W()..h(this));
     return $r.hnn($vfs.PebbleV2VfsFileInfo.$h);
   }
 }
@@ -1631,20 +1631,20 @@ class PebbleV2SstableReader
 
   /// Go: `func (*sstable.Reader).BlockReader() *block.Reader`.
   $block.PebbleV2SstableBlockReader blockReader() {
-    final $r = $callSync(5102, $W()..h(this));
+    final $r = $callSync(5111, $W()..h(this));
     return $r.hnn($block.PebbleV2SstableBlockReader.$h);
   }
 
   /// Go: `func (*sstable.Reader).Close() error`.
   void close() {
-    $callSync(5103, $W()..h(this));
+    $callSync(5112, $W()..h(this));
   }
 
   /// Go: `func (*sstable.Reader).EstimateDiskUsage(start []byte, end []byte, env sstable.ReadEnv) (uint64, error)`.
   int estimateDiskUsage(
       Uint8List start, Uint8List end, PebbleV2SstableReadEnv env) {
     final $r = $callSync(
-        5104,
+        5113,
         $W()
           ..h(this)
           ..bytes(start)
@@ -1655,7 +1655,7 @@ class PebbleV2SstableReader
 
   /// Go: `func (*sstable.Reader).Layout() (*sstable.Layout, error)`.
   PebbleV2SstableLayout layout() {
-    final $r = $callSync(5105, $W()..h(this));
+    final $r = $callSync(5114, $W()..h(this));
     return $r.p() ? PebbleV2SstableLayout.$dec($r) : $nil();
   }
 
@@ -1666,7 +1666,7 @@ class PebbleV2SstableReader
       $valblk.PebbleV2SstableValblkReaderProvider rp,
       PebbleV2SstableTableBlobContext blobContext) {
     final $r = $callSync(
-        5106,
+        5115,
         $W()
           ..h(this)
           ..dto(transforms)
@@ -1683,7 +1683,7 @@ class PebbleV2SstableReader
       Uint8List upper,
       PebbleV2SstableTableBlobContext blobContext) {
     final $r = $callSync(
-        5107,
+        5116,
         $W()
           ..h(this)
           ..dto(transforms)
@@ -1699,7 +1699,7 @@ class PebbleV2SstableReader
   Future<PebbleV2SstableIterator> newPointIter(
       $context.Context ctx, PebbleV2SstableIterOptions opts) async {
     final $r = await $call(
-        5108,
+        5117,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1713,7 +1713,7 @@ class PebbleV2SstableReader
   Future<$block.PebbleV2SstableBlockBufferHandle> readBlobRefIndexBlock(
       $context.Context ctx, $block.PebbleV2SstableBlockReadEnv env) async {
     final $r = await $call(
-        5109,
+        5118,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1727,7 +1727,7 @@ class PebbleV2SstableReader
   Future<PebbleV2SstableProperties> readPropertiesBlock($context.Context ctx,
       $block.PebbleV2SstableBlockBufferPool bufferPool) async {
     final $r = await $call(
-        5110,
+        5119,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1741,7 +1741,7 @@ class PebbleV2SstableReader
   Future<$block.PebbleV2SstableBlockBufferHandle> readValueBlockExternal(
       $context.Context ctx, $block.PebbleV2SstableBlockHandle bh) async {
     final $r = await $call(
-        5111,
+        5120,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1751,13 +1751,13 @@ class PebbleV2SstableReader
 
   /// Go: `func (*sstable.Reader).TableFormat() (sstable.TableFormat, error)`.
   int tableFormat() {
-    final $r = $callSync(5112, $W()..h(this));
+    final $r = $callSync(5121, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*sstable.Reader).ValidateBlockChecksums() error`.
   void validateBlockChecksums() {
-    $callSync(5113, $W()..h(this));
+    $callSync(5122, $W()..h(this));
   }
 }
 
@@ -1889,7 +1889,7 @@ final class PebbleV2SstableTestFixtureInfo implements GoDto {
   /// Go: `func (sstable.TestFixtureInfo).Build(fs vfs.FS, filename string) error`.
   void build($vfs.PebbleV2VfsFs fs, String filename) {
     $callSync(
-        5117,
+        5126,
         $W()
           ..dto(this)
           ..h(fs)
@@ -1918,7 +1918,7 @@ final class PebbleV2SstableTestKeysMaskingFilter implements GoDto {
   void init(String name, int lower, int upper,
       PebbleV2SstableBlockIntervalSuffixReplacer suffixReplacer) {
     $callSync(
-        5119,
+        5128,
         $W()
           ..dto(this)
           ..str(name)
@@ -1930,7 +1930,7 @@ final class PebbleV2SstableTestKeysMaskingFilter implements GoDto {
   /// Go: `func (sstable.TestKeysMaskingFilter).Intersects(prop []byte) (bool, error)`.
   bool intersects(Uint8List prop) {
     final $r = $callSync(
-        5120,
+        5129,
         $W()
           ..dto(this)
           ..bytes(prop));
@@ -1939,14 +1939,14 @@ final class PebbleV2SstableTestKeysMaskingFilter implements GoDto {
 
   /// Go: `func (*sstable.BlockIntervalFilter).Name() string`.
   String name() {
-    final $r = $callSync(5121, $W()..dto(this));
+    final $r = $callSync(5130, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*sstable.BlockIntervalFilter).SetInterval(lower uint64, upper uint64)`.
   void setInterval(int lower, int upper) {
     $callSync(
-        5122,
+        5131,
         $W()
           ..dto(this)
           ..i64(lower)
@@ -1956,7 +1956,7 @@ final class PebbleV2SstableTestKeysMaskingFilter implements GoDto {
   /// Go: `func (sstable.TestKeysMaskingFilter).SetSuffix(suffix []byte) error`.
   void setSuffix(Uint8List suffix) {
     $callSync(
-        5123,
+        5132,
         $W()
           ..dto(this)
           ..bytes(suffix));
@@ -1965,7 +1965,7 @@ final class PebbleV2SstableTestKeysMaskingFilter implements GoDto {
   /// Go: `func (sstable.TestKeysMaskingFilter).SyntheticSuffixIntersects(prop []byte, suffix []byte) (bool, error)`.
   bool syntheticSuffixIntersects(Uint8List prop, Uint8List suffix) {
     final $r = $callSync(
-        5124,
+        5133,
         $W()
           ..dto(this)
           ..bytes(prop)
@@ -1999,7 +1999,7 @@ final class PebbleV2SstableUserKeyPrefixBound implements GoDto {
 
   /// Go: `func (*sstable.UserKeyPrefixBound).IsEmpty() bool`.
   bool isEmpty() {
-    final $r = $callSync(5125, $W()..dto(this));
+    final $r = $callSync(5134, $W()..dto(this));
     return $r.b();
   }
 }
@@ -2030,7 +2030,7 @@ class PebbleV2SstableWriter extends $io.IoCloser
   factory PebbleV2SstableWriter($objstorage.PebbleV2ObjstorageWritable writable,
       PebbleV2SstableWriterOptions o) {
     final $r = $callSync(
-        5067,
+        5076,
         $W()
           ..h(writable)
           ..h(o));
@@ -2039,13 +2039,13 @@ class PebbleV2SstableWriter extends $io.IoCloser
 
   /// Go: `func (*sstable.Writer).Close() (err error)`.
   void close() {
-    $callSync(5126, $W()..h(this));
+    $callSync(5135, $W()..h(this));
   }
 
   /// Go: `func (*sstable.Writer).Delete(key []byte) error`.
   void delete(Uint8List key) {
     $callSync(
-        5127,
+        5136,
         $W()
           ..h(this)
           ..bytes(key));
@@ -2054,7 +2054,7 @@ class PebbleV2SstableWriter extends $io.IoCloser
   /// Go: `func (*sstable.Writer).DeleteRange(start []byte, end []byte) error`.
   void deleteRange(Uint8List start, Uint8List end) {
     $callSync(
-        5128,
+        5137,
         $W()
           ..h(this)
           ..bytes(start)
@@ -2063,13 +2063,13 @@ class PebbleV2SstableWriter extends $io.IoCloser
 
   /// Go: `func (*sstable.Writer).Error() error`.
   void error() {
-    $callSync(5129, $W()..h(this));
+    $callSync(5138, $W()..h(this));
   }
 
   /// Go: `func (*sstable.Writer).Merge(key []byte, value []byte) error`.
   void merge(Uint8List key, Uint8List value) {
     $callSync(
-        5130,
+        5139,
         $W()
           ..h(this)
           ..bytes(key)
@@ -2078,14 +2078,14 @@ class PebbleV2SstableWriter extends $io.IoCloser
 
   /// Go: `func (*sstable.Writer).Metadata() (*sstable.WriterMetadata, error)`.
   PebbleV2SstableWriterMetadata metadata() {
-    final $r = $callSync(5131, $W()..h(this));
+    final $r = $callSync(5140, $W()..h(this));
     return $r.p() ? PebbleV2SstableWriterMetadata.$dec($r) : $nil();
   }
 
   /// Go: `func (*sstable.Writer).RangeKeyDelete(start []byte, end []byte) error`.
   void rangeKeyDelete(Uint8List start, Uint8List end) {
     $callSync(
-        5132,
+        5141,
         $W()
           ..h(this)
           ..bytes(start)
@@ -2096,7 +2096,7 @@ class PebbleV2SstableWriter extends $io.IoCloser
   void rangeKeySet(
       Uint8List start, Uint8List end, Uint8List suffix, Uint8List value) {
     $callSync(
-        5133,
+        5142,
         $W()
           ..h(this)
           ..bytes(start)
@@ -2108,7 +2108,7 @@ class PebbleV2SstableWriter extends $io.IoCloser
   /// Go: `func (*sstable.Writer).RangeKeyUnset(start []byte, end []byte, suffix []byte) error`.
   void rangeKeyUnset(Uint8List start, Uint8List end, Uint8List suffix) {
     $callSync(
-        5134,
+        5143,
         $W()
           ..h(this)
           ..bytes(start)
@@ -2118,14 +2118,14 @@ class PebbleV2SstableWriter extends $io.IoCloser
 
   /// Go: `func (*sstable.Writer).Raw() sstable.RawWriter`.
   PebbleV2SstableRawWriter raw() {
-    final $r = $callSync(5135, $W()..h(this));
+    final $r = $callSync(5144, $W()..h(this));
     return $r.hnn(PebbleV2SstableRawWriter.$h);
   }
 
   /// Go: `func (*sstable.Writer).Set(key []byte, value []byte) error`.
   void set(Uint8List key, Uint8List value) {
     $callSync(
-        5136,
+        5145,
         $W()
           ..h(this)
           ..bytes(key)
@@ -2217,13 +2217,13 @@ class PebbleV2SstableErrEmptySpan extends GolangException {
 extension GoCockroachdbPebbleV2SstableApi on GoCockroachdbPebbleV2Sstable {
   /// Go: `var sstable.AssertNoBlobHandles sstable.TableBlobContext`.
   PebbleV2SstableTableBlobContext get assertNoBlobHandles {
-    final $r = $callSync(5006);
+    final $r = $callSync(5015);
     return $r.p() ? PebbleV2SstableTableBlobContext.$dec($r) : $nil();
   }
 
   /// Go: `var sstable.BalancedCompression *block.CompressionProfile`.
   $block.PebbleV2SstableBlockCompressionProfile get balancedCompression {
-    final $r = $callSync(5007);
+    final $r = $callSync(5016);
     return $r.p()
         ? $block.PebbleV2SstableBlockCompressionProfile.$dec($r)
         : $nil();
@@ -2231,27 +2231,27 @@ extension GoCockroachdbPebbleV2SstableApi on GoCockroachdbPebbleV2Sstable {
 
   /// Go: `var sstable.DebugHandlesBlobContext sstable.TableBlobContext`.
   PebbleV2SstableTableBlobContext get debugHandlesBlobContext {
-    final $r = $callSync(5041);
+    final $r = $callSync(5050);
     return $r.p() ? PebbleV2SstableTableBlobContext.$dec($r) : $nil();
   }
 
   /// Go: `func sstable.DecodeBlobRefLivenessEncoding(buf []byte) []sstable.BlobRefLivenessEncoding`.
   List<PebbleV2SstableBlobRefLivenessEncoding> decodeBlobRefLivenessEncoding(
       Uint8List buf) {
-    final $r = $callSync(5042, $W()..bytes(buf));
+    final $r = $callSync(5051, $W()..bytes(buf));
     return $r.list(() =>
         $r.p() ? PebbleV2SstableBlobRefLivenessEncoding.$dec($r) : $nil());
   }
 
   /// Go: `var sstable.DefaultComparer *base.Comparer`.
   $v2.PebbleV2Comparer get defaultComparer {
-    final $r = $callSync(5043);
+    final $r = $callSync(5052);
     return $r.p() ? $v2.PebbleV2Comparer.$dec($r) : $nil();
   }
 
   /// Go: `var sstable.DefaultCompression *block.CompressionProfile`.
   $block.PebbleV2SstableBlockCompressionProfile get defaultCompression {
-    final $r = $callSync(5044);
+    final $r = $callSync(5053);
     return $r.p()
         ? $block.PebbleV2SstableBlockCompressionProfile.$dec($r)
         : $nil();
@@ -2259,7 +2259,7 @@ extension GoCockroachdbPebbleV2SstableApi on GoCockroachdbPebbleV2Sstable {
 
   /// Go: `var sstable.FastCompression *block.CompressionProfile`.
   $block.PebbleV2SstableBlockCompressionProfile get fastCompression {
-    final $r = $callSync(5045);
+    final $r = $callSync(5054);
     return $r.p()
         ? $block.PebbleV2SstableBlockCompressionProfile.$dec($r)
         : $nil();
@@ -2267,7 +2267,7 @@ extension GoCockroachdbPebbleV2SstableApi on GoCockroachdbPebbleV2Sstable {
 
   /// Go: `var sstable.FastestCompression *block.CompressionProfile`.
   $block.PebbleV2SstableBlockCompressionProfile get fastestCompression {
-    final $r = $callSync(5046);
+    final $r = $callSync(5055);
     return $r.p()
         ? $block.PebbleV2SstableBlockCompressionProfile.$dec($r)
         : $nil();
@@ -2275,7 +2275,7 @@ extension GoCockroachdbPebbleV2SstableApi on GoCockroachdbPebbleV2Sstable {
 
   /// Go: `var sstable.GoodCompression *block.CompressionProfile`.
   $block.PebbleV2SstableBlockCompressionProfile get goodCompression {
-    final $r = $callSync(5048);
+    final $r = $callSync(5057);
     return $r.p()
         ? $block.PebbleV2SstableBlockCompressionProfile.$dec($r)
         : $nil();
@@ -2288,7 +2288,7 @@ extension GoCockroachdbPebbleV2SstableApi on GoCockroachdbPebbleV2Sstable {
       Map<String, String> userProperties,
       Uint8List syntheticSuffix) {
     final $r = $callSync(
-        5049,
+        5058,
         $W()
           ..list(filters, (w0, e0) => w0.h(e0))
           ..h(limited)
@@ -2299,7 +2299,7 @@ extension GoCockroachdbPebbleV2SstableApi on GoCockroachdbPebbleV2Sstable {
 
   /// Go: `var sstable.JemallocSizeClasses []int`.
   List<int> get jemallocSizeClasses {
-    final $r = $callSync(5052);
+    final $r = $callSync(5061);
     return $r.list(() => $r.i64());
   }
 
@@ -2310,7 +2310,7 @@ extension GoCockroachdbPebbleV2SstableApi on GoCockroachdbPebbleV2Sstable {
           $blob.PebbleV2SstableBlobReaderProvider rp,
           PebbleV2SstableBlobReferences blobRefs) {
     final $r = $callSync(
-        5054,
+        5063,
         $W()
           ..h(fm)
           ..h(rp)
@@ -2325,7 +2325,7 @@ extension GoCockroachdbPebbleV2SstableApi on GoCockroachdbPebbleV2Sstable {
   $block.PebbleV2SstableBlockSyntheticPrefixAndSuffix
       makeSyntheticPrefixAndSuffix(Uint8List prefix, Uint8List suffix) {
     final $r = $callSync(
-        5055,
+        5064,
         $W()
           ..bytes(prefix)
           ..bytes(suffix));
@@ -2335,13 +2335,13 @@ extension GoCockroachdbPebbleV2SstableApi on GoCockroachdbPebbleV2Sstable {
   /// Go: `func sstable.MakeTrivialReaderProvider(r *sstable.Reader) valblk.ReaderProvider`.
   $valblk.PebbleV2SstableValblkReaderProvider makeTrivialReaderProvider(
       PebbleV2SstableReader r) {
-    final $r = $callSync(5056, $W()..h(r));
+    final $r = $callSync(5065, $W()..h(r));
     return $r.hnn($valblk.PebbleV2SstableValblkReaderProvider.$h);
   }
 
   /// Go: `var sstable.MinLZCompression *block.CompressionProfile`.
   $block.PebbleV2SstableBlockCompressionProfile get minLzCompression {
-    final $r = $callSync(5057);
+    final $r = $callSync(5066);
     return $r.p()
         ? $block.PebbleV2SstableBlockCompressionProfile.$dec($r)
         : $nil();
@@ -2353,7 +2353,7 @@ extension GoCockroachdbPebbleV2SstableApi on GoCockroachdbPebbleV2Sstable {
       PebbleV2SstableIntervalMapper mapper,
       PebbleV2SstableBlockIntervalSuffixReplacer suffixReplacer) {
     final $r = $callSync(
-        5058,
+        5067,
         $W()
           ..str(name)
           ..h(mapper)
@@ -2365,7 +2365,7 @@ extension GoCockroachdbPebbleV2SstableApi on GoCockroachdbPebbleV2Sstable {
   PebbleV2SstableReader newMemReader(
       Uint8List sst, PebbleV2SstableReaderOptions o) {
     final $r = $callSync(
-        5060,
+        5069,
         $W()
           ..bytes(sst)
           ..dto(o));
@@ -2380,7 +2380,7 @@ extension GoCockroachdbPebbleV2SstableApi on GoCockroachdbPebbleV2Sstable {
       $objstorage.PebbleV2ObjstorageReadable f,
       PebbleV2SstableReaderOptions o) async {
     final $r = await $call(
-        5062,
+        5071,
         $W()
           ..h(ctx)
           ..h(f)
@@ -2391,13 +2391,13 @@ extension GoCockroachdbPebbleV2SstableApi on GoCockroachdbPebbleV2Sstable {
   /// Go: `func sstable.NewSimpleReadable(r sstable.ReadableFile) (objstorage.Readable, error)`.
   $objstorage.PebbleV2ObjstorageReadable newSimpleReadable(
       PebbleV2SstableReadableFile r) {
-    final $r = $callSync(5063, $W()..h(r));
+    final $r = $callSync(5072, $W()..h(r));
     return $r.hnn($objstorage.PebbleV2ObjstorageReadable.$h);
   }
 
   /// Go: `func sstable.NewTestKeysBlockPropertyCollector() sstable.BlockPropertyCollector`.
   PebbleV2SstableBlockPropertyCollector newTestKeysBlockPropertyCollector() {
-    final $r = $callSync(5064);
+    final $r = $callSync(5073);
     return $r.hnn(PebbleV2SstableBlockPropertyCollector.$h);
   }
 
@@ -2405,7 +2405,7 @@ extension GoCockroachdbPebbleV2SstableApi on GoCockroachdbPebbleV2Sstable {
   PebbleV2SstableBlockIntervalFilter newTestKeysBlockPropertyFilter(
       int filterMin, int filterMax) {
     final $r = $callSync(
-        5065,
+        5074,
         $W()
           ..i64(filterMin)
           ..i64(filterMax));
@@ -2414,13 +2414,13 @@ extension GoCockroachdbPebbleV2SstableApi on GoCockroachdbPebbleV2Sstable {
 
   /// Go: `func sstable.NewTestKeysMaskingFilter() sstable.TestKeysMaskingFilter`.
   PebbleV2SstableTestKeysMaskingFilter newTestKeysMaskingFilter() {
-    final $r = $callSync(5066);
+    final $r = $callSync(5075);
     return $r.p() ? PebbleV2SstableTestKeysMaskingFilter.$dec($r) : $nil();
   }
 
   /// Go: `var sstable.NoCompression *block.CompressionProfile`.
   $block.PebbleV2SstableBlockCompressionProfile get noCompression {
-    final $r = $callSync(5068);
+    final $r = $callSync(5077);
     return $r.p()
         ? $block.PebbleV2SstableBlockCompressionProfile.$dec($r)
         : $nil();
@@ -2428,7 +2428,7 @@ extension GoCockroachdbPebbleV2SstableApi on GoCockroachdbPebbleV2Sstable {
 
   /// Go: `var sstable.NoFragmentTransforms block.FragmentIterTransforms`.
   $block.PebbleV2SstableBlockFragmentIterTransforms get noFragmentTransforms {
-    final $r = $callSync(5069);
+    final $r = $callSync(5078);
     return $r.p()
         ? $block.PebbleV2SstableBlockFragmentIterTransforms.$dec($r)
         : $nil();
@@ -2436,19 +2436,19 @@ extension GoCockroachdbPebbleV2SstableApi on GoCockroachdbPebbleV2Sstable {
 
   /// Go: `var sstable.NoReadEnv sstable.ReadEnv`.
   PebbleV2SstableReadEnv get noReadEnv {
-    final $r = $callSync(5070);
+    final $r = $callSync(5079);
     return $r.p() ? PebbleV2SstableReadEnv.$dec($r) : $nil();
   }
 
   /// Go: `var sstable.NoTransforms block.IterTransforms`.
   $block.PebbleV2SstableBlockIterTransforms get noTransforms {
-    final $r = $callSync(5071);
+    final $r = $callSync(5080);
     return $r.p() ? $block.PebbleV2SstableBlockIterTransforms.$dec($r) : $nil();
   }
 
   /// Go: `func sstable.ParseTableFormatString(s string) (sstable.TableFormat, error)`.
   int parseTableFormatString(String s) {
-    final $r = $callSync(5072, $W()..str(s));
+    final $r = $callSync(5081, $W()..str(s));
     return $r.i64();
   }
 
@@ -2462,7 +2462,7 @@ extension GoCockroachdbPebbleV2SstableApi on GoCockroachdbPebbleV2Sstable {
       Uint8List to,
       int concurrency) {
     final $r = $callSync(
-        5114,
+        5123,
         $W()
           ..bytes(sst)
           ..dto(rOpts)
@@ -2482,7 +2482,7 @@ extension GoCockroachdbPebbleV2SstableApi on GoCockroachdbPebbleV2Sstable {
       Uint8List from,
       Uint8List to) {
     final $r = $callSync(
-        5115,
+        5124,
         $W()
           ..h(r)
           ..h(out)
@@ -2494,7 +2494,7 @@ extension GoCockroachdbPebbleV2SstableApi on GoCockroachdbPebbleV2Sstable {
 
   /// Go: `var sstable.SnappyCompression *block.CompressionProfile`.
   $block.PebbleV2SstableBlockCompressionProfile get snappyCompression {
-    final $r = $callSync(5116);
+    final $r = $callSync(5125);
     return $r.p()
         ? $block.PebbleV2SstableBlockCompressionProfile.$dec($r)
         : $nil();
@@ -2502,14 +2502,14 @@ extension GoCockroachdbPebbleV2SstableApi on GoCockroachdbPebbleV2Sstable {
 
   /// Go: `var sstable.TestFixtures []sstable.TestFixtureInfo`.
   List<PebbleV2SstableTestFixtureInfo> get testFixtures {
-    final $r = $callSync(5118);
+    final $r = $callSync(5127);
     return $r
         .list(() => $r.p() ? PebbleV2SstableTestFixtureInfo.$dec($r) : $nil());
   }
 
   /// Go: `var sstable.ZstdCompression *block.CompressionProfile`.
   $block.PebbleV2SstableBlockCompressionProfile get zstdCompression {
-    final $r = $callSync(5137);
+    final $r = $callSync(5146);
     return $r.p()
         ? $block.PebbleV2SstableBlockCompressionProfile.$dec($r)
         : $nil();

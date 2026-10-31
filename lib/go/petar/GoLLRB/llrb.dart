@@ -22,7 +22,7 @@ mixin GollrbLlrbItem$ on GoHandle {
   /// Go: `func (llrb.Item).Less(than llrb.Item) bool`.
   bool less(GollrbLlrbItem than) {
     final $r = $callSync(
-        16095,
+        16101,
         $W()
           ..h(this)
           ..h(than));
@@ -31,7 +31,7 @@ mixin GollrbLlrbItem$ on GoHandle {
 
   /// Go: type assertion `x.(*llrb.Node)`: null if the object is not one.
   GollrbLlrbNode? asGollrbLlrbNode() {
-    final $r = $callSync(1470, $W()..h(this));
+    final $r = $callSync(1475, $W()..h(this));
     return $r.hn(GollrbLlrbNode.$h);
   }
 }
@@ -64,7 +64,7 @@ class GollrbLlrb extends $crypto.CryptoDecrypterOpts
   Future<void> ascendGreaterOrEqual(GollrbLlrbItem pivot,
       FutureOr<bool> Function(GollrbLlrbItem i) iterator) async {
     await $call(
-        16096,
+        16102,
         $W()
           ..h(this)
           ..h(pivot)
@@ -81,7 +81,7 @@ class GollrbLlrb extends $crypto.CryptoDecrypterOpts
   Future<void> ascendLessThan(GollrbLlrbItem pivot,
       FutureOr<bool> Function(GollrbLlrbItem i) iterator) async {
     await $call(
-        16097,
+        16103,
         $W()
           ..h(this)
           ..h(pivot)
@@ -100,7 +100,7 @@ class GollrbLlrb extends $crypto.CryptoDecrypterOpts
       GollrbLlrbItem lessThan,
       FutureOr<bool> Function(GollrbLlrbItem i) iterator) async {
     await $call(
-        16098,
+        16104,
         $W()
           ..h(this)
           ..h(greaterOrEqual)
@@ -111,7 +111,7 @@ class GollrbLlrb extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*llrb.LLRB).Delete(key llrb.Item) llrb.Item`.
   GollrbLlrbItem delete(GollrbLlrbItem key) {
     final $r = $callSync(
-        16099,
+        16105,
         $W()
           ..h(this)
           ..h(key));
@@ -120,13 +120,13 @@ class GollrbLlrb extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*llrb.LLRB).DeleteMax() llrb.Item`.
   GollrbLlrbItem deleteMax() {
-    final $r = $callSync(16100, $W()..h(this));
+    final $r = $callSync(16106, $W()..h(this));
     return $r.hnn(GollrbLlrbItem.$h);
   }
 
   /// Go: `func (*llrb.LLRB).DeleteMin() llrb.Item`.
   GollrbLlrbItem deleteMin() {
-    final $r = $callSync(16101, $W()..h(this));
+    final $r = $callSync(16107, $W()..h(this));
     return $r.hnn(GollrbLlrbItem.$h);
   }
 
@@ -140,7 +140,7 @@ class GollrbLlrb extends $crypto.CryptoDecrypterOpts
   Future<void> descendLessOrEqual(GollrbLlrbItem pivot,
       FutureOr<bool> Function(GollrbLlrbItem i) iterator) async {
     await $call(
-        16102,
+        16108,
         $W()
           ..h(this)
           ..h(pivot)
@@ -150,7 +150,7 @@ class GollrbLlrb extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*llrb.LLRB).Get(key llrb.Item) llrb.Item`.
   GollrbLlrbItem get(GollrbLlrbItem key) {
     final $r = $callSync(
-        16103,
+        16109,
         $W()
           ..h(this)
           ..h(key));
@@ -160,7 +160,7 @@ class GollrbLlrb extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*llrb.LLRB).GetHeight(key llrb.Item) (result llrb.Item, depth int)`.
   (GollrbLlrbItem, int) getHeight(GollrbLlrbItem key) {
     final $r = $callSync(
-        16104,
+        16110,
         $W()
           ..h(this)
           ..h(key));
@@ -170,7 +170,7 @@ class GollrbLlrb extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*llrb.LLRB).Has(key llrb.Item) bool`.
   bool has(GollrbLlrbItem key) {
     final $r = $callSync(
-        16105,
+        16111,
         $W()
           ..h(this)
           ..h(key));
@@ -179,14 +179,14 @@ class GollrbLlrb extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*llrb.LLRB).HeightStats() (avg float64, stddev float64)`.
   (double, double) heightStats() {
-    final $r = $callSync(16106, $W()..h(this));
+    final $r = $callSync(16112, $W()..h(this));
     return ($r.f64(), $r.f64());
   }
 
   /// Go: `func (*llrb.LLRB).InsertNoReplace(item llrb.Item)`.
   void insertNoReplace(GollrbLlrbItem item) {
     $callSync(
-        16107,
+        16113,
         $W()
           ..h(this)
           ..h(item));
@@ -195,7 +195,7 @@ class GollrbLlrb extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*llrb.LLRB).InsertNoReplaceBulk(items ...llrb.Item)`.
   void insertNoReplaceBulk([List<GollrbLlrbItem> items = const []]) {
     $callSync(
-        16108,
+        16114,
         $W()
           ..h(this)
           ..list(items, (w0, e0) => w0.h(e0)));
@@ -203,26 +203,26 @@ class GollrbLlrb extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*llrb.LLRB).Len() int`.
   int len() {
-    final $r = $callSync(16109, $W()..h(this));
+    final $r = $callSync(16115, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*llrb.LLRB).Max() llrb.Item`.
   GollrbLlrbItem max() {
-    final $r = $callSync(16110, $W()..h(this));
+    final $r = $callSync(16116, $W()..h(this));
     return $r.hnn(GollrbLlrbItem.$h);
   }
 
   /// Go: `func (*llrb.LLRB).Min() llrb.Item`.
   GollrbLlrbItem min() {
-    final $r = $callSync(16111, $W()..h(this));
+    final $r = $callSync(16117, $W()..h(this));
     return $r.hnn(GollrbLlrbItem.$h);
   }
 
   /// Go: `func (*llrb.LLRB).ReplaceOrInsert(item llrb.Item) llrb.Item`.
   GollrbLlrbItem replaceOrInsert(GollrbLlrbItem item) {
     final $r = $callSync(
-        16112,
+        16118,
         $W()
           ..h(this)
           ..h(item));
@@ -232,7 +232,7 @@ class GollrbLlrb extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*llrb.LLRB).ReplaceOrInsertBulk(items ...llrb.Item)`.
   void replaceOrInsertBulk([List<GollrbLlrbItem> items = const []]) {
     $callSync(
-        16113,
+        16119,
         $W()
           ..h(this)
           ..list(items, (w0, e0) => w0.h(e0)));
@@ -240,14 +240,14 @@ class GollrbLlrb extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*llrb.LLRB).Root() *llrb.Node`.
   GollrbLlrbNode root() {
-    final $r = $callSync(16114, $W()..h(this));
+    final $r = $callSync(16120, $W()..h(this));
     return $r.hnn(GollrbLlrbNode.$h);
   }
 
   /// Go: `func (*llrb.LLRB).SetRoot(r *llrb.Node)`.
   void setRoot(GollrbLlrbNode r) {
     $callSync(
-        16115,
+        16121,
         $W()
           ..h(this)
           ..h(r));
@@ -277,7 +277,7 @@ class GollrbLlrbNode extends GollrbLlrbItem
   /// Go: `func (llrb.Item).Less(than llrb.Item) bool`.
   bool less(GollrbLlrbItem than) {
     final $r = $callSync(
-        16117,
+        16123,
         $W()
           ..h(this)
           ..h(than));
@@ -289,13 +289,13 @@ class GollrbLlrbNode extends GollrbLlrbItem
 extension GoPetarGollrbLlrbApi on GoPetarGollrbLlrb {
   /// Go: `func llrb.Inf(sign int) llrb.Item`.
   GollrbLlrbItem inf(int sign) {
-    final $r = $callSync(16094, $W()..i64(sign));
+    final $r = $callSync(16100, $W()..i64(sign));
     return $r.hnn(GollrbLlrbItem.$h);
   }
 
   /// Go: `func llrb.New() *llrb.LLRB`.
   GollrbLlrb new$() {
-    final $r = $callSync(16116);
+    final $r = $callSync(16122);
     return $r.hnn(GollrbLlrb.$h);
   }
 }

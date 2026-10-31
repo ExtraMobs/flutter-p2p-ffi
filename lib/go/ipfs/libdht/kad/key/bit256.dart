@@ -33,14 +33,14 @@ class LibdhtKadKeyBit256Key extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func bit256.NewKey(data []byte) bit256.Key`.
   factory LibdhtKadKeyBit256Key(Uint8List data) {
-    final $r = $callSync(11059, $W()..bytes(data));
+    final $r = $callSync(11065, $W()..bytes(data));
     return $r.hnn(LibdhtKadKeyBit256Key.$h);
   }
 
   /// Go: `func (bit256.Key).Bit(i int) uint`.
   int bit(int i) {
     final $r = $callSync(
-        11052,
+        11058,
         $W()
           ..h(this)
           ..i64(i));
@@ -49,14 +49,14 @@ class LibdhtKadKeyBit256Key extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (bit256.Key).BitLen() int`.
   int bitLen() {
-    final $r = $callSync(11053, $W()..h(this));
+    final $r = $callSync(11059, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (bit256.Key).CommonPrefixLength(o bit256.Key) int`.
   int commonPrefixLength(LibdhtKadKeyBit256Key o) {
     final $r = $callSync(
-        11054,
+        11060,
         $W()
           ..h(this)
           ..h(o));
@@ -66,7 +66,7 @@ class LibdhtKadKeyBit256Key extends $crypto.CryptoDecrypterOpts
   /// Go: `func (bit256.Key).Compare(o bit256.Key) int`.
   int compare(LibdhtKadKeyBit256Key o) {
     final $r = $callSync(
-        11055,
+        11061,
         $W()
           ..h(this)
           ..h(o));
@@ -75,20 +75,20 @@ class LibdhtKadKeyBit256Key extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (bit256.Key).HexString() string`.
   String hexString() {
-    final $r = $callSync(11056, $W()..h(this));
+    final $r = $callSync(11062, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (bit256.Key).MarshalBinary() ([]byte, error)`.
   Uint8List marshalBinary() {
-    final $r = $callSync(11057, $W()..h(this));
+    final $r = $callSync(11063, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (bit256.Key).Xor(o bit256.Key) bit256.Key`.
   LibdhtKadKeyBit256Key xor(LibdhtKadKeyBit256Key o) {
     final $r = $callSync(
-        11058,
+        11064,
         $W()
           ..h(this)
           ..h(o));
@@ -100,7 +100,7 @@ class LibdhtKadKeyBit256Key extends $crypto.CryptoDecrypterOpts
 extension GoIpfsLibdhtKadKeyBit256Api on GoIpfsLibdhtKadKeyBit256 {
   /// Go: `func bit256.ZeroKey() bit256.Key`.
   LibdhtKadKeyBit256Key zeroKey() {
-    final $r = $callSync(11060);
+    final $r = $callSync(11066);
     return $r.hnn(LibdhtKadKeyBit256Key.$h);
   }
 }

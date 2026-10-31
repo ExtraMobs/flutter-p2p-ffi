@@ -19,14 +19,14 @@ class IpldPrimeFluentListAssembler extends GoHandle
 mixin IpldPrimeFluentListAssembler$ on GoHandle {
   /// Go: `func (fluent.ListAssembler).AssembleValue() fluent.NodeAssembler`.
   IpldPrimeFluentNodeAssembler assembleValue() {
-    final $r = $callSync(12157, $W()..h(this));
+    final $r = $callSync(12163, $W()..h(this));
     return $r.hnn(IpldPrimeFluentNodeAssembler.$h);
   }
 
   /// Go: `func (fluent.ListAssembler).ValuePrototype(idx int64) datamodel.NodePrototype`.
   $datamodel.IpldPrimeDatamodelNodePrototype valuePrototype(int idx) {
     final $r = $callSync(
-        12158,
+        12164,
         $W()
           ..h(this)
           ..i64(idx));
@@ -45,7 +45,7 @@ mixin IpldPrimeFluentMapAssembler$ on GoHandle {
   /// Go: `func (fluent.MapAssembler).AssembleEntry(k string) fluent.NodeAssembler`.
   IpldPrimeFluentNodeAssembler assembleEntry(String k) {
     final $r = $callSync(
-        12159,
+        12165,
         $W()
           ..h(this)
           ..str(k));
@@ -54,26 +54,26 @@ mixin IpldPrimeFluentMapAssembler$ on GoHandle {
 
   /// Go: `func (fluent.MapAssembler).AssembleKey() fluent.NodeAssembler`.
   IpldPrimeFluentNodeAssembler assembleKey() {
-    final $r = $callSync(12160, $W()..h(this));
+    final $r = $callSync(12166, $W()..h(this));
     return $r.hnn(IpldPrimeFluentNodeAssembler.$h);
   }
 
   /// Go: `func (fluent.MapAssembler).AssembleValue() fluent.NodeAssembler`.
   IpldPrimeFluentNodeAssembler assembleValue() {
-    final $r = $callSync(12161, $W()..h(this));
+    final $r = $callSync(12167, $W()..h(this));
     return $r.hnn(IpldPrimeFluentNodeAssembler.$h);
   }
 
   /// Go: `func (fluent.MapAssembler).KeyPrototype() datamodel.NodePrototype`.
   $datamodel.IpldPrimeDatamodelNodePrototype keyPrototype() {
-    final $r = $callSync(12162, $W()..h(this));
+    final $r = $callSync(12168, $W()..h(this));
     return $r.hnn($datamodel.IpldPrimeDatamodelNodePrototype.$h);
   }
 
   /// Go: `func (fluent.MapAssembler).ValuePrototype(k string) datamodel.NodePrototype`.
   $datamodel.IpldPrimeDatamodelNodePrototype valuePrototype(String k) {
     final $r = $callSync(
-        12163,
+        12169,
         $W()
           ..h(this)
           ..str(k));
@@ -92,7 +92,7 @@ mixin IpldPrimeFluentNodeAssembler$ on GoHandle {
   /// Go: `func (fluent.NodeAssembler).AssignBool(bool)`.
   void assignBool(bool arg0) {
     $callSync(
-        12168,
+        12174,
         $W()
           ..h(this)
           ..b(arg0));
@@ -101,7 +101,7 @@ mixin IpldPrimeFluentNodeAssembler$ on GoHandle {
   /// Go: `func (fluent.NodeAssembler).AssignBytes([]byte)`.
   void assignBytes(Uint8List arg0) {
     $callSync(
-        12169,
+        12175,
         $W()
           ..h(this)
           ..bytes(arg0));
@@ -110,7 +110,7 @@ mixin IpldPrimeFluentNodeAssembler$ on GoHandle {
   /// Go: `func (fluent.NodeAssembler).AssignFloat(float64)`.
   void assignFloat(double arg0) {
     $callSync(
-        12170,
+        12176,
         $W()
           ..h(this)
           ..f64(arg0));
@@ -119,7 +119,7 @@ mixin IpldPrimeFluentNodeAssembler$ on GoHandle {
   /// Go: `func (fluent.NodeAssembler).AssignInt(int64)`.
   void assignInt(int arg0) {
     $callSync(
-        12171,
+        12177,
         $W()
           ..h(this)
           ..i64(arg0));
@@ -128,7 +128,7 @@ mixin IpldPrimeFluentNodeAssembler$ on GoHandle {
   /// Go: `func (fluent.NodeAssembler).AssignLink(datamodel.Link)`.
   void assignLink($datamodel.IpldPrimeDatamodelLink link) {
     $callSync(
-        12172,
+        12178,
         $W()
           ..h(this)
           ..h(link));
@@ -137,7 +137,7 @@ mixin IpldPrimeFluentNodeAssembler$ on GoHandle {
   /// Go: `func (fluent.NodeAssembler).AssignNode(datamodel.Node)`.
   void assignNode($datamodel.IpldPrimeDatamodelNode node) {
     $callSync(
-        12173,
+        12179,
         $W()
           ..h(this)
           ..h(node));
@@ -145,13 +145,13 @@ mixin IpldPrimeFluentNodeAssembler$ on GoHandle {
 
   /// Go: `func (fluent.NodeAssembler).AssignNull()`.
   void assignNull() {
-    $callSync(12174, $W()..h(this));
+    $callSync(12180, $W()..h(this));
   }
 
   /// Go: `func (fluent.NodeAssembler).AssignString(string)`.
   void assignString(String arg0) {
     $callSync(
-        12175,
+        12181,
         $W()
           ..h(this)
           ..str(arg0));
@@ -169,7 +169,7 @@ mixin IpldPrimeFluentNodeAssembler$ on GoHandle {
       FutureOr<void> Function(IpldPrimeFluentListAssembler listAssembler)
           fn) async {
     await $call(
-        12176,
+        12182,
         $W()
           ..h(this)
           ..i64(sizeHint)
@@ -188,7 +188,7 @@ mixin IpldPrimeFluentNodeAssembler$ on GoHandle {
       FutureOr<void> Function(IpldPrimeFluentMapAssembler mapAssembler)
           fn) async {
     await $call(
-        12177,
+        12183,
         $W()
           ..h(this)
           ..i64(sizeHint)
@@ -197,7 +197,7 @@ mixin IpldPrimeFluentNodeAssembler$ on GoHandle {
 
   /// Go: `func (fluent.NodeAssembler).Prototype() datamodel.NodePrototype`.
   $datamodel.IpldPrimeDatamodelNodePrototype prototype() {
-    final $r = $callSync(12178, $W()..h(this));
+    final $r = $callSync(12184, $W()..h(this));
     return $r.hnn($datamodel.IpldPrimeDatamodelNodePrototype.$h);
   }
 }
@@ -216,7 +216,7 @@ final class IpldPrimeFluentReflector implements GoDto {
   $datamodel.IpldPrimeDatamodelNode reflect(
       $datamodel.IpldPrimeDatamodelNodePrototype np, Object? i) {
     final $r = $callSync(
-        12182,
+        12188,
         $W()
           ..dto(this)
           ..h(np)
@@ -228,7 +228,7 @@ final class IpldPrimeFluentReflector implements GoDto {
   void reflectIntoAssembler(
       $datamodel.IpldPrimeDatamodelNodeAssembler na, Object? i) {
     $callSync(
-        12183,
+        12189,
         $W()
           ..dto(this)
           ..h(na)
@@ -259,7 +259,7 @@ extension GoIpldIpldPrimeFluentApi on GoIpldIpldPrimeFluent {
       FutureOr<void> Function(IpldPrimeFluentNodeAssembler nodeAssembler)
           fn) async {
     final $r = await $call(
-        12154,
+        12160,
         $W()
           ..h(np)
           ..cb((r) => fn(r.hnn(IpldPrimeFluentNodeAssembler.$h)), true));
@@ -279,7 +279,7 @@ extension GoIpldIpldPrimeFluentApi on GoIpldIpldPrimeFluent {
       FutureOr<void> Function(IpldPrimeFluentListAssembler listAssembler)
           fn) async {
     final $r = await $call(
-        12155,
+        12161,
         $W()
           ..h(np)
           ..i64(sizeHint)
@@ -300,7 +300,7 @@ extension GoIpldIpldPrimeFluentApi on GoIpldIpldPrimeFluent {
       FutureOr<void> Function(IpldPrimeFluentMapAssembler mapAssembler)
           fn) async {
     final $r = await $call(
-        12156,
+        12162,
         $W()
           ..h(np)
           ..i64(sizeHint)
@@ -320,7 +320,7 @@ extension GoIpldIpldPrimeFluentApi on GoIpldIpldPrimeFluent {
       FutureOr<void> Function(IpldPrimeFluentNodeAssembler nodeAssembler)
           fn) async {
     final $r = await $call(
-        12164,
+        12170,
         $W()
           ..h(np)
           ..cb((r) => fn(r.hnn(IpldPrimeFluentNodeAssembler.$h)), true));
@@ -340,7 +340,7 @@ extension GoIpldIpldPrimeFluentApi on GoIpldIpldPrimeFluent {
       FutureOr<void> Function(IpldPrimeFluentListAssembler listAssembler)
           fn) async {
     final $r = await $call(
-        12165,
+        12171,
         $W()
           ..h(np)
           ..i64(sizeHint)
@@ -361,7 +361,7 @@ extension GoIpldIpldPrimeFluentApi on GoIpldIpldPrimeFluent {
       FutureOr<void> Function(IpldPrimeFluentMapAssembler mapAssembler)
           fn) async {
     final $r = await $call(
-        12166,
+        12172,
         $W()
           ..h(np)
           ..i64(sizeHint)
@@ -373,7 +373,7 @@ extension GoIpldIpldPrimeFluentApi on GoIpldIpldPrimeFluent {
   $datamodel.IpldPrimeDatamodelNode mustReflect(
       $datamodel.IpldPrimeDatamodelNodePrototype np, Object? i) {
     final $r = $callSync(
-        12167,
+        12173,
         $W()
           ..h(np)
           ..any(i));
@@ -388,14 +388,14 @@ extension GoIpldIpldPrimeFluentApi on GoIpldIpldPrimeFluent {
   /// later for as long as it holds it (nobody checked which), and waits for
   /// each invocation (a retained callback, WIRE.md).
   Future<void> recover(FutureOr<void> Function() fn) async {
-    await $call(12179, $W()..cb((r) => fn(), true));
+    await $call(12185, $W()..cb((r) => fn(), true));
   }
 
   /// Go: `func fluent.Reflect(np datamodel.NodePrototype, i interface{}) (datamodel.Node, error)`.
   $datamodel.IpldPrimeDatamodelNode reflect(
       $datamodel.IpldPrimeDatamodelNodePrototype np, Object? i) {
     final $r = $callSync(
-        12180,
+        12186,
         $W()
           ..h(np)
           ..any(i));
@@ -406,7 +406,7 @@ extension GoIpldIpldPrimeFluentApi on GoIpldIpldPrimeFluent {
   void reflectIntoAssembler(
       $datamodel.IpldPrimeDatamodelNodeAssembler na, Object? i) {
     $callSync(
-        12181,
+        12187,
         $W()
           ..h(na)
           ..any(i));
@@ -414,14 +414,14 @@ extension GoIpldIpldPrimeFluentApi on GoIpldIpldPrimeFluent {
 
   /// Go: `func fluent.ToInterface(node datamodel.Node) (interface{}, error)`.
   Object? toInterface($datamodel.IpldPrimeDatamodelNode node) {
-    final $r = $callSync(12184, $W()..h(node));
+    final $r = $callSync(12190, $W()..h(node));
     return $r.any();
   }
 
   /// Go: `func fluent.WrapAssembler(na datamodel.NodeAssembler) fluent.NodeAssembler`.
   IpldPrimeFluentNodeAssembler wrapAssembler(
       $datamodel.IpldPrimeDatamodelNodeAssembler na) {
-    final $r = $callSync(12185, $W()..h(na));
+    final $r = $callSync(12191, $W()..h(na));
     return $r.hnn(IpldPrimeFluentNodeAssembler.$h);
   }
 }

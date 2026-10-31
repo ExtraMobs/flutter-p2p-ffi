@@ -42,7 +42,7 @@ final class GoupnpSoapClient implements GoDto {
   void performAction(String actionNamespace, String actionName,
       Object? inAction, Object? outAction) {
     $callSync(
-        8976,
+        8985,
         $W()
           ..dto(this)
           ..str(actionNamespace)
@@ -57,7 +57,7 @@ final class GoupnpSoapClient implements GoDto {
   Future<void> performActionCtx($context.Context ctx, String actionNamespace,
       String actionName, Object? inAction, Object? outAction) async {
     await $call(
-        8977,
+        8986,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -118,19 +118,19 @@ class GoupnpSoapTypeData extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (soap.TypeData).GoTypeName() string`.
   String goTypeName() {
-    final $r = $callSync(8978, $W()..h(this));
+    final $r = $callSync(8987, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (soap.TypeData).MarshalFunc() string`.
   String marshalFunc() {
-    final $r = $callSync(8979, $W()..h(this));
+    final $r = $callSync(8988, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (soap.TypeData).UnmarshalFunc() string`.
   String unmarshalFunc() {
-    final $r = $callSync(8980, $W()..h(this));
+    final $r = $callSync(8989, $W()..h(this));
     return $r.str();
   }
 }
@@ -157,277 +157,277 @@ class GoupnpSoapFaultError extends GolangException {
 extension GoHuinGoupnpSoapApi on GoHuinGoupnpSoap {
   /// Go: `func soap.MarshalBinBase64(v []byte) (string, error)`.
   String marshalBinBase64(Uint8List v) {
-    final $r = $callSync(8953, $W()..bytes(v));
+    final $r = $callSync(8962, $W()..bytes(v));
     return $r.str();
   }
 
   /// Go: `func soap.MarshalBinHex(v []byte) (string, error)`.
   String marshalBinHex(Uint8List v) {
-    final $r = $callSync(8954, $W()..bytes(v));
+    final $r = $callSync(8963, $W()..bytes(v));
     return $r.str();
   }
 
   /// Go: `func soap.MarshalBoolean(v bool) (string, error)`.
   String marshalBoolean(bool v) {
-    final $r = $callSync(8955, $W()..b(v));
+    final $r = $callSync(8964, $W()..b(v));
     return $r.str();
   }
 
   /// Go: `func soap.MarshalChar(v rune) (string, error)`.
   String marshalChar(int v) {
-    final $r = $callSync(8956, $W()..i64(v));
+    final $r = $callSync(8965, $W()..i64(v));
     return $r.str();
   }
 
   /// Go: `func soap.MarshalDate(v time.Time) (string, error)`.
   String marshalDate(DateTime v) {
-    final $r = $callSync(8957, $W()..time(v));
+    final $r = $callSync(8966, $W()..time(v));
     return $r.str();
   }
 
   /// Go: `func soap.MarshalDateTime(v time.Time) (string, error)`.
   String marshalDateTime(DateTime v) {
-    final $r = $callSync(8958, $W()..time(v));
+    final $r = $callSync(8967, $W()..time(v));
     return $r.str();
   }
 
   /// Go: `func soap.MarshalDateTimeTz(v time.Time) (string, error)`.
   String marshalDateTimeTz(DateTime v) {
-    final $r = $callSync(8959, $W()..time(v));
+    final $r = $callSync(8968, $W()..time(v));
     return $r.str();
   }
 
   /// Go: `func soap.MarshalFixed14_4(v float64) (string, error)`.
   String marshalFixed144(double v) {
-    final $r = $callSync(8960, $W()..f64(v));
+    final $r = $callSync(8969, $W()..f64(v));
     return $r.str();
   }
 
   /// Go: `func soap.MarshalI1(v int8) (string, error)`.
   String marshalI1(int v) {
-    final $r = $callSync(8961, $W()..i64(v));
+    final $r = $callSync(8970, $W()..i64(v));
     return $r.str();
   }
 
   /// Go: `func soap.MarshalI2(v int16) (string, error)`.
   String marshalI2(int v) {
-    final $r = $callSync(8962, $W()..i64(v));
+    final $r = $callSync(8971, $W()..i64(v));
     return $r.str();
   }
 
   /// Go: `func soap.MarshalI4(v int32) (string, error)`.
   String marshalI4(int v) {
-    final $r = $callSync(8963, $W()..i64(v));
+    final $r = $callSync(8972, $W()..i64(v));
     return $r.str();
   }
 
   /// Go: `func soap.MarshalInt(v int64) (string, error)`.
   String marshalInt(int v) {
-    final $r = $callSync(8964, $W()..i64(v));
+    final $r = $callSync(8973, $W()..i64(v));
     return $r.str();
   }
 
   /// Go: `func soap.MarshalR4(v float32) (string, error)`.
   String marshalR4(double v) {
-    final $r = $callSync(8965, $W()..f64(v));
+    final $r = $callSync(8974, $W()..f64(v));
     return $r.str();
   }
 
   /// Go: `func soap.MarshalR8(v float64) (string, error)`.
   String marshalR8(double v) {
-    final $r = $callSync(8966, $W()..f64(v));
+    final $r = $callSync(8975, $W()..f64(v));
     return $r.str();
   }
 
   /// Go: `func soap.MarshalString(v string) (string, error)`.
   String marshalString(String v) {
-    final $r = $callSync(8967, $W()..str(v));
+    final $r = $callSync(8976, $W()..str(v));
     return $r.str();
   }
 
   /// Go: `func soap.MarshalTimeOfDay(v soap.TimeOfDay) (string, error)`.
   String marshalTimeOfDay(GoupnpSoapTimeOfDay v) {
-    final $r = $callSync(8968, $W()..dto(v));
+    final $r = $callSync(8977, $W()..dto(v));
     return $r.str();
   }
 
   /// Go: `func soap.MarshalTimeOfDayTz(v soap.TimeOfDay) (string, error)`.
   String marshalTimeOfDayTz(GoupnpSoapTimeOfDay v) {
-    final $r = $callSync(8969, $W()..dto(v));
+    final $r = $callSync(8978, $W()..dto(v));
     return $r.str();
   }
 
   /// Go: `func soap.MarshalURI(v *url.URL) (string, error)`.
   String marshalUri($url.NetUrl v) {
-    final $r = $callSync(8970, $W()..dto(v));
+    final $r = $callSync(8979, $W()..dto(v));
     return $r.str();
   }
 
   /// Go: `func soap.MarshalUi1(v uint8) (string, error)`.
   String marshalUi1(int v) {
-    final $r = $callSync(8971, $W()..i64(v));
+    final $r = $callSync(8980, $W()..i64(v));
     return $r.str();
   }
 
   /// Go: `func soap.MarshalUi2(v uint16) (string, error)`.
   String marshalUi2(int v) {
-    final $r = $callSync(8972, $W()..i64(v));
+    final $r = $callSync(8981, $W()..i64(v));
     return $r.str();
   }
 
   /// Go: `func soap.MarshalUi4(v uint32) (string, error)`.
   String marshalUi4(int v) {
-    final $r = $callSync(8973, $W()..i64(v));
+    final $r = $callSync(8982, $W()..i64(v));
     return $r.str();
   }
 
   /// Go: `func soap.MarshalUi8(v uint64) (string, error)`.
   String marshalUi8(int v) {
-    final $r = $callSync(8974, $W()..i64(v));
+    final $r = $callSync(8983, $W()..i64(v));
     return $r.str();
   }
 
   /// Go: `func soap.NewSOAPClient(endpointURL url.URL) *soap.SOAPClient`.
   GoupnpSoapClient newSoapClient($url.NetUrl endpointUrl) {
-    final $r = $callSync(8975, $W()..dto(endpointUrl));
+    final $r = $callSync(8984, $W()..dto(endpointUrl));
     return $r.p() ? GoupnpSoapClient.$dec($r) : $nil();
   }
 
   /// Go: `var soap.TypeDataMap map[string]soap.TypeData`.
   Map<String, GoupnpSoapTypeData> get typeDataMap {
-    final $r = $callSync(8981);
+    final $r = $callSync(8990);
     return $r.map(() => $r.str(), () => $r.hnn(GoupnpSoapTypeData.$h));
   }
 
   /// Go: `func soap.UnmarshalBinBase64(s string) ([]byte, error)`.
   Uint8List unmarshalBinBase64(String s) {
-    final $r = $callSync(8982, $W()..str(s));
+    final $r = $callSync(8991, $W()..str(s));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func soap.UnmarshalBinHex(s string) ([]byte, error)`.
   Uint8List unmarshalBinHex(String s) {
-    final $r = $callSync(8983, $W()..str(s));
+    final $r = $callSync(8992, $W()..str(s));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func soap.UnmarshalBoolean(s string) (bool, error)`.
   bool unmarshalBoolean(String s) {
-    final $r = $callSync(8984, $W()..str(s));
+    final $r = $callSync(8993, $W()..str(s));
     return $r.b();
   }
 
   /// Go: `func soap.UnmarshalChar(s string) (rune, error)`.
   int unmarshalChar(String s) {
-    final $r = $callSync(8985, $W()..str(s));
+    final $r = $callSync(8994, $W()..str(s));
     return $r.i64();
   }
 
   /// Go: `func soap.UnmarshalDate(s string) (time.Time, error)`.
   DateTime unmarshalDate(String s) {
-    final $r = $callSync(8986, $W()..str(s));
+    final $r = $callSync(8995, $W()..str(s));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func soap.UnmarshalDateTime(s string) (result time.Time, err error)`.
   DateTime unmarshalDateTime(String s) {
-    final $r = $callSync(8987, $W()..str(s));
+    final $r = $callSync(8996, $W()..str(s));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func soap.UnmarshalDateTimeTz(s string) (result time.Time, err error)`.
   DateTime unmarshalDateTimeTz(String s) {
-    final $r = $callSync(8988, $W()..str(s));
+    final $r = $callSync(8997, $W()..str(s));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func soap.UnmarshalFixed14_4(s string) (float64, error)`.
   double unmarshalFixed144(String s) {
-    final $r = $callSync(8989, $W()..str(s));
+    final $r = $callSync(8998, $W()..str(s));
     return $r.f64();
   }
 
   /// Go: `func soap.UnmarshalI1(s string) (int8, error)`.
   int unmarshalI1(String s) {
-    final $r = $callSync(8990, $W()..str(s));
+    final $r = $callSync(8999, $W()..str(s));
     return $r.i64();
   }
 
   /// Go: `func soap.UnmarshalI2(s string) (int16, error)`.
   int unmarshalI2(String s) {
-    final $r = $callSync(8991, $W()..str(s));
+    final $r = $callSync(9000, $W()..str(s));
     return $r.i64();
   }
 
   /// Go: `func soap.UnmarshalI4(s string) (int32, error)`.
   int unmarshalI4(String s) {
-    final $r = $callSync(8992, $W()..str(s));
+    final $r = $callSync(9001, $W()..str(s));
     return $r.i64();
   }
 
   /// Go: `func soap.UnmarshalInt(s string) (int64, error)`.
   int unmarshalInt(String s) {
-    final $r = $callSync(8993, $W()..str(s));
+    final $r = $callSync(9002, $W()..str(s));
     return $r.i64();
   }
 
   /// Go: `func soap.UnmarshalR4(s string) (float32, error)`.
   double unmarshalR4(String s) {
-    final $r = $callSync(8994, $W()..str(s));
+    final $r = $callSync(9003, $W()..str(s));
     return $r.f64();
   }
 
   /// Go: `func soap.UnmarshalR8(s string) (float64, error)`.
   double unmarshalR8(String s) {
-    final $r = $callSync(8995, $W()..str(s));
+    final $r = $callSync(9004, $W()..str(s));
     return $r.f64();
   }
 
   /// Go: `func soap.UnmarshalString(v string) (string, error)`.
   String unmarshalString(String v) {
-    final $r = $callSync(8996, $W()..str(v));
+    final $r = $callSync(9005, $W()..str(v));
     return $r.str();
   }
 
   /// Go: `func soap.UnmarshalTimeOfDay(s string) (soap.TimeOfDay, error)`.
   GoupnpSoapTimeOfDay unmarshalTimeOfDay(String s) {
-    final $r = $callSync(8997, $W()..str(s));
+    final $r = $callSync(9006, $W()..str(s));
     return $r.p() ? GoupnpSoapTimeOfDay.$dec($r) : $nil();
   }
 
   /// Go: `func soap.UnmarshalTimeOfDayTz(s string) (tod soap.TimeOfDay, err error)`.
   GoupnpSoapTimeOfDay unmarshalTimeOfDayTz(String s) {
-    final $r = $callSync(8998, $W()..str(s));
+    final $r = $callSync(9007, $W()..str(s));
     return $r.p() ? GoupnpSoapTimeOfDay.$dec($r) : $nil();
   }
 
   /// Go: `func soap.UnmarshalURI(s string) (*url.URL, error)`.
   $url.NetUrl unmarshalUri(String s) {
-    final $r = $callSync(8999, $W()..str(s));
+    final $r = $callSync(9008, $W()..str(s));
     return $r.p() ? $url.NetUrl.$dec($r) : $nil();
   }
 
   /// Go: `func soap.UnmarshalUi1(s string) (uint8, error)`.
   int unmarshalUi1(String s) {
-    final $r = $callSync(9000, $W()..str(s));
+    final $r = $callSync(9009, $W()..str(s));
     return $r.i64();
   }
 
   /// Go: `func soap.UnmarshalUi2(s string) (uint16, error)`.
   int unmarshalUi2(String s) {
-    final $r = $callSync(9001, $W()..str(s));
+    final $r = $callSync(9010, $W()..str(s));
     return $r.i64();
   }
 
   /// Go: `func soap.UnmarshalUi4(s string) (uint32, error)`.
   int unmarshalUi4(String s) {
-    final $r = $callSync(9002, $W()..str(s));
+    final $r = $callSync(9011, $W()..str(s));
     return $r.i64();
   }
 
   /// Go: `func soap.UnmarshalUi8(s string) (uint64, error)`.
   int unmarshalUi8(String s) {
-    final $r = $callSync(9003, $W()..str(s));
+    final $r = $callSync(9012, $W()..str(s));
     return $r.i64();
   }
 }

@@ -44,7 +44,7 @@ extension GoLibp2pLibp2pP2pTransportWebtransportApi
     on GoLibp2pLibp2pP2pTransportWebtransport {
   /// Go: `func libp2pwebtransport.IsWebtransportMultiaddr(multiaddr multiaddr.Multiaddr) (bool, int)`.
   (bool, int) isWebtransportMultiaddr($multiaddr.Multiaddr multiaddr) {
-    final $r = $callSync(15097, $W()..val(multiaddr));
+    final $r = $callSync(15103, $W()..val(multiaddr));
     return ($r.b(), $r.i64());
   }
 
@@ -57,7 +57,7 @@ extension GoLibp2pLibp2pP2pTransportWebtransportApi
       $network.Libp2pCoreNetworkResourceManager rcmgr,
       [List<Libp2pP2pTransportWebtransportOption> opts = const []]) {
     final $r = $callSync(
-        15098,
+        15104,
         $W()
           ..h(key)
           ..bytes(psk)

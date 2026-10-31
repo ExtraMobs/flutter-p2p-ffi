@@ -44,7 +44,7 @@ class PeertaskqueuePeertaskQueueTask extends $ipfs_pq.IpfsPqElem
   factory PeertaskqueuePeertaskQueueTask(PeertaskqueuePeertaskTask task,
       $peer.Libp2pCorePeerId target, DateTime created) {
     final $r = $callSync(
-        11146,
+        11152,
         $W()
           ..dto(task)
           ..val(target)
@@ -54,14 +54,14 @@ class PeertaskqueuePeertaskQueueTask extends $ipfs_pq.IpfsPqElem
 
   /// Go: `func (*peertask.QueueTask).Index() int`.
   int index() {
-    final $r = $callSync(11148, $W()..h(this));
+    final $r = $callSync(11154, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*peertask.QueueTask).SetIndex(i int)`.
   void setIndex(int i) {
     $callSync(
-        11149,
+        11155,
         $W()
           ..h(this)
           ..i64(i));
@@ -141,13 +141,13 @@ mixin PeertaskqueuePeertaskTopic$ on GoHandle {}
 extension GoIpfsPeertaskqueuePeertaskApi on GoIpfsPeertaskqueuePeertask {
   /// Go: `var peertask.FIFOCompare func(a *peertask.QueueTask, b *peertask.QueueTask) bool`.
   PeertaskqueuePeertaskQueueTaskComparator get fifoCompare {
-    final $r = $callSync(11145);
+    final $r = $callSync(11151);
     return $r.hnn(PeertaskqueuePeertaskQueueTaskComparator.$h);
   }
 
   /// Go: `var peertask.PriorityCompare func(a *peertask.QueueTask, b *peertask.QueueTask) bool`.
   PeertaskqueuePeertaskQueueTaskComparator get priorityCompare {
-    final $r = $callSync(11147);
+    final $r = $callSync(11153);
     return $r.hnn(PeertaskqueuePeertaskQueueTaskComparator.$h);
   }
 }

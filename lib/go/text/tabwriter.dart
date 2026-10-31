@@ -34,7 +34,7 @@ class TextTabwriterWriter extends $crypto.CryptoDecrypterOpts
   factory TextTabwriterWriter(GoHandle? output, int minwidth, int tabwidth,
       int padding, int padchar, int flags) {
     final $r = $callSync(
-        27529,
+        27530,
         $W()
           ..h(output)
           ..i64(minwidth)
@@ -47,14 +47,14 @@ class TextTabwriterWriter extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*tabwriter.Writer).Flush() error`.
   void flush() {
-    $callSync(27530, $W()..h(this));
+    $callSync(27531, $W()..h(this));
   }
 
   /// Go: `func (*tabwriter.Writer).Init(output io.Writer, minwidth int, tabwidth int, padding int, padchar byte, flags uint) *tabwriter.Writer`.
   TextTabwriterWriter init(GoHandle? output, int minwidth, int tabwidth,
       int padding, int padchar, int flags) {
     final $r = $callSync(
-        27531,
+        27532,
         $W()
           ..h(this)
           ..h(output)
@@ -69,7 +69,7 @@ class TextTabwriterWriter extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*tabwriter.Writer).Write(buf []byte) (n int, err error)`.
   int write(Uint8List buf) {
     final $r = $callSync(
-        27532,
+        27533,
         $W()
           ..h(this)
           ..bytes(buf));

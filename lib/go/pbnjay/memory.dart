@@ -9,13 +9,13 @@ import 'package:p2p_ffi/src/runtime.dart';
 extension GoPbnjayMemoryApi on GoPbnjayMemory {
   /// Go: `func memory.FreeMemory() uint64`.
   int freeMemory() {
-    final $r = $callSync(16092);
+    final $r = $callSync(16098);
     return $r.i64();
   }
 
   /// Go: `func memory.TotalMemory() uint64`.
   int totalMemory() {
-    final $r = $callSync(16093);
+    final $r = $callSync(16099);
     return $r.i64();
   }
 }

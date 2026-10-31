@@ -13,7 +13,7 @@ extension GoXCryptoChacha20Api on GoXCryptoChacha20 {
   /// Go: `func chacha20.HChaCha20(key []byte, nonce []byte) ([]byte, error)`.
   Uint8List hChaCha20(Uint8List key, Uint8List nonce) {
     final $r = $callSync(
-        23294,
+        23300,
         $W()
           ..bytes(key)
           ..bytes(nonce));

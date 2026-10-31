@@ -33,7 +33,7 @@ class BbloomBloom extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*bbloom.Bloom).Add(entry []byte)`.
   void add(Uint8List entry) {
     $callSync(
-        3953,
+        3962,
         $W()
           ..h(this)
           ..bytes(entry));
@@ -42,7 +42,7 @@ class BbloomBloom extends $crypto.CryptoDecrypterOpts
   /// Go: `func (bbloom.Bloom).AddIfNotHas(entry []byte) (added bool)`.
   bool addIfNotHas(Uint8List entry) {
     final $r = $callSync(
-        3954,
+        3963,
         $W()
           ..h(this)
           ..bytes(entry));
@@ -52,7 +52,7 @@ class BbloomBloom extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*bbloom.Bloom).AddIfNotHasTS(entry []byte) (added bool)`.
   bool addIfNotHasTs(Uint8List entry) {
     final $r = $callSync(
-        3955,
+        3964,
         $W()
           ..h(this)
           ..bytes(entry));
@@ -62,7 +62,7 @@ class BbloomBloom extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*bbloom.Bloom).AddTS(entry []byte)`.
   void addTs(Uint8List entry) {
     $callSync(
-        3956,
+        3965,
         $W()
           ..h(this)
           ..bytes(entry));
@@ -70,13 +70,13 @@ class BbloomBloom extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*bbloom.Bloom).Clear()`.
   void clear() {
-    $callSync(3957, $W()..h(this));
+    $callSync(3966, $W()..h(this));
   }
 
   /// Go: `func (bbloom.Bloom).Has(entry []byte) bool`.
   bool has(Uint8List entry) {
     final $r = $callSync(
-        3958,
+        3967,
         $W()
           ..h(this)
           ..bytes(entry));
@@ -86,7 +86,7 @@ class BbloomBloom extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*bbloom.Bloom).HasTS(entry []byte) bool`.
   bool hasTs(Uint8List entry) {
     final $r = $callSync(
-        3959,
+        3968,
         $W()
           ..h(this)
           ..bytes(entry));
@@ -95,14 +95,14 @@ class BbloomBloom extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (bbloom.Bloom).JSONMarshal() []byte`.
   Uint8List jsonMarshal() {
-    final $r = $callSync(3960, $W()..h(this));
+    final $r = $callSync(3969, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*bbloom.Bloom).Size(sz uint64)`.
   void size(int sz) {
     $callSync(
-        3961,
+        3970,
         $W()
           ..h(this)
           ..i64(sz));
@@ -113,13 +113,13 @@ class BbloomBloom extends $crypto.CryptoDecrypterOpts
 extension GoAndreasbrieseBbloomApi on GoAndreasbrieseBbloom {
   /// Go: `func bbloom.JSONUnmarshal(dbData []byte) bbloom.Bloom`.
   BbloomBloom jsonUnmarshal(Uint8List dbData) {
-    final $r = $callSync(3962, $W()..bytes(dbData));
+    final $r = $callSync(3971, $W()..bytes(dbData));
     return $r.hnn(BbloomBloom.$h);
   }
 
   /// Go: `func bbloom.New(params ...float64) (bloomfilter bbloom.Bloom)`.
   BbloomBloom new$([List<double> params = const []]) {
-    final $r = $callSync(3963, $W()..list(params, (w0, e0) => w0.f64(e0)));
+    final $r = $callSync(3972, $W()..list(params, (w0, e0) => w0.f64(e0)));
     return $r.hnn(BbloomBloom.$h);
   }
 }

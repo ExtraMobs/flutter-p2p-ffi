@@ -47,59 +47,59 @@ class Libp2pP2pProtocolCircuitv2PbHopMessage
   /// Go: `func (*pb.HopMessage).Descriptor() ([]byte, []int)`.
   @Deprecated("Use HopMessage.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(14826, $W()..h(this));
+    final $r = $callSync(14832, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pb.HopMessage).GetLimit() *pb.Limit`.
   Libp2pP2pProtocolCircuitv2PbLimit getLimit() {
-    final $r = $callSync(14827, $W()..h(this));
+    final $r = $callSync(14833, $W()..h(this));
     return $r.hnn(Libp2pP2pProtocolCircuitv2PbLimit.$h);
   }
 
   /// Go: `func (*pb.HopMessage).GetPeer() *pb.Peer`.
   Libp2pP2pProtocolCircuitv2PbPeer getPeer() {
-    final $r = $callSync(14828, $W()..h(this));
+    final $r = $callSync(14834, $W()..h(this));
     return $r.hnn(Libp2pP2pProtocolCircuitv2PbPeer.$h);
   }
 
   /// Go: `func (*pb.HopMessage).GetReservation() *pb.Reservation`.
   Libp2pP2pProtocolCircuitv2PbReservation getReservation() {
-    final $r = $callSync(14829, $W()..h(this));
+    final $r = $callSync(14835, $W()..h(this));
     return $r.hnn(Libp2pP2pProtocolCircuitv2PbReservation.$h);
   }
 
   /// Go: `func (*pb.HopMessage).GetStatus() pb.Status`.
   int getStatus() {
-    final $r = $callSync(14830, $W()..h(this));
+    final $r = $callSync(14836, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.HopMessage).GetType() pb.HopMessage_Type`.
   int getType() {
-    final $r = $callSync(14831, $W()..h(this));
+    final $r = $callSync(14837, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.HopMessage).ProtoMessage()`.
   void protoMessage() {
-    $callSync(14832, $W()..h(this));
+    $callSync(14838, $W()..h(this));
   }
 
   /// Go: `func (*pb.HopMessage).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(14833, $W()..h(this));
+    final $r = $callSync(14839, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pb.HopMessage).Reset()`.
   void reset() {
-    $callSync(14834, $W()..h(this));
+    $callSync(14840, $W()..h(this));
   }
 
   /// Go: `func (*pb.HopMessage).String() string`.
   String string() {
-    final $r = $callSync(14835, $W()..h(this));
+    final $r = $callSync(14841, $W()..h(this));
     return $r.str();
   }
 }
@@ -132,41 +132,41 @@ class Libp2pP2pProtocolCircuitv2PbLimit
   /// Go: `func (*pb.Limit).Descriptor() ([]byte, []int)`.
   @Deprecated("Use Limit.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(14838, $W()..h(this));
+    final $r = $callSync(14844, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pb.Limit).GetData() uint64`.
   int getData() {
-    final $r = $callSync(14839, $W()..h(this));
+    final $r = $callSync(14845, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.Limit).GetDuration() uint32`.
   int getDuration() {
-    final $r = $callSync(14840, $W()..h(this));
+    final $r = $callSync(14846, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.Limit).ProtoMessage()`.
   void protoMessage() {
-    $callSync(14841, $W()..h(this));
+    $callSync(14847, $W()..h(this));
   }
 
   /// Go: `func (*pb.Limit).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(14842, $W()..h(this));
+    final $r = $callSync(14848, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pb.Limit).Reset()`.
   void reset() {
-    $callSync(14843, $W()..h(this));
+    $callSync(14849, $W()..h(this));
   }
 
   /// Go: `func (*pb.Limit).String() string`.
   String string() {
-    final $r = $callSync(14844, $W()..h(this));
+    final $r = $callSync(14850, $W()..h(this));
     return $r.str();
   }
 }
@@ -199,41 +199,41 @@ class Libp2pP2pProtocolCircuitv2PbPeer
   /// Go: `func (*pb.Peer).Descriptor() ([]byte, []int)`.
   @Deprecated("Use Peer.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(14845, $W()..h(this));
+    final $r = $callSync(14851, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pb.Peer).GetAddrs() [][]byte`.
   List<Uint8List> getAddrs() {
-    final $r = $callSync(14846, $W()..h(this));
+    final $r = $callSync(14852, $W()..h(this));
     return $r.list(() => $r.bytes() ?? Uint8List(0));
   }
 
   /// Go: `func (*pb.Peer).GetId() []byte`.
   Uint8List getId() {
-    final $r = $callSync(14847, $W()..h(this));
+    final $r = $callSync(14853, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pb.Peer).ProtoMessage()`.
   void protoMessage() {
-    $callSync(14848, $W()..h(this));
+    $callSync(14854, $W()..h(this));
   }
 
   /// Go: `func (*pb.Peer).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(14849, $W()..h(this));
+    final $r = $callSync(14855, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pb.Peer).Reset()`.
   void reset() {
-    $callSync(14850, $W()..h(this));
+    $callSync(14856, $W()..h(this));
   }
 
   /// Go: `func (*pb.Peer).String() string`.
   String string() {
-    final $r = $callSync(14851, $W()..h(this));
+    final $r = $callSync(14857, $W()..h(this));
     return $r.str();
   }
 }
@@ -266,47 +266,47 @@ class Libp2pP2pProtocolCircuitv2PbReservation
   /// Go: `func (*pb.Reservation).Descriptor() ([]byte, []int)`.
   @Deprecated("Use Reservation.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(14852, $W()..h(this));
+    final $r = $callSync(14858, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pb.Reservation).GetAddrs() [][]byte`.
   List<Uint8List> getAddrs() {
-    final $r = $callSync(14853, $W()..h(this));
+    final $r = $callSync(14859, $W()..h(this));
     return $r.list(() => $r.bytes() ?? Uint8List(0));
   }
 
   /// Go: `func (*pb.Reservation).GetExpire() uint64`.
   int getExpire() {
-    final $r = $callSync(14854, $W()..h(this));
+    final $r = $callSync(14860, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.Reservation).GetVoucher() []byte`.
   Uint8List getVoucher() {
-    final $r = $callSync(14855, $W()..h(this));
+    final $r = $callSync(14861, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pb.Reservation).ProtoMessage()`.
   void protoMessage() {
-    $callSync(14856, $W()..h(this));
+    $callSync(14862, $W()..h(this));
   }
 
   /// Go: `func (*pb.Reservation).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(14857, $W()..h(this));
+    final $r = $callSync(14863, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pb.Reservation).Reset()`.
   void reset() {
-    $callSync(14858, $W()..h(this));
+    $callSync(14864, $W()..h(this));
   }
 
   /// Go: `func (*pb.Reservation).String() string`.
   String string() {
-    final $r = $callSync(14859, $W()..h(this));
+    final $r = $callSync(14865, $W()..h(this));
     return $r.str();
   }
 }
@@ -339,47 +339,47 @@ class Libp2pP2pProtocolCircuitv2PbReservationVoucher
   /// Go: `func (*pb.ReservationVoucher).Descriptor() ([]byte, []int)`.
   @Deprecated("Use ReservationVoucher.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(14860, $W()..h(this));
+    final $r = $callSync(14866, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pb.ReservationVoucher).GetExpiration() uint64`.
   int getExpiration() {
-    final $r = $callSync(14861, $W()..h(this));
+    final $r = $callSync(14867, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.ReservationVoucher).GetPeer() []byte`.
   Uint8List getPeer() {
-    final $r = $callSync(14862, $W()..h(this));
+    final $r = $callSync(14868, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pb.ReservationVoucher).GetRelay() []byte`.
   Uint8List getRelay() {
-    final $r = $callSync(14863, $W()..h(this));
+    final $r = $callSync(14869, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pb.ReservationVoucher).ProtoMessage()`.
   void protoMessage() {
-    $callSync(14864, $W()..h(this));
+    $callSync(14870, $W()..h(this));
   }
 
   /// Go: `func (*pb.ReservationVoucher).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(14865, $W()..h(this));
+    final $r = $callSync(14871, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pb.ReservationVoucher).Reset()`.
   void reset() {
-    $callSync(14866, $W()..h(this));
+    $callSync(14872, $W()..h(this));
   }
 
   /// Go: `func (*pb.ReservationVoucher).String() string`.
   String string() {
-    final $r = $callSync(14867, $W()..h(this));
+    final $r = $callSync(14873, $W()..h(this));
     return $r.str();
   }
 }
@@ -412,53 +412,53 @@ class Libp2pP2pProtocolCircuitv2PbStopMessage
   /// Go: `func (*pb.StopMessage).Descriptor() ([]byte, []int)`.
   @Deprecated("Use StopMessage.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(14870, $W()..h(this));
+    final $r = $callSync(14876, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pb.StopMessage).GetLimit() *pb.Limit`.
   Libp2pP2pProtocolCircuitv2PbLimit getLimit() {
-    final $r = $callSync(14871, $W()..h(this));
+    final $r = $callSync(14877, $W()..h(this));
     return $r.hnn(Libp2pP2pProtocolCircuitv2PbLimit.$h);
   }
 
   /// Go: `func (*pb.StopMessage).GetPeer() *pb.Peer`.
   Libp2pP2pProtocolCircuitv2PbPeer getPeer() {
-    final $r = $callSync(14872, $W()..h(this));
+    final $r = $callSync(14878, $W()..h(this));
     return $r.hnn(Libp2pP2pProtocolCircuitv2PbPeer.$h);
   }
 
   /// Go: `func (*pb.StopMessage).GetStatus() pb.Status`.
   int getStatus() {
-    final $r = $callSync(14873, $W()..h(this));
+    final $r = $callSync(14879, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.StopMessage).GetType() pb.StopMessage_Type`.
   int getType() {
-    final $r = $callSync(14874, $W()..h(this));
+    final $r = $callSync(14880, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.StopMessage).ProtoMessage()`.
   void protoMessage() {
-    $callSync(14875, $W()..h(this));
+    $callSync(14881, $W()..h(this));
   }
 
   /// Go: `func (*pb.StopMessage).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(14876, $W()..h(this));
+    final $r = $callSync(14882, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pb.StopMessage).Reset()`.
   void reset() {
-    $callSync(14877, $W()..h(this));
+    $callSync(14883, $W()..h(this));
   }
 
   /// Go: `func (*pb.StopMessage).String() string`.
   String string() {
-    final $r = $callSync(14878, $W()..h(this));
+    final $r = $callSync(14884, $W()..h(this));
     return $r.str();
   }
 }
@@ -469,50 +469,50 @@ extension GoLibp2pLibp2pP2pProtocolCircuitv2PbApi
   /// Go: `var pb.File_p2p_protocol_circuitv2_pb_circuit_proto protoreflect.FileDescriptor`.
   $protoreflect.ProtobufReflectProtoreflectFileDescriptor
       get fileP2pProtocolCircuitv2PbCircuitProto {
-    final $r = $callSync(14824);
+    final $r = $callSync(14830);
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectFileDescriptor.$h);
   }
 
   /// Go: `var pb.File_p2p_protocol_circuitv2_pb_voucher_proto protoreflect.FileDescriptor`.
   $protoreflect.ProtobufReflectProtoreflectFileDescriptor
       get fileP2pProtocolCircuitv2PbVoucherProto {
-    final $r = $callSync(14825);
+    final $r = $callSync(14831);
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectFileDescriptor.$h);
   }
 
   /// Go: `var pb.HopMessage_Type_name map[int32]string`.
   Map<int, String> get hopMessageTypeName {
-    final $r = $callSync(14836);
+    final $r = $callSync(14842);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var pb.HopMessage_Type_value map[string]int32`.
   Map<String, int> get hopMessageTypeValue {
-    final $r = $callSync(14837);
+    final $r = $callSync(14843);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `var pb.Status_name map[int32]string`.
   Map<int, String> get statusName {
-    final $r = $callSync(14868);
+    final $r = $callSync(14874);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var pb.Status_value map[string]int32`.
   Map<String, int> get statusValue {
-    final $r = $callSync(14869);
+    final $r = $callSync(14875);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `var pb.StopMessage_Type_name map[int32]string`.
   Map<int, String> get stopMessageTypeName {
-    final $r = $callSync(14879);
+    final $r = $callSync(14885);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var pb.StopMessage_Type_value map[string]int32`.
   Map<String, int> get stopMessageTypeValue {
-    final $r = $callSync(14880);
+    final $r = $callSync(14886);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 }

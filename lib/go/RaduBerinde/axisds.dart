@@ -10,7 +10,7 @@ import 'package:p2p_ffi/src/runtime.dart';
 extension GoRaduberindeAxisdsApi on GoRaduberindeAxisds {
   /// Go: `func axisds.InclusiveIf(inclusive bool) axisds.InclusiveOrExclusive`.
   int inclusiveIf(bool inclusive) {
-    final $r = $callSync(3970, $W()..b(inclusive));
+    final $r = $callSync(3979, $W()..b(inclusive));
     return $r.i64();
   }
 }

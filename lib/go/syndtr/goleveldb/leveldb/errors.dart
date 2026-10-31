@@ -54,6 +54,6 @@ class GoleveldbLeveldbErrorsErrReleased extends GolangException {
 extension GoSyndtrGoleveldbLeveldbErrorsApi on GoSyndtrGoleveldbLeveldbErrors {
   /// Go: `func errors.New(text string) error`.
   void new$(String text) {
-    $callSync(18662, $W()..str(text));
+    $callSync(18668, $W()..str(text));
   }
 }

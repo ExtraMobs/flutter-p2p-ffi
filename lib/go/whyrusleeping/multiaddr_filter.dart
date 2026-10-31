@@ -19,13 +19,13 @@ class MultiaddrFilterErrInvalidFormat extends GolangException {
 extension GoWhyrusleepingMultiaddrFilterApi on GoWhyrusleepingMultiaddrFilter {
   /// Go: `func mask.ConvertIPNet(n *net.IPNet) (string, error)`.
   String convertIpNet($net.NetIpNet n) {
-    final $r = $callSync(18980, $W()..dto(n));
+    final $r = $callSync(18986, $W()..dto(n));
     return $r.str();
   }
 
   /// Go: `func mask.NewMask(a string) (*net.IPNet, error)`.
   $net.NetIpNet newMask(String a) {
-    final $r = $callSync(18981, $W()..str(a));
+    final $r = $callSync(18987, $W()..str(a));
     return $r.p() ? $net.NetIpNet.$dec($r) : $nil();
   }
 }

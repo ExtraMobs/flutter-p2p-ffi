@@ -112,7 +112,7 @@ final class SentryGoBreadcrumb implements GoDto {
 
   /// Go: `func (*sentry.Breadcrumb).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(6425, $W()..dto(this));
+    final $r = $callSync(6434, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 }
@@ -174,14 +174,14 @@ class SentryGoClient extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func sentry.NewClient(options sentry.ClientOptions) (*sentry.Client, error)`.
   factory SentryGoClient(SentryGoClientOptions options) {
-    final $r = $callSync(6482, $W()..dto(options));
+    final $r = $callSync(6491, $W()..dto(options));
     return $r.hnn(SentryGoClient.$h);
   }
 
   /// Go: `func (*sentry.Client).AddEventProcessor(processor sentry.EventProcessor)`.
   void addEventProcessor(SentryGoEventProcessor processor) {
     $callSync(
-        6426,
+        6435,
         $W()
           ..h(this)
           ..h(processor));
@@ -191,7 +191,7 @@ class SentryGoClient extends $crypto.CryptoDecrypterOpts
   SentryGoEvent eventFromCheckIn(
       SentryGoCheckIn checkIn, SentryGoMonitorConfig monitorConfig) {
     final $r = $callSync(
-        6427,
+        6436,
         $W()
           ..h(this)
           ..dto(checkIn)
@@ -202,7 +202,7 @@ class SentryGoClient extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*sentry.Client).EventFromMessage(message string, level sentry.Level) *sentry.Event`.
   SentryGoEvent eventFromMessage(String message, String level) {
     final $r = $callSync(
-        6428,
+        6437,
         $W()
           ..h(this)
           ..str(message)
@@ -213,7 +213,7 @@ class SentryGoClient extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*sentry.Client).Flush(timeout time.Duration) bool`.
   bool flush(Duration timeout) {
     final $r = $callSync(
-        6429,
+        6438,
         $W()
           ..h(this)
           ..i64((timeout).inMicroseconds * 1000));
@@ -222,20 +222,20 @@ class SentryGoClient extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*sentry.Client).GetSDKIdentifier() string`.
   String getSdkIdentifier() {
-    final $r = $callSync(6430, $W()..h(this));
+    final $r = $callSync(6439, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*sentry.Client).Options() sentry.ClientOptions`.
   SentryGoClientOptions options() {
-    final $r = $callSync(6431, $W()..h(this));
+    final $r = $callSync(6440, $W()..h(this));
     return $r.p() ? SentryGoClientOptions.$dec($r) : $nil();
   }
 
   /// Go: `func (*sentry.Client).SetSDKIdentifier(identifier string)`.
   void setSdkIdentifier(String identifier) {
     $callSync(
-        6432,
+        6441,
         $W()
           ..h(this)
           ..str(identifier));
@@ -455,61 +455,61 @@ class SentryGoDsn extends $json.EncodingJsonUnmarshaler
 
   /// Go: `func sentry.NewDsn(rawURL string) (*sentry.Dsn, error)`.
   factory SentryGoDsn(String rawUrl) {
-    final $r = $callSync(6483, $W()..str(rawUrl));
+    final $r = $callSync(6492, $W()..str(rawUrl));
     return $r.hnn(SentryGoDsn.$h);
   }
 
   /// Go: `func (sentry.Dsn).GetAPIURL() *url.URL`.
   $url.NetUrl getApiurl() {
-    final $r = $callSync(6436, $W()..h(this));
+    final $r = $callSync(6445, $W()..h(this));
     return $r.p() ? $url.NetUrl.$dec($r) : $nil();
   }
 
   /// Go: `func (sentry.Dsn).GetHost() string`.
   String getHost() {
-    final $r = $callSync(6437, $W()..h(this));
+    final $r = $callSync(6446, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (sentry.Dsn).GetPath() string`.
   String getPath() {
-    final $r = $callSync(6438, $W()..h(this));
+    final $r = $callSync(6447, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (sentry.Dsn).GetPort() int`.
   int getPort() {
-    final $r = $callSync(6439, $W()..h(this));
+    final $r = $callSync(6448, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (sentry.Dsn).GetProjectID() string`.
   String getProjectId() {
-    final $r = $callSync(6440, $W()..h(this));
+    final $r = $callSync(6449, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (sentry.Dsn).GetPublicKey() string`.
   String getPublicKey() {
-    final $r = $callSync(6441, $W()..h(this));
+    final $r = $callSync(6450, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (sentry.Dsn).GetScheme() string`.
   String getScheme() {
-    final $r = $callSync(6442, $W()..h(this));
+    final $r = $callSync(6451, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (sentry.Dsn).GetSecretKey() string`.
   String getSecretKey() {
-    final $r = $callSync(6443, $W()..h(this));
+    final $r = $callSync(6452, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (sentry.Dsn).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(6444, $W()..h(this));
+    final $r = $callSync(6453, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
@@ -517,20 +517,20 @@ class SentryGoDsn extends $json.EncodingJsonUnmarshaler
   @Deprecated(
       "This method shall only be used if you want to implement your own transport that sends events to the /store endpoint. If you're using the transport provided by the SDK, all necessary headers to authenticate against the /envelope endpoint are added automatically.")
   Map<String, String> requestHeaders() {
-    final $r = $callSync(6445, $W()..h(this));
+    final $r = $callSync(6454, $W()..h(this));
     return $r.map(() => $r.str(), () => $r.str());
   }
 
   /// Go: `func (sentry.Dsn).String() string`.
   String string() {
-    final $r = $callSync(6446, $W()..h(this));
+    final $r = $callSync(6455, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*sentry.Dsn).UnmarshalJSON(data []byte) error`.
   void unmarshalJson(Uint8List data) {
     $callSync(
-        6447,
+        6456,
         $W()
           ..h(this)
           ..bytes(data));
@@ -562,19 +562,19 @@ final class SentryGoDynamicSamplingContext implements GoDto {
 
   /// Go: `func (sentry.DynamicSamplingContext).HasEntries() bool`.
   bool hasEntries() {
-    final $r = $callSync(6448, $W()..dto(this));
+    final $r = $callSync(6457, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (sentry.DynamicSamplingContext).IsFrozen() bool`.
   bool isFrozen() {
-    final $r = $callSync(6449, $W()..dto(this));
+    final $r = $callSync(6458, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (sentry.DynamicSamplingContext).String() string`.
   String string() {
-    final $r = $callSync(6450, $W()..dto(this));
+    final $r = $callSync(6459, $W()..dto(this));
     return $r.str();
   }
 }
@@ -599,13 +599,13 @@ class SentryGoEvent extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func sentry.NewEvent() *sentry.Event`.
   factory SentryGoEvent() {
-    final $r = $callSync(6484);
+    final $r = $callSync(6493);
     return $r.hnn(SentryGoEvent.$h);
   }
 
   /// Go: `func (*sentry.Event).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(6453, $W()..h(this));
+    final $r = $callSync(6462, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 }
@@ -662,7 +662,7 @@ mixin SentryGoEventModifier$ on GoHandle {
   /// Go: `func (sentry.EventModifier).ApplyToEvent(event *sentry.Event, hint *sentry.EventHint) *sentry.Event`.
   SentryGoEvent applyToEvent(SentryGoEvent event, SentryGoEventHint hint) {
     final $r = $callSync(
-        6454,
+        6463,
         $W()
           ..h(this)
           ..h(event)
@@ -672,7 +672,7 @@ mixin SentryGoEventModifier$ on GoHandle {
 
   /// Go: type assertion `x.(*sentry.Scope)`: null if the object is not one.
   SentryGoScope? asSentryGoScope() {
-    final $r = $callSync(444, $W()..h(this));
+    final $r = $callSync(447, $W()..h(this));
     return $r.hn(SentryGoScope.$h);
   }
 }
@@ -863,14 +863,14 @@ class SentryGoHttpSyncTransport extends SentryGoTransport
 
   /// Go: `func sentry.NewHTTPSyncTransport() *sentry.HTTPSyncTransport`.
   factory SentryGoHttpSyncTransport() {
-    final $r = $callSync(6486);
+    final $r = $callSync(6495);
     return $r.hnn(SentryGoHttpSyncTransport.$h);
   }
 
   /// Go: `func (*sentry.HTTPSyncTransport).Configure(options sentry.ClientOptions)`.
   void configure(SentryGoClientOptions options) {
     $callSync(
-        6457,
+        6466,
         $W()
           ..h(this)
           ..dto(options));
@@ -879,7 +879,7 @@ class SentryGoHttpSyncTransport extends SentryGoTransport
   /// Go: `func (*sentry.HTTPSyncTransport).Flush(_ time.Duration) bool`.
   bool flush(Duration arg0) {
     final $r = $callSync(
-        6458,
+        6467,
         $W()
           ..h(this)
           ..i64((arg0).inMicroseconds * 1000));
@@ -889,7 +889,7 @@ class SentryGoHttpSyncTransport extends SentryGoTransport
   /// Go: `func (*sentry.HTTPSyncTransport).SendEvent(event *sentry.Event)`.
   void sendEvent(SentryGoEvent event) {
     $callSync(
-        6459,
+        6468,
         $W()
           ..h(this)
           ..h(event));
@@ -918,14 +918,14 @@ class SentryGoHttpTransport extends SentryGoTransport
 
   /// Go: `func sentry.NewHTTPTransport() *sentry.HTTPTransport`.
   factory SentryGoHttpTransport() {
-    final $r = $callSync(6487);
+    final $r = $callSync(6496);
     return $r.hnn(SentryGoHttpTransport.$h);
   }
 
   /// Go: `func (*sentry.HTTPTransport).Configure(options sentry.ClientOptions)`.
   void configure(SentryGoClientOptions options) {
     $callSync(
-        6460,
+        6469,
         $W()
           ..h(this)
           ..dto(options));
@@ -934,7 +934,7 @@ class SentryGoHttpTransport extends SentryGoTransport
   /// Go: `func (*sentry.HTTPTransport).Flush(timeout time.Duration) bool`.
   bool flush(Duration timeout) {
     final $r = $callSync(
-        6461,
+        6470,
         $W()
           ..h(this)
           ..i64((timeout).inMicroseconds * 1000));
@@ -944,7 +944,7 @@ class SentryGoHttpTransport extends SentryGoTransport
   /// Go: `func (*sentry.HTTPTransport).SendEvent(event *sentry.Event)`.
   void sendEvent(SentryGoEvent event) {
     $callSync(
-        6462,
+        6471,
         $W()
           ..h(this)
           ..h(event));
@@ -972,7 +972,7 @@ class SentryGoHub extends $crypto.CryptoDecrypterOpts
   /// Go: `func sentry.NewHub(client *sentry.Client, scope *sentry.Scope) *sentry.Hub`.
   factory SentryGoHub(SentryGoClient client, SentryGoScope scope) {
     final $r = $callSync(
-        6488,
+        6497,
         $W()
           ..h(client)
           ..h(scope));
@@ -982,7 +982,7 @@ class SentryGoHub extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*sentry.Hub).BindClient(client *sentry.Client)`.
   void bindClient(SentryGoClient client) {
     $callSync(
-        6465,
+        6474,
         $W()
           ..h(this)
           ..h(client));
@@ -990,13 +990,13 @@ class SentryGoHub extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*sentry.Hub).Client() *sentry.Client`.
   SentryGoClient client() {
-    final $r = $callSync(6466, $W()..h(this));
+    final $r = $callSync(6475, $W()..h(this));
     return $r.hnn(SentryGoClient.$h);
   }
 
   /// Go: `func (*sentry.Hub).Clone() *sentry.Hub`.
   SentryGoHub clone() {
-    final $r = $callSync(6467, $W()..h(this));
+    final $r = $callSync(6476, $W()..h(this));
     return $r.hnn(SentryGoHub.$h);
   }
 
@@ -1010,7 +1010,7 @@ class SentryGoHub extends $crypto.CryptoDecrypterOpts
   Future<void> configureScope(
       FutureOr<void> Function(SentryGoScope scope) f) async {
     await $call(
-        6468,
+        6477,
         $W()
           ..h(this)
           ..cb((r) => f(r.hnn(SentryGoScope.$h)), true));
@@ -1019,7 +1019,7 @@ class SentryGoHub extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*sentry.Hub).Flush(timeout time.Duration) bool`.
   bool flush(Duration timeout) {
     final $r = $callSync(
-        6469,
+        6478,
         $W()
           ..h(this)
           ..i64((timeout).inMicroseconds * 1000));
@@ -1028,24 +1028,24 @@ class SentryGoHub extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*sentry.Hub).LastEventID() sentry.EventID`.
   String lastEventId() {
-    final $r = $callSync(6470, $W()..h(this));
+    final $r = $callSync(6479, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*sentry.Hub).PopScope()`.
   void popScope() {
-    $callSync(6471, $W()..h(this));
+    $callSync(6480, $W()..h(this));
   }
 
   /// Go: `func (*sentry.Hub).PushScope() *sentry.Scope`.
   SentryGoScope pushScope() {
-    final $r = $callSync(6472, $W()..h(this));
+    final $r = $callSync(6481, $W()..h(this));
     return $r.hnn(SentryGoScope.$h);
   }
 
   /// Go: `func (*sentry.Hub).Scope() *sentry.Scope`.
   SentryGoScope scope() {
-    final $r = $callSync(6473, $W()..h(this));
+    final $r = $callSync(6482, $W()..h(this));
     return $r.hnn(SentryGoScope.$h);
   }
 
@@ -1058,7 +1058,7 @@ class SentryGoHub extends $crypto.CryptoDecrypterOpts
   /// each invocation (a retained callback, WIRE.md).
   Future<void> withScope(FutureOr<void> Function(SentryGoScope scope) f) async {
     await $call(
-        6474,
+        6483,
         $W()
           ..h(this)
           ..cb((r) => f(r.hnn(SentryGoScope.$h)), true));
@@ -1074,14 +1074,14 @@ class SentryGoIntegration extends GoHandle with SentryGoIntegration$ {
 mixin SentryGoIntegration$ on GoHandle {
   /// Go: `func (sentry.Integration).Name() string`.
   String name() {
-    final $r = $callSync(6476, $W()..h(this));
+    final $r = $callSync(6485, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (sentry.Integration).SetupOnce(client *sentry.Client)`.
   void setupOnce(SentryGoClient client) {
     $callSync(
-        6477,
+        6486,
         $W()
           ..h(this)
           ..h(client));
@@ -1136,7 +1136,7 @@ final class SentryGoMechanism implements GoDto {
 
   /// Go: `func (*sentry.Mechanism).SetUnhandled()`.
   void setUnhandled() {
-    $callSync(6481, $W()..dto(this));
+    $callSync(6490, $W()..dto(this));
   }
 }
 
@@ -1295,14 +1295,14 @@ class SentryGoScope extends SentryGoEventModifier
 
   /// Go: `func sentry.NewScope() *sentry.Scope`.
   factory SentryGoScope() {
-    final $r = $callSync(6490);
+    final $r = $callSync(6499);
     return $r.hnn(SentryGoScope.$h);
   }
 
   /// Go: `func (*sentry.Scope).AddAttachment(attachment *sentry.Attachment)`.
   void addAttachment(SentryGoAttachment attachment) {
     $callSync(
-        6495,
+        6504,
         $W()
           ..h(this)
           ..dto(attachment));
@@ -1311,7 +1311,7 @@ class SentryGoScope extends SentryGoEventModifier
   /// Go: `func (*sentry.Scope).AddBreadcrumb(breadcrumb *sentry.Breadcrumb, limit int)`.
   void addBreadcrumb(SentryGoBreadcrumb breadcrumb, int limit) {
     $callSync(
-        6496,
+        6505,
         $W()
           ..h(this)
           ..dto(breadcrumb)
@@ -1321,7 +1321,7 @@ class SentryGoScope extends SentryGoEventModifier
   /// Go: `func (*sentry.Scope).AddEventProcessor(processor sentry.EventProcessor)`.
   void addEventProcessor(SentryGoEventProcessor processor) {
     $callSync(
-        6497,
+        6506,
         $W()
           ..h(this)
           ..h(processor));
@@ -1330,7 +1330,7 @@ class SentryGoScope extends SentryGoEventModifier
   /// Go: `func (*sentry.Scope).ApplyToEvent(event *sentry.Event, hint *sentry.EventHint) *sentry.Event`.
   SentryGoEvent applyToEvent(SentryGoEvent event, SentryGoEventHint hint) {
     final $r = $callSync(
-        6498,
+        6507,
         $W()
           ..h(this)
           ..h(event)
@@ -1340,29 +1340,29 @@ class SentryGoScope extends SentryGoEventModifier
 
   /// Go: `func (*sentry.Scope).Clear()`.
   void clear() {
-    $callSync(6499, $W()..h(this));
+    $callSync(6508, $W()..h(this));
   }
 
   /// Go: `func (*sentry.Scope).ClearAttachments()`.
   void clearAttachments() {
-    $callSync(6500, $W()..h(this));
+    $callSync(6509, $W()..h(this));
   }
 
   /// Go: `func (*sentry.Scope).ClearBreadcrumbs()`.
   void clearBreadcrumbs() {
-    $callSync(6501, $W()..h(this));
+    $callSync(6510, $W()..h(this));
   }
 
   /// Go: `func (*sentry.Scope).Clone() *sentry.Scope`.
   SentryGoScope clone() {
-    final $r = $callSync(6502, $W()..h(this));
+    final $r = $callSync(6511, $W()..h(this));
     return $r.hnn(SentryGoScope.$h);
   }
 
   /// Go: `func (*sentry.Scope).RemoveContext(key string)`.
   void removeContext(String key) {
     $callSync(
-        6503,
+        6512,
         $W()
           ..h(this)
           ..str(key));
@@ -1371,7 +1371,7 @@ class SentryGoScope extends SentryGoEventModifier
   /// Go: `func (*sentry.Scope).RemoveExtra(key string)`.
   void removeExtra(String key) {
     $callSync(
-        6504,
+        6513,
         $W()
           ..h(this)
           ..str(key));
@@ -1380,7 +1380,7 @@ class SentryGoScope extends SentryGoEventModifier
   /// Go: `func (*sentry.Scope).RemoveTag(key string)`.
   void removeTag(String key) {
     $callSync(
-        6505,
+        6514,
         $W()
           ..h(this)
           ..str(key));
@@ -1389,7 +1389,7 @@ class SentryGoScope extends SentryGoEventModifier
   /// Go: `func (*sentry.Scope).SetContext(key string, value sentry.Context)`.
   void setContext(String key, Map<String, Object?> value) {
     $callSync(
-        6506,
+        6515,
         $W()
           ..h(this)
           ..str(key)
@@ -1399,7 +1399,7 @@ class SentryGoScope extends SentryGoEventModifier
   /// Go: `func (*sentry.Scope).SetContexts(contexts map[string]sentry.Context)`.
   void setContexts(Map<String, Map<String, Object?>> contexts) {
     $callSync(
-        6507,
+        6516,
         $W()
           ..h(this)
           ..map(
@@ -1412,7 +1412,7 @@ class SentryGoScope extends SentryGoEventModifier
   /// Go: `func (*sentry.Scope).SetExtra(key string, value interface{})`.
   void setExtra(String key, Object? value) {
     $callSync(
-        6508,
+        6517,
         $W()
           ..h(this)
           ..str(key)
@@ -1422,7 +1422,7 @@ class SentryGoScope extends SentryGoEventModifier
   /// Go: `func (*sentry.Scope).SetExtras(extra map[string]interface{})`.
   void setExtras(Map<String, Object?> extra) {
     $callSync(
-        6509,
+        6518,
         $W()
           ..h(this)
           ..map(extra, (w0, k0) => w0.str(k0), (w0, v0) => w0.any(v0)));
@@ -1431,7 +1431,7 @@ class SentryGoScope extends SentryGoEventModifier
   /// Go: `func (*sentry.Scope).SetFingerprint(fingerprint []string)`.
   void setFingerprint(List<String> fingerprint) {
     $callSync(
-        6510,
+        6519,
         $W()
           ..h(this)
           ..list(fingerprint, (w0, e0) => w0.str(e0)));
@@ -1440,7 +1440,7 @@ class SentryGoScope extends SentryGoEventModifier
   /// Go: `func (*sentry.Scope).SetLevel(level sentry.Level)`.
   void setLevel(String level) {
     $callSync(
-        6511,
+        6520,
         $W()
           ..h(this)
           ..str(level));
@@ -1449,7 +1449,7 @@ class SentryGoScope extends SentryGoEventModifier
   /// Go: `func (*sentry.Scope).SetRequest(r *http.Request)`.
   void setRequest($http.NetHttpRequest r) {
     $callSync(
-        6512,
+        6521,
         $W()
           ..h(this)
           ..h(r));
@@ -1458,7 +1458,7 @@ class SentryGoScope extends SentryGoEventModifier
   /// Go: `func (*sentry.Scope).SetRequestBody(b []byte)`.
   void setRequestBody(Uint8List b) {
     $callSync(
-        6513,
+        6522,
         $W()
           ..h(this)
           ..bytes(b));
@@ -1467,7 +1467,7 @@ class SentryGoScope extends SentryGoEventModifier
   /// Go: `func (*sentry.Scope).SetTag(key string, value string)`.
   void setTag(String key, String value) {
     $callSync(
-        6514,
+        6523,
         $W()
           ..h(this)
           ..str(key)
@@ -1477,7 +1477,7 @@ class SentryGoScope extends SentryGoEventModifier
   /// Go: `func (*sentry.Scope).SetTags(tags map[string]string)`.
   void setTags(Map<String, String> tags) {
     $callSync(
-        6515,
+        6524,
         $W()
           ..h(this)
           ..map(tags, (w0, k0) => w0.str(k0), (w0, v0) => w0.str(v0)));
@@ -1486,7 +1486,7 @@ class SentryGoScope extends SentryGoEventModifier
   /// Go: `func (*sentry.Scope).SetUser(user sentry.User)`.
   void setUser(SentryGoUser user) {
     $callSync(
-        6516,
+        6525,
         $W()
           ..h(this)
           ..dto(user));
@@ -1513,31 +1513,31 @@ class SentryGoSpan extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*sentry.Span).Finish()`.
   void finish() {
-    $callSync(6517, $W()..h(this));
+    $callSync(6526, $W()..h(this));
   }
 
   /// Go: `func (*sentry.Span).GetTransaction() *sentry.Span`.
   SentryGoSpan getTransaction() {
-    final $r = $callSync(6518, $W()..h(this));
+    final $r = $callSync(6527, $W()..h(this));
     return $r.hnn(SentryGoSpan.$h);
   }
 
   /// Go: `func (*sentry.Span).IsTransaction() bool`.
   bool isTransaction() {
-    final $r = $callSync(6519, $W()..h(this));
+    final $r = $callSync(6528, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*sentry.Span).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(6520, $W()..h(this));
+    final $r = $callSync(6529, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*sentry.Span).SetContext(key string, value sentry.Context)`.
   void setContext(String key, Map<String, Object?> value) {
     $callSync(
-        6521,
+        6530,
         $W()
           ..h(this)
           ..str(key)
@@ -1547,7 +1547,7 @@ class SentryGoSpan extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*sentry.Span).SetData(name string, value string)`.
   void setData(String name, String value) {
     $callSync(
-        6522,
+        6531,
         $W()
           ..h(this)
           ..str(name)
@@ -1557,7 +1557,7 @@ class SentryGoSpan extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*sentry.Span).SetDynamicSamplingContext(dsc sentry.DynamicSamplingContext)`.
   void setDynamicSamplingContext(SentryGoDynamicSamplingContext dsc) {
     $callSync(
-        6523,
+        6532,
         $W()
           ..h(this)
           ..dto(dsc));
@@ -1566,7 +1566,7 @@ class SentryGoSpan extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*sentry.Span).SetTag(name string, value string)`.
   void setTag(String name, String value) {
     $callSync(
-        6524,
+        6533,
         $W()
           ..h(this)
           ..str(name)
@@ -1577,7 +1577,7 @@ class SentryGoSpan extends $crypto.CryptoDecrypterOpts
   SentryGoSpan startChild(String operation,
       [List<SentryGoSpanOption> options = const []]) {
     final $r = $callSync(
-        6525,
+        6534,
         $W()
           ..h(this)
           ..str(operation)
@@ -1587,13 +1587,13 @@ class SentryGoSpan extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*sentry.Span).ToBaggage() string`.
   String toBaggage() {
-    final $r = $callSync(6526, $W()..h(this));
+    final $r = $callSync(6535, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*sentry.Span).ToSentryTrace() string`.
   String toSentryTrace() {
-    final $r = $callSync(6527, $W()..h(this));
+    final $r = $callSync(6536, $W()..h(this));
     return $r.str();
   }
 }
@@ -1660,13 +1660,13 @@ final class SentryGoTraceContext implements GoDto {
 
   /// Go: `func (sentry.TraceContext).Map() map[string]interface{}`.
   Map<String, Object?> map() {
-    final $r = $callSync(6531, $W()..dto(this));
+    final $r = $callSync(6540, $W()..dto(this));
     return $r.map(() => $r.str(), () => $r.any());
   }
 
   /// Go: `func (*sentry.TraceContext).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(6532, $W()..dto(this));
+    final $r = $callSync(6541, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 }
@@ -1709,7 +1709,7 @@ class SentryGoTracesSampler extends $crypto.CryptoDecrypterOpts
   /// Go: `func (sentry.TracesSampler).Sample(ctx sentry.SamplingContext) float64`.
   double sample(SentryGoSamplingContext ctx) {
     final $r = $callSync(
-        6533,
+        6542,
         $W()
           ..h(this)
           ..dto(ctx));
@@ -1727,7 +1727,7 @@ mixin SentryGoTransport$ on GoHandle {
   /// Go: `func (sentry.Transport).Configure(options sentry.ClientOptions)`.
   void configure(SentryGoClientOptions options) {
     $callSync(
-        6535,
+        6544,
         $W()
           ..h(this)
           ..dto(options));
@@ -1736,7 +1736,7 @@ mixin SentryGoTransport$ on GoHandle {
   /// Go: `func (sentry.Transport).Flush(timeout time.Duration) bool`.
   bool flush(Duration timeout) {
     final $r = $callSync(
-        6536,
+        6545,
         $W()
           ..h(this)
           ..i64((timeout).inMicroseconds * 1000));
@@ -1746,7 +1746,7 @@ mixin SentryGoTransport$ on GoHandle {
   /// Go: `func (sentry.Transport).SendEvent(event *sentry.Event)`.
   void sendEvent(SentryGoEvent event) {
     $callSync(
-        6537,
+        6546,
         $W()
           ..h(this)
           ..h(event));
@@ -1754,13 +1754,13 @@ mixin SentryGoTransport$ on GoHandle {
 
   /// Go: type assertion `x.(*sentry.HTTPSyncTransport)`: null if the object is not one.
   SentryGoHttpSyncTransport? asSentryGoHttpSyncTransport() {
-    final $r = $callSync(445, $W()..h(this));
+    final $r = $callSync(448, $W()..h(this));
     return $r.hn(SentryGoHttpSyncTransport.$h);
   }
 
   /// Go: type assertion `x.(*sentry.HTTPTransport)`: null if the object is not one.
   SentryGoHttpTransport? asSentryGoHttpTransport() {
-    final $r = $callSync(446, $W()..h(this));
+    final $r = $callSync(449, $W()..h(this));
     return $r.hn(SentryGoHttpTransport.$h);
   }
 }
@@ -1827,7 +1827,7 @@ final class SentryGoUser implements GoDto {
 
   /// Go: `func (sentry.User).IsEmpty() bool`.
   bool isEmpty() {
-    final $r = $callSync(6538, $W()..dto(this));
+    final $r = $callSync(6547, $W()..dto(this));
     return $r.b();
   }
 }
@@ -1850,12 +1850,12 @@ class SentryGoDsnParseError extends GolangException {
 extension GoGetsentrySentryGoApi on GoGetsentrySentryGo {
   /// Go: `func sentry.AddBreadcrumb(breadcrumb *sentry.Breadcrumb)`.
   void addBreadcrumb(SentryGoBreadcrumb breadcrumb) {
-    $callSync(6423, $W()..dto(breadcrumb));
+    $callSync(6432, $W()..dto(breadcrumb));
   }
 
   /// Go: `func sentry.AddGlobalEventProcessor(processor sentry.EventProcessor)`.
   void addGlobalEventProcessor(SentryGoEventProcessor processor) {
-    $callSync(6424, $W()..h(processor));
+    $callSync(6433, $W()..h(processor));
   }
 
   /// Go: `func sentry.ConfigureScope(f func(scope *sentry.Scope))`.
@@ -1867,38 +1867,38 @@ extension GoGetsentrySentryGoApi on GoGetsentrySentryGo {
   /// each invocation (a retained callback, WIRE.md).
   Future<void> configureScope(
       FutureOr<void> Function(SentryGoScope scope) f) async {
-    await $call(6433, $W()..cb((r) => f(r.hnn(SentryGoScope.$h)), true));
+    await $call(6442, $W()..cb((r) => f(r.hnn(SentryGoScope.$h)), true));
   }
 
   /// Go: `func sentry.CrontabSchedule(scheduleString string) sentry.MonitorSchedule`.
   SentryGoMonitorSchedule crontabSchedule(String scheduleString) {
-    final $r = $callSync(6434, $W()..str(scheduleString));
+    final $r = $callSync(6443, $W()..str(scheduleString));
     return $r.hnn(SentryGoMonitorSchedule.$h);
   }
 
   /// Go: `func sentry.CurrentHub() *sentry.Hub`.
   SentryGoHub currentHub() {
-    final $r = $callSync(6435);
+    final $r = $callSync(6444);
     return $r.hnn(SentryGoHub.$h);
   }
 
   /// Go: `func sentry.DynamicSamplingContextFromHeader(header []byte) (sentry.DynamicSamplingContext, error)`.
   SentryGoDynamicSamplingContext dynamicSamplingContextFromHeader(
       Uint8List header) {
-    final $r = $callSync(6451, $W()..bytes(header));
+    final $r = $callSync(6460, $W()..bytes(header));
     return $r.p() ? SentryGoDynamicSamplingContext.$dec($r) : $nil();
   }
 
   /// Go: `func sentry.DynamicSamplingContextFromTransaction(span *sentry.Span) sentry.DynamicSamplingContext`.
   SentryGoDynamicSamplingContext dynamicSamplingContextFromTransaction(
       SentryGoSpan span) {
-    final $r = $callSync(6452, $W()..h(span));
+    final $r = $callSync(6461, $W()..h(span));
     return $r.p() ? SentryGoDynamicSamplingContext.$dec($r) : $nil();
   }
 
   /// Go: `func sentry.Flush(timeout time.Duration) bool`.
   bool flush(Duration timeout) {
-    final $r = $callSync(6455, $W()..i64((timeout).inMicroseconds * 1000));
+    final $r = $callSync(6464, $W()..i64((timeout).inMicroseconds * 1000));
     return $r.b();
   }
 
@@ -1906,13 +1906,13 @@ extension GoGetsentrySentryGoApi on GoGetsentrySentryGo {
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<SentryGoHub> getHubFromContext($context.Context ctx) async {
-    final $r = await $call(6456, $W()..h(ctx));
+    final $r = await $call(6465, $W()..h(ctx));
     return $r.hnn(SentryGoHub.$h);
   }
 
   /// Go: `func sentry.HTTPtoSpanStatus(code int) sentry.SpanStatus`.
   int httPtoSpanStatus(int code) {
-    final $r = $callSync(6463, $W()..i64(code));
+    final $r = $callSync(6472, $W()..i64(code));
     return $r.i64();
   }
 
@@ -1920,19 +1920,19 @@ extension GoGetsentrySentryGoApi on GoGetsentrySentryGo {
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> hasHubOnContext($context.Context ctx) async {
-    final $r = await $call(6464, $W()..h(ctx));
+    final $r = await $call(6473, $W()..h(ctx));
     return $r.b();
   }
 
   /// Go: `func sentry.Init(options sentry.ClientOptions) error`.
   void init(SentryGoClientOptions options) {
-    $callSync(6475, $W()..dto(options));
+    $callSync(6484, $W()..dto(options));
   }
 
   /// Go: `func sentry.IntervalSchedule(value int64, unit sentry.MonitorScheduleUnit) sentry.MonitorSchedule`.
   SentryGoMonitorSchedule intervalSchedule(int value, String unit) {
     final $r = $callSync(
-        6478,
+        6487,
         $W()
           ..i64(value)
           ..str(unit));
@@ -1941,55 +1941,55 @@ extension GoGetsentrySentryGoApi on GoGetsentrySentryGo {
 
   /// Go: `func sentry.LastEventID() sentry.EventID`.
   String lastEventId() {
-    final $r = $callSync(6479);
+    final $r = $callSync(6488);
     return $r.str();
   }
 
   /// Go: `var sentry.Logger *log.Logger`.
   $log.LogLogger get logger {
-    final $r = $callSync(6480);
+    final $r = $callSync(6489);
     return $r.hnn($log.LogLogger.$h);
   }
 
   /// Go: `func sentry.NewFrame(f runtime.Frame) sentry.Frame`.
   SentryGoFrame newFrame($runtime.RuntimeFrame f) {
-    final $r = $callSync(6485, $W()..h(f));
+    final $r = $callSync(6494, $W()..h(f));
     return $r.p() ? SentryGoFrame.$dec($r) : $nil();
   }
 
   /// Go: `func sentry.NewRequest(r *http.Request) *sentry.Request`.
   SentryGoRequest newRequest($http.NetHttpRequest r) {
-    final $r = $callSync(6489, $W()..h(r));
+    final $r = $callSync(6498, $W()..h(r));
     return $r.p() ? SentryGoRequest.$dec($r) : $nil();
   }
 
   /// Go: `func sentry.NewStacktrace() *sentry.Stacktrace`.
   SentryGoStacktrace newStacktrace() {
-    final $r = $callSync(6491);
+    final $r = $callSync(6500);
     return $r.p() ? SentryGoStacktrace.$dec($r) : $nil();
   }
 
   /// Go: `func sentry.ParseTraceParentContext(header []byte) (traceParentContext sentry.TraceParentContext, valid bool)`.
   (SentryGoTraceParentContext, bool) parseTraceParentContext(Uint8List header) {
-    final $r = $callSync(6492, $W()..bytes(header));
+    final $r = $callSync(6501, $W()..bytes(header));
     return ($r.p() ? SentryGoTraceParentContext.$dec($r) : $nil(), $r.b());
   }
 
   /// Go: `func sentry.PopScope()`.
   void popScope() {
-    $callSync(6493);
+    $callSync(6502);
   }
 
   /// Go: `func sentry.PushScope()`.
   void pushScope() {
-    $callSync(6494);
+    $callSync(6503);
   }
 
   /// Go: `func sentry.SpanFromContext(ctx context.Context) *sentry.Span`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<SentryGoSpan> spanFromContext($context.Context ctx) async {
-    final $r = await $call(6528, $W()..h(ctx));
+    final $r = await $call(6537, $W()..h(ctx));
     return $r.hnn(SentryGoSpan.$h);
   }
 
@@ -1999,7 +1999,7 @@ extension GoGetsentrySentryGoApi on GoGetsentrySentryGo {
   Future<SentryGoSpan> startSpan($context.Context ctx, String operation,
       [List<SentryGoSpanOption> options = const []]) async {
     final $r = await $call(
-        6529,
+        6538,
         $W()
           ..h(ctx)
           ..str(operation)
@@ -2013,7 +2013,7 @@ extension GoGetsentrySentryGoApi on GoGetsentrySentryGo {
   Future<SentryGoSpan> startTransaction($context.Context ctx, String name,
       [List<SentryGoSpanOption> options = const []]) async {
     final $r = await $call(
-        6530,
+        6539,
         $W()
           ..h(ctx)
           ..str(name)
@@ -2025,7 +2025,7 @@ extension GoGetsentrySentryGoApi on GoGetsentrySentryGo {
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<SentryGoSpan> transactionFromContext($context.Context ctx) async {
-    final $r = await $call(6534, $W()..h(ctx));
+    final $r = await $call(6543, $W()..h(ctx));
     return $r.hnn(SentryGoSpan.$h);
   }
 
@@ -2037,7 +2037,7 @@ extension GoGetsentrySentryGoApi on GoGetsentrySentryGo {
   /// later for as long as it holds it (nobody checked which), and waits for
   /// each invocation (a retained callback, WIRE.md).
   Future<void> withScope(FutureOr<void> Function(SentryGoScope scope) f) async {
-    await $call(6539, $W()..cb((r) => f(r.hnn(SentryGoScope.$h)), true));
+    await $call(6548, $W()..cb((r) => f(r.hnn(SentryGoScope.$h)), true));
   }
 }
 

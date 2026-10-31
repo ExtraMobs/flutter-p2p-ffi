@@ -32,7 +32,7 @@ class OtelBaggage extends $crypto.CryptoDecrypterOpts
   /// Go: `func (baggage.Baggage).DeleteMember(key string) baggage.Baggage`.
   OtelBaggage deleteMember(String key) {
     final $r = $callSync(
-        19196,
+        19202,
         $W()
           ..h(this)
           ..str(key));
@@ -41,14 +41,14 @@ class OtelBaggage extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (baggage.Baggage).Len() int`.
   int len() {
-    final $r = $callSync(19197, $W()..h(this));
+    final $r = $callSync(19203, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (baggage.Baggage).Member(key string) baggage.Member`.
   OtelBaggageMember member(String key) {
     final $r = $callSync(
-        19198,
+        19204,
         $W()
           ..h(this)
           ..str(key));
@@ -57,14 +57,14 @@ class OtelBaggage extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (baggage.Baggage).Members() []baggage.Member`.
   List<OtelBaggageMember> members() {
-    final $r = $callSync(19199, $W()..h(this));
+    final $r = $callSync(19205, $W()..h(this));
     return $r.list(() => $r.hnn(OtelBaggageMember.$h));
   }
 
   /// Go: `func (baggage.Baggage).SetMember(member baggage.Member) (baggage.Baggage, error)`.
   OtelBaggage setMember(OtelBaggageMember member) {
     final $r = $callSync(
-        19200,
+        19206,
         $W()
           ..h(this)
           ..h(member));
@@ -73,7 +73,7 @@ class OtelBaggage extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (baggage.Baggage).String() string`.
   String string() {
-    final $r = $callSync(19201, $W()..h(this));
+    final $r = $callSync(19207, $W()..h(this));
     return $r.str();
   }
 }
@@ -100,7 +100,7 @@ class OtelBaggageMember extends $crypto.CryptoDecrypterOpts
   factory OtelBaggageMember(String key, String value,
       [List<OtelBaggageProperty> props = const []]) {
     final $r = $callSync(
-        19211,
+        19217,
         $W()
           ..str(key)
           ..str(value)
@@ -110,25 +110,25 @@ class OtelBaggageMember extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (baggage.Member).Key() string`.
   String key() {
-    final $r = $callSync(19203, $W()..h(this));
+    final $r = $callSync(19209, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (baggage.Member).Properties() []baggage.Property`.
   List<OtelBaggageProperty> properties() {
-    final $r = $callSync(19204, $W()..h(this));
+    final $r = $callSync(19210, $W()..h(this));
     return $r.list(() => $r.hnn(OtelBaggageProperty.$h));
   }
 
   /// Go: `func (baggage.Member).String() string`.
   String string() {
-    final $r = $callSync(19205, $W()..h(this));
+    final $r = $callSync(19211, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (baggage.Member).Value() string`.
   String value$() {
-    final $r = $callSync(19206, $W()..h(this));
+    final $r = $callSync(19212, $W()..h(this));
     return $r.str();
   }
 }
@@ -153,19 +153,19 @@ class OtelBaggageProperty extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (baggage.Property).Key() string`.
   String key() {
-    final $r = $callSync(19214, $W()..h(this));
+    final $r = $callSync(19220, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (baggage.Property).String() string`.
   String string() {
-    final $r = $callSync(19215, $W()..h(this));
+    final $r = $callSync(19221, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (baggage.Property).Value() (string, bool)`.
   (String, bool) value$() {
-    final $r = $callSync(19216, $W()..h(this));
+    final $r = $callSync(19222, $W()..h(this));
     return ($r.str(), $r.b());
   }
 }
@@ -176,26 +176,26 @@ extension GoOtelBaggageApi on GoOtelBaggage {
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<OtelBaggage> fromContext($context.Context ctx) async {
-    final $r = await $call(19202, $W()..h(ctx));
+    final $r = await $call(19208, $W()..h(ctx));
     return $r.hnn(OtelBaggage.$h);
   }
 
   /// Go: `func baggage.New(members ...baggage.Member) (baggage.Baggage, error)`.
   OtelBaggage new$([List<OtelBaggageMember> members = const []]) {
-    final $r = $callSync(19207, $W()..list(members, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(19213, $W()..list(members, (w0, e0) => w0.h(e0)));
     return $r.hnn(OtelBaggage.$h);
   }
 
   /// Go: `func baggage.NewKeyProperty(key string) (baggage.Property, error)`.
   OtelBaggageProperty newKeyProperty(String key) {
-    final $r = $callSync(19208, $W()..str(key));
+    final $r = $callSync(19214, $W()..str(key));
     return $r.hnn(OtelBaggageProperty.$h);
   }
 
   /// Go: `func baggage.NewKeyValueProperty(key string, value string) (baggage.Property, error)`.
   OtelBaggageProperty newKeyValueProperty(String key, String value) {
     final $r = $callSync(
-        19209,
+        19215,
         $W()
           ..str(key)
           ..str(value));
@@ -205,7 +205,7 @@ extension GoOtelBaggageApi on GoOtelBaggage {
   /// Go: `func baggage.NewKeyValuePropertyRaw(key string, value string) (baggage.Property, error)`.
   OtelBaggageProperty newKeyValuePropertyRaw(String key, String value) {
     final $r = $callSync(
-        19210,
+        19216,
         $W()
           ..str(key)
           ..str(value));
@@ -216,7 +216,7 @@ extension GoOtelBaggageApi on GoOtelBaggage {
   OtelBaggageMember newMemberRaw(String key, String value,
       [List<OtelBaggageProperty> props = const []]) {
     final $r = $callSync(
-        19212,
+        19218,
         $W()
           ..str(key)
           ..str(value)
@@ -226,7 +226,7 @@ extension GoOtelBaggageApi on GoOtelBaggage {
 
   /// Go: `func baggage.Parse(bStr string) (baggage.Baggage, error)`.
   OtelBaggage parse(String bStr) {
-    final $r = $callSync(19213, $W()..str(bStr));
+    final $r = $callSync(19219, $W()..str(bStr));
     return $r.hnn(OtelBaggage.$h);
   }
 }

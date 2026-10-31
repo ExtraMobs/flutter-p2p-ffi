@@ -21,7 +21,7 @@ extension GoIpfsFsLockApi on GoIpfsFsLock {
   /// Go: `func fslock.Lock(confdir string, lockFileName string) (io.Closer, error)`.
   $io.IoCloser lock(String confdir, String lockFileName) {
     final $r = $callSync(
-        10815,
+        10824,
         $W()
           ..str(confdir)
           ..str(lockFileName));
@@ -31,7 +31,7 @@ extension GoIpfsFsLockApi on GoIpfsFsLock {
   /// Go: `func fslock.Locked(confdir string, lockFile string) (bool, error)`.
   bool locked(String confdir, String lockFile) {
     final $r = $callSync(
-        10816,
+        10825,
         $W()
           ..str(confdir)
           ..str(lockFile));
@@ -44,7 +44,7 @@ extension GoIpfsFsLockApi on GoIpfsFsLock {
   Future<$io.IoCloser> waitLock(
       $context.Context ctx, String confdir, String lockFileName) async {
     final $r = await $call(
-        10817,
+        10826,
         $W()
           ..h(ctx)
           ..str(confdir)

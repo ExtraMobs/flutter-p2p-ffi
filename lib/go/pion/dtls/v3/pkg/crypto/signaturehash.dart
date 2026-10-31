@@ -34,14 +34,14 @@ final class DtlsV3PkgCryptoSignaturehashAlgorithm implements GoDto {
 
   /// Go: `func (*signaturehash.Algorithm).Marshal() []byte`.
   Uint8List marshal() {
-    final $r = $callSync(16247, $W()..dto(this));
+    final $r = $callSync(16253, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*signaturehash.Algorithm).Unmarshal(sigScheme tls.SignatureScheme) error`.
   void unmarshal(int sigScheme) {
     $callSync(
-        16248,
+        16254,
         $W()
           ..dto(this)
           ..i64(sigScheme));
@@ -53,14 +53,14 @@ extension GoPionDtlsV3PkgCryptoSignaturehashApi
     on GoPionDtlsV3PkgCryptoSignaturehash {
   /// Go: `func signaturehash.Algorithms() []signaturehash.Algorithm`.
   List<DtlsV3PkgCryptoSignaturehashAlgorithm> algorithms() {
-    final $r = $callSync(16249);
+    final $r = $callSync(16255);
     return $r.list(
         () => $r.p() ? DtlsV3PkgCryptoSignaturehashAlgorithm.$dec($r) : $nil());
   }
 
   /// Go: `func signaturehash.Algorithms13() []signaturehash.Algorithm`.
   List<DtlsV3PkgCryptoSignaturehashAlgorithm> algorithms13() {
-    final $r = $callSync(16250);
+    final $r = $callSync(16256);
     return $r.list(
         () => $r.p() ? DtlsV3PkgCryptoSignaturehashAlgorithm.$dec($r) : $nil());
   }
@@ -68,7 +68,7 @@ extension GoPionDtlsV3PkgCryptoSignaturehashApi
   /// Go: `func signaturehash.FromCertificate(cert *x509.Certificate) (signaturehash.Algorithm, error)`.
   DtlsV3PkgCryptoSignaturehashAlgorithm fromCertificate(
       $x509.CryptoX509Certificate cert) {
-    final $r = $callSync(16251, $W()..dto(cert));
+    final $r = $callSync(16257, $W()..dto(cert));
     return $r.p() ? DtlsV3PkgCryptoSignaturehashAlgorithm.$dec($r) : $nil();
   }
 
@@ -76,7 +76,7 @@ extension GoPionDtlsV3PkgCryptoSignaturehashApi
   List<DtlsV3PkgCryptoSignaturehashAlgorithm> parseSignatureSchemes(
       List<int> sigs, bool insecureHashes) {
     final $r = $callSync(
-        16252,
+        16258,
         $W()
           ..list(sigs, (w0, e0) => w0.i64(e0))
           ..b(insecureHashes));
@@ -89,7 +89,7 @@ extension GoPionDtlsV3PkgCryptoSignaturehashApi
       List<DtlsV3PkgCryptoSignaturehashAlgorithm> sigs,
       $crypto.CryptoPrivateKey privateKey) {
     final $r = $callSync(
-        16253,
+        16259,
         $W()
           ..list(sigs, (w0, e0) => w0.dto(e0))
           ..h(privateKey));
@@ -101,7 +101,7 @@ extension GoPionDtlsV3PkgCryptoSignaturehashApi
       List<DtlsV3PkgCryptoSignaturehashAlgorithm> sigs,
       $crypto.CryptoPrivateKey privateKey) {
     final $r = $callSync(
-        16254,
+        16260,
         $W()
           ..list(sigs, (w0, e0) => w0.dto(e0))
           ..h(privateKey));

@@ -107,14 +107,14 @@ class BoxoRetrievalState extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func retrieval.NewState() *retrieval.State`.
   factory BoxoRetrievalState() {
-    final $r = $callSync(10371);
+    final $r = $callSync(10380);
     return $r.hnn(BoxoRetrievalState.$h);
   }
 
   /// Go: `func (*retrieval.State).AddFailedProvider(peerID peer.ID)`.
   void addFailedProvider($peer.Libp2pCorePeerId peerId) {
     $callSync(
-        10372,
+        10381,
         $W()
           ..h(this)
           ..val(peerId));
@@ -123,7 +123,7 @@ class BoxoRetrievalState extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*retrieval.State).AddFoundProvider(peerID peer.ID)`.
   void addFoundProvider($peer.Libp2pCorePeerId peerId) {
     $callSync(
-        10373,
+        10382,
         $W()
           ..h(this)
           ..val(peerId));
@@ -132,7 +132,7 @@ class BoxoRetrievalState extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*retrieval.State).Apply(s retrieval.Snapshot)`.
   void apply(BoxoRetrievalSnapshot s) {
     $callSync(
-        10374,
+        10383,
         $W()
           ..h(this)
           ..dto(s));
@@ -140,38 +140,38 @@ class BoxoRetrievalState extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*retrieval.State).GetFailedProviders() []peer.ID`.
   List<$peer.Libp2pCorePeerId> getFailedProviders() {
-    final $r = $callSync(10375, $W()..h(this));
+    final $r = $callSync(10384, $W()..h(this));
     return $r.list(() => $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil());
   }
 
   /// Go: `func (*retrieval.State).GetFoundProviders() []peer.ID`.
   List<$peer.Libp2pCorePeerId> getFoundProviders() {
-    final $r = $callSync(10376, $W()..h(this));
+    final $r = $callSync(10385, $W()..h(this));
     return $r.list(() => $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil());
   }
 
   /// Go: `func (*retrieval.State).GetPhase() retrieval.RetrievalPhase`.
   int getPhase() {
-    final $r = $callSync(10377, $W()..h(this));
+    final $r = $callSync(10386, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*retrieval.State).GetRootCID() cid.Cid`.
   $cid.Cid getRootCid() {
-    final $r = $callSync(10378, $W()..h(this));
+    final $r = $callSync(10387, $W()..h(this));
     return $r.p() ? $cid.Cid($r.str()) : $nil();
   }
 
   /// Go: `func (*retrieval.State).GetTerminalCID() cid.Cid`.
   $cid.Cid getTerminalCid() {
-    final $r = $callSync(10379, $W()..h(this));
+    final $r = $callSync(10388, $W()..h(this));
     return $r.p() ? $cid.Cid($r.str()) : $nil();
   }
 
   /// Go: `func (*retrieval.State).SetPhase(phase retrieval.RetrievalPhase)`.
   void setPhase(int phase) {
     $callSync(
-        10380,
+        10389,
         $W()
           ..h(this)
           ..i64(phase));
@@ -180,7 +180,7 @@ class BoxoRetrievalState extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*retrieval.State).SetRootCID(c cid.Cid)`.
   void setRootCid($cid.Cid c) {
     $callSync(
-        10381,
+        10390,
         $W()
           ..h(this)
           ..val(c));
@@ -189,7 +189,7 @@ class BoxoRetrievalState extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*retrieval.State).SetTerminalCID(c cid.Cid)`.
   void setTerminalCid($cid.Cid c) {
     $callSync(
-        10382,
+        10391,
         $W()
           ..h(this)
           ..val(c));
@@ -197,13 +197,13 @@ class BoxoRetrievalState extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*retrieval.State).Snapshot() retrieval.Snapshot`.
   BoxoRetrievalSnapshot snapshot() {
-    final $r = $callSync(10383, $W()..h(this));
+    final $r = $callSync(10392, $W()..h(this));
     return $r.p() ? BoxoRetrievalSnapshot.$dec($r) : $nil();
   }
 
   /// Go: `func (*retrieval.State).Summary() string`.
   String summary() {
-    final $r = $callSync(10384, $W()..h(this));
+    final $r = $callSync(10393, $W()..h(this));
     return $r.str();
   }
 }
@@ -223,7 +223,7 @@ extension GoIpfsBoxoRetrievalApi on GoIpfsBoxoRetrieval {
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<BoxoRetrievalState> stateFromContext($context.Context ctx) async {
-    final $r = await $call(10385, $W()..h(ctx));
+    final $r = await $call(10394, $W()..h(ctx));
     return $r.hnn(BoxoRetrievalState.$h);
   }
 }

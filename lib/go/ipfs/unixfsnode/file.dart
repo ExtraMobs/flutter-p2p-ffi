@@ -20,7 +20,7 @@ class UnixfsnodeFileLargeBytesNode extends $adl.IpldPrimeAdl
 mixin UnixfsnodeFileLargeBytesNode$ on GoHandle {
   /// Go: `func (file.LargeBytesNode).AsLargeBytes() (io.ReadSeeker, error)`.
   $io.IoReadSeeker asLargeBytes() {
-    final $r = $callSync(11184, $W()..h(this));
+    final $r = $callSync(11190, $W()..h(this));
     return $r.hnn($io.IoReadSeeker.$h);
   }
 }
@@ -35,7 +35,7 @@ extension GoIpfsUnixfsnodeFileApi on GoIpfsUnixfsnodeFile {
       $datamodel.IpldPrimeDatamodelNode substrate,
       $linking.IpldPrimeLinkingLinkSystem lsys) async {
     final $r = await $call(
-        11185,
+        11191,
         $W()
           ..h(ctx)
           ..h(substrate)
@@ -51,7 +51,7 @@ extension GoIpfsUnixfsnodeFileApi on GoIpfsUnixfsnodeFile {
       $datamodel.IpldPrimeDatamodelNode substrate,
       $linking.IpldPrimeLinkingLinkSystem lsys) async {
     final $r = await $call(
-        11186,
+        11192,
         $W()
           ..h(ctx)
           ..h(substrate)

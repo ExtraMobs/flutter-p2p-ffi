@@ -38,61 +38,61 @@ class BoxoUtilErrTimeout extends GolangException {
 extension GoIpfsBoxoUtilApi on GoIpfsBoxoUtil {
   /// Go: `var util.Debug bool`.
   bool get debug {
-    final $r = $callSync(10439);
+    final $r = $callSync(10448);
     return $r.b();
   }
 
   /// Go: `func util.ErrCast() error`.
   void errCast() {
-    $callSync(10440);
+    $callSync(10449);
   }
 
   /// Go: `func util.ExpandPathnames(paths []string) ([]string, error)`.
   List<String> expandPathnames(List<String> paths) {
-    final $r = $callSync(10441, $W()..list(paths, (w0, e0) => w0.str(e0)));
+    final $r = $callSync(10450, $W()..list(paths, (w0, e0) => w0.str(e0)));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func util.FileExists(filename string) bool`.
   bool fileExists(String filename) {
-    final $r = $callSync(10442, $W()..str(filename));
+    final $r = $callSync(10451, $W()..str(filename));
     return $r.b();
   }
 
   /// Go: `func util.FormatRFC3339(t time.Time) string`.
   String formatRfc3339(DateTime t) {
-    final $r = $callSync(10443, $W()..time(t));
+    final $r = $callSync(10452, $W()..time(t));
     return $r.str();
   }
 
   /// Go: `func util.GetenvBool(name string) bool`.
   bool getenvBool(String name) {
-    final $r = $callSync(10444, $W()..str(name));
+    final $r = $callSync(10453, $W()..str(name));
     return $r.b();
   }
 
   /// Go: `func util.Hash(data []byte) multihash.Multihash`.
   Uint8List hash(Uint8List data) {
-    final $r = $callSync(10445, $W()..bytes(data));
+    final $r = $callSync(10454, $W()..bytes(data));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func util.IsValidHash(s string) bool`.
   bool isValidHash(String s) {
-    final $r = $callSync(10446, $W()..str(s));
+    final $r = $callSync(10455, $W()..str(s));
     return $r.b();
   }
 
   /// Go: `func util.ParseRFC3339(s string) (time.Time, error)`.
   DateTime parseRfc3339(String s) {
-    final $r = $callSync(10447, $W()..str(s));
+    final $r = $callSync(10456, $W()..str(s));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func util.Partition(subject string, sep string) (string, string, string)`.
   (String, String, String) partition(String subject, String sep) {
     final $r = $callSync(
-        10448,
+        10457,
         $W()
           ..str(subject)
           ..str(sep));
@@ -102,7 +102,7 @@ extension GoIpfsBoxoUtilApi on GoIpfsBoxoUtil {
   /// Go: `func util.RPartition(subject string, sep string) (string, string, string)`.
   (String, String, String) rPartition(String subject, String sep) {
     final $r = $callSync(
-        10449,
+        10458,
         $W()
           ..str(subject)
           ..str(sep));
@@ -111,14 +111,14 @@ extension GoIpfsBoxoUtilApi on GoIpfsBoxoUtil {
 
   /// Go: `var util.TimeFormatIpfs string`.
   String get timeFormatIpfs {
-    final $r = $callSync(10450);
+    final $r = $callSync(10459);
     return $r.str();
   }
 
   /// Go: `func util.XOR(a []byte, b []byte) []byte`.
   Uint8List xor(Uint8List a, Uint8List b) {
     final $r = $callSync(
-        10451,
+        10460,
         $W()
           ..bytes(a)
           ..bytes(b));

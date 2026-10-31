@@ -41,182 +41,182 @@ final class HumanizeRelTimeMagnitude implements GoDto {
 extension GoDustinHumanizeApi on GoDustinHumanize {
   /// Go: `var humanize.BigByte *big.Int`.
   $big.MathBigInt get bigByte {
-    final $r = $callSync(6211);
+    final $r = $callSync(6220);
     return $r.hnn($big.MathBigInt.$h);
   }
 
   /// Go: `func humanize.BigBytes(s *big.Int) string`.
   String bigBytes($big.MathBigInt s) {
-    final $r = $callSync(6212, $W()..h(s));
+    final $r = $callSync(6221, $W()..h(s));
     return $r.str();
   }
 
   /// Go: `func humanize.BigComma(b *big.Int) string`.
   String bigComma($big.MathBigInt b) {
-    final $r = $callSync(6213, $W()..h(b));
+    final $r = $callSync(6222, $W()..h(b));
     return $r.str();
   }
 
   /// Go: `func humanize.BigCommaf(v *big.Float) string`.
   String bigCommaf($big.MathBigFloat v) {
-    final $r = $callSync(6214, $W()..h(v));
+    final $r = $callSync(6223, $W()..h(v));
     return $r.str();
   }
 
   /// Go: `var humanize.BigEByte *big.Int`.
   $big.MathBigInt get bigEByte {
-    final $r = $callSync(6215);
+    final $r = $callSync(6224);
     return $r.hnn($big.MathBigInt.$h);
   }
 
   /// Go: `var humanize.BigEiByte *big.Int`.
   $big.MathBigInt get bigEiByte {
-    final $r = $callSync(6216);
+    final $r = $callSync(6225);
     return $r.hnn($big.MathBigInt.$h);
   }
 
   /// Go: `var humanize.BigGByte *big.Int`.
   $big.MathBigInt get bigGByte {
-    final $r = $callSync(6217);
+    final $r = $callSync(6226);
     return $r.hnn($big.MathBigInt.$h);
   }
 
   /// Go: `var humanize.BigGiByte *big.Int`.
   $big.MathBigInt get bigGiByte {
-    final $r = $callSync(6218);
+    final $r = $callSync(6227);
     return $r.hnn($big.MathBigInt.$h);
   }
 
   /// Go: `func humanize.BigIBytes(s *big.Int) string`.
   String bigIBytes($big.MathBigInt s) {
-    final $r = $callSync(6219, $W()..h(s));
+    final $r = $callSync(6228, $W()..h(s));
     return $r.str();
   }
 
   /// Go: `var humanize.BigKByte *big.Int`.
   $big.MathBigInt get bigKByte {
-    final $r = $callSync(6220);
+    final $r = $callSync(6229);
     return $r.hnn($big.MathBigInt.$h);
   }
 
   /// Go: `var humanize.BigKiByte *big.Int`.
   $big.MathBigInt get bigKiByte {
-    final $r = $callSync(6221);
+    final $r = $callSync(6230);
     return $r.hnn($big.MathBigInt.$h);
   }
 
   /// Go: `var humanize.BigMByte *big.Int`.
   $big.MathBigInt get bigMByte {
-    final $r = $callSync(6222);
+    final $r = $callSync(6231);
     return $r.hnn($big.MathBigInt.$h);
   }
 
   /// Go: `var humanize.BigMiByte *big.Int`.
   $big.MathBigInt get bigMiByte {
-    final $r = $callSync(6223);
+    final $r = $callSync(6232);
     return $r.hnn($big.MathBigInt.$h);
   }
 
   /// Go: `var humanize.BigPByte *big.Int`.
   $big.MathBigInt get bigPByte {
-    final $r = $callSync(6224);
+    final $r = $callSync(6233);
     return $r.hnn($big.MathBigInt.$h);
   }
 
   /// Go: `var humanize.BigPiByte *big.Int`.
   $big.MathBigInt get bigPiByte {
-    final $r = $callSync(6225);
+    final $r = $callSync(6234);
     return $r.hnn($big.MathBigInt.$h);
   }
 
   /// Go: `var humanize.BigQByte *big.Int`.
   $big.MathBigInt get bigQByte {
-    final $r = $callSync(6226);
+    final $r = $callSync(6235);
     return $r.hnn($big.MathBigInt.$h);
   }
 
   /// Go: `var humanize.BigQiByte *big.Int`.
   $big.MathBigInt get bigQiByte {
-    final $r = $callSync(6227);
+    final $r = $callSync(6236);
     return $r.hnn($big.MathBigInt.$h);
   }
 
   /// Go: `var humanize.BigRByte *big.Int`.
   $big.MathBigInt get bigRByte {
-    final $r = $callSync(6228);
+    final $r = $callSync(6237);
     return $r.hnn($big.MathBigInt.$h);
   }
 
   /// Go: `var humanize.BigRiByte *big.Int`.
   $big.MathBigInt get bigRiByte {
-    final $r = $callSync(6229);
+    final $r = $callSync(6238);
     return $r.hnn($big.MathBigInt.$h);
   }
 
   /// Go: `var humanize.BigSIByte *big.Int`.
   $big.MathBigInt get bigSiByte {
-    final $r = $callSync(6230);
+    final $r = $callSync(6239);
     return $r.hnn($big.MathBigInt.$h);
   }
 
   /// Go: `var humanize.BigTByte *big.Int`.
   $big.MathBigInt get bigTByte {
-    final $r = $callSync(6231);
+    final $r = $callSync(6240);
     return $r.hnn($big.MathBigInt.$h);
   }
 
   /// Go: `var humanize.BigTiByte *big.Int`.
   $big.MathBigInt get bigTiByte {
-    final $r = $callSync(6232);
+    final $r = $callSync(6241);
     return $r.hnn($big.MathBigInt.$h);
   }
 
   /// Go: `var humanize.BigYByte *big.Int`.
   $big.MathBigInt get bigYByte {
-    final $r = $callSync(6233);
+    final $r = $callSync(6242);
     return $r.hnn($big.MathBigInt.$h);
   }
 
   /// Go: `var humanize.BigYiByte *big.Int`.
   $big.MathBigInt get bigYiByte {
-    final $r = $callSync(6234);
+    final $r = $callSync(6243);
     return $r.hnn($big.MathBigInt.$h);
   }
 
   /// Go: `var humanize.BigZByte *big.Int`.
   $big.MathBigInt get bigZByte {
-    final $r = $callSync(6235);
+    final $r = $callSync(6244);
     return $r.hnn($big.MathBigInt.$h);
   }
 
   /// Go: `var humanize.BigZiByte *big.Int`.
   $big.MathBigInt get bigZiByte {
-    final $r = $callSync(6236);
+    final $r = $callSync(6245);
     return $r.hnn($big.MathBigInt.$h);
   }
 
   /// Go: `func humanize.Bytes(s uint64) string`.
   String bytes(int s) {
-    final $r = $callSync(6237, $W()..i64(s));
+    final $r = $callSync(6246, $W()..i64(s));
     return $r.str();
   }
 
   /// Go: `func humanize.Comma(v int64) string`.
   String comma(int v) {
-    final $r = $callSync(6238, $W()..i64(v));
+    final $r = $callSync(6247, $W()..i64(v));
     return $r.str();
   }
 
   /// Go: `func humanize.Commaf(v float64) string`.
   String commaf(double v) {
-    final $r = $callSync(6239, $W()..f64(v));
+    final $r = $callSync(6248, $W()..f64(v));
     return $r.str();
   }
 
   /// Go: `func humanize.CommafWithDigits(f float64, decimals int) string`.
   String commafWithDigits(double f, int decimals) {
     final $r = $callSync(
-        6240,
+        6249,
         $W()
           ..f64(f)
           ..i64(decimals));
@@ -225,7 +225,7 @@ extension GoDustinHumanizeApi on GoDustinHumanize {
 
   /// Go: `func humanize.ComputeSI(input float64) (float64, string)`.
   (double, String) computeSi(double input) {
-    final $r = $callSync(6241, $W()..f64(input));
+    final $r = $callSync(6250, $W()..f64(input));
     return ($r.f64(), $r.str());
   }
 
@@ -233,7 +233,7 @@ extension GoDustinHumanizeApi on GoDustinHumanize {
   String customRelTime(DateTime a, DateTime b, String albl, String blbl,
       List<HumanizeRelTimeMagnitude> magnitudes) {
     final $r = $callSync(
-        6242,
+        6251,
         $W()
           ..time(a)
           ..time(b)
@@ -246,7 +246,7 @@ extension GoDustinHumanizeApi on GoDustinHumanize {
   /// Go: `func humanize.FormatFloat(format string, n float64) string`.
   String formatFloat(String format, double n) {
     final $r = $callSync(
-        6243,
+        6252,
         $W()
           ..str(format)
           ..f64(n));
@@ -256,7 +256,7 @@ extension GoDustinHumanizeApi on GoDustinHumanize {
   /// Go: `func humanize.FormatInteger(format string, n int) string`.
   String formatInteger(String format, int n) {
     final $r = $callSync(
-        6244,
+        6253,
         $W()
           ..str(format)
           ..i64(n));
@@ -265,14 +265,14 @@ extension GoDustinHumanizeApi on GoDustinHumanize {
 
   /// Go: `func humanize.Ftoa(num float64) string`.
   String ftoa(double num) {
-    final $r = $callSync(6245, $W()..f64(num));
+    final $r = $callSync(6254, $W()..f64(num));
     return $r.str();
   }
 
   /// Go: `func humanize.FtoaWithDigits(num float64, digits int) string`.
   String ftoaWithDigits(double num, int digits) {
     final $r = $callSync(
-        6246,
+        6255,
         $W()
           ..f64(num)
           ..i64(digits));
@@ -281,38 +281,38 @@ extension GoDustinHumanizeApi on GoDustinHumanize {
 
   /// Go: `func humanize.IBytes(s uint64) string`.
   String iBytes(int s) {
-    final $r = $callSync(6247, $W()..i64(s));
+    final $r = $callSync(6256, $W()..i64(s));
     return $r.str();
   }
 
   /// Go: `func humanize.Ordinal(x int) string`.
   String ordinal(int x) {
-    final $r = $callSync(6248, $W()..i64(x));
+    final $r = $callSync(6257, $W()..i64(x));
     return $r.str();
   }
 
   /// Go: `func humanize.ParseBigBytes(s string) (*big.Int, error)`.
   $big.MathBigInt parseBigBytes(String s) {
-    final $r = $callSync(6249, $W()..str(s));
+    final $r = $callSync(6258, $W()..str(s));
     return $r.hnn($big.MathBigInt.$h);
   }
 
   /// Go: `func humanize.ParseBytes(s string) (uint64, error)`.
   int parseBytes(String s) {
-    final $r = $callSync(6250, $W()..str(s));
+    final $r = $callSync(6259, $W()..str(s));
     return $r.i64();
   }
 
   /// Go: `func humanize.ParseSI(input string) (float64, string, error)`.
   (double, String) parseSi(String input) {
-    final $r = $callSync(6251, $W()..str(input));
+    final $r = $callSync(6260, $W()..str(input));
     return ($r.f64(), $r.str());
   }
 
   /// Go: `func humanize.RelTime(a time.Time, b time.Time, albl string, blbl string) string`.
   String relTime(DateTime a, DateTime b, String albl, String blbl) {
     final $r = $callSync(
-        6252,
+        6261,
         $W()
           ..time(a)
           ..time(b)
@@ -324,7 +324,7 @@ extension GoDustinHumanizeApi on GoDustinHumanize {
   /// Go: `func humanize.SI(input float64, unit string) string`.
   String si(double input, String unit) {
     final $r = $callSync(
-        6253,
+        6262,
         $W()
           ..f64(input)
           ..str(unit));
@@ -334,7 +334,7 @@ extension GoDustinHumanizeApi on GoDustinHumanize {
   /// Go: `func humanize.SIWithDigits(input float64, decimals int, unit string) string`.
   String siWithDigits(double input, int decimals, String unit) {
     final $r = $callSync(
-        6254,
+        6263,
         $W()
           ..f64(input)
           ..i64(decimals)
@@ -344,7 +344,7 @@ extension GoDustinHumanizeApi on GoDustinHumanize {
 
   /// Go: `func humanize.Time(then time.Time) string`.
   String time(DateTime then) {
-    final $r = $callSync(6255, $W()..time(then));
+    final $r = $callSync(6264, $W()..time(then));
     return $r.str();
   }
 }

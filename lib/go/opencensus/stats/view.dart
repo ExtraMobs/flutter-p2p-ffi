@@ -42,13 +42,13 @@ class StatsViewAggregationData extends GoHandle with StatsViewAggregationData$ {
 mixin StatsViewAggregationData$ on GoHandle {
   /// Go: `func (view.AggregationData).StartTime() time.Time`.
   DateTime startTime() {
-    final $r = $callSync(19035, $W()..h(this));
+    final $r = $callSync(19041, $W()..h(this));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: type assertion `x.(*view.DistributionData)`: null if the object is not one.
   StatsViewDistributionData? asStatsViewDistributionData() {
-    final $r = $callSync(1991, $W()..h(this));
+    final $r = $callSync(1998, $W()..h(this));
     return $r.hn(StatsViewDistributionData.$h);
   }
 }
@@ -78,7 +78,7 @@ final class StatsViewCountData implements GoDto {
 
   /// Go: `func (*view.CountData).StartTime() time.Time`.
   DateTime startTime() {
-    final $r = $callSync(19038, $W()..dto(this));
+    final $r = $callSync(19044, $W()..dto(this));
     return $r.p() ? $r.time() : $nil();
   }
 }
@@ -145,13 +145,13 @@ class StatsViewDistributionData extends StatsViewAggregationData
 
   /// Go: `func (*view.DistributionData).StartTime() time.Time`.
   DateTime startTime() {
-    final $r = $callSync(19040, $W()..h(this));
+    final $r = $callSync(19046, $W()..h(this));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func (*view.DistributionData).Sum() float64`.
   double sum() {
-    final $r = $callSync(19041, $W()..h(this));
+    final $r = $callSync(19047, $W()..h(this));
     return $r.f64();
   }
 }
@@ -166,7 +166,7 @@ mixin StatsViewExporter$ on GoHandle {
   /// Go: `func (view.Exporter).ExportView(viewData *view.Data)`.
   void exportView(StatsViewData viewData) {
     $callSync(
-        19042,
+        19048,
         $W()
           ..h(this)
           ..dto(viewData));
@@ -189,7 +189,7 @@ final class StatsViewLastValueData implements GoDto {
 
   /// Go: `func (*view.LastValueData).StartTime() time.Time`.
   DateTime startTime() {
-    final $r = $callSync(19045, $W()..dto(this));
+    final $r = $callSync(19051, $W()..dto(this));
     return $r.p() ? $r.time() : $nil();
   }
 }
@@ -200,7 +200,7 @@ class StatsViewMeter extends $stats.StatsRecorder with StatsViewMeter$ {
 
   /// Go: `func view.NewMeter() view.Meter`.
   factory StatsViewMeter() {
-    final $r = $callSync(19056);
+    final $r = $callSync(19062);
     return $r.hnn(StatsViewMeter.$h);
   }
 }
@@ -210,7 +210,7 @@ mixin StatsViewMeter$ on GoHandle {
   /// Go: `func (view.Meter).Find(name string) *view.View`.
   StatsView find(String name) {
     final $r = $callSync(
-        19046,
+        19052,
         $W()
           ..h(this)
           ..str(name));
@@ -220,7 +220,7 @@ mixin StatsViewMeter$ on GoHandle {
   /// Go: `func (view.Meter).Register(views ...*view.View) error`.
   void register([List<StatsView> views = const []]) {
     $callSync(
-        19047,
+        19053,
         $W()
           ..h(this)
           ..list(views, (w0, e0) => w0.dto(e0)));
@@ -229,7 +229,7 @@ mixin StatsViewMeter$ on GoHandle {
   /// Go: `func (view.Meter).RegisterExporter(view.Exporter)`.
   void registerExporter(StatsViewExporter exporter) {
     $callSync(
-        19048,
+        19054,
         $W()
           ..h(this)
           ..h(exporter));
@@ -238,7 +238,7 @@ mixin StatsViewMeter$ on GoHandle {
   /// Go: `func (view.Meter).RetrieveData(viewName string) ([]*view.Row, error)`.
   List<StatsViewRow> retrieveData(String viewName) {
     final $r = $callSync(
-        19049,
+        19055,
         $W()
           ..h(this)
           ..str(viewName));
@@ -248,7 +248,7 @@ mixin StatsViewMeter$ on GoHandle {
   /// Go: `func (view.Meter).SetReportingPeriod(time.Duration)`.
   void setReportingPeriod(Duration arg0) {
     $callSync(
-        19050,
+        19056,
         $W()
           ..h(this)
           ..i64((arg0).inMicroseconds * 1000));
@@ -257,7 +257,7 @@ mixin StatsViewMeter$ on GoHandle {
   /// Go: `func (view.Meter).SetResource(*resource.Resource)`.
   void setResource($resource.Resource resource) {
     $callSync(
-        19051,
+        19057,
         $W()
           ..h(this)
           ..dto(resource));
@@ -265,18 +265,18 @@ mixin StatsViewMeter$ on GoHandle {
 
   /// Go: `func (view.Meter).Start()`.
   void start() {
-    $callSync(19052, $W()..h(this));
+    $callSync(19058, $W()..h(this));
   }
 
   /// Go: `func (view.Meter).Stop()`.
   void stop() {
-    $callSync(19053, $W()..h(this));
+    $callSync(19059, $W()..h(this));
   }
 
   /// Go: `func (view.Meter).Unregister(views ...*view.View)`.
   void unregister([List<StatsView> views = const []]) {
     $callSync(
-        19054,
+        19060,
         $W()
           ..h(this)
           ..list(views, (w0, e0) => w0.dto(e0)));
@@ -285,7 +285,7 @@ mixin StatsViewMeter$ on GoHandle {
   /// Go: `func (view.Meter).UnregisterExporter(view.Exporter)`.
   void unregisterExporter(StatsViewExporter exporter) {
     $callSync(
-        19055,
+        19061,
         $W()
           ..h(this)
           ..h(exporter));
@@ -318,7 +318,7 @@ final class StatsViewRow implements GoDto {
   /// Go: `func (*view.Row).Equal(other *view.Row) bool`.
   bool equal(StatsViewRow other) {
     final $r = $callSync(
-        19060,
+        19066,
         $W()
           ..dto(this)
           ..dto(other));
@@ -327,7 +327,7 @@ final class StatsViewRow implements GoDto {
 
   /// Go: `func (*view.Row).String() string`.
   String string() {
-    final $r = $callSync(19061, $W()..dto(this));
+    final $r = $callSync(19067, $W()..dto(this));
     return $r.str();
   }
 }
@@ -357,7 +357,7 @@ final class StatsViewSumData implements GoDto {
 
   /// Go: `func (*view.SumData).StartTime() time.Time`.
   DateTime startTime() {
-    final $r = $callSync(19065, $W()..dto(this));
+    final $r = $callSync(19071, $W()..dto(this));
     return $r.p() ? $r.time() : $nil();
   }
 }
@@ -406,7 +406,7 @@ final class StatsView implements GoDto {
   /// Go: `func (*view.View).WithName(name string) *view.View`.
   StatsView withName(String name) {
     final $r = $callSync(
-        19068,
+        19074,
         $W()
           ..dto(this)
           ..str(name));
@@ -427,73 +427,73 @@ class StatsViewErrNegativeBucketBounds extends GolangException {
 extension GoOpencensusStatsViewApi on GoOpencensusStatsView {
   /// Go: `func view.ClearStart(data view.AggregationData)`.
   void clearStart(StatsViewAggregationData data) {
-    $callSync(19036, $W()..h(data));
+    $callSync(19042, $W()..h(data));
   }
 
   /// Go: `func view.Count() *view.Aggregation`.
   StatsViewAggregation count() {
-    final $r = $callSync(19037);
+    final $r = $callSync(19043);
     return $r.hnn(StatsViewAggregation.$h);
   }
 
   /// Go: `func view.Distribution(bounds ...float64) *view.Aggregation`.
   StatsViewAggregation distribution([List<double> bounds = const []]) {
-    final $r = $callSync(19039, $W()..list(bounds, (w0, e0) => w0.f64(e0)));
+    final $r = $callSync(19045, $W()..list(bounds, (w0, e0) => w0.f64(e0)));
     return $r.hnn(StatsViewAggregation.$h);
   }
 
   /// Go: `func view.Find(name string) (v *view.View)`.
   StatsView find(String name) {
-    final $r = $callSync(19043, $W()..str(name));
+    final $r = $callSync(19049, $W()..str(name));
     return $r.p() ? StatsView.$dec($r) : $nil();
   }
 
   /// Go: `func view.LastValue() *view.Aggregation`.
   StatsViewAggregation lastValue() {
-    final $r = $callSync(19044);
+    final $r = $callSync(19050);
     return $r.hnn(StatsViewAggregation.$h);
   }
 
   /// Go: `func view.Register(views ...*view.View) error`.
   void register([List<StatsView> views = const []]) {
-    $callSync(19057, $W()..list(views, (w0, e0) => w0.dto(e0)));
+    $callSync(19063, $W()..list(views, (w0, e0) => w0.dto(e0)));
   }
 
   /// Go: `func view.RegisterExporter(e view.Exporter)`.
   void registerExporter(StatsViewExporter e) {
-    $callSync(19058, $W()..h(e));
+    $callSync(19064, $W()..h(e));
   }
 
   /// Go: `func view.RetrieveData(viewName string) ([]*view.Row, error)`.
   List<StatsViewRow> retrieveData(String viewName) {
-    final $r = $callSync(19059, $W()..str(viewName));
+    final $r = $callSync(19065, $W()..str(viewName));
     return $r.list(() => $r.p() ? StatsViewRow.$dec($r) : $nil());
   }
 
   /// Go: `func view.SetReportingPeriod(d time.Duration)`.
   void setReportingPeriod(Duration d) {
-    $callSync(19062, $W()..i64((d).inMicroseconds * 1000));
+    $callSync(19068, $W()..i64((d).inMicroseconds * 1000));
   }
 
   /// Go: `func view.Stop()`.
   void stop() {
-    $callSync(19063);
+    $callSync(19069);
   }
 
   /// Go: `func view.Sum() *view.Aggregation`.
   StatsViewAggregation sum() {
-    final $r = $callSync(19064);
+    final $r = $callSync(19070);
     return $r.hnn(StatsViewAggregation.$h);
   }
 
   /// Go: `func view.Unregister(views ...*view.View)`.
   void unregister([List<StatsView> views = const []]) {
-    $callSync(19066, $W()..list(views, (w0, e0) => w0.dto(e0)));
+    $callSync(19072, $W()..list(views, (w0, e0) => w0.dto(e0)));
   }
 
   /// Go: `func view.UnregisterExporter(e view.Exporter)`.
   void unregisterExporter(StatsViewExporter e) {
-    $callSync(19067, $W()..h(e));
+    $callSync(19073, $W()..h(e));
   }
 }
 

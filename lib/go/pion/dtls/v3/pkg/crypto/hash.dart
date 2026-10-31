@@ -10,7 +10,7 @@ import 'package:p2p_ffi/src/runtime.dart';
 extension GoPionDtlsV3PkgCryptoHashApi on GoPionDtlsV3PkgCryptoHash {
   /// Go: `func hash.ExtractHashFromPSS(pssScheme uint16) hash.Algorithm`.
   int extractHashFromPss(int pssScheme) {
-    final $r = $callSync(16236, $W()..i64(pssScheme));
+    final $r = $callSync(16242, $W()..i64(pssScheme));
     return $r.i64();
   }
 }

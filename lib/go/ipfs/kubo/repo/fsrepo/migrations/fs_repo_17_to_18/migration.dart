@@ -13,7 +13,7 @@ extension GoIpfsKuboRepoFsrepoMigrationsFsRepo17To18MigrationApi
     on GoIpfsKuboRepoFsrepoMigrationsFsRepo17To18Migration {
   /// Go: `var mg17.Migration *common.BaseMigration`.
   $common.KuboRepoFsrepoMigrationsCommonBaseMigration get migration {
-    final $r = $callSync(11865);
+    final $r = $callSync(11871);
     return $r.p()
         ? $common.KuboRepoFsrepoMigrationsCommonBaseMigration.$dec($r)
         : $nil();
@@ -21,7 +21,7 @@ extension GoIpfsKuboRepoFsrepoMigrationsFsRepo17To18MigrationApi
 
   /// Go: `func mg17.NewMigration() common.Migration`.
   $common.KuboRepoFsrepoMigrationsCommonMigration newMigration() {
-    final $r = $callSync(11866);
+    final $r = $callSync(11872);
     return $r.hnn($common.KuboRepoFsrepoMigrationsCommonMigration.$h);
   }
 }

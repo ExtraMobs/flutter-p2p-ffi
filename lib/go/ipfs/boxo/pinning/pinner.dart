@@ -47,13 +47,13 @@ final class BoxoPinningPinnerPinned implements GoDto {
 
   /// Go: `func (pin.Pinned).Pinned() bool`.
   bool pinned() {
-    final $r = $callSync(10145, $W()..dto(this));
+    final $r = $callSync(10154, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (pin.Pinned).String() string`.
   String string() {
-    final $r = $callSync(10146, $W()..dto(this));
+    final $r = $callSync(10155, $W()..dto(this));
     return $r.str();
   }
 }
@@ -71,7 +71,7 @@ mixin BoxoPinningPinner$ on GoHandle {
   Future<List<BoxoPinningPinnerPinned>> checkIfPinned($context.Context ctx,
       [List<$cid.Cid> cids = const []]) async {
     final $r = await $call(
-        10147,
+        10156,
         $W()
           ..h(this)
           ..h(ctx)
@@ -86,7 +86,7 @@ mixin BoxoPinningPinner$ on GoHandle {
       $context.Context ctx, int mode, bool includeNames,
       [List<$cid.Cid> cids = const []]) async {
     final $r = await $call(
-        10148,
+        10157,
         $W()
           ..h(this)
           ..h(ctx)
@@ -98,14 +98,14 @@ mixin BoxoPinningPinner$ on GoHandle {
 
   /// Go: `func (pin.Pinner).Close() error`.
   void close() {
-    $callSync(10149, $W()..h(this));
+    $callSync(10158, $W()..h(this));
   }
 
   /// Go: `func (pin.Pinner).DirectKeys(ctx context.Context, detailed bool) <-chan pin.StreamedPin`.
   Stream<BoxoPinningPinnerStreamedPin> directKeys(
           $context.Context ctx, bool detailed) =>
       $stream(
-              10150,
+              10159,
               $W()
                 ..h(this)
                 ..h(ctx)
@@ -117,7 +117,7 @@ mixin BoxoPinningPinner$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> flush($context.Context ctx) async {
     await $call(
-        10151,
+        10160,
         $W()
           ..h(this)
           ..h(ctx));
@@ -127,7 +127,7 @@ mixin BoxoPinningPinner$ on GoHandle {
   Stream<BoxoPinningPinnerStreamedPin> internalPins(
           $context.Context ctx, bool detailed) =>
       $stream(
-              10152,
+              10161,
               $W()
                 ..h(this)
                 ..h(ctx)
@@ -139,7 +139,7 @@ mixin BoxoPinningPinner$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<(String, bool)> isPinned($context.Context ctx, $cid.Cid c) async {
     final $r = await $call(
-        10153,
+        10162,
         $W()
           ..h(this)
           ..h(ctx)
@@ -153,7 +153,7 @@ mixin BoxoPinningPinner$ on GoHandle {
   Future<(String, bool)> isPinnedWithType(
       $context.Context ctx, $cid.Cid c, int mode) async {
     final $r = await $call(
-        10154,
+        10163,
         $W()
           ..h(this)
           ..h(ctx)
@@ -168,7 +168,7 @@ mixin BoxoPinningPinner$ on GoHandle {
   Future<void> pin($context.Context ctx, $ipld_format.IpldFormatNode node,
       bool recursive, String name) async {
     await $call(
-        10155,
+        10164,
         $W()
           ..h(this)
           ..h(ctx)
@@ -183,7 +183,7 @@ mixin BoxoPinningPinner$ on GoHandle {
   Future<void> pinWithMode(
       $context.Context ctx, $cid.Cid cid, int arg2, String arg3) async {
     await $call(
-        10156,
+        10165,
         $W()
           ..h(this)
           ..h(ctx)
@@ -196,7 +196,7 @@ mixin BoxoPinningPinner$ on GoHandle {
   Stream<BoxoPinningPinnerStreamedPin> recursiveKeys(
           $context.Context ctx, bool detailed) =>
       $stream(
-              10157,
+              10166,
               $W()
                 ..h(this)
                 ..h(ctx)
@@ -208,7 +208,7 @@ mixin BoxoPinningPinner$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> unpin($context.Context ctx, $cid.Cid cid, bool recursive) async {
     await $call(
-        10158,
+        10167,
         $W()
           ..h(this)
           ..h(ctx)
@@ -222,7 +222,7 @@ mixin BoxoPinningPinner$ on GoHandle {
   Future<void> update(
       $context.Context ctx, $cid.Cid from, $cid.Cid to, bool unpin) async {
     await $call(
-        10159,
+        10168,
         $W()
           ..h(this)
           ..h(ctx)
@@ -278,13 +278,13 @@ class BoxoPinningPinnerErrNotPinned extends GolangException {
 extension GoIpfsBoxoPinningPinnerApi on GoIpfsBoxoPinningPinner {
   /// Go: `func pin.ModeToString(mode pin.Mode) (string, bool)`.
   (String, bool) modeToString(int mode) {
-    final $r = $callSync(10144, $W()..i64(mode));
+    final $r = $callSync(10153, $W()..i64(mode));
     return ($r.str(), $r.b());
   }
 
   /// Go: `func pin.StringToMode(s string) (pin.Mode, bool)`.
   (int, bool) stringToMode(String s) {
-    final $r = $callSync(10160, $W()..str(s));
+    final $r = $callSync(10169, $W()..str(s));
     return ($r.i64(), $r.b());
   }
 }

@@ -17,7 +17,7 @@ class RefmtCloner extends GoHandle with RefmtCloner$ {
 
   /// Go: `func refmt.NewCloner(atl atlas.Atlas) refmt.Cloner`.
   factory RefmtCloner($atlas.RefmtObjAtlas atl) {
-    final $r = $callSync(17843, $W()..h(atl));
+    final $r = $callSync(17849, $W()..h(atl));
     return $r.hnn(RefmtCloner.$h);
   }
 }
@@ -27,7 +27,7 @@ mixin RefmtCloner$ on GoHandle {
   /// Go: `func (refmt.Cloner).Clone(src interface{}, dst interface{}) error`.
   void clone(Object? src, Object? dst) {
     $callSync(
-        17835,
+        17841,
         $W()
           ..h(this)
           ..any(src)
@@ -36,7 +36,7 @@ mixin RefmtCloner$ on GoHandle {
 
   /// Go: type assertion `x.(*encoding.PooledCloner)`: null if the object is not one.
   $encoding.IpldCborEncodingPooledCloner? asIpldCborEncodingPooledCloner() {
-    final $r = $callSync(1646, $W()..h(this));
+    final $r = $callSync(1651, $W()..h(this));
     return $r.hn($encoding.IpldCborEncodingPooledCloner.$h);
   }
 }
@@ -50,7 +50,7 @@ class RefmtDecodeOptions extends GoHandle with RefmtDecodeOptions$ {
 mixin RefmtDecodeOptions$ on GoHandle {
   /// Go: `func (refmt.DecodeOptions).IsDecodeOptions()`.
   void isDecodeOptions() {
-    $callSync(17836, $W()..h(this));
+    $callSync(17842, $W()..h(this));
   }
 }
 
@@ -63,7 +63,7 @@ class RefmtEncodeOptions extends GoHandle with RefmtEncodeOptions$ {
 mixin RefmtEncodeOptions$ on GoHandle {
   /// Go: `func (refmt.EncodeOptions).IsEncodeOptions()`.
   void isEncodeOptions() {
-    $callSync(17837, $W()..h(this));
+    $callSync(17843, $W()..h(this));
   }
 }
 
@@ -74,7 +74,7 @@ class RefmtMarshaller extends GoHandle with RefmtMarshaller$ {
   /// Go: `func refmt.NewMarshaller(opts refmt.EncodeOptions, wr io.Writer) refmt.Marshaller`.
   factory RefmtMarshaller(RefmtEncodeOptions opts, GoHandle? wr) {
     final $r = $callSync(
-        17844,
+        17850,
         $W()
           ..h(opts)
           ..h(wr));
@@ -87,7 +87,7 @@ mixin RefmtMarshaller$ on GoHandle {
   /// Go: `func (refmt.Marshaller).Marshal(v interface{}) error`.
   void marshal(Object? v) {
     $callSync(
-        17840,
+        17846,
         $W()
           ..h(this)
           ..any(v));
@@ -95,13 +95,13 @@ mixin RefmtMarshaller$ on GoHandle {
 
   /// Go: type assertion `x.(*cbor.Marshaller)`: null if the object is not one.
   $cbor.RefmtCborMarshaller? asRefmtCborMarshaller() {
-    final $r = $callSync(1647, $W()..h(this));
+    final $r = $callSync(1652, $W()..h(this));
     return $r.hn($cbor.RefmtCborMarshaller.$h);
   }
 
   /// Go: type assertion `x.(*json.Marshaller)`: null if the object is not one.
   $json.RefmtJsonMarshaller? asRefmtJsonMarshaller() {
-    final $r = $callSync(1648, $W()..h(this));
+    final $r = $callSync(1653, $W()..h(this));
     return $r.hn($json.RefmtJsonMarshaller.$h);
   }
 }
@@ -113,7 +113,7 @@ class RefmtUnmarshaller extends GoHandle with RefmtUnmarshaller$ {
   /// Go: `func refmt.NewUnmarshaller(opts refmt.DecodeOptions, r io.Reader) refmt.Unmarshaller`.
   factory RefmtUnmarshaller(RefmtDecodeOptions opts, Object r) {
     final $r = $callSync(
-        17846,
+        17852,
         $W()
           ..h(opts)
           ..reader(r));
@@ -126,7 +126,7 @@ mixin RefmtUnmarshaller$ on GoHandle {
   /// Go: `func (refmt.Unmarshaller).Unmarshal(v interface{}) error`.
   void unmarshal(Object? v) {
     $callSync(
-        17850,
+        17856,
         $W()
           ..h(this)
           ..any(v));
@@ -134,13 +134,13 @@ mixin RefmtUnmarshaller$ on GoHandle {
 
   /// Go: type assertion `x.(*cbor.Unmarshaller)`: null if the object is not one.
   $cbor.RefmtCborUnmarshaller? asRefmtCborUnmarshaller() {
-    final $r = $callSync(1649, $W()..h(this));
+    final $r = $callSync(1654, $W()..h(this));
     return $r.hn($cbor.RefmtCborUnmarshaller.$h);
   }
 
   /// Go: type assertion `x.(*json.Unmarshaller)`: null if the object is not one.
   $json.RefmtJsonUnmarshaller? asRefmtJsonUnmarshaller() {
-    final $r = $callSync(1650, $W()..h(this));
+    final $r = $callSync(1655, $W()..h(this));
     return $r.hn($json.RefmtJsonUnmarshaller.$h);
   }
 }
@@ -150,7 +150,7 @@ extension GoPolydawnRefmtApi on GoPolydawnRefmt {
   /// Go: `func refmt.Clone(src interface{}, dst interface{}) error`.
   void clone(Object? src, Object? dst) {
     $callSync(
-        17833,
+        17839,
         $W()
           ..any(src)
           ..any(dst));
@@ -159,7 +159,7 @@ extension GoPolydawnRefmtApi on GoPolydawnRefmt {
   /// Go: `func refmt.CloneAtlased(src interface{}, dst interface{}, atl atlas.Atlas) error`.
   void cloneAtlased(Object? src, Object? dst, $atlas.RefmtObjAtlas atl) {
     $callSync(
-        17834,
+        17840,
         $W()
           ..any(src)
           ..any(dst)
@@ -169,7 +169,7 @@ extension GoPolydawnRefmtApi on GoPolydawnRefmt {
   /// Go: `func refmt.Marshal(opts refmt.EncodeOptions, v interface{}) ([]byte, error)`.
   Uint8List marshal(RefmtEncodeOptions opts, Object? v) {
     final $r = $callSync(
-        17838,
+        17844,
         $W()
           ..h(opts)
           ..any(v));
@@ -180,7 +180,7 @@ extension GoPolydawnRefmtApi on GoPolydawnRefmt {
   Uint8List marshalAtlased(
       RefmtEncodeOptions opts, Object? v, $atlas.RefmtObjAtlas atl) {
     final $r = $callSync(
-        17839,
+        17845,
         $W()
           ..h(opts)
           ..any(v)
@@ -191,7 +191,7 @@ extension GoPolydawnRefmtApi on GoPolydawnRefmt {
   /// Go: `func refmt.MustClone(src interface{}, dst interface{})`.
   void mustClone(Object? src, Object? dst) {
     $callSync(
-        17841,
+        17847,
         $W()
           ..any(src)
           ..any(dst));
@@ -200,7 +200,7 @@ extension GoPolydawnRefmtApi on GoPolydawnRefmt {
   /// Go: `func refmt.MustCloneAtlased(src interface{}, dst interface{}, atl atlas.Atlas)`.
   void mustCloneAtlased(Object? src, Object? dst, $atlas.RefmtObjAtlas atl) {
     $callSync(
-        17842,
+        17848,
         $W()
           ..any(src)
           ..any(dst)
@@ -211,7 +211,7 @@ extension GoPolydawnRefmtApi on GoPolydawnRefmt {
   RefmtMarshaller newMarshallerAtlased(
       RefmtEncodeOptions opts, GoHandle? wr, $atlas.RefmtObjAtlas atl) {
     final $r = $callSync(
-        17845,
+        17851,
         $W()
           ..h(opts)
           ..h(wr)
@@ -223,7 +223,7 @@ extension GoPolydawnRefmtApi on GoPolydawnRefmt {
   RefmtUnmarshaller newUnmarshallerAtlased(
       RefmtDecodeOptions opts, Object r, $atlas.RefmtObjAtlas atl) {
     final $r = $callSync(
-        17847,
+        17853,
         $W()
           ..h(opts)
           ..reader(r)
@@ -234,7 +234,7 @@ extension GoPolydawnRefmtApi on GoPolydawnRefmt {
   /// Go: `func refmt.Unmarshal(opts refmt.DecodeOptions, data []byte, v interface{}) error`.
   void unmarshal(RefmtDecodeOptions opts, Uint8List data, Object? v) {
     $callSync(
-        17848,
+        17854,
         $W()
           ..h(opts)
           ..bytes(data)
@@ -245,7 +245,7 @@ extension GoPolydawnRefmtApi on GoPolydawnRefmt {
   void unmarshalAtlased(RefmtDecodeOptions opts, Uint8List data, Object? v,
       $atlas.RefmtObjAtlas atl) {
     $callSync(
-        17849,
+        17855,
         $W()
           ..h(opts)
           ..bytes(data)

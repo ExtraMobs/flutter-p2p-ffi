@@ -30,14 +30,14 @@ class QuicGoQlogwriterJsontextEncoder extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func jsontext.NewEncoder(w io.Writer) *jsontext.Encoder`.
   factory QuicGoQlogwriterJsontextEncoder(GoHandle? w) {
-    final $r = $callSync(18491, $W()..h(w));
+    final $r = $callSync(18497, $W()..h(w));
     return $r.hnn(QuicGoQlogwriterJsontextEncoder.$h);
   }
 
   /// Go: `func (*jsontext.Encoder).WriteToken(t jsontext.Token) error`.
   void writeToken(QuicGoQlogwriterJsontextToken t) {
     $callSync(
-        18485,
+        18491,
         $W()
           ..h(this)
           ..h(t));
@@ -68,73 +68,73 @@ extension GoQuicGoQuicGoQlogwriterJsontextApi
     on GoQuicGoQuicGoQlogwriterJsontext {
   /// Go: `var jsontext.BeginArray jsontext.Token`.
   QuicGoQlogwriterJsontextToken get beginArray {
-    final $r = $callSync(18482);
+    final $r = $callSync(18488);
     return $r.hnn(QuicGoQlogwriterJsontextToken.$h);
   }
 
   /// Go: `var jsontext.BeginObject jsontext.Token`.
   QuicGoQlogwriterJsontextToken get beginObject {
-    final $r = $callSync(18483);
+    final $r = $callSync(18489);
     return $r.hnn(QuicGoQlogwriterJsontextToken.$h);
   }
 
   /// Go: `func jsontext.Bool(b bool) jsontext.Token`.
   QuicGoQlogwriterJsontextToken bool$(bool b) {
-    final $r = $callSync(18484, $W()..b(b));
+    final $r = $callSync(18490, $W()..b(b));
     return $r.hnn(QuicGoQlogwriterJsontextToken.$h);
   }
 
   /// Go: `var jsontext.EndArray jsontext.Token`.
   QuicGoQlogwriterJsontextToken get endArray {
-    final $r = $callSync(18486);
+    final $r = $callSync(18492);
     return $r.hnn(QuicGoQlogwriterJsontextToken.$h);
   }
 
   /// Go: `var jsontext.EndObject jsontext.Token`.
   QuicGoQlogwriterJsontextToken get endObject {
-    final $r = $callSync(18487);
+    final $r = $callSync(18493);
     return $r.hnn(QuicGoQlogwriterJsontextToken.$h);
   }
 
   /// Go: `var jsontext.False jsontext.Token`.
   QuicGoQlogwriterJsontextToken get false$ {
-    final $r = $callSync(18488);
+    final $r = $callSync(18494);
     return $r.hnn(QuicGoQlogwriterJsontextToken.$h);
   }
 
   /// Go: `func jsontext.Float(f float64) jsontext.Token`.
   QuicGoQlogwriterJsontextToken float(double f) {
-    final $r = $callSync(18489, $W()..f64(f));
+    final $r = $callSync(18495, $W()..f64(f));
     return $r.hnn(QuicGoQlogwriterJsontextToken.$h);
   }
 
   /// Go: `func jsontext.Int(i int64) jsontext.Token`.
   QuicGoQlogwriterJsontextToken int$(int i) {
-    final $r = $callSync(18490, $W()..i64(i));
+    final $r = $callSync(18496, $W()..i64(i));
     return $r.hnn(QuicGoQlogwriterJsontextToken.$h);
   }
 
   /// Go: `var jsontext.Null jsontext.Token`.
   QuicGoQlogwriterJsontextToken get null$ {
-    final $r = $callSync(18492);
+    final $r = $callSync(18498);
     return $r.hnn(QuicGoQlogwriterJsontextToken.$h);
   }
 
   /// Go: `func jsontext.String(s string) jsontext.Token`.
   QuicGoQlogwriterJsontextToken string(String s) {
-    final $r = $callSync(18493, $W()..str(s));
+    final $r = $callSync(18499, $W()..str(s));
     return $r.hnn(QuicGoQlogwriterJsontextToken.$h);
   }
 
   /// Go: `var jsontext.True jsontext.Token`.
   QuicGoQlogwriterJsontextToken get true$ {
-    final $r = $callSync(18494);
+    final $r = $callSync(18500);
     return $r.hnn(QuicGoQlogwriterJsontextToken.$h);
   }
 
   /// Go: `func jsontext.Uint(u uint64) jsontext.Token`.
   QuicGoQlogwriterJsontextToken uint(int u) {
-    final $r = $callSync(18495, $W()..i64(u));
+    final $r = $callSync(18501, $W()..i64(u));
     return $r.hnn(QuicGoQlogwriterJsontextToken.$h);
   }
 }

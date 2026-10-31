@@ -50,7 +50,7 @@ final class DtlsV3CertificateRequestInfo implements GoDto {
   /// Go: `func (*dtls.CertificateRequestInfo).SupportsCertificate(c *tls.Certificate) error`.
   void supportsCertificate($tls.CryptoTlsCertificate c) {
     $callSync(
-        16144,
+        16150,
         $W()
           ..dto(this)
           ..dto(c));
@@ -66,7 +66,7 @@ class DtlsV3CipherSuite extends GoHandle with DtlsV3CipherSuite$ {
 mixin DtlsV3CipherSuite$ on GoHandle {
   /// Go: `func (dtls.CipherSuite).CertificateType() clientcertificate.Type`.
   int certificateType() {
-    final $r = $callSync(16145, $W()..h(this));
+    final $r = $callSync(16151, $W()..h(this));
     return $r.i64();
   }
 
@@ -74,7 +74,7 @@ mixin DtlsV3CipherSuite$ on GoHandle {
   Uint8List decrypt(
       $recordlayer.DtlsV3PkgProtocolRecordlayerHeader h, Uint8List in$) {
     final $r = $callSync(
-        16146,
+        16152,
         $W()
           ..h(this)
           ..dto(h)
@@ -84,7 +84,7 @@ mixin DtlsV3CipherSuite$ on GoHandle {
 
   /// Go: `func (dtls.CipherSuite).ECC() bool`.
   bool ecc() {
-    final $r = $callSync(16147, $W()..h(this));
+    final $r = $callSync(16153, $W()..h(this));
     return $r.b();
   }
 
@@ -92,7 +92,7 @@ mixin DtlsV3CipherSuite$ on GoHandle {
   Uint8List encrypt(
       $recordlayer.DtlsV3PkgProtocolRecordlayerRecordLayer pkt, Uint8List raw) {
     final $r = $callSync(
-        16148,
+        16154,
         $W()
           ..h(this)
           ..dto(pkt)
@@ -104,7 +104,7 @@ mixin DtlsV3CipherSuite$ on GoHandle {
   void init(Uint8List masterSecret, Uint8List clientRandom,
       Uint8List serverRandom, bool isClient) {
     $callSync(
-        16149,
+        16155,
         $W()
           ..h(this)
           ..bytes(masterSecret)
@@ -115,13 +115,13 @@ mixin DtlsV3CipherSuite$ on GoHandle {
 
   /// Go: `func (dtls.CipherSuite).IsInitialized() bool`.
   bool isInitialized() {
-    final $r = $callSync(16150, $W()..h(this));
+    final $r = $callSync(16156, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (dtls.CipherSuite).String() string`.
   String string() {
-    final $r = $callSync(16151, $W()..h(this));
+    final $r = $callSync(16157, $W()..h(this));
     return $r.str();
   }
 }
@@ -135,7 +135,7 @@ class DtlsV3ClientOption extends GoHandle with DtlsV3ClientOption$ {
 mixin DtlsV3ClientOption$ on GoHandle {
   /// Go: type assertion `x.(dtls.Option)`: null if the object is not one.
   DtlsV3Option? asDtlsV3Option() {
-    final $r = $callSync(1554, $W()..h(this));
+    final $r = $callSync(1559, $W()..h(this));
     return $r.hn(DtlsV3Option.$h);
   }
 }
@@ -191,18 +191,18 @@ class DtlsV3Conn extends $net.NetConn
 
   /// Go: `func (*dtls.Conn).Close() error`.
   void close() {
-    $callSync(16155, $W()..h(this));
+    $callSync(16161, $W()..h(this));
   }
 
   /// Go: `func (*dtls.Conn).ConnectionState() (dtls.State, bool)`.
   (DtlsV3State, bool) connectionState() {
-    final $r = $callSync(16156, $W()..h(this));
+    final $r = $callSync(16162, $W()..h(this));
     return ($r.hnn(DtlsV3State.$h), $r.b());
   }
 
   /// Go: `func (*dtls.Conn).Handshake() error`.
   void handshake() {
-    $callSync(16157, $W()..h(this));
+    $callSync(16163, $W()..h(this));
   }
 
   /// Go: `func (*dtls.Conn).HandshakeContext(ctx context.Context) error`.
@@ -210,7 +210,7 @@ class DtlsV3Conn extends $net.NetConn
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> handshakeContext($context.Context ctx) async {
     await $call(
-        16158,
+        16164,
         $W()
           ..h(this)
           ..h(ctx));
@@ -218,14 +218,14 @@ class DtlsV3Conn extends $net.NetConn
 
   /// Go: `func (*dtls.Conn).LocalAddr() net.Addr`.
   $net.NetAddr localAddr() {
-    final $r = $callSync(16159, $W()..h(this));
+    final $r = $callSync(16165, $W()..h(this));
     return $r.p() ? $net.NetAddr.$dec($r) : $nil();
   }
 
   /// Go: `func (*dtls.Conn).Read(buff []byte) (n int, err error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        16160,
+        16166,
         $W()
           ..h(this)
           ..i64(n));
@@ -234,26 +234,26 @@ class DtlsV3Conn extends $net.NetConn
 
   /// Go: `func (*dtls.Conn).RemoteAddr() net.Addr`.
   $net.NetAddr remoteAddr() {
-    final $r = $callSync(16161, $W()..h(this));
+    final $r = $callSync(16167, $W()..h(this));
     return $r.p() ? $net.NetAddr.$dec($r) : $nil();
   }
 
   /// Go: `func (*dtls.Conn).RemoteSRTPMasterKeyIdentifier() ([]byte, bool)`.
   (Uint8List, bool) remoteSrtpMasterKeyIdentifier() {
-    final $r = $callSync(16162, $W()..h(this));
+    final $r = $callSync(16168, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.b());
   }
 
   /// Go: `func (*dtls.Conn).SelectedSRTPProtectionProfile() (dtls.SRTPProtectionProfile, bool)`.
   (int, bool) selectedSrtpProtectionProfile() {
-    final $r = $callSync(16163, $W()..h(this));
+    final $r = $callSync(16169, $W()..h(this));
     return ($r.i64(), $r.b());
   }
 
   /// Go: `func (*dtls.Conn).SetDeadline(t time.Time) error`.
   void setDeadline(DateTime t) {
     $callSync(
-        16164,
+        16170,
         $W()
           ..h(this)
           ..time(t));
@@ -262,7 +262,7 @@ class DtlsV3Conn extends $net.NetConn
   /// Go: `func (*dtls.Conn).SetReadDeadline(t time.Time) error`.
   void setReadDeadline(DateTime t) {
     $callSync(
-        16165,
+        16171,
         $W()
           ..h(this)
           ..time(t));
@@ -271,7 +271,7 @@ class DtlsV3Conn extends $net.NetConn
   /// Go: `func (*dtls.Conn).SetWriteDeadline(t time.Time) error`.
   void setWriteDeadline(DateTime t) {
     $callSync(
-        16166,
+        16172,
         $W()
           ..h(this)
           ..time(t));
@@ -280,7 +280,7 @@ class DtlsV3Conn extends $net.NetConn
   /// Go: `func (*dtls.Conn).Write(payload []byte) (int, error)`.
   int write(Uint8List payload) {
     final $r = $callSync(
-        16167,
+        16173,
         $W()
           ..h(this)
           ..bytes(payload));
@@ -324,7 +324,7 @@ class DtlsV3ServerOption extends GoHandle with DtlsV3ServerOption$ {
 mixin DtlsV3ServerOption$ on GoHandle {
   /// Go: type assertion `x.(dtls.Option)`: null if the object is not one.
   DtlsV3Option? asDtlsV3Option() {
-    final $r = $callSync(1555, $W()..h(this));
+    final $r = $callSync(1560, $W()..h(this));
     return $r.hn(DtlsV3Option.$h);
   }
 }
@@ -363,7 +363,7 @@ mixin DtlsV3SessionStore$ on GoHandle {
   /// Go: `func (dtls.SessionStore).Del(key []byte) error`.
   void del(Uint8List key) {
     $callSync(
-        16179,
+        16185,
         $W()
           ..h(this)
           ..bytes(key));
@@ -372,7 +372,7 @@ mixin DtlsV3SessionStore$ on GoHandle {
   /// Go: `func (dtls.SessionStore).Get(key []byte) (dtls.Session, error)`.
   DtlsV3Session get(Uint8List key) {
     final $r = $callSync(
-        16180,
+        16186,
         $W()
           ..h(this)
           ..bytes(key));
@@ -382,7 +382,7 @@ mixin DtlsV3SessionStore$ on GoHandle {
   /// Go: `func (dtls.SessionStore).Set(key []byte, s dtls.Session) error`.
   void set(Uint8List key, DtlsV3Session s) {
     $callSync(
-        16181,
+        16187,
         $W()
           ..h(this)
           ..bytes(key)
@@ -415,7 +415,7 @@ class DtlsV3State extends $encoding.EncodingBinaryUnmarshaler
   /// Go: `func (*dtls.State).ExportKeyingMaterial(label string, context []byte, length int) ([]byte, error)`.
   Uint8List exportKeyingMaterial(String label, Uint8List context, int length) {
     final $r = $callSync(
-        16182,
+        16188,
         $W()
           ..h(this)
           ..str(label)
@@ -426,14 +426,14 @@ class DtlsV3State extends $encoding.EncodingBinaryUnmarshaler
 
   /// Go: `func (*dtls.State).MarshalBinary() ([]byte, error)`.
   Uint8List marshalBinary() {
-    final $r = $callSync(16183, $W()..h(this));
+    final $r = $callSync(16189, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*dtls.State).UnmarshalBinary(data []byte) error`.
   void unmarshalBinary(Uint8List data) {
     $callSync(
-        16184,
+        16190,
         $W()
           ..h(this)
           ..bytes(data));
@@ -489,7 +489,7 @@ class DtlsV3TimeoutError extends GolangException {
 extension GoPionDtlsV3Api on GoPionDtlsV3 {
   /// Go: `func dtls.CipherSuites() []*tls.CipherSuite`.
   List<$tls.CryptoTlsCipherSuite> cipherSuites() {
-    final $r = $callSync(16152);
+    final $r = $callSync(16158);
     return $r.list(() => $r.p() ? $tls.CryptoTlsCipherSuite.$dec($r) : $nil());
   }
 
@@ -498,7 +498,7 @@ extension GoPionDtlsV3Api on GoPionDtlsV3 {
   DtlsV3Conn client(
       $net.NetPacketConn conn, $net.NetAddr rAddr, DtlsV3Config config) {
     final $r = $callSync(
-        16153,
+        16159,
         $W()
           ..h(conn)
           ..dto(rAddr)
@@ -510,7 +510,7 @@ extension GoPionDtlsV3Api on GoPionDtlsV3 {
   DtlsV3Conn clientWithOptions($net.NetPacketConn conn, $net.NetAddr rAddr,
       [List<DtlsV3ClientOption> opts = const []]) {
     final $r = $callSync(
-        16154,
+        16160,
         $W()
           ..h(conn)
           ..dto(rAddr)
@@ -522,7 +522,7 @@ extension GoPionDtlsV3Api on GoPionDtlsV3 {
   @Deprecated("Use DialWithOptions instead.")
   DtlsV3Conn dial(String network, $net.NetUdpAddr rAddr, DtlsV3Config config) {
     final $r = $callSync(
-        16168,
+        16174,
         $W()
           ..str(network)
           ..dto(rAddr)
@@ -534,7 +534,7 @@ extension GoPionDtlsV3Api on GoPionDtlsV3 {
   DtlsV3Conn dialWithOptions(String network, $net.NetUdpAddr rAddr,
       [List<DtlsV3ClientOption> opts = const []]) {
     final $r = $callSync(
-        16169,
+        16175,
         $W()
           ..str(network)
           ..dto(rAddr)
@@ -544,7 +544,7 @@ extension GoPionDtlsV3Api on GoPionDtlsV3 {
 
   /// Go: `func dtls.InsecureCipherSuites() []*tls.CipherSuite`.
   List<$tls.CryptoTlsCipherSuite> insecureCipherSuites() {
-    final $r = $callSync(16170);
+    final $r = $callSync(16176);
     return $r.list(() => $r.p() ? $tls.CryptoTlsCipherSuite.$dec($r) : $nil());
   }
 
@@ -553,7 +553,7 @@ extension GoPionDtlsV3Api on GoPionDtlsV3 {
   $net.NetListener listen(
       String network, $net.NetUdpAddr laddr, DtlsV3Config config) {
     final $r = $callSync(
-        16171,
+        16177,
         $W()
           ..str(network)
           ..dto(laddr)
@@ -565,7 +565,7 @@ extension GoPionDtlsV3Api on GoPionDtlsV3 {
   $net.NetListener listenWithOptions(String network, $net.NetUdpAddr laddr,
       [List<DtlsV3ServerOption> opts = const []]) {
     final $r = $callSync(
-        16172,
+        16178,
         $W()
           ..str(network)
           ..dto(laddr)
@@ -578,7 +578,7 @@ extension GoPionDtlsV3Api on GoPionDtlsV3 {
   $net.NetListener newListener(
       $net2.DtlsV3PkgNetPacketListener inner, DtlsV3Config config) {
     final $r = $callSync(
-        16173,
+        16179,
         $W()
           ..h(inner)
           ..h(config));
@@ -590,7 +590,7 @@ extension GoPionDtlsV3Api on GoPionDtlsV3 {
       $net2.DtlsV3PkgNetPacketListener inner,
       [List<DtlsV3ServerOption> opts = const []]) {
     final $r = $callSync(
-        16174,
+        16180,
         $W()
           ..h(inner)
           ..list(opts, (w0, e0) => w0.h(e0)));
@@ -602,7 +602,7 @@ extension GoPionDtlsV3Api on GoPionDtlsV3 {
   DtlsV3Conn resume(DtlsV3State state, $net.NetPacketConn conn,
       $net.NetAddr rAddr, DtlsV3Config config) {
     final $r = $callSync(
-        16175,
+        16181,
         $W()
           ..h(state)
           ..h(conn)
@@ -616,7 +616,7 @@ extension GoPionDtlsV3Api on GoPionDtlsV3 {
       DtlsV3State state, $net.NetPacketConn conn, $net.NetAddr rAddr,
       [List<DtlsV3Option> opts = const []]) {
     final $r = $callSync(
-        16176,
+        16182,
         $W()
           ..h(state)
           ..h(conn)
@@ -630,7 +630,7 @@ extension GoPionDtlsV3Api on GoPionDtlsV3 {
   DtlsV3Conn server(
       $net.NetPacketConn conn, $net.NetAddr rAddr, DtlsV3Config config) {
     final $r = $callSync(
-        16177,
+        16183,
         $W()
           ..h(conn)
           ..dto(rAddr)
@@ -642,7 +642,7 @@ extension GoPionDtlsV3Api on GoPionDtlsV3 {
   DtlsV3Conn serverWithOptions($net.NetPacketConn conn, $net.NetAddr rAddr,
       [List<DtlsV3ServerOption> opts = const []]) {
     final $r = $callSync(
-        16178,
+        16184,
         $W()
           ..h(conn)
           ..dto(rAddr)
@@ -781,98 +781,98 @@ extension GoPionDtlsV3EnumsApi on GoPionDtlsV3Enums {
 extension GoPionDtlsV3OptionsApi on GoPionDtlsV3Options {
   /// Go: `func dtls.WithCertificateSignatureSchemes(schemes ...tls.SignatureScheme) dtls.Option`.
   DtlsV3Option withCertificateSignatureSchemes([List<int> schemes = const []]) {
-    final $r = $callSync(16185, $W()..list(schemes, (w0, e0) => w0.i64(e0)));
+    final $r = $callSync(16191, $W()..list(schemes, (w0, e0) => w0.i64(e0)));
     return $r.hnn(DtlsV3Option.$h);
   }
 
   /// Go: `func dtls.WithCertificates(certs ...tls.Certificate) dtls.Option`.
   DtlsV3Option withCertificates(
       [List<$tls.CryptoTlsCertificate> certs = const []]) {
-    final $r = $callSync(16186, $W()..list(certs, (w0, e0) => w0.dto(e0)));
+    final $r = $callSync(16192, $W()..list(certs, (w0, e0) => w0.dto(e0)));
     return $r.hnn(DtlsV3Option.$h);
   }
 
   /// Go: `func dtls.WithCipherSuites(suites ...dtls.CipherSuiteID) dtls.Option`.
   DtlsV3Option withCipherSuites() {
-    final $r = $callSync(16187);
+    final $r = $callSync(16193);
     return $r.hnn(DtlsV3Option.$h);
   }
 
   /// Go: `func dtls.WithClientAuth(auth dtls.ClientAuthType) dtls.ServerOption`.
   DtlsV3ServerOption withClientAuth(int auth) {
-    final $r = $callSync(16188, $W()..i64(auth));
+    final $r = $callSync(16194, $W()..i64(auth));
     return $r.hnn(DtlsV3ServerOption.$h);
   }
 
   /// Go: `func dtls.WithClientCAs(pool *x509.CertPool) dtls.ServerOption`.
   DtlsV3ServerOption withClientCas($x509.CryptoX509CertPool pool) {
-    final $r = $callSync(16189, $W()..h(pool));
+    final $r = $callSync(16195, $W()..h(pool));
     return $r.hnn(DtlsV3ServerOption.$h);
   }
 
   /// Go: `func dtls.WithDisableRetransmitBackoff(disable bool) dtls.Option`.
   DtlsV3Option withDisableRetransmitBackoff(bool disable) {
-    final $r = $callSync(16190, $W()..b(disable));
+    final $r = $callSync(16196, $W()..b(disable));
     return $r.hnn(DtlsV3Option.$h);
   }
 
   /// Go: `func dtls.WithEllipticCurves(curves ...elliptic.Curve) dtls.Option`.
   DtlsV3Option withEllipticCurves([List<int> curves = const []]) {
-    final $r = $callSync(16191, $W()..list(curves, (w0, e0) => w0.i64(e0)));
+    final $r = $callSync(16197, $W()..list(curves, (w0, e0) => w0.i64(e0)));
     return $r.hnn(DtlsV3Option.$h);
   }
 
   /// Go: `func dtls.WithExtendedMasterSecret(ems dtls.ExtendedMasterSecretType) dtls.Option`.
   DtlsV3Option withExtendedMasterSecret(int ems) {
-    final $r = $callSync(16192, $W()..i64(ems));
+    final $r = $callSync(16198, $W()..i64(ems));
     return $r.hnn(DtlsV3Option.$h);
   }
 
   /// Go: `func dtls.WithFlightInterval(interval time.Duration) dtls.Option`.
   DtlsV3Option withFlightInterval(Duration interval) {
-    final $r = $callSync(16193, $W()..i64((interval).inMicroseconds * 1000));
+    final $r = $callSync(16199, $W()..i64((interval).inMicroseconds * 1000));
     return $r.hnn(DtlsV3Option.$h);
   }
 
   /// Go: `func dtls.WithInsecureHashes(allow bool) dtls.Option`.
   DtlsV3Option withInsecureHashes(bool allow) {
-    final $r = $callSync(16194, $W()..b(allow));
+    final $r = $callSync(16200, $W()..b(allow));
     return $r.hnn(DtlsV3Option.$h);
   }
 
   /// Go: `func dtls.WithInsecureSkipVerify(skip bool) dtls.Option`.
   DtlsV3Option withInsecureSkipVerify(bool skip) {
-    final $r = $callSync(16195, $W()..b(skip));
+    final $r = $callSync(16201, $W()..b(skip));
     return $r.hnn(DtlsV3Option.$h);
   }
 
   /// Go: `func dtls.WithInsecureSkipVerifyHello(skip bool) dtls.ServerOption`.
   DtlsV3ServerOption withInsecureSkipVerifyHello(bool skip) {
-    final $r = $callSync(16196, $W()..b(skip));
+    final $r = $callSync(16202, $W()..b(skip));
     return $r.hnn(DtlsV3ServerOption.$h);
   }
 
   /// Go: `func dtls.WithKeyLogWriter(writer io.Writer) dtls.Option`.
   DtlsV3Option withKeyLogWriter(GoHandle? writer) {
-    final $r = $callSync(16197, $W()..h(writer));
+    final $r = $callSync(16203, $W()..h(writer));
     return $r.hnn(DtlsV3Option.$h);
   }
 
   /// Go: `func dtls.WithListenConfig(listenConfig net.ListenConfig) dtls.ServerOption`.
   DtlsV3ServerOption withListenConfig($net.NetListenConfig listenConfig) {
-    final $r = $callSync(16198, $W()..h(listenConfig));
+    final $r = $callSync(16204, $W()..h(listenConfig));
     return $r.hnn(DtlsV3ServerOption.$h);
   }
 
   /// Go: `func dtls.WithLoggerFactory(factory logging.LoggerFactory) dtls.Option`.
   DtlsV3Option withLoggerFactory($logging.LoggingLoggerFactory factory) {
-    final $r = $callSync(16199, $W()..h(factory));
+    final $r = $callSync(16205, $W()..h(factory));
     return $r.hnn(DtlsV3Option.$h);
   }
 
   /// Go: `func dtls.WithMTU(mtu int) dtls.Option`.
   DtlsV3Option withMtu(int mtu) {
-    final $r = $callSync(16200, $W()..i64(mtu));
+    final $r = $callSync(16206, $W()..i64(mtu));
     return $r.hnn(DtlsV3Option.$h);
   }
 
@@ -885,20 +885,20 @@ extension GoPionDtlsV3OptionsApi on GoPionDtlsV3Options {
   /// each invocation (a retained callback, WIRE.md).
   Future<DtlsV3ServerOption> withOnConnectionAttempt(
       FutureOr<void> Function($net.NetAddr addr) fn) async {
-    final $r = await $call(16201,
+    final $r = await $call(16207,
         $W()..cb((r) => fn(r.p() ? $net.NetAddr.$dec(r) : $nil()), true));
     return $r.hnn(DtlsV3ServerOption.$h);
   }
 
   /// Go: `func dtls.WithPSK(callback dtls.PSKCallback) dtls.Option`.
   DtlsV3Option withPsk(DtlsV3PskCallback callback) {
-    final $r = $callSync(16202, $W()..h(callback));
+    final $r = $callSync(16208, $W()..h(callback));
     return $r.hnn(DtlsV3Option.$h);
   }
 
   /// Go: `func dtls.WithPSKIdentityHint(hint []byte) dtls.Option`.
   DtlsV3Option withPskIdentityHint(Uint8List hint) {
-    final $r = $callSync(16203, $W()..bytes(hint));
+    final $r = $callSync(16209, $W()..bytes(hint));
     return $r.hnn(DtlsV3Option.$h);
   }
 
@@ -912,55 +912,55 @@ extension GoPionDtlsV3OptionsApi on GoPionDtlsV3Options {
   Future<DtlsV3Option> withPaddingLengthGenerator(
       FutureOr<int> Function(int arg0) fn) async {
     final $r = await $call(
-        16204, $W()..cb((r) => fn(r.i64()), true, (w, v) => w.i64(v as int)));
+        16210, $W()..cb((r) => fn(r.i64()), true, (w, v) => w.i64(v as int)));
     return $r.hnn(DtlsV3Option.$h);
   }
 
   /// Go: `func dtls.WithReplayProtectionWindow(window int) dtls.Option`.
   DtlsV3Option withReplayProtectionWindow(int window) {
-    final $r = $callSync(16205, $W()..i64(window));
+    final $r = $callSync(16211, $W()..i64(window));
     return $r.hnn(DtlsV3Option.$h);
   }
 
   /// Go: `func dtls.WithRootCAs(pool *x509.CertPool) dtls.Option`.
   DtlsV3Option withRootCas($x509.CryptoX509CertPool pool) {
-    final $r = $callSync(16206, $W()..h(pool));
+    final $r = $callSync(16212, $W()..h(pool));
     return $r.hnn(DtlsV3Option.$h);
   }
 
   /// Go: `func dtls.WithSRTPMasterKeyIdentifier(identifier []byte) dtls.Option`.
   DtlsV3Option withSrtpMasterKeyIdentifier(Uint8List identifier) {
-    final $r = $callSync(16207, $W()..bytes(identifier));
+    final $r = $callSync(16213, $W()..bytes(identifier));
     return $r.hnn(DtlsV3Option.$h);
   }
 
   /// Go: `func dtls.WithSRTPProtectionProfiles(profiles ...dtls.SRTPProtectionProfile) dtls.Option`.
   DtlsV3Option withSrtpProtectionProfiles([List<int> profiles = const []]) {
-    final $r = $callSync(16208, $W()..list(profiles, (w0, e0) => w0.i64(e0)));
+    final $r = $callSync(16214, $W()..list(profiles, (w0, e0) => w0.i64(e0)));
     return $r.hnn(DtlsV3Option.$h);
   }
 
   /// Go: `func dtls.WithServerName(name string) dtls.Option`.
   DtlsV3Option withServerName(String name) {
-    final $r = $callSync(16209, $W()..str(name));
+    final $r = $callSync(16215, $W()..str(name));
     return $r.hnn(DtlsV3Option.$h);
   }
 
   /// Go: `func dtls.WithSessionStore(store dtls.SessionStore) dtls.Option`.
   DtlsV3Option withSessionStore(DtlsV3SessionStore store) {
-    final $r = $callSync(16210, $W()..h(store));
+    final $r = $callSync(16216, $W()..h(store));
     return $r.hnn(DtlsV3Option.$h);
   }
 
   /// Go: `func dtls.WithSignatureSchemes(schemes ...tls.SignatureScheme) dtls.Option`.
   DtlsV3Option withSignatureSchemes([List<int> schemes = const []]) {
-    final $r = $callSync(16211, $W()..list(schemes, (w0, e0) => w0.i64(e0)));
+    final $r = $callSync(16217, $W()..list(schemes, (w0, e0) => w0.i64(e0)));
     return $r.hnn(DtlsV3Option.$h);
   }
 
   /// Go: `func dtls.WithSupportedProtocols(protocols ...string) dtls.Option`.
   DtlsV3Option withSupportedProtocols([List<String> protocols = const []]) {
-    final $r = $callSync(16212, $W()..list(protocols, (w0, e0) => w0.str(e0)));
+    final $r = $callSync(16218, $W()..list(protocols, (w0, e0) => w0.str(e0)));
     return $r.hnn(DtlsV3Option.$h);
   }
 
@@ -974,7 +974,7 @@ extension GoPionDtlsV3OptionsApi on GoPionDtlsV3Options {
   Future<DtlsV3Option> withVerifyConnection(
       FutureOr<void> Function(DtlsV3State state) fn) async {
     final $r =
-        await $call(16213, $W()..cb((r) => fn(r.hnn(DtlsV3State.$h)), true));
+        await $call(16219, $W()..cb((r) => fn(r.hnn(DtlsV3State.$h)), true));
     return $r.hnn(DtlsV3Option.$h);
   }
 
@@ -990,7 +990,7 @@ extension GoPionDtlsV3OptionsApi on GoPionDtlsV3Options {
               List<List<$x509.CryptoX509Certificate>> verifiedChains)
           fn) async {
     final $r = await $call(
-        16214,
+        16220,
         $W()
           ..cb(
               (r) => fn(

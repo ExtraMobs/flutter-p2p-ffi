@@ -36,43 +36,43 @@ class TransportV3VnetChunk extends GoHandle with TransportV3VnetChunk$ {
 mixin TransportV3VnetChunk$ on GoHandle {
   /// Go: `func (vnet.Chunk).Clone() vnet.Chunk`.
   TransportV3VnetChunk clone() {
-    final $r = $callSync(17365, $W()..h(this));
+    final $r = $callSync(17371, $W()..h(this));
     return $r.hnn(TransportV3VnetChunk.$h);
   }
 
   /// Go: `func (vnet.Chunk).DestinationAddr() net.Addr`.
   $net.NetAddr destinationAddr() {
-    final $r = $callSync(17366, $W()..h(this));
+    final $r = $callSync(17372, $W()..h(this));
     return $r.p() ? $net.NetAddr.$dec($r) : $nil();
   }
 
   /// Go: `func (vnet.Chunk).Network() string`.
   String network() {
-    final $r = $callSync(17367, $W()..h(this));
+    final $r = $callSync(17373, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (vnet.Chunk).SourceAddr() net.Addr`.
   $net.NetAddr sourceAddr() {
-    final $r = $callSync(17368, $W()..h(this));
+    final $r = $callSync(17374, $W()..h(this));
     return $r.p() ? $net.NetAddr.$dec($r) : $nil();
   }
 
   /// Go: `func (vnet.Chunk).String() string`.
   String string() {
-    final $r = $callSync(17369, $W()..h(this));
+    final $r = $callSync(17375, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (vnet.Chunk).Tag() string`.
   String tag() {
-    final $r = $callSync(17370, $W()..h(this));
+    final $r = $callSync(17376, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (vnet.Chunk).UserData() []byte`.
   Uint8List userData() {
-    final $r = $callSync(17371, $W()..h(this));
+    final $r = $callSync(17377, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 }
@@ -100,7 +100,7 @@ class TransportV3VnetDelayFilter extends TransportV3VnetNic
   /// Go: `func vnet.NewDelayFilter(nic vnet.NIC, delay time.Duration) (*vnet.DelayFilter, error)`.
   factory TransportV3VnetDelayFilter(TransportV3VnetNic nic, Duration delay) {
     final $r = $callSync(
-        17386,
+        17392,
         $W()
           ..h(nic)
           ..i64((delay).inMicroseconds * 1000));
@@ -112,7 +112,7 @@ class TransportV3VnetDelayFilter extends TransportV3VnetNic
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> run($context.Context ctx) async {
     await $call(
-        17372,
+        17378,
         $W()
           ..h(this)
           ..h(ctx));
@@ -142,7 +142,7 @@ class TransportV3VnetLossFilter extends TransportV3VnetNic
   /// Go: `func vnet.NewLossFilter(nic vnet.NIC, chance int) (*vnet.LossFilter, error)`.
   factory TransportV3VnetLossFilter(TransportV3VnetNic nic, int chance) {
     final $r = $callSync(
-        17387,
+        17393,
         $W()
           ..h(nic)
           ..i64(chance));
@@ -213,31 +213,31 @@ class TransportV3VnetNic extends GoHandle with TransportV3VnetNic$ {
 mixin TransportV3VnetNic$ on GoHandle {
   /// Go: type assertion `x.(*vnet.DelayFilter)`: null if the object is not one.
   TransportV3VnetDelayFilter? asTransportV3VnetDelayFilter() {
-    final $r = $callSync(1624, $W()..h(this));
+    final $r = $callSync(1629, $W()..h(this));
     return $r.hn(TransportV3VnetDelayFilter.$h);
   }
 
   /// Go: type assertion `x.(*vnet.LossFilter)`: null if the object is not one.
   TransportV3VnetLossFilter? asTransportV3VnetLossFilter() {
-    final $r = $callSync(1625, $W()..h(this));
+    final $r = $callSync(1630, $W()..h(this));
     return $r.hn(TransportV3VnetLossFilter.$h);
   }
 
   /// Go: type assertion `x.(*vnet.Net)`: null if the object is not one.
   TransportV3VnetNet? asTransportV3VnetNet() {
-    final $r = $callSync(1626, $W()..h(this));
+    final $r = $callSync(1631, $W()..h(this));
     return $r.hn(TransportV3VnetNet.$h);
   }
 
   /// Go: type assertion `x.(*vnet.Router)`: null if the object is not one.
   TransportV3VnetRouter? asTransportV3VnetRouter() {
-    final $r = $callSync(1627, $W()..h(this));
+    final $r = $callSync(1632, $W()..h(this));
     return $r.hn(TransportV3VnetRouter.$h);
   }
 
   /// Go: type assertion `x.(*vnet.TokenBucketFilter)`: null if the object is not one.
   TransportV3VnetTokenBucketFilter? asTransportV3VnetTokenBucketFilter() {
-    final $r = $callSync(1628, $W()..h(this));
+    final $r = $callSync(1633, $W()..h(this));
     return $r.hn(TransportV3VnetTokenBucketFilter.$h);
   }
 }
@@ -272,14 +272,14 @@ class TransportV3VnetNet extends $v3.TransportV3Net
 
   /// Go: `func vnet.NewNet(config *vnet.NetConfig) (*vnet.Net, error)`.
   factory TransportV3VnetNet(TransportV3VnetNetConfig config) {
-    final $r = $callSync(17388, $W()..dto(config));
+    final $r = $callSync(17394, $W()..dto(config));
     return $r.hnn(TransportV3VnetNet.$h);
   }
 
   /// Go: `func (*vnet.Net).CreateDialer(d *net.Dialer) transport.Dialer`.
   $v3.TransportV3Dialer createDialer($net.NetDialer d) {
     final $r = $callSync(
-        17373,
+        17379,
         $W()
           ..h(this)
           ..h(d));
@@ -289,7 +289,7 @@ class TransportV3VnetNet extends $v3.TransportV3Net
   /// Go: `func (*vnet.Net).Dial(network string, address string) (net.Conn, error)`.
   $net.NetConn dial(String network, String address) {
     final $r = $callSync(
-        17374,
+        17380,
         $W()
           ..h(this)
           ..str(network)
@@ -301,7 +301,7 @@ class TransportV3VnetNet extends $v3.TransportV3Net
   $v3.TransportV3TcpConn dialTcp(
       String arg0, $net.NetTcpAddr tcpAddr, $net.NetTcpAddr tcpAddr2) {
     final $r = $callSync(
-        17375,
+        17381,
         $W()
           ..h(this)
           ..str(arg0)
@@ -314,7 +314,7 @@ class TransportV3VnetNet extends $v3.TransportV3Net
   $v3.TransportV3UdpConn dialUdp(
       String network, $net.NetUdpAddr locAddr, $net.NetUdpAddr remAddr) {
     final $r = $callSync(
-        17376,
+        17382,
         $W()
           ..h(this)
           ..str(network)
@@ -326,7 +326,7 @@ class TransportV3VnetNet extends $v3.TransportV3Net
   /// Go: `func (*vnet.Net).InterfaceByIndex(index int) (*transport.Interface, error)`.
   $v3.TransportV3Interface interfaceByIndex(int index) {
     final $r = $callSync(
-        17377,
+        17383,
         $W()
           ..h(this)
           ..i64(index));
@@ -336,7 +336,7 @@ class TransportV3VnetNet extends $v3.TransportV3Net
   /// Go: `func (*vnet.Net).InterfaceByName(ifName string) (*transport.Interface, error)`.
   $v3.TransportV3Interface interfaceByName(String ifName) {
     final $r = $callSync(
-        17378,
+        17384,
         $W()
           ..h(this)
           ..str(ifName));
@@ -345,14 +345,14 @@ class TransportV3VnetNet extends $v3.TransportV3Net
 
   /// Go: `func (*vnet.Net).Interfaces() ([]*transport.Interface, error)`.
   List<$v3.TransportV3Interface> interfaces() {
-    final $r = $callSync(17379, $W()..h(this));
+    final $r = $callSync(17385, $W()..h(this));
     return $r.list(() => $r.hnn($v3.TransportV3Interface.$h));
   }
 
   /// Go: `func (*vnet.Net).ListenPacket(network string, address string) (net.PacketConn, error)`.
   $net.NetPacketConn listenPacket(String network, String address) {
     final $r = $callSync(
-        17380,
+        17386,
         $W()
           ..h(this)
           ..str(network)
@@ -363,7 +363,7 @@ class TransportV3VnetNet extends $v3.TransportV3Net
   /// Go: `func (*vnet.Net).ListenTCP(string, *net.TCPAddr) (transport.TCPListener, error)`.
   $v3.TransportV3TcpListener listenTcp(String arg0, $net.NetTcpAddr tcpAddr) {
     final $r = $callSync(
-        17381,
+        17387,
         $W()
           ..h(this)
           ..str(arg0)
@@ -374,7 +374,7 @@ class TransportV3VnetNet extends $v3.TransportV3Net
   /// Go: `func (*vnet.Net).ListenUDP(network string, locAddr *net.UDPAddr) (transport.UDPConn, error)`.
   $v3.TransportV3UdpConn listenUdp(String network, $net.NetUdpAddr locAddr) {
     final $r = $callSync(
-        17382,
+        17388,
         $W()
           ..h(this)
           ..str(network)
@@ -385,7 +385,7 @@ class TransportV3VnetNet extends $v3.TransportV3Net
   /// Go: `func (*vnet.Net).ResolveIPAddr(_ string, address string) (*net.IPAddr, error)`.
   $net.NetIpAddr resolveIpAddr(String arg0, String address) {
     final $r = $callSync(
-        17383,
+        17389,
         $W()
           ..h(this)
           ..str(arg0)
@@ -396,7 +396,7 @@ class TransportV3VnetNet extends $v3.TransportV3Net
   /// Go: `func (*vnet.Net).ResolveTCPAddr(network string, address string) (*net.TCPAddr, error)`.
   $net.NetTcpAddr resolveTcpAddr(String network, String address) {
     final $r = $callSync(
-        17384,
+        17390,
         $W()
           ..h(this)
           ..str(network)
@@ -407,7 +407,7 @@ class TransportV3VnetNet extends $v3.TransportV3Net
   /// Go: `func (*vnet.Net).ResolveUDPAddr(network string, address string) (*net.UDPAddr, error)`.
   $net.NetUdpAddr resolveUdpAddr(String network, String address) {
     final $r = $callSync(
-        17385,
+        17391,
         $W()
           ..h(this)
           ..str(network)
@@ -462,14 +462,14 @@ class TransportV3VnetRouter extends TransportV3VnetNic
 
   /// Go: `func vnet.NewRouter(config *vnet.RouterConfig) (*vnet.Router, error)`.
   factory TransportV3VnetRouter(TransportV3VnetRouterConfig config) {
-    final $r = $callSync(17390, $W()..dto(config));
+    final $r = $callSync(17396, $W()..dto(config));
     return $r.hnn(TransportV3VnetRouter.$h);
   }
 
   /// Go: `func (*vnet.Router).AddChildRouter(router *vnet.Router) error`.
   void addChildRouter(TransportV3VnetRouter router) {
     $callSync(
-        17392,
+        17398,
         $W()
           ..h(this)
           ..h(router));
@@ -485,7 +485,7 @@ class TransportV3VnetRouter extends TransportV3VnetNic
   Future<void> addChunkFilter(
       FutureOr<bool> Function(TransportV3VnetChunk c) filter) async {
     await $call(
-        17393,
+        17399,
         $W()
           ..h(this)
           ..cb((r) => filter(r.hnn(TransportV3VnetChunk.$h)), true));
@@ -494,7 +494,7 @@ class TransportV3VnetRouter extends TransportV3VnetNic
   /// Go: `func (*vnet.Router).AddHost(hostName string, ipAddr string) error`.
   void addHost(String hostName, String ipAddr) {
     $callSync(
-        17394,
+        17400,
         $W()
           ..h(this)
           ..str(hostName)
@@ -504,7 +504,7 @@ class TransportV3VnetRouter extends TransportV3VnetNic
   /// Go: `func (*vnet.Router).AddNet(nic vnet.NIC) error`.
   void addNet(TransportV3VnetNic nic) {
     $callSync(
-        17395,
+        17401,
         $W()
           ..h(this)
           ..h(nic));
@@ -513,7 +513,7 @@ class TransportV3VnetRouter extends TransportV3VnetNic
   /// Go: `func (*vnet.Router).AddRouter(router *vnet.Router) error`.
   void addRouter(TransportV3VnetRouter router) {
     $callSync(
-        17396,
+        17402,
         $W()
           ..h(this)
           ..h(router));
@@ -521,12 +521,12 @@ class TransportV3VnetRouter extends TransportV3VnetNic
 
   /// Go: `func (*vnet.Router).Start() error`.
   void start() {
-    $callSync(17397, $W()..h(this));
+    $callSync(17403, $W()..h(this));
   }
 
   /// Go: `func (*vnet.Router).Stop() error`.
   void stop() {
-    $callSync(17398, $W()..h(this));
+    $callSync(17404, $W()..h(this));
   }
 }
 
@@ -652,7 +652,7 @@ class TransportV3VnetTokenBucketFilter extends $io.IoCloser
   factory TransportV3VnetTokenBucketFilter(TransportV3VnetNic n,
       [List<TransportV3VnetTbfOption> opts = const []]) {
     final $r = $callSync(
-        17391,
+        17397,
         $W()
           ..h(n)
           ..list(opts, (w0, e0) => w0.h(e0)));
@@ -661,14 +661,14 @@ class TransportV3VnetTokenBucketFilter extends $io.IoCloser
 
   /// Go: `func (*vnet.TokenBucketFilter).Close() error`.
   void close() {
-    $callSync(17402, $W()..h(this));
+    $callSync(17408, $W()..h(this));
   }
 
   /// Go: `func (*vnet.TokenBucketFilter).Set(opts ...vnet.TBFOption) (previous vnet.TBFOption)`.
   TransportV3VnetTbfOption set(
       [List<TransportV3VnetTbfOption> opts = const []]) {
     final $r = $callSync(
-        17403,
+        17409,
         $W()
           ..h(this)
           ..list(opts, (w0, e0) => w0.h(e0)));
@@ -712,19 +712,19 @@ class TransportV3VnetUdpConn extends $v3.TransportV3UdpConn
 
   /// Go: `func (*vnet.UDPConn).Close() error`.
   void close() {
-    $callSync(17404, $W()..h(this));
+    $callSync(17410, $W()..h(this));
   }
 
   /// Go: `func (*vnet.UDPConn).LocalAddr() net.Addr`.
   $net.NetAddr localAddr() {
-    final $r = $callSync(17405, $W()..h(this));
+    final $r = $callSync(17411, $W()..h(this));
     return $r.p() ? $net.NetAddr.$dec($r) : $nil();
   }
 
   /// Go: `func (*vnet.UDPConn).Read(b []byte) (int, error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        17406,
+        17412,
         $W()
           ..h(this)
           ..i64(n));
@@ -734,7 +734,7 @@ class TransportV3VnetUdpConn extends $v3.TransportV3UdpConn
   /// Go: `func (*vnet.UDPConn).ReadFrom(p []byte) (n int, addr net.Addr, err error)`.
   (int, $net.NetAddr) readFrom(Uint8List p) {
     final $r = $callSync(
-        17407,
+        17413,
         $W()
           ..h(this)
           ..bytes(p));
@@ -744,7 +744,7 @@ class TransportV3VnetUdpConn extends $v3.TransportV3UdpConn
   /// Go: `func (*vnet.UDPConn).ReadFromUDP(b []byte) (int, *net.UDPAddr, error)`.
   (int, $net.NetUdpAddr) readFromUdp(Uint8List b) {
     final $r = $callSync(
-        17408,
+        17414,
         $W()
           ..h(this)
           ..bytes(b));
@@ -754,7 +754,7 @@ class TransportV3VnetUdpConn extends $v3.TransportV3UdpConn
   /// Go: `func (*vnet.UDPConn).ReadMsgUDP([]byte, []byte) (n int, oobn int, flags int, addr *net.UDPAddr, err error)`.
   (int, int, int, $net.NetUdpAddr) readMsgUdp(Uint8List arg0, Uint8List arg1) {
     final $r = $callSync(
-        17409,
+        17415,
         $W()
           ..h(this)
           ..bytes(arg0)
@@ -769,14 +769,14 @@ class TransportV3VnetUdpConn extends $v3.TransportV3UdpConn
 
   /// Go: `func (*vnet.UDPConn).RemoteAddr() net.Addr`.
   $net.NetAddr remoteAddr() {
-    final $r = $callSync(17410, $W()..h(this));
+    final $r = $callSync(17416, $W()..h(this));
     return $r.p() ? $net.NetAddr.$dec($r) : $nil();
   }
 
   /// Go: `func (*vnet.UDPConn).SetDeadline(t time.Time) error`.
   void setDeadline(DateTime t) {
     $callSync(
-        17411,
+        17417,
         $W()
           ..h(this)
           ..time(t));
@@ -785,7 +785,7 @@ class TransportV3VnetUdpConn extends $v3.TransportV3UdpConn
   /// Go: `func (*vnet.UDPConn).SetReadBuffer(int) error`.
   void setReadBuffer(int arg0) {
     $callSync(
-        17412,
+        17418,
         $W()
           ..h(this)
           ..i64(arg0));
@@ -794,7 +794,7 @@ class TransportV3VnetUdpConn extends $v3.TransportV3UdpConn
   /// Go: `func (*vnet.UDPConn).SetReadDeadline(t time.Time) error`.
   void setReadDeadline(DateTime t) {
     $callSync(
-        17413,
+        17419,
         $W()
           ..h(this)
           ..time(t));
@@ -803,7 +803,7 @@ class TransportV3VnetUdpConn extends $v3.TransportV3UdpConn
   /// Go: `func (*vnet.UDPConn).SetWriteBuffer(int) error`.
   void setWriteBuffer(int arg0) {
     $callSync(
-        17414,
+        17420,
         $W()
           ..h(this)
           ..i64(arg0));
@@ -812,7 +812,7 @@ class TransportV3VnetUdpConn extends $v3.TransportV3UdpConn
   /// Go: `func (*vnet.UDPConn).SetWriteDeadline(time.Time) error`.
   void setWriteDeadline(DateTime time) {
     $callSync(
-        17415,
+        17421,
         $W()
           ..h(this)
           ..time(time));
@@ -821,7 +821,7 @@ class TransportV3VnetUdpConn extends $v3.TransportV3UdpConn
   /// Go: `func (*vnet.UDPConn).Write(b []byte) (int, error)`.
   int write(Uint8List b) {
     final $r = $callSync(
-        17416,
+        17422,
         $W()
           ..h(this)
           ..bytes(b));
@@ -832,7 +832,7 @@ class TransportV3VnetUdpConn extends $v3.TransportV3UdpConn
   (int, int) writeMsgUdp(
       Uint8List arg0, Uint8List arg1, $net.NetUdpAddr udpAddr) {
     final $r = $callSync(
-        17417,
+        17423,
         $W()
           ..h(this)
           ..bytes(arg0)
@@ -844,7 +844,7 @@ class TransportV3VnetUdpConn extends $v3.TransportV3UdpConn
   /// Go: `func (*vnet.UDPConn).WriteTo(p []byte, addr net.Addr) (n int, err error)`.
   int writeTo(Uint8List p, $net.NetAddr addr) {
     final $r = $callSync(
-        17418,
+        17424,
         $W()
           ..h(this)
           ..bytes(p)
@@ -855,7 +855,7 @@ class TransportV3VnetUdpConn extends $v3.TransportV3UdpConn
   /// Go: `func (*vnet.UDPConn).WriteToUDP(b []byte, addr *net.UDPAddr) (int, error)`.
   int writeToUdp(Uint8List b, $net.NetUdpAddr addr) {
     final $r = $callSync(
-        17419,
+        17425,
         $W()
           ..h(this)
           ..bytes(b)
@@ -888,13 +888,13 @@ class TransportV3VnetUdpProxy extends $io.IoCloser
 
   /// Go: `func (*vnet.UDPProxy).Close() error`.
   void close() {
-    $callSync(17420, $W()..h(this));
+    $callSync(17426, $W()..h(this));
   }
 
   /// Go: `func (*vnet.UDPProxy).Deliver(sourceAddr net.Addr, destAddr net.Addr, b []byte) (nn int, err error)`.
   int deliver($net.NetAddr sourceAddr, $net.NetAddr destAddr, Uint8List b) {
     final $r = $callSync(
-        17421,
+        17427,
         $W()
           ..h(this)
           ..dto(sourceAddr)
@@ -906,7 +906,7 @@ class TransportV3VnetUdpProxy extends $io.IoCloser
   /// Go: `func (*vnet.UDPProxy).Proxy(client *vnet.Net, server *net.UDPAddr) error`.
   void proxy(TransportV3VnetNet client, $net.NetUdpAddr server) {
     $callSync(
-        17422,
+        17428,
         $W()
           ..h(this)
           ..h(client)
@@ -918,7 +918,7 @@ class TransportV3VnetUdpProxy extends $io.IoCloser
 extension GoPionTransportV3VnetApi on GoPionTransportV3Vnet {
   /// Go: `func vnet.NewProxy(router *vnet.Router) (*vnet.UDPProxy, error)`.
   TransportV3VnetUdpProxy newProxy(TransportV3VnetRouter router) {
-    final $r = $callSync(17389, $W()..h(router));
+    final $r = $callSync(17395, $W()..h(router));
     return $r.hnn(TransportV3VnetUdpProxy.$h);
   }
 }
@@ -957,19 +957,19 @@ extension GoPionTransportV3VnetEnumsApi on GoPionTransportV3VnetEnums {
 extension GoPionTransportV3VnetOptionsApi on GoPionTransportV3VnetOptions {
   /// Go: `func vnet.TBFMaxBurst(size int) vnet.TBFOption`.
   TransportV3VnetTbfOption tbfMaxBurst(int size) {
-    final $r = $callSync(17399, $W()..i64(size));
+    final $r = $callSync(17405, $W()..i64(size));
     return $r.hnn(TransportV3VnetTbfOption.$h);
   }
 
   /// Go: `func vnet.TBFQueueSizeInBytes(bytes int) vnet.TBFOption`.
   TransportV3VnetTbfOption tbfQueueSizeInBytes(int bytes) {
-    final $r = $callSync(17400, $W()..i64(bytes));
+    final $r = $callSync(17406, $W()..i64(bytes));
     return $r.hnn(TransportV3VnetTbfOption.$h);
   }
 
   /// Go: `func vnet.TBFRate(rate int) vnet.TBFOption`.
   TransportV3VnetTbfOption tbfRate(int rate) {
-    final $r = $callSync(17401, $W()..i64(rate));
+    final $r = $callSync(17407, $W()..i64(rate));
     return $r.hnn(TransportV3VnetTbfOption.$h);
   }
 }

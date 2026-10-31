@@ -34,7 +34,7 @@ class LoggingDefaultLeveledLogger extends LoggingLeveledLogger
   /// Go: `func (*logging.DefaultLeveledLogger).Debug(msg string)`.
   void debug(String msg) {
     $callSync(
-        16733,
+        16739,
         $W()
           ..h(this)
           ..str(msg));
@@ -43,7 +43,7 @@ class LoggingDefaultLeveledLogger extends LoggingLeveledLogger
   /// Go: `func (*logging.DefaultLeveledLogger).Debugf(format string, args ...any)`.
   void debugf(String format, [List<Object?> args = const []]) {
     $callSync(
-        16734,
+        16740,
         $W()
           ..h(this)
           ..str(format)
@@ -53,7 +53,7 @@ class LoggingDefaultLeveledLogger extends LoggingLeveledLogger
   /// Go: `func (*logging.DefaultLeveledLogger).Error(msg string)`.
   void error(String msg) {
     $callSync(
-        16735,
+        16741,
         $W()
           ..h(this)
           ..str(msg));
@@ -62,7 +62,7 @@ class LoggingDefaultLeveledLogger extends LoggingLeveledLogger
   /// Go: `func (*logging.DefaultLeveledLogger).Errorf(format string, args ...any)`.
   void errorf(String format, [List<Object?> args = const []]) {
     $callSync(
-        16736,
+        16742,
         $W()
           ..h(this)
           ..str(format)
@@ -72,7 +72,7 @@ class LoggingDefaultLeveledLogger extends LoggingLeveledLogger
   /// Go: `func (*logging.DefaultLeveledLogger).Info(msg string)`.
   void info(String msg) {
     $callSync(
-        16737,
+        16743,
         $W()
           ..h(this)
           ..str(msg));
@@ -81,7 +81,7 @@ class LoggingDefaultLeveledLogger extends LoggingLeveledLogger
   /// Go: `func (*logging.DefaultLeveledLogger).Infof(format string, args ...any)`.
   void infof(String format, [List<Object?> args = const []]) {
     $callSync(
-        16738,
+        16744,
         $W()
           ..h(this)
           ..str(format)
@@ -91,7 +91,7 @@ class LoggingDefaultLeveledLogger extends LoggingLeveledLogger
   /// Go: `func (*logging.DefaultLeveledLogger).SetLevel(newLevel logging.LogLevel)`.
   void setLevel(int newLevel) {
     $callSync(
-        16739,
+        16745,
         $W()
           ..h(this)
           ..i64(newLevel));
@@ -100,7 +100,7 @@ class LoggingDefaultLeveledLogger extends LoggingLeveledLogger
   /// Go: `func (*logging.DefaultLeveledLogger).Trace(msg string)`.
   void trace(String msg) {
     $callSync(
-        16740,
+        16746,
         $W()
           ..h(this)
           ..str(msg));
@@ -109,7 +109,7 @@ class LoggingDefaultLeveledLogger extends LoggingLeveledLogger
   /// Go: `func (*logging.DefaultLeveledLogger).Tracef(format string, args ...any)`.
   void tracef(String format, [List<Object?> args = const []]) {
     $callSync(
-        16741,
+        16747,
         $W()
           ..h(this)
           ..str(format)
@@ -119,7 +119,7 @@ class LoggingDefaultLeveledLogger extends LoggingLeveledLogger
   /// Go: `func (*logging.DefaultLeveledLogger).Warn(msg string)`.
   void warn(String msg) {
     $callSync(
-        16742,
+        16748,
         $W()
           ..h(this)
           ..str(msg));
@@ -128,7 +128,7 @@ class LoggingDefaultLeveledLogger extends LoggingLeveledLogger
   /// Go: `func (*logging.DefaultLeveledLogger).Warnf(format string, args ...any)`.
   void warnf(String format, [List<Object?> args = const []]) {
     $callSync(
-        16743,
+        16749,
         $W()
           ..h(this)
           ..str(format)
@@ -138,7 +138,7 @@ class LoggingDefaultLeveledLogger extends LoggingLeveledLogger
   /// Go: `func (*logging.DefaultLeveledLogger).WithDebugLogger(log *log.Logger) *logging.DefaultLeveledLogger`.
   LoggingDefaultLeveledLogger withDebugLogger($log.LogLogger log) {
     final $r = $callSync(
-        16744,
+        16750,
         $W()
           ..h(this)
           ..h(log));
@@ -148,7 +148,7 @@ class LoggingDefaultLeveledLogger extends LoggingLeveledLogger
   /// Go: `func (*logging.DefaultLeveledLogger).WithErrorLogger(log *log.Logger) *logging.DefaultLeveledLogger`.
   LoggingDefaultLeveledLogger withErrorLogger($log.LogLogger log) {
     final $r = $callSync(
-        16745,
+        16751,
         $W()
           ..h(this)
           ..h(log));
@@ -158,7 +158,7 @@ class LoggingDefaultLeveledLogger extends LoggingLeveledLogger
   /// Go: `func (*logging.DefaultLeveledLogger).WithInfoLogger(log *log.Logger) *logging.DefaultLeveledLogger`.
   LoggingDefaultLeveledLogger withInfoLogger($log.LogLogger log) {
     final $r = $callSync(
-        16746,
+        16752,
         $W()
           ..h(this)
           ..h(log));
@@ -168,7 +168,7 @@ class LoggingDefaultLeveledLogger extends LoggingLeveledLogger
   /// Go: `func (*logging.DefaultLeveledLogger).WithOutput(output io.Writer) *logging.DefaultLeveledLogger`.
   LoggingDefaultLeveledLogger withOutput(GoHandle? output) {
     final $r = $callSync(
-        16747,
+        16753,
         $W()
           ..h(this)
           ..h(output));
@@ -178,7 +178,7 @@ class LoggingDefaultLeveledLogger extends LoggingLeveledLogger
   /// Go: `func (*logging.DefaultLeveledLogger).WithTraceLogger(log *log.Logger) *logging.DefaultLeveledLogger`.
   LoggingDefaultLeveledLogger withTraceLogger($log.LogLogger log) {
     final $r = $callSync(
-        16748,
+        16754,
         $W()
           ..h(this)
           ..h(log));
@@ -188,7 +188,7 @@ class LoggingDefaultLeveledLogger extends LoggingLeveledLogger
   /// Go: `func (*logging.DefaultLeveledLogger).WithWarnLogger(log *log.Logger) *logging.DefaultLeveledLogger`.
   LoggingDefaultLeveledLogger withWarnLogger($log.LogLogger log) {
     final $r = $callSync(
-        16749,
+        16755,
         $W()
           ..h(this)
           ..h(log));
@@ -225,7 +225,7 @@ final class LoggingDefaultLoggerFactory implements GoDto {
   /// Go: `func (*logging.DefaultLoggerFactory).NewLogger(scope string) logging.LeveledLogger`.
   LoggingLeveledLogger newLogger(String scope) {
     final $r = $callSync(
-        16750,
+        16756,
         $W()
           ..dto(this)
           ..str(scope));
@@ -243,7 +243,7 @@ mixin LoggingLeveledLogger$ on GoHandle {
   /// Go: `func (logging.LeveledLogger).Debug(msg string)`.
   void debug(String msg) {
     $callSync(
-        16751,
+        16757,
         $W()
           ..h(this)
           ..str(msg));
@@ -252,7 +252,7 @@ mixin LoggingLeveledLogger$ on GoHandle {
   /// Go: `func (logging.LeveledLogger).Debugf(format string, args ...any)`.
   void debugf(String format, [List<Object?> args = const []]) {
     $callSync(
-        16752,
+        16758,
         $W()
           ..h(this)
           ..str(format)
@@ -262,7 +262,7 @@ mixin LoggingLeveledLogger$ on GoHandle {
   /// Go: `func (logging.LeveledLogger).Error(msg string)`.
   void error(String msg) {
     $callSync(
-        16753,
+        16759,
         $W()
           ..h(this)
           ..str(msg));
@@ -271,7 +271,7 @@ mixin LoggingLeveledLogger$ on GoHandle {
   /// Go: `func (logging.LeveledLogger).Errorf(format string, args ...any)`.
   void errorf(String format, [List<Object?> args = const []]) {
     $callSync(
-        16754,
+        16760,
         $W()
           ..h(this)
           ..str(format)
@@ -281,7 +281,7 @@ mixin LoggingLeveledLogger$ on GoHandle {
   /// Go: `func (logging.LeveledLogger).Info(msg string)`.
   void info(String msg) {
     $callSync(
-        16755,
+        16761,
         $W()
           ..h(this)
           ..str(msg));
@@ -290,7 +290,7 @@ mixin LoggingLeveledLogger$ on GoHandle {
   /// Go: `func (logging.LeveledLogger).Infof(format string, args ...any)`.
   void infof(String format, [List<Object?> args = const []]) {
     $callSync(
-        16756,
+        16762,
         $W()
           ..h(this)
           ..str(format)
@@ -300,7 +300,7 @@ mixin LoggingLeveledLogger$ on GoHandle {
   /// Go: `func (logging.LeveledLogger).Trace(msg string)`.
   void trace(String msg) {
     $callSync(
-        16757,
+        16763,
         $W()
           ..h(this)
           ..str(msg));
@@ -309,7 +309,7 @@ mixin LoggingLeveledLogger$ on GoHandle {
   /// Go: `func (logging.LeveledLogger).Tracef(format string, args ...any)`.
   void tracef(String format, [List<Object?> args = const []]) {
     $callSync(
-        16758,
+        16764,
         $W()
           ..h(this)
           ..str(format)
@@ -319,7 +319,7 @@ mixin LoggingLeveledLogger$ on GoHandle {
   /// Go: `func (logging.LeveledLogger).Warn(msg string)`.
   void warn(String msg) {
     $callSync(
-        16759,
+        16765,
         $W()
           ..h(this)
           ..str(msg));
@@ -328,7 +328,7 @@ mixin LoggingLeveledLogger$ on GoHandle {
   /// Go: `func (logging.LeveledLogger).Warnf(format string, args ...any)`.
   void warnf(String format, [List<Object?> args = const []]) {
     $callSync(
-        16760,
+        16766,
         $W()
           ..h(this)
           ..str(format)
@@ -337,7 +337,7 @@ mixin LoggingLeveledLogger$ on GoHandle {
 
   /// Go: type assertion `x.(*logging.DefaultLeveledLogger)`: null if the object is not one.
   LoggingDefaultLeveledLogger? asLoggingDefaultLeveledLogger() {
-    final $r = $callSync(1587, $W()..h(this));
+    final $r = $callSync(1592, $W()..h(this));
     return $r.hn(LoggingDefaultLeveledLogger.$h);
   }
 }
@@ -352,7 +352,7 @@ mixin LoggingLoggerFactory$ on GoHandle {
   /// Go: `func (logging.LoggerFactory).NewLogger(scope string) logging.LeveledLogger`.
   LoggingLeveledLogger newLogger(String scope) {
     final $r = $callSync(
-        16761,
+        16767,
         $W()
           ..h(this)
           ..str(scope));
@@ -366,7 +366,7 @@ extension GoPionLoggingApi on GoPionLogging {
   LoggingDefaultLeveledLogger newDefaultLeveledLoggerForScope(
       String scope, int level, GoHandle? writer) {
     final $r = $callSync(
-        16762,
+        16768,
         $W()
           ..str(scope)
           ..i64(level)
@@ -376,7 +376,7 @@ extension GoPionLoggingApi on GoPionLogging {
 
   /// Go: `func logging.NewDefaultLoggerFactory() *logging.DefaultLoggerFactory`.
   LoggingDefaultLoggerFactory newDefaultLoggerFactory() {
-    final $r = $callSync(16763);
+    final $r = $callSync(16769);
     return $r.p() ? LoggingDefaultLoggerFactory.$dec($r) : $nil();
   }
 }

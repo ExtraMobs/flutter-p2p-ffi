@@ -87,14 +87,14 @@ final class KuboCoreCommandsPinServicesList implements GoDto {
 
   /// Go: `func (pin.PinServicesList).Len() int`.
   int len() {
-    final $r = $callSync(11422, $W()..dto(this));
+    final $r = $callSync(11428, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (pin.PinServicesList).Less(i int, j int) bool`.
   bool less(int i, int j) {
     final $r = $callSync(
-        11423,
+        11429,
         $W()
           ..dto(this)
           ..i64(i)
@@ -105,7 +105,7 @@ final class KuboCoreCommandsPinServicesList implements GoDto {
   /// Go: `func (pin.PinServicesList).Swap(i int, j int)`.
   void swap(int i, int j) {
     $callSync(
-        11424,
+        11430,
         $W()
           ..dto(this)
           ..i64(i)
@@ -172,7 +172,7 @@ final class KuboCoreCommandsPinVerifyRes implements GoDto {
   /// Go: `func (pin.PinVerifyRes).Format(out io.Writer)`.
   void format(GoHandle? out) {
     $callSync(
-        11425,
+        11431,
         $W()
           ..dto(this)
           ..h(out));
@@ -317,7 +317,7 @@ final class KuboCoreCommandsPinOutput {
 extension GoIpfsKuboCoreCommandsPinApi on GoIpfsKuboCoreCommandsPin {
   /// Go: `var pin.PinCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get pinCmd {
-    final $r = $callSync(11421);
+    final $r = $callSync(11427);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 }

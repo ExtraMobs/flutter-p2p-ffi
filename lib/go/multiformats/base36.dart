@@ -12,19 +12,19 @@ import 'package:p2p_ffi/src/runtime.dart';
 extension GoMultiformatsBase36Api on GoMultiformatsBase36 {
   /// Go: `func base36.DecodeString(s string) ([]byte, error)`.
   Uint8List decodeString(String s) {
-    final $r = $callSync(15805, $W()..str(s));
+    final $r = $callSync(15811, $W()..str(s));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func base36.EncodeToStringLc(b []byte) string`.
   String encodeToStringLc(Uint8List b) {
-    final $r = $callSync(15806, $W()..bytes(b));
+    final $r = $callSync(15812, $W()..bytes(b));
     return $r.str();
   }
 
   /// Go: `func base36.EncodeToStringUc(b []byte) string`.
   String encodeToStringUc(Uint8List b) {
-    final $r = $callSync(15807, $W()..bytes(b));
+    final $r = $callSync(15813, $W()..bytes(b));
     return $r.str();
   }
 }

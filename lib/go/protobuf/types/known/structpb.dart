@@ -50,55 +50,55 @@ class ProtobufTypesKnownStructpbListValue
 
   /// Go: `func (*structpb.ListValue).AsSlice() []any`.
   List<Object?> asSlice() {
-    final $r = $callSync(25500, $W()..h(this));
+    final $r = $callSync(25506, $W()..h(this));
     return $r.list(() => $r.any());
   }
 
   /// Go: `func (*structpb.ListValue).Descriptor() ([]byte, []int)`.
   @Deprecated("Use ListValue.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(25501, $W()..h(this));
+    final $r = $callSync(25507, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*structpb.ListValue).GetValues() []*structpb.Value`.
   List<ProtobufTypesKnownStructpbValue> getValues() {
-    final $r = $callSync(25502, $W()..h(this));
+    final $r = $callSync(25508, $W()..h(this));
     return $r.list(() => $r.hnn(ProtobufTypesKnownStructpbValue.$h));
   }
 
   /// Go: `func (*structpb.ListValue).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(25503, $W()..h(this));
+    final $r = $callSync(25509, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*structpb.ListValue).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25504, $W()..h(this));
+    $callSync(25510, $W()..h(this));
   }
 
   /// Go: `func (*structpb.ListValue).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(25505, $W()..h(this));
+    final $r = $callSync(25511, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*structpb.ListValue).Reset()`.
   void reset() {
-    $callSync(25506, $W()..h(this));
+    $callSync(25512, $W()..h(this));
   }
 
   /// Go: `func (*structpb.ListValue).String() string`.
   String string() {
-    final $r = $callSync(25507, $W()..h(this));
+    final $r = $callSync(25513, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*structpb.ListValue).UnmarshalJSON(b []byte) error`.
   void unmarshalJson(Uint8List b) {
     $callSync(
-        25508,
+        25514,
         $W()
           ..h(this)
           ..bytes(b));
@@ -137,62 +137,62 @@ class ProtobufTypesKnownStructpbStruct
   /// Go: `func structpb.NewStruct(v map[string]any) (*structpb.Struct, error)`.
   factory ProtobufTypesKnownStructpbStruct(Map<String, Object?> v) {
     final $r = $callSync(
-        25515, $W()..map(v, (w0, k0) => w0.str(k0), (w0, v0) => w0.any(v0)));
+        25521, $W()..map(v, (w0, k0) => w0.str(k0), (w0, v0) => w0.any(v0)));
     return $r.hnn(ProtobufTypesKnownStructpbStruct.$h);
   }
 
   /// Go: `func (*structpb.Struct).AsMap() map[string]any`.
   Map<String, Object?> asMap() {
-    final $r = $callSync(25520, $W()..h(this));
+    final $r = $callSync(25526, $W()..h(this));
     return $r.map(() => $r.str(), () => $r.any());
   }
 
   /// Go: `func (*structpb.Struct).Descriptor() ([]byte, []int)`.
   @Deprecated("Use Struct.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(25521, $W()..h(this));
+    final $r = $callSync(25527, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*structpb.Struct).GetFields() map[string]*structpb.Value`.
   Map<String, ProtobufTypesKnownStructpbValue> getFields() {
-    final $r = $callSync(25522, $W()..h(this));
+    final $r = $callSync(25528, $W()..h(this));
     return $r.map(
         () => $r.str(), () => $r.hnn(ProtobufTypesKnownStructpbValue.$h));
   }
 
   /// Go: `func (*structpb.Struct).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(25523, $W()..h(this));
+    final $r = $callSync(25529, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*structpb.Struct).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25524, $W()..h(this));
+    $callSync(25530, $W()..h(this));
   }
 
   /// Go: `func (*structpb.Struct).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(25525, $W()..h(this));
+    final $r = $callSync(25531, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*structpb.Struct).Reset()`.
   void reset() {
-    $callSync(25526, $W()..h(this));
+    $callSync(25532, $W()..h(this));
   }
 
   /// Go: `func (*structpb.Struct).String() string`.
   String string() {
-    final $r = $callSync(25527, $W()..h(this));
+    final $r = $callSync(25533, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*structpb.Struct).UnmarshalJSON(b []byte) error`.
   void unmarshalJson(Uint8List b) {
     $callSync(
-        25528,
+        25534,
         $W()
           ..h(this)
           ..bytes(b));
@@ -230,91 +230,91 @@ class ProtobufTypesKnownStructpbValue
 
   /// Go: `func structpb.NewValue(v any) (*structpb.Value, error)`.
   factory ProtobufTypesKnownStructpbValue(Object? v) {
-    final $r = $callSync(25517, $W()..any(v));
+    final $r = $callSync(25523, $W()..any(v));
     return $r.hnn(ProtobufTypesKnownStructpbValue.$h);
   }
 
   /// Go: `func (*structpb.Value).AsInterface() any`.
   Object? asInterface() {
-    final $r = $callSync(25529, $W()..h(this));
+    final $r = $callSync(25535, $W()..h(this));
     return $r.any();
   }
 
   /// Go: `func (*structpb.Value).Descriptor() ([]byte, []int)`.
   @Deprecated("Use Value.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(25530, $W()..h(this));
+    final $r = $callSync(25536, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*structpb.Value).GetBoolValue() bool`.
   bool getBoolValue() {
-    final $r = $callSync(25531, $W()..h(this));
+    final $r = $callSync(25537, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*structpb.Value).GetListValue() *structpb.ListValue`.
   ProtobufTypesKnownStructpbListValue getListValue() {
-    final $r = $callSync(25532, $W()..h(this));
+    final $r = $callSync(25538, $W()..h(this));
     return $r.hnn(ProtobufTypesKnownStructpbListValue.$h);
   }
 
   /// Go: `func (*structpb.Value).GetNullValue() structpb.NullValue`.
   int getNullValue() {
-    final $r = $callSync(25533, $W()..h(this));
+    final $r = $callSync(25539, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*structpb.Value).GetNumberValue() float64`.
   double getNumberValue() {
-    final $r = $callSync(25534, $W()..h(this));
+    final $r = $callSync(25540, $W()..h(this));
     return $r.f64();
   }
 
   /// Go: `func (*structpb.Value).GetStringValue() string`.
   String getStringValue() {
-    final $r = $callSync(25535, $W()..h(this));
+    final $r = $callSync(25541, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*structpb.Value).GetStructValue() *structpb.Struct`.
   ProtobufTypesKnownStructpbStruct getStructValue() {
-    final $r = $callSync(25536, $W()..h(this));
+    final $r = $callSync(25542, $W()..h(this));
     return $r.hnn(ProtobufTypesKnownStructpbStruct.$h);
   }
 
   /// Go: `func (*structpb.Value).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(25537, $W()..h(this));
+    final $r = $callSync(25543, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*structpb.Value).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25538, $W()..h(this));
+    $callSync(25544, $W()..h(this));
   }
 
   /// Go: `func (*structpb.Value).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(25539, $W()..h(this));
+    final $r = $callSync(25545, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*structpb.Value).Reset()`.
   void reset() {
-    $callSync(25540, $W()..h(this));
+    $callSync(25546, $W()..h(this));
   }
 
   /// Go: `func (*structpb.Value).String() string`.
   String string() {
-    final $r = $callSync(25541, $W()..h(this));
+    final $r = $callSync(25547, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*structpb.Value).UnmarshalJSON(b []byte) error`.
   void unmarshalJson(Uint8List b) {
     $callSync(
-        25542,
+        25548,
         $W()
           ..h(this)
           ..bytes(b));
@@ -326,63 +326,63 @@ extension GoProtobufTypesKnownStructpbApi on GoProtobufTypesKnownStructpb {
   /// Go: `var structpb.File_google_protobuf_struct_proto protoreflect.FileDescriptor`.
   $protoreflect.ProtobufReflectProtoreflectFileDescriptor
       get fileGoogleProtobufStructProto {
-    final $r = $callSync(25499);
+    final $r = $callSync(25505);
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectFileDescriptor.$h);
   }
 
   /// Go: `func structpb.NewBoolValue(v bool) *structpb.Value`.
   ProtobufTypesKnownStructpbValue newBoolValue(bool v) {
-    final $r = $callSync(25509, $W()..b(v));
+    final $r = $callSync(25515, $W()..b(v));
     return $r.hnn(ProtobufTypesKnownStructpbValue.$h);
   }
 
   /// Go: `func structpb.NewList(v []any) (*structpb.ListValue, error)`.
   ProtobufTypesKnownStructpbListValue newList(List<Object?> v) {
-    final $r = $callSync(25510, $W()..list(v, (w0, e0) => w0.any(e0)));
+    final $r = $callSync(25516, $W()..list(v, (w0, e0) => w0.any(e0)));
     return $r.hnn(ProtobufTypesKnownStructpbListValue.$h);
   }
 
   /// Go: `func structpb.NewListValue(v *structpb.ListValue) *structpb.Value`.
   ProtobufTypesKnownStructpbValue newListValue(
       ProtobufTypesKnownStructpbListValue v) {
-    final $r = $callSync(25511, $W()..h(v));
+    final $r = $callSync(25517, $W()..h(v));
     return $r.hnn(ProtobufTypesKnownStructpbValue.$h);
   }
 
   /// Go: `func structpb.NewNullValue() *structpb.Value`.
   ProtobufTypesKnownStructpbValue newNullValue() {
-    final $r = $callSync(25512);
+    final $r = $callSync(25518);
     return $r.hnn(ProtobufTypesKnownStructpbValue.$h);
   }
 
   /// Go: `func structpb.NewNumberValue(v float64) *structpb.Value`.
   ProtobufTypesKnownStructpbValue newNumberValue(double v) {
-    final $r = $callSync(25513, $W()..f64(v));
+    final $r = $callSync(25519, $W()..f64(v));
     return $r.hnn(ProtobufTypesKnownStructpbValue.$h);
   }
 
   /// Go: `func structpb.NewStringValue(v string) *structpb.Value`.
   ProtobufTypesKnownStructpbValue newStringValue(String v) {
-    final $r = $callSync(25514, $W()..str(v));
+    final $r = $callSync(25520, $W()..str(v));
     return $r.hnn(ProtobufTypesKnownStructpbValue.$h);
   }
 
   /// Go: `func structpb.NewStructValue(v *structpb.Struct) *structpb.Value`.
   ProtobufTypesKnownStructpbValue newStructValue(
       ProtobufTypesKnownStructpbStruct v) {
-    final $r = $callSync(25516, $W()..h(v));
+    final $r = $callSync(25522, $W()..h(v));
     return $r.hnn(ProtobufTypesKnownStructpbValue.$h);
   }
 
   /// Go: `var structpb.NullValue_name map[int32]string`.
   Map<int, String> get nullValueName {
-    final $r = $callSync(25518);
+    final $r = $callSync(25524);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var structpb.NullValue_value map[string]int32`.
   Map<String, int> get nullValueValue {
-    final $r = $callSync(25519);
+    final $r = $callSync(25525);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 }

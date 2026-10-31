@@ -227,7 +227,7 @@ final class ZerosslClient implements GoDto {
   Future<void> cancelCertificate(
       $context.Context ctx, String certificateId) async {
     await $call(
-        4194,
+        4203,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -240,7 +240,7 @@ final class ZerosslClient implements GoDto {
   Future<ZerosslCertificateObject> createCertificate($context.Context ctx,
       $x509.CryptoX509CertificateRequest csr, int validityDays) async {
     final $r = await $call(
-        4195,
+        4204,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -255,7 +255,7 @@ final class ZerosslClient implements GoDto {
   Future<ZerosslCertificateBundle> downloadCertificate($context.Context ctx,
       String certificateId, bool includeCrossSigned) async {
     final $r = await $call(
-        4196,
+        4205,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -270,7 +270,7 @@ final class ZerosslClient implements GoDto {
   Future<void> downloadCertificateFile($context.Context ctx,
       String certificateId, bool includeCrossSigned, GoHandle? output) async {
     await $call(
-        4197,
+        4206,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -284,7 +284,7 @@ final class ZerosslClient implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<(String, String)> generateEabCredentials($context.Context ctx) async {
     final $r = await $call(
-        4198,
+        4207,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -297,7 +297,7 @@ final class ZerosslClient implements GoDto {
   Future<ZerosslCertificateObject> getCertificate(
       $context.Context ctx, String certificateId) async {
     final $r = await $call(
-        4199,
+        4208,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -311,7 +311,7 @@ final class ZerosslClient implements GoDto {
   Future<ZerosslCertificateList> listCertificates(
       $context.Context ctx, ZerosslListCertificatesParameters params) async {
     final $r = await $call(
-        4200,
+        4209,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -325,7 +325,7 @@ final class ZerosslClient implements GoDto {
   Future<void> resendVerificationEmail(
       $context.Context ctx, String certificateId) async {
     await $call(
-        4201,
+        4210,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -338,7 +338,7 @@ final class ZerosslClient implements GoDto {
   Future<void> revokeCertificate(
       $context.Context ctx, String certificateId, String reason) async {
     await $call(
-        4202,
+        4211,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -351,7 +351,7 @@ final class ZerosslClient implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> validateCsr($context.Context ctx, Uint8List csrAsn1der) async {
     await $call(
-        4203,
+        4212,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -364,7 +364,7 @@ final class ZerosslClient implements GoDto {
   Future<ZerosslValidationStatus> verificationStatus(
       $context.Context ctx, String certificateId) async {
     final $r = await $call(
-        4204,
+        4213,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -378,7 +378,7 @@ final class ZerosslClient implements GoDto {
   Future<ZerosslCertificateObject> verifyIdentifiers($context.Context ctx,
       String certificateId, String method, List<String> emails) async {
     final $r = await $call(
-        4205,
+        4214,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -468,7 +468,7 @@ class ZerosslApiError extends GolangException {
 extension GoCaddyserverZerosslApi on GoCaddyserverZerossl {
   /// Go: `func zerossl.ListAllCertificates() zerossl.ListCertificatesParameters`.
   ZerosslListCertificatesParameters listAllCertificates() {
-    final $r = $callSync(4206);
+    final $r = $callSync(4215);
     return $r.p() ? ZerosslListCertificatesParameters.$dec($r) : $nil();
   }
 }

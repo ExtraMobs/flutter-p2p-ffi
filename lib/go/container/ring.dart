@@ -39,7 +39,7 @@ class ContainerRing extends $crypto.CryptoDecrypterOpts
   /// each invocation (a retained callback, WIRE.md).
   Future<void> do$(FutureOr<void> Function(Object? arg0) f) async {
     await $call(
-        3115,
+        3124,
         $W()
           ..h(this)
           ..cb((r) => f(r.any()), true));
@@ -47,14 +47,14 @@ class ContainerRing extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*ring.Ring).Len() int`.
   int len() {
-    final $r = $callSync(3116, $W()..h(this));
+    final $r = $callSync(3125, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*ring.Ring).Link(s *ring.Ring) *ring.Ring`.
   ContainerRing link(ContainerRing s) {
     final $r = $callSync(
-        3117,
+        3126,
         $W()
           ..h(this)
           ..h(s));
@@ -64,7 +64,7 @@ class ContainerRing extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*ring.Ring).Move(n int) *ring.Ring`.
   ContainerRing move(int n) {
     final $r = $callSync(
-        3118,
+        3127,
         $W()
           ..h(this)
           ..i64(n));
@@ -73,20 +73,20 @@ class ContainerRing extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*ring.Ring).Next() *ring.Ring`.
   ContainerRing next() {
-    final $r = $callSync(3119, $W()..h(this));
+    final $r = $callSync(3128, $W()..h(this));
     return $r.hnn(ContainerRing.$h);
   }
 
   /// Go: `func (*ring.Ring).Prev() *ring.Ring`.
   ContainerRing prev() {
-    final $r = $callSync(3120, $W()..h(this));
+    final $r = $callSync(3129, $W()..h(this));
     return $r.hnn(ContainerRing.$h);
   }
 
   /// Go: `func (*ring.Ring).Unlink(n int) *ring.Ring`.
   ContainerRing unlink(int n) {
     final $r = $callSync(
-        3121,
+        3130,
         $W()
           ..h(this)
           ..i64(n));
@@ -98,7 +98,7 @@ class ContainerRing extends $crypto.CryptoDecrypterOpts
 extension GoContainerRingApi on GoContainerRing {
   /// Go: `func ring.New(n int) *ring.Ring`.
   ContainerRing new$(int n) {
-    final $r = $callSync(3114, $W()..i64(n));
+    final $r = $callSync(3123, $W()..i64(n));
     return $r.hnn(ContainerRing.$h);
   }
 }

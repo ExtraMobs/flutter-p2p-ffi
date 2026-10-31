@@ -23,7 +23,7 @@ mixin GoleveldbLeveldbOptCacher$ on GoHandle {
   /// Go: `func (opt.Cacher).New(capacity int) cache.Cacher`.
   $cache.GoleveldbLeveldbCacheCacher new$(int capacity) {
     final $r = $callSync(
-        18710,
+        18716,
         $W()
           ..h(this)
           ..i64(capacity));
@@ -318,44 +318,44 @@ final class GoleveldbLeveldbOptOptions implements GoDto {
 
   /// Go: `func (*opt.Options).GetAltFilters() []filter.Filter`.
   List<$filter.GoleveldbLeveldbFilter> getAltFilters() {
-    final $r = $callSync(18736, $W()..dto(this));
+    final $r = $callSync(18742, $W()..dto(this));
     return $r.list(() => $r.hnn($filter.GoleveldbLeveldbFilter.$h));
   }
 
   /// Go: `func (*opt.Options).GetBlockCacheCapacity() int`.
   int getBlockCacheCapacity() {
-    final $r = $callSync(18737, $W()..dto(this));
+    final $r = $callSync(18743, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*opt.Options).GetBlockCacheEvictRemoved() bool`.
   bool getBlockCacheEvictRemoved() {
-    final $r = $callSync(18738, $W()..dto(this));
+    final $r = $callSync(18744, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*opt.Options).GetBlockCacher() opt.Cacher`.
   GoleveldbLeveldbOptCacher getBlockCacher() {
-    final $r = $callSync(18739, $W()..dto(this));
+    final $r = $callSync(18745, $W()..dto(this));
     return $r.hnn(GoleveldbLeveldbOptCacher.$h);
   }
 
   /// Go: `func (*opt.Options).GetBlockRestartInterval() int`.
   int getBlockRestartInterval() {
-    final $r = $callSync(18740, $W()..dto(this));
+    final $r = $callSync(18746, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*opt.Options).GetBlockSize() int`.
   int getBlockSize() {
-    final $r = $callSync(18741, $W()..dto(this));
+    final $r = $callSync(18747, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*opt.Options).GetCompactionExpandLimit(level int) int`.
   int getCompactionExpandLimit(int level) {
     final $r = $callSync(
-        18742,
+        18748,
         $W()
           ..dto(this)
           ..i64(level));
@@ -365,7 +365,7 @@ final class GoleveldbLeveldbOptOptions implements GoDto {
   /// Go: `func (*opt.Options).GetCompactionGPOverlaps(level int) int`.
   int getCompactionGpOverlaps(int level) {
     final $r = $callSync(
-        18743,
+        18749,
         $W()
           ..dto(this)
           ..i64(level));
@@ -374,14 +374,14 @@ final class GoleveldbLeveldbOptOptions implements GoDto {
 
   /// Go: `func (*opt.Options).GetCompactionL0Trigger() int`.
   int getCompactionL0Trigger() {
-    final $r = $callSync(18744, $W()..dto(this));
+    final $r = $callSync(18750, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*opt.Options).GetCompactionSourceLimit(level int) int`.
   int getCompactionSourceLimit(int level) {
     final $r = $callSync(
-        18745,
+        18751,
         $W()
           ..dto(this)
           ..i64(level));
@@ -391,7 +391,7 @@ final class GoleveldbLeveldbOptOptions implements GoDto {
   /// Go: `func (*opt.Options).GetCompactionTableSize(level int) int`.
   int getCompactionTableSize(int level) {
     final $r = $callSync(
-        18746,
+        18752,
         $W()
           ..dto(this)
           ..i64(level));
@@ -401,7 +401,7 @@ final class GoleveldbLeveldbOptOptions implements GoDto {
   /// Go: `func (*opt.Options).GetCompactionTotalSize(level int) int64`.
   int getCompactionTotalSize(int level) {
     final $r = $callSync(
-        18747,
+        18753,
         $W()
           ..dto(this)
           ..i64(level));
@@ -410,116 +410,116 @@ final class GoleveldbLeveldbOptOptions implements GoDto {
 
   /// Go: `func (*opt.Options).GetComparer() comparer.Comparer`.
   $comparer.GoleveldbLeveldbComparer getComparer() {
-    final $r = $callSync(18748, $W()..dto(this));
+    final $r = $callSync(18754, $W()..dto(this));
     return $r.hnn($comparer.GoleveldbLeveldbComparer.$h);
   }
 
   /// Go: `func (*opt.Options).GetCompression() opt.Compression`.
   int getCompression() {
-    final $r = $callSync(18749, $W()..dto(this));
+    final $r = $callSync(18755, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*opt.Options).GetDisableBlockCache() bool`.
   bool getDisableBlockCache() {
-    final $r = $callSync(18750, $W()..dto(this));
+    final $r = $callSync(18756, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*opt.Options).GetDisableBufferPool() bool`.
   bool getDisableBufferPool() {
-    final $r = $callSync(18751, $W()..dto(this));
+    final $r = $callSync(18757, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*opt.Options).GetDisableCompactionBackoff() bool`.
   bool getDisableCompactionBackoff() {
-    final $r = $callSync(18752, $W()..dto(this));
+    final $r = $callSync(18758, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*opt.Options).GetDisableLargeBatchTransaction() bool`.
   bool getDisableLargeBatchTransaction() {
-    final $r = $callSync(18753, $W()..dto(this));
+    final $r = $callSync(18759, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*opt.Options).GetDisableSeeksCompaction() bool`.
   bool getDisableSeeksCompaction() {
-    final $r = $callSync(18754, $W()..dto(this));
+    final $r = $callSync(18760, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*opt.Options).GetErrorIfExist() bool`.
   bool getErrorIfExist() {
-    final $r = $callSync(18755, $W()..dto(this));
+    final $r = $callSync(18761, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*opt.Options).GetErrorIfMissing() bool`.
   bool getErrorIfMissing() {
-    final $r = $callSync(18756, $W()..dto(this));
+    final $r = $callSync(18762, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*opt.Options).GetFilter() filter.Filter`.
   $filter.GoleveldbLeveldbFilter getFilter() {
-    final $r = $callSync(18757, $W()..dto(this));
+    final $r = $callSync(18763, $W()..dto(this));
     return $r.hnn($filter.GoleveldbLeveldbFilter.$h);
   }
 
   /// Go: `func (*opt.Options).GetFilterBaseLg() int`.
   int getFilterBaseLg() {
-    final $r = $callSync(18758, $W()..dto(this));
+    final $r = $callSync(18764, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*opt.Options).GetIteratorSamplingRate() int`.
   int getIteratorSamplingRate() {
-    final $r = $callSync(18759, $W()..dto(this));
+    final $r = $callSync(18765, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*opt.Options).GetMaxManifestFileSize() int64`.
   int getMaxManifestFileSize() {
-    final $r = $callSync(18760, $W()..dto(this));
+    final $r = $callSync(18766, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*opt.Options).GetNoSync() bool`.
   bool getNoSync() {
-    final $r = $callSync(18761, $W()..dto(this));
+    final $r = $callSync(18767, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*opt.Options).GetNoWriteMerge() bool`.
   bool getNoWriteMerge() {
-    final $r = $callSync(18762, $W()..dto(this));
+    final $r = $callSync(18768, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*opt.Options).GetOpenFilesCacheCapacity() int`.
   int getOpenFilesCacheCapacity() {
-    final $r = $callSync(18763, $W()..dto(this));
+    final $r = $callSync(18769, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*opt.Options).GetOpenFilesCacher() opt.Cacher`.
   GoleveldbLeveldbOptCacher getOpenFilesCacher() {
-    final $r = $callSync(18764, $W()..dto(this));
+    final $r = $callSync(18770, $W()..dto(this));
     return $r.hnn(GoleveldbLeveldbOptCacher.$h);
   }
 
   /// Go: `func (*opt.Options).GetReadOnly() bool`.
   bool getReadOnly() {
-    final $r = $callSync(18765, $W()..dto(this));
+    final $r = $callSync(18771, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*opt.Options).GetStrict(strict opt.Strict) bool`.
   bool getStrict(int strict) {
     final $r = $callSync(
-        18766,
+        18772,
         $W()
           ..dto(this)
           ..i64(strict));
@@ -528,19 +528,19 @@ final class GoleveldbLeveldbOptOptions implements GoDto {
 
   /// Go: `func (*opt.Options).GetWriteBuffer() int`.
   int getWriteBuffer() {
-    final $r = $callSync(18767, $W()..dto(this));
+    final $r = $callSync(18773, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*opt.Options).GetWriteL0PauseTrigger() int`.
   int getWriteL0PauseTrigger() {
-    final $r = $callSync(18768, $W()..dto(this));
+    final $r = $callSync(18774, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*opt.Options).GetWriteL0SlowdownTrigger() int`.
   int getWriteL0SlowdownTrigger() {
-    final $r = $callSync(18769, $W()..dto(this));
+    final $r = $callSync(18775, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -573,14 +573,14 @@ final class GoleveldbLeveldbOptReadOptions implements GoDto {
 
   /// Go: `func (*opt.ReadOptions).GetDontFillCache() bool`.
   bool getDontFillCache() {
-    final $r = $callSync(18771, $W()..dto(this));
+    final $r = $callSync(18777, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*opt.ReadOptions).GetStrict(strict opt.Strict) bool`.
   bool getStrict(int strict) {
     final $r = $callSync(
-        18772,
+        18778,
         $W()
           ..dto(this)
           ..i64(strict));
@@ -613,13 +613,13 @@ final class GoleveldbLeveldbOptWriteOptions implements GoDto {
 
   /// Go: `func (*opt.WriteOptions).GetNoWriteMerge() bool`.
   bool getNoWriteMerge() {
-    final $r = $callSync(18773, $W()..dto(this));
+    final $r = $callSync(18779, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*opt.WriteOptions).GetSync() bool`.
   bool getSync() {
-    final $r = $callSync(18774, $W()..dto(this));
+    final $r = $callSync(18780, $W()..dto(this));
     return $r.b();
   }
 }
@@ -628,127 +628,127 @@ final class GoleveldbLeveldbOptWriteOptions implements GoDto {
 extension GoSyndtrGoleveldbLeveldbOptApi on GoSyndtrGoleveldbLeveldbOpt {
   /// Go: `var opt.DefaultBlockCacheCapacity int`.
   int get defaultBlockCacheCapacity {
-    final $r = $callSync(18711);
+    final $r = $callSync(18717);
     return $r.i64();
   }
 
   /// Go: `var opt.DefaultBlockCacher opt.Cacher`.
   GoleveldbLeveldbOptCacher get defaultBlockCacher {
-    final $r = $callSync(18712);
+    final $r = $callSync(18718);
     return $r.hnn(GoleveldbLeveldbOptCacher.$h);
   }
 
   /// Go: `var opt.DefaultBlockRestartInterval int`.
   int get defaultBlockRestartInterval {
-    final $r = $callSync(18713);
+    final $r = $callSync(18719);
     return $r.i64();
   }
 
   /// Go: `var opt.DefaultBlockSize int`.
   int get defaultBlockSize {
-    final $r = $callSync(18714);
+    final $r = $callSync(18720);
     return $r.i64();
   }
 
   /// Go: `var opt.DefaultCompactionExpandLimitFactor int`.
   int get defaultCompactionExpandLimitFactor {
-    final $r = $callSync(18715);
+    final $r = $callSync(18721);
     return $r.i64();
   }
 
   /// Go: `var opt.DefaultCompactionGPOverlapsFactor int`.
   int get defaultCompactionGpOverlapsFactor {
-    final $r = $callSync(18716);
+    final $r = $callSync(18722);
     return $r.i64();
   }
 
   /// Go: `var opt.DefaultCompactionL0Trigger int`.
   int get defaultCompactionL0Trigger {
-    final $r = $callSync(18717);
+    final $r = $callSync(18723);
     return $r.i64();
   }
 
   /// Go: `var opt.DefaultCompactionSourceLimitFactor int`.
   int get defaultCompactionSourceLimitFactor {
-    final $r = $callSync(18718);
+    final $r = $callSync(18724);
     return $r.i64();
   }
 
   /// Go: `var opt.DefaultCompactionTableSize int`.
   int get defaultCompactionTableSize {
-    final $r = $callSync(18719);
+    final $r = $callSync(18725);
     return $r.i64();
   }
 
   /// Go: `var opt.DefaultCompactionTableSizeMultiplier float64`.
   double get defaultCompactionTableSizeMultiplier {
-    final $r = $callSync(18720);
+    final $r = $callSync(18726);
     return $r.f64();
   }
 
   /// Go: `var opt.DefaultCompactionTotalSize int`.
   int get defaultCompactionTotalSize {
-    final $r = $callSync(18721);
+    final $r = $callSync(18727);
     return $r.i64();
   }
 
   /// Go: `var opt.DefaultCompactionTotalSizeMultiplier float64`.
   double get defaultCompactionTotalSizeMultiplier {
-    final $r = $callSync(18722);
+    final $r = $callSync(18728);
     return $r.f64();
   }
 
   /// Go: `var opt.DefaultCompressionType opt.Compression`.
   int get defaultCompressionType {
-    final $r = $callSync(18723);
+    final $r = $callSync(18729);
     return $r.i64();
   }
 
   /// Go: `var opt.DefaultFilterBaseLg int`.
   int get defaultFilterBaseLg {
-    final $r = $callSync(18724);
+    final $r = $callSync(18730);
     return $r.i64();
   }
 
   /// Go: `var opt.DefaultIteratorSamplingRate int`.
   int get defaultIteratorSamplingRate {
-    final $r = $callSync(18725);
+    final $r = $callSync(18731);
     return $r.i64();
   }
 
   /// Go: `var opt.DefaultMaxManifestFileSize int64`.
   int get defaultMaxManifestFileSize {
-    final $r = $callSync(18726);
+    final $r = $callSync(18732);
     return $r.i64();
   }
 
   /// Go: `var opt.DefaultOpenFilesCacheCapacity int`.
   int get defaultOpenFilesCacheCapacity {
-    final $r = $callSync(18727);
+    final $r = $callSync(18733);
     return $r.i64();
   }
 
   /// Go: `var opt.DefaultOpenFilesCacher opt.Cacher`.
   GoleveldbLeveldbOptCacher get defaultOpenFilesCacher {
-    final $r = $callSync(18728);
+    final $r = $callSync(18734);
     return $r.hnn(GoleveldbLeveldbOptCacher.$h);
   }
 
   /// Go: `var opt.DefaultWriteBuffer int`.
   int get defaultWriteBuffer {
-    final $r = $callSync(18729);
+    final $r = $callSync(18735);
     return $r.i64();
   }
 
   /// Go: `var opt.DefaultWriteL0PauseTrigger int`.
   int get defaultWriteL0PauseTrigger {
-    final $r = $callSync(18730);
+    final $r = $callSync(18736);
     return $r.i64();
   }
 
   /// Go: `var opt.DefaultWriteL0SlowdownTrigger int`.
   int get defaultWriteL0SlowdownTrigger {
-    final $r = $callSync(18731);
+    final $r = $callSync(18737);
     return $r.i64();
   }
 
@@ -756,7 +756,7 @@ extension GoSyndtrGoleveldbLeveldbOptApi on GoSyndtrGoleveldbLeveldbOpt {
   bool getStrict(GoleveldbLeveldbOptOptions o,
       GoleveldbLeveldbOptReadOptions ro, int strict) {
     final $r = $callSync(
-        18732,
+        18738,
         $W()
           ..dto(o)
           ..dto(ro)
@@ -766,26 +766,26 @@ extension GoSyndtrGoleveldbLeveldbOptApi on GoSyndtrGoleveldbLeveldbOpt {
 
   /// Go: `var opt.LRUCacher opt.Cacher`.
   GoleveldbLeveldbOptCacher get lruCacher {
-    final $r = $callSync(18733);
+    final $r = $callSync(18739);
     return $r.hnn(GoleveldbLeveldbOptCacher.$h);
   }
 
   /// Go: `func opt.NewLRU(capacity int) opt.Cacher`.
   GoleveldbLeveldbOptCacher newLru(int capacity) {
-    final $r = $callSync(18734, $W()..i64(capacity));
+    final $r = $callSync(18740, $W()..i64(capacity));
     return $r.hnn(GoleveldbLeveldbOptCacher.$h);
   }
 
   /// Go: `var opt.NoCacher opt.Cacher`.
   GoleveldbLeveldbOptCacher get noCacher {
-    final $r = $callSync(18735);
+    final $r = $callSync(18741);
     return $r.hnn(GoleveldbLeveldbOptCacher.$h);
   }
 
   /// Go: `func opt.PassthroughCacher(x cache.Cacher) opt.Cacher`.
   GoleveldbLeveldbOptCacher passthroughCacher(
       $cache.GoleveldbLeveldbCacheCacher x) {
-    final $r = $callSync(18770, $W()..h(x));
+    final $r = $callSync(18776, $W()..h(x));
     return $r.hnn(GoleveldbLeveldbOptCacher.$h);
   }
 }

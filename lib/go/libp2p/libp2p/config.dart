@@ -368,7 +368,7 @@ final class Libp2pConfig implements GoDto {
   /// Go: `func (*config.Config).Apply(opts ...config.Option) error`.
   void apply([List<Libp2pConfigOption> opts = const []]) {
     $callSync(
-        13809,
+        13815,
         $W()
           ..dto(this)
           ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -376,7 +376,7 @@ final class Libp2pConfig implements GoDto {
 
   /// Go: `func (*config.Config).NewNode() (host.Host, error)`.
   $host.Libp2pCoreHost newNode() {
-    final $r = $callSync(13810, $W()..dto(this));
+    final $r = $callSync(13816, $W()..dto(this));
     return $r.hnn($host.Libp2pCoreHost.$h);
   }
 }

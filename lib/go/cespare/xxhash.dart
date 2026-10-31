@@ -12,19 +12,19 @@ import 'package:p2p_ffi/go/hash.dart' as $hash;
 extension GoCespareXxhashApi on GoCespareXxhash {
   /// Go: `func xxhash.New() hash.Hash64`.
   $hash.HashHash64 new$() {
-    final $r = $callSync(4257);
+    final $r = $callSync(4266);
     return $r.hnn($hash.HashHash64.$h);
   }
 
   /// Go: `func xxhash.Sum64(b []byte) uint64`.
   int sum64(Uint8List b) {
-    final $r = $callSync(4258, $W()..bytes(b));
+    final $r = $callSync(4267, $W()..bytes(b));
     return $r.i64();
   }
 
   /// Go: `func xxhash.Sum64String(s string) uint64`.
   int sum64String(String s) {
-    final $r = $callSync(4259, $W()..str(s));
+    final $r = $callSync(4268, $W()..str(s));
     return $r.i64();
   }
 }

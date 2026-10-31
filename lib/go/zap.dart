@@ -45,14 +45,14 @@ class ZapAtomicLevel extends $encoding.EncodingTextUnmarshaler
 
   /// Go: `func zap.NewAtomicLevel() zap.AtomicLevel`.
   factory ZapAtomicLevel() {
-    final $r = $callSync(22791);
+    final $r = $callSync(22797);
     return $r.hnn(ZapAtomicLevel.$h);
   }
 
   /// Go: `func (zap.AtomicLevel).Enabled(l zapcore.Level) bool`.
   bool enabled(int l) {
     final $r = $callSync(
-        22722,
+        22728,
         $W()
           ..h(this)
           ..i64(l));
@@ -61,20 +61,20 @@ class ZapAtomicLevel extends $encoding.EncodingTextUnmarshaler
 
   /// Go: `func (zap.AtomicLevel).Level() zapcore.Level`.
   int level() {
-    final $r = $callSync(22723, $W()..h(this));
+    final $r = $callSync(22729, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (zap.AtomicLevel).MarshalText() (text []byte, err error)`.
   Uint8List marshalText() {
-    final $r = $callSync(22724, $W()..h(this));
+    final $r = $callSync(22730, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (zap.AtomicLevel).ServeHTTP(w http.ResponseWriter, r *http.Request)`.
   void serveHttp($http.NetHttpResponseWriter w, $http.NetHttpRequest r) {
     $callSync(
-        22725,
+        22731,
         $W()
           ..h(this)
           ..h(w)
@@ -84,7 +84,7 @@ class ZapAtomicLevel extends $encoding.EncodingTextUnmarshaler
   /// Go: `func (zap.AtomicLevel).SetLevel(l zapcore.Level)`.
   void setLevel(int l) {
     $callSync(
-        22726,
+        22732,
         $W()
           ..h(this)
           ..i64(l));
@@ -92,14 +92,14 @@ class ZapAtomicLevel extends $encoding.EncodingTextUnmarshaler
 
   /// Go: `func (zap.AtomicLevel).String() string`.
   String string() {
-    final $r = $callSync(22727, $W()..h(this));
+    final $r = $callSync(22733, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*zap.AtomicLevel).UnmarshalText(text []byte) error`.
   void unmarshalText(Uint8List text) {
     $callSync(
-        22728,
+        22734,
         $W()
           ..h(this)
           ..bytes(text));
@@ -190,7 +190,7 @@ final class ZapConfig implements GoDto {
   /// Go: `func (zap.Config).Build(opts ...zap.Option) (*zap.Logger, error)`.
   ZapLogger build([List<ZapOption> opts = const []]) {
     final $r = $callSync(
-        22736,
+        22742,
         $W()
           ..dto(this)
           ..list(opts, (w0, e0) => w0.h(e0)));
@@ -221,7 +221,7 @@ class ZapLevelEnablerFunc extends $zapcore.ZapZapcoreLevelEnabler
   /// Go: `func (zap.LevelEnablerFunc).Enabled(lvl zapcore.Level) bool`.
   bool enabled(int lvl) {
     final $r = $callSync(
-        22770,
+        22776,
         $W()
           ..h(this)
           ..i64(lvl));
@@ -250,7 +250,7 @@ class ZapLogger extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*zap.Logger).Check(lvl zapcore.Level, msg string) *zapcore.CheckedEntry`.
   $zapcore.ZapZapcoreCheckedEntry check(int lvl, String msg) {
     final $r = $callSync(
-        22771,
+        22777,
         $W()
           ..h(this)
           ..i64(lvl)
@@ -260,14 +260,14 @@ class ZapLogger extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*zap.Logger).Core() zapcore.Core`.
   $zapcore.ZapZapcoreCore core() {
-    final $r = $callSync(22772, $W()..h(this));
+    final $r = $callSync(22778, $W()..h(this));
     return $r.hnn($zapcore.ZapZapcoreCore.$h);
   }
 
   /// Go: `func (*zap.Logger).DPanic(msg string, fields ...zap.Field)`.
   void dPanic(String msg, [List<$zapcore.ZapZapcoreField> fields = const []]) {
     $callSync(
-        22773,
+        22779,
         $W()
           ..h(this)
           ..str(msg)
@@ -277,7 +277,7 @@ class ZapLogger extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*zap.Logger).Debug(msg string, fields ...zap.Field)`.
   void debug(String msg, [List<$zapcore.ZapZapcoreField> fields = const []]) {
     $callSync(
-        22774,
+        22780,
         $W()
           ..h(this)
           ..str(msg)
@@ -287,7 +287,7 @@ class ZapLogger extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*zap.Logger).Error(msg string, fields ...zap.Field)`.
   void error(String msg, [List<$zapcore.ZapZapcoreField> fields = const []]) {
     $callSync(
-        22775,
+        22781,
         $W()
           ..h(this)
           ..str(msg)
@@ -297,7 +297,7 @@ class ZapLogger extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*zap.Logger).Fatal(msg string, fields ...zap.Field)`.
   void fatal(String msg, [List<$zapcore.ZapZapcoreField> fields = const []]) {
     $callSync(
-        22776,
+        22782,
         $W()
           ..h(this)
           ..str(msg)
@@ -307,7 +307,7 @@ class ZapLogger extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*zap.Logger).Info(msg string, fields ...zap.Field)`.
   void info(String msg, [List<$zapcore.ZapZapcoreField> fields = const []]) {
     $callSync(
-        22777,
+        22783,
         $W()
           ..h(this)
           ..str(msg)
@@ -316,7 +316,7 @@ class ZapLogger extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*zap.Logger).Level() zapcore.Level`.
   int level() {
-    final $r = $callSync(22778, $W()..h(this));
+    final $r = $callSync(22784, $W()..h(this));
     return $r.i64();
   }
 
@@ -324,7 +324,7 @@ class ZapLogger extends $crypto.CryptoDecrypterOpts
   void log(int lvl, String msg,
       [List<$zapcore.ZapZapcoreField> fields = const []]) {
     $callSync(
-        22779,
+        22785,
         $W()
           ..h(this)
           ..i64(lvl)
@@ -334,14 +334,14 @@ class ZapLogger extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*zap.Logger).Name() string`.
   String name() {
-    final $r = $callSync(22780, $W()..h(this));
+    final $r = $callSync(22786, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*zap.Logger).Named(s string) *zap.Logger`.
   ZapLogger named(String s) {
     final $r = $callSync(
-        22781,
+        22787,
         $W()
           ..h(this)
           ..str(s));
@@ -351,7 +351,7 @@ class ZapLogger extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*zap.Logger).Panic(msg string, fields ...zap.Field)`.
   void panic(String msg, [List<$zapcore.ZapZapcoreField> fields = const []]) {
     $callSync(
-        22782,
+        22788,
         $W()
           ..h(this)
           ..str(msg)
@@ -360,19 +360,19 @@ class ZapLogger extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*zap.Logger).Sugar() *zap.SugaredLogger`.
   ZapSugaredLogger sugar() {
-    final $r = $callSync(22783, $W()..h(this));
+    final $r = $callSync(22789, $W()..h(this));
     return $r.hnn(ZapSugaredLogger.$h);
   }
 
   /// Go: `func (*zap.Logger).Sync() error`.
   void sync() {
-    $callSync(22784, $W()..h(this));
+    $callSync(22790, $W()..h(this));
   }
 
   /// Go: `func (*zap.Logger).Warn(msg string, fields ...zap.Field)`.
   void warn(String msg, [List<$zapcore.ZapZapcoreField> fields = const []]) {
     $callSync(
-        22785,
+        22791,
         $W()
           ..h(this)
           ..str(msg)
@@ -382,7 +382,7 @@ class ZapLogger extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*zap.Logger).With(fields ...zap.Field) *zap.Logger`.
   ZapLogger with$([List<$zapcore.ZapZapcoreField> fields = const []]) {
     final $r = $callSync(
-        22786,
+        22792,
         $W()
           ..h(this)
           ..list(fields, (w0, e0) => w0.dto(e0)));
@@ -392,7 +392,7 @@ class ZapLogger extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*zap.Logger).WithLazy(fields ...zap.Field) *zap.Logger`.
   ZapLogger withLazy([List<$zapcore.ZapZapcoreField> fields = const []]) {
     final $r = $callSync(
-        22787,
+        22793,
         $W()
           ..h(this)
           ..list(fields, (w0, e0) => w0.dto(e0)));
@@ -402,7 +402,7 @@ class ZapLogger extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*zap.Logger).WithOptions(opts ...zap.Option) *zap.Logger`.
   ZapLogger withOptions([List<ZapOption> opts = const []]) {
     final $r = $callSync(
-        22788,
+        22794,
         $W()
           ..h(this)
           ..list(opts, (w0, e0) => w0.h(e0)));
@@ -469,7 +469,7 @@ class ZapSugaredLogger extends $v2.LogV2StandardLogger
   /// Go: `func (*zap.SugaredLogger).DPanic(args ...interface{})`.
   void dPanic([List<Object?> args = const []]) {
     $callSync(
-        22815,
+        22821,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -478,7 +478,7 @@ class ZapSugaredLogger extends $v2.LogV2StandardLogger
   /// Go: `func (*zap.SugaredLogger).DPanicf(template string, args ...interface{})`.
   void dPanicf(String template, [List<Object?> args = const []]) {
     $callSync(
-        22816,
+        22822,
         $W()
           ..h(this)
           ..str(template)
@@ -488,7 +488,7 @@ class ZapSugaredLogger extends $v2.LogV2StandardLogger
   /// Go: `func (*zap.SugaredLogger).DPanicln(args ...interface{})`.
   void dPanicln([List<Object?> args = const []]) {
     $callSync(
-        22817,
+        22823,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -497,7 +497,7 @@ class ZapSugaredLogger extends $v2.LogV2StandardLogger
   /// Go: `func (*zap.SugaredLogger).DPanicw(msg string, keysAndValues ...interface{})`.
   void dPanicw(String msg, [List<Object?> keysAndValues = const []]) {
     $callSync(
-        22818,
+        22824,
         $W()
           ..h(this)
           ..str(msg)
@@ -507,7 +507,7 @@ class ZapSugaredLogger extends $v2.LogV2StandardLogger
   /// Go: `func (*zap.SugaredLogger).Debug(args ...interface{})`.
   void debug([List<Object?> args = const []]) {
     $callSync(
-        22819,
+        22825,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -516,7 +516,7 @@ class ZapSugaredLogger extends $v2.LogV2StandardLogger
   /// Go: `func (*zap.SugaredLogger).Debugf(template string, args ...interface{})`.
   void debugf(String template, [List<Object?> args = const []]) {
     $callSync(
-        22820,
+        22826,
         $W()
           ..h(this)
           ..str(template)
@@ -526,7 +526,7 @@ class ZapSugaredLogger extends $v2.LogV2StandardLogger
   /// Go: `func (*zap.SugaredLogger).Debugln(args ...interface{})`.
   void debugln([List<Object?> args = const []]) {
     $callSync(
-        22821,
+        22827,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -535,7 +535,7 @@ class ZapSugaredLogger extends $v2.LogV2StandardLogger
   /// Go: `func (*zap.SugaredLogger).Debugw(msg string, keysAndValues ...interface{})`.
   void debugw(String msg, [List<Object?> keysAndValues = const []]) {
     $callSync(
-        22822,
+        22828,
         $W()
           ..h(this)
           ..str(msg)
@@ -544,14 +544,14 @@ class ZapSugaredLogger extends $v2.LogV2StandardLogger
 
   /// Go: `func (*zap.SugaredLogger).Desugar() *zap.Logger`.
   ZapLogger desugar() {
-    final $r = $callSync(22823, $W()..h(this));
+    final $r = $callSync(22829, $W()..h(this));
     return $r.hnn(ZapLogger.$h);
   }
 
   /// Go: `func (*zap.SugaredLogger).Error(args ...interface{})`.
   void error([List<Object?> args = const []]) {
     $callSync(
-        22824,
+        22830,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -560,7 +560,7 @@ class ZapSugaredLogger extends $v2.LogV2StandardLogger
   /// Go: `func (*zap.SugaredLogger).Errorf(template string, args ...interface{})`.
   void errorf(String template, [List<Object?> args = const []]) {
     $callSync(
-        22825,
+        22831,
         $W()
           ..h(this)
           ..str(template)
@@ -570,7 +570,7 @@ class ZapSugaredLogger extends $v2.LogV2StandardLogger
   /// Go: `func (*zap.SugaredLogger).Errorln(args ...interface{})`.
   void errorln([List<Object?> args = const []]) {
     $callSync(
-        22826,
+        22832,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -579,7 +579,7 @@ class ZapSugaredLogger extends $v2.LogV2StandardLogger
   /// Go: `func (*zap.SugaredLogger).Errorw(msg string, keysAndValues ...interface{})`.
   void errorw(String msg, [List<Object?> keysAndValues = const []]) {
     $callSync(
-        22827,
+        22833,
         $W()
           ..h(this)
           ..str(msg)
@@ -589,7 +589,7 @@ class ZapSugaredLogger extends $v2.LogV2StandardLogger
   /// Go: `func (*zap.SugaredLogger).Fatal(args ...interface{})`.
   void fatal([List<Object?> args = const []]) {
     $callSync(
-        22828,
+        22834,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -598,7 +598,7 @@ class ZapSugaredLogger extends $v2.LogV2StandardLogger
   /// Go: `func (*zap.SugaredLogger).Fatalf(template string, args ...interface{})`.
   void fatalf(String template, [List<Object?> args = const []]) {
     $callSync(
-        22829,
+        22835,
         $W()
           ..h(this)
           ..str(template)
@@ -608,7 +608,7 @@ class ZapSugaredLogger extends $v2.LogV2StandardLogger
   /// Go: `func (*zap.SugaredLogger).Fatalln(args ...interface{})`.
   void fatalln([List<Object?> args = const []]) {
     $callSync(
-        22830,
+        22836,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -617,7 +617,7 @@ class ZapSugaredLogger extends $v2.LogV2StandardLogger
   /// Go: `func (*zap.SugaredLogger).Fatalw(msg string, keysAndValues ...interface{})`.
   void fatalw(String msg, [List<Object?> keysAndValues = const []]) {
     $callSync(
-        22831,
+        22837,
         $W()
           ..h(this)
           ..str(msg)
@@ -627,7 +627,7 @@ class ZapSugaredLogger extends $v2.LogV2StandardLogger
   /// Go: `func (*zap.SugaredLogger).Info(args ...interface{})`.
   void info([List<Object?> args = const []]) {
     $callSync(
-        22832,
+        22838,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -636,7 +636,7 @@ class ZapSugaredLogger extends $v2.LogV2StandardLogger
   /// Go: `func (*zap.SugaredLogger).Infof(template string, args ...interface{})`.
   void infof(String template, [List<Object?> args = const []]) {
     $callSync(
-        22833,
+        22839,
         $W()
           ..h(this)
           ..str(template)
@@ -646,7 +646,7 @@ class ZapSugaredLogger extends $v2.LogV2StandardLogger
   /// Go: `func (*zap.SugaredLogger).Infoln(args ...interface{})`.
   void infoln([List<Object?> args = const []]) {
     $callSync(
-        22834,
+        22840,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -655,7 +655,7 @@ class ZapSugaredLogger extends $v2.LogV2StandardLogger
   /// Go: `func (*zap.SugaredLogger).Infow(msg string, keysAndValues ...interface{})`.
   void infow(String msg, [List<Object?> keysAndValues = const []]) {
     $callSync(
-        22835,
+        22841,
         $W()
           ..h(this)
           ..str(msg)
@@ -664,14 +664,14 @@ class ZapSugaredLogger extends $v2.LogV2StandardLogger
 
   /// Go: `func (*zap.SugaredLogger).Level() zapcore.Level`.
   int level() {
-    final $r = $callSync(22836, $W()..h(this));
+    final $r = $callSync(22842, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*zap.SugaredLogger).Log(lvl zapcore.Level, args ...interface{})`.
   void log(int lvl, [List<Object?> args = const []]) {
     $callSync(
-        22837,
+        22843,
         $W()
           ..h(this)
           ..i64(lvl)
@@ -681,7 +681,7 @@ class ZapSugaredLogger extends $v2.LogV2StandardLogger
   /// Go: `func (*zap.SugaredLogger).Logf(lvl zapcore.Level, template string, args ...interface{})`.
   void logf(int lvl, String template, [List<Object?> args = const []]) {
     $callSync(
-        22838,
+        22844,
         $W()
           ..h(this)
           ..i64(lvl)
@@ -692,7 +692,7 @@ class ZapSugaredLogger extends $v2.LogV2StandardLogger
   /// Go: `func (*zap.SugaredLogger).Logln(lvl zapcore.Level, args ...interface{})`.
   void logln(int lvl, [List<Object?> args = const []]) {
     $callSync(
-        22839,
+        22845,
         $W()
           ..h(this)
           ..i64(lvl)
@@ -702,7 +702,7 @@ class ZapSugaredLogger extends $v2.LogV2StandardLogger
   /// Go: `func (*zap.SugaredLogger).Logw(lvl zapcore.Level, msg string, keysAndValues ...interface{})`.
   void logw(int lvl, String msg, [List<Object?> keysAndValues = const []]) {
     $callSync(
-        22840,
+        22846,
         $W()
           ..h(this)
           ..i64(lvl)
@@ -713,7 +713,7 @@ class ZapSugaredLogger extends $v2.LogV2StandardLogger
   /// Go: `func (*zap.SugaredLogger).Named(name string) *zap.SugaredLogger`.
   ZapSugaredLogger named(String name) {
     final $r = $callSync(
-        22841,
+        22847,
         $W()
           ..h(this)
           ..str(name));
@@ -723,7 +723,7 @@ class ZapSugaredLogger extends $v2.LogV2StandardLogger
   /// Go: `func (*zap.SugaredLogger).Panic(args ...interface{})`.
   void panic([List<Object?> args = const []]) {
     $callSync(
-        22842,
+        22848,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -732,7 +732,7 @@ class ZapSugaredLogger extends $v2.LogV2StandardLogger
   /// Go: `func (*zap.SugaredLogger).Panicf(template string, args ...interface{})`.
   void panicf(String template, [List<Object?> args = const []]) {
     $callSync(
-        22843,
+        22849,
         $W()
           ..h(this)
           ..str(template)
@@ -742,7 +742,7 @@ class ZapSugaredLogger extends $v2.LogV2StandardLogger
   /// Go: `func (*zap.SugaredLogger).Panicln(args ...interface{})`.
   void panicln([List<Object?> args = const []]) {
     $callSync(
-        22844,
+        22850,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -751,7 +751,7 @@ class ZapSugaredLogger extends $v2.LogV2StandardLogger
   /// Go: `func (*zap.SugaredLogger).Panicw(msg string, keysAndValues ...interface{})`.
   void panicw(String msg, [List<Object?> keysAndValues = const []]) {
     $callSync(
-        22845,
+        22851,
         $W()
           ..h(this)
           ..str(msg)
@@ -760,13 +760,13 @@ class ZapSugaredLogger extends $v2.LogV2StandardLogger
 
   /// Go: `func (*zap.SugaredLogger).Sync() error`.
   void sync() {
-    $callSync(22846, $W()..h(this));
+    $callSync(22852, $W()..h(this));
   }
 
   /// Go: `func (*zap.SugaredLogger).Warn(args ...interface{})`.
   void warn([List<Object?> args = const []]) {
     $callSync(
-        22847,
+        22853,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -775,7 +775,7 @@ class ZapSugaredLogger extends $v2.LogV2StandardLogger
   /// Go: `func (*zap.SugaredLogger).Warnf(template string, args ...interface{})`.
   void warnf(String template, [List<Object?> args = const []]) {
     $callSync(
-        22848,
+        22854,
         $W()
           ..h(this)
           ..str(template)
@@ -785,7 +785,7 @@ class ZapSugaredLogger extends $v2.LogV2StandardLogger
   /// Go: `func (*zap.SugaredLogger).Warnln(args ...interface{})`.
   void warnln([List<Object?> args = const []]) {
     $callSync(
-        22849,
+        22855,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -794,7 +794,7 @@ class ZapSugaredLogger extends $v2.LogV2StandardLogger
   /// Go: `func (*zap.SugaredLogger).Warnw(msg string, keysAndValues ...interface{})`.
   void warnw(String msg, [List<Object?> keysAndValues = const []]) {
     $callSync(
-        22850,
+        22856,
         $W()
           ..h(this)
           ..str(msg)
@@ -804,7 +804,7 @@ class ZapSugaredLogger extends $v2.LogV2StandardLogger
   /// Go: `func (*zap.SugaredLogger).With(args ...interface{}) *zap.SugaredLogger`.
   ZapSugaredLogger with$([List<Object?> args = const []]) {
     final $r = $callSync(
-        22851,
+        22857,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -814,7 +814,7 @@ class ZapSugaredLogger extends $v2.LogV2StandardLogger
   /// Go: `func (*zap.SugaredLogger).WithLazy(args ...interface{}) *zap.SugaredLogger`.
   ZapSugaredLogger withLazy([List<Object?> args = const []]) {
     final $r = $callSync(
-        22852,
+        22858,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -824,7 +824,7 @@ class ZapSugaredLogger extends $v2.LogV2StandardLogger
   /// Go: `func (*zap.SugaredLogger).WithOptions(opts ...zap.Option) *zap.SugaredLogger`.
   ZapSugaredLogger withOptions([List<ZapOption> opts = const []]) {
     final $r = $callSync(
-        22853,
+        22859,
         $W()
           ..h(this)
           ..list(opts, (w0, e0) => w0.h(e0)));
@@ -837,7 +837,7 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.Any(key string, value interface{}) zap.Field`.
   $zapcore.ZapZapcoreField any(String key, Object? value) {
     final $r = $callSync(
-        22720,
+        22726,
         $W()
           ..str(key)
           ..any(value));
@@ -848,7 +848,7 @@ extension GoZapApi on GoZap {
   $zapcore.ZapZapcoreField array(
       String key, $zapcore.ZapZapcoreArrayMarshaler val) {
     final $r = $callSync(
-        22721,
+        22727,
         $W()
           ..str(key)
           ..h(val));
@@ -858,7 +858,7 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.Binary(key string, val []byte) zap.Field`.
   $zapcore.ZapZapcoreField binary(String key, Uint8List val) {
     final $r = $callSync(
-        22729,
+        22735,
         $W()
           ..str(key)
           ..bytes(val));
@@ -868,7 +868,7 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.Bool(key string, val bool) zap.Field`.
   $zapcore.ZapZapcoreField bool$(String key, bool val) {
     final $r = $callSync(
-        22730,
+        22736,
         $W()
           ..str(key)
           ..b(val));
@@ -878,7 +878,7 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.Boolp(key string, val *bool) zap.Field`.
   $zapcore.ZapZapcoreField boolp(String key, bool? val) {
     final $r = $callSync(
-        22731,
+        22737,
         $W()
           ..str(key)
           ..ptr(val, (w0, v0) => w0.b(v0)));
@@ -888,7 +888,7 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.Bools(key string, bs []bool) zap.Field`.
   $zapcore.ZapZapcoreField bools(String key, List<bool> bs) {
     final $r = $callSync(
-        22732,
+        22738,
         $W()
           ..str(key)
           ..list(bs, (w0, e0) => w0.b(e0)));
@@ -898,7 +898,7 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.ByteString(key string, val []byte) zap.Field`.
   $zapcore.ZapZapcoreField byteString(String key, Uint8List val) {
     final $r = $callSync(
-        22733,
+        22739,
         $W()
           ..str(key)
           ..bytes(val));
@@ -908,7 +908,7 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.ByteStrings(key string, bss [][]byte) zap.Field`.
   $zapcore.ZapZapcoreField byteStrings(String key, List<Uint8List> bss) {
     final $r = $callSync(
-        22734,
+        22740,
         $W()
           ..str(key)
           ..list(bss, (w0, e0) => w0.bytes(e0)));
@@ -918,7 +918,7 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.CombineWriteSyncers(writers ...zapcore.WriteSyncer) zapcore.WriteSyncer`.
   $zapcore.ZapZapcoreWriteSyncer combineWriteSyncers(
       [List<$zapcore.ZapZapcoreWriteSyncer> writers = const []]) {
-    final $r = $callSync(22735, $W()..list(writers, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(22741, $W()..list(writers, (w0, e0) => w0.h(e0)));
     return $r.hnn($zapcore.ZapZapcoreWriteSyncer.$h);
   }
 
@@ -926,7 +926,7 @@ extension GoZapApi on GoZap {
   $zapcore.ZapZapcoreField dict(String key,
       [List<$zapcore.ZapZapcoreField> val = const []]) {
     final $r = $callSync(
-        22738,
+        22744,
         $W()
           ..str(key)
           ..list(val, (w0, e0) => w0.dto(e0)));
@@ -936,14 +936,14 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.DictObject(val ...zap.Field) zapcore.ObjectMarshaler`.
   $zapcore.ZapZapcoreObjectMarshaler dictObject(
       [List<$zapcore.ZapZapcoreField> val = const []]) {
-    final $r = $callSync(22739, $W()..list(val, (w0, e0) => w0.dto(e0)));
+    final $r = $callSync(22745, $W()..list(val, (w0, e0) => w0.dto(e0)));
     return $r.hnn($zapcore.ZapZapcoreObjectMarshaler.$h);
   }
 
   /// Go: `func zap.Duration(key string, val time.Duration) zap.Field`.
   $zapcore.ZapZapcoreField duration(String key, Duration val) {
     final $r = $callSync(
-        22740,
+        22746,
         $W()
           ..str(key)
           ..i64((val).inMicroseconds * 1000));
@@ -953,7 +953,7 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.Durations(key string, ds []time.Duration) zap.Field`.
   $zapcore.ZapZapcoreField durations(String key, List<Duration> ds) {
     final $r = $callSync(
-        22741,
+        22747,
         $W()
           ..str(key)
           ..list(ds, (w0, e0) => w0.i64((e0).inMicroseconds * 1000)));
@@ -963,7 +963,7 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.Errors(key string, errs []error) zap.Field`.
   $zapcore.ZapZapcoreField errors(String key, List<String> errs) {
     final $r = $callSync(
-        22743,
+        22749,
         $W()
           ..str(key)
           ..list(errs, (w0, e0) => w0.err(e0)));
@@ -973,7 +973,7 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.Float32(key string, val float32) zap.Field`.
   $zapcore.ZapZapcoreField float32(String key, double val) {
     final $r = $callSync(
-        22745,
+        22751,
         $W()
           ..str(key)
           ..f64(val));
@@ -983,7 +983,7 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.Float32p(key string, val *float32) zap.Field`.
   $zapcore.ZapZapcoreField float32p(String key, double? val) {
     final $r = $callSync(
-        22746,
+        22752,
         $W()
           ..str(key)
           ..ptr(val, (w0, v0) => w0.f64(v0)));
@@ -993,7 +993,7 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.Float32s(key string, nums []float32) zap.Field`.
   $zapcore.ZapZapcoreField float32s(String key, List<double> nums) {
     final $r = $callSync(
-        22747,
+        22753,
         $W()
           ..str(key)
           ..list(nums, (w0, e0) => w0.f64(e0)));
@@ -1003,7 +1003,7 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.Float64(key string, val float64) zap.Field`.
   $zapcore.ZapZapcoreField float64(String key, double val) {
     final $r = $callSync(
-        22748,
+        22754,
         $W()
           ..str(key)
           ..f64(val));
@@ -1013,7 +1013,7 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.Float64p(key string, val *float64) zap.Field`.
   $zapcore.ZapZapcoreField float64p(String key, double? val) {
     final $r = $callSync(
-        22749,
+        22755,
         $W()
           ..str(key)
           ..ptr(val, (w0, v0) => w0.f64(v0)));
@@ -1023,7 +1023,7 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.Float64s(key string, nums []float64) zap.Field`.
   $zapcore.ZapZapcoreField float64s(String key, List<double> nums) {
     final $r = $callSync(
-        22750,
+        22756,
         $W()
           ..str(key)
           ..list(nums, (w0, e0) => w0.f64(e0)));
@@ -1032,14 +1032,14 @@ extension GoZapApi on GoZap {
 
   /// Go: `func zap.Inline(val zapcore.ObjectMarshaler) zap.Field`.
   $zapcore.ZapZapcoreField inline($zapcore.ZapZapcoreObjectMarshaler val) {
-    final $r = $callSync(22753, $W()..h(val));
+    final $r = $callSync(22759, $W()..h(val));
     return $r.p() ? $zapcore.ZapZapcoreField.$dec($r) : $nil();
   }
 
   /// Go: `func zap.Int(key string, val int) zap.Field`.
   $zapcore.ZapZapcoreField int$(String key, int val) {
     final $r = $callSync(
-        22754,
+        22760,
         $W()
           ..str(key)
           ..i64(val));
@@ -1049,7 +1049,7 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.Int16(key string, val int16) zap.Field`.
   $zapcore.ZapZapcoreField int16(String key, int val) {
     final $r = $callSync(
-        22755,
+        22761,
         $W()
           ..str(key)
           ..i64(val));
@@ -1059,7 +1059,7 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.Int16p(key string, val *int16) zap.Field`.
   $zapcore.ZapZapcoreField int16p(String key, int? val) {
     final $r = $callSync(
-        22756,
+        22762,
         $W()
           ..str(key)
           ..ptr(val, (w0, v0) => w0.i64(v0)));
@@ -1069,7 +1069,7 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.Int16s(key string, nums []int16) zap.Field`.
   $zapcore.ZapZapcoreField int16s(String key, List<int> nums) {
     final $r = $callSync(
-        22757,
+        22763,
         $W()
           ..str(key)
           ..list(nums, (w0, e0) => w0.i64(e0)));
@@ -1079,7 +1079,7 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.Int32(key string, val int32) zap.Field`.
   $zapcore.ZapZapcoreField int32(String key, int val) {
     final $r = $callSync(
-        22758,
+        22764,
         $W()
           ..str(key)
           ..i64(val));
@@ -1089,7 +1089,7 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.Int32p(key string, val *int32) zap.Field`.
   $zapcore.ZapZapcoreField int32p(String key, int? val) {
     final $r = $callSync(
-        22759,
+        22765,
         $W()
           ..str(key)
           ..ptr(val, (w0, v0) => w0.i64(v0)));
@@ -1099,7 +1099,7 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.Int32s(key string, nums []int32) zap.Field`.
   $zapcore.ZapZapcoreField int32s(String key, List<int> nums) {
     final $r = $callSync(
-        22760,
+        22766,
         $W()
           ..str(key)
           ..list(nums, (w0, e0) => w0.i64(e0)));
@@ -1109,7 +1109,7 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.Int64(key string, val int64) zap.Field`.
   $zapcore.ZapZapcoreField int64(String key, int val) {
     final $r = $callSync(
-        22761,
+        22767,
         $W()
           ..str(key)
           ..i64(val));
@@ -1119,7 +1119,7 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.Int64p(key string, val *int64) zap.Field`.
   $zapcore.ZapZapcoreField int64p(String key, int? val) {
     final $r = $callSync(
-        22762,
+        22768,
         $W()
           ..str(key)
           ..ptr(val, (w0, v0) => w0.i64(v0)));
@@ -1129,7 +1129,7 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.Int64s(key string, nums []int64) zap.Field`.
   $zapcore.ZapZapcoreField int64s(String key, List<int> nums) {
     final $r = $callSync(
-        22763,
+        22769,
         $W()
           ..str(key)
           ..list(nums, (w0, e0) => w0.i64(e0)));
@@ -1139,7 +1139,7 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.Int8(key string, val int8) zap.Field`.
   $zapcore.ZapZapcoreField int8(String key, int val) {
     final $r = $callSync(
-        22764,
+        22770,
         $W()
           ..str(key)
           ..i64(val));
@@ -1149,7 +1149,7 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.Int8p(key string, val *int8) zap.Field`.
   $zapcore.ZapZapcoreField int8p(String key, int? val) {
     final $r = $callSync(
-        22765,
+        22771,
         $W()
           ..str(key)
           ..ptr(val, (w0, v0) => w0.i64(v0)));
@@ -1159,7 +1159,7 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.Int8s(key string, nums []int8) zap.Field`.
   $zapcore.ZapZapcoreField int8s(String key, List<int> nums) {
     final $r = $callSync(
-        22766,
+        22772,
         $W()
           ..str(key)
           ..list(nums, (w0, e0) => w0.i64(e0)));
@@ -1169,7 +1169,7 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.Intp(key string, val *int) zap.Field`.
   $zapcore.ZapZapcoreField intp(String key, int? val) {
     final $r = $callSync(
-        22767,
+        22773,
         $W()
           ..str(key)
           ..ptr(val, (w0, v0) => w0.i64(v0)));
@@ -1179,7 +1179,7 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.Ints(key string, nums []int) zap.Field`.
   $zapcore.ZapZapcoreField ints(String key, List<int> nums) {
     final $r = $callSync(
-        22768,
+        22774,
         $W()
           ..str(key)
           ..list(nums, (w0, e0) => w0.i64(e0)));
@@ -1188,13 +1188,13 @@ extension GoZapApi on GoZap {
 
   /// Go: `func zap.L() *zap.Logger`.
   ZapLogger l() {
-    final $r = $callSync(22769);
+    final $r = $callSync(22775);
     return $r.hnn(ZapLogger.$h);
   }
 
   /// Go: `func zap.Namespace(key string) zap.Field`.
   $zapcore.ZapZapcoreField namespace(String key) {
-    final $r = $callSync(22789, $W()..str(key));
+    final $r = $callSync(22795, $W()..str(key));
     return $r.p() ? $zapcore.ZapZapcoreField.$dec($r) : $nil();
   }
 
@@ -1202,7 +1202,7 @@ extension GoZapApi on GoZap {
   ZapLogger new$($zapcore.ZapZapcoreCore core,
       [List<ZapOption> options = const []]) {
     final $r = $callSync(
-        22790,
+        22796,
         $W()
           ..h(core)
           ..list(options, (w0, e0) => w0.h(e0)));
@@ -1211,68 +1211,68 @@ extension GoZapApi on GoZap {
 
   /// Go: `func zap.NewAtomicLevelAt(l zapcore.Level) zap.AtomicLevel`.
   ZapAtomicLevel newAtomicLevelAt(int l) {
-    final $r = $callSync(22792, $W()..i64(l));
+    final $r = $callSync(22798, $W()..i64(l));
     return $r.hnn(ZapAtomicLevel.$h);
   }
 
   /// Go: `func zap.NewDevelopment(options ...zap.Option) (*zap.Logger, error)`.
   ZapLogger newDevelopment([List<ZapOption> options = const []]) {
-    final $r = $callSync(22793, $W()..list(options, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(22799, $W()..list(options, (w0, e0) => w0.h(e0)));
     return $r.hnn(ZapLogger.$h);
   }
 
   /// Go: `func zap.NewDevelopmentConfig() zap.Config`.
   ZapConfig newDevelopmentConfig() {
-    final $r = $callSync(22794);
+    final $r = $callSync(22800);
     return $r.p() ? ZapConfig.$dec($r) : $nil();
   }
 
   /// Go: `func zap.NewDevelopmentEncoderConfig() zapcore.EncoderConfig`.
   $zapcore.ZapZapcoreEncoderConfig newDevelopmentEncoderConfig() {
-    final $r = $callSync(22795);
+    final $r = $callSync(22801);
     return $r.p() ? $zapcore.ZapZapcoreEncoderConfig.$dec($r) : $nil();
   }
 
   /// Go: `func zap.NewExample(options ...zap.Option) *zap.Logger`.
   ZapLogger newExample([List<ZapOption> options = const []]) {
-    final $r = $callSync(22796, $W()..list(options, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(22802, $W()..list(options, (w0, e0) => w0.h(e0)));
     return $r.hnn(ZapLogger.$h);
   }
 
   /// Go: `func zap.NewNop() *zap.Logger`.
   ZapLogger newNop() {
-    final $r = $callSync(22797);
+    final $r = $callSync(22803);
     return $r.hnn(ZapLogger.$h);
   }
 
   /// Go: `func zap.NewProduction(options ...zap.Option) (*zap.Logger, error)`.
   ZapLogger newProduction([List<ZapOption> options = const []]) {
-    final $r = $callSync(22798, $W()..list(options, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(22804, $W()..list(options, (w0, e0) => w0.h(e0)));
     return $r.hnn(ZapLogger.$h);
   }
 
   /// Go: `func zap.NewProductionConfig() zap.Config`.
   ZapConfig newProductionConfig() {
-    final $r = $callSync(22799);
+    final $r = $callSync(22805);
     return $r.p() ? ZapConfig.$dec($r) : $nil();
   }
 
   /// Go: `func zap.NewProductionEncoderConfig() zapcore.EncoderConfig`.
   $zapcore.ZapZapcoreEncoderConfig newProductionEncoderConfig() {
-    final $r = $callSync(22800);
+    final $r = $callSync(22806);
     return $r.p() ? $zapcore.ZapZapcoreEncoderConfig.$dec($r) : $nil();
   }
 
   /// Go: `func zap.NewStdLog(l *zap.Logger) *log.Logger`.
   $log.LogLogger newStdLog(ZapLogger l) {
-    final $r = $callSync(22801, $W()..h(l));
+    final $r = $callSync(22807, $W()..h(l));
     return $r.hnn($log.LogLogger.$h);
   }
 
   /// Go: `func zap.NewStdLogAt(l *zap.Logger, level zapcore.Level) (*log.Logger, error)`.
   $log.LogLogger newStdLogAt(ZapLogger l, int level) {
     final $r = $callSync(
-        22802,
+        22808,
         $W()
           ..h(l)
           ..i64(level));
@@ -1283,7 +1283,7 @@ extension GoZapApi on GoZap {
   $zapcore.ZapZapcoreField object(
       String key, $zapcore.ZapZapcoreObjectMarshaler val) {
     final $r = $callSync(
-        22803,
+        22809,
         $W()
           ..str(key)
           ..h(val));
@@ -1292,14 +1292,14 @@ extension GoZapApi on GoZap {
 
   /// Go: `func zap.ParseAtomicLevel(text string) (zap.AtomicLevel, error)`.
   ZapAtomicLevel parseAtomicLevel(String text) {
-    final $r = $callSync(22805, $W()..str(text));
+    final $r = $callSync(22811, $W()..str(text));
     return $r.hnn(ZapAtomicLevel.$h);
   }
 
   /// Go: `func zap.Reflect(key string, val interface{}) zap.Field`.
   $zapcore.ZapZapcoreField reflect(String key, Object? val) {
     final $r = $callSync(
-        22806,
+        22812,
         $W()
           ..str(key)
           ..any(val));
@@ -1308,26 +1308,26 @@ extension GoZapApi on GoZap {
 
   /// Go: `func zap.S() *zap.SugaredLogger`.
   ZapSugaredLogger s() {
-    final $r = $callSync(22807);
+    final $r = $callSync(22813);
     return $r.hnn(ZapSugaredLogger.$h);
   }
 
   /// Go: `func zap.Skip() zap.Field`.
   $zapcore.ZapZapcoreField skip() {
-    final $r = $callSync(22808);
+    final $r = $callSync(22814);
     return $r.p() ? $zapcore.ZapZapcoreField.$dec($r) : $nil();
   }
 
   /// Go: `func zap.Stack(key string) zap.Field`.
   $zapcore.ZapZapcoreField stack(String key) {
-    final $r = $callSync(22809, $W()..str(key));
+    final $r = $callSync(22815, $W()..str(key));
     return $r.p() ? $zapcore.ZapZapcoreField.$dec($r) : $nil();
   }
 
   /// Go: `func zap.StackSkip(key string, skip int) zap.Field`.
   $zapcore.ZapZapcoreField stackSkip(String key, int skip) {
     final $r = $callSync(
-        22810,
+        22816,
         $W()
           ..str(key)
           ..i64(skip));
@@ -1337,7 +1337,7 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.String(key string, val string) zap.Field`.
   $zapcore.ZapZapcoreField string(String key, String val) {
     final $r = $callSync(
-        22811,
+        22817,
         $W()
           ..str(key)
           ..str(val));
@@ -1347,7 +1347,7 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.Stringer(key string, val fmt.Stringer) zap.Field`.
   $zapcore.ZapZapcoreField stringer(String key, $fmt.FmtStringer val) {
     final $r = $callSync(
-        22812,
+        22818,
         $W()
           ..str(key)
           ..dto(val));
@@ -1357,7 +1357,7 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.Stringp(key string, val *string) zap.Field`.
   $zapcore.ZapZapcoreField stringp(String key, String? val) {
     final $r = $callSync(
-        22813,
+        22819,
         $W()
           ..str(key)
           ..ptr(val, (w0, v0) => w0.str(v0)));
@@ -1367,7 +1367,7 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.Strings(key string, ss []string) zap.Field`.
   $zapcore.ZapZapcoreField strings(String key, List<String> ss) {
     final $r = $callSync(
-        22814,
+        22820,
         $W()
           ..str(key)
           ..list(ss, (w0, e0) => w0.str(e0)));
@@ -1377,7 +1377,7 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.Time(key string, val time.Time) zap.Field`.
   $zapcore.ZapZapcoreField time(String key, DateTime val) {
     final $r = $callSync(
-        22854,
+        22860,
         $W()
           ..str(key)
           ..time(val));
@@ -1387,7 +1387,7 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.Timep(key string, val *time.Time) zap.Field`.
   $zapcore.ZapZapcoreField timep(String key, DateTime val) {
     final $r = $callSync(
-        22855,
+        22861,
         $W()
           ..str(key)
           ..time(val));
@@ -1397,7 +1397,7 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.Times(key string, ts []time.Time) zap.Field`.
   $zapcore.ZapZapcoreField times(String key, List<DateTime> ts) {
     final $r = $callSync(
-        22856,
+        22862,
         $W()
           ..str(key)
           ..list(ts, (w0, e0) => w0.time(e0)));
@@ -1407,7 +1407,7 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.Uint(key string, val uint) zap.Field`.
   $zapcore.ZapZapcoreField uint(String key, int val) {
     final $r = $callSync(
-        22857,
+        22863,
         $W()
           ..str(key)
           ..i64(val));
@@ -1417,7 +1417,7 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.Uint16(key string, val uint16) zap.Field`.
   $zapcore.ZapZapcoreField uint16(String key, int val) {
     final $r = $callSync(
-        22858,
+        22864,
         $W()
           ..str(key)
           ..i64(val));
@@ -1427,7 +1427,7 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.Uint16p(key string, val *uint16) zap.Field`.
   $zapcore.ZapZapcoreField uint16p(String key, int? val) {
     final $r = $callSync(
-        22859,
+        22865,
         $W()
           ..str(key)
           ..ptr(val, (w0, v0) => w0.i64(v0)));
@@ -1437,7 +1437,7 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.Uint16s(key string, nums []uint16) zap.Field`.
   $zapcore.ZapZapcoreField uint16s(String key, List<int> nums) {
     final $r = $callSync(
-        22860,
+        22866,
         $W()
           ..str(key)
           ..list(nums, (w0, e0) => w0.i64(e0)));
@@ -1447,7 +1447,7 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.Uint32(key string, val uint32) zap.Field`.
   $zapcore.ZapZapcoreField uint32(String key, int val) {
     final $r = $callSync(
-        22861,
+        22867,
         $W()
           ..str(key)
           ..i64(val));
@@ -1457,7 +1457,7 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.Uint32p(key string, val *uint32) zap.Field`.
   $zapcore.ZapZapcoreField uint32p(String key, int? val) {
     final $r = $callSync(
-        22862,
+        22868,
         $W()
           ..str(key)
           ..ptr(val, (w0, v0) => w0.i64(v0)));
@@ -1467,7 +1467,7 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.Uint32s(key string, nums []uint32) zap.Field`.
   $zapcore.ZapZapcoreField uint32s(String key, List<int> nums) {
     final $r = $callSync(
-        22863,
+        22869,
         $W()
           ..str(key)
           ..list(nums, (w0, e0) => w0.i64(e0)));
@@ -1477,7 +1477,7 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.Uint64(key string, val uint64) zap.Field`.
   $zapcore.ZapZapcoreField uint64(String key, int val) {
     final $r = $callSync(
-        22864,
+        22870,
         $W()
           ..str(key)
           ..i64(val));
@@ -1487,7 +1487,7 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.Uint64p(key string, val *uint64) zap.Field`.
   $zapcore.ZapZapcoreField uint64p(String key, int? val) {
     final $r = $callSync(
-        22865,
+        22871,
         $W()
           ..str(key)
           ..ptr(val, (w0, v0) => w0.i64(v0)));
@@ -1497,7 +1497,7 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.Uint64s(key string, nums []uint64) zap.Field`.
   $zapcore.ZapZapcoreField uint64s(String key, List<int> nums) {
     final $r = $callSync(
-        22866,
+        22872,
         $W()
           ..str(key)
           ..list(nums, (w0, e0) => w0.i64(e0)));
@@ -1507,7 +1507,7 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.Uint8(key string, val uint8) zap.Field`.
   $zapcore.ZapZapcoreField uint8(String key, int val) {
     final $r = $callSync(
-        22867,
+        22873,
         $W()
           ..str(key)
           ..i64(val));
@@ -1517,7 +1517,7 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.Uint8p(key string, val *uint8) zap.Field`.
   $zapcore.ZapZapcoreField uint8p(String key, int? val) {
     final $r = $callSync(
-        22868,
+        22874,
         $W()
           ..str(key)
           ..ptr(val, (w0, v0) => w0.i64(v0)));
@@ -1527,7 +1527,7 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.Uint8s(key string, nums []uint8) zap.Field`.
   $zapcore.ZapZapcoreField uint8s(String key, Uint8List nums) {
     final $r = $callSync(
-        22869,
+        22875,
         $W()
           ..str(key)
           ..bytes(nums));
@@ -1537,7 +1537,7 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.Uintp(key string, val *uint) zap.Field`.
   $zapcore.ZapZapcoreField uintp(String key, int? val) {
     final $r = $callSync(
-        22870,
+        22876,
         $W()
           ..str(key)
           ..ptr(val, (w0, v0) => w0.i64(v0)));
@@ -1547,7 +1547,7 @@ extension GoZapApi on GoZap {
   /// Go: `func zap.Uints(key string, nums []uint) zap.Field`.
   $zapcore.ZapZapcoreField uints(String key, List<int> nums) {
     final $r = $callSync(
-        22871,
+        22877,
         $W()
           ..str(key)
           ..list(nums, (w0, e0) => w0.i64(e0)));
@@ -1583,80 +1583,80 @@ extension GoZapEnumsApi on GoZapEnums {
 extension GoZapOptionsApi on GoZapOptions {
   /// Go: `func zap.AddCaller() zap.Option`.
   ZapOption addCaller() {
-    final $r = $callSync(22717);
+    final $r = $callSync(22723);
     return $r.hnn(ZapOption.$h);
   }
 
   /// Go: `func zap.AddCallerSkip(skip int) zap.Option`.
   ZapOption addCallerSkip(int skip) {
-    final $r = $callSync(22718, $W()..i64(skip));
+    final $r = $callSync(22724, $W()..i64(skip));
     return $r.hnn(ZapOption.$h);
   }
 
   /// Go: `func zap.AddStacktrace(lvl zapcore.LevelEnabler) zap.Option`.
   ZapOption addStacktrace($zapcore.ZapZapcoreLevelEnabler lvl) {
-    final $r = $callSync(22719, $W()..h(lvl));
+    final $r = $callSync(22725, $W()..h(lvl));
     return $r.hnn(ZapOption.$h);
   }
 
   /// Go: `func zap.Development() zap.Option`.
   ZapOption development() {
-    final $r = $callSync(22737);
+    final $r = $callSync(22743);
     return $r.hnn(ZapOption.$h);
   }
 
   /// Go: `func zap.ErrorOutput(w zapcore.WriteSyncer) zap.Option`.
   ZapOption errorOutput($zapcore.ZapZapcoreWriteSyncer w) {
-    final $r = $callSync(22742, $W()..h(w));
+    final $r = $callSync(22748, $W()..h(w));
     return $r.hnn(ZapOption.$h);
   }
 
   /// Go: `func zap.Fields(fs ...zap.Field) zap.Option`.
   ZapOption fields([List<$zapcore.ZapZapcoreField> fs = const []]) {
-    final $r = $callSync(22744, $W()..list(fs, (w0, e0) => w0.dto(e0)));
+    final $r = $callSync(22750, $W()..list(fs, (w0, e0) => w0.dto(e0)));
     return $r.hnn(ZapOption.$h);
   }
 
   /// Go: `func zap.Hooks(hooks ...func(zapcore.Entry) error) zap.Option`.
   ZapOption hooks() {
-    final $r = $callSync(22751);
+    final $r = $callSync(22757);
     return $r.hnn(ZapOption.$h);
   }
 
   /// Go: `func zap.IncreaseLevel(lvl zapcore.LevelEnabler) zap.Option`.
   ZapOption increaseLevel($zapcore.ZapZapcoreLevelEnabler lvl) {
-    final $r = $callSync(22752, $W()..h(lvl));
+    final $r = $callSync(22758, $W()..h(lvl));
     return $r.hnn(ZapOption.$h);
   }
 
   /// Go: `func zap.OnFatal(action zapcore.CheckWriteAction) zap.Option`.
   @Deprecated("Use [WithFatalHook] instead.")
   ZapOption onFatal(int action) {
-    final $r = $callSync(22804, $W()..i64(action));
+    final $r = $callSync(22810, $W()..i64(action));
     return $r.hnn(ZapOption.$h);
   }
 
   /// Go: `func zap.WithCaller(enabled bool) zap.Option`.
   ZapOption withCaller(bool enabled) {
-    final $r = $callSync(22872, $W()..b(enabled));
+    final $r = $callSync(22878, $W()..b(enabled));
     return $r.hnn(ZapOption.$h);
   }
 
   /// Go: `func zap.WithClock(clock zapcore.Clock) zap.Option`.
   ZapOption withClock($zapcore.ZapZapcoreClock clock) {
-    final $r = $callSync(22873, $W()..h(clock));
+    final $r = $callSync(22879, $W()..h(clock));
     return $r.hnn(ZapOption.$h);
   }
 
   /// Go: `func zap.WithFatalHook(hook zapcore.CheckWriteHook) zap.Option`.
   ZapOption withFatalHook($zapcore.ZapZapcoreCheckWriteHook hook) {
-    final $r = $callSync(22874, $W()..h(hook));
+    final $r = $callSync(22880, $W()..h(hook));
     return $r.hnn(ZapOption.$h);
   }
 
   /// Go: `func zap.WithPanicHook(hook zapcore.CheckWriteHook) zap.Option`.
   ZapOption withPanicHook($zapcore.ZapZapcoreCheckWriteHook hook) {
-    final $r = $callSync(22875, $W()..h(hook));
+    final $r = $callSync(22881, $W()..h(hook));
     return $r.hnn(ZapOption.$h);
   }
 }

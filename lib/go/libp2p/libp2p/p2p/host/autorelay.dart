@@ -43,7 +43,7 @@ class Libp2pP2pHostAutorelayAutoRelay extends $io.IoCloser
   factory Libp2pP2pHostAutorelayAutoRelay($host.Libp2pCoreHost host,
       [List<Libp2pP2pHostAutorelayOption> opts = const []]) {
     final $r = $callSync(
-        14416,
+        14422,
         $W()
           ..h(host)
           ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -52,13 +52,13 @@ class Libp2pP2pHostAutorelayAutoRelay extends $io.IoCloser
 
   /// Go: `func (*autorelay.AutoRelay).Close() error`.
   void close() {
-    $callSync(14398, $W()..h(this));
+    $callSync(14404, $W()..h(this));
   }
 
   /// Go: `func (*autorelay.AutoRelay).IsPeerInBackoff(peerID peer.ID) bool`.
   bool isPeerInBackoff($peer.Libp2pCorePeerId peerId) {
     final $r = $callSync(
-        14399,
+        14405,
         $W()
           ..h(this)
           ..val(peerId));
@@ -67,7 +67,7 @@ class Libp2pP2pHostAutorelayAutoRelay extends $io.IoCloser
 
   /// Go: `func (*autorelay.AutoRelay).Start()`.
   void start() {
-    $callSync(14400, $W()..h(this));
+    $callSync(14406, $W()..h(this));
   }
 }
 
@@ -82,7 +82,7 @@ mixin Libp2pP2pHostAutorelayClockWithInstantTimer$ on GoHandle {
   /// Go: `func (autorelay.ClockWithInstantTimer).InstantTimer(when time.Time) autorelay.InstantTimer`.
   Libp2pP2pHostAutorelayInstantTimer instantTimer(DateTime when) {
     final $r = $callSync(
-        14401,
+        14407,
         $W()
           ..h(this)
           ..time(when));
@@ -91,14 +91,14 @@ mixin Libp2pP2pHostAutorelayClockWithInstantTimer$ on GoHandle {
 
   /// Go: `func (autorelay.ClockWithInstantTimer).Now() time.Time`.
   DateTime now() {
-    final $r = $callSync(14402, $W()..h(this));
+    final $r = $callSync(14408, $W()..h(this));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func (autorelay.ClockWithInstantTimer).Since(t time.Time) time.Duration`.
   Duration since(DateTime t) {
     final $r = $callSync(
-        14403,
+        14409,
         $W()
           ..h(this)
           ..time(t));
@@ -116,12 +116,12 @@ class Libp2pP2pHostAutorelayInstantTimer extends GoHandle
 mixin Libp2pP2pHostAutorelayInstantTimer$ on GoHandle {
   /// Go: `func (autorelay.InstantTimer).Ch() <-chan time.Time`.
   Stream<DateTime> ch() =>
-      $stream(14404, $W()..h(this)).map((r) => r.p() ? r.time() : $nil());
+      $stream(14410, $W()..h(this)).map((r) => r.p() ? r.time() : $nil());
 
   /// Go: `func (autorelay.InstantTimer).Reset(d time.Time) bool`.
   bool reset(DateTime d) {
     final $r = $callSync(
-        14405,
+        14411,
         $W()
           ..h(this)
           ..time(d));
@@ -130,19 +130,19 @@ mixin Libp2pP2pHostAutorelayInstantTimer$ on GoHandle {
 
   /// Go: `func (autorelay.InstantTimer).Stop() bool`.
   bool stop() {
-    final $r = $callSync(14406, $W()..h(this));
+    final $r = $callSync(14412, $W()..h(this));
     return $r.b();
   }
 
   /// Go: type assertion `x.(*autorelay.RealTimer)`: null if the object is not one.
   Libp2pP2pHostAutorelayRealTimer? asLibp2pP2pHostAutorelayRealTimer() {
-    final $r = $callSync(1436, $W()..h(this));
+    final $r = $callSync(1439, $W()..h(this));
     return $r.hn(Libp2pP2pHostAutorelayRealTimer.$h);
   }
 
   /// Go: type assertion `x.(*swarm.RealTimer)`: null if the object is not one.
   $swarm.Libp2pP2pNetSwarmRealTimer? asLibp2pP2pNetSwarmRealTimer() {
-    final $r = $callSync(1437, $W()..h(this));
+    final $r = $callSync(1440, $W()..h(this));
     return $r.hn($swarm.Libp2pP2pNetSwarmRealTimer.$h);
   }
 }
@@ -155,7 +155,7 @@ class Libp2pP2pHostAutorelayMetricsTracer extends GoHandle
   /// Go: `func autorelay.NewMetricsTracer(opts ...autorelay.MetricsTracerOption) autorelay.MetricsTracer`.
   factory Libp2pP2pHostAutorelayMetricsTracer(
       [List<Libp2pP2pHostAutorelayMetricsTracerOption> opts = const []]) {
-    final $r = $callSync(14417, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+    final $r = $callSync(14423, $W()..list(opts, (w0, e0) => w0.opt(e0)));
     return $r.hnn(Libp2pP2pHostAutorelayMetricsTracer.$h);
   }
 }
@@ -165,7 +165,7 @@ mixin Libp2pP2pHostAutorelayMetricsTracer$ on GoHandle {
   /// Go: `func (autorelay.MetricsTracer).CandidateAdded(cnt int)`.
   void candidateAdded(int cnt) {
     $callSync(
-        14407,
+        14413,
         $W()
           ..h(this)
           ..i64(cnt));
@@ -174,7 +174,7 @@ mixin Libp2pP2pHostAutorelayMetricsTracer$ on GoHandle {
   /// Go: `func (autorelay.MetricsTracer).CandidateChecked(supportsCircuitV2 bool)`.
   void candidateChecked(bool supportsCircuitV2) {
     $callSync(
-        14408,
+        14414,
         $W()
           ..h(this)
           ..b(supportsCircuitV2));
@@ -183,7 +183,7 @@ mixin Libp2pP2pHostAutorelayMetricsTracer$ on GoHandle {
   /// Go: `func (autorelay.MetricsTracer).CandidateRemoved(cnt int)`.
   void candidateRemoved(int cnt) {
     $callSync(
-        14409,
+        14415,
         $W()
           ..h(this)
           ..i64(cnt));
@@ -192,7 +192,7 @@ mixin Libp2pP2pHostAutorelayMetricsTracer$ on GoHandle {
   /// Go: `func (autorelay.MetricsTracer).DesiredReservations(int)`.
   void desiredReservations(int arg0) {
     $callSync(
-        14410,
+        14416,
         $W()
           ..h(this)
           ..i64(arg0));
@@ -201,7 +201,7 @@ mixin Libp2pP2pHostAutorelayMetricsTracer$ on GoHandle {
   /// Go: `func (autorelay.MetricsTracer).RelayAddressCount(int)`.
   void relayAddressCount(int arg0) {
     $callSync(
-        14411,
+        14417,
         $W()
           ..h(this)
           ..i64(arg0));
@@ -209,13 +209,13 @@ mixin Libp2pP2pHostAutorelayMetricsTracer$ on GoHandle {
 
   /// Go: `func (autorelay.MetricsTracer).RelayAddressUpdated()`.
   void relayAddressUpdated() {
-    $callSync(14412, $W()..h(this));
+    $callSync(14418, $W()..h(this));
   }
 
   /// Go: `func (autorelay.MetricsTracer).RelayFinderStatus(isActive bool)`.
   void relayFinderStatus(bool isActive) {
     $callSync(
-        14413,
+        14419,
         $W()
           ..h(this)
           ..b(isActive));
@@ -224,7 +224,7 @@ mixin Libp2pP2pHostAutorelayMetricsTracer$ on GoHandle {
   /// Go: `func (autorelay.MetricsTracer).ReservationEnded(cnt int)`.
   void reservationEnded(int cnt) {
     $callSync(
-        14414,
+        14420,
         $W()
           ..h(this)
           ..i64(cnt));
@@ -233,7 +233,7 @@ mixin Libp2pP2pHostAutorelayMetricsTracer$ on GoHandle {
   /// Go: `func (autorelay.MetricsTracer).ReservationOpened(cnt int)`.
   void reservationOpened(int cnt) {
     $callSync(
-        14415,
+        14421,
         $W()
           ..h(this)
           ..i64(cnt));
@@ -280,7 +280,7 @@ final class Libp2pP2pHostAutorelayRealClock implements GoDto {
   /// Go: `func (autorelay.RealClock).InstantTimer(when time.Time) autorelay.InstantTimer`.
   Libp2pP2pHostAutorelayInstantTimer instantTimer(DateTime when) {
     final $r = $callSync(
-        14418,
+        14424,
         $W()
           ..dto(this)
           ..time(when));
@@ -289,14 +289,14 @@ final class Libp2pP2pHostAutorelayRealClock implements GoDto {
 
   /// Go: `func (autorelay.RealClock).Now() time.Time`.
   DateTime now() {
-    final $r = $callSync(14419, $W()..dto(this));
+    final $r = $callSync(14425, $W()..dto(this));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func (autorelay.RealClock).Since(t time.Time) time.Duration`.
   Duration since(DateTime t) {
     final $r = $callSync(
-        14420,
+        14426,
         $W()
           ..dto(this)
           ..time(t));
@@ -328,12 +328,12 @@ class Libp2pP2pHostAutorelayRealTimer extends Libp2pP2pHostAutorelayInstantTimer
 
   /// Go: `func (autorelay.RealTimer).Ch() <-chan time.Time`.
   Stream<DateTime> ch() =>
-      $stream(14421, $W()..h(this)).map((r) => r.p() ? r.time() : $nil());
+      $stream(14427, $W()..h(this)).map((r) => r.p() ? r.time() : $nil());
 
   /// Go: `func (autorelay.RealTimer).Reset(d time.Time) bool`.
   bool reset(DateTime d) {
     final $r = $callSync(
-        14422,
+        14428,
         $W()
           ..h(this)
           ..time(d));
@@ -342,7 +342,7 @@ class Libp2pP2pHostAutorelayRealTimer extends Libp2pP2pHostAutorelayInstantTimer
 
   /// Go: `func (autorelay.RealTimer).Stop() bool`.
   bool stop() {
-    final $r = $callSync(14423, $W()..h(this));
+    final $r = $callSync(14429, $W()..h(this));
     return $r.b();
   }
 }

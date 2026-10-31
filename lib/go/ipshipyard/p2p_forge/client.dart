@@ -95,35 +95,35 @@ class P2pForgeClientP2pForgeCertMgr extends $crypto.CryptoDecrypterOpts
   /// Go: `func client.NewP2PForgeCertMgr(opts ...client.P2PForgeCertMgrOptions) (*client.P2PForgeCertMgr, error)`.
   factory P2pForgeClientP2pForgeCertMgr(
       [List<P2pForgeClientP2pForgeCertMgrOptions> opts = const []]) {
-    final $r = $callSync(12681, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+    final $r = $callSync(12687, $W()..list(opts, (w0, e0) => w0.opt(e0)));
     return $r.hnn(P2pForgeClientP2pForgeCertMgr.$h);
   }
 
   /// Go: `func (*client.P2PForgeCertMgr).AddrStrings() []string`.
   List<String> addrStrings() {
-    final $r = $callSync(12682, $W()..h(this));
+    final $r = $callSync(12688, $W()..h(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (*client.P2PForgeCertMgr).AddressFactory() config.AddrsFactory`.
   $basic.Libp2pP2pHostBasicAddrsFactory addressFactory() {
-    final $r = $callSync(12683, $W()..h(this));
+    final $r = $callSync(12689, $W()..h(this));
     return $r.hnn($basic.Libp2pP2pHostBasicAddrsFactory.$h);
   }
 
   /// Go: `func (*client.P2PForgeCertMgr).Start() error`.
   void start() {
-    $callSync(12684, $W()..h(this));
+    $callSync(12690, $W()..h(this));
   }
 
   /// Go: `func (*client.P2PForgeCertMgr).Stop()`.
   void stop() {
-    $callSync(12685, $W()..h(this));
+    $callSync(12691, $W()..h(this));
   }
 
   /// Go: `func (*client.P2PForgeCertMgr).TLSConfig() *tls.Config`.
   $tls.CryptoTlsConfig tlsConfig() {
-    final $r = $callSync(12686, $W()..h(this));
+    final $r = $callSync(12692, $W()..h(this));
     return $r.hnn($tls.CryptoTlsConfig.$h);
   }
 }
@@ -144,7 +144,7 @@ extension GoIpshipyardP2pForgeClientApi on GoIpshipyardP2pForgeClient {
   String buildLongForgeMultiaddr(
       P2pForgeClientForgeAddrInfo forgeAddrInfo, String forgeDomain) {
     final $r = $callSync(
-        12676,
+        12682,
         $W()
           ..dto(forgeAddrInfo)
           ..str(forgeDomain));
@@ -155,7 +155,7 @@ extension GoIpshipyardP2pForgeClientApi on GoIpshipyardP2pForgeClient {
   String buildShortForgeMultiaddr(
       P2pForgeClientForgeAddrInfo forgeAddrInfo, String forgeDomain) {
     final $r = $callSync(
-        12677,
+        12683,
         $W()
           ..dto(forgeAddrInfo)
           ..str(forgeDomain));
@@ -171,7 +171,7 @@ extension GoIpshipyardP2pForgeClientApi on GoIpshipyardP2pForgeClient {
       String challenge,
       List<$multiaddr.Multiaddr> addrs) async {
     final $r = await $call(
-        12678,
+        12684,
         $W()
           ..h(ctx)
           ..str(registrationUrl)
@@ -189,7 +189,7 @@ extension GoIpshipyardP2pForgeClientApi on GoIpshipyardP2pForgeClient {
       String userAgent,
       $http.NetHttpClient httpClient) async {
     await $call(
-        12679,
+        12685,
         $W()
           ..h(ctx)
           ..str(registrationEndpoint)
@@ -201,7 +201,7 @@ extension GoIpshipyardP2pForgeClientApi on GoIpshipyardP2pForgeClient {
   P2pForgeClientForgeAddrInfo extractForgeAddrInfo(
       $multiaddr.Multiaddr addr, $peer.Libp2pCorePeerId peerId) {
     final $r = $callSync(
-        12680,
+        12686,
         $W()
           ..val(addr)
           ..val(peerId));
@@ -226,7 +226,7 @@ extension GoIpshipyardP2pForgeClientApi on GoIpshipyardP2pForgeClient {
       FutureOr<void> Function($http.NetHttpRequest r) modifyForgeRequest,
       [List<P2pForgeClientSendChallengeOption> opts = const []]) async {
     await $call(
-        12687,
+        12693,
         $W()
           ..h(ctx)
           ..str(baseUrl)

@@ -10,7 +10,7 @@ import 'package:p2p_ffi/go/hash.dart' as $hash;
 extension GoCryptoMd5Api on GoCryptoMd5 {
   /// Go: `func md5.New() hash.Hash`.
   $hash.Hash new$() {
-    final $r = $callSync(3273);
+    final $r = $callSync(3282);
     return $r.hnn($hash.Hash.$h);
   }
 }

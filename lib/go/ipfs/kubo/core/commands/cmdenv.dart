@@ -24,19 +24,19 @@ import 'package:p2p_ffi/go/os.dart' as $os;
 extension GoIpfsKuboCoreCommandsCmdenvApi on GoIpfsKuboCoreCommandsCmdenv {
   /// Go: `func cmdenv.CidBaseDefined(req *cmds.Request) bool`.
   bool cidBaseDefined($ipfs_cmds.IpfsCmdsRequest req) {
-    final $r = $callSync(11377, $W()..h(req));
+    final $r = $callSync(11383, $W()..h(req));
     return $r.b();
   }
 
   /// Go: `func cmdenv.CidEncoderFromPath(p string) (cidenc.Encoder, error)`.
   $cidenc.CidutilCidencEncoder cidEncoderFromPath(String p) {
-    final $r = $callSync(11378, $W()..str(p));
+    final $r = $callSync(11384, $W()..str(p));
     return $r.p() ? $cidenc.CidutilCidencEncoder.$dec($r) : $nil();
   }
 
   /// Go: `func cmdenv.EscNonPrint(s string) string`.
   String escNonPrint(String s) {
-    final $r = $callSync(11379, $W()..str(s));
+    final $r = $callSync(11385, $W()..str(s));
     return $r.str();
   }
 
@@ -54,7 +54,7 @@ extension GoIpfsKuboCoreCommandsCmdenvApi on GoIpfsKuboCoreCommandsCmdenv {
       int fpRate,
       int blockCount) async {
     await $call(
-        11380,
+        11386,
         $W()
           ..h(cmdCtx)
           ..h(nodeCtx)
@@ -80,7 +80,7 @@ extension GoIpfsKuboCoreCommandsCmdenvApi on GoIpfsKuboCoreCommandsCmdenv {
       bool isPinnedRoot,
       bool isMfs) async {
     await $call(
-        11381,
+        11387,
         $W()
           ..h(ctx)
           ..h(ipfsNode)
@@ -96,7 +96,7 @@ extension GoIpfsKuboCoreCommandsCmdenvApi on GoIpfsKuboCoreCommandsCmdenv {
   $coreiface.KuboCoreCoreifaceCoreApi getApi(
       $ipfs_cmds.IpfsCmdsEnvironment env, $ipfs_cmds.IpfsCmdsRequest req) {
     final $r = $callSync(
-        11382,
+        11388,
         $W()
           ..h(env)
           ..h(req));
@@ -105,38 +105,38 @@ extension GoIpfsKuboCoreCommandsCmdenvApi on GoIpfsKuboCoreCommandsCmdenv {
 
   /// Go: `func cmdenv.GetCidEncoder(req *cmds.Request) (cidenc.Encoder, error)`.
   $cidenc.CidutilCidencEncoder getCidEncoder($ipfs_cmds.IpfsCmdsRequest req) {
-    final $r = $callSync(11383, $W()..h(req));
+    final $r = $callSync(11389, $W()..h(req));
     return $r.p() ? $cidenc.CidutilCidencEncoder.$dec($r) : $nil();
   }
 
   /// Go: `func cmdenv.GetConfigRoot(env cmds.Environment) (string, error)`.
   String getConfigRoot($ipfs_cmds.IpfsCmdsEnvironment env) {
-    final $r = $callSync(11384, $W()..h(env));
+    final $r = $callSync(11390, $W()..h(env));
     return $r.str();
   }
 
   /// Go: `func cmdenv.GetFileArg(it files.DirIterator) (files.File, error)`.
   $files.BoxoFilesFile getFileArg($files.BoxoFilesDirIterator it) {
-    final $r = $callSync(11385, $W()..h(it));
+    final $r = $callSync(11391, $W()..h(it));
     return $r.hnn($files.BoxoFilesFile.$h);
   }
 
   /// Go: `func cmdenv.GetNode(env any) (*core.IpfsNode, error)`.
   $core.KuboCoreIpfsNode getNode(Object? env) {
-    final $r = $callSync(11386, $W()..any(env));
+    final $r = $callSync(11392, $W()..any(env));
     return $r.hnn($core.KuboCoreIpfsNode.$h);
   }
 
   /// Go: `func cmdenv.IsTerminal(f *os.File) bool`.
   bool isTerminal($os.OsFile f) {
-    final $r = $callSync(11387, $W()..h(f));
+    final $r = $callSync(11393, $W()..h(f));
     return $r.b();
   }
 
   /// Go: `func cmdenv.ShouldShowProgress(req *cmds.Request, flag string) bool`.
   bool shouldShowProgress($ipfs_cmds.IpfsCmdsRequest req, String flag) {
     final $r = $callSync(
-        11390,
+        11396,
         $W()
           ..h(req)
           ..str(flag));
@@ -157,13 +157,13 @@ extension GoIpfsKuboCoreCommandsCmdenvOptionsApi
     on GoIpfsKuboCoreCommandsCmdenvOptions {
   /// Go: `var cmdenv.OptionCidBase cmds.Option`.
   $ipfs_cmds.IpfsCmdsOption get optionCidBase {
-    final $r = $callSync(11388);
+    final $r = $callSync(11394);
     return $r.hnn($ipfs_cmds.IpfsCmdsOption.$h);
   }
 
   /// Go: `var cmdenv.OptionUpgradeCidV0InOutput cmds.Option`.
   $ipfs_cmds.IpfsCmdsOption get optionUpgradeCidV0InOutput {
-    final $r = $callSync(11389);
+    final $r = $callSync(11395);
     return $r.hnn($ipfs_cmds.IpfsCmdsOption.$h);
   }
 }

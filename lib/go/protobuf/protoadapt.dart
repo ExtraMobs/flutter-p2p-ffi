@@ -12,14 +12,14 @@ extension GoProtobufProtoadaptApi on GoProtobufProtoadapt {
   /// Go: `func protoadapt.MessageV1Of(m protoadapt.MessageV2) protoadapt.MessageV1`.
   $protoiface.ProtobufRuntimeProtoifaceMessageV1 messageV1Of(
       $protoreflect.ProtobufReflectProtoreflectProtoMessage m) {
-    final $r = $callSync(24800, $W()..h(m));
+    final $r = $callSync(24806, $W()..h(m));
     return $r.hnn($protoiface.ProtobufRuntimeProtoifaceMessageV1.$h);
   }
 
   /// Go: `func protoadapt.MessageV2Of(m protoadapt.MessageV1) protoadapt.MessageV2`.
   $protoreflect.ProtobufReflectProtoreflectProtoMessage messageV2Of(
       $protoiface.ProtobufRuntimeProtoifaceMessageV1 m) {
-    final $r = $callSync(24801, $W()..h(m));
+    final $r = $callSync(24807, $W()..h(m));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectProtoMessage.$h);
   }
 }

@@ -31,7 +31,7 @@ class SyncAtomicBool extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*atomic.Bool).CompareAndSwap(old bool, new bool) (swapped bool)`.
   bool compareAndSwap(bool old, bool new$) {
     final $r = $callSync(
-        27357,
+        27358,
         $W()
           ..h(this)
           ..b(old)
@@ -41,14 +41,14 @@ class SyncAtomicBool extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*atomic.Bool).Load() bool`.
   bool load() {
-    final $r = $callSync(27358, $W()..h(this));
+    final $r = $callSync(27359, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*atomic.Bool).Store(val bool)`.
   void store(bool val) {
     $callSync(
-        27359,
+        27360,
         $W()
           ..h(this)
           ..b(val));
@@ -57,7 +57,7 @@ class SyncAtomicBool extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*atomic.Bool).Swap(new bool) (old bool)`.
   bool swap(bool new$) {
     final $r = $callSync(
-        27360,
+        27361,
         $W()
           ..h(this)
           ..b(new$));
@@ -86,7 +86,7 @@ class SyncAtomicInt32 extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*atomic.Int32).Add(delta int32) (new int32)`.
   int add(int delta) {
     final $r = $callSync(
-        27365,
+        27366,
         $W()
           ..h(this)
           ..i64(delta));
@@ -96,7 +96,7 @@ class SyncAtomicInt32 extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*atomic.Int32).And(mask int32) (old int32)`.
   int and(int mask) {
     final $r = $callSync(
-        27366,
+        27367,
         $W()
           ..h(this)
           ..i64(mask));
@@ -106,7 +106,7 @@ class SyncAtomicInt32 extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*atomic.Int32).CompareAndSwap(old int32, new int32) (swapped bool)`.
   bool compareAndSwap(int old, int new$) {
     final $r = $callSync(
-        27367,
+        27368,
         $W()
           ..h(this)
           ..i64(old)
@@ -116,14 +116,14 @@ class SyncAtomicInt32 extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*atomic.Int32).Load() int32`.
   int load() {
-    final $r = $callSync(27368, $W()..h(this));
+    final $r = $callSync(27369, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*atomic.Int32).Or(mask int32) (old int32)`.
   int or(int mask) {
     final $r = $callSync(
-        27369,
+        27370,
         $W()
           ..h(this)
           ..i64(mask));
@@ -133,7 +133,7 @@ class SyncAtomicInt32 extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*atomic.Int32).Store(val int32)`.
   void store(int val) {
     $callSync(
-        27370,
+        27371,
         $W()
           ..h(this)
           ..i64(val));
@@ -142,7 +142,7 @@ class SyncAtomicInt32 extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*atomic.Int32).Swap(new int32) (old int32)`.
   int swap(int new$) {
     final $r = $callSync(
-        27371,
+        27372,
         $W()
           ..h(this)
           ..i64(new$));
@@ -171,7 +171,7 @@ class SyncAtomicInt64 extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*atomic.Int64).Add(delta int64) (new int64)`.
   int add(int delta) {
     final $r = $callSync(
-        27372,
+        27373,
         $W()
           ..h(this)
           ..i64(delta));
@@ -181,7 +181,7 @@ class SyncAtomicInt64 extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*atomic.Int64).And(mask int64) (old int64)`.
   int and(int mask) {
     final $r = $callSync(
-        27373,
+        27374,
         $W()
           ..h(this)
           ..i64(mask));
@@ -191,7 +191,7 @@ class SyncAtomicInt64 extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*atomic.Int64).CompareAndSwap(old int64, new int64) (swapped bool)`.
   bool compareAndSwap(int old, int new$) {
     final $r = $callSync(
-        27374,
+        27375,
         $W()
           ..h(this)
           ..i64(old)
@@ -201,14 +201,14 @@ class SyncAtomicInt64 extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*atomic.Int64).Load() int64`.
   int load() {
-    final $r = $callSync(27375, $W()..h(this));
+    final $r = $callSync(27376, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*atomic.Int64).Or(mask int64) (old int64)`.
   int or(int mask) {
     final $r = $callSync(
-        27376,
+        27377,
         $W()
           ..h(this)
           ..i64(mask));
@@ -218,7 +218,7 @@ class SyncAtomicInt64 extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*atomic.Int64).Store(val int64)`.
   void store(int val) {
     $callSync(
-        27377,
+        27378,
         $W()
           ..h(this)
           ..i64(val));
@@ -227,7 +227,7 @@ class SyncAtomicInt64 extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*atomic.Int64).Swap(new int64) (old int64)`.
   int swap(int new$) {
     final $r = $callSync(
-        27378,
+        27379,
         $W()
           ..h(this)
           ..i64(new$));
@@ -256,7 +256,7 @@ class SyncAtomicUint32 extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*atomic.Uint32).Add(delta uint32) (new uint32)`.
   int add(int delta) {
     final $r = $callSync(
-        27395,
+        27396,
         $W()
           ..h(this)
           ..i64(delta));
@@ -266,7 +266,7 @@ class SyncAtomicUint32 extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*atomic.Uint32).And(mask uint32) (old uint32)`.
   int and(int mask) {
     final $r = $callSync(
-        27396,
+        27397,
         $W()
           ..h(this)
           ..i64(mask));
@@ -276,7 +276,7 @@ class SyncAtomicUint32 extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*atomic.Uint32).CompareAndSwap(old uint32, new uint32) (swapped bool)`.
   bool compareAndSwap(int old, int new$) {
     final $r = $callSync(
-        27397,
+        27398,
         $W()
           ..h(this)
           ..i64(old)
@@ -286,14 +286,14 @@ class SyncAtomicUint32 extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*atomic.Uint32).Load() uint32`.
   int load() {
-    final $r = $callSync(27398, $W()..h(this));
+    final $r = $callSync(27399, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*atomic.Uint32).Or(mask uint32) (old uint32)`.
   int or(int mask) {
     final $r = $callSync(
-        27399,
+        27400,
         $W()
           ..h(this)
           ..i64(mask));
@@ -303,7 +303,7 @@ class SyncAtomicUint32 extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*atomic.Uint32).Store(val uint32)`.
   void store(int val) {
     $callSync(
-        27400,
+        27401,
         $W()
           ..h(this)
           ..i64(val));
@@ -312,7 +312,7 @@ class SyncAtomicUint32 extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*atomic.Uint32).Swap(new uint32) (old uint32)`.
   int swap(int new$) {
     final $r = $callSync(
-        27401,
+        27402,
         $W()
           ..h(this)
           ..i64(new$));
@@ -341,7 +341,7 @@ class SyncAtomicUint64 extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*atomic.Uint64).Add(delta uint64) (new uint64)`.
   int add(int delta) {
     final $r = $callSync(
-        27402,
+        27403,
         $W()
           ..h(this)
           ..i64(delta));
@@ -351,7 +351,7 @@ class SyncAtomicUint64 extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*atomic.Uint64).And(mask uint64) (old uint64)`.
   int and(int mask) {
     final $r = $callSync(
-        27403,
+        27404,
         $W()
           ..h(this)
           ..i64(mask));
@@ -361,7 +361,7 @@ class SyncAtomicUint64 extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*atomic.Uint64).CompareAndSwap(old uint64, new uint64) (swapped bool)`.
   bool compareAndSwap(int old, int new$) {
     final $r = $callSync(
-        27404,
+        27405,
         $W()
           ..h(this)
           ..i64(old)
@@ -371,14 +371,14 @@ class SyncAtomicUint64 extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*atomic.Uint64).Load() uint64`.
   int load() {
-    final $r = $callSync(27405, $W()..h(this));
+    final $r = $callSync(27406, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*atomic.Uint64).Or(mask uint64) (old uint64)`.
   int or(int mask) {
     final $r = $callSync(
-        27406,
+        27407,
         $W()
           ..h(this)
           ..i64(mask));
@@ -388,7 +388,7 @@ class SyncAtomicUint64 extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*atomic.Uint64).Store(val uint64)`.
   void store(int val) {
     $callSync(
-        27407,
+        27408,
         $W()
           ..h(this)
           ..i64(val));
@@ -397,7 +397,7 @@ class SyncAtomicUint64 extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*atomic.Uint64).Swap(new uint64) (old uint64)`.
   int swap(int new$) {
     final $r = $callSync(
-        27408,
+        27409,
         $W()
           ..h(this)
           ..i64(new$));
@@ -426,7 +426,7 @@ class SyncAtomicValue extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*atomic.Value).CompareAndSwap(old any, new any) (swapped bool)`.
   bool compareAndSwap(Object? old, Object? new$) {
     final $r = $callSync(
-        27409,
+        27410,
         $W()
           ..h(this)
           ..any(old)
@@ -436,14 +436,14 @@ class SyncAtomicValue extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*atomic.Value).Load() (val any)`.
   Object? load() {
-    final $r = $callSync(27410, $W()..h(this));
+    final $r = $callSync(27411, $W()..h(this));
     return $r.any();
   }
 
   /// Go: `func (*atomic.Value).Store(val any)`.
   void store(Object? val) {
     $callSync(
-        27411,
+        27412,
         $W()
           ..h(this)
           ..any(val));
@@ -452,7 +452,7 @@ class SyncAtomicValue extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*atomic.Value).Swap(new any) (old any)`.
   Object? swap(Object? new$) {
     final $r = $callSync(
-        27412,
+        27413,
         $W()
           ..h(this)
           ..any(new$));
@@ -465,7 +465,7 @@ extension GoSyncAtomicApi on GoSyncAtomic {
   /// Go: `func atomic.AddInt32(addr *int32, delta int32) (new int32)`.
   int addInt32(int? addr, int delta) {
     final $r = $callSync(
-        27349,
+        27350,
         $W()
           ..ptr(addr, (w0, v0) => w0.i64(v0))
           ..i64(delta));
@@ -475,7 +475,7 @@ extension GoSyncAtomicApi on GoSyncAtomic {
   /// Go: `func atomic.AddInt64(addr *int64, delta int64) (new int64)`.
   int addInt64(int? addr, int delta) {
     final $r = $callSync(
-        27350,
+        27351,
         $W()
           ..ptr(addr, (w0, v0) => w0.i64(v0))
           ..i64(delta));
@@ -485,7 +485,7 @@ extension GoSyncAtomicApi on GoSyncAtomic {
   /// Go: `func atomic.AddUint32(addr *uint32, delta uint32) (new uint32)`.
   int addUint32(int? addr, int delta) {
     final $r = $callSync(
-        27351,
+        27352,
         $W()
           ..ptr(addr, (w0, v0) => w0.i64(v0))
           ..i64(delta));
@@ -495,7 +495,7 @@ extension GoSyncAtomicApi on GoSyncAtomic {
   /// Go: `func atomic.AddUint64(addr *uint64, delta uint64) (new uint64)`.
   int addUint64(int? addr, int delta) {
     final $r = $callSync(
-        27352,
+        27353,
         $W()
           ..ptr(addr, (w0, v0) => w0.i64(v0))
           ..i64(delta));
@@ -505,7 +505,7 @@ extension GoSyncAtomicApi on GoSyncAtomic {
   /// Go: `func atomic.AndInt32(addr *int32, mask int32) (old int32)`.
   int andInt32(int? addr, int mask) {
     final $r = $callSync(
-        27353,
+        27354,
         $W()
           ..ptr(addr, (w0, v0) => w0.i64(v0))
           ..i64(mask));
@@ -515,7 +515,7 @@ extension GoSyncAtomicApi on GoSyncAtomic {
   /// Go: `func atomic.AndInt64(addr *int64, mask int64) (old int64)`.
   int andInt64(int? addr, int mask) {
     final $r = $callSync(
-        27354,
+        27355,
         $W()
           ..ptr(addr, (w0, v0) => w0.i64(v0))
           ..i64(mask));
@@ -525,7 +525,7 @@ extension GoSyncAtomicApi on GoSyncAtomic {
   /// Go: `func atomic.AndUint32(addr *uint32, mask uint32) (old uint32)`.
   int andUint32(int? addr, int mask) {
     final $r = $callSync(
-        27355,
+        27356,
         $W()
           ..ptr(addr, (w0, v0) => w0.i64(v0))
           ..i64(mask));
@@ -535,7 +535,7 @@ extension GoSyncAtomicApi on GoSyncAtomic {
   /// Go: `func atomic.AndUint64(addr *uint64, mask uint64) (old uint64)`.
   int andUint64(int? addr, int mask) {
     final $r = $callSync(
-        27356,
+        27357,
         $W()
           ..ptr(addr, (w0, v0) => w0.i64(v0))
           ..i64(mask));
@@ -545,7 +545,7 @@ extension GoSyncAtomicApi on GoSyncAtomic {
   /// Go: `func atomic.CompareAndSwapInt32(addr *int32, old int32, new int32) (swapped bool)`.
   bool compareAndSwapInt32(int? addr, int old, int new$) {
     final $r = $callSync(
-        27361,
+        27362,
         $W()
           ..ptr(addr, (w0, v0) => w0.i64(v0))
           ..i64(old)
@@ -556,7 +556,7 @@ extension GoSyncAtomicApi on GoSyncAtomic {
   /// Go: `func atomic.CompareAndSwapInt64(addr *int64, old int64, new int64) (swapped bool)`.
   bool compareAndSwapInt64(int? addr, int old, int new$) {
     final $r = $callSync(
-        27362,
+        27363,
         $W()
           ..ptr(addr, (w0, v0) => w0.i64(v0))
           ..i64(old)
@@ -567,7 +567,7 @@ extension GoSyncAtomicApi on GoSyncAtomic {
   /// Go: `func atomic.CompareAndSwapUint32(addr *uint32, old uint32, new uint32) (swapped bool)`.
   bool compareAndSwapUint32(int? addr, int old, int new$) {
     final $r = $callSync(
-        27363,
+        27364,
         $W()
           ..ptr(addr, (w0, v0) => w0.i64(v0))
           ..i64(old)
@@ -578,7 +578,7 @@ extension GoSyncAtomicApi on GoSyncAtomic {
   /// Go: `func atomic.CompareAndSwapUint64(addr *uint64, old uint64, new uint64) (swapped bool)`.
   bool compareAndSwapUint64(int? addr, int old, int new$) {
     final $r = $callSync(
-        27364,
+        27365,
         $W()
           ..ptr(addr, (w0, v0) => w0.i64(v0))
           ..i64(old)
@@ -588,32 +588,32 @@ extension GoSyncAtomicApi on GoSyncAtomic {
 
   /// Go: `func atomic.LoadInt32(addr *int32) (val int32)`.
   int loadInt32(int? addr) {
-    final $r = $callSync(27379, $W()..ptr(addr, (w0, v0) => w0.i64(v0)));
+    final $r = $callSync(27380, $W()..ptr(addr, (w0, v0) => w0.i64(v0)));
     return $r.i64();
   }
 
   /// Go: `func atomic.LoadInt64(addr *int64) (val int64)`.
   int loadInt64(int? addr) {
-    final $r = $callSync(27380, $W()..ptr(addr, (w0, v0) => w0.i64(v0)));
+    final $r = $callSync(27381, $W()..ptr(addr, (w0, v0) => w0.i64(v0)));
     return $r.i64();
   }
 
   /// Go: `func atomic.LoadUint32(addr *uint32) (val uint32)`.
   int loadUint32(int? addr) {
-    final $r = $callSync(27381, $W()..ptr(addr, (w0, v0) => w0.i64(v0)));
+    final $r = $callSync(27382, $W()..ptr(addr, (w0, v0) => w0.i64(v0)));
     return $r.i64();
   }
 
   /// Go: `func atomic.LoadUint64(addr *uint64) (val uint64)`.
   int loadUint64(int? addr) {
-    final $r = $callSync(27382, $W()..ptr(addr, (w0, v0) => w0.i64(v0)));
+    final $r = $callSync(27383, $W()..ptr(addr, (w0, v0) => w0.i64(v0)));
     return $r.i64();
   }
 
   /// Go: `func atomic.OrInt32(addr *int32, mask int32) (old int32)`.
   int orInt32(int? addr, int mask) {
     final $r = $callSync(
-        27383,
+        27384,
         $W()
           ..ptr(addr, (w0, v0) => w0.i64(v0))
           ..i64(mask));
@@ -623,7 +623,7 @@ extension GoSyncAtomicApi on GoSyncAtomic {
   /// Go: `func atomic.OrInt64(addr *int64, mask int64) (old int64)`.
   int orInt64(int? addr, int mask) {
     final $r = $callSync(
-        27384,
+        27385,
         $W()
           ..ptr(addr, (w0, v0) => w0.i64(v0))
           ..i64(mask));
@@ -633,7 +633,7 @@ extension GoSyncAtomicApi on GoSyncAtomic {
   /// Go: `func atomic.OrUint32(addr *uint32, mask uint32) (old uint32)`.
   int orUint32(int? addr, int mask) {
     final $r = $callSync(
-        27385,
+        27386,
         $W()
           ..ptr(addr, (w0, v0) => w0.i64(v0))
           ..i64(mask));
@@ -643,7 +643,7 @@ extension GoSyncAtomicApi on GoSyncAtomic {
   /// Go: `func atomic.OrUint64(addr *uint64, mask uint64) (old uint64)`.
   int orUint64(int? addr, int mask) {
     final $r = $callSync(
-        27386,
+        27387,
         $W()
           ..ptr(addr, (w0, v0) => w0.i64(v0))
           ..i64(mask));
@@ -653,7 +653,7 @@ extension GoSyncAtomicApi on GoSyncAtomic {
   /// Go: `func atomic.StoreInt32(addr *int32, val int32)`.
   void storeInt32(int? addr, int val) {
     $callSync(
-        27387,
+        27388,
         $W()
           ..ptr(addr, (w0, v0) => w0.i64(v0))
           ..i64(val));
@@ -662,7 +662,7 @@ extension GoSyncAtomicApi on GoSyncAtomic {
   /// Go: `func atomic.StoreInt64(addr *int64, val int64)`.
   void storeInt64(int? addr, int val) {
     $callSync(
-        27388,
+        27389,
         $W()
           ..ptr(addr, (w0, v0) => w0.i64(v0))
           ..i64(val));
@@ -671,7 +671,7 @@ extension GoSyncAtomicApi on GoSyncAtomic {
   /// Go: `func atomic.StoreUint32(addr *uint32, val uint32)`.
   void storeUint32(int? addr, int val) {
     $callSync(
-        27389,
+        27390,
         $W()
           ..ptr(addr, (w0, v0) => w0.i64(v0))
           ..i64(val));
@@ -680,7 +680,7 @@ extension GoSyncAtomicApi on GoSyncAtomic {
   /// Go: `func atomic.StoreUint64(addr *uint64, val uint64)`.
   void storeUint64(int? addr, int val) {
     $callSync(
-        27390,
+        27391,
         $W()
           ..ptr(addr, (w0, v0) => w0.i64(v0))
           ..i64(val));
@@ -689,7 +689,7 @@ extension GoSyncAtomicApi on GoSyncAtomic {
   /// Go: `func atomic.SwapInt32(addr *int32, new int32) (old int32)`.
   int swapInt32(int? addr, int new$) {
     final $r = $callSync(
-        27391,
+        27392,
         $W()
           ..ptr(addr, (w0, v0) => w0.i64(v0))
           ..i64(new$));
@@ -699,7 +699,7 @@ extension GoSyncAtomicApi on GoSyncAtomic {
   /// Go: `func atomic.SwapInt64(addr *int64, new int64) (old int64)`.
   int swapInt64(int? addr, int new$) {
     final $r = $callSync(
-        27392,
+        27393,
         $W()
           ..ptr(addr, (w0, v0) => w0.i64(v0))
           ..i64(new$));
@@ -709,7 +709,7 @@ extension GoSyncAtomicApi on GoSyncAtomic {
   /// Go: `func atomic.SwapUint32(addr *uint32, new uint32) (old uint32)`.
   int swapUint32(int? addr, int new$) {
     final $r = $callSync(
-        27393,
+        27394,
         $W()
           ..ptr(addr, (w0, v0) => w0.i64(v0))
           ..i64(new$));
@@ -719,7 +719,7 @@ extension GoSyncAtomicApi on GoSyncAtomic {
   /// Go: `func atomic.SwapUint64(addr *uint64, new uint64) (old uint64)`.
   int swapUint64(int? addr, int new$) {
     final $r = $callSync(
-        27394,
+        27395,
         $W()
           ..ptr(addr, (w0, v0) => w0.i64(v0))
           ..i64(new$));

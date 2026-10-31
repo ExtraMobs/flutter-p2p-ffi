@@ -37,20 +37,20 @@ final class IpfsRedirectsFileRule implements GoDto {
 
   /// Go: `func (*redirects.Rule).IsProxy() bool`.
   bool isProxy() {
-    final $r = $callSync(10915, $W()..dto(this));
+    final $r = $callSync(10924, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*redirects.Rule).IsRewrite() bool`.
   bool isRewrite() {
-    final $r = $callSync(10916, $W()..dto(this));
+    final $r = $callSync(10925, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*redirects.Rule).MatchAndExpandPlaceholders(urlPath string) bool`.
   bool matchAndExpandPlaceholders(String urlPath) {
     final $r = $callSync(
-        10917,
+        10926,
         $W()
           ..dto(this)
           ..str(urlPath));
@@ -62,13 +62,13 @@ final class IpfsRedirectsFileRule implements GoDto {
 extension GoIpfsIpfsRedirectsFileApi on GoIpfsIpfsRedirectsFile {
   /// Go: `func redirects.Parse(r io.Reader) (rules []redirects.Rule, err error)`.
   List<IpfsRedirectsFileRule> parse(Object r) {
-    final $r = $callSync(10913, $W()..reader(r));
+    final $r = $callSync(10922, $W()..reader(r));
     return $r.list(() => $r.p() ? IpfsRedirectsFileRule.$dec($r) : $nil());
   }
 
   /// Go: `func redirects.ParseString(s string) ([]redirects.Rule, error)`.
   List<IpfsRedirectsFileRule> parseString(String s) {
-    final $r = $callSync(10914, $W()..str(s));
+    final $r = $callSync(10923, $W()..str(s));
     return $r.list(() => $r.p() ? IpfsRedirectsFileRule.$dec($r) : $nil());
   }
 }

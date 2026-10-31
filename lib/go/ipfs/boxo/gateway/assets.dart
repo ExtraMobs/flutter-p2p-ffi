@@ -92,7 +92,7 @@ final class BoxoGatewayAssetsParsedNode implements GoDto {
 extension GoIpfsBoxoGatewayAssetsApi on GoIpfsBoxoGatewayAssets {
   /// Go: `var assets.AssetHash string`.
   String get assetHash {
-    final $r = $callSync(9587);
+    final $r = $callSync(9596);
     return $r.str();
   }
 
@@ -100,7 +100,7 @@ extension GoIpfsBoxoGatewayAssetsApi on GoIpfsBoxoGatewayAssets {
   List<BoxoGatewayAssetsBreadcrumb> breadcrumbs(
       String urlPath, bool dnslinkOrigin) {
     final $r = $callSync(
-        9588,
+        9597,
         $W()
           ..str(urlPath)
           ..b(dnslinkOrigin));
@@ -111,7 +111,7 @@ extension GoIpfsBoxoGatewayAssetsApi on GoIpfsBoxoGatewayAssets {
   /// Go: `func assets.BuildTemplate(fs fs.FS, filename string) (*template.Template, error)`.
   $template.HtmlTemplate buildTemplate($fs.IoFs fs, String filename) {
     final $r = $callSync(
-        9589,
+        9598,
         $W()
           ..h(fs)
           ..str(filename));
@@ -120,26 +120,26 @@ extension GoIpfsBoxoGatewayAssetsApi on GoIpfsBoxoGatewayAssets {
 
   /// Go: `var assets.DagTemplate *template.Template`.
   $template.HtmlTemplate get dagTemplate {
-    final $r = $callSync(9590);
+    final $r = $callSync(9599);
     return $r.hnn($template.HtmlTemplate.$h);
   }
 
   /// Go: `var assets.DirectoryTemplate *template.Template`.
   $template.HtmlTemplate get directoryTemplate {
-    final $r = $callSync(9591);
+    final $r = $callSync(9600);
     return $r.hnn($template.HtmlTemplate.$h);
   }
 
   /// Go: `var assets.ErrorTemplate *template.Template`.
   $template.HtmlTemplate get errorTemplate {
-    final $r = $callSync(9592);
+    final $r = $callSync(9601);
     return $r.hnn($template.HtmlTemplate.$h);
   }
 
   /// Go: `func assets.HasDNSLinkOrigin(gwURL string, path string) bool`.
   bool hasDnsLinkOrigin(String gwUrl, String path) {
     final $r = $callSync(
-        9593,
+        9602,
         $W()
           ..str(gwUrl)
           ..str(path));
@@ -148,20 +148,20 @@ extension GoIpfsBoxoGatewayAssetsApi on GoIpfsBoxoGatewayAssets {
 
   /// Go: `var assets.KnownIcons map[string]bool`.
   Map<String, bool> get knownIcons {
-    final $r = $callSync(9594);
+    final $r = $callSync(9603);
     return $r.map(() => $r.str(), () => $r.b());
   }
 
   /// Go: `func assets.ParseNode(node datamodel.Node) (*assets.ParsedNode, error)`.
   BoxoGatewayAssetsParsedNode parseNode(
       $datamodel.IpldPrimeDatamodelNode node) {
-    final $r = $callSync(9595, $W()..h(node));
+    final $r = $callSync(9604, $W()..h(node));
     return $r.p() ? BoxoGatewayAssetsParsedNode.$dec($r) : $nil();
   }
 
   /// Go: `func assets.ShortHash(hash string) string`.
   String shortHash(String hash) {
-    final $r = $callSync(9596, $W()..str(hash));
+    final $r = $callSync(9605, $W()..str(hash));
     return $r.str();
   }
 }

@@ -28,7 +28,7 @@ class Libp2pKadDhtProviderKeystore extends GoHandle
   factory Libp2pKadDhtProviderKeystore($datastore.DatastoreBatching d,
       [List<Libp2pKadDhtProviderKeystoreOption> opts = const []]) {
     final $r = $callSync(
-        13070,
+        13076,
         $W()
           ..h(d)
           ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -40,13 +40,13 @@ class Libp2pKadDhtProviderKeystore extends GoHandle
 mixin Libp2pKadDhtProviderKeystore$ on GoHandle {
   /// Go: `func (keystore.Keystore).BatchSize() int`.
   int batchSize() {
-    final $r = $callSync(13061, $W()..h(this));
+    final $r = $callSync(13067, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (keystore.Keystore).Close() error`.
   void close() {
-    $callSync(13062, $W()..h(this));
+    $callSync(13068, $W()..h(this));
   }
 
   /// Go: `func (keystore.Keystore).ContainsPrefix(context.Context, bitstr.Key) (bool, error)`.
@@ -54,7 +54,7 @@ mixin Libp2pKadDhtProviderKeystore$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> containsPrefix($context.Context ctx, String arg1) async {
     final $r = await $call(
-        13063,
+        13069,
         $W()
           ..h(this)
           ..h(ctx)
@@ -67,7 +67,7 @@ mixin Libp2pKadDhtProviderKeystore$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> countKeysUpTo($context.Context ctx, String arg1, int arg2) async {
     final $r = await $call(
-        13064,
+        13070,
         $W()
           ..h(this)
           ..h(ctx)
@@ -82,7 +82,7 @@ mixin Libp2pKadDhtProviderKeystore$ on GoHandle {
   Future<void> delete($context.Context ctx,
       [List<Uint8List> arg1 = const []]) async {
     await $call(
-        13065,
+        13071,
         $W()
           ..h(this)
           ..h(ctx)
@@ -94,7 +94,7 @@ mixin Libp2pKadDhtProviderKeystore$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> empty($context.Context ctx) async {
     await $call(
-        13066,
+        13072,
         $W()
           ..h(this)
           ..h(ctx));
@@ -105,7 +105,7 @@ mixin Libp2pKadDhtProviderKeystore$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<List<Uint8List>> get($context.Context ctx, String arg1) async {
     final $r = await $call(
-        13067,
+        13073,
         $W()
           ..h(this)
           ..h(ctx)
@@ -119,7 +119,7 @@ mixin Libp2pKadDhtProviderKeystore$ on GoHandle {
   Future<List<Uint8List>> put($context.Context ctx,
       [List<Uint8List> arg1 = const []]) async {
     final $r = await $call(
-        13068,
+        13074,
         $W()
           ..h(this)
           ..h(ctx)
@@ -132,7 +132,7 @@ mixin Libp2pKadDhtProviderKeystore$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> size($context.Context ctx) async {
     final $r = await $call(
-        13069,
+        13075,
         $W()
           ..h(this)
           ..h(ctx));
@@ -142,7 +142,7 @@ mixin Libp2pKadDhtProviderKeystore$ on GoHandle {
   /// Go: type assertion `x.(*keystore.ResettableKeystore)`: null if the object is not one.
   Libp2pKadDhtProviderKeystoreResettableKeystore?
       asLibp2pKadDhtProviderKeystoreResettableKeystore() {
-    final $r = $callSync(1291, $W()..h(this));
+    final $r = $callSync(1294, $W()..h(this));
     return $r.hn(Libp2pKadDhtProviderKeystoreResettableKeystore.$h);
   }
 }
@@ -183,7 +183,7 @@ class Libp2pKadDhtProviderKeystoreResettableKeystore
       [List<Libp2pKadDhtProviderKeystoreResettableKeystoreOption> opts =
           const []]) {
     final $r = $callSync(
-        13071,
+        13077,
         $W()
           ..h(d)
           ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -192,13 +192,13 @@ class Libp2pKadDhtProviderKeystoreResettableKeystore
 
   /// Go: `func (*keystore.keystore).BatchSize() int`.
   int batchSize() {
-    final $r = $callSync(13072, $W()..h(this));
+    final $r = $callSync(13078, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*keystore.ResettableKeystore).Close() (err error)`.
   void close() {
-    $callSync(13073, $W()..h(this));
+    $callSync(13079, $W()..h(this));
   }
 
   /// Go: `func (*keystore.keystore).ContainsPrefix(ctx context.Context, prefix bitstr.Key) (bool, error)`.
@@ -206,7 +206,7 @@ class Libp2pKadDhtProviderKeystoreResettableKeystore
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> containsPrefix($context.Context ctx, String prefix) async {
     final $r = await $call(
-        13074,
+        13080,
         $W()
           ..h(this)
           ..h(ctx)
@@ -220,7 +220,7 @@ class Libp2pKadDhtProviderKeystoreResettableKeystore
   Future<int> countKeysUpTo(
       $context.Context ctx, String prefix, int limit) async {
     final $r = await $call(
-        13075,
+        13081,
         $W()
           ..h(this)
           ..h(ctx)
@@ -235,7 +235,7 @@ class Libp2pKadDhtProviderKeystoreResettableKeystore
   Future<void> delete($context.Context ctx,
       [List<Uint8List> keys = const []]) async {
     await $call(
-        13076,
+        13082,
         $W()
           ..h(this)
           ..h(ctx)
@@ -247,7 +247,7 @@ class Libp2pKadDhtProviderKeystoreResettableKeystore
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> empty($context.Context ctx) async {
     await $call(
-        13077,
+        13083,
         $W()
           ..h(this)
           ..h(ctx));
@@ -258,7 +258,7 @@ class Libp2pKadDhtProviderKeystoreResettableKeystore
   /// Asynchronous: runs in a goroutine of the service.
   Future<List<Uint8List>> get($context.Context ctx, String prefix) async {
     final $r = await $call(
-        13078,
+        13084,
         $W()
           ..h(this)
           ..h(ctx)
@@ -272,7 +272,7 @@ class Libp2pKadDhtProviderKeystoreResettableKeystore
   Future<List<Uint8List>> put($context.Context ctx,
       [List<Uint8List> keys = const []]) async {
     final $r = await $call(
-        13079,
+        13085,
         $W()
           ..h(this)
           ..h(ctx)
@@ -285,7 +285,7 @@ class Libp2pKadDhtProviderKeystoreResettableKeystore
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> size($context.Context ctx) async {
     final $r = await $call(
-        13080,
+        13086,
         $W()
           ..h(this)
           ..h(ctx));

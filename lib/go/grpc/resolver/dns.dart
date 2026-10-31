@@ -11,17 +11,17 @@ extension GoGrpcResolverDnsApi on GoGrpcResolverDns {
   /// Go: `func dns.NewBuilder() resolver.Builder`.
   @Deprecated("import grpc and use resolver.Get(\"dns\") instead.")
   $resolver.GrpcResolverBuilder newBuilder() {
-    final $r = $callSync(24698);
+    final $r = $callSync(24704);
     return $r.hnn($resolver.GrpcResolverBuilder.$h);
   }
 
   /// Go: `func dns.SetMinResolutionInterval(d time.Duration)`.
   void setMinResolutionInterval(Duration d) {
-    $callSync(24699, $W()..i64((d).inMicroseconds * 1000));
+    $callSync(24705, $W()..i64((d).inMicroseconds * 1000));
   }
 
   /// Go: `func dns.SetResolvingTimeout(timeout time.Duration)`.
   void setResolvingTimeout(Duration timeout) {
-    $callSync(24700, $W()..i64((timeout).inMicroseconds * 1000));
+    $callSync(24706, $W()..i64((timeout).inMicroseconds * 1000));
   }
 }

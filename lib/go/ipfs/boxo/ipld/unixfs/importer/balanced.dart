@@ -14,7 +14,7 @@ extension GoIpfsBoxoIpldUnixfsImporterBalancedApi
   /// Go: `func balanced.Layout(db *helpers.DagBuilderHelper) (format.Node, error)`.
   $ipld_format.IpldFormatNode layout(
       $helpers.BoxoIpldUnixfsImporterHelpersDagBuilderHelper db) {
-    final $r = $callSync(9788, $W()..h(db));
+    final $r = $callSync(9797, $W()..h(db));
     return $r.hnn($ipld_format.IpldFormatNode.$h);
   }
 }

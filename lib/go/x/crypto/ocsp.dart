@@ -56,7 +56,7 @@ final class CryptoOcspRequest implements GoDto {
 
   /// Go: `func (*ocsp.Request).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(23338, $W()..dto(this));
+    final $r = $callSync(23344, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 }
@@ -217,7 +217,7 @@ final class CryptoOcspResponse implements GoDto {
   /// Go: `func (*ocsp.Response).CheckSignatureFrom(issuer *x509.Certificate) error`.
   void checkSignatureFrom($x509.CryptoX509Certificate issuer) {
     $callSync(
-        23339,
+        23345,
         $W()
           ..dto(this)
           ..dto(issuer));
@@ -253,7 +253,7 @@ extension GoXCryptoOcspApi on GoXCryptoOcsp {
   Uint8List createRequest($x509.CryptoX509Certificate cert,
       $x509.CryptoX509Certificate issuer, CryptoOcspRequestOptions opts) {
     final $r = $callSync(
-        23331,
+        23337,
         $W()
           ..dto(cert)
           ..dto(issuer)
@@ -268,7 +268,7 @@ extension GoXCryptoOcspApi on GoXCryptoOcsp {
       CryptoOcspResponse template,
       $crypto.CryptoSigner priv) {
     final $r = $callSync(
-        23332,
+        23338,
         $W()
           ..dto(issuer)
           ..dto(responderCert)
@@ -279,19 +279,19 @@ extension GoXCryptoOcspApi on GoXCryptoOcsp {
 
   /// Go: `var ocsp.InternalErrorErrorResponse []byte`.
   Uint8List get internalErrorErrorResponse {
-    final $r = $callSync(23333);
+    final $r = $callSync(23339);
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `var ocsp.MalformedRequestErrorResponse []byte`.
   Uint8List get malformedRequestErrorResponse {
-    final $r = $callSync(23334);
+    final $r = $callSync(23340);
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func ocsp.ParseRequest(bytes []byte) (*ocsp.Request, error)`.
   CryptoOcspRequest parseRequest(Uint8List bytes) {
-    final $r = $callSync(23335, $W()..bytes(bytes));
+    final $r = $callSync(23341, $W()..bytes(bytes));
     return $r.p() ? CryptoOcspRequest.$dec($r) : $nil();
   }
 
@@ -299,7 +299,7 @@ extension GoXCryptoOcspApi on GoXCryptoOcsp {
   CryptoOcspResponse parseResponse(
       Uint8List bytes, $x509.CryptoX509Certificate issuer) {
     final $r = $callSync(
-        23336,
+        23342,
         $W()
           ..bytes(bytes)
           ..dto(issuer));
@@ -310,7 +310,7 @@ extension GoXCryptoOcspApi on GoXCryptoOcsp {
   CryptoOcspResponse parseResponseForCert(Uint8List bytes,
       $x509.CryptoX509Certificate cert, $x509.CryptoX509Certificate issuer) {
     final $r = $callSync(
-        23337,
+        23343,
         $W()
           ..bytes(bytes)
           ..dto(cert)
@@ -320,19 +320,19 @@ extension GoXCryptoOcspApi on GoXCryptoOcsp {
 
   /// Go: `var ocsp.SigRequredErrorResponse []byte`.
   Uint8List get sigRequredErrorResponse {
-    final $r = $callSync(23340);
+    final $r = $callSync(23346);
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `var ocsp.TryLaterErrorResponse []byte`.
   Uint8List get tryLaterErrorResponse {
-    final $r = $callSync(23341);
+    final $r = $callSync(23347);
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `var ocsp.UnauthorizedErrorResponse []byte`.
   Uint8List get unauthorizedErrorResponse {
-    final $r = $callSync(23342);
+    final $r = $callSync(23348);
     return $r.bytes() ?? Uint8List(0);
   }
 }

@@ -20,7 +20,7 @@ extension GoPionTransportV4ReplaydetectorApi
   /// Go: `func replaydetector.New(windowSize uint, maxSeq uint64) replaydetector.ReplayDetector`.
   TransportV4ReplaydetectorReplayDetector new$(int windowSize, int maxSeq) {
     final $r = $callSync(
-        17488,
+        17494,
         $W()
           ..i64(windowSize)
           ..i64(maxSeq));
@@ -30,7 +30,7 @@ extension GoPionTransportV4ReplaydetectorApi
   /// Go: `func replaydetector.WithWrap(windowSize uint, maxSeq uint64) replaydetector.ReplayDetector`.
   TransportV4ReplaydetectorReplayDetector withWrap(int windowSize, int maxSeq) {
     final $r = $callSync(
-        17489,
+        17495,
         $W()
           ..i64(windowSize)
           ..i64(maxSeq));

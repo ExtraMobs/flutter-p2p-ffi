@@ -50,37 +50,37 @@ class IpldPrimeSchemaStructField extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (schema.StructField).IsMaybe() bool`.
   bool isMaybe() {
-    final $r = $callSync(12457, $W()..h(this));
+    final $r = $callSync(12463, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (schema.StructField).IsNullable() bool`.
   bool isNullable() {
-    final $r = $callSync(12458, $W()..h(this));
+    final $r = $callSync(12464, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (schema.StructField).IsOptional() bool`.
   bool isOptional() {
-    final $r = $callSync(12459, $W()..h(this));
+    final $r = $callSync(12465, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (schema.StructField).Name() string`.
   String name() {
-    final $r = $callSync(12460, $W()..h(this));
+    final $r = $callSync(12466, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (schema.StructField).Parent() *schema.TypeStruct`.
   IpldPrimeSchemaTypeStruct parent() {
-    final $r = $callSync(12461, $W()..h(this));
+    final $r = $callSync(12467, $W()..h(this));
     return $r.hnn(IpldPrimeSchemaTypeStruct.$h);
   }
 
   /// Go: `func (schema.StructField).Type() schema.Type`.
   IpldPrimeSchemaType type() {
-    final $r = $callSync(12462, $W()..h(this));
+    final $r = $callSync(12468, $W()..h(this));
     return $r.hnn(IpldPrimeSchemaType.$h);
   }
 }
@@ -96,14 +96,14 @@ mixin IpldPrimeSchemaStructRepresentation$ on GoHandle {
   /// Go: type assertion `x.(*schema.StructRepresentation_Map)`: null if the object is not one.
   IpldPrimeSchemaStructRepresentationMap?
       asIpldPrimeSchemaStructRepresentationMap() {
-    final $r = $callSync(1245, $W()..h(this));
+    final $r = $callSync(1248, $W()..h(this));
     return $r.hn(IpldPrimeSchemaStructRepresentationMap.$h);
   }
 
   /// Go: type assertion `x.(*schema.StructRepresentation_Stringjoin)`: null if the object is not one.
   IpldPrimeSchemaStructRepresentationStringjoin?
       asIpldPrimeSchemaStructRepresentationStringjoin() {
-    final $r = $callSync(1246, $W()..h(this));
+    final $r = $callSync(1249, $W()..h(this));
     return $r.hn(IpldPrimeSchemaStructRepresentationStringjoin.$h);
   }
 }
@@ -141,7 +141,7 @@ class IpldPrimeSchemaStructRepresentationMap
   /// Go: `func (schema.StructRepresentation_Map).FieldHasRename(field schema.StructField) bool`.
   bool fieldHasRename(IpldPrimeSchemaStructField field) {
     final $r = $callSync(
-        12463,
+        12469,
         $W()
           ..h(this)
           ..h(field));
@@ -151,7 +151,7 @@ class IpldPrimeSchemaStructRepresentationMap
   /// Go: `func (schema.StructRepresentation_Map).FieldImplicit(field schema.StructField) schema.ImplicitValue`.
   IpldPrimeSchemaImplicitValue fieldImplicit(IpldPrimeSchemaStructField field) {
     final $r = $callSync(
-        12464,
+        12470,
         $W()
           ..h(this)
           ..h(field));
@@ -161,7 +161,7 @@ class IpldPrimeSchemaStructRepresentationMap
   /// Go: `func (schema.StructRepresentation_Map).GetFieldKey(field schema.StructField) string`.
   String getFieldKey(IpldPrimeSchemaStructField field) {
     final $r = $callSync(
-        12465,
+        12471,
         $W()
           ..h(this)
           ..h(field));
@@ -192,7 +192,7 @@ class IpldPrimeSchemaStructRepresentationStringjoin
 
   /// Go: `func (schema.StructRepresentation_Stringjoin).GetDelim() string`.
   String getDelim() {
-    final $r = $callSync(12466, $W()..h(this));
+    final $r = $callSync(12472, $W()..h(this));
     return $r.str();
   }
 }
@@ -215,97 +215,97 @@ class IpldPrimeSchemaType extends GoHandle with IpldPrimeSchemaType$ {
 mixin IpldPrimeSchemaType$ on GoHandle {
   /// Go: `func (schema.Type).Name() schema.TypeName`.
   String name() {
-    final $r = $callSync(12467, $W()..h(this));
+    final $r = $callSync(12473, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (schema.Type).RepresentationBehavior() datamodel.Kind`.
   int representationBehavior() {
-    final $r = $callSync(12468, $W()..h(this));
+    final $r = $callSync(12474, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (schema.Type).TypeKind() schema.TypeKind`.
   int typeKind() {
-    final $r = $callSync(12469, $W()..h(this));
+    final $r = $callSync(12475, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (schema.Type).TypeSystem() *schema.TypeSystem`.
   IpldPrimeSchemaTypeSystem typeSystem() {
-    final $r = $callSync(12470, $W()..h(this));
+    final $r = $callSync(12476, $W()..h(this));
     return $r.hnn(IpldPrimeSchemaTypeSystem.$h);
   }
 
   /// Go: type assertion `x.(*schema.TypeAny)`: null if the object is not one.
   IpldPrimeSchemaTypeAny? asIpldPrimeSchemaTypeAny() {
-    final $r = $callSync(1247, $W()..h(this));
+    final $r = $callSync(1250, $W()..h(this));
     return $r.hn(IpldPrimeSchemaTypeAny.$h);
   }
 
   /// Go: type assertion `x.(*schema.TypeBool)`: null if the object is not one.
   IpldPrimeSchemaTypeBool? asIpldPrimeSchemaTypeBool() {
-    final $r = $callSync(1248, $W()..h(this));
+    final $r = $callSync(1251, $W()..h(this));
     return $r.hn(IpldPrimeSchemaTypeBool.$h);
   }
 
   /// Go: type assertion `x.(*schema.TypeBytes)`: null if the object is not one.
   IpldPrimeSchemaTypeBytes? asIpldPrimeSchemaTypeBytes() {
-    final $r = $callSync(1249, $W()..h(this));
+    final $r = $callSync(1252, $W()..h(this));
     return $r.hn(IpldPrimeSchemaTypeBytes.$h);
   }
 
   /// Go: type assertion `x.(*schema.TypeEnum)`: null if the object is not one.
   IpldPrimeSchemaTypeEnum? asIpldPrimeSchemaTypeEnum() {
-    final $r = $callSync(1250, $W()..h(this));
+    final $r = $callSync(1253, $W()..h(this));
     return $r.hn(IpldPrimeSchemaTypeEnum.$h);
   }
 
   /// Go: type assertion `x.(*schema.TypeFloat)`: null if the object is not one.
   IpldPrimeSchemaTypeFloat? asIpldPrimeSchemaTypeFloat() {
-    final $r = $callSync(1251, $W()..h(this));
+    final $r = $callSync(1254, $W()..h(this));
     return $r.hn(IpldPrimeSchemaTypeFloat.$h);
   }
 
   /// Go: type assertion `x.(*schema.TypeInt)`: null if the object is not one.
   IpldPrimeSchemaTypeInt? asIpldPrimeSchemaTypeInt() {
-    final $r = $callSync(1252, $W()..h(this));
+    final $r = $callSync(1255, $W()..h(this));
     return $r.hn(IpldPrimeSchemaTypeInt.$h);
   }
 
   /// Go: type assertion `x.(*schema.TypeLink)`: null if the object is not one.
   IpldPrimeSchemaTypeLink? asIpldPrimeSchemaTypeLink() {
-    final $r = $callSync(1253, $W()..h(this));
+    final $r = $callSync(1256, $W()..h(this));
     return $r.hn(IpldPrimeSchemaTypeLink.$h);
   }
 
   /// Go: type assertion `x.(*schema.TypeList)`: null if the object is not one.
   IpldPrimeSchemaTypeList? asIpldPrimeSchemaTypeList() {
-    final $r = $callSync(1254, $W()..h(this));
+    final $r = $callSync(1257, $W()..h(this));
     return $r.hn(IpldPrimeSchemaTypeList.$h);
   }
 
   /// Go: type assertion `x.(*schema.TypeMap)`: null if the object is not one.
   IpldPrimeSchemaTypeMap? asIpldPrimeSchemaTypeMap() {
-    final $r = $callSync(1255, $W()..h(this));
+    final $r = $callSync(1258, $W()..h(this));
     return $r.hn(IpldPrimeSchemaTypeMap.$h);
   }
 
   /// Go: type assertion `x.(*schema.TypeString)`: null if the object is not one.
   IpldPrimeSchemaTypeString? asIpldPrimeSchemaTypeString() {
-    final $r = $callSync(1256, $W()..h(this));
+    final $r = $callSync(1259, $W()..h(this));
     return $r.hn(IpldPrimeSchemaTypeString.$h);
   }
 
   /// Go: type assertion `x.(*schema.TypeStruct)`: null if the object is not one.
   IpldPrimeSchemaTypeStruct? asIpldPrimeSchemaTypeStruct() {
-    final $r = $callSync(1257, $W()..h(this));
+    final $r = $callSync(1260, $W()..h(this));
     return $r.hn(IpldPrimeSchemaTypeStruct.$h);
   }
 
   /// Go: type assertion `x.(*schema.TypeUnion)`: null if the object is not one.
   IpldPrimeSchemaTypeUnion? asIpldPrimeSchemaTypeUnion() {
-    final $r = $callSync(1258, $W()..h(this));
+    final $r = $callSync(1261, $W()..h(this));
     return $r.hn(IpldPrimeSchemaTypeUnion.$h);
   }
 }
@@ -332,25 +332,25 @@ class IpldPrimeSchemaTypeAny extends IpldPrimeSchemaType
 
   /// Go: `func (schema.typeBase).Name() schema.TypeName`.
   String name() {
-    final $r = $callSync(12471, $W()..h(this));
+    final $r = $callSync(12477, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (schema.TypeAny).RepresentationBehavior() datamodel.Kind`.
   int representationBehavior() {
-    final $r = $callSync(12472, $W()..h(this));
+    final $r = $callSync(12478, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (schema.TypeAny).TypeKind() schema.TypeKind`.
   int typeKind() {
-    final $r = $callSync(12473, $W()..h(this));
+    final $r = $callSync(12479, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (schema.typeBase).TypeSystem() *schema.TypeSystem`.
   IpldPrimeSchemaTypeSystem typeSystem() {
-    final $r = $callSync(12474, $W()..h(this));
+    final $r = $callSync(12480, $W()..h(this));
     return $r.hnn(IpldPrimeSchemaTypeSystem.$h);
   }
 }
@@ -377,25 +377,25 @@ class IpldPrimeSchemaTypeBool extends IpldPrimeSchemaType
 
   /// Go: `func (schema.typeBase).Name() schema.TypeName`.
   String name() {
-    final $r = $callSync(12475, $W()..h(this));
+    final $r = $callSync(12481, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (schema.TypeBool).RepresentationBehavior() datamodel.Kind`.
   int representationBehavior() {
-    final $r = $callSync(12476, $W()..h(this));
+    final $r = $callSync(12482, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (schema.TypeBool).TypeKind() schema.TypeKind`.
   int typeKind() {
-    final $r = $callSync(12477, $W()..h(this));
+    final $r = $callSync(12483, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (schema.typeBase).TypeSystem() *schema.TypeSystem`.
   IpldPrimeSchemaTypeSystem typeSystem() {
-    final $r = $callSync(12478, $W()..h(this));
+    final $r = $callSync(12484, $W()..h(this));
     return $r.hnn(IpldPrimeSchemaTypeSystem.$h);
   }
 }
@@ -422,25 +422,25 @@ class IpldPrimeSchemaTypeBytes extends IpldPrimeSchemaType
 
   /// Go: `func (schema.typeBase).Name() schema.TypeName`.
   String name() {
-    final $r = $callSync(12479, $W()..h(this));
+    final $r = $callSync(12485, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (schema.TypeBytes).RepresentationBehavior() datamodel.Kind`.
   int representationBehavior() {
-    final $r = $callSync(12480, $W()..h(this));
+    final $r = $callSync(12486, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (schema.TypeBytes).TypeKind() schema.TypeKind`.
   int typeKind() {
-    final $r = $callSync(12481, $W()..h(this));
+    final $r = $callSync(12487, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (schema.typeBase).TypeSystem() *schema.TypeSystem`.
   IpldPrimeSchemaTypeSystem typeSystem() {
-    final $r = $callSync(12482, $W()..h(this));
+    final $r = $callSync(12488, $W()..h(this));
     return $r.hnn(IpldPrimeSchemaTypeSystem.$h);
   }
 }
@@ -467,37 +467,37 @@ class IpldPrimeSchemaTypeEnum extends IpldPrimeSchemaType
 
   /// Go: `func (schema.TypeEnum).Members() []string`.
   List<String> members() {
-    final $r = $callSync(12483, $W()..h(this));
+    final $r = $callSync(12489, $W()..h(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (schema.typeBase).Name() schema.TypeName`.
   String name() {
-    final $r = $callSync(12484, $W()..h(this));
+    final $r = $callSync(12490, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (schema.TypeEnum).RepresentationBehavior() datamodel.Kind`.
   int representationBehavior() {
-    final $r = $callSync(12485, $W()..h(this));
+    final $r = $callSync(12491, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (schema.TypeEnum).RepresentationStrategy() schema.EnumRepresentation`.
   IpldPrimeSchemaEnumRepresentation representationStrategy() {
-    final $r = $callSync(12486, $W()..h(this));
+    final $r = $callSync(12492, $W()..h(this));
     return $r.hnn(IpldPrimeSchemaEnumRepresentation.$h);
   }
 
   /// Go: `func (schema.TypeEnum).TypeKind() schema.TypeKind`.
   int typeKind() {
-    final $r = $callSync(12487, $W()..h(this));
+    final $r = $callSync(12493, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (schema.typeBase).TypeSystem() *schema.TypeSystem`.
   IpldPrimeSchemaTypeSystem typeSystem() {
-    final $r = $callSync(12488, $W()..h(this));
+    final $r = $callSync(12494, $W()..h(this));
     return $r.hnn(IpldPrimeSchemaTypeSystem.$h);
   }
 }
@@ -524,25 +524,25 @@ class IpldPrimeSchemaTypeFloat extends IpldPrimeSchemaType
 
   /// Go: `func (schema.typeBase).Name() schema.TypeName`.
   String name() {
-    final $r = $callSync(12489, $W()..h(this));
+    final $r = $callSync(12495, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (schema.TypeFloat).RepresentationBehavior() datamodel.Kind`.
   int representationBehavior() {
-    final $r = $callSync(12490, $W()..h(this));
+    final $r = $callSync(12496, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (schema.TypeFloat).TypeKind() schema.TypeKind`.
   int typeKind() {
-    final $r = $callSync(12491, $W()..h(this));
+    final $r = $callSync(12497, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (schema.typeBase).TypeSystem() *schema.TypeSystem`.
   IpldPrimeSchemaTypeSystem typeSystem() {
-    final $r = $callSync(12492, $W()..h(this));
+    final $r = $callSync(12498, $W()..h(this));
     return $r.hnn(IpldPrimeSchemaTypeSystem.$h);
   }
 }
@@ -569,25 +569,25 @@ class IpldPrimeSchemaTypeInt extends IpldPrimeSchemaType
 
   /// Go: `func (schema.typeBase).Name() schema.TypeName`.
   String name() {
-    final $r = $callSync(12493, $W()..h(this));
+    final $r = $callSync(12499, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (schema.TypeInt).RepresentationBehavior() datamodel.Kind`.
   int representationBehavior() {
-    final $r = $callSync(12494, $W()..h(this));
+    final $r = $callSync(12500, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (schema.TypeInt).TypeKind() schema.TypeKind`.
   int typeKind() {
-    final $r = $callSync(12495, $W()..h(this));
+    final $r = $callSync(12501, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (schema.typeBase).TypeSystem() *schema.TypeSystem`.
   IpldPrimeSchemaTypeSystem typeSystem() {
-    final $r = $callSync(12496, $W()..h(this));
+    final $r = $callSync(12502, $W()..h(this));
     return $r.hnn(IpldPrimeSchemaTypeSystem.$h);
   }
 }
@@ -614,37 +614,37 @@ class IpldPrimeSchemaTypeLink extends IpldPrimeSchemaType
 
   /// Go: `func (schema.TypeLink).HasReferencedType() bool`.
   bool hasReferencedType() {
-    final $r = $callSync(12497, $W()..h(this));
+    final $r = $callSync(12503, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (schema.typeBase).Name() schema.TypeName`.
   String name() {
-    final $r = $callSync(12498, $W()..h(this));
+    final $r = $callSync(12504, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (schema.TypeLink).ReferencedType() schema.Type`.
   IpldPrimeSchemaType referencedType() {
-    final $r = $callSync(12499, $W()..h(this));
+    final $r = $callSync(12505, $W()..h(this));
     return $r.hnn(IpldPrimeSchemaType.$h);
   }
 
   /// Go: `func (schema.TypeLink).RepresentationBehavior() datamodel.Kind`.
   int representationBehavior() {
-    final $r = $callSync(12500, $W()..h(this));
+    final $r = $callSync(12506, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (schema.TypeLink).TypeKind() schema.TypeKind`.
   int typeKind() {
-    final $r = $callSync(12501, $W()..h(this));
+    final $r = $callSync(12507, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (schema.typeBase).TypeSystem() *schema.TypeSystem`.
   IpldPrimeSchemaTypeSystem typeSystem() {
-    final $r = $callSync(12502, $W()..h(this));
+    final $r = $callSync(12508, $W()..h(this));
     return $r.hnn(IpldPrimeSchemaTypeSystem.$h);
   }
 }
@@ -671,43 +671,43 @@ class IpldPrimeSchemaTypeList extends IpldPrimeSchemaType
 
   /// Go: `func (schema.TypeList).IsAnonymous() bool`.
   bool isAnonymous() {
-    final $r = $callSync(12503, $W()..h(this));
+    final $r = $callSync(12509, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (schema.typeBase).Name() schema.TypeName`.
   String name() {
-    final $r = $callSync(12504, $W()..h(this));
+    final $r = $callSync(12510, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (schema.TypeList).RepresentationBehavior() datamodel.Kind`.
   int representationBehavior() {
-    final $r = $callSync(12505, $W()..h(this));
+    final $r = $callSync(12511, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (schema.TypeList).TypeKind() schema.TypeKind`.
   int typeKind() {
-    final $r = $callSync(12506, $W()..h(this));
+    final $r = $callSync(12512, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (schema.typeBase).TypeSystem() *schema.TypeSystem`.
   IpldPrimeSchemaTypeSystem typeSystem() {
-    final $r = $callSync(12507, $W()..h(this));
+    final $r = $callSync(12513, $W()..h(this));
     return $r.hnn(IpldPrimeSchemaTypeSystem.$h);
   }
 
   /// Go: `func (schema.TypeList).ValueIsNullable() bool`.
   bool valueIsNullable() {
-    final $r = $callSync(12508, $W()..h(this));
+    final $r = $callSync(12514, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (schema.TypeList).ValueType() schema.Type`.
   IpldPrimeSchemaType valueType() {
-    final $r = $callSync(12509, $W()..h(this));
+    final $r = $callSync(12515, $W()..h(this));
     return $r.hnn(IpldPrimeSchemaType.$h);
   }
 }
@@ -734,49 +734,49 @@ class IpldPrimeSchemaTypeMap extends IpldPrimeSchemaType
 
   /// Go: `func (schema.TypeMap).IsAnonymous() bool`.
   bool isAnonymous() {
-    final $r = $callSync(12510, $W()..h(this));
+    final $r = $callSync(12516, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (schema.TypeMap).KeyType() schema.Type`.
   IpldPrimeSchemaType keyType() {
-    final $r = $callSync(12511, $W()..h(this));
+    final $r = $callSync(12517, $W()..h(this));
     return $r.hnn(IpldPrimeSchemaType.$h);
   }
 
   /// Go: `func (schema.typeBase).Name() schema.TypeName`.
   String name() {
-    final $r = $callSync(12512, $W()..h(this));
+    final $r = $callSync(12518, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (schema.TypeMap).RepresentationBehavior() datamodel.Kind`.
   int representationBehavior() {
-    final $r = $callSync(12513, $W()..h(this));
+    final $r = $callSync(12519, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (schema.TypeMap).TypeKind() schema.TypeKind`.
   int typeKind() {
-    final $r = $callSync(12514, $W()..h(this));
+    final $r = $callSync(12520, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (schema.typeBase).TypeSystem() *schema.TypeSystem`.
   IpldPrimeSchemaTypeSystem typeSystem() {
-    final $r = $callSync(12515, $W()..h(this));
+    final $r = $callSync(12521, $W()..h(this));
     return $r.hnn(IpldPrimeSchemaTypeSystem.$h);
   }
 
   /// Go: `func (schema.TypeMap).ValueIsNullable() bool`.
   bool valueIsNullable() {
-    final $r = $callSync(12516, $W()..h(this));
+    final $r = $callSync(12522, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (schema.TypeMap).ValueType() schema.Type`.
   IpldPrimeSchemaType valueType() {
-    final $r = $callSync(12517, $W()..h(this));
+    final $r = $callSync(12523, $W()..h(this));
     return $r.hnn(IpldPrimeSchemaType.$h);
   }
 }
@@ -803,25 +803,25 @@ class IpldPrimeSchemaTypeString extends IpldPrimeSchemaType
 
   /// Go: `func (schema.typeBase).Name() schema.TypeName`.
   String name() {
-    final $r = $callSync(12518, $W()..h(this));
+    final $r = $callSync(12524, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (schema.TypeString).RepresentationBehavior() datamodel.Kind`.
   int representationBehavior() {
-    final $r = $callSync(12519, $W()..h(this));
+    final $r = $callSync(12525, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (schema.TypeString).TypeKind() schema.TypeKind`.
   int typeKind() {
-    final $r = $callSync(12520, $W()..h(this));
+    final $r = $callSync(12526, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (schema.typeBase).TypeSystem() *schema.TypeSystem`.
   IpldPrimeSchemaTypeSystem typeSystem() {
-    final $r = $callSync(12521, $W()..h(this));
+    final $r = $callSync(12527, $W()..h(this));
     return $r.hnn(IpldPrimeSchemaTypeSystem.$h);
   }
 }
@@ -849,7 +849,7 @@ class IpldPrimeSchemaTypeStruct extends IpldPrimeSchemaType
   /// Go: `func (schema.TypeStruct).Field(name string) *schema.StructField`.
   IpldPrimeSchemaStructField field(String name) {
     final $r = $callSync(
-        12522,
+        12528,
         $W()
           ..h(this)
           ..str(name));
@@ -858,37 +858,37 @@ class IpldPrimeSchemaTypeStruct extends IpldPrimeSchemaType
 
   /// Go: `func (schema.TypeStruct).Fields() []schema.StructField`.
   List<IpldPrimeSchemaStructField> fields() {
-    final $r = $callSync(12523, $W()..h(this));
+    final $r = $callSync(12529, $W()..h(this));
     return $r.list(() => $r.hnn(IpldPrimeSchemaStructField.$h));
   }
 
   /// Go: `func (schema.typeBase).Name() schema.TypeName`.
   String name() {
-    final $r = $callSync(12524, $W()..h(this));
+    final $r = $callSync(12530, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (schema.TypeStruct).RepresentationBehavior() datamodel.Kind`.
   int representationBehavior() {
-    final $r = $callSync(12525, $W()..h(this));
+    final $r = $callSync(12531, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (schema.TypeStruct).RepresentationStrategy() schema.StructRepresentation`.
   IpldPrimeSchemaStructRepresentation representationStrategy() {
-    final $r = $callSync(12526, $W()..h(this));
+    final $r = $callSync(12532, $W()..h(this));
     return $r.hnn(IpldPrimeSchemaStructRepresentation.$h);
   }
 
   /// Go: `func (schema.TypeStruct).TypeKind() schema.TypeKind`.
   int typeKind() {
-    final $r = $callSync(12527, $W()..h(this));
+    final $r = $callSync(12533, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (schema.typeBase).TypeSystem() *schema.TypeSystem`.
   IpldPrimeSchemaTypeSystem typeSystem() {
-    final $r = $callSync(12528, $W()..h(this));
+    final $r = $callSync(12534, $W()..h(this));
     return $r.hnn(IpldPrimeSchemaTypeSystem.$h);
   }
 }
@@ -914,7 +914,7 @@ class IpldPrimeSchemaTypeSystem extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*schema.TypeSystem).Accumulate(typ schema.Type)`.
   void accumulate(IpldPrimeSchemaType typ) {
     $callSync(
-        12529,
+        12535,
         $W()
           ..h(this)
           ..h(typ));
@@ -922,25 +922,25 @@ class IpldPrimeSchemaTypeSystem extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (schema.TypeSystem).GetTypes() map[schema.TypeName]schema.Type`.
   Map<String, IpldPrimeSchemaType> getTypes() {
-    final $r = $callSync(12530, $W()..h(this));
+    final $r = $callSync(12536, $W()..h(this));
     return $r.map(() => $r.str(), () => $r.hnn(IpldPrimeSchemaType.$h));
   }
 
   /// Go: `func (*schema.TypeSystem).Init()`.
   void init() {
-    $callSync(12531, $W()..h(this));
+    $callSync(12537, $W()..h(this));
   }
 
   /// Go: `func (schema.TypeSystem).Names() []schema.TypeName`.
   List<String> names() {
-    final $r = $callSync(12532, $W()..h(this));
+    final $r = $callSync(12538, $W()..h(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (schema.TypeSystem).TypeByName(n string) schema.Type`.
   IpldPrimeSchemaType typeByName(String n) {
     final $r = $callSync(
-        12533,
+        12539,
         $W()
           ..h(this)
           ..str(n));
@@ -949,7 +949,7 @@ class IpldPrimeSchemaTypeSystem extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (schema.TypeSystem).ValidateGraph() []error`.
   List<String> validateGraph() {
-    final $r = $callSync(12534, $W()..h(this));
+    final $r = $callSync(12540, $W()..h(this));
     return $r.list(() => $r.err() ?? $nil());
   }
 }
@@ -976,37 +976,37 @@ class IpldPrimeSchemaTypeUnion extends IpldPrimeSchemaType
 
   /// Go: `func (schema.TypeUnion).Members() []schema.Type`.
   List<IpldPrimeSchemaType> members() {
-    final $r = $callSync(12535, $W()..h(this));
+    final $r = $callSync(12541, $W()..h(this));
     return $r.list(() => $r.hnn(IpldPrimeSchemaType.$h));
   }
 
   /// Go: `func (schema.typeBase).Name() schema.TypeName`.
   String name() {
-    final $r = $callSync(12536, $W()..h(this));
+    final $r = $callSync(12542, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (schema.TypeUnion).RepresentationBehavior() datamodel.Kind`.
   int representationBehavior() {
-    final $r = $callSync(12537, $W()..h(this));
+    final $r = $callSync(12543, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (schema.TypeUnion).RepresentationStrategy() schema.UnionRepresentation`.
   IpldPrimeSchemaUnionRepresentation representationStrategy() {
-    final $r = $callSync(12538, $W()..h(this));
+    final $r = $callSync(12544, $W()..h(this));
     return $r.hnn(IpldPrimeSchemaUnionRepresentation.$h);
   }
 
   /// Go: `func (schema.TypeUnion).TypeKind() schema.TypeKind`.
   int typeKind() {
-    final $r = $callSync(12539, $W()..h(this));
+    final $r = $callSync(12545, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (schema.typeBase).TypeSystem() *schema.TypeSystem`.
   IpldPrimeSchemaTypeSystem typeSystem() {
-    final $r = $callSync(12540, $W()..h(this));
+    final $r = $callSync(12546, $W()..h(this));
     return $r.hnn(IpldPrimeSchemaTypeSystem.$h);
   }
 }
@@ -1021,7 +1021,7 @@ class IpldPrimeSchemaTypedLinkNode extends GoHandle
 mixin IpldPrimeSchemaTypedLinkNode$ on GoHandle {
   /// Go: `func (schema.TypedLinkNode).LinkTargetNodePrototype() datamodel.NodePrototype`.
   $datamodel.IpldPrimeDatamodelNodePrototype linkTargetNodePrototype() {
-    final $r = $callSync(12541, $W()..h(this));
+    final $r = $callSync(12547, $W()..h(this));
     return $r.hnn($datamodel.IpldPrimeDatamodelNodePrototype.$h);
   }
 }
@@ -1036,13 +1036,13 @@ class IpldPrimeSchemaTypedNode extends $datamodel.IpldPrimeDatamodelNode
 mixin IpldPrimeSchemaTypedNode$ on GoHandle {
   /// Go: `func (schema.TypedNode).Representation() datamodel.Node`.
   $datamodel.IpldPrimeDatamodelNode representation() {
-    final $r = $callSync(12542, $W()..h(this));
+    final $r = $callSync(12548, $W()..h(this));
     return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
   }
 
   /// Go: `func (schema.TypedNode).Type() schema.Type`.
   IpldPrimeSchemaType type() {
-    final $r = $callSync(12543, $W()..h(this));
+    final $r = $callSync(12549, $W()..h(this));
     return $r.hnn(IpldPrimeSchemaType.$h);
   }
 }
@@ -1057,13 +1057,13 @@ class IpldPrimeSchemaTypedPrototype extends $datamodel
 mixin IpldPrimeSchemaTypedPrototype$ on GoHandle {
   /// Go: `func (schema.TypedPrototype).Representation() datamodel.NodePrototype`.
   $datamodel.IpldPrimeDatamodelNodePrototype representation() {
-    final $r = $callSync(12544, $W()..h(this));
+    final $r = $callSync(12550, $W()..h(this));
     return $r.hnn($datamodel.IpldPrimeDatamodelNodePrototype.$h);
   }
 
   /// Go: `func (schema.TypedPrototype).Type() schema.Type`.
   IpldPrimeSchemaType type() {
-    final $r = $callSync(12545, $W()..h(this));
+    final $r = $callSync(12551, $W()..h(this));
     return $r.hnn(IpldPrimeSchemaType.$h);
   }
 }
@@ -1079,28 +1079,28 @@ mixin IpldPrimeSchemaUnionRepresentation$ on GoHandle {
   /// Go: type assertion `x.(*schema.UnionRepresentation_Keyed)`: null if the object is not one.
   IpldPrimeSchemaUnionRepresentationKeyed?
       asIpldPrimeSchemaUnionRepresentationKeyed() {
-    final $r = $callSync(1259, $W()..h(this));
+    final $r = $callSync(1262, $W()..h(this));
     return $r.hn(IpldPrimeSchemaUnionRepresentationKeyed.$h);
   }
 
   /// Go: type assertion `x.(*schema.UnionRepresentation_Kinded)`: null if the object is not one.
   IpldPrimeSchemaUnionRepresentationKinded?
       asIpldPrimeSchemaUnionRepresentationKinded() {
-    final $r = $callSync(1260, $W()..h(this));
+    final $r = $callSync(1263, $W()..h(this));
     return $r.hn(IpldPrimeSchemaUnionRepresentationKinded.$h);
   }
 
   /// Go: type assertion `x.(*schema.UnionRepresentation_Stringprefix)`: null if the object is not one.
   IpldPrimeSchemaUnionRepresentationStringprefix?
       asIpldPrimeSchemaUnionRepresentationStringprefix() {
-    final $r = $callSync(1261, $W()..h(this));
+    final $r = $callSync(1264, $W()..h(this));
     return $r.hn(IpldPrimeSchemaUnionRepresentationStringprefix.$h);
   }
 
   /// Go: type assertion `x.(schema.UnionRepresentation_Inline)`: null if the object is not one.
   IpldPrimeSchemaUnionRepresentationInline?
       asIpldPrimeSchemaUnionRepresentationInline() {
-    final $r = $callSync(1262, $W()..h(this));
+    final $r = $callSync(1265, $W()..h(this));
     return $r.hn(IpldPrimeSchemaUnionRepresentationInline.$h);
   }
 }
@@ -1151,7 +1151,7 @@ class IpldPrimeSchemaUnionRepresentationKeyed
   /// Go: `func (schema.UnionRepresentation_Keyed).GetDiscriminant(t schema.Type) string`.
   String getDiscriminant(IpldPrimeSchemaType t) {
     final $r = $callSync(
-        12546,
+        12552,
         $W()
           ..h(this)
           ..h(t));
@@ -1183,7 +1183,7 @@ class IpldPrimeSchemaUnionRepresentationKinded
   /// Go: `func (schema.UnionRepresentation_Kinded).GetMember(k datamodel.Kind) schema.TypeName`.
   String getMember(int k) {
     final $r = $callSync(
-        12547,
+        12553,
         $W()
           ..h(this)
           ..i64(k));
@@ -1214,14 +1214,14 @@ class IpldPrimeSchemaUnionRepresentationStringprefix
 
   /// Go: `func (schema.UnionRepresentation_Stringprefix).GetDelim() string`.
   String getDelim() {
-    final $r = $callSync(12548, $W()..h(this));
+    final $r = $callSync(12554, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (schema.UnionRepresentation_Stringprefix).GetDiscriminant(t schema.Type) string`.
   String getDiscriminant(IpldPrimeSchemaType t) {
     final $r = $callSync(
-        12549,
+        12555,
         $W()
           ..h(this)
           ..h(t));
@@ -1274,7 +1274,7 @@ class IpldPrimeSchemaErrUnmatchable extends GolangException {
 extension GoIpldIpldPrimeSchemaApi on GoIpldIpldPrimeSchema {
   /// Go: `func schema.Clone(typ schema.Type) schema.Type`.
   IpldPrimeSchemaType clone(IpldPrimeSchemaType typ) {
-    final $r = $callSync(12429, $W()..h(typ));
+    final $r = $callSync(12435, $W()..h(typ));
     return $r.hnn(IpldPrimeSchemaType.$h);
   }
 
@@ -1282,7 +1282,7 @@ extension GoIpldIpldPrimeSchemaApi on GoIpldIpldPrimeSchema {
   void mergeTypeSystem(IpldPrimeSchemaTypeSystem target,
       IpldPrimeSchemaTypeSystem source, bool ignoreDups) {
     $callSync(
-        12430,
+        12436,
         $W()
           ..h(target)
           ..h(source)
@@ -1292,38 +1292,38 @@ extension GoIpldIpldPrimeSchemaApi on GoIpldIpldPrimeSchema {
   /// Go: `func schema.MustTypeSystem(types ...schema.Type) *schema.TypeSystem`.
   IpldPrimeSchemaTypeSystem mustTypeSystem(
       [List<IpldPrimeSchemaType> types = const []]) {
-    final $r = $callSync(12431, $W()..list(types, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(12437, $W()..list(types, (w0, e0) => w0.h(e0)));
     return $r.hnn(IpldPrimeSchemaTypeSystem.$h);
   }
 
   /// Go: `func schema.SpawnAny(name schema.TypeName) *schema.TypeAny`.
   IpldPrimeSchemaTypeAny spawnAny(String name) {
-    final $r = $callSync(12432, $W()..str(name));
+    final $r = $callSync(12438, $W()..str(name));
     return $r.hnn(IpldPrimeSchemaTypeAny.$h);
   }
 
   /// Go: `func schema.SpawnBool(name schema.TypeName) *schema.TypeBool`.
   IpldPrimeSchemaTypeBool spawnBool(String name) {
-    final $r = $callSync(12433, $W()..str(name));
+    final $r = $callSync(12439, $W()..str(name));
     return $r.hnn(IpldPrimeSchemaTypeBool.$h);
   }
 
   /// Go: `func schema.SpawnBytes(name schema.TypeName) *schema.TypeBytes`.
   IpldPrimeSchemaTypeBytes spawnBytes(String name) {
-    final $r = $callSync(12434, $W()..str(name));
+    final $r = $callSync(12440, $W()..str(name));
     return $r.hnn(IpldPrimeSchemaTypeBytes.$h);
   }
 
   /// Go: `func schema.SpawnDefaultBasicTypes(ts *schema.TypeSystem)`.
   void spawnDefaultBasicTypes(IpldPrimeSchemaTypeSystem ts) {
-    $callSync(12435, $W()..h(ts));
+    $callSync(12441, $W()..h(ts));
   }
 
   /// Go: `func schema.SpawnEnum(name schema.TypeName, members []string, repr schema.EnumRepresentation) *schema.TypeEnum`.
   IpldPrimeSchemaTypeEnum spawnEnum(String name, List<String> members,
       IpldPrimeSchemaEnumRepresentation repr) {
     final $r = $callSync(
-        12436,
+        12442,
         $W()
           ..str(name)
           ..list(members, (w0, e0) => w0.str(e0))
@@ -1333,26 +1333,26 @@ extension GoIpldIpldPrimeSchemaApi on GoIpldIpldPrimeSchema {
 
   /// Go: `func schema.SpawnFloat(name schema.TypeName) *schema.TypeFloat`.
   IpldPrimeSchemaTypeFloat spawnFloat(String name) {
-    final $r = $callSync(12437, $W()..str(name));
+    final $r = $callSync(12443, $W()..str(name));
     return $r.hnn(IpldPrimeSchemaTypeFloat.$h);
   }
 
   /// Go: `func schema.SpawnInt(name schema.TypeName) *schema.TypeInt`.
   IpldPrimeSchemaTypeInt spawnInt(String name) {
-    final $r = $callSync(12438, $W()..str(name));
+    final $r = $callSync(12444, $W()..str(name));
     return $r.hnn(IpldPrimeSchemaTypeInt.$h);
   }
 
   /// Go: `func schema.SpawnLink(name schema.TypeName) *schema.TypeLink`.
   IpldPrimeSchemaTypeLink spawnLink(String name) {
-    final $r = $callSync(12439, $W()..str(name));
+    final $r = $callSync(12445, $W()..str(name));
     return $r.hnn(IpldPrimeSchemaTypeLink.$h);
   }
 
   /// Go: `func schema.SpawnLinkReference(name schema.TypeName, pointsTo schema.TypeName) *schema.TypeLink`.
   IpldPrimeSchemaTypeLink spawnLinkReference(String name, String pointsTo) {
     final $r = $callSync(
-        12440,
+        12446,
         $W()
           ..str(name)
           ..str(pointsTo));
@@ -1363,7 +1363,7 @@ extension GoIpldIpldPrimeSchemaApi on GoIpldIpldPrimeSchema {
   IpldPrimeSchemaTypeList spawnList(
       String name, String valueType, bool nullable) {
     final $r = $callSync(
-        12441,
+        12447,
         $W()
           ..str(name)
           ..str(valueType)
@@ -1375,7 +1375,7 @@ extension GoIpldIpldPrimeSchemaApi on GoIpldIpldPrimeSchema {
   IpldPrimeSchemaTypeMap spawnMap(
       String name, String keyType, String valueType, bool nullable) {
     final $r = $callSync(
-        12442,
+        12448,
         $W()
           ..str(name)
           ..str(keyType)
@@ -1386,7 +1386,7 @@ extension GoIpldIpldPrimeSchemaApi on GoIpldIpldPrimeSchema {
 
   /// Go: `func schema.SpawnString(name schema.TypeName) *schema.TypeString`.
   IpldPrimeSchemaTypeString spawnString(String name) {
-    final $r = $callSync(12443, $W()..str(name));
+    final $r = $callSync(12449, $W()..str(name));
     return $r.hnn(IpldPrimeSchemaTypeString.$h);
   }
 
@@ -1396,7 +1396,7 @@ extension GoIpldIpldPrimeSchemaApi on GoIpldIpldPrimeSchema {
       List<IpldPrimeSchemaStructField> fields,
       IpldPrimeSchemaStructRepresentation repr) {
     final $r = $callSync(
-        12444,
+        12450,
         $W()
           ..str(name)
           ..list(fields, (w0, e0) => w0.h(e0))
@@ -1408,7 +1408,7 @@ extension GoIpldIpldPrimeSchemaApi on GoIpldIpldPrimeSchema {
   IpldPrimeSchemaStructField spawnStructField(
       String name, String typ, bool optional, bool nullable) {
     final $r = $callSync(
-        12445,
+        12451,
         $W()
           ..str(name)
           ..str(typ)
@@ -1420,7 +1420,7 @@ extension GoIpldIpldPrimeSchemaApi on GoIpldIpldPrimeSchema {
   /// Go: `func schema.SpawnStructRepresentationListPairs() schema.StructRepresentation_ListPairs`.
   IpldPrimeSchemaStructRepresentationListPairs
       spawnStructRepresentationListPairs() {
-    final $r = $callSync(12446);
+    final $r = $callSync(12452);
     return $r.p()
         ? IpldPrimeSchemaStructRepresentationListPairs.$dec($r)
         : $nil();
@@ -1429,7 +1429,7 @@ extension GoIpldIpldPrimeSchemaApi on GoIpldIpldPrimeSchema {
   /// Go: `func schema.SpawnStructRepresentationMap(renames map[string]string) schema.StructRepresentation_Map`.
   IpldPrimeSchemaStructRepresentationMap spawnStructRepresentationMap(
       Map<String, String> renames) {
-    final $r = $callSync(12447,
+    final $r = $callSync(12453,
         $W()..map(renames, (w0, k0) => w0.str(k0), (w0, v0) => w0.str(v0)));
     return $r.hnn(IpldPrimeSchemaStructRepresentationMap.$h);
   }
@@ -1439,7 +1439,7 @@ extension GoIpldIpldPrimeSchemaApi on GoIpldIpldPrimeSchema {
       Map<String, String> renames,
       Map<String, IpldPrimeSchemaImplicitValue> implicits) {
     final $r = $callSync(
-        12448,
+        12454,
         $W()
           ..map(renames, (w0, k0) => w0.str(k0), (w0, v0) => w0.str(v0))
           ..map(implicits, (w0, k0) => w0.str(k0), (w0, v0) => w0.h(v0)));
@@ -1449,20 +1449,20 @@ extension GoIpldIpldPrimeSchemaApi on GoIpldIpldPrimeSchema {
   /// Go: `func schema.SpawnStructRepresentationStringjoin(delim string) schema.StructRepresentation_Stringjoin`.
   IpldPrimeSchemaStructRepresentationStringjoin
       spawnStructRepresentationStringjoin(String delim) {
-    final $r = $callSync(12449, $W()..str(delim));
+    final $r = $callSync(12455, $W()..str(delim));
     return $r.hnn(IpldPrimeSchemaStructRepresentationStringjoin.$h);
   }
 
   /// Go: `func schema.SpawnStructRepresentationTuple() schema.StructRepresentation_Tuple`.
   IpldPrimeSchemaStructRepresentationTuple spawnStructRepresentationTuple() {
-    final $r = $callSync(12450);
+    final $r = $callSync(12456);
     return $r.p() ? IpldPrimeSchemaStructRepresentationTuple.$dec($r) : $nil();
   }
 
   /// Go: `func schema.SpawnTypeSystem(types ...schema.Type) (*schema.TypeSystem, []error)`.
   (IpldPrimeSchemaTypeSystem, List<String>) spawnTypeSystem(
       [List<IpldPrimeSchemaType> types = const []]) {
-    final $r = $callSync(12451, $W()..list(types, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(12457, $W()..list(types, (w0, e0) => w0.h(e0)));
     return (
       $r.hnn(IpldPrimeSchemaTypeSystem.$h),
       $r.list(() => $r.err() ?? $nil())
@@ -1473,7 +1473,7 @@ extension GoIpldIpldPrimeSchemaApi on GoIpldIpldPrimeSchema {
   IpldPrimeSchemaTypeUnion spawnUnion(String name, List<String> members,
       IpldPrimeSchemaUnionRepresentation repr) {
     final $r = $callSync(
-        12452,
+        12458,
         $W()
           ..str(name)
           ..list(members, (w0, e0) => w0.str(e0))
@@ -1485,7 +1485,7 @@ extension GoIpldIpldPrimeSchemaApi on GoIpldIpldPrimeSchema {
   IpldPrimeSchemaUnionRepresentationInline spawnUnionRepresentationInline(
       String discriminantKey, Map<String, String> table) {
     final $r = $callSync(
-        12453,
+        12459,
         $W()
           ..str(discriminantKey)
           ..map(table, (w0, k0) => w0.str(k0), (w0, v0) => w0.str(v0)));
@@ -1495,7 +1495,7 @@ extension GoIpldIpldPrimeSchemaApi on GoIpldIpldPrimeSchema {
   /// Go: `func schema.SpawnUnionRepresentationKeyed(table map[string]schema.TypeName) schema.UnionRepresentation_Keyed`.
   IpldPrimeSchemaUnionRepresentationKeyed spawnUnionRepresentationKeyed(
       Map<String, String> table) {
-    final $r = $callSync(12454,
+    final $r = $callSync(12460,
         $W()..map(table, (w0, k0) => w0.str(k0), (w0, v0) => w0.str(v0)));
     return $r.hnn(IpldPrimeSchemaUnionRepresentationKeyed.$h);
   }
@@ -1503,7 +1503,7 @@ extension GoIpldIpldPrimeSchemaApi on GoIpldIpldPrimeSchema {
   /// Go: `func schema.SpawnUnionRepresentationKinded(table map[datamodel.Kind]schema.TypeName) schema.UnionRepresentation_Kinded`.
   IpldPrimeSchemaUnionRepresentationKinded spawnUnionRepresentationKinded(
       Map<int, String> table) {
-    final $r = $callSync(12455,
+    final $r = $callSync(12461,
         $W()..map(table, (w0, k0) => w0.i64(k0), (w0, v0) => w0.str(v0)));
     return $r.hnn(IpldPrimeSchemaUnionRepresentationKinded.$h);
   }
@@ -1513,7 +1513,7 @@ extension GoIpldIpldPrimeSchemaApi on GoIpldIpldPrimeSchema {
       spawnUnionRepresentationStringprefix(
           String delim, Map<String, String> table) {
     final $r = $callSync(
-        12456,
+        12462,
         $W()
           ..str(delim)
           ..map(table, (w0, k0) => w0.str(k0), (w0, v0) => w0.str(v0)));

@@ -38,7 +38,7 @@ final class CidrangerNetNetwork implements GoDto {
   /// Go: `func (net.Network).Contains(nn net.NetworkNumber) bool`.
   bool contains(List<int> nn) {
     final $r = $callSync(
-        12874,
+        12880,
         $W()
           ..dto(this)
           ..list(nn, (w0, e0) => w0.i64(e0)));
@@ -48,7 +48,7 @@ final class CidrangerNetNetwork implements GoDto {
   /// Go: `func (net.Network).Covers(o net.Network) bool`.
   bool covers(CidrangerNetNetwork o) {
     final $r = $callSync(
-        12875,
+        12881,
         $W()
           ..dto(this)
           ..dto(o));
@@ -58,7 +58,7 @@ final class CidrangerNetNetwork implements GoDto {
   /// Go: `func (net.Network).Equal(n1 net.Network) bool`.
   bool equal(CidrangerNetNetwork n1) {
     final $r = $callSync(
-        12876,
+        12882,
         $W()
           ..dto(this)
           ..dto(n1));
@@ -67,14 +67,14 @@ final class CidrangerNetNetwork implements GoDto {
 
   /// Go: `func (net.Network).IPNet() net.IPNet`.
   $net.NetIpNet ipNet() {
-    final $r = $callSync(12877, $W()..dto(this));
+    final $r = $callSync(12883, $W()..dto(this));
     return $r.p() ? $net.NetIpNet.$dec($r) : $nil();
   }
 
   /// Go: `func (net.Network).LeastCommonBitPosition(n1 net.Network) (uint, error)`.
   int leastCommonBitPosition(CidrangerNetNetwork n1) {
     final $r = $callSync(
-        12878,
+        12884,
         $W()
           ..dto(this)
           ..dto(n1));
@@ -84,7 +84,7 @@ final class CidrangerNetNetwork implements GoDto {
   /// Go: `func (net.Network).Masked(ones int) net.Network`.
   CidrangerNetNetwork masked(int ones) {
     final $r = $callSync(
-        12879,
+        12885,
         $W()
           ..dto(this)
           ..i64(ones));
@@ -93,7 +93,7 @@ final class CidrangerNetNetwork implements GoDto {
 
   /// Go: `func (net.Network).String() string`.
   String string() {
-    final $r = $callSync(12880, $W()..dto(this));
+    final $r = $callSync(12886, $W()..dto(this));
     return $r.str();
   }
 }
@@ -129,25 +129,25 @@ class CidrangerNetErrVersionMismatch extends GolangException {
 extension GoLibp2pCidrangerNetApi on GoLibp2pCidrangerNet {
   /// Go: `func net.NewNetwork(ipNet net.IPNet) net.Network`.
   CidrangerNetNetwork newNetwork($net.NetIpNet ipNet) {
-    final $r = $callSync(12881, $W()..dto(ipNet));
+    final $r = $callSync(12887, $W()..dto(ipNet));
     return $r.p() ? CidrangerNetNetwork.$dec($r) : $nil();
   }
 
   /// Go: `func net.NewNetworkNumber(ip net.IP) net.NetworkNumber`.
   List<int> newNetworkNumber(Uint8List ip) {
-    final $r = $callSync(12882, $W()..bytes(ip));
+    final $r = $callSync(12888, $W()..bytes(ip));
     return $r.list(() => $r.i64());
   }
 
   /// Go: `func net.NextIP(ip net.IP) net.IP`.
   Uint8List nextIp(Uint8List ip) {
-    final $r = $callSync(12883, $W()..bytes(ip));
+    final $r = $callSync(12889, $W()..bytes(ip));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func net.PreviousIP(ip net.IP) net.IP`.
   Uint8List previousIp(Uint8List ip) {
-    final $r = $callSync(12884, $W()..bytes(ip));
+    final $r = $callSync(12890, $W()..bytes(ip));
     return $r.bytes() ?? Uint8List(0);
   }
 }

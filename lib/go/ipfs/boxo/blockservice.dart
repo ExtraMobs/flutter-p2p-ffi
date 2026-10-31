@@ -33,7 +33,7 @@ mixin BoxoBlockserviceBlockGetter$ on GoHandle {
   Future<$block_format.BlockFormatBlock> getBlock(
       $context.Context ctx, $cid.Cid c) async {
     final $r = await $call(
-        9313,
+        9322,
         $W()
           ..h(this)
           ..h(ctx)
@@ -45,7 +45,7 @@ mixin BoxoBlockserviceBlockGetter$ on GoHandle {
   Stream<$block_format.BlockFormatBlock> getBlocks(
           $context.Context ctx, List<$cid.Cid> ks) =>
       $stream(
-              9314,
+              9323,
               $W()
                 ..h(this)
                 ..h(ctx)
@@ -54,25 +54,25 @@ mixin BoxoBlockserviceBlockGetter$ on GoHandle {
 
   /// Go: type assertion `x.(*ipfs.BlockService)`: null if the object is not one.
   $ipfs.NopfsIpfsBlockService? asNopfsIpfsBlockService() {
-    final $r = $callSync(908, $W()..h(this));
+    final $r = $callSync(911, $W()..h(this));
     return $r.hn($ipfs.NopfsIpfsBlockService.$h);
   }
 
   /// Go: type assertion `x.(*blockservice.Session)`: null if the object is not one.
   BoxoBlockserviceSession? asBoxoBlockserviceSession() {
-    final $r = $callSync(909, $W()..h(this));
+    final $r = $callSync(912, $W()..h(this));
     return $r.hn(BoxoBlockserviceSession.$h);
   }
 
   /// Go: type assertion `x.(blockservice.BlockService)`: null if the object is not one.
   BoxoBlockserviceBlockService? asBoxoBlockserviceBlockService() {
-    final $r = $callSync(910, $W()..h(this));
+    final $r = $callSync(913, $W()..h(this));
     return $r.hn(BoxoBlockserviceBlockService.$h);
   }
 
   /// Go: type assertion `x.(blockservice.BoundedBlockService)`: null if the object is not one.
   BoxoBlockserviceBoundedBlockService? asBoxoBlockserviceBoundedBlockService() {
-    final $r = $callSync(911, $W()..h(this));
+    final $r = $callSync(914, $W()..h(this));
     return $r.hn(BoxoBlockserviceBoundedBlockService.$h);
   }
 }
@@ -92,7 +92,7 @@ mixin BoxoBlockserviceBlockService$ on GoHandle {
   Future<void> addBlock(
       $context.Context ctx, $block_format.BlockFormatBlock o) async {
     await $call(
-        9315,
+        9324,
         $W()
           ..h(this)
           ..h(ctx)
@@ -105,7 +105,7 @@ mixin BoxoBlockserviceBlockService$ on GoHandle {
   Future<void> addBlocks(
       $context.Context ctx, List<$block_format.BlockFormatBlock> bs) async {
     await $call(
-        9316,
+        9325,
         $W()
           ..h(this)
           ..h(ctx)
@@ -114,7 +114,7 @@ mixin BoxoBlockserviceBlockService$ on GoHandle {
 
   /// Go: `func (blockservice.BlockService).Blockstore() blockstore.Blockstore`.
   $blockstore.BoxoBlockstore blockstore() {
-    final $r = $callSync(9317, $W()..h(this));
+    final $r = $callSync(9326, $W()..h(this));
     return $r.hnn($blockstore.BoxoBlockstore.$h);
   }
 
@@ -123,7 +123,7 @@ mixin BoxoBlockserviceBlockService$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> deleteBlock($context.Context ctx, $cid.Cid o) async {
     await $call(
-        9318,
+        9327,
         $W()
           ..h(this)
           ..h(ctx)
@@ -132,19 +132,19 @@ mixin BoxoBlockserviceBlockService$ on GoHandle {
 
   /// Go: `func (blockservice.BlockService).Exchange() exchange.Interface`.
   $exchange.BoxoExchangeInterface exchange() {
-    final $r = $callSync(9319, $W()..h(this));
+    final $r = $callSync(9328, $W()..h(this));
     return $r.hnn($exchange.BoxoExchangeInterface.$h);
   }
 
   /// Go: type assertion `x.(*ipfs.BlockService)`: null if the object is not one.
   $ipfs.NopfsIpfsBlockService? asNopfsIpfsBlockService() {
-    final $r = $callSync(912, $W()..h(this));
+    final $r = $callSync(915, $W()..h(this));
     return $r.hn($ipfs.NopfsIpfsBlockService.$h);
   }
 
   /// Go: type assertion `x.(blockservice.BoundedBlockService)`: null if the object is not one.
   BoxoBlockserviceBoundedBlockService? asBoxoBlockserviceBoundedBlockService() {
-    final $r = $callSync(913, $W()..h(this));
+    final $r = $callSync(916, $W()..h(this));
     return $r.hn(BoxoBlockserviceBoundedBlockService.$h);
   }
 }
@@ -160,7 +160,7 @@ class BoxoBlockserviceBoundedBlockService extends BoxoBlockserviceBlockService
 mixin BoxoBlockserviceBoundedBlockService$ on GoHandle {
   /// Go: `func (blockservice.BoundedBlockService).Allowlist() verifcid.Allowlist`.
   $verifcid.BoxoVerifcidAllowlist allowlist() {
-    final $r = $callSync(9320, $W()..h(this));
+    final $r = $callSync(9329, $W()..h(this));
     return $r.hnn($verifcid.BoxoVerifcidAllowlist.$h);
   }
 }
@@ -196,7 +196,7 @@ class BoxoBlockserviceSession extends BoxoBlockserviceBlockGetter
   Future<$block_format.BlockFormatBlock> getBlock(
       $context.Context ctx, $cid.Cid c) async {
     final $r = await $call(
-        9323,
+        9332,
         $W()
           ..h(this)
           ..h(ctx)
@@ -208,7 +208,7 @@ class BoxoBlockserviceSession extends BoxoBlockserviceBlockGetter
   Stream<$block_format.BlockFormatBlock> getBlocks(
           $context.Context ctx, List<$cid.Cid> ks) =>
       $stream(
-              9324,
+              9333,
               $W()
                 ..h(this)
                 ..h(ctx)
@@ -223,7 +223,7 @@ extension GoIpfsBoxoBlockserviceApi on GoIpfsBoxoBlockservice {
       $blockstore.BoxoBlockstore bs, $exchange.BoxoExchangeInterface exchange,
       [List<BoxoBlockserviceOption> opts = const []]) {
     final $r = $callSync(
-        9321,
+        9330,
         $W()
           ..h(bs)
           ..h(exchange)
@@ -237,7 +237,7 @@ extension GoIpfsBoxoBlockserviceApi on GoIpfsBoxoBlockservice {
   Future<BoxoBlockserviceSession> newSession(
       $context.Context ctx, BoxoBlockserviceBlockService bs) async {
     final $r = await $call(
-        9322,
+        9331,
         $W()
           ..h(ctx)
           ..h(bs));

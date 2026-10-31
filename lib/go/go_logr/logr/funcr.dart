@@ -34,14 +34,14 @@ class LogrFuncrFormatter extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func funcr.NewFormatter(opts funcr.Options) funcr.Formatter`.
   factory LogrFuncrFormatter(LogrFuncrOptions opts) {
-    final $r = $callSync(6592, $W()..dto(opts));
+    final $r = $callSync(6601, $W()..dto(opts));
     return $r.hnn(LogrFuncrFormatter.$h);
   }
 
   /// Go: `func (*funcr.Formatter).AddCallDepth(depth int)`.
   void addCallDepth(int depth) {
     $callSync(
-        6584,
+        6593,
         $W()
           ..h(this)
           ..i64(depth));
@@ -50,7 +50,7 @@ class LogrFuncrFormatter extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*funcr.Formatter).AddName(name string)`.
   void addName(String name) {
     $callSync(
-        6585,
+        6594,
         $W()
           ..h(this)
           ..str(name));
@@ -59,7 +59,7 @@ class LogrFuncrFormatter extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*funcr.Formatter).AddValues(kvList []any)`.
   void addValues(List<Object?> kvList) {
     $callSync(
-        6586,
+        6595,
         $W()
           ..h(this)
           ..list(kvList, (w0, e0) => w0.any(e0)));
@@ -68,7 +68,7 @@ class LogrFuncrFormatter extends $crypto.CryptoDecrypterOpts
   /// Go: `func (funcr.Formatter).Enabled(level int) bool`.
   bool enabled(int level) {
     final $r = $callSync(
-        6587,
+        6596,
         $W()
           ..h(this)
           ..i64(level));
@@ -78,7 +78,7 @@ class LogrFuncrFormatter extends $crypto.CryptoDecrypterOpts
   /// Go: `func (funcr.Formatter).FormatInfo(level int, msg string, kvList []any) (prefix string, argsStr string)`.
   (String, String) formatInfo(int level, String msg, List<Object?> kvList) {
     final $r = $callSync(
-        6588,
+        6597,
         $W()
           ..h(this)
           ..i64(level)
@@ -89,14 +89,14 @@ class LogrFuncrFormatter extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (funcr.Formatter).GetDepth() int`.
   int getDepth() {
-    final $r = $callSync(6589, $W()..h(this));
+    final $r = $callSync(6598, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*funcr.Formatter).Init(info logr.RuntimeInfo)`.
   void init($logr.LogrRuntimeInfo info) {
     $callSync(
-        6590,
+        6599,
         $W()
           ..h(this)
           ..dto(info));
@@ -179,7 +179,7 @@ extension GoGoLogrLogrFuncrApi on GoGoLogrLogrFuncr {
       FutureOr<void> Function(String prefix, String args) fn,
       LogrFuncrOptions opts) async {
     final $r = await $call(
-        6591,
+        6600,
         $W()
           ..cb((r) => fn(r.str(), r.str()), true)
           ..dto(opts));
@@ -188,7 +188,7 @@ extension GoGoLogrLogrFuncrApi on GoGoLogrLogrFuncr {
 
   /// Go: `func funcr.NewFormatterJSON(opts funcr.Options) funcr.Formatter`.
   LogrFuncrFormatter newFormatterJson(LogrFuncrOptions opts) {
-    final $r = $callSync(6593, $W()..dto(opts));
+    final $r = $callSync(6602, $W()..dto(opts));
     return $r.hnn(LogrFuncrFormatter.$h);
   }
 
@@ -202,7 +202,7 @@ extension GoGoLogrLogrFuncrApi on GoGoLogrLogrFuncr {
   Future<$logr.LogrLogger> newJson(
       FutureOr<void> Function(String obj) fn, LogrFuncrOptions opts) async {
     final $r = await $call(
-        6594,
+        6603,
         $W()
           ..cb((r) => fn(r.str()), true)
           ..dto(opts));

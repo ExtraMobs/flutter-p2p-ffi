@@ -71,43 +71,43 @@ final class KuboCoreCommandsDagStat {
 extension GoIpfsKuboCoreCommandsDagGeneratedApi on GoIpfsKuboCoreCommandsDag {
   /// Go: `var dagcmd.DagCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get dagCmd {
-    final $r = $callSync(11399);
+    final $r = $callSync(11405);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var dagcmd.DagExportCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get dagExportCmd {
-    final $r = $callSync(11400);
+    final $r = $callSync(11406);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var dagcmd.DagGetCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get dagGetCmd {
-    final $r = $callSync(11401);
+    final $r = $callSync(11407);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var dagcmd.DagImportCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get dagImportCmd {
-    final $r = $callSync(11402);
+    final $r = $callSync(11408);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var dagcmd.DagPutCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get dagPutCmd {
-    final $r = $callSync(11403);
+    final $r = $callSync(11409);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var dagcmd.DagResolveCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get dagResolveCmd {
-    final $r = $callSync(11404);
+    final $r = $callSync(11410);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var dagcmd.DagStatCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get dagStatCmd {
-    final $r = $callSync(11405);
+    final $r = $callSync(11411);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 }

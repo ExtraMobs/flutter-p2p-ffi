@@ -69,20 +69,20 @@ final class DtlsV3PkgProtocolRecordlayerHeader implements GoDto {
 
   /// Go: `func (*recordlayer.Header).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(16393, $W()..dto(this));
+    final $r = $callSync(16399, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*recordlayer.Header).Size() int`.
   int size() {
-    final $r = $callSync(16394, $W()..dto(this));
+    final $r = $callSync(16400, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*recordlayer.Header).Unmarshal(data []byte) error`.
   void unmarshal(Uint8List data) {
     $callSync(
-        16395,
+        16401,
         $W()
           ..dto(this)
           ..bytes(data));
@@ -124,14 +124,14 @@ final class DtlsV3PkgProtocolRecordlayerInnerPlaintext implements GoDto {
 
   /// Go: `func (*recordlayer.InnerPlaintext).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(16396, $W()..dto(this));
+    final $r = $callSync(16402, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*recordlayer.InnerPlaintext).Unmarshal(data []byte) error`.
   void unmarshal(Uint8List data) {
     $callSync(
-        16397,
+        16403,
         $W()
           ..dto(this)
           ..bytes(data));
@@ -165,14 +165,14 @@ final class DtlsV3PkgProtocolRecordlayerRecordLayer implements GoDto {
 
   /// Go: `func (*recordlayer.RecordLayer).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(16398, $W()..dto(this));
+    final $r = $callSync(16404, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*recordlayer.RecordLayer).Unmarshal(data []byte) error`.
   void unmarshal(Uint8List data) {
     $callSync(
-        16399,
+        16405,
         $W()
           ..dto(this)
           ..bytes(data));
@@ -185,7 +185,7 @@ extension GoPionDtlsV3PkgProtocolRecordlayerApi
   /// Go: `func recordlayer.ContentAwareUnpackDatagram(buf []byte, cidLength int) ([][]byte, error)`.
   List<Uint8List> contentAwareUnpackDatagram(Uint8List buf, int cidLength) {
     final $r = $callSync(
-        16392,
+        16398,
         $W()
           ..bytes(buf)
           ..i64(cidLength));
@@ -194,7 +194,7 @@ extension GoPionDtlsV3PkgProtocolRecordlayerApi
 
   /// Go: `func recordlayer.UnpackDatagram(buf []byte) ([][]byte, error)`.
   List<Uint8List> unpackDatagram(Uint8List buf) {
-    final $r = $callSync(16400, $W()..bytes(buf));
+    final $r = $callSync(16406, $W()..bytes(buf));
     return $r.list(() => $r.bytes() ?? Uint8List(0));
   }
 }

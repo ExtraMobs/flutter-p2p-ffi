@@ -40,26 +40,26 @@ class OtelTraceEventConfig extends $crypto.CryptoDecrypterOpts
   /// Go: `func trace.NewEventConfig(options ...trace.EventOption) trace.EventConfig`.
   factory OtelTraceEventConfig(
       [List<OtelTraceEventOption> options = const []]) {
-    final $r = $callSync(22395, $W()..list(options, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(22401, $W()..list(options, (w0, e0) => w0.h(e0)));
     return $r.hnn(OtelTraceEventConfig.$h);
   }
 
   /// Go: `func (*trace.EventConfig).Attributes() []attribute.KeyValue`.
   List<$attribute.OtelAttributeKeyValue> attributes() {
-    final $r = $callSync(22391, $W()..h(this));
+    final $r = $callSync(22397, $W()..h(this));
     return $r.list(
         () => $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil());
   }
 
   /// Go: `func (*trace.EventConfig).StackTrace() bool`.
   bool stackTrace() {
-    final $r = $callSync(22392, $W()..h(this));
+    final $r = $callSync(22398, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*trace.EventConfig).Timestamp() time.Time`.
   DateTime timestamp() {
-    final $r = $callSync(22393, $W()..h(this));
+    final $r = $callSync(22399, $W()..h(this));
     return $r.p() ? $r.time() : $nil();
   }
 }
@@ -73,19 +73,19 @@ class OtelTraceEventOption extends GoHandle with OtelTraceEventOption$ {
 mixin OtelTraceEventOption$ on GoHandle {
   /// Go: type assertion `x.(trace.SpanEndEventOption)`: null if the object is not one.
   OtelTraceSpanEndEventOption? asOtelTraceSpanEndEventOption() {
-    final $r = $callSync(2104, $W()..h(this));
+    final $r = $callSync(2111, $W()..h(this));
     return $r.hn(OtelTraceSpanEndEventOption.$h);
   }
 
   /// Go: type assertion `x.(trace.SpanEventOption)`: null if the object is not one.
   OtelTraceSpanEventOption? asOtelTraceSpanEventOption() {
-    final $r = $callSync(2105, $W()..h(this));
+    final $r = $callSync(2112, $W()..h(this));
     return $r.hn(OtelTraceSpanEventOption.$h);
   }
 
   /// Go: type assertion `x.(trace.SpanStartEventOption)`: null if the object is not one.
   OtelTraceSpanStartEventOption? asOtelTraceSpanStartEventOption() {
-    final $r = $callSync(2106, $W()..h(this));
+    final $r = $callSync(2113, $W()..h(this));
     return $r.hn(OtelTraceSpanStartEventOption.$h);
   }
 }
@@ -128,7 +128,7 @@ mixin OtelTraceSpan$ on GoHandle {
   /// Go: `func (trace.Span).AddEvent(name string, options ...trace.EventOption)`.
   void addEvent(String name, [List<OtelTraceEventOption> options = const []]) {
     $callSync(
-        22402,
+        22408,
         $W()
           ..h(this)
           ..str(name)
@@ -138,7 +138,7 @@ mixin OtelTraceSpan$ on GoHandle {
   /// Go: `func (trace.Span).AddLink(link trace.Link)`.
   void addLink(OtelTraceLink link) {
     $callSync(
-        22403,
+        22409,
         $W()
           ..h(this)
           ..dto(link));
@@ -147,7 +147,7 @@ mixin OtelTraceSpan$ on GoHandle {
   /// Go: `func (trace.Span).End(options ...trace.SpanEndOption)`.
   void end([List<OtelTraceSpanEndOption> options = const []]) {
     $callSync(
-        22404,
+        22410,
         $W()
           ..h(this)
           ..list(options, (w0, e0) => w0.h(e0)));
@@ -155,14 +155,14 @@ mixin OtelTraceSpan$ on GoHandle {
 
   /// Go: `func (trace.Span).IsRecording() bool`.
   bool isRecording() {
-    final $r = $callSync(22405, $W()..h(this));
+    final $r = $callSync(22411, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (trace.Span).SetAttributes(kv ...attribute.KeyValue)`.
   void setAttributes([List<$attribute.OtelAttributeKeyValue> kv = const []]) {
     $callSync(
-        22406,
+        22412,
         $W()
           ..h(this)
           ..list(kv, (w0, e0) => w0.dto(e0)));
@@ -171,7 +171,7 @@ mixin OtelTraceSpan$ on GoHandle {
   /// Go: `func (trace.Span).SetName(name string)`.
   void setName(String name) {
     $callSync(
-        22407,
+        22413,
         $W()
           ..h(this)
           ..str(name));
@@ -180,7 +180,7 @@ mixin OtelTraceSpan$ on GoHandle {
   /// Go: `func (trace.Span).SetStatus(code codes.Code, description string)`.
   void setStatus(int code, String description) {
     $callSync(
-        22408,
+        22414,
         $W()
           ..h(this)
           ..i64(code)
@@ -189,25 +189,25 @@ mixin OtelTraceSpan$ on GoHandle {
 
   /// Go: `func (trace.Span).SpanContext() trace.SpanContext`.
   OtelTraceSpanContext spanContext() {
-    final $r = $callSync(22409, $W()..h(this));
+    final $r = $callSync(22415, $W()..h(this));
     return $r.hnn(OtelTraceSpanContext.$h);
   }
 
   /// Go: `func (trace.Span).TracerProvider() trace.TracerProvider`.
   OtelTraceTracerProvider tracerProvider() {
-    final $r = $callSync(22410, $W()..h(this));
+    final $r = $callSync(22416, $W()..h(this));
     return $r.hnn(OtelTraceTracerProvider.$h);
   }
 
   /// Go: type assertion `x.(*noop.Span)`: null if the object is not one.
   $noop.OtelTraceNoopSpan? asOtelTraceNoopSpan() {
-    final $r = $callSync(2107, $W()..h(this));
+    final $r = $callSync(2114, $W()..h(this));
     return $r.hn($noop.OtelTraceNoopSpan.$h);
   }
 
   /// Go: type assertion `x.(trace.ReadWriteSpan)`: null if the object is not one.
   $trace.OtelSdkTraceReadWriteSpan? asOtelSdkTraceReadWriteSpan() {
-    final $r = $callSync(2108, $W()..h(this));
+    final $r = $callSync(2115, $W()..h(this));
     return $r.hn($trace.OtelSdkTraceReadWriteSpan.$h);
   }
 }
@@ -232,38 +232,38 @@ class OtelTraceSpanConfig extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*trace.SpanConfig).Attributes() []attribute.KeyValue`.
   List<$attribute.OtelAttributeKeyValue> attributes() {
-    final $r = $callSync(22411, $W()..h(this));
+    final $r = $callSync(22417, $W()..h(this));
     return $r.list(
         () => $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil());
   }
 
   /// Go: `func (*trace.SpanConfig).Links() []trace.Link`.
   List<OtelTraceLink> links() {
-    final $r = $callSync(22412, $W()..h(this));
+    final $r = $callSync(22418, $W()..h(this));
     return $r.list(() => $r.p() ? OtelTraceLink.$dec($r) : $nil());
   }
 
   /// Go: `func (*trace.SpanConfig).NewRoot() bool`.
   bool newRoot() {
-    final $r = $callSync(22413, $W()..h(this));
+    final $r = $callSync(22419, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*trace.SpanConfig).SpanKind() trace.SpanKind`.
   int spanKind() {
-    final $r = $callSync(22414, $W()..h(this));
+    final $r = $callSync(22420, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*trace.SpanConfig).StackTrace() bool`.
   bool stackTrace() {
-    final $r = $callSync(22415, $W()..h(this));
+    final $r = $callSync(22421, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*trace.SpanConfig).Timestamp() time.Time`.
   DateTime timestamp() {
-    final $r = $callSync(22416, $W()..h(this));
+    final $r = $callSync(22422, $W()..h(this));
     return $r.p() ? $r.time() : $nil();
   }
 }
@@ -288,14 +288,14 @@ class OtelTraceSpanContext extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func trace.NewSpanContext(config trace.SpanContextConfig) trace.SpanContext`.
   factory OtelTraceSpanContext(OtelTraceSpanContextConfig config) {
-    final $r = $callSync(22397, $W()..dto(config));
+    final $r = $callSync(22403, $W()..dto(config));
     return $r.hnn(OtelTraceSpanContext.$h);
   }
 
   /// Go: `func (trace.SpanContext).Equal(other trace.SpanContext) bool`.
   bool equal(OtelTraceSpanContext other) {
     final $r = $callSync(
-        22417,
+        22423,
         $W()
           ..h(this)
           ..h(other));
@@ -304,62 +304,62 @@ class OtelTraceSpanContext extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (trace.SpanContext).HasSpanID() bool`.
   bool hasSpanId() {
-    final $r = $callSync(22418, $W()..h(this));
+    final $r = $callSync(22424, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (trace.SpanContext).HasTraceID() bool`.
   bool hasTraceId() {
-    final $r = $callSync(22419, $W()..h(this));
+    final $r = $callSync(22425, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (trace.SpanContext).IsRandom() bool`.
   bool isRandom() {
-    final $r = $callSync(22420, $W()..h(this));
+    final $r = $callSync(22426, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (trace.SpanContext).IsRemote() bool`.
   bool isRemote() {
-    final $r = $callSync(22421, $W()..h(this));
+    final $r = $callSync(22427, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (trace.SpanContext).IsSampled() bool`.
   bool isSampled() {
-    final $r = $callSync(22422, $W()..h(this));
+    final $r = $callSync(22428, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (trace.SpanContext).IsValid() bool`.
   bool isValid() {
-    final $r = $callSync(22423, $W()..h(this));
+    final $r = $callSync(22429, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (trace.SpanContext).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(22424, $W()..h(this));
+    final $r = $callSync(22430, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (trace.SpanContext).TraceFlags() trace.TraceFlags`.
   int traceFlags() {
-    final $r = $callSync(22425, $W()..h(this));
+    final $r = $callSync(22431, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (trace.SpanContext).TraceState() trace.TraceState`.
   OtelTraceState traceState() {
-    final $r = $callSync(22426, $W()..h(this));
+    final $r = $callSync(22432, $W()..h(this));
     return $r.hnn(OtelTraceState.$h);
   }
 
   /// Go: `func (trace.SpanContext).WithRemote(remote bool) trace.SpanContext`.
   OtelTraceSpanContext withRemote(bool remote) {
     final $r = $callSync(
-        22427,
+        22433,
         $W()
           ..h(this)
           ..b(remote));
@@ -369,7 +369,7 @@ class OtelTraceSpanContext extends $crypto.CryptoDecrypterOpts
   /// Go: `func (trace.SpanContext).WithTraceFlags(flags trace.TraceFlags) trace.SpanContext`.
   OtelTraceSpanContext withTraceFlags(int flags) {
     final $r = $callSync(
-        22428,
+        22434,
         $W()
           ..h(this)
           ..i64(flags));
@@ -379,7 +379,7 @@ class OtelTraceSpanContext extends $crypto.CryptoDecrypterOpts
   /// Go: `func (trace.SpanContext).WithTraceState(state trace.TraceState) trace.SpanContext`.
   OtelTraceSpanContext withTraceState(OtelTraceState state) {
     final $r = $callSync(
-        22429,
+        22435,
         $W()
           ..h(this)
           ..h(state));
@@ -438,13 +438,13 @@ class OtelTraceSpanEndOption extends GoHandle with OtelTraceSpanEndOption$ {
 mixin OtelTraceSpanEndOption$ on GoHandle {
   /// Go: type assertion `x.(trace.SpanEndEventOption)`: null if the object is not one.
   OtelTraceSpanEndEventOption? asOtelTraceSpanEndEventOption() {
-    final $r = $callSync(2109, $W()..h(this));
+    final $r = $callSync(2116, $W()..h(this));
     return $r.hn(OtelTraceSpanEndEventOption.$h);
   }
 
   /// Go: type assertion `x.(trace.SpanEventOption)`: null if the object is not one.
   OtelTraceSpanEventOption? asOtelTraceSpanEventOption() {
-    final $r = $callSync(2110, $W()..h(this));
+    final $r = $callSync(2117, $W()..h(this));
     return $r.hn(OtelTraceSpanEventOption.$h);
   }
 }
@@ -485,13 +485,13 @@ class OtelTraceSpanStartOption extends GoHandle with OtelTraceSpanStartOption$ {
 mixin OtelTraceSpanStartOption$ on GoHandle {
   /// Go: type assertion `x.(trace.SpanEventOption)`: null if the object is not one.
   OtelTraceSpanEventOption? asOtelTraceSpanEventOption() {
-    final $r = $callSync(2111, $W()..h(this));
+    final $r = $callSync(2118, $W()..h(this));
     return $r.hn(OtelTraceSpanEventOption.$h);
   }
 
   /// Go: type assertion `x.(trace.SpanStartEventOption)`: null if the object is not one.
   OtelTraceSpanStartEventOption? asOtelTraceSpanStartEventOption() {
-    final $r = $callSync(2112, $W()..h(this));
+    final $r = $callSync(2119, $W()..h(this));
     return $r.hn(OtelTraceSpanStartEventOption.$h);
   }
 }
@@ -517,7 +517,7 @@ class OtelTraceState extends $crypto.CryptoDecrypterOpts
   /// Go: `func (trace.TraceState).Delete(key string) trace.TraceState`.
   OtelTraceState delete(String key) {
     final $r = $callSync(
-        22432,
+        22438,
         $W()
           ..h(this)
           ..str(key));
@@ -527,7 +527,7 @@ class OtelTraceState extends $crypto.CryptoDecrypterOpts
   /// Go: `func (trace.TraceState).Get(key string) string`.
   String get(String key) {
     final $r = $callSync(
-        22433,
+        22439,
         $W()
           ..h(this)
           ..str(key));
@@ -537,7 +537,7 @@ class OtelTraceState extends $crypto.CryptoDecrypterOpts
   /// Go: `func (trace.TraceState).Insert(key string, value string) (trace.TraceState, error)`.
   OtelTraceState insert(String key, String value) {
     final $r = $callSync(
-        22434,
+        22440,
         $W()
           ..h(this)
           ..str(key)
@@ -547,19 +547,19 @@ class OtelTraceState extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (trace.TraceState).Len() int`.
   int len() {
-    final $r = $callSync(22435, $W()..h(this));
+    final $r = $callSync(22441, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (trace.TraceState).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(22436, $W()..h(this));
+    final $r = $callSync(22442, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (trace.TraceState).String() string`.
   String string() {
-    final $r = $callSync(22437, $W()..h(this));
+    final $r = $callSync(22443, $W()..h(this));
     return $r.str();
   }
 
@@ -572,7 +572,7 @@ class OtelTraceState extends $crypto.CryptoDecrypterOpts
   /// each invocation (a retained callback, WIRE.md).
   Future<void> walk(FutureOr<bool> Function(String key, String value) f) async {
     await $call(
-        22438,
+        22444,
         $W()
           ..h(this)
           ..cb((r) => f(r.str(), r.str()), true));
@@ -609,25 +609,25 @@ class OtelTraceTracerConfig extends $crypto.CryptoDecrypterOpts
   /// Go: `func trace.NewTracerConfig(options ...trace.TracerOption) trace.TracerConfig`.
   factory OtelTraceTracerConfig(
       [List<OtelTraceTracerOption> options = const []]) {
-    final $r = $callSync(22400, $W()..list(options, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(22406, $W()..list(options, (w0, e0) => w0.h(e0)));
     return $r.hnn(OtelTraceTracerConfig.$h);
   }
 
   /// Go: `func (*trace.TracerConfig).InstrumentationAttributes() attribute.Set`.
   $attribute.OtelAttributeSet instrumentationAttributes() {
-    final $r = $callSync(22439, $W()..h(this));
+    final $r = $callSync(22445, $W()..h(this));
     return $r.hnn($attribute.OtelAttributeSet.$h);
   }
 
   /// Go: `func (*trace.TracerConfig).InstrumentationVersion() string`.
   String instrumentationVersion() {
-    final $r = $callSync(22440, $W()..h(this));
+    final $r = $callSync(22446, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*trace.TracerConfig).SchemaURL() string`.
   String schemaUrl() {
-    final $r = $callSync(22441, $W()..h(this));
+    final $r = $callSync(22447, $W()..h(this));
     return $r.str();
   }
 }
@@ -652,7 +652,7 @@ mixin OtelTraceTracerProvider$ on GoHandle {
   OtelTraceTracer tracer(String name,
       [List<OtelTraceTracerOption> options = const []]) {
     final $r = $callSync(
-        22442,
+        22448,
         $W()
           ..h(this)
           ..str(name)
@@ -662,13 +662,13 @@ mixin OtelTraceTracerProvider$ on GoHandle {
 
   /// Go: type assertion `x.(*trace.TracerProvider)`: null if the object is not one.
   $trace.OtelSdkTraceTracerProvider? asOtelSdkTraceTracerProvider() {
-    final $r = $callSync(2113, $W()..h(this));
+    final $r = $callSync(2120, $W()..h(this));
     return $r.hn($trace.OtelSdkTraceTracerProvider.$h);
   }
 
   /// Go: type assertion `x.(*noop.TracerProvider)`: null if the object is not one.
   $noop.OtelTraceNoopTracerProvider? asOtelTraceNoopTracerProvider() {
-    final $r = $callSync(2114, $W()..h(this));
+    final $r = $callSync(2121, $W()..h(this));
     return $r.hn($noop.OtelTraceNoopTracerProvider.$h);
   }
 }
@@ -681,7 +681,7 @@ extension GoOtelTraceApi on GoOtelTrace {
   Future<OtelTraceLink> linkFromContext($context.Context ctx,
       [List<$attribute.OtelAttributeKeyValue> attrs = const []]) async {
     final $r = await $call(
-        22394,
+        22400,
         $W()
           ..h(ctx)
           ..list(attrs, (w0, e0) => w0.dto(e0)));
@@ -692,27 +692,27 @@ extension GoOtelTraceApi on GoOtelTrace {
   @Deprecated(
       "Use [go.opentelemetry.io/otel/trace/noop.NewTracerProvider] instead.")
   OtelTraceTracerProvider newNoopTracerProvider() {
-    final $r = $callSync(22396);
+    final $r = $callSync(22402);
     return $r.hnn(OtelTraceTracerProvider.$h);
   }
 
   /// Go: `func trace.NewSpanEndConfig(options ...trace.SpanEndOption) trace.SpanConfig`.
   OtelTraceSpanConfig newSpanEndConfig(
       [List<OtelTraceSpanEndOption> options = const []]) {
-    final $r = $callSync(22398, $W()..list(options, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(22404, $W()..list(options, (w0, e0) => w0.h(e0)));
     return $r.hnn(OtelTraceSpanConfig.$h);
   }
 
   /// Go: `func trace.NewSpanStartConfig(options ...trace.SpanStartOption) trace.SpanConfig`.
   OtelTraceSpanConfig newSpanStartConfig(
       [List<OtelTraceSpanStartOption> options = const []]) {
-    final $r = $callSync(22399, $W()..list(options, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(22405, $W()..list(options, (w0, e0) => w0.h(e0)));
     return $r.hnn(OtelTraceSpanConfig.$h);
   }
 
   /// Go: `func trace.ParseTraceState(ts string) (trace.TraceState, error)`.
   OtelTraceState parseTraceState(String ts) {
-    final $r = $callSync(22401, $W()..str(ts));
+    final $r = $callSync(22407, $W()..str(ts));
     return $r.hnn(OtelTraceState.$h);
   }
 
@@ -721,7 +721,7 @@ extension GoOtelTraceApi on GoOtelTrace {
   /// Asynchronous: runs in a goroutine of the service.
   Future<OtelTraceSpanContext> spanContextFromContext(
       $context.Context ctx) async {
-    final $r = await $call(22430, $W()..h(ctx));
+    final $r = await $call(22436, $W()..h(ctx));
     return $r.hnn(OtelTraceSpanContext.$h);
   }
 
@@ -729,13 +729,13 @@ extension GoOtelTraceApi on GoOtelTrace {
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<OtelTraceSpan> spanFromContext($context.Context ctx) async {
-    final $r = await $call(22431, $W()..h(ctx));
+    final $r = await $call(22437, $W()..h(ctx));
     return $r.hnn(OtelTraceSpan.$h);
   }
 
   /// Go: `func trace.ValidateSpanKind(spanKind trace.SpanKind) trace.SpanKind`.
   int validateSpanKind(int spanKind) {
-    final $r = $callSync(22443, $W()..i64(spanKind));
+    final $r = $callSync(22449, $W()..i64(spanKind));
     return $r.i64();
   }
 }
@@ -772,63 +772,63 @@ extension GoOtelTraceOptionsApi on GoOtelTraceOptions {
   /// Go: `func trace.WithAttributes(attributes ...attribute.KeyValue) trace.SpanStartEventOption`.
   OtelTraceSpanStartEventOption withAttributes(
       [List<$attribute.OtelAttributeKeyValue> attributes = const []]) {
-    final $r = $callSync(22444, $W()..list(attributes, (w0, e0) => w0.dto(e0)));
+    final $r = $callSync(22450, $W()..list(attributes, (w0, e0) => w0.dto(e0)));
     return $r.hnn(OtelTraceSpanStartEventOption.$h);
   }
 
   /// Go: `func trace.WithInstrumentationAttributeSet(set attribute.Set) trace.TracerOption`.
   OtelTraceTracerOption withInstrumentationAttributeSet(
       $attribute.OtelAttributeSet set) {
-    final $r = $callSync(22445, $W()..h(set));
+    final $r = $callSync(22451, $W()..h(set));
     return $r.hnn(OtelTraceTracerOption.$h);
   }
 
   /// Go: `func trace.WithInstrumentationAttributes(attr ...attribute.KeyValue) trace.TracerOption`.
   OtelTraceTracerOption withInstrumentationAttributes(
       [List<$attribute.OtelAttributeKeyValue> attr = const []]) {
-    final $r = $callSync(22446, $W()..list(attr, (w0, e0) => w0.dto(e0)));
+    final $r = $callSync(22452, $W()..list(attr, (w0, e0) => w0.dto(e0)));
     return $r.hnn(OtelTraceTracerOption.$h);
   }
 
   /// Go: `func trace.WithInstrumentationVersion(version string) trace.TracerOption`.
   OtelTraceTracerOption withInstrumentationVersion(String version) {
-    final $r = $callSync(22447, $W()..str(version));
+    final $r = $callSync(22453, $W()..str(version));
     return $r.hnn(OtelTraceTracerOption.$h);
   }
 
   /// Go: `func trace.WithLinks(links ...trace.Link) trace.SpanStartOption`.
   OtelTraceSpanStartOption withLinks([List<OtelTraceLink> links = const []]) {
-    final $r = $callSync(22448, $W()..list(links, (w0, e0) => w0.dto(e0)));
+    final $r = $callSync(22454, $W()..list(links, (w0, e0) => w0.dto(e0)));
     return $r.hnn(OtelTraceSpanStartOption.$h);
   }
 
   /// Go: `func trace.WithNewRoot() trace.SpanStartOption`.
   OtelTraceSpanStartOption withNewRoot() {
-    final $r = $callSync(22449);
+    final $r = $callSync(22455);
     return $r.hnn(OtelTraceSpanStartOption.$h);
   }
 
   /// Go: `func trace.WithSchemaURL(schemaURL string) trace.TracerOption`.
   OtelTraceTracerOption withSchemaUrl(String schemaUrl) {
-    final $r = $callSync(22450, $W()..str(schemaUrl));
+    final $r = $callSync(22456, $W()..str(schemaUrl));
     return $r.hnn(OtelTraceTracerOption.$h);
   }
 
   /// Go: `func trace.WithSpanKind(kind trace.SpanKind) trace.SpanStartOption`.
   OtelTraceSpanStartOption withSpanKind(int kind) {
-    final $r = $callSync(22451, $W()..i64(kind));
+    final $r = $callSync(22457, $W()..i64(kind));
     return $r.hnn(OtelTraceSpanStartOption.$h);
   }
 
   /// Go: `func trace.WithStackTrace(b bool) trace.SpanEndEventOption`.
   OtelTraceSpanEndEventOption withStackTrace(bool b) {
-    final $r = $callSync(22452, $W()..b(b));
+    final $r = $callSync(22458, $W()..b(b));
     return $r.hnn(OtelTraceSpanEndEventOption.$h);
   }
 
   /// Go: `func trace.WithTimestamp(t time.Time) trace.SpanEventOption`.
   OtelTraceSpanEventOption withTimestamp(DateTime t) {
-    final $r = $callSync(22453, $W()..time(t));
+    final $r = $callSync(22459, $W()..time(t));
     return $r.hnn(OtelTraceSpanEventOption.$h);
   }
 }

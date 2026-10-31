@@ -38,7 +38,7 @@ class TextCasesCaser extends $transform.TextTransformSpanningTransformer
   /// Go: `func (cases.Caser).Bytes(b []byte) []byte`.
   Uint8List bytes(Uint8List b) {
     final $r = $callSync(
-        23852,
+        23858,
         $W()
           ..h(this)
           ..bytes(b));
@@ -47,13 +47,13 @@ class TextCasesCaser extends $transform.TextTransformSpanningTransformer
 
   /// Go: `func (cases.Caser).Reset()`.
   void reset() {
-    $callSync(23853, $W()..h(this));
+    $callSync(23859, $W()..h(this));
   }
 
   /// Go: `func (cases.Caser).Span(src []byte, atEOF bool) (n int, err error)`.
   int span(Uint8List src, bool atEof) {
     final $r = $callSync(
-        23854,
+        23860,
         $W()
           ..h(this)
           ..bytes(src)
@@ -64,7 +64,7 @@ class TextCasesCaser extends $transform.TextTransformSpanningTransformer
   /// Go: `func (cases.Caser).String(s string) string`.
   String string(String s) {
     final $r = $callSync(
-        23855,
+        23861,
         $W()
           ..h(this)
           ..str(s));
@@ -74,7 +74,7 @@ class TextCasesCaser extends $transform.TextTransformSpanningTransformer
   /// Go: `func (cases.Caser).Transform(dst []byte, src []byte, atEOF bool) (nDst int, nSrc int, err error)`.
   (int, int) transform(Uint8List dst, Uint8List src, bool atEof) {
     final $r = $callSync(
-        23856,
+        23862,
         $W()
           ..h(this)
           ..bytes(dst)
@@ -107,7 +107,7 @@ class TextCasesOption extends $crypto.CryptoDecrypterOpts
 extension GoXTextCasesApi on GoXTextCases {
   /// Go: `func cases.Fold(opts ...cases.Option) cases.Caser`.
   TextCasesCaser fold([List<TextCasesOption> opts = const []]) {
-    final $r = $callSync(23858, $W()..list(opts, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(23864, $W()..list(opts, (w0, e0) => w0.h(e0)));
     return $r.hnn(TextCasesCaser.$h);
   }
 
@@ -115,7 +115,7 @@ extension GoXTextCasesApi on GoXTextCases {
   TextCasesCaser lower($language.TextLanguageTag t,
       [List<TextCasesOption> opts = const []]) {
     final $r = $callSync(
-        23860,
+        23866,
         $W()
           ..h(t)
           ..list(opts, (w0, e0) => w0.h(e0)));
@@ -124,7 +124,7 @@ extension GoXTextCasesApi on GoXTextCases {
 
   /// Go: `var cases.Supported language.Coverage`.
   $language.TextLanguageCoverage get supported {
-    final $r = $callSync(23862);
+    final $r = $callSync(23868);
     return $r.p() ? $language.TextLanguageCoverage.$dec($r) : $nil();
   }
 
@@ -132,7 +132,7 @@ extension GoXTextCasesApi on GoXTextCases {
   TextCasesCaser title($language.TextLanguageTag t,
       [List<TextCasesOption> opts = const []]) {
     final $r = $callSync(
-        23863,
+        23869,
         $W()
           ..h(t)
           ..list(opts, (w0, e0) => w0.h(e0)));
@@ -143,7 +143,7 @@ extension GoXTextCasesApi on GoXTextCases {
   TextCasesCaser upper($language.TextLanguageTag t,
       [List<TextCasesOption> opts = const []]) {
     final $r = $callSync(
-        23864,
+        23870,
         $W()
           ..h(t)
           ..list(opts, (w0, e0) => w0.h(e0)));
@@ -161,19 +161,19 @@ extension GoXTextCasesConstsApi on GoXTextCasesConsts {
 extension GoXTextCasesOptionsApi on GoXTextCasesOptions {
   /// Go: `var cases.Compact cases.Option`.
   TextCasesOption get compact {
-    final $r = $callSync(23857);
+    final $r = $callSync(23863);
     return $r.hnn(TextCasesOption.$h);
   }
 
   /// Go: `func cases.HandleFinalSigma(enable bool) cases.Option`.
   TextCasesOption handleFinalSigma(bool enable) {
-    final $r = $callSync(23859, $W()..b(enable));
+    final $r = $callSync(23865, $W()..b(enable));
     return $r.hnn(TextCasesOption.$h);
   }
 
   /// Go: `var cases.NoLower cases.Option`.
   TextCasesOption get noLower {
-    final $r = $callSync(23861);
+    final $r = $callSync(23867);
     return $r.hnn(TextCasesOption.$h);
   }
 }

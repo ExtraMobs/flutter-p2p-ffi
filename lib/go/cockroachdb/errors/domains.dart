@@ -10,24 +10,24 @@ import 'package:p2p_ffi/src/runtime.dart';
 extension GoCockroachdbErrorsDomainsApi on GoCockroachdbErrorsDomains {
   /// Go: `func domains.NamedDomain(domainName string) domains.Domain`.
   String namedDomain(String domainName) {
-    final $r = $callSync(4410, $W()..str(domainName));
+    final $r = $callSync(4419, $W()..str(domainName));
     return $r.str();
   }
 
   /// Go: `func domains.New(msg string) error`.
   void new$(String msg) {
-    $callSync(4411, $W()..str(msg));
+    $callSync(4420, $W()..str(msg));
   }
 
   /// Go: `func domains.PackageDomain() domains.Domain`.
   String packageDomain() {
-    final $r = $callSync(4412);
+    final $r = $callSync(4421);
     return $r.str();
   }
 
   /// Go: `func domains.PackageDomainAtDepth(depth int) domains.Domain`.
   String packageDomainAtDepth(int depth) {
-    final $r = $callSync(4413, $W()..i64(depth));
+    final $r = $callSync(4422, $W()..i64(depth));
     return $r.str();
   }
 }

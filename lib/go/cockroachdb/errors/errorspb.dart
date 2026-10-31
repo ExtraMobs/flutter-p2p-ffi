@@ -22,38 +22,38 @@ final class ErrorsErrorspbEncodedError implements GoDto {
 
   /// Go: `func (*errorspb.EncodedError).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(4425, $W()..dto(this));
+    final $r = $callSync(4434, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*errorspb.EncodedError).GetLeaf() *errorspb.EncodedErrorLeaf`.
   ErrorsErrorspbEncodedErrorLeaf getLeaf() {
-    final $r = $callSync(4426, $W()..dto(this));
+    final $r = $callSync(4435, $W()..dto(this));
     return $r.p() ? ErrorsErrorspbEncodedErrorLeaf.$dec($r) : $nil();
   }
 
   /// Go: `func (*errorspb.EncodedError).GetWrapper() *errorspb.EncodedWrapper`.
   ErrorsErrorspbEncodedWrapper getWrapper() {
-    final $r = $callSync(4427, $W()..dto(this));
+    final $r = $callSync(4436, $W()..dto(this));
     return $r.p() ? ErrorsErrorspbEncodedWrapper.$dec($r) : $nil();
   }
 
   /// Go: `func (*errorspb.EncodedError).IsSet() bool`.
   bool isSet() {
-    final $r = $callSync(4428, $W()..dto(this));
+    final $r = $callSync(4437, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*errorspb.EncodedError).Marshal() (dAtA []byte, err error)`.
   Uint8List marshal() {
-    final $r = $callSync(4429, $W()..dto(this));
+    final $r = $callSync(4438, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*errorspb.EncodedError).MarshalTo(dAtA []byte) (int, error)`.
   int marshalTo(Uint8List dAtA) {
     final $r = $callSync(
-        4430,
+        4439,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -63,7 +63,7 @@ final class ErrorsErrorspbEncodedError implements GoDto {
   /// Go: `func (*errorspb.EncodedError).MarshalToSizedBuffer(dAtA []byte) (int, error)`.
   int marshalToSizedBuffer(Uint8List dAtA) {
     final $r = $callSync(
-        4431,
+        4440,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -72,30 +72,30 @@ final class ErrorsErrorspbEncodedError implements GoDto {
 
   /// Go: `func (*errorspb.EncodedError).ProtoMessage()`.
   void protoMessage() {
-    $callSync(4432, $W()..dto(this));
+    $callSync(4441, $W()..dto(this));
   }
 
   /// Go: `func (*errorspb.EncodedError).Reset()`.
   void reset() {
-    $callSync(4433, $W()..dto(this));
+    $callSync(4442, $W()..dto(this));
   }
 
   /// Go: `func (*errorspb.EncodedError).Size() (n int)`.
   int size() {
-    final $r = $callSync(4434, $W()..dto(this));
+    final $r = $callSync(4443, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*errorspb.EncodedError).String() string`.
   String string() {
-    final $r = $callSync(4435, $W()..dto(this));
+    final $r = $callSync(4444, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*errorspb.EncodedError).Unmarshal(dAtA []byte) error`.
   void unmarshal(Uint8List dAtA) {
     $callSync(
-        4436,
+        4445,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -103,13 +103,13 @@ final class ErrorsErrorspbEncodedError implements GoDto {
 
   /// Go: `func (*errorspb.EncodedError).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(4437, $W()..dto(this));
+    $callSync(4446, $W()..dto(this));
   }
 
   /// Go: `func (*errorspb.EncodedError).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        4438,
+        4447,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -120,7 +120,7 @@ final class ErrorsErrorspbEncodedError implements GoDto {
   /// Go: `func (*errorspb.EncodedError).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        4439,
+        4448,
         $W()
           ..dto(this)
           ..h(src));
@@ -128,20 +128,20 @@ final class ErrorsErrorspbEncodedError implements GoDto {
 
   /// Go: `func (*errorspb.EncodedError).XXX_OneofWrappers() []interface{}`.
   List<Object?> xxxOneofWrappers() {
-    final $r = $callSync(4440, $W()..dto(this));
+    final $r = $callSync(4449, $W()..dto(this));
     return $r.list(() => $r.any());
   }
 
   /// Go: `func (*errorspb.EncodedError).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(4441, $W()..dto(this));
+    final $r = $callSync(4450, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*errorspb.EncodedError).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        4442,
+        4451,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -189,20 +189,20 @@ final class ErrorsErrorspbEncodedErrorDetails implements GoDto {
 
   /// Go: `func (*errorspb.EncodedErrorDetails).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(4443, $W()..dto(this));
+    final $r = $callSync(4452, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*errorspb.EncodedErrorDetails).Marshal() (dAtA []byte, err error)`.
   Uint8List marshal() {
-    final $r = $callSync(4444, $W()..dto(this));
+    final $r = $callSync(4453, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*errorspb.EncodedErrorDetails).MarshalTo(dAtA []byte) (int, error)`.
   int marshalTo(Uint8List dAtA) {
     final $r = $callSync(
-        4445,
+        4454,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -212,7 +212,7 @@ final class ErrorsErrorspbEncodedErrorDetails implements GoDto {
   /// Go: `func (*errorspb.EncodedErrorDetails).MarshalToSizedBuffer(dAtA []byte) (int, error)`.
   int marshalToSizedBuffer(Uint8List dAtA) {
     final $r = $callSync(
-        4446,
+        4455,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -221,30 +221,30 @@ final class ErrorsErrorspbEncodedErrorDetails implements GoDto {
 
   /// Go: `func (*errorspb.EncodedErrorDetails).ProtoMessage()`.
   void protoMessage() {
-    $callSync(4447, $W()..dto(this));
+    $callSync(4456, $W()..dto(this));
   }
 
   /// Go: `func (*errorspb.EncodedErrorDetails).Reset()`.
   void reset() {
-    $callSync(4448, $W()..dto(this));
+    $callSync(4457, $W()..dto(this));
   }
 
   /// Go: `func (*errorspb.EncodedErrorDetails).Size() (n int)`.
   int size() {
-    final $r = $callSync(4449, $W()..dto(this));
+    final $r = $callSync(4458, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*errorspb.EncodedErrorDetails).String() string`.
   String string() {
-    final $r = $callSync(4450, $W()..dto(this));
+    final $r = $callSync(4459, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*errorspb.EncodedErrorDetails).Unmarshal(dAtA []byte) error`.
   void unmarshal(Uint8List dAtA) {
     $callSync(
-        4451,
+        4460,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -252,13 +252,13 @@ final class ErrorsErrorspbEncodedErrorDetails implements GoDto {
 
   /// Go: `func (*errorspb.EncodedErrorDetails).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(4452, $W()..dto(this));
+    $callSync(4461, $W()..dto(this));
   }
 
   /// Go: `func (*errorspb.EncodedErrorDetails).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        4453,
+        4462,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -269,7 +269,7 @@ final class ErrorsErrorspbEncodedErrorDetails implements GoDto {
   /// Go: `func (*errorspb.EncodedErrorDetails).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        4454,
+        4463,
         $W()
           ..dto(this)
           ..h(src));
@@ -277,14 +277,14 @@ final class ErrorsErrorspbEncodedErrorDetails implements GoDto {
 
   /// Go: `func (*errorspb.EncodedErrorDetails).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(4455, $W()..dto(this));
+    final $r = $callSync(4464, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*errorspb.EncodedErrorDetails).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        4456,
+        4465,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -326,20 +326,20 @@ final class ErrorsErrorspbEncodedErrorLeaf implements GoDto {
 
   /// Go: `func (*errorspb.EncodedErrorLeaf).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(4457, $W()..dto(this));
+    final $r = $callSync(4466, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*errorspb.EncodedErrorLeaf).Marshal() (dAtA []byte, err error)`.
   Uint8List marshal() {
-    final $r = $callSync(4458, $W()..dto(this));
+    final $r = $callSync(4467, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*errorspb.EncodedErrorLeaf).MarshalTo(dAtA []byte) (int, error)`.
   int marshalTo(Uint8List dAtA) {
     final $r = $callSync(
-        4459,
+        4468,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -349,7 +349,7 @@ final class ErrorsErrorspbEncodedErrorLeaf implements GoDto {
   /// Go: `func (*errorspb.EncodedErrorLeaf).MarshalToSizedBuffer(dAtA []byte) (int, error)`.
   int marshalToSizedBuffer(Uint8List dAtA) {
     final $r = $callSync(
-        4460,
+        4469,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -358,30 +358,30 @@ final class ErrorsErrorspbEncodedErrorLeaf implements GoDto {
 
   /// Go: `func (*errorspb.EncodedErrorLeaf).ProtoMessage()`.
   void protoMessage() {
-    $callSync(4461, $W()..dto(this));
+    $callSync(4470, $W()..dto(this));
   }
 
   /// Go: `func (*errorspb.EncodedErrorLeaf).Reset()`.
   void reset() {
-    $callSync(4462, $W()..dto(this));
+    $callSync(4471, $W()..dto(this));
   }
 
   /// Go: `func (*errorspb.EncodedErrorLeaf).Size() (n int)`.
   int size() {
-    final $r = $callSync(4463, $W()..dto(this));
+    final $r = $callSync(4472, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*errorspb.EncodedErrorLeaf).String() string`.
   String string() {
-    final $r = $callSync(4464, $W()..dto(this));
+    final $r = $callSync(4473, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*errorspb.EncodedErrorLeaf).Unmarshal(dAtA []byte) error`.
   void unmarshal(Uint8List dAtA) {
     $callSync(
-        4465,
+        4474,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -389,13 +389,13 @@ final class ErrorsErrorspbEncodedErrorLeaf implements GoDto {
 
   /// Go: `func (*errorspb.EncodedErrorLeaf).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(4466, $W()..dto(this));
+    $callSync(4475, $W()..dto(this));
   }
 
   /// Go: `func (*errorspb.EncodedErrorLeaf).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        4467,
+        4476,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -406,7 +406,7 @@ final class ErrorsErrorspbEncodedErrorLeaf implements GoDto {
   /// Go: `func (*errorspb.EncodedErrorLeaf).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        4468,
+        4477,
         $W()
           ..dto(this)
           ..h(src));
@@ -414,14 +414,14 @@ final class ErrorsErrorspbEncodedErrorLeaf implements GoDto {
 
   /// Go: `func (*errorspb.EncodedErrorLeaf).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(4469, $W()..dto(this));
+    final $r = $callSync(4478, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*errorspb.EncodedErrorLeaf).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        4470,
+        4479,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -448,7 +448,7 @@ final class ErrorsErrorspbEncodedError_Leaf implements GoDto {
   /// Go: `func (*errorspb.EncodedError_Leaf).MarshalTo(dAtA []byte) (int, error)`.
   int marshalTo(Uint8List dAtA) {
     final $r = $callSync(
-        4471,
+        4480,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -458,7 +458,7 @@ final class ErrorsErrorspbEncodedError_Leaf implements GoDto {
   /// Go: `func (*errorspb.EncodedError_Leaf).MarshalToSizedBuffer(dAtA []byte) (int, error)`.
   int marshalToSizedBuffer(Uint8List dAtA) {
     final $r = $callSync(
-        4472,
+        4481,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -467,7 +467,7 @@ final class ErrorsErrorspbEncodedError_Leaf implements GoDto {
 
   /// Go: `func (*errorspb.EncodedError_Leaf).Size() (n int)`.
   int size() {
-    final $r = $callSync(4473, $W()..dto(this));
+    final $r = $callSync(4482, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -491,7 +491,7 @@ final class ErrorsErrorspbEncodedErrorWrapper implements GoDto {
   /// Go: `func (*errorspb.EncodedError_Wrapper).MarshalTo(dAtA []byte) (int, error)`.
   int marshalTo(Uint8List dAtA) {
     final $r = $callSync(
-        4474,
+        4483,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -501,7 +501,7 @@ final class ErrorsErrorspbEncodedErrorWrapper implements GoDto {
   /// Go: `func (*errorspb.EncodedError_Wrapper).MarshalToSizedBuffer(dAtA []byte) (int, error)`.
   int marshalToSizedBuffer(Uint8List dAtA) {
     final $r = $callSync(
-        4475,
+        4484,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -510,7 +510,7 @@ final class ErrorsErrorspbEncodedErrorWrapper implements GoDto {
 
   /// Go: `func (*errorspb.EncodedError_Wrapper).Size() (n int)`.
   int size() {
-    final $r = $callSync(4476, $W()..dto(this));
+    final $r = $callSync(4485, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -556,20 +556,20 @@ final class ErrorsErrorspbEncodedWrapper implements GoDto {
 
   /// Go: `func (*errorspb.EncodedWrapper).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(4477, $W()..dto(this));
+    final $r = $callSync(4486, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*errorspb.EncodedWrapper).Marshal() (dAtA []byte, err error)`.
   Uint8List marshal() {
-    final $r = $callSync(4478, $W()..dto(this));
+    final $r = $callSync(4487, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*errorspb.EncodedWrapper).MarshalTo(dAtA []byte) (int, error)`.
   int marshalTo(Uint8List dAtA) {
     final $r = $callSync(
-        4479,
+        4488,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -579,7 +579,7 @@ final class ErrorsErrorspbEncodedWrapper implements GoDto {
   /// Go: `func (*errorspb.EncodedWrapper).MarshalToSizedBuffer(dAtA []byte) (int, error)`.
   int marshalToSizedBuffer(Uint8List dAtA) {
     final $r = $callSync(
-        4480,
+        4489,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -588,30 +588,30 @@ final class ErrorsErrorspbEncodedWrapper implements GoDto {
 
   /// Go: `func (*errorspb.EncodedWrapper).ProtoMessage()`.
   void protoMessage() {
-    $callSync(4481, $W()..dto(this));
+    $callSync(4490, $W()..dto(this));
   }
 
   /// Go: `func (*errorspb.EncodedWrapper).Reset()`.
   void reset() {
-    $callSync(4482, $W()..dto(this));
+    $callSync(4491, $W()..dto(this));
   }
 
   /// Go: `func (*errorspb.EncodedWrapper).Size() (n int)`.
   int size() {
-    final $r = $callSync(4483, $W()..dto(this));
+    final $r = $callSync(4492, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*errorspb.EncodedWrapper).String() string`.
   String string() {
-    final $r = $callSync(4484, $W()..dto(this));
+    final $r = $callSync(4493, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*errorspb.EncodedWrapper).Unmarshal(dAtA []byte) error`.
   void unmarshal(Uint8List dAtA) {
     $callSync(
-        4485,
+        4494,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -619,13 +619,13 @@ final class ErrorsErrorspbEncodedWrapper implements GoDto {
 
   /// Go: `func (*errorspb.EncodedWrapper).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(4486, $W()..dto(this));
+    $callSync(4495, $W()..dto(this));
   }
 
   /// Go: `func (*errorspb.EncodedWrapper).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        4487,
+        4496,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -636,7 +636,7 @@ final class ErrorsErrorspbEncodedWrapper implements GoDto {
   /// Go: `func (*errorspb.EncodedWrapper).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        4488,
+        4497,
         $W()
           ..dto(this)
           ..h(src));
@@ -644,14 +644,14 @@ final class ErrorsErrorspbEncodedWrapper implements GoDto {
 
   /// Go: `func (*errorspb.EncodedWrapper).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(4489, $W()..dto(this));
+    final $r = $callSync(4498, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*errorspb.EncodedWrapper).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        4490,
+        4499,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -720,20 +720,20 @@ final class ErrorsErrorspbErrnoPayload implements GoDto {
 
   /// Go: `func (*errorspb.ErrnoPayload).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(4491, $W()..dto(this));
+    final $r = $callSync(4500, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*errorspb.ErrnoPayload).Marshal() (dAtA []byte, err error)`.
   Uint8List marshal() {
-    final $r = $callSync(4492, $W()..dto(this));
+    final $r = $callSync(4501, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*errorspb.ErrnoPayload).MarshalTo(dAtA []byte) (int, error)`.
   int marshalTo(Uint8List dAtA) {
     final $r = $callSync(
-        4493,
+        4502,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -743,7 +743,7 @@ final class ErrorsErrorspbErrnoPayload implements GoDto {
   /// Go: `func (*errorspb.ErrnoPayload).MarshalToSizedBuffer(dAtA []byte) (int, error)`.
   int marshalToSizedBuffer(Uint8List dAtA) {
     final $r = $callSync(
-        4494,
+        4503,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -752,30 +752,30 @@ final class ErrorsErrorspbErrnoPayload implements GoDto {
 
   /// Go: `func (*errorspb.ErrnoPayload).ProtoMessage()`.
   void protoMessage() {
-    $callSync(4495, $W()..dto(this));
+    $callSync(4504, $W()..dto(this));
   }
 
   /// Go: `func (*errorspb.ErrnoPayload).Reset()`.
   void reset() {
-    $callSync(4496, $W()..dto(this));
+    $callSync(4505, $W()..dto(this));
   }
 
   /// Go: `func (*errorspb.ErrnoPayload).Size() (n int)`.
   int size() {
-    final $r = $callSync(4497, $W()..dto(this));
+    final $r = $callSync(4506, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*errorspb.ErrnoPayload).String() string`.
   String string() {
-    final $r = $callSync(4498, $W()..dto(this));
+    final $r = $callSync(4507, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*errorspb.ErrnoPayload).Unmarshal(dAtA []byte) error`.
   void unmarshal(Uint8List dAtA) {
     $callSync(
-        4499,
+        4508,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -783,13 +783,13 @@ final class ErrorsErrorspbErrnoPayload implements GoDto {
 
   /// Go: `func (*errorspb.ErrnoPayload).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(4500, $W()..dto(this));
+    $callSync(4509, $W()..dto(this));
   }
 
   /// Go: `func (*errorspb.ErrnoPayload).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        4501,
+        4510,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -800,7 +800,7 @@ final class ErrorsErrorspbErrnoPayload implements GoDto {
   /// Go: `func (*errorspb.ErrnoPayload).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        4502,
+        4511,
         $W()
           ..dto(this)
           ..h(src));
@@ -808,14 +808,14 @@ final class ErrorsErrorspbErrnoPayload implements GoDto {
 
   /// Go: `func (*errorspb.ErrnoPayload).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(4503, $W()..dto(this));
+    final $r = $callSync(4512, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*errorspb.ErrnoPayload).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        4504,
+        4513,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -847,14 +847,14 @@ final class ErrorsErrorspbErrorTypeMark implements GoDto {
 
   /// Go: `func (*errorspb.ErrorTypeMark).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(4505, $W()..dto(this));
+    final $r = $callSync(4514, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (errorspb.ErrorTypeMark).Equals(o errorspb.ErrorTypeMark) bool`.
   bool equals(ErrorsErrorspbErrorTypeMark o) {
     final $r = $callSync(
-        4506,
+        4515,
         $W()
           ..dto(this)
           ..dto(o));
@@ -863,14 +863,14 @@ final class ErrorsErrorspbErrorTypeMark implements GoDto {
 
   /// Go: `func (*errorspb.ErrorTypeMark).Marshal() (dAtA []byte, err error)`.
   Uint8List marshal() {
-    final $r = $callSync(4507, $W()..dto(this));
+    final $r = $callSync(4516, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*errorspb.ErrorTypeMark).MarshalTo(dAtA []byte) (int, error)`.
   int marshalTo(Uint8List dAtA) {
     final $r = $callSync(
-        4508,
+        4517,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -880,7 +880,7 @@ final class ErrorsErrorspbErrorTypeMark implements GoDto {
   /// Go: `func (*errorspb.ErrorTypeMark).MarshalToSizedBuffer(dAtA []byte) (int, error)`.
   int marshalToSizedBuffer(Uint8List dAtA) {
     final $r = $callSync(
-        4509,
+        4518,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -889,30 +889,30 @@ final class ErrorsErrorspbErrorTypeMark implements GoDto {
 
   /// Go: `func (*errorspb.ErrorTypeMark).ProtoMessage()`.
   void protoMessage() {
-    $callSync(4510, $W()..dto(this));
+    $callSync(4519, $W()..dto(this));
   }
 
   /// Go: `func (*errorspb.ErrorTypeMark).Reset()`.
   void reset() {
-    $callSync(4511, $W()..dto(this));
+    $callSync(4520, $W()..dto(this));
   }
 
   /// Go: `func (*errorspb.ErrorTypeMark).Size() (n int)`.
   int size() {
-    final $r = $callSync(4512, $W()..dto(this));
+    final $r = $callSync(4521, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*errorspb.ErrorTypeMark).String() string`.
   String string() {
-    final $r = $callSync(4513, $W()..dto(this));
+    final $r = $callSync(4522, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*errorspb.ErrorTypeMark).Unmarshal(dAtA []byte) error`.
   void unmarshal(Uint8List dAtA) {
     $callSync(
-        4514,
+        4523,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -920,13 +920,13 @@ final class ErrorsErrorspbErrorTypeMark implements GoDto {
 
   /// Go: `func (*errorspb.ErrorTypeMark).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(4515, $W()..dto(this));
+    $callSync(4524, $W()..dto(this));
   }
 
   /// Go: `func (*errorspb.ErrorTypeMark).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        4516,
+        4525,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -937,7 +937,7 @@ final class ErrorsErrorspbErrorTypeMark implements GoDto {
   /// Go: `func (*errorspb.ErrorTypeMark).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        4517,
+        4526,
         $W()
           ..dto(this)
           ..h(src));
@@ -945,14 +945,14 @@ final class ErrorsErrorspbErrorTypeMark implements GoDto {
 
   /// Go: `func (*errorspb.ErrorTypeMark).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(4518, $W()..dto(this));
+    final $r = $callSync(4527, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*errorspb.ErrorTypeMark).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        4519,
+        4528,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -986,20 +986,20 @@ final class ErrorsErrorspbMarkPayload implements GoDto {
 
   /// Go: `func (*errorspb.MarkPayload).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(4520, $W()..dto(this));
+    final $r = $callSync(4529, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*errorspb.MarkPayload).Marshal() (dAtA []byte, err error)`.
   Uint8List marshal() {
-    final $r = $callSync(4521, $W()..dto(this));
+    final $r = $callSync(4530, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*errorspb.MarkPayload).MarshalTo(dAtA []byte) (int, error)`.
   int marshalTo(Uint8List dAtA) {
     final $r = $callSync(
-        4522,
+        4531,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -1009,7 +1009,7 @@ final class ErrorsErrorspbMarkPayload implements GoDto {
   /// Go: `func (*errorspb.MarkPayload).MarshalToSizedBuffer(dAtA []byte) (int, error)`.
   int marshalToSizedBuffer(Uint8List dAtA) {
     final $r = $callSync(
-        4523,
+        4532,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -1018,30 +1018,30 @@ final class ErrorsErrorspbMarkPayload implements GoDto {
 
   /// Go: `func (*errorspb.MarkPayload).ProtoMessage()`.
   void protoMessage() {
-    $callSync(4524, $W()..dto(this));
+    $callSync(4533, $W()..dto(this));
   }
 
   /// Go: `func (*errorspb.MarkPayload).Reset()`.
   void reset() {
-    $callSync(4525, $W()..dto(this));
+    $callSync(4534, $W()..dto(this));
   }
 
   /// Go: `func (*errorspb.MarkPayload).Size() (n int)`.
   int size() {
-    final $r = $callSync(4526, $W()..dto(this));
+    final $r = $callSync(4535, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*errorspb.MarkPayload).String() string`.
   String string() {
-    final $r = $callSync(4527, $W()..dto(this));
+    final $r = $callSync(4536, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*errorspb.MarkPayload).Unmarshal(dAtA []byte) error`.
   void unmarshal(Uint8List dAtA) {
     $callSync(
-        4528,
+        4537,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -1049,13 +1049,13 @@ final class ErrorsErrorspbMarkPayload implements GoDto {
 
   /// Go: `func (*errorspb.MarkPayload).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(4529, $W()..dto(this));
+    $callSync(4538, $W()..dto(this));
   }
 
   /// Go: `func (*errorspb.MarkPayload).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        4530,
+        4539,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -1066,7 +1066,7 @@ final class ErrorsErrorspbMarkPayload implements GoDto {
   /// Go: `func (*errorspb.MarkPayload).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        4531,
+        4540,
         $W()
           ..dto(this)
           ..h(src));
@@ -1074,14 +1074,14 @@ final class ErrorsErrorspbMarkPayload implements GoDto {
 
   /// Go: `func (*errorspb.MarkPayload).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(4532, $W()..dto(this));
+    final $r = $callSync(4541, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*errorspb.MarkPayload).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        4533,
+        4542,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -1104,20 +1104,20 @@ final class ErrorsErrorspbStringPayload implements GoDto {
 
   /// Go: `func (*errorspb.StringPayload).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(4536, $W()..dto(this));
+    final $r = $callSync(4545, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*errorspb.StringPayload).Marshal() (dAtA []byte, err error)`.
   Uint8List marshal() {
-    final $r = $callSync(4537, $W()..dto(this));
+    final $r = $callSync(4546, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*errorspb.StringPayload).MarshalTo(dAtA []byte) (int, error)`.
   int marshalTo(Uint8List dAtA) {
     final $r = $callSync(
-        4538,
+        4547,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -1127,7 +1127,7 @@ final class ErrorsErrorspbStringPayload implements GoDto {
   /// Go: `func (*errorspb.StringPayload).MarshalToSizedBuffer(dAtA []byte) (int, error)`.
   int marshalToSizedBuffer(Uint8List dAtA) {
     final $r = $callSync(
-        4539,
+        4548,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -1136,30 +1136,30 @@ final class ErrorsErrorspbStringPayload implements GoDto {
 
   /// Go: `func (*errorspb.StringPayload).ProtoMessage()`.
   void protoMessage() {
-    $callSync(4540, $W()..dto(this));
+    $callSync(4549, $W()..dto(this));
   }
 
   /// Go: `func (*errorspb.StringPayload).Reset()`.
   void reset() {
-    $callSync(4541, $W()..dto(this));
+    $callSync(4550, $W()..dto(this));
   }
 
   /// Go: `func (*errorspb.StringPayload).Size() (n int)`.
   int size() {
-    final $r = $callSync(4542, $W()..dto(this));
+    final $r = $callSync(4551, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*errorspb.StringPayload).String() string`.
   String string() {
-    final $r = $callSync(4543, $W()..dto(this));
+    final $r = $callSync(4552, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*errorspb.StringPayload).Unmarshal(dAtA []byte) error`.
   void unmarshal(Uint8List dAtA) {
     $callSync(
-        4544,
+        4553,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -1167,13 +1167,13 @@ final class ErrorsErrorspbStringPayload implements GoDto {
 
   /// Go: `func (*errorspb.StringPayload).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(4545, $W()..dto(this));
+    $callSync(4554, $W()..dto(this));
   }
 
   /// Go: `func (*errorspb.StringPayload).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        4546,
+        4555,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -1184,7 +1184,7 @@ final class ErrorsErrorspbStringPayload implements GoDto {
   /// Go: `func (*errorspb.StringPayload).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        4547,
+        4556,
         $W()
           ..dto(this)
           ..h(src));
@@ -1192,14 +1192,14 @@ final class ErrorsErrorspbStringPayload implements GoDto {
 
   /// Go: `func (*errorspb.StringPayload).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(4548, $W()..dto(this));
+    final $r = $callSync(4557, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*errorspb.StringPayload).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        4549,
+        4558,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -1223,20 +1223,20 @@ final class ErrorsErrorspbStringsPayload implements GoDto {
 
   /// Go: `func (*errorspb.StringsPayload).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(4550, $W()..dto(this));
+    final $r = $callSync(4559, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*errorspb.StringsPayload).Marshal() (dAtA []byte, err error)`.
   Uint8List marshal() {
-    final $r = $callSync(4551, $W()..dto(this));
+    final $r = $callSync(4560, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*errorspb.StringsPayload).MarshalTo(dAtA []byte) (int, error)`.
   int marshalTo(Uint8List dAtA) {
     final $r = $callSync(
-        4552,
+        4561,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -1246,7 +1246,7 @@ final class ErrorsErrorspbStringsPayload implements GoDto {
   /// Go: `func (*errorspb.StringsPayload).MarshalToSizedBuffer(dAtA []byte) (int, error)`.
   int marshalToSizedBuffer(Uint8List dAtA) {
     final $r = $callSync(
-        4553,
+        4562,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -1255,30 +1255,30 @@ final class ErrorsErrorspbStringsPayload implements GoDto {
 
   /// Go: `func (*errorspb.StringsPayload).ProtoMessage()`.
   void protoMessage() {
-    $callSync(4554, $W()..dto(this));
+    $callSync(4563, $W()..dto(this));
   }
 
   /// Go: `func (*errorspb.StringsPayload).Reset()`.
   void reset() {
-    $callSync(4555, $W()..dto(this));
+    $callSync(4564, $W()..dto(this));
   }
 
   /// Go: `func (*errorspb.StringsPayload).Size() (n int)`.
   int size() {
-    final $r = $callSync(4556, $W()..dto(this));
+    final $r = $callSync(4565, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*errorspb.StringsPayload).String() string`.
   String string() {
-    final $r = $callSync(4557, $W()..dto(this));
+    final $r = $callSync(4566, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*errorspb.StringsPayload).Unmarshal(dAtA []byte) error`.
   void unmarshal(Uint8List dAtA) {
     $callSync(
-        4558,
+        4567,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -1286,13 +1286,13 @@ final class ErrorsErrorspbStringsPayload implements GoDto {
 
   /// Go: `func (*errorspb.StringsPayload).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(4559, $W()..dto(this));
+    $callSync(4568, $W()..dto(this));
   }
 
   /// Go: `func (*errorspb.StringsPayload).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        4560,
+        4569,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -1303,7 +1303,7 @@ final class ErrorsErrorspbStringsPayload implements GoDto {
   /// Go: `func (*errorspb.StringsPayload).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        4561,
+        4570,
         $W()
           ..dto(this)
           ..h(src));
@@ -1311,14 +1311,14 @@ final class ErrorsErrorspbStringsPayload implements GoDto {
 
   /// Go: `func (*errorspb.StringsPayload).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(4562, $W()..dto(this));
+    final $r = $callSync(4571, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*errorspb.StringsPayload).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        4563,
+        4572,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -1350,20 +1350,20 @@ final class ErrorsErrorspbTagPayload implements GoDto {
 
   /// Go: `func (*errorspb.TagPayload).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(4564, $W()..dto(this));
+    final $r = $callSync(4573, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*errorspb.TagPayload).Marshal() (dAtA []byte, err error)`.
   Uint8List marshal() {
-    final $r = $callSync(4565, $W()..dto(this));
+    final $r = $callSync(4574, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*errorspb.TagPayload).MarshalTo(dAtA []byte) (int, error)`.
   int marshalTo(Uint8List dAtA) {
     final $r = $callSync(
-        4566,
+        4575,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -1373,7 +1373,7 @@ final class ErrorsErrorspbTagPayload implements GoDto {
   /// Go: `func (*errorspb.TagPayload).MarshalToSizedBuffer(dAtA []byte) (int, error)`.
   int marshalToSizedBuffer(Uint8List dAtA) {
     final $r = $callSync(
-        4567,
+        4576,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -1382,30 +1382,30 @@ final class ErrorsErrorspbTagPayload implements GoDto {
 
   /// Go: `func (*errorspb.TagPayload).ProtoMessage()`.
   void protoMessage() {
-    $callSync(4568, $W()..dto(this));
+    $callSync(4577, $W()..dto(this));
   }
 
   /// Go: `func (*errorspb.TagPayload).Reset()`.
   void reset() {
-    $callSync(4569, $W()..dto(this));
+    $callSync(4578, $W()..dto(this));
   }
 
   /// Go: `func (*errorspb.TagPayload).Size() (n int)`.
   int size() {
-    final $r = $callSync(4570, $W()..dto(this));
+    final $r = $callSync(4579, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*errorspb.TagPayload).String() string`.
   String string() {
-    final $r = $callSync(4571, $W()..dto(this));
+    final $r = $callSync(4580, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*errorspb.TagPayload).Unmarshal(dAtA []byte) error`.
   void unmarshal(Uint8List dAtA) {
     $callSync(
-        4572,
+        4581,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -1413,13 +1413,13 @@ final class ErrorsErrorspbTagPayload implements GoDto {
 
   /// Go: `func (*errorspb.TagPayload).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(4573, $W()..dto(this));
+    $callSync(4582, $W()..dto(this));
   }
 
   /// Go: `func (*errorspb.TagPayload).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        4574,
+        4583,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -1430,7 +1430,7 @@ final class ErrorsErrorspbTagPayload implements GoDto {
   /// Go: `func (*errorspb.TagPayload).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        4575,
+        4584,
         $W()
           ..dto(this)
           ..h(src));
@@ -1438,14 +1438,14 @@ final class ErrorsErrorspbTagPayload implements GoDto {
 
   /// Go: `func (*errorspb.TagPayload).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(4576, $W()..dto(this));
+    final $r = $callSync(4585, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*errorspb.TagPayload).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        4577,
+        4586,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -1470,20 +1470,20 @@ final class ErrorsErrorspbTagsPayload implements GoDto {
 
   /// Go: `func (*errorspb.TagsPayload).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(4578, $W()..dto(this));
+    final $r = $callSync(4587, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*errorspb.TagsPayload).Marshal() (dAtA []byte, err error)`.
   Uint8List marshal() {
-    final $r = $callSync(4579, $W()..dto(this));
+    final $r = $callSync(4588, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*errorspb.TagsPayload).MarshalTo(dAtA []byte) (int, error)`.
   int marshalTo(Uint8List dAtA) {
     final $r = $callSync(
-        4580,
+        4589,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -1493,7 +1493,7 @@ final class ErrorsErrorspbTagsPayload implements GoDto {
   /// Go: `func (*errorspb.TagsPayload).MarshalToSizedBuffer(dAtA []byte) (int, error)`.
   int marshalToSizedBuffer(Uint8List dAtA) {
     final $r = $callSync(
-        4581,
+        4590,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -1502,30 +1502,30 @@ final class ErrorsErrorspbTagsPayload implements GoDto {
 
   /// Go: `func (*errorspb.TagsPayload).ProtoMessage()`.
   void protoMessage() {
-    $callSync(4582, $W()..dto(this));
+    $callSync(4591, $W()..dto(this));
   }
 
   /// Go: `func (*errorspb.TagsPayload).Reset()`.
   void reset() {
-    $callSync(4583, $W()..dto(this));
+    $callSync(4592, $W()..dto(this));
   }
 
   /// Go: `func (*errorspb.TagsPayload).Size() (n int)`.
   int size() {
-    final $r = $callSync(4584, $W()..dto(this));
+    final $r = $callSync(4593, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*errorspb.TagsPayload).String() string`.
   String string() {
-    final $r = $callSync(4585, $W()..dto(this));
+    final $r = $callSync(4594, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*errorspb.TagsPayload).Unmarshal(dAtA []byte) error`.
   void unmarshal(Uint8List dAtA) {
     $callSync(
-        4586,
+        4595,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -1533,13 +1533,13 @@ final class ErrorsErrorspbTagsPayload implements GoDto {
 
   /// Go: `func (*errorspb.TagsPayload).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(4587, $W()..dto(this));
+    $callSync(4596, $W()..dto(this));
   }
 
   /// Go: `func (*errorspb.TagsPayload).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        4588,
+        4597,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -1550,7 +1550,7 @@ final class ErrorsErrorspbTagsPayload implements GoDto {
   /// Go: `func (*errorspb.TagsPayload).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        4589,
+        4598,
         $W()
           ..dto(this)
           ..h(src));
@@ -1558,14 +1558,14 @@ final class ErrorsErrorspbTagsPayload implements GoDto {
 
   /// Go: `func (*errorspb.TagsPayload).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(4590, $W()..dto(this));
+    final $r = $callSync(4599, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*errorspb.TagsPayload).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        4591,
+        4600,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -1720,13 +1720,13 @@ class ErrorsErrorspbTestError extends GolangException {
 extension GoCockroachdbErrorsErrorspbApi on GoCockroachdbErrorsErrorspb {
   /// Go: `var errorspb.MessageType_name map[int32]string`.
   Map<int, String> get messageTypeName {
-    final $r = $callSync(4534);
+    final $r = $callSync(4543);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var errorspb.MessageType_value map[string]int32`.
   Map<String, int> get messageTypeValue {
-    final $r = $callSync(4535);
+    final $r = $callSync(4544);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 }

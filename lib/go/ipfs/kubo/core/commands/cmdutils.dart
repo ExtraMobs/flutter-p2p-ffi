@@ -19,7 +19,7 @@ extension GoIpfsKuboCoreCommandsCmdutilsApi on GoIpfsKuboCoreCommandsCmdutils {
   /// Go: `func cmdutils.CheckBlockSize(req *cmds.Request, size uint64) error`.
   void checkBlockSize($ipfs_cmds.IpfsCmdsRequest req, int size) {
     $callSync(
-        11392,
+        11398,
         $W()
           ..h(req)
           ..i64(size));
@@ -29,7 +29,7 @@ extension GoIpfsKuboCoreCommandsCmdutilsApi on GoIpfsKuboCoreCommandsCmdutils {
   void checkCidSize($ipfs_cmds.IpfsCmdsRequest req, $cid.Cid c,
       $coreiface.KuboCoreCoreifaceApiDagService dagApi) {
     $callSync(
-        11393,
+        11399,
         $W()
           ..h(req)
           ..val(c)
@@ -38,31 +38,31 @@ extension GoIpfsKuboCoreCommandsCmdutilsApi on GoIpfsKuboCoreCommandsCmdutils {
 
   /// Go: `func cmdutils.CidFromArg(arg string) (cid.Cid, error)`.
   $cid.Cid cidFromArg(String arg) {
-    final $r = $callSync(11394, $W()..str(arg));
+    final $r = $callSync(11400, $W()..str(arg));
     return $r.p() ? $cid.Cid($r.str()) : $nil();
   }
 
   /// Go: `func cmdutils.CleanAndTrim(str string) string`.
   String cleanAndTrim(String str) {
-    final $r = $callSync(11395, $W()..str(str));
+    final $r = $callSync(11401, $W()..str(str));
     return $r.str();
   }
 
   /// Go: `func cmdutils.CloneAddrInfo(ai peer.AddrInfo) peer.AddrInfo`.
   $peer.Libp2pCorePeerAddrInfo cloneAddrInfo($peer.Libp2pCorePeerAddrInfo ai) {
-    final $r = $callSync(11396, $W()..dto(ai));
+    final $r = $callSync(11402, $W()..dto(ai));
     return $r.p() ? $peer.Libp2pCorePeerAddrInfo.$dec($r) : $nil();
   }
 
   /// Go: `func cmdutils.PathOrCidPath(str string) (path.Path, error)`.
   $path.BoxoPath pathOrCidPath(String str) {
-    final $r = $callSync(11397, $W()..str(str));
+    final $r = $callSync(11403, $W()..str(str));
     return $r.p() ? $path.BoxoPath($r.str()) : $nil();
   }
 
   /// Go: `func cmdutils.ValidatePinName(name string) error`.
   void validatePinName(String name) {
-    $callSync(11398, $W()..str(name));
+    $callSync(11404, $W()..str(name));
   }
 }
 
@@ -84,7 +84,7 @@ extension GoIpfsKuboCoreCommandsCmdutilsOptionsApi
     on GoIpfsKuboCoreCommandsCmdutilsOptions {
   /// Go: `var cmdutils.AllowBigBlockOption cmds.Option`.
   $ipfs_cmds.IpfsCmdsOption get allowBigBlockOption {
-    final $r = $callSync(11391);
+    final $r = $callSync(11397);
     return $r.hnn($ipfs_cmds.IpfsCmdsOption.$h);
   }
 }

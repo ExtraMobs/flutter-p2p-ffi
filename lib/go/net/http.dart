@@ -78,13 +78,13 @@ final class NetHttpClient implements GoDto {
 
   /// Go: `func (*http.Client).CloseIdleConnections()`.
   void closeIdleConnections() {
-    $callSync(26511, $W()..dto(this));
+    $callSync(26517, $W()..dto(this));
   }
 
   /// Go: `func (*http.Client).Do(req *http.Request) (*http.Response, error)`.
   NetHttpResponse do$(NetHttpRequest req) {
     final $r = $callSync(
-        26512,
+        26518,
         $W()
           ..dto(this)
           ..h(req));
@@ -94,7 +94,7 @@ final class NetHttpClient implements GoDto {
   /// Go: `func (*http.Client).Get(url string) (resp *http.Response, err error)`.
   NetHttpResponse get(String url) {
     final $r = $callSync(
-        26513,
+        26519,
         $W()
           ..dto(this)
           ..str(url));
@@ -104,7 +104,7 @@ final class NetHttpClient implements GoDto {
   /// Go: `func (*http.Client).Head(url string) (resp *http.Response, err error)`.
   NetHttpResponse head(String url) {
     final $r = $callSync(
-        26514,
+        26520,
         $W()
           ..dto(this)
           ..str(url));
@@ -114,7 +114,7 @@ final class NetHttpClient implements GoDto {
   /// Go: `func (*http.Client).Post(url string, contentType string, body io.Reader) (resp *http.Response, err error)`.
   NetHttpResponse post(String url, String contentType, Object body) {
     final $r = $callSync(
-        26515,
+        26521,
         $W()
           ..dto(this)
           ..str(url)
@@ -152,40 +152,40 @@ class NetHttpClientConn extends $io.IoCloser
 
   /// Go: `func (*http.ClientConn).Available() int`.
   int available() {
-    final $r = $callSync(26516, $W()..h(this));
+    final $r = $callSync(26522, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*http.ClientConn).Close() error`.
   void close() {
-    $callSync(26517, $W()..h(this));
+    $callSync(26523, $W()..h(this));
   }
 
   /// Go: `func (*http.ClientConn).Err() error`.
   void err() {
-    $callSync(26518, $W()..h(this));
+    $callSync(26524, $W()..h(this));
   }
 
   /// Go: `func (*http.ClientConn).InFlight() int`.
   int inFlight() {
-    final $r = $callSync(26519, $W()..h(this));
+    final $r = $callSync(26525, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*http.ClientConn).Release()`.
   void release$() {
-    $callSync(26520, $W()..h(this));
+    $callSync(26526, $W()..h(this));
   }
 
   /// Go: `func (*http.ClientConn).Reserve() error`.
   void reserve() {
-    $callSync(26521, $W()..h(this));
+    $callSync(26527, $W()..h(this));
   }
 
   /// Go: `func (*http.ClientConn).RoundTrip(req *http.Request) (*http.Response, error)`.
   NetHttpResponse roundTrip(NetHttpRequest req) {
     final $r = $callSync(
-        26522,
+        26528,
         $W()
           ..h(this)
           ..h(req));
@@ -202,7 +202,7 @@ class NetHttpClientConn extends $io.IoCloser
   Future<void> setStateHook(
       FutureOr<void> Function(NetHttpClientConn clientConn) f) async {
     await $call(
-        26523,
+        26529,
         $W()
           ..h(this)
           ..cb((r) => f(r.hnn(NetHttpClientConn.$h)), true));
@@ -219,7 +219,7 @@ class NetHttpCloseNotifier extends GoHandle with NetHttpCloseNotifier$ {
 /// The methods of [NetHttpCloseNotifier], mixed into every class Go also accepts as one.
 mixin NetHttpCloseNotifier$ on GoHandle {
   /// Go: `func (http.CloseNotifier).CloseNotify() <-chan bool`.
-  Stream<bool> closeNotify() => $stream(26524, $W()..h(this)).map((r) => r.b());
+  Stream<bool> closeNotify() => $stream(26530, $W()..h(this)).map((r) => r.b());
 }
 
 /// Go: `http.Cookie`.
@@ -333,13 +333,13 @@ final class NetHttpCookie implements GoDto {
 
   /// Go: `func (*http.Cookie).String() string`.
   String string() {
-    final $r = $callSync(26525, $W()..dto(this));
+    final $r = $callSync(26531, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*http.Cookie).Valid() error`.
   void valid() {
-    $callSync(26526, $W()..dto(this));
+    $callSync(26532, $W()..dto(this));
   }
 }
 
@@ -353,7 +353,7 @@ mixin NetHttpCookieJar$ on GoHandle {
   /// Go: `func (http.CookieJar).Cookies(u *url.URL) []*http.Cookie`.
   List<NetHttpCookie> cookies($url.NetUrl u) {
     final $r = $callSync(
-        26527,
+        26533,
         $W()
           ..h(this)
           ..dto(u));
@@ -363,7 +363,7 @@ mixin NetHttpCookieJar$ on GoHandle {
   /// Go: `func (http.CookieJar).SetCookies(u *url.URL, cookies []*http.Cookie)`.
   void setCookies($url.NetUrl u, List<NetHttpCookie> cookies) {
     $callSync(
-        26528,
+        26534,
         $W()
           ..h(this)
           ..dto(u)
@@ -372,7 +372,7 @@ mixin NetHttpCookieJar$ on GoHandle {
 
   /// Go: type assertion `x.(*cookiejar.Jar)`: null if the object is not one.
   $cookiejar.NetHttpCookiejarJar? asNetHttpCookiejarJar() {
-    final $r = $callSync(3002, $W()..h(this));
+    final $r = $callSync(3009, $W()..h(this));
     return $r.hn($cookiejar.NetHttpCookiejarJar.$h);
   }
 }
@@ -397,14 +397,14 @@ class NetHttpCrossOriginProtection extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func http.NewCrossOriginProtection() *http.CrossOriginProtection`.
   factory NetHttpCrossOriginProtection() {
-    final $r = $callSync(26557);
+    final $r = $callSync(26563);
     return $r.hnn(NetHttpCrossOriginProtection.$h);
   }
 
   /// Go: `func (*http.CrossOriginProtection).AddInsecureBypassPattern(pattern string)`.
   void addInsecureBypassPattern(String pattern) {
     $callSync(
-        26529,
+        26535,
         $W()
           ..h(this)
           ..str(pattern));
@@ -413,7 +413,7 @@ class NetHttpCrossOriginProtection extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*http.CrossOriginProtection).AddTrustedOrigin(origin string) error`.
   void addTrustedOrigin(String origin) {
     $callSync(
-        26530,
+        26536,
         $W()
           ..h(this)
           ..str(origin));
@@ -422,7 +422,7 @@ class NetHttpCrossOriginProtection extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*http.CrossOriginProtection).Check(req *http.Request) error`.
   void check(NetHttpRequest req) {
     $callSync(
-        26531,
+        26537,
         $W()
           ..h(this)
           ..h(req));
@@ -431,7 +431,7 @@ class NetHttpCrossOriginProtection extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*http.CrossOriginProtection).Handler(h http.Handler) http.Handler`.
   NetHttpHandler handler(NetHttpHandler h) {
     final $r = $callSync(
-        26532,
+        26538,
         $W()
           ..h(this)
           ..h(h));
@@ -441,7 +441,7 @@ class NetHttpCrossOriginProtection extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*http.CrossOriginProtection).SetDenyHandler(h http.Handler)`.
   void setDenyHandler(NetHttpHandler h) {
     $callSync(
-        26533,
+        26539,
         $W()
           ..h(this)
           ..h(h));
@@ -460,7 +460,7 @@ mixin NetHttpFile$ on GoHandle {
   /// Go: `func (http.File).Readdir(count int) ([]fs.FileInfo, error)`.
   List<$fs.IoFsFileInfo> readdir(int count) {
     final $r = $callSync(
-        26540,
+        26546,
         $W()
           ..h(this)
           ..i64(count));
@@ -469,26 +469,26 @@ mixin NetHttpFile$ on GoHandle {
 
   /// Go: `func (http.File).Stat() (fs.FileInfo, error)`.
   $fs.IoFsFileInfo stat() {
-    final $r = $callSync(26541, $W()..h(this));
+    final $r = $callSync(26547, $W()..h(this));
     return $r.hnn($fs.IoFsFileInfo.$h);
   }
 
   /// Go: type assertion `x.(*atomicfile.File)`: null if the object is not one.
   $atomicfile.AtomicfileFile? asAtomicfileFile() {
-    final $r = $callSync(3003, $W()..h(this));
+    final $r = $callSync(3010, $W()..h(this));
     return $r.hn($atomicfile.AtomicfileFile.$h);
   }
 
   /// Go: type assertion `x.(*atomicfile.File)`: null if the object is not one.
   $atomicfile2.KuboRepoFsrepoMigrationsAtomicfileFile?
       asKuboRepoFsrepoMigrationsAtomicfileFile() {
-    final $r = $callSync(3004, $W()..h(this));
+    final $r = $callSync(3011, $W()..h(this));
     return $r.hn($atomicfile2.KuboRepoFsrepoMigrationsAtomicfileFile.$h);
   }
 
   /// Go: type assertion `x.(*os.File)`: null if the object is not one.
   $os.OsFile? asOsFile() {
-    final $r = $callSync(3005, $W()..h(this));
+    final $r = $callSync(3012, $W()..h(this));
     return $r.hn($os.OsFile.$h);
   }
 }
@@ -503,7 +503,7 @@ mixin NetHttpFileSystem$ on GoHandle {
   /// Go: `func (http.FileSystem).Open(name string) (http.File, error)`.
   NetHttpFile open(String name) {
     final $r = $callSync(
-        26544,
+        26550,
         $W()
           ..h(this)
           ..str(name));
@@ -520,12 +520,12 @@ class NetHttpFlusher extends GoHandle with NetHttpFlusher$ {
 mixin NetHttpFlusher$ on GoHandle {
   /// Go: `func (http.Flusher).Flush()`.
   void flush() {
-    $callSync(26545, $W()..h(this));
+    $callSync(26551, $W()..h(this));
   }
 
   /// Go: type assertion `x.(*csv.Writer)`: null if the object is not one.
   $csv.EncodingCsvWriter? asEncodingCsvWriter() {
-    final $r = $callSync(3006, $W()..h(this));
+    final $r = $callSync(3013, $W()..h(this));
     return $r.hn($csv.EncodingCsvWriter.$h);
   }
 }
@@ -540,7 +540,7 @@ mixin NetHttpHandler$ on GoHandle {
   /// Go: `func (http.Handler).ServeHTTP(http.ResponseWriter, *http.Request)`.
   void serveHttp(NetHttpResponseWriter responseWriter, NetHttpRequest request) {
     $callSync(
-        26549,
+        26555,
         $W()
           ..h(this)
           ..h(responseWriter)
@@ -549,38 +549,38 @@ mixin NetHttpHandler$ on GoHandle {
 
   /// Go: type assertion `x.(*runtime.ServeMux)`: null if the object is not one.
   $runtime.GrpcGatewayV2RuntimeServeMux? asGrpcGatewayV2RuntimeServeMux() {
-    final $r = $callSync(3007, $W()..h(this));
+    final $r = $callSync(3014, $W()..h(this));
     return $r.hn($runtime.GrpcGatewayV2RuntimeServeMux.$h);
   }
 
   /// Go: type assertion `x.(*httppeeridauth.ServerPeerIDAuth)`: null if the object is not one.
   $auth.Libp2pP2pHttpAuthServerPeerIdAuth?
       asLibp2pP2pHttpAuthServerPeerIdAuth() {
-    final $r = $callSync(3008, $W()..h(this));
+    final $r = $callSync(3015, $W()..h(this));
     return $r.hn($auth.Libp2pP2pHttpAuthServerPeerIdAuth.$h);
   }
 
   /// Go: type assertion `x.(*zap.AtomicLevel)`: null if the object is not one.
   $zap.ZapAtomicLevel? asZapAtomicLevel() {
-    final $r = $callSync(3009, $W()..h(this));
+    final $r = $callSync(3016, $W()..h(this));
     return $r.hn($zap.ZapAtomicLevel.$h);
   }
 
   /// Go: type assertion `x.(*grpc.Server)`: null if the object is not one.
   $grpc.GrpcServer? asGrpcServer() {
-    final $r = $callSync(3010, $W()..h(this));
+    final $r = $callSync(3017, $W()..h(this));
     return $r.hn($grpc.GrpcServer.$h);
   }
 
   /// Go: type assertion `x.(*http.HandlerFunc)`: null if the object is not one.
   NetHttpHandlerFunc? asNetHttpHandlerFunc() {
-    final $r = $callSync(3011, $W()..h(this));
+    final $r = $callSync(3018, $W()..h(this));
     return $r.hn(NetHttpHandlerFunc.$h);
   }
 
   /// Go: type assertion `x.(*http.ServeMux)`: null if the object is not one.
   NetHttpServeMux? asNetHttpServeMux() {
-    final $r = $callSync(3012, $W()..h(this));
+    final $r = $callSync(3019, $W()..h(this));
     return $r.hn(NetHttpServeMux.$h);
   }
 }
@@ -608,7 +608,7 @@ class NetHttpHandlerFunc extends NetHttpHandler
   /// Go: `func (http.HandlerFunc).ServeHTTP(w http.ResponseWriter, r *http.Request)`.
   void serveHttp(NetHttpResponseWriter w, NetHttpRequest r) {
     $callSync(
-        26550,
+        26556,
         $W()
           ..h(this)
           ..h(w)
@@ -625,7 +625,7 @@ class NetHttpHijacker extends GoHandle with NetHttpHijacker$ {
 mixin NetHttpHijacker$ on GoHandle {
   /// Go: `func (http.Hijacker).Hijack() (net.Conn, *bufio.ReadWriter, error)`.
   ($net.NetConn, $bufio.BufioReadWriter) hijack() {
-    final $r = $callSync(26552, $W()..h(this));
+    final $r = $callSync(26558, $W()..h(this));
     return (
       $r.hnn($net.NetConn.$h),
       $r.p() ? $bufio.BufioReadWriter.$dec($r) : $nil()
@@ -634,7 +634,7 @@ mixin NetHttpHijacker$ on GoHandle {
 
   /// Go: type assertion `x.(*http.ResponseController)`: null if the object is not one.
   NetHttpResponseController? asNetHttpResponseController() {
-    final $r = $callSync(3013, $W()..h(this));
+    final $r = $callSync(3020, $W()..h(this));
     return $r.hn(NetHttpResponseController.$h);
   }
 }
@@ -659,20 +659,20 @@ class NetHttpProtocols extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (http.Protocols).HTTP1() bool`.
   bool http1() {
-    final $r = $callSync(26571, $W()..h(this));
+    final $r = $callSync(26577, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (http.Protocols).HTTP2() bool`.
   bool http2() {
-    final $r = $callSync(26572, $W()..h(this));
+    final $r = $callSync(26578, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*http.Protocols).SetHTTP1(ok bool)`.
   void setHttp1(bool ok) {
     $callSync(
-        26573,
+        26579,
         $W()
           ..h(this)
           ..b(ok));
@@ -681,7 +681,7 @@ class NetHttpProtocols extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*http.Protocols).SetHTTP2(ok bool)`.
   void setHttp2(bool ok) {
     $callSync(
-        26574,
+        26580,
         $W()
           ..h(this)
           ..b(ok));
@@ -690,7 +690,7 @@ class NetHttpProtocols extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*http.Protocols).SetUnencryptedHTTP2(ok bool)`.
   void setUnencryptedHttp2(bool ok) {
     $callSync(
-        26575,
+        26581,
         $W()
           ..h(this)
           ..b(ok));
@@ -698,13 +698,13 @@ class NetHttpProtocols extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (http.Protocols).String() string`.
   String string() {
-    final $r = $callSync(26576, $W()..h(this));
+    final $r = $callSync(26582, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (http.Protocols).UnencryptedHTTP2() bool`.
   bool unencryptedHttp2() {
-    final $r = $callSync(26577, $W()..h(this));
+    final $r = $callSync(26583, $W()..h(this));
     return $r.b();
   }
 }
@@ -736,7 +736,7 @@ mixin NetHttpPusher$ on GoHandle {
   /// Go: `func (http.Pusher).Push(target string, opts *http.PushOptions) error`.
   void push(String target, NetHttpPushOptions opts) {
     $callSync(
-        26579,
+        26585,
         $W()
           ..h(this)
           ..str(target)
@@ -765,7 +765,7 @@ class NetHttpRequest extends $crypto.CryptoDecrypterOpts
   /// Go: `func http.NewRequest(method string, url string, body io.Reader) (*http.Request, error)`.
   factory NetHttpRequest(String method, String url, Object body) {
     final $r = $callSync(
-        26560,
+        26566,
         $W()
           ..str(method)
           ..str(url)
@@ -776,7 +776,7 @@ class NetHttpRequest extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*http.Request).AddCookie(c *http.Cookie)`.
   void addCookie(NetHttpCookie c) {
     $callSync(
-        26584,
+        26590,
         $W()
           ..h(this)
           ..dto(c));
@@ -784,7 +784,7 @@ class NetHttpRequest extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*http.Request).BasicAuth() (username string, password string, ok bool)`.
   (String, String, bool) basicAuth() {
-    final $r = $callSync(26585, $W()..h(this));
+    final $r = $callSync(26591, $W()..h(this));
     return ($r.str(), $r.str(), $r.b());
   }
 
@@ -793,7 +793,7 @@ class NetHttpRequest extends $crypto.CryptoDecrypterOpts
   /// Asynchronous: runs in a goroutine of the service.
   Future<NetHttpRequest> clone($context.Context ctx) async {
     final $r = await $call(
-        26586,
+        26592,
         $W()
           ..h(this)
           ..h(ctx));
@@ -803,7 +803,7 @@ class NetHttpRequest extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*http.Request).Cookie(name string) (*http.Cookie, error)`.
   NetHttpCookie cookie(String name) {
     final $r = $callSync(
-        26587,
+        26593,
         $W()
           ..h(this)
           ..str(name));
@@ -812,14 +812,14 @@ class NetHttpRequest extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*http.Request).Cookies() []*http.Cookie`.
   List<NetHttpCookie> cookies() {
-    final $r = $callSync(26588, $W()..h(this));
+    final $r = $callSync(26594, $W()..h(this));
     return $r.list(() => $r.p() ? NetHttpCookie.$dec($r) : $nil());
   }
 
   /// Go: `func (*http.Request).CookiesNamed(name string) []*http.Cookie`.
   List<NetHttpCookie> cookiesNamed(String name) {
     final $r = $callSync(
-        26589,
+        26595,
         $W()
           ..h(this)
           ..str(name));
@@ -830,7 +830,7 @@ class NetHttpRequest extends $crypto.CryptoDecrypterOpts
   ($multipart.MimeMultipartFile, $multipart.MimeMultipartFileHeader) formFile(
       String key) {
     final $r = $callSync(
-        26590,
+        26596,
         $W()
           ..h(this)
           ..str(key));
@@ -843,7 +843,7 @@ class NetHttpRequest extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*http.Request).FormValue(key string) string`.
   String formValue(String key) {
     final $r = $callSync(
-        26591,
+        26597,
         $W()
           ..h(this)
           ..str(key));
@@ -852,19 +852,19 @@ class NetHttpRequest extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*http.Request).MultipartReader() (*multipart.Reader, error)`.
   $multipart.MimeMultipartReader multipartReader() {
-    final $r = $callSync(26592, $W()..h(this));
+    final $r = $callSync(26598, $W()..h(this));
     return $r.hnn($multipart.MimeMultipartReader.$h);
   }
 
   /// Go: `func (*http.Request).ParseForm() error`.
   void parseForm() {
-    $callSync(26593, $W()..h(this));
+    $callSync(26599, $W()..h(this));
   }
 
   /// Go: `func (*http.Request).ParseMultipartForm(maxMemory int64) error`.
   void parseMultipartForm(int maxMemory) {
     $callSync(
-        26594,
+        26600,
         $W()
           ..h(this)
           ..i64(maxMemory));
@@ -873,7 +873,7 @@ class NetHttpRequest extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*http.Request).PathValue(name string) string`.
   String pathValue(String name) {
     final $r = $callSync(
-        26595,
+        26601,
         $W()
           ..h(this)
           ..str(name));
@@ -883,7 +883,7 @@ class NetHttpRequest extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*http.Request).PostFormValue(key string) string`.
   String postFormValue(String key) {
     final $r = $callSync(
-        26596,
+        26602,
         $W()
           ..h(this)
           ..str(key));
@@ -893,7 +893,7 @@ class NetHttpRequest extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*http.Request).ProtoAtLeast(major int, minor int) bool`.
   bool protoAtLeast(int major, int minor) {
     final $r = $callSync(
-        26597,
+        26603,
         $W()
           ..h(this)
           ..i64(major)
@@ -903,14 +903,14 @@ class NetHttpRequest extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*http.Request).Referer() string`.
   String referer() {
-    final $r = $callSync(26598, $W()..h(this));
+    final $r = $callSync(26604, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*http.Request).SetBasicAuth(username string, password string)`.
   void setBasicAuth(String username, String password) {
     $callSync(
-        26599,
+        26605,
         $W()
           ..h(this)
           ..str(username)
@@ -920,7 +920,7 @@ class NetHttpRequest extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*http.Request).SetPathValue(name string, value string)`.
   void setPathValue(String name, String value) {
     $callSync(
-        26600,
+        26606,
         $W()
           ..h(this)
           ..str(name)
@@ -929,7 +929,7 @@ class NetHttpRequest extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*http.Request).UserAgent() string`.
   String userAgent() {
-    final $r = $callSync(26601, $W()..h(this));
+    final $r = $callSync(26607, $W()..h(this));
     return $r.str();
   }
 
@@ -938,7 +938,7 @@ class NetHttpRequest extends $crypto.CryptoDecrypterOpts
   /// Asynchronous: runs in a goroutine of the service.
   Future<NetHttpRequest> withContext($context.Context ctx) async {
     final $r = await $call(
-        26602,
+        26608,
         $W()
           ..h(this)
           ..h(ctx));
@@ -948,7 +948,7 @@ class NetHttpRequest extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*http.Request).Write(w io.Writer) error`.
   void write(GoHandle? w) {
     $callSync(
-        26603,
+        26609,
         $W()
           ..h(this)
           ..h(w));
@@ -957,7 +957,7 @@ class NetHttpRequest extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*http.Request).WriteProxy(w io.Writer) error`.
   void writeProxy(GoHandle? w) {
     $callSync(
-        26604,
+        26610,
         $W()
           ..h(this)
           ..h(w));
@@ -1063,20 +1063,20 @@ final class NetHttpResponse implements GoDto {
 
   /// Go: `func (*http.Response).Cookies() []*http.Cookie`.
   List<NetHttpCookie> cookies() {
-    final $r = $callSync(26605, $W()..dto(this));
+    final $r = $callSync(26611, $W()..dto(this));
     return $r.list(() => $r.p() ? NetHttpCookie.$dec($r) : $nil());
   }
 
   /// Go: `func (*http.Response).Location() (*url.URL, error)`.
   $url.NetUrl location() {
-    final $r = $callSync(26606, $W()..dto(this));
+    final $r = $callSync(26612, $W()..dto(this));
     return $r.p() ? $url.NetUrl.$dec($r) : $nil();
   }
 
   /// Go: `func (*http.Response).ProtoAtLeast(major int, minor int) bool`.
   bool protoAtLeast(int major, int minor) {
     final $r = $callSync(
-        26607,
+        26613,
         $W()
           ..dto(this)
           ..i64(major)
@@ -1087,7 +1087,7 @@ final class NetHttpResponse implements GoDto {
   /// Go: `func (*http.Response).Write(w io.Writer) error`.
   void write(GoHandle? w) {
     $callSync(
-        26608,
+        26614,
         $W()
           ..dto(this)
           ..h(w));
@@ -1120,23 +1120,23 @@ class NetHttpResponseController extends NetHttpHijacker
 
   /// Go: `func http.NewResponseController(rw http.ResponseWriter) *http.ResponseController`.
   factory NetHttpResponseController(NetHttpResponseWriter rw) {
-    final $r = $callSync(26562, $W()..h(rw));
+    final $r = $callSync(26568, $W()..h(rw));
     return $r.hnn(NetHttpResponseController.$h);
   }
 
   /// Go: `func (*http.ResponseController).EnableFullDuplex() error`.
   void enableFullDuplex() {
-    $callSync(26609, $W()..h(this));
+    $callSync(26615, $W()..h(this));
   }
 
   /// Go: `func (*http.ResponseController).Flush() error`.
   void flush() {
-    $callSync(26610, $W()..h(this));
+    $callSync(26616, $W()..h(this));
   }
 
   /// Go: `func (*http.ResponseController).Hijack() (net.Conn, *bufio.ReadWriter, error)`.
   ($net.NetConn, $bufio.BufioReadWriter) hijack() {
-    final $r = $callSync(26611, $W()..h(this));
+    final $r = $callSync(26617, $W()..h(this));
     return (
       $r.hnn($net.NetConn.$h),
       $r.p() ? $bufio.BufioReadWriter.$dec($r) : $nil()
@@ -1146,7 +1146,7 @@ class NetHttpResponseController extends NetHttpHijacker
   /// Go: `func (*http.ResponseController).SetReadDeadline(deadline time.Time) error`.
   void setReadDeadline(DateTime deadline) {
     $callSync(
-        26612,
+        26618,
         $W()
           ..h(this)
           ..time(deadline));
@@ -1155,7 +1155,7 @@ class NetHttpResponseController extends NetHttpHijacker
   /// Go: `func (*http.ResponseController).SetWriteDeadline(deadline time.Time) error`.
   void setWriteDeadline(DateTime deadline) {
     $callSync(
-        26613,
+        26619,
         $W()
           ..h(this)
           ..time(deadline));
@@ -1172,7 +1172,7 @@ mixin NetHttpResponseWriter$ on GoHandle {
   /// Go: `func (http.ResponseWriter).Write([]byte) (int, error)`.
   int write(Uint8List arg0) {
     final $r = $callSync(
-        26614,
+        26620,
         $W()
           ..h(this)
           ..bytes(arg0));
@@ -1182,7 +1182,7 @@ mixin NetHttpResponseWriter$ on GoHandle {
   /// Go: `func (http.ResponseWriter).WriteHeader(statusCode int)`.
   void writeHeader(int statusCode) {
     $callSync(
-        26615,
+        26621,
         $W()
           ..h(this)
           ..i64(statusCode));
@@ -1199,7 +1199,7 @@ mixin NetHttpRoundTripper$ on GoHandle {
   /// Go: `func (http.RoundTripper).RoundTrip(*http.Request) (*http.Response, error)`.
   NetHttpResponse roundTrip(NetHttpRequest request) {
     final $r = $callSync(
-        26616,
+        26622,
         $W()
           ..h(this)
           ..h(request));
@@ -1209,55 +1209,55 @@ mixin NetHttpRoundTripper$ on GoHandle {
   /// Go: type assertion `x.(*client.ResponseBodyLimitedTransport)`: null if the object is not one.
   $client.BoxoRoutingHttpClientResponseBodyLimitedTransport?
       asBoxoRoutingHttpClientResponseBodyLimitedTransport() {
-    final $r = $callSync(3014, $W()..h(this));
+    final $r = $callSync(3021, $W()..h(this));
     return $r.hn($client.BoxoRoutingHttpClientResponseBodyLimitedTransport.$h);
   }
 
   /// Go: type assertion `x.(*http3.ClientConn)`: null if the object is not one.
   $http3.QuicGoHttp3ClientConn? asQuicGoHttp3ClientConn() {
-    final $r = $callSync(3015, $W()..h(this));
+    final $r = $callSync(3022, $W()..h(this));
     return $r.hn($http3.QuicGoHttp3ClientConn.$h);
   }
 
   /// Go: type assertion `x.(*http3.Transport)`: null if the object is not one.
   $http3.QuicGoHttp3Transport? asQuicGoHttp3Transport() {
-    final $r = $callSync(3016, $W()..h(this));
+    final $r = $callSync(3023, $W()..h(this));
     return $r.hn($http3.QuicGoHttp3Transport.$h);
   }
 
   /// Go: type assertion `x.(*webtransport.ClientConn)`: null if the object is not one.
   $webtransport_go.WebtransportGoClientConn? asWebtransportGoClientConn() {
-    final $r = $callSync(3017, $W()..h(this));
+    final $r = $callSync(3024, $W()..h(this));
     return $r.hn($webtransport_go.WebtransportGoClientConn.$h);
   }
 
   /// Go: type assertion `x.(*otelhttp.Transport)`: null if the object is not one.
   $otelhttp.OtelhttpTransport? asOtelhttpTransport() {
-    final $r = $callSync(3018, $W()..h(this));
+    final $r = $callSync(3025, $W()..h(this));
     return $r.hn($otelhttp.OtelhttpTransport.$h);
   }
 
   /// Go: type assertion `x.(*http2.ClientConn)`: null if the object is not one.
   $http2.NetHttp2ClientConn? asNetHttp2ClientConn() {
-    final $r = $callSync(3019, $W()..h(this));
+    final $r = $callSync(3026, $W()..h(this));
     return $r.hn($http2.NetHttp2ClientConn.$h);
   }
 
   /// Go: type assertion `x.(*http2.Transport)`: null if the object is not one.
   $http2.NetHttp2Transport? asNetHttp2Transport() {
-    final $r = $callSync(3020, $W()..h(this));
+    final $r = $callSync(3027, $W()..h(this));
     return $r.hn($http2.NetHttp2Transport.$h);
   }
 
   /// Go: type assertion `x.(*http.ClientConn)`: null if the object is not one.
   NetHttpClientConn? asNetHttpClientConn() {
-    final $r = $callSync(3021, $W()..h(this));
+    final $r = $callSync(3028, $W()..h(this));
     return $r.hn(NetHttpClientConn.$h);
   }
 
   /// Go: type assertion `x.(*http.Transport)`: null if the object is not one.
   NetHttpTransport? asNetHttpTransport() {
-    final $r = $callSync(3022, $W()..h(this));
+    final $r = $callSync(3029, $W()..h(this));
     return $r.hn(NetHttpTransport.$h);
   }
 }
@@ -1284,14 +1284,14 @@ class NetHttpServeMux extends NetHttpHandler
 
   /// Go: `func http.NewServeMux() *http.ServeMux`.
   factory NetHttpServeMux() {
-    final $r = $callSync(26563);
+    final $r = $callSync(26569);
     return $r.hnn(NetHttpServeMux.$h);
   }
 
   /// Go: `func (*http.ServeMux).Handle(pattern string, handler http.Handler)`.
   void handle(String pattern, NetHttpHandler handler) {
     $callSync(
-        26621,
+        26627,
         $W()
           ..h(this)
           ..str(pattern)
@@ -1311,7 +1311,7 @@ class NetHttpServeMux extends NetHttpHandler
               NetHttpResponseWriter responseWriter, NetHttpRequest request)
           handler) async {
     await $call(
-        26622,
+        26628,
         $W()
           ..h(this)
           ..str(pattern)
@@ -1324,7 +1324,7 @@ class NetHttpServeMux extends NetHttpHandler
   /// Go: `func (*http.ServeMux).Handler(r *http.Request) (h http.Handler, pattern string)`.
   (NetHttpHandler, String) handler(NetHttpRequest r) {
     final $r = $callSync(
-        26623,
+        26629,
         $W()
           ..h(this)
           ..h(r));
@@ -1334,7 +1334,7 @@ class NetHttpServeMux extends NetHttpHandler
   /// Go: `func (*http.ServeMux).ServeHTTP(w http.ResponseWriter, r *http.Request)`.
   void serveHttp(NetHttpResponseWriter w, NetHttpRequest r) {
     $callSync(
-        26624,
+        26630,
         $W()
           ..h(this)
           ..h(w)
@@ -1366,18 +1366,18 @@ class NetHttpServer extends $io.IoCloser
 
   /// Go: `func (*http.Server).Close() error`.
   void close() {
-    $callSync(26626, $W()..h(this));
+    $callSync(26632, $W()..h(this));
   }
 
   /// Go: `func (*http.Server).ListenAndServe() error`.
   void listenAndServe() {
-    $callSync(26627, $W()..h(this));
+    $callSync(26633, $W()..h(this));
   }
 
   /// Go: `func (*http.Server).ListenAndServeTLS(certFile string, keyFile string) error`.
   void listenAndServeTls(String certFile, String keyFile) {
     $callSync(
-        26628,
+        26634,
         $W()
           ..h(this)
           ..str(certFile)
@@ -1393,7 +1393,7 @@ class NetHttpServer extends $io.IoCloser
   /// each invocation (a retained callback, WIRE.md).
   Future<void> registerOnShutdown(FutureOr<void> Function() f) async {
     await $call(
-        26629,
+        26635,
         $W()
           ..h(this)
           ..cb((r) => f(), true));
@@ -1402,7 +1402,7 @@ class NetHttpServer extends $io.IoCloser
   /// Go: `func (*http.Server).Serve(l net.Listener) error`.
   void serve($net.NetListener l) {
     $callSync(
-        26630,
+        26636,
         $W()
           ..h(this)
           ..h(l));
@@ -1411,7 +1411,7 @@ class NetHttpServer extends $io.IoCloser
   /// Go: `func (*http.Server).ServeTLS(l net.Listener, certFile string, keyFile string) error`.
   void serveTls($net.NetListener l, String certFile, String keyFile) {
     $callSync(
-        26631,
+        26637,
         $W()
           ..h(this)
           ..h(l)
@@ -1422,7 +1422,7 @@ class NetHttpServer extends $io.IoCloser
   /// Go: `func (*http.Server).SetKeepAlivesEnabled(v bool)`.
   void setKeepAlivesEnabled(bool v) {
     $callSync(
-        26632,
+        26638,
         $W()
           ..h(this)
           ..b(v));
@@ -1433,7 +1433,7 @@ class NetHttpServer extends $io.IoCloser
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> shutdown($context.Context ctx) async {
     await $call(
-        26633,
+        26639,
         $W()
           ..h(this)
           ..h(ctx));
@@ -1465,7 +1465,7 @@ class NetHttpTransport extends NetHttpRoundTripper
       "Use [Request.WithContext] to create a request with a cancelable context instead. CancelRequest cannot cancel HTTP/2 requests. This may become a no-op in a future release of Go.")
   void cancelRequest(NetHttpRequest req) {
     $callSync(
-        26638,
+        26644,
         $W()
           ..h(this)
           ..h(req));
@@ -1473,13 +1473,13 @@ class NetHttpTransport extends NetHttpRoundTripper
 
   /// Go: `func (*http.Transport).Clone() *http.Transport`.
   NetHttpTransport clone() {
-    final $r = $callSync(26639, $W()..h(this));
+    final $r = $callSync(26645, $W()..h(this));
     return $r.hnn(NetHttpTransport.$h);
   }
 
   /// Go: `func (*http.Transport).CloseIdleConnections()`.
   void closeIdleConnections() {
-    $callSync(26640, $W()..h(this));
+    $callSync(26646, $W()..h(this));
   }
 
   /// Go: `func (*http.Transport).NewClientConn(ctx context.Context, scheme string, address string) (*http.ClientConn, error)`.
@@ -1488,7 +1488,7 @@ class NetHttpTransport extends NetHttpRoundTripper
   Future<NetHttpClientConn> newClientConn(
       $context.Context ctx, String scheme, String address) async {
     final $r = await $call(
-        26641,
+        26647,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1500,7 +1500,7 @@ class NetHttpTransport extends NetHttpRoundTripper
   /// Go: `func (*http.Transport).RegisterProtocol(scheme string, rt http.RoundTripper)`.
   void registerProtocol(String scheme, NetHttpRoundTripper rt) {
     $callSync(
-        26642,
+        26648,
         $W()
           ..h(this)
           ..str(scheme)
@@ -1510,7 +1510,7 @@ class NetHttpTransport extends NetHttpRoundTripper
   /// Go: `func (*http.Transport).RoundTrip(req *http.Request) (*http.Response, error)`.
   NetHttpResponse roundTrip(NetHttpRequest req) {
     final $r = $callSync(
-        26643,
+        26649,
         $W()
           ..h(this)
           ..h(req));
@@ -1685,44 +1685,44 @@ class NetHttpProtocolError extends GolangException {
 extension GoNetHttpApi on GoNetHttp {
   /// Go: `func http.AllowQuerySemicolons(h http.Handler) http.Handler`.
   NetHttpHandler allowQuerySemicolons(NetHttpHandler h) {
-    final $r = $callSync(26509, $W()..h(h));
+    final $r = $callSync(26515, $W()..h(h));
     return $r.hnn(NetHttpHandler.$h);
   }
 
   /// Go: `func http.CanonicalHeaderKey(s string) string`.
   String canonicalHeaderKey(String s) {
-    final $r = $callSync(26510, $W()..str(s));
+    final $r = $callSync(26516, $W()..str(s));
     return $r.str();
   }
 
   /// Go: `var http.DefaultClient *http.Client`.
   NetHttpClient get defaultClient {
-    final $r = $callSync(26534);
+    final $r = $callSync(26540);
     return $r.p() ? NetHttpClient.$dec($r) : $nil();
   }
 
   /// Go: `var http.DefaultServeMux *http.ServeMux`.
   NetHttpServeMux get defaultServeMux {
-    final $r = $callSync(26535);
+    final $r = $callSync(26541);
     return $r.hnn(NetHttpServeMux.$h);
   }
 
   /// Go: `var http.DefaultTransport http.RoundTripper`.
   NetHttpRoundTripper get defaultTransport {
-    final $r = $callSync(26536);
+    final $r = $callSync(26542);
     return $r.hnn(NetHttpRoundTripper.$h);
   }
 
   /// Go: `func http.DetectContentType(data []byte) string`.
   String detectContentType(Uint8List data) {
-    final $r = $callSync(26537, $W()..bytes(data));
+    final $r = $callSync(26543, $W()..bytes(data));
     return $r.str();
   }
 
   /// Go: `func http.Error(w http.ResponseWriter, error string, code int)`.
   void error(NetHttpResponseWriter w, String error, int code) {
     $callSync(
-        26538,
+        26544,
         $W()
           ..h(w)
           ..str(error)
@@ -1731,32 +1731,32 @@ extension GoNetHttpApi on GoNetHttp {
 
   /// Go: `func http.FS(fsys fs.FS) http.FileSystem`.
   NetHttpFileSystem fs($fs.IoFs fsys) {
-    final $r = $callSync(26539, $W()..h(fsys));
+    final $r = $callSync(26545, $W()..h(fsys));
     return $r.hnn(NetHttpFileSystem.$h);
   }
 
   /// Go: `func http.FileServer(root http.FileSystem) http.Handler`.
   NetHttpHandler fileServer(NetHttpFileSystem root) {
-    final $r = $callSync(26542, $W()..h(root));
+    final $r = $callSync(26548, $W()..h(root));
     return $r.hnn(NetHttpHandler.$h);
   }
 
   /// Go: `func http.FileServerFS(root fs.FS) http.Handler`.
   NetHttpHandler fileServerFs($fs.IoFs root) {
-    final $r = $callSync(26543, $W()..h(root));
+    final $r = $callSync(26549, $W()..h(root));
     return $r.hnn(NetHttpHandler.$h);
   }
 
   /// Go: `func http.Get(url string) (resp *http.Response, err error)`.
   NetHttpResponse get(String url) {
-    final $r = $callSync(26546, $W()..str(url));
+    final $r = $callSync(26552, $W()..str(url));
     return $r.p() ? NetHttpResponse.$dec($r) : $nil();
   }
 
   /// Go: `func http.Handle(pattern string, handler http.Handler)`.
   void handle(String pattern, NetHttpHandler handler) {
     $callSync(
-        26547,
+        26553,
         $W()
           ..str(pattern)
           ..h(handler));
@@ -1775,7 +1775,7 @@ extension GoNetHttpApi on GoNetHttp {
               NetHttpResponseWriter responseWriter, NetHttpRequest request)
           handler) async {
     await $call(
-        26548,
+        26554,
         $W()
           ..str(pattern)
           ..cb(
@@ -1786,14 +1786,14 @@ extension GoNetHttpApi on GoNetHttp {
 
   /// Go: `func http.Head(url string) (resp *http.Response, err error)`.
   NetHttpResponse head(String url) {
-    final $r = $callSync(26551, $W()..str(url));
+    final $r = $callSync(26557, $W()..str(url));
     return $r.p() ? NetHttpResponse.$dec($r) : $nil();
   }
 
   /// Go: `func http.ListenAndServe(addr string, handler http.Handler) error`.
   void listenAndServe(String addr, NetHttpHandler handler) {
     $callSync(
-        26553,
+        26559,
         $W()
           ..str(addr)
           ..h(handler));
@@ -1803,7 +1803,7 @@ extension GoNetHttpApi on GoNetHttp {
   void listenAndServeTls(
       String addr, String certFile, String keyFile, NetHttpHandler handler) {
     $callSync(
-        26554,
+        26560,
         $W()
           ..str(addr)
           ..str(certFile)
@@ -1814,7 +1814,7 @@ extension GoNetHttpApi on GoNetHttp {
   /// Go: `func http.MaxBytesHandler(h http.Handler, n int64) http.Handler`.
   NetHttpHandler maxBytesHandler(NetHttpHandler h, int n) {
     final $r = $callSync(
-        26555,
+        26561,
         $W()
           ..h(h)
           ..i64(n));
@@ -1824,7 +1824,7 @@ extension GoNetHttpApi on GoNetHttp {
   /// Go: `func http.MaxBytesReader(w http.ResponseWriter, r io.ReadCloser, n int64) io.ReadCloser`.
   $io.IoReadCloser maxBytesReader(NetHttpResponseWriter w, Object r, int n) {
     final $r = $callSync(
-        26556,
+        26562,
         $W()
           ..h(w)
           ..reader(r)
@@ -1834,13 +1834,13 @@ extension GoNetHttpApi on GoNetHttp {
 
   /// Go: `func http.NewFileTransport(fs http.FileSystem) http.RoundTripper`.
   NetHttpRoundTripper newFileTransport(NetHttpFileSystem fs) {
-    final $r = $callSync(26558, $W()..h(fs));
+    final $r = $callSync(26564, $W()..h(fs));
     return $r.hnn(NetHttpRoundTripper.$h);
   }
 
   /// Go: `func http.NewFileTransportFS(fsys fs.FS) http.RoundTripper`.
   NetHttpRoundTripper newFileTransportFs($fs.IoFs fsys) {
-    final $r = $callSync(26559, $W()..h(fsys));
+    final $r = $callSync(26565, $W()..h(fsys));
     return $r.hnn(NetHttpRoundTripper.$h);
   }
 
@@ -1850,7 +1850,7 @@ extension GoNetHttpApi on GoNetHttp {
   Future<NetHttpRequest> newRequestWithContext(
       $context.Context ctx, String method, String url, Object body) async {
     final $r = await $call(
-        26561,
+        26567,
         $W()
           ..h(ctx)
           ..str(method)
@@ -1862,7 +1862,7 @@ extension GoNetHttpApi on GoNetHttp {
   /// Go: `func http.NotFound(w http.ResponseWriter, r *http.Request)`.
   void notFound(NetHttpResponseWriter w, NetHttpRequest r) {
     $callSync(
-        26564,
+        26570,
         $W()
           ..h(w)
           ..h(r));
@@ -1870,38 +1870,38 @@ extension GoNetHttpApi on GoNetHttp {
 
   /// Go: `func http.NotFoundHandler() http.Handler`.
   NetHttpHandler notFoundHandler() {
-    final $r = $callSync(26565);
+    final $r = $callSync(26571);
     return $r.hnn(NetHttpHandler.$h);
   }
 
   /// Go: `func http.ParseCookie(line string) ([]*http.Cookie, error)`.
   List<NetHttpCookie> parseCookie(String line) {
-    final $r = $callSync(26566, $W()..str(line));
+    final $r = $callSync(26572, $W()..str(line));
     return $r.list(() => $r.p() ? NetHttpCookie.$dec($r) : $nil());
   }
 
   /// Go: `func http.ParseHTTPVersion(vers string) (major int, minor int, ok bool)`.
   (int, int, bool) parseHttpVersion(String vers) {
-    final $r = $callSync(26567, $W()..str(vers));
+    final $r = $callSync(26573, $W()..str(vers));
     return ($r.i64(), $r.i64(), $r.b());
   }
 
   /// Go: `func http.ParseSetCookie(line string) (*http.Cookie, error)`.
   NetHttpCookie parseSetCookie(String line) {
-    final $r = $callSync(26568, $W()..str(line));
+    final $r = $callSync(26574, $W()..str(line));
     return $r.p() ? NetHttpCookie.$dec($r) : $nil();
   }
 
   /// Go: `func http.ParseTime(text string) (t time.Time, err error)`.
   DateTime parseTime(String text) {
-    final $r = $callSync(26569, $W()..str(text));
+    final $r = $callSync(26575, $W()..str(text));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func http.Post(url string, contentType string, body io.Reader) (resp *http.Response, err error)`.
   NetHttpResponse post(String url, String contentType, Object body) {
     final $r = $callSync(
-        26570,
+        26576,
         $W()
           ..str(url)
           ..str(contentType)
@@ -1911,20 +1911,20 @@ extension GoNetHttpApi on GoNetHttp {
 
   /// Go: `func http.ProxyFromEnvironment(req *http.Request) (*url.URL, error)`.
   $url.NetUrl proxyFromEnvironment(NetHttpRequest req) {
-    final $r = $callSync(26578, $W()..h(req));
+    final $r = $callSync(26584, $W()..h(req));
     return $r.p() ? $url.NetUrl.$dec($r) : $nil();
   }
 
   /// Go: `func http.ReadRequest(b *bufio.Reader) (*http.Request, error)`.
   NetHttpRequest readRequest($bufio.BufioReader b) {
-    final $r = $callSync(26580, $W()..h(b));
+    final $r = $callSync(26586, $W()..h(b));
     return $r.hnn(NetHttpRequest.$h);
   }
 
   /// Go: `func http.ReadResponse(r *bufio.Reader, req *http.Request) (*http.Response, error)`.
   NetHttpResponse readResponse($bufio.BufioReader r, NetHttpRequest req) {
     final $r = $callSync(
-        26581,
+        26587,
         $W()
           ..h(r)
           ..h(req));
@@ -1935,7 +1935,7 @@ extension GoNetHttpApi on GoNetHttp {
   void redirect(
       NetHttpResponseWriter w, NetHttpRequest r, String url, int code) {
     $callSync(
-        26582,
+        26588,
         $W()
           ..h(w)
           ..h(r)
@@ -1946,7 +1946,7 @@ extension GoNetHttpApi on GoNetHttp {
   /// Go: `func http.RedirectHandler(url string, code int) http.Handler`.
   NetHttpHandler redirectHandler(String url, int code) {
     final $r = $callSync(
-        26583,
+        26589,
         $W()
           ..str(url)
           ..i64(code));
@@ -1956,7 +1956,7 @@ extension GoNetHttpApi on GoNetHttp {
   /// Go: `func http.Serve(l net.Listener, handler http.Handler) error`.
   void serve($net.NetListener l, NetHttpHandler handler) {
     $callSync(
-        26617,
+        26623,
         $W()
           ..h(l)
           ..h(handler));
@@ -1966,7 +1966,7 @@ extension GoNetHttpApi on GoNetHttp {
   void serveContent(NetHttpResponseWriter w, NetHttpRequest req, String name,
       DateTime modtime, Object content) {
     $callSync(
-        26618,
+        26624,
         $W()
           ..h(w)
           ..h(req)
@@ -1978,7 +1978,7 @@ extension GoNetHttpApi on GoNetHttp {
   /// Go: `func http.ServeFile(w http.ResponseWriter, r *http.Request, name string)`.
   void serveFile(NetHttpResponseWriter w, NetHttpRequest r, String name) {
     $callSync(
-        26619,
+        26625,
         $W()
           ..h(w)
           ..h(r)
@@ -1989,7 +1989,7 @@ extension GoNetHttpApi on GoNetHttp {
   void serveFileFs(
       NetHttpResponseWriter w, NetHttpRequest r, $fs.IoFs fsys, String name) {
     $callSync(
-        26620,
+        26626,
         $W()
           ..h(w)
           ..h(r)
@@ -2001,7 +2001,7 @@ extension GoNetHttpApi on GoNetHttp {
   void serveTls($net.NetListener l, NetHttpHandler handler, String certFile,
       String keyFile) {
     $callSync(
-        26625,
+        26631,
         $W()
           ..h(l)
           ..h(handler)
@@ -2012,7 +2012,7 @@ extension GoNetHttpApi on GoNetHttp {
   /// Go: `func http.SetCookie(w http.ResponseWriter, cookie *http.Cookie)`.
   void setCookie(NetHttpResponseWriter w, NetHttpCookie cookie) {
     $callSync(
-        26634,
+        26640,
         $W()
           ..h(w)
           ..dto(cookie));
@@ -2020,14 +2020,14 @@ extension GoNetHttpApi on GoNetHttp {
 
   /// Go: `func http.StatusText(code int) string`.
   String statusText(int code) {
-    final $r = $callSync(26635, $W()..i64(code));
+    final $r = $callSync(26641, $W()..i64(code));
     return $r.str();
   }
 
   /// Go: `func http.StripPrefix(prefix string, h http.Handler) http.Handler`.
   NetHttpHandler stripPrefix(String prefix, NetHttpHandler h) {
     final $r = $callSync(
-        26636,
+        26642,
         $W()
           ..str(prefix)
           ..h(h));
@@ -2037,7 +2037,7 @@ extension GoNetHttpApi on GoNetHttp {
   /// Go: `func http.TimeoutHandler(h http.Handler, dt time.Duration, msg string) http.Handler`.
   NetHttpHandler timeoutHandler(NetHttpHandler h, Duration dt, String msg) {
     final $r = $callSync(
-        26637,
+        26643,
         $W()
           ..h(h)
           ..i64((dt).inMicroseconds * 1000)

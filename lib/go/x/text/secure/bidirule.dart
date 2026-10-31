@@ -36,13 +36,13 @@ class TextSecureBidiruleTransformer
 
   /// Go: `func (*bidirule.Transformer).Reset()`.
   void reset() {
-    $callSync(24001, $W()..h(this));
+    $callSync(24007, $W()..h(this));
   }
 
   /// Go: `func (*bidirule.Transformer).Span(src []byte, atEOF bool) (n int, err error)`.
   int span(Uint8List src, bool atEof) {
     final $r = $callSync(
-        24002,
+        24008,
         $W()
           ..h(this)
           ..bytes(src)
@@ -53,7 +53,7 @@ class TextSecureBidiruleTransformer
   /// Go: `func (*bidirule.Transformer).Transform(dst []byte, src []byte, atEOF bool) (nDst int, nSrc int, err error)`.
   (int, int) transform(Uint8List dst, Uint8List src, bool atEof) {
     final $r = $callSync(
-        24003,
+        24009,
         $W()
           ..h(this)
           ..bytes(dst)
@@ -76,31 +76,31 @@ class TextSecureBidiruleErrInvalid extends GolangException {
 extension GoXTextSecureBidiruleApi on GoXTextSecureBidirule {
   /// Go: `func bidirule.Direction(b []byte) bidi.Direction`.
   int direction(Uint8List b) {
-    final $r = $callSync(23998, $W()..bytes(b));
+    final $r = $callSync(24004, $W()..bytes(b));
     return $r.i64();
   }
 
   /// Go: `func bidirule.DirectionString(s string) bidi.Direction`.
   int directionString(String s) {
-    final $r = $callSync(23999, $W()..str(s));
+    final $r = $callSync(24005, $W()..str(s));
     return $r.i64();
   }
 
   /// Go: `func bidirule.New() *bidirule.Transformer`.
   TextSecureBidiruleTransformer new$() {
-    final $r = $callSync(24000);
+    final $r = $callSync(24006);
     return $r.hnn(TextSecureBidiruleTransformer.$h);
   }
 
   /// Go: `func bidirule.Valid(b []byte) bool`.
   bool valid(Uint8List b) {
-    final $r = $callSync(24004, $W()..bytes(b));
+    final $r = $callSync(24010, $W()..bytes(b));
     return $r.b();
   }
 
   /// Go: `func bidirule.ValidString(s string) bool`.
   bool validString(String s) {
-    final $r = $callSync(24005, $W()..str(s));
+    final $r = $callSync(24011, $W()..str(s));
     return $r.b();
   }
 }

@@ -21,13 +21,13 @@ class CryptoDesKeySizeError extends GolangException {
 extension GoCryptoDesApi on GoCryptoDes {
   /// Go: `func des.NewCipher(key []byte) (cipher.Block, error)`.
   $cipher.CryptoCipherBlock newCipher(Uint8List key) {
-    final $r = $callSync(3157, $W()..bytes(key));
+    final $r = $callSync(3166, $W()..bytes(key));
     return $r.hnn($cipher.CryptoCipherBlock.$h);
   }
 
   /// Go: `func des.NewTripleDESCipher(key []byte) (cipher.Block, error)`.
   $cipher.CryptoCipherBlock newTripleDesCipher(Uint8List key) {
-    final $r = $callSync(3158, $W()..bytes(key));
+    final $r = $callSync(3167, $W()..bytes(key));
     return $r.hnn($cipher.CryptoCipherBlock.$h);
   }
 }

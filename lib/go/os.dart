@@ -62,18 +62,18 @@ class OsFile extends $http.NetHttpFile
 
   /// Go: `func (*os.File).Close() error`.
   void close() {
-    $callSync(26834, $W()..h(this));
+    $callSync(26840, $W()..h(this));
   }
 
   /// Go: `func (*os.File).Chdir() error`.
   void chdir() {
-    $callSync(26831, $W()..h(this));
+    $callSync(26837, $W()..h(this));
   }
 
   /// Go: `func (*os.File).Chmod(mode os.FileMode) error`.
   void chmod(int mode) {
     $callSync(
-        26832,
+        26838,
         $W()
           ..h(this)
           ..i64(mode));
@@ -82,7 +82,7 @@ class OsFile extends $http.NetHttpFile
   /// Go: `func (*os.File).Chown(uid int, gid int) error`.
   void chown(int uid, int gid) {
     $callSync(
-        26833,
+        26839,
         $W()
           ..h(this)
           ..i64(uid)
@@ -91,14 +91,14 @@ class OsFile extends $http.NetHttpFile
 
   /// Go: `func (*os.File).Name() string`.
   String name() {
-    final $r = $callSync(26835, $W()..h(this));
+    final $r = $callSync(26841, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*os.File).Read(b []byte) (n int, err error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        26836,
+        26842,
         $W()
           ..h(this)
           ..i64(n));
@@ -108,7 +108,7 @@ class OsFile extends $http.NetHttpFile
   /// Go: `func (*os.File).ReadAt(b []byte, off int64) (n int, err error)`.
   Uint8List readAt(int n, int off) {
     final $r = $callSync(
-        26837,
+        26843,
         $W()
           ..h(this)
           ..i64(n)
@@ -119,7 +119,7 @@ class OsFile extends $http.NetHttpFile
   /// Go: `func (*os.File).ReadDir(n int) ([]os.DirEntry, error)`.
   List<$fs.IoFsDirEntry> readDir(int n) {
     final $r = $callSync(
-        26838,
+        26844,
         $W()
           ..h(this)
           ..i64(n));
@@ -129,7 +129,7 @@ class OsFile extends $http.NetHttpFile
   /// Go: `func (*os.File).ReadFrom(r io.Reader) (n int64, err error)`.
   int readFrom(Object r) {
     final $r = $callSync(
-        26839,
+        26845,
         $W()
           ..h(this)
           ..reader(r));
@@ -139,7 +139,7 @@ class OsFile extends $http.NetHttpFile
   /// Go: `func (*os.File).Readdir(n int) ([]os.FileInfo, error)`.
   List<$fs.IoFsFileInfo> readdir(int n) {
     final $r = $callSync(
-        26840,
+        26846,
         $W()
           ..h(this)
           ..i64(n));
@@ -149,7 +149,7 @@ class OsFile extends $http.NetHttpFile
   /// Go: `func (*os.File).Readdirnames(n int) (names []string, err error)`.
   List<String> readdirnames(int n) {
     final $r = $callSync(
-        26841,
+        26847,
         $W()
           ..h(this)
           ..i64(n));
@@ -159,7 +159,7 @@ class OsFile extends $http.NetHttpFile
   /// Go: `func (*os.File).Seek(offset int64, whence int) (ret int64, err error)`.
   int seek(int offset, int whence) {
     final $r = $callSync(
-        26842,
+        26848,
         $W()
           ..h(this)
           ..i64(offset)
@@ -170,7 +170,7 @@ class OsFile extends $http.NetHttpFile
   /// Go: `func (*os.File).SetDeadline(t time.Time) error`.
   void setDeadline(DateTime t) {
     $callSync(
-        26843,
+        26849,
         $W()
           ..h(this)
           ..time(t));
@@ -179,7 +179,7 @@ class OsFile extends $http.NetHttpFile
   /// Go: `func (*os.File).SetReadDeadline(t time.Time) error`.
   void setReadDeadline(DateTime t) {
     $callSync(
-        26844,
+        26850,
         $W()
           ..h(this)
           ..time(t));
@@ -188,7 +188,7 @@ class OsFile extends $http.NetHttpFile
   /// Go: `func (*os.File).SetWriteDeadline(t time.Time) error`.
   void setWriteDeadline(DateTime t) {
     $callSync(
-        26845,
+        26851,
         $W()
           ..h(this)
           ..time(t));
@@ -196,25 +196,25 @@ class OsFile extends $http.NetHttpFile
 
   /// Go: `func (*os.File).Stat() (os.FileInfo, error)`.
   $fs.IoFsFileInfo stat() {
-    final $r = $callSync(26846, $W()..h(this));
+    final $r = $callSync(26852, $W()..h(this));
     return $r.hnn($fs.IoFsFileInfo.$h);
   }
 
   /// Go: `func (*os.File).Sync() error`.
   void sync() {
-    $callSync(26847, $W()..h(this));
+    $callSync(26853, $W()..h(this));
   }
 
   /// Go: `func (*os.File).SyscallConn() (syscall.RawConn, error)`.
   $syscall.SyscallRawConn syscallConn() {
-    final $r = $callSync(26848, $W()..h(this));
+    final $r = $callSync(26854, $W()..h(this));
     return $r.hnn($syscall.SyscallRawConn.$h);
   }
 
   /// Go: `func (*os.File).Truncate(size int64) error`.
   void truncate(int size) {
     $callSync(
-        26849,
+        26855,
         $W()
           ..h(this)
           ..i64(size));
@@ -223,7 +223,7 @@ class OsFile extends $http.NetHttpFile
   /// Go: `func (*os.File).Write(b []byte) (n int, err error)`.
   int write(Uint8List b) {
     final $r = $callSync(
-        26850,
+        26856,
         $W()
           ..h(this)
           ..bytes(b));
@@ -233,7 +233,7 @@ class OsFile extends $http.NetHttpFile
   /// Go: `func (*os.File).WriteAt(b []byte, off int64) (n int, err error)`.
   int writeAt(Uint8List b, int off) {
     final $r = $callSync(
-        26851,
+        26857,
         $W()
           ..h(this)
           ..bytes(b)
@@ -244,7 +244,7 @@ class OsFile extends $http.NetHttpFile
   /// Go: `func (*os.File).WriteString(s string) (n int, err error)`.
   int writeString(String s) {
     final $r = $callSync(
-        26852,
+        26858,
         $W()
           ..h(this)
           ..str(s));
@@ -254,7 +254,7 @@ class OsFile extends $http.NetHttpFile
   /// Go: `func (*os.File).WriteTo(w io.Writer) (n int64, err error)`.
   int writeTo(GoHandle? w) {
     final $r = $callSync(
-        26853,
+        26859,
         $W()
           ..h(this)
           ..h(w));
@@ -314,18 +314,18 @@ class OsProcess extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*os.Process).Kill() error`.
   void kill() {
-    $callSync(26884, $W()..h(this));
+    $callSync(26890, $W()..h(this));
   }
 
   /// Go: `func (*os.Process).Release() error`.
   void release$() {
-    $callSync(26885, $W()..h(this));
+    $callSync(26891, $W()..h(this));
   }
 
   /// Go: `func (*os.Process).Signal(sig os.Signal) error`.
   void signal(OsSignal sig) {
     $callSync(
-        26886,
+        26892,
         $W()
           ..h(this)
           ..h(sig));
@@ -333,7 +333,7 @@ class OsProcess extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*os.Process).Wait() (*os.ProcessState, error)`.
   OsProcessState wait() {
-    final $r = $callSync(26887, $W()..h(this));
+    final $r = $callSync(26893, $W()..h(this));
     return $r.hnn(OsProcessState.$h);
   }
 }
@@ -358,55 +358,55 @@ class OsProcessState extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*os.ProcessState).ExitCode() int`.
   int exitCode() {
-    final $r = $callSync(26888, $W()..h(this));
+    final $r = $callSync(26894, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*os.ProcessState).Exited() bool`.
   bool exited() {
-    final $r = $callSync(26889, $W()..h(this));
+    final $r = $callSync(26895, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*os.ProcessState).Pid() int`.
   int pid() {
-    final $r = $callSync(26890, $W()..h(this));
+    final $r = $callSync(26896, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*os.ProcessState).String() string`.
   String string() {
-    final $r = $callSync(26891, $W()..h(this));
+    final $r = $callSync(26897, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*os.ProcessState).Success() bool`.
   bool success() {
-    final $r = $callSync(26892, $W()..h(this));
+    final $r = $callSync(26898, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*os.ProcessState).Sys() any`.
   Object? sys() {
-    final $r = $callSync(26893, $W()..h(this));
+    final $r = $callSync(26899, $W()..h(this));
     return $r.any();
   }
 
   /// Go: `func (*os.ProcessState).SysUsage() any`.
   Object? sysUsage() {
-    final $r = $callSync(26894, $W()..h(this));
+    final $r = $callSync(26900, $W()..h(this));
     return $r.any();
   }
 
   /// Go: `func (*os.ProcessState).SystemTime() time.Duration`.
   Duration systemTime() {
-    final $r = $callSync(26895, $W()..h(this));
+    final $r = $callSync(26901, $W()..h(this));
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `func (*os.ProcessState).UserTime() time.Duration`.
   Duration userTime() {
-    final $r = $callSync(26896, $W()..h(this));
+    final $r = $callSync(26902, $W()..h(this));
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 }
@@ -436,7 +436,7 @@ class OsRoot extends $io.IoCloser
   /// Go: `func (*os.Root).Chmod(name string, mode os.FileMode) error`.
   void chmod(String name, int mode) {
     $callSync(
-        26903,
+        26909,
         $W()
           ..h(this)
           ..str(name)
@@ -446,7 +446,7 @@ class OsRoot extends $io.IoCloser
   /// Go: `func (*os.Root).Chown(name string, uid int, gid int) error`.
   void chown(String name, int uid, int gid) {
     $callSync(
-        26904,
+        26910,
         $W()
           ..h(this)
           ..str(name)
@@ -457,7 +457,7 @@ class OsRoot extends $io.IoCloser
   /// Go: `func (*os.Root).Chtimes(name string, atime time.Time, mtime time.Time) error`.
   void chtimes(String name, DateTime atime, DateTime mtime) {
     $callSync(
-        26905,
+        26911,
         $W()
           ..h(this)
           ..str(name)
@@ -467,13 +467,13 @@ class OsRoot extends $io.IoCloser
 
   /// Go: `func (*os.Root).Close() error`.
   void close() {
-    $callSync(26906, $W()..h(this));
+    $callSync(26912, $W()..h(this));
   }
 
   /// Go: `func (*os.Root).Create(name string) (*os.File, error)`.
   OsFile create(String name) {
     final $r = $callSync(
-        26907,
+        26913,
         $W()
           ..h(this)
           ..str(name));
@@ -482,14 +482,14 @@ class OsRoot extends $io.IoCloser
 
   /// Go: `func (*os.Root).FS() fs.FS`.
   $fs.IoFs fs() {
-    final $r = $callSync(26908, $W()..h(this));
+    final $r = $callSync(26914, $W()..h(this));
     return $r.hnn($fs.IoFs.$h);
   }
 
   /// Go: `func (*os.Root).Lchown(name string, uid int, gid int) error`.
   void lchown(String name, int uid, int gid) {
     $callSync(
-        26909,
+        26915,
         $W()
           ..h(this)
           ..str(name)
@@ -500,7 +500,7 @@ class OsRoot extends $io.IoCloser
   /// Go: `func (*os.Root).Link(oldname string, newname string) error`.
   void link(String oldname, String newname) {
     $callSync(
-        26910,
+        26916,
         $W()
           ..h(this)
           ..str(oldname)
@@ -510,7 +510,7 @@ class OsRoot extends $io.IoCloser
   /// Go: `func (*os.Root).Lstat(name string) (os.FileInfo, error)`.
   $fs.IoFsFileInfo lstat(String name) {
     final $r = $callSync(
-        26911,
+        26917,
         $W()
           ..h(this)
           ..str(name));
@@ -520,7 +520,7 @@ class OsRoot extends $io.IoCloser
   /// Go: `func (*os.Root).Mkdir(name string, perm os.FileMode) error`.
   void mkdir(String name, int perm) {
     $callSync(
-        26912,
+        26918,
         $W()
           ..h(this)
           ..str(name)
@@ -530,7 +530,7 @@ class OsRoot extends $io.IoCloser
   /// Go: `func (*os.Root).MkdirAll(name string, perm os.FileMode) error`.
   void mkdirAll(String name, int perm) {
     $callSync(
-        26913,
+        26919,
         $W()
           ..h(this)
           ..str(name)
@@ -539,14 +539,14 @@ class OsRoot extends $io.IoCloser
 
   /// Go: `func (*os.Root).Name() string`.
   String name() {
-    final $r = $callSync(26914, $W()..h(this));
+    final $r = $callSync(26920, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*os.Root).Open(name string) (*os.File, error)`.
   OsFile open(String name) {
     final $r = $callSync(
-        26915,
+        26921,
         $W()
           ..h(this)
           ..str(name));
@@ -556,7 +556,7 @@ class OsRoot extends $io.IoCloser
   /// Go: `func (*os.Root).OpenFile(name string, flag int, perm os.FileMode) (*os.File, error)`.
   OsFile openFile(String name, int flag, int perm) {
     final $r = $callSync(
-        26916,
+        26922,
         $W()
           ..h(this)
           ..str(name)
@@ -568,7 +568,7 @@ class OsRoot extends $io.IoCloser
   /// Go: `func (*os.Root).OpenRoot(name string) (*os.Root, error)`.
   OsRoot openRoot(String name) {
     final $r = $callSync(
-        26917,
+        26923,
         $W()
           ..h(this)
           ..str(name));
@@ -578,7 +578,7 @@ class OsRoot extends $io.IoCloser
   /// Go: `func (*os.Root).ReadFile(name string) ([]byte, error)`.
   Uint8List readFile(String name) {
     final $r = $callSync(
-        26918,
+        26924,
         $W()
           ..h(this)
           ..str(name));
@@ -588,7 +588,7 @@ class OsRoot extends $io.IoCloser
   /// Go: `func (*os.Root).Readlink(name string) (string, error)`.
   String readlink(String name) {
     final $r = $callSync(
-        26919,
+        26925,
         $W()
           ..h(this)
           ..str(name));
@@ -598,7 +598,7 @@ class OsRoot extends $io.IoCloser
   /// Go: `func (*os.Root).Remove(name string) error`.
   void remove(String name) {
     $callSync(
-        26920,
+        26926,
         $W()
           ..h(this)
           ..str(name));
@@ -607,7 +607,7 @@ class OsRoot extends $io.IoCloser
   /// Go: `func (*os.Root).RemoveAll(name string) error`.
   void removeAll(String name) {
     $callSync(
-        26921,
+        26927,
         $W()
           ..h(this)
           ..str(name));
@@ -616,7 +616,7 @@ class OsRoot extends $io.IoCloser
   /// Go: `func (*os.Root).Rename(oldname string, newname string) error`.
   void rename(String oldname, String newname) {
     $callSync(
-        26922,
+        26928,
         $W()
           ..h(this)
           ..str(oldname)
@@ -626,7 +626,7 @@ class OsRoot extends $io.IoCloser
   /// Go: `func (*os.Root).Stat(name string) (os.FileInfo, error)`.
   $fs.IoFsFileInfo stat(String name) {
     final $r = $callSync(
-        26923,
+        26929,
         $W()
           ..h(this)
           ..str(name));
@@ -636,7 +636,7 @@ class OsRoot extends $io.IoCloser
   /// Go: `func (*os.Root).Symlink(oldname string, newname string) error`.
   void symlink(String oldname, String newname) {
     $callSync(
-        26924,
+        26930,
         $W()
           ..h(this)
           ..str(oldname)
@@ -646,7 +646,7 @@ class OsRoot extends $io.IoCloser
   /// Go: `func (*os.Root).WriteFile(name string, data []byte, perm os.FileMode) error`.
   void writeFile(String name, Uint8List data, int perm) {
     $callSync(
-        26925,
+        26931,
         $W()
           ..h(this)
           ..str(name)
@@ -664,12 +664,12 @@ class OsSignal extends GoHandle with OsSignal$ {
 mixin OsSignal$ on GoHandle {
   /// Go: `func (os.Signal).Signal()`.
   void signal() {
-    $callSync(26928, $W()..h(this));
+    $callSync(26934, $W()..h(this));
   }
 
   /// Go: `func (os.Signal).String() string`.
   String string() {
-    final $r = $callSync(26929, $W()..h(this));
+    final $r = $callSync(26935, $W()..h(this));
     return $r.str();
   }
 }
@@ -795,26 +795,26 @@ class OsSyscallError extends GolangException {
 extension GoOsApi on GoOs {
   /// Go: `func os.Stat(name string) (os.FileInfo, error)`.
   $fs.IoFsFileInfo stat(String name) {
-    final $r = $callSync(26931, $W()..str(name));
+    final $r = $callSync(26937, $W()..str(name));
     return $r.hnn($fs.IoFsFileInfo.$h);
   }
 
   /// Go: `func os.Create(name string) (*os.File, error)`.
   OsFile create(String name) {
-    final $r = $callSync(26822, $W()..str(name));
+    final $r = $callSync(26828, $W()..str(name));
     return $r.hnn(OsFile.$h);
   }
 
   /// Go: `func os.Open(name string) (*os.File, error)`.
   OsFile open(String name) {
-    final $r = $callSync(26877, $W()..str(name));
+    final $r = $callSync(26883, $W()..str(name));
     return $r.hnn(OsFile.$h);
   }
 
   /// Go: `func os.OpenFile(name string, flag int, perm os.FileMode) (*os.File, error)`.
   OsFile openFile(String name, int flag, int perm) {
     final $r = $callSync(
-        26878,
+        26884,
         $W()
           ..str(name)
           ..i64(flag)
@@ -824,19 +824,19 @@ extension GoOsApi on GoOs {
 
   /// Go: `var os.Args []string`.
   List<String> get args {
-    final $r = $callSync(26815);
+    final $r = $callSync(26821);
     return $r.list(() => $r.str());
   }
 
   /// Go: `func os.Chdir(dir string) error`.
   void chdir(String dir) {
-    $callSync(26816, $W()..str(dir));
+    $callSync(26822, $W()..str(dir));
   }
 
   /// Go: `func os.Chmod(name string, mode os.FileMode) error`.
   void chmod(String name, int mode) {
     $callSync(
-        26817,
+        26823,
         $W()
           ..str(name)
           ..i64(mode));
@@ -845,7 +845,7 @@ extension GoOsApi on GoOs {
   /// Go: `func os.Chown(name string, uid int, gid int) error`.
   void chown(String name, int uid, int gid) {
     $callSync(
-        26818,
+        26824,
         $W()
           ..str(name)
           ..i64(uid)
@@ -855,7 +855,7 @@ extension GoOsApi on GoOs {
   /// Go: `func os.Chtimes(name string, atime time.Time, mtime time.Time) error`.
   void chtimes(String name, DateTime atime, DateTime mtime) {
     $callSync(
-        26819,
+        26825,
         $W()
           ..str(name)
           ..time(atime)
@@ -864,13 +864,13 @@ extension GoOsApi on GoOs {
 
   /// Go: `func os.Clearenv()`.
   void clearenv() {
-    $callSync(26820);
+    $callSync(26826);
   }
 
   /// Go: `func os.CopyFS(dir string, fsys fs.FS) error`.
   void copyFs(String dir, $fs.IoFs fsys) {
     $callSync(
-        26821,
+        26827,
         $W()
           ..str(dir)
           ..h(fsys));
@@ -879,7 +879,7 @@ extension GoOsApi on GoOs {
   /// Go: `func os.CreateTemp(dir string, pattern string) (*os.File, error)`.
   OsFile createTemp(String dir, String pattern) {
     final $r = $callSync(
-        26823,
+        26829,
         $W()
           ..str(dir)
           ..str(pattern));
@@ -888,25 +888,25 @@ extension GoOsApi on GoOs {
 
   /// Go: `func os.DirFS(dir string) fs.FS`.
   $fs.IoFs dirFs(String dir) {
-    final $r = $callSync(26825, $W()..str(dir));
+    final $r = $callSync(26831, $W()..str(dir));
     return $r.hnn($fs.IoFs.$h);
   }
 
   /// Go: `func os.Environ() []string`.
   List<String> environ() {
-    final $r = $callSync(26826);
+    final $r = $callSync(26832);
     return $r.list(() => $r.str());
   }
 
   /// Go: `func os.Executable() (string, error)`.
   String executable() {
-    final $r = $callSync(26827);
+    final $r = $callSync(26833);
     return $r.str();
   }
 
   /// Go: `func os.Exit(code int)`.
   void exit(int code) {
-    $callSync(26828, $W()..i64(code));
+    $callSync(26834, $W()..i64(code));
   }
 
   /// Go: `func os.Expand(s string, mapping func(string) string) string`.
@@ -919,7 +919,7 @@ extension GoOsApi on GoOs {
   Future<String> expand(
       String s, FutureOr<String> Function(String arg0) mapping) async {
     final $r = await $call(
-        26829,
+        26835,
         $W()
           ..str(s)
           ..cb((r) => mapping(r.str()), true, (w, v) => w.str(v as String)));
@@ -928,104 +928,104 @@ extension GoOsApi on GoOs {
 
   /// Go: `func os.ExpandEnv(s string) string`.
   String expandEnv(String s) {
-    final $r = $callSync(26830, $W()..str(s));
+    final $r = $callSync(26836, $W()..str(s));
     return $r.str();
   }
 
   /// Go: `func os.FindProcess(pid int) (*os.Process, error)`.
   OsProcess findProcess(int pid) {
-    final $r = $callSync(26854, $W()..i64(pid));
+    final $r = $callSync(26860, $W()..i64(pid));
     return $r.hnn(OsProcess.$h);
   }
 
   /// Go: `func os.Getegid() int`.
   int getegid() {
-    final $r = $callSync(26855);
+    final $r = $callSync(26861);
     return $r.i64();
   }
 
   /// Go: `func os.Getenv(key string) string`.
   String getenv(String key) {
-    final $r = $callSync(26856, $W()..str(key));
+    final $r = $callSync(26862, $W()..str(key));
     return $r.str();
   }
 
   /// Go: `func os.Geteuid() int`.
   int geteuid() {
-    final $r = $callSync(26857);
+    final $r = $callSync(26863);
     return $r.i64();
   }
 
   /// Go: `func os.Getgid() int`.
   int getgid() {
-    final $r = $callSync(26858);
+    final $r = $callSync(26864);
     return $r.i64();
   }
 
   /// Go: `func os.Getgroups() ([]int, error)`.
   List<int> getgroups() {
-    final $r = $callSync(26859);
+    final $r = $callSync(26865);
     return $r.list(() => $r.i64());
   }
 
   /// Go: `func os.Getpagesize() int`.
   int getpagesize() {
-    final $r = $callSync(26860);
+    final $r = $callSync(26866);
     return $r.i64();
   }
 
   /// Go: `func os.Getpid() int`.
   int getpid() {
-    final $r = $callSync(26861);
+    final $r = $callSync(26867);
     return $r.i64();
   }
 
   /// Go: `func os.Getppid() int`.
   int getppid() {
-    final $r = $callSync(26862);
+    final $r = $callSync(26868);
     return $r.i64();
   }
 
   /// Go: `func os.Getuid() int`.
   int getuid() {
-    final $r = $callSync(26863);
+    final $r = $callSync(26869);
     return $r.i64();
   }
 
   /// Go: `func os.Getwd() (dir string, err error)`.
   String getwd() {
-    final $r = $callSync(26864);
+    final $r = $callSync(26870);
     return $r.str();
   }
 
   /// Go: `func os.Hostname() (name string, err error)`.
   String hostname() {
-    final $r = $callSync(26865);
+    final $r = $callSync(26871);
     return $r.str();
   }
 
   /// Go: `var os.Interrupt os.Signal`.
   OsSignal get interrupt {
-    final $r = $callSync(26866);
+    final $r = $callSync(26872);
     return $r.hnn(OsSignal.$h);
   }
 
   /// Go: `func os.IsPathSeparator(c uint8) bool`.
   bool isPathSeparator(int c) {
-    final $r = $callSync(26867, $W()..i64(c));
+    final $r = $callSync(26873, $W()..i64(c));
     return $r.b();
   }
 
   /// Go: `var os.Kill os.Signal`.
   OsSignal get kill {
-    final $r = $callSync(26868);
+    final $r = $callSync(26874);
     return $r.hnn(OsSignal.$h);
   }
 
   /// Go: `func os.Lchown(name string, uid int, gid int) error`.
   void lchown(String name, int uid, int gid) {
     $callSync(
-        26869,
+        26875,
         $W()
           ..str(name)
           ..i64(uid)
@@ -1035,7 +1035,7 @@ extension GoOsApi on GoOs {
   /// Go: `func os.Link(oldname string, newname string) error`.
   void link(String oldname, String newname) {
     $callSync(
-        26870,
+        26876,
         $W()
           ..str(oldname)
           ..str(newname));
@@ -1043,20 +1043,20 @@ extension GoOsApi on GoOs {
 
   /// Go: `func os.LookupEnv(key string) (string, bool)`.
   (String, bool) lookupEnv(String key) {
-    final $r = $callSync(26871, $W()..str(key));
+    final $r = $callSync(26877, $W()..str(key));
     return ($r.str(), $r.b());
   }
 
   /// Go: `func os.Lstat(name string) (os.FileInfo, error)`.
   $fs.IoFsFileInfo lstat(String name) {
-    final $r = $callSync(26872, $W()..str(name));
+    final $r = $callSync(26878, $W()..str(name));
     return $r.hnn($fs.IoFsFileInfo.$h);
   }
 
   /// Go: `func os.Mkdir(name string, perm os.FileMode) error`.
   void mkdir(String name, int perm) {
     $callSync(
-        26873,
+        26879,
         $W()
           ..str(name)
           ..i64(perm));
@@ -1065,7 +1065,7 @@ extension GoOsApi on GoOs {
   /// Go: `func os.MkdirAll(path string, perm os.FileMode) error`.
   void mkdirAll(String path, int perm) {
     $callSync(
-        26874,
+        26880,
         $W()
           ..str(path)
           ..i64(perm));
@@ -1074,7 +1074,7 @@ extension GoOsApi on GoOs {
   /// Go: `func os.MkdirTemp(dir string, pattern string) (string, error)`.
   String mkdirTemp(String dir, String pattern) {
     final $r = $callSync(
-        26875,
+        26881,
         $W()
           ..str(dir)
           ..str(pattern));
@@ -1084,7 +1084,7 @@ extension GoOsApi on GoOs {
   /// Go: `func os.OpenInRoot(dir string, name string) (*os.File, error)`.
   OsFile openInRoot(String dir, String name) {
     final $r = $callSync(
-        26879,
+        26885,
         $W()
           ..str(dir)
           ..str(name));
@@ -1093,48 +1093,48 @@ extension GoOsApi on GoOs {
 
   /// Go: `func os.OpenRoot(name string) (*os.Root, error)`.
   OsRoot openRoot(String name) {
-    final $r = $callSync(26880, $W()..str(name));
+    final $r = $callSync(26886, $W()..str(name));
     return $r.hnn(OsRoot.$h);
   }
 
   /// Go: `func os.Pipe() (r *os.File, w *os.File, err error)`.
   (OsFile, OsFile) pipe() {
-    final $r = $callSync(26883);
+    final $r = $callSync(26889);
     return ($r.hnn(OsFile.$h), $r.hnn(OsFile.$h));
   }
 
   /// Go: `func os.ReadDir(name string) ([]os.DirEntry, error)`.
   List<$fs.IoFsDirEntry> readDir(String name) {
-    final $r = $callSync(26897, $W()..str(name));
+    final $r = $callSync(26903, $W()..str(name));
     return $r.list(() => $r.hnn($fs.IoFsDirEntry.$h));
   }
 
   /// Go: `func os.ReadFile(name string) ([]byte, error)`.
   Uint8List readFile(String name) {
-    final $r = $callSync(26898, $W()..str(name));
+    final $r = $callSync(26904, $W()..str(name));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func os.Readlink(name string) (string, error)`.
   String readlink(String name) {
-    final $r = $callSync(26899, $W()..str(name));
+    final $r = $callSync(26905, $W()..str(name));
     return $r.str();
   }
 
   /// Go: `func os.Remove(name string) error`.
   void remove(String name) {
-    $callSync(26900, $W()..str(name));
+    $callSync(26906, $W()..str(name));
   }
 
   /// Go: `func os.RemoveAll(path string) error`.
   void removeAll(String path) {
-    $callSync(26901, $W()..str(path));
+    $callSync(26907, $W()..str(path));
   }
 
   /// Go: `func os.Rename(oldpath string, newpath string) error`.
   void rename(String oldpath, String newpath) {
     $callSync(
-        26902,
+        26908,
         $W()
           ..str(oldpath)
           ..str(newpath));
@@ -1143,7 +1143,7 @@ extension GoOsApi on GoOs {
   /// Go: `func os.SameFile(fi1 os.FileInfo, fi2 os.FileInfo) bool`.
   bool sameFile($fs.IoFsFileInfo fi1, $fs.IoFsFileInfo fi2) {
     final $r = $callSync(
-        26926,
+        26932,
         $W()
           ..h(fi1)
           ..h(fi2));
@@ -1153,7 +1153,7 @@ extension GoOsApi on GoOs {
   /// Go: `func os.Setenv(key string, value string) error`.
   void setenv(String key, String value) {
     $callSync(
-        26927,
+        26933,
         $W()
           ..str(key)
           ..str(value));
@@ -1162,7 +1162,7 @@ extension GoOsApi on GoOs {
   /// Go: `func os.StartProcess(name string, argv []string, attr *os.ProcAttr) (*os.Process, error)`.
   OsProcess startProcess(String name, List<String> argv, OsProcAttr attr) {
     final $r = $callSync(
-        26930,
+        26936,
         $W()
           ..str(name)
           ..list(argv, (w0, e0) => w0.str(e0))
@@ -1172,26 +1172,26 @@ extension GoOsApi on GoOs {
 
   /// Go: `var os.Stderr *os.File`.
   OsFile get stderr {
-    final $r = $callSync(26932);
+    final $r = $callSync(26938);
     return $r.hnn(OsFile.$h);
   }
 
   /// Go: `var os.Stdin *os.File`.
   OsFile get stdin {
-    final $r = $callSync(26933);
+    final $r = $callSync(26939);
     return $r.hnn(OsFile.$h);
   }
 
   /// Go: `var os.Stdout *os.File`.
   OsFile get stdout {
-    final $r = $callSync(26934);
+    final $r = $callSync(26940);
     return $r.hnn(OsFile.$h);
   }
 
   /// Go: `func os.Symlink(oldname string, newname string) error`.
   void symlink(String oldname, String newname) {
     $callSync(
-        26935,
+        26941,
         $W()
           ..str(oldname)
           ..str(newname));
@@ -1199,14 +1199,14 @@ extension GoOsApi on GoOs {
 
   /// Go: `func os.TempDir() string`.
   String tempDir() {
-    final $r = $callSync(26936);
+    final $r = $callSync(26942);
     return $r.str();
   }
 
   /// Go: `func os.Truncate(name string, size int64) error`.
   void truncate(String name, int size) {
     $callSync(
-        26937,
+        26943,
         $W()
           ..str(name)
           ..i64(size));
@@ -1214,31 +1214,31 @@ extension GoOsApi on GoOs {
 
   /// Go: `func os.Unsetenv(key string) error`.
   void unsetenv(String key) {
-    $callSync(26938, $W()..str(key));
+    $callSync(26944, $W()..str(key));
   }
 
   /// Go: `func os.UserCacheDir() (string, error)`.
   String userCacheDir() {
-    final $r = $callSync(26939);
+    final $r = $callSync(26945);
     return $r.str();
   }
 
   /// Go: `func os.UserConfigDir() (string, error)`.
   String userConfigDir() {
-    final $r = $callSync(26940);
+    final $r = $callSync(26946);
     return $r.str();
   }
 
   /// Go: `func os.UserHomeDir() (string, error)`.
   String userHomeDir() {
-    final $r = $callSync(26941);
+    final $r = $callSync(26947);
     return $r.str();
   }
 
   /// Go: `func os.WriteFile(name string, data []byte, perm os.FileMode) error`.
   void writeFile(String name, Uint8List data, int perm) {
     $callSync(
-        26942,
+        26948,
         $W()
           ..str(name)
           ..bytes(data)
@@ -1250,25 +1250,25 @@ extension GoOsApi on GoOs {
 extension GoOsConstsApi on GoOsConsts {
   /// Go: `const os.DevNull untyped string`.
   String get devNull {
-    final $r = $callSync(26824);
+    final $r = $callSync(26830);
     return $r.str();
   }
 
   /// Go: `const os.O_SYNC int`.
   int get oSync {
-    final $r = $callSync(26876);
+    final $r = $callSync(26882);
     return $r.i64();
   }
 
   /// Go: `const os.PathListSeparator untyped rune`.
   int get pathListSeparator {
-    final $r = $callSync(26881);
+    final $r = $callSync(26887);
     return $r.i64();
   }
 
   /// Go: `const os.PathSeparator untyped rune`.
   int get pathSeparator {
-    final $r = $callSync(26882);
+    final $r = $callSync(26888);
     return $r.i64();
   }
 

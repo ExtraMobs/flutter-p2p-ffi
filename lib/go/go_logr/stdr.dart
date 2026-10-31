@@ -41,7 +41,7 @@ mixin StdrStdLogger$ on GoHandle {
   /// Go: `func (stdr.StdLogger).Output(calldepth int, logline string) error`.
   void output(int calldepth, String logline) {
     $callSync(
-        6598,
+        6607,
         $W()
           ..h(this)
           ..i64(calldepth)
@@ -50,7 +50,7 @@ mixin StdrStdLogger$ on GoHandle {
 
   /// Go: type assertion `x.(*log.Logger)`: null if the object is not one.
   $log.LogLogger? asLogLogger() {
-    final $r = $callSync(480, $W()..h(this));
+    final $r = $callSync(483, $W()..h(this));
     return $r.hn($log.LogLogger.$h);
   }
 }
@@ -64,7 +64,7 @@ class StdrUnderlier extends GoHandle with StdrUnderlier$ {
 mixin StdrUnderlier$ on GoHandle {
   /// Go: `func (stdr.Underlier).GetUnderlying() stdr.StdLogger`.
   StdrStdLogger getUnderlying() {
-    final $r = $callSync(6599, $W()..h(this));
+    final $r = $callSync(6608, $W()..h(this));
     return $r.hnn(StdrStdLogger.$h);
   }
 }
@@ -73,14 +73,14 @@ mixin StdrUnderlier$ on GoHandle {
 extension GoGoLogrStdrApi on GoGoLogrStdr {
   /// Go: `func stdr.New(std stdr.StdLogger) logr.Logger`.
   $logr.LogrLogger new$(StdrStdLogger std) {
-    final $r = $callSync(6595, $W()..h(std));
+    final $r = $callSync(6604, $W()..h(std));
     return $r.hnn($logr.LogrLogger.$h);
   }
 
   /// Go: `func stdr.NewWithOptions(std stdr.StdLogger, opts stdr.Options) logr.Logger`.
   $logr.LogrLogger newWithOptions(StdrStdLogger std, StdrOptions opts) {
     final $r = $callSync(
-        6596,
+        6605,
         $W()
           ..h(std)
           ..dto(opts));
@@ -89,7 +89,7 @@ extension GoGoLogrStdrApi on GoGoLogrStdr {
 
   /// Go: `func stdr.SetVerbosity(v int) int`.
   int setVerbosity(int v) {
-    final $r = $callSync(6597, $W()..i64(v));
+    final $r = $callSync(6606, $W()..i64(v));
     return $r.i64();
   }
 }

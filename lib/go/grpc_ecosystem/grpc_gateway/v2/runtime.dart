@@ -67,7 +67,7 @@ mixin GrpcGatewayV2RuntimeDecoder$ on GoHandle {
   /// Go: `func (runtime.Decoder).Decode(v interface{}) error`.
   void decode(Object? v) {
     $callSync(
-        8161,
+        8170,
         $W()
           ..h(this)
           ..any(v));
@@ -75,43 +75,43 @@ mixin GrpcGatewayV2RuntimeDecoder$ on GoHandle {
 
   /// Go: type assertion `x.(*gob.Decoder)`: null if the object is not one.
   $gob.EncodingGobDecoder? asEncodingGobDecoder() {
-    final $r = $callSync(865, $W()..h(this));
+    final $r = $callSync(868, $W()..h(this));
     return $r.hn($gob.EncodingGobDecoder.$h);
   }
 
   /// Go: type assertion `x.(*json.Decoder)`: null if the object is not one.
   $json.EncodingJsonDecoder? asEncodingJsonDecoder() {
-    final $r = $callSync(866, $W()..h(this));
+    final $r = $callSync(869, $W()..h(this));
     return $r.hn($json.EncodingJsonDecoder.$h);
   }
 
   /// Go: type assertion `x.(*xml.Decoder)`: null if the object is not one.
   $xml.EncodingXmlDecoder? asEncodingXmlDecoder() {
-    final $r = $callSync(867, $W()..h(this));
+    final $r = $callSync(870, $W()..h(this));
     return $r.hn($xml.EncodingXmlDecoder.$h);
   }
 
   /// Go: type assertion `x.(*json.Decoder)`: null if the object is not one.
   $json2.JoseV4JsonDecoder? asJoseV4JsonDecoder() {
-    final $r = $callSync(868, $W()..h(this));
+    final $r = $callSync(871, $W()..h(this));
     return $r.hn($json2.JoseV4JsonDecoder.$h);
   }
 
   /// Go: type assertion `x.(*runtime.DecoderFunc)`: null if the object is not one.
   GrpcGatewayV2RuntimeDecoderFunc? asGrpcGatewayV2RuntimeDecoderFunc() {
-    final $r = $callSync(869, $W()..h(this));
+    final $r = $callSync(872, $W()..h(this));
     return $r.hn(GrpcGatewayV2RuntimeDecoderFunc.$h);
   }
 
   /// Go: type assertion `x.(*cbor.Decoder)`: null if the object is not one.
   $go.CborGoDecoder? asCborGoDecoder() {
-    final $r = $callSync(870, $W()..h(this));
+    final $r = $callSync(873, $W()..h(this));
     return $r.hn($go.CborGoDecoder.$h);
   }
 
   /// Go: type assertion `x.(*yaml.Decoder)`: null if the object is not one.
   $yaml_v3.YamlV3Decoder? asYamlV3Decoder() {
-    final $r = $callSync(871, $W()..h(this));
+    final $r = $callSync(874, $W()..h(this));
     return $r.hn($yaml_v3.YamlV3Decoder.$h);
   }
 }
@@ -141,7 +141,7 @@ class GrpcGatewayV2RuntimeDecoderFunc extends GrpcGatewayV2RuntimeDecoder
   /// Go: `func (runtime.DecoderFunc).Decode(v interface{}) error`.
   void decode(Object? v) {
     $callSync(
-        8162,
+        8171,
         $W()
           ..h(this)
           ..any(v));
@@ -178,7 +178,7 @@ final class GrpcGatewayV2RuntimeDecoderWrapper implements GoDto {
   /// Go: `func (runtime.DecoderWrapper).Decode(v interface{}) error`.
   void decode(Object? v) {
     $callSync(
-        8163,
+        8172,
         $W()
           ..dto(this)
           ..any(v));
@@ -196,7 +196,7 @@ mixin GrpcGatewayV2RuntimeEncoder$ on GoHandle {
   /// Go: `func (runtime.Encoder).Encode(v interface{}) error`.
   void encode(Object? v) {
     $callSync(
-        8169,
+        8178,
         $W()
           ..h(this)
           ..any(v));
@@ -204,49 +204,49 @@ mixin GrpcGatewayV2RuntimeEncoder$ on GoHandle {
 
   /// Go: type assertion `x.(*gob.Encoder)`: null if the object is not one.
   $gob.EncodingGobEncoder? asEncodingGobEncoder() {
-    final $r = $callSync(872, $W()..h(this));
+    final $r = $callSync(875, $W()..h(this));
     return $r.hn($gob.EncodingGobEncoder.$h);
   }
 
   /// Go: type assertion `x.(*json.Encoder)`: null if the object is not one.
   $json.EncodingJsonEncoder? asEncodingJsonEncoder() {
-    final $r = $callSync(873, $W()..h(this));
+    final $r = $callSync(876, $W()..h(this));
     return $r.hn($json.EncodingJsonEncoder.$h);
   }
 
   /// Go: type assertion `x.(*xml.Encoder)`: null if the object is not one.
   $xml.EncodingXmlEncoder? asEncodingXmlEncoder() {
-    final $r = $callSync(874, $W()..h(this));
+    final $r = $callSync(877, $W()..h(this));
     return $r.hn($xml.EncodingXmlEncoder.$h);
   }
 
   /// Go: type assertion `x.(*json.Encoder)`: null if the object is not one.
   $json2.JoseV4JsonEncoder? asJoseV4JsonEncoder() {
-    final $r = $callSync(875, $W()..h(this));
+    final $r = $callSync(878, $W()..h(this));
     return $r.hn($json2.JoseV4JsonEncoder.$h);
   }
 
   /// Go: type assertion `x.(*runtime.EncoderFunc)`: null if the object is not one.
   GrpcGatewayV2RuntimeEncoderFunc? asGrpcGatewayV2RuntimeEncoderFunc() {
-    final $r = $callSync(876, $W()..h(this));
+    final $r = $callSync(879, $W()..h(this));
     return $r.hn(GrpcGatewayV2RuntimeEncoderFunc.$h);
   }
 
   /// Go: type assertion `x.(*cmds.TextEncoder)`: null if the object is not one.
   $ipfs_cmds.IpfsCmdsTextEncoder? asIpfsCmdsTextEncoder() {
-    final $r = $callSync(877, $W()..h(this));
+    final $r = $callSync(880, $W()..h(this));
     return $r.hn($ipfs_cmds.IpfsCmdsTextEncoder.$h);
   }
 
   /// Go: type assertion `x.(*cbor.Encoder)`: null if the object is not one.
   $go.CborGoEncoder? asCborGoEncoder() {
-    final $r = $callSync(878, $W()..h(this));
+    final $r = $callSync(881, $W()..h(this));
     return $r.hn($go.CborGoEncoder.$h);
   }
 
   /// Go: type assertion `x.(*yaml.Encoder)`: null if the object is not one.
   $yaml_v3.YamlV3Encoder? asYamlV3Encoder() {
-    final $r = $callSync(879, $W()..h(this));
+    final $r = $callSync(882, $W()..h(this));
     return $r.hn($yaml_v3.YamlV3Encoder.$h);
   }
 }
@@ -278,7 +278,7 @@ class GrpcGatewayV2RuntimeEncoderFunc extends GrpcGatewayV2RuntimeEncoder
   /// Go: `func (runtime.EncoderFunc).Encode(v interface{}) error`.
   void encode(Object? v) {
     $callSync(
-        8170,
+        8179,
         $W()
           ..h(this)
           ..any(v));
@@ -348,7 +348,7 @@ class GrpcGatewayV2RuntimeHttpBodyMarshaler
   /// Go: `func (*runtime.HTTPBodyMarshaler).ContentType(v interface{}) string`.
   String contentType(Object? v) {
     final $r = $callSync(
-        8182,
+        8191,
         $W()
           ..h(this)
           ..any(v));
@@ -358,7 +358,7 @@ class GrpcGatewayV2RuntimeHttpBodyMarshaler
   /// Go: `func (*runtime.HTTPBodyMarshaler).Marshal(v interface{}) ([]byte, error)`.
   Uint8List marshal(Object? v) {
     final $r = $callSync(
-        8183,
+        8192,
         $W()
           ..h(this)
           ..any(v));
@@ -368,7 +368,7 @@ class GrpcGatewayV2RuntimeHttpBodyMarshaler
   /// Go: `func (runtime.Marshaler).NewDecoder(r io.Reader) runtime.Decoder`.
   GrpcGatewayV2RuntimeDecoder newDecoder(Object r) {
     final $r = $callSync(
-        8184,
+        8193,
         $W()
           ..h(this)
           ..reader(r));
@@ -378,7 +378,7 @@ class GrpcGatewayV2RuntimeHttpBodyMarshaler
   /// Go: `func (runtime.Marshaler).NewEncoder(w io.Writer) runtime.Encoder`.
   GrpcGatewayV2RuntimeEncoder newEncoder(GoHandle? w) {
     final $r = $callSync(
-        8185,
+        8194,
         $W()
           ..h(this)
           ..h(w));
@@ -388,7 +388,7 @@ class GrpcGatewayV2RuntimeHttpBodyMarshaler
   /// Go: `func (runtime.Marshaler).Unmarshal(data []byte, v interface{}) error`.
   void unmarshal(Uint8List data, Object? v) {
     $callSync(
-        8186,
+        8195,
         $W()
           ..h(this)
           ..bytes(data)
@@ -426,7 +426,7 @@ final class GrpcGatewayV2RuntimeJsonBuiltin implements GoDto {
   /// Go: `func (*runtime.JSONBuiltin).ContentType(_ interface{}) string`.
   String contentType(Object? arg0) {
     final $r = $callSync(
-        8198,
+        8207,
         $W()
           ..dto(this)
           ..any(arg0));
@@ -435,14 +435,14 @@ final class GrpcGatewayV2RuntimeJsonBuiltin implements GoDto {
 
   /// Go: `func (*runtime.JSONBuiltin).Delimiter() []byte`.
   Uint8List delimiter() {
-    final $r = $callSync(8199, $W()..dto(this));
+    final $r = $callSync(8208, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*runtime.JSONBuiltin).Marshal(v interface{}) ([]byte, error)`.
   Uint8List marshal(Object? v) {
     final $r = $callSync(
-        8200,
+        8209,
         $W()
           ..dto(this)
           ..any(v));
@@ -452,7 +452,7 @@ final class GrpcGatewayV2RuntimeJsonBuiltin implements GoDto {
   /// Go: `func (*runtime.JSONBuiltin).MarshalIndent(v interface{}, prefix string, indent string) ([]byte, error)`.
   Uint8List marshalIndent(Object? v, String prefix, String indent) {
     final $r = $callSync(
-        8201,
+        8210,
         $W()
           ..dto(this)
           ..any(v)
@@ -464,7 +464,7 @@ final class GrpcGatewayV2RuntimeJsonBuiltin implements GoDto {
   /// Go: `func (*runtime.JSONBuiltin).NewDecoder(r io.Reader) runtime.Decoder`.
   GrpcGatewayV2RuntimeDecoder newDecoder(Object r) {
     final $r = $callSync(
-        8202,
+        8211,
         $W()
           ..dto(this)
           ..reader(r));
@@ -474,7 +474,7 @@ final class GrpcGatewayV2RuntimeJsonBuiltin implements GoDto {
   /// Go: `func (*runtime.JSONBuiltin).NewEncoder(w io.Writer) runtime.Encoder`.
   GrpcGatewayV2RuntimeEncoder newEncoder(GoHandle? w) {
     final $r = $callSync(
-        8203,
+        8212,
         $W()
           ..dto(this)
           ..h(w));
@@ -484,7 +484,7 @@ final class GrpcGatewayV2RuntimeJsonBuiltin implements GoDto {
   /// Go: `func (*runtime.JSONBuiltin).Unmarshal(data []byte, v interface{}) error`.
   void unmarshal(Uint8List data, Object? v) {
     $callSync(
-        8204,
+        8213,
         $W()
           ..dto(this)
           ..bytes(data)
@@ -524,7 +524,7 @@ final class GrpcGatewayV2RuntimeJsonPb implements GoDto {
   /// Go: `func (*runtime.JSONPb).ContentType(_ interface{}) string`.
   String contentType(Object? arg0) {
     final $r = $callSync(
-        8205,
+        8214,
         $W()
           ..dto(this)
           ..any(arg0));
@@ -533,14 +533,14 @@ final class GrpcGatewayV2RuntimeJsonPb implements GoDto {
 
   /// Go: `func (*runtime.JSONPb).Delimiter() []byte`.
   Uint8List delimiter() {
-    final $r = $callSync(8206, $W()..dto(this));
+    final $r = $callSync(8215, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*runtime.JSONPb).Marshal(v interface{}) ([]byte, error)`.
   Uint8List marshal(Object? v) {
     final $r = $callSync(
-        8207,
+        8216,
         $W()
           ..dto(this)
           ..any(v));
@@ -550,7 +550,7 @@ final class GrpcGatewayV2RuntimeJsonPb implements GoDto {
   /// Go: `func (*runtime.JSONPb).NewDecoder(r io.Reader) runtime.Decoder`.
   GrpcGatewayV2RuntimeDecoder newDecoder(Object r) {
     final $r = $callSync(
-        8208,
+        8217,
         $W()
           ..dto(this)
           ..reader(r));
@@ -560,7 +560,7 @@ final class GrpcGatewayV2RuntimeJsonPb implements GoDto {
   /// Go: `func (*runtime.JSONPb).NewEncoder(w io.Writer) runtime.Encoder`.
   GrpcGatewayV2RuntimeEncoder newEncoder(GoHandle? w) {
     final $r = $callSync(
-        8209,
+        8218,
         $W()
           ..dto(this)
           ..h(w));
@@ -570,7 +570,7 @@ final class GrpcGatewayV2RuntimeJsonPb implements GoDto {
   /// Go: `func (*runtime.JSONPb).Unmarshal(data []byte, v interface{}) error`.
   void unmarshal(Uint8List data, Object? v) {
     $callSync(
-        8210,
+        8219,
         $W()
           ..dto(this)
           ..bytes(data)
@@ -589,7 +589,7 @@ mixin GrpcGatewayV2RuntimeMarshaler$ on GoHandle {
   /// Go: `func (runtime.Marshaler).ContentType(v interface{}) string`.
   String contentType(Object? v) {
     final $r = $callSync(
-        8211,
+        8220,
         $W()
           ..h(this)
           ..any(v));
@@ -599,7 +599,7 @@ mixin GrpcGatewayV2RuntimeMarshaler$ on GoHandle {
   /// Go: `func (runtime.Marshaler).Marshal(v interface{}) ([]byte, error)`.
   Uint8List marshal(Object? v) {
     final $r = $callSync(
-        8212,
+        8221,
         $W()
           ..h(this)
           ..any(v));
@@ -609,7 +609,7 @@ mixin GrpcGatewayV2RuntimeMarshaler$ on GoHandle {
   /// Go: `func (runtime.Marshaler).NewDecoder(r io.Reader) runtime.Decoder`.
   GrpcGatewayV2RuntimeDecoder newDecoder(Object r) {
     final $r = $callSync(
-        8213,
+        8222,
         $W()
           ..h(this)
           ..reader(r));
@@ -619,7 +619,7 @@ mixin GrpcGatewayV2RuntimeMarshaler$ on GoHandle {
   /// Go: `func (runtime.Marshaler).NewEncoder(w io.Writer) runtime.Encoder`.
   GrpcGatewayV2RuntimeEncoder newEncoder(GoHandle? w) {
     final $r = $callSync(
-        8214,
+        8223,
         $W()
           ..h(this)
           ..h(w));
@@ -629,7 +629,7 @@ mixin GrpcGatewayV2RuntimeMarshaler$ on GoHandle {
   /// Go: `func (runtime.Marshaler).Unmarshal(data []byte, v interface{}) error`.
   void unmarshal(Uint8List data, Object? v) {
     $callSync(
-        8215,
+        8224,
         $W()
           ..h(this)
           ..bytes(data)
@@ -639,7 +639,7 @@ mixin GrpcGatewayV2RuntimeMarshaler$ on GoHandle {
   /// Go: type assertion `x.(*runtime.HTTPBodyMarshaler)`: null if the object is not one.
   GrpcGatewayV2RuntimeHttpBodyMarshaler?
       asGrpcGatewayV2RuntimeHttpBodyMarshaler() {
-    final $r = $callSync(880, $W()..h(this));
+    final $r = $callSync(883, $W()..h(this));
     return $r.hn(GrpcGatewayV2RuntimeHttpBodyMarshaler.$h);
   }
 }
@@ -685,7 +685,7 @@ class GrpcGatewayV2RuntimePattern extends $crypto.CryptoDecrypterOpts
   factory GrpcGatewayV2RuntimePattern(
       int version, List<int> ops, List<String> pool, String verb) {
     final $r = $callSync(
-        8217,
+        8226,
         $W()
           ..i64(version)
           ..list(ops, (w0, e0) => w0.i64(e0))
@@ -698,7 +698,7 @@ class GrpcGatewayV2RuntimePattern extends $crypto.CryptoDecrypterOpts
   @Deprecated("Use MatchAndEscape.")
   Map<String, String> match(List<String> components, String verb) {
     final $r = $callSync(
-        8219,
+        8228,
         $W()
           ..h(this)
           ..list(components, (w0, e0) => w0.str(e0))
@@ -710,7 +710,7 @@ class GrpcGatewayV2RuntimePattern extends $crypto.CryptoDecrypterOpts
   Map<String, String> matchAndEscape(
       List<String> components, String verb, int unescapingMode) {
     final $r = $callSync(
-        8220,
+        8229,
         $W()
           ..h(this)
           ..list(components, (w0, e0) => w0.str(e0))
@@ -721,13 +721,13 @@ class GrpcGatewayV2RuntimePattern extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (runtime.Pattern).String() string`.
   String string() {
-    final $r = $callSync(8221, $W()..h(this));
+    final $r = $callSync(8230, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (runtime.Pattern).Verb() string`.
   String verb() {
-    final $r = $callSync(8222, $W()..h(this));
+    final $r = $callSync(8231, $W()..h(this));
     return $r.str();
   }
 }
@@ -743,7 +743,7 @@ final class GrpcGatewayV2RuntimeProtoMarshaller implements GoDto {
   /// Go: `func (*runtime.ProtoMarshaller).ContentType(_ interface{}) string`.
   String contentType(Object? arg0) {
     final $r = $callSync(
-        8224,
+        8233,
         $W()
           ..dto(this)
           ..any(arg0));
@@ -753,7 +753,7 @@ final class GrpcGatewayV2RuntimeProtoMarshaller implements GoDto {
   /// Go: `func (*runtime.ProtoMarshaller).Marshal(value interface{}) ([]byte, error)`.
   Uint8List marshal(Object? value) {
     final $r = $callSync(
-        8225,
+        8234,
         $W()
           ..dto(this)
           ..any(value));
@@ -763,7 +763,7 @@ final class GrpcGatewayV2RuntimeProtoMarshaller implements GoDto {
   /// Go: `func (*runtime.ProtoMarshaller).NewDecoder(reader io.Reader) runtime.Decoder`.
   GrpcGatewayV2RuntimeDecoder newDecoder(Object reader) {
     final $r = $callSync(
-        8226,
+        8235,
         $W()
           ..dto(this)
           ..reader(reader));
@@ -773,7 +773,7 @@ final class GrpcGatewayV2RuntimeProtoMarshaller implements GoDto {
   /// Go: `func (*runtime.ProtoMarshaller).NewEncoder(writer io.Writer) runtime.Encoder`.
   GrpcGatewayV2RuntimeEncoder newEncoder(GoHandle? writer) {
     final $r = $callSync(
-        8227,
+        8236,
         $W()
           ..dto(this)
           ..h(writer));
@@ -783,7 +783,7 @@ final class GrpcGatewayV2RuntimeProtoMarshaller implements GoDto {
   /// Go: `func (*runtime.ProtoMarshaller).Unmarshal(data []byte, value interface{}) error`.
   void unmarshal(Uint8List data, Object? value) {
     $callSync(
-        8228,
+        8237,
         $W()
           ..dto(this)
           ..bytes(data)
@@ -823,7 +823,7 @@ class GrpcGatewayV2RuntimeServeMux extends $http.NetHttpHandler
   /// Go: `func runtime.NewServeMux(opts ...runtime.ServeMuxOption) *runtime.ServeMux`.
   factory GrpcGatewayV2RuntimeServeMux(
       [List<GrpcGatewayV2RuntimeServeMuxOption> opts = const []]) {
-    final $r = $callSync(8218, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+    final $r = $callSync(8227, $W()..list(opts, (w0, e0) => w0.opt(e0)));
     return $r.hnn(GrpcGatewayV2RuntimeServeMux.$h);
   }
 
@@ -841,7 +841,7 @@ class GrpcGatewayV2RuntimeServeMux extends $http.NetHttpHandler
               $http.NetHttpRequest r, Map<String, String> pathParams)
           h) async {
     await $call(
-        8230,
+        8239,
         $W()
           ..h(this)
           ..str(meth)
@@ -868,7 +868,7 @@ class GrpcGatewayV2RuntimeServeMux extends $http.NetHttpHandler
               $http.NetHttpRequest r, Map<String, String> pathParams)
           h) async {
     await $call(
-        8231,
+        8240,
         $W()
           ..h(this)
           ..str(meth)
@@ -884,7 +884,7 @@ class GrpcGatewayV2RuntimeServeMux extends $http.NetHttpHandler
   /// Go: `func (*runtime.ServeMux).ServeHTTP(w http.ResponseWriter, r *http.Request)`.
   void serveHttp($http.NetHttpResponseWriter w, $http.NetHttpRequest r) {
     $callSync(
-        8232,
+        8241,
         $W()
           ..h(this)
           ..h(w)
@@ -931,7 +931,7 @@ class GrpcGatewayV2RuntimeServerTransportStream
 
   /// Go: `func (*runtime.ServerTransportStream).Method() string`.
   String method() {
-    final $r = $callSync(8234, $W()..h(this));
+    final $r = $callSync(8243, $W()..h(this));
     return $r.str();
   }
 }
@@ -947,7 +947,7 @@ mixin GrpcGatewayV2RuntimeStreamContentType$ on GoHandle {
   /// Go: `func (runtime.StreamContentType).StreamContentType(v interface{}) string`.
   String streamContentType(Object? v) {
     final $r = $callSync(
-        8235,
+        8244,
         $W()
           ..h(this)
           ..any(v));
@@ -1021,20 +1021,20 @@ extension GoGrpcEcosystemGrpcGatewayV2RuntimeApi
     on GoGrpcEcosystemGrpcGatewayV2Runtime {
   /// Go: `func runtime.Bool(val string) (bool, error)`.
   bool bool$(String val) {
-    final $r = $callSync(8154, $W()..str(val));
+    final $r = $callSync(8163, $W()..str(val));
     return $r.b();
   }
 
   /// Go: `func runtime.BoolP(val string) (*bool, error)`.
   bool boolP(String val) {
-    final $r = $callSync(8155, $W()..str(val));
+    final $r = $callSync(8164, $W()..str(val));
     return $r.p() ? $r.b() : $nil();
   }
 
   /// Go: `func runtime.BoolSlice(val string, sep string) ([]bool, error)`.
   List<bool> boolSlice(String val, String sep) {
     final $r = $callSync(
-        8156,
+        8165,
         $W()
           ..str(val)
           ..str(sep));
@@ -1043,20 +1043,20 @@ extension GoGrpcEcosystemGrpcGatewayV2RuntimeApi
 
   /// Go: `func runtime.BoolValue(val string) (*wrapperspb.BoolValue, error)`.
   $wrapperspb.ProtobufTypesKnownWrapperspbBoolValue boolValue(String val) {
-    final $r = $callSync(8157, $W()..str(val));
+    final $r = $callSync(8166, $W()..str(val));
     return $r.hnn($wrapperspb.ProtobufTypesKnownWrapperspbBoolValue.$h);
   }
 
   /// Go: `func runtime.Bytes(val string) ([]byte, error)`.
   Uint8List bytes(String val) {
-    final $r = $callSync(8158, $W()..str(val));
+    final $r = $callSync(8167, $W()..str(val));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func runtime.BytesSlice(val string, sep string) ([][]byte, error)`.
   List<Uint8List> bytesSlice(String val, String sep) {
     final $r = $callSync(
-        8159,
+        8168,
         $W()
           ..str(val)
           ..str(sep));
@@ -1065,19 +1065,19 @@ extension GoGrpcEcosystemGrpcGatewayV2RuntimeApi
 
   /// Go: `func runtime.BytesValue(val string) (*wrapperspb.BytesValue, error)`.
   $wrapperspb.ProtobufTypesKnownWrapperspbBytesValue bytesValue(String val) {
-    final $r = $callSync(8160, $W()..str(val));
+    final $r = $callSync(8169, $W()..str(val));
     return $r.hnn($wrapperspb.ProtobufTypesKnownWrapperspbBytesValue.$h);
   }
 
   /// Go: `var runtime.DefaultContextTimeout time.Duration`.
   Duration get defaultContextTimeout {
-    final $r = $callSync(8164);
+    final $r = $callSync(8173);
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `func runtime.DefaultHeaderMatcher(key string) (string, bool)`.
   (String, bool) defaultHeaderMatcher(String key) {
-    final $r = $callSync(8165, $W()..str(key));
+    final $r = $callSync(8174, $W()..str(key));
     return ($r.str(), $r.b());
   }
 
@@ -1092,7 +1092,7 @@ extension GoGrpcEcosystemGrpcGatewayV2RuntimeApi
       $http.NetHttpRequest r,
       int httpStatus) async {
     await $call(
-        8166,
+        8175,
         $W()
           ..h(ctx)
           ..h(mux)
@@ -1104,20 +1104,20 @@ extension GoGrpcEcosystemGrpcGatewayV2RuntimeApi
 
   /// Go: `func runtime.DoubleValue(val string) (*wrapperspb.DoubleValue, error)`.
   $wrapperspb.ProtobufTypesKnownWrapperspbDoubleValue doubleValue(String val) {
-    final $r = $callSync(8167, $W()..str(val));
+    final $r = $callSync(8176, $W()..str(val));
     return $r.hnn($wrapperspb.ProtobufTypesKnownWrapperspbDoubleValue.$h);
   }
 
   /// Go: `func runtime.Duration(val string) (*durationpb.Duration, error)`.
   $durationpb.ProtobufTypesKnownDurationpbDuration duration(String val) {
-    final $r = $callSync(8168, $W()..str(val));
+    final $r = $callSync(8177, $W()..str(val));
     return $r.hnn($durationpb.ProtobufTypesKnownDurationpbDuration.$h);
   }
 
   /// Go: `func runtime.Enum(val string, enumValMap map[string]int32) (int32, error)`.
   int enum$(String val, Map<String, int> enumValMap) {
     final $r = $callSync(
-        8171,
+        8180,
         $W()
           ..str(val)
           ..map(enumValMap, (w0, k0) => w0.str(k0), (w0, v0) => w0.i64(v0)));
@@ -1127,7 +1127,7 @@ extension GoGrpcEcosystemGrpcGatewayV2RuntimeApi
   /// Go: `func runtime.EnumSlice(val string, sep string, enumValMap map[string]int32) ([]int32, error)`.
   List<int> enumSlice(String val, String sep, Map<String, int> enumValMap) {
     final $r = $callSync(
-        8172,
+        8181,
         $W()
           ..str(val)
           ..str(sep)
@@ -1139,7 +1139,7 @@ extension GoGrpcEcosystemGrpcGatewayV2RuntimeApi
   $fieldmaskpb.ProtobufTypesKnownFieldmaskpbFieldMask fieldMaskFromRequestBody(
       Object r, $protoreflect.ProtobufReflectProtoreflectProtoMessage msg) {
     final $r = $callSync(
-        8173,
+        8182,
         $W()
           ..reader(r)
           ..h(msg));
@@ -1148,20 +1148,20 @@ extension GoGrpcEcosystemGrpcGatewayV2RuntimeApi
 
   /// Go: `func runtime.Float32(val string) (float32, error)`.
   double float32(String val) {
-    final $r = $callSync(8174, $W()..str(val));
+    final $r = $callSync(8183, $W()..str(val));
     return $r.f64();
   }
 
   /// Go: `func runtime.Float32P(val string) (*float32, error)`.
   double float32p(String val) {
-    final $r = $callSync(8175, $W()..str(val));
+    final $r = $callSync(8184, $W()..str(val));
     return $r.p() ? $r.f64() : $nil();
   }
 
   /// Go: `func runtime.Float32Slice(val string, sep string) ([]float32, error)`.
   List<double> float32Slice(String val, String sep) {
     final $r = $callSync(
-        8176,
+        8185,
         $W()
           ..str(val)
           ..str(sep));
@@ -1170,20 +1170,20 @@ extension GoGrpcEcosystemGrpcGatewayV2RuntimeApi
 
   /// Go: `func runtime.Float64(val string) (float64, error)`.
   double float64(String val) {
-    final $r = $callSync(8177, $W()..str(val));
+    final $r = $callSync(8186, $W()..str(val));
     return $r.f64();
   }
 
   /// Go: `func runtime.Float64P(val string) (*float64, error)`.
   double float64p(String val) {
-    final $r = $callSync(8178, $W()..str(val));
+    final $r = $callSync(8187, $W()..str(val));
     return $r.p() ? $r.f64() : $nil();
   }
 
   /// Go: `func runtime.Float64Slice(val string, sep string) ([]float64, error)`.
   List<double> float64Slice(String val, String sep) {
     final $r = $callSync(
-        8179,
+        8188,
         $W()
           ..str(val)
           ..str(sep));
@@ -1192,7 +1192,7 @@ extension GoGrpcEcosystemGrpcGatewayV2RuntimeApi
 
   /// Go: `func runtime.FloatValue(val string) (*wrapperspb.FloatValue, error)`.
   $wrapperspb.ProtobufTypesKnownWrapperspbFloatValue floatValue(String val) {
-    final $r = $callSync(8180, $W()..str(val));
+    final $r = $callSync(8189, $W()..str(val));
     return $r.hnn($wrapperspb.ProtobufTypesKnownWrapperspbFloatValue.$h);
   }
 
@@ -1207,7 +1207,7 @@ extension GoGrpcEcosystemGrpcGatewayV2RuntimeApi
       $http.NetHttpRequest req,
       $protoreflect.ProtobufReflectProtoreflectProtoMessage resp) async {
     await $call(
-        8181,
+        8190,
         $W()
           ..h(ctx)
           ..h(mux)
@@ -1221,7 +1221,7 @@ extension GoGrpcEcosystemGrpcGatewayV2RuntimeApi
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<(String, bool)> httpPathPattern($context.Context ctx) async {
-    final $r = await $call(8187, $W()..h(ctx));
+    final $r = await $call(8196, $W()..h(ctx));
     return ($r.str(), $r.b());
   }
 
@@ -1230,32 +1230,32 @@ extension GoGrpcEcosystemGrpcGatewayV2RuntimeApi
   /// Asynchronous: runs in a goroutine of the service.
   Future<(GrpcGatewayV2RuntimePattern, bool)> httpPattern(
       $context.Context ctx) async {
-    final $r = await $call(8188, $W()..h(ctx));
+    final $r = await $call(8197, $W()..h(ctx));
     return ($r.hnn(GrpcGatewayV2RuntimePattern.$h), $r.b());
   }
 
   /// Go: `func runtime.HTTPStatusFromCode(code codes.Code) int`.
   int httpStatusFromCode(int code) {
-    final $r = $callSync(8189, $W()..i64(code));
+    final $r = $callSync(8198, $W()..i64(code));
     return $r.i64();
   }
 
   /// Go: `func runtime.Int32(val string) (int32, error)`.
   int int32(String val) {
-    final $r = $callSync(8190, $W()..str(val));
+    final $r = $callSync(8199, $W()..str(val));
     return $r.i64();
   }
 
   /// Go: `func runtime.Int32P(val string) (*int32, error)`.
   int int32p(String val) {
-    final $r = $callSync(8191, $W()..str(val));
+    final $r = $callSync(8200, $W()..str(val));
     return $r.p() ? $r.i64() : $nil();
   }
 
   /// Go: `func runtime.Int32Slice(val string, sep string) ([]int32, error)`.
   List<int> int32Slice(String val, String sep) {
     final $r = $callSync(
-        8192,
+        8201,
         $W()
           ..str(val)
           ..str(sep));
@@ -1264,26 +1264,26 @@ extension GoGrpcEcosystemGrpcGatewayV2RuntimeApi
 
   /// Go: `func runtime.Int32Value(val string) (*wrapperspb.Int32Value, error)`.
   $wrapperspb.ProtobufTypesKnownWrapperspbInt32Value int32Value(String val) {
-    final $r = $callSync(8193, $W()..str(val));
+    final $r = $callSync(8202, $W()..str(val));
     return $r.hnn($wrapperspb.ProtobufTypesKnownWrapperspbInt32Value.$h);
   }
 
   /// Go: `func runtime.Int64(val string) (int64, error)`.
   int int64(String val) {
-    final $r = $callSync(8194, $W()..str(val));
+    final $r = $callSync(8203, $W()..str(val));
     return $r.i64();
   }
 
   /// Go: `func runtime.Int64P(val string) (*int64, error)`.
   int int64p(String val) {
-    final $r = $callSync(8195, $W()..str(val));
+    final $r = $callSync(8204, $W()..str(val));
     return $r.p() ? $r.i64() : $nil();
   }
 
   /// Go: `func runtime.Int64Slice(val string, sep string) ([]int64, error)`.
   List<int> int64Slice(String val, String sep) {
     final $r = $callSync(
-        8196,
+        8205,
         $W()
           ..str(val)
           ..str(sep));
@@ -1292,7 +1292,7 @@ extension GoGrpcEcosystemGrpcGatewayV2RuntimeApi
 
   /// Go: `func runtime.Int64Value(val string) (*wrapperspb.Int64Value, error)`.
   $wrapperspb.ProtobufTypesKnownWrapperspbInt64Value int64Value(String val) {
-    final $r = $callSync(8197, $W()..str(val));
+    final $r = $callSync(8206, $W()..str(val));
     return $r.hnn($wrapperspb.ProtobufTypesKnownWrapperspbInt64Value.$h);
   }
 
@@ -1301,7 +1301,7 @@ extension GoGrpcEcosystemGrpcGatewayV2RuntimeApi
       marshalerForRequest(
           GrpcGatewayV2RuntimeServeMux mux, $http.NetHttpRequest r) {
     final $r = $callSync(
-        8216,
+        8225,
         $W()
           ..h(mux)
           ..h(r));
@@ -1317,7 +1317,7 @@ extension GoGrpcEcosystemGrpcGatewayV2RuntimeApi
       String fieldPathString,
       String value) {
     $callSync(
-        8223,
+        8232,
         $W()
           ..h(msg)
           ..str(fieldPathString)
@@ -1328,7 +1328,7 @@ extension GoGrpcEcosystemGrpcGatewayV2RuntimeApi
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<(String, bool)> rpcMethod($context.Context ctx) async {
-    final $r = await $call(8229, $W()..h(ctx));
+    final $r = await $call(8238, $W()..h(ctx));
     return ($r.str(), $r.b());
   }
 
@@ -1337,7 +1337,7 @@ extension GoGrpcEcosystemGrpcGatewayV2RuntimeApi
   /// Asynchronous: runs in a goroutine of the service.
   Future<(GrpcGatewayV2RuntimeServerMetadata, bool)> serverMetadataFromContext(
       $context.Context ctx) async {
-    final $r = await $call(8233, $W()..h(ctx));
+    final $r = await $call(8242, $W()..h(ctx));
     return (
       $r.p() ? GrpcGatewayV2RuntimeServerMetadata.$dec($r) : $nil(),
       $r.b()
@@ -1346,20 +1346,20 @@ extension GoGrpcEcosystemGrpcGatewayV2RuntimeApi
 
   /// Go: `func runtime.String(val string) (string, error)`.
   String string(String val) {
-    final $r = $callSync(8236, $W()..str(val));
+    final $r = $callSync(8245, $W()..str(val));
     return $r.str();
   }
 
   /// Go: `func runtime.StringP(val string) (*string, error)`.
   String stringP(String val) {
-    final $r = $callSync(8237, $W()..str(val));
+    final $r = $callSync(8246, $W()..str(val));
     return $r.p() ? $r.str() : $nil();
   }
 
   /// Go: `func runtime.StringSlice(val string, sep string) ([]string, error)`.
   List<String> stringSlice(String val, String sep) {
     final $r = $callSync(
-        8238,
+        8247,
         $W()
           ..str(val)
           ..str(sep));
@@ -1368,44 +1368,44 @@ extension GoGrpcEcosystemGrpcGatewayV2RuntimeApi
 
   /// Go: `func runtime.StringValue(val string) (*wrapperspb.StringValue, error)`.
   $wrapperspb.ProtobufTypesKnownWrapperspbStringValue stringValue(String val) {
-    final $r = $callSync(8239, $W()..str(val));
+    final $r = $callSync(8248, $W()..str(val));
     return $r.hnn($wrapperspb.ProtobufTypesKnownWrapperspbStringValue.$h);
   }
 
   /// Go: `func runtime.Timestamp(val string) (*timestamppb.Timestamp, error)`.
   $timestamppb.ProtobufTypesKnownTimestamppbTimestamp timestamp(String val) {
-    final $r = $callSync(8240, $W()..str(val));
+    final $r = $callSync(8249, $W()..str(val));
     return $r.hnn($timestamppb.ProtobufTypesKnownTimestamppbTimestamp.$h);
   }
 
   /// Go: `func runtime.UInt32Value(val string) (*wrapperspb.UInt32Value, error)`.
   $wrapperspb.ProtobufTypesKnownWrapperspbUInt32Value uInt32Value(String val) {
-    final $r = $callSync(8241, $W()..str(val));
+    final $r = $callSync(8250, $W()..str(val));
     return $r.hnn($wrapperspb.ProtobufTypesKnownWrapperspbUInt32Value.$h);
   }
 
   /// Go: `func runtime.UInt64Value(val string) (*wrapperspb.UInt64Value, error)`.
   $wrapperspb.ProtobufTypesKnownWrapperspbUInt64Value uInt64Value(String val) {
-    final $r = $callSync(8242, $W()..str(val));
+    final $r = $callSync(8251, $W()..str(val));
     return $r.hnn($wrapperspb.ProtobufTypesKnownWrapperspbUInt64Value.$h);
   }
 
   /// Go: `func runtime.Uint32(val string) (uint32, error)`.
   int uint32(String val) {
-    final $r = $callSync(8243, $W()..str(val));
+    final $r = $callSync(8252, $W()..str(val));
     return $r.i64();
   }
 
   /// Go: `func runtime.Uint32P(val string) (*uint32, error)`.
   int uint32p(String val) {
-    final $r = $callSync(8244, $W()..str(val));
+    final $r = $callSync(8253, $W()..str(val));
     return $r.p() ? $r.i64() : $nil();
   }
 
   /// Go: `func runtime.Uint32Slice(val string, sep string) ([]uint32, error)`.
   List<int> uint32Slice(String val, String sep) {
     final $r = $callSync(
-        8245,
+        8254,
         $W()
           ..str(val)
           ..str(sep));
@@ -1414,20 +1414,20 @@ extension GoGrpcEcosystemGrpcGatewayV2RuntimeApi
 
   /// Go: `func runtime.Uint64(val string) (uint64, error)`.
   int uint64(String val) {
-    final $r = $callSync(8246, $W()..str(val));
+    final $r = $callSync(8255, $W()..str(val));
     return $r.i64();
   }
 
   /// Go: `func runtime.Uint64P(val string) (*uint64, error)`.
   int uint64p(String val) {
-    final $r = $callSync(8247, $W()..str(val));
+    final $r = $callSync(8256, $W()..str(val));
     return $r.p() ? $r.i64() : $nil();
   }
 
   /// Go: `func runtime.Uint64Slice(val string, sep string) ([]uint64, error)`.
   List<int> uint64Slice(String val, String sep) {
     final $r = $callSync(
-        8248,
+        8257,
         $W()
           ..str(val)
           ..str(sep));
@@ -1605,7 +1605,7 @@ extension GoGrpcEcosystemGrpcGatewayV2RuntimeOptionsApi
   /// Go: `func runtime.WithHTTPPathPattern(pattern string) runtime.AnnotateContextOption`.
   GrpcGatewayV2RuntimeAnnotateContextOption withHttpPathPattern(
       String pattern) {
-    final $r = $callSync(8249, $W()..str(pattern));
+    final $r = $callSync(8258, $W()..str(pattern));
     return $r.hnn(GrpcGatewayV2RuntimeAnnotateContextOption.$h);
   }
 }

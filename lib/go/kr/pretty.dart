@@ -18,7 +18,7 @@ mixin PrettyLogfer$ on GoHandle {
   /// Go: `func (pretty.Logfer).Logf(format string, a ...interface{})`.
   void logf(String format, [List<Object?> a = const []]) {
     $callSync(
-        12802,
+        12808,
         $W()
           ..h(this)
           ..str(format)
@@ -27,19 +27,19 @@ mixin PrettyLogfer$ on GoHandle {
 
   /// Go: type assertion `x.(*testing.B)`: null if the object is not one.
   $testing.TestingB? asTestingB() {
-    final $r = $callSync(1284, $W()..h(this));
+    final $r = $callSync(1287, $W()..h(this));
     return $r.hn($testing.TestingB.$h);
   }
 
   /// Go: type assertion `x.(*testing.F)`: null if the object is not one.
   $testing.TestingF? asTestingF() {
-    final $r = $callSync(1285, $W()..h(this));
+    final $r = $callSync(1288, $W()..h(this));
     return $r.hn($testing.TestingF.$h);
   }
 
   /// Go: type assertion `x.(*testing.T)`: null if the object is not one.
   $testing.TestingT? asTestingT() {
-    final $r = $callSync(1286, $W()..h(this));
+    final $r = $callSync(1289, $W()..h(this));
     return $r.hn($testing.TestingT.$h);
   }
 }
@@ -54,7 +54,7 @@ mixin PrettyPrintfer$ on GoHandle {
   /// Go: `func (pretty.Printfer).Printf(format string, a ...interface{})`.
   void printf(String format, [List<Object?> a = const []]) {
     $callSync(
-        12807,
+        12813,
         $W()
           ..h(this)
           ..str(format)
@@ -63,7 +63,7 @@ mixin PrettyPrintfer$ on GoHandle {
 
   /// Go: type assertion `x.(*log.Logger)`: null if the object is not one.
   $log.LogLogger? asLogLogger() {
-    final $r = $callSync(1287, $W()..h(this));
+    final $r = $callSync(1290, $W()..h(this));
     return $r.hn($log.LogLogger.$h);
   }
 }
@@ -73,7 +73,7 @@ extension GoKrPrettyApi on GoKrPretty {
   /// Go: `func pretty.Diff(a interface{}, b interface{}) (desc []string)`.
   List<String> diff(Object? a, Object? b) {
     final $r = $callSync(
-        12794,
+        12800,
         $W()
           ..any(a)
           ..any(b));
@@ -83,7 +83,7 @@ extension GoKrPrettyApi on GoKrPretty {
   /// Go: `func pretty.Errorf(format string, a ...interface{}) error`.
   void errorf(String format, [List<Object?> a = const []]) {
     $callSync(
-        12795,
+        12801,
         $W()
           ..str(format)
           ..list(a, (w0, e0) => w0.any(e0)));
@@ -92,7 +92,7 @@ extension GoKrPrettyApi on GoKrPretty {
   /// Go: `func pretty.Fdiff(w io.Writer, a interface{}, b interface{})`.
   void fdiff(GoHandle? w, Object? a, Object? b) {
     $callSync(
-        12796,
+        12802,
         $W()
           ..h(w)
           ..any(a)
@@ -101,14 +101,14 @@ extension GoKrPrettyApi on GoKrPretty {
 
   /// Go: `func pretty.Formatter(x interface{}) (f fmt.Formatter)`.
   $fmt.FmtFormatter formatter(Object? x) {
-    final $r = $callSync(12797, $W()..any(x));
+    final $r = $callSync(12803, $W()..any(x));
     return $r.hnn($fmt.FmtFormatter.$h);
   }
 
   /// Go: `func pretty.Fprintf(w io.Writer, format string, a ...interface{}) (n int, error error)`.
   int fprintf(GoHandle? w, String format, [List<Object?> a = const []]) {
     final $r = $callSync(
-        12798,
+        12804,
         $W()
           ..h(w)
           ..str(format)
@@ -119,7 +119,7 @@ extension GoKrPrettyApi on GoKrPretty {
   /// Go: `func pretty.Ldiff(l pretty.Logfer, a interface{}, b interface{})`.
   void ldiff(PrettyLogfer l, Object? a, Object? b) {
     $callSync(
-        12799,
+        12805,
         $W()
           ..h(l)
           ..any(a)
@@ -128,13 +128,13 @@ extension GoKrPrettyApi on GoKrPretty {
 
   /// Go: `func pretty.Log(a ...interface{})`.
   void log([List<Object?> a = const []]) {
-    $callSync(12800, $W()..list(a, (w0, e0) => w0.any(e0)));
+    $callSync(12806, $W()..list(a, (w0, e0) => w0.any(e0)));
   }
 
   /// Go: `func pretty.Logf(format string, a ...interface{})`.
   void logf(String format, [List<Object?> a = const []]) {
     $callSync(
-        12801,
+        12807,
         $W()
           ..str(format)
           ..list(a, (w0, e0) => w0.any(e0)));
@@ -142,13 +142,13 @@ extension GoKrPrettyApi on GoKrPretty {
 
   /// Go: `func pretty.Logln(a ...interface{})`.
   void logln([List<Object?> a = const []]) {
-    $callSync(12803, $W()..list(a, (w0, e0) => w0.any(e0)));
+    $callSync(12809, $W()..list(a, (w0, e0) => w0.any(e0)));
   }
 
   /// Go: `func pretty.Pdiff(p pretty.Printfer, a interface{}, b interface{})`.
   void pdiff(PrettyPrintfer p, Object? a, Object? b) {
     $callSync(
-        12804,
+        12810,
         $W()
           ..h(p)
           ..any(a)
@@ -157,14 +157,14 @@ extension GoKrPrettyApi on GoKrPretty {
 
   /// Go: `func pretty.Print(a ...interface{}) (n int, errno error)`.
   int print([List<Object?> a = const []]) {
-    final $r = $callSync(12805, $W()..list(a, (w0, e0) => w0.any(e0)));
+    final $r = $callSync(12811, $W()..list(a, (w0, e0) => w0.any(e0)));
     return $r.i64();
   }
 
   /// Go: `func pretty.Printf(format string, a ...interface{}) (n int, errno error)`.
   int printf(String format, [List<Object?> a = const []]) {
     final $r = $callSync(
-        12806,
+        12812,
         $W()
           ..str(format)
           ..list(a, (w0, e0) => w0.any(e0)));
@@ -173,20 +173,20 @@ extension GoKrPrettyApi on GoKrPretty {
 
   /// Go: `func pretty.Println(a ...interface{}) (n int, errno error)`.
   int println([List<Object?> a = const []]) {
-    final $r = $callSync(12808, $W()..list(a, (w0, e0) => w0.any(e0)));
+    final $r = $callSync(12814, $W()..list(a, (w0, e0) => w0.any(e0)));
     return $r.i64();
   }
 
   /// Go: `func pretty.Sprint(a ...interface{}) string`.
   String sprint([List<Object?> a = const []]) {
-    final $r = $callSync(12809, $W()..list(a, (w0, e0) => w0.any(e0)));
+    final $r = $callSync(12815, $W()..list(a, (w0, e0) => w0.any(e0)));
     return $r.str();
   }
 
   /// Go: `func pretty.Sprintf(format string, a ...interface{}) string`.
   String sprintf(String format, [List<Object?> a = const []]) {
     final $r = $callSync(
-        12810,
+        12816,
         $W()
           ..str(format)
           ..list(a, (w0, e0) => w0.any(e0)));

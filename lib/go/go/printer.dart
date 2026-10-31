@@ -41,7 +41,7 @@ final class GoPrinterConfig implements GoDto {
   /// Go: `func (*printer.Config).Fprint(output io.Writer, fset *token.FileSet, node any) error`.
   void fprint(GoHandle? output, $token.GoTokenFileSet fset, Object? node) {
     $callSync(
-        23242,
+        23248,
         $W()
           ..dto(this)
           ..h(output)
@@ -55,7 +55,7 @@ extension GoGoPrinterApi on GoGoPrinter {
   /// Go: `func printer.Fprint(output io.Writer, fset *token.FileSet, node any) error`.
   void fprint(GoHandle? output, $token.GoTokenFileSet fset, Object? node) {
     $callSync(
-        23243,
+        23249,
         $W()
           ..h(output)
           ..h(fset)

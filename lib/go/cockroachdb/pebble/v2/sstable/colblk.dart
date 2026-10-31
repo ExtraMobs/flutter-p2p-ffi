@@ -44,7 +44,7 @@ class PebbleV2SstableColblkBitmap extends $crypto.CryptoDecrypterOpts
   /// Go: `func (colblk.Bitmap).At(i int) bool`.
   bool at(int i) {
     final $r = $callSync(
-        5290,
+        5299,
         $W()
           ..h(this)
           ..i64(i));
@@ -54,7 +54,7 @@ class PebbleV2SstableColblkBitmap extends $crypto.CryptoDecrypterOpts
   /// Go: `func (colblk.Bitmap).SeekSetBitGE(i int) int`.
   int seekSetBitGe(int i) {
     final $r = $callSync(
-        5291,
+        5300,
         $W()
           ..h(this)
           ..i64(i));
@@ -64,7 +64,7 @@ class PebbleV2SstableColblkBitmap extends $crypto.CryptoDecrypterOpts
   /// Go: `func (colblk.Bitmap).SeekSetBitLE(i int) int`.
   int seekSetBitLe(int i) {
     final $r = $callSync(
-        5292,
+        5301,
         $W()
           ..h(this)
           ..i64(i));
@@ -74,7 +74,7 @@ class PebbleV2SstableColblkBitmap extends $crypto.CryptoDecrypterOpts
   /// Go: `func (colblk.Bitmap).SeekUnsetBitGE(i int) int`.
   int seekUnsetBitGe(int i) {
     final $r = $callSync(
-        5293,
+        5302,
         $W()
           ..h(this)
           ..i64(i));
@@ -84,7 +84,7 @@ class PebbleV2SstableColblkBitmap extends $crypto.CryptoDecrypterOpts
   /// Go: `func (colblk.Bitmap).SeekUnsetBitLE(i int) int`.
   int seekUnsetBitLe(int i) {
     final $r = $callSync(
-        5294,
+        5303,
         $W()
           ..h(this)
           ..i64(i));
@@ -93,7 +93,7 @@ class PebbleV2SstableColblkBitmap extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (colblk.Bitmap).String() string`.
   String string() {
-    final $r = $callSync(5295, $W()..h(this));
+    final $r = $callSync(5304, $W()..h(this));
     return $r.str();
   }
 }
@@ -122,7 +122,7 @@ class PebbleV2SstableColblkBitmapBuilder
   /// Go: `func (*colblk.BitmapBuilder).DataType(int) colblk.DataType`.
   int dataType(int arg0) {
     final $r = $callSync(
-        5296,
+        5305,
         $W()
           ..h(this)
           ..i64(arg0));
@@ -132,7 +132,7 @@ class PebbleV2SstableColblkBitmapBuilder
   /// Go: `func (*colblk.BitmapBuilder).Finish(col int, nRows int, offset uint32, buf []byte) uint32`.
   int finish(int col, int nRows, int offset, Uint8List buf) {
     final $r = $callSync(
-        5297,
+        5306,
         $W()
           ..h(this)
           ..i64(col)
@@ -145,7 +145,7 @@ class PebbleV2SstableColblkBitmapBuilder
   /// Go: `func (*colblk.BitmapBuilder).Invert(nRows int)`.
   void invert(int nRows) {
     $callSync(
-        5298,
+        5307,
         $W()
           ..h(this)
           ..i64(nRows));
@@ -154,7 +154,7 @@ class PebbleV2SstableColblkBitmapBuilder
   /// Go: `func (*colblk.BitmapBuilder).InvertedSize(rows int, offset uint32) uint32`.
   int invertedSize(int rows, int offset) {
     final $r = $callSync(
-        5299,
+        5308,
         $W()
           ..h(this)
           ..i64(rows)
@@ -164,19 +164,19 @@ class PebbleV2SstableColblkBitmapBuilder
 
   /// Go: `func (*colblk.BitmapBuilder).NumColumns() int`.
   int numColumns() {
-    final $r = $callSync(5300, $W()..h(this));
+    final $r = $callSync(5309, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*colblk.BitmapBuilder).Reset()`.
   void reset() {
-    $callSync(5301, $W()..h(this));
+    $callSync(5310, $W()..h(this));
   }
 
   /// Go: `func (*colblk.BitmapBuilder).Set(i int)`.
   void set(int i) {
     $callSync(
-        5302,
+        5311,
         $W()
           ..h(this)
           ..i64(i));
@@ -185,7 +185,7 @@ class PebbleV2SstableColblkBitmapBuilder
   /// Go: `func (*colblk.BitmapBuilder).Size(rows int, offset uint32) uint32`.
   int size(int rows, int offset) {
     final $r = $callSync(
-        5303,
+        5312,
         $W()
           ..h(this)
           ..i64(rows)
@@ -196,7 +196,7 @@ class PebbleV2SstableColblkBitmapBuilder
   /// Go: `func (*colblk.BitmapBuilder).WriteDebug(w io.Writer, rows int)`.
   void writeDebug(GoHandle? w, int rows) {
     $callSync(
-        5304,
+        5313,
         $W()
           ..h(this)
           ..h(w)
@@ -225,7 +225,7 @@ class PebbleV2SstableColblkBlockDecoder extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*colblk.BlockDecoder).Bitmap(col int) colblk.Bitmap`.
   PebbleV2SstableColblkBitmap bitmap(int col) {
     final $r = $callSync(
-        5305,
+        5314,
         $W()
           ..h(this)
           ..i64(col));
@@ -234,14 +234,14 @@ class PebbleV2SstableColblkBlockDecoder extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*colblk.BlockDecoder).Data() []byte`.
   Uint8List data() {
-    final $r = $callSync(5306, $W()..h(this));
+    final $r = $callSync(5315, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*colblk.BlockDecoder).DataType(col int) colblk.DataType`.
   int dataType(int col) {
     final $r = $callSync(
-        5307,
+        5316,
         $W()
           ..h(this)
           ..i64(col));
@@ -250,14 +250,14 @@ class PebbleV2SstableColblkBlockDecoder extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*colblk.BlockDecoder).FormattedString() string`.
   String formattedString() {
-    final $r = $callSync(5308, $W()..h(this));
+    final $r = $callSync(5317, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*colblk.BlockDecoder).Init(data []byte, customHeaderSize uint32)`.
   void init(Uint8List data, int customHeaderSize) {
     $callSync(
-        5309,
+        5318,
         $W()
           ..h(this)
           ..bytes(data)
@@ -267,7 +267,7 @@ class PebbleV2SstableColblkBlockDecoder extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*colblk.BlockDecoder).PrefixBytes(col int) colblk.PrefixBytes`.
   PebbleV2SstableColblkPrefixBytes prefixBytes(int col) {
     final $r = $callSync(
-        5310,
+        5319,
         $W()
           ..h(this)
           ..i64(col));
@@ -277,7 +277,7 @@ class PebbleV2SstableColblkBlockDecoder extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*colblk.BlockDecoder).RawBytes(col int) colblk.RawBytes`.
   PebbleV2SstableColblkRawBytes rawBytes(int col) {
     final $r = $callSync(
-        5311,
+        5320,
         $W()
           ..h(this)
           ..i64(col));
@@ -286,14 +286,14 @@ class PebbleV2SstableColblkBlockDecoder extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*colblk.BlockDecoder).Rows() int`.
   int rows() {
-    final $r = $callSync(5312, $W()..h(this));
+    final $r = $callSync(5321, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*colblk.BlockDecoder).Uints(col int) colblk.UnsafeUints`.
   PebbleV2SstableColblkUnsafeUints uints(int col) {
     final $r = $callSync(
-        5313,
+        5322,
         $W()
           ..h(this)
           ..i64(col));
@@ -321,14 +321,14 @@ class PebbleV2SstableColblkBlockEncoder extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*colblk.BlockEncoder).Data() []byte`.
   Uint8List data() {
-    final $r = $callSync(5314, $W()..h(this));
+    final $r = $callSync(5323, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*colblk.BlockEncoder).Encode(rows int, w colblk.ColumnWriter)`.
   void encode(int rows, PebbleV2SstableColblkColumnWriter w) {
     $callSync(
-        5315,
+        5324,
         $W()
           ..h(this)
           ..i64(rows)
@@ -337,14 +337,14 @@ class PebbleV2SstableColblkBlockEncoder extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*colblk.BlockEncoder).Finish() []byte`.
   Uint8List finish() {
-    final $r = $callSync(5316, $W()..h(this));
+    final $r = $callSync(5325, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*colblk.BlockEncoder).Init(size int, h colblk.Header, customHeaderSize uint32)`.
   void init(int size, PebbleV2SstableColblkHeader h, int customHeaderSize) {
     $callSync(
-        5317,
+        5326,
         $W()
           ..h(this)
           ..i64(size)
@@ -354,7 +354,7 @@ class PebbleV2SstableColblkBlockEncoder extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*colblk.BlockEncoder).Reset()`.
   void reset() {
-    $callSync(5318, $W()..h(this));
+    $callSync(5327, $W()..h(this));
   }
 }
 
@@ -369,7 +369,7 @@ mixin PebbleV2SstableColblkColumnWriter$ on GoHandle {
   /// Go: `func (colblk.ColumnWriter).DataType(col int) colblk.DataType`.
   int dataType(int col) {
     final $r = $callSync(
-        5319,
+        5328,
         $W()
           ..h(this)
           ..i64(col));
@@ -379,7 +379,7 @@ mixin PebbleV2SstableColblkColumnWriter$ on GoHandle {
   /// Go: `func (colblk.ColumnWriter).Finish(col int, rows int, offset uint32, buf []byte) (nextOffset uint32)`.
   int finish(int col, int rows, int offset, Uint8List buf) {
     final $r = $callSync(
-        5320,
+        5329,
         $W()
           ..h(this)
           ..i64(col)
@@ -391,39 +391,39 @@ mixin PebbleV2SstableColblkColumnWriter$ on GoHandle {
 
   /// Go: `func (colblk.ColumnWriter).NumColumns() int`.
   int numColumns() {
-    final $r = $callSync(5321, $W()..h(this));
+    final $r = $callSync(5330, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: type assertion `x.(*colblk.BitmapBuilder)`: null if the object is not one.
   PebbleV2SstableColblkBitmapBuilder? asPebbleV2SstableColblkBitmapBuilder() {
-    final $r = $callSync(409, $W()..h(this));
+    final $r = $callSync(412, $W()..h(this));
     return $r.hn(PebbleV2SstableColblkBitmapBuilder.$h);
   }
 
   /// Go: type assertion `x.(*colblk.PrefixBytesBuilder)`: null if the object is not one.
   PebbleV2SstableColblkPrefixBytesBuilder?
       asPebbleV2SstableColblkPrefixBytesBuilder() {
-    final $r = $callSync(410, $W()..h(this));
+    final $r = $callSync(413, $W()..h(this));
     return $r.hn(PebbleV2SstableColblkPrefixBytesBuilder.$h);
   }
 
   /// Go: type assertion `x.(*colblk.RawBytesBuilder)`: null if the object is not one.
   PebbleV2SstableColblkRawBytesBuilder?
       asPebbleV2SstableColblkRawBytesBuilder() {
-    final $r = $callSync(411, $W()..h(this));
+    final $r = $callSync(414, $W()..h(this));
     return $r.hn(PebbleV2SstableColblkRawBytesBuilder.$h);
   }
 
   /// Go: type assertion `x.(*colblk.UintBuilder)`: null if the object is not one.
   PebbleV2SstableColblkUintBuilder? asPebbleV2SstableColblkUintBuilder() {
-    final $r = $callSync(412, $W()..h(this));
+    final $r = $callSync(415, $W()..h(this));
     return $r.hn(PebbleV2SstableColblkUintBuilder.$h);
   }
 
   /// Go: type assertion `x.(colblk.KeyWriter)`: null if the object is not one.
   PebbleV2SstableColblkKeyWriter? asPebbleV2SstableColblkKeyWriter() {
-    final $r = $callSync(413, $W()..h(this));
+    final $r = $callSync(416, $W()..h(this));
     return $r.hn(PebbleV2SstableColblkKeyWriter.$h);
   }
 }
@@ -448,14 +448,14 @@ class PebbleV2SstableColblkDataBlockDecoder extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*colblk.DataBlockDecoder).BlockDecoder() *colblk.BlockDecoder`.
   PebbleV2SstableColblkBlockDecoder blockDecoder() {
-    final $r = $callSync(5322, $W()..h(this));
+    final $r = $callSync(5331, $W()..h(this));
     return $r.hnn(PebbleV2SstableColblkBlockDecoder.$h);
   }
 
   /// Go: `func (*colblk.DataBlockDecoder).Init(schema *colblk.KeySchema, data []byte)`.
   void init(PebbleV2SstableColblkKeySchema schema, Uint8List data) {
     $callSync(
-        5323,
+        5332,
         $W()
           ..h(this)
           ..dto(schema)
@@ -464,13 +464,13 @@ class PebbleV2SstableColblkDataBlockDecoder extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*colblk.DataBlockDecoder).KeySchemaHeader() []byte`.
   Uint8List keySchemaHeader() {
-    final $r = $callSync(5324, $W()..h(this));
+    final $r = $callSync(5333, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*colblk.DataBlockDecoder).PrefixChanged() colblk.Bitmap`.
   PebbleV2SstableColblkBitmap prefixChanged() {
-    final $r = $callSync(5325, $W()..h(this));
+    final $r = $callSync(5334, $W()..h(this));
     return $r.hnn(PebbleV2SstableColblkBitmap.$h);
   }
 }
@@ -496,7 +496,7 @@ class PebbleV2SstableColblkDataBlockEncoder extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*colblk.DataBlockEncoder).Init(schema *colblk.KeySchema)`.
   void init(PebbleV2SstableColblkKeySchema schema) {
     $callSync(
-        5326,
+        5335,
         $W()
           ..h(this)
           ..dto(schema));
@@ -505,7 +505,7 @@ class PebbleV2SstableColblkDataBlockEncoder extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*colblk.DataBlockEncoder).MaterializeLastUserKey(appendTo []byte) []byte`.
   Uint8List materializeLastUserKey(Uint8List appendTo) {
     final $r = $callSync(
-        5327,
+        5336,
         $W()
           ..h(this)
           ..bytes(appendTo));
@@ -514,24 +514,24 @@ class PebbleV2SstableColblkDataBlockEncoder extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*colblk.DataBlockEncoder).Reset()`.
   void reset() {
-    $callSync(5328, $W()..h(this));
+    $callSync(5337, $W()..h(this));
   }
 
   /// Go: `func (*colblk.DataBlockEncoder).Rows() int`.
   int rows() {
-    final $r = $callSync(5329, $W()..h(this));
+    final $r = $callSync(5338, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*colblk.DataBlockEncoder).Size() int`.
   int size() {
-    final $r = $callSync(5330, $W()..h(this));
+    final $r = $callSync(5339, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*colblk.DataBlockEncoder).String() string`.
   String string() {
-    final $r = $callSync(5331, $W()..h(this));
+    final $r = $callSync(5340, $W()..h(this));
     return $r.str();
   }
 }
@@ -563,17 +563,17 @@ class PebbleV2SstableColblkDataBlockIter
 
   /// Go: `func (*colblk.DataBlockIter).Close() error`.
   void close() {
-    $callSync(5332, $W()..h(this));
+    $callSync(5341, $W()..h(this));
   }
 
   /// Go: `func (*colblk.DataBlockIter).Error() error`.
   void error() {
-    $callSync(5333, $W()..h(this));
+    $callSync(5342, $W()..h(this));
   }
 
   /// Go: `func (*colblk.DataBlockIter).Handle() block.BufferHandle`.
   $block.PebbleV2SstableBlockBufferHandle handle() {
-    final $r = $callSync(5334, $W()..h(this));
+    final $r = $callSync(5343, $W()..h(this));
     return $r.hnn($block.PebbleV2SstableBlockBufferHandle.$h);
   }
 
@@ -581,7 +581,7 @@ class PebbleV2SstableColblkDataBlockIter
   void init(PebbleV2SstableColblkDataBlockDecoder d,
       $block.PebbleV2SstableBlockIterTransforms transforms) {
     $callSync(
-        5335,
+        5344,
         $W()
           ..h(this)
           ..h(d)
@@ -594,7 +594,7 @@ class PebbleV2SstableColblkDataBlockIter
       $block.PebbleV2SstableBlockBufferHandle h,
       $block.PebbleV2SstableBlockIterTransforms transforms) {
     $callSync(
-        5336,
+        5345,
         $W()
           ..h(this)
           ..dto(comparer)
@@ -609,7 +609,7 @@ class PebbleV2SstableColblkDataBlockIter
       $block.PebbleV2SstableBlockGetInternalValueForPrefixAndValueHandler
           getLazyValuer) {
     $callSync(
-        5337,
+        5346,
         $W()
           ..h(this)
           ..dto(keySchema)
@@ -619,19 +619,19 @@ class PebbleV2SstableColblkDataBlockIter
 
   /// Go: `func (*colblk.DataBlockIter).Invalidate()`.
   void invalidate() {
-    $callSync(5338, $W()..h(this));
+    $callSync(5347, $W()..h(this));
   }
 
   /// Go: `func (*colblk.DataBlockIter).IsDataInvalidated() bool`.
   bool isDataInvalidated() {
-    final $r = $callSync(5339, $W()..h(this));
+    final $r = $callSync(5348, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*colblk.DataBlockIter).IsLowerBound(k []byte) bool`.
   bool isLowerBound(Uint8List k) {
     final $r = $callSync(
-        5340,
+        5349,
         $W()
           ..h(this)
           ..bytes(k));
@@ -641,7 +641,7 @@ class PebbleV2SstableColblkDataBlockIter
   /// Go: `func (*colblk.DataBlockIter).SetBounds(lower []byte, upper []byte)`.
   void setBounds(Uint8List lower, Uint8List upper) {
     $callSync(
-        5341,
+        5350,
         $W()
           ..h(this)
           ..bytes(lower)
@@ -653,7 +653,7 @@ class PebbleV2SstableColblkDataBlockIter
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> setContext($context.Context ctx) async {
     await $call(
-        5342,
+        5351,
         $W()
           ..h(this)
           ..h(ctx));
@@ -661,13 +661,13 @@ class PebbleV2SstableColblkDataBlockIter
 
   /// Go: `func (*colblk.DataBlockIter).String() string`.
   String string() {
-    final $r = $callSync(5343, $W()..h(this));
+    final $r = $callSync(5352, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*colblk.DataBlockIter).Valid() bool`.
   bool valid() {
-    final $r = $callSync(5344, $W()..h(this));
+    final $r = $callSync(5353, $W()..h(this));
     return $r.b();
   }
 }
@@ -694,7 +694,7 @@ class PebbleV2SstableColblkDataBlockRewriter extends $crypto.CryptoDecrypterOpts
   factory PebbleV2SstableColblkDataBlockRewriter(
       PebbleV2SstableColblkKeySchema keySchema, $v2.PebbleV2Comparer comparer) {
     final $r = $callSync(
-        5427,
+        5436,
         $W()
           ..dto(keySchema)
           ..dto(comparer));
@@ -725,7 +725,7 @@ class PebbleV2SstableColblkDataBlockValidator
   void validate(Uint8List data, $v2.PebbleV2Comparer comparer,
       PebbleV2SstableColblkKeySchema keySchema) {
     $callSync(
-        5345,
+        5354,
         $W()
           ..h(this)
           ..bytes(data)
@@ -744,13 +744,13 @@ class PebbleV2SstableColblkEncoder extends GoHandle
 mixin PebbleV2SstableColblkEncoder$ on GoHandle {
   /// Go: `func (colblk.Encoder).Reset()`.
   void reset() {
-    $callSync(5356, $W()..h(this));
+    $callSync(5365, $W()..h(this));
   }
 
   /// Go: `func (colblk.Encoder).Size(rows int, offset uint32) uint32`.
   int size(int rows, int offset) {
     final $r = $callSync(
-        5357,
+        5366,
         $W()
           ..h(this)
           ..i64(rows)
@@ -761,7 +761,7 @@ mixin PebbleV2SstableColblkEncoder$ on GoHandle {
   /// Go: `func (colblk.Encoder).WriteDebug(w io.Writer, rows int)`.
   void writeDebug(GoHandle? w, int rows) {
     $callSync(
-        5358,
+        5367,
         $W()
           ..h(this)
           ..h(w)
@@ -770,39 +770,39 @@ mixin PebbleV2SstableColblkEncoder$ on GoHandle {
 
   /// Go: type assertion `x.(*colblk.BitmapBuilder)`: null if the object is not one.
   PebbleV2SstableColblkBitmapBuilder? asPebbleV2SstableColblkBitmapBuilder() {
-    final $r = $callSync(414, $W()..h(this));
+    final $r = $callSync(417, $W()..h(this));
     return $r.hn(PebbleV2SstableColblkBitmapBuilder.$h);
   }
 
   /// Go: type assertion `x.(*colblk.PrefixBytesBuilder)`: null if the object is not one.
   PebbleV2SstableColblkPrefixBytesBuilder?
       asPebbleV2SstableColblkPrefixBytesBuilder() {
-    final $r = $callSync(415, $W()..h(this));
+    final $r = $callSync(418, $W()..h(this));
     return $r.hn(PebbleV2SstableColblkPrefixBytesBuilder.$h);
   }
 
   /// Go: type assertion `x.(*colblk.RawBytesBuilder)`: null if the object is not one.
   PebbleV2SstableColblkRawBytesBuilder?
       asPebbleV2SstableColblkRawBytesBuilder() {
-    final $r = $callSync(416, $W()..h(this));
+    final $r = $callSync(419, $W()..h(this));
     return $r.hn(PebbleV2SstableColblkRawBytesBuilder.$h);
   }
 
   /// Go: type assertion `x.(*colblk.UintBuilder)`: null if the object is not one.
   PebbleV2SstableColblkUintBuilder? asPebbleV2SstableColblkUintBuilder() {
-    final $r = $callSync(417, $W()..h(this));
+    final $r = $callSync(420, $W()..h(this));
     return $r.hn(PebbleV2SstableColblkUintBuilder.$h);
   }
 
   /// Go: type assertion `x.(colblk.ColumnWriter)`: null if the object is not one.
   PebbleV2SstableColblkColumnWriter? asPebbleV2SstableColblkColumnWriter() {
-    final $r = $callSync(418, $W()..h(this));
+    final $r = $callSync(421, $W()..h(this));
     return $r.hn(PebbleV2SstableColblkColumnWriter.$h);
   }
 
   /// Go: type assertion `x.(colblk.KeyWriter)`: null if the object is not one.
   PebbleV2SstableColblkKeyWriter? asPebbleV2SstableColblkKeyWriter() {
-    final $r = $callSync(419, $W()..h(this));
+    final $r = $callSync(422, $W()..h(this));
     return $r.hn(PebbleV2SstableColblkKeyWriter.$h);
   }
 }
@@ -839,7 +839,7 @@ final class PebbleV2SstableColblkHeader implements GoDto {
   /// Go: `func (colblk.Header).Encode(buf []byte)`.
   void encode(Uint8List buf) {
     $callSync(
-        5360,
+        5369,
         $W()
           ..dto(this)
           ..bytes(buf));
@@ -847,7 +847,7 @@ final class PebbleV2SstableColblkHeader implements GoDto {
 
   /// Go: `func (colblk.Header).String() string`.
   String string() {
-    final $r = $callSync(5361, $W()..dto(this));
+    final $r = $callSync(5370, $W()..dto(this));
     return $r.str();
   }
 }
@@ -872,14 +872,14 @@ class PebbleV2SstableColblkIndexBlockDecoder extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*colblk.IndexBlockDecoder).DebugString() string`.
   String debugString() {
-    final $r = $callSync(5363, $W()..h(this));
+    final $r = $callSync(5372, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*colblk.IndexBlockDecoder).Init(data []byte)`.
   void init(Uint8List data) {
     $callSync(
-        5364,
+        5373,
         $W()
           ..h(this)
           ..bytes(data));
@@ -908,7 +908,7 @@ class PebbleV2SstableColblkIndexBlockWriter extends $crypto.CryptoDecrypterOpts
   int addBlockHandle(Uint8List separator,
       $block.PebbleV2SstableBlockHandle handle, Uint8List blockProperties) {
     final $r = $callSync(
-        5365,
+        5374,
         $W()
           ..h(this)
           ..bytes(separator)
@@ -920,7 +920,7 @@ class PebbleV2SstableColblkIndexBlockWriter extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*colblk.IndexBlockWriter).Finish(rows int) []byte`.
   Uint8List finish(int rows) {
     final $r = $callSync(
-        5366,
+        5375,
         $W()
           ..h(this)
           ..i64(rows));
@@ -929,30 +929,30 @@ class PebbleV2SstableColblkIndexBlockWriter extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*colblk.IndexBlockWriter).Init()`.
   void init() {
-    $callSync(5367, $W()..h(this));
+    $callSync(5376, $W()..h(this));
   }
 
   /// Go: `func (*colblk.IndexBlockWriter).Reset()`.
   void reset() {
-    $callSync(5368, $W()..h(this));
+    $callSync(5377, $W()..h(this));
   }
 
   /// Go: `func (*colblk.IndexBlockWriter).Rows() int`.
   int rows() {
-    final $r = $callSync(5369, $W()..h(this));
+    final $r = $callSync(5378, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*colblk.IndexBlockWriter).Size() int`.
   int size() {
-    final $r = $callSync(5370, $W()..h(this));
+    final $r = $callSync(5379, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*colblk.IndexBlockWriter).UnsafeSeparator(i int) []byte`.
   Uint8List unsafeSeparator(int i) {
     final $r = $callSync(
-        5371,
+        5380,
         $W()
           ..h(this)
           ..i64(i));
@@ -987,7 +987,7 @@ class PebbleV2SstableColblkIndexIter
 
   /// Go: `func (*colblk.IndexIter).BlockHandleWithProperties() (block.HandleWithProperties, error)`.
   $block.PebbleV2SstableBlockHandleWithProperties blockHandleWithProperties() {
-    final $r = $callSync(5372, $W()..h(this));
+    final $r = $callSync(5381, $W()..h(this));
     return $r.p()
         ? $block.PebbleV2SstableBlockHandleWithProperties.$dec($r)
         : $nil();
@@ -995,18 +995,18 @@ class PebbleV2SstableColblkIndexIter
 
   /// Go: `func (*colblk.IndexIter).Close() error`.
   void close() {
-    $callSync(5373, $W()..h(this));
+    $callSync(5382, $W()..h(this));
   }
 
   /// Go: `func (*colblk.IndexIter).First() bool`.
   bool first() {
-    final $r = $callSync(5374, $W()..h(this));
+    final $r = $callSync(5383, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*colblk.IndexIter).Handle() block.BufferHandle`.
   $block.PebbleV2SstableBlockBufferHandle handle() {
-    final $r = $callSync(5375, $W()..h(this));
+    final $r = $callSync(5384, $W()..h(this));
     return $r.hnn($block.PebbleV2SstableBlockBufferHandle.$h);
   }
 
@@ -1014,7 +1014,7 @@ class PebbleV2SstableColblkIndexIter
   void init($v2.PebbleV2Comparer comparer, Uint8List blk,
       $block.PebbleV2SstableBlockIterTransforms transforms) {
     $callSync(
-        5376,
+        5385,
         $W()
           ..h(this)
           ..dto(comparer)
@@ -1028,7 +1028,7 @@ class PebbleV2SstableColblkIndexIter
       $block.PebbleV2SstableBlockBufferHandle blk,
       $block.PebbleV2SstableBlockIterTransforms transforms) {
     $callSync(
-        5377,
+        5386,
         $W()
           ..h(this)
           ..dto(comparer)
@@ -1042,7 +1042,7 @@ class PebbleV2SstableColblkIndexIter
       PebbleV2SstableColblkIndexBlockDecoder d,
       $block.PebbleV2SstableBlockIterTransforms transforms) {
     $callSync(
-        5378,
+        5387,
         $W()
           ..h(this)
           ..dto(comparer)
@@ -1052,43 +1052,43 @@ class PebbleV2SstableColblkIndexIter
 
   /// Go: `func (*colblk.IndexIter).Invalidate()`.
   void invalidate() {
-    $callSync(5379, $W()..h(this));
+    $callSync(5388, $W()..h(this));
   }
 
   /// Go: `func (*colblk.IndexIter).IsDataInvalidated() bool`.
   bool isDataInvalidated() {
-    final $r = $callSync(5380, $W()..h(this));
+    final $r = $callSync(5389, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*colblk.IndexIter).Last() bool`.
   bool last() {
-    final $r = $callSync(5381, $W()..h(this));
+    final $r = $callSync(5390, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*colblk.IndexIter).Next() bool`.
   bool next() {
-    final $r = $callSync(5382, $W()..h(this));
+    final $r = $callSync(5391, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*colblk.IndexIter).Prev() bool`.
   bool prev() {
-    final $r = $callSync(5383, $W()..h(this));
+    final $r = $callSync(5392, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*colblk.IndexIter).RowIndex() int`.
   int rowIndex() {
-    final $r = $callSync(5384, $W()..h(this));
+    final $r = $callSync(5393, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*colblk.IndexIter).SeekGE(key []byte) bool`.
   bool seekGe(Uint8List key) {
     final $r = $callSync(
-        5385,
+        5394,
         $W()
           ..h(this)
           ..bytes(key));
@@ -1097,14 +1097,14 @@ class PebbleV2SstableColblkIndexIter
 
   /// Go: `func (*colblk.IndexIter).Separator() []byte`.
   Uint8List separator() {
-    final $r = $callSync(5386, $W()..h(this));
+    final $r = $callSync(5395, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*colblk.IndexIter).SeparatorGT(key []byte, inclusively bool) bool`.
   bool separatorGt(Uint8List key, bool inclusively) {
     final $r = $callSync(
-        5387,
+        5396,
         $W()
           ..h(this)
           ..bytes(key)
@@ -1115,7 +1115,7 @@ class PebbleV2SstableColblkIndexIter
   /// Go: `func (*colblk.IndexIter).SeparatorLT(key []byte) bool`.
   bool separatorLt(Uint8List key) {
     final $r = $callSync(
-        5388,
+        5397,
         $W()
           ..h(this)
           ..bytes(key));
@@ -1124,7 +1124,7 @@ class PebbleV2SstableColblkIndexIter
 
   /// Go: `func (*colblk.IndexIter).Valid() bool`.
   bool valid() {
-    final $r = $callSync(5389, $W()..h(this));
+    final $r = $callSync(5398, $W()..h(this));
     return $r.b();
   }
 }
@@ -1161,13 +1161,13 @@ final class PebbleV2SstableColblkKeyComparison implements GoDto {
 
   /// Go: `func (colblk.KeyComparison).PrefixEqual() bool`.
   bool prefixEqual() {
-    final $r = $callSync(5390, $W()..dto(this));
+    final $r = $callSync(5399, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (colblk.KeyComparison).String() string`.
   String string() {
-    final $r = $callSync(5391, $W()..dto(this));
+    final $r = $callSync(5400, $W()..dto(this));
     return $r.str();
   }
 }
@@ -1216,7 +1216,7 @@ mixin PebbleV2SstableColblkKeySeeker$ on GoHandle {
   /// Go: `func (colblk.KeySeeker).IsLowerBound(k []byte, syntheticSuffix []byte) bool`.
   bool isLowerBound(Uint8List k, Uint8List syntheticSuffix) {
     final $r = $callSync(
-        5392,
+        5401,
         $W()
           ..h(this)
           ..bytes(k)
@@ -1228,7 +1228,7 @@ mixin PebbleV2SstableColblkKeySeeker$ on GoHandle {
   Uint8List materializeUserKey(
       PebbleV2SstableColblkPrefixBytesIter keyIter, int prevRow, int row) {
     final $r = $callSync(
-        5393,
+        5402,
         $W()
           ..h(this)
           ..h(keyIter)
@@ -1244,7 +1244,7 @@ mixin PebbleV2SstableColblkKeySeeker$ on GoHandle {
       int prevRow,
       int row) {
     final $r = $callSync(
-        5394,
+        5403,
         $W()
           ..h(this)
           ..h(keyIter)
@@ -1257,7 +1257,7 @@ mixin PebbleV2SstableColblkKeySeeker$ on GoHandle {
   /// Go: `func (colblk.KeySeeker).SeekGE(key []byte, boundRow int, searchDir int8) (row int, equalPrefix bool)`.
   (int, bool) seekGe(Uint8List key, int boundRow, int searchDir) {
     final $r = $callSync(
-        5395,
+        5404,
         $W()
           ..h(this)
           ..bytes(key)
@@ -1288,20 +1288,20 @@ class PebbleV2SstableColblkKeyValueBlockDecoder
 
   /// Go: `func (*colblk.KeyValueBlockDecoder).BlockDecoder() *colblk.BlockDecoder`.
   PebbleV2SstableColblkBlockDecoder blockDecoder() {
-    final $r = $callSync(5396, $W()..h(this));
+    final $r = $callSync(5405, $W()..h(this));
     return $r.hnn(PebbleV2SstableColblkBlockDecoder.$h);
   }
 
   /// Go: `func (*colblk.KeyValueBlockDecoder).DebugString() string`.
   String debugString() {
-    final $r = $callSync(5397, $W()..h(this));
+    final $r = $callSync(5406, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*colblk.KeyValueBlockDecoder).Init(data []byte)`.
   void init(Uint8List data) {
     $callSync(
-        5398,
+        5407,
         $W()
           ..h(this)
           ..bytes(data));
@@ -1310,7 +1310,7 @@ class PebbleV2SstableColblkKeyValueBlockDecoder
   /// Go: `func (*colblk.KeyValueBlockDecoder).KeyAt(i int) []byte`.
   Uint8List keyAt(int i) {
     final $r = $callSync(
-        5399,
+        5408,
         $W()
           ..h(this)
           ..i64(i));
@@ -1320,7 +1320,7 @@ class PebbleV2SstableColblkKeyValueBlockDecoder
   /// Go: `func (*colblk.KeyValueBlockDecoder).ValueAt(i int) []byte`.
   Uint8List valueAt(int i) {
     final $r = $callSync(
-        5400,
+        5409,
         $W()
           ..h(this)
           ..i64(i));
@@ -1350,7 +1350,7 @@ class PebbleV2SstableColblkKeyValueBlockWriter
   /// Go: `func (*colblk.KeyValueBlockWriter).AddKV(key []byte, value []byte)`.
   void addKv(Uint8List key, Uint8List value) {
     $callSync(
-        5401,
+        5410,
         $W()
           ..h(this)
           ..bytes(key)
@@ -1360,7 +1360,7 @@ class PebbleV2SstableColblkKeyValueBlockWriter
   /// Go: `func (*colblk.KeyValueBlockWriter).Finish(rows int) []byte`.
   Uint8List finish(int rows) {
     final $r = $callSync(
-        5402,
+        5411,
         $W()
           ..h(this)
           ..i64(rows));
@@ -1369,12 +1369,12 @@ class PebbleV2SstableColblkKeyValueBlockWriter
 
   /// Go: `func (*colblk.KeyValueBlockWriter).Init()`.
   void init() {
-    $callSync(5403, $W()..h(this));
+    $callSync(5412, $W()..h(this));
   }
 
   /// Go: `func (*colblk.KeyValueBlockWriter).Rows() int`.
   int rows() {
-    final $r = $callSync(5404, $W()..h(this));
+    final $r = $callSync(5413, $W()..h(this));
     return $r.i64();
   }
 }
@@ -1390,7 +1390,7 @@ mixin PebbleV2SstableColblkKeyWriter$ on GoHandle {
   /// Go: `func (colblk.KeyWriter).ComparePrev(key []byte) colblk.KeyComparison`.
   PebbleV2SstableColblkKeyComparison comparePrev(Uint8List key) {
     final $r = $callSync(
-        5405,
+        5414,
         $W()
           ..h(this)
           ..bytes(key));
@@ -1400,7 +1400,7 @@ mixin PebbleV2SstableColblkKeyWriter$ on GoHandle {
   /// Go: `func (colblk.KeyWriter).FinishHeader(dst []byte)`.
   void finishHeader(Uint8List dst) {
     $callSync(
-        5406,
+        5415,
         $W()
           ..h(this)
           ..bytes(dst));
@@ -1409,7 +1409,7 @@ mixin PebbleV2SstableColblkKeyWriter$ on GoHandle {
   /// Go: `func (colblk.KeyWriter).MaterializeKey(dst []byte, row int) []byte`.
   Uint8List materializeKey(Uint8List dst, int row) {
     final $r = $callSync(
-        5407,
+        5416,
         $W()
           ..h(this)
           ..bytes(dst)
@@ -1421,7 +1421,7 @@ mixin PebbleV2SstableColblkKeyWriter$ on GoHandle {
   void writeKey(int row, Uint8List key, int keyPrefixLen,
       int keyPrefixLenSharedWithPrev) {
     $callSync(
-        5408,
+        5417,
         $W()
           ..h(this)
           ..i64(row)
@@ -1453,7 +1453,7 @@ class PebbleV2SstableColblkKeyspanBlockWriter
   /// Go: `func (*colblk.KeyspanBlockWriter).AddSpan(s keyspan.Span)`.
   void addSpan($rangekey.PebbleV2RangekeySpan s) {
     $callSync(
-        5409,
+        5418,
         $W()
           ..h(this)
           ..dto(s));
@@ -1461,7 +1461,7 @@ class PebbleV2SstableColblkKeyspanBlockWriter
 
   /// Go: `func (*colblk.KeyspanBlockWriter).Finish() []byte`.
   Uint8List finish() {
-    final $r = $callSync(5410, $W()..h(this));
+    final $r = $callSync(5419, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
@@ -1475,7 +1475,7 @@ class PebbleV2SstableColblkKeyspanBlockWriter
   Future<void> init(
       FutureOr<bool> Function(Uint8List a, Uint8List b) equal) async {
     await $call(
-        5411,
+        5420,
         $W()
           ..h(this)
           ..cb(
@@ -1486,30 +1486,30 @@ class PebbleV2SstableColblkKeyspanBlockWriter
 
   /// Go: `func (*colblk.KeyspanBlockWriter).KeyCount() int`.
   int keyCount() {
-    final $r = $callSync(5412, $W()..h(this));
+    final $r = $callSync(5421, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*colblk.KeyspanBlockWriter).Reset()`.
   void reset() {
-    $callSync(5413, $W()..h(this));
+    $callSync(5422, $W()..h(this));
   }
 
   /// Go: `func (*colblk.KeyspanBlockWriter).Size() int`.
   int size() {
-    final $r = $callSync(5414, $W()..h(this));
+    final $r = $callSync(5423, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*colblk.KeyspanBlockWriter).String() string`.
   String string() {
-    final $r = $callSync(5415, $W()..h(this));
+    final $r = $callSync(5424, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*colblk.KeyspanBlockWriter).UnsafeLastSpan() (start []byte, end []byte, largestTrailer base.InternalKeyTrailer)`.
   (Uint8List, Uint8List, int) unsafeLastSpan() {
-    final $r = $callSync(5416, $W()..h(this));
+    final $r = $callSync(5425, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.bytes() ?? Uint8List(0), $r.i64());
   }
 }
@@ -1534,14 +1534,14 @@ class PebbleV2SstableColblkKeyspanDecoder extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*colblk.KeyspanDecoder).DebugString() string`.
   String debugString() {
-    final $r = $callSync(5417, $W()..h(this));
+    final $r = $callSync(5426, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*colblk.KeyspanDecoder).Init(data []byte)`.
   void init(Uint8List data) {
     $callSync(
-        5418,
+        5427,
         $W()
           ..h(this)
           ..bytes(data));
@@ -1568,37 +1568,37 @@ class PebbleV2SstableColblkKeyspanIter extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*colblk.KeyspanIter).Close()`.
   void close() {
-    $callSync(5419, $W()..h(this));
+    $callSync(5428, $W()..h(this));
   }
 
   /// Go: `func (*colblk.keyspanIter).First() (*keyspan.Span, error)`.
   $rangekey.PebbleV2RangekeySpan first() {
-    final $r = $callSync(5420, $W()..h(this));
+    final $r = $callSync(5429, $W()..h(this));
     return $r.p() ? $rangekey.PebbleV2RangekeySpan.$dec($r) : $nil();
   }
 
   /// Go: `func (*colblk.keyspanIter).Last() (*keyspan.Span, error)`.
   $rangekey.PebbleV2RangekeySpan last() {
-    final $r = $callSync(5421, $W()..h(this));
+    final $r = $callSync(5430, $W()..h(this));
     return $r.p() ? $rangekey.PebbleV2RangekeySpan.$dec($r) : $nil();
   }
 
   /// Go: `func (*colblk.keyspanIter).Next() (*keyspan.Span, error)`.
   $rangekey.PebbleV2RangekeySpan next() {
-    final $r = $callSync(5422, $W()..h(this));
+    final $r = $callSync(5431, $W()..h(this));
     return $r.p() ? $rangekey.PebbleV2RangekeySpan.$dec($r) : $nil();
   }
 
   /// Go: `func (*colblk.keyspanIter).Prev() (*keyspan.Span, error)`.
   $rangekey.PebbleV2RangekeySpan prev() {
-    final $r = $callSync(5423, $W()..h(this));
+    final $r = $callSync(5432, $W()..h(this));
     return $r.p() ? $rangekey.PebbleV2RangekeySpan.$dec($r) : $nil();
   }
 
   /// Go: `func (*colblk.keyspanIter).SeekGE(key []byte) (*keyspan.Span, error)`.
   $rangekey.PebbleV2RangekeySpan seekGe(Uint8List key) {
     final $r = $callSync(
-        5424,
+        5433,
         $W()
           ..h(this)
           ..bytes(key));
@@ -1608,7 +1608,7 @@ class PebbleV2SstableColblkKeyspanIter extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*colblk.keyspanIter).SeekLT(key []byte) (*keyspan.Span, error)`.
   $rangekey.PebbleV2RangekeySpan seekLt(Uint8List key) {
     final $r = $callSync(
-        5425,
+        5434,
         $W()
           ..h(this)
           ..bytes(key));
@@ -1620,7 +1620,7 @@ class PebbleV2SstableColblkKeyspanIter extends $crypto.CryptoDecrypterOpts
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> setContext($context.Context ctx) async {
     await $call(
-        5426,
+        5435,
         $W()
           ..h(this)
           ..h(ctx));
@@ -1648,7 +1648,7 @@ class PebbleV2SstableColblkPrefixBytes extends $crypto.CryptoDecrypterOpts
   /// Go: `func (colblk.PrefixBytes).At(i int) []byte`.
   Uint8List at(int i) {
     final $r = $callSync(
-        5429,
+        5438,
         $W()
           ..h(this)
           ..i64(i));
@@ -1657,14 +1657,14 @@ class PebbleV2SstableColblkPrefixBytes extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*colblk.PrefixBytes).BundleCount() int`.
   int bundleCount() {
-    final $r = $callSync(5430, $W()..h(this));
+    final $r = $callSync(5439, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*colblk.PrefixBytes).BundlePrefix(i int) []byte`.
   Uint8List bundlePrefix(int i) {
     final $r = $callSync(
-        5431,
+        5440,
         $W()
           ..h(this)
           ..i64(i));
@@ -1674,7 +1674,7 @@ class PebbleV2SstableColblkPrefixBytes extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*colblk.PrefixBytes).RowBundlePrefix(row int) []byte`.
   Uint8List rowBundlePrefix(int row) {
     final $r = $callSync(
-        5432,
+        5441,
         $W()
           ..h(this)
           ..i64(row));
@@ -1684,7 +1684,7 @@ class PebbleV2SstableColblkPrefixBytes extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*colblk.PrefixBytes).RowSuffix(row int) []byte`.
   Uint8List rowSuffix(int row) {
     final $r = $callSync(
-        5433,
+        5442,
         $W()
           ..h(this)
           ..i64(row));
@@ -1693,14 +1693,14 @@ class PebbleV2SstableColblkPrefixBytes extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*colblk.PrefixBytes).Rows() int`.
   int rows() {
-    final $r = $callSync(5434, $W()..h(this));
+    final $r = $callSync(5443, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*colblk.PrefixBytes).Search(k []byte) (rowIndex int, isEqual bool)`.
   (int, bool) search(Uint8List k) {
     final $r = $callSync(
-        5435,
+        5444,
         $W()
           ..h(this)
           ..bytes(k));
@@ -1710,7 +1710,7 @@ class PebbleV2SstableColblkPrefixBytes extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*colblk.PrefixBytes).SetAt(it *colblk.PrefixBytesIter, i int)`.
   void setAt(PebbleV2SstableColblkPrefixBytesIter it, int i) {
     $callSync(
-        5436,
+        5445,
         $W()
           ..h(this)
           ..h(it)
@@ -1720,7 +1720,7 @@ class PebbleV2SstableColblkPrefixBytes extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*colblk.PrefixBytes).SetNext(it *colblk.PrefixBytesIter)`.
   void setNext(PebbleV2SstableColblkPrefixBytesIter it) {
     $callSync(
-        5437,
+        5446,
         $W()
           ..h(this)
           ..h(it));
@@ -1728,13 +1728,13 @@ class PebbleV2SstableColblkPrefixBytes extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*colblk.PrefixBytes).SharedPrefix() []byte`.
   Uint8List sharedPrefix() {
-    final $r = $callSync(5438, $W()..h(this));
+    final $r = $callSync(5447, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*colblk.PrefixBytes).UnsafeFirstSlice() []byte`.
   Uint8List unsafeFirstSlice() {
-    final $r = $callSync(5439, $W()..h(this));
+    final $r = $callSync(5448, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 }
@@ -1763,7 +1763,7 @@ class PebbleV2SstableColblkPrefixBytesBuilder
   /// Go: `func (*colblk.PrefixBytesBuilder).DataType(int) colblk.DataType`.
   int dataType(int arg0) {
     final $r = $callSync(
-        5440,
+        5449,
         $W()
           ..h(this)
           ..i64(arg0));
@@ -1773,7 +1773,7 @@ class PebbleV2SstableColblkPrefixBytesBuilder
   /// Go: `func (*colblk.PrefixBytesBuilder).Finish(col int, rows int, offset uint32, buf []byte) (endOffset uint32)`.
   int finish(int col, int rows, int offset, Uint8List buf) {
     final $r = $callSync(
-        5441,
+        5450,
         $W()
           ..h(this)
           ..i64(col)
@@ -1786,7 +1786,7 @@ class PebbleV2SstableColblkPrefixBytesBuilder
   /// Go: `func (*colblk.PrefixBytesBuilder).Init(bundleSize int)`.
   void init(int bundleSize) {
     $callSync(
-        5442,
+        5451,
         $W()
           ..h(this)
           ..i64(bundleSize));
@@ -1794,14 +1794,14 @@ class PebbleV2SstableColblkPrefixBytesBuilder
 
   /// Go: `func (*colblk.PrefixBytesBuilder).NumColumns() int`.
   int numColumns() {
-    final $r = $callSync(5443, $W()..h(this));
+    final $r = $callSync(5452, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*colblk.PrefixBytesBuilder).Put(key []byte, bytesSharedWithPrev int)`.
   void put(Uint8List key, int bytesSharedWithPrev) {
     $callSync(
-        5444,
+        5453,
         $W()
           ..h(this)
           ..bytes(key)
@@ -1810,19 +1810,19 @@ class PebbleV2SstableColblkPrefixBytesBuilder
 
   /// Go: `func (*colblk.PrefixBytesBuilder).Reset()`.
   void reset() {
-    $callSync(5445, $W()..h(this));
+    $callSync(5454, $W()..h(this));
   }
 
   /// Go: `func (*colblk.PrefixBytesBuilder).Rows() int`.
   int rows() {
-    final $r = $callSync(5446, $W()..h(this));
+    final $r = $callSync(5455, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*colblk.PrefixBytesBuilder).Size(rows int, offset uint32) uint32`.
   int size(int rows, int offset) {
     final $r = $callSync(
-        5447,
+        5456,
         $W()
           ..h(this)
           ..i64(rows)
@@ -1833,7 +1833,7 @@ class PebbleV2SstableColblkPrefixBytesBuilder
   /// Go: `func (*colblk.PrefixBytesBuilder).UnsafeGet(i int) []byte`.
   Uint8List unsafeGet(int i) {
     final $r = $callSync(
-        5448,
+        5457,
         $W()
           ..h(this)
           ..i64(i));
@@ -1843,7 +1843,7 @@ class PebbleV2SstableColblkPrefixBytesBuilder
   /// Go: `func (*colblk.PrefixBytesBuilder).WriteDebug(w io.Writer, rows int)`.
   void writeDebug(GoHandle? w, int rows) {
     $callSync(
-        5449,
+        5458,
         $W()
           ..h(this)
           ..h(w)
@@ -1872,7 +1872,7 @@ class PebbleV2SstableColblkPrefixBytesIter extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*colblk.PrefixBytesIter).Init(maxKeyLength int, syntheticPrefix block.SyntheticPrefix)`.
   void init(int maxKeyLength, Uint8List syntheticPrefix) {
     $callSync(
-        5450,
+        5459,
         $W()
           ..h(this)
           ..i64(maxKeyLength)
@@ -1901,7 +1901,7 @@ class PebbleV2SstableColblkRawBytes extends $crypto.CryptoDecrypterOpts
   /// Go: `func (colblk.RawBytes).At(i int) []byte`.
   Uint8List at(int i) {
     final $r = $callSync(
-        5451,
+        5460,
         $W()
           ..h(this)
           ..i64(i));
@@ -1911,7 +1911,7 @@ class PebbleV2SstableColblkRawBytes extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*colblk.RawBytes).Offsets(i int) (start uint32, end uint32)`.
   (int, int) offsets(int i) {
     final $r = $callSync(
-        5452,
+        5461,
         $W()
           ..h(this)
           ..i64(i));
@@ -1921,7 +1921,7 @@ class PebbleV2SstableColblkRawBytes extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*colblk.RawBytes).Slice(start uint32, end uint32) []byte`.
   Uint8List slice(int start, int end) {
     final $r = $callSync(
-        5453,
+        5462,
         $W()
           ..h(this)
           ..i64(start)
@@ -1931,7 +1931,7 @@ class PebbleV2SstableColblkRawBytes extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*colblk.RawBytes).Slices() int`.
   int slices() {
-    final $r = $callSync(5454, $W()..h(this));
+    final $r = $callSync(5463, $W()..h(this));
     return $r.i64();
   }
 }
@@ -1960,7 +1960,7 @@ class PebbleV2SstableColblkRawBytesBuilder
   /// Go: `func (*colblk.RawBytesBuilder).DataType(int) colblk.DataType`.
   int dataType(int arg0) {
     final $r = $callSync(
-        5455,
+        5464,
         $W()
           ..h(this)
           ..i64(arg0));
@@ -1970,7 +1970,7 @@ class PebbleV2SstableColblkRawBytesBuilder
   /// Go: `func (*colblk.RawBytesBuilder).Finish(col int, rows int, offset uint32, buf []byte) uint32`.
   int finish(int col, int rows, int offset, Uint8List buf) {
     final $r = $callSync(
-        5456,
+        5465,
         $W()
           ..h(this)
           ..i64(col)
@@ -1982,19 +1982,19 @@ class PebbleV2SstableColblkRawBytesBuilder
 
   /// Go: `func (*colblk.RawBytesBuilder).Init()`.
   void init() {
-    $callSync(5457, $W()..h(this));
+    $callSync(5466, $W()..h(this));
   }
 
   /// Go: `func (*colblk.RawBytesBuilder).NumColumns() int`.
   int numColumns() {
-    final $r = $callSync(5458, $W()..h(this));
+    final $r = $callSync(5467, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*colblk.RawBytesBuilder).Put(s []byte)`.
   void put(Uint8List s) {
     $callSync(
-        5459,
+        5468,
         $W()
           ..h(this)
           ..bytes(s));
@@ -2003,7 +2003,7 @@ class PebbleV2SstableColblkRawBytesBuilder
   /// Go: `func (*colblk.RawBytesBuilder).PutConcat(s1 []byte, s2 []byte)`.
   void putConcat(Uint8List s1, Uint8List s2) {
     $callSync(
-        5460,
+        5469,
         $W()
           ..h(this)
           ..bytes(s1)
@@ -2012,19 +2012,19 @@ class PebbleV2SstableColblkRawBytesBuilder
 
   /// Go: `func (*colblk.RawBytesBuilder).Reset()`.
   void reset() {
-    $callSync(5461, $W()..h(this));
+    $callSync(5470, $W()..h(this));
   }
 
   /// Go: `func (*colblk.RawBytesBuilder).Rows() int`.
   int rows() {
-    final $r = $callSync(5462, $W()..h(this));
+    final $r = $callSync(5471, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*colblk.RawBytesBuilder).Size(rows int, offset uint32) uint32`.
   int size(int rows, int offset) {
     final $r = $callSync(
-        5463,
+        5472,
         $W()
           ..h(this)
           ..i64(rows)
@@ -2035,7 +2035,7 @@ class PebbleV2SstableColblkRawBytesBuilder
   /// Go: `func (*colblk.RawBytesBuilder).UnsafeGet(i int) []byte`.
   Uint8List unsafeGet(int i) {
     final $r = $callSync(
-        5464,
+        5473,
         $W()
           ..h(this)
           ..i64(i));
@@ -2045,7 +2045,7 @@ class PebbleV2SstableColblkRawBytesBuilder
   /// Go: `func (*colblk.RawBytesBuilder).WriteDebug(w io.Writer, rows int)`.
   void writeDebug(GoHandle? w, int rows) {
     $callSync(
-        5465,
+        5474,
         $W()
           ..h(this)
           ..h(w)
@@ -2074,20 +2074,20 @@ class PebbleV2SstableColblkReferenceLivenessBlockDecoder
 
   /// Go: `func (*colblk.ReferenceLivenessBlockDecoder).BlockDecoder() *colblk.BlockDecoder`.
   PebbleV2SstableColblkBlockDecoder blockDecoder() {
-    final $r = $callSync(5466, $W()..h(this));
+    final $r = $callSync(5475, $W()..h(this));
     return $r.hnn(PebbleV2SstableColblkBlockDecoder.$h);
   }
 
   /// Go: `func (*colblk.ReferenceLivenessBlockDecoder).DebugString() string`.
   String debugString() {
-    final $r = $callSync(5467, $W()..h(this));
+    final $r = $callSync(5476, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*colblk.ReferenceLivenessBlockDecoder).Init(data []byte)`.
   void init(Uint8List data) {
     $callSync(
-        5468,
+        5477,
         $W()
           ..h(this)
           ..bytes(data));
@@ -2096,7 +2096,7 @@ class PebbleV2SstableColblkReferenceLivenessBlockDecoder
   /// Go: `func (*colblk.ReferenceLivenessBlockDecoder).LivenessAtReference(i int) []byte`.
   Uint8List livenessAtReference(int i) {
     final $r = $callSync(
-        5469,
+        5478,
         $W()
           ..h(this)
           ..i64(i));
@@ -2126,7 +2126,7 @@ class PebbleV2SstableColblkReferenceLivenessBlockEncoder
   /// Go: `func (*colblk.ReferenceLivenessBlockEncoder).AddReferenceLiveness(referenceID int, v []byte)`.
   void addReferenceLiveness(int referenceId, Uint8List v) {
     $callSync(
-        5470,
+        5479,
         $W()
           ..h(this)
           ..i64(referenceId)
@@ -2135,24 +2135,24 @@ class PebbleV2SstableColblkReferenceLivenessBlockEncoder
 
   /// Go: `func (*colblk.ReferenceLivenessBlockEncoder).Count() int`.
   int count() {
-    final $r = $callSync(5471, $W()..h(this));
+    final $r = $callSync(5480, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*colblk.ReferenceLivenessBlockEncoder).Finish() []byte`.
   Uint8List finish() {
-    final $r = $callSync(5472, $W()..h(this));
+    final $r = $callSync(5481, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*colblk.ReferenceLivenessBlockEncoder).Init()`.
   void init() {
-    $callSync(5473, $W()..h(this));
+    $callSync(5482, $W()..h(this));
   }
 
   /// Go: `func (*colblk.ReferenceLivenessBlockEncoder).Reset()`.
   void reset() {
-    $callSync(5474, $W()..h(this));
+    $callSync(5483, $W()..h(this));
   }
 }
 
@@ -2179,7 +2179,7 @@ class PebbleV2SstableColblkUintBuilder extends PebbleV2SstableColblkColumnWriter
   /// Go: `func (*colblk.UintBuilder).DataType(int) colblk.DataType`.
   int dataType(int arg0) {
     final $r = $callSync(
-        5478,
+        5487,
         $W()
           ..h(this)
           ..i64(arg0));
@@ -2189,7 +2189,7 @@ class PebbleV2SstableColblkUintBuilder extends PebbleV2SstableColblkColumnWriter
   /// Go: `func (*colblk.UintBuilder).Finish(col int, rows int, offset uint32, buf []byte) uint32`.
   int finish(int col, int rows, int offset, Uint8List buf) {
     final $r = $callSync(
-        5479,
+        5488,
         $W()
           ..h(this)
           ..i64(col)
@@ -2202,7 +2202,7 @@ class PebbleV2SstableColblkUintBuilder extends PebbleV2SstableColblkColumnWriter
   /// Go: `func (*colblk.UintBuilder).Get(row int) uint64`.
   int get(int row) {
     final $r = $callSync(
-        5480,
+        5489,
         $W()
           ..h(this)
           ..i64(row));
@@ -2211,29 +2211,29 @@ class PebbleV2SstableColblkUintBuilder extends PebbleV2SstableColblkColumnWriter
 
   /// Go: `func (*colblk.UintBuilder).Init()`.
   void init() {
-    $callSync(5481, $W()..h(this));
+    $callSync(5490, $W()..h(this));
   }
 
   /// Go: `func (*colblk.UintBuilder).InitWithDefault()`.
   void initWithDefault() {
-    $callSync(5482, $W()..h(this));
+    $callSync(5491, $W()..h(this));
   }
 
   /// Go: `func (*colblk.UintBuilder).NumColumns() int`.
   int numColumns() {
-    final $r = $callSync(5483, $W()..h(this));
+    final $r = $callSync(5492, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*colblk.UintBuilder).Reset()`.
   void reset() {
-    $callSync(5484, $W()..h(this));
+    $callSync(5493, $W()..h(this));
   }
 
   /// Go: `func (*colblk.UintBuilder).Set(row int, v uint64)`.
   void set(int row, int v) {
     $callSync(
-        5485,
+        5494,
         $W()
           ..h(this)
           ..i64(row)
@@ -2243,7 +2243,7 @@ class PebbleV2SstableColblkUintBuilder extends PebbleV2SstableColblkColumnWriter
   /// Go: `func (*colblk.UintBuilder).Size(rows int, offset uint32) uint32`.
   int size(int rows, int offset) {
     final $r = $callSync(
-        5486,
+        5495,
         $W()
           ..h(this)
           ..i64(rows)
@@ -2254,7 +2254,7 @@ class PebbleV2SstableColblkUintBuilder extends PebbleV2SstableColblkColumnWriter
   /// Go: `func (*colblk.UintBuilder).WriteDebug(w io.Writer, rows int)`.
   void writeDebug(GoHandle? w, int rows) {
     $callSync(
-        5487,
+        5496,
         $W()
           ..h(this)
           ..h(w)
@@ -2283,7 +2283,7 @@ class PebbleV2SstableColblkUnsafeOffsets extends $crypto.CryptoDecrypterOpts
   /// Go: `func (colblk.UnsafeOffsets).At(i int) uint32`.
   int at(int i) {
     final $r = $callSync(
-        5488,
+        5497,
         $W()
           ..h(this)
           ..i64(i));
@@ -2293,7 +2293,7 @@ class PebbleV2SstableColblkUnsafeOffsets extends $crypto.CryptoDecrypterOpts
   /// Go: `func (colblk.UnsafeOffsets).At2(i int) (uint32, uint32)`.
   (int, int) at2(int i) {
     final $r = $callSync(
-        5489,
+        5498,
         $W()
           ..h(this)
           ..i64(i));
@@ -2322,7 +2322,7 @@ class PebbleV2SstableColblkUnsafeUints extends $crypto.CryptoDecrypterOpts
   /// Go: `func (colblk.UnsafeUints).At(i int) uint64`.
   int at(int i) {
     final $r = $callSync(
-        5490,
+        5499,
         $W()
           ..h(this)
           ..i64(i));
@@ -2337,7 +2337,7 @@ extension GoCockroachdbPebbleV2SstableColblkApi
   void assertKeyCompare($v2.PebbleV2Comparer comparer, Uint8List a, Uint8List b,
       PebbleV2SstableColblkKeyComparison kcmp) {
     $callSync(
-        5289,
+        5298,
         $W()
           ..dto(comparer)
           ..bytes(a)
@@ -2349,7 +2349,7 @@ extension GoCockroachdbPebbleV2SstableColblkApi
   (PebbleV2SstableColblkBitmap, int) decodeBitmap(
       Uint8List b, int off, int bitCount) {
     final $r = $callSync(
-        5346,
+        5355,
         $W()
           ..bytes(b)
           ..i64(off)
@@ -2361,7 +2361,7 @@ extension GoCockroachdbPebbleV2SstableColblkApi
   PebbleV2SstableColblkBlockDecoder decodeBlock(
       Uint8List data, int customHeaderSize) {
     final $r = $callSync(
-        5347,
+        5356,
         $W()
           ..bytes(data)
           ..i64(customHeaderSize));
@@ -2370,7 +2370,7 @@ extension GoCockroachdbPebbleV2SstableColblkApi
 
   /// Go: `func colblk.DecodeHeader(data []byte) colblk.Header`.
   PebbleV2SstableColblkHeader decodeHeader(Uint8List data) {
-    final $r = $callSync(5348, $W()..bytes(data));
+    final $r = $callSync(5357, $W()..bytes(data));
     return $r.p() ? PebbleV2SstableColblkHeader.$dec($r) : $nil();
   }
 
@@ -2378,7 +2378,7 @@ extension GoCockroachdbPebbleV2SstableColblkApi
   (PebbleV2SstableColblkPrefixBytes, int) decodePrefixBytes(
       Uint8List b, int offset, int count) {
     final $r = $callSync(
-        5349,
+        5358,
         $W()
           ..bytes(b)
           ..i64(offset)
@@ -2390,7 +2390,7 @@ extension GoCockroachdbPebbleV2SstableColblkApi
   (PebbleV2SstableColblkRawBytes, int) decodeRawBytes(
       Uint8List b, int offset, int count) {
     final $r = $callSync(
-        5350,
+        5359,
         $W()
           ..bytes(b)
           ..i64(offset)
@@ -2402,7 +2402,7 @@ extension GoCockroachdbPebbleV2SstableColblkApi
   (PebbleV2SstableColblkUnsafeOffsets, int) decodeUnsafeOffsets(
       Uint8List b, int off, int rows) {
     final $r = $callSync(
-        5351,
+        5360,
         $W()
           ..bytes(b)
           ..i64(off)
@@ -2414,7 +2414,7 @@ extension GoCockroachdbPebbleV2SstableColblkApi
   (PebbleV2SstableColblkUnsafeUints, int) decodeUnsafeUints(
       Uint8List b, int off, int rows) {
     final $r = $callSync(
-        5352,
+        5361,
         $W()
           ..bytes(b)
           ..i64(off)
@@ -2426,7 +2426,7 @@ extension GoCockroachdbPebbleV2SstableColblkApi
   PebbleV2SstableColblkKeySchema defaultKeySchema(
       $v2.PebbleV2Comparer comparer, int prefixBundleSize) {
     final $r = $callSync(
-        5353,
+        5362,
         $W()
           ..dto(comparer)
           ..i64(prefixBundleSize));
@@ -2436,7 +2436,7 @@ extension GoCockroachdbPebbleV2SstableColblkApi
   /// Go: `func colblk.DetermineUintEncoding(minValue uint64, maxValue uint64, numRows int) colblk.UintEncoding`.
   int determineUintEncoding(int minValue, int maxValue, int numRows) {
     final $r = $callSync(
-        5354,
+        5363,
         $W()
           ..i64(minValue)
           ..i64(maxValue)
@@ -2446,7 +2446,7 @@ extension GoCockroachdbPebbleV2SstableColblkApi
 
   /// Go: `func colblk.DetermineUintEncodingNoDelta(maxValue uint64) colblk.UintEncoding`.
   int determineUintEncodingNoDelta(int maxValue) {
-    final $r = $callSync(5355, $W()..i64(maxValue));
+    final $r = $callSync(5364, $W()..i64(maxValue));
     return $r.i64();
   }
 
@@ -2454,7 +2454,7 @@ extension GoCockroachdbPebbleV2SstableColblkApi
   Uint8List finishBlock(
       int rows, List<PebbleV2SstableColblkColumnWriter> writers) {
     final $r = $callSync(
-        5359,
+        5368,
         $W()
           ..i64(rows)
           ..list(writers, (w0, e0) => w0.h(e0)));
@@ -2464,7 +2464,7 @@ extension GoCockroachdbPebbleV2SstableColblkApi
   /// Go: `func colblk.HeaderSize(cols int, customHeaderSize uint32) uint32`.
   int headerSize(int cols, int customHeaderSize) {
     final $r = $callSync(
-        5362,
+        5371,
         $W()
           ..i64(cols)
           ..i64(customHeaderSize));
@@ -2483,7 +2483,7 @@ extension GoCockroachdbPebbleV2SstableColblkApi
       $block.PebbleV2SstableBlockBufferHandle h,
       $block.PebbleV2SstableBlockFragmentIterTransforms transforms) async {
     final $r = await $call(
-        5428,
+        5437,
         $W()
           ..cb((r) => cmp(r.bytes() ?? Uint8List(0), r.bytes() ?? Uint8List(0)),
               true, (w, v) => w.i64(v as int))
@@ -2494,17 +2494,17 @@ extension GoCockroachdbPebbleV2SstableColblkApi
 
   /// Go: `func colblk.ReverseBytes16(s []uint16)`.
   void reverseBytes16(List<int> s) {
-    $callSync(5475, $W()..list(s, (w0, e0) => w0.i64(e0)));
+    $callSync(5484, $W()..list(s, (w0, e0) => w0.i64(e0)));
   }
 
   /// Go: `func colblk.ReverseBytes32(s []uint32)`.
   void reverseBytes32(List<int> s) {
-    $callSync(5476, $W()..list(s, (w0, e0) => w0.i64(e0)));
+    $callSync(5485, $W()..list(s, (w0, e0) => w0.i64(e0)));
   }
 
   /// Go: `func colblk.ReverseBytes64(s []uint64)`.
   void reverseBytes64(List<int> s) {
-    $callSync(5477, $W()..list(s, (w0, e0) => w0.i64(e0)));
+    $callSync(5486, $W()..list(s, (w0, e0) => w0.i64(e0)));
   }
 }
 

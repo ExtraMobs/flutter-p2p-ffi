@@ -32,7 +32,7 @@ class ColorableNonColorable extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*colorable.NonColorable).Write(data []byte) (n int, err error)`.
   int write(Uint8List data) {
     final $r = $callSync(
-        15191,
+        15197,
         $W()
           ..h(this)
           ..bytes(data));

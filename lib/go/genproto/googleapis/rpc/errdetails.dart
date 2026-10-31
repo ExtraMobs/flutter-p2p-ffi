@@ -45,37 +45,37 @@ class GenprotoGoogleapisRpcErrdetailsBadRequest
   /// Go: `func (*errdetails.BadRequest).Descriptor() ([]byte, []int)`.
   @Deprecated("Use BadRequest.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(24118, $W()..h(this));
+    final $r = $callSync(24124, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*errdetails.BadRequest).GetFieldViolations() []*errdetails.BadRequest_FieldViolation`.
   List<GenprotoGoogleapisRpcErrdetailsBadRequestFieldViolation>
       getFieldViolations() {
-    final $r = $callSync(24119, $W()..h(this));
+    final $r = $callSync(24125, $W()..h(this));
     return $r.list(() =>
         $r.hnn(GenprotoGoogleapisRpcErrdetailsBadRequestFieldViolation.$h));
   }
 
   /// Go: `func (*errdetails.BadRequest).ProtoMessage()`.
   void protoMessage() {
-    $callSync(24120, $W()..h(this));
+    $callSync(24126, $W()..h(this));
   }
 
   /// Go: `func (*errdetails.BadRequest).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(24121, $W()..h(this));
+    final $r = $callSync(24127, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*errdetails.BadRequest).Reset()`.
   void reset() {
-    $callSync(24122, $W()..h(this));
+    $callSync(24128, $W()..h(this));
   }
 
   /// Go: `func (*errdetails.BadRequest).String() string`.
   String string() {
-    final $r = $callSync(24123, $W()..h(this));
+    final $r = $callSync(24129, $W()..h(this));
     return $r.str();
   }
 }
@@ -109,53 +109,53 @@ class GenprotoGoogleapisRpcErrdetailsBadRequestFieldViolation
   /// Go: `func (*errdetails.BadRequest_FieldViolation).Descriptor() ([]byte, []int)`.
   @Deprecated("Use BadRequest_FieldViolation.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(24124, $W()..h(this));
+    final $r = $callSync(24130, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*errdetails.BadRequest_FieldViolation).GetDescription() string`.
   String getDescription() {
-    final $r = $callSync(24125, $W()..h(this));
+    final $r = $callSync(24131, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*errdetails.BadRequest_FieldViolation).GetField() string`.
   String getField() {
-    final $r = $callSync(24126, $W()..h(this));
+    final $r = $callSync(24132, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*errdetails.BadRequest_FieldViolation).GetLocalizedMessage() *errdetails.LocalizedMessage`.
   GenprotoGoogleapisRpcErrdetailsLocalizedMessage getLocalizedMessage() {
-    final $r = $callSync(24127, $W()..h(this));
+    final $r = $callSync(24133, $W()..h(this));
     return $r.hnn(GenprotoGoogleapisRpcErrdetailsLocalizedMessage.$h);
   }
 
   /// Go: `func (*errdetails.BadRequest_FieldViolation).GetReason() string`.
   String getReason() {
-    final $r = $callSync(24128, $W()..h(this));
+    final $r = $callSync(24134, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*errdetails.BadRequest_FieldViolation).ProtoMessage()`.
   void protoMessage() {
-    $callSync(24129, $W()..h(this));
+    $callSync(24135, $W()..h(this));
   }
 
   /// Go: `func (*errdetails.BadRequest_FieldViolation).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(24130, $W()..h(this));
+    final $r = $callSync(24136, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*errdetails.BadRequest_FieldViolation).Reset()`.
   void reset() {
-    $callSync(24131, $W()..h(this));
+    $callSync(24137, $W()..h(this));
   }
 
   /// Go: `func (*errdetails.BadRequest_FieldViolation).String() string`.
   String string() {
-    final $r = $callSync(24132, $W()..h(this));
+    final $r = $callSync(24138, $W()..h(this));
     return $r.str();
   }
 }
@@ -188,41 +188,41 @@ class GenprotoGoogleapisRpcErrdetailsDebugInfo
   /// Go: `func (*errdetails.DebugInfo).Descriptor() ([]byte, []int)`.
   @Deprecated("Use DebugInfo.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(24133, $W()..h(this));
+    final $r = $callSync(24139, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*errdetails.DebugInfo).GetDetail() string`.
   String getDetail() {
-    final $r = $callSync(24134, $W()..h(this));
+    final $r = $callSync(24140, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*errdetails.DebugInfo).GetStackEntries() []string`.
   List<String> getStackEntries() {
-    final $r = $callSync(24135, $W()..h(this));
+    final $r = $callSync(24141, $W()..h(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (*errdetails.DebugInfo).ProtoMessage()`.
   void protoMessage() {
-    $callSync(24136, $W()..h(this));
+    $callSync(24142, $W()..h(this));
   }
 
   /// Go: `func (*errdetails.DebugInfo).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(24137, $W()..h(this));
+    final $r = $callSync(24143, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*errdetails.DebugInfo).Reset()`.
   void reset() {
-    $callSync(24138, $W()..h(this));
+    $callSync(24144, $W()..h(this));
   }
 
   /// Go: `func (*errdetails.DebugInfo).String() string`.
   String string() {
-    final $r = $callSync(24139, $W()..h(this));
+    final $r = $callSync(24145, $W()..h(this));
     return $r.str();
   }
 }
@@ -255,47 +255,47 @@ class GenprotoGoogleapisRpcErrdetailsErrorInfo
   /// Go: `func (*errdetails.ErrorInfo).Descriptor() ([]byte, []int)`.
   @Deprecated("Use ErrorInfo.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(24140, $W()..h(this));
+    final $r = $callSync(24146, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*errdetails.ErrorInfo).GetDomain() string`.
   String getDomain() {
-    final $r = $callSync(24141, $W()..h(this));
+    final $r = $callSync(24147, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*errdetails.ErrorInfo).GetMetadata() map[string]string`.
   Map<String, String> getMetadata() {
-    final $r = $callSync(24142, $W()..h(this));
+    final $r = $callSync(24148, $W()..h(this));
     return $r.map(() => $r.str(), () => $r.str());
   }
 
   /// Go: `func (*errdetails.ErrorInfo).GetReason() string`.
   String getReason() {
-    final $r = $callSync(24143, $W()..h(this));
+    final $r = $callSync(24149, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*errdetails.ErrorInfo).ProtoMessage()`.
   void protoMessage() {
-    $callSync(24144, $W()..h(this));
+    $callSync(24150, $W()..h(this));
   }
 
   /// Go: `func (*errdetails.ErrorInfo).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(24145, $W()..h(this));
+    final $r = $callSync(24151, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*errdetails.ErrorInfo).Reset()`.
   void reset() {
-    $callSync(24146, $W()..h(this));
+    $callSync(24152, $W()..h(this));
   }
 
   /// Go: `func (*errdetails.ErrorInfo).String() string`.
   String string() {
-    final $r = $callSync(24147, $W()..h(this));
+    final $r = $callSync(24153, $W()..h(this));
     return $r.str();
   }
 }
@@ -328,35 +328,35 @@ class GenprotoGoogleapisRpcErrdetailsHelp
   /// Go: `func (*errdetails.Help).Descriptor() ([]byte, []int)`.
   @Deprecated("Use Help.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(24149, $W()..h(this));
+    final $r = $callSync(24155, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*errdetails.Help).GetLinks() []*errdetails.Help_Link`.
   List<GenprotoGoogleapisRpcErrdetailsHelpLink> getLinks() {
-    final $r = $callSync(24150, $W()..h(this));
+    final $r = $callSync(24156, $W()..h(this));
     return $r.list(() => $r.hnn(GenprotoGoogleapisRpcErrdetailsHelpLink.$h));
   }
 
   /// Go: `func (*errdetails.Help).ProtoMessage()`.
   void protoMessage() {
-    $callSync(24151, $W()..h(this));
+    $callSync(24157, $W()..h(this));
   }
 
   /// Go: `func (*errdetails.Help).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(24152, $W()..h(this));
+    final $r = $callSync(24158, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*errdetails.Help).Reset()`.
   void reset() {
-    $callSync(24153, $W()..h(this));
+    $callSync(24159, $W()..h(this));
   }
 
   /// Go: `func (*errdetails.Help).String() string`.
   String string() {
-    final $r = $callSync(24154, $W()..h(this));
+    final $r = $callSync(24160, $W()..h(this));
     return $r.str();
   }
 }
@@ -389,41 +389,41 @@ class GenprotoGoogleapisRpcErrdetailsHelpLink
   /// Go: `func (*errdetails.Help_Link).Descriptor() ([]byte, []int)`.
   @Deprecated("Use Help_Link.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(24155, $W()..h(this));
+    final $r = $callSync(24161, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*errdetails.Help_Link).GetDescription() string`.
   String getDescription() {
-    final $r = $callSync(24156, $W()..h(this));
+    final $r = $callSync(24162, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*errdetails.Help_Link).GetUrl() string`.
   String getUrl() {
-    final $r = $callSync(24157, $W()..h(this));
+    final $r = $callSync(24163, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*errdetails.Help_Link).ProtoMessage()`.
   void protoMessage() {
-    $callSync(24158, $W()..h(this));
+    $callSync(24164, $W()..h(this));
   }
 
   /// Go: `func (*errdetails.Help_Link).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(24159, $W()..h(this));
+    final $r = $callSync(24165, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*errdetails.Help_Link).Reset()`.
   void reset() {
-    $callSync(24160, $W()..h(this));
+    $callSync(24166, $W()..h(this));
   }
 
   /// Go: `func (*errdetails.Help_Link).String() string`.
   String string() {
-    final $r = $callSync(24161, $W()..h(this));
+    final $r = $callSync(24167, $W()..h(this));
     return $r.str();
   }
 }
@@ -456,41 +456,41 @@ class GenprotoGoogleapisRpcErrdetailsLocalizedMessage
   /// Go: `func (*errdetails.LocalizedMessage).Descriptor() ([]byte, []int)`.
   @Deprecated("Use LocalizedMessage.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(24162, $W()..h(this));
+    final $r = $callSync(24168, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*errdetails.LocalizedMessage).GetLocale() string`.
   String getLocale() {
-    final $r = $callSync(24163, $W()..h(this));
+    final $r = $callSync(24169, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*errdetails.LocalizedMessage).GetMessage() string`.
   String getMessage() {
-    final $r = $callSync(24164, $W()..h(this));
+    final $r = $callSync(24170, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*errdetails.LocalizedMessage).ProtoMessage()`.
   void protoMessage() {
-    $callSync(24165, $W()..h(this));
+    $callSync(24171, $W()..h(this));
   }
 
   /// Go: `func (*errdetails.LocalizedMessage).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(24166, $W()..h(this));
+    final $r = $callSync(24172, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*errdetails.LocalizedMessage).Reset()`.
   void reset() {
-    $callSync(24167, $W()..h(this));
+    $callSync(24173, $W()..h(this));
   }
 
   /// Go: `func (*errdetails.LocalizedMessage).String() string`.
   String string() {
-    final $r = $callSync(24168, $W()..h(this));
+    final $r = $callSync(24174, $W()..h(this));
     return $r.str();
   }
 }
@@ -523,37 +523,37 @@ class GenprotoGoogleapisRpcErrdetailsPreconditionFailure
   /// Go: `func (*errdetails.PreconditionFailure).Descriptor() ([]byte, []int)`.
   @Deprecated("Use PreconditionFailure.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(24169, $W()..h(this));
+    final $r = $callSync(24175, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*errdetails.PreconditionFailure).GetViolations() []*errdetails.PreconditionFailure_Violation`.
   List<GenprotoGoogleapisRpcErrdetailsPreconditionFailureViolation>
       getViolations() {
-    final $r = $callSync(24170, $W()..h(this));
+    final $r = $callSync(24176, $W()..h(this));
     return $r.list(() =>
         $r.hnn(GenprotoGoogleapisRpcErrdetailsPreconditionFailureViolation.$h));
   }
 
   /// Go: `func (*errdetails.PreconditionFailure).ProtoMessage()`.
   void protoMessage() {
-    $callSync(24171, $W()..h(this));
+    $callSync(24177, $W()..h(this));
   }
 
   /// Go: `func (*errdetails.PreconditionFailure).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(24172, $W()..h(this));
+    final $r = $callSync(24178, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*errdetails.PreconditionFailure).Reset()`.
   void reset() {
-    $callSync(24173, $W()..h(this));
+    $callSync(24179, $W()..h(this));
   }
 
   /// Go: `func (*errdetails.PreconditionFailure).String() string`.
   String string() {
-    final $r = $callSync(24174, $W()..h(this));
+    final $r = $callSync(24180, $W()..h(this));
     return $r.str();
   }
 }
@@ -588,47 +588,47 @@ class GenprotoGoogleapisRpcErrdetailsPreconditionFailureViolation
   @Deprecated(
       "Use PreconditionFailure_Violation.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(24175, $W()..h(this));
+    final $r = $callSync(24181, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*errdetails.PreconditionFailure_Violation).GetDescription() string`.
   String getDescription() {
-    final $r = $callSync(24176, $W()..h(this));
+    final $r = $callSync(24182, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*errdetails.PreconditionFailure_Violation).GetSubject() string`.
   String getSubject() {
-    final $r = $callSync(24177, $W()..h(this));
+    final $r = $callSync(24183, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*errdetails.PreconditionFailure_Violation).GetType() string`.
   String getType() {
-    final $r = $callSync(24178, $W()..h(this));
+    final $r = $callSync(24184, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*errdetails.PreconditionFailure_Violation).ProtoMessage()`.
   void protoMessage() {
-    $callSync(24179, $W()..h(this));
+    $callSync(24185, $W()..h(this));
   }
 
   /// Go: `func (*errdetails.PreconditionFailure_Violation).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(24180, $W()..h(this));
+    final $r = $callSync(24186, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*errdetails.PreconditionFailure_Violation).Reset()`.
   void reset() {
-    $callSync(24181, $W()..h(this));
+    $callSync(24187, $W()..h(this));
   }
 
   /// Go: `func (*errdetails.PreconditionFailure_Violation).String() string`.
   String string() {
-    final $r = $callSync(24182, $W()..h(this));
+    final $r = $callSync(24188, $W()..h(this));
     return $r.str();
   }
 }
@@ -661,36 +661,36 @@ class GenprotoGoogleapisRpcErrdetailsQuotaFailure
   /// Go: `func (*errdetails.QuotaFailure).Descriptor() ([]byte, []int)`.
   @Deprecated("Use QuotaFailure.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(24183, $W()..h(this));
+    final $r = $callSync(24189, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*errdetails.QuotaFailure).GetViolations() []*errdetails.QuotaFailure_Violation`.
   List<GenprotoGoogleapisRpcErrdetailsQuotaFailureViolation> getViolations() {
-    final $r = $callSync(24184, $W()..h(this));
+    final $r = $callSync(24190, $W()..h(this));
     return $r.list(
         () => $r.hnn(GenprotoGoogleapisRpcErrdetailsQuotaFailureViolation.$h));
   }
 
   /// Go: `func (*errdetails.QuotaFailure).ProtoMessage()`.
   void protoMessage() {
-    $callSync(24185, $W()..h(this));
+    $callSync(24191, $W()..h(this));
   }
 
   /// Go: `func (*errdetails.QuotaFailure).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(24186, $W()..h(this));
+    final $r = $callSync(24192, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*errdetails.QuotaFailure).Reset()`.
   void reset() {
-    $callSync(24187, $W()..h(this));
+    $callSync(24193, $W()..h(this));
   }
 
   /// Go: `func (*errdetails.QuotaFailure).String() string`.
   String string() {
-    final $r = $callSync(24188, $W()..h(this));
+    final $r = $callSync(24194, $W()..h(this));
     return $r.str();
   }
 }
@@ -724,77 +724,77 @@ class GenprotoGoogleapisRpcErrdetailsQuotaFailureViolation
   /// Go: `func (*errdetails.QuotaFailure_Violation).Descriptor() ([]byte, []int)`.
   @Deprecated("Use QuotaFailure_Violation.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(24189, $W()..h(this));
+    final $r = $callSync(24195, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*errdetails.QuotaFailure_Violation).GetApiService() string`.
   String getApiService() {
-    final $r = $callSync(24190, $W()..h(this));
+    final $r = $callSync(24196, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*errdetails.QuotaFailure_Violation).GetDescription() string`.
   String getDescription() {
-    final $r = $callSync(24191, $W()..h(this));
+    final $r = $callSync(24197, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*errdetails.QuotaFailure_Violation).GetFutureQuotaValue() int64`.
   int getFutureQuotaValue() {
-    final $r = $callSync(24192, $W()..h(this));
+    final $r = $callSync(24198, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*errdetails.QuotaFailure_Violation).GetQuotaDimensions() map[string]string`.
   Map<String, String> getQuotaDimensions() {
-    final $r = $callSync(24193, $W()..h(this));
+    final $r = $callSync(24199, $W()..h(this));
     return $r.map(() => $r.str(), () => $r.str());
   }
 
   /// Go: `func (*errdetails.QuotaFailure_Violation).GetQuotaId() string`.
   String getQuotaId() {
-    final $r = $callSync(24194, $W()..h(this));
+    final $r = $callSync(24200, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*errdetails.QuotaFailure_Violation).GetQuotaMetric() string`.
   String getQuotaMetric() {
-    final $r = $callSync(24195, $W()..h(this));
+    final $r = $callSync(24201, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*errdetails.QuotaFailure_Violation).GetQuotaValue() int64`.
   int getQuotaValue() {
-    final $r = $callSync(24196, $W()..h(this));
+    final $r = $callSync(24202, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*errdetails.QuotaFailure_Violation).GetSubject() string`.
   String getSubject() {
-    final $r = $callSync(24197, $W()..h(this));
+    final $r = $callSync(24203, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*errdetails.QuotaFailure_Violation).ProtoMessage()`.
   void protoMessage() {
-    $callSync(24198, $W()..h(this));
+    $callSync(24204, $W()..h(this));
   }
 
   /// Go: `func (*errdetails.QuotaFailure_Violation).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(24199, $W()..h(this));
+    final $r = $callSync(24205, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*errdetails.QuotaFailure_Violation).Reset()`.
   void reset() {
-    $callSync(24200, $W()..h(this));
+    $callSync(24206, $W()..h(this));
   }
 
   /// Go: `func (*errdetails.QuotaFailure_Violation).String() string`.
   String string() {
-    final $r = $callSync(24201, $W()..h(this));
+    final $r = $callSync(24207, $W()..h(this));
     return $r.str();
   }
 }
@@ -827,41 +827,41 @@ class GenprotoGoogleapisRpcErrdetailsRequestInfo
   /// Go: `func (*errdetails.RequestInfo).Descriptor() ([]byte, []int)`.
   @Deprecated("Use RequestInfo.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(24202, $W()..h(this));
+    final $r = $callSync(24208, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*errdetails.RequestInfo).GetRequestId() string`.
   String getRequestId() {
-    final $r = $callSync(24203, $W()..h(this));
+    final $r = $callSync(24209, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*errdetails.RequestInfo).GetServingData() string`.
   String getServingData() {
-    final $r = $callSync(24204, $W()..h(this));
+    final $r = $callSync(24210, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*errdetails.RequestInfo).ProtoMessage()`.
   void protoMessage() {
-    $callSync(24205, $W()..h(this));
+    $callSync(24211, $W()..h(this));
   }
 
   /// Go: `func (*errdetails.RequestInfo).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(24206, $W()..h(this));
+    final $r = $callSync(24212, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*errdetails.RequestInfo).Reset()`.
   void reset() {
-    $callSync(24207, $W()..h(this));
+    $callSync(24213, $W()..h(this));
   }
 
   /// Go: `func (*errdetails.RequestInfo).String() string`.
   String string() {
-    final $r = $callSync(24208, $W()..h(this));
+    final $r = $callSync(24214, $W()..h(this));
     return $r.str();
   }
 }
@@ -894,53 +894,53 @@ class GenprotoGoogleapisRpcErrdetailsResourceInfo
   /// Go: `func (*errdetails.ResourceInfo).Descriptor() ([]byte, []int)`.
   @Deprecated("Use ResourceInfo.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(24209, $W()..h(this));
+    final $r = $callSync(24215, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*errdetails.ResourceInfo).GetDescription() string`.
   String getDescription() {
-    final $r = $callSync(24210, $W()..h(this));
+    final $r = $callSync(24216, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*errdetails.ResourceInfo).GetOwner() string`.
   String getOwner() {
-    final $r = $callSync(24211, $W()..h(this));
+    final $r = $callSync(24217, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*errdetails.ResourceInfo).GetResourceName() string`.
   String getResourceName() {
-    final $r = $callSync(24212, $W()..h(this));
+    final $r = $callSync(24218, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*errdetails.ResourceInfo).GetResourceType() string`.
   String getResourceType() {
-    final $r = $callSync(24213, $W()..h(this));
+    final $r = $callSync(24219, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*errdetails.ResourceInfo).ProtoMessage()`.
   void protoMessage() {
-    $callSync(24214, $W()..h(this));
+    $callSync(24220, $W()..h(this));
   }
 
   /// Go: `func (*errdetails.ResourceInfo).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(24215, $W()..h(this));
+    final $r = $callSync(24221, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*errdetails.ResourceInfo).Reset()`.
   void reset() {
-    $callSync(24216, $W()..h(this));
+    $callSync(24222, $W()..h(this));
   }
 
   /// Go: `func (*errdetails.ResourceInfo).String() string`.
   String string() {
-    final $r = $callSync(24217, $W()..h(this));
+    final $r = $callSync(24223, $W()..h(this));
     return $r.str();
   }
 }
@@ -973,35 +973,35 @@ class GenprotoGoogleapisRpcErrdetailsRetryInfo
   /// Go: `func (*errdetails.RetryInfo).Descriptor() ([]byte, []int)`.
   @Deprecated("Use RetryInfo.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(24218, $W()..h(this));
+    final $r = $callSync(24224, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*errdetails.RetryInfo).GetRetryDelay() *durationpb.Duration`.
   $durationpb.ProtobufTypesKnownDurationpbDuration getRetryDelay() {
-    final $r = $callSync(24219, $W()..h(this));
+    final $r = $callSync(24225, $W()..h(this));
     return $r.hnn($durationpb.ProtobufTypesKnownDurationpbDuration.$h);
   }
 
   /// Go: `func (*errdetails.RetryInfo).ProtoMessage()`.
   void protoMessage() {
-    $callSync(24220, $W()..h(this));
+    $callSync(24226, $W()..h(this));
   }
 
   /// Go: `func (*errdetails.RetryInfo).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(24221, $W()..h(this));
+    final $r = $callSync(24227, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*errdetails.RetryInfo).Reset()`.
   void reset() {
-    $callSync(24222, $W()..h(this));
+    $callSync(24228, $W()..h(this));
   }
 
   /// Go: `func (*errdetails.RetryInfo).String() string`.
   String string() {
-    final $r = $callSync(24223, $W()..h(this));
+    final $r = $callSync(24229, $W()..h(this));
     return $r.str();
   }
 }
@@ -1012,7 +1012,7 @@ extension GoGenprotoGoogleapisRpcErrdetailsApi
   /// Go: `var errdetails.File_google_rpc_error_details_proto protoreflect.FileDescriptor`.
   $protoreflect.ProtobufReflectProtoreflectFileDescriptor
       get fileGoogleRpcErrorDetailsProto {
-    final $r = $callSync(24148);
+    final $r = $callSync(24154);
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectFileDescriptor.$h);
   }
 }

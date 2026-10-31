@@ -34,7 +34,7 @@ class UnixfsnodeDataBlockSizesItr extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*data.BlockSizes__Itr).Done() bool`.
   bool done() {
-    final $r = $callSync(11181, $W()..h(this));
+    final $r = $callSync(11187, $W()..h(this));
     return $r.b();
   }
 }
@@ -101,13 +101,13 @@ class UnixfsnodeDataErrWrongWireType extends GolangException {
 extension GoIpfsUnixfsnodeDataApi on GoIpfsUnixfsnodeData {
   /// Go: `var data.DataTypeNames map[int64]string`.
   Map<int, String> get dataTypeNames {
-    final $r = $callSync(11182);
+    final $r = $callSync(11188);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var data.DataTypeValues map[string]int64`.
   Map<String, int> get dataTypeValues {
-    final $r = $callSync(11183);
+    final $r = $callSync(11189);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 }

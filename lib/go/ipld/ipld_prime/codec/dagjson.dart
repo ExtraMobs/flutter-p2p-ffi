@@ -49,7 +49,7 @@ final class IpldPrimeCodecDagjsonDecodeOptions implements GoDto {
   /// Go: `func (dagjson.DecodeOptions).Decode(na datamodel.NodeAssembler, r io.Reader) error`.
   void decode($datamodel.IpldPrimeDatamodelNodeAssembler na, Object r) {
     $callSync(
-        12056,
+        12062,
         $W()
           ..dto(this)
           ..h(na)
@@ -90,7 +90,7 @@ final class IpldPrimeCodecDagjsonEncodeOptions implements GoDto {
   /// Go: `func (dagjson.EncodeOptions).Encode(n datamodel.Node, w io.Writer) error`.
   void encode($datamodel.IpldPrimeDatamodelNode n, GoHandle? w) {
     $callSync(
-        12058,
+        12064,
         $W()
           ..dto(this)
           ..h(n)
@@ -112,7 +112,7 @@ extension GoIpldIpldPrimeCodecDagjsonApi on GoIpldIpldPrimeCodecDagjson {
   /// Go: `func dagjson.Decode(na datamodel.NodeAssembler, r io.Reader) error`.
   void decode($datamodel.IpldPrimeDatamodelNodeAssembler na, Object r) {
     $callSync(
-        12055,
+        12061,
         $W()
           ..h(na)
           ..reader(r));
@@ -121,7 +121,7 @@ extension GoIpldIpldPrimeCodecDagjsonApi on GoIpldIpldPrimeCodecDagjson {
   /// Go: `func dagjson.Encode(n datamodel.Node, w io.Writer) error`.
   void encode($datamodel.IpldPrimeDatamodelNode n, GoHandle? w) {
     $callSync(
-        12057,
+        12063,
         $W()
           ..h(n)
           ..h(w));
@@ -133,7 +133,7 @@ extension GoIpldIpldPrimeCodecDagjsonApi on GoIpldIpldPrimeCodecDagjson {
       $shared.RefmtSharedTokenSink sink,
       IpldPrimeCodecDagjsonEncodeOptions options) {
     $callSync(
-        12059,
+        12065,
         $W()
           ..h(n)
           ..h(sink)
@@ -146,7 +146,7 @@ extension GoIpldIpldPrimeCodecDagjsonApi on GoIpldIpldPrimeCodecDagjson {
       $shared.RefmtSharedTokenSource tokSrc,
       IpldPrimeCodecDagjsonDecodeOptions options) {
     $callSync(
-        12060,
+        12066,
         $W()
           ..h(na)
           ..h(tokSrc)

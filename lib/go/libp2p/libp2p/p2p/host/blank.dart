@@ -51,24 +51,24 @@ class Libp2pP2pHostBlankHost extends $io.IoCloser
 
   /// Go: `func blankhost.NewBlankHost(n network.Network, options ...blankhost.Option) *blankhost.BlankHost`.
   factory Libp2pP2pHostBlankHost($network.Libp2pCoreNetwork n) {
-    final $r = $callSync(14467, $W()..h(n));
+    final $r = $callSync(14473, $W()..h(n));
     return $r.hnn(Libp2pP2pHostBlankHost.$h);
   }
 
   /// Go: `func (*blankhost.BlankHost).Addrs() []multiaddr.Multiaddr`.
   List<$multiaddr.Multiaddr> addrs() {
-    final $r = $callSync(14454, $W()..h(this));
+    final $r = $callSync(14460, $W()..h(this));
     return $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil());
   }
 
   /// Go: `func (*blankhost.BlankHost).Close() error`.
   void close() {
-    $callSync(14455, $W()..h(this));
+    $callSync(14461, $W()..h(this));
   }
 
   /// Go: `func (*blankhost.BlankHost).ConnManager() connmgr.ConnManager`.
   $connmgr.Libp2pCoreConnmgrConnManager connManager() {
-    final $r = $callSync(14456, $W()..h(this));
+    final $r = $callSync(14462, $W()..h(this));
     return $r.hnn($connmgr.Libp2pCoreConnmgrConnManager.$h);
   }
 
@@ -78,7 +78,7 @@ class Libp2pP2pHostBlankHost extends $io.IoCloser
   Future<void> connect(
       $context.Context ctx, $peer.Libp2pCorePeerAddrInfo ai) async {
     await $call(
-        14457,
+        14463,
         $W()
           ..h(this)
           ..h(ctx)
@@ -87,25 +87,25 @@ class Libp2pP2pHostBlankHost extends $io.IoCloser
 
   /// Go: `func (*blankhost.BlankHost).EventBus() event.Bus`.
   $event.Libp2pCoreEventBus eventBus() {
-    final $r = $callSync(14458, $W()..h(this));
+    final $r = $callSync(14464, $W()..h(this));
     return $r.hnn($event.Libp2pCoreEventBus.$h);
   }
 
   /// Go: `func (*blankhost.BlankHost).ID() peer.ID`.
   $peer.Libp2pCorePeerId id() {
-    final $r = $callSync(14459, $W()..h(this));
+    final $r = $callSync(14465, $W()..h(this));
     return $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil();
   }
 
   /// Go: `func (*blankhost.BlankHost).Mux() protocol.Switch`.
   $protocol.Libp2pCoreProtocolSwitch mux() {
-    final $r = $callSync(14460, $W()..h(this));
+    final $r = $callSync(14466, $W()..h(this));
     return $r.hnn($protocol.Libp2pCoreProtocolSwitch.$h);
   }
 
   /// Go: `func (*blankhost.BlankHost).Network() network.Network`.
   $network.Libp2pCoreNetwork network() {
-    final $r = $callSync(14461, $W()..h(this));
+    final $r = $callSync(14467, $W()..h(this));
     return $r.hnn($network.Libp2pCoreNetwork.$h);
   }
 
@@ -116,7 +116,7 @@ class Libp2pP2pHostBlankHost extends $io.IoCloser
       $context.Context ctx, $peer.Libp2pCorePeerId p,
       [List<String> protos = const []]) async {
     final $r = await $call(
-        14462,
+        14468,
         $W()
           ..h(this)
           ..h(ctx)
@@ -127,14 +127,14 @@ class Libp2pP2pHostBlankHost extends $io.IoCloser
 
   /// Go: `func (*blankhost.BlankHost).Peerstore() peerstore.Peerstore`.
   $peerstore.Libp2pCorePeerstore peerstore() {
-    final $r = $callSync(14463, $W()..h(this));
+    final $r = $callSync(14469, $W()..h(this));
     return $r.hnn($peerstore.Libp2pCorePeerstore.$h);
   }
 
   /// Go: `func (*blankhost.BlankHost).RemoveStreamHandler(pid protocol.ID)`.
   void removeStreamHandler(String pid) {
     $callSync(
-        14464,
+        14470,
         $W()
           ..h(this)
           ..str(pid));
@@ -152,7 +152,7 @@ class Libp2pP2pHostBlankHost extends $io.IoCloser
       FutureOr<void> Function($network.Libp2pCoreNetworkStream stream)
           handler) async {
     await $call(
-        14465,
+        14471,
         $W()
           ..h(this)
           ..str(pid)
@@ -173,7 +173,7 @@ class Libp2pP2pHostBlankHost extends $io.IoCloser
       FutureOr<void> Function($network.Libp2pCoreNetworkStream stream)
           handler) async {
     await $call(
-        14466,
+        14472,
         $W()
           ..h(this)
           ..str(pid)

@@ -38,13 +38,13 @@ class OtelMetricAddConfig extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func metric.NewAddConfig(opts []metric.AddOption) metric.AddConfig`.
   factory OtelMetricAddConfig(List<OtelMetricAddOption> opts) {
-    final $r = $callSync(19340, $W()..list(opts, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(19346, $W()..list(opts, (w0, e0) => w0.h(e0)));
     return $r.hnn(OtelMetricAddConfig.$h);
   }
 
   /// Go: `func (metric.AddConfig).Attributes() attribute.Set`.
   $attribute.OtelAttributeSet attributes() {
-    final $r = $callSync(19266, $W()..h(this));
+    final $r = $callSync(19272, $W()..h(this));
     return $r.hnn($attribute.OtelAttributeSet.$h);
   }
 }
@@ -58,7 +58,7 @@ class OtelMetricAddOption extends GoHandle with OtelMetricAddOption$ {
 mixin OtelMetricAddOption$ on GoHandle {
   /// Go: type assertion `x.(metric.MeasurementOption)`: null if the object is not one.
   OtelMetricMeasurementOption? asOtelMetricMeasurementOption() {
-    final $r = $callSync(1992, $W()..h(this));
+    final $r = $callSync(1999, $W()..h(this));
     return $r.hn(OtelMetricMeasurementOption.$h);
   }
 }
@@ -96,7 +96,7 @@ mixin OtelMetricFloat64Counter$ on GoHandle {
   Future<void> add($context.Context ctx, double incr,
       [List<OtelMetricAddOption> options = const []]) async {
     await $call(
-        19267,
+        19273,
         $W()
           ..h(this)
           ..h(ctx)
@@ -109,7 +109,7 @@ mixin OtelMetricFloat64Counter$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> enabled($context.Context ctx) async {
     final $r = await $call(
-        19268,
+        19274,
         $W()
           ..h(this)
           ..h(ctx));
@@ -118,7 +118,7 @@ mixin OtelMetricFloat64Counter$ on GoHandle {
 
   /// Go: type assertion `x.(*noop.Float64Counter)`: null if the object is not one.
   $noop.OtelMetricNoopFloat64Counter? asOtelMetricNoopFloat64Counter() {
-    final $r = $callSync(1993, $W()..h(this));
+    final $r = $callSync(2000, $W()..h(this));
     return $r.hn($noop.OtelMetricNoopFloat64Counter.$h);
   }
 }
@@ -144,19 +144,19 @@ class OtelMetricFloat64CounterConfig extends $crypto.CryptoDecrypterOpts
   /// Go: `func metric.NewFloat64CounterConfig(opts ...metric.Float64CounterOption) metric.Float64CounterConfig`.
   factory OtelMetricFloat64CounterConfig(
       [List<OtelMetricFloat64CounterOption> opts = const []]) {
-    final $r = $callSync(19341, $W()..list(opts, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(19347, $W()..list(opts, (w0, e0) => w0.h(e0)));
     return $r.hnn(OtelMetricFloat64CounterConfig.$h);
   }
 
   /// Go: `func (metric.Float64CounterConfig).Description() string`.
   String description() {
-    final $r = $callSync(19269, $W()..h(this));
+    final $r = $callSync(19275, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (metric.Float64CounterConfig).Unit() string`.
   String unit() {
-    final $r = $callSync(19270, $W()..h(this));
+    final $r = $callSync(19276, $W()..h(this));
     return $r.str();
   }
 }
@@ -171,7 +171,7 @@ class OtelMetricFloat64CounterOption extends GoHandle
 mixin OtelMetricFloat64CounterOption$ on GoHandle {
   /// Go: type assertion `x.(metric.InstrumentOption)`: null if the object is not one.
   OtelMetricInstrumentOption? asOtelMetricInstrumentOption() {
-    final $r = $callSync(1994, $W()..h(this));
+    final $r = $callSync(2001, $W()..h(this));
     return $r.hn(OtelMetricInstrumentOption.$h);
   }
 }
@@ -189,7 +189,7 @@ mixin OtelMetricFloat64Gauge$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> enabled($context.Context ctx) async {
     final $r = await $call(
-        19271,
+        19277,
         $W()
           ..h(this)
           ..h(ctx));
@@ -202,7 +202,7 @@ mixin OtelMetricFloat64Gauge$ on GoHandle {
   Future<void> record($context.Context ctx, double value,
       [List<OtelMetricRecordOption> options = const []]) async {
     await $call(
-        19272,
+        19278,
         $W()
           ..h(this)
           ..h(ctx)
@@ -212,7 +212,7 @@ mixin OtelMetricFloat64Gauge$ on GoHandle {
 
   /// Go: type assertion `x.(*noop.Float64Gauge)`: null if the object is not one.
   $noop.OtelMetricNoopFloat64Gauge? asOtelMetricNoopFloat64Gauge() {
-    final $r = $callSync(1995, $W()..h(this));
+    final $r = $callSync(2002, $W()..h(this));
     return $r.hn($noop.OtelMetricNoopFloat64Gauge.$h);
   }
 }
@@ -238,19 +238,19 @@ class OtelMetricFloat64GaugeConfig extends $crypto.CryptoDecrypterOpts
   /// Go: `func metric.NewFloat64GaugeConfig(opts ...metric.Float64GaugeOption) metric.Float64GaugeConfig`.
   factory OtelMetricFloat64GaugeConfig(
       [List<OtelMetricFloat64GaugeOption> opts = const []]) {
-    final $r = $callSync(19342, $W()..list(opts, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(19348, $W()..list(opts, (w0, e0) => w0.h(e0)));
     return $r.hnn(OtelMetricFloat64GaugeConfig.$h);
   }
 
   /// Go: `func (metric.Float64GaugeConfig).Description() string`.
   String description() {
-    final $r = $callSync(19273, $W()..h(this));
+    final $r = $callSync(19279, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (metric.Float64GaugeConfig).Unit() string`.
   String unit() {
-    final $r = $callSync(19274, $W()..h(this));
+    final $r = $callSync(19280, $W()..h(this));
     return $r.str();
   }
 }
@@ -265,7 +265,7 @@ class OtelMetricFloat64GaugeOption extends GoHandle
 mixin OtelMetricFloat64GaugeOption$ on GoHandle {
   /// Go: type assertion `x.(metric.InstrumentOption)`: null if the object is not one.
   OtelMetricInstrumentOption? asOtelMetricInstrumentOption() {
-    final $r = $callSync(1996, $W()..h(this));
+    final $r = $callSync(2003, $W()..h(this));
     return $r.hn(OtelMetricInstrumentOption.$h);
   }
 }
@@ -283,7 +283,7 @@ mixin OtelMetricFloat64Histogram$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> enabled($context.Context ctx) async {
     final $r = await $call(
-        19275,
+        19281,
         $W()
           ..h(this)
           ..h(ctx));
@@ -296,7 +296,7 @@ mixin OtelMetricFloat64Histogram$ on GoHandle {
   Future<void> record($context.Context ctx, double incr,
       [List<OtelMetricRecordOption> options = const []]) async {
     await $call(
-        19276,
+        19282,
         $W()
           ..h(this)
           ..h(ctx)
@@ -306,7 +306,7 @@ mixin OtelMetricFloat64Histogram$ on GoHandle {
 
   /// Go: type assertion `x.(*noop.Float64Histogram)`: null if the object is not one.
   $noop.OtelMetricNoopFloat64Histogram? asOtelMetricNoopFloat64Histogram() {
-    final $r = $callSync(1997, $W()..h(this));
+    final $r = $callSync(2004, $W()..h(this));
     return $r.hn($noop.OtelMetricNoopFloat64Histogram.$h);
   }
 }
@@ -332,25 +332,25 @@ class OtelMetricFloat64HistogramConfig extends $crypto.CryptoDecrypterOpts
   /// Go: `func metric.NewFloat64HistogramConfig(opts ...metric.Float64HistogramOption) metric.Float64HistogramConfig`.
   factory OtelMetricFloat64HistogramConfig(
       [List<OtelMetricFloat64HistogramOption> opts = const []]) {
-    final $r = $callSync(19343, $W()..list(opts, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(19349, $W()..list(opts, (w0, e0) => w0.h(e0)));
     return $r.hnn(OtelMetricFloat64HistogramConfig.$h);
   }
 
   /// Go: `func (metric.Float64HistogramConfig).Description() string`.
   String description() {
-    final $r = $callSync(19277, $W()..h(this));
+    final $r = $callSync(19283, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (metric.Float64HistogramConfig).ExplicitBucketBoundaries() []float64`.
   List<double> explicitBucketBoundaries() {
-    final $r = $callSync(19278, $W()..h(this));
+    final $r = $callSync(19284, $W()..h(this));
     return $r.list(() => $r.f64());
   }
 
   /// Go: `func (metric.Float64HistogramConfig).Unit() string`.
   String unit() {
-    final $r = $callSync(19279, $W()..h(this));
+    final $r = $callSync(19285, $W()..h(this));
     return $r.str();
   }
 }
@@ -365,13 +365,13 @@ class OtelMetricFloat64HistogramOption extends GoHandle
 mixin OtelMetricFloat64HistogramOption$ on GoHandle {
   /// Go: type assertion `x.(metric.HistogramOption)`: null if the object is not one.
   OtelMetricHistogramOption? asOtelMetricHistogramOption() {
-    final $r = $callSync(1998, $W()..h(this));
+    final $r = $callSync(2005, $W()..h(this));
     return $r.hn(OtelMetricHistogramOption.$h);
   }
 
   /// Go: type assertion `x.(metric.InstrumentOption)`: null if the object is not one.
   OtelMetricInstrumentOption? asOtelMetricInstrumentOption() {
-    final $r = $callSync(1999, $W()..h(this));
+    final $r = $callSync(2006, $W()..h(this));
     return $r.hn(OtelMetricInstrumentOption.$h);
   }
 }
@@ -386,20 +386,20 @@ class OtelMetricFloat64Observable extends OtelMetricObservable
 mixin OtelMetricFloat64Observable$ on GoHandle {
   /// Go: type assertion `x.(metric.Float64ObservableCounter)`: null if the object is not one.
   OtelMetricFloat64ObservableCounter? asOtelMetricFloat64ObservableCounter() {
-    final $r = $callSync(2000, $W()..h(this));
+    final $r = $callSync(2007, $W()..h(this));
     return $r.hn(OtelMetricFloat64ObservableCounter.$h);
   }
 
   /// Go: type assertion `x.(metric.Float64ObservableGauge)`: null if the object is not one.
   OtelMetricFloat64ObservableGauge? asOtelMetricFloat64ObservableGauge() {
-    final $r = $callSync(2001, $W()..h(this));
+    final $r = $callSync(2008, $W()..h(this));
     return $r.hn(OtelMetricFloat64ObservableGauge.$h);
   }
 
   /// Go: type assertion `x.(metric.Float64ObservableUpDownCounter)`: null if the object is not one.
   OtelMetricFloat64ObservableUpDownCounter?
       asOtelMetricFloat64ObservableUpDownCounter() {
-    final $r = $callSync(2002, $W()..h(this));
+    final $r = $callSync(2009, $W()..h(this));
     return $r.hn(OtelMetricFloat64ObservableUpDownCounter.$h);
   }
 }
@@ -435,25 +435,25 @@ class OtelMetricFloat64ObservableCounterConfig
   /// Go: `func metric.NewFloat64ObservableCounterConfig(opts ...metric.Float64ObservableCounterOption) metric.Float64ObservableCounterConfig`.
   factory OtelMetricFloat64ObservableCounterConfig(
       [List<OtelMetricFloat64ObservableCounterOption> opts = const []]) {
-    final $r = $callSync(19344, $W()..list(opts, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(19350, $W()..list(opts, (w0, e0) => w0.h(e0)));
     return $r.hnn(OtelMetricFloat64ObservableCounterConfig.$h);
   }
 
   /// Go: `func (metric.Float64ObservableCounterConfig).Callbacks() []metric.Float64Callback`.
   List<OtelMetricFloat64Callback> callbacks() {
-    final $r = $callSync(19280, $W()..h(this));
+    final $r = $callSync(19286, $W()..h(this));
     return $r.list(() => $r.hnn(OtelMetricFloat64Callback.$h));
   }
 
   /// Go: `func (metric.Float64ObservableCounterConfig).Description() string`.
   String description() {
-    final $r = $callSync(19281, $W()..h(this));
+    final $r = $callSync(19287, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (metric.Float64ObservableCounterConfig).Unit() string`.
   String unit() {
-    final $r = $callSync(19282, $W()..h(this));
+    final $r = $callSync(19288, $W()..h(this));
     return $r.str();
   }
 }
@@ -468,13 +468,13 @@ class OtelMetricFloat64ObservableCounterOption extends GoHandle
 mixin OtelMetricFloat64ObservableCounterOption$ on GoHandle {
   /// Go: type assertion `x.(metric.Float64ObservableOption)`: null if the object is not one.
   OtelMetricFloat64ObservableOption? asOtelMetricFloat64ObservableOption() {
-    final $r = $callSync(2003, $W()..h(this));
+    final $r = $callSync(2010, $W()..h(this));
     return $r.hn(OtelMetricFloat64ObservableOption.$h);
   }
 
   /// Go: type assertion `x.(metric.InstrumentOption)`: null if the object is not one.
   OtelMetricInstrumentOption? asOtelMetricInstrumentOption() {
-    final $r = $callSync(2004, $W()..h(this));
+    final $r = $callSync(2011, $W()..h(this));
     return $r.hn(OtelMetricInstrumentOption.$h);
   }
 }
@@ -509,25 +509,25 @@ class OtelMetricFloat64ObservableGaugeConfig extends $crypto.CryptoDecrypterOpts
   /// Go: `func metric.NewFloat64ObservableGaugeConfig(opts ...metric.Float64ObservableGaugeOption) metric.Float64ObservableGaugeConfig`.
   factory OtelMetricFloat64ObservableGaugeConfig(
       [List<OtelMetricFloat64ObservableGaugeOption> opts = const []]) {
-    final $r = $callSync(19345, $W()..list(opts, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(19351, $W()..list(opts, (w0, e0) => w0.h(e0)));
     return $r.hnn(OtelMetricFloat64ObservableGaugeConfig.$h);
   }
 
   /// Go: `func (metric.Float64ObservableGaugeConfig).Callbacks() []metric.Float64Callback`.
   List<OtelMetricFloat64Callback> callbacks() {
-    final $r = $callSync(19283, $W()..h(this));
+    final $r = $callSync(19289, $W()..h(this));
     return $r.list(() => $r.hnn(OtelMetricFloat64Callback.$h));
   }
 
   /// Go: `func (metric.Float64ObservableGaugeConfig).Description() string`.
   String description() {
-    final $r = $callSync(19284, $W()..h(this));
+    final $r = $callSync(19290, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (metric.Float64ObservableGaugeConfig).Unit() string`.
   String unit() {
-    final $r = $callSync(19285, $W()..h(this));
+    final $r = $callSync(19291, $W()..h(this));
     return $r.str();
   }
 }
@@ -542,13 +542,13 @@ class OtelMetricFloat64ObservableGaugeOption extends GoHandle
 mixin OtelMetricFloat64ObservableGaugeOption$ on GoHandle {
   /// Go: type assertion `x.(metric.Float64ObservableOption)`: null if the object is not one.
   OtelMetricFloat64ObservableOption? asOtelMetricFloat64ObservableOption() {
-    final $r = $callSync(2005, $W()..h(this));
+    final $r = $callSync(2012, $W()..h(this));
     return $r.hn(OtelMetricFloat64ObservableOption.$h);
   }
 
   /// Go: type assertion `x.(metric.InstrumentOption)`: null if the object is not one.
   OtelMetricInstrumentOption? asOtelMetricInstrumentOption() {
-    final $r = $callSync(2006, $W()..h(this));
+    final $r = $callSync(2013, $W()..h(this));
     return $r.hn(OtelMetricInstrumentOption.$h);
   }
 }
@@ -595,25 +595,25 @@ class OtelMetricFloat64ObservableUpDownCounterConfig
   /// Go: `func metric.NewFloat64ObservableUpDownCounterConfig(opts ...metric.Float64ObservableUpDownCounterOption) metric.Float64ObservableUpDownCounterConfig`.
   factory OtelMetricFloat64ObservableUpDownCounterConfig(
       [List<OtelMetricFloat64ObservableUpDownCounterOption> opts = const []]) {
-    final $r = $callSync(19346, $W()..list(opts, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(19352, $W()..list(opts, (w0, e0) => w0.h(e0)));
     return $r.hnn(OtelMetricFloat64ObservableUpDownCounterConfig.$h);
   }
 
   /// Go: `func (metric.Float64ObservableUpDownCounterConfig).Callbacks() []metric.Float64Callback`.
   List<OtelMetricFloat64Callback> callbacks() {
-    final $r = $callSync(19286, $W()..h(this));
+    final $r = $callSync(19292, $W()..h(this));
     return $r.list(() => $r.hnn(OtelMetricFloat64Callback.$h));
   }
 
   /// Go: `func (metric.Float64ObservableUpDownCounterConfig).Description() string`.
   String description() {
-    final $r = $callSync(19287, $W()..h(this));
+    final $r = $callSync(19293, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (metric.Float64ObservableUpDownCounterConfig).Unit() string`.
   String unit() {
-    final $r = $callSync(19288, $W()..h(this));
+    final $r = $callSync(19294, $W()..h(this));
     return $r.str();
   }
 }
@@ -628,13 +628,13 @@ class OtelMetricFloat64ObservableUpDownCounterOption extends GoHandle
 mixin OtelMetricFloat64ObservableUpDownCounterOption$ on GoHandle {
   /// Go: type assertion `x.(metric.Float64ObservableOption)`: null if the object is not one.
   OtelMetricFloat64ObservableOption? asOtelMetricFloat64ObservableOption() {
-    final $r = $callSync(2007, $W()..h(this));
+    final $r = $callSync(2014, $W()..h(this));
     return $r.hn(OtelMetricFloat64ObservableOption.$h);
   }
 
   /// Go: type assertion `x.(metric.InstrumentOption)`: null if the object is not one.
   OtelMetricInstrumentOption? asOtelMetricInstrumentOption() {
-    final $r = $callSync(2008, $W()..h(this));
+    final $r = $callSync(2015, $W()..h(this));
     return $r.hn(OtelMetricInstrumentOption.$h);
   }
 }
@@ -651,7 +651,7 @@ mixin OtelMetricFloat64Observer$ on GoHandle {
   void observe(double value,
       [List<OtelMetricObserveOption> options = const []]) {
     $callSync(
-        19289,
+        19295,
         $W()
           ..h(this)
           ..f64(value)
@@ -660,7 +660,7 @@ mixin OtelMetricFloat64Observer$ on GoHandle {
 
   /// Go: type assertion `x.(*noop.Float64Observer)`: null if the object is not one.
   $noop.OtelMetricNoopFloat64Observer? asOtelMetricNoopFloat64Observer() {
-    final $r = $callSync(2009, $W()..h(this));
+    final $r = $callSync(2016, $W()..h(this));
     return $r.hn($noop.OtelMetricNoopFloat64Observer.$h);
   }
 }
@@ -680,7 +680,7 @@ mixin OtelMetricFloat64UpDownCounter$ on GoHandle {
   Future<void> add($context.Context ctx, double incr,
       [List<OtelMetricAddOption> options = const []]) async {
     await $call(
-        19290,
+        19296,
         $W()
           ..h(this)
           ..h(ctx)
@@ -693,7 +693,7 @@ mixin OtelMetricFloat64UpDownCounter$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> enabled($context.Context ctx) async {
     final $r = await $call(
-        19291,
+        19297,
         $W()
           ..h(this)
           ..h(ctx));
@@ -703,7 +703,7 @@ mixin OtelMetricFloat64UpDownCounter$ on GoHandle {
   /// Go: type assertion `x.(*noop.Float64UpDownCounter)`: null if the object is not one.
   $noop.OtelMetricNoopFloat64UpDownCounter?
       asOtelMetricNoopFloat64UpDownCounter() {
-    final $r = $callSync(2010, $W()..h(this));
+    final $r = $callSync(2017, $W()..h(this));
     return $r.hn($noop.OtelMetricNoopFloat64UpDownCounter.$h);
   }
 }
@@ -729,19 +729,19 @@ class OtelMetricFloat64UpDownCounterConfig extends $crypto.CryptoDecrypterOpts
   /// Go: `func metric.NewFloat64UpDownCounterConfig(opts ...metric.Float64UpDownCounterOption) metric.Float64UpDownCounterConfig`.
   factory OtelMetricFloat64UpDownCounterConfig(
       [List<OtelMetricFloat64UpDownCounterOption> opts = const []]) {
-    final $r = $callSync(19347, $W()..list(opts, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(19353, $W()..list(opts, (w0, e0) => w0.h(e0)));
     return $r.hnn(OtelMetricFloat64UpDownCounterConfig.$h);
   }
 
   /// Go: `func (metric.Float64UpDownCounterConfig).Description() string`.
   String description() {
-    final $r = $callSync(19292, $W()..h(this));
+    final $r = $callSync(19298, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (metric.Float64UpDownCounterConfig).Unit() string`.
   String unit() {
-    final $r = $callSync(19293, $W()..h(this));
+    final $r = $callSync(19299, $W()..h(this));
     return $r.str();
   }
 }
@@ -756,7 +756,7 @@ class OtelMetricFloat64UpDownCounterOption extends GoHandle
 mixin OtelMetricFloat64UpDownCounterOption$ on GoHandle {
   /// Go: type assertion `x.(metric.InstrumentOption)`: null if the object is not one.
   OtelMetricInstrumentOption? asOtelMetricInstrumentOption() {
-    final $r = $callSync(2011, $W()..h(this));
+    final $r = $callSync(2018, $W()..h(this));
     return $r.hn(OtelMetricInstrumentOption.$h);
   }
 }
@@ -812,7 +812,7 @@ mixin OtelMetricInt64Counter$ on GoHandle {
   Future<void> add($context.Context ctx, int incr,
       [List<OtelMetricAddOption> options = const []]) async {
     await $call(
-        19294,
+        19300,
         $W()
           ..h(this)
           ..h(ctx)
@@ -825,7 +825,7 @@ mixin OtelMetricInt64Counter$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> enabled($context.Context ctx) async {
     final $r = await $call(
-        19295,
+        19301,
         $W()
           ..h(this)
           ..h(ctx));
@@ -834,7 +834,7 @@ mixin OtelMetricInt64Counter$ on GoHandle {
 
   /// Go: type assertion `x.(*noop.Int64Counter)`: null if the object is not one.
   $noop.OtelMetricNoopInt64Counter? asOtelMetricNoopInt64Counter() {
-    final $r = $callSync(2012, $W()..h(this));
+    final $r = $callSync(2019, $W()..h(this));
     return $r.hn($noop.OtelMetricNoopInt64Counter.$h);
   }
 }
@@ -860,19 +860,19 @@ class OtelMetricInt64CounterConfig extends $crypto.CryptoDecrypterOpts
   /// Go: `func metric.NewInt64CounterConfig(opts ...metric.Int64CounterOption) metric.Int64CounterConfig`.
   factory OtelMetricInt64CounterConfig(
       [List<OtelMetricInt64CounterOption> opts = const []]) {
-    final $r = $callSync(19348, $W()..list(opts, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(19354, $W()..list(opts, (w0, e0) => w0.h(e0)));
     return $r.hnn(OtelMetricInt64CounterConfig.$h);
   }
 
   /// Go: `func (metric.Int64CounterConfig).Description() string`.
   String description() {
-    final $r = $callSync(19296, $W()..h(this));
+    final $r = $callSync(19302, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (metric.Int64CounterConfig).Unit() string`.
   String unit() {
-    final $r = $callSync(19297, $W()..h(this));
+    final $r = $callSync(19303, $W()..h(this));
     return $r.str();
   }
 }
@@ -887,7 +887,7 @@ class OtelMetricInt64CounterOption extends GoHandle
 mixin OtelMetricInt64CounterOption$ on GoHandle {
   /// Go: type assertion `x.(metric.InstrumentOption)`: null if the object is not one.
   OtelMetricInstrumentOption? asOtelMetricInstrumentOption() {
-    final $r = $callSync(2013, $W()..h(this));
+    final $r = $callSync(2020, $W()..h(this));
     return $r.hn(OtelMetricInstrumentOption.$h);
   }
 }
@@ -905,7 +905,7 @@ mixin OtelMetricInt64Gauge$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> enabled($context.Context ctx) async {
     final $r = await $call(
-        19298,
+        19304,
         $W()
           ..h(this)
           ..h(ctx));
@@ -918,7 +918,7 @@ mixin OtelMetricInt64Gauge$ on GoHandle {
   Future<void> record($context.Context ctx, int value,
       [List<OtelMetricRecordOption> options = const []]) async {
     await $call(
-        19299,
+        19305,
         $W()
           ..h(this)
           ..h(ctx)
@@ -928,7 +928,7 @@ mixin OtelMetricInt64Gauge$ on GoHandle {
 
   /// Go: type assertion `x.(*noop.Int64Gauge)`: null if the object is not one.
   $noop.OtelMetricNoopInt64Gauge? asOtelMetricNoopInt64Gauge() {
-    final $r = $callSync(2014, $W()..h(this));
+    final $r = $callSync(2021, $W()..h(this));
     return $r.hn($noop.OtelMetricNoopInt64Gauge.$h);
   }
 }
@@ -954,19 +954,19 @@ class OtelMetricInt64GaugeConfig extends $crypto.CryptoDecrypterOpts
   /// Go: `func metric.NewInt64GaugeConfig(opts ...metric.Int64GaugeOption) metric.Int64GaugeConfig`.
   factory OtelMetricInt64GaugeConfig(
       [List<OtelMetricInt64GaugeOption> opts = const []]) {
-    final $r = $callSync(19349, $W()..list(opts, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(19355, $W()..list(opts, (w0, e0) => w0.h(e0)));
     return $r.hnn(OtelMetricInt64GaugeConfig.$h);
   }
 
   /// Go: `func (metric.Int64GaugeConfig).Description() string`.
   String description() {
-    final $r = $callSync(19300, $W()..h(this));
+    final $r = $callSync(19306, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (metric.Int64GaugeConfig).Unit() string`.
   String unit() {
-    final $r = $callSync(19301, $W()..h(this));
+    final $r = $callSync(19307, $W()..h(this));
     return $r.str();
   }
 }
@@ -981,7 +981,7 @@ class OtelMetricInt64GaugeOption extends GoHandle
 mixin OtelMetricInt64GaugeOption$ on GoHandle {
   /// Go: type assertion `x.(metric.InstrumentOption)`: null if the object is not one.
   OtelMetricInstrumentOption? asOtelMetricInstrumentOption() {
-    final $r = $callSync(2015, $W()..h(this));
+    final $r = $callSync(2022, $W()..h(this));
     return $r.hn(OtelMetricInstrumentOption.$h);
   }
 }
@@ -999,7 +999,7 @@ mixin OtelMetricInt64Histogram$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> enabled($context.Context ctx) async {
     final $r = await $call(
-        19302,
+        19308,
         $W()
           ..h(this)
           ..h(ctx));
@@ -1012,7 +1012,7 @@ mixin OtelMetricInt64Histogram$ on GoHandle {
   Future<void> record($context.Context ctx, int incr,
       [List<OtelMetricRecordOption> options = const []]) async {
     await $call(
-        19303,
+        19309,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1022,7 +1022,7 @@ mixin OtelMetricInt64Histogram$ on GoHandle {
 
   /// Go: type assertion `x.(*noop.Int64Histogram)`: null if the object is not one.
   $noop.OtelMetricNoopInt64Histogram? asOtelMetricNoopInt64Histogram() {
-    final $r = $callSync(2016, $W()..h(this));
+    final $r = $callSync(2023, $W()..h(this));
     return $r.hn($noop.OtelMetricNoopInt64Histogram.$h);
   }
 }
@@ -1048,25 +1048,25 @@ class OtelMetricInt64HistogramConfig extends $crypto.CryptoDecrypterOpts
   /// Go: `func metric.NewInt64HistogramConfig(opts ...metric.Int64HistogramOption) metric.Int64HistogramConfig`.
   factory OtelMetricInt64HistogramConfig(
       [List<OtelMetricInt64HistogramOption> opts = const []]) {
-    final $r = $callSync(19350, $W()..list(opts, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(19356, $W()..list(opts, (w0, e0) => w0.h(e0)));
     return $r.hnn(OtelMetricInt64HistogramConfig.$h);
   }
 
   /// Go: `func (metric.Int64HistogramConfig).Description() string`.
   String description() {
-    final $r = $callSync(19304, $W()..h(this));
+    final $r = $callSync(19310, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (metric.Int64HistogramConfig).ExplicitBucketBoundaries() []float64`.
   List<double> explicitBucketBoundaries() {
-    final $r = $callSync(19305, $W()..h(this));
+    final $r = $callSync(19311, $W()..h(this));
     return $r.list(() => $r.f64());
   }
 
   /// Go: `func (metric.Int64HistogramConfig).Unit() string`.
   String unit() {
-    final $r = $callSync(19306, $W()..h(this));
+    final $r = $callSync(19312, $W()..h(this));
     return $r.str();
   }
 }
@@ -1081,13 +1081,13 @@ class OtelMetricInt64HistogramOption extends GoHandle
 mixin OtelMetricInt64HistogramOption$ on GoHandle {
   /// Go: type assertion `x.(metric.HistogramOption)`: null if the object is not one.
   OtelMetricHistogramOption? asOtelMetricHistogramOption() {
-    final $r = $callSync(2017, $W()..h(this));
+    final $r = $callSync(2024, $W()..h(this));
     return $r.hn(OtelMetricHistogramOption.$h);
   }
 
   /// Go: type assertion `x.(metric.InstrumentOption)`: null if the object is not one.
   OtelMetricInstrumentOption? asOtelMetricInstrumentOption() {
-    final $r = $callSync(2018, $W()..h(this));
+    final $r = $callSync(2025, $W()..h(this));
     return $r.hn(OtelMetricInstrumentOption.$h);
   }
 }
@@ -1103,7 +1103,7 @@ mixin OtelMetricInt64Observable$ on GoHandle {
   /// Go: type assertion `x.(*httpconv.ClientActiveRequestsObservable)`: null if the object is not one.
   $httpconv.OtelSemconvV1430HttpconvClientActiveRequestsObservable?
       asOtelSemconvV1430HttpconvClientActiveRequestsObservable() {
-    final $r = $callSync(2019, $W()..h(this));
+    final $r = $callSync(2026, $W()..h(this));
     return $r.hn(
         $httpconv.OtelSemconvV1430HttpconvClientActiveRequestsObservable.$h);
   }
@@ -1111,7 +1111,7 @@ mixin OtelMetricInt64Observable$ on GoHandle {
   /// Go: type assertion `x.(*httpconv.ClientOpenConnectionsObservable)`: null if the object is not one.
   $httpconv.OtelSemconvV1430HttpconvClientOpenConnectionsObservable?
       asOtelSemconvV1430HttpconvClientOpenConnectionsObservable() {
-    final $r = $callSync(2020, $W()..h(this));
+    final $r = $callSync(2027, $W()..h(this));
     return $r.hn(
         $httpconv.OtelSemconvV1430HttpconvClientOpenConnectionsObservable.$h);
   }
@@ -1119,7 +1119,7 @@ mixin OtelMetricInt64Observable$ on GoHandle {
   /// Go: type assertion `x.(*httpconv.ServerActiveRequestsObservable)`: null if the object is not one.
   $httpconv.OtelSemconvV1430HttpconvServerActiveRequestsObservable?
       asOtelSemconvV1430HttpconvServerActiveRequestsObservable() {
-    final $r = $callSync(2021, $W()..h(this));
+    final $r = $callSync(2028, $W()..h(this));
     return $r.hn(
         $httpconv.OtelSemconvV1430HttpconvServerActiveRequestsObservable.$h);
   }
@@ -1127,7 +1127,7 @@ mixin OtelMetricInt64Observable$ on GoHandle {
   /// Go: type assertion `x.(*otelconv.SDKExporterLogExportedObservable)`: null if the object is not one.
   $otelconv.OtelSemconvV1430OtelconvSdkExporterLogExportedObservable?
       asOtelSemconvV1430OtelconvSdkExporterLogExportedObservable() {
-    final $r = $callSync(2022, $W()..h(this));
+    final $r = $callSync(2029, $W()..h(this));
     return $r.hn(
         $otelconv.OtelSemconvV1430OtelconvSdkExporterLogExportedObservable.$h);
   }
@@ -1135,7 +1135,7 @@ mixin OtelMetricInt64Observable$ on GoHandle {
   /// Go: type assertion `x.(*otelconv.SDKExporterLogInflightObservable)`: null if the object is not one.
   $otelconv.OtelSemconvV1430OtelconvSdkExporterLogInflightObservable?
       asOtelSemconvV1430OtelconvSdkExporterLogInflightObservable() {
-    final $r = $callSync(2023, $W()..h(this));
+    final $r = $callSync(2030, $W()..h(this));
     return $r.hn(
         $otelconv.OtelSemconvV1430OtelconvSdkExporterLogInflightObservable.$h);
   }
@@ -1144,7 +1144,7 @@ mixin OtelMetricInt64Observable$ on GoHandle {
   $otelconv
       .OtelSemconvV1430OtelconvSdkExporterMetricDataPointExportedObservable?
       asOtelSemconvV1430OtelconvSdkExporterMetricDataPointExportedObservable() {
-    final $r = $callSync(2024, $W()..h(this));
+    final $r = $callSync(2031, $W()..h(this));
     return $r.hn($otelconv
         .OtelSemconvV1430OtelconvSdkExporterMetricDataPointExportedObservable
         .$h);
@@ -1154,7 +1154,7 @@ mixin OtelMetricInt64Observable$ on GoHandle {
   $otelconv
       .OtelSemconvV1430OtelconvSdkExporterMetricDataPointInflightObservable?
       asOtelSemconvV1430OtelconvSdkExporterMetricDataPointInflightObservable() {
-    final $r = $callSync(2025, $W()..h(this));
+    final $r = $callSync(2032, $W()..h(this));
     return $r.hn($otelconv
         .OtelSemconvV1430OtelconvSdkExporterMetricDataPointInflightObservable
         .$h);
@@ -1163,7 +1163,7 @@ mixin OtelMetricInt64Observable$ on GoHandle {
   /// Go: type assertion `x.(*otelconv.SDKExporterSpanExportedObservable)`: null if the object is not one.
   $otelconv.OtelSemconvV1430OtelconvSdkExporterSpanExportedObservable?
       asOtelSemconvV1430OtelconvSdkExporterSpanExportedObservable() {
-    final $r = $callSync(2026, $W()..h(this));
+    final $r = $callSync(2033, $W()..h(this));
     return $r.hn(
         $otelconv.OtelSemconvV1430OtelconvSdkExporterSpanExportedObservable.$h);
   }
@@ -1171,7 +1171,7 @@ mixin OtelMetricInt64Observable$ on GoHandle {
   /// Go: type assertion `x.(*otelconv.SDKExporterSpanInflightObservable)`: null if the object is not one.
   $otelconv.OtelSemconvV1430OtelconvSdkExporterSpanInflightObservable?
       asOtelSemconvV1430OtelconvSdkExporterSpanInflightObservable() {
-    final $r = $callSync(2027, $W()..h(this));
+    final $r = $callSync(2034, $W()..h(this));
     return $r.hn(
         $otelconv.OtelSemconvV1430OtelconvSdkExporterSpanInflightObservable.$h);
   }
@@ -1179,14 +1179,14 @@ mixin OtelMetricInt64Observable$ on GoHandle {
   /// Go: type assertion `x.(*otelconv.SDKLogCreatedObservable)`: null if the object is not one.
   $otelconv.OtelSemconvV1430OtelconvSdkLogCreatedObservable?
       asOtelSemconvV1430OtelconvSdkLogCreatedObservable() {
-    final $r = $callSync(2028, $W()..h(this));
+    final $r = $callSync(2035, $W()..h(this));
     return $r.hn($otelconv.OtelSemconvV1430OtelconvSdkLogCreatedObservable.$h);
   }
 
   /// Go: type assertion `x.(*otelconv.SDKProcessorLogProcessedObservable)`: null if the object is not one.
   $otelconv.OtelSemconvV1430OtelconvSdkProcessorLogProcessedObservable?
       asOtelSemconvV1430OtelconvSdkProcessorLogProcessedObservable() {
-    final $r = $callSync(2029, $W()..h(this));
+    final $r = $callSync(2036, $W()..h(this));
     return $r.hn($otelconv
         .OtelSemconvV1430OtelconvSdkProcessorLogProcessedObservable.$h);
   }
@@ -1194,7 +1194,7 @@ mixin OtelMetricInt64Observable$ on GoHandle {
   /// Go: type assertion `x.(*otelconv.SDKProcessorLogQueueCapacity)`: null if the object is not one.
   $otelconv.OtelSemconvV1430OtelconvSdkProcessorLogQueueCapacity?
       asOtelSemconvV1430OtelconvSdkProcessorLogQueueCapacity() {
-    final $r = $callSync(2030, $W()..h(this));
+    final $r = $callSync(2037, $W()..h(this));
     return $r
         .hn($otelconv.OtelSemconvV1430OtelconvSdkProcessorLogQueueCapacity.$h);
   }
@@ -1202,14 +1202,14 @@ mixin OtelMetricInt64Observable$ on GoHandle {
   /// Go: type assertion `x.(*otelconv.SDKProcessorLogQueueSize)`: null if the object is not one.
   $otelconv.OtelSemconvV1430OtelconvSdkProcessorLogQueueSize?
       asOtelSemconvV1430OtelconvSdkProcessorLogQueueSize() {
-    final $r = $callSync(2031, $W()..h(this));
+    final $r = $callSync(2038, $W()..h(this));
     return $r.hn($otelconv.OtelSemconvV1430OtelconvSdkProcessorLogQueueSize.$h);
   }
 
   /// Go: type assertion `x.(*otelconv.SDKProcessorSpanProcessedObservable)`: null if the object is not one.
   $otelconv.OtelSemconvV1430OtelconvSdkProcessorSpanProcessedObservable?
       asOtelSemconvV1430OtelconvSdkProcessorSpanProcessedObservable() {
-    final $r = $callSync(2032, $W()..h(this));
+    final $r = $callSync(2039, $W()..h(this));
     return $r.hn($otelconv
         .OtelSemconvV1430OtelconvSdkProcessorSpanProcessedObservable.$h);
   }
@@ -1217,7 +1217,7 @@ mixin OtelMetricInt64Observable$ on GoHandle {
   /// Go: type assertion `x.(*otelconv.SDKProcessorSpanQueueCapacity)`: null if the object is not one.
   $otelconv.OtelSemconvV1430OtelconvSdkProcessorSpanQueueCapacity?
       asOtelSemconvV1430OtelconvSdkProcessorSpanQueueCapacity() {
-    final $r = $callSync(2033, $W()..h(this));
+    final $r = $callSync(2040, $W()..h(this));
     return $r
         .hn($otelconv.OtelSemconvV1430OtelconvSdkProcessorSpanQueueCapacity.$h);
   }
@@ -1225,7 +1225,7 @@ mixin OtelMetricInt64Observable$ on GoHandle {
   /// Go: type assertion `x.(*otelconv.SDKProcessorSpanQueueSize)`: null if the object is not one.
   $otelconv.OtelSemconvV1430OtelconvSdkProcessorSpanQueueSize?
       asOtelSemconvV1430OtelconvSdkProcessorSpanQueueSize() {
-    final $r = $callSync(2034, $W()..h(this));
+    final $r = $callSync(2041, $W()..h(this));
     return $r
         .hn($otelconv.OtelSemconvV1430OtelconvSdkProcessorSpanQueueSize.$h);
   }
@@ -1233,33 +1233,33 @@ mixin OtelMetricInt64Observable$ on GoHandle {
   /// Go: type assertion `x.(*otelconv.SDKSpanLiveObservable)`: null if the object is not one.
   $otelconv.OtelSemconvV1430OtelconvSdkSpanLiveObservable?
       asOtelSemconvV1430OtelconvSdkSpanLiveObservable() {
-    final $r = $callSync(2035, $W()..h(this));
+    final $r = $callSync(2042, $W()..h(this));
     return $r.hn($otelconv.OtelSemconvV1430OtelconvSdkSpanLiveObservable.$h);
   }
 
   /// Go: type assertion `x.(*otelconv.SDKSpanStartedObservable)`: null if the object is not one.
   $otelconv.OtelSemconvV1430OtelconvSdkSpanStartedObservable?
       asOtelSemconvV1430OtelconvSdkSpanStartedObservable() {
-    final $r = $callSync(2036, $W()..h(this));
+    final $r = $callSync(2043, $W()..h(this));
     return $r.hn($otelconv.OtelSemconvV1430OtelconvSdkSpanStartedObservable.$h);
   }
 
   /// Go: type assertion `x.(metric.Int64ObservableCounter)`: null if the object is not one.
   OtelMetricInt64ObservableCounter? asOtelMetricInt64ObservableCounter() {
-    final $r = $callSync(2037, $W()..h(this));
+    final $r = $callSync(2044, $W()..h(this));
     return $r.hn(OtelMetricInt64ObservableCounter.$h);
   }
 
   /// Go: type assertion `x.(metric.Int64ObservableGauge)`: null if the object is not one.
   OtelMetricInt64ObservableGauge? asOtelMetricInt64ObservableGauge() {
-    final $r = $callSync(2038, $W()..h(this));
+    final $r = $callSync(2045, $W()..h(this));
     return $r.hn(OtelMetricInt64ObservableGauge.$h);
   }
 
   /// Go: type assertion `x.(metric.Int64ObservableUpDownCounter)`: null if the object is not one.
   OtelMetricInt64ObservableUpDownCounter?
       asOtelMetricInt64ObservableUpDownCounter() {
-    final $r = $callSync(2039, $W()..h(this));
+    final $r = $callSync(2046, $W()..h(this));
     return $r.hn(OtelMetricInt64ObservableUpDownCounter.$h);
   }
 }
@@ -1275,7 +1275,7 @@ mixin OtelMetricInt64ObservableCounter$ on GoHandle {
   /// Go: type assertion `x.(*otelconv.SDKExporterLogExportedObservable)`: null if the object is not one.
   $otelconv.OtelSemconvV1430OtelconvSdkExporterLogExportedObservable?
       asOtelSemconvV1430OtelconvSdkExporterLogExportedObservable() {
-    final $r = $callSync(2040, $W()..h(this));
+    final $r = $callSync(2047, $W()..h(this));
     return $r.hn(
         $otelconv.OtelSemconvV1430OtelconvSdkExporterLogExportedObservable.$h);
   }
@@ -1284,7 +1284,7 @@ mixin OtelMetricInt64ObservableCounter$ on GoHandle {
   $otelconv
       .OtelSemconvV1430OtelconvSdkExporterMetricDataPointExportedObservable?
       asOtelSemconvV1430OtelconvSdkExporterMetricDataPointExportedObservable() {
-    final $r = $callSync(2041, $W()..h(this));
+    final $r = $callSync(2048, $W()..h(this));
     return $r.hn($otelconv
         .OtelSemconvV1430OtelconvSdkExporterMetricDataPointExportedObservable
         .$h);
@@ -1293,7 +1293,7 @@ mixin OtelMetricInt64ObservableCounter$ on GoHandle {
   /// Go: type assertion `x.(*otelconv.SDKExporterSpanExportedObservable)`: null if the object is not one.
   $otelconv.OtelSemconvV1430OtelconvSdkExporterSpanExportedObservable?
       asOtelSemconvV1430OtelconvSdkExporterSpanExportedObservable() {
-    final $r = $callSync(2042, $W()..h(this));
+    final $r = $callSync(2049, $W()..h(this));
     return $r.hn(
         $otelconv.OtelSemconvV1430OtelconvSdkExporterSpanExportedObservable.$h);
   }
@@ -1301,14 +1301,14 @@ mixin OtelMetricInt64ObservableCounter$ on GoHandle {
   /// Go: type assertion `x.(*otelconv.SDKLogCreatedObservable)`: null if the object is not one.
   $otelconv.OtelSemconvV1430OtelconvSdkLogCreatedObservable?
       asOtelSemconvV1430OtelconvSdkLogCreatedObservable() {
-    final $r = $callSync(2043, $W()..h(this));
+    final $r = $callSync(2050, $W()..h(this));
     return $r.hn($otelconv.OtelSemconvV1430OtelconvSdkLogCreatedObservable.$h);
   }
 
   /// Go: type assertion `x.(*otelconv.SDKProcessorLogProcessedObservable)`: null if the object is not one.
   $otelconv.OtelSemconvV1430OtelconvSdkProcessorLogProcessedObservable?
       asOtelSemconvV1430OtelconvSdkProcessorLogProcessedObservable() {
-    final $r = $callSync(2044, $W()..h(this));
+    final $r = $callSync(2051, $W()..h(this));
     return $r.hn($otelconv
         .OtelSemconvV1430OtelconvSdkProcessorLogProcessedObservable.$h);
   }
@@ -1316,7 +1316,7 @@ mixin OtelMetricInt64ObservableCounter$ on GoHandle {
   /// Go: type assertion `x.(*otelconv.SDKProcessorSpanProcessedObservable)`: null if the object is not one.
   $otelconv.OtelSemconvV1430OtelconvSdkProcessorSpanProcessedObservable?
       asOtelSemconvV1430OtelconvSdkProcessorSpanProcessedObservable() {
-    final $r = $callSync(2045, $W()..h(this));
+    final $r = $callSync(2052, $W()..h(this));
     return $r.hn($otelconv
         .OtelSemconvV1430OtelconvSdkProcessorSpanProcessedObservable.$h);
   }
@@ -1324,7 +1324,7 @@ mixin OtelMetricInt64ObservableCounter$ on GoHandle {
   /// Go: type assertion `x.(*otelconv.SDKSpanStartedObservable)`: null if the object is not one.
   $otelconv.OtelSemconvV1430OtelconvSdkSpanStartedObservable?
       asOtelSemconvV1430OtelconvSdkSpanStartedObservable() {
-    final $r = $callSync(2046, $W()..h(this));
+    final $r = $callSync(2053, $W()..h(this));
     return $r.hn($otelconv.OtelSemconvV1430OtelconvSdkSpanStartedObservable.$h);
   }
 }
@@ -1350,25 +1350,25 @@ class OtelMetricInt64ObservableCounterConfig extends $crypto.CryptoDecrypterOpts
   /// Go: `func metric.NewInt64ObservableCounterConfig(opts ...metric.Int64ObservableCounterOption) metric.Int64ObservableCounterConfig`.
   factory OtelMetricInt64ObservableCounterConfig(
       [List<OtelMetricInt64ObservableCounterOption> opts = const []]) {
-    final $r = $callSync(19351, $W()..list(opts, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(19357, $W()..list(opts, (w0, e0) => w0.h(e0)));
     return $r.hnn(OtelMetricInt64ObservableCounterConfig.$h);
   }
 
   /// Go: `func (metric.Int64ObservableCounterConfig).Callbacks() []metric.Int64Callback`.
   List<OtelMetricInt64Callback> callbacks() {
-    final $r = $callSync(19307, $W()..h(this));
+    final $r = $callSync(19313, $W()..h(this));
     return $r.list(() => $r.hnn(OtelMetricInt64Callback.$h));
   }
 
   /// Go: `func (metric.Int64ObservableCounterConfig).Description() string`.
   String description() {
-    final $r = $callSync(19308, $W()..h(this));
+    final $r = $callSync(19314, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (metric.Int64ObservableCounterConfig).Unit() string`.
   String unit() {
-    final $r = $callSync(19309, $W()..h(this));
+    final $r = $callSync(19315, $W()..h(this));
     return $r.str();
   }
 }
@@ -1383,13 +1383,13 @@ class OtelMetricInt64ObservableCounterOption extends GoHandle
 mixin OtelMetricInt64ObservableCounterOption$ on GoHandle {
   /// Go: type assertion `x.(metric.InstrumentOption)`: null if the object is not one.
   OtelMetricInstrumentOption? asOtelMetricInstrumentOption() {
-    final $r = $callSync(2047, $W()..h(this));
+    final $r = $callSync(2054, $W()..h(this));
     return $r.hn(OtelMetricInstrumentOption.$h);
   }
 
   /// Go: type assertion `x.(metric.Int64ObservableOption)`: null if the object is not one.
   OtelMetricInt64ObservableOption? asOtelMetricInt64ObservableOption() {
-    final $r = $callSync(2048, $W()..h(this));
+    final $r = $callSync(2055, $W()..h(this));
     return $r.hn(OtelMetricInt64ObservableOption.$h);
   }
 }
@@ -1424,25 +1424,25 @@ class OtelMetricInt64ObservableGaugeConfig extends $crypto.CryptoDecrypterOpts
   /// Go: `func metric.NewInt64ObservableGaugeConfig(opts ...metric.Int64ObservableGaugeOption) metric.Int64ObservableGaugeConfig`.
   factory OtelMetricInt64ObservableGaugeConfig(
       [List<OtelMetricInt64ObservableGaugeOption> opts = const []]) {
-    final $r = $callSync(19352, $W()..list(opts, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(19358, $W()..list(opts, (w0, e0) => w0.h(e0)));
     return $r.hnn(OtelMetricInt64ObservableGaugeConfig.$h);
   }
 
   /// Go: `func (metric.Int64ObservableGaugeConfig).Callbacks() []metric.Int64Callback`.
   List<OtelMetricInt64Callback> callbacks() {
-    final $r = $callSync(19310, $W()..h(this));
+    final $r = $callSync(19316, $W()..h(this));
     return $r.list(() => $r.hnn(OtelMetricInt64Callback.$h));
   }
 
   /// Go: `func (metric.Int64ObservableGaugeConfig).Description() string`.
   String description() {
-    final $r = $callSync(19311, $W()..h(this));
+    final $r = $callSync(19317, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (metric.Int64ObservableGaugeConfig).Unit() string`.
   String unit() {
-    final $r = $callSync(19312, $W()..h(this));
+    final $r = $callSync(19318, $W()..h(this));
     return $r.str();
   }
 }
@@ -1457,13 +1457,13 @@ class OtelMetricInt64ObservableGaugeOption extends GoHandle
 mixin OtelMetricInt64ObservableGaugeOption$ on GoHandle {
   /// Go: type assertion `x.(metric.InstrumentOption)`: null if the object is not one.
   OtelMetricInstrumentOption? asOtelMetricInstrumentOption() {
-    final $r = $callSync(2049, $W()..h(this));
+    final $r = $callSync(2056, $W()..h(this));
     return $r.hn(OtelMetricInstrumentOption.$h);
   }
 
   /// Go: type assertion `x.(metric.Int64ObservableOption)`: null if the object is not one.
   OtelMetricInt64ObservableOption? asOtelMetricInt64ObservableOption() {
-    final $r = $callSync(2050, $W()..h(this));
+    final $r = $callSync(2057, $W()..h(this));
     return $r.hn(OtelMetricInt64ObservableOption.$h);
   }
 }
@@ -1489,7 +1489,7 @@ mixin OtelMetricInt64ObservableUpDownCounter$ on GoHandle {
   /// Go: type assertion `x.(*httpconv.ClientActiveRequestsObservable)`: null if the object is not one.
   $httpconv.OtelSemconvV1430HttpconvClientActiveRequestsObservable?
       asOtelSemconvV1430HttpconvClientActiveRequestsObservable() {
-    final $r = $callSync(2051, $W()..h(this));
+    final $r = $callSync(2058, $W()..h(this));
     return $r.hn(
         $httpconv.OtelSemconvV1430HttpconvClientActiveRequestsObservable.$h);
   }
@@ -1497,7 +1497,7 @@ mixin OtelMetricInt64ObservableUpDownCounter$ on GoHandle {
   /// Go: type assertion `x.(*httpconv.ClientOpenConnectionsObservable)`: null if the object is not one.
   $httpconv.OtelSemconvV1430HttpconvClientOpenConnectionsObservable?
       asOtelSemconvV1430HttpconvClientOpenConnectionsObservable() {
-    final $r = $callSync(2052, $W()..h(this));
+    final $r = $callSync(2059, $W()..h(this));
     return $r.hn(
         $httpconv.OtelSemconvV1430HttpconvClientOpenConnectionsObservable.$h);
   }
@@ -1505,7 +1505,7 @@ mixin OtelMetricInt64ObservableUpDownCounter$ on GoHandle {
   /// Go: type assertion `x.(*httpconv.ServerActiveRequestsObservable)`: null if the object is not one.
   $httpconv.OtelSemconvV1430HttpconvServerActiveRequestsObservable?
       asOtelSemconvV1430HttpconvServerActiveRequestsObservable() {
-    final $r = $callSync(2053, $W()..h(this));
+    final $r = $callSync(2060, $W()..h(this));
     return $r.hn(
         $httpconv.OtelSemconvV1430HttpconvServerActiveRequestsObservable.$h);
   }
@@ -1513,7 +1513,7 @@ mixin OtelMetricInt64ObservableUpDownCounter$ on GoHandle {
   /// Go: type assertion `x.(*otelconv.SDKExporterLogInflightObservable)`: null if the object is not one.
   $otelconv.OtelSemconvV1430OtelconvSdkExporterLogInflightObservable?
       asOtelSemconvV1430OtelconvSdkExporterLogInflightObservable() {
-    final $r = $callSync(2054, $W()..h(this));
+    final $r = $callSync(2061, $W()..h(this));
     return $r.hn(
         $otelconv.OtelSemconvV1430OtelconvSdkExporterLogInflightObservable.$h);
   }
@@ -1522,7 +1522,7 @@ mixin OtelMetricInt64ObservableUpDownCounter$ on GoHandle {
   $otelconv
       .OtelSemconvV1430OtelconvSdkExporterMetricDataPointInflightObservable?
       asOtelSemconvV1430OtelconvSdkExporterMetricDataPointInflightObservable() {
-    final $r = $callSync(2055, $W()..h(this));
+    final $r = $callSync(2062, $W()..h(this));
     return $r.hn($otelconv
         .OtelSemconvV1430OtelconvSdkExporterMetricDataPointInflightObservable
         .$h);
@@ -1531,7 +1531,7 @@ mixin OtelMetricInt64ObservableUpDownCounter$ on GoHandle {
   /// Go: type assertion `x.(*otelconv.SDKExporterSpanInflightObservable)`: null if the object is not one.
   $otelconv.OtelSemconvV1430OtelconvSdkExporterSpanInflightObservable?
       asOtelSemconvV1430OtelconvSdkExporterSpanInflightObservable() {
-    final $r = $callSync(2056, $W()..h(this));
+    final $r = $callSync(2063, $W()..h(this));
     return $r.hn(
         $otelconv.OtelSemconvV1430OtelconvSdkExporterSpanInflightObservable.$h);
   }
@@ -1539,7 +1539,7 @@ mixin OtelMetricInt64ObservableUpDownCounter$ on GoHandle {
   /// Go: type assertion `x.(*otelconv.SDKProcessorLogQueueCapacity)`: null if the object is not one.
   $otelconv.OtelSemconvV1430OtelconvSdkProcessorLogQueueCapacity?
       asOtelSemconvV1430OtelconvSdkProcessorLogQueueCapacity() {
-    final $r = $callSync(2057, $W()..h(this));
+    final $r = $callSync(2064, $W()..h(this));
     return $r
         .hn($otelconv.OtelSemconvV1430OtelconvSdkProcessorLogQueueCapacity.$h);
   }
@@ -1547,14 +1547,14 @@ mixin OtelMetricInt64ObservableUpDownCounter$ on GoHandle {
   /// Go: type assertion `x.(*otelconv.SDKProcessorLogQueueSize)`: null if the object is not one.
   $otelconv.OtelSemconvV1430OtelconvSdkProcessorLogQueueSize?
       asOtelSemconvV1430OtelconvSdkProcessorLogQueueSize() {
-    final $r = $callSync(2058, $W()..h(this));
+    final $r = $callSync(2065, $W()..h(this));
     return $r.hn($otelconv.OtelSemconvV1430OtelconvSdkProcessorLogQueueSize.$h);
   }
 
   /// Go: type assertion `x.(*otelconv.SDKProcessorSpanQueueCapacity)`: null if the object is not one.
   $otelconv.OtelSemconvV1430OtelconvSdkProcessorSpanQueueCapacity?
       asOtelSemconvV1430OtelconvSdkProcessorSpanQueueCapacity() {
-    final $r = $callSync(2059, $W()..h(this));
+    final $r = $callSync(2066, $W()..h(this));
     return $r
         .hn($otelconv.OtelSemconvV1430OtelconvSdkProcessorSpanQueueCapacity.$h);
   }
@@ -1562,7 +1562,7 @@ mixin OtelMetricInt64ObservableUpDownCounter$ on GoHandle {
   /// Go: type assertion `x.(*otelconv.SDKProcessorSpanQueueSize)`: null if the object is not one.
   $otelconv.OtelSemconvV1430OtelconvSdkProcessorSpanQueueSize?
       asOtelSemconvV1430OtelconvSdkProcessorSpanQueueSize() {
-    final $r = $callSync(2060, $W()..h(this));
+    final $r = $callSync(2067, $W()..h(this));
     return $r
         .hn($otelconv.OtelSemconvV1430OtelconvSdkProcessorSpanQueueSize.$h);
   }
@@ -1570,7 +1570,7 @@ mixin OtelMetricInt64ObservableUpDownCounter$ on GoHandle {
   /// Go: type assertion `x.(*otelconv.SDKSpanLiveObservable)`: null if the object is not one.
   $otelconv.OtelSemconvV1430OtelconvSdkSpanLiveObservable?
       asOtelSemconvV1430OtelconvSdkSpanLiveObservable() {
-    final $r = $callSync(2061, $W()..h(this));
+    final $r = $callSync(2068, $W()..h(this));
     return $r.hn($otelconv.OtelSemconvV1430OtelconvSdkSpanLiveObservable.$h);
   }
 }
@@ -1597,25 +1597,25 @@ class OtelMetricInt64ObservableUpDownCounterConfig
   /// Go: `func metric.NewInt64ObservableUpDownCounterConfig(opts ...metric.Int64ObservableUpDownCounterOption) metric.Int64ObservableUpDownCounterConfig`.
   factory OtelMetricInt64ObservableUpDownCounterConfig(
       [List<OtelMetricInt64ObservableUpDownCounterOption> opts = const []]) {
-    final $r = $callSync(19353, $W()..list(opts, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(19359, $W()..list(opts, (w0, e0) => w0.h(e0)));
     return $r.hnn(OtelMetricInt64ObservableUpDownCounterConfig.$h);
   }
 
   /// Go: `func (metric.Int64ObservableUpDownCounterConfig).Callbacks() []metric.Int64Callback`.
   List<OtelMetricInt64Callback> callbacks() {
-    final $r = $callSync(19313, $W()..h(this));
+    final $r = $callSync(19319, $W()..h(this));
     return $r.list(() => $r.hnn(OtelMetricInt64Callback.$h));
   }
 
   /// Go: `func (metric.Int64ObservableUpDownCounterConfig).Description() string`.
   String description() {
-    final $r = $callSync(19314, $W()..h(this));
+    final $r = $callSync(19320, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (metric.Int64ObservableUpDownCounterConfig).Unit() string`.
   String unit() {
-    final $r = $callSync(19315, $W()..h(this));
+    final $r = $callSync(19321, $W()..h(this));
     return $r.str();
   }
 }
@@ -1630,13 +1630,13 @@ class OtelMetricInt64ObservableUpDownCounterOption extends GoHandle
 mixin OtelMetricInt64ObservableUpDownCounterOption$ on GoHandle {
   /// Go: type assertion `x.(metric.InstrumentOption)`: null if the object is not one.
   OtelMetricInstrumentOption? asOtelMetricInstrumentOption() {
-    final $r = $callSync(2062, $W()..h(this));
+    final $r = $callSync(2069, $W()..h(this));
     return $r.hn(OtelMetricInstrumentOption.$h);
   }
 
   /// Go: type assertion `x.(metric.Int64ObservableOption)`: null if the object is not one.
   OtelMetricInt64ObservableOption? asOtelMetricInt64ObservableOption() {
-    final $r = $callSync(2063, $W()..h(this));
+    final $r = $callSync(2070, $W()..h(this));
     return $r.hn(OtelMetricInt64ObservableOption.$h);
   }
 }
@@ -1652,7 +1652,7 @@ mixin OtelMetricInt64Observer$ on GoHandle {
   /// Go: `func (metric.Int64Observer).Observe(value int64, options ...metric.ObserveOption)`.
   void observe(int value, [List<OtelMetricObserveOption> options = const []]) {
     $callSync(
-        19316,
+        19322,
         $W()
           ..h(this)
           ..i64(value)
@@ -1661,7 +1661,7 @@ mixin OtelMetricInt64Observer$ on GoHandle {
 
   /// Go: type assertion `x.(*noop.Int64Observer)`: null if the object is not one.
   $noop.OtelMetricNoopInt64Observer? asOtelMetricNoopInt64Observer() {
-    final $r = $callSync(2064, $W()..h(this));
+    final $r = $callSync(2071, $W()..h(this));
     return $r.hn($noop.OtelMetricNoopInt64Observer.$h);
   }
 }
@@ -1680,7 +1680,7 @@ mixin OtelMetricInt64UpDownCounter$ on GoHandle {
   Future<void> add($context.Context ctx, int incr,
       [List<OtelMetricAddOption> options = const []]) async {
     await $call(
-        19317,
+        19323,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1693,7 +1693,7 @@ mixin OtelMetricInt64UpDownCounter$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> enabled($context.Context ctx) async {
     final $r = await $call(
-        19318,
+        19324,
         $W()
           ..h(this)
           ..h(ctx));
@@ -1702,7 +1702,7 @@ mixin OtelMetricInt64UpDownCounter$ on GoHandle {
 
   /// Go: type assertion `x.(*noop.Int64UpDownCounter)`: null if the object is not one.
   $noop.OtelMetricNoopInt64UpDownCounter? asOtelMetricNoopInt64UpDownCounter() {
-    final $r = $callSync(2065, $W()..h(this));
+    final $r = $callSync(2072, $W()..h(this));
     return $r.hn($noop.OtelMetricNoopInt64UpDownCounter.$h);
   }
 }
@@ -1728,19 +1728,19 @@ class OtelMetricInt64UpDownCounterConfig extends $crypto.CryptoDecrypterOpts
   /// Go: `func metric.NewInt64UpDownCounterConfig(opts ...metric.Int64UpDownCounterOption) metric.Int64UpDownCounterConfig`.
   factory OtelMetricInt64UpDownCounterConfig(
       [List<OtelMetricInt64UpDownCounterOption> opts = const []]) {
-    final $r = $callSync(19354, $W()..list(opts, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(19360, $W()..list(opts, (w0, e0) => w0.h(e0)));
     return $r.hnn(OtelMetricInt64UpDownCounterConfig.$h);
   }
 
   /// Go: `func (metric.Int64UpDownCounterConfig).Description() string`.
   String description() {
-    final $r = $callSync(19319, $W()..h(this));
+    final $r = $callSync(19325, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (metric.Int64UpDownCounterConfig).Unit() string`.
   String unit() {
-    final $r = $callSync(19320, $W()..h(this));
+    final $r = $callSync(19326, $W()..h(this));
     return $r.str();
   }
 }
@@ -1755,7 +1755,7 @@ class OtelMetricInt64UpDownCounterOption extends GoHandle
 mixin OtelMetricInt64UpDownCounterOption$ on GoHandle {
   /// Go: type assertion `x.(metric.InstrumentOption)`: null if the object is not one.
   OtelMetricInstrumentOption? asOtelMetricInstrumentOption() {
-    final $r = $callSync(2066, $W()..h(this));
+    final $r = $callSync(2073, $W()..h(this));
     return $r.hn(OtelMetricInstrumentOption.$h);
   }
 }
@@ -1781,7 +1781,7 @@ mixin OtelMetricMeter$ on GoHandle {
   OtelMetricFloat64Counter float64Counter(String name,
       [List<OtelMetricFloat64CounterOption> options = const []]) {
     final $r = $callSync(
-        19321,
+        19327,
         $W()
           ..h(this)
           ..str(name)
@@ -1793,7 +1793,7 @@ mixin OtelMetricMeter$ on GoHandle {
   OtelMetricFloat64Gauge float64Gauge(String name,
       [List<OtelMetricFloat64GaugeOption> options = const []]) {
     final $r = $callSync(
-        19322,
+        19328,
         $W()
           ..h(this)
           ..str(name)
@@ -1805,7 +1805,7 @@ mixin OtelMetricMeter$ on GoHandle {
   OtelMetricFloat64Histogram float64Histogram(String name,
       [List<OtelMetricFloat64HistogramOption> options = const []]) {
     final $r = $callSync(
-        19323,
+        19329,
         $W()
           ..h(this)
           ..str(name)
@@ -1817,7 +1817,7 @@ mixin OtelMetricMeter$ on GoHandle {
   OtelMetricFloat64ObservableCounter float64ObservableCounter(String name,
       [List<OtelMetricFloat64ObservableCounterOption> options = const []]) {
     final $r = $callSync(
-        19324,
+        19330,
         $W()
           ..h(this)
           ..str(name)
@@ -1829,7 +1829,7 @@ mixin OtelMetricMeter$ on GoHandle {
   OtelMetricFloat64ObservableGauge float64ObservableGauge(String name,
       [List<OtelMetricFloat64ObservableGaugeOption> options = const []]) {
     final $r = $callSync(
-        19325,
+        19331,
         $W()
           ..h(this)
           ..str(name)
@@ -1843,7 +1843,7 @@ mixin OtelMetricMeter$ on GoHandle {
       [List<OtelMetricFloat64ObservableUpDownCounterOption> options =
           const []]) {
     final $r = $callSync(
-        19326,
+        19332,
         $W()
           ..h(this)
           ..str(name)
@@ -1855,7 +1855,7 @@ mixin OtelMetricMeter$ on GoHandle {
   OtelMetricFloat64UpDownCounter float64UpDownCounter(String name,
       [List<OtelMetricFloat64UpDownCounterOption> options = const []]) {
     final $r = $callSync(
-        19327,
+        19333,
         $W()
           ..h(this)
           ..str(name)
@@ -1867,7 +1867,7 @@ mixin OtelMetricMeter$ on GoHandle {
   OtelMetricInt64Counter int64Counter(String name,
       [List<OtelMetricInt64CounterOption> options = const []]) {
     final $r = $callSync(
-        19328,
+        19334,
         $W()
           ..h(this)
           ..str(name)
@@ -1879,7 +1879,7 @@ mixin OtelMetricMeter$ on GoHandle {
   OtelMetricInt64Gauge int64Gauge(String name,
       [List<OtelMetricInt64GaugeOption> options = const []]) {
     final $r = $callSync(
-        19329,
+        19335,
         $W()
           ..h(this)
           ..str(name)
@@ -1891,7 +1891,7 @@ mixin OtelMetricMeter$ on GoHandle {
   OtelMetricInt64Histogram int64Histogram(String name,
       [List<OtelMetricInt64HistogramOption> options = const []]) {
     final $r = $callSync(
-        19330,
+        19336,
         $W()
           ..h(this)
           ..str(name)
@@ -1903,7 +1903,7 @@ mixin OtelMetricMeter$ on GoHandle {
   OtelMetricInt64ObservableCounter int64ObservableCounter(String name,
       [List<OtelMetricInt64ObservableCounterOption> options = const []]) {
     final $r = $callSync(
-        19331,
+        19337,
         $W()
           ..h(this)
           ..str(name)
@@ -1915,7 +1915,7 @@ mixin OtelMetricMeter$ on GoHandle {
   OtelMetricInt64ObservableGauge int64ObservableGauge(String name,
       [List<OtelMetricInt64ObservableGaugeOption> options = const []]) {
     final $r = $callSync(
-        19332,
+        19338,
         $W()
           ..h(this)
           ..str(name)
@@ -1928,7 +1928,7 @@ mixin OtelMetricMeter$ on GoHandle {
       String name,
       [List<OtelMetricInt64ObservableUpDownCounterOption> options = const []]) {
     final $r = $callSync(
-        19333,
+        19339,
         $W()
           ..h(this)
           ..str(name)
@@ -1940,7 +1940,7 @@ mixin OtelMetricMeter$ on GoHandle {
   OtelMetricInt64UpDownCounter int64UpDownCounter(String name,
       [List<OtelMetricInt64UpDownCounterOption> options = const []]) {
     final $r = $callSync(
-        19334,
+        19340,
         $W()
           ..h(this)
           ..str(name)
@@ -1960,7 +1960,7 @@ mixin OtelMetricMeter$ on GoHandle {
           f,
       [List<OtelMetricObservable> instruments = const []]) async {
     final $r = await $call(
-        19335,
+        19341,
         $W()
           ..h(this)
           ..cb(
@@ -1973,7 +1973,7 @@ mixin OtelMetricMeter$ on GoHandle {
 
   /// Go: type assertion `x.(*noop.Meter)`: null if the object is not one.
   $noop.OtelMetricNoopMeter? asOtelMetricNoopMeter() {
-    final $r = $callSync(2067, $W()..h(this));
+    final $r = $callSync(2074, $W()..h(this));
     return $r.hn($noop.OtelMetricNoopMeter.$h);
   }
 }
@@ -1998,25 +1998,25 @@ class OtelMetricMeterConfig extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func metric.NewMeterConfig(opts ...metric.MeterOption) metric.MeterConfig`.
   factory OtelMetricMeterConfig([List<OtelMetricMeterOption> opts = const []]) {
-    final $r = $callSync(19355, $W()..list(opts, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(19361, $W()..list(opts, (w0, e0) => w0.h(e0)));
     return $r.hnn(OtelMetricMeterConfig.$h);
   }
 
   /// Go: `func (metric.MeterConfig).InstrumentationAttributes() attribute.Set`.
   $attribute.OtelAttributeSet instrumentationAttributes() {
-    final $r = $callSync(19336, $W()..h(this));
+    final $r = $callSync(19342, $W()..h(this));
     return $r.hnn($attribute.OtelAttributeSet.$h);
   }
 
   /// Go: `func (metric.MeterConfig).InstrumentationVersion() string`.
   String instrumentationVersion() {
-    final $r = $callSync(19337, $W()..h(this));
+    final $r = $callSync(19343, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (metric.MeterConfig).SchemaURL() string`.
   String schemaUrl() {
-    final $r = $callSync(19338, $W()..h(this));
+    final $r = $callSync(19344, $W()..h(this));
     return $r.str();
   }
 }
@@ -2041,7 +2041,7 @@ mixin OtelMetricMeterProvider$ on GoHandle {
   OtelMetricMeter meter(String name,
       [List<OtelMetricMeterOption> opts = const []]) {
     final $r = $callSync(
-        19339,
+        19345,
         $W()
           ..h(this)
           ..str(name)
@@ -2051,7 +2051,7 @@ mixin OtelMetricMeterProvider$ on GoHandle {
 
   /// Go: type assertion `x.(*noop.MeterProvider)`: null if the object is not one.
   $noop.OtelMetricNoopMeterProvider? asOtelMetricNoopMeterProvider() {
-    final $r = $callSync(2068, $W()..h(this));
+    final $r = $callSync(2075, $W()..h(this));
     return $r.hn($noop.OtelMetricNoopMeterProvider.$h);
   }
 }
@@ -2066,7 +2066,7 @@ mixin OtelMetricObservable$ on GoHandle {
   /// Go: type assertion `x.(*httpconv.ClientActiveRequestsObservable)`: null if the object is not one.
   $httpconv.OtelSemconvV1430HttpconvClientActiveRequestsObservable?
       asOtelSemconvV1430HttpconvClientActiveRequestsObservable() {
-    final $r = $callSync(2069, $W()..h(this));
+    final $r = $callSync(2076, $W()..h(this));
     return $r.hn(
         $httpconv.OtelSemconvV1430HttpconvClientActiveRequestsObservable.$h);
   }
@@ -2074,7 +2074,7 @@ mixin OtelMetricObservable$ on GoHandle {
   /// Go: type assertion `x.(*httpconv.ClientOpenConnectionsObservable)`: null if the object is not one.
   $httpconv.OtelSemconvV1430HttpconvClientOpenConnectionsObservable?
       asOtelSemconvV1430HttpconvClientOpenConnectionsObservable() {
-    final $r = $callSync(2070, $W()..h(this));
+    final $r = $callSync(2077, $W()..h(this));
     return $r.hn(
         $httpconv.OtelSemconvV1430HttpconvClientOpenConnectionsObservable.$h);
   }
@@ -2082,7 +2082,7 @@ mixin OtelMetricObservable$ on GoHandle {
   /// Go: type assertion `x.(*httpconv.ServerActiveRequestsObservable)`: null if the object is not one.
   $httpconv.OtelSemconvV1430HttpconvServerActiveRequestsObservable?
       asOtelSemconvV1430HttpconvServerActiveRequestsObservable() {
-    final $r = $callSync(2071, $W()..h(this));
+    final $r = $callSync(2078, $W()..h(this));
     return $r.hn(
         $httpconv.OtelSemconvV1430HttpconvServerActiveRequestsObservable.$h);
   }
@@ -2090,7 +2090,7 @@ mixin OtelMetricObservable$ on GoHandle {
   /// Go: type assertion `x.(*otelconv.SDKExporterLogExportedObservable)`: null if the object is not one.
   $otelconv.OtelSemconvV1430OtelconvSdkExporterLogExportedObservable?
       asOtelSemconvV1430OtelconvSdkExporterLogExportedObservable() {
-    final $r = $callSync(2072, $W()..h(this));
+    final $r = $callSync(2079, $W()..h(this));
     return $r.hn(
         $otelconv.OtelSemconvV1430OtelconvSdkExporterLogExportedObservable.$h);
   }
@@ -2098,7 +2098,7 @@ mixin OtelMetricObservable$ on GoHandle {
   /// Go: type assertion `x.(*otelconv.SDKExporterLogInflightObservable)`: null if the object is not one.
   $otelconv.OtelSemconvV1430OtelconvSdkExporterLogInflightObservable?
       asOtelSemconvV1430OtelconvSdkExporterLogInflightObservable() {
-    final $r = $callSync(2073, $W()..h(this));
+    final $r = $callSync(2080, $W()..h(this));
     return $r.hn(
         $otelconv.OtelSemconvV1430OtelconvSdkExporterLogInflightObservable.$h);
   }
@@ -2107,7 +2107,7 @@ mixin OtelMetricObservable$ on GoHandle {
   $otelconv
       .OtelSemconvV1430OtelconvSdkExporterMetricDataPointExportedObservable?
       asOtelSemconvV1430OtelconvSdkExporterMetricDataPointExportedObservable() {
-    final $r = $callSync(2074, $W()..h(this));
+    final $r = $callSync(2081, $W()..h(this));
     return $r.hn($otelconv
         .OtelSemconvV1430OtelconvSdkExporterMetricDataPointExportedObservable
         .$h);
@@ -2117,7 +2117,7 @@ mixin OtelMetricObservable$ on GoHandle {
   $otelconv
       .OtelSemconvV1430OtelconvSdkExporterMetricDataPointInflightObservable?
       asOtelSemconvV1430OtelconvSdkExporterMetricDataPointInflightObservable() {
-    final $r = $callSync(2075, $W()..h(this));
+    final $r = $callSync(2082, $W()..h(this));
     return $r.hn($otelconv
         .OtelSemconvV1430OtelconvSdkExporterMetricDataPointInflightObservable
         .$h);
@@ -2126,7 +2126,7 @@ mixin OtelMetricObservable$ on GoHandle {
   /// Go: type assertion `x.(*otelconv.SDKExporterSpanExportedObservable)`: null if the object is not one.
   $otelconv.OtelSemconvV1430OtelconvSdkExporterSpanExportedObservable?
       asOtelSemconvV1430OtelconvSdkExporterSpanExportedObservable() {
-    final $r = $callSync(2076, $W()..h(this));
+    final $r = $callSync(2083, $W()..h(this));
     return $r.hn(
         $otelconv.OtelSemconvV1430OtelconvSdkExporterSpanExportedObservable.$h);
   }
@@ -2134,7 +2134,7 @@ mixin OtelMetricObservable$ on GoHandle {
   /// Go: type assertion `x.(*otelconv.SDKExporterSpanInflightObservable)`: null if the object is not one.
   $otelconv.OtelSemconvV1430OtelconvSdkExporterSpanInflightObservable?
       asOtelSemconvV1430OtelconvSdkExporterSpanInflightObservable() {
-    final $r = $callSync(2077, $W()..h(this));
+    final $r = $callSync(2084, $W()..h(this));
     return $r.hn(
         $otelconv.OtelSemconvV1430OtelconvSdkExporterSpanInflightObservable.$h);
   }
@@ -2142,14 +2142,14 @@ mixin OtelMetricObservable$ on GoHandle {
   /// Go: type assertion `x.(*otelconv.SDKLogCreatedObservable)`: null if the object is not one.
   $otelconv.OtelSemconvV1430OtelconvSdkLogCreatedObservable?
       asOtelSemconvV1430OtelconvSdkLogCreatedObservable() {
-    final $r = $callSync(2078, $W()..h(this));
+    final $r = $callSync(2085, $W()..h(this));
     return $r.hn($otelconv.OtelSemconvV1430OtelconvSdkLogCreatedObservable.$h);
   }
 
   /// Go: type assertion `x.(*otelconv.SDKProcessorLogProcessedObservable)`: null if the object is not one.
   $otelconv.OtelSemconvV1430OtelconvSdkProcessorLogProcessedObservable?
       asOtelSemconvV1430OtelconvSdkProcessorLogProcessedObservable() {
-    final $r = $callSync(2079, $W()..h(this));
+    final $r = $callSync(2086, $W()..h(this));
     return $r.hn($otelconv
         .OtelSemconvV1430OtelconvSdkProcessorLogProcessedObservable.$h);
   }
@@ -2157,7 +2157,7 @@ mixin OtelMetricObservable$ on GoHandle {
   /// Go: type assertion `x.(*otelconv.SDKProcessorLogQueueCapacity)`: null if the object is not one.
   $otelconv.OtelSemconvV1430OtelconvSdkProcessorLogQueueCapacity?
       asOtelSemconvV1430OtelconvSdkProcessorLogQueueCapacity() {
-    final $r = $callSync(2080, $W()..h(this));
+    final $r = $callSync(2087, $W()..h(this));
     return $r
         .hn($otelconv.OtelSemconvV1430OtelconvSdkProcessorLogQueueCapacity.$h);
   }
@@ -2165,14 +2165,14 @@ mixin OtelMetricObservable$ on GoHandle {
   /// Go: type assertion `x.(*otelconv.SDKProcessorLogQueueSize)`: null if the object is not one.
   $otelconv.OtelSemconvV1430OtelconvSdkProcessorLogQueueSize?
       asOtelSemconvV1430OtelconvSdkProcessorLogQueueSize() {
-    final $r = $callSync(2081, $W()..h(this));
+    final $r = $callSync(2088, $W()..h(this));
     return $r.hn($otelconv.OtelSemconvV1430OtelconvSdkProcessorLogQueueSize.$h);
   }
 
   /// Go: type assertion `x.(*otelconv.SDKProcessorSpanProcessedObservable)`: null if the object is not one.
   $otelconv.OtelSemconvV1430OtelconvSdkProcessorSpanProcessedObservable?
       asOtelSemconvV1430OtelconvSdkProcessorSpanProcessedObservable() {
-    final $r = $callSync(2082, $W()..h(this));
+    final $r = $callSync(2089, $W()..h(this));
     return $r.hn($otelconv
         .OtelSemconvV1430OtelconvSdkProcessorSpanProcessedObservable.$h);
   }
@@ -2180,7 +2180,7 @@ mixin OtelMetricObservable$ on GoHandle {
   /// Go: type assertion `x.(*otelconv.SDKProcessorSpanQueueCapacity)`: null if the object is not one.
   $otelconv.OtelSemconvV1430OtelconvSdkProcessorSpanQueueCapacity?
       asOtelSemconvV1430OtelconvSdkProcessorSpanQueueCapacity() {
-    final $r = $callSync(2083, $W()..h(this));
+    final $r = $callSync(2090, $W()..h(this));
     return $r
         .hn($otelconv.OtelSemconvV1430OtelconvSdkProcessorSpanQueueCapacity.$h);
   }
@@ -2188,7 +2188,7 @@ mixin OtelMetricObservable$ on GoHandle {
   /// Go: type assertion `x.(*otelconv.SDKProcessorSpanQueueSize)`: null if the object is not one.
   $otelconv.OtelSemconvV1430OtelconvSdkProcessorSpanQueueSize?
       asOtelSemconvV1430OtelconvSdkProcessorSpanQueueSize() {
-    final $r = $callSync(2084, $W()..h(this));
+    final $r = $callSync(2091, $W()..h(this));
     return $r
         .hn($otelconv.OtelSemconvV1430OtelconvSdkProcessorSpanQueueSize.$h);
   }
@@ -2196,64 +2196,64 @@ mixin OtelMetricObservable$ on GoHandle {
   /// Go: type assertion `x.(*otelconv.SDKSpanLiveObservable)`: null if the object is not one.
   $otelconv.OtelSemconvV1430OtelconvSdkSpanLiveObservable?
       asOtelSemconvV1430OtelconvSdkSpanLiveObservable() {
-    final $r = $callSync(2085, $W()..h(this));
+    final $r = $callSync(2092, $W()..h(this));
     return $r.hn($otelconv.OtelSemconvV1430OtelconvSdkSpanLiveObservable.$h);
   }
 
   /// Go: type assertion `x.(*otelconv.SDKSpanStartedObservable)`: null if the object is not one.
   $otelconv.OtelSemconvV1430OtelconvSdkSpanStartedObservable?
       asOtelSemconvV1430OtelconvSdkSpanStartedObservable() {
-    final $r = $callSync(2086, $W()..h(this));
+    final $r = $callSync(2093, $W()..h(this));
     return $r.hn($otelconv.OtelSemconvV1430OtelconvSdkSpanStartedObservable.$h);
   }
 
   /// Go: type assertion `x.(metric.Float64Observable)`: null if the object is not one.
   OtelMetricFloat64Observable? asOtelMetricFloat64Observable() {
-    final $r = $callSync(2087, $W()..h(this));
+    final $r = $callSync(2094, $W()..h(this));
     return $r.hn(OtelMetricFloat64Observable.$h);
   }
 
   /// Go: type assertion `x.(metric.Float64ObservableCounter)`: null if the object is not one.
   OtelMetricFloat64ObservableCounter? asOtelMetricFloat64ObservableCounter() {
-    final $r = $callSync(2088, $W()..h(this));
+    final $r = $callSync(2095, $W()..h(this));
     return $r.hn(OtelMetricFloat64ObservableCounter.$h);
   }
 
   /// Go: type assertion `x.(metric.Float64ObservableGauge)`: null if the object is not one.
   OtelMetricFloat64ObservableGauge? asOtelMetricFloat64ObservableGauge() {
-    final $r = $callSync(2089, $W()..h(this));
+    final $r = $callSync(2096, $W()..h(this));
     return $r.hn(OtelMetricFloat64ObservableGauge.$h);
   }
 
   /// Go: type assertion `x.(metric.Float64ObservableUpDownCounter)`: null if the object is not one.
   OtelMetricFloat64ObservableUpDownCounter?
       asOtelMetricFloat64ObservableUpDownCounter() {
-    final $r = $callSync(2090, $W()..h(this));
+    final $r = $callSync(2097, $W()..h(this));
     return $r.hn(OtelMetricFloat64ObservableUpDownCounter.$h);
   }
 
   /// Go: type assertion `x.(metric.Int64Observable)`: null if the object is not one.
   OtelMetricInt64Observable? asOtelMetricInt64Observable() {
-    final $r = $callSync(2091, $W()..h(this));
+    final $r = $callSync(2098, $W()..h(this));
     return $r.hn(OtelMetricInt64Observable.$h);
   }
 
   /// Go: type assertion `x.(metric.Int64ObservableCounter)`: null if the object is not one.
   OtelMetricInt64ObservableCounter? asOtelMetricInt64ObservableCounter() {
-    final $r = $callSync(2092, $W()..h(this));
+    final $r = $callSync(2099, $W()..h(this));
     return $r.hn(OtelMetricInt64ObservableCounter.$h);
   }
 
   /// Go: type assertion `x.(metric.Int64ObservableGauge)`: null if the object is not one.
   OtelMetricInt64ObservableGauge? asOtelMetricInt64ObservableGauge() {
-    final $r = $callSync(2093, $W()..h(this));
+    final $r = $callSync(2100, $W()..h(this));
     return $r.hn(OtelMetricInt64ObservableGauge.$h);
   }
 
   /// Go: type assertion `x.(metric.Int64ObservableUpDownCounter)`: null if the object is not one.
   OtelMetricInt64ObservableUpDownCounter?
       asOtelMetricInt64ObservableUpDownCounter() {
-    final $r = $callSync(2094, $W()..h(this));
+    final $r = $callSync(2101, $W()..h(this));
     return $r.hn(OtelMetricInt64ObservableUpDownCounter.$h);
   }
 }
@@ -2278,13 +2278,13 @@ class OtelMetricObserveConfig extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func metric.NewObserveConfig(opts []metric.ObserveOption) metric.ObserveConfig`.
   factory OtelMetricObserveConfig(List<OtelMetricObserveOption> opts) {
-    final $r = $callSync(19356, $W()..list(opts, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(19362, $W()..list(opts, (w0, e0) => w0.h(e0)));
     return $r.hnn(OtelMetricObserveConfig.$h);
   }
 
   /// Go: `func (metric.ObserveConfig).Attributes() attribute.Set`.
   $attribute.OtelAttributeSet attributes() {
-    final $r = $callSync(19358, $W()..h(this));
+    final $r = $callSync(19364, $W()..h(this));
     return $r.hnn($attribute.OtelAttributeSet.$h);
   }
 }
@@ -2298,7 +2298,7 @@ class OtelMetricObserveOption extends GoHandle with OtelMetricObserveOption$ {
 mixin OtelMetricObserveOption$ on GoHandle {
   /// Go: type assertion `x.(metric.MeasurementOption)`: null if the object is not one.
   OtelMetricMeasurementOption? asOtelMetricMeasurementOption() {
-    final $r = $callSync(2095, $W()..h(this));
+    final $r = $callSync(2102, $W()..h(this));
     return $r.hn(OtelMetricMeasurementOption.$h);
   }
 }
@@ -2315,7 +2315,7 @@ mixin OtelMetricObserver$ on GoHandle {
   void observeFloat64(OtelMetricFloat64Observable obsrv, double value,
       [List<OtelMetricObserveOption> opts = const []]) {
     $callSync(
-        19359,
+        19365,
         $W()
           ..h(this)
           ..h(obsrv)
@@ -2327,7 +2327,7 @@ mixin OtelMetricObserver$ on GoHandle {
   void observeInt64(OtelMetricInt64Observable obsrv, int value,
       [List<OtelMetricObserveOption> opts = const []]) {
     $callSync(
-        19360,
+        19366,
         $W()
           ..h(this)
           ..h(obsrv)
@@ -2337,7 +2337,7 @@ mixin OtelMetricObserver$ on GoHandle {
 
   /// Go: type assertion `x.(*noop.Observer)`: null if the object is not one.
   $noop.OtelMetricNoopObserver? asOtelMetricNoopObserver() {
-    final $r = $callSync(2096, $W()..h(this));
+    final $r = $callSync(2103, $W()..h(this));
     return $r.hn($noop.OtelMetricNoopObserver.$h);
   }
 }
@@ -2362,13 +2362,13 @@ class OtelMetricRecordConfig extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func metric.NewRecordConfig(opts []metric.RecordOption) metric.RecordConfig`.
   factory OtelMetricRecordConfig(List<OtelMetricRecordOption> opts) {
-    final $r = $callSync(19357, $W()..list(opts, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(19363, $W()..list(opts, (w0, e0) => w0.h(e0)));
     return $r.hnn(OtelMetricRecordConfig.$h);
   }
 
   /// Go: `func (metric.RecordConfig).Attributes() attribute.Set`.
   $attribute.OtelAttributeSet attributes() {
-    final $r = $callSync(19361, $W()..h(this));
+    final $r = $callSync(19367, $W()..h(this));
     return $r.hnn($attribute.OtelAttributeSet.$h);
   }
 }
@@ -2382,7 +2382,7 @@ class OtelMetricRecordOption extends GoHandle with OtelMetricRecordOption$ {
 mixin OtelMetricRecordOption$ on GoHandle {
   /// Go: type assertion `x.(metric.MeasurementOption)`: null if the object is not one.
   OtelMetricMeasurementOption? asOtelMetricMeasurementOption() {
-    final $r = $callSync(2097, $W()..h(this));
+    final $r = $callSync(2104, $W()..h(this));
     return $r.hn(OtelMetricMeasurementOption.$h);
   }
 }
@@ -2397,12 +2397,12 @@ class OtelMetricRegistration extends $embedded.OtelMetricEmbeddedRegistration
 mixin OtelMetricRegistration$ on GoHandle {
   /// Go: `func (metric.Registration).Unregister() error`.
   void unregister() {
-    $callSync(19362, $W()..h(this));
+    $callSync(19368, $W()..h(this));
   }
 
   /// Go: type assertion `x.(*noop.Registration)`: null if the object is not one.
   $noop.OtelMetricNoopRegistration? asOtelMetricNoopRegistration() {
-    final $r = $callSync(2098, $W()..h(this));
+    final $r = $callSync(2105, $W()..h(this));
     return $r.hn($noop.OtelMetricNoopRegistration.$h);
   }
 }
@@ -2412,27 +2412,27 @@ extension GoOtelMetricOptionsApi on GoOtelMetricOptions {
   /// Go: `func metric.WithAttributeSet(attributes attribute.Set) metric.MeasurementOption`.
   OtelMetricMeasurementOption withAttributeSet(
       $attribute.OtelAttributeSet attributes) {
-    final $r = $callSync(19363, $W()..h(attributes));
+    final $r = $callSync(19369, $W()..h(attributes));
     return $r.hnn(OtelMetricMeasurementOption.$h);
   }
 
   /// Go: `func metric.WithAttributes(attributes ...attribute.KeyValue) metric.MeasurementOption`.
   OtelMetricMeasurementOption withAttributes(
       [List<$attribute.OtelAttributeKeyValue> attributes = const []]) {
-    final $r = $callSync(19364, $W()..list(attributes, (w0, e0) => w0.dto(e0)));
+    final $r = $callSync(19370, $W()..list(attributes, (w0, e0) => w0.dto(e0)));
     return $r.hnn(OtelMetricMeasurementOption.$h);
   }
 
   /// Go: `func metric.WithDescription(desc string) metric.InstrumentOption`.
   OtelMetricInstrumentOption withDescription(String desc) {
-    final $r = $callSync(19365, $W()..str(desc));
+    final $r = $callSync(19371, $W()..str(desc));
     return $r.hnn(OtelMetricInstrumentOption.$h);
   }
 
   /// Go: `func metric.WithExplicitBucketBoundaries(bounds ...float64) metric.HistogramOption`.
   OtelMetricHistogramOption withExplicitBucketBoundaries(
       [List<double> bounds = const []]) {
-    final $r = $callSync(19366, $W()..list(bounds, (w0, e0) => w0.f64(e0)));
+    final $r = $callSync(19372, $W()..list(bounds, (w0, e0) => w0.f64(e0)));
     return $r.hnn(OtelMetricHistogramOption.$h);
   }
 
@@ -2448,7 +2448,7 @@ extension GoOtelMetricOptionsApi on GoOtelMetricOptions {
               $context.Context ctx, OtelMetricFloat64Observer float64Observer)
           callback) async {
     final $r = await $call(
-        19367,
+        19373,
         $W()
           ..cb(
               (r) => callback(r.hnn($context.Context.$h),
@@ -2460,20 +2460,20 @@ extension GoOtelMetricOptionsApi on GoOtelMetricOptions {
   /// Go: `func metric.WithInstrumentationAttributeSet(set attribute.Set) metric.MeterOption`.
   OtelMetricMeterOption withInstrumentationAttributeSet(
       $attribute.OtelAttributeSet set) {
-    final $r = $callSync(19368, $W()..h(set));
+    final $r = $callSync(19374, $W()..h(set));
     return $r.hnn(OtelMetricMeterOption.$h);
   }
 
   /// Go: `func metric.WithInstrumentationAttributes(attr ...attribute.KeyValue) metric.MeterOption`.
   OtelMetricMeterOption withInstrumentationAttributes(
       [List<$attribute.OtelAttributeKeyValue> attr = const []]) {
-    final $r = $callSync(19369, $W()..list(attr, (w0, e0) => w0.dto(e0)));
+    final $r = $callSync(19375, $W()..list(attr, (w0, e0) => w0.dto(e0)));
     return $r.hnn(OtelMetricMeterOption.$h);
   }
 
   /// Go: `func metric.WithInstrumentationVersion(version string) metric.MeterOption`.
   OtelMetricMeterOption withInstrumentationVersion(String version) {
-    final $r = $callSync(19370, $W()..str(version));
+    final $r = $callSync(19376, $W()..str(version));
     return $r.hnn(OtelMetricMeterOption.$h);
   }
 
@@ -2489,7 +2489,7 @@ extension GoOtelMetricOptionsApi on GoOtelMetricOptions {
               $context.Context ctx, OtelMetricInt64Observer int64Observer)
           callback) async {
     final $r = await $call(
-        19371,
+        19377,
         $W()
           ..cb(
               (r) => callback(r.hnn($context.Context.$h),
@@ -2500,13 +2500,13 @@ extension GoOtelMetricOptionsApi on GoOtelMetricOptions {
 
   /// Go: `func metric.WithSchemaURL(schemaURL string) metric.MeterOption`.
   OtelMetricMeterOption withSchemaUrl(String schemaUrl) {
-    final $r = $callSync(19372, $W()..str(schemaUrl));
+    final $r = $callSync(19378, $W()..str(schemaUrl));
     return $r.hnn(OtelMetricMeterOption.$h);
   }
 
   /// Go: `func metric.WithUnit(u string) metric.InstrumentOption`.
   OtelMetricInstrumentOption withUnit(String u) {
-    final $r = $callSync(19373, $W()..str(u));
+    final $r = $callSync(19379, $W()..str(u));
     return $r.hnn(OtelMetricInstrumentOption.$h);
   }
 }

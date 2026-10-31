@@ -14,7 +14,7 @@ extension GoIpfsKuboPluginPluginsNopfsApi on GoIpfsKuboPluginPluginsNopfs {
   $node.KuboCoreNodePathResolversOut pathResolvers(
       $node.KuboCoreNodeFetchersIn fetchers, $nopfs.NopfsBlocker blocker) {
     final $r = $callSync(
-        11722,
+        11728,
         $W()
           ..dto(fetchers)
           ..dto(blocker));
@@ -23,7 +23,7 @@ extension GoIpfsKuboPluginPluginsNopfsApi on GoIpfsKuboPluginPluginsNopfs {
 
   /// Go: `var nopfs.Plugins []plugin.Plugin`.
   List<$plugin.KuboPlugin> get plugins {
-    final $r = $callSync(11723);
+    final $r = $callSync(11729);
     return $r.list(() => $r.hnn($plugin.KuboPlugin.$h));
   }
 }

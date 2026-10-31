@@ -75,14 +75,14 @@ final class RtpCodecsVp9Header implements GoDto {
 
   /// Go: `func (vp9.Header).Height() uint16`.
   int height() {
-    final $r = $callSync(17059, $W()..dto(this));
+    final $r = $callSync(17065, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*vp9.Header).Unmarshal(buf []byte) error`.
   void unmarshal(Uint8List buf) {
     $callSync(
-        17060,
+        17066,
         $W()
           ..dto(this)
           ..bytes(buf));
@@ -90,7 +90,7 @@ final class RtpCodecsVp9Header implements GoDto {
 
   /// Go: `func (vp9.Header).Width() uint16`.
   int width() {
-    final $r = $callSync(17061, $W()..dto(this));
+    final $r = $callSync(17067, $W()..dto(this));
     return $r.i64();
   }
 }

@@ -63,7 +63,7 @@ final class IpldPrimeCodecDagcborDecodeOptions implements GoDto {
   /// Go: `func (dagcbor.DecodeOptions).Decode(na datamodel.NodeAssembler, r io.Reader) error`.
   void decode($datamodel.IpldPrimeDatamodelNodeAssembler na, Object r) {
     $callSync(
-        12049,
+        12055,
         $W()
           ..dto(this)
           ..h(na)
@@ -97,7 +97,7 @@ final class IpldPrimeCodecDagcborEncodeOptions implements GoDto {
   /// Go: `func (dagcbor.EncodeOptions).Encode(n datamodel.Node, w io.Writer) error`.
   void encode($datamodel.IpldPrimeDatamodelNode n, GoHandle? w) {
     $callSync(
-        12051,
+        12057,
         $W()
           ..dto(this)
           ..h(n)
@@ -147,7 +147,7 @@ extension GoIpldIpldPrimeCodecDagcborApi on GoIpldIpldPrimeCodecDagcbor {
   /// Go: `func dagcbor.Decode(na datamodel.NodeAssembler, r io.Reader) error`.
   void decode($datamodel.IpldPrimeDatamodelNodeAssembler na, Object r) {
     $callSync(
-        12048,
+        12054,
         $W()
           ..h(na)
           ..reader(r));
@@ -156,7 +156,7 @@ extension GoIpldIpldPrimeCodecDagcborApi on GoIpldIpldPrimeCodecDagcbor {
   /// Go: `func dagcbor.Encode(n datamodel.Node, w io.Writer) error`.
   void encode($datamodel.IpldPrimeDatamodelNode n, GoHandle? w) {
     $callSync(
-        12050,
+        12056,
         $W()
           ..h(n)
           ..h(w));
@@ -164,7 +164,7 @@ extension GoIpldIpldPrimeCodecDagcborApi on GoIpldIpldPrimeCodecDagcbor {
 
   /// Go: `func dagcbor.EncodedLength(n datamodel.Node) (int64, error)`.
   int encodedLength($datamodel.IpldPrimeDatamodelNode n) {
-    final $r = $callSync(12052, $W()..h(n));
+    final $r = $callSync(12058, $W()..h(n));
     return $r.i64();
   }
 
@@ -174,7 +174,7 @@ extension GoIpldIpldPrimeCodecDagcborApi on GoIpldIpldPrimeCodecDagcbor {
       $shared.RefmtSharedTokenSink sink,
       IpldPrimeCodecDagcborEncodeOptions options) {
     $callSync(
-        12053,
+        12059,
         $W()
           ..h(n)
           ..h(sink)
@@ -187,7 +187,7 @@ extension GoIpldIpldPrimeCodecDagcborApi on GoIpldIpldPrimeCodecDagcbor {
       $shared.RefmtSharedTokenSource tokSrc,
       IpldPrimeCodecDagcborDecodeOptions options) {
     $callSync(
-        12054,
+        12060,
         $W()
           ..h(na)
           ..h(tokSrc)

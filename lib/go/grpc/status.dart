@@ -11,7 +11,7 @@ extension GoGrpcStatusApi on GoGrpcStatus {
   /// Go: `func status.Error(c codes.Code, msg string) error`.
   void error(int c, String msg) {
     $callSync(
-        24723,
+        24729,
         $W()
           ..i64(c)
           ..str(msg));
@@ -19,13 +19,13 @@ extension GoGrpcStatusApi on GoGrpcStatus {
 
   /// Go: `func status.ErrorProto(s *status.Status) error`.
   void errorProto($status.GenprotoGoogleapisRpcStatus s) {
-    $callSync(24724, $W()..h(s));
+    $callSync(24730, $W()..h(s));
   }
 
   /// Go: `func status.Errorf(c codes.Code, format string, a ...any) error`.
   void errorf(int c, String format, [List<Object?> a = const []]) {
     $callSync(
-        24725,
+        24731,
         $W()
           ..i64(c)
           ..str(format)

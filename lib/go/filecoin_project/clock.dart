@@ -21,7 +21,7 @@ class Clock extends GoHandle with Clock$ {
 mixin Clock$ on GoHandle {
   /// Go: `func (clock.Clock).After(d time.Duration) <-chan time.Time`.
   Stream<DateTime> after(Duration d) => $stream(
-          6326,
+          6335,
           $W()
             ..h(this)
             ..i64((d).inMicroseconds * 1000))
@@ -36,7 +36,7 @@ mixin Clock$ on GoHandle {
   /// each invocation (a retained callback, WIRE.md).
   Future<ClockTimer> afterFunc(Duration d, FutureOr<void> Function() f) async {
     final $r = await $call(
-        6327,
+        6336,
         $W()
           ..h(this)
           ..i64((d).inMicroseconds * 1000)
@@ -46,14 +46,14 @@ mixin Clock$ on GoHandle {
 
   /// Go: `func (clock.Clock).Now() time.Time`.
   DateTime now() {
-    final $r = $callSync(6328, $W()..h(this));
+    final $r = $callSync(6337, $W()..h(this));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func (clock.Clock).Since(t time.Time) time.Duration`.
   Duration since(DateTime t) {
     final $r = $callSync(
-        6329,
+        6338,
         $W()
           ..h(this)
           ..time(t));
@@ -63,7 +63,7 @@ mixin Clock$ on GoHandle {
   /// Go: `func (clock.Clock).Sleep(d time.Duration)`.
   void sleep(Duration d) {
     $callSync(
-        6330,
+        6339,
         $W()
           ..h(this)
           ..i64((d).inMicroseconds * 1000));
@@ -71,7 +71,7 @@ mixin Clock$ on GoHandle {
 
   /// Go: `func (clock.Clock).Tick(d time.Duration) <-chan time.Time`.
   Stream<DateTime> tick(Duration d) => $stream(
-          6331,
+          6340,
           $W()
             ..h(this)
             ..i64((d).inMicroseconds * 1000))
@@ -80,7 +80,7 @@ mixin Clock$ on GoHandle {
   /// Go: `func (clock.Clock).Ticker(d time.Duration) *clock.Ticker`.
   ClockTicker ticker(Duration d) {
     final $r = $callSync(
-        6332,
+        6341,
         $W()
           ..h(this)
           ..i64((d).inMicroseconds * 1000));
@@ -90,7 +90,7 @@ mixin Clock$ on GoHandle {
   /// Go: `func (clock.Clock).Timer(d time.Duration) *clock.Timer`.
   ClockTimer timer(Duration d) {
     final $r = $callSync(
-        6333,
+        6342,
         $W()
           ..h(this)
           ..i64((d).inMicroseconds * 1000));
@@ -100,7 +100,7 @@ mixin Clock$ on GoHandle {
   /// Go: `func (clock.Clock).Until(t time.Time) time.Duration`.
   Duration until(DateTime t) {
     final $r = $callSync(
-        6334,
+        6343,
         $W()
           ..h(this)
           ..time(t));
@@ -109,7 +109,7 @@ mixin Clock$ on GoHandle {
 
   /// Go: type assertion `x.(*clock.Mock)`: null if the object is not one.
   ClockMock? asClockMock() {
-    final $r = $callSync(440, $W()..h(this));
+    final $r = $callSync(443, $W()..h(this));
     return $r.hn(ClockMock.$h);
   }
 }
@@ -136,14 +136,14 @@ class ClockMock extends Clock
 
   /// Go: `func clock.NewMock() *clock.Mock`.
   factory ClockMock() {
-    final $r = $callSync(6348);
+    final $r = $callSync(6357);
     return $r.hnn(ClockMock.$h);
   }
 
   /// Go: `func (*clock.Mock).Add(d time.Duration)`.
   void add(Duration d) {
     $callSync(
-        6335,
+        6344,
         $W()
           ..h(this)
           ..i64((d).inMicroseconds * 1000));
@@ -151,7 +151,7 @@ class ClockMock extends Clock
 
   /// Go: `func (*clock.Mock).After(d time.Duration) <-chan time.Time`.
   Stream<DateTime> after(Duration d) => $stream(
-          6336,
+          6345,
           $W()
             ..h(this)
             ..i64((d).inMicroseconds * 1000))
@@ -166,7 +166,7 @@ class ClockMock extends Clock
   /// each invocation (a retained callback, WIRE.md).
   Future<ClockTimer> afterFunc(Duration d, FutureOr<void> Function() f) async {
     final $r = await $call(
-        6337,
+        6346,
         $W()
           ..h(this)
           ..i64((d).inMicroseconds * 1000)
@@ -176,14 +176,14 @@ class ClockMock extends Clock
 
   /// Go: `func (*clock.Mock).Now() time.Time`.
   DateTime now() {
-    final $r = $callSync(6338, $W()..h(this));
+    final $r = $callSync(6347, $W()..h(this));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func (*clock.Mock).Set(t time.Time)`.
   void set(DateTime t) {
     $callSync(
-        6339,
+        6348,
         $W()
           ..h(this)
           ..time(t));
@@ -192,7 +192,7 @@ class ClockMock extends Clock
   /// Go: `func (*clock.Mock).Since(t time.Time) time.Duration`.
   Duration since(DateTime t) {
     final $r = $callSync(
-        6340,
+        6349,
         $W()
           ..h(this)
           ..time(t));
@@ -202,7 +202,7 @@ class ClockMock extends Clock
   /// Go: `func (*clock.Mock).Sleep(d time.Duration)`.
   void sleep(Duration d) {
     $callSync(
-        6341,
+        6350,
         $W()
           ..h(this)
           ..i64((d).inMicroseconds * 1000));
@@ -210,7 +210,7 @@ class ClockMock extends Clock
 
   /// Go: `func (*clock.Mock).Tick(d time.Duration) <-chan time.Time`.
   Stream<DateTime> tick(Duration d) => $stream(
-          6342,
+          6351,
           $W()
             ..h(this)
             ..i64((d).inMicroseconds * 1000))
@@ -219,7 +219,7 @@ class ClockMock extends Clock
   /// Go: `func (*clock.Mock).Ticker(d time.Duration) *clock.Ticker`.
   ClockTicker ticker(Duration d) {
     final $r = $callSync(
-        6343,
+        6352,
         $W()
           ..h(this)
           ..i64((d).inMicroseconds * 1000));
@@ -229,7 +229,7 @@ class ClockMock extends Clock
   /// Go: `func (*clock.Mock).Timer(d time.Duration) *clock.Timer`.
   ClockTimer timer(Duration d) {
     final $r = $callSync(
-        6344,
+        6353,
         $W()
           ..h(this)
           ..i64((d).inMicroseconds * 1000));
@@ -239,7 +239,7 @@ class ClockMock extends Clock
   /// Go: `func (*clock.Mock).Until(t time.Time) time.Duration`.
   Duration until(DateTime t) {
     final $r = $callSync(
-        6345,
+        6354,
         $W()
           ..h(this)
           ..time(t));
@@ -248,7 +248,7 @@ class ClockMock extends Clock
 
   /// Go: `func (*clock.Mock).WaitForAllTimers() time.Time`.
   DateTime waitForAllTimers() {
-    final $r = $callSync(6346, $W()..h(this));
+    final $r = $callSync(6355, $W()..h(this));
     return $r.p() ? $r.time() : $nil();
   }
 }
@@ -274,7 +274,7 @@ class ClockTicker extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*clock.Ticker).Reset(dur time.Duration)`.
   void reset(Duration dur) {
     $callSync(
-        6349,
+        6358,
         $W()
           ..h(this)
           ..i64((dur).inMicroseconds * 1000));
@@ -282,7 +282,7 @@ class ClockTicker extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*clock.Ticker).Stop()`.
   void stop() {
-    $callSync(6350, $W()..h(this));
+    $callSync(6359, $W()..h(this));
   }
 }
 
@@ -307,7 +307,7 @@ class ClockTimer extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*clock.Timer).Reset(d time.Duration) bool`.
   bool reset(Duration d) {
     final $r = $callSync(
-        6351,
+        6360,
         $W()
           ..h(this)
           ..i64((d).inMicroseconds * 1000));
@@ -316,7 +316,7 @@ class ClockTimer extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*clock.Timer).Stop() bool`.
   bool stop() {
-    final $r = $callSync(6352, $W()..h(this));
+    final $r = $callSync(6361, $W()..h(this));
     return $r.b();
   }
 }
@@ -325,7 +325,7 @@ class ClockTimer extends $crypto.CryptoDecrypterOpts
 extension GoFilecoinProjectClockApi on GoFilecoinProjectClock {
   /// Go: `func clock.New() clock.Clock`.
   Clock new$() {
-    final $r = $callSync(6347);
+    final $r = $callSync(6356);
     return $r.hnn(Clock.$h);
   }
 }

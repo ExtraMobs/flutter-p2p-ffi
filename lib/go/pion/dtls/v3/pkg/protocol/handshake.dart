@@ -71,20 +71,20 @@ final class DtlsV3PkgProtocolHandshake implements GoDto {
 
   /// Go: `func (handshake.Handshake).ContentType() protocol.ContentType`.
   int contentType() {
-    final $r = $callSync(16347, $W()..dto(this));
+    final $r = $callSync(16353, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*handshake.Handshake).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(16348, $W()..dto(this));
+    final $r = $callSync(16354, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*handshake.Handshake).Unmarshal(data []byte) error`.
   void unmarshal(Uint8List data) {
     $callSync(
-        16349,
+        16355,
         $W()
           ..dto(this)
           ..bytes(data));
@@ -139,14 +139,14 @@ final class DtlsV3PkgProtocolHandshakeHeader implements GoDto {
 
   /// Go: `func (*handshake.Header).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(16350, $W()..dto(this));
+    final $r = $callSync(16356, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*handshake.Header).Unmarshal(data []byte) error`.
   void unmarshal(Uint8List data) {
     $callSync(
-        16351,
+        16357,
         $W()
           ..dto(this)
           ..bytes(data));
@@ -163,20 +163,20 @@ class DtlsV3PkgProtocolHandshakeMessage extends GoHandle
 mixin DtlsV3PkgProtocolHandshakeMessage$ on GoHandle {
   /// Go: `func (handshake.Message).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(16352, $W()..h(this));
+    final $r = $callSync(16358, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (handshake.Message).Type() handshake.Type`.
   int type() {
-    final $r = $callSync(16353, $W()..h(this));
+    final $r = $callSync(16359, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (handshake.Message).Unmarshal(data []byte) error`.
   void unmarshal(Uint8List data) {
     $callSync(
-        16354,
+        16360,
         $W()
           ..h(this)
           ..bytes(data));
@@ -201,20 +201,20 @@ final class DtlsV3PkgProtocolHandshakeMessageCertificate implements GoDto {
 
   /// Go: `func (*handshake.MessageCertificate).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(16355, $W()..dto(this));
+    final $r = $callSync(16361, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (handshake.MessageCertificate).Type() handshake.Type`.
   int type() {
-    final $r = $callSync(16356, $W()..dto(this));
+    final $r = $callSync(16362, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*handshake.MessageCertificate).Unmarshal(data []byte) error`.
   void unmarshal(Uint8List data) {
     $callSync(
-        16357,
+        16363,
         $W()
           ..dto(this)
           ..bytes(data));
@@ -250,20 +250,20 @@ final class DtlsV3PkgProtocolHandshakeMessageCertificate13 implements GoDto {
 
   /// Go: `func (*handshake.MessageCertificate13).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(16358, $W()..dto(this));
+    final $r = $callSync(16364, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (handshake.MessageCertificate13).Type() handshake.Type`.
   int type() {
-    final $r = $callSync(16359, $W()..dto(this));
+    final $r = $callSync(16365, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*handshake.MessageCertificate13).Unmarshal(data []byte) error`.
   void unmarshal(Uint8List data) {
     $callSync(
-        16360,
+        16366,
         $W()
           ..dto(this)
           ..bytes(data));
@@ -309,20 +309,20 @@ final class DtlsV3PkgProtocolHandshakeMessageCertificateRequest
 
   /// Go: `func (*handshake.MessageCertificateRequest).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(16361, $W()..dto(this));
+    final $r = $callSync(16367, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (handshake.MessageCertificateRequest).Type() handshake.Type`.
   int type() {
-    final $r = $callSync(16362, $W()..dto(this));
+    final $r = $callSync(16368, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*handshake.MessageCertificateRequest).Unmarshal(data []byte) error`.
   void unmarshal(Uint8List data) {
     $callSync(
-        16363,
+        16369,
         $W()
           ..dto(this)
           ..bytes(data));
@@ -358,20 +358,20 @@ final class DtlsV3PkgProtocolHandshakeMessageCertificateRequest13
 
   /// Go: `func (*handshake.MessageCertificateRequest13).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(16364, $W()..dto(this));
+    final $r = $callSync(16370, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (handshake.MessageCertificateRequest13).Type() handshake.Type`.
   int type() {
-    final $r = $callSync(16365, $W()..dto(this));
+    final $r = $callSync(16371, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*handshake.MessageCertificateRequest13).Unmarshal(data []byte) error`.
   void unmarshal(Uint8List data) {
     $callSync(
-        16366,
+        16372,
         $W()
           ..dto(this)
           ..bytes(data));
@@ -411,20 +411,20 @@ final class DtlsV3PkgProtocolHandshakeMessageCertificateVerify
 
   /// Go: `func (*handshake.MessageCertificateVerify).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(16367, $W()..dto(this));
+    final $r = $callSync(16373, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (handshake.MessageCertificateVerify).Type() handshake.Type`.
   int type() {
-    final $r = $callSync(16368, $W()..dto(this));
+    final $r = $callSync(16374, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*handshake.MessageCertificateVerify).Unmarshal(data []byte) error`.
   void unmarshal(Uint8List data) {
     $callSync(
-        16369,
+        16375,
         $W()
           ..dto(this)
           ..bytes(data));
@@ -496,20 +496,20 @@ final class DtlsV3PkgProtocolHandshakeMessageClientHello implements GoDto {
 
   /// Go: `func (*handshake.MessageClientHello).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(16370, $W()..dto(this));
+    final $r = $callSync(16376, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (handshake.MessageClientHello).Type() handshake.Type`.
   int type() {
-    final $r = $callSync(16371, $W()..dto(this));
+    final $r = $callSync(16377, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*handshake.MessageClientHello).Unmarshal(data []byte) error`.
   void unmarshal(Uint8List data) {
     $callSync(
-        16372,
+        16378,
         $W()
           ..dto(this)
           ..bytes(data));
@@ -545,20 +545,20 @@ final class DtlsV3PkgProtocolHandshakeMessageClientKeyExchange
 
   /// Go: `func (*handshake.MessageClientKeyExchange).Marshal() (out []byte, err error)`.
   Uint8List marshal() {
-    final $r = $callSync(16373, $W()..dto(this));
+    final $r = $callSync(16379, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (handshake.MessageClientKeyExchange).Type() handshake.Type`.
   int type() {
-    final $r = $callSync(16374, $W()..dto(this));
+    final $r = $callSync(16380, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*handshake.MessageClientKeyExchange).Unmarshal(data []byte) error`.
   void unmarshal(Uint8List data) {
     $callSync(
-        16375,
+        16381,
         $W()
           ..dto(this)
           ..bytes(data));
@@ -582,20 +582,20 @@ final class DtlsV3PkgProtocolHandshakeMessageFinished implements GoDto {
 
   /// Go: `func (*handshake.MessageFinished).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(16376, $W()..dto(this));
+    final $r = $callSync(16382, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (handshake.MessageFinished).Type() handshake.Type`.
   int type() {
-    final $r = $callSync(16377, $W()..dto(this));
+    final $r = $callSync(16383, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*handshake.MessageFinished).Unmarshal(data []byte) error`.
   void unmarshal(Uint8List data) {
     $callSync(
-        16378,
+        16384,
         $W()
           ..dto(this)
           ..bytes(data));
@@ -629,20 +629,20 @@ final class DtlsV3PkgProtocolHandshakeMessageHelloVerifyRequest
 
   /// Go: `func (*handshake.MessageHelloVerifyRequest).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(16379, $W()..dto(this));
+    final $r = $callSync(16385, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (handshake.MessageHelloVerifyRequest).Type() handshake.Type`.
   int type() {
-    final $r = $callSync(16380, $W()..dto(this));
+    final $r = $callSync(16386, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*handshake.MessageHelloVerifyRequest).Unmarshal(data []byte) error`.
   void unmarshal(Uint8List data) {
     $callSync(
-        16381,
+        16387,
         $W()
           ..dto(this)
           ..bytes(data));
@@ -706,20 +706,20 @@ final class DtlsV3PkgProtocolHandshakeMessageServerHello implements GoDto {
 
   /// Go: `func (*handshake.MessageServerHello).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(16382, $W()..dto(this));
+    final $r = $callSync(16388, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (handshake.MessageServerHello).Type() handshake.Type`.
   int type() {
-    final $r = $callSync(16383, $W()..dto(this));
+    final $r = $callSync(16389, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*handshake.MessageServerHello).Unmarshal(data []byte) error`.
   void unmarshal(Uint8List data) {
     $callSync(
-        16384,
+        16390,
         $W()
           ..dto(this)
           ..bytes(data));
@@ -736,20 +736,20 @@ final class DtlsV3PkgProtocolHandshakeMessageServerHelloDone implements GoDto {
 
   /// Go: `func (*handshake.MessageServerHelloDone).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(16385, $W()..dto(this));
+    final $r = $callSync(16391, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (handshake.MessageServerHelloDone).Type() handshake.Type`.
   int type() {
-    final $r = $callSync(16386, $W()..dto(this));
+    final $r = $callSync(16392, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*handshake.MessageServerHelloDone).Unmarshal([]byte) error`.
   void unmarshal(Uint8List arg0) {
     $callSync(
-        16387,
+        16393,
         $W()
           ..dto(this)
           ..bytes(arg0));
@@ -821,20 +821,20 @@ final class DtlsV3PkgProtocolHandshakeMessageServerKeyExchange
 
   /// Go: `func (*handshake.MessageServerKeyExchange).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(16388, $W()..dto(this));
+    final $r = $callSync(16394, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (handshake.MessageServerKeyExchange).Type() handshake.Type`.
   int type() {
-    final $r = $callSync(16389, $W()..dto(this));
+    final $r = $callSync(16395, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*handshake.MessageServerKeyExchange).Unmarshal(data []byte) error`.
   void unmarshal(Uint8List data) {
     $callSync(
-        16390,
+        16396,
         $W()
           ..dto(this)
           ..bytes(data));
@@ -861,7 +861,7 @@ final class DtlsV3PkgProtocolHandshakeRandom implements GoDto {
 
   /// Go: `func (*handshake.Random).Populate() error`.
   void populate() {
-    $callSync(16391, $W()..dto(this));
+    $callSync(16397, $W()..dto(this));
   }
 }
 

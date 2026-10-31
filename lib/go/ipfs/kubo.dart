@@ -56,31 +56,31 @@ final class KuboVersionInfo implements GoDto {
 extension GoIpfsKuboApi on GoIpfsKubo {
   /// Go: `var ipfs.CurrentCommit string`.
   String get currentCommit {
-    final $r = $callSync(11208);
+    final $r = $callSync(11214);
     return $r.str();
   }
 
   /// Go: `func ipfs.GetUserAgentVersion() string`.
   String getUserAgentVersion() {
-    final $r = $callSync(11209);
+    final $r = $callSync(11215);
     return $r.str();
   }
 
   /// Go: `func ipfs.GetVersionInfo() *ipfs.VersionInfo`.
   KuboVersionInfo getVersionInfo() {
-    final $r = $callSync(11210);
+    final $r = $callSync(11216);
     return $r.p() ? KuboVersionInfo.$dec($r) : $nil();
   }
 
   /// Go: `func ipfs.ImplicitAgentSuffix() string`.
   String implicitAgentSuffix() {
-    final $r = $callSync(11211);
+    final $r = $callSync(11217);
     return $r.str();
   }
 
   /// Go: `func ipfs.SetUserAgentSuffix(suffix string)`.
   void setUserAgentSuffix(String suffix) {
-    $callSync(11212, $W()..str(suffix));
+    $callSync(11218, $W()..str(suffix));
   }
 }
 

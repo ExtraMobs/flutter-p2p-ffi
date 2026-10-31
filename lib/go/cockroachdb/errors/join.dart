@@ -9,6 +9,6 @@ import 'package:p2p_ffi/src/runtime.dart';
 extension GoCockroachdbErrorsJoinApi on GoCockroachdbErrorsJoin {
   /// Go: `func join.Join(errs ...error) error`.
   void join([List<String> errs = const []]) {
-    $callSync(4601, $W()..list(errs, (w0, e0) => w0.err(e0)));
+    $callSync(4610, $W()..list(errs, (w0, e0) => w0.err(e0)));
   }
 }

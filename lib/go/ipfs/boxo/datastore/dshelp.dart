@@ -13,14 +13,14 @@ import 'package:p2p_ffi/go/ipfs/datastore.dart' as $datastore;
 extension GoIpfsBoxoDatastoreDshelpApi on GoIpfsBoxoDatastoreDshelp {
   /// Go: `func dshelp.BinaryFromDsKey(k datastore.Key) ([]byte, error)`.
   Uint8List binaryFromDsKey($datastore.DatastoreKey k) {
-    final $r = $callSync(9393, $W()..h(k));
+    final $r = $callSync(9402, $W()..h(k));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func dshelp.DsKeyToCidV1(dsKey datastore.Key, codecType uint64) (cid.Cid, error)`.
   $cid.Cid dsKeyToCidV1($datastore.DatastoreKey dsKey, int codecType) {
     final $r = $callSync(
-        9394,
+        9403,
         $W()
           ..h(dsKey)
           ..i64(codecType));
@@ -29,19 +29,19 @@ extension GoIpfsBoxoDatastoreDshelpApi on GoIpfsBoxoDatastoreDshelp {
 
   /// Go: `func dshelp.DsKeyToMultihash(dsKey datastore.Key) (multihash.Multihash, error)`.
   Uint8List dsKeyToMultihash($datastore.DatastoreKey dsKey) {
-    final $r = $callSync(9395, $W()..h(dsKey));
+    final $r = $callSync(9404, $W()..h(dsKey));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func dshelp.MultihashToDsKey(k multihash.Multihash) datastore.Key`.
   $datastore.DatastoreKey multihashToDsKey(Uint8List k) {
-    final $r = $callSync(9396, $W()..bytes(k));
+    final $r = $callSync(9405, $W()..bytes(k));
     return $r.hnn($datastore.DatastoreKey.$h);
   }
 
   /// Go: `func dshelp.NewKeyFromBinary(rawKey []byte) datastore.Key`.
   $datastore.DatastoreKey newKeyFromBinary(Uint8List rawKey) {
-    final $r = $callSync(9397, $W()..bytes(rawKey));
+    final $r = $callSync(9406, $W()..bytes(rawKey));
     return $r.hnn($datastore.DatastoreKey.$h);
   }
 }

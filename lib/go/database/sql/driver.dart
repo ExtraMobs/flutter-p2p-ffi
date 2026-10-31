@@ -21,7 +21,7 @@ mixin DatabaseSqlDriverColumnConverter$ on GoHandle {
   /// Go: `func (driver.ColumnConverter).ColumnConverter(idx int) driver.ValueConverter`.
   DatabaseSqlDriverValueConverter columnConverter(int idx) {
     final $r = $callSync(
-        3471,
+        3480,
         $W()
           ..h(this)
           ..i64(idx));
@@ -39,19 +39,19 @@ mixin DatabaseSqlDriverConn$ on GoHandle {
   /// Go: `func (driver.Conn).Begin() (driver.Tx, error)`.
   @Deprecated("Drivers should implement ConnBeginTx instead (or additionally).")
   DatabaseSqlDriverTx begin() {
-    final $r = $callSync(3472, $W()..h(this));
+    final $r = $callSync(3481, $W()..h(this));
     return $r.p() ? DatabaseSqlDriverTx.$dec($r) : $nil();
   }
 
   /// Go: `func (driver.Conn).Close() error`.
   void close() {
-    $callSync(3473, $W()..h(this));
+    $callSync(3482, $W()..h(this));
   }
 
   /// Go: `func (driver.Conn).Prepare(query string) (driver.Stmt, error)`.
   DatabaseSqlDriverStmt prepare(String query) {
     final $r = $callSync(
-        3474,
+        3483,
         $W()
           ..h(this)
           ..str(query));
@@ -73,7 +73,7 @@ mixin DatabaseSqlDriverConnBeginTx$ on GoHandle {
   Future<DatabaseSqlDriverTx> beginTx(
       $context.Context ctx, DatabaseSqlDriverTxOptions opts) async {
     final $r = await $call(
-        3475,
+        3484,
         $W()
           ..h(this)
           ..h(ctx)
@@ -96,7 +96,7 @@ mixin DatabaseSqlDriverConnPrepareContext$ on GoHandle {
   Future<DatabaseSqlDriverStmt> prepareContext(
       $context.Context ctx, String query) async {
     final $r = await $call(
-        3476,
+        3485,
         $W()
           ..h(this)
           ..h(ctx)
@@ -118,7 +118,7 @@ mixin DatabaseSqlDriverConnector$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<DatabaseSqlDriverConn> connect($context.Context ctx) async {
     final $r = await $call(
-        3477,
+        3486,
         $W()
           ..h(this)
           ..h(ctx));
@@ -127,7 +127,7 @@ mixin DatabaseSqlDriverConnector$ on GoHandle {
 
   /// Go: `func (driver.Connector).Driver() driver.Driver`.
   DatabaseSqlDriver driver() {
-    final $r = $callSync(3478, $W()..h(this));
+    final $r = $callSync(3487, $W()..h(this));
     return $r.hnn(DatabaseSqlDriver.$h);
   }
 }
@@ -142,7 +142,7 @@ mixin DatabaseSqlDriver$ on GoHandle {
   /// Go: `func (driver.Driver).Open(name string) (driver.Conn, error)`.
   DatabaseSqlDriverConn open(String name) {
     final $r = $callSync(
-        3479,
+        3488,
         $W()
           ..h(this)
           ..str(name));
@@ -160,7 +160,7 @@ mixin DatabaseSqlDriverContext$ on GoHandle {
   /// Go: `func (driver.DriverContext).OpenConnector(name string) (driver.Connector, error)`.
   DatabaseSqlDriverConnector openConnector(String name) {
     final $r = $callSync(
-        3480,
+        3489,
         $W()
           ..h(this)
           ..str(name));
@@ -180,7 +180,7 @@ mixin DatabaseSqlDriverExecer$ on GoHandle {
   DatabaseSqlDriverResult exec(
       String query, List<DatabaseSqlDriverValue> args) {
     final $r = $callSync(
-        3481,
+        3490,
         $W()
           ..h(this)
           ..str(query)
@@ -203,7 +203,7 @@ mixin DatabaseSqlDriverExecerContext$ on GoHandle {
   Future<DatabaseSqlDriverResult> execContext($context.Context ctx,
       String query, List<DatabaseSqlDriverNamedValue> args) async {
     final $r = await $call(
-        3482,
+        3491,
         $W()
           ..h(this)
           ..h(ctx)
@@ -255,7 +255,7 @@ mixin DatabaseSqlDriverNamedValueChecker$ on GoHandle {
   /// Go: `func (driver.NamedValueChecker).CheckNamedValue(*driver.NamedValue) error`.
   void checkNamedValue(DatabaseSqlDriverNamedValue namedValue) {
     $callSync(
-        3485,
+        3494,
         $W()
           ..h(this)
           ..dto(namedValue));
@@ -281,7 +281,7 @@ final class DatabaseSqlDriverNotNull implements GoDto {
   /// Go: `func (driver.NotNull).ConvertValue(v any) (driver.Value, error)`.
   DatabaseSqlDriverValue convertValue(Object? v) {
     final $r = $callSync(
-        3486,
+        3495,
         $W()
           ..dto(this)
           ..any(v));
@@ -308,7 +308,7 @@ final class DatabaseSqlDriverNull implements GoDto {
   /// Go: `func (driver.Null).ConvertValue(v any) (driver.Value, error)`.
   DatabaseSqlDriverValue convertValue(Object? v) {
     final $r = $callSync(
-        3487,
+        3496,
         $W()
           ..dto(this)
           ..any(v));
@@ -328,7 +328,7 @@ mixin DatabaseSqlDriverPinger$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> ping($context.Context ctx) async {
     await $call(
-        3488,
+        3497,
         $W()
           ..h(this)
           ..h(ctx));
@@ -352,7 +352,7 @@ mixin DatabaseSqlDriverQueryer$ on GoHandle {
   /// Go: `func (driver.Queryer).Query(query string, args []driver.Value) (driver.Rows, error)`.
   DatabaseSqlDriverRows query(String query, List<DatabaseSqlDriverValue> args) {
     final $r = $callSync(
-        3489,
+        3498,
         $W()
           ..h(this)
           ..str(query)
@@ -375,7 +375,7 @@ mixin DatabaseSqlDriverQueryerContext$ on GoHandle {
   Future<DatabaseSqlDriverRows> queryContext($context.Context ctx, String query,
       List<DatabaseSqlDriverNamedValue> args) async {
     final $r = await $call(
-        3490,
+        3499,
         $W()
           ..h(this)
           ..h(ctx)
@@ -421,19 +421,19 @@ class DatabaseSqlDriverRows extends GoHandle with DatabaseSqlDriverRows$ {
 mixin DatabaseSqlDriverRows$ on GoHandle {
   /// Go: `func (driver.Rows).Close() error`.
   void close() {
-    $callSync(3491, $W()..h(this));
+    $callSync(3500, $W()..h(this));
   }
 
   /// Go: `func (driver.Rows).Columns() []string`.
   List<String> columns() {
-    final $r = $callSync(3492, $W()..h(this));
+    final $r = $callSync(3501, $W()..h(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (driver.Rows).Next(dest []driver.Value) error`.
   void next(List<DatabaseSqlDriverValue> dest) {
     $callSync(
-        3493,
+        3502,
         $W()
           ..h(this)
           ..list(dest, (w0, e0) => w0.h(e0)));
@@ -493,7 +493,7 @@ mixin DatabaseSqlDriverRowsColumnTypeDatabaseTypeName$ on GoHandle {
   /// Go: `func (driver.RowsColumnTypeDatabaseTypeName).ColumnTypeDatabaseTypeName(index int) string`.
   String columnTypeDatabaseTypeName(int index) {
     final $r = $callSync(
-        3494,
+        3503,
         $W()
           ..h(this)
           ..i64(index));
@@ -512,7 +512,7 @@ mixin DatabaseSqlDriverRowsColumnTypeLength$ on GoHandle {
   /// Go: `func (driver.RowsColumnTypeLength).ColumnTypeLength(index int) (length int64, ok bool)`.
   (int, bool) columnTypeLength(int index) {
     final $r = $callSync(
-        3495,
+        3504,
         $W()
           ..h(this)
           ..i64(index));
@@ -531,7 +531,7 @@ mixin DatabaseSqlDriverRowsColumnTypeNullable$ on GoHandle {
   /// Go: `func (driver.RowsColumnTypeNullable).ColumnTypeNullable(index int) (nullable bool, ok bool)`.
   (bool, bool) columnTypeNullable(int index) {
     final $r = $callSync(
-        3496,
+        3505,
         $W()
           ..h(this)
           ..i64(index));
@@ -551,7 +551,7 @@ mixin DatabaseSqlDriverRowsColumnTypePrecisionScale$ on GoHandle {
   /// Go: `func (driver.RowsColumnTypePrecisionScale).ColumnTypePrecisionScale(index int) (precision int64, scale int64, ok bool)`.
   (int, int, bool) columnTypePrecisionScale(int index) {
     final $r = $callSync(
-        3497,
+        3506,
         $W()
           ..h(this)
           ..i64(index));
@@ -570,7 +570,7 @@ mixin DatabaseSqlDriverRowsColumnTypeScanType$ on GoHandle {
   /// Go: `func (driver.RowsColumnTypeScanType).ColumnTypeScanType(index int) reflect.Type`.
   $reflect.ReflectType columnTypeScanType(int index) {
     final $r = $callSync(
-        3498,
+        3507,
         $W()
           ..h(this)
           ..i64(index));
@@ -588,13 +588,13 @@ class DatabaseSqlDriverRowsNextResultSet extends DatabaseSqlDriverRows
 mixin DatabaseSqlDriverRowsNextResultSet$ on GoHandle {
   /// Go: `func (driver.RowsNextResultSet).HasNextResultSet() bool`.
   bool hasNextResultSet() {
-    final $r = $callSync(3499, $W()..h(this));
+    final $r = $callSync(3508, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (driver.RowsNextResultSet).NextResultSet() error`.
   void nextResultSet() {
-    $callSync(3500, $W()..h(this));
+    $callSync(3509, $W()..h(this));
   }
 }
 
@@ -611,7 +611,7 @@ mixin DatabaseSqlDriverSessionResetter$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> resetSession($context.Context ctx) async {
     await $call(
-        3501,
+        3510,
         $W()
           ..h(this)
           ..h(ctx));
@@ -627,7 +627,7 @@ class DatabaseSqlDriverStmt extends GoHandle with DatabaseSqlDriverStmt$ {
 mixin DatabaseSqlDriverStmt$ on GoHandle {
   /// Go: `func (driver.Stmt).Close() error`.
   void close() {
-    $callSync(3502, $W()..h(this));
+    $callSync(3511, $W()..h(this));
   }
 
   /// Go: `func (driver.Stmt).Exec(args []driver.Value) (driver.Result, error)`.
@@ -635,7 +635,7 @@ mixin DatabaseSqlDriverStmt$ on GoHandle {
       "Drivers should implement StmtExecContext instead (or additionally).")
   DatabaseSqlDriverResult exec(List<DatabaseSqlDriverValue> args) {
     final $r = $callSync(
-        3503,
+        3512,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.h(e0)));
@@ -644,7 +644,7 @@ mixin DatabaseSqlDriverStmt$ on GoHandle {
 
   /// Go: `func (driver.Stmt).NumInput() int`.
   int numInput() {
-    final $r = $callSync(3504, $W()..h(this));
+    final $r = $callSync(3513, $W()..h(this));
     return $r.i64();
   }
 
@@ -653,7 +653,7 @@ mixin DatabaseSqlDriverStmt$ on GoHandle {
       "Drivers should implement StmtQueryContext instead (or additionally).")
   DatabaseSqlDriverRows query(List<DatabaseSqlDriverValue> args) {
     final $r = $callSync(
-        3505,
+        3514,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.h(e0)));
@@ -675,7 +675,7 @@ mixin DatabaseSqlDriverStmtExecContext$ on GoHandle {
   Future<DatabaseSqlDriverResult> execContext(
       $context.Context ctx, List<DatabaseSqlDriverNamedValue> args) async {
     final $r = await $call(
-        3506,
+        3515,
         $W()
           ..h(this)
           ..h(ctx)
@@ -698,7 +698,7 @@ mixin DatabaseSqlDriverStmtQueryContext$ on GoHandle {
   Future<DatabaseSqlDriverRows> queryContext(
       $context.Context ctx, List<DatabaseSqlDriverNamedValue> args) async {
     final $r = await $call(
-        3507,
+        3516,
         $W()
           ..h(this)
           ..h(ctx)
@@ -775,7 +775,7 @@ mixin DatabaseSqlDriverValueConverter$ on GoHandle {
   /// Go: `func (driver.ValueConverter).ConvertValue(v any) (driver.Value, error)`.
   DatabaseSqlDriverValue convertValue(Object? v) {
     final $r = $callSync(
-        3508,
+        3517,
         $W()
           ..h(this)
           ..any(v));
@@ -792,7 +792,7 @@ class DatabaseSqlDriverValuer extends GoHandle with DatabaseSqlDriverValuer$ {
 mixin DatabaseSqlDriverValuer$ on GoHandle {
   /// Go: `func (driver.Valuer).Value() (driver.Value, error)`.
   DatabaseSqlDriverValue value$() {
-    final $r = $callSync(3509, $W()..h(this));
+    final $r = $callSync(3518, $W()..h(this));
     return $r.hnn(DatabaseSqlDriverValue.$h);
   }
 
@@ -834,13 +834,13 @@ class DatabaseSqlDriverErrSkip extends GolangException {
 extension GoDatabaseSqlDriverApi on GoDatabaseSqlDriver {
   /// Go: `func driver.IsScanValue(v any) bool`.
   bool isScanValue(Object? v) {
-    final $r = $callSync(3483, $W()..any(v));
+    final $r = $callSync(3492, $W()..any(v));
     return $r.b();
   }
 
   /// Go: `func driver.IsValue(v any) bool`.
   bool isValue(Object? v) {
-    final $r = $callSync(3484, $W()..any(v));
+    final $r = $callSync(3493, $W()..any(v));
     return $r.b();
   }
 }

@@ -15,7 +15,7 @@ class DtlsV3PkgCryptoCcm extends $cipher.CryptoCipherAead
   factory DtlsV3PkgCryptoCcm(
       $cipher.CryptoCipherBlock b, int tagsize, int noncesize) {
     final $r = $callSync(
-        16217,
+        16223,
         $W()
           ..h(b)
           ..i64(tagsize)
@@ -28,7 +28,7 @@ class DtlsV3PkgCryptoCcm extends $cipher.CryptoCipherAead
 mixin DtlsV3PkgCryptoCcm$ on GoHandle {
   /// Go: `func (ccm.CCM).MaxLength() int`.
   int maxLength() {
-    final $r = $callSync(16215, $W()..h(this));
+    final $r = $callSync(16221, $W()..h(this));
     return $r.i64();
   }
 }
@@ -37,7 +37,7 @@ mixin DtlsV3PkgCryptoCcm$ on GoHandle {
 extension GoPionDtlsV3PkgCryptoCcmApi on GoPionDtlsV3PkgCryptoCcm {
   /// Go: `func ccm.MaxNonceLength(pdatalen int) int`.
   int maxNonceLength(int pdatalen) {
-    final $r = $callSync(16216, $W()..i64(pdatalen));
+    final $r = $callSync(16222, $W()..i64(pdatalen));
     return $r.i64();
   }
 }

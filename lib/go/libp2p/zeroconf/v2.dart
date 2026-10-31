@@ -41,7 +41,7 @@ class ZeroconfV2Server extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*zeroconf.Server).SetText(text []string)`.
   void setText(List<String> text) {
     $callSync(
-        15182,
+        15188,
         $W()
           ..h(this)
           ..list(text, (w0, e0) => w0.str(e0)));
@@ -49,14 +49,14 @@ class ZeroconfV2Server extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*zeroconf.Server).Shutdown()`.
   void shutdown() {
-    $callSync(15183, $W()..h(this));
+    $callSync(15189, $W()..h(this));
   }
 
   /// Go: `func (*zeroconf.Server).TTL(ttl uint32)`.
   @Deprecated("This method is racy. Use the TTL server option instead.")
   void ttl(int ttl) {
     $callSync(
-        15184,
+        15190,
         $W()
           ..h(this)
           ..i64(ttl));
@@ -130,19 +130,19 @@ final class ZeroconfV2ServiceEntry implements GoDto {
 
   /// Go: `func (*zeroconf.ServiceRecord).ServiceInstanceName() string`.
   String serviceInstanceName() {
-    final $r = $callSync(15185, $W()..dto(this));
+    final $r = $callSync(15191, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*zeroconf.ServiceRecord).ServiceName() string`.
   String serviceName() {
-    final $r = $callSync(15186, $W()..dto(this));
+    final $r = $callSync(15192, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*zeroconf.ServiceRecord).ServiceTypeName() string`.
   String serviceTypeName() {
-    final $r = $callSync(15187, $W()..dto(this));
+    final $r = $callSync(15193, $W()..dto(this));
     return $r.str();
   }
 }
@@ -167,19 +167,19 @@ class ZeroconfV2ServiceRecord extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*zeroconf.ServiceRecord).ServiceInstanceName() string`.
   String serviceInstanceName() {
-    final $r = $callSync(15188, $W()..h(this));
+    final $r = $callSync(15194, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*zeroconf.ServiceRecord).ServiceName() string`.
   String serviceName() {
-    final $r = $callSync(15189, $W()..h(this));
+    final $r = $callSync(15195, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*zeroconf.ServiceRecord).ServiceTypeName() string`.
   String serviceTypeName() {
-    final $r = $callSync(15190, $W()..h(this));
+    final $r = $callSync(15196, $W()..h(this));
     return $r.str();
   }
 }
@@ -191,7 +191,7 @@ extension GoLibp2pZeroconfV2Api on GoLibp2pZeroconfV2 {
           $context.Context ctx, String service, String domain,
           [List<ZeroconfV2ClientOption> opts = const []]) =>
       $stream(
-              15178,
+              15184,
               $W()
                 ..h(ctx)
                 ..str(service)
@@ -204,7 +204,7 @@ extension GoLibp2pZeroconfV2Api on GoLibp2pZeroconfV2 {
           $context.Context ctx, String instance, String service, String domain,
           [List<ZeroconfV2ClientOption> opts = const []]) =>
       $stream(
-              15179,
+              15185,
               $W()
                 ..h(ctx)
                 ..str(instance)
@@ -218,7 +218,7 @@ extension GoLibp2pZeroconfV2Api on GoLibp2pZeroconfV2 {
       int port, List<String> text, List<$net.NetInterface> ifaces,
       [List<ZeroconfV2ServerOption> opts = const []]) {
     final $r = $callSync(
-        15180,
+        15186,
         $W()
           ..str(instance)
           ..str(service)
@@ -242,7 +242,7 @@ extension GoLibp2pZeroconfV2Api on GoLibp2pZeroconfV2 {
       List<$net.NetInterface> ifaces,
       [List<ZeroconfV2ServerOption> opts = const []]) {
     final $r = $callSync(
-        15181,
+        15187,
         $W()
           ..str(instance)
           ..str(service)

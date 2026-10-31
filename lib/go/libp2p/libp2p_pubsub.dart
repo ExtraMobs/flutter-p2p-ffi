@@ -98,7 +98,7 @@ mixin Libp2pPubsubBatchPublisher$ on GoHandle {
   void publishBatch(List<Libp2pPubsubMessage> messages,
       Libp2pPubsubBatchPublishOptions opts) {
     $callSync(
-        13195,
+        13201,
         $W()
           ..h(this)
           ..list(messages, (w0, e0) => w0.dto(e0))
@@ -107,7 +107,7 @@ mixin Libp2pPubsubBatchPublisher$ on GoHandle {
 
   /// Go: type assertion `x.(*pubsub.GossipSubRouter)`: null if the object is not one.
   Libp2pPubsubGossipSubRouter? asLibp2pPubsubGossipSubRouter() {
-    final $r = $callSync(1294, $W()..h(this));
+    final $r = $callSync(1297, $W()..h(this));
     return $r.hn(Libp2pPubsubGossipSubRouter.$h);
   }
 }
@@ -122,7 +122,7 @@ mixin Libp2pPubsubBlacklist$ on GoHandle {
   /// Go: `func (pubsub.Blacklist).Add(peer.ID) bool`.
   bool add($peer.Libp2pCorePeerId id) {
     final $r = $callSync(
-        13196,
+        13202,
         $W()
           ..h(this)
           ..val(id));
@@ -132,7 +132,7 @@ mixin Libp2pPubsubBlacklist$ on GoHandle {
   /// Go: `func (pubsub.Blacklist).Contains(peer.ID) bool`.
   bool contains($peer.Libp2pCorePeerId id) {
     final $r = $callSync(
-        13197,
+        13203,
         $W()
           ..h(this)
           ..val(id));
@@ -141,7 +141,7 @@ mixin Libp2pPubsubBlacklist$ on GoHandle {
 
   /// Go: type assertion `x.(*pubsub.TimeCachedBlacklist)`: null if the object is not one.
   Libp2pPubsubTimeCachedBlacklist? asLibp2pPubsubTimeCachedBlacklist() {
-    final $r = $callSync(1295, $W()..h(this));
+    final $r = $callSync(1298, $W()..h(this));
     return $r.hn(Libp2pPubsubTimeCachedBlacklist.$h);
   }
 }
@@ -161,7 +161,7 @@ mixin Libp2pPubsubEventTracer$ on GoHandle {
   /// Go: `func (pubsub.EventTracer).Trace(evt *pubsub_pb.TraceEvent)`.
   void trace($pb.Libp2pPubsubPbTraceEvent evt) {
     $callSync(
-        13213,
+        13219,
         $W()
           ..h(this)
           ..h(evt));
@@ -169,19 +169,19 @@ mixin Libp2pPubsubEventTracer$ on GoHandle {
 
   /// Go: type assertion `x.(*pubsub.JSONTracer)`: null if the object is not one.
   Libp2pPubsubJsonTracer? asLibp2pPubsubJsonTracer() {
-    final $r = $callSync(1296, $W()..h(this));
+    final $r = $callSync(1299, $W()..h(this));
     return $r.hn(Libp2pPubsubJsonTracer.$h);
   }
 
   /// Go: type assertion `x.(*pubsub.PBTracer)`: null if the object is not one.
   Libp2pPubsubPbTracer? asLibp2pPubsubPbTracer() {
-    final $r = $callSync(1297, $W()..h(this));
+    final $r = $callSync(1300, $W()..h(this));
     return $r.hn(Libp2pPubsubPbTracer.$h);
   }
 
   /// Go: type assertion `x.(*pubsub.RemoteTracer)`: null if the object is not one.
   Libp2pPubsubRemoteTracer? asLibp2pPubsubRemoteTracer() {
-    final $r = $callSync(1298, $W()..h(this));
+    final $r = $callSync(1301, $W()..h(this));
     return $r.hn(Libp2pPubsubRemoteTracer.$h);
   }
 }
@@ -209,7 +209,7 @@ class Libp2pPubsubFloodSubRouter extends Libp2pPubsubPubSubRouter
   /// Go: `func (*pubsub.FloodSubRouter).AcceptFrom(peer.ID) pubsub.AcceptStatus`.
   int acceptFrom($peer.Libp2pCorePeerId id) {
     final $r = $callSync(
-        13215,
+        13221,
         $W()
           ..h(this)
           ..val(id));
@@ -219,7 +219,7 @@ class Libp2pPubsubFloodSubRouter extends Libp2pPubsubPubSubRouter
   /// Go: `func (*pubsub.FloodSubRouter).Attach(p *pubsub.PubSub)`.
   void attach(Libp2pPubsubPubSub p) {
     $callSync(
-        13216,
+        13222,
         $W()
           ..h(this)
           ..h(p));
@@ -228,7 +228,7 @@ class Libp2pPubsubFloodSubRouter extends Libp2pPubsubPubSubRouter
   /// Go: `func (*pubsub.FloodSubRouter).EnoughPeers(topic string, suggested int) bool`.
   bool enoughPeers(String topic, int suggested) {
     final $r = $callSync(
-        13217,
+        13223,
         $W()
           ..h(this)
           ..str(topic)
@@ -239,7 +239,7 @@ class Libp2pPubsubFloodSubRouter extends Libp2pPubsubPubSubRouter
   /// Go: `func (*pubsub.FloodSubRouter).HandleRPC(rpc *pubsub.RPC)`.
   void handleRpc(Libp2pPubsubRpc rpc) {
     $callSync(
-        13218,
+        13224,
         $W()
           ..h(this)
           ..h(rpc));
@@ -248,7 +248,7 @@ class Libp2pPubsubFloodSubRouter extends Libp2pPubsubPubSubRouter
   /// Go: `func (*pubsub.FloodSubRouter).Join(topic string)`.
   void join(String topic) {
     $callSync(
-        13219,
+        13225,
         $W()
           ..h(this)
           ..str(topic));
@@ -257,7 +257,7 @@ class Libp2pPubsubFloodSubRouter extends Libp2pPubsubPubSubRouter
   /// Go: `func (*pubsub.FloodSubRouter).Leave(topic string)`.
   void leave(String topic) {
     $callSync(
-        13220,
+        13226,
         $W()
           ..h(this)
           ..str(topic));
@@ -266,7 +266,7 @@ class Libp2pPubsubFloodSubRouter extends Libp2pPubsubPubSubRouter
   /// Go: `func (*pubsub.FloodSubRouter).OnClosedIncomingStream(peer.ID, protocol.ID)`.
   void onClosedIncomingStream($peer.Libp2pCorePeerId id, String arg1) {
     $callSync(
-        13221,
+        13227,
         $W()
           ..h(this)
           ..val(id)
@@ -276,7 +276,7 @@ class Libp2pPubsubFloodSubRouter extends Libp2pPubsubPubSubRouter
   /// Go: `func (*pubsub.FloodSubRouter).OnClosedOutboundStream(p peer.ID)`.
   void onClosedOutboundStream($peer.Libp2pCorePeerId p) {
     $callSync(
-        13222,
+        13228,
         $W()
           ..h(this)
           ..val(p));
@@ -285,7 +285,7 @@ class Libp2pPubsubFloodSubRouter extends Libp2pPubsubPubSubRouter
   /// Go: `func (*pubsub.FloodSubRouter).OnNewIncomingStream(peer.ID, protocol.ID)`.
   void onNewIncomingStream($peer.Libp2pCorePeerId id, String arg1) {
     $callSync(
-        13223,
+        13229,
         $W()
           ..h(this)
           ..val(id)
@@ -296,7 +296,7 @@ class Libp2pPubsubFloodSubRouter extends Libp2pPubsubPubSubRouter
   Libp2pPubsubRpc onNewOutboundStream(
       $peer.Libp2pCorePeerId p, String proto, Libp2pPubsubRpc hello) {
     final $r = $callSync(
-        13224,
+        13230,
         $W()
           ..h(this)
           ..val(p)
@@ -308,7 +308,7 @@ class Libp2pPubsubFloodSubRouter extends Libp2pPubsubPubSubRouter
   /// Go: `func (*pubsub.FloodSubRouter).Preprocess(from peer.ID, msgs []*pubsub.Message)`.
   void preprocess($peer.Libp2pCorePeerId from, List<Libp2pPubsubMessage> msgs) {
     $callSync(
-        13225,
+        13231,
         $W()
           ..h(this)
           ..val(from)
@@ -317,14 +317,14 @@ class Libp2pPubsubFloodSubRouter extends Libp2pPubsubPubSubRouter
 
   /// Go: `func (*pubsub.FloodSubRouter).Protocols() []protocol.ID`.
   List<String> protocols() {
-    final $r = $callSync(13226, $W()..h(this));
+    final $r = $callSync(13232, $W()..h(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (*pubsub.FloodSubRouter).Publish(msg *pubsub.Message)`.
   void publish(Libp2pPubsubMessage msg) {
     $callSync(
-        13227,
+        13233,
         $W()
           ..h(this)
           ..dto(msg));
@@ -598,7 +598,7 @@ class Libp2pPubsubGossipSubRouter extends Libp2pPubsubPubSubRouter
   /// Go: `func (*pubsub.GossipSubRouter).AcceptFrom(p peer.ID) pubsub.AcceptStatus`.
   int acceptFrom($peer.Libp2pCorePeerId p) {
     final $r = $callSync(
-        13264,
+        13270,
         $W()
           ..h(this)
           ..val(p));
@@ -608,7 +608,7 @@ class Libp2pPubsubGossipSubRouter extends Libp2pPubsubPubSubRouter
   /// Go: `func (*pubsub.GossipSubRouter).AddDirectPeer(pi peer.AddrInfo)`.
   void addDirectPeer($peer.Libp2pCorePeerAddrInfo pi) {
     $callSync(
-        13265,
+        13271,
         $W()
           ..h(this)
           ..dto(pi));
@@ -617,7 +617,7 @@ class Libp2pPubsubGossipSubRouter extends Libp2pPubsubPubSubRouter
   /// Go: `func (*pubsub.GossipSubRouter).Attach(p *pubsub.PubSub)`.
   void attach(Libp2pPubsubPubSub p) {
     $callSync(
-        13266,
+        13272,
         $W()
           ..h(this)
           ..h(p));
@@ -626,7 +626,7 @@ class Libp2pPubsubGossipSubRouter extends Libp2pPubsubPubSubRouter
   /// Go: `func (*pubsub.GossipSubRouter).EnoughPeers(topic string, suggested int) bool`.
   bool enoughPeers(String topic, int suggested) {
     final $r = $callSync(
-        13267,
+        13273,
         $W()
           ..h(this)
           ..str(topic)
@@ -637,7 +637,7 @@ class Libp2pPubsubGossipSubRouter extends Libp2pPubsubPubSubRouter
   /// Go: `func (*pubsub.GossipSubRouter).HandleRPC(rpc *pubsub.RPC)`.
   void handleRpc(Libp2pPubsubRpc rpc) {
     $callSync(
-        13268,
+        13274,
         $W()
           ..h(this)
           ..h(rpc));
@@ -646,7 +646,7 @@ class Libp2pPubsubGossipSubRouter extends Libp2pPubsubPubSubRouter
   /// Go: `func (*pubsub.GossipSubRouter).Join(topic string)`.
   void join(String topic) {
     $callSync(
-        13269,
+        13275,
         $W()
           ..h(this)
           ..str(topic));
@@ -655,7 +655,7 @@ class Libp2pPubsubGossipSubRouter extends Libp2pPubsubPubSubRouter
   /// Go: `func (*pubsub.GossipSubRouter).Leave(topic string)`.
   void leave(String topic) {
     $callSync(
-        13270,
+        13276,
         $W()
           ..h(this)
           ..str(topic));
@@ -664,7 +664,7 @@ class Libp2pPubsubGossipSubRouter extends Libp2pPubsubPubSubRouter
   /// Go: `func (*pubsub.GossipSubRouter).OnClosedIncomingStream(pid peer.ID, proto protocol.ID)`.
   void onClosedIncomingStream($peer.Libp2pCorePeerId pid, String proto) {
     $callSync(
-        13271,
+        13277,
         $W()
           ..h(this)
           ..val(pid)
@@ -674,7 +674,7 @@ class Libp2pPubsubGossipSubRouter extends Libp2pPubsubPubSubRouter
   /// Go: `func (*pubsub.GossipSubRouter).OnClosedOutboundStream(p peer.ID)`.
   void onClosedOutboundStream($peer.Libp2pCorePeerId p) {
     $callSync(
-        13272,
+        13278,
         $W()
           ..h(this)
           ..val(p));
@@ -683,7 +683,7 @@ class Libp2pPubsubGossipSubRouter extends Libp2pPubsubPubSubRouter
   /// Go: `func (*pubsub.GossipSubRouter).OnNewIncomingStream(peer.ID, protocol.ID)`.
   void onNewIncomingStream($peer.Libp2pCorePeerId id, String arg1) {
     $callSync(
-        13273,
+        13279,
         $W()
           ..h(this)
           ..val(id)
@@ -694,7 +694,7 @@ class Libp2pPubsubGossipSubRouter extends Libp2pPubsubPubSubRouter
   Libp2pPubsubRpc onNewOutboundStream(
       $peer.Libp2pCorePeerId p, String proto, Libp2pPubsubRpc helloPacket) {
     final $r = $callSync(
-        13274,
+        13280,
         $W()
           ..h(this)
           ..val(p)
@@ -706,7 +706,7 @@ class Libp2pPubsubGossipSubRouter extends Libp2pPubsubPubSubRouter
   /// Go: `func (*pubsub.GossipSubRouter).Preprocess(from peer.ID, msgs []*pubsub.Message)`.
   void preprocess($peer.Libp2pCorePeerId from, List<Libp2pPubsubMessage> msgs) {
     $callSync(
-        13275,
+        13281,
         $W()
           ..h(this)
           ..val(from)
@@ -715,14 +715,14 @@ class Libp2pPubsubGossipSubRouter extends Libp2pPubsubPubSubRouter
 
   /// Go: `func (*pubsub.GossipSubRouter).Protocols() []protocol.ID`.
   List<String> protocols() {
-    final $r = $callSync(13276, $W()..h(this));
+    final $r = $callSync(13282, $W()..h(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (*pubsub.GossipSubRouter).Publish(msg *pubsub.Message)`.
   void publish(Libp2pPubsubMessage msg) {
     $callSync(
-        13277,
+        13283,
         $W()
           ..h(this)
           ..dto(msg));
@@ -732,7 +732,7 @@ class Libp2pPubsubGossipSubRouter extends Libp2pPubsubPubSubRouter
   void publishBatch(List<Libp2pPubsubMessage> messages,
       Libp2pPubsubBatchPublishOptions opts) {
     $callSync(
-        13278,
+        13284,
         $W()
           ..h(this)
           ..list(messages, (w0, e0) => w0.dto(e0))
@@ -742,7 +742,7 @@ class Libp2pPubsubGossipSubRouter extends Libp2pPubsubPubSubRouter
   /// Go: `func (*pubsub.GossipSubRouter).RemoveDirectPeer(p peer.ID)`.
   void removeDirectPeer($peer.Libp2pCorePeerId p) {
     $callSync(
-        13279,
+        13285,
         $W()
           ..h(this)
           ..val(p));
@@ -753,7 +753,7 @@ class Libp2pPubsubGossipSubRouter extends Libp2pPubsubPubSubRouter
       $peer.Libp2pCorePeerId p, $pb.Libp2pPubsubPbControlMessage ctl,
       [List<$pb.Libp2pPubsubPbMessage> msgs = const []]) {
     $callSync(
-        13280,
+        13286,
         $W()
           ..h(this)
           ..val(p)
@@ -784,19 +784,19 @@ class Libp2pPubsubJsonTracer extends Libp2pPubsubEventTracer
 
   /// Go: `func pubsub.NewJSONTracer(file string) (*pubsub.JSONTracer, error)`.
   factory Libp2pPubsubJsonTracer(String file) {
-    final $r = $callSync(13299, $W()..str(file));
+    final $r = $callSync(13305, $W()..str(file));
     return $r.hnn(Libp2pPubsubJsonTracer.$h);
   }
 
   /// Go: `func (*pubsub.basicTracer).Close()`.
   void close() {
-    $callSync(13282, $W()..h(this));
+    $callSync(13288, $W()..h(this));
   }
 
   /// Go: `func (*pubsub.basicTracer).Trace(evt *pubsub_pb.TraceEvent)`.
   void trace($pb.Libp2pPubsubPbTraceEvent evt) {
     $callSync(
-        13283,
+        13289,
         $W()
           ..h(this)
           ..h(evt));
@@ -846,7 +846,7 @@ final class Libp2pPubsubMessage implements GoDto {
 
   /// Go: `func (*pubsub.Message).GetFrom() peer.ID`.
   $peer.Libp2pCorePeerId getFrom() {
-    final $r = $callSync(13284, $W()..dto(this));
+    final $r = $callSync(13290, $W()..dto(this));
     return $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil();
   }
 }
@@ -891,7 +891,7 @@ class Libp2pPubsubMessageCache extends $crypto.CryptoDecrypterOpts
   /// Go: `func pubsub.NewMessageCache(gossip int, history int) *pubsub.MessageCache`.
   factory Libp2pPubsubMessageCache(int gossip, int history) {
     final $r = $callSync(
-        13301,
+        13307,
         $W()
           ..i64(gossip)
           ..i64(history));
@@ -901,7 +901,7 @@ class Libp2pPubsubMessageCache extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*pubsub.MessageCache).Get(mid string) (*pubsub.Message, bool)`.
   (Libp2pPubsubMessage, bool) get(String mid) {
     final $r = $callSync(
-        13285,
+        13291,
         $W()
           ..h(this)
           ..str(mid));
@@ -912,7 +912,7 @@ class Libp2pPubsubMessageCache extends $crypto.CryptoDecrypterOpts
   (Libp2pPubsubMessage, int, bool) getForPeer(
       String mid, $peer.Libp2pCorePeerId p) {
     final $r = $callSync(
-        13286,
+        13292,
         $W()
           ..h(this)
           ..str(mid)
@@ -923,7 +923,7 @@ class Libp2pPubsubMessageCache extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*pubsub.MessageCache).GetGossipIDs(topic string) []string`.
   List<String> getGossipIds(String topic) {
     final $r = $callSync(
-        13287,
+        13293,
         $W()
           ..h(this)
           ..str(topic));
@@ -933,7 +933,7 @@ class Libp2pPubsubMessageCache extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*pubsub.MessageCache).Put(msg *pubsub.Message)`.
   void put(Libp2pPubsubMessage msg) {
     $callSync(
-        13288,
+        13294,
         $W()
           ..h(this)
           ..dto(msg));
@@ -949,7 +949,7 @@ class Libp2pPubsubMessageCache extends $crypto.CryptoDecrypterOpts
   Future<void> setMsgIdFn(
       FutureOr<String> Function(Libp2pPubsubMessage message) msgId) async {
     await $call(
-        13289,
+        13295,
         $W()
           ..h(this)
           ..cb((r) => msgId(r.p() ? Libp2pPubsubMessage.$dec(r) : $nil()), true,
@@ -958,7 +958,7 @@ class Libp2pPubsubMessageCache extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*pubsub.MessageCache).Shift()`.
   void shift() {
-    $callSync(13290, $W()..h(this));
+    $callSync(13296, $W()..h(this));
   }
 }
 
@@ -989,19 +989,19 @@ class Libp2pPubsubPbTracer extends Libp2pPubsubEventTracer
 
   /// Go: `func pubsub.NewPBTracer(file string) (*pubsub.PBTracer, error)`.
   factory Libp2pPubsubPbTracer(String file) {
-    final $r = $callSync(13302, $W()..str(file));
+    final $r = $callSync(13308, $W()..str(file));
     return $r.hnn(Libp2pPubsubPbTracer.$h);
   }
 
   /// Go: `func (*pubsub.basicTracer).Close()`.
   void close() {
-    $callSync(13311, $W()..h(this));
+    $callSync(13317, $W()..h(this));
   }
 
   /// Go: `func (*pubsub.basicTracer).Trace(evt *pubsub_pb.TraceEvent)`.
   void trace($pb.Libp2pPubsubPbTraceEvent evt) {
     $callSync(
-        13312,
+        13318,
         $W()
           ..h(this)
           ..h(evt));
@@ -1077,7 +1077,7 @@ final class Libp2pPubsubPeerExtensions implements GoDto {
   /// Go: `func (*pubsub.PeerExtensions).ExtendRPC(rpc *pubsub.RPC) *pubsub.RPC`.
   Libp2pPubsubRpc extendRpc(Libp2pPubsubRpc rpc) {
     final $r = $callSync(
-        13313,
+        13319,
         $W()
           ..dto(this)
           ..h(rpc));
@@ -1177,7 +1177,7 @@ final class Libp2pPubsubPeerGaterParams implements GoDto {
   /// Go: `func (*pubsub.PeerGaterParams).WithTopicDeliveryWeights(w map[string]float64) *pubsub.PeerGaterParams`.
   Libp2pPubsubPeerGaterParams withTopicDeliveryWeights(Map<String, double> w) {
     final $r = $callSync(
-        13314,
+        13320,
         $W()
           ..dto(this)
           ..map(w, (w0, k0) => w0.str(k0), (w0, v0) => w0.f64(v0)));
@@ -1198,7 +1198,7 @@ mixin Libp2pPubsubPeerMetadataStore$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<Uint8List> get($context.Context ctx, $peer.Libp2pCorePeerId id) async {
     final $r = await $call(
-        13315,
+        13321,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1212,7 +1212,7 @@ mixin Libp2pPubsubPeerMetadataStore$ on GoHandle {
   Future<void> put(
       $context.Context ctx, $peer.Libp2pCorePeerId id, Uint8List arg2) async {
     await $call(
-        13316,
+        13322,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1417,7 +1417,7 @@ class Libp2pPubsubPubSub extends $crypto.CryptoDecrypterOpts
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> addDirectPeer($peer.Libp2pCorePeerAddrInfo pInfo) async {
     await $call(
-        13317,
+        13323,
         $W()
           ..h(this)
           ..dto(pInfo));
@@ -1428,7 +1428,7 @@ class Libp2pPubsubPubSub extends $crypto.CryptoDecrypterOpts
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> blacklistPeer($peer.Libp2pCorePeerId pid) async {
     await $call(
-        13318,
+        13324,
         $W()
           ..h(this)
           ..val(pid));
@@ -1438,7 +1438,7 @@ class Libp2pPubsubPubSub extends $crypto.CryptoDecrypterOpts
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<List<String>> getTopics() async {
-    final $r = await $call(13319, $W()..h(this));
+    final $r = await $call(13325, $W()..h(this));
     return $r.list(() => $r.str());
   }
 
@@ -1448,7 +1448,7 @@ class Libp2pPubsubPubSub extends $crypto.CryptoDecrypterOpts
   Future<Libp2pPubsubTopic> join(String topic,
       [List<Libp2pPubsubTopicOpt> opts = const []]) async {
     final $r = await $call(
-        13320,
+        13326,
         $W()
           ..h(this)
           ..str(topic)
@@ -1461,7 +1461,7 @@ class Libp2pPubsubPubSub extends $crypto.CryptoDecrypterOpts
   /// Asynchronous: runs in a goroutine of the service.
   Future<List<$peer.Libp2pCorePeerId>> listPeers(String topic) async {
     final $r = await $call(
-        13321,
+        13327,
         $W()
           ..h(this)
           ..str(topic));
@@ -1471,7 +1471,7 @@ class Libp2pPubsubPubSub extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*pubsub.PubSub).PeerFeedback(topic string, peer peer.ID, kind pubsub.PeerFeedbackKind) error`.
   void peerFeedback(String topic, $peer.Libp2pCorePeerId peer, int kind) {
     $callSync(
-        13322,
+        13328,
         $W()
           ..h(this)
           ..str(topic)
@@ -1484,7 +1484,7 @@ class Libp2pPubsubPubSub extends $crypto.CryptoDecrypterOpts
   void publish(String topic, Uint8List data,
       [List<Libp2pPubsubPubOpt> opts = const []]) {
     $callSync(
-        13323,
+        13329,
         $W()
           ..h(this)
           ..str(topic)
@@ -1496,7 +1496,7 @@ class Libp2pPubsubPubSub extends $crypto.CryptoDecrypterOpts
   void publishBatch(Libp2pPubsubMessageBatch batch,
       [List<Libp2pPubsubBatchPubOpt> opts = const []]) {
     $callSync(
-        13324,
+        13330,
         $W()
           ..h(this)
           ..h(batch)
@@ -1516,7 +1516,7 @@ class Libp2pPubsubPubSub extends $crypto.CryptoDecrypterOpts
           val,
       [List<Libp2pPubsubValidatorOpt> opts = const []]) async {
     await $call(
-        13325,
+        13331,
         $W()
           ..h(this)
           ..str(topic)
@@ -1535,7 +1535,7 @@ class Libp2pPubsubPubSub extends $crypto.CryptoDecrypterOpts
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> removeDirectPeer($peer.Libp2pCorePeerId pid) async {
     await $call(
-        13326,
+        13332,
         $W()
           ..h(this)
           ..val(pid));
@@ -1546,7 +1546,7 @@ class Libp2pPubsubPubSub extends $crypto.CryptoDecrypterOpts
   Libp2pPubsubSubscription subscribe(String topic,
       [List<Libp2pPubsubSubOpt> opts = const []]) {
     final $r = $callSync(
-        13327,
+        13333,
         $W()
           ..h(this)
           ..str(topic)
@@ -1559,7 +1559,7 @@ class Libp2pPubsubPubSub extends $crypto.CryptoDecrypterOpts
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> unregisterTopicValidator(String topic) async {
     await $call(
-        13328,
+        13334,
         $W()
           ..h(this)
           ..str(topic));
@@ -1576,7 +1576,7 @@ mixin Libp2pPubsubPubSubRouter$ on GoHandle {
   /// Go: `func (pubsub.PubSubRouter).AcceptFrom(peer.ID) pubsub.AcceptStatus`.
   int acceptFrom($peer.Libp2pCorePeerId id) {
     final $r = $callSync(
-        13329,
+        13335,
         $W()
           ..h(this)
           ..val(id));
@@ -1586,7 +1586,7 @@ mixin Libp2pPubsubPubSubRouter$ on GoHandle {
   /// Go: `func (pubsub.PubSubRouter).Attach(*pubsub.PubSub)`.
   void attach(Libp2pPubsubPubSub pubSub) {
     $callSync(
-        13330,
+        13336,
         $W()
           ..h(this)
           ..h(pubSub));
@@ -1595,7 +1595,7 @@ mixin Libp2pPubsubPubSubRouter$ on GoHandle {
   /// Go: `func (pubsub.PubSubRouter).EnoughPeers(topic string, suggested int) bool`.
   bool enoughPeers(String topic, int suggested) {
     final $r = $callSync(
-        13331,
+        13337,
         $W()
           ..h(this)
           ..str(topic)
@@ -1606,7 +1606,7 @@ mixin Libp2pPubsubPubSubRouter$ on GoHandle {
   /// Go: `func (pubsub.PubSubRouter).HandleRPC(*pubsub.RPC)`.
   void handleRpc(Libp2pPubsubRpc rpc) {
     $callSync(
-        13332,
+        13338,
         $W()
           ..h(this)
           ..h(rpc));
@@ -1615,7 +1615,7 @@ mixin Libp2pPubsubPubSubRouter$ on GoHandle {
   /// Go: `func (pubsub.PubSubRouter).Join(topic string)`.
   void join(String topic) {
     $callSync(
-        13333,
+        13339,
         $W()
           ..h(this)
           ..str(topic));
@@ -1624,7 +1624,7 @@ mixin Libp2pPubsubPubSubRouter$ on GoHandle {
   /// Go: `func (pubsub.PubSubRouter).Leave(topic string)`.
   void leave(String topic) {
     $callSync(
-        13334,
+        13340,
         $W()
           ..h(this)
           ..str(topic));
@@ -1633,7 +1633,7 @@ mixin Libp2pPubsubPubSubRouter$ on GoHandle {
   /// Go: `func (pubsub.PubSubRouter).OnClosedIncomingStream(peer.ID, protocol.ID)`.
   void onClosedIncomingStream($peer.Libp2pCorePeerId id, String arg1) {
     $callSync(
-        13335,
+        13341,
         $W()
           ..h(this)
           ..val(id)
@@ -1643,7 +1643,7 @@ mixin Libp2pPubsubPubSubRouter$ on GoHandle {
   /// Go: `func (pubsub.PubSubRouter).OnClosedOutboundStream(peer.ID)`.
   void onClosedOutboundStream($peer.Libp2pCorePeerId id) {
     $callSync(
-        13336,
+        13342,
         $W()
           ..h(this)
           ..val(id));
@@ -1652,7 +1652,7 @@ mixin Libp2pPubsubPubSubRouter$ on GoHandle {
   /// Go: `func (pubsub.PubSubRouter).OnNewIncomingStream(peer.ID, protocol.ID)`.
   void onNewIncomingStream($peer.Libp2pCorePeerId id, String arg1) {
     $callSync(
-        13337,
+        13343,
         $W()
           ..h(this)
           ..val(id)
@@ -1663,7 +1663,7 @@ mixin Libp2pPubsubPubSubRouter$ on GoHandle {
   Libp2pPubsubRpc onNewOutboundStream(
       $peer.Libp2pCorePeerId id, String arg1, Libp2pPubsubRpc rpc) {
     final $r = $callSync(
-        13338,
+        13344,
         $W()
           ..h(this)
           ..val(id)
@@ -1675,7 +1675,7 @@ mixin Libp2pPubsubPubSubRouter$ on GoHandle {
   /// Go: `func (pubsub.PubSubRouter).Preprocess(from peer.ID, msgs []*pubsub.Message)`.
   void preprocess($peer.Libp2pCorePeerId from, List<Libp2pPubsubMessage> msgs) {
     $callSync(
-        13339,
+        13345,
         $W()
           ..h(this)
           ..val(from)
@@ -1684,14 +1684,14 @@ mixin Libp2pPubsubPubSubRouter$ on GoHandle {
 
   /// Go: `func (pubsub.PubSubRouter).Protocols() []protocol.ID`.
   List<String> protocols() {
-    final $r = $callSync(13340, $W()..h(this));
+    final $r = $callSync(13346, $W()..h(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (pubsub.PubSubRouter).Publish(*pubsub.Message)`.
   void publish(Libp2pPubsubMessage message) {
     $callSync(
-        13341,
+        13347,
         $W()
           ..h(this)
           ..dto(message));
@@ -1699,19 +1699,19 @@ mixin Libp2pPubsubPubSubRouter$ on GoHandle {
 
   /// Go: type assertion `x.(*pubsub.FloodSubRouter)`: null if the object is not one.
   Libp2pPubsubFloodSubRouter? asLibp2pPubsubFloodSubRouter() {
-    final $r = $callSync(1299, $W()..h(this));
+    final $r = $callSync(1302, $W()..h(this));
     return $r.hn(Libp2pPubsubFloodSubRouter.$h);
   }
 
   /// Go: type assertion `x.(*pubsub.GossipSubRouter)`: null if the object is not one.
   Libp2pPubsubGossipSubRouter? asLibp2pPubsubGossipSubRouter() {
-    final $r = $callSync(1300, $W()..h(this));
+    final $r = $callSync(1303, $W()..h(this));
     return $r.hn(Libp2pPubsubGossipSubRouter.$h);
   }
 
   /// Go: type assertion `x.(*pubsub.RandomSubRouter)`: null if the object is not one.
   Libp2pPubsubRandomSubRouter? asLibp2pPubsubRandomSubRouter() {
-    final $r = $callSync(1301, $W()..h(this));
+    final $r = $callSync(1304, $W()..h(this));
     return $r.hn(Libp2pPubsubRandomSubRouter.$h);
   }
 }
@@ -1744,13 +1744,13 @@ class Libp2pPubsubRpc extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
 
   /// Go: `func (*pubsub.RPC).From() peer.ID`.
   $peer.Libp2pCorePeerId from() {
-    final $r = $callSync(13342, $W()..h(this));
+    final $r = $callSync(13348, $W()..h(this));
     return $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil();
   }
 
   /// Go: `func (*pubsub.RPC).LogValue() slog.Value`.
   $slog.LogSlogValue logValue() {
-    final $r = $callSync(13343, $W()..h(this));
+    final $r = $callSync(13349, $W()..h(this));
     return $r.hnn($slog.LogSlogValue.$h);
   }
 }
@@ -1765,7 +1765,7 @@ mixin Libp2pPubsubRpcScheduler$ on GoHandle {
   /// Go: `func (pubsub.RPCScheduler).AddRPC(peer peer.ID, msgID string, rpc *pubsub.RPC)`.
   void addRpc($peer.Libp2pCorePeerId peer, String msgId, Libp2pPubsubRpc rpc) {
     $callSync(
-        13344,
+        13350,
         $W()
           ..h(this)
           ..val(peer)
@@ -1776,7 +1776,7 @@ mixin Libp2pPubsubRpcScheduler$ on GoHandle {
   /// Go: type assertion `x.(*pubsub.RoundRobinMessageIDScheduler)`: null if the object is not one.
   Libp2pPubsubRoundRobinMessageIdScheduler?
       asLibp2pPubsubRoundRobinMessageIdScheduler() {
-    final $r = $callSync(1302, $W()..h(this));
+    final $r = $callSync(1305, $W()..h(this));
     return $r.hn(Libp2pPubsubRoundRobinMessageIdScheduler.$h);
   }
 }
@@ -1804,7 +1804,7 @@ class Libp2pPubsubRandomSubRouter extends Libp2pPubsubPubSubRouter
   /// Go: `func (*pubsub.RandomSubRouter).AcceptFrom(peer.ID) pubsub.AcceptStatus`.
   int acceptFrom($peer.Libp2pCorePeerId id) {
     final $r = $callSync(
-        13346,
+        13352,
         $W()
           ..h(this)
           ..val(id));
@@ -1814,7 +1814,7 @@ class Libp2pPubsubRandomSubRouter extends Libp2pPubsubPubSubRouter
   /// Go: `func (*pubsub.RandomSubRouter).Attach(p *pubsub.PubSub)`.
   void attach(Libp2pPubsubPubSub p) {
     $callSync(
-        13347,
+        13353,
         $W()
           ..h(this)
           ..h(p));
@@ -1823,7 +1823,7 @@ class Libp2pPubsubRandomSubRouter extends Libp2pPubsubPubSubRouter
   /// Go: `func (*pubsub.RandomSubRouter).EnoughPeers(topic string, suggested int) bool`.
   bool enoughPeers(String topic, int suggested) {
     final $r = $callSync(
-        13348,
+        13354,
         $W()
           ..h(this)
           ..str(topic)
@@ -1834,7 +1834,7 @@ class Libp2pPubsubRandomSubRouter extends Libp2pPubsubPubSubRouter
   /// Go: `func (*pubsub.RandomSubRouter).HandleRPC(rpc *pubsub.RPC)`.
   void handleRpc(Libp2pPubsubRpc rpc) {
     $callSync(
-        13349,
+        13355,
         $W()
           ..h(this)
           ..h(rpc));
@@ -1843,7 +1843,7 @@ class Libp2pPubsubRandomSubRouter extends Libp2pPubsubPubSubRouter
   /// Go: `func (*pubsub.RandomSubRouter).Join(topic string)`.
   void join(String topic) {
     $callSync(
-        13350,
+        13356,
         $W()
           ..h(this)
           ..str(topic));
@@ -1852,7 +1852,7 @@ class Libp2pPubsubRandomSubRouter extends Libp2pPubsubPubSubRouter
   /// Go: `func (*pubsub.RandomSubRouter).Leave(topic string)`.
   void leave(String topic) {
     $callSync(
-        13351,
+        13357,
         $W()
           ..h(this)
           ..str(topic));
@@ -1861,7 +1861,7 @@ class Libp2pPubsubRandomSubRouter extends Libp2pPubsubPubSubRouter
   /// Go: `func (*pubsub.RandomSubRouter).OnClosedIncomingStream(peer.ID, protocol.ID)`.
   void onClosedIncomingStream($peer.Libp2pCorePeerId id, String arg1) {
     $callSync(
-        13352,
+        13358,
         $W()
           ..h(this)
           ..val(id)
@@ -1871,7 +1871,7 @@ class Libp2pPubsubRandomSubRouter extends Libp2pPubsubPubSubRouter
   /// Go: `func (*pubsub.RandomSubRouter).OnClosedOutboundStream(p peer.ID)`.
   void onClosedOutboundStream($peer.Libp2pCorePeerId p) {
     $callSync(
-        13353,
+        13359,
         $W()
           ..h(this)
           ..val(p));
@@ -1880,7 +1880,7 @@ class Libp2pPubsubRandomSubRouter extends Libp2pPubsubPubSubRouter
   /// Go: `func (*pubsub.RandomSubRouter).OnNewIncomingStream(peer.ID, protocol.ID)`.
   void onNewIncomingStream($peer.Libp2pCorePeerId id, String arg1) {
     $callSync(
-        13354,
+        13360,
         $W()
           ..h(this)
           ..val(id)
@@ -1891,7 +1891,7 @@ class Libp2pPubsubRandomSubRouter extends Libp2pPubsubPubSubRouter
   Libp2pPubsubRpc onNewOutboundStream(
       $peer.Libp2pCorePeerId p, String proto, Libp2pPubsubRpc hello) {
     final $r = $callSync(
-        13355,
+        13361,
         $W()
           ..h(this)
           ..val(p)
@@ -1903,7 +1903,7 @@ class Libp2pPubsubRandomSubRouter extends Libp2pPubsubPubSubRouter
   /// Go: `func (*pubsub.RandomSubRouter).Preprocess(from peer.ID, msgs []*pubsub.Message)`.
   void preprocess($peer.Libp2pCorePeerId from, List<Libp2pPubsubMessage> msgs) {
     $callSync(
-        13356,
+        13362,
         $W()
           ..h(this)
           ..val(from)
@@ -1912,14 +1912,14 @@ class Libp2pPubsubRandomSubRouter extends Libp2pPubsubPubSubRouter
 
   /// Go: `func (*pubsub.RandomSubRouter).Protocols() []protocol.ID`.
   List<String> protocols() {
-    final $r = $callSync(13357, $W()..h(this));
+    final $r = $callSync(13363, $W()..h(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (*pubsub.RandomSubRouter).Publish(msg *pubsub.Message)`.
   void publish(Libp2pPubsubMessage msg) {
     $callSync(
-        13358,
+        13364,
         $W()
           ..h(this)
           ..dto(msg));
@@ -1936,7 +1936,7 @@ mixin Libp2pPubsubRawTracer$ on GoHandle {
   /// Go: `func (pubsub.RawTracer).DeliverMessage(msg *pubsub.Message)`.
   void deliverMessage(Libp2pPubsubMessage msg) {
     $callSync(
-        13359,
+        13365,
         $W()
           ..h(this)
           ..dto(msg));
@@ -1945,7 +1945,7 @@ mixin Libp2pPubsubRawTracer$ on GoHandle {
   /// Go: `func (pubsub.RawTracer).DropRPC(rpc *pubsub.RPC, p peer.ID)`.
   void dropRpc(Libp2pPubsubRpc rpc, $peer.Libp2pCorePeerId p) {
     $callSync(
-        13360,
+        13366,
         $W()
           ..h(this)
           ..h(rpc)
@@ -1955,7 +1955,7 @@ mixin Libp2pPubsubRawTracer$ on GoHandle {
   /// Go: `func (pubsub.RawTracer).DuplicateMessage(msg *pubsub.Message)`.
   void duplicateMessage(Libp2pPubsubMessage msg) {
     $callSync(
-        13361,
+        13367,
         $W()
           ..h(this)
           ..dto(msg));
@@ -1964,7 +1964,7 @@ mixin Libp2pPubsubRawTracer$ on GoHandle {
   /// Go: `func (pubsub.RawTracer).Graft(p peer.ID, topic string)`.
   void graft($peer.Libp2pCorePeerId p, String topic) {
     $callSync(
-        13362,
+        13368,
         $W()
           ..h(this)
           ..val(p)
@@ -1974,7 +1974,7 @@ mixin Libp2pPubsubRawTracer$ on GoHandle {
   /// Go: `func (pubsub.RawTracer).Join(topic string)`.
   void join(String topic) {
     $callSync(
-        13363,
+        13369,
         $W()
           ..h(this)
           ..str(topic));
@@ -1983,7 +1983,7 @@ mixin Libp2pPubsubRawTracer$ on GoHandle {
   /// Go: `func (pubsub.RawTracer).Leave(topic string)`.
   void leave(String topic) {
     $callSync(
-        13364,
+        13370,
         $W()
           ..h(this)
           ..str(topic));
@@ -1992,7 +1992,7 @@ mixin Libp2pPubsubRawTracer$ on GoHandle {
   /// Go: `func (pubsub.RawTracer).OnClosedOutboundStream(p peer.ID)`.
   void onClosedOutboundStream($peer.Libp2pCorePeerId p) {
     $callSync(
-        13365,
+        13371,
         $W()
           ..h(this)
           ..val(p));
@@ -2001,7 +2001,7 @@ mixin Libp2pPubsubRawTracer$ on GoHandle {
   /// Go: `func (pubsub.RawTracer).OnNewOutboundStream(p peer.ID, proto protocol.ID)`.
   void onNewOutboundStream($peer.Libp2pCorePeerId p, String proto) {
     $callSync(
-        13366,
+        13372,
         $W()
           ..h(this)
           ..val(p)
@@ -2011,7 +2011,7 @@ mixin Libp2pPubsubRawTracer$ on GoHandle {
   /// Go: `func (pubsub.RawTracer).Prune(p peer.ID, topic string)`.
   void prune($peer.Libp2pCorePeerId p, String topic) {
     $callSync(
-        13367,
+        13373,
         $W()
           ..h(this)
           ..val(p)
@@ -2021,7 +2021,7 @@ mixin Libp2pPubsubRawTracer$ on GoHandle {
   /// Go: `func (pubsub.RawTracer).RecvRPC(rpc *pubsub.RPC)`.
   void recvRpc(Libp2pPubsubRpc rpc) {
     $callSync(
-        13368,
+        13374,
         $W()
           ..h(this)
           ..h(rpc));
@@ -2030,7 +2030,7 @@ mixin Libp2pPubsubRawTracer$ on GoHandle {
   /// Go: `func (pubsub.RawTracer).RejectMessage(msg *pubsub.Message, reason string)`.
   void rejectMessage(Libp2pPubsubMessage msg, String reason) {
     $callSync(
-        13369,
+        13375,
         $W()
           ..h(this)
           ..dto(msg)
@@ -2040,7 +2040,7 @@ mixin Libp2pPubsubRawTracer$ on GoHandle {
   /// Go: `func (pubsub.RawTracer).SendRPC(rpc *pubsub.RPC, p peer.ID)`.
   void sendRpc(Libp2pPubsubRpc rpc, $peer.Libp2pCorePeerId p) {
     $callSync(
-        13370,
+        13376,
         $W()
           ..h(this)
           ..h(rpc)
@@ -2050,7 +2050,7 @@ mixin Libp2pPubsubRawTracer$ on GoHandle {
   /// Go: `func (pubsub.RawTracer).ThrottlePeer(p peer.ID)`.
   void throttlePeer($peer.Libp2pCorePeerId p) {
     $callSync(
-        13371,
+        13377,
         $W()
           ..h(this)
           ..val(p));
@@ -2059,7 +2059,7 @@ mixin Libp2pPubsubRawTracer$ on GoHandle {
   /// Go: `func (pubsub.RawTracer).UndeliverableMessage(msg *pubsub.Message)`.
   void undeliverableMessage(Libp2pPubsubMessage msg) {
     $callSync(
-        13372,
+        13378,
         $W()
           ..h(this)
           ..dto(msg));
@@ -2068,7 +2068,7 @@ mixin Libp2pPubsubRawTracer$ on GoHandle {
   /// Go: `func (pubsub.RawTracer).ValidateMessage(msg *pubsub.Message)`.
   void validateMessage(Libp2pPubsubMessage msg) {
     $callSync(
-        13373,
+        13379,
         $W()
           ..h(this)
           ..dto(msg));
@@ -2116,13 +2116,13 @@ class Libp2pPubsubRemoteTracer extends Libp2pPubsubEventTracer
 
   /// Go: `func (*pubsub.basicTracer).Close()`.
   void close() {
-    $callSync(13374, $W()..h(this));
+    $callSync(13380, $W()..h(this));
   }
 
   /// Go: `func (*pubsub.basicTracer).Trace(evt *pubsub_pb.TraceEvent)`.
   void trace($pb.Libp2pPubsubPbTraceEvent evt) {
     $callSync(
-        13375,
+        13381,
         $W()
           ..h(this)
           ..h(evt));
@@ -2152,7 +2152,7 @@ class Libp2pPubsubRoundRobinMessageIdScheduler extends Libp2pPubsubRpcScheduler
   /// Go: `func (*pubsub.RoundRobinMessageIDScheduler).AddRPC(peer peer.ID, msgID string, rpc *pubsub.RPC)`.
   void addRpc($peer.Libp2pCorePeerId peer, String msgId, Libp2pPubsubRpc rpc) {
     $callSync(
-        13376,
+        13382,
         $W()
           ..h(this)
           ..val(peer)
@@ -2207,7 +2207,7 @@ class Libp2pPubsubSubscription extends $crypto.CryptoDecrypterOpts
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> cancel() async {
-    await $call(13379, $W()..h(this));
+    await $call(13385, $W()..h(this));
   }
 
   /// Go: `func (*pubsub.Subscription).Next(ctx context.Context) (*pubsub.Message, error)`.
@@ -2215,7 +2215,7 @@ class Libp2pPubsubSubscription extends $crypto.CryptoDecrypterOpts
   /// Asynchronous: runs in a goroutine of the service.
   Future<Libp2pPubsubMessage> next($context.Context ctx) async {
     final $r = await $call(
-        13380,
+        13386,
         $W()
           ..h(this)
           ..h(ctx));
@@ -2224,7 +2224,7 @@ class Libp2pPubsubSubscription extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*pubsub.Subscription).Topic() string`.
   String topic() {
-    final $r = $callSync(13381, $W()..h(this));
+    final $r = $callSync(13387, $W()..h(this));
     return $r.str();
   }
 }
@@ -2240,7 +2240,7 @@ mixin Libp2pPubsubSubscriptionFilter$ on GoHandle {
   /// Go: `func (pubsub.SubscriptionFilter).CanSubscribe(topic string) bool`.
   bool canSubscribe(String topic) {
     final $r = $callSync(
-        13382,
+        13388,
         $W()
           ..h(this)
           ..str(topic));
@@ -2252,7 +2252,7 @@ mixin Libp2pPubsubSubscriptionFilter$ on GoHandle {
       $peer.Libp2pCorePeerId id,
       List<$pb.Libp2pPubsubPbRpcSubOpts> rpcSubOptss) {
     final $r = $callSync(
-        13383,
+        13389,
         $W()
           ..h(this)
           ..val(id)
@@ -2295,7 +2295,7 @@ class Libp2pPubsubTimeCachedBlacklist extends Libp2pPubsubBlacklist
   /// Go: `func (*pubsub.TimeCachedBlacklist).Add(p peer.ID) bool`.
   bool add($peer.Libp2pCorePeerId p) {
     final $r = $callSync(
-        13386,
+        13392,
         $W()
           ..h(this)
           ..val(p));
@@ -2305,7 +2305,7 @@ class Libp2pPubsubTimeCachedBlacklist extends Libp2pPubsubBlacklist
   /// Go: `func (*pubsub.TimeCachedBlacklist).Contains(p peer.ID) bool`.
   bool contains($peer.Libp2pCorePeerId p) {
     final $r = $callSync(
-        13387,
+        13393,
         $W()
           ..h(this)
           ..val(p));
@@ -2338,7 +2338,7 @@ class Libp2pPubsubTopic extends $crypto.CryptoDecrypterOpts
       $context.Context ctx, Libp2pPubsubMessageBatch batch, Uint8List data,
       [List<Libp2pPubsubPubOpt> opts = const []]) async {
     await $call(
-        13388,
+        13394,
         $W()
           ..h(this)
           ..h(ctx)
@@ -2351,7 +2351,7 @@ class Libp2pPubsubTopic extends $crypto.CryptoDecrypterOpts
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> close() async {
-    await $call(13389, $W()..h(this));
+    await $call(13395, $W()..h(this));
   }
 
   /// Go: `func (*pubsub.Topic).EventHandler(opts ...pubsub.TopicEventHandlerOpt) (*pubsub.TopicEventHandler, error)`.
@@ -2360,7 +2360,7 @@ class Libp2pPubsubTopic extends $crypto.CryptoDecrypterOpts
   Future<Libp2pPubsubTopicEventHandler> eventHandler(
       [List<Libp2pPubsubTopicEventHandlerOpt> opts = const []]) async {
     final $r = await $call(
-        13390,
+        13396,
         $W()
           ..h(this)
           ..list(opts, (w0, e0) => w0.h(e0)));
@@ -2371,7 +2371,7 @@ class Libp2pPubsubTopic extends $crypto.CryptoDecrypterOpts
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<List<$peer.Libp2pCorePeerId>> listPeers() async {
-    final $r = await $call(13391, $W()..h(this));
+    final $r = await $call(13397, $W()..h(this));
     return $r.list(() => $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil());
   }
 
@@ -2381,7 +2381,7 @@ class Libp2pPubsubTopic extends $crypto.CryptoDecrypterOpts
   Future<void> publish($context.Context ctx, Uint8List data,
       [List<Libp2pPubsubPubOpt> opts = const []]) async {
     await $call(
-        13392,
+        13398,
         $W()
           ..h(this)
           ..h(ctx)
@@ -2391,14 +2391,14 @@ class Libp2pPubsubTopic extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*pubsub.Topic).Relay() (pubsub.RelayCancelFunc, error)`.
   Libp2pPubsubRelayCancelFunc relay() {
-    final $r = $callSync(13393, $W()..h(this));
+    final $r = $callSync(13399, $W()..h(this));
     return $r.hnn(Libp2pPubsubRelayCancelFunc.$h);
   }
 
   /// Go: `func (*pubsub.Topic).SetScoreParams(p *pubsub.TopicScoreParams) error`.
   void setScoreParams(Libp2pPubsubTopicScoreParams p) {
     $callSync(
-        13394,
+        13400,
         $W()
           ..h(this)
           ..dto(p));
@@ -2406,7 +2406,7 @@ class Libp2pPubsubTopic extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*pubsub.Topic).String() string`.
   String string() {
-    final $r = $callSync(13395, $W()..h(this));
+    final $r = $callSync(13401, $W()..h(this));
     return $r.str();
   }
 
@@ -2416,7 +2416,7 @@ class Libp2pPubsubTopic extends $crypto.CryptoDecrypterOpts
   Future<Libp2pPubsubSubscription> subscribe(
       [List<Libp2pPubsubSubOpt> opts = const []]) async {
     final $r = await $call(
-        13396,
+        13402,
         $W()
           ..h(this)
           ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -2446,7 +2446,7 @@ class Libp2pPubsubTopicEventHandler extends $crypto.CryptoDecrypterOpts
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> cancel() async {
-    await $call(13397, $W()..h(this));
+    await $call(13403, $W()..h(this));
   }
 
   /// Go: `func (*pubsub.TopicEventHandler).NextPeerEvent(ctx context.Context) (pubsub.PeerEvent, error)`.
@@ -2454,7 +2454,7 @@ class Libp2pPubsubTopicEventHandler extends $crypto.CryptoDecrypterOpts
   /// Asynchronous: runs in a goroutine of the service.
   Future<Libp2pPubsubPeerEvent> nextPeerEvent($context.Context ctx) async {
     final $r = await $call(
-        13398,
+        13404,
         $W()
           ..h(this)
           ..h(ctx));
@@ -2769,7 +2769,7 @@ extension GoLibp2pLibp2pPubsubApi on GoLibp2pLibp2pPubsub {
       FutureOr<bool> Function(String arg0) filter,
       {int? batchSize}) async {
     final $r = await $callCb(
-        13214,
+        13220,
         $W()
           ..list(subs, (w0, e0) => w0.h(e0))
           ..u32(batchSize ?? 0),
@@ -2779,26 +2779,26 @@ extension GoLibp2pLibp2pPubsubApi on GoLibp2pLibp2pPubsub {
 
   /// Go: `func pubsub.DefaultGossipSubParams() pubsub.GossipSubParams`.
   Libp2pPubsubGossipSubParams defaultGossipSubParams() {
-    final $r = $callSync(13198);
+    final $r = $callSync(13204);
     return $r.p() ? Libp2pPubsubGossipSubParams.$dec($r) : $nil();
   }
 
   /// Go: `func pubsub.DefaultGossipSubRouter(h host.Host) *pubsub.GossipSubRouter`.
   Libp2pPubsubGossipSubRouter defaultGossipSubRouter($host.Libp2pCoreHost h) {
-    final $r = $callSync(13199, $W()..h(h));
+    final $r = $callSync(13205, $W()..h(h));
     return $r.hnn(Libp2pPubsubGossipSubRouter.$h);
   }
 
   /// Go: `func pubsub.DefaultMsgIdFn(pmsg *pubsub_pb.Message) string`.
   String defaultMsgIdFn($pb.Libp2pPubsubPbMessage pmsg) {
-    final $r = $callSync(13200, $W()..h(pmsg));
+    final $r = $callSync(13206, $W()..h(pmsg));
     return $r.str();
   }
 
   /// Go: `func pubsub.DefaultPeerFilter(pid peer.ID, topic string) bool`.
   bool defaultPeerFilter($peer.Libp2pCorePeerId pid, String topic) {
     final $r = $callSync(
-        13201,
+        13207,
         $W()
           ..val(pid)
           ..str(topic));
@@ -2807,116 +2807,116 @@ extension GoLibp2pLibp2pPubsubApi on GoLibp2pLibp2pPubsub {
 
   /// Go: `var pubsub.DefaultPeerGaterDuplicateWeight float64`.
   double get defaultPeerGaterDuplicateWeight {
-    final $r = $callSync(13202);
+    final $r = $callSync(13208);
     return $r.f64();
   }
 
   /// Go: `var pubsub.DefaultPeerGaterGlobalDecay float64`.
   double get defaultPeerGaterGlobalDecay {
-    final $r = $callSync(13203);
+    final $r = $callSync(13209);
     return $r.f64();
   }
 
   /// Go: `var pubsub.DefaultPeerGaterIgnoreWeight float64`.
   double get defaultPeerGaterIgnoreWeight {
-    final $r = $callSync(13204);
+    final $r = $callSync(13210);
     return $r.f64();
   }
 
   /// Go: `func pubsub.DefaultPeerGaterParams() *pubsub.PeerGaterParams`.
   Libp2pPubsubPeerGaterParams defaultPeerGaterParams() {
-    final $r = $callSync(13205);
+    final $r = $callSync(13211);
     return $r.p() ? Libp2pPubsubPeerGaterParams.$dec($r) : $nil();
   }
 
   /// Go: `var pubsub.DefaultPeerGaterQuiet time.Duration`.
   Duration get defaultPeerGaterQuiet {
-    final $r = $callSync(13206);
+    final $r = $callSync(13212);
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `var pubsub.DefaultPeerGaterRejectWeight float64`.
   double get defaultPeerGaterRejectWeight {
-    final $r = $callSync(13207);
+    final $r = $callSync(13213);
     return $r.f64();
   }
 
   /// Go: `var pubsub.DefaultPeerGaterRetainStats time.Duration`.
   Duration get defaultPeerGaterRetainStats {
-    final $r = $callSync(13208);
+    final $r = $callSync(13214);
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `var pubsub.DefaultPeerGaterSourceDecay float64`.
   double get defaultPeerGaterSourceDecay {
-    final $r = $callSync(13209);
+    final $r = $callSync(13215);
     return $r.f64();
   }
 
   /// Go: `var pubsub.DefaultPeerGaterThreshold float64`.
   double get defaultPeerGaterThreshold {
-    final $r = $callSync(13210);
+    final $r = $callSync(13216);
     return $r.f64();
   }
 
   /// Go: `var pubsub.DiscoveryPollInitialDelay time.Duration`.
   Duration get discoveryPollInitialDelay {
-    final $r = $callSync(13211);
+    final $r = $callSync(13217);
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `var pubsub.DiscoveryPollInterval time.Duration`.
   Duration get discoveryPollInterval {
-    final $r = $callSync(13212);
+    final $r = $callSync(13218);
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `var pubsub.GossipSubConnTagBumpMessageDelivery int`.
   int get gossipSubConnTagBumpMessageDelivery {
-    final $r = $callSync(13228);
+    final $r = $callSync(13234);
     return $r.i64();
   }
 
   /// Go: `var pubsub.GossipSubConnTagDecayAmount int`.
   int get gossipSubConnTagDecayAmount {
-    final $r = $callSync(13229);
+    final $r = $callSync(13235);
     return $r.i64();
   }
 
   /// Go: `var pubsub.GossipSubConnTagDecayInterval time.Duration`.
   Duration get gossipSubConnTagDecayInterval {
-    final $r = $callSync(13230);
+    final $r = $callSync(13236);
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `var pubsub.GossipSubConnTagMessageDeliveryCap int`.
   int get gossipSubConnTagMessageDeliveryCap {
-    final $r = $callSync(13231);
+    final $r = $callSync(13237);
     return $r.i64();
   }
 
   /// Go: `var pubsub.GossipSubConnectionTimeout time.Duration`.
   Duration get gossipSubConnectionTimeout {
-    final $r = $callSync(13232);
+    final $r = $callSync(13238);
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `var pubsub.GossipSubConnectors int`.
   int get gossipSubConnectors {
-    final $r = $callSync(13233);
+    final $r = $callSync(13239);
     return $r.i64();
   }
 
   /// Go: `var pubsub.GossipSubD int`.
   int get gossipSubD {
-    final $r = $callSync(13234);
+    final $r = $callSync(13240);
     return $r.i64();
   }
 
   /// Go: `func pubsub.GossipSubDefaultFeatures(feat pubsub.GossipSubFeature, proto protocol.ID) bool`.
   bool gossipSubDefaultFeatures(int feat, String proto) {
     final $r = $callSync(
-        13235,
+        13241,
         $W()
           ..i64(feat)
           ..str(proto));
@@ -2925,194 +2925,194 @@ extension GoLibp2pLibp2pPubsubApi on GoLibp2pLibp2pPubsub {
 
   /// Go: `var pubsub.GossipSubDefaultProtocols []protocol.ID`.
   List<String> get gossipSubDefaultProtocols {
-    final $r = $callSync(13236);
+    final $r = $callSync(13242);
     return $r.list(() => $r.str());
   }
 
   /// Go: `var pubsub.GossipSubDhi int`.
   int get gossipSubDhi {
-    final $r = $callSync(13237);
+    final $r = $callSync(13243);
     return $r.i64();
   }
 
   /// Go: `var pubsub.GossipSubDirectConnectInitialDelay time.Duration`.
   Duration get gossipSubDirectConnectInitialDelay {
-    final $r = $callSync(13238);
+    final $r = $callSync(13244);
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `var pubsub.GossipSubDirectConnectTicks uint64`.
   int get gossipSubDirectConnectTicks {
-    final $r = $callSync(13239);
+    final $r = $callSync(13245);
     return $r.i64();
   }
 
   /// Go: `var pubsub.GossipSubDlazy int`.
   int get gossipSubDlazy {
-    final $r = $callSync(13240);
+    final $r = $callSync(13246);
     return $r.i64();
   }
 
   /// Go: `var pubsub.GossipSubDlo int`.
   int get gossipSubDlo {
-    final $r = $callSync(13241);
+    final $r = $callSync(13247);
     return $r.i64();
   }
 
   /// Go: `var pubsub.GossipSubDout int`.
   int get gossipSubDout {
-    final $r = $callSync(13242);
+    final $r = $callSync(13248);
     return $r.i64();
   }
 
   /// Go: `var pubsub.GossipSubDscore int`.
   int get gossipSubDscore {
-    final $r = $callSync(13243);
+    final $r = $callSync(13249);
     return $r.i64();
   }
 
   /// Go: `var pubsub.GossipSubFanoutTTL time.Duration`.
   Duration get gossipSubFanoutTtl {
-    final $r = $callSync(13244);
+    final $r = $callSync(13250);
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `var pubsub.GossipSubGossipFactor float64`.
   double get gossipSubGossipFactor {
-    final $r = $callSync(13245);
+    final $r = $callSync(13251);
     return $r.f64();
   }
 
   /// Go: `var pubsub.GossipSubGossipRetransmission int`.
   int get gossipSubGossipRetransmission {
-    final $r = $callSync(13246);
+    final $r = $callSync(13252);
     return $r.i64();
   }
 
   /// Go: `var pubsub.GossipSubGraftFloodThreshold time.Duration`.
   Duration get gossipSubGraftFloodThreshold {
-    final $r = $callSync(13247);
+    final $r = $callSync(13253);
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `var pubsub.GossipSubHeartbeatInitialDelay time.Duration`.
   Duration get gossipSubHeartbeatInitialDelay {
-    final $r = $callSync(13248);
+    final $r = $callSync(13254);
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `var pubsub.GossipSubHeartbeatInterval time.Duration`.
   Duration get gossipSubHeartbeatInterval {
-    final $r = $callSync(13249);
+    final $r = $callSync(13255);
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `var pubsub.GossipSubHistoryGossip int`.
   int get gossipSubHistoryGossip {
-    final $r = $callSync(13250);
+    final $r = $callSync(13256);
     return $r.i64();
   }
 
   /// Go: `var pubsub.GossipSubHistoryLength int`.
   int get gossipSubHistoryLength {
-    final $r = $callSync(13251);
+    final $r = $callSync(13257);
     return $r.i64();
   }
 
   /// Go: `var pubsub.GossipSubIDontWantMessageTTL int`.
   int get gossipSubIDontWantMessageTtl {
-    final $r = $callSync(13252);
+    final $r = $callSync(13258);
     return $r.i64();
   }
 
   /// Go: `var pubsub.GossipSubIDontWantMessageThreshold int`.
   int get gossipSubIDontWantMessageThreshold {
-    final $r = $callSync(13253);
+    final $r = $callSync(13259);
     return $r.i64();
   }
 
   /// Go: `var pubsub.GossipSubIWantFollowupTime time.Duration`.
   Duration get gossipSubIWantFollowupTime {
-    final $r = $callSync(13254);
+    final $r = $callSync(13260);
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `var pubsub.GossipSubMaxIDontWantLength int`.
   int get gossipSubMaxIDontWantLength {
-    final $r = $callSync(13255);
+    final $r = $callSync(13261);
     return $r.i64();
   }
 
   /// Go: `var pubsub.GossipSubMaxIDontWantMessages int`.
   int get gossipSubMaxIDontWantMessages {
-    final $r = $callSync(13256);
+    final $r = $callSync(13262);
     return $r.i64();
   }
 
   /// Go: `var pubsub.GossipSubMaxIHaveLength int`.
   int get gossipSubMaxIHaveLength {
-    final $r = $callSync(13257);
+    final $r = $callSync(13263);
     return $r.i64();
   }
 
   /// Go: `var pubsub.GossipSubMaxIHaveMessages int`.
   int get gossipSubMaxIHaveMessages {
-    final $r = $callSync(13258);
+    final $r = $callSync(13264);
     return $r.i64();
   }
 
   /// Go: `var pubsub.GossipSubMaxPendingConnections int`.
   int get gossipSubMaxPendingConnections {
-    final $r = $callSync(13259);
+    final $r = $callSync(13265);
     return $r.i64();
   }
 
   /// Go: `var pubsub.GossipSubOpportunisticGraftPeers int`.
   int get gossipSubOpportunisticGraftPeers {
-    final $r = $callSync(13260);
+    final $r = $callSync(13266);
     return $r.i64();
   }
 
   /// Go: `var pubsub.GossipSubOpportunisticGraftTicks uint64`.
   int get gossipSubOpportunisticGraftTicks {
-    final $r = $callSync(13261);
+    final $r = $callSync(13267);
     return $r.i64();
   }
 
   /// Go: `var pubsub.GossipSubPruneBackoff time.Duration`.
   Duration get gossipSubPruneBackoff {
-    final $r = $callSync(13262);
+    final $r = $callSync(13268);
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `var pubsub.GossipSubPrunePeers int`.
   int get gossipSubPrunePeers {
-    final $r = $callSync(13263);
+    final $r = $callSync(13269);
     return $r.i64();
   }
 
   /// Go: `var pubsub.GossipSubUnsubscribeBackoff time.Duration`.
   Duration get gossipSubUnsubscribeBackoff {
-    final $r = $callSync(13281);
+    final $r = $callSync(13287);
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `func pubsub.MinTopicSize(size int) pubsub.RouterReady`.
   Libp2pPubsubRouterReady minTopicSize(int size) {
-    final $r = $callSync(13291, $W()..i64(size));
+    final $r = $callSync(13297, $W()..i64(size));
     return $r.hnn(Libp2pPubsubRouterReady.$h);
   }
 
   /// Go: `var pubsub.MinTraceBatchSize int`.
   int get minTraceBatchSize {
-    final $r = $callSync(13292);
+    final $r = $callSync(13298);
     return $r.i64();
   }
 
   /// Go: `func pubsub.NewAllowlistSubscriptionFilter(topics ...string) pubsub.SubscriptionFilter`.
   Libp2pPubsubSubscriptionFilter newAllowlistSubscriptionFilter(
       [List<String> topics = const []]) {
-    final $r = $callSync(13293, $W()..list(topics, (w0, e0) => w0.str(e0)));
+    final $r = $callSync(13299, $W()..list(topics, (w0, e0) => w0.str(e0)));
     return $r.hnn(Libp2pPubsubSubscriptionFilter.$h);
   }
 
@@ -3120,7 +3120,7 @@ extension GoLibp2pLibp2pPubsubApi on GoLibp2pLibp2pPubsub {
   Libp2pPubsubValidatorEx newBasicSeqnoValidator(
       Libp2pPubsubPeerMetadataStore meta, $slog.LogSlogLogger logger) {
     final $r = $callSync(
-        13294,
+        13300,
         $W()
           ..h(meta)
           ..h(logger));
@@ -3134,7 +3134,7 @@ extension GoLibp2pLibp2pPubsubApi on GoLibp2pLibp2pPubsub {
       $context.Context ctx, $host.Libp2pCoreHost h,
       [List<Libp2pPubsubOption> opts = const []]) async {
     final $r = await $call(
-        13295,
+        13301,
         $W()
           ..h(ctx)
           ..h(h)
@@ -3149,7 +3149,7 @@ extension GoLibp2pLibp2pPubsubApi on GoLibp2pLibp2pPubsub {
       $context.Context ctx, $host.Libp2pCoreHost h, List<String> ps,
       [List<Libp2pPubsubOption> opts = const []]) async {
     final $r = await $call(
-        13296,
+        13302,
         $W()
           ..h(ctx)
           ..h(h)
@@ -3165,7 +3165,7 @@ extension GoLibp2pLibp2pPubsubApi on GoLibp2pLibp2pPubsub {
       $context.Context ctx, $host.Libp2pCoreHost h,
       [List<Libp2pPubsubOption> opts = const []]) async {
     final $r = await $call(
-        13297,
+        13303,
         $W()
           ..h(ctx)
           ..h(h)
@@ -3180,7 +3180,7 @@ extension GoLibp2pLibp2pPubsubApi on GoLibp2pLibp2pPubsub {
       $context.Context ctx, $host.Libp2pCoreHost h, Libp2pPubsubPubSubRouter rt,
       [List<Libp2pPubsubOption> opts = const []]) async {
     final $r = await $call(
-        13298,
+        13304,
         $W()
           ..h(ctx)
           ..h(h)
@@ -3191,7 +3191,7 @@ extension GoLibp2pLibp2pPubsubApi on GoLibp2pLibp2pPubsub {
 
   /// Go: `func pubsub.NewMapBlacklist() pubsub.Blacklist`.
   Libp2pPubsubBlacklist newMapBlacklist() {
-    final $r = $callSync(13300);
+    final $r = $callSync(13306);
     return $r.hnn(Libp2pPubsubBlacklist.$h);
   }
 
@@ -3199,7 +3199,7 @@ extension GoLibp2pLibp2pPubsubApi on GoLibp2pLibp2pPubsub {
   Libp2pPubsubPeerGaterParams newPeerGaterParams(
       double threshold, double globalDecay, double sourceDecay) {
     final $r = $callSync(
-        13303,
+        13309,
         $W()
           ..f64(threshold)
           ..f64(globalDecay)
@@ -3214,7 +3214,7 @@ extension GoLibp2pLibp2pPubsubApi on GoLibp2pLibp2pPubsub {
       $context.Context ctx, $host.Libp2pCoreHost h, Libp2pPubsubPubSubRouter rt,
       [List<Libp2pPubsubOption> opts = const []]) async {
     final $r = await $call(
-        13304,
+        13310,
         $W()
           ..h(ctx)
           ..h(h)
@@ -3230,7 +3230,7 @@ extension GoLibp2pLibp2pPubsubApi on GoLibp2pLibp2pPubsub {
       $context.Context ctx, $host.Libp2pCoreHost h, int size,
       [List<Libp2pPubsubOption> opts = const []]) async {
     final $r = await $call(
-        13305,
+        13311,
         $W()
           ..h(ctx)
           ..h(h)
@@ -3242,7 +3242,7 @@ extension GoLibp2pLibp2pPubsubApi on GoLibp2pLibp2pPubsub {
   /// Go: `func pubsub.NewRegexpSubscriptionFilter(rx *regexp.Regexp) pubsub.SubscriptionFilter`.
   Libp2pPubsubSubscriptionFilter newRegexpSubscriptionFilter(
       $regexp.Regexp rx) {
-    final $r = $callSync(13306, $W()..h(rx));
+    final $r = $callSync(13312, $W()..h(rx));
     return $r.hnn(Libp2pPubsubSubscriptionFilter.$h);
   }
 
@@ -3255,7 +3255,7 @@ extension GoLibp2pLibp2pPubsubApi on GoLibp2pLibp2pPubsub {
       $peer.Libp2pCorePeerAddrInfo pi,
       $slog.LogSlogLogger logger) async {
     final $r = await $call(
-        13307,
+        13313,
         $W()
           ..h(ctx)
           ..h(host)
@@ -3266,7 +3266,7 @@ extension GoLibp2pLibp2pPubsubApi on GoLibp2pLibp2pPubsub {
 
   /// Go: `func pubsub.NewTimeCachedBlacklist(expiry time.Duration) (pubsub.Blacklist, error)`.
   Libp2pPubsubBlacklist newTimeCachedBlacklist(Duration expiry) {
-    final $r = $callSync(13308, $W()..i64((expiry).inMicroseconds * 1000));
+    final $r = $callSync(13314, $W()..i64((expiry).inMicroseconds * 1000));
     return $r.hnn(Libp2pPubsubBlacklist.$h);
   }
 
@@ -3274,7 +3274,7 @@ extension GoLibp2pLibp2pPubsubApi on GoLibp2pLibp2pPubsub {
   Libp2pPubsubJsonTracer openJsonTracer(
       String file, int flags, int perm, $slog.LogSlogLogger logger) {
     final $r = $callSync(
-        13309,
+        13315,
         $W()
           ..str(file)
           ..i64(flags)
@@ -3287,7 +3287,7 @@ extension GoLibp2pLibp2pPubsubApi on GoLibp2pLibp2pPubsub {
   Libp2pPubsubPbTracer openPbTracer(
       String file, int flags, int perm, $slog.LogSlogLogger logger) {
     final $r = $callSync(
-        13310,
+        13316,
         $W()
           ..str(file)
           ..i64(flags)
@@ -3298,13 +3298,13 @@ extension GoLibp2pLibp2pPubsubApi on GoLibp2pLibp2pPubsub {
 
   /// Go: `var pubsub.RandomSubD int`.
   int get randomSubD {
-    final $r = $callSync(13345);
+    final $r = $callSync(13351);
     return $r.i64();
   }
 
   /// Go: `func pubsub.ScoreParameterDecay(decay time.Duration) float64`.
   double scoreParameterDecay(Duration decay) {
-    final $r = $callSync(13377, $W()..i64((decay).inMicroseconds * 1000));
+    final $r = $callSync(13383, $W()..i64((decay).inMicroseconds * 1000));
     return $r.f64();
   }
 
@@ -3312,7 +3312,7 @@ extension GoLibp2pLibp2pPubsubApi on GoLibp2pLibp2pPubsub {
   double scoreParameterDecayWithBase(
       Duration decay, Duration base, double decayToZero) {
     final $r = $callSync(
-        13378,
+        13384,
         $W()
           ..i64((decay).inMicroseconds * 1000)
           ..i64((base).inMicroseconds * 1000)
@@ -3322,19 +3322,19 @@ extension GoLibp2pLibp2pPubsubApi on GoLibp2pLibp2pPubsub {
 
   /// Go: `var pubsub.TimeCacheDuration time.Duration`.
   Duration get timeCacheDuration {
-    final $r = $callSync(13384);
+    final $r = $callSync(13390);
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `var pubsub.TimeCacheStrategy timecache.Strategy`.
   int get timeCacheStrategy {
-    final $r = $callSync(13385);
+    final $r = $callSync(13391);
     return $r.i64();
   }
 
   /// Go: `var pubsub.TraceBufferSize int`.
   int get traceBufferSize {
-    final $r = $callSync(13399);
+    final $r = $callSync(13405);
     return $r.i64();
   }
 
@@ -3342,7 +3342,7 @@ extension GoLibp2pLibp2pPubsubApi on GoLibp2pLibp2pPubsub {
   Libp2pPubsubSubscriptionFilter wrapLimitSubscriptionFilter(
       Libp2pPubsubSubscriptionFilter filter, int limit) {
     final $r = $callSync(
-        13400,
+        13406,
         $W()
           ..h(filter)
           ..i64(limit));

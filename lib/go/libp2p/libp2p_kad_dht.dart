@@ -86,7 +86,7 @@ class Libp2pKadDhtIpfsDht extends $routing.Libp2pCoreRouting
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> bootstrap($context.Context ctx) async {
     await $call(
-        12908,
+        12914,
         $W()
           ..h(this)
           ..h(ctx));
@@ -94,7 +94,7 @@ class Libp2pKadDhtIpfsDht extends $routing.Libp2pCoreRouting
 
   /// Go: `func (*dht.IpfsDHT).BucketSize() int`.
   int bucketSize() {
-    final $r = $callSync(12909, $W()..h(this));
+    final $r = $callSync(12915, $W()..h(this));
     return $r.i64();
   }
 
@@ -102,12 +102,12 @@ class Libp2pKadDhtIpfsDht extends $routing.Libp2pCoreRouting
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> close() async {
-    await $call(12910, $W()..h(this));
+    await $call(12916, $W()..h(this));
   }
 
   /// Go: `func (*dht.IpfsDHT).FilteredAddrs() []multiaddr.Multiaddr`.
   List<$multiaddr.Multiaddr> filteredAddrs() {
-    final $r = $callSync(12911, $W()..h(this));
+    final $r = $callSync(12917, $W()..h(this));
     return $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil());
   }
 
@@ -117,7 +117,7 @@ class Libp2pKadDhtIpfsDht extends $routing.Libp2pCoreRouting
   Future<$peer.Libp2pCorePeerAddrInfo> findLocal(
       $context.Context ctx, $peer.Libp2pCorePeerId id) async {
     final $r = await $call(
-        12912,
+        12918,
         $W()
           ..h(this)
           ..h(ctx)
@@ -131,7 +131,7 @@ class Libp2pKadDhtIpfsDht extends $routing.Libp2pCoreRouting
   Future<$peer.Libp2pCorePeerAddrInfo> findPeer(
       $context.Context ctx, $peer.Libp2pCorePeerId id) async {
     final $r = await $call(
-        12913,
+        12919,
         $W()
           ..h(this)
           ..h(ctx)
@@ -145,7 +145,7 @@ class Libp2pKadDhtIpfsDht extends $routing.Libp2pCoreRouting
   Future<List<$peer.Libp2pCorePeerAddrInfo>> findProviders(
       $context.Context ctx, $cid.Cid c) async {
     final $r = await $call(
-        12914,
+        12920,
         $W()
           ..h(this)
           ..h(ctx)
@@ -158,7 +158,7 @@ class Libp2pKadDhtIpfsDht extends $routing.Libp2pCoreRouting
   Stream<$peer.Libp2pCorePeerAddrInfo> findProvidersAsync(
           $context.Context ctx, $cid.Cid key, int count) =>
       $stream(
-              12915,
+              12921,
               $W()
                 ..h(this)
                 ..h(ctx)
@@ -172,7 +172,7 @@ class Libp2pKadDhtIpfsDht extends $routing.Libp2pCoreRouting
   Future<List<$peer.Libp2pCorePeerId>> getClosestPeers(
       $context.Context ctx, String key) async {
     final $r = await $call(
-        12916,
+        12922,
         $W()
           ..h(this)
           ..h(ctx)
@@ -186,7 +186,7 @@ class Libp2pKadDhtIpfsDht extends $routing.Libp2pCoreRouting
   Future<$crypto2.Libp2pCoreCryptoPubKey> getPublicKey(
       $context.Context ctx, $peer.Libp2pCorePeerId p) async {
     final $r = await $call(
-        12917,
+        12923,
         $W()
           ..h(this)
           ..h(ctx)
@@ -197,7 +197,7 @@ class Libp2pKadDhtIpfsDht extends $routing.Libp2pCoreRouting
   /// Go: `func (*dht.IpfsDHT).GetRoutingTableDiversityStats() []peerdiversity.CplDiversityStats`.
   List<$peerdiversity.Libp2pKbucketPeerdiversityCplDiversityStats>
       getRoutingTableDiversityStats() {
-    final $r = $callSync(12918, $W()..h(this));
+    final $r = $callSync(12924, $W()..h(this));
     return $r.list(() => $r.p()
         ? $peerdiversity.Libp2pKbucketPeerdiversityCplDiversityStats.$dec($r)
         : $nil());
@@ -209,7 +209,7 @@ class Libp2pKadDhtIpfsDht extends $routing.Libp2pCoreRouting
   Future<Uint8List> getValue($context.Context ctx, String key,
       [List<$routing.Libp2pCoreRoutingOption> opts = const []]) async {
     final $r = await $call(
-        12919,
+        12925,
         $W()
           ..h(this)
           ..h(ctx)
@@ -220,37 +220,37 @@ class Libp2pKadDhtIpfsDht extends $routing.Libp2pCoreRouting
 
   /// Go: `func (*dht.IpfsDHT).Host() host.Host`.
   $host.Libp2pCoreHost host() {
-    final $r = $callSync(12920, $W()..h(this));
+    final $r = $callSync(12926, $W()..h(this));
     return $r.hnn($host.Libp2pCoreHost.$h);
   }
 
   /// Go: `func (*dht.IpfsDHT).MessageSender() dht_pb.MessageSender`.
   $pb.Libp2pKadDhtPbMessageSender messageSender() {
-    final $r = $callSync(12921, $W()..h(this));
+    final $r = $callSync(12927, $W()..h(this));
     return $r.hnn($pb.Libp2pKadDhtPbMessageSender.$h);
   }
 
   /// Go: `func (*dht.IpfsDHT).Mode() dht.ModeOpt`.
   int mode() {
-    final $r = $callSync(12922, $W()..h(this));
+    final $r = $callSync(12928, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*dht.IpfsDHT).NetworkSize() (int32, error)`.
   int networkSize() {
-    final $r = $callSync(12923, $W()..h(this));
+    final $r = $callSync(12929, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*dht.IpfsDHT).PeerID() peer.ID`.
   $peer.Libp2pCorePeerId peerId() {
-    final $r = $callSync(12924, $W()..h(this));
+    final $r = $callSync(12930, $W()..h(this));
     return $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil();
   }
 
   /// Go: `func (*dht.IpfsDHT).PeerKey() []byte`.
   Uint8List peerKey() {
-    final $r = $callSync(12925, $W()..h(this));
+    final $r = $callSync(12931, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
@@ -259,7 +259,7 @@ class Libp2pKadDhtIpfsDht extends $routing.Libp2pCoreRouting
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> ping($context.Context ctx, $peer.Libp2pCorePeerId p) async {
     await $call(
-        12926,
+        12932,
         $W()
           ..h(this)
           ..h(ctx)
@@ -271,7 +271,7 @@ class Libp2pKadDhtIpfsDht extends $routing.Libp2pCoreRouting
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> provide($context.Context ctx, $cid.Cid key, bool brdcst) async {
     await $call(
-        12927,
+        12933,
         $W()
           ..h(this)
           ..h(ctx)
@@ -281,7 +281,7 @@ class Libp2pKadDhtIpfsDht extends $routing.Libp2pCoreRouting
 
   /// Go: `func (*dht.IpfsDHT).ProviderStore() records.ProviderStore`.
   $records.Libp2pKadDhtRecordsProviderStore providerStore() {
-    final $r = $callSync(12928, $W()..h(this));
+    final $r = $callSync(12934, $W()..h(this));
     return $r.hnn($records.Libp2pKadDhtRecordsProviderStore.$h);
   }
 
@@ -291,7 +291,7 @@ class Libp2pKadDhtIpfsDht extends $routing.Libp2pCoreRouting
   Future<void> putValue($context.Context ctx, String key, Uint8List value,
       [List<$routing.Libp2pCoreRoutingOption> opts = const []]) async {
     await $call(
-        12929,
+        12935,
         $W()
           ..h(this)
           ..h(ctx)
@@ -302,7 +302,7 @@ class Libp2pKadDhtIpfsDht extends $routing.Libp2pCoreRouting
 
   /// Go: `func (*dht.IpfsDHT).RoutingTable() *kbucket.RoutingTable`.
   $libp2p_kbucket.Libp2pKbucketRoutingTable routingTable() {
-    final $r = $callSync(12930, $W()..h(this));
+    final $r = $callSync(12936, $W()..h(this));
     return $r.hnn($libp2p_kbucket.Libp2pKbucketRoutingTable.$h);
   }
 
@@ -310,7 +310,7 @@ class Libp2pKadDhtIpfsDht extends $routing.Libp2pCoreRouting
   Stream<Uint8List> searchValue($context.Context ctx, String key,
           [List<$routing.Libp2pCoreRoutingOption> opts = const []]) =>
       $stream(
-              12931,
+              12937,
               $W()
                 ..h(this)
                 ..h(ctx)
@@ -513,26 +513,26 @@ class Libp2pKadDhtErrReadTimeout extends GolangException {
 extension GoLibp2pLibp2pKadDhtApi on GoLibp2pLibp2pKadDht {
   /// Go: `var dht.DefaultBootstrapPeers []multiaddr.Multiaddr`.
   List<$multiaddr.Multiaddr> get defaultBootstrapPeers {
-    final $r = $callSync(12905);
+    final $r = $callSync(12911);
     return $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil());
   }
 
   /// Go: `var dht.DefaultProtocols []protocol.ID`.
   List<String> get defaultProtocols {
-    final $r = $callSync(12906);
+    final $r = $callSync(12912);
     return $r.list(() => $r.str());
   }
 
   /// Go: `func dht.GetDefaultBootstrapPeerAddrInfos() []peer.AddrInfo`.
   List<$peer.Libp2pCorePeerAddrInfo> getDefaultBootstrapPeerAddrInfos() {
-    final $r = $callSync(12907);
+    final $r = $callSync(12913);
     return $r
         .list(() => $r.p() ? $peer.Libp2pCorePeerAddrInfo.$dec($r) : $nil());
   }
 
   /// Go: `var dht.LookupEventBufferSize int`.
   int get lookupEventBufferSize {
-    final $r = $callSync(12932);
+    final $r = $callSync(12938);
     return $r.i64();
   }
 
@@ -540,7 +540,7 @@ extension GoLibp2pLibp2pKadDhtApi on GoLibp2pLibp2pKadDht {
   Libp2pKadDhtIpfsDht new$($host.Libp2pCoreHost h,
       [List<Libp2pKadDhtOption> options = const []]) {
     final $r = $callSync(
-        12933,
+        12939,
         $W()
           ..h(h)
           ..list(options, (w0, e0) => w0.opt(e0)));
@@ -551,7 +551,7 @@ extension GoLibp2pLibp2pKadDhtApi on GoLibp2pLibp2pKadDht {
   Libp2pKadDhtIpfsDht newDht(
       $host.Libp2pCoreHost h, $datastore.DatastoreBatching dstore) {
     final $r = $callSync(
-        12934,
+        12940,
         $W()
           ..h(h)
           ..h(dstore));
@@ -562,7 +562,7 @@ extension GoLibp2pLibp2pKadDhtApi on GoLibp2pLibp2pKadDht {
   Libp2pKadDhtIpfsDht newDhtClient(
       $host.Libp2pCoreHost h, $datastore.DatastoreBatching dstore) {
     final $r = $callSync(
-        12935,
+        12941,
         $W()
           ..h(h)
           ..h(dstore));
@@ -571,13 +571,13 @@ extension GoLibp2pLibp2pKadDhtApi on GoLibp2pLibp2pKadDht {
 
   /// Go: `func dht.NewKeyKadID(k string) *dht.KeyKadID`.
   Libp2pKadDhtKeyKadId newKeyKadId(String k) {
-    final $r = $callSync(12936, $W()..str(k));
+    final $r = $callSync(12942, $W()..str(k));
     return $r.p() ? Libp2pKadDhtKeyKadId.$dec($r) : $nil();
   }
 
   /// Go: `func dht.NewLookupTerminateEvent(reason dht.LookupTerminationReason) *dht.LookupTerminateEvent`.
   Libp2pKadDhtLookupTerminateEvent newLookupTerminateEvent(int reason) {
-    final $r = $callSync(12937, $W()..i64(reason));
+    final $r = $callSync(12943, $W()..i64(reason));
     return $r.p() ? Libp2pKadDhtLookupTerminateEvent.$dec($r) : $nil();
   }
 
@@ -590,7 +590,7 @@ extension GoLibp2pLibp2pKadDhtApi on GoLibp2pLibp2pKadDht {
       List<$peer.Libp2pCorePeerId> queried,
       List<$peer.Libp2pCorePeerId> unreachable) {
     final $r = $callSync(
-        12938,
+        12944,
         $W()
           ..val(cause)
           ..val(source)
@@ -603,27 +603,27 @@ extension GoLibp2pLibp2pKadDhtApi on GoLibp2pLibp2pKadDht {
 
   /// Go: `func dht.NewPeerKadID(p peer.ID) *dht.PeerKadID`.
   Libp2pKadDhtPeerKadId newPeerKadId($peer.Libp2pCorePeerId p) {
-    final $r = $callSync(12939, $W()..val(p));
+    final $r = $callSync(12945, $W()..val(p));
     return $r.p() ? Libp2pKadDhtPeerKadId.$dec($r) : $nil();
   }
 
   /// Go: `func dht.NewPeerKadIDSlice(p []peer.ID) []*dht.PeerKadID`.
   List<Libp2pKadDhtPeerKadId> newPeerKadIdSlice(
       List<$peer.Libp2pCorePeerId> p) {
-    final $r = $callSync(12940, $W()..list(p, (w0, e0) => w0.val(e0)));
+    final $r = $callSync(12946, $W()..list(p, (w0, e0) => w0.val(e0)));
     return $r.list(() => $r.p() ? Libp2pKadDhtPeerKadId.$dec($r) : $nil());
   }
 
   /// Go: `func dht.OptPeerKadID(p peer.ID) *dht.PeerKadID`.
   Libp2pKadDhtPeerKadId optPeerKadId($peer.Libp2pCorePeerId p) {
-    final $r = $callSync(12941, $W()..val(p));
+    final $r = $callSync(12947, $W()..val(p));
     return $r.p() ? Libp2pKadDhtPeerKadId.$dec($r) : $nil();
   }
 
   /// Go: `func dht.PrivateQueryFilter(_ any, ai peer.AddrInfo) bool`.
   bool privateQueryFilter(Object? arg0, $peer.Libp2pCorePeerAddrInfo ai) {
     final $r = $callSync(
-        12942,
+        12948,
         $W()
           ..any(arg0)
           ..dto(ai));
@@ -633,7 +633,7 @@ extension GoLibp2pLibp2pKadDhtApi on GoLibp2pLibp2pKadDht {
   /// Go: `func dht.PrivateRoutingTableFilter(dht any, p peer.ID) bool`.
   bool privateRoutingTableFilter(Object? dht, $peer.Libp2pCorePeerId p) {
     final $r = $callSync(
-        12943,
+        12949,
         $W()
           ..any(dht)
           ..val(p));
@@ -642,14 +642,14 @@ extension GoLibp2pLibp2pKadDhtApi on GoLibp2pLibp2pKadDht {
 
   /// Go: `var dht.ProtocolDHT protocol.ID`.
   String get protocolDht {
-    final $r = $callSync(12944);
+    final $r = $callSync(12950);
     return $r.str();
   }
 
   /// Go: `func dht.PublicQueryFilter(_ any, ai peer.AddrInfo) bool`.
   bool publicQueryFilter(Object? arg0, $peer.Libp2pCorePeerAddrInfo ai) {
     final $r = $callSync(
-        12945,
+        12951,
         $W()
           ..any(arg0)
           ..dto(ai));
@@ -659,7 +659,7 @@ extension GoLibp2pLibp2pKadDhtApi on GoLibp2pLibp2pKadDht {
   /// Go: `func dht.PublicRoutingTableFilter(dht any, p peer.ID) bool`.
   bool publicRoutingTableFilter(Object? dht, $peer.Libp2pCorePeerId p) {
     final $r = $callSync(
-        12946,
+        12952,
         $W()
           ..any(dht)
           ..val(p));
@@ -672,7 +672,7 @@ extension GoLibp2pLibp2pKadDhtApi on GoLibp2pLibp2pKadDht {
   Future<void> publishLookupEvent(
       $context.Context ctx, Libp2pKadDhtLookupEvent ev) async {
     await $call(
-        12947,
+        12953,
         $W()
           ..h(ctx)
           ..dto(ev));

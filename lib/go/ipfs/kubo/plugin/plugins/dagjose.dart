@@ -10,7 +10,7 @@ import 'package:p2p_ffi/go/ipfs/kubo/plugin.dart' as $plugin;
 extension GoIpfsKuboPluginPluginsDagjoseApi on GoIpfsKuboPluginPluginsDagjose {
   /// Go: `var dagjose.Plugins []plugin.Plugin`.
   List<$plugin.KuboPlugin> get plugins {
-    final $r = $callSync(11717);
+    final $r = $callSync(11723);
     return $r.list(() => $r.hnn($plugin.KuboPlugin.$h));
   }
 }

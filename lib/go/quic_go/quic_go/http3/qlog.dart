@@ -41,7 +41,7 @@ final class QuicGoHttp3QlogDatagramCreated implements GoDto {
   /// Go: `func (qlog.DatagramCreated).Encode(enc *jsontext.Encoder, _ time.Time) error`.
   void encode($jsontext.QuicGoQlogwriterJsontextEncoder enc, DateTime time) {
     $callSync(
-        18409,
+        18415,
         $W()
           ..dto(this)
           ..h(enc)
@@ -50,7 +50,7 @@ final class QuicGoHttp3QlogDatagramCreated implements GoDto {
 
   /// Go: `func (qlog.DatagramCreated).Name() string`.
   String name() {
-    final $r = $callSync(18410, $W()..dto(this));
+    final $r = $callSync(18416, $W()..dto(this));
     return $r.str();
   }
 }
@@ -85,7 +85,7 @@ final class QuicGoHttp3QlogDatagramParsed implements GoDto {
   /// Go: `func (qlog.DatagramParsed).Encode(enc *jsontext.Encoder, _ time.Time) error`.
   void encode($jsontext.QuicGoQlogwriterJsontextEncoder enc, DateTime time) {
     $callSync(
-        18411,
+        18417,
         $W()
           ..dto(this)
           ..h(enc)
@@ -94,7 +94,7 @@ final class QuicGoHttp3QlogDatagramParsed implements GoDto {
 
   /// Go: `func (qlog.DatagramParsed).Name() string`.
   String name() {
-    final $r = $callSync(18412, $W()..dto(this));
+    final $r = $callSync(18418, $W()..dto(this));
     return $r.str();
   }
 }
@@ -143,7 +143,7 @@ final class QuicGoHttp3QlogFrameCreated implements GoDto {
   /// Go: `func (qlog.FrameCreated).Encode(enc *jsontext.Encoder, _ time.Time) error`.
   void encode($jsontext.QuicGoQlogwriterJsontextEncoder enc, DateTime time) {
     $callSync(
-        18414,
+        18420,
         $W()
           ..dto(this)
           ..h(enc)
@@ -152,7 +152,7 @@ final class QuicGoHttp3QlogFrameCreated implements GoDto {
 
   /// Go: `func (qlog.FrameCreated).Name() string`.
   String name() {
-    final $r = $callSync(18415, $W()..dto(this));
+    final $r = $callSync(18421, $W()..dto(this));
     return $r.str();
   }
 }
@@ -190,7 +190,7 @@ final class QuicGoHttp3QlogFrameParsed implements GoDto {
   /// Go: `func (qlog.FrameParsed).Encode(enc *jsontext.Encoder, _ time.Time) error`.
   void encode($jsontext.QuicGoQlogwriterJsontextEncoder enc, DateTime time) {
     $callSync(
-        18416,
+        18422,
         $W()
           ..dto(this)
           ..h(enc)
@@ -199,7 +199,7 @@ final class QuicGoHttp3QlogFrameParsed implements GoDto {
 
   /// Go: `func (qlog.FrameParsed).Name() string`.
   String name() {
-    final $r = $callSync(18417, $W()..dto(this));
+    final $r = $callSync(18423, $W()..dto(this));
     return $r.str();
   }
 }
@@ -229,7 +229,7 @@ final class QuicGoHttp3QlogRawInfo implements GoDto {
 
   /// Go: `func (qlog.RawInfo).HasValues() bool`.
   bool hasValues() {
-    final $r = $callSync(18418, $W()..dto(this));
+    final $r = $callSync(18424, $W()..dto(this));
     return $r.b();
   }
 }
@@ -244,7 +244,7 @@ extension GoQuicGoQuicGoHttp3QlogApi on GoQuicGoQuicGoHttp3Qlog {
       bool isClient,
       $quic_go.QuicGoConnectionId connId) async {
     final $r = await $call(
-        18413,
+        18419,
         $W()
           ..h(ctx)
           ..b(isClient)

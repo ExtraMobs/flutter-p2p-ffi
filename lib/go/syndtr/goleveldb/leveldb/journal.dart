@@ -42,7 +42,7 @@ class GoleveldbLeveldbJournalReader extends $crypto.CryptoDecrypterOpts
   factory GoleveldbLeveldbJournalReader(Object r,
       GoleveldbLeveldbJournalDropper dropper, bool strict, bool checksum) {
     final $r = $callSync(
-        18690,
+        18696,
         $W()
           ..reader(r)
           ..h(dropper)
@@ -53,7 +53,7 @@ class GoleveldbLeveldbJournalReader extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*journal.Reader).Next() (io.Reader, error)`.
   $io.IoReader next() {
-    final $r = $callSync(18692, $W()..h(this));
+    final $r = $callSync(18698, $W()..h(this));
     return $r.hnn($io.IoReader.$h);
   }
 
@@ -61,7 +61,7 @@ class GoleveldbLeveldbJournalReader extends $crypto.CryptoDecrypterOpts
   void reset(Object reader, GoleveldbLeveldbJournalDropper dropper, bool strict,
       bool checksum) {
     $callSync(
-        18693,
+        18699,
         $W()
           ..h(this)
           ..reader(reader)
@@ -95,24 +95,24 @@ class GoleveldbLeveldbJournalWriter extends $io.IoCloser
 
   /// Go: `func journal.NewWriter(w io.Writer) *journal.Writer`.
   factory GoleveldbLeveldbJournalWriter(GoHandle? w) {
-    final $r = $callSync(18691, $W()..h(w));
+    final $r = $callSync(18697, $W()..h(w));
     return $r.hnn(GoleveldbLeveldbJournalWriter.$h);
   }
 
   /// Go: `func (*journal.Writer).Close() error`.
   void close() {
-    $callSync(18694, $W()..h(this));
+    $callSync(18700, $W()..h(this));
   }
 
   /// Go: `func (*journal.Writer).Flush() error`.
   void flush() {
-    $callSync(18695, $W()..h(this));
+    $callSync(18701, $W()..h(this));
   }
 
   /// Go: `func (*journal.Writer).Reset(writer io.Writer) (err error)`.
   void reset(GoHandle? writer) {
     $callSync(
-        18696,
+        18702,
         $W()
           ..h(this)
           ..h(writer));
@@ -120,7 +120,7 @@ class GoleveldbLeveldbJournalWriter extends $io.IoCloser
 
   /// Go: `func (*journal.Writer).Size() int64`.
   int size() {
-    final $r = $callSync(18697, $W()..h(this));
+    final $r = $callSync(18703, $W()..h(this));
     return $r.i64();
   }
 }

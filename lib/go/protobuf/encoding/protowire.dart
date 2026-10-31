@@ -16,7 +16,7 @@ extension GoProtobufEncodingProtowireApi on GoProtobufEncodingProtowire {
   /// Go: `func protowire.AppendBytes(b []byte, v []byte) []byte`.
   Uint8List appendBytes(Uint8List b, Uint8List v) {
     final $r = $callSync(
-        24744,
+        24750,
         $W()
           ..bytes(b)
           ..bytes(v));
@@ -26,7 +26,7 @@ extension GoProtobufEncodingProtowireApi on GoProtobufEncodingProtowire {
   /// Go: `func protowire.AppendFixed32(b []byte, v uint32) []byte`.
   Uint8List appendFixed32(Uint8List b, int v) {
     final $r = $callSync(
-        24745,
+        24751,
         $W()
           ..bytes(b)
           ..i64(v));
@@ -36,7 +36,7 @@ extension GoProtobufEncodingProtowireApi on GoProtobufEncodingProtowire {
   /// Go: `func protowire.AppendFixed64(b []byte, v uint64) []byte`.
   Uint8List appendFixed64(Uint8List b, int v) {
     final $r = $callSync(
-        24746,
+        24752,
         $W()
           ..bytes(b)
           ..i64(v));
@@ -46,7 +46,7 @@ extension GoProtobufEncodingProtowireApi on GoProtobufEncodingProtowire {
   /// Go: `func protowire.AppendGroup(b []byte, num protowire.Number, v []byte) []byte`.
   Uint8List appendGroup(Uint8List b, int num, Uint8List v) {
     final $r = $callSync(
-        24747,
+        24753,
         $W()
           ..bytes(b)
           ..i64(num)
@@ -57,7 +57,7 @@ extension GoProtobufEncodingProtowireApi on GoProtobufEncodingProtowire {
   /// Go: `func protowire.AppendString(b []byte, v string) []byte`.
   Uint8List appendString(Uint8List b, String v) {
     final $r = $callSync(
-        24748,
+        24754,
         $W()
           ..bytes(b)
           ..str(v));
@@ -67,7 +67,7 @@ extension GoProtobufEncodingProtowireApi on GoProtobufEncodingProtowire {
   /// Go: `func protowire.AppendTag(b []byte, num protowire.Number, typ protowire.Type) []byte`.
   Uint8List appendTag(Uint8List b, int num, int typ) {
     final $r = $callSync(
-        24749,
+        24755,
         $W()
           ..bytes(b)
           ..i64(num)
@@ -78,7 +78,7 @@ extension GoProtobufEncodingProtowireApi on GoProtobufEncodingProtowire {
   /// Go: `func protowire.AppendVarint(b []byte, v uint64) []byte`.
   Uint8List appendVarint(Uint8List b, int v) {
     final $r = $callSync(
-        24750,
+        24756,
         $W()
           ..bytes(b)
           ..i64(v));
@@ -87,20 +87,20 @@ extension GoProtobufEncodingProtowireApi on GoProtobufEncodingProtowire {
 
   /// Go: `func protowire.ConsumeBytes(b []byte) (v []byte, n int)`.
   (Uint8List, int) consumeBytes(Uint8List b) {
-    final $r = $callSync(24751, $W()..bytes(b));
+    final $r = $callSync(24757, $W()..bytes(b));
     return ($r.bytes() ?? Uint8List(0), $r.i64());
   }
 
   /// Go: `func protowire.ConsumeField(b []byte) (protowire.Number, protowire.Type, int)`.
   (int, int, int) consumeField(Uint8List b) {
-    final $r = $callSync(24752, $W()..bytes(b));
+    final $r = $callSync(24758, $W()..bytes(b));
     return ($r.i64(), $r.i64(), $r.i64());
   }
 
   /// Go: `func protowire.ConsumeFieldValue(num protowire.Number, typ protowire.Type, b []byte) (n int)`.
   int consumeFieldValue(int num, int typ, Uint8List b) {
     final $r = $callSync(
-        24753,
+        24759,
         $W()
           ..i64(num)
           ..i64(typ)
@@ -110,20 +110,20 @@ extension GoProtobufEncodingProtowireApi on GoProtobufEncodingProtowire {
 
   /// Go: `func protowire.ConsumeFixed32(b []byte) (v uint32, n int)`.
   (int, int) consumeFixed32(Uint8List b) {
-    final $r = $callSync(24754, $W()..bytes(b));
+    final $r = $callSync(24760, $W()..bytes(b));
     return ($r.i64(), $r.i64());
   }
 
   /// Go: `func protowire.ConsumeFixed64(b []byte) (v uint64, n int)`.
   (int, int) consumeFixed64(Uint8List b) {
-    final $r = $callSync(24755, $W()..bytes(b));
+    final $r = $callSync(24761, $W()..bytes(b));
     return ($r.i64(), $r.i64());
   }
 
   /// Go: `func protowire.ConsumeGroup(num protowire.Number, b []byte) (v []byte, n int)`.
   (Uint8List, int) consumeGroup(int num, Uint8List b) {
     final $r = $callSync(
-        24756,
+        24762,
         $W()
           ..i64(num)
           ..bytes(b));
@@ -132,50 +132,50 @@ extension GoProtobufEncodingProtowireApi on GoProtobufEncodingProtowire {
 
   /// Go: `func protowire.ConsumeString(b []byte) (v string, n int)`.
   (String, int) consumeString(Uint8List b) {
-    final $r = $callSync(24757, $W()..bytes(b));
+    final $r = $callSync(24763, $W()..bytes(b));
     return ($r.str(), $r.i64());
   }
 
   /// Go: `func protowire.ConsumeTag(b []byte) (protowire.Number, protowire.Type, int)`.
   (int, int, int) consumeTag(Uint8List b) {
-    final $r = $callSync(24758, $W()..bytes(b));
+    final $r = $callSync(24764, $W()..bytes(b));
     return ($r.i64(), $r.i64(), $r.i64());
   }
 
   /// Go: `func protowire.ConsumeVarint(b []byte) (v uint64, n int)`.
   (int, int) consumeVarint(Uint8List b) {
-    final $r = $callSync(24759, $W()..bytes(b));
+    final $r = $callSync(24765, $W()..bytes(b));
     return ($r.i64(), $r.i64());
   }
 
   /// Go: `func protowire.DecodeBool(x uint64) bool`.
   bool decodeBool(int x) {
-    final $r = $callSync(24760, $W()..i64(x));
+    final $r = $callSync(24766, $W()..i64(x));
     return $r.b();
   }
 
   /// Go: `func protowire.DecodeTag(x uint64) (protowire.Number, protowire.Type)`.
   (int, int) decodeTag(int x) {
-    final $r = $callSync(24761, $W()..i64(x));
+    final $r = $callSync(24767, $W()..i64(x));
     return ($r.i64(), $r.i64());
   }
 
   /// Go: `func protowire.DecodeZigZag(x uint64) int64`.
   int decodeZigZag(int x) {
-    final $r = $callSync(24762, $W()..i64(x));
+    final $r = $callSync(24768, $W()..i64(x));
     return $r.i64();
   }
 
   /// Go: `func protowire.EncodeBool(x bool) uint64`.
   int encodeBool(bool x) {
-    final $r = $callSync(24763, $W()..b(x));
+    final $r = $callSync(24769, $W()..b(x));
     return $r.i64();
   }
 
   /// Go: `func protowire.EncodeTag(num protowire.Number, typ protowire.Type) uint64`.
   int encodeTag(int num, int typ) {
     final $r = $callSync(
-        24764,
+        24770,
         $W()
           ..i64(num)
           ..i64(typ));
@@ -184,37 +184,37 @@ extension GoProtobufEncodingProtowireApi on GoProtobufEncodingProtowire {
 
   /// Go: `func protowire.EncodeZigZag(x int64) uint64`.
   int encodeZigZag(int x) {
-    final $r = $callSync(24765, $W()..i64(x));
+    final $r = $callSync(24771, $W()..i64(x));
     return $r.i64();
   }
 
   /// Go: `func protowire.ParseError(n int) error`.
   void parseError(int n) {
-    $callSync(24766, $W()..i64(n));
+    $callSync(24772, $W()..i64(n));
   }
 
   /// Go: `func protowire.SizeBytes(n int) int`.
   int sizeBytes(int n) {
-    final $r = $callSync(24767, $W()..i64(n));
+    final $r = $callSync(24773, $W()..i64(n));
     return $r.i64();
   }
 
   /// Go: `func protowire.SizeFixed32() int`.
   int sizeFixed32() {
-    final $r = $callSync(24768);
+    final $r = $callSync(24774);
     return $r.i64();
   }
 
   /// Go: `func protowire.SizeFixed64() int`.
   int sizeFixed64() {
-    final $r = $callSync(24769);
+    final $r = $callSync(24775);
     return $r.i64();
   }
 
   /// Go: `func protowire.SizeGroup(num protowire.Number, n int) int`.
   int sizeGroup(int num, int n) {
     final $r = $callSync(
-        24770,
+        24776,
         $W()
           ..i64(num)
           ..i64(n));
@@ -223,13 +223,13 @@ extension GoProtobufEncodingProtowireApi on GoProtobufEncodingProtowire {
 
   /// Go: `func protowire.SizeTag(num protowire.Number) int`.
   int sizeTag(int num) {
-    final $r = $callSync(24771, $W()..i64(num));
+    final $r = $callSync(24777, $W()..i64(num));
     return $r.i64();
   }
 
   /// Go: `func protowire.SizeVarint(v uint64) int`.
   int sizeVarint(int v) {
-    final $r = $callSync(24772, $W()..i64(v));
+    final $r = $callSync(24778, $W()..i64(v));
     return $r.i64();
   }
 }

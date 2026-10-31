@@ -82,24 +82,24 @@ class GrpcClientConn extends GrpcClientConnInterface
 
   /// Go: `func (*grpc.ClientConn).CanonicalTarget() string`.
   String canonicalTarget() {
-    final $r = $callSync(24238, $W()..h(this));
+    final $r = $callSync(24244, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*grpc.ClientConn).Close() error`.
   void close() {
-    $callSync(24239, $W()..h(this));
+    $callSync(24245, $W()..h(this));
   }
 
   /// Go: `func (*grpc.ClientConn).Connect()`.
   void connect() {
-    $callSync(24240, $W()..h(this));
+    $callSync(24246, $W()..h(this));
   }
 
   /// Go: `func (*grpc.ClientConn).GetMethodConfig(method string) grpc.MethodConfig`.
   GrpcMethodConfig getMethodConfig(String method) {
     final $r = $callSync(
-        24241,
+        24247,
         $W()
           ..h(this)
           ..str(method));
@@ -108,7 +108,7 @@ class GrpcClientConn extends GrpcClientConnInterface
 
   /// Go: `func (*grpc.ClientConn).GetState() connectivity.State`.
   int getState() {
-    final $r = $callSync(24242, $W()..h(this));
+    final $r = $callSync(24248, $W()..h(this));
     return $r.i64();
   }
 
@@ -119,7 +119,7 @@ class GrpcClientConn extends GrpcClientConnInterface
       $context.Context ctx, String method, Object? args, Object? reply,
       [List<GrpcCallOption> opts = const []]) async {
     await $call(
-        24243,
+        24249,
         $W()
           ..h(this)
           ..h(ctx)
@@ -136,7 +136,7 @@ class GrpcClientConn extends GrpcClientConnInterface
       $context.Context ctx, GrpcStreamDesc desc, String method,
       [List<GrpcCallOption> opts = const []]) async {
     final $r = await $call(
-        24244,
+        24250,
         $W()
           ..h(this)
           ..h(ctx)
@@ -148,12 +148,12 @@ class GrpcClientConn extends GrpcClientConnInterface
 
   /// Go: `func (*grpc.ClientConn).ResetConnectBackoff()`.
   void resetConnectBackoff() {
-    $callSync(24245, $W()..h(this));
+    $callSync(24251, $W()..h(this));
   }
 
   /// Go: `func (*grpc.ClientConn).Target() string`.
   String target() {
-    final $r = $callSync(24246, $W()..h(this));
+    final $r = $callSync(24252, $W()..h(this));
     return $r.str();
   }
 
@@ -162,7 +162,7 @@ class GrpcClientConn extends GrpcClientConnInterface
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> waitForStateChange($context.Context ctx, int sourceState) async {
     final $r = await $call(
-        24247,
+        24253,
         $W()
           ..h(this)
           ..h(ctx)
@@ -185,7 +185,7 @@ mixin GrpcClientConnInterface$ on GoHandle {
       $context.Context ctx, String method, Object? args, Object? reply,
       [List<GrpcCallOption> opts = const []]) async {
     await $call(
-        24248,
+        24254,
         $W()
           ..h(this)
           ..h(ctx)
@@ -202,7 +202,7 @@ mixin GrpcClientConnInterface$ on GoHandle {
       $context.Context ctx, GrpcStreamDesc desc, String method,
       [List<GrpcCallOption> opts = const []]) async {
     final $r = await $call(
-        24249,
+        24255,
         $W()
           ..h(this)
           ..h(ctx)
@@ -214,7 +214,7 @@ mixin GrpcClientConnInterface$ on GoHandle {
 
   /// Go: type assertion `x.(*grpc.ClientConn)`: null if the object is not one.
   GrpcClientConn? asGrpcClientConn() {
-    final $r = $callSync(2162, $W()..h(this));
+    final $r = $callSync(2169, $W()..h(this));
     return $r.hn(GrpcClientConn.$h);
   }
 }
@@ -228,13 +228,13 @@ class GrpcClientStream extends GoHandle with GrpcClientStream$ {
 mixin GrpcClientStream$ on GoHandle {
   /// Go: `func (grpc.ClientStream).CloseSend() error`.
   void closeSend() {
-    $callSync(24250, $W()..h(this));
+    $callSync(24256, $W()..h(this));
   }
 
   /// Go: `func (grpc.ClientStream).RecvMsg(m any) error`.
   void recvMsg(Object? m) {
     $callSync(
-        24251,
+        24257,
         $W()
           ..h(this)
           ..any(m));
@@ -243,7 +243,7 @@ mixin GrpcClientStream$ on GoHandle {
   /// Go: `func (grpc.ClientStream).SendMsg(m any) error`.
   void sendMsg(Object? m) {
     $callSync(
-        24252,
+        24258,
         $W()
           ..h(this)
           ..any(m));
@@ -261,7 +261,7 @@ mixin GrpcCodec$ on GoHandle {
   /// Go: `func (grpc.Codec).Marshal(v any) ([]byte, error)`.
   Uint8List marshal(Object? v) {
     final $r = $callSync(
-        24254,
+        24260,
         $W()
           ..h(this)
           ..any(v));
@@ -270,14 +270,14 @@ mixin GrpcCodec$ on GoHandle {
 
   /// Go: `func (grpc.Codec).String() string`.
   String string() {
-    final $r = $callSync(24255, $W()..h(this));
+    final $r = $callSync(24261, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (grpc.Codec).Unmarshal(data []byte, v any) error`.
   void unmarshal(Uint8List data, Object? v) {
     $callSync(
-        24256,
+        24262,
         $W()
           ..h(this)
           ..bytes(data)
@@ -296,7 +296,7 @@ mixin GrpcCompressor$ on GoHandle {
   /// Go: `func (grpc.Compressor).Do(w io.Writer, p []byte) error`.
   void do$(GoHandle? w, Uint8List p) {
     $callSync(
-        24257,
+        24263,
         $W()
           ..h(this)
           ..h(w)
@@ -305,7 +305,7 @@ mixin GrpcCompressor$ on GoHandle {
 
   /// Go: `func (grpc.Compressor).Type() string`.
   String type() {
-    final $r = $callSync(24258, $W()..h(this));
+    final $r = $callSync(24264, $W()..h(this));
     return $r.str();
   }
 }
@@ -346,7 +346,7 @@ mixin GrpcDecompressor$ on GoHandle {
   /// Go: `func (grpc.Decompressor).Do(r io.Reader) ([]byte, error)`.
   Uint8List do$(Object r) {
     final $r = $callSync(
-        24262,
+        24268,
         $W()
           ..h(this)
           ..reader(r));
@@ -355,7 +355,7 @@ mixin GrpcDecompressor$ on GoHandle {
 
   /// Go: `func (grpc.Decompressor).Type() string`.
   String type() {
-    final $r = $callSync(24263, $W()..h(this));
+    final $r = $callSync(24269, $W()..h(this));
     return $r.str();
   }
 }
@@ -462,7 +462,7 @@ class GrpcPreparedMsg extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*grpc.PreparedMsg).Encode(s grpc.Stream, msg any) error`.
   void encode(GrpcStream s, Object? msg) {
     $callSync(
-        24302,
+        24308,
         $W()
           ..h(this)
           ..h(s)
@@ -494,26 +494,26 @@ class GrpcServer extends GrpcServiceRegistrar
 
   /// Go: `func grpc.NewServer(opt ...grpc.ServerOption) *grpc.Server`.
   factory GrpcServer([List<GrpcServerOption> opt = const []]) {
-    final $r = $callSync(24297, $W()..list(opt, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(24303, $W()..list(opt, (w0, e0) => w0.h(e0)));
     return $r.hnn(GrpcServer.$h);
   }
 
   /// Go: `func (*grpc.Server).GetServiceInfo() map[string]grpc.ServiceInfo`.
   Map<String, GrpcServiceInfo> getServiceInfo() {
-    final $r = $callSync(24306, $W()..h(this));
+    final $r = $callSync(24312, $W()..h(this));
     return $r.map(
         () => $r.str(), () => $r.p() ? GrpcServiceInfo.$dec($r) : $nil());
   }
 
   /// Go: `func (*grpc.Server).GracefulStop()`.
   void gracefulStop() {
-    $callSync(24307, $W()..h(this));
+    $callSync(24313, $W()..h(this));
   }
 
   /// Go: `func (*grpc.Server).RegisterService(sd *grpc.ServiceDesc, ss any)`.
   void registerService(GrpcServiceDesc sd, Object? ss) {
     $callSync(
-        24308,
+        24314,
         $W()
           ..h(this)
           ..dto(sd)
@@ -523,7 +523,7 @@ class GrpcServer extends GrpcServiceRegistrar
   /// Go: `func (*grpc.Server).Serve(lis net.Listener) error`.
   void serve($net.NetListener lis) {
     $callSync(
-        24309,
+        24315,
         $W()
           ..h(this)
           ..h(lis));
@@ -532,7 +532,7 @@ class GrpcServer extends GrpcServiceRegistrar
   /// Go: `func (*grpc.Server).ServeHTTP(w http.ResponseWriter, r *http.Request)`.
   void serveHttp($http.NetHttpResponseWriter w, $http.NetHttpRequest r) {
     $callSync(
-        24310,
+        24316,
         $W()
           ..h(this)
           ..h(w)
@@ -541,7 +541,7 @@ class GrpcServer extends GrpcServiceRegistrar
 
   /// Go: `func (*grpc.Server).Stop()`.
   void stop() {
-    $callSync(24311, $W()..h(this));
+    $callSync(24317, $W()..h(this));
   }
 }
 
@@ -563,7 +563,7 @@ mixin GrpcServerStream$ on GoHandle {
   /// Go: `func (grpc.ServerStream).RecvMsg(m any) error`.
   void recvMsg(Object? m) {
     $callSync(
-        24312,
+        24318,
         $W()
           ..h(this)
           ..any(m));
@@ -572,7 +572,7 @@ mixin GrpcServerStream$ on GoHandle {
   /// Go: `func (grpc.ServerStream).SendMsg(m any) error`.
   void sendMsg(Object? m) {
     $callSync(
-        24313,
+        24319,
         $W()
           ..h(this)
           ..any(m));
@@ -589,14 +589,14 @@ class GrpcServerTransportStream extends GoHandle
 mixin GrpcServerTransportStream$ on GoHandle {
   /// Go: `func (grpc.ServerTransportStream).Method() string`.
   String method() {
-    final $r = $callSync(24314, $W()..h(this));
+    final $r = $callSync(24320, $W()..h(this));
     return $r.str();
   }
 
   /// Go: type assertion `x.(*runtime.ServerTransportStream)`: null if the object is not one.
   $runtime.GrpcGatewayV2RuntimeServerTransportStream?
       asGrpcGatewayV2RuntimeServerTransportStream() {
-    final $r = $callSync(2163, $W()..h(this));
+    final $r = $callSync(2170, $W()..h(this));
     return $r.hn($runtime.GrpcGatewayV2RuntimeServerTransportStream.$h);
   }
 }
@@ -664,7 +664,7 @@ mixin GrpcServiceRegistrar$ on GoHandle {
   /// Go: `func (grpc.ServiceRegistrar).RegisterService(desc *grpc.ServiceDesc, impl any)`.
   void registerService(GrpcServiceDesc desc, Object? impl) {
     $callSync(
-        24316,
+        24322,
         $W()
           ..h(this)
           ..dto(desc)
@@ -673,7 +673,7 @@ mixin GrpcServiceRegistrar$ on GoHandle {
 
   /// Go: type assertion `x.(*grpc.Server)`: null if the object is not one.
   GrpcServer? asGrpcServer() {
-    final $r = $callSync(2164, $W()..h(this));
+    final $r = $callSync(2171, $W()..h(this));
     return $r.hn(GrpcServer.$h);
   }
 }
@@ -690,7 +690,7 @@ mixin GrpcStream$ on GoHandle {
   @Deprecated("See ClientStream and ServerStream documentation instead.")
   void recvMsg(Object? m) {
     $callSync(
-        24323,
+        24329,
         $W()
           ..h(this)
           ..any(m));
@@ -700,7 +700,7 @@ mixin GrpcStream$ on GoHandle {
   @Deprecated("See ClientStream and ServerStream documentation instead.")
   void sendMsg(Object? m) {
     $callSync(
-        24324,
+        24330,
         $W()
           ..h(this)
           ..any(m));
@@ -938,14 +938,14 @@ extension GoGrpcApi on GoGrpc {
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<List<String>> clientSupportedCompressors($context.Context ctx) async {
-    final $r = await $call(24253, $W()..h(ctx));
+    final $r = await $call(24259, $W()..h(ctx));
     return $r.list(() => $r.str());
   }
 
   /// Go: `var grpc.DefaultBackoffConfig grpc.BackoffConfig`.
   @Deprecated("use ConnectParams instead. Will be supported throughout 1.x.")
   Grpc_BackoffConfig get defaultBackoffConfig {
-    final $r = $callSync(24264);
+    final $r = $callSync(24270);
     return $r.p() ? Grpc_BackoffConfig.$dec($r) : $nil();
   }
 
@@ -953,7 +953,7 @@ extension GoGrpcApi on GoGrpc {
   @Deprecated("use NewClient instead. Will be supported throughout 1.x.")
   GrpcClientConn dial(String target, [List<GrpcDialOption> opts = const []]) {
     final $r = $callSync(
-        24265,
+        24271,
         $W()
           ..str(target)
           ..list(opts, (w0, e0) => w0.h(e0)));
@@ -967,7 +967,7 @@ extension GoGrpcApi on GoGrpc {
   Future<GrpcClientConn> dialContext($context.Context ctx, String target,
       [List<GrpcDialOption> opts = const []]) async {
     final $r = await $call(
-        24266,
+        24272,
         $W()
           ..h(ctx)
           ..str(target)
@@ -977,7 +977,7 @@ extension GoGrpcApi on GoGrpc {
 
   /// Go: `var grpc.EnableTracing bool`.
   bool get enableTracing {
-    final $r = $callSync(24267);
+    final $r = $callSync(24273);
     return $r.b();
   }
 
@@ -985,7 +985,7 @@ extension GoGrpcApi on GoGrpc {
   @Deprecated("use status.Errorf instead.")
   void errorf(int c, String format, [List<Object?> a = const []]) {
     $callSync(
-        24268,
+        24274,
         $W()
           ..i64(c)
           ..str(format)
@@ -999,7 +999,7 @@ extension GoGrpcApi on GoGrpc {
       Object? reply, GrpcClientConn cc,
       [List<GrpcCallOption> opts = const []]) async {
     await $call(
-        24279,
+        24285,
         $W()
           ..h(ctx)
           ..str(method)
@@ -1013,13 +1013,13 @@ extension GoGrpcApi on GoGrpc {
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<(String, bool)> method($context.Context ctx) async {
-    final $r = await $call(24290, $W()..h(ctx));
+    final $r = await $call(24296, $W()..h(ctx));
     return ($r.str(), $r.b());
   }
 
   /// Go: `func grpc.MethodFromServerStream(stream grpc.ServerStream) (string, bool)`.
   (String, bool) methodFromServerStream(GrpcServerStream stream) {
-    final $r = $callSync(24291, $W()..h(stream));
+    final $r = $callSync(24297, $W()..h(stream));
     return ($r.str(), $r.b());
   }
 
@@ -1027,7 +1027,7 @@ extension GoGrpcApi on GoGrpc {
   GrpcClientConn newClient(String target,
       [List<GrpcDialOption> opts = const []]) {
     final $r = $callSync(
-        24292,
+        24298,
         $W()
           ..str(target)
           ..list(opts, (w0, e0) => w0.h(e0)));
@@ -1041,7 +1041,7 @@ extension GoGrpcApi on GoGrpc {
       GrpcStreamDesc desc, GrpcClientConn cc, String method,
       [List<GrpcCallOption> opts = const []]) async {
     final $r = await $call(
-        24293,
+        24299,
         $W()
           ..h(ctx)
           ..dto(desc)
@@ -1054,27 +1054,27 @@ extension GoGrpcApi on GoGrpc {
   /// Go: `func grpc.NewGZIPCompressor() grpc.Compressor`.
   @Deprecated("use package encoding/gzip.")
   GrpcCompressor newGzipCompressor() {
-    final $r = $callSync(24294);
+    final $r = $callSync(24300);
     return $r.hnn(GrpcCompressor.$h);
   }
 
   /// Go: `func grpc.NewGZIPCompressorWithLevel(level int) (grpc.Compressor, error)`.
   @Deprecated("use package encoding/gzip.")
   GrpcCompressor newGzipCompressorWithLevel(int level) {
-    final $r = $callSync(24295, $W()..i64(level));
+    final $r = $callSync(24301, $W()..i64(level));
     return $r.hnn(GrpcCompressor.$h);
   }
 
   /// Go: `func grpc.NewGZIPDecompressor() grpc.Decompressor`.
   @Deprecated("use package encoding/gzip.")
   GrpcDecompressor newGzipDecompressor() {
-    final $r = $callSync(24296);
+    final $r = $callSync(24302);
     return $r.hnn(GrpcDecompressor.$h);
   }
 
   /// Go: `var grpc.PickFirstBalancerName string`.
   String get pickFirstBalancerName {
-    final $r = $callSync(24301);
+    final $r = $callSync(24307);
     return $r.str();
   }
 
@@ -1083,7 +1083,7 @@ extension GoGrpcApi on GoGrpc {
   /// Asynchronous: runs in a goroutine of the service.
   Future<GrpcServerTransportStream> serverTransportStreamFromContext(
       $context.Context ctx) async {
-    final $r = await $call(24315, $W()..h(ctx));
+    final $r = await $call(24321, $W()..h(ctx));
     return $r.hnn(GrpcServerTransportStream.$h);
   }
 
@@ -1092,7 +1092,7 @@ extension GoGrpcApi on GoGrpc {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> setSendCompressor($context.Context ctx, String name) async {
     await $call(
-        24317,
+        24323,
         $W()
           ..h(ctx)
           ..str(name));
@@ -1130,46 +1130,46 @@ extension GoGrpcConstsApi on GoGrpcConsts {
 extension GoGrpcOptionsApi on GoGrpcOptions {
   /// Go: `func grpc.CallAuthority(authority string) grpc.CallOption`.
   GrpcCallOption callAuthority(String authority) {
-    final $r = $callSync(24233, $W()..str(authority));
+    final $r = $callSync(24239, $W()..str(authority));
     return $r.hnn(GrpcCallOption.$h);
   }
 
   /// Go: `func grpc.CallContentSubtype(contentSubtype string) grpc.CallOption`.
   GrpcCallOption callContentSubtype(String contentSubtype) {
-    final $r = $callSync(24234, $W()..str(contentSubtype));
+    final $r = $callSync(24240, $W()..str(contentSubtype));
     return $r.hnn(GrpcCallOption.$h);
   }
 
   /// Go: `func grpc.CallCustomCodec(codec grpc.Codec) grpc.CallOption`.
   @Deprecated("use ForceCodec instead.")
   GrpcCallOption callCustomCodec(GrpcCodec codec) {
-    final $r = $callSync(24235, $W()..h(codec));
+    final $r = $callSync(24241, $W()..h(codec));
     return $r.hnn(GrpcCallOption.$h);
   }
 
   /// Go: `func grpc.ChainStreamInterceptor(interceptors ...grpc.StreamServerInterceptor) grpc.ServerOption`.
   GrpcServerOption chainStreamInterceptor(
       [List<GrpcStreamServerInterceptor> interceptors = const []]) {
-    final $r = $callSync(24236, $W()..list(interceptors, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(24242, $W()..list(interceptors, (w0, e0) => w0.h(e0)));
     return $r.hnn(GrpcServerOption.$h);
   }
 
   /// Go: `func grpc.ChainUnaryInterceptor(interceptors ...grpc.UnaryServerInterceptor) grpc.ServerOption`.
   GrpcServerOption chainUnaryInterceptor(
       [List<GrpcUnaryServerInterceptor> interceptors = const []]) {
-    final $r = $callSync(24237, $W()..list(interceptors, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(24243, $W()..list(interceptors, (w0, e0) => w0.h(e0)));
     return $r.hnn(GrpcServerOption.$h);
   }
 
   /// Go: `func grpc.ConnectionTimeout(d time.Duration) grpc.ServerOption`.
   GrpcServerOption connectionTimeout(Duration d) {
-    final $r = $callSync(24259, $W()..i64((d).inMicroseconds * 1000));
+    final $r = $callSync(24265, $W()..i64((d).inMicroseconds * 1000));
     return $r.hnn(GrpcServerOption.$h);
   }
 
   /// Go: `func grpc.Creds(c credentials.TransportCredentials) grpc.ServerOption`.
   GrpcServerOption creds($credentials.GrpcCredentialsTransportCredentials c) {
-    final $r = $callSync(24260, $W()..h(c));
+    final $r = $callSync(24266, $W()..h(c));
     return $r.hnn(GrpcServerOption.$h);
   }
 
@@ -1177,14 +1177,14 @@ extension GoGrpcOptionsApi on GoGrpcOptions {
   @Deprecated(
       "register codecs using encoding.RegisterCodec. The server will automatically use registered codecs based on the incoming requests' headers. See also https://github.com/grpc/grpc-go/blob/master/Documentation/encoding.md#using-a-codec. Will be supported throughout 1.x.")
   GrpcServerOption customCodec(GrpcCodec codec) {
-    final $r = $callSync(24261, $W()..h(codec));
+    final $r = $callSync(24267, $W()..h(codec));
     return $r.hnn(GrpcServerOption.$h);
   }
 
   /// Go: `func grpc.FailFast(failFast bool) grpc.CallOption`.
   @Deprecated("use WaitForReady.")
   GrpcCallOption failFast(bool failFast) {
-    final $r = $callSync(24269, $W()..b(failFast));
+    final $r = $callSync(24275, $W()..b(failFast));
     return $r.hnn(GrpcCallOption.$h);
   }
 
@@ -1192,137 +1192,137 @@ extension GoGrpcOptionsApi on GoGrpcOptions {
   @Deprecated(
       "this DialOption is not supported by NewClient. This API may be changed or removed in a later release.")
   GrpcDialOption failOnNonTempDialError(bool f) {
-    final $r = $callSync(24270, $W()..b(f));
+    final $r = $callSync(24276, $W()..b(f));
     return $r.hnn(GrpcDialOption.$h);
   }
 
   /// Go: `func grpc.ForceCodec(codec encoding.Codec) grpc.CallOption`.
   GrpcCallOption forceCodec($encoding.GrpcEncodingCodec codec) {
-    final $r = $callSync(24271, $W()..h(codec));
+    final $r = $callSync(24277, $W()..h(codec));
     return $r.hnn(GrpcCallOption.$h);
   }
 
   /// Go: `func grpc.ForceCodecV2(codec encoding.CodecV2) grpc.CallOption`.
   GrpcCallOption forceCodecV2($encoding.GrpcEncodingCodecV2 codec) {
-    final $r = $callSync(24272, $W()..h(codec));
+    final $r = $callSync(24278, $W()..h(codec));
     return $r.hnn(GrpcCallOption.$h);
   }
 
   /// Go: `func grpc.ForceServerCodec(codec encoding.Codec) grpc.ServerOption`.
   GrpcServerOption forceServerCodec($encoding.GrpcEncodingCodec codec) {
-    final $r = $callSync(24273, $W()..h(codec));
+    final $r = $callSync(24279, $W()..h(codec));
     return $r.hnn(GrpcServerOption.$h);
   }
 
   /// Go: `func grpc.ForceServerCodecV2(codecV2 encoding.CodecV2) grpc.ServerOption`.
   GrpcServerOption forceServerCodecV2($encoding.GrpcEncodingCodecV2 codecV2) {
-    final $r = $callSync(24274, $W()..h(codecV2));
+    final $r = $callSync(24280, $W()..h(codecV2));
     return $r.hnn(GrpcServerOption.$h);
   }
 
   /// Go: `func grpc.HeaderTableSize(s uint32) grpc.ServerOption`.
   GrpcServerOption headerTableSize(int s) {
-    final $r = $callSync(24275, $W()..i64(s));
+    final $r = $callSync(24281, $W()..i64(s));
     return $r.hnn(GrpcServerOption.$h);
   }
 
   /// Go: `func grpc.InTapHandle(h tap.ServerInHandle) grpc.ServerOption`.
   GrpcServerOption inTapHandle($tap.GrpcTapServerInHandle h) {
-    final $r = $callSync(24276, $W()..h(h));
+    final $r = $callSync(24282, $W()..h(h));
     return $r.hnn(GrpcServerOption.$h);
   }
 
   /// Go: `func grpc.InitialConnWindowSize(s int32) grpc.ServerOption`.
   GrpcServerOption initialConnWindowSize(int s) {
-    final $r = $callSync(24277, $W()..i64(s));
+    final $r = $callSync(24283, $W()..i64(s));
     return $r.hnn(GrpcServerOption.$h);
   }
 
   /// Go: `func grpc.InitialWindowSize(s int32) grpc.ServerOption`.
   GrpcServerOption initialWindowSize(int s) {
-    final $r = $callSync(24278, $W()..i64(s));
+    final $r = $callSync(24284, $W()..i64(s));
     return $r.hnn(GrpcServerOption.$h);
   }
 
   /// Go: `func grpc.KeepaliveEnforcementPolicy(kep keepalive.EnforcementPolicy) grpc.ServerOption`.
   GrpcServerOption keepaliveEnforcementPolicy(
       $keepalive.GrpcKeepaliveEnforcementPolicy kep) {
-    final $r = $callSync(24280, $W()..dto(kep));
+    final $r = $callSync(24286, $W()..dto(kep));
     return $r.hnn(GrpcServerOption.$h);
   }
 
   /// Go: `func grpc.KeepaliveParams(kp keepalive.ServerParameters) grpc.ServerOption`.
   GrpcServerOption keepaliveParams(
       $keepalive.GrpcKeepaliveServerParameters kp) {
-    final $r = $callSync(24281, $W()..dto(kp));
+    final $r = $callSync(24287, $W()..dto(kp));
     return $r.hnn(GrpcServerOption.$h);
   }
 
   /// Go: `func grpc.MaxCallRecvMsgSize(bytes int) grpc.CallOption`.
   GrpcCallOption maxCallRecvMsgSize(int bytes) {
-    final $r = $callSync(24282, $W()..i64(bytes));
+    final $r = $callSync(24288, $W()..i64(bytes));
     return $r.hnn(GrpcCallOption.$h);
   }
 
   /// Go: `func grpc.MaxCallSendMsgSize(bytes int) grpc.CallOption`.
   GrpcCallOption maxCallSendMsgSize(int bytes) {
-    final $r = $callSync(24283, $W()..i64(bytes));
+    final $r = $callSync(24289, $W()..i64(bytes));
     return $r.hnn(GrpcCallOption.$h);
   }
 
   /// Go: `func grpc.MaxConcurrentStreams(n uint32) grpc.ServerOption`.
   GrpcServerOption maxConcurrentStreams(int n) {
-    final $r = $callSync(24284, $W()..i64(n));
+    final $r = $callSync(24290, $W()..i64(n));
     return $r.hnn(GrpcServerOption.$h);
   }
 
   /// Go: `func grpc.MaxHeaderListSize(s uint32) grpc.ServerOption`.
   GrpcServerOption maxHeaderListSize(int s) {
-    final $r = $callSync(24285, $W()..i64(s));
+    final $r = $callSync(24291, $W()..i64(s));
     return $r.hnn(GrpcServerOption.$h);
   }
 
   /// Go: `func grpc.MaxMsgSize(m int) grpc.ServerOption`.
   @Deprecated("use MaxRecvMsgSize instead. Will be supported throughout 1.x.")
   GrpcServerOption maxMsgSize(int m) {
-    final $r = $callSync(24286, $W()..i64(m));
+    final $r = $callSync(24292, $W()..i64(m));
     return $r.hnn(GrpcServerOption.$h);
   }
 
   /// Go: `func grpc.MaxRecvMsgSize(m int) grpc.ServerOption`.
   GrpcServerOption maxRecvMsgSize(int m) {
-    final $r = $callSync(24287, $W()..i64(m));
+    final $r = $callSync(24293, $W()..i64(m));
     return $r.hnn(GrpcServerOption.$h);
   }
 
   /// Go: `func grpc.MaxRetryRPCBufferSize(bytes int) grpc.CallOption`.
   GrpcCallOption maxRetryRpcBufferSize(int bytes) {
-    final $r = $callSync(24288, $W()..i64(bytes));
+    final $r = $callSync(24294, $W()..i64(bytes));
     return $r.hnn(GrpcCallOption.$h);
   }
 
   /// Go: `func grpc.MaxSendMsgSize(m int) grpc.ServerOption`.
   GrpcServerOption maxSendMsgSize(int m) {
-    final $r = $callSync(24289, $W()..i64(m));
+    final $r = $callSync(24295, $W()..i64(m));
     return $r.hnn(GrpcServerOption.$h);
   }
 
   /// Go: `func grpc.NumStreamWorkers(numServerWorkers uint32) grpc.ServerOption`.
   GrpcServerOption numStreamWorkers(int numServerWorkers) {
-    final $r = $callSync(24298, $W()..i64(numServerWorkers));
+    final $r = $callSync(24304, $W()..i64(numServerWorkers));
     return $r.hnn(GrpcServerOption.$h);
   }
 
   /// Go: `func grpc.Peer(p *peer.Peer) grpc.CallOption`.
   GrpcCallOption peer$($peer.GrpcPeer p) {
-    final $r = $callSync(24299, $W()..dto(p));
+    final $r = $callSync(24305, $W()..dto(p));
     return $r.hnn(GrpcCallOption.$h);
   }
 
   /// Go: `func grpc.PerRPCCredentials(creds credentials.PerRPCCredentials) grpc.CallOption`.
   GrpcCallOption perRpcCredentials(
       $credentials.GrpcCredentialsPerRpcCredentials creds) {
-    final $r = $callSync(24300, $W()..h(creds));
+    final $r = $callSync(24306, $W()..h(creds));
     return $r.hnn(GrpcCallOption.$h);
   }
 
@@ -1330,7 +1330,7 @@ extension GoGrpcOptionsApi on GoGrpcOptions {
   @Deprecated(
       "use encoding.RegisterCompressor instead. Will be supported throughout 1.x.")
   GrpcServerOption rpcCompressor(GrpcCompressor cp) {
-    final $r = $callSync(24303, $W()..h(cp));
+    final $r = $callSync(24309, $W()..h(cp));
     return $r.hnn(GrpcServerOption.$h);
   }
 
@@ -1338,13 +1338,13 @@ extension GoGrpcOptionsApi on GoGrpcOptions {
   @Deprecated(
       "use encoding.RegisterCompressor instead. Will be supported throughout 1.x.")
   GrpcServerOption rpcDecompressor(GrpcDecompressor dc) {
-    final $r = $callSync(24304, $W()..h(dc));
+    final $r = $callSync(24310, $W()..h(dc));
     return $r.hnn(GrpcServerOption.$h);
   }
 
   /// Go: `func grpc.ReadBufferSize(s int) grpc.ServerOption`.
   GrpcServerOption readBufferSize(int s) {
-    final $r = $callSync(24305, $W()..i64(s));
+    final $r = $callSync(24311, $W()..i64(s));
     return $r.hnn(GrpcServerOption.$h);
   }
 
@@ -1352,31 +1352,31 @@ extension GoGrpcOptionsApi on GoGrpcOptions {
   @Deprecated(
       "shared write buffer is enabled by default. SharedWriteBuffer will be removed in a future release.")
   GrpcServerOption sharedWriteBuffer(bool val) {
-    final $r = $callSync(24318, $W()..b(val));
+    final $r = $callSync(24324, $W()..b(val));
     return $r.hnn(GrpcServerOption.$h);
   }
 
   /// Go: `func grpc.StaticConnWindowSize(s int32) grpc.ServerOption`.
   GrpcServerOption staticConnWindowSize(int s) {
-    final $r = $callSync(24319, $W()..i64(s));
+    final $r = $callSync(24325, $W()..i64(s));
     return $r.hnn(GrpcServerOption.$h);
   }
 
   /// Go: `func grpc.StaticMethod() grpc.CallOption`.
   GrpcCallOption staticMethod() {
-    final $r = $callSync(24320);
+    final $r = $callSync(24326);
     return $r.hnn(GrpcCallOption.$h);
   }
 
   /// Go: `func grpc.StaticStreamWindowSize(s int32) grpc.ServerOption`.
   GrpcServerOption staticStreamWindowSize(int s) {
-    final $r = $callSync(24321, $W()..i64(s));
+    final $r = $callSync(24327, $W()..i64(s));
     return $r.hnn(GrpcServerOption.$h);
   }
 
   /// Go: `func grpc.StatsHandler(h stats.Handler) grpc.ServerOption`.
   GrpcServerOption statsHandler($stats.GrpcStatsHandler h) {
-    final $r = $callSync(24322, $W()..h(h));
+    final $r = $callSync(24328, $W()..h(h));
     return $r.hnn(GrpcServerOption.$h);
   }
 
@@ -1392,7 +1392,7 @@ extension GoGrpcOptionsApi on GoGrpcOptions {
               GrpcStreamServerInfo info, GrpcStreamHandler handler)
           i) async {
     final $r = await $call(
-        24325,
+        24331,
         $W()
           ..cb(
               (r) => i(
@@ -1406,7 +1406,7 @@ extension GoGrpcOptionsApi on GoGrpcOptions {
 
   /// Go: `func grpc.UnaryInterceptor(i grpc.UnaryServerInterceptor) grpc.ServerOption`.
   GrpcServerOption unaryInterceptor(GrpcUnaryServerInterceptor i) {
-    final $r = $callSync(24326, $W()..h(i));
+    final $r = $callSync(24332, $W()..h(i));
     return $r.hnn(GrpcServerOption.$h);
   }
 
@@ -1421,7 +1421,7 @@ extension GoGrpcOptionsApi on GoGrpcOptions {
       FutureOr<void> Function(Object? srv, GrpcServerStream stream)
           streamHandler) async {
     final $r = await $call(
-        24327,
+        24333,
         $W()
           ..cb(
               (r) => streamHandler(r.any(), r.hnn(GrpcServerStream.$h)), true));
@@ -1430,25 +1430,25 @@ extension GoGrpcOptionsApi on GoGrpcOptions {
 
   /// Go: `func grpc.UseCompressor(name string) grpc.CallOption`.
   GrpcCallOption useCompressor(String name) {
-    final $r = $callSync(24328, $W()..str(name));
+    final $r = $callSync(24334, $W()..str(name));
     return $r.hnn(GrpcCallOption.$h);
   }
 
   /// Go: `func grpc.WaitForHandlers(w bool) grpc.ServerOption`.
   GrpcServerOption waitForHandlers(bool w) {
-    final $r = $callSync(24329, $W()..b(w));
+    final $r = $callSync(24335, $W()..b(w));
     return $r.hnn(GrpcServerOption.$h);
   }
 
   /// Go: `func grpc.WaitForReady(waitForReady bool) grpc.CallOption`.
   GrpcCallOption waitForReady(bool waitForReady) {
-    final $r = $callSync(24330, $W()..b(waitForReady));
+    final $r = $callSync(24336, $W()..b(waitForReady));
     return $r.hnn(GrpcCallOption.$h);
   }
 
   /// Go: `func grpc.WithAuthority(a string) grpc.DialOption`.
   GrpcDialOption withAuthority(String a) {
-    final $r = $callSync(24331, $W()..str(a));
+    final $r = $callSync(24337, $W()..str(a));
     return $r.hnn(GrpcDialOption.$h);
   }
 
@@ -1456,7 +1456,7 @@ extension GoGrpcOptionsApi on GoGrpcOptions {
   @Deprecated(
       "use WithConnectParams instead. Will be supported throughout 1.x.")
   GrpcDialOption withBackoffConfig(Grpc_BackoffConfig b) {
-    final $r = $callSync(24332, $W()..dto(b));
+    final $r = $callSync(24338, $W()..dto(b));
     return $r.hnn(GrpcDialOption.$h);
   }
 
@@ -1464,7 +1464,7 @@ extension GoGrpcOptionsApi on GoGrpcOptions {
   @Deprecated(
       "use WithConnectParams instead. Will be supported throughout 1.x.")
   GrpcDialOption withBackoffMaxDelay(Duration md) {
-    final $r = $callSync(24333, $W()..i64((md).inMicroseconds * 1000));
+    final $r = $callSync(24339, $W()..i64((md).inMicroseconds * 1000));
     return $r.hnn(GrpcDialOption.$h);
   }
 
@@ -1472,27 +1472,27 @@ extension GoGrpcOptionsApi on GoGrpcOptions {
   @Deprecated(
       "this DialOption is not supported by NewClient. Will be supported throughout 1.x.")
   GrpcDialOption withBlock() {
-    final $r = $callSync(24334);
+    final $r = $callSync(24340);
     return $r.hnn(GrpcDialOption.$h);
   }
 
   /// Go: `func grpc.WithChainStreamInterceptor(interceptors ...grpc.StreamClientInterceptor) grpc.DialOption`.
   GrpcDialOption withChainStreamInterceptor(
       [List<GrpcStreamClientInterceptor> interceptors = const []]) {
-    final $r = $callSync(24335, $W()..list(interceptors, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(24341, $W()..list(interceptors, (w0, e0) => w0.h(e0)));
     return $r.hnn(GrpcDialOption.$h);
   }
 
   /// Go: `func grpc.WithChainUnaryInterceptor(interceptors ...grpc.UnaryClientInterceptor) grpc.DialOption`.
   GrpcDialOption withChainUnaryInterceptor(
       [List<GrpcUnaryClientInterceptor> interceptors = const []]) {
-    final $r = $callSync(24336, $W()..list(interceptors, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(24342, $W()..list(interceptors, (w0, e0) => w0.h(e0)));
     return $r.hnn(GrpcDialOption.$h);
   }
 
   /// Go: `func grpc.WithChannelzParentID(c channelz.Identifier) grpc.DialOption`.
   GrpcDialOption withChannelzParentId($channelz.GrpcChannelzIdentifier c) {
-    final $r = $callSync(24337, $W()..h(c));
+    final $r = $callSync(24343, $W()..h(c));
     return $r.hnn(GrpcDialOption.$h);
   }
 
@@ -1500,26 +1500,26 @@ extension GoGrpcOptionsApi on GoGrpcOptions {
   @Deprecated(
       "use WithDefaultCallOptions(ForceCodec(_)) instead. Will be supported throughout 1.x.")
   GrpcDialOption withCodec(GrpcCodec c) {
-    final $r = $callSync(24338, $W()..h(c));
+    final $r = $callSync(24344, $W()..h(c));
     return $r.hnn(GrpcDialOption.$h);
   }
 
   /// Go: `func grpc.WithCompressor(cp grpc.Compressor) grpc.DialOption`.
   @Deprecated("use UseCompressor instead. Will be supported throughout 1.x.")
   GrpcDialOption withCompressor(GrpcCompressor cp) {
-    final $r = $callSync(24339, $W()..h(cp));
+    final $r = $callSync(24345, $W()..h(cp));
     return $r.hnn(GrpcDialOption.$h);
   }
 
   /// Go: `func grpc.WithConnectParams(p grpc.ConnectParams) grpc.DialOption`.
   GrpcDialOption withConnectParams(GrpcConnectParams p) {
-    final $r = $callSync(24340, $W()..dto(p));
+    final $r = $callSync(24346, $W()..dto(p));
     return $r.hnn(GrpcDialOption.$h);
   }
 
   /// Go: `func grpc.WithCredentialsBundle(b credentials.Bundle) grpc.DialOption`.
   GrpcDialOption withCredentialsBundle($credentials.GrpcCredentialsBundle b) {
-    final $r = $callSync(24341, $W()..h(b));
+    final $r = $callSync(24347, $W()..h(b));
     return $r.hnn(GrpcDialOption.$h);
   }
 
@@ -1527,55 +1527,55 @@ extension GoGrpcOptionsApi on GoGrpcOptions {
   @Deprecated(
       "use encoding.RegisterCompressor instead. Will be supported throughout 1.x.")
   GrpcDialOption withDecompressor(GrpcDecompressor dc) {
-    final $r = $callSync(24342, $W()..h(dc));
+    final $r = $callSync(24348, $W()..h(dc));
     return $r.hnn(GrpcDialOption.$h);
   }
 
   /// Go: `func grpc.WithDefaultCallOptions(cos ...grpc.CallOption) grpc.DialOption`.
   GrpcDialOption withDefaultCallOptions([List<GrpcCallOption> cos = const []]) {
-    final $r = $callSync(24343, $W()..list(cos, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(24349, $W()..list(cos, (w0, e0) => w0.h(e0)));
     return $r.hnn(GrpcDialOption.$h);
   }
 
   /// Go: `func grpc.WithDefaultServiceConfig(s string) grpc.DialOption`.
   GrpcDialOption withDefaultServiceConfig(String s) {
-    final $r = $callSync(24344, $W()..str(s));
+    final $r = $callSync(24350, $W()..str(s));
     return $r.hnn(GrpcDialOption.$h);
   }
 
   /// Go: `func grpc.WithDisableHealthCheck() grpc.DialOption`.
   GrpcDialOption withDisableHealthCheck() {
-    final $r = $callSync(24345);
+    final $r = $callSync(24351);
     return $r.hnn(GrpcDialOption.$h);
   }
 
   /// Go: `func grpc.WithDisableRetry() grpc.DialOption`.
   GrpcDialOption withDisableRetry() {
-    final $r = $callSync(24346);
+    final $r = $callSync(24352);
     return $r.hnn(GrpcDialOption.$h);
   }
 
   /// Go: `func grpc.WithDisableServiceConfig() grpc.DialOption`.
   GrpcDialOption withDisableServiceConfig() {
-    final $r = $callSync(24347);
+    final $r = $callSync(24353);
     return $r.hnn(GrpcDialOption.$h);
   }
 
   /// Go: `func grpc.WithIdleTimeout(d time.Duration) grpc.DialOption`.
   GrpcDialOption withIdleTimeout(Duration d) {
-    final $r = $callSync(24348, $W()..i64((d).inMicroseconds * 1000));
+    final $r = $callSync(24354, $W()..i64((d).inMicroseconds * 1000));
     return $r.hnn(GrpcDialOption.$h);
   }
 
   /// Go: `func grpc.WithInitialConnWindowSize(s int32) grpc.DialOption`.
   GrpcDialOption withInitialConnWindowSize(int s) {
-    final $r = $callSync(24349, $W()..i64(s));
+    final $r = $callSync(24355, $W()..i64(s));
     return $r.hnn(GrpcDialOption.$h);
   }
 
   /// Go: `func grpc.WithInitialWindowSize(s int32) grpc.DialOption`.
   GrpcDialOption withInitialWindowSize(int s) {
-    final $r = $callSync(24350, $W()..i64(s));
+    final $r = $callSync(24356, $W()..i64(s));
     return $r.hnn(GrpcDialOption.$h);
   }
 
@@ -1583,32 +1583,32 @@ extension GoGrpcOptionsApi on GoGrpcOptions {
   @Deprecated(
       "use WithTransportCredentials and insecure.NewCredentials() instead. Will be supported throughout 1.x.")
   GrpcDialOption withInsecure() {
-    final $r = $callSync(24351);
+    final $r = $callSync(24357);
     return $r.hnn(GrpcDialOption.$h);
   }
 
   /// Go: `func grpc.WithKeepaliveParams(kp keepalive.ClientParameters) grpc.DialOption`.
   GrpcDialOption withKeepaliveParams(
       $keepalive.GrpcKeepaliveClientParameters kp) {
-    final $r = $callSync(24352, $W()..dto(kp));
+    final $r = $callSync(24358, $W()..dto(kp));
     return $r.hnn(GrpcDialOption.$h);
   }
 
   /// Go: `func grpc.WithLocalDNSResolution() grpc.DialOption`.
   GrpcDialOption withLocalDnsResolution() {
-    final $r = $callSync(24353);
+    final $r = $callSync(24359);
     return $r.hnn(GrpcDialOption.$h);
   }
 
   /// Go: `func grpc.WithMaxCallAttempts(n int) grpc.DialOption`.
   GrpcDialOption withMaxCallAttempts(int n) {
-    final $r = $callSync(24354, $W()..i64(n));
+    final $r = $callSync(24360, $W()..i64(n));
     return $r.hnn(GrpcDialOption.$h);
   }
 
   /// Go: `func grpc.WithMaxHeaderListSize(s uint32) grpc.DialOption`.
   GrpcDialOption withMaxHeaderListSize(int s) {
-    final $r = $callSync(24355, $W()..i64(s));
+    final $r = $callSync(24361, $W()..i64(s));
     return $r.hnn(GrpcDialOption.$h);
   }
 
@@ -1616,33 +1616,33 @@ extension GoGrpcOptionsApi on GoGrpcOptions {
   @Deprecated(
       "use WithDefaultCallOptions(MaxCallRecvMsgSize(s)) instead. Will be supported throughout 1.x.")
   GrpcDialOption withMaxMsgSize(int s) {
-    final $r = $callSync(24356, $W()..i64(s));
+    final $r = $callSync(24362, $W()..i64(s));
     return $r.hnn(GrpcDialOption.$h);
   }
 
   /// Go: `func grpc.WithNoProxy() grpc.DialOption`.
   GrpcDialOption withNoProxy() {
-    final $r = $callSync(24357);
+    final $r = $callSync(24363);
     return $r.hnn(GrpcDialOption.$h);
   }
 
   /// Go: `func grpc.WithPerRPCCredentials(creds credentials.PerRPCCredentials) grpc.DialOption`.
   GrpcDialOption withPerRpcCredentials(
       $credentials.GrpcCredentialsPerRpcCredentials creds) {
-    final $r = $callSync(24358, $W()..h(creds));
+    final $r = $callSync(24364, $W()..h(creds));
     return $r.hnn(GrpcDialOption.$h);
   }
 
   /// Go: `func grpc.WithReadBufferSize(s int) grpc.DialOption`.
   GrpcDialOption withReadBufferSize(int s) {
-    final $r = $callSync(24359, $W()..i64(s));
+    final $r = $callSync(24365, $W()..i64(s));
     return $r.hnn(GrpcDialOption.$h);
   }
 
   /// Go: `func grpc.WithResolvers(rs ...resolver.Builder) grpc.DialOption`.
   GrpcDialOption withResolvers(
       [List<$resolver.GrpcResolverBuilder> rs = const []]) {
-    final $r = $callSync(24360, $W()..list(rs, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(24366, $W()..list(rs, (w0, e0) => w0.h(e0)));
     return $r.hnn(GrpcDialOption.$h);
   }
 
@@ -1650,7 +1650,7 @@ extension GoGrpcOptionsApi on GoGrpcOptions {
   @Deprecated(
       "this DialOption is not supported by NewClient. Will be supported throughout 1.x.")
   GrpcDialOption withReturnConnectionError() {
-    final $r = $callSync(24361);
+    final $r = $callSync(24367);
     return $r.hnn(GrpcDialOption.$h);
   }
 
@@ -1658,31 +1658,31 @@ extension GoGrpcOptionsApi on GoGrpcOptions {
   @Deprecated(
       "shared write buffer is enabled by default. WithSharedWriteBuffer will be removed in a future release.")
   GrpcDialOption withSharedWriteBuffer(bool val) {
-    final $r = $callSync(24362, $W()..b(val));
+    final $r = $callSync(24368, $W()..b(val));
     return $r.hnn(GrpcDialOption.$h);
   }
 
   /// Go: `func grpc.WithStaticConnWindowSize(s int32) grpc.DialOption`.
   GrpcDialOption withStaticConnWindowSize(int s) {
-    final $r = $callSync(24363, $W()..i64(s));
+    final $r = $callSync(24369, $W()..i64(s));
     return $r.hnn(GrpcDialOption.$h);
   }
 
   /// Go: `func grpc.WithStaticStreamWindowSize(s int32) grpc.DialOption`.
   GrpcDialOption withStaticStreamWindowSize(int s) {
-    final $r = $callSync(24364, $W()..i64(s));
+    final $r = $callSync(24370, $W()..i64(s));
     return $r.hnn(GrpcDialOption.$h);
   }
 
   /// Go: `func grpc.WithStatsHandler(h stats.Handler) grpc.DialOption`.
   GrpcDialOption withStatsHandler($stats.GrpcStatsHandler h) {
-    final $r = $callSync(24365, $W()..h(h));
+    final $r = $callSync(24371, $W()..h(h));
     return $r.hnn(GrpcDialOption.$h);
   }
 
   /// Go: `func grpc.WithStreamInterceptor(f grpc.StreamClientInterceptor) grpc.DialOption`.
   GrpcDialOption withStreamInterceptor(GrpcStreamClientInterceptor f) {
-    final $r = $callSync(24366, $W()..h(f));
+    final $r = $callSync(24372, $W()..h(f));
     return $r.hnn(GrpcDialOption.$h);
   }
 
@@ -1690,38 +1690,38 @@ extension GoGrpcOptionsApi on GoGrpcOptions {
   @Deprecated(
       "this DialOption is not supported by NewClient. Will be supported throughout 1.x.")
   GrpcDialOption withTimeout(Duration d) {
-    final $r = $callSync(24367, $W()..i64((d).inMicroseconds * 1000));
+    final $r = $callSync(24373, $W()..i64((d).inMicroseconds * 1000));
     return $r.hnn(GrpcDialOption.$h);
   }
 
   /// Go: `func grpc.WithTransportCredentials(creds credentials.TransportCredentials) grpc.DialOption`.
   GrpcDialOption withTransportCredentials(
       $credentials.GrpcCredentialsTransportCredentials creds) {
-    final $r = $callSync(24368, $W()..h(creds));
+    final $r = $callSync(24374, $W()..h(creds));
     return $r.hnn(GrpcDialOption.$h);
   }
 
   /// Go: `func grpc.WithUnaryInterceptor(f grpc.UnaryClientInterceptor) grpc.DialOption`.
   GrpcDialOption withUnaryInterceptor(GrpcUnaryClientInterceptor f) {
-    final $r = $callSync(24369, $W()..h(f));
+    final $r = $callSync(24375, $W()..h(f));
     return $r.hnn(GrpcDialOption.$h);
   }
 
   /// Go: `func grpc.WithUserAgent(s string) grpc.DialOption`.
   GrpcDialOption withUserAgent(String s) {
-    final $r = $callSync(24370, $W()..str(s));
+    final $r = $callSync(24376, $W()..str(s));
     return $r.hnn(GrpcDialOption.$h);
   }
 
   /// Go: `func grpc.WithWriteBufferSize(s int) grpc.DialOption`.
   GrpcDialOption withWriteBufferSize(int s) {
-    final $r = $callSync(24371, $W()..i64(s));
+    final $r = $callSync(24377, $W()..i64(s));
     return $r.hnn(GrpcDialOption.$h);
   }
 
   /// Go: `func grpc.WriteBufferSize(s int) grpc.ServerOption`.
   GrpcServerOption writeBufferSize(int s) {
-    final $r = $callSync(24372, $W()..i64(s));
+    final $r = $callSync(24378, $W()..i64(s));
     return $r.hnn(GrpcServerOption.$h);
   }
 }

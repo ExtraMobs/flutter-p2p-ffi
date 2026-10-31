@@ -12,7 +12,7 @@ extension GoPionTransportV3UtilsXorApi on GoPionTransportV3UtilsXor {
   /// Go: `func xor.XorBytes(dst []byte, a []byte, b []byte) int`.
   int xorBytes(Uint8List dst, Uint8List a, Uint8List b) {
     final $r = $callSync(
-        17364,
+        17370,
         $W()
           ..bytes(dst)
           ..bytes(a)

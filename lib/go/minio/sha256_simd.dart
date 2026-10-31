@@ -11,7 +11,7 @@ import 'package:p2p_ffi/go/hash.dart' as $hash;
 extension GoMinioSha256SimdApi on GoMinioSha256Simd {
   /// Go: `func sha256.New() hash.Hash`.
   $hash.Hash new$() {
-    final $r = $callSync(15758);
+    final $r = $callSync(15764);
     return $r.hnn($hash.Hash.$h);
   }
 }

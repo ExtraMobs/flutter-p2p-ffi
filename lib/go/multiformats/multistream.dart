@@ -20,7 +20,7 @@ class MultistreamLazyConn extends GoHandle
 mixin MultistreamLazyConn$ on GoHandle {
   /// Go: `func (multistream.LazyConn).Flush() error`.
   void flush() {
-    $callSync(16018, $W()..h(this));
+    $callSync(16024, $W()..h(this));
   }
 }
 
@@ -55,7 +55,7 @@ class MultistreamErrTooLarge extends GolangException {
 extension GoMultiformatsMultistreamApi on GoMultiformatsMultistream {
   /// Go: `func multistream.ReadNextTokenBytes(r io.Reader) ([]byte, error)`.
   Uint8List readNextTokenBytes(Object r) {
-    final $r = $callSync(16019, $W()..reader(r));
+    final $r = $callSync(16025, $W()..reader(r));
     return $r.bytes() ?? Uint8List(0);
   }
 }

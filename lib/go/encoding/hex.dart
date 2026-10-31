@@ -31,7 +31,7 @@ extension GoEncodingHexApi on GoEncodingHex {
   /// Go: `func hex.AppendDecode(dst []byte, src []byte) ([]byte, error)`.
   Uint8List appendDecode(Uint8List dst, Uint8List src) {
     final $r = $callSync(
-        3719,
+        3728,
         $W()
           ..bytes(dst)
           ..bytes(src));
@@ -41,7 +41,7 @@ extension GoEncodingHexApi on GoEncodingHex {
   /// Go: `func hex.AppendEncode(dst []byte, src []byte) []byte`.
   Uint8List appendEncode(Uint8List dst, Uint8List src) {
     final $r = $callSync(
-        3720,
+        3729,
         $W()
           ..bytes(dst)
           ..bytes(src));
@@ -51,7 +51,7 @@ extension GoEncodingHexApi on GoEncodingHex {
   /// Go: `func hex.Decode(dst []byte, src []byte) (int, error)`.
   int decode(Uint8List dst, Uint8List src) {
     final $r = $callSync(
-        3721,
+        3730,
         $W()
           ..bytes(dst)
           ..bytes(src));
@@ -60,32 +60,32 @@ extension GoEncodingHexApi on GoEncodingHex {
 
   /// Go: `func hex.DecodeString(s string) ([]byte, error)`.
   Uint8List decodeString(String s) {
-    final $r = $callSync(3722, $W()..str(s));
+    final $r = $callSync(3731, $W()..str(s));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func hex.DecodedLen(x int) int`.
   int decodedLen(int x) {
-    final $r = $callSync(3723, $W()..i64(x));
+    final $r = $callSync(3732, $W()..i64(x));
     return $r.i64();
   }
 
   /// Go: `func hex.Dump(data []byte) string`.
   String dump(Uint8List data) {
-    final $r = $callSync(3724, $W()..bytes(data));
+    final $r = $callSync(3733, $W()..bytes(data));
     return $r.str();
   }
 
   /// Go: `func hex.Dumper(w io.Writer) io.WriteCloser`.
   $io.IoWriteCloser dumper(GoHandle? w) {
-    final $r = $callSync(3725, $W()..h(w));
+    final $r = $callSync(3734, $W()..h(w));
     return $r.hnn($io.IoWriteCloser.$h);
   }
 
   /// Go: `func hex.Encode(dst []byte, src []byte) int`.
   int encode(Uint8List dst, Uint8List src) {
     final $r = $callSync(
-        3726,
+        3735,
         $W()
           ..bytes(dst)
           ..bytes(src));
@@ -94,19 +94,19 @@ extension GoEncodingHexApi on GoEncodingHex {
 
   /// Go: `func hex.EncodeToString(src []byte) string`.
   String encodeToString(Uint8List src) {
-    final $r = $callSync(3727, $W()..bytes(src));
+    final $r = $callSync(3736, $W()..bytes(src));
     return $r.str();
   }
 
   /// Go: `func hex.EncodedLen(n int) int`.
   int encodedLen(int n) {
-    final $r = $callSync(3728, $W()..i64(n));
+    final $r = $callSync(3737, $W()..i64(n));
     return $r.i64();
   }
 
   /// Go: `func hex.NewDecoder(r io.Reader) io.Reader`.
   $io.IoReader newDecoder(Object r) {
-    final $r = $callSync(3729, $W()..reader(r));
+    final $r = $callSync(3738, $W()..reader(r));
     return $r.hnn($io.IoReader.$h);
   }
 }

@@ -82,7 +82,7 @@ final class GoDocCommentDocLink implements GoDto {
   /// Go: `func (*comment.DocLink).DefaultURL(baseURL string) string`.
   String defaultUrl(String baseUrl) {
     final $r = $callSync(
-        23227,
+        23233,
         $W()
           ..dto(this)
           ..str(baseUrl));
@@ -107,7 +107,7 @@ final class GoDocCommentHeading implements GoDto {
 
   /// Go: `func (*comment.Heading).DefaultID() string`.
   String defaultId() {
-    final $r = $callSync(23228, $W()..dto(this));
+    final $r = $callSync(23234, $W()..dto(this));
     return $r.str();
   }
 }
@@ -176,13 +176,13 @@ final class GoDocCommentList implements GoDto {
 
   /// Go: `func (*comment.List).BlankBefore() bool`.
   bool blankBefore() {
-    final $r = $callSync(23229, $W()..dto(this));
+    final $r = $callSync(23235, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*comment.List).BlankBetween() bool`.
   bool blankBetween() {
-    final $r = $callSync(23230, $W()..dto(this));
+    final $r = $callSync(23236, $W()..dto(this));
     return $r.b();
   }
 }
@@ -230,7 +230,7 @@ final class GoDocCommentParser implements GoDto {
   /// Go: `func (*comment.Parser).Parse(text string) *comment.Doc`.
   GoDocCommentDoc parse(String text) {
     final $r = $callSync(
-        23231,
+        23237,
         $W()
           ..dto(this)
           ..str(text));
@@ -289,7 +289,7 @@ final class GoDocCommentPrinter implements GoDto {
   /// Go: `func (*comment.Printer).Comment(d *comment.Doc) []byte`.
   Uint8List comment(GoDocCommentDoc d) {
     final $r = $callSync(
-        23232,
+        23238,
         $W()
           ..dto(this)
           ..dto(d));
@@ -299,7 +299,7 @@ final class GoDocCommentPrinter implements GoDto {
   /// Go: `func (*comment.Printer).HTML(d *comment.Doc) []byte`.
   Uint8List html(GoDocCommentDoc d) {
     final $r = $callSync(
-        23233,
+        23239,
         $W()
           ..dto(this)
           ..dto(d));
@@ -309,7 +309,7 @@ final class GoDocCommentPrinter implements GoDto {
   /// Go: `func (*comment.Printer).Markdown(d *comment.Doc) []byte`.
   Uint8List markdown(GoDocCommentDoc d) {
     final $r = $callSync(
-        23234,
+        23240,
         $W()
           ..dto(this)
           ..dto(d));
@@ -319,7 +319,7 @@ final class GoDocCommentPrinter implements GoDto {
   /// Go: `func (*comment.Printer).Text(d *comment.Doc) []byte`.
   Uint8List text(GoDocCommentDoc d) {
     final $r = $callSync(
-        23235,
+        23241,
         $W()
           ..dto(this)
           ..dto(d));
@@ -339,7 +339,7 @@ mixin GoDocCommentText$ on GoHandle {}
 extension GoGoDocCommentApi on GoGoDocComment {
   /// Go: `func comment.DefaultLookupPackage(name string) (importPath string, ok bool)`.
   (String, bool) defaultLookupPackage(String name) {
-    final $r = $callSync(23226, $W()..str(name));
+    final $r = $callSync(23232, $W()..str(name));
     return ($r.str(), $r.b());
   }
 }

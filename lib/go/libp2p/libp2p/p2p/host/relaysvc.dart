@@ -40,7 +40,7 @@ class Libp2pP2pHostRelaysvcRelayManager extends $io.IoCloser
   factory Libp2pP2pHostRelaysvcRelayManager($host.Libp2pCoreHost host,
       [List<$relay.Libp2pP2pProtocolCircuitv2RelayOption> opts = const []]) {
     final $r = $callSync(
-        14492,
+        14498,
         $W()
           ..h(host)
           ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -49,6 +49,6 @@ class Libp2pP2pHostRelaysvcRelayManager extends $io.IoCloser
 
   /// Go: `func (*relaysvc.RelayManager).Close() error`.
   void close() {
-    $callSync(14493, $W()..h(this));
+    $callSync(14499, $W()..h(this));
   }
 }

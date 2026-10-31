@@ -37,14 +37,14 @@ class SnappyReader extends $protodelim.ProtobufEncodingProtodelimReader
 
   /// Go: `func snappy.NewReader(r io.Reader) *snappy.Reader`.
   factory SnappyReader(Object r) {
-    final $r = $callSync(8090, $W()..reader(r));
+    final $r = $callSync(8099, $W()..reader(r));
     return $r.hnn(SnappyReader.$h);
   }
 
   /// Go: `func (*snappy.Reader).Read(p []byte) (int, error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        8092,
+        8101,
         $W()
           ..h(this)
           ..i64(n));
@@ -53,14 +53,14 @@ class SnappyReader extends $protodelim.ProtobufEncodingProtodelimReader
 
   /// Go: `func (*snappy.Reader).ReadByte() (byte, error)`.
   int readByte() {
-    final $r = $callSync(8093, $W()..h(this));
+    final $r = $callSync(8102, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*snappy.Reader).Reset(reader io.Reader)`.
   void reset(Object reader) {
     $callSync(
-        8094,
+        8103,
         $W()
           ..h(this)
           ..reader(reader));
@@ -93,24 +93,24 @@ class SnappyWriter extends $io.IoCloser
   @Deprecated(
       "the Writer returned is not suitable for many small writes, only for few large writes. Use NewBufferedWriter instead, which is efficient regardless of the frequency and shape of the writes, and remember to Close that Writer when done.")
   factory SnappyWriter(GoHandle? w) {
-    final $r = $callSync(8091, $W()..h(w));
+    final $r = $callSync(8100, $W()..h(w));
     return $r.hnn(SnappyWriter.$h);
   }
 
   /// Go: `func (*snappy.Writer).Close() error`.
   void close() {
-    $callSync(8095, $W()..h(this));
+    $callSync(8104, $W()..h(this));
   }
 
   /// Go: `func (*snappy.Writer).Flush() error`.
   void flush() {
-    $callSync(8096, $W()..h(this));
+    $callSync(8105, $W()..h(this));
   }
 
   /// Go: `func (*snappy.Writer).Reset(writer io.Writer)`.
   void reset(GoHandle? writer) {
     $callSync(
-        8097,
+        8106,
         $W()
           ..h(this)
           ..h(writer));
@@ -119,7 +119,7 @@ class SnappyWriter extends $io.IoCloser
   /// Go: `func (*snappy.Writer).Write(p []byte) (nRet int, errRet error)`.
   int write(Uint8List p) {
     final $r = $callSync(
-        8098,
+        8107,
         $W()
           ..h(this)
           ..bytes(p));
@@ -159,7 +159,7 @@ extension GoGolangSnappyApi on GoGolangSnappy {
   /// Go: `func snappy.Decode(dst []byte, src []byte) ([]byte, error)`.
   Uint8List decode(Uint8List dst, Uint8List src) {
     final $r = $callSync(
-        8085,
+        8094,
         $W()
           ..bytes(dst)
           ..bytes(src));
@@ -168,14 +168,14 @@ extension GoGolangSnappyApi on GoGolangSnappy {
 
   /// Go: `func snappy.DecodedLen(src []byte) (int, error)`.
   int decodedLen(Uint8List src) {
-    final $r = $callSync(8086, $W()..bytes(src));
+    final $r = $callSync(8095, $W()..bytes(src));
     return $r.i64();
   }
 
   /// Go: `func snappy.Encode(dst []byte, src []byte) []byte`.
   Uint8List encode(Uint8List dst, Uint8List src) {
     final $r = $callSync(
-        8087,
+        8096,
         $W()
           ..bytes(dst)
           ..bytes(src));
@@ -184,13 +184,13 @@ extension GoGolangSnappyApi on GoGolangSnappy {
 
   /// Go: `func snappy.MaxEncodedLen(srcLen int) int`.
   int maxEncodedLen(int srcLen) {
-    final $r = $callSync(8088, $W()..i64(srcLen));
+    final $r = $callSync(8097, $W()..i64(srcLen));
     return $r.i64();
   }
 
   /// Go: `func snappy.NewBufferedWriter(w io.Writer) *snappy.Writer`.
   SnappyWriter newBufferedWriter(GoHandle? w) {
-    final $r = $callSync(8089, $W()..h(w));
+    final $r = $callSync(8098, $W()..h(w));
     return $r.hnn(SnappyWriter.$h);
   }
 }

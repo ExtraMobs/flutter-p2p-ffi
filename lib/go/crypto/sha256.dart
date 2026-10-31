@@ -10,13 +10,13 @@ import 'package:p2p_ffi/go/hash.dart' as $hash;
 extension GoCryptoSha256Api on GoCryptoSha256 {
   /// Go: `func sha256.New() hash.Hash`.
   $hash.Hash new$() {
-    final $r = $callSync(3323);
+    final $r = $callSync(3332);
     return $r.hnn($hash.Hash.$h);
   }
 
   /// Go: `func sha256.New224() hash.Hash`.
   $hash.Hash new224() {
-    final $r = $callSync(3324);
+    final $r = $callSync(3333);
     return $r.hnn($hash.Hash.$h);
   }
 }

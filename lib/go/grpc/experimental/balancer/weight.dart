@@ -24,7 +24,7 @@ final class GrpcExperimentalBalancerWeightEndpointInfo implements GoDto {
   /// Go: `func (weight.EndpointInfo).Equal(o any) bool`.
   bool equal(Object? o) {
     final $r = $callSync(
-        24530,
+        24536,
         $W()
           ..dto(this)
           ..any(o));
@@ -38,7 +38,7 @@ extension GoGrpcExperimentalBalancerWeightApi
   /// Go: `func weight.FromEndpoint(endpoint resolver.Endpoint) weight.EndpointInfo`.
   GrpcExperimentalBalancerWeightEndpointInfo fromEndpoint(
       $resolver.GrpcResolverEndpoint endpoint) {
-    final $r = $callSync(24531, $W()..dto(endpoint));
+    final $r = $callSync(24537, $W()..dto(endpoint));
     return $r.p()
         ? GrpcExperimentalBalancerWeightEndpointInfo.$dec($r)
         : $nil();
@@ -48,7 +48,7 @@ extension GoGrpcExperimentalBalancerWeightApi
   $resolver.GrpcResolverEndpoint set($resolver.GrpcResolverEndpoint endpoint,
       GrpcExperimentalBalancerWeightEndpointInfo epInfo) {
     final $r = $callSync(
-        24532,
+        24538,
         $W()
           ..dto(endpoint)
           ..dto(epInfo));

@@ -29,46 +29,44 @@ class KuboP2pListener extends GoHandle with KuboP2pListener$ {
 mixin KuboP2pListener$ on GoHandle {
   /// Go: `func (p2p.Listener).ListenAddress() multiaddr.Multiaddr`.
   $multiaddr.Multiaddr listenAddress() {
-    final $r = $callSync(11685, $W()..h(this));
+    final $r = $callSync(11691, $W()..h(this));
     return $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil();
   }
 
   /// Go: `func (p2p.Listener).Protocol() protocol.ID`.
   String protocol() {
-    final $r = $callSync(11686, $W()..h(this));
+    final $r = $callSync(11692, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (p2p.Listener).TargetAddress() multiaddr.Multiaddr`.
   $multiaddr.Multiaddr targetAddress() {
-    final $r = $callSync(11687, $W()..h(this));
+    final $r = $callSync(11693, $W()..h(this));
     return $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil();
   }
 }
 
-/// Go: `p2p.Listeners`.
-final class KuboP2pListeners implements GoDto {
-  KuboP2pListeners(
-      {$sync.SyncRwMutex? rwMutex, Map<String, KuboP2pListener>? listeners})
-      : rwMutex = rwMutex,
-        listeners = listeners ?? {};
-
-  KuboP2pListeners.$dec($R r)
-      : rwMutex = r.hn($sync.SyncRwMutex.$h),
-        listeners = r.map(() => r.str(), () => r.hnn(KuboP2pListener.$h));
-
-  /// Go: `RWMutex`.
-  $sync.SyncRwMutex? rwMutex;
-
-  /// Go: `Listeners`.
-  Map<String, KuboP2pListener> listeners;
-
-  @override
-  void $enc($W w) {
-    w
-      ..h(rwMutex)
-      ..map(listeners, (w0, k0) => w0.str(k0), (w0, v0) => w0.h(v0));
-  }
+/// Go: `p2p.Listeners` (handle).
+class KuboP2pListeners extends $sync.SyncLocker
+    with
+        $crypto.CryptoDecrypterOpts$,
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$,
+        $storage.GoleveldbLeveldbStorageLocker$
+    implements
+        $crypto.CryptoDecrypterOpts,
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic,
+        $storage.GoleveldbLeveldbStorageLocker {
+  KuboP2pListeners.$h(super.$h) : super.$h();
 
   /// Go: `func (*p2p.Listeners).Close(matchFunc func(listener p2p.Listener) bool) int`.
   ///
@@ -80,9 +78,9 @@ final class KuboP2pListeners implements GoDto {
   Future<int> close(
       FutureOr<bool> Function(KuboP2pListener listener) matchFunc) async {
     final $r = await $call(
-        11688,
+        11694,
         $W()
-          ..dto(this)
+          ..h(this)
           ..cb((r) => matchFunc(r.hnn(KuboP2pListener.$h)), true));
     return $r.i64();
   }
@@ -90,9 +88,9 @@ final class KuboP2pListeners implements GoDto {
   /// Go: `func (*p2p.Listeners).Register(l p2p.Listener) error`.
   void register(KuboP2pListener l) {
     $callSync(
-        11689,
+        11695,
         $W()
-          ..dto(this)
+          ..h(this)
           ..h(l));
   }
 }
@@ -118,7 +116,7 @@ class KuboP2p extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*p2p.P2P).CheckProtoExists(proto protocol.ID) bool`.
   bool checkProtoExists(String proto) {
     final $r = $callSync(
-        11691,
+        11697,
         $W()
           ..h(this)
           ..str(proto));
@@ -134,7 +132,7 @@ class KuboP2p extends $crypto.CryptoDecrypterOpts
       String proto,
       $multiaddr.Multiaddr bindAddr) async {
     final $r = await $call(
-        11692,
+        11698,
         $W()
           ..h(this)
           ..h(ctx)
@@ -150,7 +148,7 @@ class KuboP2p extends $crypto.CryptoDecrypterOpts
   Future<KuboP2pListener> forwardRemote($context.Context ctx, String proto,
       $multiaddr.Multiaddr addr, bool reportRemote) async {
     final $r = await $call(
-        11693,
+        11699,
         $W()
           ..h(this)
           ..h(ctx)
@@ -207,7 +205,7 @@ class KuboP2pStreamRegistry extends $network.BoxoBitswapNetworkPeerTagger
   /// Go: `func (*p2p.StreamRegistry).Close(s *p2p.Stream)`.
   void close(KuboP2pStream s) {
     $callSync(
-        11694,
+        11700,
         $W()
           ..h(this)
           ..h(s));
@@ -216,7 +214,7 @@ class KuboP2pStreamRegistry extends $network.BoxoBitswapNetworkPeerTagger
   /// Go: `func (*p2p.StreamRegistry).Deregister(streamID uint64)`.
   void deregister(int streamId) {
     $callSync(
-        11695,
+        11701,
         $W()
           ..h(this)
           ..i64(streamId));
@@ -225,7 +223,7 @@ class KuboP2pStreamRegistry extends $network.BoxoBitswapNetworkPeerTagger
   /// Go: `func (*p2p.StreamRegistry).Register(streamInfo *p2p.Stream)`.
   void register(KuboP2pStream streamInfo) {
     $callSync(
-        11696,
+        11702,
         $W()
           ..h(this)
           ..h(streamInfo));
@@ -234,7 +232,7 @@ class KuboP2pStreamRegistry extends $network.BoxoBitswapNetworkPeerTagger
   /// Go: `func (*p2p.StreamRegistry).Reset(s *p2p.Stream)`.
   void reset(KuboP2pStream s) {
     $callSync(
-        11697,
+        11703,
         $W()
           ..h(this)
           ..h(s));
@@ -247,7 +245,7 @@ extension GoIpfsKuboP2pApi on GoIpfsKuboP2p {
   KuboP2p new$($peer.Libp2pCorePeerId identity, $host.Libp2pCoreHost peerHost,
       $peerstore.Libp2pCorePeerstore peerstore) {
     final $r = $callSync(
-        11690,
+        11696,
         $W()
           ..val(identity)
           ..h(peerHost)

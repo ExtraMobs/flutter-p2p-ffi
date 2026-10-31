@@ -35,16 +35,16 @@ class Libp2pKadDhtRtrefreshRtRefreshManager extends $io.IoCloser
 
   /// Go: `func (*rtrefresh.RtRefreshManager).Close() error`.
   void close() {
-    $callSync(13101, $W()..h(this));
+    $callSync(13107, $W()..h(this));
   }
 
   /// Go: `func (*rtrefresh.RtRefreshManager).RefreshNoWait()`.
   void refreshNoWait() {
-    $callSync(13102, $W()..h(this));
+    $callSync(13108, $W()..h(this));
   }
 
   /// Go: `func (*rtrefresh.RtRefreshManager).Start()`.
   void start() {
-    $callSync(13103, $W()..h(this));
+    $callSync(13109, $W()..h(this));
   }
 }

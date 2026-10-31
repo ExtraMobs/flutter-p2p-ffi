@@ -23,7 +23,7 @@ mixin MultiaddrXMegListOfMatchable$ on GoHandle {
   /// Go: `func (meg.ListOfMatchable).Get(i int) meg.Matchable`.
   MultiaddrXMegMatchable get(int i) {
     final $r = $callSync(
-        15975,
+        15981,
         $W()
           ..h(this)
           ..i64(i));
@@ -32,7 +32,7 @@ mixin MultiaddrXMegListOfMatchable$ on GoHandle {
 
   /// Go: `func (meg.ListOfMatchable).Len() int`.
   int len() {
-    final $r = $callSync(15976, $W()..h(this));
+    final $r = $callSync(15982, $W()..h(this));
     return $r.i64();
   }
 }
@@ -57,7 +57,7 @@ class MultiaddrXMegMatchState extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (meg.MatchState).String() string`.
   String string() {
-    final $r = $callSync(15977, $W()..h(this));
+    final $r = $callSync(15983, $W()..h(this));
     return $r.str();
   }
 }
@@ -120,7 +120,7 @@ class MultiaddrXMegMatcher extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (meg.Matcher).String() string`.
   String string() {
-    final $r = $callSync(15978, $W()..h(this));
+    final $r = $callSync(15984, $W()..h(this));
     return $r.str();
   }
 }
@@ -129,13 +129,13 @@ class MultiaddrXMegMatcher extends $crypto.CryptoDecrypterOpts
 extension GoMultiformatsMultiaddrXMegApi on GoMultiformatsMultiaddrXMeg {
   /// Go: `var meg.Any int`.
   int get any {
-    final $r = $callSync(15974);
+    final $r = $callSync(15980);
     return $r.i64();
   }
 
   /// Go: `func meg.PatternToMatcher(patterns ...meg.Pattern) meg.Matcher`.
   MultiaddrXMegMatcher patternToMatcher() {
-    final $r = $callSync(15979);
+    final $r = $callSync(15985);
     return $r.hnn(MultiaddrXMegMatcher.$h);
   }
 }

@@ -35,7 +35,7 @@ mixin PebbleV2SstableValblkExternalBlockReader$ on GoHandle {
   Future<$block.PebbleV2SstableBlockBufferHandle> readValueBlockExternal(
       $context.Context ctx, $block.PebbleV2SstableBlockHandle handle) async {
     final $r = await $call(
-        5549,
+        5558,
         $W()
           ..h(this)
           ..h(ctx)
@@ -45,7 +45,7 @@ mixin PebbleV2SstableValblkExternalBlockReader$ on GoHandle {
 
   /// Go: type assertion `x.(*sstable.Reader)`: null if the object is not one.
   $sstable.PebbleV2SstableReader? asPebbleV2SstableReader() {
-    final $r = $callSync(420, $W()..h(this));
+    final $r = $callSync(423, $W()..h(this));
     return $r.hn($sstable.PebbleV2SstableReader.$h);
   }
 }
@@ -122,13 +122,13 @@ final class PebbleV2SstableValblkIndexHandle implements GoDto {
 
   /// Go: `func (valblk.IndexHandle).RowWidth() int`.
   int rowWidth() {
-    final $r = $callSync(5550, $W()..dto(this));
+    final $r = $callSync(5559, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (valblk.IndexHandle).String() string`.
   String string() {
-    final $r = $callSync(5551, $W()..dto(this));
+    final $r = $callSync(5560, $W()..dto(this));
     return $r.str();
   }
 }
@@ -146,7 +146,7 @@ mixin PebbleV2SstableValblkIteratorBlockReader$ on GoHandle {
       $block.PebbleV2SstableBlockHandle handle,
       $v2.PebbleV2InternalIteratorStats internalIteratorStats) {
     final $r = $callSync(
-        5552,
+        5561,
         $W()
           ..h(this)
           ..dto(handle)
@@ -167,7 +167,7 @@ mixin PebbleV2SstableValblkLayoutWriter$ on GoHandle {
   $block.PebbleV2SstableBlockHandle writeValueBlock(
       $block.PebbleV2SstableBlockPhysicalBlock blk) {
     final $r = $callSync(
-        5553,
+        5562,
         $W()
           ..h(this)
           ..h(blk));
@@ -179,7 +179,7 @@ mixin PebbleV2SstableValblkLayoutWriter$ on GoHandle {
       $block.PebbleV2SstableBlockPhysicalBlock blk,
       PebbleV2SstableValblkIndexHandle vbih) {
     final $r = $callSync(
-        5554,
+        5563,
         $W()
           ..h(this)
           ..h(blk)
@@ -211,7 +211,7 @@ class PebbleV2SstableValblkReader
 
   /// Go: `func (*valblk.Reader).Close()`.
   void close() {
-    $callSync(5557, $W()..h(this));
+    $callSync(5566, $W()..h(this));
   }
 }
 
@@ -225,7 +225,7 @@ class PebbleV2SstableValblkReaderProvider extends GoHandle
 mixin PebbleV2SstableValblkReaderProvider$ on GoHandle {
   /// Go: `func (valblk.ReaderProvider).Close()`.
   void close() {
-    $callSync(5558, $W()..h(this));
+    $callSync(5567, $W()..h(this));
   }
 
   /// Go: `func (valblk.ReaderProvider).GetReader(context.Context) (valblk.ExternalBlockReader, error)`.
@@ -234,7 +234,7 @@ mixin PebbleV2SstableValblkReaderProvider$ on GoHandle {
   Future<PebbleV2SstableValblkExternalBlockReader> getReader(
       $context.Context ctx) async {
     final $r = await $call(
-        5559,
+        5568,
         $W()
           ..h(this)
           ..h(ctx));
@@ -265,7 +265,7 @@ class PebbleV2SstableValblkWriter extends $util.GoleveldbLeveldbUtilReleaser
   /// Go: `func (*valblk.Writer).AddValue(v []byte) (valblk.Handle, error)`.
   PebbleV2SstableValblkHandle addValue(Uint8List v) {
     final $r = $callSync(
-        5560,
+        5569,
         $W()
           ..h(this)
           ..bytes(v));
@@ -276,7 +276,7 @@ class PebbleV2SstableValblkWriter extends $util.GoleveldbLeveldbUtilReleaser
   (PebbleV2SstableValblkIndexHandle, PebbleV2SstableValblkWriterStats) finish(
       PebbleV2SstableValblkLayoutWriter layout, int fileOffset) {
     final $r = $callSync(
-        5561,
+        5570,
         $W()
           ..h(this)
           ..h(layout)
@@ -289,12 +289,12 @@ class PebbleV2SstableValblkWriter extends $util.GoleveldbLeveldbUtilReleaser
 
   /// Go: `func (*valblk.Writer).Release()`.
   void release$() {
-    $callSync(5562, $W()..h(this));
+    $callSync(5571, $W()..h(this));
   }
 
   /// Go: `func (*valblk.Writer).Size() uint64`.
   int size() {
-    final $r = $callSync(5563, $W()..h(this));
+    final $r = $callSync(5572, $W()..h(this));
     return $r.i64();
   }
 }
@@ -350,7 +350,7 @@ extension GoCockroachdbPebbleV2SstableValblkApi
       int blockNum,
       PebbleV2SstableValblkIndexHandle indexHandle) {
     final $r = $callSync(
-        5541,
+        5550,
         $W()
           ..bytes(vbiBlock)
           ..i64(blockNum)
@@ -360,7 +360,7 @@ extension GoCockroachdbPebbleV2SstableValblkApi
 
   /// Go: `func valblk.DecodeHandle(src []byte) valblk.Handle`.
   PebbleV2SstableValblkHandle decodeHandle(Uint8List src) {
-    final $r = $callSync(5542, $W()..bytes(src));
+    final $r = $callSync(5551, $W()..bytes(src));
     return $r.p() ? PebbleV2SstableValblkHandle.$dec($r) : $nil();
   }
 
@@ -368,7 +368,7 @@ extension GoCockroachdbPebbleV2SstableValblkApi
   List<$block.PebbleV2SstableBlockHandle> decodeIndex(
       Uint8List data, PebbleV2SstableValblkIndexHandle vbih) {
     final $r = $callSync(
-        5543,
+        5552,
         $W()
           ..bytes(data)
           ..dto(vbih));
@@ -378,7 +378,7 @@ extension GoCockroachdbPebbleV2SstableValblkApi
 
   /// Go: `func valblk.DecodeIndexHandle(src []byte) (valblk.IndexHandle, int, error)`.
   (PebbleV2SstableValblkIndexHandle, int) decodeIndexHandle(Uint8List src) {
-    final $r = $callSync(5544, $W()..bytes(src));
+    final $r = $callSync(5553, $W()..bytes(src));
     return (
       $r.p() ? PebbleV2SstableValblkIndexHandle.$dec($r) : $nil(),
       $r.i64()
@@ -387,20 +387,20 @@ extension GoCockroachdbPebbleV2SstableValblkApi
 
   /// Go: `func valblk.DecodeLenFromHandle(src []byte) (uint32, []byte)`.
   (int, Uint8List) decodeLenFromHandle(Uint8List src) {
-    final $r = $callSync(5545, $W()..bytes(src));
+    final $r = $callSync(5554, $W()..bytes(src));
     return ($r.i64(), $r.bytes() ?? Uint8List(0));
   }
 
   /// Go: `func valblk.DecodeRemainingHandle(src []byte) valblk.Handle`.
   PebbleV2SstableValblkHandle decodeRemainingHandle(Uint8List src) {
-    final $r = $callSync(5546, $W()..bytes(src));
+    final $r = $callSync(5555, $W()..bytes(src));
     return $r.p() ? PebbleV2SstableValblkHandle.$dec($r) : $nil();
   }
 
   /// Go: `func valblk.EncodeHandle(dst []byte, v valblk.Handle) int`.
   int encodeHandle(Uint8List dst, PebbleV2SstableValblkHandle v) {
     final $r = $callSync(
-        5547,
+        5556,
         $W()
           ..bytes(dst)
           ..dto(v));
@@ -410,7 +410,7 @@ extension GoCockroachdbPebbleV2SstableValblkApi
   /// Go: `func valblk.EncodeIndexHandle(dst []byte, v valblk.IndexHandle) int`.
   int encodeIndexHandle(Uint8List dst, PebbleV2SstableValblkIndexHandle v) {
     final $r = $callSync(
-        5548,
+        5557,
         $W()
           ..bytes(dst)
           ..dto(v));
@@ -424,7 +424,7 @@ extension GoCockroachdbPebbleV2SstableValblkApi
       PebbleV2SstableValblkIndexHandle vbih,
       $v2.PebbleV2InternalIteratorStats stats) {
     final $r = $callSync(
-        5555,
+        5564,
         $W()
           ..h(i)
           ..h(rp)
@@ -446,7 +446,7 @@ extension GoCockroachdbPebbleV2SstableValblkApi
       int checksumType,
       FutureOr<void> Function(int compressedSize) blockFinishedFunc) async {
     final $r = await $call(
-        5556,
+        5565,
         $W()
           ..h(flushGovernor)
           ..h(compressor)

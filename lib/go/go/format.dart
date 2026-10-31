@@ -13,7 +13,7 @@ extension GoGoFormatApi on GoGoFormat {
   /// Go: `func format.Node(dst io.Writer, fset *token.FileSet, node any) error`.
   void node(GoHandle? dst, $token.GoTokenFileSet fset, Object? node) {
     $callSync(
-        23236,
+        23242,
         $W()
           ..h(dst)
           ..h(fset)
@@ -22,7 +22,7 @@ extension GoGoFormatApi on GoGoFormat {
 
   /// Go: `func format.Source(src []byte) ([]byte, error)`.
   Uint8List source(Uint8List src) {
-    final $r = $callSync(23237, $W()..bytes(src));
+    final $r = $callSync(23243, $W()..bytes(src));
     return $r.bytes() ?? Uint8List(0);
   }
 }

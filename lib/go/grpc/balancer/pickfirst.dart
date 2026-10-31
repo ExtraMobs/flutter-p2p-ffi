@@ -12,7 +12,7 @@ extension GoGrpcBalancerPickfirstApi on GoGrpcBalancerPickfirst {
   /// Go: `func pickfirst.EnableHealthListener(state resolver.State) resolver.State`.
   $resolver.GrpcResolverState enableHealthListener(
       $resolver.GrpcResolverState state) {
-    final $r = $callSync(24411, $W()..dto(state));
+    final $r = $callSync(24417, $W()..dto(state));
     return $r.p() ? $resolver.GrpcResolverState.$dec($r) : $nil();
   }
 }

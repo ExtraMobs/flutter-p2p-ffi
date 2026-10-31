@@ -5,6 +5,7 @@ library;
 import 'dart:async';
 
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/Jorropo/jsync.dart' as $jsync;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/dgraph_io/badger.dart' as $badger;
 import 'package:p2p_ffi/go/dgraph_io/badger/table.dart' as $table;
@@ -39,23 +40,23 @@ class SyncCond extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func sync.NewCond(l sync.Locker) *sync.Cond`.
   factory SyncCond(SyncLocker l) {
-    final $r = $callSync(27334, $W()..h(l));
+    final $r = $callSync(27335, $W()..h(l));
     return $r.hnn(SyncCond.$h);
   }
 
   /// Go: `func (*sync.Cond).Broadcast()`.
   void broadcast() {
-    $callSync(27316, $W()..h(this));
+    $callSync(27317, $W()..h(this));
   }
 
   /// Go: `func (*sync.Cond).Signal()`.
   void signal() {
-    $callSync(27317, $W()..h(this));
+    $callSync(27318, $W()..h(this));
   }
 
   /// Go: `func (*sync.Cond).Wait()`.
   void wait() {
-    $callSync(27318, $W()..h(this));
+    $callSync(27319, $W()..h(this));
   }
 }
 
@@ -68,83 +69,95 @@ class SyncLocker extends GoHandle with SyncLocker$ {
 mixin SyncLocker$ on GoHandle {
   /// Go: `func (sync.Locker).Lock()`.
   void lock() {
-    $callSync(27319, $W()..h(this));
+    $callSync(27320, $W()..h(this));
   }
 
   /// Go: `func (sync.Locker).Unlock()`.
   void unlock() {
-    $callSync(27320, $W()..h(this));
+    $callSync(27321, $W()..h(this));
+  }
+
+  /// Go: type assertion `x.(*jsync.NoCopy)`: null if the object is not one.
+  $jsync.JsyncNoCopy? asJsyncNoCopy() {
+    final $r = $callSync(3032, $W()..h(this));
+    return $r.hn($jsync.JsyncNoCopy.$h);
   }
 
   /// Go: type assertion `x.(*badger.DB)`: null if the object is not one.
   $badger.BadgerDb? asBadgerDb() {
-    final $r = $callSync(3025, $W()..h(this));
+    final $r = $callSync(3033, $W()..h(this));
     return $r.hn($badger.BadgerDb.$h);
   }
 
   /// Go: type assertion `x.(*badger.MergeOperator)`: null if the object is not one.
   $badger.BadgerMergeOperator? asBadgerMergeOperator() {
-    final $r = $callSync(3026, $W()..h(this));
+    final $r = $callSync(3034, $W()..h(this));
     return $r.hn($badger.BadgerMergeOperator.$h);
   }
 
   /// Go: type assertion `x.(*badger.Sequence)`: null if the object is not one.
   $badger.BadgerSequence? asBadgerSequence() {
-    final $r = $callSync(3027, $W()..h(this));
+    final $r = $callSync(3035, $W()..h(this));
     return $r.hn($badger.BadgerSequence.$h);
   }
 
   /// Go: type assertion `x.(*badger.WriteBatch)`: null if the object is not one.
   $badger.BadgerWriteBatch? asBadgerWriteBatch() {
-    final $r = $callSync(3028, $W()..h(this));
+    final $r = $callSync(3036, $W()..h(this));
     return $r.hn($badger.BadgerWriteBatch.$h);
   }
 
   /// Go: type assertion `x.(*table.Table)`: null if the object is not one.
   $table.BadgerTable? asBadgerTable() {
-    final $r = $callSync(3029, $W()..h(this));
+    final $r = $callSync(3037, $W()..h(this));
     return $r.hn($table.BadgerTable.$h);
   }
 
   /// Go: type assertion `x.(*sync.MutexDatastore)`: null if the object is not one.
   $sync.DatastoreSyncMutexDatastore? asDatastoreSyncMutexDatastore() {
-    final $r = $callSync(3030, $W()..h(this));
+    final $r = $callSync(3038, $W()..h(this));
     return $r.hn($sync.DatastoreSyncMutexDatastore.$h);
+  }
+
+  /// Go: type assertion `x.(*p2p.Listeners)`: null if the object is not one.
+  $p2p.KuboP2pListeners? asKuboP2pListeners() {
+    final $r = $callSync(3039, $W()..h(this));
+    return $r.hn($p2p.KuboP2pListeners.$h);
   }
 
   /// Go: type assertion `x.(*p2p.StreamRegistry)`: null if the object is not one.
   $p2p.KuboP2pStreamRegistry? asKuboP2pStreamRegistry() {
-    final $r = $callSync(3031, $W()..h(this));
+    final $r = $callSync(3040, $W()..h(this));
     return $r.hn($p2p.KuboP2pStreamRegistry.$h);
   }
 
   /// Go: type assertion `x.(*ipv4.PacketConn)`: null if the object is not one.
   $ipv4.NetIpv4PacketConn? asNetIpv4PacketConn() {
-    final $r = $callSync(3032, $W()..h(this));
+    final $r = $callSync(3041, $W()..h(this));
     return $r.hn($ipv4.NetIpv4PacketConn.$h);
   }
 
   /// Go: type assertion `x.(*ipv4.RawConn)`: null if the object is not one.
   $ipv4.NetIpv4RawConn? asNetIpv4RawConn() {
-    final $r = $callSync(3033, $W()..h(this));
+    final $r = $callSync(3042, $W()..h(this));
     return $r.hn($ipv4.NetIpv4RawConn.$h);
   }
 
   /// Go: type assertion `x.(*ipv6.PacketConn)`: null if the object is not one.
   $ipv6.NetIpv6PacketConn? asNetIpv6PacketConn() {
-    final $r = $callSync(3034, $W()..h(this));
+    final $r = $callSync(3043, $W()..h(this));
     return $r.hn($ipv6.NetIpv6PacketConn.$h);
   }
 
   /// Go: type assertion `x.(*sync.Mutex)`: null if the object is not one.
   SyncMutex? asSyncMutex() {
-    final $r = $callSync(3035, $W()..h(this));
+    final $r = $callSync(3044, $W()..h(this));
     return $r.hn(SyncMutex.$h);
   }
 
   /// Go: type assertion `x.(*sync.RWMutex)`: null if the object is not one.
   SyncRwMutex? asSyncRwMutex() {
-    final $r = $callSync(3036, $W()..h(this));
+    final $r = $callSync(3045, $W()..h(this));
     return $r.hn(SyncRwMutex.$h);
   }
 }
@@ -169,13 +182,13 @@ class SyncMap extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*sync.Map).Clear()`.
   void clear() {
-    $callSync(27321, $W()..h(this));
+    $callSync(27322, $W()..h(this));
   }
 
   /// Go: `func (*sync.Map).CompareAndDelete(key any, old any) (deleted bool)`.
   bool compareAndDelete(Object? key, Object? old) {
     final $r = $callSync(
-        27322,
+        27323,
         $W()
           ..h(this)
           ..any(key)
@@ -186,7 +199,7 @@ class SyncMap extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*sync.Map).CompareAndSwap(key any, old any, new any) (swapped bool)`.
   bool compareAndSwap(Object? key, Object? old, Object? new$) {
     final $r = $callSync(
-        27323,
+        27324,
         $W()
           ..h(this)
           ..any(key)
@@ -198,7 +211,7 @@ class SyncMap extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*sync.Map).Delete(key any)`.
   void delete(Object? key) {
     $callSync(
-        27324,
+        27325,
         $W()
           ..h(this)
           ..any(key));
@@ -207,7 +220,7 @@ class SyncMap extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*sync.Map).Load(key any) (value any, ok bool)`.
   (Object?, bool) load(Object? key) {
     final $r = $callSync(
-        27325,
+        27326,
         $W()
           ..h(this)
           ..any(key));
@@ -217,7 +230,7 @@ class SyncMap extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*sync.Map).LoadAndDelete(key any) (value any, loaded bool)`.
   (Object?, bool) loadAndDelete(Object? key) {
     final $r = $callSync(
-        27326,
+        27327,
         $W()
           ..h(this)
           ..any(key));
@@ -227,7 +240,7 @@ class SyncMap extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*sync.Map).LoadOrStore(key any, value any) (actual any, loaded bool)`.
   (Object?, bool) loadOrStore(Object? key, Object? value) {
     final $r = $callSync(
-        27327,
+        27328,
         $W()
           ..h(this)
           ..any(key)
@@ -245,7 +258,7 @@ class SyncMap extends $crypto.CryptoDecrypterOpts
   Future<void> range(
       FutureOr<bool> Function(Object? key, Object? value) f) async {
     await $call(
-        27328,
+        27329,
         $W()
           ..h(this)
           ..cb((r) => f(r.any(), r.any()), true));
@@ -254,7 +267,7 @@ class SyncMap extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*sync.Map).Store(key any, value any)`.
   void store(Object? key, Object? value) {
     $callSync(
-        27329,
+        27330,
         $W()
           ..h(this)
           ..any(key)
@@ -264,7 +277,7 @@ class SyncMap extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*sync.Map).Swap(key any, value any) (previous any, loaded bool)`.
   (Object?, bool) swap(Object? key, Object? value) {
     final $r = $callSync(
-        27330,
+        27331,
         $W()
           ..h(this)
           ..any(key)
@@ -297,18 +310,18 @@ class SyncMutex extends SyncLocker
 
   /// Go: `func (*sync.Mutex).Lock()`.
   void lock() {
-    $callSync(27331, $W()..h(this));
+    $callSync(27332, $W()..h(this));
   }
 
   /// Go: `func (*sync.Mutex).TryLock() bool`.
   bool tryLock() {
-    final $r = $callSync(27332, $W()..h(this));
+    final $r = $callSync(27333, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*sync.Mutex).Unlock()`.
   void unlock() {
-    $callSync(27333, $W()..h(this));
+    $callSync(27334, $W()..h(this));
   }
 }
 
@@ -339,7 +352,7 @@ class SyncOnce extends $crypto.CryptoDecrypterOpts
   /// each invocation (a retained callback, WIRE.md).
   Future<void> do$(FutureOr<void> Function() f) async {
     await $call(
-        27335,
+        27336,
         $W()
           ..h(this)
           ..cb((r) => f(), true));
@@ -368,14 +381,14 @@ class SyncPool extends $websocket.WebsocketBufferPool
 
   /// Go: `func (*sync.Pool).Get() any`.
   Object? get() {
-    final $r = $callSync(27336, $W()..h(this));
+    final $r = $callSync(27337, $W()..h(this));
     return $r.any();
   }
 
   /// Go: `func (*sync.Pool).Put(x any)`.
   void put(Object? x) {
     $callSync(
-        27337,
+        27338,
         $W()
           ..h(this)
           ..any(x));
@@ -406,40 +419,40 @@ class SyncRwMutex extends SyncLocker
 
   /// Go: `func (*sync.RWMutex).Lock()`.
   void lock() {
-    $callSync(27338, $W()..h(this));
+    $callSync(27339, $W()..h(this));
   }
 
   /// Go: `func (*sync.RWMutex).RLock()`.
   void rLock() {
-    $callSync(27339, $W()..h(this));
+    $callSync(27340, $W()..h(this));
   }
 
   /// Go: `func (*sync.RWMutex).RLocker() sync.Locker`.
   SyncLocker rLocker() {
-    final $r = $callSync(27340, $W()..h(this));
+    final $r = $callSync(27341, $W()..h(this));
     return $r.hnn(SyncLocker.$h);
   }
 
   /// Go: `func (*sync.RWMutex).RUnlock()`.
   void rUnlock() {
-    $callSync(27341, $W()..h(this));
+    $callSync(27342, $W()..h(this));
   }
 
   /// Go: `func (*sync.RWMutex).TryLock() bool`.
   bool tryLock() {
-    final $r = $callSync(27342, $W()..h(this));
+    final $r = $callSync(27343, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*sync.RWMutex).TryRLock() bool`.
   bool tryRLock() {
-    final $r = $callSync(27343, $W()..h(this));
+    final $r = $callSync(27344, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*sync.RWMutex).Unlock()`.
   void unlock() {
-    $callSync(27344, $W()..h(this));
+    $callSync(27345, $W()..h(this));
   }
 }
 
@@ -464,7 +477,7 @@ class SyncWaitGroup extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*sync.WaitGroup).Add(delta int)`.
   void add(int delta) {
     $callSync(
-        27345,
+        27346,
         $W()
           ..h(this)
           ..i64(delta));
@@ -472,7 +485,7 @@ class SyncWaitGroup extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*sync.WaitGroup).Done()`.
   void done() {
-    $callSync(27346, $W()..h(this));
+    $callSync(27347, $W()..h(this));
   }
 
   /// Go: `func (*sync.WaitGroup).Go(f func())`.
@@ -484,7 +497,7 @@ class SyncWaitGroup extends $crypto.CryptoDecrypterOpts
   /// each invocation (a retained callback, WIRE.md).
   Future<void> go(FutureOr<void> Function() f) async {
     await $call(
-        27347,
+        27348,
         $W()
           ..h(this)
           ..cb((r) => f(), true));
@@ -492,6 +505,6 @@ class SyncWaitGroup extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*sync.WaitGroup).Wait()`.
   void wait() {
-    $callSync(27348, $W()..h(this));
+    $callSync(27349, $W()..h(this));
   }
 }

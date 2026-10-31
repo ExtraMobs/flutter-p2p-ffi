@@ -9,7 +9,7 @@ import 'package:p2p_ffi/src/runtime.dart';
 extension GoOtelSdkApi on GoOtelSdk {
   /// Go: `func sdk.Version() string`.
   String version() {
-    final $r = $callSync(19423);
+    final $r = $callSync(19429);
     return $r.str();
   }
 }

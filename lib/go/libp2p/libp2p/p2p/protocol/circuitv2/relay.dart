@@ -36,7 +36,7 @@ mixin Libp2pP2pProtocolCircuitv2RelayAclFilter$ on GoHandle {
   bool allowConnect($peer.Libp2pCorePeerId src, $multiaddr.Multiaddr srcAddr,
       $peer.Libp2pCorePeerId dest) {
     final $r = $callSync(
-        14886,
+        14892,
         $W()
           ..h(this)
           ..val(src)
@@ -48,7 +48,7 @@ mixin Libp2pP2pProtocolCircuitv2RelayAclFilter$ on GoHandle {
   /// Go: `func (relay.ACLFilter).AllowReserve(p peer.ID, a multiaddr.Multiaddr) bool`.
   bool allowReserve($peer.Libp2pCorePeerId p, $multiaddr.Multiaddr a) {
     final $r = $callSync(
-        14887,
+        14893,
         $W()
           ..h(this)
           ..val(p)
@@ -66,7 +66,7 @@ class Libp2pP2pProtocolCircuitv2RelayMetricsTracer extends GoHandle
   factory Libp2pP2pProtocolCircuitv2RelayMetricsTracer(
       [List<Libp2pP2pProtocolCircuitv2RelayMetricsTracerOption> opts =
           const []]) {
-    final $r = $callSync(14899, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+    final $r = $callSync(14905, $W()..list(opts, (w0, e0) => w0.opt(e0)));
     return $r.hnn(Libp2pP2pProtocolCircuitv2RelayMetricsTracer.$h);
   }
 }
@@ -76,7 +76,7 @@ mixin Libp2pP2pProtocolCircuitv2RelayMetricsTracer$ on GoHandle {
   /// Go: `func (relay.MetricsTracer).BytesTransferred(cnt int)`.
   void bytesTransferred(int cnt) {
     $callSync(
-        14890,
+        14896,
         $W()
           ..h(this)
           ..i64(cnt));
@@ -85,7 +85,7 @@ mixin Libp2pP2pProtocolCircuitv2RelayMetricsTracer$ on GoHandle {
   /// Go: `func (relay.MetricsTracer).ConnectionClosed(d time.Duration)`.
   void connectionClosed(Duration d) {
     $callSync(
-        14891,
+        14897,
         $W()
           ..h(this)
           ..i64((d).inMicroseconds * 1000));
@@ -93,13 +93,13 @@ mixin Libp2pP2pProtocolCircuitv2RelayMetricsTracer$ on GoHandle {
 
   /// Go: `func (relay.MetricsTracer).ConnectionOpened()`.
   void connectionOpened() {
-    $callSync(14892, $W()..h(this));
+    $callSync(14898, $W()..h(this));
   }
 
   /// Go: `func (relay.MetricsTracer).ConnectionRequestHandled(status pb.Status)`.
   void connectionRequestHandled(int status) {
     $callSync(
-        14893,
+        14899,
         $W()
           ..h(this)
           ..i64(status));
@@ -108,7 +108,7 @@ mixin Libp2pP2pProtocolCircuitv2RelayMetricsTracer$ on GoHandle {
   /// Go: `func (relay.MetricsTracer).RelayStatus(enabled bool)`.
   void relayStatus(bool enabled) {
     $callSync(
-        14894,
+        14900,
         $W()
           ..h(this)
           ..b(enabled));
@@ -117,7 +117,7 @@ mixin Libp2pP2pProtocolCircuitv2RelayMetricsTracer$ on GoHandle {
   /// Go: `func (relay.MetricsTracer).ReservationAllowed(isRenewal bool)`.
   void reservationAllowed(bool isRenewal) {
     $callSync(
-        14895,
+        14901,
         $W()
           ..h(this)
           ..b(isRenewal));
@@ -126,7 +126,7 @@ mixin Libp2pP2pProtocolCircuitv2RelayMetricsTracer$ on GoHandle {
   /// Go: `func (relay.MetricsTracer).ReservationClosed(cnt int)`.
   void reservationClosed(int cnt) {
     $callSync(
-        14896,
+        14902,
         $W()
           ..h(this)
           ..i64(cnt));
@@ -135,7 +135,7 @@ mixin Libp2pP2pProtocolCircuitv2RelayMetricsTracer$ on GoHandle {
   /// Go: `func (relay.MetricsTracer).ReservationRequestHandled(status pb.Status)`.
   void reservationRequestHandled(int status) {
     $callSync(
-        14897,
+        14903,
         $W()
           ..h(this)
           ..i64(status));
@@ -177,7 +177,7 @@ class Libp2pP2pProtocolCircuitv2Relay extends $io.IoCloser
 
   /// Go: `func (*relay.Relay).Close() error`.
   void close() {
-    $callSync(14900, $W()..h(this));
+    $callSync(14906, $W()..h(this));
   }
 }
 
@@ -278,13 +278,13 @@ extension GoLibp2pLibp2pP2pProtocolCircuitv2RelayApi
     on GoLibp2pLibp2pP2pProtocolCircuitv2Relay {
   /// Go: `func relay.DefaultLimit() *relay.RelayLimit`.
   Libp2pP2pProtocolCircuitv2RelayLimit defaultLimit() {
-    final $r = $callSync(14888);
+    final $r = $callSync(14894);
     return $r.p() ? Libp2pP2pProtocolCircuitv2RelayLimit.$dec($r) : $nil();
   }
 
   /// Go: `func relay.DefaultResources() relay.Resources`.
   Libp2pP2pProtocolCircuitv2RelayResources defaultResources() {
-    final $r = $callSync(14889);
+    final $r = $callSync(14895);
     return $r.p() ? Libp2pP2pProtocolCircuitv2RelayResources.$dec($r) : $nil();
   }
 
@@ -292,7 +292,7 @@ extension GoLibp2pLibp2pP2pProtocolCircuitv2RelayApi
   Libp2pP2pProtocolCircuitv2Relay new$($host.Libp2pCoreHost h,
       [List<Libp2pP2pProtocolCircuitv2RelayOption> opts = const []]) {
     final $r = $callSync(
-        14898,
+        14904,
         $W()
           ..h(h)
           ..list(opts, (w0, e0) => w0.opt(e0)));

@@ -50,7 +50,7 @@ class GoleveldbLeveldbTableReader extends $leveldb.GoleveldbLeveldbReader
       $util.GoleveldbLeveldbUtilBufferPool bpool,
       $opt.GoleveldbLeveldbOptOptions o) {
     final $r = $callSync(
-        18791,
+        18797,
         $W()
           ..reader(f)
           ..i64(size)
@@ -65,7 +65,7 @@ class GoleveldbLeveldbTableReader extends $leveldb.GoleveldbLeveldbReader
   (Uint8List, Uint8List) find(
       Uint8List key, bool filtered, $opt.GoleveldbLeveldbOptReadOptions ro) {
     final $r = $callSync(
-        18793,
+        18799,
         $W()
           ..h(this)
           ..bytes(key)
@@ -78,7 +78,7 @@ class GoleveldbLeveldbTableReader extends $leveldb.GoleveldbLeveldbReader
   Uint8List findKey(
       Uint8List key, bool filtered, $opt.GoleveldbLeveldbOptReadOptions ro) {
     final $r = $callSync(
-        18794,
+        18800,
         $W()
           ..h(this)
           ..bytes(key)
@@ -90,7 +90,7 @@ class GoleveldbLeveldbTableReader extends $leveldb.GoleveldbLeveldbReader
   /// Go: `func (*table.Reader).Get(key []byte, ro *opt.ReadOptions) (value []byte, err error)`.
   Uint8List get(Uint8List key, $opt.GoleveldbLeveldbOptReadOptions ro) {
     final $r = $callSync(
-        18795,
+        18801,
         $W()
           ..h(this)
           ..bytes(key)
@@ -103,7 +103,7 @@ class GoleveldbLeveldbTableReader extends $leveldb.GoleveldbLeveldbReader
       $util.GoleveldbLeveldbUtilRange slice,
       $opt.GoleveldbLeveldbOptReadOptions ro) {
     final $r = $callSync(
-        18796,
+        18802,
         $W()
           ..h(this)
           ..dto(slice)
@@ -114,7 +114,7 @@ class GoleveldbLeveldbTableReader extends $leveldb.GoleveldbLeveldbReader
   /// Go: `func (*table.Reader).OffsetOf(key []byte) (offset int64, err error)`.
   int offsetOf(Uint8List key) {
     final $r = $callSync(
-        18797,
+        18803,
         $W()
           ..h(this)
           ..bytes(key));
@@ -123,7 +123,7 @@ class GoleveldbLeveldbTableReader extends $leveldb.GoleveldbLeveldbReader
 
   /// Go: `func (*table.Reader).Release()`.
   void release$() {
-    $callSync(18798, $W()..h(this));
+    $callSync(18804, $W()..h(this));
   }
 }
 
@@ -156,7 +156,7 @@ class GoleveldbLeveldbTableWriter extends $io.IoCloser
       $util.GoleveldbLeveldbUtilBufferPool pool,
       int size) {
     final $r = $callSync(
-        18792,
+        18798,
         $W()
           ..h(f)
           ..dto(o)
@@ -168,7 +168,7 @@ class GoleveldbLeveldbTableWriter extends $io.IoCloser
   /// Go: `func (*table.Writer).Append(key []byte, value []byte) error`.
   void append(Uint8List key, Uint8List value) {
     $callSync(
-        18799,
+        18805,
         $W()
           ..h(this)
           ..bytes(key)
@@ -177,24 +177,24 @@ class GoleveldbLeveldbTableWriter extends $io.IoCloser
 
   /// Go: `func (*table.Writer).BlocksLen() int`.
   int blocksLen() {
-    final $r = $callSync(18800, $W()..h(this));
+    final $r = $callSync(18806, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*table.Writer).BytesLen() int`.
   int bytesLen() {
-    final $r = $callSync(18801, $W()..h(this));
+    final $r = $callSync(18807, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*table.Writer).Close() error`.
   void close() {
-    $callSync(18802, $W()..h(this));
+    $callSync(18808, $W()..h(this));
   }
 
   /// Go: `func (*table.Writer).EntriesLen() int`.
   int entriesLen() {
-    final $r = $callSync(18803, $W()..h(this));
+    final $r = $callSync(18809, $W()..h(this));
     return $r.i64();
   }
 }

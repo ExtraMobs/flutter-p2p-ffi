@@ -17,7 +17,7 @@ class Murmur3Hash128 extends $hash.Hash with Murmur3Hash128$ {
 mixin Murmur3Hash128$ on GoHandle {
   /// Go: `func (murmur3.Hash128).Sum128() (uint64, uint64)`.
   (int, int) sum128() {
-    final $r = $callSync(18576, $W()..h(this));
+    final $r = $callSync(18582, $W()..h(this));
     return ($r.i64(), $r.i64());
   }
 }
@@ -26,50 +26,50 @@ mixin Murmur3Hash128$ on GoHandle {
 extension GoSpaolacciMurmur3Api on GoSpaolacciMurmur3 {
   /// Go: `func murmur3.New128() murmur3.Hash128`.
   Murmur3Hash128 new128() {
-    final $r = $callSync(18577);
+    final $r = $callSync(18583);
     return $r.hnn(Murmur3Hash128.$h);
   }
 
   /// Go: `func murmur3.New128WithSeed(seed uint32) murmur3.Hash128`.
   Murmur3Hash128 new128WithSeed(int seed) {
-    final $r = $callSync(18578, $W()..i64(seed));
+    final $r = $callSync(18584, $W()..i64(seed));
     return $r.hnn(Murmur3Hash128.$h);
   }
 
   /// Go: `func murmur3.New32() hash.Hash32`.
   $hash.HashHash32 new32() {
-    final $r = $callSync(18579);
+    final $r = $callSync(18585);
     return $r.hnn($hash.HashHash32.$h);
   }
 
   /// Go: `func murmur3.New32WithSeed(seed uint32) hash.Hash32`.
   $hash.HashHash32 new32WithSeed(int seed) {
-    final $r = $callSync(18580, $W()..i64(seed));
+    final $r = $callSync(18586, $W()..i64(seed));
     return $r.hnn($hash.HashHash32.$h);
   }
 
   /// Go: `func murmur3.New64() hash.Hash64`.
   $hash.HashHash64 new64() {
-    final $r = $callSync(18581);
+    final $r = $callSync(18587);
     return $r.hnn($hash.HashHash64.$h);
   }
 
   /// Go: `func murmur3.New64WithSeed(seed uint32) hash.Hash64`.
   $hash.HashHash64 new64WithSeed(int seed) {
-    final $r = $callSync(18582, $W()..i64(seed));
+    final $r = $callSync(18588, $W()..i64(seed));
     return $r.hnn($hash.HashHash64.$h);
   }
 
   /// Go: `func murmur3.Sum128(data []byte) (h1 uint64, h2 uint64)`.
   (int, int) sum128(Uint8List data) {
-    final $r = $callSync(18583, $W()..bytes(data));
+    final $r = $callSync(18589, $W()..bytes(data));
     return ($r.i64(), $r.i64());
   }
 
   /// Go: `func murmur3.Sum128WithSeed(data []byte, seed uint32) (h1 uint64, h2 uint64)`.
   (int, int) sum128WithSeed(Uint8List data, int seed) {
     final $r = $callSync(
-        18584,
+        18590,
         $W()
           ..bytes(data)
           ..i64(seed));
@@ -78,14 +78,14 @@ extension GoSpaolacciMurmur3Api on GoSpaolacciMurmur3 {
 
   /// Go: `func murmur3.Sum32(data []byte) uint32`.
   int sum32(Uint8List data) {
-    final $r = $callSync(18585, $W()..bytes(data));
+    final $r = $callSync(18591, $W()..bytes(data));
     return $r.i64();
   }
 
   /// Go: `func murmur3.Sum32WithSeed(data []byte, seed uint32) uint32`.
   int sum32WithSeed(Uint8List data, int seed) {
     final $r = $callSync(
-        18586,
+        18592,
         $W()
           ..bytes(data)
           ..i64(seed));
@@ -94,14 +94,14 @@ extension GoSpaolacciMurmur3Api on GoSpaolacciMurmur3 {
 
   /// Go: `func murmur3.Sum64(data []byte) uint64`.
   int sum64(Uint8List data) {
-    final $r = $callSync(18587, $W()..bytes(data));
+    final $r = $callSync(18593, $W()..bytes(data));
     return $r.i64();
   }
 
   /// Go: `func murmur3.Sum64WithSeed(data []byte, seed uint32) uint64`.
   int sum64WithSeed(Uint8List data, int seed) {
     final $r = $callSync(
-        18588,
+        18594,
         $W()
           ..bytes(data)
           ..i64(seed));

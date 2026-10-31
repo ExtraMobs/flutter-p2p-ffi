@@ -20,7 +20,7 @@ mixin EncodingBinaryAppendByteOrder$ on GoHandle {
   /// Go: `func (binary.AppendByteOrder).AppendUint16([]byte, uint16) []byte`.
   Uint8List appendUint16(Uint8List arg0, int arg1) {
     final $r = $callSync(
-        3676,
+        3685,
         $W()
           ..h(this)
           ..bytes(arg0)
@@ -31,7 +31,7 @@ mixin EncodingBinaryAppendByteOrder$ on GoHandle {
   /// Go: `func (binary.AppendByteOrder).AppendUint32([]byte, uint32) []byte`.
   Uint8List appendUint32(Uint8List arg0, int arg1) {
     final $r = $callSync(
-        3677,
+        3686,
         $W()
           ..h(this)
           ..bytes(arg0)
@@ -42,7 +42,7 @@ mixin EncodingBinaryAppendByteOrder$ on GoHandle {
   /// Go: `func (binary.AppendByteOrder).AppendUint64([]byte, uint64) []byte`.
   Uint8List appendUint64(Uint8List arg0, int arg1) {
     final $r = $callSync(
-        3678,
+        3687,
         $W()
           ..h(this)
           ..bytes(arg0)
@@ -52,7 +52,7 @@ mixin EncodingBinaryAppendByteOrder$ on GoHandle {
 
   /// Go: `func (binary.AppendByteOrder).String() string`.
   String string() {
-    final $r = $callSync(3679, $W()..h(this));
+    final $r = $callSync(3688, $W()..h(this));
     return $r.str();
   }
 }
@@ -67,7 +67,7 @@ mixin EncodingBinaryByteOrder$ on GoHandle {
   /// Go: `func (binary.ByteOrder).PutUint16([]byte, uint16)`.
   void putUint16(Uint8List arg0, int arg1) {
     $callSync(
-        3682,
+        3691,
         $W()
           ..h(this)
           ..bytes(arg0)
@@ -77,7 +77,7 @@ mixin EncodingBinaryByteOrder$ on GoHandle {
   /// Go: `func (binary.ByteOrder).PutUint32([]byte, uint32)`.
   void putUint32(Uint8List arg0, int arg1) {
     $callSync(
-        3683,
+        3692,
         $W()
           ..h(this)
           ..bytes(arg0)
@@ -87,7 +87,7 @@ mixin EncodingBinaryByteOrder$ on GoHandle {
   /// Go: `func (binary.ByteOrder).PutUint64([]byte, uint64)`.
   void putUint64(Uint8List arg0, int arg1) {
     $callSync(
-        3684,
+        3693,
         $W()
           ..h(this)
           ..bytes(arg0)
@@ -96,14 +96,14 @@ mixin EncodingBinaryByteOrder$ on GoHandle {
 
   /// Go: `func (binary.ByteOrder).String() string`.
   String string() {
-    final $r = $callSync(3685, $W()..h(this));
+    final $r = $callSync(3694, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (binary.ByteOrder).Uint16([]byte) uint16`.
   int uint16(Uint8List arg0) {
     final $r = $callSync(
-        3686,
+        3695,
         $W()
           ..h(this)
           ..bytes(arg0));
@@ -113,7 +113,7 @@ mixin EncodingBinaryByteOrder$ on GoHandle {
   /// Go: `func (binary.ByteOrder).Uint32([]byte) uint32`.
   int uint32(Uint8List arg0) {
     final $r = $callSync(
-        3687,
+        3696,
         $W()
           ..h(this)
           ..bytes(arg0));
@@ -123,7 +123,7 @@ mixin EncodingBinaryByteOrder$ on GoHandle {
   /// Go: `func (binary.ByteOrder).Uint64([]byte) uint64`.
   int uint64(Uint8List arg0) {
     final $r = $callSync(
-        3688,
+        3697,
         $W()
           ..h(this)
           ..bytes(arg0));
@@ -136,7 +136,7 @@ extension GoEncodingBinaryApi on GoEncodingBinary {
   /// Go: `func binary.Append(buf []byte, order binary.ByteOrder, data any) ([]byte, error)`.
   Uint8List append(Uint8List buf, EncodingBinaryByteOrder order, Object? data) {
     final $r = $callSync(
-        3675,
+        3684,
         $W()
           ..bytes(buf)
           ..h(order)
@@ -147,7 +147,7 @@ extension GoEncodingBinaryApi on GoEncodingBinary {
   /// Go: `func binary.AppendUvarint(buf []byte, x uint64) []byte`.
   Uint8List appendUvarint(Uint8List buf, int x) {
     final $r = $callSync(
-        3680,
+        3689,
         $W()
           ..bytes(buf)
           ..i64(x));
@@ -157,7 +157,7 @@ extension GoEncodingBinaryApi on GoEncodingBinary {
   /// Go: `func binary.AppendVarint(buf []byte, x int64) []byte`.
   Uint8List appendVarint(Uint8List buf, int x) {
     final $r = $callSync(
-        3681,
+        3690,
         $W()
           ..bytes(buf)
           ..i64(x));
@@ -167,7 +167,7 @@ extension GoEncodingBinaryApi on GoEncodingBinary {
   /// Go: `func binary.Decode(buf []byte, order binary.ByteOrder, data any) (int, error)`.
   int decode(Uint8List buf, EncodingBinaryByteOrder order, Object? data) {
     final $r = $callSync(
-        3689,
+        3698,
         $W()
           ..bytes(buf)
           ..h(order)
@@ -178,7 +178,7 @@ extension GoEncodingBinaryApi on GoEncodingBinary {
   /// Go: `func binary.Encode(buf []byte, order binary.ByteOrder, data any) (int, error)`.
   int encode(Uint8List buf, EncodingBinaryByteOrder order, Object? data) {
     final $r = $callSync(
-        3690,
+        3699,
         $W()
           ..bytes(buf)
           ..h(order)
@@ -189,7 +189,7 @@ extension GoEncodingBinaryApi on GoEncodingBinary {
   /// Go: `func binary.PutUvarint(buf []byte, x uint64) int`.
   int putUvarint(Uint8List buf, int x) {
     final $r = $callSync(
-        3691,
+        3700,
         $W()
           ..bytes(buf)
           ..i64(x));
@@ -199,7 +199,7 @@ extension GoEncodingBinaryApi on GoEncodingBinary {
   /// Go: `func binary.PutVarint(buf []byte, x int64) int`.
   int putVarint(Uint8List buf, int x) {
     final $r = $callSync(
-        3692,
+        3701,
         $W()
           ..bytes(buf)
           ..i64(x));
@@ -209,7 +209,7 @@ extension GoEncodingBinaryApi on GoEncodingBinary {
   /// Go: `func binary.Read(r io.Reader, order binary.ByteOrder, data any) error`.
   void read(Object r, EncodingBinaryByteOrder order, Object? data) {
     $callSync(
-        3693,
+        3702,
         $W()
           ..reader(r)
           ..h(order)
@@ -218,38 +218,38 @@ extension GoEncodingBinaryApi on GoEncodingBinary {
 
   /// Go: `func binary.ReadUvarint(r io.ByteReader) (uint64, error)`.
   int readUvarint($io.IoByteReader r) {
-    final $r = $callSync(3694, $W()..dto(r));
+    final $r = $callSync(3703, $W()..dto(r));
     return $r.i64();
   }
 
   /// Go: `func binary.ReadVarint(r io.ByteReader) (int64, error)`.
   int readVarint($io.IoByteReader r) {
-    final $r = $callSync(3695, $W()..dto(r));
+    final $r = $callSync(3704, $W()..dto(r));
     return $r.i64();
   }
 
   /// Go: `func binary.Size(v any) int`.
   int size(Object? v) {
-    final $r = $callSync(3696, $W()..any(v));
+    final $r = $callSync(3705, $W()..any(v));
     return $r.i64();
   }
 
   /// Go: `func binary.Uvarint(buf []byte) (uint64, int)`.
   (int, int) uvarint(Uint8List buf) {
-    final $r = $callSync(3697, $W()..bytes(buf));
+    final $r = $callSync(3706, $W()..bytes(buf));
     return ($r.i64(), $r.i64());
   }
 
   /// Go: `func binary.Varint(buf []byte) (int64, int)`.
   (int, int) varint(Uint8List buf) {
-    final $r = $callSync(3698, $W()..bytes(buf));
+    final $r = $callSync(3707, $W()..bytes(buf));
     return ($r.i64(), $r.i64());
   }
 
   /// Go: `func binary.Write(w io.Writer, order binary.ByteOrder, data any) error`.
   void write(GoHandle? w, EncodingBinaryByteOrder order, Object? data) {
     $callSync(
-        3699,
+        3708,
         $W()
           ..h(w)
           ..h(order)

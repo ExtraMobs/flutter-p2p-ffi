@@ -39,7 +39,7 @@ class BoxoIpldUnixfsImporterHelpersDagBuilderHelper
   /// Go: `func (*helpers.DagBuilderHelper).Add(node format.Node) error`.
   void add($ipld_format.IpldFormatNode node) {
     $callSync(
-        9790,
+        9799,
         $W()
           ..h(this)
           ..h(node));
@@ -47,14 +47,14 @@ class BoxoIpldUnixfsImporterHelpersDagBuilderHelper
 
   /// Go: `func (*helpers.DagBuilderHelper).Done() bool`.
   bool done() {
-    final $r = $callSync(9791, $W()..h(this));
+    final $r = $callSync(9800, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*helpers.DagBuilderHelper).FillNodeLayer(node *helpers.FSNodeOverDag) error`.
   void fillNodeLayer(BoxoIpldUnixfsImporterHelpersFsNodeOverDag node) {
     $callSync(
-        9792,
+        9801,
         $W()
           ..h(this)
           ..h(node));
@@ -62,25 +62,25 @@ class BoxoIpldUnixfsImporterHelpersDagBuilderHelper
 
   /// Go: `func (*helpers.DagBuilderHelper).GetCidBuilder() cid.Builder`.
   $cid.CidBuilder getCidBuilder() {
-    final $r = $callSync(9793, $W()..h(this));
+    final $r = $callSync(9802, $W()..h(this));
     return $r.hnn($cid.CidBuilder.$h);
   }
 
   /// Go: `func (*helpers.DagBuilderHelper).GetDagServ() format.DAGService`.
   $ipld_format.IpldFormatDagService getDagServ() {
-    final $r = $callSync(9794, $W()..h(this));
+    final $r = $callSync(9803, $W()..h(this));
     return $r.hnn($ipld_format.IpldFormatDagService.$h);
   }
 
   /// Go: `func (*helpers.DagBuilderHelper).HasFileAttributes() bool`.
   bool hasFileAttributes() {
-    final $r = $callSync(9795, $W()..h(this));
+    final $r = $callSync(9804, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*helpers.DagBuilderHelper).Maxlinks() int`.
   int maxlinks() {
-    final $r = $callSync(9796, $W()..h(this));
+    final $r = $callSync(9805, $W()..h(this));
     return $r.i64();
   }
 
@@ -88,7 +88,7 @@ class BoxoIpldUnixfsImporterHelpersDagBuilderHelper
   BoxoIpldUnixfsImporterHelpersFsNodeOverDag newFsnFromDag(
       $merkledag.BoxoIpldMerkledagProtoNode nd) {
     final $r = $callSync(
-        9797,
+        9806,
         $W()
           ..h(this)
           ..h(nd));
@@ -98,7 +98,7 @@ class BoxoIpldUnixfsImporterHelpersDagBuilderHelper
   /// Go: `func (*helpers.DagBuilderHelper).NewFSNodeOverDag(fsNodeType pb.Data_DataType) *helpers.FSNodeOverDag`.
   BoxoIpldUnixfsImporterHelpersFsNodeOverDag newFsNodeOverDag(int fsNodeType) {
     final $r = $callSync(
-        9798,
+        9807,
         $W()
           ..h(this)
           ..i64(fsNodeType));
@@ -108,7 +108,7 @@ class BoxoIpldUnixfsImporterHelpersDagBuilderHelper
   /// Go: `func (*helpers.DagBuilderHelper).NewLeafDataNode(fsNodeType pb.Data_DataType) (node format.Node, dataSize uint64, err error)`.
   ($ipld_format.IpldFormatNode, int) newLeafDataNode(int fsNodeType) {
     final $r = $callSync(
-        9799,
+        9808,
         $W()
           ..h(this)
           ..i64(fsNodeType));
@@ -118,7 +118,7 @@ class BoxoIpldUnixfsImporterHelpersDagBuilderHelper
   /// Go: `func (*helpers.DagBuilderHelper).NewLeafNode(data []byte, fsNodeType pb.Data_DataType) (format.Node, error)`.
   $ipld_format.IpldFormatNode newLeafNode(Uint8List data, int fsNodeType) {
     final $r = $callSync(
-        9800,
+        9809,
         $W()
           ..h(this)
           ..bytes(data)
@@ -128,7 +128,7 @@ class BoxoIpldUnixfsImporterHelpersDagBuilderHelper
 
   /// Go: `func (*helpers.DagBuilderHelper).Next() ([]byte, error)`.
   Uint8List next() {
-    final $r = $callSync(9801, $W()..h(this));
+    final $r = $callSync(9810, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
@@ -136,7 +136,7 @@ class BoxoIpldUnixfsImporterHelpersDagBuilderHelper
   $ipld_format.IpldFormatNode processFileStore(
       $ipld_format.IpldFormatNode node, int dataSize) {
     final $r = $callSync(
-        9802,
+        9811,
         $W()
           ..h(this)
           ..h(node)
@@ -147,7 +147,7 @@ class BoxoIpldUnixfsImporterHelpersDagBuilderHelper
   /// Go: `func (*helpers.DagBuilderHelper).SetFileAttributes(n format.Node) error`.
   void setFileAttributes($ipld_format.IpldFormatNode n) {
     $callSync(
-        9803,
+        9812,
         $W()
           ..h(this)
           ..h(n));
@@ -218,7 +218,7 @@ final class BoxoIpldUnixfsImporterHelpersDagBuilderParams implements GoDto {
   BoxoIpldUnixfsImporterHelpersDagBuilderHelper new$(
       $chunker.BoxoChunkerSplitter spl) {
     final $r = $callSync(
-        9804,
+        9813,
         $W()
           ..dto(this)
           ..h(spl));
@@ -249,7 +249,7 @@ class BoxoIpldUnixfsImporterHelpersFsNodeOverDag
   void addChild($ipld_format.IpldFormatNode child, int fileSize,
       BoxoIpldUnixfsImporterHelpersDagBuilderHelper db) {
     $callSync(
-        9806,
+        9815,
         $W()
           ..h(this)
           ..h(child)
@@ -259,13 +259,13 @@ class BoxoIpldUnixfsImporterHelpersFsNodeOverDag
 
   /// Go: `func (*helpers.FSNodeOverDag).Commit() (format.Node, error)`.
   $ipld_format.IpldFormatNode commit() {
-    final $r = $callSync(9807, $W()..h(this));
+    final $r = $callSync(9816, $W()..h(this));
     return $r.hnn($ipld_format.IpldFormatNode.$h);
   }
 
   /// Go: `func (*helpers.FSNodeOverDag).FileSize() uint64`.
   int fileSize() {
-    final $r = $callSync(9808, $W()..h(this));
+    final $r = $callSync(9817, $W()..h(this));
     return $r.i64();
   }
 
@@ -275,7 +275,7 @@ class BoxoIpldUnixfsImporterHelpersFsNodeOverDag
   Future<BoxoIpldUnixfsImporterHelpersFsNodeOverDag> getChild(
       $context.Context ctx, int i, $ipld_format.IpldFormatDagService ds) async {
     final $r = await $call(
-        9809,
+        9818,
         $W()
           ..h(this)
           ..h(ctx)
@@ -286,25 +286,25 @@ class BoxoIpldUnixfsImporterHelpersFsNodeOverDag
 
   /// Go: `func (*helpers.FSNodeOverDag).GetDagNode() (format.Node, error)`.
   $ipld_format.IpldFormatNode getDagNode() {
-    final $r = $callSync(9810, $W()..h(this));
+    final $r = $callSync(9819, $W()..h(this));
     return $r.hnn($ipld_format.IpldFormatNode.$h);
   }
 
   /// Go: `func (*helpers.FSNodeOverDag).ModTime() time.Time`.
   DateTime modTime() {
-    final $r = $callSync(9811, $W()..h(this));
+    final $r = $callSync(9820, $W()..h(this));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func (*helpers.FSNodeOverDag).Mode() os.FileMode`.
   int mode() {
-    final $r = $callSync(9812, $W()..h(this));
+    final $r = $callSync(9821, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*helpers.FSNodeOverDag).NumChildren() int`.
   int numChildren() {
-    final $r = $callSync(9813, $W()..h(this));
+    final $r = $callSync(9822, $W()..h(this));
     return $r.i64();
   }
 
@@ -312,7 +312,7 @@ class BoxoIpldUnixfsImporterHelpersFsNodeOverDag
   void removeChild(
       int index, BoxoIpldUnixfsImporterHelpersDagBuilderHelper dbh) {
     $callSync(
-        9814,
+        9823,
         $W()
           ..h(this)
           ..i64(index)
@@ -322,7 +322,7 @@ class BoxoIpldUnixfsImporterHelpersFsNodeOverDag
   /// Go: `func (*helpers.FSNodeOverDag).SetFileData(fileData []byte)`.
   void setFileData(Uint8List fileData) {
     $callSync(
-        9815,
+        9824,
         $W()
           ..h(this)
           ..bytes(fileData));
@@ -331,7 +331,7 @@ class BoxoIpldUnixfsImporterHelpersFsNodeOverDag
   /// Go: `func (*helpers.FSNodeOverDag).SetModTime(ts time.Time)`.
   void setModTime(DateTime ts) {
     $callSync(
-        9816,
+        9825,
         $W()
           ..h(this)
           ..time(ts));
@@ -340,7 +340,7 @@ class BoxoIpldUnixfsImporterHelpersFsNodeOverDag
   /// Go: `func (*helpers.FSNodeOverDag).SetMode(mode os.FileMode)`.
   void setMode(int mode) {
     $callSync(
-        9817,
+        9826,
         $W()
           ..h(this)
           ..i64(mode));
@@ -372,20 +372,20 @@ extension GoIpfsBoxoIpldUnixfsImporterHelpersApi
     on GoIpfsBoxoIpldUnixfsImporterHelpers {
   /// Go: `var helpers.BlockSizeLimit int`.
   int get blockSizeLimit {
-    final $r = $callSync(9789);
+    final $r = $callSync(9798);
     return $r.i64();
   }
 
   /// Go: `var helpers.DefaultLinksPerBlock int`.
   int get defaultLinksPerBlock {
-    final $r = $callSync(9805);
+    final $r = $callSync(9814);
     return $r.i64();
   }
 
   /// Go: `func helpers.NewFSNFromDag(nd *merkledag.ProtoNode) (*helpers.FSNodeOverDag, error)`.
   BoxoIpldUnixfsImporterHelpersFsNodeOverDag newFsnFromDag(
       $merkledag.BoxoIpldMerkledagProtoNode nd) {
-    final $r = $callSync(9818, $W()..h(nd));
+    final $r = $callSync(9827, $W()..h(nd));
     return $r.hnn(BoxoIpldUnixfsImporterHelpersFsNodeOverDag.$h);
   }
 }

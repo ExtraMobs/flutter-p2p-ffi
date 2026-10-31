@@ -52,7 +52,7 @@ final class KuboProfileOptions implements GoDto {
 extension GoIpfsKuboProfileApi on GoIpfsKuboProfile {
   /// Go: `func profile.WriteAllGoroutineStacks(w io.Writer) error`.
   void writeAllGoroutineStacks(GoHandle? w) {
-    $callSync(11727, $W()..h(w));
+    $callSync(11733, $W()..h(w));
   }
 
   /// Go: `func profile.WriteProfiles(ctx context.Context, archive *zip.Writer, opts profile.Options) error`.
@@ -61,7 +61,7 @@ extension GoIpfsKuboProfileApi on GoIpfsKuboProfile {
   Future<void> writeProfiles($context.Context ctx,
       $zip.ArchiveZipWriter archive, KuboProfileOptions opts) async {
     await $call(
-        11728,
+        11734,
         $W()
           ..h(ctx)
           ..h(archive)

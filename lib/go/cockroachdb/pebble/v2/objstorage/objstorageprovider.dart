@@ -50,7 +50,7 @@ class PebbleV2ObjstorageObjstorageproviderPreallocatedReadHandle
 
   /// Go: `func (*objstorageprovider.PreallocatedReadHandle).Close() error`.
   void close() {
-    $callSync(4946, $W()..h(this));
+    $callSync(4955, $W()..h(this));
   }
 
   /// Go: `func (*objstorageprovider.vfsReadHandle).ReadAt(_ context.Context, p []byte, offset int64) error`.
@@ -58,7 +58,7 @@ class PebbleV2ObjstorageObjstorageproviderPreallocatedReadHandle
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> readAt($context.Context ctx, Uint8List p, int offset) async {
     await $call(
-        4947,
+        4956,
         $W()
           ..h(this)
           ..h(ctx)
@@ -72,7 +72,7 @@ class PebbleV2ObjstorageObjstorageproviderPreallocatedReadHandle
   Future<void> recordCacheHit(
       $context.Context ctx, int offset, int size) async {
     await $call(
-        4948,
+        4957,
         $W()
           ..h(this)
           ..h(ctx)
@@ -82,7 +82,7 @@ class PebbleV2ObjstorageObjstorageproviderPreallocatedReadHandle
 
   /// Go: `func (*objstorageprovider.vfsReadHandle).SetupForCompaction()`.
   void setupForCompaction() {
-    $callSync(4949, $W()..h(this));
+    $callSync(4958, $W()..h(this));
   }
 }
 
@@ -107,20 +107,20 @@ class PebbleV2ObjstorageObjstorageproviderReadaheadConfig
 
   /// Go: `func objstorageprovider.NewReadaheadConfig() *objstorageprovider.ReadaheadConfig`.
   factory PebbleV2ObjstorageObjstorageproviderReadaheadConfig() {
-    final $r = $callSync(4942);
+    final $r = $callSync(4951);
     return $r.hnn(PebbleV2ObjstorageObjstorageproviderReadaheadConfig.$h);
   }
 
   /// Go: `func (*objstorageprovider.ReadaheadConfig).Informed() objstorageprovider.ReadaheadMode`.
   int informed() {
-    final $r = $callSync(4950, $W()..h(this));
+    final $r = $callSync(4959, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*objstorageprovider.ReadaheadConfig).Set(informed objstorageprovider.ReadaheadMode, speculative objstorageprovider.ReadaheadMode)`.
   void set(int informed, int speculative) {
     $callSync(
-        4951,
+        4960,
         $W()
           ..h(this)
           ..i64(informed)
@@ -129,7 +129,7 @@ class PebbleV2ObjstorageObjstorageproviderReadaheadConfig
 
   /// Go: `func (*objstorageprovider.ReadaheadConfig).Speculative() objstorageprovider.ReadaheadMode`.
   int speculative() {
-    final $r = $callSync(4952, $W()..h(this));
+    final $r = $callSync(4961, $W()..h(this));
     return $r.i64();
   }
 }
@@ -204,7 +204,7 @@ extension GoCockroachdbPebbleV2ObjstorageObjstorageproviderApi
   PebbleV2ObjstorageObjstorageproviderSettings defaultSettings(
       $vfs.PebbleV2VfsFs fs, String dirName) {
     final $r = $callSync(
-        4939,
+        4948,
         $W()
           ..h(fs)
           ..str(dirName));
@@ -220,7 +220,7 @@ extension GoCockroachdbPebbleV2ObjstorageObjstorageproviderApi
       PebbleV2ObjstorageObjstorageproviderReadaheadConfig readaheadConfig,
       String filename) {
     final $r = $callSync(
-        4940,
+        4949,
         $W()
           ..h(file)
           ..h(fs)
@@ -232,7 +232,7 @@ extension GoCockroachdbPebbleV2ObjstorageObjstorageproviderApi
   /// Go: `func objstorageprovider.NewFileWritable(file vfs.File) objstorage.Writable`.
   $objstorage.PebbleV2ObjstorageWritable newFileWritable(
       $vfs.PebbleV2VfsFile file) {
-    final $r = $callSync(4941, $W()..h(file));
+    final $r = $callSync(4950, $W()..h(file));
     return $r.hnn($objstorage.PebbleV2ObjstorageWritable.$h);
   }
 
@@ -240,7 +240,7 @@ extension GoCockroachdbPebbleV2ObjstorageObjstorageproviderApi
   $objstorage.PebbleV2ObjstorageReadable newRemoteReadable(
       Object objReader, int size) {
     final $r = $callSync(
-        4943,
+        4952,
         $W()
           ..reader(objReader)
           ..i64(size));
@@ -249,20 +249,20 @@ extension GoCockroachdbPebbleV2ObjstorageObjstorageproviderApi
 
   /// Go: `func objstorageprovider.NewRemoteWritable(obj io.WriteCloser) objstorage.Writable`.
   $objstorage.PebbleV2ObjstorageWritable newRemoteWritable(Object obj) {
-    final $r = $callSync(4944, $W()..reader(obj));
+    final $r = $callSync(4953, $W()..reader(obj));
     return $r.hnn($objstorage.PebbleV2ObjstorageWritable.$h);
   }
 
   /// Go: `func objstorageprovider.Open(settings objstorageprovider.Settings) (objstorage.Provider, error)`.
   $objstorage.PebbleV2ObjstorageProvider open(
       PebbleV2ObjstorageObjstorageproviderSettings settings) {
-    final $r = $callSync(4945, $W()..dto(settings));
+    final $r = $callSync(4954, $W()..dto(settings));
     return $r.hnn($objstorage.PebbleV2ObjstorageProvider.$h);
   }
 
   /// Go: `func objstorageprovider.TestingCheckMaxReadahead(rh objstorage.ReadHandle) bool`.
   bool testingCheckMaxReadahead($objstorage.PebbleV2ObjstorageReadHandle rh) {
-    final $r = $callSync(4953, $W()..h(rh));
+    final $r = $callSync(4962, $W()..h(rh));
     return $r.b();
   }
 
@@ -272,7 +272,7 @@ extension GoCockroachdbPebbleV2ObjstorageObjstorageproviderApi
       int readBeforeSize,
       PebbleV2ObjstorageObjstorageproviderPreallocatedReadHandle rh) {
     final $r = $callSync(
-        4954,
+        4963,
         $W()
           ..h(readable)
           ..i64(readBeforeSize)

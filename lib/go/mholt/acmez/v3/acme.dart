@@ -81,7 +81,7 @@ final class AcmezV3AcmeAccount implements GoDto {
   Future<void> setExternalAccountBinding($context.Context ctx,
       AcmezV3AcmeClient client, AcmezV3AcmeEab eab) async {
     await $call(
-        15249,
+        15255,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -91,7 +91,7 @@ final class AcmezV3AcmeAccount implements GoDto {
 
   /// Go: `func (*acme.Account).Thumbprint() (string, error)`.
   String thumbprint() {
-    final $r = $callSync(15250, $W()..dto(this));
+    final $r = $callSync(15256, $W()..dto(this));
     return $r.str();
   }
 }
@@ -152,7 +152,7 @@ final class AcmezV3AcmeAuthorization implements GoDto {
 
   /// Go: `func (acme.Authorization).IdentifierValue() string`.
   String identifierValue() {
-    final $r = $callSync(15251, $W()..dto(this));
+    final $r = $callSync(15257, $W()..dto(this));
     return $r.str();
   }
 }
@@ -289,20 +289,20 @@ final class AcmezV3AcmeChallenge implements GoDto {
 
   /// Go: `func (acme.Challenge).DNS01KeyAuthorization() string`.
   String dns01KeyAuthorization() {
-    final $r = $callSync(15252, $W()..dto(this));
+    final $r = $callSync(15258, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (acme.Challenge).DNS01TXTRecordName() string`.
   String dns01txtRecordName() {
-    final $r = $callSync(15253, $W()..dto(this));
+    final $r = $callSync(15259, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (acme.Challenge).DNSAccount01TXTRecordName(a acme.Account) string`.
   String dnsAccount01txtRecordName(AcmezV3AcmeAccount a) {
     final $r = $callSync(
-        15254,
+        15260,
         $W()
           ..dto(this)
           ..dto(a));
@@ -311,14 +311,14 @@ final class AcmezV3AcmeChallenge implements GoDto {
 
   /// Go: `func (acme.Challenge).HTTP01ResourcePath() string`.
   String http01ResourcePath() {
-    final $r = $callSync(15255, $W()..dto(this));
+    final $r = $callSync(15261, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (acme.Challenge).MailReply00KeyAuthorization(mailSubject string) (string, error)`.
   String mailReply00KeyAuthorization(String mailSubject) {
     final $r = $callSync(
-        15256,
+        15262,
         $W()
           ..dto(this)
           ..str(mailSubject));
@@ -350,7 +350,7 @@ class AcmezV3AcmeClient extends $crypto.CryptoDecrypterOpts
   Future<AcmezV3AcmeAccount> accountKeyRollover($context.Context ctx,
       AcmezV3AcmeAccount account, $crypto.CryptoSigner newPrivateKey) async {
     final $r = await $call(
-        15257,
+        15263,
         $W()
           ..h(this)
           ..h(ctx)
@@ -365,7 +365,7 @@ class AcmezV3AcmeClient extends $crypto.CryptoDecrypterOpts
   Future<AcmezV3AcmeAuthorization> deactivateAuthorization(
       $context.Context ctx, AcmezV3AcmeAccount account, String authzUrl) async {
     final $r = await $call(
-        15258,
+        15264,
         $W()
           ..h(this)
           ..h(ctx)
@@ -383,7 +383,7 @@ class AcmezV3AcmeClient extends $crypto.CryptoDecrypterOpts
       AcmezV3AcmeOrder order,
       Uint8List csrAsn1der) async {
     final $r = await $call(
-        15259,
+        15265,
         $W()
           ..h(this)
           ..h(ctx)
@@ -399,7 +399,7 @@ class AcmezV3AcmeClient extends $crypto.CryptoDecrypterOpts
   Future<AcmezV3AcmeAccount> getAccount(
       $context.Context ctx, AcmezV3AcmeAccount account) async {
     final $r = await $call(
-        15260,
+        15266,
         $W()
           ..h(this)
           ..h(ctx)
@@ -413,7 +413,7 @@ class AcmezV3AcmeClient extends $crypto.CryptoDecrypterOpts
   Future<AcmezV3AcmeAuthorization> getAuthorization(
       $context.Context ctx, AcmezV3AcmeAccount account, String authzUrl) async {
     final $r = await $call(
-        15261,
+        15267,
         $W()
           ..h(this)
           ..h(ctx)
@@ -428,7 +428,7 @@ class AcmezV3AcmeClient extends $crypto.CryptoDecrypterOpts
   Future<List<AcmezV3AcmeCertificate>> getCertificateChain(
       $context.Context ctx, AcmezV3AcmeAccount account, String certUrl) async {
     final $r = await $call(
-        15262,
+        15268,
         $W()
           ..h(this)
           ..h(ctx)
@@ -442,7 +442,7 @@ class AcmezV3AcmeClient extends $crypto.CryptoDecrypterOpts
   /// Asynchronous: runs in a goroutine of the service.
   Future<AcmezV3AcmeDirectory> getDirectory($context.Context ctx) async {
     final $r = await $call(
-        15263,
+        15269,
         $W()
           ..h(this)
           ..h(ctx));
@@ -455,7 +455,7 @@ class AcmezV3AcmeClient extends $crypto.CryptoDecrypterOpts
   Future<AcmezV3AcmeOrder> getOrder($context.Context ctx,
       AcmezV3AcmeAccount account, AcmezV3AcmeOrder order) async {
     final $r = await $call(
-        15264,
+        15270,
         $W()
           ..h(this)
           ..h(ctx)
@@ -470,7 +470,7 @@ class AcmezV3AcmeClient extends $crypto.CryptoDecrypterOpts
   Future<AcmezV3AcmeRenewalInfo> getRenewalInfo(
       $context.Context ctx, $x509.CryptoX509Certificate leafCert) async {
     final $r = await $call(
-        15265,
+        15271,
         $W()
           ..h(this)
           ..h(ctx)
@@ -484,7 +484,7 @@ class AcmezV3AcmeClient extends $crypto.CryptoDecrypterOpts
   Future<AcmezV3AcmeChallenge> initiateChallenge($context.Context ctx,
       AcmezV3AcmeAccount account, AcmezV3AcmeChallenge challenge) async {
     final $r = await $call(
-        15266,
+        15272,
         $W()
           ..h(this)
           ..h(ctx)
@@ -499,7 +499,7 @@ class AcmezV3AcmeClient extends $crypto.CryptoDecrypterOpts
   Future<AcmezV3AcmeAccount> newAccount(
       $context.Context ctx, AcmezV3AcmeAccount account) async {
     final $r = await $call(
-        15267,
+        15273,
         $W()
           ..h(this)
           ..h(ctx)
@@ -513,7 +513,7 @@ class AcmezV3AcmeClient extends $crypto.CryptoDecrypterOpts
   Future<AcmezV3AcmeAuthorization> newAuthorization($context.Context ctx,
       AcmezV3AcmeAccount account, AcmezV3AcmeIdentifier id) async {
     final $r = await $call(
-        15268,
+        15274,
         $W()
           ..h(this)
           ..h(ctx)
@@ -528,7 +528,7 @@ class AcmezV3AcmeClient extends $crypto.CryptoDecrypterOpts
   Future<AcmezV3AcmeOrder> newOrder($context.Context ctx,
       AcmezV3AcmeAccount account, AcmezV3AcmeOrder order) async {
     final $r = await $call(
-        15269,
+        15275,
         $W()
           ..h(this)
           ..h(ctx)
@@ -543,7 +543,7 @@ class AcmezV3AcmeClient extends $crypto.CryptoDecrypterOpts
   Future<AcmezV3AcmeAuthorization> pollAuthorization($context.Context ctx,
       AcmezV3AcmeAccount account, AcmezV3AcmeAuthorization authz) async {
     final $r = await $call(
-        15270,
+        15276,
         $W()
           ..h(this)
           ..h(ctx)
@@ -562,7 +562,7 @@ class AcmezV3AcmeClient extends $crypto.CryptoDecrypterOpts
       $crypto.CryptoSigner certKey,
       int reason) async {
     await $call(
-        15271,
+        15277,
         $W()
           ..h(this)
           ..h(ctx)
@@ -578,7 +578,7 @@ class AcmezV3AcmeClient extends $crypto.CryptoDecrypterOpts
   Future<AcmezV3AcmeAccount> updateAccount(
       $context.Context ctx, AcmezV3AcmeAccount account) async {
     final $r = await $call(
-        15272,
+        15278,
         $W()
           ..h(this)
           ..h(ctx)
@@ -947,20 +947,20 @@ final class AcmezV3AcmeRenewalInfo implements GoDto {
 
   /// Go: `func (acme.RenewalInfo).HasWindow() bool`.
   bool hasWindow() {
-    final $r = $callSync(15273, $W()..dto(this));
+    final $r = $callSync(15279, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (acme.RenewalInfo).NeedsRefresh() bool`.
   bool needsRefresh() {
-    final $r = $callSync(15274, $W()..dto(this));
+    final $r = $callSync(15280, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (acme.RenewalInfo).SameWindow(other acme.RenewalInfo) bool`.
   bool sameWindow(AcmezV3AcmeRenewalInfo other) {
     final $r = $callSync(
-        15275,
+        15281,
         $W()
           ..dto(this)
           ..dto(other));
@@ -1006,7 +1006,7 @@ class AcmezV3AcmeErrUnsupported extends GolangException {
 extension GoMholtAcmezV3AcmeApi on GoMholtAcmezV3Acme {
   /// Go: `func acme.ARIUniqueIdentifier(leafCert *x509.Certificate) (string, error)`.
   String ariUniqueIdentifier($x509.CryptoX509Certificate leafCert) {
-    final $r = $callSync(15248, $W()..dto(leafCert));
+    final $r = $callSync(15254, $W()..dto(leafCert));
     return $r.str();
   }
 }

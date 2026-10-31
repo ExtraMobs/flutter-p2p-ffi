@@ -44,7 +44,7 @@ extension GoIpfsBoxoFetcherHelpersApi on GoIpfsBoxoFetcherHelpers {
   Future<$datamodel.IpldPrimeDatamodelNode> block($context.Context ctx,
       $fetcher.BoxoFetcher f, $datamodel.IpldPrimeDatamodelLink link) async {
     final $r = await $call(
-        9408,
+        9417,
         $W()
           ..h(ctx)
           ..h(f)
@@ -66,7 +66,7 @@ extension GoIpfsBoxoFetcherHelpersApi on GoIpfsBoxoFetcherHelpers {
       FutureOr<void> Function($fetcher.BoxoFetcherFetchResult result)
           cb) async {
     await $call(
-        9409,
+        9418,
         $W()
           ..h(ctx)
           ..h(f)
@@ -92,7 +92,7 @@ extension GoIpfsBoxoFetcherHelpersApi on GoIpfsBoxoFetcherHelpers {
       FutureOr<void> Function($fetcher.BoxoFetcherFetchResult result)
           cb) async {
     await $call(
-        9410,
+        9419,
         $W()
           ..h(ctx)
           ..h(f)
@@ -115,7 +115,7 @@ extension GoIpfsBoxoFetcherHelpersApi on GoIpfsBoxoFetcherHelpers {
       FutureOr<void> Function(BoxoFetcherHelpersBlockResult blockResult)
           bv) async {
     final $r = await $call(
-        9411,
+        9420,
         $W()
           ..cb(
               (r) => bv(r.p() ? BoxoFetcherHelpersBlockResult.$dec(r) : $nil()),
@@ -134,7 +134,7 @@ extension GoIpfsBoxoFetcherHelpersApi on GoIpfsBoxoFetcherHelpers {
       FutureOr<void> Function(BoxoFetcherHelpersBlockResult blockResult)
           bv) async {
     final $r = await $call(
-        9412,
+        9421,
         $W()
           ..cb(
               (r) => bv(r.p() ? BoxoFetcherHelpersBlockResult.$dec(r) : $nil()),

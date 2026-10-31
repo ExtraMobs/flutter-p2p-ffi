@@ -16,7 +16,7 @@ class CryptoBlake2bXof extends GoHandle with CryptoBlake2bXof$ {
   /// Go: `func blake2b.NewXOF(size uint32, key []byte) (blake2b.XOF, error)`.
   factory CryptoBlake2bXof(int size, Uint8List key) {
     final $r = $callSync(
-        23286,
+        23292,
         $W()
           ..i64(size)
           ..bytes(key));
@@ -28,13 +28,13 @@ class CryptoBlake2bXof extends GoHandle with CryptoBlake2bXof$ {
 mixin CryptoBlake2bXof$ on GoHandle {
   /// Go: `func (blake2b.XOF).Clone() blake2b.XOF`.
   CryptoBlake2bXof clone() {
-    final $r = $callSync(23287, $W()..h(this));
+    final $r = $callSync(23293, $W()..h(this));
     return $r.hnn(CryptoBlake2bXof.$h);
   }
 
   /// Go: `func (blake2b.XOF).Reset()`.
   void reset() {
-    $callSync(23288, $W()..h(this));
+    $callSync(23294, $W()..h(this));
   }
 }
 
@@ -43,7 +43,7 @@ extension GoXCryptoBlake2bApi on GoXCryptoBlake2b {
   /// Go: `func blake2b.New(size int, key []byte) (hash.Hash, error)`.
   $hash.Hash new$(int size, Uint8List key) {
     final $r = $callSync(
-        23282,
+        23288,
         $W()
           ..i64(size)
           ..bytes(key));
@@ -52,19 +52,19 @@ extension GoXCryptoBlake2bApi on GoXCryptoBlake2b {
 
   /// Go: `func blake2b.New256(key []byte) (hash.Hash, error)`.
   $hash.Hash new256(Uint8List key) {
-    final $r = $callSync(23283, $W()..bytes(key));
+    final $r = $callSync(23289, $W()..bytes(key));
     return $r.hnn($hash.Hash.$h);
   }
 
   /// Go: `func blake2b.New384(key []byte) (hash.Hash, error)`.
   $hash.Hash new384(Uint8List key) {
-    final $r = $callSync(23284, $W()..bytes(key));
+    final $r = $callSync(23290, $W()..bytes(key));
     return $r.hnn($hash.Hash.$h);
   }
 
   /// Go: `func blake2b.New512(key []byte) (hash.Hash, error)`.
   $hash.Hash new512(Uint8List key) {
-    final $r = $callSync(23285, $W()..bytes(key));
+    final $r = $callSync(23291, $W()..bytes(key));
     return $r.hnn($hash.Hash.$h);
   }
 }

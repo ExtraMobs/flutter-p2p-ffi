@@ -9,13 +9,13 @@ import 'package:p2p_ffi/src/runtime.dart';
 extension GoCockroachdbCrlibCrtimeApi on GoCockroachdbCrlibCrtime {
   /// Go: `func crtime.MonoFromTime(t time.Time) crtime.Mono`.
   int monoFromTime(DateTime t) {
-    final $r = $callSync(4380, $W()..time(t));
+    final $r = $callSync(4389, $W()..time(t));
     return $r.i64();
   }
 
   /// Go: `func crtime.NowMono() crtime.Mono`.
   int nowMono() {
-    final $r = $callSync(4381);
+    final $r = $callSync(4390);
     return $r.i64();
   }
 }

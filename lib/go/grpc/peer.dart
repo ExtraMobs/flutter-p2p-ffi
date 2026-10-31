@@ -18,7 +18,7 @@ final class GrpcPeer implements GoDto {
 
   /// Go: `func (*peer.Peer).String() string`.
   String string() {
-    final $r = $callSync(24680, $W()..dto(this));
+    final $r = $callSync(24686, $W()..dto(this));
     return $r.str();
   }
 }
@@ -29,7 +29,7 @@ extension GoGrpcPeerApi on GoGrpcPeer {
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<(GrpcPeer, bool)> fromContext($context.Context ctx) async {
-    final $r = await $call(24679, $W()..h(ctx));
+    final $r = await $call(24685, $W()..h(ctx));
     return ($r.p() ? GrpcPeer.$dec($r) : $nil(), $r.b());
   }
 }

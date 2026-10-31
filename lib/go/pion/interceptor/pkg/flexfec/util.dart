@@ -42,7 +42,7 @@ final class InterceptorPkgFlexfecUtilBitArray implements GoDto {
   /// Go: `func (*util.BitArray).GetBit(bitIndex uint32) uint8`.
   int getBit(int bitIndex) {
     final $r = $callSync(
-        16679,
+        16685,
         $W()
           ..dto(this)
           ..i64(bitIndex));
@@ -51,13 +51,13 @@ final class InterceptorPkgFlexfecUtilBitArray implements GoDto {
 
   /// Go: `func (*util.BitArray).Reset()`.
   void reset() {
-    $callSync(16680, $W()..dto(this));
+    $callSync(16686, $W()..dto(this));
   }
 
   /// Go: `func (*util.BitArray).SetBit(bitIndex uint32)`.
   void setBit(int bitIndex) {
     $callSync(
-        16681,
+        16687,
         $W()
           ..dto(this)
           ..i64(bitIndex));
@@ -87,7 +87,7 @@ class InterceptorPkgFlexfecUtilMediaPacketIterator
   factory InterceptorPkgFlexfecUtilMediaPacketIterator(
       List<$rtp.RtpPacket> mediaPackets, List<int> coveredIndices) {
     final $r = $callSync(
-        16686,
+        16692,
         $W()
           ..list(mediaPackets, (w0, e0) => w0.dto(e0))
           ..list(coveredIndices, (w0, e0) => w0.i64(e0)));
@@ -96,25 +96,25 @@ class InterceptorPkgFlexfecUtilMediaPacketIterator
 
   /// Go: `func (*util.MediaPacketIterator).First() *rtp.Packet`.
   $rtp.RtpPacket first() {
-    final $r = $callSync(16682, $W()..h(this));
+    final $r = $callSync(16688, $W()..h(this));
     return $r.p() ? $rtp.RtpPacket.$dec($r) : $nil();
   }
 
   /// Go: `func (*util.MediaPacketIterator).HasNext() bool`.
   bool hasNext() {
-    final $r = $callSync(16683, $W()..h(this));
+    final $r = $callSync(16689, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*util.MediaPacketIterator).Next() *rtp.Packet`.
   $rtp.RtpPacket next() {
-    final $r = $callSync(16684, $W()..h(this));
+    final $r = $callSync(16690, $W()..h(this));
     return $r.p() ? $rtp.RtpPacket.$dec($r) : $nil();
   }
 
   /// Go: `func (*util.MediaPacketIterator).Reset() *util.MediaPacketIterator`.
   InterceptorPkgFlexfecUtilMediaPacketIterator reset() {
-    final $r = $callSync(16685, $W()..h(this));
+    final $r = $callSync(16691, $W()..h(this));
     return $r.hnn(InterceptorPkgFlexfecUtilMediaPacketIterator.$h);
   }
 }

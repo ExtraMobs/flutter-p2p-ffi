@@ -12,14 +12,14 @@ import 'package:p2p_ffi/src/runtime.dart';
 extension GoXCryptoCurve25519Api on GoXCryptoCurve25519 {
   /// Go: `var curve25519.Basepoint []byte`.
   Uint8List get basepoint {
-    final $r = $callSync(23329);
+    final $r = $callSync(23335);
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func curve25519.X25519(scalar []byte, point []byte) ([]byte, error)`.
   Uint8List x25519(Uint8List scalar, Uint8List point) {
     final $r = $callSync(
-        23330,
+        23336,
         $W()
           ..bytes(scalar)
           ..bytes(point));

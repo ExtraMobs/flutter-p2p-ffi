@@ -45,26 +45,26 @@ class ProtobufTypesKnownAnypbAny
   /// Go: `func (*anypb.Any).Descriptor() ([]byte, []int)`.
   @Deprecated("Use Any.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(25457, $W()..h(this));
+    final $r = $callSync(25463, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*anypb.Any).GetTypeUrl() string`.
   String getTypeUrl() {
-    final $r = $callSync(25458, $W()..h(this));
+    final $r = $callSync(25464, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*anypb.Any).GetValue() []byte`.
   Uint8List getValue() {
-    final $r = $callSync(25459, $W()..h(this));
+    final $r = $callSync(25465, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*anypb.Any).MarshalFrom(m proto.Message) error`.
   void marshalFrom($protoreflect.ProtobufReflectProtoreflectProtoMessage m) {
     $callSync(
-        25460,
+        25466,
         $W()
           ..h(this)
           ..h(m));
@@ -73,7 +73,7 @@ class ProtobufTypesKnownAnypbAny
   /// Go: `func (*anypb.Any).MessageIs(m proto.Message) bool`.
   bool messageIs($protoreflect.ProtobufReflectProtoreflectProtoMessage m) {
     final $r = $callSync(
-        25461,
+        25467,
         $W()
           ..h(this)
           ..h(m));
@@ -82,42 +82,42 @@ class ProtobufTypesKnownAnypbAny
 
   /// Go: `func (*anypb.Any).MessageName() protoreflect.FullName`.
   String messageName() {
-    final $r = $callSync(25462, $W()..h(this));
+    final $r = $callSync(25468, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*anypb.Any).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25463, $W()..h(this));
+    $callSync(25469, $W()..h(this));
   }
 
   /// Go: `func (*anypb.Any).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(25464, $W()..h(this));
+    final $r = $callSync(25470, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*anypb.Any).Reset()`.
   void reset() {
-    $callSync(25465, $W()..h(this));
+    $callSync(25471, $W()..h(this));
   }
 
   /// Go: `func (*anypb.Any).String() string`.
   String string() {
-    final $r = $callSync(25466, $W()..h(this));
+    final $r = $callSync(25472, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*anypb.Any).UnmarshalNew() (proto.Message, error)`.
   $protoreflect.ProtobufReflectProtoreflectProtoMessage unmarshalNew() {
-    final $r = $callSync(25467, $W()..h(this));
+    final $r = $callSync(25473, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectProtoMessage.$h);
   }
 
   /// Go: `func (*anypb.Any).UnmarshalTo(m proto.Message) error`.
   void unmarshalTo($protoreflect.ProtobufReflectProtoreflectProtoMessage m) {
     $callSync(
-        25468,
+        25474,
         $W()
           ..h(this)
           ..h(m));
@@ -129,7 +129,7 @@ extension GoProtobufTypesKnownAnypbApi on GoProtobufTypesKnownAnypb {
   /// Go: `var anypb.File_google_protobuf_any_proto protoreflect.FileDescriptor`.
   $protoreflect.ProtobufReflectProtoreflectFileDescriptor
       get fileGoogleProtobufAnyProto {
-    final $r = $callSync(25469);
+    final $r = $callSync(25475);
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectFileDescriptor.$h);
   }
 
@@ -139,7 +139,7 @@ extension GoProtobufTypesKnownAnypbApi on GoProtobufTypesKnownAnypb {
       $protoreflect.ProtobufReflectProtoreflectProtoMessage src,
       $proto2.ProtobufProtoMarshalOptions opts) {
     $callSync(
-        25470,
+        25476,
         $W()
           ..h(dst)
           ..h(src)
@@ -149,7 +149,7 @@ extension GoProtobufTypesKnownAnypbApi on GoProtobufTypesKnownAnypb {
   /// Go: `func anypb.New(src proto.Message) (*anypb.Any, error)`.
   ProtobufTypesKnownAnypbAny new$(
       $protoreflect.ProtobufReflectProtoreflectProtoMessage src) {
-    final $r = $callSync(25471, $W()..h(src));
+    final $r = $callSync(25477, $W()..h(src));
     return $r.hnn(ProtobufTypesKnownAnypbAny.$h);
   }
 
@@ -158,7 +158,7 @@ extension GoProtobufTypesKnownAnypbApi on GoProtobufTypesKnownAnypb {
       ProtobufTypesKnownAnypbAny src,
       $proto2.ProtobufProtoUnmarshalOptions opts) {
     final $r = $callSync(
-        25472,
+        25478,
         $W()
           ..h(src)
           ..dto(opts));
@@ -171,7 +171,7 @@ extension GoProtobufTypesKnownAnypbApi on GoProtobufTypesKnownAnypb {
       $protoreflect.ProtobufReflectProtoreflectProtoMessage dst,
       $proto2.ProtobufProtoUnmarshalOptions opts) {
     $callSync(
-        25473,
+        25479,
         $W()
           ..h(src)
           ..h(dst)

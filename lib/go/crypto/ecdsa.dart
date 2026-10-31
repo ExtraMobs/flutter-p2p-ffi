@@ -40,20 +40,20 @@ final class CryptoEcdsaPrivateKey implements GoDto {
 
   /// Go: `func (*ecdsa.PrivateKey).Bytes() ([]byte, error)`.
   Uint8List bytes() {
-    final $r = $callSync(3185, $W()..dto(this));
+    final $r = $callSync(3194, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*ecdsa.PrivateKey).ECDH() (*ecdh.PrivateKey, error)`.
   $ecdh.CryptoEcdhPrivateKey ecdh() {
-    final $r = $callSync(3186, $W()..dto(this));
+    final $r = $callSync(3195, $W()..dto(this));
     return $r.hnn($ecdh.CryptoEcdhPrivateKey.$h);
   }
 
   /// Go: `func (*ecdsa.PrivateKey).Equal(x crypto.PrivateKey) bool`.
   bool equal($crypto.CryptoPrivateKey x) {
     final $r = $callSync(
-        3187,
+        3196,
         $W()
           ..dto(this)
           ..h(x));
@@ -62,7 +62,7 @@ final class CryptoEcdsaPrivateKey implements GoDto {
 
   /// Go: `func (*ecdsa.PrivateKey).Public() crypto.PublicKey`.
   $crypto.CryptoPublicKey public() {
-    final $r = $callSync(3188, $W()..dto(this));
+    final $r = $callSync(3197, $W()..dto(this));
     return $r.hnn($crypto.CryptoPublicKey.$h);
   }
 
@@ -70,7 +70,7 @@ final class CryptoEcdsaPrivateKey implements GoDto {
   Uint8List sign(
       Object random, Uint8List digest, $crypto.CryptoSignerOpts opts) {
     final $r = $callSync(
-        3189,
+        3198,
         $W()
           ..dto(this)
           ..reader(random)
@@ -102,20 +102,20 @@ class CryptoEcdsaPublicKey extends $elliptic.CryptoEllipticCurve
 
   /// Go: `func (*ecdsa.PublicKey).Bytes() ([]byte, error)`.
   Uint8List bytes() {
-    final $r = $callSync(3190, $W()..h(this));
+    final $r = $callSync(3199, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*ecdsa.PublicKey).ECDH() (*ecdh.PublicKey, error)`.
   $ecdh.CryptoEcdhPublicKey ecdh() {
-    final $r = $callSync(3191, $W()..h(this));
+    final $r = $callSync(3200, $W()..h(this));
     return $r.hnn($ecdh.CryptoEcdhPublicKey.$h);
   }
 
   /// Go: `func (*ecdsa.PublicKey).Equal(x crypto.PublicKey) bool`.
   bool equal($crypto.CryptoPublicKey x) {
     final $r = $callSync(
-        3192,
+        3201,
         $W()
           ..h(this)
           ..h(x));
@@ -128,7 +128,7 @@ extension GoCryptoEcdsaApi on GoCryptoEcdsa {
   /// Go: `func ecdsa.GenerateKey(c elliptic.Curve, r io.Reader) (*ecdsa.PrivateKey, error)`.
   CryptoEcdsaPrivateKey generateKey($elliptic.CryptoEllipticCurve c, Object r) {
     final $r = $callSync(
-        3182,
+        3191,
         $W()
           ..h(c)
           ..reader(r));
@@ -139,7 +139,7 @@ extension GoCryptoEcdsaApi on GoCryptoEcdsa {
   CryptoEcdsaPrivateKey parseRawPrivateKey(
       $elliptic.CryptoEllipticCurve curve, Uint8List data) {
     final $r = $callSync(
-        3183,
+        3192,
         $W()
           ..h(curve)
           ..bytes(data));
@@ -150,7 +150,7 @@ extension GoCryptoEcdsaApi on GoCryptoEcdsa {
   CryptoEcdsaPublicKey parseUncompressedPublicKey(
       $elliptic.CryptoEllipticCurve curve, Uint8List data) {
     final $r = $callSync(
-        3184,
+        3193,
         $W()
           ..h(curve)
           ..bytes(data));
@@ -161,7 +161,7 @@ extension GoCryptoEcdsaApi on GoCryptoEcdsa {
   ($big.MathBigInt, $big.MathBigInt) sign(
       Object rand, CryptoEcdsaPrivateKey priv, Uint8List hash) {
     final $r = $callSync(
-        3193,
+        3202,
         $W()
           ..reader(rand)
           ..dto(priv)
@@ -172,7 +172,7 @@ extension GoCryptoEcdsaApi on GoCryptoEcdsa {
   /// Go: `func ecdsa.SignASN1(r io.Reader, priv *ecdsa.PrivateKey, hash []byte) ([]byte, error)`.
   Uint8List signAsn1(Object r, CryptoEcdsaPrivateKey priv, Uint8List hash) {
     final $r = $callSync(
-        3194,
+        3203,
         $W()
           ..reader(r)
           ..dto(priv)
@@ -184,7 +184,7 @@ extension GoCryptoEcdsaApi on GoCryptoEcdsa {
   bool verify(CryptoEcdsaPublicKey pub, Uint8List hash, $big.MathBigInt r,
       $big.MathBigInt s) {
     final $r = $callSync(
-        3195,
+        3204,
         $W()
           ..h(pub)
           ..bytes(hash)
@@ -196,7 +196,7 @@ extension GoCryptoEcdsaApi on GoCryptoEcdsa {
   /// Go: `func ecdsa.VerifyASN1(pub *ecdsa.PublicKey, hash []byte, sig []byte) bool`.
   bool verifyAsn1(CryptoEcdsaPublicKey pub, Uint8List hash, Uint8List sig) {
     final $r = $callSync(
-        3196,
+        3205,
         $W()
           ..h(pub)
           ..bytes(hash)

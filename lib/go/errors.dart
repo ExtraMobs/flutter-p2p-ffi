@@ -18,11 +18,11 @@ class ErrorsErrUnsupported extends GolangException {
 extension GoErrorsApi on GoErrors {
   /// Go: `func errors.Join(errs ...error) error`.
   void join([List<String> errs = const []]) {
-    $callSync(3785, $W()..list(errs, (w0, e0) => w0.err(e0)));
+    $callSync(3794, $W()..list(errs, (w0, e0) => w0.err(e0)));
   }
 
   /// Go: `func errors.New(text string) error`.
   void new$(String text) {
-    $callSync(3786, $W()..str(text));
+    $callSync(3795, $W()..str(text));
   }
 }

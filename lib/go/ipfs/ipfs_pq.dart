@@ -18,14 +18,14 @@ class IpfsPqElem extends GoHandle with IpfsPqElem$ {
 mixin IpfsPqElem$ on GoHandle {
   /// Go: `func (pq.Elem).Index() int`.
   int index() {
-    final $r = $callSync(10904, $W()..h(this));
+    final $r = $callSync(10913, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (pq.Elem).SetIndex(int)`.
   void setIndex(int arg0) {
     $callSync(
-        10905,
+        10914,
         $W()
           ..h(this)
           ..i64(arg0));
@@ -33,14 +33,14 @@ mixin IpfsPqElem$ on GoHandle {
 
   /// Go: type assertion `x.(*peertask.QueueTask)`: null if the object is not one.
   $peertask.PeertaskqueuePeertaskQueueTask? asPeertaskqueuePeertaskQueueTask() {
-    final $r = $callSync(1126, $W()..h(this));
+    final $r = $callSync(1129, $W()..h(this));
     return $r.hn($peertask.PeertaskqueuePeertaskQueueTask.$h);
   }
 
   /// Go: type assertion `x.(*peertracker.PeerTracker)`: null if the object is not one.
   $peertracker.PeertaskqueuePeertrackerPeerTracker?
       asPeertaskqueuePeertrackerPeerTracker() {
-    final $r = $callSync(1127, $W()..h(this));
+    final $r = $callSync(1130, $W()..h(this));
     return $r.hn($peertracker.PeertaskqueuePeertrackerPeerTracker.$h);
   }
 }
@@ -54,26 +54,26 @@ class IpfsPq extends GoHandle with IpfsPq$ {
 mixin IpfsPq$ on GoHandle {
   /// Go: `func (pq.PQ).Len() int`.
   int len() {
-    final $r = $callSync(10907, $W()..h(this));
+    final $r = $callSync(10916, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (pq.PQ).Peek() pq.Elem`.
   IpfsPqElem peek() {
-    final $r = $callSync(10908, $W()..h(this));
+    final $r = $callSync(10917, $W()..h(this));
     return $r.hnn(IpfsPqElem.$h);
   }
 
   /// Go: `func (pq.PQ).Pop() pq.Elem`.
   IpfsPqElem pop() {
-    final $r = $callSync(10909, $W()..h(this));
+    final $r = $callSync(10918, $W()..h(this));
     return $r.hnn(IpfsPqElem.$h);
   }
 
   /// Go: `func (pq.PQ).Push(pq.Elem)`.
   void push(IpfsPqElem elem) {
     $callSync(
-        10910,
+        10919,
         $W()
           ..h(this)
           ..h(elem));
@@ -82,7 +82,7 @@ mixin IpfsPq$ on GoHandle {
   /// Go: `func (pq.PQ).Remove(index int) pq.Elem`.
   IpfsPqElem remove(int index) {
     final $r = $callSync(
-        10911,
+        10920,
         $W()
           ..h(this)
           ..i64(index));
@@ -92,7 +92,7 @@ mixin IpfsPq$ on GoHandle {
   /// Go: `func (pq.PQ).Update(index int)`.
   void update(int index) {
     $callSync(
-        10912,
+        10921,
         $W()
           ..h(this)
           ..i64(index));
@@ -110,7 +110,7 @@ extension GoIpfsIpfsPqApi on GoIpfsIpfsPq {
   /// each invocation (a retained callback, WIRE.md).
   Future<IpfsPq> new$(
       FutureOr<bool> Function(IpfsPqElem a, IpfsPqElem b) cmp) async {
-    final $r = await $call(10906,
+    final $r = await $call(10915,
         $W()..cb((r) => cmp(r.hnn(IpfsPqElem.$h), r.hnn(IpfsPqElem.$h)), true));
     return $r.hnn(IpfsPq.$h);
   }

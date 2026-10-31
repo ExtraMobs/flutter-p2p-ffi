@@ -28,76 +28,76 @@ class ClientGolangPrometheusCollector extends GoHandle
 mixin ClientGolangPrometheusCollector$ on GoHandle {
   /// Go: `func (prometheus.Collector).Collect(chan<- prometheus.Metric)`.
   Stream<ClientGolangPrometheusMetric> collect() =>
-      $stream(17960, $W()..h(this))
+      $stream(17966, $W()..h(this))
           .map((r) => r.hnn(ClientGolangPrometheusMetric.$h));
 
   /// Go: `func (prometheus.Collector).Describe(chan<- *prometheus.Desc)`.
-  Stream<ClientGolangPrometheusDesc> describe() => $stream(17961, $W()..h(this))
+  Stream<ClientGolangPrometheusDesc> describe() => $stream(17967, $W()..h(this))
       .map((r) => r.hnn(ClientGolangPrometheusDesc.$h));
 
   /// Go: type assertion `x.(*prometheus.CollectorFunc)`: null if the object is not one.
   ClientGolangPrometheusCollectorFunc? asClientGolangPrometheusCollectorFunc() {
-    final $r = $callSync(1667, $W()..h(this));
+    final $r = $callSync(1672, $W()..h(this));
     return $r.hn(ClientGolangPrometheusCollectorFunc.$h);
   }
 
   /// Go: type assertion `x.(*prometheus.MetricVec)`: null if the object is not one.
   ClientGolangPrometheusMetricVec? asClientGolangPrometheusMetricVec() {
-    final $r = $callSync(1668, $W()..h(this));
+    final $r = $callSync(1673, $W()..h(this));
     return $r.hn(ClientGolangPrometheusMetricVec.$h);
   }
 
   /// Go: type assertion `x.(*prometheus.Registry)`: null if the object is not one.
   ClientGolangPrometheusRegistry? asClientGolangPrometheusRegistry() {
-    final $r = $callSync(1669, $W()..h(this));
+    final $r = $callSync(1674, $W()..h(this));
     return $r.hn(ClientGolangPrometheusRegistry.$h);
   }
 
   /// Go: type assertion `x.(prometheus.Counter)`: null if the object is not one.
   ClientGolangPrometheusCounter? asClientGolangPrometheusCounter() {
-    final $r = $callSync(1670, $W()..h(this));
+    final $r = $callSync(1675, $W()..h(this));
     return $r.hn(ClientGolangPrometheusCounter.$h);
   }
 
   /// Go: type assertion `x.(prometheus.CounterFunc)`: null if the object is not one.
   ClientGolangPrometheusCounterFunc? asClientGolangPrometheusCounterFunc() {
-    final $r = $callSync(1671, $W()..h(this));
+    final $r = $callSync(1676, $W()..h(this));
     return $r.hn(ClientGolangPrometheusCounterFunc.$h);
   }
 
   /// Go: type assertion `x.(prometheus.Gauge)`: null if the object is not one.
   ClientGolangPrometheusGauge? asClientGolangPrometheusGauge() {
-    final $r = $callSync(1672, $W()..h(this));
+    final $r = $callSync(1677, $W()..h(this));
     return $r.hn(ClientGolangPrometheusGauge.$h);
   }
 
   /// Go: type assertion `x.(prometheus.GaugeFunc)`: null if the object is not one.
   ClientGolangPrometheusGaugeFunc? asClientGolangPrometheusGaugeFunc() {
-    final $r = $callSync(1673, $W()..h(this));
+    final $r = $callSync(1678, $W()..h(this));
     return $r.hn(ClientGolangPrometheusGaugeFunc.$h);
   }
 
   /// Go: type assertion `x.(prometheus.Histogram)`: null if the object is not one.
   ClientGolangPrometheusHistogram? asClientGolangPrometheusHistogram() {
-    final $r = $callSync(1674, $W()..h(this));
+    final $r = $callSync(1679, $W()..h(this));
     return $r.hn(ClientGolangPrometheusHistogram.$h);
   }
 
   /// Go: type assertion `x.(prometheus.ObserverVec)`: null if the object is not one.
   ClientGolangPrometheusObserverVec? asClientGolangPrometheusObserverVec() {
-    final $r = $callSync(1675, $W()..h(this));
+    final $r = $callSync(1680, $W()..h(this));
     return $r.hn(ClientGolangPrometheusObserverVec.$h);
   }
 
   /// Go: type assertion `x.(prometheus.Summary)`: null if the object is not one.
   ClientGolangPrometheusSummary? asClientGolangPrometheusSummary() {
-    final $r = $callSync(1676, $W()..h(this));
+    final $r = $callSync(1681, $W()..h(this));
     return $r.hn(ClientGolangPrometheusSummary.$h);
   }
 
   /// Go: type assertion `x.(prometheus.UntypedFunc)`: null if the object is not one.
   ClientGolangPrometheusUntypedFunc? asClientGolangPrometheusUntypedFunc() {
-    final $r = $callSync(1677, $W()..h(this));
+    final $r = $callSync(1682, $W()..h(this));
     return $r.hn(ClientGolangPrometheusUntypedFunc.$h);
   }
 }
@@ -125,11 +125,11 @@ class ClientGolangPrometheusCollectorFunc
 
   /// Go: `func (prometheus.CollectorFunc).Collect(ch chan<- prometheus.Metric)`.
   Stream<ClientGolangPrometheusMetric> collect() =>
-      $stream(17962, $W()..h(this))
+      $stream(17968, $W()..h(this))
           .map((r) => r.hnn(ClientGolangPrometheusMetric.$h));
 
   /// Go: `func (prometheus.CollectorFunc).Describe(ch chan<- *prometheus.Desc)`.
-  Stream<ClientGolangPrometheusDesc> describe() => $stream(17963, $W()..h(this))
+  Stream<ClientGolangPrometheusDesc> describe() => $stream(17969, $W()..h(this))
       .map((r) => r.hnn(ClientGolangPrometheusDesc.$h));
 }
 
@@ -142,7 +142,7 @@ class ClientGolangPrometheusCounter extends ClientGolangPrometheusMetric
   /// Go: `func prometheus.NewCounter(opts prometheus.CounterOpts) prometheus.Counter`.
   factory ClientGolangPrometheusCounter(
       ClientGolangPrometheusCounterOpts opts) {
-    final $r = $callSync(18018, $W()..h(opts));
+    final $r = $callSync(18024, $W()..h(opts));
     return $r.hnn(ClientGolangPrometheusCounter.$h);
   }
 }
@@ -152,7 +152,7 @@ mixin ClientGolangPrometheusCounter$ on GoHandle {
   /// Go: `func (prometheus.Counter).Add(float64)`.
   void add(double arg0) {
     $callSync(
-        17964,
+        17970,
         $W()
           ..h(this)
           ..f64(arg0));
@@ -160,7 +160,7 @@ mixin ClientGolangPrometheusCounter$ on GoHandle {
 
   /// Go: `func (prometheus.Counter).Inc()`.
   void inc() {
-    $callSync(17965, $W()..h(this));
+    $callSync(17971, $W()..h(this));
   }
 }
 
@@ -211,13 +211,13 @@ final class ClientGolangPrometheusCounterVec implements GoDto {
 
   /// Go: `func (*prometheus.MetricVec).Collect(ch chan<- prometheus.Metric)`.
   Stream<ClientGolangPrometheusMetric> collect() =>
-      $stream(17966, $W()..dto(this))
+      $stream(17972, $W()..dto(this))
           .map((r) => r.hnn(ClientGolangPrometheusMetric.$h));
 
   /// Go: `func (*prometheus.MetricVec).DeleteLabelValues(lvs ...string) bool`.
   bool deleteLabelValues([List<String> lvs = const []]) {
     final $r = $callSync(
-        17967,
+        17973,
         $W()
           ..dto(this)
           ..list(lvs, (w0, e0) => w0.str(e0)));
@@ -226,14 +226,14 @@ final class ClientGolangPrometheusCounterVec implements GoDto {
 
   /// Go: `func (*prometheus.MetricVec).Describe(ch chan<- *prometheus.Desc)`.
   Stream<ClientGolangPrometheusDesc> describe() =>
-      $stream(17968, $W()..dto(this))
+      $stream(17974, $W()..dto(this))
           .map((r) => r.hnn(ClientGolangPrometheusDesc.$h));
 
   /// Go: `func (*prometheus.CounterVec).GetMetricWithLabelValues(lvs ...string) (prometheus.Counter, error)`.
   ClientGolangPrometheusCounter getMetricWithLabelValues(
       [List<String> lvs = const []]) {
     final $r = $callSync(
-        17969,
+        17975,
         $W()
           ..dto(this)
           ..list(lvs, (w0, e0) => w0.str(e0)));
@@ -242,13 +242,13 @@ final class ClientGolangPrometheusCounterVec implements GoDto {
 
   /// Go: `func (*prometheus.MetricVec).Reset()`.
   void reset() {
-    $callSync(17970, $W()..dto(this));
+    $callSync(17976, $W()..dto(this));
   }
 
   /// Go: `func (*prometheus.CounterVec).WithLabelValues(lvs ...string) prometheus.Counter`.
   ClientGolangPrometheusCounter withLabelValues([List<String> lvs = const []]) {
     final $r = $callSync(
-        17971,
+        17977,
         $W()
           ..dto(this)
           ..list(lvs, (w0, e0) => w0.str(e0)));
@@ -276,12 +276,12 @@ class ClientGolangPrometheusDesc extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*prometheus.Desc).Err() error`.
   void err() {
-    $callSync(17975, $W()..h(this));
+    $callSync(17981, $W()..h(this));
   }
 
   /// Go: `func (*prometheus.Desc).String() string`.
   String string() {
-    final $r = $callSync(17976, $W()..h(this));
+    final $r = $callSync(17982, $W()..h(this));
     return $r.str();
   }
 }
@@ -353,7 +353,7 @@ class ClientGolangPrometheusGathererFunc extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (prometheus.GathererFunc).Gather() ([]*io_prometheus_client.MetricFamily, error)`.
   List<$go.ClientModelGoMetricFamily> gather() {
-    final $r = $callSync(17980, $W()..h(this));
+    final $r = $callSync(17986, $W()..h(this));
     return $r.list(() => $r.hnn($go.ClientModelGoMetricFamily.$h));
   }
 }
@@ -366,7 +366,7 @@ class ClientGolangPrometheusGauge extends ClientGolangPrometheusMetric
 
   /// Go: `func prometheus.NewGauge(opts prometheus.GaugeOpts) prometheus.Gauge`.
   factory ClientGolangPrometheusGauge(ClientGolangPrometheusGaugeOpts opts) {
-    final $r = $callSync(18022, $W()..h(opts));
+    final $r = $callSync(18028, $W()..h(opts));
     return $r.hnn(ClientGolangPrometheusGauge.$h);
   }
 }
@@ -376,7 +376,7 @@ mixin ClientGolangPrometheusGauge$ on GoHandle {
   /// Go: `func (prometheus.Gauge).Add(float64)`.
   void add(double arg0) {
     $callSync(
-        17981,
+        17987,
         $W()
           ..h(this)
           ..f64(arg0));
@@ -384,18 +384,18 @@ mixin ClientGolangPrometheusGauge$ on GoHandle {
 
   /// Go: `func (prometheus.Gauge).Dec()`.
   void dec() {
-    $callSync(17982, $W()..h(this));
+    $callSync(17988, $W()..h(this));
   }
 
   /// Go: `func (prometheus.Gauge).Inc()`.
   void inc() {
-    $callSync(17983, $W()..h(this));
+    $callSync(17989, $W()..h(this));
   }
 
   /// Go: `func (prometheus.Gauge).Set(float64)`.
   void set(double arg0) {
     $callSync(
-        17984,
+        17990,
         $W()
           ..h(this)
           ..f64(arg0));
@@ -403,13 +403,13 @@ mixin ClientGolangPrometheusGauge$ on GoHandle {
 
   /// Go: `func (prometheus.Gauge).SetToCurrentTime()`.
   void setToCurrentTime() {
-    $callSync(17985, $W()..h(this));
+    $callSync(17991, $W()..h(this));
   }
 
   /// Go: `func (prometheus.Gauge).Sub(float64)`.
   void sub(double arg0) {
     $callSync(
-        17986,
+        17992,
         $W()
           ..h(this)
           ..f64(arg0));
@@ -463,13 +463,13 @@ final class ClientGolangPrometheusGaugeVec implements GoDto {
 
   /// Go: `func (*prometheus.MetricVec).Collect(ch chan<- prometheus.Metric)`.
   Stream<ClientGolangPrometheusMetric> collect() =>
-      $stream(17987, $W()..dto(this))
+      $stream(17993, $W()..dto(this))
           .map((r) => r.hnn(ClientGolangPrometheusMetric.$h));
 
   /// Go: `func (*prometheus.MetricVec).DeleteLabelValues(lvs ...string) bool`.
   bool deleteLabelValues([List<String> lvs = const []]) {
     final $r = $callSync(
-        17988,
+        17994,
         $W()
           ..dto(this)
           ..list(lvs, (w0, e0) => w0.str(e0)));
@@ -478,14 +478,14 @@ final class ClientGolangPrometheusGaugeVec implements GoDto {
 
   /// Go: `func (*prometheus.MetricVec).Describe(ch chan<- *prometheus.Desc)`.
   Stream<ClientGolangPrometheusDesc> describe() =>
-      $stream(17989, $W()..dto(this))
+      $stream(17995, $W()..dto(this))
           .map((r) => r.hnn(ClientGolangPrometheusDesc.$h));
 
   /// Go: `func (*prometheus.GaugeVec).GetMetricWithLabelValues(lvs ...string) (prometheus.Gauge, error)`.
   ClientGolangPrometheusGauge getMetricWithLabelValues(
       [List<String> lvs = const []]) {
     final $r = $callSync(
-        17990,
+        17996,
         $W()
           ..dto(this)
           ..list(lvs, (w0, e0) => w0.str(e0)));
@@ -494,13 +494,13 @@ final class ClientGolangPrometheusGaugeVec implements GoDto {
 
   /// Go: `func (*prometheus.MetricVec).Reset()`.
   void reset() {
-    $callSync(17991, $W()..dto(this));
+    $callSync(17997, $W()..dto(this));
   }
 
   /// Go: `func (*prometheus.GaugeVec).WithLabelValues(lvs ...string) prometheus.Gauge`.
   ClientGolangPrometheusGauge withLabelValues([List<String> lvs = const []]) {
     final $r = $callSync(
-        17992,
+        17998,
         $W()
           ..dto(this)
           ..list(lvs, (w0, e0) => w0.str(e0)));
@@ -517,7 +517,7 @@ class ClientGolangPrometheusHistogram extends ClientGolangPrometheusMetric
   /// Go: `func prometheus.NewHistogram(opts prometheus.HistogramOpts) prometheus.Histogram`.
   factory ClientGolangPrometheusHistogram(
       ClientGolangPrometheusHistogramOpts opts) {
-    final $r = $callSync(18026, $W()..h(opts));
+    final $r = $callSync(18032, $W()..h(opts));
     return $r.hnn(ClientGolangPrometheusHistogram.$h);
   }
 }
@@ -527,7 +527,7 @@ mixin ClientGolangPrometheusHistogram$ on GoHandle {
   /// Go: `func (prometheus.Histogram).Observe(float64)`.
   void observe(double arg0) {
     $callSync(
-        17993,
+        17999,
         $W()
           ..h(this)
           ..f64(arg0));
@@ -572,13 +572,13 @@ final class ClientGolangPrometheusHistogramVec implements GoDto {
 
   /// Go: `func (*prometheus.MetricVec).Collect(ch chan<- prometheus.Metric)`.
   Stream<ClientGolangPrometheusMetric> collect() =>
-      $stream(17994, $W()..dto(this))
+      $stream(18000, $W()..dto(this))
           .map((r) => r.hnn(ClientGolangPrometheusMetric.$h));
 
   /// Go: `func (*prometheus.MetricVec).DeleteLabelValues(lvs ...string) bool`.
   bool deleteLabelValues([List<String> lvs = const []]) {
     final $r = $callSync(
-        17995,
+        18001,
         $W()
           ..dto(this)
           ..list(lvs, (w0, e0) => w0.str(e0)));
@@ -587,14 +587,14 @@ final class ClientGolangPrometheusHistogramVec implements GoDto {
 
   /// Go: `func (*prometheus.MetricVec).Describe(ch chan<- *prometheus.Desc)`.
   Stream<ClientGolangPrometheusDesc> describe() =>
-      $stream(17996, $W()..dto(this))
+      $stream(18002, $W()..dto(this))
           .map((r) => r.hnn(ClientGolangPrometheusDesc.$h));
 
   /// Go: `func (*prometheus.HistogramVec).GetMetricWithLabelValues(lvs ...string) (prometheus.Observer, error)`.
   ClientGolangPrometheusObserver getMetricWithLabelValues(
       [List<String> lvs = const []]) {
     final $r = $callSync(
-        17997,
+        18003,
         $W()
           ..dto(this)
           ..list(lvs, (w0, e0) => w0.str(e0)));
@@ -603,14 +603,14 @@ final class ClientGolangPrometheusHistogramVec implements GoDto {
 
   /// Go: `func (*prometheus.MetricVec).Reset()`.
   void reset() {
-    $callSync(17998, $W()..dto(this));
+    $callSync(18004, $W()..dto(this));
   }
 
   /// Go: `func (*prometheus.HistogramVec).WithLabelValues(lvs ...string) prometheus.Observer`.
   ClientGolangPrometheusObserver withLabelValues(
       [List<String> lvs = const []]) {
     final $r = $callSync(
-        17999,
+        18005,
         $W()
           ..dto(this)
           ..list(lvs, (w0, e0) => w0.str(e0)));
@@ -628,14 +628,14 @@ class ClientGolangPrometheusMetric extends GoHandle
 mixin ClientGolangPrometheusMetric$ on GoHandle {
   /// Go: `func (prometheus.Metric).Desc() *prometheus.Desc`.
   ClientGolangPrometheusDesc desc() {
-    final $r = $callSync(18002, $W()..h(this));
+    final $r = $callSync(18008, $W()..h(this));
     return $r.hnn(ClientGolangPrometheusDesc.$h);
   }
 
   /// Go: `func (prometheus.Metric).Write(*io_prometheus_client.Metric) error`.
   void write($go.ClientModelGoMetric metric) {
     $callSync(
-        18003,
+        18009,
         $W()
           ..h(this)
           ..h(metric));
@@ -643,43 +643,43 @@ mixin ClientGolangPrometheusMetric$ on GoHandle {
 
   /// Go: type assertion `x.(prometheus.Counter)`: null if the object is not one.
   ClientGolangPrometheusCounter? asClientGolangPrometheusCounter() {
-    final $r = $callSync(1678, $W()..h(this));
+    final $r = $callSync(1683, $W()..h(this));
     return $r.hn(ClientGolangPrometheusCounter.$h);
   }
 
   /// Go: type assertion `x.(prometheus.CounterFunc)`: null if the object is not one.
   ClientGolangPrometheusCounterFunc? asClientGolangPrometheusCounterFunc() {
-    final $r = $callSync(1679, $W()..h(this));
+    final $r = $callSync(1684, $W()..h(this));
     return $r.hn(ClientGolangPrometheusCounterFunc.$h);
   }
 
   /// Go: type assertion `x.(prometheus.Gauge)`: null if the object is not one.
   ClientGolangPrometheusGauge? asClientGolangPrometheusGauge() {
-    final $r = $callSync(1680, $W()..h(this));
+    final $r = $callSync(1685, $W()..h(this));
     return $r.hn(ClientGolangPrometheusGauge.$h);
   }
 
   /// Go: type assertion `x.(prometheus.GaugeFunc)`: null if the object is not one.
   ClientGolangPrometheusGaugeFunc? asClientGolangPrometheusGaugeFunc() {
-    final $r = $callSync(1681, $W()..h(this));
+    final $r = $callSync(1686, $W()..h(this));
     return $r.hn(ClientGolangPrometheusGaugeFunc.$h);
   }
 
   /// Go: type assertion `x.(prometheus.Histogram)`: null if the object is not one.
   ClientGolangPrometheusHistogram? asClientGolangPrometheusHistogram() {
-    final $r = $callSync(1682, $W()..h(this));
+    final $r = $callSync(1687, $W()..h(this));
     return $r.hn(ClientGolangPrometheusHistogram.$h);
   }
 
   /// Go: type assertion `x.(prometheus.Summary)`: null if the object is not one.
   ClientGolangPrometheusSummary? asClientGolangPrometheusSummary() {
-    final $r = $callSync(1683, $W()..h(this));
+    final $r = $callSync(1688, $W()..h(this));
     return $r.hn(ClientGolangPrometheusSummary.$h);
   }
 
   /// Go: type assertion `x.(prometheus.UntypedFunc)`: null if the object is not one.
   ClientGolangPrometheusUntypedFunc? asClientGolangPrometheusUntypedFunc() {
-    final $r = $callSync(1684, $W()..h(this));
+    final $r = $callSync(1689, $W()..h(this));
     return $r.hn(ClientGolangPrometheusUntypedFunc.$h);
   }
 }
@@ -706,13 +706,13 @@ class ClientGolangPrometheusMetricVec extends ClientGolangPrometheusCollector
 
   /// Go: `func (*prometheus.MetricVec).Collect(ch chan<- prometheus.Metric)`.
   Stream<ClientGolangPrometheusMetric> collect() =>
-      $stream(18004, $W()..h(this))
+      $stream(18010, $W()..h(this))
           .map((r) => r.hnn(ClientGolangPrometheusMetric.$h));
 
   /// Go: `func (*prometheus.MetricVec).DeleteLabelValues(lvs ...string) bool`.
   bool deleteLabelValues([List<String> lvs = const []]) {
     final $r = $callSync(
-        18005,
+        18011,
         $W()
           ..h(this)
           ..list(lvs, (w0, e0) => w0.str(e0)));
@@ -720,14 +720,14 @@ class ClientGolangPrometheusMetricVec extends ClientGolangPrometheusCollector
   }
 
   /// Go: `func (*prometheus.MetricVec).Describe(ch chan<- *prometheus.Desc)`.
-  Stream<ClientGolangPrometheusDesc> describe() => $stream(18006, $W()..h(this))
+  Stream<ClientGolangPrometheusDesc> describe() => $stream(18012, $W()..h(this))
       .map((r) => r.hnn(ClientGolangPrometheusDesc.$h));
 
   /// Go: `func (*prometheus.MetricVec).GetMetricWithLabelValues(lvs ...string) (prometheus.Metric, error)`.
   ClientGolangPrometheusMetric getMetricWithLabelValues(
       [List<String> lvs = const []]) {
     final $r = $callSync(
-        18007,
+        18013,
         $W()
           ..h(this)
           ..list(lvs, (w0, e0) => w0.str(e0)));
@@ -736,7 +736,7 @@ class ClientGolangPrometheusMetricVec extends ClientGolangPrometheusCollector
 
   /// Go: `func (*prometheus.MetricVec).Reset()`.
   void reset() {
-    $callSync(18008, $W()..h(this));
+    $callSync(18014, $W()..h(this));
   }
 }
 
@@ -762,7 +762,7 @@ class ClientGolangPrometheusMultiTRegistry extends $crypto.CryptoDecrypterOpts
   factory ClientGolangPrometheusMultiTRegistry(
       [List<ClientGolangPrometheusTransactionalGatherer> tGatherers =
           const []]) {
-    final $r = $callSync(18030, $W()..list(tGatherers, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(18036, $W()..list(tGatherers, (w0, e0) => w0.h(e0)));
     return $r.hnn(ClientGolangPrometheusMultiTRegistry.$h);
   }
 }
@@ -778,7 +778,7 @@ mixin ClientGolangPrometheusObserver$ on GoHandle {
   /// Go: `func (prometheus.Observer).Observe(float64)`.
   void observe(double arg0) {
     $callSync(
-        18038,
+        18044,
         $W()
           ..h(this)
           ..f64(arg0));
@@ -786,7 +786,7 @@ mixin ClientGolangPrometheusObserver$ on GoHandle {
 
   /// Go: type assertion `x.(*prometheus.ObserverFunc)`: null if the object is not one.
   ClientGolangPrometheusObserverFunc? asClientGolangPrometheusObserverFunc() {
-    final $r = $callSync(1685, $W()..h(this));
+    final $r = $callSync(1690, $W()..h(this));
     return $r.hn(ClientGolangPrometheusObserverFunc.$h);
   }
 }
@@ -819,7 +819,7 @@ class ClientGolangPrometheusObserverFunc
   /// Go: `func (prometheus.ObserverFunc).Observe(value float64)`.
   void observe(double value) {
     $callSync(
-        18039,
+        18045,
         $W()
           ..h(this)
           ..f64(value));
@@ -838,7 +838,7 @@ mixin ClientGolangPrometheusObserverVec$ on GoHandle {
   ClientGolangPrometheusObserver getMetricWithLabelValues(
       [List<String> lvs = const []]) {
     final $r = $callSync(
-        18040,
+        18046,
         $W()
           ..h(this)
           ..list(lvs, (w0, e0) => w0.str(e0)));
@@ -849,7 +849,7 @@ mixin ClientGolangPrometheusObserverVec$ on GoHandle {
   ClientGolangPrometheusObserver withLabelValues(
       [List<String> arg0 = const []]) {
     final $r = $callSync(
-        18041,
+        18047,
         $W()
           ..h(this)
           ..list(arg0, (w0, e0) => w0.str(e0)));
@@ -896,7 +896,7 @@ mixin ClientGolangPrometheusRegisterer$ on GoHandle {
   void mustRegister(
       [List<ClientGolangPrometheusCollector> collectors = const []]) {
     $callSync(
-        18043,
+        18049,
         $W()
           ..h(this)
           ..list(collectors, (w0, e0) => w0.h(e0)));
@@ -905,7 +905,7 @@ mixin ClientGolangPrometheusRegisterer$ on GoHandle {
   /// Go: `func (prometheus.Registerer).Register(prometheus.Collector) error`.
   void register(ClientGolangPrometheusCollector collector) {
     $callSync(
-        18044,
+        18050,
         $W()
           ..h(this)
           ..h(collector));
@@ -914,7 +914,7 @@ mixin ClientGolangPrometheusRegisterer$ on GoHandle {
   /// Go: `func (prometheus.Registerer).Unregister(prometheus.Collector) bool`.
   bool unregister(ClientGolangPrometheusCollector collector) {
     final $r = $callSync(
-        18045,
+        18051,
         $W()
           ..h(this)
           ..h(collector));
@@ -923,7 +923,7 @@ mixin ClientGolangPrometheusRegisterer$ on GoHandle {
 
   /// Go: type assertion `x.(*prometheus.Registry)`: null if the object is not one.
   ClientGolangPrometheusRegistry? asClientGolangPrometheusRegistry() {
-    final $r = $callSync(1686, $W()..h(this));
+    final $r = $callSync(1691, $W()..h(this));
     return $r.hn(ClientGolangPrometheusRegistry.$h);
   }
 }
@@ -952,35 +952,35 @@ class ClientGolangPrometheusRegistry extends ClientGolangPrometheusRegisterer
 
   /// Go: `func prometheus.NewRegistry() *prometheus.Registry`.
   factory ClientGolangPrometheusRegistry() {
-    final $r = $callSync(18033);
+    final $r = $callSync(18039);
     return $r.hnn(ClientGolangPrometheusRegistry.$h);
   }
 
   /// Go: `func (*prometheus.Registry).Collect(ch chan<- prometheus.Metric)`.
   Stream<ClientGolangPrometheusMetric> collect() =>
-      $stream(18046, $W()..h(this))
+      $stream(18052, $W()..h(this))
           .map((r) => r.hnn(ClientGolangPrometheusMetric.$h));
 
   /// Go: `func (*prometheus.Registry).Describe(ch chan<- *prometheus.Desc)`.
-  Stream<ClientGolangPrometheusDesc> describe() => $stream(18047, $W()..h(this))
+  Stream<ClientGolangPrometheusDesc> describe() => $stream(18053, $W()..h(this))
       .map((r) => r.hnn(ClientGolangPrometheusDesc.$h));
 
   /// Go: `func (*prometheus.Registry).Gather() ([]*io_prometheus_client.MetricFamily, error)`.
   List<$go.ClientModelGoMetricFamily> gather() {
-    final $r = $callSync(18048, $W()..h(this));
+    final $r = $callSync(18054, $W()..h(this));
     return $r.list(() => $r.hnn($go.ClientModelGoMetricFamily.$h));
   }
 
   /// Go: `func (*prometheus.Registry).MustGather() []*io_prometheus_client.MetricFamily`.
   List<$go.ClientModelGoMetricFamily> mustGather() {
-    final $r = $callSync(18049, $W()..h(this));
+    final $r = $callSync(18055, $W()..h(this));
     return $r.list(() => $r.hnn($go.ClientModelGoMetricFamily.$h));
   }
 
   /// Go: `func (*prometheus.Registry).MustRegister(cs ...prometheus.Collector)`.
   void mustRegister([List<ClientGolangPrometheusCollector> cs = const []]) {
     $callSync(
-        18050,
+        18056,
         $W()
           ..h(this)
           ..list(cs, (w0, e0) => w0.h(e0)));
@@ -989,7 +989,7 @@ class ClientGolangPrometheusRegistry extends ClientGolangPrometheusRegisterer
   /// Go: `func (*prometheus.Registry).Register(c prometheus.Collector) error`.
   void register(ClientGolangPrometheusCollector c) {
     $callSync(
-        18051,
+        18057,
         $W()
           ..h(this)
           ..h(c));
@@ -998,7 +998,7 @@ class ClientGolangPrometheusRegistry extends ClientGolangPrometheusRegisterer
   /// Go: `func (*prometheus.Registry).Unregister(c prometheus.Collector) bool`.
   bool unregister(ClientGolangPrometheusCollector c) {
     final $r = $callSync(
-        18052,
+        18058,
         $W()
           ..h(this)
           ..h(c));
@@ -1015,7 +1015,7 @@ class ClientGolangPrometheusSummary extends ClientGolangPrometheusMetric
   /// Go: `func prometheus.NewSummary(opts prometheus.SummaryOpts) prometheus.Summary`.
   factory ClientGolangPrometheusSummary(
       ClientGolangPrometheusSummaryOpts opts) {
-    final $r = $callSync(18034, $W()..h(opts));
+    final $r = $callSync(18040, $W()..h(opts));
     return $r.hnn(ClientGolangPrometheusSummary.$h);
   }
 }
@@ -1025,7 +1025,7 @@ mixin ClientGolangPrometheusSummary$ on GoHandle {
   /// Go: `func (prometheus.Summary).Observe(float64)`.
   void observe(double arg0) {
     $callSync(
-        18053,
+        18059,
         $W()
           ..h(this)
           ..f64(arg0));
@@ -1069,13 +1069,13 @@ final class ClientGolangPrometheusSummaryVec implements GoDto {
 
   /// Go: `func (*prometheus.MetricVec).Collect(ch chan<- prometheus.Metric)`.
   Stream<ClientGolangPrometheusMetric> collect() =>
-      $stream(18054, $W()..dto(this))
+      $stream(18060, $W()..dto(this))
           .map((r) => r.hnn(ClientGolangPrometheusMetric.$h));
 
   /// Go: `func (*prometheus.MetricVec).DeleteLabelValues(lvs ...string) bool`.
   bool deleteLabelValues([List<String> lvs = const []]) {
     final $r = $callSync(
-        18055,
+        18061,
         $W()
           ..dto(this)
           ..list(lvs, (w0, e0) => w0.str(e0)));
@@ -1084,14 +1084,14 @@ final class ClientGolangPrometheusSummaryVec implements GoDto {
 
   /// Go: `func (*prometheus.MetricVec).Describe(ch chan<- *prometheus.Desc)`.
   Stream<ClientGolangPrometheusDesc> describe() =>
-      $stream(18056, $W()..dto(this))
+      $stream(18062, $W()..dto(this))
           .map((r) => r.hnn(ClientGolangPrometheusDesc.$h));
 
   /// Go: `func (*prometheus.SummaryVec).GetMetricWithLabelValues(lvs ...string) (prometheus.Observer, error)`.
   ClientGolangPrometheusObserver getMetricWithLabelValues(
       [List<String> lvs = const []]) {
     final $r = $callSync(
-        18057,
+        18063,
         $W()
           ..dto(this)
           ..list(lvs, (w0, e0) => w0.str(e0)));
@@ -1100,14 +1100,14 @@ final class ClientGolangPrometheusSummaryVec implements GoDto {
 
   /// Go: `func (*prometheus.MetricVec).Reset()`.
   void reset() {
-    $callSync(18058, $W()..dto(this));
+    $callSync(18064, $W()..dto(this));
   }
 
   /// Go: `func (*prometheus.SummaryVec).WithLabelValues(lvs ...string) prometheus.Observer`.
   ClientGolangPrometheusObserver withLabelValues(
       [List<String> lvs = const []]) {
     final $r = $callSync(
-        18059,
+        18065,
         $W()
           ..dto(this)
           ..list(lvs, (w0, e0) => w0.str(e0)));
@@ -1135,13 +1135,13 @@ class ClientGolangPrometheusTimer extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func prometheus.NewTimer(o prometheus.Observer) *prometheus.Timer`.
   factory ClientGolangPrometheusTimer(ClientGolangPrometheusObserver o) {
-    final $r = $callSync(18036, $W()..h(o));
+    final $r = $callSync(18042, $W()..h(o));
     return $r.hnn(ClientGolangPrometheusTimer.$h);
   }
 
   /// Go: `func (*prometheus.Timer).ObserveDuration() time.Duration`.
   Duration observeDuration() {
-    final $r = $callSync(18060, $W()..h(this));
+    final $r = $callSync(18066, $W()..h(this));
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 }
@@ -1157,7 +1157,7 @@ mixin ClientGolangPrometheusTransactionalGatherer$ on GoHandle {
   /// Go: type assertion `x.(*prometheus.MultiTRegistry)`: null if the object is not one.
   ClientGolangPrometheusMultiTRegistry?
       asClientGolangPrometheusMultiTRegistry() {
-    final $r = $callSync(1687, $W()..h(this));
+    final $r = $callSync(1692, $W()..h(this));
     return $r.hn(ClientGolangPrometheusMultiTRegistry.$h);
   }
 }
@@ -1215,7 +1215,7 @@ extension GoPrometheusClientGolangPrometheusApi
   /// Go: `func prometheus.BuildFQName(namespace string, subsystem string, name string) string`.
   String buildFqName(String namespace, String subsystem, String name) {
     final $r = $callSync(
-        17959,
+        17965,
         $W()
           ..str(namespace)
           ..str(subsystem)
@@ -1225,32 +1225,32 @@ extension GoPrometheusClientGolangPrometheusApi
 
   /// Go: `var prometheus.DefBuckets []float64`.
   List<double> get defBuckets {
-    final $r = $callSync(17972);
+    final $r = $callSync(17978);
     return $r.list(() => $r.f64());
   }
 
   /// Go: `var prometheus.DefaultGatherer prometheus.Gatherer`.
   ClientGolangPrometheusGatherer get defaultGatherer {
-    final $r = $callSync(17973);
+    final $r = $callSync(17979);
     return $r.p() ? ClientGolangPrometheusGatherer.$dec($r) : $nil();
   }
 
   /// Go: `var prometheus.DefaultRegisterer prometheus.Registerer`.
   ClientGolangPrometheusRegisterer get defaultRegisterer {
-    final $r = $callSync(17974);
+    final $r = $callSync(17980);
     return $r.hnn(ClientGolangPrometheusRegisterer.$h);
   }
 
   /// Go: `func prometheus.DescribeByCollect(c prometheus.Collector, descs chan<- *prometheus.Desc)`.
   Stream<ClientGolangPrometheusDesc> describeByCollect(
           ClientGolangPrometheusCollector c) =>
-      $stream(17977, $W()..h(c))
+      $stream(17983, $W()..h(c))
           .map((r) => r.hnn(ClientGolangPrometheusDesc.$h));
 
   /// Go: `func prometheus.ExponentialBuckets(start float64, factor float64, count int) []float64`.
   List<double> exponentialBuckets(double start, double factor, int count) {
     final $r = $callSync(
-        17978,
+        17984,
         $W()
           ..f64(start)
           ..f64(factor)
@@ -1262,7 +1262,7 @@ extension GoPrometheusClientGolangPrometheusApi
   List<double> exponentialBucketsRange(
       double minBucket, double maxBucket, int count) {
     final $r = $callSync(
-        17979,
+        17985,
         $W()
           ..f64(minBucket)
           ..f64(maxBucket)
@@ -1273,7 +1273,7 @@ extension GoPrometheusClientGolangPrometheusApi
   /// Go: `func prometheus.LinearBuckets(start float64, width float64, count int) []float64`.
   List<double> linearBuckets(double start, double width, int count) {
     final $r = $callSync(
-        18000,
+        18006,
         $W()
           ..f64(start)
           ..f64(width)
@@ -1285,7 +1285,7 @@ extension GoPrometheusClientGolangPrometheusApi
   List<$go.ClientModelGoLabelPair> makeLabelPairs(
       ClientGolangPrometheusDesc desc, List<String> labelValues) {
     final $r = $callSync(
-        18001,
+        18007,
         $W()
           ..h(desc)
           ..list(labelValues, (w0, e0) => w0.str(e0)));
@@ -1297,7 +1297,7 @@ extension GoPrometheusClientGolangPrometheusApi
       ClientGolangPrometheusDesc desc, int valueType, double value,
       [List<String> labelValues = const []]) {
     final $r = $callSync(
-        18009,
+        18015,
         $W()
           ..h(desc)
           ..i64(valueType)
@@ -1311,7 +1311,7 @@ extension GoPrometheusClientGolangPrometheusApi
       ClientGolangPrometheusDesc desc, int valueType, double value, DateTime ct,
       [List<String> labelValues = const []]) {
     final $r = $callSync(
-        18010,
+        18016,
         $W()
           ..h(desc)
           ..i64(valueType)
@@ -1334,7 +1334,7 @@ extension GoPrometheusClientGolangPrometheusApi
       DateTime createdTimestamp,
       [List<String> labelValues = const []]) {
     final $r = $callSync(
-        18011,
+        18017,
         $W()
           ..h(desc)
           ..i64(count)
@@ -1354,7 +1354,7 @@ extension GoPrometheusClientGolangPrometheusApi
       ClientGolangPrometheusMetric m,
       [List<ClientGolangPrometheusExemplar> exemplars = const []]) {
     final $r = $callSync(
-        18012,
+        18018,
         $W()
           ..h(m)
           ..list(exemplars, (w0, e0) => w0.dto(e0)));
@@ -1363,13 +1363,13 @@ extension GoPrometheusClientGolangPrometheusApi
 
   /// Go: `func prometheus.MustRegister(cs ...prometheus.Collector)`.
   void mustRegister([List<ClientGolangPrometheusCollector> cs = const []]) {
-    $callSync(18013, $W()..list(cs, (w0, e0) => w0.h(e0)));
+    $callSync(18019, $W()..list(cs, (w0, e0) => w0.h(e0)));
   }
 
   /// Go: `func prometheus.NewBuildInfoCollector() prometheus.Collector`.
   @Deprecated("Use collectors.NewBuildInfoCollector instead.")
   ClientGolangPrometheusCollector newBuildInfoCollector() {
-    final $r = $callSync(18014);
+    final $r = $callSync(18020);
     return $r.hnn(ClientGolangPrometheusCollector.$h);
   }
 
@@ -1378,7 +1378,7 @@ extension GoPrometheusClientGolangPrometheusApi
       ClientGolangPrometheusDesc desc, int valueType, double value,
       [List<String> labelValues = const []]) {
     final $r = $callSync(
-        18015,
+        18021,
         $W()
           ..h(desc)
           ..i64(valueType)
@@ -1392,7 +1392,7 @@ extension GoPrometheusClientGolangPrometheusApi
       ClientGolangPrometheusDesc desc, int valueType, double value, DateTime ct,
       [List<String> labelValues = const []]) {
     final $r = $callSync(
-        18016,
+        18022,
         $W()
           ..h(desc)
           ..i64(valueType)
@@ -1415,7 +1415,7 @@ extension GoPrometheusClientGolangPrometheusApi
       DateTime createdTimestamp,
       [List<String> labelValues = const []]) {
     final $r = $callSync(
-        18017,
+        18023,
         $W()
           ..h(desc)
           ..i64(count)
@@ -1441,7 +1441,7 @@ extension GoPrometheusClientGolangPrometheusApi
       ClientGolangPrometheusCounterOpts opts,
       FutureOr<double> Function() function) async {
     final $r = await $call(
-        18019,
+        18025,
         $W()
           ..h(opts)
           ..cb((r) => function(), true, (w, v) => w.f64(v as double)));
@@ -1452,7 +1452,7 @@ extension GoPrometheusClientGolangPrometheusApi
   ClientGolangPrometheusCounterVec newCounterVec(
       ClientGolangPrometheusCounterOpts opts, List<String> labelNames) {
     final $r = $callSync(
-        18020,
+        18026,
         $W()
           ..h(opts)
           ..list(labelNames, (w0, e0) => w0.str(e0)));
@@ -1463,7 +1463,7 @@ extension GoPrometheusClientGolangPrometheusApi
   @Deprecated("Use collectors.NewExpvarCollector instead.")
   ClientGolangPrometheusCollector newExpvarCollector(
       Map<String, ClientGolangPrometheusDesc> exports) {
-    final $r = $callSync(18021,
+    final $r = $callSync(18027,
         $W()..map(exports, (w0, k0) => w0.str(k0), (w0, v0) => w0.h(v0)));
     return $r.hnn(ClientGolangPrometheusCollector.$h);
   }
@@ -1479,7 +1479,7 @@ extension GoPrometheusClientGolangPrometheusApi
       ClientGolangPrometheusGaugeOpts opts,
       FutureOr<double> Function() function) async {
     final $r = await $call(
-        18023,
+        18029,
         $W()
           ..h(opts)
           ..cb((r) => function(), true, (w, v) => w.f64(v as double)));
@@ -1490,7 +1490,7 @@ extension GoPrometheusClientGolangPrometheusApi
   ClientGolangPrometheusGaugeVec newGaugeVec(
       ClientGolangPrometheusGaugeOpts opts, List<String> labelNames) {
     final $r = $callSync(
-        18024,
+        18030,
         $W()
           ..h(opts)
           ..list(labelNames, (w0, e0) => w0.str(e0)));
@@ -1500,7 +1500,7 @@ extension GoPrometheusClientGolangPrometheusApi
   /// Go: `func prometheus.NewGoCollector(opts ...func(o *internal.GoCollectorOptions)) prometheus.Collector`.
   @Deprecated("Use collectors.NewGoCollector instead.")
   ClientGolangPrometheusCollector newGoCollector() {
-    final $r = $callSync(18025);
+    final $r = $callSync(18031);
     return $r.hnn(ClientGolangPrometheusCollector.$h);
   }
 
@@ -1508,7 +1508,7 @@ extension GoPrometheusClientGolangPrometheusApi
   ClientGolangPrometheusHistogramVec newHistogramVec(
       ClientGolangPrometheusHistogramOpts opts, List<String> labelNames) {
     final $r = $callSync(
-        18027,
+        18033,
         $W()
           ..h(opts)
           ..list(labelNames, (w0, e0) => w0.str(e0)));
@@ -1520,7 +1520,7 @@ extension GoPrometheusClientGolangPrometheusApi
       ClientGolangPrometheusMetric m,
       [List<ClientGolangPrometheusExemplar> exemplars = const []]) {
     final $r = $callSync(
-        18028,
+        18034,
         $W()
           ..h(m)
           ..list(exemplars, (w0, e0) => w0.dto(e0)));
@@ -1531,7 +1531,7 @@ extension GoPrometheusClientGolangPrometheusApi
   ClientGolangPrometheusMetric newMetricWithTimestamp(
       DateTime t, ClientGolangPrometheusMetric m) {
     final $r = $callSync(
-        18029,
+        18035,
         $W()
           ..time(t)
           ..h(m));
@@ -1540,7 +1540,7 @@ extension GoPrometheusClientGolangPrometheusApi
 
   /// Go: `func prometheus.NewPedanticRegistry() *prometheus.Registry`.
   ClientGolangPrometheusRegistry newPedanticRegistry() {
-    final $r = $callSync(18031);
+    final $r = $callSync(18037);
     return $r.hnn(ClientGolangPrometheusRegistry.$h);
   }
 
@@ -1548,7 +1548,7 @@ extension GoPrometheusClientGolangPrometheusApi
   @Deprecated("Use collectors.NewProcessCollector instead.")
   ClientGolangPrometheusCollector newProcessCollector(
       ClientGolangPrometheusProcessCollectorOpts opts) {
-    final $r = $callSync(18032, $W()..dto(opts));
+    final $r = $callSync(18038, $W()..dto(opts));
     return $r.hnn(ClientGolangPrometheusCollector.$h);
   }
 
@@ -1556,7 +1556,7 @@ extension GoPrometheusClientGolangPrometheusApi
   ClientGolangPrometheusSummaryVec newSummaryVec(
       ClientGolangPrometheusSummaryOpts opts, List<String> labelNames) {
     final $r = $callSync(
-        18035,
+        18041,
         $W()
           ..h(opts)
           ..list(labelNames, (w0, e0) => w0.str(e0)));
@@ -1574,7 +1574,7 @@ extension GoPrometheusClientGolangPrometheusApi
       ClientGolangPrometheusUntypedOpts opts,
       FutureOr<double> Function() function) async {
     final $r = await $call(
-        18037,
+        18043,
         $W()
           ..h(opts)
           ..cb((r) => function(), true, (w, v) => w.f64(v as double)));
@@ -1583,19 +1583,19 @@ extension GoPrometheusClientGolangPrometheusApi
 
   /// Go: `func prometheus.Register(c prometheus.Collector) error`.
   void register(ClientGolangPrometheusCollector c) {
-    $callSync(18042, $W()..h(c));
+    $callSync(18048, $W()..h(c));
   }
 
   /// Go: `func prometheus.ToTransactionalGatherer(g prometheus.Gatherer) prometheus.TransactionalGatherer`.
   ClientGolangPrometheusTransactionalGatherer toTransactionalGatherer(
       ClientGolangPrometheusGatherer g) {
-    final $r = $callSync(18061, $W()..dto(g));
+    final $r = $callSync(18067, $W()..dto(g));
     return $r.hnn(ClientGolangPrometheusTransactionalGatherer.$h);
   }
 
   /// Go: `func prometheus.Unregister(c prometheus.Collector) bool`.
   bool unregister(ClientGolangPrometheusCollector c) {
-    final $r = $callSync(18062, $W()..h(c));
+    final $r = $callSync(18068, $W()..h(c));
     return $r.b();
   }
 
@@ -1603,7 +1603,7 @@ extension GoPrometheusClientGolangPrometheusApi
   ClientGolangPrometheusCollector wrapCollectorWithPrefix(
       String prefix, ClientGolangPrometheusCollector c) {
     final $r = $callSync(
-        18063,
+        18069,
         $W()
           ..str(prefix)
           ..h(c));
@@ -1614,7 +1614,7 @@ extension GoPrometheusClientGolangPrometheusApi
   ClientGolangPrometheusRegisterer wrapRegistererWithPrefix(
       String prefix, ClientGolangPrometheusRegisterer reg) {
     final $r = $callSync(
-        18064,
+        18070,
         $W()
           ..str(prefix)
           ..h(reg));
@@ -1624,7 +1624,7 @@ extension GoPrometheusClientGolangPrometheusApi
   /// Go: `func prometheus.WriteToTextfile(filename string, g prometheus.Gatherer) error`.
   void writeToTextfile(String filename, ClientGolangPrometheusGatherer g) {
     $callSync(
-        18065,
+        18071,
         $W()
           ..str(filename)
           ..dto(g));

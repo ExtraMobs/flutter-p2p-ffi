@@ -103,7 +103,7 @@ final class NetUrl implements GoDto {
   /// Go: `func (*url.URL).AppendBinary(b []byte) ([]byte, error)`.
   Uint8List appendBinary(Uint8List b) {
     final $r = $callSync(
-        26796,
+        26802,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -112,32 +112,32 @@ final class NetUrl implements GoDto {
 
   /// Go: `func (*url.URL).EscapedFragment() string`.
   String escapedFragment() {
-    final $r = $callSync(26797, $W()..dto(this));
+    final $r = $callSync(26803, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*url.URL).EscapedPath() string`.
   String escapedPath() {
-    final $r = $callSync(26798, $W()..dto(this));
+    final $r = $callSync(26804, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*url.URL).Hostname() string`.
   String hostname() {
-    final $r = $callSync(26799, $W()..dto(this));
+    final $r = $callSync(26805, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*url.URL).IsAbs() bool`.
   bool isAbs() {
-    final $r = $callSync(26800, $W()..dto(this));
+    final $r = $callSync(26806, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*url.URL).JoinPath(elem ...string) *url.URL`.
   NetUrl joinPath([List<String> elem = const []]) {
     final $r = $callSync(
-        26801,
+        26807,
         $W()
           ..dto(this)
           ..list(elem, (w0, e0) => w0.str(e0)));
@@ -146,14 +146,14 @@ final class NetUrl implements GoDto {
 
   /// Go: `func (*url.URL).MarshalBinary() (text []byte, err error)`.
   Uint8List marshalBinary() {
-    final $r = $callSync(26802, $W()..dto(this));
+    final $r = $callSync(26808, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*url.URL).Parse(ref string) (*url.URL, error)`.
   NetUrl parse(String ref) {
     final $r = $callSync(
-        26803,
+        26809,
         $W()
           ..dto(this)
           ..str(ref));
@@ -162,26 +162,26 @@ final class NetUrl implements GoDto {
 
   /// Go: `func (*url.URL).Port() string`.
   String port() {
-    final $r = $callSync(26804, $W()..dto(this));
+    final $r = $callSync(26810, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*url.URL).Redacted() string`.
   String redacted() {
-    final $r = $callSync(26805, $W()..dto(this));
+    final $r = $callSync(26811, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*url.URL).RequestURI() string`.
   String requestUri() {
-    final $r = $callSync(26806, $W()..dto(this));
+    final $r = $callSync(26812, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*url.URL).ResolveReference(ref *url.URL) *url.URL`.
   NetUrl resolveReference(NetUrl ref) {
     final $r = $callSync(
-        26807,
+        26813,
         $W()
           ..dto(this)
           ..dto(ref));
@@ -190,14 +190,14 @@ final class NetUrl implements GoDto {
 
   /// Go: `func (*url.URL).String() string`.
   String string() {
-    final $r = $callSync(26808, $W()..dto(this));
+    final $r = $callSync(26814, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*url.URL).UnmarshalBinary(text []byte) error`.
   void unmarshalBinary(Uint8List text) {
     $callSync(
-        26809,
+        26815,
         $W()
           ..dto(this)
           ..bytes(text));
@@ -224,19 +224,19 @@ class NetUrlUserinfo extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*url.Userinfo).Password() (string, bool)`.
   (String, bool) password() {
-    final $r = $callSync(26812, $W()..h(this));
+    final $r = $callSync(26818, $W()..h(this));
     return ($r.str(), $r.b());
   }
 
   /// Go: `func (*url.Userinfo).String() string`.
   String string() {
-    final $r = $callSync(26813, $W()..h(this));
+    final $r = $callSync(26819, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*url.Userinfo).Username() string`.
   String username() {
-    final $r = $callSync(26814, $W()..h(this));
+    final $r = $callSync(26820, $W()..h(this));
     return $r.str();
   }
 }
@@ -282,7 +282,7 @@ extension GoNetUrlApi on GoNetUrl {
   /// Go: `func url.JoinPath(base string, elem ...string) (result string, err error)`.
   String joinPath(String base, [List<String> elem = const []]) {
     final $r = $callSync(
-        26789,
+        26795,
         $W()
           ..str(base)
           ..list(elem, (w0, e0) => w0.str(e0)));
@@ -291,50 +291,50 @@ extension GoNetUrlApi on GoNetUrl {
 
   /// Go: `func url.Parse(rawURL string) (*url.URL, error)`.
   NetUrl parse(String rawUrl) {
-    final $r = $callSync(26790, $W()..str(rawUrl));
+    final $r = $callSync(26796, $W()..str(rawUrl));
     return $r.p() ? NetUrl.$dec($r) : $nil();
   }
 
   /// Go: `func url.ParseRequestURI(rawURL string) (*url.URL, error)`.
   NetUrl parseRequestUri(String rawUrl) {
-    final $r = $callSync(26791, $W()..str(rawUrl));
+    final $r = $callSync(26797, $W()..str(rawUrl));
     return $r.p() ? NetUrl.$dec($r) : $nil();
   }
 
   /// Go: `func url.PathEscape(s string) string`.
   String pathEscape(String s) {
-    final $r = $callSync(26792, $W()..str(s));
+    final $r = $callSync(26798, $W()..str(s));
     return $r.str();
   }
 
   /// Go: `func url.PathUnescape(s string) (string, error)`.
   String pathUnescape(String s) {
-    final $r = $callSync(26793, $W()..str(s));
+    final $r = $callSync(26799, $W()..str(s));
     return $r.str();
   }
 
   /// Go: `func url.QueryEscape(s string) string`.
   String queryEscape(String s) {
-    final $r = $callSync(26794, $W()..str(s));
+    final $r = $callSync(26800, $W()..str(s));
     return $r.str();
   }
 
   /// Go: `func url.QueryUnescape(s string) (string, error)`.
   String queryUnescape(String s) {
-    final $r = $callSync(26795, $W()..str(s));
+    final $r = $callSync(26801, $W()..str(s));
     return $r.str();
   }
 
   /// Go: `func url.User(username string) *url.Userinfo`.
   NetUrlUserinfo user(String username) {
-    final $r = $callSync(26810, $W()..str(username));
+    final $r = $callSync(26816, $W()..str(username));
     return $r.hnn(NetUrlUserinfo.$h);
   }
 
   /// Go: `func url.UserPassword(username string, password string) *url.Userinfo`.
   NetUrlUserinfo userPassword(String username, String password) {
     final $r = $callSync(
-        26811,
+        26817,
         $W()
           ..str(username)
           ..str(password));

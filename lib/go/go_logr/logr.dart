@@ -27,7 +27,7 @@ mixin LogrCallDepthLogSink$ on GoHandle {
   /// Go: `func (logr.CallDepthLogSink).WithCallDepth(depth int) logr.LogSink`.
   LogrLogSink withCallDepth(int depth) {
     final $r = $callSync(
-        6556,
+        6565,
         $W()
           ..h(this)
           ..i64(depth));
@@ -45,7 +45,7 @@ mixin LogrLogSink$ on GoHandle {
   /// Go: `func (logr.LogSink).Enabled(level int) bool`.
   bool enabled(int level) {
     final $r = $callSync(
-        6562,
+        6571,
         $W()
           ..h(this)
           ..i64(level));
@@ -55,7 +55,7 @@ mixin LogrLogSink$ on GoHandle {
   /// Go: `func (logr.LogSink).Info(level int, msg string, keysAndValues ...any)`.
   void info(int level, String msg, [List<Object?> keysAndValues = const []]) {
     $callSync(
-        6563,
+        6572,
         $W()
           ..h(this)
           ..i64(level)
@@ -66,7 +66,7 @@ mixin LogrLogSink$ on GoHandle {
   /// Go: `func (logr.LogSink).Init(info logr.RuntimeInfo)`.
   void init(LogrRuntimeInfo info) {
     $callSync(
-        6564,
+        6573,
         $W()
           ..h(this)
           ..dto(info));
@@ -75,7 +75,7 @@ mixin LogrLogSink$ on GoHandle {
   /// Go: `func (logr.LogSink).WithName(name string) logr.LogSink`.
   LogrLogSink withName(String name) {
     final $r = $callSync(
-        6565,
+        6574,
         $W()
           ..h(this)
           ..str(name));
@@ -85,7 +85,7 @@ mixin LogrLogSink$ on GoHandle {
   /// Go: `func (logr.LogSink).WithValues(keysAndValues ...any) logr.LogSink`.
   LogrLogSink withValues([List<Object?> keysAndValues = const []]) {
     final $r = $callSync(
-        6566,
+        6575,
         $W()
           ..h(this)
           ..list(keysAndValues, (w0, e0) => w0.any(e0)));
@@ -94,7 +94,7 @@ mixin LogrLogSink$ on GoHandle {
 
   /// Go: type assertion `x.(logr.SlogSink)`: null if the object is not one.
   LogrSlogSink? asLogrSlogSink() {
-    final $r = $callSync(475, $W()..h(this));
+    final $r = $callSync(478, $W()..h(this));
     return $r.hn(LogrSlogSink.$h);
   }
 }
@@ -119,26 +119,26 @@ class LogrLogger extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (logr.Logger).Enabled() bool`.
   bool enabled() {
-    final $r = $callSync(6567, $W()..h(this));
+    final $r = $callSync(6576, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (logr.Logger).GetSink() logr.LogSink`.
   LogrLogSink getSink() {
-    final $r = $callSync(6568, $W()..h(this));
+    final $r = $callSync(6577, $W()..h(this));
     return $r.hnn(LogrLogSink.$h);
   }
 
   /// Go: `func (logr.Logger).GetV() int`.
   int getV() {
-    final $r = $callSync(6569, $W()..h(this));
+    final $r = $callSync(6578, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (logr.Logger).Info(msg string, keysAndValues ...any)`.
   void info(String msg, [List<Object?> keysAndValues = const []]) {
     $callSync(
-        6570,
+        6579,
         $W()
           ..h(this)
           ..str(msg)
@@ -147,14 +147,14 @@ class LogrLogger extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (logr.Logger).IsZero() bool`.
   bool isZero() {
-    final $r = $callSync(6571, $W()..h(this));
+    final $r = $callSync(6580, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (logr.Logger).V(level int) logr.Logger`.
   LogrLogger v(int level) {
     final $r = $callSync(
-        6572,
+        6581,
         $W()
           ..h(this)
           ..i64(level));
@@ -164,7 +164,7 @@ class LogrLogger extends $crypto.CryptoDecrypterOpts
   /// Go: `func (logr.Logger).WithCallDepth(depth int) logr.Logger`.
   LogrLogger withCallDepth(int depth) {
     final $r = $callSync(
-        6573,
+        6582,
         $W()
           ..h(this)
           ..i64(depth));
@@ -174,7 +174,7 @@ class LogrLogger extends $crypto.CryptoDecrypterOpts
   /// Go: `func (logr.Logger).WithName(name string) logr.Logger`.
   LogrLogger withName(String name) {
     final $r = $callSync(
-        6574,
+        6583,
         $W()
           ..h(this)
           ..str(name));
@@ -184,7 +184,7 @@ class LogrLogger extends $crypto.CryptoDecrypterOpts
   /// Go: `func (logr.Logger).WithSink(sink logr.LogSink) logr.Logger`.
   LogrLogger withSink(LogrLogSink sink) {
     final $r = $callSync(
-        6575,
+        6584,
         $W()
           ..h(this)
           ..h(sink));
@@ -194,7 +194,7 @@ class LogrLogger extends $crypto.CryptoDecrypterOpts
   /// Go: `func (logr.Logger).WithValues(keysAndValues ...any) logr.Logger`.
   LogrLogger withValues([List<Object?> keysAndValues = const []]) {
     final $r = $callSync(
-        6576,
+        6585,
         $W()
           ..h(this)
           ..list(keysAndValues, (w0, e0) => w0.any(e0)));
@@ -211,33 +211,33 @@ class LogrMarshaler extends GoHandle with LogrMarshaler$ {
 mixin LogrMarshaler$ on GoHandle {
   /// Go: `func (logr.Marshaler).MarshalLog() any`.
   Object? marshalLog() {
-    final $r = $callSync(6577, $W()..h(this));
+    final $r = $callSync(6586, $W()..h(this));
     return $r.any();
   }
 
   /// Go: type assertion `x.(*attribute.Set)`: null if the object is not one.
   $attribute.OtelAttributeSet? asOtelAttributeSet() {
-    final $r = $callSync(476, $W()..h(this));
+    final $r = $callSync(479, $W()..h(this));
     return $r.hn($attribute.OtelAttributeSet.$h);
   }
 
   /// Go: type assertion `x.(*otlptrace.Exporter)`: null if the object is not one.
   $otlptrace.OtelExportersOtlpOtlptraceExporter?
       asOtelExportersOtlpOtlptraceExporter() {
-    final $r = $callSync(477, $W()..h(this));
+    final $r = $callSync(480, $W()..h(this));
     return $r.hn($otlptrace.OtelExportersOtlpOtlptraceExporter.$h);
   }
 
   /// Go: type assertion `x.(*stdouttrace.Exporter)`: null if the object is not one.
   $stdouttrace.OtelExportersStdoutStdouttraceExporter?
       asOtelExportersStdoutStdouttraceExporter() {
-    final $r = $callSync(478, $W()..h(this));
+    final $r = $callSync(481, $W()..h(this));
     return $r.hn($stdouttrace.OtelExportersStdoutStdouttraceExporter.$h);
   }
 
   /// Go: type assertion `x.(*resource.Resource)`: null if the object is not one.
   $resource.OtelSdkResource? asOtelSdkResource() {
-    final $r = $callSync(479, $W()..h(this));
+    final $r = $callSync(482, $W()..h(this));
     return $r.hn($resource.OtelSdkResource.$h);
   }
 }
@@ -269,7 +269,7 @@ mixin LogrSlogSink$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> handle($context.Context ctx, $slog.LogSlogRecord record) async {
     await $call(
-        6579,
+        6588,
         $W()
           ..h(this)
           ..h(ctx)
@@ -279,7 +279,7 @@ mixin LogrSlogSink$ on GoHandle {
   /// Go: `func (logr.SlogSink).WithAttrs(attrs []slog.Attr) logr.SlogSink`.
   LogrSlogSink withAttrs(List<$slog.LogSlogAttr> attrs) {
     final $r = $callSync(
-        6580,
+        6589,
         $W()
           ..h(this)
           ..list(attrs, (w0, e0) => w0.dto(e0)));
@@ -289,7 +289,7 @@ mixin LogrSlogSink$ on GoHandle {
   /// Go: `func (logr.SlogSink).WithGroup(name string) logr.SlogSink`.
   LogrSlogSink withGroup(String name) {
     final $r = $callSync(
-        6581,
+        6590,
         $W()
           ..h(this)
           ..str(name));
@@ -306,7 +306,7 @@ class LogrUnderlier extends GoHandle with LogrUnderlier$ {
 mixin LogrUnderlier$ on GoHandle {
   /// Go: `func (logr.Underlier).GetUnderlying() slog.Handler`.
   $slog.LogSlogHandler getUnderlying() {
-    final $r = $callSync(6583, $W()..h(this));
+    final $r = $callSync(6592, $W()..h(this));
     return $r.hnn($slog.LogSlogHandler.$h);
   }
 }
@@ -315,7 +315,7 @@ mixin LogrUnderlier$ on GoHandle {
 extension GoGoLogrLogrApi on GoGoLogrLogr {
   /// Go: `func logr.Discard() logr.Logger`.
   LogrLogger discard() {
-    final $r = $callSync(6557);
+    final $r = $callSync(6566);
     return $r.hnn(LogrLogger.$h);
   }
 
@@ -323,7 +323,7 @@ extension GoGoLogrLogrApi on GoGoLogrLogr {
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<LogrLogger> fromContext($context.Context ctx) async {
-    final $r = await $call(6558, $W()..h(ctx));
+    final $r = await $call(6567, $W()..h(ctx));
     return $r.hnn(LogrLogger.$h);
   }
 
@@ -332,7 +332,7 @@ extension GoGoLogrLogrApi on GoGoLogrLogr {
   /// Asynchronous: runs in a goroutine of the service.
   Future<$slog.LogSlogLogger> fromContextAsSlogLogger(
       $context.Context ctx) async {
-    final $r = await $call(6559, $W()..h(ctx));
+    final $r = await $call(6568, $W()..h(ctx));
     return $r.hnn($slog.LogSlogLogger.$h);
   }
 
@@ -340,25 +340,25 @@ extension GoGoLogrLogrApi on GoGoLogrLogr {
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<LogrLogger> fromContextOrDiscard($context.Context ctx) async {
-    final $r = await $call(6560, $W()..h(ctx));
+    final $r = await $call(6569, $W()..h(ctx));
     return $r.hnn(LogrLogger.$h);
   }
 
   /// Go: `func logr.FromSlogHandler(handler slog.Handler) logr.Logger`.
   LogrLogger fromSlogHandler($slog.LogSlogHandler handler) {
-    final $r = $callSync(6561, $W()..h(handler));
+    final $r = $callSync(6570, $W()..h(handler));
     return $r.hnn(LogrLogger.$h);
   }
 
   /// Go: `func logr.New(sink logr.LogSink) logr.Logger`.
   LogrLogger new$(LogrLogSink sink) {
-    final $r = $callSync(6578, $W()..h(sink));
+    final $r = $callSync(6587, $W()..h(sink));
     return $r.hnn(LogrLogger.$h);
   }
 
   /// Go: `func logr.ToSlogHandler(logger logr.Logger) slog.Handler`.
   $slog.LogSlogHandler toSlogHandler(LogrLogger logger) {
-    final $r = $callSync(6582, $W()..h(logger));
+    final $r = $callSync(6591, $W()..h(logger));
     return $r.hnn($slog.LogSlogHandler.$h);
   }
 }

@@ -36,14 +36,14 @@ class NetIdnaProfile extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*idna.Profile).String() string`.
   String string() {
-    final $r = $callSync(23636, $W()..h(this));
+    final $r = $callSync(23642, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*idna.Profile).ToASCII(s string) (string, error)`.
   String toAscii(String s) {
     final $r = $callSync(
-        23637,
+        23643,
         $W()
           ..h(this)
           ..str(s));
@@ -53,7 +53,7 @@ class NetIdnaProfile extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*idna.Profile).ToUnicode(s string) (string, error)`.
   String toUnicode(String s) {
     final $r = $callSync(
-        23638,
+        23644,
         $W()
           ..h(this)
           ..str(s));
@@ -65,43 +65,43 @@ class NetIdnaProfile extends $crypto.CryptoDecrypterOpts
 extension GoXNetIdnaApi on GoXNetIdna {
   /// Go: `var idna.Display *idna.Profile`.
   NetIdnaProfile get display {
-    final $r = $callSync(23633);
+    final $r = $callSync(23639);
     return $r.hnn(NetIdnaProfile.$h);
   }
 
   /// Go: `var idna.Lookup *idna.Profile`.
   NetIdnaProfile get lookup {
-    final $r = $callSync(23634);
+    final $r = $callSync(23640);
     return $r.hnn(NetIdnaProfile.$h);
   }
 
   /// Go: `func idna.New(o ...idna.Option) *idna.Profile`.
   NetIdnaProfile new$([List<NetIdnaOption> o = const []]) {
-    final $r = $callSync(23635, $W()..list(o, (w0, e0) => w0.opt(e0)));
+    final $r = $callSync(23641, $W()..list(o, (w0, e0) => w0.opt(e0)));
     return $r.hnn(NetIdnaProfile.$h);
   }
 
   /// Go: `var idna.Punycode *idna.Profile`.
   NetIdnaProfile get punycode {
-    final $r = $callSync(23639);
+    final $r = $callSync(23645);
     return $r.hnn(NetIdnaProfile.$h);
   }
 
   /// Go: `var idna.Registration *idna.Profile`.
   NetIdnaProfile get registration {
-    final $r = $callSync(23640);
+    final $r = $callSync(23646);
     return $r.hnn(NetIdnaProfile.$h);
   }
 
   /// Go: `func idna.ToASCII(s string) (string, error)`.
   String toAscii(String s) {
-    final $r = $callSync(23641, $W()..str(s));
+    final $r = $callSync(23647, $W()..str(s));
     return $r.str();
   }
 
   /// Go: `func idna.ToUnicode(s string) (string, error)`.
   String toUnicode(String s) {
-    final $r = $callSync(23642, $W()..str(s));
+    final $r = $callSync(23648, $W()..str(s));
     return $r.str();
   }
 }

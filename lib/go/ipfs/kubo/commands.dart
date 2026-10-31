@@ -32,29 +32,29 @@ class KuboCommandsContext extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*commands.Context).ClearCachedNode()`.
   void clearCachedNode() {
-    $callSync(11214, $W()..h(this));
+    $callSync(11220, $W()..h(this));
   }
 
   /// Go: `func (*commands.Context).Close()`.
   void close() {
-    $callSync(11215, $W()..h(this));
+    $callSync(11221, $W()..h(this));
   }
 
   /// Go: `func (*commands.Context).GetAPI() (iface.CoreAPI, error)`.
   $coreiface.KuboCoreCoreifaceCoreApi getApi() {
-    final $r = $callSync(11216, $W()..h(this));
+    final $r = $callSync(11222, $W()..h(this));
     return $r.hnn($coreiface.KuboCoreCoreifaceCoreApi.$h);
   }
 
   /// Go: `func (*commands.Context).GetConfig() (*config.Config, error)`.
   $config.KuboConfig getConfig() {
-    final $r = $callSync(11217, $W()..h(this));
+    final $r = $callSync(11223, $W()..h(this));
     return $r.p() ? $config.KuboConfig($r.json()) : $nil();
   }
 
   /// Go: `func (*commands.Context).GetNode() (*core.IpfsNode, error)`.
   $core.KuboCoreIpfsNode getNode() {
-    final $r = $callSync(11218, $W()..h(this));
+    final $r = $callSync(11224, $W()..h(this));
     return $r.hnn($core.KuboCoreIpfsNode.$h);
   }
 }
@@ -80,7 +80,7 @@ class KuboCommandsReqLog extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*commands.ReqLog).AddEntry(rle *commands.ReqLogEntry)`.
   void addEntry(KuboCommandsReqLogEntry rle) {
     $callSync(
-        11219,
+        11225,
         $W()
           ..h(this)
           ..h(rle));
@@ -88,13 +88,13 @@ class KuboCommandsReqLog extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*commands.ReqLog).ClearInactive()`.
   void clearInactive() {
-    $callSync(11220, $W()..h(this));
+    $callSync(11226, $W()..h(this));
   }
 
   /// Go: `func (*commands.ReqLog).Finish(rle *commands.ReqLogEntry)`.
   void finish(KuboCommandsReqLogEntry rle) {
     $callSync(
-        11221,
+        11227,
         $W()
           ..h(this)
           ..h(rle));
@@ -102,14 +102,14 @@ class KuboCommandsReqLog extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*commands.ReqLog).Report() []*commands.ReqLogEntry`.
   List<KuboCommandsReqLogEntry> report() {
-    final $r = $callSync(11222, $W()..h(this));
+    final $r = $callSync(11228, $W()..h(this));
     return $r.list(() => $r.hnn(KuboCommandsReqLogEntry.$h));
   }
 
   /// Go: `func (*commands.ReqLog).SetKeepTime(t time.Duration)`.
   void setKeepTime(Duration t) {
     $callSync(
-        11223,
+        11229,
         $W()
           ..h(this)
           ..i64((t).inMicroseconds * 1000));
@@ -136,7 +136,7 @@ class KuboCommandsReqLogEntry extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*commands.ReqLogEntry).Copy() *commands.ReqLogEntry`.
   KuboCommandsReqLogEntry copy() {
-    final $r = $callSync(11224, $W()..h(this));
+    final $r = $callSync(11230, $W()..h(this));
     return $r.hnn(KuboCommandsReqLogEntry.$h);
   }
 }

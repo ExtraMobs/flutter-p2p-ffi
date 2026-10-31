@@ -35,13 +35,13 @@ class TagKey extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func tag.NewKey(name string) (tag.Key, error)`.
   factory TagKey(String name) {
-    final $r = $callSync(19080, $W()..str(name));
+    final $r = $callSync(19086, $W()..str(name));
     return $r.hnn(TagKey.$h);
   }
 
   /// Go: `func (tag.Key).Name() string`.
   String name() {
-    final $r = $callSync(19075, $W()..h(this));
+    final $r = $callSync(19081, $W()..h(this));
     return $r.str();
   }
 }
@@ -66,14 +66,14 @@ class TagMap extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*tag.Map).String() string`.
   String string() {
-    final $r = $callSync(19076, $W()..h(this));
+    final $r = $callSync(19082, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*tag.Map).Value(k tag.Key) (string, bool)`.
   (String, bool) value$(TagKey k) {
     final $r = $callSync(
-        19077,
+        19083,
         $W()
           ..h(this)
           ..h(k));
@@ -96,7 +96,7 @@ mixin TagMutator$ on GoHandle {
   /// Go: `func (tag.Mutator).Mutate(t *tag.Map) (*tag.Map, error)`.
   TagMap mutate(TagMap t) {
     final $r = $callSync(
-        19079,
+        19085,
         $W()
           ..h(this)
           ..h(t));
@@ -151,13 +151,13 @@ final class Tag implements GoDto {
 extension GoOpencensusTagApi on GoOpencensusTag {
   /// Go: `func tag.Decode(bytes []byte) (*tag.Map, error)`.
   TagMap decode(Uint8List bytes) {
-    final $r = $callSync(19069, $W()..bytes(bytes));
+    final $r = $callSync(19075, $W()..bytes(bytes));
     return $r.hnn(TagMap.$h);
   }
 
   /// Go: `func tag.Delete(k tag.Key) tag.Mutator`.
   TagMutator delete(TagKey k) {
-    final $r = $callSync(19070, $W()..h(k));
+    final $r = $callSync(19076, $W()..h(k));
     return $r.hnn(TagMutator.$h);
   }
 
@@ -171,7 +171,7 @@ extension GoOpencensusTagApi on GoOpencensusTag {
   Future<void> do$($context.Context ctx,
       FutureOr<void> Function($context.Context ctx) f) async {
     await $call(
-        19071,
+        19077,
         $W()
           ..h(ctx)
           ..cb((r) => f(r.hnn($context.Context.$h)), true));
@@ -179,7 +179,7 @@ extension GoOpencensusTagApi on GoOpencensusTag {
 
   /// Go: `func tag.Encode(m *tag.Map) []byte`.
   Uint8List encode(TagMap m) {
-    final $r = $callSync(19072, $W()..h(m));
+    final $r = $callSync(19078, $W()..h(m));
     return $r.bytes() ?? Uint8List(0);
   }
 
@@ -187,14 +187,14 @@ extension GoOpencensusTagApi on GoOpencensusTag {
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<TagMap> fromContext($context.Context ctx) async {
-    final $r = await $call(19073, $W()..h(ctx));
+    final $r = await $call(19079, $W()..h(ctx));
     return $r.hnn(TagMap.$h);
   }
 
   /// Go: `func tag.Insert(k tag.Key, v string, mds ...tag.Metadata) tag.Mutator`.
   TagMutator insert(TagKey k, String v, [List<TagMetadata> mds = const []]) {
     final $r = $callSync(
-        19074,
+        19080,
         $W()
           ..h(k)
           ..str(v)
@@ -204,26 +204,26 @@ extension GoOpencensusTagApi on GoOpencensusTag {
 
   /// Go: `func tag.MustNewKey(name string) tag.Key`.
   TagKey mustNewKey(String name) {
-    final $r = $callSync(19078, $W()..str(name));
+    final $r = $callSync(19084, $W()..str(name));
     return $r.hnn(TagKey.$h);
   }
 
   /// Go: `var tag.TTLNoPropagation tag.TTL`.
   TagTtl get ttlNoPropagation {
-    final $r = $callSync(19081);
+    final $r = $callSync(19087);
     return $r.hnn(TagTtl.$h);
   }
 
   /// Go: `var tag.TTLUnlimitedPropagation tag.TTL`.
   TagTtl get ttlUnlimitedPropagation {
-    final $r = $callSync(19082);
+    final $r = $callSync(19088);
     return $r.hnn(TagTtl.$h);
   }
 
   /// Go: `func tag.Update(k tag.Key, v string, mds ...tag.Metadata) tag.Mutator`.
   TagMutator update(TagKey k, String v, [List<TagMetadata> mds = const []]) {
     final $r = $callSync(
-        19083,
+        19089,
         $W()
           ..h(k)
           ..str(v)
@@ -234,7 +234,7 @@ extension GoOpencensusTagApi on GoOpencensusTag {
   /// Go: `func tag.Upsert(k tag.Key, v string, mds ...tag.Metadata) tag.Mutator`.
   TagMutator upsert(TagKey k, String v, [List<TagMetadata> mds = const []]) {
     final $r = $callSync(
-        19084,
+        19090,
         $W()
           ..h(k)
           ..str(v)

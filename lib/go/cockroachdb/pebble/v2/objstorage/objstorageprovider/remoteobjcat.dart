@@ -39,7 +39,7 @@ class PebbleV2ObjstorageObjstorageproviderRemoteobjcatBatch
       PebbleV2ObjstorageObjstorageproviderRemoteobjcatRemoteObjectMetadata
           meta) {
     $callSync(
-        4957,
+        4966,
         $W()
           ..h(this)
           ..dto(meta));
@@ -48,7 +48,7 @@ class PebbleV2ObjstorageObjstorageproviderRemoteobjcatBatch
   /// Go: `func (*remoteobjcat.Batch).Append(other remoteobjcat.Batch)`.
   void append(PebbleV2ObjstorageObjstorageproviderRemoteobjcatBatch other) {
     $callSync(
-        4958,
+        4967,
         $W()
           ..h(this)
           ..h(other));
@@ -56,19 +56,19 @@ class PebbleV2ObjstorageObjstorageproviderRemoteobjcatBatch
 
   /// Go: `func (*remoteobjcat.Batch).Copy() remoteobjcat.Batch`.
   PebbleV2ObjstorageObjstorageproviderRemoteobjcatBatch copy() {
-    final $r = $callSync(4959, $W()..h(this));
+    final $r = $callSync(4968, $W()..h(this));
     return $r.hnn(PebbleV2ObjstorageObjstorageproviderRemoteobjcatBatch.$h);
   }
 
   /// Go: `func (*remoteobjcat.Batch).IsEmpty() bool`.
   bool isEmpty() {
-    final $r = $callSync(4960, $W()..h(this));
+    final $r = $callSync(4969, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*remoteobjcat.Batch).Reset()`.
   void reset() {
-    $callSync(4961, $W()..h(this));
+    $callSync(4970, $W()..h(this));
   }
 }
 
@@ -99,7 +99,7 @@ class PebbleV2ObjstorageObjstorageproviderRemoteobjcatCatalog
   /// Go: `func (*remoteobjcat.Catalog).ApplyBatch(b remoteobjcat.Batch) error`.
   void applyBatch(PebbleV2ObjstorageObjstorageproviderRemoteobjcatBatch b) {
     $callSync(
-        4962,
+        4971,
         $W()
           ..h(this)
           ..h(b));
@@ -108,7 +108,7 @@ class PebbleV2ObjstorageObjstorageproviderRemoteobjcatCatalog
   /// Go: `func (*remoteobjcat.Catalog).Checkpoint(fs vfs.FS, dir string) error`.
   void checkpoint($vfs.PebbleV2VfsFs fs, String dir) {
     $callSync(
-        4963,
+        4972,
         $W()
           ..h(this)
           ..h(fs)
@@ -117,13 +117,13 @@ class PebbleV2ObjstorageObjstorageproviderRemoteobjcatCatalog
 
   /// Go: `func (*remoteobjcat.Catalog).Close() error`.
   void close() {
-    $callSync(4964, $W()..h(this));
+    $callSync(4973, $W()..h(this));
   }
 
   /// Go: `func (*remoteobjcat.Catalog).SetCreatorID(id objstorage.CreatorID) error`.
   void setCreatorId(int id) {
     $callSync(
-        4965,
+        4974,
         $W()
           ..h(this)
           ..i64(id));
@@ -251,7 +251,7 @@ final class PebbleV2ObjstorageObjstorageproviderRemoteobjcatVersionEdit
   /// Go: `func (*remoteobjcat.VersionEdit).Decode(r io.Reader) error`.
   void decode(Object r) {
     $callSync(
-        4967,
+        4976,
         $W()
           ..dto(this)
           ..reader(r));
@@ -260,7 +260,7 @@ final class PebbleV2ObjstorageObjstorageproviderRemoteobjcatVersionEdit
   /// Go: `func (*remoteobjcat.VersionEdit).Encode(w io.Writer) error`.
   void encode(GoHandle? w) {
     $callSync(
-        4968,
+        4977,
         $W()
           ..dto(this)
           ..h(w));
@@ -276,7 +276,7 @@ extension GoCockroachdbPebbleV2ObjstorageObjstorageproviderRemoteobjcatApi
     PebbleV2ObjstorageObjstorageproviderRemoteobjcatCatalogContents
   ) open($vfs.PebbleV2VfsFs fs, String dirname) {
     final $r = $callSync(
-        4966,
+        4975,
         $W()
           ..h(fs)
           ..str(dirname));

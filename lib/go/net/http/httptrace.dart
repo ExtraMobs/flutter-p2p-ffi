@@ -24,7 +24,7 @@ extension GoNetHttpHttptraceApi on GoNetHttpHttptrace {
   /// Asynchronous: runs in a goroutine of the service.
   Future<NetHttpHttptraceClientTrace> contextClientTrace(
       $context.Context ctx) async {
-    final $r = await $call(26649, $W()..h(ctx));
+    final $r = await $call(26655, $W()..h(ctx));
     return $r.p() ? NetHttpHttptraceClientTrace.$dec($r) : $nil();
   }
 }

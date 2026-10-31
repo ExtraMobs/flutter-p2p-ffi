@@ -39,19 +39,19 @@ class NetTextprotoConn extends $io.IoCloser
 
   /// Go: `func textproto.NewConn(conn io.ReadWriteCloser) *textproto.Conn`.
   factory NetTextprotoConn(Object conn) {
-    final $r = $callSync(26768, $W()..reader(conn));
+    final $r = $callSync(26774, $W()..reader(conn));
     return $r.hnn(NetTextprotoConn.$h);
   }
 
   /// Go: `func (*textproto.Conn).Close() error`.
   void close() {
-    $callSync(26749, $W()..h(this));
+    $callSync(26755, $W()..h(this));
   }
 
   /// Go: `func (*textproto.Conn).Cmd(format string, args ...any) (id uint, err error)`.
   int cmd(String format, [List<Object?> args = const []]) {
     final $r = $callSync(
-        26750,
+        26756,
         $W()
           ..h(this)
           ..str(format)
@@ -61,20 +61,20 @@ class NetTextprotoConn extends $io.IoCloser
 
   /// Go: `func (*textproto.Reader).DotReader() io.Reader`.
   $io.IoReader dotReader() {
-    final $r = $callSync(26751, $W()..h(this));
+    final $r = $callSync(26757, $W()..h(this));
     return $r.hnn($io.IoReader.$h);
   }
 
   /// Go: `func (*textproto.Writer).DotWriter() io.WriteCloser`.
   $io.IoWriteCloser dotWriter() {
-    final $r = $callSync(26752, $W()..h(this));
+    final $r = $callSync(26758, $W()..h(this));
     return $r.hnn($io.IoWriteCloser.$h);
   }
 
   /// Go: `func (*textproto.Pipeline).EndRequest(id uint)`.
   void endRequest(int id) {
     $callSync(
-        26753,
+        26759,
         $W()
           ..h(this)
           ..i64(id));
@@ -83,7 +83,7 @@ class NetTextprotoConn extends $io.IoCloser
   /// Go: `func (*textproto.Pipeline).EndResponse(id uint)`.
   void endResponse(int id) {
     $callSync(
-        26754,
+        26760,
         $W()
           ..h(this)
           ..i64(id));
@@ -91,14 +91,14 @@ class NetTextprotoConn extends $io.IoCloser
 
   /// Go: `func (*textproto.Pipeline).Next() uint`.
   int next() {
-    final $r = $callSync(26755, $W()..h(this));
+    final $r = $callSync(26761, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*textproto.Writer).PrintfLine(format string, args ...any) error`.
   void printfLine(String format, [List<Object?> args = const []]) {
     $callSync(
-        26756,
+        26762,
         $W()
           ..h(this)
           ..str(format)
@@ -108,7 +108,7 @@ class NetTextprotoConn extends $io.IoCloser
   /// Go: `func (*textproto.Reader).ReadCodeLine(expectCode int) (code int, message string, err error)`.
   (int, String) readCodeLine(int expectCode) {
     final $r = $callSync(
-        26757,
+        26763,
         $W()
           ..h(this)
           ..i64(expectCode));
@@ -117,44 +117,44 @@ class NetTextprotoConn extends $io.IoCloser
 
   /// Go: `func (*textproto.Reader).ReadContinuedLine() (string, error)`.
   String readContinuedLine() {
-    final $r = $callSync(26758, $W()..h(this));
+    final $r = $callSync(26764, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*textproto.Reader).ReadContinuedLineBytes() ([]byte, error)`.
   Uint8List readContinuedLineBytes() {
-    final $r = $callSync(26759, $W()..h(this));
+    final $r = $callSync(26765, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*textproto.Reader).ReadDotBytes() ([]byte, error)`.
   Uint8List readDotBytes() {
-    final $r = $callSync(26760, $W()..h(this));
+    final $r = $callSync(26766, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*textproto.Reader).ReadDotLines() ([]string, error)`.
   List<String> readDotLines() {
-    final $r = $callSync(26761, $W()..h(this));
+    final $r = $callSync(26767, $W()..h(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (*textproto.Reader).ReadLine() (string, error)`.
   String readLine() {
-    final $r = $callSync(26762, $W()..h(this));
+    final $r = $callSync(26768, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*textproto.Reader).ReadLineBytes() ([]byte, error)`.
   Uint8List readLineBytes() {
-    final $r = $callSync(26763, $W()..h(this));
+    final $r = $callSync(26769, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*textproto.Reader).ReadResponse(expectCode int) (code int, message string, err error)`.
   (int, String) readResponse(int expectCode) {
     final $r = $callSync(
-        26764,
+        26770,
         $W()
           ..h(this)
           ..i64(expectCode));
@@ -164,7 +164,7 @@ class NetTextprotoConn extends $io.IoCloser
   /// Go: `func (*textproto.Pipeline).StartRequest(id uint)`.
   void startRequest(int id) {
     $callSync(
-        26765,
+        26771,
         $W()
           ..h(this)
           ..i64(id));
@@ -173,7 +173,7 @@ class NetTextprotoConn extends $io.IoCloser
   /// Go: `func (*textproto.Pipeline).StartResponse(id uint)`.
   void startResponse(int id) {
     $callSync(
-        26766,
+        26772,
         $W()
           ..h(this)
           ..i64(id));
@@ -201,7 +201,7 @@ class NetTextprotoPipeline extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*textproto.Pipeline).EndRequest(id uint)`.
   void endRequest(int id) {
     $callSync(
-        26771,
+        26777,
         $W()
           ..h(this)
           ..i64(id));
@@ -210,7 +210,7 @@ class NetTextprotoPipeline extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*textproto.Pipeline).EndResponse(id uint)`.
   void endResponse(int id) {
     $callSync(
-        26772,
+        26778,
         $W()
           ..h(this)
           ..i64(id));
@@ -218,14 +218,14 @@ class NetTextprotoPipeline extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*textproto.Pipeline).Next() uint`.
   int next() {
-    final $r = $callSync(26773, $W()..h(this));
+    final $r = $callSync(26779, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*textproto.Pipeline).StartRequest(id uint)`.
   void startRequest(int id) {
     $callSync(
-        26774,
+        26780,
         $W()
           ..h(this)
           ..i64(id));
@@ -234,7 +234,7 @@ class NetTextprotoPipeline extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*textproto.Pipeline).StartResponse(id uint)`.
   void startResponse(int id) {
     $callSync(
-        26775,
+        26781,
         $W()
           ..h(this)
           ..i64(id));
@@ -261,20 +261,20 @@ class NetTextprotoReader extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func textproto.NewReader(r *bufio.Reader) *textproto.Reader`.
   factory NetTextprotoReader($bufio.BufioReader r) {
-    final $r = $callSync(26769, $W()..h(r));
+    final $r = $callSync(26775, $W()..h(r));
     return $r.hnn(NetTextprotoReader.$h);
   }
 
   /// Go: `func (*textproto.Reader).DotReader() io.Reader`.
   $io.IoReader dotReader() {
-    final $r = $callSync(26776, $W()..h(this));
+    final $r = $callSync(26782, $W()..h(this));
     return $r.hnn($io.IoReader.$h);
   }
 
   /// Go: `func (*textproto.Reader).ReadCodeLine(expectCode int) (code int, message string, err error)`.
   (int, String) readCodeLine(int expectCode) {
     final $r = $callSync(
-        26777,
+        26783,
         $W()
           ..h(this)
           ..i64(expectCode));
@@ -283,44 +283,44 @@ class NetTextprotoReader extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*textproto.Reader).ReadContinuedLine() (string, error)`.
   String readContinuedLine() {
-    final $r = $callSync(26778, $W()..h(this));
+    final $r = $callSync(26784, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*textproto.Reader).ReadContinuedLineBytes() ([]byte, error)`.
   Uint8List readContinuedLineBytes() {
-    final $r = $callSync(26779, $W()..h(this));
+    final $r = $callSync(26785, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*textproto.Reader).ReadDotBytes() ([]byte, error)`.
   Uint8List readDotBytes() {
-    final $r = $callSync(26780, $W()..h(this));
+    final $r = $callSync(26786, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*textproto.Reader).ReadDotLines() ([]string, error)`.
   List<String> readDotLines() {
-    final $r = $callSync(26781, $W()..h(this));
+    final $r = $callSync(26787, $W()..h(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (*textproto.Reader).ReadLine() (string, error)`.
   String readLine() {
-    final $r = $callSync(26782, $W()..h(this));
+    final $r = $callSync(26788, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*textproto.Reader).ReadLineBytes() ([]byte, error)`.
   Uint8List readLineBytes() {
-    final $r = $callSync(26783, $W()..h(this));
+    final $r = $callSync(26789, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*textproto.Reader).ReadResponse(expectCode int) (code int, message string, err error)`.
   (int, String) readResponse(int expectCode) {
     final $r = $callSync(
-        26784,
+        26790,
         $W()
           ..h(this)
           ..i64(expectCode));
@@ -348,20 +348,20 @@ class NetTextprotoWriter extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func textproto.NewWriter(w *bufio.Writer) *textproto.Writer`.
   factory NetTextprotoWriter($bufio.BufioWriter w) {
-    final $r = $callSync(26770, $W()..h(w));
+    final $r = $callSync(26776, $W()..h(w));
     return $r.hnn(NetTextprotoWriter.$h);
   }
 
   /// Go: `func (*textproto.Writer).DotWriter() io.WriteCloser`.
   $io.IoWriteCloser dotWriter() {
-    final $r = $callSync(26787, $W()..h(this));
+    final $r = $callSync(26793, $W()..h(this));
     return $r.hnn($io.IoWriteCloser.$h);
   }
 
   /// Go: `func (*textproto.Writer).PrintfLine(format string, args ...any) error`.
   void printfLine(String format, [List<Object?> args = const []]) {
     $callSync(
-        26788,
+        26794,
         $W()
           ..h(this)
           ..str(format)
@@ -400,14 +400,14 @@ class NetTextprotoProtocolError extends GolangException {
 extension GoNetTextprotoApi on GoNetTextproto {
   /// Go: `func textproto.CanonicalMIMEHeaderKey(s string) string`.
   String canonicalMimeHeaderKey(String s) {
-    final $r = $callSync(26748, $W()..str(s));
+    final $r = $callSync(26754, $W()..str(s));
     return $r.str();
   }
 
   /// Go: `func textproto.Dial(network string, addr string) (*textproto.Conn, error)`.
   NetTextprotoConn dial(String network, String addr) {
     final $r = $callSync(
-        26767,
+        26773,
         $W()
           ..str(network)
           ..str(addr));
@@ -416,13 +416,13 @@ extension GoNetTextprotoApi on GoNetTextproto {
 
   /// Go: `func textproto.TrimBytes(b []byte) []byte`.
   Uint8List trimBytes(Uint8List b) {
-    final $r = $callSync(26785, $W()..bytes(b));
+    final $r = $callSync(26791, $W()..bytes(b));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func textproto.TrimString(s string) string`.
   String trimString(String s) {
-    final $r = $callSync(26786, $W()..str(s));
+    final $r = $callSync(26792, $W()..str(s));
     return $r.str();
   }
 }

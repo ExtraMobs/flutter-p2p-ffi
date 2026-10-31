@@ -12,550 +12,550 @@ import 'package:p2p_ffi/go/otel/attribute.dart' as $attribute;
 extension GoOtelSemconvV140Api on GoOtelSemconvV140 {
   /// Go: `var semconv.AWSECSLaunchtypeEC2 attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get awsecsLaunchtypeEc2 {
-    final $r = $callSync(20643);
+    final $r = $callSync(20649);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.AWSECSLaunchtypeFargate attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get awsecsLaunchtypeFargate {
-    final $r = $callSync(20644);
+    final $r = $callSync(20650);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.CloudPlatformAWSEC2 attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get cloudPlatformAwsec2 {
-    final $r = $callSync(20645);
+    final $r = $callSync(20651);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.CloudPlatformAWSECS attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get cloudPlatformAwsecs {
-    final $r = $callSync(20646);
+    final $r = $callSync(20652);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.CloudPlatformAWSEKS attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get cloudPlatformAwseks {
-    final $r = $callSync(20647);
+    final $r = $callSync(20653);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.CloudPlatformAWSElasticBeanstalk attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get cloudPlatformAwsElasticBeanstalk {
-    final $r = $callSync(20648);
+    final $r = $callSync(20654);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.CloudPlatformAWSLambda attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get cloudPlatformAwsLambda {
-    final $r = $callSync(20649);
+    final $r = $callSync(20655);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.CloudPlatformAzureAKS attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get cloudPlatformAzureAks {
-    final $r = $callSync(20650);
+    final $r = $callSync(20656);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.CloudPlatformAzureAppService attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get cloudPlatformAzureAppService {
-    final $r = $callSync(20651);
+    final $r = $callSync(20657);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.CloudPlatformAzureContainerInstances attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get cloudPlatformAzureContainerInstances {
-    final $r = $callSync(20652);
+    final $r = $callSync(20658);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.CloudPlatformAzureFunctions attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get cloudPlatformAzureFunctions {
-    final $r = $callSync(20653);
+    final $r = $callSync(20659);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.CloudPlatformAzureVM attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get cloudPlatformAzureVm {
-    final $r = $callSync(20654);
+    final $r = $callSync(20660);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.CloudPlatformGCPAppEngine attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get cloudPlatformGcpAppEngine {
-    final $r = $callSync(20655);
+    final $r = $callSync(20661);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.CloudPlatformGCPCloudFunctions attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get cloudPlatformGcpCloudFunctions {
-    final $r = $callSync(20656);
+    final $r = $callSync(20662);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.CloudPlatformGCPCloudRun attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get cloudPlatformGcpCloudRun {
-    final $r = $callSync(20657);
+    final $r = $callSync(20663);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.CloudPlatformGCPComputeEngine attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get cloudPlatformGcpComputeEngine {
-    final $r = $callSync(20658);
+    final $r = $callSync(20664);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.CloudPlatformGCPKubernetesEngine attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get cloudPlatformGcpKubernetesEngine {
-    final $r = $callSync(20659);
+    final $r = $callSync(20665);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.CloudProviderAWS attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get cloudProviderAws {
-    final $r = $callSync(20660);
+    final $r = $callSync(20666);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.CloudProviderAzure attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get cloudProviderAzure {
-    final $r = $callSync(20661);
+    final $r = $callSync(20667);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.CloudProviderGCP attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get cloudProviderGcp {
-    final $r = $callSync(20662);
+    final $r = $callSync(20668);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBCassandraConsistencyLevelAll attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbCassandraConsistencyLevelAll {
-    final $r = $callSync(20663);
+    final $r = $callSync(20669);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBCassandraConsistencyLevelAny attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbCassandraConsistencyLevelAny {
-    final $r = $callSync(20664);
+    final $r = $callSync(20670);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBCassandraConsistencyLevelEachQuorum attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbCassandraConsistencyLevelEachQuorum {
-    final $r = $callSync(20665);
+    final $r = $callSync(20671);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBCassandraConsistencyLevelLocalOne attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbCassandraConsistencyLevelLocalOne {
-    final $r = $callSync(20666);
+    final $r = $callSync(20672);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBCassandraConsistencyLevelLocalQuorum attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbCassandraConsistencyLevelLocalQuorum {
-    final $r = $callSync(20667);
+    final $r = $callSync(20673);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBCassandraConsistencyLevelLocalSerial attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbCassandraConsistencyLevelLocalSerial {
-    final $r = $callSync(20668);
+    final $r = $callSync(20674);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBCassandraConsistencyLevelOne attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbCassandraConsistencyLevelOne {
-    final $r = $callSync(20669);
+    final $r = $callSync(20675);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBCassandraConsistencyLevelQuorum attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbCassandraConsistencyLevelQuorum {
-    final $r = $callSync(20670);
+    final $r = $callSync(20676);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBCassandraConsistencyLevelSerial attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbCassandraConsistencyLevelSerial {
-    final $r = $callSync(20671);
+    final $r = $callSync(20677);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBCassandraConsistencyLevelThree attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbCassandraConsistencyLevelThree {
-    final $r = $callSync(20672);
+    final $r = $callSync(20678);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBCassandraConsistencyLevelTwo attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbCassandraConsistencyLevelTwo {
-    final $r = $callSync(20673);
+    final $r = $callSync(20679);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBSystemAdabas attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbSystemAdabas {
-    final $r = $callSync(20674);
+    final $r = $callSync(20680);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBSystemCache attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbSystemCache {
-    final $r = $callSync(20675);
+    final $r = $callSync(20681);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBSystemCassandra attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbSystemCassandra {
-    final $r = $callSync(20676);
+    final $r = $callSync(20682);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBSystemCloudscape attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbSystemCloudscape {
-    final $r = $callSync(20677);
+    final $r = $callSync(20683);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBSystemCockroachdb attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbSystemCockroachdb {
-    final $r = $callSync(20678);
+    final $r = $callSync(20684);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBSystemColdfusion attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbSystemColdfusion {
-    final $r = $callSync(20679);
+    final $r = $callSync(20685);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBSystemCosmosDB attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbSystemCosmosDb {
-    final $r = $callSync(20680);
+    final $r = $callSync(20686);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBSystemCouchDB attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbSystemCouchDb {
-    final $r = $callSync(20681);
+    final $r = $callSync(20687);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBSystemCouchbase attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbSystemCouchbase {
-    final $r = $callSync(20682);
+    final $r = $callSync(20688);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBSystemDB2 attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbSystemDb2 {
-    final $r = $callSync(20683);
+    final $r = $callSync(20689);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBSystemDerby attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbSystemDerby {
-    final $r = $callSync(20684);
+    final $r = $callSync(20690);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBSystemDynamoDB attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbSystemDynamoDb {
-    final $r = $callSync(20685);
+    final $r = $callSync(20691);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBSystemEDB attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbSystemEdb {
-    final $r = $callSync(20686);
+    final $r = $callSync(20692);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBSystemElasticsearch attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbSystemElasticsearch {
-    final $r = $callSync(20687);
+    final $r = $callSync(20693);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBSystemFilemaker attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbSystemFilemaker {
-    final $r = $callSync(20688);
+    final $r = $callSync(20694);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBSystemFirebird attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbSystemFirebird {
-    final $r = $callSync(20689);
+    final $r = $callSync(20695);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBSystemFirstSQL attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbSystemFirstSql {
-    final $r = $callSync(20690);
+    final $r = $callSync(20696);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBSystemGeode attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbSystemGeode {
-    final $r = $callSync(20691);
+    final $r = $callSync(20697);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBSystemH2 attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbSystemH2 {
-    final $r = $callSync(20692);
+    final $r = $callSync(20698);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBSystemHBase attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbSystemHBase {
-    final $r = $callSync(20693);
+    final $r = $callSync(20699);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBSystemHSQLDB attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbSystemHsqldb {
-    final $r = $callSync(20694);
+    final $r = $callSync(20700);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBSystemHanaDB attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbSystemHanaDb {
-    final $r = $callSync(20695);
+    final $r = $callSync(20701);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBSystemHive attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbSystemHive {
-    final $r = $callSync(20696);
+    final $r = $callSync(20702);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBSystemInformix attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbSystemInformix {
-    final $r = $callSync(20697);
+    final $r = $callSync(20703);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBSystemIngres attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbSystemIngres {
-    final $r = $callSync(20698);
+    final $r = $callSync(20704);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBSystemInstantDB attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbSystemInstantDb {
-    final $r = $callSync(20699);
+    final $r = $callSync(20705);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBSystemInterbase attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbSystemInterbase {
-    final $r = $callSync(20700);
+    final $r = $callSync(20706);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBSystemMSSQL attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbSystemMssql {
-    final $r = $callSync(20701);
+    final $r = $callSync(20707);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBSystemMariaDB attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbSystemMariaDb {
-    final $r = $callSync(20702);
+    final $r = $callSync(20708);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBSystemMaxDB attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbSystemMaxDb {
-    final $r = $callSync(20703);
+    final $r = $callSync(20709);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBSystemMemcached attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbSystemMemcached {
-    final $r = $callSync(20704);
+    final $r = $callSync(20710);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBSystemMongoDB attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbSystemMongoDb {
-    final $r = $callSync(20705);
+    final $r = $callSync(20711);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBSystemMySQL attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbSystemMySql {
-    final $r = $callSync(20706);
+    final $r = $callSync(20712);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBSystemNeo4j attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbSystemNeo4j {
-    final $r = $callSync(20707);
+    final $r = $callSync(20713);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBSystemNetezza attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbSystemNetezza {
-    final $r = $callSync(20708);
+    final $r = $callSync(20714);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBSystemOracle attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbSystemOracle {
-    final $r = $callSync(20709);
+    final $r = $callSync(20715);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBSystemOtherSQL attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbSystemOtherSql {
-    final $r = $callSync(20710);
+    final $r = $callSync(20716);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBSystemPervasive attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbSystemPervasive {
-    final $r = $callSync(20711);
+    final $r = $callSync(20717);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBSystemPointbase attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbSystemPointbase {
-    final $r = $callSync(20712);
+    final $r = $callSync(20718);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBSystemPostgreSQL attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbSystemPostgreSql {
-    final $r = $callSync(20713);
+    final $r = $callSync(20719);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBSystemProgress attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbSystemProgress {
-    final $r = $callSync(20714);
+    final $r = $callSync(20720);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBSystemRedis attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbSystemRedis {
-    final $r = $callSync(20715);
+    final $r = $callSync(20721);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBSystemRedshift attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbSystemRedshift {
-    final $r = $callSync(20716);
+    final $r = $callSync(20722);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBSystemSqlite attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbSystemSqlite {
-    final $r = $callSync(20717);
+    final $r = $callSync(20723);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBSystemSybase attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbSystemSybase {
-    final $r = $callSync(20718);
+    final $r = $callSync(20724);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBSystemTeradata attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbSystemTeradata {
-    final $r = $callSync(20719);
+    final $r = $callSync(20725);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.DBSystemVertica attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get dbSystemVertica {
-    final $r = $callSync(20720);
+    final $r = $callSync(20726);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `func semconv.EndUserAttributesFromHTTPRequest(request *http.Request) []attribute.KeyValue`.
   List<$attribute.OtelAttributeKeyValue> endUserAttributesFromHttpRequest(
       $http.NetHttpRequest request) {
-    final $r = $callSync(20721, $W()..h(request));
+    final $r = $callSync(20727, $W()..h(request));
     return $r.list(
         () => $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil());
   }
 
   /// Go: `var semconv.FaaSDocumentOperationDelete attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get faaSDocumentOperationDelete {
-    final $r = $callSync(20722);
+    final $r = $callSync(20728);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.FaaSDocumentOperationEdit attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get faaSDocumentOperationEdit {
-    final $r = $callSync(20723);
+    final $r = $callSync(20729);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.FaaSDocumentOperationInsert attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get faaSDocumentOperationInsert {
-    final $r = $callSync(20724);
+    final $r = $callSync(20730);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.FaaSInvokedProviderAWS attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get faaSInvokedProviderAws {
-    final $r = $callSync(20725);
+    final $r = $callSync(20731);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.FaaSInvokedProviderAzure attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get faaSInvokedProviderAzure {
-    final $r = $callSync(20726);
+    final $r = $callSync(20732);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.FaaSInvokedProviderGCP attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get faaSInvokedProviderGcp {
-    final $r = $callSync(20727);
+    final $r = $callSync(20733);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.FaaSTriggerDatasource attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get faaSTriggerDatasource {
-    final $r = $callSync(20728);
+    final $r = $callSync(20734);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.FaaSTriggerHTTP attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get faaSTriggerHttp {
-    final $r = $callSync(20729);
+    final $r = $callSync(20735);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.FaaSTriggerOther attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get faaSTriggerOther {
-    final $r = $callSync(20730);
+    final $r = $callSync(20736);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.FaaSTriggerPubsub attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get faaSTriggerPubsub {
-    final $r = $callSync(20731);
+    final $r = $callSync(20737);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.FaaSTriggerTimer attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get faaSTriggerTimer {
-    final $r = $callSync(20732);
+    final $r = $callSync(20738);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `func semconv.HTTPAttributesFromHTTPStatusCode(code int) []attribute.KeyValue`.
   List<$attribute.OtelAttributeKeyValue> httpAttributesFromHttpStatusCode(
       int code) {
-    final $r = $callSync(20733, $W()..i64(code));
+    final $r = $callSync(20739, $W()..i64(code));
     return $r.list(
         () => $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil());
   }
@@ -563,50 +563,50 @@ extension GoOtelSemconvV140Api on GoOtelSemconvV140 {
   /// Go: `func semconv.HTTPClientAttributesFromHTTPRequest(request *http.Request) []attribute.KeyValue`.
   List<$attribute.OtelAttributeKeyValue> httpClientAttributesFromHttpRequest(
       $http.NetHttpRequest request) {
-    final $r = $callSync(20734, $W()..h(request));
+    final $r = $callSync(20740, $W()..h(request));
     return $r.list(
         () => $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil());
   }
 
   /// Go: `var semconv.HTTPFlavorHTTP10 attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get httpFlavorHttp10 {
-    final $r = $callSync(20735);
+    final $r = $callSync(20741);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.HTTPFlavorHTTP11 attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get httpFlavorHttp11 {
-    final $r = $callSync(20736);
+    final $r = $callSync(20742);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.HTTPFlavorHTTP20 attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get httpFlavorHttp20 {
-    final $r = $callSync(20737);
+    final $r = $callSync(20743);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.HTTPFlavorQUIC attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get httpFlavorQuic {
-    final $r = $callSync(20738);
+    final $r = $callSync(20744);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.HTTPFlavorSPDY attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get httpFlavorSpdy {
-    final $r = $callSync(20739);
+    final $r = $callSync(20745);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.HTTPSchemeHTTP attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get httpSchemeHttp {
-    final $r = $callSync(20740);
+    final $r = $callSync(20746);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.HTTPSchemeHTTPS attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get httpSchemeHttps {
-    final $r = $callSync(20741);
+    final $r = $callSync(20747);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
@@ -614,7 +614,7 @@ extension GoOtelSemconvV140Api on GoOtelSemconvV140 {
   List<$attribute.OtelAttributeKeyValue> httpServerAttributesFromHttpRequest(
       String serverName, String route, $http.NetHttpRequest request) {
     final $r = $callSync(
-        20742,
+        20748,
         $W()
           ..str(serverName)
           ..str(route)
@@ -628,7 +628,7 @@ extension GoOtelSemconvV140Api on GoOtelSemconvV140 {
       httpServerMetricAttributesFromHttpRequest(
           String serverName, $http.NetHttpRequest request) {
     final $r = $callSync(
-        20743,
+        20749,
         $W()
           ..str(serverName)
           ..h(request));
@@ -638,67 +638,67 @@ extension GoOtelSemconvV140Api on GoOtelSemconvV140 {
 
   /// Go: `var semconv.HostArchAMD64 attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get hostArchAmd64 {
-    final $r = $callSync(20744);
+    final $r = $callSync(20750);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.HostArchARM32 attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get hostArchArm32 {
-    final $r = $callSync(20745);
+    final $r = $callSync(20751);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.HostArchARM64 attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get hostArchArm64 {
-    final $r = $callSync(20746);
+    final $r = $callSync(20752);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.HostArchIA64 attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get hostArchIa64 {
-    final $r = $callSync(20747);
+    final $r = $callSync(20753);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.HostArchPPC32 attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get hostArchPpc32 {
-    final $r = $callSync(20748);
+    final $r = $callSync(20754);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.HostArchPPC64 attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get hostArchPpc64 {
-    final $r = $callSync(20749);
+    final $r = $callSync(20755);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.HostArchX86 attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get hostArchX86 {
-    final $r = $callSync(20750);
+    final $r = $callSync(20756);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.MessagingDestinationKindQueue attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get messagingDestinationKindQueue {
-    final $r = $callSync(20751);
+    final $r = $callSync(20757);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.MessagingDestinationKindTopic attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get messagingDestinationKindTopic {
-    final $r = $callSync(20752);
+    final $r = $callSync(20758);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.MessagingOperationProcess attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get messagingOperationProcess {
-    final $r = $callSync(20753);
+    final $r = $callSync(20759);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.MessagingOperationReceive attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get messagingOperationReceive {
-    final $r = $callSync(20754);
+    final $r = $callSync(20760);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
@@ -706,7 +706,7 @@ extension GoOtelSemconvV140Api on GoOtelSemconvV140 {
   List<$attribute.OtelAttributeKeyValue> netAttributesFromHttpRequest(
       String network, $http.NetHttpRequest request) {
     final $r = $callSync(
-        20755,
+        20761,
         $W()
           ..str(network)
           ..h(request));
@@ -716,217 +716,217 @@ extension GoOtelSemconvV140Api on GoOtelSemconvV140 {
 
   /// Go: `var semconv.NetTransportIP attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get netTransportIp {
-    final $r = $callSync(20756);
+    final $r = $callSync(20762);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.NetTransportInProc attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get netTransportInProc {
-    final $r = $callSync(20757);
+    final $r = $callSync(20763);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.NetTransportOther attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get netTransportOther {
-    final $r = $callSync(20758);
+    final $r = $callSync(20764);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.NetTransportPipe attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get netTransportPipe {
-    final $r = $callSync(20759);
+    final $r = $callSync(20765);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.NetTransportTCP attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get netTransportTcp {
-    final $r = $callSync(20760);
+    final $r = $callSync(20766);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.NetTransportUDP attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get netTransportUdp {
-    final $r = $callSync(20761);
+    final $r = $callSync(20767);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.NetTransportUnix attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get netTransportUnix {
-    final $r = $callSync(20762);
+    final $r = $callSync(20768);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.OSTypeAIX attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get osTypeAix {
-    final $r = $callSync(20763);
+    final $r = $callSync(20769);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.OSTypeDarwin attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get osTypeDarwin {
-    final $r = $callSync(20764);
+    final $r = $callSync(20770);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.OSTypeDragonflyBSD attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get osTypeDragonflyBsd {
-    final $r = $callSync(20765);
+    final $r = $callSync(20771);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.OSTypeFreeBSD attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get osTypeFreeBsd {
-    final $r = $callSync(20766);
+    final $r = $callSync(20772);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.OSTypeHPUX attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get osTypeHpux {
-    final $r = $callSync(20767);
+    final $r = $callSync(20773);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.OSTypeLinux attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get osTypeLinux {
-    final $r = $callSync(20768);
+    final $r = $callSync(20774);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.OSTypeNetBSD attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get osTypeNetBsd {
-    final $r = $callSync(20769);
+    final $r = $callSync(20775);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.OSTypeOpenBSD attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get osTypeOpenBsd {
-    final $r = $callSync(20770);
+    final $r = $callSync(20776);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.OSTypeSolaris attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get osTypeSolaris {
-    final $r = $callSync(20771);
+    final $r = $callSync(20777);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.OSTypeWindows attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get osTypeWindows {
-    final $r = $callSync(20772);
+    final $r = $callSync(20778);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.OSTypeZOS attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get osTypeZos {
-    final $r = $callSync(20773);
+    final $r = $callSync(20779);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.RPCGRPCStatusCodeAborted attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get rpcgrpcStatusCodeAborted {
-    final $r = $callSync(20774);
+    final $r = $callSync(20780);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.RPCGRPCStatusCodeAlreadyExists attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get rpcgrpcStatusCodeAlreadyExists {
-    final $r = $callSync(20775);
+    final $r = $callSync(20781);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.RPCGRPCStatusCodeCancelled attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get rpcgrpcStatusCodeCancelled {
-    final $r = $callSync(20776);
+    final $r = $callSync(20782);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.RPCGRPCStatusCodeDataLoss attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get rpcgrpcStatusCodeDataLoss {
-    final $r = $callSync(20777);
+    final $r = $callSync(20783);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.RPCGRPCStatusCodeDeadlineExceeded attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get rpcgrpcStatusCodeDeadlineExceeded {
-    final $r = $callSync(20778);
+    final $r = $callSync(20784);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.RPCGRPCStatusCodeFailedPrecondition attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get rpcgrpcStatusCodeFailedPrecondition {
-    final $r = $callSync(20779);
+    final $r = $callSync(20785);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.RPCGRPCStatusCodeInternal attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get rpcgrpcStatusCodeInternal {
-    final $r = $callSync(20780);
+    final $r = $callSync(20786);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.RPCGRPCStatusCodeInvalidArgument attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get rpcgrpcStatusCodeInvalidArgument {
-    final $r = $callSync(20781);
+    final $r = $callSync(20787);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.RPCGRPCStatusCodeNotFound attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get rpcgrpcStatusCodeNotFound {
-    final $r = $callSync(20782);
+    final $r = $callSync(20788);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.RPCGRPCStatusCodeOk attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get rpcgrpcStatusCodeOk {
-    final $r = $callSync(20783);
+    final $r = $callSync(20789);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.RPCGRPCStatusCodeOutOfRange attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get rpcgrpcStatusCodeOutOfRange {
-    final $r = $callSync(20784);
+    final $r = $callSync(20790);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.RPCGRPCStatusCodePermissionDenied attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get rpcgrpcStatusCodePermissionDenied {
-    final $r = $callSync(20785);
+    final $r = $callSync(20791);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.RPCGRPCStatusCodeResourceExhausted attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get rpcgrpcStatusCodeResourceExhausted {
-    final $r = $callSync(20786);
+    final $r = $callSync(20792);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.RPCGRPCStatusCodeUnauthenticated attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get rpcgrpcStatusCodeUnauthenticated {
-    final $r = $callSync(20787);
+    final $r = $callSync(20793);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.RPCGRPCStatusCodeUnavailable attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get rpcgrpcStatusCodeUnavailable {
-    final $r = $callSync(20788);
+    final $r = $callSync(20794);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.RPCGRPCStatusCodeUnimplemented attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get rpcgrpcStatusCodeUnimplemented {
-    final $r = $callSync(20789);
+    final $r = $callSync(20795);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.RPCGRPCStatusCodeUnknown attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get rpcgrpcStatusCodeUnknown {
-    final $r = $callSync(20790);
+    final $r = $callSync(20796);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `func semconv.SpanStatusFromHTTPStatusCode(code int) (codes.Code, string)`.
   (int, String) spanStatusFromHttpStatusCode(int code) {
-    final $r = $callSync(20791, $W()..i64(code));
+    final $r = $callSync(20797, $W()..i64(code));
     return ($r.i64(), $r.str());
   }
 
@@ -934,7 +934,7 @@ extension GoOtelSemconvV140Api on GoOtelSemconvV140 {
   (int, String) spanStatusFromHttpStatusCodeAndSpanKind(
       int code, int spanKind) {
     final $r = $callSync(
-        20792,
+        20798,
         $W()
           ..i64(code)
           ..i64(spanKind));
@@ -943,61 +943,61 @@ extension GoOtelSemconvV140Api on GoOtelSemconvV140 {
 
   /// Go: `var semconv.TelemetrySDKLanguageCPP attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get telemetrySdkLanguageCpp {
-    final $r = $callSync(20793);
+    final $r = $callSync(20799);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.TelemetrySDKLanguageDotnet attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get telemetrySdkLanguageDotnet {
-    final $r = $callSync(20794);
+    final $r = $callSync(20800);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.TelemetrySDKLanguageErlang attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get telemetrySdkLanguageErlang {
-    final $r = $callSync(20795);
+    final $r = $callSync(20801);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.TelemetrySDKLanguageGo attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get telemetrySdkLanguageGo {
-    final $r = $callSync(20796);
+    final $r = $callSync(20802);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.TelemetrySDKLanguageJava attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get telemetrySdkLanguageJava {
-    final $r = $callSync(20797);
+    final $r = $callSync(20803);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.TelemetrySDKLanguageNodejs attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get telemetrySdkLanguageNodejs {
-    final $r = $callSync(20798);
+    final $r = $callSync(20804);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.TelemetrySDKLanguagePHP attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get telemetrySdkLanguagePhp {
-    final $r = $callSync(20799);
+    final $r = $callSync(20805);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.TelemetrySDKLanguagePython attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get telemetrySdkLanguagePython {
-    final $r = $callSync(20800);
+    final $r = $callSync(20806);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.TelemetrySDKLanguageRuby attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get telemetrySdkLanguageRuby {
-    final $r = $callSync(20801);
+    final $r = $callSync(20807);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `var semconv.TelemetrySDKLanguageWebjs attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue get telemetrySdkLanguageWebjs {
-    final $r = $callSync(20802);
+    final $r = $callSync(20808);
     return $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil();
   }
 }

@@ -44,71 +44,71 @@ class Libp2pP2pProtocolIdentifyPbIdentify
   /// Go: `func (*pb.Identify).Descriptor() ([]byte, []int)`.
   @Deprecated("Use Identify.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(14935, $W()..h(this));
+    final $r = $callSync(14941, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pb.Identify).GetAgentVersion() string`.
   String getAgentVersion() {
-    final $r = $callSync(14936, $W()..h(this));
+    final $r = $callSync(14942, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*pb.Identify).GetListenAddrs() [][]byte`.
   List<Uint8List> getListenAddrs() {
-    final $r = $callSync(14937, $W()..h(this));
+    final $r = $callSync(14943, $W()..h(this));
     return $r.list(() => $r.bytes() ?? Uint8List(0));
   }
 
   /// Go: `func (*pb.Identify).GetObservedAddr() []byte`.
   Uint8List getObservedAddr() {
-    final $r = $callSync(14938, $W()..h(this));
+    final $r = $callSync(14944, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pb.Identify).GetProtocolVersion() string`.
   String getProtocolVersion() {
-    final $r = $callSync(14939, $W()..h(this));
+    final $r = $callSync(14945, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*pb.Identify).GetProtocols() []string`.
   List<String> getProtocols() {
-    final $r = $callSync(14940, $W()..h(this));
+    final $r = $callSync(14946, $W()..h(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (*pb.Identify).GetPublicKey() []byte`.
   Uint8List getPublicKey() {
-    final $r = $callSync(14941, $W()..h(this));
+    final $r = $callSync(14947, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pb.Identify).GetSignedPeerRecord() []byte`.
   Uint8List getSignedPeerRecord() {
-    final $r = $callSync(14942, $W()..h(this));
+    final $r = $callSync(14948, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pb.Identify).ProtoMessage()`.
   void protoMessage() {
-    $callSync(14943, $W()..h(this));
+    $callSync(14949, $W()..h(this));
   }
 
   /// Go: `func (*pb.Identify).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(14944, $W()..h(this));
+    final $r = $callSync(14950, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pb.Identify).Reset()`.
   void reset() {
-    $callSync(14945, $W()..h(this));
+    $callSync(14951, $W()..h(this));
   }
 
   /// Go: `func (*pb.Identify).String() string`.
   String string() {
-    final $r = $callSync(14946, $W()..h(this));
+    final $r = $callSync(14952, $W()..h(this));
     return $r.str();
   }
 }
@@ -119,7 +119,7 @@ extension GoLibp2pLibp2pP2pProtocolIdentifyPbApi
   /// Go: `var pb.File_p2p_protocol_identify_pb_identify_proto protoreflect.FileDescriptor`.
   $protoreflect.ProtobufReflectProtoreflectFileDescriptor
       get fileP2pProtocolIdentifyPbIdentifyProto {
-    final $r = $callSync(14934);
+    final $r = $callSync(14940);
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectFileDescriptor.$h);
   }
 }

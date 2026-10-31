@@ -11,6 +11,8 @@ import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
 import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
+import 'package:p2p_ffi/go/sync.dart' as $sync;
+import 'package:p2p_ffi/go/syndtr/goleveldb/leveldb/storage.dart' as $storage;
 
 /// Go: `jsync.FWaitGroup` (handle).
 class JsyncFWaitGroup extends $crypto.CryptoDecrypterOpts
@@ -32,12 +34,12 @@ class JsyncFWaitGroup extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*jsync.FWaitGroup).Add()`.
   void add() {
-    $callSync(3964, $W()..h(this));
+    $callSync(3973, $W()..h(this));
   }
 
   /// Go: `func (*jsync.FWaitGroup).Done()`.
   void done() {
-    $callSync(3965, $W()..h(this));
+    $callSync(3974, $W()..h(this));
   }
 
   /// Go: `func (*jsync.FWaitGroup).Init(f func(), initial uint64)`.
@@ -49,7 +51,7 @@ class JsyncFWaitGroup extends $crypto.CryptoDecrypterOpts
   /// each invocation (a retained callback, WIRE.md).
   Future<void> init(FutureOr<void> Function() f, int initial) async {
     await $call(
-        3966,
+        3975,
         $W()
           ..h(this)
           ..cb((r) => f(), true)
@@ -57,22 +59,36 @@ class JsyncFWaitGroup extends $crypto.CryptoDecrypterOpts
   }
 }
 
-/// Go: `jsync.NoCopy`.
-final class JsyncNoCopy implements GoDto {
-  JsyncNoCopy();
-  JsyncNoCopy.$dec($R r);
-
-  @override
-  void $enc($W w) {}
+/// Go: `jsync.NoCopy` (handle).
+class JsyncNoCopy extends $sync.SyncLocker
+    with
+        $crypto.CryptoDecrypterOpts$,
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$,
+        $storage.GoleveldbLeveldbStorageLocker$
+    implements
+        $crypto.CryptoDecrypterOpts,
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic,
+        $storage.GoleveldbLeveldbStorageLocker {
+  JsyncNoCopy.$h(super.$h) : super.$h();
 
   /// Go: `func (jsync.NoCopy).Lock()`.
   void lock() {
-    $callSync(3968, $W()..dto(this));
+    $callSync(3977, $W()..h(this));
   }
 
   /// Go: `func (jsync.NoCopy).Unlock()`.
   void unlock() {
-    $callSync(3969, $W()..dto(this));
+    $callSync(3978, $W()..h(this));
   }
 }
 
@@ -88,7 +104,7 @@ extension GoJorropoJsyncApi on GoJorropoJsync {
   Future<JsyncFWaitGroup> newFWaitGroup(
       FutureOr<void> Function() f, int initial) async {
     final $r = await $call(
-        3967,
+        3976,
         $W()
           ..cb((r) => f(), true)
           ..i64(initial));

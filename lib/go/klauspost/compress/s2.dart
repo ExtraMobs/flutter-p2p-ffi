@@ -40,20 +40,20 @@ class CompressS2Dict extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func s2.NewDict(dict []byte) *s2.Dict`.
   factory CompressS2Dict(Uint8List dict) {
-    final $r = $callSync(12721, $W()..bytes(dict));
+    final $r = $callSync(12727, $W()..bytes(dict));
     return $r.hnn(CompressS2Dict.$h);
   }
 
   /// Go: `func (*s2.Dict).Bytes() []byte`.
   Uint8List bytes() {
-    final $r = $callSync(12697, $W()..h(this));
+    final $r = $callSync(12703, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*s2.Dict).Decode(dst []byte, src []byte) ([]byte, error)`.
   Uint8List decode(Uint8List dst, Uint8List src) {
     final $r = $callSync(
-        12698,
+        12704,
         $W()
           ..h(this)
           ..bytes(dst)
@@ -64,7 +64,7 @@ class CompressS2Dict extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*s2.Dict).Encode(dst []byte, src []byte) []byte`.
   Uint8List encode(Uint8List dst, Uint8List src) {
     final $r = $callSync(
-        12699,
+        12705,
         $W()
           ..h(this)
           ..bytes(dst)
@@ -75,7 +75,7 @@ class CompressS2Dict extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*s2.Dict).EncodeBest(dst []byte, src []byte) []byte`.
   Uint8List encodeBest(Uint8List dst, Uint8List src) {
     final $r = $callSync(
-        12700,
+        12706,
         $W()
           ..h(this)
           ..bytes(dst)
@@ -86,7 +86,7 @@ class CompressS2Dict extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*s2.Dict).EncodeBetter(dst []byte, src []byte) []byte`.
   Uint8List encodeBetter(Uint8List dst, Uint8List src) {
     final $r = $callSync(
-        12701,
+        12707,
         $W()
           ..h(this)
           ..bytes(dst)
@@ -116,7 +116,7 @@ class CompressS2Index extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*s2.Index).Find(offset int64) (compressedOff int64, uncompressedOff int64, err error)`.
   (int, int) find(int offset) {
     final $r = $callSync(
-        12709,
+        12715,
         $W()
           ..h(this)
           ..i64(offset));
@@ -125,14 +125,14 @@ class CompressS2Index extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*s2.Index).JSON() []byte`.
   Uint8List json() {
-    final $r = $callSync(12710, $W()..h(this));
+    final $r = $callSync(12716, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*s2.Index).Load(b []byte) ([]byte, error)`.
   Uint8List load(Uint8List b) {
     final $r = $callSync(
-        12711,
+        12717,
         $W()
           ..h(this)
           ..bytes(b));
@@ -142,7 +142,7 @@ class CompressS2Index extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*s2.Index).LoadStream(rs io.ReadSeeker) error`.
   void loadStream(Object rs) {
     $callSync(
-        12712,
+        12718,
         $W()
           ..h(this)
           ..reader(rs));
@@ -160,7 +160,7 @@ final class CompressS2Lz4Converter implements GoDto {
   /// Go: `func (*s2.LZ4Converter).ConvertBlock(dst []byte, src []byte) ([]byte, int, error)`.
   (Uint8List, int) convertBlock(Uint8List dst, Uint8List src) {
     final $r = $callSync(
-        12714,
+        12720,
         $W()
           ..dto(this)
           ..bytes(dst)
@@ -171,7 +171,7 @@ final class CompressS2Lz4Converter implements GoDto {
   /// Go: `func (*s2.LZ4Converter).ConvertBlockSnappy(dst []byte, src []byte) ([]byte, int, error)`.
   (Uint8List, int) convertBlockSnappy(Uint8List dst, Uint8List src) {
     final $r = $callSync(
-        12715,
+        12721,
         $W()
           ..dto(this)
           ..bytes(dst)
@@ -191,7 +191,7 @@ final class CompressS2Lz4sConverter implements GoDto {
   /// Go: `func (*s2.LZ4sConverter).ConvertBlock(dst []byte, src []byte) ([]byte, int, error)`.
   (Uint8List, int) convertBlock(Uint8List dst, Uint8List src) {
     final $r = $callSync(
-        12716,
+        12722,
         $W()
           ..dto(this)
           ..bytes(dst)
@@ -202,7 +202,7 @@ final class CompressS2Lz4sConverter implements GoDto {
   /// Go: `func (*s2.LZ4sConverter).ConvertBlockSnappy(dst []byte, src []byte) ([]byte, int, error)`.
   (Uint8List, int) convertBlockSnappy(Uint8List dst, Uint8List src) {
     final $r = $callSync(
-        12717,
+        12723,
         $W()
           ..dto(this)
           ..bytes(dst)
@@ -236,7 +236,7 @@ class CompressS2ReadSeeker extends $io.IoSeeker
   /// Go: `func (*s2.Reader).DecodeConcurrent(w io.Writer, concurrent int) (written int64, err error)`.
   int decodeConcurrent(GoHandle? w, int concurrent) {
     final $r = $callSync(
-        12724,
+        12730,
         $W()
           ..h(this)
           ..h(w)
@@ -246,14 +246,14 @@ class CompressS2ReadSeeker extends $io.IoSeeker
 
   /// Go: `func (*s2.Reader).GetBufferCapacity() int`.
   int getBufferCapacity() {
-    final $r = $callSync(12725, $W()..h(this));
+    final $r = $callSync(12731, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*s2.Reader).Read(p []byte) (int, error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        12726,
+        12732,
         $W()
           ..h(this)
           ..i64(n));
@@ -263,7 +263,7 @@ class CompressS2ReadSeeker extends $io.IoSeeker
   /// Go: `func (*s2.ReadSeeker).ReadAt(p []byte, offset int64) (int, error)`.
   Uint8List readAt(int n, int offset) {
     final $r = $callSync(
-        12727,
+        12733,
         $W()
           ..h(this)
           ..i64(n)
@@ -273,14 +273,14 @@ class CompressS2ReadSeeker extends $io.IoSeeker
 
   /// Go: `func (*s2.Reader).ReadByte() (byte, error)`.
   int readByte() {
-    final $r = $callSync(12728, $W()..h(this));
+    final $r = $callSync(12734, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*s2.Reader).ReadSeeker(random bool, index []byte) (*s2.ReadSeeker, error)`.
   CompressS2ReadSeeker readSeeker(bool random, Uint8List index) {
     final $r = $callSync(
-        12729,
+        12735,
         $W()
           ..h(this)
           ..b(random)
@@ -291,7 +291,7 @@ class CompressS2ReadSeeker extends $io.IoSeeker
   /// Go: `func (*s2.Reader).Reset(reader io.Reader)`.
   void reset(Object reader) {
     $callSync(
-        12730,
+        12736,
         $W()
           ..h(this)
           ..reader(reader));
@@ -300,7 +300,7 @@ class CompressS2ReadSeeker extends $io.IoSeeker
   /// Go: `func (*s2.ReadSeeker).Seek(offset int64, whence int) (int64, error)`.
   int seek(int offset, int whence) {
     final $r = $callSync(
-        12731,
+        12737,
         $W()
           ..h(this)
           ..i64(offset)
@@ -311,7 +311,7 @@ class CompressS2ReadSeeker extends $io.IoSeeker
   /// Go: `func (*s2.Reader).Skip(n int64) error`.
   void skip(int n) {
     $callSync(
-        12732,
+        12738,
         $W()
           ..h(this)
           ..i64(n));
@@ -327,7 +327,7 @@ class CompressS2ReadSeeker extends $io.IoSeeker
   Future<void> skippableCb(
       int id, FutureOr<void> Function($io.IoReader r) fn) async {
     await $call(
-        12733,
+        12739,
         $W()
           ..h(this)
           ..i64(id)
@@ -359,7 +359,7 @@ class CompressS2Reader extends $protodelim.ProtobufEncodingProtodelimReader
   factory CompressS2Reader(Object r,
       [List<CompressS2ReaderOption> opts = const []]) {
     final $r = $callSync(
-        12722,
+        12728,
         $W()
           ..reader(r)
           ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -369,7 +369,7 @@ class CompressS2Reader extends $protodelim.ProtobufEncodingProtodelimReader
   /// Go: `func (*s2.Reader).DecodeConcurrent(w io.Writer, concurrent int) (written int64, err error)`.
   int decodeConcurrent(GoHandle? w, int concurrent) {
     final $r = $callSync(
-        12734,
+        12740,
         $W()
           ..h(this)
           ..h(w)
@@ -379,14 +379,14 @@ class CompressS2Reader extends $protodelim.ProtobufEncodingProtodelimReader
 
   /// Go: `func (*s2.Reader).GetBufferCapacity() int`.
   int getBufferCapacity() {
-    final $r = $callSync(12735, $W()..h(this));
+    final $r = $callSync(12741, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*s2.Reader).Read(p []byte) (int, error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        12736,
+        12742,
         $W()
           ..h(this)
           ..i64(n));
@@ -395,14 +395,14 @@ class CompressS2Reader extends $protodelim.ProtobufEncodingProtodelimReader
 
   /// Go: `func (*s2.Reader).ReadByte() (byte, error)`.
   int readByte() {
-    final $r = $callSync(12737, $W()..h(this));
+    final $r = $callSync(12743, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*s2.Reader).ReadSeeker(random bool, index []byte) (*s2.ReadSeeker, error)`.
   CompressS2ReadSeeker readSeeker(bool random, Uint8List index) {
     final $r = $callSync(
-        12738,
+        12744,
         $W()
           ..h(this)
           ..b(random)
@@ -413,7 +413,7 @@ class CompressS2Reader extends $protodelim.ProtobufEncodingProtodelimReader
   /// Go: `func (*s2.Reader).Reset(reader io.Reader)`.
   void reset(Object reader) {
     $callSync(
-        12739,
+        12745,
         $W()
           ..h(this)
           ..reader(reader));
@@ -422,7 +422,7 @@ class CompressS2Reader extends $protodelim.ProtobufEncodingProtodelimReader
   /// Go: `func (*s2.Reader).Skip(n int64) error`.
   void skip(int n) {
     $callSync(
-        12740,
+        12746,
         $W()
           ..h(this)
           ..i64(n));
@@ -438,7 +438,7 @@ class CompressS2Reader extends $protodelim.ProtobufEncodingProtodelimReader
   Future<void> skippableCb(
       int id, FutureOr<void> Function($io.IoReader r) fn) async {
     await $call(
-        12741,
+        12747,
         $W()
           ..h(this)
           ..i64(id)
@@ -479,7 +479,7 @@ class CompressS2Writer extends $io.IoCloser
   factory CompressS2Writer(GoHandle? w,
       [List<CompressS2WriterOption> opts = const []]) {
     final $r = $callSync(
-        12723,
+        12729,
         $W()
           ..h(w)
           ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -489,7 +489,7 @@ class CompressS2Writer extends $io.IoCloser
   /// Go: `func (*s2.Writer).AddSkippableBlock(id uint8, data []byte) (err error)`.
   void addSkippableBlock(int id, Uint8List data) {
     $callSync(
-        12744,
+        12750,
         $W()
           ..h(this)
           ..i64(id)
@@ -498,24 +498,24 @@ class CompressS2Writer extends $io.IoCloser
 
   /// Go: `func (*s2.Writer).AsyncFlush() error`.
   void asyncFlush() {
-    $callSync(12745, $W()..h(this));
+    $callSync(12751, $W()..h(this));
   }
 
   /// Go: `func (*s2.Writer).Close() error`.
   void close() {
-    $callSync(12746, $W()..h(this));
+    $callSync(12752, $W()..h(this));
   }
 
   /// Go: `func (*s2.Writer).CloseIndex() ([]byte, error)`.
   Uint8List closeIndex() {
-    final $r = $callSync(12747, $W()..h(this));
+    final $r = $callSync(12753, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*s2.Writer).EncodeBuffer(buf []byte) (err error)`.
   void encodeBuffer(Uint8List buf) {
     $callSync(
-        12748,
+        12754,
         $W()
           ..h(this)
           ..bytes(buf));
@@ -523,13 +523,13 @@ class CompressS2Writer extends $io.IoCloser
 
   /// Go: `func (*s2.Writer).Flush() error`.
   void flush() {
-    $callSync(12749, $W()..h(this));
+    $callSync(12755, $W()..h(this));
   }
 
   /// Go: `func (*s2.Writer).ReadFrom(r io.Reader) (n int64, err error)`.
   int readFrom(Object r) {
     final $r = $callSync(
-        12750,
+        12756,
         $W()
           ..h(this)
           ..reader(r));
@@ -539,7 +539,7 @@ class CompressS2Writer extends $io.IoCloser
   /// Go: `func (*s2.Writer).Reset(writer io.Writer)`.
   void reset(GoHandle? writer) {
     $callSync(
-        12751,
+        12757,
         $W()
           ..h(this)
           ..h(writer));
@@ -548,7 +548,7 @@ class CompressS2Writer extends $io.IoCloser
   /// Go: `func (*s2.Writer).Write(p []byte) (nRet int, errRet error)`.
   int write(Uint8List p) {
     final $r = $callSync(
-        12752,
+        12758,
         $W()
           ..h(this)
           ..bytes(p));
@@ -625,7 +625,7 @@ extension GoKlauspostCompressS2Api on GoKlauspostCompressS2 {
   /// Go: `func s2.ConcatBlocks(dst []byte, blocks ...[]byte) ([]byte, error)`.
   Uint8List concatBlocks(Uint8List dst, [List<Uint8List> blocks = const []]) {
     final $r = $callSync(
-        12694,
+        12700,
         $W()
           ..bytes(dst)
           ..list(blocks, (w0, e0) => w0.bytes(e0)));
@@ -635,7 +635,7 @@ extension GoKlauspostCompressS2Api on GoKlauspostCompressS2 {
   /// Go: `func s2.Decode(dst []byte, src []byte) ([]byte, error)`.
   Uint8List decode(Uint8List dst, Uint8List src) {
     final $r = $callSync(
-        12695,
+        12701,
         $W()
           ..bytes(dst)
           ..bytes(src));
@@ -644,14 +644,14 @@ extension GoKlauspostCompressS2Api on GoKlauspostCompressS2 {
 
   /// Go: `func s2.DecodedLen(src []byte) (int, error)`.
   int decodedLen(Uint8List src) {
-    final $r = $callSync(12696, $W()..bytes(src));
+    final $r = $callSync(12702, $W()..bytes(src));
     return $r.i64();
   }
 
   /// Go: `func s2.Encode(dst []byte, src []byte) []byte`.
   Uint8List encode(Uint8List dst, Uint8List src) {
     final $r = $callSync(
-        12702,
+        12708,
         $W()
           ..bytes(dst)
           ..bytes(src));
@@ -661,7 +661,7 @@ extension GoKlauspostCompressS2Api on GoKlauspostCompressS2 {
   /// Go: `func s2.EncodeBest(dst []byte, src []byte) []byte`.
   Uint8List encodeBest(Uint8List dst, Uint8List src) {
     final $r = $callSync(
-        12703,
+        12709,
         $W()
           ..bytes(dst)
           ..bytes(src));
@@ -671,7 +671,7 @@ extension GoKlauspostCompressS2Api on GoKlauspostCompressS2 {
   /// Go: `func s2.EncodeBetter(dst []byte, src []byte) []byte`.
   Uint8List encodeBetter(Uint8List dst, Uint8List src) {
     final $r = $callSync(
-        12704,
+        12710,
         $W()
           ..bytes(dst)
           ..bytes(src));
@@ -681,7 +681,7 @@ extension GoKlauspostCompressS2Api on GoKlauspostCompressS2 {
   /// Go: `func s2.EncodeSnappy(dst []byte, src []byte) []byte`.
   Uint8List encodeSnappy(Uint8List dst, Uint8List src) {
     final $r = $callSync(
-        12705,
+        12711,
         $W()
           ..bytes(dst)
           ..bytes(src));
@@ -691,7 +691,7 @@ extension GoKlauspostCompressS2Api on GoKlauspostCompressS2 {
   /// Go: `func s2.EncodeSnappyBest(dst []byte, src []byte) []byte`.
   Uint8List encodeSnappyBest(Uint8List dst, Uint8List src) {
     final $r = $callSync(
-        12706,
+        12712,
         $W()
           ..bytes(dst)
           ..bytes(src));
@@ -701,7 +701,7 @@ extension GoKlauspostCompressS2Api on GoKlauspostCompressS2 {
   /// Go: `func s2.EncodeSnappyBetter(dst []byte, src []byte) []byte`.
   Uint8List encodeSnappyBetter(Uint8List dst, Uint8List src) {
     final $r = $callSync(
-        12707,
+        12713,
         $W()
           ..bytes(dst)
           ..bytes(src));
@@ -710,20 +710,20 @@ extension GoKlauspostCompressS2Api on GoKlauspostCompressS2 {
 
   /// Go: `func s2.EstimateBlockSize(src []byte) (d int)`.
   int estimateBlockSize(Uint8List src) {
-    final $r = $callSync(12708, $W()..bytes(src));
+    final $r = $callSync(12714, $W()..bytes(src));
     return $r.i64();
   }
 
   /// Go: `func s2.IndexStream(r io.Reader) ([]byte, error)`.
   Uint8List indexStream(Object r) {
-    final $r = $callSync(12713, $W()..reader(r));
+    final $r = $callSync(12719, $W()..reader(r));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func s2.MakeDict(data []byte, searchStart []byte) *s2.Dict`.
   CompressS2Dict makeDict(Uint8List data, Uint8List searchStart) {
     final $r = $callSync(
-        12718,
+        12724,
         $W()
           ..bytes(data)
           ..bytes(searchStart));
@@ -733,7 +733,7 @@ extension GoKlauspostCompressS2Api on GoKlauspostCompressS2 {
   /// Go: `func s2.MakeDictManual(data []byte, firstIdx uint16) *s2.Dict`.
   CompressS2Dict makeDictManual(Uint8List data, int firstIdx) {
     final $r = $callSync(
-        12719,
+        12725,
         $W()
           ..bytes(data)
           ..i64(firstIdx));
@@ -742,19 +742,19 @@ extension GoKlauspostCompressS2Api on GoKlauspostCompressS2 {
 
   /// Go: `func s2.MaxEncodedLen(srcLen int) int`.
   int maxEncodedLen(int srcLen) {
-    final $r = $callSync(12720, $W()..i64(srcLen));
+    final $r = $callSync(12726, $W()..i64(srcLen));
     return $r.i64();
   }
 
   /// Go: `func s2.RemoveIndexHeaders(b []byte) []byte`.
   Uint8List removeIndexHeaders(Uint8List b) {
-    final $r = $callSync(12742, $W()..bytes(b));
+    final $r = $callSync(12748, $W()..bytes(b));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func s2.RestoreIndexHeaders(in []byte) []byte`.
   Uint8List restoreIndexHeaders(Uint8List in$) {
-    final $r = $callSync(12743, $W()..bytes(in$));
+    final $r = $callSync(12749, $W()..bytes(in$));
     return $r.bytes() ?? Uint8List(0);
   }
 }

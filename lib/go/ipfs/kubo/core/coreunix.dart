@@ -42,7 +42,7 @@ class KuboCoreCoreunixAdder extends $crypto.CryptoDecrypterOpts
   Future<$ipld_format.IpldFormatNode> addAllAndPin(
       $context.Context ctx, $files.BoxoFilesNode file) async {
     final $r = await $call(
-        11581,
+        11587,
         $W()
           ..h(this)
           ..h(ctx)
@@ -56,7 +56,7 @@ class KuboCoreCoreunixAdder extends $crypto.CryptoDecrypterOpts
   Future<void> pinRoot($context.Context ctx, $ipld_format.IpldFormatNode root,
       String name) async {
     await $call(
-        11582,
+        11588,
         $W()
           ..h(this)
           ..h(ctx)
@@ -67,7 +67,7 @@ class KuboCoreCoreunixAdder extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*coreunix.Adder).SetMfsRoot(r *mfs.Root)`.
   void setMfsRoot($mfs.BoxoMfsRoot r) {
     $callSync(
-        11583,
+        11589,
         $W()
           ..h(this)
           ..h(r));
@@ -80,7 +80,7 @@ extension GoIpfsKuboCoreCoreunixApi on GoIpfsKuboCoreCoreunix {
   String addMetadataTo(
       $core.KuboCoreIpfsNode n, String skey, $unixfs.BoxoIpldUnixfsMetadata m) {
     final $r = $callSync(
-        11580,
+        11586,
         $W()
           ..h(n)
           ..str(skey)
@@ -92,7 +92,7 @@ extension GoIpfsKuboCoreCoreunixApi on GoIpfsKuboCoreCoreunix {
   $unixfs.BoxoIpldUnixfsMetadata metadata(
       $core.KuboCoreIpfsNode n, String skey) {
     final $r = $callSync(
-        11584,
+        11590,
         $W()
           ..h(n)
           ..str(skey));
@@ -108,7 +108,7 @@ extension GoIpfsKuboCoreCoreunixApi on GoIpfsKuboCoreCoreunix {
       $blockstore.BoxoBlockstoreGcLocker bs,
       $ipld_format.IpldFormatDagService ds) async {
     final $r = await $call(
-        11585,
+        11591,
         $W()
           ..h(ctx)
           ..h(p)

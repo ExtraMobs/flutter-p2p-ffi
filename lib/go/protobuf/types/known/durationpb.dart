@@ -43,59 +43,59 @@ class ProtobufTypesKnownDurationpbDuration
 
   /// Go: `func (*durationpb.Duration).AsDuration() time.Duration`.
   Duration asDuration() {
-    final $r = $callSync(25474, $W()..h(this));
+    final $r = $callSync(25480, $W()..h(this));
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `func (*durationpb.Duration).CheckValid() error`.
   void checkValid() {
-    $callSync(25475, $W()..h(this));
+    $callSync(25481, $W()..h(this));
   }
 
   /// Go: `func (*durationpb.Duration).Descriptor() ([]byte, []int)`.
   @Deprecated("Use Duration.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(25476, $W()..h(this));
+    final $r = $callSync(25482, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*durationpb.Duration).GetNanos() int32`.
   int getNanos() {
-    final $r = $callSync(25477, $W()..h(this));
+    final $r = $callSync(25483, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*durationpb.Duration).GetSeconds() int64`.
   int getSeconds() {
-    final $r = $callSync(25478, $W()..h(this));
+    final $r = $callSync(25484, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*durationpb.Duration).IsValid() bool`.
   bool isValid() {
-    final $r = $callSync(25479, $W()..h(this));
+    final $r = $callSync(25485, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*durationpb.Duration).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25480, $W()..h(this));
+    $callSync(25486, $W()..h(this));
   }
 
   /// Go: `func (*durationpb.Duration).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(25481, $W()..h(this));
+    final $r = $callSync(25487, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*durationpb.Duration).Reset()`.
   void reset() {
-    $callSync(25482, $W()..h(this));
+    $callSync(25488, $W()..h(this));
   }
 
   /// Go: `func (*durationpb.Duration).String() string`.
   String string() {
-    final $r = $callSync(25483, $W()..h(this));
+    final $r = $callSync(25489, $W()..h(this));
     return $r.str();
   }
 }
@@ -105,13 +105,13 @@ extension GoProtobufTypesKnownDurationpbApi on GoProtobufTypesKnownDurationpb {
   /// Go: `var durationpb.File_google_protobuf_duration_proto protoreflect.FileDescriptor`.
   $protoreflect.ProtobufReflectProtoreflectFileDescriptor
       get fileGoogleProtobufDurationProto {
-    final $r = $callSync(25484);
+    final $r = $callSync(25490);
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectFileDescriptor.$h);
   }
 
   /// Go: `func durationpb.New(d time.Duration) *durationpb.Duration`.
   ProtobufTypesKnownDurationpbDuration new$(Duration d) {
-    final $r = $callSync(25485, $W()..i64((d).inMicroseconds * 1000));
+    final $r = $callSync(25491, $W()..i64((d).inMicroseconds * 1000));
     return $r.hnn(ProtobufTypesKnownDurationpbDuration.$h);
   }
 }

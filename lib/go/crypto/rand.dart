@@ -14,7 +14,7 @@ extension GoCryptoRandApi on GoCryptoRand {
   /// Go: `func rand.Int(rand io.Reader, max *big.Int) (n *big.Int, err error)`.
   $big.MathBigInt int$(Object rand, $big.MathBigInt max) {
     final $r = $callSync(
-        3292,
+        3301,
         $W()
           ..reader(rand)
           ..h(max));
@@ -24,7 +24,7 @@ extension GoCryptoRandApi on GoCryptoRand {
   /// Go: `func rand.Prime(r io.Reader, bits int) (*big.Int, error)`.
   $big.MathBigInt prime(Object r, int bits) {
     final $r = $callSync(
-        3293,
+        3302,
         $W()
           ..reader(r)
           ..i64(bits));
@@ -33,19 +33,19 @@ extension GoCryptoRandApi on GoCryptoRand {
 
   /// Go: `func rand.Read(b []byte) (n int, err error)`.
   int read(Uint8List b) {
-    final $r = $callSync(3294, $W()..bytes(b));
+    final $r = $callSync(3303, $W()..bytes(b));
     return $r.i64();
   }
 
   /// Go: `var rand.Reader io.Reader`.
   $io.IoReader get reader {
-    final $r = $callSync(3295);
+    final $r = $callSync(3304);
     return $r.hnn($io.IoReader.$h);
   }
 
   /// Go: `func rand.Text() string`.
   String text() {
-    final $r = $callSync(3296);
+    final $r = $callSync(3305);
     return $r.str();
   }
 }

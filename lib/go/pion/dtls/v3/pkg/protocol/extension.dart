@@ -31,20 +31,20 @@ final class DtlsV3PkgProtocolExtensionAlpn implements GoDto {
 
   /// Go: `func (*extension.ALPN).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(16284, $W()..dto(this));
+    final $r = $callSync(16290, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (extension.ALPN).TypeValue() extension.TypeValue`.
   int typeValue() {
-    final $r = $callSync(16285, $W()..dto(this));
+    final $r = $callSync(16291, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*extension.ALPN).Unmarshal(data []byte) error`.
   void unmarshal(Uint8List data) {
     $callSync(
-        16286,
+        16292,
         $W()
           ..dto(this)
           ..bytes(data));
@@ -70,20 +70,20 @@ final class DtlsV3PkgProtocolExtensionCertificateAuthorities implements GoDto {
 
   /// Go: `func (*extension.CertificateAuthorities).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(16288, $W()..dto(this));
+    final $r = $callSync(16294, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (extension.CertificateAuthorities).TypeValue() extension.TypeValue`.
   int typeValue() {
-    final $r = $callSync(16289, $W()..dto(this));
+    final $r = $callSync(16295, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*extension.CertificateAuthorities).Unmarshal(data []byte) error`.
   void unmarshal(Uint8List data) {
     $callSync(
-        16290,
+        16296,
         $W()
           ..dto(this)
           ..bytes(data));
@@ -106,20 +106,20 @@ final class DtlsV3PkgProtocolExtensionConnectionId implements GoDto {
 
   /// Go: `func (*extension.ConnectionID).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(16291, $W()..dto(this));
+    final $r = $callSync(16297, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (extension.ConnectionID).TypeValue() extension.TypeValue`.
   int typeValue() {
-    final $r = $callSync(16292, $W()..dto(this));
+    final $r = $callSync(16298, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*extension.ConnectionID).Unmarshal(data []byte) error`.
   void unmarshal(Uint8List data) {
     $callSync(
-        16293,
+        16299,
         $W()
           ..dto(this)
           ..bytes(data));
@@ -142,20 +142,20 @@ final class DtlsV3PkgProtocolExtensionCookieExt implements GoDto {
 
   /// Go: `func (*extension.CookieExt).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(16294, $W()..dto(this));
+    final $r = $callSync(16300, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (extension.CookieExt).TypeValue() extension.TypeValue`.
   int typeValue() {
-    final $r = $callSync(16295, $W()..dto(this));
+    final $r = $callSync(16301, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*extension.CookieExt).Unmarshal(data []byte) error`.
   void unmarshal(Uint8List data) {
     $callSync(
-        16296,
+        16302,
         $W()
           ..dto(this)
           ..bytes(data));
@@ -180,20 +180,20 @@ final class DtlsV3PkgProtocolExtensionEarlyDataIndication implements GoDto {
 
   /// Go: `func (*extension.EarlyDataIndication).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(16297, $W()..dto(this));
+    final $r = $callSync(16303, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (extension.EarlyDataIndication).TypeValue() extension.TypeValue`.
   int typeValue() {
-    final $r = $callSync(16298, $W()..dto(this));
+    final $r = $callSync(16304, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*extension.EarlyDataIndication).Unmarshal(data []byte) error`.
   void unmarshal(Uint8List data) {
     $callSync(
-        16299,
+        16305,
         $W()
           ..dto(this)
           ..bytes(data));
@@ -210,20 +210,20 @@ class DtlsV3PkgProtocolExtension extends GoHandle
 mixin DtlsV3PkgProtocolExtension$ on GoHandle {
   /// Go: `func (extension.Extension).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(16300, $W()..h(this));
+    final $r = $callSync(16306, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (extension.Extension).TypeValue() extension.TypeValue`.
   int typeValue() {
-    final $r = $callSync(16301, $W()..h(this));
+    final $r = $callSync(16307, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (extension.Extension).Unmarshal(data []byte) error`.
   void unmarshal(Uint8List data) {
     $callSync(
-        16302,
+        16308,
         $W()
           ..h(this)
           ..bytes(data));
@@ -261,20 +261,20 @@ final class DtlsV3PkgProtocolExtensionKeyShare implements GoDto {
 
   /// Go: `func (*extension.KeyShare).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(16303, $W()..dto(this));
+    final $r = $callSync(16309, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (extension.KeyShare).TypeValue() extension.TypeValue`.
   int typeValue() {
-    final $r = $callSync(16304, $W()..dto(this));
+    final $r = $callSync(16310, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*extension.KeyShare).Unmarshal(data []byte) error`.
   void unmarshal(Uint8List data) {
     $callSync(
-        16305,
+        16311,
         $W()
           ..dto(this)
           ..bytes(data));
@@ -349,20 +349,20 @@ final class DtlsV3PkgProtocolExtensionOidFilters implements GoDto {
 
   /// Go: `func (*extension.OIDFilters).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(16307, $W()..dto(this));
+    final $r = $callSync(16313, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (extension.OIDFilters).TypeValue() extension.TypeValue`.
   int typeValue() {
-    final $r = $callSync(16308, $W()..dto(this));
+    final $r = $callSync(16314, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*extension.OIDFilters).Unmarshal(data []byte) error`.
   void unmarshal(Uint8List data) {
     $callSync(
-        16309,
+        16315,
         $W()
           ..dto(this)
           ..bytes(data));
@@ -386,20 +386,20 @@ final class DtlsV3PkgProtocolExtensionPostHandshakeAuth implements GoDto {
 
   /// Go: `func (*extension.PostHandshakeAuth).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(16310, $W()..dto(this));
+    final $r = $callSync(16316, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (extension.PostHandshakeAuth).TypeValue() extension.TypeValue`.
   int typeValue() {
-    final $r = $callSync(16311, $W()..dto(this));
+    final $r = $callSync(16317, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*extension.PostHandshakeAuth).Unmarshal(data []byte) error`.
   void unmarshal(Uint8List data) {
     $callSync(
-        16312,
+        16318,
         $W()
           ..dto(this)
           ..bytes(data));
@@ -441,20 +441,20 @@ final class DtlsV3PkgProtocolExtensionPreSharedKey implements GoDto {
 
   /// Go: `func (*extension.PreSharedKey).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(16313, $W()..dto(this));
+    final $r = $callSync(16319, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (extension.PreSharedKey).TypeValue() extension.TypeValue`.
   int typeValue() {
-    final $r = $callSync(16314, $W()..dto(this));
+    final $r = $callSync(16320, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*extension.PreSharedKey).Unmarshal(data []byte) error`.
   void unmarshal(Uint8List data) {
     $callSync(
-        16315,
+        16321,
         $W()
           ..dto(this)
           ..bytes(data));
@@ -504,20 +504,20 @@ final class DtlsV3PkgProtocolExtensionPskKeyExchangeModes implements GoDto {
 
   /// Go: `func (*extension.PskKeyExchangeModes).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(16316, $W()..dto(this));
+    final $r = $callSync(16322, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (extension.PskKeyExchangeModes).TypeValue() extension.TypeValue`.
   int typeValue() {
-    final $r = $callSync(16317, $W()..dto(this));
+    final $r = $callSync(16323, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*extension.PskKeyExchangeModes).Unmarshal(data []byte) error`.
   void unmarshal(Uint8List data) {
     $callSync(
-        16318,
+        16324,
         $W()
           ..dto(this)
           ..bytes(data));
@@ -542,20 +542,20 @@ final class DtlsV3PkgProtocolExtensionRenegotiationInfo implements GoDto {
 
   /// Go: `func (*extension.RenegotiationInfo).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(16319, $W()..dto(this));
+    final $r = $callSync(16325, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (extension.RenegotiationInfo).TypeValue() extension.TypeValue`.
   int typeValue() {
-    final $r = $callSync(16320, $W()..dto(this));
+    final $r = $callSync(16326, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*extension.RenegotiationInfo).Unmarshal(data []byte) error`.
   void unmarshal(Uint8List data) {
     $callSync(
-        16321,
+        16327,
         $W()
           ..dto(this)
           ..bytes(data));
@@ -579,20 +579,20 @@ final class DtlsV3PkgProtocolExtensionServerName implements GoDto {
 
   /// Go: `func (*extension.ServerName).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(16322, $W()..dto(this));
+    final $r = $callSync(16328, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (extension.ServerName).TypeValue() extension.TypeValue`.
   int typeValue() {
-    final $r = $callSync(16323, $W()..dto(this));
+    final $r = $callSync(16329, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*extension.ServerName).Unmarshal(data []byte) error`.
   void unmarshal(Uint8List data) {
     $callSync(
-        16324,
+        16330,
         $W()
           ..dto(this)
           ..bytes(data));
@@ -622,20 +622,20 @@ final class DtlsV3PkgProtocolExtensionSignatureAlgorithmsCert implements GoDto {
 
   /// Go: `func (*extension.SignatureAlgorithmsCert).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(16325, $W()..dto(this));
+    final $r = $callSync(16331, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (extension.SignatureAlgorithmsCert).TypeValue() extension.TypeValue`.
   int typeValue() {
-    final $r = $callSync(16326, $W()..dto(this));
+    final $r = $callSync(16332, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*extension.SignatureAlgorithmsCert).Unmarshal(data []byte) error`.
   void unmarshal(Uint8List data) {
     $callSync(
-        16327,
+        16333,
         $W()
           ..dto(this)
           ..bytes(data));
@@ -660,20 +660,20 @@ final class DtlsV3PkgProtocolExtensionSupportedEllipticCurves implements GoDto {
 
   /// Go: `func (*extension.SupportedEllipticCurves).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(16328, $W()..dto(this));
+    final $r = $callSync(16334, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (extension.SupportedEllipticCurves).TypeValue() extension.TypeValue`.
   int typeValue() {
-    final $r = $callSync(16329, $W()..dto(this));
+    final $r = $callSync(16335, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*extension.SupportedEllipticCurves).Unmarshal(data []byte) error`.
   void unmarshal(Uint8List data) {
     $callSync(
-        16330,
+        16336,
         $W()
           ..dto(this)
           ..bytes(data));
@@ -698,20 +698,20 @@ final class DtlsV3PkgProtocolExtensionSupportedPointFormats implements GoDto {
 
   /// Go: `func (*extension.SupportedPointFormats).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(16331, $W()..dto(this));
+    final $r = $callSync(16337, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (extension.SupportedPointFormats).TypeValue() extension.TypeValue`.
   int typeValue() {
-    final $r = $callSync(16332, $W()..dto(this));
+    final $r = $callSync(16338, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*extension.SupportedPointFormats).Unmarshal(data []byte) error`.
   void unmarshal(Uint8List data) {
     $callSync(
-        16333,
+        16339,
         $W()
           ..dto(this)
           ..bytes(data));
@@ -742,20 +742,20 @@ final class DtlsV3PkgProtocolExtensionSupportedSignatureAlgorithms
 
   /// Go: `func (*extension.SupportedSignatureAlgorithms).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(16334, $W()..dto(this));
+    final $r = $callSync(16340, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (extension.SupportedSignatureAlgorithms).TypeValue() extension.TypeValue`.
   int typeValue() {
-    final $r = $callSync(16335, $W()..dto(this));
+    final $r = $callSync(16341, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*extension.SupportedSignatureAlgorithms).Unmarshal(data []byte) error`.
   void unmarshal(Uint8List data) {
     $callSync(
-        16336,
+        16342,
         $W()
           ..dto(this)
           ..bytes(data));
@@ -782,20 +782,20 @@ final class DtlsV3PkgProtocolExtensionSupportedVersions implements GoDto {
 
   /// Go: `func (*extension.SupportedVersions).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(16337, $W()..dto(this));
+    final $r = $callSync(16343, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (extension.SupportedVersions).TypeValue() extension.TypeValue`.
   int typeValue() {
-    final $r = $callSync(16338, $W()..dto(this));
+    final $r = $callSync(16344, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*extension.SupportedVersions).Unmarshal(data []byte) error`.
   void unmarshal(Uint8List data) {
     $callSync(
-        16339,
+        16345,
         $W()
           ..dto(this)
           ..bytes(data));
@@ -820,20 +820,20 @@ final class DtlsV3PkgProtocolExtensionUseExtendedMasterSecret implements GoDto {
 
   /// Go: `func (*extension.UseExtendedMasterSecret).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(16341, $W()..dto(this));
+    final $r = $callSync(16347, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (extension.UseExtendedMasterSecret).TypeValue() extension.TypeValue`.
   int typeValue() {
-    final $r = $callSync(16342, $W()..dto(this));
+    final $r = $callSync(16348, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*extension.UseExtendedMasterSecret).Unmarshal(data []byte) error`.
   void unmarshal(Uint8List data) {
     $callSync(
-        16343,
+        16349,
         $W()
           ..dto(this)
           ..bytes(data));
@@ -866,20 +866,20 @@ final class DtlsV3PkgProtocolExtensionUseSrtp implements GoDto {
 
   /// Go: `func (*extension.UseSRTP).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(16344, $W()..dto(this));
+    final $r = $callSync(16350, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (extension.UseSRTP).TypeValue() extension.TypeValue`.
   int typeValue() {
-    final $r = $callSync(16345, $W()..dto(this));
+    final $r = $callSync(16351, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*extension.UseSRTP).Unmarshal(data []byte) error`.
   void unmarshal(Uint8List data) {
     $callSync(
-        16346,
+        16352,
         $W()
           ..dto(this)
           ..bytes(data));
@@ -893,7 +893,7 @@ extension GoPionDtlsV3PkgProtocolExtensionApi
   String alpnProtocolSelection(
       List<String> supportedProtocols, List<String> peerSupportedProtocols) {
     final $r = $callSync(
-        16287,
+        16293,
         $W()
           ..list(supportedProtocols, (w0, e0) => w0.str(e0))
           ..list(peerSupportedProtocols, (w0, e0) => w0.str(e0)));
@@ -902,13 +902,13 @@ extension GoPionDtlsV3PkgProtocolExtensionApi
 
   /// Go: `func extension.Marshal(e []extension.Extension) ([]byte, error)`.
   Uint8List marshal(List<DtlsV3PkgProtocolExtension> e) {
-    final $r = $callSync(16306, $W()..list(e, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(16312, $W()..list(e, (w0, e0) => w0.h(e0)));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func extension.Unmarshal(buf []byte) ([]extension.Extension, error)`.
   List<DtlsV3PkgProtocolExtension> unmarshal(Uint8List buf) {
-    final $r = $callSync(16340, $W()..bytes(buf));
+    final $r = $callSync(16346, $W()..bytes(buf));
     return $r.list(() => $r.hnn(DtlsV3PkgProtocolExtension.$h));
   }
 }

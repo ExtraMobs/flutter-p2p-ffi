@@ -77,7 +77,7 @@ final class OsUser implements GoDto {
 
   /// Go: `func (*user.User).GroupIds() ([]string, error)`.
   List<String> groupIds() {
-    final $r = $callSync(26966, $W()..dto(this));
+    final $r = $callSync(26967, $W()..dto(this));
     return $r.list(() => $r.str());
   }
 }
@@ -122,31 +122,31 @@ class OsUserUnknownUserIdError extends GolangException {
 extension GoOsUserApi on GoOsUser {
   /// Go: `func user.Current() (*user.User, error)`.
   OsUser current() {
-    final $r = $callSync(26961);
+    final $r = $callSync(26962);
     return $r.p() ? OsUser.$dec($r) : $nil();
   }
 
   /// Go: `func user.Lookup(username string) (*user.User, error)`.
   OsUser lookup(String username) {
-    final $r = $callSync(26962, $W()..str(username));
+    final $r = $callSync(26963, $W()..str(username));
     return $r.p() ? OsUser.$dec($r) : $nil();
   }
 
   /// Go: `func user.LookupGroup(name string) (*user.Group, error)`.
   OsUserGroup lookupGroup(String name) {
-    final $r = $callSync(26963, $W()..str(name));
+    final $r = $callSync(26964, $W()..str(name));
     return $r.p() ? OsUserGroup.$dec($r) : $nil();
   }
 
   /// Go: `func user.LookupGroupId(gid string) (*user.Group, error)`.
   OsUserGroup lookupGroupId(String gid) {
-    final $r = $callSync(26964, $W()..str(gid));
+    final $r = $callSync(26965, $W()..str(gid));
     return $r.p() ? OsUserGroup.$dec($r) : $nil();
   }
 
   /// Go: `func user.LookupId(uid string) (*user.User, error)`.
   OsUser lookupId(String uid) {
-    final $r = $callSync(26965, $W()..str(uid));
+    final $r = $callSync(26966, $W()..str(uid));
     return $r.p() ? OsUser.$dec($r) : $nil();
   }
 }

@@ -45,7 +45,7 @@ class SctpAssociation extends $io.IoCloser
   /// Go: `func (*sctp.Association).Abort(reason string)`.
   void abort(String reason) {
     $callSync(
-        17062,
+        17068,
         $W()
           ..h(this)
           ..str(reason));
@@ -53,55 +53,55 @@ class SctpAssociation extends $io.IoCloser
 
   /// Go: `func (*sctp.Association).AcceptStream() (*sctp.Stream, error)`.
   SctpStream acceptStream() {
-    final $r = $callSync(17063, $W()..h(this));
+    final $r = $callSync(17069, $W()..h(this));
     return $r.hnn(SctpStream.$h);
   }
 
   /// Go: `func (*sctp.Association).BufferedAmount() int`.
   int bufferedAmount() {
-    final $r = $callSync(17064, $W()..h(this));
+    final $r = $callSync(17070, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*sctp.Association).BytesReceived() uint64`.
   int bytesReceived() {
-    final $r = $callSync(17065, $W()..h(this));
+    final $r = $callSync(17071, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*sctp.Association).BytesSent() uint64`.
   int bytesSent() {
-    final $r = $callSync(17066, $W()..h(this));
+    final $r = $callSync(17072, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*sctp.Association).CWND() uint32`.
   int cwnd() {
-    final $r = $callSync(17067, $W()..h(this));
+    final $r = $callSync(17073, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*sctp.Association).Close() error`.
   void close() {
-    $callSync(17068, $W()..h(this));
+    $callSync(17074, $W()..h(this));
   }
 
   /// Go: `func (*sctp.Association).MTU() uint32`.
   int mtu() {
-    final $r = $callSync(17069, $W()..h(this));
+    final $r = $callSync(17075, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*sctp.Association).MaxMessageSize() uint32`.
   int maxMessageSize() {
-    final $r = $callSync(17070, $W()..h(this));
+    final $r = $callSync(17076, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*sctp.Association).OpenStream(streamIdentifier uint16, defaultPayloadType sctp.PayloadProtocolIdentifier) (*sctp.Stream, error)`.
   SctpStream openStream(int streamIdentifier, int defaultPayloadType) {
     final $r = $callSync(
-        17071,
+        17077,
         $W()
           ..h(this)
           ..i64(streamIdentifier)
@@ -111,20 +111,20 @@ class SctpAssociation extends $io.IoCloser
 
   /// Go: `func (*sctp.Association).RWND() uint32`.
   int rwnd() {
-    final $r = $callSync(17072, $W()..h(this));
+    final $r = $callSync(17078, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*sctp.Association).SRTT() float64`.
   double srtt() {
-    final $r = $callSync(17073, $W()..h(this));
+    final $r = $callSync(17079, $W()..h(this));
     return $r.f64();
   }
 
   /// Go: `func (*sctp.Association).SetMaxMessageSize(maxMsgSize uint32)`.
   void setMaxMessageSize(int maxMsgSize) {
     $callSync(
-        17074,
+        17080,
         $W()
           ..h(this)
           ..i64(maxMsgSize));
@@ -135,7 +135,7 @@ class SctpAssociation extends $io.IoCloser
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> shutdown($context.Context ctx) async {
     await $call(
-        17075,
+        17081,
         $W()
           ..h(this)
           ..h(ctx));
@@ -266,19 +266,19 @@ class SctpStream extends $io.IoCloser
 
   /// Go: `func (*sctp.Stream).BufferedAmount() uint64`.
   int bufferedAmount() {
-    final $r = $callSync(17078, $W()..h(this));
+    final $r = $callSync(17084, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*sctp.Stream).BufferedAmountLowThreshold() uint64`.
   int bufferedAmountLowThreshold() {
-    final $r = $callSync(17079, $W()..h(this));
+    final $r = $callSync(17085, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*sctp.Stream).Close() error`.
   void close() {
-    $callSync(17080, $W()..h(this));
+    $callSync(17086, $W()..h(this));
   }
 
   /// Go: `func (*sctp.Stream).OnBufferedAmountLow(f func())`.
@@ -290,7 +290,7 @@ class SctpStream extends $io.IoCloser
   /// each invocation (a retained callback, WIRE.md).
   Future<void> onBufferedAmountLow(FutureOr<void> Function() f) async {
     await $call(
-        17081,
+        17087,
         $W()
           ..h(this)
           ..cb((r) => f(), true));
@@ -299,7 +299,7 @@ class SctpStream extends $io.IoCloser
   /// Go: `func (*sctp.Stream).Read(p []byte) (int, error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        17082,
+        17088,
         $W()
           ..h(this)
           ..i64(n));
@@ -309,7 +309,7 @@ class SctpStream extends $io.IoCloser
   /// Go: `func (*sctp.Stream).ReadSCTP(payload []byte) (int, sctp.PayloadProtocolIdentifier, error)`.
   (int, int) readSctp(Uint8List payload) {
     final $r = $callSync(
-        17083,
+        17089,
         $W()
           ..h(this)
           ..bytes(payload));
@@ -319,7 +319,7 @@ class SctpStream extends $io.IoCloser
   /// Go: `func (*sctp.Stream).SetBufferedAmountLowThreshold(th uint64)`.
   void setBufferedAmountLowThreshold(int th) {
     $callSync(
-        17084,
+        17090,
         $W()
           ..h(this)
           ..i64(th));
@@ -328,7 +328,7 @@ class SctpStream extends $io.IoCloser
   /// Go: `func (*sctp.Stream).SetDeadline(t time.Time) error`.
   void setDeadline(DateTime t) {
     $callSync(
-        17085,
+        17091,
         $W()
           ..h(this)
           ..time(t));
@@ -337,7 +337,7 @@ class SctpStream extends $io.IoCloser
   /// Go: `func (*sctp.Stream).SetDefaultPayloadType(defaultPayloadType sctp.PayloadProtocolIdentifier)`.
   void setDefaultPayloadType(int defaultPayloadType) {
     $callSync(
-        17086,
+        17092,
         $W()
           ..h(this)
           ..i64(defaultPayloadType));
@@ -346,7 +346,7 @@ class SctpStream extends $io.IoCloser
   /// Go: `func (*sctp.Stream).SetReadDeadline(deadline time.Time) error`.
   void setReadDeadline(DateTime deadline) {
     $callSync(
-        17087,
+        17093,
         $W()
           ..h(this)
           ..time(deadline));
@@ -355,7 +355,7 @@ class SctpStream extends $io.IoCloser
   /// Go: `func (*sctp.Stream).SetReliabilityParams(unordered bool, relType byte, relVal uint32)`.
   void setReliabilityParams(bool unordered, int relType, int relVal) {
     $callSync(
-        17088,
+        17094,
         $W()
           ..h(this)
           ..b(unordered)
@@ -366,7 +366,7 @@ class SctpStream extends $io.IoCloser
   /// Go: `func (*sctp.Stream).SetWriteDeadline(deadline time.Time) error`.
   void setWriteDeadline(DateTime deadline) {
     $callSync(
-        17089,
+        17095,
         $W()
           ..h(this)
           ..time(deadline));
@@ -374,20 +374,20 @@ class SctpStream extends $io.IoCloser
 
   /// Go: `func (*sctp.Stream).State() sctp.StreamState`.
   int state() {
-    final $r = $callSync(17090, $W()..h(this));
+    final $r = $callSync(17096, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*sctp.Stream).StreamIdentifier() uint16`.
   int streamIdentifier() {
-    final $r = $callSync(17091, $W()..h(this));
+    final $r = $callSync(17097, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*sctp.Stream).Write(payload []byte) (n int, err error)`.
   int write(Uint8List payload) {
     final $r = $callSync(
-        17092,
+        17098,
         $W()
           ..h(this)
           ..bytes(payload));
@@ -397,7 +397,7 @@ class SctpStream extends $io.IoCloser
   /// Go: `func (*sctp.Stream).WriteSCTP(payload []byte, ppi sctp.PayloadProtocolIdentifier) (int, error)`.
   int writeSctp(Uint8List payload, int ppi) {
     final $r = $callSync(
-        17093,
+        17099,
         $W()
           ..h(this)
           ..bytes(payload)
@@ -1292,19 +1292,19 @@ class SctpErrZeroChecksumParamTooShort extends GolangException {
 extension GoPionSctpApi on GoPionSctp {
   /// Go: `func sctp.Client(config sctp.Config) (*sctp.Association, error)`.
   SctpAssociation client(SctpConfig config) {
-    final $r = $callSync(17076, $W()..dto(config));
+    final $r = $callSync(17082, $W()..dto(config));
     return $r.hnn(SctpAssociation.$h);
   }
 
   /// Go: `func sctp.Server(config sctp.Config) (*sctp.Association, error)`.
   SctpAssociation server(SctpConfig config) {
-    final $r = $callSync(17077, $W()..dto(config));
+    final $r = $callSync(17083, $W()..dto(config));
     return $r.hnn(SctpAssociation.$h);
   }
 
   /// Go: `func sctp.TryMarshalUnmarshal(msg []byte) int`.
   int tryMarshalUnmarshal(Uint8List msg) {
-    final $r = $callSync(17094, $W()..bytes(msg));
+    final $r = $callSync(17100, $W()..bytes(msg));
     return $r.i64();
   }
 }

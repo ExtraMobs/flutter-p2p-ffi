@@ -12,20 +12,20 @@ import 'package:p2p_ffi/go/math/big.dart' as $big;
 extension GoLibp2pLibp2pXorKeyApi on GoLibp2pLibp2pXorKey {
   /// Go: `func key.ByteKey(b byte) key.Key`.
   Uint8List byteKey(int b) {
-    final $r = $callSync(13772, $W()..i64(b));
+    final $r = $callSync(13778, $W()..i64(b));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func key.BytesKey(b []byte) key.Key`.
   Uint8List bytesKey(Uint8List b) {
-    final $r = $callSync(13773, $W()..bytes(b));
+    final $r = $callSync(13779, $W()..bytes(b));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func key.DistInt(x key.Key, y key.Key) *big.Int`.
   $big.MathBigInt distInt(Uint8List x, Uint8List y) {
     final $r = $callSync(
-        13774,
+        13780,
         $W()
           ..bytes(x)
           ..bytes(y));
@@ -35,7 +35,7 @@ extension GoLibp2pLibp2pXorKeyApi on GoLibp2pLibp2pXorKey {
   /// Go: `func key.Equal(x key.Key, y key.Key) bool`.
   bool equal(Uint8List x, Uint8List y) {
     final $r = $callSync(
-        13775,
+        13781,
         $W()
           ..bytes(x)
           ..bytes(y));
@@ -44,14 +44,14 @@ extension GoLibp2pLibp2pXorKeyApi on GoLibp2pLibp2pXorKey {
 
   /// Go: `func key.KbucketIDToKey(id kbucket.ID) key.Key`.
   Uint8List kbucketIdToKey(Uint8List id) {
-    final $r = $callSync(13776, $W()..bytes(id));
+    final $r = $callSync(13782, $W()..bytes(id));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func key.Xor(x key.Key, y key.Key) key.Key`.
   Uint8List xor(Uint8List x, Uint8List y) {
     final $r = $callSync(
-        13777,
+        13783,
         $W()
           ..bytes(x)
           ..bytes(y));

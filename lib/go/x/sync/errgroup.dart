@@ -38,7 +38,7 @@ class SyncErrgroupGroup extends $crypto.CryptoDecrypterOpts
   /// each invocation (a retained callback, WIRE.md).
   Future<void> go(FutureOr<void> Function() f) async {
     await $call(
-        23828,
+        23834,
         $W()
           ..h(this)
           ..cb((r) => f(), true));
@@ -47,7 +47,7 @@ class SyncErrgroupGroup extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*errgroup.Group).SetLimit(n int)`.
   void setLimit(int n) {
     $callSync(
-        23829,
+        23835,
         $W()
           ..h(this)
           ..i64(n));
@@ -62,7 +62,7 @@ class SyncErrgroupGroup extends $crypto.CryptoDecrypterOpts
   /// each invocation (a retained callback, WIRE.md).
   Future<bool> tryGo(FutureOr<void> Function() f) async {
     final $r = await $call(
-        23830,
+        23836,
         $W()
           ..h(this)
           ..cb((r) => f(), true));
@@ -71,6 +71,6 @@ class SyncErrgroupGroup extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*errgroup.Group).Wait() error`.
   void wait() {
-    $callSync(23831, $W()..h(this));
+    $callSync(23837, $W()..h(this));
   }
 }

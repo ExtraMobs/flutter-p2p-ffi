@@ -44,35 +44,35 @@ class ProtobufTypesKnownWrapperspbBoolValue
   /// Go: `func (*wrapperspb.BoolValue).Descriptor() ([]byte, []int)`.
   @Deprecated("Use BoolValue.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(25557, $W()..h(this));
+    final $r = $callSync(25563, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*wrapperspb.BoolValue).GetValue() bool`.
   bool getValue() {
-    final $r = $callSync(25558, $W()..h(this));
+    final $r = $callSync(25564, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*wrapperspb.BoolValue).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25559, $W()..h(this));
+    $callSync(25565, $W()..h(this));
   }
 
   /// Go: `func (*wrapperspb.BoolValue).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(25560, $W()..h(this));
+    final $r = $callSync(25566, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*wrapperspb.BoolValue).Reset()`.
   void reset() {
-    $callSync(25561, $W()..h(this));
+    $callSync(25567, $W()..h(this));
   }
 
   /// Go: `func (*wrapperspb.BoolValue).String() string`.
   String string() {
-    final $r = $callSync(25562, $W()..h(this));
+    final $r = $callSync(25568, $W()..h(this));
     return $r.str();
   }
 }
@@ -105,35 +105,35 @@ class ProtobufTypesKnownWrapperspbBytesValue
   /// Go: `func (*wrapperspb.BytesValue).Descriptor() ([]byte, []int)`.
   @Deprecated("Use BytesValue.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(25564, $W()..h(this));
+    final $r = $callSync(25570, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*wrapperspb.BytesValue).GetValue() []byte`.
   Uint8List getValue() {
-    final $r = $callSync(25565, $W()..h(this));
+    final $r = $callSync(25571, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*wrapperspb.BytesValue).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25566, $W()..h(this));
+    $callSync(25572, $W()..h(this));
   }
 
   /// Go: `func (*wrapperspb.BytesValue).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(25567, $W()..h(this));
+    final $r = $callSync(25573, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*wrapperspb.BytesValue).Reset()`.
   void reset() {
-    $callSync(25568, $W()..h(this));
+    $callSync(25574, $W()..h(this));
   }
 
   /// Go: `func (*wrapperspb.BytesValue).String() string`.
   String string() {
-    final $r = $callSync(25569, $W()..h(this));
+    final $r = $callSync(25575, $W()..h(this));
     return $r.str();
   }
 }
@@ -166,35 +166,35 @@ class ProtobufTypesKnownWrapperspbDoubleValue
   /// Go: `func (*wrapperspb.DoubleValue).Descriptor() ([]byte, []int)`.
   @Deprecated("Use DoubleValue.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(25571, $W()..h(this));
+    final $r = $callSync(25577, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*wrapperspb.DoubleValue).GetValue() float64`.
   double getValue() {
-    final $r = $callSync(25572, $W()..h(this));
+    final $r = $callSync(25578, $W()..h(this));
     return $r.f64();
   }
 
   /// Go: `func (*wrapperspb.DoubleValue).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25573, $W()..h(this));
+    $callSync(25579, $W()..h(this));
   }
 
   /// Go: `func (*wrapperspb.DoubleValue).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(25574, $W()..h(this));
+    final $r = $callSync(25580, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*wrapperspb.DoubleValue).Reset()`.
   void reset() {
-    $callSync(25575, $W()..h(this));
+    $callSync(25581, $W()..h(this));
   }
 
   /// Go: `func (*wrapperspb.DoubleValue).String() string`.
   String string() {
-    final $r = $callSync(25576, $W()..h(this));
+    final $r = $callSync(25582, $W()..h(this));
     return $r.str();
   }
 }
@@ -227,35 +227,35 @@ class ProtobufTypesKnownWrapperspbFloatValue
   /// Go: `func (*wrapperspb.FloatValue).Descriptor() ([]byte, []int)`.
   @Deprecated("Use FloatValue.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(25579, $W()..h(this));
+    final $r = $callSync(25585, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*wrapperspb.FloatValue).GetValue() float32`.
   double getValue() {
-    final $r = $callSync(25580, $W()..h(this));
+    final $r = $callSync(25586, $W()..h(this));
     return $r.f64();
   }
 
   /// Go: `func (*wrapperspb.FloatValue).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25581, $W()..h(this));
+    $callSync(25587, $W()..h(this));
   }
 
   /// Go: `func (*wrapperspb.FloatValue).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(25582, $W()..h(this));
+    final $r = $callSync(25588, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*wrapperspb.FloatValue).Reset()`.
   void reset() {
-    $callSync(25583, $W()..h(this));
+    $callSync(25589, $W()..h(this));
   }
 
   /// Go: `func (*wrapperspb.FloatValue).String() string`.
   String string() {
-    final $r = $callSync(25584, $W()..h(this));
+    final $r = $callSync(25590, $W()..h(this));
     return $r.str();
   }
 }
@@ -288,35 +288,35 @@ class ProtobufTypesKnownWrapperspbInt32Value
   /// Go: `func (*wrapperspb.Int32Value).Descriptor() ([]byte, []int)`.
   @Deprecated("Use Int32Value.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(25586, $W()..h(this));
+    final $r = $callSync(25592, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*wrapperspb.Int32Value).GetValue() int32`.
   int getValue() {
-    final $r = $callSync(25587, $W()..h(this));
+    final $r = $callSync(25593, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*wrapperspb.Int32Value).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25588, $W()..h(this));
+    $callSync(25594, $W()..h(this));
   }
 
   /// Go: `func (*wrapperspb.Int32Value).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(25589, $W()..h(this));
+    final $r = $callSync(25595, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*wrapperspb.Int32Value).Reset()`.
   void reset() {
-    $callSync(25590, $W()..h(this));
+    $callSync(25596, $W()..h(this));
   }
 
   /// Go: `func (*wrapperspb.Int32Value).String() string`.
   String string() {
-    final $r = $callSync(25591, $W()..h(this));
+    final $r = $callSync(25597, $W()..h(this));
     return $r.str();
   }
 }
@@ -349,35 +349,35 @@ class ProtobufTypesKnownWrapperspbInt64Value
   /// Go: `func (*wrapperspb.Int64Value).Descriptor() ([]byte, []int)`.
   @Deprecated("Use Int64Value.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(25593, $W()..h(this));
+    final $r = $callSync(25599, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*wrapperspb.Int64Value).GetValue() int64`.
   int getValue() {
-    final $r = $callSync(25594, $W()..h(this));
+    final $r = $callSync(25600, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*wrapperspb.Int64Value).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25595, $W()..h(this));
+    $callSync(25601, $W()..h(this));
   }
 
   /// Go: `func (*wrapperspb.Int64Value).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(25596, $W()..h(this));
+    final $r = $callSync(25602, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*wrapperspb.Int64Value).Reset()`.
   void reset() {
-    $callSync(25597, $W()..h(this));
+    $callSync(25603, $W()..h(this));
   }
 
   /// Go: `func (*wrapperspb.Int64Value).String() string`.
   String string() {
-    final $r = $callSync(25598, $W()..h(this));
+    final $r = $callSync(25604, $W()..h(this));
     return $r.str();
   }
 }
@@ -410,35 +410,35 @@ class ProtobufTypesKnownWrapperspbStringValue
   /// Go: `func (*wrapperspb.StringValue).Descriptor() ([]byte, []int)`.
   @Deprecated("Use StringValue.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(25600, $W()..h(this));
+    final $r = $callSync(25606, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*wrapperspb.StringValue).GetValue() string`.
   String getValue() {
-    final $r = $callSync(25601, $W()..h(this));
+    final $r = $callSync(25607, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*wrapperspb.StringValue).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25602, $W()..h(this));
+    $callSync(25608, $W()..h(this));
   }
 
   /// Go: `func (*wrapperspb.StringValue).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(25603, $W()..h(this));
+    final $r = $callSync(25609, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*wrapperspb.StringValue).Reset()`.
   void reset() {
-    $callSync(25604, $W()..h(this));
+    $callSync(25610, $W()..h(this));
   }
 
   /// Go: `func (*wrapperspb.StringValue).String() string`.
   String string() {
-    final $r = $callSync(25605, $W()..h(this));
+    final $r = $callSync(25611, $W()..h(this));
     return $r.str();
   }
 }
@@ -471,35 +471,35 @@ class ProtobufTypesKnownWrapperspbUInt32Value
   /// Go: `func (*wrapperspb.UInt32Value).Descriptor() ([]byte, []int)`.
   @Deprecated("Use UInt32Value.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(25607, $W()..h(this));
+    final $r = $callSync(25613, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*wrapperspb.UInt32Value).GetValue() uint32`.
   int getValue() {
-    final $r = $callSync(25608, $W()..h(this));
+    final $r = $callSync(25614, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*wrapperspb.UInt32Value).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25609, $W()..h(this));
+    $callSync(25615, $W()..h(this));
   }
 
   /// Go: `func (*wrapperspb.UInt32Value).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(25610, $W()..h(this));
+    final $r = $callSync(25616, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*wrapperspb.UInt32Value).Reset()`.
   void reset() {
-    $callSync(25611, $W()..h(this));
+    $callSync(25617, $W()..h(this));
   }
 
   /// Go: `func (*wrapperspb.UInt32Value).String() string`.
   String string() {
-    final $r = $callSync(25612, $W()..h(this));
+    final $r = $callSync(25618, $W()..h(this));
     return $r.str();
   }
 }
@@ -532,35 +532,35 @@ class ProtobufTypesKnownWrapperspbUInt64Value
   /// Go: `func (*wrapperspb.UInt64Value).Descriptor() ([]byte, []int)`.
   @Deprecated("Use UInt64Value.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(25614, $W()..h(this));
+    final $r = $callSync(25620, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*wrapperspb.UInt64Value).GetValue() uint64`.
   int getValue() {
-    final $r = $callSync(25615, $W()..h(this));
+    final $r = $callSync(25621, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*wrapperspb.UInt64Value).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25616, $W()..h(this));
+    $callSync(25622, $W()..h(this));
   }
 
   /// Go: `func (*wrapperspb.UInt64Value).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(25617, $W()..h(this));
+    final $r = $callSync(25623, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*wrapperspb.UInt64Value).Reset()`.
   void reset() {
-    $callSync(25618, $W()..h(this));
+    $callSync(25624, $W()..h(this));
   }
 
   /// Go: `func (*wrapperspb.UInt64Value).String() string`.
   String string() {
-    final $r = $callSync(25619, $W()..h(this));
+    final $r = $callSync(25625, $W()..h(this));
     return $r.str();
   }
 }
@@ -569,62 +569,62 @@ class ProtobufTypesKnownWrapperspbUInt64Value
 extension GoProtobufTypesKnownWrapperspbApi on GoProtobufTypesKnownWrapperspb {
   /// Go: `func wrapperspb.Bool(v bool) *wrapperspb.BoolValue`.
   ProtobufTypesKnownWrapperspbBoolValue bool$(bool v) {
-    final $r = $callSync(25556, $W()..b(v));
+    final $r = $callSync(25562, $W()..b(v));
     return $r.hnn(ProtobufTypesKnownWrapperspbBoolValue.$h);
   }
 
   /// Go: `func wrapperspb.Bytes(v []byte) *wrapperspb.BytesValue`.
   ProtobufTypesKnownWrapperspbBytesValue bytes(Uint8List v) {
-    final $r = $callSync(25563, $W()..bytes(v));
+    final $r = $callSync(25569, $W()..bytes(v));
     return $r.hnn(ProtobufTypesKnownWrapperspbBytesValue.$h);
   }
 
   /// Go: `func wrapperspb.Double(v float64) *wrapperspb.DoubleValue`.
   ProtobufTypesKnownWrapperspbDoubleValue double$(double v) {
-    final $r = $callSync(25570, $W()..f64(v));
+    final $r = $callSync(25576, $W()..f64(v));
     return $r.hnn(ProtobufTypesKnownWrapperspbDoubleValue.$h);
   }
 
   /// Go: `var wrapperspb.File_google_protobuf_wrappers_proto protoreflect.FileDescriptor`.
   $protoreflect.ProtobufReflectProtoreflectFileDescriptor
       get fileGoogleProtobufWrappersProto {
-    final $r = $callSync(25577);
+    final $r = $callSync(25583);
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectFileDescriptor.$h);
   }
 
   /// Go: `func wrapperspb.Float(v float32) *wrapperspb.FloatValue`.
   ProtobufTypesKnownWrapperspbFloatValue float(double v) {
-    final $r = $callSync(25578, $W()..f64(v));
+    final $r = $callSync(25584, $W()..f64(v));
     return $r.hnn(ProtobufTypesKnownWrapperspbFloatValue.$h);
   }
 
   /// Go: `func wrapperspb.Int32(v int32) *wrapperspb.Int32Value`.
   ProtobufTypesKnownWrapperspbInt32Value int32(int v) {
-    final $r = $callSync(25585, $W()..i64(v));
+    final $r = $callSync(25591, $W()..i64(v));
     return $r.hnn(ProtobufTypesKnownWrapperspbInt32Value.$h);
   }
 
   /// Go: `func wrapperspb.Int64(v int64) *wrapperspb.Int64Value`.
   ProtobufTypesKnownWrapperspbInt64Value int64(int v) {
-    final $r = $callSync(25592, $W()..i64(v));
+    final $r = $callSync(25598, $W()..i64(v));
     return $r.hnn(ProtobufTypesKnownWrapperspbInt64Value.$h);
   }
 
   /// Go: `func wrapperspb.String(v string) *wrapperspb.StringValue`.
   ProtobufTypesKnownWrapperspbStringValue string(String v) {
-    final $r = $callSync(25599, $W()..str(v));
+    final $r = $callSync(25605, $W()..str(v));
     return $r.hnn(ProtobufTypesKnownWrapperspbStringValue.$h);
   }
 
   /// Go: `func wrapperspb.UInt32(v uint32) *wrapperspb.UInt32Value`.
   ProtobufTypesKnownWrapperspbUInt32Value uInt32(int v) {
-    final $r = $callSync(25606, $W()..i64(v));
+    final $r = $callSync(25612, $W()..i64(v));
     return $r.hnn(ProtobufTypesKnownWrapperspbUInt32Value.$h);
   }
 
   /// Go: `func wrapperspb.UInt64(v uint64) *wrapperspb.UInt64Value`.
   ProtobufTypesKnownWrapperspbUInt64Value uInt64(int v) {
-    final $r = $callSync(25613, $W()..i64(v));
+    final $r = $callSync(25619, $W()..i64(v));
     return $r.hnn(ProtobufTypesKnownWrapperspbUInt64Value.$h);
   }
 }

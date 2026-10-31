@@ -24,24 +24,24 @@ class BackoffV5BackOff extends GoHandle with BackoffV5BackOff$ {
 mixin BackoffV5BackOff$ on GoHandle {
   /// Go: `func (backoff.BackOff).NextBackOff() time.Duration`.
   Duration nextBackOff() {
-    final $r = $callSync(4229, $W()..h(this));
+    final $r = $callSync(4238, $W()..h(this));
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `func (backoff.BackOff).Reset()`.
   void reset() {
-    $callSync(4230, $W()..h(this));
+    $callSync(4239, $W()..h(this));
   }
 
   /// Go: type assertion `x.(*backoff.ExponentialBackOff)`: null if the object is not one.
   $v4.BackoffV4ExponentialBackOff? asBackoffV4ExponentialBackOff() {
-    final $r = $callSync(376, $W()..h(this));
+    final $r = $callSync(379, $W()..h(this));
     return $r.hn($v4.BackoffV4ExponentialBackOff.$h);
   }
 
   /// Go: type assertion `x.(*backoff.ExponentialBackOff)`: null if the object is not one.
   BackoffV5ExponentialBackOff? asBackoffV5ExponentialBackOff() {
-    final $r = $callSync(377, $W()..h(this));
+    final $r = $callSync(380, $W()..h(this));
     return $r.hn(BackoffV5ExponentialBackOff.$h);
   }
 }
@@ -64,13 +64,13 @@ final class BackoffV5ConstantBackOff implements GoDto {
 
   /// Go: `func (*backoff.ConstantBackOff).NextBackOff() time.Duration`.
   Duration nextBackOff() {
-    final $r = $callSync(4231, $W()..dto(this));
+    final $r = $callSync(4240, $W()..dto(this));
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `func (*backoff.ConstantBackOff).Reset()`.
   void reset() {
-    $callSync(4232, $W()..dto(this));
+    $callSync(4241, $W()..dto(this));
   }
 }
 
@@ -98,19 +98,19 @@ class BackoffV5ExponentialBackOff extends $v4.BackoffV4BackOff
 
   /// Go: `func backoff.NewExponentialBackOff() *backoff.ExponentialBackOff`.
   factory BackoffV5ExponentialBackOff() {
-    final $r = $callSync(4236);
+    final $r = $callSync(4245);
     return $r.hnn(BackoffV5ExponentialBackOff.$h);
   }
 
   /// Go: `func (*backoff.ExponentialBackOff).NextBackOff() time.Duration`.
   Duration nextBackOff() {
-    final $r = $callSync(4233, $W()..h(this));
+    final $r = $callSync(4242, $W()..h(this));
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `func (*backoff.ExponentialBackOff).Reset()`.
   void reset() {
-    $callSync(4234, $W()..h(this));
+    $callSync(4243, $W()..h(this));
   }
 }
 
@@ -124,13 +124,13 @@ final class BackoffV5StopBackOff implements GoDto {
 
   /// Go: `func (*backoff.StopBackOff).NextBackOff() time.Duration`.
   Duration nextBackOff() {
-    final $r = $callSync(4239, $W()..dto(this));
+    final $r = $callSync(4248, $W()..dto(this));
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `func (*backoff.StopBackOff).Reset()`.
   void reset() {
-    $callSync(4240, $W()..dto(this));
+    $callSync(4249, $W()..dto(this));
   }
 }
 
@@ -154,13 +154,13 @@ class BackoffV5Ticker extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func backoff.NewTicker(b backoff.BackOff) *backoff.Ticker`.
   factory BackoffV5Ticker(BackoffV5BackOff b) {
-    final $r = $callSync(4237, $W()..h(b));
+    final $r = $callSync(4246, $W()..h(b));
     return $r.hnn(BackoffV5Ticker.$h);
   }
 
   /// Go: `func (*backoff.Ticker).Stop()`.
   void stop() {
-    $callSync(4241, $W()..h(this));
+    $callSync(4250, $W()..h(this));
   }
 }
 
@@ -174,13 +174,13 @@ final class BackoffV5ZeroBackOff implements GoDto {
 
   /// Go: `func (*backoff.ZeroBackOff).NextBackOff() time.Duration`.
   Duration nextBackOff() {
-    final $r = $callSync(4242, $W()..dto(this));
+    final $r = $callSync(4251, $W()..dto(this));
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `func (*backoff.ZeroBackOff).Reset()`.
   void reset() {
-    $callSync(4243, $W()..dto(this));
+    $callSync(4252, $W()..dto(this));
   }
 }
 
@@ -211,13 +211,13 @@ class BackoffV5RetryAfterError extends GolangException {
 extension GoCenkaltiBackoffV5Api on GoCenkaltiBackoffV5 {
   /// Go: `func backoff.NewConstantBackOff(d time.Duration) *backoff.ConstantBackOff`.
   BackoffV5ConstantBackOff newConstantBackOff(Duration d) {
-    final $r = $callSync(4235, $W()..i64((d).inMicroseconds * 1000));
+    final $r = $callSync(4244, $W()..i64((d).inMicroseconds * 1000));
     return $r.p() ? BackoffV5ConstantBackOff.$dec($r) : $nil();
   }
 
   /// Go: `func backoff.RetryAfter(seconds int) error`.
   void retryAfter(int seconds) {
-    $callSync(4238, $W()..i64(seconds));
+    $callSync(4247, $W()..i64(seconds));
   }
 }
 

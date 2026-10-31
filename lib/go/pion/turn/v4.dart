@@ -58,25 +58,25 @@ class TurnV4Client extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func turn.NewClient(config *turn.ClientConfig) (*turn.Client, error)`.
   factory TurnV4Client(TurnV4ClientConfig config) {
-    final $r = $callSync(17525, $W()..dto(config));
+    final $r = $callSync(17531, $W()..dto(config));
     return $r.hnn(TurnV4Client.$h);
   }
 
   /// Go: `func (*turn.Client).Allocate() (net.PacketConn, error)`.
   $net.NetPacketConn allocate() {
-    final $r = $callSync(17507, $W()..h(this));
+    final $r = $callSync(17513, $W()..h(this));
     return $r.hnn($net.NetPacketConn.$h);
   }
 
   /// Go: `func (*turn.Client).Close()`.
   void close() {
-    $callSync(17508, $W()..h(this));
+    $callSync(17514, $W()..h(this));
   }
 
   /// Go: `func (*turn.Client).CreatePermission(addrs ...net.Addr) error`.
   void createPermission([List<$net.NetAddr> addrs = const []]) {
     $callSync(
-        17509,
+        17515,
         $W()
           ..h(this)
           ..list(addrs, (w0, e0) => w0.dto(e0)));
@@ -85,7 +85,7 @@ class TurnV4Client extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*turn.Client).HandleInbound(data []byte, from net.Addr) (bool, error)`.
   bool handleInbound(Uint8List data, $net.NetAddr from) {
     final $r = $callSync(
-        17510,
+        17516,
         $W()
           ..h(this)
           ..bytes(data)
@@ -95,13 +95,13 @@ class TurnV4Client extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*turn.Client).Listen() error`.
   void listen() {
-    $callSync(17511, $W()..h(this));
+    $callSync(17517, $W()..h(this));
   }
 
   /// Go: `func (*turn.Client).OnDeallocated(net.Addr)`.
   void onDeallocated($net.NetAddr addr) {
     $callSync(
-        17512,
+        17518,
         $W()
           ..h(this)
           ..dto(addr));
@@ -109,26 +109,26 @@ class TurnV4Client extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*turn.Client).Realm() stun.Realm`.
   Uint8List realm() {
-    final $r = $callSync(17513, $W()..h(this));
+    final $r = $callSync(17519, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*turn.Client).STUNServerAddr() net.Addr`.
   $net.NetAddr stunServerAddr() {
-    final $r = $callSync(17514, $W()..h(this));
+    final $r = $callSync(17520, $W()..h(this));
     return $r.p() ? $net.NetAddr.$dec($r) : $nil();
   }
 
   /// Go: `func (*turn.Client).SendBindingRequest() (net.Addr, error)`.
   $net.NetAddr sendBindingRequest() {
-    final $r = $callSync(17515, $W()..h(this));
+    final $r = $callSync(17521, $W()..h(this));
     return $r.p() ? $net.NetAddr.$dec($r) : $nil();
   }
 
   /// Go: `func (*turn.Client).SendBindingRequestTo(to net.Addr) (net.Addr, error)`.
   $net.NetAddr sendBindingRequestTo($net.NetAddr to) {
     final $r = $callSync(
-        17516,
+        17522,
         $W()
           ..h(this)
           ..dto(to));
@@ -137,20 +137,20 @@ class TurnV4Client extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*turn.Client).TURNServerAddr() net.Addr`.
   $net.NetAddr turnServerAddr() {
-    final $r = $callSync(17517, $W()..h(this));
+    final $r = $callSync(17523, $W()..h(this));
     return $r.p() ? $net.NetAddr.$dec($r) : $nil();
   }
 
   /// Go: `func (*turn.Client).Username() stun.Username`.
   Uint8List username() {
-    final $r = $callSync(17518, $W()..h(this));
+    final $r = $callSync(17524, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*turn.Client).WriteTo(data []byte, to net.Addr) (int, error)`.
   int writeTo(Uint8List data, $net.NetAddr to) {
     final $r = $callSync(
-        17519,
+        17525,
         $W()
           ..h(this)
           ..bytes(data)
@@ -337,7 +337,7 @@ mixin TurnV4RelayAddressGenerator$ on GoHandle {
   /// Go: `func (turn.RelayAddressGenerator).AllocateConn(network string, requestedPort int) (net.Conn, net.Addr, error)`.
   ($net.NetConn, $net.NetAddr) allocateConn(String network, int requestedPort) {
     final $r = $callSync(
-        17529,
+        17535,
         $W()
           ..h(this)
           ..str(network)
@@ -349,7 +349,7 @@ mixin TurnV4RelayAddressGenerator$ on GoHandle {
   ($net.NetPacketConn, $net.NetAddr) allocatePacketConn(
       String network, int requestedPort) {
     final $r = $callSync(
-        17530,
+        17536,
         $W()
           ..h(this)
           ..str(network)
@@ -362,7 +362,7 @@ mixin TurnV4RelayAddressGenerator$ on GoHandle {
 
   /// Go: `func (turn.RelayAddressGenerator).Validate() error`.
   void validate() {
-    $callSync(17531, $W()..h(this));
+    $callSync(17537, $W()..h(this));
   }
 }
 
@@ -392,7 +392,7 @@ final class TurnV4RelayAddressGeneratorNone implements GoDto {
   /// Go: `func (*turn.RelayAddressGeneratorNone).AllocateConn(string, int) (net.Conn, net.Addr, error)`.
   ($net.NetConn, $net.NetAddr) allocateConn(String arg0, int arg1) {
     final $r = $callSync(
-        17532,
+        17538,
         $W()
           ..dto(this)
           ..str(arg0)
@@ -404,7 +404,7 @@ final class TurnV4RelayAddressGeneratorNone implements GoDto {
   ($net.NetPacketConn, $net.NetAddr) allocatePacketConn(
       String network, int requestedPort) {
     final $r = $callSync(
-        17533,
+        17539,
         $W()
           ..dto(this)
           ..str(network)
@@ -417,7 +417,7 @@ final class TurnV4RelayAddressGeneratorNone implements GoDto {
 
   /// Go: `func (*turn.RelayAddressGeneratorNone).Validate() error`.
   void validate() {
-    $callSync(17534, $W()..dto(this));
+    $callSync(17540, $W()..dto(this));
   }
 }
 
@@ -484,7 +484,7 @@ final class TurnV4RelayAddressGeneratorPortRange implements GoDto {
   /// Go: `func (*turn.RelayAddressGeneratorPortRange).AllocateConn(string, int) (net.Conn, net.Addr, error)`.
   ($net.NetConn, $net.NetAddr) allocateConn(String arg0, int arg1) {
     final $r = $callSync(
-        17535,
+        17541,
         $W()
           ..dto(this)
           ..str(arg0)
@@ -496,7 +496,7 @@ final class TurnV4RelayAddressGeneratorPortRange implements GoDto {
   ($net.NetPacketConn, $net.NetAddr) allocatePacketConn(
       String network, int requestedPort) {
     final $r = $callSync(
-        17536,
+        17542,
         $W()
           ..dto(this)
           ..str(network)
@@ -509,7 +509,7 @@ final class TurnV4RelayAddressGeneratorPortRange implements GoDto {
 
   /// Go: `func (*turn.RelayAddressGeneratorPortRange).Validate() error`.
   void validate() {
-    $callSync(17537, $W()..dto(this));
+    $callSync(17543, $W()..dto(this));
   }
 }
 
@@ -546,7 +546,7 @@ final class TurnV4RelayAddressGeneratorStatic implements GoDto {
   /// Go: `func (*turn.RelayAddressGeneratorStatic).AllocateConn(string, int) (net.Conn, net.Addr, error)`.
   ($net.NetConn, $net.NetAddr) allocateConn(String arg0, int arg1) {
     final $r = $callSync(
-        17538,
+        17544,
         $W()
           ..dto(this)
           ..str(arg0)
@@ -558,7 +558,7 @@ final class TurnV4RelayAddressGeneratorStatic implements GoDto {
   ($net.NetPacketConn, $net.NetAddr) allocatePacketConn(
       String network, int requestedPort) {
     final $r = $callSync(
-        17539,
+        17545,
         $W()
           ..dto(this)
           ..str(network)
@@ -571,7 +571,7 @@ final class TurnV4RelayAddressGeneratorStatic implements GoDto {
 
   /// Go: `func (*turn.RelayAddressGeneratorStatic).Validate() error`.
   void validate() {
-    $callSync(17540, $W()..dto(this));
+    $callSync(17546, $W()..dto(this));
   }
 }
 
@@ -605,25 +605,25 @@ class TurnV4StunConn extends $net.NetPacketConn
 
   /// Go: `func turn.NewSTUNConn(nextConn net.Conn) *turn.STUNConn`.
   factory TurnV4StunConn($net.NetConn nextConn) {
-    final $r = $callSync(17527, $W()..h(nextConn));
+    final $r = $callSync(17533, $W()..h(nextConn));
     return $r.hnn(TurnV4StunConn.$h);
   }
 
   /// Go: `func (*turn.STUNConn).Close() error`.
   void close() {
-    $callSync(17541, $W()..h(this));
+    $callSync(17547, $W()..h(this));
   }
 
   /// Go: `func (*turn.STUNConn).LocalAddr() net.Addr`.
   $net.NetAddr localAddr() {
-    final $r = $callSync(17542, $W()..h(this));
+    final $r = $callSync(17548, $W()..h(this));
     return $r.p() ? $net.NetAddr.$dec($r) : $nil();
   }
 
   /// Go: `func (*turn.STUNConn).ReadFrom(payload []byte) (n int, addr net.Addr, err error)`.
   (int, $net.NetAddr) readFrom(Uint8List payload) {
     final $r = $callSync(
-        17543,
+        17549,
         $W()
           ..h(this)
           ..bytes(payload));
@@ -633,7 +633,7 @@ class TurnV4StunConn extends $net.NetPacketConn
   /// Go: `func (*turn.STUNConn).SetDeadline(t time.Time) error`.
   void setDeadline(DateTime t) {
     $callSync(
-        17544,
+        17550,
         $W()
           ..h(this)
           ..time(t));
@@ -642,7 +642,7 @@ class TurnV4StunConn extends $net.NetPacketConn
   /// Go: `func (*turn.STUNConn).SetReadDeadline(t time.Time) error`.
   void setReadDeadline(DateTime t) {
     $callSync(
-        17545,
+        17551,
         $W()
           ..h(this)
           ..time(t));
@@ -651,7 +651,7 @@ class TurnV4StunConn extends $net.NetPacketConn
   /// Go: `func (*turn.STUNConn).SetWriteDeadline(t time.Time) error`.
   void setWriteDeadline(DateTime t) {
     $callSync(
-        17546,
+        17552,
         $W()
           ..h(this)
           ..time(t));
@@ -660,7 +660,7 @@ class TurnV4StunConn extends $net.NetPacketConn
   /// Go: `func (*turn.STUNConn).WriteTo(payload []byte, _ net.Addr) (n int, err error)`.
   int writeTo(Uint8List payload, $net.NetAddr addr) {
     final $r = $callSync(
-        17547,
+        17553,
         $W()
           ..h(this)
           ..bytes(payload)
@@ -693,19 +693,19 @@ class TurnV4Server extends $io.IoCloser
 
   /// Go: `func turn.NewServer(config turn.ServerConfig) (*turn.Server, error)`.
   factory TurnV4Server(TurnV4ServerConfig config) {
-    final $r = $callSync(17528, $W()..dto(config));
+    final $r = $callSync(17534, $W()..dto(config));
     return $r.hnn(TurnV4Server.$h);
   }
 
   /// Go: `func (*turn.Server).AllocationCount() int`.
   int allocationCount() {
-    final $r = $callSync(17548, $W()..h(this));
+    final $r = $callSync(17554, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*turn.Server).Close() error`.
   void close() {
-    $callSync(17549, $W()..h(this));
+    $callSync(17555, $W()..h(this));
   }
 }
 
@@ -777,7 +777,7 @@ extension GoPionTurnV4Api on GoPionTurnV4 {
   /// Go: `func turn.DefaultPermissionHandler(net.Addr, net.IP) (ok bool)`.
   bool defaultPermissionHandler($net.NetAddr addr, Uint8List arg1) {
     final $r = $callSync(
-        17520,
+        17526,
         $W()
           ..dto(addr)
           ..bytes(arg1));
@@ -787,7 +787,7 @@ extension GoPionTurnV4Api on GoPionTurnV4 {
   /// Go: `func turn.GenerateAuthKey(username string, realm string, password string) []byte`.
   Uint8List generateAuthKey(String username, String realm, String password) {
     final $r = $callSync(
-        17521,
+        17527,
         $W()
           ..str(username)
           ..str(realm)
@@ -799,7 +799,7 @@ extension GoPionTurnV4Api on GoPionTurnV4 {
   (String, String) generateLongTermCredentials(
       String sharedSecret, Duration duration) {
     final $r = $callSync(
-        17522,
+        17528,
         $W()
           ..str(sharedSecret)
           ..i64((duration).inMicroseconds * 1000));
@@ -810,7 +810,7 @@ extension GoPionTurnV4Api on GoPionTurnV4 {
   (String, String) generateLongTermTurnrestCredentials(
       String sharedSecret, String user, Duration duration) {
     final $r = $callSync(
-        17523,
+        17529,
         $W()
           ..str(sharedSecret)
           ..str(user)
@@ -822,7 +822,7 @@ extension GoPionTurnV4Api on GoPionTurnV4 {
   TurnV4AuthHandler longTermTurnrestAuthHandler(
       String sharedSecret, $logging.LoggingLeveledLogger logger) {
     final $r = $callSync(
-        17524,
+        17530,
         $W()
           ..str(sharedSecret)
           ..h(logger));
@@ -833,7 +833,7 @@ extension GoPionTurnV4Api on GoPionTurnV4 {
   TurnV4AuthHandler newLongTermAuthHandler(
       String sharedSecret, $logging.LoggingLeveledLogger logger) {
     final $r = $callSync(
-        17526,
+        17532,
         $W()
           ..str(sharedSecret)
           ..h(logger));

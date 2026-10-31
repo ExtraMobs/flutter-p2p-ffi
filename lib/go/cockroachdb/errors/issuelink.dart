@@ -35,7 +35,7 @@ extension GoCockroachdbErrorsIssuelinkApi on GoCockroachdbErrorsIssuelink {
   /// Go: `func issuelink.UnimplementedError(issueLink issuelink.IssueLink, msg string) error`.
   void unimplementedError(ErrorsIssuelinkIssueLink issueLink, String msg) {
     $callSync(
-        4599,
+        4608,
         $W()
           ..dto(issueLink)
           ..str(msg));
@@ -45,7 +45,7 @@ extension GoCockroachdbErrorsIssuelinkApi on GoCockroachdbErrorsIssuelink {
   void unimplementedErrorf(ErrorsIssuelinkIssueLink issueLink, String format,
       [List<Object?> args = const []]) {
     $callSync(
-        4600,
+        4609,
         $W()
           ..dto(issueLink)
           ..str(format)

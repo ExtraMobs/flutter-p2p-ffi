@@ -13,7 +13,7 @@ extension GoPionDtlsV3PkgCryptoClientcertificateApi
     on GoPionDtlsV3PkgCryptoClientcertificate {
   /// Go: `func clientcertificate.Types() map[clientcertificate.Type]bool`.
   Map<int, bool> types() {
-    final $r = $callSync(16230);
+    final $r = $callSync(16236);
     return $r.map(() => $r.i64(), () => $r.b());
   }
 }

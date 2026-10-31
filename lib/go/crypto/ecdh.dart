@@ -22,7 +22,7 @@ mixin CryptoEcdhCurve$ on GoHandle {
   /// Go: `func (ecdh.Curve).GenerateKey(rand io.Reader) (*ecdh.PrivateKey, error)`.
   CryptoEcdhPrivateKey generateKey(Object rand) {
     final $r = $callSync(
-        3163,
+        3172,
         $W()
           ..h(this)
           ..reader(rand));
@@ -32,7 +32,7 @@ mixin CryptoEcdhCurve$ on GoHandle {
   /// Go: `func (ecdh.Curve).NewPrivateKey(key []byte) (*ecdh.PrivateKey, error)`.
   CryptoEcdhPrivateKey newPrivateKey(Uint8List key) {
     final $r = $callSync(
-        3164,
+        3173,
         $W()
           ..h(this)
           ..bytes(key));
@@ -42,7 +42,7 @@ mixin CryptoEcdhCurve$ on GoHandle {
   /// Go: `func (ecdh.Curve).NewPublicKey(key []byte) (*ecdh.PublicKey, error)`.
   CryptoEcdhPublicKey newPublicKey(Uint8List key) {
     final $r = $callSync(
-        3165,
+        3174,
         $W()
           ..h(this)
           ..bytes(key));
@@ -59,14 +59,14 @@ class CryptoEcdhKeyExchanger extends GoHandle with CryptoEcdhKeyExchanger$ {
 mixin CryptoEcdhKeyExchanger$ on GoHandle {
   /// Go: `func (ecdh.KeyExchanger).Curve() ecdh.Curve`.
   CryptoEcdhCurve curve() {
-    final $r = $callSync(3166, $W()..h(this));
+    final $r = $callSync(3175, $W()..h(this));
     return $r.hnn(CryptoEcdhCurve.$h);
   }
 
   /// Go: `func (ecdh.KeyExchanger).ECDH(*ecdh.PublicKey) ([]byte, error)`.
   Uint8List ecdh(CryptoEcdhPublicKey publicKey) {
     final $r = $callSync(
-        3167,
+        3176,
         $W()
           ..h(this)
           ..h(publicKey));
@@ -75,7 +75,7 @@ mixin CryptoEcdhKeyExchanger$ on GoHandle {
 
   /// Go: `func (ecdh.KeyExchanger).PublicKey() *ecdh.PublicKey`.
   CryptoEcdhPublicKey publicKey() {
-    final $r = $callSync(3168, $W()..h(this));
+    final $r = $callSync(3177, $W()..h(this));
     return $r.hnn(CryptoEcdhPublicKey.$h);
   }
 
@@ -108,20 +108,20 @@ class CryptoEcdhPrivateKey extends CryptoEcdhKeyExchanger
 
   /// Go: `func (*ecdh.PrivateKey).Bytes() []byte`.
   Uint8List bytes() {
-    final $r = $callSync(3172, $W()..h(this));
+    final $r = $callSync(3181, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*ecdh.PrivateKey).Curve() ecdh.Curve`.
   CryptoEcdhCurve curve() {
-    final $r = $callSync(3173, $W()..h(this));
+    final $r = $callSync(3182, $W()..h(this));
     return $r.hnn(CryptoEcdhCurve.$h);
   }
 
   /// Go: `func (*ecdh.PrivateKey).ECDH(remote *ecdh.PublicKey) ([]byte, error)`.
   Uint8List ecdh(CryptoEcdhPublicKey remote) {
     final $r = $callSync(
-        3174,
+        3183,
         $W()
           ..h(this)
           ..h(remote));
@@ -131,7 +131,7 @@ class CryptoEcdhPrivateKey extends CryptoEcdhKeyExchanger
   /// Go: `func (*ecdh.PrivateKey).Equal(x crypto.PrivateKey) bool`.
   bool equal($crypto.CryptoPrivateKey x) {
     final $r = $callSync(
-        3175,
+        3184,
         $W()
           ..h(this)
           ..h(x));
@@ -140,13 +140,13 @@ class CryptoEcdhPrivateKey extends CryptoEcdhKeyExchanger
 
   /// Go: `func (*ecdh.PrivateKey).Public() crypto.PublicKey`.
   $crypto.CryptoPublicKey public() {
-    final $r = $callSync(3176, $W()..h(this));
+    final $r = $callSync(3185, $W()..h(this));
     return $r.hnn($crypto.CryptoPublicKey.$h);
   }
 
   /// Go: `func (*ecdh.PrivateKey).PublicKey() *ecdh.PublicKey`.
   CryptoEcdhPublicKey publicKey() {
-    final $r = $callSync(3177, $W()..h(this));
+    final $r = $callSync(3186, $W()..h(this));
     return $r.hnn(CryptoEcdhPublicKey.$h);
   }
 }
@@ -171,20 +171,20 @@ class CryptoEcdhPublicKey extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*ecdh.PublicKey).Bytes() []byte`.
   Uint8List bytes() {
-    final $r = $callSync(3178, $W()..h(this));
+    final $r = $callSync(3187, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*ecdh.PublicKey).Curve() ecdh.Curve`.
   CryptoEcdhCurve curve() {
-    final $r = $callSync(3179, $W()..h(this));
+    final $r = $callSync(3188, $W()..h(this));
     return $r.hnn(CryptoEcdhCurve.$h);
   }
 
   /// Go: `func (*ecdh.PublicKey).Equal(x crypto.PublicKey) bool`.
   bool equal($crypto.CryptoPublicKey x) {
     final $r = $callSync(
-        3180,
+        3189,
         $W()
           ..h(this)
           ..h(x));
@@ -196,25 +196,25 @@ class CryptoEcdhPublicKey extends $crypto.CryptoDecrypterOpts
 extension GoCryptoEcdhApi on GoCryptoEcdh {
   /// Go: `func ecdh.P256() ecdh.Curve`.
   CryptoEcdhCurve p256() {
-    final $r = $callSync(3169);
+    final $r = $callSync(3178);
     return $r.hnn(CryptoEcdhCurve.$h);
   }
 
   /// Go: `func ecdh.P384() ecdh.Curve`.
   CryptoEcdhCurve p384() {
-    final $r = $callSync(3170);
+    final $r = $callSync(3179);
     return $r.hnn(CryptoEcdhCurve.$h);
   }
 
   /// Go: `func ecdh.P521() ecdh.Curve`.
   CryptoEcdhCurve p521() {
-    final $r = $callSync(3171);
+    final $r = $callSync(3180);
     return $r.hnn(CryptoEcdhCurve.$h);
   }
 
   /// Go: `func ecdh.X25519() ecdh.Curve`.
   CryptoEcdhCurve x25519() {
-    final $r = $callSync(3181);
+    final $r = $callSync(3190);
     return $r.hnn(CryptoEcdhCurve.$h);
   }
 }

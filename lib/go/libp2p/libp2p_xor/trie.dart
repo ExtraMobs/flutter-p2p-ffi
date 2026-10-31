@@ -57,7 +57,7 @@ final class Libp2pXorTrie implements GoDto {
   /// Go: `func (*trie.Trie).Add(q key.Key) (insertedDepth int, insertedOK bool)`.
   (int, bool) add(Uint8List q) {
     final $r = $callSync(
-        13789,
+        13795,
         $W()
           ..dto(this)
           ..bytes(q));
@@ -67,7 +67,7 @@ final class Libp2pXorTrie implements GoDto {
   /// Go: `func (*trie.Trie).AddAtDepth(depth int, q key.Key) (insertedDepth int, insertedOK bool)`.
   (int, bool) addAtDepth(int depth, Uint8List q) {
     final $r = $callSync(
-        13790,
+        13796,
         $W()
           ..dto(this)
           ..i64(depth)
@@ -77,20 +77,20 @@ final class Libp2pXorTrie implements GoDto {
 
   /// Go: `func (*trie.Trie).CheckInvariant() *trie.InvariantDiscrepancy`.
   Libp2pXorTrieInvariantDiscrepancy checkInvariant() {
-    final $r = $callSync(13791, $W()..dto(this));
+    final $r = $callSync(13797, $W()..dto(this));
     return $r.p() ? Libp2pXorTrieInvariantDiscrepancy.$dec($r) : $nil();
   }
 
   /// Go: `func (*trie.Trie).Depth() int`.
   int depth() {
-    final $r = $callSync(13792, $W()..dto(this));
+    final $r = $callSync(13798, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*trie.Trie).DepthAtDepth(depth int) int`.
   int depthAtDepth(int depth) {
     final $r = $callSync(
-        13793,
+        13799,
         $W()
           ..dto(this)
           ..i64(depth));
@@ -100,7 +100,7 @@ final class Libp2pXorTrie implements GoDto {
   /// Go: `func (*trie.Trie).Find(q key.Key) (reachedDepth int, found bool)`.
   (int, bool) find(Uint8List q) {
     final $r = $callSync(
-        13794,
+        13800,
         $W()
           ..dto(this)
           ..bytes(q));
@@ -110,7 +110,7 @@ final class Libp2pXorTrie implements GoDto {
   /// Go: `func (*trie.Trie).FindAtDepth(depth int, q key.Key) (reachedDepth int, found bool)`.
   (int, bool) findAtDepth(int depth, Uint8List q) {
     final $r = $callSync(
-        13795,
+        13801,
         $W()
           ..dto(this)
           ..i64(depth)
@@ -120,38 +120,38 @@ final class Libp2pXorTrie implements GoDto {
 
   /// Go: `func (*trie.Trie).IsEmpty() bool`.
   bool isEmpty() {
-    final $r = $callSync(13796, $W()..dto(this));
+    final $r = $callSync(13802, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*trie.Trie).IsEmptyLeaf() bool`.
   bool isEmptyLeaf() {
-    final $r = $callSync(13797, $W()..dto(this));
+    final $r = $callSync(13803, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*trie.Trie).IsLeaf() bool`.
   bool isLeaf() {
-    final $r = $callSync(13798, $W()..dto(this));
+    final $r = $callSync(13804, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*trie.Trie).IsNonEmptyLeaf() bool`.
   bool isNonEmptyLeaf() {
-    final $r = $callSync(13799, $W()..dto(this));
+    final $r = $callSync(13805, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*trie.Trie).List() []key.Key`.
   List<Uint8List> list() {
-    final $r = $callSync(13800, $W()..dto(this));
+    final $r = $callSync(13806, $W()..dto(this));
     return $r.list(() => $r.bytes() ?? Uint8List(0));
   }
 
   /// Go: `func (*trie.Trie).Remove(q key.Key) (removedDepth int, removed bool)`.
   (int, bool) remove(Uint8List q) {
     final $r = $callSync(
-        13801,
+        13807,
         $W()
           ..dto(this)
           ..bytes(q));
@@ -161,7 +161,7 @@ final class Libp2pXorTrie implements GoDto {
   /// Go: `func (*trie.Trie).RemoveAtDepth(depth int, q key.Key) (reachedDepth int, removed bool)`.
   (int, bool) removeAtDepth(int depth, Uint8List q) {
     final $r = $callSync(
-        13802,
+        13808,
         $W()
           ..dto(this)
           ..i64(depth)
@@ -171,14 +171,14 @@ final class Libp2pXorTrie implements GoDto {
 
   /// Go: `func (*trie.Trie).Size() int`.
   int size() {
-    final $r = $callSync(13803, $W()..dto(this));
+    final $r = $callSync(13809, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*trie.Trie).SizeAtDepth(depth int) int`.
   int sizeAtDepth(int depth) {
     final $r = $callSync(
-        13804,
+        13810,
         $W()
           ..dto(this)
           ..i64(depth));
@@ -187,7 +187,7 @@ final class Libp2pXorTrie implements GoDto {
 
   /// Go: `func (*trie.Trie).String() string`.
   String string() {
-    final $r = $callSync(13805, $W()..dto(this));
+    final $r = $callSync(13811, $W()..dto(this));
     return $r.str();
   }
 }
@@ -197,7 +197,7 @@ extension GoLibp2pLibp2pXorTrieApi on GoLibp2pLibp2pXorTrie {
   /// Go: `func trie.Add(trie *trie.Trie, q key.Key) *trie.Trie`.
   Libp2pXorTrie add(Libp2pXorTrie trie, Uint8List q) {
     final $r = $callSync(
-        13778,
+        13784,
         $W()
           ..dto(trie)
           ..bytes(q));
@@ -207,7 +207,7 @@ extension GoLibp2pLibp2pXorTrieApi on GoLibp2pLibp2pXorTrie {
   /// Go: `func trie.AddAtDepth(depth int, trie *trie.Trie, q key.Key) *trie.Trie`.
   Libp2pXorTrie addAtDepth(int depth, Libp2pXorTrie trie, Uint8List q) {
     final $r = $callSync(
-        13779,
+        13785,
         $W()
           ..i64(depth)
           ..dto(trie)
@@ -218,7 +218,7 @@ extension GoLibp2pLibp2pXorTrieApi on GoLibp2pLibp2pXorTrie {
   /// Go: `func trie.Equal(p *trie.Trie, q *trie.Trie) bool`.
   bool equal(Libp2pXorTrie p, Libp2pXorTrie q) {
     final $r = $callSync(
-        13780,
+        13786,
         $W()
           ..dto(p)
           ..dto(q));
@@ -227,14 +227,14 @@ extension GoLibp2pLibp2pXorTrieApi on GoLibp2pLibp2pXorTrie {
 
   /// Go: `func trie.FromKeys(k []key.Key) *trie.Trie`.
   Libp2pXorTrie fromKeys(List<Uint8List> k) {
-    final $r = $callSync(13781, $W()..list(k, (w0, e0) => w0.bytes(e0)));
+    final $r = $callSync(13787, $W()..list(k, (w0, e0) => w0.bytes(e0)));
     return $r.p() ? Libp2pXorTrie.$dec($r) : $nil();
   }
 
   /// Go: `func trie.FromKeysAtDepth(depth int, k []key.Key) *trie.Trie`.
   Libp2pXorTrie fromKeysAtDepth(int depth, List<Uint8List> k) {
     final $r = $callSync(
-        13782,
+        13788,
         $W()
           ..i64(depth)
           ..list(k, (w0, e0) => w0.bytes(e0)));
@@ -244,7 +244,7 @@ extension GoLibp2pLibp2pXorTrieApi on GoLibp2pLibp2pXorTrie {
   /// Go: `func trie.Intersect(p *trie.Trie, q *trie.Trie) *trie.Trie`.
   Libp2pXorTrie intersect(Libp2pXorTrie p, Libp2pXorTrie q) {
     final $r = $callSync(
-        13783,
+        13789,
         $W()
           ..dto(p)
           ..dto(q));
@@ -254,7 +254,7 @@ extension GoLibp2pLibp2pXorTrieApi on GoLibp2pLibp2pXorTrie {
   /// Go: `func trie.IntersectAtDepth(depth int, p *trie.Trie, q *trie.Trie) *trie.Trie`.
   Libp2pXorTrie intersectAtDepth(int depth, Libp2pXorTrie p, Libp2pXorTrie q) {
     final $r = $callSync(
-        13784,
+        13790,
         $W()
           ..i64(depth)
           ..dto(p)
@@ -265,7 +265,7 @@ extension GoLibp2pLibp2pXorTrieApi on GoLibp2pLibp2pXorTrie {
   /// Go: `func trie.IntersectKeySlices(p []key.Key, q []key.Key) []key.Key`.
   List<Uint8List> intersectKeySlices(List<Uint8List> p, List<Uint8List> q) {
     final $r = $callSync(
-        13785,
+        13791,
         $W()
           ..list(p, (w0, e0) => w0.bytes(e0))
           ..list(q, (w0, e0) => w0.bytes(e0)));
@@ -274,14 +274,14 @@ extension GoLibp2pLibp2pXorTrieApi on GoLibp2pLibp2pXorTrie {
 
   /// Go: `func trie.New() *trie.Trie`.
   Libp2pXorTrie new$() {
-    final $r = $callSync(13786);
+    final $r = $callSync(13792);
     return $r.p() ? Libp2pXorTrie.$dec($r) : $nil();
   }
 
   /// Go: `func trie.Remove(trie *trie.Trie, q key.Key) *trie.Trie`.
   Libp2pXorTrie remove(Libp2pXorTrie trie, Uint8List q) {
     final $r = $callSync(
-        13787,
+        13793,
         $W()
           ..dto(trie)
           ..bytes(q));
@@ -291,7 +291,7 @@ extension GoLibp2pLibp2pXorTrieApi on GoLibp2pLibp2pXorTrie {
   /// Go: `func trie.RemoveAtDepth(depth int, trie *trie.Trie, q key.Key) *trie.Trie`.
   Libp2pXorTrie removeAtDepth(int depth, Libp2pXorTrie trie, Uint8List q) {
     final $r = $callSync(
-        13788,
+        13794,
         $W()
           ..i64(depth)
           ..dto(trie)

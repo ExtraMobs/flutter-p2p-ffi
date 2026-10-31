@@ -25,7 +25,7 @@ class Libp2pP2pDiscoveryMdnsNotifee extends GoHandle
       {FutureOr<void> Function($peer.Libp2pCorePeerAddrInfo addrInfo)?
           handlePeerFound}) {
     final $r = $callSync(
-        14335,
+        14341,
         $W()
           ..cb(
               handlePeerFound == null
@@ -42,7 +42,7 @@ mixin Libp2pP2pDiscoveryMdnsNotifee$ on GoHandle {
   /// Go: `func (mdns.Notifee).HandlePeerFound(peer.AddrInfo)`.
   void handlePeerFound($peer.Libp2pCorePeerAddrInfo addrInfo) {
     $callSync(
-        14336,
+        14342,
         $W()
           ..h(this)
           ..dto(addrInfo));
@@ -59,17 +59,17 @@ class Libp2pP2pDiscoveryMdnsService extends $io.IoCloser
 mixin Libp2pP2pDiscoveryMdnsService$ on GoHandle {
   /// Go: `func (io.Closer).Close() error`.
   void close() {
-    $callSync(14337, $W()..h(this));
+    $callSync(14343, $W()..h(this));
   }
 
   /// Go: `func (mdns.Service).Start() error`.
   void start() {
-    $callSync(14338, $W()..h(this));
+    $callSync(14344, $W()..h(this));
   }
 
   /// Go: type assertion `x.(*ssdp.Monitor)`: null if the object is not one.
   $ssdp.SsdpMonitor? asSsdpMonitor() {
-    final $r = $callSync(1433, $W()..h(this));
+    final $r = $callSync(1436, $W()..h(this));
     return $r.hn($ssdp.SsdpMonitor.$h);
   }
 }
@@ -80,7 +80,7 @@ extension GoLibp2pLibp2pP2pDiscoveryMdnsApi on GoLibp2pLibp2pP2pDiscoveryMdns {
   Libp2pP2pDiscoveryMdnsService newMdnsService($host.Libp2pCoreHost host,
       String serviceName, Libp2pP2pDiscoveryMdnsNotifee notifee) {
     final $r = $callSync(
-        14334,
+        14340,
         $W()
           ..h(host)
           ..str(serviceName)

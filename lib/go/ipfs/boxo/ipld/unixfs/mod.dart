@@ -44,7 +44,7 @@ class BoxoIpldUnixfsModDagModifier extends $zapcore.ZapZapcoreWriteSyncer
   /// Asynchronous: runs in a goroutine of the service.
   Future<Uint8List> ctxReadFull($context.Context ctx, int n) async {
     final $r = await $call(
-        9918,
+        9927,
         $W()
           ..h(this)
           ..h(ctx)
@@ -54,20 +54,20 @@ class BoxoIpldUnixfsModDagModifier extends $zapcore.ZapZapcoreWriteSyncer
 
   /// Go: `func (*mod.DagModifier).GetNode() (format.Node, error)`.
   $ipld_format.IpldFormatNode getNode() {
-    final $r = $callSync(9919, $W()..h(this));
+    final $r = $callSync(9928, $W()..h(this));
     return $r.hnn($ipld_format.IpldFormatNode.$h);
   }
 
   /// Go: `func (*mod.DagModifier).HasChanges() bool`.
   bool hasChanges() {
-    final $r = $callSync(9920, $W()..h(this));
+    final $r = $callSync(9929, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*mod.DagModifier).Read(b []byte) (int, error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        9921,
+        9930,
         $W()
           ..h(this)
           ..i64(n));
@@ -77,7 +77,7 @@ class BoxoIpldUnixfsModDagModifier extends $zapcore.ZapZapcoreWriteSyncer
   /// Go: `func (*mod.DagModifier).Seek(offset int64, whence int) (int64, error)`.
   int seek(int offset, int whence) {
     final $r = $callSync(
-        9922,
+        9931,
         $W()
           ..h(this)
           ..i64(offset)
@@ -87,19 +87,19 @@ class BoxoIpldUnixfsModDagModifier extends $zapcore.ZapZapcoreWriteSyncer
 
   /// Go: `func (*mod.DagModifier).Size() (int64, error)`.
   int size() {
-    final $r = $callSync(9923, $W()..h(this));
+    final $r = $callSync(9932, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*mod.DagModifier).Sync() error`.
   void sync() {
-    $callSync(9924, $W()..h(this));
+    $callSync(9933, $W()..h(this));
   }
 
   /// Go: `func (*mod.DagModifier).Truncate(size int64) error`.
   void truncate(int size) {
     $callSync(
-        9925,
+        9934,
         $W()
           ..h(this)
           ..i64(size));
@@ -108,7 +108,7 @@ class BoxoIpldUnixfsModDagModifier extends $zapcore.ZapZapcoreWriteSyncer
   /// Go: `func (*mod.DagModifier).Write(b []byte) (int, error)`.
   int write(Uint8List b) {
     final $r = $callSync(
-        9926,
+        9935,
         $W()
           ..h(this)
           ..bytes(b));
@@ -118,7 +118,7 @@ class BoxoIpldUnixfsModDagModifier extends $zapcore.ZapZapcoreWriteSyncer
   /// Go: `func (*mod.DagModifier).WriteAt(b []byte, offset int64) (int, error)`.
   int writeAt(Uint8List b, int offset) {
     final $r = $callSync(
-        9927,
+        9936,
         $W()
           ..h(this)
           ..bytes(b)
@@ -165,7 +165,7 @@ extension GoIpfsBoxoIpldUnixfsModApi on GoIpfsBoxoIpldUnixfsMod {
       $ipld_format.IpldFormatDagService serv,
       $chunker.BoxoChunkerSplitterGen spl) async {
     final $r = await $call(
-        9928,
+        9937,
         $W()
           ..h(ctx)
           ..h(from)

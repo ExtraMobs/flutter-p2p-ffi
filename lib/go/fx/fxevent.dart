@@ -23,7 +23,7 @@ final class FxFxeventConsoleLogger implements GoDto {
   /// Go: `func (*fxevent.ConsoleLogger).LogEvent(event fxevent.Event)`.
   void logEvent(FxFxeventEvent event) {
     $callSync(
-        22705,
+        22711,
         $W()
           ..dto(this)
           ..h(event));
@@ -48,7 +48,7 @@ mixin FxFxeventLogger$ on GoHandle {
   /// Go: `func (fxevent.Logger).LogEvent(fxevent.Event)`.
   void logEvent(FxFxeventEvent event) {
     $callSync(
-        22706,
+        22712,
         $W()
           ..h(this)
           ..h(event));
@@ -56,13 +56,13 @@ mixin FxFxeventLogger$ on GoHandle {
 
   /// Go: type assertion `x.(*fxevent.SlogLogger)`: null if the object is not one.
   FxFxeventSlogLogger? asFxFxeventSlogLogger() {
-    final $r = $callSync(2116, $W()..h(this));
+    final $r = $callSync(2123, $W()..h(this));
     return $r.hn(FxFxeventSlogLogger.$h);
   }
 
   /// Go: type assertion `x.(*fxevent.ZapLogger)`: null if the object is not one.
   FxFxeventZapLogger? asFxFxeventZapLogger() {
-    final $r = $callSync(2117, $W()..h(this));
+    final $r = $callSync(2124, $W()..h(this));
     return $r.hn(FxFxeventZapLogger.$h);
   }
 }
@@ -90,7 +90,7 @@ class FxFxeventSlogLogger extends FxFxeventLogger
   /// Go: `func (*fxevent.SlogLogger).LogEvent(event fxevent.Event)`.
   void logEvent(FxFxeventEvent event) {
     $callSync(
-        22707,
+        22713,
         $W()
           ..h(this)
           ..h(event));
@@ -101,7 +101,7 @@ class FxFxeventSlogLogger extends FxFxeventLogger
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> useContext($context.Context ctx) async {
     await $call(
-        22708,
+        22714,
         $W()
           ..h(this)
           ..h(ctx));
@@ -110,7 +110,7 @@ class FxFxeventSlogLogger extends FxFxeventLogger
   /// Go: `func (*fxevent.SlogLogger).UseErrorLevel(level slog.Level)`.
   void useErrorLevel(int level) {
     $callSync(
-        22709,
+        22715,
         $W()
           ..h(this)
           ..i64(level));
@@ -119,7 +119,7 @@ class FxFxeventSlogLogger extends FxFxeventLogger
   /// Go: `func (*fxevent.SlogLogger).UseLogLevel(level slog.Level)`.
   void useLogLevel(int level) {
     $callSync(
-        22710,
+        22716,
         $W()
           ..h(this)
           ..i64(level));
@@ -149,7 +149,7 @@ class FxFxeventZapLogger extends FxFxeventLogger
   /// Go: `func (*fxevent.ZapLogger).LogEvent(event fxevent.Event)`.
   void logEvent(FxFxeventEvent event) {
     $callSync(
-        22711,
+        22717,
         $W()
           ..h(this)
           ..h(event));
@@ -158,7 +158,7 @@ class FxFxeventZapLogger extends FxFxeventLogger
   /// Go: `func (*fxevent.ZapLogger).UseErrorLevel(level zapcore.Level)`.
   void useErrorLevel(int level) {
     $callSync(
-        22712,
+        22718,
         $W()
           ..h(this)
           ..i64(level));
@@ -167,7 +167,7 @@ class FxFxeventZapLogger extends FxFxeventLogger
   /// Go: `func (*fxevent.ZapLogger).UseLogLevel(level zapcore.Level)`.
   void useLogLevel(int level) {
     $callSync(
-        22713,
+        22719,
         $W()
           ..h(this)
           ..i64(level));

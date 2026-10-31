@@ -42,20 +42,20 @@ class TextUnicodeBidiOrdering extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*bidi.Ordering).Direction() bidi.Direction`.
   int direction() {
-    final $r = $callSync(24026, $W()..h(this));
+    final $r = $callSync(24032, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*bidi.Ordering).NumRuns() int`.
   int numRuns() {
-    final $r = $callSync(24027, $W()..h(this));
+    final $r = $callSync(24033, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*bidi.Ordering).Run(i int) bidi.Run`.
   TextUnicodeBidiRun run(int i) {
     final $r = $callSync(
-        24028,
+        24034,
         $W()
           ..h(this)
           ..i64(i));
@@ -83,20 +83,20 @@ class TextUnicodeBidiParagraph extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*bidi.Paragraph).Direction() bidi.Direction`.
   int direction() {
-    final $r = $callSync(24029, $W()..h(this));
+    final $r = $callSync(24035, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*bidi.Paragraph).IsLeftToRight() bool`.
   bool isLeftToRight() {
-    final $r = $callSync(24030, $W()..h(this));
+    final $r = $callSync(24036, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*bidi.Paragraph).Line(start int, end int) (bidi.Ordering, error)`.
   TextUnicodeBidiOrdering line(int start, int end) {
     final $r = $callSync(
-        24031,
+        24037,
         $W()
           ..h(this)
           ..i64(start)
@@ -106,14 +106,14 @@ class TextUnicodeBidiParagraph extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*bidi.Paragraph).Order() (bidi.Ordering, error)`.
   TextUnicodeBidiOrdering order() {
-    final $r = $callSync(24032, $W()..h(this));
+    final $r = $callSync(24038, $W()..h(this));
     return $r.hnn(TextUnicodeBidiOrdering.$h);
   }
 
   /// Go: `func (*bidi.Paragraph).RunAt(pos int) bidi.Run`.
   TextUnicodeBidiRun runAt(int pos) {
     final $r = $callSync(
-        24033,
+        24039,
         $W()
           ..h(this)
           ..i64(pos));
@@ -123,7 +123,7 @@ class TextUnicodeBidiParagraph extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*bidi.Paragraph).SetBytes(b []byte, opts ...bidi.Option) (n int, err error)`.
   int setBytes(Uint8List b, [List<TextUnicodeBidiOption> opts = const []]) {
     final $r = $callSync(
-        24034,
+        24040,
         $W()
           ..h(this)
           ..bytes(b)
@@ -134,7 +134,7 @@ class TextUnicodeBidiParagraph extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*bidi.Paragraph).SetString(s string, opts ...bidi.Option) (n int, err error)`.
   int setString(String s, [List<TextUnicodeBidiOption> opts = const []]) {
     final $r = $callSync(
-        24035,
+        24041,
         $W()
           ..h(this)
           ..str(s)
@@ -163,19 +163,19 @@ class TextUnicodeBidiProperties extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (bidi.Properties).Class() bidi.Class`.
   int class$() {
-    final $r = $callSync(24036, $W()..h(this));
+    final $r = $callSync(24042, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (bidi.Properties).IsBracket() bool`.
   bool isBracket() {
-    final $r = $callSync(24037, $W()..h(this));
+    final $r = $callSync(24043, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (bidi.Properties).IsOpeningBracket() bool`.
   bool isOpeningBracket() {
-    final $r = $callSync(24038, $W()..h(this));
+    final $r = $callSync(24044, $W()..h(this));
     return $r.b();
   }
 }
@@ -200,25 +200,25 @@ class TextUnicodeBidiRun extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*bidi.Run).Bytes() []byte`.
   Uint8List bytes() {
-    final $r = $callSync(24040, $W()..h(this));
+    final $r = $callSync(24046, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*bidi.Run).Direction() bidi.Direction`.
   int direction() {
-    final $r = $callSync(24041, $W()..h(this));
+    final $r = $callSync(24047, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*bidi.Run).Pos() (start int, end int)`.
   (int, int) pos() {
-    final $r = $callSync(24042, $W()..h(this));
+    final $r = $callSync(24048, $W()..h(this));
     return ($r.i64(), $r.i64());
   }
 
   /// Go: `func (*bidi.Run).String() string`.
   String string() {
-    final $r = $callSync(24043, $W()..h(this));
+    final $r = $callSync(24049, $W()..h(this));
     return $r.str();
   }
 }
@@ -228,7 +228,7 @@ extension GoXTextUnicodeBidiApi on GoXTextUnicodeBidi {
   /// Go: `func bidi.AppendReverse(out []byte, in []byte) []byte`.
   Uint8List appendReverse(Uint8List out, Uint8List in$) {
     final $r = $callSync(
-        24022,
+        24028,
         $W()
           ..bytes(out)
           ..bytes(in$));
@@ -237,25 +237,25 @@ extension GoXTextUnicodeBidiApi on GoXTextUnicodeBidi {
 
   /// Go: `func bidi.Lookup(s []byte) (p bidi.Properties, sz int)`.
   (TextUnicodeBidiProperties, int) lookup(Uint8List s) {
-    final $r = $callSync(24023, $W()..bytes(s));
+    final $r = $callSync(24029, $W()..bytes(s));
     return ($r.hnn(TextUnicodeBidiProperties.$h), $r.i64());
   }
 
   /// Go: `func bidi.LookupRune(r rune) (p bidi.Properties, size int)`.
   (TextUnicodeBidiProperties, int) lookupRune(int r) {
-    final $r = $callSync(24024, $W()..i64(r));
+    final $r = $callSync(24030, $W()..i64(r));
     return ($r.hnn(TextUnicodeBidiProperties.$h), $r.i64());
   }
 
   /// Go: `func bidi.LookupString(s string) (p bidi.Properties, sz int)`.
   (TextUnicodeBidiProperties, int) lookupString(String s) {
-    final $r = $callSync(24025, $W()..str(s));
+    final $r = $callSync(24031, $W()..str(s));
     return ($r.hnn(TextUnicodeBidiProperties.$h), $r.i64());
   }
 
   /// Go: `func bidi.ReverseString(s string) string`.
   String reverseString(String s) {
-    final $r = $callSync(24039, $W()..str(s));
+    final $r = $callSync(24045, $W()..str(s));
     return $r.str();
   }
 }

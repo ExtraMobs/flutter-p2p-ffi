@@ -50,7 +50,7 @@ extension GoIpfsKuboBlocksBlockstoreutilApi on GoIpfsKuboBlocksBlockstoreutil {
           List<$cid.Cid> cids,
           KuboBlocksBlockstoreutilRmBlocksOpts opts) =>
       $stream(
-              11213,
+              11219,
               $W()
                 ..h(ctx)
                 ..h(blocks)

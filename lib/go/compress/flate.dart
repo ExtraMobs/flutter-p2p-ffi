@@ -25,7 +25,7 @@ mixin CompressFlateResetter$ on GoHandle {
   /// Go: `func (flate.Resetter).Reset(r io.Reader, dict []byte) error`.
   void reset(Object r, Uint8List dict) {
     $callSync(
-        3063,
+        3072,
         $W()
           ..h(this)
           ..reader(r)
@@ -58,7 +58,7 @@ class CompressFlateWriter extends $io.IoCloser
   /// Go: `func flate.NewWriter(w io.Writer, level int) (*flate.Writer, error)`.
   factory CompressFlateWriter(GoHandle? w, int level) {
     final $r = $callSync(
-        3061,
+        3070,
         $W()
           ..h(w)
           ..i64(level));
@@ -67,18 +67,18 @@ class CompressFlateWriter extends $io.IoCloser
 
   /// Go: `func (*flate.Writer).Close() error`.
   void close() {
-    $callSync(3064, $W()..h(this));
+    $callSync(3073, $W()..h(this));
   }
 
   /// Go: `func (*flate.Writer).Flush() error`.
   void flush() {
-    $callSync(3065, $W()..h(this));
+    $callSync(3074, $W()..h(this));
   }
 
   /// Go: `func (*flate.Writer).Reset(dst io.Writer)`.
   void reset(GoHandle? dst) {
     $callSync(
-        3066,
+        3075,
         $W()
           ..h(this)
           ..h(dst));
@@ -87,7 +87,7 @@ class CompressFlateWriter extends $io.IoCloser
   /// Go: `func (*flate.Writer).Write(data []byte) (n int, err error)`.
   int write(Uint8List data) {
     final $r = $callSync(
-        3067,
+        3076,
         $W()
           ..h(this)
           ..bytes(data));
@@ -145,14 +145,14 @@ class CompressFlateWriteError extends GolangException {
 extension GoCompressFlateApi on GoCompressFlate {
   /// Go: `func flate.NewReader(r io.Reader) io.ReadCloser`.
   $io.IoReadCloser newReader(Object r) {
-    final $r = $callSync(3059, $W()..reader(r));
+    final $r = $callSync(3068, $W()..reader(r));
     return $r.hnn($io.IoReadCloser.$h);
   }
 
   /// Go: `func flate.NewReaderDict(r io.Reader, dict []byte) io.ReadCloser`.
   $io.IoReadCloser newReaderDict(Object r, Uint8List dict) {
     final $r = $callSync(
-        3060,
+        3069,
         $W()
           ..reader(r)
           ..bytes(dict));
@@ -162,7 +162,7 @@ extension GoCompressFlateApi on GoCompressFlate {
   /// Go: `func flate.NewWriterDict(w io.Writer, level int, dict []byte) (*flate.Writer, error)`.
   CompressFlateWriter newWriterDict(GoHandle? w, int level, Uint8List dict) {
     final $r = $callSync(
-        3062,
+        3071,
         $W()
           ..h(w)
           ..i64(level)

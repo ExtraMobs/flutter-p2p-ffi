@@ -20,7 +20,7 @@ mixin RedactInterfacesSafeFormatter$ on GoHandle {
   /// Go: `func (interfaces.SafeFormatter).SafeFormat(s interfaces.SafePrinter, verb rune)`.
   void safeFormat(RedactInterfacesSafePrinter s, int verb) {
     $callSync(
-        5722,
+        5731,
         $W()
           ..h(this)
           ..h(s)
@@ -29,19 +29,19 @@ mixin RedactInterfacesSafeFormatter$ on GoHandle {
 
   /// Go: type assertion `x.(*pebble.Metrics)`: null if the object is not one.
   $v2.PebbleV2Metrics? asPebbleV2Metrics() {
-    final $r = $callSync(426, $W()..h(this));
+    final $r = $callSync(429, $W()..h(this));
     return $r.hn($v2.PebbleV2Metrics.$h);
   }
 
   /// Go: type assertion `x.(*pebble.TableIngestInfo)`: null if the object is not one.
   $v2.PebbleV2TableIngestInfo? asPebbleV2TableIngestInfo() {
-    final $r = $callSync(427, $W()..h(this));
+    final $r = $callSync(430, $W()..h(this));
     return $r.hn($v2.PebbleV2TableIngestInfo.$h);
   }
 
   /// Go: type assertion `x.(*wal.LogicalLog)`: null if the object is not one.
   $wal.PebbleV2WalLogicalLog? asPebbleV2WalLogicalLog() {
-    final $r = $callSync(428, $W()..h(this));
+    final $r = $callSync(431, $W()..h(this));
     return $r.hn($wal.PebbleV2WalLogicalLog.$h);
   }
 }
@@ -66,7 +66,7 @@ class RedactInterfacesSafeValue extends GoHandle
 mixin RedactInterfacesSafeValue$ on GoHandle {
   /// Go: `func (interfaces.SafeValue).SafeValue()`.
   void safeValue() {
-    $callSync(5723, $W()..h(this));
+    $callSync(5732, $W()..h(this));
   }
 }
 
@@ -81,7 +81,7 @@ mixin RedactInterfacesSafeWriter$ on GoHandle {
   /// Go: `func (interfaces.SafeWriter).Print(args ...interface{})`.
   void print([List<Object?> args = const []]) {
     $callSync(
-        5724,
+        5733,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -90,7 +90,7 @@ mixin RedactInterfacesSafeWriter$ on GoHandle {
   /// Go: `func (interfaces.SafeWriter).Printf(format string, arg ...interface{})`.
   void printf(String format, [List<Object?> arg = const []]) {
     $callSync(
-        5725,
+        5734,
         $W()
           ..h(this)
           ..str(format)
@@ -100,7 +100,7 @@ mixin RedactInterfacesSafeWriter$ on GoHandle {
   /// Go: `func (interfaces.SafeWriter).SafeFloat(interfaces.SafeFloat)`.
   void safeFloat(double arg0) {
     $callSync(
-        5726,
+        5735,
         $W()
           ..h(this)
           ..f64(arg0));
@@ -109,7 +109,7 @@ mixin RedactInterfacesSafeWriter$ on GoHandle {
   /// Go: `func (interfaces.SafeWriter).SafeInt(interfaces.SafeInt)`.
   void safeInt(int arg0) {
     $callSync(
-        5727,
+        5736,
         $W()
           ..h(this)
           ..i64(arg0));
@@ -118,7 +118,7 @@ mixin RedactInterfacesSafeWriter$ on GoHandle {
   /// Go: `func (interfaces.SafeWriter).SafeRune(interfaces.SafeRune)`.
   void safeRune(int arg0) {
     $callSync(
-        5728,
+        5737,
         $W()
           ..h(this)
           ..i64(arg0));
@@ -127,7 +127,7 @@ mixin RedactInterfacesSafeWriter$ on GoHandle {
   /// Go: `func (interfaces.SafeWriter).SafeString(interfaces.SafeString)`.
   void safeString(String arg0) {
     $callSync(
-        5729,
+        5738,
         $W()
           ..h(this)
           ..str(arg0));
@@ -136,7 +136,7 @@ mixin RedactInterfacesSafeWriter$ on GoHandle {
   /// Go: `func (interfaces.SafeWriter).SafeUint(interfaces.SafeUint)`.
   void safeUint(int arg0) {
     $callSync(
-        5730,
+        5739,
         $W()
           ..h(this)
           ..i64(arg0));
@@ -145,7 +145,7 @@ mixin RedactInterfacesSafeWriter$ on GoHandle {
   /// Go: `func (interfaces.SafeWriter).UnsafeByte(byte)`.
   void unsafeByte(int arg0) {
     $callSync(
-        5731,
+        5740,
         $W()
           ..h(this)
           ..i64(arg0));
@@ -154,7 +154,7 @@ mixin RedactInterfacesSafeWriter$ on GoHandle {
   /// Go: `func (interfaces.SafeWriter).UnsafeBytes([]byte)`.
   void unsafeBytes(Uint8List arg0) {
     $callSync(
-        5732,
+        5741,
         $W()
           ..h(this)
           ..bytes(arg0));
@@ -163,7 +163,7 @@ mixin RedactInterfacesSafeWriter$ on GoHandle {
   /// Go: `func (interfaces.SafeWriter).UnsafeRune(rune)`.
   void unsafeRune(int arg0) {
     $callSync(
-        5733,
+        5742,
         $W()
           ..h(this)
           ..i64(arg0));
@@ -172,7 +172,7 @@ mixin RedactInterfacesSafeWriter$ on GoHandle {
   /// Go: `func (interfaces.SafeWriter).UnsafeString(string)`.
   void unsafeString(String arg0) {
     $callSync(
-        5734,
+        5743,
         $W()
           ..h(this)
           ..str(arg0));
@@ -180,7 +180,7 @@ mixin RedactInterfacesSafeWriter$ on GoHandle {
 
   /// Go: type assertion `x.(interfaces.SafePrinter)`: null if the object is not one.
   RedactInterfacesSafePrinter? asRedactInterfacesSafePrinter() {
-    final $r = $callSync(429, $W()..h(this));
+    final $r = $callSync(432, $W()..h(this));
     return $r.hn(RedactInterfacesSafePrinter.$h);
   }
 }

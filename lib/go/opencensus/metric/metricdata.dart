@@ -271,7 +271,7 @@ final class MetricMetricdataPoint implements GoDto {
   /// Go: `func (metricdata.Point).ReadValue(vv metricdata.ValueVisitor)`.
   void readValue(MetricMetricdataValueVisitor vv) {
     $callSync(
-        19005,
+        19011,
         $W()
           ..dto(this)
           ..h(vv));
@@ -389,7 +389,7 @@ mixin MetricMetricdataValueVisitor$ on GoHandle {
   /// Go: `func (metricdata.ValueVisitor).VisitDistributionValue(*metricdata.Distribution)`.
   void visitDistributionValue(MetricMetricdataDistribution distribution) {
     $callSync(
-        19006,
+        19012,
         $W()
           ..h(this)
           ..dto(distribution));
@@ -398,7 +398,7 @@ mixin MetricMetricdataValueVisitor$ on GoHandle {
   /// Go: `func (metricdata.ValueVisitor).VisitFloat64Value(float64)`.
   void visitFloat64Value(double arg0) {
     $callSync(
-        19007,
+        19013,
         $W()
           ..h(this)
           ..f64(arg0));
@@ -407,7 +407,7 @@ mixin MetricMetricdataValueVisitor$ on GoHandle {
   /// Go: `func (metricdata.ValueVisitor).VisitInt64Value(int64)`.
   void visitInt64Value(int arg0) {
     $callSync(
-        19008,
+        19014,
         $W()
           ..h(this)
           ..i64(arg0));
@@ -416,7 +416,7 @@ mixin MetricMetricdataValueVisitor$ on GoHandle {
   /// Go: `func (metricdata.ValueVisitor).VisitSummaryValue(*metricdata.Summary)`.
   void visitSummaryValue(MetricMetricdataSummary summary) {
     $callSync(
-        19009,
+        19015,
         $W()
           ..h(this)
           ..dto(summary));
@@ -429,7 +429,7 @@ extension GoOpencensusMetricMetricdataApi on GoOpencensusMetricMetricdata {
   MetricMetricdataPoint newDistributionPoint(
       DateTime t, MetricMetricdataDistribution val) {
     final $r = $callSync(
-        19000,
+        19006,
         $W()
           ..time(t)
           ..dto(val));
@@ -439,7 +439,7 @@ extension GoOpencensusMetricMetricdataApi on GoOpencensusMetricMetricdata {
   /// Go: `func metricdata.NewFloat64Point(t time.Time, val float64) metricdata.Point`.
   MetricMetricdataPoint newFloat64Point(DateTime t, double val) {
     final $r = $callSync(
-        19001,
+        19007,
         $W()
           ..time(t)
           ..f64(val));
@@ -449,7 +449,7 @@ extension GoOpencensusMetricMetricdataApi on GoOpencensusMetricMetricdata {
   /// Go: `func metricdata.NewInt64Point(t time.Time, val int64) metricdata.Point`.
   MetricMetricdataPoint newInt64Point(DateTime t, int val) {
     final $r = $callSync(
-        19002,
+        19008,
         $W()
           ..time(t)
           ..i64(val));
@@ -458,7 +458,7 @@ extension GoOpencensusMetricMetricdataApi on GoOpencensusMetricMetricdata {
 
   /// Go: `func metricdata.NewLabelValue(val string) metricdata.LabelValue`.
   MetricMetricdataLabelValue newLabelValue(String val) {
-    final $r = $callSync(19003, $W()..str(val));
+    final $r = $callSync(19009, $W()..str(val));
     return $r.p() ? MetricMetricdataLabelValue.$dec($r) : $nil();
   }
 
@@ -466,7 +466,7 @@ extension GoOpencensusMetricMetricdataApi on GoOpencensusMetricMetricdata {
   MetricMetricdataPoint newSummaryPoint(
       DateTime t, MetricMetricdataSummary val) {
     final $r = $callSync(
-        19004,
+        19010,
         $W()
           ..time(t)
           ..dto(val));

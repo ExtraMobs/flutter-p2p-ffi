@@ -10,7 +10,7 @@ extension GoMunnerzGoautonegApi on GoMunnerzGoautoneg {
   /// Go: `func goautoneg.Negotiate(header string, alternatives []string) (content_type string)`.
   String negotiate(String header, List<String> alternatives) {
     final $r = $callSync(
-        16025,
+        16031,
         $W()
           ..str(header)
           ..list(alternatives, (w0, e0) => w0.str(e0)));

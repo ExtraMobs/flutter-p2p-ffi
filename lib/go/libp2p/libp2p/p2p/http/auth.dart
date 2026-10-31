@@ -37,7 +37,7 @@ class Libp2pP2pHttpAuthClientPeerIdAuth extends $crypto.CryptoDecrypterOpts
   ($peer.Libp2pCorePeerId, $http.NetHttpResponse) authenticateWithRoundTripper(
       $http.NetHttpRoundTripper rt, $http.NetHttpRequest req) {
     final $r = $callSync(
-        14591,
+        14597,
         $W()
           ..h(this)
           ..h(rt)
@@ -52,7 +52,7 @@ class Libp2pP2pHttpAuthClientPeerIdAuth extends $crypto.CryptoDecrypterOpts
   ($peer.Libp2pCorePeerId, $http.NetHttpResponse) authenticatedDo(
       $http.NetHttpClient client, $http.NetHttpRequest req) {
     final $r = $callSync(
-        14592,
+        14598,
         $W()
           ..h(this)
           ..dto(client)
@@ -66,7 +66,7 @@ class Libp2pP2pHttpAuthClientPeerIdAuth extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*httppeeridauth.ClientPeerIDAuth).HasToken(hostname string) bool`.
   bool hasToken(String hostname) {
     final $r = $callSync(
-        14593,
+        14599,
         $W()
           ..h(this)
           ..str(hostname));
@@ -97,7 +97,7 @@ class Libp2pP2pHttpAuthServerPeerIdAuth extends $http.NetHttpHandler
   /// Go: `func (*httppeeridauth.ServerPeerIDAuth).ServeHTTP(w http.ResponseWriter, r *http.Request)`.
   void serveHttp($http.NetHttpResponseWriter w, $http.NetHttpRequest r) {
     $callSync(
-        14595,
+        14601,
         $W()
           ..h(this)
           ..h(w)
@@ -120,7 +120,7 @@ class Libp2pP2pHttpAuthServerPeerIdAuth extends $http.NetHttpHandler
               $http.NetHttpRequest request)
           next) async {
     await $call(
-        14596,
+        14602,
         $W()
           ..h(this)
           ..h(w)
@@ -138,7 +138,7 @@ class Libp2pP2pHttpAuthServerPeerIdAuth extends $http.NetHttpHandler
 extension GoLibp2pLibp2pP2pHttpAuthApi on GoLibp2pLibp2pP2pHttpAuth {
   /// Go: `func httppeeridauth.HasAuthHeader(r *http.Request) bool`.
   bool hasAuthHeader($http.NetHttpRequest r) {
-    final $r = $callSync(14594, $W()..h(r));
+    final $r = $callSync(14600, $W()..h(r));
     return $r.b();
   }
 }

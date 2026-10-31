@@ -33,31 +33,31 @@ class BlockFormatBasicBlock extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (blocks.BasicBlock).Cid() cid.Cid`.
   $cid.Cid cid() {
-    final $r = $callSync(10460, $W()..h(this));
+    final $r = $callSync(10469, $W()..h(this));
     return $r.p() ? $cid.Cid($r.str()) : $nil();
   }
 
   /// Go: `func (blocks.BasicBlock).Loggable() map[string]any`.
   Map<String, Object?> loggable() {
-    final $r = $callSync(10461, $W()..h(this));
+    final $r = $callSync(10470, $W()..h(this));
     return $r.map(() => $r.str(), () => $r.any());
   }
 
   /// Go: `func (blocks.BasicBlock).Multihash() multihash.Multihash`.
   Uint8List multihash() {
-    final $r = $callSync(10462, $W()..h(this));
+    final $r = $callSync(10471, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (blocks.BasicBlock).RawData() []byte`.
   Uint8List rawData() {
-    final $r = $callSync(10463, $W()..h(this));
+    final $r = $callSync(10472, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (blocks.BasicBlock).String() string`.
   String string() {
-    final $r = $callSync(10464, $W()..h(this));
+    final $r = $callSync(10473, $W()..h(this));
     return $r.str();
   }
 }
@@ -116,14 +116,14 @@ class BlockFormatErrWrongHash extends GolangException {
 extension GoIpfsBlockFormatApi on GoIpfsBlockFormat {
   /// Go: `func blocks.NewBlock(data []byte) *blocks.BasicBlock`.
   BlockFormatBasicBlock newBlock(Uint8List data) {
-    final $r = $callSync(10465, $W()..bytes(data));
+    final $r = $callSync(10474, $W()..bytes(data));
     return $r.hnn(BlockFormatBasicBlock.$h);
   }
 
   /// Go: `func blocks.NewBlockWithCid(data []byte, c cid.Cid) (*blocks.BasicBlock, error)`.
   BlockFormatBasicBlock newBlockWithCid(Uint8List data, $cid.Cid c) {
     final $r = $callSync(
-        10466,
+        10475,
         $W()
           ..bytes(data)
           ..val(c));
@@ -134,7 +134,7 @@ extension GoIpfsBlockFormatApi on GoIpfsBlockFormat {
   BlockFormatBasicBlock newBlockWithPrefix(
       Uint8List data, $cid.CidPrefix prefix) {
     final $r = $callSync(
-        10467,
+        10476,
         $W()
           ..bytes(data)
           ..dto(prefix));

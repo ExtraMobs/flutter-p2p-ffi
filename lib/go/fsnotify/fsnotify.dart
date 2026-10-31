@@ -34,7 +34,7 @@ class FsnotifyEvent extends $crypto.CryptoDecrypterOpts
   /// Go: `func (fsnotify.Event).Has(op fsnotify.Op) bool`.
   bool has(int op) {
     final $r = $callSync(
-        6402,
+        6411,
         $W()
           ..h(this)
           ..i64(op));
@@ -43,7 +43,7 @@ class FsnotifyEvent extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (fsnotify.Event).String() string`.
   String string() {
-    final $r = $callSync(6403, $W()..h(this));
+    final $r = $callSync(6412, $W()..h(this));
     return $r.str();
   }
 }
@@ -72,14 +72,14 @@ class FsnotifyWatcher extends $io.IoCloser
 
   /// Go: `func fsnotify.NewWatcher() (*fsnotify.Watcher, error)`.
   factory FsnotifyWatcher() {
-    final $r = $callSync(6405);
+    final $r = $callSync(6414);
     return $r.hnn(FsnotifyWatcher.$h);
   }
 
   /// Go: `func (*fsnotify.Watcher).Add(path string) error`.
   void add(String path) {
     $callSync(
-        6406,
+        6415,
         $W()
           ..h(this)
           ..str(path));
@@ -88,7 +88,7 @@ class FsnotifyWatcher extends $io.IoCloser
   /// Go: `func (*fsnotify.Watcher).AddWith(path string, opts ...fsnotify.addOpt) error`.
   void addWith(String path) {
     $callSync(
-        6407,
+        6416,
         $W()
           ..h(this)
           ..str(path));
@@ -96,13 +96,13 @@ class FsnotifyWatcher extends $io.IoCloser
 
   /// Go: `func (*fsnotify.Watcher).Close() error`.
   void close() {
-    $callSync(6408, $W()..h(this));
+    $callSync(6417, $W()..h(this));
   }
 
   /// Go: `func (*fsnotify.Watcher).Remove(path string) error`.
   void remove(String path) {
     $callSync(
-        6409,
+        6418,
         $W()
           ..h(this)
           ..str(path));
@@ -110,7 +110,7 @@ class FsnotifyWatcher extends $io.IoCloser
 
   /// Go: `func (*fsnotify.Watcher).WatchList() []string`.
   List<String> watchList() {
-    final $r = $callSync(6410, $W()..h(this));
+    final $r = $callSync(6419, $W()..h(this));
     return $r.list(() => $r.str());
   }
 }
@@ -146,7 +146,7 @@ class FsnotifyErrNonExistentWatch extends GolangException {
 extension GoFsnotifyFsnotifyApi on GoFsnotifyFsnotify {
   /// Go: `func fsnotify.NewBufferedWatcher(sz uint) (*fsnotify.Watcher, error)`.
   FsnotifyWatcher newBufferedWatcher(int sz) {
-    final $r = $callSync(6404, $W()..i64(sz));
+    final $r = $callSync(6413, $W()..i64(sz));
     return $r.hnn(FsnotifyWatcher.$h);
   }
 }

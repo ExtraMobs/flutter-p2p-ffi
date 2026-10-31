@@ -9,20 +9,20 @@ import 'package:p2p_ffi/src/runtime.dart';
 extension GoMgutzAnsiApi on GoMgutzAnsi {
   /// Go: `var ansi.Black string`.
   String get black {
-    final $r = $callSync(15215);
+    final $r = $callSync(15221);
     return $r.str();
   }
 
   /// Go: `var ansi.Blue string`.
   String get blue {
-    final $r = $callSync(15216);
+    final $r = $callSync(15222);
     return $r.str();
   }
 
   /// Go: `func ansi.Color(s string, style string) string`.
   String color(String s, String style) {
     final $r = $callSync(
-        15217,
+        15223,
         $W()
           ..str(s)
           ..str(style));
@@ -31,107 +31,107 @@ extension GoMgutzAnsiApi on GoMgutzAnsi {
 
   /// Go: `func ansi.ColorCode(style string) string`.
   String colorCode(String style) {
-    final $r = $callSync(15218, $W()..str(style));
+    final $r = $callSync(15224, $W()..str(style));
     return $r.str();
   }
 
   /// Go: `var ansi.Colors map[string]int`.
   Map<String, int> get colors {
-    final $r = $callSync(15219);
+    final $r = $callSync(15225);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `var ansi.Cyan string`.
   String get cyan {
-    final $r = $callSync(15220);
+    final $r = $callSync(15226);
     return $r.str();
   }
 
   /// Go: `func ansi.DisableColors(disable bool)`.
   void disableColors(bool disable) {
-    $callSync(15221, $W()..b(disable));
+    $callSync(15227, $W()..b(disable));
   }
 
   /// Go: `var ansi.Green string`.
   String get green {
-    final $r = $callSync(15222);
+    final $r = $callSync(15228);
     return $r.str();
   }
 
   /// Go: `var ansi.LightBlack string`.
   String get lightBlack {
-    final $r = $callSync(15223);
+    final $r = $callSync(15229);
     return $r.str();
   }
 
   /// Go: `var ansi.LightBlue string`.
   String get lightBlue {
-    final $r = $callSync(15224);
+    final $r = $callSync(15230);
     return $r.str();
   }
 
   /// Go: `var ansi.LightCyan string`.
   String get lightCyan {
-    final $r = $callSync(15225);
+    final $r = $callSync(15231);
     return $r.str();
   }
 
   /// Go: `var ansi.LightGreen string`.
   String get lightGreen {
-    final $r = $callSync(15226);
+    final $r = $callSync(15232);
     return $r.str();
   }
 
   /// Go: `var ansi.LightMagenta string`.
   String get lightMagenta {
-    final $r = $callSync(15227);
+    final $r = $callSync(15233);
     return $r.str();
   }
 
   /// Go: `var ansi.LightRed string`.
   String get lightRed {
-    final $r = $callSync(15228);
+    final $r = $callSync(15234);
     return $r.str();
   }
 
   /// Go: `var ansi.LightWhite string`.
   String get lightWhite {
-    final $r = $callSync(15229);
+    final $r = $callSync(15235);
     return $r.str();
   }
 
   /// Go: `var ansi.LightYellow string`.
   String get lightYellow {
-    final $r = $callSync(15230);
+    final $r = $callSync(15236);
     return $r.str();
   }
 
   /// Go: `var ansi.Magenta string`.
   String get magenta {
-    final $r = $callSync(15231);
+    final $r = $callSync(15237);
     return $r.str();
   }
 
   /// Go: `func ansi.PrintStyles()`.
   void printStyles() {
-    $callSync(15232);
+    $callSync(15238);
   }
 
   /// Go: `var ansi.Red string`.
   String get red {
-    final $r = $callSync(15233);
+    final $r = $callSync(15239);
     return $r.str();
   }
 
   /// Go: `var ansi.White string`.
   String get white {
-    final $r = $callSync(15234);
+    final $r = $callSync(15240);
     return $r.str();
   }
 
   /// Go: `var ansi.Yellow string`.
   String get yellow {
-    final $r = $callSync(15235);
+    final $r = $callSync(15241);
     return $r.str();
   }
 }

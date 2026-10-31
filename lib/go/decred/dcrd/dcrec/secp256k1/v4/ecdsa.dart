@@ -38,7 +38,7 @@ class Secp256k1V4EcdsaSignature extends $crypto.CryptoDecrypterOpts
   factory Secp256k1V4EcdsaSignature(
       $v4.Secp256k1V4ModNScalar r, $v4.Secp256k1V4ModNScalar s) {
     final $r = $callSync(
-        5841,
+        5850,
         $W()
           ..h(r)
           ..h(s));
@@ -48,7 +48,7 @@ class Secp256k1V4EcdsaSignature extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*ecdsa.Signature).IsEqual(otherSig *ecdsa.Signature) bool`.
   bool isEqual(Secp256k1V4EcdsaSignature otherSig) {
     final $r = $callSync(
-        5846,
+        5855,
         $W()
           ..h(this)
           ..h(otherSig));
@@ -57,26 +57,26 @@ class Secp256k1V4EcdsaSignature extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*ecdsa.Signature).R() secp256k1.ModNScalar`.
   $v4.Secp256k1V4ModNScalar r() {
-    final $r = $callSync(5847, $W()..h(this));
+    final $r = $callSync(5856, $W()..h(this));
     return $r.hnn($v4.Secp256k1V4ModNScalar.$h);
   }
 
   /// Go: `func (*ecdsa.Signature).S() secp256k1.ModNScalar`.
   $v4.Secp256k1V4ModNScalar s() {
-    final $r = $callSync(5848, $W()..h(this));
+    final $r = $callSync(5857, $W()..h(this));
     return $r.hnn($v4.Secp256k1V4ModNScalar.$h);
   }
 
   /// Go: `func (*ecdsa.Signature).Serialize() []byte`.
   Uint8List serialize() {
-    final $r = $callSync(5849, $W()..h(this));
+    final $r = $callSync(5858, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*ecdsa.Signature).Verify(hash []byte, pubKey *secp256k1.PublicKey) bool`.
   bool verify(Uint8List hash, $v4.Secp256k1V4PublicKey pubKey) {
     final $r = $callSync(
-        5850,
+        5859,
         $W()
           ..h(this)
           ..bytes(hash)
@@ -113,7 +113,7 @@ extension GoDecredDcrdDcrecSecp256k1V4EcdsaApi
     on GoDecredDcrdDcrecSecp256k1V4Ecdsa {
   /// Go: `func ecdsa.ParseDERSignature(sig []byte) (*ecdsa.Signature, error)`.
   Secp256k1V4EcdsaSignature parseDerSignature(Uint8List sig) {
-    final $r = $callSync(5842, $W()..bytes(sig));
+    final $r = $callSync(5851, $W()..bytes(sig));
     return $r.hnn(Secp256k1V4EcdsaSignature.$h);
   }
 
@@ -121,7 +121,7 @@ extension GoDecredDcrdDcrecSecp256k1V4EcdsaApi
   ($v4.Secp256k1V4PublicKey, bool) recoverCompact(
       Uint8List signature, Uint8List hash) {
     final $r = $callSync(
-        5843,
+        5852,
         $W()
           ..bytes(signature)
           ..bytes(hash));
@@ -132,7 +132,7 @@ extension GoDecredDcrdDcrecSecp256k1V4EcdsaApi
   Secp256k1V4EcdsaSignature sign(
       $v4.Secp256k1V4PrivateKey key, Uint8List hash) {
     final $r = $callSync(
-        5844,
+        5853,
         $W()
           ..dto(key)
           ..bytes(hash));
@@ -143,7 +143,7 @@ extension GoDecredDcrdDcrecSecp256k1V4EcdsaApi
   Uint8List signCompact(
       $v4.Secp256k1V4PrivateKey key, Uint8List hash, bool isCompressedKey) {
     final $r = $callSync(
-        5845,
+        5854,
         $W()
           ..dto(key)
           ..bytes(hash)

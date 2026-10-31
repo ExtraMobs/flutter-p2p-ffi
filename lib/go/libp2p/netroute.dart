@@ -18,7 +18,7 @@ mixin NetrouteRouter$ on GoHandle {
   /// Go: `func (netroute.Router).Route(dst net.IP) (iface *net.Interface, gateway net.IP, preferredSrc net.IP, err error)`.
   ($net.NetInterface, Uint8List, Uint8List) route(Uint8List dst) {
     final $r = $callSync(
-        15136,
+        15142,
         $W()
           ..h(this)
           ..bytes(dst));
@@ -33,7 +33,7 @@ mixin NetrouteRouter$ on GoHandle {
   ($net.NetInterface, Uint8List, Uint8List) routeWithSrc(
       Uint8List input, Uint8List src, Uint8List dst) {
     final $r = $callSync(
-        15137,
+        15143,
         $W()
           ..h(this)
           ..bytes(input)
@@ -51,7 +51,7 @@ mixin NetrouteRouter$ on GoHandle {
 extension GoLibp2pNetrouteApi on GoLibp2pNetroute {
   /// Go: `func netroute.New() (netroute.Router, error)`.
   NetrouteRouter new$() {
-    final $r = $callSync(15135);
+    final $r = $callSync(15141);
     return $r.hnn(NetrouteRouter.$h);
   }
 }

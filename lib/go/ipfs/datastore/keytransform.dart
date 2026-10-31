@@ -64,7 +64,7 @@ class DatastoreKeytransformDatastore extends $datastore.DatastoreShim
   /// Asynchronous: runs in a goroutine of the service.
   Future<$datastore.DatastoreBatch> batch($context.Context ctx) async {
     final $r = await $call(
-        10632,
+        10641,
         $W()
           ..h(this)
           ..h(ctx));
@@ -76,7 +76,7 @@ class DatastoreKeytransformDatastore extends $datastore.DatastoreShim
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> check($context.Context ctx) async {
     await $call(
-        10633,
+        10642,
         $W()
           ..h(this)
           ..h(ctx));
@@ -84,13 +84,13 @@ class DatastoreKeytransformDatastore extends $datastore.DatastoreShim
 
   /// Go: `func (*keytransform.Datastore).Children() []datastore.Datastore`.
   List<$datastore.Datastore> children() {
-    final $r = $callSync(10634, $W()..h(this));
+    final $r = $callSync(10643, $W()..h(this));
     return $r.list(() => $r.hnn($datastore.Datastore.$h));
   }
 
   /// Go: `func (*keytransform.Datastore).Close() error`.
   void close() {
-    $callSync(10635, $W()..h(this));
+    $callSync(10644, $W()..h(this));
   }
 
   /// Go: `func (*keytransform.Datastore).CollectGarbage(ctx context.Context) error`.
@@ -98,7 +98,7 @@ class DatastoreKeytransformDatastore extends $datastore.DatastoreShim
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> collectGarbage($context.Context ctx) async {
     await $call(
-        10636,
+        10645,
         $W()
           ..h(this)
           ..h(ctx));
@@ -107,7 +107,7 @@ class DatastoreKeytransformDatastore extends $datastore.DatastoreShim
   /// Go: `func (keytransform.KeyTransform).ConvertKey(datastore.Key) datastore.Key`.
   $datastore.DatastoreKey convertKey($datastore.DatastoreKey key) {
     final $r = $callSync(
-        10637,
+        10646,
         $W()
           ..h(this)
           ..h(key));
@@ -119,7 +119,7 @@ class DatastoreKeytransformDatastore extends $datastore.DatastoreShim
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> delete($context.Context ctx, $datastore.DatastoreKey key) async {
     await $call(
-        10638,
+        10647,
         $W()
           ..h(this)
           ..h(ctx)
@@ -131,7 +131,7 @@ class DatastoreKeytransformDatastore extends $datastore.DatastoreShim
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> diskUsage($context.Context ctx) async {
     final $r = await $call(
-        10639,
+        10648,
         $W()
           ..h(this)
           ..h(ctx));
@@ -144,7 +144,7 @@ class DatastoreKeytransformDatastore extends $datastore.DatastoreShim
   Future<Uint8List> get(
       $context.Context ctx, $datastore.DatastoreKey key) async {
     final $r = await $call(
-        10640,
+        10649,
         $W()
           ..h(this)
           ..h(ctx)
@@ -157,7 +157,7 @@ class DatastoreKeytransformDatastore extends $datastore.DatastoreShim
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getSize($context.Context ctx, $datastore.DatastoreKey key) async {
     final $r = await $call(
-        10641,
+        10650,
         $W()
           ..h(this)
           ..h(ctx)
@@ -170,7 +170,7 @@ class DatastoreKeytransformDatastore extends $datastore.DatastoreShim
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> has($context.Context ctx, $datastore.DatastoreKey key) async {
     final $r = await $call(
-        10642,
+        10651,
         $W()
           ..h(this)
           ..h(ctx)
@@ -181,7 +181,7 @@ class DatastoreKeytransformDatastore extends $datastore.DatastoreShim
   /// Go: `func (keytransform.KeyTransform).InvertKey(datastore.Key) datastore.Key`.
   $datastore.DatastoreKey invertKey($datastore.DatastoreKey key) {
     final $r = $callSync(
-        10643,
+        10652,
         $W()
           ..h(this)
           ..h(key));
@@ -194,7 +194,7 @@ class DatastoreKeytransformDatastore extends $datastore.DatastoreShim
   Future<$datastore.DatastoreTxn> newTransaction(
       $context.Context ctx, bool readOnly) async {
     final $r = await $call(
-        10644,
+        10653,
         $W()
           ..h(this)
           ..h(ctx)
@@ -208,7 +208,7 @@ class DatastoreKeytransformDatastore extends $datastore.DatastoreShim
   Future<void> put($context.Context ctx, $datastore.DatastoreKey key,
       Uint8List value) async {
     await $call(
-        10645,
+        10654,
         $W()
           ..h(this)
           ..h(ctx)
@@ -222,7 +222,7 @@ class DatastoreKeytransformDatastore extends $datastore.DatastoreShim
   Future<$query.DatastoreQueryResults> query(
       $context.Context ctx, $query.DatastoreQuery q) async {
     final $r = await $call(
-        10646,
+        10655,
         $W()
           ..h(this)
           ..h(ctx)
@@ -235,7 +235,7 @@ class DatastoreKeytransformDatastore extends $datastore.DatastoreShim
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> scrub($context.Context ctx) async {
     await $call(
-        10647,
+        10656,
         $W()
           ..h(this)
           ..h(ctx));
@@ -247,7 +247,7 @@ class DatastoreKeytransformDatastore extends $datastore.DatastoreShim
   Future<void> sync(
       $context.Context ctx, $datastore.DatastoreKey prefix) async {
     await $call(
-        10648,
+        10657,
         $W()
           ..h(this)
           ..h(ctx)
@@ -285,7 +285,7 @@ mixin DatastoreKeytransformKeyTransform$ on GoHandle {
   /// Go: `func (keytransform.KeyTransform).ConvertKey(datastore.Key) datastore.Key`.
   $datastore.DatastoreKey convertKey($datastore.DatastoreKey key) {
     final $r = $callSync(
-        10649,
+        10658,
         $W()
           ..h(this)
           ..h(key));
@@ -295,7 +295,7 @@ mixin DatastoreKeytransformKeyTransform$ on GoHandle {
   /// Go: `func (keytransform.KeyTransform).InvertKey(datastore.Key) datastore.Key`.
   $datastore.DatastoreKey invertKey($datastore.DatastoreKey key) {
     final $r = $callSync(
-        10650,
+        10659,
         $W()
           ..h(this)
           ..h(key));
@@ -304,7 +304,7 @@ mixin DatastoreKeytransformKeyTransform$ on GoHandle {
 
   /// Go: type assertion `x.(*keytransform.Datastore)`: null if the object is not one.
   DatastoreKeytransformDatastore? asDatastoreKeytransformDatastore() {
-    final $r = $callSync(1109, $W()..h(this));
+    final $r = $callSync(1112, $W()..h(this));
     return $r.hn(DatastoreKeytransformDatastore.$h);
   }
 }
@@ -337,7 +337,7 @@ final class DatastoreKeytransformPair implements GoDto {
   /// Go: `func (*keytransform.Pair).ConvertKey(k datastore.Key) datastore.Key`.
   $datastore.DatastoreKey convertKey($datastore.DatastoreKey k) {
     final $r = $callSync(
-        10651,
+        10660,
         $W()
           ..dto(this)
           ..h(k));
@@ -347,7 +347,7 @@ final class DatastoreKeytransformPair implements GoDto {
   /// Go: `func (*keytransform.Pair).InvertKey(k datastore.Key) datastore.Key`.
   $datastore.DatastoreKey invertKey($datastore.DatastoreKey k) {
     final $r = $callSync(
-        10652,
+        10661,
         $W()
           ..dto(this)
           ..h(k));
@@ -374,7 +374,7 @@ final class DatastoreKeytransformPrefixTransform implements GoDto {
   /// Go: `func (keytransform.PrefixTransform).ConvertKey(k datastore.Key) datastore.Key`.
   $datastore.DatastoreKey convertKey($datastore.DatastoreKey k) {
     final $r = $callSync(
-        10653,
+        10662,
         $W()
           ..dto(this)
           ..h(k));
@@ -384,7 +384,7 @@ final class DatastoreKeytransformPrefixTransform implements GoDto {
   /// Go: `func (keytransform.PrefixTransform).InvertKey(k datastore.Key) datastore.Key`.
   $datastore.DatastoreKey invertKey($datastore.DatastoreKey k) {
     final $r = $callSync(
-        10654,
+        10663,
         $W()
           ..dto(this)
           ..h(k));
@@ -398,7 +398,7 @@ extension GoIpfsDatastoreKeytransformApi on GoIpfsDatastoreKeytransform {
   DatastoreKeytransformDatastore wrap(
       $datastore.Datastore child, DatastoreKeytransformKeyTransform t) {
     final $r = $callSync(
-        10655,
+        10664,
         $W()
           ..h(child)
           ..h(t));

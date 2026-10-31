@@ -34,20 +34,20 @@ class CryptoMlkemDecapsulationKey1024 extends $crypto.CryptoDecapsulator
 
   /// Go: `func mlkem.NewDecapsulationKey1024(seed []byte) (*mlkem.DecapsulationKey1024, error)`.
   factory CryptoMlkemDecapsulationKey1024(Uint8List seed) {
-    final $r = $callSync(3288, $W()..bytes(seed));
+    final $r = $callSync(3297, $W()..bytes(seed));
     return $r.hnn(CryptoMlkemDecapsulationKey1024.$h);
   }
 
   /// Go: `func (*mlkem.DecapsulationKey1024).Bytes() []byte`.
   Uint8List bytes() {
-    final $r = $callSync(3274, $W()..h(this));
+    final $r = $callSync(3283, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*mlkem.DecapsulationKey1024).Decapsulate(ciphertext []byte) (sharedKey []byte, err error)`.
   Uint8List decapsulate(Uint8List ciphertext) {
     final $r = $callSync(
-        3275,
+        3284,
         $W()
           ..h(this)
           ..bytes(ciphertext));
@@ -56,13 +56,13 @@ class CryptoMlkemDecapsulationKey1024 extends $crypto.CryptoDecapsulator
 
   /// Go: `func (*mlkem.DecapsulationKey1024).EncapsulationKey() *mlkem.EncapsulationKey1024`.
   CryptoMlkemEncapsulationKey1024 encapsulationKey() {
-    final $r = $callSync(3276, $W()..h(this));
+    final $r = $callSync(3285, $W()..h(this));
     return $r.hnn(CryptoMlkemEncapsulationKey1024.$h);
   }
 
   /// Go: `func (*mlkem.DecapsulationKey1024).Encapsulator() crypto.Encapsulator`.
   $crypto.CryptoEncapsulator encapsulator() {
-    final $r = $callSync(3277, $W()..h(this));
+    final $r = $callSync(3286, $W()..h(this));
     return $r.hnn($crypto.CryptoEncapsulator.$h);
   }
 }
@@ -89,20 +89,20 @@ class CryptoMlkemDecapsulationKey768 extends $crypto.CryptoDecapsulator
 
   /// Go: `func mlkem.NewDecapsulationKey768(seed []byte) (*mlkem.DecapsulationKey768, error)`.
   factory CryptoMlkemDecapsulationKey768(Uint8List seed) {
-    final $r = $callSync(3289, $W()..bytes(seed));
+    final $r = $callSync(3298, $W()..bytes(seed));
     return $r.hnn(CryptoMlkemDecapsulationKey768.$h);
   }
 
   /// Go: `func (*mlkem.DecapsulationKey768).Bytes() []byte`.
   Uint8List bytes() {
-    final $r = $callSync(3278, $W()..h(this));
+    final $r = $callSync(3287, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*mlkem.DecapsulationKey768).Decapsulate(ciphertext []byte) (sharedKey []byte, err error)`.
   Uint8List decapsulate(Uint8List ciphertext) {
     final $r = $callSync(
-        3279,
+        3288,
         $W()
           ..h(this)
           ..bytes(ciphertext));
@@ -111,13 +111,13 @@ class CryptoMlkemDecapsulationKey768 extends $crypto.CryptoDecapsulator
 
   /// Go: `func (*mlkem.DecapsulationKey768).EncapsulationKey() *mlkem.EncapsulationKey768`.
   CryptoMlkemEncapsulationKey768 encapsulationKey() {
-    final $r = $callSync(3280, $W()..h(this));
+    final $r = $callSync(3289, $W()..h(this));
     return $r.hnn(CryptoMlkemEncapsulationKey768.$h);
   }
 
   /// Go: `func (*mlkem.DecapsulationKey768).Encapsulator() crypto.Encapsulator`.
   $crypto.CryptoEncapsulator encapsulator() {
-    final $r = $callSync(3281, $W()..h(this));
+    final $r = $callSync(3290, $W()..h(this));
     return $r.hnn($crypto.CryptoEncapsulator.$h);
   }
 }
@@ -144,19 +144,19 @@ class CryptoMlkemEncapsulationKey1024 extends $crypto.CryptoEncapsulator
 
   /// Go: `func mlkem.NewEncapsulationKey1024(encapsulationKey []byte) (*mlkem.EncapsulationKey1024, error)`.
   factory CryptoMlkemEncapsulationKey1024(Uint8List encapsulationKey) {
-    final $r = $callSync(3290, $W()..bytes(encapsulationKey));
+    final $r = $callSync(3299, $W()..bytes(encapsulationKey));
     return $r.hnn(CryptoMlkemEncapsulationKey1024.$h);
   }
 
   /// Go: `func (*mlkem.EncapsulationKey1024).Bytes() []byte`.
   Uint8List bytes() {
-    final $r = $callSync(3282, $W()..h(this));
+    final $r = $callSync(3291, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*mlkem.EncapsulationKey1024).Encapsulate() (sharedKey []byte, ciphertext []byte)`.
   (Uint8List, Uint8List) encapsulate() {
-    final $r = $callSync(3283, $W()..h(this));
+    final $r = $callSync(3292, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.bytes() ?? Uint8List(0));
   }
 }
@@ -183,19 +183,19 @@ class CryptoMlkemEncapsulationKey768 extends $crypto.CryptoEncapsulator
 
   /// Go: `func mlkem.NewEncapsulationKey768(encapsulationKey []byte) (*mlkem.EncapsulationKey768, error)`.
   factory CryptoMlkemEncapsulationKey768(Uint8List encapsulationKey) {
-    final $r = $callSync(3291, $W()..bytes(encapsulationKey));
+    final $r = $callSync(3300, $W()..bytes(encapsulationKey));
     return $r.hnn(CryptoMlkemEncapsulationKey768.$h);
   }
 
   /// Go: `func (*mlkem.EncapsulationKey768).Bytes() []byte`.
   Uint8List bytes() {
-    final $r = $callSync(3284, $W()..h(this));
+    final $r = $callSync(3293, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*mlkem.EncapsulationKey768).Encapsulate() (sharedKey []byte, ciphertext []byte)`.
   (Uint8List, Uint8List) encapsulate() {
-    final $r = $callSync(3285, $W()..h(this));
+    final $r = $callSync(3294, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.bytes() ?? Uint8List(0));
   }
 }
@@ -204,13 +204,13 @@ class CryptoMlkemEncapsulationKey768 extends $crypto.CryptoEncapsulator
 extension GoCryptoMlkemApi on GoCryptoMlkem {
   /// Go: `func mlkem.GenerateKey1024() (*mlkem.DecapsulationKey1024, error)`.
   CryptoMlkemDecapsulationKey1024 generateKey1024() {
-    final $r = $callSync(3286);
+    final $r = $callSync(3295);
     return $r.hnn(CryptoMlkemDecapsulationKey1024.$h);
   }
 
   /// Go: `func mlkem.GenerateKey768() (*mlkem.DecapsulationKey768, error)`.
   CryptoMlkemDecapsulationKey768 generateKey768() {
-    final $r = $callSync(3287);
+    final $r = $callSync(3296);
     return $r.hnn(CryptoMlkemDecapsulationKey768.$h);
   }
 }

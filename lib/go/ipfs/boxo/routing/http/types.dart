@@ -104,7 +104,7 @@ final class BoxoRoutingHttpTypesBitswapRecord implements GoDto {
 
   /// Go: `func (*types.BitswapRecord).GetSchema() string`.
   String getSchema() {
-    final $r = $callSync(10404, $W()..dto(this));
+    final $r = $callSync(10413, $W()..dto(this));
     return $r.str();
   }
 }
@@ -125,14 +125,14 @@ final class BoxoRoutingHttpTypesCid implements GoDto {
 
   /// Go: `func (*types.CID).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(10405, $W()..dto(this));
+    final $r = $callSync(10414, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*types.CID).UnmarshalJSON(b []byte) error`.
   void unmarshalJson(Uint8List b) {
     $callSync(
-        10406,
+        10415,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -157,14 +157,14 @@ final class BoxoRoutingHttpTypesDuration implements GoDto {
 
   /// Go: `func (*types.Duration).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(10407, $W()..dto(this));
+    final $r = $callSync(10416, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*types.Duration).UnmarshalJSON(b []byte) error`.
   void unmarshalJson(Uint8List b) {
     $callSync(
-        10408,
+        10417,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -189,14 +189,14 @@ final class BoxoRoutingHttpTypesMultiaddr implements GoDto {
 
   /// Go: `func (types.Multiaddr).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(10410, $W()..dto(this));
+    final $r = $callSync(10419, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*types.Multiaddr).UnmarshalJSON(b []byte) error`.
   void unmarshalJson(Uint8List b) {
     $callSync(
-        10411,
+        10420,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -252,20 +252,20 @@ final class BoxoRoutingHttpTypesPeerRecord implements GoDto {
 
   /// Go: `func (*types.PeerRecord).GetSchema() string`.
   String getSchema() {
-    final $r = $callSync(10412, $W()..dto(this));
+    final $r = $callSync(10421, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (types.PeerRecord).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(10413, $W()..dto(this));
+    final $r = $callSync(10422, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*types.PeerRecord).UnmarshalJSON(b []byte) error`.
   void unmarshalJson(Uint8List b) {
     $callSync(
-        10414,
+        10423,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -304,14 +304,14 @@ final class BoxoRoutingHttpTypesTime implements GoDto {
 
   /// Go: `func (*types.Time).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(10415, $W()..dto(this));
+    final $r = $callSync(10424, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*types.Time).UnmarshalJSON(b []byte) error`.
   void unmarshalJson(Uint8List b) {
     $callSync(
-        10416,
+        10425,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -343,20 +343,20 @@ final class BoxoRoutingHttpTypesUnknownRecord implements GoDto {
 
   /// Go: `func (*types.UnknownRecord).GetSchema() string`.
   String getSchema() {
-    final $r = $callSync(10417, $W()..dto(this));
+    final $r = $callSync(10426, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (types.UnknownRecord).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(10418, $W()..dto(this));
+    final $r = $callSync(10427, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*types.UnknownRecord).UnmarshalJSON(b []byte) error`.
   void unmarshalJson(Uint8List b) {
     $callSync(
-        10419,
+        10428,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -412,13 +412,13 @@ final class BoxoRoutingHttpTypesWriteBitswapRecord implements GoDto {
 
   /// Go: `func (*types.WriteBitswapRecord).GetSchema() string`.
   String getSchema() {
-    final $r = $callSync(10420, $W()..dto(this));
+    final $r = $callSync(10429, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.WriteBitswapRecord).IsSigned() bool`.
   bool isSigned() {
-    final $r = $callSync(10421, $W()..dto(this));
+    final $r = $callSync(10430, $W()..dto(this));
     return $r.b();
   }
 
@@ -426,7 +426,7 @@ final class BoxoRoutingHttpTypesWriteBitswapRecord implements GoDto {
   void sign(
       $peer.Libp2pCorePeerId peerId, $crypto.Libp2pCoreCryptoPrivKey key) {
     $callSync(
-        10422,
+        10431,
         $W()
           ..dto(this)
           ..val(peerId)
@@ -436,7 +436,7 @@ final class BoxoRoutingHttpTypesWriteBitswapRecord implements GoDto {
   /// Go: `func (*types.WriteBitswapRecord).UnmarshalJSON(b []byte) error`.
   void unmarshalJson(Uint8List b) {
     $callSync(
-        10423,
+        10432,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -444,7 +444,7 @@ final class BoxoRoutingHttpTypesWriteBitswapRecord implements GoDto {
 
   /// Go: `func (*types.WriteBitswapRecord).Verify() error`.
   void verify() {
-    $callSync(10424, $W()..dto(this));
+    $callSync(10433, $W()..dto(this));
   }
 }
 
@@ -483,7 +483,7 @@ final class BoxoRoutingHttpTypesWriteBitswapRecordResponse implements GoDto {
 
   /// Go: `func (*types.WriteBitswapRecordResponse).GetSchema() string`.
   String getSchema() {
-    final $r = $callSync(10425, $W()..dto(this));
+    final $r = $callSync(10434, $W()..dto(this));
     return $r.str();
   }
 }
@@ -493,7 +493,7 @@ extension GoIpfsBoxoRoutingHttpTypesApi on GoIpfsBoxoRoutingHttpTypes {
   /// Go: `func types.FromBitswapRecord(br *types.BitswapRecord) *types.PeerRecord`.
   BoxoRoutingHttpTypesPeerRecord fromBitswapRecord(
       BoxoRoutingHttpTypesBitswapRecord br) {
-    final $r = $callSync(10409, $W()..dto(br));
+    final $r = $callSync(10418, $W()..dto(br));
     return $r.p() ? BoxoRoutingHttpTypesPeerRecord.$dec($r) : $nil();
   }
 }

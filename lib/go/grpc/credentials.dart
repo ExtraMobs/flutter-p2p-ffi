@@ -39,7 +39,7 @@ mixin GrpcCredentialsAuthorityValidator$ on GoHandle {
   /// Go: `func (credentials.AuthorityValidator).ValidateAuthority(authority string) error`.
   void validateAuthority(String authority) {
     $callSync(
-        24487,
+        24493,
         $W()
           ..h(this)
           ..str(authority));
@@ -56,7 +56,7 @@ mixin GrpcCredentialsBundle$ on GoHandle {
   /// Go: `func (credentials.Bundle).NewWithMode(mode string) (credentials.Bundle, error)`.
   GrpcCredentialsBundle newWithMode(String mode) {
     final $r = $callSync(
-        24488,
+        24494,
         $W()
           ..h(this)
           ..str(mode));
@@ -65,13 +65,13 @@ mixin GrpcCredentialsBundle$ on GoHandle {
 
   /// Go: `func (credentials.Bundle).PerRPCCredentials() credentials.PerRPCCredentials`.
   GrpcCredentialsPerRpcCredentials perRpcCredentials() {
-    final $r = $callSync(24489, $W()..h(this));
+    final $r = $callSync(24495, $W()..h(this));
     return $r.hnn(GrpcCredentialsPerRpcCredentials.$h);
   }
 
   /// Go: `func (credentials.Bundle).TransportCredentials() credentials.TransportCredentials`.
   GrpcCredentialsTransportCredentials transportCredentials() {
-    final $r = $callSync(24490, $W()..h(this));
+    final $r = $callSync(24496, $W()..h(this));
     return $r.hnn(GrpcCredentialsTransportCredentials.$h);
   }
 }
@@ -86,7 +86,7 @@ class GrpcCredentialsChannelzSecurityInfo extends GoHandle
 mixin GrpcCredentialsChannelzSecurityInfo$ on GoHandle {
   /// Go: `func (credentials.ChannelzSecurityInfo).GetSecurityValue() credentials.ChannelzSecurityValue`.
   GrpcCredentialsChannelzSecurityValue getSecurityValue() {
-    final $r = $callSync(24491, $W()..h(this));
+    final $r = $callSync(24497, $W()..h(this));
     return $r.hnn(GrpcCredentialsChannelzSecurityValue.$h);
   }
 }
@@ -134,7 +134,7 @@ final class GrpcCredentialsCommonAuthInfo implements GoDto {
 
   /// Go: `func (credentials.CommonAuthInfo).GetCommonAuthInfo() credentials.CommonAuthInfo`.
   GrpcCredentialsCommonAuthInfo getCommonAuthInfo() {
-    final $r = $callSync(24494, $W()..dto(this));
+    final $r = $callSync(24500, $W()..dto(this));
     return $r.p() ? GrpcCredentialsCommonAuthInfo.$dec($r) : $nil();
   }
 }
@@ -153,7 +153,7 @@ mixin GrpcCredentialsPerRpcCredentials$ on GoHandle {
   Future<Map<String, String>> getRequestMetadata($context.Context ctx,
       [List<String> uri = const []]) async {
     final $r = await $call(
-        24500,
+        24506,
         $W()
           ..h(this)
           ..h(ctx)
@@ -163,7 +163,7 @@ mixin GrpcCredentialsPerRpcCredentials$ on GoHandle {
 
   /// Go: `func (credentials.PerRPCCredentials).RequireTransportSecurity() bool`.
   bool requireTransportSecurity() {
-    final $r = $callSync(24501, $W()..h(this));
+    final $r = $callSync(24507, $W()..h(this));
     return $r.b();
   }
 }
@@ -259,26 +259,26 @@ final class GrpcCredentialsTlsInfo implements GoDto {
 
   /// Go: `func (credentials.TLSInfo).AuthType() string`.
   String authType() {
-    final $r = $callSync(24503, $W()..dto(this));
+    final $r = $callSync(24509, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (credentials.CommonAuthInfo).GetCommonAuthInfo() credentials.CommonAuthInfo`.
   GrpcCredentialsCommonAuthInfo getCommonAuthInfo() {
-    final $r = $callSync(24504, $W()..dto(this));
+    final $r = $callSync(24510, $W()..dto(this));
     return $r.p() ? GrpcCredentialsCommonAuthInfo.$dec($r) : $nil();
   }
 
   /// Go: `func (credentials.TLSInfo).GetSecurityValue() credentials.ChannelzSecurityValue`.
   GrpcCredentialsChannelzSecurityValue getSecurityValue() {
-    final $r = $callSync(24505, $W()..dto(this));
+    final $r = $callSync(24511, $W()..dto(this));
     return $r.hnn(GrpcCredentialsChannelzSecurityValue.$h);
   }
 
   /// Go: `func (credentials.TLSInfo).ValidateAuthority(authority string) error`.
   void validateAuthority(String authority) {
     $callSync(
-        24506,
+        24512,
         $W()
           ..dto(this)
           ..str(authority));
@@ -299,7 +299,7 @@ mixin GrpcCredentialsTransportCredentials$ on GoHandle {
   Future<($net.NetConn, GrpcCredentialsAuthInfo)> clientHandshake(
       $context.Context ctx, String arg1, $net.NetConn conn) async {
     final $r = await $call(
-        24507,
+        24513,
         $W()
           ..h(this)
           ..h(ctx)
@@ -313,13 +313,13 @@ mixin GrpcCredentialsTransportCredentials$ on GoHandle {
 
   /// Go: `func (credentials.TransportCredentials).Clone() credentials.TransportCredentials`.
   GrpcCredentialsTransportCredentials clone() {
-    final $r = $callSync(24508, $W()..h(this));
+    final $r = $callSync(24514, $W()..h(this));
     return $r.hnn(GrpcCredentialsTransportCredentials.$h);
   }
 
   /// Go: `func (credentials.TransportCredentials).Info() credentials.ProtocolInfo`.
   GrpcCredentialsProtocolInfo info() {
-    final $r = $callSync(24509, $W()..h(this));
+    final $r = $callSync(24515, $W()..h(this));
     return $r.p() ? GrpcCredentialsProtocolInfo.$dec($r) : $nil();
   }
 
@@ -328,7 +328,7 @@ mixin GrpcCredentialsTransportCredentials$ on GoHandle {
       "this method is unused by gRPC. Users should use grpc.WithAuthority to override the authority on a channel instead of configuring the credentials.")
   void overrideServerName(String arg0) {
     $callSync(
-        24510,
+        24516,
         $W()
           ..h(this)
           ..str(arg0));
@@ -337,7 +337,7 @@ mixin GrpcCredentialsTransportCredentials$ on GoHandle {
   /// Go: `func (credentials.TransportCredentials).ServerHandshake(net.Conn) (net.Conn, credentials.AuthInfo, error)`.
   ($net.NetConn, GrpcCredentialsAuthInfo) serverHandshake($net.NetConn conn) {
     final $r = $callSync(
-        24511,
+        24517,
         $W()
           ..h(this)
           ..h(conn));
@@ -362,7 +362,7 @@ extension GoGrpcCredentialsApi on GoGrpcCredentials {
   /// Go: `func credentials.CheckSecurityLevel(ai credentials.AuthInfo, level credentials.SecurityLevel) error`.
   void checkSecurityLevel(GrpcCredentialsAuthInfo ai, int level) {
     $callSync(
-        24492,
+        24498,
         $W()
           ..dto(ai)
           ..i64(level));
@@ -373,7 +373,7 @@ extension GoGrpcCredentialsApi on GoGrpcCredentials {
   /// Asynchronous: runs in a goroutine of the service.
   Future<GrpcCredentialsClientHandshakeInfo> clientHandshakeInfoFromContext(
       $context.Context ctx) async {
-    final $r = await $call(24493, $W()..h(ctx));
+    final $r = await $call(24499, $W()..h(ctx));
     return $r.p() ? GrpcCredentialsClientHandshakeInfo.$dec($r) : $nil();
   }
 
@@ -381,7 +381,7 @@ extension GoGrpcCredentialsApi on GoGrpcCredentials {
   GrpcCredentialsTransportCredentials newClientTlsFromCert(
       $x509.CryptoX509CertPool cp, String serverNameOverride) {
     final $r = $callSync(
-        24495,
+        24501,
         $W()
           ..h(cp)
           ..str(serverNameOverride));
@@ -392,7 +392,7 @@ extension GoGrpcCredentialsApi on GoGrpcCredentials {
   GrpcCredentialsTransportCredentials newClientTlsFromFile(
       String certFile, String serverNameOverride) {
     final $r = $callSync(
-        24496,
+        24502,
         $W()
           ..str(certFile)
           ..str(serverNameOverride));
@@ -402,7 +402,7 @@ extension GoGrpcCredentialsApi on GoGrpcCredentials {
   /// Go: `func credentials.NewServerTLSFromCert(cert *tls.Certificate) credentials.TransportCredentials`.
   GrpcCredentialsTransportCredentials newServerTlsFromCert(
       $tls.CryptoTlsCertificate cert) {
-    final $r = $callSync(24497, $W()..dto(cert));
+    final $r = $callSync(24503, $W()..dto(cert));
     return $r.hnn(GrpcCredentialsTransportCredentials.$h);
   }
 
@@ -410,7 +410,7 @@ extension GoGrpcCredentialsApi on GoGrpcCredentials {
   GrpcCredentialsTransportCredentials newServerTlsFromFile(
       String certFile, String keyFile) {
     final $r = $callSync(
-        24498,
+        24504,
         $W()
           ..str(certFile)
           ..str(keyFile));
@@ -419,7 +419,7 @@ extension GoGrpcCredentialsApi on GoGrpcCredentials {
 
   /// Go: `func credentials.NewTLS(c *tls.Config) credentials.TransportCredentials`.
   GrpcCredentialsTransportCredentials newTls($tls.CryptoTlsConfig c) {
-    final $r = $callSync(24499, $W()..h(c));
+    final $r = $callSync(24505, $W()..h(c));
     return $r.hnn(GrpcCredentialsTransportCredentials.$h);
   }
 
@@ -428,7 +428,7 @@ extension GoGrpcCredentialsApi on GoGrpcCredentials {
   /// Asynchronous: runs in a goroutine of the service.
   Future<(GrpcCredentialsRequestInfo, bool)> requestInfoFromContext(
       $context.Context ctx) async {
-    final $r = await $call(24502, $W()..h(ctx));
+    final $r = await $call(24508, $W()..h(ctx));
     return ($r.p() ? GrpcCredentialsRequestInfo.$dec($r) : $nil(), $r.b());
   }
 }

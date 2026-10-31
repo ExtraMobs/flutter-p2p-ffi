@@ -21,25 +21,25 @@ mixin OtelErrorHandler$ on GoHandle {}
 extension GoOtelApi on GoOtel {
   /// Go: `func otel.GetErrorHandler() otel.ErrorHandler`.
   OtelErrorHandler getErrorHandler() {
-    final $r = $callSync(19102);
+    final $r = $callSync(19108);
     return $r.hnn(OtelErrorHandler.$h);
   }
 
   /// Go: `func otel.GetMeterProvider() metric.MeterProvider`.
   $metric.OtelMetricMeterProvider getMeterProvider() {
-    final $r = $callSync(19103);
+    final $r = $callSync(19109);
     return $r.hnn($metric.OtelMetricMeterProvider.$h);
   }
 
   /// Go: `func otel.GetTextMapPropagator() propagation.TextMapPropagator`.
   $propagation.OtelPropagationTextMapPropagator getTextMapPropagator() {
-    final $r = $callSync(19104);
+    final $r = $callSync(19110);
     return $r.hnn($propagation.OtelPropagationTextMapPropagator.$h);
   }
 
   /// Go: `func otel.GetTracerProvider() trace.TracerProvider`.
   $trace.OtelTraceTracerProvider getTracerProvider() {
-    final $r = $callSync(19105);
+    final $r = $callSync(19111);
     return $r.hnn($trace.OtelTraceTracerProvider.$h);
   }
 
@@ -47,7 +47,7 @@ extension GoOtelApi on GoOtel {
   $metric.OtelMetricMeter meter(String name,
       [List<$metric.OtelMetricMeterOption> opts = const []]) {
     final $r = $callSync(
-        19106,
+        19112,
         $W()
           ..str(name)
           ..list(opts, (w0, e0) => w0.h(e0)));
@@ -56,35 +56,35 @@ extension GoOtelApi on GoOtel {
 
   /// Go: `func otel.SetErrorHandler(h otel.ErrorHandler)`.
   void setErrorHandler(OtelErrorHandler h) {
-    $callSync(19107, $W()..h(h));
+    $callSync(19113, $W()..h(h));
   }
 
   /// Go: `func otel.SetLogger(logger logr.Logger)`.
   void setLogger($logr.LogrLogger logger) {
-    $callSync(19108, $W()..h(logger));
+    $callSync(19114, $W()..h(logger));
   }
 
   /// Go: `func otel.SetMeterProvider(mp metric.MeterProvider)`.
   void setMeterProvider($metric.OtelMetricMeterProvider mp) {
-    $callSync(19109, $W()..h(mp));
+    $callSync(19115, $W()..h(mp));
   }
 
   /// Go: `func otel.SetTextMapPropagator(propagator propagation.TextMapPropagator)`.
   void setTextMapPropagator(
       $propagation.OtelPropagationTextMapPropagator propagator) {
-    $callSync(19110, $W()..h(propagator));
+    $callSync(19116, $W()..h(propagator));
   }
 
   /// Go: `func otel.SetTracerProvider(tp trace.TracerProvider)`.
   void setTracerProvider($trace.OtelTraceTracerProvider tp) {
-    $callSync(19111, $W()..h(tp));
+    $callSync(19117, $W()..h(tp));
   }
 
   /// Go: `func otel.Tracer(name string, opts ...trace.TracerOption) trace.Tracer`.
   $trace.OtelTraceTracer tracer(String name,
       [List<$trace.OtelTraceTracerOption> opts = const []]) {
     final $r = $callSync(
-        19112,
+        19118,
         $W()
           ..str(name)
           ..list(opts, (w0, e0) => w0.h(e0)));
@@ -93,7 +93,7 @@ extension GoOtelApi on GoOtel {
 
   /// Go: `func otel.Version() string`.
   String version() {
-    final $r = $callSync(19113);
+    final $r = $callSync(19119);
     return $r.str();
   }
 }

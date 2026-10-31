@@ -43,7 +43,7 @@ final class RegexpSyntaxInst implements GoDto {
   /// Go: `func (*syntax.Inst).MatchEmptyWidth(before rune, after rune) bool`.
   bool matchEmptyWidth(int before, int after) {
     final $r = $callSync(
-        27174,
+        27175,
         $W()
           ..dto(this)
           ..i64(before)
@@ -54,7 +54,7 @@ final class RegexpSyntaxInst implements GoDto {
   /// Go: `func (*syntax.Inst).MatchRune(r rune) bool`.
   bool matchRune(int r) {
     final $r = $callSync(
-        27175,
+        27176,
         $W()
           ..dto(this)
           ..i64(r));
@@ -64,7 +64,7 @@ final class RegexpSyntaxInst implements GoDto {
   /// Go: `func (*syntax.Inst).MatchRunePos(r rune) int`.
   int matchRunePos(int r) {
     final $r = $callSync(
-        27176,
+        27177,
         $W()
           ..dto(this)
           ..i64(r));
@@ -73,7 +73,7 @@ final class RegexpSyntaxInst implements GoDto {
 
   /// Go: `func (*syntax.Inst).String() string`.
   String string() {
-    final $r = $callSync(27177, $W()..dto(this));
+    final $r = $callSync(27178, $W()..dto(this));
     return $r.str();
   }
 }
@@ -109,19 +109,19 @@ final class RegexpSyntaxProg implements GoDto {
 
   /// Go: `func (*syntax.Prog).Prefix() (prefix string, complete bool)`.
   (String, bool) prefix() {
-    final $r = $callSync(27180, $W()..dto(this));
+    final $r = $callSync(27181, $W()..dto(this));
     return ($r.str(), $r.b());
   }
 
   /// Go: `func (*syntax.Prog).StartCond() syntax.EmptyOp`.
   int startCond() {
-    final $r = $callSync(27181, $W()..dto(this));
+    final $r = $callSync(27182, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*syntax.Prog).String() string`.
   String string() {
-    final $r = $callSync(27182, $W()..dto(this));
+    final $r = $callSync(27183, $W()..dto(this));
     return $r.str();
   }
 }
@@ -190,14 +190,14 @@ final class RegexpSyntaxRegexp implements GoDto {
 
   /// Go: `func (*syntax.Regexp).CapNames() []string`.
   List<String> capNames() {
-    final $r = $callSync(27183, $W()..dto(this));
+    final $r = $callSync(27184, $W()..dto(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (*syntax.Regexp).Equal(y *syntax.Regexp) bool`.
   bool equal(RegexpSyntaxRegexp y) {
     final $r = $callSync(
-        27184,
+        27185,
         $W()
           ..dto(this)
           ..dto(y));
@@ -206,19 +206,19 @@ final class RegexpSyntaxRegexp implements GoDto {
 
   /// Go: `func (*syntax.Regexp).MaxCap() int`.
   int maxCap() {
-    final $r = $callSync(27185, $W()..dto(this));
+    final $r = $callSync(27186, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*syntax.Regexp).Simplify() *syntax.Regexp`.
   RegexpSyntaxRegexp simplify() {
-    final $r = $callSync(27186, $W()..dto(this));
+    final $r = $callSync(27187, $W()..dto(this));
     return $r.p() ? RegexpSyntaxRegexp.$dec($r) : $nil();
   }
 
   /// Go: `func (*syntax.Regexp).String() string`.
   String string() {
-    final $r = $callSync(27187, $W()..dto(this));
+    final $r = $callSync(27188, $W()..dto(this));
     return $r.str();
   }
 }
@@ -245,14 +245,14 @@ class RegexpSyntaxError extends GolangException {
 extension GoRegexpSyntaxApi on GoRegexpSyntax {
   /// Go: `func syntax.Compile(re *syntax.Regexp) (*syntax.Prog, error)`.
   RegexpSyntaxProg compile(RegexpSyntaxRegexp re) {
-    final $r = $callSync(27172, $W()..dto(re));
+    final $r = $callSync(27173, $W()..dto(re));
     return $r.p() ? RegexpSyntaxProg.$dec($r) : $nil();
   }
 
   /// Go: `func syntax.EmptyOpContext(r1 rune, r2 rune) syntax.EmptyOp`.
   int emptyOpContext(int r1, int r2) {
     final $r = $callSync(
-        27173,
+        27174,
         $W()
           ..i64(r1)
           ..i64(r2));
@@ -261,14 +261,14 @@ extension GoRegexpSyntaxApi on GoRegexpSyntax {
 
   /// Go: `func syntax.IsWordChar(r rune) bool`.
   bool isWordChar(int r) {
-    final $r = $callSync(27178, $W()..i64(r));
+    final $r = $callSync(27179, $W()..i64(r));
     return $r.b();
   }
 
   /// Go: `func syntax.Parse(s string, flags syntax.Flags) (*syntax.Regexp, error)`.
   RegexpSyntaxRegexp parse(String s, int flags) {
     final $r = $callSync(
-        27179,
+        27180,
         $W()
           ..str(s)
           ..i64(flags));

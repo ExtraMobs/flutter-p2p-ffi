@@ -17,7 +17,7 @@ mixin BoxoBitswapTracer$ on GoHandle {
   void messageReceived($peer.Libp2pCorePeerId id,
       $message.BoxoBitswapMessageBitSwapMessage bitSwapMessage) {
     $callSync(
-        9311,
+        9320,
         $W()
           ..h(this)
           ..val(id)
@@ -28,7 +28,7 @@ mixin BoxoBitswapTracer$ on GoHandle {
   void messageSent($peer.Libp2pCorePeerId id,
       $message.BoxoBitswapMessageBitSwapMessage bitSwapMessage) {
     $callSync(
-        9312,
+        9321,
         $W()
           ..h(this)
           ..val(id)

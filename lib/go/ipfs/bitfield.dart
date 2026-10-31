@@ -12,7 +12,7 @@ extension GoIpfsBitfieldApi on GoIpfsBitfield {
   /// Go: `func bitfield.FromBytes(size int, bits []byte) (bitfield.Bitfield, error)`.
   Uint8List fromBytes(int size, Uint8List bits) {
     final $r = $callSync(
-        10458,
+        10467,
         $W()
           ..i64(size)
           ..bytes(bits));
@@ -21,7 +21,7 @@ extension GoIpfsBitfieldApi on GoIpfsBitfield {
 
   /// Go: `func bitfield.NewBitfield(size int) (bitfield.Bitfield, error)`.
   Uint8List newBitfield(int size) {
-    final $r = $callSync(10459, $W()..i64(size));
+    final $r = $callSync(10468, $W()..i64(size));
     return $r.bytes() ?? Uint8List(0);
   }
 }

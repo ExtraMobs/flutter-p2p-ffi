@@ -12,7 +12,7 @@ class RandutilMathRandomGenerator extends GoHandle
 
   /// Go: `func randutil.NewMathRandomGenerator() randutil.MathRandomGenerator`.
   factory RandutilMathRandomGenerator() {
-    final $r = $callSync(16774);
+    final $r = $callSync(16780);
     return $r.hnn(RandutilMathRandomGenerator.$h);
   }
 }
@@ -22,7 +22,7 @@ mixin RandutilMathRandomGenerator$ on GoHandle {
   /// Go: `func (randutil.MathRandomGenerator).GenerateString(n int, runes string) string`.
   String generateString(int n, String runes) {
     final $r = $callSync(
-        16770,
+        16776,
         $W()
           ..h(this)
           ..i64(n)
@@ -33,7 +33,7 @@ mixin RandutilMathRandomGenerator$ on GoHandle {
   /// Go: `func (randutil.MathRandomGenerator).Intn(n int) int`.
   int intn(int n) {
     final $r = $callSync(
-        16771,
+        16777,
         $W()
           ..h(this)
           ..i64(n));
@@ -42,13 +42,13 @@ mixin RandutilMathRandomGenerator$ on GoHandle {
 
   /// Go: `func (randutil.MathRandomGenerator).Uint32() uint32`.
   int uint32() {
-    final $r = $callSync(16772, $W()..h(this));
+    final $r = $callSync(16778, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (randutil.MathRandomGenerator).Uint64() uint64`.
   int uint64() {
-    final $r = $callSync(16773, $W()..h(this));
+    final $r = $callSync(16779, $W()..h(this));
     return $r.i64();
   }
 }
@@ -57,14 +57,14 @@ mixin RandutilMathRandomGenerator$ on GoHandle {
 extension GoPionRandutilApi on GoPionRandutil {
   /// Go: `func randutil.CryptoUint64() (uint64, error)`.
   int cryptoUint64() {
-    final $r = $callSync(16768);
+    final $r = $callSync(16774);
     return $r.i64();
   }
 
   /// Go: `func randutil.GenerateCryptoRandomString(n int, runes string) (string, error)`.
   String generateCryptoRandomString(int n, String runes) {
     final $r = $callSync(
-        16769,
+        16775,
         $W()
           ..i64(n)
           ..str(runes));

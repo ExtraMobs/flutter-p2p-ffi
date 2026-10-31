@@ -40,7 +40,7 @@ class InterceptorChain extends Interceptor
 
   /// Go: `func interceptor.NewChain(interceptors []interceptor.Interceptor) *interceptor.Chain`.
   factory InterceptorChain(List<Interceptor> interceptors) {
-    final $r = $callSync(16651, $W()..list(interceptors, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(16657, $W()..list(interceptors, (w0, e0) => w0.h(e0)));
     return $r.hnn(InterceptorChain.$h);
   }
 
@@ -48,7 +48,7 @@ class InterceptorChain extends Interceptor
   InterceptorRtpWriter bindLocalStream(
       InterceptorStreamInfo ctx, Object writer) {
     final $r = $callSync(
-        16637,
+        16643,
         $W()
           ..h(this)
           ..dto(ctx)
@@ -59,7 +59,7 @@ class InterceptorChain extends Interceptor
   /// Go: `func (*interceptor.Chain).BindRTCPReader(reader interceptor.RTCPReader) interceptor.RTCPReader`.
   InterceptorRtcpReader bindRtcpReader(Object reader) {
     final $r = $callSync(
-        16638,
+        16644,
         $W()
           ..h(this)
           ..reader(reader));
@@ -69,7 +69,7 @@ class InterceptorChain extends Interceptor
   /// Go: `func (*interceptor.Chain).BindRTCPWriter(writer interceptor.RTCPWriter) interceptor.RTCPWriter`.
   InterceptorRtcpWriter bindRtcpWriter(Object writer) {
     final $r = $callSync(
-        16639,
+        16645,
         $W()
           ..h(this)
           ..reader(writer));
@@ -80,7 +80,7 @@ class InterceptorChain extends Interceptor
   InterceptorRtpReader bindRemoteStream(
       InterceptorStreamInfo ctx, Object reader) {
     final $r = $callSync(
-        16640,
+        16646,
         $W()
           ..h(this)
           ..dto(ctx)
@@ -90,13 +90,13 @@ class InterceptorChain extends Interceptor
 
   /// Go: `func (*interceptor.Chain).Close() error`.
   void close() {
-    $callSync(16641, $W()..h(this));
+    $callSync(16647, $W()..h(this));
   }
 
   /// Go: `func (*interceptor.Chain).UnbindLocalStream(ctx *interceptor.StreamInfo)`.
   void unbindLocalStream(InterceptorStreamInfo ctx) {
     $callSync(
-        16642,
+        16648,
         $W()
           ..h(this)
           ..dto(ctx));
@@ -105,7 +105,7 @@ class InterceptorChain extends Interceptor
   /// Go: `func (*interceptor.Chain).UnbindRemoteStream(ctx *interceptor.StreamInfo)`.
   void unbindRemoteStream(InterceptorStreamInfo ctx) {
     $callSync(
-        16643,
+        16649,
         $W()
           ..h(this)
           ..dto(ctx));
@@ -122,7 +122,7 @@ mixin InterceptorFactory$ on GoHandle {
   /// Go: `func (interceptor.Factory).NewInterceptor(id string) (interceptor.Interceptor, error)`.
   Interceptor newInterceptor(String id) {
     final $r = $callSync(
-        16644,
+        16650,
         $W()
           ..h(this)
           ..str(id));
@@ -132,49 +132,49 @@ mixin InterceptorFactory$ on GoHandle {
   /// Go: type assertion `x.(*flexfec.FecInterceptorFactory)`: null if the object is not one.
   $flexfec.InterceptorPkgFlexfecFecInterceptorFactory?
       asInterceptorPkgFlexfecFecInterceptorFactory() {
-    final $r = $callSync(1569, $W()..h(this));
+    final $r = $callSync(1574, $W()..h(this));
     return $r.hn($flexfec.InterceptorPkgFlexfecFecInterceptorFactory.$h);
   }
 
   /// Go: type assertion `x.(*nack.GeneratorInterceptorFactory)`: null if the object is not one.
   $nack.InterceptorPkgNackGeneratorInterceptorFactory?
       asInterceptorPkgNackGeneratorInterceptorFactory() {
-    final $r = $callSync(1570, $W()..h(this));
+    final $r = $callSync(1575, $W()..h(this));
     return $r.hn($nack.InterceptorPkgNackGeneratorInterceptorFactory.$h);
   }
 
   /// Go: type assertion `x.(*nack.ResponderInterceptorFactory)`: null if the object is not one.
   $nack.InterceptorPkgNackResponderInterceptorFactory?
       asInterceptorPkgNackResponderInterceptorFactory() {
-    final $r = $callSync(1571, $W()..h(this));
+    final $r = $callSync(1576, $W()..h(this));
     return $r.hn($nack.InterceptorPkgNackResponderInterceptorFactory.$h);
   }
 
   /// Go: type assertion `x.(*report.ReceiverInterceptorFactory)`: null if the object is not one.
   $report.InterceptorPkgReportReceiverInterceptorFactory?
       asInterceptorPkgReportReceiverInterceptorFactory() {
-    final $r = $callSync(1572, $W()..h(this));
+    final $r = $callSync(1577, $W()..h(this));
     return $r.hn($report.InterceptorPkgReportReceiverInterceptorFactory.$h);
   }
 
   /// Go: type assertion `x.(*report.SenderInterceptorFactory)`: null if the object is not one.
   $report.InterceptorPkgReportSenderInterceptorFactory?
       asInterceptorPkgReportSenderInterceptorFactory() {
-    final $r = $callSync(1573, $W()..h(this));
+    final $r = $callSync(1578, $W()..h(this));
     return $r.hn($report.InterceptorPkgReportSenderInterceptorFactory.$h);
   }
 
   /// Go: type assertion `x.(*rfc8888.SenderInterceptorFactory)`: null if the object is not one.
   $rfc8888.InterceptorPkgRfc8888SenderInterceptorFactory?
       asInterceptorPkgRfc8888SenderInterceptorFactory() {
-    final $r = $callSync(1574, $W()..h(this));
+    final $r = $callSync(1579, $W()..h(this));
     return $r.hn($rfc8888.InterceptorPkgRfc8888SenderInterceptorFactory.$h);
   }
 
   /// Go: type assertion `x.(*twcc.SenderInterceptorFactory)`: null if the object is not one.
   $twcc.InterceptorPkgTwccSenderInterceptorFactory?
       asInterceptorPkgTwccSenderInterceptorFactory() {
-    final $r = $callSync(1575, $W()..h(this));
+    final $r = $callSync(1580, $W()..h(this));
     return $r.hn($twcc.InterceptorPkgTwccSenderInterceptorFactory.$h);
   }
 }
@@ -190,7 +190,7 @@ mixin Interceptor$ on GoHandle {
   InterceptorRtpWriter bindLocalStream(
       InterceptorStreamInfo info, Object writer) {
     final $r = $callSync(
-        16645,
+        16651,
         $W()
           ..h(this)
           ..dto(info)
@@ -201,7 +201,7 @@ mixin Interceptor$ on GoHandle {
   /// Go: `func (interceptor.Interceptor).BindRTCPReader(reader interceptor.RTCPReader) interceptor.RTCPReader`.
   InterceptorRtcpReader bindRtcpReader(Object reader) {
     final $r = $callSync(
-        16646,
+        16652,
         $W()
           ..h(this)
           ..reader(reader));
@@ -211,7 +211,7 @@ mixin Interceptor$ on GoHandle {
   /// Go: `func (interceptor.Interceptor).BindRTCPWriter(writer interceptor.RTCPWriter) interceptor.RTCPWriter`.
   InterceptorRtcpWriter bindRtcpWriter(Object writer) {
     final $r = $callSync(
-        16647,
+        16653,
         $W()
           ..h(this)
           ..reader(writer));
@@ -222,7 +222,7 @@ mixin Interceptor$ on GoHandle {
   InterceptorRtpReader bindRemoteStream(
       InterceptorStreamInfo info, Object reader) {
     final $r = $callSync(
-        16648,
+        16654,
         $W()
           ..h(this)
           ..dto(info)
@@ -233,7 +233,7 @@ mixin Interceptor$ on GoHandle {
   /// Go: `func (interceptor.Interceptor).UnbindLocalStream(info *interceptor.StreamInfo)`.
   void unbindLocalStream(InterceptorStreamInfo info) {
     $callSync(
-        16649,
+        16655,
         $W()
           ..h(this)
           ..dto(info));
@@ -242,7 +242,7 @@ mixin Interceptor$ on GoHandle {
   /// Go: `func (interceptor.Interceptor).UnbindRemoteStream(info *interceptor.StreamInfo)`.
   void unbindRemoteStream(InterceptorStreamInfo info) {
     $callSync(
-        16650,
+        16656,
         $W()
           ..h(this)
           ..dto(info));
@@ -250,63 +250,63 @@ mixin Interceptor$ on GoHandle {
 
   /// Go: type assertion `x.(*interceptor.Chain)`: null if the object is not one.
   InterceptorChain? asInterceptorChain() {
-    final $r = $callSync(1576, $W()..h(this));
+    final $r = $callSync(1581, $W()..h(this));
     return $r.hn(InterceptorChain.$h);
   }
 
   /// Go: type assertion `x.(*flexfec.FecInterceptor)`: null if the object is not one.
   $flexfec.InterceptorPkgFlexfecFecInterceptor?
       asInterceptorPkgFlexfecFecInterceptor() {
-    final $r = $callSync(1577, $W()..h(this));
+    final $r = $callSync(1582, $W()..h(this));
     return $r.hn($flexfec.InterceptorPkgFlexfecFecInterceptor.$h);
   }
 
   /// Go: type assertion `x.(*nack.GeneratorInterceptor)`: null if the object is not one.
   $nack.InterceptorPkgNackGeneratorInterceptor?
       asInterceptorPkgNackGeneratorInterceptor() {
-    final $r = $callSync(1578, $W()..h(this));
+    final $r = $callSync(1583, $W()..h(this));
     return $r.hn($nack.InterceptorPkgNackGeneratorInterceptor.$h);
   }
 
   /// Go: type assertion `x.(*nack.ResponderInterceptor)`: null if the object is not one.
   $nack.InterceptorPkgNackResponderInterceptor?
       asInterceptorPkgNackResponderInterceptor() {
-    final $r = $callSync(1579, $W()..h(this));
+    final $r = $callSync(1584, $W()..h(this));
     return $r.hn($nack.InterceptorPkgNackResponderInterceptor.$h);
   }
 
   /// Go: type assertion `x.(*report.ReceiverInterceptor)`: null if the object is not one.
   $report.InterceptorPkgReportReceiverInterceptor?
       asInterceptorPkgReportReceiverInterceptor() {
-    final $r = $callSync(1580, $W()..h(this));
+    final $r = $callSync(1585, $W()..h(this));
     return $r.hn($report.InterceptorPkgReportReceiverInterceptor.$h);
   }
 
   /// Go: type assertion `x.(*report.SenderInterceptor)`: null if the object is not one.
   $report.InterceptorPkgReportSenderInterceptor?
       asInterceptorPkgReportSenderInterceptor() {
-    final $r = $callSync(1581, $W()..h(this));
+    final $r = $callSync(1586, $W()..h(this));
     return $r.hn($report.InterceptorPkgReportSenderInterceptor.$h);
   }
 
   /// Go: type assertion `x.(*rfc8888.SenderInterceptor)`: null if the object is not one.
   $rfc8888.InterceptorPkgRfc8888SenderInterceptor?
       asInterceptorPkgRfc8888SenderInterceptor() {
-    final $r = $callSync(1582, $W()..h(this));
+    final $r = $callSync(1587, $W()..h(this));
     return $r.hn($rfc8888.InterceptorPkgRfc8888SenderInterceptor.$h);
   }
 
   /// Go: type assertion `x.(*twcc.HeaderExtensionInterceptor)`: null if the object is not one.
   $twcc.InterceptorPkgTwccHeaderExtensionInterceptor?
       asInterceptorPkgTwccHeaderExtensionInterceptor() {
-    final $r = $callSync(1583, $W()..h(this));
+    final $r = $callSync(1588, $W()..h(this));
     return $r.hn($twcc.InterceptorPkgTwccHeaderExtensionInterceptor.$h);
   }
 
   /// Go: type assertion `x.(*twcc.SenderInterceptor)`: null if the object is not one.
   $twcc.InterceptorPkgTwccSenderInterceptor?
       asInterceptorPkgTwccSenderInterceptor() {
-    final $r = $callSync(1584, $W()..h(this));
+    final $r = $callSync(1589, $W()..h(this));
     return $r.hn($twcc.InterceptorPkgTwccSenderInterceptor.$h);
   }
 }
@@ -323,7 +323,7 @@ final class InterceptorNoOp implements GoDto {
   InterceptorRtpWriter bindLocalStream(
       InterceptorStreamInfo streamInfo, Object writer) {
     final $r = $callSync(
-        16652,
+        16658,
         $W()
           ..dto(this)
           ..dto(streamInfo)
@@ -334,7 +334,7 @@ final class InterceptorNoOp implements GoDto {
   /// Go: `func (*interceptor.NoOp).BindRTCPReader(reader interceptor.RTCPReader) interceptor.RTCPReader`.
   InterceptorRtcpReader bindRtcpReader(Object reader) {
     final $r = $callSync(
-        16653,
+        16659,
         $W()
           ..dto(this)
           ..reader(reader));
@@ -344,7 +344,7 @@ final class InterceptorNoOp implements GoDto {
   /// Go: `func (*interceptor.NoOp).BindRTCPWriter(writer interceptor.RTCPWriter) interceptor.RTCPWriter`.
   InterceptorRtcpWriter bindRtcpWriter(Object writer) {
     final $r = $callSync(
-        16654,
+        16660,
         $W()
           ..dto(this)
           ..reader(writer));
@@ -355,7 +355,7 @@ final class InterceptorNoOp implements GoDto {
   InterceptorRtpReader bindRemoteStream(
       InterceptorStreamInfo streamInfo, Object reader) {
     final $r = $callSync(
-        16655,
+        16661,
         $W()
           ..dto(this)
           ..dto(streamInfo)
@@ -365,13 +365,13 @@ final class InterceptorNoOp implements GoDto {
 
   /// Go: `func (*interceptor.NoOp).Close() error`.
   void close() {
-    $callSync(16656, $W()..dto(this));
+    $callSync(16662, $W()..dto(this));
   }
 
   /// Go: `func (*interceptor.NoOp).UnbindLocalStream(_ *interceptor.StreamInfo)`.
   void unbindLocalStream(InterceptorStreamInfo streamInfo) {
     $callSync(
-        16657,
+        16663,
         $W()
           ..dto(this)
           ..dto(streamInfo));
@@ -380,7 +380,7 @@ final class InterceptorNoOp implements GoDto {
   /// Go: `func (*interceptor.NoOp).UnbindRemoteStream(_ *interceptor.StreamInfo)`.
   void unbindRemoteStream(InterceptorStreamInfo streamInfo) {
     $callSync(
-        16658,
+        16664,
         $W()
           ..dto(this)
           ..dto(streamInfo));
@@ -476,7 +476,7 @@ class InterceptorRegistry extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*interceptor.Registry).Add(f interceptor.Factory)`.
   void add(InterceptorFactory f) {
     $callSync(
-        16659,
+        16665,
         $W()
           ..h(this)
           ..h(f));
@@ -485,7 +485,7 @@ class InterceptorRegistry extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*interceptor.Registry).Build(id string) (interceptor.Interceptor, error)`.
   Interceptor build(String id) {
     final $r = $callSync(
-        16660,
+        16666,
         $W()
           ..h(this)
           ..str(id));

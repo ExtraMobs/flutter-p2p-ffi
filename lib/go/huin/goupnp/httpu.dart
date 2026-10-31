@@ -28,7 +28,7 @@ mixin GoupnpHttpuClientInterface$ on GoHandle {
   List<$http.NetHttpResponse> do$(
       $http.NetHttpRequest req, Duration timeout, int numSends) {
     final $r = $callSync(
-        8929,
+        8938,
         $W()
           ..h(this)
           ..h(req)
@@ -39,13 +39,13 @@ mixin GoupnpHttpuClientInterface$ on GoHandle {
 
   /// Go: type assertion `x.(*httpu.HTTPUClient)`: null if the object is not one.
   GoupnpHttpuClient? asGoupnpHttpuClient() {
-    final $r = $callSync(882, $W()..h(this));
+    final $r = $callSync(885, $W()..h(this));
     return $r.hn(GoupnpHttpuClient.$h);
   }
 
   /// Go: type assertion `x.(*httpu.MultiClient)`: null if the object is not one.
   GoupnpHttpuMultiClient? asGoupnpHttpuMultiClient() {
-    final $r = $callSync(883, $W()..h(this));
+    final $r = $callSync(886, $W()..h(this));
     return $r.hn(GoupnpHttpuMultiClient.$h);
   }
 }
@@ -62,7 +62,7 @@ mixin GoupnpHttpuClientInterfaceCtx$ on GoHandle {
   List<$http.NetHttpResponse> doWithContext(
       $http.NetHttpRequest req, int numSends) {
     final $r = $callSync(
-        8930,
+        8939,
         $W()
           ..h(this)
           ..h(req)
@@ -72,13 +72,13 @@ mixin GoupnpHttpuClientInterfaceCtx$ on GoHandle {
 
   /// Go: type assertion `x.(*httpu.HTTPUClient)`: null if the object is not one.
   GoupnpHttpuClient? asGoupnpHttpuClient() {
-    final $r = $callSync(884, $W()..h(this));
+    final $r = $callSync(887, $W()..h(this));
     return $r.hn(GoupnpHttpuClient.$h);
   }
 
   /// Go: type assertion `x.(*httpu.MultiClientCtx)`: null if the object is not one.
   GoupnpHttpuMultiClientCtx? asGoupnpHttpuMultiClientCtx() {
-    final $r = $callSync(885, $W()..h(this));
+    final $r = $callSync(888, $W()..h(this));
     return $r.hn(GoupnpHttpuMultiClientCtx.$h);
   }
 }
@@ -115,20 +115,20 @@ class GoupnpHttpuClient extends GoupnpHttpuClientInterface
 
   /// Go: `func httpu.NewHTTPUClient() (*httpu.HTTPUClient, error)`.
   factory GoupnpHttpuClient() {
-    final $r = $callSync(8938);
+    final $r = $callSync(8947);
     return $r.hnn(GoupnpHttpuClient.$h);
   }
 
   /// Go: `func (*httpu.HTTPUClient).Close() error`.
   void close() {
-    $callSync(8931, $W()..h(this));
+    $callSync(8940, $W()..h(this));
   }
 
   /// Go: `func (*httpu.HTTPUClient).Do(req *http.Request, timeout time.Duration, numSends int) ([]*http.Response, error)`.
   List<$http.NetHttpResponse> do$(
       $http.NetHttpRequest req, Duration timeout, int numSends) {
     final $r = $callSync(
-        8932,
+        8941,
         $W()
           ..h(this)
           ..h(req)
@@ -141,7 +141,7 @@ class GoupnpHttpuClient extends GoupnpHttpuClientInterface
   List<$http.NetHttpResponse> doWithContext(
       $http.NetHttpRequest req, int numSends) {
     final $r = $callSync(
-        8933,
+        8942,
         $W()
           ..h(this)
           ..h(req)
@@ -160,7 +160,7 @@ mixin GoupnpHttpuHandler$ on GoHandle {
   /// Go: `func (httpu.Handler).ServeMessage(r *http.Request)`.
   void serveMessage($http.NetHttpRequest r) {
     $callSync(
-        8934,
+        8943,
         $W()
           ..h(this)
           ..h(r));
@@ -168,13 +168,13 @@ mixin GoupnpHttpuHandler$ on GoHandle {
 
   /// Go: type assertion `x.(*httpu.HandlerFunc)`: null if the object is not one.
   GoupnpHttpuHandlerFunc? asGoupnpHttpuHandlerFunc() {
-    final $r = $callSync(886, $W()..h(this));
+    final $r = $callSync(889, $W()..h(this));
     return $r.hn(GoupnpHttpuHandlerFunc.$h);
   }
 
   /// Go: type assertion `x.(*ssdp.Registry)`: null if the object is not one.
   $ssdp.GoupnpSsdpRegistry? asGoupnpSsdpRegistry() {
-    final $r = $callSync(887, $W()..h(this));
+    final $r = $callSync(890, $W()..h(this));
     return $r.hn($ssdp.GoupnpSsdpRegistry.$h);
   }
 }
@@ -202,7 +202,7 @@ class GoupnpHttpuHandlerFunc extends GoupnpHttpuHandler
   /// Go: `func (httpu.HandlerFunc).ServeMessage(r *http.Request)`.
   void serveMessage($http.NetHttpRequest r) {
     $callSync(
-        8935,
+        8944,
         $W()
           ..h(this)
           ..h(r));
@@ -233,7 +233,7 @@ class GoupnpHttpuMultiClient extends GoupnpHttpuClientInterface
 
   /// Go: `func httpu.NewMultiClient(delegates []httpu.ClientInterface) *httpu.MultiClient`.
   factory GoupnpHttpuMultiClient(List<GoupnpHttpuClientInterface> delegates) {
-    final $r = $callSync(8940, $W()..list(delegates, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(8949, $W()..list(delegates, (w0, e0) => w0.h(e0)));
     return $r.hnn(GoupnpHttpuMultiClient.$h);
   }
 
@@ -241,7 +241,7 @@ class GoupnpHttpuMultiClient extends GoupnpHttpuClientInterface
   List<$http.NetHttpResponse> do$(
       $http.NetHttpRequest req, Duration timeout, int numSends) {
     final $r = $callSync(
-        8936,
+        8945,
         $W()
           ..h(this)
           ..h(req)
@@ -276,7 +276,7 @@ class GoupnpHttpuMultiClientCtx extends GoupnpHttpuClientInterfaceCtx
   /// Go: `func httpu.NewMultiClientCtx(delegates []httpu.ClientInterfaceCtx) *httpu.MultiClientCtx`.
   factory GoupnpHttpuMultiClientCtx(
       List<GoupnpHttpuClientInterfaceCtx> delegates) {
-    final $r = $callSync(8941, $W()..list(delegates, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(8950, $W()..list(delegates, (w0, e0) => w0.h(e0)));
     return $r.hnn(GoupnpHttpuMultiClientCtx.$h);
   }
 
@@ -284,7 +284,7 @@ class GoupnpHttpuMultiClientCtx extends GoupnpHttpuClientInterfaceCtx
   List<$http.NetHttpResponse> doWithContext(
       $http.NetHttpRequest req, int numSends) {
     final $r = $callSync(
-        8937,
+        8946,
         $W()
           ..h(this)
           ..h(req)
@@ -341,13 +341,13 @@ final class GoupnpHttpuServer implements GoDto {
 
   /// Go: `func (*httpu.Server).ListenAndServe() error`.
   void listenAndServe() {
-    $callSync(8943, $W()..dto(this));
+    $callSync(8952, $W()..dto(this));
   }
 
   /// Go: `func (*httpu.Server).Serve(l net.PacketConn) error`.
   void serve($net.NetPacketConn l) {
     $callSync(
-        8944,
+        8953,
         $W()
           ..dto(this)
           ..h(l));
@@ -358,14 +358,14 @@ final class GoupnpHttpuServer implements GoDto {
 extension GoHuinGoupnpHttpuApi on GoHuinGoupnpHttpu {
   /// Go: `func httpu.NewHTTPUClientAddr(addr string) (*httpu.HTTPUClient, error)`.
   GoupnpHttpuClient newHttpuClientAddr(String addr) {
-    final $r = $callSync(8939, $W()..str(addr));
+    final $r = $callSync(8948, $W()..str(addr));
     return $r.hnn(GoupnpHttpuClient.$h);
   }
 
   /// Go: `func httpu.Serve(l net.PacketConn, handler httpu.Handler) error`.
   void serve($net.NetPacketConn l, GoupnpHttpuHandler handler) {
     $callSync(
-        8942,
+        8951,
         $W()
           ..h(l)
           ..h(handler));

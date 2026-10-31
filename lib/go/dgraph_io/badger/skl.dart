@@ -39,29 +39,29 @@ class BadgerSklIterator extends $io.IoCloser
 
   /// Go: `func (*skl.Iterator).Close() error`.
   void close() {
-    $callSync(6043, $W()..h(this));
+    $callSync(6052, $W()..h(this));
   }
 
   /// Go: `func (*skl.Iterator).Key() []byte`.
   Uint8List key() {
-    final $r = $callSync(6044, $W()..h(this));
+    final $r = $callSync(6053, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*skl.Iterator).Next()`.
   void next() {
-    $callSync(6045, $W()..h(this));
+    $callSync(6054, $W()..h(this));
   }
 
   /// Go: `func (*skl.Iterator).Prev()`.
   void prev() {
-    $callSync(6046, $W()..h(this));
+    $callSync(6055, $W()..h(this));
   }
 
   /// Go: `func (*skl.Iterator).Seek(target []byte)`.
   void seek(Uint8List target) {
     $callSync(
-        6047,
+        6056,
         $W()
           ..h(this)
           ..bytes(target));
@@ -70,7 +70,7 @@ class BadgerSklIterator extends $io.IoCloser
   /// Go: `func (*skl.Iterator).SeekForPrev(target []byte)`.
   void seekForPrev(Uint8List target) {
     $callSync(
-        6048,
+        6057,
         $W()
           ..h(this)
           ..bytes(target));
@@ -78,23 +78,23 @@ class BadgerSklIterator extends $io.IoCloser
 
   /// Go: `func (*skl.Iterator).SeekToFirst()`.
   void seekToFirst() {
-    $callSync(6049, $W()..h(this));
+    $callSync(6058, $W()..h(this));
   }
 
   /// Go: `func (*skl.Iterator).SeekToLast()`.
   void seekToLast() {
-    $callSync(6050, $W()..h(this));
+    $callSync(6059, $W()..h(this));
   }
 
   /// Go: `func (*skl.Iterator).Valid() bool`.
   bool valid() {
-    final $r = $callSync(6051, $W()..h(this));
+    final $r = $callSync(6060, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*skl.Iterator).Value() y.ValueStruct`.
   $y.BadgerYValueStruct value$() {
-    final $r = $callSync(6052, $W()..h(this));
+    final $r = $callSync(6061, $W()..h(this));
     return $r.p() ? $y.BadgerYValueStruct.$dec($r) : $nil();
   }
 }
@@ -119,25 +119,25 @@ class BadgerSklSkiplist extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func skl.NewSkiplist(arenaSize int64) *skl.Skiplist`.
   factory BadgerSklSkiplist(int arenaSize) {
-    final $r = $callSync(6053, $W()..i64(arenaSize));
+    final $r = $callSync(6062, $W()..i64(arenaSize));
     return $r.hnn(BadgerSklSkiplist.$h);
   }
 
   /// Go: `func (*skl.Skiplist).DecrRef()`.
   void decrRef() {
-    $callSync(6054, $W()..h(this));
+    $callSync(6063, $W()..h(this));
   }
 
   /// Go: `func (*skl.Skiplist).Empty() bool`.
   bool empty() {
-    final $r = $callSync(6055, $W()..h(this));
+    final $r = $callSync(6064, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*skl.Skiplist).Get(key []byte) y.ValueStruct`.
   $y.BadgerYValueStruct get(Uint8List key) {
     final $r = $callSync(
-        6056,
+        6065,
         $W()
           ..h(this)
           ..bytes(key));
@@ -146,25 +146,25 @@ class BadgerSklSkiplist extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*skl.Skiplist).IncrRef()`.
   void incrRef() {
-    $callSync(6057, $W()..h(this));
+    $callSync(6066, $W()..h(this));
   }
 
   /// Go: `func (*skl.Skiplist).MemSize() int64`.
   int memSize() {
-    final $r = $callSync(6058, $W()..h(this));
+    final $r = $callSync(6067, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*skl.Skiplist).NewIterator() *skl.Iterator`.
   BadgerSklIterator newIterator() {
-    final $r = $callSync(6059, $W()..h(this));
+    final $r = $callSync(6068, $W()..h(this));
     return $r.hnn(BadgerSklIterator.$h);
   }
 
   /// Go: `func (*skl.Skiplist).NewUniIterator(reversed bool) *skl.UniIterator`.
   BadgerSklUniIterator newUniIterator(bool reversed) {
     final $r = $callSync(
-        6060,
+        6069,
         $W()
           ..h(this)
           ..b(reversed));
@@ -174,7 +174,7 @@ class BadgerSklSkiplist extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*skl.Skiplist).Put(key []byte, v y.ValueStruct)`.
   void put(Uint8List key, $y.BadgerYValueStruct v) {
     $callSync(
-        6061,
+        6070,
         $W()
           ..h(this)
           ..bytes(key)
@@ -208,29 +208,29 @@ class BadgerSklUniIterator extends $y.BadgerYIterator
 
   /// Go: `func (*skl.UniIterator).Close() error`.
   void close() {
-    $callSync(6062, $W()..h(this));
+    $callSync(6071, $W()..h(this));
   }
 
   /// Go: `func (*skl.UniIterator).Key() []byte`.
   Uint8List key() {
-    final $r = $callSync(6063, $W()..h(this));
+    final $r = $callSync(6072, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*skl.UniIterator).Next()`.
   void next() {
-    $callSync(6064, $W()..h(this));
+    $callSync(6073, $W()..h(this));
   }
 
   /// Go: `func (*skl.UniIterator).Rewind()`.
   void rewind() {
-    $callSync(6065, $W()..h(this));
+    $callSync(6074, $W()..h(this));
   }
 
   /// Go: `func (*skl.UniIterator).Seek(key []byte)`.
   void seek(Uint8List key) {
     $callSync(
-        6066,
+        6075,
         $W()
           ..h(this)
           ..bytes(key));
@@ -238,13 +238,13 @@ class BadgerSklUniIterator extends $y.BadgerYIterator
 
   /// Go: `func (*skl.UniIterator).Valid() bool`.
   bool valid() {
-    final $r = $callSync(6067, $W()..h(this));
+    final $r = $callSync(6076, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*skl.UniIterator).Value() y.ValueStruct`.
   $y.BadgerYValueStruct value$() {
-    final $r = $callSync(6068, $W()..h(this));
+    final $r = $callSync(6077, $W()..h(this));
     return $r.p() ? $y.BadgerYValueStruct.$dec($r) : $nil();
   }
 }

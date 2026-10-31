@@ -27,7 +27,7 @@ final class TextTransformNopResetter implements GoDto {
 
   /// Go: `func (transform.NopResetter).Reset()`.
   void reset() {
-    $callSync(24013, $W()..dto(this));
+    $callSync(24019, $W()..dto(this));
   }
 }
 
@@ -52,7 +52,7 @@ class TextTransformReader extends $crypto.CryptoDecrypterOpts
   /// Go: `func transform.NewReader(r io.Reader, t transform.Transformer) *transform.Reader`.
   factory TextTransformReader(Object r, TextTransformTransformer t) {
     final $r = $callSync(
-        24010,
+        24016,
         $W()
           ..reader(r)
           ..h(t));
@@ -62,7 +62,7 @@ class TextTransformReader extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*transform.Reader).Read(p []byte) (int, error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        24014,
+        24020,
         $W()
           ..h(this)
           ..i64(n));
@@ -81,7 +81,7 @@ mixin TextTransformSpanningTransformer$ on GoHandle {
   /// Go: `func (transform.SpanningTransformer).Span(src []byte, atEOF bool) (n int, err error)`.
   int span(Uint8List src, bool atEof) {
     final $r = $callSync(
-        24016,
+        24022,
         $W()
           ..h(this)
           ..bytes(src)
@@ -91,13 +91,13 @@ mixin TextTransformSpanningTransformer$ on GoHandle {
 
   /// Go: type assertion `x.(*cases.Caser)`: null if the object is not one.
   $cases.TextCasesCaser? asTextCasesCaser() {
-    final $r = $callSync(2157, $W()..h(this));
+    final $r = $callSync(2164, $W()..h(this));
     return $r.hn($cases.TextCasesCaser.$h);
   }
 
   /// Go: type assertion `x.(*bidirule.Transformer)`: null if the object is not one.
   $bidirule.TextSecureBidiruleTransformer? asTextSecureBidiruleTransformer() {
-    final $r = $callSync(2158, $W()..h(this));
+    final $r = $callSync(2165, $W()..h(this));
     return $r.hn($bidirule.TextSecureBidiruleTransformer.$h);
   }
 }
@@ -111,13 +111,13 @@ class TextTransformTransformer extends GoHandle with TextTransformTransformer$ {
 mixin TextTransformTransformer$ on GoHandle {
   /// Go: `func (transform.Transformer).Reset()`.
   void reset() {
-    $callSync(24018, $W()..h(this));
+    $callSync(24024, $W()..h(this));
   }
 
   /// Go: `func (transform.Transformer).Transform(dst []byte, src []byte, atEOF bool) (nDst int, nSrc int, err error)`.
   (int, int) transform(Uint8List dst, Uint8List src, bool atEof) {
     final $r = $callSync(
-        24019,
+        24025,
         $W()
           ..h(this)
           ..bytes(dst)
@@ -128,19 +128,19 @@ mixin TextTransformTransformer$ on GoHandle {
 
   /// Go: type assertion `x.(*cases.Caser)`: null if the object is not one.
   $cases.TextCasesCaser? asTextCasesCaser() {
-    final $r = $callSync(2159, $W()..h(this));
+    final $r = $callSync(2166, $W()..h(this));
     return $r.hn($cases.TextCasesCaser.$h);
   }
 
   /// Go: type assertion `x.(*bidirule.Transformer)`: null if the object is not one.
   $bidirule.TextSecureBidiruleTransformer? asTextSecureBidiruleTransformer() {
-    final $r = $callSync(2160, $W()..h(this));
+    final $r = $callSync(2167, $W()..h(this));
     return $r.hn($bidirule.TextSecureBidiruleTransformer.$h);
   }
 
   /// Go: type assertion `x.(transform.SpanningTransformer)`: null if the object is not one.
   TextTransformSpanningTransformer? asTextTransformSpanningTransformer() {
-    final $r = $callSync(2161, $W()..h(this));
+    final $r = $callSync(2168, $W()..h(this));
     return $r.hn(TextTransformSpanningTransformer.$h);
   }
 }
@@ -170,7 +170,7 @@ class TextTransformWriter extends $io.IoCloser
   /// Go: `func transform.NewWriter(w io.Writer, t transform.Transformer) *transform.Writer`.
   factory TextTransformWriter(GoHandle? w, TextTransformTransformer t) {
     final $r = $callSync(
-        24011,
+        24017,
         $W()
           ..h(w)
           ..h(t));
@@ -179,13 +179,13 @@ class TextTransformWriter extends $io.IoCloser
 
   /// Go: `func (*transform.Writer).Close() error`.
   void close() {
-    $callSync(24020, $W()..h(this));
+    $callSync(24026, $W()..h(this));
   }
 
   /// Go: `func (*transform.Writer).Write(data []byte) (n int, err error)`.
   int write(Uint8List data) {
     final $r = $callSync(
-        24021,
+        24027,
         $W()
           ..h(this)
           ..bytes(data));
@@ -226,7 +226,7 @@ extension GoXTextTransformApi on GoXTextTransform {
   (Uint8List, int) append(
       TextTransformTransformer t, Uint8List dst, Uint8List src) {
     final $r = $callSync(
-        24006,
+        24012,
         $W()
           ..h(t)
           ..bytes(dst)
@@ -237,7 +237,7 @@ extension GoXTextTransformApi on GoXTextTransform {
   /// Go: `func transform.Bytes(t transform.Transformer, b []byte) (result []byte, n int, err error)`.
   (Uint8List, int) bytes(TextTransformTransformer t, Uint8List b) {
     final $r = $callSync(
-        24007,
+        24013,
         $W()
           ..h(t)
           ..bytes(b));
@@ -247,19 +247,19 @@ extension GoXTextTransformApi on GoXTextTransform {
   /// Go: `func transform.Chain(t ...transform.Transformer) transform.Transformer`.
   TextTransformTransformer chain(
       [List<TextTransformTransformer> t = const []]) {
-    final $r = $callSync(24008, $W()..list(t, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(24014, $W()..list(t, (w0, e0) => w0.h(e0)));
     return $r.hnn(TextTransformTransformer.$h);
   }
 
   /// Go: `var transform.Discard transform.Transformer`.
   TextTransformTransformer get discard {
-    final $r = $callSync(24009);
+    final $r = $callSync(24015);
     return $r.hnn(TextTransformTransformer.$h);
   }
 
   /// Go: `var transform.Nop transform.SpanningTransformer`.
   TextTransformSpanningTransformer get nop {
-    final $r = $callSync(24012);
+    final $r = $callSync(24018);
     return $r.hnn(TextTransformSpanningTransformer.$h);
   }
 
@@ -273,14 +273,14 @@ extension GoXTextTransformApi on GoXTextTransform {
   @Deprecated("Use runes.Remove instead.")
   Future<TextTransformTransformer> removeFunc(
       FutureOr<bool> Function(int r) f) async {
-    final $r = await $call(24015, $W()..cb((r) => f(r.i64()), true));
+    final $r = await $call(24021, $W()..cb((r) => f(r.i64()), true));
     return $r.hnn(TextTransformTransformer.$h);
   }
 
   /// Go: `func transform.String(t transform.Transformer, s string) (result string, n int, err error)`.
   (String, int) string(TextTransformTransformer t, String s) {
     final $r = $callSync(
-        24017,
+        24023,
         $W()
           ..h(t)
           ..str(s));

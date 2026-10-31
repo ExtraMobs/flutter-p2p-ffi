@@ -12,7 +12,7 @@ extension GoPionDtlsV3PkgCryptoFingerprintApi
   /// Go: `func fingerprint.Fingerprint(cert *x509.Certificate, algo crypto.Hash) (string, error)`.
   String fingerprint($x509.CryptoX509Certificate cert, int algo) {
     final $r = $callSync(
-        16233,
+        16239,
         $W()
           ..dto(cert)
           ..i64(algo));
@@ -21,13 +21,13 @@ extension GoPionDtlsV3PkgCryptoFingerprintApi
 
   /// Go: `func fingerprint.HashFromString(s string) (crypto.Hash, error)`.
   int hashFromString(String s) {
-    final $r = $callSync(16234, $W()..str(s));
+    final $r = $callSync(16240, $W()..str(s));
     return $r.i64();
   }
 
   /// Go: `func fingerprint.StringFromHash(hash crypto.Hash) (string, error)`.
   String stringFromHash(int hash) {
-    final $r = $callSync(16235, $W()..i64(hash));
+    final $r = $callSync(16241, $W()..i64(hash));
     return $r.str();
   }
 }

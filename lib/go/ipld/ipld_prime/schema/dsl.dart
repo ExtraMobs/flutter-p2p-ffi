@@ -13,7 +13,7 @@ extension GoIpldIpldPrimeSchemaDslApi on GoIpldIpldPrimeSchemaDsl {
   /// Go: `func schemadsl.Parse(name string, r io.Reader) (*schemadmt.Schema, error)`.
   $dmt.IpldPrimeSchemaDmtSchema parse(String name, Object r) {
     final $r = $callSync(
-        12554,
+        12560,
         $W()
           ..str(name)
           ..reader(r));
@@ -22,13 +22,13 @@ extension GoIpldIpldPrimeSchemaDslApi on GoIpldIpldPrimeSchemaDsl {
 
   /// Go: `func schemadsl.ParseBytes(src []byte) (*schemadmt.Schema, error)`.
   $dmt.IpldPrimeSchemaDmtSchema parseBytes(Uint8List src) {
-    final $r = $callSync(12555, $W()..bytes(src));
+    final $r = $callSync(12561, $W()..bytes(src));
     return $r.p() ? $dmt.IpldPrimeSchemaDmtSchema.$dec($r) : $nil();
   }
 
   /// Go: `func schemadsl.ParseFile(path string) (*schemadmt.Schema, error)`.
   $dmt.IpldPrimeSchemaDmtSchema parseFile(String path) {
-    final $r = $callSync(12556, $W()..str(path));
+    final $r = $callSync(12562, $W()..str(path));
     return $r.p() ? $dmt.IpldPrimeSchemaDmtSchema.$dec($r) : $nil();
   }
 }

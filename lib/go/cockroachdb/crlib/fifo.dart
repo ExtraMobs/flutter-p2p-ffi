@@ -30,7 +30,7 @@ class CrlibFifoSemaphore extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func fifo.NewSemaphore(capacity int64) *fifo.Semaphore`.
   factory CrlibFifoSemaphore(int capacity) {
-    final $r = $callSync(4382, $W()..i64(capacity));
+    final $r = $callSync(4391, $W()..i64(capacity));
     return $r.hnn(CrlibFifoSemaphore.$h);
   }
 
@@ -39,7 +39,7 @@ class CrlibFifoSemaphore extends $crypto.CryptoDecrypterOpts
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> acquire($context.Context ctx, int n) async {
     await $call(
-        4383,
+        4392,
         $W()
           ..h(this)
           ..h(ctx)
@@ -49,7 +49,7 @@ class CrlibFifoSemaphore extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*fifo.Semaphore).Release(n int64)`.
   void release$(int n) {
     $callSync(
-        4384,
+        4393,
         $W()
           ..h(this)
           ..i64(n));
@@ -57,14 +57,14 @@ class CrlibFifoSemaphore extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*fifo.Semaphore).Stats() fifo.SemaphoreStats`.
   CrlibFifoSemaphoreStats stats() {
-    final $r = $callSync(4385, $W()..h(this));
+    final $r = $callSync(4394, $W()..h(this));
     return $r.p() ? CrlibFifoSemaphoreStats.$dec($r) : $nil();
   }
 
   /// Go: `func (*fifo.Semaphore).TryAcquire(n int64) bool`.
   bool tryAcquire(int n) {
     final $r = $callSync(
-        4386,
+        4395,
         $W()
           ..h(this)
           ..i64(n));
@@ -74,7 +74,7 @@ class CrlibFifoSemaphore extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*fifo.Semaphore).UpdateCapacity(capacity int64)`.
   void updateCapacity(int capacity) {
     $callSync(
-        4387,
+        4396,
         $W()
           ..h(this)
           ..i64(capacity));
@@ -112,7 +112,7 @@ final class CrlibFifoSemaphoreStats implements GoDto {
 
   /// Go: `func (fifo.SemaphoreStats).String() string`.
   String string() {
-    final $r = $callSync(4388, $W()..dto(this));
+    final $r = $callSync(4397, $W()..dto(this));
     return $r.str();
   }
 }

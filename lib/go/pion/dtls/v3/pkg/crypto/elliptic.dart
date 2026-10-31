@@ -43,13 +43,13 @@ final class DtlsV3PkgCryptoEllipticKeypair implements GoDto {
 extension GoPionDtlsV3PkgCryptoEllipticApi on GoPionDtlsV3PkgCryptoElliptic {
   /// Go: `func elliptic.Curves() map[elliptic.Curve]bool`.
   Map<int, bool> curves() {
-    final $r = $callSync(16231);
+    final $r = $callSync(16237);
     return $r.map(() => $r.i64(), () => $r.b());
   }
 
   /// Go: `func elliptic.GenerateKeypair(curve elliptic.Curve) (*elliptic.Keypair, error)`.
   DtlsV3PkgCryptoEllipticKeypair generateKeypair(int curve) {
-    final $r = $callSync(16232, $W()..i64(curve));
+    final $r = $callSync(16238, $W()..i64(curve));
     return $r.p() ? DtlsV3PkgCryptoEllipticKeypair.$dec($r) : $nil();
   }
 }

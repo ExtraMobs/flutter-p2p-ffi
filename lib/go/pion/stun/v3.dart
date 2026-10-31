@@ -13,7 +13,6 @@ import 'package:p2p_ffi/src/go.dart'
         GoPionStunV3Options;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/crypto/tls.dart' as $tls;
 import 'package:p2p_ffi/go/encoding.dart' as $encoding;
 import 'package:p2p_ffi/go/encoding/gob.dart' as $gob;
 import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
@@ -21,9 +20,7 @@ import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
-import 'package:p2p_ffi/go/pion/dtls/v3.dart' as $v3;
 import 'package:p2p_ffi/go/pion/logging.dart' as $logging;
-import 'package:p2p_ffi/go/pion/transport/v4.dart' as $v4;
 import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
 
 /// Go: `stun.Agent` (handle).
@@ -52,13 +49,13 @@ class StunV3Agent extends StunV3ClientAgent
 
   /// Go: `func (*stun.Agent).Close() error`.
   void close() {
-    $callSync(17180, $W()..h(this));
+    $callSync(17186, $W()..h(this));
   }
 
   /// Go: `func (*stun.Agent).Collect(gcTime time.Time) error`.
   void collect(DateTime gcTime) {
     $callSync(
-        17181,
+        17187,
         $W()
           ..h(this)
           ..time(gcTime));
@@ -67,7 +64,7 @@ class StunV3Agent extends StunV3ClientAgent
   /// Go: `func (*stun.Agent).Process(m *stun.Message) error`.
   void process(StunV3Message m) {
     $callSync(
-        17182,
+        17188,
         $W()
           ..h(this)
           ..h(m));
@@ -82,7 +79,7 @@ class StunV3Agent extends StunV3ClientAgent
   /// each invocation (a retained callback, WIRE.md).
   Future<void> setHandler(FutureOr<void> Function(StunV3Event e) h) async {
     await $call(
-        17183,
+        17189,
         $W()
           ..h(this)
           ..cb((r) => h(r.p() ? StunV3Event.$dec(r) : $nil()), true));
@@ -115,7 +112,7 @@ final class StunV3AlternateServer implements GoDto {
   /// Go: `func (*stun.AlternateServer).AddTo(m *stun.Message) error`.
   void addTo(StunV3Message m) {
     $callSync(
-        17184,
+        17190,
         $W()
           ..dto(this)
           ..h(m));
@@ -124,7 +121,7 @@ final class StunV3AlternateServer implements GoDto {
   /// Go: `func (*stun.AlternateServer).GetFrom(m *stun.Message) error`.
   void getFrom(StunV3Message m) {
     $callSync(
-        17185,
+        17191,
         $W()
           ..dto(this)
           ..h(m));
@@ -141,7 +138,7 @@ mixin StunV3Checker$ on GoHandle {
   /// Go: `func (stun.Checker).Check(m *stun.Message) error`.
   void check(StunV3Message m) {
     $callSync(
-        17192,
+        17198,
         $W()
           ..h(this)
           ..h(m));
@@ -174,7 +171,7 @@ class StunV3Client extends $io.IoCloser
   factory StunV3Client(Object conn,
       [List<StunV3ClientOption> options = const []]) {
     final $r = $callSync(
-        17257,
+        17263,
         $W()
           ..reader(conn)
           ..list(options, (w0, e0) => w0.opt(e0)));
@@ -183,7 +180,7 @@ class StunV3Client extends $io.IoCloser
 
   /// Go: `func (*stun.Client).Close() error`.
   void close() {
-    $callSync(17193, $W()..h(this));
+    $callSync(17199, $W()..h(this));
   }
 
   /// Go: `func (*stun.Client).Do(m *stun.Message, f func(stun.Event)) error`.
@@ -196,7 +193,7 @@ class StunV3Client extends $io.IoCloser
   Future<void> do$(
       StunV3Message m, FutureOr<void> Function(StunV3Event event) f) async {
     await $call(
-        17194,
+        17200,
         $W()
           ..h(this)
           ..h(m)
@@ -206,7 +203,7 @@ class StunV3Client extends $io.IoCloser
   /// Go: `func (*stun.Client).Indicate(m *stun.Message) error`.
   void indicate(StunV3Message m) {
     $callSync(
-        17195,
+        17201,
         $W()
           ..h(this)
           ..h(m));
@@ -215,7 +212,7 @@ class StunV3Client extends $io.IoCloser
   /// Go: `func (*stun.Client).SetRTO(rto time.Duration)`.
   void setRto(Duration rto) {
     $callSync(
-        17196,
+        17202,
         $W()
           ..h(this)
           ..i64((rto).inMicroseconds * 1000));
@@ -231,7 +228,7 @@ class StunV3Client extends $io.IoCloser
   Future<void> start(
       StunV3Message msg, FutureOr<void> Function(StunV3Event e) handler) async {
     await $call(
-        17197,
+        17203,
         $W()
           ..h(this)
           ..h(msg)
@@ -248,13 +245,13 @@ class StunV3ClientAgent extends GoHandle with StunV3ClientAgent$ {
 mixin StunV3ClientAgent$ on GoHandle {
   /// Go: `func (stun.ClientAgent).Close() error`.
   void close() {
-    $callSync(17198, $W()..h(this));
+    $callSync(17204, $W()..h(this));
   }
 
   /// Go: `func (stun.ClientAgent).Collect(time.Time) error`.
   void collect(DateTime time) {
     $callSync(
-        17199,
+        17205,
         $W()
           ..h(this)
           ..time(time));
@@ -263,7 +260,7 @@ mixin StunV3ClientAgent$ on GoHandle {
   /// Go: `func (stun.ClientAgent).Process(*stun.Message) error`.
   void process(StunV3Message message) {
     $callSync(
-        17200,
+        17206,
         $W()
           ..h(this)
           ..h(message));
@@ -278,7 +275,7 @@ mixin StunV3ClientAgent$ on GoHandle {
   /// each invocation (a retained callback, WIRE.md).
   Future<void> setHandler(FutureOr<void> Function(StunV3Event e) h) async {
     await $call(
-        17201,
+        17207,
         $W()
           ..h(this)
           ..cb((r) => h(r.p() ? StunV3Event.$dec(r) : $nil()), true));
@@ -286,7 +283,7 @@ mixin StunV3ClientAgent$ on GoHandle {
 
   /// Go: type assertion `x.(*stun.Agent)`: null if the object is not one.
   StunV3Agent? asStunV3Agent() {
-    final $r = $callSync(1612, $W()..h(this));
+    final $r = $callSync(1617, $W()..h(this));
     return $r.hn(StunV3Agent.$h);
   }
 }
@@ -305,7 +302,7 @@ class StunV3Collector extends GoHandle with StunV3Collector$ {
 mixin StunV3Collector$ on GoHandle {
   /// Go: `func (stun.Collector).Close() error`.
   void close() {
-    $callSync(17202, $W()..h(this));
+    $callSync(17208, $W()..h(this));
   }
 
   /// Go: `func (stun.Collector).Start(rate time.Duration, f func(now time.Time)) error`.
@@ -318,7 +315,7 @@ mixin StunV3Collector$ on GoHandle {
   Future<void> start(
       Duration rate, FutureOr<void> Function(DateTime now) f) async {
     await $call(
-        17203,
+        17209,
         $W()
           ..h(this)
           ..i64((rate).inMicroseconds * 1000)
@@ -356,42 +353,28 @@ final class StunV3DecodeErrPlace implements GoDto {
 
   /// Go: `func (stun.DecodeErrPlace).String() string`.
   String string() {
-    final $r = $callSync(17205, $W()..dto(this));
+    final $r = $callSync(17211, $W()..dto(this));
     return $r.str();
   }
 }
 
-/// Go: `stun.DialConfig`.
-final class StunV3DialConfig implements GoDto {
-  StunV3DialConfig(
-      {$v3.DtlsV3Config? dtlsConfig,
-      $tls.CryptoTlsConfig? tlsConfig,
-      $v4.TransportV4Net? net})
-      : dtlsConfig = dtlsConfig,
-        tlsConfig = tlsConfig,
-        net = net;
-
-  StunV3DialConfig.$dec($R r)
-      : dtlsConfig = r.hn($v3.DtlsV3Config.$h),
-        tlsConfig = r.hn($tls.CryptoTlsConfig.$h),
-        net = r.hn($v4.TransportV4Net.$h);
-
-  /// Go: `DTLSConfig`.
-  $v3.DtlsV3Config? dtlsConfig;
-
-  /// Go: `TLSConfig`.
-  $tls.CryptoTlsConfig? tlsConfig;
-
-  /// Go: `Net`.
-  $v4.TransportV4Net? net;
-
-  @override
-  void $enc($W w) {
-    w
-      ..h(dtlsConfig)
-      ..h(tlsConfig)
-      ..h(net);
-  }
+/// Go: `stun.DialConfig` (handle).
+class StunV3DialConfig extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
+  StunV3DialConfig.$h(super.$h) : super.$h();
 }
 
 /// Go: `stun.ErrorCodeAttribute`.
@@ -420,7 +403,7 @@ final class StunV3ErrorCodeAttribute implements GoDto {
   /// Go: `func (stun.ErrorCodeAttribute).AddTo(msg *stun.Message) error`.
   void addTo(StunV3Message msg) {
     $callSync(
-        17208,
+        17214,
         $W()
           ..dto(this)
           ..h(msg));
@@ -429,7 +412,7 @@ final class StunV3ErrorCodeAttribute implements GoDto {
   /// Go: `func (*stun.ErrorCodeAttribute).GetFrom(m *stun.Message) error`.
   void getFrom(StunV3Message m) {
     $callSync(
-        17209,
+        17215,
         $W()
           ..dto(this)
           ..h(m));
@@ -437,7 +420,7 @@ final class StunV3ErrorCodeAttribute implements GoDto {
 
   /// Go: `func (stun.ErrorCodeAttribute).String() string`.
   String string() {
-    final $r = $callSync(17210, $W()..dto(this));
+    final $r = $callSync(17216, $W()..dto(this));
     return $r.str();
   }
 }
@@ -479,7 +462,7 @@ final class StunV3FingerprintAttr implements GoDto {
   /// Go: `func (stun.FingerprintAttr).AddTo(m *stun.Message) error`.
   void addTo(StunV3Message m) {
     $callSync(
-        17212,
+        17218,
         $W()
           ..dto(this)
           ..h(m));
@@ -488,7 +471,7 @@ final class StunV3FingerprintAttr implements GoDto {
   /// Go: `func (stun.FingerprintAttr).Check(m *stun.Message) error`.
   void check(StunV3Message m) {
     $callSync(
-        17213,
+        17219,
         $W()
           ..dto(this)
           ..h(m));
@@ -505,7 +488,7 @@ mixin StunV3Getter$ on GoHandle {
   /// Go: `func (stun.Getter).GetFrom(m *stun.Message) error`.
   void getFrom(StunV3Message m) {
     $callSync(
-        17215,
+        17221,
         $W()
           ..h(this)
           ..h(m));
@@ -557,7 +540,7 @@ final class StunV3MappedAddress implements GoDto {
   /// Go: `func (*stun.MappedAddress).AddTo(m *stun.Message) error`.
   void addTo(StunV3Message m) {
     $callSync(
-        17217,
+        17223,
         $W()
           ..dto(this)
           ..h(m));
@@ -566,7 +549,7 @@ final class StunV3MappedAddress implements GoDto {
   /// Go: `func (*stun.MappedAddress).AddToAs(msg *stun.Message, attrType stun.AttrType) error`.
   void addToAs(StunV3Message msg, int attrType) {
     $callSync(
-        17218,
+        17224,
         $W()
           ..dto(this)
           ..h(msg)
@@ -576,7 +559,7 @@ final class StunV3MappedAddress implements GoDto {
   /// Go: `func (*stun.MappedAddress).GetFrom(m *stun.Message) error`.
   void getFrom(StunV3Message m) {
     $callSync(
-        17219,
+        17225,
         $W()
           ..dto(this)
           ..h(m));
@@ -585,7 +568,7 @@ final class StunV3MappedAddress implements GoDto {
   /// Go: `func (*stun.MappedAddress).GetFromAs(m *stun.Message, t stun.AttrType) error`.
   void getFromAs(StunV3Message m, int t) {
     $callSync(
-        17220,
+        17226,
         $W()
           ..dto(this)
           ..h(m)
@@ -594,7 +577,7 @@ final class StunV3MappedAddress implements GoDto {
 
   /// Go: `func (stun.MappedAddress).String() string`.
   String string() {
-    final $r = $callSync(17221, $W()..dto(this));
+    final $r = $callSync(17227, $W()..dto(this));
     return $r.str();
   }
 }
@@ -630,7 +613,7 @@ class StunV3Message extends $encoding.EncodingBinaryUnmarshaler
   /// Go: `func (*stun.Message).Add(attrType stun.AttrType, val []byte)`.
   void add(int attrType, Uint8List val) {
     $callSync(
-        17222,
+        17228,
         $W()
           ..h(this)
           ..i64(attrType)
@@ -640,7 +623,7 @@ class StunV3Message extends $encoding.EncodingBinaryUnmarshaler
   /// Go: `func (*stun.Message).AddTo(b *stun.Message) error`.
   void addTo(StunV3Message b) {
     $callSync(
-        17223,
+        17229,
         $W()
           ..h(this)
           ..h(b));
@@ -649,7 +632,7 @@ class StunV3Message extends $encoding.EncodingBinaryUnmarshaler
   /// Go: `func (*stun.Message).Build(setters ...stun.Setter) error`.
   void build([List<StunV3Setter> setters = const []]) {
     $callSync(
-        17224,
+        17230,
         $W()
           ..h(this)
           ..list(setters, (w0, e0) => w0.h(e0)));
@@ -658,7 +641,7 @@ class StunV3Message extends $encoding.EncodingBinaryUnmarshaler
   /// Go: `func (*stun.Message).Check(checkers ...stun.Checker) error`.
   void check([List<StunV3Checker> checkers = const []]) {
     $callSync(
-        17225,
+        17231,
         $W()
           ..h(this)
           ..list(checkers, (w0, e0) => w0.h(e0)));
@@ -667,7 +650,7 @@ class StunV3Message extends $encoding.EncodingBinaryUnmarshaler
   /// Go: `func (*stun.Message).CloneTo(b *stun.Message) error`.
   void cloneTo(StunV3Message b) {
     $callSync(
-        17226,
+        17232,
         $W()
           ..h(this)
           ..h(b));
@@ -676,7 +659,7 @@ class StunV3Message extends $encoding.EncodingBinaryUnmarshaler
   /// Go: `func (*stun.Message).Contains(t stun.AttrType) bool`.
   bool contains(int t) {
     final $r = $callSync(
-        17227,
+        17233,
         $W()
           ..h(this)
           ..i64(t));
@@ -685,18 +668,18 @@ class StunV3Message extends $encoding.EncodingBinaryUnmarshaler
 
   /// Go: `func (*stun.Message).Decode() error`.
   void decode() {
-    $callSync(17228, $W()..h(this));
+    $callSync(17234, $W()..h(this));
   }
 
   /// Go: `func (*stun.Message).Encode()`.
   void encode() {
-    $callSync(17229, $W()..h(this));
+    $callSync(17235, $W()..h(this));
   }
 
   /// Go: `func (*stun.Message).Equal(msg *stun.Message) bool`.
   bool equal(StunV3Message msg) {
     final $r = $callSync(
-        17230,
+        17236,
         $W()
           ..h(this)
           ..h(msg));
@@ -713,7 +696,7 @@ class StunV3Message extends $encoding.EncodingBinaryUnmarshaler
   Future<void> forEach(
       int t, FutureOr<void> Function(StunV3Message m) f) async {
     await $call(
-        17231,
+        17237,
         $W()
           ..h(this)
           ..i64(t)
@@ -723,7 +706,7 @@ class StunV3Message extends $encoding.EncodingBinaryUnmarshaler
   /// Go: `func (*stun.Message).Get(t stun.AttrType) ([]byte, error)`.
   Uint8List get(int t) {
     final $r = $callSync(
-        17232,
+        17238,
         $W()
           ..h(this)
           ..i64(t));
@@ -733,7 +716,7 @@ class StunV3Message extends $encoding.EncodingBinaryUnmarshaler
   /// Go: `func (*stun.Message).GobDecode(data []byte) error`.
   void gobDecode(Uint8List data) {
     $callSync(
-        17233,
+        17239,
         $W()
           ..h(this)
           ..bytes(data));
@@ -741,25 +724,25 @@ class StunV3Message extends $encoding.EncodingBinaryUnmarshaler
 
   /// Go: `func (stun.Message).GobEncode() ([]byte, error)`.
   Uint8List gobEncode() {
-    final $r = $callSync(17234, $W()..h(this));
+    final $r = $callSync(17240, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (stun.Message).MarshalBinary() (data []byte, err error)`.
   Uint8List marshalBinary() {
-    final $r = $callSync(17235, $W()..h(this));
+    final $r = $callSync(17241, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*stun.Message).NewTransactionID() error`.
   void newTransactionId() {
-    $callSync(17236, $W()..h(this));
+    $callSync(17242, $W()..h(this));
   }
 
   /// Go: `func (*stun.Message).Parse(getters ...stun.Getter) error`.
   void parse([List<StunV3Getter> getters = const []]) {
     $callSync(
-        17237,
+        17243,
         $W()
           ..h(this)
           ..list(getters, (w0, e0) => w0.h(e0)));
@@ -768,7 +751,7 @@ class StunV3Message extends $encoding.EncodingBinaryUnmarshaler
   /// Go: `func (*stun.Message).ReadFrom(r io.Reader) (int64, error)`.
   int readFrom(Object r) {
     final $r = $callSync(
-        17238,
+        17244,
         $W()
           ..h(this)
           ..reader(r));
@@ -777,13 +760,13 @@ class StunV3Message extends $encoding.EncodingBinaryUnmarshaler
 
   /// Go: `func (*stun.Message).Reset()`.
   void reset() {
-    $callSync(17239, $W()..h(this));
+    $callSync(17245, $W()..h(this));
   }
 
   /// Go: `func (*stun.Message).SetType(t stun.MessageType)`.
   void setType(StunV3MessageType t) {
     $callSync(
-        17240,
+        17246,
         $W()
           ..h(this)
           ..dto(t));
@@ -791,14 +774,14 @@ class StunV3Message extends $encoding.EncodingBinaryUnmarshaler
 
   /// Go: `func (*stun.Message).String() string`.
   String string() {
-    final $r = $callSync(17241, $W()..h(this));
+    final $r = $callSync(17247, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*stun.Message).UnmarshalBinary(data []byte) error`.
   void unmarshalBinary(Uint8List data) {
     $callSync(
-        17242,
+        17248,
         $W()
           ..h(this)
           ..bytes(data));
@@ -807,7 +790,7 @@ class StunV3Message extends $encoding.EncodingBinaryUnmarshaler
   /// Go: `func (*stun.Message).Write(tBuf []byte) (int, error)`.
   int write(Uint8List tBuf) {
     final $r = $callSync(
-        17243,
+        17249,
         $W()
           ..h(this)
           ..bytes(tBuf));
@@ -816,23 +799,23 @@ class StunV3Message extends $encoding.EncodingBinaryUnmarshaler
 
   /// Go: `func (*stun.Message).WriteAttributes()`.
   void writeAttributes() {
-    $callSync(17244, $W()..h(this));
+    $callSync(17250, $W()..h(this));
   }
 
   /// Go: `func (*stun.Message).WriteHeader()`.
   void writeHeader() {
-    $callSync(17245, $W()..h(this));
+    $callSync(17251, $W()..h(this));
   }
 
   /// Go: `func (*stun.Message).WriteLength()`.
   void writeLength() {
-    $callSync(17246, $W()..h(this));
+    $callSync(17252, $W()..h(this));
   }
 
   /// Go: `func (*stun.Message).WriteTo(w io.Writer) (int64, error)`.
   int writeTo(GoHandle? w) {
     final $r = $callSync(
-        17247,
+        17253,
         $W()
           ..h(this)
           ..h(w));
@@ -841,12 +824,12 @@ class StunV3Message extends $encoding.EncodingBinaryUnmarshaler
 
   /// Go: `func (*stun.Message).WriteTransactionID()`.
   void writeTransactionId() {
-    $callSync(17248, $W()..h(this));
+    $callSync(17254, $W()..h(this));
   }
 
   /// Go: `func (*stun.Message).WriteType()`.
   void writeType() {
-    $callSync(17249, $W()..h(this));
+    $callSync(17255, $W()..h(this));
   }
 }
 
@@ -881,7 +864,7 @@ final class StunV3MessageType implements GoDto {
   /// Go: `func (stun.MessageType).AddTo(m *stun.Message) error`.
   void addTo(StunV3Message m) {
     $callSync(
-        17250,
+        17256,
         $W()
           ..dto(this)
           ..h(m));
@@ -890,7 +873,7 @@ final class StunV3MessageType implements GoDto {
   /// Go: `func (*stun.MessageType).ReadValue(v uint16)`.
   void readValue(int v) {
     $callSync(
-        17251,
+        17257,
         $W()
           ..dto(this)
           ..i64(v));
@@ -898,13 +881,13 @@ final class StunV3MessageType implements GoDto {
 
   /// Go: `func (stun.MessageType).String() string`.
   String string() {
-    final $r = $callSync(17252, $W()..dto(this));
+    final $r = $callSync(17258, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (stun.MessageType).Value() uint16`.
   int value$() {
-    final $r = $callSync(17253, $W()..dto(this));
+    final $r = $callSync(17259, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -935,7 +918,7 @@ final class StunV3OtherAddress implements GoDto {
   /// Go: `func (*stun.OtherAddress).AddTo(m *stun.Message) error`.
   void addTo(StunV3Message m) {
     $callSync(
-        17269,
+        17275,
         $W()
           ..dto(this)
           ..h(m));
@@ -944,7 +927,7 @@ final class StunV3OtherAddress implements GoDto {
   /// Go: `func (*stun.OtherAddress).GetFrom(m *stun.Message) error`.
   void getFrom(StunV3Message m) {
     $callSync(
-        17270,
+        17276,
         $W()
           ..dto(this)
           ..h(m));
@@ -952,7 +935,7 @@ final class StunV3OtherAddress implements GoDto {
 
   /// Go: `func (stun.OtherAddress).String() string`.
   String string() {
-    final $r = $callSync(17271, $W()..dto(this));
+    final $r = $callSync(17277, $W()..dto(this));
     return $r.str();
   }
 }
@@ -989,7 +972,7 @@ final class StunV3RawAttribute implements GoDto {
   /// Go: `func (stun.RawAttribute).AddTo(m *stun.Message) error`.
   void addTo(StunV3Message m) {
     $callSync(
-        17273,
+        17279,
         $W()
           ..dto(this)
           ..h(m));
@@ -998,7 +981,7 @@ final class StunV3RawAttribute implements GoDto {
   /// Go: `func (stun.RawAttribute).Equal(b stun.RawAttribute) bool`.
   bool equal(StunV3RawAttribute b) {
     final $r = $callSync(
-        17274,
+        17280,
         $W()
           ..dto(this)
           ..dto(b));
@@ -1007,7 +990,7 @@ final class StunV3RawAttribute implements GoDto {
 
   /// Go: `func (stun.RawAttribute).String() string`.
   String string() {
-    final $r = $callSync(17275, $W()..dto(this));
+    final $r = $callSync(17281, $W()..dto(this));
     return $r.str();
   }
 }
@@ -1038,7 +1021,7 @@ final class StunV3ResponseOrigin implements GoDto {
   /// Go: `func (*stun.ResponseOrigin).AddTo(m *stun.Message) error`.
   void addTo(StunV3Message m) {
     $callSync(
-        17276,
+        17282,
         $W()
           ..dto(this)
           ..h(m));
@@ -1047,7 +1030,7 @@ final class StunV3ResponseOrigin implements GoDto {
   /// Go: `func (*stun.ResponseOrigin).GetFrom(m *stun.Message) error`.
   void getFrom(StunV3Message m) {
     $callSync(
-        17277,
+        17283,
         $W()
           ..dto(this)
           ..h(m));
@@ -1055,7 +1038,7 @@ final class StunV3ResponseOrigin implements GoDto {
 
   /// Go: `func (stun.ResponseOrigin).String() string`.
   String string() {
-    final $r = $callSync(17278, $W()..dto(this));
+    final $r = $callSync(17284, $W()..dto(this));
     return $r.str();
   }
 }
@@ -1070,7 +1053,7 @@ mixin StunV3Setter$ on GoHandle {
   /// Go: `func (stun.Setter).AddTo(m *stun.Message) error`.
   void addTo(StunV3Message m) {
     $callSync(
-        17279,
+        17285,
         $W()
           ..h(this)
           ..h(m));
@@ -1078,7 +1061,7 @@ mixin StunV3Setter$ on GoHandle {
 
   /// Go: type assertion `x.(*stun.Message)`: null if the object is not one.
   StunV3Message? asStunV3Message() {
-    final $r = $callSync(1613, $W()..h(this));
+    final $r = $callSync(1618, $W()..h(this));
     return $r.hn(StunV3Message.$h);
   }
 }
@@ -1138,13 +1121,13 @@ final class StunV3Uri implements GoDto {
 
   /// Go: `func (stun.URI).IsSecure() bool`.
   bool isSecure() {
-    final $r = $callSync(17281, $W()..dto(this));
+    final $r = $callSync(17287, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (stun.URI).String() string`.
   String string() {
-    final $r = $callSync(17282, $W()..dto(this));
+    final $r = $callSync(17288, $W()..dto(this));
     return $r.str();
   }
 }
@@ -1175,7 +1158,7 @@ final class StunV3XorMappedAddress implements GoDto {
   /// Go: `func (stun.XORMappedAddress).AddTo(m *stun.Message) error`.
   void addTo(StunV3Message m) {
     $callSync(
-        17284,
+        17290,
         $W()
           ..dto(this)
           ..h(m));
@@ -1184,7 +1167,7 @@ final class StunV3XorMappedAddress implements GoDto {
   /// Go: `func (stun.XORMappedAddress).AddToAs(msg *stun.Message, attr stun.AttrType) error`.
   void addToAs(StunV3Message msg, int attr) {
     $callSync(
-        17285,
+        17291,
         $W()
           ..dto(this)
           ..h(msg)
@@ -1194,7 +1177,7 @@ final class StunV3XorMappedAddress implements GoDto {
   /// Go: `func (*stun.XORMappedAddress).GetFrom(m *stun.Message) error`.
   void getFrom(StunV3Message m) {
     $callSync(
-        17286,
+        17292,
         $W()
           ..dto(this)
           ..h(m));
@@ -1203,7 +1186,7 @@ final class StunV3XorMappedAddress implements GoDto {
   /// Go: `func (*stun.XORMappedAddress).GetFromAs(msg *stun.Message, attr stun.AttrType) error`.
   void getFromAs(StunV3Message msg, int attr) {
     $callSync(
-        17287,
+        17293,
         $W()
           ..dto(this)
           ..h(msg)
@@ -1212,7 +1195,7 @@ final class StunV3XorMappedAddress implements GoDto {
 
   /// Go: `func (stun.XORMappedAddress).String() string`.
   String string() {
-    final $r = $callSync(17288, $W()..dto(this));
+    final $r = $callSync(17294, $W()..dto(this));
     return $r.str();
   }
 }
@@ -1514,32 +1497,32 @@ class StunV3TurnError extends GolangException {
 extension GoPionStunV3Api on GoPionStunV3 {
   /// Go: `var stun.BindingError stun.MessageType`.
   StunV3MessageType get bindingError {
-    final $r = $callSync(17186);
+    final $r = $callSync(17192);
     return $r.p() ? StunV3MessageType.$dec($r) : $nil();
   }
 
   /// Go: `var stun.BindingRequest stun.MessageType`.
   StunV3MessageType get bindingRequest {
-    final $r = $callSync(17187);
+    final $r = $callSync(17193);
     return $r.p() ? StunV3MessageType.$dec($r) : $nil();
   }
 
   /// Go: `var stun.BindingSuccess stun.MessageType`.
   StunV3MessageType get bindingSuccess {
-    final $r = $callSync(17188);
+    final $r = $callSync(17194);
     return $r.p() ? StunV3MessageType.$dec($r) : $nil();
   }
 
   /// Go: `func stun.Build(setters ...stun.Setter) (*stun.Message, error)`.
   StunV3Message build([List<StunV3Setter> setters = const []]) {
-    final $r = $callSync(17189, $W()..list(setters, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(17195, $W()..list(setters, (w0, e0) => w0.h(e0)));
     return $r.hnn(StunV3Message.$h);
   }
 
   /// Go: `func stun.CheckOverflow(_ stun.AttrType, got int, maxVal int) error`.
   void checkOverflow(int arg0, int got, int maxVal) {
     $callSync(
-        17190,
+        17196,
         $W()
           ..i64(arg0)
           ..i64(got)
@@ -1549,7 +1532,7 @@ extension GoPionStunV3Api on GoPionStunV3 {
   /// Go: `func stun.CheckSize(_ stun.AttrType, got int, expected int) error`.
   void checkSize(int arg0, int got, int expected) {
     $callSync(
-        17191,
+        17197,
         $W()
           ..i64(arg0)
           ..i64(got)
@@ -1559,7 +1542,7 @@ extension GoPionStunV3Api on GoPionStunV3 {
   /// Go: `func stun.Decode(data []byte, m *stun.Message) error`.
   void decode(Uint8List data, StunV3Message m) {
     $callSync(
-        17204,
+        17210,
         $W()
           ..bytes(data)
           ..h(m));
@@ -1568,7 +1551,7 @@ extension GoPionStunV3Api on GoPionStunV3 {
   /// Go: `func stun.Dial(network string, address string) (*stun.Client, error)`.
   StunV3Client dial(String network, String address) {
     final $r = $callSync(
-        17206,
+        17212,
         $W()
           ..str(network)
           ..str(address));
@@ -1578,40 +1561,40 @@ extension GoPionStunV3Api on GoPionStunV3 {
   /// Go: `func stun.DialURI(uri *stun.URI, cfg *stun.DialConfig) (*stun.Client, error)`.
   StunV3Client dialUri(StunV3Uri uri, StunV3DialConfig cfg) {
     final $r = $callSync(
-        17207,
+        17213,
         $W()
           ..dto(uri)
-          ..dto(cfg));
+          ..h(cfg));
     return $r.hnn(StunV3Client.$h);
   }
 
   /// Go: `var stun.Fingerprint stun.FingerprintAttr`.
   StunV3FingerprintAttr get fingerprint {
-    final $r = $callSync(17211);
+    final $r = $callSync(17217);
     return $r.p() ? StunV3FingerprintAttr.$dec($r) : $nil();
   }
 
   /// Go: `func stun.FingerprintValue(b []byte) uint32`.
   int fingerprintValue(Uint8List b) {
-    final $r = $callSync(17214, $W()..bytes(b));
+    final $r = $callSync(17220, $W()..bytes(b));
     return $r.i64();
   }
 
   /// Go: `func stun.IsMessage(b []byte) bool`.
   bool isMessage(Uint8List b) {
-    final $r = $callSync(17216, $W()..bytes(b));
+    final $r = $callSync(17222, $W()..bytes(b));
     return $r.b();
   }
 
   /// Go: `func stun.MustBuild(setters ...stun.Setter) *stun.Message`.
   StunV3Message mustBuild([List<StunV3Setter> setters = const []]) {
-    final $r = $callSync(17254, $W()..list(setters, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(17260, $W()..list(setters, (w0, e0) => w0.h(e0)));
     return $r.hnn(StunV3Message.$h);
   }
 
   /// Go: `func stun.New() *stun.Message`.
   StunV3Message new$() {
-    final $r = $callSync(17255);
+    final $r = $callSync(17261);
     return $r.hnn(StunV3Message.$h);
   }
 
@@ -1624,7 +1607,7 @@ extension GoPionStunV3Api on GoPionStunV3 {
   /// each invocation (a retained callback, WIRE.md).
   Future<StunV3Agent> newAgent(FutureOr<void> Function(StunV3Event e) h) async {
     final $r = await $call(
-        17256, $W()..cb((r) => h(r.p() ? StunV3Event.$dec(r) : $nil()), true));
+        17262, $W()..cb((r) => h(r.p() ? StunV3Event.$dec(r) : $nil()), true));
     return $r.hnn(StunV3Agent.$h);
   }
 
@@ -1632,7 +1615,7 @@ extension GoPionStunV3Api on GoPionStunV3 {
   Uint8List newLongTermIntegrity(
       String username, String realm, String password) {
     final $r = $callSync(
-        17258,
+        17264,
         $W()
           ..str(username)
           ..str(realm)
@@ -1642,44 +1625,44 @@ extension GoPionStunV3Api on GoPionStunV3 {
 
   /// Go: `func stun.NewNonce(nonce string) stun.Nonce`.
   Uint8List newNonce(String nonce) {
-    final $r = $callSync(17259, $W()..str(nonce));
+    final $r = $callSync(17265, $W()..str(nonce));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func stun.NewProtoType(raw string) stun.ProtoType`.
   int newProtoType(String raw) {
-    final $r = $callSync(17260, $W()..str(raw));
+    final $r = $callSync(17266, $W()..str(raw));
     return $r.i64();
   }
 
   /// Go: `func stun.NewRealm(realm string) stun.Realm`.
   Uint8List newRealm(String realm) {
-    final $r = $callSync(17261, $W()..str(realm));
+    final $r = $callSync(17267, $W()..str(realm));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func stun.NewSchemeType(raw string) stun.SchemeType`.
   int newSchemeType(String raw) {
-    final $r = $callSync(17262, $W()..str(raw));
+    final $r = $callSync(17268, $W()..str(raw));
     return $r.i64();
   }
 
   /// Go: `func stun.NewShortTermIntegrity(password string) stun.MessageIntegrity`.
   Uint8List newShortTermIntegrity(String password) {
-    final $r = $callSync(17263, $W()..str(password));
+    final $r = $callSync(17269, $W()..str(password));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func stun.NewSoftware(software string) stun.Software`.
   Uint8List newSoftware(String software) {
-    final $r = $callSync(17264, $W()..str(software));
+    final $r = $callSync(17270, $W()..str(software));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func stun.NewType(method stun.Method, class stun.MessageClass) stun.MessageType`.
   StunV3MessageType newType(int method, int class$) {
     final $r = $callSync(
-        17265,
+        17271,
         $W()
           ..i64(method)
           ..i64(class$));
@@ -1688,37 +1671,37 @@ extension GoPionStunV3Api on GoPionStunV3 {
 
   /// Go: `func stun.NewUsername(username string) stun.Username`.
   Uint8List newUsername(String username) {
-    final $r = $callSync(17266, $W()..str(username));
+    final $r = $callSync(17272, $W()..str(username));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func stun.NewWithOptions(options ...stun.MessageOption) *stun.Message`.
   StunV3Message newWithOptions([List<StunV3MessageOption> options = const []]) {
-    final $r = $callSync(17267, $W()..list(options, (w0, e0) => w0.opt(e0)));
+    final $r = $callSync(17273, $W()..list(options, (w0, e0) => w0.opt(e0)));
     return $r.hnn(StunV3Message.$h);
   }
 
   /// Go: `func stun.NoopHandler() stun.Handler`.
   StunV3Handler noopHandler() {
-    final $r = $callSync(17268);
+    final $r = $callSync(17274);
     return $r.hnn(StunV3Handler.$h);
   }
 
   /// Go: `func stun.ParseURI(raw string) (*stun.URI, error)`.
   StunV3Uri parseUri(String raw) {
-    final $r = $callSync(17272, $W()..str(raw));
+    final $r = $callSync(17278, $W()..str(raw));
     return $r.p() ? StunV3Uri.$dec($r) : $nil();
   }
 
   /// Go: `var stun.TransactionID stun.Setter`.
   StunV3Setter get transactionId {
-    final $r = $callSync(17280);
+    final $r = $callSync(17286);
     return $r.hnn(StunV3Setter.$h);
   }
 
   /// Go: `func stun.WithNoRetransmit(c *stun.Client)`.
   void withNoRetransmit(StunV3Client c) {
-    $callSync(17283, $W()..h(c));
+    $callSync(17289, $W()..h(c));
   }
 }
 

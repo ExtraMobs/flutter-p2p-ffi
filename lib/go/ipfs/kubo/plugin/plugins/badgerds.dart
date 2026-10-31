@@ -11,7 +11,7 @@ extension GoIpfsKuboPluginPluginsBadgerdsApi
     on GoIpfsKuboPluginPluginsBadgerds {
   /// Go: `var badgerds.Plugins []plugin.Plugin`.
   List<$plugin.KuboPlugin> get plugins {
-    final $r = $callSync(11716);
+    final $r = $callSync(11722);
     return $r.list(() => $r.hnn($plugin.KuboPlugin.$h));
   }
 }

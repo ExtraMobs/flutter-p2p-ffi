@@ -39,7 +39,7 @@ class Libp2pP2pProtocolAutonatv2AutoNat extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*autonatv2.AutoNAT).Close()`.
   void close() {
-    $callSync(14727, $W()..h(this));
+    $callSync(14733, $W()..h(this));
   }
 
   /// Go: `func (*autonatv2.AutoNAT).GetReachability(ctx context.Context, reqs []autonatv2.Request) (autonatv2.Result, error)`.
@@ -48,7 +48,7 @@ class Libp2pP2pProtocolAutonatv2AutoNat extends $crypto.CryptoDecrypterOpts
   Future<Libp2pP2pProtocolAutonatv2Result> getReachability($context.Context ctx,
       List<Libp2pP2pProtocolAutonatv2Request> reqs) async {
     final $r = await $call(
-        14728,
+        14734,
         $W()
           ..h(this)
           ..h(ctx)
@@ -59,7 +59,7 @@ class Libp2pP2pProtocolAutonatv2AutoNat extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*autonatv2.AutoNAT).Start(h host.Host) error`.
   void start($host.Libp2pCoreHost h) {
     $callSync(
-        14729,
+        14735,
         $W()
           ..h(this)
           ..h(h));
@@ -127,7 +127,7 @@ class Libp2pP2pProtocolAutonatv2MetricsTracer extends GoHandle
   /// Go: `func autonatv2.NewMetricsTracer(reg prometheus.Registerer) autonatv2.MetricsTracer`.
   factory Libp2pP2pProtocolAutonatv2MetricsTracer(
       $prometheus.ClientGolangPrometheusRegisterer reg) {
-    final $r = $callSync(14732, $W()..h(reg));
+    final $r = $callSync(14738, $W()..h(reg));
     return $r.hnn(Libp2pP2pProtocolAutonatv2MetricsTracer.$h);
   }
 }
@@ -139,7 +139,7 @@ mixin Libp2pP2pProtocolAutonatv2MetricsTracer$ on GoHandle {
       Libp2pP2pProtocolAutonatv2EventDialRequestCompleted
           eventDialRequestCompleted) {
     $callSync(
-        14730,
+        14736,
         $W()
           ..h(this)
           ..dto(eventDialRequestCompleted));
@@ -236,7 +236,7 @@ extension GoLibp2pLibp2pP2pProtocolAutonatv2Api
   Libp2pP2pProtocolAutonatv2AutoNat new$($host.Libp2pCoreHost dialerHost,
       [List<Libp2pP2pProtocolAutonatv2AutoNatOption> opts = const []]) {
     final $r = $callSync(
-        14731,
+        14737,
         $W()
           ..h(dialerHost)
           ..list(opts, (w0, e0) => w0.opt(e0)));

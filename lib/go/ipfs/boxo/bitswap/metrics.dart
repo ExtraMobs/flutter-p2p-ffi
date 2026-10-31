@@ -14,7 +14,7 @@ extension GoIpfsBoxoBitswapMetricsApi on GoIpfsBoxoBitswapMetrics {
   /// Asynchronous: runs in a goroutine of the service.
   Future<$metrics_interface.MetricsInterfaceGauge> activeBlocksGauge(
       $context.Context ctx) async {
-    final $r = await $call(9228, $W()..h(ctx));
+    final $r = await $call(9237, $W()..h(ctx));
     return $r.hnn($metrics_interface.MetricsInterfaceGauge.$h);
   }
 
@@ -23,7 +23,7 @@ extension GoIpfsBoxoBitswapMetricsApi on GoIpfsBoxoBitswapMetrics {
   /// Asynchronous: runs in a goroutine of the service.
   Future<$metrics_interface.MetricsInterfaceGauge> activeEngineGauge(
       $context.Context ctx) async {
-    final $r = await $call(9229, $W()..h(ctx));
+    final $r = await $call(9238, $W()..h(ctx));
     return $r.hnn($metrics_interface.MetricsInterfaceGauge.$h);
   }
 
@@ -32,7 +32,7 @@ extension GoIpfsBoxoBitswapMetricsApi on GoIpfsBoxoBitswapMetrics {
   /// Asynchronous: runs in a goroutine of the service.
   Future<$metrics_interface.MetricsInterfaceHistogram> allHist(
       $context.Context ctx) async {
-    final $r = await $call(9230, $W()..h(ctx));
+    final $r = await $call(9239, $W()..h(ctx));
     return $r.hnn($metrics_interface.MetricsInterfaceHistogram.$h);
   }
 
@@ -41,7 +41,7 @@ extension GoIpfsBoxoBitswapMetricsApi on GoIpfsBoxoBitswapMetrics {
   /// Asynchronous: runs in a goroutine of the service.
   Future<$metrics_interface.MetricsInterfaceGauge> blocksReceivedGauge(
       $context.Context ctx) async {
-    final $r = await $call(9231, $W()..h(ctx));
+    final $r = await $call(9240, $W()..h(ctx));
     return $r.hnn($metrics_interface.MetricsInterfaceGauge.$h);
   }
 
@@ -50,7 +50,7 @@ extension GoIpfsBoxoBitswapMetricsApi on GoIpfsBoxoBitswapMetrics {
   /// Asynchronous: runs in a goroutine of the service.
   Future<$metrics_interface.MetricsInterfaceGauge> broadcastSkipGauge(
       $context.Context ctx) async {
-    final $r = await $call(9232, $W()..h(ctx));
+    final $r = await $call(9241, $W()..h(ctx));
     return $r.hnn($metrics_interface.MetricsInterfaceGauge.$h);
   }
 
@@ -59,7 +59,7 @@ extension GoIpfsBoxoBitswapMetricsApi on GoIpfsBoxoBitswapMetrics {
   /// Asynchronous: runs in a goroutine of the service.
   Future<$metrics_interface.MetricsInterfaceHistogram> dupHist(
       $context.Context ctx) async {
-    final $r = await $call(9233, $W()..h(ctx));
+    final $r = await $call(9242, $W()..h(ctx));
     return $r.hnn($metrics_interface.MetricsInterfaceHistogram.$h);
   }
 
@@ -68,7 +68,7 @@ extension GoIpfsBoxoBitswapMetricsApi on GoIpfsBoxoBitswapMetrics {
   /// Asynchronous: runs in a goroutine of the service.
   Future<$metrics_interface.MetricsInterfaceGauge> havesReceivedGauge(
       $context.Context ctx) async {
-    final $r = await $call(9234, $W()..h(ctx));
+    final $r = await $call(9243, $W()..h(ctx));
     return $r.hnn($metrics_interface.MetricsInterfaceGauge.$h);
   }
 
@@ -77,7 +77,7 @@ extension GoIpfsBoxoBitswapMetricsApi on GoIpfsBoxoBitswapMetrics {
   /// Asynchronous: runs in a goroutine of the service.
   Future<$metrics_interface.MetricsInterfaceGauge> pendingBlocksGauge(
       $context.Context ctx) async {
-    final $r = await $call(9235, $W()..h(ctx));
+    final $r = await $call(9244, $W()..h(ctx));
     return $r.hnn($metrics_interface.MetricsInterfaceGauge.$h);
   }
 
@@ -86,7 +86,7 @@ extension GoIpfsBoxoBitswapMetricsApi on GoIpfsBoxoBitswapMetrics {
   /// Asynchronous: runs in a goroutine of the service.
   Future<$metrics_interface.MetricsInterfaceGauge> pendingEngineGauge(
       $context.Context ctx) async {
-    final $r = await $call(9236, $W()..h(ctx));
+    final $r = await $call(9245, $W()..h(ctx));
     return $r.hnn($metrics_interface.MetricsInterfaceGauge.$h);
   }
 
@@ -95,7 +95,7 @@ extension GoIpfsBoxoBitswapMetricsApi on GoIpfsBoxoBitswapMetrics {
   /// Asynchronous: runs in a goroutine of the service.
   Future<$metrics_interface.MetricsInterfaceHistogram> sendTimeHist(
       $context.Context ctx) async {
-    final $r = await $call(9237, $W()..h(ctx));
+    final $r = await $call(9246, $W()..h(ctx));
     return $r.hnn($metrics_interface.MetricsInterfaceHistogram.$h);
   }
 
@@ -104,7 +104,7 @@ extension GoIpfsBoxoBitswapMetricsApi on GoIpfsBoxoBitswapMetrics {
   /// Asynchronous: runs in a goroutine of the service.
   Future<$metrics_interface.MetricsInterfaceHistogram> sentHist(
       $context.Context ctx) async {
-    final $r = await $call(9238, $W()..h(ctx));
+    final $r = await $call(9247, $W()..h(ctx));
     return $r.hnn($metrics_interface.MetricsInterfaceHistogram.$h);
   }
 }

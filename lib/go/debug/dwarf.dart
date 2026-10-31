@@ -30,25 +30,25 @@ final class DebugDwarfAddrType implements GoDto {
 
   /// Go: `func (*dwarf.BasicType).Basic() *dwarf.BasicType`.
   DebugDwarfBasicType basic() {
-    final $r = $callSync(3510, $W()..dto(this));
+    final $r = $callSync(3519, $W()..dto(this));
     return $r.p() ? DebugDwarfBasicType.$dec($r) : $nil();
   }
 
   /// Go: `func (*dwarf.CommonType).Common() *dwarf.CommonType`.
   DebugDwarfCommonType common() {
-    final $r = $callSync(3511, $W()..dto(this));
+    final $r = $callSync(3520, $W()..dto(this));
     return $r.p() ? DebugDwarfCommonType.$dec($r) : $nil();
   }
 
   /// Go: `func (*dwarf.CommonType).Size() int64`.
   int size() {
-    final $r = $callSync(3512, $W()..dto(this));
+    final $r = $callSync(3521, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dwarf.BasicType).String() string`.
   String string() {
-    final $r = $callSync(3513, $W()..dto(this));
+    final $r = $callSync(3522, $W()..dto(this));
     return $r.str();
   }
 }
@@ -87,19 +87,19 @@ final class DebugDwarfArrayType implements GoDto {
 
   /// Go: `func (*dwarf.CommonType).Common() *dwarf.CommonType`.
   DebugDwarfCommonType common() {
-    final $r = $callSync(3514, $W()..dto(this));
+    final $r = $callSync(3523, $W()..dto(this));
     return $r.p() ? DebugDwarfCommonType.$dec($r) : $nil();
   }
 
   /// Go: `func (*dwarf.ArrayType).Size() int64`.
   int size() {
-    final $r = $callSync(3515, $W()..dto(this));
+    final $r = $callSync(3524, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dwarf.ArrayType).String() string`.
   String string() {
-    final $r = $callSync(3516, $W()..dto(this));
+    final $r = $callSync(3525, $W()..dto(this));
     return $r.str();
   }
 }
@@ -145,25 +145,25 @@ final class DebugDwarfBasicType implements GoDto {
 
   /// Go: `func (*dwarf.BasicType).Basic() *dwarf.BasicType`.
   DebugDwarfBasicType basic() {
-    final $r = $callSync(3517, $W()..dto(this));
+    final $r = $callSync(3526, $W()..dto(this));
     return $r.p() ? DebugDwarfBasicType.$dec($r) : $nil();
   }
 
   /// Go: `func (*dwarf.CommonType).Common() *dwarf.CommonType`.
   DebugDwarfCommonType common() {
-    final $r = $callSync(3518, $W()..dto(this));
+    final $r = $callSync(3527, $W()..dto(this));
     return $r.p() ? DebugDwarfCommonType.$dec($r) : $nil();
   }
 
   /// Go: `func (*dwarf.CommonType).Size() int64`.
   int size() {
-    final $r = $callSync(3519, $W()..dto(this));
+    final $r = $callSync(3528, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dwarf.BasicType).String() string`.
   String string() {
-    final $r = $callSync(3520, $W()..dto(this));
+    final $r = $callSync(3529, $W()..dto(this));
     return $r.str();
   }
 }
@@ -185,25 +185,25 @@ final class DebugDwarfBoolType implements GoDto {
 
   /// Go: `func (*dwarf.BasicType).Basic() *dwarf.BasicType`.
   DebugDwarfBasicType basic() {
-    final $r = $callSync(3521, $W()..dto(this));
+    final $r = $callSync(3530, $W()..dto(this));
     return $r.p() ? DebugDwarfBasicType.$dec($r) : $nil();
   }
 
   /// Go: `func (*dwarf.CommonType).Common() *dwarf.CommonType`.
   DebugDwarfCommonType common() {
-    final $r = $callSync(3522, $W()..dto(this));
+    final $r = $callSync(3531, $W()..dto(this));
     return $r.p() ? DebugDwarfCommonType.$dec($r) : $nil();
   }
 
   /// Go: `func (*dwarf.CommonType).Size() int64`.
   int size() {
-    final $r = $callSync(3523, $W()..dto(this));
+    final $r = $callSync(3532, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dwarf.BasicType).String() string`.
   String string() {
-    final $r = $callSync(3524, $W()..dto(this));
+    final $r = $callSync(3533, $W()..dto(this));
     return $r.str();
   }
 }
@@ -225,25 +225,25 @@ final class DebugDwarfCharType implements GoDto {
 
   /// Go: `func (*dwarf.BasicType).Basic() *dwarf.BasicType`.
   DebugDwarfBasicType basic() {
-    final $r = $callSync(3525, $W()..dto(this));
+    final $r = $callSync(3534, $W()..dto(this));
     return $r.p() ? DebugDwarfBasicType.$dec($r) : $nil();
   }
 
   /// Go: `func (*dwarf.CommonType).Common() *dwarf.CommonType`.
   DebugDwarfCommonType common() {
-    final $r = $callSync(3526, $W()..dto(this));
+    final $r = $callSync(3535, $W()..dto(this));
     return $r.p() ? DebugDwarfCommonType.$dec($r) : $nil();
   }
 
   /// Go: `func (*dwarf.CommonType).Size() int64`.
   int size() {
-    final $r = $callSync(3527, $W()..dto(this));
+    final $r = $callSync(3536, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dwarf.BasicType).String() string`.
   String string() {
-    final $r = $callSync(3528, $W()..dto(this));
+    final $r = $callSync(3537, $W()..dto(this));
     return $r.str();
   }
 }
@@ -273,13 +273,13 @@ final class DebugDwarfCommonType implements GoDto {
 
   /// Go: `func (*dwarf.CommonType).Common() *dwarf.CommonType`.
   DebugDwarfCommonType common() {
-    final $r = $callSync(3529, $W()..dto(this));
+    final $r = $callSync(3538, $W()..dto(this));
     return $r.p() ? DebugDwarfCommonType.$dec($r) : $nil();
   }
 
   /// Go: `func (*dwarf.CommonType).Size() int64`.
   int size() {
-    final $r = $callSync(3530, $W()..dto(this));
+    final $r = $callSync(3539, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -302,25 +302,25 @@ final class DebugDwarfComplexType implements GoDto {
 
   /// Go: `func (*dwarf.BasicType).Basic() *dwarf.BasicType`.
   DebugDwarfBasicType basic() {
-    final $r = $callSync(3531, $W()..dto(this));
+    final $r = $callSync(3540, $W()..dto(this));
     return $r.p() ? DebugDwarfBasicType.$dec($r) : $nil();
   }
 
   /// Go: `func (*dwarf.CommonType).Common() *dwarf.CommonType`.
   DebugDwarfCommonType common() {
-    final $r = $callSync(3532, $W()..dto(this));
+    final $r = $callSync(3541, $W()..dto(this));
     return $r.p() ? DebugDwarfCommonType.$dec($r) : $nil();
   }
 
   /// Go: `func (*dwarf.CommonType).Size() int64`.
   int size() {
-    final $r = $callSync(3533, $W()..dto(this));
+    final $r = $callSync(3542, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dwarf.BasicType).String() string`.
   String string() {
-    final $r = $callSync(3534, $W()..dto(this));
+    final $r = $callSync(3543, $W()..dto(this));
     return $r.str();
   }
 }
@@ -346,7 +346,7 @@ class DebugDwarfData extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*dwarf.Data).AddSection(name string, contents []byte) error`.
   void addSection(String name, Uint8List contents) {
     $callSync(
-        3535,
+        3544,
         $W()
           ..h(this)
           ..str(name)
@@ -356,7 +356,7 @@ class DebugDwarfData extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*dwarf.Data).AddTypes(name string, types []byte) error`.
   void addTypes(String name, Uint8List types) {
     $callSync(
-        3536,
+        3545,
         $W()
           ..h(this)
           ..str(name)
@@ -366,7 +366,7 @@ class DebugDwarfData extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*dwarf.Data).LineReader(cu *dwarf.Entry) (*dwarf.LineReader, error)`.
   DebugDwarfLineReader lineReader(DebugDwarfEntry cu) {
     final $r = $callSync(
-        3537,
+        3546,
         $W()
           ..h(this)
           ..dto(cu));
@@ -375,14 +375,14 @@ class DebugDwarfData extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*dwarf.Data).Reader() *dwarf.Reader`.
   DebugDwarfReader reader() {
-    final $r = $callSync(3538, $W()..h(this));
+    final $r = $callSync(3547, $W()..h(this));
     return $r.hnn(DebugDwarfReader.$h);
   }
 
   /// Go: `func (*dwarf.Data).Type(off dwarf.Offset) (dwarf.Type, error)`.
   DebugDwarfType type(int off) {
     final $r = $callSync(
-        3539,
+        3548,
         $W()
           ..h(this)
           ..i64(off));
@@ -408,19 +408,19 @@ final class DebugDwarfDotDotDotType implements GoDto {
 
   /// Go: `func (*dwarf.CommonType).Common() *dwarf.CommonType`.
   DebugDwarfCommonType common() {
-    final $r = $callSync(3540, $W()..dto(this));
+    final $r = $callSync(3549, $W()..dto(this));
     return $r.p() ? DebugDwarfCommonType.$dec($r) : $nil();
   }
 
   /// Go: `func (*dwarf.CommonType).Size() int64`.
   int size() {
-    final $r = $callSync(3541, $W()..dto(this));
+    final $r = $callSync(3550, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dwarf.DotDotDotType).String() string`.
   String string() {
-    final $r = $callSync(3542, $W()..dto(this));
+    final $r = $callSync(3551, $W()..dto(this));
     return $r.str();
   }
 }
@@ -464,7 +464,7 @@ final class DebugDwarfEntry implements GoDto {
   /// Go: `func (*dwarf.Entry).AttrField(a dwarf.Attr) *dwarf.Field`.
   DebugDwarfField attrField(int a) {
     final $r = $callSync(
-        3543,
+        3552,
         $W()
           ..dto(this)
           ..i64(a));
@@ -474,7 +474,7 @@ final class DebugDwarfEntry implements GoDto {
   /// Go: `func (*dwarf.Entry).Val(a dwarf.Attr) any`.
   Object? val(int a) {
     final $r = $callSync(
-        3544,
+        3553,
         $W()
           ..dto(this)
           ..i64(a));
@@ -516,19 +516,19 @@ final class DebugDwarfEnumType implements GoDto {
 
   /// Go: `func (*dwarf.CommonType).Common() *dwarf.CommonType`.
   DebugDwarfCommonType common() {
-    final $r = $callSync(3545, $W()..dto(this));
+    final $r = $callSync(3554, $W()..dto(this));
     return $r.p() ? DebugDwarfCommonType.$dec($r) : $nil();
   }
 
   /// Go: `func (*dwarf.CommonType).Size() int64`.
   int size() {
-    final $r = $callSync(3546, $W()..dto(this));
+    final $r = $callSync(3555, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dwarf.EnumType).String() string`.
   String string() {
-    final $r = $callSync(3547, $W()..dto(this));
+    final $r = $callSync(3556, $W()..dto(this));
     return $r.str();
   }
 }
@@ -600,25 +600,25 @@ final class DebugDwarfFloatType implements GoDto {
 
   /// Go: `func (*dwarf.BasicType).Basic() *dwarf.BasicType`.
   DebugDwarfBasicType basic() {
-    final $r = $callSync(3548, $W()..dto(this));
+    final $r = $callSync(3557, $W()..dto(this));
     return $r.p() ? DebugDwarfBasicType.$dec($r) : $nil();
   }
 
   /// Go: `func (*dwarf.CommonType).Common() *dwarf.CommonType`.
   DebugDwarfCommonType common() {
-    final $r = $callSync(3549, $W()..dto(this));
+    final $r = $callSync(3558, $W()..dto(this));
     return $r.p() ? DebugDwarfCommonType.$dec($r) : $nil();
   }
 
   /// Go: `func (*dwarf.CommonType).Size() int64`.
   int size() {
-    final $r = $callSync(3550, $W()..dto(this));
+    final $r = $callSync(3559, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dwarf.BasicType).String() string`.
   String string() {
-    final $r = $callSync(3551, $W()..dto(this));
+    final $r = $callSync(3560, $W()..dto(this));
     return $r.str();
   }
 }
@@ -651,19 +651,19 @@ final class DebugDwarfFuncType implements GoDto {
 
   /// Go: `func (*dwarf.CommonType).Common() *dwarf.CommonType`.
   DebugDwarfCommonType common() {
-    final $r = $callSync(3552, $W()..dto(this));
+    final $r = $callSync(3561, $W()..dto(this));
     return $r.p() ? DebugDwarfCommonType.$dec($r) : $nil();
   }
 
   /// Go: `func (*dwarf.CommonType).Size() int64`.
   int size() {
-    final $r = $callSync(3553, $W()..dto(this));
+    final $r = $callSync(3562, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dwarf.FuncType).String() string`.
   String string() {
-    final $r = $callSync(3554, $W()..dto(this));
+    final $r = $callSync(3563, $W()..dto(this));
     return $r.str();
   }
 }
@@ -685,25 +685,25 @@ final class DebugDwarfIntType implements GoDto {
 
   /// Go: `func (*dwarf.BasicType).Basic() *dwarf.BasicType`.
   DebugDwarfBasicType basic() {
-    final $r = $callSync(3555, $W()..dto(this));
+    final $r = $callSync(3564, $W()..dto(this));
     return $r.p() ? DebugDwarfBasicType.$dec($r) : $nil();
   }
 
   /// Go: `func (*dwarf.CommonType).Common() *dwarf.CommonType`.
   DebugDwarfCommonType common() {
-    final $r = $callSync(3556, $W()..dto(this));
+    final $r = $callSync(3565, $W()..dto(this));
     return $r.p() ? DebugDwarfCommonType.$dec($r) : $nil();
   }
 
   /// Go: `func (*dwarf.CommonType).Size() int64`.
   int size() {
-    final $r = $callSync(3557, $W()..dto(this));
+    final $r = $callSync(3566, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dwarf.BasicType).String() string`.
   String string() {
-    final $r = $callSync(3558, $W()..dto(this));
+    final $r = $callSync(3567, $W()..dto(this));
     return $r.str();
   }
 }
@@ -860,14 +860,14 @@ class DebugDwarfLineReader extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*dwarf.LineReader).Files() []*dwarf.LineFile`.
   List<DebugDwarfLineFile> files() {
-    final $r = $callSync(3559, $W()..h(this));
+    final $r = $callSync(3568, $W()..h(this));
     return $r.list(() => $r.p() ? DebugDwarfLineFile.$dec($r) : $nil());
   }
 
   /// Go: `func (*dwarf.LineReader).Next(entry *dwarf.LineEntry) error`.
   void next(DebugDwarfLineEntry entry) {
     $callSync(
-        3560,
+        3569,
         $W()
           ..h(this)
           ..dto(entry));
@@ -875,13 +875,13 @@ class DebugDwarfLineReader extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*dwarf.LineReader).Reset()`.
   void reset() {
-    $callSync(3561, $W()..h(this));
+    $callSync(3570, $W()..h(this));
   }
 
   /// Go: `func (*dwarf.LineReader).Seek(pos dwarf.LineReaderPos)`.
   void seek(DebugDwarfLineReaderPos pos) {
     $callSync(
-        3562,
+        3571,
         $W()
           ..h(this)
           ..h(pos));
@@ -890,7 +890,7 @@ class DebugDwarfLineReader extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*dwarf.LineReader).SeekPC(pc uint64, entry *dwarf.LineEntry) error`.
   void seekPc(int pc, DebugDwarfLineEntry entry) {
     $callSync(
-        3563,
+        3572,
         $W()
           ..h(this)
           ..i64(pc)
@@ -899,7 +899,7 @@ class DebugDwarfLineReader extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*dwarf.LineReader).Tell() dwarf.LineReaderPos`.
   DebugDwarfLineReaderPos tell() {
-    final $r = $callSync(3564, $W()..h(this));
+    final $r = $callSync(3573, $W()..h(this));
     return $r.hnn(DebugDwarfLineReaderPos.$h);
   }
 }
@@ -943,19 +943,19 @@ final class DebugDwarfPtrType implements GoDto {
 
   /// Go: `func (*dwarf.CommonType).Common() *dwarf.CommonType`.
   DebugDwarfCommonType common() {
-    final $r = $callSync(3566, $W()..dto(this));
+    final $r = $callSync(3575, $W()..dto(this));
     return $r.p() ? DebugDwarfCommonType.$dec($r) : $nil();
   }
 
   /// Go: `func (*dwarf.CommonType).Size() int64`.
   int size() {
-    final $r = $callSync(3567, $W()..dto(this));
+    final $r = $callSync(3576, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dwarf.PtrType).String() string`.
   String string() {
-    final $r = $callSync(3568, $W()..dto(this));
+    final $r = $callSync(3577, $W()..dto(this));
     return $r.str();
   }
 }
@@ -987,19 +987,19 @@ final class DebugDwarfQualType implements GoDto {
 
   /// Go: `func (*dwarf.CommonType).Common() *dwarf.CommonType`.
   DebugDwarfCommonType common() {
-    final $r = $callSync(3569, $W()..dto(this));
+    final $r = $callSync(3578, $W()..dto(this));
     return $r.p() ? DebugDwarfCommonType.$dec($r) : $nil();
   }
 
   /// Go: `func (*dwarf.QualType).Size() int64`.
   int size() {
-    final $r = $callSync(3570, $W()..dto(this));
+    final $r = $callSync(3579, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dwarf.QualType).String() string`.
   String string() {
-    final $r = $callSync(3571, $W()..dto(this));
+    final $r = $callSync(3580, $W()..dto(this));
     return $r.str();
   }
 }
@@ -1024,26 +1024,26 @@ class DebugDwarfReader extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*dwarf.Reader).AddressSize() int`.
   int addressSize() {
-    final $r = $callSync(3572, $W()..h(this));
+    final $r = $callSync(3581, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*dwarf.Reader).ByteOrder() binary.ByteOrder`.
   $binary.EncodingBinaryByteOrder byteOrder() {
-    final $r = $callSync(3573, $W()..h(this));
+    final $r = $callSync(3582, $W()..h(this));
     return $r.hnn($binary.EncodingBinaryByteOrder.$h);
   }
 
   /// Go: `func (*dwarf.Reader).Next() (*dwarf.Entry, error)`.
   DebugDwarfEntry next() {
-    final $r = $callSync(3574, $W()..h(this));
+    final $r = $callSync(3583, $W()..h(this));
     return $r.p() ? DebugDwarfEntry.$dec($r) : $nil();
   }
 
   /// Go: `func (*dwarf.Reader).Seek(off dwarf.Offset)`.
   void seek(int off) {
     $callSync(
-        3575,
+        3584,
         $W()
           ..h(this)
           ..i64(off));
@@ -1052,7 +1052,7 @@ class DebugDwarfReader extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*dwarf.Reader).SeekPC(pc uint64) (*dwarf.Entry, error)`.
   DebugDwarfEntry seekPc(int pc) {
     final $r = $callSync(
-        3576,
+        3585,
         $W()
           ..h(this)
           ..i64(pc));
@@ -1061,7 +1061,7 @@ class DebugDwarfReader extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*dwarf.Reader).SkipChildren()`.
   void skipChildren() {
-    $callSync(3577, $W()..h(this));
+    $callSync(3586, $W()..h(this));
   }
 }
 
@@ -1169,25 +1169,25 @@ final class DebugDwarfStructType implements GoDto {
 
   /// Go: `func (*dwarf.CommonType).Common() *dwarf.CommonType`.
   DebugDwarfCommonType common() {
-    final $r = $callSync(3578, $W()..dto(this));
+    final $r = $callSync(3587, $W()..dto(this));
     return $r.p() ? DebugDwarfCommonType.$dec($r) : $nil();
   }
 
   /// Go: `func (*dwarf.StructType).Defn() string`.
   String defn() {
-    final $r = $callSync(3579, $W()..dto(this));
+    final $r = $callSync(3588, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*dwarf.CommonType).Size() int64`.
   int size() {
-    final $r = $callSync(3580, $W()..dto(this));
+    final $r = $callSync(3589, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dwarf.StructType).String() string`.
   String string() {
-    final $r = $callSync(3581, $W()..dto(this));
+    final $r = $callSync(3590, $W()..dto(this));
     return $r.str();
   }
 }
@@ -1243,19 +1243,19 @@ final class DebugDwarfTypedefType implements GoDto {
 
   /// Go: `func (*dwarf.CommonType).Common() *dwarf.CommonType`.
   DebugDwarfCommonType common() {
-    final $r = $callSync(3582, $W()..dto(this));
+    final $r = $callSync(3591, $W()..dto(this));
     return $r.p() ? DebugDwarfCommonType.$dec($r) : $nil();
   }
 
   /// Go: `func (*dwarf.TypedefType).Size() int64`.
   int size() {
-    final $r = $callSync(3583, $W()..dto(this));
+    final $r = $callSync(3592, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dwarf.TypedefType).String() string`.
   String string() {
-    final $r = $callSync(3584, $W()..dto(this));
+    final $r = $callSync(3593, $W()..dto(this));
     return $r.str();
   }
 }
@@ -1277,25 +1277,25 @@ final class DebugDwarfUcharType implements GoDto {
 
   /// Go: `func (*dwarf.BasicType).Basic() *dwarf.BasicType`.
   DebugDwarfBasicType basic() {
-    final $r = $callSync(3585, $W()..dto(this));
+    final $r = $callSync(3594, $W()..dto(this));
     return $r.p() ? DebugDwarfBasicType.$dec($r) : $nil();
   }
 
   /// Go: `func (*dwarf.CommonType).Common() *dwarf.CommonType`.
   DebugDwarfCommonType common() {
-    final $r = $callSync(3586, $W()..dto(this));
+    final $r = $callSync(3595, $W()..dto(this));
     return $r.p() ? DebugDwarfCommonType.$dec($r) : $nil();
   }
 
   /// Go: `func (*dwarf.CommonType).Size() int64`.
   int size() {
-    final $r = $callSync(3587, $W()..dto(this));
+    final $r = $callSync(3596, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dwarf.BasicType).String() string`.
   String string() {
-    final $r = $callSync(3588, $W()..dto(this));
+    final $r = $callSync(3597, $W()..dto(this));
     return $r.str();
   }
 }
@@ -1317,25 +1317,25 @@ final class DebugDwarfUintType implements GoDto {
 
   /// Go: `func (*dwarf.BasicType).Basic() *dwarf.BasicType`.
   DebugDwarfBasicType basic() {
-    final $r = $callSync(3589, $W()..dto(this));
+    final $r = $callSync(3598, $W()..dto(this));
     return $r.p() ? DebugDwarfBasicType.$dec($r) : $nil();
   }
 
   /// Go: `func (*dwarf.CommonType).Common() *dwarf.CommonType`.
   DebugDwarfCommonType common() {
-    final $r = $callSync(3590, $W()..dto(this));
+    final $r = $callSync(3599, $W()..dto(this));
     return $r.p() ? DebugDwarfCommonType.$dec($r) : $nil();
   }
 
   /// Go: `func (*dwarf.CommonType).Size() int64`.
   int size() {
-    final $r = $callSync(3591, $W()..dto(this));
+    final $r = $callSync(3600, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dwarf.BasicType).String() string`.
   String string() {
-    final $r = $callSync(3592, $W()..dto(this));
+    final $r = $callSync(3601, $W()..dto(this));
     return $r.str();
   }
 }
@@ -1358,25 +1358,25 @@ final class DebugDwarfUnspecifiedType implements GoDto {
 
   /// Go: `func (*dwarf.BasicType).Basic() *dwarf.BasicType`.
   DebugDwarfBasicType basic() {
-    final $r = $callSync(3593, $W()..dto(this));
+    final $r = $callSync(3602, $W()..dto(this));
     return $r.p() ? DebugDwarfBasicType.$dec($r) : $nil();
   }
 
   /// Go: `func (*dwarf.CommonType).Common() *dwarf.CommonType`.
   DebugDwarfCommonType common() {
-    final $r = $callSync(3594, $W()..dto(this));
+    final $r = $callSync(3603, $W()..dto(this));
     return $r.p() ? DebugDwarfCommonType.$dec($r) : $nil();
   }
 
   /// Go: `func (*dwarf.CommonType).Size() int64`.
   int size() {
-    final $r = $callSync(3595, $W()..dto(this));
+    final $r = $callSync(3604, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dwarf.BasicType).String() string`.
   String string() {
-    final $r = $callSync(3596, $W()..dto(this));
+    final $r = $callSync(3605, $W()..dto(this));
     return $r.str();
   }
 }
@@ -1406,19 +1406,19 @@ final class DebugDwarfUnsupportedType implements GoDto {
 
   /// Go: `func (*dwarf.CommonType).Common() *dwarf.CommonType`.
   DebugDwarfCommonType common() {
-    final $r = $callSync(3597, $W()..dto(this));
+    final $r = $callSync(3606, $W()..dto(this));
     return $r.p() ? DebugDwarfCommonType.$dec($r) : $nil();
   }
 
   /// Go: `func (*dwarf.CommonType).Size() int64`.
   int size() {
-    final $r = $callSync(3598, $W()..dto(this));
+    final $r = $callSync(3607, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dwarf.UnsupportedType).String() string`.
   String string() {
-    final $r = $callSync(3599, $W()..dto(this));
+    final $r = $callSync(3608, $W()..dto(this));
     return $r.str();
   }
 }
@@ -1441,19 +1441,19 @@ final class DebugDwarfVoidType implements GoDto {
 
   /// Go: `func (*dwarf.CommonType).Common() *dwarf.CommonType`.
   DebugDwarfCommonType common() {
-    final $r = $callSync(3600, $W()..dto(this));
+    final $r = $callSync(3609, $W()..dto(this));
     return $r.p() ? DebugDwarfCommonType.$dec($r) : $nil();
   }
 
   /// Go: `func (*dwarf.CommonType).Size() int64`.
   int size() {
-    final $r = $callSync(3601, $W()..dto(this));
+    final $r = $callSync(3610, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dwarf.VoidType).String() string`.
   String string() {
-    final $r = $callSync(3602, $W()..dto(this));
+    final $r = $callSync(3611, $W()..dto(this));
     return $r.str();
   }
 }
@@ -1502,7 +1502,7 @@ extension GoDebugDwarfApi on GoDebugDwarf {
       Uint8List ranges,
       Uint8List str) {
     final $r = $callSync(
-        3565,
+        3574,
         $W()
           ..bytes(abbrev)
           ..bytes(aranges)

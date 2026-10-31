@@ -32,26 +32,26 @@ final class DtlsV3PkgProtocolAlert implements GoDto {
 
   /// Go: `func (alert.Alert).ContentType() protocol.ContentType`.
   int contentType() {
-    final $r = $callSync(16280, $W()..dto(this));
+    final $r = $callSync(16286, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*alert.Alert).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(16281, $W()..dto(this));
+    final $r = $callSync(16287, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*alert.Alert).String() string`.
   String string() {
-    final $r = $callSync(16282, $W()..dto(this));
+    final $r = $callSync(16288, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*alert.Alert).Unmarshal(data []byte) error`.
   void unmarshal(Uint8List data) {
     $callSync(
-        16283,
+        16289,
         $W()
           ..dto(this)
           ..bytes(data));

@@ -19,7 +19,7 @@ class CryptoHpkeAead extends GoHandle with CryptoHpkeAead$ {
 
   /// Go: `func hpke.NewAEAD(id uint16) (hpke.AEAD, error)`.
   factory CryptoHpkeAead(int id) {
-    final $r = $callSync(3249, $W()..i64(id));
+    final $r = $callSync(3258, $W()..i64(id));
     return $r.hnn(CryptoHpkeAead.$h);
   }
 }
@@ -28,7 +28,7 @@ class CryptoHpkeAead extends GoHandle with CryptoHpkeAead$ {
 mixin CryptoHpkeAead$ on GoHandle {
   /// Go: `func (hpke.AEAD).ID() uint16`.
   int id() {
-    final $r = $callSync(3229, $W()..h(this));
+    final $r = $callSync(3238, $W()..h(this));
     return $r.i64();
   }
 }
@@ -39,7 +39,7 @@ class CryptoHpkeKdf extends GoHandle with CryptoHpkeKdf$ {
 
   /// Go: `func hpke.NewKDF(id uint16) (hpke.KDF, error)`.
   factory CryptoHpkeKdf(int id) {
-    final $r = $callSync(3254, $W()..i64(id));
+    final $r = $callSync(3263, $W()..i64(id));
     return $r.hnn(CryptoHpkeKdf.$h);
   }
 }
@@ -48,7 +48,7 @@ class CryptoHpkeKdf extends GoHandle with CryptoHpkeKdf$ {
 mixin CryptoHpkeKdf$ on GoHandle {
   /// Go: `func (hpke.KDF).ID() uint16`.
   int id() {
-    final $r = $callSync(3238, $W()..h(this));
+    final $r = $callSync(3247, $W()..h(this));
     return $r.i64();
   }
 }
@@ -59,7 +59,7 @@ class CryptoHpkeKem extends GoHandle with CryptoHpkeKem$ {
 
   /// Go: `func hpke.NewKEM(id uint16) (hpke.KEM, error)`.
   factory CryptoHpkeKem(int id) {
-    final $r = $callSync(3255, $W()..i64(id));
+    final $r = $callSync(3264, $W()..i64(id));
     return $r.hnn(CryptoHpkeKem.$h);
   }
 }
@@ -69,7 +69,7 @@ mixin CryptoHpkeKem$ on GoHandle {
   /// Go: `func (hpke.KEM).DeriveKeyPair(ikm []byte) (hpke.PrivateKey, error)`.
   CryptoHpkePrivateKey deriveKeyPair(Uint8List ikm) {
     final $r = $callSync(
-        3239,
+        3248,
         $W()
           ..h(this)
           ..bytes(ikm));
@@ -78,20 +78,20 @@ mixin CryptoHpkeKem$ on GoHandle {
 
   /// Go: `func (hpke.KEM).GenerateKey() (hpke.PrivateKey, error)`.
   CryptoHpkePrivateKey generateKey() {
-    final $r = $callSync(3240, $W()..h(this));
+    final $r = $callSync(3249, $W()..h(this));
     return $r.hnn(CryptoHpkePrivateKey.$h);
   }
 
   /// Go: `func (hpke.KEM).ID() uint16`.
   int id() {
-    final $r = $callSync(3241, $W()..h(this));
+    final $r = $callSync(3250, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (hpke.KEM).NewPrivateKey([]byte) (hpke.PrivateKey, error)`.
   CryptoHpkePrivateKey newPrivateKey(Uint8List arg0) {
     final $r = $callSync(
-        3242,
+        3251,
         $W()
           ..h(this)
           ..bytes(arg0));
@@ -101,7 +101,7 @@ mixin CryptoHpkeKem$ on GoHandle {
   /// Go: `func (hpke.KEM).NewPublicKey([]byte) (hpke.PublicKey, error)`.
   CryptoHpkePublicKey newPublicKey(Uint8List arg0) {
     final $r = $callSync(
-        3243,
+        3252,
         $W()
           ..h(this)
           ..bytes(arg0));
@@ -118,19 +118,19 @@ class CryptoHpkePrivateKey extends GoHandle with CryptoHpkePrivateKey$ {
 mixin CryptoHpkePrivateKey$ on GoHandle {
   /// Go: `func (hpke.PrivateKey).Bytes() ([]byte, error)`.
   Uint8List bytes() {
-    final $r = $callSync(3261, $W()..h(this));
+    final $r = $callSync(3270, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (hpke.PrivateKey).KEM() hpke.KEM`.
   CryptoHpkeKem kem() {
-    final $r = $callSync(3262, $W()..h(this));
+    final $r = $callSync(3271, $W()..h(this));
     return $r.hnn(CryptoHpkeKem.$h);
   }
 
   /// Go: `func (hpke.PrivateKey).PublicKey() hpke.PublicKey`.
   CryptoHpkePublicKey publicKey() {
-    final $r = $callSync(3263, $W()..h(this));
+    final $r = $callSync(3272, $W()..h(this));
     return $r.hnn(CryptoHpkePublicKey.$h);
   }
 }
@@ -144,13 +144,13 @@ class CryptoHpkePublicKey extends GoHandle with CryptoHpkePublicKey$ {
 mixin CryptoHpkePublicKey$ on GoHandle {
   /// Go: `func (hpke.PublicKey).Bytes() []byte`.
   Uint8List bytes() {
-    final $r = $callSync(3264, $W()..h(this));
+    final $r = $callSync(3273, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (hpke.PublicKey).KEM() hpke.KEM`.
   CryptoHpkeKem kem() {
-    final $r = $callSync(3265, $W()..h(this));
+    final $r = $callSync(3274, $W()..h(this));
     return $r.hnn(CryptoHpkeKem.$h);
   }
 }
@@ -177,7 +177,7 @@ class CryptoHpkeRecipient extends $crypto.CryptoDecrypterOpts
   factory CryptoHpkeRecipient(Uint8List enc, CryptoHpkePrivateKey k,
       CryptoHpkeKdf kdf, CryptoHpkeAead aead, Uint8List info) {
     final $r = $callSync(
-        3258,
+        3267,
         $W()
           ..bytes(enc)
           ..h(k)
@@ -190,7 +190,7 @@ class CryptoHpkeRecipient extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*hpke.Recipient).Export(exporterContext string, length int) ([]byte, error)`.
   Uint8List export(String exporterContext, int length) {
     final $r = $callSync(
-        3266,
+        3275,
         $W()
           ..h(this)
           ..str(exporterContext)
@@ -201,7 +201,7 @@ class CryptoHpkeRecipient extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*hpke.Recipient).Open(aad []byte, ciphertext []byte) ([]byte, error)`.
   Uint8List open(Uint8List aad, Uint8List ciphertext) {
     final $r = $callSync(
-        3267,
+        3276,
         $W()
           ..h(this)
           ..bytes(aad)
@@ -231,7 +231,7 @@ class CryptoHpkeSender extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*hpke.Sender).Export(exporterContext string, length int) ([]byte, error)`.
   Uint8List export(String exporterContext, int length) {
     final $r = $callSync(
-        3271,
+        3280,
         $W()
           ..h(this)
           ..str(exporterContext)
@@ -242,7 +242,7 @@ class CryptoHpkeSender extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*hpke.Sender).Seal(aad []byte, plaintext []byte) ([]byte, error)`.
   Uint8List seal(Uint8List aad, Uint8List plaintext) {
     final $r = $callSync(
-        3272,
+        3281,
         $W()
           ..h(this)
           ..bytes(aad)
@@ -255,91 +255,91 @@ class CryptoHpkeSender extends $crypto.CryptoDecrypterOpts
 extension GoCryptoHpkeApi on GoCryptoHpke {
   /// Go: `func hpke.AES128GCM() hpke.AEAD`.
   CryptoHpkeAead aes128gcm() {
-    final $r = $callSync(3230);
+    final $r = $callSync(3239);
     return $r.hnn(CryptoHpkeAead.$h);
   }
 
   /// Go: `func hpke.AES256GCM() hpke.AEAD`.
   CryptoHpkeAead aes256gcm() {
-    final $r = $callSync(3231);
+    final $r = $callSync(3240);
     return $r.hnn(CryptoHpkeAead.$h);
   }
 
   /// Go: `func hpke.ChaCha20Poly1305() hpke.AEAD`.
   CryptoHpkeAead chaCha20Poly1305() {
-    final $r = $callSync(3232);
+    final $r = $callSync(3241);
     return $r.hnn(CryptoHpkeAead.$h);
   }
 
   /// Go: `func hpke.DHKEM(curve ecdh.Curve) hpke.KEM`.
   CryptoHpkeKem dhkem($ecdh.CryptoEcdhCurve curve) {
-    final $r = $callSync(3233, $W()..h(curve));
+    final $r = $callSync(3242, $W()..h(curve));
     return $r.hnn(CryptoHpkeKem.$h);
   }
 
   /// Go: `func hpke.ExportOnly() hpke.AEAD`.
   CryptoHpkeAead exportOnly() {
-    final $r = $callSync(3234);
+    final $r = $callSync(3243);
     return $r.hnn(CryptoHpkeAead.$h);
   }
 
   /// Go: `func hpke.HKDFSHA256() hpke.KDF`.
   CryptoHpkeKdf hkdfsha256() {
-    final $r = $callSync(3235);
+    final $r = $callSync(3244);
     return $r.hnn(CryptoHpkeKdf.$h);
   }
 
   /// Go: `func hpke.HKDFSHA384() hpke.KDF`.
   CryptoHpkeKdf hkdfsha384() {
-    final $r = $callSync(3236);
+    final $r = $callSync(3245);
     return $r.hnn(CryptoHpkeKdf.$h);
   }
 
   /// Go: `func hpke.HKDFSHA512() hpke.KDF`.
   CryptoHpkeKdf hkdfsha512() {
-    final $r = $callSync(3237);
+    final $r = $callSync(3246);
     return $r.hnn(CryptoHpkeKdf.$h);
   }
 
   /// Go: `func hpke.MLKEM1024() hpke.KEM`.
   CryptoHpkeKem mlkem1024() {
-    final $r = $callSync(3244);
+    final $r = $callSync(3253);
     return $r.hnn(CryptoHpkeKem.$h);
   }
 
   /// Go: `func hpke.MLKEM1024P384() hpke.KEM`.
   CryptoHpkeKem mlkem1024p384() {
-    final $r = $callSync(3245);
+    final $r = $callSync(3254);
     return $r.hnn(CryptoHpkeKem.$h);
   }
 
   /// Go: `func hpke.MLKEM768() hpke.KEM`.
   CryptoHpkeKem mlkem768() {
-    final $r = $callSync(3246);
+    final $r = $callSync(3255);
     return $r.hnn(CryptoHpkeKem.$h);
   }
 
   /// Go: `func hpke.MLKEM768P256() hpke.KEM`.
   CryptoHpkeKem mlkem768p256() {
-    final $r = $callSync(3247);
+    final $r = $callSync(3256);
     return $r.hnn(CryptoHpkeKem.$h);
   }
 
   /// Go: `func hpke.MLKEM768X25519() hpke.KEM`.
   CryptoHpkeKem mlkem768x25519() {
-    final $r = $callSync(3248);
+    final $r = $callSync(3257);
     return $r.hnn(CryptoHpkeKem.$h);
   }
 
   /// Go: `func hpke.NewDHKEMPrivateKey(priv ecdh.KeyExchanger) (hpke.PrivateKey, error)`.
   CryptoHpkePrivateKey newDhkemPrivateKey($ecdh.CryptoEcdhKeyExchanger priv) {
-    final $r = $callSync(3250, $W()..h(priv));
+    final $r = $callSync(3259, $W()..h(priv));
     return $r.hnn(CryptoHpkePrivateKey.$h);
   }
 
   /// Go: `func hpke.NewDHKEMPublicKey(pub *ecdh.PublicKey) (hpke.PublicKey, error)`.
   CryptoHpkePublicKey newDhkemPublicKey($ecdh.CryptoEcdhPublicKey pub) {
-    final $r = $callSync(3251, $W()..h(pub));
+    final $r = $callSync(3260, $W()..h(pub));
     return $r.hnn(CryptoHpkePublicKey.$h);
   }
 
@@ -347,7 +347,7 @@ extension GoCryptoHpkeApi on GoCryptoHpke {
   CryptoHpkePrivateKey newHybridPrivateKey(
       $crypto.CryptoDecapsulator pq, $ecdh.CryptoEcdhKeyExchanger t) {
     final $r = $callSync(
-        3252,
+        3261,
         $W()
           ..h(pq)
           ..h(t));
@@ -358,7 +358,7 @@ extension GoCryptoHpkeApi on GoCryptoHpke {
   CryptoHpkePublicKey newHybridPublicKey(
       $crypto.CryptoEncapsulator pq, $ecdh.CryptoEcdhPublicKey t) {
     final $r = $callSync(
-        3253,
+        3262,
         $W()
           ..h(pq)
           ..h(t));
@@ -367,13 +367,13 @@ extension GoCryptoHpkeApi on GoCryptoHpke {
 
   /// Go: `func hpke.NewMLKEMPrivateKey(priv crypto.Decapsulator) (hpke.PrivateKey, error)`.
   CryptoHpkePrivateKey newMlkemPrivateKey($crypto.CryptoDecapsulator priv) {
-    final $r = $callSync(3256, $W()..h(priv));
+    final $r = $callSync(3265, $W()..h(priv));
     return $r.hnn(CryptoHpkePrivateKey.$h);
   }
 
   /// Go: `func hpke.NewMLKEMPublicKey(pub crypto.Encapsulator) (hpke.PublicKey, error)`.
   CryptoHpkePublicKey newMlkemPublicKey($crypto.CryptoEncapsulator pub) {
-    final $r = $callSync(3257, $W()..h(pub));
+    final $r = $callSync(3266, $W()..h(pub));
     return $r.hnn(CryptoHpkePublicKey.$h);
   }
 
@@ -381,7 +381,7 @@ extension GoCryptoHpkeApi on GoCryptoHpke {
   (Uint8List, CryptoHpkeSender) newSender(CryptoHpkePublicKey pk,
       CryptoHpkeKdf kdf, CryptoHpkeAead aead, Uint8List info) {
     final $r = $callSync(
-        3259,
+        3268,
         $W()
           ..h(pk)
           ..h(kdf)
@@ -394,7 +394,7 @@ extension GoCryptoHpkeApi on GoCryptoHpke {
   Uint8List open(CryptoHpkePrivateKey k, CryptoHpkeKdf kdf, CryptoHpkeAead aead,
       Uint8List info, Uint8List ciphertext) {
     final $r = $callSync(
-        3260,
+        3269,
         $W()
           ..h(k)
           ..h(kdf)
@@ -406,13 +406,13 @@ extension GoCryptoHpkeApi on GoCryptoHpke {
 
   /// Go: `func hpke.SHAKE128() hpke.KDF`.
   CryptoHpkeKdf shake128() {
-    final $r = $callSync(3268);
+    final $r = $callSync(3277);
     return $r.hnn(CryptoHpkeKdf.$h);
   }
 
   /// Go: `func hpke.SHAKE256() hpke.KDF`.
   CryptoHpkeKdf shake256() {
-    final $r = $callSync(3269);
+    final $r = $callSync(3278);
     return $r.hnn(CryptoHpkeKdf.$h);
   }
 
@@ -420,7 +420,7 @@ extension GoCryptoHpkeApi on GoCryptoHpke {
   Uint8List seal(CryptoHpkePublicKey pk, CryptoHpkeKdf kdf, CryptoHpkeAead aead,
       Uint8List info, Uint8List plaintext) {
     final $r = $callSync(
-        3270,
+        3279,
         $W()
           ..h(pk)
           ..h(kdf)

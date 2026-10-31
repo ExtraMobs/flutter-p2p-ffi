@@ -13,7 +13,7 @@ import 'package:p2p_ffi/src/runtime.dart';
 extension GoLibp2pLibp2pKadDhtAminoApi on GoLibp2pLibp2pKadDhtAmino {
   /// Go: `var amino.Protocols []protocol.ID`.
   List<String> get protocols {
-    final $r = $callSync(12948);
+    final $r = $callSync(12954);
     return $r.list(() => $r.str());
   }
 }

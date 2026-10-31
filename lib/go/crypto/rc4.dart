@@ -34,7 +34,7 @@ class CryptoRc4Cipher extends $cipher.CryptoCipherStream
 
   /// Go: `func rc4.NewCipher(key []byte) (*rc4.Cipher, error)`.
   factory CryptoRc4Cipher(Uint8List key) {
-    final $r = $callSync(3299, $W()..bytes(key));
+    final $r = $callSync(3308, $W()..bytes(key));
     return $r.hnn(CryptoRc4Cipher.$h);
   }
 
@@ -42,13 +42,13 @@ class CryptoRc4Cipher extends $cipher.CryptoCipherStream
   @Deprecated(
       "Reset can't guarantee that the key will be entirely removed from the process's memory.")
   void reset() {
-    $callSync(3297, $W()..h(this));
+    $callSync(3306, $W()..h(this));
   }
 
   /// Go: `func (*rc4.Cipher).XORKeyStream(dst []byte, src []byte)`.
   void xorKeyStream(Uint8List dst, Uint8List src) {
     $callSync(
-        3298,
+        3307,
         $W()
           ..h(this)
           ..bytes(dst)

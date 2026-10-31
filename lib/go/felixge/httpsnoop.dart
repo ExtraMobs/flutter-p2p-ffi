@@ -60,7 +60,7 @@ final class HttpsnoopMetrics implements GoDto {
       FutureOr<void> Function($http.NetHttpResponseWriter responseWriter)
           fn) async {
     await $call(
-        6322,
+        6331,
         $W()
           ..dto(this)
           ..h(w)
@@ -77,7 +77,7 @@ class HttpsnoopUnwrapper extends GoHandle with HttpsnoopUnwrapper$ {
 mixin HttpsnoopUnwrapper$ on GoHandle {
   /// Go: `func (httpsnoop.Unwrapper).Unwrap() http.ResponseWriter`.
   $http.NetHttpResponseWriter unwrap() {
-    final $r = $callSync(6324, $W()..h(this));
+    final $r = $callSync(6333, $W()..h(this));
     return $r.hnn($http.NetHttpResponseWriter.$h);
   }
 }
@@ -88,7 +88,7 @@ extension GoFelixgeHttpsnoopApi on GoFelixgeHttpsnoop {
   HttpsnoopMetrics captureMetrics($http.NetHttpHandler hnd,
       $http.NetHttpResponseWriter w, $http.NetHttpRequest r) {
     final $r = $callSync(
-        6320,
+        6329,
         $W()
           ..h(hnd)
           ..h(w)
@@ -108,7 +108,7 @@ extension GoFelixgeHttpsnoopApi on GoFelixgeHttpsnoop {
       FutureOr<void> Function($http.NetHttpResponseWriter responseWriter)
           fn) async {
     final $r = await $call(
-        6321,
+        6330,
         $W()
           ..h(w)
           ..cb((r) => fn(r.hnn($http.NetHttpResponseWriter.$h)), true));
@@ -117,7 +117,7 @@ extension GoFelixgeHttpsnoopApi on GoFelixgeHttpsnoop {
 
   /// Go: `func httpsnoop.Unwrap(w http.ResponseWriter) http.ResponseWriter`.
   $http.NetHttpResponseWriter unwrap($http.NetHttpResponseWriter w) {
-    final $r = $callSync(6323, $W()..h(w));
+    final $r = $callSync(6332, $W()..h(w));
     return $r.hnn($http.NetHttpResponseWriter.$h);
   }
 
@@ -125,7 +125,7 @@ extension GoFelixgeHttpsnoopApi on GoFelixgeHttpsnoop {
   $http.NetHttpResponseWriter wrap(
       $http.NetHttpResponseWriter w, HttpsnoopHooks hooks) {
     final $r = $callSync(
-        6325,
+        6334,
         $W()
           ..h(w)
           ..dto(hooks));

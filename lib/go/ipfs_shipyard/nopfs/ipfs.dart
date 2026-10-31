@@ -53,7 +53,7 @@ class NopfsIpfsBlockService extends $blockservice.BoxoBlockserviceBlockService
   Future<void> addBlock(
       $context.Context ctx, $block_format.BlockFormatBlock o) async {
     await $call(
-        9041,
+        9050,
         $W()
           ..h(this)
           ..h(ctx)
@@ -66,7 +66,7 @@ class NopfsIpfsBlockService extends $blockservice.BoxoBlockserviceBlockService
   Future<void> addBlocks(
       $context.Context ctx, List<$block_format.BlockFormatBlock> bs) async {
     await $call(
-        9042,
+        9051,
         $W()
           ..h(this)
           ..h(ctx)
@@ -75,13 +75,13 @@ class NopfsIpfsBlockService extends $blockservice.BoxoBlockserviceBlockService
 
   /// Go: `func (*ipfs.BlockService).Blockstore() blockstore.Blockstore`.
   $blockstore.BoxoBlockstore blockstore() {
-    final $r = $callSync(9043, $W()..h(this));
+    final $r = $callSync(9052, $W()..h(this));
     return $r.hnn($blockstore.BoxoBlockstore.$h);
   }
 
   /// Go: `func (*ipfs.BlockService).Close() error`.
   void close() {
-    $callSync(9044, $W()..h(this));
+    $callSync(9053, $W()..h(this));
   }
 
   /// Go: `func (*ipfs.BlockService).DeleteBlock(ctx context.Context, o cid.Cid) error`.
@@ -89,7 +89,7 @@ class NopfsIpfsBlockService extends $blockservice.BoxoBlockserviceBlockService
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> deleteBlock($context.Context ctx, $cid.Cid o) async {
     await $call(
-        9045,
+        9054,
         $W()
           ..h(this)
           ..h(ctx)
@@ -98,7 +98,7 @@ class NopfsIpfsBlockService extends $blockservice.BoxoBlockserviceBlockService
 
   /// Go: `func (*ipfs.BlockService).Exchange() exchange.Interface`.
   $exchange.BoxoExchangeInterface exchange() {
-    final $r = $callSync(9046, $W()..h(this));
+    final $r = $callSync(9055, $W()..h(this));
     return $r.hnn($exchange.BoxoExchangeInterface.$h);
   }
 
@@ -108,7 +108,7 @@ class NopfsIpfsBlockService extends $blockservice.BoxoBlockserviceBlockService
   Future<$block_format.BlockFormatBlock> getBlock(
       $context.Context ctx, $cid.Cid c) async {
     final $r = await $call(
-        9047,
+        9056,
         $W()
           ..h(this)
           ..h(ctx)
@@ -120,7 +120,7 @@ class NopfsIpfsBlockService extends $blockservice.BoxoBlockserviceBlockService
   Stream<$block_format.BlockFormatBlock> getBlocks(
           $context.Context ctx, List<$cid.Cid> ks) =>
       $stream(
-              9048,
+              9057,
               $W()
                 ..h(this)
                 ..h(ctx)
@@ -159,7 +159,7 @@ class NopfsIpfsNameSystem extends $namesys.BoxoNamesysResolver
       $crypto2.Libp2pCoreCryptoPrivKey name, $path.BoxoPath value,
       [List<$namesys.BoxoNamesysPublishOption> options = const []]) async {
     await $call(
-        9049,
+        9058,
         $W()
           ..h(this)
           ..h(ctx)
@@ -175,7 +175,7 @@ class NopfsIpfsNameSystem extends $namesys.BoxoNamesysResolver
       $context.Context ctx, $path.BoxoPath p,
       [List<$namesys.BoxoNamesysResolveOption> options = const []]) async {
     final $r = await $call(
-        9050,
+        9059,
         $W()
           ..h(this)
           ..h(ctx)
@@ -189,7 +189,7 @@ class NopfsIpfsNameSystem extends $namesys.BoxoNamesysResolver
           $context.Context ctx, $path.BoxoPath p,
           [List<$namesys.BoxoNamesysResolveOption> options = const []]) =>
       $stream(
-              9051,
+              9060,
               $W()
                 ..h(this)
                 ..h(ctx)
@@ -225,7 +225,7 @@ class NopfsIpfsResolver extends $resolver.BoxoPathResolver
       resolvePath(
           $context.Context ctx, $path.BoxoPathImmutablePath fpath) async {
     final $r = await $call(
-        9052,
+        9061,
         $W()
           ..h(this)
           ..h(ctx)
@@ -242,7 +242,7 @@ class NopfsIpfsResolver extends $resolver.BoxoPathResolver
   Future<List<$datamodel.IpldPrimeDatamodelNode>> resolvePathComponents(
       $context.Context ctx, $path.BoxoPathImmutablePath fpath) async {
     final $r = await $call(
-        9053,
+        9062,
         $W()
           ..h(this)
           ..h(ctx)
@@ -256,7 +256,7 @@ class NopfsIpfsResolver extends $resolver.BoxoPathResolver
   Future<($cid.Cid, List<String>)> resolveToLastNode(
       $context.Context ctx, $path.BoxoPathImmutablePath fpath) async {
     final $r = await $call(
-        9054,
+        9063,
         $W()
           ..h(this)
           ..h(ctx)
@@ -272,7 +272,7 @@ extension GoIpfsShipyardNopfsIpfsApi on GoIpfsShipyardNopfsIpfs {
       $blockservice.BoxoBlockserviceBlockService bs,
       $nopfs.NopfsBlocker blocker) {
     final $r = $callSync(
-        9055,
+        9064,
         $W()
           ..h(bs)
           ..dto(blocker));
@@ -283,7 +283,7 @@ extension GoIpfsShipyardNopfsIpfsApi on GoIpfsShipyardNopfsIpfs {
   $namesys.BoxoNamesysNameSystem wrapNameSystem(
       $namesys.BoxoNamesysNameSystem ns, $nopfs.NopfsBlocker blocker) {
     final $r = $callSync(
-        9056,
+        9065,
         $W()
           ..h(ns)
           ..dto(blocker));
@@ -294,7 +294,7 @@ extension GoIpfsShipyardNopfsIpfsApi on GoIpfsShipyardNopfsIpfs {
   $resolver.BoxoPathResolver wrapResolver(
       $resolver.BoxoPathResolver res, $nopfs.NopfsBlocker blocker) {
     final $r = $callSync(
-        9057,
+        9066,
         $W()
           ..h(res)
           ..dto(blocker));

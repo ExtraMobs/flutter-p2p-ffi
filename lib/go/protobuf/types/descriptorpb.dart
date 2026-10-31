@@ -48,20 +48,20 @@ class ProtobufTypesDescriptorpbDescriptorProto
   /// Go: `func (*descriptorpb.DescriptorProto).Descriptor() ([]byte, []int)`.
   @Deprecated("Use DescriptorProto.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(25057, $W()..h(this));
+    final $r = $callSync(25063, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptorpb.DescriptorProto).GetEnumType() []*descriptorpb.EnumDescriptorProto`.
   List<ProtobufTypesDescriptorpbEnumDescriptorProto> getEnumType() {
-    final $r = $callSync(25058, $W()..h(this));
+    final $r = $callSync(25064, $W()..h(this));
     return $r
         .list(() => $r.hnn(ProtobufTypesDescriptorpbEnumDescriptorProto.$h));
   }
 
   /// Go: `func (*descriptorpb.DescriptorProto).GetExtension() []*descriptorpb.FieldDescriptorProto`.
   List<ProtobufTypesDescriptorpbFieldDescriptorProto> getExtension() {
-    final $r = $callSync(25059, $W()..h(this));
+    final $r = $callSync(25065, $W()..h(this));
     return $r
         .list(() => $r.hnn(ProtobufTypesDescriptorpbFieldDescriptorProto.$h));
   }
@@ -69,82 +69,82 @@ class ProtobufTypesDescriptorpbDescriptorProto
   /// Go: `func (*descriptorpb.DescriptorProto).GetExtensionRange() []*descriptorpb.DescriptorProto_ExtensionRange`.
   List<ProtobufTypesDescriptorpbDescriptorProtoExtensionRange>
       getExtensionRange() {
-    final $r = $callSync(25060, $W()..h(this));
+    final $r = $callSync(25066, $W()..h(this));
     return $r.list(() =>
         $r.hnn(ProtobufTypesDescriptorpbDescriptorProtoExtensionRange.$h));
   }
 
   /// Go: `func (*descriptorpb.DescriptorProto).GetField() []*descriptorpb.FieldDescriptorProto`.
   List<ProtobufTypesDescriptorpbFieldDescriptorProto> getField() {
-    final $r = $callSync(25061, $W()..h(this));
+    final $r = $callSync(25067, $W()..h(this));
     return $r
         .list(() => $r.hnn(ProtobufTypesDescriptorpbFieldDescriptorProto.$h));
   }
 
   /// Go: `func (*descriptorpb.DescriptorProto).GetName() string`.
   String getName() {
-    final $r = $callSync(25062, $W()..h(this));
+    final $r = $callSync(25068, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptorpb.DescriptorProto).GetNestedType() []*descriptorpb.DescriptorProto`.
   List<ProtobufTypesDescriptorpbDescriptorProto> getNestedType() {
-    final $r = $callSync(25063, $W()..h(this));
+    final $r = $callSync(25069, $W()..h(this));
     return $r.list(() => $r.hnn(ProtobufTypesDescriptorpbDescriptorProto.$h));
   }
 
   /// Go: `func (*descriptorpb.DescriptorProto).GetOneofDecl() []*descriptorpb.OneofDescriptorProto`.
   List<ProtobufTypesDescriptorpbOneofDescriptorProto> getOneofDecl() {
-    final $r = $callSync(25064, $W()..h(this));
+    final $r = $callSync(25070, $W()..h(this));
     return $r
         .list(() => $r.hnn(ProtobufTypesDescriptorpbOneofDescriptorProto.$h));
   }
 
   /// Go: `func (*descriptorpb.DescriptorProto).GetOptions() *descriptorpb.MessageOptions`.
   ProtobufTypesDescriptorpbMessageOptions getOptions() {
-    final $r = $callSync(25065, $W()..h(this));
+    final $r = $callSync(25071, $W()..h(this));
     return $r.hnn(ProtobufTypesDescriptorpbMessageOptions.$h);
   }
 
   /// Go: `func (*descriptorpb.DescriptorProto).GetReservedName() []string`.
   List<String> getReservedName() {
-    final $r = $callSync(25066, $W()..h(this));
+    final $r = $callSync(25072, $W()..h(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (*descriptorpb.DescriptorProto).GetReservedRange() []*descriptorpb.DescriptorProto_ReservedRange`.
   List<ProtobufTypesDescriptorpbDescriptorProtoReservedRange>
       getReservedRange() {
-    final $r = $callSync(25067, $W()..h(this));
+    final $r = $callSync(25073, $W()..h(this));
     return $r.list(
         () => $r.hnn(ProtobufTypesDescriptorpbDescriptorProtoReservedRange.$h));
   }
 
   /// Go: `func (*descriptorpb.DescriptorProto).GetVisibility() descriptorpb.SymbolVisibility`.
   int getVisibility() {
-    final $r = $callSync(25068, $W()..h(this));
+    final $r = $callSync(25074, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptorpb.DescriptorProto).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25069, $W()..h(this));
+    $callSync(25075, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.DescriptorProto).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(25070, $W()..h(this));
+    final $r = $callSync(25076, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*descriptorpb.DescriptorProto).Reset()`.
   void reset() {
-    $callSync(25071, $W()..h(this));
+    $callSync(25077, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.DescriptorProto).String() string`.
   String string() {
-    final $r = $callSync(25072, $W()..h(this));
+    final $r = $callSync(25078, $W()..h(this));
     return $r.str();
   }
 }
@@ -179,47 +179,47 @@ class ProtobufTypesDescriptorpbDescriptorProtoExtensionRange
   @Deprecated(
       "Use DescriptorProto_ExtensionRange.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(25073, $W()..h(this));
+    final $r = $callSync(25079, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptorpb.DescriptorProto_ExtensionRange).GetEnd() int32`.
   int getEnd() {
-    final $r = $callSync(25074, $W()..h(this));
+    final $r = $callSync(25080, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptorpb.DescriptorProto_ExtensionRange).GetOptions() *descriptorpb.ExtensionRangeOptions`.
   ProtobufTypesDescriptorpbExtensionRangeOptions getOptions() {
-    final $r = $callSync(25075, $W()..h(this));
+    final $r = $callSync(25081, $W()..h(this));
     return $r.hnn(ProtobufTypesDescriptorpbExtensionRangeOptions.$h);
   }
 
   /// Go: `func (*descriptorpb.DescriptorProto_ExtensionRange).GetStart() int32`.
   int getStart() {
-    final $r = $callSync(25076, $W()..h(this));
+    final $r = $callSync(25082, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptorpb.DescriptorProto_ExtensionRange).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25077, $W()..h(this));
+    $callSync(25083, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.DescriptorProto_ExtensionRange).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(25078, $W()..h(this));
+    final $r = $callSync(25084, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*descriptorpb.DescriptorProto_ExtensionRange).Reset()`.
   void reset() {
-    $callSync(25079, $W()..h(this));
+    $callSync(25085, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.DescriptorProto_ExtensionRange).String() string`.
   String string() {
-    final $r = $callSync(25080, $W()..h(this));
+    final $r = $callSync(25086, $W()..h(this));
     return $r.str();
   }
 }
@@ -254,41 +254,41 @@ class ProtobufTypesDescriptorpbDescriptorProtoReservedRange
   @Deprecated(
       "Use DescriptorProto_ReservedRange.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(25081, $W()..h(this));
+    final $r = $callSync(25087, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptorpb.DescriptorProto_ReservedRange).GetEnd() int32`.
   int getEnd() {
-    final $r = $callSync(25082, $W()..h(this));
+    final $r = $callSync(25088, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptorpb.DescriptorProto_ReservedRange).GetStart() int32`.
   int getStart() {
-    final $r = $callSync(25083, $W()..h(this));
+    final $r = $callSync(25089, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptorpb.DescriptorProto_ReservedRange).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25084, $W()..h(this));
+    $callSync(25090, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.DescriptorProto_ReservedRange).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(25085, $W()..h(this));
+    final $r = $callSync(25091, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*descriptorpb.DescriptorProto_ReservedRange).Reset()`.
   void reset() {
-    $callSync(25086, $W()..h(this));
+    $callSync(25092, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.DescriptorProto_ReservedRange).String() string`.
   String string() {
-    final $r = $callSync(25087, $W()..h(this));
+    final $r = $callSync(25093, $W()..h(this));
     return $r.str();
   }
 }
@@ -321,68 +321,68 @@ class ProtobufTypesDescriptorpbEnumDescriptorProto
   /// Go: `func (*descriptorpb.EnumDescriptorProto).Descriptor() ([]byte, []int)`.
   @Deprecated("Use EnumDescriptorProto.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(25090, $W()..h(this));
+    final $r = $callSync(25096, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptorpb.EnumDescriptorProto).GetName() string`.
   String getName() {
-    final $r = $callSync(25091, $W()..h(this));
+    final $r = $callSync(25097, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptorpb.EnumDescriptorProto).GetOptions() *descriptorpb.EnumOptions`.
   ProtobufTypesDescriptorpbEnumOptions getOptions() {
-    final $r = $callSync(25092, $W()..h(this));
+    final $r = $callSync(25098, $W()..h(this));
     return $r.hnn(ProtobufTypesDescriptorpbEnumOptions.$h);
   }
 
   /// Go: `func (*descriptorpb.EnumDescriptorProto).GetReservedName() []string`.
   List<String> getReservedName() {
-    final $r = $callSync(25093, $W()..h(this));
+    final $r = $callSync(25099, $W()..h(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (*descriptorpb.EnumDescriptorProto).GetReservedRange() []*descriptorpb.EnumDescriptorProto_EnumReservedRange`.
   List<ProtobufTypesDescriptorpbEnumDescriptorProtoEnumReservedRange>
       getReservedRange() {
-    final $r = $callSync(25094, $W()..h(this));
+    final $r = $callSync(25100, $W()..h(this));
     return $r.list(() => $r
         .hnn(ProtobufTypesDescriptorpbEnumDescriptorProtoEnumReservedRange.$h));
   }
 
   /// Go: `func (*descriptorpb.EnumDescriptorProto).GetValue() []*descriptorpb.EnumValueDescriptorProto`.
   List<ProtobufTypesDescriptorpbEnumValueDescriptorProto> getValue() {
-    final $r = $callSync(25095, $W()..h(this));
+    final $r = $callSync(25101, $W()..h(this));
     return $r.list(
         () => $r.hnn(ProtobufTypesDescriptorpbEnumValueDescriptorProto.$h));
   }
 
   /// Go: `func (*descriptorpb.EnumDescriptorProto).GetVisibility() descriptorpb.SymbolVisibility`.
   int getVisibility() {
-    final $r = $callSync(25096, $W()..h(this));
+    final $r = $callSync(25102, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptorpb.EnumDescriptorProto).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25097, $W()..h(this));
+    $callSync(25103, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.EnumDescriptorProto).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(25098, $W()..h(this));
+    final $r = $callSync(25104, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*descriptorpb.EnumDescriptorProto).Reset()`.
   void reset() {
-    $callSync(25099, $W()..h(this));
+    $callSync(25105, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.EnumDescriptorProto).String() string`.
   String string() {
-    final $r = $callSync(25100, $W()..h(this));
+    final $r = $callSync(25106, $W()..h(this));
     return $r.str();
   }
 }
@@ -417,41 +417,41 @@ class ProtobufTypesDescriptorpbEnumDescriptorProtoEnumReservedRange
   @Deprecated(
       "Use EnumDescriptorProto_EnumReservedRange.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(25101, $W()..h(this));
+    final $r = $callSync(25107, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptorpb.EnumDescriptorProto_EnumReservedRange).GetEnd() int32`.
   int getEnd() {
-    final $r = $callSync(25102, $W()..h(this));
+    final $r = $callSync(25108, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptorpb.EnumDescriptorProto_EnumReservedRange).GetStart() int32`.
   int getStart() {
-    final $r = $callSync(25103, $W()..h(this));
+    final $r = $callSync(25109, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptorpb.EnumDescriptorProto_EnumReservedRange).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25104, $W()..h(this));
+    $callSync(25110, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.EnumDescriptorProto_EnumReservedRange).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(25105, $W()..h(this));
+    final $r = $callSync(25111, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*descriptorpb.EnumDescriptorProto_EnumReservedRange).Reset()`.
   void reset() {
-    $callSync(25106, $W()..h(this));
+    $callSync(25112, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.EnumDescriptorProto_EnumReservedRange).String() string`.
   String string() {
-    final $r = $callSync(25107, $W()..h(this));
+    final $r = $callSync(25113, $W()..h(this));
     return $r.str();
   }
 }
@@ -484,61 +484,61 @@ class ProtobufTypesDescriptorpbEnumOptions
   /// Go: `func (*descriptorpb.EnumOptions).Descriptor() ([]byte, []int)`.
   @Deprecated("Use EnumOptions.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(25108, $W()..h(this));
+    final $r = $callSync(25114, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptorpb.EnumOptions).GetAllowAlias() bool`.
   bool getAllowAlias() {
-    final $r = $callSync(25109, $W()..h(this));
+    final $r = $callSync(25115, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptorpb.EnumOptions).GetDeprecated() bool`.
   bool getDeprecated() {
-    final $r = $callSync(25110, $W()..h(this));
+    final $r = $callSync(25116, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptorpb.EnumOptions).GetDeprecatedLegacyJsonFieldConflicts() bool`.
   @Deprecated("Marked as deprecated in google/protobuf/descriptor.proto.")
   bool getDeprecatedLegacyJsonFieldConflicts() {
-    final $r = $callSync(25111, $W()..h(this));
+    final $r = $callSync(25117, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptorpb.EnumOptions).GetFeatures() *descriptorpb.FeatureSet`.
   ProtobufTypesDescriptorpbFeatureSet getFeatures() {
-    final $r = $callSync(25112, $W()..h(this));
+    final $r = $callSync(25118, $W()..h(this));
     return $r.hnn(ProtobufTypesDescriptorpbFeatureSet.$h);
   }
 
   /// Go: `func (*descriptorpb.EnumOptions).GetUninterpretedOption() []*descriptorpb.UninterpretedOption`.
   List<ProtobufTypesDescriptorpbUninterpretedOption> getUninterpretedOption() {
-    final $r = $callSync(25113, $W()..h(this));
+    final $r = $callSync(25119, $W()..h(this));
     return $r
         .list(() => $r.hnn(ProtobufTypesDescriptorpbUninterpretedOption.$h));
   }
 
   /// Go: `func (*descriptorpb.EnumOptions).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25114, $W()..h(this));
+    $callSync(25120, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.EnumOptions).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(25115, $W()..h(this));
+    final $r = $callSync(25121, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*descriptorpb.EnumOptions).Reset()`.
   void reset() {
-    $callSync(25116, $W()..h(this));
+    $callSync(25122, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.EnumOptions).String() string`.
   String string() {
-    final $r = $callSync(25117, $W()..h(this));
+    final $r = $callSync(25123, $W()..h(this));
     return $r.str();
   }
 }
@@ -571,47 +571,47 @@ class ProtobufTypesDescriptorpbEnumValueDescriptorProto
   /// Go: `func (*descriptorpb.EnumValueDescriptorProto).Descriptor() ([]byte, []int)`.
   @Deprecated("Use EnumValueDescriptorProto.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(25118, $W()..h(this));
+    final $r = $callSync(25124, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptorpb.EnumValueDescriptorProto).GetName() string`.
   String getName() {
-    final $r = $callSync(25119, $W()..h(this));
+    final $r = $callSync(25125, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptorpb.EnumValueDescriptorProto).GetNumber() int32`.
   int getNumber() {
-    final $r = $callSync(25120, $W()..h(this));
+    final $r = $callSync(25126, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptorpb.EnumValueDescriptorProto).GetOptions() *descriptorpb.EnumValueOptions`.
   ProtobufTypesDescriptorpbEnumValueOptions getOptions() {
-    final $r = $callSync(25121, $W()..h(this));
+    final $r = $callSync(25127, $W()..h(this));
     return $r.hnn(ProtobufTypesDescriptorpbEnumValueOptions.$h);
   }
 
   /// Go: `func (*descriptorpb.EnumValueDescriptorProto).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25122, $W()..h(this));
+    $callSync(25128, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.EnumValueDescriptorProto).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(25123, $W()..h(this));
+    final $r = $callSync(25129, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*descriptorpb.EnumValueDescriptorProto).Reset()`.
   void reset() {
-    $callSync(25124, $W()..h(this));
+    $callSync(25130, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.EnumValueDescriptorProto).String() string`.
   String string() {
-    final $r = $callSync(25125, $W()..h(this));
+    final $r = $callSync(25131, $W()..h(this));
     return $r.str();
   }
 }
@@ -644,60 +644,60 @@ class ProtobufTypesDescriptorpbEnumValueOptions
   /// Go: `func (*descriptorpb.EnumValueOptions).Descriptor() ([]byte, []int)`.
   @Deprecated("Use EnumValueOptions.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(25126, $W()..h(this));
+    final $r = $callSync(25132, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptorpb.EnumValueOptions).GetDebugRedact() bool`.
   bool getDebugRedact() {
-    final $r = $callSync(25127, $W()..h(this));
+    final $r = $callSync(25133, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptorpb.EnumValueOptions).GetDeprecated() bool`.
   bool getDeprecated() {
-    final $r = $callSync(25128, $W()..h(this));
+    final $r = $callSync(25134, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptorpb.EnumValueOptions).GetFeatureSupport() *descriptorpb.FieldOptions_FeatureSupport`.
   ProtobufTypesDescriptorpbFieldOptionsFeatureSupport getFeatureSupport() {
-    final $r = $callSync(25129, $W()..h(this));
+    final $r = $callSync(25135, $W()..h(this));
     return $r.hnn(ProtobufTypesDescriptorpbFieldOptionsFeatureSupport.$h);
   }
 
   /// Go: `func (*descriptorpb.EnumValueOptions).GetFeatures() *descriptorpb.FeatureSet`.
   ProtobufTypesDescriptorpbFeatureSet getFeatures() {
-    final $r = $callSync(25130, $W()..h(this));
+    final $r = $callSync(25136, $W()..h(this));
     return $r.hnn(ProtobufTypesDescriptorpbFeatureSet.$h);
   }
 
   /// Go: `func (*descriptorpb.EnumValueOptions).GetUninterpretedOption() []*descriptorpb.UninterpretedOption`.
   List<ProtobufTypesDescriptorpbUninterpretedOption> getUninterpretedOption() {
-    final $r = $callSync(25131, $W()..h(this));
+    final $r = $callSync(25137, $W()..h(this));
     return $r
         .list(() => $r.hnn(ProtobufTypesDescriptorpbUninterpretedOption.$h));
   }
 
   /// Go: `func (*descriptorpb.EnumValueOptions).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25132, $W()..h(this));
+    $callSync(25138, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.EnumValueOptions).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(25133, $W()..h(this));
+    final $r = $callSync(25139, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*descriptorpb.EnumValueOptions).Reset()`.
   void reset() {
-    $callSync(25134, $W()..h(this));
+    $callSync(25140, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.EnumValueOptions).String() string`.
   String string() {
-    final $r = $callSync(25135, $W()..h(this));
+    final $r = $callSync(25141, $W()..h(this));
     return $r.str();
   }
 }
@@ -730,56 +730,56 @@ class ProtobufTypesDescriptorpbExtensionRangeOptions
   /// Go: `func (*descriptorpb.ExtensionRangeOptions).Descriptor() ([]byte, []int)`.
   @Deprecated("Use ExtensionRangeOptions.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(25136, $W()..h(this));
+    final $r = $callSync(25142, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptorpb.ExtensionRangeOptions).GetDeclaration() []*descriptorpb.ExtensionRangeOptions_Declaration`.
   List<ProtobufTypesDescriptorpbExtensionRangeOptionsDeclaration>
       getDeclaration() {
-    final $r = $callSync(25137, $W()..h(this));
+    final $r = $callSync(25143, $W()..h(this));
     return $r.list(() =>
         $r.hnn(ProtobufTypesDescriptorpbExtensionRangeOptionsDeclaration.$h));
   }
 
   /// Go: `func (*descriptorpb.ExtensionRangeOptions).GetFeatures() *descriptorpb.FeatureSet`.
   ProtobufTypesDescriptorpbFeatureSet getFeatures() {
-    final $r = $callSync(25138, $W()..h(this));
+    final $r = $callSync(25144, $W()..h(this));
     return $r.hnn(ProtobufTypesDescriptorpbFeatureSet.$h);
   }
 
   /// Go: `func (*descriptorpb.ExtensionRangeOptions).GetUninterpretedOption() []*descriptorpb.UninterpretedOption`.
   List<ProtobufTypesDescriptorpbUninterpretedOption> getUninterpretedOption() {
-    final $r = $callSync(25139, $W()..h(this));
+    final $r = $callSync(25145, $W()..h(this));
     return $r
         .list(() => $r.hnn(ProtobufTypesDescriptorpbUninterpretedOption.$h));
   }
 
   /// Go: `func (*descriptorpb.ExtensionRangeOptions).GetVerification() descriptorpb.ExtensionRangeOptions_VerificationState`.
   int getVerification() {
-    final $r = $callSync(25140, $W()..h(this));
+    final $r = $callSync(25146, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptorpb.ExtensionRangeOptions).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25141, $W()..h(this));
+    $callSync(25147, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.ExtensionRangeOptions).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(25142, $W()..h(this));
+    final $r = $callSync(25148, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*descriptorpb.ExtensionRangeOptions).Reset()`.
   void reset() {
-    $callSync(25143, $W()..h(this));
+    $callSync(25149, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.ExtensionRangeOptions).String() string`.
   String string() {
-    final $r = $callSync(25144, $W()..h(this));
+    final $r = $callSync(25150, $W()..h(this));
     return $r.str();
   }
 }
@@ -814,59 +814,59 @@ class ProtobufTypesDescriptorpbExtensionRangeOptionsDeclaration
   @Deprecated(
       "Use ExtensionRangeOptions_Declaration.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(25145, $W()..h(this));
+    final $r = $callSync(25151, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptorpb.ExtensionRangeOptions_Declaration).GetFullName() string`.
   String getFullName() {
-    final $r = $callSync(25146, $W()..h(this));
+    final $r = $callSync(25152, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptorpb.ExtensionRangeOptions_Declaration).GetNumber() int32`.
   int getNumber() {
-    final $r = $callSync(25147, $W()..h(this));
+    final $r = $callSync(25153, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptorpb.ExtensionRangeOptions_Declaration).GetRepeated() bool`.
   bool getRepeated() {
-    final $r = $callSync(25148, $W()..h(this));
+    final $r = $callSync(25154, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptorpb.ExtensionRangeOptions_Declaration).GetReserved() bool`.
   bool getReserved() {
-    final $r = $callSync(25149, $W()..h(this));
+    final $r = $callSync(25155, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptorpb.ExtensionRangeOptions_Declaration).GetType() string`.
   String getType() {
-    final $r = $callSync(25150, $W()..h(this));
+    final $r = $callSync(25156, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptorpb.ExtensionRangeOptions_Declaration).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25151, $W()..h(this));
+    $callSync(25157, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.ExtensionRangeOptions_Declaration).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(25152, $W()..h(this));
+    final $r = $callSync(25158, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*descriptorpb.ExtensionRangeOptions_Declaration).Reset()`.
   void reset() {
-    $callSync(25153, $W()..h(this));
+    $callSync(25159, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.ExtensionRangeOptions_Declaration).String() string`.
   String string() {
-    final $r = $callSync(25154, $W()..h(this));
+    final $r = $callSync(25160, $W()..h(this));
     return $r.str();
   }
 }
@@ -899,77 +899,77 @@ class ProtobufTypesDescriptorpbFeatureSet
   /// Go: `func (*descriptorpb.FeatureSet).Descriptor() ([]byte, []int)`.
   @Deprecated("Use FeatureSet.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(25157, $W()..h(this));
+    final $r = $callSync(25163, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptorpb.FeatureSet).GetDefaultSymbolVisibility() descriptorpb.FeatureSet_VisibilityFeature_DefaultSymbolVisibility`.
   int getDefaultSymbolVisibility() {
-    final $r = $callSync(25158, $W()..h(this));
+    final $r = $callSync(25164, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptorpb.FeatureSet).GetEnforceNamingStyle() descriptorpb.FeatureSet_EnforceNamingStyle`.
   int getEnforceNamingStyle() {
-    final $r = $callSync(25159, $W()..h(this));
+    final $r = $callSync(25165, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptorpb.FeatureSet).GetEnumType() descriptorpb.FeatureSet_EnumType`.
   int getEnumType() {
-    final $r = $callSync(25160, $W()..h(this));
+    final $r = $callSync(25166, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptorpb.FeatureSet).GetFieldPresence() descriptorpb.FeatureSet_FieldPresence`.
   int getFieldPresence() {
-    final $r = $callSync(25161, $W()..h(this));
+    final $r = $callSync(25167, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptorpb.FeatureSet).GetJsonFormat() descriptorpb.FeatureSet_JsonFormat`.
   int getJsonFormat() {
-    final $r = $callSync(25162, $W()..h(this));
+    final $r = $callSync(25168, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptorpb.FeatureSet).GetMessageEncoding() descriptorpb.FeatureSet_MessageEncoding`.
   int getMessageEncoding() {
-    final $r = $callSync(25163, $W()..h(this));
+    final $r = $callSync(25169, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptorpb.FeatureSet).GetRepeatedFieldEncoding() descriptorpb.FeatureSet_RepeatedFieldEncoding`.
   int getRepeatedFieldEncoding() {
-    final $r = $callSync(25164, $W()..h(this));
+    final $r = $callSync(25170, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptorpb.FeatureSet).GetUtf8Validation() descriptorpb.FeatureSet_Utf8Validation`.
   int getUtf8Validation() {
-    final $r = $callSync(25165, $W()..h(this));
+    final $r = $callSync(25171, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptorpb.FeatureSet).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25166, $W()..h(this));
+    $callSync(25172, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.FeatureSet).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(25167, $W()..h(this));
+    final $r = $callSync(25173, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*descriptorpb.FeatureSet).Reset()`.
   void reset() {
-    $callSync(25168, $W()..h(this));
+    $callSync(25174, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.FeatureSet).String() string`.
   String string() {
-    final $r = $callSync(25169, $W()..h(this));
+    final $r = $callSync(25175, $W()..h(this));
     return $r.str();
   }
 }
@@ -1002,14 +1002,14 @@ class ProtobufTypesDescriptorpbFeatureSetDefaults
   /// Go: `func (*descriptorpb.FeatureSetDefaults).Descriptor() ([]byte, []int)`.
   @Deprecated("Use FeatureSetDefaults.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(25170, $W()..h(this));
+    final $r = $callSync(25176, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptorpb.FeatureSetDefaults).GetDefaults() []*descriptorpb.FeatureSetDefaults_FeatureSetEditionDefault`.
   List<ProtobufTypesDescriptorpbFeatureSetDefaultsFeatureSetEditionDefault>
       getDefaults() {
-    final $r = $callSync(25171, $W()..h(this));
+    final $r = $callSync(25177, $W()..h(this));
     return $r.list(() => $r.hnn(
         ProtobufTypesDescriptorpbFeatureSetDefaultsFeatureSetEditionDefault
             .$h));
@@ -1017,35 +1017,35 @@ class ProtobufTypesDescriptorpbFeatureSetDefaults
 
   /// Go: `func (*descriptorpb.FeatureSetDefaults).GetMaximumEdition() descriptorpb.Edition`.
   int getMaximumEdition() {
-    final $r = $callSync(25172, $W()..h(this));
+    final $r = $callSync(25178, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptorpb.FeatureSetDefaults).GetMinimumEdition() descriptorpb.Edition`.
   int getMinimumEdition() {
-    final $r = $callSync(25173, $W()..h(this));
+    final $r = $callSync(25179, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptorpb.FeatureSetDefaults).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25174, $W()..h(this));
+    $callSync(25180, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.FeatureSetDefaults).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(25175, $W()..h(this));
+    final $r = $callSync(25181, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*descriptorpb.FeatureSetDefaults).Reset()`.
   void reset() {
-    $callSync(25176, $W()..h(this));
+    $callSync(25182, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.FeatureSetDefaults).String() string`.
   String string() {
-    final $r = $callSync(25177, $W()..h(this));
+    final $r = $callSync(25183, $W()..h(this));
     return $r.str();
   }
 }
@@ -1081,47 +1081,47 @@ class ProtobufTypesDescriptorpbFeatureSetDefaultsFeatureSetEditionDefault
   @Deprecated(
       "Use FeatureSetDefaults_FeatureSetEditionDefault.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(25178, $W()..h(this));
+    final $r = $callSync(25184, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptorpb.FeatureSetDefaults_FeatureSetEditionDefault).GetEdition() descriptorpb.Edition`.
   int getEdition() {
-    final $r = $callSync(25179, $W()..h(this));
+    final $r = $callSync(25185, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptorpb.FeatureSetDefaults_FeatureSetEditionDefault).GetFixedFeatures() *descriptorpb.FeatureSet`.
   ProtobufTypesDescriptorpbFeatureSet getFixedFeatures() {
-    final $r = $callSync(25180, $W()..h(this));
+    final $r = $callSync(25186, $W()..h(this));
     return $r.hnn(ProtobufTypesDescriptorpbFeatureSet.$h);
   }
 
   /// Go: `func (*descriptorpb.FeatureSetDefaults_FeatureSetEditionDefault).GetOverridableFeatures() *descriptorpb.FeatureSet`.
   ProtobufTypesDescriptorpbFeatureSet getOverridableFeatures() {
-    final $r = $callSync(25181, $W()..h(this));
+    final $r = $callSync(25187, $W()..h(this));
     return $r.hnn(ProtobufTypesDescriptorpbFeatureSet.$h);
   }
 
   /// Go: `func (*descriptorpb.FeatureSetDefaults_FeatureSetEditionDefault).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25182, $W()..h(this));
+    $callSync(25188, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.FeatureSetDefaults_FeatureSetEditionDefault).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(25183, $W()..h(this));
+    final $r = $callSync(25189, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*descriptorpb.FeatureSetDefaults_FeatureSetEditionDefault).Reset()`.
   void reset() {
-    $callSync(25184, $W()..h(this));
+    $callSync(25190, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.FeatureSetDefaults_FeatureSetEditionDefault).String() string`.
   String string() {
-    final $r = $callSync(25185, $W()..h(this));
+    final $r = $callSync(25191, $W()..h(this));
     return $r.str();
   }
 }
@@ -1156,29 +1156,29 @@ class ProtobufTypesDescriptorpbFeatureSetVisibilityFeature
   @Deprecated(
       "Use FeatureSet_VisibilityFeature.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(25200, $W()..h(this));
+    final $r = $callSync(25206, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptorpb.FeatureSet_VisibilityFeature).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25201, $W()..h(this));
+    $callSync(25207, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.FeatureSet_VisibilityFeature).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(25202, $W()..h(this));
+    final $r = $callSync(25208, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*descriptorpb.FeatureSet_VisibilityFeature).Reset()`.
   void reset() {
-    $callSync(25203, $W()..h(this));
+    $callSync(25209, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.FeatureSet_VisibilityFeature).String() string`.
   String string() {
-    final $r = $callSync(25204, $W()..h(this));
+    final $r = $callSync(25210, $W()..h(this));
     return $r.str();
   }
 }
@@ -1211,95 +1211,95 @@ class ProtobufTypesDescriptorpbFieldDescriptorProto
   /// Go: `func (*descriptorpb.FieldDescriptorProto).Descriptor() ([]byte, []int)`.
   @Deprecated("Use FieldDescriptorProto.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(25207, $W()..h(this));
+    final $r = $callSync(25213, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptorpb.FieldDescriptorProto).GetDefaultValue() string`.
   String getDefaultValue() {
-    final $r = $callSync(25208, $W()..h(this));
+    final $r = $callSync(25214, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptorpb.FieldDescriptorProto).GetExtendee() string`.
   String getExtendee() {
-    final $r = $callSync(25209, $W()..h(this));
+    final $r = $callSync(25215, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptorpb.FieldDescriptorProto).GetJsonName() string`.
   String getJsonName() {
-    final $r = $callSync(25210, $W()..h(this));
+    final $r = $callSync(25216, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptorpb.FieldDescriptorProto).GetLabel() descriptorpb.FieldDescriptorProto_Label`.
   int getLabel() {
-    final $r = $callSync(25211, $W()..h(this));
+    final $r = $callSync(25217, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptorpb.FieldDescriptorProto).GetName() string`.
   String getName() {
-    final $r = $callSync(25212, $W()..h(this));
+    final $r = $callSync(25218, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptorpb.FieldDescriptorProto).GetNumber() int32`.
   int getNumber() {
-    final $r = $callSync(25213, $W()..h(this));
+    final $r = $callSync(25219, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptorpb.FieldDescriptorProto).GetOneofIndex() int32`.
   int getOneofIndex() {
-    final $r = $callSync(25214, $W()..h(this));
+    final $r = $callSync(25220, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptorpb.FieldDescriptorProto).GetOptions() *descriptorpb.FieldOptions`.
   ProtobufTypesDescriptorpbFieldOptions getOptions() {
-    final $r = $callSync(25215, $W()..h(this));
+    final $r = $callSync(25221, $W()..h(this));
     return $r.hnn(ProtobufTypesDescriptorpbFieldOptions.$h);
   }
 
   /// Go: `func (*descriptorpb.FieldDescriptorProto).GetProto3Optional() bool`.
   bool getProto3Optional() {
-    final $r = $callSync(25216, $W()..h(this));
+    final $r = $callSync(25222, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptorpb.FieldDescriptorProto).GetType() descriptorpb.FieldDescriptorProto_Type`.
   int getType() {
-    final $r = $callSync(25217, $W()..h(this));
+    final $r = $callSync(25223, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptorpb.FieldDescriptorProto).GetTypeName() string`.
   String getTypeName() {
-    final $r = $callSync(25218, $W()..h(this));
+    final $r = $callSync(25224, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptorpb.FieldDescriptorProto).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25219, $W()..h(this));
+    $callSync(25225, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.FieldDescriptorProto).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(25220, $W()..h(this));
+    final $r = $callSync(25226, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*descriptorpb.FieldDescriptorProto).Reset()`.
   void reset() {
-    $callSync(25221, $W()..h(this));
+    $callSync(25227, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.FieldDescriptorProto).String() string`.
   String string() {
-    final $r = $callSync(25222, $W()..h(this));
+    final $r = $callSync(25228, $W()..h(this));
     return $r.str();
   }
 }
@@ -1332,117 +1332,117 @@ class ProtobufTypesDescriptorpbFieldOptions
   /// Go: `func (*descriptorpb.FieldOptions).Descriptor() ([]byte, []int)`.
   @Deprecated("Use FieldOptions.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(25227, $W()..h(this));
+    final $r = $callSync(25233, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptorpb.FieldOptions).GetCtype() descriptorpb.FieldOptions_CType`.
   int getCtype() {
-    final $r = $callSync(25228, $W()..h(this));
+    final $r = $callSync(25234, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptorpb.FieldOptions).GetDebugRedact() bool`.
   bool getDebugRedact() {
-    final $r = $callSync(25229, $W()..h(this));
+    final $r = $callSync(25235, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptorpb.FieldOptions).GetDeprecated() bool`.
   bool getDeprecated() {
-    final $r = $callSync(25230, $W()..h(this));
+    final $r = $callSync(25236, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptorpb.FieldOptions).GetEditionDefaults() []*descriptorpb.FieldOptions_EditionDefault`.
   List<ProtobufTypesDescriptorpbFieldOptionsEditionDefault>
       getEditionDefaults() {
-    final $r = $callSync(25231, $W()..h(this));
+    final $r = $callSync(25237, $W()..h(this));
     return $r.list(
         () => $r.hnn(ProtobufTypesDescriptorpbFieldOptionsEditionDefault.$h));
   }
 
   /// Go: `func (*descriptorpb.FieldOptions).GetFeatureSupport() *descriptorpb.FieldOptions_FeatureSupport`.
   ProtobufTypesDescriptorpbFieldOptionsFeatureSupport getFeatureSupport() {
-    final $r = $callSync(25232, $W()..h(this));
+    final $r = $callSync(25238, $W()..h(this));
     return $r.hnn(ProtobufTypesDescriptorpbFieldOptionsFeatureSupport.$h);
   }
 
   /// Go: `func (*descriptorpb.FieldOptions).GetFeatures() *descriptorpb.FeatureSet`.
   ProtobufTypesDescriptorpbFeatureSet getFeatures() {
-    final $r = $callSync(25233, $W()..h(this));
+    final $r = $callSync(25239, $W()..h(this));
     return $r.hnn(ProtobufTypesDescriptorpbFeatureSet.$h);
   }
 
   /// Go: `func (*descriptorpb.FieldOptions).GetJstype() descriptorpb.FieldOptions_JSType`.
   int getJstype() {
-    final $r = $callSync(25234, $W()..h(this));
+    final $r = $callSync(25240, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptorpb.FieldOptions).GetLazy() bool`.
   bool getLazy() {
-    final $r = $callSync(25235, $W()..h(this));
+    final $r = $callSync(25241, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptorpb.FieldOptions).GetPacked() bool`.
   bool getPacked() {
-    final $r = $callSync(25236, $W()..h(this));
+    final $r = $callSync(25242, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptorpb.FieldOptions).GetRetention() descriptorpb.FieldOptions_OptionRetention`.
   int getRetention() {
-    final $r = $callSync(25237, $W()..h(this));
+    final $r = $callSync(25243, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptorpb.FieldOptions).GetTargets() []descriptorpb.FieldOptions_OptionTargetType`.
   List<int> getTargets() {
-    final $r = $callSync(25238, $W()..h(this));
+    final $r = $callSync(25244, $W()..h(this));
     return $r.list(() => $r.i64());
   }
 
   /// Go: `func (*descriptorpb.FieldOptions).GetUninterpretedOption() []*descriptorpb.UninterpretedOption`.
   List<ProtobufTypesDescriptorpbUninterpretedOption> getUninterpretedOption() {
-    final $r = $callSync(25239, $W()..h(this));
+    final $r = $callSync(25245, $W()..h(this));
     return $r
         .list(() => $r.hnn(ProtobufTypesDescriptorpbUninterpretedOption.$h));
   }
 
   /// Go: `func (*descriptorpb.FieldOptions).GetUnverifiedLazy() bool`.
   bool getUnverifiedLazy() {
-    final $r = $callSync(25240, $W()..h(this));
+    final $r = $callSync(25246, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptorpb.FieldOptions).GetWeak() bool`.
   @Deprecated("Marked as deprecated in google/protobuf/descriptor.proto.")
   bool getWeak() {
-    final $r = $callSync(25241, $W()..h(this));
+    final $r = $callSync(25247, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptorpb.FieldOptions).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25242, $W()..h(this));
+    $callSync(25248, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.FieldOptions).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(25243, $W()..h(this));
+    final $r = $callSync(25249, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*descriptorpb.FieldOptions).Reset()`.
   void reset() {
-    $callSync(25244, $W()..h(this));
+    $callSync(25250, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.FieldOptions).String() string`.
   String string() {
-    final $r = $callSync(25245, $W()..h(this));
+    final $r = $callSync(25251, $W()..h(this));
     return $r.str();
   }
 }
@@ -1476,41 +1476,41 @@ class ProtobufTypesDescriptorpbFieldOptionsEditionDefault
   @Deprecated(
       "Use FieldOptions_EditionDefault.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(25248, $W()..h(this));
+    final $r = $callSync(25254, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptorpb.FieldOptions_EditionDefault).GetEdition() descriptorpb.Edition`.
   int getEdition() {
-    final $r = $callSync(25249, $W()..h(this));
+    final $r = $callSync(25255, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptorpb.FieldOptions_EditionDefault).GetValue() string`.
   String getValue() {
-    final $r = $callSync(25250, $W()..h(this));
+    final $r = $callSync(25256, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptorpb.FieldOptions_EditionDefault).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25251, $W()..h(this));
+    $callSync(25257, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.FieldOptions_EditionDefault).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(25252, $W()..h(this));
+    final $r = $callSync(25258, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*descriptorpb.FieldOptions_EditionDefault).Reset()`.
   void reset() {
-    $callSync(25253, $W()..h(this));
+    $callSync(25259, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.FieldOptions_EditionDefault).String() string`.
   String string() {
-    final $r = $callSync(25254, $W()..h(this));
+    final $r = $callSync(25260, $W()..h(this));
     return $r.str();
   }
 }
@@ -1544,59 +1544,59 @@ class ProtobufTypesDescriptorpbFieldOptionsFeatureSupport
   @Deprecated(
       "Use FieldOptions_FeatureSupport.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(25255, $W()..h(this));
+    final $r = $callSync(25261, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptorpb.FieldOptions_FeatureSupport).GetDeprecationWarning() string`.
   String getDeprecationWarning() {
-    final $r = $callSync(25256, $W()..h(this));
+    final $r = $callSync(25262, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptorpb.FieldOptions_FeatureSupport).GetEditionDeprecated() descriptorpb.Edition`.
   int getEditionDeprecated() {
-    final $r = $callSync(25257, $W()..h(this));
+    final $r = $callSync(25263, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptorpb.FieldOptions_FeatureSupport).GetEditionIntroduced() descriptorpb.Edition`.
   int getEditionIntroduced() {
-    final $r = $callSync(25258, $W()..h(this));
+    final $r = $callSync(25264, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptorpb.FieldOptions_FeatureSupport).GetEditionRemoved() descriptorpb.Edition`.
   int getEditionRemoved() {
-    final $r = $callSync(25259, $W()..h(this));
+    final $r = $callSync(25265, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptorpb.FieldOptions_FeatureSupport).GetRemovalError() string`.
   String getRemovalError() {
-    final $r = $callSync(25260, $W()..h(this));
+    final $r = $callSync(25266, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptorpb.FieldOptions_FeatureSupport).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25261, $W()..h(this));
+    $callSync(25267, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.FieldOptions_FeatureSupport).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(25262, $W()..h(this));
+    final $r = $callSync(25268, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*descriptorpb.FieldOptions_FeatureSupport).Reset()`.
   void reset() {
-    $callSync(25263, $W()..h(this));
+    $callSync(25269, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.FieldOptions_FeatureSupport).String() string`.
   String string() {
-    final $r = $callSync(25264, $W()..h(this));
+    final $r = $callSync(25270, $W()..h(this));
     return $r.str();
   }
 }
@@ -1629,116 +1629,116 @@ class ProtobufTypesDescriptorpbFileDescriptorProto
   /// Go: `func (*descriptorpb.FileDescriptorProto).Descriptor() ([]byte, []int)`.
   @Deprecated("Use FileDescriptorProto.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(25271, $W()..h(this));
+    final $r = $callSync(25277, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptorpb.FileDescriptorProto).GetDependency() []string`.
   List<String> getDependency() {
-    final $r = $callSync(25272, $W()..h(this));
+    final $r = $callSync(25278, $W()..h(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (*descriptorpb.FileDescriptorProto).GetEdition() descriptorpb.Edition`.
   int getEdition() {
-    final $r = $callSync(25273, $W()..h(this));
+    final $r = $callSync(25279, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptorpb.FileDescriptorProto).GetEnumType() []*descriptorpb.EnumDescriptorProto`.
   List<ProtobufTypesDescriptorpbEnumDescriptorProto> getEnumType() {
-    final $r = $callSync(25274, $W()..h(this));
+    final $r = $callSync(25280, $W()..h(this));
     return $r
         .list(() => $r.hnn(ProtobufTypesDescriptorpbEnumDescriptorProto.$h));
   }
 
   /// Go: `func (*descriptorpb.FileDescriptorProto).GetExtension() []*descriptorpb.FieldDescriptorProto`.
   List<ProtobufTypesDescriptorpbFieldDescriptorProto> getExtension() {
-    final $r = $callSync(25275, $W()..h(this));
+    final $r = $callSync(25281, $W()..h(this));
     return $r
         .list(() => $r.hnn(ProtobufTypesDescriptorpbFieldDescriptorProto.$h));
   }
 
   /// Go: `func (*descriptorpb.FileDescriptorProto).GetMessageType() []*descriptorpb.DescriptorProto`.
   List<ProtobufTypesDescriptorpbDescriptorProto> getMessageType() {
-    final $r = $callSync(25276, $W()..h(this));
+    final $r = $callSync(25282, $W()..h(this));
     return $r.list(() => $r.hnn(ProtobufTypesDescriptorpbDescriptorProto.$h));
   }
 
   /// Go: `func (*descriptorpb.FileDescriptorProto).GetName() string`.
   String getName() {
-    final $r = $callSync(25277, $W()..h(this));
+    final $r = $callSync(25283, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptorpb.FileDescriptorProto).GetOptionDependency() []string`.
   List<String> getOptionDependency() {
-    final $r = $callSync(25278, $W()..h(this));
+    final $r = $callSync(25284, $W()..h(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (*descriptorpb.FileDescriptorProto).GetOptions() *descriptorpb.FileOptions`.
   ProtobufTypesDescriptorpbFileOptions getOptions() {
-    final $r = $callSync(25279, $W()..h(this));
+    final $r = $callSync(25285, $W()..h(this));
     return $r.hnn(ProtobufTypesDescriptorpbFileOptions.$h);
   }
 
   /// Go: `func (*descriptorpb.FileDescriptorProto).GetPackage() string`.
   String getPackage() {
-    final $r = $callSync(25280, $W()..h(this));
+    final $r = $callSync(25286, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptorpb.FileDescriptorProto).GetPublicDependency() []int32`.
   List<int> getPublicDependency() {
-    final $r = $callSync(25281, $W()..h(this));
+    final $r = $callSync(25287, $W()..h(this));
     return $r.list(() => $r.i64());
   }
 
   /// Go: `func (*descriptorpb.FileDescriptorProto).GetService() []*descriptorpb.ServiceDescriptorProto`.
   List<ProtobufTypesDescriptorpbServiceDescriptorProto> getService() {
-    final $r = $callSync(25282, $W()..h(this));
+    final $r = $callSync(25288, $W()..h(this));
     return $r
         .list(() => $r.hnn(ProtobufTypesDescriptorpbServiceDescriptorProto.$h));
   }
 
   /// Go: `func (*descriptorpb.FileDescriptorProto).GetSourceCodeInfo() *descriptorpb.SourceCodeInfo`.
   ProtobufTypesDescriptorpbSourceCodeInfo getSourceCodeInfo() {
-    final $r = $callSync(25283, $W()..h(this));
+    final $r = $callSync(25289, $W()..h(this));
     return $r.hnn(ProtobufTypesDescriptorpbSourceCodeInfo.$h);
   }
 
   /// Go: `func (*descriptorpb.FileDescriptorProto).GetSyntax() string`.
   String getSyntax() {
-    final $r = $callSync(25284, $W()..h(this));
+    final $r = $callSync(25290, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptorpb.FileDescriptorProto).GetWeakDependency() []int32`.
   List<int> getWeakDependency() {
-    final $r = $callSync(25285, $W()..h(this));
+    final $r = $callSync(25291, $W()..h(this));
     return $r.list(() => $r.i64());
   }
 
   /// Go: `func (*descriptorpb.FileDescriptorProto).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25286, $W()..h(this));
+    $callSync(25292, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.FileDescriptorProto).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(25287, $W()..h(this));
+    final $r = $callSync(25293, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*descriptorpb.FileDescriptorProto).Reset()`.
   void reset() {
-    $callSync(25288, $W()..h(this));
+    $callSync(25294, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.FileDescriptorProto).String() string`.
   String string() {
-    final $r = $callSync(25289, $W()..h(this));
+    final $r = $callSync(25295, $W()..h(this));
     return $r.str();
   }
 }
@@ -1771,36 +1771,36 @@ class ProtobufTypesDescriptorpbFileDescriptorSet
   /// Go: `func (*descriptorpb.FileDescriptorSet).Descriptor() ([]byte, []int)`.
   @Deprecated("Use FileDescriptorSet.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(25290, $W()..h(this));
+    final $r = $callSync(25296, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptorpb.FileDescriptorSet).GetFile() []*descriptorpb.FileDescriptorProto`.
   List<ProtobufTypesDescriptorpbFileDescriptorProto> getFile() {
-    final $r = $callSync(25291, $W()..h(this));
+    final $r = $callSync(25297, $W()..h(this));
     return $r
         .list(() => $r.hnn(ProtobufTypesDescriptorpbFileDescriptorProto.$h));
   }
 
   /// Go: `func (*descriptorpb.FileDescriptorSet).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25292, $W()..h(this));
+    $callSync(25298, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.FileDescriptorSet).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(25293, $W()..h(this));
+    final $r = $callSync(25299, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*descriptorpb.FileDescriptorSet).Reset()`.
   void reset() {
-    $callSync(25294, $W()..h(this));
+    $callSync(25300, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.FileDescriptorSet).String() string`.
   String string() {
-    final $r = $callSync(25295, $W()..h(this));
+    final $r = $callSync(25301, $W()..h(this));
     return $r.str();
   }
 }
@@ -1833,157 +1833,157 @@ class ProtobufTypesDescriptorpbFileOptions
   /// Go: `func (*descriptorpb.FileOptions).Descriptor() ([]byte, []int)`.
   @Deprecated("Use FileOptions.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(25296, $W()..h(this));
+    final $r = $callSync(25302, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptorpb.FileOptions).GetCcEnableArenas() bool`.
   bool getCcEnableArenas() {
-    final $r = $callSync(25297, $W()..h(this));
+    final $r = $callSync(25303, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptorpb.FileOptions).GetCcGenericServices() bool`.
   bool getCcGenericServices() {
-    final $r = $callSync(25298, $W()..h(this));
+    final $r = $callSync(25304, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptorpb.FileOptions).GetCsharpNamespace() string`.
   String getCsharpNamespace() {
-    final $r = $callSync(25299, $W()..h(this));
+    final $r = $callSync(25305, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptorpb.FileOptions).GetDeprecated() bool`.
   bool getDeprecated() {
-    final $r = $callSync(25300, $W()..h(this));
+    final $r = $callSync(25306, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptorpb.FileOptions).GetFeatures() *descriptorpb.FeatureSet`.
   ProtobufTypesDescriptorpbFeatureSet getFeatures() {
-    final $r = $callSync(25301, $W()..h(this));
+    final $r = $callSync(25307, $W()..h(this));
     return $r.hnn(ProtobufTypesDescriptorpbFeatureSet.$h);
   }
 
   /// Go: `func (*descriptorpb.FileOptions).GetGoPackage() string`.
   String getGoPackage() {
-    final $r = $callSync(25302, $W()..h(this));
+    final $r = $callSync(25308, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptorpb.FileOptions).GetJavaGenerateEqualsAndHash() bool`.
   @Deprecated("Marked as deprecated in google/protobuf/descriptor.proto.")
   bool getJavaGenerateEqualsAndHash() {
-    final $r = $callSync(25303, $W()..h(this));
+    final $r = $callSync(25309, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptorpb.FileOptions).GetJavaGenericServices() bool`.
   bool getJavaGenericServices() {
-    final $r = $callSync(25304, $W()..h(this));
+    final $r = $callSync(25310, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptorpb.FileOptions).GetJavaMultipleFiles() bool`.
   bool getJavaMultipleFiles() {
-    final $r = $callSync(25305, $W()..h(this));
+    final $r = $callSync(25311, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptorpb.FileOptions).GetJavaOuterClassname() string`.
   String getJavaOuterClassname() {
-    final $r = $callSync(25306, $W()..h(this));
+    final $r = $callSync(25312, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptorpb.FileOptions).GetJavaPackage() string`.
   String getJavaPackage() {
-    final $r = $callSync(25307, $W()..h(this));
+    final $r = $callSync(25313, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptorpb.FileOptions).GetJavaStringCheckUtf8() bool`.
   bool getJavaStringCheckUtf8() {
-    final $r = $callSync(25308, $W()..h(this));
+    final $r = $callSync(25314, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptorpb.FileOptions).GetObjcClassPrefix() string`.
   String getObjcClassPrefix() {
-    final $r = $callSync(25309, $W()..h(this));
+    final $r = $callSync(25315, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptorpb.FileOptions).GetOptimizeFor() descriptorpb.FileOptions_OptimizeMode`.
   int getOptimizeFor() {
-    final $r = $callSync(25310, $W()..h(this));
+    final $r = $callSync(25316, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptorpb.FileOptions).GetPhpClassPrefix() string`.
   String getPhpClassPrefix() {
-    final $r = $callSync(25311, $W()..h(this));
+    final $r = $callSync(25317, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptorpb.FileOptions).GetPhpMetadataNamespace() string`.
   String getPhpMetadataNamespace() {
-    final $r = $callSync(25312, $W()..h(this));
+    final $r = $callSync(25318, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptorpb.FileOptions).GetPhpNamespace() string`.
   String getPhpNamespace() {
-    final $r = $callSync(25313, $W()..h(this));
+    final $r = $callSync(25319, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptorpb.FileOptions).GetPyGenericServices() bool`.
   bool getPyGenericServices() {
-    final $r = $callSync(25314, $W()..h(this));
+    final $r = $callSync(25320, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptorpb.FileOptions).GetRubyPackage() string`.
   String getRubyPackage() {
-    final $r = $callSync(25315, $W()..h(this));
+    final $r = $callSync(25321, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptorpb.FileOptions).GetSwiftPrefix() string`.
   String getSwiftPrefix() {
-    final $r = $callSync(25316, $W()..h(this));
+    final $r = $callSync(25322, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptorpb.FileOptions).GetUninterpretedOption() []*descriptorpb.UninterpretedOption`.
   List<ProtobufTypesDescriptorpbUninterpretedOption> getUninterpretedOption() {
-    final $r = $callSync(25317, $W()..h(this));
+    final $r = $callSync(25323, $W()..h(this));
     return $r
         .list(() => $r.hnn(ProtobufTypesDescriptorpbUninterpretedOption.$h));
   }
 
   /// Go: `func (*descriptorpb.FileOptions).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25318, $W()..h(this));
+    $callSync(25324, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.FileOptions).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(25319, $W()..h(this));
+    final $r = $callSync(25325, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*descriptorpb.FileOptions).Reset()`.
   void reset() {
-    $callSync(25320, $W()..h(this));
+    $callSync(25326, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.FileOptions).String() string`.
   String string() {
-    final $r = $callSync(25321, $W()..h(this));
+    final $r = $callSync(25327, $W()..h(this));
     return $r.str();
   }
 }
@@ -2016,36 +2016,36 @@ class ProtobufTypesDescriptorpbGeneratedCodeInfo
   /// Go: `func (*descriptorpb.GeneratedCodeInfo).Descriptor() ([]byte, []int)`.
   @Deprecated("Use GeneratedCodeInfo.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(25325, $W()..h(this));
+    final $r = $callSync(25331, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptorpb.GeneratedCodeInfo).GetAnnotation() []*descriptorpb.GeneratedCodeInfo_Annotation`.
   List<ProtobufTypesDescriptorpbGeneratedCodeInfoAnnotation> getAnnotation() {
-    final $r = $callSync(25326, $W()..h(this));
+    final $r = $callSync(25332, $W()..h(this));
     return $r.list(
         () => $r.hnn(ProtobufTypesDescriptorpbGeneratedCodeInfoAnnotation.$h));
   }
 
   /// Go: `func (*descriptorpb.GeneratedCodeInfo).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25327, $W()..h(this));
+    $callSync(25333, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.GeneratedCodeInfo).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(25328, $W()..h(this));
+    final $r = $callSync(25334, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*descriptorpb.GeneratedCodeInfo).Reset()`.
   void reset() {
-    $callSync(25329, $W()..h(this));
+    $callSync(25335, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.GeneratedCodeInfo).String() string`.
   String string() {
-    final $r = $callSync(25330, $W()..h(this));
+    final $r = $callSync(25336, $W()..h(this));
     return $r.str();
   }
 }
@@ -2080,59 +2080,59 @@ class ProtobufTypesDescriptorpbGeneratedCodeInfoAnnotation
   @Deprecated(
       "Use GeneratedCodeInfo_Annotation.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(25331, $W()..h(this));
+    final $r = $callSync(25337, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptorpb.GeneratedCodeInfo_Annotation).GetBegin() int32`.
   int getBegin() {
-    final $r = $callSync(25332, $W()..h(this));
+    final $r = $callSync(25338, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptorpb.GeneratedCodeInfo_Annotation).GetEnd() int32`.
   int getEnd() {
-    final $r = $callSync(25333, $W()..h(this));
+    final $r = $callSync(25339, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptorpb.GeneratedCodeInfo_Annotation).GetPath() []int32`.
   List<int> getPath() {
-    final $r = $callSync(25334, $W()..h(this));
+    final $r = $callSync(25340, $W()..h(this));
     return $r.list(() => $r.i64());
   }
 
   /// Go: `func (*descriptorpb.GeneratedCodeInfo_Annotation).GetSemantic() descriptorpb.GeneratedCodeInfo_Annotation_Semantic`.
   int getSemantic() {
-    final $r = $callSync(25335, $W()..h(this));
+    final $r = $callSync(25341, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptorpb.GeneratedCodeInfo_Annotation).GetSourceFile() string`.
   String getSourceFile() {
-    final $r = $callSync(25336, $W()..h(this));
+    final $r = $callSync(25342, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptorpb.GeneratedCodeInfo_Annotation).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25337, $W()..h(this));
+    $callSync(25343, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.GeneratedCodeInfo_Annotation).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(25338, $W()..h(this));
+    final $r = $callSync(25344, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*descriptorpb.GeneratedCodeInfo_Annotation).Reset()`.
   void reset() {
-    $callSync(25339, $W()..h(this));
+    $callSync(25345, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.GeneratedCodeInfo_Annotation).String() string`.
   String string() {
-    final $r = $callSync(25340, $W()..h(this));
+    final $r = $callSync(25346, $W()..h(this));
     return $r.str();
   }
 }
@@ -2165,73 +2165,73 @@ class ProtobufTypesDescriptorpbMessageOptions
   /// Go: `func (*descriptorpb.MessageOptions).Descriptor() ([]byte, []int)`.
   @Deprecated("Use MessageOptions.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(25343, $W()..h(this));
+    final $r = $callSync(25349, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptorpb.MessageOptions).GetDeprecated() bool`.
   bool getDeprecated() {
-    final $r = $callSync(25344, $W()..h(this));
+    final $r = $callSync(25350, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptorpb.MessageOptions).GetDeprecatedLegacyJsonFieldConflicts() bool`.
   @Deprecated("Marked as deprecated in google/protobuf/descriptor.proto.")
   bool getDeprecatedLegacyJsonFieldConflicts() {
-    final $r = $callSync(25345, $W()..h(this));
+    final $r = $callSync(25351, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptorpb.MessageOptions).GetFeatures() *descriptorpb.FeatureSet`.
   ProtobufTypesDescriptorpbFeatureSet getFeatures() {
-    final $r = $callSync(25346, $W()..h(this));
+    final $r = $callSync(25352, $W()..h(this));
     return $r.hnn(ProtobufTypesDescriptorpbFeatureSet.$h);
   }
 
   /// Go: `func (*descriptorpb.MessageOptions).GetMapEntry() bool`.
   bool getMapEntry() {
-    final $r = $callSync(25347, $W()..h(this));
+    final $r = $callSync(25353, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptorpb.MessageOptions).GetMessageSetWireFormat() bool`.
   bool getMessageSetWireFormat() {
-    final $r = $callSync(25348, $W()..h(this));
+    final $r = $callSync(25354, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptorpb.MessageOptions).GetNoStandardDescriptorAccessor() bool`.
   bool getNoStandardDescriptorAccessor() {
-    final $r = $callSync(25349, $W()..h(this));
+    final $r = $callSync(25355, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptorpb.MessageOptions).GetUninterpretedOption() []*descriptorpb.UninterpretedOption`.
   List<ProtobufTypesDescriptorpbUninterpretedOption> getUninterpretedOption() {
-    final $r = $callSync(25350, $W()..h(this));
+    final $r = $callSync(25356, $W()..h(this));
     return $r
         .list(() => $r.hnn(ProtobufTypesDescriptorpbUninterpretedOption.$h));
   }
 
   /// Go: `func (*descriptorpb.MessageOptions).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25351, $W()..h(this));
+    $callSync(25357, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.MessageOptions).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(25352, $W()..h(this));
+    final $r = $callSync(25358, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*descriptorpb.MessageOptions).Reset()`.
   void reset() {
-    $callSync(25353, $W()..h(this));
+    $callSync(25359, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.MessageOptions).String() string`.
   String string() {
-    final $r = $callSync(25354, $W()..h(this));
+    final $r = $callSync(25360, $W()..h(this));
     return $r.str();
   }
 }
@@ -2264,65 +2264,65 @@ class ProtobufTypesDescriptorpbMethodDescriptorProto
   /// Go: `func (*descriptorpb.MethodDescriptorProto).Descriptor() ([]byte, []int)`.
   @Deprecated("Use MethodDescriptorProto.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(25355, $W()..h(this));
+    final $r = $callSync(25361, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptorpb.MethodDescriptorProto).GetClientStreaming() bool`.
   bool getClientStreaming() {
-    final $r = $callSync(25356, $W()..h(this));
+    final $r = $callSync(25362, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptorpb.MethodDescriptorProto).GetInputType() string`.
   String getInputType() {
-    final $r = $callSync(25357, $W()..h(this));
+    final $r = $callSync(25363, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptorpb.MethodDescriptorProto).GetName() string`.
   String getName() {
-    final $r = $callSync(25358, $W()..h(this));
+    final $r = $callSync(25364, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptorpb.MethodDescriptorProto).GetOptions() *descriptorpb.MethodOptions`.
   ProtobufTypesDescriptorpbMethodOptions getOptions() {
-    final $r = $callSync(25359, $W()..h(this));
+    final $r = $callSync(25365, $W()..h(this));
     return $r.hnn(ProtobufTypesDescriptorpbMethodOptions.$h);
   }
 
   /// Go: `func (*descriptorpb.MethodDescriptorProto).GetOutputType() string`.
   String getOutputType() {
-    final $r = $callSync(25360, $W()..h(this));
+    final $r = $callSync(25366, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptorpb.MethodDescriptorProto).GetServerStreaming() bool`.
   bool getServerStreaming() {
-    final $r = $callSync(25361, $W()..h(this));
+    final $r = $callSync(25367, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptorpb.MethodDescriptorProto).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25362, $W()..h(this));
+    $callSync(25368, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.MethodDescriptorProto).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(25363, $W()..h(this));
+    final $r = $callSync(25369, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*descriptorpb.MethodDescriptorProto).Reset()`.
   void reset() {
-    $callSync(25364, $W()..h(this));
+    $callSync(25370, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.MethodDescriptorProto).String() string`.
   String string() {
-    final $r = $callSync(25365, $W()..h(this));
+    final $r = $callSync(25371, $W()..h(this));
     return $r.str();
   }
 }
@@ -2355,54 +2355,54 @@ class ProtobufTypesDescriptorpbMethodOptions
   /// Go: `func (*descriptorpb.MethodOptions).Descriptor() ([]byte, []int)`.
   @Deprecated("Use MethodOptions.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(25366, $W()..h(this));
+    final $r = $callSync(25372, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptorpb.MethodOptions).GetDeprecated() bool`.
   bool getDeprecated() {
-    final $r = $callSync(25367, $W()..h(this));
+    final $r = $callSync(25373, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptorpb.MethodOptions).GetFeatures() *descriptorpb.FeatureSet`.
   ProtobufTypesDescriptorpbFeatureSet getFeatures() {
-    final $r = $callSync(25368, $W()..h(this));
+    final $r = $callSync(25374, $W()..h(this));
     return $r.hnn(ProtobufTypesDescriptorpbFeatureSet.$h);
   }
 
   /// Go: `func (*descriptorpb.MethodOptions).GetIdempotencyLevel() descriptorpb.MethodOptions_IdempotencyLevel`.
   int getIdempotencyLevel() {
-    final $r = $callSync(25369, $W()..h(this));
+    final $r = $callSync(25375, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptorpb.MethodOptions).GetUninterpretedOption() []*descriptorpb.UninterpretedOption`.
   List<ProtobufTypesDescriptorpbUninterpretedOption> getUninterpretedOption() {
-    final $r = $callSync(25370, $W()..h(this));
+    final $r = $callSync(25376, $W()..h(this));
     return $r
         .list(() => $r.hnn(ProtobufTypesDescriptorpbUninterpretedOption.$h));
   }
 
   /// Go: `func (*descriptorpb.MethodOptions).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25371, $W()..h(this));
+    $callSync(25377, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.MethodOptions).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(25372, $W()..h(this));
+    final $r = $callSync(25378, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*descriptorpb.MethodOptions).Reset()`.
   void reset() {
-    $callSync(25373, $W()..h(this));
+    $callSync(25379, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.MethodOptions).String() string`.
   String string() {
-    final $r = $callSync(25374, $W()..h(this));
+    final $r = $callSync(25380, $W()..h(this));
     return $r.str();
   }
 }
@@ -2435,41 +2435,41 @@ class ProtobufTypesDescriptorpbOneofDescriptorProto
   /// Go: `func (*descriptorpb.OneofDescriptorProto).Descriptor() ([]byte, []int)`.
   @Deprecated("Use OneofDescriptorProto.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(25377, $W()..h(this));
+    final $r = $callSync(25383, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptorpb.OneofDescriptorProto).GetName() string`.
   String getName() {
-    final $r = $callSync(25378, $W()..h(this));
+    final $r = $callSync(25384, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptorpb.OneofDescriptorProto).GetOptions() *descriptorpb.OneofOptions`.
   ProtobufTypesDescriptorpbOneofOptions getOptions() {
-    final $r = $callSync(25379, $W()..h(this));
+    final $r = $callSync(25385, $W()..h(this));
     return $r.hnn(ProtobufTypesDescriptorpbOneofOptions.$h);
   }
 
   /// Go: `func (*descriptorpb.OneofDescriptorProto).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25380, $W()..h(this));
+    $callSync(25386, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.OneofDescriptorProto).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(25381, $W()..h(this));
+    final $r = $callSync(25387, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*descriptorpb.OneofDescriptorProto).Reset()`.
   void reset() {
-    $callSync(25382, $W()..h(this));
+    $callSync(25388, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.OneofDescriptorProto).String() string`.
   String string() {
-    final $r = $callSync(25383, $W()..h(this));
+    final $r = $callSync(25389, $W()..h(this));
     return $r.str();
   }
 }
@@ -2502,42 +2502,42 @@ class ProtobufTypesDescriptorpbOneofOptions
   /// Go: `func (*descriptorpb.OneofOptions).Descriptor() ([]byte, []int)`.
   @Deprecated("Use OneofOptions.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(25384, $W()..h(this));
+    final $r = $callSync(25390, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptorpb.OneofOptions).GetFeatures() *descriptorpb.FeatureSet`.
   ProtobufTypesDescriptorpbFeatureSet getFeatures() {
-    final $r = $callSync(25385, $W()..h(this));
+    final $r = $callSync(25391, $W()..h(this));
     return $r.hnn(ProtobufTypesDescriptorpbFeatureSet.$h);
   }
 
   /// Go: `func (*descriptorpb.OneofOptions).GetUninterpretedOption() []*descriptorpb.UninterpretedOption`.
   List<ProtobufTypesDescriptorpbUninterpretedOption> getUninterpretedOption() {
-    final $r = $callSync(25386, $W()..h(this));
+    final $r = $callSync(25392, $W()..h(this));
     return $r
         .list(() => $r.hnn(ProtobufTypesDescriptorpbUninterpretedOption.$h));
   }
 
   /// Go: `func (*descriptorpb.OneofOptions).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25387, $W()..h(this));
+    $callSync(25393, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.OneofOptions).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(25388, $W()..h(this));
+    final $r = $callSync(25394, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*descriptorpb.OneofOptions).Reset()`.
   void reset() {
-    $callSync(25389, $W()..h(this));
+    $callSync(25395, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.OneofOptions).String() string`.
   String string() {
-    final $r = $callSync(25390, $W()..h(this));
+    final $r = $callSync(25396, $W()..h(this));
     return $r.str();
   }
 }
@@ -2570,48 +2570,48 @@ class ProtobufTypesDescriptorpbServiceDescriptorProto
   /// Go: `func (*descriptorpb.ServiceDescriptorProto).Descriptor() ([]byte, []int)`.
   @Deprecated("Use ServiceDescriptorProto.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(25391, $W()..h(this));
+    final $r = $callSync(25397, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptorpb.ServiceDescriptorProto).GetMethod() []*descriptorpb.MethodDescriptorProto`.
   List<ProtobufTypesDescriptorpbMethodDescriptorProto> getMethod() {
-    final $r = $callSync(25392, $W()..h(this));
+    final $r = $callSync(25398, $W()..h(this));
     return $r
         .list(() => $r.hnn(ProtobufTypesDescriptorpbMethodDescriptorProto.$h));
   }
 
   /// Go: `func (*descriptorpb.ServiceDescriptorProto).GetName() string`.
   String getName() {
-    final $r = $callSync(25393, $W()..h(this));
+    final $r = $callSync(25399, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptorpb.ServiceDescriptorProto).GetOptions() *descriptorpb.ServiceOptions`.
   ProtobufTypesDescriptorpbServiceOptions getOptions() {
-    final $r = $callSync(25394, $W()..h(this));
+    final $r = $callSync(25400, $W()..h(this));
     return $r.hnn(ProtobufTypesDescriptorpbServiceOptions.$h);
   }
 
   /// Go: `func (*descriptorpb.ServiceDescriptorProto).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25395, $W()..h(this));
+    $callSync(25401, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.ServiceDescriptorProto).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(25396, $W()..h(this));
+    final $r = $callSync(25402, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*descriptorpb.ServiceDescriptorProto).Reset()`.
   void reset() {
-    $callSync(25397, $W()..h(this));
+    $callSync(25403, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.ServiceDescriptorProto).String() string`.
   String string() {
-    final $r = $callSync(25398, $W()..h(this));
+    final $r = $callSync(25404, $W()..h(this));
     return $r.str();
   }
 }
@@ -2644,48 +2644,48 @@ class ProtobufTypesDescriptorpbServiceOptions
   /// Go: `func (*descriptorpb.ServiceOptions).Descriptor() ([]byte, []int)`.
   @Deprecated("Use ServiceOptions.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(25399, $W()..h(this));
+    final $r = $callSync(25405, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptorpb.ServiceOptions).GetDeprecated() bool`.
   bool getDeprecated() {
-    final $r = $callSync(25400, $W()..h(this));
+    final $r = $callSync(25406, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptorpb.ServiceOptions).GetFeatures() *descriptorpb.FeatureSet`.
   ProtobufTypesDescriptorpbFeatureSet getFeatures() {
-    final $r = $callSync(25401, $W()..h(this));
+    final $r = $callSync(25407, $W()..h(this));
     return $r.hnn(ProtobufTypesDescriptorpbFeatureSet.$h);
   }
 
   /// Go: `func (*descriptorpb.ServiceOptions).GetUninterpretedOption() []*descriptorpb.UninterpretedOption`.
   List<ProtobufTypesDescriptorpbUninterpretedOption> getUninterpretedOption() {
-    final $r = $callSync(25402, $W()..h(this));
+    final $r = $callSync(25408, $W()..h(this));
     return $r
         .list(() => $r.hnn(ProtobufTypesDescriptorpbUninterpretedOption.$h));
   }
 
   /// Go: `func (*descriptorpb.ServiceOptions).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25403, $W()..h(this));
+    $callSync(25409, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.ServiceOptions).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(25404, $W()..h(this));
+    final $r = $callSync(25410, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*descriptorpb.ServiceOptions).Reset()`.
   void reset() {
-    $callSync(25405, $W()..h(this));
+    $callSync(25411, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.ServiceOptions).String() string`.
   String string() {
-    final $r = $callSync(25406, $W()..h(this));
+    final $r = $callSync(25412, $W()..h(this));
     return $r.str();
   }
 }
@@ -2718,36 +2718,36 @@ class ProtobufTypesDescriptorpbSourceCodeInfo
   /// Go: `func (*descriptorpb.SourceCodeInfo).Descriptor() ([]byte, []int)`.
   @Deprecated("Use SourceCodeInfo.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(25407, $W()..h(this));
+    final $r = $callSync(25413, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptorpb.SourceCodeInfo).GetLocation() []*descriptorpb.SourceCodeInfo_Location`.
   List<ProtobufTypesDescriptorpbSourceCodeInfoLocation> getLocation() {
-    final $r = $callSync(25408, $W()..h(this));
+    final $r = $callSync(25414, $W()..h(this));
     return $r
         .list(() => $r.hnn(ProtobufTypesDescriptorpbSourceCodeInfoLocation.$h));
   }
 
   /// Go: `func (*descriptorpb.SourceCodeInfo).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25409, $W()..h(this));
+    $callSync(25415, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.SourceCodeInfo).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(25410, $W()..h(this));
+    final $r = $callSync(25416, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*descriptorpb.SourceCodeInfo).Reset()`.
   void reset() {
-    $callSync(25411, $W()..h(this));
+    $callSync(25417, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.SourceCodeInfo).String() string`.
   String string() {
-    final $r = $callSync(25412, $W()..h(this));
+    final $r = $callSync(25418, $W()..h(this));
     return $r.str();
   }
 }
@@ -2780,59 +2780,59 @@ class ProtobufTypesDescriptorpbSourceCodeInfoLocation
   /// Go: `func (*descriptorpb.SourceCodeInfo_Location).Descriptor() ([]byte, []int)`.
   @Deprecated("Use SourceCodeInfo_Location.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(25413, $W()..h(this));
+    final $r = $callSync(25419, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptorpb.SourceCodeInfo_Location).GetLeadingComments() string`.
   String getLeadingComments() {
-    final $r = $callSync(25414, $W()..h(this));
+    final $r = $callSync(25420, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptorpb.SourceCodeInfo_Location).GetLeadingDetachedComments() []string`.
   List<String> getLeadingDetachedComments() {
-    final $r = $callSync(25415, $W()..h(this));
+    final $r = $callSync(25421, $W()..h(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (*descriptorpb.SourceCodeInfo_Location).GetPath() []int32`.
   List<int> getPath() {
-    final $r = $callSync(25416, $W()..h(this));
+    final $r = $callSync(25422, $W()..h(this));
     return $r.list(() => $r.i64());
   }
 
   /// Go: `func (*descriptorpb.SourceCodeInfo_Location).GetSpan() []int32`.
   List<int> getSpan() {
-    final $r = $callSync(25417, $W()..h(this));
+    final $r = $callSync(25423, $W()..h(this));
     return $r.list(() => $r.i64());
   }
 
   /// Go: `func (*descriptorpb.SourceCodeInfo_Location).GetTrailingComments() string`.
   String getTrailingComments() {
-    final $r = $callSync(25418, $W()..h(this));
+    final $r = $callSync(25424, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptorpb.SourceCodeInfo_Location).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25419, $W()..h(this));
+    $callSync(25425, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.SourceCodeInfo_Location).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(25420, $W()..h(this));
+    final $r = $callSync(25426, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*descriptorpb.SourceCodeInfo_Location).Reset()`.
   void reset() {
-    $callSync(25421, $W()..h(this));
+    $callSync(25427, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.SourceCodeInfo_Location).String() string`.
   String string() {
-    final $r = $callSync(25422, $W()..h(this));
+    final $r = $callSync(25428, $W()..h(this));
     return $r.str();
   }
 }
@@ -2865,72 +2865,72 @@ class ProtobufTypesDescriptorpbUninterpretedOption
   /// Go: `func (*descriptorpb.UninterpretedOption).Descriptor() ([]byte, []int)`.
   @Deprecated("Use UninterpretedOption.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(25425, $W()..h(this));
+    final $r = $callSync(25431, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptorpb.UninterpretedOption).GetAggregateValue() string`.
   String getAggregateValue() {
-    final $r = $callSync(25426, $W()..h(this));
+    final $r = $callSync(25432, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptorpb.UninterpretedOption).GetDoubleValue() float64`.
   double getDoubleValue() {
-    final $r = $callSync(25427, $W()..h(this));
+    final $r = $callSync(25433, $W()..h(this));
     return $r.f64();
   }
 
   /// Go: `func (*descriptorpb.UninterpretedOption).GetIdentifierValue() string`.
   String getIdentifierValue() {
-    final $r = $callSync(25428, $W()..h(this));
+    final $r = $callSync(25434, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptorpb.UninterpretedOption).GetName() []*descriptorpb.UninterpretedOption_NamePart`.
   List<ProtobufTypesDescriptorpbUninterpretedOptionNamePart> getName() {
-    final $r = $callSync(25429, $W()..h(this));
+    final $r = $callSync(25435, $W()..h(this));
     return $r.list(
         () => $r.hnn(ProtobufTypesDescriptorpbUninterpretedOptionNamePart.$h));
   }
 
   /// Go: `func (*descriptorpb.UninterpretedOption).GetNegativeIntValue() int64`.
   int getNegativeIntValue() {
-    final $r = $callSync(25430, $W()..h(this));
+    final $r = $callSync(25436, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptorpb.UninterpretedOption).GetPositiveIntValue() uint64`.
   int getPositiveIntValue() {
-    final $r = $callSync(25431, $W()..h(this));
+    final $r = $callSync(25437, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*descriptorpb.UninterpretedOption).GetStringValue() []byte`.
   Uint8List getStringValue() {
-    final $r = $callSync(25432, $W()..h(this));
+    final $r = $callSync(25438, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*descriptorpb.UninterpretedOption).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25433, $W()..h(this));
+    $callSync(25439, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.UninterpretedOption).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(25434, $W()..h(this));
+    final $r = $callSync(25440, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*descriptorpb.UninterpretedOption).Reset()`.
   void reset() {
-    $callSync(25435, $W()..h(this));
+    $callSync(25441, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.UninterpretedOption).String() string`.
   String string() {
-    final $r = $callSync(25436, $W()..h(this));
+    final $r = $callSync(25442, $W()..h(this));
     return $r.str();
   }
 }
@@ -2965,41 +2965,41 @@ class ProtobufTypesDescriptorpbUninterpretedOptionNamePart
   @Deprecated(
       "Use UninterpretedOption_NamePart.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(25437, $W()..h(this));
+    final $r = $callSync(25443, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*descriptorpb.UninterpretedOption_NamePart).GetIsExtension() bool`.
   bool getIsExtension() {
-    final $r = $callSync(25438, $W()..h(this));
+    final $r = $callSync(25444, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*descriptorpb.UninterpretedOption_NamePart).GetNamePart() string`.
   String getNamePart() {
-    final $r = $callSync(25439, $W()..h(this));
+    final $r = $callSync(25445, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*descriptorpb.UninterpretedOption_NamePart).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25440, $W()..h(this));
+    $callSync(25446, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.UninterpretedOption_NamePart).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(25441, $W()..h(this));
+    final $r = $callSync(25447, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*descriptorpb.UninterpretedOption_NamePart).Reset()`.
   void reset() {
-    $callSync(25442, $W()..h(this));
+    $callSync(25448, $W()..h(this));
   }
 
   /// Go: `func (*descriptorpb.UninterpretedOption_NamePart).String() string`.
   String string() {
-    final $r = $callSync(25443, $W()..h(this));
+    final $r = $callSync(25449, $W()..h(this));
     return $r.str();
   }
 }
@@ -3008,248 +3008,248 @@ class ProtobufTypesDescriptorpbUninterpretedOptionNamePart
 extension GoProtobufTypesDescriptorpbApi on GoProtobufTypesDescriptorpb {
   /// Go: `var descriptorpb.Edition_name map[int32]string`.
   Map<int, String> get editionName {
-    final $r = $callSync(25088);
+    final $r = $callSync(25094);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var descriptorpb.Edition_value map[string]int32`.
   Map<String, int> get editionValue {
-    final $r = $callSync(25089);
+    final $r = $callSync(25095);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `var descriptorpb.ExtensionRangeOptions_VerificationState_name map[int32]string`.
   Map<int, String> get extensionRangeOptionsVerificationStateName {
-    final $r = $callSync(25155);
+    final $r = $callSync(25161);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var descriptorpb.ExtensionRangeOptions_VerificationState_value map[string]int32`.
   Map<String, int> get extensionRangeOptionsVerificationStateValue {
-    final $r = $callSync(25156);
+    final $r = $callSync(25162);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `var descriptorpb.FeatureSet_EnforceNamingStyle_name map[int32]string`.
   Map<int, String> get featureSetEnforceNamingStyleName {
-    final $r = $callSync(25186);
+    final $r = $callSync(25192);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var descriptorpb.FeatureSet_EnforceNamingStyle_value map[string]int32`.
   Map<String, int> get featureSetEnforceNamingStyleValue {
-    final $r = $callSync(25187);
+    final $r = $callSync(25193);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `var descriptorpb.FeatureSet_EnumType_name map[int32]string`.
   Map<int, String> get featureSetEnumTypeName {
-    final $r = $callSync(25188);
+    final $r = $callSync(25194);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var descriptorpb.FeatureSet_EnumType_value map[string]int32`.
   Map<String, int> get featureSetEnumTypeValue {
-    final $r = $callSync(25189);
+    final $r = $callSync(25195);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `var descriptorpb.FeatureSet_FieldPresence_name map[int32]string`.
   Map<int, String> get featureSetFieldPresenceName {
-    final $r = $callSync(25190);
+    final $r = $callSync(25196);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var descriptorpb.FeatureSet_FieldPresence_value map[string]int32`.
   Map<String, int> get featureSetFieldPresenceValue {
-    final $r = $callSync(25191);
+    final $r = $callSync(25197);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `var descriptorpb.FeatureSet_JsonFormat_name map[int32]string`.
   Map<int, String> get featureSetJsonFormatName {
-    final $r = $callSync(25192);
+    final $r = $callSync(25198);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var descriptorpb.FeatureSet_JsonFormat_value map[string]int32`.
   Map<String, int> get featureSetJsonFormatValue {
-    final $r = $callSync(25193);
+    final $r = $callSync(25199);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `var descriptorpb.FeatureSet_MessageEncoding_name map[int32]string`.
   Map<int, String> get featureSetMessageEncodingName {
-    final $r = $callSync(25194);
+    final $r = $callSync(25200);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var descriptorpb.FeatureSet_MessageEncoding_value map[string]int32`.
   Map<String, int> get featureSetMessageEncodingValue {
-    final $r = $callSync(25195);
+    final $r = $callSync(25201);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `var descriptorpb.FeatureSet_RepeatedFieldEncoding_name map[int32]string`.
   Map<int, String> get featureSetRepeatedFieldEncodingName {
-    final $r = $callSync(25196);
+    final $r = $callSync(25202);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var descriptorpb.FeatureSet_RepeatedFieldEncoding_value map[string]int32`.
   Map<String, int> get featureSetRepeatedFieldEncodingValue {
-    final $r = $callSync(25197);
+    final $r = $callSync(25203);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `var descriptorpb.FeatureSet_Utf8Validation_name map[int32]string`.
   Map<int, String> get featureSetUtf8ValidationName {
-    final $r = $callSync(25198);
+    final $r = $callSync(25204);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var descriptorpb.FeatureSet_Utf8Validation_value map[string]int32`.
   Map<String, int> get featureSetUtf8ValidationValue {
-    final $r = $callSync(25199);
+    final $r = $callSync(25205);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `var descriptorpb.FeatureSet_VisibilityFeature_DefaultSymbolVisibility_name map[int32]string`.
   Map<int, String> get featureSetVisibilityFeatureDefaultSymbolVisibilityName {
-    final $r = $callSync(25205);
+    final $r = $callSync(25211);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var descriptorpb.FeatureSet_VisibilityFeature_DefaultSymbolVisibility_value map[string]int32`.
   Map<String, int> get featureSetVisibilityFeatureDefaultSymbolVisibilityValue {
-    final $r = $callSync(25206);
+    final $r = $callSync(25212);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `var descriptorpb.FieldDescriptorProto_Label_name map[int32]string`.
   Map<int, String> get fieldDescriptorProtoLabelName {
-    final $r = $callSync(25223);
+    final $r = $callSync(25229);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var descriptorpb.FieldDescriptorProto_Label_value map[string]int32`.
   Map<String, int> get fieldDescriptorProtoLabelValue {
-    final $r = $callSync(25224);
+    final $r = $callSync(25230);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `var descriptorpb.FieldDescriptorProto_Type_name map[int32]string`.
   Map<int, String> get fieldDescriptorProtoTypeName {
-    final $r = $callSync(25225);
+    final $r = $callSync(25231);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var descriptorpb.FieldDescriptorProto_Type_value map[string]int32`.
   Map<String, int> get fieldDescriptorProtoTypeValue {
-    final $r = $callSync(25226);
+    final $r = $callSync(25232);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `var descriptorpb.FieldOptions_CType_name map[int32]string`.
   Map<int, String> get fieldOptionsCTypeName {
-    final $r = $callSync(25246);
+    final $r = $callSync(25252);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var descriptorpb.FieldOptions_CType_value map[string]int32`.
   Map<String, int> get fieldOptionsCTypeValue {
-    final $r = $callSync(25247);
+    final $r = $callSync(25253);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `var descriptorpb.FieldOptions_JSType_name map[int32]string`.
   Map<int, String> get fieldOptionsJsTypeName {
-    final $r = $callSync(25265);
+    final $r = $callSync(25271);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var descriptorpb.FieldOptions_JSType_value map[string]int32`.
   Map<String, int> get fieldOptionsJsTypeValue {
-    final $r = $callSync(25266);
+    final $r = $callSync(25272);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `var descriptorpb.FieldOptions_OptionRetention_name map[int32]string`.
   Map<int, String> get fieldOptionsOptionRetentionName {
-    final $r = $callSync(25267);
+    final $r = $callSync(25273);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var descriptorpb.FieldOptions_OptionRetention_value map[string]int32`.
   Map<String, int> get fieldOptionsOptionRetentionValue {
-    final $r = $callSync(25268);
+    final $r = $callSync(25274);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `var descriptorpb.FieldOptions_OptionTargetType_name map[int32]string`.
   Map<int, String> get fieldOptionsOptionTargetTypeName {
-    final $r = $callSync(25269);
+    final $r = $callSync(25275);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var descriptorpb.FieldOptions_OptionTargetType_value map[string]int32`.
   Map<String, int> get fieldOptionsOptionTargetTypeValue {
-    final $r = $callSync(25270);
+    final $r = $callSync(25276);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `var descriptorpb.FileOptions_OptimizeMode_name map[int32]string`.
   Map<int, String> get fileOptionsOptimizeModeName {
-    final $r = $callSync(25322);
+    final $r = $callSync(25328);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var descriptorpb.FileOptions_OptimizeMode_value map[string]int32`.
   Map<String, int> get fileOptionsOptimizeModeValue {
-    final $r = $callSync(25323);
+    final $r = $callSync(25329);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `var descriptorpb.File_google_protobuf_descriptor_proto protoreflect.FileDescriptor`.
   $protoreflect.ProtobufReflectProtoreflectFileDescriptor
       get fileGoogleProtobufDescriptorProto {
-    final $r = $callSync(25324);
+    final $r = $callSync(25330);
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectFileDescriptor.$h);
   }
 
   /// Go: `var descriptorpb.GeneratedCodeInfo_Annotation_Semantic_name map[int32]string`.
   Map<int, String> get generatedCodeInfoAnnotationSemanticName {
-    final $r = $callSync(25341);
+    final $r = $callSync(25347);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var descriptorpb.GeneratedCodeInfo_Annotation_Semantic_value map[string]int32`.
   Map<String, int> get generatedCodeInfoAnnotationSemanticValue {
-    final $r = $callSync(25342);
+    final $r = $callSync(25348);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `var descriptorpb.MethodOptions_IdempotencyLevel_name map[int32]string`.
   Map<int, String> get methodOptionsIdempotencyLevelName {
-    final $r = $callSync(25375);
+    final $r = $callSync(25381);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var descriptorpb.MethodOptions_IdempotencyLevel_value map[string]int32`.
   Map<String, int> get methodOptionsIdempotencyLevelValue {
-    final $r = $callSync(25376);
+    final $r = $callSync(25382);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `var descriptorpb.SymbolVisibility_name map[int32]string`.
   Map<int, String> get symbolVisibilityName {
-    final $r = $callSync(25423);
+    final $r = $callSync(25429);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var descriptorpb.SymbolVisibility_value map[string]int32`.
   Map<String, int> get symbolVisibilityValue {
-    final $r = $callSync(25424);
+    final $r = $callSync(25430);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 }

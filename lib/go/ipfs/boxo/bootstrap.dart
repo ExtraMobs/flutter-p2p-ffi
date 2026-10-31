@@ -48,7 +48,7 @@ extension GoIpfsBoxoBootstrapApi on GoIpfsBoxoBootstrap {
   $io.IoCloser bootstrap($peer.Libp2pCorePeerId id, $host.Libp2pCoreHost host,
       $routing.Libp2pCoreRouting rt, BoxoBootstrapConfig cfg) {
     final $r = $callSync(
-        9358,
+        9367,
         $W()
           ..val(id)
           ..h(host)
@@ -60,13 +60,13 @@ extension GoIpfsBoxoBootstrapApi on GoIpfsBoxoBootstrap {
   /// Go: `func bootstrap.BootstrapConfigWithPeers(pis []peer.AddrInfo, options ...func(*bootstrap.BootstrapConfig)) bootstrap.BootstrapConfig`.
   BoxoBootstrapConfig bootstrapConfigWithPeers(
       List<$peer.Libp2pCorePeerAddrInfo> pis) {
-    final $r = $callSync(9359, $W()..list(pis, (w0, e0) => w0.dto(e0)));
+    final $r = $callSync(9368, $W()..list(pis, (w0, e0) => w0.dto(e0)));
     return $r.hnn(BoxoBootstrapConfig.$h);
   }
 
   /// Go: `var bootstrap.DefaultBootstrapConfig bootstrap.BootstrapConfig`.
   BoxoBootstrapConfig get defaultBootstrapConfig {
-    final $r = $callSync(9360);
+    final $r = $callSync(9369);
     return $r.hnn(BoxoBootstrapConfig.$h);
   }
 }

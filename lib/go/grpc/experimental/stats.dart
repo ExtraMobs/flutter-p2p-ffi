@@ -23,7 +23,7 @@ class GrpcExperimentalStatsAsyncMetric extends GoHandle
 mixin GrpcExperimentalStatsAsyncMetric$ on GoHandle {
   /// Go: `func (stats.AsyncMetric).Descriptor() *stats.MetricDescriptor`.
   GrpcExperimentalStatsMetricDescriptor descriptor() {
-    final $r = $callSync(24533, $W()..h(this));
+    final $r = $callSync(24539, $W()..h(this));
     return $r.p() ? GrpcExperimentalStatsMetricDescriptor.$dec($r) : $nil();
   }
 }
@@ -39,7 +39,7 @@ mixin GrpcExperimentalStatsAsyncMetricReporter$ on GoHandle {
   /// Go: `func (stats.AsyncMetricReporter).Report(stats.AsyncMetricsRecorder) error`.
   void report(GrpcExperimentalStatsAsyncMetricsRecorder asyncMetricsRecorder) {
     $callSync(
-        24534,
+        24540,
         $W()
           ..h(this)
           ..h(asyncMetricsRecorder));
@@ -48,7 +48,7 @@ mixin GrpcExperimentalStatsAsyncMetricReporter$ on GoHandle {
   /// Go: type assertion `x.(*stats.AsyncMetricReporterFunc)`: null if the object is not one.
   GrpcExperimentalStatsAsyncMetricReporterFunc?
       asGrpcExperimentalStatsAsyncMetricReporterFunc() {
-    final $r = $callSync(2165, $W()..h(this));
+    final $r = $callSync(2172, $W()..h(this));
     return $r.hn(GrpcExperimentalStatsAsyncMetricReporterFunc.$h);
   }
 }
@@ -77,7 +77,7 @@ class GrpcExperimentalStatsAsyncMetricReporterFunc
   /// Go: `func (stats.AsyncMetricReporterFunc).Report(r stats.AsyncMetricsRecorder) error`.
   void report(GrpcExperimentalStatsAsyncMetricsRecorder r) {
     $callSync(
-        24535,
+        24541,
         $W()
           ..h(this)
           ..h(r));
@@ -97,7 +97,7 @@ mixin GrpcExperimentalStatsAsyncMetricsRecorder$ on GoHandle {
       GrpcExperimentalStatsInt64AsyncGaugeHandle handle, int incr,
       [List<String> labels = const []]) {
     $callSync(
-        24536,
+        24542,
         $W()
           ..h(this)
           ..dto(handle)
@@ -175,7 +175,7 @@ final class GrpcExperimentalStatsFloat64CountHandle implements GoDto {
 
   /// Go: `func (*stats.Float64CountHandle).Descriptor() *stats.MetricDescriptor`.
   GrpcExperimentalStatsMetricDescriptor descriptor() {
-    final $r = $callSync(24540, $W()..dto(this));
+    final $r = $callSync(24546, $W()..dto(this));
     return $r.p() ? GrpcExperimentalStatsMetricDescriptor.$dec($r) : $nil();
   }
 
@@ -183,7 +183,7 @@ final class GrpcExperimentalStatsFloat64CountHandle implements GoDto {
   void record(GrpcExperimentalStatsMetricsRecorder recorder, double incr,
       [List<String> labels = const []]) {
     $callSync(
-        24541,
+        24547,
         $W()
           ..dto(this)
           ..h(recorder)
@@ -261,7 +261,7 @@ final class GrpcExperimentalStatsFloat64HistoHandle implements GoDto {
 
   /// Go: `func (*stats.Float64HistoHandle).Descriptor() *stats.MetricDescriptor`.
   GrpcExperimentalStatsMetricDescriptor descriptor() {
-    final $r = $callSync(24542, $W()..dto(this));
+    final $r = $callSync(24548, $W()..dto(this));
     return $r.p() ? GrpcExperimentalStatsMetricDescriptor.$dec($r) : $nil();
   }
 
@@ -269,7 +269,7 @@ final class GrpcExperimentalStatsFloat64HistoHandle implements GoDto {
   void record(GrpcExperimentalStatsMetricsRecorder recorder, double incr,
       [List<String> labels = const []]) {
     $callSync(
-        24543,
+        24549,
         $W()
           ..dto(this)
           ..h(recorder)
@@ -347,7 +347,7 @@ final class GrpcExperimentalStatsInt64AsyncGaugeHandle implements GoDto {
 
   /// Go: `func (*stats.Int64AsyncGaugeHandle).Descriptor() *stats.MetricDescriptor`.
   GrpcExperimentalStatsMetricDescriptor descriptor() {
-    final $r = $callSync(24544, $W()..dto(this));
+    final $r = $callSync(24550, $W()..dto(this));
     return $r.p() ? GrpcExperimentalStatsMetricDescriptor.$dec($r) : $nil();
   }
 
@@ -355,7 +355,7 @@ final class GrpcExperimentalStatsInt64AsyncGaugeHandle implements GoDto {
   void record(GrpcExperimentalStatsAsyncMetricsRecorder recorder, int value,
       [List<String> labels = const []]) {
     $callSync(
-        24545,
+        24551,
         $W()
           ..dto(this)
           ..h(recorder)
@@ -433,7 +433,7 @@ final class GrpcExperimentalStatsInt64CountHandle implements GoDto {
 
   /// Go: `func (*stats.Int64CountHandle).Descriptor() *stats.MetricDescriptor`.
   GrpcExperimentalStatsMetricDescriptor descriptor() {
-    final $r = $callSync(24546, $W()..dto(this));
+    final $r = $callSync(24552, $W()..dto(this));
     return $r.p() ? GrpcExperimentalStatsMetricDescriptor.$dec($r) : $nil();
   }
 
@@ -441,7 +441,7 @@ final class GrpcExperimentalStatsInt64CountHandle implements GoDto {
   void record(GrpcExperimentalStatsMetricsRecorder recorder, int incr,
       [List<String> labels = const []]) {
     $callSync(
-        24547,
+        24553,
         $W()
           ..dto(this)
           ..h(recorder)
@@ -519,7 +519,7 @@ final class GrpcExperimentalStatsInt64GaugeHandle implements GoDto {
 
   /// Go: `func (*stats.Int64GaugeHandle).Descriptor() *stats.MetricDescriptor`.
   GrpcExperimentalStatsMetricDescriptor descriptor() {
-    final $r = $callSync(24548, $W()..dto(this));
+    final $r = $callSync(24554, $W()..dto(this));
     return $r.p() ? GrpcExperimentalStatsMetricDescriptor.$dec($r) : $nil();
   }
 
@@ -527,7 +527,7 @@ final class GrpcExperimentalStatsInt64GaugeHandle implements GoDto {
   void record(GrpcExperimentalStatsMetricsRecorder recorder, int incr,
       [List<String> labels = const []]) {
     $callSync(
-        24549,
+        24555,
         $W()
           ..dto(this)
           ..h(recorder)
@@ -605,7 +605,7 @@ final class GrpcExperimentalStatsInt64HistoHandle implements GoDto {
 
   /// Go: `func (*stats.Int64HistoHandle).Descriptor() *stats.MetricDescriptor`.
   GrpcExperimentalStatsMetricDescriptor descriptor() {
-    final $r = $callSync(24550, $W()..dto(this));
+    final $r = $callSync(24556, $W()..dto(this));
     return $r.p() ? GrpcExperimentalStatsMetricDescriptor.$dec($r) : $nil();
   }
 
@@ -613,7 +613,7 @@ final class GrpcExperimentalStatsInt64HistoHandle implements GoDto {
   void record(GrpcExperimentalStatsMetricsRecorder recorder, int incr,
       [List<String> labels = const []]) {
     $callSync(
-        24551,
+        24557,
         $W()
           ..dto(this)
           ..h(recorder)
@@ -691,7 +691,7 @@ final class GrpcExperimentalStatsInt64UpDownCountHandle implements GoDto {
 
   /// Go: `func (*stats.Int64UpDownCountHandle).Descriptor() *stats.MetricDescriptor`.
   GrpcExperimentalStatsMetricDescriptor descriptor() {
-    final $r = $callSync(24552, $W()..dto(this));
+    final $r = $callSync(24558, $W()..dto(this));
     return $r.p() ? GrpcExperimentalStatsMetricDescriptor.$dec($r) : $nil();
   }
 
@@ -699,7 +699,7 @@ final class GrpcExperimentalStatsInt64UpDownCountHandle implements GoDto {
   void record(GrpcExperimentalStatsMetricsRecorder recorder, int v,
       [List<String> labels = const []]) {
     $callSync(
-        24553,
+        24559,
         $W()
           ..dto(this)
           ..h(recorder)
@@ -789,7 +789,7 @@ mixin GrpcExperimentalStatsMetricsRecorder$ on GoHandle {
       GrpcExperimentalStatsFloat64CountHandle handle, double incr,
       [List<String> labels = const []]) {
     $callSync(
-        24554,
+        24560,
         $W()
           ..h(this)
           ..dto(handle)
@@ -802,7 +802,7 @@ mixin GrpcExperimentalStatsMetricsRecorder$ on GoHandle {
       GrpcExperimentalStatsFloat64HistoHandle handle, double incr,
       [List<String> labels = const []]) {
     $callSync(
-        24555,
+        24561,
         $W()
           ..h(this)
           ..dto(handle)
@@ -814,7 +814,7 @@ mixin GrpcExperimentalStatsMetricsRecorder$ on GoHandle {
   void recordInt64Count(GrpcExperimentalStatsInt64CountHandle handle, int incr,
       [List<String> labels = const []]) {
     $callSync(
-        24556,
+        24562,
         $W()
           ..h(this)
           ..dto(handle)
@@ -826,7 +826,7 @@ mixin GrpcExperimentalStatsMetricsRecorder$ on GoHandle {
   void recordInt64Gauge(GrpcExperimentalStatsInt64GaugeHandle handle, int incr,
       [List<String> labels = const []]) {
     $callSync(
-        24557,
+        24563,
         $W()
           ..h(this)
           ..dto(handle)
@@ -838,7 +838,7 @@ mixin GrpcExperimentalStatsMetricsRecorder$ on GoHandle {
   void recordInt64Histo(GrpcExperimentalStatsInt64HistoHandle handle, int incr,
       [List<String> labels = const []]) {
     $callSync(
-        24558,
+        24564,
         $W()
           ..h(this)
           ..dto(handle)
@@ -851,7 +851,7 @@ mixin GrpcExperimentalStatsMetricsRecorder$ on GoHandle {
       GrpcExperimentalStatsInt64UpDownCountHandle handle, int incr,
       [List<String> labels = const []]) {
     $callSync(
-        24559,
+        24565,
         $W()
           ..h(this)
           ..dto(handle)
@@ -862,7 +862,7 @@ mixin GrpcExperimentalStatsMetricsRecorder$ on GoHandle {
   /// Go: type assertion `x.(*stats.UnimplementedMetricsRecorder)`: null if the object is not one.
   GrpcExperimentalStatsUnimplementedMetricsRecorder?
       asGrpcExperimentalStatsUnimplementedMetricsRecorder() {
-    final $r = $callSync(2166, $W()..h(this));
+    final $r = $callSync(2173, $W()..h(this));
     return $r.hn(GrpcExperimentalStatsUnimplementedMetricsRecorder.$h);
   }
 }
@@ -893,7 +893,7 @@ class GrpcExperimentalStatsUnimplementedMetricsRecorder
       GrpcExperimentalStatsFloat64CountHandle float64CountHandle, double arg1,
       [List<String> arg2 = const []]) {
     $callSync(
-        24568,
+        24574,
         $W()
           ..h(this)
           ..dto(float64CountHandle)
@@ -906,7 +906,7 @@ class GrpcExperimentalStatsUnimplementedMetricsRecorder
       GrpcExperimentalStatsFloat64HistoHandle float64HistoHandle, double arg1,
       [List<String> arg2 = const []]) {
     $callSync(
-        24569,
+        24575,
         $W()
           ..h(this)
           ..dto(float64HistoHandle)
@@ -919,7 +919,7 @@ class GrpcExperimentalStatsUnimplementedMetricsRecorder
       GrpcExperimentalStatsInt64CountHandle int64CountHandle, int arg1,
       [List<String> arg2 = const []]) {
     $callSync(
-        24570,
+        24576,
         $W()
           ..h(this)
           ..dto(int64CountHandle)
@@ -932,7 +932,7 @@ class GrpcExperimentalStatsUnimplementedMetricsRecorder
       GrpcExperimentalStatsInt64GaugeHandle int64GaugeHandle, int arg1,
       [List<String> arg2 = const []]) {
     $callSync(
-        24571,
+        24577,
         $W()
           ..h(this)
           ..dto(int64GaugeHandle)
@@ -945,7 +945,7 @@ class GrpcExperimentalStatsUnimplementedMetricsRecorder
       GrpcExperimentalStatsInt64HistoHandle int64HistoHandle, int arg1,
       [List<String> arg2 = const []]) {
     $callSync(
-        24572,
+        24578,
         $W()
           ..h(this)
           ..dto(int64HistoHandle)
@@ -959,7 +959,7 @@ class GrpcExperimentalStatsUnimplementedMetricsRecorder
       int arg1,
       [List<String> arg2 = const []]) {
     $callSync(
-        24573,
+        24579,
         $W()
           ..h(this)
           ..dto(int64UpDownCountHandle)
@@ -974,46 +974,46 @@ extension GoGrpcExperimentalStatsApi on GoGrpcExperimentalStats {
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<String> customLabelFromContext($context.Context ctx) async {
-    final $r = await $call(24537, $W()..h(ctx));
+    final $r = await $call(24543, $W()..h(ctx));
     return $r.str();
   }
 
   /// Go: `var stats.DefaultMetrics *stats.MetricSet`.
   $stats.GrpcStatsMetricSet get defaultMetrics {
-    final $r = $callSync(24538);
+    final $r = $callSync(24544);
     return $r.hnn($stats.GrpcStatsMetricSet.$h);
   }
 
   /// Go: `func stats.DescriptorForMetric(metricName string) *stats.MetricDescriptor`.
   GrpcExperimentalStatsMetricDescriptor descriptorForMetric(String metricName) {
-    final $r = $callSync(24539, $W()..str(metricName));
+    final $r = $callSync(24545, $W()..str(metricName));
     return $r.p() ? GrpcExperimentalStatsMetricDescriptor.$dec($r) : $nil();
   }
 
   /// Go: `func stats.NewMetrics(metrics ...stats.Metric) *stats.Metrics`.
   $stats.GrpcStatsMetricSet newMetrics([List<String> metrics = const []]) {
-    final $r = $callSync(24560, $W()..list(metrics, (w0, e0) => w0.str(e0)));
+    final $r = $callSync(24566, $W()..list(metrics, (w0, e0) => w0.str(e0)));
     return $r.hnn($stats.GrpcStatsMetricSet.$h);
   }
 
   /// Go: `func stats.RegisterFloat64Count(descriptor stats.MetricDescriptor) *stats.Float64CountHandle`.
   GrpcExperimentalStatsFloat64CountHandle registerFloat64Count(
       GrpcExperimentalStatsMetricDescriptor descriptor) {
-    final $r = $callSync(24561, $W()..dto(descriptor));
+    final $r = $callSync(24567, $W()..dto(descriptor));
     return $r.p() ? GrpcExperimentalStatsFloat64CountHandle.$dec($r) : $nil();
   }
 
   /// Go: `func stats.RegisterFloat64Histo(descriptor stats.MetricDescriptor) *stats.Float64HistoHandle`.
   GrpcExperimentalStatsFloat64HistoHandle registerFloat64Histo(
       GrpcExperimentalStatsMetricDescriptor descriptor) {
-    final $r = $callSync(24562, $W()..dto(descriptor));
+    final $r = $callSync(24568, $W()..dto(descriptor));
     return $r.p() ? GrpcExperimentalStatsFloat64HistoHandle.$dec($r) : $nil();
   }
 
   /// Go: `func stats.RegisterInt64AsyncGauge(descriptor stats.MetricDescriptor) *stats.Int64AsyncGaugeHandle`.
   GrpcExperimentalStatsInt64AsyncGaugeHandle registerInt64AsyncGauge(
       GrpcExperimentalStatsMetricDescriptor descriptor) {
-    final $r = $callSync(24563, $W()..dto(descriptor));
+    final $r = $callSync(24569, $W()..dto(descriptor));
     return $r.p()
         ? GrpcExperimentalStatsInt64AsyncGaugeHandle.$dec($r)
         : $nil();
@@ -1022,28 +1022,28 @@ extension GoGrpcExperimentalStatsApi on GoGrpcExperimentalStats {
   /// Go: `func stats.RegisterInt64Count(descriptor stats.MetricDescriptor) *stats.Int64CountHandle`.
   GrpcExperimentalStatsInt64CountHandle registerInt64Count(
       GrpcExperimentalStatsMetricDescriptor descriptor) {
-    final $r = $callSync(24564, $W()..dto(descriptor));
+    final $r = $callSync(24570, $W()..dto(descriptor));
     return $r.p() ? GrpcExperimentalStatsInt64CountHandle.$dec($r) : $nil();
   }
 
   /// Go: `func stats.RegisterInt64Gauge(descriptor stats.MetricDescriptor) *stats.Int64GaugeHandle`.
   GrpcExperimentalStatsInt64GaugeHandle registerInt64Gauge(
       GrpcExperimentalStatsMetricDescriptor descriptor) {
-    final $r = $callSync(24565, $W()..dto(descriptor));
+    final $r = $callSync(24571, $W()..dto(descriptor));
     return $r.p() ? GrpcExperimentalStatsInt64GaugeHandle.$dec($r) : $nil();
   }
 
   /// Go: `func stats.RegisterInt64Histo(descriptor stats.MetricDescriptor) *stats.Int64HistoHandle`.
   GrpcExperimentalStatsInt64HistoHandle registerInt64Histo(
       GrpcExperimentalStatsMetricDescriptor descriptor) {
-    final $r = $callSync(24566, $W()..dto(descriptor));
+    final $r = $callSync(24572, $W()..dto(descriptor));
     return $r.p() ? GrpcExperimentalStatsInt64HistoHandle.$dec($r) : $nil();
   }
 
   /// Go: `func stats.RegisterInt64UpDownCount(descriptor stats.MetricDescriptor) *stats.Int64UpDownCountHandle`.
   GrpcExperimentalStatsInt64UpDownCountHandle registerInt64UpDownCount(
       GrpcExperimentalStatsMetricDescriptor descriptor) {
-    final $r = $callSync(24567, $W()..dto(descriptor));
+    final $r = $callSync(24573, $W()..dto(descriptor));
     return $r.p()
         ? GrpcExperimentalStatsInt64UpDownCountHandle.$dec($r)
         : $nil();

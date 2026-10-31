@@ -100,7 +100,7 @@ extension GoOtelExportersOtlpOtlptraceOtlptracehttpApi
       [List<OtelExportersOtlpOtlptraceOtlptracehttpOption> opts =
           const []]) async {
     final $r = await $call(
-        19243,
+        19249,
         $W()
           ..h(ctx)
           ..list(opts, (w0, e0) => w0.h(e0)));
@@ -110,14 +110,14 @@ extension GoOtelExportersOtlpOtlptraceOtlptracehttpApi
   /// Go: `func otlptracehttp.NewClient(opts ...otlptracehttp.Option) otlptrace.Client`.
   $otlptrace.OtelExportersOtlpOtlptraceClient newClient(
       [List<OtelExportersOtlpOtlptraceOtlptracehttpOption> opts = const []]) {
-    final $r = $callSync(19244, $W()..list(opts, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(19250, $W()..list(opts, (w0, e0) => w0.h(e0)));
     return $r.hnn($otlptrace.OtelExportersOtlpOtlptraceClient.$h);
   }
 
   /// Go: `func otlptracehttp.NewUnstarted(opts ...otlptracehttp.Option) *otlptrace.Exporter`.
   $otlptrace.OtelExportersOtlpOtlptraceExporter newUnstarted(
       [List<OtelExportersOtlpOtlptraceOtlptracehttpOption> opts = const []]) {
-    final $r = $callSync(19245, $W()..list(opts, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(19251, $W()..list(opts, (w0, e0) => w0.h(e0)));
     return $r.hnn($otlptrace.OtelExportersOtlpOtlptraceExporter.$h);
   }
 }
@@ -144,85 +144,85 @@ extension GoOtelExportersOtlpOtlptraceOtlptracehttpOptionsApi
   /// Go: `func otlptracehttp.WithCompression(compression otlptracehttp.Compression) otlptracehttp.Option`.
   OtelExportersOtlpOtlptraceOtlptracehttpOption withCompression(
       int compression) {
-    final $r = $callSync(19246, $W()..i64(compression));
+    final $r = $callSync(19252, $W()..i64(compression));
     return $r.hnn(OtelExportersOtlpOtlptraceOtlptracehttpOption.$h);
   }
 
   /// Go: `func otlptracehttp.WithEncoding(encoding otlptracehttp.Encoding) otlptracehttp.Option`.
   OtelExportersOtlpOtlptraceOtlptracehttpOption withEncoding(int encoding) {
-    final $r = $callSync(19247, $W()..i64(encoding));
+    final $r = $callSync(19253, $W()..i64(encoding));
     return $r.hnn(OtelExportersOtlpOtlptraceOtlptracehttpOption.$h);
   }
 
   /// Go: `func otlptracehttp.WithEndpoint(endpoint string) otlptracehttp.Option`.
   OtelExportersOtlpOtlptraceOtlptracehttpOption withEndpoint(String endpoint) {
-    final $r = $callSync(19248, $W()..str(endpoint));
+    final $r = $callSync(19254, $W()..str(endpoint));
     return $r.hnn(OtelExportersOtlpOtlptraceOtlptracehttpOption.$h);
   }
 
   /// Go: `func otlptracehttp.WithEndpointURL(u string) otlptracehttp.Option`.
   OtelExportersOtlpOtlptraceOtlptracehttpOption withEndpointUrl(String u) {
-    final $r = $callSync(19249, $W()..str(u));
+    final $r = $callSync(19255, $W()..str(u));
     return $r.hnn(OtelExportersOtlpOtlptraceOtlptracehttpOption.$h);
   }
 
   /// Go: `func otlptracehttp.WithHTTPClient(c *http.Client) otlptracehttp.Option`.
   OtelExportersOtlpOtlptraceOtlptracehttpOption withHttpClient(
       $http.NetHttpClient c) {
-    final $r = $callSync(19250, $W()..dto(c));
+    final $r = $callSync(19256, $W()..dto(c));
     return $r.hnn(OtelExportersOtlpOtlptraceOtlptracehttpOption.$h);
   }
 
   /// Go: `func otlptracehttp.WithHeaders(headers map[string]string) otlptracehttp.Option`.
   OtelExportersOtlpOtlptraceOtlptracehttpOption withHeaders(
       Map<String, String> headers) {
-    final $r = $callSync(19251,
+    final $r = $callSync(19257,
         $W()..map(headers, (w0, k0) => w0.str(k0), (w0, v0) => w0.str(v0)));
     return $r.hnn(OtelExportersOtlpOtlptraceOtlptracehttpOption.$h);
   }
 
   /// Go: `func otlptracehttp.WithInsecure() otlptracehttp.Option`.
   OtelExportersOtlpOtlptraceOtlptracehttpOption withInsecure() {
-    final $r = $callSync(19252);
+    final $r = $callSync(19258);
     return $r.hnn(OtelExportersOtlpOtlptraceOtlptracehttpOption.$h);
   }
 
   /// Go: `func otlptracehttp.WithMaxRequestSize(size int) otlptracehttp.Option`.
   OtelExportersOtlpOtlptraceOtlptracehttpOption withMaxRequestSize(int size) {
-    final $r = $callSync(19253, $W()..i64(size));
+    final $r = $callSync(19259, $W()..i64(size));
     return $r.hnn(OtelExportersOtlpOtlptraceOtlptracehttpOption.$h);
   }
 
   /// Go: `func otlptracehttp.WithProxy(pf otlptracehttp.HTTPTransportProxyFunc) otlptracehttp.Option`.
   OtelExportersOtlpOtlptraceOtlptracehttpOption withProxy(
       OtelExportersOtlpOtlptraceOtlptracehttpHttpTransportProxyFunc pf) {
-    final $r = $callSync(19254, $W()..h(pf));
+    final $r = $callSync(19260, $W()..h(pf));
     return $r.hnn(OtelExportersOtlpOtlptraceOtlptracehttpOption.$h);
   }
 
   /// Go: `func otlptracehttp.WithRetry(rc otlptracehttp.RetryConfig) otlptracehttp.Option`.
   OtelExportersOtlpOtlptraceOtlptracehttpOption withRetry(
       OtelExportersOtlpOtlptraceOtlptracehttpRetryConfig rc) {
-    final $r = $callSync(19255, $W()..dto(rc));
+    final $r = $callSync(19261, $W()..dto(rc));
     return $r.hnn(OtelExportersOtlpOtlptraceOtlptracehttpOption.$h);
   }
 
   /// Go: `func otlptracehttp.WithTLSClientConfig(tlsCfg *tls.Config) otlptracehttp.Option`.
   OtelExportersOtlpOtlptraceOtlptracehttpOption withTlsClientConfig(
       $tls.CryptoTlsConfig tlsCfg) {
-    final $r = $callSync(19256, $W()..h(tlsCfg));
+    final $r = $callSync(19262, $W()..h(tlsCfg));
     return $r.hnn(OtelExportersOtlpOtlptraceOtlptracehttpOption.$h);
   }
 
   /// Go: `func otlptracehttp.WithTimeout(duration time.Duration) otlptracehttp.Option`.
   OtelExportersOtlpOtlptraceOtlptracehttpOption withTimeout(Duration duration) {
-    final $r = $callSync(19257, $W()..i64((duration).inMicroseconds * 1000));
+    final $r = $callSync(19263, $W()..i64((duration).inMicroseconds * 1000));
     return $r.hnn(OtelExportersOtlpOtlptraceOtlptracehttpOption.$h);
   }
 
   /// Go: `func otlptracehttp.WithURLPath(urlPath string) otlptracehttp.Option`.
   OtelExportersOtlpOtlptraceOtlptracehttpOption withUrlPath(String urlPath) {
-    final $r = $callSync(19258, $W()..str(urlPath));
+    final $r = $callSync(19264, $W()..str(urlPath));
     return $r.hnn(OtelExportersOtlpOtlptraceOtlptracehttpOption.$h);
   }
 }

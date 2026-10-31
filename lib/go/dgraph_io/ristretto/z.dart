@@ -33,7 +33,7 @@ class RistrettoZBloom extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*z.Bloom).Add(hash uint64)`.
   void add(int hash) {
     $callSync(
-        6180,
+        6189,
         $W()
           ..h(this)
           ..i64(hash));
@@ -42,7 +42,7 @@ class RistrettoZBloom extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*z.Bloom).AddIfNotHas(hash uint64) bool`.
   bool addIfNotHas(int hash) {
     final $r = $callSync(
-        6181,
+        6190,
         $W()
           ..h(this)
           ..i64(hash));
@@ -51,13 +51,13 @@ class RistrettoZBloom extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*z.Bloom).Clear()`.
   void clear() {
-    $callSync(6182, $W()..h(this));
+    $callSync(6191, $W()..h(this));
   }
 
   /// Go: `func (z.Bloom).Has(hash uint64) bool`.
   bool has(int hash) {
     final $r = $callSync(
-        6183,
+        6192,
         $W()
           ..h(this)
           ..i64(hash));
@@ -67,7 +67,7 @@ class RistrettoZBloom extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*z.Bloom).IsSet(idx uint64) bool`.
   bool isSet(int idx) {
     final $r = $callSync(
-        6184,
+        6193,
         $W()
           ..h(this)
           ..i64(idx));
@@ -76,14 +76,14 @@ class RistrettoZBloom extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (z.Bloom).JSONMarshal() []byte`.
   Uint8List jsonMarshal() {
-    final $r = $callSync(6185, $W()..h(this));
+    final $r = $callSync(6194, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*z.Bloom).Set(idx uint64)`.
   void set(int idx) {
     $callSync(
-        6186,
+        6195,
         $W()
           ..h(this)
           ..i64(idx));
@@ -92,7 +92,7 @@ class RistrettoZBloom extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*z.Bloom).Size(sz uint64)`.
   void size(int sz) {
     $callSync(
-        6187,
+        6196,
         $W()
           ..h(this)
           ..i64(sz));
@@ -103,49 +103,49 @@ class RistrettoZBloom extends $crypto.CryptoDecrypterOpts
 extension GoDgraphIoRistrettoZApi on GoDgraphIoRistrettoZ {
   /// Go: `func z.CPUTicks() int64`.
   int cpuTicks() {
-    final $r = $callSync(6188);
+    final $r = $callSync(6197);
     return $r.i64();
   }
 
   /// Go: `func z.FastRand() uint32`.
   int fastRand() {
-    final $r = $callSync(6189);
+    final $r = $callSync(6198);
     return $r.i64();
   }
 
   /// Go: `func z.JSONUnmarshal(dbData []byte) (*z.Bloom, error)`.
   RistrettoZBloom jsonUnmarshal(Uint8List dbData) {
-    final $r = $callSync(6190, $W()..bytes(dbData));
+    final $r = $callSync(6199, $W()..bytes(dbData));
     return $r.hnn(RistrettoZBloom.$h);
   }
 
   /// Go: `func z.KeyToHash(key interface{}) (uint64, uint64)`.
   (int, int) keyToHash(Object? key) {
-    final $r = $callSync(6191, $W()..any(key));
+    final $r = $callSync(6200, $W()..any(key));
     return ($r.i64(), $r.i64());
   }
 
   /// Go: `func z.MemHash(data []byte) uint64`.
   int memHash(Uint8List data) {
-    final $r = $callSync(6192, $W()..bytes(data));
+    final $r = $callSync(6201, $W()..bytes(data));
     return $r.i64();
   }
 
   /// Go: `func z.MemHashString(str string) uint64`.
   int memHashString(String str) {
-    final $r = $callSync(6193, $W()..str(str));
+    final $r = $callSync(6202, $W()..str(str));
     return $r.i64();
   }
 
   /// Go: `func z.NanoTime() int64`.
   int nanoTime() {
-    final $r = $callSync(6194);
+    final $r = $callSync(6203);
     return $r.i64();
   }
 
   /// Go: `func z.NewBloomFilter(params ...float64) (bloomfilter *z.Bloom)`.
   RistrettoZBloom newBloomFilter([List<double> params = const []]) {
-    final $r = $callSync(6195, $W()..list(params, (w0, e0) => w0.f64(e0)));
+    final $r = $callSync(6204, $W()..list(params, (w0, e0) => w0.f64(e0)));
     return $r.hnn(RistrettoZBloom.$h);
   }
 }

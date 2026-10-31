@@ -45,7 +45,7 @@ class Libp2pP2pHostObservedaddrsManager
   factory Libp2pP2pHostObservedaddrsManager(
       $event.Libp2pCoreEventBus eventbus, $network.Libp2pCoreNetwork net) {
     final $r = $callSync(
-        14482,
+        14488,
         $W()
           ..h(eventbus)
           ..h(net));
@@ -55,7 +55,7 @@ class Libp2pP2pHostObservedaddrsManager
   /// Go: `func (*observedaddrs.Manager).Addrs(minObservers int) []multiaddr.Multiaddr`.
   List<$multiaddr.Multiaddr> addrs(int minObservers) {
     final $r = $callSync(
-        14478,
+        14484,
         $W()
           ..h(this)
           ..i64(minObservers));
@@ -65,7 +65,7 @@ class Libp2pP2pHostObservedaddrsManager
   /// Go: `func (*observedaddrs.Manager).AddrsFor(addr multiaddr.Multiaddr) (addrs []multiaddr.Multiaddr)`.
   List<$multiaddr.Multiaddr> addrsFor($multiaddr.Multiaddr addr) {
     final $r = $callSync(
-        14479,
+        14485,
         $W()
           ..h(this)
           ..val(addr));
@@ -74,13 +74,13 @@ class Libp2pP2pHostObservedaddrsManager
 
   /// Go: `func (*observedaddrs.Manager).Close() error`.
   void close() {
-    $callSync(14480, $W()..h(this));
+    $callSync(14486, $W()..h(this));
   }
 
   /// Go: `func (*observedaddrs.Manager).Start(n network.Network)`.
   void start($network.Libp2pCoreNetwork n) {
     $callSync(
-        14481,
+        14487,
         $W()
           ..h(this)
           ..h(n));
@@ -92,7 +92,7 @@ extension GoLibp2pLibp2pP2pHostObservedaddrsApi
     on GoLibp2pLibp2pP2pHostObservedaddrs {
   /// Go: `var observedaddrs.ActivationThresh int`.
   int get activationThresh {
-    final $r = $callSync(14477);
+    final $r = $callSync(14483);
     return $r.i64();
   }
 }

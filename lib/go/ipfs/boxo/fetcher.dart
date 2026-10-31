@@ -27,7 +27,7 @@ mixin BoxoFetcherFactory$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<BoxoFetcher> newSession($context.Context ctx) async {
     final $r = await $call(
-        9403,
+        9412,
         $W()
           ..h(this)
           ..h(ctx));
@@ -37,7 +37,7 @@ mixin BoxoFetcherFactory$ on GoHandle {
   /// Go: type assertion `x.(*bsfetcher.FetcherConfig)`: null if the object is not one.
   $blockservice.BoxoFetcherImplBlockserviceFetcherConfig?
       asBoxoFetcherImplBlockserviceFetcherConfig() {
-    final $r = $callSync(938, $W()..h(this));
+    final $r = $callSync(941, $W()..h(this));
     return $r.hn($blockservice.BoxoFetcherImplBlockserviceFetcherConfig.$h);
   }
 }
@@ -122,7 +122,7 @@ mixin BoxoFetcher$ on GoHandle {
       $datamodel.IpldPrimeDatamodelNodePrototype nodePrototype,
       FutureOr<void> Function(BoxoFetcherFetchResult result) cb) async {
     await $call(
-        9404,
+        9413,
         $W()
           ..h(this)
           ..h(ctx)
@@ -141,7 +141,7 @@ mixin BoxoFetcher$ on GoHandle {
       $datamodel.IpldPrimeDatamodelLink link,
       $datamodel.IpldPrimeDatamodelNodePrototype nodePrototype) async {
     final $r = await $call(
-        9405,
+        9414,
         $W()
           ..h(this)
           ..h(ctx)
@@ -163,7 +163,7 @@ mixin BoxoFetcher$ on GoHandle {
       $datamodel.IpldPrimeDatamodelNode selector,
       FutureOr<void> Function(BoxoFetcherFetchResult result) cb) async {
     await $call(
-        9406,
+        9415,
         $W()
           ..h(this)
           ..h(ctx)
@@ -177,7 +177,7 @@ mixin BoxoFetcher$ on GoHandle {
   $datamodel.IpldPrimeDatamodelNodePrototype prototypeFromLink(
       $datamodel.IpldPrimeDatamodelLink link) {
     final $r = $callSync(
-        9407,
+        9416,
         $W()
           ..h(this)
           ..h(link));

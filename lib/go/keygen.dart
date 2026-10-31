@@ -16,7 +16,7 @@ extension GoKeygenApi on GoKeygen {
   $ecdsa.CryptoEcdsaPrivateKey ecdsa(
       $elliptic.CryptoEllipticCurve c, Uint8List secret) {
     final $r = $callSync(
-        3847,
+        3856,
         $W()
           ..h(c)
           ..bytes(secret));
@@ -27,7 +27,7 @@ extension GoKeygenApi on GoKeygen {
   $ecdsa.CryptoEcdsaPrivateKey ecdsaLegacy(
       $elliptic.CryptoEllipticCurve c, Object rand) {
     final $r = $callSync(
-        3848,
+        3857,
         $W()
           ..h(c)
           ..reader(rand));
@@ -37,7 +37,7 @@ extension GoKeygenApi on GoKeygen {
   /// Go: `func keygen.RSA(bits int, secret []byte) (*rsa.PrivateKey, error)`.
   $rsa.CryptoRsaPrivateKey rsa(int bits, Uint8List secret) {
     final $r = $callSync(
-        3849,
+        3858,
         $W()
           ..i64(bits)
           ..bytes(secret));

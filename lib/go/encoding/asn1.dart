@@ -33,7 +33,7 @@ final class EncodingAsn1BitString implements GoDto {
   /// Go: `func (asn1.BitString).At(i int) int`.
   int at(int i) {
     final $r = $callSync(
-        3636,
+        3645,
         $W()
           ..dto(this)
           ..i64(i));
@@ -42,7 +42,7 @@ final class EncodingAsn1BitString implements GoDto {
 
   /// Go: `func (asn1.BitString).RightAlign() []byte`.
   Uint8List rightAlign() {
-    final $r = $callSync(3637, $W()..dto(this));
+    final $r = $callSync(3646, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 }
@@ -126,14 +126,14 @@ class EncodingAsn1SyntaxError extends GolangException {
 extension GoEncodingAsn1Api on GoEncodingAsn1 {
   /// Go: `func asn1.Marshal(val any) ([]byte, error)`.
   Uint8List marshal(Object? val) {
-    final $r = $callSync(3638, $W()..any(val));
+    final $r = $callSync(3647, $W()..any(val));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func asn1.MarshalWithParams(val any, params string) ([]byte, error)`.
   Uint8List marshalWithParams(Object? val, String params) {
     final $r = $callSync(
-        3639,
+        3648,
         $W()
           ..any(val)
           ..str(params));
@@ -142,20 +142,20 @@ extension GoEncodingAsn1Api on GoEncodingAsn1 {
 
   /// Go: `var asn1.NullBytes []byte`.
   Uint8List get nullBytes {
-    final $r = $callSync(3640);
+    final $r = $callSync(3649);
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `var asn1.NullRawValue asn1.RawValue`.
   EncodingAsn1RawValue get nullRawValue {
-    final $r = $callSync(3641);
+    final $r = $callSync(3650);
     return $r.p() ? EncodingAsn1RawValue.$dec($r) : $nil();
   }
 
   /// Go: `func asn1.Unmarshal(b []byte, val any) (rest []byte, err error)`.
   Uint8List unmarshal(Uint8List b, Object? val) {
     final $r = $callSync(
-        3642,
+        3651,
         $W()
           ..bytes(b)
           ..any(val));
@@ -165,7 +165,7 @@ extension GoEncodingAsn1Api on GoEncodingAsn1 {
   /// Go: `func asn1.UnmarshalWithParams(b []byte, val any, params string) (rest []byte, err error)`.
   Uint8List unmarshalWithParams(Uint8List b, Object? val, String params) {
     final $r = $callSync(
-        3643,
+        3652,
         $W()
           ..bytes(b)
           ..any(val)

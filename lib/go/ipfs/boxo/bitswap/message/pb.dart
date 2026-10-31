@@ -45,59 +45,59 @@ class BoxoBitswapMessagePbMessage
   /// Go: `func (*pb.Message).Descriptor() ([]byte, []int)`.
   @Deprecated("Use Message.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(9183, $W()..h(this));
+    final $r = $callSync(9192, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pb.Message).GetBlockPresences() []*pb.Message_BlockPresence`.
   List<BoxoBitswapMessagePbMessageBlockPresence> getBlockPresences() {
-    final $r = $callSync(9184, $W()..h(this));
+    final $r = $callSync(9193, $W()..h(this));
     return $r.list(() => $r.hnn(BoxoBitswapMessagePbMessageBlockPresence.$h));
   }
 
   /// Go: `func (*pb.Message).GetBlocks() [][]byte`.
   List<Uint8List> getBlocks() {
-    final $r = $callSync(9185, $W()..h(this));
+    final $r = $callSync(9194, $W()..h(this));
     return $r.list(() => $r.bytes() ?? Uint8List(0));
   }
 
   /// Go: `func (*pb.Message).GetPayload() []*pb.Message_Block`.
   List<BoxoBitswapMessagePbMessageBlock> getPayload() {
-    final $r = $callSync(9186, $W()..h(this));
+    final $r = $callSync(9195, $W()..h(this));
     return $r.list(() => $r.hnn(BoxoBitswapMessagePbMessageBlock.$h));
   }
 
   /// Go: `func (*pb.Message).GetPendingBytes() int32`.
   int getPendingBytes() {
-    final $r = $callSync(9187, $W()..h(this));
+    final $r = $callSync(9196, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.Message).GetWantlist() *pb.Message_Wantlist`.
   BoxoBitswapMessagePbMessageWantlist getWantlist() {
-    final $r = $callSync(9188, $W()..h(this));
+    final $r = $callSync(9197, $W()..h(this));
     return $r.hnn(BoxoBitswapMessagePbMessageWantlist.$h);
   }
 
   /// Go: `func (*pb.Message).ProtoMessage()`.
   void protoMessage() {
-    $callSync(9189, $W()..h(this));
+    $callSync(9198, $W()..h(this));
   }
 
   /// Go: `func (*pb.Message).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(9190, $W()..h(this));
+    final $r = $callSync(9199, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pb.Message).Reset()`.
   void reset() {
-    $callSync(9191, $W()..h(this));
+    $callSync(9200, $W()..h(this));
   }
 
   /// Go: `func (*pb.Message).String() string`.
   String string() {
-    final $r = $callSync(9192, $W()..h(this));
+    final $r = $callSync(9201, $W()..h(this));
     return $r.str();
   }
 }
@@ -130,41 +130,41 @@ class BoxoBitswapMessagePbMessageBlock
   /// Go: `func (*pb.Message_Block).Descriptor() ([]byte, []int)`.
   @Deprecated("Use Message_Block.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(9193, $W()..h(this));
+    final $r = $callSync(9202, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pb.Message_Block).GetData() []byte`.
   Uint8List getData() {
-    final $r = $callSync(9194, $W()..h(this));
+    final $r = $callSync(9203, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pb.Message_Block).GetPrefix() []byte`.
   Uint8List getPrefix() {
-    final $r = $callSync(9195, $W()..h(this));
+    final $r = $callSync(9204, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pb.Message_Block).ProtoMessage()`.
   void protoMessage() {
-    $callSync(9196, $W()..h(this));
+    $callSync(9205, $W()..h(this));
   }
 
   /// Go: `func (*pb.Message_Block).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(9197, $W()..h(this));
+    final $r = $callSync(9206, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pb.Message_Block).Reset()`.
   void reset() {
-    $callSync(9198, $W()..h(this));
+    $callSync(9207, $W()..h(this));
   }
 
   /// Go: `func (*pb.Message_Block).String() string`.
   String string() {
-    final $r = $callSync(9199, $W()..h(this));
+    final $r = $callSync(9208, $W()..h(this));
     return $r.str();
   }
 }
@@ -197,41 +197,41 @@ class BoxoBitswapMessagePbMessageBlockPresence
   /// Go: `func (*pb.Message_BlockPresence).Descriptor() ([]byte, []int)`.
   @Deprecated("Use Message_BlockPresence.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(9200, $W()..h(this));
+    final $r = $callSync(9209, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pb.Message_BlockPresence).GetCid() []byte`.
   Uint8List getCid() {
-    final $r = $callSync(9201, $W()..h(this));
+    final $r = $callSync(9210, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pb.Message_BlockPresence).GetType() pb.Message_BlockPresenceType`.
   int getType() {
-    final $r = $callSync(9202, $W()..h(this));
+    final $r = $callSync(9211, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.Message_BlockPresence).ProtoMessage()`.
   void protoMessage() {
-    $callSync(9203, $W()..h(this));
+    $callSync(9212, $W()..h(this));
   }
 
   /// Go: `func (*pb.Message_BlockPresence).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(9204, $W()..h(this));
+    final $r = $callSync(9213, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pb.Message_BlockPresence).Reset()`.
   void reset() {
-    $callSync(9205, $W()..h(this));
+    $callSync(9214, $W()..h(this));
   }
 
   /// Go: `func (*pb.Message_BlockPresence).String() string`.
   String string() {
-    final $r = $callSync(9206, $W()..h(this));
+    final $r = $callSync(9215, $W()..h(this));
     return $r.str();
   }
 }
@@ -264,41 +264,41 @@ class BoxoBitswapMessagePbMessageWantlist
   /// Go: `func (*pb.Message_Wantlist).Descriptor() ([]byte, []int)`.
   @Deprecated("Use Message_Wantlist.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(9209, $W()..h(this));
+    final $r = $callSync(9218, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pb.Message_Wantlist).GetEntries() []*pb.Message_Wantlist_Entry`.
   List<BoxoBitswapMessagePbMessageWantlistEntry> getEntries() {
-    final $r = $callSync(9210, $W()..h(this));
+    final $r = $callSync(9219, $W()..h(this));
     return $r.list(() => $r.hnn(BoxoBitswapMessagePbMessageWantlistEntry.$h));
   }
 
   /// Go: `func (*pb.Message_Wantlist).GetFull() bool`.
   bool getFull() {
-    final $r = $callSync(9211, $W()..h(this));
+    final $r = $callSync(9220, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*pb.Message_Wantlist).ProtoMessage()`.
   void protoMessage() {
-    $callSync(9212, $W()..h(this));
+    $callSync(9221, $W()..h(this));
   }
 
   /// Go: `func (*pb.Message_Wantlist).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(9213, $W()..h(this));
+    final $r = $callSync(9222, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pb.Message_Wantlist).Reset()`.
   void reset() {
-    $callSync(9214, $W()..h(this));
+    $callSync(9223, $W()..h(this));
   }
 
   /// Go: `func (*pb.Message_Wantlist).String() string`.
   String string() {
-    final $r = $callSync(9215, $W()..h(this));
+    final $r = $callSync(9224, $W()..h(this));
     return $r.str();
   }
 }
@@ -331,59 +331,59 @@ class BoxoBitswapMessagePbMessageWantlistEntry
   /// Go: `func (*pb.Message_Wantlist_Entry).Descriptor() ([]byte, []int)`.
   @Deprecated("Use Message_Wantlist_Entry.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(9216, $W()..h(this));
+    final $r = $callSync(9225, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pb.Message_Wantlist_Entry).GetBlock() []byte`.
   Uint8List getBlock() {
-    final $r = $callSync(9217, $W()..h(this));
+    final $r = $callSync(9226, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pb.Message_Wantlist_Entry).GetCancel() bool`.
   bool getCancel() {
-    final $r = $callSync(9218, $W()..h(this));
+    final $r = $callSync(9227, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*pb.Message_Wantlist_Entry).GetPriority() int32`.
   int getPriority() {
-    final $r = $callSync(9219, $W()..h(this));
+    final $r = $callSync(9228, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.Message_Wantlist_Entry).GetSendDontHave() bool`.
   bool getSendDontHave() {
-    final $r = $callSync(9220, $W()..h(this));
+    final $r = $callSync(9229, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*pb.Message_Wantlist_Entry).GetWantType() pb.Message_Wantlist_WantType`.
   int getWantType() {
-    final $r = $callSync(9221, $W()..h(this));
+    final $r = $callSync(9230, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.Message_Wantlist_Entry).ProtoMessage()`.
   void protoMessage() {
-    $callSync(9222, $W()..h(this));
+    $callSync(9231, $W()..h(this));
   }
 
   /// Go: `func (*pb.Message_Wantlist_Entry).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(9223, $W()..h(this));
+    final $r = $callSync(9232, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pb.Message_Wantlist_Entry).Reset()`.
   void reset() {
-    $callSync(9224, $W()..h(this));
+    $callSync(9233, $W()..h(this));
   }
 
   /// Go: `func (*pb.Message_Wantlist_Entry).String() string`.
   String string() {
-    final $r = $callSync(9225, $W()..h(this));
+    final $r = $callSync(9234, $W()..h(this));
     return $r.str();
   }
 }
@@ -393,31 +393,31 @@ extension GoIpfsBoxoBitswapMessagePbApi on GoIpfsBoxoBitswapMessagePb {
   /// Go: `var pb.File_github_com_ipfs_boxo_bitswap_message_pb_message_proto protoreflect.FileDescriptor`.
   $protoreflect.ProtobufReflectProtoreflectFileDescriptor
       get fileGithubComIpfsBoxoBitswapMessagePbMessageProto {
-    final $r = $callSync(9182);
+    final $r = $callSync(9191);
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectFileDescriptor.$h);
   }
 
   /// Go: `var pb.Message_BlockPresenceType_name map[int32]string`.
   Map<int, String> get messageBlockPresenceTypeName {
-    final $r = $callSync(9207);
+    final $r = $callSync(9216);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var pb.Message_BlockPresenceType_value map[string]int32`.
   Map<String, int> get messageBlockPresenceTypeValue {
-    final $r = $callSync(9208);
+    final $r = $callSync(9217);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `var pb.Message_Wantlist_WantType_name map[int32]string`.
   Map<int, String> get messageWantlistWantTypeName {
-    final $r = $callSync(9226);
+    final $r = $callSync(9235);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var pb.Message_Wantlist_WantType_value map[string]int32`.
   Map<String, int> get messageWantlistWantTypeValue {
-    final $r = $callSync(9227);
+    final $r = $callSync(9236);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 }

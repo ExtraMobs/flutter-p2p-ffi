@@ -22,7 +22,7 @@ mixin OpentracingGoLogEncoder$ on GoHandle {
   /// Go: `func (log.Encoder).EmitBool(key string, value bool)`.
   void emitBool(String key, bool value) {
     $callSync(
-        16063,
+        16069,
         $W()
           ..h(this)
           ..str(key)
@@ -32,7 +32,7 @@ mixin OpentracingGoLogEncoder$ on GoHandle {
   /// Go: `func (log.Encoder).EmitFloat32(key string, value float32)`.
   void emitFloat32(String key, double value) {
     $callSync(
-        16064,
+        16070,
         $W()
           ..h(this)
           ..str(key)
@@ -42,7 +42,7 @@ mixin OpentracingGoLogEncoder$ on GoHandle {
   /// Go: `func (log.Encoder).EmitFloat64(key string, value float64)`.
   void emitFloat64(String key, double value) {
     $callSync(
-        16065,
+        16071,
         $W()
           ..h(this)
           ..str(key)
@@ -52,7 +52,7 @@ mixin OpentracingGoLogEncoder$ on GoHandle {
   /// Go: `func (log.Encoder).EmitInt(key string, value int)`.
   void emitInt(String key, int value) {
     $callSync(
-        16066,
+        16072,
         $W()
           ..h(this)
           ..str(key)
@@ -62,7 +62,7 @@ mixin OpentracingGoLogEncoder$ on GoHandle {
   /// Go: `func (log.Encoder).EmitInt32(key string, value int32)`.
   void emitInt32(String key, int value) {
     $callSync(
-        16067,
+        16073,
         $W()
           ..h(this)
           ..str(key)
@@ -72,7 +72,7 @@ mixin OpentracingGoLogEncoder$ on GoHandle {
   /// Go: `func (log.Encoder).EmitInt64(key string, value int64)`.
   void emitInt64(String key, int value) {
     $callSync(
-        16068,
+        16074,
         $W()
           ..h(this)
           ..str(key)
@@ -89,7 +89,7 @@ mixin OpentracingGoLogEncoder$ on GoHandle {
   Future<void> emitLazyLogger(
       FutureOr<void> Function(OpentracingGoLogEncoder fv) value) async {
     await $call(
-        16069,
+        16075,
         $W()
           ..h(this)
           ..cb((r) => value(r.hnn(OpentracingGoLogEncoder.$h)), true));
@@ -98,7 +98,7 @@ mixin OpentracingGoLogEncoder$ on GoHandle {
   /// Go: `func (log.Encoder).EmitObject(key string, value interface{})`.
   void emitObject(String key, Object? value) {
     $callSync(
-        16070,
+        16076,
         $W()
           ..h(this)
           ..str(key)
@@ -108,7 +108,7 @@ mixin OpentracingGoLogEncoder$ on GoHandle {
   /// Go: `func (log.Encoder).EmitString(key string, value string)`.
   void emitString(String key, String value) {
     $callSync(
-        16071,
+        16077,
         $W()
           ..h(this)
           ..str(key)
@@ -118,7 +118,7 @@ mixin OpentracingGoLogEncoder$ on GoHandle {
   /// Go: `func (log.Encoder).EmitUint32(key string, value uint32)`.
   void emitUint32(String key, int value) {
     $callSync(
-        16072,
+        16078,
         $W()
           ..h(this)
           ..str(key)
@@ -128,7 +128,7 @@ mixin OpentracingGoLogEncoder$ on GoHandle {
   /// Go: `func (log.Encoder).EmitUint64(key string, value uint64)`.
   void emitUint64(String key, int value) {
     $callSync(
-        16073,
+        16079,
         $W()
           ..h(this)
           ..str(key)
@@ -156,14 +156,14 @@ class OpentracingGoLogField extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (log.Field).Key() string`.
   String key() {
-    final $r = $callSync(16075, $W()..h(this));
+    final $r = $callSync(16081, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (log.Field).Marshal(visitor log.Encoder)`.
   void marshal(OpentracingGoLogEncoder visitor) {
     $callSync(
-        16076,
+        16082,
         $W()
           ..h(this)
           ..h(visitor));
@@ -171,13 +171,13 @@ class OpentracingGoLogField extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (log.Field).String() string`.
   String string() {
-    final $r = $callSync(16077, $W()..h(this));
+    final $r = $callSync(16083, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (log.Field).Value() interface{}`.
   Object? value$() {
-    final $r = $callSync(16078, $W()..h(this));
+    final $r = $callSync(16084, $W()..h(this));
     return $r.any();
   }
 }
@@ -187,7 +187,7 @@ extension GoOpentracingOpentracingGoLogApi on GoOpentracingOpentracingGoLog {
   /// Go: `func log.Bool(key string, val bool) log.Field`.
   OpentracingGoLogField bool$(String key, bool val) {
     final $r = $callSync(
-        16062,
+        16068,
         $W()
           ..str(key)
           ..b(val));
@@ -196,14 +196,14 @@ extension GoOpentracingOpentracingGoLogApi on GoOpentracingOpentracingGoLog {
 
   /// Go: `func log.Event(val string) log.Field`.
   OpentracingGoLogField event(String val) {
-    final $r = $callSync(16074, $W()..str(val));
+    final $r = $callSync(16080, $W()..str(val));
     return $r.hnn(OpentracingGoLogField.$h);
   }
 
   /// Go: `func log.Float32(key string, val float32) log.Field`.
   OpentracingGoLogField float32(String key, double val) {
     final $r = $callSync(
-        16079,
+        16085,
         $W()
           ..str(key)
           ..f64(val));
@@ -213,7 +213,7 @@ extension GoOpentracingOpentracingGoLogApi on GoOpentracingOpentracingGoLog {
   /// Go: `func log.Float64(key string, val float64) log.Field`.
   OpentracingGoLogField float64(String key, double val) {
     final $r = $callSync(
-        16080,
+        16086,
         $W()
           ..str(key)
           ..f64(val));
@@ -223,7 +223,7 @@ extension GoOpentracingOpentracingGoLogApi on GoOpentracingOpentracingGoLog {
   /// Go: `func log.Int(key string, val int) log.Field`.
   OpentracingGoLogField int$(String key, int val) {
     final $r = $callSync(
-        16081,
+        16087,
         $W()
           ..str(key)
           ..i64(val));
@@ -233,7 +233,7 @@ extension GoOpentracingOpentracingGoLogApi on GoOpentracingOpentracingGoLog {
   /// Go: `func log.Int32(key string, val int32) log.Field`.
   OpentracingGoLogField int32(String key, int val) {
     final $r = $callSync(
-        16082,
+        16088,
         $W()
           ..str(key)
           ..i64(val));
@@ -243,7 +243,7 @@ extension GoOpentracingOpentracingGoLogApi on GoOpentracingOpentracingGoLog {
   /// Go: `func log.Int64(key string, val int64) log.Field`.
   OpentracingGoLogField int64(String key, int val) {
     final $r = $callSync(
-        16083,
+        16089,
         $W()
           ..str(key)
           ..i64(val));
@@ -253,7 +253,7 @@ extension GoOpentracingOpentracingGoLogApi on GoOpentracingOpentracingGoLog {
   /// Go: `func log.InterleavedKVToFields(keyValues ...interface{}) ([]log.Field, error)`.
   List<OpentracingGoLogField> interleavedKvToFields(
       [List<Object?> keyValues = const []]) {
-    final $r = $callSync(16084, $W()..list(keyValues, (w0, e0) => w0.any(e0)));
+    final $r = $callSync(16090, $W()..list(keyValues, (w0, e0) => w0.any(e0)));
     return $r.list(() => $r.hnn(OpentracingGoLogField.$h));
   }
 
@@ -267,26 +267,26 @@ extension GoOpentracingOpentracingGoLogApi on GoOpentracingOpentracingGoLog {
   Future<OpentracingGoLogField> lazy(
       FutureOr<void> Function(OpentracingGoLogEncoder fv) ll) async {
     final $r = await $call(
-        16085, $W()..cb((r) => ll(r.hnn(OpentracingGoLogEncoder.$h)), true));
+        16091, $W()..cb((r) => ll(r.hnn(OpentracingGoLogEncoder.$h)), true));
     return $r.hnn(OpentracingGoLogField.$h);
   }
 
   /// Go: `func log.Message(val string) log.Field`.
   OpentracingGoLogField message(String val) {
-    final $r = $callSync(16086, $W()..str(val));
+    final $r = $callSync(16092, $W()..str(val));
     return $r.hnn(OpentracingGoLogField.$h);
   }
 
   /// Go: `func log.Noop() log.Field`.
   OpentracingGoLogField noop() {
-    final $r = $callSync(16087);
+    final $r = $callSync(16093);
     return $r.hnn(OpentracingGoLogField.$h);
   }
 
   /// Go: `func log.Object(key string, obj interface{}) log.Field`.
   OpentracingGoLogField object(String key, Object? obj) {
     final $r = $callSync(
-        16088,
+        16094,
         $W()
           ..str(key)
           ..any(obj));
@@ -296,7 +296,7 @@ extension GoOpentracingOpentracingGoLogApi on GoOpentracingOpentracingGoLog {
   /// Go: `func log.String(key string, val string) log.Field`.
   OpentracingGoLogField string(String key, String val) {
     final $r = $callSync(
-        16089,
+        16095,
         $W()
           ..str(key)
           ..str(val));
@@ -306,7 +306,7 @@ extension GoOpentracingOpentracingGoLogApi on GoOpentracingOpentracingGoLog {
   /// Go: `func log.Uint32(key string, val uint32) log.Field`.
   OpentracingGoLogField uint32(String key, int val) {
     final $r = $callSync(
-        16090,
+        16096,
         $W()
           ..str(key)
           ..i64(val));
@@ -316,7 +316,7 @@ extension GoOpentracingOpentracingGoLogApi on GoOpentracingOpentracingGoLog {
   /// Go: `func log.Uint64(key string, val uint64) log.Field`.
   OpentracingGoLogField uint64(String key, int val) {
     final $r = $callSync(
-        16091,
+        16097,
         $W()
           ..str(key)
           ..i64(val));

@@ -47,47 +47,47 @@ class OtlpTraceV1ResourceSpans
   /// Go: `func (*v1.ResourceSpans).Descriptor() ([]byte, []int)`.
   @Deprecated("Use ResourceSpans.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(22557, $W()..h(this));
+    final $r = $callSync(22563, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*v1.ResourceSpans).GetResource() *v1.Resource`.
   $v1.OtlpResourceV1Resource getResource() {
-    final $r = $callSync(22558, $W()..h(this));
+    final $r = $callSync(22564, $W()..h(this));
     return $r.hnn($v1.OtlpResourceV1Resource.$h);
   }
 
   /// Go: `func (*v1.ResourceSpans).GetSchemaUrl() string`.
   String getSchemaUrl() {
-    final $r = $callSync(22559, $W()..h(this));
+    final $r = $callSync(22565, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*v1.ResourceSpans).GetScopeSpans() []*v1.ScopeSpans`.
   List<OtlpTraceV1ScopeSpans> getScopeSpans() {
-    final $r = $callSync(22560, $W()..h(this));
+    final $r = $callSync(22566, $W()..h(this));
     return $r.list(() => $r.hnn(OtlpTraceV1ScopeSpans.$h));
   }
 
   /// Go: `func (*v1.ResourceSpans).ProtoMessage()`.
   void protoMessage() {
-    $callSync(22561, $W()..h(this));
+    $callSync(22567, $W()..h(this));
   }
 
   /// Go: `func (*v1.ResourceSpans).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(22562, $W()..h(this));
+    final $r = $callSync(22568, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*v1.ResourceSpans).Reset()`.
   void reset() {
-    $callSync(22563, $W()..h(this));
+    $callSync(22569, $W()..h(this));
   }
 
   /// Go: `func (*v1.ResourceSpans).String() string`.
   String string() {
-    final $r = $callSync(22564, $W()..h(this));
+    final $r = $callSync(22570, $W()..h(this));
     return $r.str();
   }
 }
@@ -120,47 +120,47 @@ class OtlpTraceV1ScopeSpans
   /// Go: `func (*v1.ScopeSpans).Descriptor() ([]byte, []int)`.
   @Deprecated("Use ScopeSpans.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(22565, $W()..h(this));
+    final $r = $callSync(22571, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*v1.ScopeSpans).GetSchemaUrl() string`.
   String getSchemaUrl() {
-    final $r = $callSync(22566, $W()..h(this));
+    final $r = $callSync(22572, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*v1.ScopeSpans).GetScope() *v1.InstrumentationScope`.
   $v12.OtlpCommonV1InstrumentationScope getScope() {
-    final $r = $callSync(22567, $W()..h(this));
+    final $r = $callSync(22573, $W()..h(this));
     return $r.hnn($v12.OtlpCommonV1InstrumentationScope.$h);
   }
 
   /// Go: `func (*v1.ScopeSpans).GetSpans() []*v1.Span`.
   List<OtlpTraceV1Span> getSpans() {
-    final $r = $callSync(22568, $W()..h(this));
+    final $r = $callSync(22574, $W()..h(this));
     return $r.list(() => $r.hnn(OtlpTraceV1Span.$h));
   }
 
   /// Go: `func (*v1.ScopeSpans).ProtoMessage()`.
   void protoMessage() {
-    $callSync(22569, $W()..h(this));
+    $callSync(22575, $W()..h(this));
   }
 
   /// Go: `func (*v1.ScopeSpans).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(22570, $W()..h(this));
+    final $r = $callSync(22576, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*v1.ScopeSpans).Reset()`.
   void reset() {
-    $callSync(22571, $W()..h(this));
+    $callSync(22577, $W()..h(this));
   }
 
   /// Go: `func (*v1.ScopeSpans).String() string`.
   String string() {
-    final $r = $callSync(22572, $W()..h(this));
+    final $r = $callSync(22578, $W()..h(this));
     return $r.str();
   }
 }
@@ -192,125 +192,125 @@ class OtlpTraceV1Span extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
   /// Go: `func (*v1.Span).Descriptor() ([]byte, []int)`.
   @Deprecated("Use Span.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(22573, $W()..h(this));
+    final $r = $callSync(22579, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*v1.Span).GetAttributes() []*v1.KeyValue`.
   List<$v12.OtlpCommonV1KeyValue> getAttributes() {
-    final $r = $callSync(22574, $W()..h(this));
+    final $r = $callSync(22580, $W()..h(this));
     return $r.list(() => $r.hnn($v12.OtlpCommonV1KeyValue.$h));
   }
 
   /// Go: `func (*v1.Span).GetDroppedAttributesCount() uint32`.
   int getDroppedAttributesCount() {
-    final $r = $callSync(22575, $W()..h(this));
+    final $r = $callSync(22581, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*v1.Span).GetDroppedEventsCount() uint32`.
   int getDroppedEventsCount() {
-    final $r = $callSync(22576, $W()..h(this));
+    final $r = $callSync(22582, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*v1.Span).GetDroppedLinksCount() uint32`.
   int getDroppedLinksCount() {
-    final $r = $callSync(22577, $W()..h(this));
+    final $r = $callSync(22583, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*v1.Span).GetEndTimeUnixNano() uint64`.
   int getEndTimeUnixNano() {
-    final $r = $callSync(22578, $W()..h(this));
+    final $r = $callSync(22584, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*v1.Span).GetEvents() []*v1.Span_Event`.
   List<OtlpTraceV1SpanEvent> getEvents() {
-    final $r = $callSync(22579, $W()..h(this));
+    final $r = $callSync(22585, $W()..h(this));
     return $r.list(() => $r.hnn(OtlpTraceV1SpanEvent.$h));
   }
 
   /// Go: `func (*v1.Span).GetFlags() uint32`.
   int getFlags() {
-    final $r = $callSync(22580, $W()..h(this));
+    final $r = $callSync(22586, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*v1.Span).GetKind() v1.Span_SpanKind`.
   int getKind() {
-    final $r = $callSync(22581, $W()..h(this));
+    final $r = $callSync(22587, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*v1.Span).GetLinks() []*v1.Span_Link`.
   List<OtlpTraceV1SpanLink> getLinks() {
-    final $r = $callSync(22582, $W()..h(this));
+    final $r = $callSync(22588, $W()..h(this));
     return $r.list(() => $r.hnn(OtlpTraceV1SpanLink.$h));
   }
 
   /// Go: `func (*v1.Span).GetName() string`.
   String getName() {
-    final $r = $callSync(22583, $W()..h(this));
+    final $r = $callSync(22589, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*v1.Span).GetParentSpanId() []byte`.
   Uint8List getParentSpanId() {
-    final $r = $callSync(22584, $W()..h(this));
+    final $r = $callSync(22590, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*v1.Span).GetSpanId() []byte`.
   Uint8List getSpanId() {
-    final $r = $callSync(22585, $W()..h(this));
+    final $r = $callSync(22591, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*v1.Span).GetStartTimeUnixNano() uint64`.
   int getStartTimeUnixNano() {
-    final $r = $callSync(22586, $W()..h(this));
+    final $r = $callSync(22592, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*v1.Span).GetStatus() *v1.Status`.
   OtlpTraceV1Status getStatus() {
-    final $r = $callSync(22587, $W()..h(this));
+    final $r = $callSync(22593, $W()..h(this));
     return $r.hnn(OtlpTraceV1Status.$h);
   }
 
   /// Go: `func (*v1.Span).GetTraceId() []byte`.
   Uint8List getTraceId() {
-    final $r = $callSync(22588, $W()..h(this));
+    final $r = $callSync(22594, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*v1.Span).GetTraceState() string`.
   String getTraceState() {
-    final $r = $callSync(22589, $W()..h(this));
+    final $r = $callSync(22595, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*v1.Span).ProtoMessage()`.
   void protoMessage() {
-    $callSync(22590, $W()..h(this));
+    $callSync(22596, $W()..h(this));
   }
 
   /// Go: `func (*v1.Span).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(22591, $W()..h(this));
+    final $r = $callSync(22597, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*v1.Span).Reset()`.
   void reset() {
-    $callSync(22592, $W()..h(this));
+    $callSync(22598, $W()..h(this));
   }
 
   /// Go: `func (*v1.Span).String() string`.
   String string() {
-    final $r = $callSync(22593, $W()..h(this));
+    final $r = $callSync(22599, $W()..h(this));
     return $r.str();
   }
 }
@@ -343,53 +343,53 @@ class OtlpTraceV1SpanEvent
   /// Go: `func (*v1.Span_Event).Descriptor() ([]byte, []int)`.
   @Deprecated("Use Span_Event.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(22596, $W()..h(this));
+    final $r = $callSync(22602, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*v1.Span_Event).GetAttributes() []*v1.KeyValue`.
   List<$v12.OtlpCommonV1KeyValue> getAttributes() {
-    final $r = $callSync(22597, $W()..h(this));
+    final $r = $callSync(22603, $W()..h(this));
     return $r.list(() => $r.hnn($v12.OtlpCommonV1KeyValue.$h));
   }
 
   /// Go: `func (*v1.Span_Event).GetDroppedAttributesCount() uint32`.
   int getDroppedAttributesCount() {
-    final $r = $callSync(22598, $W()..h(this));
+    final $r = $callSync(22604, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*v1.Span_Event).GetName() string`.
   String getName() {
-    final $r = $callSync(22599, $W()..h(this));
+    final $r = $callSync(22605, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*v1.Span_Event).GetTimeUnixNano() uint64`.
   int getTimeUnixNano() {
-    final $r = $callSync(22600, $W()..h(this));
+    final $r = $callSync(22606, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*v1.Span_Event).ProtoMessage()`.
   void protoMessage() {
-    $callSync(22601, $W()..h(this));
+    $callSync(22607, $W()..h(this));
   }
 
   /// Go: `func (*v1.Span_Event).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(22602, $W()..h(this));
+    final $r = $callSync(22608, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*v1.Span_Event).Reset()`.
   void reset() {
-    $callSync(22603, $W()..h(this));
+    $callSync(22609, $W()..h(this));
   }
 
   /// Go: `func (*v1.Span_Event).String() string`.
   String string() {
-    final $r = $callSync(22604, $W()..h(this));
+    final $r = $callSync(22610, $W()..h(this));
     return $r.str();
   }
 }
@@ -422,65 +422,65 @@ class OtlpTraceV1SpanLink
   /// Go: `func (*v1.Span_Link).Descriptor() ([]byte, []int)`.
   @Deprecated("Use Span_Link.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(22605, $W()..h(this));
+    final $r = $callSync(22611, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*v1.Span_Link).GetAttributes() []*v1.KeyValue`.
   List<$v12.OtlpCommonV1KeyValue> getAttributes() {
-    final $r = $callSync(22606, $W()..h(this));
+    final $r = $callSync(22612, $W()..h(this));
     return $r.list(() => $r.hnn($v12.OtlpCommonV1KeyValue.$h));
   }
 
   /// Go: `func (*v1.Span_Link).GetDroppedAttributesCount() uint32`.
   int getDroppedAttributesCount() {
-    final $r = $callSync(22607, $W()..h(this));
+    final $r = $callSync(22613, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*v1.Span_Link).GetFlags() uint32`.
   int getFlags() {
-    final $r = $callSync(22608, $W()..h(this));
+    final $r = $callSync(22614, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*v1.Span_Link).GetSpanId() []byte`.
   Uint8List getSpanId() {
-    final $r = $callSync(22609, $W()..h(this));
+    final $r = $callSync(22615, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*v1.Span_Link).GetTraceId() []byte`.
   Uint8List getTraceId() {
-    final $r = $callSync(22610, $W()..h(this));
+    final $r = $callSync(22616, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*v1.Span_Link).GetTraceState() string`.
   String getTraceState() {
-    final $r = $callSync(22611, $W()..h(this));
+    final $r = $callSync(22617, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*v1.Span_Link).ProtoMessage()`.
   void protoMessage() {
-    $callSync(22612, $W()..h(this));
+    $callSync(22618, $W()..h(this));
   }
 
   /// Go: `func (*v1.Span_Link).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(22613, $W()..h(this));
+    final $r = $callSync(22619, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*v1.Span_Link).Reset()`.
   void reset() {
-    $callSync(22614, $W()..h(this));
+    $callSync(22620, $W()..h(this));
   }
 
   /// Go: `func (*v1.Span_Link).String() string`.
   String string() {
-    final $r = $callSync(22615, $W()..h(this));
+    final $r = $callSync(22621, $W()..h(this));
     return $r.str();
   }
 }
@@ -513,41 +513,41 @@ class OtlpTraceV1Status
   /// Go: `func (*v1.Status).Descriptor() ([]byte, []int)`.
   @Deprecated("Use Status.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(22618, $W()..h(this));
+    final $r = $callSync(22624, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*v1.Status).GetCode() v1.Status_StatusCode`.
   int getCode() {
-    final $r = $callSync(22619, $W()..h(this));
+    final $r = $callSync(22625, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*v1.Status).GetMessage() string`.
   String getMessage() {
-    final $r = $callSync(22620, $W()..h(this));
+    final $r = $callSync(22626, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*v1.Status).ProtoMessage()`.
   void protoMessage() {
-    $callSync(22621, $W()..h(this));
+    $callSync(22627, $W()..h(this));
   }
 
   /// Go: `func (*v1.Status).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(22622, $W()..h(this));
+    final $r = $callSync(22628, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*v1.Status).Reset()`.
   void reset() {
-    $callSync(22623, $W()..h(this));
+    $callSync(22629, $W()..h(this));
   }
 
   /// Go: `func (*v1.Status).String() string`.
   String string() {
-    final $r = $callSync(22624, $W()..h(this));
+    final $r = $callSync(22630, $W()..h(this));
     return $r.str();
   }
 }
@@ -580,35 +580,35 @@ class OtlpTraceV1TracesData
   /// Go: `func (*v1.TracesData).Descriptor() ([]byte, []int)`.
   @Deprecated("Use TracesData.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(22627, $W()..h(this));
+    final $r = $callSync(22633, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*v1.TracesData).GetResourceSpans() []*v1.ResourceSpans`.
   List<OtlpTraceV1ResourceSpans> getResourceSpans() {
-    final $r = $callSync(22628, $W()..h(this));
+    final $r = $callSync(22634, $W()..h(this));
     return $r.list(() => $r.hnn(OtlpTraceV1ResourceSpans.$h));
   }
 
   /// Go: `func (*v1.TracesData).ProtoMessage()`.
   void protoMessage() {
-    $callSync(22629, $W()..h(this));
+    $callSync(22635, $W()..h(this));
   }
 
   /// Go: `func (*v1.TracesData).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(22630, $W()..h(this));
+    final $r = $callSync(22636, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*v1.TracesData).Reset()`.
   void reset() {
-    $callSync(22631, $W()..h(this));
+    $callSync(22637, $W()..h(this));
   }
 
   /// Go: `func (*v1.TracesData).String() string`.
   String string() {
-    final $r = $callSync(22632, $W()..h(this));
+    final $r = $callSync(22638, $W()..h(this));
     return $r.str();
   }
 }
@@ -618,43 +618,43 @@ extension GoProtoOtlpTraceV1Api on GoProtoOtlpTraceV1 {
   /// Go: `var v1.File_opentelemetry_proto_trace_v1_trace_proto protoreflect.FileDescriptor`.
   $protoreflect.ProtobufReflectProtoreflectFileDescriptor
       get fileOpentelemetryProtoTraceV1TraceProto {
-    final $r = $callSync(22556);
+    final $r = $callSync(22562);
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectFileDescriptor.$h);
   }
 
   /// Go: `var v1.SpanFlags_name map[int32]string`.
   Map<int, String> get spanFlagsName {
-    final $r = $callSync(22594);
+    final $r = $callSync(22600);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var v1.SpanFlags_value map[string]int32`.
   Map<String, int> get spanFlagsValue {
-    final $r = $callSync(22595);
+    final $r = $callSync(22601);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `var v1.Span_SpanKind_name map[int32]string`.
   Map<int, String> get spanSpanKindName {
-    final $r = $callSync(22616);
+    final $r = $callSync(22622);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var v1.Span_SpanKind_value map[string]int32`.
   Map<String, int> get spanSpanKindValue {
-    final $r = $callSync(22617);
+    final $r = $callSync(22623);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `var v1.Status_StatusCode_name map[int32]string`.
   Map<int, String> get statusStatusCodeName {
-    final $r = $callSync(22625);
+    final $r = $callSync(22631);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var v1.Status_StatusCode_value map[string]int32`.
   Map<String, int> get statusStatusCodeValue {
-    final $r = $callSync(22626);
+    final $r = $callSync(22632);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 }

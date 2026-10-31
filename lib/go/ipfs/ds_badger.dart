@@ -59,7 +59,7 @@ class DsBadgerDatastore extends $datastore.Datastore
   /// Go: `func badger.NewDatastore(path string, opts *badger.Options) (*badger.Datastore, error)`.
   factory DsBadgerDatastore(String path, DsBadgerOptions opts) {
     final $r = $callSync(
-        10745,
+        10754,
         $W()
           ..str(path)
           ..dto(opts));
@@ -71,7 +71,7 @@ class DsBadgerDatastore extends $datastore.Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<$datastore.DatastoreBatch> batch($context.Context ctx) async {
     final $r = await $call(
-        10729,
+        10738,
         $W()
           ..h(this)
           ..h(ctx));
@@ -80,7 +80,7 @@ class DsBadgerDatastore extends $datastore.Datastore
 
   /// Go: `func (*badger.Datastore).Close() error`.
   void close() {
-    $callSync(10730, $W()..h(this));
+    $callSync(10739, $W()..h(this));
   }
 
   /// Go: `func (*badger.Datastore).CollectGarbage(ctx context.Context) (err error)`.
@@ -88,7 +88,7 @@ class DsBadgerDatastore extends $datastore.Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> collectGarbage($context.Context ctx) async {
     await $call(
-        10731,
+        10740,
         $W()
           ..h(this)
           ..h(ctx));
@@ -99,7 +99,7 @@ class DsBadgerDatastore extends $datastore.Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> delete($context.Context ctx, $datastore.DatastoreKey key) async {
     await $call(
-        10732,
+        10741,
         $W()
           ..h(this)
           ..h(ctx)
@@ -111,7 +111,7 @@ class DsBadgerDatastore extends $datastore.Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> diskUsage($context.Context ctx) async {
     final $r = await $call(
-        10733,
+        10742,
         $W()
           ..h(this)
           ..h(ctx));
@@ -124,7 +124,7 @@ class DsBadgerDatastore extends $datastore.Datastore
   Future<Uint8List> get(
       $context.Context ctx, $datastore.DatastoreKey key) async {
     final $r = await $call(
-        10734,
+        10743,
         $W()
           ..h(this)
           ..h(ctx)
@@ -138,7 +138,7 @@ class DsBadgerDatastore extends $datastore.Datastore
   Future<DateTime> getExpiration(
       $context.Context ctx, $datastore.DatastoreKey key) async {
     final $r = await $call(
-        10735,
+        10744,
         $W()
           ..h(this)
           ..h(ctx)
@@ -151,7 +151,7 @@ class DsBadgerDatastore extends $datastore.Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getSize($context.Context ctx, $datastore.DatastoreKey key) async {
     final $r = await $call(
-        10736,
+        10745,
         $W()
           ..h(this)
           ..h(ctx)
@@ -164,7 +164,7 @@ class DsBadgerDatastore extends $datastore.Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> has($context.Context ctx, $datastore.DatastoreKey key) async {
     final $r = await $call(
-        10737,
+        10746,
         $W()
           ..h(this)
           ..h(ctx)
@@ -178,7 +178,7 @@ class DsBadgerDatastore extends $datastore.Datastore
   Future<$datastore.DatastoreTxn> newTransaction(
       $context.Context ctx, bool readOnly) async {
     final $r = await $call(
-        10738,
+        10747,
         $W()
           ..h(this)
           ..h(ctx)
@@ -192,7 +192,7 @@ class DsBadgerDatastore extends $datastore.Datastore
   Future<void> put($context.Context ctx, $datastore.DatastoreKey key,
       Uint8List value) async {
     await $call(
-        10739,
+        10748,
         $W()
           ..h(this)
           ..h(ctx)
@@ -206,7 +206,7 @@ class DsBadgerDatastore extends $datastore.Datastore
   Future<void> putWithTtl($context.Context ctx, $datastore.DatastoreKey key,
       Uint8List value, Duration ttl) async {
     await $call(
-        10740,
+        10749,
         $W()
           ..h(this)
           ..h(ctx)
@@ -221,7 +221,7 @@ class DsBadgerDatastore extends $datastore.Datastore
   Future<$query.DatastoreQueryResults> query(
       $context.Context ctx, $query.DatastoreQuery q) async {
     final $r = await $call(
-        10741,
+        10750,
         $W()
           ..h(this)
           ..h(ctx)
@@ -235,7 +235,7 @@ class DsBadgerDatastore extends $datastore.Datastore
   Future<void> setTtl(
       $context.Context ctx, $datastore.DatastoreKey key, Duration ttl) async {
     await $call(
-        10742,
+        10751,
         $W()
           ..h(this)
           ..h(ctx)
@@ -249,7 +249,7 @@ class DsBadgerDatastore extends $datastore.Datastore
   Future<void> sync(
       $context.Context ctx, $datastore.DatastoreKey prefix) async {
     await $call(
-        10743,
+        10752,
         $W()
           ..h(this)
           ..h(ctx)
@@ -310,7 +310,7 @@ class DsBadgerErrClosed extends GolangException {
 extension GoIpfsDsBadgerApi on GoIpfsDsBadger {
   /// Go: `var badger.DefaultOptions badger.Options`.
   DsBadgerOptions get defaultOptions {
-    final $r = $callSync(10744);
+    final $r = $callSync(10753);
     return $r.p() ? DsBadgerOptions.$dec($r) : $nil();
   }
 }

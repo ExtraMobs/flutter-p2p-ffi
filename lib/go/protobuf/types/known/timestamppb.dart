@@ -43,59 +43,59 @@ class ProtobufTypesKnownTimestamppbTimestamp
 
   /// Go: `func (*timestamppb.Timestamp).AsTime() time.Time`.
   DateTime asTime() {
-    final $r = $callSync(25546, $W()..h(this));
+    final $r = $callSync(25552, $W()..h(this));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func (*timestamppb.Timestamp).CheckValid() error`.
   void checkValid() {
-    $callSync(25547, $W()..h(this));
+    $callSync(25553, $W()..h(this));
   }
 
   /// Go: `func (*timestamppb.Timestamp).Descriptor() ([]byte, []int)`.
   @Deprecated("Use Timestamp.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(25548, $W()..h(this));
+    final $r = $callSync(25554, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*timestamppb.Timestamp).GetNanos() int32`.
   int getNanos() {
-    final $r = $callSync(25549, $W()..h(this));
+    final $r = $callSync(25555, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*timestamppb.Timestamp).GetSeconds() int64`.
   int getSeconds() {
-    final $r = $callSync(25550, $W()..h(this));
+    final $r = $callSync(25556, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*timestamppb.Timestamp).IsValid() bool`.
   bool isValid() {
-    final $r = $callSync(25551, $W()..h(this));
+    final $r = $callSync(25557, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*timestamppb.Timestamp).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25552, $W()..h(this));
+    $callSync(25558, $W()..h(this));
   }
 
   /// Go: `func (*timestamppb.Timestamp).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(25553, $W()..h(this));
+    final $r = $callSync(25559, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*timestamppb.Timestamp).Reset()`.
   void reset() {
-    $callSync(25554, $W()..h(this));
+    $callSync(25560, $W()..h(this));
   }
 
   /// Go: `func (*timestamppb.Timestamp).String() string`.
   String string() {
-    final $r = $callSync(25555, $W()..h(this));
+    final $r = $callSync(25561, $W()..h(this));
     return $r.str();
   }
 }
@@ -106,19 +106,19 @@ extension GoProtobufTypesKnownTimestamppbApi
   /// Go: `var timestamppb.File_google_protobuf_timestamp_proto protoreflect.FileDescriptor`.
   $protoreflect.ProtobufReflectProtoreflectFileDescriptor
       get fileGoogleProtobufTimestampProto {
-    final $r = $callSync(25543);
+    final $r = $callSync(25549);
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectFileDescriptor.$h);
   }
 
   /// Go: `func timestamppb.New(t time.Time) *timestamppb.Timestamp`.
   ProtobufTypesKnownTimestamppbTimestamp new$(DateTime t) {
-    final $r = $callSync(25544, $W()..time(t));
+    final $r = $callSync(25550, $W()..time(t));
     return $r.hnn(ProtobufTypesKnownTimestamppbTimestamp.$h);
   }
 
   /// Go: `func timestamppb.Now() *timestamppb.Timestamp`.
   ProtobufTypesKnownTimestamppbTimestamp now() {
-    final $r = $callSync(25545);
+    final $r = $callSync(25551);
     return $r.hnn(ProtobufTypesKnownTimestamppbTimestamp.$h);
   }
 }

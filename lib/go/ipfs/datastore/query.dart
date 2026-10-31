@@ -60,7 +60,7 @@ mixin DatastoreQueryFilter$ on GoHandle {
   /// Go: `func (query.Filter).Filter(e query.Entry) bool`.
   bool filter(DatastoreQueryEntry e) {
     final $r = $callSync(
-        10674,
+        10683,
         $W()
           ..h(this)
           ..dto(e));
@@ -94,7 +94,7 @@ final class DatastoreQueryFilterKeyCompare implements GoDto {
   /// Go: `func (query.FilterKeyCompare).Filter(e query.Entry) bool`.
   bool filter(DatastoreQueryEntry e) {
     final $r = $callSync(
-        10675,
+        10684,
         $W()
           ..dto(this)
           ..dto(e));
@@ -103,7 +103,7 @@ final class DatastoreQueryFilterKeyCompare implements GoDto {
 
   /// Go: `func (query.FilterKeyCompare).String() string`.
   String string() {
-    final $r = $callSync(10676, $W()..dto(this));
+    final $r = $callSync(10685, $W()..dto(this));
     return $r.str();
   }
 }
@@ -125,7 +125,7 @@ final class DatastoreQueryFilterKeyPrefix implements GoDto {
   /// Go: `func (query.FilterKeyPrefix).Filter(e query.Entry) bool`.
   bool filter(DatastoreQueryEntry e) {
     final $r = $callSync(
-        10677,
+        10686,
         $W()
           ..dto(this)
           ..dto(e));
@@ -134,7 +134,7 @@ final class DatastoreQueryFilterKeyPrefix implements GoDto {
 
   /// Go: `func (query.FilterKeyPrefix).String() string`.
   String string() {
-    final $r = $callSync(10678, $W()..dto(this));
+    final $r = $callSync(10687, $W()..dto(this));
     return $r.str();
   }
 }
@@ -165,7 +165,7 @@ final class DatastoreQueryFilterValueCompare implements GoDto {
   /// Go: `func (query.FilterValueCompare).Filter(e query.Entry) bool`.
   bool filter(DatastoreQueryEntry e) {
     final $r = $callSync(
-        10679,
+        10688,
         $W()
           ..dto(this)
           ..dto(e));
@@ -174,7 +174,7 @@ final class DatastoreQueryFilterValueCompare implements GoDto {
 
   /// Go: `func (query.FilterValueCompare).String() string`.
   String string() {
-    final $r = $callSync(10680, $W()..dto(this));
+    final $r = $callSync(10689, $W()..dto(this));
     return $r.str();
   }
 }
@@ -200,7 +200,7 @@ mixin DatastoreQueryOrder$ on GoHandle {
   /// Go: `func (query.Order).Compare(a query.Entry, b query.Entry) int`.
   int compare(DatastoreQueryEntry a, DatastoreQueryEntry b) {
     final $r = $callSync(
-        10692,
+        10701,
         $W()
           ..h(this)
           ..dto(a)
@@ -210,7 +210,7 @@ mixin DatastoreQueryOrder$ on GoHandle {
 
   /// Go: type assertion `x.(*query.OrderByFunction)`: null if the object is not one.
   DatastoreQueryOrderByFunction? asDatastoreQueryOrderByFunction() {
-    final $r = $callSync(1110, $W()..h(this));
+    final $r = $callSync(1113, $W()..h(this));
     return $r.hn(DatastoreQueryOrderByFunction.$h);
   }
 }
@@ -238,7 +238,7 @@ class DatastoreQueryOrderByFunction extends DatastoreQueryOrder
   /// Go: `func (query.OrderByFunction).Compare(a query.Entry, b query.Entry) int`.
   int compare(DatastoreQueryEntry a, DatastoreQueryEntry b) {
     final $r = $callSync(
-        10693,
+        10702,
         $W()
           ..h(this)
           ..dto(a)
@@ -248,7 +248,7 @@ class DatastoreQueryOrderByFunction extends DatastoreQueryOrder
 
   /// Go: `func (query.OrderByFunction).String() string`.
   String string() {
-    final $r = $callSync(10694, $W()..h(this));
+    final $r = $callSync(10703, $W()..h(this));
     return $r.str();
   }
 }
@@ -264,7 +264,7 @@ final class DatastoreQueryOrderByKey implements GoDto {
   /// Go: `func (query.OrderByKey).Compare(a query.Entry, b query.Entry) int`.
   int compare(DatastoreQueryEntry a, DatastoreQueryEntry b) {
     final $r = $callSync(
-        10695,
+        10704,
         $W()
           ..dto(this)
           ..dto(a)
@@ -274,7 +274,7 @@ final class DatastoreQueryOrderByKey implements GoDto {
 
   /// Go: `func (query.OrderByKey).String() string`.
   String string() {
-    final $r = $callSync(10696, $W()..dto(this));
+    final $r = $callSync(10705, $W()..dto(this));
     return $r.str();
   }
 }
@@ -290,7 +290,7 @@ final class DatastoreQueryOrderByKeyDescending implements GoDto {
   /// Go: `func (query.OrderByKeyDescending).Compare(a query.Entry, b query.Entry) int`.
   int compare(DatastoreQueryEntry a, DatastoreQueryEntry b) {
     final $r = $callSync(
-        10697,
+        10706,
         $W()
           ..dto(this)
           ..dto(a)
@@ -300,7 +300,7 @@ final class DatastoreQueryOrderByKeyDescending implements GoDto {
 
   /// Go: `func (query.OrderByKeyDescending).String() string`.
   String string() {
-    final $r = $callSync(10698, $W()..dto(this));
+    final $r = $callSync(10707, $W()..dto(this));
     return $r.str();
   }
 }
@@ -316,7 +316,7 @@ final class DatastoreQueryOrderByValue implements GoDto {
   /// Go: `func (query.OrderByValue).Compare(a query.Entry, b query.Entry) int`.
   int compare(DatastoreQueryEntry a, DatastoreQueryEntry b) {
     final $r = $callSync(
-        10699,
+        10708,
         $W()
           ..dto(this)
           ..dto(a)
@@ -326,7 +326,7 @@ final class DatastoreQueryOrderByValue implements GoDto {
 
   /// Go: `func (query.OrderByValue).String() string`.
   String string() {
-    final $r = $callSync(10700, $W()..dto(this));
+    final $r = $callSync(10709, $W()..dto(this));
     return $r.str();
   }
 }
@@ -342,7 +342,7 @@ final class DatastoreQueryOrderByValueDescending implements GoDto {
   /// Go: `func (query.OrderByValueDescending).Compare(a query.Entry, b query.Entry) int`.
   int compare(DatastoreQueryEntry a, DatastoreQueryEntry b) {
     final $r = $callSync(
-        10701,
+        10710,
         $W()
           ..dto(this)
           ..dto(a)
@@ -352,7 +352,7 @@ final class DatastoreQueryOrderByValueDescending implements GoDto {
 
   /// Go: `func (query.OrderByValueDescending).String() string`.
   String string() {
-    final $r = $callSync(10702, $W()..dto(this));
+    final $r = $callSync(10711, $W()..dto(this));
     return $r.str();
   }
 }
@@ -426,7 +426,7 @@ final class DatastoreQuery implements GoDto {
 
   /// Go: `func (query.Query).String() string`.
   String string() {
-    final $r = $callSync(10703, $W()..dto(this));
+    final $r = $callSync(10712, $W()..dto(this));
     return $r.str();
   }
 }
@@ -464,28 +464,28 @@ class DatastoreQueryResults extends GoHandle with DatastoreQueryResults$ {
 mixin DatastoreQueryResults$ on GoHandle {
   /// Go: `func (query.Results).Close() error`.
   void close() {
-    $callSync(10705, $W()..h(this));
+    $callSync(10714, $W()..h(this));
   }
 
   /// Go: `func (query.Results).Next() <-chan query.Result`.
-  Stream<DatastoreQueryResult> next() => $stream(10706, $W()..h(this))
+  Stream<DatastoreQueryResult> next() => $stream(10715, $W()..h(this))
       .map((r) => r.p() ? DatastoreQueryResult.$dec(r) : $nil());
 
   /// Go: `func (query.Results).NextSync() (query.Result, bool)`.
   (DatastoreQueryResult, bool) nextSync() {
-    final $r = $callSync(10707, $W()..h(this));
+    final $r = $callSync(10716, $W()..h(this));
     return ($r.p() ? DatastoreQueryResult.$dec($r) : $nil(), $r.b());
   }
 
   /// Go: `func (query.Results).Query() query.Query`.
   DatastoreQuery query() {
-    final $r = $callSync(10708, $W()..h(this));
+    final $r = $callSync(10717, $W()..h(this));
     return $r.p() ? DatastoreQuery.$dec($r) : $nil();
   }
 
   /// Go: `func (query.Results).Rest() ([]query.Entry, error)`.
   List<DatastoreQueryEntry> rest() {
-    final $r = $callSync(10709, $W()..h(this));
+    final $r = $callSync(10718, $W()..h(this));
     return $r.list(() => $r.p() ? DatastoreQueryEntry.$dec($r) : $nil());
   }
 }
@@ -496,7 +496,7 @@ extension GoIpfsDatastoreQueryApi on GoIpfsDatastoreQuery {
   int compare(List<DatastoreQueryOrder> orders, DatastoreQueryEntry a,
       DatastoreQueryEntry b) {
     final $r = $callSync(
-        10672,
+        10681,
         $W()
           ..list(orders, (w0, e0) => w0.h(e0))
           ..dto(a)
@@ -506,19 +506,19 @@ extension GoIpfsDatastoreQueryApi on GoIpfsDatastoreQuery {
 
   /// Go: `var query.Equal query.Op`.
   String get equal {
-    final $r = $callSync(10673);
+    final $r = $callSync(10682);
     return $r.str();
   }
 
   /// Go: `var query.GreaterThan query.Op`.
   String get greaterThan {
-    final $r = $callSync(10681);
+    final $r = $callSync(10690);
     return $r.str();
   }
 
   /// Go: `var query.GreaterThanOrEqual query.Op`.
   String get greaterThanOrEqual {
-    final $r = $callSync(10682);
+    final $r = $callSync(10691);
     return $r.str();
   }
 
@@ -526,7 +526,7 @@ extension GoIpfsDatastoreQueryApi on GoIpfsDatastoreQuery {
   bool less(List<DatastoreQueryOrder> orders, DatastoreQueryEntry a,
       DatastoreQueryEntry b) {
     final $r = $callSync(
-        10683,
+        10692,
         $W()
           ..list(orders, (w0, e0) => w0.h(e0))
           ..dto(a)
@@ -536,13 +536,13 @@ extension GoIpfsDatastoreQueryApi on GoIpfsDatastoreQuery {
 
   /// Go: `var query.LessThan query.Op`.
   String get lessThan {
-    final $r = $callSync(10684);
+    final $r = $callSync(10693);
     return $r.str();
   }
 
   /// Go: `var query.LessThanOrEqual query.Op`.
   String get lessThanOrEqual {
-    final $r = $callSync(10685);
+    final $r = $callSync(10694);
     return $r.str();
   }
 
@@ -550,7 +550,7 @@ extension GoIpfsDatastoreQueryApi on GoIpfsDatastoreQuery {
   DatastoreQueryResults naiveFilter(
       DatastoreQueryResults qr, DatastoreQueryFilter filter) {
     final $r = $callSync(
-        10686,
+        10695,
         $W()
           ..h(qr)
           ..h(filter));
@@ -560,7 +560,7 @@ extension GoIpfsDatastoreQueryApi on GoIpfsDatastoreQuery {
   /// Go: `func query.NaiveLimit(qr query.Results, limit int) query.Results`.
   DatastoreQueryResults naiveLimit(DatastoreQueryResults qr, int limit) {
     final $r = $callSync(
-        10687,
+        10696,
         $W()
           ..h(qr)
           ..i64(limit));
@@ -570,7 +570,7 @@ extension GoIpfsDatastoreQueryApi on GoIpfsDatastoreQuery {
   /// Go: `func query.NaiveOffset(qr query.Results, offset int) query.Results`.
   DatastoreQueryResults naiveOffset(DatastoreQueryResults qr, int offset) {
     final $r = $callSync(
-        10688,
+        10697,
         $W()
           ..h(qr)
           ..i64(offset));
@@ -581,7 +581,7 @@ extension GoIpfsDatastoreQueryApi on GoIpfsDatastoreQuery {
   DatastoreQueryResults naiveOrder(DatastoreQueryResults qr,
       [List<DatastoreQueryOrder> orders = const []]) {
     final $r = $callSync(
-        10689,
+        10698,
         $W()
           ..h(qr)
           ..list(orders, (w0, e0) => w0.h(e0)));
@@ -592,7 +592,7 @@ extension GoIpfsDatastoreQueryApi on GoIpfsDatastoreQuery {
   DatastoreQueryResults naiveQueryApply(
       DatastoreQuery q, DatastoreQueryResults qr) {
     final $r = $callSync(
-        10690,
+        10699,
         $W()
           ..dto(q)
           ..h(qr));
@@ -601,7 +601,7 @@ extension GoIpfsDatastoreQueryApi on GoIpfsDatastoreQuery {
 
   /// Go: `var query.NotEqual query.Op`.
   String get notEqual {
-    final $r = $callSync(10691);
+    final $r = $callSync(10700);
     return $r.str();
   }
 
@@ -609,7 +609,7 @@ extension GoIpfsDatastoreQueryApi on GoIpfsDatastoreQuery {
   List<DatastoreQueryEntry> resultEntriesFrom(
       List<String> keys, List<Uint8List> vals) {
     final $r = $callSync(
-        10704,
+        10713,
         $W()
           ..list(keys, (w0, e0) => w0.str(e0))
           ..list(vals, (w0, e0) => w0.bytes(e0)));
@@ -620,7 +620,7 @@ extension GoIpfsDatastoreQueryApi on GoIpfsDatastoreQuery {
   DatastoreQueryResults resultsFromIterator(
       DatastoreQuery q, DatastoreQueryIterator iter) {
     final $r = $callSync(
-        10710,
+        10719,
         $W()
           ..dto(q)
           ..dto(iter));
@@ -631,7 +631,7 @@ extension GoIpfsDatastoreQueryApi on GoIpfsDatastoreQuery {
   DatastoreQueryResults resultsReplaceQuery(
       DatastoreQueryResults r, DatastoreQuery q) {
     final $r = $callSync(
-        10711,
+        10720,
         $W()
           ..h(r)
           ..dto(q));
@@ -642,7 +642,7 @@ extension GoIpfsDatastoreQueryApi on GoIpfsDatastoreQuery {
   DatastoreQueryResults resultsWithEntries(
       DatastoreQuery q, List<DatastoreQueryEntry> res) {
     final $r = $callSync(
-        10712,
+        10721,
         $W()
           ..dto(q)
           ..list(res, (w0, e0) => w0.dto(e0)));
@@ -653,7 +653,7 @@ extension GoIpfsDatastoreQueryApi on GoIpfsDatastoreQuery {
   void sort(
       List<DatastoreQueryOrder> orders, List<DatastoreQueryEntry> entries) {
     $callSync(
-        10713,
+        10722,
         $W()
           ..list(orders, (w0, e0) => w0.h(e0))
           ..list(entries, (w0, e0) => w0.dto(e0)));

@@ -26,7 +26,7 @@ mixin Libp2pP2pProtocolIdentifyIdService$ on GoHandle {
   /// Go: `func (identify.IDService).IdentifyConn(network.Conn)`.
   void identifyConn($network.Libp2pCoreNetworkConn conn) {
     $callSync(
-        14928,
+        14934,
         $W()
           ..h(this)
           ..h(conn));
@@ -34,7 +34,7 @@ mixin Libp2pP2pProtocolIdentifyIdService$ on GoHandle {
 
   /// Go: `func (identify.IDService).Start()`.
   void start() {
-    $callSync(14929, $W()..h(this));
+    $callSync(14935, $W()..h(this));
   }
 }
 
@@ -46,7 +46,7 @@ class Libp2pP2pProtocolIdentifyMetricsTracer extends GoHandle
   /// Go: `func identify.NewMetricsTracer(opts ...identify.MetricsTracerOption) identify.MetricsTracer`.
   factory Libp2pP2pProtocolIdentifyMetricsTracer(
       [List<Libp2pP2pProtocolIdentifyMetricsTracerOption> opts = const []]) {
-    final $r = $callSync(14933, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+    final $r = $callSync(14939, $W()..list(opts, (w0, e0) => w0.opt(e0)));
     return $r.hnn(Libp2pP2pProtocolIdentifyMetricsTracer.$h);
   }
 }
@@ -56,7 +56,7 @@ mixin Libp2pP2pProtocolIdentifyMetricsTracer$ on GoHandle {
   /// Go: `func (identify.MetricsTracer).IdentifyReceived(isPush bool, numProtocols int, numAddrs int)`.
   void identifyReceived(bool isPush, int numProtocols, int numAddrs) {
     $callSync(
-        14930,
+        14936,
         $W()
           ..h(this)
           ..b(isPush)
@@ -67,7 +67,7 @@ mixin Libp2pP2pProtocolIdentifyMetricsTracer$ on GoHandle {
   /// Go: `func (identify.MetricsTracer).IdentifySent(isPush bool, numProtocols int, numAddrs int)`.
   void identifySent(bool isPush, int numProtocols, int numAddrs) {
     $callSync(
-        14931,
+        14937,
         $W()
           ..h(this)
           ..b(isPush)
@@ -78,7 +78,7 @@ mixin Libp2pP2pProtocolIdentifyMetricsTracer$ on GoHandle {
   /// Go: `func (identify.MetricsTracer).TriggeredPushes(event any)`.
   void triggeredPushes(Object? event) {
     $callSync(
-        14932,
+        14938,
         $W()
           ..h(this)
           ..any(event));
@@ -97,7 +97,7 @@ extension GoLibp2pLibp2pP2pProtocolIdentifyApi
   bool hasConsistentTransport(
       $multiaddr.Multiaddr a, List<$multiaddr.Multiaddr> green) {
     final $r = $callSync(
-        14927,
+        14933,
         $W()
           ..val(a)
           ..list(green, (w0, e0) => w0.val(e0)));

@@ -30,13 +30,13 @@ class ContainerListElement extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*list.Element).Next() *list.Element`.
   ContainerListElement next() {
-    final $r = $callSync(3096, $W()..h(this));
+    final $r = $callSync(3105, $W()..h(this));
     return $r.hnn(ContainerListElement.$h);
   }
 
   /// Go: `func (*list.Element).Prev() *list.Element`.
   ContainerListElement prev() {
-    final $r = $callSync(3097, $W()..h(this));
+    final $r = $callSync(3106, $W()..h(this));
     return $r.hnn(ContainerListElement.$h);
   }
 }
@@ -61,26 +61,26 @@ class ContainerList extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*list.List).Back() *list.Element`.
   ContainerListElement back() {
-    final $r = $callSync(3098, $W()..h(this));
+    final $r = $callSync(3107, $W()..h(this));
     return $r.hnn(ContainerListElement.$h);
   }
 
   /// Go: `func (*list.List).Front() *list.Element`.
   ContainerListElement front() {
-    final $r = $callSync(3099, $W()..h(this));
+    final $r = $callSync(3108, $W()..h(this));
     return $r.hnn(ContainerListElement.$h);
   }
 
   /// Go: `func (*list.List).Init() *list.List`.
   ContainerList init() {
-    final $r = $callSync(3100, $W()..h(this));
+    final $r = $callSync(3109, $W()..h(this));
     return $r.hnn(ContainerList.$h);
   }
 
   /// Go: `func (*list.List).InsertAfter(v any, mark *list.Element) *list.Element`.
   ContainerListElement insertAfter(Object? v, ContainerListElement mark) {
     final $r = $callSync(
-        3101,
+        3110,
         $W()
           ..h(this)
           ..any(v)
@@ -91,7 +91,7 @@ class ContainerList extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*list.List).InsertBefore(v any, mark *list.Element) *list.Element`.
   ContainerListElement insertBefore(Object? v, ContainerListElement mark) {
     final $r = $callSync(
-        3102,
+        3111,
         $W()
           ..h(this)
           ..any(v)
@@ -101,14 +101,14 @@ class ContainerList extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*list.List).Len() int`.
   int len() {
-    final $r = $callSync(3103, $W()..h(this));
+    final $r = $callSync(3112, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*list.List).MoveAfter(e *list.Element, mark *list.Element)`.
   void moveAfter(ContainerListElement e, ContainerListElement mark) {
     $callSync(
-        3104,
+        3113,
         $W()
           ..h(this)
           ..h(e)
@@ -118,7 +118,7 @@ class ContainerList extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*list.List).MoveBefore(e *list.Element, mark *list.Element)`.
   void moveBefore(ContainerListElement e, ContainerListElement mark) {
     $callSync(
-        3105,
+        3114,
         $W()
           ..h(this)
           ..h(e)
@@ -128,7 +128,7 @@ class ContainerList extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*list.List).MoveToBack(e *list.Element)`.
   void moveToBack(ContainerListElement e) {
     $callSync(
-        3106,
+        3115,
         $W()
           ..h(this)
           ..h(e));
@@ -137,7 +137,7 @@ class ContainerList extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*list.List).MoveToFront(e *list.Element)`.
   void moveToFront(ContainerListElement e) {
     $callSync(
-        3107,
+        3116,
         $W()
           ..h(this)
           ..h(e));
@@ -146,7 +146,7 @@ class ContainerList extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*list.List).PushBack(v any) *list.Element`.
   ContainerListElement pushBack(Object? v) {
     final $r = $callSync(
-        3108,
+        3117,
         $W()
           ..h(this)
           ..any(v));
@@ -156,7 +156,7 @@ class ContainerList extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*list.List).PushBackList(other *list.List)`.
   void pushBackList(ContainerList other) {
     $callSync(
-        3109,
+        3118,
         $W()
           ..h(this)
           ..h(other));
@@ -165,7 +165,7 @@ class ContainerList extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*list.List).PushFront(v any) *list.Element`.
   ContainerListElement pushFront(Object? v) {
     final $r = $callSync(
-        3110,
+        3119,
         $W()
           ..h(this)
           ..any(v));
@@ -175,7 +175,7 @@ class ContainerList extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*list.List).PushFrontList(other *list.List)`.
   void pushFrontList(ContainerList other) {
     $callSync(
-        3111,
+        3120,
         $W()
           ..h(this)
           ..h(other));
@@ -184,7 +184,7 @@ class ContainerList extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*list.List).Remove(e *list.Element) any`.
   Object? remove(ContainerListElement e) {
     final $r = $callSync(
-        3112,
+        3121,
         $W()
           ..h(this)
           ..h(e));
@@ -196,7 +196,7 @@ class ContainerList extends $crypto.CryptoDecrypterOpts
 extension GoContainerListApi on GoContainerList {
   /// Go: `func list.New() *list.List`.
   ContainerList new$() {
-    final $r = $callSync(3113);
+    final $r = $callSync(3122);
     return $r.hnn(ContainerList.$h);
   }
 }

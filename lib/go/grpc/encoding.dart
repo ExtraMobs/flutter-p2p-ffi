@@ -19,7 +19,7 @@ mixin GrpcEncodingCodec$ on GoHandle {
   /// Go: `func (encoding.Codec).Marshal(v any) ([]byte, error)`.
   Uint8List marshal(Object? v) {
     final $r = $callSync(
-        24514,
+        24520,
         $W()
           ..h(this)
           ..any(v));
@@ -28,14 +28,14 @@ mixin GrpcEncodingCodec$ on GoHandle {
 
   /// Go: `func (encoding.Codec).Name() string`.
   String name() {
-    final $r = $callSync(24515, $W()..h(this));
+    final $r = $callSync(24521, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (encoding.Codec).Unmarshal(data []byte, v any) error`.
   void unmarshal(Uint8List data, Object? v) {
     $callSync(
-        24516,
+        24522,
         $W()
           ..h(this)
           ..bytes(data)
@@ -53,7 +53,7 @@ mixin GrpcEncodingCodecV2$ on GoHandle {
   /// Go: `func (encoding.CodecV2).Marshal(v any) (out mem.BufferSlice, err error)`.
   List<$mem.GrpcMemBuffer> marshal(Object? v) {
     final $r = $callSync(
-        24517,
+        24523,
         $W()
           ..h(this)
           ..any(v));
@@ -62,14 +62,14 @@ mixin GrpcEncodingCodecV2$ on GoHandle {
 
   /// Go: `func (encoding.CodecV2).Name() string`.
   String name() {
-    final $r = $callSync(24518, $W()..h(this));
+    final $r = $callSync(24524, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (encoding.CodecV2).Unmarshal(data mem.BufferSlice, v any) error`.
   void unmarshal(List<$mem.GrpcMemBuffer> data, Object? v) {
     $callSync(
-        24519,
+        24525,
         $W()
           ..h(this)
           ..list(data, (w0, e0) => w0.h(e0))
@@ -87,7 +87,7 @@ mixin GrpcEncodingCompressor$ on GoHandle {
   /// Go: `func (encoding.Compressor).Compress(w io.Writer) (io.WriteCloser, error)`.
   $io.IoWriteCloser compress(GoHandle? w) {
     final $r = $callSync(
-        24520,
+        24526,
         $W()
           ..h(this)
           ..h(w));
@@ -97,7 +97,7 @@ mixin GrpcEncodingCompressor$ on GoHandle {
   /// Go: `func (encoding.Compressor).Decompress(r io.Reader) (io.Reader, error)`.
   $io.IoReader decompress(Object r) {
     final $r = $callSync(
-        24521,
+        24527,
         $W()
           ..h(this)
           ..reader(r));
@@ -106,7 +106,7 @@ mixin GrpcEncodingCompressor$ on GoHandle {
 
   /// Go: `func (encoding.Compressor).Name() string`.
   String name() {
-    final $r = $callSync(24522, $W()..h(this));
+    final $r = $callSync(24528, $W()..h(this));
     return $r.str();
   }
 }
@@ -115,35 +115,35 @@ mixin GrpcEncodingCompressor$ on GoHandle {
 extension GoGrpcEncodingApi on GoGrpcEncoding {
   /// Go: `func encoding.GetCodec(contentSubtype string) encoding.Codec`.
   GrpcEncodingCodec getCodec(String contentSubtype) {
-    final $r = $callSync(24523, $W()..str(contentSubtype));
+    final $r = $callSync(24529, $W()..str(contentSubtype));
     return $r.hnn(GrpcEncodingCodec.$h);
   }
 
   /// Go: `func encoding.GetCodecV2(contentSubtype string) encoding.CodecV2`.
   GrpcEncodingCodecV2 getCodecV2(String contentSubtype) {
-    final $r = $callSync(24524, $W()..str(contentSubtype));
+    final $r = $callSync(24530, $W()..str(contentSubtype));
     return $r.hnn(GrpcEncodingCodecV2.$h);
   }
 
   /// Go: `func encoding.GetCompressor(name string) encoding.Compressor`.
   GrpcEncodingCompressor getCompressor(String name) {
-    final $r = $callSync(24525, $W()..str(name));
+    final $r = $callSync(24531, $W()..str(name));
     return $r.hnn(GrpcEncodingCompressor.$h);
   }
 
   /// Go: `func encoding.RegisterCodec(codec encoding.Codec)`.
   void registerCodec(GrpcEncodingCodec codec) {
-    $callSync(24526, $W()..h(codec));
+    $callSync(24532, $W()..h(codec));
   }
 
   /// Go: `func encoding.RegisterCodecV2(codec encoding.CodecV2)`.
   void registerCodecV2(GrpcEncodingCodecV2 codec) {
-    $callSync(24527, $W()..h(codec));
+    $callSync(24533, $W()..h(codec));
   }
 
   /// Go: `func encoding.RegisterCompressor(c encoding.Compressor)`.
   void registerCompressor(GrpcEncodingCompressor c) {
-    $callSync(24528, $W()..h(c));
+    $callSync(24534, $W()..h(c));
   }
 }
 

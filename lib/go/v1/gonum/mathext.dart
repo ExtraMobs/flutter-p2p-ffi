@@ -10,7 +10,7 @@ extension GoV1GonumMathextApi on GoV1GonumMathext {
   /// Go: `func mathext.Beta(a float64, b float64) float64`.
   double beta(double a, double b) {
     final $r = $callSync(
-        24088,
+        24094,
         $W()
           ..f64(a)
           ..f64(b));
@@ -19,38 +19,38 @@ extension GoV1GonumMathextApi on GoV1GonumMathext {
 
   /// Go: `func mathext.CompleteB(m float64) float64`.
   double completeB(double m) {
-    final $r = $callSync(24089, $W()..f64(m));
+    final $r = $callSync(24095, $W()..f64(m));
     return $r.f64();
   }
 
   /// Go: `func mathext.CompleteD(m float64) float64`.
   double completeD(double m) {
-    final $r = $callSync(24090, $W()..f64(m));
+    final $r = $callSync(24096, $W()..f64(m));
     return $r.f64();
   }
 
   /// Go: `func mathext.CompleteE(m float64) float64`.
   double completeE(double m) {
-    final $r = $callSync(24091, $W()..f64(m));
+    final $r = $callSync(24097, $W()..f64(m));
     return $r.f64();
   }
 
   /// Go: `func mathext.CompleteK(m float64) float64`.
   double completeK(double m) {
-    final $r = $callSync(24092, $W()..f64(m));
+    final $r = $callSync(24098, $W()..f64(m));
     return $r.f64();
   }
 
   /// Go: `func mathext.Digamma(x float64) float64`.
   double digamma(double x) {
-    final $r = $callSync(24093, $W()..f64(x));
+    final $r = $callSync(24099, $W()..f64(x));
     return $r.f64();
   }
 
   /// Go: `func mathext.EllipticE(phi float64, m float64) float64`.
   double ellipticE(double phi, double m) {
     final $r = $callSync(
-        24094,
+        24100,
         $W()
           ..f64(phi)
           ..f64(m));
@@ -60,7 +60,7 @@ extension GoV1GonumMathextApi on GoV1GonumMathext {
   /// Go: `func mathext.EllipticF(phi float64, m float64) float64`.
   double ellipticF(double phi, double m) {
     final $r = $callSync(
-        24095,
+        24101,
         $W()
           ..f64(phi)
           ..f64(m));
@@ -70,7 +70,7 @@ extension GoV1GonumMathextApi on GoV1GonumMathext {
   /// Go: `func mathext.EllipticRD(x float64, y float64, z float64) float64`.
   double ellipticRd(double x, double y, double z) {
     final $r = $callSync(
-        24096,
+        24102,
         $W()
           ..f64(x)
           ..f64(y)
@@ -81,7 +81,7 @@ extension GoV1GonumMathextApi on GoV1GonumMathext {
   /// Go: `func mathext.EllipticRF(x float64, y float64, z float64) float64`.
   double ellipticRf(double x, double y, double z) {
     final $r = $callSync(
-        24097,
+        24103,
         $W()
           ..f64(x)
           ..f64(y)
@@ -92,7 +92,7 @@ extension GoV1GonumMathextApi on GoV1GonumMathext {
   /// Go: `func mathext.GammaIncReg(a float64, x float64) float64`.
   double gammaIncReg(double a, double x) {
     final $r = $callSync(
-        24098,
+        24104,
         $W()
           ..f64(a)
           ..f64(x));
@@ -102,7 +102,7 @@ extension GoV1GonumMathextApi on GoV1GonumMathext {
   /// Go: `func mathext.GammaIncRegComp(a float64, x float64) float64`.
   double gammaIncRegComp(double a, double x) {
     final $r = $callSync(
-        24099,
+        24105,
         $W()
           ..f64(a)
           ..f64(x));
@@ -112,7 +112,7 @@ extension GoV1GonumMathextApi on GoV1GonumMathext {
   /// Go: `func mathext.GammaIncRegCompInv(a float64, y float64) float64`.
   double gammaIncRegCompInv(double a, double y) {
     final $r = $callSync(
-        24100,
+        24106,
         $W()
           ..f64(a)
           ..f64(y));
@@ -122,7 +122,7 @@ extension GoV1GonumMathextApi on GoV1GonumMathext {
   /// Go: `func mathext.GammaIncRegInv(a float64, y float64) float64`.
   double gammaIncRegInv(double a, double y) {
     final $r = $callSync(
-        24101,
+        24107,
         $W()
           ..f64(a)
           ..f64(y));
@@ -132,7 +132,7 @@ extension GoV1GonumMathextApi on GoV1GonumMathext {
   /// Go: `func mathext.Hypergeo(a float64, b float64, c float64, z float64) float64`.
   double hypergeo(double a, double b, double c, double z) {
     final $r = $callSync(
-        24102,
+        24108,
         $W()
           ..f64(a)
           ..f64(b)
@@ -144,7 +144,7 @@ extension GoV1GonumMathextApi on GoV1GonumMathext {
   /// Go: `func mathext.InvRegIncBeta(a float64, b float64, y float64) float64`.
   double invRegIncBeta(double a, double b, double y) {
     final $r = $callSync(
-        24103,
+        24109,
         $W()
           ..f64(a)
           ..f64(b)
@@ -155,7 +155,7 @@ extension GoV1GonumMathextApi on GoV1GonumMathext {
   /// Go: `func mathext.Lbeta(a float64, b float64) float64`.
   double lbeta(double a, double b) {
     final $r = $callSync(
-        24104,
+        24110,
         $W()
           ..f64(a)
           ..f64(b));
@@ -165,7 +165,7 @@ extension GoV1GonumMathextApi on GoV1GonumMathext {
   /// Go: `func mathext.MvLgamma(v float64, dim int) float64`.
   double mvLgamma(double v, int dim) {
     final $r = $callSync(
-        24105,
+        24111,
         $W()
           ..f64(v)
           ..i64(dim));
@@ -174,14 +174,14 @@ extension GoV1GonumMathextApi on GoV1GonumMathext {
 
   /// Go: `func mathext.NormalQuantile(p float64) float64`.
   double normalQuantile(double p) {
-    final $r = $callSync(24106, $W()..f64(p));
+    final $r = $callSync(24112, $W()..f64(p));
     return $r.f64();
   }
 
   /// Go: `func mathext.RegIncBeta(a float64, b float64, x float64) float64`.
   double regIncBeta(double a, double b, double x) {
     final $r = $callSync(
-        24107,
+        24113,
         $W()
           ..f64(a)
           ..f64(b)
@@ -192,7 +192,7 @@ extension GoV1GonumMathextApi on GoV1GonumMathext {
   /// Go: `func mathext.Zeta(x float64, q float64) float64`.
   double zeta(double x, double q) {
     final $r = $callSync(
-        24108,
+        24114,
         $W()
           ..f64(x)
           ..f64(q));

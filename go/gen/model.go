@@ -89,6 +89,7 @@ type tinfo struct {
 	fnames []string  // kFunc: os nomes deles ("" se o Go não nomeia)
 	fret   int       // kFunc: fretNone, fretBool ou fretErr
 	dur    bool      // kBasic time.Duration: Duration in Dart (nanoseconds on the wire)
+	lock   bool      // kUnsupported struct holding a lock: by pointer it is a handle
 	// kFunc: Go keeps the function past the call (retainedFuncs, a Dart
 	// implementation of an interface): WIRE.md, "Retained callback"
 	retained bool
@@ -274,6 +275,10 @@ func (m *model) fill(ti *tinfo) {
 			return
 		}
 		inner := m.classify(n)
+		if inner.lock { // *sync.Mutex, *tls.Config: the handle, never copied
+			ti.k, ti.named = kHandle, n
+			return
+		}
 		switch inner.k {
 		case kDTO, kValue:
 			*ti = *inner
@@ -445,6 +450,11 @@ func (m *model) fillInterface(ti *tinfo, n *types.Named, u *types.Interface) {
 // Struct com campo não exportado é handle; senão DTO (campos que não
 // atravessam ficam de fora, registrados no API.md).
 func (m *model) fillStruct(ti *tinfo, n *types.Named, u *types.Struct) {
+	if hasLock(n) {
+		unsupported(ti, "%s holds a lock: Go does not copy it", objKey(n.Obj()))
+		ti.lock = true
+		return
+	}
 	if handleTypes[objKey(n.Obj())] || m.newTypes[objKey(n.Obj())] {
 		ti.k = kHandle
 		return
@@ -479,6 +489,32 @@ func (m *model) fillStruct(ti *tinfo, n *types.Named, u *types.Struct) {
 		}
 		ti.fields = append(ti.fields, fd)
 	}
+}
+
+// hasLock: t holds a lock by value (go vet's copylocks: a type whose pointer
+// has Lock and Unlock, as sync.Mutex and sync.Pool's noCopy, in a field or
+// an array element).
+func hasLock(t types.Type) bool {
+	if _, ok := t.Underlying().(*types.Interface); ok {
+		return false
+	}
+	if _, ok := t.(*types.Named); ok {
+		ms := types.NewMethodSet(types.NewPointer(t))
+		if ms.Lookup(nil, "Lock") != nil && ms.Lookup(nil, "Unlock") != nil {
+			return true
+		}
+	}
+	switch u := t.Underlying().(type) {
+	case *types.Struct:
+		for i := 0; i < u.NumFields(); i++ {
+			if hasLock(u.Field(i).Type()) {
+				return true
+			}
+		}
+	case *types.Array:
+		return hasLock(u.Elem())
+	}
+	return false
 }
 
 // funcParam: parâmetro de tipo função (sem nome, ou nomeado como

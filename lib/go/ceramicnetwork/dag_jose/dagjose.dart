@@ -28,7 +28,7 @@ final class DagJoseDagjoseDecodeOptions implements GoDto {
   /// Go: `func (dagjose.DecodeOptions).Decode(na datamodel.NodeAssembler, r io.Reader) error`.
   void decode($datamodel.IpldPrimeDatamodelNodeAssembler na, Object r) {
     $callSync(
-        4245,
+        4254,
         $W()
           ..dto(this)
           ..h(na)
@@ -38,7 +38,7 @@ final class DagJoseDagjoseDecodeOptions implements GoDto {
   /// Go: `func (dagjose.DecodeOptions).DecodeJWE(na datamodel.NodeAssembler, r io.Reader) error`.
   void decodeJwe($datamodel.IpldPrimeDatamodelNodeAssembler na, Object r) {
     $callSync(
-        4246,
+        4255,
         $W()
           ..dto(this)
           ..h(na)
@@ -48,7 +48,7 @@ final class DagJoseDagjoseDecodeOptions implements GoDto {
   /// Go: `func (dagjose.DecodeOptions).DecodeJWS(na datamodel.NodeAssembler, r io.Reader) error`.
   void decodeJws($datamodel.IpldPrimeDatamodelNodeAssembler na, Object r) {
     $callSync(
-        4247,
+        4256,
         $W()
           ..dto(this)
           ..h(na)
@@ -76,7 +76,7 @@ class DagJoseDagjoseDecodedRecipientsItr extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*dagjose.DecodedRecipients__Itr).Done() bool`.
   bool done() {
-    final $r = $callSync(4248, $W()..h(this));
+    final $r = $callSync(4257, $W()..h(this));
     return $r.b();
   }
 }
@@ -101,7 +101,7 @@ class DagJoseDagjoseDecodedSignaturesItr extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*dagjose.DecodedSignatures__Itr).Done() bool`.
   bool done() {
-    final $r = $callSync(4249, $W()..h(this));
+    final $r = $callSync(4258, $W()..h(this));
     return $r.b();
   }
 }
@@ -126,7 +126,7 @@ class DagJoseDagjoseEncodedRecipientsItr extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*dagjose.EncodedRecipients__Itr).Done() bool`.
   bool done() {
-    final $r = $callSync(4253, $W()..h(this));
+    final $r = $callSync(4262, $W()..h(this));
     return $r.b();
   }
 }
@@ -151,7 +151,7 @@ class DagJoseDagjoseEncodedSignaturesItr extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*dagjose.EncodedSignatures__Itr).Done() bool`.
   bool done() {
-    final $r = $callSync(4254, $W()..h(this));
+    final $r = $callSync(4263, $W()..h(this));
     return $r.b();
   }
 }
@@ -176,7 +176,7 @@ class DagJoseDagjoseListItr extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*dagjose.List__Itr).Done() bool`.
   bool done() {
-    final $r = $callSync(4255, $W()..h(this));
+    final $r = $callSync(4264, $W()..h(this));
     return $r.b();
   }
 }
@@ -201,7 +201,7 @@ class DagJoseDagjoseMapItr extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*dagjose.Map__Itr).Done() bool`.
   bool done() {
-    final $r = $callSync(4256, $W()..h(this));
+    final $r = $callSync(4265, $W()..h(this));
     return $r.b();
   }
 }
@@ -211,7 +211,7 @@ extension GoCeramicnetworkDagJoseDagjoseApi on GoCeramicnetworkDagJoseDagjose {
   /// Go: `func dagjose.Decode(na datamodel.NodeAssembler, r io.Reader) error`.
   void decode($datamodel.IpldPrimeDatamodelNodeAssembler na, Object r) {
     $callSync(
-        4244,
+        4253,
         $W()
           ..h(na)
           ..reader(r));
@@ -220,7 +220,7 @@ extension GoCeramicnetworkDagJoseDagjoseApi on GoCeramicnetworkDagJoseDagjose {
   /// Go: `func dagjose.Encode(n datamodel.Node, w io.Writer) error`.
   void encode($datamodel.IpldPrimeDatamodelNode n, GoHandle? w) {
     $callSync(
-        4250,
+        4259,
         $W()
           ..h(n)
           ..h(w));
@@ -229,7 +229,7 @@ extension GoCeramicnetworkDagJoseDagjoseApi on GoCeramicnetworkDagJoseDagjose {
   /// Go: `func dagjose.EncodeJWE(n datamodel.Node, w io.Writer) error`.
   void encodeJwe($datamodel.IpldPrimeDatamodelNode n, GoHandle? w) {
     $callSync(
-        4251,
+        4260,
         $W()
           ..h(n)
           ..h(w));
@@ -238,7 +238,7 @@ extension GoCeramicnetworkDagJoseDagjoseApi on GoCeramicnetworkDagJoseDagjose {
   /// Go: `func dagjose.EncodeJWS(n datamodel.Node, w io.Writer) error`.
   void encodeJws($datamodel.IpldPrimeDatamodelNode n, GoHandle? w) {
     $callSync(
-        4252,
+        4261,
         $W()
           ..h(n)
           ..h(w));

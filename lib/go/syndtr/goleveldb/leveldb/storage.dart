@@ -5,6 +5,7 @@ library;
 import 'package:p2p_ffi/src/go.dart'
     show GoSyndtrGoleveldbLeveldbStorage, GoSyndtrGoleveldbLeveldbStorageEnums;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/Jorropo/jsync.dart' as $jsync;
 import 'package:p2p_ffi/go/dgraph_io/badger.dart' as $badger;
 import 'package:p2p_ffi/go/dgraph_io/badger/table.dart' as $table;
 import 'package:p2p_ffi/go/facebookgo/atomicfile.dart' as $atomicfile;
@@ -43,13 +44,13 @@ final class GoleveldbLeveldbStorageFileDesc implements GoDto {
 
   /// Go: `func (storage.FileDesc).String() string`.
   String string() {
-    final $r = $callSync(18775, $W()..dto(this));
+    final $r = $callSync(18781, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (storage.FileDesc).Zero() bool`.
   bool zero() {
-    final $r = $callSync(18776, $W()..dto(this));
+    final $r = $callSync(18782, $W()..dto(this));
     return $r.b();
   }
 }
@@ -64,78 +65,90 @@ class GoleveldbLeveldbStorageLocker extends GoHandle
 mixin GoleveldbLeveldbStorageLocker$ on GoHandle {
   /// Go: `func (storage.Locker).Unlock()`.
   void unlock() {
-    $callSync(18778, $W()..h(this));
+    $callSync(18784, $W()..h(this));
+  }
+
+  /// Go: type assertion `x.(*jsync.NoCopy)`: null if the object is not one.
+  $jsync.JsyncNoCopy? asJsyncNoCopy() {
+    final $r = $callSync(1952, $W()..h(this));
+    return $r.hn($jsync.JsyncNoCopy.$h);
   }
 
   /// Go: type assertion `x.(*badger.DB)`: null if the object is not one.
   $badger.BadgerDb? asBadgerDb() {
-    final $r = $callSync(1947, $W()..h(this));
+    final $r = $callSync(1953, $W()..h(this));
     return $r.hn($badger.BadgerDb.$h);
   }
 
   /// Go: type assertion `x.(*badger.MergeOperator)`: null if the object is not one.
   $badger.BadgerMergeOperator? asBadgerMergeOperator() {
-    final $r = $callSync(1948, $W()..h(this));
+    final $r = $callSync(1954, $W()..h(this));
     return $r.hn($badger.BadgerMergeOperator.$h);
   }
 
   /// Go: type assertion `x.(*badger.Sequence)`: null if the object is not one.
   $badger.BadgerSequence? asBadgerSequence() {
-    final $r = $callSync(1949, $W()..h(this));
+    final $r = $callSync(1955, $W()..h(this));
     return $r.hn($badger.BadgerSequence.$h);
   }
 
   /// Go: type assertion `x.(*badger.WriteBatch)`: null if the object is not one.
   $badger.BadgerWriteBatch? asBadgerWriteBatch() {
-    final $r = $callSync(1950, $W()..h(this));
+    final $r = $callSync(1956, $W()..h(this));
     return $r.hn($badger.BadgerWriteBatch.$h);
   }
 
   /// Go: type assertion `x.(*table.Table)`: null if the object is not one.
   $table.BadgerTable? asBadgerTable() {
-    final $r = $callSync(1951, $W()..h(this));
+    final $r = $callSync(1957, $W()..h(this));
     return $r.hn($table.BadgerTable.$h);
   }
 
   /// Go: type assertion `x.(*sync.MutexDatastore)`: null if the object is not one.
   $sync.DatastoreSyncMutexDatastore? asDatastoreSyncMutexDatastore() {
-    final $r = $callSync(1952, $W()..h(this));
+    final $r = $callSync(1958, $W()..h(this));
     return $r.hn($sync.DatastoreSyncMutexDatastore.$h);
+  }
+
+  /// Go: type assertion `x.(*p2p.Listeners)`: null if the object is not one.
+  $p2p.KuboP2pListeners? asKuboP2pListeners() {
+    final $r = $callSync(1959, $W()..h(this));
+    return $r.hn($p2p.KuboP2pListeners.$h);
   }
 
   /// Go: type assertion `x.(*p2p.StreamRegistry)`: null if the object is not one.
   $p2p.KuboP2pStreamRegistry? asKuboP2pStreamRegistry() {
-    final $r = $callSync(1953, $W()..h(this));
+    final $r = $callSync(1960, $W()..h(this));
     return $r.hn($p2p.KuboP2pStreamRegistry.$h);
   }
 
   /// Go: type assertion `x.(*ipv4.PacketConn)`: null if the object is not one.
   $ipv4.NetIpv4PacketConn? asNetIpv4PacketConn() {
-    final $r = $callSync(1954, $W()..h(this));
+    final $r = $callSync(1961, $W()..h(this));
     return $r.hn($ipv4.NetIpv4PacketConn.$h);
   }
 
   /// Go: type assertion `x.(*ipv4.RawConn)`: null if the object is not one.
   $ipv4.NetIpv4RawConn? asNetIpv4RawConn() {
-    final $r = $callSync(1955, $W()..h(this));
+    final $r = $callSync(1962, $W()..h(this));
     return $r.hn($ipv4.NetIpv4RawConn.$h);
   }
 
   /// Go: type assertion `x.(*ipv6.PacketConn)`: null if the object is not one.
   $ipv6.NetIpv6PacketConn? asNetIpv6PacketConn() {
-    final $r = $callSync(1956, $W()..h(this));
+    final $r = $callSync(1963, $W()..h(this));
     return $r.hn($ipv6.NetIpv6PacketConn.$h);
   }
 
   /// Go: type assertion `x.(*sync.Mutex)`: null if the object is not one.
   $sync2.SyncMutex? asSyncMutex() {
-    final $r = $callSync(1957, $W()..h(this));
+    final $r = $callSync(1964, $W()..h(this));
     return $r.hn($sync2.SyncMutex.$h);
   }
 
   /// Go: type assertion `x.(*sync.RWMutex)`: null if the object is not one.
   $sync2.SyncRwMutex? asSyncRwMutex() {
-    final $r = $callSync(1958, $W()..h(this));
+    final $r = $callSync(1965, $W()..h(this));
     return $r.hn($sync2.SyncRwMutex.$h);
   }
 }
@@ -154,13 +167,13 @@ class GoleveldbLeveldbStorage extends GoHandle with GoleveldbLeveldbStorage$ {
 mixin GoleveldbLeveldbStorage$ on GoHandle {
   /// Go: `func (storage.Storage).Close() error`.
   void close() {
-    $callSync(18781, $W()..h(this));
+    $callSync(18787, $W()..h(this));
   }
 
   /// Go: `func (storage.Storage).Create(fd storage.FileDesc) (storage.Writer, error)`.
   GoleveldbLeveldbStorageWriter create(GoleveldbLeveldbStorageFileDesc fd) {
     final $r = $callSync(
-        18782,
+        18788,
         $W()
           ..h(this)
           ..dto(fd));
@@ -169,14 +182,14 @@ mixin GoleveldbLeveldbStorage$ on GoHandle {
 
   /// Go: `func (storage.Storage).GetMeta() (storage.FileDesc, error)`.
   GoleveldbLeveldbStorageFileDesc getMeta() {
-    final $r = $callSync(18783, $W()..h(this));
+    final $r = $callSync(18789, $W()..h(this));
     return $r.p() ? GoleveldbLeveldbStorageFileDesc.$dec($r) : $nil();
   }
 
   /// Go: `func (storage.Storage).List(ft storage.FileType) ([]storage.FileDesc, error)`.
   List<GoleveldbLeveldbStorageFileDesc> list(int ft) {
     final $r = $callSync(
-        18784,
+        18790,
         $W()
           ..h(this)
           ..i64(ft));
@@ -186,14 +199,14 @@ mixin GoleveldbLeveldbStorage$ on GoHandle {
 
   /// Go: `func (storage.Storage).Lock() (storage.Locker, error)`.
   GoleveldbLeveldbStorageLocker lock() {
-    final $r = $callSync(18785, $W()..h(this));
+    final $r = $callSync(18791, $W()..h(this));
     return $r.hnn(GoleveldbLeveldbStorageLocker.$h);
   }
 
   /// Go: `func (storage.Storage).Log(str string)`.
   void log(String str) {
     $callSync(
-        18786,
+        18792,
         $W()
           ..h(this)
           ..str(str));
@@ -202,7 +215,7 @@ mixin GoleveldbLeveldbStorage$ on GoHandle {
   /// Go: `func (storage.Storage).Open(fd storage.FileDesc) (storage.Reader, error)`.
   GoleveldbLeveldbStorageReader open(GoleveldbLeveldbStorageFileDesc fd) {
     final $r = $callSync(
-        18787,
+        18793,
         $W()
           ..h(this)
           ..dto(fd));
@@ -212,7 +225,7 @@ mixin GoleveldbLeveldbStorage$ on GoHandle {
   /// Go: `func (storage.Storage).Remove(fd storage.FileDesc) error`.
   void remove(GoleveldbLeveldbStorageFileDesc fd) {
     $callSync(
-        18788,
+        18794,
         $W()
           ..h(this)
           ..dto(fd));
@@ -222,7 +235,7 @@ mixin GoleveldbLeveldbStorage$ on GoHandle {
   void rename(GoleveldbLeveldbStorageFileDesc oldfd,
       GoleveldbLeveldbStorageFileDesc newfd) {
     $callSync(
-        18789,
+        18795,
         $W()
           ..h(this)
           ..dto(oldfd)
@@ -232,7 +245,7 @@ mixin GoleveldbLeveldbStorage$ on GoHandle {
   /// Go: `func (storage.Storage).SetMeta(fd storage.FileDesc) error`.
   void setMeta(GoleveldbLeveldbStorageFileDesc fd) {
     $callSync(
-        18790,
+        18796,
         $W()
           ..h(this)
           ..dto(fd));
@@ -250,20 +263,20 @@ class GoleveldbLeveldbStorageWriter extends GoHandle
 mixin GoleveldbLeveldbStorageWriter$ on GoHandle {
   /// Go: type assertion `x.(*atomicfile.File)`: null if the object is not one.
   $atomicfile.AtomicfileFile? asAtomicfileFile() {
-    final $r = $callSync(1959, $W()..h(this));
+    final $r = $callSync(1966, $W()..h(this));
     return $r.hn($atomicfile.AtomicfileFile.$h);
   }
 
   /// Go: type assertion `x.(*atomicfile.File)`: null if the object is not one.
   $atomicfile2.KuboRepoFsrepoMigrationsAtomicfileFile?
       asKuboRepoFsrepoMigrationsAtomicfileFile() {
-    final $r = $callSync(1960, $W()..h(this));
+    final $r = $callSync(1967, $W()..h(this));
     return $r.hn($atomicfile2.KuboRepoFsrepoMigrationsAtomicfileFile.$h);
   }
 
   /// Go: type assertion `x.(*os.File)`: null if the object is not one.
   $os.OsFile? asOsFile() {
-    final $r = $callSync(1961, $W()..h(this));
+    final $r = $callSync(1968, $W()..h(this));
     return $r.hn($os.OsFile.$h);
   }
 }
@@ -309,20 +322,20 @@ extension GoSyndtrGoleveldbLeveldbStorageApi
     on GoSyndtrGoleveldbLeveldbStorage {
   /// Go: `func storage.FileDescOk(fd storage.FileDesc) bool`.
   bool fileDescOk(GoleveldbLeveldbStorageFileDesc fd) {
-    final $r = $callSync(18777, $W()..dto(fd));
+    final $r = $callSync(18783, $W()..dto(fd));
     return $r.b();
   }
 
   /// Go: `func storage.NewMemStorage() storage.Storage`.
   GoleveldbLeveldbStorage newMemStorage() {
-    final $r = $callSync(18779);
+    final $r = $callSync(18785);
     return $r.hnn(GoleveldbLeveldbStorage.$h);
   }
 
   /// Go: `func storage.OpenFile(path string, readOnly bool) (storage.Storage, error)`.
   GoleveldbLeveldbStorage openFile(String path, bool readOnly) {
     final $r = $callSync(
-        18780,
+        18786,
         $W()
           ..str(path)
           ..b(readOnly));

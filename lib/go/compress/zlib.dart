@@ -24,7 +24,7 @@ mixin CompressZlibResetter$ on GoHandle {
   /// Go: `func (zlib.Resetter).Reset(r io.Reader, dict []byte) error`.
   void reset(Object r, Uint8List dict) {
     $callSync(
-        3084,
+        3093,
         $W()
           ..h(this)
           ..reader(r)
@@ -56,24 +56,24 @@ class CompressZlibWriter extends $io.IoCloser
 
   /// Go: `func zlib.NewWriter(w io.Writer) *zlib.Writer`.
   factory CompressZlibWriter(GoHandle? w) {
-    final $r = $callSync(3081, $W()..h(w));
+    final $r = $callSync(3090, $W()..h(w));
     return $r.hnn(CompressZlibWriter.$h);
   }
 
   /// Go: `func (*zlib.Writer).Close() error`.
   void close() {
-    $callSync(3085, $W()..h(this));
+    $callSync(3094, $W()..h(this));
   }
 
   /// Go: `func (*zlib.Writer).Flush() error`.
   void flush() {
-    $callSync(3086, $W()..h(this));
+    $callSync(3095, $W()..h(this));
   }
 
   /// Go: `func (*zlib.Writer).Reset(w io.Writer)`.
   void reset(GoHandle? w) {
     $callSync(
-        3087,
+        3096,
         $W()
           ..h(this)
           ..h(w));
@@ -82,7 +82,7 @@ class CompressZlibWriter extends $io.IoCloser
   /// Go: `func (*zlib.Writer).Write(p []byte) (n int, err error)`.
   int write(Uint8List p) {
     final $r = $callSync(
-        3088,
+        3097,
         $W()
           ..h(this)
           ..bytes(p));
@@ -121,14 +121,14 @@ class CompressZlibErrHeader extends GolangException {
 extension GoCompressZlibApi on GoCompressZlib {
   /// Go: `func zlib.NewReader(r io.Reader) (io.ReadCloser, error)`.
   $io.IoReadCloser newReader(Object r) {
-    final $r = $callSync(3079, $W()..reader(r));
+    final $r = $callSync(3088, $W()..reader(r));
     return $r.hnn($io.IoReadCloser.$h);
   }
 
   /// Go: `func zlib.NewReaderDict(r io.Reader, dict []byte) (io.ReadCloser, error)`.
   $io.IoReadCloser newReaderDict(Object r, Uint8List dict) {
     final $r = $callSync(
-        3080,
+        3089,
         $W()
           ..reader(r)
           ..bytes(dict));
@@ -138,7 +138,7 @@ extension GoCompressZlibApi on GoCompressZlib {
   /// Go: `func zlib.NewWriterLevel(w io.Writer, level int) (*zlib.Writer, error)`.
   CompressZlibWriter newWriterLevel(GoHandle? w, int level) {
     final $r = $callSync(
-        3082,
+        3091,
         $W()
           ..h(w)
           ..i64(level));
@@ -149,7 +149,7 @@ extension GoCompressZlibApi on GoCompressZlib {
   CompressZlibWriter newWriterLevelDict(
       GoHandle? w, int level, Uint8List dict) {
     final $r = $callSync(
-        3083,
+        3092,
         $W()
           ..h(w)
           ..i64(level)

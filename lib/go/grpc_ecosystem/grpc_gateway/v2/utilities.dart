@@ -41,7 +41,7 @@ final class GrpcGatewayV2UtilitiesDoubleArray implements GoDto {
   /// Go: `func (*utilities.DoubleArray).HasCommonPrefix(seq []string) bool`.
   bool hasCommonPrefix(List<String> seq) {
     final $r = $callSync(
-        8250,
+        8259,
         $W()
           ..dto(this)
           ..list(seq, (w0, e0) => w0.str(e0)));
@@ -54,7 +54,7 @@ extension GoGrpcEcosystemGrpcGatewayV2UtilitiesApi
     on GoGrpcEcosystemGrpcGatewayV2Utilities {
   /// Go: `func utilities.NewDoubleArray(seqs [][]string) *utilities.DoubleArray`.
   GrpcGatewayV2UtilitiesDoubleArray newDoubleArray(List<List<String>> seqs) {
-    final $r = $callSync(8251,
+    final $r = $callSync(8260,
         $W()..list(seqs, (w0, e0) => w0.list(e0, (w1, e1) => w1.str(e1))));
     return $r.p() ? GrpcGatewayV2UtilitiesDoubleArray.$dec($r) : $nil();
   }

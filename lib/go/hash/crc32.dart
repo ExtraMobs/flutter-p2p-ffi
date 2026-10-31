@@ -12,13 +12,13 @@ import 'package:p2p_ffi/go/hash.dart' as $hash;
 extension GoHashCrc32Api on GoHashCrc32 {
   /// Go: `func crc32.ChecksumIEEE(data []byte) uint32`.
   int checksumIeee(Uint8List data) {
-    final $r = $callSync(25648, $W()..bytes(data));
+    final $r = $callSync(25654, $W()..bytes(data));
     return $r.i64();
   }
 
   /// Go: `func crc32.NewIEEE() hash.Hash32`.
   $hash.HashHash32 newIeee() {
-    final $r = $callSync(25649);
+    final $r = $callSync(25655);
     return $r.hnn($hash.HashHash32.$h);
   }
 }

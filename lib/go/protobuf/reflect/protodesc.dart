@@ -31,7 +31,7 @@ final class ProtobufReflectProtodescFileOptions implements GoDto {
       $descriptorpb.ProtobufTypesDescriptorpbFileDescriptorProto fd,
       ProtobufReflectProtodescResolver r) {
     final $r = $callSync(
-        24802,
+        24808,
         $W()
           ..dto(this)
           ..h(fd)
@@ -43,7 +43,7 @@ final class ProtobufReflectProtodescFileOptions implements GoDto {
   $protoregistry.ProtobufReflectProtoregistryFiles newFiles(
       $descriptorpb.ProtobufTypesDescriptorpbFileDescriptorSet fds) {
     final $r = $callSync(
-        24803,
+        24809,
         $W()
           ..dto(this)
           ..h(fds));
@@ -63,7 +63,7 @@ mixin ProtobufReflectProtodescResolver$ on GoHandle {
   $protoreflect.ProtobufReflectProtoreflectDescriptor findDescriptorByName(
       String arg0) {
     final $r = $callSync(
-        24806,
+        24812,
         $W()
           ..h(this)
           ..str(arg0));
@@ -74,7 +74,7 @@ mixin ProtobufReflectProtodescResolver$ on GoHandle {
   $protoreflect.ProtobufReflectProtoreflectFileDescriptor findFileByPath(
       String arg0) {
     final $r = $callSync(
-        24807,
+        24813,
         $W()
           ..h(this)
           ..str(arg0));
@@ -84,7 +84,7 @@ mixin ProtobufReflectProtodescResolver$ on GoHandle {
   /// Go: type assertion `x.(*protoregistry.Files)`: null if the object is not one.
   $protoregistry.ProtobufReflectProtoregistryFiles?
       asProtobufReflectProtoregistryFiles() {
-    final $r = $callSync(2182, $W()..h(this));
+    final $r = $callSync(2189, $W()..h(this));
     return $r.hn($protoregistry.ProtobufReflectProtoregistryFiles.$h);
   }
 }
@@ -96,7 +96,7 @@ extension GoProtobufReflectProtodescApi on GoProtobufReflectProtodesc {
       $descriptorpb.ProtobufTypesDescriptorpbFileDescriptorProto fd,
       ProtobufReflectProtodescResolver r) {
     final $r = $callSync(
-        24804,
+        24810,
         $W()
           ..h(fd)
           ..h(r));
@@ -106,14 +106,14 @@ extension GoProtobufReflectProtodescApi on GoProtobufReflectProtodesc {
   /// Go: `func protodesc.NewFiles(fd *descriptorpb.FileDescriptorSet) (*protoregistry.Files, error)`.
   $protoregistry.ProtobufReflectProtoregistryFiles newFiles(
       $descriptorpb.ProtobufTypesDescriptorpbFileDescriptorSet fd) {
-    final $r = $callSync(24805, $W()..h(fd));
+    final $r = $callSync(24811, $W()..h(fd));
     return $r.hnn($protoregistry.ProtobufReflectProtoregistryFiles.$h);
   }
 
   /// Go: `func protodesc.ToDescriptorProto(message protoreflect.MessageDescriptor) *descriptorpb.DescriptorProto`.
   $descriptorpb.ProtobufTypesDescriptorpbDescriptorProto toDescriptorProto(
       $protoreflect.ProtobufReflectProtoreflectMessageDescriptor message) {
-    final $r = $callSync(24808, $W()..h(message));
+    final $r = $callSync(24814, $W()..h(message));
     return $r.hnn($descriptorpb.ProtobufTypesDescriptorpbDescriptorProto.$h);
   }
 
@@ -121,7 +121,7 @@ extension GoProtobufReflectProtodescApi on GoProtobufReflectProtodesc {
   $descriptorpb.ProtobufTypesDescriptorpbEnumDescriptorProto
       toEnumDescriptorProto(
           $protoreflect.ProtobufReflectProtoreflectEnumDescriptor enum$) {
-    final $r = $callSync(24809, $W()..h(enum$));
+    final $r = $callSync(24815, $W()..h(enum$));
     return $r
         .hnn($descriptorpb.ProtobufTypesDescriptorpbEnumDescriptorProto.$h);
   }
@@ -130,7 +130,7 @@ extension GoProtobufReflectProtodescApi on GoProtobufReflectProtodesc {
   $descriptorpb.ProtobufTypesDescriptorpbEnumValueDescriptorProto
       toEnumValueDescriptorProto(
           $protoreflect.ProtobufReflectProtoreflectEnumValueDescriptor value) {
-    final $r = $callSync(24810, $W()..h(value));
+    final $r = $callSync(24816, $W()..h(value));
     return $r.hnn(
         $descriptorpb.ProtobufTypesDescriptorpbEnumValueDescriptorProto.$h);
   }
@@ -139,7 +139,7 @@ extension GoProtobufReflectProtodescApi on GoProtobufReflectProtodesc {
   $descriptorpb.ProtobufTypesDescriptorpbFieldDescriptorProto
       toFieldDescriptorProto(
           $protoreflect.ProtobufReflectProtoreflectFieldDescriptor field) {
-    final $r = $callSync(24811, $W()..h(field));
+    final $r = $callSync(24817, $W()..h(field));
     return $r
         .hnn($descriptorpb.ProtobufTypesDescriptorpbFieldDescriptorProto.$h);
   }
@@ -148,7 +148,7 @@ extension GoProtobufReflectProtodescApi on GoProtobufReflectProtodesc {
   $descriptorpb.ProtobufTypesDescriptorpbFileDescriptorProto
       toFileDescriptorProto(
           $protoreflect.ProtobufReflectProtoreflectFileDescriptor file) {
-    final $r = $callSync(24812, $W()..h(file));
+    final $r = $callSync(24818, $W()..h(file));
     return $r
         .hnn($descriptorpb.ProtobufTypesDescriptorpbFileDescriptorProto.$h);
   }
@@ -157,7 +157,7 @@ extension GoProtobufReflectProtodescApi on GoProtobufReflectProtodesc {
   $descriptorpb.ProtobufTypesDescriptorpbMethodDescriptorProto
       toMethodDescriptorProto(
           $protoreflect.ProtobufReflectProtoreflectMethodDescriptor method) {
-    final $r = $callSync(24813, $W()..h(method));
+    final $r = $callSync(24819, $W()..h(method));
     return $r
         .hnn($descriptorpb.ProtobufTypesDescriptorpbMethodDescriptorProto.$h);
   }
@@ -166,7 +166,7 @@ extension GoProtobufReflectProtodescApi on GoProtobufReflectProtodesc {
   $descriptorpb.ProtobufTypesDescriptorpbOneofDescriptorProto
       toOneofDescriptorProto(
           $protoreflect.ProtobufReflectProtoreflectOneofDescriptor oneof) {
-    final $r = $callSync(24814, $W()..h(oneof));
+    final $r = $callSync(24820, $W()..h(oneof));
     return $r
         .hnn($descriptorpb.ProtobufTypesDescriptorpbOneofDescriptorProto.$h);
   }
@@ -175,7 +175,7 @@ extension GoProtobufReflectProtodescApi on GoProtobufReflectProtodesc {
   $descriptorpb.ProtobufTypesDescriptorpbServiceDescriptorProto
       toServiceDescriptorProto(
           $protoreflect.ProtobufReflectProtoreflectServiceDescriptor service) {
-    final $r = $callSync(24815, $W()..h(service));
+    final $r = $callSync(24821, $W()..h(service));
     return $r
         .hnn($descriptorpb.ProtobufTypesDescriptorpbServiceDescriptorProto.$h);
   }

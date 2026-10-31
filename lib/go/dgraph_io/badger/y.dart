@@ -40,14 +40,14 @@ class BadgerYCloser extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func y.NewCloser(initial int) *y.Closer`.
   factory BadgerYCloser(int initial) {
-    final $r = $callSync(6142, $W()..i64(initial));
+    final $r = $callSync(6151, $W()..i64(initial));
     return $r.hnn(BadgerYCloser.$h);
   }
 
   /// Go: `func (*y.Closer).AddRunning(delta int)`.
   void addRunning(int delta) {
     $callSync(
-        6120,
+        6129,
         $W()
           ..h(this)
           ..i64(delta));
@@ -55,22 +55,22 @@ class BadgerYCloser extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*y.Closer).Done()`.
   void done() {
-    $callSync(6121, $W()..h(this));
+    $callSync(6130, $W()..h(this));
   }
 
   /// Go: `func (*y.Closer).Signal()`.
   void signal() {
-    $callSync(6122, $W()..h(this));
+    $callSync(6131, $W()..h(this));
   }
 
   /// Go: `func (*y.Closer).SignalAndWait()`.
   void signalAndWait() {
-    $callSync(6123, $W()..h(this));
+    $callSync(6132, $W()..h(this));
   }
 
   /// Go: `func (*y.Closer).Wait()`.
   void wait() {
-    $callSync(6124, $W()..h(this));
+    $callSync(6133, $W()..h(this));
   }
 }
 
@@ -83,29 +83,29 @@ class BadgerYIterator extends GoHandle with BadgerYIterator$ {
 mixin BadgerYIterator$ on GoHandle {
   /// Go: `func (y.Iterator).Close() error`.
   void close() {
-    $callSync(6130, $W()..h(this));
+    $callSync(6139, $W()..h(this));
   }
 
   /// Go: `func (y.Iterator).Key() []byte`.
   Uint8List key() {
-    final $r = $callSync(6131, $W()..h(this));
+    final $r = $callSync(6140, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (y.Iterator).Next()`.
   void next() {
-    $callSync(6132, $W()..h(this));
+    $callSync(6141, $W()..h(this));
   }
 
   /// Go: `func (y.Iterator).Rewind()`.
   void rewind() {
-    $callSync(6133, $W()..h(this));
+    $callSync(6142, $W()..h(this));
   }
 
   /// Go: `func (y.Iterator).Seek(key []byte)`.
   void seek(Uint8List key) {
     $callSync(
-        6134,
+        6143,
         $W()
           ..h(this)
           ..bytes(key));
@@ -113,37 +113,37 @@ mixin BadgerYIterator$ on GoHandle {
 
   /// Go: `func (y.Iterator).Valid() bool`.
   bool valid() {
-    final $r = $callSync(6135, $W()..h(this));
+    final $r = $callSync(6144, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (y.Iterator).Value() y.ValueStruct`.
   BadgerYValueStruct value$() {
-    final $r = $callSync(6136, $W()..h(this));
+    final $r = $callSync(6145, $W()..h(this));
     return $r.p() ? BadgerYValueStruct.$dec($r) : $nil();
   }
 
   /// Go: type assertion `x.(*skl.UniIterator)`: null if the object is not one.
   $skl.BadgerSklUniIterator? asBadgerSklUniIterator() {
-    final $r = $callSync(434, $W()..h(this));
+    final $r = $callSync(437, $W()..h(this));
     return $r.hn($skl.BadgerSklUniIterator.$h);
   }
 
   /// Go: type assertion `x.(*table.ConcatIterator)`: null if the object is not one.
   $table.BadgerTableConcatIterator? asBadgerTableConcatIterator() {
-    final $r = $callSync(435, $W()..h(this));
+    final $r = $callSync(438, $W()..h(this));
     return $r.hn($table.BadgerTableConcatIterator.$h);
   }
 
   /// Go: type assertion `x.(*table.Iterator)`: null if the object is not one.
   $table.BadgerTableIterator? asBadgerTableIterator() {
-    final $r = $callSync(436, $W()..h(this));
+    final $r = $callSync(439, $W()..h(this));
     return $r.hn($table.BadgerTableIterator.$h);
   }
 
   /// Go: type assertion `x.(*table.MergeIterator)`: null if the object is not one.
   $table.BadgerTableMergeIterator? asBadgerTableMergeIterator() {
-    final $r = $callSync(437, $W()..h(this));
+    final $r = $callSync(440, $W()..h(this));
     return $r.hn($table.BadgerTableMergeIterator.$h);
   }
 }
@@ -169,7 +169,7 @@ class BadgerYSlice extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*y.Slice).Resize(sz int) []byte`.
   Uint8List resize(int sz) {
     final $r = $callSync(
-        6163,
+        6172,
         $W()
           ..h(this)
           ..i64(sz));
@@ -197,18 +197,18 @@ class BadgerYThrottle extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func y.NewThrottle(max int) *y.Throttle`.
   factory BadgerYThrottle(int max) {
-    final $r = $callSync(6143, $W()..i64(max));
+    final $r = $callSync(6152, $W()..i64(max));
     return $r.hnn(BadgerYThrottle.$h);
   }
 
   /// Go: `func (*y.Throttle).Do() error`.
   void do$() {
-    $callSync(6164, $W()..h(this));
+    $callSync(6173, $W()..h(this));
   }
 
   /// Go: `func (*y.Throttle).Finish() error`.
   void finish() {
-    $callSync(6165, $W()..h(this));
+    $callSync(6174, $W()..h(this));
   }
 }
 
@@ -267,7 +267,7 @@ final class BadgerYValueStruct implements GoDto {
   /// Go: `func (*y.ValueStruct).Decode(b []byte)`.
   void decode(Uint8List b) {
     $callSync(
-        6166,
+        6175,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -276,7 +276,7 @@ final class BadgerYValueStruct implements GoDto {
   /// Go: `func (*y.ValueStruct).Encode(b []byte)`.
   void encode(Uint8List b) {
     $callSync(
-        6167,
+        6176,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -285,7 +285,7 @@ final class BadgerYValueStruct implements GoDto {
   /// Go: `func (*y.ValueStruct).EncodeTo(buf *bytes.Buffer)`.
   void encodeTo($bytes.BytesBuffer buf) {
     $callSync(
-        6168,
+        6177,
         $W()
           ..dto(this)
           ..h(buf));
@@ -293,7 +293,7 @@ final class BadgerYValueStruct implements GoDto {
 
   /// Go: `func (*y.ValueStruct).EncodedSize() uint16`.
   int encodedSize() {
-    final $r = $callSync(6169, $W()..dto(this));
+    final $r = $callSync(6178, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -319,7 +319,7 @@ class BadgerYWaterMark extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*y.WaterMark).Begin(index uint64)`.
   void begin(int index) {
     $callSync(
-        6171,
+        6180,
         $W()
           ..h(this)
           ..i64(index));
@@ -328,7 +328,7 @@ class BadgerYWaterMark extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*y.WaterMark).BeginMany(indices []uint64)`.
   void beginMany(List<int> indices) {
     $callSync(
-        6172,
+        6181,
         $W()
           ..h(this)
           ..list(indices, (w0, e0) => w0.i64(e0)));
@@ -337,7 +337,7 @@ class BadgerYWaterMark extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*y.WaterMark).Done(index uint64)`.
   void done(int index) {
     $callSync(
-        6173,
+        6182,
         $W()
           ..h(this)
           ..i64(index));
@@ -346,7 +346,7 @@ class BadgerYWaterMark extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*y.WaterMark).DoneMany(indices []uint64)`.
   void doneMany(List<int> indices) {
     $callSync(
-        6174,
+        6183,
         $W()
           ..h(this)
           ..list(indices, (w0, e0) => w0.i64(e0)));
@@ -354,14 +354,14 @@ class BadgerYWaterMark extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*y.WaterMark).DoneUntil() uint64`.
   int doneUntil() {
-    final $r = $callSync(6175, $W()..h(this));
+    final $r = $callSync(6184, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*y.WaterMark).Init(closer *y.Closer, eventLogging bool)`.
   void init(BadgerYCloser closer, bool eventLogging) {
     $callSync(
-        6176,
+        6185,
         $W()
           ..h(this)
           ..h(closer)
@@ -370,14 +370,14 @@ class BadgerYWaterMark extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*y.WaterMark).LastIndex() uint64`.
   int lastIndex() {
-    final $r = $callSync(6177, $W()..h(this));
+    final $r = $callSync(6186, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*y.WaterMark).SetDoneUntil(val uint64)`.
   void setDoneUntil(int val) {
     $callSync(
-        6178,
+        6187,
         $W()
           ..h(this)
           ..i64(val));
@@ -388,7 +388,7 @@ class BadgerYWaterMark extends $crypto.CryptoDecrypterOpts
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> waitForMark($context.Context ctx, int index) async {
     await $call(
-        6179,
+        6188,
         $W()
           ..h(this)
           ..h(ctx)
@@ -409,13 +409,13 @@ class BadgerYErrEof extends GolangException {
 extension GoDgraphIoBadgerYApi on GoDgraphIoBadgerY {
   /// Go: `func y.AssertTrue(b bool)`.
   void assertTrue(bool b) {
-    $callSync(6118, $W()..b(b));
+    $callSync(6127, $W()..b(b));
   }
 
   /// Go: `func y.AssertTruef(b bool, format string, args ...interface{})`.
   void assertTruef(bool b, String format, [List<Object?> args = const []]) {
     $callSync(
-        6119,
+        6128,
         $W()
           ..b(b)
           ..str(format)
@@ -425,7 +425,7 @@ extension GoDgraphIoBadgerYApi on GoDgraphIoBadgerY {
   /// Go: `func y.CompareKeys(key1 []byte, key2 []byte) int`.
   int compareKeys(Uint8List key1, Uint8List key2) {
     final $r = $callSync(
-        6125,
+        6134,
         $W()
           ..bytes(key1)
           ..bytes(key2));
@@ -434,14 +434,14 @@ extension GoDgraphIoBadgerYApi on GoDgraphIoBadgerY {
 
   /// Go: `func y.Copy(a []byte) []byte`.
   Uint8List copy(Uint8List a) {
-    final $r = $callSync(6126, $W()..bytes(a));
+    final $r = $callSync(6135, $W()..bytes(a));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func y.CreateSyncedFile(filename string, sync bool) (*os.File, error)`.
   $os.OsFile createSyncedFile(String filename, bool sync) {
     final $r = $callSync(
-        6127,
+        6136,
         $W()
           ..str(filename)
           ..b(sync));
@@ -450,19 +450,19 @@ extension GoDgraphIoBadgerYApi on GoDgraphIoBadgerY {
 
   /// Go: `func y.FileSync(f *os.File) error`.
   void fileSync($os.OsFile f) {
-    $callSync(6128, $W()..h(f));
+    $callSync(6137, $W()..h(f));
   }
 
   /// Go: `func y.FixedDuration(d time.Duration) string`.
   String fixedDuration(Duration d) {
-    final $r = $callSync(6129, $W()..i64((d).inMicroseconds * 1000));
+    final $r = $callSync(6138, $W()..i64((d).inMicroseconds * 1000));
     return $r.str();
   }
 
   /// Go: `func y.KeyWithTs(key []byte, ts uint64) []byte`.
   Uint8List keyWithTs(Uint8List key, int ts) {
     final $r = $callSync(
-        6137,
+        6146,
         $W()
           ..bytes(key)
           ..i64(ts));
@@ -471,14 +471,14 @@ extension GoDgraphIoBadgerYApi on GoDgraphIoBadgerY {
 
   /// Go: `var y.LSMSize *expvar.Map`.
   $expvar.ExpvarMap get lsmSize {
-    final $r = $callSync(6138);
+    final $r = $callSync(6147);
     return $r.hnn($expvar.ExpvarMap.$h);
   }
 
   /// Go: `func y.Madvise(b []byte, readahead bool) error`.
   void madvise(Uint8List b, bool readahead) {
     $callSync(
-        6139,
+        6148,
         $W()
           ..bytes(b)
           ..b(readahead));
@@ -487,7 +487,7 @@ extension GoDgraphIoBadgerYApi on GoDgraphIoBadgerY {
   /// Go: `func y.Mmap(fd *os.File, writable bool, size int64) ([]byte, error)`.
   Uint8List mmap($os.OsFile fd, bool writable, int size) {
     final $r = $callSync(
-        6140,
+        6149,
         $W()
           ..h(fd)
           ..b(writable)
@@ -497,79 +497,79 @@ extension GoDgraphIoBadgerYApi on GoDgraphIoBadgerY {
 
   /// Go: `func y.Munmap(b []byte) error`.
   void munmap(Uint8List b) {
-    $callSync(6141, $W()..bytes(b));
+    $callSync(6150, $W()..bytes(b));
   }
 
   /// Go: `var y.NoEventLog trace.EventLog`.
   $trace.NetTraceEventLog get noEventLog {
-    final $r = $callSync(6144);
+    final $r = $callSync(6153);
     return $r.hnn($trace.NetTraceEventLog.$h);
   }
 
   /// Go: `var y.NumBlockedPuts *expvar.Int`.
   $expvar.ExpvarInt get numBlockedPuts {
-    final $r = $callSync(6145);
+    final $r = $callSync(6154);
     return $r.hnn($expvar.ExpvarInt.$h);
   }
 
   /// Go: `var y.NumBytesRead *expvar.Int`.
   $expvar.ExpvarInt get numBytesRead {
-    final $r = $callSync(6146);
+    final $r = $callSync(6155);
     return $r.hnn($expvar.ExpvarInt.$h);
   }
 
   /// Go: `var y.NumBytesWritten *expvar.Int`.
   $expvar.ExpvarInt get numBytesWritten {
-    final $r = $callSync(6147);
+    final $r = $callSync(6156);
     return $r.hnn($expvar.ExpvarInt.$h);
   }
 
   /// Go: `var y.NumGets *expvar.Int`.
   $expvar.ExpvarInt get numGets {
-    final $r = $callSync(6148);
+    final $r = $callSync(6157);
     return $r.hnn($expvar.ExpvarInt.$h);
   }
 
   /// Go: `var y.NumLSMBloomHits *expvar.Map`.
   $expvar.ExpvarMap get numLsmBloomHits {
-    final $r = $callSync(6149);
+    final $r = $callSync(6158);
     return $r.hnn($expvar.ExpvarMap.$h);
   }
 
   /// Go: `var y.NumLSMGets *expvar.Map`.
   $expvar.ExpvarMap get numLsmGets {
-    final $r = $callSync(6150);
+    final $r = $callSync(6159);
     return $r.hnn($expvar.ExpvarMap.$h);
   }
 
   /// Go: `var y.NumMemtableGets *expvar.Int`.
   $expvar.ExpvarInt get numMemtableGets {
-    final $r = $callSync(6151);
+    final $r = $callSync(6160);
     return $r.hnn($expvar.ExpvarInt.$h);
   }
 
   /// Go: `var y.NumPuts *expvar.Int`.
   $expvar.ExpvarInt get numPuts {
-    final $r = $callSync(6152);
+    final $r = $callSync(6161);
     return $r.hnn($expvar.ExpvarInt.$h);
   }
 
   /// Go: `var y.NumReads *expvar.Int`.
   $expvar.ExpvarInt get numReads {
-    final $r = $callSync(6153);
+    final $r = $callSync(6162);
     return $r.hnn($expvar.ExpvarInt.$h);
   }
 
   /// Go: `var y.NumWrites *expvar.Int`.
   $expvar.ExpvarInt get numWrites {
-    final $r = $callSync(6154);
+    final $r = $callSync(6163);
     return $r.hnn($expvar.ExpvarInt.$h);
   }
 
   /// Go: `func y.OpenExistingFile(filename string, flags uint32) (*os.File, error)`.
   $os.OsFile openExistingFile(String filename, int flags) {
     final $r = $callSync(
-        6155,
+        6164,
         $W()
           ..str(filename)
           ..i64(flags));
@@ -579,7 +579,7 @@ extension GoDgraphIoBadgerYApi on GoDgraphIoBadgerY {
   /// Go: `func y.OpenSyncedFile(filename string, sync bool) (*os.File, error)`.
   $os.OsFile openSyncedFile(String filename, bool sync) {
     final $r = $callSync(
-        6156,
+        6165,
         $W()
           ..str(filename)
           ..b(sync));
@@ -589,7 +589,7 @@ extension GoDgraphIoBadgerYApi on GoDgraphIoBadgerY {
   /// Go: `func y.OpenTruncFile(filename string, sync bool) (*os.File, error)`.
   $os.OsFile openTruncFile(String filename, bool sync) {
     final $r = $callSync(
-        6157,
+        6166,
         $W()
           ..str(filename)
           ..b(sync));
@@ -598,26 +598,26 @@ extension GoDgraphIoBadgerYApi on GoDgraphIoBadgerY {
 
   /// Go: `func y.ParseKey(key []byte) []byte`.
   Uint8List parseKey(Uint8List key) {
-    final $r = $callSync(6158, $W()..bytes(key));
+    final $r = $callSync(6167, $W()..bytes(key));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func y.ParseTs(key []byte) uint64`.
   int parseTs(Uint8List key) {
-    final $r = $callSync(6159, $W()..bytes(key));
+    final $r = $callSync(6168, $W()..bytes(key));
     return $r.i64();
   }
 
   /// Go: `var y.PendingWrites *expvar.Map`.
   $expvar.ExpvarMap get pendingWrites {
-    final $r = $callSync(6160);
+    final $r = $callSync(6169);
     return $r.hnn($expvar.ExpvarMap.$h);
   }
 
   /// Go: `func y.SafeCopy(a []byte, src []byte) []byte`.
   Uint8List safeCopy(Uint8List a, Uint8List src) {
     final $r = $callSync(
-        6161,
+        6170,
         $W()
           ..bytes(a)
           ..bytes(src));
@@ -627,7 +627,7 @@ extension GoDgraphIoBadgerYApi on GoDgraphIoBadgerY {
   /// Go: `func y.SameKey(src []byte, dst []byte) bool`.
   bool sameKey(Uint8List src, Uint8List dst) {
     final $r = $callSync(
-        6162,
+        6171,
         $W()
           ..bytes(src)
           ..bytes(dst));
@@ -636,7 +636,7 @@ extension GoDgraphIoBadgerYApi on GoDgraphIoBadgerY {
 
   /// Go: `var y.VlogSize *expvar.Map`.
   $expvar.ExpvarMap get vlogSize {
-    final $r = $callSync(6170);
+    final $r = $callSync(6179);
     return $r.hnn($expvar.ExpvarMap.$h);
   }
 }

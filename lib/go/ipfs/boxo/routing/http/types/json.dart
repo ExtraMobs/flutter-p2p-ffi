@@ -27,7 +27,7 @@ final class BoxoRoutingHttpTypesJsonPeersResponse implements GoDto {
 
   /// Go: `func (json.PeersResponse).Length() int`.
   int length() {
-    final $r = $callSync(10426, $W()..dto(this));
+    final $r = $callSync(10435, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -52,7 +52,7 @@ final class BoxoRoutingHttpTypesJsonProvidersResponse implements GoDto {
 
   /// Go: `func (json.ProvidersResponse).Length() int`.
   int length() {
-    final $r = $callSync(10427, $W()..dto(this));
+    final $r = $callSync(10436, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -79,7 +79,7 @@ final class BoxoRoutingHttpTypesJsonWriteProvidersRequest implements GoDto {
   /// Go: `func (*json.WriteProvidersRequest).UnmarshalJSON(b []byte) error`.
   void unmarshalJson(Uint8List b) {
     $callSync(
-        10428,
+        10437,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -107,14 +107,14 @@ final class BoxoRoutingHttpTypesJsonWriteProvidersResponse implements GoDto {
 
   /// Go: `func (json.WriteProvidersResponse).Length() int`.
   int length() {
-    final $r = $callSync(10429, $W()..dto(this));
+    final $r = $callSync(10438, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*json.WriteProvidersResponse).UnmarshalJSON(b []byte) error`.
   void unmarshalJson(Uint8List b) {
     $callSync(
-        10430,
+        10439,
         $W()
           ..dto(this)
           ..bytes(b));

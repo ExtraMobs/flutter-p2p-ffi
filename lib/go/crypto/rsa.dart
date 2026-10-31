@@ -78,7 +78,7 @@ final class CryptoRsaPssOptions implements GoDto {
 
   /// Go: `func (*rsa.PSSOptions).HashFunc() crypto.Hash`.
   int hashFunc() {
-    final $r = $callSync(3308, $W()..dto(this));
+    final $r = $callSync(3317, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -145,7 +145,7 @@ final class CryptoRsaPrivateKey implements GoDto {
   Uint8List decrypt(
       Object rand, Uint8List ciphertext, $crypto.CryptoDecrypterOpts opts) {
     final $r = $callSync(
-        3309,
+        3318,
         $W()
           ..dto(this)
           ..reader(rand)
@@ -157,7 +157,7 @@ final class CryptoRsaPrivateKey implements GoDto {
   /// Go: `func (*rsa.PrivateKey).Equal(x crypto.PrivateKey) bool`.
   bool equal($crypto.CryptoPrivateKey x) {
     final $r = $callSync(
-        3310,
+        3319,
         $W()
           ..dto(this)
           ..h(x));
@@ -166,19 +166,19 @@ final class CryptoRsaPrivateKey implements GoDto {
 
   /// Go: `func (*rsa.PrivateKey).Precompute()`.
   void precompute() {
-    $callSync(3311, $W()..dto(this));
+    $callSync(3320, $W()..dto(this));
   }
 
   /// Go: `func (*rsa.PrivateKey).Public() crypto.PublicKey`.
   $crypto.CryptoPublicKey public() {
-    final $r = $callSync(3312, $W()..dto(this));
+    final $r = $callSync(3321, $W()..dto(this));
     return $r.hnn($crypto.CryptoPublicKey.$h);
   }
 
   /// Go: `func (*rsa.PrivateKey).Sign(rand io.Reader, digest []byte, opts crypto.SignerOpts) ([]byte, error)`.
   Uint8List sign(Object rand, Uint8List digest, $crypto.CryptoSignerOpts opts) {
     final $r = $callSync(
-        3313,
+        3322,
         $W()
           ..dto(this)
           ..reader(rand)
@@ -189,13 +189,13 @@ final class CryptoRsaPrivateKey implements GoDto {
 
   /// Go: `func (*rsa.PublicKey).Size() int`.
   int size() {
-    final $r = $callSync(3314, $W()..dto(this));
+    final $r = $callSync(3323, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*rsa.PrivateKey).Validate() error`.
   void validate() {
-    $callSync(3315, $W()..dto(this));
+    $callSync(3324, $W()..dto(this));
   }
 }
 
@@ -225,7 +225,7 @@ final class CryptoRsaPublicKey implements GoDto {
   /// Go: `func (*rsa.PublicKey).Equal(x crypto.PublicKey) bool`.
   bool equal($crypto.CryptoPublicKey x) {
     final $r = $callSync(
-        3316,
+        3325,
         $W()
           ..dto(this)
           ..h(x));
@@ -234,7 +234,7 @@ final class CryptoRsaPublicKey implements GoDto {
 
   /// Go: `func (*rsa.PublicKey).Size() int`.
   int size() {
-    final $r = $callSync(3317, $W()..dto(this));
+    final $r = $callSync(3326, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -272,7 +272,7 @@ extension GoCryptoRsaApi on GoCryptoRsa {
   Uint8List decryptOaep($hash.Hash hash, Object random,
       CryptoRsaPrivateKey priv, Uint8List ciphertext, Uint8List label) {
     final $r = $callSync(
-        3300,
+        3309,
         $W()
           ..h(hash)
           ..reader(random)
@@ -288,7 +288,7 @@ extension GoCryptoRsaApi on GoCryptoRsa {
   Uint8List decryptPkcs1v15(
       Object random, CryptoRsaPrivateKey priv, Uint8List ciphertext) {
     final $r = $callSync(
-        3301,
+        3310,
         $W()
           ..reader(random)
           ..dto(priv)
@@ -302,7 +302,7 @@ extension GoCryptoRsaApi on GoCryptoRsa {
   void decryptPkcs1v15SessionKey(Object random, CryptoRsaPrivateKey priv,
       Uint8List ciphertext, Uint8List key) {
     $callSync(
-        3302,
+        3311,
         $W()
           ..reader(random)
           ..dto(priv)
@@ -314,7 +314,7 @@ extension GoCryptoRsaApi on GoCryptoRsa {
   Uint8List encryptOaep($hash.Hash hash, Object random, CryptoRsaPublicKey pub,
       Uint8List msg, Uint8List label) {
     final $r = $callSync(
-        3303,
+        3312,
         $W()
           ..h(hash)
           ..reader(random)
@@ -328,7 +328,7 @@ extension GoCryptoRsaApi on GoCryptoRsa {
   Uint8List encryptOaepWithOptions(Object random, CryptoRsaPublicKey pub,
       Uint8List msg, CryptoRsaOaepOptions opts) {
     final $r = $callSync(
-        3304,
+        3313,
         $W()
           ..reader(random)
           ..dto(pub)
@@ -343,7 +343,7 @@ extension GoCryptoRsaApi on GoCryptoRsa {
   Uint8List encryptPkcs1v15(
       Object random, CryptoRsaPublicKey pub, Uint8List msg) {
     final $r = $callSync(
-        3305,
+        3314,
         $W()
           ..reader(random)
           ..dto(pub)
@@ -354,7 +354,7 @@ extension GoCryptoRsaApi on GoCryptoRsa {
   /// Go: `func rsa.GenerateKey(random io.Reader, bits int) (*rsa.PrivateKey, error)`.
   CryptoRsaPrivateKey generateKey(Object random, int bits) {
     final $r = $callSync(
-        3306,
+        3315,
         $W()
           ..reader(random)
           ..i64(bits));
@@ -367,7 +367,7 @@ extension GoCryptoRsaApi on GoCryptoRsa {
   CryptoRsaPrivateKey generateMultiPrimeKey(
       Object random, int nprimes, int bits) {
     final $r = $callSync(
-        3307,
+        3316,
         $W()
           ..reader(random)
           ..i64(nprimes)
@@ -379,7 +379,7 @@ extension GoCryptoRsaApi on GoCryptoRsa {
   Uint8List signPkcs1v15(
       Object random, CryptoRsaPrivateKey priv, int hash, Uint8List hashed) {
     final $r = $callSync(
-        3318,
+        3327,
         $W()
           ..reader(random)
           ..dto(priv)
@@ -392,7 +392,7 @@ extension GoCryptoRsaApi on GoCryptoRsa {
   Uint8List signPss(Object random, CryptoRsaPrivateKey priv, int hash,
       Uint8List digest, CryptoRsaPssOptions opts) {
     final $r = $callSync(
-        3319,
+        3328,
         $W()
           ..reader(random)
           ..dto(priv)
@@ -406,7 +406,7 @@ extension GoCryptoRsaApi on GoCryptoRsa {
   void verifyPkcs1v15(
       CryptoRsaPublicKey pub, int hash, Uint8List hashed, Uint8List sig) {
     $callSync(
-        3320,
+        3329,
         $W()
           ..dto(pub)
           ..i64(hash)
@@ -418,7 +418,7 @@ extension GoCryptoRsaApi on GoCryptoRsa {
   void verifyPss(CryptoRsaPublicKey pub, int hash, Uint8List digest,
       Uint8List sig, CryptoRsaPssOptions opts) {
     $callSync(
-        3321,
+        3330,
         $W()
           ..dto(pub)
           ..i64(hash)

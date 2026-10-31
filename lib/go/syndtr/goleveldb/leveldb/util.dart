@@ -50,19 +50,19 @@ class GoleveldbLeveldbUtilBasicReleaser
 
   /// Go: `func (*util.BasicReleaser).Release()`.
   void release$() {
-    $callSync(18804, $W()..h(this));
+    $callSync(18810, $W()..h(this));
   }
 
   /// Go: `func (*util.BasicReleaser).Released() bool`.
   bool released() {
-    final $r = $callSync(18805, $W()..h(this));
+    final $r = $callSync(18811, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*util.BasicReleaser).SetReleaser(releaser util.Releaser)`.
   void setReleaser(GoleveldbLeveldbUtilReleaser releaser) {
     $callSync(
-        18806,
+        18812,
         $W()
           ..h(this)
           ..h(releaser));
@@ -101,14 +101,14 @@ class GoleveldbLeveldbUtilBuffer extends $filter.GoleveldbLeveldbFilterBuffer
 
   /// Go: `func util.NewBuffer(buf []byte) *util.Buffer`.
   factory GoleveldbLeveldbUtilBuffer(Uint8List buf) {
-    final $r = $callSync(18827, $W()..bytes(buf));
+    final $r = $callSync(18833, $W()..bytes(buf));
     return $r.hnn(GoleveldbLeveldbUtilBuffer.$h);
   }
 
   /// Go: `func (*util.Buffer).Alloc(n int) []byte`.
   Uint8List alloc(int n) {
     final $r = $callSync(
-        18807,
+        18813,
         $W()
           ..h(this)
           ..i64(n));
@@ -117,14 +117,14 @@ class GoleveldbLeveldbUtilBuffer extends $filter.GoleveldbLeveldbFilterBuffer
 
   /// Go: `func (*util.Buffer).Bytes() []byte`.
   Uint8List bytes() {
-    final $r = $callSync(18808, $W()..h(this));
+    final $r = $callSync(18814, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*util.Buffer).Grow(n int)`.
   void grow(int n) {
     $callSync(
-        18809,
+        18815,
         $W()
           ..h(this)
           ..i64(n));
@@ -132,14 +132,14 @@ class GoleveldbLeveldbUtilBuffer extends $filter.GoleveldbLeveldbFilterBuffer
 
   /// Go: `func (*util.Buffer).Len() int`.
   int len() {
-    final $r = $callSync(18810, $W()..h(this));
+    final $r = $callSync(18816, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*util.Buffer).Next(n int) []byte`.
   Uint8List next(int n) {
     final $r = $callSync(
-        18811,
+        18817,
         $W()
           ..h(this)
           ..i64(n));
@@ -149,7 +149,7 @@ class GoleveldbLeveldbUtilBuffer extends $filter.GoleveldbLeveldbFilterBuffer
   /// Go: `func (*util.Buffer).Read(p []byte) (n int, err error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        18812,
+        18818,
         $W()
           ..h(this)
           ..i64(n));
@@ -158,14 +158,14 @@ class GoleveldbLeveldbUtilBuffer extends $filter.GoleveldbLeveldbFilterBuffer
 
   /// Go: `func (*util.Buffer).ReadByte() (c byte, err error)`.
   int readByte() {
-    final $r = $callSync(18813, $W()..h(this));
+    final $r = $callSync(18819, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*util.Buffer).ReadBytes(delim byte) (line []byte, err error)`.
   Uint8List readBytes(int delim) {
     final $r = $callSync(
-        18814,
+        18820,
         $W()
           ..h(this)
           ..i64(delim));
@@ -175,7 +175,7 @@ class GoleveldbLeveldbUtilBuffer extends $filter.GoleveldbLeveldbFilterBuffer
   /// Go: `func (*util.Buffer).ReadFrom(r io.Reader) (n int64, err error)`.
   int readFrom(Object r) {
     final $r = $callSync(
-        18815,
+        18821,
         $W()
           ..h(this)
           ..reader(r));
@@ -184,19 +184,19 @@ class GoleveldbLeveldbUtilBuffer extends $filter.GoleveldbLeveldbFilterBuffer
 
   /// Go: `func (*util.Buffer).Reset()`.
   void reset() {
-    $callSync(18816, $W()..h(this));
+    $callSync(18822, $W()..h(this));
   }
 
   /// Go: `func (*util.Buffer).String() string`.
   String string() {
-    final $r = $callSync(18817, $W()..h(this));
+    final $r = $callSync(18823, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*util.Buffer).Truncate(n int)`.
   void truncate(int n) {
     $callSync(
-        18818,
+        18824,
         $W()
           ..h(this)
           ..i64(n));
@@ -205,7 +205,7 @@ class GoleveldbLeveldbUtilBuffer extends $filter.GoleveldbLeveldbFilterBuffer
   /// Go: `func (*util.Buffer).Write(p []byte) (n int, err error)`.
   int write(Uint8List p) {
     final $r = $callSync(
-        18819,
+        18825,
         $W()
           ..h(this)
           ..bytes(p));
@@ -215,7 +215,7 @@ class GoleveldbLeveldbUtilBuffer extends $filter.GoleveldbLeveldbFilterBuffer
   /// Go: `func (*util.Buffer).WriteByte(c byte) error`.
   void writeByte(int c) {
     $callSync(
-        18820,
+        18826,
         $W()
           ..h(this)
           ..i64(c));
@@ -224,7 +224,7 @@ class GoleveldbLeveldbUtilBuffer extends $filter.GoleveldbLeveldbFilterBuffer
   /// Go: `func (*util.Buffer).WriteTo(w io.Writer) (n int64, err error)`.
   int writeTo(GoHandle? w) {
     final $r = $callSync(
-        18821,
+        18827,
         $W()
           ..h(this)
           ..h(w));
@@ -252,14 +252,14 @@ class GoleveldbLeveldbUtilBufferPool extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func util.NewBufferPool(baseline int) *util.BufferPool`.
   factory GoleveldbLeveldbUtilBufferPool(int baseline) {
-    final $r = $callSync(18828, $W()..i64(baseline));
+    final $r = $callSync(18834, $W()..i64(baseline));
     return $r.hnn(GoleveldbLeveldbUtilBufferPool.$h);
   }
 
   /// Go: `func (*util.BufferPool).Get(n int) []byte`.
   Uint8List get(int n) {
     final $r = $callSync(
-        18822,
+        18828,
         $W()
           ..h(this)
           ..i64(n));
@@ -269,7 +269,7 @@ class GoleveldbLeveldbUtilBufferPool extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*util.BufferPool).Put(b []byte)`.
   void put(Uint8List b) {
     $callSync(
-        18823,
+        18829,
         $W()
           ..h(this)
           ..bytes(b));
@@ -277,7 +277,7 @@ class GoleveldbLeveldbUtilBufferPool extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*util.BufferPool).String() string`.
   String string() {
-    final $r = $callSync(18824, $W()..h(this));
+    final $r = $callSync(18830, $W()..h(this));
     return $r.str();
   }
 }
@@ -292,7 +292,7 @@ final class GoleveldbLeveldbUtilNoopReleaser implements GoDto {
 
   /// Go: `func (util.NoopReleaser).Release()`.
   void release$() {
-    $callSync(18830, $W()..dto(this));
+    $callSync(18836, $W()..dto(this));
   }
 }
 
@@ -331,7 +331,7 @@ mixin GoleveldbLeveldbUtilReleaseSetter$ on GoHandle {
   /// Go: `func (util.ReleaseSetter).SetReleaser(releaser util.Releaser)`.
   void setReleaser(GoleveldbLeveldbUtilReleaser releaser) {
     $callSync(
-        18831,
+        18837,
         $W()
           ..h(this)
           ..h(releaser));
@@ -339,27 +339,27 @@ mixin GoleveldbLeveldbUtilReleaseSetter$ on GoHandle {
 
   /// Go: type assertion `x.(*util.BasicReleaser)`: null if the object is not one.
   GoleveldbLeveldbUtilBasicReleaser? asGoleveldbLeveldbUtilBasicReleaser() {
-    final $r = $callSync(1962, $W()..h(this));
+    final $r = $callSync(1969, $W()..h(this));
     return $r.hn(GoleveldbLeveldbUtilBasicReleaser.$h);
   }
 
   /// Go: type assertion `x.(iterator.CommonIterator)`: null if the object is not one.
   $iterator.GoleveldbLeveldbIteratorCommonIterator?
       asGoleveldbLeveldbIteratorCommonIterator() {
-    final $r = $callSync(1963, $W()..h(this));
+    final $r = $callSync(1970, $W()..h(this));
     return $r.hn($iterator.GoleveldbLeveldbIteratorCommonIterator.$h);
   }
 
   /// Go: type assertion `x.(iterator.Iterator)`: null if the object is not one.
   $iterator.GoleveldbLeveldbIterator? asGoleveldbLeveldbIterator() {
-    final $r = $callSync(1964, $W()..h(this));
+    final $r = $callSync(1971, $W()..h(this));
     return $r.hn($iterator.GoleveldbLeveldbIterator.$h);
   }
 
   /// Go: type assertion `x.(iterator.IteratorIndexer)`: null if the object is not one.
   $iterator.GoleveldbLeveldbIteratorIndexer?
       asGoleveldbLeveldbIteratorIndexer() {
-    final $r = $callSync(1965, $W()..h(this));
+    final $r = $callSync(1972, $W()..h(this));
     return $r.hn($iterator.GoleveldbLeveldbIteratorIndexer.$h);
   }
 }
@@ -374,93 +374,93 @@ class GoleveldbLeveldbUtilReleaser extends GoHandle
 mixin GoleveldbLeveldbUtilReleaser$ on GoHandle {
   /// Go: `func (util.Releaser).Release()`.
   void release$() {
-    $callSync(18832, $W()..h(this));
+    $callSync(18838, $W()..h(this));
   }
 
   /// Go: type assertion `x.(*block.Buf)`: null if the object is not one.
   $block.PebbleV2SstableBlockBuf? asPebbleV2SstableBlockBuf() {
-    final $r = $callSync(1966, $W()..h(this));
+    final $r = $callSync(1973, $W()..h(this));
     return $r.hn($block.PebbleV2SstableBlockBuf.$h);
   }
 
   /// Go: type assertion `x.(*block.BufferHandle)`: null if the object is not one.
   $block.PebbleV2SstableBlockBufferHandle?
       asPebbleV2SstableBlockBufferHandle() {
-    final $r = $callSync(1967, $W()..h(this));
+    final $r = $callSync(1974, $W()..h(this));
     return $r.hn($block.PebbleV2SstableBlockBufferHandle.$h);
   }
 
   /// Go: type assertion `x.(*block.BufferPool)`: null if the object is not one.
   $block.PebbleV2SstableBlockBufferPool? asPebbleV2SstableBlockBufferPool() {
-    final $r = $callSync(1968, $W()..h(this));
+    final $r = $callSync(1975, $W()..h(this));
     return $r.hn($block.PebbleV2SstableBlockBufferPool.$h);
   }
 
   /// Go: type assertion `x.(*block.TempBuffer)`: null if the object is not one.
   $block.PebbleV2SstableBlockTempBuffer? asPebbleV2SstableBlockTempBuffer() {
-    final $r = $callSync(1969, $W()..h(this));
+    final $r = $callSync(1976, $W()..h(this));
     return $r.hn($block.PebbleV2SstableBlockTempBuffer.$h);
   }
 
   /// Go: type assertion `x.(*block.Value)`: null if the object is not one.
   $block.PebbleV2SstableBlockValue? asPebbleV2SstableBlockValue() {
-    final $r = $callSync(1970, $W()..h(this));
+    final $r = $callSync(1977, $W()..h(this));
     return $r.hn($block.PebbleV2SstableBlockValue.$h);
   }
 
   /// Go: type assertion `x.(*valblk.Writer)`: null if the object is not one.
   $valblk.PebbleV2SstableValblkWriter? asPebbleV2SstableValblkWriter() {
-    final $r = $callSync(1971, $W()..h(this));
+    final $r = $callSync(1978, $W()..h(this));
     return $r.hn($valblk.PebbleV2SstableValblkWriter.$h);
   }
 
   /// Go: type assertion `x.(*leveldb.Snapshot)`: null if the object is not one.
   $leveldb.GoleveldbLeveldbSnapshot? asGoleveldbLeveldbSnapshot() {
-    final $r = $callSync(1972, $W()..h(this));
+    final $r = $callSync(1979, $W()..h(this));
     return $r.hn($leveldb.GoleveldbLeveldbSnapshot.$h);
   }
 
   /// Go: type assertion `x.(*cache.Handle)`: null if the object is not one.
   $cache.GoleveldbLeveldbCacheHandle? asGoleveldbLeveldbCacheHandle() {
-    final $r = $callSync(1973, $W()..h(this));
+    final $r = $callSync(1980, $W()..h(this));
     return $r.hn($cache.GoleveldbLeveldbCacheHandle.$h);
   }
 
   /// Go: type assertion `x.(*table.Reader)`: null if the object is not one.
   $table.GoleveldbLeveldbTableReader? asGoleveldbLeveldbTableReader() {
-    final $r = $callSync(1974, $W()..h(this));
+    final $r = $callSync(1981, $W()..h(this));
     return $r.hn($table.GoleveldbLeveldbTableReader.$h);
   }
 
   /// Go: type assertion `x.(*util.BasicReleaser)`: null if the object is not one.
   GoleveldbLeveldbUtilBasicReleaser? asGoleveldbLeveldbUtilBasicReleaser() {
-    final $r = $callSync(1975, $W()..h(this));
+    final $r = $callSync(1982, $W()..h(this));
     return $r.hn(GoleveldbLeveldbUtilBasicReleaser.$h);
   }
 
   /// Go: type assertion `x.(*http.ClientConn)`: null if the object is not one.
   $http.NetHttpClientConn? asNetHttpClientConn() {
-    final $r = $callSync(1976, $W()..h(this));
+    final $r = $callSync(1983, $W()..h(this));
     return $r.hn($http.NetHttpClientConn.$h);
   }
 
   /// Go: type assertion `x.(iterator.CommonIterator)`: null if the object is not one.
   $iterator.GoleveldbLeveldbIteratorCommonIterator?
       asGoleveldbLeveldbIteratorCommonIterator() {
-    final $r = $callSync(1977, $W()..h(this));
+    final $r = $callSync(1984, $W()..h(this));
     return $r.hn($iterator.GoleveldbLeveldbIteratorCommonIterator.$h);
   }
 
   /// Go: type assertion `x.(iterator.Iterator)`: null if the object is not one.
   $iterator.GoleveldbLeveldbIterator? asGoleveldbLeveldbIterator() {
-    final $r = $callSync(1978, $W()..h(this));
+    final $r = $callSync(1985, $W()..h(this));
     return $r.hn($iterator.GoleveldbLeveldbIterator.$h);
   }
 
   /// Go: type assertion `x.(iterator.IteratorIndexer)`: null if the object is not one.
   $iterator.GoleveldbLeveldbIteratorIndexer?
       asGoleveldbLeveldbIteratorIndexer() {
-    final $r = $callSync(1979, $W()..h(this));
+    final $r = $callSync(1986, $W()..h(this));
     return $r.hn($iterator.GoleveldbLeveldbIteratorIndexer.$h);
   }
 }
@@ -487,14 +487,14 @@ class GoleveldbLeveldbUtilErrReleased extends GolangException {
 extension GoSyndtrGoleveldbLeveldbUtilApi on GoSyndtrGoleveldbLeveldbUtil {
   /// Go: `func util.BytesPrefix(prefix []byte) *util.Range`.
   GoleveldbLeveldbUtilRange bytesPrefix(Uint8List prefix) {
-    final $r = $callSync(18825, $W()..bytes(prefix));
+    final $r = $callSync(18831, $W()..bytes(prefix));
     return $r.p() ? GoleveldbLeveldbUtilRange.$dec($r) : $nil();
   }
 
   /// Go: `func util.Hash(data []byte, seed uint32) uint32`.
   int hash(Uint8List data, int seed) {
     final $r = $callSync(
-        18826,
+        18832,
         $W()
           ..bytes(data)
           ..i64(seed));
@@ -503,7 +503,7 @@ extension GoSyndtrGoleveldbLeveldbUtilApi on GoSyndtrGoleveldbLeveldbUtil {
 
   /// Go: `func util.NewCRC(b []byte) util.CRC`.
   int newCrc(Uint8List b) {
-    final $r = $callSync(18829, $W()..bytes(b));
+    final $r = $callSync(18835, $W()..bytes(b));
     return $r.i64();
   }
 }

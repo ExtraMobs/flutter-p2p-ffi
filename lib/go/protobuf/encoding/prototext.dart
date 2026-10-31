@@ -35,7 +35,7 @@ class ProtobufEncodingPrototextMarshalOptions
   /// Go: `func (prototext.MarshalOptions).Format(m proto.Message) string`.
   String format($protoreflect.ProtobufReflectProtoreflectProtoMessage m) {
     final $r = $callSync(
-        24739,
+        24745,
         $W()
           ..h(this)
           ..h(m));
@@ -45,7 +45,7 @@ class ProtobufEncodingPrototextMarshalOptions
   /// Go: `func (prototext.MarshalOptions).Marshal(m proto.Message) ([]byte, error)`.
   Uint8List marshal($protoreflect.ProtobufReflectProtoreflectProtoMessage m) {
     final $r = $callSync(
-        24740,
+        24746,
         $W()
           ..h(this)
           ..h(m));
@@ -56,7 +56,7 @@ class ProtobufEncodingPrototextMarshalOptions
   Uint8List marshalAppend(
       Uint8List b, $protoreflect.ProtobufReflectProtoreflectProtoMessage m) {
     final $r = $callSync(
-        24741,
+        24747,
         $W()
           ..h(this)
           ..bytes(b)
@@ -101,7 +101,7 @@ final class ProtobufEncodingPrototextUnmarshalOptions implements GoDto {
   void unmarshal(
       Uint8List b, $protoreflect.ProtobufReflectProtoreflectProtoMessage m) {
     $callSync(
-        24743,
+        24749,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -113,13 +113,13 @@ final class ProtobufEncodingPrototextUnmarshalOptions implements GoDto {
 extension GoProtobufEncodingPrototextApi on GoProtobufEncodingPrototext {
   /// Go: `func prototext.Format(m proto.Message) string`.
   String format($protoreflect.ProtobufReflectProtoreflectProtoMessage m) {
-    final $r = $callSync(24737, $W()..h(m));
+    final $r = $callSync(24743, $W()..h(m));
     return $r.str();
   }
 
   /// Go: `func prototext.Marshal(m proto.Message) ([]byte, error)`.
   Uint8List marshal($protoreflect.ProtobufReflectProtoreflectProtoMessage m) {
-    final $r = $callSync(24738, $W()..h(m));
+    final $r = $callSync(24744, $W()..h(m));
     return $r.bytes() ?? Uint8List(0);
   }
 
@@ -127,7 +127,7 @@ extension GoProtobufEncodingPrototextApi on GoProtobufEncodingPrototext {
   void unmarshal(
       Uint8List b, $protoreflect.ProtobufReflectProtoreflectProtoMessage m) {
     $callSync(
-        24742,
+        24748,
         $W()
           ..bytes(b)
           ..h(m));

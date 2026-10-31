@@ -46,19 +46,19 @@ final class KuboFuseMount implements GoDto {
 extension GoIpfsKuboFuseMountApi on GoIpfsKuboFuseMount {
   /// Go: `func mount.Closer(m mount.Mount) io.Closer`.
   $io.IoCloser closer(KuboFuseMount m) {
-    final $r = $callSync(11677, $W()..dto(m));
+    final $r = $callSync(11683, $W()..dto(m));
     return $r.hnn($io.IoCloser.$h);
   }
 
   /// Go: `func mount.ForceUnmount(m mount.Mount) error`.
   void forceUnmount(KuboFuseMount m) {
-    $callSync(11678, $W()..dto(m));
+    $callSync(11684, $W()..dto(m));
   }
 
   /// Go: `func mount.ForceUnmountManyTimes(m mount.Mount, attempts int) error`.
   void forceUnmountManyTimes(KuboFuseMount m, int attempts) {
     $callSync(
-        11679,
+        11685,
         $W()
           ..dto(m)
           ..i64(attempts));
@@ -66,13 +66,13 @@ extension GoIpfsKuboFuseMountApi on GoIpfsKuboFuseMount {
 
   /// Go: `var mount.MountTimeout time.Duration`.
   Duration get mountTimeout {
-    final $r = $callSync(11680);
+    final $r = $callSync(11686);
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `func mount.UnmountCmd(point string) (*exec.Cmd, error)`.
   $exec.OsExecCmd unmountCmd(String point) {
-    final $r = $callSync(11681, $W()..str(point));
+    final $r = $callSync(11687, $W()..str(point));
     return $r.hnn($exec.OsExecCmd.$h);
   }
 }

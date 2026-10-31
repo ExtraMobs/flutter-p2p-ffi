@@ -49,7 +49,7 @@ class PebbleV2SstableRowblkIndexIter
 
   /// Go: `func (*rowblk.IndexIter).BlockHandleWithProperties() (block.HandleWithProperties, error)`.
   $block.PebbleV2SstableBlockHandleWithProperties blockHandleWithProperties() {
-    final $r = $callSync(5491, $W()..h(this));
+    final $r = $callSync(5500, $W()..h(this));
     return $r.p()
         ? $block.PebbleV2SstableBlockHandleWithProperties.$dec($r)
         : $nil();
@@ -57,18 +57,18 @@ class PebbleV2SstableRowblkIndexIter
 
   /// Go: `func (*rowblk.IndexIter).Close() error`.
   void close() {
-    $callSync(5492, $W()..h(this));
+    $callSync(5501, $W()..h(this));
   }
 
   /// Go: `func (*rowblk.IndexIter).First() bool`.
   bool first() {
-    final $r = $callSync(5493, $W()..h(this));
+    final $r = $callSync(5502, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*rowblk.IndexIter).Handle() block.BufferHandle`.
   $block.PebbleV2SstableBlockBufferHandle handle() {
-    final $r = $callSync(5494, $W()..h(this));
+    final $r = $callSync(5503, $W()..h(this));
     return $r.hnn($block.PebbleV2SstableBlockBufferHandle.$h);
   }
 
@@ -76,7 +76,7 @@ class PebbleV2SstableRowblkIndexIter
   void init($v2.PebbleV2Comparer c, Uint8List blk,
       $block.PebbleV2SstableBlockIterTransforms transforms) {
     $callSync(
-        5495,
+        5504,
         $W()
           ..h(this)
           ..dto(c)
@@ -90,7 +90,7 @@ class PebbleV2SstableRowblkIndexIter
       $block.PebbleV2SstableBlockBufferHandle block,
       $block.PebbleV2SstableBlockIterTransforms transforms) {
     $callSync(
-        5496,
+        5505,
         $W()
           ..h(this)
           ..dto(comparer)
@@ -100,37 +100,37 @@ class PebbleV2SstableRowblkIndexIter
 
   /// Go: `func (*rowblk.IndexIter).Invalidate()`.
   void invalidate() {
-    $callSync(5497, $W()..h(this));
+    $callSync(5506, $W()..h(this));
   }
 
   /// Go: `func (*rowblk.IndexIter).IsDataInvalidated() bool`.
   bool isDataInvalidated() {
-    final $r = $callSync(5498, $W()..h(this));
+    final $r = $callSync(5507, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*rowblk.IndexIter).Last() bool`.
   bool last() {
-    final $r = $callSync(5499, $W()..h(this));
+    final $r = $callSync(5508, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*rowblk.IndexIter).Next() bool`.
   bool next() {
-    final $r = $callSync(5500, $W()..h(this));
+    final $r = $callSync(5509, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*rowblk.IndexIter).Prev() bool`.
   bool prev() {
-    final $r = $callSync(5501, $W()..h(this));
+    final $r = $callSync(5510, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*rowblk.IndexIter).SeekGE(key []byte) bool`.
   bool seekGe(Uint8List key) {
     final $r = $callSync(
-        5502,
+        5511,
         $W()
           ..h(this)
           ..bytes(key));
@@ -139,14 +139,14 @@ class PebbleV2SstableRowblkIndexIter
 
   /// Go: `func (*rowblk.IndexIter).Separator() []byte`.
   Uint8List separator() {
-    final $r = $callSync(5503, $W()..h(this));
+    final $r = $callSync(5512, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*rowblk.IndexIter).SeparatorGT(key []byte, inclusively bool) bool`.
   bool separatorGt(Uint8List key, bool inclusively) {
     final $r = $callSync(
-        5504,
+        5513,
         $W()
           ..h(this)
           ..bytes(key)
@@ -157,7 +157,7 @@ class PebbleV2SstableRowblkIndexIter
   /// Go: `func (*rowblk.IndexIter).SeparatorLT(key []byte) bool`.
   bool separatorLt(Uint8List key) {
     final $r = $callSync(
-        5505,
+        5514,
         $W()
           ..h(this)
           ..bytes(key));
@@ -166,7 +166,7 @@ class PebbleV2SstableRowblkIndexIter
 
   /// Go: `func (*rowblk.IndexIter).Valid() bool`.
   bool valid() {
-    final $r = $callSync(5506, $W()..h(this));
+    final $r = $callSync(5515, $W()..h(this));
     return $r.b();
   }
 }
@@ -198,17 +198,17 @@ class PebbleV2SstableRowblkIter
 
   /// Go: `func (*rowblk.Iter).Close() error`.
   void close() {
-    $callSync(5507, $W()..h(this));
+    $callSync(5516, $W()..h(this));
   }
 
   /// Go: `func (*rowblk.Iter).Error() error`.
   void error() {
-    $callSync(5508, $W()..h(this));
+    $callSync(5517, $W()..h(this));
   }
 
   /// Go: `func (*rowblk.Iter).Handle() block.BufferHandle`.
   $block.PebbleV2SstableBlockBufferHandle handle() {
-    final $r = $callSync(5509, $W()..h(this));
+    final $r = $callSync(5518, $W()..h(this));
     return $r.hnn($block.PebbleV2SstableBlockBufferHandle.$h);
   }
 
@@ -226,7 +226,7 @@ class PebbleV2SstableRowblkIter
       Uint8List blk,
       $block.PebbleV2SstableBlockIterTransforms transforms) async {
     await $call(
-        5510,
+        5519,
         $W()
           ..h(this)
           ..cb((r) => cmp(r.bytes() ?? Uint8List(0), r.bytes() ?? Uint8List(0)),
@@ -248,7 +248,7 @@ class PebbleV2SstableRowblkIter
       $block.PebbleV2SstableBlockBufferHandle block,
       $block.PebbleV2SstableBlockIterTransforms transforms) {
     $callSync(
-        5511,
+        5520,
         $W()
           ..h(this)
           ..dto(comparer)
@@ -258,19 +258,19 @@ class PebbleV2SstableRowblkIter
 
   /// Go: `func (*rowblk.Iter).Invalidate()`.
   void invalidate() {
-    $callSync(5512, $W()..h(this));
+    $callSync(5521, $W()..h(this));
   }
 
   /// Go: `func (*rowblk.Iter).IsDataInvalidated() bool`.
   bool isDataInvalidated() {
-    final $r = $callSync(5513, $W()..h(this));
+    final $r = $callSync(5522, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*rowblk.Iter).IsLowerBound(k []byte) bool`.
   bool isLowerBound(Uint8List k) {
     final $r = $callSync(
-        5514,
+        5523,
         $W()
           ..h(this)
           ..bytes(k));
@@ -280,7 +280,7 @@ class PebbleV2SstableRowblkIter
   /// Go: `func (*rowblk.Iter).SetBounds(lower []byte, upper []byte)`.
   void setBounds(Uint8List lower, Uint8List upper) {
     $callSync(
-        5515,
+        5524,
         $W()
           ..h(this)
           ..bytes(lower)
@@ -292,7 +292,7 @@ class PebbleV2SstableRowblkIter
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> setContext($context.Context ctx) async {
     await $call(
-        5516,
+        5525,
         $W()
           ..h(this)
           ..h(ctx));
@@ -302,7 +302,7 @@ class PebbleV2SstableRowblkIter
   void setGetLazyValuer(
       $block.PebbleV2SstableBlockGetInternalValueForPrefixAndValueHandler g) {
     $callSync(
-        5517,
+        5526,
         $W()
           ..h(this)
           ..h(g));
@@ -311,7 +311,7 @@ class PebbleV2SstableRowblkIter
   /// Go: `func (*rowblk.Iter).SetHasValuePrefix(hasValuePrefix bool)`.
   void setHasValuePrefix(bool hasValuePrefix) {
     $callSync(
-        5518,
+        5527,
         $W()
           ..h(this)
           ..b(hasValuePrefix));
@@ -319,13 +319,13 @@ class PebbleV2SstableRowblkIter
 
   /// Go: `func (*rowblk.Iter).String() string`.
   String string() {
-    final $r = $callSync(5519, $W()..h(this));
+    final $r = $callSync(5528, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*rowblk.Iter).Valid() bool`.
   bool valid() {
-    final $r = $callSync(5520, $W()..h(this));
+    final $r = $callSync(5529, $W()..h(this));
     return $r.b();
   }
 }
@@ -354,12 +354,12 @@ class PebbleV2SstableRowblkRawIter extends $io.IoCloser
 
   /// Go: `func (*rowblk.RawIter).Close() error`.
   void close() {
-    $callSync(5524, $W()..h(this));
+    $callSync(5533, $W()..h(this));
   }
 
   /// Go: `func (*rowblk.RawIter).First() bool`.
   bool first() {
-    final $r = $callSync(5525, $W()..h(this));
+    final $r = $callSync(5534, $W()..h(this));
     return $r.b();
   }
 
@@ -373,7 +373,7 @@ class PebbleV2SstableRowblkRawIter extends $io.IoCloser
   Future<void> init(FutureOr<int> Function(Uint8List a, Uint8List b) cmp,
       Uint8List blk) async {
     await $call(
-        5526,
+        5535,
         $W()
           ..h(this)
           ..cb((r) => cmp(r.bytes() ?? Uint8List(0), r.bytes() ?? Uint8List(0)),
@@ -383,26 +383,26 @@ class PebbleV2SstableRowblkRawIter extends $io.IoCloser
 
   /// Go: `func (*rowblk.RawIter).Last() bool`.
   bool last() {
-    final $r = $callSync(5527, $W()..h(this));
+    final $r = $callSync(5536, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*rowblk.RawIter).Next() bool`.
   bool next() {
-    final $r = $callSync(5528, $W()..h(this));
+    final $r = $callSync(5537, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*rowblk.RawIter).Prev() bool`.
   bool prev() {
-    final $r = $callSync(5529, $W()..h(this));
+    final $r = $callSync(5538, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*rowblk.RawIter).SeekGE(key []byte) bool`.
   bool seekGe(Uint8List key) {
     final $r = $callSync(
-        5530,
+        5539,
         $W()
           ..h(this)
           ..bytes(key));
@@ -411,13 +411,13 @@ class PebbleV2SstableRowblkRawIter extends $io.IoCloser
 
   /// Go: `func (*rowblk.RawIter).Valid() bool`.
   bool valid() {
-    final $r = $callSync(5531, $W()..h(this));
+    final $r = $callSync(5540, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*rowblk.RawIter).Value() []byte`.
   Uint8List value$() {
-    final $r = $callSync(5532, $W()..h(this));
+    final $r = $callSync(5541, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 }
@@ -444,7 +444,7 @@ class PebbleV2SstableRowblkRewriter extends $crypto.CryptoDecrypterOpts
   factory PebbleV2SstableRowblkRewriter(
       $v2.PebbleV2Comparer comparer, int restartInterval) {
     final $r = $callSync(
-        5523,
+        5532,
         $W()
           ..dto(comparer)
           ..i64(restartInterval));
@@ -473,7 +473,7 @@ class PebbleV2SstableRowblkWriter extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*rowblk.Writer).AddRaw(key []byte, value []byte) error`.
   void addRaw(Uint8List key, Uint8List value) {
     $callSync(
-        5533,
+        5542,
         $W()
           ..h(this)
           ..bytes(key)
@@ -483,7 +483,7 @@ class PebbleV2SstableRowblkWriter extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*rowblk.Writer).AddRawString(key string, value []byte) error`.
   void addRawString(String key, Uint8List value) {
     $callSync(
-        5534,
+        5543,
         $W()
           ..h(this)
           ..str(key)
@@ -492,37 +492,37 @@ class PebbleV2SstableRowblkWriter extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*rowblk.Writer).CurUserKey() []byte`.
   Uint8List curUserKey() {
-    final $r = $callSync(5535, $W()..h(this));
+    final $r = $callSync(5544, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*rowblk.Writer).CurValue() []byte`.
   Uint8List curValue() {
-    final $r = $callSync(5536, $W()..h(this));
+    final $r = $callSync(5545, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*rowblk.Writer).EntryCount() int`.
   int entryCount() {
-    final $r = $callSync(5537, $W()..h(this));
+    final $r = $callSync(5546, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*rowblk.Writer).EstimatedSize() int`.
   int estimatedSize() {
-    final $r = $callSync(5538, $W()..h(this));
+    final $r = $callSync(5547, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*rowblk.Writer).Finish() []byte`.
   Uint8List finish() {
-    final $r = $callSync(5539, $W()..h(this));
+    final $r = $callSync(5548, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*rowblk.Writer).Reset()`.
   void reset() {
-    $callSync(5540, $W()..h(this));
+    $callSync(5549, $W()..h(this));
   }
 }
 
@@ -552,7 +552,7 @@ extension GoCockroachdbPebbleV2SstableRowblkApi
       Uint8List block,
       $block.PebbleV2SstableBlockIterTransforms transforms) async {
     final $r = await $call(
-        5521,
+        5530,
         $W()
           ..cb((r) => cmp(r.bytes() ?? Uint8List(0), r.bytes() ?? Uint8List(0)),
               true, (w, v) => w.i64(v as int))
@@ -579,7 +579,7 @@ extension GoCockroachdbPebbleV2SstableRowblkApi
       FutureOr<int> Function(Uint8List a, Uint8List b) cmp,
       Uint8List block) async {
     final $r = await $call(
-        5522,
+        5531,
         $W()
           ..cb((r) => cmp(r.bytes() ?? Uint8List(0), r.bytes() ?? Uint8List(0)),
               true, (w, v) => w.i64(v as int))

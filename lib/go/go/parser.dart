@@ -27,7 +27,7 @@ extension GoGoParserApi on GoGoParser {
       FutureOr<bool> Function($fs.IoFsFileInfo fileInfo) filter,
       int mode) async {
     final $r = await $call(
-        23238,
+        23244,
         $W()
           ..h(fset)
           ..str(path)
@@ -39,7 +39,7 @@ extension GoGoParserApi on GoGoParser {
 
   /// Go: `func parser.ParseExpr(x string) (ast.Expr, error)`.
   $ast.GoAstExpr parseExpr(String x) {
-    final $r = $callSync(23239, $W()..str(x));
+    final $r = $callSync(23245, $W()..str(x));
     return $r.hnn($ast.GoAstExpr.$h);
   }
 
@@ -47,7 +47,7 @@ extension GoGoParserApi on GoGoParser {
   $ast.GoAstExpr parseExprFrom(
       $token.GoTokenFileSet fset, String filename, Object? src, int mode) {
     final $r = $callSync(
-        23240,
+        23246,
         $W()
           ..h(fset)
           ..str(filename)
@@ -60,7 +60,7 @@ extension GoGoParserApi on GoGoParser {
   $ast.GoAstFile parseFile(
       $token.GoTokenFileSet fset, String filename, Object? src, int mode) {
     final $r = $callSync(
-        23241,
+        23247,
         $W()
           ..h(fset)
           ..str(filename)

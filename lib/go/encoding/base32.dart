@@ -34,14 +34,14 @@ class EncodingBase32Encoding extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func base32.NewEncoding(encoder string) *base32.Encoding`.
   factory EncodingBase32Encoding(String encoder) {
-    final $r = $callSync(3656, $W()..str(encoder));
+    final $r = $callSync(3665, $W()..str(encoder));
     return $r.hnn(EncodingBase32Encoding.$h);
   }
 
   /// Go: `func (*base32.Encoding).AppendDecode(dst []byte, src []byte) ([]byte, error)`.
   Uint8List appendDecode(Uint8List dst, Uint8List src) {
     final $r = $callSync(
-        3644,
+        3653,
         $W()
           ..h(this)
           ..bytes(dst)
@@ -52,7 +52,7 @@ class EncodingBase32Encoding extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*base32.Encoding).AppendEncode(dst []byte, src []byte) []byte`.
   Uint8List appendEncode(Uint8List dst, Uint8List src) {
     final $r = $callSync(
-        3645,
+        3654,
         $W()
           ..h(this)
           ..bytes(dst)
@@ -63,7 +63,7 @@ class EncodingBase32Encoding extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*base32.Encoding).Decode(dst []byte, src []byte) (n int, err error)`.
   int decode(Uint8List dst, Uint8List src) {
     final $r = $callSync(
-        3646,
+        3655,
         $W()
           ..h(this)
           ..bytes(dst)
@@ -74,7 +74,7 @@ class EncodingBase32Encoding extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*base32.Encoding).DecodeString(s string) ([]byte, error)`.
   Uint8List decodeString(String s) {
     final $r = $callSync(
-        3647,
+        3656,
         $W()
           ..h(this)
           ..str(s));
@@ -84,7 +84,7 @@ class EncodingBase32Encoding extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*base32.Encoding).DecodedLen(n int) int`.
   int decodedLen(int n) {
     final $r = $callSync(
-        3648,
+        3657,
         $W()
           ..h(this)
           ..i64(n));
@@ -94,7 +94,7 @@ class EncodingBase32Encoding extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*base32.Encoding).Encode(dst []byte, src []byte)`.
   void encode(Uint8List dst, Uint8List src) {
     $callSync(
-        3649,
+        3658,
         $W()
           ..h(this)
           ..bytes(dst)
@@ -104,7 +104,7 @@ class EncodingBase32Encoding extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*base32.Encoding).EncodeToString(src []byte) string`.
   String encodeToString(Uint8List src) {
     final $r = $callSync(
-        3650,
+        3659,
         $W()
           ..h(this)
           ..bytes(src));
@@ -114,7 +114,7 @@ class EncodingBase32Encoding extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*base32.Encoding).EncodedLen(n int) int`.
   int encodedLen(int n) {
     final $r = $callSync(
-        3651,
+        3660,
         $W()
           ..h(this)
           ..i64(n));
@@ -124,7 +124,7 @@ class EncodingBase32Encoding extends $crypto.CryptoDecrypterOpts
   /// Go: `func (base32.Encoding).WithPadding(padding rune) *base32.Encoding`.
   EncodingBase32Encoding withPadding(int padding) {
     final $r = $callSync(
-        3652,
+        3661,
         $W()
           ..h(this)
           ..i64(padding));
@@ -145,14 +145,14 @@ class EncodingBase32CorruptInputError extends GolangException {
 extension GoEncodingBase32Api on GoEncodingBase32 {
   /// Go: `var base32.HexEncoding *base32.Encoding`.
   EncodingBase32Encoding get hexEncoding {
-    final $r = $callSync(3653);
+    final $r = $callSync(3662);
     return $r.hnn(EncodingBase32Encoding.$h);
   }
 
   /// Go: `func base32.NewDecoder(enc *base32.Encoding, r io.Reader) io.Reader`.
   $io.IoReader newDecoder(EncodingBase32Encoding enc, Object r) {
     final $r = $callSync(
-        3654,
+        3663,
         $W()
           ..h(enc)
           ..reader(r));
@@ -162,7 +162,7 @@ extension GoEncodingBase32Api on GoEncodingBase32 {
   /// Go: `func base32.NewEncoder(enc *base32.Encoding, w io.Writer) io.WriteCloser`.
   $io.IoWriteCloser newEncoder(EncodingBase32Encoding enc, GoHandle? w) {
     final $r = $callSync(
-        3655,
+        3664,
         $W()
           ..h(enc)
           ..h(w));
@@ -171,7 +171,7 @@ extension GoEncodingBase32Api on GoEncodingBase32 {
 
   /// Go: `var base32.StdEncoding *base32.Encoding`.
   EncodingBase32Encoding get stdEncoding {
-    final $r = $callSync(3657);
+    final $r = $callSync(3666);
     return $r.hnn(EncodingBase32Encoding.$h);
   }
 }

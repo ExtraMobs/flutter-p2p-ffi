@@ -45,31 +45,31 @@ class HashMaphashHash extends $hash.HashCloner
 
   /// Go: `func (*maphash.Hash).BlockSize() int`.
   int blockSize() {
-    final $r = $callSync(25657, $W()..h(this));
+    final $r = $callSync(25663, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*maphash.Hash).Clone() (hash.Cloner, error)`.
   $hash.HashCloner clone() {
-    final $r = $callSync(25658, $W()..h(this));
+    final $r = $callSync(25664, $W()..h(this));
     return $r.hnn($hash.HashCloner.$h);
   }
 
   /// Go: `func (*maphash.Hash).Reset()`.
   void reset() {
-    $callSync(25659, $W()..h(this));
+    $callSync(25665, $W()..h(this));
   }
 
   /// Go: `func (*maphash.Hash).Seed() maphash.Seed`.
   HashMaphashSeed seed() {
-    final $r = $callSync(25660, $W()..h(this));
+    final $r = $callSync(25666, $W()..h(this));
     return $r.hnn(HashMaphashSeed.$h);
   }
 
   /// Go: `func (*maphash.Hash).SetSeed(seed maphash.Seed)`.
   void setSeed(HashMaphashSeed seed) {
     $callSync(
-        25661,
+        25667,
         $W()
           ..h(this)
           ..h(seed));
@@ -77,14 +77,14 @@ class HashMaphashHash extends $hash.HashCloner
 
   /// Go: `func (*maphash.Hash).Size() int`.
   int size() {
-    final $r = $callSync(25662, $W()..h(this));
+    final $r = $callSync(25668, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*maphash.Hash).Sum(b []byte) []byte`.
   Uint8List sum(Uint8List b) {
     final $r = $callSync(
-        25663,
+        25669,
         $W()
           ..h(this)
           ..bytes(b));
@@ -93,14 +93,14 @@ class HashMaphashHash extends $hash.HashCloner
 
   /// Go: `func (*maphash.Hash).Sum64() uint64`.
   int sum64() {
-    final $r = $callSync(25664, $W()..h(this));
+    final $r = $callSync(25670, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*maphash.Hash).Write(b []byte) (int, error)`.
   int write(Uint8List b) {
     final $r = $callSync(
-        25665,
+        25671,
         $W()
           ..h(this)
           ..bytes(b));
@@ -110,7 +110,7 @@ class HashMaphashHash extends $hash.HashCloner
   /// Go: `func (*maphash.Hash).WriteByte(b byte) error`.
   void writeByte(int b) {
     $callSync(
-        25666,
+        25672,
         $W()
           ..h(this)
           ..i64(b));
@@ -119,7 +119,7 @@ class HashMaphashHash extends $hash.HashCloner
   /// Go: `func (*maphash.Hash).WriteString(s string) (int, error)`.
   int writeString(String s) {
     final $r = $callSync(
-        25667,
+        25673,
         $W()
           ..h(this)
           ..str(s));
@@ -151,7 +151,7 @@ extension GoHashMaphashApi on GoHashMaphash {
   /// Go: `func maphash.Bytes(seed maphash.Seed, b []byte) uint64`.
   int bytes(HashMaphashSeed seed, Uint8List b) {
     final $r = $callSync(
-        25656,
+        25662,
         $W()
           ..h(seed)
           ..bytes(b));
@@ -160,14 +160,14 @@ extension GoHashMaphashApi on GoHashMaphash {
 
   /// Go: `func maphash.MakeSeed() maphash.Seed`.
   HashMaphashSeed makeSeed() {
-    final $r = $callSync(25668);
+    final $r = $callSync(25674);
     return $r.hnn(HashMaphashSeed.$h);
   }
 
   /// Go: `func maphash.String(seed maphash.Seed, s string) uint64`.
   int string(HashMaphashSeed seed, String s) {
     final $r = $callSync(
-        25669,
+        25675,
         $W()
           ..h(seed)
           ..str(s));

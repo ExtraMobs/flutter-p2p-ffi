@@ -29,7 +29,7 @@ mixin MsgioPbioReader$ on GoHandle {
   /// Go: `func (pbio.Reader).ReadMsg(msg proto.Message) error`.
   void readMsg($protoreflect.ProtobufReflectProtoreflectProtoMessage msg) {
     $callSync(
-        15129,
+        15135,
         $W()
           ..h(this)
           ..h(msg));
@@ -38,13 +38,13 @@ mixin MsgioPbioReader$ on GoHandle {
   /// Go: type assertion `x.(*util.DelimitedReader)`: null if the object is not one.
   $util.Libp2pP2pProtocolCircuitv2UtilDelimitedReader?
       asLibp2pP2pProtocolCircuitv2UtilDelimitedReader() {
-    final $r = $callSync(1452, $W()..h(this));
+    final $r = $callSync(1455, $W()..h(this));
     return $r.hn($util.Libp2pP2pProtocolCircuitv2UtilDelimitedReader.$h);
   }
 
   /// Go: type assertion `x.(pbio.ReadCloser)`: null if the object is not one.
   MsgioPbioReadCloser? asMsgioPbioReadCloser() {
-    final $r = $callSync(1453, $W()..h(this));
+    final $r = $callSync(1456, $W()..h(this));
     return $r.hn(MsgioPbioReadCloser.$h);
   }
 }
@@ -70,7 +70,7 @@ mixin MsgioPbioWriter$ on GoHandle {
   void writeMsg(
       $protoreflect.ProtobufReflectProtoreflectProtoMessage protoMessage) {
     $callSync(
-        15130,
+        15136,
         $W()
           ..h(this)
           ..h(protoMessage));
@@ -78,7 +78,7 @@ mixin MsgioPbioWriter$ on GoHandle {
 
   /// Go: type assertion `x.(pbio.WriteCloser)`: null if the object is not one.
   MsgioPbioWriteCloser? asMsgioPbioWriteCloser() {
-    final $r = $callSync(1454, $W()..h(this));
+    final $r = $callSync(1457, $W()..h(this));
     return $r.hn(MsgioPbioWriteCloser.$h);
   }
 }
@@ -88,7 +88,7 @@ extension GoLibp2pMsgioPbioApi on GoLibp2pMsgioPbio {
   /// Go: `func pbio.NewDelimitedReader(r io.Reader, maxSize int) pbio.ReadCloser`.
   MsgioPbioReadCloser newDelimitedReader(Object r, int maxSize) {
     final $r = $callSync(
-        15127,
+        15133,
         $W()
           ..reader(r)
           ..i64(maxSize));
@@ -97,7 +97,7 @@ extension GoLibp2pMsgioPbioApi on GoLibp2pMsgioPbio {
 
   /// Go: `func pbio.NewDelimitedWriter(w io.Writer) pbio.WriteCloser`.
   MsgioPbioWriteCloser newDelimitedWriter(GoHandle? w) {
-    final $r = $callSync(15128, $W()..h(w));
+    final $r = $callSync(15134, $W()..h(w));
     return $r.hnn(MsgioPbioWriteCloser.$h);
   }
 }

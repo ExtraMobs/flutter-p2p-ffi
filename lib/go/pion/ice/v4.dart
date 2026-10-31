@@ -50,7 +50,7 @@ class IceV4Agent extends $io.IoCloser
 
   /// Go: `func ice.NewAgent(config *ice.AgentConfig) (*ice.Agent, error)`.
   factory IceV4Agent(IceV4AgentConfig config) {
-    final $r = $callSync(16588, $W()..dto(config));
+    final $r = $callSync(16594, $W()..dto(config));
     return $r.hnn(IceV4Agent.$h);
   }
 
@@ -60,7 +60,7 @@ class IceV4Agent extends $io.IoCloser
   Future<IceV4Conn> accept(
       $context.Context ctx, String remoteUfrag, String remotePwd) async {
     final $r = await $call(
-        16401,
+        16407,
         $W()
           ..h(this)
           ..h(ctx)
@@ -72,7 +72,7 @@ class IceV4Agent extends $io.IoCloser
   /// Go: `func (*ice.Agent).AddRemoteCandidate(cand ice.Candidate) error`.
   void addRemoteCandidate(IceV4Candidate cand) {
     $callSync(
-        16402,
+        16408,
         $W()
           ..h(this)
           ..h(cand));
@@ -80,7 +80,7 @@ class IceV4Agent extends $io.IoCloser
 
   /// Go: `func (*ice.Agent).Close() error`.
   void close() {
-    $callSync(16403, $W()..h(this));
+    $callSync(16409, $W()..h(this));
   }
 
   /// Go: `func (*ice.Agent).Dial(ctx context.Context, remoteUfrag string, remotePwd string) (*ice.Conn, error)`.
@@ -89,7 +89,7 @@ class IceV4Agent extends $io.IoCloser
   Future<IceV4Conn> dial(
       $context.Context ctx, String remoteUfrag, String remotePwd) async {
     final $r = await $call(
-        16404,
+        16410,
         $W()
           ..h(this)
           ..h(ctx)
@@ -100,66 +100,66 @@ class IceV4Agent extends $io.IoCloser
 
   /// Go: `func (*ice.Agent).GatherCandidates() error`.
   void gatherCandidates() {
-    $callSync(16405, $W()..h(this));
+    $callSync(16411, $W()..h(this));
   }
 
   /// Go: `func (*ice.Agent).GetCandidatePairsStats() []ice.CandidatePairStats`.
   List<IceV4CandidatePairStats> getCandidatePairsStats() {
-    final $r = $callSync(16406, $W()..h(this));
+    final $r = $callSync(16412, $W()..h(this));
     return $r.list(() => $r.p() ? IceV4CandidatePairStats.$dec($r) : $nil());
   }
 
   /// Go: `func (*ice.Agent).GetLocalCandidates() ([]ice.Candidate, error)`.
   List<IceV4Candidate> getLocalCandidates() {
-    final $r = $callSync(16407, $W()..h(this));
+    final $r = $callSync(16413, $W()..h(this));
     return $r.list(() => $r.hnn(IceV4Candidate.$h));
   }
 
   /// Go: `func (*ice.Agent).GetLocalCandidatesStats() []ice.CandidateStats`.
   List<IceV4CandidateStats> getLocalCandidatesStats() {
-    final $r = $callSync(16408, $W()..h(this));
+    final $r = $callSync(16414, $W()..h(this));
     return $r.list(() => $r.p() ? IceV4CandidateStats.$dec($r) : $nil());
   }
 
   /// Go: `func (*ice.Agent).GetLocalUserCredentials() (frag string, pwd string, err error)`.
   (String, String) getLocalUserCredentials() {
-    final $r = $callSync(16409, $W()..h(this));
+    final $r = $callSync(16415, $W()..h(this));
     return ($r.str(), $r.str());
   }
 
   /// Go: `func (*ice.Agent).GetRemoteCandidates() ([]ice.Candidate, error)`.
   List<IceV4Candidate> getRemoteCandidates() {
-    final $r = $callSync(16410, $W()..h(this));
+    final $r = $callSync(16416, $W()..h(this));
     return $r.list(() => $r.hnn(IceV4Candidate.$h));
   }
 
   /// Go: `func (*ice.Agent).GetRemoteCandidatesStats() []ice.CandidateStats`.
   List<IceV4CandidateStats> getRemoteCandidatesStats() {
-    final $r = $callSync(16411, $W()..h(this));
+    final $r = $callSync(16417, $W()..h(this));
     return $r.list(() => $r.p() ? IceV4CandidateStats.$dec($r) : $nil());
   }
 
   /// Go: `func (*ice.Agent).GetRemoteUserCredentials() (frag string, pwd string, err error)`.
   (String, String) getRemoteUserCredentials() {
-    final $r = $callSync(16412, $W()..h(this));
+    final $r = $callSync(16418, $W()..h(this));
     return ($r.str(), $r.str());
   }
 
   /// Go: `func (*ice.Agent).GetSelectedCandidatePair() (*ice.CandidatePair, error)`.
   IceV4CandidatePair getSelectedCandidatePair() {
-    final $r = $callSync(16413, $W()..h(this));
+    final $r = $callSync(16419, $W()..h(this));
     return $r.hnn(IceV4CandidatePair.$h);
   }
 
   /// Go: `func (*ice.Agent).GetSelectedCandidatePairStats() (ice.CandidatePairStats, bool)`.
   (IceV4CandidatePairStats, bool) getSelectedCandidatePairStats() {
-    final $r = $callSync(16414, $W()..h(this));
+    final $r = $callSync(16420, $W()..h(this));
     return ($r.p() ? IceV4CandidatePairStats.$dec($r) : $nil(), $r.b());
   }
 
   /// Go: `func (*ice.Agent).GracefulClose() error`.
   void gracefulClose() {
-    $callSync(16415, $W()..h(this));
+    $callSync(16421, $W()..h(this));
   }
 
   /// Go: `func (*ice.Agent).OnCandidate(f func(ice.Candidate)) error`.
@@ -172,7 +172,7 @@ class IceV4Agent extends $io.IoCloser
   Future<void> onCandidate(
       FutureOr<void> Function(IceV4Candidate candidate) f) async {
     await $call(
-        16416,
+        16422,
         $W()
           ..h(this)
           ..cb((r) => f(r.hnn(IceV4Candidate.$h)), true));
@@ -188,7 +188,7 @@ class IceV4Agent extends $io.IoCloser
   Future<void> onConnectionStateChange(
       FutureOr<void> Function(int arg0) f) async {
     await $call(
-        16417,
+        16423,
         $W()
           ..h(this)
           ..cb((r) => f(r.i64()), true));
@@ -206,7 +206,7 @@ class IceV4Agent extends $io.IoCloser
               IceV4Candidate candidate, IceV4Candidate candidate2)
           f) async {
     await $call(
-        16418,
+        16424,
         $W()
           ..h(this)
           ..cb((r) => f(r.hnn(IceV4Candidate.$h), r.hnn(IceV4Candidate.$h)),
@@ -216,7 +216,7 @@ class IceV4Agent extends $io.IoCloser
   /// Go: `func (*ice.Agent).Restart(ufrag string, pwd string) error`.
   void restart(String ufrag, String pwd) {
     $callSync(
-        16419,
+        16425,
         $W()
           ..h(this)
           ..str(ufrag)
@@ -226,7 +226,7 @@ class IceV4Agent extends $io.IoCloser
   /// Go: `func (*ice.Agent).SetRemoteCredentials(remoteUfrag string, remotePwd string) error`.
   void setRemoteCredentials(String remoteUfrag, String remotePwd) {
     $callSync(
-        16420,
+        16426,
         $W()
           ..h(this)
           ..str(remoteUfrag)
@@ -435,7 +435,7 @@ mixin IceV4AllConnsGetter$ on GoHandle {
   List<$net.NetPacketConn> getAllConns(
       String ufrag, bool isIPv6, Uint8List localIp) {
     final $r = $callSync(
-        16421,
+        16427,
         $W()
           ..h(this)
           ..str(ufrag)
@@ -446,7 +446,7 @@ mixin IceV4AllConnsGetter$ on GoHandle {
 
   /// Go: type assertion `x.(*ice.MultiTCPMuxDefault)`: null if the object is not one.
   IceV4MultiTcpMuxDefault? asIceV4MultiTcpMuxDefault() {
-    final $r = $callSync(1556, $W()..h(this));
+    final $r = $callSync(1561, $W()..h(this));
     return $r.hn(IceV4MultiTcpMuxDefault.$h);
   }
 }
@@ -480,7 +480,7 @@ final class IceV4AttrControl implements GoDto {
   /// Go: `func (ice.AttrControl).AddTo(m *stun.Message) error`.
   void addTo($v3.StunV3Message m) {
     $callSync(
-        16422,
+        16428,
         $W()
           ..dto(this)
           ..h(m));
@@ -489,7 +489,7 @@ final class IceV4AttrControl implements GoDto {
   /// Go: `func (*ice.AttrControl).GetFrom(m *stun.Message) error`.
   void getFrom($v3.StunV3Message m) {
     $callSync(
-        16423,
+        16429,
         $W()
           ..dto(this)
           ..h(m));
@@ -506,7 +506,7 @@ mixin IceV4Candidate$ on GoHandle {
   /// Go: `func (ice.Candidate).AddExtension(extension ice.CandidateExtension) error`.
   void addExtension(IceV4CandidateExtension extension) {
     $callSync(
-        16424,
+        16430,
         $W()
           ..h(this)
           ..dto(extension));
@@ -514,20 +514,20 @@ mixin IceV4Candidate$ on GoHandle {
 
   /// Go: `func (ice.Candidate).Address() string`.
   String address() {
-    final $r = $callSync(16425, $W()..h(this));
+    final $r = $callSync(16431, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (ice.Candidate).Component() uint16`.
   int component() {
-    final $r = $callSync(16426, $W()..h(this));
+    final $r = $callSync(16432, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (ice.Candidate).DeepEqual(other ice.Candidate) bool`.
   bool deepEqual(IceV4Candidate other) {
     final $r = $callSync(
-        16427,
+        16433,
         $W()
           ..h(this)
           ..h(other));
@@ -537,7 +537,7 @@ mixin IceV4Candidate$ on GoHandle {
   /// Go: `func (ice.Candidate).Equal(other ice.Candidate) bool`.
   bool equal(IceV4Candidate other) {
     final $r = $callSync(
-        16428,
+        16434,
         $W()
           ..h(this)
           ..h(other));
@@ -546,20 +546,20 @@ mixin IceV4Candidate$ on GoHandle {
 
   /// Go: `func (ice.Candidate).Extensions() []ice.CandidateExtension`.
   List<IceV4CandidateExtension> extensions() {
-    final $r = $callSync(16429, $W()..h(this));
+    final $r = $callSync(16435, $W()..h(this));
     return $r.list(() => $r.p() ? IceV4CandidateExtension.$dec($r) : $nil());
   }
 
   /// Go: `func (ice.Candidate).Foundation() string`.
   String foundation() {
-    final $r = $callSync(16430, $W()..h(this));
+    final $r = $callSync(16436, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (ice.Candidate).GetExtension(key string) (value ice.CandidateExtension, ok bool)`.
   (IceV4CandidateExtension, bool) getExtension(String key) {
     final $r = $callSync(
-        16431,
+        16437,
         $W()
           ..h(this)
           ..str(key));
@@ -568,56 +568,56 @@ mixin IceV4Candidate$ on GoHandle {
 
   /// Go: `func (ice.Candidate).ID() string`.
   String id() {
-    final $r = $callSync(16432, $W()..h(this));
+    final $r = $callSync(16438, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (ice.Candidate).LastReceived() time.Time`.
   DateTime lastReceived() {
-    final $r = $callSync(16433, $W()..h(this));
+    final $r = $callSync(16439, $W()..h(this));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func (ice.Candidate).LastSent() time.Time`.
   DateTime lastSent() {
-    final $r = $callSync(16434, $W()..h(this));
+    final $r = $callSync(16440, $W()..h(this));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func (ice.Candidate).Marshal() string`.
   String marshal() {
-    final $r = $callSync(16435, $W()..h(this));
+    final $r = $callSync(16441, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (ice.Candidate).NetworkType() ice.NetworkType`.
   int networkType() {
-    final $r = $callSync(16436, $W()..h(this));
+    final $r = $callSync(16442, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (ice.Candidate).Port() int`.
   int port() {
-    final $r = $callSync(16437, $W()..h(this));
+    final $r = $callSync(16443, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (ice.Candidate).Priority() uint32`.
   int priority() {
-    final $r = $callSync(16438, $W()..h(this));
+    final $r = $callSync(16444, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (ice.Candidate).RelatedAddress() *ice.CandidateRelatedAddress`.
   IceV4CandidateRelatedAddress relatedAddress() {
-    final $r = $callSync(16439, $W()..h(this));
+    final $r = $callSync(16445, $W()..h(this));
     return $r.p() ? IceV4CandidateRelatedAddress.$dec($r) : $nil();
   }
 
   /// Go: `func (ice.Candidate).RemoveExtension(key string) (ok bool)`.
   bool removeExtension(String key) {
     final $r = $callSync(
-        16440,
+        16446,
         $W()
           ..h(this)
           ..str(key));
@@ -627,7 +627,7 @@ mixin IceV4Candidate$ on GoHandle {
   /// Go: `func (ice.Candidate).SetComponent(uint16)`.
   void setComponent(int arg0) {
     $callSync(
-        16441,
+        16447,
         $W()
           ..h(this)
           ..i64(arg0));
@@ -635,43 +635,43 @@ mixin IceV4Candidate$ on GoHandle {
 
   /// Go: `func (ice.Candidate).String() string`.
   String string() {
-    final $r = $callSync(16442, $W()..h(this));
+    final $r = $callSync(16448, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (ice.Candidate).TCPType() ice.TCPType`.
   int tcpType() {
-    final $r = $callSync(16443, $W()..h(this));
+    final $r = $callSync(16449, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (ice.Candidate).Type() ice.CandidateType`.
   int type() {
-    final $r = $callSync(16444, $W()..h(this));
+    final $r = $callSync(16450, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: type assertion `x.(*ice.CandidateHost)`: null if the object is not one.
   IceV4CandidateHost? asIceV4CandidateHost() {
-    final $r = $callSync(1557, $W()..h(this));
+    final $r = $callSync(1562, $W()..h(this));
     return $r.hn(IceV4CandidateHost.$h);
   }
 
   /// Go: type assertion `x.(*ice.CandidatePeerReflexive)`: null if the object is not one.
   IceV4CandidatePeerReflexive? asIceV4CandidatePeerReflexive() {
-    final $r = $callSync(1558, $W()..h(this));
+    final $r = $callSync(1563, $W()..h(this));
     return $r.hn(IceV4CandidatePeerReflexive.$h);
   }
 
   /// Go: type assertion `x.(*ice.CandidateRelay)`: null if the object is not one.
   IceV4CandidateRelay? asIceV4CandidateRelay() {
-    final $r = $callSync(1559, $W()..h(this));
+    final $r = $callSync(1564, $W()..h(this));
     return $r.hn(IceV4CandidateRelay.$h);
   }
 
   /// Go: type assertion `x.(*ice.CandidateServerReflexive)`: null if the object is not one.
   IceV4CandidateServerReflexive? asIceV4CandidateServerReflexive() {
-    final $r = $callSync(1560, $W()..h(this));
+    final $r = $callSync(1565, $W()..h(this));
     return $r.hn(IceV4CandidateServerReflexive.$h);
   }
 }
@@ -724,14 +724,14 @@ class IceV4CandidateHost extends IceV4Candidate
 
   /// Go: `func ice.NewCandidateHost(config *ice.CandidateHostConfig) (*ice.CandidateHost, error)`.
   factory IceV4CandidateHost(IceV4CandidateHostConfig config) {
-    final $r = $callSync(16589, $W()..dto(config));
+    final $r = $callSync(16595, $W()..dto(config));
     return $r.hnn(IceV4CandidateHost.$h);
   }
 
   /// Go: `func (*ice.candidateBase).AddExtension(ext ice.CandidateExtension) error`.
   void addExtension(IceV4CandidateExtension ext) {
     $callSync(
-        16445,
+        16451,
         $W()
           ..h(this)
           ..dto(ext));
@@ -739,26 +739,26 @@ class IceV4CandidateHost extends IceV4Candidate
 
   /// Go: `func (*ice.candidateBase).Address() string`.
   String address() {
-    final $r = $callSync(16446, $W()..h(this));
+    final $r = $callSync(16452, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*ice.candidateBase).Component() uint16`.
   int component() {
-    final $r = $callSync(16447, $W()..h(this));
+    final $r = $callSync(16453, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*ice.candidateBase).Deadline() (deadline time.Time, ok bool)`.
   (DateTime, bool) deadline() {
-    final $r = $callSync(16448, $W()..h(this));
+    final $r = $callSync(16454, $W()..h(this));
     return ($r.p() ? $r.time() : $nil(), $r.b());
   }
 
   /// Go: `func (*ice.candidateBase).DeepEqual(other ice.Candidate) bool`.
   bool deepEqual(IceV4Candidate other) {
     final $r = $callSync(
-        16449,
+        16455,
         $W()
           ..h(this)
           ..h(other));
@@ -768,7 +768,7 @@ class IceV4CandidateHost extends IceV4Candidate
   /// Go: `func (*ice.candidateBase).Equal(other ice.Candidate) bool`.
   bool equal(IceV4Candidate other) {
     final $r = $callSync(
-        16450,
+        16456,
         $W()
           ..h(this)
           ..h(other));
@@ -777,25 +777,25 @@ class IceV4CandidateHost extends IceV4Candidate
 
   /// Go: `func (*ice.candidateBase).Err() error`.
   void err() {
-    $callSync(16451, $W()..h(this));
+    $callSync(16457, $W()..h(this));
   }
 
   /// Go: `func (*ice.candidateBase).Extensions() []ice.CandidateExtension`.
   List<IceV4CandidateExtension> extensions() {
-    final $r = $callSync(16452, $W()..h(this));
+    final $r = $callSync(16458, $W()..h(this));
     return $r.list(() => $r.p() ? IceV4CandidateExtension.$dec($r) : $nil());
   }
 
   /// Go: `func (*ice.candidateBase).Foundation() string`.
   String foundation() {
-    final $r = $callSync(16453, $W()..h(this));
+    final $r = $callSync(16459, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*ice.candidateBase).GetExtension(key string) (ice.CandidateExtension, bool)`.
   (IceV4CandidateExtension, bool) getExtension(String key) {
     final $r = $callSync(
-        16454,
+        16460,
         $W()
           ..h(this)
           ..str(key));
@@ -804,62 +804,62 @@ class IceV4CandidateHost extends IceV4Candidate
 
   /// Go: `func (*ice.candidateBase).ID() string`.
   String id() {
-    final $r = $callSync(16455, $W()..h(this));
+    final $r = $callSync(16461, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*ice.candidateBase).LastReceived() time.Time`.
   DateTime lastReceived() {
-    final $r = $callSync(16456, $W()..h(this));
+    final $r = $callSync(16462, $W()..h(this));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func (*ice.candidateBase).LastSent() time.Time`.
   DateTime lastSent() {
-    final $r = $callSync(16457, $W()..h(this));
+    final $r = $callSync(16463, $W()..h(this));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func (*ice.candidateBase).LocalPreference() uint16`.
   int localPreference() {
-    final $r = $callSync(16458, $W()..h(this));
+    final $r = $callSync(16464, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*ice.candidateBase).Marshal() string`.
   String marshal() {
-    final $r = $callSync(16459, $W()..h(this));
+    final $r = $callSync(16465, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*ice.candidateBase).NetworkType() ice.NetworkType`.
   int networkType() {
-    final $r = $callSync(16460, $W()..h(this));
+    final $r = $callSync(16466, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*ice.candidateBase).Port() int`.
   int port() {
-    final $r = $callSync(16461, $W()..h(this));
+    final $r = $callSync(16467, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*ice.candidateBase).Priority() uint32`.
   int priority() {
-    final $r = $callSync(16462, $W()..h(this));
+    final $r = $callSync(16468, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*ice.candidateBase).RelatedAddress() *ice.CandidateRelatedAddress`.
   IceV4CandidateRelatedAddress relatedAddress() {
-    final $r = $callSync(16463, $W()..h(this));
+    final $r = $callSync(16469, $W()..h(this));
     return $r.p() ? IceV4CandidateRelatedAddress.$dec($r) : $nil();
   }
 
   /// Go: `func (*ice.candidateBase).RemoveExtension(key string) (ok bool)`.
   bool removeExtension(String key) {
     final $r = $callSync(
-        16464,
+        16470,
         $W()
           ..h(this)
           ..str(key));
@@ -869,7 +869,7 @@ class IceV4CandidateHost extends IceV4Candidate
   /// Go: `func (*ice.candidateBase).SetComponent(component uint16)`.
   void setComponent(int component) {
     $callSync(
-        16465,
+        16471,
         $W()
           ..h(this)
           ..i64(component));
@@ -877,32 +877,32 @@ class IceV4CandidateHost extends IceV4Candidate
 
   /// Go: `func (*ice.candidateBase).String() string`.
   String string() {
-    final $r = $callSync(16466, $W()..h(this));
+    final $r = $callSync(16472, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*ice.candidateBase).TCPType() ice.TCPType`.
   int tcpType() {
-    final $r = $callSync(16467, $W()..h(this));
+    final $r = $callSync(16473, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*ice.candidateBase).Type() ice.CandidateType`.
   int type() {
-    final $r = $callSync(16468, $W()..h(this));
+    final $r = $callSync(16474, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*ice.candidateBase).TypePreference() uint16`.
   int typePreference() {
-    final $r = $callSync(16469, $W()..h(this));
+    final $r = $callSync(16475, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*ice.candidateBase).Value(interface{}) interface{}`.
   Object? value$(Object? arg0) {
     final $r = $callSync(
-        16470,
+        16476,
         $W()
           ..h(this)
           ..any(arg0));
@@ -1005,101 +1005,101 @@ class IceV4CandidatePair extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*ice.CandidatePair).CurrentRoundTripTime() float64`.
   double currentRoundTripTime() {
-    final $r = $callSync(16471, $W()..h(this));
+    final $r = $callSync(16477, $W()..h(this));
     return $r.f64();
   }
 
   /// Go: `func (*ice.CandidatePair).FirstReponseReceivedAt() time.Time`.
   DateTime firstReponseReceivedAt() {
-    final $r = $callSync(16472, $W()..h(this));
+    final $r = $callSync(16478, $W()..h(this));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func (*ice.CandidatePair).FirstRequestReceivedAt() time.Time`.
   DateTime firstRequestReceivedAt() {
-    final $r = $callSync(16473, $W()..h(this));
+    final $r = $callSync(16479, $W()..h(this));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func (*ice.CandidatePair).FirstRequestSentAt() time.Time`.
   DateTime firstRequestSentAt() {
-    final $r = $callSync(16474, $W()..h(this));
+    final $r = $callSync(16480, $W()..h(this));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func (*ice.CandidatePair).LastRequestReceivedAt() time.Time`.
   DateTime lastRequestReceivedAt() {
-    final $r = $callSync(16475, $W()..h(this));
+    final $r = $callSync(16481, $W()..h(this));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func (*ice.CandidatePair).LastRequestSentAt() time.Time`.
   DateTime lastRequestSentAt() {
-    final $r = $callSync(16476, $W()..h(this));
+    final $r = $callSync(16482, $W()..h(this));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func (*ice.CandidatePair).LastResponseReceivedAt() time.Time`.
   DateTime lastResponseReceivedAt() {
-    final $r = $callSync(16477, $W()..h(this));
+    final $r = $callSync(16483, $W()..h(this));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func (*ice.CandidatePair).RequestsReceived() uint64`.
   int requestsReceived() {
-    final $r = $callSync(16478, $W()..h(this));
+    final $r = $callSync(16484, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*ice.CandidatePair).RequestsSent() uint64`.
   int requestsSent() {
-    final $r = $callSync(16479, $W()..h(this));
+    final $r = $callSync(16485, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*ice.CandidatePair).ResponsesReceived() uint64`.
   int responsesReceived() {
-    final $r = $callSync(16480, $W()..h(this));
+    final $r = $callSync(16486, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*ice.CandidatePair).ResponsesSent() uint64`.
   int responsesSent() {
-    final $r = $callSync(16481, $W()..h(this));
+    final $r = $callSync(16487, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*ice.CandidatePair).String() string`.
   String string() {
-    final $r = $callSync(16482, $W()..h(this));
+    final $r = $callSync(16488, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*ice.CandidatePair).TotalRoundTripTime() float64`.
   double totalRoundTripTime() {
-    final $r = $callSync(16483, $W()..h(this));
+    final $r = $callSync(16489, $W()..h(this));
     return $r.f64();
   }
 
   /// Go: `func (*ice.CandidatePair).UpdateRequestReceived()`.
   void updateRequestReceived() {
-    $callSync(16484, $W()..h(this));
+    $callSync(16490, $W()..h(this));
   }
 
   /// Go: `func (*ice.CandidatePair).UpdateRequestSent()`.
   void updateRequestSent() {
-    $callSync(16485, $W()..h(this));
+    $callSync(16491, $W()..h(this));
   }
 
   /// Go: `func (*ice.CandidatePair).UpdateResponseSent()`.
   void updateResponseSent() {
-    $callSync(16486, $W()..h(this));
+    $callSync(16492, $W()..h(this));
   }
 
   /// Go: `func (*ice.CandidatePair).UpdateRoundTripTime(rtt time.Duration)`.
   void updateRoundTripTime(Duration rtt) {
     $callSync(
-        16487,
+        16493,
         $W()
           ..h(this)
           ..i64((rtt).inMicroseconds * 1000));
@@ -1108,7 +1108,7 @@ class IceV4CandidatePair extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*ice.CandidatePair).Write(b []byte) (int, error)`.
   int write(Uint8List b) {
     final $r = $callSync(
-        16488,
+        16494,
         $W()
           ..h(this)
           ..bytes(b));
@@ -1390,14 +1390,14 @@ class IceV4CandidatePeerReflexive extends IceV4Candidate
   /// Go: `func ice.NewCandidatePeerReflexive(config *ice.CandidatePeerReflexiveConfig) (*ice.CandidatePeerReflexive, error)`.
   factory IceV4CandidatePeerReflexive(
       IceV4CandidatePeerReflexiveConfig config) {
-    final $r = $callSync(16590, $W()..dto(config));
+    final $r = $callSync(16596, $W()..dto(config));
     return $r.hnn(IceV4CandidatePeerReflexive.$h);
   }
 
   /// Go: `func (*ice.candidateBase).AddExtension(ext ice.CandidateExtension) error`.
   void addExtension(IceV4CandidateExtension ext) {
     $callSync(
-        16489,
+        16495,
         $W()
           ..h(this)
           ..dto(ext));
@@ -1405,26 +1405,26 @@ class IceV4CandidatePeerReflexive extends IceV4Candidate
 
   /// Go: `func (*ice.candidateBase).Address() string`.
   String address() {
-    final $r = $callSync(16490, $W()..h(this));
+    final $r = $callSync(16496, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*ice.candidateBase).Component() uint16`.
   int component() {
-    final $r = $callSync(16491, $W()..h(this));
+    final $r = $callSync(16497, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*ice.candidateBase).Deadline() (deadline time.Time, ok bool)`.
   (DateTime, bool) deadline() {
-    final $r = $callSync(16492, $W()..h(this));
+    final $r = $callSync(16498, $W()..h(this));
     return ($r.p() ? $r.time() : $nil(), $r.b());
   }
 
   /// Go: `func (*ice.candidateBase).DeepEqual(other ice.Candidate) bool`.
   bool deepEqual(IceV4Candidate other) {
     final $r = $callSync(
-        16493,
+        16499,
         $W()
           ..h(this)
           ..h(other));
@@ -1434,7 +1434,7 @@ class IceV4CandidatePeerReflexive extends IceV4Candidate
   /// Go: `func (*ice.candidateBase).Equal(other ice.Candidate) bool`.
   bool equal(IceV4Candidate other) {
     final $r = $callSync(
-        16494,
+        16500,
         $W()
           ..h(this)
           ..h(other));
@@ -1443,25 +1443,25 @@ class IceV4CandidatePeerReflexive extends IceV4Candidate
 
   /// Go: `func (*ice.candidateBase).Err() error`.
   void err() {
-    $callSync(16495, $W()..h(this));
+    $callSync(16501, $W()..h(this));
   }
 
   /// Go: `func (*ice.candidateBase).Extensions() []ice.CandidateExtension`.
   List<IceV4CandidateExtension> extensions() {
-    final $r = $callSync(16496, $W()..h(this));
+    final $r = $callSync(16502, $W()..h(this));
     return $r.list(() => $r.p() ? IceV4CandidateExtension.$dec($r) : $nil());
   }
 
   /// Go: `func (*ice.candidateBase).Foundation() string`.
   String foundation() {
-    final $r = $callSync(16497, $W()..h(this));
+    final $r = $callSync(16503, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*ice.candidateBase).GetExtension(key string) (ice.CandidateExtension, bool)`.
   (IceV4CandidateExtension, bool) getExtension(String key) {
     final $r = $callSync(
-        16498,
+        16504,
         $W()
           ..h(this)
           ..str(key));
@@ -1470,62 +1470,62 @@ class IceV4CandidatePeerReflexive extends IceV4Candidate
 
   /// Go: `func (*ice.candidateBase).ID() string`.
   String id() {
-    final $r = $callSync(16499, $W()..h(this));
+    final $r = $callSync(16505, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*ice.candidateBase).LastReceived() time.Time`.
   DateTime lastReceived() {
-    final $r = $callSync(16500, $W()..h(this));
+    final $r = $callSync(16506, $W()..h(this));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func (*ice.candidateBase).LastSent() time.Time`.
   DateTime lastSent() {
-    final $r = $callSync(16501, $W()..h(this));
+    final $r = $callSync(16507, $W()..h(this));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func (*ice.candidateBase).LocalPreference() uint16`.
   int localPreference() {
-    final $r = $callSync(16502, $W()..h(this));
+    final $r = $callSync(16508, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*ice.candidateBase).Marshal() string`.
   String marshal() {
-    final $r = $callSync(16503, $W()..h(this));
+    final $r = $callSync(16509, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*ice.candidateBase).NetworkType() ice.NetworkType`.
   int networkType() {
-    final $r = $callSync(16504, $W()..h(this));
+    final $r = $callSync(16510, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*ice.candidateBase).Port() int`.
   int port() {
-    final $r = $callSync(16505, $W()..h(this));
+    final $r = $callSync(16511, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*ice.candidateBase).Priority() uint32`.
   int priority() {
-    final $r = $callSync(16506, $W()..h(this));
+    final $r = $callSync(16512, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*ice.candidateBase).RelatedAddress() *ice.CandidateRelatedAddress`.
   IceV4CandidateRelatedAddress relatedAddress() {
-    final $r = $callSync(16507, $W()..h(this));
+    final $r = $callSync(16513, $W()..h(this));
     return $r.p() ? IceV4CandidateRelatedAddress.$dec($r) : $nil();
   }
 
   /// Go: `func (*ice.candidateBase).RemoveExtension(key string) (ok bool)`.
   bool removeExtension(String key) {
     final $r = $callSync(
-        16508,
+        16514,
         $W()
           ..h(this)
           ..str(key));
@@ -1535,7 +1535,7 @@ class IceV4CandidatePeerReflexive extends IceV4Candidate
   /// Go: `func (*ice.candidateBase).SetComponent(component uint16)`.
   void setComponent(int component) {
     $callSync(
-        16509,
+        16515,
         $W()
           ..h(this)
           ..i64(component));
@@ -1543,32 +1543,32 @@ class IceV4CandidatePeerReflexive extends IceV4Candidate
 
   /// Go: `func (*ice.candidateBase).String() string`.
   String string() {
-    final $r = $callSync(16510, $W()..h(this));
+    final $r = $callSync(16516, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*ice.candidateBase).TCPType() ice.TCPType`.
   int tcpType() {
-    final $r = $callSync(16511, $W()..h(this));
+    final $r = $callSync(16517, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*ice.candidateBase).Type() ice.CandidateType`.
   int type() {
-    final $r = $callSync(16512, $W()..h(this));
+    final $r = $callSync(16518, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*ice.candidateBase).TypePreference() uint16`.
   int typePreference() {
-    final $r = $callSync(16513, $W()..h(this));
+    final $r = $callSync(16519, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*ice.candidateBase).Value(interface{}) interface{}`.
   Object? value$(Object? arg0) {
     final $r = $callSync(
-        16514,
+        16520,
         $W()
           ..h(this)
           ..any(arg0));
@@ -1677,7 +1677,7 @@ final class IceV4CandidateRelatedAddress implements GoDto {
   /// Go: `func (*ice.CandidateRelatedAddress).Equal(other *ice.CandidateRelatedAddress) bool`.
   bool equal(IceV4CandidateRelatedAddress other) {
     final $r = $callSync(
-        16515,
+        16521,
         $W()
           ..dto(this)
           ..dto(other));
@@ -1686,7 +1686,7 @@ final class IceV4CandidateRelatedAddress implements GoDto {
 
   /// Go: `func (*ice.CandidateRelatedAddress).String() string`.
   String string() {
-    final $r = $callSync(16516, $W()..dto(this));
+    final $r = $callSync(16522, $W()..dto(this));
     return $r.str();
   }
 }
@@ -1715,14 +1715,14 @@ class IceV4CandidateRelay extends IceV4Candidate
 
   /// Go: `func ice.NewCandidateRelay(config *ice.CandidateRelayConfig) (*ice.CandidateRelay, error)`.
   factory IceV4CandidateRelay(IceV4CandidateRelayConfig config) {
-    final $r = $callSync(16591, $W()..dto(config));
+    final $r = $callSync(16597, $W()..dto(config));
     return $r.hnn(IceV4CandidateRelay.$h);
   }
 
   /// Go: `func (*ice.candidateBase).AddExtension(ext ice.CandidateExtension) error`.
   void addExtension(IceV4CandidateExtension ext) {
     $callSync(
-        16517,
+        16523,
         $W()
           ..h(this)
           ..dto(ext));
@@ -1730,26 +1730,26 @@ class IceV4CandidateRelay extends IceV4Candidate
 
   /// Go: `func (*ice.candidateBase).Address() string`.
   String address() {
-    final $r = $callSync(16518, $W()..h(this));
+    final $r = $callSync(16524, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*ice.candidateBase).Component() uint16`.
   int component() {
-    final $r = $callSync(16519, $W()..h(this));
+    final $r = $callSync(16525, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*ice.candidateBase).Deadline() (deadline time.Time, ok bool)`.
   (DateTime, bool) deadline() {
-    final $r = $callSync(16520, $W()..h(this));
+    final $r = $callSync(16526, $W()..h(this));
     return ($r.p() ? $r.time() : $nil(), $r.b());
   }
 
   /// Go: `func (*ice.candidateBase).DeepEqual(other ice.Candidate) bool`.
   bool deepEqual(IceV4Candidate other) {
     final $r = $callSync(
-        16521,
+        16527,
         $W()
           ..h(this)
           ..h(other));
@@ -1759,7 +1759,7 @@ class IceV4CandidateRelay extends IceV4Candidate
   /// Go: `func (*ice.candidateBase).Equal(other ice.Candidate) bool`.
   bool equal(IceV4Candidate other) {
     final $r = $callSync(
-        16522,
+        16528,
         $W()
           ..h(this)
           ..h(other));
@@ -1768,25 +1768,25 @@ class IceV4CandidateRelay extends IceV4Candidate
 
   /// Go: `func (*ice.candidateBase).Err() error`.
   void err() {
-    $callSync(16523, $W()..h(this));
+    $callSync(16529, $W()..h(this));
   }
 
   /// Go: `func (*ice.candidateBase).Extensions() []ice.CandidateExtension`.
   List<IceV4CandidateExtension> extensions() {
-    final $r = $callSync(16524, $W()..h(this));
+    final $r = $callSync(16530, $W()..h(this));
     return $r.list(() => $r.p() ? IceV4CandidateExtension.$dec($r) : $nil());
   }
 
   /// Go: `func (*ice.candidateBase).Foundation() string`.
   String foundation() {
-    final $r = $callSync(16525, $W()..h(this));
+    final $r = $callSync(16531, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*ice.candidateBase).GetExtension(key string) (ice.CandidateExtension, bool)`.
   (IceV4CandidateExtension, bool) getExtension(String key) {
     final $r = $callSync(
-        16526,
+        16532,
         $W()
           ..h(this)
           ..str(key));
@@ -1795,68 +1795,68 @@ class IceV4CandidateRelay extends IceV4Candidate
 
   /// Go: `func (*ice.candidateBase).ID() string`.
   String id() {
-    final $r = $callSync(16527, $W()..h(this));
+    final $r = $callSync(16533, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*ice.candidateBase).LastReceived() time.Time`.
   DateTime lastReceived() {
-    final $r = $callSync(16528, $W()..h(this));
+    final $r = $callSync(16534, $W()..h(this));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func (*ice.candidateBase).LastSent() time.Time`.
   DateTime lastSent() {
-    final $r = $callSync(16529, $W()..h(this));
+    final $r = $callSync(16535, $W()..h(this));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func (*ice.CandidateRelay).LocalPreference() uint16`.
   int localPreference() {
-    final $r = $callSync(16530, $W()..h(this));
+    final $r = $callSync(16536, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*ice.candidateBase).Marshal() string`.
   String marshal() {
-    final $r = $callSync(16531, $W()..h(this));
+    final $r = $callSync(16537, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*ice.candidateBase).NetworkType() ice.NetworkType`.
   int networkType() {
-    final $r = $callSync(16532, $W()..h(this));
+    final $r = $callSync(16538, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*ice.candidateBase).Port() int`.
   int port() {
-    final $r = $callSync(16533, $W()..h(this));
+    final $r = $callSync(16539, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*ice.candidateBase).Priority() uint32`.
   int priority() {
-    final $r = $callSync(16534, $W()..h(this));
+    final $r = $callSync(16540, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*ice.candidateBase).RelatedAddress() *ice.CandidateRelatedAddress`.
   IceV4CandidateRelatedAddress relatedAddress() {
-    final $r = $callSync(16535, $W()..h(this));
+    final $r = $callSync(16541, $W()..h(this));
     return $r.p() ? IceV4CandidateRelatedAddress.$dec($r) : $nil();
   }
 
   /// Go: `func (*ice.CandidateRelay).RelayProtocol() string`.
   String relayProtocol() {
-    final $r = $callSync(16536, $W()..h(this));
+    final $r = $callSync(16542, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*ice.candidateBase).RemoveExtension(key string) (ok bool)`.
   bool removeExtension(String key) {
     final $r = $callSync(
-        16537,
+        16543,
         $W()
           ..h(this)
           ..str(key));
@@ -1866,7 +1866,7 @@ class IceV4CandidateRelay extends IceV4Candidate
   /// Go: `func (*ice.candidateBase).SetComponent(component uint16)`.
   void setComponent(int component) {
     $callSync(
-        16538,
+        16544,
         $W()
           ..h(this)
           ..i64(component));
@@ -1874,32 +1874,32 @@ class IceV4CandidateRelay extends IceV4Candidate
 
   /// Go: `func (*ice.candidateBase).String() string`.
   String string() {
-    final $r = $callSync(16539, $W()..h(this));
+    final $r = $callSync(16545, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*ice.candidateBase).TCPType() ice.TCPType`.
   int tcpType() {
-    final $r = $callSync(16540, $W()..h(this));
+    final $r = $callSync(16546, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*ice.candidateBase).Type() ice.CandidateType`.
   int type() {
-    final $r = $callSync(16541, $W()..h(this));
+    final $r = $callSync(16547, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*ice.candidateBase).TypePreference() uint16`.
   int typePreference() {
-    final $r = $callSync(16542, $W()..h(this));
+    final $r = $callSync(16548, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*ice.candidateBase).Value(interface{}) interface{}`.
   Object? value$(Object? arg0) {
     final $r = $callSync(
-        16543,
+        16549,
         $W()
           ..h(this)
           ..any(arg0));
@@ -2016,14 +2016,14 @@ class IceV4CandidateServerReflexive extends IceV4Candidate
   /// Go: `func ice.NewCandidateServerReflexive(config *ice.CandidateServerReflexiveConfig) (*ice.CandidateServerReflexive, error)`.
   factory IceV4CandidateServerReflexive(
       IceV4CandidateServerReflexiveConfig config) {
-    final $r = $callSync(16592, $W()..dto(config));
+    final $r = $callSync(16598, $W()..dto(config));
     return $r.hnn(IceV4CandidateServerReflexive.$h);
   }
 
   /// Go: `func (*ice.candidateBase).AddExtension(ext ice.CandidateExtension) error`.
   void addExtension(IceV4CandidateExtension ext) {
     $callSync(
-        16544,
+        16550,
         $W()
           ..h(this)
           ..dto(ext));
@@ -2031,26 +2031,26 @@ class IceV4CandidateServerReflexive extends IceV4Candidate
 
   /// Go: `func (*ice.candidateBase).Address() string`.
   String address() {
-    final $r = $callSync(16545, $W()..h(this));
+    final $r = $callSync(16551, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*ice.candidateBase).Component() uint16`.
   int component() {
-    final $r = $callSync(16546, $W()..h(this));
+    final $r = $callSync(16552, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*ice.candidateBase).Deadline() (deadline time.Time, ok bool)`.
   (DateTime, bool) deadline() {
-    final $r = $callSync(16547, $W()..h(this));
+    final $r = $callSync(16553, $W()..h(this));
     return ($r.p() ? $r.time() : $nil(), $r.b());
   }
 
   /// Go: `func (*ice.candidateBase).DeepEqual(other ice.Candidate) bool`.
   bool deepEqual(IceV4Candidate other) {
     final $r = $callSync(
-        16548,
+        16554,
         $W()
           ..h(this)
           ..h(other));
@@ -2060,7 +2060,7 @@ class IceV4CandidateServerReflexive extends IceV4Candidate
   /// Go: `func (*ice.candidateBase).Equal(other ice.Candidate) bool`.
   bool equal(IceV4Candidate other) {
     final $r = $callSync(
-        16549,
+        16555,
         $W()
           ..h(this)
           ..h(other));
@@ -2069,25 +2069,25 @@ class IceV4CandidateServerReflexive extends IceV4Candidate
 
   /// Go: `func (*ice.candidateBase).Err() error`.
   void err() {
-    $callSync(16550, $W()..h(this));
+    $callSync(16556, $W()..h(this));
   }
 
   /// Go: `func (*ice.candidateBase).Extensions() []ice.CandidateExtension`.
   List<IceV4CandidateExtension> extensions() {
-    final $r = $callSync(16551, $W()..h(this));
+    final $r = $callSync(16557, $W()..h(this));
     return $r.list(() => $r.p() ? IceV4CandidateExtension.$dec($r) : $nil());
   }
 
   /// Go: `func (*ice.candidateBase).Foundation() string`.
   String foundation() {
-    final $r = $callSync(16552, $W()..h(this));
+    final $r = $callSync(16558, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*ice.candidateBase).GetExtension(key string) (ice.CandidateExtension, bool)`.
   (IceV4CandidateExtension, bool) getExtension(String key) {
     final $r = $callSync(
-        16553,
+        16559,
         $W()
           ..h(this)
           ..str(key));
@@ -2096,62 +2096,62 @@ class IceV4CandidateServerReflexive extends IceV4Candidate
 
   /// Go: `func (*ice.candidateBase).ID() string`.
   String id() {
-    final $r = $callSync(16554, $W()..h(this));
+    final $r = $callSync(16560, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*ice.candidateBase).LastReceived() time.Time`.
   DateTime lastReceived() {
-    final $r = $callSync(16555, $W()..h(this));
+    final $r = $callSync(16561, $W()..h(this));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func (*ice.candidateBase).LastSent() time.Time`.
   DateTime lastSent() {
-    final $r = $callSync(16556, $W()..h(this));
+    final $r = $callSync(16562, $W()..h(this));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func (*ice.candidateBase).LocalPreference() uint16`.
   int localPreference() {
-    final $r = $callSync(16557, $W()..h(this));
+    final $r = $callSync(16563, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*ice.candidateBase).Marshal() string`.
   String marshal() {
-    final $r = $callSync(16558, $W()..h(this));
+    final $r = $callSync(16564, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*ice.candidateBase).NetworkType() ice.NetworkType`.
   int networkType() {
-    final $r = $callSync(16559, $W()..h(this));
+    final $r = $callSync(16565, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*ice.candidateBase).Port() int`.
   int port() {
-    final $r = $callSync(16560, $W()..h(this));
+    final $r = $callSync(16566, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*ice.candidateBase).Priority() uint32`.
   int priority() {
-    final $r = $callSync(16561, $W()..h(this));
+    final $r = $callSync(16567, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*ice.candidateBase).RelatedAddress() *ice.CandidateRelatedAddress`.
   IceV4CandidateRelatedAddress relatedAddress() {
-    final $r = $callSync(16562, $W()..h(this));
+    final $r = $callSync(16568, $W()..h(this));
     return $r.p() ? IceV4CandidateRelatedAddress.$dec($r) : $nil();
   }
 
   /// Go: `func (*ice.candidateBase).RemoveExtension(key string) (ok bool)`.
   bool removeExtension(String key) {
     final $r = $callSync(
-        16563,
+        16569,
         $W()
           ..h(this)
           ..str(key));
@@ -2161,7 +2161,7 @@ class IceV4CandidateServerReflexive extends IceV4Candidate
   /// Go: `func (*ice.candidateBase).SetComponent(component uint16)`.
   void setComponent(int component) {
     $callSync(
-        16564,
+        16570,
         $W()
           ..h(this)
           ..i64(component));
@@ -2169,32 +2169,32 @@ class IceV4CandidateServerReflexive extends IceV4Candidate
 
   /// Go: `func (*ice.candidateBase).String() string`.
   String string() {
-    final $r = $callSync(16565, $W()..h(this));
+    final $r = $callSync(16571, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*ice.candidateBase).TCPType() ice.TCPType`.
   int tcpType() {
-    final $r = $callSync(16566, $W()..h(this));
+    final $r = $callSync(16572, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*ice.candidateBase).Type() ice.CandidateType`.
   int type() {
-    final $r = $callSync(16567, $W()..h(this));
+    final $r = $callSync(16573, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*ice.candidateBase).TypePreference() uint16`.
   int typePreference() {
-    final $r = $callSync(16568, $W()..h(this));
+    final $r = $callSync(16574, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*ice.candidateBase).Value(interface{}) interface{}`.
   Object? value$(Object? arg0) {
     final $r = $callSync(
-        16569,
+        16575,
         $W()
           ..h(this)
           ..any(arg0));
@@ -2389,31 +2389,31 @@ class IceV4Conn extends $net.NetConn
 
   /// Go: `func (*ice.Conn).BytesReceived() uint64`.
   int bytesReceived() {
-    final $r = $callSync(16570, $W()..h(this));
+    final $r = $callSync(16576, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*ice.Conn).BytesSent() uint64`.
   int bytesSent() {
-    final $r = $callSync(16571, $W()..h(this));
+    final $r = $callSync(16577, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*ice.Conn).Close() error`.
   void close() {
-    $callSync(16572, $W()..h(this));
+    $callSync(16578, $W()..h(this));
   }
 
   /// Go: `func (*ice.Conn).LocalAddr() net.Addr`.
   $net.NetAddr localAddr() {
-    final $r = $callSync(16573, $W()..h(this));
+    final $r = $callSync(16579, $W()..h(this));
     return $r.p() ? $net.NetAddr.$dec($r) : $nil();
   }
 
   /// Go: `func (*ice.Conn).Read(p []byte) (int, error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        16574,
+        16580,
         $W()
           ..h(this)
           ..i64(n));
@@ -2422,14 +2422,14 @@ class IceV4Conn extends $net.NetConn
 
   /// Go: `func (*ice.Conn).RemoteAddr() net.Addr`.
   $net.NetAddr remoteAddr() {
-    final $r = $callSync(16575, $W()..h(this));
+    final $r = $callSync(16581, $W()..h(this));
     return $r.p() ? $net.NetAddr.$dec($r) : $nil();
   }
 
   /// Go: `func (*ice.Conn).SetDeadline(time.Time) error`.
   void setDeadline(DateTime time) {
     $callSync(
-        16576,
+        16582,
         $W()
           ..h(this)
           ..time(time));
@@ -2438,7 +2438,7 @@ class IceV4Conn extends $net.NetConn
   /// Go: `func (*ice.Conn).SetReadDeadline(time.Time) error`.
   void setReadDeadline(DateTime time) {
     $callSync(
-        16577,
+        16583,
         $W()
           ..h(this)
           ..time(time));
@@ -2447,7 +2447,7 @@ class IceV4Conn extends $net.NetConn
   /// Go: `func (*ice.Conn).SetWriteDeadline(time.Time) error`.
   void setWriteDeadline(DateTime time) {
     $callSync(
-        16578,
+        16584,
         $W()
           ..h(this)
           ..time(time));
@@ -2456,7 +2456,7 @@ class IceV4Conn extends $net.NetConn
   /// Go: `func (*ice.Conn).Write(packet []byte) (int, error)`.
   int write(Uint8List packet) {
     final $r = $callSync(
-        16579,
+        16585,
         $W()
           ..h(this)
           ..bytes(packet));
@@ -2490,20 +2490,20 @@ class IceV4MultiTcpMuxDefault extends IceV4TcpMux
 
   /// Go: `func ice.NewMultiTCPMuxDefault(muxes ...ice.TCPMux) *ice.MultiTCPMuxDefault`.
   factory IceV4MultiTcpMuxDefault([List<IceV4TcpMux> muxes = const []]) {
-    final $r = $callSync(16593, $W()..list(muxes, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(16599, $W()..list(muxes, (w0, e0) => w0.h(e0)));
     return $r.hnn(IceV4MultiTcpMuxDefault.$h);
   }
 
   /// Go: `func (*ice.MultiTCPMuxDefault).Close() error`.
   void close() {
-    $callSync(16580, $W()..h(this));
+    $callSync(16586, $W()..h(this));
   }
 
   /// Go: `func (*ice.MultiTCPMuxDefault).GetAllConns(ufrag string, isIPv6 bool, local net.IP) ([]net.PacketConn, error)`.
   List<$net.NetPacketConn> getAllConns(
       String ufrag, bool isIPv6, Uint8List local) {
     final $r = $callSync(
-        16581,
+        16587,
         $W()
           ..h(this)
           ..str(ufrag)
@@ -2516,7 +2516,7 @@ class IceV4MultiTcpMuxDefault extends IceV4TcpMux
   $net.NetPacketConn getConnByUfrag(
       String ufrag, bool isIPv6, Uint8List local) {
     final $r = $callSync(
-        16582,
+        16588,
         $W()
           ..h(this)
           ..str(ufrag)
@@ -2528,7 +2528,7 @@ class IceV4MultiTcpMuxDefault extends IceV4TcpMux
   /// Go: `func (*ice.MultiTCPMuxDefault).RemoveConnByUfrag(ufrag string)`.
   void removeConnByUfrag(String ufrag) {
     $callSync(
-        16583,
+        16589,
         $W()
           ..h(this)
           ..str(ufrag));
@@ -2559,19 +2559,19 @@ class IceV4MultiUdpMuxDefault extends IceV4UdpMux
 
   /// Go: `func ice.NewMultiUDPMuxDefault(muxes ...ice.UDPMux) *ice.MultiUDPMuxDefault`.
   factory IceV4MultiUdpMuxDefault([List<IceV4UdpMux> muxes = const []]) {
-    final $r = $callSync(16594, $W()..list(muxes, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(16600, $W()..list(muxes, (w0, e0) => w0.h(e0)));
     return $r.hnn(IceV4MultiUdpMuxDefault.$h);
   }
 
   /// Go: `func (*ice.MultiUDPMuxDefault).Close() error`.
   void close() {
-    $callSync(16584, $W()..h(this));
+    $callSync(16590, $W()..h(this));
   }
 
   /// Go: `func (*ice.MultiUDPMuxDefault).GetConn(ufrag string, addr net.Addr) (net.PacketConn, error)`.
   $net.NetPacketConn getConn(String ufrag, $net.NetAddr addr) {
     final $r = $callSync(
-        16585,
+        16591,
         $W()
           ..h(this)
           ..str(ufrag)
@@ -2581,14 +2581,14 @@ class IceV4MultiUdpMuxDefault extends IceV4UdpMux
 
   /// Go: `func (*ice.MultiUDPMuxDefault).GetListenAddresses() []net.Addr`.
   List<$net.NetAddr> getListenAddresses() {
-    final $r = $callSync(16586, $W()..h(this));
+    final $r = $callSync(16592, $W()..h(this));
     return $r.list(() => $r.p() ? $net.NetAddr.$dec($r) : $nil());
   }
 
   /// Go: `func (*ice.MultiUDPMuxDefault).RemoveConnByUfrag(ufrag string)`.
   void removeConnByUfrag(String ufrag) {
     $callSync(
-        16587,
+        16593,
         $W()
           ..h(this)
           ..str(ufrag));
@@ -2606,7 +2606,7 @@ mixin IceV4TcpMux$ on GoHandle {
   $net.NetPacketConn getConnByUfrag(
       String ufrag, bool isIPv6, Uint8List local) {
     final $r = $callSync(
-        16600,
+        16606,
         $W()
           ..h(this)
           ..str(ufrag)
@@ -2618,7 +2618,7 @@ mixin IceV4TcpMux$ on GoHandle {
   /// Go: `func (ice.TCPMux).RemoveConnByUfrag(ufrag string)`.
   void removeConnByUfrag(String ufrag) {
     $callSync(
-        16601,
+        16607,
         $W()
           ..h(this)
           ..str(ufrag));
@@ -2626,13 +2626,13 @@ mixin IceV4TcpMux$ on GoHandle {
 
   /// Go: type assertion `x.(*ice.MultiTCPMuxDefault)`: null if the object is not one.
   IceV4MultiTcpMuxDefault? asIceV4MultiTcpMuxDefault() {
-    final $r = $callSync(1561, $W()..h(this));
+    final $r = $callSync(1566, $W()..h(this));
     return $r.hn(IceV4MultiTcpMuxDefault.$h);
   }
 
   /// Go: type assertion `x.(*ice.TCPMuxDefault)`: null if the object is not one.
   IceV4TcpMuxDefault? asIceV4TcpMuxDefault() {
-    final $r = $callSync(1562, $W()..h(this));
+    final $r = $callSync(1567, $W()..h(this));
     return $r.hn(IceV4TcpMuxDefault.$h);
   }
 }
@@ -2661,20 +2661,20 @@ class IceV4TcpMuxDefault extends IceV4TcpMux
 
   /// Go: `func ice.NewTCPMuxDefault(params ice.TCPMuxParams) *ice.TCPMuxDefault`.
   factory IceV4TcpMuxDefault(IceV4TcpMuxParams params) {
-    final $r = $callSync(16596, $W()..dto(params));
+    final $r = $callSync(16602, $W()..dto(params));
     return $r.hnn(IceV4TcpMuxDefault.$h);
   }
 
   /// Go: `func (*ice.TCPMuxDefault).Close() error`.
   void close() {
-    $callSync(16602, $W()..h(this));
+    $callSync(16608, $W()..h(this));
   }
 
   /// Go: `func (*ice.TCPMuxDefault).GetConnByUfrag(ufrag string, isIPv6 bool, local net.IP) (net.PacketConn, error)`.
   $net.NetPacketConn getConnByUfrag(
       String ufrag, bool isIPv6, Uint8List local) {
     final $r = $callSync(
-        16603,
+        16609,
         $W()
           ..h(this)
           ..str(ufrag)
@@ -2685,14 +2685,14 @@ class IceV4TcpMuxDefault extends IceV4TcpMux
 
   /// Go: `func (*ice.TCPMuxDefault).LocalAddr() net.Addr`.
   $net.NetAddr localAddr() {
-    final $r = $callSync(16604, $W()..h(this));
+    final $r = $callSync(16610, $W()..h(this));
     return $r.p() ? $net.NetAddr.$dec($r) : $nil();
   }
 
   /// Go: `func (*ice.TCPMuxDefault).RemoveConnByUfrag(ufrag string)`.
   void removeConnByUfrag(String ufrag) {
     $callSync(
-        16605,
+        16611,
         $W()
           ..h(this)
           ..str(ufrag));
@@ -2764,7 +2764,7 @@ mixin IceV4UdpMux$ on GoHandle {
   /// Go: `func (ice.UDPMux).GetConn(ufrag string, addr net.Addr) (net.PacketConn, error)`.
   $net.NetPacketConn getConn(String ufrag, $net.NetAddr addr) {
     final $r = $callSync(
-        16606,
+        16612,
         $W()
           ..h(this)
           ..str(ufrag)
@@ -2774,14 +2774,14 @@ mixin IceV4UdpMux$ on GoHandle {
 
   /// Go: `func (ice.UDPMux).GetListenAddresses() []net.Addr`.
   List<$net.NetAddr> getListenAddresses() {
-    final $r = $callSync(16607, $W()..h(this));
+    final $r = $callSync(16613, $W()..h(this));
     return $r.list(() => $r.p() ? $net.NetAddr.$dec($r) : $nil());
   }
 
   /// Go: `func (ice.UDPMux).RemoveConnByUfrag(ufrag string)`.
   void removeConnByUfrag(String ufrag) {
     $callSync(
-        16608,
+        16614,
         $W()
           ..h(this)
           ..str(ufrag));
@@ -2790,31 +2790,31 @@ mixin IceV4UdpMux$ on GoHandle {
   /// Go: type assertion `x.(*udpmux.UDPMux)`: null if the object is not one.
   $udpmux.Libp2pP2pTransportWebrtcUdpmuxUdpMux?
       asLibp2pP2pTransportWebrtcUdpmuxUdpMux() {
-    final $r = $callSync(1563, $W()..h(this));
+    final $r = $callSync(1568, $W()..h(this));
     return $r.hn($udpmux.Libp2pP2pTransportWebrtcUdpmuxUdpMux.$h);
   }
 
   /// Go: type assertion `x.(*ice.MultiUDPMuxDefault)`: null if the object is not one.
   IceV4MultiUdpMuxDefault? asIceV4MultiUdpMuxDefault() {
-    final $r = $callSync(1564, $W()..h(this));
+    final $r = $callSync(1569, $W()..h(this));
     return $r.hn(IceV4MultiUdpMuxDefault.$h);
   }
 
   /// Go: type assertion `x.(*ice.UDPMuxDefault)`: null if the object is not one.
   IceV4UdpMuxDefault? asIceV4UdpMuxDefault() {
-    final $r = $callSync(1565, $W()..h(this));
+    final $r = $callSync(1570, $W()..h(this));
     return $r.hn(IceV4UdpMuxDefault.$h);
   }
 
   /// Go: type assertion `x.(*ice.UniversalUDPMuxDefault)`: null if the object is not one.
   IceV4UniversalUdpMuxDefault? asIceV4UniversalUdpMuxDefault() {
-    final $r = $callSync(1566, $W()..h(this));
+    final $r = $callSync(1571, $W()..h(this));
     return $r.hn(IceV4UniversalUdpMuxDefault.$h);
   }
 
   /// Go: type assertion `x.(ice.UniversalUDPMux)`: null if the object is not one.
   IceV4UniversalUdpMux? asIceV4UniversalUdpMux() {
-    final $r = $callSync(1567, $W()..h(this));
+    final $r = $callSync(1572, $W()..h(this));
     return $r.hn(IceV4UniversalUdpMux.$h);
   }
 }
@@ -2843,19 +2843,19 @@ class IceV4UdpMuxDefault extends IceV4UdpMux
 
   /// Go: `func ice.NewUDPMuxDefault(params ice.UDPMuxParams) *ice.UDPMuxDefault`.
   factory IceV4UdpMuxDefault(IceV4UdpMuxParams params) {
-    final $r = $callSync(16598, $W()..dto(params));
+    final $r = $callSync(16604, $W()..dto(params));
     return $r.hnn(IceV4UdpMuxDefault.$h);
   }
 
   /// Go: `func (*ice.UDPMuxDefault).Close() error`.
   void close() {
-    $callSync(16609, $W()..h(this));
+    $callSync(16615, $W()..h(this));
   }
 
   /// Go: `func (*ice.UDPMuxDefault).GetConn(ufrag string, addr net.Addr) (net.PacketConn, error)`.
   $net.NetPacketConn getConn(String ufrag, $net.NetAddr addr) {
     final $r = $callSync(
-        16610,
+        16616,
         $W()
           ..h(this)
           ..str(ufrag)
@@ -2865,26 +2865,26 @@ class IceV4UdpMuxDefault extends IceV4UdpMux
 
   /// Go: `func (*ice.UDPMuxDefault).GetListenAddresses() []net.Addr`.
   List<$net.NetAddr> getListenAddresses() {
-    final $r = $callSync(16611, $W()..h(this));
+    final $r = $callSync(16617, $W()..h(this));
     return $r.list(() => $r.p() ? $net.NetAddr.$dec($r) : $nil());
   }
 
   /// Go: `func (*ice.UDPMuxDefault).IsClosed() bool`.
   bool isClosed() {
-    final $r = $callSync(16612, $W()..h(this));
+    final $r = $callSync(16618, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*ice.UDPMuxDefault).LocalAddr() net.Addr`.
   $net.NetAddr localAddr() {
-    final $r = $callSync(16613, $W()..h(this));
+    final $r = $callSync(16619, $W()..h(this));
     return $r.p() ? $net.NetAddr.$dec($r) : $nil();
   }
 
   /// Go: `func (*ice.UDPMuxDefault).RemoveConnByUfrag(ufrag string)`.
   void removeConnByUfrag(String ufrag) {
     $callSync(
-        16614,
+        16620,
         $W()
           ..h(this)
           ..str(ufrag));
@@ -2951,7 +2951,7 @@ mixin IceV4UniversalUdpMux$ on GoHandle {
   $net.NetPacketConn getConnForUrl(
       String ufrag, String url, $net.NetAddr addr) {
     final $r = $callSync(
-        16623,
+        16629,
         $W()
           ..h(this)
           ..str(ufrag)
@@ -2964,7 +2964,7 @@ mixin IceV4UniversalUdpMux$ on GoHandle {
   $v3.StunV3XorMappedAddress getXorMappedAddr(
       $net.NetAddr stunAddr, Duration deadline) {
     final $r = $callSync(
-        16624,
+        16630,
         $W()
           ..h(this)
           ..dto(stunAddr)
@@ -2974,7 +2974,7 @@ mixin IceV4UniversalUdpMux$ on GoHandle {
 
   /// Go: type assertion `x.(*ice.UniversalUDPMuxDefault)`: null if the object is not one.
   IceV4UniversalUdpMuxDefault? asIceV4UniversalUdpMuxDefault() {
-    final $r = $callSync(1568, $W()..h(this));
+    final $r = $callSync(1573, $W()..h(this));
     return $r.hn(IceV4UniversalUdpMuxDefault.$h);
   }
 }
@@ -3003,19 +3003,19 @@ class IceV4UniversalUdpMuxDefault extends IceV4UniversalUdpMux
 
   /// Go: `func ice.NewUniversalUDPMuxDefault(params ice.UniversalUDPMuxParams) *ice.UniversalUDPMuxDefault`.
   factory IceV4UniversalUdpMuxDefault(IceV4UniversalUdpMuxParams params) {
-    final $r = $callSync(16599, $W()..dto(params));
+    final $r = $callSync(16605, $W()..dto(params));
     return $r.hnn(IceV4UniversalUdpMuxDefault.$h);
   }
 
   /// Go: `func (*ice.UDPMuxDefault).Close() error`.
   void close() {
-    $callSync(16625, $W()..h(this));
+    $callSync(16631, $W()..h(this));
   }
 
   /// Go: `func (*ice.UDPMuxDefault).GetConn(ufrag string, addr net.Addr) (net.PacketConn, error)`.
   $net.NetPacketConn getConn(String ufrag, $net.NetAddr addr) {
     final $r = $callSync(
-        16626,
+        16632,
         $W()
           ..h(this)
           ..str(ufrag)
@@ -3027,7 +3027,7 @@ class IceV4UniversalUdpMuxDefault extends IceV4UniversalUdpMux
   $net.NetPacketConn getConnForUrl(
       String ufrag, String url, $net.NetAddr addr) {
     final $r = $callSync(
-        16627,
+        16633,
         $W()
           ..h(this)
           ..str(ufrag)
@@ -3038,7 +3038,7 @@ class IceV4UniversalUdpMuxDefault extends IceV4UniversalUdpMux
 
   /// Go: `func (*ice.UDPMuxDefault).GetListenAddresses() []net.Addr`.
   List<$net.NetAddr> getListenAddresses() {
-    final $r = $callSync(16628, $W()..h(this));
+    final $r = $callSync(16634, $W()..h(this));
     return $r.list(() => $r.p() ? $net.NetAddr.$dec($r) : $nil());
   }
 
@@ -3046,7 +3046,7 @@ class IceV4UniversalUdpMuxDefault extends IceV4UniversalUdpMux
   $v3.StunV3XorMappedAddress getXorMappedAddr(
       $net.NetAddr serverAddr, Duration deadline) {
     final $r = $callSync(
-        16629,
+        16635,
         $W()
           ..h(this)
           ..dto(serverAddr)
@@ -3056,20 +3056,20 @@ class IceV4UniversalUdpMuxDefault extends IceV4UniversalUdpMux
 
   /// Go: `func (*ice.UDPMuxDefault).IsClosed() bool`.
   bool isClosed() {
-    final $r = $callSync(16630, $W()..h(this));
+    final $r = $callSync(16636, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*ice.UDPMuxDefault).LocalAddr() net.Addr`.
   $net.NetAddr localAddr() {
-    final $r = $callSync(16631, $W()..h(this));
+    final $r = $callSync(16637, $W()..h(this));
     return $r.p() ? $net.NetAddr.$dec($r) : $nil();
   }
 
   /// Go: `func (*ice.UDPMuxDefault).RemoveConnByUfrag(ufrag string)`.
   void removeConnByUfrag(String ufrag) {
     $callSync(
-        16632,
+        16638,
         $W()
           ..h(this)
           ..str(ufrag));
@@ -3127,7 +3127,7 @@ final class IceV4UseCandidateAttr implements GoDto {
   /// Go: `func (ice.UseCandidateAttr).AddTo(m *stun.Message) error`.
   void addTo($v3.StunV3Message m) {
     $callSync(
-        16635,
+        16641,
         $W()
           ..dto(this)
           ..h(m));
@@ -3136,7 +3136,7 @@ final class IceV4UseCandidateAttr implements GoDto {
   /// Go: `func (ice.UseCandidateAttr).IsSet(m *stun.Message) bool`.
   bool isSet($v3.StunV3Message m) {
     final $r = $callSync(
-        16636,
+        16642,
         $W()
           ..dto(this)
           ..h(m));
@@ -3456,7 +3456,7 @@ extension GoPionIceV4Api on GoPionIceV4 {
   IceV4MultiUdpMuxDefault newMultiUdpMuxFromPort(int port,
       [List<IceV4UdpMuxFromPortOption> opts = const []]) {
     final $r = $callSync(
-        16595,
+        16601,
         $W()
           ..i64(port)
           ..list(opts, (w0, e0) => w0.h(e0)));
@@ -3465,19 +3465,19 @@ extension GoPionIceV4Api on GoPionIceV4 {
 
   /// Go: `func ice.NewTCPType(value string) ice.TCPType`.
   int newTcpType(String value) {
-    final $r = $callSync(16597, $W()..str(value));
+    final $r = $callSync(16603, $W()..str(value));
     return $r.i64();
   }
 
   /// Go: `func ice.UnmarshalCandidate(raw string) (ice.Candidate, error)`.
   IceV4Candidate unmarshalCandidate(String raw) {
-    final $r = $callSync(16633, $W()..str(raw));
+    final $r = $callSync(16639, $W()..str(raw));
     return $r.hnn(IceV4Candidate.$h);
   }
 
   /// Go: `func ice.UseCandidate() ice.UseCandidateAttr`.
   IceV4UseCandidateAttr useCandidate() {
-    final $r = $callSync(16634);
+    final $r = $callSync(16640);
     return $r.p() ? IceV4UseCandidateAttr.$dec($r) : $nil();
   }
 }
@@ -3637,7 +3637,7 @@ extension GoPionIceV4OptionsApi on GoPionIceV4Options {
   Future<IceV4UdpMuxFromPortOption> udpMuxFromPortWithIpFilter(
       FutureOr<bool> Function(Uint8List ip) f) async {
     final $r =
-        await $call(16615, $W()..cb((r) => f(r.bytes() ?? Uint8List(0)), true));
+        await $call(16621, $W()..cb((r) => f(r.bytes() ?? Uint8List(0)), true));
     return $r.hnn(IceV4UdpMuxFromPortOption.$h);
   }
 
@@ -3650,45 +3650,45 @@ extension GoPionIceV4OptionsApi on GoPionIceV4Options {
   /// each invocation (a retained callback, WIRE.md).
   Future<IceV4UdpMuxFromPortOption> udpMuxFromPortWithInterfaceFilter(
       FutureOr<bool> Function(String arg0) f) async {
-    final $r = await $call(16616, $W()..cb((r) => f(r.str()), true));
+    final $r = await $call(16622, $W()..cb((r) => f(r.str()), true));
     return $r.hnn(IceV4UdpMuxFromPortOption.$h);
   }
 
   /// Go: `func ice.UDPMuxFromPortWithLogger(logger logging.LeveledLogger) ice.UDPMuxFromPortOption`.
   IceV4UdpMuxFromPortOption udpMuxFromPortWithLogger(
       $logging.LoggingLeveledLogger logger) {
-    final $r = $callSync(16617, $W()..h(logger));
+    final $r = $callSync(16623, $W()..h(logger));
     return $r.hnn(IceV4UdpMuxFromPortOption.$h);
   }
 
   /// Go: `func ice.UDPMuxFromPortWithLoopback() ice.UDPMuxFromPortOption`.
   IceV4UdpMuxFromPortOption udpMuxFromPortWithLoopback() {
-    final $r = $callSync(16618);
+    final $r = $callSync(16624);
     return $r.hnn(IceV4UdpMuxFromPortOption.$h);
   }
 
   /// Go: `func ice.UDPMuxFromPortWithNet(n transport.Net) ice.UDPMuxFromPortOption`.
   IceV4UdpMuxFromPortOption udpMuxFromPortWithNet($v32.TransportV3Net n) {
-    final $r = $callSync(16619, $W()..h(n));
+    final $r = $callSync(16625, $W()..h(n));
     return $r.hnn(IceV4UdpMuxFromPortOption.$h);
   }
 
   /// Go: `func ice.UDPMuxFromPortWithNetworks(networks ...ice.NetworkType) ice.UDPMuxFromPortOption`.
   IceV4UdpMuxFromPortOption udpMuxFromPortWithNetworks(
       [List<int> networks = const []]) {
-    final $r = $callSync(16620, $W()..list(networks, (w0, e0) => w0.i64(e0)));
+    final $r = $callSync(16626, $W()..list(networks, (w0, e0) => w0.i64(e0)));
     return $r.hnn(IceV4UdpMuxFromPortOption.$h);
   }
 
   /// Go: `func ice.UDPMuxFromPortWithReadBufferSize(size int) ice.UDPMuxFromPortOption`.
   IceV4UdpMuxFromPortOption udpMuxFromPortWithReadBufferSize(int size) {
-    final $r = $callSync(16621, $W()..i64(size));
+    final $r = $callSync(16627, $W()..i64(size));
     return $r.hnn(IceV4UdpMuxFromPortOption.$h);
   }
 
   /// Go: `func ice.UDPMuxFromPortWithWriteBufferSize(size int) ice.UDPMuxFromPortOption`.
   IceV4UdpMuxFromPortOption udpMuxFromPortWithWriteBufferSize(int size) {
-    final $r = $callSync(16622, $W()..i64(size));
+    final $r = $callSync(16628, $W()..i64(size));
     return $r.hnn(IceV4UdpMuxFromPortOption.$h);
   }
 }

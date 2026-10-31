@@ -27,7 +27,7 @@ final class PeertaskqueuePeertrackerDefaultTaskMerger implements GoDto {
   bool hasNewInfo($peertask.PeertaskqueuePeertaskTask task,
       List<$peertask.PeertaskqueuePeertaskTask> existing) {
     final $r = $callSync(
-        11151,
+        11157,
         $W()
           ..dto(this)
           ..dto(task)
@@ -39,7 +39,7 @@ final class PeertaskqueuePeertrackerDefaultTaskMerger implements GoDto {
   void merge($peertask.PeertaskqueuePeertaskTask task,
       $peertask.PeertaskqueuePeertaskTask existing) {
     $callSync(
-        11152,
+        11158,
         $W()
           ..dto(this)
           ..dto(task)
@@ -93,36 +93,36 @@ class PeertaskqueuePeertrackerPeerTracker extends $ipfs_pq.IpfsPqElem
 
   /// Go: `func (*peertracker.PeerTracker).Freeze()`.
   void freeze() {
-    $callSync(11154, $W()..h(this));
+    $callSync(11160, $W()..h(this));
   }
 
   /// Go: `func (*peertracker.PeerTracker).FullThaw()`.
   void fullThaw() {
-    $callSync(11155, $W()..h(this));
+    $callSync(11161, $W()..h(this));
   }
 
   /// Go: `func (*peertracker.PeerTracker).Index() int`.
   int index() {
-    final $r = $callSync(11156, $W()..h(this));
+    final $r = $callSync(11162, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*peertracker.PeerTracker).IsFrozen() bool`.
   bool isFrozen() {
-    final $r = $callSync(11157, $W()..h(this));
+    final $r = $callSync(11163, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*peertracker.PeerTracker).IsIdle() bool`.
   bool isIdle() {
-    final $r = $callSync(11158, $W()..h(this));
+    final $r = $callSync(11164, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*peertracker.PeerTracker).PopTasks(targetMinWork int) ([]*peertask.Task, int)`.
   (List<$peertask.PeertaskqueuePeertaskTask>, int) popTasks(int targetMinWork) {
     final $r = $callSync(
-        11159,
+        11165,
         $W()
           ..h(this)
           ..i64(targetMinWork));
@@ -136,7 +136,7 @@ class PeertaskqueuePeertrackerPeerTracker extends $ipfs_pq.IpfsPqElem
   /// Go: `func (*peertracker.PeerTracker).PushTasks(tasks ...peertask.Task)`.
   void pushTasks([List<$peertask.PeertaskqueuePeertaskTask> tasks = const []]) {
     $callSync(
-        11160,
+        11166,
         $W()
           ..h(this)
           ..list(tasks, (w0, e0) => w0.dto(e0)));
@@ -146,7 +146,7 @@ class PeertaskqueuePeertrackerPeerTracker extends $ipfs_pq.IpfsPqElem
   void pushTasksTruncated(int n,
       [List<$peertask.PeertaskqueuePeertaskTask> tasks = const []]) {
     $callSync(
-        11161,
+        11167,
         $W()
           ..h(this)
           ..i64(n)
@@ -156,7 +156,7 @@ class PeertaskqueuePeertrackerPeerTracker extends $ipfs_pq.IpfsPqElem
   /// Go: `func (*peertracker.PeerTracker).Remove(topic peertask.Topic) bool`.
   bool remove($peertask.PeertaskqueuePeertaskTopic topic) {
     final $r = $callSync(
-        11162,
+        11168,
         $W()
           ..h(this)
           ..h(topic));
@@ -166,7 +166,7 @@ class PeertaskqueuePeertrackerPeerTracker extends $ipfs_pq.IpfsPqElem
   /// Go: `func (*peertracker.PeerTracker).SetIndex(i int)`.
   void setIndex(int i) {
     $callSync(
-        11163,
+        11169,
         $W()
           ..h(this)
           ..i64(i));
@@ -174,20 +174,20 @@ class PeertaskqueuePeertrackerPeerTracker extends $ipfs_pq.IpfsPqElem
 
   /// Go: `func (*peertracker.PeerTracker).Stats() *peertracker.PeerTrackerStats`.
   PeertaskqueuePeertrackerPeerTrackerStats stats() {
-    final $r = $callSync(11164, $W()..h(this));
+    final $r = $callSync(11170, $W()..h(this));
     return $r.p() ? PeertaskqueuePeertrackerPeerTrackerStats.$dec($r) : $nil();
   }
 
   /// Go: `func (*peertracker.PeerTracker).Target() peer.ID`.
   $peer.Libp2pCorePeerId target() {
-    final $r = $callSync(11165, $W()..h(this));
+    final $r = $callSync(11171, $W()..h(this));
     return $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil();
   }
 
   /// Go: `func (*peertracker.PeerTracker).TaskDone(task *peertask.Task)`.
   void taskDone($peertask.PeertaskqueuePeertaskTask task) {
     $callSync(
-        11166,
+        11172,
         $W()
           ..h(this)
           ..dto(task));
@@ -195,13 +195,13 @@ class PeertaskqueuePeertrackerPeerTracker extends $ipfs_pq.IpfsPqElem
 
   /// Go: `func (*peertracker.PeerTracker).Thaw() bool`.
   bool thaw() {
-    final $r = $callSync(11167, $W()..h(this));
+    final $r = $callSync(11173, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*peertracker.PeerTracker).Topics() *peertracker.PeerTrackerTopics`.
   PeertaskqueuePeertrackerPeerTrackerTopics topics() {
-    final $r = $callSync(11168, $W()..h(this));
+    final $r = $callSync(11174, $W()..h(this));
     return $r.p() ? PeertaskqueuePeertrackerPeerTrackerTopics.$dec($r) : $nil();
   }
 }
@@ -268,7 +268,7 @@ mixin PeertaskqueuePeertrackerTaskMerger$ on GoHandle {
   bool hasNewInfo($peertask.PeertaskqueuePeertaskTask task,
       List<$peertask.PeertaskqueuePeertaskTask> existing) {
     final $r = $callSync(
-        11169,
+        11175,
         $W()
           ..h(this)
           ..dto(task)
@@ -280,7 +280,7 @@ mixin PeertaskqueuePeertrackerTaskMerger$ on GoHandle {
   void merge($peertask.PeertaskqueuePeertaskTask task,
       $peertask.PeertaskqueuePeertaskTask existing) {
     $callSync(
-        11170,
+        11176,
         $W()
           ..h(this)
           ..dto(task)
@@ -294,7 +294,7 @@ extension GoIpfsPeertaskqueuePeertrackerApi on GoIpfsPeertaskqueuePeertracker {
   bool defaultPeerComparator(PeertaskqueuePeertrackerPeerTracker pa,
       PeertaskqueuePeertrackerPeerTracker pb) {
     final $r = $callSync(
-        11150,
+        11156,
         $W()
           ..h(pa)
           ..h(pb));
@@ -306,7 +306,7 @@ extension GoIpfsPeertaskqueuePeertrackerApi on GoIpfsPeertaskqueuePeertracker {
       PeertaskqueuePeertrackerTaskMerger taskMerger, int maxActiveWorkPerPeer,
       [List<PeertaskqueuePeertrackerOption> opts = const []]) {
     final $r = $callSync(
-        11153,
+        11159,
         $W()
           ..val(target)
           ..h(taskMerger)
@@ -327,7 +327,7 @@ extension GoIpfsPeertaskqueuePeertrackerApi on GoIpfsPeertaskqueuePeertracker {
               $peertask.PeertaskqueuePeertaskQueueTask b)
           comparator) async {
     final $r = await $call(
-        11171,
+        11177,
         $W()
           ..cb(
               (r) => comparator(

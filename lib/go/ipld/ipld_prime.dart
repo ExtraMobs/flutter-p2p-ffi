@@ -111,7 +111,7 @@ class IpldPrimeErrWrongKind extends GolangException {
 extension GoIpldIpldPrimeApi on GoIpldIpldPrime {
   /// Go: `var ipld.Absent datamodel.Node`.
   $datamodel.IpldPrimeDatamodelNode get absent {
-    final $r = $callSync(12017);
+    final $r = $callSync(12023);
     return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
   }
 
@@ -129,7 +129,7 @@ extension GoIpldIpldPrimeApi on GoIpldIpldPrime {
               $io.IoReader reader)
           decFn) async {
     final $r = await $call(
-        12018,
+        12024,
         $W()
           ..bytes(b)
           ..cb(
@@ -153,7 +153,7 @@ extension GoIpldIpldPrimeApi on GoIpldIpldPrime {
               $io.IoReader reader)
           decFn) async {
     final $r = await $call(
-        12019,
+        12025,
         $W()
           ..reader(r)
           ..cb(
@@ -178,7 +178,7 @@ extension GoIpldIpldPrimeApi on GoIpldIpldPrime {
           decFn,
       $datamodel.IpldPrimeDatamodelNodePrototype np) async {
     final $r = await $call(
-        12020,
+        12026,
         $W()
           ..reader(r)
           ..cb(
@@ -204,7 +204,7 @@ extension GoIpldIpldPrimeApi on GoIpldIpldPrime {
           decFn,
       $datamodel.IpldPrimeDatamodelNodePrototype np) async {
     final $r = await $call(
-        12021,
+        12027,
         $W()
           ..bytes(b)
           ..cb(
@@ -219,7 +219,7 @@ extension GoIpldIpldPrimeApi on GoIpldIpldPrime {
   bool deepEqual($datamodel.IpldPrimeDatamodelNode x,
       $datamodel.IpldPrimeDatamodelNode y) {
     final $r = $callSync(
-        12022,
+        12028,
         $W()
           ..h(x)
           ..h(y));
@@ -228,74 +228,74 @@ extension GoIpldIpldPrimeApi on GoIpldIpldPrime {
 
   /// Go: `var ipld.KindSet_JustBool datamodel.KindSet`.
   List<int> get kindSetJustBool {
-    final $r = $callSync(12023);
+    final $r = $callSync(12029);
     return $r.list(() => $r.i64());
   }
 
   /// Go: `var ipld.KindSet_JustBytes datamodel.KindSet`.
   List<int> get kindSetJustBytes {
-    final $r = $callSync(12024);
+    final $r = $callSync(12030);
     return $r.list(() => $r.i64());
   }
 
   /// Go: `var ipld.KindSet_JustFloat datamodel.KindSet`.
   List<int> get kindSetJustFloat {
-    final $r = $callSync(12025);
+    final $r = $callSync(12031);
     return $r.list(() => $r.i64());
   }
 
   /// Go: `var ipld.KindSet_JustInt datamodel.KindSet`.
   List<int> get kindSetJustInt {
-    final $r = $callSync(12026);
+    final $r = $callSync(12032);
     return $r.list(() => $r.i64());
   }
 
   /// Go: `var ipld.KindSet_JustLink datamodel.KindSet`.
   List<int> get kindSetJustLink {
-    final $r = $callSync(12027);
+    final $r = $callSync(12033);
     return $r.list(() => $r.i64());
   }
 
   /// Go: `var ipld.KindSet_JustList datamodel.KindSet`.
   List<int> get kindSetJustList {
-    final $r = $callSync(12028);
+    final $r = $callSync(12034);
     return $r.list(() => $r.i64());
   }
 
   /// Go: `var ipld.KindSet_JustMap datamodel.KindSet`.
   List<int> get kindSetJustMap {
-    final $r = $callSync(12029);
+    final $r = $callSync(12035);
     return $r.list(() => $r.i64());
   }
 
   /// Go: `var ipld.KindSet_JustNull datamodel.KindSet`.
   List<int> get kindSetJustNull {
-    final $r = $callSync(12030);
+    final $r = $callSync(12036);
     return $r.list(() => $r.i64());
   }
 
   /// Go: `var ipld.KindSet_JustString datamodel.KindSet`.
   List<int> get kindSetJustString {
-    final $r = $callSync(12031);
+    final $r = $callSync(12037);
     return $r.list(() => $r.i64());
   }
 
   /// Go: `var ipld.KindSet_Recursive datamodel.KindSet`.
   List<int> get kindSetRecursive {
-    final $r = $callSync(12032);
+    final $r = $callSync(12038);
     return $r.list(() => $r.i64());
   }
 
   /// Go: `var ipld.KindSet_Scalar datamodel.KindSet`.
   List<int> get kindSetScalar {
-    final $r = $callSync(12033);
+    final $r = $callSync(12039);
     return $r.list(() => $r.i64());
   }
 
   /// Go: `func ipld.LoadSchema(name string, r io.Reader) (*schema.TypeSystem, error)`.
   $schema.IpldPrimeSchemaTypeSystem loadSchema(String name, Object r) {
     final $r = $callSync(
-        12034,
+        12040,
         $W()
           ..str(name)
           ..reader(r));
@@ -304,50 +304,50 @@ extension GoIpldIpldPrimeApi on GoIpldIpldPrime {
 
   /// Go: `func ipld.LoadSchemaBytes(src []byte) (*schema.TypeSystem, error)`.
   $schema.IpldPrimeSchemaTypeSystem loadSchemaBytes(Uint8List src) {
-    final $r = $callSync(12035, $W()..bytes(src));
+    final $r = $callSync(12041, $W()..bytes(src));
     return $r.hnn($schema.IpldPrimeSchemaTypeSystem.$h);
   }
 
   /// Go: `func ipld.LoadSchemaFile(path string) (*schema.TypeSystem, error)`.
   $schema.IpldPrimeSchemaTypeSystem loadSchemaFile(String path) {
-    final $r = $callSync(12036, $W()..str(path));
+    final $r = $callSync(12042, $W()..str(path));
     return $r.hnn($schema.IpldPrimeSchemaTypeSystem.$h);
   }
 
   /// Go: `func ipld.NewPath(segments []ipld.PathSegment) ipld.Path`.
   $datamodel.IpldPrimeDatamodelPath newPath(
       List<$datamodel.IpldPrimeDatamodelPathSegment> segments) {
-    final $r = $callSync(12037, $W()..list(segments, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(12043, $W()..list(segments, (w0, e0) => w0.h(e0)));
     return $r.hnn($datamodel.IpldPrimeDatamodelPath.$h);
   }
 
   /// Go: `var ipld.Null datamodel.Node`.
   $datamodel.IpldPrimeDatamodelNode get null$ {
-    final $r = $callSync(12038);
+    final $r = $callSync(12044);
     return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
   }
 
   /// Go: `func ipld.ParsePath(pth string) ipld.Path`.
   $datamodel.IpldPrimeDatamodelPath parsePath(String pth) {
-    final $r = $callSync(12039, $W()..str(pth));
+    final $r = $callSync(12045, $W()..str(pth));
     return $r.hnn($datamodel.IpldPrimeDatamodelPath.$h);
   }
 
   /// Go: `func ipld.ParsePathSegment(s string) ipld.PathSegment`.
   $datamodel.IpldPrimeDatamodelPathSegment parsePathSegment(String s) {
-    final $r = $callSync(12040, $W()..str(s));
+    final $r = $callSync(12046, $W()..str(s));
     return $r.hnn($datamodel.IpldPrimeDatamodelPathSegment.$h);
   }
 
   /// Go: `func ipld.PathSegmentOfInt(i int64) ipld.PathSegment`.
   $datamodel.IpldPrimeDatamodelPathSegment pathSegmentOfInt(int i) {
-    final $r = $callSync(12041, $W()..i64(i));
+    final $r = $callSync(12047, $W()..i64(i));
     return $r.hnn($datamodel.IpldPrimeDatamodelPathSegment.$h);
   }
 
   /// Go: `func ipld.PathSegmentOfString(s string) ipld.PathSegment`.
   $datamodel.IpldPrimeDatamodelPathSegment pathSegmentOfString(String s) {
-    final $r = $callSync(12042, $W()..str(s));
+    final $r = $callSync(12048, $W()..str(s));
     return $r.hnn($datamodel.IpldPrimeDatamodelPathSegment.$h);
   }
 
@@ -368,7 +368,7 @@ extension GoIpldIpldPrimeApi on GoIpldIpldPrime {
       $schema.IpldPrimeSchemaType typ,
       [List<$bindnode.IpldPrimeNodeBindnodeOption> opts = const []]) async {
     final $r = await $call(
-        12043,
+        12049,
         $W()
           ..bytes(b)
           ..cb(
@@ -398,7 +398,7 @@ extension GoIpldIpldPrimeApi on GoIpldIpldPrime {
       $schema.IpldPrimeSchemaType typ,
       [List<$bindnode.IpldPrimeNodeBindnodeOption> opts = const []]) async {
     final $r = await $call(
-        12044,
+        12050,
         $W()
           ..reader(r)
           ..cb(

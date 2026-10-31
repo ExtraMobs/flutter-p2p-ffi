@@ -44,47 +44,47 @@ class Libp2pCorePeerPbPeerRecord
   /// Go: `func (*pb.PeerRecord).Descriptor() ([]byte, []int)`.
   @Deprecated("Use PeerRecord.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(14185, $W()..h(this));
+    final $r = $callSync(14191, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pb.PeerRecord).GetAddresses() []*pb.PeerRecord_AddressInfo`.
   List<Libp2pCorePeerPbPeerRecordAddressInfo> getAddresses() {
-    final $r = $callSync(14186, $W()..h(this));
+    final $r = $callSync(14192, $W()..h(this));
     return $r.list(() => $r.hnn(Libp2pCorePeerPbPeerRecordAddressInfo.$h));
   }
 
   /// Go: `func (*pb.PeerRecord).GetPeerId() []byte`.
   Uint8List getPeerId() {
-    final $r = $callSync(14187, $W()..h(this));
+    final $r = $callSync(14193, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pb.PeerRecord).GetSeq() uint64`.
   int getSeq() {
-    final $r = $callSync(14188, $W()..h(this));
+    final $r = $callSync(14194, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.PeerRecord).ProtoMessage()`.
   void protoMessage() {
-    $callSync(14189, $W()..h(this));
+    $callSync(14195, $W()..h(this));
   }
 
   /// Go: `func (*pb.PeerRecord).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(14190, $W()..h(this));
+    final $r = $callSync(14196, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pb.PeerRecord).Reset()`.
   void reset() {
-    $callSync(14191, $W()..h(this));
+    $callSync(14197, $W()..h(this));
   }
 
   /// Go: `func (*pb.PeerRecord).String() string`.
   String string() {
-    final $r = $callSync(14192, $W()..h(this));
+    final $r = $callSync(14198, $W()..h(this));
     return $r.str();
   }
 }
@@ -117,35 +117,35 @@ class Libp2pCorePeerPbPeerRecordAddressInfo
   /// Go: `func (*pb.PeerRecord_AddressInfo).Descriptor() ([]byte, []int)`.
   @Deprecated("Use PeerRecord_AddressInfo.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(14193, $W()..h(this));
+    final $r = $callSync(14199, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pb.PeerRecord_AddressInfo).GetMultiaddr() []byte`.
   Uint8List getMultiaddr() {
-    final $r = $callSync(14194, $W()..h(this));
+    final $r = $callSync(14200, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pb.PeerRecord_AddressInfo).ProtoMessage()`.
   void protoMessage() {
-    $callSync(14195, $W()..h(this));
+    $callSync(14201, $W()..h(this));
   }
 
   /// Go: `func (*pb.PeerRecord_AddressInfo).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(14196, $W()..h(this));
+    final $r = $callSync(14202, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pb.PeerRecord_AddressInfo).Reset()`.
   void reset() {
-    $callSync(14197, $W()..h(this));
+    $callSync(14203, $W()..h(this));
   }
 
   /// Go: `func (*pb.PeerRecord_AddressInfo).String() string`.
   String string() {
-    final $r = $callSync(14198, $W()..h(this));
+    final $r = $callSync(14204, $W()..h(this));
     return $r.str();
   }
 }
@@ -155,7 +155,7 @@ extension GoLibp2pLibp2pCorePeerPbApi on GoLibp2pLibp2pCorePeerPb {
   /// Go: `var pb.File_core_peer_pb_peer_record_proto protoreflect.FileDescriptor`.
   $protoreflect.ProtobufReflectProtoreflectFileDescriptor
       get fileCorePeerPbPeerRecordProto {
-    final $r = $callSync(14184);
+    final $r = $callSync(14190);
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectFileDescriptor.$h);
   }
 }

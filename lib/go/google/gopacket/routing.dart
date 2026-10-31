@@ -18,7 +18,7 @@ mixin GopacketRoutingRouter$ on GoHandle {
   /// Go: `func (routing.Router).Route(dst net.IP) (iface *net.Interface, gateway net.IP, preferredSrc net.IP, err error)`.
   ($net.NetInterface, Uint8List, Uint8List) route(Uint8List dst) {
     final $r = $callSync(
-        8100,
+        8109,
         $W()
           ..h(this)
           ..bytes(dst));
@@ -33,7 +33,7 @@ mixin GopacketRoutingRouter$ on GoHandle {
   ($net.NetInterface, Uint8List, Uint8List) routeWithSrc(
       Uint8List input, Uint8List src, Uint8List dst) {
     final $r = $callSync(
-        8101,
+        8110,
         $W()
           ..h(this)
           ..bytes(input)
@@ -51,7 +51,7 @@ mixin GopacketRoutingRouter$ on GoHandle {
 extension GoGoogleGopacketRoutingApi on GoGoogleGopacketRouting {
   /// Go: `func routing.New() (routing.Router, error)`.
   GopacketRoutingRouter new$() {
-    final $r = $callSync(8099);
+    final $r = $callSync(8108);
     return $r.hnn(GopacketRoutingRouter.$h);
   }
 }

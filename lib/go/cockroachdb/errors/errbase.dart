@@ -26,7 +26,7 @@ mixin ErrorsErrbaseFormatter$ on GoHandle {
   /// Go: `func (errbase.Formatter).FormatError(p errbase.Printer) (next error)`.
   void formatError(ErrorsErrbasePrinter p) {
     $callSync(
-        4415,
+        4424,
         $W()
           ..h(this)
           ..h(p));
@@ -42,14 +42,14 @@ class ErrorsErrbasePrinter extends GoHandle with ErrorsErrbasePrinter$ {
 mixin ErrorsErrbasePrinter$ on GoHandle {
   /// Go: `func (errbase.Printer).Detail() bool`.
   bool detail() {
-    final $r = $callSync(4416, $W()..h(this));
+    final $r = $callSync(4425, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (errbase.Printer).Print(args ...interface{})`.
   void print([List<Object?> args = const []]) {
     $callSync(
-        4417,
+        4426,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -58,7 +58,7 @@ mixin ErrorsErrbasePrinter$ on GoHandle {
   /// Go: `func (errbase.Printer).Printf(format string, args ...interface{})`.
   void printf(String format, [List<Object?> args = const []]) {
     $callSync(
-        4418,
+        4427,
         $W()
           ..h(this)
           ..str(format)
@@ -102,7 +102,7 @@ final class ErrorsErrbaseSafeDetailPayload implements GoDto {
   /// Go: `func (*errbase.SafeDetailPayload).Fill(slice []string) []string`.
   List<String> fill(List<String> slice) {
     final $r = $callSync(
-        4423,
+        4432,
         $W()
           ..dto(this)
           ..list(slice, (w0, e0) => w0.str(e0)));
@@ -121,7 +121,7 @@ mixin ErrorsErrbaseSafeFormatter$ on GoHandle {
   /// Go: `func (errbase.SafeFormatter).SafeFormatError(p errbase.Printer) (next error)`.
   void safeFormatError(ErrorsErrbasePrinter p) {
     $callSync(
-        4424,
+        4433,
         $W()
           ..h(this)
           ..h(p));
@@ -184,7 +184,7 @@ extension GoCockroachdbErrorsErrbaseApi on GoCockroachdbErrorsErrbase {
   Future<void> decodeError(
       $context.Context ctx, $errorspb.ErrorsErrorspbEncodedError enc) async {
     await $call(
-        4414,
+        4423,
         $W()
           ..h(ctx)
           ..dto(enc));
@@ -203,7 +203,7 @@ extension GoCockroachdbErrorsErrbaseApi on GoCockroachdbErrorsErrbase {
               List<String> safeDetails, $proto2.ProtobufProtoMessage payload)
           decoder) async {
     await $call(
-        4419,
+        4428,
         $W()
           ..str(theType)
           ..cb(
@@ -232,7 +232,7 @@ extension GoCockroachdbErrorsErrbaseApi on GoCockroachdbErrorsErrbase {
               $proto2.ProtobufProtoMessage payload)
           decoder) async {
     await $call(
-        4420,
+        4429,
         $W()
           ..str(theType)
           ..cb(
@@ -249,7 +249,7 @@ extension GoCockroachdbErrorsErrbaseApi on GoCockroachdbErrorsErrbase {
   void registerWrapperEncoder(
       String theType, ErrorsErrbaseWrapperEncoder encoder) {
     $callSync(
-        4421,
+        4430,
         $W()
           ..str(theType)
           ..h(encoder));
@@ -259,7 +259,7 @@ extension GoCockroachdbErrorsErrbaseApi on GoCockroachdbErrorsErrbase {
   void registerWrapperEncoderWithMessageType(
       String theType, ErrorsErrbaseWrapperEncoderWithMessageType encoder) {
     $callSync(
-        4422,
+        4431,
         $W()
           ..str(theType)
           ..h(encoder));

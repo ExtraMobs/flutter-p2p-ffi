@@ -18,7 +18,7 @@ final class MimeWordDecoder implements GoDto {
   /// Go: `func (*mime.WordDecoder).Decode(word string) (string, error)`.
   String decode(String word) {
     final $r = $callSync(
-        26276,
+        26282,
         $W()
           ..dto(this)
           ..str(word));
@@ -28,7 +28,7 @@ final class MimeWordDecoder implements GoDto {
   /// Go: `func (*mime.WordDecoder).DecodeHeader(header string) (string, error)`.
   String decodeHeader(String header) {
     final $r = $callSync(
-        26277,
+        26283,
         $W()
           ..dto(this)
           ..str(header));
@@ -50,7 +50,7 @@ extension GoMimeApi on GoMime {
   /// Go: `func mime.AddExtensionType(ext string, typ string) error`.
   void addExtensionType(String ext, String typ) {
     $callSync(
-        26271,
+        26277,
         $W()
           ..str(ext)
           ..str(typ));
@@ -58,14 +58,14 @@ extension GoMimeApi on GoMime {
 
   /// Go: `func mime.ExtensionsByType(typ string) ([]string, error)`.
   List<String> extensionsByType(String typ) {
-    final $r = $callSync(26272, $W()..str(typ));
+    final $r = $callSync(26278, $W()..str(typ));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func mime.FormatMediaType(t string, param map[string]string) string`.
   String formatMediaType(String t, Map<String, String> param) {
     final $r = $callSync(
-        26273,
+        26279,
         $W()
           ..str(t)
           ..map(param, (w0, k0) => w0.str(k0), (w0, v0) => w0.str(v0)));
@@ -74,13 +74,13 @@ extension GoMimeApi on GoMime {
 
   /// Go: `func mime.ParseMediaType(v string) (mediatype string, params map[string]string, err error)`.
   (String, Map<String, String>) parseMediaType(String v) {
-    final $r = $callSync(26274, $W()..str(v));
+    final $r = $callSync(26280, $W()..str(v));
     return ($r.str(), $r.map(() => $r.str(), () => $r.str()));
   }
 
   /// Go: `func mime.TypeByExtension(ext string) string`.
   String typeByExtension(String ext) {
-    final $r = $callSync(26275, $W()..str(ext));
+    final $r = $callSync(26281, $W()..str(ext));
     return $r.str();
   }
 }

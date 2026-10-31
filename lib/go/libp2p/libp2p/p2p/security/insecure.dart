@@ -54,25 +54,25 @@ class Libp2pP2pSecurityInsecureConn extends $net.NetConn
 
   /// Go: `func (*insecure.Conn).ConnState() network.ConnectionState`.
   $network.Libp2pCoreNetworkConnectionState connState() {
-    final $r = $callSync(14951, $W()..h(this));
+    final $r = $callSync(14957, $W()..h(this));
     return $r.p() ? $network.Libp2pCoreNetworkConnectionState.$dec($r) : $nil();
   }
 
   /// Go: `func (*insecure.Conn).LocalPeer() peer.ID`.
   $peer.Libp2pCorePeerId localPeer() {
-    final $r = $callSync(14952, $W()..h(this));
+    final $r = $callSync(14958, $W()..h(this));
     return $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil();
   }
 
   /// Go: `func (*insecure.Conn).RemotePeer() peer.ID`.
   $peer.Libp2pCorePeerId remotePeer() {
-    final $r = $callSync(14953, $W()..h(this));
+    final $r = $callSync(14959, $W()..h(this));
     return $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil();
   }
 
   /// Go: `func (*insecure.Conn).RemotePublicKey() crypto.PubKey`.
   $crypto2.Libp2pCoreCryptoPubKey remotePublicKey() {
-    final $r = $callSync(14954, $W()..h(this));
+    final $r = $callSync(14960, $W()..h(this));
     return $r.hnn($crypto2.Libp2pCoreCryptoPubKey.$h);
   }
 }
@@ -100,13 +100,13 @@ class Libp2pP2pSecurityInsecureTransport
 
   /// Go: `func (*insecure.Transport).ID() protocol.ID`.
   String id() {
-    final $r = $callSync(14956, $W()..h(this));
+    final $r = $callSync(14962, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*insecure.Transport).LocalPeer() peer.ID`.
   $peer.Libp2pCorePeerId localPeer() {
-    final $r = $callSync(14957, $W()..h(this));
+    final $r = $callSync(14963, $W()..h(this));
     return $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil();
   }
 
@@ -116,7 +116,7 @@ class Libp2pP2pSecurityInsecureTransport
   Future<$sec.Libp2pCoreSecSecureConn> secureInbound($context.Context ctx,
       $net.NetConn insecure, $peer.Libp2pCorePeerId p) async {
     final $r = await $call(
-        14958,
+        14964,
         $W()
           ..h(this)
           ..h(ctx)
@@ -131,7 +131,7 @@ class Libp2pP2pSecurityInsecureTransport
   Future<$sec.Libp2pCoreSecSecureConn> secureOutbound($context.Context ctx,
       $net.NetConn insecure, $peer.Libp2pCorePeerId p) async {
     final $r = await $call(
-        14959,
+        14965,
         $W()
           ..h(this)
           ..h(ctx)
@@ -148,7 +148,7 @@ extension GoLibp2pLibp2pP2pSecurityInsecureApi
   Libp2pP2pSecurityInsecureTransport newWithIdentity(String protocolId,
       $peer.Libp2pCorePeerId id, $crypto2.Libp2pCoreCryptoPrivKey key) {
     final $r = $callSync(
-        14955,
+        14961,
         $W()
           ..str(protocolId)
           ..val(id)

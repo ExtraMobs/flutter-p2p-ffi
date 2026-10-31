@@ -44,7 +44,7 @@ class BoxoBitswapNetworkHttpnetCooldownTracker
 
   /// Go: `func httpnet.NewCooldownTracker() *httpnet.CooldownTracker`.
   factory BoxoBitswapNetworkHttpnetCooldownTracker() {
-    final $r = $callSync(9299);
+    final $r = $callSync(9308);
     return $r.hnn(BoxoBitswapNetworkHttpnetCooldownTracker.$h);
   }
 }
@@ -82,7 +82,7 @@ class BoxoBitswapNetworkHttpnetNetwork
   Future<void> connect(
       $context.Context ctx, $peer.Libp2pCorePeerAddrInfo pi) async {
     await $call(
-        9282,
+        9291,
         $W()
           ..h(this)
           ..h(ctx)
@@ -95,7 +95,7 @@ class BoxoBitswapNetworkHttpnetNetwork
   Future<void> disconnectFrom(
       $context.Context ctx, $peer.Libp2pCorePeerId p) async {
     await $call(
-        9283,
+        9292,
         $W()
           ..h(this)
           ..h(ctx)
@@ -104,7 +104,7 @@ class BoxoBitswapNetworkHttpnetNetwork
 
   /// Go: `func (*httpnet.Network).Host() host.Host`.
   $host.Libp2pCoreHost host() {
-    final $r = $callSync(9284, $W()..h(this));
+    final $r = $callSync(9293, $W()..h(this));
     return $r.hnn($host.Libp2pCoreHost.$h);
   }
 
@@ -114,7 +114,7 @@ class BoxoBitswapNetworkHttpnetNetwork
   Future<bool> isConnectedToPeer(
       $context.Context ctx, $peer.Libp2pCorePeerId p) async {
     final $r = await $call(
-        9285,
+        9294,
         $W()
           ..h(this)
           ..h(ctx)
@@ -125,7 +125,7 @@ class BoxoBitswapNetworkHttpnetNetwork
   /// Go: `func (*httpnet.Network).Latency(p peer.ID) time.Duration`.
   Duration latency($peer.Libp2pCorePeerId p) {
     final $r = $callSync(
-        9286,
+        9295,
         $W()
           ..h(this)
           ..val(p));
@@ -140,7 +140,7 @@ class BoxoBitswapNetworkHttpnetNetwork
       $peer.Libp2pCorePeerId p,
       $network.BoxoBitswapNetworkMessageSenderOpts opts) async {
     final $r = await $call(
-        9287,
+        9296,
         $W()
           ..h(this)
           ..h(ctx)
@@ -155,7 +155,7 @@ class BoxoBitswapNetworkHttpnetNetwork
   Future<$ping.Libp2pP2pProtocolPingResult> ping(
       $context.Context ctx, $peer.Libp2pCorePeerId p) async {
     final $r = await $call(
-        9288,
+        9297,
         $W()
           ..h(this)
           ..h(ctx)
@@ -166,7 +166,7 @@ class BoxoBitswapNetworkHttpnetNetwork
   /// Go: `func (*httpnet.Network).Protect(p peer.ID, tag string)`.
   void protect($peer.Libp2pCorePeerId p, String tag) {
     $callSync(
-        9289,
+        9298,
         $W()
           ..h(this)
           ..val(p)
@@ -175,7 +175,7 @@ class BoxoBitswapNetworkHttpnetNetwork
 
   /// Go: `func (*httpnet.Network).Self() peer.ID`.
   $peer.Libp2pCorePeerId self() {
-    final $r = $callSync(9290, $W()..h(this));
+    final $r = $callSync(9299, $W()..h(this));
     return $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil();
   }
 
@@ -185,7 +185,7 @@ class BoxoBitswapNetworkHttpnetNetwork
   Future<void> sendMessage($context.Context ctx, $peer.Libp2pCorePeerId p,
       $message.BoxoBitswapMessageBitSwapMessage msg) async {
     await $call(
-        9291,
+        9300,
         $W()
           ..h(this)
           ..h(ctx)
@@ -196,7 +196,7 @@ class BoxoBitswapNetworkHttpnetNetwork
   /// Go: `func (*httpnet.Network).Start(receivers ...network.Receiver)`.
   void start([List<$network.BoxoBitswapNetworkReceiver> receivers = const []]) {
     $callSync(
-        9292,
+        9301,
         $W()
           ..h(this)
           ..list(receivers, (w0, e0) => w0.h(e0)));
@@ -204,19 +204,19 @@ class BoxoBitswapNetworkHttpnetNetwork
 
   /// Go: `func (*httpnet.Network).Stats() network.Stats`.
   $network.BoxoBitswapNetworkStats stats() {
-    final $r = $callSync(9293, $W()..h(this));
+    final $r = $callSync(9302, $W()..h(this));
     return $r.p() ? $network.BoxoBitswapNetworkStats.$dec($r) : $nil();
   }
 
   /// Go: `func (*httpnet.Network).Stop()`.
   void stop() {
-    $callSync(9294, $W()..h(this));
+    $callSync(9303, $W()..h(this));
   }
 
   /// Go: `func (*httpnet.Network).TagPeer(p peer.ID, tag string, w int)`.
   void tagPeer($peer.Libp2pCorePeerId p, String tag, int w) {
     $callSync(
-        9295,
+        9304,
         $W()
           ..h(this)
           ..val(p)
@@ -227,7 +227,7 @@ class BoxoBitswapNetworkHttpnetNetwork
   /// Go: `func (*httpnet.Network).Unprotect(p peer.ID, tag string) bool`.
   bool unprotect($peer.Libp2pCorePeerId p, String tag) {
     final $r = $callSync(
-        9296,
+        9305,
         $W()
           ..h(this)
           ..val(p)
@@ -238,7 +238,7 @@ class BoxoBitswapNetworkHttpnetNetwork
   /// Go: `func (*httpnet.Network).UntagPeer(p peer.ID, tag string)`.
   void untagPeer($peer.Libp2pCorePeerId p, String tag) {
     $callSync(
-        9297,
+        9306,
         $W()
           ..h(this)
           ..val(p)
@@ -283,7 +283,7 @@ extension GoIpfsBoxoBitswapNetworkHttpnetApi
     on GoIpfsBoxoBitswapNetworkHttpnet {
   /// Go: `var httpnet.DefaultUserAgent string`.
   String get defaultUserAgent {
-    final $r = $callSync(9281);
+    final $r = $callSync(9290);
     return $r.str();
   }
 
@@ -291,7 +291,7 @@ extension GoIpfsBoxoBitswapNetworkHttpnetApi
   $network.BoxoBitswapNetworkBitSwapNetwork new$($host.Libp2pCoreHost host,
       [List<BoxoBitswapNetworkHttpnetOption> opts = const []]) {
     final $r = $callSync(
-        9298,
+        9307,
         $W()
           ..h(host)
           ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -300,7 +300,7 @@ extension GoIpfsBoxoBitswapNetworkHttpnetApi
 
   /// Go: `func httpnet.SharedCooldownTracker() *httpnet.CooldownTracker`.
   BoxoBitswapNetworkHttpnetCooldownTracker sharedCooldownTracker() {
-    final $r = $callSync(9300);
+    final $r = $callSync(9309);
     return $r.hnn(BoxoBitswapNetworkHttpnetCooldownTracker.$h);
   }
 }

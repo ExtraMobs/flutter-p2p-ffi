@@ -37,7 +37,7 @@ class Blake3Digest extends $io.IoSeeker
   /// Go: `func (*blake3.Digest).Read(p []byte) (n int, err error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        18987,
+        18993,
         $W()
           ..h(this)
           ..i64(n));
@@ -47,7 +47,7 @@ class Blake3Digest extends $io.IoSeeker
   /// Go: `func (*blake3.Digest).Seek(offset int64, whence int) (int64, error)`.
   int seek(int offset, int whence) {
     final $r = $callSync(
-        18988,
+        18994,
         $W()
           ..h(this)
           ..i64(offset)
@@ -80,37 +80,37 @@ class Blake3Hasher extends $hash.Hash
 
   /// Go: `func (*blake3.Hasher).BlockSize() int`.
   int blockSize() {
-    final $r = $callSync(18989, $W()..h(this));
+    final $r = $callSync(18995, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*blake3.Hasher).Clone() *blake3.Hasher`.
   Blake3Hasher clone() {
-    final $r = $callSync(18990, $W()..h(this));
+    final $r = $callSync(18996, $W()..h(this));
     return $r.hnn(Blake3Hasher.$h);
   }
 
   /// Go: `func (*blake3.Hasher).Digest() *blake3.Digest`.
   Blake3Digest digest() {
-    final $r = $callSync(18991, $W()..h(this));
+    final $r = $callSync(18997, $W()..h(this));
     return $r.hnn(Blake3Digest.$h);
   }
 
   /// Go: `func (*blake3.Hasher).Reset()`.
   void reset() {
-    $callSync(18992, $W()..h(this));
+    $callSync(18998, $W()..h(this));
   }
 
   /// Go: `func (*blake3.Hasher).Size() int`.
   int size() {
-    final $r = $callSync(18993, $W()..h(this));
+    final $r = $callSync(18999, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*blake3.Hasher).Sum(b []byte) []byte`.
   Uint8List sum(Uint8List b) {
     final $r = $callSync(
-        18994,
+        19000,
         $W()
           ..h(this)
           ..bytes(b));
@@ -120,7 +120,7 @@ class Blake3Hasher extends $hash.Hash
   /// Go: `func (*blake3.Hasher).Write(p []byte) (int, error)`.
   int write(Uint8List p) {
     final $r = $callSync(
-        18995,
+        19001,
         $W()
           ..h(this)
           ..bytes(p));
@@ -130,7 +130,7 @@ class Blake3Hasher extends $hash.Hash
   /// Go: `func (*blake3.Hasher).WriteString(p string) (int, error)`.
   int writeString(String p) {
     final $r = $callSync(
-        18996,
+        19002,
         $W()
           ..h(this)
           ..str(p));
@@ -143,7 +143,7 @@ extension GoZeeboBlake3Api on GoZeeboBlake3 {
   /// Go: `func blake3.DeriveKey(context string, material []byte, out []byte)`.
   void deriveKey(String context, Uint8List material, Uint8List out) {
     $callSync(
-        18986,
+        18992,
         $W()
           ..str(context)
           ..bytes(material)
@@ -152,19 +152,19 @@ extension GoZeeboBlake3Api on GoZeeboBlake3 {
 
   /// Go: `func blake3.New() *blake3.Hasher`.
   Blake3Hasher new$() {
-    final $r = $callSync(18997);
+    final $r = $callSync(19003);
     return $r.hnn(Blake3Hasher.$h);
   }
 
   /// Go: `func blake3.NewDeriveKey(context string) *blake3.Hasher`.
   Blake3Hasher newDeriveKey(String context) {
-    final $r = $callSync(18998, $W()..str(context));
+    final $r = $callSync(19004, $W()..str(context));
     return $r.hnn(Blake3Hasher.$h);
   }
 
   /// Go: `func blake3.NewKeyed(key []byte) (*blake3.Hasher, error)`.
   Blake3Hasher newKeyed(Uint8List key) {
-    final $r = $callSync(18999, $W()..bytes(key));
+    final $r = $callSync(19005, $W()..bytes(key));
     return $r.hnn(Blake3Hasher.$h);
   }
 }

@@ -17,7 +17,7 @@ extension GoIpldIpldPrimeNodeBindnodeApi on GoIpldIpldPrimeNodeBindnode {
   /// Go: `func bindnode.ProduceGoTypes(w io.Writer, ts *schema.TypeSystem) error`.
   void produceGoTypes(GoHandle? w, $schema.IpldPrimeSchemaTypeSystem ts) {
     $callSync(
-        12246,
+        12252,
         $W()
           ..h(w)
           ..h(ts));
@@ -28,7 +28,7 @@ extension GoIpldIpldPrimeNodeBindnodeApi on GoIpldIpldPrimeNodeBindnode {
       Object? ptrType, $schema.IpldPrimeSchemaType schemaType,
       [List<IpldPrimeNodeBindnodeOption> options = const []]) {
     final $r = $callSync(
-        12247,
+        12253,
         $W()
           ..any(ptrType)
           ..h(schemaType)
@@ -38,7 +38,7 @@ extension GoIpldIpldPrimeNodeBindnodeApi on GoIpldIpldPrimeNodeBindnode {
 
   /// Go: `func bindnode.Unwrap(node datamodel.Node) (ptrVal interface{})`.
   Object? unwrap($datamodel.IpldPrimeDatamodelNode node) {
-    final $r = $callSync(12248, $W()..h(node));
+    final $r = $callSync(12254, $W()..h(node));
     return $r.any();
   }
 
@@ -47,7 +47,7 @@ extension GoIpldIpldPrimeNodeBindnodeApi on GoIpldIpldPrimeNodeBindnode {
       Object? ptrVal, $schema.IpldPrimeSchemaType schemaType,
       [List<IpldPrimeNodeBindnodeOption> options = const []]) {
     final $r = $callSync(
-        12249,
+        12255,
         $W()
           ..any(ptrVal)
           ..h(schemaType)

@@ -2,6 +2,7 @@ package main
 
 import (
 	"slices"
+	"strings"
 	"testing"
 )
 
@@ -38,6 +39,22 @@ func TestPlatformDecls(t *testing.T) {
 	for k, want := range map[string]bool{"syscall.DLLError": true, "syscall.SysProcAttr": true, "os.File": false, "os.File.Close": false, "os.Open": false} {
 		if decls[k] != want {
 			t.Errorf("%s: %v, want %v", k, decls[k], want)
+		}
+	}
+}
+
+// A struct holding a lock (go vet's copylocks) is never copied: a lock itself,
+// one embedded, one in a field; a plain struct is not one.
+func TestHasLock(t *testing.T) {
+	pkgs, err := loadPaths([]string{"crypto/tls", "net", "sync"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	for name, want := range map[string]bool{"sync.Mutex": true, "sync.Pool": true, "crypto/tls.Config": true, "crypto/tls.Certificate": false, "net.IPNet": false} {
+		i := strings.LastIndex(name, ".")
+		pkg := pkgs[name[:i]]
+		if got := hasLock(pkg.Scope().Lookup(name[i+1:]).Type()); got != want {
+			t.Errorf("%s: %v, want %v", name, got, want)
 		}
 	}
 }

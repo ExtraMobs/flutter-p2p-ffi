@@ -9,41 +9,41 @@ import 'package:p2p_ffi/src/runtime.dart';
 extension GoGogoProtobufSortkeysApi on GoGogoProtobufSortkeys {
   /// Go: `func sortkeys.Bools(l []bool)`.
   void bools(List<bool> l) {
-    $callSync(7301, $W()..list(l, (w0, e0) => w0.b(e0)));
+    $callSync(7310, $W()..list(l, (w0, e0) => w0.b(e0)));
   }
 
   /// Go: `func sortkeys.Float32s(l []float32)`.
   void float32s(List<double> l) {
-    $callSync(7302, $W()..list(l, (w0, e0) => w0.f64(e0)));
+    $callSync(7311, $W()..list(l, (w0, e0) => w0.f64(e0)));
   }
 
   /// Go: `func sortkeys.Float64s(l []float64)`.
   void float64s(List<double> l) {
-    $callSync(7303, $W()..list(l, (w0, e0) => w0.f64(e0)));
+    $callSync(7312, $W()..list(l, (w0, e0) => w0.f64(e0)));
   }
 
   /// Go: `func sortkeys.Int32s(l []int32)`.
   void int32s(List<int> l) {
-    $callSync(7304, $W()..list(l, (w0, e0) => w0.i64(e0)));
+    $callSync(7313, $W()..list(l, (w0, e0) => w0.i64(e0)));
   }
 
   /// Go: `func sortkeys.Int64s(l []int64)`.
   void int64s(List<int> l) {
-    $callSync(7305, $W()..list(l, (w0, e0) => w0.i64(e0)));
+    $callSync(7314, $W()..list(l, (w0, e0) => w0.i64(e0)));
   }
 
   /// Go: `func sortkeys.Strings(l []string)`.
   void strings(List<String> l) {
-    $callSync(7306, $W()..list(l, (w0, e0) => w0.str(e0)));
+    $callSync(7315, $W()..list(l, (w0, e0) => w0.str(e0)));
   }
 
   /// Go: `func sortkeys.Uint32s(l []uint32)`.
   void uint32s(List<int> l) {
-    $callSync(7307, $W()..list(l, (w0, e0) => w0.i64(e0)));
+    $callSync(7316, $W()..list(l, (w0, e0) => w0.i64(e0)));
   }
 
   /// Go: `func sortkeys.Uint64s(l []uint64)`.
   void uint64s(List<int> l) {
-    $callSync(7308, $W()..list(l, (w0, e0) => w0.i64(e0)));
+    $callSync(7317, $W()..list(l, (w0, e0) => w0.i64(e0)));
   }
 }

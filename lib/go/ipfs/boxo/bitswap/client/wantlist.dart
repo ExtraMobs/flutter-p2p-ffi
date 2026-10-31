@@ -62,7 +62,7 @@ class BoxoBitswapClientWantlist extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*wantlist.Wantlist).Add(c cid.Cid, priority int32, wantType pb.Message_Wantlist_WantType) bool`.
   bool add($cid.Cid c, int priority, int wantType) {
     final $r = $callSync(
-        9144,
+        9153,
         $W()
           ..h(this)
           ..val(c)
@@ -73,7 +73,7 @@ class BoxoBitswapClientWantlist extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*wantlist.Wantlist).Entries() []wantlist.Entry`.
   List<BoxoBitswapClientWantlistEntry> entries() {
-    final $r = $callSync(9145, $W()..h(this));
+    final $r = $callSync(9154, $W()..h(this));
     return $r
         .list(() => $r.p() ? BoxoBitswapClientWantlistEntry.$dec($r) : $nil());
   }
@@ -81,7 +81,7 @@ class BoxoBitswapClientWantlist extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*wantlist.Wantlist).Get(c cid.Cid) (wantlist.Entry, bool)`.
   (BoxoBitswapClientWantlistEntry, bool) get($cid.Cid c) {
     final $r = $callSync(
-        9146,
+        9155,
         $W()
           ..h(this)
           ..val(c));
@@ -91,7 +91,7 @@ class BoxoBitswapClientWantlist extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*wantlist.Wantlist).Has(c cid.Cid) bool`.
   bool has($cid.Cid c) {
     final $r = $callSync(
-        9147,
+        9156,
         $W()
           ..h(this)
           ..val(c));
@@ -100,14 +100,14 @@ class BoxoBitswapClientWantlist extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*wantlist.Wantlist).Len() int`.
   int len() {
-    final $r = $callSync(9148, $W()..h(this));
+    final $r = $callSync(9157, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*wantlist.Wantlist).Remove(c cid.Cid)`.
   void remove($cid.Cid c) {
     $callSync(
-        9149,
+        9158,
         $W()
           ..h(this)
           ..val(c));
@@ -116,7 +116,7 @@ class BoxoBitswapClientWantlist extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*wantlist.Wantlist).RemoveType(c cid.Cid, wantType pb.Message_Wantlist_WantType) bool`.
   bool removeType($cid.Cid c, int wantType) {
     final $r = $callSync(
-        9150,
+        9159,
         $W()
           ..h(this)
           ..val(c)
@@ -130,14 +130,14 @@ extension GoIpfsBoxoBitswapClientWantlistApi
     on GoIpfsBoxoBitswapClientWantlist {
   /// Go: `func wantlist.New() *wantlist.Wantlist`.
   BoxoBitswapClientWantlist new$() {
-    final $r = $callSync(9142);
+    final $r = $callSync(9151);
     return $r.hnn(BoxoBitswapClientWantlist.$h);
   }
 
   /// Go: `func wantlist.NewRefEntry(c cid.Cid, p int32) wantlist.Entry`.
   BoxoBitswapClientWantlistEntry newRefEntry($cid.Cid c, int p) {
     final $r = $callSync(
-        9143,
+        9152,
         $W()
           ..val(c)
           ..i64(p));

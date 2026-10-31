@@ -43,7 +43,7 @@ final class NopfsBlockedPath implements GoDto {
   /// Go: `func (nopfs.BlockedPath).Matches(path string) bool`.
   bool matches(String path) {
     final $r = $callSync(
-        9015,
+        9024,
         $W()
           ..dto(this)
           ..str(path));
@@ -69,13 +69,13 @@ final class NopfsBlocker implements GoDto {
 
   /// Go: `func (*nopfs.Blocker).Close() error`.
   void close() {
-    $callSync(9016, $W()..dto(this));
+    $callSync(9025, $W()..dto(this));
   }
 
   /// Go: `func (*nopfs.Blocker).IsCidBlocked(c cid.Cid) nopfs.StatusResponse`.
   NopfsStatusResponse isCidBlocked($cid.Cid c) {
     final $r = $callSync(
-        9017,
+        9026,
         $W()
           ..dto(this)
           ..val(c));
@@ -85,7 +85,7 @@ final class NopfsBlocker implements GoDto {
   /// Go: `func (*nopfs.Blocker).IsPathBlocked(p path.Path) nopfs.StatusResponse`.
   NopfsStatusResponse isPathBlocked($path.BoxoPath p) {
     final $r = $callSync(
-        9018,
+        9027,
         $W()
           ..dto(this)
           ..val(p));
@@ -114,7 +114,7 @@ class NopfsBlocksDb extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*nopfs.BlocksDB).Load(key string) (nopfs.Entries, bool)`.
   (List<NopfsEntry>, bool) load(String key) {
     final $r = $callSync(
-        9019,
+        9028,
         $W()
           ..h(this)
           ..str(key));
@@ -124,7 +124,7 @@ class NopfsBlocksDb extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*nopfs.BlocksDB).Store(key string, entry nopfs.Entry)`.
   void store(String key, NopfsEntry entry) {
     $callSync(
-        9020,
+        9029,
         $W()
           ..h(this)
           ..str(key)
@@ -157,7 +157,7 @@ class NopfsDenylist extends $io.IoCloser
   /// Go: `func nopfs.NewDenylist(filepath string, follow bool) (*nopfs.Denylist, error)`.
   factory NopfsDenylist(String filepath, bool follow) {
     final $r = $callSync(
-        9037,
+        9046,
         $W()
           ..str(filepath)
           ..b(follow));
@@ -166,13 +166,13 @@ class NopfsDenylist extends $io.IoCloser
 
   /// Go: `func (*nopfs.Denylist).Close() error`.
   void close() {
-    $callSync(9021, $W()..h(this));
+    $callSync(9030, $W()..h(this));
   }
 
   /// Go: `func (*nopfs.Denylist).IsCidBlocked(c cid.Cid) nopfs.StatusResponse`.
   NopfsStatusResponse isCidBlocked($cid.Cid c) {
     final $r = $callSync(
-        9022,
+        9031,
         $W()
           ..h(this)
           ..val(c));
@@ -182,7 +182,7 @@ class NopfsDenylist extends $io.IoCloser
   /// Go: `func (*nopfs.Denylist).IsIPFSPathBlocked(cidStr string, subpath string) nopfs.StatusResponse`.
   NopfsStatusResponse isIpfsPathBlocked(String cidStr, String subpath) {
     final $r = $callSync(
-        9023,
+        9032,
         $W()
           ..h(this)
           ..str(cidStr)
@@ -193,7 +193,7 @@ class NopfsDenylist extends $io.IoCloser
   /// Go: `func (*nopfs.Denylist).IsIPLDPathBlocked(cidStr string, subpath string) nopfs.StatusResponse`.
   NopfsStatusResponse isIpldPathBlocked(String cidStr, String subpath) {
     final $r = $callSync(
-        9024,
+        9033,
         $W()
           ..h(this)
           ..str(cidStr)
@@ -204,7 +204,7 @@ class NopfsDenylist extends $io.IoCloser
   /// Go: `func (*nopfs.Denylist).IsIPNSPathBlocked(name string, subpath string) nopfs.StatusResponse`.
   NopfsStatusResponse isIpnsPathBlocked(String name, String subpath) {
     final $r = $callSync(
-        9025,
+        9034,
         $W()
           ..h(this)
           ..str(name)
@@ -215,7 +215,7 @@ class NopfsDenylist extends $io.IoCloser
   /// Go: `func (*nopfs.Denylist).IsPathBlocked(p path.Path) nopfs.StatusResponse`.
   NopfsStatusResponse isPathBlocked($path.BoxoPath p) {
     final $r = $callSync(
-        9026,
+        9035,
         $W()
           ..h(this)
           ..val(p));
@@ -225,7 +225,7 @@ class NopfsDenylist extends $io.IoCloser
   /// Go: `func (*nopfs.Denylist).IsSubpathBlocked(subpath string) nopfs.StatusResponse`.
   NopfsStatusResponse isSubpathBlocked(String subpath) {
     final $r = $callSync(
-        9027,
+        9036,
         $W()
           ..h(this)
           ..str(subpath));
@@ -254,7 +254,7 @@ class NopfsDenylistHeader extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*nopfs.DenylistHeader).Decode(r io.Reader) error`.
   void decode(Object r) {
     $callSync(
-        9028,
+        9037,
         $W()
           ..h(this)
           ..reader(r));
@@ -262,7 +262,7 @@ class NopfsDenylistHeader extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (nopfs.DenylistHeader).String() string`.
   String string() {
-    final $r = $callSync(9029, $W()..h(this));
+    final $r = $callSync(9038, $W()..h(this));
     return $r.str();
   }
 }
@@ -325,13 +325,13 @@ final class NopfsEntry implements GoDto {
 
   /// Go: `func (nopfs.Entry).Clone() nopfs.Entry`.
   NopfsEntry clone() {
-    final $r = $callSync(9030, $W()..dto(this));
+    final $r = $callSync(9039, $W()..dto(this));
     return $r.p() ? NopfsEntry.$dec($r) : $nil();
   }
 
   /// Go: `func (nopfs.Entry).String() string`.
   String string() {
-    final $r = $callSync(9031, $W()..dto(this));
+    final $r = $callSync(9040, $W()..dto(this));
     return $r.str();
   }
 }
@@ -358,7 +358,7 @@ class NopfsHttpSubscriber extends $crypto.CryptoDecrypterOpts
   factory NopfsHttpSubscriber(
       String remoteUrl, String localFile, Duration interval) {
     final $r = $callSync(
-        9039,
+        9048,
         $W()
           ..str(remoteUrl)
           ..str(localFile)
@@ -368,7 +368,7 @@ class NopfsHttpSubscriber extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*nopfs.HTTPSubscriber).Stop()`.
   void stop() {
-    $callSync(9034, $W()..h(this));
+    $callSync(9043, $W()..h(this));
   }
 }
 
@@ -427,7 +427,7 @@ final class NopfsStatusResponse implements GoDto {
 
   /// Go: `func (nopfs.StatusResponse).String() string`.
   String string() {
-    final $r = $callSync(9040, $W()..dto(this));
+    final $r = $callSync(9049, $W()..dto(this));
     return $r.str();
   }
 }
@@ -454,31 +454,31 @@ class NopfsStatusError extends GolangException {
 extension GoIpfsShipyardNopfsApi on GoIpfsShipyardNopfs {
   /// Go: `func nopfs.GetDenylistFiles() ([]string, error)`.
   List<String> getDenylistFiles() {
-    final $r = $callSync(9032);
+    final $r = $callSync(9041);
     return $r.list(() => $r.str());
   }
 
   /// Go: `func nopfs.GetDenylistFilesInDir(dirpath string) ([]string, error)`.
   List<String> getDenylistFilesInDir(String dirpath) {
-    final $r = $callSync(9033, $W()..str(dirpath));
+    final $r = $callSync(9042, $W()..str(dirpath));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func nopfs.NewBlockedPath(rawPath string) (nopfs.BlockedPath, error)`.
   NopfsBlockedPath newBlockedPath(String rawPath) {
-    final $r = $callSync(9035, $W()..str(rawPath));
+    final $r = $callSync(9044, $W()..str(rawPath));
     return $r.p() ? NopfsBlockedPath.$dec($r) : $nil();
   }
 
   /// Go: `func nopfs.NewBlocker(files []string) (*nopfs.Blocker, error)`.
   NopfsBlocker newBlocker(List<String> files) {
-    final $r = $callSync(9036, $W()..list(files, (w0, e0) => w0.str(e0)));
+    final $r = $callSync(9045, $W()..list(files, (w0, e0) => w0.str(e0)));
     return $r.p() ? NopfsBlocker.$dec($r) : $nil();
   }
 
   /// Go: `func nopfs.NewDenylistReader(r io.ReadSeekCloser) (*nopfs.Denylist, error)`.
   NopfsDenylist newDenylistReader(Object r) {
-    final $r = $callSync(9038, $W()..reader(r));
+    final $r = $callSync(9047, $W()..reader(r));
     return $r.hnn(NopfsDenylist.$h);
   }
 }

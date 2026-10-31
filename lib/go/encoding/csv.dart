@@ -30,14 +30,14 @@ class EncodingCsvReader extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func csv.NewReader(r io.Reader) *csv.Reader`.
   factory EncodingCsvReader(Object r) {
-    final $r = $callSync(3700, $W()..reader(r));
+    final $r = $callSync(3709, $W()..reader(r));
     return $r.hnn(EncodingCsvReader.$h);
   }
 
   /// Go: `func (*csv.Reader).FieldPos(field int) (line int, column int)`.
   (int, int) fieldPos(int field) {
     final $r = $callSync(
-        3702,
+        3711,
         $W()
           ..h(this)
           ..i64(field));
@@ -46,19 +46,19 @@ class EncodingCsvReader extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*csv.Reader).InputOffset() int64`.
   int inputOffset() {
-    final $r = $callSync(3703, $W()..h(this));
+    final $r = $callSync(3712, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*csv.Reader).Read() (record []string, err error)`.
   List<String> read() {
-    final $r = $callSync(3704, $W()..h(this));
+    final $r = $callSync(3713, $W()..h(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (*csv.Reader).ReadAll() (records [][]string, err error)`.
   List<List<String>> readAll() {
-    final $r = $callSync(3705, $W()..h(this));
+    final $r = $callSync(3714, $W()..h(this));
     return $r.list(() => $r.list(() => $r.str()));
   }
 }
@@ -85,24 +85,24 @@ class EncodingCsvWriter extends $http.NetHttpFlusher
 
   /// Go: `func csv.NewWriter(w io.Writer) *csv.Writer`.
   factory EncodingCsvWriter(GoHandle? w) {
-    final $r = $callSync(3701, $W()..h(w));
+    final $r = $callSync(3710, $W()..h(w));
     return $r.hnn(EncodingCsvWriter.$h);
   }
 
   /// Go: `func (*csv.Writer).Error() error`.
   void error() {
-    $callSync(3706, $W()..h(this));
+    $callSync(3715, $W()..h(this));
   }
 
   /// Go: `func (*csv.Writer).Flush()`.
   void flush() {
-    $callSync(3707, $W()..h(this));
+    $callSync(3716, $W()..h(this));
   }
 
   /// Go: `func (*csv.Writer).Write(record []string) error`.
   void write(List<String> record) {
     $callSync(
-        3708,
+        3717,
         $W()
           ..h(this)
           ..list(record, (w0, e0) => w0.str(e0)));
@@ -111,7 +111,7 @@ class EncodingCsvWriter extends $http.NetHttpFlusher
   /// Go: `func (*csv.Writer).WriteAll(records [][]string) error`.
   void writeAll(List<List<String>> records) {
     $callSync(
-        3709,
+        3718,
         $W()
           ..h(this)
           ..list(records, (w0, e0) => w0.list(e0, (w1, e1) => w1.str(e1))));

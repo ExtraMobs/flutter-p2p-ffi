@@ -16,14 +16,14 @@ class ContainerHeapInterface extends $sort.SortInterface
 mixin ContainerHeapInterface$ on GoHandle {
   /// Go: `func (heap.Interface).Pop() any`.
   Object? pop() {
-    final $r = $callSync(3091, $W()..h(this));
+    final $r = $callSync(3100, $W()..h(this));
     return $r.any();
   }
 
   /// Go: `func (heap.Interface).Push(x any)`.
   void push(Object? x) {
     $callSync(
-        3092,
+        3101,
         $W()
           ..h(this)
           ..any(x));
@@ -35,7 +35,7 @@ extension GoContainerHeapApi on GoContainerHeap {
   /// Go: `func heap.Fix(h heap.Interface, i int)`.
   void fix(ContainerHeapInterface h, int i) {
     $callSync(
-        3089,
+        3098,
         $W()
           ..h(h)
           ..i64(i));
@@ -43,19 +43,19 @@ extension GoContainerHeapApi on GoContainerHeap {
 
   /// Go: `func heap.Init(h heap.Interface)`.
   void init(ContainerHeapInterface h) {
-    $callSync(3090, $W()..h(h));
+    $callSync(3099, $W()..h(h));
   }
 
   /// Go: `func heap.Pop(h heap.Interface) any`.
   Object? pop(ContainerHeapInterface h) {
-    final $r = $callSync(3093, $W()..h(h));
+    final $r = $callSync(3102, $W()..h(h));
     return $r.any();
   }
 
   /// Go: `func heap.Push(h heap.Interface, x any)`.
   void push(ContainerHeapInterface h, Object? x) {
     $callSync(
-        3094,
+        3103,
         $W()
           ..h(h)
           ..any(x));
@@ -64,7 +64,7 @@ extension GoContainerHeapApi on GoContainerHeap {
   /// Go: `func heap.Remove(h heap.Interface, i int) any`.
   Object? remove(ContainerHeapInterface h, int i) {
     final $r = $callSync(
-        3095,
+        3104,
         $W()
           ..h(h)
           ..i64(i));

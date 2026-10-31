@@ -18,6 +18,7 @@ import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
 import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
+import 'package:p2p_ffi/go/mholt/acmez/v3.dart' as $v3;
 import 'package:p2p_ffi/go/mholt/acmez/v3/acme.dart' as $acme;
 import 'package:p2p_ffi/go/net.dart' as $net;
 import 'package:p2p_ffi/go/net/http.dart' as $http;
@@ -53,7 +54,7 @@ class CertmagicAcmeIssuer extends CertmagicIssuer
   factory CertmagicAcmeIssuer(
       CertmagicConfig cfg, CertmagicAcmeIssuer template) {
     final $r = $callSync(
-        4153,
+        4162,
         $W()
           ..h(cfg)
           ..h(template));
@@ -66,7 +67,7 @@ class CertmagicAcmeIssuer extends CertmagicIssuer
   Future<$acme.AcmezV3AcmeAccount> getAccount(
       $context.Context ctx, Uint8List privateKeyPem) async {
     final $r = await $call(
-        4068,
+        4077,
         $W()
           ..h(this)
           ..h(ctx)
@@ -80,7 +81,7 @@ class CertmagicAcmeIssuer extends CertmagicIssuer
   Future<$acme.AcmezV3AcmeRenewalInfo> getRenewalInfo(
       $context.Context ctx, CertmagicCertificate cert) async {
     final $r = await $call(
-        4069,
+        4078,
         $W()
           ..h(this)
           ..h(ctx)
@@ -91,7 +92,7 @@ class CertmagicAcmeIssuer extends CertmagicIssuer
   /// Go: `func (*certmagic.ACMEIssuer).HTTPChallengeHandler(h http.Handler) http.Handler`.
   $http.NetHttpHandler httpChallengeHandler($http.NetHttpHandler h) {
     final $r = $callSync(
-        4070,
+        4079,
         $W()
           ..h(this)
           ..h(h));
@@ -102,7 +103,7 @@ class CertmagicAcmeIssuer extends CertmagicIssuer
   bool handleHttpChallenge(
       $http.NetHttpResponseWriter w, $http.NetHttpRequest r) {
     final $r = $callSync(
-        4071,
+        4080,
         $W()
           ..h(this)
           ..h(w)
@@ -116,7 +117,7 @@ class CertmagicAcmeIssuer extends CertmagicIssuer
   Future<CertmagicIssuedCertificate> issue(
       $context.Context ctx, $x509.CryptoX509CertificateRequest csr) async {
     final $r = await $call(
-        4072,
+        4081,
         $W()
           ..h(this)
           ..h(ctx)
@@ -126,7 +127,7 @@ class CertmagicAcmeIssuer extends CertmagicIssuer
 
   /// Go: `func (*certmagic.ACMEIssuer).IssuerKey() string`.
   String issuerKey() {
-    final $r = $callSync(4073, $W()..h(this));
+    final $r = $callSync(4082, $W()..h(this));
     return $r.str();
   }
 
@@ -136,7 +137,7 @@ class CertmagicAcmeIssuer extends CertmagicIssuer
   Future<void> preCheck(
       $context.Context ctx, List<String> names, bool interactive) async {
     await $call(
-        4074,
+        4083,
         $W()
           ..h(this)
           ..h(ctx)
@@ -150,7 +151,7 @@ class CertmagicAcmeIssuer extends CertmagicIssuer
   Future<void> revoke($context.Context ctx, CertmagicCertificateResource cert,
       int reason) async {
     await $call(
-        4075,
+        4084,
         $W()
           ..h(this)
           ..h(ctx)
@@ -179,14 +180,14 @@ class CertmagicCache extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func certmagic.NewCache(opts certmagic.CacheOptions) *certmagic.Cache`.
   factory CertmagicCache(CertmagicCacheOptions opts) {
-    final $r = $callSync(4154, $W()..dto(opts));
+    final $r = $callSync(4163, $W()..dto(opts));
     return $r.hnn(CertmagicCache.$h);
   }
 
   /// Go: `func (*certmagic.Cache).AllMatchingCertificates(name string) []certmagic.Certificate`.
   List<CertmagicCertificate> allMatchingCertificates(String name) {
     final $r = $callSync(
-        4076,
+        4085,
         $W()
           ..h(this)
           ..str(name));
@@ -196,7 +197,7 @@ class CertmagicCache extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*certmagic.Cache).Remove(hashes []string)`.
   void remove(List<String> hashes) {
     $callSync(
-        4077,
+        4086,
         $W()
           ..h(this)
           ..list(hashes, (w0, e0) => w0.str(e0)));
@@ -205,7 +206,7 @@ class CertmagicCache extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*certmagic.Cache).RemoveManaged(subjects []certmagic.SubjectIssuer)`.
   void removeManaged(List<CertmagicSubjectIssuer> subjects) {
     $callSync(
-        4078,
+        4087,
         $W()
           ..h(this)
           ..list(subjects, (w0, e0) => w0.dto(e0)));
@@ -216,7 +217,7 @@ class CertmagicCache extends $crypto.CryptoDecrypterOpts
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> renewManagedCertificates($context.Context ctx) async {
     await $call(
-        4079,
+        4088,
         $W()
           ..h(this)
           ..h(ctx));
@@ -225,7 +226,7 @@ class CertmagicCache extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*certmagic.Cache).SetOptions(opts certmagic.CacheOptions)`.
   void setOptions(CertmagicCacheOptions opts) {
     $callSync(
-        4080,
+        4089,
         $W()
           ..h(this)
           ..dto(opts));
@@ -233,7 +234,7 @@ class CertmagicCache extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*certmagic.Cache).Stop()`.
   void stop() {
-    $callSync(4081, $W()..h(this));
+    $callSync(4090, $W()..h(this));
   }
 }
 
@@ -304,20 +305,20 @@ class CertmagicCertificate extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (certmagic.Certificate).Empty() bool`.
   bool empty() {
-    final $r = $callSync(4082, $W()..h(this));
+    final $r = $callSync(4091, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (certmagic.Certificate).Expired() bool`.
   bool expired() {
-    final $r = $callSync(4083, $W()..h(this));
+    final $r = $callSync(4092, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (certmagic.Certificate).HasTag(tag string) bool`.
   bool hasTag(String tag) {
     final $r = $callSync(
-        4084,
+        4093,
         $W()
           ..h(this)
           ..str(tag));
@@ -326,20 +327,20 @@ class CertmagicCertificate extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (certmagic.Certificate).Hash() string`.
   String hash() {
-    final $r = $callSync(4085, $W()..h(this));
+    final $r = $callSync(4094, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (certmagic.Certificate).Lifetime() time.Duration`.
   Duration lifetime() {
-    final $r = $callSync(4086, $W()..h(this));
+    final $r = $callSync(4095, $W()..h(this));
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `func (certmagic.Certificate).NeedsRenewal(cfg *certmagic.Config) bool`.
   bool needsRenewal(CertmagicConfig cfg) {
     final $r = $callSync(
-        4087,
+        4096,
         $W()
           ..h(this)
           ..h(cfg));
@@ -367,7 +368,7 @@ class CertmagicCertificateResource extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*certmagic.CertificateResource).NamesKey() string`.
   String namesKey() {
-    final $r = $callSync(4088, $W()..h(this));
+    final $r = $callSync(4097, $W()..h(this));
     return $r.str();
   }
 }
@@ -385,7 +386,7 @@ mixin CertmagicCertificateSelector$ on GoHandle {
       $tls.CryptoTlsClientHelloInfo clientHelloInfo,
       List<CertmagicCertificate> certificates) {
     final $r = $callSync(
-        4089,
+        4098,
         $W()
           ..h(this)
           ..h(clientHelloInfo)
@@ -491,7 +492,7 @@ class CertmagicConfig extends $crypto.CryptoDecrypterOpts
   Future<CertmagicCertificate> cacheManagedCertificate(
       $context.Context ctx, String domain) async {
     final $r = await $call(
-        4092,
+        4101,
         $W()
           ..h(this)
           ..h(ctx)
@@ -505,7 +506,7 @@ class CertmagicConfig extends $crypto.CryptoDecrypterOpts
   Future<String> cacheUnmanagedCertificatePemBytes($context.Context ctx,
       Uint8List certBytes, Uint8List keyBytes, List<String> tags) async {
     final $r = await $call(
-        4093,
+        4102,
         $W()
           ..h(this)
           ..h(ctx)
@@ -525,7 +526,7 @@ class CertmagicConfig extends $crypto.CryptoDecrypterOpts
       List<String> tags,
       List<String> sans) async {
     final $r = await $call(
-        4094,
+        4103,
         $W()
           ..h(this)
           ..h(ctx)
@@ -542,7 +543,7 @@ class CertmagicConfig extends $crypto.CryptoDecrypterOpts
   Future<String> cacheUnmanagedCertificatePemFile($context.Context ctx,
       String certFile, String keyFile, List<String> tags) async {
     final $r = await $call(
-        4095,
+        4104,
         $W()
           ..h(this)
           ..h(ctx)
@@ -558,7 +559,7 @@ class CertmagicConfig extends $crypto.CryptoDecrypterOpts
   Future<String> cacheUnmanagedTlsCertificate($context.Context ctx,
       $tls.CryptoTlsCertificate tlsCert, List<String> tags) async {
     final $r = await $call(
-        4096,
+        4105,
         $W()
           ..h(this)
           ..h(ctx)
@@ -573,7 +574,7 @@ class CertmagicConfig extends $crypto.CryptoDecrypterOpts
   Future<List<$tls.CryptoTlsCertificate>> clientCredentials(
       $context.Context ctx, List<String> identifiers) async {
     final $r = await $call(
-        4097,
+        4106,
         $W()
           ..h(this)
           ..h(ctx)
@@ -585,7 +586,7 @@ class CertmagicConfig extends $crypto.CryptoDecrypterOpts
   $tls.CryptoTlsCertificate getCertificate(
       $tls.CryptoTlsClientHelloInfo clientHello) {
     final $r = $callSync(
-        4098,
+        4107,
         $W()
           ..h(this)
           ..h(clientHello));
@@ -598,7 +599,7 @@ class CertmagicConfig extends $crypto.CryptoDecrypterOpts
   Future<$tls.CryptoTlsCertificate> getCertificateWithContext(
       $context.Context ctx, $tls.CryptoTlsClientHelloInfo clientHello) async {
     final $r = await $call(
-        4099,
+        4108,
         $W()
           ..h(this)
           ..h(ctx)
@@ -612,7 +613,7 @@ class CertmagicConfig extends $crypto.CryptoDecrypterOpts
   Future<void> manageAsync(
       $context.Context ctx, List<String> domainNames) async {
     await $call(
-        4100,
+        4109,
         $W()
           ..h(this)
           ..h(ctx)
@@ -625,7 +626,7 @@ class CertmagicConfig extends $crypto.CryptoDecrypterOpts
   Future<void> manageSync(
       $context.Context ctx, List<String> domainNames) async {
     await $call(
-        4101,
+        4110,
         $W()
           ..h(this)
           ..h(ctx)
@@ -637,7 +638,7 @@ class CertmagicConfig extends $crypto.CryptoDecrypterOpts
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> obtainCertAsync($context.Context ctx, String name) async {
     await $call(
-        4102,
+        4111,
         $W()
           ..h(this)
           ..h(ctx)
@@ -649,7 +650,7 @@ class CertmagicConfig extends $crypto.CryptoDecrypterOpts
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> obtainCertSync($context.Context ctx, String name) async {
     await $call(
-        4103,
+        4112,
         $W()
           ..h(this)
           ..h(ctx)
@@ -662,7 +663,7 @@ class CertmagicConfig extends $crypto.CryptoDecrypterOpts
   Future<void> renewCertAsync(
       $context.Context ctx, String name, bool force) async {
     await $call(
-        4104,
+        4113,
         $W()
           ..h(this)
           ..h(ctx)
@@ -676,7 +677,7 @@ class CertmagicConfig extends $crypto.CryptoDecrypterOpts
   Future<void> renewCertSync(
       $context.Context ctx, String name, bool force) async {
     await $call(
-        4105,
+        4114,
         $W()
           ..h(this)
           ..h(ctx)
@@ -690,7 +691,7 @@ class CertmagicConfig extends $crypto.CryptoDecrypterOpts
   Future<void> revokeCert(
       $context.Context ctx, String domain, int reason, bool interactive) async {
     await $call(
-        4106,
+        4115,
         $W()
           ..h(this)
           ..h(ctx)
@@ -701,7 +702,7 @@ class CertmagicConfig extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*certmagic.Config).TLSConfig() *tls.Config`.
   $tls.CryptoTlsConfig tlsConfig() {
-    final $r = $callSync(4107, $W()..h(this));
+    final $r = $callSync(4116, $W()..h(this));
     return $r.hnn($tls.CryptoTlsConfig.$h);
   }
 }
@@ -725,20 +726,27 @@ class CertmagicConfigGetter extends $crypto.CryptoDecrypterOpts
   CertmagicConfigGetter.$h(super.$h) : super.$h();
 }
 
-/// Go: `certmagic.DNS01Solver`.
-final class CertmagicDns01Solver implements GoDto {
-  CertmagicDns01Solver({CertmagicDnsManager? dnsManager})
-      : dnsManager = dnsManager;
-
-  CertmagicDns01Solver.$dec($R r) : dnsManager = r.hn(CertmagicDnsManager.$h);
-
-  /// Go: `DNSManager`.
-  CertmagicDnsManager? dnsManager;
-
-  @override
-  void $enc($W w) {
-    w..h(dnsManager);
-  }
+/// Go: `certmagic.DNS01Solver` (handle).
+class CertmagicDns01Solver extends $v3.AcmezV3Solver
+    with
+        $crypto.CryptoDecrypterOpts$,
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$,
+        $v3.AcmezV3Waiter$
+    implements
+        $crypto.CryptoDecrypterOpts,
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic,
+        $v3.AcmezV3Waiter {
+  CertmagicDns01Solver.$h(super.$h) : super.$h();
 
   /// Go: `func (*certmagic.DNS01Solver).CleanUp(ctx context.Context, challenge acme.Challenge) error`.
   ///
@@ -746,9 +754,9 @@ final class CertmagicDns01Solver implements GoDto {
   Future<void> cleanUp(
       $context.Context ctx, $acme.AcmezV3AcmeChallenge challenge) async {
     await $call(
-        4108,
+        4117,
         $W()
-          ..dto(this)
+          ..h(this)
           ..h(ctx)
           ..dto(challenge));
   }
@@ -759,9 +767,9 @@ final class CertmagicDns01Solver implements GoDto {
   Future<void> present(
       $context.Context ctx, $acme.AcmezV3AcmeChallenge challenge) async {
     await $call(
-        4109,
+        4118,
         $W()
-          ..dto(this)
+          ..h(this)
           ..h(ctx)
           ..dto(challenge));
   }
@@ -772,9 +780,9 @@ final class CertmagicDns01Solver implements GoDto {
   Future<void> wait(
       $context.Context ctx, $acme.AcmezV3AcmeChallenge challenge) async {
     await $call(
-        4110,
+        4119,
         $W()
-          ..dto(this)
+          ..h(this)
           ..h(ctx)
           ..dto(challenge));
   }
@@ -799,28 +807,36 @@ class CertmagicDnsManager extends $crypto.CryptoDecrypterOpts
   CertmagicDnsManager.$h(super.$h) : super.$h();
 }
 
-/// Go: `certmagic.FileStorage`.
-final class CertmagicFileStorage implements GoDto {
-  CertmagicFileStorage({String? path}) : path = path ?? '';
-
-  CertmagicFileStorage.$dec($R r) : path = r.str();
-
-  /// Go: `Path`.
-  String path;
-
-  @override
-  void $enc($W w) {
-    w..str(path);
-  }
+/// Go: `certmagic.FileStorage` (handle).
+class CertmagicFileStorage extends CertmagicStorage
+    with
+        CertmagicTryLocker$,
+        $crypto.CryptoDecrypterOpts$,
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        CertmagicTryLocker,
+        $crypto.CryptoDecrypterOpts,
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
+  CertmagicFileStorage.$h(super.$h) : super.$h();
 
   /// Go: `func (*certmagic.FileStorage).Delete(_ context.Context, key string) error`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> delete($context.Context ctx, String key) async {
     await $call(
-        4115,
+        4124,
         $W()
-          ..dto(this)
+          ..h(this)
           ..h(ctx)
           ..str(key));
   }
@@ -830,9 +846,9 @@ final class CertmagicFileStorage implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> exists($context.Context ctx, String key) async {
     final $r = await $call(
-        4116,
+        4125,
         $W()
-          ..dto(this)
+          ..h(this)
           ..h(ctx)
           ..str(key));
     return $r.b();
@@ -841,9 +857,9 @@ final class CertmagicFileStorage implements GoDto {
   /// Go: `func (*certmagic.FileStorage).Filename(key string) string`.
   String filename(String key) {
     final $r = $callSync(
-        4117,
+        4126,
         $W()
-          ..dto(this)
+          ..h(this)
           ..str(key));
     return $r.str();
   }
@@ -854,9 +870,9 @@ final class CertmagicFileStorage implements GoDto {
   Future<List<String>> list(
       $context.Context ctx, String prefix, bool recursive) async {
     final $r = await $call(
-        4118,
+        4127,
         $W()
-          ..dto(this)
+          ..h(this)
           ..h(ctx)
           ..str(prefix)
           ..b(recursive));
@@ -868,9 +884,9 @@ final class CertmagicFileStorage implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<Uint8List> load($context.Context ctx, String key) async {
     final $r = await $call(
-        4119,
+        4128,
         $W()
-          ..dto(this)
+          ..h(this)
           ..h(ctx)
           ..str(key));
     return $r.bytes() ?? Uint8List(0);
@@ -881,9 +897,9 @@ final class CertmagicFileStorage implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> lock($context.Context ctx, String name) async {
     await $call(
-        4120,
+        4129,
         $W()
-          ..dto(this)
+          ..h(this)
           ..h(ctx)
           ..str(name));
   }
@@ -893,9 +909,9 @@ final class CertmagicFileStorage implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<CertmagicKeyInfo> stat($context.Context ctx, String key) async {
     final $r = await $call(
-        4121,
+        4130,
         $W()
-          ..dto(this)
+          ..h(this)
           ..h(ctx)
           ..str(key));
     return $r.p() ? CertmagicKeyInfo.$dec($r) : $nil();
@@ -906,9 +922,9 @@ final class CertmagicFileStorage implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> store($context.Context ctx, String key, Uint8List value) async {
     await $call(
-        4122,
+        4131,
         $W()
-          ..dto(this)
+          ..h(this)
           ..h(ctx)
           ..str(key)
           ..bytes(value));
@@ -916,7 +932,7 @@ final class CertmagicFileStorage implements GoDto {
 
   /// Go: `func (*certmagic.FileStorage).String() string`.
   String string() {
-    final $r = $callSync(4123, $W()..dto(this));
+    final $r = $callSync(4132, $W()..h(this));
     return $r.str();
   }
 
@@ -925,9 +941,9 @@ final class CertmagicFileStorage implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> tryLock($context.Context ctx, String name) async {
     final $r = await $call(
-        4124,
+        4133,
         $W()
-          ..dto(this)
+          ..h(this)
           ..h(ctx)
           ..str(name));
     return $r.b();
@@ -938,9 +954,9 @@ final class CertmagicFileStorage implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> unlock($context.Context ctx, String name) async {
     await $call(
-        4125,
+        4134,
         $W()
-          ..dto(this)
+          ..h(this)
           ..h(ctx)
           ..str(name));
   }
@@ -977,7 +993,7 @@ mixin CertmagicIssuer$ on GoHandle {
   Future<CertmagicIssuedCertificate> issue(
       $context.Context ctx, $x509.CryptoX509CertificateRequest request) async {
     final $r = await $call(
-        4132,
+        4141,
         $W()
           ..h(this)
           ..h(ctx)
@@ -987,7 +1003,7 @@ mixin CertmagicIssuer$ on GoHandle {
 
   /// Go: `func (certmagic.Issuer).IssuerKey() string`.
   String issuerKey() {
-    final $r = $callSync(4133, $W()..h(this));
+    final $r = $callSync(4142, $W()..h(this));
     return $r.str();
   }
 
@@ -1009,7 +1025,7 @@ final class CertmagicKeyBuilder implements GoDto {
   /// Go: `func (certmagic.KeyBuilder).CertsPrefix(issuerKey string) string`.
   String certsPrefix(String issuerKey) {
     final $r = $callSync(
-        4134,
+        4143,
         $W()
           ..dto(this)
           ..str(issuerKey));
@@ -1019,7 +1035,7 @@ final class CertmagicKeyBuilder implements GoDto {
   /// Go: `func (certmagic.KeyBuilder).CertsSitePrefix(issuerKey string, domain string) string`.
   String certsSitePrefix(String issuerKey, String domain) {
     final $r = $callSync(
-        4135,
+        4144,
         $W()
           ..dto(this)
           ..str(issuerKey)
@@ -1030,7 +1046,7 @@ final class CertmagicKeyBuilder implements GoDto {
   /// Go: `func (certmagic.KeyBuilder).OCSPStaple(cert *certmagic.Certificate, pemBundle []byte) string`.
   String ocspStaple(CertmagicCertificate cert, Uint8List pemBundle) {
     final $r = $callSync(
-        4136,
+        4145,
         $W()
           ..dto(this)
           ..h(cert)
@@ -1041,7 +1057,7 @@ final class CertmagicKeyBuilder implements GoDto {
   /// Go: `func (certmagic.KeyBuilder).Safe(str string) string`.
   String safe(String str) {
     final $r = $callSync(
-        4137,
+        4146,
         $W()
           ..dto(this)
           ..str(str));
@@ -1051,7 +1067,7 @@ final class CertmagicKeyBuilder implements GoDto {
   /// Go: `func (certmagic.KeyBuilder).SiteCert(issuerKey string, domain string) string`.
   String siteCert(String issuerKey, String domain) {
     final $r = $callSync(
-        4138,
+        4147,
         $W()
           ..dto(this)
           ..str(issuerKey)
@@ -1062,7 +1078,7 @@ final class CertmagicKeyBuilder implements GoDto {
   /// Go: `func (certmagic.KeyBuilder).SiteMeta(issuerKey string, domain string) string`.
   String siteMeta(String issuerKey, String domain) {
     final $r = $callSync(
-        4139,
+        4148,
         $W()
           ..dto(this)
           ..str(issuerKey)
@@ -1073,7 +1089,7 @@ final class CertmagicKeyBuilder implements GoDto {
   /// Go: `func (certmagic.KeyBuilder).SitePrivateKey(issuerKey string, domain string) string`.
   String sitePrivateKey(String issuerKey, String domain) {
     final $r = $callSync(
-        4140,
+        4149,
         $W()
           ..dto(this)
           ..str(issuerKey)
@@ -1091,7 +1107,7 @@ class CertmagicKeyGenerator extends GoHandle with CertmagicKeyGenerator$ {
 mixin CertmagicKeyGenerator$ on GoHandle {
   /// Go: `func (certmagic.KeyGenerator).GenerateKey() (crypto.PrivateKey, error)`.
   $crypto.CryptoPrivateKey generateKey() {
-    final $r = $callSync(4141, $W()..h(this));
+    final $r = $callSync(4150, $W()..h(this));
     return $r.hnn($crypto.CryptoPrivateKey.$h);
   }
 }
@@ -1147,7 +1163,7 @@ mixin CertmagicLockLeaseRenewer$ on GoHandle {
   Future<void> renewLockLease(
       $context.Context ctx, String lockKey, Duration leaseDuration) async {
     await $call(
-        4143,
+        4152,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1168,7 +1184,7 @@ mixin CertmagicLocker$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> lock($context.Context ctx, String name) async {
     await $call(
-        4144,
+        4153,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1180,16 +1196,22 @@ mixin CertmagicLocker$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> unlock($context.Context ctx, String name) async {
     await $call(
-        4145,
+        4154,
         $W()
           ..h(this)
           ..h(ctx)
           ..str(name));
   }
 
+  /// Go: type assertion `x.(*certmagic.FileStorage)`: null if the object is not one.
+  CertmagicFileStorage? asCertmagicFileStorage() {
+    final $r = $callSync(369, $W()..h(this));
+    return $r.hn(CertmagicFileStorage.$h);
+  }
+
   /// Go: type assertion `x.(certmagic.Storage)`: null if the object is not one.
   CertmagicStorage? asCertmagicStorage() {
-    final $r = $callSync(369, $W()..h(this));
+    final $r = $callSync(370, $W()..h(this));
     return $r.hn(CertmagicStorage.$h);
   }
 }
@@ -1207,7 +1229,7 @@ mixin CertmagicManager$ on GoHandle {
   Future<$tls.CryptoTlsCertificate> getCertificate($context.Context ctx,
       $tls.CryptoTlsClientHelloInfo clientHelloInfo) async {
     final $r = await $call(
-        4150,
+        4159,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1229,7 +1251,7 @@ mixin CertmagicPreChecker$ on GoHandle {
   Future<void> preCheck(
       $context.Context ctx, List<String> names, bool interactive) async {
     await $call(
-        4159,
+        4168,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1239,7 +1261,7 @@ mixin CertmagicPreChecker$ on GoHandle {
 
   /// Go: type assertion `x.(*certmagic.ACMEIssuer)`: null if the object is not one.
   CertmagicAcmeIssuer? asCertmagicAcmeIssuer() {
-    final $r = $callSync(370, $W()..h(this));
+    final $r = $callSync(371, $W()..h(this));
     return $r.hn(CertmagicAcmeIssuer.$h);
   }
 }
@@ -1258,7 +1280,7 @@ mixin CertmagicRenewalInfoGetter$ on GoHandle {
   Future<$acme.AcmezV3AcmeRenewalInfo> getRenewalInfo(
       $context.Context ctx, CertmagicCertificate certificate) async {
     final $r = await $call(
-        4163,
+        4172,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1268,7 +1290,7 @@ mixin CertmagicRenewalInfoGetter$ on GoHandle {
 
   /// Go: type assertion `x.(*certmagic.ACMEIssuer)`: null if the object is not one.
   CertmagicAcmeIssuer? asCertmagicAcmeIssuer() {
-    final $r = $callSync(371, $W()..h(this));
+    final $r = $callSync(372, $W()..h(this));
     return $r.hn(CertmagicAcmeIssuer.$h);
   }
 }
@@ -1286,7 +1308,7 @@ mixin CertmagicRevoker$ on GoHandle {
   Future<void> revoke($context.Context ctx, CertmagicCertificateResource cert,
       int reason) async {
     await $call(
-        4164,
+        4173,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1296,7 +1318,7 @@ mixin CertmagicRevoker$ on GoHandle {
 
   /// Go: type assertion `x.(*certmagic.ACMEIssuer)`: null if the object is not one.
   CertmagicAcmeIssuer? asCertmagicAcmeIssuer() {
-    final $r = $callSync(372, $W()..h(this));
+    final $r = $callSync(373, $W()..h(this));
     return $r.hn(CertmagicAcmeIssuer.$h);
   }
 }
@@ -1321,20 +1343,20 @@ class CertmagicRingBufferRateLimiter extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*certmagic.RingBufferRateLimiter).Allow() bool`.
   bool allow() {
-    final $r = $callSync(4165, $W()..h(this));
+    final $r = $callSync(4174, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*certmagic.RingBufferRateLimiter).MaxEvents() int`.
   int maxEvents() {
-    final $r = $callSync(4166, $W()..h(this));
+    final $r = $callSync(4175, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*certmagic.RingBufferRateLimiter).SetMaxEvents(maxEvents int)`.
   void setMaxEvents(int maxEvents) {
     $callSync(
-        4167,
+        4176,
         $W()
           ..h(this)
           ..i64(maxEvents));
@@ -1343,7 +1365,7 @@ class CertmagicRingBufferRateLimiter extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*certmagic.RingBufferRateLimiter).SetWindow(window time.Duration)`.
   void setWindow(Duration window) {
     $callSync(
-        4168,
+        4177,
         $W()
           ..h(this)
           ..i64((window).inMicroseconds * 1000));
@@ -1351,7 +1373,7 @@ class CertmagicRingBufferRateLimiter extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*certmagic.RingBufferRateLimiter).Stop()`.
   void stop() {
-    $callSync(4169, $W()..h(this));
+    $callSync(4178, $W()..h(this));
   }
 
   /// Go: `func (*certmagic.RingBufferRateLimiter).Wait(ctx context.Context) error`.
@@ -1359,7 +1381,7 @@ class CertmagicRingBufferRateLimiter extends $crypto.CryptoDecrypterOpts
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> wait($context.Context ctx) async {
     await $call(
-        4170,
+        4179,
         $W()
           ..h(this)
           ..h(ctx));
@@ -1367,7 +1389,7 @@ class CertmagicRingBufferRateLimiter extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*certmagic.RingBufferRateLimiter).Window() time.Duration`.
   Duration window() {
-    final $r = $callSync(4171, $W()..h(this));
+    final $r = $callSync(4180, $W()..h(this));
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 }
@@ -1388,7 +1410,7 @@ final class CertmagicStandardKeyGenerator implements GoDto {
 
   /// Go: `func (certmagic.StandardKeyGenerator).GenerateKey() (crypto.PrivateKey, error)`.
   $crypto.CryptoPrivateKey generateKey() {
-    final $r = $callSync(4173, $W()..dto(this));
+    final $r = $callSync(4182, $W()..dto(this));
     return $r.hnn($crypto.CryptoPrivateKey.$h);
   }
 }
@@ -1405,7 +1427,7 @@ mixin CertmagicStorage$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> delete($context.Context ctx, String key) async {
     await $call(
-        4174,
+        4183,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1417,7 +1439,7 @@ mixin CertmagicStorage$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> exists($context.Context ctx, String key) async {
     final $r = await $call(
-        4175,
+        4184,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1431,7 +1453,7 @@ mixin CertmagicStorage$ on GoHandle {
   Future<List<String>> list(
       $context.Context ctx, String path, bool recursive) async {
     final $r = await $call(
-        4176,
+        4185,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1445,7 +1467,7 @@ mixin CertmagicStorage$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<Uint8List> load($context.Context ctx, String key) async {
     final $r = await $call(
-        4177,
+        4186,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1458,7 +1480,7 @@ mixin CertmagicStorage$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<CertmagicKeyInfo> stat($context.Context ctx, String key) async {
     final $r = await $call(
-        4178,
+        4187,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1471,12 +1493,18 @@ mixin CertmagicStorage$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> store($context.Context ctx, String key, Uint8List value) async {
     await $call(
-        4179,
+        4188,
         $W()
           ..h(this)
           ..h(ctx)
           ..str(key)
           ..bytes(value));
+  }
+
+  /// Go: type assertion `x.(*certmagic.FileStorage)`: null if the object is not one.
+  CertmagicFileStorage? asCertmagicFileStorage() {
+    final $r = $callSync(374, $W()..h(this));
+    return $r.hn(CertmagicFileStorage.$h);
   }
 }
 
@@ -1516,7 +1544,7 @@ mixin CertmagicTryLocker$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> tryLock($context.Context ctx, String name) async {
     final $r = await $call(
-        4186,
+        4195,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1529,11 +1557,17 @@ mixin CertmagicTryLocker$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> unlock($context.Context ctx, String name) async {
     await $call(
-        4187,
+        4196,
         $W()
           ..h(this)
           ..h(ctx)
           ..str(name));
+  }
+
+  /// Go: type assertion `x.(*certmagic.FileStorage)`: null if the object is not one.
+  CertmagicFileStorage? asCertmagicFileStorage() {
+    final $r = $callSync(375, $W()..h(this));
+    return $r.hn(CertmagicFileStorage.$h);
   }
 }
 
@@ -1607,7 +1641,7 @@ final class CertmagicZeroSslIssuer implements GoDto {
   /// Go: `func (*certmagic.ZeroSSLIssuer).HTTPValidationHandler(h http.Handler) http.Handler`.
   $http.NetHttpHandler httpValidationHandler($http.NetHttpHandler h) {
     final $r = $callSync(
-        4189,
+        4198,
         $W()
           ..dto(this)
           ..h(h));
@@ -1618,7 +1652,7 @@ final class CertmagicZeroSslIssuer implements GoDto {
   bool handleZeroSslhttpValidation(
       $http.NetHttpResponseWriter w, $http.NetHttpRequest r) {
     final $r = $callSync(
-        4190,
+        4199,
         $W()
           ..dto(this)
           ..h(w)
@@ -1632,7 +1666,7 @@ final class CertmagicZeroSslIssuer implements GoDto {
   Future<CertmagicIssuedCertificate> issue(
       $context.Context ctx, $x509.CryptoX509CertificateRequest csr) async {
     final $r = await $call(
-        4191,
+        4200,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -1642,7 +1676,7 @@ final class CertmagicZeroSslIssuer implements GoDto {
 
   /// Go: `func (*certmagic.ZeroSSLIssuer).IssuerKey() string`.
   String issuerKey() {
-    final $r = $callSync(4192, $W()..dto(this));
+    final $r = $callSync(4201, $W()..dto(this));
     return $r.str();
   }
 
@@ -1652,7 +1686,7 @@ final class CertmagicZeroSslIssuer implements GoDto {
   Future<void> revoke($context.Context ctx, CertmagicCertificateResource cert,
       int reason) async {
     await $call(
-        4193,
+        4202,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -1687,7 +1721,7 @@ extension GoCaddyserverCertmagicApi on GoCaddyserverCertmagic {
   Future<void> cleanStorage($context.Context ctx, CertmagicStorage storage,
       CertmagicCleanStorageOptions opts) async {
     await $call(
-        4090,
+        4099,
         $W()
           ..h(ctx)
           ..h(storage)
@@ -1700,7 +1734,7 @@ extension GoCaddyserverCertmagicApi on GoCaddyserverCertmagic {
   Future<void> cleanUpOwnLocks(
       $context.Context ctx, $zap.ZapLogger logger) async {
     await $call(
-        4091,
+        4100,
         $W()
           ..h(ctx)
           ..h(logger));
@@ -1708,13 +1742,13 @@ extension GoCaddyserverCertmagicApi on GoCaddyserverCertmagic {
 
   /// Go: `var certmagic.Default certmagic.Config`.
   CertmagicConfig get default$ {
-    final $r = $callSync(4111);
+    final $r = $callSync(4120);
     return $r.hnn(CertmagicConfig.$h);
   }
 
   /// Go: `var certmagic.DefaultACME certmagic.ACMEIssuer`.
   CertmagicAcmeIssuer get defaultAcme {
-    final $r = $callSync(4112);
+    final $r = $callSync(4121);
     return $r.hnn(CertmagicAcmeIssuer.$h);
   }
 
@@ -1722,7 +1756,7 @@ extension GoCaddyserverCertmagicApi on GoCaddyserverCertmagic {
   CertmagicCertificate defaultCertificateSelector(
       $tls.CryptoTlsClientHelloInfo hello, List<CertmagicCertificate> choices) {
     final $r = $callSync(
-        4113,
+        4122,
         $W()
           ..h(hello)
           ..list(choices, (w0, e0) => w0.h(e0)));
@@ -1731,7 +1765,7 @@ extension GoCaddyserverCertmagicApi on GoCaddyserverCertmagic {
 
   /// Go: `var certmagic.DefaultKeyGenerator certmagic.StandardKeyGenerator`.
   CertmagicStandardKeyGenerator get defaultKeyGenerator {
-    final $r = $callSync(4114);
+    final $r = $callSync(4123);
     return $r.p() ? CertmagicStandardKeyGenerator.$dec($r) : $nil();
   }
 
@@ -1741,7 +1775,7 @@ extension GoCaddyserverCertmagicApi on GoCaddyserverCertmagic {
   Future<String> findZoneByFqdn($context.Context ctx, $zap.ZapLogger logger,
       String fqdn, List<String> nameservers) async {
     final $r = await $call(
-        4126,
+        4135,
         $W()
           ..h(ctx)
           ..h(logger)
@@ -1752,20 +1786,20 @@ extension GoCaddyserverCertmagicApi on GoCaddyserverCertmagic {
 
   /// Go: `func certmagic.GetACMEChallenge(identifier string) (certmagic.Challenge, bool)`.
   (CertmagicChallenge, bool) getAcmeChallenge(String identifier) {
-    final $r = $callSync(4127, $W()..str(identifier));
+    final $r = $callSync(4136, $W()..str(identifier));
     return ($r.hnn(CertmagicChallenge.$h), $r.b());
   }
 
   /// Go: `var certmagic.HTTPPort int`.
   int get httpPort {
-    final $r = $callSync(4128);
+    final $r = $callSync(4137);
     return $r.i64();
   }
 
   /// Go: `func certmagic.HTTPS(domainNames []string, mux http.Handler) error`.
   void https(List<String> domainNames, $http.NetHttpHandler mux) {
     $callSync(
-        4129,
+        4138,
         $W()
           ..list(domainNames, (w0, e0) => w0.str(e0))
           ..h(mux));
@@ -1773,31 +1807,31 @@ extension GoCaddyserverCertmagicApi on GoCaddyserverCertmagic {
 
   /// Go: `var certmagic.HTTPSPort int`.
   int get httpsPort {
-    final $r = $callSync(4130);
+    final $r = $callSync(4139);
     return $r.i64();
   }
 
   /// Go: `var certmagic.HTTPTimeout time.Duration`.
   Duration get httpTimeout {
-    final $r = $callSync(4131);
+    final $r = $callSync(4140);
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `func certmagic.Listen(domainNames []string) (net.Listener, error)`.
   $net.NetListener listen(List<String> domainNames) {
-    final $r = $callSync(4142, $W()..list(domainNames, (w0, e0) => w0.str(e0)));
+    final $r = $callSync(4151, $W()..list(domainNames, (w0, e0) => w0.str(e0)));
     return $r.hnn($net.NetListener.$h);
   }
 
   /// Go: `func certmagic.LooksLikeHTTPChallenge(r *http.Request) bool`.
   bool looksLikeHttpChallenge($http.NetHttpRequest r) {
-    final $r = $callSync(4146, $W()..h(r));
+    final $r = $callSync(4155, $W()..h(r));
     return $r.b();
   }
 
   /// Go: `func certmagic.LooksLikeZeroSSLHTTPValidation(r *http.Request) bool`.
   bool looksLikeZeroSslhttpValidation($http.NetHttpRequest r) {
-    final $r = $callSync(4147, $W()..h(r));
+    final $r = $callSync(4156, $W()..h(r));
     return $r.b();
   }
 
@@ -1807,7 +1841,7 @@ extension GoCaddyserverCertmagicApi on GoCaddyserverCertmagic {
   Future<void> manageAsync(
       $context.Context ctx, List<String> domainNames) async {
     await $call(
-        4148,
+        4157,
         $W()
           ..h(ctx)
           ..list(domainNames, (w0, e0) => w0.str(e0)));
@@ -1819,7 +1853,7 @@ extension GoCaddyserverCertmagicApi on GoCaddyserverCertmagic {
   Future<void> manageSync(
       $context.Context ctx, List<String> domainNames) async {
     await $call(
-        4149,
+        4158,
         $W()
           ..h(ctx)
           ..list(domainNames, (w0, e0) => w0.str(e0)));
@@ -1828,7 +1862,7 @@ extension GoCaddyserverCertmagicApi on GoCaddyserverCertmagic {
   /// Go: `func certmagic.MatchWildcard(subject string, wildcard string) bool`.
   bool matchWildcard(String subject, String wildcard) {
     final $r = $callSync(
-        4151,
+        4160,
         $W()
           ..str(subject)
           ..str(wildcard));
@@ -1838,7 +1872,7 @@ extension GoCaddyserverCertmagicApi on GoCaddyserverCertmagic {
   /// Go: `func certmagic.New(certCache *certmagic.Cache, cfg certmagic.Config) *certmagic.Config`.
   CertmagicConfig new$(CertmagicCache certCache, CertmagicConfig cfg) {
     final $r = $callSync(
-        4152,
+        4161,
         $W()
           ..h(certCache)
           ..h(cfg));
@@ -1847,7 +1881,7 @@ extension GoCaddyserverCertmagicApi on GoCaddyserverCertmagic {
 
   /// Go: `func certmagic.NewDefault() *certmagic.Config`.
   CertmagicConfig newDefault() {
-    final $r = $callSync(4155);
+    final $r = $callSync(4164);
     return $r.hnn(CertmagicConfig.$h);
   }
 
@@ -1855,7 +1889,7 @@ extension GoCaddyserverCertmagicApi on GoCaddyserverCertmagic {
   CertmagicRingBufferRateLimiter newRateLimiter(
       int maxEvents, Duration window) {
     final $r = $callSync(
-        4156,
+        4165,
         $W()
           ..i64(maxEvents)
           ..i64((window).inMicroseconds * 1000));
@@ -1864,31 +1898,31 @@ extension GoCaddyserverCertmagicApi on GoCaddyserverCertmagic {
 
   /// Go: `func certmagic.PEMDecodePrivateKey(keyPEMBytes []byte) (crypto.Signer, error)`.
   $crypto.CryptoSigner pemDecodePrivateKey(Uint8List keyPemBytes) {
-    final $r = $callSync(4157, $W()..bytes(keyPemBytes));
+    final $r = $callSync(4166, $W()..bytes(keyPemBytes));
     return $r.hnn($crypto.CryptoSigner.$h);
   }
 
   /// Go: `func certmagic.PEMEncodePrivateKey(key crypto.PrivateKey) ([]byte, error)`.
   Uint8List pemEncodePrivateKey($crypto.CryptoPrivateKey key) {
-    final $r = $callSync(4158, $W()..h(key));
+    final $r = $callSync(4167, $W()..h(key));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `var certmagic.RateLimitEvents int`.
   int get rateLimitEvents {
-    final $r = $callSync(4160);
+    final $r = $callSync(4169);
     return $r.i64();
   }
 
   /// Go: `var certmagic.RateLimitEventsWindow time.Duration`.
   Duration get rateLimitEventsWindow {
-    final $r = $callSync(4161);
+    final $r = $callSync(4170);
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `func certmagic.RecursiveNameservers(custom []string) []string`.
   List<String> recursiveNameservers(List<String> custom) {
-    final $r = $callSync(4162, $W()..list(custom, (w0, e0) => w0.str(e0)));
+    final $r = $callSync(4171, $W()..list(custom, (w0, e0) => w0.str(e0)));
     return $r.list(() => $r.str());
   }
 
@@ -1896,7 +1930,7 @@ extension GoCaddyserverCertmagicApi on GoCaddyserverCertmagic {
   bool solveHttpChallenge($zap.ZapLogger logger, $http.NetHttpResponseWriter w,
       $http.NetHttpRequest r, $acme.AcmezV3AcmeChallenge challenge) {
     final $r = $callSync(
-        4172,
+        4181,
         $W()
           ..h(logger)
           ..h(w)
@@ -1907,43 +1941,43 @@ extension GoCaddyserverCertmagicApi on GoCaddyserverCertmagic {
 
   /// Go: `var certmagic.StorageKeys certmagic.KeyBuilder`.
   CertmagicKeyBuilder get storageKeys {
-    final $r = $callSync(4180);
+    final $r = $callSync(4189);
     return $r.p() ? CertmagicKeyBuilder.$dec($r) : $nil();
   }
 
   /// Go: `func certmagic.SubjectIsIP(subj string) bool`.
   bool subjectIsIp(String subj) {
-    final $r = $callSync(4181, $W()..str(subj));
+    final $r = $callSync(4190, $W()..str(subj));
     return $r.b();
   }
 
   /// Go: `func certmagic.SubjectIsInternal(subj string) bool`.
   bool subjectIsInternal(String subj) {
-    final $r = $callSync(4182, $W()..str(subj));
+    final $r = $callSync(4191, $W()..str(subj));
     return $r.b();
   }
 
   /// Go: `func certmagic.SubjectQualifiesForCert(subj string) bool`.
   bool subjectQualifiesForCert(String subj) {
-    final $r = $callSync(4183, $W()..str(subj));
+    final $r = $callSync(4192, $W()..str(subj));
     return $r.b();
   }
 
   /// Go: `func certmagic.SubjectQualifiesForPublicCert(subj string) bool`.
   bool subjectQualifiesForPublicCert(String subj) {
-    final $r = $callSync(4184, $W()..str(subj));
+    final $r = $callSync(4193, $W()..str(subj));
     return $r.b();
   }
 
   /// Go: `func certmagic.TLS(domainNames []string) (*tls.Config, error)`.
   $tls.CryptoTlsConfig tls(List<String> domainNames) {
-    final $r = $callSync(4185, $W()..list(domainNames, (w0, e0) => w0.str(e0)));
+    final $r = $callSync(4194, $W()..list(domainNames, (w0, e0) => w0.str(e0)));
     return $r.hnn($tls.CryptoTlsConfig.$h);
   }
 
   /// Go: `var certmagic.UserAgent string`.
   String get userAgent {
-    final $r = $callSync(4188);
+    final $r = $callSync(4197);
     return $r.str();
   }
 }

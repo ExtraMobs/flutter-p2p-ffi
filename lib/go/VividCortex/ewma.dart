@@ -17,7 +17,7 @@ class EwmaMovingAverage extends GoHandle with EwmaMovingAverage$ {
 
   /// Go: `func ewma.NewMovingAverage(age ...float64) ewma.MovingAverage`.
   factory EwmaMovingAverage([List<double> age = const []]) {
-    final $r = $callSync(3974, $W()..list(age, (w0, e0) => w0.f64(e0)));
+    final $r = $callSync(3983, $W()..list(age, (w0, e0) => w0.f64(e0)));
     return $r.hnn(EwmaMovingAverage.$h);
   }
 }
@@ -27,7 +27,7 @@ mixin EwmaMovingAverage$ on GoHandle {
   /// Go: `func (ewma.MovingAverage).Add(float64)`.
   void add(double arg0) {
     $callSync(
-        3971,
+        3980,
         $W()
           ..h(this)
           ..f64(arg0));
@@ -36,7 +36,7 @@ mixin EwmaMovingAverage$ on GoHandle {
   /// Go: `func (ewma.MovingAverage).Set(float64)`.
   void set(double arg0) {
     $callSync(
-        3972,
+        3981,
         $W()
           ..h(this)
           ..f64(arg0));
@@ -44,7 +44,7 @@ mixin EwmaMovingAverage$ on GoHandle {
 
   /// Go: `func (ewma.MovingAverage).Value() float64`.
   double value$() {
-    final $r = $callSync(3973, $W()..h(this));
+    final $r = $callSync(3982, $W()..h(this));
     return $r.f64();
   }
 
@@ -90,7 +90,7 @@ class EwmaSimpleEwma extends EwmaMovingAverage
   /// Go: `func (*ewma.SimpleEWMA).Add(value float64)`.
   void add(double value) {
     $callSync(
-        3975,
+        3984,
         $W()
           ..h(this)
           ..f64(value));
@@ -99,7 +99,7 @@ class EwmaSimpleEwma extends EwmaMovingAverage
   /// Go: `func (*ewma.SimpleEWMA).Set(value float64)`.
   void set(double value) {
     $callSync(
-        3976,
+        3985,
         $W()
           ..h(this)
           ..f64(value));
@@ -107,7 +107,7 @@ class EwmaSimpleEwma extends EwmaMovingAverage
 
   /// Go: `func (*ewma.SimpleEWMA).Value() float64`.
   double value$() {
-    final $r = $callSync(3977, $W()..h(this));
+    final $r = $callSync(3986, $W()..h(this));
     return $r.f64();
   }
 }
@@ -135,7 +135,7 @@ class EwmaVariableEwma extends EwmaMovingAverage
   /// Go: `func (*ewma.VariableEWMA).Add(value float64)`.
   void add(double value) {
     $callSync(
-        3978,
+        3987,
         $W()
           ..h(this)
           ..f64(value));
@@ -144,7 +144,7 @@ class EwmaVariableEwma extends EwmaMovingAverage
   /// Go: `func (*ewma.VariableEWMA).Set(value float64)`.
   void set(double value) {
     $callSync(
-        3979,
+        3988,
         $W()
           ..h(this)
           ..f64(value));
@@ -152,7 +152,7 @@ class EwmaVariableEwma extends EwmaMovingAverage
 
   /// Go: `func (*ewma.VariableEWMA).Value() float64`.
   double value$() {
-    final $r = $callSync(3980, $W()..h(this));
+    final $r = $callSync(3989, $W()..h(this));
     return $r.f64();
   }
 }

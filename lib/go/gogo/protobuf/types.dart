@@ -53,7 +53,7 @@ final class ProtobufTypesAny implements GoDto {
   /// Go: `func (*types.Any).Compare(that interface{}) int`.
   int compare(Object? that) {
     final $r = $callSync(
-        7309,
+        7318,
         $W()
           ..dto(this)
           ..any(that));
@@ -62,14 +62,14 @@ final class ProtobufTypesAny implements GoDto {
 
   /// Go: `func (*types.Any).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(7310, $W()..dto(this));
+    final $r = $callSync(7319, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*types.Any).Equal(that interface{}) bool`.
   bool equal(Object? that) {
     final $r = $callSync(
-        7311,
+        7320,
         $W()
           ..dto(this)
           ..any(that));
@@ -78,32 +78,32 @@ final class ProtobufTypesAny implements GoDto {
 
   /// Go: `func (*types.Any).GetTypeUrl() string`.
   String getTypeUrl() {
-    final $r = $callSync(7312, $W()..dto(this));
+    final $r = $callSync(7321, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Any).GetValue() []byte`.
   Uint8List getValue() {
-    final $r = $callSync(7313, $W()..dto(this));
+    final $r = $callSync(7322, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*types.Any).GoString() string`.
   String goString() {
-    final $r = $callSync(7314, $W()..dto(this));
+    final $r = $callSync(7323, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Any).Marshal() (dAtA []byte, err error)`.
   Uint8List marshal() {
-    final $r = $callSync(7315, $W()..dto(this));
+    final $r = $callSync(7324, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*types.Any).MarshalTo(dAtA []byte) (int, error)`.
   int marshalTo(Uint8List dAtA) {
     final $r = $callSync(
-        7316,
+        7325,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -113,7 +113,7 @@ final class ProtobufTypesAny implements GoDto {
   /// Go: `func (*types.Any).MarshalToSizedBuffer(dAtA []byte) (int, error)`.
   int marshalToSizedBuffer(Uint8List dAtA) {
     final $r = $callSync(
-        7317,
+        7326,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -122,36 +122,36 @@ final class ProtobufTypesAny implements GoDto {
 
   /// Go: `func (*types.Any).ProtoMessage()`.
   void protoMessage() {
-    $callSync(7318, $W()..dto(this));
+    $callSync(7327, $W()..dto(this));
   }
 
   /// Go: `func (*types.Any).ProtoSize() (n int)`.
   int protoSize() {
-    final $r = $callSync(7319, $W()..dto(this));
+    final $r = $callSync(7328, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Any).Reset()`.
   void reset() {
-    $callSync(7320, $W()..dto(this));
+    $callSync(7329, $W()..dto(this));
   }
 
   /// Go: `func (*types.Any).Size() (n int)`.
   int size() {
-    final $r = $callSync(7321, $W()..dto(this));
+    final $r = $callSync(7330, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Any).String() string`.
   String string() {
-    final $r = $callSync(7322, $W()..dto(this));
+    final $r = $callSync(7331, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Any).Unmarshal(dAtA []byte) error`.
   void unmarshal(Uint8List dAtA) {
     $callSync(
-        7323,
+        7332,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -159,13 +159,13 @@ final class ProtobufTypesAny implements GoDto {
 
   /// Go: `func (*types.Any).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(7324, $W()..dto(this));
+    $callSync(7333, $W()..dto(this));
   }
 
   /// Go: `func (*types.Any).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        7325,
+        7334,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -176,7 +176,7 @@ final class ProtobufTypesAny implements GoDto {
   /// Go: `func (*types.Any).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        7326,
+        7335,
         $W()
           ..dto(this)
           ..h(src));
@@ -184,20 +184,20 @@ final class ProtobufTypesAny implements GoDto {
 
   /// Go: `func (*types.Any).XXX_MessageName() string`.
   String xxxMessageName() {
-    final $r = $callSync(7327, $W()..dto(this));
+    final $r = $callSync(7336, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Any).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(7328, $W()..dto(this));
+    final $r = $callSync(7337, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Any).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        7329,
+        7338,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -205,7 +205,7 @@ final class ProtobufTypesAny implements GoDto {
 
   /// Go: `func (*types.Any).XXX_WellKnownType() string`.
   String xxxWellKnownType() {
-    final $r = $callSync(7330, $W()..dto(this));
+    final $r = $callSync(7339, $W()..dto(this));
     return $r.str();
   }
 }
@@ -289,7 +289,7 @@ final class ProtobufTypesApi implements GoDto {
   /// Go: `func (*types.Api).Compare(that interface{}) int`.
   int compare(Object? that) {
     final $r = $callSync(
-        7332,
+        7341,
         $W()
           ..dto(this)
           ..any(that));
@@ -298,14 +298,14 @@ final class ProtobufTypesApi implements GoDto {
 
   /// Go: `func (*types.Api).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(7333, $W()..dto(this));
+    final $r = $callSync(7342, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*types.Api).Equal(that interface{}) bool`.
   bool equal(Object? that) {
     final $r = $callSync(
-        7334,
+        7343,
         $W()
           ..dto(this)
           ..any(that));
@@ -314,62 +314,62 @@ final class ProtobufTypesApi implements GoDto {
 
   /// Go: `func (*types.Api).GetMethods() []*types.Method`.
   List<ProtobufTypesMethod> getMethods() {
-    final $r = $callSync(7335, $W()..dto(this));
+    final $r = $callSync(7344, $W()..dto(this));
     return $r.list(() => $r.p() ? ProtobufTypesMethod.$dec($r) : $nil());
   }
 
   /// Go: `func (*types.Api).GetMixins() []*types.Mixin`.
   List<ProtobufTypesMixin> getMixins() {
-    final $r = $callSync(7336, $W()..dto(this));
+    final $r = $callSync(7345, $W()..dto(this));
     return $r.list(() => $r.p() ? ProtobufTypesMixin.$dec($r) : $nil());
   }
 
   /// Go: `func (*types.Api).GetName() string`.
   String getName() {
-    final $r = $callSync(7337, $W()..dto(this));
+    final $r = $callSync(7346, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Api).GetOptions() []*types.Option`.
   List<ProtobufTypesOption> getOptions() {
-    final $r = $callSync(7338, $W()..dto(this));
+    final $r = $callSync(7347, $W()..dto(this));
     return $r.list(() => $r.p() ? ProtobufTypesOption.$dec($r) : $nil());
   }
 
   /// Go: `func (*types.Api).GetSourceContext() *types.SourceContext`.
   ProtobufTypesSourceContext getSourceContext() {
-    final $r = $callSync(7339, $W()..dto(this));
+    final $r = $callSync(7348, $W()..dto(this));
     return $r.p() ? ProtobufTypesSourceContext.$dec($r) : $nil();
   }
 
   /// Go: `func (*types.Api).GetSyntax() types.Syntax`.
   int getSyntax() {
-    final $r = $callSync(7340, $W()..dto(this));
+    final $r = $callSync(7349, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Api).GetVersion() string`.
   String getVersion() {
-    final $r = $callSync(7341, $W()..dto(this));
+    final $r = $callSync(7350, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Api).GoString() string`.
   String goString() {
-    final $r = $callSync(7342, $W()..dto(this));
+    final $r = $callSync(7351, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Api).Marshal() (dAtA []byte, err error)`.
   Uint8List marshal() {
-    final $r = $callSync(7343, $W()..dto(this));
+    final $r = $callSync(7352, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*types.Api).MarshalTo(dAtA []byte) (int, error)`.
   int marshalTo(Uint8List dAtA) {
     final $r = $callSync(
-        7344,
+        7353,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -379,7 +379,7 @@ final class ProtobufTypesApi implements GoDto {
   /// Go: `func (*types.Api).MarshalToSizedBuffer(dAtA []byte) (int, error)`.
   int marshalToSizedBuffer(Uint8List dAtA) {
     final $r = $callSync(
-        7345,
+        7354,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -388,36 +388,36 @@ final class ProtobufTypesApi implements GoDto {
 
   /// Go: `func (*types.Api).ProtoMessage()`.
   void protoMessage() {
-    $callSync(7346, $W()..dto(this));
+    $callSync(7355, $W()..dto(this));
   }
 
   /// Go: `func (*types.Api).ProtoSize() (n int)`.
   int protoSize() {
-    final $r = $callSync(7347, $W()..dto(this));
+    final $r = $callSync(7356, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Api).Reset()`.
   void reset() {
-    $callSync(7348, $W()..dto(this));
+    $callSync(7357, $W()..dto(this));
   }
 
   /// Go: `func (*types.Api).Size() (n int)`.
   int size() {
-    final $r = $callSync(7349, $W()..dto(this));
+    final $r = $callSync(7358, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Api).String() string`.
   String string() {
-    final $r = $callSync(7350, $W()..dto(this));
+    final $r = $callSync(7359, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Api).Unmarshal(dAtA []byte) error`.
   void unmarshal(Uint8List dAtA) {
     $callSync(
-        7351,
+        7360,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -425,13 +425,13 @@ final class ProtobufTypesApi implements GoDto {
 
   /// Go: `func (*types.Api).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(7352, $W()..dto(this));
+    $callSync(7361, $W()..dto(this));
   }
 
   /// Go: `func (*types.Api).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        7353,
+        7362,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -442,7 +442,7 @@ final class ProtobufTypesApi implements GoDto {
   /// Go: `func (*types.Api).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        7354,
+        7363,
         $W()
           ..dto(this)
           ..h(src));
@@ -450,20 +450,20 @@ final class ProtobufTypesApi implements GoDto {
 
   /// Go: `func (*types.Api).XXX_MessageName() string`.
   String xxxMessageName() {
-    final $r = $callSync(7355, $W()..dto(this));
+    final $r = $callSync(7364, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Api).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(7356, $W()..dto(this));
+    final $r = $callSync(7365, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Api).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        7357,
+        7366,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -505,7 +505,7 @@ final class ProtobufTypesBoolValue implements GoDto {
   /// Go: `func (*types.BoolValue).Compare(that interface{}) int`.
   int compare(Object? that) {
     final $r = $callSync(
-        7358,
+        7367,
         $W()
           ..dto(this)
           ..any(that));
@@ -514,14 +514,14 @@ final class ProtobufTypesBoolValue implements GoDto {
 
   /// Go: `func (*types.BoolValue).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(7359, $W()..dto(this));
+    final $r = $callSync(7368, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*types.BoolValue).Equal(that interface{}) bool`.
   bool equal(Object? that) {
     final $r = $callSync(
-        7360,
+        7369,
         $W()
           ..dto(this)
           ..any(that));
@@ -530,26 +530,26 @@ final class ProtobufTypesBoolValue implements GoDto {
 
   /// Go: `func (*types.BoolValue).GetValue() bool`.
   bool getValue() {
-    final $r = $callSync(7361, $W()..dto(this));
+    final $r = $callSync(7370, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*types.BoolValue).GoString() string`.
   String goString() {
-    final $r = $callSync(7362, $W()..dto(this));
+    final $r = $callSync(7371, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.BoolValue).Marshal() (dAtA []byte, err error)`.
   Uint8List marshal() {
-    final $r = $callSync(7363, $W()..dto(this));
+    final $r = $callSync(7372, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*types.BoolValue).MarshalTo(dAtA []byte) (int, error)`.
   int marshalTo(Uint8List dAtA) {
     final $r = $callSync(
-        7364,
+        7373,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -559,7 +559,7 @@ final class ProtobufTypesBoolValue implements GoDto {
   /// Go: `func (*types.BoolValue).MarshalToSizedBuffer(dAtA []byte) (int, error)`.
   int marshalToSizedBuffer(Uint8List dAtA) {
     final $r = $callSync(
-        7365,
+        7374,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -568,36 +568,36 @@ final class ProtobufTypesBoolValue implements GoDto {
 
   /// Go: `func (*types.BoolValue).ProtoMessage()`.
   void protoMessage() {
-    $callSync(7366, $W()..dto(this));
+    $callSync(7375, $W()..dto(this));
   }
 
   /// Go: `func (*types.BoolValue).ProtoSize() (n int)`.
   int protoSize() {
-    final $r = $callSync(7367, $W()..dto(this));
+    final $r = $callSync(7376, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.BoolValue).Reset()`.
   void reset() {
-    $callSync(7368, $W()..dto(this));
+    $callSync(7377, $W()..dto(this));
   }
 
   /// Go: `func (*types.BoolValue).Size() (n int)`.
   int size() {
-    final $r = $callSync(7369, $W()..dto(this));
+    final $r = $callSync(7378, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.BoolValue).String() string`.
   String string() {
-    final $r = $callSync(7370, $W()..dto(this));
+    final $r = $callSync(7379, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.BoolValue).Unmarshal(dAtA []byte) error`.
   void unmarshal(Uint8List dAtA) {
     $callSync(
-        7371,
+        7380,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -605,13 +605,13 @@ final class ProtobufTypesBoolValue implements GoDto {
 
   /// Go: `func (*types.BoolValue).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(7372, $W()..dto(this));
+    $callSync(7381, $W()..dto(this));
   }
 
   /// Go: `func (*types.BoolValue).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        7373,
+        7382,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -622,7 +622,7 @@ final class ProtobufTypesBoolValue implements GoDto {
   /// Go: `func (*types.BoolValue).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        7374,
+        7383,
         $W()
           ..dto(this)
           ..h(src));
@@ -630,20 +630,20 @@ final class ProtobufTypesBoolValue implements GoDto {
 
   /// Go: `func (*types.BoolValue).XXX_MessageName() string`.
   String xxxMessageName() {
-    final $r = $callSync(7375, $W()..dto(this));
+    final $r = $callSync(7384, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.BoolValue).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(7376, $W()..dto(this));
+    final $r = $callSync(7385, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.BoolValue).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        7377,
+        7386,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -651,7 +651,7 @@ final class ProtobufTypesBoolValue implements GoDto {
 
   /// Go: `func (*types.BoolValue).XXX_WellKnownType() string`.
   String xxxWellKnownType() {
-    final $r = $callSync(7378, $W()..dto(this));
+    final $r = $callSync(7387, $W()..dto(this));
     return $r.str();
   }
 }
@@ -691,7 +691,7 @@ final class ProtobufTypesBytesValue implements GoDto {
   /// Go: `func (*types.BytesValue).Compare(that interface{}) int`.
   int compare(Object? that) {
     final $r = $callSync(
-        7379,
+        7388,
         $W()
           ..dto(this)
           ..any(that));
@@ -700,14 +700,14 @@ final class ProtobufTypesBytesValue implements GoDto {
 
   /// Go: `func (*types.BytesValue).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(7380, $W()..dto(this));
+    final $r = $callSync(7389, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*types.BytesValue).Equal(that interface{}) bool`.
   bool equal(Object? that) {
     final $r = $callSync(
-        7381,
+        7390,
         $W()
           ..dto(this)
           ..any(that));
@@ -716,26 +716,26 @@ final class ProtobufTypesBytesValue implements GoDto {
 
   /// Go: `func (*types.BytesValue).GetValue() []byte`.
   Uint8List getValue() {
-    final $r = $callSync(7382, $W()..dto(this));
+    final $r = $callSync(7391, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*types.BytesValue).GoString() string`.
   String goString() {
-    final $r = $callSync(7383, $W()..dto(this));
+    final $r = $callSync(7392, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.BytesValue).Marshal() (dAtA []byte, err error)`.
   Uint8List marshal() {
-    final $r = $callSync(7384, $W()..dto(this));
+    final $r = $callSync(7393, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*types.BytesValue).MarshalTo(dAtA []byte) (int, error)`.
   int marshalTo(Uint8List dAtA) {
     final $r = $callSync(
-        7385,
+        7394,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -745,7 +745,7 @@ final class ProtobufTypesBytesValue implements GoDto {
   /// Go: `func (*types.BytesValue).MarshalToSizedBuffer(dAtA []byte) (int, error)`.
   int marshalToSizedBuffer(Uint8List dAtA) {
     final $r = $callSync(
-        7386,
+        7395,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -754,36 +754,36 @@ final class ProtobufTypesBytesValue implements GoDto {
 
   /// Go: `func (*types.BytesValue).ProtoMessage()`.
   void protoMessage() {
-    $callSync(7387, $W()..dto(this));
+    $callSync(7396, $W()..dto(this));
   }
 
   /// Go: `func (*types.BytesValue).ProtoSize() (n int)`.
   int protoSize() {
-    final $r = $callSync(7388, $W()..dto(this));
+    final $r = $callSync(7397, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.BytesValue).Reset()`.
   void reset() {
-    $callSync(7389, $W()..dto(this));
+    $callSync(7398, $W()..dto(this));
   }
 
   /// Go: `func (*types.BytesValue).Size() (n int)`.
   int size() {
-    final $r = $callSync(7390, $W()..dto(this));
+    final $r = $callSync(7399, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.BytesValue).String() string`.
   String string() {
-    final $r = $callSync(7391, $W()..dto(this));
+    final $r = $callSync(7400, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.BytesValue).Unmarshal(dAtA []byte) error`.
   void unmarshal(Uint8List dAtA) {
     $callSync(
-        7392,
+        7401,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -791,13 +791,13 @@ final class ProtobufTypesBytesValue implements GoDto {
 
   /// Go: `func (*types.BytesValue).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(7393, $W()..dto(this));
+    $callSync(7402, $W()..dto(this));
   }
 
   /// Go: `func (*types.BytesValue).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        7394,
+        7403,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -808,7 +808,7 @@ final class ProtobufTypesBytesValue implements GoDto {
   /// Go: `func (*types.BytesValue).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        7395,
+        7404,
         $W()
           ..dto(this)
           ..h(src));
@@ -816,20 +816,20 @@ final class ProtobufTypesBytesValue implements GoDto {
 
   /// Go: `func (*types.BytesValue).XXX_MessageName() string`.
   String xxxMessageName() {
-    final $r = $callSync(7396, $W()..dto(this));
+    final $r = $callSync(7405, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.BytesValue).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(7397, $W()..dto(this));
+    final $r = $callSync(7406, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.BytesValue).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        7398,
+        7407,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -837,7 +837,7 @@ final class ProtobufTypesBytesValue implements GoDto {
 
   /// Go: `func (*types.BytesValue).XXX_WellKnownType() string`.
   String xxxWellKnownType() {
-    final $r = $callSync(7399, $W()..dto(this));
+    final $r = $callSync(7408, $W()..dto(this));
     return $r.str();
   }
 }
@@ -877,7 +877,7 @@ final class ProtobufTypesDoubleValue implements GoDto {
   /// Go: `func (*types.DoubleValue).Compare(that interface{}) int`.
   int compare(Object? that) {
     final $r = $callSync(
-        7400,
+        7409,
         $W()
           ..dto(this)
           ..any(that));
@@ -886,14 +886,14 @@ final class ProtobufTypesDoubleValue implements GoDto {
 
   /// Go: `func (*types.DoubleValue).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(7401, $W()..dto(this));
+    final $r = $callSync(7410, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*types.DoubleValue).Equal(that interface{}) bool`.
   bool equal(Object? that) {
     final $r = $callSync(
-        7402,
+        7411,
         $W()
           ..dto(this)
           ..any(that));
@@ -902,26 +902,26 @@ final class ProtobufTypesDoubleValue implements GoDto {
 
   /// Go: `func (*types.DoubleValue).GetValue() float64`.
   double getValue() {
-    final $r = $callSync(7403, $W()..dto(this));
+    final $r = $callSync(7412, $W()..dto(this));
     return $r.f64();
   }
 
   /// Go: `func (*types.DoubleValue).GoString() string`.
   String goString() {
-    final $r = $callSync(7404, $W()..dto(this));
+    final $r = $callSync(7413, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.DoubleValue).Marshal() (dAtA []byte, err error)`.
   Uint8List marshal() {
-    final $r = $callSync(7405, $W()..dto(this));
+    final $r = $callSync(7414, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*types.DoubleValue).MarshalTo(dAtA []byte) (int, error)`.
   int marshalTo(Uint8List dAtA) {
     final $r = $callSync(
-        7406,
+        7415,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -931,7 +931,7 @@ final class ProtobufTypesDoubleValue implements GoDto {
   /// Go: `func (*types.DoubleValue).MarshalToSizedBuffer(dAtA []byte) (int, error)`.
   int marshalToSizedBuffer(Uint8List dAtA) {
     final $r = $callSync(
-        7407,
+        7416,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -940,36 +940,36 @@ final class ProtobufTypesDoubleValue implements GoDto {
 
   /// Go: `func (*types.DoubleValue).ProtoMessage()`.
   void protoMessage() {
-    $callSync(7408, $W()..dto(this));
+    $callSync(7417, $W()..dto(this));
   }
 
   /// Go: `func (*types.DoubleValue).ProtoSize() (n int)`.
   int protoSize() {
-    final $r = $callSync(7409, $W()..dto(this));
+    final $r = $callSync(7418, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.DoubleValue).Reset()`.
   void reset() {
-    $callSync(7410, $W()..dto(this));
+    $callSync(7419, $W()..dto(this));
   }
 
   /// Go: `func (*types.DoubleValue).Size() (n int)`.
   int size() {
-    final $r = $callSync(7411, $W()..dto(this));
+    final $r = $callSync(7420, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.DoubleValue).String() string`.
   String string() {
-    final $r = $callSync(7412, $W()..dto(this));
+    final $r = $callSync(7421, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.DoubleValue).Unmarshal(dAtA []byte) error`.
   void unmarshal(Uint8List dAtA) {
     $callSync(
-        7413,
+        7422,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -977,13 +977,13 @@ final class ProtobufTypesDoubleValue implements GoDto {
 
   /// Go: `func (*types.DoubleValue).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(7414, $W()..dto(this));
+    $callSync(7423, $W()..dto(this));
   }
 
   /// Go: `func (*types.DoubleValue).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        7415,
+        7424,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -994,7 +994,7 @@ final class ProtobufTypesDoubleValue implements GoDto {
   /// Go: `func (*types.DoubleValue).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        7416,
+        7425,
         $W()
           ..dto(this)
           ..h(src));
@@ -1002,20 +1002,20 @@ final class ProtobufTypesDoubleValue implements GoDto {
 
   /// Go: `func (*types.DoubleValue).XXX_MessageName() string`.
   String xxxMessageName() {
-    final $r = $callSync(7417, $W()..dto(this));
+    final $r = $callSync(7426, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.DoubleValue).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(7418, $W()..dto(this));
+    final $r = $callSync(7427, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.DoubleValue).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        7419,
+        7428,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -1023,7 +1023,7 @@ final class ProtobufTypesDoubleValue implements GoDto {
 
   /// Go: `func (*types.DoubleValue).XXX_WellKnownType() string`.
   String xxxWellKnownType() {
-    final $r = $callSync(7420, $W()..dto(this));
+    final $r = $callSync(7429, $W()..dto(this));
     return $r.str();
   }
 }
@@ -1069,7 +1069,7 @@ final class ProtobufTypesDuration implements GoDto {
   /// Go: `func (*types.Duration).Compare(that interface{}) int`.
   int compare(Object? that) {
     final $r = $callSync(
-        7421,
+        7430,
         $W()
           ..dto(this)
           ..any(that));
@@ -1078,14 +1078,14 @@ final class ProtobufTypesDuration implements GoDto {
 
   /// Go: `func (*types.Duration).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(7422, $W()..dto(this));
+    final $r = $callSync(7431, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*types.Duration).Equal(that interface{}) bool`.
   bool equal(Object? that) {
     final $r = $callSync(
-        7423,
+        7432,
         $W()
           ..dto(this)
           ..any(that));
@@ -1094,32 +1094,32 @@ final class ProtobufTypesDuration implements GoDto {
 
   /// Go: `func (*types.Duration).GetNanos() int32`.
   int getNanos() {
-    final $r = $callSync(7424, $W()..dto(this));
+    final $r = $callSync(7433, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Duration).GetSeconds() int64`.
   int getSeconds() {
-    final $r = $callSync(7425, $W()..dto(this));
+    final $r = $callSync(7434, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Duration).GoString() string`.
   String goString() {
-    final $r = $callSync(7426, $W()..dto(this));
+    final $r = $callSync(7435, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Duration).Marshal() (dAtA []byte, err error)`.
   Uint8List marshal() {
-    final $r = $callSync(7427, $W()..dto(this));
+    final $r = $callSync(7436, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*types.Duration).MarshalTo(dAtA []byte) (int, error)`.
   int marshalTo(Uint8List dAtA) {
     final $r = $callSync(
-        7428,
+        7437,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -1129,7 +1129,7 @@ final class ProtobufTypesDuration implements GoDto {
   /// Go: `func (*types.Duration).MarshalToSizedBuffer(dAtA []byte) (int, error)`.
   int marshalToSizedBuffer(Uint8List dAtA) {
     final $r = $callSync(
-        7429,
+        7438,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -1138,36 +1138,36 @@ final class ProtobufTypesDuration implements GoDto {
 
   /// Go: `func (*types.Duration).ProtoMessage()`.
   void protoMessage() {
-    $callSync(7430, $W()..dto(this));
+    $callSync(7439, $W()..dto(this));
   }
 
   /// Go: `func (*types.Duration).ProtoSize() (n int)`.
   int protoSize() {
-    final $r = $callSync(7431, $W()..dto(this));
+    final $r = $callSync(7440, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Duration).Reset()`.
   void reset() {
-    $callSync(7432, $W()..dto(this));
+    $callSync(7441, $W()..dto(this));
   }
 
   /// Go: `func (*types.Duration).Size() (n int)`.
   int size() {
-    final $r = $callSync(7433, $W()..dto(this));
+    final $r = $callSync(7442, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Duration).String() string`.
   String string() {
-    final $r = $callSync(7434, $W()..dto(this));
+    final $r = $callSync(7443, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Duration).Unmarshal(dAtA []byte) error`.
   void unmarshal(Uint8List dAtA) {
     $callSync(
-        7435,
+        7444,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -1175,13 +1175,13 @@ final class ProtobufTypesDuration implements GoDto {
 
   /// Go: `func (*types.Duration).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(7436, $W()..dto(this));
+    $callSync(7445, $W()..dto(this));
   }
 
   /// Go: `func (*types.Duration).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        7437,
+        7446,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -1192,7 +1192,7 @@ final class ProtobufTypesDuration implements GoDto {
   /// Go: `func (*types.Duration).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        7438,
+        7447,
         $W()
           ..dto(this)
           ..h(src));
@@ -1200,20 +1200,20 @@ final class ProtobufTypesDuration implements GoDto {
 
   /// Go: `func (*types.Duration).XXX_MessageName() string`.
   String xxxMessageName() {
-    final $r = $callSync(7439, $W()..dto(this));
+    final $r = $callSync(7448, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Duration).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(7440, $W()..dto(this));
+    final $r = $callSync(7449, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Duration).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        7441,
+        7450,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -1221,7 +1221,7 @@ final class ProtobufTypesDuration implements GoDto {
 
   /// Go: `func (*types.Duration).XXX_WellKnownType() string`.
   String xxxWellKnownType() {
-    final $r = $callSync(7442, $W()..dto(this));
+    final $r = $callSync(7451, $W()..dto(this));
     return $r.str();
   }
 }
@@ -1254,7 +1254,7 @@ final class ProtobufTypesEmpty implements GoDto {
   /// Go: `func (*types.Empty).Compare(that interface{}) int`.
   int compare(Object? that) {
     final $r = $callSync(
-        7445,
+        7454,
         $W()
           ..dto(this)
           ..any(that));
@@ -1263,14 +1263,14 @@ final class ProtobufTypesEmpty implements GoDto {
 
   /// Go: `func (*types.Empty).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(7446, $W()..dto(this));
+    final $r = $callSync(7455, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*types.Empty).Equal(that interface{}) bool`.
   bool equal(Object? that) {
     final $r = $callSync(
-        7447,
+        7456,
         $W()
           ..dto(this)
           ..any(that));
@@ -1279,20 +1279,20 @@ final class ProtobufTypesEmpty implements GoDto {
 
   /// Go: `func (*types.Empty).GoString() string`.
   String goString() {
-    final $r = $callSync(7448, $W()..dto(this));
+    final $r = $callSync(7457, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Empty).Marshal() (dAtA []byte, err error)`.
   Uint8List marshal() {
-    final $r = $callSync(7449, $W()..dto(this));
+    final $r = $callSync(7458, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*types.Empty).MarshalTo(dAtA []byte) (int, error)`.
   int marshalTo(Uint8List dAtA) {
     final $r = $callSync(
-        7450,
+        7459,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -1302,7 +1302,7 @@ final class ProtobufTypesEmpty implements GoDto {
   /// Go: `func (*types.Empty).MarshalToSizedBuffer(dAtA []byte) (int, error)`.
   int marshalToSizedBuffer(Uint8List dAtA) {
     final $r = $callSync(
-        7451,
+        7460,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -1311,36 +1311,36 @@ final class ProtobufTypesEmpty implements GoDto {
 
   /// Go: `func (*types.Empty).ProtoMessage()`.
   void protoMessage() {
-    $callSync(7452, $W()..dto(this));
+    $callSync(7461, $W()..dto(this));
   }
 
   /// Go: `func (*types.Empty).ProtoSize() (n int)`.
   int protoSize() {
-    final $r = $callSync(7453, $W()..dto(this));
+    final $r = $callSync(7462, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Empty).Reset()`.
   void reset() {
-    $callSync(7454, $W()..dto(this));
+    $callSync(7463, $W()..dto(this));
   }
 
   /// Go: `func (*types.Empty).Size() (n int)`.
   int size() {
-    final $r = $callSync(7455, $W()..dto(this));
+    final $r = $callSync(7464, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Empty).String() string`.
   String string() {
-    final $r = $callSync(7456, $W()..dto(this));
+    final $r = $callSync(7465, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Empty).Unmarshal(dAtA []byte) error`.
   void unmarshal(Uint8List dAtA) {
     $callSync(
-        7457,
+        7466,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -1348,13 +1348,13 @@ final class ProtobufTypesEmpty implements GoDto {
 
   /// Go: `func (*types.Empty).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(7458, $W()..dto(this));
+    $callSync(7467, $W()..dto(this));
   }
 
   /// Go: `func (*types.Empty).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        7459,
+        7468,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -1365,7 +1365,7 @@ final class ProtobufTypesEmpty implements GoDto {
   /// Go: `func (*types.Empty).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        7460,
+        7469,
         $W()
           ..dto(this)
           ..h(src));
@@ -1373,20 +1373,20 @@ final class ProtobufTypesEmpty implements GoDto {
 
   /// Go: `func (*types.Empty).XXX_MessageName() string`.
   String xxxMessageName() {
-    final $r = $callSync(7461, $W()..dto(this));
+    final $r = $callSync(7470, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Empty).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(7462, $W()..dto(this));
+    final $r = $callSync(7471, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Empty).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        7463,
+        7472,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -1394,7 +1394,7 @@ final class ProtobufTypesEmpty implements GoDto {
 
   /// Go: `func (*types.Empty).XXX_WellKnownType() string`.
   String xxxWellKnownType() {
-    final $r = $callSync(7464, $W()..dto(this));
+    final $r = $callSync(7473, $W()..dto(this));
     return $r.str();
   }
 }
@@ -1465,7 +1465,7 @@ final class ProtobufTypesEnum implements GoDto {
   /// Go: `func (*types.Enum).Compare(that interface{}) int`.
   int compare(Object? that) {
     final $r = $callSync(
-        7466,
+        7475,
         $W()
           ..dto(this)
           ..any(that));
@@ -1474,14 +1474,14 @@ final class ProtobufTypesEnum implements GoDto {
 
   /// Go: `func (*types.Enum).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(7467, $W()..dto(this));
+    final $r = $callSync(7476, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*types.Enum).Equal(that interface{}) bool`.
   bool equal(Object? that) {
     final $r = $callSync(
-        7468,
+        7477,
         $W()
           ..dto(this)
           ..any(that));
@@ -1490,50 +1490,50 @@ final class ProtobufTypesEnum implements GoDto {
 
   /// Go: `func (*types.Enum).GetEnumvalue() []*types.EnumValue`.
   List<ProtobufTypesEnumValue> getEnumvalue() {
-    final $r = $callSync(7469, $W()..dto(this));
+    final $r = $callSync(7478, $W()..dto(this));
     return $r.list(() => $r.p() ? ProtobufTypesEnumValue.$dec($r) : $nil());
   }
 
   /// Go: `func (*types.Enum).GetName() string`.
   String getName() {
-    final $r = $callSync(7470, $W()..dto(this));
+    final $r = $callSync(7479, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Enum).GetOptions() []*types.Option`.
   List<ProtobufTypesOption> getOptions() {
-    final $r = $callSync(7471, $W()..dto(this));
+    final $r = $callSync(7480, $W()..dto(this));
     return $r.list(() => $r.p() ? ProtobufTypesOption.$dec($r) : $nil());
   }
 
   /// Go: `func (*types.Enum).GetSourceContext() *types.SourceContext`.
   ProtobufTypesSourceContext getSourceContext() {
-    final $r = $callSync(7472, $W()..dto(this));
+    final $r = $callSync(7481, $W()..dto(this));
     return $r.p() ? ProtobufTypesSourceContext.$dec($r) : $nil();
   }
 
   /// Go: `func (*types.Enum).GetSyntax() types.Syntax`.
   int getSyntax() {
-    final $r = $callSync(7473, $W()..dto(this));
+    final $r = $callSync(7482, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Enum).GoString() string`.
   String goString() {
-    final $r = $callSync(7474, $W()..dto(this));
+    final $r = $callSync(7483, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Enum).Marshal() (dAtA []byte, err error)`.
   Uint8List marshal() {
-    final $r = $callSync(7475, $W()..dto(this));
+    final $r = $callSync(7484, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*types.Enum).MarshalTo(dAtA []byte) (int, error)`.
   int marshalTo(Uint8List dAtA) {
     final $r = $callSync(
-        7476,
+        7485,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -1543,7 +1543,7 @@ final class ProtobufTypesEnum implements GoDto {
   /// Go: `func (*types.Enum).MarshalToSizedBuffer(dAtA []byte) (int, error)`.
   int marshalToSizedBuffer(Uint8List dAtA) {
     final $r = $callSync(
-        7477,
+        7486,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -1552,36 +1552,36 @@ final class ProtobufTypesEnum implements GoDto {
 
   /// Go: `func (*types.Enum).ProtoMessage()`.
   void protoMessage() {
-    $callSync(7478, $W()..dto(this));
+    $callSync(7487, $W()..dto(this));
   }
 
   /// Go: `func (*types.Enum).ProtoSize() (n int)`.
   int protoSize() {
-    final $r = $callSync(7479, $W()..dto(this));
+    final $r = $callSync(7488, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Enum).Reset()`.
   void reset() {
-    $callSync(7480, $W()..dto(this));
+    $callSync(7489, $W()..dto(this));
   }
 
   /// Go: `func (*types.Enum).Size() (n int)`.
   int size() {
-    final $r = $callSync(7481, $W()..dto(this));
+    final $r = $callSync(7490, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Enum).String() string`.
   String string() {
-    final $r = $callSync(7482, $W()..dto(this));
+    final $r = $callSync(7491, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Enum).Unmarshal(dAtA []byte) error`.
   void unmarshal(Uint8List dAtA) {
     $callSync(
-        7483,
+        7492,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -1589,13 +1589,13 @@ final class ProtobufTypesEnum implements GoDto {
 
   /// Go: `func (*types.Enum).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(7484, $W()..dto(this));
+    $callSync(7493, $W()..dto(this));
   }
 
   /// Go: `func (*types.Enum).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        7485,
+        7494,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -1606,7 +1606,7 @@ final class ProtobufTypesEnum implements GoDto {
   /// Go: `func (*types.Enum).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        7486,
+        7495,
         $W()
           ..dto(this)
           ..h(src));
@@ -1614,20 +1614,20 @@ final class ProtobufTypesEnum implements GoDto {
 
   /// Go: `func (*types.Enum).XXX_MessageName() string`.
   String xxxMessageName() {
-    final $r = $callSync(7487, $W()..dto(this));
+    final $r = $callSync(7496, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Enum).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(7488, $W()..dto(this));
+    final $r = $callSync(7497, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Enum).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        7489,
+        7498,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -1685,7 +1685,7 @@ final class ProtobufTypesEnumValue implements GoDto {
   /// Go: `func (*types.EnumValue).Compare(that interface{}) int`.
   int compare(Object? that) {
     final $r = $callSync(
-        7490,
+        7499,
         $W()
           ..dto(this)
           ..any(that));
@@ -1694,14 +1694,14 @@ final class ProtobufTypesEnumValue implements GoDto {
 
   /// Go: `func (*types.EnumValue).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(7491, $W()..dto(this));
+    final $r = $callSync(7500, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*types.EnumValue).Equal(that interface{}) bool`.
   bool equal(Object? that) {
     final $r = $callSync(
-        7492,
+        7501,
         $W()
           ..dto(this)
           ..any(that));
@@ -1710,38 +1710,38 @@ final class ProtobufTypesEnumValue implements GoDto {
 
   /// Go: `func (*types.EnumValue).GetName() string`.
   String getName() {
-    final $r = $callSync(7493, $W()..dto(this));
+    final $r = $callSync(7502, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.EnumValue).GetNumber() int32`.
   int getNumber() {
-    final $r = $callSync(7494, $W()..dto(this));
+    final $r = $callSync(7503, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.EnumValue).GetOptions() []*types.Option`.
   List<ProtobufTypesOption> getOptions() {
-    final $r = $callSync(7495, $W()..dto(this));
+    final $r = $callSync(7504, $W()..dto(this));
     return $r.list(() => $r.p() ? ProtobufTypesOption.$dec($r) : $nil());
   }
 
   /// Go: `func (*types.EnumValue).GoString() string`.
   String goString() {
-    final $r = $callSync(7496, $W()..dto(this));
+    final $r = $callSync(7505, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.EnumValue).Marshal() (dAtA []byte, err error)`.
   Uint8List marshal() {
-    final $r = $callSync(7497, $W()..dto(this));
+    final $r = $callSync(7506, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*types.EnumValue).MarshalTo(dAtA []byte) (int, error)`.
   int marshalTo(Uint8List dAtA) {
     final $r = $callSync(
-        7498,
+        7507,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -1751,7 +1751,7 @@ final class ProtobufTypesEnumValue implements GoDto {
   /// Go: `func (*types.EnumValue).MarshalToSizedBuffer(dAtA []byte) (int, error)`.
   int marshalToSizedBuffer(Uint8List dAtA) {
     final $r = $callSync(
-        7499,
+        7508,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -1760,36 +1760,36 @@ final class ProtobufTypesEnumValue implements GoDto {
 
   /// Go: `func (*types.EnumValue).ProtoMessage()`.
   void protoMessage() {
-    $callSync(7500, $W()..dto(this));
+    $callSync(7509, $W()..dto(this));
   }
 
   /// Go: `func (*types.EnumValue).ProtoSize() (n int)`.
   int protoSize() {
-    final $r = $callSync(7501, $W()..dto(this));
+    final $r = $callSync(7510, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.EnumValue).Reset()`.
   void reset() {
-    $callSync(7502, $W()..dto(this));
+    $callSync(7511, $W()..dto(this));
   }
 
   /// Go: `func (*types.EnumValue).Size() (n int)`.
   int size() {
-    final $r = $callSync(7503, $W()..dto(this));
+    final $r = $callSync(7512, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.EnumValue).String() string`.
   String string() {
-    final $r = $callSync(7504, $W()..dto(this));
+    final $r = $callSync(7513, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.EnumValue).Unmarshal(dAtA []byte) error`.
   void unmarshal(Uint8List dAtA) {
     $callSync(
-        7505,
+        7514,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -1797,13 +1797,13 @@ final class ProtobufTypesEnumValue implements GoDto {
 
   /// Go: `func (*types.EnumValue).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(7506, $W()..dto(this));
+    $callSync(7515, $W()..dto(this));
   }
 
   /// Go: `func (*types.EnumValue).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        7507,
+        7516,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -1814,7 +1814,7 @@ final class ProtobufTypesEnumValue implements GoDto {
   /// Go: `func (*types.EnumValue).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        7508,
+        7517,
         $W()
           ..dto(this)
           ..h(src));
@@ -1822,20 +1822,20 @@ final class ProtobufTypesEnumValue implements GoDto {
 
   /// Go: `func (*types.EnumValue).XXX_MessageName() string`.
   String xxxMessageName() {
-    final $r = $callSync(7509, $W()..dto(this));
+    final $r = $callSync(7518, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.EnumValue).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(7510, $W()..dto(this));
+    final $r = $callSync(7519, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.EnumValue).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        7511,
+        7520,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -1942,7 +1942,7 @@ final class ProtobufTypesField implements GoDto {
   /// Go: `func (*types.Field).Compare(that interface{}) int`.
   int compare(Object? that) {
     final $r = $callSync(
-        7512,
+        7521,
         $W()
           ..dto(this)
           ..any(that));
@@ -1951,14 +1951,14 @@ final class ProtobufTypesField implements GoDto {
 
   /// Go: `func (*types.Field).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(7513, $W()..dto(this));
+    final $r = $callSync(7522, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*types.Field).Equal(that interface{}) bool`.
   bool equal(Object? that) {
     final $r = $callSync(
-        7514,
+        7523,
         $W()
           ..dto(this)
           ..any(that));
@@ -1967,80 +1967,80 @@ final class ProtobufTypesField implements GoDto {
 
   /// Go: `func (*types.Field).GetCardinality() types.Field_Cardinality`.
   int getCardinality() {
-    final $r = $callSync(7515, $W()..dto(this));
+    final $r = $callSync(7524, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Field).GetDefaultValue() string`.
   String getDefaultValue() {
-    final $r = $callSync(7516, $W()..dto(this));
+    final $r = $callSync(7525, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Field).GetJsonName() string`.
   String getJsonName() {
-    final $r = $callSync(7517, $W()..dto(this));
+    final $r = $callSync(7526, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Field).GetKind() types.Field_Kind`.
   int getKind() {
-    final $r = $callSync(7518, $W()..dto(this));
+    final $r = $callSync(7527, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Field).GetName() string`.
   String getName() {
-    final $r = $callSync(7519, $W()..dto(this));
+    final $r = $callSync(7528, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Field).GetNumber() int32`.
   int getNumber() {
-    final $r = $callSync(7520, $W()..dto(this));
+    final $r = $callSync(7529, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Field).GetOneofIndex() int32`.
   int getOneofIndex() {
-    final $r = $callSync(7521, $W()..dto(this));
+    final $r = $callSync(7530, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Field).GetOptions() []*types.Option`.
   List<ProtobufTypesOption> getOptions() {
-    final $r = $callSync(7522, $W()..dto(this));
+    final $r = $callSync(7531, $W()..dto(this));
     return $r.list(() => $r.p() ? ProtobufTypesOption.$dec($r) : $nil());
   }
 
   /// Go: `func (*types.Field).GetPacked() bool`.
   bool getPacked() {
-    final $r = $callSync(7523, $W()..dto(this));
+    final $r = $callSync(7532, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*types.Field).GetTypeUrl() string`.
   String getTypeUrl() {
-    final $r = $callSync(7524, $W()..dto(this));
+    final $r = $callSync(7533, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Field).GoString() string`.
   String goString() {
-    final $r = $callSync(7525, $W()..dto(this));
+    final $r = $callSync(7534, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Field).Marshal() (dAtA []byte, err error)`.
   Uint8List marshal() {
-    final $r = $callSync(7526, $W()..dto(this));
+    final $r = $callSync(7535, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*types.Field).MarshalTo(dAtA []byte) (int, error)`.
   int marshalTo(Uint8List dAtA) {
     final $r = $callSync(
-        7527,
+        7536,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -2050,7 +2050,7 @@ final class ProtobufTypesField implements GoDto {
   /// Go: `func (*types.Field).MarshalToSizedBuffer(dAtA []byte) (int, error)`.
   int marshalToSizedBuffer(Uint8List dAtA) {
     final $r = $callSync(
-        7528,
+        7537,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -2059,36 +2059,36 @@ final class ProtobufTypesField implements GoDto {
 
   /// Go: `func (*types.Field).ProtoMessage()`.
   void protoMessage() {
-    $callSync(7529, $W()..dto(this));
+    $callSync(7538, $W()..dto(this));
   }
 
   /// Go: `func (*types.Field).ProtoSize() (n int)`.
   int protoSize() {
-    final $r = $callSync(7530, $W()..dto(this));
+    final $r = $callSync(7539, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Field).Reset()`.
   void reset() {
-    $callSync(7531, $W()..dto(this));
+    $callSync(7540, $W()..dto(this));
   }
 
   /// Go: `func (*types.Field).Size() (n int)`.
   int size() {
-    final $r = $callSync(7532, $W()..dto(this));
+    final $r = $callSync(7541, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Field).String() string`.
   String string() {
-    final $r = $callSync(7533, $W()..dto(this));
+    final $r = $callSync(7542, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Field).Unmarshal(dAtA []byte) error`.
   void unmarshal(Uint8List dAtA) {
     $callSync(
-        7534,
+        7543,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -2096,13 +2096,13 @@ final class ProtobufTypesField implements GoDto {
 
   /// Go: `func (*types.Field).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(7535, $W()..dto(this));
+    $callSync(7544, $W()..dto(this));
   }
 
   /// Go: `func (*types.Field).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        7536,
+        7545,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -2113,7 +2113,7 @@ final class ProtobufTypesField implements GoDto {
   /// Go: `func (*types.Field).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        7537,
+        7546,
         $W()
           ..dto(this)
           ..h(src));
@@ -2121,20 +2121,20 @@ final class ProtobufTypesField implements GoDto {
 
   /// Go: `func (*types.Field).XXX_MessageName() string`.
   String xxxMessageName() {
-    final $r = $callSync(7538, $W()..dto(this));
+    final $r = $callSync(7547, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Field).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(7539, $W()..dto(this));
+    final $r = $callSync(7548, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Field).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        7540,
+        7549,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -2176,7 +2176,7 @@ final class ProtobufTypesFieldMask implements GoDto {
   /// Go: `func (*types.FieldMask).Compare(that interface{}) int`.
   int compare(Object? that) {
     final $r = $callSync(
-        7541,
+        7550,
         $W()
           ..dto(this)
           ..any(that));
@@ -2185,14 +2185,14 @@ final class ProtobufTypesFieldMask implements GoDto {
 
   /// Go: `func (*types.FieldMask).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(7542, $W()..dto(this));
+    final $r = $callSync(7551, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*types.FieldMask).Equal(that interface{}) bool`.
   bool equal(Object? that) {
     final $r = $callSync(
-        7543,
+        7552,
         $W()
           ..dto(this)
           ..any(that));
@@ -2201,26 +2201,26 @@ final class ProtobufTypesFieldMask implements GoDto {
 
   /// Go: `func (*types.FieldMask).GetPaths() []string`.
   List<String> getPaths() {
-    final $r = $callSync(7544, $W()..dto(this));
+    final $r = $callSync(7553, $W()..dto(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (*types.FieldMask).GoString() string`.
   String goString() {
-    final $r = $callSync(7545, $W()..dto(this));
+    final $r = $callSync(7554, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.FieldMask).Marshal() (dAtA []byte, err error)`.
   Uint8List marshal() {
-    final $r = $callSync(7546, $W()..dto(this));
+    final $r = $callSync(7555, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*types.FieldMask).MarshalTo(dAtA []byte) (int, error)`.
   int marshalTo(Uint8List dAtA) {
     final $r = $callSync(
-        7547,
+        7556,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -2230,7 +2230,7 @@ final class ProtobufTypesFieldMask implements GoDto {
   /// Go: `func (*types.FieldMask).MarshalToSizedBuffer(dAtA []byte) (int, error)`.
   int marshalToSizedBuffer(Uint8List dAtA) {
     final $r = $callSync(
-        7548,
+        7557,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -2239,36 +2239,36 @@ final class ProtobufTypesFieldMask implements GoDto {
 
   /// Go: `func (*types.FieldMask).ProtoMessage()`.
   void protoMessage() {
-    $callSync(7549, $W()..dto(this));
+    $callSync(7558, $W()..dto(this));
   }
 
   /// Go: `func (*types.FieldMask).ProtoSize() (n int)`.
   int protoSize() {
-    final $r = $callSync(7550, $W()..dto(this));
+    final $r = $callSync(7559, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.FieldMask).Reset()`.
   void reset() {
-    $callSync(7551, $W()..dto(this));
+    $callSync(7560, $W()..dto(this));
   }
 
   /// Go: `func (*types.FieldMask).Size() (n int)`.
   int size() {
-    final $r = $callSync(7552, $W()..dto(this));
+    final $r = $callSync(7561, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.FieldMask).String() string`.
   String string() {
-    final $r = $callSync(7553, $W()..dto(this));
+    final $r = $callSync(7562, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.FieldMask).Unmarshal(dAtA []byte) error`.
   void unmarshal(Uint8List dAtA) {
     $callSync(
-        7554,
+        7563,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -2276,13 +2276,13 @@ final class ProtobufTypesFieldMask implements GoDto {
 
   /// Go: `func (*types.FieldMask).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(7555, $W()..dto(this));
+    $callSync(7564, $W()..dto(this));
   }
 
   /// Go: `func (*types.FieldMask).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        7556,
+        7565,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -2293,7 +2293,7 @@ final class ProtobufTypesFieldMask implements GoDto {
   /// Go: `func (*types.FieldMask).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        7557,
+        7566,
         $W()
           ..dto(this)
           ..h(src));
@@ -2301,20 +2301,20 @@ final class ProtobufTypesFieldMask implements GoDto {
 
   /// Go: `func (*types.FieldMask).XXX_MessageName() string`.
   String xxxMessageName() {
-    final $r = $callSync(7558, $W()..dto(this));
+    final $r = $callSync(7567, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.FieldMask).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(7559, $W()..dto(this));
+    final $r = $callSync(7568, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.FieldMask).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        7560,
+        7569,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -2356,7 +2356,7 @@ final class ProtobufTypesFloatValue implements GoDto {
   /// Go: `func (*types.FloatValue).Compare(that interface{}) int`.
   int compare(Object? that) {
     final $r = $callSync(
-        7565,
+        7574,
         $W()
           ..dto(this)
           ..any(that));
@@ -2365,14 +2365,14 @@ final class ProtobufTypesFloatValue implements GoDto {
 
   /// Go: `func (*types.FloatValue).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(7566, $W()..dto(this));
+    final $r = $callSync(7575, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*types.FloatValue).Equal(that interface{}) bool`.
   bool equal(Object? that) {
     final $r = $callSync(
-        7567,
+        7576,
         $W()
           ..dto(this)
           ..any(that));
@@ -2381,26 +2381,26 @@ final class ProtobufTypesFloatValue implements GoDto {
 
   /// Go: `func (*types.FloatValue).GetValue() float32`.
   double getValue() {
-    final $r = $callSync(7568, $W()..dto(this));
+    final $r = $callSync(7577, $W()..dto(this));
     return $r.f64();
   }
 
   /// Go: `func (*types.FloatValue).GoString() string`.
   String goString() {
-    final $r = $callSync(7569, $W()..dto(this));
+    final $r = $callSync(7578, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.FloatValue).Marshal() (dAtA []byte, err error)`.
   Uint8List marshal() {
-    final $r = $callSync(7570, $W()..dto(this));
+    final $r = $callSync(7579, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*types.FloatValue).MarshalTo(dAtA []byte) (int, error)`.
   int marshalTo(Uint8List dAtA) {
     final $r = $callSync(
-        7571,
+        7580,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -2410,7 +2410,7 @@ final class ProtobufTypesFloatValue implements GoDto {
   /// Go: `func (*types.FloatValue).MarshalToSizedBuffer(dAtA []byte) (int, error)`.
   int marshalToSizedBuffer(Uint8List dAtA) {
     final $r = $callSync(
-        7572,
+        7581,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -2419,36 +2419,36 @@ final class ProtobufTypesFloatValue implements GoDto {
 
   /// Go: `func (*types.FloatValue).ProtoMessage()`.
   void protoMessage() {
-    $callSync(7573, $W()..dto(this));
+    $callSync(7582, $W()..dto(this));
   }
 
   /// Go: `func (*types.FloatValue).ProtoSize() (n int)`.
   int protoSize() {
-    final $r = $callSync(7574, $W()..dto(this));
+    final $r = $callSync(7583, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.FloatValue).Reset()`.
   void reset() {
-    $callSync(7575, $W()..dto(this));
+    $callSync(7584, $W()..dto(this));
   }
 
   /// Go: `func (*types.FloatValue).Size() (n int)`.
   int size() {
-    final $r = $callSync(7576, $W()..dto(this));
+    final $r = $callSync(7585, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.FloatValue).String() string`.
   String string() {
-    final $r = $callSync(7577, $W()..dto(this));
+    final $r = $callSync(7586, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.FloatValue).Unmarshal(dAtA []byte) error`.
   void unmarshal(Uint8List dAtA) {
     $callSync(
-        7578,
+        7587,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -2456,13 +2456,13 @@ final class ProtobufTypesFloatValue implements GoDto {
 
   /// Go: `func (*types.FloatValue).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(7579, $W()..dto(this));
+    $callSync(7588, $W()..dto(this));
   }
 
   /// Go: `func (*types.FloatValue).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        7580,
+        7589,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -2473,7 +2473,7 @@ final class ProtobufTypesFloatValue implements GoDto {
   /// Go: `func (*types.FloatValue).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        7581,
+        7590,
         $W()
           ..dto(this)
           ..h(src));
@@ -2481,20 +2481,20 @@ final class ProtobufTypesFloatValue implements GoDto {
 
   /// Go: `func (*types.FloatValue).XXX_MessageName() string`.
   String xxxMessageName() {
-    final $r = $callSync(7582, $W()..dto(this));
+    final $r = $callSync(7591, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.FloatValue).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(7583, $W()..dto(this));
+    final $r = $callSync(7592, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.FloatValue).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        7584,
+        7593,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -2502,7 +2502,7 @@ final class ProtobufTypesFloatValue implements GoDto {
 
   /// Go: `func (*types.FloatValue).XXX_WellKnownType() string`.
   String xxxWellKnownType() {
-    final $r = $callSync(7585, $W()..dto(this));
+    final $r = $callSync(7594, $W()..dto(this));
     return $r.str();
   }
 }
@@ -2542,7 +2542,7 @@ final class ProtobufTypesInt32Value implements GoDto {
   /// Go: `func (*types.Int32Value).Compare(that interface{}) int`.
   int compare(Object? that) {
     final $r = $callSync(
-        7586,
+        7595,
         $W()
           ..dto(this)
           ..any(that));
@@ -2551,14 +2551,14 @@ final class ProtobufTypesInt32Value implements GoDto {
 
   /// Go: `func (*types.Int32Value).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(7587, $W()..dto(this));
+    final $r = $callSync(7596, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*types.Int32Value).Equal(that interface{}) bool`.
   bool equal(Object? that) {
     final $r = $callSync(
-        7588,
+        7597,
         $W()
           ..dto(this)
           ..any(that));
@@ -2567,26 +2567,26 @@ final class ProtobufTypesInt32Value implements GoDto {
 
   /// Go: `func (*types.Int32Value).GetValue() int32`.
   int getValue() {
-    final $r = $callSync(7589, $W()..dto(this));
+    final $r = $callSync(7598, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Int32Value).GoString() string`.
   String goString() {
-    final $r = $callSync(7590, $W()..dto(this));
+    final $r = $callSync(7599, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Int32Value).Marshal() (dAtA []byte, err error)`.
   Uint8List marshal() {
-    final $r = $callSync(7591, $W()..dto(this));
+    final $r = $callSync(7600, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*types.Int32Value).MarshalTo(dAtA []byte) (int, error)`.
   int marshalTo(Uint8List dAtA) {
     final $r = $callSync(
-        7592,
+        7601,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -2596,7 +2596,7 @@ final class ProtobufTypesInt32Value implements GoDto {
   /// Go: `func (*types.Int32Value).MarshalToSizedBuffer(dAtA []byte) (int, error)`.
   int marshalToSizedBuffer(Uint8List dAtA) {
     final $r = $callSync(
-        7593,
+        7602,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -2605,36 +2605,36 @@ final class ProtobufTypesInt32Value implements GoDto {
 
   /// Go: `func (*types.Int32Value).ProtoMessage()`.
   void protoMessage() {
-    $callSync(7594, $W()..dto(this));
+    $callSync(7603, $W()..dto(this));
   }
 
   /// Go: `func (*types.Int32Value).ProtoSize() (n int)`.
   int protoSize() {
-    final $r = $callSync(7595, $W()..dto(this));
+    final $r = $callSync(7604, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Int32Value).Reset()`.
   void reset() {
-    $callSync(7596, $W()..dto(this));
+    $callSync(7605, $W()..dto(this));
   }
 
   /// Go: `func (*types.Int32Value).Size() (n int)`.
   int size() {
-    final $r = $callSync(7597, $W()..dto(this));
+    final $r = $callSync(7606, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Int32Value).String() string`.
   String string() {
-    final $r = $callSync(7598, $W()..dto(this));
+    final $r = $callSync(7607, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Int32Value).Unmarshal(dAtA []byte) error`.
   void unmarshal(Uint8List dAtA) {
     $callSync(
-        7599,
+        7608,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -2642,13 +2642,13 @@ final class ProtobufTypesInt32Value implements GoDto {
 
   /// Go: `func (*types.Int32Value).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(7600, $W()..dto(this));
+    $callSync(7609, $W()..dto(this));
   }
 
   /// Go: `func (*types.Int32Value).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        7601,
+        7610,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -2659,7 +2659,7 @@ final class ProtobufTypesInt32Value implements GoDto {
   /// Go: `func (*types.Int32Value).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        7602,
+        7611,
         $W()
           ..dto(this)
           ..h(src));
@@ -2667,20 +2667,20 @@ final class ProtobufTypesInt32Value implements GoDto {
 
   /// Go: `func (*types.Int32Value).XXX_MessageName() string`.
   String xxxMessageName() {
-    final $r = $callSync(7603, $W()..dto(this));
+    final $r = $callSync(7612, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Int32Value).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(7604, $W()..dto(this));
+    final $r = $callSync(7613, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Int32Value).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        7605,
+        7614,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -2688,7 +2688,7 @@ final class ProtobufTypesInt32Value implements GoDto {
 
   /// Go: `func (*types.Int32Value).XXX_WellKnownType() string`.
   String xxxWellKnownType() {
-    final $r = $callSync(7606, $W()..dto(this));
+    final $r = $callSync(7615, $W()..dto(this));
     return $r.str();
   }
 }
@@ -2728,7 +2728,7 @@ final class ProtobufTypesInt64Value implements GoDto {
   /// Go: `func (*types.Int64Value).Compare(that interface{}) int`.
   int compare(Object? that) {
     final $r = $callSync(
-        7607,
+        7616,
         $W()
           ..dto(this)
           ..any(that));
@@ -2737,14 +2737,14 @@ final class ProtobufTypesInt64Value implements GoDto {
 
   /// Go: `func (*types.Int64Value).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(7608, $W()..dto(this));
+    final $r = $callSync(7617, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*types.Int64Value).Equal(that interface{}) bool`.
   bool equal(Object? that) {
     final $r = $callSync(
-        7609,
+        7618,
         $W()
           ..dto(this)
           ..any(that));
@@ -2753,26 +2753,26 @@ final class ProtobufTypesInt64Value implements GoDto {
 
   /// Go: `func (*types.Int64Value).GetValue() int64`.
   int getValue() {
-    final $r = $callSync(7610, $W()..dto(this));
+    final $r = $callSync(7619, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Int64Value).GoString() string`.
   String goString() {
-    final $r = $callSync(7611, $W()..dto(this));
+    final $r = $callSync(7620, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Int64Value).Marshal() (dAtA []byte, err error)`.
   Uint8List marshal() {
-    final $r = $callSync(7612, $W()..dto(this));
+    final $r = $callSync(7621, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*types.Int64Value).MarshalTo(dAtA []byte) (int, error)`.
   int marshalTo(Uint8List dAtA) {
     final $r = $callSync(
-        7613,
+        7622,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -2782,7 +2782,7 @@ final class ProtobufTypesInt64Value implements GoDto {
   /// Go: `func (*types.Int64Value).MarshalToSizedBuffer(dAtA []byte) (int, error)`.
   int marshalToSizedBuffer(Uint8List dAtA) {
     final $r = $callSync(
-        7614,
+        7623,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -2791,36 +2791,36 @@ final class ProtobufTypesInt64Value implements GoDto {
 
   /// Go: `func (*types.Int64Value).ProtoMessage()`.
   void protoMessage() {
-    $callSync(7615, $W()..dto(this));
+    $callSync(7624, $W()..dto(this));
   }
 
   /// Go: `func (*types.Int64Value).ProtoSize() (n int)`.
   int protoSize() {
-    final $r = $callSync(7616, $W()..dto(this));
+    final $r = $callSync(7625, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Int64Value).Reset()`.
   void reset() {
-    $callSync(7617, $W()..dto(this));
+    $callSync(7626, $W()..dto(this));
   }
 
   /// Go: `func (*types.Int64Value).Size() (n int)`.
   int size() {
-    final $r = $callSync(7618, $W()..dto(this));
+    final $r = $callSync(7627, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Int64Value).String() string`.
   String string() {
-    final $r = $callSync(7619, $W()..dto(this));
+    final $r = $callSync(7628, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Int64Value).Unmarshal(dAtA []byte) error`.
   void unmarshal(Uint8List dAtA) {
     $callSync(
-        7620,
+        7629,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -2828,13 +2828,13 @@ final class ProtobufTypesInt64Value implements GoDto {
 
   /// Go: `func (*types.Int64Value).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(7621, $W()..dto(this));
+    $callSync(7630, $W()..dto(this));
   }
 
   /// Go: `func (*types.Int64Value).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        7622,
+        7631,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -2845,7 +2845,7 @@ final class ProtobufTypesInt64Value implements GoDto {
   /// Go: `func (*types.Int64Value).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        7623,
+        7632,
         $W()
           ..dto(this)
           ..h(src));
@@ -2853,20 +2853,20 @@ final class ProtobufTypesInt64Value implements GoDto {
 
   /// Go: `func (*types.Int64Value).XXX_MessageName() string`.
   String xxxMessageName() {
-    final $r = $callSync(7624, $W()..dto(this));
+    final $r = $callSync(7633, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Int64Value).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(7625, $W()..dto(this));
+    final $r = $callSync(7634, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Int64Value).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        7626,
+        7635,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -2874,7 +2874,7 @@ final class ProtobufTypesInt64Value implements GoDto {
 
   /// Go: `func (*types.Int64Value).XXX_WellKnownType() string`.
   String xxxWellKnownType() {
-    final $r = $callSync(7627, $W()..dto(this));
+    final $r = $callSync(7636, $W()..dto(this));
     return $r.str();
   }
 }
@@ -2916,7 +2916,7 @@ final class ProtobufTypesListValue implements GoDto {
   /// Go: `func (*types.ListValue).Compare(that interface{}) int`.
   int compare(Object? that) {
     final $r = $callSync(
-        7629,
+        7638,
         $W()
           ..dto(this)
           ..any(that));
@@ -2925,14 +2925,14 @@ final class ProtobufTypesListValue implements GoDto {
 
   /// Go: `func (*types.ListValue).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(7630, $W()..dto(this));
+    final $r = $callSync(7639, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*types.ListValue).Equal(that interface{}) bool`.
   bool equal(Object? that) {
     final $r = $callSync(
-        7631,
+        7640,
         $W()
           ..dto(this)
           ..any(that));
@@ -2941,26 +2941,26 @@ final class ProtobufTypesListValue implements GoDto {
 
   /// Go: `func (*types.ListValue).GetValues() []*types.Value`.
   List<ProtobufTypesValue> getValues() {
-    final $r = $callSync(7632, $W()..dto(this));
+    final $r = $callSync(7641, $W()..dto(this));
     return $r.list(() => $r.p() ? ProtobufTypesValue.$dec($r) : $nil());
   }
 
   /// Go: `func (*types.ListValue).GoString() string`.
   String goString() {
-    final $r = $callSync(7633, $W()..dto(this));
+    final $r = $callSync(7642, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.ListValue).Marshal() (dAtA []byte, err error)`.
   Uint8List marshal() {
-    final $r = $callSync(7634, $W()..dto(this));
+    final $r = $callSync(7643, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*types.ListValue).MarshalTo(dAtA []byte) (int, error)`.
   int marshalTo(Uint8List dAtA) {
     final $r = $callSync(
-        7635,
+        7644,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -2970,7 +2970,7 @@ final class ProtobufTypesListValue implements GoDto {
   /// Go: `func (*types.ListValue).MarshalToSizedBuffer(dAtA []byte) (int, error)`.
   int marshalToSizedBuffer(Uint8List dAtA) {
     final $r = $callSync(
-        7636,
+        7645,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -2979,36 +2979,36 @@ final class ProtobufTypesListValue implements GoDto {
 
   /// Go: `func (*types.ListValue).ProtoMessage()`.
   void protoMessage() {
-    $callSync(7637, $W()..dto(this));
+    $callSync(7646, $W()..dto(this));
   }
 
   /// Go: `func (*types.ListValue).ProtoSize() (n int)`.
   int protoSize() {
-    final $r = $callSync(7638, $W()..dto(this));
+    final $r = $callSync(7647, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.ListValue).Reset()`.
   void reset() {
-    $callSync(7639, $W()..dto(this));
+    $callSync(7648, $W()..dto(this));
   }
 
   /// Go: `func (*types.ListValue).Size() (n int)`.
   int size() {
-    final $r = $callSync(7640, $W()..dto(this));
+    final $r = $callSync(7649, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.ListValue).String() string`.
   String string() {
-    final $r = $callSync(7641, $W()..dto(this));
+    final $r = $callSync(7650, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.ListValue).Unmarshal(dAtA []byte) error`.
   void unmarshal(Uint8List dAtA) {
     $callSync(
-        7642,
+        7651,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -3016,13 +3016,13 @@ final class ProtobufTypesListValue implements GoDto {
 
   /// Go: `func (*types.ListValue).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(7643, $W()..dto(this));
+    $callSync(7652, $W()..dto(this));
   }
 
   /// Go: `func (*types.ListValue).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        7644,
+        7653,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -3033,7 +3033,7 @@ final class ProtobufTypesListValue implements GoDto {
   /// Go: `func (*types.ListValue).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        7645,
+        7654,
         $W()
           ..dto(this)
           ..h(src));
@@ -3041,20 +3041,20 @@ final class ProtobufTypesListValue implements GoDto {
 
   /// Go: `func (*types.ListValue).XXX_MessageName() string`.
   String xxxMessageName() {
-    final $r = $callSync(7646, $W()..dto(this));
+    final $r = $callSync(7655, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.ListValue).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(7647, $W()..dto(this));
+    final $r = $callSync(7656, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.ListValue).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        7648,
+        7657,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -3062,7 +3062,7 @@ final class ProtobufTypesListValue implements GoDto {
 
   /// Go: `func (*types.ListValue).XXX_WellKnownType() string`.
   String xxxWellKnownType() {
-    final $r = $callSync(7649, $W()..dto(this));
+    final $r = $callSync(7658, $W()..dto(this));
     return $r.str();
   }
 }
@@ -3146,7 +3146,7 @@ final class ProtobufTypesMethod implements GoDto {
   /// Go: `func (*types.Method).Compare(that interface{}) int`.
   int compare(Object? that) {
     final $r = $callSync(
-        7651,
+        7660,
         $W()
           ..dto(this)
           ..any(that));
@@ -3155,14 +3155,14 @@ final class ProtobufTypesMethod implements GoDto {
 
   /// Go: `func (*types.Method).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(7652, $W()..dto(this));
+    final $r = $callSync(7661, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*types.Method).Equal(that interface{}) bool`.
   bool equal(Object? that) {
     final $r = $callSync(
-        7653,
+        7662,
         $W()
           ..dto(this)
           ..any(that));
@@ -3171,62 +3171,62 @@ final class ProtobufTypesMethod implements GoDto {
 
   /// Go: `func (*types.Method).GetName() string`.
   String getName() {
-    final $r = $callSync(7654, $W()..dto(this));
+    final $r = $callSync(7663, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Method).GetOptions() []*types.Option`.
   List<ProtobufTypesOption> getOptions() {
-    final $r = $callSync(7655, $W()..dto(this));
+    final $r = $callSync(7664, $W()..dto(this));
     return $r.list(() => $r.p() ? ProtobufTypesOption.$dec($r) : $nil());
   }
 
   /// Go: `func (*types.Method).GetRequestStreaming() bool`.
   bool getRequestStreaming() {
-    final $r = $callSync(7656, $W()..dto(this));
+    final $r = $callSync(7665, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*types.Method).GetRequestTypeUrl() string`.
   String getRequestTypeUrl() {
-    final $r = $callSync(7657, $W()..dto(this));
+    final $r = $callSync(7666, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Method).GetResponseStreaming() bool`.
   bool getResponseStreaming() {
-    final $r = $callSync(7658, $W()..dto(this));
+    final $r = $callSync(7667, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*types.Method).GetResponseTypeUrl() string`.
   String getResponseTypeUrl() {
-    final $r = $callSync(7659, $W()..dto(this));
+    final $r = $callSync(7668, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Method).GetSyntax() types.Syntax`.
   int getSyntax() {
-    final $r = $callSync(7660, $W()..dto(this));
+    final $r = $callSync(7669, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Method).GoString() string`.
   String goString() {
-    final $r = $callSync(7661, $W()..dto(this));
+    final $r = $callSync(7670, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Method).Marshal() (dAtA []byte, err error)`.
   Uint8List marshal() {
-    final $r = $callSync(7662, $W()..dto(this));
+    final $r = $callSync(7671, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*types.Method).MarshalTo(dAtA []byte) (int, error)`.
   int marshalTo(Uint8List dAtA) {
     final $r = $callSync(
-        7663,
+        7672,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -3236,7 +3236,7 @@ final class ProtobufTypesMethod implements GoDto {
   /// Go: `func (*types.Method).MarshalToSizedBuffer(dAtA []byte) (int, error)`.
   int marshalToSizedBuffer(Uint8List dAtA) {
     final $r = $callSync(
-        7664,
+        7673,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -3245,36 +3245,36 @@ final class ProtobufTypesMethod implements GoDto {
 
   /// Go: `func (*types.Method).ProtoMessage()`.
   void protoMessage() {
-    $callSync(7665, $W()..dto(this));
+    $callSync(7674, $W()..dto(this));
   }
 
   /// Go: `func (*types.Method).ProtoSize() (n int)`.
   int protoSize() {
-    final $r = $callSync(7666, $W()..dto(this));
+    final $r = $callSync(7675, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Method).Reset()`.
   void reset() {
-    $callSync(7667, $W()..dto(this));
+    $callSync(7676, $W()..dto(this));
   }
 
   /// Go: `func (*types.Method).Size() (n int)`.
   int size() {
-    final $r = $callSync(7668, $W()..dto(this));
+    final $r = $callSync(7677, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Method).String() string`.
   String string() {
-    final $r = $callSync(7669, $W()..dto(this));
+    final $r = $callSync(7678, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Method).Unmarshal(dAtA []byte) error`.
   void unmarshal(Uint8List dAtA) {
     $callSync(
-        7670,
+        7679,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -3282,13 +3282,13 @@ final class ProtobufTypesMethod implements GoDto {
 
   /// Go: `func (*types.Method).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(7671, $W()..dto(this));
+    $callSync(7680, $W()..dto(this));
   }
 
   /// Go: `func (*types.Method).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        7672,
+        7681,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -3299,7 +3299,7 @@ final class ProtobufTypesMethod implements GoDto {
   /// Go: `func (*types.Method).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        7673,
+        7682,
         $W()
           ..dto(this)
           ..h(src));
@@ -3307,20 +3307,20 @@ final class ProtobufTypesMethod implements GoDto {
 
   /// Go: `func (*types.Method).XXX_MessageName() string`.
   String xxxMessageName() {
-    final $r = $callSync(7674, $W()..dto(this));
+    final $r = $callSync(7683, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Method).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(7675, $W()..dto(this));
+    final $r = $callSync(7684, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Method).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        7676,
+        7685,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -3371,7 +3371,7 @@ final class ProtobufTypesMixin implements GoDto {
   /// Go: `func (*types.Mixin).Compare(that interface{}) int`.
   int compare(Object? that) {
     final $r = $callSync(
-        7677,
+        7686,
         $W()
           ..dto(this)
           ..any(that));
@@ -3380,14 +3380,14 @@ final class ProtobufTypesMixin implements GoDto {
 
   /// Go: `func (*types.Mixin).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(7678, $W()..dto(this));
+    final $r = $callSync(7687, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*types.Mixin).Equal(that interface{}) bool`.
   bool equal(Object? that) {
     final $r = $callSync(
-        7679,
+        7688,
         $W()
           ..dto(this)
           ..any(that));
@@ -3396,32 +3396,32 @@ final class ProtobufTypesMixin implements GoDto {
 
   /// Go: `func (*types.Mixin).GetName() string`.
   String getName() {
-    final $r = $callSync(7680, $W()..dto(this));
+    final $r = $callSync(7689, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Mixin).GetRoot() string`.
   String getRoot() {
-    final $r = $callSync(7681, $W()..dto(this));
+    final $r = $callSync(7690, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Mixin).GoString() string`.
   String goString() {
-    final $r = $callSync(7682, $W()..dto(this));
+    final $r = $callSync(7691, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Mixin).Marshal() (dAtA []byte, err error)`.
   Uint8List marshal() {
-    final $r = $callSync(7683, $W()..dto(this));
+    final $r = $callSync(7692, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*types.Mixin).MarshalTo(dAtA []byte) (int, error)`.
   int marshalTo(Uint8List dAtA) {
     final $r = $callSync(
-        7684,
+        7693,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -3431,7 +3431,7 @@ final class ProtobufTypesMixin implements GoDto {
   /// Go: `func (*types.Mixin).MarshalToSizedBuffer(dAtA []byte) (int, error)`.
   int marshalToSizedBuffer(Uint8List dAtA) {
     final $r = $callSync(
-        7685,
+        7694,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -3440,36 +3440,36 @@ final class ProtobufTypesMixin implements GoDto {
 
   /// Go: `func (*types.Mixin).ProtoMessage()`.
   void protoMessage() {
-    $callSync(7686, $W()..dto(this));
+    $callSync(7695, $W()..dto(this));
   }
 
   /// Go: `func (*types.Mixin).ProtoSize() (n int)`.
   int protoSize() {
-    final $r = $callSync(7687, $W()..dto(this));
+    final $r = $callSync(7696, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Mixin).Reset()`.
   void reset() {
-    $callSync(7688, $W()..dto(this));
+    $callSync(7697, $W()..dto(this));
   }
 
   /// Go: `func (*types.Mixin).Size() (n int)`.
   int size() {
-    final $r = $callSync(7689, $W()..dto(this));
+    final $r = $callSync(7698, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Mixin).String() string`.
   String string() {
-    final $r = $callSync(7690, $W()..dto(this));
+    final $r = $callSync(7699, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Mixin).Unmarshal(dAtA []byte) error`.
   void unmarshal(Uint8List dAtA) {
     $callSync(
-        7691,
+        7700,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -3477,13 +3477,13 @@ final class ProtobufTypesMixin implements GoDto {
 
   /// Go: `func (*types.Mixin).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(7692, $W()..dto(this));
+    $callSync(7701, $W()..dto(this));
   }
 
   /// Go: `func (*types.Mixin).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        7693,
+        7702,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -3494,7 +3494,7 @@ final class ProtobufTypesMixin implements GoDto {
   /// Go: `func (*types.Mixin).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        7694,
+        7703,
         $W()
           ..dto(this)
           ..h(src));
@@ -3502,20 +3502,20 @@ final class ProtobufTypesMixin implements GoDto {
 
   /// Go: `func (*types.Mixin).XXX_MessageName() string`.
   String xxxMessageName() {
-    final $r = $callSync(7695, $W()..dto(this));
+    final $r = $callSync(7704, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Mixin).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(7696, $W()..dto(this));
+    final $r = $callSync(7705, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Mixin).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        7697,
+        7706,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -3566,7 +3566,7 @@ final class ProtobufTypesOption implements GoDto {
   /// Go: `func (*types.Option).Compare(that interface{}) int`.
   int compare(Object? that) {
     final $r = $callSync(
-        7700,
+        7709,
         $W()
           ..dto(this)
           ..any(that));
@@ -3575,14 +3575,14 @@ final class ProtobufTypesOption implements GoDto {
 
   /// Go: `func (*types.Option).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(7701, $W()..dto(this));
+    final $r = $callSync(7710, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*types.Option).Equal(that interface{}) bool`.
   bool equal(Object? that) {
     final $r = $callSync(
-        7702,
+        7711,
         $W()
           ..dto(this)
           ..any(that));
@@ -3591,32 +3591,32 @@ final class ProtobufTypesOption implements GoDto {
 
   /// Go: `func (*types.Option).GetName() string`.
   String getName() {
-    final $r = $callSync(7703, $W()..dto(this));
+    final $r = $callSync(7712, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Option).GetValue() *types.Any`.
   ProtobufTypesAny getValue() {
-    final $r = $callSync(7704, $W()..dto(this));
+    final $r = $callSync(7713, $W()..dto(this));
     return $r.p() ? ProtobufTypesAny.$dec($r) : $nil();
   }
 
   /// Go: `func (*types.Option).GoString() string`.
   String goString() {
-    final $r = $callSync(7705, $W()..dto(this));
+    final $r = $callSync(7714, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Option).Marshal() (dAtA []byte, err error)`.
   Uint8List marshal() {
-    final $r = $callSync(7706, $W()..dto(this));
+    final $r = $callSync(7715, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*types.Option).MarshalTo(dAtA []byte) (int, error)`.
   int marshalTo(Uint8List dAtA) {
     final $r = $callSync(
-        7707,
+        7716,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -3626,7 +3626,7 @@ final class ProtobufTypesOption implements GoDto {
   /// Go: `func (*types.Option).MarshalToSizedBuffer(dAtA []byte) (int, error)`.
   int marshalToSizedBuffer(Uint8List dAtA) {
     final $r = $callSync(
-        7708,
+        7717,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -3635,36 +3635,36 @@ final class ProtobufTypesOption implements GoDto {
 
   /// Go: `func (*types.Option).ProtoMessage()`.
   void protoMessage() {
-    $callSync(7709, $W()..dto(this));
+    $callSync(7718, $W()..dto(this));
   }
 
   /// Go: `func (*types.Option).ProtoSize() (n int)`.
   int protoSize() {
-    final $r = $callSync(7710, $W()..dto(this));
+    final $r = $callSync(7719, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Option).Reset()`.
   void reset() {
-    $callSync(7711, $W()..dto(this));
+    $callSync(7720, $W()..dto(this));
   }
 
   /// Go: `func (*types.Option).Size() (n int)`.
   int size() {
-    final $r = $callSync(7712, $W()..dto(this));
+    final $r = $callSync(7721, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Option).String() string`.
   String string() {
-    final $r = $callSync(7713, $W()..dto(this));
+    final $r = $callSync(7722, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Option).Unmarshal(dAtA []byte) error`.
   void unmarshal(Uint8List dAtA) {
     $callSync(
-        7714,
+        7723,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -3672,13 +3672,13 @@ final class ProtobufTypesOption implements GoDto {
 
   /// Go: `func (*types.Option).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(7715, $W()..dto(this));
+    $callSync(7724, $W()..dto(this));
   }
 
   /// Go: `func (*types.Option).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        7716,
+        7725,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -3689,7 +3689,7 @@ final class ProtobufTypesOption implements GoDto {
   /// Go: `func (*types.Option).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        7717,
+        7726,
         $W()
           ..dto(this)
           ..h(src));
@@ -3697,20 +3697,20 @@ final class ProtobufTypesOption implements GoDto {
 
   /// Go: `func (*types.Option).XXX_MessageName() string`.
   String xxxMessageName() {
-    final $r = $callSync(7718, $W()..dto(this));
+    final $r = $callSync(7727, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Option).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(7719, $W()..dto(this));
+    final $r = $callSync(7728, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Option).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        7720,
+        7729,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -3752,7 +3752,7 @@ final class ProtobufTypesSourceContext implements GoDto {
   /// Go: `func (*types.SourceContext).Compare(that interface{}) int`.
   int compare(Object? that) {
     final $r = $callSync(
-        7732,
+        7741,
         $W()
           ..dto(this)
           ..any(that));
@@ -3761,14 +3761,14 @@ final class ProtobufTypesSourceContext implements GoDto {
 
   /// Go: `func (*types.SourceContext).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(7733, $W()..dto(this));
+    final $r = $callSync(7742, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*types.SourceContext).Equal(that interface{}) bool`.
   bool equal(Object? that) {
     final $r = $callSync(
-        7734,
+        7743,
         $W()
           ..dto(this)
           ..any(that));
@@ -3777,26 +3777,26 @@ final class ProtobufTypesSourceContext implements GoDto {
 
   /// Go: `func (*types.SourceContext).GetFileName() string`.
   String getFileName() {
-    final $r = $callSync(7735, $W()..dto(this));
+    final $r = $callSync(7744, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.SourceContext).GoString() string`.
   String goString() {
-    final $r = $callSync(7736, $W()..dto(this));
+    final $r = $callSync(7745, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.SourceContext).Marshal() (dAtA []byte, err error)`.
   Uint8List marshal() {
-    final $r = $callSync(7737, $W()..dto(this));
+    final $r = $callSync(7746, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*types.SourceContext).MarshalTo(dAtA []byte) (int, error)`.
   int marshalTo(Uint8List dAtA) {
     final $r = $callSync(
-        7738,
+        7747,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -3806,7 +3806,7 @@ final class ProtobufTypesSourceContext implements GoDto {
   /// Go: `func (*types.SourceContext).MarshalToSizedBuffer(dAtA []byte) (int, error)`.
   int marshalToSizedBuffer(Uint8List dAtA) {
     final $r = $callSync(
-        7739,
+        7748,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -3815,36 +3815,36 @@ final class ProtobufTypesSourceContext implements GoDto {
 
   /// Go: `func (*types.SourceContext).ProtoMessage()`.
   void protoMessage() {
-    $callSync(7740, $W()..dto(this));
+    $callSync(7749, $W()..dto(this));
   }
 
   /// Go: `func (*types.SourceContext).ProtoSize() (n int)`.
   int protoSize() {
-    final $r = $callSync(7741, $W()..dto(this));
+    final $r = $callSync(7750, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.SourceContext).Reset()`.
   void reset() {
-    $callSync(7742, $W()..dto(this));
+    $callSync(7751, $W()..dto(this));
   }
 
   /// Go: `func (*types.SourceContext).Size() (n int)`.
   int size() {
-    final $r = $callSync(7743, $W()..dto(this));
+    final $r = $callSync(7752, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.SourceContext).String() string`.
   String string() {
-    final $r = $callSync(7744, $W()..dto(this));
+    final $r = $callSync(7753, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.SourceContext).Unmarshal(dAtA []byte) error`.
   void unmarshal(Uint8List dAtA) {
     $callSync(
-        7745,
+        7754,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -3852,13 +3852,13 @@ final class ProtobufTypesSourceContext implements GoDto {
 
   /// Go: `func (*types.SourceContext).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(7746, $W()..dto(this));
+    $callSync(7755, $W()..dto(this));
   }
 
   /// Go: `func (*types.SourceContext).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        7747,
+        7756,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -3869,7 +3869,7 @@ final class ProtobufTypesSourceContext implements GoDto {
   /// Go: `func (*types.SourceContext).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        7748,
+        7757,
         $W()
           ..dto(this)
           ..h(src));
@@ -3877,20 +3877,20 @@ final class ProtobufTypesSourceContext implements GoDto {
 
   /// Go: `func (*types.SourceContext).XXX_MessageName() string`.
   String xxxMessageName() {
-    final $r = $callSync(7749, $W()..dto(this));
+    final $r = $callSync(7758, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.SourceContext).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(7750, $W()..dto(this));
+    final $r = $callSync(7759, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.SourceContext).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        7751,
+        7760,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -3932,7 +3932,7 @@ final class ProtobufTypesStringValue implements GoDto {
   /// Go: `func (*types.StringValue).Compare(that interface{}) int`.
   int compare(Object? that) {
     final $r = $callSync(
-        7783,
+        7792,
         $W()
           ..dto(this)
           ..any(that));
@@ -3941,14 +3941,14 @@ final class ProtobufTypesStringValue implements GoDto {
 
   /// Go: `func (*types.StringValue).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(7784, $W()..dto(this));
+    final $r = $callSync(7793, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*types.StringValue).Equal(that interface{}) bool`.
   bool equal(Object? that) {
     final $r = $callSync(
-        7785,
+        7794,
         $W()
           ..dto(this)
           ..any(that));
@@ -3957,26 +3957,26 @@ final class ProtobufTypesStringValue implements GoDto {
 
   /// Go: `func (*types.StringValue).GetValue() string`.
   String getValue() {
-    final $r = $callSync(7786, $W()..dto(this));
+    final $r = $callSync(7795, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.StringValue).GoString() string`.
   String goString() {
-    final $r = $callSync(7787, $W()..dto(this));
+    final $r = $callSync(7796, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.StringValue).Marshal() (dAtA []byte, err error)`.
   Uint8List marshal() {
-    final $r = $callSync(7788, $W()..dto(this));
+    final $r = $callSync(7797, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*types.StringValue).MarshalTo(dAtA []byte) (int, error)`.
   int marshalTo(Uint8List dAtA) {
     final $r = $callSync(
-        7789,
+        7798,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -3986,7 +3986,7 @@ final class ProtobufTypesStringValue implements GoDto {
   /// Go: `func (*types.StringValue).MarshalToSizedBuffer(dAtA []byte) (int, error)`.
   int marshalToSizedBuffer(Uint8List dAtA) {
     final $r = $callSync(
-        7790,
+        7799,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -3995,36 +3995,36 @@ final class ProtobufTypesStringValue implements GoDto {
 
   /// Go: `func (*types.StringValue).ProtoMessage()`.
   void protoMessage() {
-    $callSync(7791, $W()..dto(this));
+    $callSync(7800, $W()..dto(this));
   }
 
   /// Go: `func (*types.StringValue).ProtoSize() (n int)`.
   int protoSize() {
-    final $r = $callSync(7792, $W()..dto(this));
+    final $r = $callSync(7801, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.StringValue).Reset()`.
   void reset() {
-    $callSync(7793, $W()..dto(this));
+    $callSync(7802, $W()..dto(this));
   }
 
   /// Go: `func (*types.StringValue).Size() (n int)`.
   int size() {
-    final $r = $callSync(7794, $W()..dto(this));
+    final $r = $callSync(7803, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.StringValue).String() string`.
   String string() {
-    final $r = $callSync(7795, $W()..dto(this));
+    final $r = $callSync(7804, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.StringValue).Unmarshal(dAtA []byte) error`.
   void unmarshal(Uint8List dAtA) {
     $callSync(
-        7796,
+        7805,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -4032,13 +4032,13 @@ final class ProtobufTypesStringValue implements GoDto {
 
   /// Go: `func (*types.StringValue).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(7797, $W()..dto(this));
+    $callSync(7806, $W()..dto(this));
   }
 
   /// Go: `func (*types.StringValue).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        7798,
+        7807,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -4049,7 +4049,7 @@ final class ProtobufTypesStringValue implements GoDto {
   /// Go: `func (*types.StringValue).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        7799,
+        7808,
         $W()
           ..dto(this)
           ..h(src));
@@ -4057,20 +4057,20 @@ final class ProtobufTypesStringValue implements GoDto {
 
   /// Go: `func (*types.StringValue).XXX_MessageName() string`.
   String xxxMessageName() {
-    final $r = $callSync(7800, $W()..dto(this));
+    final $r = $callSync(7809, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.StringValue).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(7801, $W()..dto(this));
+    final $r = $callSync(7810, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.StringValue).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        7802,
+        7811,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -4078,7 +4078,7 @@ final class ProtobufTypesStringValue implements GoDto {
 
   /// Go: `func (*types.StringValue).XXX_WellKnownType() string`.
   String xxxWellKnownType() {
-    final $r = $callSync(7803, $W()..dto(this));
+    final $r = $callSync(7812, $W()..dto(this));
     return $r.str();
   }
 }
@@ -4121,7 +4121,7 @@ final class ProtobufTypesStruct implements GoDto {
   /// Go: `func (*types.Struct).Compare(that interface{}) int`.
   int compare(Object? that) {
     final $r = $callSync(
-        7804,
+        7813,
         $W()
           ..dto(this)
           ..any(that));
@@ -4130,14 +4130,14 @@ final class ProtobufTypesStruct implements GoDto {
 
   /// Go: `func (*types.Struct).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(7805, $W()..dto(this));
+    final $r = $callSync(7814, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*types.Struct).Equal(that interface{}) bool`.
   bool equal(Object? that) {
     final $r = $callSync(
-        7806,
+        7815,
         $W()
           ..dto(this)
           ..any(that));
@@ -4146,27 +4146,27 @@ final class ProtobufTypesStruct implements GoDto {
 
   /// Go: `func (*types.Struct).GetFields() map[string]*types.Value`.
   Map<String, ProtobufTypesValue> getFields() {
-    final $r = $callSync(7807, $W()..dto(this));
+    final $r = $callSync(7816, $W()..dto(this));
     return $r.map(
         () => $r.str(), () => $r.p() ? ProtobufTypesValue.$dec($r) : $nil());
   }
 
   /// Go: `func (*types.Struct).GoString() string`.
   String goString() {
-    final $r = $callSync(7808, $W()..dto(this));
+    final $r = $callSync(7817, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Struct).Marshal() (dAtA []byte, err error)`.
   Uint8List marshal() {
-    final $r = $callSync(7809, $W()..dto(this));
+    final $r = $callSync(7818, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*types.Struct).MarshalTo(dAtA []byte) (int, error)`.
   int marshalTo(Uint8List dAtA) {
     final $r = $callSync(
-        7810,
+        7819,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -4176,7 +4176,7 @@ final class ProtobufTypesStruct implements GoDto {
   /// Go: `func (*types.Struct).MarshalToSizedBuffer(dAtA []byte) (int, error)`.
   int marshalToSizedBuffer(Uint8List dAtA) {
     final $r = $callSync(
-        7811,
+        7820,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -4185,36 +4185,36 @@ final class ProtobufTypesStruct implements GoDto {
 
   /// Go: `func (*types.Struct).ProtoMessage()`.
   void protoMessage() {
-    $callSync(7812, $W()..dto(this));
+    $callSync(7821, $W()..dto(this));
   }
 
   /// Go: `func (*types.Struct).ProtoSize() (n int)`.
   int protoSize() {
-    final $r = $callSync(7813, $W()..dto(this));
+    final $r = $callSync(7822, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Struct).Reset()`.
   void reset() {
-    $callSync(7814, $W()..dto(this));
+    $callSync(7823, $W()..dto(this));
   }
 
   /// Go: `func (*types.Struct).Size() (n int)`.
   int size() {
-    final $r = $callSync(7815, $W()..dto(this));
+    final $r = $callSync(7824, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Struct).String() string`.
   String string() {
-    final $r = $callSync(7816, $W()..dto(this));
+    final $r = $callSync(7825, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Struct).Unmarshal(dAtA []byte) error`.
   void unmarshal(Uint8List dAtA) {
     $callSync(
-        7817,
+        7826,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -4222,13 +4222,13 @@ final class ProtobufTypesStruct implements GoDto {
 
   /// Go: `func (*types.Struct).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(7818, $W()..dto(this));
+    $callSync(7827, $W()..dto(this));
   }
 
   /// Go: `func (*types.Struct).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        7819,
+        7828,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -4239,7 +4239,7 @@ final class ProtobufTypesStruct implements GoDto {
   /// Go: `func (*types.Struct).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        7820,
+        7829,
         $W()
           ..dto(this)
           ..h(src));
@@ -4247,20 +4247,20 @@ final class ProtobufTypesStruct implements GoDto {
 
   /// Go: `func (*types.Struct).XXX_MessageName() string`.
   String xxxMessageName() {
-    final $r = $callSync(7821, $W()..dto(this));
+    final $r = $callSync(7830, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Struct).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(7822, $W()..dto(this));
+    final $r = $callSync(7831, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Struct).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        7823,
+        7832,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -4268,7 +4268,7 @@ final class ProtobufTypesStruct implements GoDto {
 
   /// Go: `func (*types.Struct).XXX_WellKnownType() string`.
   String xxxWellKnownType() {
-    final $r = $callSync(7824, $W()..dto(this));
+    final $r = $callSync(7833, $W()..dto(this));
     return $r.str();
   }
 }
@@ -4314,7 +4314,7 @@ final class ProtobufTypesTimestamp implements GoDto {
   /// Go: `func (*types.Timestamp).Compare(that interface{}) int`.
   int compare(Object? that) {
     final $r = $callSync(
-        7827,
+        7836,
         $W()
           ..dto(this)
           ..any(that));
@@ -4323,14 +4323,14 @@ final class ProtobufTypesTimestamp implements GoDto {
 
   /// Go: `func (*types.Timestamp).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(7828, $W()..dto(this));
+    final $r = $callSync(7837, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*types.Timestamp).Equal(that interface{}) bool`.
   bool equal(Object? that) {
     final $r = $callSync(
-        7829,
+        7838,
         $W()
           ..dto(this)
           ..any(that));
@@ -4339,32 +4339,32 @@ final class ProtobufTypesTimestamp implements GoDto {
 
   /// Go: `func (*types.Timestamp).GetNanos() int32`.
   int getNanos() {
-    final $r = $callSync(7830, $W()..dto(this));
+    final $r = $callSync(7839, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Timestamp).GetSeconds() int64`.
   int getSeconds() {
-    final $r = $callSync(7831, $W()..dto(this));
+    final $r = $callSync(7840, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Timestamp).GoString() string`.
   String goString() {
-    final $r = $callSync(7832, $W()..dto(this));
+    final $r = $callSync(7841, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Timestamp).Marshal() (dAtA []byte, err error)`.
   Uint8List marshal() {
-    final $r = $callSync(7833, $W()..dto(this));
+    final $r = $callSync(7842, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*types.Timestamp).MarshalTo(dAtA []byte) (int, error)`.
   int marshalTo(Uint8List dAtA) {
     final $r = $callSync(
-        7834,
+        7843,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -4374,7 +4374,7 @@ final class ProtobufTypesTimestamp implements GoDto {
   /// Go: `func (*types.Timestamp).MarshalToSizedBuffer(dAtA []byte) (int, error)`.
   int marshalToSizedBuffer(Uint8List dAtA) {
     final $r = $callSync(
-        7835,
+        7844,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -4383,36 +4383,36 @@ final class ProtobufTypesTimestamp implements GoDto {
 
   /// Go: `func (*types.Timestamp).ProtoMessage()`.
   void protoMessage() {
-    $callSync(7836, $W()..dto(this));
+    $callSync(7845, $W()..dto(this));
   }
 
   /// Go: `func (*types.Timestamp).ProtoSize() (n int)`.
   int protoSize() {
-    final $r = $callSync(7837, $W()..dto(this));
+    final $r = $callSync(7846, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Timestamp).Reset()`.
   void reset() {
-    $callSync(7838, $W()..dto(this));
+    $callSync(7847, $W()..dto(this));
   }
 
   /// Go: `func (*types.Timestamp).Size() (n int)`.
   int size() {
-    final $r = $callSync(7839, $W()..dto(this));
+    final $r = $callSync(7848, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Timestamp).String() string`.
   String string() {
-    final $r = $callSync(7840, $W()..dto(this));
+    final $r = $callSync(7849, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Timestamp).Unmarshal(dAtA []byte) error`.
   void unmarshal(Uint8List dAtA) {
     $callSync(
-        7841,
+        7850,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -4420,13 +4420,13 @@ final class ProtobufTypesTimestamp implements GoDto {
 
   /// Go: `func (*types.Timestamp).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(7842, $W()..dto(this));
+    $callSync(7851, $W()..dto(this));
   }
 
   /// Go: `func (*types.Timestamp).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        7843,
+        7852,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -4437,7 +4437,7 @@ final class ProtobufTypesTimestamp implements GoDto {
   /// Go: `func (*types.Timestamp).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        7844,
+        7853,
         $W()
           ..dto(this)
           ..h(src));
@@ -4445,20 +4445,20 @@ final class ProtobufTypesTimestamp implements GoDto {
 
   /// Go: `func (*types.Timestamp).XXX_MessageName() string`.
   String xxxMessageName() {
-    final $r = $callSync(7845, $W()..dto(this));
+    final $r = $callSync(7854, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Timestamp).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(7846, $W()..dto(this));
+    final $r = $callSync(7855, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Timestamp).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        7847,
+        7856,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -4466,7 +4466,7 @@ final class ProtobufTypesTimestamp implements GoDto {
 
   /// Go: `func (*types.Timestamp).XXX_WellKnownType() string`.
   String xxxWellKnownType() {
-    final $r = $callSync(7848, $W()..dto(this));
+    final $r = $callSync(7857, $W()..dto(this));
     return $r.str();
   }
 }
@@ -4543,7 +4543,7 @@ final class ProtobufTypesType implements GoDto {
   /// Go: `func (*types.Type).Compare(that interface{}) int`.
   int compare(Object? that) {
     final $r = $callSync(
-        7853,
+        7862,
         $W()
           ..dto(this)
           ..any(that));
@@ -4552,14 +4552,14 @@ final class ProtobufTypesType implements GoDto {
 
   /// Go: `func (*types.Type).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(7854, $W()..dto(this));
+    final $r = $callSync(7863, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*types.Type).Equal(that interface{}) bool`.
   bool equal(Object? that) {
     final $r = $callSync(
-        7855,
+        7864,
         $W()
           ..dto(this)
           ..any(that));
@@ -4568,56 +4568,56 @@ final class ProtobufTypesType implements GoDto {
 
   /// Go: `func (*types.Type).GetFields() []*types.Field`.
   List<ProtobufTypesField> getFields() {
-    final $r = $callSync(7856, $W()..dto(this));
+    final $r = $callSync(7865, $W()..dto(this));
     return $r.list(() => $r.p() ? ProtobufTypesField.$dec($r) : $nil());
   }
 
   /// Go: `func (*types.Type).GetName() string`.
   String getName() {
-    final $r = $callSync(7857, $W()..dto(this));
+    final $r = $callSync(7866, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Type).GetOneofs() []string`.
   List<String> getOneofs() {
-    final $r = $callSync(7858, $W()..dto(this));
+    final $r = $callSync(7867, $W()..dto(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (*types.Type).GetOptions() []*types.Option`.
   List<ProtobufTypesOption> getOptions() {
-    final $r = $callSync(7859, $W()..dto(this));
+    final $r = $callSync(7868, $W()..dto(this));
     return $r.list(() => $r.p() ? ProtobufTypesOption.$dec($r) : $nil());
   }
 
   /// Go: `func (*types.Type).GetSourceContext() *types.SourceContext`.
   ProtobufTypesSourceContext getSourceContext() {
-    final $r = $callSync(7860, $W()..dto(this));
+    final $r = $callSync(7869, $W()..dto(this));
     return $r.p() ? ProtobufTypesSourceContext.$dec($r) : $nil();
   }
 
   /// Go: `func (*types.Type).GetSyntax() types.Syntax`.
   int getSyntax() {
-    final $r = $callSync(7861, $W()..dto(this));
+    final $r = $callSync(7870, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Type).GoString() string`.
   String goString() {
-    final $r = $callSync(7862, $W()..dto(this));
+    final $r = $callSync(7871, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Type).Marshal() (dAtA []byte, err error)`.
   Uint8List marshal() {
-    final $r = $callSync(7863, $W()..dto(this));
+    final $r = $callSync(7872, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*types.Type).MarshalTo(dAtA []byte) (int, error)`.
   int marshalTo(Uint8List dAtA) {
     final $r = $callSync(
-        7864,
+        7873,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -4627,7 +4627,7 @@ final class ProtobufTypesType implements GoDto {
   /// Go: `func (*types.Type).MarshalToSizedBuffer(dAtA []byte) (int, error)`.
   int marshalToSizedBuffer(Uint8List dAtA) {
     final $r = $callSync(
-        7865,
+        7874,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -4636,36 +4636,36 @@ final class ProtobufTypesType implements GoDto {
 
   /// Go: `func (*types.Type).ProtoMessage()`.
   void protoMessage() {
-    $callSync(7866, $W()..dto(this));
+    $callSync(7875, $W()..dto(this));
   }
 
   /// Go: `func (*types.Type).ProtoSize() (n int)`.
   int protoSize() {
-    final $r = $callSync(7867, $W()..dto(this));
+    final $r = $callSync(7876, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Type).Reset()`.
   void reset() {
-    $callSync(7868, $W()..dto(this));
+    $callSync(7877, $W()..dto(this));
   }
 
   /// Go: `func (*types.Type).Size() (n int)`.
   int size() {
-    final $r = $callSync(7869, $W()..dto(this));
+    final $r = $callSync(7878, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Type).String() string`.
   String string() {
-    final $r = $callSync(7870, $W()..dto(this));
+    final $r = $callSync(7879, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Type).Unmarshal(dAtA []byte) error`.
   void unmarshal(Uint8List dAtA) {
     $callSync(
-        7871,
+        7880,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -4673,13 +4673,13 @@ final class ProtobufTypesType implements GoDto {
 
   /// Go: `func (*types.Type).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(7872, $W()..dto(this));
+    $callSync(7881, $W()..dto(this));
   }
 
   /// Go: `func (*types.Type).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        7873,
+        7882,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -4690,7 +4690,7 @@ final class ProtobufTypesType implements GoDto {
   /// Go: `func (*types.Type).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        7874,
+        7883,
         $W()
           ..dto(this)
           ..h(src));
@@ -4698,20 +4698,20 @@ final class ProtobufTypesType implements GoDto {
 
   /// Go: `func (*types.Type).XXX_MessageName() string`.
   String xxxMessageName() {
-    final $r = $callSync(7875, $W()..dto(this));
+    final $r = $callSync(7884, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Type).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(7876, $W()..dto(this));
+    final $r = $callSync(7885, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Type).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        7877,
+        7886,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -4753,7 +4753,7 @@ final class ProtobufTypesUInt32Value implements GoDto {
   /// Go: `func (*types.UInt32Value).Compare(that interface{}) int`.
   int compare(Object? that) {
     final $r = $callSync(
-        7878,
+        7887,
         $W()
           ..dto(this)
           ..any(that));
@@ -4762,14 +4762,14 @@ final class ProtobufTypesUInt32Value implements GoDto {
 
   /// Go: `func (*types.UInt32Value).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(7879, $W()..dto(this));
+    final $r = $callSync(7888, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*types.UInt32Value).Equal(that interface{}) bool`.
   bool equal(Object? that) {
     final $r = $callSync(
-        7880,
+        7889,
         $W()
           ..dto(this)
           ..any(that));
@@ -4778,26 +4778,26 @@ final class ProtobufTypesUInt32Value implements GoDto {
 
   /// Go: `func (*types.UInt32Value).GetValue() uint32`.
   int getValue() {
-    final $r = $callSync(7881, $W()..dto(this));
+    final $r = $callSync(7890, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.UInt32Value).GoString() string`.
   String goString() {
-    final $r = $callSync(7882, $W()..dto(this));
+    final $r = $callSync(7891, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.UInt32Value).Marshal() (dAtA []byte, err error)`.
   Uint8List marshal() {
-    final $r = $callSync(7883, $W()..dto(this));
+    final $r = $callSync(7892, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*types.UInt32Value).MarshalTo(dAtA []byte) (int, error)`.
   int marshalTo(Uint8List dAtA) {
     final $r = $callSync(
-        7884,
+        7893,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -4807,7 +4807,7 @@ final class ProtobufTypesUInt32Value implements GoDto {
   /// Go: `func (*types.UInt32Value).MarshalToSizedBuffer(dAtA []byte) (int, error)`.
   int marshalToSizedBuffer(Uint8List dAtA) {
     final $r = $callSync(
-        7885,
+        7894,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -4816,36 +4816,36 @@ final class ProtobufTypesUInt32Value implements GoDto {
 
   /// Go: `func (*types.UInt32Value).ProtoMessage()`.
   void protoMessage() {
-    $callSync(7886, $W()..dto(this));
+    $callSync(7895, $W()..dto(this));
   }
 
   /// Go: `func (*types.UInt32Value).ProtoSize() (n int)`.
   int protoSize() {
-    final $r = $callSync(7887, $W()..dto(this));
+    final $r = $callSync(7896, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.UInt32Value).Reset()`.
   void reset() {
-    $callSync(7888, $W()..dto(this));
+    $callSync(7897, $W()..dto(this));
   }
 
   /// Go: `func (*types.UInt32Value).Size() (n int)`.
   int size() {
-    final $r = $callSync(7889, $W()..dto(this));
+    final $r = $callSync(7898, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.UInt32Value).String() string`.
   String string() {
-    final $r = $callSync(7890, $W()..dto(this));
+    final $r = $callSync(7899, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.UInt32Value).Unmarshal(dAtA []byte) error`.
   void unmarshal(Uint8List dAtA) {
     $callSync(
-        7891,
+        7900,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -4853,13 +4853,13 @@ final class ProtobufTypesUInt32Value implements GoDto {
 
   /// Go: `func (*types.UInt32Value).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(7892, $W()..dto(this));
+    $callSync(7901, $W()..dto(this));
   }
 
   /// Go: `func (*types.UInt32Value).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        7893,
+        7902,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -4870,7 +4870,7 @@ final class ProtobufTypesUInt32Value implements GoDto {
   /// Go: `func (*types.UInt32Value).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        7894,
+        7903,
         $W()
           ..dto(this)
           ..h(src));
@@ -4878,20 +4878,20 @@ final class ProtobufTypesUInt32Value implements GoDto {
 
   /// Go: `func (*types.UInt32Value).XXX_MessageName() string`.
   String xxxMessageName() {
-    final $r = $callSync(7895, $W()..dto(this));
+    final $r = $callSync(7904, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.UInt32Value).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(7896, $W()..dto(this));
+    final $r = $callSync(7905, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.UInt32Value).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        7897,
+        7906,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -4899,7 +4899,7 @@ final class ProtobufTypesUInt32Value implements GoDto {
 
   /// Go: `func (*types.UInt32Value).XXX_WellKnownType() string`.
   String xxxWellKnownType() {
-    final $r = $callSync(7898, $W()..dto(this));
+    final $r = $callSync(7907, $W()..dto(this));
     return $r.str();
   }
 }
@@ -4942,7 +4942,7 @@ final class ProtobufTypesUInt64Value implements GoDto {
   /// Go: `func (*types.UInt64Value).Compare(that interface{}) int`.
   int compare(Object? that) {
     final $r = $callSync(
-        7899,
+        7908,
         $W()
           ..dto(this)
           ..any(that));
@@ -4951,14 +4951,14 @@ final class ProtobufTypesUInt64Value implements GoDto {
 
   /// Go: `func (*types.UInt64Value).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(7900, $W()..dto(this));
+    final $r = $callSync(7909, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*types.UInt64Value).Equal(that interface{}) bool`.
   bool equal(Object? that) {
     final $r = $callSync(
-        7901,
+        7910,
         $W()
           ..dto(this)
           ..any(that));
@@ -4967,26 +4967,26 @@ final class ProtobufTypesUInt64Value implements GoDto {
 
   /// Go: `func (*types.UInt64Value).GetValue() uint64`.
   int getValue() {
-    final $r = $callSync(7902, $W()..dto(this));
+    final $r = $callSync(7911, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.UInt64Value).GoString() string`.
   String goString() {
-    final $r = $callSync(7903, $W()..dto(this));
+    final $r = $callSync(7912, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.UInt64Value).Marshal() (dAtA []byte, err error)`.
   Uint8List marshal() {
-    final $r = $callSync(7904, $W()..dto(this));
+    final $r = $callSync(7913, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*types.UInt64Value).MarshalTo(dAtA []byte) (int, error)`.
   int marshalTo(Uint8List dAtA) {
     final $r = $callSync(
-        7905,
+        7914,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -4996,7 +4996,7 @@ final class ProtobufTypesUInt64Value implements GoDto {
   /// Go: `func (*types.UInt64Value).MarshalToSizedBuffer(dAtA []byte) (int, error)`.
   int marshalToSizedBuffer(Uint8List dAtA) {
     final $r = $callSync(
-        7906,
+        7915,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -5005,36 +5005,36 @@ final class ProtobufTypesUInt64Value implements GoDto {
 
   /// Go: `func (*types.UInt64Value).ProtoMessage()`.
   void protoMessage() {
-    $callSync(7907, $W()..dto(this));
+    $callSync(7916, $W()..dto(this));
   }
 
   /// Go: `func (*types.UInt64Value).ProtoSize() (n int)`.
   int protoSize() {
-    final $r = $callSync(7908, $W()..dto(this));
+    final $r = $callSync(7917, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.UInt64Value).Reset()`.
   void reset() {
-    $callSync(7909, $W()..dto(this));
+    $callSync(7918, $W()..dto(this));
   }
 
   /// Go: `func (*types.UInt64Value).Size() (n int)`.
   int size() {
-    final $r = $callSync(7910, $W()..dto(this));
+    final $r = $callSync(7919, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.UInt64Value).String() string`.
   String string() {
-    final $r = $callSync(7911, $W()..dto(this));
+    final $r = $callSync(7920, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.UInt64Value).Unmarshal(dAtA []byte) error`.
   void unmarshal(Uint8List dAtA) {
     $callSync(
-        7912,
+        7921,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -5042,13 +5042,13 @@ final class ProtobufTypesUInt64Value implements GoDto {
 
   /// Go: `func (*types.UInt64Value).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(7913, $W()..dto(this));
+    $callSync(7922, $W()..dto(this));
   }
 
   /// Go: `func (*types.UInt64Value).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        7914,
+        7923,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -5059,7 +5059,7 @@ final class ProtobufTypesUInt64Value implements GoDto {
   /// Go: `func (*types.UInt64Value).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        7915,
+        7924,
         $W()
           ..dto(this)
           ..h(src));
@@ -5067,20 +5067,20 @@ final class ProtobufTypesUInt64Value implements GoDto {
 
   /// Go: `func (*types.UInt64Value).XXX_MessageName() string`.
   String xxxMessageName() {
-    final $r = $callSync(7916, $W()..dto(this));
+    final $r = $callSync(7925, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.UInt64Value).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(7917, $W()..dto(this));
+    final $r = $callSync(7926, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.UInt64Value).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        7918,
+        7927,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -5088,7 +5088,7 @@ final class ProtobufTypesUInt64Value implements GoDto {
 
   /// Go: `func (*types.UInt64Value).XXX_WellKnownType() string`.
   String xxxWellKnownType() {
-    final $r = $callSync(7919, $W()..dto(this));
+    final $r = $callSync(7928, $W()..dto(this));
     return $r.str();
   }
 }
@@ -5121,7 +5121,7 @@ final class ProtobufTypesValue implements GoDto {
   /// Go: `func (*types.Value).Compare(that interface{}) int`.
   int compare(Object? that) {
     final $r = $callSync(
-        7921,
+        7930,
         $W()
           ..dto(this)
           ..any(that));
@@ -5130,14 +5130,14 @@ final class ProtobufTypesValue implements GoDto {
 
   /// Go: `func (*types.Value).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(7922, $W()..dto(this));
+    final $r = $callSync(7931, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*types.Value).Equal(that interface{}) bool`.
   bool equal(Object? that) {
     final $r = $callSync(
-        7923,
+        7932,
         $W()
           ..dto(this)
           ..any(that));
@@ -5146,56 +5146,56 @@ final class ProtobufTypesValue implements GoDto {
 
   /// Go: `func (*types.Value).GetBoolValue() bool`.
   bool getBoolValue() {
-    final $r = $callSync(7924, $W()..dto(this));
+    final $r = $callSync(7933, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*types.Value).GetListValue() *types.ListValue`.
   ProtobufTypesListValue getListValue() {
-    final $r = $callSync(7925, $W()..dto(this));
+    final $r = $callSync(7934, $W()..dto(this));
     return $r.p() ? ProtobufTypesListValue.$dec($r) : $nil();
   }
 
   /// Go: `func (*types.Value).GetNullValue() types.NullValue`.
   int getNullValue() {
-    final $r = $callSync(7926, $W()..dto(this));
+    final $r = $callSync(7935, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Value).GetNumberValue() float64`.
   double getNumberValue() {
-    final $r = $callSync(7927, $W()..dto(this));
+    final $r = $callSync(7936, $W()..dto(this));
     return $r.f64();
   }
 
   /// Go: `func (*types.Value).GetStringValue() string`.
   String getStringValue() {
-    final $r = $callSync(7928, $W()..dto(this));
+    final $r = $callSync(7937, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Value).GetStructValue() *types.Struct`.
   ProtobufTypesStruct getStructValue() {
-    final $r = $callSync(7929, $W()..dto(this));
+    final $r = $callSync(7938, $W()..dto(this));
     return $r.p() ? ProtobufTypesStruct.$dec($r) : $nil();
   }
 
   /// Go: `func (*types.Value).GoString() string`.
   String goString() {
-    final $r = $callSync(7930, $W()..dto(this));
+    final $r = $callSync(7939, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Value).Marshal() (dAtA []byte, err error)`.
   Uint8List marshal() {
-    final $r = $callSync(7931, $W()..dto(this));
+    final $r = $callSync(7940, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*types.Value).MarshalTo(dAtA []byte) (int, error)`.
   int marshalTo(Uint8List dAtA) {
     final $r = $callSync(
-        7932,
+        7941,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -5205,7 +5205,7 @@ final class ProtobufTypesValue implements GoDto {
   /// Go: `func (*types.Value).MarshalToSizedBuffer(dAtA []byte) (int, error)`.
   int marshalToSizedBuffer(Uint8List dAtA) {
     final $r = $callSync(
-        7933,
+        7942,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -5214,36 +5214,36 @@ final class ProtobufTypesValue implements GoDto {
 
   /// Go: `func (*types.Value).ProtoMessage()`.
   void protoMessage() {
-    $callSync(7934, $W()..dto(this));
+    $callSync(7943, $W()..dto(this));
   }
 
   /// Go: `func (*types.Value).ProtoSize() (n int)`.
   int protoSize() {
-    final $r = $callSync(7935, $W()..dto(this));
+    final $r = $callSync(7944, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Value).Reset()`.
   void reset() {
-    $callSync(7936, $W()..dto(this));
+    $callSync(7945, $W()..dto(this));
   }
 
   /// Go: `func (*types.Value).Size() (n int)`.
   int size() {
-    final $r = $callSync(7937, $W()..dto(this));
+    final $r = $callSync(7946, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Value).String() string`.
   String string() {
-    final $r = $callSync(7938, $W()..dto(this));
+    final $r = $callSync(7947, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Value).Unmarshal(dAtA []byte) error`.
   void unmarshal(Uint8List dAtA) {
     $callSync(
-        7939,
+        7948,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -5251,13 +5251,13 @@ final class ProtobufTypesValue implements GoDto {
 
   /// Go: `func (*types.Value).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(7940, $W()..dto(this));
+    $callSync(7949, $W()..dto(this));
   }
 
   /// Go: `func (*types.Value).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        7941,
+        7950,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -5268,7 +5268,7 @@ final class ProtobufTypesValue implements GoDto {
   /// Go: `func (*types.Value).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        7942,
+        7951,
         $W()
           ..dto(this)
           ..h(src));
@@ -5276,26 +5276,26 @@ final class ProtobufTypesValue implements GoDto {
 
   /// Go: `func (*types.Value).XXX_MessageName() string`.
   String xxxMessageName() {
-    final $r = $callSync(7943, $W()..dto(this));
+    final $r = $callSync(7952, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Value).XXX_OneofWrappers() []interface{}`.
   List<Object?> xxxOneofWrappers() {
-    final $r = $callSync(7944, $W()..dto(this));
+    final $r = $callSync(7953, $W()..dto(this));
     return $r.list(() => $r.any());
   }
 
   /// Go: `func (*types.Value).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(7945, $W()..dto(this));
+    final $r = $callSync(7954, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Value).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        7946,
+        7955,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -5303,7 +5303,7 @@ final class ProtobufTypesValue implements GoDto {
 
   /// Go: `func (*types.Value).XXX_WellKnownType() string`.
   String xxxWellKnownType() {
-    final $r = $callSync(7947, $W()..dto(this));
+    final $r = $callSync(7956, $W()..dto(this));
     return $r.str();
   }
 }
@@ -5326,7 +5326,7 @@ final class ProtobufTypesValueBoolValue implements GoDto {
   /// Go: `func (*types.Value_BoolValue).Compare(that interface{}) int`.
   int compare(Object? that) {
     final $r = $callSync(
-        7948,
+        7957,
         $W()
           ..dto(this)
           ..any(that));
@@ -5336,7 +5336,7 @@ final class ProtobufTypesValueBoolValue implements GoDto {
   /// Go: `func (*types.Value_BoolValue).Equal(that interface{}) bool`.
   bool equal(Object? that) {
     final $r = $callSync(
-        7949,
+        7958,
         $W()
           ..dto(this)
           ..any(that));
@@ -5345,14 +5345,14 @@ final class ProtobufTypesValueBoolValue implements GoDto {
 
   /// Go: `func (*types.Value_BoolValue).GoString() string`.
   String goString() {
-    final $r = $callSync(7950, $W()..dto(this));
+    final $r = $callSync(7959, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Value_BoolValue).MarshalTo(dAtA []byte) (int, error)`.
   int marshalTo(Uint8List dAtA) {
     final $r = $callSync(
-        7951,
+        7960,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -5362,7 +5362,7 @@ final class ProtobufTypesValueBoolValue implements GoDto {
   /// Go: `func (*types.Value_BoolValue).MarshalToSizedBuffer(dAtA []byte) (int, error)`.
   int marshalToSizedBuffer(Uint8List dAtA) {
     final $r = $callSync(
-        7952,
+        7961,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -5371,19 +5371,19 @@ final class ProtobufTypesValueBoolValue implements GoDto {
 
   /// Go: `func (*types.Value_BoolValue).ProtoSize() (n int)`.
   int protoSize() {
-    final $r = $callSync(7953, $W()..dto(this));
+    final $r = $callSync(7962, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Value_BoolValue).Size() (n int)`.
   int size() {
-    final $r = $callSync(7954, $W()..dto(this));
+    final $r = $callSync(7963, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Value_BoolValue).String() string`.
   String string() {
-    final $r = $callSync(7955, $W()..dto(this));
+    final $r = $callSync(7964, $W()..dto(this));
     return $r.str();
   }
 }
@@ -5407,7 +5407,7 @@ final class ProtobufTypesValueListValue implements GoDto {
   /// Go: `func (*types.Value_ListValue).Compare(that interface{}) int`.
   int compare(Object? that) {
     final $r = $callSync(
-        7956,
+        7965,
         $W()
           ..dto(this)
           ..any(that));
@@ -5417,7 +5417,7 @@ final class ProtobufTypesValueListValue implements GoDto {
   /// Go: `func (*types.Value_ListValue).Equal(that interface{}) bool`.
   bool equal(Object? that) {
     final $r = $callSync(
-        7957,
+        7966,
         $W()
           ..dto(this)
           ..any(that));
@@ -5426,14 +5426,14 @@ final class ProtobufTypesValueListValue implements GoDto {
 
   /// Go: `func (*types.Value_ListValue).GoString() string`.
   String goString() {
-    final $r = $callSync(7958, $W()..dto(this));
+    final $r = $callSync(7967, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Value_ListValue).MarshalTo(dAtA []byte) (int, error)`.
   int marshalTo(Uint8List dAtA) {
     final $r = $callSync(
-        7959,
+        7968,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -5443,7 +5443,7 @@ final class ProtobufTypesValueListValue implements GoDto {
   /// Go: `func (*types.Value_ListValue).MarshalToSizedBuffer(dAtA []byte) (int, error)`.
   int marshalToSizedBuffer(Uint8List dAtA) {
     final $r = $callSync(
-        7960,
+        7969,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -5452,19 +5452,19 @@ final class ProtobufTypesValueListValue implements GoDto {
 
   /// Go: `func (*types.Value_ListValue).ProtoSize() (n int)`.
   int protoSize() {
-    final $r = $callSync(7961, $W()..dto(this));
+    final $r = $callSync(7970, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Value_ListValue).Size() (n int)`.
   int size() {
-    final $r = $callSync(7962, $W()..dto(this));
+    final $r = $callSync(7971, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Value_ListValue).String() string`.
   String string() {
-    final $r = $callSync(7963, $W()..dto(this));
+    final $r = $callSync(7972, $W()..dto(this));
     return $r.str();
   }
 }
@@ -5486,7 +5486,7 @@ final class ProtobufTypesValueNullValue implements GoDto {
   /// Go: `func (*types.Value_NullValue).Compare(that interface{}) int`.
   int compare(Object? that) {
     final $r = $callSync(
-        7964,
+        7973,
         $W()
           ..dto(this)
           ..any(that));
@@ -5496,7 +5496,7 @@ final class ProtobufTypesValueNullValue implements GoDto {
   /// Go: `func (*types.Value_NullValue).Equal(that interface{}) bool`.
   bool equal(Object? that) {
     final $r = $callSync(
-        7965,
+        7974,
         $W()
           ..dto(this)
           ..any(that));
@@ -5505,14 +5505,14 @@ final class ProtobufTypesValueNullValue implements GoDto {
 
   /// Go: `func (*types.Value_NullValue).GoString() string`.
   String goString() {
-    final $r = $callSync(7966, $W()..dto(this));
+    final $r = $callSync(7975, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Value_NullValue).MarshalTo(dAtA []byte) (int, error)`.
   int marshalTo(Uint8List dAtA) {
     final $r = $callSync(
-        7967,
+        7976,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -5522,7 +5522,7 @@ final class ProtobufTypesValueNullValue implements GoDto {
   /// Go: `func (*types.Value_NullValue).MarshalToSizedBuffer(dAtA []byte) (int, error)`.
   int marshalToSizedBuffer(Uint8List dAtA) {
     final $r = $callSync(
-        7968,
+        7977,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -5531,19 +5531,19 @@ final class ProtobufTypesValueNullValue implements GoDto {
 
   /// Go: `func (*types.Value_NullValue).ProtoSize() (n int)`.
   int protoSize() {
-    final $r = $callSync(7969, $W()..dto(this));
+    final $r = $callSync(7978, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Value_NullValue).Size() (n int)`.
   int size() {
-    final $r = $callSync(7970, $W()..dto(this));
+    final $r = $callSync(7979, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Value_NullValue).String() string`.
   String string() {
-    final $r = $callSync(7971, $W()..dto(this));
+    final $r = $callSync(7980, $W()..dto(this));
     return $r.str();
   }
 }
@@ -5566,7 +5566,7 @@ final class ProtobufTypesValueNumberValue implements GoDto {
   /// Go: `func (*types.Value_NumberValue).Compare(that interface{}) int`.
   int compare(Object? that) {
     final $r = $callSync(
-        7972,
+        7981,
         $W()
           ..dto(this)
           ..any(that));
@@ -5576,7 +5576,7 @@ final class ProtobufTypesValueNumberValue implements GoDto {
   /// Go: `func (*types.Value_NumberValue).Equal(that interface{}) bool`.
   bool equal(Object? that) {
     final $r = $callSync(
-        7973,
+        7982,
         $W()
           ..dto(this)
           ..any(that));
@@ -5585,14 +5585,14 @@ final class ProtobufTypesValueNumberValue implements GoDto {
 
   /// Go: `func (*types.Value_NumberValue).GoString() string`.
   String goString() {
-    final $r = $callSync(7974, $W()..dto(this));
+    final $r = $callSync(7983, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Value_NumberValue).MarshalTo(dAtA []byte) (int, error)`.
   int marshalTo(Uint8List dAtA) {
     final $r = $callSync(
-        7975,
+        7984,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -5602,7 +5602,7 @@ final class ProtobufTypesValueNumberValue implements GoDto {
   /// Go: `func (*types.Value_NumberValue).MarshalToSizedBuffer(dAtA []byte) (int, error)`.
   int marshalToSizedBuffer(Uint8List dAtA) {
     final $r = $callSync(
-        7976,
+        7985,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -5611,19 +5611,19 @@ final class ProtobufTypesValueNumberValue implements GoDto {
 
   /// Go: `func (*types.Value_NumberValue).ProtoSize() (n int)`.
   int protoSize() {
-    final $r = $callSync(7977, $W()..dto(this));
+    final $r = $callSync(7986, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Value_NumberValue).Size() (n int)`.
   int size() {
-    final $r = $callSync(7978, $W()..dto(this));
+    final $r = $callSync(7987, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Value_NumberValue).String() string`.
   String string() {
-    final $r = $callSync(7979, $W()..dto(this));
+    final $r = $callSync(7988, $W()..dto(this));
     return $r.str();
   }
 }
@@ -5646,7 +5646,7 @@ final class ProtobufTypesValueStringValue implements GoDto {
   /// Go: `func (*types.Value_StringValue).Compare(that interface{}) int`.
   int compare(Object? that) {
     final $r = $callSync(
-        7980,
+        7989,
         $W()
           ..dto(this)
           ..any(that));
@@ -5656,7 +5656,7 @@ final class ProtobufTypesValueStringValue implements GoDto {
   /// Go: `func (*types.Value_StringValue).Equal(that interface{}) bool`.
   bool equal(Object? that) {
     final $r = $callSync(
-        7981,
+        7990,
         $W()
           ..dto(this)
           ..any(that));
@@ -5665,14 +5665,14 @@ final class ProtobufTypesValueStringValue implements GoDto {
 
   /// Go: `func (*types.Value_StringValue).GoString() string`.
   String goString() {
-    final $r = $callSync(7982, $W()..dto(this));
+    final $r = $callSync(7991, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Value_StringValue).MarshalTo(dAtA []byte) (int, error)`.
   int marshalTo(Uint8List dAtA) {
     final $r = $callSync(
-        7983,
+        7992,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -5682,7 +5682,7 @@ final class ProtobufTypesValueStringValue implements GoDto {
   /// Go: `func (*types.Value_StringValue).MarshalToSizedBuffer(dAtA []byte) (int, error)`.
   int marshalToSizedBuffer(Uint8List dAtA) {
     final $r = $callSync(
-        7984,
+        7993,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -5691,19 +5691,19 @@ final class ProtobufTypesValueStringValue implements GoDto {
 
   /// Go: `func (*types.Value_StringValue).ProtoSize() (n int)`.
   int protoSize() {
-    final $r = $callSync(7985, $W()..dto(this));
+    final $r = $callSync(7994, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Value_StringValue).Size() (n int)`.
   int size() {
-    final $r = $callSync(7986, $W()..dto(this));
+    final $r = $callSync(7995, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Value_StringValue).String() string`.
   String string() {
-    final $r = $callSync(7987, $W()..dto(this));
+    final $r = $callSync(7996, $W()..dto(this));
     return $r.str();
   }
 }
@@ -5727,7 +5727,7 @@ final class ProtobufTypesValueStructValue implements GoDto {
   /// Go: `func (*types.Value_StructValue).Compare(that interface{}) int`.
   int compare(Object? that) {
     final $r = $callSync(
-        7988,
+        7997,
         $W()
           ..dto(this)
           ..any(that));
@@ -5737,7 +5737,7 @@ final class ProtobufTypesValueStructValue implements GoDto {
   /// Go: `func (*types.Value_StructValue).Equal(that interface{}) bool`.
   bool equal(Object? that) {
     final $r = $callSync(
-        7989,
+        7998,
         $W()
           ..dto(this)
           ..any(that));
@@ -5746,14 +5746,14 @@ final class ProtobufTypesValueStructValue implements GoDto {
 
   /// Go: `func (*types.Value_StructValue).GoString() string`.
   String goString() {
-    final $r = $callSync(7990, $W()..dto(this));
+    final $r = $callSync(7999, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*types.Value_StructValue).MarshalTo(dAtA []byte) (int, error)`.
   int marshalTo(Uint8List dAtA) {
     final $r = $callSync(
-        7991,
+        8000,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -5763,7 +5763,7 @@ final class ProtobufTypesValueStructValue implements GoDto {
   /// Go: `func (*types.Value_StructValue).MarshalToSizedBuffer(dAtA []byte) (int, error)`.
   int marshalToSizedBuffer(Uint8List dAtA) {
     final $r = $callSync(
-        7992,
+        8001,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -5772,19 +5772,19 @@ final class ProtobufTypesValueStructValue implements GoDto {
 
   /// Go: `func (*types.Value_StructValue).ProtoSize() (n int)`.
   int protoSize() {
-    final $r = $callSync(7993, $W()..dto(this));
+    final $r = $callSync(8002, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Value_StructValue).Size() (n int)`.
   int size() {
-    final $r = $callSync(7994, $W()..dto(this));
+    final $r = $callSync(8003, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*types.Value_StructValue).String() string`.
   String string() {
-    final $r = $callSync(7995, $W()..dto(this));
+    final $r = $callSync(8004, $W()..dto(this));
     return $r.str();
   }
 }
@@ -6065,56 +6065,56 @@ class ProtobufTypesErrUnexpectedEndOfGroupWrappers extends GolangException {
 extension GoGogoProtobufTypesApi on GoGogoProtobufTypes {
   /// Go: `func types.AnyMessageName(any *types.Any) (string, error)`.
   String anyMessageName(ProtobufTypesAny any) {
-    final $r = $callSync(7331, $W()..dto(any));
+    final $r = $callSync(7340, $W()..dto(any));
     return $r.str();
   }
 
   /// Go: `func types.DurationFromProto(p *types.Duration) (time.Duration, error)`.
   Duration durationFromProto(ProtobufTypesDuration p) {
-    final $r = $callSync(7443, $W()..dto(p));
+    final $r = $callSync(7452, $W()..dto(p));
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `func types.DurationProto(d time.Duration) *types.Duration`.
   ProtobufTypesDuration durationProto(Duration d) {
-    final $r = $callSync(7444, $W()..i64((d).inMicroseconds * 1000));
+    final $r = $callSync(7453, $W()..i64((d).inMicroseconds * 1000));
     return $r.p() ? ProtobufTypesDuration.$dec($r) : $nil();
   }
 
   /// Go: `func types.EmptyAny(any *types.Any) (proto.Message, error)`.
   $proto.ProtobufProtoMessage emptyAny(ProtobufTypesAny any) {
-    final $r = $callSync(7465, $W()..dto(any));
+    final $r = $callSync(7474, $W()..dto(any));
     return $r.hnn($proto.ProtobufProtoMessage.$h);
   }
 
   /// Go: `var types.Field_Cardinality_name map[int32]string`.
   Map<int, String> get fieldCardinalityName {
-    final $r = $callSync(7561);
+    final $r = $callSync(7570);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var types.Field_Cardinality_value map[string]int32`.
   Map<String, int> get fieldCardinalityValue {
-    final $r = $callSync(7562);
+    final $r = $callSync(7571);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `var types.Field_Kind_name map[int32]string`.
   Map<int, String> get fieldKindName {
-    final $r = $callSync(7563);
+    final $r = $callSync(7572);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var types.Field_Kind_value map[string]int32`.
   Map<String, int> get fieldKindValue {
-    final $r = $callSync(7564);
+    final $r = $callSync(7573);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `func types.Is(any *types.Any, pb proto.Message) bool`.
   bool is$(ProtobufTypesAny any, $proto.ProtobufProtoMessage pb) {
     final $r = $callSync(
-        7628,
+        7637,
         $W()
           ..dto(any)
           ..h(pb));
@@ -6123,98 +6123,98 @@ extension GoGogoProtobufTypesApi on GoGogoProtobufTypes {
 
   /// Go: `func types.MarshalAny(pb proto.Message) (*types.Any, error)`.
   ProtobufTypesAny marshalAny($proto.ProtobufProtoMessage pb) {
-    final $r = $callSync(7650, $W()..h(pb));
+    final $r = $callSync(7659, $W()..h(pb));
     return $r.p() ? ProtobufTypesAny.$dec($r) : $nil();
   }
 
   /// Go: `var types.NullValue_name map[int32]string`.
   Map<int, String> get nullValueName {
-    final $r = $callSync(7698);
+    final $r = $callSync(7707);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var types.NullValue_value map[string]int32`.
   Map<String, int> get nullValueValue {
-    final $r = $callSync(7699);
+    final $r = $callSync(7708);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `func types.SizeOfStdBool(v bool) int`.
   int sizeOfStdBool(bool v) {
-    final $r = $callSync(7721, $W()..b(v));
+    final $r = $callSync(7730, $W()..b(v));
     return $r.i64();
   }
 
   /// Go: `func types.SizeOfStdBytes(v []byte) int`.
   int sizeOfStdBytes(Uint8List v) {
-    final $r = $callSync(7722, $W()..bytes(v));
+    final $r = $callSync(7731, $W()..bytes(v));
     return $r.i64();
   }
 
   /// Go: `func types.SizeOfStdDouble(v float64) int`.
   int sizeOfStdDouble(double v) {
-    final $r = $callSync(7723, $W()..f64(v));
+    final $r = $callSync(7732, $W()..f64(v));
     return $r.i64();
   }
 
   /// Go: `func types.SizeOfStdDuration(d time.Duration) int`.
   int sizeOfStdDuration(Duration d) {
-    final $r = $callSync(7724, $W()..i64((d).inMicroseconds * 1000));
+    final $r = $callSync(7733, $W()..i64((d).inMicroseconds * 1000));
     return $r.i64();
   }
 
   /// Go: `func types.SizeOfStdFloat(v float32) int`.
   int sizeOfStdFloat(double v) {
-    final $r = $callSync(7725, $W()..f64(v));
+    final $r = $callSync(7734, $W()..f64(v));
     return $r.i64();
   }
 
   /// Go: `func types.SizeOfStdInt32(v int32) int`.
   int sizeOfStdInt32(int v) {
-    final $r = $callSync(7726, $W()..i64(v));
+    final $r = $callSync(7735, $W()..i64(v));
     return $r.i64();
   }
 
   /// Go: `func types.SizeOfStdInt64(v int64) int`.
   int sizeOfStdInt64(int v) {
-    final $r = $callSync(7727, $W()..i64(v));
+    final $r = $callSync(7736, $W()..i64(v));
     return $r.i64();
   }
 
   /// Go: `func types.SizeOfStdString(v string) int`.
   int sizeOfStdString(String v) {
-    final $r = $callSync(7728, $W()..str(v));
+    final $r = $callSync(7737, $W()..str(v));
     return $r.i64();
   }
 
   /// Go: `func types.SizeOfStdTime(t time.Time) int`.
   int sizeOfStdTime(DateTime t) {
-    final $r = $callSync(7729, $W()..time(t));
+    final $r = $callSync(7738, $W()..time(t));
     return $r.i64();
   }
 
   /// Go: `func types.SizeOfStdUInt32(v uint32) int`.
   int sizeOfStdUInt32(int v) {
-    final $r = $callSync(7730, $W()..i64(v));
+    final $r = $callSync(7739, $W()..i64(v));
     return $r.i64();
   }
 
   /// Go: `func types.SizeOfStdUInt64(v uint64) int`.
   int sizeOfStdUInt64(int v) {
-    final $r = $callSync(7731, $W()..i64(v));
+    final $r = $callSync(7740, $W()..i64(v));
     return $r.i64();
   }
 
   /// Go: `func types.StdBoolMarshal(v bool) ([]byte, error)`.
   Uint8List stdBoolMarshal(bool v) {
-    final $r = $callSync(7752, $W()..b(v));
+    final $r = $callSync(7761, $W()..b(v));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func types.StdBoolMarshalTo(v bool, data []byte) (int, error)`.
   int stdBoolMarshalTo(bool v, Uint8List data) {
     final $r = $callSync(
-        7753,
+        7762,
         $W()
           ..b(v)
           ..bytes(data));
@@ -6224,7 +6224,7 @@ extension GoGogoProtobufTypesApi on GoGogoProtobufTypes {
   /// Go: `func types.StdBoolUnmarshal(v *bool, data []byte) error`.
   void stdBoolUnmarshal(bool? v, Uint8List data) {
     $callSync(
-        7754,
+        7763,
         $W()
           ..ptr(v, (w0, v0) => w0.b(v0))
           ..bytes(data));
@@ -6232,14 +6232,14 @@ extension GoGogoProtobufTypesApi on GoGogoProtobufTypes {
 
   /// Go: `func types.StdBytesMarshal(v []byte) ([]byte, error)`.
   Uint8List stdBytesMarshal(Uint8List v) {
-    final $r = $callSync(7755, $W()..bytes(v));
+    final $r = $callSync(7764, $W()..bytes(v));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func types.StdBytesMarshalTo(v []byte, data []byte) (int, error)`.
   int stdBytesMarshalTo(Uint8List v, Uint8List data) {
     final $r = $callSync(
-        7756,
+        7765,
         $W()
           ..bytes(v)
           ..bytes(data));
@@ -6248,14 +6248,14 @@ extension GoGogoProtobufTypesApi on GoGogoProtobufTypes {
 
   /// Go: `func types.StdDoubleMarshal(v float64) ([]byte, error)`.
   Uint8List stdDoubleMarshal(double v) {
-    final $r = $callSync(7757, $W()..f64(v));
+    final $r = $callSync(7766, $W()..f64(v));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func types.StdDoubleMarshalTo(v float64, data []byte) (int, error)`.
   int stdDoubleMarshalTo(double v, Uint8List data) {
     final $r = $callSync(
-        7758,
+        7767,
         $W()
           ..f64(v)
           ..bytes(data));
@@ -6265,7 +6265,7 @@ extension GoGogoProtobufTypesApi on GoGogoProtobufTypes {
   /// Go: `func types.StdDoubleUnmarshal(v *float64, data []byte) error`.
   void stdDoubleUnmarshal(double? v, Uint8List data) {
     $callSync(
-        7759,
+        7768,
         $W()
           ..ptr(v, (w0, v0) => w0.f64(v0))
           ..bytes(data));
@@ -6273,14 +6273,14 @@ extension GoGogoProtobufTypesApi on GoGogoProtobufTypes {
 
   /// Go: `func types.StdDurationMarshal(d time.Duration) ([]byte, error)`.
   Uint8List stdDurationMarshal(Duration d) {
-    final $r = $callSync(7760, $W()..i64((d).inMicroseconds * 1000));
+    final $r = $callSync(7769, $W()..i64((d).inMicroseconds * 1000));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func types.StdDurationMarshalTo(d time.Duration, data []byte) (int, error)`.
   int stdDurationMarshalTo(Duration d, Uint8List data) {
     final $r = $callSync(
-        7761,
+        7770,
         $W()
           ..i64((d).inMicroseconds * 1000)
           ..bytes(data));
@@ -6289,14 +6289,14 @@ extension GoGogoProtobufTypesApi on GoGogoProtobufTypes {
 
   /// Go: `func types.StdFloatMarshal(v float32) ([]byte, error)`.
   Uint8List stdFloatMarshal(double v) {
-    final $r = $callSync(7762, $W()..f64(v));
+    final $r = $callSync(7771, $W()..f64(v));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func types.StdFloatMarshalTo(v float32, data []byte) (int, error)`.
   int stdFloatMarshalTo(double v, Uint8List data) {
     final $r = $callSync(
-        7763,
+        7772,
         $W()
           ..f64(v)
           ..bytes(data));
@@ -6306,7 +6306,7 @@ extension GoGogoProtobufTypesApi on GoGogoProtobufTypes {
   /// Go: `func types.StdFloatUnmarshal(v *float32, data []byte) error`.
   void stdFloatUnmarshal(double? v, Uint8List data) {
     $callSync(
-        7764,
+        7773,
         $W()
           ..ptr(v, (w0, v0) => w0.f64(v0))
           ..bytes(data));
@@ -6314,14 +6314,14 @@ extension GoGogoProtobufTypesApi on GoGogoProtobufTypes {
 
   /// Go: `func types.StdInt32Marshal(v int32) ([]byte, error)`.
   Uint8List stdInt32Marshal(int v) {
-    final $r = $callSync(7765, $W()..i64(v));
+    final $r = $callSync(7774, $W()..i64(v));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func types.StdInt32MarshalTo(v int32, data []byte) (int, error)`.
   int stdInt32MarshalTo(int v, Uint8List data) {
     final $r = $callSync(
-        7766,
+        7775,
         $W()
           ..i64(v)
           ..bytes(data));
@@ -6331,7 +6331,7 @@ extension GoGogoProtobufTypesApi on GoGogoProtobufTypes {
   /// Go: `func types.StdInt32Unmarshal(v *int32, data []byte) error`.
   void stdInt32Unmarshal(int? v, Uint8List data) {
     $callSync(
-        7767,
+        7776,
         $W()
           ..ptr(v, (w0, v0) => w0.i64(v0))
           ..bytes(data));
@@ -6339,14 +6339,14 @@ extension GoGogoProtobufTypesApi on GoGogoProtobufTypes {
 
   /// Go: `func types.StdInt64Marshal(v int64) ([]byte, error)`.
   Uint8List stdInt64Marshal(int v) {
-    final $r = $callSync(7768, $W()..i64(v));
+    final $r = $callSync(7777, $W()..i64(v));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func types.StdInt64MarshalTo(v int64, data []byte) (int, error)`.
   int stdInt64MarshalTo(int v, Uint8List data) {
     final $r = $callSync(
-        7769,
+        7778,
         $W()
           ..i64(v)
           ..bytes(data));
@@ -6356,7 +6356,7 @@ extension GoGogoProtobufTypesApi on GoGogoProtobufTypes {
   /// Go: `func types.StdInt64Unmarshal(v *int64, data []byte) error`.
   void stdInt64Unmarshal(int? v, Uint8List data) {
     $callSync(
-        7770,
+        7779,
         $W()
           ..ptr(v, (w0, v0) => w0.i64(v0))
           ..bytes(data));
@@ -6364,14 +6364,14 @@ extension GoGogoProtobufTypesApi on GoGogoProtobufTypes {
 
   /// Go: `func types.StdStringMarshal(v string) ([]byte, error)`.
   Uint8List stdStringMarshal(String v) {
-    final $r = $callSync(7771, $W()..str(v));
+    final $r = $callSync(7780, $W()..str(v));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func types.StdStringMarshalTo(v string, data []byte) (int, error)`.
   int stdStringMarshalTo(String v, Uint8List data) {
     final $r = $callSync(
-        7772,
+        7781,
         $W()
           ..str(v)
           ..bytes(data));
@@ -6381,7 +6381,7 @@ extension GoGogoProtobufTypesApi on GoGogoProtobufTypes {
   /// Go: `func types.StdStringUnmarshal(v *string, data []byte) error`.
   void stdStringUnmarshal(String? v, Uint8List data) {
     $callSync(
-        7773,
+        7782,
         $W()
           ..ptr(v, (w0, v0) => w0.str(v0))
           ..bytes(data));
@@ -6389,14 +6389,14 @@ extension GoGogoProtobufTypesApi on GoGogoProtobufTypes {
 
   /// Go: `func types.StdTimeMarshal(t time.Time) ([]byte, error)`.
   Uint8List stdTimeMarshal(DateTime t) {
-    final $r = $callSync(7774, $W()..time(t));
+    final $r = $callSync(7783, $W()..time(t));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func types.StdTimeMarshalTo(t time.Time, data []byte) (int, error)`.
   int stdTimeMarshalTo(DateTime t, Uint8List data) {
     final $r = $callSync(
-        7775,
+        7784,
         $W()
           ..time(t)
           ..bytes(data));
@@ -6406,7 +6406,7 @@ extension GoGogoProtobufTypesApi on GoGogoProtobufTypes {
   /// Go: `func types.StdTimeUnmarshal(t *time.Time, data []byte) error`.
   void stdTimeUnmarshal(DateTime t, Uint8List data) {
     $callSync(
-        7776,
+        7785,
         $W()
           ..time(t)
           ..bytes(data));
@@ -6414,14 +6414,14 @@ extension GoGogoProtobufTypesApi on GoGogoProtobufTypes {
 
   /// Go: `func types.StdUInt32Marshal(v uint32) ([]byte, error)`.
   Uint8List stdUInt32Marshal(int v) {
-    final $r = $callSync(7777, $W()..i64(v));
+    final $r = $callSync(7786, $W()..i64(v));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func types.StdUInt32MarshalTo(v uint32, data []byte) (int, error)`.
   int stdUInt32MarshalTo(int v, Uint8List data) {
     final $r = $callSync(
-        7778,
+        7787,
         $W()
           ..i64(v)
           ..bytes(data));
@@ -6431,7 +6431,7 @@ extension GoGogoProtobufTypesApi on GoGogoProtobufTypes {
   /// Go: `func types.StdUInt32Unmarshal(v *uint32, data []byte) error`.
   void stdUInt32Unmarshal(int? v, Uint8List data) {
     $callSync(
-        7779,
+        7788,
         $W()
           ..ptr(v, (w0, v0) => w0.i64(v0))
           ..bytes(data));
@@ -6439,14 +6439,14 @@ extension GoGogoProtobufTypesApi on GoGogoProtobufTypes {
 
   /// Go: `func types.StdUInt64Marshal(v uint64) ([]byte, error)`.
   Uint8List stdUInt64Marshal(int v) {
-    final $r = $callSync(7780, $W()..i64(v));
+    final $r = $callSync(7789, $W()..i64(v));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func types.StdUInt64MarshalTo(v uint64, data []byte) (int, error)`.
   int stdUInt64MarshalTo(int v, Uint8List data) {
     final $r = $callSync(
-        7781,
+        7790,
         $W()
           ..i64(v)
           ..bytes(data));
@@ -6456,7 +6456,7 @@ extension GoGogoProtobufTypesApi on GoGogoProtobufTypes {
   /// Go: `func types.StdUInt64Unmarshal(v *uint64, data []byte) error`.
   void stdUInt64Unmarshal(int? v, Uint8List data) {
     $callSync(
-        7782,
+        7791,
         $W()
           ..ptr(v, (w0, v0) => w0.i64(v0))
           ..bytes(data));
@@ -6464,44 +6464,44 @@ extension GoGogoProtobufTypesApi on GoGogoProtobufTypes {
 
   /// Go: `var types.Syntax_name map[int32]string`.
   Map<int, String> get syntaxName {
-    final $r = $callSync(7825);
+    final $r = $callSync(7834);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var types.Syntax_value map[string]int32`.
   Map<String, int> get syntaxValue {
-    final $r = $callSync(7826);
+    final $r = $callSync(7835);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `func types.TimestampFromProto(ts *types.Timestamp) (time.Time, error)`.
   DateTime timestampFromProto(ProtobufTypesTimestamp ts) {
-    final $r = $callSync(7849, $W()..dto(ts));
+    final $r = $callSync(7858, $W()..dto(ts));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func types.TimestampNow() *types.Timestamp`.
   ProtobufTypesTimestamp timestampNow() {
-    final $r = $callSync(7850);
+    final $r = $callSync(7859);
     return $r.p() ? ProtobufTypesTimestamp.$dec($r) : $nil();
   }
 
   /// Go: `func types.TimestampProto(t time.Time) (*types.Timestamp, error)`.
   ProtobufTypesTimestamp timestampProto(DateTime t) {
-    final $r = $callSync(7851, $W()..time(t));
+    final $r = $callSync(7860, $W()..time(t));
     return $r.p() ? ProtobufTypesTimestamp.$dec($r) : $nil();
   }
 
   /// Go: `func types.TimestampString(ts *types.Timestamp) string`.
   String timestampString(ProtobufTypesTimestamp ts) {
-    final $r = $callSync(7852, $W()..dto(ts));
+    final $r = $callSync(7861, $W()..dto(ts));
     return $r.str();
   }
 
   /// Go: `func types.UnmarshalAny(any *types.Any, pb proto.Message) error`.
   void unmarshalAny(ProtobufTypesAny any, $proto.ProtobufProtoMessage pb) {
     $callSync(
-        7920,
+        7929,
         $W()
           ..dto(any)
           ..h(pb));

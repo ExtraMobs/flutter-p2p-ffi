@@ -63,7 +63,7 @@ class PebbleV2Batch extends PebbleV2Writer
   /// Go: `func (*pebble.Batch).Apply(batch *pebble.Batch, _ *pebble.WriteOptions) error`.
   void apply(PebbleV2Batch batch, PebbleV2WriteOptions writeOptions) {
     $callSync(
-        4617,
+        4626,
         $W()
           ..h(this)
           ..h(batch)
@@ -72,13 +72,13 @@ class PebbleV2Batch extends PebbleV2Writer
 
   /// Go: `func (*pebble.Batch).Close() error`.
   void close() {
-    $callSync(4618, $W()..h(this));
+    $callSync(4627, $W()..h(this));
   }
 
   /// Go: `func (*pebble.Batch).Commit(o *pebble.WriteOptions) error`.
   void commit(PebbleV2WriteOptions o) {
     $callSync(
-        4619,
+        4628,
         $W()
           ..h(this)
           ..dto(o));
@@ -86,20 +86,20 @@ class PebbleV2Batch extends PebbleV2Writer
 
   /// Go: `func (*pebble.Batch).CommitStats() pebble.BatchCommitStats`.
   PebbleV2BatchCommitStats commitStats() {
-    final $r = $callSync(4620, $W()..h(this));
+    final $r = $callSync(4629, $W()..h(this));
     return $r.p() ? PebbleV2BatchCommitStats.$dec($r) : $nil();
   }
 
   /// Go: `func (*pebble.Batch).Count() uint32`.
   int count() {
-    final $r = $callSync(4621, $W()..h(this));
+    final $r = $callSync(4630, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pebble.Batch).Delete(key []byte, _ *pebble.WriteOptions) error`.
   void delete(Uint8List key, PebbleV2WriteOptions writeOptions) {
     $callSync(
-        4622,
+        4631,
         $W()
           ..h(this)
           ..bytes(key)
@@ -109,7 +109,7 @@ class PebbleV2Batch extends PebbleV2Writer
   /// Go: `func (*pebble.Batch).DeleteDeferred(keyLen int) *pebble.DeferredBatchOp`.
   PebbleV2DeferredBatchOp deleteDeferred(int keyLen) {
     final $r = $callSync(
-        4623,
+        4632,
         $W()
           ..h(this)
           ..i64(keyLen));
@@ -120,7 +120,7 @@ class PebbleV2Batch extends PebbleV2Writer
   void deleteRange(
       Uint8List start, Uint8List end, PebbleV2WriteOptions writeOptions) {
     $callSync(
-        4624,
+        4633,
         $W()
           ..h(this)
           ..bytes(start)
@@ -131,7 +131,7 @@ class PebbleV2Batch extends PebbleV2Writer
   /// Go: `func (*pebble.Batch).DeleteRangeDeferred(startLen int, endLen int) *pebble.DeferredBatchOp`.
   PebbleV2DeferredBatchOp deleteRangeDeferred(int startLen, int endLen) {
     final $r = $callSync(
-        4625,
+        4634,
         $W()
           ..h(this)
           ..i64(startLen)
@@ -143,7 +143,7 @@ class PebbleV2Batch extends PebbleV2Writer
   void deleteSized(
       Uint8List key, int deletedValueSize, PebbleV2WriteOptions writeOptions) {
     $callSync(
-        4626,
+        4635,
         $W()
           ..h(this)
           ..bytes(key)
@@ -155,7 +155,7 @@ class PebbleV2Batch extends PebbleV2Writer
   PebbleV2DeferredBatchOp deleteSizedDeferred(
       int keyLen, int deletedValueSize) {
     final $r = $callSync(
-        4627,
+        4636,
         $W()
           ..h(this)
           ..i64(keyLen)
@@ -165,14 +165,14 @@ class PebbleV2Batch extends PebbleV2Writer
 
   /// Go: `func (*pebble.Batch).Empty() bool`.
   bool empty() {
-    final $r = $callSync(4628, $W()..h(this));
+    final $r = $callSync(4637, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*pebble.Batch).Get(key []byte) ([]byte, io.Closer, error)`.
   (Uint8List, $io.IoCloser) get(Uint8List key) {
     final $r = $callSync(
-        4629,
+        4638,
         $W()
           ..h(this)
           ..bytes(key));
@@ -181,20 +181,20 @@ class PebbleV2Batch extends PebbleV2Writer
 
   /// Go: `func (*pebble.Batch).Indexed() bool`.
   bool indexed() {
-    final $r = $callSync(4630, $W()..h(this));
+    final $r = $callSync(4639, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*pebble.Batch).Len() int`.
   int len() {
-    final $r = $callSync(4631, $W()..h(this));
+    final $r = $callSync(4640, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pebble.Batch).LogData(data []byte, _ *pebble.WriteOptions) error`.
   void logData(Uint8List data, PebbleV2WriteOptions writeOptions) {
     $callSync(
-        4632,
+        4641,
         $W()
           ..h(this)
           ..bytes(data)
@@ -205,7 +205,7 @@ class PebbleV2Batch extends PebbleV2Writer
   void merge(
       Uint8List key, Uint8List value, PebbleV2WriteOptions writeOptions) {
     $callSync(
-        4633,
+        4642,
         $W()
           ..h(this)
           ..bytes(key)
@@ -216,7 +216,7 @@ class PebbleV2Batch extends PebbleV2Writer
   /// Go: `func (*pebble.Batch).MergeDeferred(keyLen int, valueLen int) *pebble.DeferredBatchOp`.
   PebbleV2DeferredBatchOp mergeDeferred(int keyLen, int valueLen) {
     final $r = $callSync(
-        4634,
+        4643,
         $W()
           ..h(this)
           ..i64(keyLen)
@@ -230,7 +230,7 @@ class PebbleV2Batch extends PebbleV2Writer
   Future<PebbleV2Iterator> newBatchOnlyIter(
       $context.Context ctx, PebbleV2IterOptions o) async {
     final $r = await $call(
-        4635,
+        4644,
         $W()
           ..h(this)
           ..h(ctx)
@@ -241,7 +241,7 @@ class PebbleV2Batch extends PebbleV2Writer
   /// Go: `func (*pebble.Batch).NewIter(o *pebble.IterOptions) (*pebble.Iterator, error)`.
   PebbleV2Iterator newIter(PebbleV2IterOptions o) {
     final $r = $callSync(
-        4636,
+        4645,
         $W()
           ..h(this)
           ..h(o));
@@ -254,7 +254,7 @@ class PebbleV2Batch extends PebbleV2Writer
   Future<PebbleV2Iterator> newIterWithContext(
       $context.Context ctx, PebbleV2IterOptions o) async {
     final $r = await $call(
-        4637,
+        4646,
         $W()
           ..h(this)
           ..h(ctx)
@@ -266,7 +266,7 @@ class PebbleV2Batch extends PebbleV2Writer
   void rangeKeyDelete(
       Uint8List start, Uint8List end, PebbleV2WriteOptions writeOptions) {
     $callSync(
-        4638,
+        4647,
         $W()
           ..h(this)
           ..bytes(start)
@@ -277,7 +277,7 @@ class PebbleV2Batch extends PebbleV2Writer
   /// Go: `func (*pebble.Batch).RangeKeyDeleteDeferred(startLen int, endLen int) *pebble.DeferredBatchOp`.
   PebbleV2DeferredBatchOp rangeKeyDeleteDeferred(int startLen, int endLen) {
     final $r = $callSync(
-        4639,
+        4648,
         $W()
           ..h(this)
           ..i64(startLen)
@@ -289,7 +289,7 @@ class PebbleV2Batch extends PebbleV2Writer
   void rangeKeySet(Uint8List start, Uint8List end, Uint8List suffix,
       Uint8List value, PebbleV2WriteOptions writeOptions) {
     $callSync(
-        4640,
+        4649,
         $W()
           ..h(this)
           ..bytes(start)
@@ -303,7 +303,7 @@ class PebbleV2Batch extends PebbleV2Writer
   void rangeKeyUnset(Uint8List start, Uint8List end, Uint8List suffix,
       PebbleV2WriteOptions writeOptions) {
     $callSync(
-        4641,
+        4650,
         $W()
           ..h(this)
           ..bytes(start)
@@ -314,30 +314,30 @@ class PebbleV2Batch extends PebbleV2Writer
 
   /// Go: `func (*pebble.Batch).Reader() batchrepr.Reader`.
   Uint8List reader() {
-    final $r = $callSync(4642, $W()..h(this));
+    final $r = $callSync(4651, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pebble.Batch).Ref()`.
   void ref() {
-    $callSync(4643, $W()..h(this));
+    $callSync(4652, $W()..h(this));
   }
 
   /// Go: `func (*pebble.Batch).Repr() []byte`.
   Uint8List repr() {
-    final $r = $callSync(4644, $W()..h(this));
+    final $r = $callSync(4653, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pebble.Batch).Reset()`.
   void reset() {
-    $callSync(4645, $W()..h(this));
+    $callSync(4654, $W()..h(this));
   }
 
   /// Go: `func (*pebble.Batch).Set(key []byte, value []byte, _ *pebble.WriteOptions) error`.
   void set(Uint8List key, Uint8List value, PebbleV2WriteOptions writeOptions) {
     $callSync(
-        4646,
+        4655,
         $W()
           ..h(this)
           ..bytes(key)
@@ -348,7 +348,7 @@ class PebbleV2Batch extends PebbleV2Writer
   /// Go: `func (*pebble.Batch).SetDeferred(keyLen int, valueLen int) *pebble.DeferredBatchOp`.
   PebbleV2DeferredBatchOp setDeferred(int keyLen, int valueLen) {
     final $r = $callSync(
-        4647,
+        4656,
         $W()
           ..h(this)
           ..i64(keyLen)
@@ -359,7 +359,7 @@ class PebbleV2Batch extends PebbleV2Writer
   /// Go: `func (*pebble.Batch).SetRepr(data []byte) error`.
   void setRepr(Uint8List data) {
     $callSync(
-        4648,
+        4657,
         $W()
           ..h(this)
           ..bytes(data));
@@ -368,7 +368,7 @@ class PebbleV2Batch extends PebbleV2Writer
   /// Go: `func (*pebble.Batch).SingleDelete(key []byte, _ *pebble.WriteOptions) error`.
   void singleDelete(Uint8List key, PebbleV2WriteOptions writeOptions) {
     $callSync(
-        4649,
+        4658,
         $W()
           ..h(this)
           ..bytes(key)
@@ -378,7 +378,7 @@ class PebbleV2Batch extends PebbleV2Writer
   /// Go: `func (*pebble.Batch).SingleDeleteDeferred(keyLen int) *pebble.DeferredBatchOp`.
   PebbleV2DeferredBatchOp singleDeleteDeferred(int keyLen) {
     final $r = $callSync(
-        4650,
+        4659,
         $W()
           ..h(this)
           ..i64(keyLen));
@@ -387,12 +387,12 @@ class PebbleV2Batch extends PebbleV2Writer
 
   /// Go: `func (*pebble.Batch).SyncWait() error`.
   void syncWait() {
-    $callSync(4651, $W()..h(this));
+    $callSync(4660, $W()..h(this));
   }
 
   /// Go: `func (*pebble.Batch).Unref()`.
   void unref() {
-    $callSync(4652, $W()..h(this));
+    $callSync(4661, $W()..h(this));
   }
 }
 
@@ -498,7 +498,7 @@ final class PebbleV2BlobFileCreateInfo implements GoDto {
   /// Go: `func (pebble.BlobFileCreateInfo).SafeFormat(w redact.SafePrinter, _ rune)`.
   void safeFormat($interfaces.RedactInterfacesSafePrinter w, int arg1) {
     $callSync(
-        4653,
+        4662,
         $W()
           ..dto(this)
           ..h(w)
@@ -507,7 +507,7 @@ final class PebbleV2BlobFileCreateInfo implements GoDto {
 
   /// Go: `func (pebble.BlobFileCreateInfo).String() string`.
   String string() {
-    final $r = $callSync(4654, $W()..dto(this));
+    final $r = $callSync(4663, $W()..dto(this));
     return $r.str();
   }
 }
@@ -546,7 +546,7 @@ final class PebbleV2BlobFileDeleteInfo implements GoDto {
   /// Go: `func (pebble.BlobFileDeleteInfo).SafeFormat(w redact.SafePrinter, _ rune)`.
   void safeFormat($interfaces.RedactInterfacesSafePrinter w, int arg1) {
     $callSync(
-        4655,
+        4664,
         $W()
           ..dto(this)
           ..h(w)
@@ -555,7 +555,7 @@ final class PebbleV2BlobFileDeleteInfo implements GoDto {
 
   /// Go: `func (pebble.BlobFileDeleteInfo).String() string`.
   String string() {
-    final $r = $callSync(4656, $W()..dto(this));
+    final $r = $callSync(4665, $W()..dto(this));
     return $r.str();
   }
 }
@@ -655,7 +655,7 @@ final class PebbleV2BlobFileRewriteInfo implements GoDto {
   /// Go: `func (pebble.BlobFileRewriteInfo).SafeFormat(w redact.SafePrinter, _ rune)`.
   void safeFormat($interfaces.RedactInterfacesSafePrinter w, int arg1) {
     $callSync(
-        4657,
+        4666,
         $W()
           ..dto(this)
           ..h(w)
@@ -664,7 +664,7 @@ final class PebbleV2BlobFileRewriteInfo implements GoDto {
 
   /// Go: `func (pebble.BlobFileRewriteInfo).String() string`.
   String string() {
-    final $r = $callSync(4658, $W()..dto(this));
+    final $r = $callSync(4667, $W()..dto(this));
     return $r.str();
   }
 }
@@ -680,7 +680,7 @@ mixin PebbleV2BlockPropertyFilterMask$ on GoHandle {
   /// Go: `func (pebble.BlockPropertyFilterMask).SetSuffix(suffix []byte) error`.
   void setSuffix(Uint8List suffix) {
     $callSync(
-        4659,
+        4668,
         $W()
           ..h(this)
           ..bytes(suffix));
@@ -851,7 +851,7 @@ final class PebbleV2CompactionInfo implements GoDto {
   /// Go: `func (pebble.CompactionInfo).SafeFormat(w redact.SafePrinter, _ rune)`.
   void safeFormat($interfaces.RedactInterfacesSafePrinter w, int arg1) {
     $callSync(
-        4661,
+        4670,
         $W()
           ..dto(this)
           ..h(w)
@@ -860,7 +860,7 @@ final class PebbleV2CompactionInfo implements GoDto {
 
   /// Go: `func (pebble.CompactionInfo).String() string`.
   String string() {
-    final $r = $callSync(4662, $W()..dto(this));
+    final $r = $callSync(4671, $W()..dto(this));
     return $r.str();
   }
 }
@@ -876,7 +876,7 @@ mixin PebbleV2CompactionScheduler$ on GoHandle {
   /// Go: `func (pebble.CompactionScheduler).Register(numGoroutinesPerCompaction int, db pebble.DBForCompaction)`.
   void register(int numGoroutinesPerCompaction, PebbleV2DbForCompaction db) {
     $callSync(
-        4663,
+        4672,
         $W()
           ..h(this)
           ..i64(numGoroutinesPerCompaction)
@@ -885,23 +885,23 @@ mixin PebbleV2CompactionScheduler$ on GoHandle {
 
   /// Go: `func (pebble.CompactionScheduler).TrySchedule() (bool, pebble.CompactionGrantHandle)`.
   (bool, PebbleV2CompactionGrantHandle) trySchedule() {
-    final $r = $callSync(4664, $W()..h(this));
+    final $r = $callSync(4673, $W()..h(this));
     return ($r.b(), $r.hnn(PebbleV2CompactionGrantHandle.$h));
   }
 
   /// Go: `func (pebble.CompactionScheduler).Unregister()`.
   void unregister() {
-    $callSync(4665, $W()..h(this));
+    $callSync(4674, $W()..h(this));
   }
 
   /// Go: `func (pebble.CompactionScheduler).UpdateGetAllowedWithoutPermission()`.
   void updateGetAllowedWithoutPermission() {
-    $callSync(4666, $W()..h(this));
+    $callSync(4675, $W()..h(this));
   }
 
   /// Go: type assertion `x.(*pebble.ConcurrencyLimitScheduler)`: null if the object is not one.
   PebbleV2ConcurrencyLimitScheduler? asPebbleV2ConcurrencyLimitScheduler() {
-    final $r = $callSync(381, $W()..h(this));
+    final $r = $callSync(384, $W()..h(this));
     return $r.hn(PebbleV2ConcurrencyLimitScheduler.$h);
   }
 }
@@ -931,7 +931,7 @@ class PebbleV2ConcurrencyLimitScheduler extends PebbleV2CompactionScheduler
   /// Go: `func (*pebble.ConcurrencyLimitScheduler).CumulativeStats(stats base.CompactionGrantHandleStats)`.
   void cumulativeStats(PebbleV2CompactionGrantHandleStats stats) {
     $callSync(
-        4667,
+        4676,
         $W()
           ..h(this)
           ..dto(stats));
@@ -939,13 +939,13 @@ class PebbleV2ConcurrencyLimitScheduler extends PebbleV2CompactionScheduler
 
   /// Go: `func (*pebble.ConcurrencyLimitScheduler).Done()`.
   void done() {
-    $callSync(4668, $W()..h(this));
+    $callSync(4677, $W()..h(this));
   }
 
   /// Go: `func (*pebble.ConcurrencyLimitScheduler).MeasureCPU(pebble.CompactionGoroutineKind)`.
   void measureCpu(int arg0) {
     $callSync(
-        4669,
+        4678,
         $W()
           ..h(this)
           ..i64(arg0));
@@ -954,7 +954,7 @@ class PebbleV2ConcurrencyLimitScheduler extends PebbleV2CompactionScheduler
   /// Go: `func (*pebble.ConcurrencyLimitScheduler).Register(numGoroutinesPerCompaction int, db pebble.DBForCompaction)`.
   void register(int numGoroutinesPerCompaction, PebbleV2DbForCompaction db) {
     $callSync(
-        4670,
+        4679,
         $W()
           ..h(this)
           ..i64(numGoroutinesPerCompaction)
@@ -963,23 +963,23 @@ class PebbleV2ConcurrencyLimitScheduler extends PebbleV2CompactionScheduler
 
   /// Go: `func (*pebble.ConcurrencyLimitScheduler).Started()`.
   void started() {
-    $callSync(4671, $W()..h(this));
+    $callSync(4680, $W()..h(this));
   }
 
   /// Go: `func (*pebble.ConcurrencyLimitScheduler).TrySchedule() (bool, pebble.CompactionGrantHandle)`.
   (bool, PebbleV2CompactionGrantHandle) trySchedule() {
-    final $r = $callSync(4672, $W()..h(this));
+    final $r = $callSync(4681, $W()..h(this));
     return ($r.b(), $r.hnn(PebbleV2CompactionGrantHandle.$h));
   }
 
   /// Go: `func (*pebble.ConcurrencyLimitScheduler).Unregister()`.
   void unregister() {
-    $callSync(4673, $W()..h(this));
+    $callSync(4682, $W()..h(this));
   }
 
   /// Go: `func (*pebble.ConcurrencyLimitScheduler).UpdateGetAllowedWithoutPermission()`.
   void updateGetAllowedWithoutPermission() {
-    $callSync(4674, $W()..h(this));
+    $callSync(4683, $W()..h(this));
   }
 }
 
@@ -1014,7 +1014,7 @@ class PebbleV2Db extends PebbleV2Writer
   /// Go: `func (*pebble.DB).Apply(batch *pebble.Batch, opts *pebble.WriteOptions) error`.
   void apply(PebbleV2Batch batch, PebbleV2WriteOptions opts) {
     $callSync(
-        4675,
+        4684,
         $W()
           ..h(this)
           ..h(batch)
@@ -1024,7 +1024,7 @@ class PebbleV2Db extends PebbleV2Writer
   /// Go: `func (*pebble.DB).ApplyNoSyncWait(batch *pebble.Batch, opts *pebble.WriteOptions) error`.
   void applyNoSyncWait(PebbleV2Batch batch, PebbleV2WriteOptions opts) {
     $callSync(
-        4676,
+        4685,
         $W()
           ..h(this)
           ..h(batch)
@@ -1034,7 +1034,7 @@ class PebbleV2Db extends PebbleV2Writer
   /// Go: `func (*pebble.DB).CheckLevels(stats *pebble.CheckLevelsStats) error`.
   void checkLevels(PebbleV2CheckLevelsStats stats) {
     $callSync(
-        4677,
+        4686,
         $W()
           ..h(this)
           ..dto(stats));
@@ -1044,7 +1044,7 @@ class PebbleV2Db extends PebbleV2Writer
   void checkpoint(String destDir,
       [List<PebbleV2CheckpointOption> opts = const []]) {
     $callSync(
-        4678,
+        4687,
         $W()
           ..h(this)
           ..str(destDir)
@@ -1053,7 +1053,7 @@ class PebbleV2Db extends PebbleV2Writer
 
   /// Go: `func (*pebble.DB).Close() error`.
   void close() {
-    $callSync(4679, $W()..h(this));
+    $callSync(4688, $W()..h(this));
   }
 
   /// Go: `func (*pebble.DB).Compact(ctx context.Context, start []byte, end []byte, parallelize bool) error`.
@@ -1062,7 +1062,7 @@ class PebbleV2Db extends PebbleV2Writer
   Future<void> compact($context.Context ctx, Uint8List start, Uint8List end,
       bool parallelize) async {
     await $call(
-        4680,
+        4689,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1073,14 +1073,14 @@ class PebbleV2Db extends PebbleV2Writer
 
   /// Go: `func (*pebble.DB).DebugString() string`.
   String debugString() {
-    final $r = $callSync(4681, $W()..h(this));
+    final $r = $callSync(4690, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*pebble.DB).Delete(key []byte, opts *pebble.WriteOptions) error`.
   void delete(Uint8List key, PebbleV2WriteOptions opts) {
     $callSync(
-        4682,
+        4691,
         $W()
           ..h(this)
           ..bytes(key)
@@ -1090,7 +1090,7 @@ class PebbleV2Db extends PebbleV2Writer
   /// Go: `func (*pebble.DB).DeleteRange(start []byte, end []byte, opts *pebble.WriteOptions) error`.
   void deleteRange(Uint8List start, Uint8List end, PebbleV2WriteOptions opts) {
     $callSync(
-        4683,
+        4692,
         $W()
           ..h(this)
           ..bytes(start)
@@ -1101,7 +1101,7 @@ class PebbleV2Db extends PebbleV2Writer
   /// Go: `func (*pebble.DB).DeleteSized(key []byte, valueSize uint32, opts *pebble.WriteOptions) error`.
   void deleteSized(Uint8List key, int valueSize, PebbleV2WriteOptions opts) {
     $callSync(
-        4684,
+        4693,
         $W()
           ..h(this)
           ..bytes(key)
@@ -1115,7 +1115,7 @@ class PebbleV2Db extends PebbleV2Writer
   Future<void> download(
       $context.Context ctx, List<PebbleV2DownloadSpan> spans) async {
     await $call(
-        4685,
+        4694,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1125,7 +1125,7 @@ class PebbleV2Db extends PebbleV2Writer
   /// Go: `func (*pebble.DB).EstimateDiskUsage(start []byte, end []byte) (uint64, error)`.
   int estimateDiskUsage(Uint8List start, Uint8List end) {
     final $r = $callSync(
-        4686,
+        4695,
         $W()
           ..h(this)
           ..bytes(start)
@@ -1137,7 +1137,7 @@ class PebbleV2Db extends PebbleV2Writer
   (int, int, int) estimateDiskUsageByBackingType(
       Uint8List start, Uint8List end) {
     final $r = $callSync(
-        4687,
+        4696,
         $W()
           ..h(this)
           ..bytes(start)
@@ -1150,7 +1150,7 @@ class PebbleV2Db extends PebbleV2Writer
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> excise($context.Context ctx, PebbleV2KeyRange span) async {
     await $call(
-        4688,
+        4697,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1159,19 +1159,19 @@ class PebbleV2Db extends PebbleV2Writer
 
   /// Go: `func (*pebble.DB).Flush() error`.
   void flush() {
-    $callSync(4689, $W()..h(this));
+    $callSync(4698, $W()..h(this));
   }
 
   /// Go: `func (*pebble.DB).FormatMajorVersion() pebble.FormatMajorVersion`.
   int formatMajorVersion() {
-    final $r = $callSync(4690, $W()..h(this));
+    final $r = $callSync(4699, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pebble.DB).Get(key []byte) ([]byte, io.Closer, error)`.
   (Uint8List, $io.IoCloser) get(Uint8List key) {
     final $r = $callSync(
-        4691,
+        4700,
         $W()
           ..h(this)
           ..bytes(key));
@@ -1180,13 +1180,13 @@ class PebbleV2Db extends PebbleV2Writer
 
   /// Go: `func (*pebble.DB).GetAllowedWithoutPermission() int`.
   int getAllowedWithoutPermission() {
-    final $r = $callSync(4692, $W()..h(this));
+    final $r = $callSync(4701, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pebble.DB).GetWaitingCompaction() (bool, pebble.WaitingCompaction)`.
   (bool, PebbleV2WaitingCompaction) getWaitingCompaction() {
-    final $r = $callSync(4693, $W()..h(this));
+    final $r = $callSync(4702, $W()..h(this));
     return ($r.b(), $r.p() ? PebbleV2WaitingCompaction.$dec($r) : $nil());
   }
 
@@ -1195,7 +1195,7 @@ class PebbleV2Db extends PebbleV2Writer
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> ingest($context.Context ctx, List<String> paths) async {
     await $call(
-        4694,
+        4703,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1212,7 +1212,7 @@ class PebbleV2Db extends PebbleV2Writer
       List<PebbleV2ExternalFile> external,
       PebbleV2KeyRange exciseSpan) async {
     final $r = await $call(
-        4695,
+        4704,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1229,7 +1229,7 @@ class PebbleV2Db extends PebbleV2Writer
   Future<PebbleV2IngestOperationStats> ingestExternalFiles(
       $context.Context ctx, List<PebbleV2ExternalFile> external) async {
     final $r = await $call(
-        4696,
+        4705,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1243,7 +1243,7 @@ class PebbleV2Db extends PebbleV2Writer
   Future<PebbleV2IngestOperationStats> ingestWithStats(
       $context.Context ctx, List<String> paths) async {
     final $r = await $call(
-        4697,
+        4706,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1253,14 +1253,14 @@ class PebbleV2Db extends PebbleV2Writer
 
   /// Go: `func (*pebble.DB).LSMViewURL() string`.
   String lsmViewUrl() {
-    final $r = $callSync(4698, $W()..h(this));
+    final $r = $callSync(4707, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*pebble.DB).LogData(data []byte, opts *pebble.WriteOptions) error`.
   void logData(Uint8List data, PebbleV2WriteOptions opts) {
     $callSync(
-        4699,
+        4708,
         $W()
           ..h(this)
           ..bytes(data)
@@ -1270,7 +1270,7 @@ class PebbleV2Db extends PebbleV2Writer
   /// Go: `func (*pebble.DB).Merge(key []byte, value []byte, opts *pebble.WriteOptions) error`.
   void merge(Uint8List key, Uint8List value, PebbleV2WriteOptions opts) {
     $callSync(
-        4700,
+        4709,
         $W()
           ..h(this)
           ..bytes(key)
@@ -1280,14 +1280,14 @@ class PebbleV2Db extends PebbleV2Writer
 
   /// Go: `func (*pebble.DB).Metrics() *pebble.Metrics`.
   PebbleV2Metrics metrics() {
-    final $r = $callSync(4701, $W()..h(this));
+    final $r = $callSync(4710, $W()..h(this));
     return $r.hnn(PebbleV2Metrics.$h);
   }
 
   /// Go: `func (*pebble.DB).NewBatch(opts ...pebble.BatchOption) *pebble.Batch`.
   PebbleV2Batch newBatch([List<PebbleV2BatchOption> opts = const []]) {
     final $r = $callSync(
-        4702,
+        4711,
         $W()
           ..h(this)
           ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -1298,7 +1298,7 @@ class PebbleV2Db extends PebbleV2Writer
   PebbleV2Batch newBatchWithSize(int size,
       [List<PebbleV2BatchOption> opts = const []]) {
     final $r = $callSync(
-        4703,
+        4712,
         $W()
           ..h(this)
           ..i64(size)
@@ -1310,7 +1310,7 @@ class PebbleV2Db extends PebbleV2Writer
   PebbleV2EventuallyFileOnlySnapshot newEventuallyFileOnlySnapshot(
       List<PebbleV2KeyRange> keyRanges) {
     final $r = $callSync(
-        4704,
+        4713,
         $W()
           ..h(this)
           ..list(keyRanges, (w0, e0) => w0.dto(e0)));
@@ -1319,14 +1319,14 @@ class PebbleV2Db extends PebbleV2Writer
 
   /// Go: `func (*pebble.DB).NewIndexedBatch() *pebble.Batch`.
   PebbleV2Batch newIndexedBatch() {
-    final $r = $callSync(4705, $W()..h(this));
+    final $r = $callSync(4714, $W()..h(this));
     return $r.hnn(PebbleV2Batch.$h);
   }
 
   /// Go: `func (*pebble.DB).NewIndexedBatchWithSize(size int) *pebble.Batch`.
   PebbleV2Batch newIndexedBatchWithSize(int size) {
     final $r = $callSync(
-        4706,
+        4715,
         $W()
           ..h(this)
           ..i64(size));
@@ -1336,7 +1336,7 @@ class PebbleV2Db extends PebbleV2Writer
   /// Go: `func (*pebble.DB).NewIter(o *pebble.IterOptions) (*pebble.Iterator, error)`.
   PebbleV2Iterator newIter(PebbleV2IterOptions o) {
     final $r = $callSync(
-        4707,
+        4716,
         $W()
           ..h(this)
           ..h(o));
@@ -1349,7 +1349,7 @@ class PebbleV2Db extends PebbleV2Writer
   Future<PebbleV2Iterator> newIterWithContext(
       $context.Context ctx, PebbleV2IterOptions o) async {
     final $r = await $call(
-        4708,
+        4717,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1359,13 +1359,13 @@ class PebbleV2Db extends PebbleV2Writer
 
   /// Go: `func (*pebble.DB).NewSnapshot() *pebble.Snapshot`.
   PebbleV2Snapshot newSnapshot() {
-    final $r = $callSync(4709, $W()..h(this));
+    final $r = $callSync(4718, $W()..h(this));
     return $r.hnn(PebbleV2Snapshot.$h);
   }
 
   /// Go: `func (*pebble.DB).ObjProvider() objstorage.Provider`.
   $objstorage.PebbleV2ObjstorageProvider objProvider() {
-    final $r = $callSync(4710, $W()..h(this));
+    final $r = $callSync(4719, $W()..h(this));
     return $r.hnn($objstorage.PebbleV2ObjstorageProvider.$h);
   }
 
@@ -1373,7 +1373,7 @@ class PebbleV2Db extends PebbleV2Writer
   void rangeKeyDelete(
       Uint8List start, Uint8List end, PebbleV2WriteOptions opts) {
     $callSync(
-        4711,
+        4720,
         $W()
           ..h(this)
           ..bytes(start)
@@ -1385,7 +1385,7 @@ class PebbleV2Db extends PebbleV2Writer
   void rangeKeySet(Uint8List start, Uint8List end, Uint8List suffix,
       Uint8List value, PebbleV2WriteOptions opts) {
     $callSync(
-        4712,
+        4721,
         $W()
           ..h(this)
           ..bytes(start)
@@ -1399,7 +1399,7 @@ class PebbleV2Db extends PebbleV2Writer
   void rangeKeyUnset(Uint8List start, Uint8List end, Uint8List suffix,
       PebbleV2WriteOptions opts) {
     $callSync(
-        4713,
+        4722,
         $W()
           ..h(this)
           ..bytes(start)
@@ -1411,7 +1411,7 @@ class PebbleV2Db extends PebbleV2Writer
   /// Go: `func (*pebble.DB).RatchetFormatMajorVersion(fmv pebble.FormatMajorVersion) error`.
   void ratchetFormatMajorVersion(int fmv) {
     $callSync(
-        4714,
+        4723,
         $W()
           ..h(this)
           ..i64(fmv));
@@ -1421,7 +1421,7 @@ class PebbleV2Db extends PebbleV2Writer
   List<List<PebbleV2SsTableInfo>> ssTables(
       [List<PebbleV2SsTablesOption> opts = const []]) {
     final $r = $callSync(
-        4715,
+        4724,
         $W()
           ..h(this)
           ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -1438,7 +1438,7 @@ class PebbleV2Db extends PebbleV2Writer
       Uint8List upper,
       PebbleV2ScanStatisticsOptions opts) async {
     final $r = await $call(
-        4716,
+        4725,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1451,7 +1451,7 @@ class PebbleV2Db extends PebbleV2Writer
   /// Go: `func (*pebble.DB).Schedule(grantHandle pebble.CompactionGrantHandle) bool`.
   bool schedule(PebbleV2CompactionGrantHandle grantHandle) {
     final $r = $callSync(
-        4717,
+        4726,
         $W()
           ..h(this)
           ..h(grantHandle));
@@ -1461,7 +1461,7 @@ class PebbleV2Db extends PebbleV2Writer
   /// Go: `func (*pebble.DB).Set(key []byte, value []byte, opts *pebble.WriteOptions) error`.
   void set(Uint8List key, Uint8List value, PebbleV2WriteOptions opts) {
     $callSync(
-        4718,
+        4727,
         $W()
           ..h(this)
           ..bytes(key)
@@ -1472,7 +1472,7 @@ class PebbleV2Db extends PebbleV2Writer
   /// Go: `func (*pebble.DB).SetCreatorID(creatorID uint64) error`.
   void setCreatorId(int creatorId) {
     $callSync(
-        4719,
+        4728,
         $W()
           ..h(this)
           ..i64(creatorId));
@@ -1481,7 +1481,7 @@ class PebbleV2Db extends PebbleV2Writer
   /// Go: `func (*pebble.DB).SingleDelete(key []byte, opts *pebble.WriteOptions) error`.
   void singleDelete(Uint8List key, PebbleV2WriteOptions opts) {
     $callSync(
-        4720,
+        4729,
         $W()
           ..h(this)
           ..bytes(key)
@@ -1490,13 +1490,13 @@ class PebbleV2Db extends PebbleV2Writer
 
   /// Go: `func (*pebble.DB).TableFormat() sstable.TableFormat`.
   int tableFormat() {
-    final $r = $callSync(4721, $W()..h(this));
+    final $r = $callSync(4730, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pebble.DB).TestOnlyWaitForCleaning()`.
   void testOnlyWaitForCleaning() {
-    $callSync(4722, $W()..h(this));
+    $callSync(4731, $W()..h(this));
   }
 }
 
@@ -1561,7 +1561,7 @@ final class PebbleV2DbDesc implements GoDto {
 
   /// Go: `func (*pebble.DBDesc).String() string`.
   String string() {
-    final $r = $callSync(4727, $W()..dto(this));
+    final $r = $callSync(4736, $W()..dto(this));
     return $r.str();
   }
 }
@@ -1575,20 +1575,20 @@ class PebbleV2DbForCompaction extends GoHandle with PebbleV2DbForCompaction$ {
 mixin PebbleV2DbForCompaction$ on GoHandle {
   /// Go: `func (pebble.DBForCompaction).GetAllowedWithoutPermission() int`.
   int getAllowedWithoutPermission() {
-    final $r = $callSync(4728, $W()..h(this));
+    final $r = $callSync(4737, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (pebble.DBForCompaction).GetWaitingCompaction() (bool, pebble.WaitingCompaction)`.
   (bool, PebbleV2WaitingCompaction) getWaitingCompaction() {
-    final $r = $callSync(4729, $W()..h(this));
+    final $r = $callSync(4738, $W()..h(this));
     return ($r.b(), $r.p() ? PebbleV2WaitingCompaction.$dec($r) : $nil());
   }
 
   /// Go: `func (pebble.DBForCompaction).Schedule(pebble.CompactionGrantHandle) bool`.
   bool schedule(PebbleV2CompactionGrantHandle compactionGrantHandle) {
     final $r = $callSync(
-        4730,
+        4739,
         $W()
           ..h(this)
           ..h(compactionGrantHandle));
@@ -1597,7 +1597,7 @@ mixin PebbleV2DbForCompaction$ on GoHandle {
 
   /// Go: type assertion `x.(*pebble.DB)`: null if the object is not one.
   PebbleV2Db? asPebbleV2Db() {
-    final $r = $callSync(382, $W()..h(this));
+    final $r = $callSync(385, $W()..h(this));
     return $r.hn(PebbleV2Db.$h);
   }
 }
@@ -1643,7 +1643,7 @@ final class PebbleV2DataCorruptionInfo implements GoDto {
   /// Go: `func (pebble.DataCorruptionInfo).SafeFormat(w redact.SafePrinter, _ rune)`.
   void safeFormat($interfaces.RedactInterfacesSafePrinter w, int arg1) {
     $callSync(
-        4731,
+        4740,
         $W()
           ..dto(this)
           ..h(w)
@@ -1652,7 +1652,7 @@ final class PebbleV2DataCorruptionInfo implements GoDto {
 
   /// Go: `func (pebble.DataCorruptionInfo).String() string`.
   String string() {
-    final $r = $callSync(4732, $W()..dto(this));
+    final $r = $callSync(4741, $W()..dto(this));
     return $r.str();
   }
 }
@@ -1677,7 +1677,7 @@ class PebbleV2DeferredBatchOp extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (pebble.DeferredBatchOp).Finish() error`.
   void finish() {
-    $callSync(4737, $W()..h(this));
+    $callSync(4746, $W()..h(this));
   }
 }
 
@@ -1744,7 +1744,7 @@ final class PebbleV2DownloadInfo implements GoDto {
   /// Go: `func (pebble.DownloadInfo).SafeFormat(w redact.SafePrinter, _ rune)`.
   void safeFormat($interfaces.RedactInterfacesSafePrinter w, int arg1) {
     $callSync(
-        4738,
+        4747,
         $W()
           ..dto(this)
           ..h(w)
@@ -1753,7 +1753,7 @@ final class PebbleV2DownloadInfo implements GoDto {
 
   /// Go: `func (pebble.DownloadInfo).String() string`.
   String string() {
-    final $r = $callSync(4739, $W()..dto(this));
+    final $r = $callSync(4748, $W()..dto(this));
     return $r.str();
   }
 }
@@ -1802,7 +1802,7 @@ final class PebbleV2EventListener implements GoDto {
   /// Go: `func (*pebble.EventListener).EnsureDefaults(logger pebble.Logger)`.
   void ensureDefaults(PebbleV2Logger logger) {
     $callSync(
-        4740,
+        4749,
         $W()
           ..dto(this)
           ..h(logger));
@@ -1835,13 +1835,13 @@ class PebbleV2EventuallyFileOnlySnapshot extends PebbleV2Reader
 
   /// Go: `func (*pebble.EventuallyFileOnlySnapshot).Close() error`.
   void close() {
-    $callSync(4741, $W()..h(this));
+    $callSync(4750, $W()..h(this));
   }
 
   /// Go: `func (*pebble.EventuallyFileOnlySnapshot).Get(key []byte) (value []byte, closer io.Closer, err error)`.
   (Uint8List, $io.IoCloser) get(Uint8List key) {
     final $r = $callSync(
-        4742,
+        4751,
         $W()
           ..h(this)
           ..bytes(key));
@@ -1851,7 +1851,7 @@ class PebbleV2EventuallyFileOnlySnapshot extends PebbleV2Reader
   /// Go: `func (*pebble.EventuallyFileOnlySnapshot).NewIter(o *pebble.IterOptions) (*pebble.Iterator, error)`.
   PebbleV2Iterator newIter(PebbleV2IterOptions o) {
     final $r = $callSync(
-        4743,
+        4752,
         $W()
           ..h(this)
           ..h(o));
@@ -1864,7 +1864,7 @@ class PebbleV2EventuallyFileOnlySnapshot extends PebbleV2Reader
   Future<PebbleV2Iterator> newIterWithContext(
       $context.Context ctx, PebbleV2IterOptions o) async {
     final $r = await $call(
-        4744,
+        4753,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1878,7 +1878,7 @@ class PebbleV2EventuallyFileOnlySnapshot extends PebbleV2Reader
   Future<void> waitForFileOnlySnapshot(
       $context.Context ctx, Duration dur) async {
     await $call(
-        4745,
+        4754,
         $W()
           ..h(this)
           ..h(ctx)
@@ -2001,7 +2001,7 @@ class PebbleV2FileCache extends $wal.PebbleV2WalRefCount
   /// Go: `func pebble.NewFileCache(numShards int, size int) *pebble.FileCache`.
   factory PebbleV2FileCache(int numShards, int size) {
     final $r = $callSync(
-        4822,
+        4831,
         $W()
           ..i64(numShards)
           ..i64(size));
@@ -2010,12 +2010,12 @@ class PebbleV2FileCache extends $wal.PebbleV2WalRefCount
 
   /// Go: `func (*pebble.FileCache).Ref()`.
   void ref() {
-    $callSync(4746, $W()..h(this));
+    $callSync(4755, $W()..h(this));
   }
 
   /// Go: `func (*pebble.FileCache).Unref()`.
   void unref() {
-    $callSync(4747, $W()..h(this));
+    $callSync(4756, $W()..h(this));
   }
 }
 
@@ -2113,7 +2113,7 @@ final class PebbleV2FlushInfo implements GoDto {
   /// Go: `func (pebble.FlushInfo).SafeFormat(w redact.SafePrinter, _ rune)`.
   void safeFormat($interfaces.RedactInterfacesSafePrinter w, int arg1) {
     $callSync(
-        4749,
+        4758,
         $W()
           ..dto(this)
           ..h(w)
@@ -2122,7 +2122,7 @@ final class PebbleV2FlushInfo implements GoDto {
 
   /// Go: `func (pebble.FlushInfo).String() string`.
   String string() {
-    final $r = $callSync(4750, $W()..dto(this));
+    final $r = $callSync(4759, $W()..dto(this));
     return $r.str();
   }
 }
@@ -2186,13 +2186,13 @@ class PebbleV2IterOptions extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*pebble.IterOptions).GetLowerBound() []byte`.
   Uint8List getLowerBound() {
-    final $r = $callSync(4753, $W()..h(this));
+    final $r = $callSync(4762, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pebble.IterOptions).GetUpperBound() []byte`.
   Uint8List getUpperBound() {
-    final $r = $callSync(4754, $W()..h(this));
+    final $r = $callSync(4763, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 }
@@ -2222,7 +2222,7 @@ class PebbleV2Iterator extends $io.IoCloser
   /// Go: `func (*pebble.Iterator).Clone(opts pebble.CloneOptions) (*pebble.Iterator, error)`.
   PebbleV2Iterator clone(PebbleV2CloneOptions opts) {
     final $r = $callSync(
-        4755,
+        4764,
         $W()
           ..h(this)
           ..dto(opts));
@@ -2235,7 +2235,7 @@ class PebbleV2Iterator extends $io.IoCloser
   Future<PebbleV2Iterator> cloneWithContext(
       $context.Context ctx, PebbleV2CloneOptions opts) async {
     final $r = await $call(
-        4756,
+        4765,
         $W()
           ..h(this)
           ..h(ctx)
@@ -2245,66 +2245,66 @@ class PebbleV2Iterator extends $io.IoCloser
 
   /// Go: `func (*pebble.Iterator).Close() error`.
   void close() {
-    $callSync(4757, $W()..h(this));
+    $callSync(4766, $W()..h(this));
   }
 
   /// Go: `func (*pebble.Iterator).Error() error`.
   void error() {
-    $callSync(4758, $W()..h(this));
+    $callSync(4767, $W()..h(this));
   }
 
   /// Go: `func (*pebble.Iterator).First() bool`.
   bool first() {
-    final $r = $callSync(4759, $W()..h(this));
+    final $r = $callSync(4768, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*pebble.Iterator).HasPointAndRange() (hasPoint bool, hasRange bool)`.
   (bool, bool) hasPointAndRange() {
-    final $r = $callSync(4760, $W()..h(this));
+    final $r = $callSync(4769, $W()..h(this));
     return ($r.b(), $r.b());
   }
 
   /// Go: `func (*pebble.Iterator).Key() []byte`.
   Uint8List key() {
-    final $r = $callSync(4761, $W()..h(this));
+    final $r = $callSync(4770, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pebble.Iterator).Last() bool`.
   bool last() {
-    final $r = $callSync(4762, $W()..h(this));
+    final $r = $callSync(4771, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*pebble.Iterator).LazyValue() pebble.LazyValue`.
   PebbleV2LazyValue lazyValue() {
-    final $r = $callSync(4763, $W()..h(this));
+    final $r = $callSync(4772, $W()..h(this));
     return $r.p() ? PebbleV2LazyValue.$dec($r) : $nil();
   }
 
   /// Go: `func (*pebble.Iterator).Metrics() pebble.IteratorMetrics`.
   PebbleV2IteratorMetrics metrics() {
-    final $r = $callSync(4764, $W()..h(this));
+    final $r = $callSync(4773, $W()..h(this));
     return $r.p() ? PebbleV2IteratorMetrics.$dec($r) : $nil();
   }
 
   /// Go: `func (*pebble.Iterator).Next() bool`.
   bool next() {
-    final $r = $callSync(4765, $W()..h(this));
+    final $r = $callSync(4774, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*pebble.Iterator).NextPrefix() bool`.
   bool nextPrefix() {
-    final $r = $callSync(4766, $W()..h(this));
+    final $r = $callSync(4775, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*pebble.Iterator).NextWithLimit(limit []byte) pebble.IterValidityState`.
   int nextWithLimit(Uint8List limit) {
     final $r = $callSync(
-        4767,
+        4776,
         $W()
           ..h(this)
           ..bytes(limit));
@@ -2313,14 +2313,14 @@ class PebbleV2Iterator extends $io.IoCloser
 
   /// Go: `func (*pebble.Iterator).Prev() bool`.
   bool prev() {
-    final $r = $callSync(4768, $W()..h(this));
+    final $r = $callSync(4777, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*pebble.Iterator).PrevWithLimit(limit []byte) pebble.IterValidityState`.
   int prevWithLimit(Uint8List limit) {
     final $r = $callSync(
-        4769,
+        4778,
         $W()
           ..h(this)
           ..bytes(limit));
@@ -2329,31 +2329,31 @@ class PebbleV2Iterator extends $io.IoCloser
 
   /// Go: `func (*pebble.Iterator).RangeBounds() (start []byte, end []byte)`.
   (Uint8List, Uint8List) rangeBounds() {
-    final $r = $callSync(4770, $W()..h(this));
+    final $r = $callSync(4779, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.bytes() ?? Uint8List(0));
   }
 
   /// Go: `func (*pebble.Iterator).RangeKeyChanged() bool`.
   bool rangeKeyChanged() {
-    final $r = $callSync(4771, $W()..h(this));
+    final $r = $callSync(4780, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*pebble.Iterator).RangeKeys() []pebble.RangeKeyData`.
   List<PebbleV2RangeKeyData> rangeKeys() {
-    final $r = $callSync(4772, $W()..h(this));
+    final $r = $callSync(4781, $W()..h(this));
     return $r.list(() => $r.p() ? PebbleV2RangeKeyData.$dec($r) : $nil());
   }
 
   /// Go: `func (*pebble.Iterator).ResetStats()`.
   void resetStats() {
-    $callSync(4773, $W()..h(this));
+    $callSync(4782, $W()..h(this));
   }
 
   /// Go: `func (*pebble.Iterator).SeekGE(key []byte) bool`.
   bool seekGe(Uint8List key) {
     final $r = $callSync(
-        4774,
+        4783,
         $W()
           ..h(this)
           ..bytes(key));
@@ -2363,7 +2363,7 @@ class PebbleV2Iterator extends $io.IoCloser
   /// Go: `func (*pebble.Iterator).SeekGEWithLimit(key []byte, limit []byte) pebble.IterValidityState`.
   int seekGeWithLimit(Uint8List key, Uint8List limit) {
     final $r = $callSync(
-        4775,
+        4784,
         $W()
           ..h(this)
           ..bytes(key)
@@ -2374,7 +2374,7 @@ class PebbleV2Iterator extends $io.IoCloser
   /// Go: `func (*pebble.Iterator).SeekLT(key []byte) bool`.
   bool seekLt(Uint8List key) {
     final $r = $callSync(
-        4776,
+        4785,
         $W()
           ..h(this)
           ..bytes(key));
@@ -2384,7 +2384,7 @@ class PebbleV2Iterator extends $io.IoCloser
   /// Go: `func (*pebble.Iterator).SeekLTWithLimit(key []byte, limit []byte) pebble.IterValidityState`.
   int seekLtWithLimit(Uint8List key, Uint8List limit) {
     final $r = $callSync(
-        4777,
+        4786,
         $W()
           ..h(this)
           ..bytes(key)
@@ -2395,7 +2395,7 @@ class PebbleV2Iterator extends $io.IoCloser
   /// Go: `func (*pebble.Iterator).SeekPrefixGE(key []byte) bool`.
   bool seekPrefixGe(Uint8List key) {
     final $r = $callSync(
-        4778,
+        4787,
         $W()
           ..h(this)
           ..bytes(key));
@@ -2405,7 +2405,7 @@ class PebbleV2Iterator extends $io.IoCloser
   /// Go: `func (*pebble.Iterator).SetBounds(lower []byte, upper []byte)`.
   void setBounds(Uint8List lower, Uint8List upper) {
     $callSync(
-        4779,
+        4788,
         $W()
           ..h(this)
           ..bytes(lower)
@@ -2417,7 +2417,7 @@ class PebbleV2Iterator extends $io.IoCloser
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> setContext($context.Context ctx) async {
     await $call(
-        4780,
+        4789,
         $W()
           ..h(this)
           ..h(ctx));
@@ -2426,7 +2426,7 @@ class PebbleV2Iterator extends $io.IoCloser
   /// Go: `func (*pebble.Iterator).SetOptions(o *pebble.IterOptions)`.
   void setOptions(PebbleV2IterOptions o) {
     $callSync(
-        4781,
+        4790,
         $W()
           ..h(this)
           ..h(o));
@@ -2434,25 +2434,25 @@ class PebbleV2Iterator extends $io.IoCloser
 
   /// Go: `func (*pebble.Iterator).Stats() pebble.IteratorStats`.
   PebbleV2IteratorStats stats() {
-    final $r = $callSync(4782, $W()..h(this));
+    final $r = $callSync(4791, $W()..h(this));
     return $r.p() ? PebbleV2IteratorStats.$dec($r) : $nil();
   }
 
   /// Go: `func (*pebble.Iterator).Valid() bool`.
   bool valid() {
-    final $r = $callSync(4783, $W()..h(this));
+    final $r = $callSync(4792, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*pebble.Iterator).Value() []byte`.
   Uint8List value$() {
-    final $r = $callSync(4784, $W()..h(this));
+    final $r = $callSync(4793, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pebble.Iterator).ValueAndErr() ([]byte, error)`.
   Uint8List valueAndErr() {
-    final $r = $callSync(4785, $W()..h(this));
+    final $r = $callSync(4794, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 }
@@ -2502,7 +2502,7 @@ final class PebbleV2IteratorStats implements GoDto {
   /// Go: `func (*pebble.IteratorStats).Merge(o pebble.IteratorStats)`.
   void merge(PebbleV2IteratorStats o) {
     $callSync(
-        4786,
+        4795,
         $W()
           ..dto(this)
           ..dto(o));
@@ -2511,7 +2511,7 @@ final class PebbleV2IteratorStats implements GoDto {
   /// Go: `func (*pebble.IteratorStats).SafeFormat(s redact.SafePrinter, verb rune)`.
   void safeFormat($interfaces.RedactInterfacesSafePrinter s, int verb) {
     $callSync(
-        4787,
+        4796,
         $W()
           ..dto(this)
           ..h(s)
@@ -2520,7 +2520,7 @@ final class PebbleV2IteratorStats implements GoDto {
 
   /// Go: `func (*pebble.IteratorStats).String() string`.
   String string() {
-    final $r = $callSync(4788, $W()..dto(this));
+    final $r = $callSync(4797, $W()..dto(this));
     return $r.str();
   }
 }
@@ -2616,7 +2616,7 @@ final class PebbleV2LevelInfo implements GoDto {
   /// Go: `func (pebble.LevelInfo).SafeFormat(w redact.SafePrinter, _ rune)`.
   void safeFormat($interfaces.RedactInterfacesSafePrinter w, int arg1) {
     $callSync(
-        4790,
+        4799,
         $W()
           ..dto(this)
           ..h(w)
@@ -2625,7 +2625,7 @@ final class PebbleV2LevelInfo implements GoDto {
 
   /// Go: `func (pebble.LevelInfo).String() string`.
   String string() {
-    final $r = $callSync(4791, $W()..dto(this));
+    final $r = $callSync(4800, $W()..dto(this));
     return $r.str();
   }
 }
@@ -2868,7 +2868,7 @@ final class PebbleV2LevelMetrics implements GoDto {
   /// Go: `func (*pebble.LevelMetrics).Add(u *pebble.LevelMetrics)`.
   void add(PebbleV2LevelMetrics u) {
     $callSync(
-        4792,
+        4801,
         $W()
           ..dto(this)
           ..dto(u));
@@ -2876,13 +2876,13 @@ final class PebbleV2LevelMetrics implements GoDto {
 
   /// Go: `func (*pebble.LevelMetrics).AggregateSize() int64`.
   int aggregateSize() {
-    final $r = $callSync(4793, $W()..dto(this));
+    final $r = $callSync(4802, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*pebble.LevelMetrics).WriteAmp() float64`.
   double writeAmp() {
-    final $r = $callSync(4794, $W()..dto(this));
+    final $r = $callSync(4803, $W()..dto(this));
     return $r.f64();
   }
 }
@@ -2944,13 +2944,13 @@ final class PebbleV2LevelOptions implements GoDto {
 
   /// Go: `func (*pebble.LevelOptions).EnsureL0Defaults()`.
   void ensureL0Defaults() {
-    $callSync(4795, $W()..dto(this));
+    $callSync(4804, $W()..dto(this));
   }
 
   /// Go: `func (*pebble.LevelOptions).EnsureL1PlusDefaults(previousLevel *pebble.LevelOptions)`.
   void ensureL1PlusDefaults(PebbleV2LevelOptions previousLevel) {
     $callSync(
-        4796,
+        4805,
         $W()
           ..dto(this)
           ..dto(previousLevel));
@@ -2981,7 +2981,7 @@ class PebbleV2Lock extends $io.IoCloser
 
   /// Go: `func (*pebble.Lock).Close() error`.
   void close() {
-    $callSync(4797, $W()..h(this));
+    $callSync(4806, $W()..h(this));
   }
 }
 
@@ -3024,7 +3024,7 @@ final class PebbleV2LowDiskSpaceInfo implements GoDto {
   /// Go: `func (pebble.LowDiskSpaceInfo).SafeFormat(w redact.SafePrinter, _ rune)`.
   void safeFormat($interfaces.RedactInterfacesSafePrinter w, int arg1) {
     $callSync(
-        4799,
+        4808,
         $W()
           ..dto(this)
           ..h(w)
@@ -3033,7 +3033,7 @@ final class PebbleV2LowDiskSpaceInfo implements GoDto {
 
   /// Go: `func (pebble.LowDiskSpaceInfo).String() string`.
   String string() {
-    final $r = $callSync(4800, $W()..dto(this));
+    final $r = $callSync(4809, $W()..dto(this));
     return $r.str();
   }
 }
@@ -3072,7 +3072,7 @@ final class PebbleV2ManifestCreateInfo implements GoDto {
   /// Go: `func (pebble.ManifestCreateInfo).SafeFormat(w redact.SafePrinter, _ rune)`.
   void safeFormat($interfaces.RedactInterfacesSafePrinter w, int arg1) {
     $callSync(
-        4805,
+        4814,
         $W()
           ..dto(this)
           ..h(w)
@@ -3081,7 +3081,7 @@ final class PebbleV2ManifestCreateInfo implements GoDto {
 
   /// Go: `func (pebble.ManifestCreateInfo).String() string`.
   String string() {
-    final $r = $callSync(4806, $W()..dto(this));
+    final $r = $callSync(4815, $W()..dto(this));
     return $r.str();
   }
 }
@@ -3120,7 +3120,7 @@ final class PebbleV2ManifestDeleteInfo implements GoDto {
   /// Go: `func (pebble.ManifestDeleteInfo).SafeFormat(w redact.SafePrinter, _ rune)`.
   void safeFormat($interfaces.RedactInterfacesSafePrinter w, int arg1) {
     $callSync(
-        4807,
+        4816,
         $W()
           ..dto(this)
           ..h(w)
@@ -3129,7 +3129,7 @@ final class PebbleV2ManifestDeleteInfo implements GoDto {
 
   /// Go: `func (pebble.ManifestDeleteInfo).String() string`.
   String string() {
-    final $r = $callSync(4808, $W()..dto(this));
+    final $r = $callSync(4817, $W()..dto(this));
     return $r.str();
   }
 }
@@ -3156,32 +3156,32 @@ class PebbleV2Metrics extends $interfaces.RedactInterfacesSafeFormatter
 
   /// Go: `func (*pebble.Metrics).DiskSpaceUsage() uint64`.
   int diskSpaceUsage() {
-    final $r = $callSync(4809, $W()..h(this));
+    final $r = $callSync(4818, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pebble.Metrics).NumVirtual() uint64`.
   int numVirtual() {
-    final $r = $callSync(4810, $W()..h(this));
+    final $r = $callSync(4819, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pebble.Metrics).ReadAmp() int`.
   int readAmp() {
-    final $r = $callSync(4811, $W()..h(this));
+    final $r = $callSync(4820, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pebble.Metrics).RemoteTablesTotal() (count uint64, size uint64)`.
   (int, int) remoteTablesTotal() {
-    final $r = $callSync(4812, $W()..h(this));
+    final $r = $callSync(4821, $W()..h(this));
     return ($r.i64(), $r.i64());
   }
 
   /// Go: `func (*pebble.Metrics).SafeFormat(w redact.SafePrinter, _ rune)`.
   void safeFormat($interfaces.RedactInterfacesSafePrinter w, int arg1) {
     $callSync(
-        4813,
+        4822,
         $W()
           ..h(this)
           ..h(w)
@@ -3190,25 +3190,25 @@ class PebbleV2Metrics extends $interfaces.RedactInterfacesSafeFormatter
 
   /// Go: `func (*pebble.Metrics).String() string`.
   String string() {
-    final $r = $callSync(4814, $W()..h(this));
+    final $r = $callSync(4823, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*pebble.Metrics).StringForTests() string`.
   String stringForTests() {
-    final $r = $callSync(4815, $W()..h(this));
+    final $r = $callSync(4824, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*pebble.Metrics).Total() pebble.LevelMetrics`.
   PebbleV2LevelMetrics total() {
-    final $r = $callSync(4816, $W()..h(this));
+    final $r = $callSync(4825, $W()..h(this));
     return $r.p() ? PebbleV2LevelMetrics.$dec($r) : $nil();
   }
 
   /// Go: `func (*pebble.Metrics).VirtualSize() uint64`.
   int virtualSize() {
-    final $r = $callSync(4817, $W()..h(this));
+    final $r = $callSync(4826, $W()..h(this));
     return $r.i64();
   }
 }
@@ -3223,7 +3223,7 @@ class PebbleV2MultiLevelHeuristic extends GoHandle
 mixin PebbleV2MultiLevelHeuristic$ on GoHandle {
   /// Go: `func (pebble.MultiLevelHeuristic).String() string`.
   String string() {
-    final $r = $callSync(4818, $W()..h(this));
+    final $r = $callSync(4827, $W()..h(this));
     return $r.str();
   }
 }
@@ -3238,7 +3238,7 @@ final class PebbleV2NoMultiLevel implements GoDto {
 
   /// Go: `func (pebble.NoMultiLevel).String() string`.
   String string() {
-    final $r = $callSync(4824, $W()..dto(this));
+    final $r = $callSync(4833, $W()..dto(this));
     return $r.str();
   }
 }
@@ -3264,7 +3264,7 @@ class PebbleV2Options extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*pebble.Options).AddEventListener(l pebble.EventListener)`.
   void addEventListener(PebbleV2EventListener l) {
     $callSync(
-        4827,
+        4836,
         $W()
           ..h(this)
           ..dto(l));
@@ -3273,7 +3273,7 @@ class PebbleV2Options extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*pebble.Options).CheckCompatibility(storeDir string, previousOptions string) error`.
   void checkCompatibility(String storeDir, String previousOptions) {
     $callSync(
-        4828,
+        4837,
         $W()
           ..h(this)
           ..str(storeDir)
@@ -3282,19 +3282,19 @@ class PebbleV2Options extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*pebble.Options).Clone() *pebble.Options`.
   PebbleV2Options clone() {
-    final $r = $callSync(4829, $W()..h(this));
+    final $r = $callSync(4838, $W()..h(this));
     return $r.hnn(PebbleV2Options.$h);
   }
 
   /// Go: `func (*pebble.Options).EnsureDefaults()`.
   void ensureDefaults() {
-    $callSync(4830, $W()..h(this));
+    $callSync(4839, $W()..h(this));
   }
 
   /// Go: `func (*pebble.Options).MakeBlobWriterOptions(level int) blob.FileWriterOptions`.
   $blob.PebbleV2SstableBlobFileWriterOptions makeBlobWriterOptions(int level) {
     final $r = $callSync(
-        4831,
+        4840,
         $W()
           ..h(this)
           ..i64(level));
@@ -3307,7 +3307,7 @@ class PebbleV2Options extends $crypto.CryptoDecrypterOpts
   $objstorageprovider.PebbleV2ObjstorageObjstorageproviderSettings
       makeObjStorageProviderSettings(String dirname) {
     final $r = $callSync(
-        4832,
+        4841,
         $W()
           ..h(this)
           ..str(dirname));
@@ -3319,7 +3319,7 @@ class PebbleV2Options extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*pebble.Options).MakeReaderOptions() sstable.ReaderOptions`.
   $sstable.PebbleV2SstableReaderOptions makeReaderOptions() {
-    final $r = $callSync(4833, $W()..h(this));
+    final $r = $callSync(4842, $W()..h(this));
     return $r.p() ? $sstable.PebbleV2SstableReaderOptions.$dec($r) : $nil();
   }
 
@@ -3327,7 +3327,7 @@ class PebbleV2Options extends $crypto.CryptoDecrypterOpts
   $sstable.PebbleV2SstableWriterOptions makeWriterOptions(
       int level, int format) {
     final $r = $callSync(
-        4834,
+        4843,
         $W()
           ..h(this)
           ..i64(level)
@@ -3338,7 +3338,7 @@ class PebbleV2Options extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*pebble.Options).Parse(s string, hooks *pebble.ParseHooks) error`.
   void parse(String s, PebbleV2ParseHooks hooks) {
     $callSync(
-        4835,
+        4844,
         $W()
           ..h(this)
           ..str(s)
@@ -3347,14 +3347,14 @@ class PebbleV2Options extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*pebble.Options).String() string`.
   String string() {
-    final $r = $callSync(4836, $W()..h(this));
+    final $r = $callSync(4845, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*pebble.Options).TargetFileSize(outputLevel int, baseLevel int) int64`.
   int targetFileSize(int outputLevel, int baseLevel) {
     final $r = $callSync(
-        4837,
+        4846,
         $W()
           ..h(this)
           ..i64(outputLevel)
@@ -3364,12 +3364,12 @@ class PebbleV2Options extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*pebble.Options).Validate() error`.
   void validate() {
-    $callSync(4838, $W()..h(this));
+    $callSync(4847, $W()..h(this));
   }
 
   /// Go: `func (*pebble.Options).WithFSDefaults()`.
   void withFsDefaults() {
-    $callSync(4839, $W()..h(this));
+    $callSync(4848, $W()..h(this));
   }
 }
 
@@ -3417,7 +3417,7 @@ final class PebbleV2PossibleApiMisuseInfo implements GoDto {
   /// Go: `func (pebble.PossibleAPIMisuseInfo).SafeFormat(w redact.SafePrinter, _ rune)`.
   void safeFormat($interfaces.RedactInterfacesSafePrinter w, int arg1) {
     $callSync(
-        4841,
+        4850,
         $W()
           ..dto(this)
           ..h(w)
@@ -3426,7 +3426,7 @@ final class PebbleV2PossibleApiMisuseInfo implements GoDto {
 
   /// Go: `func (pebble.PossibleAPIMisuseInfo).String() string`.
   String string() {
-    final $r = $callSync(4842, $W()..dto(this));
+    final $r = $callSync(4851, $W()..dto(this));
     return $r.str();
   }
 }
@@ -3488,7 +3488,7 @@ final class PebbleV2RangeKeyIteratorStats implements GoDto {
   /// Go: `func (*pebble.RangeKeyIteratorStats).Merge(o pebble.RangeKeyIteratorStats)`.
   void merge(PebbleV2RangeKeyIteratorStats o) {
     $callSync(
-        4843,
+        4852,
         $W()
           ..dto(this)
           ..dto(o));
@@ -3497,7 +3497,7 @@ final class PebbleV2RangeKeyIteratorStats implements GoDto {
   /// Go: `func (*pebble.RangeKeyIteratorStats).SafeFormat(p redact.SafePrinter, verb rune)`.
   void safeFormat($interfaces.RedactInterfacesSafePrinter p, int verb) {
     $callSync(
-        4844,
+        4853,
         $W()
           ..dto(this)
           ..h(p)
@@ -3506,7 +3506,7 @@ final class PebbleV2RangeKeyIteratorStats implements GoDto {
 
   /// Go: `func (*pebble.RangeKeyIteratorStats).String() string`.
   String string() {
-    final $r = $callSync(4845, $W()..dto(this));
+    final $r = $callSync(4854, $W()..dto(this));
     return $r.str();
   }
 }
@@ -3520,13 +3520,13 @@ class PebbleV2Reader extends GoHandle with PebbleV2Reader$ {
 mixin PebbleV2Reader$ on GoHandle {
   /// Go: `func (pebble.Reader).Close() error`.
   void close() {
-    $callSync(4846, $W()..h(this));
+    $callSync(4855, $W()..h(this));
   }
 
   /// Go: `func (pebble.Reader).Get(key []byte) (value []byte, closer io.Closer, err error)`.
   (Uint8List, $io.IoCloser) get(Uint8List key) {
     final $r = $callSync(
-        4847,
+        4856,
         $W()
           ..h(this)
           ..bytes(key));
@@ -3536,7 +3536,7 @@ mixin PebbleV2Reader$ on GoHandle {
   /// Go: `func (pebble.Reader).NewIter(o *pebble.IterOptions) (*pebble.Iterator, error)`.
   PebbleV2Iterator newIter(PebbleV2IterOptions o) {
     final $r = $callSync(
-        4848,
+        4857,
         $W()
           ..h(this)
           ..h(o));
@@ -3549,7 +3549,7 @@ mixin PebbleV2Reader$ on GoHandle {
   Future<PebbleV2Iterator> newIterWithContext(
       $context.Context ctx, PebbleV2IterOptions o) async {
     final $r = await $call(
-        4849,
+        4858,
         $W()
           ..h(this)
           ..h(ctx)
@@ -3559,25 +3559,25 @@ mixin PebbleV2Reader$ on GoHandle {
 
   /// Go: type assertion `x.(*pebble.Batch)`: null if the object is not one.
   PebbleV2Batch? asPebbleV2Batch() {
-    final $r = $callSync(383, $W()..h(this));
+    final $r = $callSync(386, $W()..h(this));
     return $r.hn(PebbleV2Batch.$h);
   }
 
   /// Go: type assertion `x.(*pebble.DB)`: null if the object is not one.
   PebbleV2Db? asPebbleV2Db() {
-    final $r = $callSync(384, $W()..h(this));
+    final $r = $callSync(387, $W()..h(this));
     return $r.hn(PebbleV2Db.$h);
   }
 
   /// Go: type assertion `x.(*pebble.EventuallyFileOnlySnapshot)`: null if the object is not one.
   PebbleV2EventuallyFileOnlySnapshot? asPebbleV2EventuallyFileOnlySnapshot() {
-    final $r = $callSync(385, $W()..h(this));
+    final $r = $callSync(388, $W()..h(this));
     return $r.hn(PebbleV2EventuallyFileOnlySnapshot.$h);
   }
 
   /// Go: type assertion `x.(*pebble.Snapshot)`: null if the object is not one.
   PebbleV2Snapshot? asPebbleV2Snapshot() {
-    final $r = $callSync(386, $W()..h(this));
+    final $r = $callSync(389, $W()..h(this));
     return $r.hn(PebbleV2Snapshot.$h);
   }
 }
@@ -3707,13 +3707,13 @@ class PebbleV2Snapshot extends PebbleV2Reader
 
   /// Go: `func (*pebble.Snapshot).Close() error`.
   void close() {
-    $callSync(4852, $W()..h(this));
+    $callSync(4861, $W()..h(this));
   }
 
   /// Go: `func (*pebble.Snapshot).Get(key []byte) ([]byte, io.Closer, error)`.
   (Uint8List, $io.IoCloser) get(Uint8List key) {
     final $r = $callSync(
-        4853,
+        4862,
         $W()
           ..h(this)
           ..bytes(key));
@@ -3723,7 +3723,7 @@ class PebbleV2Snapshot extends PebbleV2Reader
   /// Go: `func (*pebble.Snapshot).NewIter(o *pebble.IterOptions) (*pebble.Iterator, error)`.
   PebbleV2Iterator newIter(PebbleV2IterOptions o) {
     final $r = $callSync(
-        4854,
+        4863,
         $W()
           ..h(this)
           ..h(o));
@@ -3736,7 +3736,7 @@ class PebbleV2Snapshot extends PebbleV2Reader
   Future<PebbleV2Iterator> newIterWithContext(
       $context.Context ctx, PebbleV2IterOptions o) async {
     final $r = await $call(
-        4855,
+        4864,
         $W()
           ..h(this)
           ..h(ctx)
@@ -3832,7 +3832,7 @@ final class PebbleV2TableCreateInfo implements GoDto {
   /// Go: `func (pebble.TableCreateInfo).SafeFormat(w redact.SafePrinter, _ rune)`.
   void safeFormat($interfaces.RedactInterfacesSafePrinter w, int arg1) {
     $callSync(
-        4857,
+        4866,
         $W()
           ..dto(this)
           ..h(w)
@@ -3841,7 +3841,7 @@ final class PebbleV2TableCreateInfo implements GoDto {
 
   /// Go: `func (pebble.TableCreateInfo).String() string`.
   String string() {
-    final $r = $callSync(4858, $W()..dto(this));
+    final $r = $callSync(4867, $W()..dto(this));
     return $r.str();
   }
 }
@@ -3880,7 +3880,7 @@ final class PebbleV2TableDeleteInfo implements GoDto {
   /// Go: `func (pebble.TableDeleteInfo).SafeFormat(w redact.SafePrinter, _ rune)`.
   void safeFormat($interfaces.RedactInterfacesSafePrinter w, int arg1) {
     $callSync(
-        4859,
+        4868,
         $W()
           ..dto(this)
           ..h(w)
@@ -3889,7 +3889,7 @@ final class PebbleV2TableDeleteInfo implements GoDto {
 
   /// Go: `func (pebble.TableDeleteInfo).String() string`.
   String string() {
-    final $r = $callSync(4860, $W()..dto(this));
+    final $r = $callSync(4869, $W()..dto(this));
     return $r.str();
   }
 }
@@ -3917,7 +3917,7 @@ class PebbleV2TableIngestInfo extends $interfaces.RedactInterfacesSafeFormatter
   /// Go: `func (pebble.TableIngestInfo).SafeFormat(w redact.SafePrinter, _ rune)`.
   void safeFormat($interfaces.RedactInterfacesSafePrinter w, int arg1) {
     $callSync(
-        4861,
+        4870,
         $W()
           ..h(this)
           ..h(w)
@@ -3926,7 +3926,7 @@ class PebbleV2TableIngestInfo extends $interfaces.RedactInterfacesSafeFormatter
 
   /// Go: `func (pebble.TableIngestInfo).String() string`.
   String string() {
-    final $r = $callSync(4862, $W()..h(this));
+    final $r = $callSync(4871, $W()..h(this));
     return $r.str();
   }
 }
@@ -3948,7 +3948,7 @@ final class PebbleV2TableStatsInfo implements GoDto {
   /// Go: `func (pebble.TableStatsInfo).SafeFormat(w redact.SafePrinter, _ rune)`.
   void safeFormat($interfaces.RedactInterfacesSafePrinter w, int arg1) {
     $callSync(
-        4863,
+        4872,
         $W()
           ..dto(this)
           ..h(w)
@@ -3957,7 +3957,7 @@ final class PebbleV2TableStatsInfo implements GoDto {
 
   /// Go: `func (pebble.TableStatsInfo).String() string`.
   String string() {
-    final $r = $callSync(4864, $W()..dto(this));
+    final $r = $callSync(4873, $W()..dto(this));
     return $r.str();
   }
 }
@@ -3981,7 +3981,7 @@ final class PebbleV2TableValidatedInfo implements GoDto {
   /// Go: `func (pebble.TableValidatedInfo).SafeFormat(w redact.SafePrinter, _ rune)`.
   void safeFormat($interfaces.RedactInterfacesSafePrinter w, int arg1) {
     $callSync(
-        4865,
+        4874,
         $W()
           ..dto(this)
           ..h(w)
@@ -3990,7 +3990,7 @@ final class PebbleV2TableValidatedInfo implements GoDto {
 
   /// Go: `func (pebble.TableValidatedInfo).String() string`.
   String string() {
-    final $r = $callSync(4866, $W()..dto(this));
+    final $r = $callSync(4875, $W()..dto(this));
     return $r.str();
   }
 }
@@ -4016,7 +4016,7 @@ class PebbleV2UserKeyCategories extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*pebble.UserKeyCategories).CategorizeKey(userKey []byte) string`.
   String categorizeKey(Uint8List userKey) {
     final $r = $callSync(
-        4869,
+        4878,
         $W()
           ..h(this)
           ..bytes(userKey));
@@ -4026,7 +4026,7 @@ class PebbleV2UserKeyCategories extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*pebble.UserKeyCategories).CategorizeKeyRange(startUserKey []byte, endUserKey []byte) string`.
   String categorizeKeyRange(Uint8List startUserKey, Uint8List endUserKey) {
     final $r = $callSync(
-        4870,
+        4879,
         $W()
           ..h(this)
           ..bytes(startUserKey)
@@ -4036,7 +4036,7 @@ class PebbleV2UserKeyCategories extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*pebble.UserKeyCategories).Len() int`.
   int len() {
-    final $r = $callSync(4871, $W()..h(this));
+    final $r = $callSync(4880, $W()..h(this));
     return $r.i64();
   }
 }
@@ -4100,7 +4100,7 @@ final class PebbleV2_WalCreateInfo implements GoDto {
   /// Go: `func (pebble.WALCreateInfo).SafeFormat(w redact.SafePrinter, _ rune)`.
   void safeFormat($interfaces.RedactInterfacesSafePrinter w, int arg1) {
     $callSync(
-        4872,
+        4881,
         $W()
           ..dto(this)
           ..h(w)
@@ -4109,7 +4109,7 @@ final class PebbleV2_WalCreateInfo implements GoDto {
 
   /// Go: `func (pebble.WALCreateInfo).String() string`.
   String string() {
-    final $r = $callSync(4873, $W()..dto(this));
+    final $r = $callSync(4882, $W()..dto(this));
     return $r.str();
   }
 }
@@ -4148,7 +4148,7 @@ final class PebbleV2WalDeleteInfo implements GoDto {
   /// Go: `func (pebble.WALDeleteInfo).SafeFormat(w redact.SafePrinter, _ rune)`.
   void safeFormat($interfaces.RedactInterfacesSafePrinter w, int arg1) {
     $callSync(
-        4874,
+        4883,
         $W()
           ..dto(this)
           ..h(w)
@@ -4157,7 +4157,7 @@ final class PebbleV2WalDeleteInfo implements GoDto {
 
   /// Go: `func (pebble.WALDeleteInfo).String() string`.
   String string() {
-    final $r = $callSync(4875, $W()..dto(this));
+    final $r = $callSync(4884, $W()..dto(this));
     return $r.str();
   }
 }
@@ -4217,7 +4217,7 @@ final class PebbleV2WriteAmpHeuristic implements GoDto {
 
   /// Go: `func (pebble.WriteAmpHeuristic).String() string`.
   String string() {
-    final $r = $callSync(4876, $W()..dto(this));
+    final $r = $callSync(4885, $W()..dto(this));
     return $r.str();
   }
 }
@@ -4238,7 +4238,7 @@ final class PebbleV2WriteOptions implements GoDto {
 
   /// Go: `func (*pebble.WriteOptions).GetSync() bool`.
   bool getSync() {
-    final $r = $callSync(4877, $W()..dto(this));
+    final $r = $callSync(4886, $W()..dto(this));
     return $r.b();
   }
 }
@@ -4260,7 +4260,7 @@ final class PebbleV2WriteStallBeginInfo implements GoDto {
   /// Go: `func (pebble.WriteStallBeginInfo).SafeFormat(w redact.SafePrinter, _ rune)`.
   void safeFormat($interfaces.RedactInterfacesSafePrinter w, int arg1) {
     $callSync(
-        4878,
+        4887,
         $W()
           ..dto(this)
           ..h(w)
@@ -4269,7 +4269,7 @@ final class PebbleV2WriteStallBeginInfo implements GoDto {
 
   /// Go: `func (pebble.WriteStallBeginInfo).String() string`.
   String string() {
-    final $r = $callSync(4879, $W()..dto(this));
+    final $r = $callSync(4888, $W()..dto(this));
     return $r.str();
   }
 }
@@ -4284,7 +4284,7 @@ mixin PebbleV2Writer$ on GoHandle {
   /// Go: `func (pebble.Writer).Apply(batch *pebble.Batch, o *pebble.WriteOptions) error`.
   void apply(PebbleV2Batch batch, PebbleV2WriteOptions o) {
     $callSync(
-        4880,
+        4889,
         $W()
           ..h(this)
           ..h(batch)
@@ -4294,7 +4294,7 @@ mixin PebbleV2Writer$ on GoHandle {
   /// Go: `func (pebble.Writer).Delete(key []byte, o *pebble.WriteOptions) error`.
   void delete(Uint8List key, PebbleV2WriteOptions o) {
     $callSync(
-        4881,
+        4890,
         $W()
           ..h(this)
           ..bytes(key)
@@ -4304,7 +4304,7 @@ mixin PebbleV2Writer$ on GoHandle {
   /// Go: `func (pebble.Writer).DeleteRange(start []byte, end []byte, o *pebble.WriteOptions) error`.
   void deleteRange(Uint8List start, Uint8List end, PebbleV2WriteOptions o) {
     $callSync(
-        4882,
+        4891,
         $W()
           ..h(this)
           ..bytes(start)
@@ -4316,7 +4316,7 @@ mixin PebbleV2Writer$ on GoHandle {
   void deleteSized(
       Uint8List key, int valueSize, PebbleV2WriteOptions writeOptions) {
     $callSync(
-        4883,
+        4892,
         $W()
           ..h(this)
           ..bytes(key)
@@ -4327,7 +4327,7 @@ mixin PebbleV2Writer$ on GoHandle {
   /// Go: `func (pebble.Writer).LogData(data []byte, opts *pebble.WriteOptions) error`.
   void logData(Uint8List data, PebbleV2WriteOptions opts) {
     $callSync(
-        4884,
+        4893,
         $W()
           ..h(this)
           ..bytes(data)
@@ -4337,7 +4337,7 @@ mixin PebbleV2Writer$ on GoHandle {
   /// Go: `func (pebble.Writer).Merge(key []byte, value []byte, o *pebble.WriteOptions) error`.
   void merge(Uint8List key, Uint8List value, PebbleV2WriteOptions o) {
     $callSync(
-        4885,
+        4894,
         $W()
           ..h(this)
           ..bytes(key)
@@ -4349,7 +4349,7 @@ mixin PebbleV2Writer$ on GoHandle {
   void rangeKeyDelete(
       Uint8List start, Uint8List end, PebbleV2WriteOptions opts) {
     $callSync(
-        4886,
+        4895,
         $W()
           ..h(this)
           ..bytes(start)
@@ -4361,7 +4361,7 @@ mixin PebbleV2Writer$ on GoHandle {
   void rangeKeySet(Uint8List start, Uint8List end, Uint8List suffix,
       Uint8List value, PebbleV2WriteOptions opts) {
     $callSync(
-        4887,
+        4896,
         $W()
           ..h(this)
           ..bytes(start)
@@ -4375,7 +4375,7 @@ mixin PebbleV2Writer$ on GoHandle {
   void rangeKeyUnset(Uint8List start, Uint8List end, Uint8List suffix,
       PebbleV2WriteOptions opts) {
     $callSync(
-        4888,
+        4897,
         $W()
           ..h(this)
           ..bytes(start)
@@ -4387,7 +4387,7 @@ mixin PebbleV2Writer$ on GoHandle {
   /// Go: `func (pebble.Writer).Set(key []byte, value []byte, o *pebble.WriteOptions) error`.
   void set(Uint8List key, Uint8List value, PebbleV2WriteOptions o) {
     $callSync(
-        4889,
+        4898,
         $W()
           ..h(this)
           ..bytes(key)
@@ -4398,7 +4398,7 @@ mixin PebbleV2Writer$ on GoHandle {
   /// Go: `func (pebble.Writer).SingleDelete(key []byte, o *pebble.WriteOptions) error`.
   void singleDelete(Uint8List key, PebbleV2WriteOptions o) {
     $callSync(
-        4890,
+        4899,
         $W()
           ..h(this)
           ..bytes(key)
@@ -4407,13 +4407,13 @@ mixin PebbleV2Writer$ on GoHandle {
 
   /// Go: type assertion `x.(*pebble.Batch)`: null if the object is not one.
   PebbleV2Batch? asPebbleV2Batch() {
-    final $r = $callSync(387, $W()..h(this));
+    final $r = $callSync(390, $W()..h(this));
     return $r.hn(PebbleV2Batch.$h);
   }
 
   /// Go: type assertion `x.(*pebble.DB)`: null if the object is not one.
   PebbleV2Db? asPebbleV2Db() {
-    final $r = $callSync(388, $W()..h(this));
+    final $r = $callSync(391, $W()..h(this));
     return $r.hn(PebbleV2Db.$h);
   }
 }
@@ -4472,20 +4472,20 @@ mixin PebbleV2BlockPropertyFilter$ on GoHandle {
   /// Go: type assertion `x.(*sstable.BlockIntervalFilter)`: null if the object is not one.
   $sstable.PebbleV2SstableBlockIntervalFilter?
       asPebbleV2SstableBlockIntervalFilter() {
-    final $r = $callSync(389, $W()..h(this));
+    final $r = $callSync(392, $W()..h(this));
     return $r.hn($sstable.PebbleV2SstableBlockIntervalFilter.$h);
   }
 
   /// Go: type assertion `x.(pebble.BlockPropertyFilterMask)`: null if the object is not one.
   PebbleV2BlockPropertyFilterMask? asPebbleV2BlockPropertyFilterMask() {
-    final $r = $callSync(390, $W()..h(this));
+    final $r = $callSync(393, $W()..h(this));
     return $r.hn(PebbleV2BlockPropertyFilterMask.$h);
   }
 
   /// Go: type assertion `x.(sstable.BoundLimitedBlockPropertyFilter)`: null if the object is not one.
   $sstable.PebbleV2SstableBoundLimitedBlockPropertyFilter?
       asPebbleV2SstableBoundLimitedBlockPropertyFilter() {
-    final $r = $callSync(391, $W()..h(this));
+    final $r = $callSync(394, $W()..h(this));
     return $r.hn($sstable.PebbleV2SstableBoundLimitedBlockPropertyFilter.$h);
   }
 }
@@ -4508,7 +4508,7 @@ class PebbleV2CompactionGrantHandle extends GoHandle
 mixin PebbleV2CompactionGrantHandle$ on GoHandle {
   /// Go: type assertion `x.(*pebble.ConcurrencyLimitScheduler)`: null if the object is not one.
   PebbleV2ConcurrencyLimitScheduler? asPebbleV2ConcurrencyLimitScheduler() {
-    final $r = $callSync(392, $W()..h(this));
+    final $r = $callSync(395, $W()..h(this));
     return $r.hn(PebbleV2ConcurrencyLimitScheduler.$h);
   }
 }
@@ -4798,19 +4798,19 @@ class PebbleV2Logger extends GoHandle with PebbleV2Logger$ {
 mixin PebbleV2Logger$ on GoHandle {
   /// Go: type assertion `x.(*log.ZapEventLogger)`: null if the object is not one.
   $v2.LogV2ZapEventLogger? asLogV2ZapEventLogger() {
-    final $r = $callSync(393, $W()..h(this));
+    final $r = $callSync(396, $W()..h(this));
     return $r.hn($v2.LogV2ZapEventLogger.$h);
   }
 
   /// Go: type assertion `x.(*zap.SugaredLogger)`: null if the object is not one.
   $zap.ZapSugaredLogger? asZapSugaredLogger() {
-    final $r = $callSync(394, $W()..h(this));
+    final $r = $callSync(397, $W()..h(this));
     return $r.hn($zap.ZapSugaredLogger.$h);
   }
 
   /// Go: type assertion `x.(base.LoggerAndTracer)`: null if the object is not one.
   PebbleV2LoggerAndTracer? asPebbleV2LoggerAndTracer() {
-    final $r = $callSync(395, $W()..h(this));
+    final $r = $callSync(398, $W()..h(this));
     return $r.hn(PebbleV2LoggerAndTracer.$h);
   }
 }
@@ -5104,73 +5104,73 @@ class PebbleV2ErrReadOnly extends GolangException {
 extension GoCockroachdbPebbleV2Api on GoCockroachdbPebbleV2 {
   /// Go: `func pebble.CanDeterministicallySingleDelete(it *pebble.Iterator) (bool, error)`.
   bool canDeterministicallySingleDelete(PebbleV2Iterator it) {
-    final $r = $callSync(4660, $W()..h(it));
+    final $r = $callSync(4669, $W()..h(it));
     return $r.b();
   }
 
   /// Go: `var pebble.DBCompressionBalanced pebble.DBCompressionSettings`.
   PebbleV2DbCompressionSettings get dbCompressionBalanced {
-    final $r = $callSync(4723);
+    final $r = $callSync(4732);
     return $r.p() ? PebbleV2DbCompressionSettings.$dec($r) : $nil();
   }
 
   /// Go: `var pebble.DBCompressionFastest pebble.DBCompressionSettings`.
   PebbleV2DbCompressionSettings get dbCompressionFastest {
-    final $r = $callSync(4724);
+    final $r = $callSync(4733);
     return $r.p() ? PebbleV2DbCompressionSettings.$dec($r) : $nil();
   }
 
   /// Go: `var pebble.DBCompressionGood pebble.DBCompressionSettings`.
   PebbleV2DbCompressionSettings get dbCompressionGood {
-    final $r = $callSync(4725);
+    final $r = $callSync(4734);
     return $r.p() ? PebbleV2DbCompressionSettings.$dec($r) : $nil();
   }
 
   /// Go: `var pebble.DBCompressionNone pebble.DBCompressionSettings`.
   PebbleV2DbCompressionSettings get dbCompressionNone {
-    final $r = $callSync(4726);
+    final $r = $callSync(4735);
     return $r.p() ? PebbleV2DbCompressionSettings.$dec($r) : $nil();
   }
 
   /// Go: `func pebble.DebugCheckLevels(db *pebble.DB) error`.
   void debugCheckLevels(PebbleV2Db db) {
-    $callSync(4733, $W()..h(db));
+    $callSync(4742, $W()..h(db));
   }
 
   /// Go: `var pebble.DefaultComparer *base.Comparer`.
   PebbleV2Comparer get defaultComparer {
-    final $r = $callSync(4734);
+    final $r = $callSync(4743);
     return $r.p() ? PebbleV2Comparer.$dec($r) : $nil();
   }
 
   /// Go: `var pebble.DefaultMerger *base.Merger`.
   PebbleV2Merger get defaultMerger {
-    final $r = $callSync(4735);
+    final $r = $callSync(4744);
     return $r.p() ? PebbleV2Merger.$dec($r) : $nil();
   }
 
   /// Go: `func pebble.DefaultOptions() *pebble.Options`.
   PebbleV2Options defaultOptions() {
-    final $r = $callSync(4736);
+    final $r = $callSync(4745);
     return $r.hnn(PebbleV2Options.$h);
   }
 
   /// Go: `func pebble.FileCacheSize(maxOpenFiles int) int`.
   int fileCacheSize(int maxOpenFiles) {
-    final $r = $callSync(4748, $W()..i64(maxOpenFiles));
+    final $r = $callSync(4757, $W()..i64(maxOpenFiles));
     return $r.i64();
   }
 
   /// Go: `var pebble.FsyncLatencyBuckets []float64`.
   List<double> get fsyncLatencyBuckets {
-    final $r = $callSync(4751);
+    final $r = $callSync(4760);
     return $r.list(() => $r.f64());
   }
 
   /// Go: `func pebble.GetVersion(dir string, fs vfs.FS) (string, error)`.
   String getVersion(String dir, $vfs.PebbleV2VfsFs fs) {
     final $r = $callSync(
-        4752,
+        4761,
         $W()
           ..str(dir)
           ..h(fs));
@@ -5179,14 +5179,14 @@ extension GoCockroachdbPebbleV2Api on GoCockroachdbPebbleV2 {
 
   /// Go: `var pebble.JemallocSizeClasses []int`.
   List<int> get jemallocSizeClasses {
-    final $r = $callSync(4789);
+    final $r = $callSync(4798);
     return $r.list(() => $r.i64());
   }
 
   /// Go: `func pebble.LockDirectory(dirname string, fs vfs.FS) (*pebble.Lock, error)`.
   PebbleV2Lock lockDirectory(String dirname, $vfs.PebbleV2VfsFs fs) {
     final $r = $callSync(
-        4798,
+        4807,
         $W()
           ..str(dirname)
           ..h(fs));
@@ -5195,7 +5195,7 @@ extension GoCockroachdbPebbleV2Api on GoCockroachdbPebbleV2 {
 
   /// Go: `func pebble.MakeLoggingEventListener(logger pebble.Logger) pebble.EventListener`.
   PebbleV2EventListener makeLoggingEventListener(PebbleV2Logger logger) {
-    final $r = $callSync(4801, $W()..h(logger));
+    final $r = $callSync(4810, $W()..h(logger));
     return $r.p() ? PebbleV2EventListener.$dec($r) : $nil();
   }
 
@@ -5211,7 +5211,7 @@ extension GoCockroachdbPebbleV2Api on GoCockroachdbPebbleV2 {
       PebbleV2KeyRange span,
       PebbleV2SpanPolicy policy) async {
     final $r = await $call(
-        4802,
+        4811,
         $W()
           ..cb((r) => cmp(r.bytes() ?? Uint8List(0), r.bytes() ?? Uint8List(0)),
               true, (w, v) => w.i64(v as int))
@@ -5223,7 +5223,7 @@ extension GoCockroachdbPebbleV2Api on GoCockroachdbPebbleV2 {
   /// Go: `func pebble.MakeStoreRelativePath(fs vfs.FS, relativePath string) string`.
   String makeStoreRelativePath($vfs.PebbleV2VfsFs fs, String relativePath) {
     final $r = $callSync(
-        4803,
+        4812,
         $W()
           ..h(fs)
           ..str(relativePath));
@@ -5241,7 +5241,7 @@ extension GoCockroachdbPebbleV2Api on GoCockroachdbPebbleV2 {
       FutureOr<int> Function(Uint8List a, Uint8List b) cmp,
       [List<PebbleV2UserKeyCategory> categories = const []]) async {
     final $r = await $call(
-        4804,
+        4813,
         $W()
           ..cb((r) => cmp(r.bytes() ?? Uint8List(0), r.bytes() ?? Uint8List(0)),
               true, (w, v) => w.i64(v as int))
@@ -5252,7 +5252,7 @@ extension GoCockroachdbPebbleV2Api on GoCockroachdbPebbleV2 {
   /// Go: `func pebble.NewConcurrencyLimitSchedulerWithNoPeriodicGrantingForTest() *pebble.ConcurrencyLimitScheduler`.
   PebbleV2ConcurrencyLimitScheduler
       newConcurrencyLimitSchedulerWithNoPeriodicGrantingForTest() {
-    final $r = $callSync(4819);
+    final $r = $callSync(4828);
     return $r.hnn(PebbleV2ConcurrencyLimitScheduler.$h);
   }
 
@@ -5262,7 +5262,7 @@ extension GoCockroachdbPebbleV2Api on GoCockroachdbPebbleV2 {
       PebbleV2IterOptions iterOpts,
       List<List<$sstable.PebbleV2SstableReadableFile>> files) {
     final $r = $callSync(
-        4820,
+        4829,
         $W()
           ..h(o)
           ..h(iterOpts)
@@ -5279,7 +5279,7 @@ extension GoCockroachdbPebbleV2Api on GoCockroachdbPebbleV2 {
       PebbleV2IterOptions iterOpts,
       List<List<$sstable.PebbleV2SstableReadableFile>> files) async {
     final $r = await $call(
-        4821,
+        4830,
         $W()
           ..h(ctx)
           ..h(o)
@@ -5290,20 +5290,20 @@ extension GoCockroachdbPebbleV2Api on GoCockroachdbPebbleV2 {
 
   /// Go: `var pebble.NoFilterPolicy base.FilterPolicy`.
   PebbleV2FilterPolicy get noFilterPolicy {
-    final $r = $callSync(4823);
+    final $r = $callSync(4832);
     return $r.hnn(PebbleV2FilterPolicy.$h);
   }
 
   /// Go: `var pebble.NoSync *pebble.WriteOptions`.
   PebbleV2WriteOptions get noSync {
-    final $r = $callSync(4825);
+    final $r = $callSync(4834);
     return $r.p() ? PebbleV2WriteOptions.$dec($r) : $nil();
   }
 
   /// Go: `func pebble.Open(dirname string, opts *pebble.Options) (db *pebble.DB, err error)`.
   PebbleV2Db open(String dirname, PebbleV2Options opts) {
     final $r = $callSync(
-        4826,
+        4835,
         $W()
           ..str(dirname)
           ..h(opts));
@@ -5313,7 +5313,7 @@ extension GoCockroachdbPebbleV2Api on GoCockroachdbPebbleV2 {
   /// Go: `func pebble.Peek(dirname string, fs vfs.FS) (*pebble.DBDesc, error)`.
   PebbleV2DbDesc peek(String dirname, $vfs.PebbleV2VfsFs fs) {
     final $r = $callSync(
-        4840,
+        4849,
         $W()
           ..str(dirname)
           ..h(fs));
@@ -5322,19 +5322,19 @@ extension GoCockroachdbPebbleV2Api on GoCockroachdbPebbleV2 {
 
   /// Go: `var pebble.SecondaryCacheChannelWriteBuckets []float64`.
   List<double> get secondaryCacheChannelWriteBuckets {
-    final $r = $callSync(4850);
+    final $r = $callSync(4859);
     return $r.list(() => $r.f64());
   }
 
   /// Go: `var pebble.SecondaryCacheIOBuckets []float64`.
   List<double> get secondaryCacheIoBuckets {
-    final $r = $callSync(4851);
+    final $r = $callSync(4860);
     return $r.list(() => $r.f64());
   }
 
   /// Go: `var pebble.Sync *pebble.WriteOptions`.
   PebbleV2WriteOptions get sync {
-    final $r = $callSync(4856);
+    final $r = $callSync(4865);
     return $r.p() ? PebbleV2WriteOptions.$dec($r) : $nil();
   }
 
@@ -5342,7 +5342,7 @@ extension GoCockroachdbPebbleV2Api on GoCockroachdbPebbleV2 {
   PebbleV2EventListener teeEventListener(
       PebbleV2EventListener a, PebbleV2EventListener b) {
     final $r = $callSync(
-        4867,
+        4876,
         $W()
           ..dto(a)
           ..dto(b));
@@ -5352,7 +5352,7 @@ extension GoCockroachdbPebbleV2Api on GoCockroachdbPebbleV2 {
   /// Go: `func pebble.UniformDBCompressionSettings(profile *block.CompressionProfile) pebble.DBCompressionSettings`.
   PebbleV2DbCompressionSettings uniformDbCompressionSettings(
       $block.PebbleV2SstableBlockCompressionProfile profile) {
-    final $r = $callSync(4868, $W()..dto(profile));
+    final $r = $callSync(4877, $W()..dto(profile));
     return $r.p() ? PebbleV2DbCompressionSettings.$dec($r) : $nil();
   }
 }

@@ -37,14 +37,14 @@ class TestingB extends TestingTb
 
   /// Go: `func (*testing.common).ArtifactDir() string`.
   String artifactDir() {
-    final $r = $callSync(27414, $W()..h(this));
+    final $r = $callSync(27415, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*testing.common).Attr(key string, value string)`.
   void attr(String key, String value) {
     $callSync(
-        27415,
+        27416,
         $W()
           ..h(this)
           ..str(key)
@@ -54,7 +54,7 @@ class TestingB extends TestingTb
   /// Go: `func (*testing.common).Chdir(dir string)`.
   void chdir(String dir) {
     $callSync(
-        27416,
+        27417,
         $W()
           ..h(this)
           ..str(dir));
@@ -69,7 +69,7 @@ class TestingB extends TestingTb
   /// each invocation (a retained callback, WIRE.md).
   Future<void> cleanup(FutureOr<void> Function() f) async {
     await $call(
-        27417,
+        27418,
         $W()
           ..h(this)
           ..cb((r) => f(), true));
@@ -77,14 +77,14 @@ class TestingB extends TestingTb
 
   /// Go: `func (*testing.B).Elapsed() time.Duration`.
   Duration elapsed() {
-    final $r = $callSync(27418, $W()..h(this));
+    final $r = $callSync(27419, $W()..h(this));
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `func (*testing.common).Error(args ...any)`.
   void error([List<Object?> args = const []]) {
     $callSync(
-        27419,
+        27420,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -93,7 +93,7 @@ class TestingB extends TestingTb
   /// Go: `func (*testing.common).Errorf(format string, args ...any)`.
   void errorf(String format, [List<Object?> args = const []]) {
     $callSync(
-        27420,
+        27421,
         $W()
           ..h(this)
           ..str(format)
@@ -102,24 +102,24 @@ class TestingB extends TestingTb
 
   /// Go: `func (*testing.common).Fail()`.
   void fail() {
-    $callSync(27421, $W()..h(this));
+    $callSync(27422, $W()..h(this));
   }
 
   /// Go: `func (*testing.common).FailNow()`.
   void failNow() {
-    $callSync(27422, $W()..h(this));
+    $callSync(27423, $W()..h(this));
   }
 
   /// Go: `func (*testing.common).Failed() bool`.
   bool failed() {
-    final $r = $callSync(27423, $W()..h(this));
+    final $r = $callSync(27424, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*testing.common).Fatal(args ...any)`.
   void fatal([List<Object?> args = const []]) {
     $callSync(
-        27424,
+        27425,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -128,7 +128,7 @@ class TestingB extends TestingTb
   /// Go: `func (*testing.common).Fatalf(format string, args ...any)`.
   void fatalf(String format, [List<Object?> args = const []]) {
     $callSync(
-        27425,
+        27426,
         $W()
           ..h(this)
           ..str(format)
@@ -137,13 +137,13 @@ class TestingB extends TestingTb
 
   /// Go: `func (*testing.common).Helper()`.
   void helper() {
-    $callSync(27426, $W()..h(this));
+    $callSync(27427, $W()..h(this));
   }
 
   /// Go: `func (*testing.common).Log(args ...any)`.
   void log([List<Object?> args = const []]) {
     $callSync(
-        27427,
+        27428,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -152,7 +152,7 @@ class TestingB extends TestingTb
   /// Go: `func (*testing.common).Logf(format string, args ...any)`.
   void logf(String format, [List<Object?> args = const []]) {
     $callSync(
-        27428,
+        27429,
         $W()
           ..h(this)
           ..str(format)
@@ -161,25 +161,25 @@ class TestingB extends TestingTb
 
   /// Go: `func (*testing.B).Loop() bool`.
   bool loop() {
-    final $r = $callSync(27429, $W()..h(this));
+    final $r = $callSync(27430, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*testing.common).Name() string`.
   String name() {
-    final $r = $callSync(27430, $W()..h(this));
+    final $r = $callSync(27431, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*testing.B).ReportAllocs()`.
   void reportAllocs() {
-    $callSync(27431, $W()..h(this));
+    $callSync(27432, $W()..h(this));
   }
 
   /// Go: `func (*testing.B).ReportMetric(n float64, unit string)`.
   void reportMetric(double n, String unit) {
     $callSync(
-        27432,
+        27433,
         $W()
           ..h(this)
           ..f64(n)
@@ -188,7 +188,7 @@ class TestingB extends TestingTb
 
   /// Go: `func (*testing.B).ResetTimer()`.
   void resetTimer() {
-    $callSync(27433, $W()..h(this));
+    $callSync(27434, $W()..h(this));
   }
 
   /// Go: `func (*testing.B).Run(name string, f func(b *testing.B)) bool`.
@@ -200,7 +200,7 @@ class TestingB extends TestingTb
   /// each invocation (a retained callback, WIRE.md).
   Future<bool> run(String name, FutureOr<void> Function(TestingB b) f) async {
     final $r = await $call(
-        27434,
+        27435,
         $W()
           ..h(this)
           ..str(name)
@@ -217,7 +217,7 @@ class TestingB extends TestingTb
   /// each invocation (a retained callback, WIRE.md).
   Future<void> runParallel(FutureOr<void> Function(TestingPb pb) body) async {
     await $call(
-        27435,
+        27436,
         $W()
           ..h(this)
           ..cb((r) => body(r.hnn(TestingPb.$h)), true));
@@ -226,7 +226,7 @@ class TestingB extends TestingTb
   /// Go: `func (*testing.B).SetBytes(n int64)`.
   void setBytes(int n) {
     $callSync(
-        27436,
+        27437,
         $W()
           ..h(this)
           ..i64(n));
@@ -235,7 +235,7 @@ class TestingB extends TestingTb
   /// Go: `func (*testing.B).SetParallelism(p int)`.
   void setParallelism(int p) {
     $callSync(
-        27437,
+        27438,
         $W()
           ..h(this)
           ..i64(p));
@@ -244,7 +244,7 @@ class TestingB extends TestingTb
   /// Go: `func (*testing.common).Setenv(key string, value string)`.
   void setenv(String key, String value) {
     $callSync(
-        27438,
+        27439,
         $W()
           ..h(this)
           ..str(key)
@@ -254,7 +254,7 @@ class TestingB extends TestingTb
   /// Go: `func (*testing.common).Skip(args ...any)`.
   void skip([List<Object?> args = const []]) {
     $callSync(
-        27439,
+        27440,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -262,13 +262,13 @@ class TestingB extends TestingTb
 
   /// Go: `func (*testing.common).SkipNow()`.
   void skipNow() {
-    $callSync(27440, $W()..h(this));
+    $callSync(27441, $W()..h(this));
   }
 
   /// Go: `func (*testing.common).Skipf(format string, args ...any)`.
   void skipf(String format, [List<Object?> args = const []]) {
     $callSync(
-        27441,
+        27442,
         $W()
           ..h(this)
           ..str(format)
@@ -277,23 +277,23 @@ class TestingB extends TestingTb
 
   /// Go: `func (*testing.common).Skipped() bool`.
   bool skipped() {
-    final $r = $callSync(27442, $W()..h(this));
+    final $r = $callSync(27443, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*testing.B).StartTimer()`.
   void startTimer() {
-    $callSync(27443, $W()..h(this));
+    $callSync(27444, $W()..h(this));
   }
 
   /// Go: `func (*testing.B).StopTimer()`.
   void stopTimer() {
-    $callSync(27444, $W()..h(this));
+    $callSync(27445, $W()..h(this));
   }
 
   /// Go: `func (*testing.common).TempDir() string`.
   String tempDir() {
-    final $r = $callSync(27445, $W()..h(this));
+    final $r = $callSync(27446, $W()..h(this));
     return $r.str();
   }
 }
@@ -359,31 +359,31 @@ final class TestingBenchmarkResult implements GoDto {
 
   /// Go: `func (testing.BenchmarkResult).AllocedBytesPerOp() int64`.
   int allocedBytesPerOp() {
-    final $r = $callSync(27447, $W()..dto(this));
+    final $r = $callSync(27448, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (testing.BenchmarkResult).AllocsPerOp() int64`.
   int allocsPerOp() {
-    final $r = $callSync(27448, $W()..dto(this));
+    final $r = $callSync(27449, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (testing.BenchmarkResult).MemString() string`.
   String memString() {
-    final $r = $callSync(27449, $W()..dto(this));
+    final $r = $callSync(27450, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (testing.BenchmarkResult).NsPerOp() int64`.
   int nsPerOp() {
-    final $r = $callSync(27450, $W()..dto(this));
+    final $r = $callSync(27451, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (testing.BenchmarkResult).String() string`.
   String string() {
-    final $r = $callSync(27451, $W()..dto(this));
+    final $r = $callSync(27452, $W()..dto(this));
     return $r.str();
   }
 }
@@ -498,7 +498,7 @@ class TestingF extends TestingTb
   /// Go: `func (*testing.F).Add(args ...any)`.
   void add([List<Object?> args = const []]) {
     $callSync(
-        27454,
+        27455,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -506,14 +506,14 @@ class TestingF extends TestingTb
 
   /// Go: `func (*testing.common).ArtifactDir() string`.
   String artifactDir() {
-    final $r = $callSync(27455, $W()..h(this));
+    final $r = $callSync(27456, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*testing.common).Attr(key string, value string)`.
   void attr(String key, String value) {
     $callSync(
-        27456,
+        27457,
         $W()
           ..h(this)
           ..str(key)
@@ -523,7 +523,7 @@ class TestingF extends TestingTb
   /// Go: `func (*testing.common).Chdir(dir string)`.
   void chdir(String dir) {
     $callSync(
-        27457,
+        27458,
         $W()
           ..h(this)
           ..str(dir));
@@ -538,7 +538,7 @@ class TestingF extends TestingTb
   /// each invocation (a retained callback, WIRE.md).
   Future<void> cleanup(FutureOr<void> Function() f) async {
     await $call(
-        27458,
+        27459,
         $W()
           ..h(this)
           ..cb((r) => f(), true));
@@ -547,7 +547,7 @@ class TestingF extends TestingTb
   /// Go: `func (*testing.common).Error(args ...any)`.
   void error([List<Object?> args = const []]) {
     $callSync(
-        27459,
+        27460,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -556,7 +556,7 @@ class TestingF extends TestingTb
   /// Go: `func (*testing.common).Errorf(format string, args ...any)`.
   void errorf(String format, [List<Object?> args = const []]) {
     $callSync(
-        27460,
+        27461,
         $W()
           ..h(this)
           ..str(format)
@@ -565,24 +565,24 @@ class TestingF extends TestingTb
 
   /// Go: `func (*testing.F).Fail()`.
   void fail() {
-    $callSync(27461, $W()..h(this));
+    $callSync(27462, $W()..h(this));
   }
 
   /// Go: `func (*testing.common).FailNow()`.
   void failNow() {
-    $callSync(27462, $W()..h(this));
+    $callSync(27463, $W()..h(this));
   }
 
   /// Go: `func (*testing.common).Failed() bool`.
   bool failed() {
-    final $r = $callSync(27463, $W()..h(this));
+    final $r = $callSync(27464, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*testing.common).Fatal(args ...any)`.
   void fatal([List<Object?> args = const []]) {
     $callSync(
-        27464,
+        27465,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -591,7 +591,7 @@ class TestingF extends TestingTb
   /// Go: `func (*testing.common).Fatalf(format string, args ...any)`.
   void fatalf(String format, [List<Object?> args = const []]) {
     $callSync(
-        27465,
+        27466,
         $W()
           ..h(this)
           ..str(format)
@@ -601,7 +601,7 @@ class TestingF extends TestingTb
   /// Go: `func (*testing.F).Fuzz(ff any)`.
   void fuzz(Object? ff) {
     $callSync(
-        27466,
+        27467,
         $W()
           ..h(this)
           ..any(ff));
@@ -609,13 +609,13 @@ class TestingF extends TestingTb
 
   /// Go: `func (*testing.F).Helper()`.
   void helper() {
-    $callSync(27467, $W()..h(this));
+    $callSync(27468, $W()..h(this));
   }
 
   /// Go: `func (*testing.common).Log(args ...any)`.
   void log([List<Object?> args = const []]) {
     $callSync(
-        27468,
+        27469,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -624,7 +624,7 @@ class TestingF extends TestingTb
   /// Go: `func (*testing.common).Logf(format string, args ...any)`.
   void logf(String format, [List<Object?> args = const []]) {
     $callSync(
-        27469,
+        27470,
         $W()
           ..h(this)
           ..str(format)
@@ -633,14 +633,14 @@ class TestingF extends TestingTb
 
   /// Go: `func (*testing.common).Name() string`.
   String name() {
-    final $r = $callSync(27470, $W()..h(this));
+    final $r = $callSync(27471, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*testing.common).Setenv(key string, value string)`.
   void setenv(String key, String value) {
     $callSync(
-        27471,
+        27472,
         $W()
           ..h(this)
           ..str(key)
@@ -650,7 +650,7 @@ class TestingF extends TestingTb
   /// Go: `func (*testing.common).Skip(args ...any)`.
   void skip([List<Object?> args = const []]) {
     $callSync(
-        27472,
+        27473,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -658,13 +658,13 @@ class TestingF extends TestingTb
 
   /// Go: `func (*testing.common).SkipNow()`.
   void skipNow() {
-    $callSync(27473, $W()..h(this));
+    $callSync(27474, $W()..h(this));
   }
 
   /// Go: `func (*testing.common).Skipf(format string, args ...any)`.
   void skipf(String format, [List<Object?> args = const []]) {
     $callSync(
-        27474,
+        27475,
         $W()
           ..h(this)
           ..str(format)
@@ -673,13 +673,13 @@ class TestingF extends TestingTb
 
   /// Go: `func (*testing.F).Skipped() bool`.
   bool skipped() {
-    final $r = $callSync(27475, $W()..h(this));
+    final $r = $callSync(27476, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*testing.common).TempDir() string`.
   String tempDir() {
-    final $r = $callSync(27476, $W()..h(this));
+    final $r = $callSync(27477, $W()..h(this));
     return $r.str();
   }
 }
@@ -704,7 +704,7 @@ class TestingM extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*testing.M).Run() (code int)`.
   int run() {
-    final $r = $callSync(27478, $W()..h(this));
+    final $r = $callSync(27479, $W()..h(this));
     return $r.i64();
   }
 }
@@ -729,7 +729,7 @@ class TestingPb extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*testing.PB).Next() bool`.
   bool next() {
-    final $r = $callSync(27479, $W()..h(this));
+    final $r = $callSync(27480, $W()..h(this));
     return $r.b();
   }
 }
@@ -758,14 +758,14 @@ class TestingT extends TestingTb
 
   /// Go: `func (*testing.common).ArtifactDir() string`.
   String artifactDir() {
-    final $r = $callSync(27482, $W()..h(this));
+    final $r = $callSync(27483, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*testing.common).Attr(key string, value string)`.
   void attr(String key, String value) {
     $callSync(
-        27483,
+        27484,
         $W()
           ..h(this)
           ..str(key)
@@ -775,7 +775,7 @@ class TestingT extends TestingTb
   /// Go: `func (*testing.T).Chdir(dir string)`.
   void chdir(String dir) {
     $callSync(
-        27484,
+        27485,
         $W()
           ..h(this)
           ..str(dir));
@@ -790,7 +790,7 @@ class TestingT extends TestingTb
   /// each invocation (a retained callback, WIRE.md).
   Future<void> cleanup(FutureOr<void> Function() f) async {
     await $call(
-        27485,
+        27486,
         $W()
           ..h(this)
           ..cb((r) => f(), true));
@@ -798,14 +798,14 @@ class TestingT extends TestingTb
 
   /// Go: `func (*testing.T).Deadline() (deadline time.Time, ok bool)`.
   (DateTime, bool) deadline() {
-    final $r = $callSync(27486, $W()..h(this));
+    final $r = $callSync(27487, $W()..h(this));
     return ($r.p() ? $r.time() : $nil(), $r.b());
   }
 
   /// Go: `func (*testing.common).Error(args ...any)`.
   void error([List<Object?> args = const []]) {
     $callSync(
-        27487,
+        27488,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -814,7 +814,7 @@ class TestingT extends TestingTb
   /// Go: `func (*testing.common).Errorf(format string, args ...any)`.
   void errorf(String format, [List<Object?> args = const []]) {
     $callSync(
-        27488,
+        27489,
         $W()
           ..h(this)
           ..str(format)
@@ -823,24 +823,24 @@ class TestingT extends TestingTb
 
   /// Go: `func (*testing.common).Fail()`.
   void fail() {
-    $callSync(27489, $W()..h(this));
+    $callSync(27490, $W()..h(this));
   }
 
   /// Go: `func (*testing.common).FailNow()`.
   void failNow() {
-    $callSync(27490, $W()..h(this));
+    $callSync(27491, $W()..h(this));
   }
 
   /// Go: `func (*testing.common).Failed() bool`.
   bool failed() {
-    final $r = $callSync(27491, $W()..h(this));
+    final $r = $callSync(27492, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*testing.common).Fatal(args ...any)`.
   void fatal([List<Object?> args = const []]) {
     $callSync(
-        27492,
+        27493,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -849,7 +849,7 @@ class TestingT extends TestingTb
   /// Go: `func (*testing.common).Fatalf(format string, args ...any)`.
   void fatalf(String format, [List<Object?> args = const []]) {
     $callSync(
-        27493,
+        27494,
         $W()
           ..h(this)
           ..str(format)
@@ -858,13 +858,13 @@ class TestingT extends TestingTb
 
   /// Go: `func (*testing.common).Helper()`.
   void helper() {
-    $callSync(27494, $W()..h(this));
+    $callSync(27495, $W()..h(this));
   }
 
   /// Go: `func (*testing.common).Log(args ...any)`.
   void log([List<Object?> args = const []]) {
     $callSync(
-        27495,
+        27496,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -873,7 +873,7 @@ class TestingT extends TestingTb
   /// Go: `func (*testing.common).Logf(format string, args ...any)`.
   void logf(String format, [List<Object?> args = const []]) {
     $callSync(
-        27496,
+        27497,
         $W()
           ..h(this)
           ..str(format)
@@ -882,13 +882,13 @@ class TestingT extends TestingTb
 
   /// Go: `func (*testing.common).Name() string`.
   String name() {
-    final $r = $callSync(27497, $W()..h(this));
+    final $r = $callSync(27498, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*testing.T).Parallel()`.
   void parallel() {
-    $callSync(27498, $W()..h(this));
+    $callSync(27499, $W()..h(this));
   }
 
   /// Go: `func (*testing.T).Run(name string, f func(t *testing.T)) bool`.
@@ -900,7 +900,7 @@ class TestingT extends TestingTb
   /// each invocation (a retained callback, WIRE.md).
   Future<bool> run(String name, FutureOr<void> Function(TestingT t) f) async {
     final $r = await $call(
-        27499,
+        27500,
         $W()
           ..h(this)
           ..str(name)
@@ -911,7 +911,7 @@ class TestingT extends TestingTb
   /// Go: `func (*testing.T).Setenv(key string, value string)`.
   void setenv(String key, String value) {
     $callSync(
-        27500,
+        27501,
         $W()
           ..h(this)
           ..str(key)
@@ -921,7 +921,7 @@ class TestingT extends TestingTb
   /// Go: `func (*testing.common).Skip(args ...any)`.
   void skip([List<Object?> args = const []]) {
     $callSync(
-        27501,
+        27502,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -929,13 +929,13 @@ class TestingT extends TestingTb
 
   /// Go: `func (*testing.common).SkipNow()`.
   void skipNow() {
-    $callSync(27502, $W()..h(this));
+    $callSync(27503, $W()..h(this));
   }
 
   /// Go: `func (*testing.common).Skipf(format string, args ...any)`.
   void skipf(String format, [List<Object?> args = const []]) {
     $callSync(
-        27503,
+        27504,
         $W()
           ..h(this)
           ..str(format)
@@ -944,13 +944,13 @@ class TestingT extends TestingTb
 
   /// Go: `func (*testing.common).Skipped() bool`.
   bool skipped() {
-    final $r = $callSync(27504, $W()..h(this));
+    final $r = $callSync(27505, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*testing.common).TempDir() string`.
   String tempDir() {
-    final $r = $callSync(27505, $W()..h(this));
+    final $r = $callSync(27506, $W()..h(this));
     return $r.str();
   }
 }
@@ -964,14 +964,14 @@ class TestingTb extends GoHandle with TestingTb$ {
 mixin TestingTb$ on GoHandle {
   /// Go: `func (testing.TB).ArtifactDir() string`.
   String artifactDir() {
-    final $r = $callSync(27506, $W()..h(this));
+    final $r = $callSync(27507, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (testing.TB).Attr(key string, value string)`.
   void attr(String key, String value) {
     $callSync(
-        27507,
+        27508,
         $W()
           ..h(this)
           ..str(key)
@@ -981,7 +981,7 @@ mixin TestingTb$ on GoHandle {
   /// Go: `func (testing.TB).Chdir(dir string)`.
   void chdir(String dir) {
     $callSync(
-        27508,
+        27509,
         $W()
           ..h(this)
           ..str(dir));
@@ -996,7 +996,7 @@ mixin TestingTb$ on GoHandle {
   /// each invocation (a retained callback, WIRE.md).
   Future<void> cleanup(FutureOr<void> Function() callback) async {
     await $call(
-        27509,
+        27510,
         $W()
           ..h(this)
           ..cb((r) => callback(), true));
@@ -1005,7 +1005,7 @@ mixin TestingTb$ on GoHandle {
   /// Go: `func (testing.TB).Error(args ...any)`.
   void error([List<Object?> args = const []]) {
     $callSync(
-        27510,
+        27511,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -1014,7 +1014,7 @@ mixin TestingTb$ on GoHandle {
   /// Go: `func (testing.TB).Errorf(format string, args ...any)`.
   void errorf(String format, [List<Object?> args = const []]) {
     $callSync(
-        27511,
+        27512,
         $W()
           ..h(this)
           ..str(format)
@@ -1023,24 +1023,24 @@ mixin TestingTb$ on GoHandle {
 
   /// Go: `func (testing.TB).Fail()`.
   void fail() {
-    $callSync(27512, $W()..h(this));
+    $callSync(27513, $W()..h(this));
   }
 
   /// Go: `func (testing.TB).FailNow()`.
   void failNow() {
-    $callSync(27513, $W()..h(this));
+    $callSync(27514, $W()..h(this));
   }
 
   /// Go: `func (testing.TB).Failed() bool`.
   bool failed() {
-    final $r = $callSync(27514, $W()..h(this));
+    final $r = $callSync(27515, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (testing.TB).Fatal(args ...any)`.
   void fatal([List<Object?> args = const []]) {
     $callSync(
-        27515,
+        27516,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -1049,7 +1049,7 @@ mixin TestingTb$ on GoHandle {
   /// Go: `func (testing.TB).Fatalf(format string, args ...any)`.
   void fatalf(String format, [List<Object?> args = const []]) {
     $callSync(
-        27516,
+        27517,
         $W()
           ..h(this)
           ..str(format)
@@ -1058,13 +1058,13 @@ mixin TestingTb$ on GoHandle {
 
   /// Go: `func (testing.TB).Helper()`.
   void helper() {
-    $callSync(27517, $W()..h(this));
+    $callSync(27518, $W()..h(this));
   }
 
   /// Go: `func (testing.TB).Log(args ...any)`.
   void log([List<Object?> args = const []]) {
     $callSync(
-        27518,
+        27519,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -1073,7 +1073,7 @@ mixin TestingTb$ on GoHandle {
   /// Go: `func (testing.TB).Logf(format string, args ...any)`.
   void logf(String format, [List<Object?> args = const []]) {
     $callSync(
-        27519,
+        27520,
         $W()
           ..h(this)
           ..str(format)
@@ -1082,14 +1082,14 @@ mixin TestingTb$ on GoHandle {
 
   /// Go: `func (testing.TB).Name() string`.
   String name() {
-    final $r = $callSync(27520, $W()..h(this));
+    final $r = $callSync(27521, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (testing.TB).Setenv(key string, value string)`.
   void setenv(String key, String value) {
     $callSync(
-        27521,
+        27522,
         $W()
           ..h(this)
           ..str(key)
@@ -1099,7 +1099,7 @@ mixin TestingTb$ on GoHandle {
   /// Go: `func (testing.TB).Skip(args ...any)`.
   void skip([List<Object?> args = const []]) {
     $callSync(
-        27522,
+        27523,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -1107,13 +1107,13 @@ mixin TestingTb$ on GoHandle {
 
   /// Go: `func (testing.TB).SkipNow()`.
   void skipNow() {
-    $callSync(27523, $W()..h(this));
+    $callSync(27524, $W()..h(this));
   }
 
   /// Go: `func (testing.TB).Skipf(format string, args ...any)`.
   void skipf(String format, [List<Object?> args = const []]) {
     $callSync(
-        27524,
+        27525,
         $W()
           ..h(this)
           ..str(format)
@@ -1122,31 +1122,31 @@ mixin TestingTb$ on GoHandle {
 
   /// Go: `func (testing.TB).Skipped() bool`.
   bool skipped() {
-    final $r = $callSync(27525, $W()..h(this));
+    final $r = $callSync(27526, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (testing.TB).TempDir() string`.
   String tempDir() {
-    final $r = $callSync(27526, $W()..h(this));
+    final $r = $callSync(27527, $W()..h(this));
     return $r.str();
   }
 
   /// Go: type assertion `x.(*testing.B)`: null if the object is not one.
   TestingB? asTestingB() {
-    final $r = $callSync(3037, $W()..h(this));
+    final $r = $callSync(3046, $W()..h(this));
     return $r.hn(TestingB.$h);
   }
 
   /// Go: type assertion `x.(*testing.F)`: null if the object is not one.
   TestingF? asTestingF() {
-    final $r = $callSync(3038, $W()..h(this));
+    final $r = $callSync(3047, $W()..h(this));
     return $r.hn(TestingF.$h);
   }
 
   /// Go: type assertion `x.(*testing.T)`: null if the object is not one.
   TestingT? asTestingT() {
-    final $r = $callSync(3039, $W()..h(this));
+    final $r = $callSync(3048, $W()..h(this));
     return $r.hn(TestingT.$h);
   }
 }
@@ -1162,7 +1162,7 @@ extension GoTestingApi on GoTesting {
   /// each invocation (a retained callback, WIRE.md).
   Future<double> allocsPerRun(int runs, FutureOr<void> Function() f) async {
     final $r = await $call(
-        27413,
+        27414,
         $W()
           ..i64(runs)
           ..cb((r) => f(), true));
@@ -1178,47 +1178,47 @@ extension GoTestingApi on GoTesting {
   /// each invocation (a retained callback, WIRE.md).
   Future<TestingBenchmarkResult> benchmark(
       FutureOr<void> Function(TestingB b) f) async {
-    final $r = await $call(27446, $W()..cb((r) => f(r.hnn(TestingB.$h)), true));
+    final $r = await $call(27447, $W()..cb((r) => f(r.hnn(TestingB.$h)), true));
     return $r.p() ? TestingBenchmarkResult.$dec($r) : $nil();
   }
 
   /// Go: `func testing.CoverMode() string`.
   String coverMode() {
-    final $r = $callSync(27452);
+    final $r = $callSync(27453);
     return $r.str();
   }
 
   /// Go: `func testing.Coverage() float64`.
   double coverage() {
-    final $r = $callSync(27453);
+    final $r = $callSync(27454);
     return $r.f64();
   }
 
   /// Go: `func testing.Init()`.
   void init() {
-    $callSync(27477);
+    $callSync(27478);
   }
 
   /// Go: `func testing.RegisterCover(c testing.Cover)`.
   void registerCover(TestingCover c) {
-    $callSync(27480, $W()..dto(c));
+    $callSync(27481, $W()..dto(c));
   }
 
   /// Go: `func testing.Short() bool`.
   bool short() {
-    final $r = $callSync(27481);
+    final $r = $callSync(27482);
     return $r.b();
   }
 
   /// Go: `func testing.Testing() bool`.
   bool testing() {
-    final $r = $callSync(27527);
+    final $r = $callSync(27528);
     return $r.b();
   }
 
   /// Go: `func testing.Verbose() bool`.
   bool verbose() {
-    final $r = $callSync(27528);
+    final $r = $callSync(27529);
     return $r.b();
   }
 }

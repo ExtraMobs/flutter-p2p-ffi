@@ -44,7 +44,7 @@ final class ProtobufProtoMarshalOptions implements GoDto {
   /// Go: `func (proto.MarshalOptions).Marshal(m proto.Message) ([]byte, error)`.
   Uint8List marshal($protoreflect.ProtobufReflectProtoreflectProtoMessage m) {
     final $r = $callSync(
-        24785,
+        24791,
         $W()
           ..dto(this)
           ..h(m));
@@ -55,7 +55,7 @@ final class ProtobufProtoMarshalOptions implements GoDto {
   Uint8List marshalAppend(
       Uint8List b, $protoreflect.ProtobufReflectProtoreflectProtoMessage m) {
     final $r = $callSync(
-        24786,
+        24792,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -66,7 +66,7 @@ final class ProtobufProtoMarshalOptions implements GoDto {
   /// Go: `func (proto.MarshalOptions).Size(m proto.Message) int`.
   int size($protoreflect.ProtobufReflectProtoreflectProtoMessage m) {
     final $r = $callSync(
-        24787,
+        24793,
         $W()
           ..dto(this)
           ..h(m));
@@ -126,7 +126,7 @@ final class ProtobufProtoUnmarshalOptions implements GoDto {
   void unmarshal(
       Uint8List b, $protoreflect.ProtobufReflectProtoreflectProtoMessage m) {
     $callSync(
-        24798,
+        24804,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -147,21 +147,21 @@ class ProtobufProtoError extends GolangException {
 extension GoProtobufProtoApi on GoProtobufProto {
   /// Go: `func proto.Bool(v bool) *bool`.
   bool bool$(bool v) {
-    final $r = $callSync(24773, $W()..b(v));
+    final $r = $callSync(24779, $W()..b(v));
     return $r.p() ? $r.b() : $nil();
   }
 
   /// Go: `func proto.CheckInitialized(m proto.Message) error`.
   void checkInitialized(
       $protoreflect.ProtobufReflectProtoreflectProtoMessage m) {
-    $callSync(24774, $W()..h(m));
+    $callSync(24780, $W()..h(m));
   }
 
   /// Go: `func proto.ClearExtension(m proto.Message, xt protoreflect.ExtensionType)`.
   void clearExtension($protoreflect.ProtobufReflectProtoreflectProtoMessage m,
       $protoreflect.ProtobufReflectProtoreflectExtensionType xt) {
     $callSync(
-        24775,
+        24781,
         $W()
           ..h(m)
           ..h(xt));
@@ -170,7 +170,7 @@ extension GoProtobufProtoApi on GoProtobufProto {
   /// Go: `func proto.Clone(m proto.Message) proto.Message`.
   $protoreflect.ProtobufReflectProtoreflectProtoMessage clone(
       $protoreflect.ProtobufReflectProtoreflectProtoMessage m) {
-    final $r = $callSync(24776, $W()..h(m));
+    final $r = $callSync(24782, $W()..h(m));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectProtoMessage.$h);
   }
 
@@ -178,7 +178,7 @@ extension GoProtobufProtoApi on GoProtobufProto {
   bool equal($protoreflect.ProtobufReflectProtoreflectProtoMessage x,
       $protoreflect.ProtobufReflectProtoreflectProtoMessage y) {
     final $r = $callSync(
-        24777,
+        24783,
         $W()
           ..h(x)
           ..h(y));
@@ -187,13 +187,13 @@ extension GoProtobufProtoApi on GoProtobufProto {
 
   /// Go: `func proto.Float32(v float32) *float32`.
   double float32(double v) {
-    final $r = $callSync(24778, $W()..f64(v));
+    final $r = $callSync(24784, $W()..f64(v));
     return $r.p() ? $r.f64() : $nil();
   }
 
   /// Go: `func proto.Float64(v float64) *float64`.
   double float64(double v) {
-    final $r = $callSync(24779, $W()..f64(v));
+    final $r = $callSync(24785, $W()..f64(v));
     return $r.p() ? $r.f64() : $nil();
   }
 
@@ -201,7 +201,7 @@ extension GoProtobufProtoApi on GoProtobufProto {
   Object? getExtension($protoreflect.ProtobufReflectProtoreflectProtoMessage m,
       $protoreflect.ProtobufReflectProtoreflectExtensionType xt) {
     final $r = $callSync(
-        24780,
+        24786,
         $W()
           ..h(m)
           ..h(xt));
@@ -212,7 +212,7 @@ extension GoProtobufProtoApi on GoProtobufProto {
   bool hasExtension($protoreflect.ProtobufReflectProtoreflectProtoMessage m,
       $protoreflect.ProtobufReflectProtoreflectExtensionType xt) {
     final $r = $callSync(
-        24781,
+        24787,
         $W()
           ..h(m)
           ..h(xt));
@@ -221,19 +221,19 @@ extension GoProtobufProtoApi on GoProtobufProto {
 
   /// Go: `func proto.Int32(v int32) *int32`.
   int int32(int v) {
-    final $r = $callSync(24782, $W()..i64(v));
+    final $r = $callSync(24788, $W()..i64(v));
     return $r.p() ? $r.i64() : $nil();
   }
 
   /// Go: `func proto.Int64(v int64) *int64`.
   int int64(int v) {
-    final $r = $callSync(24783, $W()..i64(v));
+    final $r = $callSync(24789, $W()..i64(v));
     return $r.p() ? $r.i64() : $nil();
   }
 
   /// Go: `func proto.Marshal(m proto.Message) ([]byte, error)`.
   Uint8List marshal($protoreflect.ProtobufReflectProtoreflectProtoMessage m) {
-    final $r = $callSync(24784, $W()..h(m));
+    final $r = $callSync(24790, $W()..h(m));
     return $r.bytes() ?? Uint8List(0);
   }
 
@@ -241,7 +241,7 @@ extension GoProtobufProtoApi on GoProtobufProto {
   void merge($protoreflect.ProtobufReflectProtoreflectProtoMessage dst,
       $protoreflect.ProtobufReflectProtoreflectProtoMessage src) {
     $callSync(
-        24788,
+        24794,
         $W()
           ..h(dst)
           ..h(src));
@@ -249,7 +249,7 @@ extension GoProtobufProtoApi on GoProtobufProto {
 
   /// Go: `func proto.MessageName(m proto.Message) protoreflect.FullName`.
   String messageName($protoreflect.ProtobufReflectProtoreflectProtoMessage m) {
-    final $r = $callSync(24789, $W()..h(m));
+    final $r = $callSync(24795, $W()..h(m));
     return $r.str();
   }
 
@@ -268,7 +268,7 @@ extension GoProtobufProtoApi on GoProtobufProto {
               Object? arg1)
           f) async {
     await $call(
-        24790,
+        24796,
         $W()
           ..h(m)
           ..cb(
@@ -281,14 +281,14 @@ extension GoProtobufProtoApi on GoProtobufProto {
 
   /// Go: `func proto.Reset(m proto.Message)`.
   void reset($protoreflect.ProtobufReflectProtoreflectProtoMessage m) {
-    $callSync(24791, $W()..h(m));
+    $callSync(24797, $W()..h(m));
   }
 
   /// Go: `func proto.SetExtension(m proto.Message, xt protoreflect.ExtensionType, v any)`.
   void setExtension($protoreflect.ProtobufReflectProtoreflectProtoMessage m,
       $protoreflect.ProtobufReflectProtoreflectExtensionType xt, Object? v) {
     $callSync(
-        24792,
+        24798,
         $W()
           ..h(m)
           ..h(xt)
@@ -297,25 +297,25 @@ extension GoProtobufProtoApi on GoProtobufProto {
 
   /// Go: `func proto.Size(m proto.Message) int`.
   int size($protoreflect.ProtobufReflectProtoreflectProtoMessage m) {
-    final $r = $callSync(24793, $W()..h(m));
+    final $r = $callSync(24799, $W()..h(m));
     return $r.i64();
   }
 
   /// Go: `func proto.String(v string) *string`.
   String string(String v) {
-    final $r = $callSync(24794, $W()..str(v));
+    final $r = $callSync(24800, $W()..str(v));
     return $r.p() ? $r.str() : $nil();
   }
 
   /// Go: `func proto.Uint32(v uint32) *uint32`.
   int uint32(int v) {
-    final $r = $callSync(24795, $W()..i64(v));
+    final $r = $callSync(24801, $W()..i64(v));
     return $r.p() ? $r.i64() : $nil();
   }
 
   /// Go: `func proto.Uint64(v uint64) *uint64`.
   int uint64(int v) {
-    final $r = $callSync(24796, $W()..i64(v));
+    final $r = $callSync(24802, $W()..i64(v));
     return $r.p() ? $r.i64() : $nil();
   }
 
@@ -323,7 +323,7 @@ extension GoProtobufProtoApi on GoProtobufProto {
   void unmarshal(
       Uint8List b, $protoreflect.ProtobufReflectProtoreflectProtoMessage m) {
     $callSync(
-        24797,
+        24803,
         $W()
           ..bytes(b)
           ..h(m));
@@ -331,7 +331,7 @@ extension GoProtobufProtoApi on GoProtobufProto {
 
   /// Go: `func proto.ValueOrDefaultBytes(val []byte) []byte`.
   Uint8List valueOrDefaultBytes(Uint8List val) {
-    final $r = $callSync(24799, $W()..bytes(val));
+    final $r = $callSync(24805, $W()..bytes(val));
     return $r.bytes() ?? Uint8List(0);
   }
 }

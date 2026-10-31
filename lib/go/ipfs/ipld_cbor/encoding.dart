@@ -36,7 +36,7 @@ class IpldCborEncodingMarshaller extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*encoding.Marshaller).Encode(obj interface{}, w io.Writer) error`.
   void encode(Object? obj, GoHandle? w) {
     $callSync(
-        10953,
+        10962,
         $W()
           ..h(this)
           ..any(obj)
@@ -46,7 +46,7 @@ class IpldCborEncodingMarshaller extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*encoding.Marshaller).Marshal(obj interface{}) ([]byte, error)`.
   Uint8List marshal(Object? obj) {
     final $r = $callSync(
-        10954,
+        10963,
         $W()
           ..h(this)
           ..any(obj));
@@ -74,16 +74,10 @@ class IpldCborEncodingPooledCloner extends $refmt.RefmtCloner
         $peertask.PeertaskqueuePeertaskTopic {
   IpldCborEncodingPooledCloner.$h(super.$h) : super.$h();
 
-  /// Go: `func encoding.NewPooledCloner(atl atlas.Atlas) encoding.PooledCloner`.
-  factory IpldCborEncodingPooledCloner($atlas.RefmtObjAtlas atl) {
-    final $r = $callSync(10956, $W()..h(atl));
-    return $r.hnn(IpldCborEncodingPooledCloner.$h);
-  }
-
   /// Go: `func (*encoding.PooledCloner).Clone(a interface{}, b interface{}) error`.
   void clone(Object? a, Object? b) {
     $callSync(
-        10960,
+        10966,
         $W()
           ..h(this)
           ..any(a)
@@ -109,16 +103,10 @@ class IpldCborEncodingPooledMarshaller extends $crypto.CryptoDecrypterOpts
         $peertask.PeertaskqueuePeertaskTopic {
   IpldCborEncodingPooledMarshaller.$h(super.$h) : super.$h();
 
-  /// Go: `func encoding.NewPooledMarshaller(atl atlas.Atlas) encoding.PooledMarshaller`.
-  factory IpldCborEncodingPooledMarshaller($atlas.RefmtObjAtlas atl) {
-    final $r = $callSync(10957, $W()..h(atl));
-    return $r.hnn(IpldCborEncodingPooledMarshaller.$h);
-  }
-
   /// Go: `func (*encoding.PooledMarshaller).Encode(obj interface{}, w io.Writer) error`.
   void encode(Object? obj, GoHandle? w) {
     $callSync(
-        10961,
+        10967,
         $W()
           ..h(this)
           ..any(obj)
@@ -128,7 +116,7 @@ class IpldCborEncodingPooledMarshaller extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*encoding.PooledMarshaller).Marshal(obj interface{}) ([]byte, error)`.
   Uint8List marshal(Object? obj) {
     final $r = $callSync(
-        10962,
+        10968,
         $W()
           ..h(this)
           ..any(obj));
@@ -154,16 +142,10 @@ class IpldCborEncodingPooledUnmarshaller extends $crypto.CryptoDecrypterOpts
         $peertask.PeertaskqueuePeertaskTopic {
   IpldCborEncodingPooledUnmarshaller.$h(super.$h) : super.$h();
 
-  /// Go: `func encoding.NewPooledUnmarshaller(atl atlas.Atlas) encoding.PooledUnmarshaller`.
-  factory IpldCborEncodingPooledUnmarshaller($atlas.RefmtObjAtlas atl) {
-    final $r = $callSync(10958, $W()..h(atl));
-    return $r.hnn(IpldCborEncodingPooledUnmarshaller.$h);
-  }
-
   /// Go: `func (*encoding.PooledUnmarshaller).Decode(r io.Reader, obj interface{}) error`.
   void decode(Object r, Object? obj) {
     $callSync(
-        10963,
+        10969,
         $W()
           ..h(this)
           ..reader(r)
@@ -173,7 +155,7 @@ class IpldCborEncodingPooledUnmarshaller extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*encoding.PooledUnmarshaller).Unmarshal(b []byte, obj interface{}) error`.
   void unmarshal(Uint8List b, Object? obj) {
     $callSync(
-        10964,
+        10970,
         $W()
           ..h(this)
           ..bytes(b)
@@ -202,7 +184,7 @@ class IpldCborEncodingUnmarshaller extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*encoding.Unmarshaller).Decode(r io.Reader, obj interface{}) (err error)`.
   void decode(Object r, Object? obj) {
     $callSync(
-        10965,
+        10971,
         $W()
           ..h(this)
           ..reader(r)
@@ -212,7 +194,7 @@ class IpldCborEncodingUnmarshaller extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*encoding.Unmarshaller).Unmarshal(b []byte, obj interface{}) error`.
   void unmarshal(Uint8List b, Object? obj) {
     $callSync(
-        10966,
+        10972,
         $W()
           ..h(this)
           ..bytes(b)
@@ -224,20 +206,20 @@ class IpldCborEncodingUnmarshaller extends $crypto.CryptoDecrypterOpts
 extension GoIpfsIpldCborEncodingApi on GoIpfsIpldCborEncoding {
   /// Go: `func encoding.DAGCBORDecodeOptions() cbor.DecodeOptions`.
   $cbor.RefmtCborDecodeOptions dagcborDecodeOptions() {
-    final $r = $callSync(10952);
+    final $r = $callSync(10961);
     return $r.p() ? $cbor.RefmtCborDecodeOptions.$dec($r) : $nil();
   }
 
   /// Go: `func encoding.NewMarshallerAtlased(atl atlas.Atlas) *encoding.Marshaller`.
   IpldCborEncodingMarshaller newMarshallerAtlased($atlas.RefmtObjAtlas atl) {
-    final $r = $callSync(10955, $W()..h(atl));
+    final $r = $callSync(10964, $W()..h(atl));
     return $r.hnn(IpldCborEncodingMarshaller.$h);
   }
 
   /// Go: `func encoding.NewUnmarshallerAtlased(atl atlas.Atlas) *encoding.Unmarshaller`.
   IpldCborEncodingUnmarshaller newUnmarshallerAtlased(
       $atlas.RefmtObjAtlas atl) {
-    final $r = $callSync(10959, $W()..h(atl));
+    final $r = $callSync(10965, $W()..h(atl));
     return $r.hnn(IpldCborEncodingUnmarshaller.$h);
   }
 }

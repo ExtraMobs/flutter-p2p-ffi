@@ -100,68 +100,68 @@ final class BadgerPbKv implements GoDto {
 
   /// Go: `func (*pb.KV).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(5971, $W()..dto(this));
+    final $r = $callSync(5980, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pb.KV).GetExpiresAt() uint64`.
   int getExpiresAt() {
-    final $r = $callSync(5972, $W()..dto(this));
+    final $r = $callSync(5981, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.KV).GetKey() []byte`.
   Uint8List getKey() {
-    final $r = $callSync(5973, $W()..dto(this));
+    final $r = $callSync(5982, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pb.KV).GetMeta() []byte`.
   Uint8List getMeta() {
-    final $r = $callSync(5974, $W()..dto(this));
+    final $r = $callSync(5983, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pb.KV).GetStreamDone() bool`.
   bool getStreamDone() {
-    final $r = $callSync(5975, $W()..dto(this));
+    final $r = $callSync(5984, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*pb.KV).GetStreamId() uint32`.
   int getStreamId() {
-    final $r = $callSync(5976, $W()..dto(this));
+    final $r = $callSync(5985, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.KV).GetUserMeta() []byte`.
   Uint8List getUserMeta() {
-    final $r = $callSync(5977, $W()..dto(this));
+    final $r = $callSync(5986, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pb.KV).GetValue() []byte`.
   Uint8List getValue() {
-    final $r = $callSync(5978, $W()..dto(this));
+    final $r = $callSync(5987, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pb.KV).GetVersion() uint64`.
   int getVersion() {
-    final $r = $callSync(5979, $W()..dto(this));
+    final $r = $callSync(5988, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.KV).Marshal() (dAtA []byte, err error)`.
   Uint8List marshal() {
-    final $r = $callSync(5980, $W()..dto(this));
+    final $r = $callSync(5989, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pb.KV).MarshalTo(dAtA []byte) (int, error)`.
   int marshalTo(Uint8List dAtA) {
     final $r = $callSync(
-        5981,
+        5990,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -171,7 +171,7 @@ final class BadgerPbKv implements GoDto {
   /// Go: `func (*pb.KV).MarshalToSizedBuffer(dAtA []byte) (int, error)`.
   int marshalToSizedBuffer(Uint8List dAtA) {
     final $r = $callSync(
-        5982,
+        5991,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -180,30 +180,30 @@ final class BadgerPbKv implements GoDto {
 
   /// Go: `func (*pb.KV).ProtoMessage()`.
   void protoMessage() {
-    $callSync(5983, $W()..dto(this));
+    $callSync(5992, $W()..dto(this));
   }
 
   /// Go: `func (*pb.KV).Reset()`.
   void reset() {
-    $callSync(5984, $W()..dto(this));
+    $callSync(5993, $W()..dto(this));
   }
 
   /// Go: `func (*pb.KV).Size() (n int)`.
   int size() {
-    final $r = $callSync(5985, $W()..dto(this));
+    final $r = $callSync(5994, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.KV).String() string`.
   String string() {
-    final $r = $callSync(5986, $W()..dto(this));
+    final $r = $callSync(5995, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*pb.KV).Unmarshal(dAtA []byte) error`.
   void unmarshal(Uint8List dAtA) {
     $callSync(
-        5987,
+        5996,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -211,13 +211,13 @@ final class BadgerPbKv implements GoDto {
 
   /// Go: `func (*pb.KV).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(5988, $W()..dto(this));
+    $callSync(5997, $W()..dto(this));
   }
 
   /// Go: `func (*pb.KV).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        5989,
+        5998,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -228,7 +228,7 @@ final class BadgerPbKv implements GoDto {
   /// Go: `func (*pb.KV).XXX_Merge(src proto.Message)`.
   void xxxMerge($protoiface.ProtobufRuntimeProtoifaceMessageV1 src) {
     $callSync(
-        5990,
+        5999,
         $W()
           ..dto(this)
           ..h(src));
@@ -236,14 +236,14 @@ final class BadgerPbKv implements GoDto {
 
   /// Go: `func (*pb.KV).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(5991, $W()..dto(this));
+    final $r = $callSync(6000, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.KV).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        5992,
+        6001,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -284,26 +284,26 @@ final class BadgerPbKvList implements GoDto {
 
   /// Go: `func (*pb.KVList).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(5993, $W()..dto(this));
+    final $r = $callSync(6002, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pb.KVList).GetKv() []*pb.KV`.
   List<BadgerPbKv> getKv() {
-    final $r = $callSync(5994, $W()..dto(this));
+    final $r = $callSync(6003, $W()..dto(this));
     return $r.list(() => $r.p() ? BadgerPbKv.$dec($r) : $nil());
   }
 
   /// Go: `func (*pb.KVList).Marshal() (dAtA []byte, err error)`.
   Uint8List marshal() {
-    final $r = $callSync(5995, $W()..dto(this));
+    final $r = $callSync(6004, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pb.KVList).MarshalTo(dAtA []byte) (int, error)`.
   int marshalTo(Uint8List dAtA) {
     final $r = $callSync(
-        5996,
+        6005,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -313,7 +313,7 @@ final class BadgerPbKvList implements GoDto {
   /// Go: `func (*pb.KVList).MarshalToSizedBuffer(dAtA []byte) (int, error)`.
   int marshalToSizedBuffer(Uint8List dAtA) {
     final $r = $callSync(
-        5997,
+        6006,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -322,30 +322,30 @@ final class BadgerPbKvList implements GoDto {
 
   /// Go: `func (*pb.KVList).ProtoMessage()`.
   void protoMessage() {
-    $callSync(5998, $W()..dto(this));
+    $callSync(6007, $W()..dto(this));
   }
 
   /// Go: `func (*pb.KVList).Reset()`.
   void reset() {
-    $callSync(5999, $W()..dto(this));
+    $callSync(6008, $W()..dto(this));
   }
 
   /// Go: `func (*pb.KVList).Size() (n int)`.
   int size() {
-    final $r = $callSync(6000, $W()..dto(this));
+    final $r = $callSync(6009, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.KVList).String() string`.
   String string() {
-    final $r = $callSync(6001, $W()..dto(this));
+    final $r = $callSync(6010, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*pb.KVList).Unmarshal(dAtA []byte) error`.
   void unmarshal(Uint8List dAtA) {
     $callSync(
-        6002,
+        6011,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -353,13 +353,13 @@ final class BadgerPbKvList implements GoDto {
 
   /// Go: `func (*pb.KVList).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(6003, $W()..dto(this));
+    $callSync(6012, $W()..dto(this));
   }
 
   /// Go: `func (*pb.KVList).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        6004,
+        6013,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -370,7 +370,7 @@ final class BadgerPbKvList implements GoDto {
   /// Go: `func (*pb.KVList).XXX_Merge(src proto.Message)`.
   void xxxMerge($protoiface.ProtobufRuntimeProtoifaceMessageV1 src) {
     $callSync(
-        6005,
+        6014,
         $W()
           ..dto(this)
           ..h(src));
@@ -378,14 +378,14 @@ final class BadgerPbKvList implements GoDto {
 
   /// Go: `func (*pb.KVList).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(6006, $W()..dto(this));
+    final $r = $callSync(6015, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.KVList).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        6007,
+        6016,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -452,44 +452,44 @@ final class BadgerPbManifestChange implements GoDto {
 
   /// Go: `func (*pb.ManifestChange).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(6008, $W()..dto(this));
+    final $r = $callSync(6017, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pb.ManifestChange).GetChecksum() []byte`.
   Uint8List getChecksum() {
-    final $r = $callSync(6009, $W()..dto(this));
+    final $r = $callSync(6018, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pb.ManifestChange).GetId() uint64`.
   int getId() {
-    final $r = $callSync(6010, $W()..dto(this));
+    final $r = $callSync(6019, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.ManifestChange).GetLevel() uint32`.
   int getLevel() {
-    final $r = $callSync(6011, $W()..dto(this));
+    final $r = $callSync(6020, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.ManifestChange).GetOp() pb.ManifestChange_Operation`.
   int getOp() {
-    final $r = $callSync(6012, $W()..dto(this));
+    final $r = $callSync(6021, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.ManifestChange).Marshal() (dAtA []byte, err error)`.
   Uint8List marshal() {
-    final $r = $callSync(6013, $W()..dto(this));
+    final $r = $callSync(6022, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pb.ManifestChange).MarshalTo(dAtA []byte) (int, error)`.
   int marshalTo(Uint8List dAtA) {
     final $r = $callSync(
-        6014,
+        6023,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -499,7 +499,7 @@ final class BadgerPbManifestChange implements GoDto {
   /// Go: `func (*pb.ManifestChange).MarshalToSizedBuffer(dAtA []byte) (int, error)`.
   int marshalToSizedBuffer(Uint8List dAtA) {
     final $r = $callSync(
-        6015,
+        6024,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -508,30 +508,30 @@ final class BadgerPbManifestChange implements GoDto {
 
   /// Go: `func (*pb.ManifestChange).ProtoMessage()`.
   void protoMessage() {
-    $callSync(6016, $W()..dto(this));
+    $callSync(6025, $W()..dto(this));
   }
 
   /// Go: `func (*pb.ManifestChange).Reset()`.
   void reset() {
-    $callSync(6017, $W()..dto(this));
+    $callSync(6026, $W()..dto(this));
   }
 
   /// Go: `func (*pb.ManifestChange).Size() (n int)`.
   int size() {
-    final $r = $callSync(6018, $W()..dto(this));
+    final $r = $callSync(6027, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.ManifestChange).String() string`.
   String string() {
-    final $r = $callSync(6019, $W()..dto(this));
+    final $r = $callSync(6028, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*pb.ManifestChange).Unmarshal(dAtA []byte) error`.
   void unmarshal(Uint8List dAtA) {
     $callSync(
-        6020,
+        6029,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -539,13 +539,13 @@ final class BadgerPbManifestChange implements GoDto {
 
   /// Go: `func (*pb.ManifestChange).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(6021, $W()..dto(this));
+    $callSync(6030, $W()..dto(this));
   }
 
   /// Go: `func (*pb.ManifestChange).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        6022,
+        6031,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -556,7 +556,7 @@ final class BadgerPbManifestChange implements GoDto {
   /// Go: `func (*pb.ManifestChange).XXX_Merge(src proto.Message)`.
   void xxxMerge($protoiface.ProtobufRuntimeProtoifaceMessageV1 src) {
     $callSync(
-        6023,
+        6032,
         $W()
           ..dto(this)
           ..h(src));
@@ -564,14 +564,14 @@ final class BadgerPbManifestChange implements GoDto {
 
   /// Go: `func (*pb.ManifestChange).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(6024, $W()..dto(this));
+    final $r = $callSync(6033, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.ManifestChange).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        6025,
+        6034,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -614,26 +614,26 @@ final class BadgerPbManifestChangeSet implements GoDto {
 
   /// Go: `func (*pb.ManifestChangeSet).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(6026, $W()..dto(this));
+    final $r = $callSync(6035, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pb.ManifestChangeSet).GetChanges() []*pb.ManifestChange`.
   List<BadgerPbManifestChange> getChanges() {
-    final $r = $callSync(6027, $W()..dto(this));
+    final $r = $callSync(6036, $W()..dto(this));
     return $r.list(() => $r.p() ? BadgerPbManifestChange.$dec($r) : $nil());
   }
 
   /// Go: `func (*pb.ManifestChangeSet).Marshal() (dAtA []byte, err error)`.
   Uint8List marshal() {
-    final $r = $callSync(6028, $W()..dto(this));
+    final $r = $callSync(6037, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pb.ManifestChangeSet).MarshalTo(dAtA []byte) (int, error)`.
   int marshalTo(Uint8List dAtA) {
     final $r = $callSync(
-        6029,
+        6038,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -643,7 +643,7 @@ final class BadgerPbManifestChangeSet implements GoDto {
   /// Go: `func (*pb.ManifestChangeSet).MarshalToSizedBuffer(dAtA []byte) (int, error)`.
   int marshalToSizedBuffer(Uint8List dAtA) {
     final $r = $callSync(
-        6030,
+        6039,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -652,30 +652,30 @@ final class BadgerPbManifestChangeSet implements GoDto {
 
   /// Go: `func (*pb.ManifestChangeSet).ProtoMessage()`.
   void protoMessage() {
-    $callSync(6031, $W()..dto(this));
+    $callSync(6040, $W()..dto(this));
   }
 
   /// Go: `func (*pb.ManifestChangeSet).Reset()`.
   void reset() {
-    $callSync(6032, $W()..dto(this));
+    $callSync(6041, $W()..dto(this));
   }
 
   /// Go: `func (*pb.ManifestChangeSet).Size() (n int)`.
   int size() {
-    final $r = $callSync(6033, $W()..dto(this));
+    final $r = $callSync(6042, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.ManifestChangeSet).String() string`.
   String string() {
-    final $r = $callSync(6034, $W()..dto(this));
+    final $r = $callSync(6043, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*pb.ManifestChangeSet).Unmarshal(dAtA []byte) error`.
   void unmarshal(Uint8List dAtA) {
     $callSync(
-        6035,
+        6044,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -683,13 +683,13 @@ final class BadgerPbManifestChangeSet implements GoDto {
 
   /// Go: `func (*pb.ManifestChangeSet).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(6036, $W()..dto(this));
+    $callSync(6045, $W()..dto(this));
   }
 
   /// Go: `func (*pb.ManifestChangeSet).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        6037,
+        6046,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -700,7 +700,7 @@ final class BadgerPbManifestChangeSet implements GoDto {
   /// Go: `func (*pb.ManifestChangeSet).XXX_Merge(src proto.Message)`.
   void xxxMerge($protoiface.ProtobufRuntimeProtoifaceMessageV1 src) {
     $callSync(
-        6038,
+        6047,
         $W()
           ..dto(this)
           ..h(src));
@@ -708,14 +708,14 @@ final class BadgerPbManifestChangeSet implements GoDto {
 
   /// Go: `func (*pb.ManifestChangeSet).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(6039, $W()..dto(this));
+    final $r = $callSync(6048, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.ManifestChangeSet).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        6040,
+        6049,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -753,13 +753,13 @@ class BadgerPbErrUnexpectedEndOfGroupPb extends GolangException {
 extension GoDgraphIoBadgerPbApi on GoDgraphIoBadgerPb {
   /// Go: `var pb.ManifestChange_Operation_name map[int32]string`.
   Map<int, String> get manifestChangeOperationName {
-    final $r = $callSync(6041);
+    final $r = $callSync(6050);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var pb.ManifestChange_Operation_value map[string]int32`.
   Map<String, int> get manifestChangeOperationValue {
-    final $r = $callSync(6042);
+    final $r = $callSync(6051);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 }

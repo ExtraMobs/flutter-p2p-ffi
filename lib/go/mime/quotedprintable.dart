@@ -33,14 +33,14 @@ class MimeQuotedprintableReader extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func quotedprintable.NewReader(r io.Reader) *quotedprintable.Reader`.
   factory MimeQuotedprintableReader(Object r) {
-    final $r = $callSync(26295, $W()..reader(r));
+    final $r = $callSync(26301, $W()..reader(r));
     return $r.hnn(MimeQuotedprintableReader.$h);
   }
 
   /// Go: `func (*quotedprintable.Reader).Read(p []byte) (n int, err error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        26297,
+        26303,
         $W()
           ..h(this)
           ..i64(n));
@@ -72,19 +72,19 @@ class MimeQuotedprintableWriter extends $io.IoCloser
 
   /// Go: `func quotedprintable.NewWriter(w io.Writer) *quotedprintable.Writer`.
   factory MimeQuotedprintableWriter(GoHandle? w) {
-    final $r = $callSync(26296, $W()..h(w));
+    final $r = $callSync(26302, $W()..h(w));
     return $r.hnn(MimeQuotedprintableWriter.$h);
   }
 
   /// Go: `func (*quotedprintable.Writer).Close() error`.
   void close() {
-    $callSync(26298, $W()..h(this));
+    $callSync(26304, $W()..h(this));
   }
 
   /// Go: `func (*quotedprintable.Writer).Write(p []byte) (n int, err error)`.
   int write(Uint8List p) {
     final $r = $callSync(
-        26299,
+        26305,
         $W()
           ..h(this)
           ..bytes(p));

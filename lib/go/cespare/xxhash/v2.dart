@@ -41,25 +41,25 @@ class XxhashV2Digest extends $hash.HashHash64
 
   /// Go: `func (*xxhash.Digest).BlockSize() int`.
   int blockSize() {
-    final $r = $callSync(4260, $W()..h(this));
+    final $r = $callSync(4269, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*xxhash.Digest).MarshalBinary() ([]byte, error)`.
   Uint8List marshalBinary() {
-    final $r = $callSync(4261, $W()..h(this));
+    final $r = $callSync(4270, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*xxhash.Digest).Reset()`.
   void reset() {
-    $callSync(4262, $W()..h(this));
+    $callSync(4271, $W()..h(this));
   }
 
   /// Go: `func (*xxhash.Digest).ResetWithSeed(seed uint64)`.
   void resetWithSeed(int seed) {
     $callSync(
-        4263,
+        4272,
         $W()
           ..h(this)
           ..i64(seed));
@@ -67,14 +67,14 @@ class XxhashV2Digest extends $hash.HashHash64
 
   /// Go: `func (*xxhash.Digest).Size() int`.
   int size() {
-    final $r = $callSync(4264, $W()..h(this));
+    final $r = $callSync(4273, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*xxhash.Digest).Sum(b []byte) []byte`.
   Uint8List sum(Uint8List b) {
     final $r = $callSync(
-        4265,
+        4274,
         $W()
           ..h(this)
           ..bytes(b));
@@ -83,14 +83,14 @@ class XxhashV2Digest extends $hash.HashHash64
 
   /// Go: `func (*xxhash.Digest).Sum64() uint64`.
   int sum64() {
-    final $r = $callSync(4266, $W()..h(this));
+    final $r = $callSync(4275, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*xxhash.Digest).UnmarshalBinary(b []byte) error`.
   void unmarshalBinary(Uint8List b) {
     $callSync(
-        4267,
+        4276,
         $W()
           ..h(this)
           ..bytes(b));
@@ -99,7 +99,7 @@ class XxhashV2Digest extends $hash.HashHash64
   /// Go: `func (*xxhash.Digest).Write(b []byte) (n int, err error)`.
   int write(Uint8List b) {
     final $r = $callSync(
-        4268,
+        4277,
         $W()
           ..h(this)
           ..bytes(b));
@@ -109,7 +109,7 @@ class XxhashV2Digest extends $hash.HashHash64
   /// Go: `func (*xxhash.Digest).WriteString(s string) (n int, err error)`.
   int writeString(String s) {
     final $r = $callSync(
-        4269,
+        4278,
         $W()
           ..h(this)
           ..str(s));
@@ -121,25 +121,25 @@ class XxhashV2Digest extends $hash.HashHash64
 extension GoCespareXxhashV2Api on GoCespareXxhashV2 {
   /// Go: `func xxhash.New() *xxhash.Digest`.
   XxhashV2Digest new$() {
-    final $r = $callSync(4270);
+    final $r = $callSync(4279);
     return $r.hnn(XxhashV2Digest.$h);
   }
 
   /// Go: `func xxhash.NewWithSeed(seed uint64) *xxhash.Digest`.
   XxhashV2Digest newWithSeed(int seed) {
-    final $r = $callSync(4271, $W()..i64(seed));
+    final $r = $callSync(4280, $W()..i64(seed));
     return $r.hnn(XxhashV2Digest.$h);
   }
 
   /// Go: `func xxhash.Sum64(b []byte) uint64`.
   int sum64(Uint8List b) {
-    final $r = $callSync(4272, $W()..bytes(b));
+    final $r = $callSync(4281, $W()..bytes(b));
     return $r.i64();
   }
 
   /// Go: `func xxhash.Sum64String(s string) uint64`.
   int sum64String(String s) {
-    final $r = $callSync(4273, $W()..str(s));
+    final $r = $callSync(4282, $W()..str(s));
     return $r.i64();
   }
 }

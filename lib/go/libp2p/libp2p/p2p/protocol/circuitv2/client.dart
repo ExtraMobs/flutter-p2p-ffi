@@ -55,7 +55,7 @@ class Libp2pP2pProtocolCircuitv2Client extends $transport.Libp2pCoreTransport
   /// Go: `func (*client.Client).CanDial(addr multiaddr.Multiaddr) bool`.
   bool canDial($multiaddr.Multiaddr addr) {
     final $r = $callSync(
-        14791,
+        14797,
         $W()
           ..h(this)
           ..val(addr));
@@ -64,7 +64,7 @@ class Libp2pP2pProtocolCircuitv2Client extends $transport.Libp2pCoreTransport
 
   /// Go: `func (*client.Client).Close() error`.
   void close() {
-    $callSync(14792, $W()..h(this));
+    $callSync(14798, $W()..h(this));
   }
 
   /// Go: `func (*client.Client).Dial(ctx context.Context, a multiaddr.Multiaddr, p peer.ID) (transport.CapableConn, error)`.
@@ -73,7 +73,7 @@ class Libp2pP2pProtocolCircuitv2Client extends $transport.Libp2pCoreTransport
   Future<$transport.Libp2pCoreTransportCapableConn> dial($context.Context ctx,
       $multiaddr.Multiaddr a, $peer.Libp2pCorePeerId p) async {
     final $r = await $call(
-        14793,
+        14799,
         $W()
           ..h(this)
           ..h(ctx)
@@ -85,7 +85,7 @@ class Libp2pP2pProtocolCircuitv2Client extends $transport.Libp2pCoreTransport
   /// Go: `func (*client.Client).Listen(addr multiaddr.Multiaddr) (transport.Listener, error)`.
   $transport.Libp2pCoreTransportListener listen($multiaddr.Multiaddr addr) {
     final $r = $callSync(
-        14794,
+        14800,
         $W()
           ..h(this)
           ..val(addr));
@@ -94,19 +94,19 @@ class Libp2pP2pProtocolCircuitv2Client extends $transport.Libp2pCoreTransport
 
   /// Go: `func (*client.Client).Listener() *client.Listener`.
   Libp2pP2pProtocolCircuitv2ClientListener listener() {
-    final $r = $callSync(14795, $W()..h(this));
+    final $r = $callSync(14801, $W()..h(this));
     return $r.hnn(Libp2pP2pProtocolCircuitv2ClientListener.$h);
   }
 
   /// Go: `func (*client.Client).Protocols() []int`.
   List<int> protocols() {
-    final $r = $callSync(14796, $W()..h(this));
+    final $r = $callSync(14802, $W()..h(this));
     return $r.list(() => $r.i64());
   }
 
   /// Go: `func (*client.Client).Proxy() bool`.
   bool proxy() {
-    final $r = $callSync(14797, $W()..h(this));
+    final $r = $callSync(14803, $W()..h(this));
     return $r.b();
   }
 
@@ -116,7 +116,7 @@ class Libp2pP2pProtocolCircuitv2Client extends $transport.Libp2pCoreTransport
   Future<bool> skipResolve(
       $context.Context ctx, $multiaddr.Multiaddr multiaddr) async {
     final $r = await $call(
-        14798,
+        14804,
         $W()
           ..h(this)
           ..h(ctx)
@@ -126,7 +126,7 @@ class Libp2pP2pProtocolCircuitv2Client extends $transport.Libp2pCoreTransport
 
   /// Go: `func (*client.Client).Start()`.
   void start() {
-    $callSync(14799, $W()..h(this));
+    $callSync(14805, $W()..h(this));
   }
 }
 
@@ -160,25 +160,25 @@ class Libp2pP2pProtocolCircuitv2ClientConn extends $net.MultiaddrNetConn
 
   /// Go: `func (*client.Conn).Close() error`.
   void close() {
-    $callSync(14800, $W()..h(this));
+    $callSync(14806, $W()..h(this));
   }
 
   /// Go: `func (*client.Conn).LocalAddr() net.Addr`.
   $net2.NetAddr localAddr() {
-    final $r = $callSync(14801, $W()..h(this));
+    final $r = $callSync(14807, $W()..h(this));
     return $r.p() ? $net2.NetAddr.$dec($r) : $nil();
   }
 
   /// Go: `func (*client.Conn).LocalMultiaddr() multiaddr.Multiaddr`.
   $multiaddr.Multiaddr localMultiaddr() {
-    final $r = $callSync(14802, $W()..h(this));
+    final $r = $callSync(14808, $W()..h(this));
     return $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil();
   }
 
   /// Go: `func (*client.Conn).Read(buf []byte) (int, error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        14803,
+        14809,
         $W()
           ..h(this)
           ..i64(n));
@@ -187,20 +187,20 @@ class Libp2pP2pProtocolCircuitv2ClientConn extends $net.MultiaddrNetConn
 
   /// Go: `func (*client.Conn).RemoteAddr() net.Addr`.
   $net2.NetAddr remoteAddr() {
-    final $r = $callSync(14804, $W()..h(this));
+    final $r = $callSync(14810, $W()..h(this));
     return $r.p() ? $net2.NetAddr.$dec($r) : $nil();
   }
 
   /// Go: `func (*client.Conn).RemoteMultiaddr() multiaddr.Multiaddr`.
   $multiaddr.Multiaddr remoteMultiaddr() {
-    final $r = $callSync(14805, $W()..h(this));
+    final $r = $callSync(14811, $W()..h(this));
     return $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil();
   }
 
   /// Go: `func (*client.Conn).SetDeadline(t time.Time) error`.
   void setDeadline(DateTime t) {
     $callSync(
-        14806,
+        14812,
         $W()
           ..h(this)
           ..time(t));
@@ -209,7 +209,7 @@ class Libp2pP2pProtocolCircuitv2ClientConn extends $net.MultiaddrNetConn
   /// Go: `func (*client.Conn).SetReadDeadline(t time.Time) error`.
   void setReadDeadline(DateTime t) {
     $callSync(
-        14807,
+        14813,
         $W()
           ..h(this)
           ..time(t));
@@ -218,7 +218,7 @@ class Libp2pP2pProtocolCircuitv2ClientConn extends $net.MultiaddrNetConn
   /// Go: `func (*client.Conn).SetWriteDeadline(t time.Time) error`.
   void setWriteDeadline(DateTime t) {
     $callSync(
-        14808,
+        14814,
         $W()
           ..h(this)
           ..time(t));
@@ -226,14 +226,14 @@ class Libp2pP2pProtocolCircuitv2ClientConn extends $net.MultiaddrNetConn
 
   /// Go: `func (*client.Conn).Stat() network.ConnStats`.
   $network.Libp2pCoreNetworkConnStats stat() {
-    final $r = $callSync(14809, $W()..h(this));
+    final $r = $callSync(14815, $W()..h(this));
     return $r.p() ? $network.Libp2pCoreNetworkConnStats.$dec($r) : $nil();
   }
 
   /// Go: `func (*client.Conn).Write(buf []byte) (int, error)`.
   int write(Uint8List buf) {
     final $r = $callSync(
-        14810,
+        14816,
         $W()
           ..h(this)
           ..bytes(buf));
@@ -267,24 +267,24 @@ class Libp2pP2pProtocolCircuitv2ClientListener extends $net.MultiaddrNetListener
 
   /// Go: `func (*client.Listener).Accept() (manet.Conn, error)`.
   $net.MultiaddrNetConn accept() {
-    final $r = $callSync(14814, $W()..h(this));
+    final $r = $callSync(14820, $W()..h(this));
     return $r.hnn($net.MultiaddrNetConn.$h);
   }
 
   /// Go: `func (*client.Listener).Addr() net.Addr`.
   $net2.NetAddr addr() {
-    final $r = $callSync(14815, $W()..h(this));
+    final $r = $callSync(14821, $W()..h(this));
     return $r.p() ? $net2.NetAddr.$dec($r) : $nil();
   }
 
   /// Go: `func (*client.Listener).Close() error`.
   void close() {
-    $callSync(14816, $W()..h(this));
+    $callSync(14822, $W()..h(this));
   }
 
   /// Go: `func (*client.Listener).Multiaddr() multiaddr.Multiaddr`.
   $multiaddr.Multiaddr multiaddr() {
-    final $r = $callSync(14817, $W()..h(this));
+    final $r = $callSync(14823, $W()..h(this));
     return $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil();
   }
 }
@@ -314,13 +314,13 @@ final class Libp2pP2pProtocolCircuitv2ClientNetAddr implements GoDto {
 
   /// Go: `func (*client.NetAddr).Network() string`.
   String network() {
-    final $r = $callSync(14818, $W()..dto(this));
+    final $r = $callSync(14824, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*client.NetAddr).String() string`.
   String string() {
-    final $r = $callSync(14819, $W()..dto(this));
+    final $r = $callSync(14825, $W()..dto(this));
     return $r.str();
   }
 }
@@ -400,7 +400,7 @@ extension GoLibp2pLibp2pP2pProtocolCircuitv2ClientApi
     on GoLibp2pLibp2pP2pProtocolCircuitv2Client {
   /// Go: `var client.AcceptTimeout time.Duration`.
   Duration get acceptTimeout {
-    final $r = $callSync(14789);
+    final $r = $callSync(14795);
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
@@ -408,7 +408,7 @@ extension GoLibp2pLibp2pP2pProtocolCircuitv2ClientApi
   void addTransport(
       $host.Libp2pCoreHost h, $transport.Libp2pCoreTransportUpgrader upgrader) {
     $callSync(
-        14790,
+        14796,
         $W()
           ..h(h)
           ..h(upgrader));
@@ -416,19 +416,19 @@ extension GoLibp2pLibp2pP2pProtocolCircuitv2ClientApi
 
   /// Go: `var client.DialRelayTimeout time.Duration`.
   Duration get dialRelayTimeout {
-    final $r = $callSync(14811);
+    final $r = $callSync(14817);
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `var client.DialTimeout time.Duration`.
   Duration get dialTimeout {
-    final $r = $callSync(14812);
+    final $r = $callSync(14818);
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `var client.HopTagWeight int`.
   int get hopTagWeight {
-    final $r = $callSync(14813);
+    final $r = $callSync(14819);
     return $r.i64();
   }
 
@@ -436,7 +436,7 @@ extension GoLibp2pLibp2pP2pProtocolCircuitv2ClientApi
   Libp2pP2pProtocolCircuitv2Client new$(
       $host.Libp2pCoreHost h, $transport.Libp2pCoreTransportUpgrader upgrader) {
     final $r = $callSync(
-        14820,
+        14826,
         $W()
           ..h(h)
           ..h(upgrader));
@@ -451,7 +451,7 @@ extension GoLibp2pLibp2pP2pProtocolCircuitv2ClientApi
       $host.Libp2pCoreHost h,
       $peer.Libp2pCorePeerAddrInfo ai) async {
     final $r = await $call(
-        14821,
+        14827,
         $W()
           ..h(ctx)
           ..h(h)
@@ -463,13 +463,13 @@ extension GoLibp2pLibp2pP2pProtocolCircuitv2ClientApi
 
   /// Go: `var client.ReserveTimeout time.Duration`.
   Duration get reserveTimeout {
-    final $r = $callSync(14822);
+    final $r = $callSync(14828);
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `var client.StreamTimeout time.Duration`.
   Duration get streamTimeout {
-    final $r = $callSync(14823);
+    final $r = $callSync(14829);
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 }

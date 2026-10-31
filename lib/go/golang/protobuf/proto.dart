@@ -36,20 +36,20 @@ class ProtobufProtoBuffer extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func proto.NewBuffer(buf []byte) *proto.Buffer`.
   factory ProtobufProtoBuffer(Uint8List buf) {
-    final $r = $callSync(8057, $W()..bytes(buf));
+    final $r = $callSync(8066, $W()..bytes(buf));
     return $r.hnn(ProtobufProtoBuffer.$h);
   }
 
   /// Go: `func (*proto.Buffer).Bytes() []byte`.
   Uint8List bytes() {
-    final $r = $callSync(7997, $W()..h(this));
+    final $r = $callSync(8006, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*proto.Buffer).DebugPrint(s string, b []byte)`.
   void debugPrint(String s, Uint8List b) {
     $callSync(
-        7998,
+        8007,
         $W()
           ..h(this)
           ..str(s)
@@ -58,20 +58,20 @@ class ProtobufProtoBuffer extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*proto.Buffer).DecodeFixed32() (uint64, error)`.
   int decodeFixed32() {
-    final $r = $callSync(7999, $W()..h(this));
+    final $r = $callSync(8008, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*proto.Buffer).DecodeFixed64() (uint64, error)`.
   int decodeFixed64() {
-    final $r = $callSync(8000, $W()..h(this));
+    final $r = $callSync(8009, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*proto.Buffer).DecodeGroup(m proto.Message) error`.
   void decodeGroup($protoiface.ProtobufRuntimeProtoifaceMessageV1 m) {
     $callSync(
-        8001,
+        8010,
         $W()
           ..h(this)
           ..h(m));
@@ -80,7 +80,7 @@ class ProtobufProtoBuffer extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*proto.Buffer).DecodeMessage(m proto.Message) error`.
   void decodeMessage($protoiface.ProtobufRuntimeProtoifaceMessageV1 m) {
     $callSync(
-        8002,
+        8011,
         $W()
           ..h(this)
           ..h(m));
@@ -89,7 +89,7 @@ class ProtobufProtoBuffer extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*proto.Buffer).DecodeRawBytes(alloc bool) ([]byte, error)`.
   Uint8List decodeRawBytes(bool alloc) {
     final $r = $callSync(
-        8003,
+        8012,
         $W()
           ..h(this)
           ..b(alloc));
@@ -98,32 +98,32 @@ class ProtobufProtoBuffer extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*proto.Buffer).DecodeStringBytes() (string, error)`.
   String decodeStringBytes() {
-    final $r = $callSync(8004, $W()..h(this));
+    final $r = $callSync(8013, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*proto.Buffer).DecodeVarint() (uint64, error)`.
   int decodeVarint() {
-    final $r = $callSync(8005, $W()..h(this));
+    final $r = $callSync(8014, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*proto.Buffer).DecodeZigzag32() (uint64, error)`.
   int decodeZigzag32() {
-    final $r = $callSync(8006, $W()..h(this));
+    final $r = $callSync(8015, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*proto.Buffer).DecodeZigzag64() (uint64, error)`.
   int decodeZigzag64() {
-    final $r = $callSync(8007, $W()..h(this));
+    final $r = $callSync(8016, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*proto.Buffer).EncodeFixed32(v uint64) error`.
   void encodeFixed32(int v) {
     $callSync(
-        8008,
+        8017,
         $W()
           ..h(this)
           ..i64(v));
@@ -132,7 +132,7 @@ class ProtobufProtoBuffer extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*proto.Buffer).EncodeFixed64(v uint64) error`.
   void encodeFixed64(int v) {
     $callSync(
-        8009,
+        8018,
         $W()
           ..h(this)
           ..i64(v));
@@ -141,7 +141,7 @@ class ProtobufProtoBuffer extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*proto.Buffer).EncodeMessage(m proto.Message) error`.
   void encodeMessage($protoiface.ProtobufRuntimeProtoifaceMessageV1 m) {
     $callSync(
-        8010,
+        8019,
         $W()
           ..h(this)
           ..h(m));
@@ -150,7 +150,7 @@ class ProtobufProtoBuffer extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*proto.Buffer).EncodeRawBytes(v []byte) error`.
   void encodeRawBytes(Uint8List v) {
     $callSync(
-        8011,
+        8020,
         $W()
           ..h(this)
           ..bytes(v));
@@ -159,7 +159,7 @@ class ProtobufProtoBuffer extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*proto.Buffer).EncodeStringBytes(v string) error`.
   void encodeStringBytes(String v) {
     $callSync(
-        8012,
+        8021,
         $W()
           ..h(this)
           ..str(v));
@@ -168,7 +168,7 @@ class ProtobufProtoBuffer extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*proto.Buffer).EncodeVarint(v uint64) error`.
   void encodeVarint(int v) {
     $callSync(
-        8013,
+        8022,
         $W()
           ..h(this)
           ..i64(v));
@@ -177,7 +177,7 @@ class ProtobufProtoBuffer extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*proto.Buffer).EncodeZigzag32(v uint64) error`.
   void encodeZigzag32(int v) {
     $callSync(
-        8014,
+        8023,
         $W()
           ..h(this)
           ..i64(v));
@@ -186,7 +186,7 @@ class ProtobufProtoBuffer extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*proto.Buffer).EncodeZigzag64(v uint64) error`.
   void encodeZigzag64(int v) {
     $callSync(
-        8015,
+        8024,
         $W()
           ..h(this)
           ..i64(v));
@@ -195,7 +195,7 @@ class ProtobufProtoBuffer extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*proto.Buffer).Marshal(m proto.Message) error`.
   void marshal($protoiface.ProtobufRuntimeProtoifaceMessageV1 m) {
     $callSync(
-        8016,
+        8025,
         $W()
           ..h(this)
           ..h(m));
@@ -203,13 +203,13 @@ class ProtobufProtoBuffer extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*proto.Buffer).Reset()`.
   void reset() {
-    $callSync(8017, $W()..h(this));
+    $callSync(8026, $W()..h(this));
   }
 
   /// Go: `func (*proto.Buffer).SetBuf(buf []byte)`.
   void setBuf(Uint8List buf) {
     $callSync(
-        8018,
+        8027,
         $W()
           ..h(this)
           ..bytes(buf));
@@ -218,7 +218,7 @@ class ProtobufProtoBuffer extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*proto.Buffer).SetDeterministic(deterministic bool)`.
   void setDeterministic(bool deterministic) {
     $callSync(
-        8019,
+        8028,
         $W()
           ..h(this)
           ..b(deterministic));
@@ -227,7 +227,7 @@ class ProtobufProtoBuffer extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*proto.Buffer).Unmarshal(m proto.Message) error`.
   void unmarshal($protoiface.ProtobufRuntimeProtoifaceMessageV1 m) {
     $callSync(
-        8020,
+        8029,
         $W()
           ..h(this)
           ..h(m));
@@ -235,7 +235,7 @@ class ProtobufProtoBuffer extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*proto.Buffer).Unread() []byte`.
   Uint8List unread() {
-    final $r = $callSync(8021, $W()..h(this));
+    final $r = $callSync(8030, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 }
@@ -262,7 +262,7 @@ final class ProtobufProtoInternalMessageInfo implements GoDto {
   @Deprecated("Do not use; this method existed for intenal-use only.")
   void discardUnknown($protoiface.ProtobufRuntimeProtoifaceMessageV1 m) {
     $callSync(
-        8040,
+        8049,
         $W()
           ..dto(this)
           ..h(m));
@@ -273,7 +273,7 @@ final class ProtobufProtoInternalMessageInfo implements GoDto {
   Uint8List marshal(Uint8List b,
       $protoiface.ProtobufRuntimeProtoifaceMessageV1 m, bool deterministic) {
     final $r = $callSync(
-        8041,
+        8050,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -287,7 +287,7 @@ final class ProtobufProtoInternalMessageInfo implements GoDto {
   void merge($protoiface.ProtobufRuntimeProtoifaceMessageV1 dst,
       $protoiface.ProtobufRuntimeProtoifaceMessageV1 src) {
     $callSync(
-        8042,
+        8051,
         $W()
           ..dto(this)
           ..h(dst)
@@ -298,7 +298,7 @@ final class ProtobufProtoInternalMessageInfo implements GoDto {
   @Deprecated("Do not use; this method existed for intenal-use only.")
   int size($protoiface.ProtobufRuntimeProtoifaceMessageV1 m) {
     final $r = $callSync(
-        8043,
+        8052,
         $W()
           ..dto(this)
           ..h(m));
@@ -310,7 +310,7 @@ final class ProtobufProtoInternalMessageInfo implements GoDto {
   void unmarshal(
       $protoiface.ProtobufRuntimeProtoifaceMessageV1 m, Uint8List b) {
     $callSync(
-        8044,
+        8053,
         $W()
           ..dto(this)
           ..h(m)
@@ -329,7 +329,7 @@ mixin ProtobufProtoMerger$ on GoHandle {
   /// Go: `func (proto.Merger).Merge(src proto.Message)`.
   void merge($protoiface.ProtobufRuntimeProtoifaceMessageV1 src) {
     $callSync(
-        8051,
+        8060,
         $W()
           ..h(this)
           ..h(src));
@@ -499,7 +499,7 @@ final class ProtobufProtoProperties implements GoDto {
   void init($reflect.ReflectType typ, String name, String tag,
       $reflect.ReflectStructField f) {
     $callSync(
-        8058,
+        8067,
         $W()
           ..dto(this)
           ..h(typ)
@@ -511,7 +511,7 @@ final class ProtobufProtoProperties implements GoDto {
   /// Go: `func (*proto.Properties).Parse(tag string)`.
   void parse(String tag) {
     $callSync(
-        8059,
+        8068,
         $W()
           ..dto(this)
           ..str(tag));
@@ -519,7 +519,7 @@ final class ProtobufProtoProperties implements GoDto {
 
   /// Go: `func (*proto.Properties).String() string`.
   String string() {
-    final $r = $callSync(8060, $W()..dto(this));
+    final $r = $callSync(8069, $W()..dto(this));
     return $r.str();
   }
 }
@@ -636,14 +636,14 @@ final class ProtobufProtoStructProperties implements GoDto {
 
   /// Go: `func (*proto.StructProperties).Len() int`.
   int len() {
-    final $r = $callSync(8071, $W()..dto(this));
+    final $r = $callSync(8080, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*proto.StructProperties).Less(i int, j int) bool`.
   bool less(int i, int j) {
     final $r = $callSync(
-        8072,
+        8081,
         $W()
           ..dto(this)
           ..i64(i)
@@ -654,7 +654,7 @@ final class ProtobufProtoStructProperties implements GoDto {
   /// Go: `func (*proto.StructProperties).Swap(i int, j int)`.
   void swap(int i, int j) {
     $callSync(
-        8073,
+        8082,
         $W()
           ..dto(this)
           ..i64(i)
@@ -688,7 +688,7 @@ final class ProtobufProtoTextMarshaler implements GoDto {
   /// Go: `func (*proto.TextMarshaler).Marshal(w io.Writer, m proto.Message) error`.
   void marshal(GoHandle? w, $protoiface.ProtobufRuntimeProtoifaceMessageV1 m) {
     $callSync(
-        8074,
+        8083,
         $W()
           ..dto(this)
           ..h(w)
@@ -698,7 +698,7 @@ final class ProtobufProtoTextMarshaler implements GoDto {
   /// Go: `func (*proto.TextMarshaler).Text(m proto.Message) string`.
   String text($protoiface.ProtobufRuntimeProtoifaceMessageV1 m) {
     final $r = $callSync(
-        8075,
+        8084,
         $W()
           ..dto(this)
           ..h(m));
@@ -717,7 +717,7 @@ mixin ProtobufProtoUnmarshaler$ on GoHandle {
   /// Go: `func (proto.Unmarshaler).Unmarshal([]byte) error`.
   void unmarshal(Uint8List arg0) {
     $callSync(
-        8084,
+        8093,
         $W()
           ..h(this)
           ..bytes(arg0));
@@ -725,13 +725,13 @@ mixin ProtobufProtoUnmarshaler$ on GoHandle {
 
   /// Go: type assertion `x.(*rtcp.RunLengthChunk)`: null if the object is not one.
   $rtcp.RtcpRunLengthChunk? asRtcpRunLengthChunk() {
-    final $r = $callSync(862, $W()..h(this));
+    final $r = $callSync(865, $W()..h(this));
     return $r.hn($rtcp.RtcpRunLengthChunk.$h);
   }
 
   /// Go: type assertion `x.(*rtcp.StatusVectorChunk)`: null if the object is not one.
   $rtcp.RtcpStatusVectorChunk? asRtcpStatusVectorChunk() {
-    final $r = $callSync(863, $W()..h(this));
+    final $r = $callSync(866, $W()..h(this));
     return $r.hn($rtcp.RtcpStatusVectorChunk.$h);
   }
 }
@@ -807,19 +807,19 @@ class ProtobufProtoRequiredNotSetError extends GolangException {
 extension GoGolangProtobufProtoApi on GoGolangProtobufProto {
   /// Go: `func proto.Bool(v bool) *bool`.
   bool bool$(bool v) {
-    final $r = $callSync(7996, $W()..b(v));
+    final $r = $callSync(8005, $W()..b(v));
     return $r.p() ? $r.b() : $nil();
   }
 
   /// Go: `func proto.ClearAllExtensions(m proto.Message)`.
   void clearAllExtensions($protoiface.ProtobufRuntimeProtoifaceMessageV1 m) {
-    $callSync(8022, $W()..h(m));
+    $callSync(8031, $W()..h(m));
   }
 
   /// Go: `func proto.Clone(src proto.Message) proto.Message`.
   $protoiface.ProtobufRuntimeProtoifaceMessageV1 clone(
       $protoiface.ProtobufRuntimeProtoifaceMessageV1 src) {
-    final $r = $callSync(8023, $W()..h(src));
+    final $r = $callSync(8032, $W()..h(src));
     return $r.hnn($protoiface.ProtobufRuntimeProtoifaceMessageV1.$h);
   }
 
@@ -827,7 +827,7 @@ extension GoGolangProtobufProtoApi on GoGolangProtobufProto {
   void compactText(
       GoHandle? w, $protoiface.ProtobufRuntimeProtoifaceMessageV1 m) {
     $callSync(
-        8024,
+        8033,
         $W()
           ..h(w)
           ..h(m));
@@ -835,24 +835,24 @@ extension GoGolangProtobufProtoApi on GoGolangProtobufProto {
 
   /// Go: `func proto.CompactTextString(m proto.Message) string`.
   String compactTextString($protoiface.ProtobufRuntimeProtoifaceMessageV1 m) {
-    final $r = $callSync(8025, $W()..h(m));
+    final $r = $callSync(8034, $W()..h(m));
     return $r.str();
   }
 
   /// Go: `func proto.DecodeVarint(b []byte) (uint64, int)`.
   (int, int) decodeVarint(Uint8List b) {
-    final $r = $callSync(8026, $W()..bytes(b));
+    final $r = $callSync(8035, $W()..bytes(b));
     return ($r.i64(), $r.i64());
   }
 
   /// Go: `func proto.DiscardUnknown(m proto.Message)`.
   void discardUnknown($protoiface.ProtobufRuntimeProtoifaceMessageV1 m) {
-    $callSync(8027, $W()..h(m));
+    $callSync(8036, $W()..h(m));
   }
 
   /// Go: `func proto.EncodeVarint(v uint64) []byte`.
   Uint8List encodeVarint(int v) {
-    final $r = $callSync(8028, $W()..i64(v));
+    final $r = $callSync(8037, $W()..i64(v));
     return $r.bytes() ?? Uint8List(0);
   }
 
@@ -860,7 +860,7 @@ extension GoGolangProtobufProtoApi on GoGolangProtobufProto {
   @Deprecated("Do not use.")
   String enumName(Map<int, String> m, int v) {
     final $r = $callSync(
-        8029,
+        8038,
         $W()
           ..map(m, (w0, k0) => w0.i64(k0), (w0, v0) => w0.str(v0))
           ..i64(v));
@@ -870,7 +870,7 @@ extension GoGolangProtobufProtoApi on GoGolangProtobufProto {
   /// Go: `func proto.EnumValueMap(s proto.enumName) proto.enumsByName`.
   @Deprecated("Use protoregistry.GlobalTypes.FindEnumByName instead.")
   Map<String, int> enumValueMap(String s) {
-    final $r = $callSync(8030, $W()..str(s));
+    final $r = $callSync(8039, $W()..str(s));
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
@@ -878,7 +878,7 @@ extension GoGolangProtobufProtoApi on GoGolangProtobufProto {
   bool equal($protoiface.ProtobufRuntimeProtoifaceMessageV1 x,
       $protoiface.ProtobufRuntimeProtoifaceMessageV1 y) {
     final $r = $callSync(
-        8031,
+        8040,
         $W()
           ..h(x)
           ..h(y));
@@ -888,72 +888,72 @@ extension GoGolangProtobufProtoApi on GoGolangProtobufProto {
   /// Go: `func proto.FileDescriptor(s proto.filePath) proto.fileDescGZIP`.
   @Deprecated("Use protoregistry.GlobalFiles.FindFileByPath instead.")
   Uint8List fileDescriptor(String s) {
-    final $r = $callSync(8032, $W()..str(s));
+    final $r = $callSync(8041, $W()..str(s));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func proto.Float32(v float32) *float32`.
   double float32(double v) {
-    final $r = $callSync(8033, $W()..f64(v));
+    final $r = $callSync(8042, $W()..f64(v));
     return $r.p() ? $r.f64() : $nil();
   }
 
   /// Go: `func proto.Float64(v float64) *float64`.
   double float64(double v) {
-    final $r = $callSync(8034, $W()..f64(v));
+    final $r = $callSync(8043, $W()..f64(v));
     return $r.p() ? $r.f64() : $nil();
   }
 
   /// Go: `func proto.GetProperties(t reflect.Type) *proto.StructProperties`.
   @Deprecated("Use protobuf reflection instead.")
   ProtobufProtoStructProperties getProperties($reflect.ReflectType t) {
-    final $r = $callSync(8035, $W()..h(t));
+    final $r = $callSync(8044, $W()..h(t));
     return $r.p() ? ProtobufProtoStructProperties.$dec($r) : $nil();
   }
 
   /// Go: `func proto.GetStats() proto.Stats`.
   @Deprecated("Do not use.")
   ProtobufProtoStats getStats() {
-    final $r = $callSync(8036);
+    final $r = $callSync(8045);
     return $r.p() ? ProtobufProtoStats.$dec($r) : $nil();
   }
 
   /// Go: `func proto.Int(v int) *int32`.
   @Deprecated("Use Int32 instead.")
   int int$(int v) {
-    final $r = $callSync(8037, $W()..i64(v));
+    final $r = $callSync(8046, $W()..i64(v));
     return $r.p() ? $r.i64() : $nil();
   }
 
   /// Go: `func proto.Int32(v int32) *int32`.
   int int32(int v) {
-    final $r = $callSync(8038, $W()..i64(v));
+    final $r = $callSync(8047, $W()..i64(v));
     return $r.p() ? $r.i64() : $nil();
   }
 
   /// Go: `func proto.Int64(v int64) *int64`.
   int int64(int v) {
-    final $r = $callSync(8039, $W()..i64(v));
+    final $r = $callSync(8048, $W()..i64(v));
     return $r.p() ? $r.i64() : $nil();
   }
 
   /// Go: `func proto.Marshal(m proto.Message) ([]byte, error)`.
   Uint8List marshal($protoiface.ProtobufRuntimeProtoifaceMessageV1 m) {
-    final $r = $callSync(8045, $W()..h(m));
+    final $r = $callSync(8054, $W()..h(m));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func proto.MarshalMessageSet(interface{}) ([]byte, error)`.
   @Deprecated("Do not use.")
   Uint8List marshalMessageSet(Object? arg0) {
-    final $r = $callSync(8046, $W()..any(arg0));
+    final $r = $callSync(8055, $W()..any(arg0));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func proto.MarshalMessageSetJSON(interface{}) ([]byte, error)`.
   @Deprecated("Do not use.")
   Uint8List marshalMessageSetJson(Object? arg0) {
-    final $r = $callSync(8047, $W()..any(arg0));
+    final $r = $callSync(8056, $W()..any(arg0));
     return $r.bytes() ?? Uint8List(0);
   }
 
@@ -961,7 +961,7 @@ extension GoGolangProtobufProtoApi on GoGolangProtobufProto {
   void marshalText(
       GoHandle? w, $protoiface.ProtobufRuntimeProtoifaceMessageV1 m) {
     $callSync(
-        8048,
+        8057,
         $W()
           ..h(w)
           ..h(m));
@@ -969,7 +969,7 @@ extension GoGolangProtobufProtoApi on GoGolangProtobufProto {
 
   /// Go: `func proto.MarshalTextString(m proto.Message) string`.
   String marshalTextString($protoiface.ProtobufRuntimeProtoifaceMessageV1 m) {
-    final $r = $callSync(8049, $W()..h(m));
+    final $r = $callSync(8058, $W()..h(m));
     return $r.str();
   }
 
@@ -977,7 +977,7 @@ extension GoGolangProtobufProtoApi on GoGolangProtobufProto {
   void merge($protoiface.ProtobufRuntimeProtoifaceMessageV1 dst,
       $protoiface.ProtobufRuntimeProtoifaceMessageV1 src) {
     $callSync(
-        8050,
+        8059,
         $W()
           ..h(dst)
           ..h(src));
@@ -986,35 +986,35 @@ extension GoGolangProtobufProtoApi on GoGolangProtobufProto {
   /// Go: `func proto.MessageName(m proto.Message) proto.messageName`.
   @Deprecated("Use protoreflect.MessageDescriptor.FullName instead.")
   String messageName($protoiface.ProtobufRuntimeProtoifaceMessageV1 m) {
-    final $r = $callSync(8052, $W()..h(m));
+    final $r = $callSync(8061, $W()..h(m));
     return $r.str();
   }
 
   /// Go: `func proto.MessageReflect(m proto.Message) protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage messageReflect(
       $protoiface.ProtobufRuntimeProtoifaceMessageV1 m) {
-    final $r = $callSync(8053, $W()..h(m));
+    final $r = $callSync(8062, $W()..h(m));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func proto.MessageType(s proto.messageName) reflect.Type`.
   @Deprecated("Use protoregistry.GlobalTypes.FindMessageByName instead.")
   $reflect.ReflectType messageType(String s) {
-    final $r = $callSync(8054, $W()..str(s));
+    final $r = $callSync(8063, $W()..str(s));
     return $r.hnn($reflect.ReflectType.$h);
   }
 
   /// Go: `func proto.MessageV1(m proto.GeneratedMessage) protoiface.MessageV1`.
   $protoiface.ProtobufRuntimeProtoifaceMessageV1 messageV1(
       ProtobufProtoGeneratedMessage m) {
-    final $r = $callSync(8055, $W()..h(m));
+    final $r = $callSync(8064, $W()..h(m));
     return $r.hnn($protoiface.ProtobufRuntimeProtoifaceMessageV1.$h);
   }
 
   /// Go: `func proto.MessageV2(m proto.GeneratedMessage) proto.Message`.
   $protoreflect.ProtobufReflectProtoreflectProtoMessage messageV2(
       ProtobufProtoGeneratedMessage m) {
-    final $r = $callSync(8056, $W()..h(m));
+    final $r = $callSync(8065, $W()..h(m));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectProtoMessage.$h);
   }
 
@@ -1022,7 +1022,7 @@ extension GoGolangProtobufProtoApi on GoGolangProtobufProto {
   @Deprecated("Use protoregistry.GlobalTypes.RegisterEnum instead.")
   void registerEnum(String s, Map<int, String> arg1, Map<String, int> m) {
     $callSync(
-        8061,
+        8070,
         $W()
           ..str(s)
           ..map(arg1, (w0, k0) => w0.i64(k0), (w0, v0) => w0.str(v0))
@@ -1033,7 +1033,7 @@ extension GoGolangProtobufProtoApi on GoGolangProtobufProto {
   @Deprecated("Use protoregistry.GlobalFiles.RegisterFile instead.")
   void registerFile(String s, Uint8List d) {
     $callSync(
-        8062,
+        8071,
         $W()
           ..str(s)
           ..bytes(d));
@@ -1043,7 +1043,7 @@ extension GoGolangProtobufProtoApi on GoGolangProtobufProto {
   @Deprecated("Do not use.")
   void registerMapType(Object? m, String s) {
     $callSync(
-        8063,
+        8072,
         $W()
           ..any(m)
           ..str(s));
@@ -1056,7 +1056,7 @@ extension GoGolangProtobufProtoApi on GoGolangProtobufProto {
       int arg1,
       String arg2) {
     $callSync(
-        8064,
+        8073,
         $W()
           ..h(messageV1)
           ..i64(arg1)
@@ -1068,7 +1068,7 @@ extension GoGolangProtobufProtoApi on GoGolangProtobufProto {
   void registerType(
       $protoiface.ProtobufRuntimeProtoifaceMessageV1 m, String s) {
     $callSync(
-        8065,
+        8074,
         $W()
           ..h(m)
           ..str(s));
@@ -1076,7 +1076,7 @@ extension GoGolangProtobufProtoApi on GoGolangProtobufProto {
 
   /// Go: `func proto.SetDefaults(m proto.Message)`.
   void setDefaults($protoiface.ProtobufRuntimeProtoifaceMessageV1 m) {
-    $callSync(8066, $W()..h(m));
+    $callSync(8075, $W()..h(m));
   }
 
   /// Go: `func proto.SetRawExtension(m proto.Message, fnum int32, b []byte)`.
@@ -1084,7 +1084,7 @@ extension GoGolangProtobufProtoApi on GoGolangProtobufProto {
   void setRawExtension(
       $protoiface.ProtobufRuntimeProtoifaceMessageV1 m, int fnum, Uint8List b) {
     $callSync(
-        8067,
+        8076,
         $W()
           ..h(m)
           ..i64(fnum)
@@ -1093,31 +1093,31 @@ extension GoGolangProtobufProtoApi on GoGolangProtobufProto {
 
   /// Go: `func proto.Size(m proto.Message) int`.
   int size($protoiface.ProtobufRuntimeProtoifaceMessageV1 m) {
-    final $r = $callSync(8068, $W()..h(m));
+    final $r = $callSync(8077, $W()..h(m));
     return $r.i64();
   }
 
   /// Go: `func proto.SizeVarint(v uint64) int`.
   int sizeVarint(int v) {
-    final $r = $callSync(8069, $W()..i64(v));
+    final $r = $callSync(8078, $W()..i64(v));
     return $r.i64();
   }
 
   /// Go: `func proto.String(v string) *string`.
   String string(String v) {
-    final $r = $callSync(8070, $W()..str(v));
+    final $r = $callSync(8079, $W()..str(v));
     return $r.p() ? $r.str() : $nil();
   }
 
   /// Go: `func proto.Uint32(v uint32) *uint32`.
   int uint32(int v) {
-    final $r = $callSync(8076, $W()..i64(v));
+    final $r = $callSync(8085, $W()..i64(v));
     return $r.p() ? $r.i64() : $nil();
   }
 
   /// Go: `func proto.Uint64(v uint64) *uint64`.
   int uint64(int v) {
-    final $r = $callSync(8077, $W()..i64(v));
+    final $r = $callSync(8086, $W()..i64(v));
     return $r.p() ? $r.i64() : $nil();
   }
 
@@ -1125,7 +1125,7 @@ extension GoGolangProtobufProtoApi on GoGolangProtobufProto {
   void unmarshal(
       Uint8List b, $protoiface.ProtobufRuntimeProtoifaceMessageV1 m) {
     $callSync(
-        8078,
+        8087,
         $W()
           ..bytes(b)
           ..h(m));
@@ -1135,7 +1135,7 @@ extension GoGolangProtobufProtoApi on GoGolangProtobufProto {
   @Deprecated("Do not use.")
   int unmarshalJsonEnum(Map<String, int> m, Uint8List data, String enumName) {
     final $r = $callSync(
-        8079,
+        8088,
         $W()
           ..map(m, (w0, k0) => w0.str(k0), (w0, v0) => w0.i64(v0))
           ..bytes(data)
@@ -1147,7 +1147,7 @@ extension GoGolangProtobufProtoApi on GoGolangProtobufProto {
   void unmarshalMerge(
       Uint8List b, $protoiface.ProtobufRuntimeProtoifaceMessageV1 m) {
     $callSync(
-        8080,
+        8089,
         $W()
           ..bytes(b)
           ..h(m));
@@ -1157,7 +1157,7 @@ extension GoGolangProtobufProtoApi on GoGolangProtobufProto {
   @Deprecated("Do not use.")
   void unmarshalMessageSet(Uint8List arg0, Object? arg1) {
     $callSync(
-        8081,
+        8090,
         $W()
           ..bytes(arg0)
           ..any(arg1));
@@ -1167,7 +1167,7 @@ extension GoGolangProtobufProtoApi on GoGolangProtobufProto {
   @Deprecated("Do not use.")
   void unmarshalMessageSetJson(Uint8List arg0, Object? arg1) {
     $callSync(
-        8082,
+        8091,
         $W()
           ..bytes(arg0)
           ..any(arg1));
@@ -1177,7 +1177,7 @@ extension GoGolangProtobufProtoApi on GoGolangProtobufProto {
   void unmarshalText(
       String s, $protoiface.ProtobufRuntimeProtoifaceMessageV1 m) {
     $callSync(
-        8083,
+        8092,
         $W()
           ..str(s)
           ..h(m));

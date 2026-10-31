@@ -115,7 +115,7 @@ mixin GoupnpSsdpHttpuClient$ on GoHandle {
   List<$http.NetHttpResponse> do$(
       $http.NetHttpRequest req, Duration timeout, int numSends) {
     final $r = $callSync(
-        9004,
+        9013,
         $W()
           ..h(this)
           ..h(req)
@@ -126,13 +126,13 @@ mixin GoupnpSsdpHttpuClient$ on GoHandle {
 
   /// Go: type assertion `x.(*httpu.HTTPUClient)`: null if the object is not one.
   $httpu.GoupnpHttpuClient? asGoupnpHttpuClient() {
-    final $r = $callSync(888, $W()..h(this));
+    final $r = $callSync(891, $W()..h(this));
     return $r.hn($httpu.GoupnpHttpuClient.$h);
   }
 
   /// Go: type assertion `x.(*httpu.MultiClient)`: null if the object is not one.
   $httpu.GoupnpHttpuMultiClient? asGoupnpHttpuMultiClient() {
-    final $r = $callSync(889, $W()..h(this));
+    final $r = $callSync(892, $W()..h(this));
     return $r.hn($httpu.GoupnpHttpuMultiClient.$h);
   }
 }
@@ -148,7 +148,7 @@ mixin GoupnpSsdpHttpuClientCtx$ on GoHandle {
   List<$http.NetHttpResponse> doWithContext(
       $http.NetHttpRequest req, int numSends) {
     final $r = $callSync(
-        9005,
+        9014,
         $W()
           ..h(this)
           ..h(req)
@@ -158,13 +158,13 @@ mixin GoupnpSsdpHttpuClientCtx$ on GoHandle {
 
   /// Go: type assertion `x.(*httpu.HTTPUClient)`: null if the object is not one.
   $httpu.GoupnpHttpuClient? asGoupnpHttpuClient() {
-    final $r = $callSync(890, $W()..h(this));
+    final $r = $callSync(893, $W()..h(this));
     return $r.hn($httpu.GoupnpHttpuClient.$h);
   }
 
   /// Go: type assertion `x.(*httpu.MultiClientCtx)`: null if the object is not one.
   $httpu.GoupnpHttpuMultiClientCtx? asGoupnpHttpuMultiClientCtx() {
-    final $r = $callSync(891, $W()..h(this));
+    final $r = $callSync(894, $W()..h(this));
     return $r.hn($httpu.GoupnpHttpuMultiClientCtx.$h);
   }
 }
@@ -191,18 +191,18 @@ class GoupnpSsdpRegistry extends $httpu.GoupnpHttpuHandler
 
   /// Go: `func ssdp.NewRegistry() *ssdp.Registry`.
   factory GoupnpSsdpRegistry() {
-    final $r = $callSync(9006);
+    final $r = $callSync(9015);
     return $r.hnn(GoupnpSsdpRegistry.$h);
   }
 
   /// Go: `func (*ssdp.Registry).AddListener(c chan<- ssdp.Update)`.
-  Stream<GoupnpSsdpUpdate> addListener() => $stream(9009, $W()..h(this))
+  Stream<GoupnpSsdpUpdate> addListener() => $stream(9018, $W()..h(this))
       .map((r) => r.p() ? GoupnpSsdpUpdate.$dec(r) : $nil());
 
   /// Go: `func (*ssdp.Registry).GetService(serviceURN string) []*ssdp.Entry`.
   List<GoupnpSsdpEntry> getService(String serviceUrn) {
     final $r = $callSync(
-        9010,
+        9019,
         $W()
           ..h(this)
           ..str(serviceUrn));
@@ -210,13 +210,13 @@ class GoupnpSsdpRegistry extends $httpu.GoupnpHttpuHandler
   }
 
   /// Go: `func (*ssdp.Registry).RemoveListener(c chan<- ssdp.Update)`.
-  Stream<GoupnpSsdpUpdate> removeListener() => $stream(9011, $W()..h(this))
+  Stream<GoupnpSsdpUpdate> removeListener() => $stream(9020, $W()..h(this))
       .map((r) => r.p() ? GoupnpSsdpUpdate.$dec(r) : $nil());
 
   /// Go: `func (*ssdp.Registry).ServeMessage(r *http.Request)`.
   void serveMessage($http.NetHttpRequest r) {
     $callSync(
-        9012,
+        9021,
         $W()
           ..h(this)
           ..h(r));
@@ -257,7 +257,7 @@ final class GoupnpSsdpUpdate implements GoDto {
 extension GoHuinGoupnpSsdpApi on GoHuinGoupnpSsdp {
   /// Go: `func ssdp.NewServerAndRegistry() (*httpu.Server, *ssdp.Registry)`.
   ($httpu.GoupnpHttpuServer, GoupnpSsdpRegistry) newServerAndRegistry() {
-    final $r = $callSync(9007);
+    final $r = $callSync(9016);
     return (
       $r.p() ? $httpu.GoupnpHttpuServer.$dec($r) : $nil(),
       $r.hnn(GoupnpSsdpRegistry.$h)
@@ -270,7 +270,7 @@ extension GoHuinGoupnpSsdpApi on GoHuinGoupnpSsdp {
   Future<List<$http.NetHttpResponse>> rawSearch($context.Context ctx,
       GoupnpSsdpHttpuClientCtx httpu, String searchTarget, int numSends) async {
     final $r = await $call(
-        9008,
+        9017,
         $W()
           ..h(ctx)
           ..h(httpu)
@@ -283,7 +283,7 @@ extension GoHuinGoupnpSsdpApi on GoHuinGoupnpSsdp {
   List<$http.NetHttpResponse> ssdpRawSearch(GoupnpSsdpHttpuClient httpu,
       String searchTarget, int maxWaitSeconds, int numSends) {
     final $r = $callSync(
-        9013,
+        9022,
         $W()
           ..h(httpu)
           ..str(searchTarget)
@@ -302,7 +302,7 @@ extension GoHuinGoupnpSsdpApi on GoHuinGoupnpSsdp {
       int maxWaitSeconds,
       int numSends) async {
     final $r = await $call(
-        9014,
+        9023,
         $W()
           ..h(ctx)
           ..h(httpu)

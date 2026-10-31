@@ -34,7 +34,7 @@ class CryptoCryptobyteBuilder extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func cryptobyte.NewBuilder(buffer []byte) *cryptobyte.Builder`.
   factory CryptoCryptobyteBuilder(Uint8List buffer) {
-    final $r = $callSync(23327, $W()..bytes(buffer));
+    final $r = $callSync(23333, $W()..bytes(buffer));
     return $r.hnn(CryptoCryptobyteBuilder.$h);
   }
 
@@ -48,7 +48,7 @@ class CryptoCryptobyteBuilder extends $crypto.CryptoDecrypterOpts
   Future<void> addAsn1(
       int tag, FutureOr<void> Function(CryptoCryptobyteBuilder child) f) async {
     await $call(
-        23297,
+        23303,
         $W()
           ..h(this)
           ..i64(tag)
@@ -58,7 +58,7 @@ class CryptoCryptobyteBuilder extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*cryptobyte.Builder).AddASN1BigInt(n *big.Int)`.
   void addAsn1BigInt($big.MathBigInt n) {
     $callSync(
-        23298,
+        23304,
         $W()
           ..h(this)
           ..h(n));
@@ -67,7 +67,7 @@ class CryptoCryptobyteBuilder extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*cryptobyte.Builder).AddASN1BitString(data []byte)`.
   void addAsn1BitString(Uint8List data) {
     $callSync(
-        23299,
+        23305,
         $W()
           ..h(this)
           ..bytes(data));
@@ -76,7 +76,7 @@ class CryptoCryptobyteBuilder extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*cryptobyte.Builder).AddASN1Boolean(v bool)`.
   void addAsn1Boolean(bool v) {
     $callSync(
-        23300,
+        23306,
         $W()
           ..h(this)
           ..b(v));
@@ -85,7 +85,7 @@ class CryptoCryptobyteBuilder extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*cryptobyte.Builder).AddASN1Enum(v int64)`.
   void addAsn1Enum(int v) {
     $callSync(
-        23301,
+        23307,
         $W()
           ..h(this)
           ..i64(v));
@@ -94,7 +94,7 @@ class CryptoCryptobyteBuilder extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*cryptobyte.Builder).AddASN1GeneralizedTime(t time.Time)`.
   void addAsn1GeneralizedTime(DateTime t) {
     $callSync(
-        23302,
+        23308,
         $W()
           ..h(this)
           ..time(t));
@@ -103,7 +103,7 @@ class CryptoCryptobyteBuilder extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*cryptobyte.Builder).AddASN1Int64(v int64)`.
   void addAsn1Int64(int v) {
     $callSync(
-        23303,
+        23309,
         $W()
           ..h(this)
           ..i64(v));
@@ -112,7 +112,7 @@ class CryptoCryptobyteBuilder extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*cryptobyte.Builder).AddASN1Int64WithTag(v int64, tag asn1.Tag)`.
   void addAsn1Int64WithTag(int v, int tag) {
     $callSync(
-        23304,
+        23310,
         $W()
           ..h(this)
           ..i64(v)
@@ -121,13 +121,13 @@ class CryptoCryptobyteBuilder extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*cryptobyte.Builder).AddASN1NULL()`.
   void addAsn1null() {
-    $callSync(23305, $W()..h(this));
+    $callSync(23311, $W()..h(this));
   }
 
   /// Go: `func (*cryptobyte.Builder).AddASN1ObjectIdentifier(oid asn1.ObjectIdentifier)`.
   void addAsn1ObjectIdentifier(List<int> oid) {
     $callSync(
-        23306,
+        23312,
         $W()
           ..h(this)
           ..list(oid, (w0, e0) => w0.i64(e0)));
@@ -136,7 +136,7 @@ class CryptoCryptobyteBuilder extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*cryptobyte.Builder).AddASN1OctetString(bytes []byte)`.
   void addAsn1OctetString(Uint8List bytes) {
     $callSync(
-        23307,
+        23313,
         $W()
           ..h(this)
           ..bytes(bytes));
@@ -145,7 +145,7 @@ class CryptoCryptobyteBuilder extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*cryptobyte.Builder).AddASN1UTCTime(t time.Time)`.
   void addAsn1utcTime(DateTime t) {
     $callSync(
-        23308,
+        23314,
         $W()
           ..h(this)
           ..time(t));
@@ -154,7 +154,7 @@ class CryptoCryptobyteBuilder extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*cryptobyte.Builder).AddASN1Uint64(v uint64)`.
   void addAsn1Uint64(int v) {
     $callSync(
-        23309,
+        23315,
         $W()
           ..h(this)
           ..i64(v));
@@ -163,7 +163,7 @@ class CryptoCryptobyteBuilder extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*cryptobyte.Builder).AddBytes(v []byte)`.
   void addBytes(Uint8List v) {
     $callSync(
-        23310,
+        23316,
         $W()
           ..h(this)
           ..bytes(v));
@@ -172,7 +172,7 @@ class CryptoCryptobyteBuilder extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*cryptobyte.Builder).AddUint16(v uint16)`.
   void addUint16(int v) {
     $callSync(
-        23311,
+        23317,
         $W()
           ..h(this)
           ..i64(v));
@@ -188,7 +188,7 @@ class CryptoCryptobyteBuilder extends $crypto.CryptoDecrypterOpts
   Future<void> addUint16LengthPrefixed(
       FutureOr<void> Function(CryptoCryptobyteBuilder child) f) async {
     await $call(
-        23312,
+        23318,
         $W()
           ..h(this)
           ..cb((r) => f(r.hnn(CryptoCryptobyteBuilder.$h)), true));
@@ -197,7 +197,7 @@ class CryptoCryptobyteBuilder extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*cryptobyte.Builder).AddUint24(v uint32)`.
   void addUint24(int v) {
     $callSync(
-        23313,
+        23319,
         $W()
           ..h(this)
           ..i64(v));
@@ -213,7 +213,7 @@ class CryptoCryptobyteBuilder extends $crypto.CryptoDecrypterOpts
   Future<void> addUint24LengthPrefixed(
       FutureOr<void> Function(CryptoCryptobyteBuilder child) f) async {
     await $call(
-        23314,
+        23320,
         $W()
           ..h(this)
           ..cb((r) => f(r.hnn(CryptoCryptobyteBuilder.$h)), true));
@@ -222,7 +222,7 @@ class CryptoCryptobyteBuilder extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*cryptobyte.Builder).AddUint32(v uint32)`.
   void addUint32(int v) {
     $callSync(
-        23315,
+        23321,
         $W()
           ..h(this)
           ..i64(v));
@@ -238,7 +238,7 @@ class CryptoCryptobyteBuilder extends $crypto.CryptoDecrypterOpts
   Future<void> addUint32LengthPrefixed(
       FutureOr<void> Function(CryptoCryptobyteBuilder child) f) async {
     await $call(
-        23316,
+        23322,
         $W()
           ..h(this)
           ..cb((r) => f(r.hnn(CryptoCryptobyteBuilder.$h)), true));
@@ -247,7 +247,7 @@ class CryptoCryptobyteBuilder extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*cryptobyte.Builder).AddUint48(v uint64)`.
   void addUint48(int v) {
     $callSync(
-        23317,
+        23323,
         $W()
           ..h(this)
           ..i64(v));
@@ -256,7 +256,7 @@ class CryptoCryptobyteBuilder extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*cryptobyte.Builder).AddUint64(v uint64)`.
   void addUint64(int v) {
     $callSync(
-        23318,
+        23324,
         $W()
           ..h(this)
           ..i64(v));
@@ -265,7 +265,7 @@ class CryptoCryptobyteBuilder extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*cryptobyte.Builder).AddUint8(v uint8)`.
   void addUint8(int v) {
     $callSync(
-        23319,
+        23325,
         $W()
           ..h(this)
           ..i64(v));
@@ -281,7 +281,7 @@ class CryptoCryptobyteBuilder extends $crypto.CryptoDecrypterOpts
   Future<void> addUint8LengthPrefixed(
       FutureOr<void> Function(CryptoCryptobyteBuilder child) f) async {
     await $call(
-        23320,
+        23326,
         $W()
           ..h(this)
           ..cb((r) => f(r.hnn(CryptoCryptobyteBuilder.$h)), true));
@@ -290,7 +290,7 @@ class CryptoCryptobyteBuilder extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*cryptobyte.Builder).AddValue(v cryptobyte.MarshalingValue)`.
   void addValue(CryptoCryptobyteMarshalingValue v) {
     $callSync(
-        23321,
+        23327,
         $W()
           ..h(this)
           ..h(v));
@@ -298,20 +298,20 @@ class CryptoCryptobyteBuilder extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*cryptobyte.Builder).Bytes() ([]byte, error)`.
   Uint8List bytes() {
-    final $r = $callSync(23322, $W()..h(this));
+    final $r = $callSync(23328, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*cryptobyte.Builder).BytesOrPanic() []byte`.
   Uint8List bytesOrPanic() {
-    final $r = $callSync(23323, $W()..h(this));
+    final $r = $callSync(23329, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*cryptobyte.Builder).MarshalASN1(v interface{})`.
   void marshalAsn1(Object? v) {
     $callSync(
-        23324,
+        23330,
         $W()
           ..h(this)
           ..any(v));
@@ -320,7 +320,7 @@ class CryptoCryptobyteBuilder extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*cryptobyte.Builder).Unwrite(n int)`.
   void unwrite(int n) {
     $callSync(
-        23325,
+        23331,
         $W()
           ..h(this)
           ..i64(n));
@@ -338,7 +338,7 @@ mixin CryptoCryptobyteMarshalingValue$ on GoHandle {
   /// Go: `func (cryptobyte.MarshalingValue).Marshal(b *cryptobyte.Builder) error`.
   void marshal(CryptoCryptobyteBuilder b) {
     $callSync(
-        23326,
+        23332,
         $W()
           ..h(this)
           ..h(b));
@@ -349,7 +349,7 @@ mixin CryptoCryptobyteMarshalingValue$ on GoHandle {
 extension GoXCryptoCryptobyteApi on GoXCryptoCryptobyte {
   /// Go: `func cryptobyte.NewFixedBuilder(buffer []byte) *cryptobyte.Builder`.
   CryptoCryptobyteBuilder newFixedBuilder(Uint8List buffer) {
-    final $r = $callSync(23328, $W()..bytes(buffer));
+    final $r = $callSync(23334, $W()..bytes(buffer));
     return $r.hnn(CryptoCryptobyteBuilder.$h);
   }
 }

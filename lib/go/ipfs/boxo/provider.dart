@@ -58,7 +58,7 @@ mixin BoxoProviderMultihashProvider$ on GoHandle {
   /// Go: `func (provider.MultihashProvider).StartProviding(force bool, keys ...multihash.Multihash) error`.
   void startProviding(bool force, [List<Uint8List> keys = const []]) {
     $callSync(
-        10356,
+        10365,
         $W()
           ..h(this)
           ..b(force)
@@ -67,28 +67,28 @@ mixin BoxoProviderMultihashProvider$ on GoHandle {
 
   /// Go: type assertion `x.(*node.LegacyProvider)`: null if the object is not one.
   $node.KuboCoreNodeLegacyProvider? asKuboCoreNodeLegacyProvider() {
-    final $r = $callSync(974, $W()..h(this));
+    final $r = $callSync(977, $W()..h(this));
     return $r.hn($node.KuboCoreNodeLegacyProvider.$h);
   }
 
   /// Go: type assertion `x.(*provider.SweepingProvider)`: null if the object is not one.
   $provider.Libp2pKadDhtProviderSweepingProvider?
       asLibp2pKadDhtProviderSweepingProvider() {
-    final $r = $callSync(975, $W()..h(this));
+    final $r = $callSync(978, $W()..h(this));
     return $r.hn($provider.Libp2pKadDhtProviderSweepingProvider.$h);
   }
 
   /// Go: type assertion `x.(*buffered.SweepingProvider)`: null if the object is not one.
   $buffered.Libp2pKadDhtProviderBufferedSweepingProvider?
       asLibp2pKadDhtProviderBufferedSweepingProvider() {
-    final $r = $callSync(976, $W()..h(this));
+    final $r = $callSync(979, $W()..h(this));
     return $r.hn($buffered.Libp2pKadDhtProviderBufferedSweepingProvider.$h);
   }
 
   /// Go: type assertion `x.(*dual.SweepingProvider)`: null if the object is not one.
   $dual.Libp2pKadDhtProviderDualSweepingProvider?
       asLibp2pKadDhtProviderDualSweepingProvider() {
-    final $r = $callSync(977, $W()..h(this));
+    final $r = $callSync(980, $W()..h(this));
     return $r.hn($dual.Libp2pKadDhtProviderDualSweepingProvider.$h);
   }
 }
@@ -110,7 +110,7 @@ mixin BoxoProviderProvide$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> provide($context.Context ctx, $cid.Cid cid, bool arg2) async {
     await $call(
-        10363,
+        10372,
         $W()
           ..h(this)
           ..h(ctx)
@@ -120,32 +120,32 @@ mixin BoxoProviderProvide$ on GoHandle {
 
   /// Go: type assertion `x.(*node.LegacyProvider)`: null if the object is not one.
   $node.KuboCoreNodeLegacyProvider? asKuboCoreNodeLegacyProvider() {
-    final $r = $callSync(978, $W()..h(this));
+    final $r = $callSync(981, $W()..h(this));
     return $r.hn($node.KuboCoreNodeLegacyProvider.$h);
   }
 
   /// Go: type assertion `x.(*dht.IpfsDHT)`: null if the object is not one.
   $libp2p_kad_dht.Libp2pKadDhtIpfsDht? asLibp2pKadDhtIpfsDht() {
-    final $r = $callSync(979, $W()..h(this));
+    final $r = $callSync(982, $W()..h(this));
     return $r.hn($libp2p_kad_dht.Libp2pKadDhtIpfsDht.$h);
   }
 
   /// Go: type assertion `x.(*fullrt.FullRT)`: null if the object is not one.
   $fullrt.Libp2pKadDhtFullrtFullRt? asLibp2pKadDhtFullrtFullRt() {
-    final $r = $callSync(980, $W()..h(this));
+    final $r = $callSync(983, $W()..h(this));
     return $r.hn($fullrt.Libp2pKadDhtFullrtFullRt.$h);
   }
 
   /// Go: type assertion `x.(*routing.DiscoveryRouting)`: null if the object is not one.
   $routing.Libp2pP2pDiscoveryRouting? asLibp2pP2pDiscoveryRouting() {
-    final $r = $callSync(981, $W()..h(this));
+    final $r = $callSync(984, $W()..h(this));
     return $r.hn($routing.Libp2pP2pDiscoveryRouting.$h);
   }
 
   /// Go: type assertion `x.(*routing.RoutingDiscovery)`: null if the object is not one.
   $routing.Libp2pP2pDiscoveryRoutingDiscovery?
       asLibp2pP2pDiscoveryRoutingDiscovery() {
-    final $r = $callSync(982, $W()..h(this));
+    final $r = $callSync(985, $W()..h(this));
     return $r.hn($routing.Libp2pP2pDiscoveryRoutingDiscovery.$h);
   }
 }
@@ -162,7 +162,7 @@ mixin BoxoProviderProvideMany$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> provideMany($context.Context ctx, List<Uint8List> keys) async {
     await $call(
-        10364,
+        10373,
         $W()
           ..h(this)
           ..h(ctx)
@@ -171,7 +171,7 @@ mixin BoxoProviderProvideMany$ on GoHandle {
 
   /// Go: type assertion `x.(*fullrt.FullRT)`: null if the object is not one.
   $fullrt.Libp2pKadDhtFullrtFullRt? asLibp2pKadDhtFullrtFullRt() {
-    final $r = $callSync(983, $W()..h(this));
+    final $r = $callSync(986, $W()..h(this));
     return $r.hn($fullrt.Libp2pKadDhtFullrtFullRt.$h);
   }
 }
@@ -188,7 +188,7 @@ mixin BoxoProvider$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> provide($context.Context ctx, $cid.Cid cid, bool arg2) async {
     await $call(
-        10365,
+        10374,
         $W()
           ..h(this)
           ..h(ctx)
@@ -198,38 +198,38 @@ mixin BoxoProvider$ on GoHandle {
 
   /// Go: type assertion `x.(*node.LegacyProvider)`: null if the object is not one.
   $node.KuboCoreNodeLegacyProvider? asKuboCoreNodeLegacyProvider() {
-    final $r = $callSync(984, $W()..h(this));
+    final $r = $callSync(987, $W()..h(this));
     return $r.hn($node.KuboCoreNodeLegacyProvider.$h);
   }
 
   /// Go: type assertion `x.(*dht.IpfsDHT)`: null if the object is not one.
   $libp2p_kad_dht.Libp2pKadDhtIpfsDht? asLibp2pKadDhtIpfsDht() {
-    final $r = $callSync(985, $W()..h(this));
+    final $r = $callSync(988, $W()..h(this));
     return $r.hn($libp2p_kad_dht.Libp2pKadDhtIpfsDht.$h);
   }
 
   /// Go: type assertion `x.(*fullrt.FullRT)`: null if the object is not one.
   $fullrt.Libp2pKadDhtFullrtFullRt? asLibp2pKadDhtFullrtFullRt() {
-    final $r = $callSync(986, $W()..h(this));
+    final $r = $callSync(989, $W()..h(this));
     return $r.hn($fullrt.Libp2pKadDhtFullrtFullRt.$h);
   }
 
   /// Go: type assertion `x.(*routing.DiscoveryRouting)`: null if the object is not one.
   $routing.Libp2pP2pDiscoveryRouting? asLibp2pP2pDiscoveryRouting() {
-    final $r = $callSync(987, $W()..h(this));
+    final $r = $callSync(990, $W()..h(this));
     return $r.hn($routing.Libp2pP2pDiscoveryRouting.$h);
   }
 
   /// Go: type assertion `x.(*routing.RoutingDiscovery)`: null if the object is not one.
   $routing.Libp2pP2pDiscoveryRoutingDiscovery?
       asLibp2pP2pDiscoveryRoutingDiscovery() {
-    final $r = $callSync(988, $W()..h(this));
+    final $r = $callSync(991, $W()..h(this));
     return $r.hn($routing.Libp2pP2pDiscoveryRoutingDiscovery.$h);
   }
 
   /// Go: type assertion `x.(provider.System)`: null if the object is not one.
   BoxoProviderSystem? asBoxoProviderSystem() {
-    final $r = $callSync(989, $W()..h(this));
+    final $r = $callSync(992, $W()..h(this));
     return $r.hn(BoxoProviderSystem.$h);
   }
 }
@@ -246,7 +246,7 @@ mixin BoxoProviderReprovider$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> reprovide($context.Context ctx) async {
     await $call(
-        10366,
+        10375,
         $W()
           ..h(this)
           ..h(ctx));
@@ -254,13 +254,13 @@ mixin BoxoProviderReprovider$ on GoHandle {
 
   /// Go: type assertion `x.(*node.LegacyProvider)`: null if the object is not one.
   $node.KuboCoreNodeLegacyProvider? asKuboCoreNodeLegacyProvider() {
-    final $r = $callSync(990, $W()..h(this));
+    final $r = $callSync(993, $W()..h(this));
     return $r.hn($node.KuboCoreNodeLegacyProvider.$h);
   }
 
   /// Go: type assertion `x.(provider.System)`: null if the object is not one.
   BoxoProviderSystem? asBoxoProviderSystem() {
-    final $r = $callSync(991, $W()..h(this));
+    final $r = $callSync(994, $W()..h(this));
     return $r.hn(BoxoProviderSystem.$h);
   }
 }
@@ -336,19 +336,19 @@ class BoxoProviderSystem extends BoxoProvider
 mixin BoxoProviderSystem$ on GoHandle {
   /// Go: `func (provider.System).Clear() int`.
   int clear() {
-    final $r = $callSync(10367, $W()..h(this));
+    final $r = $callSync(10376, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (provider.System).Close() error`.
   void close() {
-    $callSync(10368, $W()..h(this));
+    $callSync(10377, $W()..h(this));
   }
 
   /// Go: `func (provider.System).SetKeyProvider(kp provider.KeyChanFunc)`.
   void setKeyProvider(BoxoProviderKeyChanFunc kp) {
     $callSync(
-        10369,
+        10378,
         $W()
           ..h(this)
           ..h(kp));
@@ -356,13 +356,13 @@ mixin BoxoProviderSystem$ on GoHandle {
 
   /// Go: `func (provider.System).Stat() (provider.ReproviderStats, error)`.
   BoxoProviderReproviderStats stat() {
-    final $r = $callSync(10370, $W()..h(this));
+    final $r = $callSync(10379, $W()..h(this));
     return $r.p() ? BoxoProviderReproviderStats.$dec($r) : $nil();
   }
 
   /// Go: type assertion `x.(*node.LegacyProvider)`: null if the object is not one.
   $node.KuboCoreNodeLegacyProvider? asKuboCoreNodeLegacyProvider() {
-    final $r = $callSync(992, $W()..h(this));
+    final $r = $callSync(995, $W()..h(this));
     return $r.hn($node.KuboCoreNodeLegacyProvider.$h);
   }
 }
@@ -371,7 +371,7 @@ mixin BoxoProviderSystem$ on GoHandle {
 extension GoIpfsBoxoProviderApi on GoIpfsBoxoProvider {
   /// Go: `var provider.DefaultKeyPrefix datastore.Key`.
   $datastore.DatastoreKey get defaultKeyPrefix {
-    final $r = $callSync(10355);
+    final $r = $callSync(10364);
     return $r.hnn($datastore.DatastoreKey.$h);
   }
 
@@ -379,7 +379,7 @@ extension GoIpfsBoxoProviderApi on GoIpfsBoxoProvider {
   BoxoProviderSystem new$($datastore.DatastoreBatching ds,
       [List<BoxoProviderOption> opts = const []]) {
     final $r = $callSync(
-        10357,
+        10366,
         $W()
           ..h(ds)
           ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -388,14 +388,14 @@ extension GoIpfsBoxoProviderApi on GoIpfsBoxoProvider {
 
   /// Go: `func provider.NewBufferedProvider(pinsF provider.KeyChanFunc) provider.KeyChanFunc`.
   BoxoProviderKeyChanFunc newBufferedProvider(BoxoProviderKeyChanFunc pinsF) {
-    final $r = $callSync(10358, $W()..h(pinsF));
+    final $r = $callSync(10367, $W()..h(pinsF));
     return $r.hnn(BoxoProviderKeyChanFunc.$h);
   }
 
   /// Go: `func provider.NewConcatProvider(streams ...provider.KeyChanFunc) provider.KeyChanFunc`.
   BoxoProviderKeyChanFunc newConcatProvider(
       [List<BoxoProviderKeyChanFunc> streams = const []]) {
-    final $r = $callSync(10359, $W()..list(streams, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(10368, $W()..list(streams, (w0, e0) => w0.h(e0)));
     return $r.hnn(BoxoProviderKeyChanFunc.$h);
   }
 
@@ -403,7 +403,7 @@ extension GoIpfsBoxoProviderApi on GoIpfsBoxoProvider {
   BoxoProviderKeyChanFunc newDagProvider(
       $cid.Cid root, $fetcher.BoxoFetcherFactory fetchConfig) {
     final $r = $callSync(
-        10360,
+        10369,
         $W()
           ..val(root)
           ..h(fetchConfig));
@@ -412,14 +412,14 @@ extension GoIpfsBoxoProviderApi on GoIpfsBoxoProvider {
 
   /// Go: `func provider.NewNoopProvider() provider.System`.
   BoxoProviderSystem newNoopProvider() {
-    final $r = $callSync(10361);
+    final $r = $callSync(10370);
     return $r.hnn(BoxoProviderSystem.$h);
   }
 
   /// Go: `func provider.NewPrioritizedProvider(streams ...provider.KeyChanFunc) provider.KeyChanFunc`.
   BoxoProviderKeyChanFunc newPrioritizedProvider(
       [List<BoxoProviderKeyChanFunc> streams = const []]) {
-    final $r = $callSync(10362, $W()..list(streams, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(10371, $W()..list(streams, (w0, e0) => w0.h(e0)));
     return $r.hnn(BoxoProviderKeyChanFunc.$h);
   }
 }

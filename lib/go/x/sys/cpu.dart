@@ -9,7 +9,7 @@ import 'package:p2p_ffi/src/runtime.dart';
 extension GoXSysCpuApi on GoXSysCpu {
   /// Go: `var cpu.Initialized bool`.
   bool get initialized {
-    final $r = $callSync(23832);
+    final $r = $callSync(23838);
     return $r.b();
   }
 }

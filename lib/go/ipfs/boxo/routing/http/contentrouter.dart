@@ -23,7 +23,7 @@ mixin BoxoRoutingHttpContentrouterClient$ on GoHandle {
   Future<$ipns.BoxoIpnsRecord> getIpns(
       $context.Context ctx, $ipns.BoxoIpnsName name) async {
     final $r = await $call(
-        10398,
+        10407,
         $W()
           ..h(this)
           ..h(ctx)
@@ -37,7 +37,7 @@ mixin BoxoRoutingHttpContentrouterClient$ on GoHandle {
   Future<Duration> provideBitswap(
       $context.Context ctx, List<$cid.Cid> keys, Duration ttl) async {
     final $r = await $call(
-        10399,
+        10408,
         $W()
           ..h(this)
           ..h(ctx)
@@ -52,7 +52,7 @@ mixin BoxoRoutingHttpContentrouterClient$ on GoHandle {
   Future<void> putIpns($context.Context ctx, $ipns.BoxoIpnsName name,
       $ipns.BoxoIpnsRecord record) async {
     await $call(
-        10400,
+        10409,
         $W()
           ..h(this)
           ..h(ctx)
@@ -62,7 +62,7 @@ mixin BoxoRoutingHttpContentrouterClient$ on GoHandle {
 
   /// Go: type assertion `x.(*client.Client)`: null if the object is not one.
   $client.BoxoRoutingHttpClient? asBoxoRoutingHttpClient() {
-    final $r = $callSync(993, $W()..h(this));
+    final $r = $callSync(996, $W()..h(this));
     return $r.hn($client.BoxoRoutingHttpClient.$h);
   }
 }
@@ -79,7 +79,7 @@ mixin BoxoRoutingHttpContentrouterDhtRouter$ on GoHandle {
   Stream<$peer.Libp2pCorePeerAddrInfo> getClosestPeers(
           $context.Context ctx, $cid.Cid cid) =>
       $stream(
-              10401,
+              10410,
               $W()
                 ..h(this)
                 ..h(ctx)

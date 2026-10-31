@@ -31,14 +31,14 @@ class BadgerTrie extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func trie.NewTrie() *trie.Trie`.
   factory BadgerTrie() {
-    final $r = $callSync(6115);
+    final $r = $callSync(6124);
     return $r.hnn(BadgerTrie.$h);
   }
 
   /// Go: `func (*trie.Trie).Add(prefix []byte, id uint64)`.
   void add(Uint8List prefix, int id) {
     $callSync(
-        6116,
+        6125,
         $W()
           ..h(this)
           ..bytes(prefix)
@@ -48,7 +48,7 @@ class BadgerTrie extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*trie.Trie).Delete(index []byte, id uint64)`.
   void delete(Uint8List index, int id) {
     $callSync(
-        6117,
+        6126,
         $W()
           ..h(this)
           ..bytes(index)

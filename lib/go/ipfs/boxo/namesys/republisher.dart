@@ -39,7 +39,7 @@ class BoxoNamesysRepublisher extends $crypto.CryptoDecrypterOpts
       $crypto2.Libp2pCoreCryptoPrivKey self,
       $keystore.BoxoKeystore ks) {
     final $r = $callSync(
-        10115,
+        10124,
         $W()
           ..h(ns)
           ..h(ds)

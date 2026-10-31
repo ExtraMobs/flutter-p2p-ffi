@@ -37,7 +37,7 @@ class EmbedFs extends $fs.IoFsReadDirFs
   /// Go: `func (embed.FS).Open(name string) (fs.File, error)`.
   $fs.IoFsFile open(String name) {
     final $r = $callSync(
-        3629,
+        3638,
         $W()
           ..h(this)
           ..str(name));
@@ -47,7 +47,7 @@ class EmbedFs extends $fs.IoFsReadDirFs
   /// Go: `func (embed.FS).ReadDir(name string) ([]fs.DirEntry, error)`.
   List<$fs.IoFsDirEntry> readDir(String name) {
     final $r = $callSync(
-        3630,
+        3639,
         $W()
           ..h(this)
           ..str(name));
@@ -57,7 +57,7 @@ class EmbedFs extends $fs.IoFsReadDirFs
   /// Go: `func (embed.FS).ReadFile(name string) ([]byte, error)`.
   Uint8List readFile(String name) {
     final $r = $callSync(
-        3631,
+        3640,
         $W()
           ..h(this)
           ..str(name));

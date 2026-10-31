@@ -44,47 +44,47 @@ class BoxoFilestorePbDataObj
   /// Go: `func (*pb.DataObj).Descriptor() ([]byte, []int)`.
   @Deprecated("Use DataObj.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(9519, $W()..h(this));
+    final $r = $callSync(9528, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pb.DataObj).GetFilePath() string`.
   String getFilePath() {
-    final $r = $callSync(9520, $W()..h(this));
+    final $r = $callSync(9529, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*pb.DataObj).GetOffset() uint64`.
   int getOffset() {
-    final $r = $callSync(9521, $W()..h(this));
+    final $r = $callSync(9530, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.DataObj).GetSize() uint64`.
   int getSize() {
-    final $r = $callSync(9522, $W()..h(this));
+    final $r = $callSync(9531, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.DataObj).ProtoMessage()`.
   void protoMessage() {
-    $callSync(9523, $W()..h(this));
+    $callSync(9532, $W()..h(this));
   }
 
   /// Go: `func (*pb.DataObj).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(9524, $W()..h(this));
+    final $r = $callSync(9533, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pb.DataObj).Reset()`.
   void reset() {
-    $callSync(9525, $W()..h(this));
+    $callSync(9534, $W()..h(this));
   }
 
   /// Go: `func (*pb.DataObj).String() string`.
   String string() {
-    final $r = $callSync(9526, $W()..h(this));
+    final $r = $callSync(9535, $W()..h(this));
     return $r.str();
   }
 }
@@ -94,7 +94,7 @@ extension GoIpfsBoxoFilestorePbApi on GoIpfsBoxoFilestorePb {
   /// Go: `var pb.File_github_com_ipfs_boxo_filestore_pb_dataobj_proto protoreflect.FileDescriptor`.
   $protoreflect.ProtobufReflectProtoreflectFileDescriptor
       get fileGithubComIpfsBoxoFilestorePbDataobjProto {
-    final $r = $callSync(9527);
+    final $r = $callSync(9536);
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectFileDescriptor.$h);
   }
 }

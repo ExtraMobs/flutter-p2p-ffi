@@ -42,7 +42,7 @@ class NetNetipAddr extends $encoding.EncodingBinaryAppender
   /// Go: `func (netip.Addr).AppendBinary(b []byte) ([]byte, error)`.
   Uint8List appendBinary(Uint8List b) {
     final $r = $callSync(
-        26675,
+        26681,
         $W()
           ..h(this)
           ..bytes(b));
@@ -52,7 +52,7 @@ class NetNetipAddr extends $encoding.EncodingBinaryAppender
   /// Go: `func (netip.Addr).AppendText(b []byte) ([]byte, error)`.
   Uint8List appendText(Uint8List b) {
     final $r = $callSync(
-        26676,
+        26682,
         $W()
           ..h(this)
           ..bytes(b));
@@ -62,7 +62,7 @@ class NetNetipAddr extends $encoding.EncodingBinaryAppender
   /// Go: `func (netip.Addr).AppendTo(b []byte) []byte`.
   Uint8List appendTo(Uint8List b) {
     final $r = $callSync(
-        26677,
+        26683,
         $W()
           ..h(this)
           ..bytes(b));
@@ -71,20 +71,20 @@ class NetNetipAddr extends $encoding.EncodingBinaryAppender
 
   /// Go: `func (netip.Addr).AsSlice() []byte`.
   Uint8List asSlice() {
-    final $r = $callSync(26678, $W()..h(this));
+    final $r = $callSync(26684, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (netip.Addr).BitLen() int`.
   int bitLen() {
-    final $r = $callSync(26679, $W()..h(this));
+    final $r = $callSync(26685, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (netip.Addr).Compare(ip2 netip.Addr) int`.
   int compare(NetNetipAddr ip2) {
     final $r = $callSync(
-        26680,
+        26686,
         $W()
           ..h(this)
           ..h(ip2));
@@ -93,80 +93,80 @@ class NetNetipAddr extends $encoding.EncodingBinaryAppender
 
   /// Go: `func (netip.Addr).Is4() bool`.
   bool is4() {
-    final $r = $callSync(26681, $W()..h(this));
+    final $r = $callSync(26687, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (netip.Addr).Is4In6() bool`.
   bool is4In6() {
-    final $r = $callSync(26682, $W()..h(this));
+    final $r = $callSync(26688, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (netip.Addr).Is6() bool`.
   bool is6() {
-    final $r = $callSync(26683, $W()..h(this));
+    final $r = $callSync(26689, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (netip.Addr).IsGlobalUnicast() bool`.
   bool isGlobalUnicast() {
-    final $r = $callSync(26684, $W()..h(this));
+    final $r = $callSync(26690, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (netip.Addr).IsInterfaceLocalMulticast() bool`.
   bool isInterfaceLocalMulticast() {
-    final $r = $callSync(26685, $W()..h(this));
+    final $r = $callSync(26691, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (netip.Addr).IsLinkLocalMulticast() bool`.
   bool isLinkLocalMulticast() {
-    final $r = $callSync(26686, $W()..h(this));
+    final $r = $callSync(26692, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (netip.Addr).IsLinkLocalUnicast() bool`.
   bool isLinkLocalUnicast() {
-    final $r = $callSync(26687, $W()..h(this));
+    final $r = $callSync(26693, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (netip.Addr).IsLoopback() bool`.
   bool isLoopback() {
-    final $r = $callSync(26688, $W()..h(this));
+    final $r = $callSync(26694, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (netip.Addr).IsMulticast() bool`.
   bool isMulticast() {
-    final $r = $callSync(26689, $W()..h(this));
+    final $r = $callSync(26695, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (netip.Addr).IsPrivate() bool`.
   bool isPrivate() {
-    final $r = $callSync(26690, $W()..h(this));
+    final $r = $callSync(26696, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (netip.Addr).IsUnspecified() bool`.
   bool isUnspecified() {
-    final $r = $callSync(26691, $W()..h(this));
+    final $r = $callSync(26697, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (netip.Addr).IsValid() bool`.
   bool isValid() {
-    final $r = $callSync(26692, $W()..h(this));
+    final $r = $callSync(26698, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (netip.Addr).Less(ip2 netip.Addr) bool`.
   bool less(NetNetipAddr ip2) {
     final $r = $callSync(
-        26693,
+        26699,
         $W()
           ..h(this)
           ..h(ip2));
@@ -175,26 +175,26 @@ class NetNetipAddr extends $encoding.EncodingBinaryAppender
 
   /// Go: `func (netip.Addr).MarshalBinary() ([]byte, error)`.
   Uint8List marshalBinary() {
-    final $r = $callSync(26694, $W()..h(this));
+    final $r = $callSync(26700, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (netip.Addr).MarshalText() ([]byte, error)`.
   Uint8List marshalText() {
-    final $r = $callSync(26695, $W()..h(this));
+    final $r = $callSync(26701, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (netip.Addr).Next() netip.Addr`.
   NetNetipAddr next() {
-    final $r = $callSync(26696, $W()..h(this));
+    final $r = $callSync(26702, $W()..h(this));
     return $r.hnn(NetNetipAddr.$h);
   }
 
   /// Go: `func (netip.Addr).Prefix(b int) (netip.Prefix, error)`.
   NetNetipPrefix prefix(int b) {
     final $r = $callSync(
-        26697,
+        26703,
         $W()
           ..h(this)
           ..i64(b));
@@ -203,32 +203,32 @@ class NetNetipAddr extends $encoding.EncodingBinaryAppender
 
   /// Go: `func (netip.Addr).Prev() netip.Addr`.
   NetNetipAddr prev() {
-    final $r = $callSync(26698, $W()..h(this));
+    final $r = $callSync(26704, $W()..h(this));
     return $r.hnn(NetNetipAddr.$h);
   }
 
   /// Go: `func (netip.Addr).String() string`.
   String string() {
-    final $r = $callSync(26699, $W()..h(this));
+    final $r = $callSync(26705, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (netip.Addr).StringExpanded() string`.
   String stringExpanded() {
-    final $r = $callSync(26700, $W()..h(this));
+    final $r = $callSync(26706, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (netip.Addr).Unmap() netip.Addr`.
   NetNetipAddr unmap() {
-    final $r = $callSync(26701, $W()..h(this));
+    final $r = $callSync(26707, $W()..h(this));
     return $r.hnn(NetNetipAddr.$h);
   }
 
   /// Go: `func (*netip.Addr).UnmarshalBinary(b []byte) error`.
   void unmarshalBinary(Uint8List b) {
     $callSync(
-        26702,
+        26708,
         $W()
           ..h(this)
           ..bytes(b));
@@ -237,7 +237,7 @@ class NetNetipAddr extends $encoding.EncodingBinaryAppender
   /// Go: `func (*netip.Addr).UnmarshalText(text []byte) error`.
   void unmarshalText(Uint8List text) {
     $callSync(
-        26703,
+        26709,
         $W()
           ..h(this)
           ..bytes(text));
@@ -246,7 +246,7 @@ class NetNetipAddr extends $encoding.EncodingBinaryAppender
   /// Go: `func (netip.Addr).WithZone(zone string) netip.Addr`.
   NetNetipAddr withZone(String zone) {
     final $r = $callSync(
-        26704,
+        26710,
         $W()
           ..h(this)
           ..str(zone));
@@ -255,7 +255,7 @@ class NetNetipAddr extends $encoding.EncodingBinaryAppender
 
   /// Go: `func (netip.Addr).Zone() string`.
   String zone() {
-    final $r = $callSync(26705, $W()..h(this));
+    final $r = $callSync(26711, $W()..h(this));
     return $r.str();
   }
 }
@@ -288,14 +288,14 @@ class NetNetipAddrPort extends $encoding.EncodingBinaryAppender
 
   /// Go: `func (netip.AddrPort).Addr() netip.Addr`.
   NetNetipAddr addr() {
-    final $r = $callSync(26707, $W()..h(this));
+    final $r = $callSync(26713, $W()..h(this));
     return $r.hnn(NetNetipAddr.$h);
   }
 
   /// Go: `func (netip.AddrPort).AppendBinary(b []byte) ([]byte, error)`.
   Uint8List appendBinary(Uint8List b) {
     final $r = $callSync(
-        26708,
+        26714,
         $W()
           ..h(this)
           ..bytes(b));
@@ -305,7 +305,7 @@ class NetNetipAddrPort extends $encoding.EncodingBinaryAppender
   /// Go: `func (netip.AddrPort).AppendText(b []byte) ([]byte, error)`.
   Uint8List appendText(Uint8List b) {
     final $r = $callSync(
-        26709,
+        26715,
         $W()
           ..h(this)
           ..bytes(b));
@@ -315,7 +315,7 @@ class NetNetipAddrPort extends $encoding.EncodingBinaryAppender
   /// Go: `func (netip.AddrPort).AppendTo(b []byte) []byte`.
   Uint8List appendTo(Uint8List b) {
     final $r = $callSync(
-        26710,
+        26716,
         $W()
           ..h(this)
           ..bytes(b));
@@ -325,7 +325,7 @@ class NetNetipAddrPort extends $encoding.EncodingBinaryAppender
   /// Go: `func (netip.AddrPort).Compare(p2 netip.AddrPort) int`.
   int compare(NetNetipAddrPort p2) {
     final $r = $callSync(
-        26711,
+        26717,
         $W()
           ..h(this)
           ..h(p2));
@@ -334,38 +334,38 @@ class NetNetipAddrPort extends $encoding.EncodingBinaryAppender
 
   /// Go: `func (netip.AddrPort).IsValid() bool`.
   bool isValid() {
-    final $r = $callSync(26712, $W()..h(this));
+    final $r = $callSync(26718, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (netip.AddrPort).MarshalBinary() ([]byte, error)`.
   Uint8List marshalBinary() {
-    final $r = $callSync(26713, $W()..h(this));
+    final $r = $callSync(26719, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (netip.AddrPort).MarshalText() ([]byte, error)`.
   Uint8List marshalText() {
-    final $r = $callSync(26714, $W()..h(this));
+    final $r = $callSync(26720, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (netip.AddrPort).Port() uint16`.
   int port() {
-    final $r = $callSync(26715, $W()..h(this));
+    final $r = $callSync(26721, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (netip.AddrPort).String() string`.
   String string() {
-    final $r = $callSync(26716, $W()..h(this));
+    final $r = $callSync(26722, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*netip.AddrPort).UnmarshalBinary(b []byte) error`.
   void unmarshalBinary(Uint8List b) {
     $callSync(
-        26717,
+        26723,
         $W()
           ..h(this)
           ..bytes(b));
@@ -374,7 +374,7 @@ class NetNetipAddrPort extends $encoding.EncodingBinaryAppender
   /// Go: `func (*netip.AddrPort).UnmarshalText(text []byte) error`.
   void unmarshalText(Uint8List text) {
     $callSync(
-        26718,
+        26724,
         $W()
           ..h(this)
           ..bytes(text));
@@ -409,14 +409,14 @@ class NetNetipPrefix extends $encoding.EncodingBinaryAppender
 
   /// Go: `func (netip.Prefix).Addr() netip.Addr`.
   NetNetipAddr addr() {
-    final $r = $callSync(26731, $W()..h(this));
+    final $r = $callSync(26737, $W()..h(this));
     return $r.hnn(NetNetipAddr.$h);
   }
 
   /// Go: `func (netip.Prefix).AppendBinary(b []byte) ([]byte, error)`.
   Uint8List appendBinary(Uint8List b) {
     final $r = $callSync(
-        26732,
+        26738,
         $W()
           ..h(this)
           ..bytes(b));
@@ -426,7 +426,7 @@ class NetNetipPrefix extends $encoding.EncodingBinaryAppender
   /// Go: `func (netip.Prefix).AppendText(b []byte) ([]byte, error)`.
   Uint8List appendText(Uint8List b) {
     final $r = $callSync(
-        26733,
+        26739,
         $W()
           ..h(this)
           ..bytes(b));
@@ -436,7 +436,7 @@ class NetNetipPrefix extends $encoding.EncodingBinaryAppender
   /// Go: `func (netip.Prefix).AppendTo(b []byte) []byte`.
   Uint8List appendTo(Uint8List b) {
     final $r = $callSync(
-        26734,
+        26740,
         $W()
           ..h(this)
           ..bytes(b));
@@ -445,14 +445,14 @@ class NetNetipPrefix extends $encoding.EncodingBinaryAppender
 
   /// Go: `func (netip.Prefix).Bits() int`.
   int bits() {
-    final $r = $callSync(26735, $W()..h(this));
+    final $r = $callSync(26741, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (netip.Prefix).Compare(p2 netip.Prefix) int`.
   int compare(NetNetipPrefix p2) {
     final $r = $callSync(
-        26736,
+        26742,
         $W()
           ..h(this)
           ..h(p2));
@@ -462,7 +462,7 @@ class NetNetipPrefix extends $encoding.EncodingBinaryAppender
   /// Go: `func (netip.Prefix).Contains(ip netip.Addr) bool`.
   bool contains(NetNetipAddr ip) {
     final $r = $callSync(
-        26737,
+        26743,
         $W()
           ..h(this)
           ..h(ip));
@@ -471,38 +471,38 @@ class NetNetipPrefix extends $encoding.EncodingBinaryAppender
 
   /// Go: `func (netip.Prefix).IsSingleIP() bool`.
   bool isSingleIp() {
-    final $r = $callSync(26738, $W()..h(this));
+    final $r = $callSync(26744, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (netip.Prefix).IsValid() bool`.
   bool isValid() {
-    final $r = $callSync(26739, $W()..h(this));
+    final $r = $callSync(26745, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (netip.Prefix).MarshalBinary() ([]byte, error)`.
   Uint8List marshalBinary() {
-    final $r = $callSync(26740, $W()..h(this));
+    final $r = $callSync(26746, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (netip.Prefix).MarshalText() ([]byte, error)`.
   Uint8List marshalText() {
-    final $r = $callSync(26741, $W()..h(this));
+    final $r = $callSync(26747, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (netip.Prefix).Masked() netip.Prefix`.
   NetNetipPrefix masked() {
-    final $r = $callSync(26742, $W()..h(this));
+    final $r = $callSync(26748, $W()..h(this));
     return $r.hnn(NetNetipPrefix.$h);
   }
 
   /// Go: `func (netip.Prefix).Overlaps(o netip.Prefix) bool`.
   bool overlaps(NetNetipPrefix o) {
     final $r = $callSync(
-        26743,
+        26749,
         $W()
           ..h(this)
           ..h(o));
@@ -511,14 +511,14 @@ class NetNetipPrefix extends $encoding.EncodingBinaryAppender
 
   /// Go: `func (netip.Prefix).String() string`.
   String string() {
-    final $r = $callSync(26744, $W()..h(this));
+    final $r = $callSync(26750, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*netip.Prefix).UnmarshalBinary(b []byte) error`.
   void unmarshalBinary(Uint8List b) {
     $callSync(
-        26745,
+        26751,
         $W()
           ..h(this)
           ..bytes(b));
@@ -527,7 +527,7 @@ class NetNetipPrefix extends $encoding.EncodingBinaryAppender
   /// Go: `func (*netip.Prefix).UnmarshalText(text []byte) error`.
   void unmarshalText(Uint8List text) {
     $callSync(
-        26746,
+        26752,
         $W()
           ..h(this)
           ..bytes(text));
@@ -538,14 +538,14 @@ class NetNetipPrefix extends $encoding.EncodingBinaryAppender
 extension GoNetNetipApi on GoNetNetip {
   /// Go: `func netip.AddrFromSlice(slice []byte) (ip netip.Addr, ok bool)`.
   (NetNetipAddr, bool) addrFromSlice(Uint8List slice) {
-    final $r = $callSync(26706, $W()..bytes(slice));
+    final $r = $callSync(26712, $W()..bytes(slice));
     return ($r.hnn(NetNetipAddr.$h), $r.b());
   }
 
   /// Go: `func netip.AddrPortFrom(ip netip.Addr, port uint16) netip.AddrPort`.
   NetNetipAddrPort addrPortFrom(NetNetipAddr ip, int port) {
     final $r = $callSync(
-        26719,
+        26725,
         $W()
           ..h(ip)
           ..i64(port));
@@ -554,74 +554,74 @@ extension GoNetNetipApi on GoNetNetip {
 
   /// Go: `func netip.IPv4Unspecified() netip.Addr`.
   NetNetipAddr iPv4Unspecified() {
-    final $r = $callSync(26720);
+    final $r = $callSync(26726);
     return $r.hnn(NetNetipAddr.$h);
   }
 
   /// Go: `func netip.IPv6LinkLocalAllNodes() netip.Addr`.
   NetNetipAddr iPv6LinkLocalAllNodes() {
-    final $r = $callSync(26721);
+    final $r = $callSync(26727);
     return $r.hnn(NetNetipAddr.$h);
   }
 
   /// Go: `func netip.IPv6LinkLocalAllRouters() netip.Addr`.
   NetNetipAddr iPv6LinkLocalAllRouters() {
-    final $r = $callSync(26722);
+    final $r = $callSync(26728);
     return $r.hnn(NetNetipAddr.$h);
   }
 
   /// Go: `func netip.IPv6Loopback() netip.Addr`.
   NetNetipAddr iPv6Loopback() {
-    final $r = $callSync(26723);
+    final $r = $callSync(26729);
     return $r.hnn(NetNetipAddr.$h);
   }
 
   /// Go: `func netip.IPv6Unspecified() netip.Addr`.
   NetNetipAddr iPv6Unspecified() {
-    final $r = $callSync(26724);
+    final $r = $callSync(26730);
     return $r.hnn(NetNetipAddr.$h);
   }
 
   /// Go: `func netip.MustParseAddr(s string) netip.Addr`.
   NetNetipAddr mustParseAddr(String s) {
-    final $r = $callSync(26725, $W()..str(s));
+    final $r = $callSync(26731, $W()..str(s));
     return $r.hnn(NetNetipAddr.$h);
   }
 
   /// Go: `func netip.MustParseAddrPort(s string) netip.AddrPort`.
   NetNetipAddrPort mustParseAddrPort(String s) {
-    final $r = $callSync(26726, $W()..str(s));
+    final $r = $callSync(26732, $W()..str(s));
     return $r.hnn(NetNetipAddrPort.$h);
   }
 
   /// Go: `func netip.MustParsePrefix(s string) netip.Prefix`.
   NetNetipPrefix mustParsePrefix(String s) {
-    final $r = $callSync(26727, $W()..str(s));
+    final $r = $callSync(26733, $W()..str(s));
     return $r.hnn(NetNetipPrefix.$h);
   }
 
   /// Go: `func netip.ParseAddr(s string) (netip.Addr, error)`.
   NetNetipAddr parseAddr(String s) {
-    final $r = $callSync(26728, $W()..str(s));
+    final $r = $callSync(26734, $W()..str(s));
     return $r.hnn(NetNetipAddr.$h);
   }
 
   /// Go: `func netip.ParseAddrPort(s string) (netip.AddrPort, error)`.
   NetNetipAddrPort parseAddrPort(String s) {
-    final $r = $callSync(26729, $W()..str(s));
+    final $r = $callSync(26735, $W()..str(s));
     return $r.hnn(NetNetipAddrPort.$h);
   }
 
   /// Go: `func netip.ParsePrefix(s string) (netip.Prefix, error)`.
   NetNetipPrefix parsePrefix(String s) {
-    final $r = $callSync(26730, $W()..str(s));
+    final $r = $callSync(26736, $W()..str(s));
     return $r.hnn(NetNetipPrefix.$h);
   }
 
   /// Go: `func netip.PrefixFrom(ip netip.Addr, bits int) netip.Prefix`.
   NetNetipPrefix prefixFrom(NetNetipAddr ip, int bits) {
     final $r = $callSync(
-        26747,
+        26753,
         $W()
           ..h(ip)
           ..i64(bits));

@@ -16,13 +16,13 @@ class IpldPrimeAdl extends $datamodel.IpldPrimeDatamodelNode
 mixin IpldPrimeAdl$ on GoHandle {
   /// Go: `func (adl.ADL).Substrate() datamodel.Node`.
   $datamodel.IpldPrimeDatamodelNode substrate() {
-    final $r = $callSync(12045, $W()..h(this));
+    final $r = $callSync(12051, $W()..h(this));
     return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
   }
 
   /// Go: type assertion `x.(file.LargeBytesNode)`: null if the object is not one.
   $file.UnixfsnodeFileLargeBytesNode? asUnixfsnodeFileLargeBytesNode() {
-    final $r = $callSync(1231, $W()..h(this));
+    final $r = $callSync(1234, $W()..h(this));
     return $r.hn($file.UnixfsnodeFileLargeBytesNode.$h);
   }
 }

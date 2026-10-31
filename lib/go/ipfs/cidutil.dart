@@ -36,7 +36,7 @@ class CidutilInlineBuilder extends $cid.CidBuilder
   /// Go: `func (cidutil.InlineBuilder).Sum(data []byte) (cid.Cid, error)`.
   $cid.Cid sum(Uint8List data) {
     final $r = $callSync(
-        10523,
+        10532,
         $W()
           ..h(this)
           ..bytes(data));
@@ -46,7 +46,7 @@ class CidutilInlineBuilder extends $cid.CidBuilder
   /// Go: `func (cidutil.InlineBuilder).WithCodec(c uint64) cid.Builder`.
   $cid.CidBuilder withCodec(int c) {
     final $r = $callSync(
-        10524,
+        10533,
         $W()
           ..h(this)
           ..i64(c));
@@ -94,7 +94,7 @@ extension GoIpfsCidutilApi on GoIpfsCidutil {
   /// Go: `func cidutil.Format(fmtStr string, base multibase.Encoding, cid cid.Cid) (string, error)`.
   String format(String fmtStr, int base, $cid.Cid cid) {
     final $r = $callSync(
-        10522,
+        10531,
         $W()
           ..str(fmtStr)
           ..i64(base)
@@ -104,25 +104,25 @@ extension GoIpfsCidutilApi on GoIpfsCidutil {
 
   /// Go: `func cidutil.NewSet() *cidutil.Set`.
   $cid.CidSet newSet() {
-    final $r = $callSync(10525);
+    final $r = $callSync(10534);
     return $r.hnn($cid.CidSet.$h);
   }
 
   /// Go: `func cidutil.NewStreamingSet() *cidutil.StreamingSet`.
   CidutilStreamingSet newStreamingSet() {
-    final $r = $callSync(10526);
+    final $r = $callSync(10535);
     return $r.p() ? CidutilStreamingSet.$dec($r) : $nil();
   }
 
   /// Go: `func cidutil.ScanForCid(buf []byte) (i int, j int, cid cid.Cid, cidStr string)`.
   (int, int, $cid.Cid, String) scanForCid(Uint8List buf) {
-    final $r = $callSync(10527, $W()..bytes(buf));
+    final $r = $callSync(10536, $W()..bytes(buf));
     return ($r.i64(), $r.i64(), $r.p() ? $cid.Cid($r.str()) : $nil(), $r.str());
   }
 
   /// Go: `func cidutil.Sort(s []cid.Cid)`.
   void sort(List<$cid.Cid> s) {
-    $callSync(10528, $W()..list(s, (w0, e0) => w0.val(e0)));
+    $callSync(10537, $W()..list(s, (w0, e0) => w0.val(e0)));
   }
 }
 

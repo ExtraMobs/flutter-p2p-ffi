@@ -60,12 +60,12 @@ class PebbleV2SstableBlobFileReader extends PebbleV2SstableBlobValueReader
 
   /// Go: `func (*blob.FileReader).Close() error`.
   void close() {
-    $callSync(5140, $W()..h(this));
+    $callSync(5149, $W()..h(this));
   }
 
   /// Go: `func (*blob.FileReader).IndexHandle() block.Handle`.
   $block.PebbleV2SstableBlockHandle indexHandle() {
-    final $r = $callSync(5141, $W()..h(this));
+    final $r = $callSync(5150, $W()..h(this));
     return $r.p() ? $block.PebbleV2SstableBlockHandle.$dec($r) : $nil();
   }
 
@@ -75,7 +75,7 @@ class PebbleV2SstableBlobFileReader extends PebbleV2SstableBlobValueReader
           .PebbleV2ObjstorageObjstorageproviderPreallocatedReadHandle
           rh) {
     final $r = $callSync(
-        5142,
+        5151,
         $W()
           ..h(this)
           ..h(rh));
@@ -84,7 +84,7 @@ class PebbleV2SstableBlobFileReader extends PebbleV2SstableBlobValueReader
 
   /// Go: `func (*blob.FileReader).Layout() (string, error)`.
   String layout() {
-    final $r = $callSync(5143, $W()..h(this));
+    final $r = $callSync(5152, $W()..h(this));
     return $r.str();
   }
 
@@ -96,7 +96,7 @@ class PebbleV2SstableBlobFileReader extends PebbleV2SstableBlobValueReader
       $block.PebbleV2SstableBlockReadEnv env,
       $objstorage.PebbleV2ObjstorageReadHandle rh) async {
     final $r = await $call(
-        5144,
+        5153,
         $W()
           ..h(this)
           ..h(ctx)
@@ -114,7 +114,7 @@ class PebbleV2SstableBlobFileReader extends PebbleV2SstableBlobValueReader
       $objstorage.PebbleV2ObjstorageReadHandle rh,
       $block.PebbleV2SstableBlockHandle h) async {
     final $r = await $call(
-        5145,
+        5154,
         $W()
           ..h(this)
           ..h(ctx)
@@ -164,7 +164,7 @@ class PebbleV2SstableBlobFileRewriter extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*blob.FileRewriter).Close() (blob.FileWriterStats, error)`.
   PebbleV2SstableBlobFileWriterStats close() {
-    final $r = $callSync(5146, $W()..h(this));
+    final $r = $callSync(5155, $W()..h(this));
     return $r.p() ? PebbleV2SstableBlobFileWriterStats.$dec($r) : $nil();
   }
 
@@ -174,7 +174,7 @@ class PebbleV2SstableBlobFileRewriter extends $crypto.CryptoDecrypterOpts
   Future<void> copyBlock($context.Context ctx, int blockId, int totalValueSize,
       List<int> valueIds) async {
     await $call(
-        5147,
+        5156,
         $W()
           ..h(this)
           ..h(ctx)
@@ -205,7 +205,7 @@ class PebbleV2SstableBlobFileWriter extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*blob.FileWriter).AddValue(v []byte) blob.Handle`.
   PebbleV2SstableBlobHandle addValue(Uint8List v) {
     final $r = $callSync(
-        5148,
+        5157,
         $W()
           ..h(this)
           ..bytes(v));
@@ -214,19 +214,19 @@ class PebbleV2SstableBlobFileWriter extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*blob.FileWriter).Close() (blob.FileWriterStats, error)`.
   PebbleV2SstableBlobFileWriterStats close() {
-    final $r = $callSync(5149, $W()..h(this));
+    final $r = $callSync(5158, $W()..h(this));
     return $r.p() ? PebbleV2SstableBlobFileWriterStats.$dec($r) : $nil();
   }
 
   /// Go: `func (*blob.FileWriter).EstimatedSize() uint64`.
   int estimatedSize() {
-    final $r = $callSync(5150, $W()..h(this));
+    final $r = $callSync(5159, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*blob.FileWriter).FlushForTesting()`.
   void flushForTesting() {
-    $callSync(5151, $W()..h(this));
+    $callSync(5160, $W()..h(this));
   }
 }
 
@@ -314,7 +314,7 @@ final class PebbleV2SstableBlobFileWriterStats implements GoDto {
 
   /// Go: `func (blob.FileWriterStats).String() string`.
   String string() {
-    final $r = $callSync(5152, $W()..dto(this));
+    final $r = $callSync(5161, $W()..dto(this));
     return $r.str();
   }
 }
@@ -353,7 +353,7 @@ final class PebbleV2SstableBlobHandle implements GoDto {
   /// Go: `func (blob.Handle).SafeFormat(w redact.SafePrinter, _ rune)`.
   void safeFormat($interfaces.RedactInterfacesSafePrinter w, int arg1) {
     $callSync(
-        5153,
+        5162,
         $W()
           ..dto(this)
           ..h(w)
@@ -362,7 +362,7 @@ final class PebbleV2SstableBlobHandle implements GoDto {
 
   /// Go: `func (blob.Handle).String() string`.
   String string() {
-    final $r = $callSync(5154, $W()..dto(this));
+    final $r = $callSync(5163, $W()..dto(this));
     return $r.str();
   }
 }
@@ -393,7 +393,7 @@ final class PebbleV2SstableBlobHandleSuffix implements GoDto {
   /// Go: `func (blob.HandleSuffix).Encode(b []byte) int`.
   int encode(Uint8List b) {
     final $r = $callSync(
-        5155,
+        5164,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -430,7 +430,7 @@ final class PebbleV2SstableBlobInlineHandle implements GoDto {
   /// Go: `func (blob.InlineHandle).Encode(b []byte) int`.
   int encode(Uint8List b) {
     final $r = $callSync(
-        5156,
+        5165,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -440,7 +440,7 @@ final class PebbleV2SstableBlobInlineHandle implements GoDto {
   /// Go: `func (blob.InlineHandle).SafeFormat(w redact.SafePrinter, _ rune)`.
   void safeFormat($interfaces.RedactInterfacesSafePrinter w, int arg1) {
     $callSync(
-        5157,
+        5166,
         $W()
           ..dto(this)
           ..h(w)
@@ -449,7 +449,7 @@ final class PebbleV2SstableBlobInlineHandle implements GoDto {
 
   /// Go: `func (blob.InlineHandle).String() string`.
   String string() {
-    final $r = $callSync(5158, $W()..dto(this));
+    final $r = $callSync(5167, $W()..dto(this));
     return $r.str();
   }
 }
@@ -511,7 +511,7 @@ class PebbleV2SstableBlobValueFetcher extends $io.IoCloser
 
   /// Go: `func (*blob.ValueFetcher).Close() error`.
   void close() {
-    $callSync(5160, $W()..h(this));
+    $callSync(5169, $W()..h(this));
   }
 
   /// Go: `func (*blob.ValueFetcher).Init(fm blob.FileMapping, rp blob.ReaderProvider, env block.ReadEnv)`.
@@ -520,7 +520,7 @@ class PebbleV2SstableBlobValueFetcher extends $io.IoCloser
       PebbleV2SstableBlobReaderProvider rp,
       $block.PebbleV2SstableBlockReadEnv env) {
     $callSync(
-        5161,
+        5170,
         $W()
           ..h(this)
           ..h(fm)
@@ -539,7 +539,7 @@ class PebbleV2SstableBlobValueReader extends GoHandle
 mixin PebbleV2SstableBlobValueReader$ on GoHandle {
   /// Go: `func (blob.ValueReader).IndexHandle() block.Handle`.
   $block.PebbleV2SstableBlockHandle indexHandle() {
-    final $r = $callSync(5162, $W()..h(this));
+    final $r = $callSync(5171, $W()..h(this));
     return $r.p() ? $block.PebbleV2SstableBlockHandle.$dec($r) : $nil();
   }
 
@@ -549,7 +549,7 @@ mixin PebbleV2SstableBlobValueReader$ on GoHandle {
           .PebbleV2ObjstorageObjstorageproviderPreallocatedReadHandle
           rh) {
     final $r = $callSync(
-        5163,
+        5172,
         $W()
           ..h(this)
           ..h(rh));
@@ -564,7 +564,7 @@ mixin PebbleV2SstableBlobValueReader$ on GoHandle {
       $block.PebbleV2SstableBlockReadEnv readEnv,
       $objstorage.PebbleV2ObjstorageReadHandle readHandle) async {
     final $r = await $call(
-        5164,
+        5173,
         $W()
           ..h(this)
           ..h(ctx)
@@ -582,7 +582,7 @@ mixin PebbleV2SstableBlobValueReader$ on GoHandle {
       $objstorage.PebbleV2ObjstorageReadHandle readHandle,
       $block.PebbleV2SstableBlockHandle handle) async {
     final $r = await $call(
-        5165,
+        5174,
         $W()
           ..h(this)
           ..h(ctx)
@@ -594,7 +594,7 @@ mixin PebbleV2SstableBlobValueReader$ on GoHandle {
 
   /// Go: type assertion `x.(*blob.FileReader)`: null if the object is not one.
   PebbleV2SstableBlobFileReader? asPebbleV2SstableBlobFileReader() {
-    final $r = $callSync(403, $W()..h(this));
+    final $r = $callSync(406, $W()..h(this));
     return $r.hn(PebbleV2SstableBlobFileReader.$h);
   }
 }
@@ -604,14 +604,14 @@ extension GoCockroachdbPebbleV2SstableBlobApi
     on GoCockroachdbPebbleV2SstableBlob {
   /// Go: `func blob.DecodeHandleSuffix(src []byte) blob.HandleSuffix`.
   PebbleV2SstableBlobHandleSuffix decodeHandleSuffix(Uint8List src) {
-    final $r = $callSync(5138, $W()..bytes(src));
+    final $r = $callSync(5147, $W()..bytes(src));
     return $r.p() ? PebbleV2SstableBlobHandleSuffix.$dec($r) : $nil();
   }
 
   /// Go: `func blob.DecodeInlineHandlePreface(src []byte) (blob.InlineHandlePreface, []byte)`.
   (PebbleV2SstableBlobInlineHandlePreface, Uint8List) decodeInlineHandlePreface(
       Uint8List src) {
-    final $r = $callSync(5139, $W()..bytes(src));
+    final $r = $callSync(5148, $W()..bytes(src));
     return (
       $r.p() ? PebbleV2SstableBlobInlineHandlePreface.$dec($r) : $nil(),
       $r.bytes() ?? Uint8List(0)
@@ -626,7 +626,7 @@ extension GoCockroachdbPebbleV2SstableBlobApi
       $objstorage.PebbleV2ObjstorageReadable r,
       PebbleV2SstableBlobFileReaderOptions ro) async {
     final $r = await $call(
-        5159,
+        5168,
         $W()
           ..h(ctx)
           ..h(r)

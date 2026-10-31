@@ -32,14 +32,14 @@ class HttpsfvDictionary extends HttpsfvStructuredFieldValue
 
   /// Go: `func httpsfv.NewDictionary() *httpsfv.Dictionary`.
   factory HttpsfvDictionary() {
-    final $r = $callSync(6201);
+    final $r = $callSync(6210);
     return $r.hnn(HttpsfvDictionary.$h);
   }
 
   /// Go: `func (*httpsfv.Dictionary).Add(k string, v httpsfv.Member)`.
   void add(String k, HttpsfvMember v) {
     $callSync(
-        6196,
+        6205,
         $W()
           ..h(this)
           ..str(k)
@@ -49,7 +49,7 @@ class HttpsfvDictionary extends HttpsfvStructuredFieldValue
   /// Go: `func (*httpsfv.Dictionary).Del(key string) bool`.
   bool del(String key) {
     final $r = $callSync(
-        6197,
+        6206,
         $W()
           ..h(this)
           ..str(key));
@@ -59,7 +59,7 @@ class HttpsfvDictionary extends HttpsfvStructuredFieldValue
   /// Go: `func (*httpsfv.Dictionary).Get(k string) (httpsfv.Member, bool)`.
   (HttpsfvMember, bool) get(String k) {
     final $r = $callSync(
-        6198,
+        6207,
         $W()
           ..h(this)
           ..str(k));
@@ -68,7 +68,7 @@ class HttpsfvDictionary extends HttpsfvStructuredFieldValue
 
   /// Go: `func (*httpsfv.Dictionary).Names() []string`.
   List<String> names() {
-    final $r = $callSync(6199, $W()..h(this));
+    final $r = $callSync(6208, $W()..h(this));
     return $r.list(() => $r.str());
   }
 }
@@ -120,14 +120,14 @@ class HttpsfvParams extends HttpsfvStructuredFieldValue
 
   /// Go: `func httpsfv.NewParams() *httpsfv.Params`.
   factory HttpsfvParams() {
-    final $r = $callSync(6203);
+    final $r = $callSync(6212);
     return $r.hnn(HttpsfvParams.$h);
   }
 
   /// Go: `func (*httpsfv.Params).Add(k string, v interface{})`.
   void add(String k, Object? v) {
     $callSync(
-        6204,
+        6213,
         $W()
           ..h(this)
           ..str(k)
@@ -137,7 +137,7 @@ class HttpsfvParams extends HttpsfvStructuredFieldValue
   /// Go: `func (*httpsfv.Params).Del(key string) bool`.
   bool del(String key) {
     final $r = $callSync(
-        6205,
+        6214,
         $W()
           ..h(this)
           ..str(key));
@@ -147,7 +147,7 @@ class HttpsfvParams extends HttpsfvStructuredFieldValue
   /// Go: `func (*httpsfv.Params).Get(k string) (interface{}, bool)`.
   (Object?, bool) get(String k) {
     final $r = $callSync(
-        6206,
+        6215,
         $W()
           ..h(this)
           ..str(k));
@@ -156,7 +156,7 @@ class HttpsfvParams extends HttpsfvStructuredFieldValue
 
   /// Go: `func (*httpsfv.Params).Names() []string`.
   List<String> names() {
-    final $r = $callSync(6207, $W()..h(this));
+    final $r = $callSync(6216, $W()..h(this));
     return $r.list(() => $r.str());
   }
 }
@@ -171,13 +171,13 @@ class HttpsfvStructuredFieldValue extends GoHandle
 mixin HttpsfvStructuredFieldValue$ on GoHandle {
   /// Go: type assertion `x.(*httpsfv.Dictionary)`: null if the object is not one.
   HttpsfvDictionary? asHttpsfvDictionary() {
-    final $r = $callSync(438, $W()..h(this));
+    final $r = $callSync(441, $W()..h(this));
     return $r.hn(HttpsfvDictionary.$h);
   }
 
   /// Go: type assertion `x.(*httpsfv.Params)`: null if the object is not one.
   HttpsfvParams? asHttpsfvParams() {
-    final $r = $callSync(439, $W()..h(this));
+    final $r = $callSync(442, $W()..h(this));
     return $r.hn(HttpsfvParams.$h);
   }
 }
@@ -375,31 +375,31 @@ class HttpsfvUnmarshalError extends GolangException {
 extension GoDunglasHttpsfvApi on GoDunglasHttpsfv {
   /// Go: `func httpsfv.Marshal(v httpsfv.StructuredFieldValue) (string, error)`.
   String marshal(HttpsfvStructuredFieldValue v) {
-    final $r = $callSync(6200, $W()..h(v));
+    final $r = $callSync(6209, $W()..h(v));
     return $r.str();
   }
 
   /// Go: `func httpsfv.NewItem(v interface{}) httpsfv.Item`.
   HttpsfvItem newItem(Object? v) {
-    final $r = $callSync(6202, $W()..any(v));
+    final $r = $callSync(6211, $W()..any(v));
     return $r.p() ? HttpsfvItem.$dec($r) : $nil();
   }
 
   /// Go: `func httpsfv.UnmarshalDictionary(v []string) (*httpsfv.Dictionary, error)`.
   HttpsfvDictionary unmarshalDictionary(List<String> v) {
-    final $r = $callSync(6208, $W()..list(v, (w0, e0) => w0.str(e0)));
+    final $r = $callSync(6217, $W()..list(v, (w0, e0) => w0.str(e0)));
     return $r.hnn(HttpsfvDictionary.$h);
   }
 
   /// Go: `func httpsfv.UnmarshalItem(v []string) (httpsfv.Item, error)`.
   HttpsfvItem unmarshalItem(List<String> v) {
-    final $r = $callSync(6209, $W()..list(v, (w0, e0) => w0.str(e0)));
+    final $r = $callSync(6218, $W()..list(v, (w0, e0) => w0.str(e0)));
     return $r.p() ? HttpsfvItem.$dec($r) : $nil();
   }
 
   /// Go: `func httpsfv.UnmarshalList(v []string) (httpsfv.List, error)`.
   List<HttpsfvMember> unmarshalList(List<String> v) {
-    final $r = $callSync(6210, $W()..list(v, (w0, e0) => w0.str(e0)));
+    final $r = $callSync(6219, $W()..list(v, (w0, e0) => w0.str(e0)));
     return $r.list(() => $r.hnn(HttpsfvMember.$h));
   }
 }

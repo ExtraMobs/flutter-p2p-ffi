@@ -34,59 +34,59 @@ class OsExecCmd extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*exec.Cmd).CombinedOutput() ([]byte, error)`.
   Uint8List combinedOutput() {
-    final $r = $callSync(26943, $W()..h(this));
+    final $r = $callSync(26949, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*exec.Cmd).Environ() []string`.
   List<String> environ() {
-    final $r = $callSync(26944, $W()..h(this));
+    final $r = $callSync(26950, $W()..h(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (*exec.Cmd).Output() ([]byte, error)`.
   Uint8List output() {
-    final $r = $callSync(26945, $W()..h(this));
+    final $r = $callSync(26951, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*exec.Cmd).Run() error`.
   void run() {
-    $callSync(26946, $W()..h(this));
+    $callSync(26952, $W()..h(this));
   }
 
   /// Go: `func (*exec.Cmd).Start() error`.
   void start() {
-    $callSync(26947, $W()..h(this));
+    $callSync(26953, $W()..h(this));
   }
 
   /// Go: `func (*exec.Cmd).StderrPipe() (io.ReadCloser, error)`.
   $io.IoReadCloser stderrPipe() {
-    final $r = $callSync(26948, $W()..h(this));
+    final $r = $callSync(26954, $W()..h(this));
     return $r.hnn($io.IoReadCloser.$h);
   }
 
   /// Go: `func (*exec.Cmd).StdinPipe() (io.WriteCloser, error)`.
   $io.IoWriteCloser stdinPipe() {
-    final $r = $callSync(26949, $W()..h(this));
+    final $r = $callSync(26955, $W()..h(this));
     return $r.hnn($io.IoWriteCloser.$h);
   }
 
   /// Go: `func (*exec.Cmd).StdoutPipe() (io.ReadCloser, error)`.
   $io.IoReadCloser stdoutPipe() {
-    final $r = $callSync(26950, $W()..h(this));
+    final $r = $callSync(26956, $W()..h(this));
     return $r.hnn($io.IoReadCloser.$h);
   }
 
   /// Go: `func (*exec.Cmd).String() string`.
   String string() {
-    final $r = $callSync(26951, $W()..h(this));
+    final $r = $callSync(26957, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*exec.Cmd).Wait() error`.
   void wait() {
-    $callSync(26952, $W()..h(this));
+    $callSync(26958, $W()..h(this));
   }
 }
 
@@ -150,7 +150,7 @@ extension GoOsExecApi on GoOsExec {
   /// Go: `func exec.Command(name string, arg ...string) *exec.Cmd`.
   OsExecCmd command(String name, [List<String> arg = const []]) {
     final $r = $callSync(
-        26953,
+        26959,
         $W()
           ..str(name)
           ..list(arg, (w0, e0) => w0.str(e0)));
@@ -163,7 +163,7 @@ extension GoOsExecApi on GoOsExec {
   Future<OsExecCmd> commandContext($context.Context ctx, String name,
       [List<String> arg = const []]) async {
     final $r = await $call(
-        26954,
+        26960,
         $W()
           ..h(ctx)
           ..str(name)
@@ -173,7 +173,7 @@ extension GoOsExecApi on GoOsExec {
 
   /// Go: `func exec.LookPath(file string) (string, error)`.
   String lookPath(String file) {
-    final $r = $callSync(26955, $W()..str(file));
+    final $r = $callSync(26961, $W()..str(file));
     return $r.str();
   }
 }

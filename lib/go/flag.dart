@@ -70,7 +70,7 @@ class FlagSet extends $crypto.CryptoDecrypterOpts
   /// Go: `func flag.NewFlagSet(name string, errorHandling flag.ErrorHandling) *flag.FlagSet`.
   factory FlagSet(String name, int errorHandling) {
     final $r = $callSync(
-        3900,
+        3909,
         $W()
           ..str(name)
           ..i64(errorHandling));
@@ -80,7 +80,7 @@ class FlagSet extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*flag.FlagSet).Arg(i int) string`.
   String arg(int i) {
     final $r = $callSync(
-        3856,
+        3865,
         $W()
           ..h(this)
           ..i64(i));
@@ -89,14 +89,14 @@ class FlagSet extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*flag.FlagSet).Args() []string`.
   List<String> args() {
-    final $r = $callSync(3857, $W()..h(this));
+    final $r = $callSync(3866, $W()..h(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (*flag.FlagSet).Bool(name string, value bool, usage string) *bool`.
   bool bool$(String name, bool value, String usage) {
     final $r = $callSync(
-        3858,
+        3867,
         $W()
           ..h(this)
           ..str(name)
@@ -115,7 +115,7 @@ class FlagSet extends $crypto.CryptoDecrypterOpts
   Future<void> boolFunc(String name, String usage,
       FutureOr<void> Function(String arg0) fn) async {
     await $call(
-        3859,
+        3868,
         $W()
           ..h(this)
           ..str(name)
@@ -126,7 +126,7 @@ class FlagSet extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*flag.FlagSet).BoolVar(p *bool, name string, value bool, usage string)`.
   void boolVar(bool? p, String name, bool value, String usage) {
     $callSync(
-        3860,
+        3869,
         $W()
           ..h(this)
           ..ptr(p, (w0, v0) => w0.b(v0))
@@ -137,14 +137,14 @@ class FlagSet extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*flag.FlagSet).ErrorHandling() flag.ErrorHandling`.
   int errorHandling() {
-    final $r = $callSync(3861, $W()..h(this));
+    final $r = $callSync(3870, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*flag.FlagSet).Float64(name string, value float64, usage string) *float64`.
   double float64(String name, double value, String usage) {
     final $r = $callSync(
-        3862,
+        3871,
         $W()
           ..h(this)
           ..str(name)
@@ -156,7 +156,7 @@ class FlagSet extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*flag.FlagSet).Float64Var(p *float64, name string, value float64, usage string)`.
   void float64Var(double? p, String name, double value, String usage) {
     $callSync(
-        3863,
+        3872,
         $W()
           ..h(this)
           ..ptr(p, (w0, v0) => w0.f64(v0))
@@ -175,7 +175,7 @@ class FlagSet extends $crypto.CryptoDecrypterOpts
   Future<void> func(String name, String usage,
       FutureOr<void> Function(String arg0) fn) async {
     await $call(
-        3864,
+        3873,
         $W()
           ..h(this)
           ..str(name)
@@ -186,7 +186,7 @@ class FlagSet extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*flag.FlagSet).Init(name string, errorHandling flag.ErrorHandling)`.
   void init(String name, int errorHandling) {
     $callSync(
-        3865,
+        3874,
         $W()
           ..h(this)
           ..str(name)
@@ -196,7 +196,7 @@ class FlagSet extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*flag.FlagSet).Int(name string, value int, usage string) *int`.
   int int$(String name, int value, String usage) {
     final $r = $callSync(
-        3866,
+        3875,
         $W()
           ..h(this)
           ..str(name)
@@ -208,7 +208,7 @@ class FlagSet extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*flag.FlagSet).Int64(name string, value int64, usage string) *int64`.
   int int64(String name, int value, String usage) {
     final $r = $callSync(
-        3867,
+        3876,
         $W()
           ..h(this)
           ..str(name)
@@ -220,7 +220,7 @@ class FlagSet extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*flag.FlagSet).Int64Var(p *int64, name string, value int64, usage string)`.
   void int64Var(int? p, String name, int value, String usage) {
     $callSync(
-        3868,
+        3877,
         $W()
           ..h(this)
           ..ptr(p, (w0, v0) => w0.i64(v0))
@@ -232,7 +232,7 @@ class FlagSet extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*flag.FlagSet).IntVar(p *int, name string, value int, usage string)`.
   void intVar(int? p, String name, int value, String usage) {
     $callSync(
-        3869,
+        3878,
         $W()
           ..h(this)
           ..ptr(p, (w0, v0) => w0.i64(v0))
@@ -244,7 +244,7 @@ class FlagSet extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*flag.FlagSet).Lookup(name string) *flag.Flag`.
   Flag lookup(String name) {
     final $r = $callSync(
-        3870,
+        3879,
         $W()
           ..h(this)
           ..str(name));
@@ -253,26 +253,26 @@ class FlagSet extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*flag.FlagSet).NArg() int`.
   int nArg() {
-    final $r = $callSync(3871, $W()..h(this));
+    final $r = $callSync(3880, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*flag.FlagSet).NFlag() int`.
   int nFlag() {
-    final $r = $callSync(3872, $W()..h(this));
+    final $r = $callSync(3881, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*flag.FlagSet).Name() string`.
   String name() {
-    final $r = $callSync(3873, $W()..h(this));
+    final $r = $callSync(3882, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*flag.FlagSet).Parse(arguments []string) error`.
   void parse(List<String> arguments) {
     $callSync(
-        3874,
+        3883,
         $W()
           ..h(this)
           ..list(arguments, (w0, e0) => w0.str(e0)));
@@ -280,19 +280,19 @@ class FlagSet extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*flag.FlagSet).Parsed() bool`.
   bool parsed() {
-    final $r = $callSync(3875, $W()..h(this));
+    final $r = $callSync(3884, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*flag.FlagSet).PrintDefaults()`.
   void printDefaults() {
-    $callSync(3876, $W()..h(this));
+    $callSync(3885, $W()..h(this));
   }
 
   /// Go: `func (*flag.FlagSet).Set(name string, value string) error`.
   void set(String name, String value) {
     $callSync(
-        3877,
+        3886,
         $W()
           ..h(this)
           ..str(name)
@@ -302,7 +302,7 @@ class FlagSet extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*flag.FlagSet).SetOutput(output io.Writer)`.
   void setOutput(GoHandle? output) {
     $callSync(
-        3878,
+        3887,
         $W()
           ..h(this)
           ..h(output));
@@ -311,7 +311,7 @@ class FlagSet extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*flag.FlagSet).String(name string, value string, usage string) *string`.
   String string(String name, String value, String usage) {
     final $r = $callSync(
-        3879,
+        3888,
         $W()
           ..h(this)
           ..str(name)
@@ -323,7 +323,7 @@ class FlagSet extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*flag.FlagSet).StringVar(p *string, name string, value string, usage string)`.
   void stringVar(String? p, String name, String value, String usage) {
     $callSync(
-        3880,
+        3889,
         $W()
           ..h(this)
           ..ptr(p, (w0, v0) => w0.str(v0))
@@ -336,7 +336,7 @@ class FlagSet extends $crypto.CryptoDecrypterOpts
   void textVar($encoding.EncodingTextUnmarshaler p, String name,
       $encoding.EncodingTextMarshaler value, String usage) {
     $callSync(
-        3881,
+        3890,
         $W()
           ..h(this)
           ..h(p)
@@ -348,7 +348,7 @@ class FlagSet extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*flag.FlagSet).Uint(name string, value uint, usage string) *uint`.
   int uint(String name, int value, String usage) {
     final $r = $callSync(
-        3882,
+        3891,
         $W()
           ..h(this)
           ..str(name)
@@ -360,7 +360,7 @@ class FlagSet extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*flag.FlagSet).Uint64(name string, value uint64, usage string) *uint64`.
   int uint64(String name, int value, String usage) {
     final $r = $callSync(
-        3883,
+        3892,
         $W()
           ..h(this)
           ..str(name)
@@ -372,7 +372,7 @@ class FlagSet extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*flag.FlagSet).Uint64Var(p *uint64, name string, value uint64, usage string)`.
   void uint64Var(int? p, String name, int value, String usage) {
     $callSync(
-        3884,
+        3893,
         $W()
           ..h(this)
           ..ptr(p, (w0, v0) => w0.i64(v0))
@@ -384,7 +384,7 @@ class FlagSet extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*flag.FlagSet).UintVar(p *uint, name string, value uint, usage string)`.
   void uintVar(int? p, String name, int value, String usage) {
     $callSync(
-        3885,
+        3894,
         $W()
           ..h(this)
           ..ptr(p, (w0, v0) => w0.i64(v0))
@@ -396,7 +396,7 @@ class FlagSet extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*flag.FlagSet).Var(value flag.Value, name string, usage string)`.
   void var$(FlagValue value, String name, String usage) {
     $callSync(
-        3886,
+        3895,
         $W()
           ..h(this)
           ..h(value)
@@ -413,7 +413,7 @@ class FlagSet extends $crypto.CryptoDecrypterOpts
   /// each invocation (a retained callback, WIRE.md).
   Future<void> visit(FutureOr<void> Function(Flag flag) fn) async {
     await $call(
-        3887,
+        3896,
         $W()
           ..h(this)
           ..cb((r) => fn(r.p() ? Flag.$dec(r) : $nil()), true));
@@ -428,7 +428,7 @@ class FlagSet extends $crypto.CryptoDecrypterOpts
   /// each invocation (a retained callback, WIRE.md).
   Future<void> visitAll(FutureOr<void> Function(Flag flag) fn) async {
     await $call(
-        3888,
+        3897,
         $W()
           ..h(this)
           ..cb((r) => fn(r.p() ? Flag.$dec(r) : $nil()), true));
@@ -444,7 +444,7 @@ class FlagGetter extends FlagValue with FlagGetter$ {
 mixin FlagGetter$ on GoHandle {
   /// Go: `func (flag.Getter).Get() any`.
   Object? get() {
-    final $r = $callSync(3892, $W()..h(this));
+    final $r = $callSync(3901, $W()..h(this));
     return $r.any();
   }
 }
@@ -459,7 +459,7 @@ mixin FlagValue$ on GoHandle {
   /// Go: `func (flag.Value).Set(string) error`.
   void set(String arg0) {
     $callSync(
-        3913,
+        3922,
         $W()
           ..h(this)
           ..str(arg0));
@@ -467,7 +467,7 @@ mixin FlagValue$ on GoHandle {
 
   /// Go: `func (flag.Value).String() string`.
   String string() {
-    final $r = $callSync(3914, $W()..h(this));
+    final $r = $callSync(3923, $W()..h(this));
     return $r.str();
   }
 
@@ -491,20 +491,20 @@ class FlagErrHelp extends GolangException {
 extension GoFlagApi on GoFlag {
   /// Go: `func flag.Arg(i int) string`.
   String arg(int i) {
-    final $r = $callSync(3850, $W()..i64(i));
+    final $r = $callSync(3859, $W()..i64(i));
     return $r.str();
   }
 
   /// Go: `func flag.Args() []string`.
   List<String> args() {
-    final $r = $callSync(3851);
+    final $r = $callSync(3860);
     return $r.list(() => $r.str());
   }
 
   /// Go: `func flag.Bool(name string, value bool, usage string) *bool`.
   bool bool$(String name, bool value, String usage) {
     final $r = $callSync(
-        3852,
+        3861,
         $W()
           ..str(name)
           ..b(value)
@@ -522,7 +522,7 @@ extension GoFlagApi on GoFlag {
   Future<void> boolFunc(String name, String usage,
       FutureOr<void> Function(String arg0) fn) async {
     await $call(
-        3853,
+        3862,
         $W()
           ..str(name)
           ..str(usage)
@@ -532,7 +532,7 @@ extension GoFlagApi on GoFlag {
   /// Go: `func flag.BoolVar(p *bool, name string, value bool, usage string)`.
   void boolVar(bool? p, String name, bool value, String usage) {
     $callSync(
-        3854,
+        3863,
         $W()
           ..ptr(p, (w0, v0) => w0.b(v0))
           ..str(name)
@@ -542,14 +542,14 @@ extension GoFlagApi on GoFlag {
 
   /// Go: `var flag.CommandLine *flag.FlagSet`.
   FlagSet get commandLine {
-    final $r = $callSync(3855);
+    final $r = $callSync(3864);
     return $r.hnn(FlagSet.$h);
   }
 
   /// Go: `func flag.Float64(name string, value float64, usage string) *float64`.
   double float64(String name, double value, String usage) {
     final $r = $callSync(
-        3889,
+        3898,
         $W()
           ..str(name)
           ..f64(value)
@@ -560,7 +560,7 @@ extension GoFlagApi on GoFlag {
   /// Go: `func flag.Float64Var(p *float64, name string, value float64, usage string)`.
   void float64Var(double? p, String name, double value, String usage) {
     $callSync(
-        3890,
+        3899,
         $W()
           ..ptr(p, (w0, v0) => w0.f64(v0))
           ..str(name)
@@ -578,7 +578,7 @@ extension GoFlagApi on GoFlag {
   Future<void> func(String name, String usage,
       FutureOr<void> Function(String arg0) fn) async {
     await $call(
-        3891,
+        3900,
         $W()
           ..str(name)
           ..str(usage)
@@ -588,7 +588,7 @@ extension GoFlagApi on GoFlag {
   /// Go: `func flag.Int(name string, value int, usage string) *int`.
   int int$(String name, int value, String usage) {
     final $r = $callSync(
-        3893,
+        3902,
         $W()
           ..str(name)
           ..i64(value)
@@ -599,7 +599,7 @@ extension GoFlagApi on GoFlag {
   /// Go: `func flag.Int64(name string, value int64, usage string) *int64`.
   int int64(String name, int value, String usage) {
     final $r = $callSync(
-        3894,
+        3903,
         $W()
           ..str(name)
           ..i64(value)
@@ -610,7 +610,7 @@ extension GoFlagApi on GoFlag {
   /// Go: `func flag.Int64Var(p *int64, name string, value int64, usage string)`.
   void int64Var(int? p, String name, int value, String usage) {
     $callSync(
-        3895,
+        3904,
         $W()
           ..ptr(p, (w0, v0) => w0.i64(v0))
           ..str(name)
@@ -621,7 +621,7 @@ extension GoFlagApi on GoFlag {
   /// Go: `func flag.IntVar(p *int, name string, value int, usage string)`.
   void intVar(int? p, String name, int value, String usage) {
     $callSync(
-        3896,
+        3905,
         $W()
           ..ptr(p, (w0, v0) => w0.i64(v0))
           ..str(name)
@@ -631,42 +631,42 @@ extension GoFlagApi on GoFlag {
 
   /// Go: `func flag.Lookup(name string) *flag.Flag`.
   Flag lookup(String name) {
-    final $r = $callSync(3897, $W()..str(name));
+    final $r = $callSync(3906, $W()..str(name));
     return $r.p() ? Flag.$dec($r) : $nil();
   }
 
   /// Go: `func flag.NArg() int`.
   int nArg() {
-    final $r = $callSync(3898);
+    final $r = $callSync(3907);
     return $r.i64();
   }
 
   /// Go: `func flag.NFlag() int`.
   int nFlag() {
-    final $r = $callSync(3899);
+    final $r = $callSync(3908);
     return $r.i64();
   }
 
   /// Go: `func flag.Parse()`.
   void parse() {
-    $callSync(3901);
+    $callSync(3910);
   }
 
   /// Go: `func flag.Parsed() bool`.
   bool parsed() {
-    final $r = $callSync(3902);
+    final $r = $callSync(3911);
     return $r.b();
   }
 
   /// Go: `func flag.PrintDefaults()`.
   void printDefaults() {
-    $callSync(3903);
+    $callSync(3912);
   }
 
   /// Go: `func flag.Set(name string, value string) error`.
   void set(String name, String value) {
     $callSync(
-        3904,
+        3913,
         $W()
           ..str(name)
           ..str(value));
@@ -675,7 +675,7 @@ extension GoFlagApi on GoFlag {
   /// Go: `func flag.String(name string, value string, usage string) *string`.
   String string(String name, String value, String usage) {
     final $r = $callSync(
-        3905,
+        3914,
         $W()
           ..str(name)
           ..str(value)
@@ -686,7 +686,7 @@ extension GoFlagApi on GoFlag {
   /// Go: `func flag.StringVar(p *string, name string, value string, usage string)`.
   void stringVar(String? p, String name, String value, String usage) {
     $callSync(
-        3906,
+        3915,
         $W()
           ..ptr(p, (w0, v0) => w0.str(v0))
           ..str(name)
@@ -698,7 +698,7 @@ extension GoFlagApi on GoFlag {
   void textVar($encoding.EncodingTextUnmarshaler p, String name,
       $encoding.EncodingTextMarshaler value, String usage) {
     $callSync(
-        3907,
+        3916,
         $W()
           ..h(p)
           ..str(name)
@@ -709,7 +709,7 @@ extension GoFlagApi on GoFlag {
   /// Go: `func flag.Uint(name string, value uint, usage string) *uint`.
   int uint(String name, int value, String usage) {
     final $r = $callSync(
-        3908,
+        3917,
         $W()
           ..str(name)
           ..i64(value)
@@ -720,7 +720,7 @@ extension GoFlagApi on GoFlag {
   /// Go: `func flag.Uint64(name string, value uint64, usage string) *uint64`.
   int uint64(String name, int value, String usage) {
     final $r = $callSync(
-        3909,
+        3918,
         $W()
           ..str(name)
           ..i64(value)
@@ -731,7 +731,7 @@ extension GoFlagApi on GoFlag {
   /// Go: `func flag.Uint64Var(p *uint64, name string, value uint64, usage string)`.
   void uint64Var(int? p, String name, int value, String usage) {
     $callSync(
-        3910,
+        3919,
         $W()
           ..ptr(p, (w0, v0) => w0.i64(v0))
           ..str(name)
@@ -742,7 +742,7 @@ extension GoFlagApi on GoFlag {
   /// Go: `func flag.UintVar(p *uint, name string, value uint, usage string)`.
   void uintVar(int? p, String name, int value, String usage) {
     $callSync(
-        3911,
+        3920,
         $W()
           ..ptr(p, (w0, v0) => w0.i64(v0))
           ..str(name)
@@ -752,14 +752,14 @@ extension GoFlagApi on GoFlag {
 
   /// Go: `func flag.UnquoteUsage(flag *flag.Flag) (name string, usage string)`.
   (String, String) unquoteUsage(Flag flag) {
-    final $r = $callSync(3912, $W()..dto(flag));
+    final $r = $callSync(3921, $W()..dto(flag));
     return ($r.str(), $r.str());
   }
 
   /// Go: `func flag.Var(value flag.Value, name string, usage string)`.
   void var$(FlagValue value, String name, String usage) {
     $callSync(
-        3915,
+        3924,
         $W()
           ..h(value)
           ..str(name)
@@ -774,7 +774,7 @@ extension GoFlagApi on GoFlag {
   /// later for as long as it holds it (nobody checked which), and waits for
   /// each invocation (a retained callback, WIRE.md).
   Future<void> visit(FutureOr<void> Function(Flag flag) fn) async {
-    await $call(3916, $W()..cb((r) => fn(r.p() ? Flag.$dec(r) : $nil()), true));
+    await $call(3925, $W()..cb((r) => fn(r.p() ? Flag.$dec(r) : $nil()), true));
   }
 
   /// Go: `func flag.VisitAll(fn func(*flag.Flag))`.
@@ -785,7 +785,7 @@ extension GoFlagApi on GoFlag {
   /// later for as long as it holds it (nobody checked which), and waits for
   /// each invocation (a retained callback, WIRE.md).
   Future<void> visitAll(FutureOr<void> Function(Flag flag) fn) async {
-    await $call(3917, $W()..cb((r) => fn(r.p() ? Flag.$dec(r) : $nil()), true));
+    await $call(3926, $W()..cb((r) => fn(r.p() ? Flag.$dec(r) : $nil()), true));
   }
 }
 

@@ -46,7 +46,7 @@ class BoxoDagWalkerBloomTracker extends BoxoDagWalkerVisitedTracker
   /// Go: `func walker.NewBloomTracker(expectedItems uint, fpRate uint) (*walker.BloomTracker, error)`.
   factory BoxoDagWalkerBloomTracker(int expectedItems, int fpRate) {
     final $r = $callSync(
-        9386,
+        9395,
         $W()
           ..i64(expectedItems)
           ..i64(fpRate));
@@ -55,20 +55,20 @@ class BoxoDagWalkerBloomTracker extends BoxoDagWalkerVisitedTracker
 
   /// Go: `func (*walker.BloomTracker).Count() uint64`.
   int count() {
-    final $r = $callSync(9378, $W()..h(this));
+    final $r = $callSync(9387, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*walker.BloomTracker).Deduplicated() uint64`.
   int deduplicated() {
-    final $r = $callSync(9379, $W()..h(this));
+    final $r = $callSync(9388, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*walker.BloomTracker).Has(c cid.Cid) bool`.
   bool has($cid.Cid c) {
     final $r = $callSync(
-        9380,
+        9389,
         $W()
           ..h(this)
           ..val(c));
@@ -78,7 +78,7 @@ class BoxoDagWalkerBloomTracker extends BoxoDagWalkerVisitedTracker
   /// Go: `func (*walker.BloomTracker).Visit(c cid.Cid) bool`.
   bool visit($cid.Cid c) {
     final $r = $callSync(
-        9381,
+        9390,
         $W()
           ..h(this)
           ..val(c));
@@ -129,20 +129,20 @@ class BoxoDagWalkerMapTracker extends BoxoDagWalkerVisitedTracker
 
   /// Go: `func walker.NewMapTracker() *walker.MapTracker`.
   factory BoxoDagWalkerMapTracker() {
-    final $r = $callSync(9387);
+    final $r = $callSync(9396);
     return $r.hnn(BoxoDagWalkerMapTracker.$h);
   }
 
   /// Go: `func (*walker.MapTracker).Deduplicated() uint64`.
   int deduplicated() {
-    final $r = $callSync(9383, $W()..h(this));
+    final $r = $callSync(9392, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*walker.MapTracker).Has(c cid.Cid) bool`.
   bool has($cid.Cid c) {
     final $r = $callSync(
-        9384,
+        9393,
         $W()
           ..h(this)
           ..val(c));
@@ -152,7 +152,7 @@ class BoxoDagWalkerMapTracker extends BoxoDagWalkerVisitedTracker
   /// Go: `func (*walker.MapTracker).Visit(c cid.Cid) bool`.
   bool visit($cid.Cid c) {
     final $r = $callSync(
-        9385,
+        9394,
         $W()
           ..h(this)
           ..val(c));
@@ -195,7 +195,7 @@ mixin BoxoDagWalkerVisitedTracker$ on GoHandle {
   /// Go: `func (walker.VisitedTracker).Has(c cid.Cid) bool`.
   bool has($cid.Cid c) {
     final $r = $callSync(
-        9389,
+        9398,
         $W()
           ..h(this)
           ..val(c));
@@ -205,7 +205,7 @@ mixin BoxoDagWalkerVisitedTracker$ on GoHandle {
   /// Go: `func (walker.VisitedTracker).Visit(c cid.Cid) bool`.
   bool visit($cid.Cid c) {
     final $r = $callSync(
-        9390,
+        9399,
         $W()
           ..h(this)
           ..val(c));
@@ -214,19 +214,19 @@ mixin BoxoDagWalkerVisitedTracker$ on GoHandle {
 
   /// Go: type assertion `x.(*walker.BloomTracker)`: null if the object is not one.
   BoxoDagWalkerBloomTracker? asBoxoDagWalkerBloomTracker() {
-    final $r = $callSync(926, $W()..h(this));
+    final $r = $callSync(929, $W()..h(this));
     return $r.hn(BoxoDagWalkerBloomTracker.$h);
   }
 
   /// Go: type assertion `x.(*walker.MapTracker)`: null if the object is not one.
   BoxoDagWalkerMapTracker? asBoxoDagWalkerMapTracker() {
-    final $r = $callSync(927, $W()..h(this));
+    final $r = $callSync(930, $W()..h(this));
     return $r.hn(BoxoDagWalkerMapTracker.$h);
   }
 
   /// Go: type assertion `x.(*cid.Set)`: null if the object is not one.
   $cid.CidSet? asCidSet() {
-    final $r = $callSync(928, $W()..h(this));
+    final $r = $callSync(931, $W()..h(this));
     return $r.hn($cid.CidSet.$h);
   }
 }
@@ -235,21 +235,21 @@ mixin BoxoDagWalkerVisitedTracker$ on GoHandle {
 extension GoIpfsBoxoDagWalkerApi on GoIpfsBoxoDagWalker {
   /// Go: `func walker.BloomParams(fpRate uint) (bitsPerElem uint, hashLocs uint)`.
   (int, int) bloomParams(int fpRate) {
-    final $r = $callSync(9377, $W()..i64(fpRate));
+    final $r = $callSync(9386, $W()..i64(fpRate));
     return ($r.i64(), $r.i64());
   }
 
   /// Go: `func walker.LinksFetcherFromBlockstore(bs blockstore.Blockstore) walker.LinksFetcher`.
   BoxoDagWalkerLinksFetcher linksFetcherFromBlockstore(
       $blockstore.BoxoBlockstore bs) {
-    final $r = $callSync(9382, $W()..h(bs));
+    final $r = $callSync(9391, $W()..h(bs));
     return $r.hnn(BoxoDagWalkerLinksFetcher.$h);
   }
 
   /// Go: `func walker.NodeFetcherFromBlockstore(bs blockstore.Blockstore) walker.NodeFetcher`.
   BoxoDagWalkerNodeFetcher nodeFetcherFromBlockstore(
       $blockstore.BoxoBlockstore bs) {
-    final $r = $callSync(9388, $W()..h(bs));
+    final $r = $callSync(9397, $W()..h(bs));
     return $r.hnn(BoxoDagWalkerNodeFetcher.$h);
   }
 
@@ -267,7 +267,7 @@ extension GoIpfsBoxoDagWalkerApi on GoIpfsBoxoDagWalker {
       FutureOr<bool> Function($cid.Cid cid) emit,
       [List<BoxoDagWalkerOption> opts = const []]) async {
     await $call(
-        9391,
+        9400,
         $W()
           ..h(ctx)
           ..val(root)
@@ -290,7 +290,7 @@ extension GoIpfsBoxoDagWalkerApi on GoIpfsBoxoDagWalker {
       FutureOr<bool> Function($cid.Cid cid) emit,
       [List<BoxoDagWalkerOption> opts = const []]) async {
     await $call(
-        9392,
+        9401,
         $W()
           ..h(ctx)
           ..val(root)

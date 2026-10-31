@@ -12,13 +12,13 @@ import 'package:p2p_ffi/go/hash.dart' as $hash;
 extension GoHashAdler32Api on GoHashAdler32 {
   /// Go: `func adler32.Checksum(data []byte) uint32`.
   int checksum(Uint8List data) {
-    final $r = $callSync(25646, $W()..bytes(data));
+    final $r = $callSync(25652, $W()..bytes(data));
     return $r.i64();
   }
 
   /// Go: `func adler32.New() hash.Hash32`.
   $hash.HashHash32 new$() {
-    final $r = $callSync(25647);
+    final $r = $callSync(25653);
     return $r.hnn($hash.HashHash32.$h);
   }
 }

@@ -23,7 +23,7 @@ mixin MetricsInterfaceCounter$ on GoHandle {
   /// Go: `func (metrics.Counter).Add(float64)`.
   void add(double arg0) {
     $callSync(
-        11107,
+        11113,
         $W()
           ..h(this)
           ..f64(arg0));
@@ -31,7 +31,7 @@ mixin MetricsInterfaceCounter$ on GoHandle {
 
   /// Go: `func (metrics.Counter).Inc()`.
   void inc() {
-    $callSync(11108, $W()..h(this));
+    $callSync(11114, $W()..h(this));
   }
 }
 
@@ -46,7 +46,7 @@ mixin MetricsInterfaceCounterVec$ on GoHandle {
   /// Go: `func (metrics.CounterVec).WithLabelValues(lvs ...string) metrics.Counter`.
   MetricsInterfaceCounter withLabelValues([List<String> lvs = const []]) {
     final $r = $callSync(
-        11109,
+        11115,
         $W()
           ..h(this)
           ..list(lvs, (w0, e0) => w0.str(e0)));
@@ -63,14 +63,14 @@ class MetricsInterfaceCreator extends GoHandle with MetricsInterfaceCreator$ {
 mixin MetricsInterfaceCreator$ on GoHandle {
   /// Go: `func (metrics.Creator).Counter() metrics.Counter`.
   MetricsInterfaceCounter counter() {
-    final $r = $callSync(11110, $W()..h(this));
+    final $r = $callSync(11116, $W()..h(this));
     return $r.hnn(MetricsInterfaceCounter.$h);
   }
 
   /// Go: `func (metrics.Creator).CounterVec(labelNames []string) metrics.CounterVec`.
   MetricsInterfaceCounterVec counterVec(List<String> labelNames) {
     final $r = $callSync(
-        11111,
+        11117,
         $W()
           ..h(this)
           ..list(labelNames, (w0, e0) => w0.str(e0)));
@@ -79,14 +79,14 @@ mixin MetricsInterfaceCreator$ on GoHandle {
 
   /// Go: `func (metrics.Creator).Gauge() metrics.Gauge`.
   MetricsInterfaceGauge gauge() {
-    final $r = $callSync(11112, $W()..h(this));
+    final $r = $callSync(11118, $W()..h(this));
     return $r.hnn(MetricsInterfaceGauge.$h);
   }
 
   /// Go: `func (metrics.Creator).Histogram(buckets []float64) metrics.Histogram`.
   MetricsInterfaceHistogram histogram(List<double> buckets) {
     final $r = $callSync(
-        11113,
+        11119,
         $W()
           ..h(this)
           ..list(buckets, (w0, e0) => w0.f64(e0)));
@@ -96,7 +96,7 @@ mixin MetricsInterfaceCreator$ on GoHandle {
   /// Go: `func (metrics.Creator).Summary(opts metrics.SummaryOpts) metrics.Summary`.
   MetricsInterfaceSummary summary(MetricsInterfaceSummaryOpts opts) {
     final $r = $callSync(
-        11114,
+        11120,
         $W()
           ..h(this)
           ..dto(opts));
@@ -114,7 +114,7 @@ mixin MetricsInterfaceGauge$ on GoHandle {
   /// Go: `func (metrics.Gauge).Add(float64)`.
   void add(double arg0) {
     $callSync(
-        11116,
+        11122,
         $W()
           ..h(this)
           ..f64(arg0));
@@ -122,18 +122,18 @@ mixin MetricsInterfaceGauge$ on GoHandle {
 
   /// Go: `func (metrics.Gauge).Dec()`.
   void dec() {
-    $callSync(11117, $W()..h(this));
+    $callSync(11123, $W()..h(this));
   }
 
   /// Go: `func (metrics.Gauge).Inc()`.
   void inc() {
-    $callSync(11118, $W()..h(this));
+    $callSync(11124, $W()..h(this));
   }
 
   /// Go: `func (metrics.Gauge).Set(float64)`.
   void set(double arg0) {
     $callSync(
-        11119,
+        11125,
         $W()
           ..h(this)
           ..f64(arg0));
@@ -142,7 +142,7 @@ mixin MetricsInterfaceGauge$ on GoHandle {
   /// Go: `func (metrics.Gauge).Sub(float64)`.
   void sub(double arg0) {
     $callSync(
-        11120,
+        11126,
         $W()
           ..h(this)
           ..f64(arg0));
@@ -160,7 +160,7 @@ mixin MetricsInterfaceHistogram$ on GoHandle {
   /// Go: `func (metrics.Histogram).Observe(float64)`.
   void observe(double arg0) {
     $callSync(
-        11121,
+        11127,
         $W()
           ..h(this)
           ..f64(arg0));
@@ -169,7 +169,7 @@ mixin MetricsInterfaceHistogram$ on GoHandle {
   /// Go: type assertion `x.(*prometheus.ObserverFunc)`: null if the object is not one.
   $prometheus.ClientGolangPrometheusObserverFunc?
       asClientGolangPrometheusObserverFunc() {
-    final $r = $callSync(1163, $W()..h(this));
+    final $r = $callSync(1166, $W()..h(this));
     return $r.hn($prometheus.ClientGolangPrometheusObserverFunc.$h);
   }
 }
@@ -203,7 +203,7 @@ mixin MetricsInterfaceSummary$ on GoHandle {
   /// Go: `func (metrics.Summary).Observe(float64)`.
   void observe(double arg0) {
     $callSync(
-        11125,
+        11131,
         $W()
           ..h(this)
           ..f64(arg0));
@@ -212,7 +212,7 @@ mixin MetricsInterfaceSummary$ on GoHandle {
   /// Go: type assertion `x.(*prometheus.ObserverFunc)`: null if the object is not one.
   $prometheus.ClientGolangPrometheusObserverFunc?
       asClientGolangPrometheusObserverFunc() {
-    final $r = $callSync(1164, $W()..h(this));
+    final $r = $callSync(1167, $W()..h(this));
     return $r.hn($prometheus.ClientGolangPrometheusObserverFunc.$h);
   }
 }
@@ -262,7 +262,7 @@ class MetricsInterfaceErrImplemented extends GolangException {
 extension GoIpfsMetricsInterfaceApi on GoIpfsMetricsInterface {
   /// Go: `func metrics.Active() bool`.
   bool active() {
-    final $r = $callSync(11106);
+    final $r = $callSync(11112);
     return $r.b();
   }
 
@@ -270,19 +270,19 @@ extension GoIpfsMetricsInterfaceApi on GoIpfsMetricsInterface {
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<String> ctxGetScope($context.Context ctx) async {
-    final $r = await $call(11115, $W()..h(ctx));
+    final $r = await $call(11121, $W()..h(ctx));
     return $r.str();
   }
 
   /// Go: `func metrics.InjectImpl(newimpl metrics.InternalNew) error`.
   void injectImpl(MetricsInterfaceInternalNew newimpl) {
-    $callSync(11122, $W()..h(newimpl));
+    $callSync(11128, $W()..h(newimpl));
   }
 
   /// Go: `func metrics.New(name string, helptext string) metrics.Creator`.
   MetricsInterfaceCreator new$(String name, String helptext) {
     final $r = $callSync(
-        11123,
+        11129,
         $W()
           ..str(name)
           ..str(helptext));
@@ -295,7 +295,7 @@ extension GoIpfsMetricsInterfaceApi on GoIpfsMetricsInterface {
   Future<MetricsInterfaceCreator> newCtx(
       $context.Context ctx, String name, String helptext) async {
     final $r = await $call(
-        11124,
+        11130,
         $W()
           ..h(ctx)
           ..str(name)

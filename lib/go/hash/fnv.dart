@@ -10,37 +10,37 @@ import 'package:p2p_ffi/go/hash.dart' as $hash;
 extension GoHashFnvApi on GoHashFnv {
   /// Go: `func fnv.New128() hash.Hash`.
   $hash.Hash new128() {
-    final $r = $callSync(25650);
+    final $r = $callSync(25656);
     return $r.hnn($hash.Hash.$h);
   }
 
   /// Go: `func fnv.New128a() hash.Hash`.
   $hash.Hash new128a() {
-    final $r = $callSync(25651);
+    final $r = $callSync(25657);
     return $r.hnn($hash.Hash.$h);
   }
 
   /// Go: `func fnv.New32() hash.Hash32`.
   $hash.HashHash32 new32() {
-    final $r = $callSync(25652);
+    final $r = $callSync(25658);
     return $r.hnn($hash.HashHash32.$h);
   }
 
   /// Go: `func fnv.New32a() hash.Hash32`.
   $hash.HashHash32 new32a() {
-    final $r = $callSync(25653);
+    final $r = $callSync(25659);
     return $r.hnn($hash.HashHash32.$h);
   }
 
   /// Go: `func fnv.New64() hash.Hash64`.
   $hash.HashHash64 new64() {
-    final $r = $callSync(25654);
+    final $r = $callSync(25660);
     return $r.hnn($hash.HashHash64.$h);
   }
 
   /// Go: `func fnv.New64a() hash.Hash64`.
   $hash.HashHash64 new64a() {
-    final $r = $callSync(25655);
+    final $r = $callSync(25661);
     return $r.hnn($hash.HashHash64.$h);
   }
 }

@@ -47,47 +47,47 @@ class Libp2pP2pTransportWebrtcPbMessage
   /// Go: `func (*pb.Message).Descriptor() ([]byte, []int)`.
   @Deprecated("Use Message.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(15056, $W()..h(this));
+    final $r = $callSync(15062, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pb.Message).GetErrorCode() uint32`.
   int getErrorCode() {
-    final $r = $callSync(15057, $W()..h(this));
+    final $r = $callSync(15063, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.Message).GetFlag() pb.Message_Flag`.
   int getFlag() {
-    final $r = $callSync(15058, $W()..h(this));
+    final $r = $callSync(15064, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.Message).GetMessage() []byte`.
   Uint8List getMessage() {
-    final $r = $callSync(15059, $W()..h(this));
+    final $r = $callSync(15065, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pb.Message).ProtoMessage()`.
   void protoMessage() {
-    $callSync(15060, $W()..h(this));
+    $callSync(15066, $W()..h(this));
   }
 
   /// Go: `func (*pb.Message).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(15061, $W()..h(this));
+    final $r = $callSync(15067, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pb.Message).Reset()`.
   void reset() {
-    $callSync(15062, $W()..h(this));
+    $callSync(15068, $W()..h(this));
   }
 
   /// Go: `func (*pb.Message).String() string`.
   String string() {
-    final $r = $callSync(15063, $W()..h(this));
+    final $r = $callSync(15069, $W()..h(this));
     return $r.str();
   }
 }
@@ -98,19 +98,19 @@ extension GoLibp2pLibp2pP2pTransportWebrtcPbApi
   /// Go: `var pb.File_p2p_transport_webrtc_pb_message_proto protoreflect.FileDescriptor`.
   $protoreflect.ProtobufReflectProtoreflectFileDescriptor
       get fileP2pTransportWebrtcPbMessageProto {
-    final $r = $callSync(15055);
+    final $r = $callSync(15061);
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectFileDescriptor.$h);
   }
 
   /// Go: `var pb.Message_Flag_name map[int32]string`.
   Map<int, String> get messageFlagName {
-    final $r = $callSync(15064);
+    final $r = $callSync(15070);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var pb.Message_Flag_value map[string]int32`.
   Map<String, int> get messageFlagValue {
-    final $r = $callSync(15065);
+    final $r = $callSync(15071);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 }

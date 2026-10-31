@@ -44,41 +44,41 @@ class Libp2pP2pSecurityNoisePbNoiseExtensions
   /// Go: `func (*pb.NoiseExtensions).Descriptor() ([]byte, []int)`.
   @Deprecated("Use NoiseExtensions.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(14979, $W()..h(this));
+    final $r = $callSync(14985, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pb.NoiseExtensions).GetStreamMuxers() []string`.
   List<String> getStreamMuxers() {
-    final $r = $callSync(14980, $W()..h(this));
+    final $r = $callSync(14986, $W()..h(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (*pb.NoiseExtensions).GetWebtransportCerthashes() [][]byte`.
   List<Uint8List> getWebtransportCerthashes() {
-    final $r = $callSync(14981, $W()..h(this));
+    final $r = $callSync(14987, $W()..h(this));
     return $r.list(() => $r.bytes() ?? Uint8List(0));
   }
 
   /// Go: `func (*pb.NoiseExtensions).ProtoMessage()`.
   void protoMessage() {
-    $callSync(14982, $W()..h(this));
+    $callSync(14988, $W()..h(this));
   }
 
   /// Go: `func (*pb.NoiseExtensions).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(14983, $W()..h(this));
+    final $r = $callSync(14989, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pb.NoiseExtensions).Reset()`.
   void reset() {
-    $callSync(14984, $W()..h(this));
+    $callSync(14990, $W()..h(this));
   }
 
   /// Go: `func (*pb.NoiseExtensions).String() string`.
   String string() {
-    final $r = $callSync(14985, $W()..h(this));
+    final $r = $callSync(14991, $W()..h(this));
     return $r.str();
   }
 }
@@ -111,47 +111,47 @@ class Libp2pP2pSecurityNoisePbNoiseHandshakePayload
   /// Go: `func (*pb.NoiseHandshakePayload).Descriptor() ([]byte, []int)`.
   @Deprecated("Use NoiseHandshakePayload.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(14986, $W()..h(this));
+    final $r = $callSync(14992, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pb.NoiseHandshakePayload).GetExtensions() *pb.NoiseExtensions`.
   Libp2pP2pSecurityNoisePbNoiseExtensions getExtensions() {
-    final $r = $callSync(14987, $W()..h(this));
+    final $r = $callSync(14993, $W()..h(this));
     return $r.hnn(Libp2pP2pSecurityNoisePbNoiseExtensions.$h);
   }
 
   /// Go: `func (*pb.NoiseHandshakePayload).GetIdentityKey() []byte`.
   Uint8List getIdentityKey() {
-    final $r = $callSync(14988, $W()..h(this));
+    final $r = $callSync(14994, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pb.NoiseHandshakePayload).GetIdentitySig() []byte`.
   Uint8List getIdentitySig() {
-    final $r = $callSync(14989, $W()..h(this));
+    final $r = $callSync(14995, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pb.NoiseHandshakePayload).ProtoMessage()`.
   void protoMessage() {
-    $callSync(14990, $W()..h(this));
+    $callSync(14996, $W()..h(this));
   }
 
   /// Go: `func (*pb.NoiseHandshakePayload).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(14991, $W()..h(this));
+    final $r = $callSync(14997, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pb.NoiseHandshakePayload).Reset()`.
   void reset() {
-    $callSync(14992, $W()..h(this));
+    $callSync(14998, $W()..h(this));
   }
 
   /// Go: `func (*pb.NoiseHandshakePayload).String() string`.
   String string() {
-    final $r = $callSync(14993, $W()..h(this));
+    final $r = $callSync(14999, $W()..h(this));
     return $r.str();
   }
 }
@@ -162,7 +162,7 @@ extension GoLibp2pLibp2pP2pSecurityNoisePbApi
   /// Go: `var pb.File_p2p_security_noise_pb_payload_proto protoreflect.FileDescriptor`.
   $protoreflect.ProtobufReflectProtoreflectFileDescriptor
       get fileP2pSecurityNoisePbPayloadProto {
-    final $r = $callSync(14978);
+    final $r = $callSync(14984);
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectFileDescriptor.$h);
   }
 }

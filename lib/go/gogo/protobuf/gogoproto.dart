@@ -12,457 +12,457 @@ import 'package:p2p_ffi/go/gogo/protobuf/protoc_gen_gogo/descriptor.dart'
 extension GoGogoProtobufGogoprotoApi on GoGogoProtobufGogoproto {
   /// Go: `var gogoproto.E_Benchgen *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eBenchgen {
-    final $r = $callSync(6600);
+    final $r = $callSync(6609);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_BenchgenAll *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eBenchgenAll {
-    final $r = $callSync(6601);
+    final $r = $callSync(6610);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_Castkey *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eCastkey {
-    final $r = $callSync(6602);
+    final $r = $callSync(6611);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_Casttype *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eCasttype {
-    final $r = $callSync(6603);
+    final $r = $callSync(6612);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_Castvalue *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eCastvalue {
-    final $r = $callSync(6604);
+    final $r = $callSync(6613);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_Compare *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eCompare {
-    final $r = $callSync(6605);
+    final $r = $callSync(6614);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_CompareAll *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eCompareAll {
-    final $r = $callSync(6606);
+    final $r = $callSync(6615);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_Customname *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eCustomname {
-    final $r = $callSync(6607);
+    final $r = $callSync(6616);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_Customtype *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eCustomtype {
-    final $r = $callSync(6608);
+    final $r = $callSync(6617);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_Description *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eDescription {
-    final $r = $callSync(6609);
+    final $r = $callSync(6618);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_DescriptionAll *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eDescriptionAll {
-    final $r = $callSync(6610);
+    final $r = $callSync(6619);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_Embed *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eEmbed {
-    final $r = $callSync(6611);
+    final $r = $callSync(6620);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_EnumCustomname *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eEnumCustomname {
-    final $r = $callSync(6612);
+    final $r = $callSync(6621);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_EnumStringer *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eEnumStringer {
-    final $r = $callSync(6613);
+    final $r = $callSync(6622);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_EnumStringerAll *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eEnumStringerAll {
-    final $r = $callSync(6614);
+    final $r = $callSync(6623);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_Enumdecl *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eEnumdecl {
-    final $r = $callSync(6615);
+    final $r = $callSync(6624);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_EnumdeclAll *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eEnumdeclAll {
-    final $r = $callSync(6616);
+    final $r = $callSync(6625);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_EnumvalueCustomname *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eEnumvalueCustomname {
-    final $r = $callSync(6617);
+    final $r = $callSync(6626);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_Equal *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eEqual {
-    final $r = $callSync(6618);
+    final $r = $callSync(6627);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_EqualAll *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eEqualAll {
-    final $r = $callSync(6619);
+    final $r = $callSync(6628);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_Face *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eFace {
-    final $r = $callSync(6620);
+    final $r = $callSync(6629);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_FaceAll *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eFaceAll {
-    final $r = $callSync(6621);
+    final $r = $callSync(6630);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_GogoprotoImport *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eGogoprotoImport {
-    final $r = $callSync(6622);
+    final $r = $callSync(6631);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_GoprotoEnumPrefix *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eGoprotoEnumPrefix {
-    final $r = $callSync(6623);
+    final $r = $callSync(6632);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_GoprotoEnumPrefixAll *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eGoprotoEnumPrefixAll {
-    final $r = $callSync(6624);
+    final $r = $callSync(6633);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_GoprotoEnumStringer *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eGoprotoEnumStringer {
-    final $r = $callSync(6625);
+    final $r = $callSync(6634);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_GoprotoEnumStringerAll *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eGoprotoEnumStringerAll {
-    final $r = $callSync(6626);
+    final $r = $callSync(6635);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_GoprotoExtensionsMap *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eGoprotoExtensionsMap {
-    final $r = $callSync(6627);
+    final $r = $callSync(6636);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_GoprotoExtensionsMapAll *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eGoprotoExtensionsMapAll {
-    final $r = $callSync(6628);
+    final $r = $callSync(6637);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_GoprotoGetters *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eGoprotoGetters {
-    final $r = $callSync(6629);
+    final $r = $callSync(6638);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_GoprotoGettersAll *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eGoprotoGettersAll {
-    final $r = $callSync(6630);
+    final $r = $callSync(6639);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_GoprotoRegistration *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eGoprotoRegistration {
-    final $r = $callSync(6631);
+    final $r = $callSync(6640);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_GoprotoSizecache *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eGoprotoSizecache {
-    final $r = $callSync(6632);
+    final $r = $callSync(6641);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_GoprotoSizecacheAll *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eGoprotoSizecacheAll {
-    final $r = $callSync(6633);
+    final $r = $callSync(6642);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_GoprotoStringer *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eGoprotoStringer {
-    final $r = $callSync(6634);
+    final $r = $callSync(6643);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_GoprotoStringerAll *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eGoprotoStringerAll {
-    final $r = $callSync(6635);
+    final $r = $callSync(6644);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_GoprotoUnkeyed *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eGoprotoUnkeyed {
-    final $r = $callSync(6636);
+    final $r = $callSync(6645);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_GoprotoUnkeyedAll *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eGoprotoUnkeyedAll {
-    final $r = $callSync(6637);
+    final $r = $callSync(6646);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_GoprotoUnrecognized *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eGoprotoUnrecognized {
-    final $r = $callSync(6638);
+    final $r = $callSync(6647);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_GoprotoUnrecognizedAll *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eGoprotoUnrecognizedAll {
-    final $r = $callSync(6639);
+    final $r = $callSync(6648);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_Gostring *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eGostring {
-    final $r = $callSync(6640);
+    final $r = $callSync(6649);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_GostringAll *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eGostringAll {
-    final $r = $callSync(6641);
+    final $r = $callSync(6650);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_Jsontag *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eJsontag {
-    final $r = $callSync(6642);
+    final $r = $callSync(6651);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_Marshaler *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eMarshaler {
-    final $r = $callSync(6643);
+    final $r = $callSync(6652);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_MarshalerAll *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eMarshalerAll {
-    final $r = $callSync(6644);
+    final $r = $callSync(6653);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_Messagename *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eMessagename {
-    final $r = $callSync(6645);
+    final $r = $callSync(6654);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_MessagenameAll *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eMessagenameAll {
-    final $r = $callSync(6646);
+    final $r = $callSync(6655);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_Moretags *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eMoretags {
-    final $r = $callSync(6647);
+    final $r = $callSync(6656);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_Nullable *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eNullable {
-    final $r = $callSync(6648);
+    final $r = $callSync(6657);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_Onlyone *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eOnlyone {
-    final $r = $callSync(6649);
+    final $r = $callSync(6658);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_OnlyoneAll *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eOnlyoneAll {
-    final $r = $callSync(6650);
+    final $r = $callSync(6659);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_Populate *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get ePopulate {
-    final $r = $callSync(6651);
+    final $r = $callSync(6660);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_PopulateAll *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get ePopulateAll {
-    final $r = $callSync(6652);
+    final $r = $callSync(6661);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_Protosizer *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eProtosizer {
-    final $r = $callSync(6653);
+    final $r = $callSync(6662);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_ProtosizerAll *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eProtosizerAll {
-    final $r = $callSync(6654);
+    final $r = $callSync(6663);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_Sizer *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eSizer {
-    final $r = $callSync(6655);
+    final $r = $callSync(6664);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_SizerAll *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eSizerAll {
-    final $r = $callSync(6656);
+    final $r = $callSync(6665);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_StableMarshaler *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eStableMarshaler {
-    final $r = $callSync(6657);
+    final $r = $callSync(6666);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_StableMarshalerAll *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eStableMarshalerAll {
-    final $r = $callSync(6658);
+    final $r = $callSync(6667);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_Stdduration *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eStdduration {
-    final $r = $callSync(6659);
+    final $r = $callSync(6668);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_Stdtime *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eStdtime {
-    final $r = $callSync(6660);
+    final $r = $callSync(6669);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_Stringer *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eStringer {
-    final $r = $callSync(6661);
+    final $r = $callSync(6670);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_StringerAll *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eStringerAll {
-    final $r = $callSync(6662);
+    final $r = $callSync(6671);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_Testgen *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eTestgen {
-    final $r = $callSync(6663);
+    final $r = $callSync(6672);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_TestgenAll *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eTestgenAll {
-    final $r = $callSync(6664);
+    final $r = $callSync(6673);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_Typedecl *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eTypedecl {
-    final $r = $callSync(6665);
+    final $r = $callSync(6674);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_TypedeclAll *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eTypedeclAll {
-    final $r = $callSync(6666);
+    final $r = $callSync(6675);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_Unmarshaler *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eUnmarshaler {
-    final $r = $callSync(6667);
+    final $r = $callSync(6676);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_UnmarshalerAll *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eUnmarshalerAll {
-    final $r = $callSync(6668);
+    final $r = $callSync(6677);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_UnsafeMarshaler *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eUnsafeMarshaler {
-    final $r = $callSync(6669);
+    final $r = $callSync(6678);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_UnsafeMarshalerAll *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eUnsafeMarshalerAll {
-    final $r = $callSync(6670);
+    final $r = $callSync(6679);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_UnsafeUnmarshaler *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eUnsafeUnmarshaler {
-    final $r = $callSync(6671);
+    final $r = $callSync(6680);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_UnsafeUnmarshalerAll *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eUnsafeUnmarshalerAll {
-    final $r = $callSync(6672);
+    final $r = $callSync(6681);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_VerboseEqual *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eVerboseEqual {
-    final $r = $callSync(6673);
+    final $r = $callSync(6682);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_VerboseEqualAll *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eVerboseEqualAll {
-    final $r = $callSync(6674);
+    final $r = $callSync(6683);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
   /// Go: `var gogoproto.E_Wktpointer *proto.ExtensionDesc`.
   $proto.ProtobufProtoExtensionDesc get eWktpointer {
-    final $r = $callSync(6675);
+    final $r = $callSync(6684);
     return $r.p() ? $proto.ProtobufProtoExtensionDesc.$dec($r) : $nil();
   }
 
@@ -471,7 +471,7 @@ extension GoGogoProtobufGogoprotoApi on GoGogoProtobufGogoproto {
       $descriptor.ProtobufProtocGenGogoDescriptorFileDescriptorProto file,
       $descriptor.ProtobufProtocGenGogoDescriptorEnumDescriptorProto enum$) {
     final $r = $callSync(
-        6676,
+        6685,
         $W()
           ..dto(file)
           ..dto(enum$));
@@ -483,7 +483,7 @@ extension GoGogoProtobufGogoprotoApi on GoGogoProtobufGogoproto {
       $descriptor.ProtobufProtocGenGogoDescriptorFileDescriptorProto file,
       $descriptor.ProtobufProtocGenGogoDescriptorProto message) {
     final $r = $callSync(
-        6677,
+        6686,
         $W()
           ..dto(file)
           ..dto(message));
@@ -493,42 +493,42 @@ extension GoGogoProtobufGogoprotoApi on GoGogoProtobufGogoproto {
   /// Go: `func gogoproto.GetCastKey(field *descriptor.FieldDescriptorProto) string`.
   String getCastKey(
       $descriptor.ProtobufProtocGenGogoDescriptorFieldDescriptorProto field) {
-    final $r = $callSync(6678, $W()..dto(field));
+    final $r = $callSync(6687, $W()..dto(field));
     return $r.str();
   }
 
   /// Go: `func gogoproto.GetCastType(field *descriptor.FieldDescriptorProto) string`.
   String getCastType(
       $descriptor.ProtobufProtocGenGogoDescriptorFieldDescriptorProto field) {
-    final $r = $callSync(6679, $W()..dto(field));
+    final $r = $callSync(6688, $W()..dto(field));
     return $r.str();
   }
 
   /// Go: `func gogoproto.GetCastValue(field *descriptor.FieldDescriptorProto) string`.
   String getCastValue(
       $descriptor.ProtobufProtocGenGogoDescriptorFieldDescriptorProto field) {
-    final $r = $callSync(6680, $W()..dto(field));
+    final $r = $callSync(6689, $W()..dto(field));
     return $r.str();
   }
 
   /// Go: `func gogoproto.GetCustomName(field *descriptor.FieldDescriptorProto) string`.
   String getCustomName(
       $descriptor.ProtobufProtocGenGogoDescriptorFieldDescriptorProto field) {
-    final $r = $callSync(6681, $W()..dto(field));
+    final $r = $callSync(6690, $W()..dto(field));
     return $r.str();
   }
 
   /// Go: `func gogoproto.GetCustomType(field *descriptor.FieldDescriptorProto) string`.
   String getCustomType(
       $descriptor.ProtobufProtocGenGogoDescriptorFieldDescriptorProto field) {
-    final $r = $callSync(6682, $W()..dto(field));
+    final $r = $callSync(6691, $W()..dto(field));
     return $r.str();
   }
 
   /// Go: `func gogoproto.GetEnumCustomName(field *descriptor.EnumDescriptorProto) string`.
   String getEnumCustomName(
       $descriptor.ProtobufProtocGenGogoDescriptorEnumDescriptorProto field) {
-    final $r = $callSync(6683, $W()..dto(field));
+    final $r = $callSync(6692, $W()..dto(field));
     return $r.str();
   }
 
@@ -536,21 +536,21 @@ extension GoGogoProtobufGogoprotoApi on GoGogoProtobufGogoproto {
   String getEnumValueCustomName(
       $descriptor.ProtobufProtocGenGogoDescriptorEnumValueDescriptorProto
           field) {
-    final $r = $callSync(6684, $W()..dto(field));
+    final $r = $callSync(6693, $W()..dto(field));
     return $r.str();
   }
 
   /// Go: `func gogoproto.GetJsonTag(field *descriptor.FieldDescriptorProto) *string`.
   String getJsonTag(
       $descriptor.ProtobufProtocGenGogoDescriptorFieldDescriptorProto field) {
-    final $r = $callSync(6685, $W()..dto(field));
+    final $r = $callSync(6694, $W()..dto(field));
     return $r.p() ? $r.str() : $nil();
   }
 
   /// Go: `func gogoproto.GetMoreTags(field *descriptor.FieldDescriptorProto) *string`.
   String getMoreTags(
       $descriptor.ProtobufProtocGenGogoDescriptorFieldDescriptorProto field) {
-    final $r = $callSync(6686, $W()..dto(field));
+    final $r = $callSync(6695, $W()..dto(field));
     return $r.p() ? $r.str() : $nil();
   }
 
@@ -559,7 +559,7 @@ extension GoGogoProtobufGogoprotoApi on GoGogoProtobufGogoproto {
       $descriptor.ProtobufProtocGenGogoDescriptorFileDescriptorProto file,
       $descriptor.ProtobufProtocGenGogoDescriptorProto message) {
     final $r = $callSync(
-        6687,
+        6696,
         $W()
           ..dto(file)
           ..dto(message));
@@ -571,7 +571,7 @@ extension GoGogoProtobufGogoprotoApi on GoGogoProtobufGogoproto {
       $descriptor.ProtobufProtocGenGogoDescriptorFileDescriptorProto file,
       $descriptor.ProtobufProtocGenGogoDescriptorProto message) {
     final $r = $callSync(
-        6688,
+        6697,
         $W()
           ..dto(file)
           ..dto(message));
@@ -583,7 +583,7 @@ extension GoGogoProtobufGogoprotoApi on GoGogoProtobufGogoproto {
       $descriptor.ProtobufProtocGenGogoDescriptorFileDescriptorProto file,
       $descriptor.ProtobufProtocGenGogoDescriptorProto message) {
     final $r = $callSync(
-        6689,
+        6698,
         $W()
           ..dto(file)
           ..dto(message));
@@ -595,7 +595,7 @@ extension GoGogoProtobufGogoprotoApi on GoGogoProtobufGogoproto {
       $descriptor.ProtobufProtocGenGogoDescriptorFileDescriptorProto file,
       $descriptor.ProtobufProtocGenGogoDescriptorEnumDescriptorProto enum$) {
     final $r = $callSync(
-        6690,
+        6699,
         $W()
           ..dto(file)
           ..dto(enum$));
@@ -607,7 +607,7 @@ extension GoGogoProtobufGogoprotoApi on GoGogoProtobufGogoproto {
       $descriptor.ProtobufProtocGenGogoDescriptorFileDescriptorProto file,
       $descriptor.ProtobufProtocGenGogoDescriptorProto message) {
     final $r = $callSync(
-        6691,
+        6700,
         $W()
           ..dto(file)
           ..dto(message));
@@ -619,7 +619,7 @@ extension GoGogoProtobufGogoprotoApi on GoGogoProtobufGogoproto {
       $descriptor.ProtobufProtocGenGogoDescriptorFileDescriptorProto file,
       $descriptor.ProtobufProtocGenGogoDescriptorProto message) {
     final $r = $callSync(
-        6692,
+        6701,
         $W()
           ..dto(file)
           ..dto(message));
@@ -631,7 +631,7 @@ extension GoGogoProtobufGogoprotoApi on GoGogoProtobufGogoproto {
       $descriptor.ProtobufProtocGenGogoDescriptorFileDescriptorProto file,
       $descriptor.ProtobufProtocGenGogoDescriptorProto message) {
     final $r = $callSync(
-        6693,
+        6702,
         $W()
           ..dto(file)
           ..dto(message));
@@ -643,7 +643,7 @@ extension GoGogoProtobufGogoprotoApi on GoGogoProtobufGogoproto {
       $descriptor.ProtobufProtocGenGogoDescriptorFileDescriptorProto file,
       $descriptor.ProtobufProtocGenGogoDescriptorProto message) {
     final $r = $callSync(
-        6694,
+        6703,
         $W()
           ..dto(file)
           ..dto(message));
@@ -655,7 +655,7 @@ extension GoGogoProtobufGogoprotoApi on GoGogoProtobufGogoproto {
       $descriptor.ProtobufProtocGenGogoDescriptorFileDescriptorProto file,
       $descriptor.ProtobufProtocGenGogoDescriptorProto message) {
     final $r = $callSync(
-        6695,
+        6704,
         $W()
           ..dto(file)
           ..dto(message));
@@ -667,7 +667,7 @@ extension GoGogoProtobufGogoprotoApi on GoGogoProtobufGogoproto {
       $descriptor.ProtobufProtocGenGogoDescriptorFileDescriptorProto file,
       $descriptor.ProtobufProtocGenGogoDescriptorProto message) {
     final $r = $callSync(
-        6696,
+        6705,
         $W()
           ..dto(file)
           ..dto(message));
@@ -679,7 +679,7 @@ extension GoGogoProtobufGogoprotoApi on GoGogoProtobufGogoproto {
       $descriptor.ProtobufProtocGenGogoDescriptorFileDescriptorProto file,
       $descriptor.ProtobufProtocGenGogoDescriptorProto message) {
     final $r = $callSync(
-        6697,
+        6706,
         $W()
           ..dto(file)
           ..dto(message));
@@ -691,7 +691,7 @@ extension GoGogoProtobufGogoprotoApi on GoGogoProtobufGogoproto {
       $descriptor.ProtobufProtocGenGogoDescriptorFileDescriptorProto file,
       $descriptor.ProtobufProtocGenGogoDescriptorProto message) {
     final $r = $callSync(
-        6698,
+        6707,
         $W()
           ..dto(file)
           ..dto(message));
@@ -703,7 +703,7 @@ extension GoGogoProtobufGogoprotoApi on GoGogoProtobufGogoproto {
       $descriptor.ProtobufProtocGenGogoDescriptorFileDescriptorProto file,
       $descriptor.ProtobufProtocGenGogoDescriptorProto message) {
     final $r = $callSync(
-        6699,
+        6708,
         $W()
           ..dto(file)
           ..dto(message));
@@ -715,7 +715,7 @@ extension GoGogoProtobufGogoprotoApi on GoGogoProtobufGogoproto {
       $descriptor.ProtobufProtocGenGogoDescriptorFileDescriptorProto file,
       $descriptor.ProtobufProtocGenGogoDescriptorProto message) {
     final $r = $callSync(
-        6700,
+        6709,
         $W()
           ..dto(file)
           ..dto(message));
@@ -727,7 +727,7 @@ extension GoGogoProtobufGogoprotoApi on GoGogoProtobufGogoproto {
       $descriptor.ProtobufProtocGenGogoDescriptorFileDescriptorProto file,
       $descriptor.ProtobufProtocGenGogoDescriptorProto message) {
     final $r = $callSync(
-        6701,
+        6710,
         $W()
           ..dto(file)
           ..dto(message));
@@ -739,7 +739,7 @@ extension GoGogoProtobufGogoprotoApi on GoGogoProtobufGogoproto {
       $descriptor.ProtobufProtocGenGogoDescriptorFileDescriptorProto file,
       $descriptor.ProtobufProtocGenGogoDescriptorProto message) {
     final $r = $callSync(
-        6702,
+        6711,
         $W()
           ..dto(file)
           ..dto(message));
@@ -749,56 +749,56 @@ extension GoGogoProtobufGogoprotoApi on GoGogoProtobufGogoproto {
   /// Go: `func gogoproto.ImportsGoGoProto(file *descriptor.FileDescriptorProto) bool`.
   bool importsGoGoProto(
       $descriptor.ProtobufProtocGenGogoDescriptorFileDescriptorProto file) {
-    final $r = $callSync(6703, $W()..dto(file));
+    final $r = $callSync(6712, $W()..dto(file));
     return $r.b();
   }
 
   /// Go: `func gogoproto.IsCastKey(field *descriptor.FieldDescriptorProto) bool`.
   bool isCastKey(
       $descriptor.ProtobufProtocGenGogoDescriptorFieldDescriptorProto field) {
-    final $r = $callSync(6704, $W()..dto(field));
+    final $r = $callSync(6713, $W()..dto(field));
     return $r.b();
   }
 
   /// Go: `func gogoproto.IsCastType(field *descriptor.FieldDescriptorProto) bool`.
   bool isCastType(
       $descriptor.ProtobufProtocGenGogoDescriptorFieldDescriptorProto field) {
-    final $r = $callSync(6705, $W()..dto(field));
+    final $r = $callSync(6714, $W()..dto(field));
     return $r.b();
   }
 
   /// Go: `func gogoproto.IsCastValue(field *descriptor.FieldDescriptorProto) bool`.
   bool isCastValue(
       $descriptor.ProtobufProtocGenGogoDescriptorFieldDescriptorProto field) {
-    final $r = $callSync(6706, $W()..dto(field));
+    final $r = $callSync(6715, $W()..dto(field));
     return $r.b();
   }
 
   /// Go: `func gogoproto.IsCustomName(field *descriptor.FieldDescriptorProto) bool`.
   bool isCustomName(
       $descriptor.ProtobufProtocGenGogoDescriptorFieldDescriptorProto field) {
-    final $r = $callSync(6707, $W()..dto(field));
+    final $r = $callSync(6716, $W()..dto(field));
     return $r.b();
   }
 
   /// Go: `func gogoproto.IsCustomType(field *descriptor.FieldDescriptorProto) bool`.
   bool isCustomType(
       $descriptor.ProtobufProtocGenGogoDescriptorFieldDescriptorProto field) {
-    final $r = $callSync(6708, $W()..dto(field));
+    final $r = $callSync(6717, $W()..dto(field));
     return $r.b();
   }
 
   /// Go: `func gogoproto.IsEmbed(field *descriptor.FieldDescriptorProto) bool`.
   bool isEmbed(
       $descriptor.ProtobufProtocGenGogoDescriptorFieldDescriptorProto field) {
-    final $r = $callSync(6709, $W()..dto(field));
+    final $r = $callSync(6718, $W()..dto(field));
     return $r.b();
   }
 
   /// Go: `func gogoproto.IsEnumCustomName(field *descriptor.EnumDescriptorProto) bool`.
   bool isEnumCustomName(
       $descriptor.ProtobufProtocGenGogoDescriptorEnumDescriptorProto field) {
-    final $r = $callSync(6710, $W()..dto(field));
+    final $r = $callSync(6719, $W()..dto(field));
     return $r.b();
   }
 
@@ -807,7 +807,7 @@ extension GoGogoProtobufGogoprotoApi on GoGogoProtobufGogoproto {
       $descriptor.ProtobufProtocGenGogoDescriptorFileDescriptorProto file,
       $descriptor.ProtobufProtocGenGogoDescriptorEnumDescriptorProto enum$) {
     final $r = $callSync(
-        6711,
+        6720,
         $W()
           ..dto(file)
           ..dto(enum$));
@@ -818,7 +818,7 @@ extension GoGogoProtobufGogoprotoApi on GoGogoProtobufGogoproto {
   bool isEnumValueCustomName(
       $descriptor.ProtobufProtocGenGogoDescriptorEnumValueDescriptorProto
           field) {
-    final $r = $callSync(6712, $W()..dto(field));
+    final $r = $callSync(6721, $W()..dto(field));
     return $r.b();
   }
 
@@ -827,7 +827,7 @@ extension GoGogoProtobufGogoprotoApi on GoGogoProtobufGogoproto {
       $descriptor.ProtobufProtocGenGogoDescriptorFileDescriptorProto file,
       $descriptor.ProtobufProtocGenGogoDescriptorProto message) {
     final $r = $callSync(
-        6713,
+        6722,
         $W()
           ..dto(file)
           ..dto(message));
@@ -839,7 +839,7 @@ extension GoGogoProtobufGogoprotoApi on GoGogoProtobufGogoproto {
       $descriptor.ProtobufProtocGenGogoDescriptorFileDescriptorProto file,
       $descriptor.ProtobufProtocGenGogoDescriptorEnumDescriptorProto enum$) {
     final $r = $callSync(
-        6714,
+        6723,
         $W()
           ..dto(file)
           ..dto(enum$));
@@ -851,7 +851,7 @@ extension GoGogoProtobufGogoprotoApi on GoGogoProtobufGogoproto {
       $descriptor.ProtobufProtocGenGogoDescriptorFileDescriptorProto file,
       $descriptor.ProtobufProtocGenGogoDescriptorProto message) {
     final $r = $callSync(
-        6715,
+        6724,
         $W()
           ..dto(file)
           ..dto(message));
@@ -861,14 +861,14 @@ extension GoGogoProtobufGogoprotoApi on GoGogoProtobufGogoproto {
   /// Go: `func gogoproto.IsNullable(field *descriptor.FieldDescriptorProto) bool`.
   bool isNullable(
       $descriptor.ProtobufProtocGenGogoDescriptorFieldDescriptorProto field) {
-    final $r = $callSync(6716, $W()..dto(field));
+    final $r = $callSync(6725, $W()..dto(field));
     return $r.b();
   }
 
   /// Go: `func gogoproto.IsProto3(file *descriptor.FileDescriptorProto) bool`.
   bool isProto3(
       $descriptor.ProtobufProtocGenGogoDescriptorFileDescriptorProto file) {
-    final $r = $callSync(6717, $W()..dto(file));
+    final $r = $callSync(6726, $W()..dto(file));
     return $r.b();
   }
 
@@ -877,7 +877,7 @@ extension GoGogoProtobufGogoprotoApi on GoGogoProtobufGogoproto {
       $descriptor.ProtobufProtocGenGogoDescriptorFileDescriptorProto file,
       $descriptor.ProtobufProtocGenGogoDescriptorProto message) {
     final $r = $callSync(
-        6718,
+        6727,
         $W()
           ..dto(file)
           ..dto(message));
@@ -889,7 +889,7 @@ extension GoGogoProtobufGogoprotoApi on GoGogoProtobufGogoproto {
       $descriptor.ProtobufProtocGenGogoDescriptorFileDescriptorProto file,
       $descriptor.ProtobufProtocGenGogoDescriptorProto message) {
     final $r = $callSync(
-        6719,
+        6728,
         $W()
           ..dto(file)
           ..dto(message));
@@ -901,7 +901,7 @@ extension GoGogoProtobufGogoprotoApi on GoGogoProtobufGogoproto {
       $descriptor.ProtobufProtocGenGogoDescriptorFileDescriptorProto file,
       $descriptor.ProtobufProtocGenGogoDescriptorProto message) {
     final $r = $callSync(
-        6720,
+        6729,
         $W()
           ..dto(file)
           ..dto(message));
@@ -911,84 +911,84 @@ extension GoGogoProtobufGogoprotoApi on GoGogoProtobufGogoproto {
   /// Go: `func gogoproto.IsStdBool(field *descriptor.FieldDescriptorProto) bool`.
   bool isStdBool(
       $descriptor.ProtobufProtocGenGogoDescriptorFieldDescriptorProto field) {
-    final $r = $callSync(6721, $W()..dto(field));
+    final $r = $callSync(6730, $W()..dto(field));
     return $r.b();
   }
 
   /// Go: `func gogoproto.IsStdBytes(field *descriptor.FieldDescriptorProto) bool`.
   bool isStdBytes(
       $descriptor.ProtobufProtocGenGogoDescriptorFieldDescriptorProto field) {
-    final $r = $callSync(6722, $W()..dto(field));
+    final $r = $callSync(6731, $W()..dto(field));
     return $r.b();
   }
 
   /// Go: `func gogoproto.IsStdDouble(field *descriptor.FieldDescriptorProto) bool`.
   bool isStdDouble(
       $descriptor.ProtobufProtocGenGogoDescriptorFieldDescriptorProto field) {
-    final $r = $callSync(6723, $W()..dto(field));
+    final $r = $callSync(6732, $W()..dto(field));
     return $r.b();
   }
 
   /// Go: `func gogoproto.IsStdDuration(field *descriptor.FieldDescriptorProto) bool`.
   bool isStdDuration(
       $descriptor.ProtobufProtocGenGogoDescriptorFieldDescriptorProto field) {
-    final $r = $callSync(6724, $W()..dto(field));
+    final $r = $callSync(6733, $W()..dto(field));
     return $r.b();
   }
 
   /// Go: `func gogoproto.IsStdFloat(field *descriptor.FieldDescriptorProto) bool`.
   bool isStdFloat(
       $descriptor.ProtobufProtocGenGogoDescriptorFieldDescriptorProto field) {
-    final $r = $callSync(6725, $W()..dto(field));
+    final $r = $callSync(6734, $W()..dto(field));
     return $r.b();
   }
 
   /// Go: `func gogoproto.IsStdInt32(field *descriptor.FieldDescriptorProto) bool`.
   bool isStdInt32(
       $descriptor.ProtobufProtocGenGogoDescriptorFieldDescriptorProto field) {
-    final $r = $callSync(6726, $W()..dto(field));
+    final $r = $callSync(6735, $W()..dto(field));
     return $r.b();
   }
 
   /// Go: `func gogoproto.IsStdInt64(field *descriptor.FieldDescriptorProto) bool`.
   bool isStdInt64(
       $descriptor.ProtobufProtocGenGogoDescriptorFieldDescriptorProto field) {
-    final $r = $callSync(6727, $W()..dto(field));
+    final $r = $callSync(6736, $W()..dto(field));
     return $r.b();
   }
 
   /// Go: `func gogoproto.IsStdString(field *descriptor.FieldDescriptorProto) bool`.
   bool isStdString(
       $descriptor.ProtobufProtocGenGogoDescriptorFieldDescriptorProto field) {
-    final $r = $callSync(6728, $W()..dto(field));
+    final $r = $callSync(6737, $W()..dto(field));
     return $r.b();
   }
 
   /// Go: `func gogoproto.IsStdTime(field *descriptor.FieldDescriptorProto) bool`.
   bool isStdTime(
       $descriptor.ProtobufProtocGenGogoDescriptorFieldDescriptorProto field) {
-    final $r = $callSync(6729, $W()..dto(field));
+    final $r = $callSync(6738, $W()..dto(field));
     return $r.b();
   }
 
   /// Go: `func gogoproto.IsStdType(field *descriptor.FieldDescriptorProto) bool`.
   bool isStdType(
       $descriptor.ProtobufProtocGenGogoDescriptorFieldDescriptorProto field) {
-    final $r = $callSync(6730, $W()..dto(field));
+    final $r = $callSync(6739, $W()..dto(field));
     return $r.b();
   }
 
   /// Go: `func gogoproto.IsStdUInt32(field *descriptor.FieldDescriptorProto) bool`.
   bool isStdUInt32(
       $descriptor.ProtobufProtocGenGogoDescriptorFieldDescriptorProto field) {
-    final $r = $callSync(6731, $W()..dto(field));
+    final $r = $callSync(6740, $W()..dto(field));
     return $r.b();
   }
 
   /// Go: `func gogoproto.IsStdUInt64(field *descriptor.FieldDescriptorProto) bool`.
   bool isStdUInt64(
       $descriptor.ProtobufProtocGenGogoDescriptorFieldDescriptorProto field) {
-    final $r = $callSync(6732, $W()..dto(field));
+    final $r = $callSync(6741, $W()..dto(field));
     return $r.b();
   }
 
@@ -997,7 +997,7 @@ extension GoGogoProtobufGogoprotoApi on GoGogoProtobufGogoproto {
       $descriptor.ProtobufProtocGenGogoDescriptorFileDescriptorProto file,
       $descriptor.ProtobufProtocGenGogoDescriptorProto message) {
     final $r = $callSync(
-        6733,
+        6742,
         $W()
           ..dto(file)
           ..dto(message));
@@ -1009,7 +1009,7 @@ extension GoGogoProtobufGogoprotoApi on GoGogoProtobufGogoproto {
       $descriptor.ProtobufProtocGenGogoDescriptorFileDescriptorProto file,
       $descriptor.ProtobufProtocGenGogoDescriptorProto message) {
     final $r = $callSync(
-        6734,
+        6743,
         $W()
           ..dto(file)
           ..dto(message));
@@ -1021,7 +1021,7 @@ extension GoGogoProtobufGogoprotoApi on GoGogoProtobufGogoproto {
       $descriptor.ProtobufProtocGenGogoDescriptorFileDescriptorProto file,
       $descriptor.ProtobufProtocGenGogoDescriptorProto message) {
     final $r = $callSync(
-        6735,
+        6744,
         $W()
           ..dto(file)
           ..dto(message));
@@ -1033,7 +1033,7 @@ extension GoGogoProtobufGogoprotoApi on GoGogoProtobufGogoproto {
       $descriptor.ProtobufProtocGenGogoDescriptorFileDescriptorProto file,
       $descriptor.ProtobufProtocGenGogoDescriptorProto message) {
     final $r = $callSync(
-        6736,
+        6745,
         $W()
           ..dto(file)
           ..dto(message));
@@ -1045,7 +1045,7 @@ extension GoGogoProtobufGogoprotoApi on GoGogoProtobufGogoproto {
       $descriptor.ProtobufProtocGenGogoDescriptorFileDescriptorProto file,
       $descriptor.ProtobufProtocGenGogoDescriptorProto message) {
     final $r = $callSync(
-        6737,
+        6746,
         $W()
           ..dto(file)
           ..dto(message));
@@ -1055,7 +1055,7 @@ extension GoGogoProtobufGogoprotoApi on GoGogoProtobufGogoproto {
   /// Go: `func gogoproto.IsWktPtr(field *descriptor.FieldDescriptorProto) bool`.
   bool isWktPtr(
       $descriptor.ProtobufProtocGenGogoDescriptorFieldDescriptorProto field) {
-    final $r = $callSync(6738, $W()..dto(field));
+    final $r = $callSync(6747, $W()..dto(field));
     return $r.b();
   }
 
@@ -1063,7 +1063,7 @@ extension GoGogoProtobufGogoprotoApi on GoGogoProtobufGogoproto {
   bool needsNilCheck(bool proto3,
       $descriptor.ProtobufProtocGenGogoDescriptorFieldDescriptorProto field) {
     final $r = $callSync(
-        6739,
+        6748,
         $W()
           ..b(proto3)
           ..dto(field));
@@ -1073,7 +1073,7 @@ extension GoGogoProtobufGogoprotoApi on GoGogoProtobufGogoproto {
   /// Go: `func gogoproto.RegistersGolangProto(file *descriptor.FileDescriptorProto) bool`.
   bool registersGolangProto(
       $descriptor.ProtobufProtocGenGogoDescriptorFileDescriptorProto file) {
-    final $r = $callSync(6740, $W()..dto(file));
+    final $r = $callSync(6749, $W()..dto(file));
     return $r.b();
   }
 }

@@ -19,7 +19,7 @@ final class Libp2pRecordPublicKeyValidator implements GoDto {
   /// Go: `func (record.PublicKeyValidator).Select(k string, vals [][]byte) (int, error)`.
   int select(String k, List<Uint8List> vals) {
     final $r = $callSync(
-        13707,
+        13713,
         $W()
           ..dto(this)
           ..str(k)
@@ -30,7 +30,7 @@ final class Libp2pRecordPublicKeyValidator implements GoDto {
   /// Go: `func (record.PublicKeyValidator).Validate(key string, value []byte) error`.
   void validate(String key, Uint8List value) {
     $callSync(
-        13708,
+        13714,
         $W()
           ..dto(this)
           ..str(key)
@@ -48,7 +48,7 @@ mixin Libp2pRecordValidator$ on GoHandle {
   /// Go: `func (record.Validator).Select(key string, values [][]byte) (int, error)`.
   int select(String key, List<Uint8List> values) {
     final $r = $callSync(
-        13710,
+        13716,
         $W()
           ..h(this)
           ..str(key)
@@ -59,7 +59,7 @@ mixin Libp2pRecordValidator$ on GoHandle {
   /// Go: `func (record.Validator).Validate(key string, value []byte) error`.
   void validate(String key, Uint8List value) {
     $callSync(
-        13711,
+        13717,
         $W()
           ..h(this)
           ..str(key)
@@ -99,7 +99,7 @@ extension GoLibp2pLibp2pRecordApi on GoLibp2pLibp2pRecord {
   /// Go: `func record.MakePutRecord(key string, value []byte) *pb.Record`.
   $pb.Libp2pRecordPbRecord makePutRecord(String key, Uint8List value) {
     final $r = $callSync(
-        13706,
+        13712,
         $W()
           ..str(key)
           ..bytes(value));
@@ -108,7 +108,7 @@ extension GoLibp2pLibp2pRecordApi on GoLibp2pLibp2pRecord {
 
   /// Go: `func record.SplitKey(key string) (string, string, error)`.
   (String, String) splitKey(String key) {
-    final $r = $callSync(13709, $W()..str(key));
+    final $r = $callSync(13715, $W()..str(key));
     return ($r.str(), $r.str());
   }
 }

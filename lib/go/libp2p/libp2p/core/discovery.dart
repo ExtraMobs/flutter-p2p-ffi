@@ -25,7 +25,7 @@ mixin Libp2pCoreDiscoveryAdvertiser$ on GoHandle {
   Future<Duration> advertise($context.Context ctx, String ns,
       [List<Libp2pCoreDiscoveryOption> opts = const []]) async {
     final $r = await $call(
-        13947,
+        13953,
         $W()
           ..h(this)
           ..h(ctx)
@@ -37,26 +37,26 @@ mixin Libp2pCoreDiscoveryAdvertiser$ on GoHandle {
   /// Go: type assertion `x.(*backoff.BackoffDiscovery)`: null if the object is not one.
   $backoff.Libp2pP2pDiscoveryBackoffDiscovery?
       asLibp2pP2pDiscoveryBackoffDiscovery() {
-    final $r = $callSync(1328, $W()..h(this));
+    final $r = $callSync(1331, $W()..h(this));
     return $r.hn($backoff.Libp2pP2pDiscoveryBackoffDiscovery.$h);
   }
 
   /// Go: type assertion `x.(*routing.DiscoveryRouting)`: null if the object is not one.
   $routing.Libp2pP2pDiscoveryRouting? asLibp2pP2pDiscoveryRouting() {
-    final $r = $callSync(1329, $W()..h(this));
+    final $r = $callSync(1332, $W()..h(this));
     return $r.hn($routing.Libp2pP2pDiscoveryRouting.$h);
   }
 
   /// Go: type assertion `x.(*routing.RoutingDiscovery)`: null if the object is not one.
   $routing.Libp2pP2pDiscoveryRoutingDiscovery?
       asLibp2pP2pDiscoveryRoutingDiscovery() {
-    final $r = $callSync(1330, $W()..h(this));
+    final $r = $callSync(1333, $W()..h(this));
     return $r.hn($routing.Libp2pP2pDiscoveryRoutingDiscovery.$h);
   }
 
   /// Go: type assertion `x.(discovery.Discovery)`: null if the object is not one.
   Libp2pCoreDiscovery? asLibp2pCoreDiscovery() {
-    final $r = $callSync(1331, $W()..h(this));
+    final $r = $callSync(1334, $W()..h(this));
     return $r.hn(Libp2pCoreDiscovery.$h);
   }
 }
@@ -74,7 +74,7 @@ mixin Libp2pCoreDiscoveryDiscoverer$ on GoHandle {
           $context.Context ctx, String ns,
           [List<Libp2pCoreDiscoveryOption> opts = const []]) =>
       $stream(
-              13948,
+              13954,
               $W()
                 ..h(this)
                 ..h(ctx)
@@ -85,26 +85,26 @@ mixin Libp2pCoreDiscoveryDiscoverer$ on GoHandle {
   /// Go: type assertion `x.(*backoff.BackoffDiscovery)`: null if the object is not one.
   $backoff.Libp2pP2pDiscoveryBackoffDiscovery?
       asLibp2pP2pDiscoveryBackoffDiscovery() {
-    final $r = $callSync(1332, $W()..h(this));
+    final $r = $callSync(1335, $W()..h(this));
     return $r.hn($backoff.Libp2pP2pDiscoveryBackoffDiscovery.$h);
   }
 
   /// Go: type assertion `x.(*routing.DiscoveryRouting)`: null if the object is not one.
   $routing.Libp2pP2pDiscoveryRouting? asLibp2pP2pDiscoveryRouting() {
-    final $r = $callSync(1333, $W()..h(this));
+    final $r = $callSync(1336, $W()..h(this));
     return $r.hn($routing.Libp2pP2pDiscoveryRouting.$h);
   }
 
   /// Go: type assertion `x.(*routing.RoutingDiscovery)`: null if the object is not one.
   $routing.Libp2pP2pDiscoveryRoutingDiscovery?
       asLibp2pP2pDiscoveryRoutingDiscovery() {
-    final $r = $callSync(1334, $W()..h(this));
+    final $r = $callSync(1337, $W()..h(this));
     return $r.hn($routing.Libp2pP2pDiscoveryRoutingDiscovery.$h);
   }
 
   /// Go: type assertion `x.(discovery.Discovery)`: null if the object is not one.
   Libp2pCoreDiscovery? asLibp2pCoreDiscovery() {
-    final $r = $callSync(1335, $W()..h(this));
+    final $r = $callSync(1338, $W()..h(this));
     return $r.hn(Libp2pCoreDiscovery.$h);
   }
 }
@@ -121,20 +121,20 @@ mixin Libp2pCoreDiscovery$ on GoHandle {
   /// Go: type assertion `x.(*backoff.BackoffDiscovery)`: null if the object is not one.
   $backoff.Libp2pP2pDiscoveryBackoffDiscovery?
       asLibp2pP2pDiscoveryBackoffDiscovery() {
-    final $r = $callSync(1336, $W()..h(this));
+    final $r = $callSync(1339, $W()..h(this));
     return $r.hn($backoff.Libp2pP2pDiscoveryBackoffDiscovery.$h);
   }
 
   /// Go: type assertion `x.(*routing.DiscoveryRouting)`: null if the object is not one.
   $routing.Libp2pP2pDiscoveryRouting? asLibp2pP2pDiscoveryRouting() {
-    final $r = $callSync(1337, $W()..h(this));
+    final $r = $callSync(1340, $W()..h(this));
     return $r.hn($routing.Libp2pP2pDiscoveryRouting.$h);
   }
 
   /// Go: type assertion `x.(*routing.RoutingDiscovery)`: null if the object is not one.
   $routing.Libp2pP2pDiscoveryRoutingDiscovery?
       asLibp2pP2pDiscoveryRoutingDiscovery() {
-    final $r = $callSync(1338, $W()..h(this));
+    final $r = $callSync(1341, $W()..h(this));
     return $r.hn($routing.Libp2pP2pDiscoveryRoutingDiscovery.$h);
   }
 }
@@ -172,7 +172,7 @@ final class Libp2pCoreDiscoveryOptions implements GoDto {
   /// Go: `func (*discovery.Options).Apply(options ...discovery.Option) error`.
   void apply([List<Libp2pCoreDiscoveryOption> options = const []]) {
     $callSync(
-        13949,
+        13955,
         $W()
           ..dto(this)
           ..list(options, (w0, e0) => w0.opt(e0)));

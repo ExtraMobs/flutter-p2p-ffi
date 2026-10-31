@@ -112,19 +112,19 @@ class LogV2PipeReader extends $io.IoCloser
 
   /// Go: `func log.NewPipeReader(opts ...log.PipeReaderOption) *log.PipeReader`.
   factory LogV2PipeReader([List<LogV2PipeReaderOption> opts = const []]) {
-    final $r = $callSync(11074, $W()..list(opts, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(11080, $W()..list(opts, (w0, e0) => w0.h(e0)));
     return $r.hnn(LogV2PipeReader.$h);
   }
 
   /// Go: `func (*log.PipeReader).Close() error`.
   void close() {
-    $callSync(11078, $W()..h(this));
+    $callSync(11084, $W()..h(this));
   }
 
   /// Go: `func (*log.PipeReader).Read(data []byte) (int, error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        11079,
+        11085,
         $W()
           ..h(this)
           ..i64(n));
@@ -150,7 +150,7 @@ mixin LogV2StandardLogger$ on GoHandle {
   /// Go: `func (log.StandardLogger).Debug(args ...interface{})`.
   void debug([List<Object?> args = const []]) {
     $callSync(
-        11087,
+        11093,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -159,7 +159,7 @@ mixin LogV2StandardLogger$ on GoHandle {
   /// Go: `func (log.StandardLogger).Debugf(format string, args ...interface{})`.
   void debugf(String format, [List<Object?> args = const []]) {
     $callSync(
-        11088,
+        11094,
         $W()
           ..h(this)
           ..str(format)
@@ -169,7 +169,7 @@ mixin LogV2StandardLogger$ on GoHandle {
   /// Go: `func (log.StandardLogger).Error(args ...interface{})`.
   void error([List<Object?> args = const []]) {
     $callSync(
-        11089,
+        11095,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -178,7 +178,7 @@ mixin LogV2StandardLogger$ on GoHandle {
   /// Go: `func (log.StandardLogger).Errorf(format string, args ...interface{})`.
   void errorf(String format, [List<Object?> args = const []]) {
     $callSync(
-        11090,
+        11096,
         $W()
           ..h(this)
           ..str(format)
@@ -188,7 +188,7 @@ mixin LogV2StandardLogger$ on GoHandle {
   /// Go: `func (log.StandardLogger).Fatal(args ...interface{})`.
   void fatal([List<Object?> args = const []]) {
     $callSync(
-        11091,
+        11097,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -197,7 +197,7 @@ mixin LogV2StandardLogger$ on GoHandle {
   /// Go: `func (log.StandardLogger).Fatalf(format string, args ...interface{})`.
   void fatalf(String format, [List<Object?> args = const []]) {
     $callSync(
-        11092,
+        11098,
         $W()
           ..h(this)
           ..str(format)
@@ -207,7 +207,7 @@ mixin LogV2StandardLogger$ on GoHandle {
   /// Go: `func (log.StandardLogger).Info(args ...interface{})`.
   void info([List<Object?> args = const []]) {
     $callSync(
-        11093,
+        11099,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -216,7 +216,7 @@ mixin LogV2StandardLogger$ on GoHandle {
   /// Go: `func (log.StandardLogger).Infof(format string, args ...interface{})`.
   void infof(String format, [List<Object?> args = const []]) {
     $callSync(
-        11094,
+        11100,
         $W()
           ..h(this)
           ..str(format)
@@ -226,7 +226,7 @@ mixin LogV2StandardLogger$ on GoHandle {
   /// Go: `func (log.StandardLogger).Panic(args ...interface{})`.
   void panic([List<Object?> args = const []]) {
     $callSync(
-        11095,
+        11101,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -235,7 +235,7 @@ mixin LogV2StandardLogger$ on GoHandle {
   /// Go: `func (log.StandardLogger).Panicf(format string, args ...interface{})`.
   void panicf(String format, [List<Object?> args = const []]) {
     $callSync(
-        11096,
+        11102,
         $W()
           ..h(this)
           ..str(format)
@@ -245,7 +245,7 @@ mixin LogV2StandardLogger$ on GoHandle {
   /// Go: `func (log.StandardLogger).Warn(args ...interface{})`.
   void warn([List<Object?> args = const []]) {
     $callSync(
-        11097,
+        11103,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -254,7 +254,7 @@ mixin LogV2StandardLogger$ on GoHandle {
   /// Go: `func (log.StandardLogger).Warnf(format string, args ...interface{})`.
   void warnf(String format, [List<Object?> args = const []]) {
     $callSync(
-        11098,
+        11104,
         $W()
           ..h(this)
           ..str(format)
@@ -263,13 +263,13 @@ mixin LogV2StandardLogger$ on GoHandle {
 
   /// Go: type assertion `x.(*log.ZapEventLogger)`: null if the object is not one.
   LogV2ZapEventLogger? asLogV2ZapEventLogger() {
-    final $r = $callSync(1161, $W()..h(this));
+    final $r = $callSync(1164, $W()..h(this));
     return $r.hn(LogV2ZapEventLogger.$h);
   }
 
   /// Go: type assertion `x.(*zap.SugaredLogger)`: null if the object is not one.
   $zap.ZapSugaredLogger? asZapSugaredLogger() {
-    final $r = $callSync(1162, $W()..h(this));
+    final $r = $callSync(1165, $W()..h(this));
     return $r.hn($zap.ZapSugaredLogger.$h);
   }
 }
@@ -301,7 +301,7 @@ class LogV2ZapEventLogger extends LogV2StandardLogger
   /// Go: `func (*log.ZapEventLogger).LevelEnabled(level log.LogLevel) bool`.
   bool levelEnabled(int level) {
     final $r = $callSync(
-        11103,
+        11109,
         $W()
           ..h(this)
           ..i64(level));
@@ -311,7 +311,7 @@ class LogV2ZapEventLogger extends LogV2StandardLogger
   /// Go: `func (*log.ZapEventLogger).Warning(args ...interface{})`.
   void warning([List<Object?> args = const []]) {
     $callSync(
-        11104,
+        11110,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -320,7 +320,7 @@ class LogV2ZapEventLogger extends LogV2StandardLogger
   /// Go: `func (*log.ZapEventLogger).Warningf(format string, args ...interface{})`.
   void warningf(String format, [List<Object?> args = const []]) {
     $callSync(
-        11105,
+        11111,
         $W()
           ..h(this)
           ..str(format)
@@ -341,102 +341,102 @@ class LogV2ErrNoSuchLogger extends GolangException {
 extension GoIpfsLogV2Api on GoIpfsLogV2 {
   /// Go: `func log.DefaultLevel() log.LogLevel`.
   int defaultLevel() {
-    final $r = $callSync(11061);
+    final $r = $callSync(11067);
     return $r.i64();
   }
 
   /// Go: `func log.FormatRFC3339(t time.Time) string`.
   String formatRfc3339(DateTime t) {
-    final $r = $callSync(11062, $W()..time(t));
+    final $r = $callSync(11068, $W()..time(t));
     return $r.str();
   }
 
   /// Go: `func log.GetConfig() log.Config`.
   LogV2Config getConfig() {
-    final $r = $callSync(11063);
+    final $r = $callSync(11069);
     return $r.p() ? LogV2Config.$dec($r) : $nil();
   }
 
   /// Go: `func log.GetSubsystems() []string`.
   List<String> getSubsystems() {
-    final $r = $callSync(11064);
+    final $r = $callSync(11070);
     return $r.list(() => $r.str());
   }
 
   /// Go: `var log.LevelDPanic log.LogLevel`.
   int get levelDPanic {
-    final $r = $callSync(11065);
+    final $r = $callSync(11071);
     return $r.i64();
   }
 
   /// Go: `var log.LevelDebug log.LogLevel`.
   int get levelDebug {
-    final $r = $callSync(11066);
+    final $r = $callSync(11072);
     return $r.i64();
   }
 
   /// Go: `var log.LevelError log.LogLevel`.
   int get levelError {
-    final $r = $callSync(11067);
+    final $r = $callSync(11073);
     return $r.i64();
   }
 
   /// Go: `var log.LevelFatal log.LogLevel`.
   int get levelFatal {
-    final $r = $callSync(11068);
+    final $r = $callSync(11074);
     return $r.i64();
   }
 
   /// Go: `func log.LevelFromString(level string) (log.LogLevel, error)`.
   int levelFromString(String level) {
-    final $r = $callSync(11069, $W()..str(level));
+    final $r = $callSync(11075, $W()..str(level));
     return $r.i64();
   }
 
   /// Go: `var log.LevelInfo log.LogLevel`.
   int get levelInfo {
-    final $r = $callSync(11070);
+    final $r = $callSync(11076);
     return $r.i64();
   }
 
   /// Go: `var log.LevelPanic log.LogLevel`.
   int get levelPanic {
-    final $r = $callSync(11071);
+    final $r = $callSync(11077);
     return $r.i64();
   }
 
   /// Go: `var log.LevelWarn log.LogLevel`.
   int get levelWarn {
-    final $r = $callSync(11072);
+    final $r = $callSync(11078);
     return $r.i64();
   }
 
   /// Go: `func log.Logger(system string) *log.ZapEventLogger`.
   LogV2ZapEventLogger logger(String system) {
-    final $r = $callSync(11073, $W()..str(system));
+    final $r = $callSync(11079, $W()..str(system));
     return $r.hnn(LogV2ZapEventLogger.$h);
   }
 
   /// Go: `func log.Parse(name string) (log.LogLevel, error)`.
   int parse(String name) {
-    final $r = $callSync(11075, $W()..str(name));
+    final $r = $callSync(11081, $W()..str(name));
     return $r.i64();
   }
 
   /// Go: `func log.SetAllLoggers(lvl log.LogLevel)`.
   void setAllLoggers(int lvl) {
-    $callSync(11080, $W()..i64(lvl));
+    $callSync(11086, $W()..i64(lvl));
   }
 
   /// Go: `func log.SetDebugLogging()`.
   void setDebugLogging() {
-    $callSync(11081);
+    $callSync(11087);
   }
 
   /// Go: `func log.SetLogLevel(name string, level string) error`.
   void setLogLevel(String name, String level) {
     $callSync(
-        11082,
+        11088,
         $W()
           ..str(name)
           ..str(level));
@@ -445,7 +445,7 @@ extension GoIpfsLogV2Api on GoIpfsLogV2 {
   /// Go: `func log.SetLogLevelRegex(e string, l string) error`.
   void setLogLevelRegex(String e, String l) {
     $callSync(
-        11083,
+        11089,
         $W()
           ..str(e)
           ..str(l));
@@ -453,36 +453,36 @@ extension GoIpfsLogV2Api on GoIpfsLogV2 {
 
   /// Go: `func log.SetPrimaryCore(core zapcore.Core)`.
   void setPrimaryCore($zapcore.ZapZapcoreCore core) {
-    $callSync(11084, $W()..h(core));
+    $callSync(11090, $W()..h(core));
   }
 
   /// Go: `func log.SetupLogging(cfg log.Config)`.
   void setupLogging(LogV2Config cfg) {
-    $callSync(11085, $W()..dto(cfg));
+    $callSync(11091, $W()..dto(cfg));
   }
 
   /// Go: `func log.SlogHandler() slog.Handler`.
   $slog.LogSlogHandler slogHandler() {
-    final $r = $callSync(11086);
+    final $r = $callSync(11092);
     return $r.hnn($slog.LogSlogHandler.$h);
   }
 
   /// Go: `func log.SubsystemLevelName(subsys string) (string, error)`.
   String subsystemLevelName(String subsys) {
-    final $r = $callSync(11099, $W()..str(subsys));
+    final $r = $callSync(11105, $W()..str(subsys));
     return $r.str();
   }
 
   /// Go: `func log.SubsystemLevelNames() map[string]string`.
   Map<String, String> subsystemLevelNames() {
-    final $r = $callSync(11100);
+    final $r = $callSync(11106);
     return $r.map(() => $r.str(), () => $r.str());
   }
 
   /// Go: `func log.WithSkip(l *log.ZapEventLogger, skip int) *log.ZapEventLogger`.
   LogV2ZapEventLogger withSkip(LogV2ZapEventLogger l, int skip) {
     final $r = $callSync(
-        11101,
+        11107,
         $W()
           ..h(l)
           ..i64(skip));
@@ -492,7 +492,7 @@ extension GoIpfsLogV2Api on GoIpfsLogV2 {
   /// Go: `func log.WithStacktrace(l *log.ZapEventLogger, level log.LogLevel) *log.ZapEventLogger`.
   LogV2ZapEventLogger withStacktrace(LogV2ZapEventLogger l, int level) {
     final $r = $callSync(
-        11102,
+        11108,
         $W()
           ..h(l)
           ..i64(level));
@@ -522,13 +522,13 @@ extension GoIpfsLogV2EnumsApi on GoIpfsLogV2Enums {
 extension GoIpfsLogV2OptionsApi on GoIpfsLogV2Options {
   /// Go: `func log.PipeFormat(format log.LogFormat) log.PipeReaderOption`.
   LogV2PipeReaderOption pipeFormat(int format) {
-    final $r = $callSync(11076, $W()..i64(format));
+    final $r = $callSync(11082, $W()..i64(format));
     return $r.hnn(LogV2PipeReaderOption.$h);
   }
 
   /// Go: `func log.PipeLevel(level log.LogLevel) log.PipeReaderOption`.
   LogV2PipeReaderOption pipeLevel(int level) {
-    final $r = $callSync(11077, $W()..i64(level));
+    final $r = $callSync(11083, $W()..i64(level));
     return $r.hnn(LogV2PipeReaderOption.$h);
   }
 }

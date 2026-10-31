@@ -36,49 +36,49 @@ class PathFilepathSkipDir extends GolangException {
 extension GoPathFilepathApi on GoPathFilepath {
   /// Go: `func filepath.Abs(path string) (string, error)`.
   String abs(String path) {
-    final $r = $callSync(26975, $W()..str(path));
+    final $r = $callSync(26976, $W()..str(path));
     return $r.str();
   }
 
   /// Go: `func filepath.Base(path string) string`.
   String base(String path) {
-    final $r = $callSync(26976, $W()..str(path));
+    final $r = $callSync(26977, $W()..str(path));
     return $r.str();
   }
 
   /// Go: `func filepath.Clean(path string) string`.
   String clean(String path) {
-    final $r = $callSync(26977, $W()..str(path));
+    final $r = $callSync(26978, $W()..str(path));
     return $r.str();
   }
 
   /// Go: `func filepath.Dir(path string) string`.
   String dir(String path) {
-    final $r = $callSync(26978, $W()..str(path));
+    final $r = $callSync(26979, $W()..str(path));
     return $r.str();
   }
 
   /// Go: `func filepath.EvalSymlinks(path string) (string, error)`.
   String evalSymlinks(String path) {
-    final $r = $callSync(26979, $W()..str(path));
+    final $r = $callSync(26980, $W()..str(path));
     return $r.str();
   }
 
   /// Go: `func filepath.Ext(path string) string`.
   String ext(String path) {
-    final $r = $callSync(26980, $W()..str(path));
+    final $r = $callSync(26981, $W()..str(path));
     return $r.str();
   }
 
   /// Go: `func filepath.FromSlash(path string) string`.
   String fromSlash(String path) {
-    final $r = $callSync(26981, $W()..str(path));
+    final $r = $callSync(26982, $W()..str(path));
     return $r.str();
   }
 
   /// Go: `func filepath.Glob(pattern string) (matches []string, err error)`.
   List<String> glob(String pattern) {
-    final $r = $callSync(26982, $W()..str(pattern));
+    final $r = $callSync(26983, $W()..str(pattern));
     return $r.list(() => $r.str());
   }
 
@@ -87,7 +87,7 @@ extension GoPathFilepathApi on GoPathFilepath {
       "HasPrefix does not respect path boundaries and does not ignore case when required.")
   bool hasPrefix(String p, String prefix) {
     final $r = $callSync(
-        26983,
+        26984,
         $W()
           ..str(p)
           ..str(prefix));
@@ -96,32 +96,32 @@ extension GoPathFilepathApi on GoPathFilepath {
 
   /// Go: `func filepath.IsAbs(path string) bool`.
   bool isAbs(String path) {
-    final $r = $callSync(26984, $W()..str(path));
+    final $r = $callSync(26985, $W()..str(path));
     return $r.b();
   }
 
   /// Go: `func filepath.IsLocal(path string) bool`.
   bool isLocal(String path) {
-    final $r = $callSync(26985, $W()..str(path));
+    final $r = $callSync(26986, $W()..str(path));
     return $r.b();
   }
 
   /// Go: `func filepath.Join(elem ...string) string`.
   String join([List<String> elem = const []]) {
-    final $r = $callSync(26986, $W()..list(elem, (w0, e0) => w0.str(e0)));
+    final $r = $callSync(26987, $W()..list(elem, (w0, e0) => w0.str(e0)));
     return $r.str();
   }
 
   /// Go: `func filepath.Localize(path string) (string, error)`.
   String localize(String path) {
-    final $r = $callSync(26988, $W()..str(path));
+    final $r = $callSync(26989, $W()..str(path));
     return $r.str();
   }
 
   /// Go: `func filepath.Match(pattern string, name string) (matched bool, err error)`.
   bool match(String pattern, String name) {
     final $r = $callSync(
-        26989,
+        26990,
         $W()
           ..str(pattern)
           ..str(name));
@@ -131,7 +131,7 @@ extension GoPathFilepathApi on GoPathFilepath {
   /// Go: `func filepath.Rel(basePath string, targPath string) (string, error)`.
   String rel(String basePath, String targPath) {
     final $r = $callSync(
-        26990,
+        26991,
         $W()
           ..str(basePath)
           ..str(targPath));
@@ -140,25 +140,25 @@ extension GoPathFilepathApi on GoPathFilepath {
 
   /// Go: `func filepath.Split(path string) (dir string, file string)`.
   (String, String) split(String path) {
-    final $r = $callSync(26992, $W()..str(path));
+    final $r = $callSync(26993, $W()..str(path));
     return ($r.str(), $r.str());
   }
 
   /// Go: `func filepath.SplitList(path string) []string`.
   List<String> splitList(String path) {
-    final $r = $callSync(26993, $W()..str(path));
+    final $r = $callSync(26994, $W()..str(path));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func filepath.ToSlash(path string) string`.
   String toSlash(String path) {
-    final $r = $callSync(26994, $W()..str(path));
+    final $r = $callSync(26995, $W()..str(path));
     return $r.str();
   }
 
   /// Go: `func filepath.VolumeName(path string) string`.
   String volumeName(String path) {
-    final $r = $callSync(26995, $W()..str(path));
+    final $r = $callSync(26996, $W()..str(path));
     return $r.str();
   }
 }
@@ -167,13 +167,13 @@ extension GoPathFilepathApi on GoPathFilepath {
 extension GoPathFilepathConstsApi on GoPathFilepathConsts {
   /// Go: `const filepath.ListSeparator untyped rune`.
   int get listSeparator {
-    final $r = $callSync(26987);
+    final $r = $callSync(26988);
     return $r.i64();
   }
 
   /// Go: `const filepath.Separator untyped rune`.
   int get separator {
-    final $r = $callSync(26991);
+    final $r = $callSync(26992);
     return $r.i64();
   }
 }

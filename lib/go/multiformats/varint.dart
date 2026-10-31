@@ -40,14 +40,14 @@ class VarintErrUnderflow extends GolangException {
 extension GoMultiformatsVarintApi on GoMultiformatsVarint {
   /// Go: `func varint.FromUvarint(buf []byte) (uint64, int, error)`.
   (int, int) fromUvarint(Uint8List buf) {
-    final $r = $callSync(16020, $W()..bytes(buf));
+    final $r = $callSync(16026, $W()..bytes(buf));
     return ($r.i64(), $r.i64());
   }
 
   /// Go: `func varint.PutUvarint(buf []byte, x uint64) int`.
   int putUvarint(Uint8List buf, int x) {
     final $r = $callSync(
-        16021,
+        16027,
         $W()
           ..bytes(buf)
           ..i64(x));
@@ -56,19 +56,19 @@ extension GoMultiformatsVarintApi on GoMultiformatsVarint {
 
   /// Go: `func varint.ReadUvarint(r io.ByteReader) (uint64, error)`.
   int readUvarint($io.IoByteReader r) {
-    final $r = $callSync(16022, $W()..dto(r));
+    final $r = $callSync(16028, $W()..dto(r));
     return $r.i64();
   }
 
   /// Go: `func varint.ToUvarint(num uint64) []byte`.
   Uint8List toUvarint(int num) {
-    final $r = $callSync(16023, $W()..i64(num));
+    final $r = $callSync(16029, $W()..i64(num));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func varint.UvarintSize(num uint64) int`.
   int uvarintSize(int num) {
-    final $r = $callSync(16024, $W()..i64(num));
+    final $r = $callSync(16030, $W()..i64(num));
     return $r.i64();
   }
 }

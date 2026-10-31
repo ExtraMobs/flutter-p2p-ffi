@@ -38,19 +38,19 @@ class CompressGzipReader extends $io.IoCloser
 
   /// Go: `func gzip.NewReader(r io.Reader) (*gzip.Reader, error)`.
   factory CompressGzipReader(Object r) {
-    final $r = $callSync(3068, $W()..reader(r));
+    final $r = $callSync(3077, $W()..reader(r));
     return $r.hnn(CompressGzipReader.$h);
   }
 
   /// Go: `func (*gzip.Reader).Close() error`.
   void close() {
-    $callSync(3071, $W()..h(this));
+    $callSync(3080, $W()..h(this));
   }
 
   /// Go: `func (*gzip.Reader).Multistream(ok bool)`.
   void multistream(bool ok) {
     $callSync(
-        3072,
+        3081,
         $W()
           ..h(this)
           ..b(ok));
@@ -59,7 +59,7 @@ class CompressGzipReader extends $io.IoCloser
   /// Go: `func (*gzip.Reader).Read(p []byte) (n int, err error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        3073,
+        3082,
         $W()
           ..h(this)
           ..i64(n));
@@ -69,7 +69,7 @@ class CompressGzipReader extends $io.IoCloser
   /// Go: `func (*gzip.Reader).Reset(r io.Reader) error`.
   void reset(Object r) {
     $callSync(
-        3074,
+        3083,
         $W()
           ..h(this)
           ..reader(r));
@@ -100,24 +100,24 @@ class CompressGzipWriter extends $io.IoCloser
 
   /// Go: `func gzip.NewWriter(w io.Writer) *gzip.Writer`.
   factory CompressGzipWriter(GoHandle? w) {
-    final $r = $callSync(3069, $W()..h(w));
+    final $r = $callSync(3078, $W()..h(w));
     return $r.hnn(CompressGzipWriter.$h);
   }
 
   /// Go: `func (*gzip.Writer).Close() error`.
   void close() {
-    $callSync(3075, $W()..h(this));
+    $callSync(3084, $W()..h(this));
   }
 
   /// Go: `func (*gzip.Writer).Flush() error`.
   void flush() {
-    $callSync(3076, $W()..h(this));
+    $callSync(3085, $W()..h(this));
   }
 
   /// Go: `func (*gzip.Writer).Reset(w io.Writer)`.
   void reset(GoHandle? w) {
     $callSync(
-        3077,
+        3086,
         $W()
           ..h(this)
           ..h(w));
@@ -126,7 +126,7 @@ class CompressGzipWriter extends $io.IoCloser
   /// Go: `func (*gzip.Writer).Write(p []byte) (int, error)`.
   int write(Uint8List p) {
     final $r = $callSync(
-        3078,
+        3087,
         $W()
           ..h(this)
           ..bytes(p));
@@ -157,7 +157,7 @@ extension GoCompressGzipApi on GoCompressGzip {
   /// Go: `func gzip.NewWriterLevel(w io.Writer, level int) (*gzip.Writer, error)`.
   CompressGzipWriter newWriterLevel(GoHandle? w, int level) {
     final $r = $callSync(
-        3070,
+        3079,
         $W()
           ..h(w)
           ..i64(level));

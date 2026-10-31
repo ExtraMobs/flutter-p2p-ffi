@@ -106,7 +106,7 @@ final class GoBuildContext implements GoDto {
   /// Go: `func (*build.Context).Import(path string, srcDir string, mode build.ImportMode) (*build.Package, error)`.
   GoBuildPackage import(String path, String srcDir, int mode) {
     final $r = $callSync(
-        23186,
+        23192,
         $W()
           ..dto(this)
           ..str(path)
@@ -118,7 +118,7 @@ final class GoBuildContext implements GoDto {
   /// Go: `func (*build.Context).ImportDir(dir string, mode build.ImportMode) (*build.Package, error)`.
   GoBuildPackage importDir(String dir, int mode) {
     final $r = $callSync(
-        23187,
+        23193,
         $W()
           ..dto(this)
           ..str(dir)
@@ -129,7 +129,7 @@ final class GoBuildContext implements GoDto {
   /// Go: `func (*build.Context).MatchFile(dir string, name string) (match bool, err error)`.
   bool matchFile(String dir, String name) {
     final $r = $callSync(
-        23188,
+        23194,
         $W()
           ..dto(this)
           ..str(dir)
@@ -139,7 +139,7 @@ final class GoBuildContext implements GoDto {
 
   /// Go: `func (*build.Context).SrcDirs() []string`.
   List<String> srcDirs() {
-    final $r = $callSync(23189, $W()..dto(this));
+    final $r = $callSync(23195, $W()..dto(this));
     return $r.list(() => $r.str());
   }
 }
@@ -571,7 +571,7 @@ final class GoBuildPackage implements GoDto {
 
   /// Go: `func (*build.Package).IsCommand() bool`.
   bool isCommand() {
-    final $r = $callSync(23194, $W()..dto(this));
+    final $r = $callSync(23200, $W()..dto(this));
     return $r.b();
   }
 }
@@ -608,20 +608,20 @@ class GoBuildNoGoError extends GolangException {
 extension GoGoBuildApi on GoGoBuild {
   /// Go: `func build.ArchChar(goarch string) (string, error)`.
   String archChar(String goarch) {
-    final $r = $callSync(23185, $W()..str(goarch));
+    final $r = $callSync(23191, $W()..str(goarch));
     return $r.str();
   }
 
   /// Go: `var build.Default build.Context`.
   GoBuildContext get default$ {
-    final $r = $callSync(23190);
+    final $r = $callSync(23196);
     return $r.p() ? GoBuildContext.$dec($r) : $nil();
   }
 
   /// Go: `func build.Import(path string, srcDir string, mode build.ImportMode) (*build.Package, error)`.
   GoBuildPackage import(String path, String srcDir, int mode) {
     final $r = $callSync(
-        23191,
+        23197,
         $W()
           ..str(path)
           ..str(srcDir)
@@ -632,7 +632,7 @@ extension GoGoBuildApi on GoGoBuild {
   /// Go: `func build.ImportDir(dir string, mode build.ImportMode) (*build.Package, error)`.
   GoBuildPackage importDir(String dir, int mode) {
     final $r = $callSync(
-        23192,
+        23198,
         $W()
           ..str(dir)
           ..i64(mode));
@@ -641,13 +641,13 @@ extension GoGoBuildApi on GoGoBuild {
 
   /// Go: `func build.IsLocalImport(path string) bool`.
   bool isLocalImport(String path) {
-    final $r = $callSync(23193, $W()..str(path));
+    final $r = $callSync(23199, $W()..str(path));
     return $r.b();
   }
 
   /// Go: `var build.ToolDir string`.
   String get toolDir {
-    final $r = $callSync(23195);
+    final $r = $callSync(23201);
     return $r.str();
   }
 }

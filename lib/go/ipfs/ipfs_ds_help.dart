@@ -14,7 +14,7 @@ extension GoIpfsIpfsDsHelpApi on GoIpfsIpfsDsHelp {
   /// Go: `func dshelp.BinaryFromDsKey(k datastore.Key) ([]byte, error)`.
   @Deprecated("use github.com/ipfs/boxo/datastore/dshelp.BinaryFromDsKey")
   Uint8List binaryFromDsKey($datastore.DatastoreKey k) {
-    final $r = $callSync(10899, $W()..h(k));
+    final $r = $callSync(10908, $W()..h(k));
     return $r.bytes() ?? Uint8List(0);
   }
 
@@ -22,7 +22,7 @@ extension GoIpfsIpfsDsHelpApi on GoIpfsIpfsDsHelp {
   @Deprecated("use github.com/ipfs/boxo/datastore/dshelp.DsKeyToCidV1")
   $cid.Cid dsKeyToCidV1($datastore.DatastoreKey dsKey, int codecType) {
     final $r = $callSync(
-        10900,
+        10909,
         $W()
           ..h(dsKey)
           ..i64(codecType));
@@ -32,21 +32,21 @@ extension GoIpfsIpfsDsHelpApi on GoIpfsIpfsDsHelp {
   /// Go: `func dshelp.DsKeyToMultihash(dsKey datastore.Key) (multihash.Multihash, error)`.
   @Deprecated("use github.com/ipfs/boxo/datastore/dshelp.DsKeyToMultihash")
   Uint8List dsKeyToMultihash($datastore.DatastoreKey dsKey) {
-    final $r = $callSync(10901, $W()..h(dsKey));
+    final $r = $callSync(10910, $W()..h(dsKey));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func dshelp.MultihashToDsKey(k multihash.Multihash) datastore.Key`.
   @Deprecated("use github.com/ipfs/boxo/datastore/dshelp.MultihashToDsKey")
   $datastore.DatastoreKey multihashToDsKey(Uint8List k) {
-    final $r = $callSync(10902, $W()..bytes(k));
+    final $r = $callSync(10911, $W()..bytes(k));
     return $r.hnn($datastore.DatastoreKey.$h);
   }
 
   /// Go: `func dshelp.NewKeyFromBinary(rawKey []byte) datastore.Key`.
   @Deprecated("use github.com/ipfs/boxo/datastore/dshelp.NewKeyFromBinary")
   $datastore.DatastoreKey newKeyFromBinary(Uint8List rawKey) {
-    final $r = $callSync(10903, $W()..bytes(rawKey));
+    final $r = $callSync(10912, $W()..bytes(rawKey));
     return $r.hnn($datastore.DatastoreKey.$h);
   }
 }

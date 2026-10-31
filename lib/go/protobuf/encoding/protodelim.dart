@@ -40,7 +40,7 @@ final class ProtobufEncodingProtodelimMarshalOptions implements GoDto {
   int marshalTo(
       GoHandle? w, $protoreflect.ProtobufReflectProtoreflectProtoMessage m) {
     final $r = $callSync(
-        24726,
+        24732,
         $W()
           ..dto(this)
           ..h(w)
@@ -59,85 +59,85 @@ class ProtobufEncodingProtodelimReader extends GoHandle
 mixin ProtobufEncodingProtodelimReader$ on GoHandle {
   /// Go: type assertion `x.(*bufio.Reader)`: null if the object is not one.
   $bufio.BufioReader? asBufioReader() {
-    final $r = $callSync(2168, $W()..h(this));
+    final $r = $callSync(2175, $W()..h(this));
     return $r.hn($bufio.BufioReader.$h);
   }
 
   /// Go: type assertion `x.(*bytes.Buffer)`: null if the object is not one.
   $bytes.BytesBuffer? asBytesBuffer() {
-    final $r = $callSync(2169, $W()..h(this));
+    final $r = $callSync(2176, $W()..h(this));
     return $r.hn($bytes.BytesBuffer.$h);
   }
 
   /// Go: type assertion `x.(*bytes.Reader)`: null if the object is not one.
   $bytes.BytesReader? asBytesReader() {
-    final $r = $callSync(2170, $W()..h(this));
+    final $r = $callSync(2177, $W()..h(this));
     return $r.hn($bytes.BytesReader.$h);
   }
 
   /// Go: type assertion `x.(*snappy.Reader)`: null if the object is not one.
   $snappy.SnappyReader? asSnappyReader() {
-    final $r = $callSync(2171, $W()..h(this));
+    final $r = $callSync(2178, $W()..h(this));
     return $r.hn($snappy.SnappyReader.$h);
   }
 
   /// Go: type assertion `x.(*s2.ReadSeeker)`: null if the object is not one.
   $s2.CompressS2ReadSeeker? asCompressS2ReadSeeker() {
-    final $r = $callSync(2172, $W()..h(this));
+    final $r = $callSync(2179, $W()..h(this));
     return $r.hn($s2.CompressS2ReadSeeker.$h);
   }
 
   /// Go: type assertion `x.(*s2.Reader)`: null if the object is not one.
   $s2.CompressS2Reader? asCompressS2Reader() {
-    final $r = $callSync(2173, $W()..h(this));
+    final $r = $callSync(2180, $W()..h(this));
     return $r.hn($s2.CompressS2Reader.$h);
   }
 
   /// Go: type assertion `x.(*pool.Buffer)`: null if the object is not one.
   $buffer_pool.BufferPoolBuffer? asBufferPoolBuffer() {
-    final $r = $callSync(2174, $W()..h(this));
+    final $r = $callSync(2181, $W()..h(this));
     return $r.hn($buffer_pool.BufferPoolBuffer.$h);
   }
 
   /// Go: type assertion `x.(*minlz.ReadSeeker)`: null if the object is not one.
   $minlz.MinlzReadSeeker? asMinlzReadSeeker() {
-    final $r = $callSync(2175, $W()..h(this));
+    final $r = $callSync(2182, $W()..h(this));
     return $r.hn($minlz.MinlzReadSeeker.$h);
   }
 
   /// Go: type assertion `x.(*minlz.Reader)`: null if the object is not one.
   $minlz.MinlzReader? asMinlzReader() {
-    final $r = $callSync(2176, $W()..h(this));
+    final $r = $callSync(2183, $W()..h(this));
     return $r.hn($minlz.MinlzReader.$h);
   }
 
   /// Go: type assertion `x.(*http3.CapsuleReader)`: null if the object is not one.
   $http3.QuicGoHttp3CapsuleReader? asQuicGoHttp3CapsuleReader() {
-    final $r = $callSync(2177, $W()..h(this));
+    final $r = $callSync(2184, $W()..h(this));
     return $r.hn($http3.QuicGoHttp3CapsuleReader.$h);
   }
 
   /// Go: type assertion `x.(*util.Buffer)`: null if the object is not one.
   $util.GoleveldbLeveldbUtilBuffer? asGoleveldbLeveldbUtilBuffer() {
-    final $r = $callSync(2178, $W()..h(this));
+    final $r = $callSync(2185, $W()..h(this));
     return $r.hn($util.GoleveldbLeveldbUtilBuffer.$h);
   }
 
   /// Go: type assertion `x.(*typegen.CborReader)`: null if the object is not one.
   $cbor_gen.CborGenCborReader? asCborGenCborReader() {
-    final $r = $callSync(2179, $W()..h(this));
+    final $r = $callSync(2186, $W()..h(this));
     return $r.hn($cbor_gen.CborGenCborReader.$h);
   }
 
   /// Go: type assertion `x.(*mem.Reader)`: null if the object is not one.
   $mem.GrpcMemReader? asGrpcMemReader() {
-    final $r = $callSync(2180, $W()..h(this));
+    final $r = $callSync(2187, $W()..h(this));
     return $r.hn($mem.GrpcMemReader.$h);
   }
 
   /// Go: type assertion `x.(*strings.Reader)`: null if the object is not one.
   $strings.StringsReader? asStringsReader() {
-    final $r = $callSync(2181, $W()..h(this));
+    final $r = $callSync(2188, $W()..h(this));
     return $r.hn($strings.StringsReader.$h);
   }
 }
@@ -171,7 +171,7 @@ final class ProtobufEncodingProtodelimUnmarshalOptions implements GoDto {
   void unmarshalFrom(ProtobufEncodingProtodelimReader r,
       $protoreflect.ProtobufReflectProtoreflectProtoMessage m) {
     $callSync(
-        24729,
+        24735,
         $W()
           ..dto(this)
           ..h(r)
@@ -203,7 +203,7 @@ extension GoProtobufEncodingProtodelimApi on GoProtobufEncodingProtodelim {
   int marshalTo(
       GoHandle? w, $protoreflect.ProtobufReflectProtoreflectProtoMessage m) {
     final $r = $callSync(
-        24727,
+        24733,
         $W()
           ..h(w)
           ..h(m));
@@ -214,7 +214,7 @@ extension GoProtobufEncodingProtodelimApi on GoProtobufEncodingProtodelim {
   void unmarshalFrom(ProtobufEncodingProtodelimReader r,
       $protoreflect.ProtobufReflectProtoreflectProtoMessage m) {
     $callSync(
-        24728,
+        24734,
         $W()
           ..h(r)
           ..h(m));

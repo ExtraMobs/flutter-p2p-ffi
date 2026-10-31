@@ -43,7 +43,7 @@ final class Libp2pKbucketKeyspaceKey implements GoDto {
   /// Go: `func (keyspace.Key).Compare(k2 keyspace.Key) int`.
   int compare(Libp2pKbucketKeyspaceKey k2) {
     final $r = $callSync(
-        13132,
+        13138,
         $W()
           ..dto(this)
           ..dto(k2));
@@ -53,7 +53,7 @@ final class Libp2pKbucketKeyspaceKey implements GoDto {
   /// Go: `func (keyspace.Key).Distance(k2 keyspace.Key) *big.Int`.
   $big.MathBigInt distance(Libp2pKbucketKeyspaceKey k2) {
     final $r = $callSync(
-        13133,
+        13139,
         $W()
           ..dto(this)
           ..dto(k2));
@@ -63,7 +63,7 @@ final class Libp2pKbucketKeyspaceKey implements GoDto {
   /// Go: `func (keyspace.Key).Equal(k2 keyspace.Key) bool`.
   bool equal(Libp2pKbucketKeyspaceKey k2) {
     final $r = $callSync(
-        13134,
+        13140,
         $W()
           ..dto(this)
           ..dto(k2));
@@ -82,7 +82,7 @@ mixin Libp2pKbucketKeyspaceKeySpace$ on GoHandle {
   /// Go: `func (keyspace.KeySpace).Compare(keyspace.Key, keyspace.Key) int`.
   int compare(Libp2pKbucketKeyspaceKey key, Libp2pKbucketKeyspaceKey key2) {
     final $r = $callSync(
-        13135,
+        13141,
         $W()
           ..h(this)
           ..dto(key)
@@ -94,7 +94,7 @@ mixin Libp2pKbucketKeyspaceKeySpace$ on GoHandle {
   $big.MathBigInt distance(
       Libp2pKbucketKeyspaceKey key, Libp2pKbucketKeyspaceKey key2) {
     final $r = $callSync(
-        13136,
+        13142,
         $W()
           ..h(this)
           ..dto(key)
@@ -105,7 +105,7 @@ mixin Libp2pKbucketKeyspaceKeySpace$ on GoHandle {
   /// Go: `func (keyspace.KeySpace).Equal(keyspace.Key, keyspace.Key) bool`.
   bool equal(Libp2pKbucketKeyspaceKey key, Libp2pKbucketKeyspaceKey key2) {
     final $r = $callSync(
-        13137,
+        13143,
         $W()
           ..h(this)
           ..dto(key)
@@ -116,7 +116,7 @@ mixin Libp2pKbucketKeyspaceKeySpace$ on GoHandle {
   /// Go: `func (keyspace.KeySpace).Key([]byte) keyspace.Key`.
   Libp2pKbucketKeyspaceKey key(Uint8List arg0) {
     final $r = $callSync(
-        13138,
+        13144,
         $W()
           ..h(this)
           ..bytes(arg0));
@@ -132,7 +132,7 @@ extension GoLibp2pLibp2pKbucketKeyspaceApi on GoLibp2pLibp2pKbucketKeyspace {
       Libp2pKbucketKeyspaceKey center,
       List<Libp2pKbucketKeyspaceKey> toSort) {
     final $r = $callSync(
-        13139,
+        13145,
         $W()
           ..h(sp)
           ..dto(center)
@@ -143,7 +143,7 @@ extension GoLibp2pLibp2pKbucketKeyspaceApi on GoLibp2pLibp2pKbucketKeyspace {
   /// Go: `func keyspace.Xor(a []byte, b []byte) []byte`.
   Uint8List xor(Uint8List a, Uint8List b) {
     final $r = $callSync(
-        13140,
+        13146,
         $W()
           ..bytes(a)
           ..bytes(b));
@@ -152,7 +152,7 @@ extension GoLibp2pLibp2pKbucketKeyspaceApi on GoLibp2pLibp2pKbucketKeyspace {
 
   /// Go: `func keyspace.ZeroPrefixLen(id []byte) int`.
   int zeroPrefixLen(Uint8List id) {
-    final $r = $callSync(13141, $W()..bytes(id));
+    final $r = $callSync(13147, $W()..bytes(id));
     return $r.i64();
   }
 }

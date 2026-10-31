@@ -2570,10 +2570,13 @@ Omitted:
 | `func (*certmagic.ZeroSSLIssuer).IssuerKey() string` | `CertmagicZeroSslIssuer.issuerKey` | sync |
 | `func (*certmagic.ZeroSSLIssuer).Revoke(ctx context.Context, cert certmagic.CertificateResource, reason int) error` | `CertmagicZeroSslIssuer.revoke` | Future |
 | `certmagic.Issuer → x.(*certmagic.ACMEIssuer)` | `CertmagicIssuer.asCertmagicAcmeIssuer` | cast |
+| `certmagic.Locker → x.(*certmagic.FileStorage)` | `CertmagicLocker.asCertmagicFileStorage` | cast |
 | `certmagic.Locker → x.(certmagic.Storage)` | `CertmagicLocker.asCertmagicStorage` | cast |
 | `certmagic.PreChecker → x.(*certmagic.ACMEIssuer)` | `CertmagicPreChecker.asCertmagicAcmeIssuer` | cast |
 | `certmagic.RenewalInfoGetter → x.(*certmagic.ACMEIssuer)` | `CertmagicRenewalInfoGetter.asCertmagicAcmeIssuer` | cast |
 | `certmagic.Revoker → x.(*certmagic.ACMEIssuer)` | `CertmagicRevoker.asCertmagicAcmeIssuer` | cast |
+| `certmagic.Storage → x.(*certmagic.FileStorage)` | `CertmagicStorage.asCertmagicFileStorage` | cast |
+| `certmagic.TryLocker → x.(*certmagic.FileStorage)` | `CertmagicTryLocker.asCertmagicFileStorage` | cast |
 | `const certmagic.ClientHelloInfoCtxKey certmagic.helloInfoCtxKey` | `go.caddyserver.certmagic.enums.clientHelloInfoCtxKey` | const |
 | `const certmagic.DefaultOCSPCheckInterval time.Duration` | `go.caddyserver.certmagic.enums.defaultOcspCheckInterval` | const |
 | `const certmagic.DefaultRenewCheckInterval time.Duration` | `go.caddyserver.certmagic.enums.defaultRenewCheckInterval` | const |
@@ -13412,9 +13415,6 @@ Omitted:
 | `func (*encoding.Marshaller).Encode(obj interface{}, w io.Writer) error` | `IpldCborEncodingMarshaller.encode` | sync |
 | `func (*encoding.Marshaller).Marshal(obj interface{}) ([]byte, error)` | `IpldCborEncodingMarshaller.marshal` | sync |
 | `func encoding.NewMarshallerAtlased(atl atlas.Atlas) *encoding.Marshaller` | `go.ipfs.ipldCbor.encoding.newMarshallerAtlased` | sync |
-| `func encoding.NewPooledCloner(atl atlas.Atlas) encoding.PooledCloner` | `factory IpldCborEncodingPooledCloner` | sync |
-| `func encoding.NewPooledMarshaller(atl atlas.Atlas) encoding.PooledMarshaller` | `factory IpldCborEncodingPooledMarshaller` | sync |
-| `func encoding.NewPooledUnmarshaller(atl atlas.Atlas) encoding.PooledUnmarshaller` | `factory IpldCborEncodingPooledUnmarshaller` | sync |
 | `func encoding.NewUnmarshallerAtlased(atl atlas.Atlas) *encoding.Unmarshaller` | `go.ipfs.ipldCbor.encoding.newUnmarshallerAtlased` | sync |
 | `func (*encoding.PooledCloner).Clone(a interface{}, b interface{}) error` | `IpldCborEncodingPooledCloner.clone` | sync |
 | `func (*encoding.PooledMarshaller).Encode(obj interface{}, w io.Writer) error` | `IpldCborEncodingPooledMarshaller.encode` | sync |
@@ -13423,6 +13423,12 @@ Omitted:
 | `func (*encoding.PooledUnmarshaller).Unmarshal(b []byte, obj interface{}) error` | `IpldCborEncodingPooledUnmarshaller.unmarshal` | sync |
 | `func (*encoding.Unmarshaller).Decode(r io.Reader, obj interface{}) (err error)` | `IpldCborEncodingUnmarshaller.decode` | sync |
 | `func (*encoding.Unmarshaller).Unmarshal(b []byte, obj interface{}) error` | `IpldCborEncodingUnmarshaller.unmarshal` | sync |
+
+Omitted:
+
+- `func encoding.NewPooledCloner(atl atlas.Atlas) encoding.PooledCloner`: result 0: github.com/ipfs/go-ipld-cbor/encoding.PooledCloner holds a lock: Go does not copy it
+- `func encoding.NewPooledMarshaller(atl atlas.Atlas) encoding.PooledMarshaller`: result 0: github.com/ipfs/go-ipld-cbor/encoding.PooledMarshaller holds a lock: Go does not copy it
+- `func encoding.NewPooledUnmarshaller(atl atlas.Atlas) encoding.PooledUnmarshaller`: result 0: github.com/ipfs/go-ipld-cbor/encoding.PooledUnmarshaller holds a lock: Go does not copy it
 
 ## `github.com/ipfs/go-ipld-format` → `go.ipfs.ipldFormat` (`lib/go/ipfs/ipld_format.dart`)
 
@@ -21267,7 +21273,7 @@ Omitted:
 | `func msgio.LimitedReader(r io.Reader) (io.Reader, error)` | `go.libp2p.msgio.limitedReader` | sync |
 | `func (*msgio.LimitedWriter).Flush() error` | `MsgioLimitedWriter.flush` | sync |
 | `func (*msgio.LimitedWriter).Write(buf []byte) (n int, err error)` | `MsgioLimitedWriter.write` | sync |
-| `func msgio.NewLimitedWriter(w io.Writer) *msgio.LimitedWriter` | `go.libp2p.msgio.newLimitedWriter` | sync |
+| `func msgio.NewLimitedWriter(w io.Writer) *msgio.LimitedWriter` | `factory MsgioLimitedWriter` | sync |
 | `func msgio.NewReadWriter(rw io.ReadWriter) msgio.ReadWriteCloser` | `go.libp2p.msgio.newReadWriter` | sync |
 | `func msgio.NewReader(r io.Reader) msgio.ReadCloser` | `go.libp2p.msgio.newReader` | sync |
 | `func msgio.NewReaderSize(r io.Reader, maxMessageSize int) msgio.ReadCloser` | `go.libp2p.msgio.newReaderSize` | sync |
@@ -21513,6 +21519,8 @@ Omitted:
 | `func acmez.StaticCSR(csr *x509.CertificateRequest) acmez.CSRSource` | `go.mholt.acmez.v3.staticCsr` | sync |
 | `func acmez.TLSALPN01ChallengeCert(challenge acme.Challenge) (*tls.Certificate, error)` | `go.mholt.acmez.v3.tlsalpn01ChallengeCert` | sync |
 | `func (acmez.Waiter).Wait(context.Context, acme.Challenge) error` | `AcmezV3Waiter.wait` | Future |
+| `acmez.Solver → x.(*certmagic.DNS01Solver)` | `AcmezV3Solver.asCertmagicDns01Solver` | cast |
+| `acmez.Waiter → x.(*certmagic.DNS01Solver)` | `AcmezV3Waiter.asCertmagicDns01Solver` | cast |
 | `const acmez.ACMETLS1Protocol untyped string` | `go.mholt.acmez.v3.consts.acmetls1Protocol` | const |
 
 ## `github.com/mholt/acmez/v3/acme` → `go.mholt.acmez.v3.acme` (`lib/go/mholt/acmez/v3/acme.dart`)
@@ -28848,12 +28856,14 @@ Omitted:
 | `func (storage.Storage).Remove(fd storage.FileDesc) error` | `GoleveldbLeveldbStorage.remove` | sync |
 | `func (storage.Storage).Rename(oldfd storage.FileDesc, newfd storage.FileDesc) error` | `GoleveldbLeveldbStorage.rename` | sync |
 | `func (storage.Storage).SetMeta(fd storage.FileDesc) error` | `GoleveldbLeveldbStorage.setMeta` | sync |
+| `storage.Locker → x.(*jsync.NoCopy)` | `GoleveldbLeveldbStorageLocker.asJsyncNoCopy` | cast |
 | `storage.Locker → x.(*badger.DB)` | `GoleveldbLeveldbStorageLocker.asBadgerDb` | cast |
 | `storage.Locker → x.(*badger.MergeOperator)` | `GoleveldbLeveldbStorageLocker.asBadgerMergeOperator` | cast |
 | `storage.Locker → x.(*badger.Sequence)` | `GoleveldbLeveldbStorageLocker.asBadgerSequence` | cast |
 | `storage.Locker → x.(*badger.WriteBatch)` | `GoleveldbLeveldbStorageLocker.asBadgerWriteBatch` | cast |
 | `storage.Locker → x.(*table.Table)` | `GoleveldbLeveldbStorageLocker.asBadgerTable` | cast |
 | `storage.Locker → x.(*sync.MutexDatastore)` | `GoleveldbLeveldbStorageLocker.asDatastoreSyncMutexDatastore` | cast |
+| `storage.Locker → x.(*p2p.Listeners)` | `GoleveldbLeveldbStorageLocker.asKuboP2pListeners` | cast |
 | `storage.Locker → x.(*p2p.StreamRegistry)` | `GoleveldbLeveldbStorageLocker.asKuboP2pStreamRegistry` | cast |
 | `storage.Locker → x.(*ipv4.PacketConn)` | `GoleveldbLeveldbStorageLocker.asNetIpv4PacketConn` | cast |
 | `storage.Locker → x.(*ipv4.RawConn)` | `GoleveldbLeveldbStorageLocker.asNetIpv4RawConn` | cast |
@@ -42688,20 +42698,6 @@ Omitted:
 | `func exec.CommandContext(ctx context.Context, name string, arg ...string) *exec.Cmd` | `go.os.exec.commandContext` | Future |
 | `func exec.LookPath(file string) (string, error)` | `go.os.exec.lookPath` | sync |
 
-## `os/signal` → `go.os.signal` (`lib/go/os/signal.dart`)
-
-| Go | Dart | Mode |
-|---|---|---|
-| `func signal.Ignore(sig ...os.Signal)` | `go.os.signal.ignore` | sync |
-| `func signal.Ignored(sig os.Signal) bool` | `go.os.signal.ignored` | sync |
-| `func signal.Notify(c chan<- os.Signal, sig ...os.Signal)` | `go.os.signal.notify` | Stream |
-| `func signal.Reset(sig ...os.Signal)` | `go.os.signal.reset` | sync |
-| `func signal.Stop(c chan<- os.Signal)` | `go.os.signal.stop` | Stream |
-
-Omitted:
-
-- `func signal.NotifyContext(parent context.Context, signals ...os.Signal) (ctx context.Context, stop context.CancelFunc)`: result 0: context.Context
-
 ## `os/user` → `go.os.user` (`lib/go/os/user.dart`)
 
 | Go | Dart | Mode |
@@ -43329,12 +43325,14 @@ Omitted:
 | `func (*sync.WaitGroup).Done()` | `SyncWaitGroup.done` | sync |
 | `func (*sync.WaitGroup).Go(f func())` | `SyncWaitGroup.go` | Future |
 | `func (*sync.WaitGroup).Wait()` | `SyncWaitGroup.wait` | sync |
+| `sync.Locker → x.(*jsync.NoCopy)` | `SyncLocker.asJsyncNoCopy` | cast |
 | `sync.Locker → x.(*badger.DB)` | `SyncLocker.asBadgerDb` | cast |
 | `sync.Locker → x.(*badger.MergeOperator)` | `SyncLocker.asBadgerMergeOperator` | cast |
 | `sync.Locker → x.(*badger.Sequence)` | `SyncLocker.asBadgerSequence` | cast |
 | `sync.Locker → x.(*badger.WriteBatch)` | `SyncLocker.asBadgerWriteBatch` | cast |
 | `sync.Locker → x.(*table.Table)` | `SyncLocker.asBadgerTable` | cast |
 | `sync.Locker → x.(*sync.MutexDatastore)` | `SyncLocker.asDatastoreSyncMutexDatastore` | cast |
+| `sync.Locker → x.(*p2p.Listeners)` | `SyncLocker.asKuboP2pListeners` | cast |
 | `sync.Locker → x.(*p2p.StreamRegistry)` | `SyncLocker.asKuboP2pStreamRegistry` | cast |
 | `sync.Locker → x.(*ipv4.PacketConn)` | `SyncLocker.asNetIpv4PacketConn` | cast |
 | `sync.Locker → x.(*ipv4.RawConn)` | `SyncLocker.asNetIpv4RawConn` | cast |
@@ -45273,7 +45271,6 @@ Omitted:
 - `github.com/libp2p/go-libp2p/p2p/host/resource-manager.TraceEvt.Scope`: *unexported type github.com/libp2p/go-libp2p/p2p/host/resource-manager.scopeClass
 - `github.com/libp2p/go-libp2p/p2p/host/resource-manager.TraceEvt.Limit`: type any
 - `github.com/libp2p/go-libp2p/p2p/protocol/holepunch.Event.Evt`: type any
-- `github.com/libp2p/go-msgio.LimitedWriter.W`: type io.Writer
 - `github.com/libp2p/go-yamux/v5.Config.LogOutput`: type io.Writer
 - `github.com/mholt/acmez/v3/acme.Challenge.Payload`: type any
 - `github.com/mholt/acmez/v3/acme.Problem.Resource`: type any

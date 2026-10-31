@@ -12,7 +12,7 @@ extension GoCryptoHmacApi on GoCryptoHmac {
   /// Go: `func hmac.Equal(mac1 []byte, mac2 []byte) bool`.
   bool equal(Uint8List mac1, Uint8List mac2) {
     final $r = $callSync(
-        3228,
+        3237,
         $W()
           ..bytes(mac1)
           ..bytes(mac2));

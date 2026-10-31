@@ -46,41 +46,41 @@ class Libp2pPubsubPbControlExtensions
   /// Go: `func (*pubsub_pb.ControlExtensions).Descriptor() ([]byte, []int)`.
   @Deprecated("Use ControlExtensions.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(13403, $W()..h(this));
+    final $r = $callSync(13409, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pubsub_pb.ControlExtensions).GetPartialMessages() bool`.
   bool getPartialMessages() {
-    final $r = $callSync(13404, $W()..h(this));
+    final $r = $callSync(13410, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*pubsub_pb.ControlExtensions).GetTestExtension() bool`.
   bool getTestExtension() {
-    final $r = $callSync(13405, $W()..h(this));
+    final $r = $callSync(13411, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*pubsub_pb.ControlExtensions).ProtoMessage()`.
   void protoMessage() {
-    $callSync(13406, $W()..h(this));
+    $callSync(13412, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.ControlExtensions).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(13407, $W()..h(this));
+    final $r = $callSync(13413, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pubsub_pb.ControlExtensions).Reset()`.
   void reset() {
-    $callSync(13408, $W()..h(this));
+    $callSync(13414, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.ControlExtensions).String() string`.
   String string() {
-    final $r = $callSync(13409, $W()..h(this));
+    final $r = $callSync(13415, $W()..h(this));
     return $r.str();
   }
 }
@@ -113,35 +113,35 @@ class Libp2pPubsubPbControlGraft
   /// Go: `func (*pubsub_pb.ControlGraft).Descriptor() ([]byte, []int)`.
   @Deprecated("Use ControlGraft.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(13410, $W()..h(this));
+    final $r = $callSync(13416, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pubsub_pb.ControlGraft).GetTopicID() string`.
   String getTopicId() {
-    final $r = $callSync(13411, $W()..h(this));
+    final $r = $callSync(13417, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*pubsub_pb.ControlGraft).ProtoMessage()`.
   void protoMessage() {
-    $callSync(13412, $W()..h(this));
+    $callSync(13418, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.ControlGraft).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(13413, $W()..h(this));
+    final $r = $callSync(13419, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pubsub_pb.ControlGraft).Reset()`.
   void reset() {
-    $callSync(13414, $W()..h(this));
+    $callSync(13420, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.ControlGraft).String() string`.
   String string() {
-    final $r = $callSync(13415, $W()..h(this));
+    final $r = $callSync(13421, $W()..h(this));
     return $r.str();
   }
 }
@@ -174,35 +174,35 @@ class Libp2pPubsubPbControlIDontWant
   /// Go: `func (*pubsub_pb.ControlIDontWant).Descriptor() ([]byte, []int)`.
   @Deprecated("Use ControlIDontWant.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(13416, $W()..h(this));
+    final $r = $callSync(13422, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pubsub_pb.ControlIDontWant).GetMessageIDs() []string`.
   List<String> getMessageIds() {
-    final $r = $callSync(13417, $W()..h(this));
+    final $r = $callSync(13423, $W()..h(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (*pubsub_pb.ControlIDontWant).ProtoMessage()`.
   void protoMessage() {
-    $callSync(13418, $W()..h(this));
+    $callSync(13424, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.ControlIDontWant).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(13419, $W()..h(this));
+    final $r = $callSync(13425, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pubsub_pb.ControlIDontWant).Reset()`.
   void reset() {
-    $callSync(13420, $W()..h(this));
+    $callSync(13426, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.ControlIDontWant).String() string`.
   String string() {
-    final $r = $callSync(13421, $W()..h(this));
+    final $r = $callSync(13427, $W()..h(this));
     return $r.str();
   }
 }
@@ -235,41 +235,41 @@ class Libp2pPubsubPbControlIHave
   /// Go: `func (*pubsub_pb.ControlIHave).Descriptor() ([]byte, []int)`.
   @Deprecated("Use ControlIHave.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(13422, $W()..h(this));
+    final $r = $callSync(13428, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pubsub_pb.ControlIHave).GetMessageIDs() []string`.
   List<String> getMessageIds() {
-    final $r = $callSync(13423, $W()..h(this));
+    final $r = $callSync(13429, $W()..h(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (*pubsub_pb.ControlIHave).GetTopicID() string`.
   String getTopicId() {
-    final $r = $callSync(13424, $W()..h(this));
+    final $r = $callSync(13430, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*pubsub_pb.ControlIHave).ProtoMessage()`.
   void protoMessage() {
-    $callSync(13425, $W()..h(this));
+    $callSync(13431, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.ControlIHave).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(13426, $W()..h(this));
+    final $r = $callSync(13432, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pubsub_pb.ControlIHave).Reset()`.
   void reset() {
-    $callSync(13427, $W()..h(this));
+    $callSync(13433, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.ControlIHave).String() string`.
   String string() {
-    final $r = $callSync(13428, $W()..h(this));
+    final $r = $callSync(13434, $W()..h(this));
     return $r.str();
   }
 }
@@ -302,35 +302,35 @@ class Libp2pPubsubPbControlIWant
   /// Go: `func (*pubsub_pb.ControlIWant).Descriptor() ([]byte, []int)`.
   @Deprecated("Use ControlIWant.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(13429, $W()..h(this));
+    final $r = $callSync(13435, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pubsub_pb.ControlIWant).GetMessageIDs() []string`.
   List<String> getMessageIds() {
-    final $r = $callSync(13430, $W()..h(this));
+    final $r = $callSync(13436, $W()..h(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (*pubsub_pb.ControlIWant).ProtoMessage()`.
   void protoMessage() {
-    $callSync(13431, $W()..h(this));
+    $callSync(13437, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.ControlIWant).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(13432, $W()..h(this));
+    final $r = $callSync(13438, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pubsub_pb.ControlIWant).Reset()`.
   void reset() {
-    $callSync(13433, $W()..h(this));
+    $callSync(13439, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.ControlIWant).String() string`.
   String string() {
-    final $r = $callSync(13434, $W()..h(this));
+    final $r = $callSync(13440, $W()..h(this));
     return $r.str();
   }
 }
@@ -363,65 +363,65 @@ class Libp2pPubsubPbControlMessage
   /// Go: `func (*pubsub_pb.ControlMessage).Descriptor() ([]byte, []int)`.
   @Deprecated("Use ControlMessage.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(13435, $W()..h(this));
+    final $r = $callSync(13441, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pubsub_pb.ControlMessage).GetExtensions() *pubsub_pb.ControlExtensions`.
   Libp2pPubsubPbControlExtensions getExtensions() {
-    final $r = $callSync(13436, $W()..h(this));
+    final $r = $callSync(13442, $W()..h(this));
     return $r.hnn(Libp2pPubsubPbControlExtensions.$h);
   }
 
   /// Go: `func (*pubsub_pb.ControlMessage).GetGraft() []*pubsub_pb.ControlGraft`.
   List<Libp2pPubsubPbControlGraft> getGraft() {
-    final $r = $callSync(13437, $W()..h(this));
+    final $r = $callSync(13443, $W()..h(this));
     return $r.list(() => $r.hnn(Libp2pPubsubPbControlGraft.$h));
   }
 
   /// Go: `func (*pubsub_pb.ControlMessage).GetIdontwant() []*pubsub_pb.ControlIDontWant`.
   List<Libp2pPubsubPbControlIDontWant> getIdontwant() {
-    final $r = $callSync(13438, $W()..h(this));
+    final $r = $callSync(13444, $W()..h(this));
     return $r.list(() => $r.hnn(Libp2pPubsubPbControlIDontWant.$h));
   }
 
   /// Go: `func (*pubsub_pb.ControlMessage).GetIhave() []*pubsub_pb.ControlIHave`.
   List<Libp2pPubsubPbControlIHave> getIhave() {
-    final $r = $callSync(13439, $W()..h(this));
+    final $r = $callSync(13445, $W()..h(this));
     return $r.list(() => $r.hnn(Libp2pPubsubPbControlIHave.$h));
   }
 
   /// Go: `func (*pubsub_pb.ControlMessage).GetIwant() []*pubsub_pb.ControlIWant`.
   List<Libp2pPubsubPbControlIWant> getIwant() {
-    final $r = $callSync(13440, $W()..h(this));
+    final $r = $callSync(13446, $W()..h(this));
     return $r.list(() => $r.hnn(Libp2pPubsubPbControlIWant.$h));
   }
 
   /// Go: `func (*pubsub_pb.ControlMessage).GetPrune() []*pubsub_pb.ControlPrune`.
   List<Libp2pPubsubPbControlPrune> getPrune() {
-    final $r = $callSync(13441, $W()..h(this));
+    final $r = $callSync(13447, $W()..h(this));
     return $r.list(() => $r.hnn(Libp2pPubsubPbControlPrune.$h));
   }
 
   /// Go: `func (*pubsub_pb.ControlMessage).ProtoMessage()`.
   void protoMessage() {
-    $callSync(13442, $W()..h(this));
+    $callSync(13448, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.ControlMessage).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(13443, $W()..h(this));
+    final $r = $callSync(13449, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pubsub_pb.ControlMessage).Reset()`.
   void reset() {
-    $callSync(13444, $W()..h(this));
+    $callSync(13450, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.ControlMessage).String() string`.
   String string() {
-    final $r = $callSync(13445, $W()..h(this));
+    final $r = $callSync(13451, $W()..h(this));
     return $r.str();
   }
 }
@@ -454,47 +454,47 @@ class Libp2pPubsubPbControlPrune
   /// Go: `func (*pubsub_pb.ControlPrune).Descriptor() ([]byte, []int)`.
   @Deprecated("Use ControlPrune.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(13446, $W()..h(this));
+    final $r = $callSync(13452, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pubsub_pb.ControlPrune).GetBackoff() uint64`.
   int getBackoff() {
-    final $r = $callSync(13447, $W()..h(this));
+    final $r = $callSync(13453, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pubsub_pb.ControlPrune).GetPeers() []*pubsub_pb.PeerInfo`.
   List<Libp2pPubsubPbPeerInfo> getPeers() {
-    final $r = $callSync(13448, $W()..h(this));
+    final $r = $callSync(13454, $W()..h(this));
     return $r.list(() => $r.hnn(Libp2pPubsubPbPeerInfo.$h));
   }
 
   /// Go: `func (*pubsub_pb.ControlPrune).GetTopicID() string`.
   String getTopicId() {
-    final $r = $callSync(13449, $W()..h(this));
+    final $r = $callSync(13455, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*pubsub_pb.ControlPrune).ProtoMessage()`.
   void protoMessage() {
-    $callSync(13450, $W()..h(this));
+    $callSync(13456, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.ControlPrune).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(13451, $W()..h(this));
+    final $r = $callSync(13457, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pubsub_pb.ControlPrune).Reset()`.
   void reset() {
-    $callSync(13452, $W()..h(this));
+    $callSync(13458, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.ControlPrune).String() string`.
   String string() {
-    final $r = $callSync(13453, $W()..h(this));
+    final $r = $callSync(13459, $W()..h(this));
     return $r.str();
   }
 }
@@ -527,65 +527,65 @@ class Libp2pPubsubPbMessage
   /// Go: `func (*pubsub_pb.Message).Descriptor() ([]byte, []int)`.
   @Deprecated("Use Message.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(13456, $W()..h(this));
+    final $r = $callSync(13462, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pubsub_pb.Message).GetData() []byte`.
   Uint8List getData() {
-    final $r = $callSync(13457, $W()..h(this));
+    final $r = $callSync(13463, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pubsub_pb.Message).GetFrom() []byte`.
   Uint8List getFrom() {
-    final $r = $callSync(13458, $W()..h(this));
+    final $r = $callSync(13464, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pubsub_pb.Message).GetKey() []byte`.
   Uint8List getKey() {
-    final $r = $callSync(13459, $W()..h(this));
+    final $r = $callSync(13465, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pubsub_pb.Message).GetSeqno() []byte`.
   Uint8List getSeqno() {
-    final $r = $callSync(13460, $W()..h(this));
+    final $r = $callSync(13466, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pubsub_pb.Message).GetSignature() []byte`.
   Uint8List getSignature() {
-    final $r = $callSync(13461, $W()..h(this));
+    final $r = $callSync(13467, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pubsub_pb.Message).GetTopic() string`.
   String getTopic() {
-    final $r = $callSync(13462, $W()..h(this));
+    final $r = $callSync(13468, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*pubsub_pb.Message).ProtoMessage()`.
   void protoMessage() {
-    $callSync(13463, $W()..h(this));
+    $callSync(13469, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.Message).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(13464, $W()..h(this));
+    final $r = $callSync(13470, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pubsub_pb.Message).Reset()`.
   void reset() {
-    $callSync(13465, $W()..h(this));
+    $callSync(13471, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.Message).String() string`.
   String string() {
-    final $r = $callSync(13466, $W()..h(this));
+    final $r = $callSync(13472, $W()..h(this));
     return $r.str();
   }
 }
@@ -620,59 +620,59 @@ class Libp2pPubsubPbPartialMessagesExtension
   /// Go: `func (*pubsub_pb.PartialMessagesExtension).Descriptor() ([]byte, []int)`.
   @Deprecated("Use PartialMessagesExtension.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(13467, $W()..h(this));
+    final $r = $callSync(13473, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pubsub_pb.PartialMessagesExtension).GetGroupID() []byte`.
   Uint8List getGroupId() {
-    final $r = $callSync(13468, $W()..h(this));
+    final $r = $callSync(13474, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pubsub_pb.PartialMessagesExtension).GetPartialMessage() []byte`.
   Uint8List getPartialMessage() {
-    final $r = $callSync(13469, $W()..h(this));
+    final $r = $callSync(13475, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pubsub_pb.PartialMessagesExtension).GetPartsMetadata() []byte`.
   Uint8List getPartsMetadata() {
-    final $r = $callSync(13470, $W()..h(this));
+    final $r = $callSync(13476, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pubsub_pb.PartialMessagesExtension).GetTopicID() string`.
   String getTopicId() {
-    final $r = $callSync(13471, $W()..h(this));
+    final $r = $callSync(13477, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*pubsub_pb.PartialMessagesExtension).LogValue() slog.Value`.
   $slog.LogSlogValue logValue() {
-    final $r = $callSync(13472, $W()..h(this));
+    final $r = $callSync(13478, $W()..h(this));
     return $r.hnn($slog.LogSlogValue.$h);
   }
 
   /// Go: `func (*pubsub_pb.PartialMessagesExtension).ProtoMessage()`.
   void protoMessage() {
-    $callSync(13473, $W()..h(this));
+    $callSync(13479, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.PartialMessagesExtension).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(13474, $W()..h(this));
+    final $r = $callSync(13480, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pubsub_pb.PartialMessagesExtension).Reset()`.
   void reset() {
-    $callSync(13475, $W()..h(this));
+    $callSync(13481, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.PartialMessagesExtension).String() string`.
   String string() {
-    final $r = $callSync(13476, $W()..h(this));
+    final $r = $callSync(13482, $W()..h(this));
     return $r.str();
   }
 }
@@ -705,41 +705,41 @@ class Libp2pPubsubPbPeerInfo
   /// Go: `func (*pubsub_pb.PeerInfo).Descriptor() ([]byte, []int)`.
   @Deprecated("Use PeerInfo.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(13477, $W()..h(this));
+    final $r = $callSync(13483, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pubsub_pb.PeerInfo).GetPeerID() []byte`.
   Uint8List getPeerId() {
-    final $r = $callSync(13478, $W()..h(this));
+    final $r = $callSync(13484, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pubsub_pb.PeerInfo).GetSignedPeerRecord() []byte`.
   Uint8List getSignedPeerRecord() {
-    final $r = $callSync(13479, $W()..h(this));
+    final $r = $callSync(13485, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pubsub_pb.PeerInfo).ProtoMessage()`.
   void protoMessage() {
-    $callSync(13480, $W()..h(this));
+    $callSync(13486, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.PeerInfo).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(13481, $W()..h(this));
+    final $r = $callSync(13487, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pubsub_pb.PeerInfo).Reset()`.
   void reset() {
-    $callSync(13482, $W()..h(this));
+    $callSync(13488, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.PeerInfo).String() string`.
   String string() {
-    final $r = $callSync(13483, $W()..h(this));
+    final $r = $callSync(13489, $W()..h(this));
     return $r.str();
   }
 }
@@ -774,65 +774,65 @@ class Libp2pPubsubPbRpc
   /// Go: `func (*pubsub_pb.RPC).Descriptor() ([]byte, []int)`.
   @Deprecated("Use RPC.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(13484, $W()..h(this));
+    final $r = $callSync(13490, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pubsub_pb.RPC).GetControl() *pubsub_pb.ControlMessage`.
   Libp2pPubsubPbControlMessage getControl() {
-    final $r = $callSync(13485, $W()..h(this));
+    final $r = $callSync(13491, $W()..h(this));
     return $r.hnn(Libp2pPubsubPbControlMessage.$h);
   }
 
   /// Go: `func (*pubsub_pb.RPC).GetPartial() *pubsub_pb.PartialMessagesExtension`.
   Libp2pPubsubPbPartialMessagesExtension getPartial() {
-    final $r = $callSync(13486, $W()..h(this));
+    final $r = $callSync(13492, $W()..h(this));
     return $r.hnn(Libp2pPubsubPbPartialMessagesExtension.$h);
   }
 
   /// Go: `func (*pubsub_pb.RPC).GetPublish() []*pubsub_pb.Message`.
   List<Libp2pPubsubPbMessage> getPublish() {
-    final $r = $callSync(13487, $W()..h(this));
+    final $r = $callSync(13493, $W()..h(this));
     return $r.list(() => $r.hnn(Libp2pPubsubPbMessage.$h));
   }
 
   /// Go: `func (*pubsub_pb.RPC).GetSubscriptions() []*pubsub_pb.RPC_SubOpts`.
   List<Libp2pPubsubPbRpcSubOpts> getSubscriptions() {
-    final $r = $callSync(13488, $W()..h(this));
+    final $r = $callSync(13494, $W()..h(this));
     return $r.list(() => $r.hnn(Libp2pPubsubPbRpcSubOpts.$h));
   }
 
   /// Go: `func (*pubsub_pb.RPC).GetTestExtension() *pubsub_pb.TestExtension`.
   Libp2pPubsubPbTestExtension getTestExtension() {
-    final $r = $callSync(13489, $W()..h(this));
+    final $r = $callSync(13495, $W()..h(this));
     return $r.hnn(Libp2pPubsubPbTestExtension.$h);
   }
 
   /// Go: `func (*pubsub_pb.RPC).LogValue() slog.Value`.
   $slog.LogSlogValue logValue() {
-    final $r = $callSync(13490, $W()..h(this));
+    final $r = $callSync(13496, $W()..h(this));
     return $r.hnn($slog.LogSlogValue.$h);
   }
 
   /// Go: `func (*pubsub_pb.RPC).ProtoMessage()`.
   void protoMessage() {
-    $callSync(13491, $W()..h(this));
+    $callSync(13497, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.RPC).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(13492, $W()..h(this));
+    final $r = $callSync(13498, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pubsub_pb.RPC).Reset()`.
   void reset() {
-    $callSync(13493, $W()..h(this));
+    $callSync(13499, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.RPC).String() string`.
   String string() {
-    final $r = $callSync(13494, $W()..h(this));
+    final $r = $callSync(13500, $W()..h(this));
     return $r.str();
   }
 }
@@ -865,53 +865,53 @@ class Libp2pPubsubPbRpcSubOpts
   /// Go: `func (*pubsub_pb.RPC_SubOpts).Descriptor() ([]byte, []int)`.
   @Deprecated("Use RPC_SubOpts.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(13495, $W()..h(this));
+    final $r = $callSync(13501, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pubsub_pb.RPC_SubOpts).GetRequestsPartial() bool`.
   bool getRequestsPartial() {
-    final $r = $callSync(13496, $W()..h(this));
+    final $r = $callSync(13502, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*pubsub_pb.RPC_SubOpts).GetSubscribe() bool`.
   bool getSubscribe() {
-    final $r = $callSync(13497, $W()..h(this));
+    final $r = $callSync(13503, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*pubsub_pb.RPC_SubOpts).GetSupportsSendingPartial() bool`.
   bool getSupportsSendingPartial() {
-    final $r = $callSync(13498, $W()..h(this));
+    final $r = $callSync(13504, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*pubsub_pb.RPC_SubOpts).GetTopicid() string`.
   String getTopicid() {
-    final $r = $callSync(13499, $W()..h(this));
+    final $r = $callSync(13505, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*pubsub_pb.RPC_SubOpts).ProtoMessage()`.
   void protoMessage() {
-    $callSync(13500, $W()..h(this));
+    $callSync(13506, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.RPC_SubOpts).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(13501, $W()..h(this));
+    final $r = $callSync(13507, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pubsub_pb.RPC_SubOpts).Reset()`.
   void reset() {
-    $callSync(13502, $W()..h(this));
+    $callSync(13508, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.RPC_SubOpts).String() string`.
   String string() {
-    final $r = $callSync(13503, $W()..h(this));
+    final $r = $callSync(13509, $W()..h(this));
     return $r.str();
   }
 }
@@ -944,29 +944,29 @@ class Libp2pPubsubPbTestExtension
   /// Go: `func (*pubsub_pb.TestExtension).Descriptor() ([]byte, []int)`.
   @Deprecated("Use TestExtension.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(13504, $W()..h(this));
+    final $r = $callSync(13510, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pubsub_pb.TestExtension).ProtoMessage()`.
   void protoMessage() {
-    $callSync(13505, $W()..h(this));
+    $callSync(13511, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.TestExtension).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(13506, $W()..h(this));
+    final $r = $callSync(13512, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pubsub_pb.TestExtension).Reset()`.
   void reset() {
-    $callSync(13507, $W()..h(this));
+    $callSync(13513, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.TestExtension).String() string`.
   String string() {
-    final $r = $callSync(13508, $W()..h(this));
+    final $r = $callSync(13514, $W()..h(this));
     return $r.str();
   }
 }
@@ -999,125 +999,125 @@ class Libp2pPubsubPbTraceEvent
   /// Go: `func (*pubsub_pb.TraceEvent).Descriptor() ([]byte, []int)`.
   @Deprecated("Use TraceEvent.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(13509, $W()..h(this));
+    final $r = $callSync(13515, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent).GetDeliverMessage() *pubsub_pb.TraceEvent_DeliverMessage`.
   Libp2pPubsubPbTraceEventDeliverMessage getDeliverMessage() {
-    final $r = $callSync(13510, $W()..h(this));
+    final $r = $callSync(13516, $W()..h(this));
     return $r.hnn(Libp2pPubsubPbTraceEventDeliverMessage.$h);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent).GetDropRPC() *pubsub_pb.TraceEvent_DropRPC`.
   Libp2pPubsubPbTraceEventDropRpc getDropRpc() {
-    final $r = $callSync(13511, $W()..h(this));
+    final $r = $callSync(13517, $W()..h(this));
     return $r.hnn(Libp2pPubsubPbTraceEventDropRpc.$h);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent).GetDuplicateMessage() *pubsub_pb.TraceEvent_DuplicateMessage`.
   Libp2pPubsubPbTraceEventDuplicateMessage getDuplicateMessage() {
-    final $r = $callSync(13512, $W()..h(this));
+    final $r = $callSync(13518, $W()..h(this));
     return $r.hnn(Libp2pPubsubPbTraceEventDuplicateMessage.$h);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent).GetGraft() *pubsub_pb.TraceEvent_Graft`.
   Libp2pPubsubPbTraceEventGraft getGraft() {
-    final $r = $callSync(13513, $W()..h(this));
+    final $r = $callSync(13519, $W()..h(this));
     return $r.hnn(Libp2pPubsubPbTraceEventGraft.$h);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent).GetJoin() *pubsub_pb.TraceEvent_Join`.
   Libp2pPubsubPbTraceEventJoin getJoin() {
-    final $r = $callSync(13514, $W()..h(this));
+    final $r = $callSync(13520, $W()..h(this));
     return $r.hnn(Libp2pPubsubPbTraceEventJoin.$h);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent).GetLeave() *pubsub_pb.TraceEvent_Leave`.
   Libp2pPubsubPbTraceEventLeave getLeave() {
-    final $r = $callSync(13515, $W()..h(this));
+    final $r = $callSync(13521, $W()..h(this));
     return $r.hnn(Libp2pPubsubPbTraceEventLeave.$h);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent).GetOnClosedOutboundStream() *pubsub_pb.TraceEvent_OnClosedOutboundStream`.
   Libp2pPubsubPbTraceEventOnClosedOutboundStream getOnClosedOutboundStream() {
-    final $r = $callSync(13516, $W()..h(this));
+    final $r = $callSync(13522, $W()..h(this));
     return $r.hnn(Libp2pPubsubPbTraceEventOnClosedOutboundStream.$h);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent).GetOnNewOutboundStream() *pubsub_pb.TraceEvent_OnNewOutboundStream`.
   Libp2pPubsubPbTraceEventOnNewOutboundStream getOnNewOutboundStream() {
-    final $r = $callSync(13517, $W()..h(this));
+    final $r = $callSync(13523, $W()..h(this));
     return $r.hnn(Libp2pPubsubPbTraceEventOnNewOutboundStream.$h);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent).GetPeerID() []byte`.
   Uint8List getPeerId() {
-    final $r = $callSync(13518, $W()..h(this));
+    final $r = $callSync(13524, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent).GetPrune() *pubsub_pb.TraceEvent_Prune`.
   Libp2pPubsubPbTraceEventPrune getPrune() {
-    final $r = $callSync(13519, $W()..h(this));
+    final $r = $callSync(13525, $W()..h(this));
     return $r.hnn(Libp2pPubsubPbTraceEventPrune.$h);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent).GetPublishMessage() *pubsub_pb.TraceEvent_PublishMessage`.
   Libp2pPubsubPbTraceEventPublishMessage getPublishMessage() {
-    final $r = $callSync(13520, $W()..h(this));
+    final $r = $callSync(13526, $W()..h(this));
     return $r.hnn(Libp2pPubsubPbTraceEventPublishMessage.$h);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent).GetRecvRPC() *pubsub_pb.TraceEvent_RecvRPC`.
   Libp2pPubsubPbTraceEventRecvRpc getRecvRpc() {
-    final $r = $callSync(13521, $W()..h(this));
+    final $r = $callSync(13527, $W()..h(this));
     return $r.hnn(Libp2pPubsubPbTraceEventRecvRpc.$h);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent).GetRejectMessage() *pubsub_pb.TraceEvent_RejectMessage`.
   Libp2pPubsubPbTraceEventRejectMessage getRejectMessage() {
-    final $r = $callSync(13522, $W()..h(this));
+    final $r = $callSync(13528, $W()..h(this));
     return $r.hnn(Libp2pPubsubPbTraceEventRejectMessage.$h);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent).GetSendRPC() *pubsub_pb.TraceEvent_SendRPC`.
   Libp2pPubsubPbTraceEventSendRpc getSendRpc() {
-    final $r = $callSync(13523, $W()..h(this));
+    final $r = $callSync(13529, $W()..h(this));
     return $r.hnn(Libp2pPubsubPbTraceEventSendRpc.$h);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent).GetTimestamp() int64`.
   int getTimestamp() {
-    final $r = $callSync(13524, $W()..h(this));
+    final $r = $callSync(13530, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent).GetType() pubsub_pb.TraceEvent_Type`.
   int getType() {
-    final $r = $callSync(13525, $W()..h(this));
+    final $r = $callSync(13531, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent).ProtoMessage()`.
   void protoMessage() {
-    $callSync(13526, $W()..h(this));
+    $callSync(13532, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(13527, $W()..h(this));
+    final $r = $callSync(13533, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent).Reset()`.
   void reset() {
-    $callSync(13528, $W()..h(this));
+    $callSync(13534, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent).String() string`.
   String string() {
-    final $r = $callSync(13529, $W()..h(this));
+    final $r = $callSync(13535, $W()..h(this));
     return $r.str();
   }
 }
@@ -1150,35 +1150,35 @@ class Libp2pPubsubPbTraceEventBatch
   /// Go: `func (*pubsub_pb.TraceEventBatch).Descriptor() ([]byte, []int)`.
   @Deprecated("Use TraceEventBatch.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(13530, $W()..h(this));
+    final $r = $callSync(13536, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pubsub_pb.TraceEventBatch).GetBatch() []*pubsub_pb.TraceEvent`.
   List<Libp2pPubsubPbTraceEvent> getBatch() {
-    final $r = $callSync(13531, $W()..h(this));
+    final $r = $callSync(13537, $W()..h(this));
     return $r.list(() => $r.hnn(Libp2pPubsubPbTraceEvent.$h));
   }
 
   /// Go: `func (*pubsub_pb.TraceEventBatch).ProtoMessage()`.
   void protoMessage() {
-    $callSync(13532, $W()..h(this));
+    $callSync(13538, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.TraceEventBatch).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(13533, $W()..h(this));
+    final $r = $callSync(13539, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pubsub_pb.TraceEventBatch).Reset()`.
   void reset() {
-    $callSync(13534, $W()..h(this));
+    $callSync(13540, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.TraceEventBatch).String() string`.
   String string() {
-    final $r = $callSync(13535, $W()..h(this));
+    final $r = $callSync(13541, $W()..h(this));
     return $r.str();
   }
 }
@@ -1212,35 +1212,35 @@ class Libp2pPubsubPbTraceEventControlGraftMeta
   @Deprecated(
       "Use TraceEvent_ControlGraftMeta.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(13536, $W()..h(this));
+    final $r = $callSync(13542, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_ControlGraftMeta).GetTopic() string`.
   String getTopic() {
-    final $r = $callSync(13537, $W()..h(this));
+    final $r = $callSync(13543, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_ControlGraftMeta).ProtoMessage()`.
   void protoMessage() {
-    $callSync(13538, $W()..h(this));
+    $callSync(13544, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_ControlGraftMeta).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(13539, $W()..h(this));
+    final $r = $callSync(13545, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_ControlGraftMeta).Reset()`.
   void reset() {
-    $callSync(13540, $W()..h(this));
+    $callSync(13546, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_ControlGraftMeta).String() string`.
   String string() {
-    final $r = $callSync(13541, $W()..h(this));
+    final $r = $callSync(13547, $W()..h(this));
     return $r.str();
   }
 }
@@ -1274,35 +1274,35 @@ class Libp2pPubsubPbTraceEventControlIDontWantMeta
   @Deprecated(
       "Use TraceEvent_ControlIDontWantMeta.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(13542, $W()..h(this));
+    final $r = $callSync(13548, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_ControlIDontWantMeta).GetMessageIDs() [][]byte`.
   List<Uint8List> getMessageIds() {
-    final $r = $callSync(13543, $W()..h(this));
+    final $r = $callSync(13549, $W()..h(this));
     return $r.list(() => $r.bytes() ?? Uint8List(0));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_ControlIDontWantMeta).ProtoMessage()`.
   void protoMessage() {
-    $callSync(13544, $W()..h(this));
+    $callSync(13550, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_ControlIDontWantMeta).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(13545, $W()..h(this));
+    final $r = $callSync(13551, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_ControlIDontWantMeta).Reset()`.
   void reset() {
-    $callSync(13546, $W()..h(this));
+    $callSync(13552, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_ControlIDontWantMeta).String() string`.
   String string() {
-    final $r = $callSync(13547, $W()..h(this));
+    final $r = $callSync(13553, $W()..h(this));
     return $r.str();
   }
 }
@@ -1336,41 +1336,41 @@ class Libp2pPubsubPbTraceEventControlIHaveMeta
   @Deprecated(
       "Use TraceEvent_ControlIHaveMeta.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(13548, $W()..h(this));
+    final $r = $callSync(13554, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_ControlIHaveMeta).GetMessageIDs() [][]byte`.
   List<Uint8List> getMessageIds() {
-    final $r = $callSync(13549, $W()..h(this));
+    final $r = $callSync(13555, $W()..h(this));
     return $r.list(() => $r.bytes() ?? Uint8List(0));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_ControlIHaveMeta).GetTopic() string`.
   String getTopic() {
-    final $r = $callSync(13550, $W()..h(this));
+    final $r = $callSync(13556, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_ControlIHaveMeta).ProtoMessage()`.
   void protoMessage() {
-    $callSync(13551, $W()..h(this));
+    $callSync(13557, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_ControlIHaveMeta).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(13552, $W()..h(this));
+    final $r = $callSync(13558, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_ControlIHaveMeta).Reset()`.
   void reset() {
-    $callSync(13553, $W()..h(this));
+    $callSync(13559, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_ControlIHaveMeta).String() string`.
   String string() {
-    final $r = $callSync(13554, $W()..h(this));
+    final $r = $callSync(13560, $W()..h(this));
     return $r.str();
   }
 }
@@ -1404,35 +1404,35 @@ class Libp2pPubsubPbTraceEventControlIWantMeta
   @Deprecated(
       "Use TraceEvent_ControlIWantMeta.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(13555, $W()..h(this));
+    final $r = $callSync(13561, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_ControlIWantMeta).GetMessageIDs() [][]byte`.
   List<Uint8List> getMessageIds() {
-    final $r = $callSync(13556, $W()..h(this));
+    final $r = $callSync(13562, $W()..h(this));
     return $r.list(() => $r.bytes() ?? Uint8List(0));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_ControlIWantMeta).ProtoMessage()`.
   void protoMessage() {
-    $callSync(13557, $W()..h(this));
+    $callSync(13563, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_ControlIWantMeta).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(13558, $W()..h(this));
+    final $r = $callSync(13564, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_ControlIWantMeta).Reset()`.
   void reset() {
-    $callSync(13559, $W()..h(this));
+    $callSync(13565, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_ControlIWantMeta).String() string`.
   String string() {
-    final $r = $callSync(13560, $W()..h(this));
+    final $r = $callSync(13566, $W()..h(this));
     return $r.str();
   }
 }
@@ -1465,60 +1465,60 @@ class Libp2pPubsubPbTraceEventControlMeta
   /// Go: `func (*pubsub_pb.TraceEvent_ControlMeta).Descriptor() ([]byte, []int)`.
   @Deprecated("Use TraceEvent_ControlMeta.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(13561, $W()..h(this));
+    final $r = $callSync(13567, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_ControlMeta).GetGraft() []*pubsub_pb.TraceEvent_ControlGraftMeta`.
   List<Libp2pPubsubPbTraceEventControlGraftMeta> getGraft() {
-    final $r = $callSync(13562, $W()..h(this));
+    final $r = $callSync(13568, $W()..h(this));
     return $r.list(() => $r.hnn(Libp2pPubsubPbTraceEventControlGraftMeta.$h));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_ControlMeta).GetIdontwant() []*pubsub_pb.TraceEvent_ControlIDontWantMeta`.
   List<Libp2pPubsubPbTraceEventControlIDontWantMeta> getIdontwant() {
-    final $r = $callSync(13563, $W()..h(this));
+    final $r = $callSync(13569, $W()..h(this));
     return $r
         .list(() => $r.hnn(Libp2pPubsubPbTraceEventControlIDontWantMeta.$h));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_ControlMeta).GetIhave() []*pubsub_pb.TraceEvent_ControlIHaveMeta`.
   List<Libp2pPubsubPbTraceEventControlIHaveMeta> getIhave() {
-    final $r = $callSync(13564, $W()..h(this));
+    final $r = $callSync(13570, $W()..h(this));
     return $r.list(() => $r.hnn(Libp2pPubsubPbTraceEventControlIHaveMeta.$h));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_ControlMeta).GetIwant() []*pubsub_pb.TraceEvent_ControlIWantMeta`.
   List<Libp2pPubsubPbTraceEventControlIWantMeta> getIwant() {
-    final $r = $callSync(13565, $W()..h(this));
+    final $r = $callSync(13571, $W()..h(this));
     return $r.list(() => $r.hnn(Libp2pPubsubPbTraceEventControlIWantMeta.$h));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_ControlMeta).GetPrune() []*pubsub_pb.TraceEvent_ControlPruneMeta`.
   List<Libp2pPubsubPbTraceEventControlPruneMeta> getPrune() {
-    final $r = $callSync(13566, $W()..h(this));
+    final $r = $callSync(13572, $W()..h(this));
     return $r.list(() => $r.hnn(Libp2pPubsubPbTraceEventControlPruneMeta.$h));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_ControlMeta).ProtoMessage()`.
   void protoMessage() {
-    $callSync(13567, $W()..h(this));
+    $callSync(13573, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_ControlMeta).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(13568, $W()..h(this));
+    final $r = $callSync(13574, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_ControlMeta).Reset()`.
   void reset() {
-    $callSync(13569, $W()..h(this));
+    $callSync(13575, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_ControlMeta).String() string`.
   String string() {
-    final $r = $callSync(13570, $W()..h(this));
+    final $r = $callSync(13576, $W()..h(this));
     return $r.str();
   }
 }
@@ -1552,41 +1552,41 @@ class Libp2pPubsubPbTraceEventControlPruneMeta
   @Deprecated(
       "Use TraceEvent_ControlPruneMeta.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(13571, $W()..h(this));
+    final $r = $callSync(13577, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_ControlPruneMeta).GetPeers() [][]byte`.
   List<Uint8List> getPeers() {
-    final $r = $callSync(13572, $W()..h(this));
+    final $r = $callSync(13578, $W()..h(this));
     return $r.list(() => $r.bytes() ?? Uint8List(0));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_ControlPruneMeta).GetTopic() string`.
   String getTopic() {
-    final $r = $callSync(13573, $W()..h(this));
+    final $r = $callSync(13579, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_ControlPruneMeta).ProtoMessage()`.
   void protoMessage() {
-    $callSync(13574, $W()..h(this));
+    $callSync(13580, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_ControlPruneMeta).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(13575, $W()..h(this));
+    final $r = $callSync(13581, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_ControlPruneMeta).Reset()`.
   void reset() {
-    $callSync(13576, $W()..h(this));
+    $callSync(13582, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_ControlPruneMeta).String() string`.
   String string() {
-    final $r = $callSync(13577, $W()..h(this));
+    final $r = $callSync(13583, $W()..h(this));
     return $r.str();
   }
 }
@@ -1619,47 +1619,47 @@ class Libp2pPubsubPbTraceEventDeliverMessage
   /// Go: `func (*pubsub_pb.TraceEvent_DeliverMessage).Descriptor() ([]byte, []int)`.
   @Deprecated("Use TraceEvent_DeliverMessage.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(13578, $W()..h(this));
+    final $r = $callSync(13584, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_DeliverMessage).GetMessageID() []byte`.
   Uint8List getMessageId() {
-    final $r = $callSync(13579, $W()..h(this));
+    final $r = $callSync(13585, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_DeliverMessage).GetReceivedFrom() []byte`.
   Uint8List getReceivedFrom() {
-    final $r = $callSync(13580, $W()..h(this));
+    final $r = $callSync(13586, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_DeliverMessage).GetTopic() string`.
   String getTopic() {
-    final $r = $callSync(13581, $W()..h(this));
+    final $r = $callSync(13587, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_DeliverMessage).ProtoMessage()`.
   void protoMessage() {
-    $callSync(13582, $W()..h(this));
+    $callSync(13588, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_DeliverMessage).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(13583, $W()..h(this));
+    final $r = $callSync(13589, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_DeliverMessage).Reset()`.
   void reset() {
-    $callSync(13584, $W()..h(this));
+    $callSync(13590, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_DeliverMessage).String() string`.
   String string() {
-    final $r = $callSync(13585, $W()..h(this));
+    final $r = $callSync(13591, $W()..h(this));
     return $r.str();
   }
 }
@@ -1692,41 +1692,41 @@ class Libp2pPubsubPbTraceEventDropRpc
   /// Go: `func (*pubsub_pb.TraceEvent_DropRPC).Descriptor() ([]byte, []int)`.
   @Deprecated("Use TraceEvent_DropRPC.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(13586, $W()..h(this));
+    final $r = $callSync(13592, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_DropRPC).GetMeta() *pubsub_pb.TraceEvent_RPCMeta`.
   Libp2pPubsubPbTraceEventRpcMeta getMeta() {
-    final $r = $callSync(13587, $W()..h(this));
+    final $r = $callSync(13593, $W()..h(this));
     return $r.hnn(Libp2pPubsubPbTraceEventRpcMeta.$h);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_DropRPC).GetSendTo() []byte`.
   Uint8List getSendTo() {
-    final $r = $callSync(13588, $W()..h(this));
+    final $r = $callSync(13594, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_DropRPC).ProtoMessage()`.
   void protoMessage() {
-    $callSync(13589, $W()..h(this));
+    $callSync(13595, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_DropRPC).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(13590, $W()..h(this));
+    final $r = $callSync(13596, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_DropRPC).Reset()`.
   void reset() {
-    $callSync(13591, $W()..h(this));
+    $callSync(13597, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_DropRPC).String() string`.
   String string() {
-    final $r = $callSync(13592, $W()..h(this));
+    final $r = $callSync(13598, $W()..h(this));
     return $r.str();
   }
 }
@@ -1760,47 +1760,47 @@ class Libp2pPubsubPbTraceEventDuplicateMessage
   @Deprecated(
       "Use TraceEvent_DuplicateMessage.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(13593, $W()..h(this));
+    final $r = $callSync(13599, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_DuplicateMessage).GetMessageID() []byte`.
   Uint8List getMessageId() {
-    final $r = $callSync(13594, $W()..h(this));
+    final $r = $callSync(13600, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_DuplicateMessage).GetReceivedFrom() []byte`.
   Uint8List getReceivedFrom() {
-    final $r = $callSync(13595, $W()..h(this));
+    final $r = $callSync(13601, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_DuplicateMessage).GetTopic() string`.
   String getTopic() {
-    final $r = $callSync(13596, $W()..h(this));
+    final $r = $callSync(13602, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_DuplicateMessage).ProtoMessage()`.
   void protoMessage() {
-    $callSync(13597, $W()..h(this));
+    $callSync(13603, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_DuplicateMessage).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(13598, $W()..h(this));
+    final $r = $callSync(13604, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_DuplicateMessage).Reset()`.
   void reset() {
-    $callSync(13599, $W()..h(this));
+    $callSync(13605, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_DuplicateMessage).String() string`.
   String string() {
-    final $r = $callSync(13600, $W()..h(this));
+    final $r = $callSync(13606, $W()..h(this));
     return $r.str();
   }
 }
@@ -1833,41 +1833,41 @@ class Libp2pPubsubPbTraceEventGraft
   /// Go: `func (*pubsub_pb.TraceEvent_Graft).Descriptor() ([]byte, []int)`.
   @Deprecated("Use TraceEvent_Graft.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(13601, $W()..h(this));
+    final $r = $callSync(13607, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_Graft).GetPeerID() []byte`.
   Uint8List getPeerId() {
-    final $r = $callSync(13602, $W()..h(this));
+    final $r = $callSync(13608, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_Graft).GetTopic() string`.
   String getTopic() {
-    final $r = $callSync(13603, $W()..h(this));
+    final $r = $callSync(13609, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_Graft).ProtoMessage()`.
   void protoMessage() {
-    $callSync(13604, $W()..h(this));
+    $callSync(13610, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_Graft).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(13605, $W()..h(this));
+    final $r = $callSync(13611, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_Graft).Reset()`.
   void reset() {
-    $callSync(13606, $W()..h(this));
+    $callSync(13612, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_Graft).String() string`.
   String string() {
-    final $r = $callSync(13607, $W()..h(this));
+    final $r = $callSync(13613, $W()..h(this));
     return $r.str();
   }
 }
@@ -1900,35 +1900,35 @@ class Libp2pPubsubPbTraceEventJoin
   /// Go: `func (*pubsub_pb.TraceEvent_Join).Descriptor() ([]byte, []int)`.
   @Deprecated("Use TraceEvent_Join.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(13608, $W()..h(this));
+    final $r = $callSync(13614, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_Join).GetTopic() string`.
   String getTopic() {
-    final $r = $callSync(13609, $W()..h(this));
+    final $r = $callSync(13615, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_Join).ProtoMessage()`.
   void protoMessage() {
-    $callSync(13610, $W()..h(this));
+    $callSync(13616, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_Join).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(13611, $W()..h(this));
+    final $r = $callSync(13617, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_Join).Reset()`.
   void reset() {
-    $callSync(13612, $W()..h(this));
+    $callSync(13618, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_Join).String() string`.
   String string() {
-    final $r = $callSync(13613, $W()..h(this));
+    final $r = $callSync(13619, $W()..h(this));
     return $r.str();
   }
 }
@@ -1961,35 +1961,35 @@ class Libp2pPubsubPbTraceEventLeave
   /// Go: `func (*pubsub_pb.TraceEvent_Leave).Descriptor() ([]byte, []int)`.
   @Deprecated("Use TraceEvent_Leave.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(13614, $W()..h(this));
+    final $r = $callSync(13620, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_Leave).GetTopic() string`.
   String getTopic() {
-    final $r = $callSync(13615, $W()..h(this));
+    final $r = $callSync(13621, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_Leave).ProtoMessage()`.
   void protoMessage() {
-    $callSync(13616, $W()..h(this));
+    $callSync(13622, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_Leave).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(13617, $W()..h(this));
+    final $r = $callSync(13623, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_Leave).Reset()`.
   void reset() {
-    $callSync(13618, $W()..h(this));
+    $callSync(13624, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_Leave).String() string`.
   String string() {
-    final $r = $callSync(13619, $W()..h(this));
+    final $r = $callSync(13625, $W()..h(this));
     return $r.str();
   }
 }
@@ -2022,41 +2022,41 @@ class Libp2pPubsubPbTraceEventMessageMeta
   /// Go: `func (*pubsub_pb.TraceEvent_MessageMeta).Descriptor() ([]byte, []int)`.
   @Deprecated("Use TraceEvent_MessageMeta.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(13620, $W()..h(this));
+    final $r = $callSync(13626, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_MessageMeta).GetMessageID() []byte`.
   Uint8List getMessageId() {
-    final $r = $callSync(13621, $W()..h(this));
+    final $r = $callSync(13627, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_MessageMeta).GetTopic() string`.
   String getTopic() {
-    final $r = $callSync(13622, $W()..h(this));
+    final $r = $callSync(13628, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_MessageMeta).ProtoMessage()`.
   void protoMessage() {
-    $callSync(13623, $W()..h(this));
+    $callSync(13629, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_MessageMeta).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(13624, $W()..h(this));
+    final $r = $callSync(13630, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_MessageMeta).Reset()`.
   void reset() {
-    $callSync(13625, $W()..h(this));
+    $callSync(13631, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_MessageMeta).String() string`.
   String string() {
-    final $r = $callSync(13626, $W()..h(this));
+    final $r = $callSync(13632, $W()..h(this));
     return $r.str();
   }
 }
@@ -2090,35 +2090,35 @@ class Libp2pPubsubPbTraceEventOnClosedOutboundStream
   @Deprecated(
       "Use TraceEvent_OnClosedOutboundStream.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(13627, $W()..h(this));
+    final $r = $callSync(13633, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_OnClosedOutboundStream).GetPeerID() []byte`.
   Uint8List getPeerId() {
-    final $r = $callSync(13628, $W()..h(this));
+    final $r = $callSync(13634, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_OnClosedOutboundStream).ProtoMessage()`.
   void protoMessage() {
-    $callSync(13629, $W()..h(this));
+    $callSync(13635, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_OnClosedOutboundStream).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(13630, $W()..h(this));
+    final $r = $callSync(13636, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_OnClosedOutboundStream).Reset()`.
   void reset() {
-    $callSync(13631, $W()..h(this));
+    $callSync(13637, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_OnClosedOutboundStream).String() string`.
   String string() {
-    final $r = $callSync(13632, $W()..h(this));
+    final $r = $callSync(13638, $W()..h(this));
     return $r.str();
   }
 }
@@ -2152,41 +2152,41 @@ class Libp2pPubsubPbTraceEventOnNewOutboundStream
   @Deprecated(
       "Use TraceEvent_OnNewOutboundStream.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(13633, $W()..h(this));
+    final $r = $callSync(13639, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_OnNewOutboundStream).GetPeerID() []byte`.
   Uint8List getPeerId() {
-    final $r = $callSync(13634, $W()..h(this));
+    final $r = $callSync(13640, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_OnNewOutboundStream).GetProto() string`.
   String getProto() {
-    final $r = $callSync(13635, $W()..h(this));
+    final $r = $callSync(13641, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_OnNewOutboundStream).ProtoMessage()`.
   void protoMessage() {
-    $callSync(13636, $W()..h(this));
+    $callSync(13642, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_OnNewOutboundStream).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(13637, $W()..h(this));
+    final $r = $callSync(13643, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_OnNewOutboundStream).Reset()`.
   void reset() {
-    $callSync(13638, $W()..h(this));
+    $callSync(13644, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_OnNewOutboundStream).String() string`.
   String string() {
-    final $r = $callSync(13639, $W()..h(this));
+    final $r = $callSync(13645, $W()..h(this));
     return $r.str();
   }
 }
@@ -2219,41 +2219,41 @@ class Libp2pPubsubPbTraceEventPrune
   /// Go: `func (*pubsub_pb.TraceEvent_Prune).Descriptor() ([]byte, []int)`.
   @Deprecated("Use TraceEvent_Prune.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(13640, $W()..h(this));
+    final $r = $callSync(13646, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_Prune).GetPeerID() []byte`.
   Uint8List getPeerId() {
-    final $r = $callSync(13641, $W()..h(this));
+    final $r = $callSync(13647, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_Prune).GetTopic() string`.
   String getTopic() {
-    final $r = $callSync(13642, $W()..h(this));
+    final $r = $callSync(13648, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_Prune).ProtoMessage()`.
   void protoMessage() {
-    $callSync(13643, $W()..h(this));
+    $callSync(13649, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_Prune).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(13644, $W()..h(this));
+    final $r = $callSync(13650, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_Prune).Reset()`.
   void reset() {
-    $callSync(13645, $W()..h(this));
+    $callSync(13651, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_Prune).String() string`.
   String string() {
-    final $r = $callSync(13646, $W()..h(this));
+    final $r = $callSync(13652, $W()..h(this));
     return $r.str();
   }
 }
@@ -2286,41 +2286,41 @@ class Libp2pPubsubPbTraceEventPublishMessage
   /// Go: `func (*pubsub_pb.TraceEvent_PublishMessage).Descriptor() ([]byte, []int)`.
   @Deprecated("Use TraceEvent_PublishMessage.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(13647, $W()..h(this));
+    final $r = $callSync(13653, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_PublishMessage).GetMessageID() []byte`.
   Uint8List getMessageId() {
-    final $r = $callSync(13648, $W()..h(this));
+    final $r = $callSync(13654, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_PublishMessage).GetTopic() string`.
   String getTopic() {
-    final $r = $callSync(13649, $W()..h(this));
+    final $r = $callSync(13655, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_PublishMessage).ProtoMessage()`.
   void protoMessage() {
-    $callSync(13650, $W()..h(this));
+    $callSync(13656, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_PublishMessage).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(13651, $W()..h(this));
+    final $r = $callSync(13657, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_PublishMessage).Reset()`.
   void reset() {
-    $callSync(13652, $W()..h(this));
+    $callSync(13658, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_PublishMessage).String() string`.
   String string() {
-    final $r = $callSync(13653, $W()..h(this));
+    final $r = $callSync(13659, $W()..h(this));
     return $r.str();
   }
 }
@@ -2353,47 +2353,47 @@ class Libp2pPubsubPbTraceEventRpcMeta
   /// Go: `func (*pubsub_pb.TraceEvent_RPCMeta).Descriptor() ([]byte, []int)`.
   @Deprecated("Use TraceEvent_RPCMeta.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(13654, $W()..h(this));
+    final $r = $callSync(13660, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_RPCMeta).GetControl() *pubsub_pb.TraceEvent_ControlMeta`.
   Libp2pPubsubPbTraceEventControlMeta getControl() {
-    final $r = $callSync(13655, $W()..h(this));
+    final $r = $callSync(13661, $W()..h(this));
     return $r.hnn(Libp2pPubsubPbTraceEventControlMeta.$h);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_RPCMeta).GetMessages() []*pubsub_pb.TraceEvent_MessageMeta`.
   List<Libp2pPubsubPbTraceEventMessageMeta> getMessages() {
-    final $r = $callSync(13656, $W()..h(this));
+    final $r = $callSync(13662, $W()..h(this));
     return $r.list(() => $r.hnn(Libp2pPubsubPbTraceEventMessageMeta.$h));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_RPCMeta).GetSubscription() []*pubsub_pb.TraceEvent_SubMeta`.
   List<Libp2pPubsubPbTraceEventSubMeta> getSubscription() {
-    final $r = $callSync(13657, $W()..h(this));
+    final $r = $callSync(13663, $W()..h(this));
     return $r.list(() => $r.hnn(Libp2pPubsubPbTraceEventSubMeta.$h));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_RPCMeta).ProtoMessage()`.
   void protoMessage() {
-    $callSync(13658, $W()..h(this));
+    $callSync(13664, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_RPCMeta).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(13659, $W()..h(this));
+    final $r = $callSync(13665, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_RPCMeta).Reset()`.
   void reset() {
-    $callSync(13660, $W()..h(this));
+    $callSync(13666, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_RPCMeta).String() string`.
   String string() {
-    final $r = $callSync(13661, $W()..h(this));
+    final $r = $callSync(13667, $W()..h(this));
     return $r.str();
   }
 }
@@ -2426,41 +2426,41 @@ class Libp2pPubsubPbTraceEventRecvRpc
   /// Go: `func (*pubsub_pb.TraceEvent_RecvRPC).Descriptor() ([]byte, []int)`.
   @Deprecated("Use TraceEvent_RecvRPC.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(13662, $W()..h(this));
+    final $r = $callSync(13668, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_RecvRPC).GetMeta() *pubsub_pb.TraceEvent_RPCMeta`.
   Libp2pPubsubPbTraceEventRpcMeta getMeta() {
-    final $r = $callSync(13663, $W()..h(this));
+    final $r = $callSync(13669, $W()..h(this));
     return $r.hnn(Libp2pPubsubPbTraceEventRpcMeta.$h);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_RecvRPC).GetReceivedFrom() []byte`.
   Uint8List getReceivedFrom() {
-    final $r = $callSync(13664, $W()..h(this));
+    final $r = $callSync(13670, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_RecvRPC).ProtoMessage()`.
   void protoMessage() {
-    $callSync(13665, $W()..h(this));
+    $callSync(13671, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_RecvRPC).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(13666, $W()..h(this));
+    final $r = $callSync(13672, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_RecvRPC).Reset()`.
   void reset() {
-    $callSync(13667, $W()..h(this));
+    $callSync(13673, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_RecvRPC).String() string`.
   String string() {
-    final $r = $callSync(13668, $W()..h(this));
+    final $r = $callSync(13674, $W()..h(this));
     return $r.str();
   }
 }
@@ -2493,53 +2493,53 @@ class Libp2pPubsubPbTraceEventRejectMessage
   /// Go: `func (*pubsub_pb.TraceEvent_RejectMessage).Descriptor() ([]byte, []int)`.
   @Deprecated("Use TraceEvent_RejectMessage.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(13669, $W()..h(this));
+    final $r = $callSync(13675, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_RejectMessage).GetMessageID() []byte`.
   Uint8List getMessageId() {
-    final $r = $callSync(13670, $W()..h(this));
+    final $r = $callSync(13676, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_RejectMessage).GetReason() string`.
   String getReason() {
-    final $r = $callSync(13671, $W()..h(this));
+    final $r = $callSync(13677, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_RejectMessage).GetReceivedFrom() []byte`.
   Uint8List getReceivedFrom() {
-    final $r = $callSync(13672, $W()..h(this));
+    final $r = $callSync(13678, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_RejectMessage).GetTopic() string`.
   String getTopic() {
-    final $r = $callSync(13673, $W()..h(this));
+    final $r = $callSync(13679, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_RejectMessage).ProtoMessage()`.
   void protoMessage() {
-    $callSync(13674, $W()..h(this));
+    $callSync(13680, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_RejectMessage).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(13675, $W()..h(this));
+    final $r = $callSync(13681, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_RejectMessage).Reset()`.
   void reset() {
-    $callSync(13676, $W()..h(this));
+    $callSync(13682, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_RejectMessage).String() string`.
   String string() {
-    final $r = $callSync(13677, $W()..h(this));
+    final $r = $callSync(13683, $W()..h(this));
     return $r.str();
   }
 }
@@ -2572,41 +2572,41 @@ class Libp2pPubsubPbTraceEventSendRpc
   /// Go: `func (*pubsub_pb.TraceEvent_SendRPC).Descriptor() ([]byte, []int)`.
   @Deprecated("Use TraceEvent_SendRPC.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(13678, $W()..h(this));
+    final $r = $callSync(13684, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_SendRPC).GetMeta() *pubsub_pb.TraceEvent_RPCMeta`.
   Libp2pPubsubPbTraceEventRpcMeta getMeta() {
-    final $r = $callSync(13679, $W()..h(this));
+    final $r = $callSync(13685, $W()..h(this));
     return $r.hnn(Libp2pPubsubPbTraceEventRpcMeta.$h);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_SendRPC).GetSendTo() []byte`.
   Uint8List getSendTo() {
-    final $r = $callSync(13680, $W()..h(this));
+    final $r = $callSync(13686, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_SendRPC).ProtoMessage()`.
   void protoMessage() {
-    $callSync(13681, $W()..h(this));
+    $callSync(13687, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_SendRPC).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(13682, $W()..h(this));
+    final $r = $callSync(13688, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_SendRPC).Reset()`.
   void reset() {
-    $callSync(13683, $W()..h(this));
+    $callSync(13689, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_SendRPC).String() string`.
   String string() {
-    final $r = $callSync(13684, $W()..h(this));
+    final $r = $callSync(13690, $W()..h(this));
     return $r.str();
   }
 }
@@ -2639,41 +2639,41 @@ class Libp2pPubsubPbTraceEventSubMeta
   /// Go: `func (*pubsub_pb.TraceEvent_SubMeta).Descriptor() ([]byte, []int)`.
   @Deprecated("Use TraceEvent_SubMeta.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(13685, $W()..h(this));
+    final $r = $callSync(13691, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_SubMeta).GetSubscribe() bool`.
   bool getSubscribe() {
-    final $r = $callSync(13686, $W()..h(this));
+    final $r = $callSync(13692, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_SubMeta).GetTopic() string`.
   String getTopic() {
-    final $r = $callSync(13687, $W()..h(this));
+    final $r = $callSync(13693, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_SubMeta).ProtoMessage()`.
   void protoMessage() {
-    $callSync(13688, $W()..h(this));
+    $callSync(13694, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_SubMeta).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(13689, $W()..h(this));
+    final $r = $callSync(13695, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_SubMeta).Reset()`.
   void reset() {
-    $callSync(13690, $W()..h(this));
+    $callSync(13696, $W()..h(this));
   }
 
   /// Go: `func (*pubsub_pb.TraceEvent_SubMeta).String() string`.
   String string() {
-    final $r = $callSync(13691, $W()..h(this));
+    final $r = $callSync(13697, $W()..h(this));
     return $r.str();
   }
 }
@@ -2682,25 +2682,25 @@ class Libp2pPubsubPbTraceEventSubMeta
 extension GoLibp2pLibp2pPubsubPbApi on GoLibp2pLibp2pPubsubPb {
   /// Go: `var pubsub_pb.File_rpc_proto protoreflect.FileDescriptor`.
   $protoreflect.ProtobufReflectProtoreflectFileDescriptor get fileRpcProto {
-    final $r = $callSync(13454);
+    final $r = $callSync(13460);
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectFileDescriptor.$h);
   }
 
   /// Go: `var pubsub_pb.File_trace_proto protoreflect.FileDescriptor`.
   $protoreflect.ProtobufReflectProtoreflectFileDescriptor get fileTraceProto {
-    final $r = $callSync(13455);
+    final $r = $callSync(13461);
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectFileDescriptor.$h);
   }
 
   /// Go: `var pubsub_pb.TraceEvent_Type_name map[int32]string`.
   Map<int, String> get traceEventTypeName {
-    final $r = $callSync(13692);
+    final $r = $callSync(13698);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var pubsub_pb.TraceEvent_Type_value map[string]int32`.
   Map<String, int> get traceEventTypeValue {
-    final $r = $callSync(13693);
+    final $r = $callSync(13699);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
@@ -2708,7 +2708,7 @@ extension GoLibp2pLibp2pPubsubPbApi on GoLibp2pLibp2pPubsubPb {
   void validateRawRpcControlMessageSize(
       Uint8List msg, int maxControlMessageSize) {
     $callSync(
-        13694,
+        13700,
         $W()
           ..bytes(msg)
           ..i64(maxControlMessageSize));

@@ -14,3 +14,7 @@ github.com/ipfs/kubo/config.Profiles
 runtime.*
 runtime/*
 syscall.*
+
+# signals are the p2p_host process's, not the app's (and Notify needs a
+# buffered channel, which a send-only channel parameter is not)
+os/signal.*

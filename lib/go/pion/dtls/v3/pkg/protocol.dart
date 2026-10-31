@@ -24,20 +24,20 @@ final class DtlsV3PkgProtocolApplicationData implements GoDto {
 
   /// Go: `func (protocol.ApplicationData).ContentType() protocol.ContentType`.
   int contentType() {
-    final $r = $callSync(16260, $W()..dto(this));
+    final $r = $callSync(16266, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*protocol.ApplicationData).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(16261, $W()..dto(this));
+    final $r = $callSync(16267, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*protocol.ApplicationData).Unmarshal(data []byte) error`.
   void unmarshal(Uint8List data) {
     $callSync(
-        16262,
+        16268,
         $W()
           ..dto(this)
           ..bytes(data));
@@ -54,20 +54,20 @@ final class DtlsV3PkgProtocolChangeCipherSpec implements GoDto {
 
   /// Go: `func (protocol.ChangeCipherSpec).ContentType() protocol.ContentType`.
   int contentType() {
-    final $r = $callSync(16263, $W()..dto(this));
+    final $r = $callSync(16269, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*protocol.ChangeCipherSpec).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(16264, $W()..dto(this));
+    final $r = $callSync(16270, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*protocol.ChangeCipherSpec).Unmarshal(data []byte) error`.
   void unmarshal(Uint8List data) {
     $callSync(
-        16265,
+        16271,
         $W()
           ..dto(this)
           ..bytes(data));
@@ -98,20 +98,20 @@ class DtlsV3PkgProtocolContent extends GoHandle with DtlsV3PkgProtocolContent$ {
 mixin DtlsV3PkgProtocolContent$ on GoHandle {
   /// Go: `func (protocol.Content).ContentType() protocol.ContentType`.
   int contentType() {
-    final $r = $callSync(16267, $W()..h(this));
+    final $r = $callSync(16273, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (protocol.Content).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(16268, $W()..h(this));
+    final $r = $callSync(16274, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (protocol.Content).Unmarshal(data []byte) error`.
   void unmarshal(Uint8List data) {
     $callSync(
-        16269,
+        16275,
         $W()
           ..h(this)
           ..bytes(data));
@@ -144,7 +144,7 @@ final class DtlsV3PkgProtocolVersion implements GoDto {
   /// Go: `func (protocol.Version).Equal(x protocol.Version) bool`.
   bool equal(DtlsV3PkgProtocolVersion x) {
     final $r = $callSync(
-        16276,
+        16282,
         $W()
           ..dto(this)
           ..dto(x));
@@ -156,7 +156,7 @@ final class DtlsV3PkgProtocolVersion implements GoDto {
 extension GoPionDtlsV3PkgProtocolApi on GoPionDtlsV3PkgProtocol {
   /// Go: `func protocol.CompressionMethods() map[protocol.CompressionMethodID]*protocol.CompressionMethod`.
   Map<int, DtlsV3PkgProtocolCompressionMethod> compressionMethods() {
-    final $r = $callSync(16266);
+    final $r = $callSync(16272);
     return $r.map(() => $r.i64(),
         () => $r.p() ? DtlsV3PkgProtocolCompressionMethod.$dec($r) : $nil());
   }
@@ -164,7 +164,7 @@ extension GoPionDtlsV3PkgProtocolApi on GoPionDtlsV3PkgProtocol {
   /// Go: `func protocol.DecodeCompressionMethods(buf []byte) ([]*protocol.CompressionMethod, error)`.
   List<DtlsV3PkgProtocolCompressionMethod> decodeCompressionMethods(
       Uint8List buf) {
-    final $r = $callSync(16270, $W()..bytes(buf));
+    final $r = $callSync(16276, $W()..bytes(buf));
     return $r.list(
         () => $r.p() ? DtlsV3PkgProtocolCompressionMethod.$dec($r) : $nil());
   }
@@ -172,14 +172,14 @@ extension GoPionDtlsV3PkgProtocolApi on GoPionDtlsV3PkgProtocol {
   /// Go: `func protocol.EncodeCompressionMethods(c []*protocol.CompressionMethod) []byte`.
   Uint8List encodeCompressionMethods(
       List<DtlsV3PkgProtocolCompressionMethod> c) {
-    final $r = $callSync(16271, $W()..list(c, (w0, e0) => w0.dto(e0)));
+    final $r = $callSync(16277, $W()..list(c, (w0, e0) => w0.dto(e0)));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func protocol.IsSupportedBytes(major uint8, minor uint8) bool`.
   bool isSupportedBytes(int major, int minor) {
     final $r = $callSync(
-        16272,
+        16278,
         $W()
           ..i64(major)
           ..i64(minor));
@@ -188,14 +188,14 @@ extension GoPionDtlsV3PkgProtocolApi on GoPionDtlsV3PkgProtocol {
 
   /// Go: `func protocol.IsSupportedVersion(v protocol.Version) bool`.
   bool isSupportedVersion(DtlsV3PkgProtocolVersion v) {
-    final $r = $callSync(16273, $W()..dto(v));
+    final $r = $callSync(16279, $W()..dto(v));
     return $r.b();
   }
 
   /// Go: `func protocol.IsValidBytes(major uint8, minor uint8) bool`.
   bool isValidBytes(int major, int minor) {
     final $r = $callSync(
-        16274,
+        16280,
         $W()
           ..i64(major)
           ..i64(minor));
@@ -204,25 +204,25 @@ extension GoPionDtlsV3PkgProtocolApi on GoPionDtlsV3PkgProtocol {
 
   /// Go: `func protocol.IsValidVersion(v protocol.Version) bool`.
   bool isValidVersion(DtlsV3PkgProtocolVersion v) {
-    final $r = $callSync(16275, $W()..dto(v));
+    final $r = $callSync(16281, $W()..dto(v));
     return $r.b();
   }
 
   /// Go: `var protocol.Version1_0 protocol.Version`.
   DtlsV3PkgProtocolVersion get version10 {
-    final $r = $callSync(16277);
+    final $r = $callSync(16283);
     return $r.p() ? DtlsV3PkgProtocolVersion.$dec($r) : $nil();
   }
 
   /// Go: `var protocol.Version1_2 protocol.Version`.
   DtlsV3PkgProtocolVersion get version12 {
-    final $r = $callSync(16278);
+    final $r = $callSync(16284);
     return $r.p() ? DtlsV3PkgProtocolVersion.$dec($r) : $nil();
   }
 
   /// Go: `var protocol.Version1_3 protocol.Version`.
   DtlsV3PkgProtocolVersion get version13 {
-    final $r = $callSync(16279);
+    final $r = $callSync(16285);
     return $r.p() ? DtlsV3PkgProtocolVersion.$dec($r) : $nil();
   }
 }

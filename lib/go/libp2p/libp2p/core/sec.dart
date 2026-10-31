@@ -23,7 +23,7 @@ class Libp2pCoreSecSecureConn extends $net.NetConn
 mixin Libp2pCoreSecSecureConn$ on GoHandle {
   /// Go: type assertion `x.(*insecure.Conn)`: null if the object is not one.
   $insecure.Libp2pP2pSecurityInsecureConn? asLibp2pP2pSecurityInsecureConn() {
-    final $r = $callSync(1420, $W()..h(this));
+    final $r = $callSync(1423, $W()..h(this));
     return $r.hn($insecure.Libp2pP2pSecurityInsecureConn.$h);
   }
 }
@@ -38,7 +38,7 @@ class Libp2pCoreSecSecureTransport extends GoHandle
 mixin Libp2pCoreSecSecureTransport$ on GoHandle {
   /// Go: `func (sec.SecureTransport).ID() protocol.ID`.
   String id() {
-    final $r = $callSync(14294, $W()..h(this));
+    final $r = $callSync(14300, $W()..h(this));
     return $r.str();
   }
 
@@ -48,7 +48,7 @@ mixin Libp2pCoreSecSecureTransport$ on GoHandle {
   Future<Libp2pCoreSecSecureConn> secureInbound($context.Context ctx,
       $net.NetConn insecure, $peer.Libp2pCorePeerId p) async {
     final $r = await $call(
-        14295,
+        14301,
         $W()
           ..h(this)
           ..h(ctx)
@@ -63,7 +63,7 @@ mixin Libp2pCoreSecSecureTransport$ on GoHandle {
   Future<Libp2pCoreSecSecureConn> secureOutbound($context.Context ctx,
       $net.NetConn insecure, $peer.Libp2pCorePeerId p) async {
     final $r = await $call(
-        14296,
+        14302,
         $W()
           ..h(this)
           ..h(ctx)
@@ -75,26 +75,26 @@ mixin Libp2pCoreSecSecureTransport$ on GoHandle {
   /// Go: type assertion `x.(*insecure.Transport)`: null if the object is not one.
   $insecure.Libp2pP2pSecurityInsecureTransport?
       asLibp2pP2pSecurityInsecureTransport() {
-    final $r = $callSync(1421, $W()..h(this));
+    final $r = $callSync(1424, $W()..h(this));
     return $r.hn($insecure.Libp2pP2pSecurityInsecureTransport.$h);
   }
 
   /// Go: type assertion `x.(*noise.SessionTransport)`: null if the object is not one.
   $noise.Libp2pP2pSecurityNoiseSessionTransport?
       asLibp2pP2pSecurityNoiseSessionTransport() {
-    final $r = $callSync(1422, $W()..h(this));
+    final $r = $callSync(1425, $W()..h(this));
     return $r.hn($noise.Libp2pP2pSecurityNoiseSessionTransport.$h);
   }
 
   /// Go: type assertion `x.(*noise.Transport)`: null if the object is not one.
   $noise.Libp2pP2pSecurityNoiseTransport? asLibp2pP2pSecurityNoiseTransport() {
-    final $r = $callSync(1423, $W()..h(this));
+    final $r = $callSync(1426, $W()..h(this));
     return $r.hn($noise.Libp2pP2pSecurityNoiseTransport.$h);
   }
 
   /// Go: type assertion `x.(*libp2ptls.Transport)`: null if the object is not one.
   $tls.Libp2pP2pSecurityTlsTransport? asLibp2pP2pSecurityTlsTransport() {
-    final $r = $callSync(1424, $W()..h(this));
+    final $r = $callSync(1427, $W()..h(this));
     return $r.hn($tls.Libp2pP2pSecurityTlsTransport.$h);
   }
 }

@@ -26,7 +26,7 @@ final class PebbleV2BatchreprHeader implements GoDto {
 
   /// Go: `func (batchrepr.Header).String() string`.
   String string() {
-    final $r = $callSync(4892, $W()..dto(this));
+    final $r = $callSync(4901, $W()..dto(this));
     return $r.str();
   }
 }
@@ -44,32 +44,32 @@ class PebbleV2BatchreprErrInvalidBatch extends GolangException {
 extension GoCockroachdbPebbleV2BatchreprApi on GoCockroachdbPebbleV2Batchrepr {
   /// Go: `func batchrepr.DecodeStr(data []byte) (odata []byte, s []byte, ok bool)`.
   (Uint8List, Uint8List, bool) decodeStr(Uint8List data) {
-    final $r = $callSync(4891, $W()..bytes(data));
+    final $r = $callSync(4900, $W()..bytes(data));
     return ($r.bytes() ?? Uint8List(0), $r.bytes() ?? Uint8List(0), $r.b());
   }
 
   /// Go: `func batchrepr.IsEmpty(repr []byte) bool`.
   bool isEmpty(Uint8List repr) {
-    final $r = $callSync(4893, $W()..bytes(repr));
+    final $r = $callSync(4902, $W()..bytes(repr));
     return $r.b();
   }
 
   /// Go: `func batchrepr.Read(repr []byte) (r batchrepr.Reader)`.
   Uint8List read(Uint8List repr) {
-    final $r = $callSync(4894, $W()..bytes(repr));
+    final $r = $callSync(4903, $W()..bytes(repr));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func batchrepr.ReadHeader(repr []byte) (h batchrepr.Header, ok bool)`.
   (PebbleV2BatchreprHeader, bool) readHeader(Uint8List repr) {
-    final $r = $callSync(4895, $W()..bytes(repr));
+    final $r = $callSync(4904, $W()..bytes(repr));
     return ($r.p() ? PebbleV2BatchreprHeader.$dec($r) : $nil(), $r.b());
   }
 
   /// Go: `func batchrepr.SetCount(repr []byte, count uint32)`.
   void setCount(Uint8List repr, int count) {
     $callSync(
-        4896,
+        4905,
         $W()
           ..bytes(repr)
           ..i64(count));

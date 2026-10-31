@@ -36,14 +36,14 @@ class TextUnicodeNormIter extends $io.IoSeeker
 
   /// Go: `func (*norm.Iter).Done() bool`.
   bool done() {
-    final $r = $callSync(24044, $W()..h(this));
+    final $r = $callSync(24050, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*norm.Iter).Init(f norm.Form, src []byte)`.
   void init(int f, Uint8List src) {
     $callSync(
-        24045,
+        24051,
         $W()
           ..h(this)
           ..i64(f)
@@ -53,7 +53,7 @@ class TextUnicodeNormIter extends $io.IoSeeker
   /// Go: `func (*norm.Iter).InitString(f norm.Form, src string)`.
   void initString(int f, String src) {
     $callSync(
-        24046,
+        24052,
         $W()
           ..h(this)
           ..i64(f)
@@ -62,20 +62,20 @@ class TextUnicodeNormIter extends $io.IoSeeker
 
   /// Go: `func (*norm.Iter).Next() []byte`.
   Uint8List next() {
-    final $r = $callSync(24047, $W()..h(this));
+    final $r = $callSync(24053, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*norm.Iter).Pos() int`.
   int pos() {
-    final $r = $callSync(24048, $W()..h(this));
+    final $r = $callSync(24054, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*norm.Iter).Seek(offset int64, whence int) (int64, error)`.
   int seek(int offset, int whence) {
     final $r = $callSync(
-        24049,
+        24055,
         $W()
           ..h(this)
           ..i64(offset)
@@ -104,43 +104,43 @@ class TextUnicodeNormProperties extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (norm.Properties).BoundaryAfter() bool`.
   bool boundaryAfter() {
-    final $r = $callSync(24050, $W()..h(this));
+    final $r = $callSync(24056, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (norm.Properties).BoundaryBefore() bool`.
   bool boundaryBefore() {
-    final $r = $callSync(24051, $W()..h(this));
+    final $r = $callSync(24057, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (norm.Properties).CCC() uint8`.
   int ccc() {
-    final $r = $callSync(24052, $W()..h(this));
+    final $r = $callSync(24058, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (norm.Properties).Decomposition() []byte`.
   Uint8List decomposition() {
-    final $r = $callSync(24053, $W()..h(this));
+    final $r = $callSync(24059, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (norm.Properties).LeadCCC() uint8`.
   int leadCcc() {
-    final $r = $callSync(24054, $W()..h(this));
+    final $r = $callSync(24060, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (norm.Properties).Size() int`.
   int size() {
-    final $r = $callSync(24055, $W()..h(this));
+    final $r = $callSync(24061, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (norm.Properties).TrailCCC() uint8`.
   int trailCcc() {
-    final $r = $callSync(24056, $W()..h(this));
+    final $r = $callSync(24062, $W()..h(this));
     return $r.i64();
   }
 }

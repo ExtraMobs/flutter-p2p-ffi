@@ -33,7 +33,7 @@ class Libp2pP2pHostPeerstorePstorememAddrSubManager
 
   /// Go: `func pstoremem.NewAddrSubManager() *pstoremem.AddrSubManager`.
   factory Libp2pP2pHostPeerstorePstorememAddrSubManager() {
-    final $r = $callSync(14488);
+    final $r = $callSync(14494);
     return $r.hnn(Libp2pP2pHostPeerstorePstorememAddrSubManager.$h);
   }
 
@@ -41,7 +41,7 @@ class Libp2pP2pHostPeerstorePstorememAddrSubManager
   Stream<$multiaddr.Multiaddr> addrStream($context.Context ctx,
           $peer.Libp2pCorePeerId p, List<$multiaddr.Multiaddr> initial) =>
       $stream(
-              14486,
+              14492,
               $W()
                 ..h(this)
                 ..h(ctx)
@@ -52,7 +52,7 @@ class Libp2pP2pHostPeerstorePstorememAddrSubManager
   /// Go: `func (*pstoremem.AddrSubManager).BroadcastAddr(p peer.ID, addr multiaddr.Multiaddr)`.
   void broadcastAddr($peer.Libp2pCorePeerId p, $multiaddr.Multiaddr addr) {
     $callSync(
-        14487,
+        14493,
         $W()
           ..h(this)
           ..val(p)

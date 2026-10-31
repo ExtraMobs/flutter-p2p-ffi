@@ -19,14 +19,14 @@ class KuboConfigSerializeErrNotInitialized extends GolangException {
 extension GoIpfsKuboConfigSerializeApi on GoIpfsKuboConfigSerialize {
   /// Go: `func fsrepo.Load(filename string) (*config.Config, error)`.
   $config.KuboConfig load(String filename) {
-    final $r = $callSync(11291, $W()..str(filename));
+    final $r = $callSync(11297, $W()..str(filename));
     return $r.p() ? $config.KuboConfig($r.json()) : $nil();
   }
 
   /// Go: `func fsrepo.ReadConfigFile(filename string, cfg any) error`.
   void readConfigFile(String filename, Object? cfg) {
     $callSync(
-        11292,
+        11298,
         $W()
           ..str(filename)
           ..any(cfg));
@@ -35,7 +35,7 @@ extension GoIpfsKuboConfigSerializeApi on GoIpfsKuboConfigSerialize {
   /// Go: `func fsrepo.WriteConfigFile(filename string, cfg any) error`.
   void writeConfigFile(String filename, Object? cfg) {
     $callSync(
-        11293,
+        11299,
         $W()
           ..str(filename)
           ..any(cfg));

@@ -58,12 +58,12 @@ class AtomicfileFile extends $http.NetHttpFile
 
   /// Go: `func (*atomicfile.File).Abort() error`.
   void abort() {
-    $callSync(6261, $W()..h(this));
+    $callSync(6270, $W()..h(this));
   }
 
   /// Go: `func (*atomicfile.File).Close() error`.
   void close() {
-    $callSync(6262, $W()..h(this));
+    $callSync(6271, $W()..h(this));
   }
 }
 
@@ -72,7 +72,7 @@ extension GoFacebookgoAtomicfileApi on GoFacebookgoAtomicfile {
   /// Go: `func atomicfile.New(path string, mode os.FileMode) (*atomicfile.File, error)`.
   AtomicfileFile new$(String path, int mode) {
     final $r = $callSync(
-        6263,
+        6272,
         $W()
           ..str(path)
           ..i64(mode));

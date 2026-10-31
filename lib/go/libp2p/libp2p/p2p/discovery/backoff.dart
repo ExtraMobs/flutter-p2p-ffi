@@ -45,7 +45,7 @@ class Libp2pP2pDiscoveryBackoffConnector extends $crypto.CryptoDecrypterOpts
       Duration connectionTryDuration,
       Libp2pP2pDiscoveryBackoffFactory backoff) {
     final $r = $callSync(
-        14327,
+        14333,
         $W()
           ..h(h)
           ..i64(cacheSize)
@@ -86,7 +86,7 @@ class Libp2pP2pDiscoveryBackoffDiscovery
   Future<Duration> advertise($context.Context ctx, String ns,
       [List<$discovery.Libp2pCoreDiscoveryOption> opts = const []]) async {
     final $r = await $call(
-        14322,
+        14328,
         $W()
           ..h(this)
           ..h(ctx)
@@ -100,7 +100,7 @@ class Libp2pP2pDiscoveryBackoffDiscovery
           $context.Context ctx, String ns,
           [List<$discovery.Libp2pCoreDiscoveryOption> opts = const []]) =>
       $stream(
-              14323,
+              14329,
               $W()
                 ..h(this)
                 ..h(ctx)
@@ -143,13 +143,13 @@ class Libp2pP2pDiscoveryBackoffStrategy extends GoHandle
 mixin Libp2pP2pDiscoveryBackoffStrategy$ on GoHandle {
   /// Go: `func (backoff.BackoffStrategy).Delay() time.Duration`.
   Duration delay() {
-    final $r = $callSync(14324, $W()..h(this));
+    final $r = $callSync(14330, $W()..h(this));
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `func (backoff.BackoffStrategy).Reset()`.
   void reset() {
-    $callSync(14325, $W()..h(this));
+    $callSync(14331, $W()..h(this));
   }
 }
 
@@ -160,7 +160,7 @@ extension GoLibp2pLibp2pP2pDiscoveryBackoffApi
   Duration fullJitter(
       Duration duration, Duration min, Duration max, $rand.MathRand rng) {
     final $r = $callSync(
-        14326,
+        14332,
         $W()
           ..i64((duration).inMicroseconds * 1000)
           ..i64((min).inMicroseconds * 1000)
@@ -175,7 +175,7 @@ extension GoLibp2pLibp2pP2pDiscoveryBackoffApi
       Libp2pP2pDiscoveryBackoffFactory stratFactory,
       [List<Libp2pP2pDiscoveryBackoffDiscoveryOption> opts = const []]) {
     final $r = $callSync(
-        14328,
+        14334,
         $W()
           ..h(disc)
           ..h(stratFactory)
@@ -201,7 +201,7 @@ extension GoLibp2pLibp2pP2pDiscoveryBackoffApi
       Duration offset,
       $rand.MathRandSource rngSrc) async {
     final $r = await $call(
-        14329,
+        14335,
         $W()
           ..i64((min).inMicroseconds * 1000)
           ..i64((max).inMicroseconds * 1000)
@@ -224,7 +224,7 @@ extension GoLibp2pLibp2pP2pDiscoveryBackoffApi
   Libp2pP2pDiscoveryBackoffFactory newExponentialDecorrelatedJitter(
       Duration min, Duration max, double base, $rand.MathRandSource rngSrc) {
     final $r = $callSync(
-        14330,
+        14336,
         $W()
           ..i64((min).inMicroseconds * 1000)
           ..i64((max).inMicroseconds * 1000)
@@ -235,7 +235,7 @@ extension GoLibp2pLibp2pP2pDiscoveryBackoffApi
 
   /// Go: `func backoff.NewFixedBackoff(delay time.Duration) backoff.BackoffFactory`.
   Libp2pP2pDiscoveryBackoffFactory newFixedBackoff(Duration delay) {
-    final $r = $callSync(14331, $W()..i64((delay).inMicroseconds * 1000));
+    final $r = $callSync(14337, $W()..i64((delay).inMicroseconds * 1000));
     return $r.hnn(Libp2pP2pDiscoveryBackoffFactory.$h);
   }
 
@@ -256,7 +256,7 @@ extension GoLibp2pLibp2pP2pDiscoveryBackoffApi
       List<double> polyCoefs,
       $rand.MathRandSource rngSrc) async {
     final $r = await $call(
-        14332,
+        14338,
         $W()
           ..i64((min).inMicroseconds * 1000)
           ..i64((max).inMicroseconds * 1000)
@@ -278,7 +278,7 @@ extension GoLibp2pLibp2pP2pDiscoveryBackoffApi
   Duration noJitter(
       Duration duration, Duration min, Duration max, $rand.MathRand rand) {
     final $r = $callSync(
-        14333,
+        14339,
         $W()
           ..i64((duration).inMicroseconds * 1000)
           ..i64((min).inMicroseconds * 1000)

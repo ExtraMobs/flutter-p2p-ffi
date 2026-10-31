@@ -10,7 +10,7 @@ import 'package:p2p_ffi/go/ipfs/kubo/plugin.dart' as $plugin;
 extension GoIpfsKuboPluginPluginsPeerlogApi on GoIpfsKuboPluginPluginsPeerlog {
   /// Go: `var peerlog.Plugins []plugin.Plugin`.
   List<$plugin.KuboPlugin> get plugins {
-    final $r = $callSync(11725);
+    final $r = $callSync(11731);
     return $r.list(() => $r.hnn($plugin.KuboPlugin.$h));
   }
 }

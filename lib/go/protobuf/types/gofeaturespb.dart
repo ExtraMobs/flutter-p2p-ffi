@@ -45,47 +45,47 @@ class ProtobufTypesGofeaturespbGoFeatures
   /// Go: `func (*gofeaturespb.GoFeatures).Descriptor() ([]byte, []int)`.
   @Deprecated("Use GoFeatures.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(25445, $W()..h(this));
+    final $r = $callSync(25451, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*gofeaturespb.GoFeatures).GetApiLevel() gofeaturespb.GoFeatures_APILevel`.
   int getApiLevel() {
-    final $r = $callSync(25446, $W()..h(this));
+    final $r = $callSync(25452, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*gofeaturespb.GoFeatures).GetLegacyUnmarshalJsonEnum() bool`.
   bool getLegacyUnmarshalJsonEnum() {
-    final $r = $callSync(25447, $W()..h(this));
+    final $r = $callSync(25453, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*gofeaturespb.GoFeatures).GetStripEnumPrefix() gofeaturespb.GoFeatures_StripEnumPrefix`.
   int getStripEnumPrefix() {
-    final $r = $callSync(25448, $W()..h(this));
+    final $r = $callSync(25454, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*gofeaturespb.GoFeatures).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25449, $W()..h(this));
+    $callSync(25455, $W()..h(this));
   }
 
   /// Go: `func (*gofeaturespb.GoFeatures).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(25450, $W()..h(this));
+    final $r = $callSync(25456, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*gofeaturespb.GoFeatures).Reset()`.
   void reset() {
-    $callSync(25451, $W()..h(this));
+    $callSync(25457, $W()..h(this));
   }
 
   /// Go: `func (*gofeaturespb.GoFeatures).String() string`.
   String string() {
-    final $r = $callSync(25452, $W()..h(this));
+    final $r = $callSync(25458, $W()..h(this));
     return $r.str();
   }
 }
@@ -95,31 +95,31 @@ extension GoProtobufTypesGofeaturespbApi on GoProtobufTypesGofeaturespb {
   /// Go: `var gofeaturespb.File_google_protobuf_go_features_proto protoreflect.FileDescriptor`.
   $protoreflect.ProtobufReflectProtoreflectFileDescriptor
       get fileGoogleProtobufGoFeaturesProto {
-    final $r = $callSync(25444);
+    final $r = $callSync(25450);
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectFileDescriptor.$h);
   }
 
   /// Go: `var gofeaturespb.GoFeatures_APILevel_name map[int32]string`.
   Map<int, String> get goFeaturesApiLevelName {
-    final $r = $callSync(25453);
+    final $r = $callSync(25459);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var gofeaturespb.GoFeatures_APILevel_value map[string]int32`.
   Map<String, int> get goFeaturesApiLevelValue {
-    final $r = $callSync(25454);
+    final $r = $callSync(25460);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `var gofeaturespb.GoFeatures_StripEnumPrefix_name map[int32]string`.
   Map<int, String> get goFeaturesStripEnumPrefixName {
-    final $r = $callSync(25455);
+    final $r = $callSync(25461);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var gofeaturespb.GoFeatures_StripEnumPrefix_value map[string]int32`.
   Map<String, int> get goFeaturesStripEnumPrefixValue {
-    final $r = $callSync(25456);
+    final $r = $callSync(25462);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 }

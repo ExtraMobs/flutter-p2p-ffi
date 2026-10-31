@@ -73,7 +73,7 @@ class NatPmpClient extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func natpmp.NewClient(gateway net.IP) (nat *natpmp.Client)`.
   factory NatPmpClient(Uint8List gateway) {
-    final $r = $callSync(12690, $W()..bytes(gateway));
+    final $r = $callSync(12696, $W()..bytes(gateway));
     return $r.hnn(NatPmpClient.$h);
   }
 
@@ -81,7 +81,7 @@ class NatPmpClient extends $crypto.CryptoDecrypterOpts
   NatPmpAddPortMappingResult addPortMapping(String protocol, int internalPort,
       int requestedExternalPort, int lifetime) {
     final $r = $callSync(
-        12688,
+        12694,
         $W()
           ..h(this)
           ..str(protocol)
@@ -93,7 +93,7 @@ class NatPmpClient extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*natpmp.Client).GetExternalAddress() (result *natpmp.GetExternalAddressResult, err error)`.
   NatPmpGetExternalAddressResult getExternalAddress() {
-    final $r = $callSync(12689, $W()..h(this));
+    final $r = $callSync(12695, $W()..h(this));
     return $r.p() ? NatPmpGetExternalAddressResult.$dec($r) : $nil();
   }
 }
@@ -121,7 +121,7 @@ extension GoJackpalNatPmpApi on GoJackpalNatPmp {
   /// Go: `func natpmp.NewClientWithTimeout(gateway net.IP, timeout time.Duration) (nat *natpmp.Client)`.
   NatPmpClient newClientWithTimeout(Uint8List gateway, Duration timeout) {
     final $r = $callSync(
-        12691,
+        12697,
         $W()
           ..bytes(gateway)
           ..i64((timeout).inMicroseconds * 1000));

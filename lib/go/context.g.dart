@@ -8,6 +8,6 @@ extension GoContextGeneratedApi on GoContext {
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> cause(Context c) async {
-    await $call(3122, $W()..h(c));
+    await $call(3131, $W()..h(c));
   }
 }

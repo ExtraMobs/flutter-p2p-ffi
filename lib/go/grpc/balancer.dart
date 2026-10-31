@@ -27,18 +27,18 @@ class GrpcBalancer extends GoHandle with GrpcBalancer$ {
 mixin GrpcBalancer$ on GoHandle {
   /// Go: `func (balancer.Balancer).Close()`.
   void close() {
-    $callSync(24380, $W()..h(this));
+    $callSync(24386, $W()..h(this));
   }
 
   /// Go: `func (balancer.Balancer).ExitIdle()`.
   void exitIdle() {
-    $callSync(24381, $W()..h(this));
+    $callSync(24387, $W()..h(this));
   }
 
   /// Go: `func (balancer.Balancer).UpdateClientConnState(balancer.ClientConnState) error`.
   void updateClientConnState(GrpcBalancerClientConnState clientConnState) {
     $callSync(
-        24382,
+        24388,
         $W()
           ..h(this)
           ..dto(clientConnState));
@@ -50,7 +50,7 @@ mixin GrpcBalancer$ on GoHandle {
   void updateSubConnState(
       GrpcBalancerSubConn subConn, GrpcBalancerSubConnState subConnState) {
     $callSync(
-        24383,
+        24389,
         $W()
           ..h(this)
           ..h(subConn)
@@ -124,7 +124,7 @@ mixin GrpcBalancerBuilder$ on GoHandle {
   /// Go: `func (balancer.Builder).Build(cc balancer.ClientConn, opts balancer.BuildOptions) balancer.Balancer`.
   GrpcBalancer build(GrpcBalancerClientConn cc, GrpcBalancerBuildOptions opts) {
     final $r = $callSync(
-        24384,
+        24390,
         $W()
           ..h(this)
           ..h(cc)
@@ -134,7 +134,7 @@ mixin GrpcBalancerBuilder$ on GoHandle {
 
   /// Go: `func (balancer.Builder).Name() string`.
   String name() {
-    final $r = $callSync(24385, $W()..h(this));
+    final $r = $callSync(24391, $W()..h(this));
     return $r.str();
   }
 }
@@ -148,7 +148,7 @@ class GrpcBalancerClientConn extends GoHandle with GrpcBalancerClientConn$ {
 mixin GrpcBalancerClientConn$ on GoHandle {
   /// Go: `func (balancer.ClientConn).MetricsRecorder() stats.MetricsRecorder`.
   $stats.GrpcExperimentalStatsMetricsRecorder metricsRecorder() {
-    final $r = $callSync(24386, $W()..h(this));
+    final $r = $callSync(24392, $W()..h(this));
     return $r.hnn($stats.GrpcExperimentalStatsMetricsRecorder.$h);
   }
 
@@ -158,7 +158,7 @@ mixin GrpcBalancerClientConn$ on GoHandle {
   GrpcBalancerSubConn newSubConn(List<$resolver.GrpcResolverAddress> addresss,
       GrpcBalancerNewSubConnOptions newSubConnOptions) {
     final $r = $callSync(
-        24387,
+        24393,
         $W()
           ..h(this)
           ..list(addresss, (w0, e0) => w0.dto(e0))
@@ -170,7 +170,7 @@ mixin GrpcBalancerClientConn$ on GoHandle {
   @Deprecated("use SubConn.Shutdown instead.")
   void removeSubConn(GrpcBalancerSubConn subConn) {
     $callSync(
-        24388,
+        24394,
         $W()
           ..h(this)
           ..h(subConn));
@@ -179,7 +179,7 @@ mixin GrpcBalancerClientConn$ on GoHandle {
   /// Go: `func (balancer.ClientConn).ResolveNow(resolver.ResolveNowOptions)`.
   void resolveNow($resolver.GrpcResolverResolveNowOptions resolveNowOptions) {
     $callSync(
-        24389,
+        24395,
         $W()
           ..h(this)
           ..dto(resolveNowOptions));
@@ -188,7 +188,7 @@ mixin GrpcBalancerClientConn$ on GoHandle {
   /// Go: `func (balancer.ClientConn).Target() string`.
   @Deprecated("Use the Target field in the BuildOptions instead.")
   String target() {
-    final $r = $callSync(24390, $W()..h(this));
+    final $r = $callSync(24396, $W()..h(this));
     return $r.str();
   }
 
@@ -198,7 +198,7 @@ mixin GrpcBalancerClientConn$ on GoHandle {
   void updateAddresses(GrpcBalancerSubConn subConn,
       List<$resolver.GrpcResolverAddress> addresss) {
     $callSync(
-        24391,
+        24397,
         $W()
           ..h(this)
           ..h(subConn)
@@ -208,7 +208,7 @@ mixin GrpcBalancerClientConn$ on GoHandle {
   /// Go: `func (balancer.ClientConn).UpdateState(balancer.State)`.
   void updateState(GrpcBalancerState state) {
     $callSync(
-        24392,
+        24398,
         $W()
           ..h(this)
           ..dto(state));
@@ -253,7 +253,7 @@ mixin GrpcBalancerConfigParser$ on GoHandle {
   $serviceconfig.GrpcServiceconfigLoadBalancingConfig parseConfig(
       Uint8List loadBalancingConfigJson) {
     final $r = $callSync(
-        24393,
+        24399,
         $W()
           ..h(this)
           ..bytes(loadBalancingConfigJson));
@@ -281,14 +281,14 @@ class GrpcBalancerConnectivityStateEvaluator extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*balancer.ConnectivityStateEvaluator).CurrentState() connectivity.State`.
   int currentState() {
-    final $r = $callSync(24394, $W()..h(this));
+    final $r = $callSync(24400, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*balancer.ConnectivityStateEvaluator).RecordTransition(oldState connectivity.State, newState connectivity.State) connectivity.State`.
   int recordTransition(int oldState, int newState) {
     final $r = $callSync(
-        24395,
+        24401,
         $W()
           ..h(this)
           ..i64(oldState)
@@ -308,7 +308,7 @@ class GrpcBalancerExitIdler extends GoHandle with GrpcBalancerExitIdler$ {
 mixin GrpcBalancerExitIdler$ on GoHandle {
   /// Go: `func (balancer.ExitIdler).ExitIdle()`.
   void exitIdle() {
-    $callSync(24396, $W()..h(this));
+    $callSync(24402, $W()..h(this));
   }
 }
 
@@ -385,7 +385,7 @@ mixin GrpcBalancerPicker$ on GoHandle {
   /// Go: `func (balancer.Picker).Pick(info balancer.PickInfo) (balancer.PickResult, error)`.
   GrpcBalancerPickResult pick(GrpcBalancerPickInfo info) {
     final $r = $callSync(
-        24398,
+        24404,
         $W()
           ..h(this)
           ..dto(info));
@@ -426,7 +426,7 @@ class GrpcBalancerSubConn extends GoHandle with GrpcBalancerSubConn$ {
 mixin GrpcBalancerSubConn$ on GoHandle {
   /// Go: `func (balancer.SubConn).Connect()`.
   void connect() {
-    $callSync(24400, $W()..h(this));
+    $callSync(24406, $W()..h(this));
   }
 
   /// Go: `func (balancer.SubConn).RegisterHealthListener(func(balancer.SubConnState))`.
@@ -440,7 +440,7 @@ mixin GrpcBalancerSubConn$ on GoHandle {
       FutureOr<void> Function(GrpcBalancerSubConnState subConnState)
           callback) async {
     await $call(
-        24401,
+        24407,
         $W()
           ..h(this)
           ..cb(
@@ -451,7 +451,7 @@ mixin GrpcBalancerSubConn$ on GoHandle {
 
   /// Go: `func (balancer.SubConn).Shutdown()`.
   void shutdown() {
-    $callSync(24402, $W()..h(this));
+    $callSync(24408, $W()..h(this));
   }
 
   /// Go: `func (balancer.SubConn).UpdateAddresses([]resolver.Address)`.
@@ -459,7 +459,7 @@ mixin GrpcBalancerSubConn$ on GoHandle {
       "this method will be removed. Create new SubConns for new addresses instead.")
   void updateAddresses(List<$resolver.GrpcResolverAddress> addresss) {
     $callSync(
-        24403,
+        24409,
         $W()
           ..h(this)
           ..list(addresss, (w0, e0) => w0.dto(e0)));
@@ -521,12 +521,12 @@ class GrpcBalancerErrTransientFailure extends GolangException {
 extension GoGrpcBalancerApi on GoGrpcBalancer {
   /// Go: `func balancer.Get(name string) balancer.Builder`.
   GrpcBalancerBuilder get(String name) {
-    final $r = $callSync(24397, $W()..str(name));
+    final $r = $callSync(24403, $W()..str(name));
     return $r.hnn(GrpcBalancerBuilder.$h);
   }
 
   /// Go: `func balancer.Register(b balancer.Builder)`.
   void register(GrpcBalancerBuilder b) {
-    $callSync(24399, $W()..h(b));
+    $callSync(24405, $W()..h(b));
   }
 }

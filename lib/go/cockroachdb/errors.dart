@@ -23,7 +23,7 @@ extension GoCockroachdbErrorsApi on GoCockroachdbErrors {
   void assertionFailedWithDepthf(int depth, String format,
       [List<Object?> args = const []]) {
     $callSync(
-        4389,
+        4398,
         $W()
           ..i64(depth)
           ..str(format)
@@ -33,7 +33,7 @@ extension GoCockroachdbErrorsApi on GoCockroachdbErrors {
   /// Go: `func errors.AssertionFailedf(format string, args ...interface{}) error`.
   void assertionFailedf(String format, [List<Object?> args = const []]) {
     $callSync(
-        4390,
+        4399,
         $W()
           ..str(format)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -45,7 +45,7 @@ extension GoCockroachdbErrorsApi on GoCockroachdbErrors {
   Future<void> decodeError(
       $context.Context ctx, $errorspb.ErrorsErrorspbEncodedError enc) async {
     await $call(
-        4391,
+        4400,
         $W()
           ..h(ctx)
           ..dto(enc));
@@ -54,7 +54,7 @@ extension GoCockroachdbErrorsApi on GoCockroachdbErrors {
   /// Go: `func errors.Errorf(format string, args ...interface{}) error`.
   void errorf(String format, [List<Object?> args = const []]) {
     $callSync(
-        4392,
+        4401,
         $W()
           ..str(format)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -62,13 +62,13 @@ extension GoCockroachdbErrorsApi on GoCockroachdbErrors {
 
   /// Go: `func errors.Join(errs ...error) error`.
   void join$([List<String> errs = const []]) {
-    $callSync(4393, $W()..list(errs, (w0, e0) => w0.err(e0)));
+    $callSync(4402, $W()..list(errs, (w0, e0) => w0.err(e0)));
   }
 
   /// Go: `func errors.JoinWithDepth(depth int, errs ...error) error`.
   void joinWithDepth(int depth, [List<String> errs = const []]) {
     $callSync(
-        4394,
+        4403,
         $W()
           ..i64(depth)
           ..list(errs, (w0, e0) => w0.err(e0)));
@@ -76,19 +76,19 @@ extension GoCockroachdbErrorsApi on GoCockroachdbErrors {
 
   /// Go: `func errors.NamedDomain(domainName string) errors.Domain`.
   String namedDomain(String domainName) {
-    final $r = $callSync(4395, $W()..str(domainName));
+    final $r = $callSync(4404, $W()..str(domainName));
     return $r.str();
   }
 
   /// Go: `func errors.New(msg string) error`.
   void new$(String msg) {
-    $callSync(4396, $W()..str(msg));
+    $callSync(4405, $W()..str(msg));
   }
 
   /// Go: `func errors.NewWithDepth(depth int, msg string) error`.
   void newWithDepth(int depth, String msg) {
     $callSync(
-        4397,
+        4406,
         $W()
           ..i64(depth)
           ..str(msg));
@@ -98,7 +98,7 @@ extension GoCockroachdbErrorsApi on GoCockroachdbErrors {
   void newWithDepthf(int depth, String format,
       [List<Object?> args = const []]) {
     $callSync(
-        4398,
+        4407,
         $W()
           ..i64(depth)
           ..str(format)
@@ -108,7 +108,7 @@ extension GoCockroachdbErrorsApi on GoCockroachdbErrors {
   /// Go: `func errors.Newf(format string, args ...interface{}) error`.
   void newf(String format, [List<Object?> args = const []]) {
     $callSync(
-        4399,
+        4408,
         $W()
           ..str(format)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -116,19 +116,19 @@ extension GoCockroachdbErrorsApi on GoCockroachdbErrors {
 
   /// Go: `func errors.PackageDomain() errors.Domain`.
   String packageDomain() {
-    final $r = $callSync(4400);
+    final $r = $callSync(4409);
     return $r.str();
   }
 
   /// Go: `func errors.PackageDomainAtDepth(depth int) errors.Domain`.
   String packageDomainAtDepth(int depth) {
-    final $r = $callSync(4401, $W()..i64(depth));
+    final $r = $callSync(4410, $W()..i64(depth));
     return $r.str();
   }
 
   /// Go: `func errors.Redact(r interface{}) string`.
   String redact(Object? r) {
-    final $r = $callSync(4402, $W()..any(r));
+    final $r = $callSync(4411, $W()..any(r));
     return $r.str();
   }
 
@@ -145,7 +145,7 @@ extension GoCockroachdbErrorsApi on GoCockroachdbErrors {
               List<String> safeDetails, $proto.ProtobufProtoMessage payload)
           decoder) async {
     await $call(
-        4403,
+        4412,
         $W()
           ..str(typeName)
           ..cb(
@@ -171,7 +171,7 @@ extension GoCockroachdbErrorsApi on GoCockroachdbErrors {
               $proto.ProtobufProtoMessage payload)
           decoder) async {
     await $call(
-        4404,
+        4413,
         $W()
           ..str(theType)
           ..cb(
@@ -188,7 +188,7 @@ extension GoCockroachdbErrorsApi on GoCockroachdbErrors {
   void registerWrapperEncoder(
       String typeName, $errbase.ErrorsErrbaseWrapperEncoder encoder) {
     $callSync(
-        4405,
+        4414,
         $W()
           ..str(typeName)
           ..h(encoder));
@@ -198,7 +198,7 @@ extension GoCockroachdbErrorsApi on GoCockroachdbErrors {
   void registerWrapperEncoderWithMessageType(String typeName,
       $errbase.ErrorsErrbaseWrapperEncoderWithMessageType encoder) {
     $callSync(
-        4406,
+        4415,
         $W()
           ..str(typeName)
           ..h(encoder));
@@ -206,7 +206,7 @@ extension GoCockroachdbErrorsApi on GoCockroachdbErrors {
 
   /// Go: `func errors.Safe(v interface{}) redact.SafeValue`.
   $interfaces.RedactInterfacesSafeValue safe(Object? v) {
-    final $r = $callSync(4407, $W()..any(v));
+    final $r = $callSync(4416, $W()..any(v));
     return $r.hnn($interfaces.RedactInterfacesSafeValue.$h);
   }
 
@@ -214,7 +214,7 @@ extension GoCockroachdbErrorsApi on GoCockroachdbErrors {
   void unimplementedError(
       $issuelink.ErrorsIssuelinkIssueLink issueLink, String msg) {
     $callSync(
-        4408,
+        4417,
         $W()
           ..dto(issueLink)
           ..str(msg));
@@ -225,7 +225,7 @@ extension GoCockroachdbErrorsApi on GoCockroachdbErrors {
       $issuelink.ErrorsIssuelinkIssueLink issueLink, String format,
       [List<Object?> args = const []]) {
     $callSync(
-        4409,
+        4418,
         $W()
           ..dto(issueLink)
           ..str(format)

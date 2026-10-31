@@ -117,7 +117,7 @@ mixin BoxoIpldMerkledagTraverseVisited$ on GoHandle {
   /// Go: `func (traverse.Visited).Visit(c cid.Cid) bool`.
   bool visit($cid.Cid c) {
     final $r = $callSync(
-        9723,
+        9732,
         $W()
           ..h(this)
           ..val(c));
@@ -126,19 +126,19 @@ mixin BoxoIpldMerkledagTraverseVisited$ on GoHandle {
 
   /// Go: type assertion `x.(*walker.BloomTracker)`: null if the object is not one.
   $walker.BoxoDagWalkerBloomTracker? asBoxoDagWalkerBloomTracker() {
-    final $r = $callSync(955, $W()..h(this));
+    final $r = $callSync(958, $W()..h(this));
     return $r.hn($walker.BoxoDagWalkerBloomTracker.$h);
   }
 
   /// Go: type assertion `x.(*walker.MapTracker)`: null if the object is not one.
   $walker.BoxoDagWalkerMapTracker? asBoxoDagWalkerMapTracker() {
-    final $r = $callSync(956, $W()..h(this));
+    final $r = $callSync(959, $W()..h(this));
     return $r.hn($walker.BoxoDagWalkerMapTracker.$h);
   }
 
   /// Go: type assertion `x.(*cid.Set)`: null if the object is not one.
   $cid.CidSet? asCidSet() {
-    final $r = $callSync(957, $W()..h(this));
+    final $r = $callSync(960, $W()..h(this));
     return $r.hn($cid.CidSet.$h);
   }
 }
@@ -150,7 +150,7 @@ extension GoIpfsBoxoIpldMerkledagTraverseApi
   void traverse(
       $ipld_format.IpldFormatNode root, BoxoIpldMerkledagTraverseOptions o) {
     $callSync(
-        9722,
+        9731,
         $W()
           ..h(root)
           ..dto(o));

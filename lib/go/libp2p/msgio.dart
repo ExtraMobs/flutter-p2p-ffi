@@ -6,47 +6,49 @@ import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/go.dart' show GoLibp2pMsgio;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/bytes.dart' as $bytes;
+import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
+import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/libp2p/buffer_pool.dart' as $buffer_pool;
-import 'package:p2p_ffi/go/sync.dart' as $sync;
 
-/// Go: `msgio.LimitedWriter`.
-///
-/// Fields that do not cross the bridge: `W` (type io.Writer).
-final class MsgioLimitedWriter implements GoDto {
-  MsgioLimitedWriter({$bytes.BytesBuffer? b, $sync.SyncMutex? m})
-      : b = b,
-        m = m;
+/// Go: `msgio.LimitedWriter` (handle).
+class MsgioLimitedWriter extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
+  MsgioLimitedWriter.$h(super.$h) : super.$h();
 
-  MsgioLimitedWriter.$dec($R r)
-      : b = r.hn($bytes.BytesBuffer.$h),
-        m = r.hn($sync.SyncMutex.$h);
-
-  /// Go: `B`.
-  $bytes.BytesBuffer? b;
-
-  /// Go: `M`.
-  $sync.SyncMutex? m;
-
-  @override
-  void $enc($W w) {
-    w
-      ..h(b)
-      ..h(m);
+  /// Go: `func msgio.NewLimitedWriter(w io.Writer) *msgio.LimitedWriter`.
+  factory MsgioLimitedWriter(GoHandle? w) {
+    final $r = $callSync(15111, $W()..h(w));
+    return $r.hnn(MsgioLimitedWriter.$h);
   }
 
   /// Go: `func (*msgio.LimitedWriter).Flush() error`.
   void flush() {
-    $callSync(15103, $W()..dto(this));
+    $callSync(15109, $W()..h(this));
   }
 
   /// Go: `func (*msgio.LimitedWriter).Write(buf []byte) (n int, err error)`.
   int write(Uint8List buf) {
     final $r = $callSync(
-        15104,
+        15110,
         $W()
-          ..dto(this)
+          ..h(this)
           ..bytes(buf));
     return $r.i64();
   }
@@ -81,14 +83,14 @@ class MsgioReader extends GoHandle with MsgioReader$ {
 mixin MsgioReader$ on GoHandle {
   /// Go: `func (msgio.Reader).NextMsgLen() (int, error)`.
   int nextMsgLen() {
-    final $r = $callSync(15120, $W()..h(this));
+    final $r = $callSync(15126, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (msgio.Reader).Read([]byte) (int, error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        15121,
+        15127,
         $W()
           ..h(this)
           ..i64(n));
@@ -97,14 +99,14 @@ mixin MsgioReader$ on GoHandle {
 
   /// Go: `func (msgio.Reader).ReadMsg() ([]byte, error)`.
   Uint8List readMsg() {
-    final $r = $callSync(15122, $W()..h(this));
+    final $r = $callSync(15128, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (msgio.Reader).ReleaseMsg([]byte)`.
   void releaseMsg(Uint8List arg0) {
     $callSync(
-        15123,
+        15129,
         $W()
           ..h(this)
           ..bytes(arg0));
@@ -112,13 +114,13 @@ mixin MsgioReader$ on GoHandle {
 
   /// Go: type assertion `x.(msgio.ReadCloser)`: null if the object is not one.
   MsgioReadCloser? asMsgioReadCloser() {
-    final $r = $callSync(1448, $W()..h(this));
+    final $r = $callSync(1451, $W()..h(this));
     return $r.hn(MsgioReadCloser.$h);
   }
 
   /// Go: type assertion `x.(msgio.ReadWriteCloser)`: null if the object is not one.
   MsgioReadWriteCloser? asMsgioReadWriteCloser() {
-    final $r = $callSync(1449, $W()..h(this));
+    final $r = $callSync(1452, $W()..h(this));
     return $r.hn(MsgioReadWriteCloser.$h);
   }
 }
@@ -143,7 +145,7 @@ mixin MsgioWriter$ on GoHandle {
   /// Go: `func (msgio.Writer).Write([]byte) (int, error)`.
   int write(Uint8List arg0) {
     final $r = $callSync(
-        15125,
+        15131,
         $W()
           ..h(this)
           ..bytes(arg0));
@@ -153,7 +155,7 @@ mixin MsgioWriter$ on GoHandle {
   /// Go: `func (msgio.Writer).WriteMsg([]byte) error`.
   void writeMsg(Uint8List arg0) {
     $callSync(
-        15126,
+        15132,
         $W()
           ..h(this)
           ..bytes(arg0));
@@ -161,13 +163,13 @@ mixin MsgioWriter$ on GoHandle {
 
   /// Go: type assertion `x.(msgio.ReadWriteCloser)`: null if the object is not one.
   MsgioReadWriteCloser? asMsgioReadWriteCloser() {
-    final $r = $callSync(1450, $W()..h(this));
+    final $r = $callSync(1453, $W()..h(this));
     return $r.hn(MsgioReadWriteCloser.$h);
   }
 
   /// Go: type assertion `x.(msgio.WriteCloser)`: null if the object is not one.
   MsgioWriteCloser? asMsgioWriteCloser() {
-    final $r = $callSync(1451, $W()..h(this));
+    final $r = $callSync(1454, $W()..h(this));
     return $r.hn(MsgioWriteCloser.$h);
   }
 }
@@ -186,7 +188,7 @@ extension GoLibp2pMsgioApi on GoLibp2pMsgio {
   /// Go: `func msgio.Combine(w msgio.Writer, r msgio.Reader) msgio.ReadWriteCloser`.
   MsgioReadWriteCloser combine(MsgioWriter w, MsgioReader r) {
     final $r = $callSync(
-        15101,
+        15107,
         $W()
           ..h(w)
           ..h(r));
@@ -195,32 +197,26 @@ extension GoLibp2pMsgioApi on GoLibp2pMsgio {
 
   /// Go: `func msgio.LimitedReader(r io.Reader) (io.Reader, error)`.
   $io.IoReader limitedReader(Object r) {
-    final $r = $callSync(15102, $W()..reader(r));
+    final $r = $callSync(15108, $W()..reader(r));
     return $r.hnn($io.IoReader.$h);
-  }
-
-  /// Go: `func msgio.NewLimitedWriter(w io.Writer) *msgio.LimitedWriter`.
-  MsgioLimitedWriter newLimitedWriter(GoHandle? w) {
-    final $r = $callSync(15105, $W()..h(w));
-    return $r.p() ? MsgioLimitedWriter.$dec($r) : $nil();
   }
 
   /// Go: `func msgio.NewReadWriter(rw io.ReadWriter) msgio.ReadWriteCloser`.
   MsgioReadWriteCloser newReadWriter(Object rw) {
-    final $r = $callSync(15106, $W()..reader(rw));
+    final $r = $callSync(15112, $W()..reader(rw));
     return $r.hnn(MsgioReadWriteCloser.$h);
   }
 
   /// Go: `func msgio.NewReader(r io.Reader) msgio.ReadCloser`.
   MsgioReadCloser newReader(Object r) {
-    final $r = $callSync(15107, $W()..reader(r));
+    final $r = $callSync(15113, $W()..reader(r));
     return $r.hnn(MsgioReadCloser.$h);
   }
 
   /// Go: `func msgio.NewReaderSize(r io.Reader, maxMessageSize int) msgio.ReadCloser`.
   MsgioReadCloser newReaderSize(Object r, int maxMessageSize) {
     final $r = $callSync(
-        15108,
+        15114,
         $W()
           ..reader(r)
           ..i64(maxMessageSize));
@@ -231,7 +227,7 @@ extension GoLibp2pMsgioApi on GoLibp2pMsgio {
   MsgioReadCloser newReaderSizeWithPool(
       Object r, int maxMessageSize, $buffer_pool.BufferPool p) {
     final $r = $callSync(
-        15109,
+        15115,
         $W()
           ..reader(r)
           ..i64(maxMessageSize)
@@ -242,7 +238,7 @@ extension GoLibp2pMsgioApi on GoLibp2pMsgio {
   /// Go: `func msgio.NewReaderWithPool(r io.Reader, p *pool.BufferPool) msgio.ReadCloser`.
   MsgioReadCloser newReaderWithPool(Object r, $buffer_pool.BufferPool p) {
     final $r = $callSync(
-        15110,
+        15116,
         $W()
           ..reader(r)
           ..h(p));
@@ -251,14 +247,14 @@ extension GoLibp2pMsgioApi on GoLibp2pMsgio {
 
   /// Go: `func msgio.NewVarintReader(r io.Reader) msgio.ReadCloser`.
   MsgioReadCloser newVarintReader(Object r) {
-    final $r = $callSync(15111, $W()..reader(r));
+    final $r = $callSync(15117, $W()..reader(r));
     return $r.hnn(MsgioReadCloser.$h);
   }
 
   /// Go: `func msgio.NewVarintReaderSize(r io.Reader, maxMessageSize int) msgio.ReadCloser`.
   MsgioReadCloser newVarintReaderSize(Object r, int maxMessageSize) {
     final $r = $callSync(
-        15112,
+        15118,
         $W()
           ..reader(r)
           ..i64(maxMessageSize));
@@ -269,7 +265,7 @@ extension GoLibp2pMsgioApi on GoLibp2pMsgio {
   MsgioReadCloser newVarintReaderSizeWithPool(
       Object r, int maxMessageSize, $buffer_pool.BufferPool p) {
     final $r = $callSync(
-        15113,
+        15119,
         $W()
           ..reader(r)
           ..i64(maxMessageSize)
@@ -280,7 +276,7 @@ extension GoLibp2pMsgioApi on GoLibp2pMsgio {
   /// Go: `func msgio.NewVarintReaderWithPool(r io.Reader, p *pool.BufferPool) msgio.ReadCloser`.
   MsgioReadCloser newVarintReaderWithPool(Object r, $buffer_pool.BufferPool p) {
     final $r = $callSync(
-        15114,
+        15120,
         $W()
           ..reader(r)
           ..h(p));
@@ -289,7 +285,7 @@ extension GoLibp2pMsgioApi on GoLibp2pMsgio {
 
   /// Go: `func msgio.NewVarintWriter(w io.Writer) msgio.WriteCloser`.
   MsgioWriteCloser newVarintWriter(GoHandle? w) {
-    final $r = $callSync(15115, $W()..h(w));
+    final $r = $callSync(15121, $W()..h(w));
     return $r.hnn(MsgioWriteCloser.$h);
   }
 
@@ -297,7 +293,7 @@ extension GoLibp2pMsgioApi on GoLibp2pMsgio {
   MsgioWriteCloser newVarintWriterWithPool(
       GoHandle? w, $buffer_pool.BufferPool p) {
     final $r = $callSync(
-        15116,
+        15122,
         $W()
           ..h(w)
           ..h(p));
@@ -306,14 +302,14 @@ extension GoLibp2pMsgioApi on GoLibp2pMsgio {
 
   /// Go: `func msgio.NewWriter(w io.Writer) msgio.WriteCloser`.
   MsgioWriteCloser newWriter(GoHandle? w) {
-    final $r = $callSync(15117, $W()..h(w));
+    final $r = $callSync(15123, $W()..h(w));
     return $r.hnn(MsgioWriteCloser.$h);
   }
 
   /// Go: `func msgio.NewWriterWithPool(w io.Writer, p *pool.BufferPool) msgio.WriteCloser`.
   MsgioWriteCloser newWriterWithPool(GoHandle? w, $buffer_pool.BufferPool p) {
     final $r = $callSync(
-        15118,
+        15124,
         $W()
           ..h(w)
           ..h(p));
@@ -323,7 +319,7 @@ extension GoLibp2pMsgioApi on GoLibp2pMsgio {
   /// Go: `func msgio.ReadLen(r io.Reader, buf []byte) (int, error)`.
   int readLen(Object r, Uint8List buf) {
     final $r = $callSync(
-        15119,
+        15125,
         $W()
           ..reader(r)
           ..bytes(buf));
@@ -333,7 +329,7 @@ extension GoLibp2pMsgioApi on GoLibp2pMsgio {
   /// Go: `func msgio.WriteLen(w io.Writer, l int) error`.
   void writeLen(GoHandle? w, int l) {
     $callSync(
-        15124,
+        15130,
         $W()
           ..h(w)
           ..i64(l));

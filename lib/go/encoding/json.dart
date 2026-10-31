@@ -51,20 +51,20 @@ class EncodingJsonDecoder extends $runtime.GrpcGatewayV2RuntimeDecoder
 
   /// Go: `func json.NewDecoder(r io.Reader) *json.Decoder`.
   factory EncodingJsonDecoder(Object r) {
-    final $r = $callSync(3745, $W()..reader(r));
+    final $r = $callSync(3754, $W()..reader(r));
     return $r.hnn(EncodingJsonDecoder.$h);
   }
 
   /// Go: `func (*json.Decoder).Buffered() io.Reader`.
   $io.IoReader buffered() {
-    final $r = $callSync(3731, $W()..h(this));
+    final $r = $callSync(3740, $W()..h(this));
     return $r.hnn($io.IoReader.$h);
   }
 
   /// Go: `func (*json.Decoder).Decode(v any) error`.
   void decode(Object? v) {
     $callSync(
-        3732,
+        3741,
         $W()
           ..h(this)
           ..any(v));
@@ -72,30 +72,30 @@ class EncodingJsonDecoder extends $runtime.GrpcGatewayV2RuntimeDecoder
 
   /// Go: `func (*json.Decoder).DisallowUnknownFields()`.
   void disallowUnknownFields() {
-    $callSync(3733, $W()..h(this));
+    $callSync(3742, $W()..h(this));
   }
 
   /// Go: `func (*json.Decoder).InputOffset() int64`.
   int inputOffset() {
-    final $r = $callSync(3734, $W()..h(this));
+    final $r = $callSync(3743, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*json.Decoder).More() bool`.
   bool more() {
-    final $r = $callSync(3735, $W()..h(this));
+    final $r = $callSync(3744, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*json.Decoder).Token() (json.Token, error)`.
   EncodingJsonToken token() {
-    final $r = $callSync(3736, $W()..h(this));
+    final $r = $callSync(3745, $W()..h(this));
     return $r.hnn(EncodingJsonToken.$h);
   }
 
   /// Go: `func (*json.Decoder).UseNumber()`.
   void useNumber() {
-    $callSync(3737, $W()..h(this));
+    $callSync(3746, $W()..h(this));
   }
 }
 
@@ -125,14 +125,14 @@ class EncodingJsonEncoder extends $runtime.GrpcGatewayV2RuntimeEncoder
 
   /// Go: `func json.NewEncoder(w io.Writer) *json.Encoder`.
   factory EncodingJsonEncoder(GoHandle? w) {
-    final $r = $callSync(3746, $W()..h(w));
+    final $r = $callSync(3755, $W()..h(w));
     return $r.hnn(EncodingJsonEncoder.$h);
   }
 
   /// Go: `func (*json.Encoder).Encode(v any) error`.
   void encode(Object? v) {
     $callSync(
-        3738,
+        3747,
         $W()
           ..h(this)
           ..any(v));
@@ -141,7 +141,7 @@ class EncodingJsonEncoder extends $runtime.GrpcGatewayV2RuntimeEncoder
   /// Go: `func (*json.Encoder).SetEscapeHTML(on bool)`.
   void setEscapeHtml(bool on) {
     $callSync(
-        3739,
+        3748,
         $W()
           ..h(this)
           ..b(on));
@@ -150,7 +150,7 @@ class EncodingJsonEncoder extends $runtime.GrpcGatewayV2RuntimeEncoder
   /// Go: `func (*json.Encoder).SetIndent(prefix string, indent string)`.
   void setIndent(String prefix, String indent) {
     $callSync(
-        3740,
+        3749,
         $W()
           ..h(this)
           ..str(prefix)
@@ -176,7 +176,7 @@ mixin EncodingJsonUnmarshaler$ on GoHandle {
   /// Go: `func (json.Unmarshaler).UnmarshalJSON([]byte) error`.
   void unmarshalJson(Uint8List arg0) {
     $callSync(
-        3748,
+        3757,
         $W()
           ..h(this)
           ..bytes(arg0));
@@ -483,7 +483,7 @@ extension GoEncodingJsonApi on GoEncodingJson {
   /// Go: `func json.Compact(dst *bytes.Buffer, src []byte) error`.
   void compact($bytes.BytesBuffer dst, Uint8List src) {
     $callSync(
-        3730,
+        3739,
         $W()
           ..h(dst)
           ..bytes(src));
@@ -492,7 +492,7 @@ extension GoEncodingJsonApi on GoEncodingJson {
   /// Go: `func json.HTMLEscape(dst *bytes.Buffer, src []byte)`.
   void htmlEscape($bytes.BytesBuffer dst, Uint8List src) {
     $callSync(
-        3741,
+        3750,
         $W()
           ..h(dst)
           ..bytes(src));
@@ -502,7 +502,7 @@ extension GoEncodingJsonApi on GoEncodingJson {
   void indent(
       $bytes.BytesBuffer dst, Uint8List src, String prefix, String indent) {
     $callSync(
-        3742,
+        3751,
         $W()
           ..h(dst)
           ..bytes(src)
@@ -512,14 +512,14 @@ extension GoEncodingJsonApi on GoEncodingJson {
 
   /// Go: `func json.Marshal(v any) ([]byte, error)`.
   Uint8List marshal(Object? v) {
-    final $r = $callSync(3743, $W()..any(v));
+    final $r = $callSync(3752, $W()..any(v));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func json.MarshalIndent(v any, prefix string, indent string) ([]byte, error)`.
   Uint8List marshalIndent(Object? v, String prefix, String indent) {
     final $r = $callSync(
-        3744,
+        3753,
         $W()
           ..any(v)
           ..str(prefix)
@@ -530,7 +530,7 @@ extension GoEncodingJsonApi on GoEncodingJson {
   /// Go: `func json.Unmarshal(data []byte, v any) error`.
   void unmarshal(Uint8List data, Object? v) {
     $callSync(
-        3747,
+        3756,
         $W()
           ..bytes(data)
           ..any(v));
@@ -538,7 +538,7 @@ extension GoEncodingJsonApi on GoEncodingJson {
 
   /// Go: `func json.Valid(data []byte) bool`.
   bool valid(Uint8List data) {
-    final $r = $callSync(3749, $W()..bytes(data));
+    final $r = $callSync(3758, $W()..bytes(data));
     return $r.b();
   }
 }

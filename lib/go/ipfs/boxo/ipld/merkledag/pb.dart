@@ -45,47 +45,47 @@ class BoxoIpldMerkledagPbLink
   /// Go: `func (*pb.PBLink).Descriptor() ([]byte, []int)`.
   @Deprecated("Use PBLink.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(9702, $W()..h(this));
+    final $r = $callSync(9711, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pb.PBLink).GetHash() []byte`.
   Uint8List getHash() {
-    final $r = $callSync(9703, $W()..h(this));
+    final $r = $callSync(9712, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pb.PBLink).GetName() string`.
   String getName() {
-    final $r = $callSync(9704, $W()..h(this));
+    final $r = $callSync(9713, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*pb.PBLink).GetTsize() uint64`.
   int getTsize() {
-    final $r = $callSync(9705, $W()..h(this));
+    final $r = $callSync(9714, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.PBLink).ProtoMessage()`.
   void protoMessage() {
-    $callSync(9706, $W()..h(this));
+    $callSync(9715, $W()..h(this));
   }
 
   /// Go: `func (*pb.PBLink).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(9707, $W()..h(this));
+    final $r = $callSync(9716, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pb.PBLink).Reset()`.
   void reset() {
-    $callSync(9708, $W()..h(this));
+    $callSync(9717, $W()..h(this));
   }
 
   /// Go: `func (*pb.PBLink).String() string`.
   String string() {
-    final $r = $callSync(9709, $W()..h(this));
+    final $r = $callSync(9718, $W()..h(this));
     return $r.str();
   }
 }
@@ -118,41 +118,41 @@ class BoxoIpldMerkledagPbNode
   /// Go: `func (*pb.PBNode).Descriptor() ([]byte, []int)`.
   @Deprecated("Use PBNode.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(9710, $W()..h(this));
+    final $r = $callSync(9719, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pb.PBNode).GetData() []byte`.
   Uint8List getData() {
-    final $r = $callSync(9711, $W()..h(this));
+    final $r = $callSync(9720, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pb.PBNode).GetLinks() []*pb.PBLink`.
   List<BoxoIpldMerkledagPbLink> getLinks() {
-    final $r = $callSync(9712, $W()..h(this));
+    final $r = $callSync(9721, $W()..h(this));
     return $r.list(() => $r.hnn(BoxoIpldMerkledagPbLink.$h));
   }
 
   /// Go: `func (*pb.PBNode).ProtoMessage()`.
   void protoMessage() {
-    $callSync(9713, $W()..h(this));
+    $callSync(9722, $W()..h(this));
   }
 
   /// Go: `func (*pb.PBNode).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(9714, $W()..h(this));
+    final $r = $callSync(9723, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pb.PBNode).Reset()`.
   void reset() {
-    $callSync(9715, $W()..h(this));
+    $callSync(9724, $W()..h(this));
   }
 
   /// Go: `func (*pb.PBNode).String() string`.
   String string() {
-    final $r = $callSync(9716, $W()..h(this));
+    final $r = $callSync(9725, $W()..h(this));
     return $r.str();
   }
 }
@@ -162,7 +162,7 @@ extension GoIpfsBoxoIpldMerkledagPbApi on GoIpfsBoxoIpldMerkledagPb {
   /// Go: `var pb.File_github_com_ipfs_boxo_ipld_merkledag_pb_merkledag_proto protoreflect.FileDescriptor`.
   $protoreflect.ProtobufReflectProtoreflectFileDescriptor
       get fileGithubComIpfsBoxoIpldMerkledagPbMerkledagProto {
-    final $r = $callSync(9701);
+    final $r = $callSync(9710);
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectFileDescriptor.$h);
   }
 }

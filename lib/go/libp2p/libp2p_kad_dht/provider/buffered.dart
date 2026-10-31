@@ -48,19 +48,19 @@ class Libp2pKadDhtProviderBufferedSweepingProvider
 
   /// Go: `func (*buffered.SweepingProvider).Clear() int`.
   int clear() {
-    final $r = $callSync(13046, $W()..h(this));
+    final $r = $callSync(13052, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*buffered.SweepingProvider).Close() error`.
   void close() {
-    $callSync(13047, $W()..h(this));
+    $callSync(13053, $W()..h(this));
   }
 
   /// Go: `func (*buffered.SweepingProvider).ProvideOnce(keys ...multihash.Multihash) error`.
   void provideOnce([List<Uint8List> keys = const []]) {
     $callSync(
-        13048,
+        13054,
         $W()
           ..h(this)
           ..list(keys, (w0, e0) => w0.bytes(e0)));
@@ -68,13 +68,13 @@ class Libp2pKadDhtProviderBufferedSweepingProvider
 
   /// Go: `func (*buffered.SweepingProvider).RefreshSchedule() error`.
   void refreshSchedule() {
-    $callSync(13049, $W()..h(this));
+    $callSync(13055, $W()..h(this));
   }
 
   /// Go: `func (*buffered.SweepingProvider).StartProviding(force bool, keys ...multihash.Multihash) error`.
   void startProviding(bool force, [List<Uint8List> keys = const []]) {
     $callSync(
-        13050,
+        13056,
         $W()
           ..h(this)
           ..b(force)
@@ -84,7 +84,7 @@ class Libp2pKadDhtProviderBufferedSweepingProvider
   /// Go: `func (*buffered.SweepingProvider).StopProviding(keys ...multihash.Multihash) error`.
   void stopProviding([List<Uint8List> keys = const []]) {
     $callSync(
-        13051,
+        13057,
         $W()
           ..h(this)
           ..list(keys, (w0, e0) => w0.bytes(e0)));

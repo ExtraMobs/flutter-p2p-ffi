@@ -39,7 +39,7 @@ mixin DatastoreBatch$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> commit($context.Context ctx) async {
     await $call(
-        10532,
+        10541,
         $W()
           ..h(this)
           ..h(ctx));
@@ -47,19 +47,19 @@ mixin DatastoreBatch$ on GoHandle {
 
   /// Go: type assertion `x.(*datastore.LogBatch)`: null if the object is not one.
   DatastoreLogBatch? asDatastoreLogBatch() {
-    final $r = $callSync(1003, $W()..h(this));
+    final $r = $callSync(1006, $W()..h(this));
     return $r.hn(DatastoreLogBatch.$h);
   }
 
   /// Go: type assertion `x.(*pebbleds.Batch)`: null if the object is not one.
   $ds_pebble.DsPebbleBatch? asDsPebbleBatch() {
-    final $r = $callSync(1004, $W()..h(this));
+    final $r = $callSync(1007, $W()..h(this));
     return $r.hn($ds_pebble.DsPebbleBatch.$h);
   }
 
   /// Go: type assertion `x.(flatfs.DiscardableBatch)`: null if the object is not one.
   $ds_flatfs.DsFlatfsDiscardableBatch? asDsFlatfsDiscardableBatch() {
-    final $r = $callSync(1005, $W()..h(this));
+    final $r = $callSync(1008, $W()..h(this));
     return $r.hn($ds_flatfs.DsFlatfsDiscardableBatch.$h);
   }
 }
@@ -79,68 +79,68 @@ class DatastoreBatching extends Datastore
 mixin DatastoreBatching$ on GoHandle {
   /// Go: type assertion `x.(*datastore.LogDatastore)`: null if the object is not one.
   DatastoreLogDatastore? asDatastoreLogDatastore() {
-    final $r = $callSync(1006, $W()..h(this));
+    final $r = $callSync(1009, $W()..h(this));
     return $r.hn(DatastoreLogDatastore.$h);
   }
 
   /// Go: type assertion `x.(*datastore.MapDatastore)`: null if the object is not one.
   DatastoreMapDatastore? asDatastoreMapDatastore() {
-    final $r = $callSync(1007, $W()..h(this));
+    final $r = $callSync(1010, $W()..h(this));
     return $r.hn(DatastoreMapDatastore.$h);
   }
 
   /// Go: type assertion `x.(*datastore.NullDatastore)`: null if the object is not one.
   DatastoreNullDatastore? asDatastoreNullDatastore() {
-    final $r = $callSync(1008, $W()..h(this));
+    final $r = $callSync(1011, $W()..h(this));
     return $r.hn(DatastoreNullDatastore.$h);
   }
 
   /// Go: type assertion `x.(*keytransform.Datastore)`: null if the object is not one.
   $keytransform.DatastoreKeytransformDatastore?
       asDatastoreKeytransformDatastore() {
-    final $r = $callSync(1009, $W()..h(this));
+    final $r = $callSync(1012, $W()..h(this));
     return $r.hn($keytransform.DatastoreKeytransformDatastore.$h);
   }
 
   /// Go: type assertion `x.(*mount.Datastore)`: null if the object is not one.
   $mount.DatastoreMountDatastore? asDatastoreMountDatastore() {
-    final $r = $callSync(1010, $W()..h(this));
+    final $r = $callSync(1013, $W()..h(this));
     return $r.hn($mount.DatastoreMountDatastore.$h);
   }
 
   /// Go: type assertion `x.(*sync.MutexDatastore)`: null if the object is not one.
   $sync.DatastoreSyncMutexDatastore? asDatastoreSyncMutexDatastore() {
-    final $r = $callSync(1011, $W()..h(this));
+    final $r = $callSync(1014, $W()..h(this));
     return $r.hn($sync.DatastoreSyncMutexDatastore.$h);
   }
 
   /// Go: type assertion `x.(*badger.Datastore)`: null if the object is not one.
   $ds_badger.DsBadgerDatastore? asDsBadgerDatastore() {
-    final $r = $callSync(1012, $W()..h(this));
+    final $r = $callSync(1015, $W()..h(this));
     return $r.hn($ds_badger.DsBadgerDatastore.$h);
   }
 
   /// Go: type assertion `x.(*flatfs.Datastore)`: null if the object is not one.
   $ds_flatfs.DsFlatfsDatastore? asDsFlatfsDatastore() {
-    final $r = $callSync(1013, $W()..h(this));
+    final $r = $callSync(1016, $W()..h(this));
     return $r.hn($ds_flatfs.DsFlatfsDatastore.$h);
   }
 
   /// Go: type assertion `x.(*leveldb.Datastore)`: null if the object is not one.
   $ds_leveldb.DsLeveldbDatastore? asDsLeveldbDatastore() {
-    final $r = $callSync(1014, $W()..h(this));
+    final $r = $callSync(1017, $W()..h(this));
     return $r.hn($ds_leveldb.DsLeveldbDatastore.$h);
   }
 
   /// Go: type assertion `x.(*pebbleds.Datastore)`: null if the object is not one.
   $ds_pebble.DsPebbleDatastore? asDsPebbleDatastore() {
-    final $r = $callSync(1015, $W()..h(this));
+    final $r = $callSync(1018, $W()..h(this));
     return $r.hn($ds_pebble.DsPebbleDatastore.$h);
   }
 
   /// Go: type assertion `x.(repo.Datastore)`: null if the object is not one.
   $repo.KuboRepoDatastore? asKuboRepoDatastore() {
-    final $r = $callSync(1016, $W()..h(this));
+    final $r = $callSync(1019, $W()..h(this));
     return $r.hn($repo.KuboRepoDatastore.$h);
   }
 }
@@ -157,7 +157,7 @@ mixin DatastoreBatchingFeature$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<DatastoreBatch> batch($context.Context ctx) async {
     final $r = await $call(
-        10533,
+        10542,
         $W()
           ..h(this)
           ..h(ctx));
@@ -166,74 +166,74 @@ mixin DatastoreBatchingFeature$ on GoHandle {
 
   /// Go: type assertion `x.(*datastore.LogDatastore)`: null if the object is not one.
   DatastoreLogDatastore? asDatastoreLogDatastore() {
-    final $r = $callSync(1017, $W()..h(this));
+    final $r = $callSync(1020, $W()..h(this));
     return $r.hn(DatastoreLogDatastore.$h);
   }
 
   /// Go: type assertion `x.(*datastore.MapDatastore)`: null if the object is not one.
   DatastoreMapDatastore? asDatastoreMapDatastore() {
-    final $r = $callSync(1018, $W()..h(this));
+    final $r = $callSync(1021, $W()..h(this));
     return $r.hn(DatastoreMapDatastore.$h);
   }
 
   /// Go: type assertion `x.(*datastore.NullDatastore)`: null if the object is not one.
   DatastoreNullDatastore? asDatastoreNullDatastore() {
-    final $r = $callSync(1019, $W()..h(this));
+    final $r = $callSync(1022, $W()..h(this));
     return $r.hn(DatastoreNullDatastore.$h);
   }
 
   /// Go: type assertion `x.(*keytransform.Datastore)`: null if the object is not one.
   $keytransform.DatastoreKeytransformDatastore?
       asDatastoreKeytransformDatastore() {
-    final $r = $callSync(1020, $W()..h(this));
+    final $r = $callSync(1023, $W()..h(this));
     return $r.hn($keytransform.DatastoreKeytransformDatastore.$h);
   }
 
   /// Go: type assertion `x.(*mount.Datastore)`: null if the object is not one.
   $mount.DatastoreMountDatastore? asDatastoreMountDatastore() {
-    final $r = $callSync(1021, $W()..h(this));
+    final $r = $callSync(1024, $W()..h(this));
     return $r.hn($mount.DatastoreMountDatastore.$h);
   }
 
   /// Go: type assertion `x.(*sync.MutexDatastore)`: null if the object is not one.
   $sync.DatastoreSyncMutexDatastore? asDatastoreSyncMutexDatastore() {
-    final $r = $callSync(1022, $W()..h(this));
+    final $r = $callSync(1025, $W()..h(this));
     return $r.hn($sync.DatastoreSyncMutexDatastore.$h);
   }
 
   /// Go: type assertion `x.(*badger.Datastore)`: null if the object is not one.
   $ds_badger.DsBadgerDatastore? asDsBadgerDatastore() {
-    final $r = $callSync(1023, $W()..h(this));
+    final $r = $callSync(1026, $W()..h(this));
     return $r.hn($ds_badger.DsBadgerDatastore.$h);
   }
 
   /// Go: type assertion `x.(*flatfs.Datastore)`: null if the object is not one.
   $ds_flatfs.DsFlatfsDatastore? asDsFlatfsDatastore() {
-    final $r = $callSync(1024, $W()..h(this));
+    final $r = $callSync(1027, $W()..h(this));
     return $r.hn($ds_flatfs.DsFlatfsDatastore.$h);
   }
 
   /// Go: type assertion `x.(*leveldb.Datastore)`: null if the object is not one.
   $ds_leveldb.DsLeveldbDatastore? asDsLeveldbDatastore() {
-    final $r = $callSync(1025, $W()..h(this));
+    final $r = $callSync(1028, $W()..h(this));
     return $r.hn($ds_leveldb.DsLeveldbDatastore.$h);
   }
 
   /// Go: type assertion `x.(*pebbleds.Datastore)`: null if the object is not one.
   $ds_pebble.DsPebbleDatastore? asDsPebbleDatastore() {
-    final $r = $callSync(1026, $W()..h(this));
+    final $r = $callSync(1029, $W()..h(this));
     return $r.hn($ds_pebble.DsPebbleDatastore.$h);
   }
 
   /// Go: type assertion `x.(datastore.Batching)`: null if the object is not one.
   DatastoreBatching? asDatastoreBatching() {
-    final $r = $callSync(1027, $W()..h(this));
+    final $r = $callSync(1030, $W()..h(this));
     return $r.hn(DatastoreBatching.$h);
   }
 
   /// Go: type assertion `x.(repo.Datastore)`: null if the object is not one.
   $repo.KuboRepoDatastore? asKuboRepoDatastore() {
-    final $r = $callSync(1028, $W()..h(this));
+    final $r = $callSync(1031, $W()..h(this));
     return $r.hn($repo.KuboRepoDatastore.$h);
   }
 }
@@ -250,7 +250,7 @@ mixin DatastoreCheckedFeature$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> check($context.Context ctx) async {
     await $call(
-        10534,
+        10543,
         $W()
           ..h(this)
           ..h(ctx));
@@ -258,32 +258,32 @@ mixin DatastoreCheckedFeature$ on GoHandle {
 
   /// Go: type assertion `x.(*datastore.LogDatastore)`: null if the object is not one.
   DatastoreLogDatastore? asDatastoreLogDatastore() {
-    final $r = $callSync(1029, $W()..h(this));
+    final $r = $callSync(1032, $W()..h(this));
     return $r.hn(DatastoreLogDatastore.$h);
   }
 
   /// Go: type assertion `x.(*datastore.NullDatastore)`: null if the object is not one.
   DatastoreNullDatastore? asDatastoreNullDatastore() {
-    final $r = $callSync(1030, $W()..h(this));
+    final $r = $callSync(1033, $W()..h(this));
     return $r.hn(DatastoreNullDatastore.$h);
   }
 
   /// Go: type assertion `x.(*keytransform.Datastore)`: null if the object is not one.
   $keytransform.DatastoreKeytransformDatastore?
       asDatastoreKeytransformDatastore() {
-    final $r = $callSync(1031, $W()..h(this));
+    final $r = $callSync(1034, $W()..h(this));
     return $r.hn($keytransform.DatastoreKeytransformDatastore.$h);
   }
 
   /// Go: type assertion `x.(*mount.Datastore)`: null if the object is not one.
   $mount.DatastoreMountDatastore? asDatastoreMountDatastore() {
-    final $r = $callSync(1032, $W()..h(this));
+    final $r = $callSync(1035, $W()..h(this));
     return $r.hn($mount.DatastoreMountDatastore.$h);
   }
 
   /// Go: type assertion `x.(*sync.MutexDatastore)`: null if the object is not one.
   $sync.DatastoreSyncMutexDatastore? asDatastoreSyncMutexDatastore() {
-    final $r = $callSync(1033, $W()..h(this));
+    final $r = $callSync(1036, $W()..h(this));
     return $r.hn($sync.DatastoreSyncMutexDatastore.$h);
   }
 }
@@ -302,7 +302,7 @@ mixin Datastore$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> sync($context.Context ctx, DatastoreKey prefix) async {
     await $call(
-        10535,
+        10544,
         $W()
           ..h(this)
           ..h(ctx)
@@ -311,80 +311,80 @@ mixin Datastore$ on GoHandle {
 
   /// Go: type assertion `x.(*datastore.LogDatastore)`: null if the object is not one.
   DatastoreLogDatastore? asDatastoreLogDatastore() {
-    final $r = $callSync(1034, $W()..h(this));
+    final $r = $callSync(1037, $W()..h(this));
     return $r.hn(DatastoreLogDatastore.$h);
   }
 
   /// Go: type assertion `x.(*datastore.MapDatastore)`: null if the object is not one.
   DatastoreMapDatastore? asDatastoreMapDatastore() {
-    final $r = $callSync(1035, $W()..h(this));
+    final $r = $callSync(1038, $W()..h(this));
     return $r.hn(DatastoreMapDatastore.$h);
   }
 
   /// Go: type assertion `x.(*datastore.NullDatastore)`: null if the object is not one.
   DatastoreNullDatastore? asDatastoreNullDatastore() {
-    final $r = $callSync(1036, $W()..h(this));
+    final $r = $callSync(1039, $W()..h(this));
     return $r.hn(DatastoreNullDatastore.$h);
   }
 
   /// Go: type assertion `x.(*keytransform.Datastore)`: null if the object is not one.
   $keytransform.DatastoreKeytransformDatastore?
       asDatastoreKeytransformDatastore() {
-    final $r = $callSync(1037, $W()..h(this));
+    final $r = $callSync(1040, $W()..h(this));
     return $r.hn($keytransform.DatastoreKeytransformDatastore.$h);
   }
 
   /// Go: type assertion `x.(*mount.Datastore)`: null if the object is not one.
   $mount.DatastoreMountDatastore? asDatastoreMountDatastore() {
-    final $r = $callSync(1038, $W()..h(this));
+    final $r = $callSync(1041, $W()..h(this));
     return $r.hn($mount.DatastoreMountDatastore.$h);
   }
 
   /// Go: type assertion `x.(*sync.MutexDatastore)`: null if the object is not one.
   $sync.DatastoreSyncMutexDatastore? asDatastoreSyncMutexDatastore() {
-    final $r = $callSync(1039, $W()..h(this));
+    final $r = $callSync(1042, $W()..h(this));
     return $r.hn($sync.DatastoreSyncMutexDatastore.$h);
   }
 
   /// Go: type assertion `x.(*badger.Datastore)`: null if the object is not one.
   $ds_badger.DsBadgerDatastore? asDsBadgerDatastore() {
-    final $r = $callSync(1040, $W()..h(this));
+    final $r = $callSync(1043, $W()..h(this));
     return $r.hn($ds_badger.DsBadgerDatastore.$h);
   }
 
   /// Go: type assertion `x.(*flatfs.Datastore)`: null if the object is not one.
   $ds_flatfs.DsFlatfsDatastore? asDsFlatfsDatastore() {
-    final $r = $callSync(1041, $W()..h(this));
+    final $r = $callSync(1044, $W()..h(this));
     return $r.hn($ds_flatfs.DsFlatfsDatastore.$h);
   }
 
   /// Go: type assertion `x.(*leveldb.Datastore)`: null if the object is not one.
   $ds_leveldb.DsLeveldbDatastore? asDsLeveldbDatastore() {
-    final $r = $callSync(1042, $W()..h(this));
+    final $r = $callSync(1045, $W()..h(this));
     return $r.hn($ds_leveldb.DsLeveldbDatastore.$h);
   }
 
   /// Go: type assertion `x.(*pebbleds.Datastore)`: null if the object is not one.
   $ds_pebble.DsPebbleDatastore? asDsPebbleDatastore() {
-    final $r = $callSync(1043, $W()..h(this));
+    final $r = $callSync(1046, $W()..h(this));
     return $r.hn($ds_pebble.DsPebbleDatastore.$h);
   }
 
   /// Go: type assertion `x.(datastore.Batching)`: null if the object is not one.
   DatastoreBatching? asDatastoreBatching() {
-    final $r = $callSync(1044, $W()..h(this));
+    final $r = $callSync(1047, $W()..h(this));
     return $r.hn(DatastoreBatching.$h);
   }
 
   /// Go: type assertion `x.(datastore.Shim)`: null if the object is not one.
   DatastoreShim? asDatastoreShim() {
-    final $r = $callSync(1045, $W()..h(this));
+    final $r = $callSync(1048, $W()..h(this));
     return $r.hn(DatastoreShim.$h);
   }
 
   /// Go: type assertion `x.(repo.Datastore)`: null if the object is not one.
   $repo.KuboRepoDatastore? asKuboRepoDatastore() {
-    final $r = $callSync(1046, $W()..h(this));
+    final $r = $callSync(1049, $W()..h(this));
     return $r.hn($repo.KuboRepoDatastore.$h);
   }
 }
@@ -418,7 +418,7 @@ mixin DatastoreGcFeature$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> collectGarbage($context.Context ctx) async {
     await $call(
-        10541,
+        10550,
         $W()
           ..h(this)
           ..h(ctx));
@@ -426,38 +426,38 @@ mixin DatastoreGcFeature$ on GoHandle {
 
   /// Go: type assertion `x.(*datastore.LogDatastore)`: null if the object is not one.
   DatastoreLogDatastore? asDatastoreLogDatastore() {
-    final $r = $callSync(1047, $W()..h(this));
+    final $r = $callSync(1050, $W()..h(this));
     return $r.hn(DatastoreLogDatastore.$h);
   }
 
   /// Go: type assertion `x.(*datastore.NullDatastore)`: null if the object is not one.
   DatastoreNullDatastore? asDatastoreNullDatastore() {
-    final $r = $callSync(1048, $W()..h(this));
+    final $r = $callSync(1051, $W()..h(this));
     return $r.hn(DatastoreNullDatastore.$h);
   }
 
   /// Go: type assertion `x.(*keytransform.Datastore)`: null if the object is not one.
   $keytransform.DatastoreKeytransformDatastore?
       asDatastoreKeytransformDatastore() {
-    final $r = $callSync(1049, $W()..h(this));
+    final $r = $callSync(1052, $W()..h(this));
     return $r.hn($keytransform.DatastoreKeytransformDatastore.$h);
   }
 
   /// Go: type assertion `x.(*mount.Datastore)`: null if the object is not one.
   $mount.DatastoreMountDatastore? asDatastoreMountDatastore() {
-    final $r = $callSync(1050, $W()..h(this));
+    final $r = $callSync(1053, $W()..h(this));
     return $r.hn($mount.DatastoreMountDatastore.$h);
   }
 
   /// Go: type assertion `x.(*sync.MutexDatastore)`: null if the object is not one.
   $sync.DatastoreSyncMutexDatastore? asDatastoreSyncMutexDatastore() {
-    final $r = $callSync(1051, $W()..h(this));
+    final $r = $callSync(1054, $W()..h(this));
     return $r.hn($sync.DatastoreSyncMutexDatastore.$h);
   }
 
   /// Go: type assertion `x.(*badger.Datastore)`: null if the object is not one.
   $ds_badger.DsBadgerDatastore? asDsBadgerDatastore() {
-    final $r = $callSync(1052, $W()..h(this));
+    final $r = $callSync(1055, $W()..h(this));
     return $r.hn($ds_badger.DsBadgerDatastore.$h);
   }
 }
@@ -486,26 +486,26 @@ class DatastoreKey extends $json.EncodingJsonUnmarshaler
 
   /// Go: `func datastore.NewKey(s string) datastore.Key`.
   factory DatastoreKey(String s) {
-    final $r = $callSync(10597, $W()..str(s));
+    final $r = $callSync(10606, $W()..str(s));
     return $r.hnn(DatastoreKey.$h);
   }
 
   /// Go: `func (datastore.Key).BaseNamespace() string`.
   String baseNamespace() {
-    final $r = $callSync(10544, $W()..h(this));
+    final $r = $callSync(10553, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (datastore.Key).Bytes() []byte`.
   Uint8List bytes() {
-    final $r = $callSync(10545, $W()..h(this));
+    final $r = $callSync(10554, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (datastore.Key).Child(k2 datastore.Key) datastore.Key`.
   DatastoreKey child(DatastoreKey k2) {
     final $r = $callSync(
-        10546,
+        10555,
         $W()
           ..h(this)
           ..h(k2));
@@ -515,7 +515,7 @@ class DatastoreKey extends $json.EncodingJsonUnmarshaler
   /// Go: `func (datastore.Key).ChildString(s string) datastore.Key`.
   DatastoreKey childString(String s) {
     final $r = $callSync(
-        10547,
+        10556,
         $W()
           ..h(this)
           ..str(s));
@@ -524,13 +524,13 @@ class DatastoreKey extends $json.EncodingJsonUnmarshaler
 
   /// Go: `func (*datastore.Key).Clean()`.
   void clean() {
-    $callSync(10548, $W()..h(this));
+    $callSync(10557, $W()..h(this));
   }
 
   /// Go: `func (datastore.Key).Compare(k2 datastore.Key) int`.
   int compare(DatastoreKey k2) {
     final $r = $callSync(
-        10549,
+        10558,
         $W()
           ..h(this)
           ..h(k2));
@@ -540,7 +540,7 @@ class DatastoreKey extends $json.EncodingJsonUnmarshaler
   /// Go: `func (datastore.Key).Equal(k2 datastore.Key) bool`.
   bool equal(DatastoreKey k2) {
     final $r = $callSync(
-        10550,
+        10559,
         $W()
           ..h(this)
           ..h(k2));
@@ -550,7 +550,7 @@ class DatastoreKey extends $json.EncodingJsonUnmarshaler
   /// Go: `func (datastore.Key).Instance(s string) datastore.Key`.
   DatastoreKey instance(String s) {
     final $r = $callSync(
-        10551,
+        10560,
         $W()
           ..h(this)
           ..str(s));
@@ -560,7 +560,7 @@ class DatastoreKey extends $json.EncodingJsonUnmarshaler
   /// Go: `func (datastore.Key).IsAncestorOf(other datastore.Key) bool`.
   bool isAncestorOf(DatastoreKey other) {
     final $r = $callSync(
-        10552,
+        10561,
         $W()
           ..h(this)
           ..h(other));
@@ -570,7 +570,7 @@ class DatastoreKey extends $json.EncodingJsonUnmarshaler
   /// Go: `func (datastore.Key).IsDescendantOf(other datastore.Key) bool`.
   bool isDescendantOf(DatastoreKey other) {
     final $r = $callSync(
-        10553,
+        10562,
         $W()
           ..h(this)
           ..h(other));
@@ -579,14 +579,14 @@ class DatastoreKey extends $json.EncodingJsonUnmarshaler
 
   /// Go: `func (datastore.Key).IsTopLevel() bool`.
   bool isTopLevel() {
-    final $r = $callSync(10554, $W()..h(this));
+    final $r = $callSync(10563, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (datastore.Key).Less(k2 datastore.Key) bool`.
   bool less(DatastoreKey k2) {
     final $r = $callSync(
-        10555,
+        10564,
         $W()
           ..h(this)
           ..h(k2));
@@ -595,68 +595,68 @@ class DatastoreKey extends $json.EncodingJsonUnmarshaler
 
   /// Go: `func (datastore.Key).List() []string`.
   List<String> list() {
-    final $r = $callSync(10556, $W()..h(this));
+    final $r = $callSync(10565, $W()..h(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (datastore.Key).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(10557, $W()..h(this));
+    final $r = $callSync(10566, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (datastore.Key).Name() string`.
   String name() {
-    final $r = $callSync(10558, $W()..h(this));
+    final $r = $callSync(10567, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (datastore.Key).Namespaces() []string`.
   List<String> namespaces() {
-    final $r = $callSync(10559, $W()..h(this));
+    final $r = $callSync(10568, $W()..h(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (datastore.Key).Parent() datastore.Key`.
   DatastoreKey parent() {
-    final $r = $callSync(10560, $W()..h(this));
+    final $r = $callSync(10569, $W()..h(this));
     return $r.hnn(DatastoreKey.$h);
   }
 
   /// Go: `func (datastore.Key).Path() datastore.Key`.
   DatastoreKey path() {
-    final $r = $callSync(10561, $W()..h(this));
+    final $r = $callSync(10570, $W()..h(this));
     return $r.hnn(DatastoreKey.$h);
   }
 
   /// Go: `func (datastore.Key).Reverse() datastore.Key`.
   DatastoreKey reverse() {
-    final $r = $callSync(10562, $W()..h(this));
+    final $r = $callSync(10571, $W()..h(this));
     return $r.hnn(DatastoreKey.$h);
   }
 
   /// Go: `func (datastore.Key).RootNamespace() string`.
   String rootNamespace() {
-    final $r = $callSync(10563, $W()..h(this));
+    final $r = $callSync(10572, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (datastore.Key).String() string`.
   String string() {
-    final $r = $callSync(10564, $W()..h(this));
+    final $r = $callSync(10573, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (datastore.Key).Type() string`.
   String type() {
-    final $r = $callSync(10565, $W()..h(this));
+    final $r = $callSync(10574, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*datastore.Key).UnmarshalJSON(data []byte) error`.
   void unmarshalJson(Uint8List data) {
     $callSync(
-        10566,
+        10575,
         $W()
           ..h(this)
           ..bytes(data));
@@ -688,7 +688,7 @@ class DatastoreLogBatch extends DatastoreBatch
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> commit($context.Context ctx) async {
     await $call(
-        10568,
+        10577,
         $W()
           ..h(this)
           ..h(ctx));
@@ -699,7 +699,7 @@ class DatastoreLogBatch extends DatastoreBatch
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> delete($context.Context ctx, DatastoreKey key) async {
     await $call(
-        10569,
+        10578,
         $W()
           ..h(this)
           ..h(ctx)
@@ -712,7 +712,7 @@ class DatastoreLogBatch extends DatastoreBatch
   Future<void> put(
       $context.Context ctx, DatastoreKey key, Uint8List value) async {
     await $call(
-        10570,
+        10579,
         $W()
           ..h(this)
           ..h(ctx)
@@ -762,7 +762,7 @@ class DatastoreLogDatastore extends DatastoreShim
   /// Go: `func datastore.NewLogDatastore(ds datastore.Datastore, name string) *datastore.LogDatastore`.
   factory DatastoreLogDatastore(Datastore ds, String name) {
     final $r = $callSync(
-        10598,
+        10607,
         $W()
           ..h(ds)
           ..str(name));
@@ -774,7 +774,7 @@ class DatastoreLogDatastore extends DatastoreShim
   /// Asynchronous: runs in a goroutine of the service.
   Future<DatastoreBatch> batch($context.Context ctx) async {
     final $r = await $call(
-        10571,
+        10580,
         $W()
           ..h(this)
           ..h(ctx));
@@ -786,7 +786,7 @@ class DatastoreLogDatastore extends DatastoreShim
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> check($context.Context ctx) async {
     await $call(
-        10572,
+        10581,
         $W()
           ..h(this)
           ..h(ctx));
@@ -794,13 +794,13 @@ class DatastoreLogDatastore extends DatastoreShim
 
   /// Go: `func (*datastore.LogDatastore).Children() []datastore.Datastore`.
   List<Datastore> children() {
-    final $r = $callSync(10573, $W()..h(this));
+    final $r = $callSync(10582, $W()..h(this));
     return $r.list(() => $r.hnn(Datastore.$h));
   }
 
   /// Go: `func (*datastore.LogDatastore).Close() error`.
   void close() {
-    $callSync(10574, $W()..h(this));
+    $callSync(10583, $W()..h(this));
   }
 
   /// Go: `func (*datastore.LogDatastore).CollectGarbage(ctx context.Context) error`.
@@ -808,7 +808,7 @@ class DatastoreLogDatastore extends DatastoreShim
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> collectGarbage($context.Context ctx) async {
     await $call(
-        10575,
+        10584,
         $W()
           ..h(this)
           ..h(ctx));
@@ -819,7 +819,7 @@ class DatastoreLogDatastore extends DatastoreShim
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> delete($context.Context ctx, DatastoreKey key) async {
     await $call(
-        10576,
+        10585,
         $W()
           ..h(this)
           ..h(ctx)
@@ -831,7 +831,7 @@ class DatastoreLogDatastore extends DatastoreShim
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> diskUsage($context.Context ctx) async {
     final $r = await $call(
-        10577,
+        10586,
         $W()
           ..h(this)
           ..h(ctx));
@@ -843,7 +843,7 @@ class DatastoreLogDatastore extends DatastoreShim
   /// Asynchronous: runs in a goroutine of the service.
   Future<Uint8List> get($context.Context ctx, DatastoreKey key) async {
     final $r = await $call(
-        10578,
+        10587,
         $W()
           ..h(this)
           ..h(ctx)
@@ -856,7 +856,7 @@ class DatastoreLogDatastore extends DatastoreShim
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getSize($context.Context ctx, DatastoreKey key) async {
     final $r = await $call(
-        10579,
+        10588,
         $W()
           ..h(this)
           ..h(ctx)
@@ -869,7 +869,7 @@ class DatastoreLogDatastore extends DatastoreShim
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> has($context.Context ctx, DatastoreKey key) async {
     final $r = await $call(
-        10580,
+        10589,
         $W()
           ..h(this)
           ..h(ctx)
@@ -883,7 +883,7 @@ class DatastoreLogDatastore extends DatastoreShim
   Future<void> put(
       $context.Context ctx, DatastoreKey key, Uint8List value) async {
     await $call(
-        10581,
+        10590,
         $W()
           ..h(this)
           ..h(ctx)
@@ -897,7 +897,7 @@ class DatastoreLogDatastore extends DatastoreShim
   Future<$query.DatastoreQueryResults> query(
       $context.Context ctx, $query.DatastoreQuery q) async {
     final $r = await $call(
-        10582,
+        10591,
         $W()
           ..h(this)
           ..h(ctx)
@@ -910,7 +910,7 @@ class DatastoreLogDatastore extends DatastoreShim
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> scrub($context.Context ctx) async {
     await $call(
-        10583,
+        10592,
         $W()
           ..h(this)
           ..h(ctx));
@@ -921,7 +921,7 @@ class DatastoreLogDatastore extends DatastoreShim
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> sync($context.Context ctx, DatastoreKey prefix) async {
     await $call(
-        10584,
+        10593,
         $W()
           ..h(this)
           ..h(ctx)
@@ -961,7 +961,7 @@ class DatastoreMapDatastore extends Datastore
 
   /// Go: `func datastore.NewMapDatastore() (d *datastore.MapDatastore)`.
   factory DatastoreMapDatastore() {
-    final $r = $callSync(10599);
+    final $r = $callSync(10608);
     return $r.hnn(DatastoreMapDatastore.$h);
   }
 
@@ -970,7 +970,7 @@ class DatastoreMapDatastore extends Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<DatastoreBatch> batch($context.Context ctx) async {
     final $r = await $call(
-        10585,
+        10594,
         $W()
           ..h(this)
           ..h(ctx));
@@ -979,7 +979,7 @@ class DatastoreMapDatastore extends Datastore
 
   /// Go: `func (*datastore.MapDatastore).Close() error`.
   void close() {
-    $callSync(10586, $W()..h(this));
+    $callSync(10595, $W()..h(this));
   }
 
   /// Go: `func (*datastore.MapDatastore).Delete(ctx context.Context, key datastore.Key) error`.
@@ -987,7 +987,7 @@ class DatastoreMapDatastore extends Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> delete($context.Context ctx, DatastoreKey key) async {
     await $call(
-        10587,
+        10596,
         $W()
           ..h(this)
           ..h(ctx)
@@ -999,7 +999,7 @@ class DatastoreMapDatastore extends Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<Uint8List> get($context.Context ctx, DatastoreKey key) async {
     final $r = await $call(
-        10588,
+        10597,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1012,7 +1012,7 @@ class DatastoreMapDatastore extends Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getSize($context.Context ctx, DatastoreKey key) async {
     final $r = await $call(
-        10589,
+        10598,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1025,7 +1025,7 @@ class DatastoreMapDatastore extends Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> has($context.Context ctx, DatastoreKey key) async {
     final $r = await $call(
-        10590,
+        10599,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1039,7 +1039,7 @@ class DatastoreMapDatastore extends Datastore
   Future<void> put(
       $context.Context ctx, DatastoreKey key, Uint8List value) async {
     await $call(
-        10591,
+        10600,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1053,7 +1053,7 @@ class DatastoreMapDatastore extends Datastore
   Future<$query.DatastoreQueryResults> query(
       $context.Context ctx, $query.DatastoreQuery q) async {
     final $r = await $call(
-        10592,
+        10601,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1066,7 +1066,7 @@ class DatastoreMapDatastore extends Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> sync($context.Context ctx, DatastoreKey prefix) async {
     await $call(
-        10593,
+        10602,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1116,7 +1116,7 @@ class DatastoreNullDatastore extends Datastore
 
   /// Go: `func datastore.NewNullDatastore() *datastore.NullDatastore`.
   factory DatastoreNullDatastore() {
-    final $r = $callSync(10600);
+    final $r = $callSync(10609);
     return $r.hnn(DatastoreNullDatastore.$h);
   }
 
@@ -1125,7 +1125,7 @@ class DatastoreNullDatastore extends Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<DatastoreBatch> batch($context.Context ctx) async {
     final $r = await $call(
-        10601,
+        10610,
         $W()
           ..h(this)
           ..h(ctx));
@@ -1137,7 +1137,7 @@ class DatastoreNullDatastore extends Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> check($context.Context ctx) async {
     await $call(
-        10602,
+        10611,
         $W()
           ..h(this)
           ..h(ctx));
@@ -1145,7 +1145,7 @@ class DatastoreNullDatastore extends Datastore
 
   /// Go: `func (*datastore.NullDatastore).Close() error`.
   void close() {
-    $callSync(10603, $W()..h(this));
+    $callSync(10612, $W()..h(this));
   }
 
   /// Go: `func (*datastore.NullDatastore).CollectGarbage(ctx context.Context) error`.
@@ -1153,7 +1153,7 @@ class DatastoreNullDatastore extends Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> collectGarbage($context.Context ctx) async {
     await $call(
-        10604,
+        10613,
         $W()
           ..h(this)
           ..h(ctx));
@@ -1164,7 +1164,7 @@ class DatastoreNullDatastore extends Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> delete($context.Context ctx, DatastoreKey key) async {
     await $call(
-        10605,
+        10614,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1176,7 +1176,7 @@ class DatastoreNullDatastore extends Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> diskUsage($context.Context ctx) async {
     final $r = await $call(
-        10606,
+        10615,
         $W()
           ..h(this)
           ..h(ctx));
@@ -1188,7 +1188,7 @@ class DatastoreNullDatastore extends Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<Uint8List> get($context.Context ctx, DatastoreKey key) async {
     final $r = await $call(
-        10607,
+        10616,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1201,7 +1201,7 @@ class DatastoreNullDatastore extends Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getSize($context.Context ctx, DatastoreKey key) async {
     final $r = await $call(
-        10608,
+        10617,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1214,7 +1214,7 @@ class DatastoreNullDatastore extends Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> has($context.Context ctx, DatastoreKey key) async {
     final $r = await $call(
-        10609,
+        10618,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1228,7 +1228,7 @@ class DatastoreNullDatastore extends Datastore
   Future<DatastoreTxn> newTransaction(
       $context.Context ctx, bool readOnly) async {
     final $r = await $call(
-        10610,
+        10619,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1242,7 +1242,7 @@ class DatastoreNullDatastore extends Datastore
   Future<void> put(
       $context.Context ctx, DatastoreKey key, Uint8List value) async {
     await $call(
-        10611,
+        10620,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1256,7 +1256,7 @@ class DatastoreNullDatastore extends Datastore
   Future<$query.DatastoreQueryResults> query(
       $context.Context ctx, $query.DatastoreQuery q) async {
     final $r = await $call(
-        10612,
+        10621,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1269,7 +1269,7 @@ class DatastoreNullDatastore extends Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> scrub($context.Context ctx) async {
     await $call(
-        10613,
+        10622,
         $W()
           ..h(this)
           ..h(ctx));
@@ -1280,7 +1280,7 @@ class DatastoreNullDatastore extends Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> sync($context.Context ctx, DatastoreKey prefix) async {
     await $call(
-        10614,
+        10623,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1301,7 +1301,7 @@ mixin DatastorePersistentFeature$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> diskUsage($context.Context ctx) async {
     final $r = await $call(
-        10615,
+        10624,
         $W()
           ..h(this)
           ..h(ctx));
@@ -1310,56 +1310,56 @@ mixin DatastorePersistentFeature$ on GoHandle {
 
   /// Go: type assertion `x.(*datastore.LogDatastore)`: null if the object is not one.
   DatastoreLogDatastore? asDatastoreLogDatastore() {
-    final $r = $callSync(1053, $W()..h(this));
+    final $r = $callSync(1056, $W()..h(this));
     return $r.hn(DatastoreLogDatastore.$h);
   }
 
   /// Go: type assertion `x.(*datastore.NullDatastore)`: null if the object is not one.
   DatastoreNullDatastore? asDatastoreNullDatastore() {
-    final $r = $callSync(1054, $W()..h(this));
+    final $r = $callSync(1057, $W()..h(this));
     return $r.hn(DatastoreNullDatastore.$h);
   }
 
   /// Go: type assertion `x.(*keytransform.Datastore)`: null if the object is not one.
   $keytransform.DatastoreKeytransformDatastore?
       asDatastoreKeytransformDatastore() {
-    final $r = $callSync(1055, $W()..h(this));
+    final $r = $callSync(1058, $W()..h(this));
     return $r.hn($keytransform.DatastoreKeytransformDatastore.$h);
   }
 
   /// Go: type assertion `x.(*mount.Datastore)`: null if the object is not one.
   $mount.DatastoreMountDatastore? asDatastoreMountDatastore() {
-    final $r = $callSync(1056, $W()..h(this));
+    final $r = $callSync(1059, $W()..h(this));
     return $r.hn($mount.DatastoreMountDatastore.$h);
   }
 
   /// Go: type assertion `x.(*sync.MutexDatastore)`: null if the object is not one.
   $sync.DatastoreSyncMutexDatastore? asDatastoreSyncMutexDatastore() {
-    final $r = $callSync(1057, $W()..h(this));
+    final $r = $callSync(1060, $W()..h(this));
     return $r.hn($sync.DatastoreSyncMutexDatastore.$h);
   }
 
   /// Go: type assertion `x.(*badger.Datastore)`: null if the object is not one.
   $ds_badger.DsBadgerDatastore? asDsBadgerDatastore() {
-    final $r = $callSync(1058, $W()..h(this));
+    final $r = $callSync(1061, $W()..h(this));
     return $r.hn($ds_badger.DsBadgerDatastore.$h);
   }
 
   /// Go: type assertion `x.(*flatfs.Datastore)`: null if the object is not one.
   $ds_flatfs.DsFlatfsDatastore? asDsFlatfsDatastore() {
-    final $r = $callSync(1059, $W()..h(this));
+    final $r = $callSync(1062, $W()..h(this));
     return $r.hn($ds_flatfs.DsFlatfsDatastore.$h);
   }
 
   /// Go: type assertion `x.(*leveldb.Datastore)`: null if the object is not one.
   $ds_leveldb.DsLeveldbDatastore? asDsLeveldbDatastore() {
-    final $r = $callSync(1060, $W()..h(this));
+    final $r = $callSync(1063, $W()..h(this));
     return $r.hn($ds_leveldb.DsLeveldbDatastore.$h);
   }
 
   /// Go: type assertion `x.(*pebbleds.Datastore)`: null if the object is not one.
   $ds_pebble.DsPebbleDatastore? asDsPebbleDatastore() {
-    final $r = $callSync(1061, $W()..h(this));
+    final $r = $callSync(1064, $W()..h(this));
     return $r.hn($ds_pebble.DsPebbleDatastore.$h);
   }
 }
@@ -1376,7 +1376,7 @@ mixin DatastoreRead$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<Uint8List> get($context.Context ctx, DatastoreKey key) async {
     final $r = await $call(
-        10618,
+        10627,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1389,7 +1389,7 @@ mixin DatastoreRead$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getSize($context.Context ctx, DatastoreKey key) async {
     final $r = await $call(
-        10619,
+        10628,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1402,7 +1402,7 @@ mixin DatastoreRead$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> has($context.Context ctx, DatastoreKey key) async {
     final $r = await $call(
-        10620,
+        10629,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1416,7 +1416,7 @@ mixin DatastoreRead$ on GoHandle {
   Future<$query.DatastoreQueryResults> query(
       $context.Context ctx, $query.DatastoreQuery q) async {
     final $r = await $call(
-        10621,
+        10630,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1426,92 +1426,92 @@ mixin DatastoreRead$ on GoHandle {
 
   /// Go: type assertion `x.(*datastore.LogDatastore)`: null if the object is not one.
   DatastoreLogDatastore? asDatastoreLogDatastore() {
-    final $r = $callSync(1062, $W()..h(this));
+    final $r = $callSync(1065, $W()..h(this));
     return $r.hn(DatastoreLogDatastore.$h);
   }
 
   /// Go: type assertion `x.(*datastore.MapDatastore)`: null if the object is not one.
   DatastoreMapDatastore? asDatastoreMapDatastore() {
-    final $r = $callSync(1063, $W()..h(this));
+    final $r = $callSync(1066, $W()..h(this));
     return $r.hn(DatastoreMapDatastore.$h);
   }
 
   /// Go: type assertion `x.(*datastore.NullDatastore)`: null if the object is not one.
   DatastoreNullDatastore? asDatastoreNullDatastore() {
-    final $r = $callSync(1064, $W()..h(this));
+    final $r = $callSync(1067, $W()..h(this));
     return $r.hn(DatastoreNullDatastore.$h);
   }
 
   /// Go: type assertion `x.(*keytransform.Datastore)`: null if the object is not one.
   $keytransform.DatastoreKeytransformDatastore?
       asDatastoreKeytransformDatastore() {
-    final $r = $callSync(1065, $W()..h(this));
+    final $r = $callSync(1068, $W()..h(this));
     return $r.hn($keytransform.DatastoreKeytransformDatastore.$h);
   }
 
   /// Go: type assertion `x.(*mount.Datastore)`: null if the object is not one.
   $mount.DatastoreMountDatastore? asDatastoreMountDatastore() {
-    final $r = $callSync(1066, $W()..h(this));
+    final $r = $callSync(1069, $W()..h(this));
     return $r.hn($mount.DatastoreMountDatastore.$h);
   }
 
   /// Go: type assertion `x.(*sync.MutexDatastore)`: null if the object is not one.
   $sync.DatastoreSyncMutexDatastore? asDatastoreSyncMutexDatastore() {
-    final $r = $callSync(1067, $W()..h(this));
+    final $r = $callSync(1070, $W()..h(this));
     return $r.hn($sync.DatastoreSyncMutexDatastore.$h);
   }
 
   /// Go: type assertion `x.(*badger.Datastore)`: null if the object is not one.
   $ds_badger.DsBadgerDatastore? asDsBadgerDatastore() {
-    final $r = $callSync(1068, $W()..h(this));
+    final $r = $callSync(1071, $W()..h(this));
     return $r.hn($ds_badger.DsBadgerDatastore.$h);
   }
 
   /// Go: type assertion `x.(*flatfs.Datastore)`: null if the object is not one.
   $ds_flatfs.DsFlatfsDatastore? asDsFlatfsDatastore() {
-    final $r = $callSync(1069, $W()..h(this));
+    final $r = $callSync(1072, $W()..h(this));
     return $r.hn($ds_flatfs.DsFlatfsDatastore.$h);
   }
 
   /// Go: type assertion `x.(*leveldb.Datastore)`: null if the object is not one.
   $ds_leveldb.DsLeveldbDatastore? asDsLeveldbDatastore() {
-    final $r = $callSync(1070, $W()..h(this));
+    final $r = $callSync(1073, $W()..h(this));
     return $r.hn($ds_leveldb.DsLeveldbDatastore.$h);
   }
 
   /// Go: type assertion `x.(*pebbleds.Datastore)`: null if the object is not one.
   $ds_pebble.DsPebbleDatastore? asDsPebbleDatastore() {
-    final $r = $callSync(1071, $W()..h(this));
+    final $r = $callSync(1074, $W()..h(this));
     return $r.hn($ds_pebble.DsPebbleDatastore.$h);
   }
 
   /// Go: type assertion `x.(datastore.Batching)`: null if the object is not one.
   DatastoreBatching? asDatastoreBatching() {
-    final $r = $callSync(1072, $W()..h(this));
+    final $r = $callSync(1075, $W()..h(this));
     return $r.hn(DatastoreBatching.$h);
   }
 
   /// Go: type assertion `x.(datastore.Datastore)`: null if the object is not one.
   Datastore? asDatastore() {
-    final $r = $callSync(1073, $W()..h(this));
+    final $r = $callSync(1076, $W()..h(this));
     return $r.hn(Datastore.$h);
   }
 
   /// Go: type assertion `x.(datastore.Shim)`: null if the object is not one.
   DatastoreShim? asDatastoreShim() {
-    final $r = $callSync(1074, $W()..h(this));
+    final $r = $callSync(1077, $W()..h(this));
     return $r.hn(DatastoreShim.$h);
   }
 
   /// Go: type assertion `x.(datastore.Txn)`: null if the object is not one.
   DatastoreTxn? asDatastoreTxn() {
-    final $r = $callSync(1075, $W()..h(this));
+    final $r = $callSync(1078, $W()..h(this));
     return $r.hn(DatastoreTxn.$h);
   }
 
   /// Go: type assertion `x.(repo.Datastore)`: null if the object is not one.
   $repo.KuboRepoDatastore? asKuboRepoDatastore() {
-    final $r = $callSync(1076, $W()..h(this));
+    final $r = $callSync(1079, $W()..h(this));
     return $r.hn($repo.KuboRepoDatastore.$h);
   }
 }
@@ -1528,7 +1528,7 @@ mixin DatastoreScrubbedFeature$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> scrub($context.Context ctx) async {
     await $call(
-        10622,
+        10631,
         $W()
           ..h(this)
           ..h(ctx));
@@ -1536,32 +1536,32 @@ mixin DatastoreScrubbedFeature$ on GoHandle {
 
   /// Go: type assertion `x.(*datastore.LogDatastore)`: null if the object is not one.
   DatastoreLogDatastore? asDatastoreLogDatastore() {
-    final $r = $callSync(1077, $W()..h(this));
+    final $r = $callSync(1080, $W()..h(this));
     return $r.hn(DatastoreLogDatastore.$h);
   }
 
   /// Go: type assertion `x.(*datastore.NullDatastore)`: null if the object is not one.
   DatastoreNullDatastore? asDatastoreNullDatastore() {
-    final $r = $callSync(1078, $W()..h(this));
+    final $r = $callSync(1081, $W()..h(this));
     return $r.hn(DatastoreNullDatastore.$h);
   }
 
   /// Go: type assertion `x.(*keytransform.Datastore)`: null if the object is not one.
   $keytransform.DatastoreKeytransformDatastore?
       asDatastoreKeytransformDatastore() {
-    final $r = $callSync(1079, $W()..h(this));
+    final $r = $callSync(1082, $W()..h(this));
     return $r.hn($keytransform.DatastoreKeytransformDatastore.$h);
   }
 
   /// Go: type assertion `x.(*mount.Datastore)`: null if the object is not one.
   $mount.DatastoreMountDatastore? asDatastoreMountDatastore() {
-    final $r = $callSync(1080, $W()..h(this));
+    final $r = $callSync(1083, $W()..h(this));
     return $r.hn($mount.DatastoreMountDatastore.$h);
   }
 
   /// Go: type assertion `x.(*sync.MutexDatastore)`: null if the object is not one.
   $sync.DatastoreSyncMutexDatastore? asDatastoreSyncMutexDatastore() {
-    final $r = $callSync(1081, $W()..h(this));
+    final $r = $callSync(1084, $W()..h(this));
     return $r.hn($sync.DatastoreSyncMutexDatastore.$h);
   }
 }
@@ -1577,26 +1577,26 @@ class DatastoreShim extends Datastore
 mixin DatastoreShim$ on GoHandle {
   /// Go: `func (datastore.Shim).Children() []datastore.Datastore`.
   List<Datastore> children() {
-    final $r = $callSync(10623, $W()..h(this));
+    final $r = $callSync(10632, $W()..h(this));
     return $r.list(() => $r.hnn(Datastore.$h));
   }
 
   /// Go: type assertion `x.(*datastore.LogDatastore)`: null if the object is not one.
   DatastoreLogDatastore? asDatastoreLogDatastore() {
-    final $r = $callSync(1082, $W()..h(this));
+    final $r = $callSync(1085, $W()..h(this));
     return $r.hn(DatastoreLogDatastore.$h);
   }
 
   /// Go: type assertion `x.(*keytransform.Datastore)`: null if the object is not one.
   $keytransform.DatastoreKeytransformDatastore?
       asDatastoreKeytransformDatastore() {
-    final $r = $callSync(1083, $W()..h(this));
+    final $r = $callSync(1086, $W()..h(this));
     return $r.hn($keytransform.DatastoreKeytransformDatastore.$h);
   }
 
   /// Go: type assertion `x.(*sync.MutexDatastore)`: null if the object is not one.
   $sync.DatastoreSyncMutexDatastore? asDatastoreSyncMutexDatastore() {
-    final $r = $callSync(1084, $W()..h(this));
+    final $r = $callSync(1087, $W()..h(this));
     return $r.hn($sync.DatastoreSyncMutexDatastore.$h);
   }
 }
@@ -1613,7 +1613,7 @@ mixin DatastoreTtl$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<DateTime> getExpiration($context.Context ctx, DatastoreKey key) async {
     final $r = await $call(
-        10624,
+        10633,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1627,7 +1627,7 @@ mixin DatastoreTtl$ on GoHandle {
   Future<void> putWithTtl($context.Context ctx, DatastoreKey key,
       Uint8List value, Duration ttl) async {
     await $call(
-        10625,
+        10634,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1642,7 +1642,7 @@ mixin DatastoreTtl$ on GoHandle {
   Future<void> setTtl(
       $context.Context ctx, DatastoreKey key, Duration ttl) async {
     await $call(
-        10626,
+        10635,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1652,7 +1652,7 @@ mixin DatastoreTtl$ on GoHandle {
 
   /// Go: type assertion `x.(*badger.Datastore)`: null if the object is not one.
   $ds_badger.DsBadgerDatastore? asDsBadgerDatastore() {
-    final $r = $callSync(1085, $W()..h(this));
+    final $r = $callSync(1088, $W()..h(this));
     return $r.hn($ds_badger.DsBadgerDatastore.$h);
   }
 }
@@ -1671,7 +1671,7 @@ mixin DatastoreTxn$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> commit($context.Context ctx) async {
     await $call(
-        10627,
+        10636,
         $W()
           ..h(this)
           ..h(ctx));
@@ -1682,7 +1682,7 @@ mixin DatastoreTxn$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> discard($context.Context ctx) async {
     await $call(
-        10628,
+        10637,
         $W()
           ..h(this)
           ..h(ctx));
@@ -1702,7 +1702,7 @@ mixin DatastoreTxnFeature$ on GoHandle {
   Future<DatastoreTxn> newTransaction(
       $context.Context ctx, bool readOnly) async {
     final $r = await $call(
-        10629,
+        10638,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1712,26 +1712,26 @@ mixin DatastoreTxnFeature$ on GoHandle {
 
   /// Go: type assertion `x.(*datastore.NullDatastore)`: null if the object is not one.
   DatastoreNullDatastore? asDatastoreNullDatastore() {
-    final $r = $callSync(1086, $W()..h(this));
+    final $r = $callSync(1089, $W()..h(this));
     return $r.hn(DatastoreNullDatastore.$h);
   }
 
   /// Go: type assertion `x.(*keytransform.Datastore)`: null if the object is not one.
   $keytransform.DatastoreKeytransformDatastore?
       asDatastoreKeytransformDatastore() {
-    final $r = $callSync(1087, $W()..h(this));
+    final $r = $callSync(1090, $W()..h(this));
     return $r.hn($keytransform.DatastoreKeytransformDatastore.$h);
   }
 
   /// Go: type assertion `x.(*badger.Datastore)`: null if the object is not one.
   $ds_badger.DsBadgerDatastore? asDsBadgerDatastore() {
-    final $r = $callSync(1088, $W()..h(this));
+    final $r = $callSync(1091, $W()..h(this));
     return $r.hn($ds_badger.DsBadgerDatastore.$h);
   }
 
   /// Go: type assertion `x.(*leveldb.Datastore)`: null if the object is not one.
   $ds_leveldb.DsLeveldbDatastore? asDsLeveldbDatastore() {
-    final $r = $callSync(1089, $W()..h(this));
+    final $r = $callSync(1092, $W()..h(this));
     return $r.hn($ds_leveldb.DsLeveldbDatastore.$h);
   }
 }
@@ -1748,7 +1748,7 @@ mixin DatastoreWrite$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> delete($context.Context ctx, DatastoreKey key) async {
     await $call(
-        10630,
+        10639,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1761,7 +1761,7 @@ mixin DatastoreWrite$ on GoHandle {
   Future<void> put(
       $context.Context ctx, DatastoreKey key, Uint8List value) async {
     await $call(
-        10631,
+        10640,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1771,116 +1771,116 @@ mixin DatastoreWrite$ on GoHandle {
 
   /// Go: type assertion `x.(*datastore.LogBatch)`: null if the object is not one.
   DatastoreLogBatch? asDatastoreLogBatch() {
-    final $r = $callSync(1090, $W()..h(this));
+    final $r = $callSync(1093, $W()..h(this));
     return $r.hn(DatastoreLogBatch.$h);
   }
 
   /// Go: type assertion `x.(*datastore.LogDatastore)`: null if the object is not one.
   DatastoreLogDatastore? asDatastoreLogDatastore() {
-    final $r = $callSync(1091, $W()..h(this));
+    final $r = $callSync(1094, $W()..h(this));
     return $r.hn(DatastoreLogDatastore.$h);
   }
 
   /// Go: type assertion `x.(*datastore.MapDatastore)`: null if the object is not one.
   DatastoreMapDatastore? asDatastoreMapDatastore() {
-    final $r = $callSync(1092, $W()..h(this));
+    final $r = $callSync(1095, $W()..h(this));
     return $r.hn(DatastoreMapDatastore.$h);
   }
 
   /// Go: type assertion `x.(*datastore.NullDatastore)`: null if the object is not one.
   DatastoreNullDatastore? asDatastoreNullDatastore() {
-    final $r = $callSync(1093, $W()..h(this));
+    final $r = $callSync(1096, $W()..h(this));
     return $r.hn(DatastoreNullDatastore.$h);
   }
 
   /// Go: type assertion `x.(*keytransform.Datastore)`: null if the object is not one.
   $keytransform.DatastoreKeytransformDatastore?
       asDatastoreKeytransformDatastore() {
-    final $r = $callSync(1094, $W()..h(this));
+    final $r = $callSync(1097, $W()..h(this));
     return $r.hn($keytransform.DatastoreKeytransformDatastore.$h);
   }
 
   /// Go: type assertion `x.(*mount.Datastore)`: null if the object is not one.
   $mount.DatastoreMountDatastore? asDatastoreMountDatastore() {
-    final $r = $callSync(1095, $W()..h(this));
+    final $r = $callSync(1098, $W()..h(this));
     return $r.hn($mount.DatastoreMountDatastore.$h);
   }
 
   /// Go: type assertion `x.(*sync.MutexDatastore)`: null if the object is not one.
   $sync.DatastoreSyncMutexDatastore? asDatastoreSyncMutexDatastore() {
-    final $r = $callSync(1096, $W()..h(this));
+    final $r = $callSync(1099, $W()..h(this));
     return $r.hn($sync.DatastoreSyncMutexDatastore.$h);
   }
 
   /// Go: type assertion `x.(*badger.Datastore)`: null if the object is not one.
   $ds_badger.DsBadgerDatastore? asDsBadgerDatastore() {
-    final $r = $callSync(1097, $W()..h(this));
+    final $r = $callSync(1100, $W()..h(this));
     return $r.hn($ds_badger.DsBadgerDatastore.$h);
   }
 
   /// Go: type assertion `x.(*flatfs.Datastore)`: null if the object is not one.
   $ds_flatfs.DsFlatfsDatastore? asDsFlatfsDatastore() {
-    final $r = $callSync(1098, $W()..h(this));
+    final $r = $callSync(1101, $W()..h(this));
     return $r.hn($ds_flatfs.DsFlatfsDatastore.$h);
   }
 
   /// Go: type assertion `x.(*leveldb.Datastore)`: null if the object is not one.
   $ds_leveldb.DsLeveldbDatastore? asDsLeveldbDatastore() {
-    final $r = $callSync(1099, $W()..h(this));
+    final $r = $callSync(1102, $W()..h(this));
     return $r.hn($ds_leveldb.DsLeveldbDatastore.$h);
   }
 
   /// Go: type assertion `x.(*pebbleds.Batch)`: null if the object is not one.
   $ds_pebble.DsPebbleBatch? asDsPebbleBatch() {
-    final $r = $callSync(1100, $W()..h(this));
+    final $r = $callSync(1103, $W()..h(this));
     return $r.hn($ds_pebble.DsPebbleBatch.$h);
   }
 
   /// Go: type assertion `x.(*pebbleds.Datastore)`: null if the object is not one.
   $ds_pebble.DsPebbleDatastore? asDsPebbleDatastore() {
-    final $r = $callSync(1101, $W()..h(this));
+    final $r = $callSync(1104, $W()..h(this));
     return $r.hn($ds_pebble.DsPebbleDatastore.$h);
   }
 
   /// Go: type assertion `x.(datastore.Batch)`: null if the object is not one.
   DatastoreBatch? asDatastoreBatch() {
-    final $r = $callSync(1102, $W()..h(this));
+    final $r = $callSync(1105, $W()..h(this));
     return $r.hn(DatastoreBatch.$h);
   }
 
   /// Go: type assertion `x.(datastore.Batching)`: null if the object is not one.
   DatastoreBatching? asDatastoreBatching() {
-    final $r = $callSync(1103, $W()..h(this));
+    final $r = $callSync(1106, $W()..h(this));
     return $r.hn(DatastoreBatching.$h);
   }
 
   /// Go: type assertion `x.(datastore.Datastore)`: null if the object is not one.
   Datastore? asDatastore() {
-    final $r = $callSync(1104, $W()..h(this));
+    final $r = $callSync(1107, $W()..h(this));
     return $r.hn(Datastore.$h);
   }
 
   /// Go: type assertion `x.(datastore.Shim)`: null if the object is not one.
   DatastoreShim? asDatastoreShim() {
-    final $r = $callSync(1105, $W()..h(this));
+    final $r = $callSync(1108, $W()..h(this));
     return $r.hn(DatastoreShim.$h);
   }
 
   /// Go: type assertion `x.(datastore.Txn)`: null if the object is not one.
   DatastoreTxn? asDatastoreTxn() {
-    final $r = $callSync(1106, $W()..h(this));
+    final $r = $callSync(1109, $W()..h(this));
     return $r.hn(DatastoreTxn.$h);
   }
 
   /// Go: type assertion `x.(flatfs.DiscardableBatch)`: null if the object is not one.
   $ds_flatfs.DsFlatfsDiscardableBatch? asDsFlatfsDiscardableBatch() {
-    final $r = $callSync(1107, $W()..h(this));
+    final $r = $callSync(1110, $W()..h(this));
     return $r.hn($ds_flatfs.DsFlatfsDiscardableBatch.$h);
   }
 
   /// Go: type assertion `x.(repo.Datastore)`: null if the object is not one.
   $repo.KuboRepoDatastore? asKuboRepoDatastore() {
-    final $r = $callSync(1108, $W()..h(this));
+    final $r = $callSync(1111, $W()..h(this));
     return $r.hn($repo.KuboRepoDatastore.$h);
   }
 }
@@ -1910,7 +1910,7 @@ extension GoIpfsDatastoreApi on GoIpfsDatastore {
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> diskUsage($context.Context ctx, Datastore d) async {
     final $r = await $call(
-        10536,
+        10545,
         $W()
           ..h(ctx)
           ..h(d));
@@ -1919,25 +1919,25 @@ extension GoIpfsDatastoreApi on GoIpfsDatastore {
 
   /// Go: `func datastore.EntryKeys(e []query.Entry) []datastore.Key`.
   List<DatastoreKey> entryKeys(List<$query.DatastoreQueryEntry> e) {
-    final $r = $callSync(10537, $W()..list(e, (w0, e0) => w0.dto(e0)));
+    final $r = $callSync(10546, $W()..list(e, (w0, e0) => w0.dto(e0)));
     return $r.list(() => $r.hnn(DatastoreKey.$h));
   }
 
   /// Go: `func datastore.FeatureByName(name string) (datastore.Feature, bool)`.
   (DatastoreFeature, bool) featureByName(String name) {
-    final $r = $callSync(10538, $W()..str(name));
+    final $r = $callSync(10547, $W()..str(name));
     return ($r.p() ? DatastoreFeature.$dec($r) : $nil(), $r.b());
   }
 
   /// Go: `func datastore.Features() []datastore.Feature`.
   List<DatastoreFeature> features() {
-    final $r = $callSync(10539);
+    final $r = $callSync(10548);
     return $r.list(() => $r.p() ? DatastoreFeature.$dec($r) : $nil());
   }
 
   /// Go: `func datastore.FeaturesForDatastore(dstore datastore.Datastore) (features []datastore.Feature)`.
   List<DatastoreFeature> featuresForDatastore(Datastore dstore) {
-    final $r = $callSync(10540, $W()..h(dstore));
+    final $r = $callSync(10549, $W()..h(dstore));
     return $r.list(() => $r.p() ? DatastoreFeature.$dec($r) : $nil());
   }
 
@@ -1947,7 +1947,7 @@ extension GoIpfsDatastoreApi on GoIpfsDatastore {
   Future<bool> getBackedHas(
       $context.Context ctx, DatastoreRead ds, DatastoreKey key) async {
     final $r = await $call(
-        10542,
+        10551,
         $W()
           ..h(ctx)
           ..h(ds)
@@ -1961,7 +1961,7 @@ extension GoIpfsDatastoreApi on GoIpfsDatastore {
   Future<int> getBackedSize(
       $context.Context ctx, DatastoreRead ds, DatastoreKey key) async {
     final $r = await $call(
-        10543,
+        10552,
         $W()
           ..h(ctx)
           ..h(ds)
@@ -1971,37 +1971,37 @@ extension GoIpfsDatastoreApi on GoIpfsDatastore {
 
   /// Go: `func datastore.KeyWithNamespaces(ns []string) datastore.Key`.
   DatastoreKey keyWithNamespaces(List<String> ns) {
-    final $r = $callSync(10567, $W()..list(ns, (w0, e0) => w0.str(e0)));
+    final $r = $callSync(10576, $W()..list(ns, (w0, e0) => w0.str(e0)));
     return $r.hnn(DatastoreKey.$h);
   }
 
   /// Go: `func datastore.NamespaceType(namespace string) string`.
   String namespaceType(String namespace) {
-    final $r = $callSync(10594, $W()..str(namespace));
+    final $r = $callSync(10603, $W()..str(namespace));
     return $r.str();
   }
 
   /// Go: `func datastore.NamespaceValue(namespace string) string`.
   String namespaceValue(String namespace) {
-    final $r = $callSync(10595, $W()..str(namespace));
+    final $r = $callSync(10604, $W()..str(namespace));
     return $r.str();
   }
 
   /// Go: `func datastore.NewBasicBatch(ds datastore.Datastore) datastore.Batch`.
   DatastoreBatch newBasicBatch(Datastore ds) {
-    final $r = $callSync(10596, $W()..h(ds));
+    final $r = $callSync(10605, $W()..h(ds));
     return $r.hnn(DatastoreBatch.$h);
   }
 
   /// Go: `func datastore.RandomKey() datastore.Key`.
   DatastoreKey randomKey() {
-    final $r = $callSync(10616);
+    final $r = $callSync(10625);
     return $r.hnn(DatastoreKey.$h);
   }
 
   /// Go: `func datastore.RawKey(s string) datastore.Key`.
   DatastoreKey rawKey(String s) {
-    final $r = $callSync(10617, $W()..str(s));
+    final $r = $callSync(10626, $W()..str(s));
     return $r.hnn(DatastoreKey.$h);
   }
 }

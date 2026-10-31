@@ -40,7 +40,7 @@ final class LibdnsAddress implements GoDto {
 
   /// Go: `func (libdns.Address).RR() libdns.RR`.
   LibdnsRr rr() {
-    final $r = $callSync(12817, $W()..dto(this));
+    final $r = $callSync(12823, $W()..dto(this));
     return $r.p() ? LibdnsRr.$dec($r) : $nil();
   }
 }
@@ -91,7 +91,7 @@ final class LibdnsCaa implements GoDto {
 
   /// Go: `func (libdns.CAA).RR() libdns.RR`.
   LibdnsRr rr() {
-    final $r = $callSync(12818, $W()..dto(this));
+    final $r = $callSync(12824, $W()..dto(this));
     return $r.p() ? LibdnsRr.$dec($r) : $nil();
   }
 }
@@ -129,7 +129,7 @@ final class LibdnsCname implements GoDto {
 
   /// Go: `func (libdns.CNAME).RR() libdns.RR`.
   LibdnsRr rr() {
-    final $r = $callSync(12819, $W()..dto(this));
+    final $r = $callSync(12825, $W()..dto(this));
     return $r.p() ? LibdnsRr.$dec($r) : $nil();
   }
 }
@@ -173,7 +173,7 @@ final class LibdnsMx implements GoDto {
 
   /// Go: `func (libdns.MX).RR() libdns.RR`.
   LibdnsRr rr() {
-    final $r = $callSync(12820, $W()..dto(this));
+    final $r = $callSync(12826, $W()..dto(this));
     return $r.p() ? LibdnsRr.$dec($r) : $nil();
   }
 }
@@ -211,7 +211,7 @@ final class LibdnsNs implements GoDto {
 
   /// Go: `func (libdns.NS).RR() libdns.RR`.
   LibdnsRr rr() {
-    final $r = $callSync(12821, $W()..dto(this));
+    final $r = $callSync(12827, $W()..dto(this));
     return $r.p() ? LibdnsRr.$dec($r) : $nil();
   }
 }
@@ -253,13 +253,13 @@ final class LibdnsRr implements GoDto {
 
   /// Go: `func (libdns.RR).Parse() (libdns.Record, error)`.
   LibdnsRecord parse() {
-    final $r = $callSync(12822, $W()..dto(this));
+    final $r = $callSync(12828, $W()..dto(this));
     return $r.p() ? LibdnsRecord.$dec($r) : $nil();
   }
 
   /// Go: `func (libdns.RR).RR() libdns.RR`.
   LibdnsRr rr() {
-    final $r = $callSync(12823, $W()..dto(this));
+    final $r = $callSync(12829, $W()..dto(this));
     return $r.p() ? LibdnsRr.$dec($r) : $nil();
   }
 }
@@ -293,7 +293,7 @@ mixin LibdnsRecordAppender$ on GoHandle {
   Future<List<LibdnsRecord>> appendRecords(
       $context.Context ctx, String zone, List<LibdnsRecord> recs) async {
     final $r = await $call(
-        12824,
+        12830,
         $W()
           ..h(this)
           ..h(ctx)
@@ -316,7 +316,7 @@ mixin LibdnsRecordDeleter$ on GoHandle {
   Future<List<LibdnsRecord>> deleteRecords(
       $context.Context ctx, String zone, List<LibdnsRecord> recs) async {
     final $r = await $call(
-        12825,
+        12831,
         $W()
           ..h(this)
           ..h(ctx)
@@ -339,7 +339,7 @@ mixin LibdnsRecordGetter$ on GoHandle {
   Future<List<LibdnsRecord>> getRecords(
       $context.Context ctx, String zone) async {
     final $r = await $call(
-        12826,
+        12832,
         $W()
           ..h(this)
           ..h(ctx)
@@ -361,7 +361,7 @@ mixin LibdnsRecordSetter$ on GoHandle {
   Future<List<LibdnsRecord>> setRecords(
       $context.Context ctx, String zone, List<LibdnsRecord> recs) async {
     final $r = await $call(
-        12827,
+        12833,
         $W()
           ..h(this)
           ..h(ctx)
@@ -442,7 +442,7 @@ final class LibdnsSrv implements GoDto {
 
   /// Go: `func (libdns.SRV).RR() libdns.RR`.
   LibdnsRr rr() {
-    final $r = $callSync(12829, $W()..dto(this));
+    final $r = $callSync(12835, $W()..dto(this));
     return $r.p() ? LibdnsRr.$dec($r) : $nil();
   }
 }
@@ -504,7 +504,7 @@ final class LibdnsServiceBinding implements GoDto {
 
   /// Go: `func (libdns.ServiceBinding).RR() libdns.RR`.
   LibdnsRr rr() {
-    final $r = $callSync(12830, $W()..dto(this));
+    final $r = $callSync(12836, $W()..dto(this));
     return $r.p() ? LibdnsRr.$dec($r) : $nil();
   }
 }
@@ -542,7 +542,7 @@ final class LibdnsTxt implements GoDto {
 
   /// Go: `func (libdns.TXT).RR() libdns.RR`.
   LibdnsRr rr() {
-    final $r = $callSync(12831, $W()..dto(this));
+    final $r = $callSync(12837, $W()..dto(this));
     return $r.p() ? LibdnsRr.$dec($r) : $nil();
   }
 }
@@ -574,7 +574,7 @@ mixin LibdnsZoneLister$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<List<LibdnsZone>> listZones($context.Context ctx) async {
     final $r = await $call(
-        12832,
+        12838,
         $W()
           ..h(this)
           ..h(ctx));
@@ -587,7 +587,7 @@ extension GoLibdnsLibdnsApi on GoLibdnsLibdns {
   /// Go: `func libdns.AbsoluteName(name string, zone string) string`.
   String absoluteName(String name, String zone) {
     final $r = $callSync(
-        12816,
+        12822,
         $W()
           ..str(name)
           ..str(zone));
@@ -597,7 +597,7 @@ extension GoLibdnsLibdnsApi on GoLibdnsLibdns {
   /// Go: `func libdns.RelativeName(fqdn string, zone string) string`.
   String relativeName(String fqdn, String zone) {
     final $r = $callSync(
-        12828,
+        12834,
         $W()
           ..str(fqdn)
           ..str(zone));

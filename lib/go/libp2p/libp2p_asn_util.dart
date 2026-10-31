@@ -11,13 +11,13 @@ import 'package:p2p_ffi/src/runtime.dart';
 extension GoLibp2pLibp2pAsnUtilApi on GoLibp2pLibp2pAsnUtil {
   /// Go: `func asnutil.AsnForIPv6(ip net.IP) (asn uint32)`.
   int asnForIPv6(Uint8List ip) {
-    final $r = $callSync(12903, $W()..bytes(ip));
+    final $r = $callSync(12909, $W()..bytes(ip));
     return $r.i64();
   }
 
   /// Go: `func asnutil.AsnForIPv6Network(network uint64) (asn uint32)`.
   int asnForIPv6Network(int network) {
-    final $r = $callSync(12904, $W()..i64(network));
+    final $r = $callSync(12910, $W()..i64(network));
     return $r.i64();
   }
 }

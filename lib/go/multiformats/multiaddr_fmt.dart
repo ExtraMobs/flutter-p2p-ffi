@@ -16,7 +16,7 @@ mixin MultiaddrFmtPattern$ on GoHandle {
   /// Go: `func (mafmt.Pattern).Matches(multiaddr.Multiaddr) bool`.
   bool matches($multiaddr.Multiaddr multiaddr) {
     final $r = $callSync(
-        15832,
+        15838,
         $W()
           ..h(this)
           ..val(multiaddr));
@@ -25,7 +25,7 @@ mixin MultiaddrFmtPattern$ on GoHandle {
 
   /// Go: `func (mafmt.Pattern).String() string`.
   String string() {
-    final $r = $callSync(15833, $W()..h(this));
+    final $r = $callSync(15839, $W()..h(this));
     return $r.str();
   }
 }
@@ -34,104 +34,104 @@ mixin MultiaddrFmtPattern$ on GoHandle {
 extension GoMultiformatsMultiaddrFmtApi on GoMultiformatsMultiaddrFmt {
   /// Go: `func mafmt.And(ps ...mafmt.Pattern) mafmt.Pattern`.
   MultiaddrFmtPattern and([List<MultiaddrFmtPattern> ps = const []]) {
-    final $r = $callSync(15822, $W()..list(ps, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(15828, $W()..list(ps, (w0, e0) => w0.h(e0)));
     return $r.hnn(MultiaddrFmtPattern.$h);
   }
 
   /// Go: `var mafmt.DNS mafmt.Pattern`.
   MultiaddrFmtPattern get dns {
-    final $r = $callSync(15823);
+    final $r = $callSync(15829);
     return $r.hnn(MultiaddrFmtPattern.$h);
   }
 
   /// Go: `var mafmt.DNS4 mafmt.Base`.
   int get dns4 {
-    final $r = $callSync(15824);
+    final $r = $callSync(15830);
     return $r.i64();
   }
 
   /// Go: `var mafmt.DNS6 mafmt.Base`.
   int get dns6 {
-    final $r = $callSync(15825);
+    final $r = $callSync(15831);
     return $r.i64();
   }
 
   /// Go: `var mafmt.HTTP mafmt.Pattern`.
   MultiaddrFmtPattern get http {
-    final $r = $callSync(15826);
+    final $r = $callSync(15832);
     return $r.hnn(MultiaddrFmtPattern.$h);
   }
 
   /// Go: `var mafmt.HTTPS mafmt.Pattern`.
   MultiaddrFmtPattern get https {
-    final $r = $callSync(15827);
+    final $r = $callSync(15833);
     return $r.hnn(MultiaddrFmtPattern.$h);
   }
 
   /// Go: `var mafmt.IP mafmt.Pattern`.
   MultiaddrFmtPattern get ip {
-    final $r = $callSync(15828);
+    final $r = $callSync(15834);
     return $r.hnn(MultiaddrFmtPattern.$h);
   }
 
   /// Go: `var mafmt.IPFS mafmt.Pattern`.
   @Deprecated("use P2P")
   MultiaddrFmtPattern get ipfs {
-    final $r = $callSync(15829);
+    final $r = $callSync(15835);
     return $r.hnn(MultiaddrFmtPattern.$h);
   }
 
   /// Go: `func mafmt.Or(ps ...mafmt.Pattern) mafmt.Pattern`.
   MultiaddrFmtPattern or([List<MultiaddrFmtPattern> ps = const []]) {
-    final $r = $callSync(15830, $W()..list(ps, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(15836, $W()..list(ps, (w0, e0) => w0.h(e0)));
     return $r.hnn(MultiaddrFmtPattern.$h);
   }
 
   /// Go: `var mafmt.P2P mafmt.Pattern`.
   MultiaddrFmtPattern get p2p {
-    final $r = $callSync(15831);
+    final $r = $callSync(15837);
     return $r.hnn(MultiaddrFmtPattern.$h);
   }
 
   /// Go: `var mafmt.QUIC mafmt.Pattern`.
   MultiaddrFmtPattern get quic {
-    final $r = $callSync(15834);
+    final $r = $callSync(15840);
     return $r.hnn(MultiaddrFmtPattern.$h);
   }
 
   /// Go: `var mafmt.Reliable mafmt.Pattern`.
   MultiaddrFmtPattern get reliable {
-    final $r = $callSync(15835);
+    final $r = $callSync(15841);
     return $r.hnn(MultiaddrFmtPattern.$h);
   }
 
   /// Go: `var mafmt.TCP mafmt.Pattern`.
   MultiaddrFmtPattern get tcp {
-    final $r = $callSync(15836);
+    final $r = $callSync(15842);
     return $r.hnn(MultiaddrFmtPattern.$h);
   }
 
   /// Go: `var mafmt.UDP mafmt.Pattern`.
   MultiaddrFmtPattern get udp {
-    final $r = $callSync(15837);
+    final $r = $callSync(15843);
     return $r.hnn(MultiaddrFmtPattern.$h);
   }
 
   /// Go: `var mafmt.UTP mafmt.Pattern`.
   MultiaddrFmtPattern get utp {
-    final $r = $callSync(15838);
+    final $r = $callSync(15844);
     return $r.hnn(MultiaddrFmtPattern.$h);
   }
 
   /// Go: `var mafmt.Unreliable mafmt.Pattern`.
   MultiaddrFmtPattern get unreliable {
-    final $r = $callSync(15839);
+    final $r = $callSync(15845);
     return $r.hnn(MultiaddrFmtPattern.$h);
   }
 
   /// Go: `var mafmt.WebRTCDirect mafmt.Pattern`.
   MultiaddrFmtPattern get webRtcDirect {
-    final $r = $callSync(15840);
+    final $r = $callSync(15846);
     return $r.hnn(MultiaddrFmtPattern.$h);
   }
 }

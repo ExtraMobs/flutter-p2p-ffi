@@ -36,7 +36,7 @@ final class CryptoEd25519Options implements GoDto {
 
   /// Go: `func (*ed25519.Options).HashFunc() crypto.Hash`.
   int hashFunc() {
-    final $r = $callSync(3199, $W()..dto(this));
+    final $r = $callSync(3208, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -45,20 +45,20 @@ final class CryptoEd25519Options implements GoDto {
 extension GoCryptoEd25519Api on GoCryptoEd25519 {
   /// Go: `func ed25519.GenerateKey(random io.Reader) (ed25519.PublicKey, ed25519.PrivateKey, error)`.
   (Uint8List, Uint8List) generateKey(Object random) {
-    final $r = $callSync(3197, $W()..reader(random));
+    final $r = $callSync(3206, $W()..reader(random));
     return ($r.bytes() ?? Uint8List(0), $r.bytes() ?? Uint8List(0));
   }
 
   /// Go: `func ed25519.NewKeyFromSeed(seed []byte) ed25519.PrivateKey`.
   Uint8List newKeyFromSeed(Uint8List seed) {
-    final $r = $callSync(3198, $W()..bytes(seed));
+    final $r = $callSync(3207, $W()..bytes(seed));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func ed25519.Sign(privateKey ed25519.PrivateKey, message []byte) []byte`.
   Uint8List sign(Uint8List privateKey, Uint8List message) {
     final $r = $callSync(
-        3200,
+        3209,
         $W()
           ..bytes(privateKey)
           ..bytes(message));
@@ -68,7 +68,7 @@ extension GoCryptoEd25519Api on GoCryptoEd25519 {
   /// Go: `func ed25519.Verify(publicKey ed25519.PublicKey, message []byte, sig []byte) bool`.
   bool verify(Uint8List publicKey, Uint8List message, Uint8List sig) {
     final $r = $callSync(
-        3201,
+        3210,
         $W()
           ..bytes(publicKey)
           ..bytes(message)
@@ -80,7 +80,7 @@ extension GoCryptoEd25519Api on GoCryptoEd25519 {
   void verifyWithOptions(Uint8List publicKey, Uint8List message, Uint8List sig,
       CryptoEd25519Options opts) {
     $callSync(
-        3202,
+        3211,
         $W()
           ..bytes(publicKey)
           ..bytes(message)

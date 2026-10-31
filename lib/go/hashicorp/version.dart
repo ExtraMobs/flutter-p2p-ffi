@@ -39,7 +39,7 @@ class VersionConstraint extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*version.Constraint).Check(v *version.Version) bool`.
   bool check(Version v) {
     final $r = $callSync(
-        8252,
+        8261,
         $W()
           ..h(this)
           ..h(v));
@@ -49,7 +49,7 @@ class VersionConstraint extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*version.Constraint).Equals(con *version.Constraint) bool`.
   bool equals(VersionConstraint con) {
     final $r = $callSync(
-        8253,
+        8262,
         $W()
           ..h(this)
           ..h(con));
@@ -58,13 +58,13 @@ class VersionConstraint extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*version.Constraint).Prerelease() bool`.
   bool prerelease() {
-    final $r = $callSync(8254, $W()..h(this));
+    final $r = $callSync(8263, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*version.Constraint).String() string`.
   String string() {
-    final $r = $callSync(8255, $W()..h(this));
+    final $r = $callSync(8264, $W()..h(this));
     return $r.str();
   }
 }
@@ -99,7 +99,7 @@ class Version extends $driver.DatabaseSqlDriverValuer
   /// Go: `func version.NewVersion(v string, opts ...version.Option) (*version.Version, error)`.
   factory Version(String v, [List<VersionOption> opts = const []]) {
     final $r = $callSync(
-        8258,
+        8267,
         $W()
           ..str(v)
           ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -109,7 +109,7 @@ class Version extends $driver.DatabaseSqlDriverValuer
   /// Go: `func (*version.Version).Compare(other *version.Version) int`.
   int compare(Version other) {
     final $r = $callSync(
-        8259,
+        8268,
         $W()
           ..h(this)
           ..h(other));
@@ -118,14 +118,14 @@ class Version extends $driver.DatabaseSqlDriverValuer
 
   /// Go: `func (*version.Version).Core() *version.Version`.
   Version core() {
-    final $r = $callSync(8260, $W()..h(this));
+    final $r = $callSync(8269, $W()..h(this));
     return $r.hnn(Version.$h);
   }
 
   /// Go: `func (*version.Version).Equal(o *version.Version) bool`.
   bool equal(Version o) {
     final $r = $callSync(
-        8261,
+        8270,
         $W()
           ..h(this)
           ..h(o));
@@ -135,7 +135,7 @@ class Version extends $driver.DatabaseSqlDriverValuer
   /// Go: `func (*version.Version).GreaterThan(o *version.Version) bool`.
   bool greaterThan(Version o) {
     final $r = $callSync(
-        8262,
+        8271,
         $W()
           ..h(this)
           ..h(o));
@@ -145,7 +145,7 @@ class Version extends $driver.DatabaseSqlDriverValuer
   /// Go: `func (*version.Version).GreaterThanOrEqual(o *version.Version) bool`.
   bool greaterThanOrEqual(Version o) {
     final $r = $callSync(
-        8263,
+        8272,
         $W()
           ..h(this)
           ..h(o));
@@ -155,7 +155,7 @@ class Version extends $driver.DatabaseSqlDriverValuer
   /// Go: `func (*version.Version).LessThan(o *version.Version) bool`.
   bool lessThan(Version o) {
     final $r = $callSync(
-        8264,
+        8273,
         $W()
           ..h(this)
           ..h(o));
@@ -165,7 +165,7 @@ class Version extends $driver.DatabaseSqlDriverValuer
   /// Go: `func (*version.Version).LessThanOrEqual(o *version.Version) bool`.
   bool lessThanOrEqual(Version o) {
     final $r = $callSync(
-        8265,
+        8274,
         $W()
           ..h(this)
           ..h(o));
@@ -174,38 +174,38 @@ class Version extends $driver.DatabaseSqlDriverValuer
 
   /// Go: `func (*version.Version).MarshalText() ([]byte, error)`.
   Uint8List marshalText() {
-    final $r = $callSync(8266, $W()..h(this));
+    final $r = $callSync(8275, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*version.Version).Metadata() string`.
   String metadata() {
-    final $r = $callSync(8267, $W()..h(this));
+    final $r = $callSync(8276, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*version.Version).Original() string`.
   String original() {
-    final $r = $callSync(8268, $W()..h(this));
+    final $r = $callSync(8277, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*version.Version).Prefix() string`.
   String prefix() {
-    final $r = $callSync(8269, $W()..h(this));
+    final $r = $callSync(8278, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*version.Version).Prerelease() string`.
   String prerelease() {
-    final $r = $callSync(8270, $W()..h(this));
+    final $r = $callSync(8279, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*version.Version).Scan(src interface{}) error`.
   void scan(Object? src) {
     $callSync(
-        8271,
+        8280,
         $W()
           ..h(this)
           ..any(src));
@@ -213,26 +213,26 @@ class Version extends $driver.DatabaseSqlDriverValuer
 
   /// Go: `func (*version.Version).Segments() []int`.
   List<int> segments() {
-    final $r = $callSync(8272, $W()..h(this));
+    final $r = $callSync(8281, $W()..h(this));
     return $r.list(() => $r.i64());
   }
 
   /// Go: `func (*version.Version).Segments64() []int64`.
   List<int> segments64() {
-    final $r = $callSync(8273, $W()..h(this));
+    final $r = $callSync(8282, $W()..h(this));
     return $r.list(() => $r.i64());
   }
 
   /// Go: `func (*version.Version).String() string`.
   String string() {
-    final $r = $callSync(8274, $W()..h(this));
+    final $r = $callSync(8283, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*version.Version).UnmarshalText(b []byte) error`.
   void unmarshalText(Uint8List b) {
     $callSync(
-        8275,
+        8284,
         $W()
           ..h(this)
           ..bytes(b));
@@ -240,7 +240,7 @@ class Version extends $driver.DatabaseSqlDriverValuer
 
   /// Go: `func (*version.Version).Value() (driver.Value, error)`.
   $driver.DatabaseSqlDriverValue value$() {
-    final $r = $callSync(8276, $W()..h(this));
+    final $r = $callSync(8285, $W()..h(this));
     return $r.hnn($driver.DatabaseSqlDriverValue.$h);
   }
 }
@@ -249,13 +249,13 @@ class Version extends $driver.DatabaseSqlDriverValuer
 extension GoHashicorpVersionApi on GoHashicorpVersion {
   /// Go: `func version.NewConstraint(v string) (version.Constraints, error)`.
   List<VersionConstraint> newConstraint(String v) {
-    final $r = $callSync(8256, $W()..str(v));
+    final $r = $callSync(8265, $W()..str(v));
     return $r.list(() => $r.hnn(VersionConstraint.$h));
   }
 
   /// Go: `func version.NewSemver(v string) (*version.Version, error)`.
   Version newSemver(String v) {
-    final $r = $callSync(8257, $W()..str(v));
+    final $r = $callSync(8266, $W()..str(v));
     return $r.hnn(Version.$h);
   }
 }

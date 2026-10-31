@@ -32,7 +32,7 @@ class MetricMetricproducerManager extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*metricproducer.Manager).AddProducer(producer metricproducer.Producer)`.
   void addProducer(Object producer) {
     $callSync(
-        19011,
+        19017,
         $W()
           ..h(this)
           ..reader(producer));
@@ -41,7 +41,7 @@ class MetricMetricproducerManager extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*metricproducer.Manager).DeleteProducer(producer metricproducer.Producer)`.
   void deleteProducer(Object producer) {
     $callSync(
-        19012,
+        19018,
         $W()
           ..h(this)
           ..reader(producer));
@@ -49,7 +49,7 @@ class MetricMetricproducerManager extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*metricproducer.Manager).GetAll() []metricproducer.Producer`.
   List<MetricMetricproducerProducer> getAll() {
-    final $r = $callSync(19013, $W()..h(this));
+    final $r = $callSync(19019, $W()..h(this));
     return $r.list(() => $r.hnn(MetricMetricproducerProducer.$h));
   }
 }
@@ -60,7 +60,7 @@ class MetricMetricproducerProducer extends GoHandle {
 
   /// Go: `func (metricproducer.Producer).Read() []*metricdata.Metric`.
   List<$metricdata.MetricMetricdataMetric> read() {
-    final $r = $callSync(19014, $W()..h(this));
+    final $r = $callSync(19020, $W()..h(this));
     return $r.list(
         () => $r.p() ? $metricdata.MetricMetricdataMetric.$dec($r) : $nil());
   }
@@ -71,7 +71,7 @@ extension GoOpencensusMetricMetricproducerApi
     on GoOpencensusMetricMetricproducer {
   /// Go: `func metricproducer.GlobalManager() *metricproducer.Manager`.
   MetricMetricproducerManager globalManager() {
-    final $r = $callSync(19010);
+    final $r = $callSync(19016);
     return $r.hnn(MetricMetricproducerManager.$h);
   }
 }

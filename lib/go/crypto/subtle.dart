@@ -13,7 +13,7 @@ extension GoCryptoSubtleApi on GoCryptoSubtle {
   /// Go: `func subtle.ConstantTimeByteEq(x uint8, y uint8) int`.
   int constantTimeByteEq(int x, int y) {
     final $r = $callSync(
-        3355,
+        3364,
         $W()
           ..i64(x)
           ..i64(y));
@@ -23,7 +23,7 @@ extension GoCryptoSubtleApi on GoCryptoSubtle {
   /// Go: `func subtle.ConstantTimeCompare(x []byte, y []byte) int`.
   int constantTimeCompare(Uint8List x, Uint8List y) {
     final $r = $callSync(
-        3356,
+        3365,
         $W()
           ..bytes(x)
           ..bytes(y));
@@ -33,7 +33,7 @@ extension GoCryptoSubtleApi on GoCryptoSubtle {
   /// Go: `func subtle.ConstantTimeCopy(v int, x []byte, y []byte)`.
   void constantTimeCopy(int v, Uint8List x, Uint8List y) {
     $callSync(
-        3357,
+        3366,
         $W()
           ..i64(v)
           ..bytes(x)
@@ -43,7 +43,7 @@ extension GoCryptoSubtleApi on GoCryptoSubtle {
   /// Go: `func subtle.ConstantTimeEq(x int32, y int32) int`.
   int constantTimeEq(int x, int y) {
     final $r = $callSync(
-        3358,
+        3367,
         $W()
           ..i64(x)
           ..i64(y));
@@ -53,7 +53,7 @@ extension GoCryptoSubtleApi on GoCryptoSubtle {
   /// Go: `func subtle.ConstantTimeLessOrEq(x int, y int) int`.
   int constantTimeLessOrEq(int x, int y) {
     final $r = $callSync(
-        3359,
+        3368,
         $W()
           ..i64(x)
           ..i64(y));
@@ -63,7 +63,7 @@ extension GoCryptoSubtleApi on GoCryptoSubtle {
   /// Go: `func subtle.ConstantTimeSelect(v int, x int, y int) int`.
   int constantTimeSelect(int v, int x, int y) {
     final $r = $callSync(
-        3360,
+        3369,
         $W()
           ..i64(v)
           ..i64(x)
@@ -79,13 +79,13 @@ extension GoCryptoSubtleApi on GoCryptoSubtle {
   /// later for as long as it holds it (nobody checked which), and waits for
   /// each invocation (a retained callback, WIRE.md).
   Future<void> withDataIndependentTiming(FutureOr<void> Function() f) async {
-    await $call(3361, $W()..cb((r) => f(), true));
+    await $call(3370, $W()..cb((r) => f(), true));
   }
 
   /// Go: `func subtle.XORBytes(dst []byte, x []byte, y []byte) int`.
   int xorBytes(Uint8List dst, Uint8List x, Uint8List y) {
     final $r = $callSync(
-        3362,
+        3371,
         $W()
           ..bytes(dst)
           ..bytes(x)

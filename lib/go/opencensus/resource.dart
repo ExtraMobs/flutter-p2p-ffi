@@ -59,13 +59,13 @@ final class Resource implements GoDto {
 extension GoOpencensusResourceApi on GoOpencensusResource {
   /// Go: `func resource.DecodeLabels(s string) (map[string]string, error)`.
   Map<String, String> decodeLabels(String s) {
-    final $r = $callSync(19015, $W()..str(s));
+    final $r = $callSync(19021, $W()..str(s));
     return $r.map(() => $r.str(), () => $r.str());
   }
 
   /// Go: `func resource.EncodeLabels(labels map[string]string) string`.
   String encodeLabels(Map<String, String> labels) {
-    final $r = $callSync(19016,
+    final $r = $callSync(19022,
         $W()..map(labels, (w0, k0) => w0.str(k0), (w0, v0) => w0.str(v0)));
     return $r.str();
   }
@@ -74,14 +74,14 @@ extension GoOpencensusResourceApi on GoOpencensusResource {
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<Resource> fromEnv($context.Context ctx) async {
-    final $r = await $call(19017, $W()..h(ctx));
+    final $r = await $call(19023, $W()..h(ctx));
     return $r.p() ? Resource.$dec($r) : $nil();
   }
 
   /// Go: `func resource.MultiDetector(detectors ...resource.Detector) resource.Detector`.
   ResourceDetector multiDetector(
       [List<ResourceDetector> detectors = const []]) {
-    final $r = $callSync(19018, $W()..list(detectors, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(19024, $W()..list(detectors, (w0, e0) => w0.h(e0)));
     return $r.hnn(ResourceDetector.$h);
   }
 }

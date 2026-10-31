@@ -43,26 +43,26 @@ final class Libp2pPubsubRouterPbFetchRequest implements GoDto {
 
   /// Go: `func (*namesys_pb.FetchRequest).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(13162, $W()..dto(this));
+    final $r = $callSync(13168, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*namesys_pb.FetchRequest).GetIdentifier() string`.
   String getIdentifier() {
-    final $r = $callSync(13163, $W()..dto(this));
+    final $r = $callSync(13169, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*namesys_pb.FetchRequest).Marshal() (dAtA []byte, err error)`.
   Uint8List marshal() {
-    final $r = $callSync(13164, $W()..dto(this));
+    final $r = $callSync(13170, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*namesys_pb.FetchRequest).MarshalTo(dAtA []byte) (int, error)`.
   int marshalTo(Uint8List dAtA) {
     final $r = $callSync(
-        13165,
+        13171,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -72,7 +72,7 @@ final class Libp2pPubsubRouterPbFetchRequest implements GoDto {
   /// Go: `func (*namesys_pb.FetchRequest).MarshalToSizedBuffer(dAtA []byte) (int, error)`.
   int marshalToSizedBuffer(Uint8List dAtA) {
     final $r = $callSync(
-        13166,
+        13172,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -81,30 +81,30 @@ final class Libp2pPubsubRouterPbFetchRequest implements GoDto {
 
   /// Go: `func (*namesys_pb.FetchRequest).ProtoMessage()`.
   void protoMessage() {
-    $callSync(13167, $W()..dto(this));
+    $callSync(13173, $W()..dto(this));
   }
 
   /// Go: `func (*namesys_pb.FetchRequest).Reset()`.
   void reset() {
-    $callSync(13168, $W()..dto(this));
+    $callSync(13174, $W()..dto(this));
   }
 
   /// Go: `func (*namesys_pb.FetchRequest).Size() (n int)`.
   int size() {
-    final $r = $callSync(13169, $W()..dto(this));
+    final $r = $callSync(13175, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*namesys_pb.FetchRequest).String() string`.
   String string() {
-    final $r = $callSync(13170, $W()..dto(this));
+    final $r = $callSync(13176, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*namesys_pb.FetchRequest).Unmarshal(dAtA []byte) error`.
   void unmarshal(Uint8List dAtA) {
     $callSync(
-        13171,
+        13177,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -112,13 +112,13 @@ final class Libp2pPubsubRouterPbFetchRequest implements GoDto {
 
   /// Go: `func (*namesys_pb.FetchRequest).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(13172, $W()..dto(this));
+    $callSync(13178, $W()..dto(this));
   }
 
   /// Go: `func (*namesys_pb.FetchRequest).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        13173,
+        13179,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -129,7 +129,7 @@ final class Libp2pPubsubRouterPbFetchRequest implements GoDto {
   /// Go: `func (*namesys_pb.FetchRequest).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        13174,
+        13180,
         $W()
           ..dto(this)
           ..h(src));
@@ -137,14 +137,14 @@ final class Libp2pPubsubRouterPbFetchRequest implements GoDto {
 
   /// Go: `func (*namesys_pb.FetchRequest).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(13175, $W()..dto(this));
+    final $r = $callSync(13181, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*namesys_pb.FetchRequest).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        13176,
+        13182,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -194,32 +194,32 @@ final class Libp2pPubsubRouterPbFetchResponse implements GoDto {
 
   /// Go: `func (*namesys_pb.FetchResponse).Descriptor() ([]byte, []int)`.
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(13177, $W()..dto(this));
+    final $r = $callSync(13183, $W()..dto(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*namesys_pb.FetchResponse).GetData() []byte`.
   Uint8List getData() {
-    final $r = $callSync(13178, $W()..dto(this));
+    final $r = $callSync(13184, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*namesys_pb.FetchResponse).GetStatus() namesys_pb.FetchResponse_StatusCode`.
   int getStatus() {
-    final $r = $callSync(13179, $W()..dto(this));
+    final $r = $callSync(13185, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*namesys_pb.FetchResponse).Marshal() (dAtA []byte, err error)`.
   Uint8List marshal() {
-    final $r = $callSync(13180, $W()..dto(this));
+    final $r = $callSync(13186, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*namesys_pb.FetchResponse).MarshalTo(dAtA []byte) (int, error)`.
   int marshalTo(Uint8List dAtA) {
     final $r = $callSync(
-        13181,
+        13187,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -229,7 +229,7 @@ final class Libp2pPubsubRouterPbFetchResponse implements GoDto {
   /// Go: `func (*namesys_pb.FetchResponse).MarshalToSizedBuffer(dAtA []byte) (int, error)`.
   int marshalToSizedBuffer(Uint8List dAtA) {
     final $r = $callSync(
-        13182,
+        13188,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -238,30 +238,30 @@ final class Libp2pPubsubRouterPbFetchResponse implements GoDto {
 
   /// Go: `func (*namesys_pb.FetchResponse).ProtoMessage()`.
   void protoMessage() {
-    $callSync(13183, $W()..dto(this));
+    $callSync(13189, $W()..dto(this));
   }
 
   /// Go: `func (*namesys_pb.FetchResponse).Reset()`.
   void reset() {
-    $callSync(13184, $W()..dto(this));
+    $callSync(13190, $W()..dto(this));
   }
 
   /// Go: `func (*namesys_pb.FetchResponse).Size() (n int)`.
   int size() {
-    final $r = $callSync(13185, $W()..dto(this));
+    final $r = $callSync(13191, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*namesys_pb.FetchResponse).String() string`.
   String string() {
-    final $r = $callSync(13186, $W()..dto(this));
+    final $r = $callSync(13192, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*namesys_pb.FetchResponse).Unmarshal(dAtA []byte) error`.
   void unmarshal(Uint8List dAtA) {
     $callSync(
-        13187,
+        13193,
         $W()
           ..dto(this)
           ..bytes(dAtA));
@@ -269,13 +269,13 @@ final class Libp2pPubsubRouterPbFetchResponse implements GoDto {
 
   /// Go: `func (*namesys_pb.FetchResponse).XXX_DiscardUnknown()`.
   void xxxDiscardUnknown() {
-    $callSync(13188, $W()..dto(this));
+    $callSync(13194, $W()..dto(this));
   }
 
   /// Go: `func (*namesys_pb.FetchResponse).XXX_Marshal(b []byte, deterministic bool) ([]byte, error)`.
   Uint8List xxxMarshal(Uint8List b, bool deterministic) {
     final $r = $callSync(
-        13189,
+        13195,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -286,7 +286,7 @@ final class Libp2pPubsubRouterPbFetchResponse implements GoDto {
   /// Go: `func (*namesys_pb.FetchResponse).XXX_Merge(src proto.Message)`.
   void xxxMerge($proto.ProtobufProtoMessage src) {
     $callSync(
-        13190,
+        13196,
         $W()
           ..dto(this)
           ..h(src));
@@ -294,14 +294,14 @@ final class Libp2pPubsubRouterPbFetchResponse implements GoDto {
 
   /// Go: `func (*namesys_pb.FetchResponse).XXX_Size() int`.
   int xxxSize() {
-    final $r = $callSync(13191, $W()..dto(this));
+    final $r = $callSync(13197, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*namesys_pb.FetchResponse).XXX_Unmarshal(b []byte) error`.
   void xxxUnmarshal(Uint8List b) {
     $callSync(
-        13192,
+        13198,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -341,13 +341,13 @@ class Libp2pPubsubRouterPbErrUnexpectedEndOfGroupMessage
 extension GoLibp2pLibp2pPubsubRouterPbApi on GoLibp2pLibp2pPubsubRouterPb {
   /// Go: `var namesys_pb.FetchResponse_StatusCode_name map[int32]string`.
   Map<int, String> get fetchResponseStatusCodeName {
-    final $r = $callSync(13193);
+    final $r = $callSync(13199);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var namesys_pb.FetchResponse_StatusCode_value map[string]int32`.
   Map<String, int> get fetchResponseStatusCodeValue {
-    final $r = $callSync(13194);
+    final $r = $callSync(13200);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 }

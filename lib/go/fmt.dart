@@ -20,7 +20,7 @@ mixin FmtFormatter$ on GoHandle {
   /// Go: `func (fmt.Formatter).Format(f fmt.State, verb rune)`.
   void format(FmtState f, int verb) {
     $callSync(
-        3923,
+        3932,
         $W()
           ..h(this)
           ..h(f)
@@ -50,7 +50,7 @@ mixin FmtScanState$ on GoHandle {
   /// Go: `func (fmt.ScanState).Read(buf []byte) (n int, err error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        3934,
+        3943,
         $W()
           ..h(this)
           ..i64(n));
@@ -59,13 +59,13 @@ mixin FmtScanState$ on GoHandle {
 
   /// Go: `func (fmt.ScanState).ReadRune() (r rune, size int, err error)`.
   (int, int) readRune() {
-    final $r = $callSync(3935, $W()..h(this));
+    final $r = $callSync(3944, $W()..h(this));
     return ($r.i64(), $r.i64());
   }
 
   /// Go: `func (fmt.ScanState).SkipSpace()`.
   void skipSpace() {
-    $callSync(3936, $W()..h(this));
+    $callSync(3945, $W()..h(this));
   }
 
   /// Go: `func (fmt.ScanState).Token(skipSpace bool, f func(rune) bool) (token []byte, err error)`.
@@ -78,7 +78,7 @@ mixin FmtScanState$ on GoHandle {
   Future<Uint8List> token(
       bool skipSpace, FutureOr<bool> Function(int arg0) f) async {
     final $r = await $call(
-        3937,
+        3946,
         $W()
           ..h(this)
           ..b(skipSpace)
@@ -88,12 +88,12 @@ mixin FmtScanState$ on GoHandle {
 
   /// Go: `func (fmt.ScanState).UnreadRune() error`.
   void unreadRune() {
-    $callSync(3938, $W()..h(this));
+    $callSync(3947, $W()..h(this));
   }
 
   /// Go: `func (fmt.ScanState).Width() (wid int, ok bool)`.
   (int, bool) width() {
-    final $r = $callSync(3939, $W()..h(this));
+    final $r = $callSync(3948, $W()..h(this));
     return ($r.i64(), $r.b());
   }
 }
@@ -108,7 +108,7 @@ mixin FmtScanner$ on GoHandle {
   /// Go: `func (fmt.Scanner).Scan(state fmt.ScanState, verb rune) error`.
   void scan(FmtScanState state, int verb) {
     $callSync(
-        3942,
+        3951,
         $W()
           ..h(this)
           ..h(state)
@@ -144,7 +144,7 @@ mixin FmtState$ on GoHandle {
   /// Go: `func (fmt.State).Flag(c int) bool`.
   bool flag(int c) {
     final $r = $callSync(
-        3949,
+        3958,
         $W()
           ..h(this)
           ..i64(c));
@@ -153,20 +153,20 @@ mixin FmtState$ on GoHandle {
 
   /// Go: `func (fmt.State).Precision() (prec int, ok bool)`.
   (int, bool) precision() {
-    final $r = $callSync(3950, $W()..h(this));
+    final $r = $callSync(3959, $W()..h(this));
     return ($r.i64(), $r.b());
   }
 
   /// Go: `func (fmt.State).Width() (wid int, ok bool)`.
   (int, bool) width() {
-    final $r = $callSync(3951, $W()..h(this));
+    final $r = $callSync(3960, $W()..h(this));
     return ($r.i64(), $r.b());
   }
 
   /// Go: `func (fmt.State).Write(b []byte) (n int, err error)`.
   int write(Uint8List b) {
     final $r = $callSync(
-        3952,
+        3961,
         $W()
           ..h(this)
           ..bytes(b));
@@ -201,7 +201,7 @@ extension GoFmtApi on GoFmt {
   /// Go: `func fmt.Append(b []byte, a ...any) []byte`.
   Uint8List append(Uint8List b, [List<Object?> a = const []]) {
     final $r = $callSync(
-        3918,
+        3927,
         $W()
           ..bytes(b)
           ..list(a, (w0, e0) => w0.any(e0)));
@@ -211,7 +211,7 @@ extension GoFmtApi on GoFmt {
   /// Go: `func fmt.Appendf(b []byte, format string, a ...any) []byte`.
   Uint8List appendf(Uint8List b, String format, [List<Object?> a = const []]) {
     final $r = $callSync(
-        3919,
+        3928,
         $W()
           ..bytes(b)
           ..str(format)
@@ -222,7 +222,7 @@ extension GoFmtApi on GoFmt {
   /// Go: `func fmt.Appendln(b []byte, a ...any) []byte`.
   Uint8List appendln(Uint8List b, [List<Object?> a = const []]) {
     final $r = $callSync(
-        3920,
+        3929,
         $W()
           ..bytes(b)
           ..list(a, (w0, e0) => w0.any(e0)));
@@ -232,7 +232,7 @@ extension GoFmtApi on GoFmt {
   /// Go: `func fmt.Errorf(format string, a ...any) (err error)`.
   void errorf(String format, [List<Object?> a = const []]) {
     $callSync(
-        3921,
+        3930,
         $W()
           ..str(format)
           ..list(a, (w0, e0) => w0.any(e0)));
@@ -241,7 +241,7 @@ extension GoFmtApi on GoFmt {
   /// Go: `func fmt.FormatString(state fmt.State, verb rune) string`.
   String formatString(FmtState state, int verb) {
     final $r = $callSync(
-        3922,
+        3931,
         $W()
           ..h(state)
           ..i64(verb));
@@ -251,7 +251,7 @@ extension GoFmtApi on GoFmt {
   /// Go: `func fmt.Fprint(w io.Writer, a ...any) (n int, err error)`.
   int fprint(GoHandle? w, [List<Object?> a = const []]) {
     final $r = $callSync(
-        3924,
+        3933,
         $W()
           ..h(w)
           ..list(a, (w0, e0) => w0.any(e0)));
@@ -261,7 +261,7 @@ extension GoFmtApi on GoFmt {
   /// Go: `func fmt.Fprintf(w io.Writer, format string, a ...any) (n int, err error)`.
   int fprintf(GoHandle? w, String format, [List<Object?> a = const []]) {
     final $r = $callSync(
-        3925,
+        3934,
         $W()
           ..h(w)
           ..str(format)
@@ -272,7 +272,7 @@ extension GoFmtApi on GoFmt {
   /// Go: `func fmt.Fprintln(w io.Writer, a ...any) (n int, err error)`.
   int fprintln(GoHandle? w, [List<Object?> a = const []]) {
     final $r = $callSync(
-        3926,
+        3935,
         $W()
           ..h(w)
           ..list(a, (w0, e0) => w0.any(e0)));
@@ -282,7 +282,7 @@ extension GoFmtApi on GoFmt {
   /// Go: `func fmt.Fscan(r io.Reader, a ...any) (n int, err error)`.
   int fscan(Object r, [List<Object?> a = const []]) {
     final $r = $callSync(
-        3927,
+        3936,
         $W()
           ..reader(r)
           ..list(a, (w0, e0) => w0.any(e0)));
@@ -292,7 +292,7 @@ extension GoFmtApi on GoFmt {
   /// Go: `func fmt.Fscanf(r io.Reader, format string, a ...any) (n int, err error)`.
   int fscanf(Object r, String format, [List<Object?> a = const []]) {
     final $r = $callSync(
-        3928,
+        3937,
         $W()
           ..reader(r)
           ..str(format)
@@ -303,7 +303,7 @@ extension GoFmtApi on GoFmt {
   /// Go: `func fmt.Fscanln(r io.Reader, a ...any) (n int, err error)`.
   int fscanln(Object r, [List<Object?> a = const []]) {
     final $r = $callSync(
-        3929,
+        3938,
         $W()
           ..reader(r)
           ..list(a, (w0, e0) => w0.any(e0)));
@@ -312,34 +312,12 @@ extension GoFmtApi on GoFmt {
 
   /// Go: `func fmt.Print(a ...any) (n int, err error)`.
   int print([List<Object?> a = const []]) {
-    final $r = $callSync(3930, $W()..list(a, (w0, e0) => w0.any(e0)));
+    final $r = $callSync(3939, $W()..list(a, (w0, e0) => w0.any(e0)));
     return $r.i64();
   }
 
   /// Go: `func fmt.Printf(format string, a ...any) (n int, err error)`.
   int printf(String format, [List<Object?> a = const []]) {
-    final $r = $callSync(
-        3931,
-        $W()
-          ..str(format)
-          ..list(a, (w0, e0) => w0.any(e0)));
-    return $r.i64();
-  }
-
-  /// Go: `func fmt.Println(a ...any) (n int, err error)`.
-  int println([List<Object?> a = const []]) {
-    final $r = $callSync(3932, $W()..list(a, (w0, e0) => w0.any(e0)));
-    return $r.i64();
-  }
-
-  /// Go: `func fmt.Scan(a ...any) (n int, err error)`.
-  int scan([List<Object?> a = const []]) {
-    final $r = $callSync(3933, $W()..list(a, (w0, e0) => w0.any(e0)));
-    return $r.i64();
-  }
-
-  /// Go: `func fmt.Scanf(format string, a ...any) (n int, err error)`.
-  int scanf(String format, [List<Object?> a = const []]) {
     final $r = $callSync(
         3940,
         $W()
@@ -348,22 +326,44 @@ extension GoFmtApi on GoFmt {
     return $r.i64();
   }
 
+  /// Go: `func fmt.Println(a ...any) (n int, err error)`.
+  int println([List<Object?> a = const []]) {
+    final $r = $callSync(3941, $W()..list(a, (w0, e0) => w0.any(e0)));
+    return $r.i64();
+  }
+
+  /// Go: `func fmt.Scan(a ...any) (n int, err error)`.
+  int scan([List<Object?> a = const []]) {
+    final $r = $callSync(3942, $W()..list(a, (w0, e0) => w0.any(e0)));
+    return $r.i64();
+  }
+
+  /// Go: `func fmt.Scanf(format string, a ...any) (n int, err error)`.
+  int scanf(String format, [List<Object?> a = const []]) {
+    final $r = $callSync(
+        3949,
+        $W()
+          ..str(format)
+          ..list(a, (w0, e0) => w0.any(e0)));
+    return $r.i64();
+  }
+
   /// Go: `func fmt.Scanln(a ...any) (n int, err error)`.
   int scanln([List<Object?> a = const []]) {
-    final $r = $callSync(3941, $W()..list(a, (w0, e0) => w0.any(e0)));
+    final $r = $callSync(3950, $W()..list(a, (w0, e0) => w0.any(e0)));
     return $r.i64();
   }
 
   /// Go: `func fmt.Sprint(a ...any) string`.
   String sprint([List<Object?> a = const []]) {
-    final $r = $callSync(3943, $W()..list(a, (w0, e0) => w0.any(e0)));
+    final $r = $callSync(3952, $W()..list(a, (w0, e0) => w0.any(e0)));
     return $r.str();
   }
 
   /// Go: `func fmt.Sprintf(format string, a ...any) string`.
   String sprintf(String format, [List<Object?> a = const []]) {
     final $r = $callSync(
-        3944,
+        3953,
         $W()
           ..str(format)
           ..list(a, (w0, e0) => w0.any(e0)));
@@ -372,14 +372,14 @@ extension GoFmtApi on GoFmt {
 
   /// Go: `func fmt.Sprintln(a ...any) string`.
   String sprintln([List<Object?> a = const []]) {
-    final $r = $callSync(3945, $W()..list(a, (w0, e0) => w0.any(e0)));
+    final $r = $callSync(3954, $W()..list(a, (w0, e0) => w0.any(e0)));
     return $r.str();
   }
 
   /// Go: `func fmt.Sscan(str string, a ...any) (n int, err error)`.
   int sscan(String str, [List<Object?> a = const []]) {
     final $r = $callSync(
-        3946,
+        3955,
         $W()
           ..str(str)
           ..list(a, (w0, e0) => w0.any(e0)));
@@ -389,7 +389,7 @@ extension GoFmtApi on GoFmt {
   /// Go: `func fmt.Sscanf(str string, format string, a ...any) (n int, err error)`.
   int sscanf(String str, String format, [List<Object?> a = const []]) {
     final $r = $callSync(
-        3947,
+        3956,
         $W()
           ..str(str)
           ..str(format)
@@ -400,7 +400,7 @@ extension GoFmtApi on GoFmt {
   /// Go: `func fmt.Sscanln(str string, a ...any) (n int, err error)`.
   int sscanln(String str, [List<Object?> a = const []]) {
     final $r = $callSync(
-        3948,
+        3957,
         $W()
           ..str(str)
           ..list(a, (w0, e0) => w0.any(e0)));

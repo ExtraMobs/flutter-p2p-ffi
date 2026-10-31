@@ -66,14 +66,14 @@ class EncodingXmlDecoder extends EncodingXmlTokenReader
 
   /// Go: `func xml.NewDecoder(r io.Reader) *xml.Decoder`.
   factory EncodingXmlDecoder(Object r) {
-    final $r = $callSync(3775, $W()..reader(r));
+    final $r = $callSync(3784, $W()..reader(r));
     return $r.hnn(EncodingXmlDecoder.$h);
   }
 
   /// Go: `func (*xml.Decoder).Decode(v any) error`.
   void decode(Object? v) {
     $callSync(
-        3754,
+        3763,
         $W()
           ..h(this)
           ..any(v));
@@ -82,7 +82,7 @@ class EncodingXmlDecoder extends EncodingXmlTokenReader
   /// Go: `func (*xml.Decoder).DecodeElement(v any, start *xml.StartElement) error`.
   void decodeElement(Object? v, EncodingXmlStartElement start) {
     $callSync(
-        3755,
+        3764,
         $W()
           ..h(this)
           ..any(v)
@@ -91,30 +91,30 @@ class EncodingXmlDecoder extends EncodingXmlTokenReader
 
   /// Go: `func (*xml.Decoder).InputOffset() int64`.
   int inputOffset() {
-    final $r = $callSync(3756, $W()..h(this));
+    final $r = $callSync(3765, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*xml.Decoder).InputPos() (line int, column int)`.
   (int, int) inputPos() {
-    final $r = $callSync(3757, $W()..h(this));
+    final $r = $callSync(3766, $W()..h(this));
     return ($r.i64(), $r.i64());
   }
 
   /// Go: `func (*xml.Decoder).RawToken() (xml.Token, error)`.
   EncodingXmlToken rawToken() {
-    final $r = $callSync(3758, $W()..h(this));
+    final $r = $callSync(3767, $W()..h(this));
     return $r.hnn(EncodingXmlToken.$h);
   }
 
   /// Go: `func (*xml.Decoder).Skip() error`.
   void skip() {
-    $callSync(3759, $W()..h(this));
+    $callSync(3768, $W()..h(this));
   }
 
   /// Go: `func (*xml.Decoder).Token() (xml.Token, error)`.
   EncodingXmlToken token() {
-    final $r = $callSync(3760, $W()..h(this));
+    final $r = $callSync(3769, $W()..h(this));
     return $r.hnn(EncodingXmlToken.$h);
   }
 }
@@ -149,19 +149,19 @@ class EncodingXmlEncoder extends $runtime.GrpcGatewayV2RuntimeEncoder
 
   /// Go: `func xml.NewEncoder(w io.Writer) *xml.Encoder`.
   factory EncodingXmlEncoder(GoHandle? w) {
-    final $r = $callSync(3776, $W()..h(w));
+    final $r = $callSync(3785, $W()..h(w));
     return $r.hnn(EncodingXmlEncoder.$h);
   }
 
   /// Go: `func (*xml.Encoder).Close() error`.
   void close() {
-    $callSync(3761, $W()..h(this));
+    $callSync(3770, $W()..h(this));
   }
 
   /// Go: `func (*xml.Encoder).Encode(v any) error`.
   void encode(Object? v) {
     $callSync(
-        3762,
+        3771,
         $W()
           ..h(this)
           ..any(v));
@@ -170,7 +170,7 @@ class EncodingXmlEncoder extends $runtime.GrpcGatewayV2RuntimeEncoder
   /// Go: `func (*xml.Encoder).EncodeElement(v any, start xml.StartElement) error`.
   void encodeElement(Object? v, EncodingXmlStartElement start) {
     $callSync(
-        3763,
+        3772,
         $W()
           ..h(this)
           ..any(v)
@@ -180,7 +180,7 @@ class EncodingXmlEncoder extends $runtime.GrpcGatewayV2RuntimeEncoder
   /// Go: `func (*xml.Encoder).EncodeToken(t xml.Token) error`.
   void encodeToken(EncodingXmlToken t) {
     $callSync(
-        3764,
+        3773,
         $W()
           ..h(this)
           ..h(t));
@@ -188,13 +188,13 @@ class EncodingXmlEncoder extends $runtime.GrpcGatewayV2RuntimeEncoder
 
   /// Go: `func (*xml.Encoder).Flush() error`.
   void flush() {
-    $callSync(3765, $W()..h(this));
+    $callSync(3774, $W()..h(this));
   }
 
   /// Go: `func (*xml.Encoder).Indent(prefix string, indent string)`.
   void indent(String prefix, String indent) {
     $callSync(
-        3766,
+        3775,
         $W()
           ..h(this)
           ..str(prefix)
@@ -228,7 +228,7 @@ mixin EncodingXmlMarshaler$ on GoHandle {
   /// Go: `func (xml.Marshaler).MarshalXML(e *xml.Encoder, start xml.StartElement) error`.
   void marshalXml(EncodingXmlEncoder e, EncodingXmlStartElement start) {
     $callSync(
-        3773,
+        3782,
         $W()
           ..h(this)
           ..h(e)
@@ -246,7 +246,7 @@ mixin EncodingXmlMarshalerAttr$ on GoHandle {
   /// Go: `func (xml.MarshalerAttr).MarshalXMLAttr(name xml.Name) (xml.Attr, error)`.
   EncodingXmlAttr marshalXmlAttr(EncodingXmlName name) {
     final $r = $callSync(
-        3774,
+        3783,
         $W()
           ..h(this)
           ..dto(name));
@@ -303,7 +303,7 @@ final class EncodingXmlProcInst implements GoDto {
 
   /// Go: `func (xml.ProcInst).Copy() xml.ProcInst`.
   EncodingXmlProcInst copy() {
-    final $r = $callSync(3778, $W()..dto(this));
+    final $r = $callSync(3787, $W()..dto(this));
     return $r.p() ? EncodingXmlProcInst.$dec($r) : $nil();
   }
 }
@@ -333,13 +333,13 @@ final class EncodingXmlStartElement implements GoDto {
 
   /// Go: `func (xml.StartElement).Copy() xml.StartElement`.
   EncodingXmlStartElement copy() {
-    final $r = $callSync(3779, $W()..dto(this));
+    final $r = $callSync(3788, $W()..dto(this));
     return $r.p() ? EncodingXmlStartElement.$dec($r) : $nil();
   }
 
   /// Go: `func (xml.StartElement).End() xml.EndElement`.
   EncodingXmlEndElement end() {
-    final $r = $callSync(3780, $W()..dto(this));
+    final $r = $callSync(3789, $W()..dto(this));
     return $r.p() ? EncodingXmlEndElement.$dec($r) : $nil();
   }
 }
@@ -361,7 +361,7 @@ class EncodingXmlTokenReader extends GoHandle with EncodingXmlTokenReader$ {
 mixin EncodingXmlTokenReader$ on GoHandle {
   /// Go: `func (xml.TokenReader).Token() (xml.Token, error)`.
   EncodingXmlToken token() {
-    final $r = $callSync(3781, $W()..h(this));
+    final $r = $callSync(3790, $W()..h(this));
     return $r.hnn(EncodingXmlToken.$h);
   }
 
@@ -382,7 +382,7 @@ mixin EncodingXmlUnmarshaler$ on GoHandle {
   /// Go: `func (xml.Unmarshaler).UnmarshalXML(d *xml.Decoder, start xml.StartElement) error`.
   void unmarshalXml(EncodingXmlDecoder d, EncodingXmlStartElement start) {
     $callSync(
-        3783,
+        3792,
         $W()
           ..h(this)
           ..h(d)
@@ -401,7 +401,7 @@ mixin EncodingXmlUnmarshalerAttr$ on GoHandle {
   /// Go: `func (xml.UnmarshalerAttr).UnmarshalXMLAttr(attr xml.Attr) error`.
   void unmarshalXmlAttr(EncodingXmlAttr attr) {
     $callSync(
-        3784,
+        3793,
         $W()
           ..h(this)
           ..dto(attr));
@@ -474,14 +474,14 @@ class EncodingXmlUnsupportedTypeError extends GolangException {
 extension GoEncodingXmlApi on GoEncodingXml {
   /// Go: `func xml.CopyToken(t xml.Token) xml.Token`.
   EncodingXmlToken copyToken(EncodingXmlToken t) {
-    final $r = $callSync(3753, $W()..h(t));
+    final $r = $callSync(3762, $W()..h(t));
     return $r.hnn(EncodingXmlToken.$h);
   }
 
   /// Go: `func xml.Escape(w io.Writer, s []byte)`.
   void escape(GoHandle? w, Uint8List s) {
     $callSync(
-        3767,
+        3776,
         $W()
           ..h(w)
           ..bytes(s));
@@ -490,7 +490,7 @@ extension GoEncodingXmlApi on GoEncodingXml {
   /// Go: `func xml.EscapeText(w io.Writer, s []byte) error`.
   void escapeText(GoHandle? w, Uint8List s) {
     $callSync(
-        3768,
+        3777,
         $W()
           ..h(w)
           ..bytes(s));
@@ -498,26 +498,26 @@ extension GoEncodingXmlApi on GoEncodingXml {
 
   /// Go: `var xml.HTMLAutoClose []string`.
   List<String> get htmlAutoClose {
-    final $r = $callSync(3769);
+    final $r = $callSync(3778);
     return $r.list(() => $r.str());
   }
 
   /// Go: `var xml.HTMLEntity map[string]string`.
   Map<String, String> get htmlEntity {
-    final $r = $callSync(3770);
+    final $r = $callSync(3779);
     return $r.map(() => $r.str(), () => $r.str());
   }
 
   /// Go: `func xml.Marshal(v any) ([]byte, error)`.
   Uint8List marshal(Object? v) {
-    final $r = $callSync(3771, $W()..any(v));
+    final $r = $callSync(3780, $W()..any(v));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func xml.MarshalIndent(v any, prefix string, indent string) ([]byte, error)`.
   Uint8List marshalIndent(Object? v, String prefix, String indent) {
     final $r = $callSync(
-        3772,
+        3781,
         $W()
           ..any(v)
           ..str(prefix)
@@ -527,14 +527,14 @@ extension GoEncodingXmlApi on GoEncodingXml {
 
   /// Go: `func xml.NewTokenDecoder(t xml.TokenReader) *xml.Decoder`.
   EncodingXmlDecoder newTokenDecoder(EncodingXmlTokenReader t) {
-    final $r = $callSync(3777, $W()..h(t));
+    final $r = $callSync(3786, $W()..h(t));
     return $r.hnn(EncodingXmlDecoder.$h);
   }
 
   /// Go: `func xml.Unmarshal(data []byte, v any) error`.
   void unmarshal(Uint8List data, Object? v) {
     $callSync(
-        3782,
+        3791,
         $W()
           ..bytes(data)
           ..any(v));

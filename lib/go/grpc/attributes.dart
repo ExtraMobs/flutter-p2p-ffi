@@ -33,7 +33,7 @@ class GrpcAttributes extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*attributes.Attributes).Equal(o *attributes.Attributes) (#rv1 bool)`.
   bool equal(GrpcAttributes o) {
     final $r = $callSync(
-        24373,
+        24379,
         $W()
           ..h(this)
           ..h(o));
@@ -42,20 +42,20 @@ class GrpcAttributes extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*attributes.Attributes).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(24374, $W()..h(this));
+    final $r = $callSync(24380, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*attributes.Attributes).String() string`.
   String string() {
-    final $r = $callSync(24375, $W()..h(this));
+    final $r = $callSync(24381, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*attributes.Attributes).Value(key any) any`.
   Object? value$(Object? key) {
     final $r = $callSync(
-        24376,
+        24382,
         $W()
           ..h(this)
           ..any(key));
@@ -65,7 +65,7 @@ class GrpcAttributes extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*attributes.Attributes).WithValue(key any, value any) *attributes.Attributes`.
   GrpcAttributes withValue(Object? key, Object? value) {
     final $r = $callSync(
-        24377,
+        24383,
         $W()
           ..h(this)
           ..any(key)
@@ -79,7 +79,7 @@ extension GoGrpcAttributesApi on GoGrpcAttributes {
   /// Go: `func attributes.New(key any, value any) *attributes.Attributes`.
   GrpcAttributes new$(Object? key, Object? value) {
     final $r = $callSync(
-        24378,
+        24384,
         $W()
           ..any(key)
           ..any(value));

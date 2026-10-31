@@ -55,7 +55,7 @@ final class UrlpathPath implements GoDto {
   /// Go: `func (*urlpath.Path).Build(m urlpath.Match) (string, bool)`.
   (String, bool) build(UrlpathMatch m) {
     final $r = $callSync(
-        18834,
+        18840,
         $W()
           ..dto(this)
           ..dto(m));
@@ -65,7 +65,7 @@ final class UrlpathPath implements GoDto {
   /// Go: `func (*urlpath.Path).Match(s string) (urlpath.Match, bool)`.
   (UrlpathMatch, bool) match(String s) {
     final $r = $callSync(
-        18835,
+        18841,
         $W()
           ..dto(this)
           ..str(s));
@@ -107,7 +107,7 @@ final class UrlpathSegment implements GoDto {
 extension GoUcarionUrlpathApi on GoUcarionUrlpath {
   /// Go: `func urlpath.New(path string) urlpath.Path`.
   UrlpathPath new$(String path) {
-    final $r = $callSync(18833, $W()..str(path));
+    final $r = $callSync(18839, $W()..str(path));
     return $r.p() ? UrlpathPath.$dec($r) : $nil();
   }
 }

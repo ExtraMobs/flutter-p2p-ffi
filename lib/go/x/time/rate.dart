@@ -34,7 +34,7 @@ class TimeRateLimiter extends $crypto.CryptoDecrypterOpts
   /// Go: `func rate.NewLimiter(r rate.Limit, b int) *rate.Limiter`.
   factory TimeRateLimiter(double r, int b) {
     final $r = $callSync(
-        24072,
+        24078,
         $W()
           ..f64(r)
           ..i64(b));
@@ -43,14 +43,14 @@ class TimeRateLimiter extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*rate.Limiter).Allow() bool`.
   bool allow() {
-    final $r = $callSync(24058, $W()..h(this));
+    final $r = $callSync(24064, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*rate.Limiter).AllowN(t time.Time, n int) bool`.
   bool allowN(DateTime t, int n) {
     final $r = $callSync(
-        24059,
+        24065,
         $W()
           ..h(this)
           ..time(t)
@@ -60,26 +60,26 @@ class TimeRateLimiter extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*rate.Limiter).Burst() int`.
   int burst() {
-    final $r = $callSync(24060, $W()..h(this));
+    final $r = $callSync(24066, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*rate.Limiter).Limit() rate.Limit`.
   double limit() {
-    final $r = $callSync(24061, $W()..h(this));
+    final $r = $callSync(24067, $W()..h(this));
     return $r.f64();
   }
 
   /// Go: `func (*rate.Limiter).Reserve() *rate.Reservation`.
   TimeRateReservation reserve() {
-    final $r = $callSync(24062, $W()..h(this));
+    final $r = $callSync(24068, $W()..h(this));
     return $r.hnn(TimeRateReservation.$h);
   }
 
   /// Go: `func (*rate.Limiter).ReserveN(t time.Time, n int) *rate.Reservation`.
   TimeRateReservation reserveN(DateTime t, int n) {
     final $r = $callSync(
-        24063,
+        24069,
         $W()
           ..h(this)
           ..time(t)
@@ -90,7 +90,7 @@ class TimeRateLimiter extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*rate.Limiter).SetBurst(newBurst int)`.
   void setBurst(int newBurst) {
     $callSync(
-        24064,
+        24070,
         $W()
           ..h(this)
           ..i64(newBurst));
@@ -99,7 +99,7 @@ class TimeRateLimiter extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*rate.Limiter).SetBurstAt(t time.Time, newBurst int)`.
   void setBurstAt(DateTime t, int newBurst) {
     $callSync(
-        24065,
+        24071,
         $W()
           ..h(this)
           ..time(t)
@@ -109,7 +109,7 @@ class TimeRateLimiter extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*rate.Limiter).SetLimit(newLimit rate.Limit)`.
   void setLimit(double newLimit) {
     $callSync(
-        24066,
+        24072,
         $W()
           ..h(this)
           ..f64(newLimit));
@@ -118,7 +118,7 @@ class TimeRateLimiter extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*rate.Limiter).SetLimitAt(t time.Time, newLimit rate.Limit)`.
   void setLimitAt(DateTime t, double newLimit) {
     $callSync(
-        24067,
+        24073,
         $W()
           ..h(this)
           ..time(t)
@@ -127,14 +127,14 @@ class TimeRateLimiter extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*rate.Limiter).Tokens() float64`.
   double tokens() {
-    final $r = $callSync(24068, $W()..h(this));
+    final $r = $callSync(24074, $W()..h(this));
     return $r.f64();
   }
 
   /// Go: `func (*rate.Limiter).TokensAt(t time.Time) float64`.
   double tokensAt(DateTime t) {
     final $r = $callSync(
-        24069,
+        24075,
         $W()
           ..h(this)
           ..time(t));
@@ -146,7 +146,7 @@ class TimeRateLimiter extends $crypto.CryptoDecrypterOpts
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> wait($context.Context ctx) async {
     await $call(
-        24070,
+        24076,
         $W()
           ..h(this)
           ..h(ctx));
@@ -157,7 +157,7 @@ class TimeRateLimiter extends $crypto.CryptoDecrypterOpts
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> waitN($context.Context ctx, int n) async {
     await $call(
-        24071,
+        24077,
         $W()
           ..h(this)
           ..h(ctx)
@@ -185,13 +185,13 @@ class TimeRateReservation extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*rate.Reservation).Cancel()`.
   void cancel() {
-    $callSync(24073, $W()..h(this));
+    $callSync(24079, $W()..h(this));
   }
 
   /// Go: `func (*rate.Reservation).CancelAt(t time.Time)`.
   void cancelAt(DateTime t) {
     $callSync(
-        24074,
+        24080,
         $W()
           ..h(this)
           ..time(t));
@@ -199,14 +199,14 @@ class TimeRateReservation extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*rate.Reservation).Delay() time.Duration`.
   Duration delay() {
-    final $r = $callSync(24075, $W()..h(this));
+    final $r = $callSync(24081, $W()..h(this));
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `func (*rate.Reservation).DelayFrom(t time.Time) time.Duration`.
   Duration delayFrom(DateTime t) {
     final $r = $callSync(
-        24076,
+        24082,
         $W()
           ..h(this)
           ..time(t));
@@ -215,7 +215,7 @@ class TimeRateReservation extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*rate.Reservation).OK() bool`.
   bool ok() {
-    final $r = $callSync(24077, $W()..h(this));
+    final $r = $callSync(24083, $W()..h(this));
     return $r.b();
   }
 }
@@ -247,7 +247,7 @@ class TimeRateSometimes extends $crypto.CryptoDecrypterOpts
   /// each invocation (a retained callback, WIRE.md).
   Future<void> do$(FutureOr<void> Function() f) async {
     await $call(
-        24078,
+        24084,
         $W()
           ..h(this)
           ..cb((r) => f(), true));
@@ -258,7 +258,7 @@ class TimeRateSometimes extends $crypto.CryptoDecrypterOpts
 extension GoXTimeRateApi on GoXTimeRate {
   /// Go: `func rate.Every(interval time.Duration) rate.Limit`.
   double every(Duration interval) {
-    final $r = $callSync(24057, $W()..i64((interval).inMicroseconds * 1000));
+    final $r = $callSync(24063, $W()..i64((interval).inMicroseconds * 1000));
     return $r.f64();
   }
 }

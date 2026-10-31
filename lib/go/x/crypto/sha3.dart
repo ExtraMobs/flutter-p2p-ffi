@@ -17,7 +17,7 @@ class CryptoSha3ShakeHash extends $hash.Hash with CryptoSha3ShakeHash$ {
 mixin CryptoSha3ShakeHash$ on GoHandle {
   /// Go: `func (sha3.ShakeHash).Clone() sha3.ShakeHash`.
   CryptoSha3ShakeHash clone() {
-    final $r = $callSync(23353, $W()..h(this));
+    final $r = $callSync(23359, $W()..h(this));
     return $r.hnn(CryptoSha3ShakeHash.$h);
   }
 }
@@ -26,32 +26,32 @@ mixin CryptoSha3ShakeHash$ on GoHandle {
 extension GoXCryptoSha3Api on GoXCryptoSha3 {
   /// Go: `func sha3.New224() hash.Hash`.
   $hash.Hash new224() {
-    final $r = $callSync(23343);
+    final $r = $callSync(23349);
     return $r.hnn($hash.Hash.$h);
   }
 
   /// Go: `func sha3.New256() hash.Hash`.
   $hash.Hash new256() {
-    final $r = $callSync(23344);
+    final $r = $callSync(23350);
     return $r.hnn($hash.Hash.$h);
   }
 
   /// Go: `func sha3.New384() hash.Hash`.
   $hash.Hash new384() {
-    final $r = $callSync(23345);
+    final $r = $callSync(23351);
     return $r.hnn($hash.Hash.$h);
   }
 
   /// Go: `func sha3.New512() hash.Hash`.
   $hash.Hash new512() {
-    final $r = $callSync(23346);
+    final $r = $callSync(23352);
     return $r.hnn($hash.Hash.$h);
   }
 
   /// Go: `func sha3.NewCShake128(N []byte, S []byte) sha3.ShakeHash`.
   CryptoSha3ShakeHash newCShake128(Uint8List n, Uint8List s) {
     final $r = $callSync(
-        23347,
+        23353,
         $W()
           ..bytes(n)
           ..bytes(s));
@@ -61,7 +61,7 @@ extension GoXCryptoSha3Api on GoXCryptoSha3 {
   /// Go: `func sha3.NewCShake256(N []byte, S []byte) sha3.ShakeHash`.
   CryptoSha3ShakeHash newCShake256(Uint8List n, Uint8List s) {
     final $r = $callSync(
-        23348,
+        23354,
         $W()
           ..bytes(n)
           ..bytes(s));
@@ -70,32 +70,32 @@ extension GoXCryptoSha3Api on GoXCryptoSha3 {
 
   /// Go: `func sha3.NewLegacyKeccak256() hash.Hash`.
   $hash.Hash newLegacyKeccak256() {
-    final $r = $callSync(23349);
+    final $r = $callSync(23355);
     return $r.hnn($hash.Hash.$h);
   }
 
   /// Go: `func sha3.NewLegacyKeccak512() hash.Hash`.
   $hash.Hash newLegacyKeccak512() {
-    final $r = $callSync(23350);
+    final $r = $callSync(23356);
     return $r.hnn($hash.Hash.$h);
   }
 
   /// Go: `func sha3.NewShake128() sha3.ShakeHash`.
   CryptoSha3ShakeHash newShake128() {
-    final $r = $callSync(23351);
+    final $r = $callSync(23357);
     return $r.hnn(CryptoSha3ShakeHash.$h);
   }
 
   /// Go: `func sha3.NewShake256() sha3.ShakeHash`.
   CryptoSha3ShakeHash newShake256() {
-    final $r = $callSync(23352);
+    final $r = $callSync(23358);
     return $r.hnn(CryptoSha3ShakeHash.$h);
   }
 
   /// Go: `func sha3.ShakeSum128(hash []byte, data []byte)`.
   void shakeSum128(Uint8List hash, Uint8List data) {
     $callSync(
-        23354,
+        23360,
         $W()
           ..bytes(hash)
           ..bytes(data));
@@ -104,7 +104,7 @@ extension GoXCryptoSha3Api on GoXCryptoSha3 {
   /// Go: `func sha3.ShakeSum256(hash []byte, data []byte)`.
   void shakeSum256(Uint8List hash, Uint8List data) {
     $callSync(
-        23355,
+        23361,
         $W()
           ..bytes(hash)
           ..bytes(data));

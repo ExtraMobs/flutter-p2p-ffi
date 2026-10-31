@@ -73,7 +73,7 @@ extension GoOtelExportersOtlpOtlptraceOtlptracegrpcApi
       [List<OtelExportersOtlpOtlptraceOtlptracegrpcOption> opts =
           const []]) async {
     final $r = await $call(
-        19227,
+        19233,
         $W()
           ..h(ctx)
           ..list(opts, (w0, e0) => w0.h(e0)));
@@ -83,14 +83,14 @@ extension GoOtelExportersOtlpOtlptraceOtlptracegrpcApi
   /// Go: `func otlptracegrpc.NewClient(opts ...otlptracegrpc.Option) otlptrace.Client`.
   $otlptrace.OtelExportersOtlpOtlptraceClient newClient(
       [List<OtelExportersOtlpOtlptraceOtlptracegrpcOption> opts = const []]) {
-    final $r = $callSync(19228, $W()..list(opts, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(19234, $W()..list(opts, (w0, e0) => w0.h(e0)));
     return $r.hnn($otlptrace.OtelExportersOtlpOtlptraceClient.$h);
   }
 
   /// Go: `func otlptracegrpc.NewUnstarted(opts ...otlptracegrpc.Option) *otlptrace.Exporter`.
   $otlptrace.OtelExportersOtlpOtlptraceExporter newUnstarted(
       [List<OtelExportersOtlpOtlptraceOtlptracegrpcOption> opts = const []]) {
-    final $r = $callSync(19229, $W()..list(opts, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(19235, $W()..list(opts, (w0, e0) => w0.h(e0)));
     return $r.hnn($otlptrace.OtelExportersOtlpOtlptraceExporter.$h);
   }
 }
@@ -101,87 +101,87 @@ extension GoOtelExportersOtlpOtlptraceOtlptracegrpcOptionsApi
   /// Go: `func otlptracegrpc.WithCompressor(compressor string) otlptracegrpc.Option`.
   OtelExportersOtlpOtlptraceOtlptracegrpcOption withCompressor(
       String compressor) {
-    final $r = $callSync(19230, $W()..str(compressor));
+    final $r = $callSync(19236, $W()..str(compressor));
     return $r.hnn(OtelExportersOtlpOtlptraceOtlptracegrpcOption.$h);
   }
 
   /// Go: `func otlptracegrpc.WithDialOption(opts ...grpc.DialOption) otlptracegrpc.Option`.
   OtelExportersOtlpOtlptraceOtlptracegrpcOption withDialOption(
       [List<$grpc.GrpcDialOption> opts = const []]) {
-    final $r = $callSync(19231, $W()..list(opts, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(19237, $W()..list(opts, (w0, e0) => w0.h(e0)));
     return $r.hnn(OtelExportersOtlpOtlptraceOtlptracegrpcOption.$h);
   }
 
   /// Go: `func otlptracegrpc.WithEndpoint(endpoint string) otlptracegrpc.Option`.
   OtelExportersOtlpOtlptraceOtlptracegrpcOption withEndpoint(String endpoint) {
-    final $r = $callSync(19232, $W()..str(endpoint));
+    final $r = $callSync(19238, $W()..str(endpoint));
     return $r.hnn(OtelExportersOtlpOtlptraceOtlptracegrpcOption.$h);
   }
 
   /// Go: `func otlptracegrpc.WithEndpointURL(u string) otlptracegrpc.Option`.
   OtelExportersOtlpOtlptraceOtlptracegrpcOption withEndpointUrl(String u) {
-    final $r = $callSync(19233, $W()..str(u));
+    final $r = $callSync(19239, $W()..str(u));
     return $r.hnn(OtelExportersOtlpOtlptraceOtlptracegrpcOption.$h);
   }
 
   /// Go: `func otlptracegrpc.WithGRPCConn(conn *grpc.ClientConn) otlptracegrpc.Option`.
   OtelExportersOtlpOtlptraceOtlptracegrpcOption withGrpcConn(
       $grpc.GrpcClientConn conn) {
-    final $r = $callSync(19234, $W()..h(conn));
+    final $r = $callSync(19240, $W()..h(conn));
     return $r.hnn(OtelExportersOtlpOtlptraceOtlptracegrpcOption.$h);
   }
 
   /// Go: `func otlptracegrpc.WithHeaders(headers map[string]string) otlptracegrpc.Option`.
   OtelExportersOtlpOtlptraceOtlptracegrpcOption withHeaders(
       Map<String, String> headers) {
-    final $r = $callSync(19235,
+    final $r = $callSync(19241,
         $W()..map(headers, (w0, k0) => w0.str(k0), (w0, v0) => w0.str(v0)));
     return $r.hnn(OtelExportersOtlpOtlptraceOtlptracegrpcOption.$h);
   }
 
   /// Go: `func otlptracegrpc.WithInsecure() otlptracegrpc.Option`.
   OtelExportersOtlpOtlptraceOtlptracegrpcOption withInsecure() {
-    final $r = $callSync(19236);
+    final $r = $callSync(19242);
     return $r.hnn(OtelExportersOtlpOtlptraceOtlptracegrpcOption.$h);
   }
 
   /// Go: `func otlptracegrpc.WithMaxRequestSize(size int) otlptracegrpc.Option`.
   OtelExportersOtlpOtlptraceOtlptracegrpcOption withMaxRequestSize(int size) {
-    final $r = $callSync(19237, $W()..i64(size));
+    final $r = $callSync(19243, $W()..i64(size));
     return $r.hnn(OtelExportersOtlpOtlptraceOtlptracegrpcOption.$h);
   }
 
   /// Go: `func otlptracegrpc.WithReconnectionPeriod(rp time.Duration) otlptracegrpc.Option`.
   OtelExportersOtlpOtlptraceOtlptracegrpcOption withReconnectionPeriod(
       Duration rp) {
-    final $r = $callSync(19238, $W()..i64((rp).inMicroseconds * 1000));
+    final $r = $callSync(19244, $W()..i64((rp).inMicroseconds * 1000));
     return $r.hnn(OtelExportersOtlpOtlptraceOtlptracegrpcOption.$h);
   }
 
   /// Go: `func otlptracegrpc.WithRetry(settings otlptracegrpc.RetryConfig) otlptracegrpc.Option`.
   OtelExportersOtlpOtlptraceOtlptracegrpcOption withRetry(
       OtelExportersOtlpOtlptraceOtlptracegrpcRetryConfig settings) {
-    final $r = $callSync(19239, $W()..dto(settings));
+    final $r = $callSync(19245, $W()..dto(settings));
     return $r.hnn(OtelExportersOtlpOtlptraceOtlptracegrpcOption.$h);
   }
 
   /// Go: `func otlptracegrpc.WithServiceConfig(serviceConfig string) otlptracegrpc.Option`.
   OtelExportersOtlpOtlptraceOtlptracegrpcOption withServiceConfig(
       String serviceConfig) {
-    final $r = $callSync(19240, $W()..str(serviceConfig));
+    final $r = $callSync(19246, $W()..str(serviceConfig));
     return $r.hnn(OtelExportersOtlpOtlptraceOtlptracegrpcOption.$h);
   }
 
   /// Go: `func otlptracegrpc.WithTLSCredentials(creds credentials.TransportCredentials) otlptracegrpc.Option`.
   OtelExportersOtlpOtlptraceOtlptracegrpcOption withTlsCredentials(
       $credentials.GrpcCredentialsTransportCredentials creds) {
-    final $r = $callSync(19241, $W()..h(creds));
+    final $r = $callSync(19247, $W()..h(creds));
     return $r.hnn(OtelExportersOtlpOtlptraceOtlptracegrpcOption.$h);
   }
 
   /// Go: `func otlptracegrpc.WithTimeout(duration time.Duration) otlptracegrpc.Option`.
   OtelExportersOtlpOtlptraceOtlptracegrpcOption withTimeout(Duration duration) {
-    final $r = $callSync(19242, $W()..i64((duration).inMicroseconds * 1000));
+    final $r = $callSync(19248, $W()..i64((duration).inMicroseconds * 1000));
     return $r.hnn(OtelExportersOtlpOtlptraceOtlptracegrpcOption.$h);
   }
 }

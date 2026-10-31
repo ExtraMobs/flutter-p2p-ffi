@@ -47,53 +47,53 @@ class ClientModelGoBucket
   /// Go: `func (*io_prometheus_client.Bucket).Descriptor() ([]byte, []int)`.
   @Deprecated("Use Bucket.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(18066, $W()..h(this));
+    final $r = $callSync(18072, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*io_prometheus_client.Bucket).GetCumulativeCount() uint64`.
   int getCumulativeCount() {
-    final $r = $callSync(18067, $W()..h(this));
+    final $r = $callSync(18073, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*io_prometheus_client.Bucket).GetCumulativeCountFloat() float64`.
   double getCumulativeCountFloat() {
-    final $r = $callSync(18068, $W()..h(this));
+    final $r = $callSync(18074, $W()..h(this));
     return $r.f64();
   }
 
   /// Go: `func (*io_prometheus_client.Bucket).GetExemplar() *io_prometheus_client.Exemplar`.
   ClientModelGoExemplar getExemplar() {
-    final $r = $callSync(18069, $W()..h(this));
+    final $r = $callSync(18075, $W()..h(this));
     return $r.hnn(ClientModelGoExemplar.$h);
   }
 
   /// Go: `func (*io_prometheus_client.Bucket).GetUpperBound() float64`.
   double getUpperBound() {
-    final $r = $callSync(18070, $W()..h(this));
+    final $r = $callSync(18076, $W()..h(this));
     return $r.f64();
   }
 
   /// Go: `func (*io_prometheus_client.Bucket).ProtoMessage()`.
   void protoMessage() {
-    $callSync(18071, $W()..h(this));
+    $callSync(18077, $W()..h(this));
   }
 
   /// Go: `func (*io_prometheus_client.Bucket).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(18072, $W()..h(this));
+    final $r = $callSync(18078, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*io_prometheus_client.Bucket).Reset()`.
   void reset() {
-    $callSync(18073, $W()..h(this));
+    $callSync(18079, $W()..h(this));
   }
 
   /// Go: `func (*io_prometheus_client.Bucket).String() string`.
   String string() {
-    final $r = $callSync(18074, $W()..h(this));
+    final $r = $callSync(18080, $W()..h(this));
     return $r.str();
   }
 }
@@ -126,41 +126,41 @@ class ClientModelGoBucketSpan
   /// Go: `func (*io_prometheus_client.BucketSpan).Descriptor() ([]byte, []int)`.
   @Deprecated("Use BucketSpan.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(18075, $W()..h(this));
+    final $r = $callSync(18081, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*io_prometheus_client.BucketSpan).GetLength() uint32`.
   int getLength() {
-    final $r = $callSync(18076, $W()..h(this));
+    final $r = $callSync(18082, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*io_prometheus_client.BucketSpan).GetOffset() int32`.
   int getOffset() {
-    final $r = $callSync(18077, $W()..h(this));
+    final $r = $callSync(18083, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*io_prometheus_client.BucketSpan).ProtoMessage()`.
   void protoMessage() {
-    $callSync(18078, $W()..h(this));
+    $callSync(18084, $W()..h(this));
   }
 
   /// Go: `func (*io_prometheus_client.BucketSpan).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(18079, $W()..h(this));
+    final $r = $callSync(18085, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*io_prometheus_client.BucketSpan).Reset()`.
   void reset() {
-    $callSync(18080, $W()..h(this));
+    $callSync(18086, $W()..h(this));
   }
 
   /// Go: `func (*io_prometheus_client.BucketSpan).String() string`.
   String string() {
-    final $r = $callSync(18081, $W()..h(this));
+    final $r = $callSync(18087, $W()..h(this));
     return $r.str();
   }
 }
@@ -193,47 +193,47 @@ class ClientModelGoCounter
   /// Go: `func (*io_prometheus_client.Counter).Descriptor() ([]byte, []int)`.
   @Deprecated("Use Counter.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(18082, $W()..h(this));
+    final $r = $callSync(18088, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*io_prometheus_client.Counter).GetCreatedTimestamp() *timestamppb.Timestamp`.
   $timestamppb.ProtobufTypesKnownTimestamppbTimestamp getCreatedTimestamp() {
-    final $r = $callSync(18083, $W()..h(this));
+    final $r = $callSync(18089, $W()..h(this));
     return $r.hnn($timestamppb.ProtobufTypesKnownTimestamppbTimestamp.$h);
   }
 
   /// Go: `func (*io_prometheus_client.Counter).GetExemplar() *io_prometheus_client.Exemplar`.
   ClientModelGoExemplar getExemplar() {
-    final $r = $callSync(18084, $W()..h(this));
+    final $r = $callSync(18090, $W()..h(this));
     return $r.hnn(ClientModelGoExemplar.$h);
   }
 
   /// Go: `func (*io_prometheus_client.Counter).GetValue() float64`.
   double getValue() {
-    final $r = $callSync(18085, $W()..h(this));
+    final $r = $callSync(18091, $W()..h(this));
     return $r.f64();
   }
 
   /// Go: `func (*io_prometheus_client.Counter).ProtoMessage()`.
   void protoMessage() {
-    $callSync(18086, $W()..h(this));
+    $callSync(18092, $W()..h(this));
   }
 
   /// Go: `func (*io_prometheus_client.Counter).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(18087, $W()..h(this));
+    final $r = $callSync(18093, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*io_prometheus_client.Counter).Reset()`.
   void reset() {
-    $callSync(18088, $W()..h(this));
+    $callSync(18094, $W()..h(this));
   }
 
   /// Go: `func (*io_prometheus_client.Counter).String() string`.
   String string() {
-    final $r = $callSync(18089, $W()..h(this));
+    final $r = $callSync(18095, $W()..h(this));
     return $r.str();
   }
 }
@@ -266,47 +266,47 @@ class ClientModelGoExemplar
   /// Go: `func (*io_prometheus_client.Exemplar).Descriptor() ([]byte, []int)`.
   @Deprecated("Use Exemplar.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(18090, $W()..h(this));
+    final $r = $callSync(18096, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*io_prometheus_client.Exemplar).GetLabel() []*io_prometheus_client.LabelPair`.
   List<ClientModelGoLabelPair> getLabel() {
-    final $r = $callSync(18091, $W()..h(this));
+    final $r = $callSync(18097, $W()..h(this));
     return $r.list(() => $r.hnn(ClientModelGoLabelPair.$h));
   }
 
   /// Go: `func (*io_prometheus_client.Exemplar).GetTimestamp() *timestamppb.Timestamp`.
   $timestamppb.ProtobufTypesKnownTimestamppbTimestamp getTimestamp() {
-    final $r = $callSync(18092, $W()..h(this));
+    final $r = $callSync(18098, $W()..h(this));
     return $r.hnn($timestamppb.ProtobufTypesKnownTimestamppbTimestamp.$h);
   }
 
   /// Go: `func (*io_prometheus_client.Exemplar).GetValue() float64`.
   double getValue() {
-    final $r = $callSync(18093, $W()..h(this));
+    final $r = $callSync(18099, $W()..h(this));
     return $r.f64();
   }
 
   /// Go: `func (*io_prometheus_client.Exemplar).ProtoMessage()`.
   void protoMessage() {
-    $callSync(18094, $W()..h(this));
+    $callSync(18100, $W()..h(this));
   }
 
   /// Go: `func (*io_prometheus_client.Exemplar).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(18095, $W()..h(this));
+    final $r = $callSync(18101, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*io_prometheus_client.Exemplar).Reset()`.
   void reset() {
-    $callSync(18096, $W()..h(this));
+    $callSync(18102, $W()..h(this));
   }
 
   /// Go: `func (*io_prometheus_client.Exemplar).String() string`.
   String string() {
-    final $r = $callSync(18097, $W()..h(this));
+    final $r = $callSync(18103, $W()..h(this));
     return $r.str();
   }
 }
@@ -339,35 +339,35 @@ class ClientModelGoGauge
   /// Go: `func (*io_prometheus_client.Gauge).Descriptor() ([]byte, []int)`.
   @Deprecated("Use Gauge.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(18099, $W()..h(this));
+    final $r = $callSync(18105, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*io_prometheus_client.Gauge).GetValue() float64`.
   double getValue() {
-    final $r = $callSync(18100, $W()..h(this));
+    final $r = $callSync(18106, $W()..h(this));
     return $r.f64();
   }
 
   /// Go: `func (*io_prometheus_client.Gauge).ProtoMessage()`.
   void protoMessage() {
-    $callSync(18101, $W()..h(this));
+    $callSync(18107, $W()..h(this));
   }
 
   /// Go: `func (*io_prometheus_client.Gauge).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(18102, $W()..h(this));
+    final $r = $callSync(18108, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*io_prometheus_client.Gauge).Reset()`.
   void reset() {
-    $callSync(18103, $W()..h(this));
+    $callSync(18109, $W()..h(this));
   }
 
   /// Go: `func (*io_prometheus_client.Gauge).String() string`.
   String string() {
-    final $r = $callSync(18104, $W()..h(this));
+    final $r = $callSync(18110, $W()..h(this));
     return $r.str();
   }
 }
@@ -400,125 +400,125 @@ class ClientModelGoHistogram
   /// Go: `func (*io_prometheus_client.Histogram).Descriptor() ([]byte, []int)`.
   @Deprecated("Use Histogram.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(18105, $W()..h(this));
+    final $r = $callSync(18111, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*io_prometheus_client.Histogram).GetBucket() []*io_prometheus_client.Bucket`.
   List<ClientModelGoBucket> getBucket() {
-    final $r = $callSync(18106, $W()..h(this));
+    final $r = $callSync(18112, $W()..h(this));
     return $r.list(() => $r.hnn(ClientModelGoBucket.$h));
   }
 
   /// Go: `func (*io_prometheus_client.Histogram).GetCreatedTimestamp() *timestamppb.Timestamp`.
   $timestamppb.ProtobufTypesKnownTimestamppbTimestamp getCreatedTimestamp() {
-    final $r = $callSync(18107, $W()..h(this));
+    final $r = $callSync(18113, $W()..h(this));
     return $r.hnn($timestamppb.ProtobufTypesKnownTimestamppbTimestamp.$h);
   }
 
   /// Go: `func (*io_prometheus_client.Histogram).GetExemplars() []*io_prometheus_client.Exemplar`.
   List<ClientModelGoExemplar> getExemplars() {
-    final $r = $callSync(18108, $W()..h(this));
+    final $r = $callSync(18114, $W()..h(this));
     return $r.list(() => $r.hnn(ClientModelGoExemplar.$h));
   }
 
   /// Go: `func (*io_prometheus_client.Histogram).GetNegativeCount() []float64`.
   List<double> getNegativeCount() {
-    final $r = $callSync(18109, $W()..h(this));
+    final $r = $callSync(18115, $W()..h(this));
     return $r.list(() => $r.f64());
   }
 
   /// Go: `func (*io_prometheus_client.Histogram).GetNegativeDelta() []int64`.
   List<int> getNegativeDelta() {
-    final $r = $callSync(18110, $W()..h(this));
+    final $r = $callSync(18116, $W()..h(this));
     return $r.list(() => $r.i64());
   }
 
   /// Go: `func (*io_prometheus_client.Histogram).GetNegativeSpan() []*io_prometheus_client.BucketSpan`.
   List<ClientModelGoBucketSpan> getNegativeSpan() {
-    final $r = $callSync(18111, $W()..h(this));
+    final $r = $callSync(18117, $W()..h(this));
     return $r.list(() => $r.hnn(ClientModelGoBucketSpan.$h));
   }
 
   /// Go: `func (*io_prometheus_client.Histogram).GetPositiveCount() []float64`.
   List<double> getPositiveCount() {
-    final $r = $callSync(18112, $W()..h(this));
+    final $r = $callSync(18118, $W()..h(this));
     return $r.list(() => $r.f64());
   }
 
   /// Go: `func (*io_prometheus_client.Histogram).GetPositiveDelta() []int64`.
   List<int> getPositiveDelta() {
-    final $r = $callSync(18113, $W()..h(this));
+    final $r = $callSync(18119, $W()..h(this));
     return $r.list(() => $r.i64());
   }
 
   /// Go: `func (*io_prometheus_client.Histogram).GetPositiveSpan() []*io_prometheus_client.BucketSpan`.
   List<ClientModelGoBucketSpan> getPositiveSpan() {
-    final $r = $callSync(18114, $W()..h(this));
+    final $r = $callSync(18120, $W()..h(this));
     return $r.list(() => $r.hnn(ClientModelGoBucketSpan.$h));
   }
 
   /// Go: `func (*io_prometheus_client.Histogram).GetSampleCount() uint64`.
   int getSampleCount() {
-    final $r = $callSync(18115, $W()..h(this));
+    final $r = $callSync(18121, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*io_prometheus_client.Histogram).GetSampleCountFloat() float64`.
   double getSampleCountFloat() {
-    final $r = $callSync(18116, $W()..h(this));
+    final $r = $callSync(18122, $W()..h(this));
     return $r.f64();
   }
 
   /// Go: `func (*io_prometheus_client.Histogram).GetSampleSum() float64`.
   double getSampleSum() {
-    final $r = $callSync(18117, $W()..h(this));
+    final $r = $callSync(18123, $W()..h(this));
     return $r.f64();
   }
 
   /// Go: `func (*io_prometheus_client.Histogram).GetSchema() int32`.
   int getSchema() {
-    final $r = $callSync(18118, $W()..h(this));
+    final $r = $callSync(18124, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*io_prometheus_client.Histogram).GetZeroCount() uint64`.
   int getZeroCount() {
-    final $r = $callSync(18119, $W()..h(this));
+    final $r = $callSync(18125, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*io_prometheus_client.Histogram).GetZeroCountFloat() float64`.
   double getZeroCountFloat() {
-    final $r = $callSync(18120, $W()..h(this));
+    final $r = $callSync(18126, $W()..h(this));
     return $r.f64();
   }
 
   /// Go: `func (*io_prometheus_client.Histogram).GetZeroThreshold() float64`.
   double getZeroThreshold() {
-    final $r = $callSync(18121, $W()..h(this));
+    final $r = $callSync(18127, $W()..h(this));
     return $r.f64();
   }
 
   /// Go: `func (*io_prometheus_client.Histogram).ProtoMessage()`.
   void protoMessage() {
-    $callSync(18122, $W()..h(this));
+    $callSync(18128, $W()..h(this));
   }
 
   /// Go: `func (*io_prometheus_client.Histogram).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(18123, $W()..h(this));
+    final $r = $callSync(18129, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*io_prometheus_client.Histogram).Reset()`.
   void reset() {
-    $callSync(18124, $W()..h(this));
+    $callSync(18130, $W()..h(this));
   }
 
   /// Go: `func (*io_prometheus_client.Histogram).String() string`.
   String string() {
-    final $r = $callSync(18125, $W()..h(this));
+    final $r = $callSync(18131, $W()..h(this));
     return $r.str();
   }
 }
@@ -551,41 +551,41 @@ class ClientModelGoLabelPair
   /// Go: `func (*io_prometheus_client.LabelPair).Descriptor() ([]byte, []int)`.
   @Deprecated("Use LabelPair.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(18126, $W()..h(this));
+    final $r = $callSync(18132, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*io_prometheus_client.LabelPair).GetName() string`.
   String getName() {
-    final $r = $callSync(18127, $W()..h(this));
+    final $r = $callSync(18133, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*io_prometheus_client.LabelPair).GetValue() string`.
   String getValue() {
-    final $r = $callSync(18128, $W()..h(this));
+    final $r = $callSync(18134, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*io_prometheus_client.LabelPair).ProtoMessage()`.
   void protoMessage() {
-    $callSync(18129, $W()..h(this));
+    $callSync(18135, $W()..h(this));
   }
 
   /// Go: `func (*io_prometheus_client.LabelPair).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(18130, $W()..h(this));
+    final $r = $callSync(18136, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*io_prometheus_client.LabelPair).Reset()`.
   void reset() {
-    $callSync(18131, $W()..h(this));
+    $callSync(18137, $W()..h(this));
   }
 
   /// Go: `func (*io_prometheus_client.LabelPair).String() string`.
   String string() {
-    final $r = $callSync(18132, $W()..h(this));
+    final $r = $callSync(18138, $W()..h(this));
     return $r.str();
   }
 }
@@ -618,71 +618,71 @@ class ClientModelGoMetric
   /// Go: `func (*io_prometheus_client.Metric).Descriptor() ([]byte, []int)`.
   @Deprecated("Use Metric.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(18133, $W()..h(this));
+    final $r = $callSync(18139, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*io_prometheus_client.Metric).GetCounter() *io_prometheus_client.Counter`.
   ClientModelGoCounter getCounter() {
-    final $r = $callSync(18134, $W()..h(this));
+    final $r = $callSync(18140, $W()..h(this));
     return $r.hnn(ClientModelGoCounter.$h);
   }
 
   /// Go: `func (*io_prometheus_client.Metric).GetGauge() *io_prometheus_client.Gauge`.
   ClientModelGoGauge getGauge() {
-    final $r = $callSync(18135, $W()..h(this));
+    final $r = $callSync(18141, $W()..h(this));
     return $r.hnn(ClientModelGoGauge.$h);
   }
 
   /// Go: `func (*io_prometheus_client.Metric).GetHistogram() *io_prometheus_client.Histogram`.
   ClientModelGoHistogram getHistogram() {
-    final $r = $callSync(18136, $W()..h(this));
+    final $r = $callSync(18142, $W()..h(this));
     return $r.hnn(ClientModelGoHistogram.$h);
   }
 
   /// Go: `func (*io_prometheus_client.Metric).GetLabel() []*io_prometheus_client.LabelPair`.
   List<ClientModelGoLabelPair> getLabel() {
-    final $r = $callSync(18137, $W()..h(this));
+    final $r = $callSync(18143, $W()..h(this));
     return $r.list(() => $r.hnn(ClientModelGoLabelPair.$h));
   }
 
   /// Go: `func (*io_prometheus_client.Metric).GetSummary() *io_prometheus_client.Summary`.
   ClientModelGoSummary getSummary() {
-    final $r = $callSync(18138, $W()..h(this));
+    final $r = $callSync(18144, $W()..h(this));
     return $r.hnn(ClientModelGoSummary.$h);
   }
 
   /// Go: `func (*io_prometheus_client.Metric).GetTimestampMs() int64`.
   int getTimestampMs() {
-    final $r = $callSync(18139, $W()..h(this));
+    final $r = $callSync(18145, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*io_prometheus_client.Metric).GetUntyped() *io_prometheus_client.Untyped`.
   ClientModelGoUntyped getUntyped() {
-    final $r = $callSync(18140, $W()..h(this));
+    final $r = $callSync(18146, $W()..h(this));
     return $r.hnn(ClientModelGoUntyped.$h);
   }
 
   /// Go: `func (*io_prometheus_client.Metric).ProtoMessage()`.
   void protoMessage() {
-    $callSync(18141, $W()..h(this));
+    $callSync(18147, $W()..h(this));
   }
 
   /// Go: `func (*io_prometheus_client.Metric).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(18142, $W()..h(this));
+    final $r = $callSync(18148, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*io_prometheus_client.Metric).Reset()`.
   void reset() {
-    $callSync(18143, $W()..h(this));
+    $callSync(18149, $W()..h(this));
   }
 
   /// Go: `func (*io_prometheus_client.Metric).String() string`.
   String string() {
-    final $r = $callSync(18144, $W()..h(this));
+    final $r = $callSync(18150, $W()..h(this));
     return $r.str();
   }
 }
@@ -715,59 +715,59 @@ class ClientModelGoMetricFamily
   /// Go: `func (*io_prometheus_client.MetricFamily).Descriptor() ([]byte, []int)`.
   @Deprecated("Use MetricFamily.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(18145, $W()..h(this));
+    final $r = $callSync(18151, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*io_prometheus_client.MetricFamily).GetHelp() string`.
   String getHelp() {
-    final $r = $callSync(18146, $W()..h(this));
+    final $r = $callSync(18152, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*io_prometheus_client.MetricFamily).GetMetric() []*io_prometheus_client.Metric`.
   List<ClientModelGoMetric> getMetric() {
-    final $r = $callSync(18147, $W()..h(this));
+    final $r = $callSync(18153, $W()..h(this));
     return $r.list(() => $r.hnn(ClientModelGoMetric.$h));
   }
 
   /// Go: `func (*io_prometheus_client.MetricFamily).GetName() string`.
   String getName() {
-    final $r = $callSync(18148, $W()..h(this));
+    final $r = $callSync(18154, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*io_prometheus_client.MetricFamily).GetType() io_prometheus_client.MetricType`.
   int getType() {
-    final $r = $callSync(18149, $W()..h(this));
+    final $r = $callSync(18155, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*io_prometheus_client.MetricFamily).GetUnit() string`.
   String getUnit() {
-    final $r = $callSync(18150, $W()..h(this));
+    final $r = $callSync(18156, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*io_prometheus_client.MetricFamily).ProtoMessage()`.
   void protoMessage() {
-    $callSync(18151, $W()..h(this));
+    $callSync(18157, $W()..h(this));
   }
 
   /// Go: `func (*io_prometheus_client.MetricFamily).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(18152, $W()..h(this));
+    final $r = $callSync(18158, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*io_prometheus_client.MetricFamily).Reset()`.
   void reset() {
-    $callSync(18153, $W()..h(this));
+    $callSync(18159, $W()..h(this));
   }
 
   /// Go: `func (*io_prometheus_client.MetricFamily).String() string`.
   String string() {
-    final $r = $callSync(18154, $W()..h(this));
+    final $r = $callSync(18160, $W()..h(this));
     return $r.str();
   }
 }
@@ -800,41 +800,41 @@ class ClientModelGoQuantile
   /// Go: `func (*io_prometheus_client.Quantile).Descriptor() ([]byte, []int)`.
   @Deprecated("Use Quantile.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(18157, $W()..h(this));
+    final $r = $callSync(18163, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*io_prometheus_client.Quantile).GetQuantile() float64`.
   double getQuantile() {
-    final $r = $callSync(18158, $W()..h(this));
+    final $r = $callSync(18164, $W()..h(this));
     return $r.f64();
   }
 
   /// Go: `func (*io_prometheus_client.Quantile).GetValue() float64`.
   double getValue() {
-    final $r = $callSync(18159, $W()..h(this));
+    final $r = $callSync(18165, $W()..h(this));
     return $r.f64();
   }
 
   /// Go: `func (*io_prometheus_client.Quantile).ProtoMessage()`.
   void protoMessage() {
-    $callSync(18160, $W()..h(this));
+    $callSync(18166, $W()..h(this));
   }
 
   /// Go: `func (*io_prometheus_client.Quantile).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(18161, $W()..h(this));
+    final $r = $callSync(18167, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*io_prometheus_client.Quantile).Reset()`.
   void reset() {
-    $callSync(18162, $W()..h(this));
+    $callSync(18168, $W()..h(this));
   }
 
   /// Go: `func (*io_prometheus_client.Quantile).String() string`.
   String string() {
-    final $r = $callSync(18163, $W()..h(this));
+    final $r = $callSync(18169, $W()..h(this));
     return $r.str();
   }
 }
@@ -867,53 +867,53 @@ class ClientModelGoSummary
   /// Go: `func (*io_prometheus_client.Summary).Descriptor() ([]byte, []int)`.
   @Deprecated("Use Summary.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(18164, $W()..h(this));
+    final $r = $callSync(18170, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*io_prometheus_client.Summary).GetCreatedTimestamp() *timestamppb.Timestamp`.
   $timestamppb.ProtobufTypesKnownTimestamppbTimestamp getCreatedTimestamp() {
-    final $r = $callSync(18165, $W()..h(this));
+    final $r = $callSync(18171, $W()..h(this));
     return $r.hnn($timestamppb.ProtobufTypesKnownTimestamppbTimestamp.$h);
   }
 
   /// Go: `func (*io_prometheus_client.Summary).GetQuantile() []*io_prometheus_client.Quantile`.
   List<ClientModelGoQuantile> getQuantile() {
-    final $r = $callSync(18166, $W()..h(this));
+    final $r = $callSync(18172, $W()..h(this));
     return $r.list(() => $r.hnn(ClientModelGoQuantile.$h));
   }
 
   /// Go: `func (*io_prometheus_client.Summary).GetSampleCount() uint64`.
   int getSampleCount() {
-    final $r = $callSync(18167, $W()..h(this));
+    final $r = $callSync(18173, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*io_prometheus_client.Summary).GetSampleSum() float64`.
   double getSampleSum() {
-    final $r = $callSync(18168, $W()..h(this));
+    final $r = $callSync(18174, $W()..h(this));
     return $r.f64();
   }
 
   /// Go: `func (*io_prometheus_client.Summary).ProtoMessage()`.
   void protoMessage() {
-    $callSync(18169, $W()..h(this));
+    $callSync(18175, $W()..h(this));
   }
 
   /// Go: `func (*io_prometheus_client.Summary).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(18170, $W()..h(this));
+    final $r = $callSync(18176, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*io_prometheus_client.Summary).Reset()`.
   void reset() {
-    $callSync(18171, $W()..h(this));
+    $callSync(18177, $W()..h(this));
   }
 
   /// Go: `func (*io_prometheus_client.Summary).String() string`.
   String string() {
-    final $r = $callSync(18172, $W()..h(this));
+    final $r = $callSync(18178, $W()..h(this));
     return $r.str();
   }
 }
@@ -946,35 +946,35 @@ class ClientModelGoUntyped
   /// Go: `func (*io_prometheus_client.Untyped).Descriptor() ([]byte, []int)`.
   @Deprecated("Use Untyped.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(18173, $W()..h(this));
+    final $r = $callSync(18179, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*io_prometheus_client.Untyped).GetValue() float64`.
   double getValue() {
-    final $r = $callSync(18174, $W()..h(this));
+    final $r = $callSync(18180, $W()..h(this));
     return $r.f64();
   }
 
   /// Go: `func (*io_prometheus_client.Untyped).ProtoMessage()`.
   void protoMessage() {
-    $callSync(18175, $W()..h(this));
+    $callSync(18181, $W()..h(this));
   }
 
   /// Go: `func (*io_prometheus_client.Untyped).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(18176, $W()..h(this));
+    final $r = $callSync(18182, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*io_prometheus_client.Untyped).Reset()`.
   void reset() {
-    $callSync(18177, $W()..h(this));
+    $callSync(18183, $W()..h(this));
   }
 
   /// Go: `func (*io_prometheus_client.Untyped).String() string`.
   String string() {
-    final $r = $callSync(18178, $W()..h(this));
+    final $r = $callSync(18184, $W()..h(this));
     return $r.str();
   }
 }
@@ -984,19 +984,19 @@ extension GoPrometheusClientModelGoApi on GoPrometheusClientModelGo {
   /// Go: `var io_prometheus_client.File_io_prometheus_client_metrics_proto protoreflect.FileDescriptor`.
   $protoreflect.ProtobufReflectProtoreflectFileDescriptor
       get fileIoPrometheusClientMetricsProto {
-    final $r = $callSync(18098);
+    final $r = $callSync(18104);
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectFileDescriptor.$h);
   }
 
   /// Go: `var io_prometheus_client.MetricType_name map[int32]string`.
   Map<int, String> get metricTypeName {
-    final $r = $callSync(18155);
+    final $r = $callSync(18161);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var io_prometheus_client.MetricType_value map[string]int32`.
   Map<String, int> get metricTypeValue {
-    final $r = $callSync(18156);
+    final $r = $callSync(18162);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 }

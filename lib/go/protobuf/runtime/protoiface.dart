@@ -62,740 +62,740 @@ class ProtobufRuntimeProtoifaceMessageV1 extends GoHandle
 mixin ProtobufRuntimeProtoifaceMessageV1$ on GoHandle {
   /// Go: `func (protoiface.MessageV1).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25054, $W()..h(this));
+    $callSync(25060, $W()..h(this));
   }
 
   /// Go: `func (protoiface.MessageV1).Reset()`.
   void reset() {
-    $callSync(25055, $W()..h(this));
+    $callSync(25061, $W()..h(this));
   }
 
   /// Go: `func (protoiface.MessageV1).String() string`.
   String string() {
-    final $r = $callSync(25056, $W()..h(this));
+    final $r = $callSync(25062, $W()..h(this));
     return $r.str();
   }
 
   /// Go: type assertion `x.(*pb.Message)`: null if the object is not one.
   $pb.BoxoBitswapMessagePbMessage? asBoxoBitswapMessagePbMessage() {
-    final $r = $callSync(2387, $W()..h(this));
+    final $r = $callSync(2394, $W()..h(this));
     return $r.hn($pb.BoxoBitswapMessagePbMessage.$h);
   }
 
   /// Go: type assertion `x.(*pb.Message_Block)`: null if the object is not one.
   $pb.BoxoBitswapMessagePbMessageBlock? asBoxoBitswapMessagePbMessageBlock() {
-    final $r = $callSync(2388, $W()..h(this));
+    final $r = $callSync(2395, $W()..h(this));
     return $r.hn($pb.BoxoBitswapMessagePbMessageBlock.$h);
   }
 
   /// Go: type assertion `x.(*pb.Message_BlockPresence)`: null if the object is not one.
   $pb.BoxoBitswapMessagePbMessageBlockPresence?
       asBoxoBitswapMessagePbMessageBlockPresence() {
-    final $r = $callSync(2389, $W()..h(this));
+    final $r = $callSync(2396, $W()..h(this));
     return $r.hn($pb.BoxoBitswapMessagePbMessageBlockPresence.$h);
   }
 
   /// Go: type assertion `x.(*pb.Message_Wantlist)`: null if the object is not one.
   $pb.BoxoBitswapMessagePbMessageWantlist?
       asBoxoBitswapMessagePbMessageWantlist() {
-    final $r = $callSync(2390, $W()..h(this));
+    final $r = $callSync(2397, $W()..h(this));
     return $r.hn($pb.BoxoBitswapMessagePbMessageWantlist.$h);
   }
 
   /// Go: type assertion `x.(*pb.Message_Wantlist_Entry)`: null if the object is not one.
   $pb.BoxoBitswapMessagePbMessageWantlistEntry?
       asBoxoBitswapMessagePbMessageWantlistEntry() {
-    final $r = $callSync(2391, $W()..h(this));
+    final $r = $callSync(2398, $W()..h(this));
     return $r.hn($pb.BoxoBitswapMessagePbMessageWantlistEntry.$h);
   }
 
   /// Go: type assertion `x.(*pb.DataObj)`: null if the object is not one.
   $pb2.BoxoFilestorePbDataObj? asBoxoFilestorePbDataObj() {
-    final $r = $callSync(2392, $W()..h(this));
+    final $r = $callSync(2399, $W()..h(this));
     return $r.hn($pb2.BoxoFilestorePbDataObj.$h);
   }
 
   /// Go: type assertion `x.(*pb.PBLink)`: null if the object is not one.
   $pb3.BoxoIpldMerkledagPbLink? asBoxoIpldMerkledagPbLink() {
-    final $r = $callSync(2393, $W()..h(this));
+    final $r = $callSync(2400, $W()..h(this));
     return $r.hn($pb3.BoxoIpldMerkledagPbLink.$h);
   }
 
   /// Go: type assertion `x.(*pb.PBNode)`: null if the object is not one.
   $pb3.BoxoIpldMerkledagPbNode? asBoxoIpldMerkledagPbNode() {
-    final $r = $callSync(2394, $W()..h(this));
+    final $r = $callSync(2401, $W()..h(this));
     return $r.hn($pb3.BoxoIpldMerkledagPbNode.$h);
   }
 
   /// Go: type assertion `x.(*pb.Data)`: null if the object is not one.
   $pb4.BoxoIpldUnixfsPbData? asBoxoIpldUnixfsPbData() {
-    final $r = $callSync(2395, $W()..h(this));
+    final $r = $callSync(2402, $W()..h(this));
     return $r.hn($pb4.BoxoIpldUnixfsPbData.$h);
   }
 
   /// Go: type assertion `x.(*pb.IPFSTimestamp)`: null if the object is not one.
   $pb4.BoxoIpldUnixfsPbIpfsTimestamp? asBoxoIpldUnixfsPbIpfsTimestamp() {
-    final $r = $callSync(2396, $W()..h(this));
+    final $r = $callSync(2403, $W()..h(this));
     return $r.hn($pb4.BoxoIpldUnixfsPbIpfsTimestamp.$h);
   }
 
   /// Go: type assertion `x.(*pb.Metadata)`: null if the object is not one.
   $pb4.BoxoIpldUnixfsPbMetadata? asBoxoIpldUnixfsPbMetadata() {
-    final $r = $callSync(2397, $W()..h(this));
+    final $r = $callSync(2404, $W()..h(this));
     return $r.hn($pb4.BoxoIpldUnixfsPbMetadata.$h);
   }
 
   /// Go: type assertion `x.(*pb.IpnsRecord)`: null if the object is not one.
   $pb5.BoxoIpnsPbIpnsRecord? asBoxoIpnsPbIpnsRecord() {
-    final $r = $callSync(2398, $W()..h(this));
+    final $r = $callSync(2405, $W()..h(this));
     return $r.hn($pb5.BoxoIpnsPbIpnsRecord.$h);
   }
 
   /// Go: type assertion `x.(*dht_pb.Message)`: null if the object is not one.
   $pb6.Libp2pKadDhtPbMessage? asLibp2pKadDhtPbMessage() {
-    final $r = $callSync(2399, $W()..h(this));
+    final $r = $callSync(2406, $W()..h(this));
     return $r.hn($pb6.Libp2pKadDhtPbMessage.$h);
   }
 
   /// Go: type assertion `x.(*dht_pb.Message_Peer)`: null if the object is not one.
   $pb6.Libp2pKadDhtPbMessagePeer? asLibp2pKadDhtPbMessagePeer() {
-    final $r = $callSync(2400, $W()..h(this));
+    final $r = $callSync(2407, $W()..h(this));
     return $r.hn($pb6.Libp2pKadDhtPbMessagePeer.$h);
   }
 
   /// Go: type assertion `x.(*pubsub.RPC)`: null if the object is not one.
   $libp2p_pubsub.Libp2pPubsubRpc? asLibp2pPubsubRpc() {
-    final $r = $callSync(2401, $W()..h(this));
+    final $r = $callSync(2408, $W()..h(this));
     return $r.hn($libp2p_pubsub.Libp2pPubsubRpc.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.ControlExtensions)`: null if the object is not one.
   $pb7.Libp2pPubsubPbControlExtensions? asLibp2pPubsubPbControlExtensions() {
-    final $r = $callSync(2402, $W()..h(this));
+    final $r = $callSync(2409, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbControlExtensions.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.ControlGraft)`: null if the object is not one.
   $pb7.Libp2pPubsubPbControlGraft? asLibp2pPubsubPbControlGraft() {
-    final $r = $callSync(2403, $W()..h(this));
+    final $r = $callSync(2410, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbControlGraft.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.ControlIDontWant)`: null if the object is not one.
   $pb7.Libp2pPubsubPbControlIDontWant? asLibp2pPubsubPbControlIDontWant() {
-    final $r = $callSync(2404, $W()..h(this));
+    final $r = $callSync(2411, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbControlIDontWant.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.ControlIHave)`: null if the object is not one.
   $pb7.Libp2pPubsubPbControlIHave? asLibp2pPubsubPbControlIHave() {
-    final $r = $callSync(2405, $W()..h(this));
+    final $r = $callSync(2412, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbControlIHave.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.ControlIWant)`: null if the object is not one.
   $pb7.Libp2pPubsubPbControlIWant? asLibp2pPubsubPbControlIWant() {
-    final $r = $callSync(2406, $W()..h(this));
+    final $r = $callSync(2413, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbControlIWant.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.ControlMessage)`: null if the object is not one.
   $pb7.Libp2pPubsubPbControlMessage? asLibp2pPubsubPbControlMessage() {
-    final $r = $callSync(2407, $W()..h(this));
+    final $r = $callSync(2414, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbControlMessage.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.ControlPrune)`: null if the object is not one.
   $pb7.Libp2pPubsubPbControlPrune? asLibp2pPubsubPbControlPrune() {
-    final $r = $callSync(2408, $W()..h(this));
+    final $r = $callSync(2415, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbControlPrune.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.Message)`: null if the object is not one.
   $pb7.Libp2pPubsubPbMessage? asLibp2pPubsubPbMessage() {
-    final $r = $callSync(2409, $W()..h(this));
+    final $r = $callSync(2416, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbMessage.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.PartialMessagesExtension)`: null if the object is not one.
   $pb7.Libp2pPubsubPbPartialMessagesExtension?
       asLibp2pPubsubPbPartialMessagesExtension() {
-    final $r = $callSync(2410, $W()..h(this));
+    final $r = $callSync(2417, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbPartialMessagesExtension.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.PeerInfo)`: null if the object is not one.
   $pb7.Libp2pPubsubPbPeerInfo? asLibp2pPubsubPbPeerInfo() {
-    final $r = $callSync(2411, $W()..h(this));
+    final $r = $callSync(2418, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbPeerInfo.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.RPC)`: null if the object is not one.
   $pb7.Libp2pPubsubPbRpc? asLibp2pPubsubPbRpc() {
-    final $r = $callSync(2412, $W()..h(this));
+    final $r = $callSync(2419, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbRpc.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.RPC_SubOpts)`: null if the object is not one.
   $pb7.Libp2pPubsubPbRpcSubOpts? asLibp2pPubsubPbRpcSubOpts() {
-    final $r = $callSync(2413, $W()..h(this));
+    final $r = $callSync(2420, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbRpcSubOpts.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.TestExtension)`: null if the object is not one.
   $pb7.Libp2pPubsubPbTestExtension? asLibp2pPubsubPbTestExtension() {
-    final $r = $callSync(2414, $W()..h(this));
+    final $r = $callSync(2421, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbTestExtension.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.TraceEvent)`: null if the object is not one.
   $pb7.Libp2pPubsubPbTraceEvent? asLibp2pPubsubPbTraceEvent() {
-    final $r = $callSync(2415, $W()..h(this));
+    final $r = $callSync(2422, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbTraceEvent.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.TraceEventBatch)`: null if the object is not one.
   $pb7.Libp2pPubsubPbTraceEventBatch? asLibp2pPubsubPbTraceEventBatch() {
-    final $r = $callSync(2416, $W()..h(this));
+    final $r = $callSync(2423, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbTraceEventBatch.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.TraceEvent_ControlGraftMeta)`: null if the object is not one.
   $pb7.Libp2pPubsubPbTraceEventControlGraftMeta?
       asLibp2pPubsubPbTraceEventControlGraftMeta() {
-    final $r = $callSync(2417, $W()..h(this));
+    final $r = $callSync(2424, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbTraceEventControlGraftMeta.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.TraceEvent_ControlIDontWantMeta)`: null if the object is not one.
   $pb7.Libp2pPubsubPbTraceEventControlIDontWantMeta?
       asLibp2pPubsubPbTraceEventControlIDontWantMeta() {
-    final $r = $callSync(2418, $W()..h(this));
+    final $r = $callSync(2425, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbTraceEventControlIDontWantMeta.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.TraceEvent_ControlIHaveMeta)`: null if the object is not one.
   $pb7.Libp2pPubsubPbTraceEventControlIHaveMeta?
       asLibp2pPubsubPbTraceEventControlIHaveMeta() {
-    final $r = $callSync(2419, $W()..h(this));
+    final $r = $callSync(2426, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbTraceEventControlIHaveMeta.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.TraceEvent_ControlIWantMeta)`: null if the object is not one.
   $pb7.Libp2pPubsubPbTraceEventControlIWantMeta?
       asLibp2pPubsubPbTraceEventControlIWantMeta() {
-    final $r = $callSync(2420, $W()..h(this));
+    final $r = $callSync(2427, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbTraceEventControlIWantMeta.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.TraceEvent_ControlMeta)`: null if the object is not one.
   $pb7.Libp2pPubsubPbTraceEventControlMeta?
       asLibp2pPubsubPbTraceEventControlMeta() {
-    final $r = $callSync(2421, $W()..h(this));
+    final $r = $callSync(2428, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbTraceEventControlMeta.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.TraceEvent_ControlPruneMeta)`: null if the object is not one.
   $pb7.Libp2pPubsubPbTraceEventControlPruneMeta?
       asLibp2pPubsubPbTraceEventControlPruneMeta() {
-    final $r = $callSync(2422, $W()..h(this));
+    final $r = $callSync(2429, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbTraceEventControlPruneMeta.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.TraceEvent_DeliverMessage)`: null if the object is not one.
   $pb7.Libp2pPubsubPbTraceEventDeliverMessage?
       asLibp2pPubsubPbTraceEventDeliverMessage() {
-    final $r = $callSync(2423, $W()..h(this));
+    final $r = $callSync(2430, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbTraceEventDeliverMessage.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.TraceEvent_DropRPC)`: null if the object is not one.
   $pb7.Libp2pPubsubPbTraceEventDropRpc? asLibp2pPubsubPbTraceEventDropRpc() {
-    final $r = $callSync(2424, $W()..h(this));
+    final $r = $callSync(2431, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbTraceEventDropRpc.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.TraceEvent_DuplicateMessage)`: null if the object is not one.
   $pb7.Libp2pPubsubPbTraceEventDuplicateMessage?
       asLibp2pPubsubPbTraceEventDuplicateMessage() {
-    final $r = $callSync(2425, $W()..h(this));
+    final $r = $callSync(2432, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbTraceEventDuplicateMessage.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.TraceEvent_Graft)`: null if the object is not one.
   $pb7.Libp2pPubsubPbTraceEventGraft? asLibp2pPubsubPbTraceEventGraft() {
-    final $r = $callSync(2426, $W()..h(this));
+    final $r = $callSync(2433, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbTraceEventGraft.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.TraceEvent_Join)`: null if the object is not one.
   $pb7.Libp2pPubsubPbTraceEventJoin? asLibp2pPubsubPbTraceEventJoin() {
-    final $r = $callSync(2427, $W()..h(this));
+    final $r = $callSync(2434, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbTraceEventJoin.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.TraceEvent_Leave)`: null if the object is not one.
   $pb7.Libp2pPubsubPbTraceEventLeave? asLibp2pPubsubPbTraceEventLeave() {
-    final $r = $callSync(2428, $W()..h(this));
+    final $r = $callSync(2435, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbTraceEventLeave.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.TraceEvent_MessageMeta)`: null if the object is not one.
   $pb7.Libp2pPubsubPbTraceEventMessageMeta?
       asLibp2pPubsubPbTraceEventMessageMeta() {
-    final $r = $callSync(2429, $W()..h(this));
+    final $r = $callSync(2436, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbTraceEventMessageMeta.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.TraceEvent_OnClosedOutboundStream)`: null if the object is not one.
   $pb7.Libp2pPubsubPbTraceEventOnClosedOutboundStream?
       asLibp2pPubsubPbTraceEventOnClosedOutboundStream() {
-    final $r = $callSync(2430, $W()..h(this));
+    final $r = $callSync(2437, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbTraceEventOnClosedOutboundStream.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.TraceEvent_OnNewOutboundStream)`: null if the object is not one.
   $pb7.Libp2pPubsubPbTraceEventOnNewOutboundStream?
       asLibp2pPubsubPbTraceEventOnNewOutboundStream() {
-    final $r = $callSync(2431, $W()..h(this));
+    final $r = $callSync(2438, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbTraceEventOnNewOutboundStream.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.TraceEvent_Prune)`: null if the object is not one.
   $pb7.Libp2pPubsubPbTraceEventPrune? asLibp2pPubsubPbTraceEventPrune() {
-    final $r = $callSync(2432, $W()..h(this));
+    final $r = $callSync(2439, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbTraceEventPrune.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.TraceEvent_PublishMessage)`: null if the object is not one.
   $pb7.Libp2pPubsubPbTraceEventPublishMessage?
       asLibp2pPubsubPbTraceEventPublishMessage() {
-    final $r = $callSync(2433, $W()..h(this));
+    final $r = $callSync(2440, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbTraceEventPublishMessage.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.TraceEvent_RPCMeta)`: null if the object is not one.
   $pb7.Libp2pPubsubPbTraceEventRpcMeta? asLibp2pPubsubPbTraceEventRpcMeta() {
-    final $r = $callSync(2434, $W()..h(this));
+    final $r = $callSync(2441, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbTraceEventRpcMeta.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.TraceEvent_RecvRPC)`: null if the object is not one.
   $pb7.Libp2pPubsubPbTraceEventRecvRpc? asLibp2pPubsubPbTraceEventRecvRpc() {
-    final $r = $callSync(2435, $W()..h(this));
+    final $r = $callSync(2442, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbTraceEventRecvRpc.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.TraceEvent_RejectMessage)`: null if the object is not one.
   $pb7.Libp2pPubsubPbTraceEventRejectMessage?
       asLibp2pPubsubPbTraceEventRejectMessage() {
-    final $r = $callSync(2436, $W()..h(this));
+    final $r = $callSync(2443, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbTraceEventRejectMessage.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.TraceEvent_SendRPC)`: null if the object is not one.
   $pb7.Libp2pPubsubPbTraceEventSendRpc? asLibp2pPubsubPbTraceEventSendRpc() {
-    final $r = $callSync(2437, $W()..h(this));
+    final $r = $callSync(2444, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbTraceEventSendRpc.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.TraceEvent_SubMeta)`: null if the object is not one.
   $pb7.Libp2pPubsubPbTraceEventSubMeta? asLibp2pPubsubPbTraceEventSubMeta() {
-    final $r = $callSync(2438, $W()..h(this));
+    final $r = $callSync(2445, $W()..h(this));
     return $r.hn($pb7.Libp2pPubsubPbTraceEventSubMeta.$h);
   }
 
   /// Go: type assertion `x.(*pb.Record)`: null if the object is not one.
   $pb8.Libp2pRecordPbRecord? asLibp2pRecordPbRecord() {
-    final $r = $callSync(2439, $W()..h(this));
+    final $r = $callSync(2446, $W()..h(this));
     return $r.hn($pb8.Libp2pRecordPbRecord.$h);
   }
 
   /// Go: type assertion `x.(*pb.PrivateKey)`: null if the object is not one.
   $pb9.Libp2pCoreCryptoPbPrivateKey? asLibp2pCoreCryptoPbPrivateKey() {
-    final $r = $callSync(2440, $W()..h(this));
+    final $r = $callSync(2447, $W()..h(this));
     return $r.hn($pb9.Libp2pCoreCryptoPbPrivateKey.$h);
   }
 
   /// Go: type assertion `x.(*pb.PublicKey)`: null if the object is not one.
   $pb9.Libp2pCoreCryptoPbPublicKey? asLibp2pCoreCryptoPbPublicKey() {
-    final $r = $callSync(2441, $W()..h(this));
+    final $r = $callSync(2448, $W()..h(this));
     return $r.hn($pb9.Libp2pCoreCryptoPbPublicKey.$h);
   }
 
   /// Go: type assertion `x.(*pb.PeerRecord)`: null if the object is not one.
   $pb10.Libp2pCorePeerPbPeerRecord? asLibp2pCorePeerPbPeerRecord() {
-    final $r = $callSync(2442, $W()..h(this));
+    final $r = $callSync(2449, $W()..h(this));
     return $r.hn($pb10.Libp2pCorePeerPbPeerRecord.$h);
   }
 
   /// Go: type assertion `x.(*pb.PeerRecord_AddressInfo)`: null if the object is not one.
   $pb10.Libp2pCorePeerPbPeerRecordAddressInfo?
       asLibp2pCorePeerPbPeerRecordAddressInfo() {
-    final $r = $callSync(2443, $W()..h(this));
+    final $r = $callSync(2450, $W()..h(this));
     return $r.hn($pb10.Libp2pCorePeerPbPeerRecordAddressInfo.$h);
   }
 
   /// Go: type assertion `x.(*pb.Envelope)`: null if the object is not one.
   $pb11.Libp2pCoreRecordPbEnvelope? asLibp2pCoreRecordPbEnvelope() {
-    final $r = $callSync(2444, $W()..h(this));
+    final $r = $callSync(2451, $W()..h(this));
     return $r.hn($pb11.Libp2pCoreRecordPbEnvelope.$h);
   }
 
   /// Go: type assertion `x.(*pb.Message)`: null if the object is not one.
   $pb12.Libp2pP2pHostAutonatPbMessage? asLibp2pP2pHostAutonatPbMessage() {
-    final $r = $callSync(2445, $W()..h(this));
+    final $r = $callSync(2452, $W()..h(this));
     return $r.hn($pb12.Libp2pP2pHostAutonatPbMessage.$h);
   }
 
   /// Go: type assertion `x.(*pb.Message_Dial)`: null if the object is not one.
   $pb12.Libp2pP2pHostAutonatPbMessageDial?
       asLibp2pP2pHostAutonatPbMessageDial() {
-    final $r = $callSync(2446, $W()..h(this));
+    final $r = $callSync(2453, $W()..h(this));
     return $r.hn($pb12.Libp2pP2pHostAutonatPbMessageDial.$h);
   }
 
   /// Go: type assertion `x.(*pb.Message_DialResponse)`: null if the object is not one.
   $pb12.Libp2pP2pHostAutonatPbMessageDialResponse?
       asLibp2pP2pHostAutonatPbMessageDialResponse() {
-    final $r = $callSync(2447, $W()..h(this));
+    final $r = $callSync(2454, $W()..h(this));
     return $r.hn($pb12.Libp2pP2pHostAutonatPbMessageDialResponse.$h);
   }
 
   /// Go: type assertion `x.(*pb.Message_PeerInfo)`: null if the object is not one.
   $pb12.Libp2pP2pHostAutonatPbMessagePeerInfo?
       asLibp2pP2pHostAutonatPbMessagePeerInfo() {
-    final $r = $callSync(2448, $W()..h(this));
+    final $r = $callSync(2455, $W()..h(this));
     return $r.hn($pb12.Libp2pP2pHostAutonatPbMessagePeerInfo.$h);
   }
 
   /// Go: type assertion `x.(*pb.DialBack)`: null if the object is not one.
   $pb13.Libp2pP2pProtocolAutonatv2PbDialBack?
       asLibp2pP2pProtocolAutonatv2PbDialBack() {
-    final $r = $callSync(2449, $W()..h(this));
+    final $r = $callSync(2456, $W()..h(this));
     return $r.hn($pb13.Libp2pP2pProtocolAutonatv2PbDialBack.$h);
   }
 
   /// Go: type assertion `x.(*pb.DialBackResponse)`: null if the object is not one.
   $pb13.Libp2pP2pProtocolAutonatv2PbDialBackResponse?
       asLibp2pP2pProtocolAutonatv2PbDialBackResponse() {
-    final $r = $callSync(2450, $W()..h(this));
+    final $r = $callSync(2457, $W()..h(this));
     return $r.hn($pb13.Libp2pP2pProtocolAutonatv2PbDialBackResponse.$h);
   }
 
   /// Go: type assertion `x.(*pb.DialDataRequest)`: null if the object is not one.
   $pb13.Libp2pP2pProtocolAutonatv2PbDialDataRequest?
       asLibp2pP2pProtocolAutonatv2PbDialDataRequest() {
-    final $r = $callSync(2451, $W()..h(this));
+    final $r = $callSync(2458, $W()..h(this));
     return $r.hn($pb13.Libp2pP2pProtocolAutonatv2PbDialDataRequest.$h);
   }
 
   /// Go: type assertion `x.(*pb.DialDataResponse)`: null if the object is not one.
   $pb13.Libp2pP2pProtocolAutonatv2PbDialDataResponse?
       asLibp2pP2pProtocolAutonatv2PbDialDataResponse() {
-    final $r = $callSync(2452, $W()..h(this));
+    final $r = $callSync(2459, $W()..h(this));
     return $r.hn($pb13.Libp2pP2pProtocolAutonatv2PbDialDataResponse.$h);
   }
 
   /// Go: type assertion `x.(*pb.DialRequest)`: null if the object is not one.
   $pb13.Libp2pP2pProtocolAutonatv2PbDialRequest?
       asLibp2pP2pProtocolAutonatv2PbDialRequest() {
-    final $r = $callSync(2453, $W()..h(this));
+    final $r = $callSync(2460, $W()..h(this));
     return $r.hn($pb13.Libp2pP2pProtocolAutonatv2PbDialRequest.$h);
   }
 
   /// Go: type assertion `x.(*pb.DialResponse)`: null if the object is not one.
   $pb13.Libp2pP2pProtocolAutonatv2PbDialResponse?
       asLibp2pP2pProtocolAutonatv2PbDialResponse() {
-    final $r = $callSync(2454, $W()..h(this));
+    final $r = $callSync(2461, $W()..h(this));
     return $r.hn($pb13.Libp2pP2pProtocolAutonatv2PbDialResponse.$h);
   }
 
   /// Go: type assertion `x.(*pb.Message)`: null if the object is not one.
   $pb13.Libp2pP2pProtocolAutonatv2PbMessage?
       asLibp2pP2pProtocolAutonatv2PbMessage() {
-    final $r = $callSync(2455, $W()..h(this));
+    final $r = $callSync(2462, $W()..h(this));
     return $r.hn($pb13.Libp2pP2pProtocolAutonatv2PbMessage.$h);
   }
 
   /// Go: type assertion `x.(*pb.HopMessage)`: null if the object is not one.
   $pb14.Libp2pP2pProtocolCircuitv2PbHopMessage?
       asLibp2pP2pProtocolCircuitv2PbHopMessage() {
-    final $r = $callSync(2456, $W()..h(this));
+    final $r = $callSync(2463, $W()..h(this));
     return $r.hn($pb14.Libp2pP2pProtocolCircuitv2PbHopMessage.$h);
   }
 
   /// Go: type assertion `x.(*pb.Limit)`: null if the object is not one.
   $pb14.Libp2pP2pProtocolCircuitv2PbLimit?
       asLibp2pP2pProtocolCircuitv2PbLimit() {
-    final $r = $callSync(2457, $W()..h(this));
+    final $r = $callSync(2464, $W()..h(this));
     return $r.hn($pb14.Libp2pP2pProtocolCircuitv2PbLimit.$h);
   }
 
   /// Go: type assertion `x.(*pb.Peer)`: null if the object is not one.
   $pb14.Libp2pP2pProtocolCircuitv2PbPeer? asLibp2pP2pProtocolCircuitv2PbPeer() {
-    final $r = $callSync(2458, $W()..h(this));
+    final $r = $callSync(2465, $W()..h(this));
     return $r.hn($pb14.Libp2pP2pProtocolCircuitv2PbPeer.$h);
   }
 
   /// Go: type assertion `x.(*pb.Reservation)`: null if the object is not one.
   $pb14.Libp2pP2pProtocolCircuitv2PbReservation?
       asLibp2pP2pProtocolCircuitv2PbReservation() {
-    final $r = $callSync(2459, $W()..h(this));
+    final $r = $callSync(2466, $W()..h(this));
     return $r.hn($pb14.Libp2pP2pProtocolCircuitv2PbReservation.$h);
   }
 
   /// Go: type assertion `x.(*pb.ReservationVoucher)`: null if the object is not one.
   $pb14.Libp2pP2pProtocolCircuitv2PbReservationVoucher?
       asLibp2pP2pProtocolCircuitv2PbReservationVoucher() {
-    final $r = $callSync(2460, $W()..h(this));
+    final $r = $callSync(2467, $W()..h(this));
     return $r.hn($pb14.Libp2pP2pProtocolCircuitv2PbReservationVoucher.$h);
   }
 
   /// Go: type assertion `x.(*pb.StopMessage)`: null if the object is not one.
   $pb14.Libp2pP2pProtocolCircuitv2PbStopMessage?
       asLibp2pP2pProtocolCircuitv2PbStopMessage() {
-    final $r = $callSync(2461, $W()..h(this));
+    final $r = $callSync(2468, $W()..h(this));
     return $r.hn($pb14.Libp2pP2pProtocolCircuitv2PbStopMessage.$h);
   }
 
   /// Go: type assertion `x.(*pb.HolePunch)`: null if the object is not one.
   $pb15.Libp2pP2pProtocolHolepunchPbHolePunch?
       asLibp2pP2pProtocolHolepunchPbHolePunch() {
-    final $r = $callSync(2462, $W()..h(this));
+    final $r = $callSync(2469, $W()..h(this));
     return $r.hn($pb15.Libp2pP2pProtocolHolepunchPbHolePunch.$h);
   }
 
   /// Go: type assertion `x.(*pb.Identify)`: null if the object is not one.
   $pb16.Libp2pP2pProtocolIdentifyPbIdentify?
       asLibp2pP2pProtocolIdentifyPbIdentify() {
-    final $r = $callSync(2463, $W()..h(this));
+    final $r = $callSync(2470, $W()..h(this));
     return $r.hn($pb16.Libp2pP2pProtocolIdentifyPbIdentify.$h);
   }
 
   /// Go: type assertion `x.(*pb.Exchange)`: null if the object is not one.
   $pb17.Libp2pP2pSecurityInsecurePbExchange?
       asLibp2pP2pSecurityInsecurePbExchange() {
-    final $r = $callSync(2464, $W()..h(this));
+    final $r = $callSync(2471, $W()..h(this));
     return $r.hn($pb17.Libp2pP2pSecurityInsecurePbExchange.$h);
   }
 
   /// Go: type assertion `x.(*pb.NoiseExtensions)`: null if the object is not one.
   $pb18.Libp2pP2pSecurityNoisePbNoiseExtensions?
       asLibp2pP2pSecurityNoisePbNoiseExtensions() {
-    final $r = $callSync(2465, $W()..h(this));
+    final $r = $callSync(2472, $W()..h(this));
     return $r.hn($pb18.Libp2pP2pSecurityNoisePbNoiseExtensions.$h);
   }
 
   /// Go: type assertion `x.(*pb.NoiseHandshakePayload)`: null if the object is not one.
   $pb18.Libp2pP2pSecurityNoisePbNoiseHandshakePayload?
       asLibp2pP2pSecurityNoisePbNoiseHandshakePayload() {
-    final $r = $callSync(2466, $W()..h(this));
+    final $r = $callSync(2473, $W()..h(this));
     return $r.hn($pb18.Libp2pP2pSecurityNoisePbNoiseHandshakePayload.$h);
   }
 
   /// Go: type assertion `x.(*pb.Message)`: null if the object is not one.
   $pb19.Libp2pP2pTransportWebrtcPbMessage?
       asLibp2pP2pTransportWebrtcPbMessage() {
-    final $r = $callSync(2467, $W()..h(this));
+    final $r = $callSync(2474, $W()..h(this));
     return $r.hn($pb19.Libp2pP2pTransportWebrtcPbMessage.$h);
   }
 
   /// Go: type assertion `x.(*io_prometheus_client.Bucket)`: null if the object is not one.
   $go.ClientModelGoBucket? asClientModelGoBucket() {
-    final $r = $callSync(2468, $W()..h(this));
+    final $r = $callSync(2475, $W()..h(this));
     return $r.hn($go.ClientModelGoBucket.$h);
   }
 
   /// Go: type assertion `x.(*io_prometheus_client.BucketSpan)`: null if the object is not one.
   $go.ClientModelGoBucketSpan? asClientModelGoBucketSpan() {
-    final $r = $callSync(2469, $W()..h(this));
+    final $r = $callSync(2476, $W()..h(this));
     return $r.hn($go.ClientModelGoBucketSpan.$h);
   }
 
   /// Go: type assertion `x.(*io_prometheus_client.Counter)`: null if the object is not one.
   $go.ClientModelGoCounter? asClientModelGoCounter() {
-    final $r = $callSync(2470, $W()..h(this));
+    final $r = $callSync(2477, $W()..h(this));
     return $r.hn($go.ClientModelGoCounter.$h);
   }
 
   /// Go: type assertion `x.(*io_prometheus_client.Exemplar)`: null if the object is not one.
   $go.ClientModelGoExemplar? asClientModelGoExemplar() {
-    final $r = $callSync(2471, $W()..h(this));
+    final $r = $callSync(2478, $W()..h(this));
     return $r.hn($go.ClientModelGoExemplar.$h);
   }
 
   /// Go: type assertion `x.(*io_prometheus_client.Gauge)`: null if the object is not one.
   $go.ClientModelGoGauge? asClientModelGoGauge() {
-    final $r = $callSync(2472, $W()..h(this));
+    final $r = $callSync(2479, $W()..h(this));
     return $r.hn($go.ClientModelGoGauge.$h);
   }
 
   /// Go: type assertion `x.(*io_prometheus_client.Histogram)`: null if the object is not one.
   $go.ClientModelGoHistogram? asClientModelGoHistogram() {
-    final $r = $callSync(2473, $W()..h(this));
+    final $r = $callSync(2480, $W()..h(this));
     return $r.hn($go.ClientModelGoHistogram.$h);
   }
 
   /// Go: type assertion `x.(*io_prometheus_client.LabelPair)`: null if the object is not one.
   $go.ClientModelGoLabelPair? asClientModelGoLabelPair() {
-    final $r = $callSync(2474, $W()..h(this));
+    final $r = $callSync(2481, $W()..h(this));
     return $r.hn($go.ClientModelGoLabelPair.$h);
   }
 
   /// Go: type assertion `x.(*io_prometheus_client.Metric)`: null if the object is not one.
   $go.ClientModelGoMetric? asClientModelGoMetric() {
-    final $r = $callSync(2475, $W()..h(this));
+    final $r = $callSync(2482, $W()..h(this));
     return $r.hn($go.ClientModelGoMetric.$h);
   }
 
   /// Go: type assertion `x.(*io_prometheus_client.MetricFamily)`: null if the object is not one.
   $go.ClientModelGoMetricFamily? asClientModelGoMetricFamily() {
-    final $r = $callSync(2476, $W()..h(this));
+    final $r = $callSync(2483, $W()..h(this));
     return $r.hn($go.ClientModelGoMetricFamily.$h);
   }
 
   /// Go: type assertion `x.(*io_prometheus_client.Quantile)`: null if the object is not one.
   $go.ClientModelGoQuantile? asClientModelGoQuantile() {
-    final $r = $callSync(2477, $W()..h(this));
+    final $r = $callSync(2484, $W()..h(this));
     return $r.hn($go.ClientModelGoQuantile.$h);
   }
 
   /// Go: type assertion `x.(*io_prometheus_client.Summary)`: null if the object is not one.
   $go.ClientModelGoSummary? asClientModelGoSummary() {
-    final $r = $callSync(2478, $W()..h(this));
+    final $r = $callSync(2485, $W()..h(this));
     return $r.hn($go.ClientModelGoSummary.$h);
   }
 
   /// Go: type assertion `x.(*io_prometheus_client.Untyped)`: null if the object is not one.
   $go.ClientModelGoUntyped? asClientModelGoUntyped() {
-    final $r = $callSync(2479, $W()..h(this));
+    final $r = $callSync(2486, $W()..h(this));
     return $r.hn($go.ClientModelGoUntyped.$h);
   }
 
   /// Go: type assertion `x.(*v1.ExportTracePartialSuccess)`: null if the object is not one.
   $v1.OtlpCollectorTraceV1ExportTracePartialSuccess?
       asOtlpCollectorTraceV1ExportTracePartialSuccess() {
-    final $r = $callSync(2480, $W()..h(this));
+    final $r = $callSync(2487, $W()..h(this));
     return $r.hn($v1.OtlpCollectorTraceV1ExportTracePartialSuccess.$h);
   }
 
   /// Go: type assertion `x.(*v1.ExportTraceServiceRequest)`: null if the object is not one.
   $v1.OtlpCollectorTraceV1ExportTraceServiceRequest?
       asOtlpCollectorTraceV1ExportTraceServiceRequest() {
-    final $r = $callSync(2481, $W()..h(this));
+    final $r = $callSync(2488, $W()..h(this));
     return $r.hn($v1.OtlpCollectorTraceV1ExportTraceServiceRequest.$h);
   }
 
   /// Go: type assertion `x.(*v1.ExportTraceServiceResponse)`: null if the object is not one.
   $v1.OtlpCollectorTraceV1ExportTraceServiceResponse?
       asOtlpCollectorTraceV1ExportTraceServiceResponse() {
-    final $r = $callSync(2482, $W()..h(this));
+    final $r = $callSync(2489, $W()..h(this));
     return $r.hn($v1.OtlpCollectorTraceV1ExportTraceServiceResponse.$h);
   }
 
   /// Go: type assertion `x.(*v1.AnyValue)`: null if the object is not one.
   $v12.OtlpCommonV1AnyValue? asOtlpCommonV1AnyValue() {
-    final $r = $callSync(2483, $W()..h(this));
+    final $r = $callSync(2490, $W()..h(this));
     return $r.hn($v12.OtlpCommonV1AnyValue.$h);
   }
 
   /// Go: type assertion `x.(*v1.ArrayValue)`: null if the object is not one.
   $v12.OtlpCommonV1ArrayValue? asOtlpCommonV1ArrayValue() {
-    final $r = $callSync(2484, $W()..h(this));
+    final $r = $callSync(2491, $W()..h(this));
     return $r.hn($v12.OtlpCommonV1ArrayValue.$h);
   }
 
   /// Go: type assertion `x.(*v1.EntityRef)`: null if the object is not one.
   $v12.OtlpCommonV1EntityRef? asOtlpCommonV1EntityRef() {
-    final $r = $callSync(2485, $W()..h(this));
+    final $r = $callSync(2492, $W()..h(this));
     return $r.hn($v12.OtlpCommonV1EntityRef.$h);
   }
 
   /// Go: type assertion `x.(*v1.InstrumentationScope)`: null if the object is not one.
   $v12.OtlpCommonV1InstrumentationScope? asOtlpCommonV1InstrumentationScope() {
-    final $r = $callSync(2486, $W()..h(this));
+    final $r = $callSync(2493, $W()..h(this));
     return $r.hn($v12.OtlpCommonV1InstrumentationScope.$h);
   }
 
   /// Go: type assertion `x.(*v1.KeyValue)`: null if the object is not one.
   $v12.OtlpCommonV1KeyValue? asOtlpCommonV1KeyValue() {
-    final $r = $callSync(2487, $W()..h(this));
+    final $r = $callSync(2494, $W()..h(this));
     return $r.hn($v12.OtlpCommonV1KeyValue.$h);
   }
 
   /// Go: type assertion `x.(*v1.KeyValueList)`: null if the object is not one.
   $v12.OtlpCommonV1KeyValueList? asOtlpCommonV1KeyValueList() {
-    final $r = $callSync(2488, $W()..h(this));
+    final $r = $callSync(2495, $W()..h(this));
     return $r.hn($v12.OtlpCommonV1KeyValueList.$h);
   }
 
   /// Go: type assertion `x.(*v1.Resource)`: null if the object is not one.
   $v13.OtlpResourceV1Resource? asOtlpResourceV1Resource() {
-    final $r = $callSync(2489, $W()..h(this));
+    final $r = $callSync(2496, $W()..h(this));
     return $r.hn($v13.OtlpResourceV1Resource.$h);
   }
 
   /// Go: type assertion `x.(*v1.ResourceSpans)`: null if the object is not one.
   $v14.OtlpTraceV1ResourceSpans? asOtlpTraceV1ResourceSpans() {
-    final $r = $callSync(2490, $W()..h(this));
+    final $r = $callSync(2497, $W()..h(this));
     return $r.hn($v14.OtlpTraceV1ResourceSpans.$h);
   }
 
   /// Go: type assertion `x.(*v1.ScopeSpans)`: null if the object is not one.
   $v14.OtlpTraceV1ScopeSpans? asOtlpTraceV1ScopeSpans() {
-    final $r = $callSync(2491, $W()..h(this));
+    final $r = $callSync(2498, $W()..h(this));
     return $r.hn($v14.OtlpTraceV1ScopeSpans.$h);
   }
 
   /// Go: type assertion `x.(*v1.Span)`: null if the object is not one.
   $v14.OtlpTraceV1Span? asOtlpTraceV1Span() {
-    final $r = $callSync(2492, $W()..h(this));
+    final $r = $callSync(2499, $W()..h(this));
     return $r.hn($v14.OtlpTraceV1Span.$h);
   }
 
   /// Go: type assertion `x.(*v1.Span_Event)`: null if the object is not one.
   $v14.OtlpTraceV1SpanEvent? asOtlpTraceV1SpanEvent() {
-    final $r = $callSync(2493, $W()..h(this));
+    final $r = $callSync(2500, $W()..h(this));
     return $r.hn($v14.OtlpTraceV1SpanEvent.$h);
   }
 
   /// Go: type assertion `x.(*v1.Span_Link)`: null if the object is not one.
   $v14.OtlpTraceV1SpanLink? asOtlpTraceV1SpanLink() {
-    final $r = $callSync(2494, $W()..h(this));
+    final $r = $callSync(2501, $W()..h(this));
     return $r.hn($v14.OtlpTraceV1SpanLink.$h);
   }
 
   /// Go: type assertion `x.(*v1.Status)`: null if the object is not one.
   $v14.OtlpTraceV1Status? asOtlpTraceV1Status() {
-    final $r = $callSync(2495, $W()..h(this));
+    final $r = $callSync(2502, $W()..h(this));
     return $r.hn($v14.OtlpTraceV1Status.$h);
   }
 
   /// Go: type assertion `x.(*v1.TracesData)`: null if the object is not one.
   $v14.OtlpTraceV1TracesData? asOtlpTraceV1TracesData() {
-    final $r = $callSync(2496, $W()..h(this));
+    final $r = $callSync(2503, $W()..h(this));
     return $r.hn($v14.OtlpTraceV1TracesData.$h);
   }
 
   /// Go: type assertion `x.(*httpbody.HttpBody)`: null if the object is not one.
   $httpbody.GenprotoGoogleapisApiHttpbodyHttpBody?
       asGenprotoGoogleapisApiHttpbodyHttpBody() {
-    final $r = $callSync(2497, $W()..h(this));
+    final $r = $callSync(2504, $W()..h(this));
     return $r.hn($httpbody.GenprotoGoogleapisApiHttpbodyHttpBody.$h);
   }
 
   /// Go: type assertion `x.(*errdetails.BadRequest)`: null if the object is not one.
   $errdetails.GenprotoGoogleapisRpcErrdetailsBadRequest?
       asGenprotoGoogleapisRpcErrdetailsBadRequest() {
-    final $r = $callSync(2498, $W()..h(this));
+    final $r = $callSync(2505, $W()..h(this));
     return $r.hn($errdetails.GenprotoGoogleapisRpcErrdetailsBadRequest.$h);
   }
 
   /// Go: type assertion `x.(*errdetails.BadRequest_FieldViolation)`: null if the object is not one.
   $errdetails.GenprotoGoogleapisRpcErrdetailsBadRequestFieldViolation?
       asGenprotoGoogleapisRpcErrdetailsBadRequestFieldViolation() {
-    final $r = $callSync(2499, $W()..h(this));
+    final $r = $callSync(2506, $W()..h(this));
     return $r.hn(
         $errdetails.GenprotoGoogleapisRpcErrdetailsBadRequestFieldViolation.$h);
   }
@@ -803,35 +803,35 @@ mixin ProtobufRuntimeProtoifaceMessageV1$ on GoHandle {
   /// Go: type assertion `x.(*errdetails.DebugInfo)`: null if the object is not one.
   $errdetails.GenprotoGoogleapisRpcErrdetailsDebugInfo?
       asGenprotoGoogleapisRpcErrdetailsDebugInfo() {
-    final $r = $callSync(2500, $W()..h(this));
+    final $r = $callSync(2507, $W()..h(this));
     return $r.hn($errdetails.GenprotoGoogleapisRpcErrdetailsDebugInfo.$h);
   }
 
   /// Go: type assertion `x.(*errdetails.ErrorInfo)`: null if the object is not one.
   $errdetails.GenprotoGoogleapisRpcErrdetailsErrorInfo?
       asGenprotoGoogleapisRpcErrdetailsErrorInfo() {
-    final $r = $callSync(2501, $W()..h(this));
+    final $r = $callSync(2508, $W()..h(this));
     return $r.hn($errdetails.GenprotoGoogleapisRpcErrdetailsErrorInfo.$h);
   }
 
   /// Go: type assertion `x.(*errdetails.Help)`: null if the object is not one.
   $errdetails.GenprotoGoogleapisRpcErrdetailsHelp?
       asGenprotoGoogleapisRpcErrdetailsHelp() {
-    final $r = $callSync(2502, $W()..h(this));
+    final $r = $callSync(2509, $W()..h(this));
     return $r.hn($errdetails.GenprotoGoogleapisRpcErrdetailsHelp.$h);
   }
 
   /// Go: type assertion `x.(*errdetails.Help_Link)`: null if the object is not one.
   $errdetails.GenprotoGoogleapisRpcErrdetailsHelpLink?
       asGenprotoGoogleapisRpcErrdetailsHelpLink() {
-    final $r = $callSync(2503, $W()..h(this));
+    final $r = $callSync(2510, $W()..h(this));
     return $r.hn($errdetails.GenprotoGoogleapisRpcErrdetailsHelpLink.$h);
   }
 
   /// Go: type assertion `x.(*errdetails.LocalizedMessage)`: null if the object is not one.
   $errdetails.GenprotoGoogleapisRpcErrdetailsLocalizedMessage?
       asGenprotoGoogleapisRpcErrdetailsLocalizedMessage() {
-    final $r = $callSync(2504, $W()..h(this));
+    final $r = $callSync(2511, $W()..h(this));
     return $r
         .hn($errdetails.GenprotoGoogleapisRpcErrdetailsLocalizedMessage.$h);
   }
@@ -839,7 +839,7 @@ mixin ProtobufRuntimeProtoifaceMessageV1$ on GoHandle {
   /// Go: type assertion `x.(*errdetails.PreconditionFailure)`: null if the object is not one.
   $errdetails.GenprotoGoogleapisRpcErrdetailsPreconditionFailure?
       asGenprotoGoogleapisRpcErrdetailsPreconditionFailure() {
-    final $r = $callSync(2505, $W()..h(this));
+    final $r = $callSync(2512, $W()..h(this));
     return $r
         .hn($errdetails.GenprotoGoogleapisRpcErrdetailsPreconditionFailure.$h);
   }
@@ -847,7 +847,7 @@ mixin ProtobufRuntimeProtoifaceMessageV1$ on GoHandle {
   /// Go: type assertion `x.(*errdetails.PreconditionFailure_Violation)`: null if the object is not one.
   $errdetails.GenprotoGoogleapisRpcErrdetailsPreconditionFailureViolation?
       asGenprotoGoogleapisRpcErrdetailsPreconditionFailureViolation() {
-    final $r = $callSync(2506, $W()..h(this));
+    final $r = $callSync(2513, $W()..h(this));
     return $r.hn($errdetails
         .GenprotoGoogleapisRpcErrdetailsPreconditionFailureViolation.$h);
   }
@@ -855,14 +855,14 @@ mixin ProtobufRuntimeProtoifaceMessageV1$ on GoHandle {
   /// Go: type assertion `x.(*errdetails.QuotaFailure)`: null if the object is not one.
   $errdetails.GenprotoGoogleapisRpcErrdetailsQuotaFailure?
       asGenprotoGoogleapisRpcErrdetailsQuotaFailure() {
-    final $r = $callSync(2507, $W()..h(this));
+    final $r = $callSync(2514, $W()..h(this));
     return $r.hn($errdetails.GenprotoGoogleapisRpcErrdetailsQuotaFailure.$h);
   }
 
   /// Go: type assertion `x.(*errdetails.QuotaFailure_Violation)`: null if the object is not one.
   $errdetails.GenprotoGoogleapisRpcErrdetailsQuotaFailureViolation?
       asGenprotoGoogleapisRpcErrdetailsQuotaFailureViolation() {
-    final $r = $callSync(2508, $W()..h(this));
+    final $r = $callSync(2515, $W()..h(this));
     return $r.hn(
         $errdetails.GenprotoGoogleapisRpcErrdetailsQuotaFailureViolation.$h);
   }
@@ -870,41 +870,41 @@ mixin ProtobufRuntimeProtoifaceMessageV1$ on GoHandle {
   /// Go: type assertion `x.(*errdetails.RequestInfo)`: null if the object is not one.
   $errdetails.GenprotoGoogleapisRpcErrdetailsRequestInfo?
       asGenprotoGoogleapisRpcErrdetailsRequestInfo() {
-    final $r = $callSync(2509, $W()..h(this));
+    final $r = $callSync(2516, $W()..h(this));
     return $r.hn($errdetails.GenprotoGoogleapisRpcErrdetailsRequestInfo.$h);
   }
 
   /// Go: type assertion `x.(*errdetails.ResourceInfo)`: null if the object is not one.
   $errdetails.GenprotoGoogleapisRpcErrdetailsResourceInfo?
       asGenprotoGoogleapisRpcErrdetailsResourceInfo() {
-    final $r = $callSync(2510, $W()..h(this));
+    final $r = $callSync(2517, $W()..h(this));
     return $r.hn($errdetails.GenprotoGoogleapisRpcErrdetailsResourceInfo.$h);
   }
 
   /// Go: type assertion `x.(*errdetails.RetryInfo)`: null if the object is not one.
   $errdetails.GenprotoGoogleapisRpcErrdetailsRetryInfo?
       asGenprotoGoogleapisRpcErrdetailsRetryInfo() {
-    final $r = $callSync(2511, $W()..h(this));
+    final $r = $callSync(2518, $W()..h(this));
     return $r.hn($errdetails.GenprotoGoogleapisRpcErrdetailsRetryInfo.$h);
   }
 
   /// Go: type assertion `x.(*status.Status)`: null if the object is not one.
   $status.GenprotoGoogleapisRpcStatus? asGenprotoGoogleapisRpcStatus() {
-    final $r = $callSync(2512, $W()..h(this));
+    final $r = $callSync(2519, $W()..h(this));
     return $r.hn($status.GenprotoGoogleapisRpcStatus.$h);
   }
 
   /// Go: type assertion `x.(*grpc_binarylog_v1.Address)`: null if the object is not one.
   $grpc_binarylog_v1.GrpcBinarylogGrpcBinarylogV1Address?
       asGrpcBinarylogGrpcBinarylogV1Address() {
-    final $r = $callSync(2513, $W()..h(this));
+    final $r = $callSync(2520, $W()..h(this));
     return $r.hn($grpc_binarylog_v1.GrpcBinarylogGrpcBinarylogV1Address.$h);
   }
 
   /// Go: type assertion `x.(*grpc_binarylog_v1.ClientHeader)`: null if the object is not one.
   $grpc_binarylog_v1.GrpcBinarylogGrpcBinarylogV1ClientHeader?
       asGrpcBinarylogGrpcBinarylogV1ClientHeader() {
-    final $r = $callSync(2514, $W()..h(this));
+    final $r = $callSync(2521, $W()..h(this));
     return $r
         .hn($grpc_binarylog_v1.GrpcBinarylogGrpcBinarylogV1ClientHeader.$h);
   }
@@ -912,7 +912,7 @@ mixin ProtobufRuntimeProtoifaceMessageV1$ on GoHandle {
   /// Go: type assertion `x.(*grpc_binarylog_v1.GrpcLogEntry)`: null if the object is not one.
   $grpc_binarylog_v1.GrpcBinarylogGrpcBinarylogV1GrpcLogEntry?
       asGrpcBinarylogGrpcBinarylogV1GrpcLogEntry() {
-    final $r = $callSync(2515, $W()..h(this));
+    final $r = $callSync(2522, $W()..h(this));
     return $r
         .hn($grpc_binarylog_v1.GrpcBinarylogGrpcBinarylogV1GrpcLogEntry.$h);
   }
@@ -920,21 +920,21 @@ mixin ProtobufRuntimeProtoifaceMessageV1$ on GoHandle {
   /// Go: type assertion `x.(*grpc_binarylog_v1.Message)`: null if the object is not one.
   $grpc_binarylog_v1.GrpcBinarylogGrpcBinarylogV1Message?
       asGrpcBinarylogGrpcBinarylogV1Message() {
-    final $r = $callSync(2516, $W()..h(this));
+    final $r = $callSync(2523, $W()..h(this));
     return $r.hn($grpc_binarylog_v1.GrpcBinarylogGrpcBinarylogV1Message.$h);
   }
 
   /// Go: type assertion `x.(*grpc_binarylog_v1.Metadata)`: null if the object is not one.
   $grpc_binarylog_v1.GrpcBinarylogGrpcBinarylogV1Metadata?
       asGrpcBinarylogGrpcBinarylogV1Metadata() {
-    final $r = $callSync(2517, $W()..h(this));
+    final $r = $callSync(2524, $W()..h(this));
     return $r.hn($grpc_binarylog_v1.GrpcBinarylogGrpcBinarylogV1Metadata.$h);
   }
 
   /// Go: type assertion `x.(*grpc_binarylog_v1.MetadataEntry)`: null if the object is not one.
   $grpc_binarylog_v1.GrpcBinarylogGrpcBinarylogV1MetadataEntry?
       asGrpcBinarylogGrpcBinarylogV1MetadataEntry() {
-    final $r = $callSync(2518, $W()..h(this));
+    final $r = $callSync(2525, $W()..h(this));
     return $r
         .hn($grpc_binarylog_v1.GrpcBinarylogGrpcBinarylogV1MetadataEntry.$h);
   }
@@ -942,7 +942,7 @@ mixin ProtobufRuntimeProtoifaceMessageV1$ on GoHandle {
   /// Go: type assertion `x.(*grpc_binarylog_v1.ServerHeader)`: null if the object is not one.
   $grpc_binarylog_v1.GrpcBinarylogGrpcBinarylogV1ServerHeader?
       asGrpcBinarylogGrpcBinarylogV1ServerHeader() {
-    final $r = $callSync(2519, $W()..h(this));
+    final $r = $callSync(2526, $W()..h(this));
     return $r
         .hn($grpc_binarylog_v1.GrpcBinarylogGrpcBinarylogV1ServerHeader.$h);
   }
@@ -950,49 +950,49 @@ mixin ProtobufRuntimeProtoifaceMessageV1$ on GoHandle {
   /// Go: type assertion `x.(*grpc_binarylog_v1.Trailer)`: null if the object is not one.
   $grpc_binarylog_v1.GrpcBinarylogGrpcBinarylogV1Trailer?
       asGrpcBinarylogGrpcBinarylogV1Trailer() {
-    final $r = $callSync(2520, $W()..h(this));
+    final $r = $callSync(2527, $W()..h(this));
     return $r.hn($grpc_binarylog_v1.GrpcBinarylogGrpcBinarylogV1Trailer.$h);
   }
 
   /// Go: type assertion `x.(*grpc_health_v1.HealthCheckRequest)`: null if the object is not one.
   $grpc_health_v1.GrpcHealthGrpcHealthV1HealthCheckRequest?
       asGrpcHealthGrpcHealthV1HealthCheckRequest() {
-    final $r = $callSync(2521, $W()..h(this));
+    final $r = $callSync(2528, $W()..h(this));
     return $r.hn($grpc_health_v1.GrpcHealthGrpcHealthV1HealthCheckRequest.$h);
   }
 
   /// Go: type assertion `x.(*grpc_health_v1.HealthCheckResponse)`: null if the object is not one.
   $grpc_health_v1.GrpcHealthGrpcHealthV1HealthCheckResponse?
       asGrpcHealthGrpcHealthV1HealthCheckResponse() {
-    final $r = $callSync(2522, $W()..h(this));
+    final $r = $callSync(2529, $W()..h(this));
     return $r.hn($grpc_health_v1.GrpcHealthGrpcHealthV1HealthCheckResponse.$h);
   }
 
   /// Go: type assertion `x.(*grpc_health_v1.HealthListRequest)`: null if the object is not one.
   $grpc_health_v1.GrpcHealthGrpcHealthV1HealthListRequest?
       asGrpcHealthGrpcHealthV1HealthListRequest() {
-    final $r = $callSync(2523, $W()..h(this));
+    final $r = $callSync(2530, $W()..h(this));
     return $r.hn($grpc_health_v1.GrpcHealthGrpcHealthV1HealthListRequest.$h);
   }
 
   /// Go: type assertion `x.(*grpc_health_v1.HealthListResponse)`: null if the object is not one.
   $grpc_health_v1.GrpcHealthGrpcHealthV1HealthListResponse?
       asGrpcHealthGrpcHealthV1HealthListResponse() {
-    final $r = $callSync(2524, $W()..h(this));
+    final $r = $callSync(2531, $W()..h(this));
     return $r.hn($grpc_health_v1.GrpcHealthGrpcHealthV1HealthListResponse.$h);
   }
 
   /// Go: type assertion `x.(*descriptorpb.DescriptorProto)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbDescriptorProto?
       asProtobufTypesDescriptorpbDescriptorProto() {
-    final $r = $callSync(2525, $W()..h(this));
+    final $r = $callSync(2532, $W()..h(this));
     return $r.hn($descriptorpb.ProtobufTypesDescriptorpbDescriptorProto.$h);
   }
 
   /// Go: type assertion `x.(*descriptorpb.DescriptorProto_ExtensionRange)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbDescriptorProtoExtensionRange?
       asProtobufTypesDescriptorpbDescriptorProtoExtensionRange() {
-    final $r = $callSync(2526, $W()..h(this));
+    final $r = $callSync(2533, $W()..h(this));
     return $r.hn($descriptorpb
         .ProtobufTypesDescriptorpbDescriptorProtoExtensionRange.$h);
   }
@@ -1000,7 +1000,7 @@ mixin ProtobufRuntimeProtoifaceMessageV1$ on GoHandle {
   /// Go: type assertion `x.(*descriptorpb.DescriptorProto_ReservedRange)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbDescriptorProtoReservedRange?
       asProtobufTypesDescriptorpbDescriptorProtoReservedRange() {
-    final $r = $callSync(2527, $W()..h(this));
+    final $r = $callSync(2534, $W()..h(this));
     return $r.hn(
         $descriptorpb.ProtobufTypesDescriptorpbDescriptorProtoReservedRange.$h);
   }
@@ -1008,14 +1008,14 @@ mixin ProtobufRuntimeProtoifaceMessageV1$ on GoHandle {
   /// Go: type assertion `x.(*descriptorpb.EnumDescriptorProto)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbEnumDescriptorProto?
       asProtobufTypesDescriptorpbEnumDescriptorProto() {
-    final $r = $callSync(2528, $W()..h(this));
+    final $r = $callSync(2535, $W()..h(this));
     return $r.hn($descriptorpb.ProtobufTypesDescriptorpbEnumDescriptorProto.$h);
   }
 
   /// Go: type assertion `x.(*descriptorpb.EnumDescriptorProto_EnumReservedRange)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbEnumDescriptorProtoEnumReservedRange?
       asProtobufTypesDescriptorpbEnumDescriptorProtoEnumReservedRange() {
-    final $r = $callSync(2529, $W()..h(this));
+    final $r = $callSync(2536, $W()..h(this));
     return $r.hn($descriptorpb
         .ProtobufTypesDescriptorpbEnumDescriptorProtoEnumReservedRange.$h);
   }
@@ -1023,14 +1023,14 @@ mixin ProtobufRuntimeProtoifaceMessageV1$ on GoHandle {
   /// Go: type assertion `x.(*descriptorpb.EnumOptions)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbEnumOptions?
       asProtobufTypesDescriptorpbEnumOptions() {
-    final $r = $callSync(2530, $W()..h(this));
+    final $r = $callSync(2537, $W()..h(this));
     return $r.hn($descriptorpb.ProtobufTypesDescriptorpbEnumOptions.$h);
   }
 
   /// Go: type assertion `x.(*descriptorpb.EnumValueDescriptorProto)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbEnumValueDescriptorProto?
       asProtobufTypesDescriptorpbEnumValueDescriptorProto() {
-    final $r = $callSync(2531, $W()..h(this));
+    final $r = $callSync(2538, $W()..h(this));
     return $r
         .hn($descriptorpb.ProtobufTypesDescriptorpbEnumValueDescriptorProto.$h);
   }
@@ -1038,14 +1038,14 @@ mixin ProtobufRuntimeProtoifaceMessageV1$ on GoHandle {
   /// Go: type assertion `x.(*descriptorpb.EnumValueOptions)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbEnumValueOptions?
       asProtobufTypesDescriptorpbEnumValueOptions() {
-    final $r = $callSync(2532, $W()..h(this));
+    final $r = $callSync(2539, $W()..h(this));
     return $r.hn($descriptorpb.ProtobufTypesDescriptorpbEnumValueOptions.$h);
   }
 
   /// Go: type assertion `x.(*descriptorpb.ExtensionRangeOptions)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbExtensionRangeOptions?
       asProtobufTypesDescriptorpbExtensionRangeOptions() {
-    final $r = $callSync(2533, $W()..h(this));
+    final $r = $callSync(2540, $W()..h(this));
     return $r
         .hn($descriptorpb.ProtobufTypesDescriptorpbExtensionRangeOptions.$h);
   }
@@ -1053,7 +1053,7 @@ mixin ProtobufRuntimeProtoifaceMessageV1$ on GoHandle {
   /// Go: type assertion `x.(*descriptorpb.ExtensionRangeOptions_Declaration)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbExtensionRangeOptionsDeclaration?
       asProtobufTypesDescriptorpbExtensionRangeOptionsDeclaration() {
-    final $r = $callSync(2534, $W()..h(this));
+    final $r = $callSync(2541, $W()..h(this));
     return $r.hn($descriptorpb
         .ProtobufTypesDescriptorpbExtensionRangeOptionsDeclaration.$h);
   }
@@ -1061,14 +1061,14 @@ mixin ProtobufRuntimeProtoifaceMessageV1$ on GoHandle {
   /// Go: type assertion `x.(*descriptorpb.FeatureSet)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbFeatureSet?
       asProtobufTypesDescriptorpbFeatureSet() {
-    final $r = $callSync(2535, $W()..h(this));
+    final $r = $callSync(2542, $W()..h(this));
     return $r.hn($descriptorpb.ProtobufTypesDescriptorpbFeatureSet.$h);
   }
 
   /// Go: type assertion `x.(*descriptorpb.FeatureSetDefaults)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbFeatureSetDefaults?
       asProtobufTypesDescriptorpbFeatureSetDefaults() {
-    final $r = $callSync(2536, $W()..h(this));
+    final $r = $callSync(2543, $W()..h(this));
     return $r.hn($descriptorpb.ProtobufTypesDescriptorpbFeatureSetDefaults.$h);
   }
 
@@ -1076,7 +1076,7 @@ mixin ProtobufRuntimeProtoifaceMessageV1$ on GoHandle {
   $descriptorpb
       .ProtobufTypesDescriptorpbFeatureSetDefaultsFeatureSetEditionDefault?
       asProtobufTypesDescriptorpbFeatureSetDefaultsFeatureSetEditionDefault() {
-    final $r = $callSync(2537, $W()..h(this));
+    final $r = $callSync(2544, $W()..h(this));
     return $r.hn($descriptorpb
         .ProtobufTypesDescriptorpbFeatureSetDefaultsFeatureSetEditionDefault
         .$h);
@@ -1085,7 +1085,7 @@ mixin ProtobufRuntimeProtoifaceMessageV1$ on GoHandle {
   /// Go: type assertion `x.(*descriptorpb.FeatureSet_VisibilityFeature)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbFeatureSetVisibilityFeature?
       asProtobufTypesDescriptorpbFeatureSetVisibilityFeature() {
-    final $r = $callSync(2538, $W()..h(this));
+    final $r = $callSync(2545, $W()..h(this));
     return $r.hn(
         $descriptorpb.ProtobufTypesDescriptorpbFeatureSetVisibilityFeature.$h);
   }
@@ -1093,7 +1093,7 @@ mixin ProtobufRuntimeProtoifaceMessageV1$ on GoHandle {
   /// Go: type assertion `x.(*descriptorpb.FieldDescriptorProto)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbFieldDescriptorProto?
       asProtobufTypesDescriptorpbFieldDescriptorProto() {
-    final $r = $callSync(2539, $W()..h(this));
+    final $r = $callSync(2546, $W()..h(this));
     return $r
         .hn($descriptorpb.ProtobufTypesDescriptorpbFieldDescriptorProto.$h);
   }
@@ -1101,14 +1101,14 @@ mixin ProtobufRuntimeProtoifaceMessageV1$ on GoHandle {
   /// Go: type assertion `x.(*descriptorpb.FieldOptions)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbFieldOptions?
       asProtobufTypesDescriptorpbFieldOptions() {
-    final $r = $callSync(2540, $W()..h(this));
+    final $r = $callSync(2547, $W()..h(this));
     return $r.hn($descriptorpb.ProtobufTypesDescriptorpbFieldOptions.$h);
   }
 
   /// Go: type assertion `x.(*descriptorpb.FieldOptions_EditionDefault)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbFieldOptionsEditionDefault?
       asProtobufTypesDescriptorpbFieldOptionsEditionDefault() {
-    final $r = $callSync(2541, $W()..h(this));
+    final $r = $callSync(2548, $W()..h(this));
     return $r.hn(
         $descriptorpb.ProtobufTypesDescriptorpbFieldOptionsEditionDefault.$h);
   }
@@ -1116,7 +1116,7 @@ mixin ProtobufRuntimeProtoifaceMessageV1$ on GoHandle {
   /// Go: type assertion `x.(*descriptorpb.FieldOptions_FeatureSupport)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbFieldOptionsFeatureSupport?
       asProtobufTypesDescriptorpbFieldOptionsFeatureSupport() {
-    final $r = $callSync(2542, $W()..h(this));
+    final $r = $callSync(2549, $W()..h(this));
     return $r.hn(
         $descriptorpb.ProtobufTypesDescriptorpbFieldOptionsFeatureSupport.$h);
   }
@@ -1124,35 +1124,35 @@ mixin ProtobufRuntimeProtoifaceMessageV1$ on GoHandle {
   /// Go: type assertion `x.(*descriptorpb.FileDescriptorProto)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbFileDescriptorProto?
       asProtobufTypesDescriptorpbFileDescriptorProto() {
-    final $r = $callSync(2543, $W()..h(this));
+    final $r = $callSync(2550, $W()..h(this));
     return $r.hn($descriptorpb.ProtobufTypesDescriptorpbFileDescriptorProto.$h);
   }
 
   /// Go: type assertion `x.(*descriptorpb.FileDescriptorSet)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbFileDescriptorSet?
       asProtobufTypesDescriptorpbFileDescriptorSet() {
-    final $r = $callSync(2544, $W()..h(this));
+    final $r = $callSync(2551, $W()..h(this));
     return $r.hn($descriptorpb.ProtobufTypesDescriptorpbFileDescriptorSet.$h);
   }
 
   /// Go: type assertion `x.(*descriptorpb.FileOptions)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbFileOptions?
       asProtobufTypesDescriptorpbFileOptions() {
-    final $r = $callSync(2545, $W()..h(this));
+    final $r = $callSync(2552, $W()..h(this));
     return $r.hn($descriptorpb.ProtobufTypesDescriptorpbFileOptions.$h);
   }
 
   /// Go: type assertion `x.(*descriptorpb.GeneratedCodeInfo)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbGeneratedCodeInfo?
       asProtobufTypesDescriptorpbGeneratedCodeInfo() {
-    final $r = $callSync(2546, $W()..h(this));
+    final $r = $callSync(2553, $W()..h(this));
     return $r.hn($descriptorpb.ProtobufTypesDescriptorpbGeneratedCodeInfo.$h);
   }
 
   /// Go: type assertion `x.(*descriptorpb.GeneratedCodeInfo_Annotation)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbGeneratedCodeInfoAnnotation?
       asProtobufTypesDescriptorpbGeneratedCodeInfoAnnotation() {
-    final $r = $callSync(2547, $W()..h(this));
+    final $r = $callSync(2554, $W()..h(this));
     return $r.hn(
         $descriptorpb.ProtobufTypesDescriptorpbGeneratedCodeInfoAnnotation.$h);
   }
@@ -1160,14 +1160,14 @@ mixin ProtobufRuntimeProtoifaceMessageV1$ on GoHandle {
   /// Go: type assertion `x.(*descriptorpb.MessageOptions)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbMessageOptions?
       asProtobufTypesDescriptorpbMessageOptions() {
-    final $r = $callSync(2548, $W()..h(this));
+    final $r = $callSync(2555, $W()..h(this));
     return $r.hn($descriptorpb.ProtobufTypesDescriptorpbMessageOptions.$h);
   }
 
   /// Go: type assertion `x.(*descriptorpb.MethodDescriptorProto)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbMethodDescriptorProto?
       asProtobufTypesDescriptorpbMethodDescriptorProto() {
-    final $r = $callSync(2549, $W()..h(this));
+    final $r = $callSync(2556, $W()..h(this));
     return $r
         .hn($descriptorpb.ProtobufTypesDescriptorpbMethodDescriptorProto.$h);
   }
@@ -1175,14 +1175,14 @@ mixin ProtobufRuntimeProtoifaceMessageV1$ on GoHandle {
   /// Go: type assertion `x.(*descriptorpb.MethodOptions)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbMethodOptions?
       asProtobufTypesDescriptorpbMethodOptions() {
-    final $r = $callSync(2550, $W()..h(this));
+    final $r = $callSync(2557, $W()..h(this));
     return $r.hn($descriptorpb.ProtobufTypesDescriptorpbMethodOptions.$h);
   }
 
   /// Go: type assertion `x.(*descriptorpb.OneofDescriptorProto)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbOneofDescriptorProto?
       asProtobufTypesDescriptorpbOneofDescriptorProto() {
-    final $r = $callSync(2551, $W()..h(this));
+    final $r = $callSync(2558, $W()..h(this));
     return $r
         .hn($descriptorpb.ProtobufTypesDescriptorpbOneofDescriptorProto.$h);
   }
@@ -1190,14 +1190,14 @@ mixin ProtobufRuntimeProtoifaceMessageV1$ on GoHandle {
   /// Go: type assertion `x.(*descriptorpb.OneofOptions)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbOneofOptions?
       asProtobufTypesDescriptorpbOneofOptions() {
-    final $r = $callSync(2552, $W()..h(this));
+    final $r = $callSync(2559, $W()..h(this));
     return $r.hn($descriptorpb.ProtobufTypesDescriptorpbOneofOptions.$h);
   }
 
   /// Go: type assertion `x.(*descriptorpb.ServiceDescriptorProto)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbServiceDescriptorProto?
       asProtobufTypesDescriptorpbServiceDescriptorProto() {
-    final $r = $callSync(2553, $W()..h(this));
+    final $r = $callSync(2560, $W()..h(this));
     return $r
         .hn($descriptorpb.ProtobufTypesDescriptorpbServiceDescriptorProto.$h);
   }
@@ -1205,21 +1205,21 @@ mixin ProtobufRuntimeProtoifaceMessageV1$ on GoHandle {
   /// Go: type assertion `x.(*descriptorpb.ServiceOptions)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbServiceOptions?
       asProtobufTypesDescriptorpbServiceOptions() {
-    final $r = $callSync(2554, $W()..h(this));
+    final $r = $callSync(2561, $W()..h(this));
     return $r.hn($descriptorpb.ProtobufTypesDescriptorpbServiceOptions.$h);
   }
 
   /// Go: type assertion `x.(*descriptorpb.SourceCodeInfo)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbSourceCodeInfo?
       asProtobufTypesDescriptorpbSourceCodeInfo() {
-    final $r = $callSync(2555, $W()..h(this));
+    final $r = $callSync(2562, $W()..h(this));
     return $r.hn($descriptorpb.ProtobufTypesDescriptorpbSourceCodeInfo.$h);
   }
 
   /// Go: type assertion `x.(*descriptorpb.SourceCodeInfo_Location)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbSourceCodeInfoLocation?
       asProtobufTypesDescriptorpbSourceCodeInfoLocation() {
-    final $r = $callSync(2556, $W()..h(this));
+    final $r = $callSync(2563, $W()..h(this));
     return $r
         .hn($descriptorpb.ProtobufTypesDescriptorpbSourceCodeInfoLocation.$h);
   }
@@ -1227,14 +1227,14 @@ mixin ProtobufRuntimeProtoifaceMessageV1$ on GoHandle {
   /// Go: type assertion `x.(*descriptorpb.UninterpretedOption)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbUninterpretedOption?
       asProtobufTypesDescriptorpbUninterpretedOption() {
-    final $r = $callSync(2557, $W()..h(this));
+    final $r = $callSync(2564, $W()..h(this));
     return $r.hn($descriptorpb.ProtobufTypesDescriptorpbUninterpretedOption.$h);
   }
 
   /// Go: type assertion `x.(*descriptorpb.UninterpretedOption_NamePart)`: null if the object is not one.
   $descriptorpb.ProtobufTypesDescriptorpbUninterpretedOptionNamePart?
       asProtobufTypesDescriptorpbUninterpretedOptionNamePart() {
-    final $r = $callSync(2558, $W()..h(this));
+    final $r = $callSync(2565, $W()..h(this));
     return $r.hn(
         $descriptorpb.ProtobufTypesDescriptorpbUninterpretedOptionNamePart.$h);
   }
@@ -1242,118 +1242,118 @@ mixin ProtobufRuntimeProtoifaceMessageV1$ on GoHandle {
   /// Go: type assertion `x.(*gofeaturespb.GoFeatures)`: null if the object is not one.
   $gofeaturespb.ProtobufTypesGofeaturespbGoFeatures?
       asProtobufTypesGofeaturespbGoFeatures() {
-    final $r = $callSync(2559, $W()..h(this));
+    final $r = $callSync(2566, $W()..h(this));
     return $r.hn($gofeaturespb.ProtobufTypesGofeaturespbGoFeatures.$h);
   }
 
   /// Go: type assertion `x.(*anypb.Any)`: null if the object is not one.
   $anypb.ProtobufTypesKnownAnypbAny? asProtobufTypesKnownAnypbAny() {
-    final $r = $callSync(2560, $W()..h(this));
+    final $r = $callSync(2567, $W()..h(this));
     return $r.hn($anypb.ProtobufTypesKnownAnypbAny.$h);
   }
 
   /// Go: type assertion `x.(*durationpb.Duration)`: null if the object is not one.
   $durationpb.ProtobufTypesKnownDurationpbDuration?
       asProtobufTypesKnownDurationpbDuration() {
-    final $r = $callSync(2561, $W()..h(this));
+    final $r = $callSync(2568, $W()..h(this));
     return $r.hn($durationpb.ProtobufTypesKnownDurationpbDuration.$h);
   }
 
   /// Go: type assertion `x.(*fieldmaskpb.FieldMask)`: null if the object is not one.
   $fieldmaskpb.ProtobufTypesKnownFieldmaskpbFieldMask?
       asProtobufTypesKnownFieldmaskpbFieldMask() {
-    final $r = $callSync(2562, $W()..h(this));
+    final $r = $callSync(2569, $W()..h(this));
     return $r.hn($fieldmaskpb.ProtobufTypesKnownFieldmaskpbFieldMask.$h);
   }
 
   /// Go: type assertion `x.(*structpb.ListValue)`: null if the object is not one.
   $structpb.ProtobufTypesKnownStructpbListValue?
       asProtobufTypesKnownStructpbListValue() {
-    final $r = $callSync(2563, $W()..h(this));
+    final $r = $callSync(2570, $W()..h(this));
     return $r.hn($structpb.ProtobufTypesKnownStructpbListValue.$h);
   }
 
   /// Go: type assertion `x.(*structpb.Struct)`: null if the object is not one.
   $structpb.ProtobufTypesKnownStructpbStruct?
       asProtobufTypesKnownStructpbStruct() {
-    final $r = $callSync(2564, $W()..h(this));
+    final $r = $callSync(2571, $W()..h(this));
     return $r.hn($structpb.ProtobufTypesKnownStructpbStruct.$h);
   }
 
   /// Go: type assertion `x.(*structpb.Value)`: null if the object is not one.
   $structpb.ProtobufTypesKnownStructpbValue?
       asProtobufTypesKnownStructpbValue() {
-    final $r = $callSync(2565, $W()..h(this));
+    final $r = $callSync(2572, $W()..h(this));
     return $r.hn($structpb.ProtobufTypesKnownStructpbValue.$h);
   }
 
   /// Go: type assertion `x.(*timestamppb.Timestamp)`: null if the object is not one.
   $timestamppb.ProtobufTypesKnownTimestamppbTimestamp?
       asProtobufTypesKnownTimestamppbTimestamp() {
-    final $r = $callSync(2566, $W()..h(this));
+    final $r = $callSync(2573, $W()..h(this));
     return $r.hn($timestamppb.ProtobufTypesKnownTimestamppbTimestamp.$h);
   }
 
   /// Go: type assertion `x.(*wrapperspb.BoolValue)`: null if the object is not one.
   $wrapperspb.ProtobufTypesKnownWrapperspbBoolValue?
       asProtobufTypesKnownWrapperspbBoolValue() {
-    final $r = $callSync(2567, $W()..h(this));
+    final $r = $callSync(2574, $W()..h(this));
     return $r.hn($wrapperspb.ProtobufTypesKnownWrapperspbBoolValue.$h);
   }
 
   /// Go: type assertion `x.(*wrapperspb.BytesValue)`: null if the object is not one.
   $wrapperspb.ProtobufTypesKnownWrapperspbBytesValue?
       asProtobufTypesKnownWrapperspbBytesValue() {
-    final $r = $callSync(2568, $W()..h(this));
+    final $r = $callSync(2575, $W()..h(this));
     return $r.hn($wrapperspb.ProtobufTypesKnownWrapperspbBytesValue.$h);
   }
 
   /// Go: type assertion `x.(*wrapperspb.DoubleValue)`: null if the object is not one.
   $wrapperspb.ProtobufTypesKnownWrapperspbDoubleValue?
       asProtobufTypesKnownWrapperspbDoubleValue() {
-    final $r = $callSync(2569, $W()..h(this));
+    final $r = $callSync(2576, $W()..h(this));
     return $r.hn($wrapperspb.ProtobufTypesKnownWrapperspbDoubleValue.$h);
   }
 
   /// Go: type assertion `x.(*wrapperspb.FloatValue)`: null if the object is not one.
   $wrapperspb.ProtobufTypesKnownWrapperspbFloatValue?
       asProtobufTypesKnownWrapperspbFloatValue() {
-    final $r = $callSync(2570, $W()..h(this));
+    final $r = $callSync(2577, $W()..h(this));
     return $r.hn($wrapperspb.ProtobufTypesKnownWrapperspbFloatValue.$h);
   }
 
   /// Go: type assertion `x.(*wrapperspb.Int32Value)`: null if the object is not one.
   $wrapperspb.ProtobufTypesKnownWrapperspbInt32Value?
       asProtobufTypesKnownWrapperspbInt32Value() {
-    final $r = $callSync(2571, $W()..h(this));
+    final $r = $callSync(2578, $W()..h(this));
     return $r.hn($wrapperspb.ProtobufTypesKnownWrapperspbInt32Value.$h);
   }
 
   /// Go: type assertion `x.(*wrapperspb.Int64Value)`: null if the object is not one.
   $wrapperspb.ProtobufTypesKnownWrapperspbInt64Value?
       asProtobufTypesKnownWrapperspbInt64Value() {
-    final $r = $callSync(2572, $W()..h(this));
+    final $r = $callSync(2579, $W()..h(this));
     return $r.hn($wrapperspb.ProtobufTypesKnownWrapperspbInt64Value.$h);
   }
 
   /// Go: type assertion `x.(*wrapperspb.StringValue)`: null if the object is not one.
   $wrapperspb.ProtobufTypesKnownWrapperspbStringValue?
       asProtobufTypesKnownWrapperspbStringValue() {
-    final $r = $callSync(2573, $W()..h(this));
+    final $r = $callSync(2580, $W()..h(this));
     return $r.hn($wrapperspb.ProtobufTypesKnownWrapperspbStringValue.$h);
   }
 
   /// Go: type assertion `x.(*wrapperspb.UInt32Value)`: null if the object is not one.
   $wrapperspb.ProtobufTypesKnownWrapperspbUInt32Value?
       asProtobufTypesKnownWrapperspbUInt32Value() {
-    final $r = $callSync(2574, $W()..h(this));
+    final $r = $callSync(2581, $W()..h(this));
     return $r.hn($wrapperspb.ProtobufTypesKnownWrapperspbUInt32Value.$h);
   }
 
   /// Go: type assertion `x.(*wrapperspb.UInt64Value)`: null if the object is not one.
   $wrapperspb.ProtobufTypesKnownWrapperspbUInt64Value?
       asProtobufTypesKnownWrapperspbUInt64Value() {
-    final $r = $callSync(2575, $W()..h(this));
+    final $r = $callSync(2582, $W()..h(this));
     return $r.hn($wrapperspb.ProtobufTypesKnownWrapperspbUInt64Value.$h);
   }
 }

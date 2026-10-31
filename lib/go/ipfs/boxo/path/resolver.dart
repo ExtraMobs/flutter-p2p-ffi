@@ -25,7 +25,7 @@ mixin BoxoPathResolver$ on GoHandle {
       resolvePath($context.Context ctx,
           $path.BoxoPathImmutablePath immutablePath) async {
     final $r = await $call(
-        10134,
+        10143,
         $W()
           ..h(this)
           ..h(ctx)
@@ -42,7 +42,7 @@ mixin BoxoPathResolver$ on GoHandle {
   Future<List<$datamodel.IpldPrimeDatamodelNode>> resolvePathComponents(
       $context.Context ctx, $path.BoxoPathImmutablePath immutablePath) async {
     final $r = await $call(
-        10135,
+        10144,
         $W()
           ..h(this)
           ..h(ctx)
@@ -56,7 +56,7 @@ mixin BoxoPathResolver$ on GoHandle {
   Future<($cid.Cid, List<String>)> resolveToLastNode(
       $context.Context ctx, $path.BoxoPathImmutablePath immutablePath) async {
     final $r = await $call(
-        10136,
+        10145,
         $W()
           ..h(this)
           ..h(ctx)
@@ -66,7 +66,7 @@ mixin BoxoPathResolver$ on GoHandle {
 
   /// Go: type assertion `x.(*ipfs.Resolver)`: null if the object is not one.
   $ipfs.NopfsIpfsResolver? asNopfsIpfsResolver() {
-    final $r = $callSync(973, $W()..h(this));
+    final $r = $callSync(976, $W()..h(this));
     return $r.hn($ipfs.NopfsIpfsResolver.$h);
   }
 }
@@ -93,7 +93,7 @@ class BoxoPathResolverErrNoLink extends GolangException {
 extension GoIpfsBoxoPathResolverApi on GoIpfsBoxoPathResolver {
   /// Go: `func resolver.NewBasicResolver(factory fetcher.Factory) resolver.Resolver`.
   BoxoPathResolver newBasicResolver($fetcher.BoxoFetcherFactory factory) {
-    final $r = $callSync(10133, $W()..h(factory));
+    final $r = $callSync(10142, $W()..h(factory));
     return $r.hnn(BoxoPathResolver.$h);
   }
 }

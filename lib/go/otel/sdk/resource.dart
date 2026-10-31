@@ -28,7 +28,7 @@ mixin OtelSdkResourceDetector$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<OtelSdkResource> detect($context.Context ctx) async {
     final $r = await $call(
-        19427,
+        19433,
         $W()
           ..h(this)
           ..h(ctx));
@@ -66,7 +66,7 @@ class OtelSdkResource extends $logr.LogrMarshaler
 
   /// Go: `func (*resource.Resource).Attributes() []attribute.KeyValue`.
   List<$attribute.OtelAttributeKeyValue> attributes() {
-    final $r = $callSync(19435, $W()..h(this));
+    final $r = $callSync(19441, $W()..h(this));
     return $r.list(
         () => $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil());
   }
@@ -74,7 +74,7 @@ class OtelSdkResource extends $logr.LogrMarshaler
   /// Go: `func (*resource.Resource).Encoded(enc attribute.Encoder) string`.
   String encoded($attribute.OtelAttributeEncoder enc) {
     final $r = $callSync(
-        19436,
+        19442,
         $W()
           ..h(this)
           ..h(enc));
@@ -84,7 +84,7 @@ class OtelSdkResource extends $logr.LogrMarshaler
   /// Go: `func (*resource.Resource).Equal(o *resource.Resource) bool`.
   bool equal(OtelSdkResource o) {
     final $r = $callSync(
-        19437,
+        19443,
         $W()
           ..h(this)
           ..h(o));
@@ -93,49 +93,49 @@ class OtelSdkResource extends $logr.LogrMarshaler
 
   /// Go: `func (*resource.Resource).Equivalent() attribute.Distinct`.
   $attribute.OtelAttributeDistinct equivalent() {
-    final $r = $callSync(19438, $W()..h(this));
+    final $r = $callSync(19444, $W()..h(this));
     return $r.hnn($attribute.OtelAttributeDistinct.$h);
   }
 
   /// Go: `func (*resource.Resource).Iter() attribute.Iterator`.
   $attribute.OtelAttributeIterator iter() {
-    final $r = $callSync(19439, $W()..h(this));
+    final $r = $callSync(19445, $W()..h(this));
     return $r.hnn($attribute.OtelAttributeIterator.$h);
   }
 
   /// Go: `func (*resource.Resource).Len() int`.
   int len() {
-    final $r = $callSync(19440, $W()..h(this));
+    final $r = $callSync(19446, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*resource.Resource).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(19441, $W()..h(this));
+    final $r = $callSync(19447, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*resource.Resource).MarshalLog() any`.
   Object? marshalLog() {
-    final $r = $callSync(19442, $W()..h(this));
+    final $r = $callSync(19448, $W()..h(this));
     return $r.any();
   }
 
   /// Go: `func (*resource.Resource).SchemaURL() string`.
   String schemaUrl() {
-    final $r = $callSync(19443, $W()..h(this));
+    final $r = $callSync(19449, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*resource.Resource).Set() *attribute.Set`.
   $attribute.OtelAttributeSet set() {
-    final $r = $callSync(19444, $W()..h(this));
+    final $r = $callSync(19450, $W()..h(this));
     return $r.hnn($attribute.OtelAttributeSet.$h);
   }
 
   /// Go: `func (*resource.Resource).String() string`.
   String string() {
-    final $r = $callSync(19445, $W()..h(this));
+    final $r = $callSync(19451, $W()..h(this));
     return $r.str();
   }
 }
@@ -162,7 +162,7 @@ class OtelSdkResourceErrSchemaUrlConflict extends GolangException {
 extension GoOtelSdkResourceApi on GoOtelSdkResource {
   /// Go: `func resource.Default() *resource.Resource`.
   OtelSdkResource default$() {
-    final $r = $callSync(19424);
+    final $r = $callSync(19430);
     return $r.hnn(OtelSdkResource.$h);
   }
 
@@ -170,7 +170,7 @@ extension GoOtelSdkResourceApi on GoOtelSdkResource {
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<OtelSdkResource> defaultWithContext($context.Context ctx) async {
-    final $r = await $call(19425, $W()..h(ctx));
+    final $r = await $call(19431, $W()..h(ctx));
     return $r.hnn(OtelSdkResource.$h);
   }
 
@@ -180,7 +180,7 @@ extension GoOtelSdkResourceApi on GoOtelSdkResource {
   Future<OtelSdkResource> detect($context.Context ctx,
       [List<OtelSdkResourceDetector> detectors = const []]) async {
     final $r = await $call(
-        19426,
+        19432,
         $W()
           ..h(ctx)
           ..list(detectors, (w0, e0) => w0.h(e0)));
@@ -189,13 +189,13 @@ extension GoOtelSdkResourceApi on GoOtelSdkResource {
 
   /// Go: `func resource.Empty() *resource.Resource`.
   OtelSdkResource empty() {
-    final $r = $callSync(19428);
+    final $r = $callSync(19434);
     return $r.hnn(OtelSdkResource.$h);
   }
 
   /// Go: `func resource.Environment() *resource.Resource`.
   OtelSdkResource environment() {
-    final $r = $callSync(19429);
+    final $r = $callSync(19435);
     return $r.hnn(OtelSdkResource.$h);
   }
 
@@ -203,14 +203,14 @@ extension GoOtelSdkResourceApi on GoOtelSdkResource {
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<OtelSdkResource> environmentWithContext($context.Context ctx) async {
-    final $r = await $call(19430, $W()..h(ctx));
+    final $r = await $call(19436, $W()..h(ctx));
     return $r.hnn(OtelSdkResource.$h);
   }
 
   /// Go: `func resource.Merge(a *resource.Resource, b *resource.Resource) (*resource.Resource, error)`.
   OtelSdkResource merge(OtelSdkResource a, OtelSdkResource b) {
     final $r = $callSync(
-        19431,
+        19437,
         $W()
           ..h(a)
           ..h(b));
@@ -223,7 +223,7 @@ extension GoOtelSdkResourceApi on GoOtelSdkResource {
   Future<OtelSdkResource> new$($context.Context ctx,
       [List<OtelSdkResourceOption> opts = const []]) async {
     final $r = await $call(
-        19432,
+        19438,
         $W()
           ..h(ctx)
           ..list(opts, (w0, e0) => w0.h(e0)));
@@ -233,7 +233,7 @@ extension GoOtelSdkResourceApi on GoOtelSdkResource {
   /// Go: `func resource.NewSchemaless(attrs ...attribute.KeyValue) *resource.Resource`.
   OtelSdkResource newSchemaless(
       [List<$attribute.OtelAttributeKeyValue> attrs = const []]) {
-    final $r = $callSync(19433, $W()..list(attrs, (w0, e0) => w0.dto(e0)));
+    final $r = $callSync(19439, $W()..list(attrs, (w0, e0) => w0.dto(e0)));
     return $r.hnn(OtelSdkResource.$h);
   }
 
@@ -241,7 +241,7 @@ extension GoOtelSdkResourceApi on GoOtelSdkResource {
   OtelSdkResource newWithAttributes(String schemaUrl,
       [List<$attribute.OtelAttributeKeyValue> attrs = const []]) {
     final $r = $callSync(
-        19434,
+        19440,
         $W()
           ..str(schemaUrl)
           ..list(attrs, (w0, e0) => w0.dto(e0)));
@@ -254,134 +254,134 @@ extension GoOtelSdkResourceOptionsApi on GoOtelSdkResourceOptions {
   /// Go: `func resource.WithAttributes(attributes ...attribute.KeyValue) resource.Option`.
   OtelSdkResourceOption withAttributes(
       [List<$attribute.OtelAttributeKeyValue> attributes = const []]) {
-    final $r = $callSync(19446, $W()..list(attributes, (w0, e0) => w0.dto(e0)));
+    final $r = $callSync(19452, $W()..list(attributes, (w0, e0) => w0.dto(e0)));
     return $r.hnn(OtelSdkResourceOption.$h);
   }
 
   /// Go: `func resource.WithContainer() resource.Option`.
   OtelSdkResourceOption withContainer() {
-    final $r = $callSync(19447);
+    final $r = $callSync(19453);
     return $r.hnn(OtelSdkResourceOption.$h);
   }
 
   /// Go: `func resource.WithContainerID() resource.Option`.
   OtelSdkResourceOption withContainerId() {
-    final $r = $callSync(19448);
+    final $r = $callSync(19454);
     return $r.hnn(OtelSdkResourceOption.$h);
   }
 
   /// Go: `func resource.WithDetectors(detectors ...resource.Detector) resource.Option`.
   OtelSdkResourceOption withDetectors(
       [List<OtelSdkResourceDetector> detectors = const []]) {
-    final $r = $callSync(19449, $W()..list(detectors, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(19455, $W()..list(detectors, (w0, e0) => w0.h(e0)));
     return $r.hnn(OtelSdkResourceOption.$h);
   }
 
   /// Go: `func resource.WithFromEnv() resource.Option`.
   OtelSdkResourceOption withFromEnv() {
-    final $r = $callSync(19450);
+    final $r = $callSync(19456);
     return $r.hnn(OtelSdkResourceOption.$h);
   }
 
   /// Go: `func resource.WithHost() resource.Option`.
   OtelSdkResourceOption withHost() {
-    final $r = $callSync(19451);
+    final $r = $callSync(19457);
     return $r.hnn(OtelSdkResourceOption.$h);
   }
 
   /// Go: `func resource.WithHostID() resource.Option`.
   OtelSdkResourceOption withHostId() {
-    final $r = $callSync(19452);
+    final $r = $callSync(19458);
     return $r.hnn(OtelSdkResourceOption.$h);
   }
 
   /// Go: `func resource.WithOS() resource.Option`.
   OtelSdkResourceOption withOs() {
-    final $r = $callSync(19453);
+    final $r = $callSync(19459);
     return $r.hnn(OtelSdkResourceOption.$h);
   }
 
   /// Go: `func resource.WithOSDescription() resource.Option`.
   OtelSdkResourceOption withOsDescription() {
-    final $r = $callSync(19454);
+    final $r = $callSync(19460);
     return $r.hnn(OtelSdkResourceOption.$h);
   }
 
   /// Go: `func resource.WithOSType() resource.Option`.
   OtelSdkResourceOption withOsType() {
-    final $r = $callSync(19455);
+    final $r = $callSync(19461);
     return $r.hnn(OtelSdkResourceOption.$h);
   }
 
   /// Go: `func resource.WithProcess() resource.Option`.
   OtelSdkResourceOption withProcess() {
-    final $r = $callSync(19456);
+    final $r = $callSync(19462);
     return $r.hnn(OtelSdkResourceOption.$h);
   }
 
   /// Go: `func resource.WithProcessCommandArgs() resource.Option`.
   OtelSdkResourceOption withProcessCommandArgs() {
-    final $r = $callSync(19457);
+    final $r = $callSync(19463);
     return $r.hnn(OtelSdkResourceOption.$h);
   }
 
   /// Go: `func resource.WithProcessExecutableName() resource.Option`.
   OtelSdkResourceOption withProcessExecutableName() {
-    final $r = $callSync(19458);
+    final $r = $callSync(19464);
     return $r.hnn(OtelSdkResourceOption.$h);
   }
 
   /// Go: `func resource.WithProcessExecutablePath() resource.Option`.
   OtelSdkResourceOption withProcessExecutablePath() {
-    final $r = $callSync(19459);
+    final $r = $callSync(19465);
     return $r.hnn(OtelSdkResourceOption.$h);
   }
 
   /// Go: `func resource.WithProcessOwner() resource.Option`.
   OtelSdkResourceOption withProcessOwner() {
-    final $r = $callSync(19460);
+    final $r = $callSync(19466);
     return $r.hnn(OtelSdkResourceOption.$h);
   }
 
   /// Go: `func resource.WithProcessPID() resource.Option`.
   OtelSdkResourceOption withProcessPid() {
-    final $r = $callSync(19461);
+    final $r = $callSync(19467);
     return $r.hnn(OtelSdkResourceOption.$h);
   }
 
   /// Go: `func resource.WithProcessRuntimeDescription() resource.Option`.
   OtelSdkResourceOption withProcessRuntimeDescription() {
-    final $r = $callSync(19462);
+    final $r = $callSync(19468);
     return $r.hnn(OtelSdkResourceOption.$h);
   }
 
   /// Go: `func resource.WithProcessRuntimeName() resource.Option`.
   OtelSdkResourceOption withProcessRuntimeName() {
-    final $r = $callSync(19463);
+    final $r = $callSync(19469);
     return $r.hnn(OtelSdkResourceOption.$h);
   }
 
   /// Go: `func resource.WithProcessRuntimeVersion() resource.Option`.
   OtelSdkResourceOption withProcessRuntimeVersion() {
-    final $r = $callSync(19464);
+    final $r = $callSync(19470);
     return $r.hnn(OtelSdkResourceOption.$h);
   }
 
   /// Go: `func resource.WithSchemaURL(schemaURL string) resource.Option`.
   OtelSdkResourceOption withSchemaUrl(String schemaUrl) {
-    final $r = $callSync(19465, $W()..str(schemaUrl));
+    final $r = $callSync(19471, $W()..str(schemaUrl));
     return $r.hnn(OtelSdkResourceOption.$h);
   }
 
   /// Go: `func resource.WithService() resource.Option`.
   OtelSdkResourceOption withService() {
-    final $r = $callSync(19466);
+    final $r = $callSync(19472);
     return $r.hnn(OtelSdkResourceOption.$h);
   }
 
   /// Go: `func resource.WithTelemetrySDK() resource.Option`.
   OtelSdkResourceOption withTelemetrySdk() {
-    final $r = $callSync(19467);
+    final $r = $callSync(19473);
     return $r.hnn(OtelSdkResourceOption.$h);
   }
 }

@@ -123,43 +123,43 @@ final class KuboCoreCommandsNameResolvedPath {
 extension GoIpfsKuboCoreCommandsNameApi on GoIpfsKuboCoreCommandsName {
   /// Go: `var name.IpnsCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get ipnsCmd {
-    final $r = $callSync(11410);
+    final $r = $callSync(11416);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var name.IpnsGetCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get ipnsGetCmd {
-    final $r = $callSync(11411);
+    final $r = $callSync(11417);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var name.IpnsInspectCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get ipnsInspectCmd {
-    final $r = $callSync(11412);
+    final $r = $callSync(11418);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var name.IpnsPubsubCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get ipnsPubsubCmd {
-    final $r = $callSync(11413);
+    final $r = $callSync(11419);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var name.IpnsPutCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get ipnsPutCmd {
-    final $r = $callSync(11414);
+    final $r = $callSync(11420);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var name.NameCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get nameCmd {
-    final $r = $callSync(11415);
+    final $r = $callSync(11421);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var name.PublishCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get publishCmd {
-    final $r = $callSync(11416);
+    final $r = $callSync(11422);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 }

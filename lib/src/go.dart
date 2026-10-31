@@ -635,7 +635,6 @@ export 'package:p2p_ffi/go/opentracing/opentracing_go.dart';
 export 'package:p2p_ffi/go/opentracing/opentracing_go/log.dart';
 export 'package:p2p_ffi/go/os.dart';
 export 'package:p2p_ffi/go/os/exec.dart';
-export 'package:p2p_ffi/go/os/signal.dart';
 export 'package:p2p_ffi/go/os/user.dart';
 export 'package:p2p_ffi/go/otel.dart';
 export 'package:p2p_ffi/go/otel/attribute.dart';
@@ -7180,9 +7179,6 @@ final class GoOs {
   /// Go: package `os/exec`.
   GoOsExec get exec => const GoOsExec._();
 
-  /// Go: package `os/signal`.
-  GoOsSignal get signal => const GoOsSignal._();
-
   /// Go: package `os/user`.
   GoOsUser get user => const GoOsUser._();
 }
@@ -12839,11 +12835,6 @@ final class GoOsEnums {
 /// Go: package `os/exec`, as `go.os.exec`.
 final class GoOsExec {
   const GoOsExec._();
-}
-
-/// Go: package `os/signal`, as `go.os.signal`.
-final class GoOsSignal {
-  const GoOsSignal._();
 }
 
 /// Go: package `os/user`, as `go.os.user`.

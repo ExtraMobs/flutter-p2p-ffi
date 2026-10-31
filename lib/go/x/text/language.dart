@@ -38,19 +38,19 @@ class TextLanguageBase extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (language.Base).ISO3() string`.
   String iso3() {
-    final $r = $callSync(23872, $W()..h(this));
+    final $r = $callSync(23878, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (language.Base).IsPrivateUse() bool`.
   bool isPrivateUse() {
-    final $r = $callSync(23873, $W()..h(this));
+    final $r = $callSync(23879, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (language.Base).String() string`.
   String string() {
-    final $r = $callSync(23874, $W()..h(this));
+    final $r = $callSync(23880, $W()..h(this));
     return $r.str();
   }
 }
@@ -116,19 +116,19 @@ class TextLanguageExtension extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (language.Extension).String() string`.
   String string() {
-    final $r = $callSync(23895, $W()..h(this));
+    final $r = $callSync(23901, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (language.Extension).Tokens() []string`.
   List<String> tokens() {
-    final $r = $callSync(23896, $W()..h(this));
+    final $r = $callSync(23902, $W()..h(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (language.Extension).Type() byte`.
   int type() {
-    final $r = $callSync(23897, $W()..h(this));
+    final $r = $callSync(23903, $W()..h(this));
     return $r.i64();
   }
 }
@@ -146,7 +146,7 @@ class TextLanguageMatcher extends GoHandle with TextLanguageMatcher$ {
   factory TextLanguageMatcher(List<TextLanguageTag> t,
       [List<TextLanguageMatchOption> options = const []]) {
     final $r = $callSync(
-        23936,
+        23942,
         $W()
           ..list(t, (w0, e0) => w0.h(e0))
           ..list(options, (w0, e0) => w0.opt(e0)));
@@ -159,7 +159,7 @@ mixin TextLanguageMatcher$ on GoHandle {
   /// Go: `func (language.Matcher).Match(t ...language.Tag) (tag language.Tag, index int, c language.Confidence)`.
   (TextLanguageTag, int, int) match([List<TextLanguageTag> t = const []]) {
     final $r = $callSync(
-        23927,
+        23933,
         $W()
           ..h(this)
           ..list(t, (w0, e0) => w0.h(e0)));
@@ -187,14 +187,14 @@ class TextLanguageRegion extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (language.Region).Canonicalize() language.Region`.
   TextLanguageRegion canonicalize() {
-    final $r = $callSync(23949, $W()..h(this));
+    final $r = $callSync(23955, $W()..h(this));
     return $r.hnn(TextLanguageRegion.$h);
   }
 
   /// Go: `func (language.Region).Contains(c language.Region) bool`.
   bool contains(TextLanguageRegion c) {
     final $r = $callSync(
-        23950,
+        23956,
         $W()
           ..h(this)
           ..h(c));
@@ -203,43 +203,43 @@ class TextLanguageRegion extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (language.Region).ISO3() string`.
   String iso3() {
-    final $r = $callSync(23951, $W()..h(this));
+    final $r = $callSync(23957, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (language.Region).IsCountry() bool`.
   bool isCountry() {
-    final $r = $callSync(23952, $W()..h(this));
+    final $r = $callSync(23958, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (language.Region).IsGroup() bool`.
   bool isGroup() {
-    final $r = $callSync(23953, $W()..h(this));
+    final $r = $callSync(23959, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (language.Region).IsPrivateUse() bool`.
   bool isPrivateUse() {
-    final $r = $callSync(23954, $W()..h(this));
+    final $r = $callSync(23960, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (language.Region).M49() int`.
   int m49() {
-    final $r = $callSync(23955, $W()..h(this));
+    final $r = $callSync(23961, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (language.Region).String() string`.
   String string() {
-    final $r = $callSync(23956, $W()..h(this));
+    final $r = $callSync(23962, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (language.Region).TLD() (language.Region, error)`.
   TextLanguageRegion tld() {
-    final $r = $callSync(23957, $W()..h(this));
+    final $r = $callSync(23963, $W()..h(this));
     return $r.hnn(TextLanguageRegion.$h);
   }
 }
@@ -264,13 +264,13 @@ class TextLanguageScript extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (language.Script).IsPrivateUse() bool`.
   bool isPrivateUse() {
-    final $r = $callSync(23960, $W()..h(this));
+    final $r = $callSync(23966, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (language.Script).String() string`.
   String string() {
-    final $r = $callSync(23961, $W()..h(this));
+    final $r = $callSync(23967, $W()..h(this));
     return $r.str();
   }
 }
@@ -297,14 +297,14 @@ class TextLanguageTag extends $encoding.EncodingTextUnmarshaler
 
   /// Go: `func (language.Tag).Base() (language.Base, language.Confidence)`.
   (TextLanguageBase, int) base() {
-    final $r = $callSync(23972, $W()..h(this));
+    final $r = $callSync(23978, $W()..h(this));
     return ($r.hnn(TextLanguageBase.$h), $r.i64());
   }
 
   /// Go: `func (language.Tag).Extension(x byte) (ext language.Extension, ok bool)`.
   (TextLanguageExtension, bool) extension(int x) {
     final $r = $callSync(
-        23973,
+        23979,
         $W()
           ..h(this)
           ..i64(x));
@@ -313,31 +313,31 @@ class TextLanguageTag extends $encoding.EncodingTextUnmarshaler
 
   /// Go: `func (language.Tag).Extensions() []language.Extension`.
   List<TextLanguageExtension> extensions() {
-    final $r = $callSync(23974, $W()..h(this));
+    final $r = $callSync(23980, $W()..h(this));
     return $r.list(() => $r.hnn(TextLanguageExtension.$h));
   }
 
   /// Go: `func (language.Tag).IsRoot() bool`.
   bool isRoot() {
-    final $r = $callSync(23975, $W()..h(this));
+    final $r = $callSync(23981, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (language.Tag).MarshalText() (text []byte, err error)`.
   Uint8List marshalText() {
-    final $r = $callSync(23976, $W()..h(this));
+    final $r = $callSync(23982, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (language.Tag).Parent() language.Tag`.
   TextLanguageTag parent() {
-    final $r = $callSync(23977, $W()..h(this));
+    final $r = $callSync(23983, $W()..h(this));
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `func (language.Tag).Raw() (b language.Base, s language.Script, r language.Region)`.
   (TextLanguageBase, TextLanguageScript, TextLanguageRegion) raw() {
-    final $r = $callSync(23978, $W()..h(this));
+    final $r = $callSync(23984, $W()..h(this));
     return (
       $r.hnn(TextLanguageBase.$h),
       $r.hnn(TextLanguageScript.$h),
@@ -347,20 +347,20 @@ class TextLanguageTag extends $encoding.EncodingTextUnmarshaler
 
   /// Go: `func (language.Tag).Region() (language.Region, language.Confidence)`.
   (TextLanguageRegion, int) region() {
-    final $r = $callSync(23979, $W()..h(this));
+    final $r = $callSync(23985, $W()..h(this));
     return ($r.hnn(TextLanguageRegion.$h), $r.i64());
   }
 
   /// Go: `func (language.Tag).Script() (language.Script, language.Confidence)`.
   (TextLanguageScript, int) script() {
-    final $r = $callSync(23980, $W()..h(this));
+    final $r = $callSync(23986, $W()..h(this));
     return ($r.hnn(TextLanguageScript.$h), $r.i64());
   }
 
   /// Go: `func (language.Tag).SetTypeForKey(key string, value string) (language.Tag, error)`.
   TextLanguageTag setTypeForKey(String key, String value) {
     final $r = $callSync(
-        23981,
+        23987,
         $W()
           ..h(this)
           ..str(key)
@@ -370,14 +370,14 @@ class TextLanguageTag extends $encoding.EncodingTextUnmarshaler
 
   /// Go: `func (language.Tag).String() string`.
   String string() {
-    final $r = $callSync(23982, $W()..h(this));
+    final $r = $callSync(23988, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (language.Tag).TypeForKey(key string) string`.
   String typeForKey(String key) {
     final $r = $callSync(
-        23983,
+        23989,
         $W()
           ..h(this)
           ..str(key));
@@ -387,7 +387,7 @@ class TextLanguageTag extends $encoding.EncodingTextUnmarshaler
   /// Go: `func (*language.Tag).UnmarshalText(text []byte) error`.
   void unmarshalText(Uint8List text) {
     $callSync(
-        23984,
+        23990,
         $W()
           ..h(this)
           ..bytes(text));
@@ -395,7 +395,7 @@ class TextLanguageTag extends $encoding.EncodingTextUnmarshaler
 
   /// Go: `func (language.Tag).Variants() []language.Variant`.
   List<TextLanguageVariant> variants() {
-    final $r = $callSync(23985, $W()..h(this));
+    final $r = $callSync(23991, $W()..h(this));
     return $r.list(() => $r.hnn(TextLanguageVariant.$h));
   }
 }
@@ -420,7 +420,7 @@ class TextLanguageVariant extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (language.Variant).String() string`.
   String string() {
-    final $r = $callSync(23995, $W()..h(this));
+    final $r = $callSync(24001, $W()..h(this));
     return $r.str();
   }
 }
@@ -438,110 +438,110 @@ class TextLanguageErrMissingLikelyTagsData extends GolangException {
 extension GoXTextLanguageApi on GoXTextLanguage {
   /// Go: `var language.Afrikaans language.Tag`.
   TextLanguageTag get afrikaans {
-    final $r = $callSync(23865);
+    final $r = $callSync(23871);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Albanian language.Tag`.
   TextLanguageTag get albanian {
-    final $r = $callSync(23866);
+    final $r = $callSync(23872);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.AmericanEnglish language.Tag`.
   TextLanguageTag get americanEnglish {
-    final $r = $callSync(23867);
+    final $r = $callSync(23873);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Amharic language.Tag`.
   TextLanguageTag get amharic {
-    final $r = $callSync(23868);
+    final $r = $callSync(23874);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Arabic language.Tag`.
   TextLanguageTag get arabic {
-    final $r = $callSync(23869);
+    final $r = $callSync(23875);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Armenian language.Tag`.
   TextLanguageTag get armenian {
-    final $r = $callSync(23870);
+    final $r = $callSync(23876);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Azerbaijani language.Tag`.
   TextLanguageTag get azerbaijani {
-    final $r = $callSync(23871);
+    final $r = $callSync(23877);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Bengali language.Tag`.
   TextLanguageTag get bengali {
-    final $r = $callSync(23875);
+    final $r = $callSync(23881);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.BrazilianPortuguese language.Tag`.
   TextLanguageTag get brazilianPortuguese {
-    final $r = $callSync(23876);
+    final $r = $callSync(23882);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.BritishEnglish language.Tag`.
   TextLanguageTag get britishEnglish {
-    final $r = $callSync(23877);
+    final $r = $callSync(23883);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Bulgarian language.Tag`.
   TextLanguageTag get bulgarian {
-    final $r = $callSync(23878);
+    final $r = $callSync(23884);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Burmese language.Tag`.
   TextLanguageTag get burmese {
-    final $r = $callSync(23879);
+    final $r = $callSync(23885);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.CanadianFrench language.Tag`.
   TextLanguageTag get canadianFrench {
-    final $r = $callSync(23880);
+    final $r = $callSync(23886);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Catalan language.Tag`.
   TextLanguageTag get catalan {
-    final $r = $callSync(23881);
+    final $r = $callSync(23887);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Chinese language.Tag`.
   TextLanguageTag get chinese {
-    final $r = $callSync(23882);
+    final $r = $callSync(23888);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `func language.CompactIndex(t language.Tag) (index int, exact bool)`.
   (int, bool) compactIndex(TextLanguageTag t) {
-    final $r = $callSync(23883, $W()..h(t));
+    final $r = $callSync(23889, $W()..h(t));
     return ($r.i64(), $r.b());
   }
 
   /// Go: `func language.Compose(part ...interface{}) (t language.Tag, err error)`.
   TextLanguageTag compose([List<Object?> part = const []]) {
-    final $r = $callSync(23884, $W()..list(part, (w0, e0) => w0.any(e0)));
+    final $r = $callSync(23890, $W()..list(part, (w0, e0) => w0.any(e0)));
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `func language.Comprehends(speaker language.Tag, alternative language.Tag) language.Confidence`.
   int comprehends(TextLanguageTag speaker, TextLanguageTag alternative) {
     final $r = $callSync(
-        23885,
+        23891,
         $W()
           ..h(speaker)
           ..h(alternative));
@@ -550,223 +550,223 @@ extension GoXTextLanguageApi on GoXTextLanguage {
 
   /// Go: `var language.Croatian language.Tag`.
   TextLanguageTag get croatian {
-    final $r = $callSync(23886);
+    final $r = $callSync(23892);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Czech language.Tag`.
   TextLanguageTag get czech {
-    final $r = $callSync(23887);
+    final $r = $callSync(23893);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Danish language.Tag`.
   TextLanguageTag get danish {
-    final $r = $callSync(23888);
+    final $r = $callSync(23894);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Dutch language.Tag`.
   TextLanguageTag get dutch {
-    final $r = $callSync(23889);
+    final $r = $callSync(23895);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `func language.EncodeM49(r int) (language.Region, error)`.
   TextLanguageRegion encodeM49(int r) {
-    final $r = $callSync(23890, $W()..i64(r));
+    final $r = $callSync(23896, $W()..i64(r));
     return $r.hnn(TextLanguageRegion.$h);
   }
 
   /// Go: `var language.English language.Tag`.
   TextLanguageTag get english {
-    final $r = $callSync(23891);
+    final $r = $callSync(23897);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Estonian language.Tag`.
   TextLanguageTag get estonian {
-    final $r = $callSync(23892);
+    final $r = $callSync(23898);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.EuropeanPortuguese language.Tag`.
   TextLanguageTag get europeanPortuguese {
-    final $r = $callSync(23893);
+    final $r = $callSync(23899);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.EuropeanSpanish language.Tag`.
   TextLanguageTag get europeanSpanish {
-    final $r = $callSync(23894);
+    final $r = $callSync(23900);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Filipino language.Tag`.
   TextLanguageTag get filipino {
-    final $r = $callSync(23898);
+    final $r = $callSync(23904);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Finnish language.Tag`.
   TextLanguageTag get finnish {
-    final $r = $callSync(23899);
+    final $r = $callSync(23905);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.French language.Tag`.
   TextLanguageTag get french {
-    final $r = $callSync(23900);
+    final $r = $callSync(23906);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Georgian language.Tag`.
   TextLanguageTag get georgian {
-    final $r = $callSync(23901);
+    final $r = $callSync(23907);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.German language.Tag`.
   TextLanguageTag get german {
-    final $r = $callSync(23902);
+    final $r = $callSync(23908);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Greek language.Tag`.
   TextLanguageTag get greek {
-    final $r = $callSync(23903);
+    final $r = $callSync(23909);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Gujarati language.Tag`.
   TextLanguageTag get gujarati {
-    final $r = $callSync(23904);
+    final $r = $callSync(23910);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Hebrew language.Tag`.
   TextLanguageTag get hebrew {
-    final $r = $callSync(23905);
+    final $r = $callSync(23911);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Hindi language.Tag`.
   TextLanguageTag get hindi {
-    final $r = $callSync(23906);
+    final $r = $callSync(23912);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Hungarian language.Tag`.
   TextLanguageTag get hungarian {
-    final $r = $callSync(23907);
+    final $r = $callSync(23913);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Icelandic language.Tag`.
   TextLanguageTag get icelandic {
-    final $r = $callSync(23908);
+    final $r = $callSync(23914);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Indonesian language.Tag`.
   TextLanguageTag get indonesian {
-    final $r = $callSync(23909);
+    final $r = $callSync(23915);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Italian language.Tag`.
   TextLanguageTag get italian {
-    final $r = $callSync(23910);
+    final $r = $callSync(23916);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Japanese language.Tag`.
   TextLanguageTag get japanese {
-    final $r = $callSync(23911);
+    final $r = $callSync(23917);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Kannada language.Tag`.
   TextLanguageTag get kannada {
-    final $r = $callSync(23912);
+    final $r = $callSync(23918);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Kazakh language.Tag`.
   TextLanguageTag get kazakh {
-    final $r = $callSync(23913);
+    final $r = $callSync(23919);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Khmer language.Tag`.
   TextLanguageTag get khmer {
-    final $r = $callSync(23914);
+    final $r = $callSync(23920);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Kirghiz language.Tag`.
   TextLanguageTag get kirghiz {
-    final $r = $callSync(23915);
+    final $r = $callSync(23921);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Korean language.Tag`.
   TextLanguageTag get korean {
-    final $r = $callSync(23916);
+    final $r = $callSync(23922);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Lao language.Tag`.
   TextLanguageTag get lao {
-    final $r = $callSync(23917);
+    final $r = $callSync(23923);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.LatinAmericanSpanish language.Tag`.
   TextLanguageTag get latinAmericanSpanish {
-    final $r = $callSync(23918);
+    final $r = $callSync(23924);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Latvian language.Tag`.
   TextLanguageTag get latvian {
-    final $r = $callSync(23919);
+    final $r = $callSync(23925);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Lithuanian language.Tag`.
   TextLanguageTag get lithuanian {
-    final $r = $callSync(23920);
+    final $r = $callSync(23926);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Macedonian language.Tag`.
   TextLanguageTag get macedonian {
-    final $r = $callSync(23921);
+    final $r = $callSync(23927);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `func language.Make(s string) language.Tag`.
   TextLanguageTag make(String s) {
-    final $r = $callSync(23922, $W()..str(s));
+    final $r = $callSync(23928, $W()..str(s));
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Malay language.Tag`.
   TextLanguageTag get malay {
-    final $r = $callSync(23923);
+    final $r = $callSync(23929);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Malayalam language.Tag`.
   TextLanguageTag get malayalam {
-    final $r = $callSync(23924);
+    final $r = $callSync(23930);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Marathi language.Tag`.
   TextLanguageTag get marathi {
-    final $r = $callSync(23925);
+    final $r = $callSync(23931);
     return $r.hnn(TextLanguageTag.$h);
   }
 
@@ -774,7 +774,7 @@ extension GoXTextLanguageApi on GoXTextLanguage {
   (TextLanguageTag, int) matchStrings(TextLanguageMatcher m,
       [List<String> lang = const []]) {
     final $r = $callSync(
-        23926,
+        23932,
         $W()
           ..h(m)
           ..list(lang, (w0, e0) => w0.str(e0)));
@@ -783,259 +783,259 @@ extension GoXTextLanguageApi on GoXTextLanguage {
 
   /// Go: `var language.ModernStandardArabic language.Tag`.
   TextLanguageTag get modernStandardArabic {
-    final $r = $callSync(23928);
+    final $r = $callSync(23934);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Mongolian language.Tag`.
   TextLanguageTag get mongolian {
-    final $r = $callSync(23929);
+    final $r = $callSync(23935);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `func language.MustParse(s string) language.Tag`.
   TextLanguageTag mustParse(String s) {
-    final $r = $callSync(23930, $W()..str(s));
+    final $r = $callSync(23936, $W()..str(s));
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `func language.MustParseBase(s string) language.Base`.
   TextLanguageBase mustParseBase(String s) {
-    final $r = $callSync(23931, $W()..str(s));
+    final $r = $callSync(23937, $W()..str(s));
     return $r.hnn(TextLanguageBase.$h);
   }
 
   /// Go: `func language.MustParseRegion(s string) language.Region`.
   TextLanguageRegion mustParseRegion(String s) {
-    final $r = $callSync(23932, $W()..str(s));
+    final $r = $callSync(23938, $W()..str(s));
     return $r.hnn(TextLanguageRegion.$h);
   }
 
   /// Go: `func language.MustParseScript(s string) language.Script`.
   TextLanguageScript mustParseScript(String s) {
-    final $r = $callSync(23933, $W()..str(s));
+    final $r = $callSync(23939, $W()..str(s));
     return $r.hnn(TextLanguageScript.$h);
   }
 
   /// Go: `var language.Nepali language.Tag`.
   TextLanguageTag get nepali {
-    final $r = $callSync(23934);
+    final $r = $callSync(23940);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `func language.NewCoverage(list ...interface{}) language.Coverage`.
   TextLanguageCoverage newCoverage([List<Object?> list = const []]) {
-    final $r = $callSync(23935, $W()..list(list, (w0, e0) => w0.any(e0)));
+    final $r = $callSync(23941, $W()..list(list, (w0, e0) => w0.any(e0)));
     return $r.p() ? TextLanguageCoverage.$dec($r) : $nil();
   }
 
   /// Go: `var language.Norwegian language.Tag`.
   TextLanguageTag get norwegian {
-    final $r = $callSync(23937);
+    final $r = $callSync(23943);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `func language.Parse(s string) (t language.Tag, err error)`.
   TextLanguageTag parse(String s) {
-    final $r = $callSync(23938, $W()..str(s));
+    final $r = $callSync(23944, $W()..str(s));
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `func language.ParseAcceptLanguage(s string) (tag []language.Tag, q []float32, err error)`.
   (List<TextLanguageTag>, List<double>) parseAcceptLanguage(String s) {
-    final $r = $callSync(23939, $W()..str(s));
+    final $r = $callSync(23945, $W()..str(s));
     return ($r.list(() => $r.hnn(TextLanguageTag.$h)), $r.list(() => $r.f64()));
   }
 
   /// Go: `func language.ParseBase(s string) (language.Base, error)`.
   TextLanguageBase parseBase(String s) {
-    final $r = $callSync(23940, $W()..str(s));
+    final $r = $callSync(23946, $W()..str(s));
     return $r.hnn(TextLanguageBase.$h);
   }
 
   /// Go: `func language.ParseExtension(s string) (e language.Extension, err error)`.
   TextLanguageExtension parseExtension(String s) {
-    final $r = $callSync(23941, $W()..str(s));
+    final $r = $callSync(23947, $W()..str(s));
     return $r.hnn(TextLanguageExtension.$h);
   }
 
   /// Go: `func language.ParseRegion(s string) (language.Region, error)`.
   TextLanguageRegion parseRegion(String s) {
-    final $r = $callSync(23942, $W()..str(s));
+    final $r = $callSync(23948, $W()..str(s));
     return $r.hnn(TextLanguageRegion.$h);
   }
 
   /// Go: `func language.ParseScript(s string) (language.Script, error)`.
   TextLanguageScript parseScript(String s) {
-    final $r = $callSync(23943, $W()..str(s));
+    final $r = $callSync(23949, $W()..str(s));
     return $r.hnn(TextLanguageScript.$h);
   }
 
   /// Go: `func language.ParseVariant(s string) (language.Variant, error)`.
   TextLanguageVariant parseVariant(String s) {
-    final $r = $callSync(23944, $W()..str(s));
+    final $r = $callSync(23950, $W()..str(s));
     return $r.hnn(TextLanguageVariant.$h);
   }
 
   /// Go: `var language.Persian language.Tag`.
   TextLanguageTag get persian {
-    final $r = $callSync(23945);
+    final $r = $callSync(23951);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Polish language.Tag`.
   TextLanguageTag get polish {
-    final $r = $callSync(23946);
+    final $r = $callSync(23952);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Portuguese language.Tag`.
   TextLanguageTag get portuguese {
-    final $r = $callSync(23947);
+    final $r = $callSync(23953);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Punjabi language.Tag`.
   TextLanguageTag get punjabi {
-    final $r = $callSync(23948);
+    final $r = $callSync(23954);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Romanian language.Tag`.
   TextLanguageTag get romanian {
-    final $r = $callSync(23958);
+    final $r = $callSync(23964);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Russian language.Tag`.
   TextLanguageTag get russian {
-    final $r = $callSync(23959);
+    final $r = $callSync(23965);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Serbian language.Tag`.
   TextLanguageTag get serbian {
-    final $r = $callSync(23962);
+    final $r = $callSync(23968);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.SerbianLatin language.Tag`.
   TextLanguageTag get serbianLatin {
-    final $r = $callSync(23963);
+    final $r = $callSync(23969);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.SimplifiedChinese language.Tag`.
   TextLanguageTag get simplifiedChinese {
-    final $r = $callSync(23964);
+    final $r = $callSync(23970);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Sinhala language.Tag`.
   TextLanguageTag get sinhala {
-    final $r = $callSync(23965);
+    final $r = $callSync(23971);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Slovak language.Tag`.
   TextLanguageTag get slovak {
-    final $r = $callSync(23966);
+    final $r = $callSync(23972);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Slovenian language.Tag`.
   TextLanguageTag get slovenian {
-    final $r = $callSync(23967);
+    final $r = $callSync(23973);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Spanish language.Tag`.
   TextLanguageTag get spanish {
-    final $r = $callSync(23968);
+    final $r = $callSync(23974);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Supported language.Coverage`.
   TextLanguageCoverage get supported {
-    final $r = $callSync(23969);
+    final $r = $callSync(23975);
     return $r.p() ? TextLanguageCoverage.$dec($r) : $nil();
   }
 
   /// Go: `var language.Swahili language.Tag`.
   TextLanguageTag get swahili {
-    final $r = $callSync(23970);
+    final $r = $callSync(23976);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Swedish language.Tag`.
   TextLanguageTag get swedish {
-    final $r = $callSync(23971);
+    final $r = $callSync(23977);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Tamil language.Tag`.
   TextLanguageTag get tamil {
-    final $r = $callSync(23986);
+    final $r = $callSync(23992);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Telugu language.Tag`.
   TextLanguageTag get telugu {
-    final $r = $callSync(23987);
+    final $r = $callSync(23993);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Thai language.Tag`.
   TextLanguageTag get thai {
-    final $r = $callSync(23988);
+    final $r = $callSync(23994);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.TraditionalChinese language.Tag`.
   TextLanguageTag get traditionalChinese {
-    final $r = $callSync(23989);
+    final $r = $callSync(23995);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Turkish language.Tag`.
   TextLanguageTag get turkish {
-    final $r = $callSync(23990);
+    final $r = $callSync(23996);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Ukrainian language.Tag`.
   TextLanguageTag get ukrainian {
-    final $r = $callSync(23991);
+    final $r = $callSync(23997);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Und language.Tag`.
   TextLanguageTag get und {
-    final $r = $callSync(23992);
+    final $r = $callSync(23998);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Urdu language.Tag`.
   TextLanguageTag get urdu {
-    final $r = $callSync(23993);
+    final $r = $callSync(23999);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Uzbek language.Tag`.
   TextLanguageTag get uzbek {
-    final $r = $callSync(23994);
+    final $r = $callSync(24000);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Vietnamese language.Tag`.
   TextLanguageTag get vietnamese {
-    final $r = $callSync(23996);
+    final $r = $callSync(24002);
     return $r.hnn(TextLanguageTag.$h);
   }
 
   /// Go: `var language.Zulu language.Tag`.
   TextLanguageTag get zulu {
-    final $r = $callSync(23997);
+    final $r = $callSync(24003);
     return $r.hnn(TextLanguageTag.$h);
   }
 }

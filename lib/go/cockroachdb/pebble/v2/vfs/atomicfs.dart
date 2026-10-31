@@ -37,13 +37,13 @@ class PebbleV2VfsAtomicfsMarker extends $io.IoCloser
 
   /// Go: `func (*atomicfs.Marker).Close() error`.
   void close() {
-    $callSync(5639, $W()..h(this));
+    $callSync(5648, $W()..h(this));
   }
 
   /// Go: `func (*atomicfs.Marker).Move(newValue string) error`.
   void move(String newValue) {
     $callSync(
-        5640,
+        5649,
         $W()
           ..h(this)
           ..str(newValue));
@@ -51,13 +51,13 @@ class PebbleV2VfsAtomicfsMarker extends $io.IoCloser
 
   /// Go: `func (*atomicfs.Marker).NextIter() uint64`.
   int nextIter() {
-    final $r = $callSync(5641, $W()..h(this));
+    final $r = $callSync(5650, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*atomicfs.Marker).RemoveObsolete() error`.
   void removeObsolete() {
-    $callSync(5642, $W()..h(this));
+    $callSync(5651, $W()..h(this));
   }
 }
 
@@ -68,7 +68,7 @@ extension GoCockroachdbPebbleV2VfsAtomicfsApi
   (PebbleV2VfsAtomicfsMarker, String) locateMarker(
       $vfs.PebbleV2VfsFs fs, String dir, String markerName) {
     final $r = $callSync(
-        5637,
+        5646,
         $W()
           ..h(fs)
           ..str(dir)
@@ -80,7 +80,7 @@ extension GoCockroachdbPebbleV2VfsAtomicfsApi
   (PebbleV2VfsAtomicfsMarker, String) locateMarkerInListing(
       $vfs.PebbleV2VfsFs fs, String dir, String markerName, List<String> ls) {
     final $r = $callSync(
-        5638,
+        5647,
         $W()
           ..h(fs)
           ..str(dir)
@@ -92,7 +92,7 @@ extension GoCockroachdbPebbleV2VfsAtomicfsApi
   /// Go: `func atomicfs.ReadMarker(fs vfs.FS, dir string, markerName string) (string, error)`.
   String readMarker($vfs.PebbleV2VfsFs fs, String dir, String markerName) {
     final $r = $callSync(
-        5643,
+        5652,
         $W()
           ..h(fs)
           ..str(dir)

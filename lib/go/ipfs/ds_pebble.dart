@@ -43,7 +43,7 @@ class DsPebbleBatch extends $datastore.DatastoreBatch
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> commit($context.Context ctx) async {
     await $call(
-        10794,
+        10803,
         $W()
           ..h(this)
           ..h(ctx));
@@ -54,7 +54,7 @@ class DsPebbleBatch extends $datastore.DatastoreBatch
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> delete($context.Context ctx, $datastore.DatastoreKey key) async {
     await $call(
-        10795,
+        10804,
         $W()
           ..h(this)
           ..h(ctx)
@@ -67,7 +67,7 @@ class DsPebbleBatch extends $datastore.DatastoreBatch
   Future<void> put($context.Context ctx, $datastore.DatastoreKey key,
       Uint8List value) async {
     await $call(
-        10796,
+        10805,
         $W()
           ..h(this)
           ..h(ctx)
@@ -112,7 +112,7 @@ class DsPebbleDatastore extends $datastore.Datastore
   factory DsPebbleDatastore(String path,
       [List<DsPebbleOption> options = const []]) {
     final $r = $callSync(
-        10807,
+        10816,
         $W()
           ..str(path)
           ..list(options, (w0, e0) => w0.opt(e0)));
@@ -124,7 +124,7 @@ class DsPebbleDatastore extends $datastore.Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<$datastore.DatastoreBatch> batch($context.Context ctx) async {
     final $r = await $call(
-        10797,
+        10806,
         $W()
           ..h(this)
           ..h(ctx));
@@ -133,7 +133,7 @@ class DsPebbleDatastore extends $datastore.Datastore
 
   /// Go: `func (*pebbleds.Datastore).Close() error`.
   void close() {
-    $callSync(10798, $W()..h(this));
+    $callSync(10807, $W()..h(this));
   }
 
   /// Go: `func (*pebbleds.Datastore).Delete(ctx context.Context, key datastore.Key) error`.
@@ -141,7 +141,7 @@ class DsPebbleDatastore extends $datastore.Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> delete($context.Context ctx, $datastore.DatastoreKey key) async {
     await $call(
-        10799,
+        10808,
         $W()
           ..h(this)
           ..h(ctx)
@@ -153,7 +153,7 @@ class DsPebbleDatastore extends $datastore.Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> diskUsage($context.Context ctx) async {
     final $r = await $call(
-        10800,
+        10809,
         $W()
           ..h(this)
           ..h(ctx));
@@ -166,7 +166,7 @@ class DsPebbleDatastore extends $datastore.Datastore
   Future<Uint8List> get(
       $context.Context ctx, $datastore.DatastoreKey key) async {
     final $r = await $call(
-        10801,
+        10810,
         $W()
           ..h(this)
           ..h(ctx)
@@ -179,7 +179,7 @@ class DsPebbleDatastore extends $datastore.Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getSize($context.Context ctx, $datastore.DatastoreKey key) async {
     final $r = await $call(
-        10802,
+        10811,
         $W()
           ..h(this)
           ..h(ctx)
@@ -192,7 +192,7 @@ class DsPebbleDatastore extends $datastore.Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> has($context.Context ctx, $datastore.DatastoreKey key) async {
     final $r = await $call(
-        10803,
+        10812,
         $W()
           ..h(this)
           ..h(ctx)
@@ -206,7 +206,7 @@ class DsPebbleDatastore extends $datastore.Datastore
   Future<void> put($context.Context ctx, $datastore.DatastoreKey key,
       Uint8List value) async {
     await $call(
-        10804,
+        10813,
         $W()
           ..h(this)
           ..h(ctx)
@@ -220,7 +220,7 @@ class DsPebbleDatastore extends $datastore.Datastore
   Future<$query.DatastoreQueryResults> query(
       $context.Context ctx, $query.DatastoreQuery q) async {
     final $r = await $call(
-        10805,
+        10814,
         $W()
           ..h(this)
           ..h(ctx)
@@ -233,7 +233,7 @@ class DsPebbleDatastore extends $datastore.Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> sync($context.Context ctx, $datastore.DatastoreKey key) async {
     await $call(
-        10806,
+        10815,
         $W()
           ..h(this)
           ..h(ctx)

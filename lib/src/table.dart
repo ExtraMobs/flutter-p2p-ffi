@@ -3,4 +3,4 @@
 /// Hash of the generated function table (FNV-1a 64 of "id key" per line, one
 /// per function) and of the kubo command schema (WIRE.md): sent in the Hello
 /// right after connecting to the p2p_host.
-const p2pTableHash = 0xb6ccb1720abdfcd6;
+const p2pTableHash = 0x815efde45de9ccf0;

@@ -60,14 +60,14 @@ class PerksQuantileStream extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*quantile.Stream).Count() int`.
   int count() {
-    final $r = $callSync(4025, $W()..h(this));
+    final $r = $callSync(4034, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*quantile.Stream).Insert(v float64)`.
   void insert(double v) {
     $callSync(
-        4026,
+        4035,
         $W()
           ..h(this)
           ..f64(v));
@@ -76,7 +76,7 @@ class PerksQuantileStream extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*quantile.Stream).Merge(samples quantile.Samples)`.
   void merge(List<PerksQuantileSample> samples) {
     $callSync(
-        4027,
+        4036,
         $W()
           ..h(this)
           ..list(samples, (w0, e0) => w0.dto(e0)));
@@ -85,7 +85,7 @@ class PerksQuantileStream extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*quantile.Stream).Query(q float64) float64`.
   double query(double q) {
     final $r = $callSync(
-        4028,
+        4037,
         $W()
           ..h(this)
           ..f64(q));
@@ -94,12 +94,12 @@ class PerksQuantileStream extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*quantile.Stream).Reset()`.
   void reset() {
-    $callSync(4029, $W()..h(this));
+    $callSync(4038, $W()..h(this));
   }
 
   /// Go: `func (*quantile.Stream).Samples() quantile.Samples`.
   List<PerksQuantileSample> samples() {
-    final $r = $callSync(4030, $W()..h(this));
+    final $r = $callSync(4039, $W()..h(this));
     return $r.list(() => $r.p() ? PerksQuantileSample.$dec($r) : $nil());
   }
 }
@@ -108,13 +108,13 @@ class PerksQuantileStream extends $crypto.CryptoDecrypterOpts
 extension GoBeorn7PerksQuantileApi on GoBeorn7PerksQuantile {
   /// Go: `func quantile.NewHighBiased(epsilon float64) *quantile.Stream`.
   PerksQuantileStream newHighBiased(double epsilon) {
-    final $r = $callSync(4023, $W()..f64(epsilon));
+    final $r = $callSync(4032, $W()..f64(epsilon));
     return $r.hnn(PerksQuantileStream.$h);
   }
 
   /// Go: `func quantile.NewLowBiased(epsilon float64) *quantile.Stream`.
   PerksQuantileStream newLowBiased(double epsilon) {
-    final $r = $callSync(4024, $W()..f64(epsilon));
+    final $r = $callSync(4033, $W()..f64(epsilon));
     return $r.hnn(PerksQuantileStream.$h);
   }
 }

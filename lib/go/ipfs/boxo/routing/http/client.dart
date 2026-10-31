@@ -48,7 +48,7 @@ class BoxoRoutingHttpClient
   Future<$ipns.BoxoIpnsRecord> getIpns(
       $context.Context ctx, $ipns.BoxoIpnsName name) async {
     final $r = await $call(
-        10386,
+        10395,
         $W()
           ..h(this)
           ..h(ctx)
@@ -64,7 +64,7 @@ class BoxoRoutingHttpClient
   Future<Duration> provideBitswap(
       $context.Context ctx, List<$cid.Cid> keys, Duration ttl) async {
     final $r = await $call(
-        10387,
+        10396,
         $W()
           ..h(this)
           ..h(ctx)
@@ -79,7 +79,7 @@ class BoxoRoutingHttpClient
   Future<void> putIpns($context.Context ctx, $ipns.BoxoIpnsName name,
       $ipns.BoxoIpnsRecord record) async {
     await $call(
-        10388,
+        10397,
         $W()
           ..h(this)
           ..h(ctx)
@@ -117,7 +117,7 @@ class BoxoRoutingHttpClientResponseBodyLimitedTransport
   /// Go: `func (*client.ResponseBodyLimitedTransport).RoundTrip(req *http.Request) (*http.Response, error)`.
   $http.NetHttpResponse roundTrip($http.NetHttpRequest req) {
     final $r = $callSync(
-        10393,
+        10402,
         $W()
           ..h(this)
           ..h(req));
@@ -147,13 +147,13 @@ class BoxoRoutingHttpClientHttpError extends GolangException {
 extension GoIpfsBoxoRoutingHttpClientApi on GoIpfsBoxoRoutingHttpClient {
   /// Go: `var client.DefaultProtocolFilter []string`.
   List<String> get defaultProtocolFilter {
-    final $r = $callSync(10389);
+    final $r = $callSync(10398);
     return $r.list(() => $r.str());
   }
 
   /// Go: `var client.ImportPath string`.
   String get importPath {
-    final $r = $callSync(10390);
+    final $r = $callSync(10399);
     return $r.str();
   }
 
@@ -161,7 +161,7 @@ extension GoIpfsBoxoRoutingHttpClientApi on GoIpfsBoxoRoutingHttpClient {
   BoxoRoutingHttpClient new$(String baseUrl,
       [List<BoxoRoutingHttpClientOption> opts = const []]) {
     final $r = $callSync(
-        10391,
+        10400,
         $W()
           ..str(baseUrl)
           ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -170,31 +170,31 @@ extension GoIpfsBoxoRoutingHttpClientApi on GoIpfsBoxoRoutingHttpClient {
 
   /// Go: `var client.OpenCensusViews []*view.View`.
   List<$view.StatsView> get openCensusViews {
-    final $r = $callSync(10392);
+    final $r = $callSync(10401);
     return $r.list(() => $r.p() ? $view.StatsView.$dec($r) : $nil());
   }
 
   /// Go: `var client.ViewLatency *view.View`.
   $view.StatsView get viewLatency {
-    final $r = $callSync(10394);
+    final $r = $callSync(10403);
     return $r.p() ? $view.StatsView.$dec($r) : $nil();
   }
 
   /// Go: `var client.ViewLength *view.View`.
   $view.StatsView get viewLength {
-    final $r = $callSync(10395);
+    final $r = $callSync(10404);
     return $r.p() ? $view.StatsView.$dec($r) : $nil();
   }
 
   /// Go: `var client.ViewPositiveResponses *view.View`.
   $view.StatsView get viewPositiveResponses {
-    final $r = $callSync(10396);
+    final $r = $callSync(10405);
     return $r.p() ? $view.StatsView.$dec($r) : $nil();
   }
 
   /// Go: `var client.ViewRequests *view.View`.
   $view.StatsView get viewRequests {
-    final $r = $callSync(10397);
+    final $r = $callSync(10406);
     return $r.p() ? $view.StatsView.$dec($r) : $nil();
   }
 }

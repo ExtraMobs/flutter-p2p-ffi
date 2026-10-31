@@ -101,7 +101,7 @@ extension GoCryptoDsaApi on GoCryptoDsa {
   /// Go: `func dsa.GenerateKey(priv *dsa.PrivateKey, rand io.Reader) error`.
   void generateKey(CryptoDsaPrivateKey priv, Object rand) {
     $callSync(
-        3159,
+        3168,
         $W()
           ..dto(priv)
           ..reader(rand));
@@ -110,7 +110,7 @@ extension GoCryptoDsaApi on GoCryptoDsa {
   /// Go: `func dsa.GenerateParameters(params *dsa.Parameters, rand io.Reader, sizes dsa.ParameterSizes) error`.
   void generateParameters(CryptoDsaParameters params, Object rand, int sizes) {
     $callSync(
-        3160,
+        3169,
         $W()
           ..dto(params)
           ..reader(rand)
@@ -121,7 +121,7 @@ extension GoCryptoDsaApi on GoCryptoDsa {
   ($big.MathBigInt, $big.MathBigInt) sign(
       Object random, CryptoDsaPrivateKey priv, Uint8List hash) {
     final $r = $callSync(
-        3161,
+        3170,
         $W()
           ..reader(random)
           ..dto(priv)
@@ -133,7 +133,7 @@ extension GoCryptoDsaApi on GoCryptoDsa {
   bool verify(CryptoDsaPublicKey pub, Uint8List hash, $big.MathBigInt r,
       $big.MathBigInt s) {
     final $r = $callSync(
-        3162,
+        3171,
         $W()
           ..dto(pub)
           ..bytes(hash)

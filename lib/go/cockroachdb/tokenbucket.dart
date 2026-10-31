@@ -31,7 +31,7 @@ class TokenbucketTokenBucket extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*tokenbucket.TokenBucket).Adjust(delta tokenbucket.Tokens)`.
   void adjust(double delta) {
     $callSync(
-        5735,
+        5744,
         $W()
           ..h(this)
           ..f64(delta));
@@ -39,20 +39,20 @@ class TokenbucketTokenBucket extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*tokenbucket.TokenBucket).Available() tokenbucket.Tokens`.
   double available() {
-    final $r = $callSync(5736, $W()..h(this));
+    final $r = $callSync(5745, $W()..h(this));
     return $r.f64();
   }
 
   /// Go: `func (*tokenbucket.TokenBucket).Exhausted() time.Duration`.
   Duration exhausted() {
-    final $r = $callSync(5737, $W()..h(this));
+    final $r = $callSync(5746, $W()..h(this));
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `func (*tokenbucket.TokenBucket).Init(rate tokenbucket.TokensPerSecond, burst tokenbucket.Tokens)`.
   void init(double rate, double burst) {
     $callSync(
-        5738,
+        5747,
         $W()
           ..h(this)
           ..f64(rate)
@@ -61,19 +61,19 @@ class TokenbucketTokenBucket extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*tokenbucket.TokenBucket).Reset()`.
   void reset() {
-    $callSync(5739, $W()..h(this));
+    $callSync(5748, $W()..h(this));
   }
 
   /// Go: `func (*tokenbucket.TokenBucket).TestingInternalParameters() (rate tokenbucket.TokensPerSecond, burst tokenbucket.Tokens, available tokenbucket.Tokens)`.
   (double, double, double) testingInternalParameters() {
-    final $r = $callSync(5740, $W()..h(this));
+    final $r = $callSync(5749, $W()..h(this));
     return ($r.f64(), $r.f64(), $r.f64());
   }
 
   /// Go: `func (*tokenbucket.TokenBucket).TryToFulfill(amount tokenbucket.Tokens) (fulfilled bool, tryAgainAfter time.Duration)`.
   (bool, Duration) tryToFulfill(double amount) {
     final $r = $callSync(
-        5741,
+        5750,
         $W()
           ..h(this)
           ..f64(amount));
@@ -82,13 +82,13 @@ class TokenbucketTokenBucket extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*tokenbucket.TokenBucket).Update()`.
   void update() {
-    $callSync(5742, $W()..h(this));
+    $callSync(5751, $W()..h(this));
   }
 
   /// Go: `func (*tokenbucket.TokenBucket).UpdateConfig(rate tokenbucket.TokensPerSecond, burst tokenbucket.Tokens)`.
   void updateConfig(double rate, double burst) {
     $callSync(
-        5743,
+        5752,
         $W()
           ..h(this)
           ..f64(rate)
@@ -98,7 +98,7 @@ class TokenbucketTokenBucket extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*tokenbucket.TokenBucket).Wait(amount tokenbucket.Tokens)`.
   void wait(double amount) {
     $callSync(
-        5744,
+        5753,
         $W()
           ..h(this)
           ..f64(amount));
@@ -109,7 +109,7 @@ class TokenbucketTokenBucket extends $crypto.CryptoDecrypterOpts
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> waitCtx($context.Context ctx, double amount) async {
     await $call(
-        5745,
+        5754,
         $W()
           ..h(this)
           ..h(ctx)

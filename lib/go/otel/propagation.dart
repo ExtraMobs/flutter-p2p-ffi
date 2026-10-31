@@ -16,7 +16,7 @@ final class OtelPropagationBaggage implements GoDto {
 
   /// Go: `func (propagation.Baggage).Fields() []string`.
   List<String> fields() {
-    final $r = $callSync(19412, $W()..dto(this));
+    final $r = $callSync(19418, $W()..dto(this));
     return $r.list(() => $r.str());
   }
 
@@ -26,7 +26,7 @@ final class OtelPropagationBaggage implements GoDto {
   Future<void> inject(
       $context.Context ctx, OtelPropagationTextMapCarrier carrier) async {
     await $call(
-        19413,
+        19419,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -45,7 +45,7 @@ mixin OtelPropagationTextMapCarrier$ on GoHandle {
   /// Go: `func (propagation.TextMapCarrier).Get(key string) string`.
   String get(String key) {
     final $r = $callSync(
-        19415,
+        19421,
         $W()
           ..h(this)
           ..str(key));
@@ -54,14 +54,14 @@ mixin OtelPropagationTextMapCarrier$ on GoHandle {
 
   /// Go: `func (propagation.TextMapCarrier).Keys() []string`.
   List<String> keys() {
-    final $r = $callSync(19416, $W()..h(this));
+    final $r = $callSync(19422, $W()..h(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (propagation.TextMapCarrier).Set(key string, value string)`.
   void set(String key, String value) {
     $callSync(
-        19417,
+        19423,
         $W()
           ..h(this)
           ..str(key)
@@ -79,7 +79,7 @@ class OtelPropagationTextMapPropagator extends GoHandle
 mixin OtelPropagationTextMapPropagator$ on GoHandle {
   /// Go: `func (propagation.TextMapPropagator).Fields() []string`.
   List<String> fields() {
-    final $r = $callSync(19418, $W()..h(this));
+    final $r = $callSync(19424, $W()..h(this));
     return $r.list(() => $r.str());
   }
 
@@ -89,7 +89,7 @@ mixin OtelPropagationTextMapPropagator$ on GoHandle {
   Future<void> inject(
       $context.Context ctx, OtelPropagationTextMapCarrier carrier) async {
     await $call(
-        19419,
+        19425,
         $W()
           ..h(this)
           ..h(ctx)
@@ -107,7 +107,7 @@ final class OtelPropagationTraceContext implements GoDto {
 
   /// Go: `func (propagation.TraceContext).Fields() []string`.
   List<String> fields() {
-    final $r = $callSync(19420, $W()..dto(this));
+    final $r = $callSync(19426, $W()..dto(this));
     return $r.list(() => $r.str());
   }
 
@@ -117,7 +117,7 @@ final class OtelPropagationTraceContext implements GoDto {
   Future<void> inject(
       $context.Context ctx, OtelPropagationTextMapCarrier carrier) async {
     await $call(
-        19421,
+        19427,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -136,7 +136,7 @@ mixin OtelPropagationValuesGetter$ on GoHandle {
   /// Go: `func (propagation.ValuesGetter).Values(key string) []string`.
   List<String> values(String key) {
     final $r = $callSync(
-        19422,
+        19428,
         $W()
           ..h(this)
           ..str(key));
@@ -149,7 +149,7 @@ extension GoOtelPropagationApi on GoOtelPropagation {
   /// Go: `func propagation.NewCompositeTextMapPropagator(p ...propagation.TextMapPropagator) propagation.TextMapPropagator`.
   OtelPropagationTextMapPropagator newCompositeTextMapPropagator(
       [List<OtelPropagationTextMapPropagator> p = const []]) {
-    final $r = $callSync(19414, $W()..list(p, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(19420, $W()..list(p, (w0, e0) => w0.h(e0)));
     return $r.hnn(OtelPropagationTextMapPropagator.$h);
   }
 }

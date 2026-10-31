@@ -37,13 +37,13 @@ class IpldPrimeNodeBasicnodePrototypeAny
 
   /// Go: `func basicnode.NewPrototype__Any() *basicnode.Prototype__Any`.
   factory IpldPrimeNodeBasicnodePrototypeAny() {
-    final $r = $callSync(12236);
+    final $r = $callSync(12242);
     return $r.hnn(IpldPrimeNodeBasicnodePrototypeAny.$h);
   }
 
   /// Go: `func (basicnode.Prototype__Any).NewBuilder() datamodel.NodeBuilder`.
   $datamodel.IpldPrimeDatamodelNodeBuilder newBuilder() {
-    final $r = $callSync(12237, $W()..h(this));
+    final $r = $callSync(12243, $W()..h(this));
     return $r.hnn($datamodel.IpldPrimeDatamodelNodeBuilder.$h);
   }
 }
@@ -58,7 +58,7 @@ final class IpldPrimeNodeBasicnodePrototypeBool implements GoDto {
 
   /// Go: `func (basicnode.Prototype__Bool).NewBuilder() datamodel.NodeBuilder`.
   $datamodel.IpldPrimeDatamodelNodeBuilder newBuilder() {
-    final $r = $callSync(12238, $W()..dto(this));
+    final $r = $callSync(12244, $W()..dto(this));
     return $r.hnn($datamodel.IpldPrimeDatamodelNodeBuilder.$h);
   }
 }
@@ -73,7 +73,7 @@ final class IpldPrimeNodeBasicnodePrototypeBytes implements GoDto {
 
   /// Go: `func (basicnode.Prototype__Bytes).NewBuilder() datamodel.NodeBuilder`.
   $datamodel.IpldPrimeDatamodelNodeBuilder newBuilder() {
-    final $r = $callSync(12239, $W()..dto(this));
+    final $r = $callSync(12245, $W()..dto(this));
     return $r.hnn($datamodel.IpldPrimeDatamodelNodeBuilder.$h);
   }
 }
@@ -88,7 +88,7 @@ final class IpldPrimeNodeBasicnodePrototypeFloat implements GoDto {
 
   /// Go: `func (basicnode.Prototype__Float).NewBuilder() datamodel.NodeBuilder`.
   $datamodel.IpldPrimeDatamodelNodeBuilder newBuilder() {
-    final $r = $callSync(12240, $W()..dto(this));
+    final $r = $callSync(12246, $W()..dto(this));
     return $r.hnn($datamodel.IpldPrimeDatamodelNodeBuilder.$h);
   }
 }
@@ -103,7 +103,7 @@ final class IpldPrimeNodeBasicnodePrototypeInt implements GoDto {
 
   /// Go: `func (basicnode.Prototype__Int).NewBuilder() datamodel.NodeBuilder`.
   $datamodel.IpldPrimeDatamodelNodeBuilder newBuilder() {
-    final $r = $callSync(12241, $W()..dto(this));
+    final $r = $callSync(12247, $W()..dto(this));
     return $r.hnn($datamodel.IpldPrimeDatamodelNodeBuilder.$h);
   }
 }
@@ -118,7 +118,7 @@ final class IpldPrimeNodeBasicnodePrototypeLink implements GoDto {
 
   /// Go: `func (basicnode.Prototype__Link).NewBuilder() datamodel.NodeBuilder`.
   $datamodel.IpldPrimeDatamodelNodeBuilder newBuilder() {
-    final $r = $callSync(12242, $W()..dto(this));
+    final $r = $callSync(12248, $W()..dto(this));
     return $r.hnn($datamodel.IpldPrimeDatamodelNodeBuilder.$h);
   }
 }
@@ -133,7 +133,7 @@ final class IpldPrimeNodeBasicnodePrototypeList implements GoDto {
 
   /// Go: `func (basicnode.Prototype__List).NewBuilder() datamodel.NodeBuilder`.
   $datamodel.IpldPrimeDatamodelNodeBuilder newBuilder() {
-    final $r = $callSync(12243, $W()..dto(this));
+    final $r = $callSync(12249, $W()..dto(this));
     return $r.hnn($datamodel.IpldPrimeDatamodelNodeBuilder.$h);
   }
 }
@@ -148,7 +148,7 @@ final class IpldPrimeNodeBasicnodePrototypeMap implements GoDto {
 
   /// Go: `func (basicnode.Prototype__Map).NewBuilder() datamodel.NodeBuilder`.
   $datamodel.IpldPrimeDatamodelNodeBuilder newBuilder() {
-    final $r = $callSync(12244, $W()..dto(this));
+    final $r = $callSync(12250, $W()..dto(this));
     return $r.hnn($datamodel.IpldPrimeDatamodelNodeBuilder.$h);
   }
 }
@@ -163,7 +163,7 @@ final class IpldPrimeNodeBasicnodePrototypeString implements GoDto {
 
   /// Go: `func (basicnode.Prototype__String).NewBuilder() datamodel.NodeBuilder`.
   $datamodel.IpldPrimeDatamodelNodeBuilder newBuilder() {
-    final $r = $callSync(12245, $W()..dto(this));
+    final $r = $callSync(12251, $W()..dto(this));
     return $r.hnn($datamodel.IpldPrimeDatamodelNodeBuilder.$h);
   }
 }
@@ -175,7 +175,7 @@ extension GoIpldIpldPrimeNodeBasicnodeApi on GoIpldIpldPrimeNodeBasicnode {
       $datamodel.IpldPrimeDatamodelLink link,
       $linking.IpldPrimeLinkingLinkContext linkContext) {
     final $r = $callSync(
-        12227,
+        12233,
         $W()
           ..h(link)
           ..dto(linkContext));
@@ -184,50 +184,50 @@ extension GoIpldIpldPrimeNodeBasicnodeApi on GoIpldIpldPrimeNodeBasicnode {
 
   /// Go: `func basicnode.NewBool(value bool) datamodel.Node`.
   $datamodel.IpldPrimeDatamodelNode newBool(bool value) {
-    final $r = $callSync(12228, $W()..b(value));
+    final $r = $callSync(12234, $W()..b(value));
     return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
   }
 
   /// Go: `func basicnode.NewBytes(value []byte) datamodel.Node`.
   $datamodel.IpldPrimeDatamodelNode newBytes(Uint8List value) {
-    final $r = $callSync(12229, $W()..bytes(value));
+    final $r = $callSync(12235, $W()..bytes(value));
     return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
   }
 
   /// Go: `func basicnode.NewBytesFromReader(rs io.ReadSeeker) datamodel.Node`.
   $datamodel.IpldPrimeDatamodelNode newBytesFromReader(Object rs) {
-    final $r = $callSync(12230, $W()..reader(rs));
+    final $r = $callSync(12236, $W()..reader(rs));
     return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
   }
 
   /// Go: `func basicnode.NewFloat(value float64) datamodel.Node`.
   $datamodel.IpldPrimeDatamodelNode newFloat(double value) {
-    final $r = $callSync(12231, $W()..f64(value));
+    final $r = $callSync(12237, $W()..f64(value));
     return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
   }
 
   /// Go: `func basicnode.NewInt(value int64) datamodel.Node`.
   $datamodel.IpldPrimeDatamodelNode newInt(int value) {
-    final $r = $callSync(12232, $W()..i64(value));
+    final $r = $callSync(12238, $W()..i64(value));
     return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
   }
 
   /// Go: `func basicnode.NewLink(value datamodel.Link) datamodel.Node`.
   $datamodel.IpldPrimeDatamodelNode newLink(
       $datamodel.IpldPrimeDatamodelLink value) {
-    final $r = $callSync(12233, $W()..h(value));
+    final $r = $callSync(12239, $W()..h(value));
     return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
   }
 
   /// Go: `func basicnode.NewString(value string) datamodel.Node`.
   $datamodel.IpldPrimeDatamodelNode newString(String value) {
-    final $r = $callSync(12234, $W()..str(value));
+    final $r = $callSync(12240, $W()..str(value));
     return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
   }
 
   /// Go: `func basicnode.NewUint(value uint64) datamodel.Node`.
   $datamodel.IpldPrimeDatamodelNode newUint(int value) {
-    final $r = $callSync(12235, $W()..i64(value));
+    final $r = $callSync(12241, $W()..i64(value));
     return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
   }
 }

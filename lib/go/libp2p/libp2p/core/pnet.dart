@@ -21,19 +21,19 @@ class Libp2pCorePnetErrNotInPrivateNetwork extends GolangException {
 extension GoLibp2pLibp2pCorePnetApi on GoLibp2pLibp2pCorePnet {
   /// Go: `func pnet.DecodeV1PSK(in io.Reader) (pnet.PSK, error)`.
   Uint8List decodeV1psk(Object in$) {
-    final $r = $callSync(14245, $W()..reader(in$));
+    final $r = $callSync(14251, $W()..reader(in$));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `var pnet.ForcePrivateNetwork bool`.
   bool get forcePrivateNetwork {
-    final $r = $callSync(14246);
+    final $r = $callSync(14252);
     return $r.b();
   }
 
   /// Go: `func pnet.NewError(err string) error`.
   void newError(String err) {
-    $callSync(14247, $W()..str(err));
+    $callSync(14253, $W()..str(err));
   }
 }
 

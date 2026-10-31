@@ -47,13 +47,13 @@ final class DnsA implements GoDto {
 
   /// Go: `func (*dns.A).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15276, $W()..dto(this));
+    final $r = $callSync(15282, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.A).String() string`.
   String string() {
-    final $r = $callSync(15277, $W()..dto(this));
+    final $r = $callSync(15283, $W()..dto(this));
     return $r.str();
   }
 }
@@ -83,13 +83,13 @@ final class DnsAaaa implements GoDto {
 
   /// Go: `func (*dns.AAAA).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15278, $W()..dto(this));
+    final $r = $callSync(15284, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.AAAA).String() string`.
   String string() {
-    final $r = $callSync(15279, $W()..dto(this));
+    final $r = $callSync(15285, $W()..dto(this));
     return $r.str();
   }
 }
@@ -125,13 +125,13 @@ final class DnsAfsdb implements GoDto {
 
   /// Go: `func (*dns.AFSDB).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15280, $W()..dto(this));
+    final $r = $callSync(15286, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.AFSDB).String() string`.
   String string() {
-    final $r = $callSync(15281, $W()..dto(this));
+    final $r = $callSync(15287, $W()..dto(this));
     return $r.str();
   }
 }
@@ -184,13 +184,13 @@ final class DnsAmtrelay implements GoDto {
 
   /// Go: `func (*dns.AMTRELAY).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15282, $W()..dto(this));
+    final $r = $callSync(15288, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.AMTRELAY).String() string`.
   String string() {
-    final $r = $callSync(15283, $W()..dto(this));
+    final $r = $callSync(15289, $W()..dto(this));
     return $r.str();
   }
 }
@@ -211,13 +211,13 @@ final class DnsAny implements GoDto {
 
   /// Go: `func (*dns.ANY).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15284, $W()..dto(this));
+    final $r = $callSync(15290, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.ANY).String() string`.
   String string() {
-    final $r = $callSync(15285, $W()..dto(this));
+    final $r = $callSync(15291, $W()..dto(this));
     return $r.str();
   }
 }
@@ -247,13 +247,13 @@ final class DnsApl implements GoDto {
 
   /// Go: `func (*dns.APL).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15286, $W()..dto(this));
+    final $r = $callSync(15292, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.APL).String() string`.
   String string() {
-    final $r = $callSync(15287, $W()..dto(this));
+    final $r = $callSync(15293, $W()..dto(this));
     return $r.str();
   }
 }
@@ -307,13 +307,13 @@ final class DnsAvc implements GoDto {
 
   /// Go: `func (*dns.AVC).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15288, $W()..dto(this));
+    final $r = $callSync(15294, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.AVC).String() string`.
   String string() {
-    final $r = $callSync(15289, $W()..dto(this));
+    final $r = $callSync(15295, $W()..dto(this));
     return $r.str();
   }
 }
@@ -355,13 +355,13 @@ final class DnsCaa implements GoDto {
 
   /// Go: `func (*dns.CAA).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15293, $W()..dto(this));
+    final $r = $callSync(15299, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.CAA).String() string`.
   String string() {
-    final $r = $callSync(15294, $W()..dto(this));
+    final $r = $callSync(15300, $W()..dto(this));
     return $r.str();
   }
 }
@@ -383,7 +383,7 @@ final class DnsCdnskey implements GoDto {
   /// Go: `func (*dns.DNSKEY).Generate(bits int) (crypto.PrivateKey, error)`.
   $crypto.CryptoPrivateKey generate(int bits) {
     final $r = $callSync(
-        15295,
+        15301,
         $W()
           ..dto(this)
           ..i64(bits));
@@ -392,20 +392,20 @@ final class DnsCdnskey implements GoDto {
 
   /// Go: `func (*dns.CDNSKEY).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15296, $W()..dto(this));
+    final $r = $callSync(15302, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.DNSKEY).KeyTag() uint16`.
   int keyTag() {
-    final $r = $callSync(15297, $W()..dto(this));
+    final $r = $callSync(15303, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dns.DNSKEY).NewPrivateKey(s string) (crypto.PrivateKey, error)`.
   $crypto.CryptoPrivateKey newPrivateKey(String s) {
     final $r = $callSync(
-        15298,
+        15304,
         $W()
           ..dto(this)
           ..str(s));
@@ -415,7 +415,7 @@ final class DnsCdnskey implements GoDto {
   /// Go: `func (*dns.DNSKEY).PrivateKeyString(p crypto.PrivateKey) string`.
   String privateKeyString($crypto.CryptoPrivateKey p) {
     final $r = $callSync(
-        15299,
+        15305,
         $W()
           ..dto(this)
           ..h(p));
@@ -425,7 +425,7 @@ final class DnsCdnskey implements GoDto {
   /// Go: `func (*dns.DNSKEY).ReadPrivateKey(q io.Reader, file string) (crypto.PrivateKey, error)`.
   $crypto.CryptoPrivateKey readPrivateKey(Object q, String file) {
     final $r = $callSync(
-        15300,
+        15306,
         $W()
           ..dto(this)
           ..reader(q)
@@ -435,20 +435,20 @@ final class DnsCdnskey implements GoDto {
 
   /// Go: `func (*dns.DNSKEY).String() string`.
   String string() {
-    final $r = $callSync(15301, $W()..dto(this));
+    final $r = $callSync(15307, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*dns.DNSKEY).ToCDNSKEY() *dns.CDNSKEY`.
   DnsCdnskey toCdnskey() {
-    final $r = $callSync(15302, $W()..dto(this));
+    final $r = $callSync(15308, $W()..dto(this));
     return $r.p() ? DnsCdnskey.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.DNSKEY).ToDS(h uint8) *dns.DS`.
   DnsDs toDs(int h) {
     final $r = $callSync(
-        15303,
+        15309,
         $W()
           ..dto(this)
           ..i64(h));
@@ -472,19 +472,19 @@ final class DnsCds implements GoDto {
 
   /// Go: `func (*dns.CDS).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15304, $W()..dto(this));
+    final $r = $callSync(15310, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.DS).String() string`.
   String string() {
-    final $r = $callSync(15305, $W()..dto(this));
+    final $r = $callSync(15311, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*dns.DS).ToCDS() *dns.CDS`.
   DnsCds toCds() {
-    final $r = $callSync(15306, $W()..dto(this));
+    final $r = $callSync(15312, $W()..dto(this));
     return $r.p() ? DnsCds.$dec($r) : $nil();
   }
 }
@@ -537,13 +537,13 @@ final class DnsCert implements GoDto {
 
   /// Go: `func (*dns.CERT).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15307, $W()..dto(this));
+    final $r = $callSync(15313, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.CERT).String() string`.
   String string() {
-    final $r = $callSync(15308, $W()..dto(this));
+    final $r = $callSync(15314, $W()..dto(this));
     return $r.str();
   }
 }
@@ -573,13 +573,13 @@ final class DnsCname implements GoDto {
 
   /// Go: `func (*dns.CNAME).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15309, $W()..dto(this));
+    final $r = $callSync(15315, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.CNAME).String() string`.
   String string() {
-    final $r = $callSync(15310, $W()..dto(this));
+    final $r = $callSync(15316, $W()..dto(this));
     return $r.str();
   }
 }
@@ -621,13 +621,13 @@ final class DnsCsync implements GoDto {
 
   /// Go: `func (*dns.CSYNC).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15311, $W()..dto(this));
+    final $r = $callSync(15317, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.CSYNC).String() string`.
   String string() {
-    final $r = $callSync(15312, $W()..dto(this));
+    final $r = $callSync(15318, $W()..dto(this));
     return $r.str();
   }
 }
@@ -723,7 +723,7 @@ final class DnsClient implements GoDto {
   /// Go: `func (*dns.Client).Dial(address string) (conn *dns.Conn, err error)`.
   DnsConn dial(String address) {
     final $r = $callSync(
-        15317,
+        15323,
         $W()
           ..dto(this)
           ..str(address));
@@ -735,7 +735,7 @@ final class DnsClient implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<DnsConn> dialContext($context.Context ctx, String address) async {
     final $r = await $call(
-        15318,
+        15324,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -746,7 +746,7 @@ final class DnsClient implements GoDto {
   /// Go: `func (*dns.Client).Exchange(m *dns.Msg, address string) (r *dns.Msg, rtt time.Duration, err error)`.
   (DnsMsg, Duration) exchange(DnsMsg m, String address) {
     final $r = $callSync(
-        15319,
+        15325,
         $W()
           ..dto(this)
           ..dto(m)
@@ -763,7 +763,7 @@ final class DnsClient implements GoDto {
   Future<(DnsMsg, Duration)> exchangeContext(
       $context.Context ctx, DnsMsg m, String a) async {
     final $r = await $call(
-        15320,
+        15326,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -778,7 +778,7 @@ final class DnsClient implements GoDto {
   /// Go: `func (*dns.Client).ExchangeWithConn(m *dns.Msg, conn *dns.Conn) (r *dns.Msg, rtt time.Duration, err error)`.
   (DnsMsg, Duration) exchangeWithConn(DnsMsg m, DnsConn conn) {
     final $r = $callSync(
-        15321,
+        15327,
         $W()
           ..dto(this)
           ..dto(m)
@@ -795,7 +795,7 @@ final class DnsClient implements GoDto {
   Future<(DnsMsg, Duration)> exchangeWithConnContext(
       $context.Context ctx, DnsMsg m, DnsConn co) async {
     final $r = await $call(
-        15322,
+        15328,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -864,7 +864,7 @@ final class DnsClientConfig implements GoDto {
   /// Go: `func (*dns.ClientConfig).NameList(name string) []string`.
   List<String> nameList(String name) {
     final $r = $callSync(
-        15323,
+        15329,
         $W()
           ..dto(this)
           ..str(name));
@@ -903,7 +903,7 @@ class DnsConn extends $net.NetConn
   /// Go: `func (*dns.Conn).Read(p []byte) (n int, err error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        15327,
+        15333,
         $W()
           ..h(this)
           ..i64(n));
@@ -912,14 +912,14 @@ class DnsConn extends $net.NetConn
 
   /// Go: `func (*dns.Conn).ReadMsg() (*dns.Msg, error)`.
   DnsMsg readMsg() {
-    final $r = $callSync(15328, $W()..h(this));
+    final $r = $callSync(15334, $W()..h(this));
     return $r.p() ? DnsMsg.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.Conn).ReadMsgHeader(hdr *dns.Header) ([]byte, error)`.
   Uint8List readMsgHeader(DnsHeader hdr) {
     final $r = $callSync(
-        15329,
+        15335,
         $W()
           ..h(this)
           ..dto(hdr));
@@ -929,7 +929,7 @@ class DnsConn extends $net.NetConn
   /// Go: `func (*dns.Conn).Write(p []byte) (int, error)`.
   int write(Uint8List p) {
     final $r = $callSync(
-        15330,
+        15336,
         $W()
           ..h(this)
           ..bytes(p));
@@ -939,7 +939,7 @@ class DnsConn extends $net.NetConn
   /// Go: `func (*dns.Conn).WriteMsg(m *dns.Msg) (err error)`.
   void writeMsg(DnsMsg m) {
     $callSync(
-        15331,
+        15337,
         $W()
           ..h(this)
           ..dto(m));
@@ -955,7 +955,7 @@ class DnsConnectionStater extends GoHandle with DnsConnectionStater$ {
 mixin DnsConnectionStater$ on GoHandle {
   /// Go: `func (dns.ConnectionStater).ConnectionState() *tls.ConnectionState`.
   $tls.CryptoTlsConnectionState connectionState() {
-    final $r = $callSync(15332, $W()..h(this));
+    final $r = $callSync(15338, $W()..h(this));
     return $r.hnn($tls.CryptoTlsConnectionState.$h);
   }
 }
@@ -985,13 +985,13 @@ final class DnsDhcid implements GoDto {
 
   /// Go: `func (*dns.DHCID).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15335, $W()..dto(this));
+    final $r = $callSync(15341, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.DHCID).String() string`.
   String string() {
-    final $r = $callSync(15336, $W()..dto(this));
+    final $r = $callSync(15342, $W()..dto(this));
     return $r.str();
   }
 }
@@ -1012,19 +1012,19 @@ final class DnsDlv implements GoDto {
 
   /// Go: `func (*dns.DLV).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15337, $W()..dto(this));
+    final $r = $callSync(15343, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.DS).String() string`.
   String string() {
-    final $r = $callSync(15338, $W()..dto(this));
+    final $r = $callSync(15344, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*dns.DS).ToCDS() *dns.CDS`.
   DnsCds toCds() {
-    final $r = $callSync(15339, $W()..dto(this));
+    final $r = $callSync(15345, $W()..dto(this));
     return $r.p() ? DnsCds.$dec($r) : $nil();
   }
 }
@@ -1054,13 +1054,13 @@ final class DnsDname implements GoDto {
 
   /// Go: `func (*dns.DNAME).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15340, $W()..dto(this));
+    final $r = $callSync(15346, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.DNAME).String() string`.
   String string() {
-    final $r = $callSync(15341, $W()..dto(this));
+    final $r = $callSync(15347, $W()..dto(this));
     return $r.str();
   }
 }
@@ -1114,7 +1114,7 @@ final class DnsDnskey implements GoDto {
   /// Go: `func (*dns.DNSKEY).Generate(bits int) (crypto.PrivateKey, error)`.
   $crypto.CryptoPrivateKey generate(int bits) {
     final $r = $callSync(
-        15342,
+        15348,
         $W()
           ..dto(this)
           ..i64(bits));
@@ -1123,20 +1123,20 @@ final class DnsDnskey implements GoDto {
 
   /// Go: `func (*dns.DNSKEY).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15343, $W()..dto(this));
+    final $r = $callSync(15349, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.DNSKEY).KeyTag() uint16`.
   int keyTag() {
-    final $r = $callSync(15344, $W()..dto(this));
+    final $r = $callSync(15350, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dns.DNSKEY).NewPrivateKey(s string) (crypto.PrivateKey, error)`.
   $crypto.CryptoPrivateKey newPrivateKey(String s) {
     final $r = $callSync(
-        15345,
+        15351,
         $W()
           ..dto(this)
           ..str(s));
@@ -1146,7 +1146,7 @@ final class DnsDnskey implements GoDto {
   /// Go: `func (*dns.DNSKEY).PrivateKeyString(p crypto.PrivateKey) string`.
   String privateKeyString($crypto.CryptoPrivateKey p) {
     final $r = $callSync(
-        15346,
+        15352,
         $W()
           ..dto(this)
           ..h(p));
@@ -1156,7 +1156,7 @@ final class DnsDnskey implements GoDto {
   /// Go: `func (*dns.DNSKEY).ReadPrivateKey(q io.Reader, file string) (crypto.PrivateKey, error)`.
   $crypto.CryptoPrivateKey readPrivateKey(Object q, String file) {
     final $r = $callSync(
-        15347,
+        15353,
         $W()
           ..dto(this)
           ..reader(q)
@@ -1166,20 +1166,20 @@ final class DnsDnskey implements GoDto {
 
   /// Go: `func (*dns.DNSKEY).String() string`.
   String string() {
-    final $r = $callSync(15348, $W()..dto(this));
+    final $r = $callSync(15354, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*dns.DNSKEY).ToCDNSKEY() *dns.CDNSKEY`.
   DnsCdnskey toCdnskey() {
-    final $r = $callSync(15349, $W()..dto(this));
+    final $r = $callSync(15355, $W()..dto(this));
     return $r.p() ? DnsCdnskey.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.DNSKEY).ToDS(h uint8) *dns.DS`.
   DnsDs toDs(int h) {
     final $r = $callSync(
-        15350,
+        15356,
         $W()
           ..dto(this)
           ..i64(h));
@@ -1235,19 +1235,19 @@ final class DnsDs implements GoDto {
 
   /// Go: `func (*dns.DS).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15351, $W()..dto(this));
+    final $r = $callSync(15357, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.DS).String() string`.
   String string() {
-    final $r = $callSync(15352, $W()..dto(this));
+    final $r = $callSync(15358, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*dns.DS).ToCDS() *dns.CDS`.
   DnsCds toCds() {
-    final $r = $callSync(15353, $W()..dto(this));
+    final $r = $callSync(15359, $W()..dto(this));
     return $r.p() ? DnsCds.$dec($r) : $nil();
   }
 }
@@ -1261,13 +1261,13 @@ class DnsEdns0 extends GoHandle with DnsEdns0$ {
 mixin DnsEdns0$ on GoHandle {
   /// Go: `func (dns.EDNS0).Option() uint16`.
   int option() {
-    final $r = $callSync(15362, $W()..h(this));
+    final $r = $callSync(15368, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (dns.EDNS0).String() string`.
   String string() {
-    final $r = $callSync(15363, $W()..h(this));
+    final $r = $callSync(15369, $W()..h(this));
     return $r.str();
   }
 }
@@ -1297,13 +1297,13 @@ final class DnsEdns0Cookie implements GoDto {
 
   /// Go: `func (*dns.EDNS0_COOKIE).Option() uint16`.
   int option() {
-    final $r = $callSync(15364, $W()..dto(this));
+    final $r = $callSync(15370, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dns.EDNS0_COOKIE).String() string`.
   String string() {
-    final $r = $callSync(15365, $W()..dto(this));
+    final $r = $callSync(15371, $W()..dto(this));
     return $r.str();
   }
 }
@@ -1333,13 +1333,13 @@ final class DnsEdns0Dau implements GoDto {
 
   /// Go: `func (*dns.EDNS0_DAU).Option() uint16`.
   int option() {
-    final $r = $callSync(15366, $W()..dto(this));
+    final $r = $callSync(15372, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dns.EDNS0_DAU).String() string`.
   String string() {
-    final $r = $callSync(15367, $W()..dto(this));
+    final $r = $callSync(15373, $W()..dto(this));
     return $r.str();
   }
 }
@@ -1369,13 +1369,13 @@ final class DnsEdns0Dhu implements GoDto {
 
   /// Go: `func (*dns.EDNS0_DHU).Option() uint16`.
   int option() {
-    final $r = $callSync(15368, $W()..dto(this));
+    final $r = $callSync(15374, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dns.EDNS0_DHU).String() string`.
   String string() {
-    final $r = $callSync(15369, $W()..dto(this));
+    final $r = $callSync(15375, $W()..dto(this));
     return $r.str();
   }
 }
@@ -1405,13 +1405,13 @@ final class DnsEdns0Ede implements GoDto {
 
   /// Go: `func (*dns.EDNS0_EDE).Option() uint16`.
   int option() {
-    final $r = $callSync(15370, $W()..dto(this));
+    final $r = $callSync(15376, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dns.EDNS0_EDE).String() string`.
   String string() {
-    final $r = $callSync(15371, $W()..dto(this));
+    final $r = $callSync(15377, $W()..dto(this));
     return $r.str();
   }
 }
@@ -1441,13 +1441,13 @@ final class DnsEdns0Esu implements GoDto {
 
   /// Go: `func (*dns.EDNS0_ESU).Option() uint16`.
   int option() {
-    final $r = $callSync(15372, $W()..dto(this));
+    final $r = $callSync(15378, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dns.EDNS0_ESU).String() string`.
   String string() {
-    final $r = $callSync(15373, $W()..dto(this));
+    final $r = $callSync(15379, $W()..dto(this));
     return $r.str();
   }
 }
@@ -1483,13 +1483,13 @@ final class DnsEdns0Expire implements GoDto {
 
   /// Go: `func (*dns.EDNS0_EXPIRE).Option() uint16`.
   int option() {
-    final $r = $callSync(15374, $W()..dto(this));
+    final $r = $callSync(15380, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dns.EDNS0_EXPIRE).String() (s string)`.
   String string() {
-    final $r = $callSync(15375, $W()..dto(this));
+    final $r = $callSync(15381, $W()..dto(this));
     return $r.str();
   }
 }
@@ -1552,13 +1552,13 @@ final class DnsEdns0Llq implements GoDto {
 
   /// Go: `func (*dns.EDNS0_LLQ).Option() uint16`.
   int option() {
-    final $r = $callSync(15376, $W()..dto(this));
+    final $r = $callSync(15382, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dns.EDNS0_LLQ).String() string`.
   String string() {
-    final $r = $callSync(15377, $W()..dto(this));
+    final $r = $callSync(15383, $W()..dto(this));
     return $r.str();
   }
 }
@@ -1588,13 +1588,13 @@ final class DnsEdns0Local implements GoDto {
 
   /// Go: `func (*dns.EDNS0_LOCAL).Option() uint16`.
   int option() {
-    final $r = $callSync(15378, $W()..dto(this));
+    final $r = $callSync(15384, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dns.EDNS0_LOCAL).String() string`.
   String string() {
-    final $r = $callSync(15379, $W()..dto(this));
+    final $r = $callSync(15385, $W()..dto(this));
     return $r.str();
   }
 }
@@ -1624,13 +1624,13 @@ final class DnsEdns0N3u implements GoDto {
 
   /// Go: `func (*dns.EDNS0_N3U).Option() uint16`.
   int option() {
-    final $r = $callSync(15380, $W()..dto(this));
+    final $r = $callSync(15386, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dns.EDNS0_N3U).String() string`.
   String string() {
-    final $r = $callSync(15381, $W()..dto(this));
+    final $r = $callSync(15387, $W()..dto(this));
     return $r.str();
   }
 }
@@ -1660,13 +1660,13 @@ final class DnsEdns0Nsid implements GoDto {
 
   /// Go: `func (*dns.EDNS0_NSID).Option() uint16`.
   int option() {
-    final $r = $callSync(15382, $W()..dto(this));
+    final $r = $callSync(15388, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dns.EDNS0_NSID).String() string`.
   String string() {
-    final $r = $callSync(15383, $W()..dto(this));
+    final $r = $callSync(15389, $W()..dto(this));
     return $r.str();
   }
 }
@@ -1687,13 +1687,13 @@ final class DnsEdns0Padding implements GoDto {
 
   /// Go: `func (*dns.EDNS0_PADDING).Option() uint16`.
   int option() {
-    final $r = $callSync(15384, $W()..dto(this));
+    final $r = $callSync(15390, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dns.EDNS0_PADDING).String() string`.
   String string() {
-    final $r = $callSync(15385, $W()..dto(this));
+    final $r = $callSync(15391, $W()..dto(this));
     return $r.str();
   }
 }
@@ -1723,13 +1723,13 @@ final class DnsEdns0Reporting implements GoDto {
 
   /// Go: `func (*dns.EDNS0_REPORTING).Option() uint16`.
   int option() {
-    final $r = $callSync(15386, $W()..dto(this));
+    final $r = $callSync(15392, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dns.EDNS0_REPORTING).String() string`.
   String string() {
-    final $r = $callSync(15387, $W()..dto(this));
+    final $r = $callSync(15393, $W()..dto(this));
     return $r.str();
   }
 }
@@ -1782,13 +1782,13 @@ final class DnsEdns0Subnet implements GoDto {
 
   /// Go: `func (*dns.EDNS0_SUBNET).Option() uint16`.
   int option() {
-    final $r = $callSync(15388, $W()..dto(this));
+    final $r = $callSync(15394, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dns.EDNS0_SUBNET).String() (s string)`.
   String string() {
-    final $r = $callSync(15389, $W()..dto(this));
+    final $r = $callSync(15395, $W()..dto(this));
     return $r.str();
   }
 }
@@ -1824,13 +1824,13 @@ final class DnsEdns0TcpKeepalive implements GoDto {
 
   /// Go: `func (*dns.EDNS0_TCP_KEEPALIVE).Option() uint16`.
   int option() {
-    final $r = $callSync(15390, $W()..dto(this));
+    final $r = $callSync(15396, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dns.EDNS0_TCP_KEEPALIVE).String() string`.
   String string() {
-    final $r = $callSync(15391, $W()..dto(this));
+    final $r = $callSync(15397, $W()..dto(this));
     return $r.str();
   }
 }
@@ -1866,13 +1866,13 @@ final class DnsEdns0Ul implements GoDto {
 
   /// Go: `func (*dns.EDNS0_UL).Option() uint16`.
   int option() {
-    final $r = $callSync(15392, $W()..dto(this));
+    final $r = $callSync(15398, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dns.EDNS0_UL).String() string`.
   String string() {
-    final $r = $callSync(15393, $W()..dto(this));
+    final $r = $callSync(15399, $W()..dto(this));
     return $r.str();
   }
 }
@@ -1914,13 +1914,13 @@ final class DnsEdns0Zoneversion implements GoDto {
 
   /// Go: `func (*dns.EDNS0_ZONEVERSION).Option() uint16`.
   int option() {
-    final $r = $callSync(15394, $W()..dto(this));
+    final $r = $callSync(15400, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dns.EDNS0_ZONEVERSION).String() string`.
   String string() {
-    final $r = $callSync(15395, $W()..dto(this));
+    final $r = $callSync(15401, $W()..dto(this));
     return $r.str();
   }
 }
@@ -1950,13 +1950,13 @@ final class DnsEid implements GoDto {
 
   /// Go: `func (*dns.EID).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15396, $W()..dto(this));
+    final $r = $callSync(15402, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.EID).String() string`.
   String string() {
-    final $r = $callSync(15397, $W()..dto(this));
+    final $r = $callSync(15403, $W()..dto(this));
     return $r.str();
   }
 }
@@ -1989,13 +1989,13 @@ final class DnsEui48 implements GoDto {
 
   /// Go: `func (*dns.EUI48).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15398, $W()..dto(this));
+    final $r = $callSync(15404, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.EUI48).String() string`.
   String string() {
-    final $r = $callSync(15399, $W()..dto(this));
+    final $r = $callSync(15405, $W()..dto(this));
     return $r.str();
   }
 }
@@ -2028,13 +2028,13 @@ final class DnsEui64 implements GoDto {
 
   /// Go: `func (*dns.EUI64).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15400, $W()..dto(this));
+    final $r = $callSync(15406, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.EUI64).String() string`.
   String string() {
-    final $r = $callSync(15401, $W()..dto(this));
+    final $r = $callSync(15407, $W()..dto(this));
     return $r.str();
   }
 }
@@ -2064,13 +2064,13 @@ final class DnsGid implements GoDto {
 
   /// Go: `func (*dns.GID).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15408, $W()..dto(this));
+    final $r = $callSync(15414, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.GID).String() string`.
   String string() {
-    final $r = $callSync(15409, $W()..dto(this));
+    final $r = $callSync(15415, $W()..dto(this));
     return $r.str();
   }
 }
@@ -2113,13 +2113,13 @@ final class DnsGpos implements GoDto {
 
   /// Go: `func (*dns.GPOS).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15410, $W()..dto(this));
+    final $r = $callSync(15416, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.GPOS).String() string`.
   String string() {
-    final $r = $callSync(15411, $W()..dto(this));
+    final $r = $callSync(15417, $W()..dto(this));
     return $r.str();
   }
 }
@@ -2155,13 +2155,13 @@ final class DnsHinfo implements GoDto {
 
   /// Go: `func (*dns.HINFO).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15412, $W()..dto(this));
+    final $r = $callSync(15418, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.HINFO).String() string`.
   String string() {
-    final $r = $callSync(15413, $W()..dto(this));
+    final $r = $callSync(15419, $W()..dto(this));
     return $r.str();
   }
 }
@@ -2228,13 +2228,13 @@ final class DnsHip implements GoDto {
 
   /// Go: `func (*dns.HIP).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15414, $W()..dto(this));
+    final $r = $callSync(15420, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.HIP).String() string`.
   String string() {
-    final $r = $callSync(15415, $W()..dto(this));
+    final $r = $callSync(15421, $W()..dto(this));
     return $r.str();
   }
 }
@@ -2255,13 +2255,13 @@ final class DnsHttps implements GoDto {
 
   /// Go: `func (*dns.HTTPS).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15416, $W()..dto(this));
+    final $r = $callSync(15422, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.HTTPS).String() string`.
   String string() {
-    final $r = $callSync(15417, $W()..dto(this));
+    final $r = $callSync(15423, $W()..dto(this));
     return $r.str();
   }
 }
@@ -2276,7 +2276,7 @@ mixin DnsHandler$ on GoHandle {
   /// Go: `func (dns.Handler).ServeDNS(w dns.ResponseWriter, r *dns.Msg)`.
   void serveDns(DnsResponseWriter w, DnsMsg r) {
     $callSync(
-        15422,
+        15428,
         $W()
           ..h(this)
           ..h(w)
@@ -2285,13 +2285,13 @@ mixin DnsHandler$ on GoHandle {
 
   /// Go: type assertion `x.(*dns.HandlerFunc)`: null if the object is not one.
   DnsHandlerFunc? asDnsHandlerFunc() {
-    final $r = $callSync(1457, $W()..h(this));
+    final $r = $callSync(1462, $W()..h(this));
     return $r.hn(DnsHandlerFunc.$h);
   }
 
   /// Go: type assertion `x.(*dns.ServeMux)`: null if the object is not one.
   DnsServeMux? asDnsServeMux() {
-    final $r = $callSync(1458, $W()..h(this));
+    final $r = $callSync(1463, $W()..h(this));
     return $r.hn(DnsServeMux.$h);
   }
 }
@@ -2319,7 +2319,7 @@ class DnsHandlerFunc extends DnsHandler
   /// Go: `func (dns.HandlerFunc).ServeDNS(w dns.ResponseWriter, r *dns.Msg)`.
   void serveDns(DnsResponseWriter w, DnsMsg r) {
     $callSync(
-        15423,
+        15429,
         $W()
           ..h(this)
           ..h(w)
@@ -2443,13 +2443,13 @@ final class DnsIpseckey implements GoDto {
 
   /// Go: `func (*dns.IPSECKEY).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15426, $W()..dto(this));
+    final $r = $callSync(15432, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.IPSECKEY).String() string`.
   String string() {
-    final $r = $callSync(15427, $W()..dto(this));
+    final $r = $callSync(15433, $W()..dto(this));
     return $r.str();
   }
 }
@@ -2485,13 +2485,13 @@ final class DnsIsdn implements GoDto {
 
   /// Go: `func (*dns.ISDN).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15428, $W()..dto(this));
+    final $r = $callSync(15434, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.ISDN).String() string`.
   String string() {
-    final $r = $callSync(15429, $W()..dto(this));
+    final $r = $callSync(15435, $W()..dto(this));
     return $r.str();
   }
 }
@@ -2513,7 +2513,7 @@ final class DnsKey implements GoDto {
   /// Go: `func (*dns.DNSKEY).Generate(bits int) (crypto.PrivateKey, error)`.
   $crypto.CryptoPrivateKey generate(int bits) {
     final $r = $callSync(
-        15436,
+        15442,
         $W()
           ..dto(this)
           ..i64(bits));
@@ -2522,20 +2522,20 @@ final class DnsKey implements GoDto {
 
   /// Go: `func (*dns.KEY).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15437, $W()..dto(this));
+    final $r = $callSync(15443, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.DNSKEY).KeyTag() uint16`.
   int keyTag() {
-    final $r = $callSync(15438, $W()..dto(this));
+    final $r = $callSync(15444, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dns.DNSKEY).NewPrivateKey(s string) (crypto.PrivateKey, error)`.
   $crypto.CryptoPrivateKey newPrivateKey(String s) {
     final $r = $callSync(
-        15439,
+        15445,
         $W()
           ..dto(this)
           ..str(s));
@@ -2545,7 +2545,7 @@ final class DnsKey implements GoDto {
   /// Go: `func (*dns.DNSKEY).PrivateKeyString(p crypto.PrivateKey) string`.
   String privateKeyString($crypto.CryptoPrivateKey p) {
     final $r = $callSync(
-        15440,
+        15446,
         $W()
           ..dto(this)
           ..h(p));
@@ -2555,7 +2555,7 @@ final class DnsKey implements GoDto {
   /// Go: `func (*dns.DNSKEY).ReadPrivateKey(q io.Reader, file string) (crypto.PrivateKey, error)`.
   $crypto.CryptoPrivateKey readPrivateKey(Object q, String file) {
     final $r = $callSync(
-        15441,
+        15447,
         $W()
           ..dto(this)
           ..reader(q)
@@ -2565,20 +2565,20 @@ final class DnsKey implements GoDto {
 
   /// Go: `func (*dns.DNSKEY).String() string`.
   String string() {
-    final $r = $callSync(15442, $W()..dto(this));
+    final $r = $callSync(15448, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*dns.DNSKEY).ToCDNSKEY() *dns.CDNSKEY`.
   DnsCdnskey toCdnskey() {
-    final $r = $callSync(15443, $W()..dto(this));
+    final $r = $callSync(15449, $W()..dto(this));
     return $r.p() ? DnsCdnskey.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.DNSKEY).ToDS(h uint8) *dns.DS`.
   DnsDs toDs(int h) {
     final $r = $callSync(
-        15444,
+        15450,
         $W()
           ..dto(this)
           ..i64(h));
@@ -2617,13 +2617,13 @@ final class DnsKx implements GoDto {
 
   /// Go: `func (*dns.KX).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15445, $W()..dto(this));
+    final $r = $callSync(15451, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.KX).String() string`.
   String string() {
-    final $r = $callSync(15446, $W()..dto(this));
+    final $r = $callSync(15452, $W()..dto(this));
     return $r.str();
   }
 }
@@ -2659,13 +2659,13 @@ final class DnsL32 implements GoDto {
 
   /// Go: `func (*dns.L32).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15447, $W()..dto(this));
+    final $r = $callSync(15453, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.L32).String() string`.
   String string() {
-    final $r = $callSync(15448, $W()..dto(this));
+    final $r = $callSync(15454, $W()..dto(this));
     return $r.str();
   }
 }
@@ -2704,13 +2704,13 @@ final class DnsL64 implements GoDto {
 
   /// Go: `func (*dns.L64).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15449, $W()..dto(this));
+    final $r = $callSync(15455, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.L64).String() string`.
   String string() {
-    final $r = $callSync(15450, $W()..dto(this));
+    final $r = $callSync(15456, $W()..dto(this));
     return $r.str();
   }
 }
@@ -2784,13 +2784,13 @@ final class DnsLoc implements GoDto {
 
   /// Go: `func (*dns.LOC).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15451, $W()..dto(this));
+    final $r = $callSync(15457, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.LOC).String() string`.
   String string() {
-    final $r = $callSync(15452, $W()..dto(this));
+    final $r = $callSync(15458, $W()..dto(this));
     return $r.str();
   }
 }
@@ -2826,13 +2826,13 @@ final class DnsLp implements GoDto {
 
   /// Go: `func (*dns.LP).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15453, $W()..dto(this));
+    final $r = $callSync(15459, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.LP).String() string`.
   String string() {
-    final $r = $callSync(15454, $W()..dto(this));
+    final $r = $callSync(15460, $W()..dto(this));
     return $r.str();
   }
 }
@@ -2862,13 +2862,13 @@ final class DnsMb implements GoDto {
 
   /// Go: `func (*dns.MB).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15458, $W()..dto(this));
+    final $r = $callSync(15464, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.MB).String() string`.
   String string() {
-    final $r = $callSync(15459, $W()..dto(this));
+    final $r = $callSync(15465, $W()..dto(this));
     return $r.str();
   }
 }
@@ -2898,13 +2898,13 @@ final class DnsMd implements GoDto {
 
   /// Go: `func (*dns.MD).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15460, $W()..dto(this));
+    final $r = $callSync(15466, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.MD).String() string`.
   String string() {
-    final $r = $callSync(15461, $W()..dto(this));
+    final $r = $callSync(15467, $W()..dto(this));
     return $r.str();
   }
 }
@@ -2934,13 +2934,13 @@ final class DnsMf implements GoDto {
 
   /// Go: `func (*dns.MF).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15462, $W()..dto(this));
+    final $r = $callSync(15468, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.MF).String() string`.
   String string() {
-    final $r = $callSync(15463, $W()..dto(this));
+    final $r = $callSync(15469, $W()..dto(this));
     return $r.str();
   }
 }
@@ -2970,13 +2970,13 @@ final class DnsMg implements GoDto {
 
   /// Go: `func (*dns.MG).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15464, $W()..dto(this));
+    final $r = $callSync(15470, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.MG).String() string`.
   String string() {
-    final $r = $callSync(15465, $W()..dto(this));
+    final $r = $callSync(15471, $W()..dto(this));
     return $r.str();
   }
 }
@@ -3012,13 +3012,13 @@ final class DnsMinfo implements GoDto {
 
   /// Go: `func (*dns.MINFO).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15466, $W()..dto(this));
+    final $r = $callSync(15472, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.MINFO).String() string`.
   String string() {
-    final $r = $callSync(15467, $W()..dto(this));
+    final $r = $callSync(15473, $W()..dto(this));
     return $r.str();
   }
 }
@@ -3048,13 +3048,13 @@ final class DnsMr implements GoDto {
 
   /// Go: `func (*dns.MR).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15468, $W()..dto(this));
+    final $r = $callSync(15474, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.MR).String() string`.
   String string() {
-    final $r = $callSync(15469, $W()..dto(this));
+    final $r = $callSync(15475, $W()..dto(this));
     return $r.str();
   }
 }
@@ -3090,13 +3090,13 @@ final class DnsMx implements GoDto {
 
   /// Go: `func (*dns.MX).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15470, $W()..dto(this));
+    final $r = $callSync(15476, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.MX).String() string`.
   String string() {
-    final $r = $callSync(15471, $W()..dto(this));
+    final $r = $callSync(15477, $W()..dto(this));
     return $r.str();
   }
 }
@@ -3156,14 +3156,14 @@ final class DnsMsg implements GoDto {
 
   /// Go: `func (*dns.Msg).Copy() *dns.Msg`.
   DnsMsg copy() {
-    final $r = $callSync(15472, $W()..dto(this));
+    final $r = $callSync(15478, $W()..dto(this));
     return $r.p() ? DnsMsg.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.Msg).CopyTo(r1 *dns.Msg) *dns.Msg`.
   DnsMsg copyTo(DnsMsg r1) {
     final $r = $callSync(
-        15473,
+        15479,
         $W()
           ..dto(this)
           ..dto(r1));
@@ -3173,7 +3173,7 @@ final class DnsMsg implements GoDto {
   /// Go: `func (*dns.Msg).Insert(rr []dns.RR)`.
   void insert(List<DnsRr> rr) {
     $callSync(
-        15474,
+        15480,
         $W()
           ..dto(this)
           ..list(rr, (w0, e0) => w0.h(e0)));
@@ -3181,26 +3181,26 @@ final class DnsMsg implements GoDto {
 
   /// Go: `func (*dns.Msg).IsEdns0() *dns.OPT`.
   DnsOpt isEdns0() {
-    final $r = $callSync(15475, $W()..dto(this));
+    final $r = $callSync(15481, $W()..dto(this));
     return $r.p() ? DnsOpt.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.Msg).IsTsig() *dns.TSIG`.
   DnsTsig isTsig() {
-    final $r = $callSync(15476, $W()..dto(this));
+    final $r = $callSync(15482, $W()..dto(this));
     return $r.p() ? DnsTsig.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.Msg).Len() int`.
   int len() {
-    final $r = $callSync(15477, $W()..dto(this));
+    final $r = $callSync(15483, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dns.Msg).NameNotUsed(rr []dns.RR)`.
   void nameNotUsed(List<DnsRr> rr) {
     $callSync(
-        15478,
+        15484,
         $W()
           ..dto(this)
           ..list(rr, (w0, e0) => w0.h(e0)));
@@ -3209,7 +3209,7 @@ final class DnsMsg implements GoDto {
   /// Go: `func (*dns.Msg).NameUsed(rr []dns.RR)`.
   void nameUsed(List<DnsRr> rr) {
     $callSync(
-        15479,
+        15485,
         $W()
           ..dto(this)
           ..list(rr, (w0, e0) => w0.h(e0)));
@@ -3217,14 +3217,14 @@ final class DnsMsg implements GoDto {
 
   /// Go: `func (*dns.Msg).Pack() (msg []byte, err error)`.
   Uint8List pack() {
-    final $r = $callSync(15480, $W()..dto(this));
+    final $r = $callSync(15486, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*dns.Msg).PackBuffer(buf []byte) (msg []byte, err error)`.
   Uint8List packBuffer(Uint8List buf) {
     final $r = $callSync(
-        15481,
+        15487,
         $W()
           ..dto(this)
           ..bytes(buf));
@@ -3234,7 +3234,7 @@ final class DnsMsg implements GoDto {
   /// Go: `func (*dns.Msg).RRsetNotUsed(rr []dns.RR)`.
   void rRsetNotUsed(List<DnsRr> rr) {
     $callSync(
-        15482,
+        15488,
         $W()
           ..dto(this)
           ..list(rr, (w0, e0) => w0.h(e0)));
@@ -3243,7 +3243,7 @@ final class DnsMsg implements GoDto {
   /// Go: `func (*dns.Msg).RRsetUsed(rr []dns.RR)`.
   void rRsetUsed(List<DnsRr> rr) {
     $callSync(
-        15483,
+        15489,
         $W()
           ..dto(this)
           ..list(rr, (w0, e0) => w0.h(e0)));
@@ -3252,7 +3252,7 @@ final class DnsMsg implements GoDto {
   /// Go: `func (*dns.Msg).Remove(rr []dns.RR)`.
   void remove(List<DnsRr> rr) {
     $callSync(
-        15484,
+        15490,
         $W()
           ..dto(this)
           ..list(rr, (w0, e0) => w0.h(e0)));
@@ -3261,7 +3261,7 @@ final class DnsMsg implements GoDto {
   /// Go: `func (*dns.Msg).RemoveName(rr []dns.RR)`.
   void removeName(List<DnsRr> rr) {
     $callSync(
-        15485,
+        15491,
         $W()
           ..dto(this)
           ..list(rr, (w0, e0) => w0.h(e0)));
@@ -3270,7 +3270,7 @@ final class DnsMsg implements GoDto {
   /// Go: `func (*dns.Msg).RemoveRRset(rr []dns.RR)`.
   void removeRRset(List<DnsRr> rr) {
     $callSync(
-        15486,
+        15492,
         $W()
           ..dto(this)
           ..list(rr, (w0, e0) => w0.h(e0)));
@@ -3279,7 +3279,7 @@ final class DnsMsg implements GoDto {
   /// Go: `func (*dns.Msg).SetAxfr(z string) *dns.Msg`.
   DnsMsg setAxfr(String z) {
     final $r = $callSync(
-        15487,
+        15493,
         $W()
           ..dto(this)
           ..str(z));
@@ -3289,7 +3289,7 @@ final class DnsMsg implements GoDto {
   /// Go: `func (*dns.Msg).SetEdns0(udpsize uint16, do bool) *dns.Msg`.
   DnsMsg setEdns0(int udpsize, bool do$) {
     final $r = $callSync(
-        15488,
+        15494,
         $W()
           ..dto(this)
           ..i64(udpsize)
@@ -3300,7 +3300,7 @@ final class DnsMsg implements GoDto {
   /// Go: `func (*dns.Msg).SetIxfr(z string, serial uint32, ns string, mbox string) *dns.Msg`.
   DnsMsg setIxfr(String z, int serial, String ns, String mbox) {
     final $r = $callSync(
-        15489,
+        15495,
         $W()
           ..dto(this)
           ..str(z)
@@ -3313,7 +3313,7 @@ final class DnsMsg implements GoDto {
   /// Go: `func (*dns.Msg).SetNotify(z string) *dns.Msg`.
   DnsMsg setNotify(String z) {
     final $r = $callSync(
-        15490,
+        15496,
         $W()
           ..dto(this)
           ..str(z));
@@ -3323,7 +3323,7 @@ final class DnsMsg implements GoDto {
   /// Go: `func (*dns.Msg).SetQuestion(z string, t uint16) *dns.Msg`.
   DnsMsg setQuestion(String z, int t) {
     final $r = $callSync(
-        15491,
+        15497,
         $W()
           ..dto(this)
           ..str(z)
@@ -3334,7 +3334,7 @@ final class DnsMsg implements GoDto {
   /// Go: `func (*dns.Msg).SetRcode(request *dns.Msg, rcode int) *dns.Msg`.
   DnsMsg setRcode(DnsMsg request, int rcode) {
     final $r = $callSync(
-        15492,
+        15498,
         $W()
           ..dto(this)
           ..dto(request)
@@ -3345,7 +3345,7 @@ final class DnsMsg implements GoDto {
   /// Go: `func (*dns.Msg).SetRcodeFormatError(request *dns.Msg) *dns.Msg`.
   DnsMsg setRcodeFormatError(DnsMsg request) {
     final $r = $callSync(
-        15493,
+        15499,
         $W()
           ..dto(this)
           ..dto(request));
@@ -3355,7 +3355,7 @@ final class DnsMsg implements GoDto {
   /// Go: `func (*dns.Msg).SetReply(request *dns.Msg) *dns.Msg`.
   DnsMsg setReply(DnsMsg request) {
     final $r = $callSync(
-        15494,
+        15500,
         $W()
           ..dto(this)
           ..dto(request));
@@ -3365,7 +3365,7 @@ final class DnsMsg implements GoDto {
   /// Go: `func (*dns.Msg).SetTsig(z string, algo string, fudge uint16, timesigned int64) *dns.Msg`.
   DnsMsg setTsig(String z, String algo, int fudge, int timesigned) {
     final $r = $callSync(
-        15495,
+        15501,
         $W()
           ..dto(this)
           ..str(z)
@@ -3378,7 +3378,7 @@ final class DnsMsg implements GoDto {
   /// Go: `func (*dns.Msg).SetUpdate(z string) *dns.Msg`.
   DnsMsg setUpdate(String z) {
     final $r = $callSync(
-        15496,
+        15502,
         $W()
           ..dto(this)
           ..str(z));
@@ -3387,14 +3387,14 @@ final class DnsMsg implements GoDto {
 
   /// Go: `func (*dns.Msg).String() string`.
   String string() {
-    final $r = $callSync(15497, $W()..dto(this));
+    final $r = $callSync(15503, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*dns.Msg).Truncate(size int)`.
   void truncate(int size) {
     $callSync(
-        15498,
+        15504,
         $W()
           ..dto(this)
           ..i64(size));
@@ -3403,7 +3403,7 @@ final class DnsMsg implements GoDto {
   /// Go: `func (*dns.Msg).Unpack(msg []byte) (err error)`.
   void unpack(Uint8List msg) {
     $callSync(
-        15499,
+        15505,
         $W()
           ..dto(this)
           ..bytes(msg));
@@ -3412,7 +3412,7 @@ final class DnsMsg implements GoDto {
   /// Go: `func (*dns.Msg).Used(rr []dns.RR)`.
   void used(List<DnsRr> rr) {
     $callSync(
-        15500,
+        15506,
         $W()
           ..dto(this)
           ..list(rr, (w0, e0) => w0.h(e0)));
@@ -3528,7 +3528,7 @@ final class DnsMsgHdr implements GoDto {
 
   /// Go: `func (*dns.MsgHdr).String() string`.
   String string() {
-    final $r = $callSync(15501, $W()..dto(this));
+    final $r = $callSync(15507, $W()..dto(this));
     return $r.str();
   }
 }
@@ -3614,13 +3614,13 @@ final class DnsNaptr implements GoDto {
 
   /// Go: `func (*dns.NAPTR).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15502, $W()..dto(this));
+    final $r = $callSync(15508, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.NAPTR).String() string`.
   String string() {
-    final $r = $callSync(15503, $W()..dto(this));
+    final $r = $callSync(15509, $W()..dto(this));
     return $r.str();
   }
 }
@@ -3659,13 +3659,13 @@ final class DnsNid implements GoDto {
 
   /// Go: `func (*dns.NID).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15504, $W()..dto(this));
+    final $r = $callSync(15510, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.NID).String() string`.
   String string() {
-    final $r = $callSync(15505, $W()..dto(this));
+    final $r = $callSync(15511, $W()..dto(this));
     return $r.str();
   }
 }
@@ -3695,13 +3695,13 @@ final class DnsNimloc implements GoDto {
 
   /// Go: `func (*dns.NIMLOC).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15506, $W()..dto(this));
+    final $r = $callSync(15512, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.NIMLOC).String() string`.
   String string() {
-    final $r = $callSync(15507, $W()..dto(this));
+    final $r = $callSync(15513, $W()..dto(this));
     return $r.str();
   }
 }
@@ -3731,13 +3731,13 @@ final class DnsNinfo implements GoDto {
 
   /// Go: `func (*dns.NINFO).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15508, $W()..dto(this));
+    final $r = $callSync(15514, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.NINFO).String() string`.
   String string() {
-    final $r = $callSync(15509, $W()..dto(this));
+    final $r = $callSync(15515, $W()..dto(this));
     return $r.str();
   }
 }
@@ -3767,13 +3767,13 @@ final class DnsNs implements GoDto {
 
   /// Go: `func (*dns.NS).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15510, $W()..dto(this));
+    final $r = $callSync(15516, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.NS).String() string`.
   String string() {
-    final $r = $callSync(15511, $W()..dto(this));
+    final $r = $callSync(15517, $W()..dto(this));
     return $r.str();
   }
 }
@@ -3803,13 +3803,13 @@ final class DnsNsapptr implements GoDto {
 
   /// Go: `func (*dns.NSAPPTR).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15512, $W()..dto(this));
+    final $r = $callSync(15518, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.NSAPPTR).String() string`.
   String string() {
-    final $r = $callSync(15513, $W()..dto(this));
+    final $r = $callSync(15519, $W()..dto(this));
     return $r.str();
   }
 }
@@ -3845,13 +3845,13 @@ final class DnsNsec implements GoDto {
 
   /// Go: `func (*dns.NSEC).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15514, $W()..dto(this));
+    final $r = $callSync(15520, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.NSEC).String() string`.
   String string() {
-    final $r = $callSync(15515, $W()..dto(this));
+    final $r = $callSync(15521, $W()..dto(this));
     return $r.str();
   }
 }
@@ -3933,7 +3933,7 @@ final class DnsNsec3 implements GoDto {
   /// Go: `func (*dns.NSEC3).Cover(name string) bool`.
   bool cover(String name) {
     final $r = $callSync(
-        15516,
+        15522,
         $W()
           ..dto(this)
           ..str(name));
@@ -3942,14 +3942,14 @@ final class DnsNsec3 implements GoDto {
 
   /// Go: `func (*dns.NSEC3).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15517, $W()..dto(this));
+    final $r = $callSync(15523, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.NSEC3).Match(name string) bool`.
   bool match(String name) {
     final $r = $callSync(
-        15518,
+        15524,
         $W()
           ..dto(this)
           ..str(name));
@@ -3958,7 +3958,7 @@ final class DnsNsec3 implements GoDto {
 
   /// Go: `func (*dns.NSEC3).String() string`.
   String string() {
-    final $r = $callSync(15519, $W()..dto(this));
+    final $r = $callSync(15525, $W()..dto(this));
     return $r.str();
   }
 }
@@ -4018,13 +4018,13 @@ final class DnsNsec3param implements GoDto {
 
   /// Go: `func (*dns.NSEC3PARAM).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15520, $W()..dto(this));
+    final $r = $callSync(15526, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.NSEC3PARAM).String() string`.
   String string() {
-    final $r = $callSync(15521, $W()..dto(this));
+    final $r = $callSync(15527, $W()..dto(this));
     return $r.str();
   }
 }
@@ -4054,13 +4054,13 @@ final class DnsNull implements GoDto {
 
   /// Go: `func (*dns.NULL).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15522, $W()..dto(this));
+    final $r = $callSync(15528, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.NULL).String() string`.
   String string() {
-    final $r = $callSync(15523, $W()..dto(this));
+    final $r = $callSync(15529, $W()..dto(this));
     return $r.str();
   }
 }
@@ -4081,13 +4081,13 @@ final class DnsNxname implements GoDto {
 
   /// Go: `func (*dns.NXNAME).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15524, $W()..dto(this));
+    final $r = $callSync(15530, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.NXNAME).String() string`.
   String string() {
-    final $r = $callSync(15525, $W()..dto(this));
+    final $r = $callSync(15531, $W()..dto(this));
     return $r.str();
   }
 }
@@ -4108,13 +4108,13 @@ final class DnsNxt implements GoDto {
 
   /// Go: `func (*dns.NXT).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15526, $W()..dto(this));
+    final $r = $callSync(15532, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.NSEC).String() string`.
   String string() {
-    final $r = $callSync(15527, $W()..dto(this));
+    final $r = $callSync(15533, $W()..dto(this));
     return $r.str();
   }
 }
@@ -4144,13 +4144,13 @@ final class DnsOpenpgpkey implements GoDto {
 
   /// Go: `func (*dns.OPENPGPKEY).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15533, $W()..dto(this));
+    final $r = $callSync(15539, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.OPENPGPKEY).String() string`.
   String string() {
-    final $r = $callSync(15534, $W()..dto(this));
+    final $r = $callSync(15540, $W()..dto(this));
     return $r.str();
   }
 }
@@ -4180,32 +4180,32 @@ final class DnsOpt implements GoDto {
 
   /// Go: `func (*dns.OPT).Co() bool`.
   bool co() {
-    final $r = $callSync(15535, $W()..dto(this));
+    final $r = $callSync(15541, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*dns.OPT).Do() bool`.
   bool do$() {
-    final $r = $callSync(15536, $W()..dto(this));
+    final $r = $callSync(15542, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*dns.OPT).ExtendedRcode() int`.
   int extendedRcode() {
-    final $r = $callSync(15537, $W()..dto(this));
+    final $r = $callSync(15543, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dns.OPT).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15538, $W()..dto(this));
+    final $r = $callSync(15544, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.OPT).SetCo(co ...bool)`.
   void setCo([List<bool> co = const []]) {
     $callSync(
-        15539,
+        15545,
         $W()
           ..dto(this)
           ..list(co, (w0, e0) => w0.b(e0)));
@@ -4214,7 +4214,7 @@ final class DnsOpt implements GoDto {
   /// Go: `func (*dns.OPT).SetDo(do ...bool)`.
   void setDo([List<bool> do$ = const []]) {
     $callSync(
-        15540,
+        15546,
         $W()
           ..dto(this)
           ..list(do$, (w0, e0) => w0.b(e0)));
@@ -4223,7 +4223,7 @@ final class DnsOpt implements GoDto {
   /// Go: `func (*dns.OPT).SetExtendedRcode(v uint16)`.
   void setExtendedRcode(int v) {
     $callSync(
-        15541,
+        15547,
         $W()
           ..dto(this)
           ..i64(v));
@@ -4232,7 +4232,7 @@ final class DnsOpt implements GoDto {
   /// Go: `func (*dns.OPT).SetUDPSize(size uint16)`.
   void setUdpSize(int size) {
     $callSync(
-        15542,
+        15548,
         $W()
           ..dto(this)
           ..i64(size));
@@ -4241,7 +4241,7 @@ final class DnsOpt implements GoDto {
   /// Go: `func (*dns.OPT).SetVersion(v uint8)`.
   void setVersion(int v) {
     $callSync(
-        15543,
+        15549,
         $W()
           ..dto(this)
           ..i64(v));
@@ -4250,7 +4250,7 @@ final class DnsOpt implements GoDto {
   /// Go: `func (*dns.OPT).SetZ(z uint16)`.
   void setZ(int z) {
     $callSync(
-        15544,
+        15550,
         $W()
           ..dto(this)
           ..i64(z));
@@ -4258,25 +4258,25 @@ final class DnsOpt implements GoDto {
 
   /// Go: `func (*dns.OPT).String() string`.
   String string() {
-    final $r = $callSync(15545, $W()..dto(this));
+    final $r = $callSync(15551, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*dns.OPT).UDPSize() uint16`.
   int udpSize() {
-    final $r = $callSync(15546, $W()..dto(this));
+    final $r = $callSync(15552, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dns.OPT).Version() uint8`.
   int version() {
-    final $r = $callSync(15547, $W()..dto(this));
+    final $r = $callSync(15553, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dns.OPT).Z() uint16`.
   int z() {
-    final $r = $callSync(15548, $W()..dto(this));
+    final $r = $callSync(15554, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -4306,13 +4306,13 @@ final class DnsPtr implements GoDto {
 
   /// Go: `func (*dns.PTR).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15550, $W()..dto(this));
+    final $r = $callSync(15556, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.PTR).String() string`.
   String string() {
-    final $r = $callSync(15551, $W()..dto(this));
+    final $r = $callSync(15557, $W()..dto(this));
     return $r.str();
   }
 }
@@ -4354,13 +4354,13 @@ final class DnsPx implements GoDto {
 
   /// Go: `func (*dns.PX).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15552, $W()..dto(this));
+    final $r = $callSync(15558, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.PX).String() string`.
   String string() {
-    final $r = $callSync(15553, $W()..dto(this));
+    final $r = $callSync(15559, $W()..dto(this));
     return $r.str();
   }
 }
@@ -4376,7 +4376,7 @@ mixin DnsPacketConnReader$ on GoHandle {
   (Uint8List, $net.NetAddr) readPacketConn(
       $net.NetPacketConn conn, Duration timeout) {
     final $r = $callSync(
-        15556,
+        15562,
         $W()
           ..h(this)
           ..h(conn)
@@ -4410,13 +4410,13 @@ class DnsPrivateRr extends DnsRr
 
   /// Go: `func (*dns.PrivateRR).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15559, $W()..h(this));
+    final $r = $callSync(15565, $W()..h(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.PrivateRR).String() string`.
   String string() {
-    final $r = $callSync(15560, $W()..h(this));
+    final $r = $callSync(15566, $W()..h(this));
     return $r.str();
   }
 }
@@ -4431,7 +4431,7 @@ mixin DnsPrivateRdata$ on GoHandle {
   /// Go: `func (dns.PrivateRdata).Copy(dns.PrivateRdata) error`.
   void copy(DnsPrivateRdata privateRdata) {
     $callSync(
-        15561,
+        15567,
         $W()
           ..h(this)
           ..h(privateRdata));
@@ -4439,14 +4439,14 @@ mixin DnsPrivateRdata$ on GoHandle {
 
   /// Go: `func (dns.PrivateRdata).Len() int`.
   int len() {
-    final $r = $callSync(15562, $W()..h(this));
+    final $r = $callSync(15568, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (dns.PrivateRdata).Pack([]byte) (int, error)`.
   int pack(Uint8List arg0) {
     final $r = $callSync(
-        15563,
+        15569,
         $W()
           ..h(this)
           ..bytes(arg0));
@@ -4456,7 +4456,7 @@ mixin DnsPrivateRdata$ on GoHandle {
   /// Go: `func (dns.PrivateRdata).Parse([]string) error`.
   void parse(List<String> arg0) {
     $callSync(
-        15564,
+        15570,
         $W()
           ..h(this)
           ..list(arg0, (w0, e0) => w0.str(e0)));
@@ -4464,14 +4464,14 @@ mixin DnsPrivateRdata$ on GoHandle {
 
   /// Go: `func (dns.PrivateRdata).String() string`.
   String string() {
-    final $r = $callSync(15565, $W()..h(this));
+    final $r = $callSync(15571, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (dns.PrivateRdata).Unpack([]byte) (int, error)`.
   int unpack(Uint8List arg0) {
     final $r = $callSync(
-        15566,
+        15572,
         $W()
           ..h(this)
           ..bytes(arg0));
@@ -4510,7 +4510,7 @@ final class DnsQuestion implements GoDto {
 
   /// Go: `func (*dns.Question).String() (s string)`.
   String string() {
-    final $r = $callSync(15567, $W()..dto(this));
+    final $r = $callSync(15573, $W()..dto(this));
     return $r.str();
   }
 }
@@ -4540,13 +4540,13 @@ final class DnsResinfo implements GoDto {
 
   /// Go: `func (*dns.RESINFO).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15568, $W()..dto(this));
+    final $r = $callSync(15574, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.RESINFO).String() string`.
   String string() {
-    final $r = $callSync(15569, $W()..dto(this));
+    final $r = $callSync(15575, $W()..dto(this));
     return $r.str();
   }
 }
@@ -4576,20 +4576,20 @@ final class DnsRfc3597 implements GoDto {
 
   /// Go: `func (*dns.RFC3597).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15570, $W()..dto(this));
+    final $r = $callSync(15576, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.RFC3597).String() string`.
   String string() {
-    final $r = $callSync(15571, $W()..dto(this));
+    final $r = $callSync(15577, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*dns.RFC3597).ToRFC3597(r dns.RR) error`.
   void toRfc3597(DnsRr r) {
     $callSync(
-        15572,
+        15578,
         $W()
           ..dto(this)
           ..h(r));
@@ -4644,13 +4644,13 @@ final class DnsRkey implements GoDto {
 
   /// Go: `func (*dns.RKEY).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15573, $W()..dto(this));
+    final $r = $callSync(15579, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.RKEY).String() string`.
   String string() {
-    final $r = $callSync(15574, $W()..dto(this));
+    final $r = $callSync(15580, $W()..dto(this));
     return $r.str();
   }
 }
@@ -4686,13 +4686,13 @@ final class DnsRp implements GoDto {
 
   /// Go: `func (*dns.RP).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15575, $W()..dto(this));
+    final $r = $callSync(15581, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.RP).String() string`.
   String string() {
-    final $r = $callSync(15576, $W()..dto(this));
+    final $r = $callSync(15582, $W()..dto(this));
     return $r.str();
   }
 }
@@ -4703,7 +4703,7 @@ class DnsRr extends GoHandle with DnsRr$ {
 
   /// Go: `func dns.NewRR(s string) (dns.RR, error)`.
   factory DnsRr(String s) {
-    final $r = $callSync(15528, $W()..str(s));
+    final $r = $callSync(15534, $W()..str(s));
     return $r.hnn(DnsRr.$h);
   }
 }
@@ -4712,19 +4712,19 @@ class DnsRr extends GoHandle with DnsRr$ {
 mixin DnsRr$ on GoHandle {
   /// Go: `func (dns.RR).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15577, $W()..h(this));
+    final $r = $callSync(15583, $W()..h(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (dns.RR).String() string`.
   String string() {
-    final $r = $callSync(15578, $W()..h(this));
+    final $r = $callSync(15584, $W()..h(this));
     return $r.str();
   }
 
   /// Go: type assertion `x.(*dns.PrivateRR)`: null if the object is not one.
   DnsPrivateRr? asDnsPrivateRr() {
-    final $r = $callSync(1459, $W()..h(this));
+    final $r = $callSync(1464, $W()..h(this));
     return $r.hn(DnsPrivateRr.$h);
   }
 }
@@ -4812,14 +4812,14 @@ final class DnsRrsig implements GoDto {
 
   /// Go: `func (*dns.RRSIG).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15579, $W()..dto(this));
+    final $r = $callSync(15585, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.RRSIG).Sign(k crypto.Signer, rrset []dns.RR) error`.
   void sign($crypto.CryptoSigner k, List<DnsRr> rrset) {
     $callSync(
-        15580,
+        15586,
         $W()
           ..dto(this)
           ..h(k)
@@ -4828,14 +4828,14 @@ final class DnsRrsig implements GoDto {
 
   /// Go: `func (*dns.RRSIG).String() string`.
   String string() {
-    final $r = $callSync(15581, $W()..dto(this));
+    final $r = $callSync(15587, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*dns.RRSIG).ValidityPeriod(t time.Time) bool`.
   bool validityPeriod(DateTime t) {
     final $r = $callSync(
-        15582,
+        15588,
         $W()
           ..dto(this)
           ..time(t));
@@ -4845,7 +4845,7 @@ final class DnsRrsig implements GoDto {
   /// Go: `func (*dns.RRSIG).Verify(k *dns.DNSKEY, rrset []dns.RR) error`.
   void verify(DnsDnskey k, List<DnsRr> rrset) {
     $callSync(
-        15583,
+        15589,
         $W()
           ..dto(this)
           ..dto(k)
@@ -4896,13 +4896,13 @@ final class DnsRrHeader implements GoDto {
 
   /// Go: `func (*dns.RR_Header).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15584, $W()..dto(this));
+    final $r = $callSync(15590, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.RR_Header).String() string`.
   String string() {
-    final $r = $callSync(15585, $W()..dto(this));
+    final $r = $callSync(15591, $W()..dto(this));
     return $r.str();
   }
 }
@@ -4938,13 +4938,13 @@ final class DnsRt implements GoDto {
 
   /// Go: `func (*dns.RT).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15586, $W()..dto(this));
+    final $r = $callSync(15592, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.RT).String() string`.
   String string() {
-    final $r = $callSync(15587, $W()..dto(this));
+    final $r = $callSync(15593, $W()..dto(this));
     return $r.str();
   }
 }
@@ -4959,7 +4959,7 @@ mixin DnsReader$ on GoHandle {
   /// Go: `func (dns.Reader).ReadTCP(conn net.Conn, timeout time.Duration) ([]byte, error)`.
   Uint8List readTcp($net.NetConn conn, Duration timeout) {
     final $r = $callSync(
-        15590,
+        15596,
         $W()
           ..h(this)
           ..h(conn)
@@ -4969,7 +4969,7 @@ mixin DnsReader$ on GoHandle {
 
   /// Go: type assertion `x.(dns.PacketConnReader)`: null if the object is not one.
   DnsPacketConnReader? asDnsPacketConnReader() {
-    final $r = $callSync(1460, $W()..h(this));
+    final $r = $callSync(1465, $W()..h(this));
     return $r.hn(DnsPacketConnReader.$h);
   }
 }
@@ -4983,35 +4983,35 @@ class DnsResponseWriter extends GoHandle with DnsResponseWriter$ {
 mixin DnsResponseWriter$ on GoHandle {
   /// Go: `func (dns.ResponseWriter).Close() error`.
   void close() {
-    $callSync(15591, $W()..h(this));
+    $callSync(15597, $W()..h(this));
   }
 
   /// Go: `func (dns.ResponseWriter).Hijack()`.
   void hijack() {
-    $callSync(15592, $W()..h(this));
+    $callSync(15598, $W()..h(this));
   }
 
   /// Go: `func (dns.ResponseWriter).LocalAddr() net.Addr`.
   $net.NetAddr localAddr() {
-    final $r = $callSync(15593, $W()..h(this));
+    final $r = $callSync(15599, $W()..h(this));
     return $r.p() ? $net.NetAddr.$dec($r) : $nil();
   }
 
   /// Go: `func (dns.ResponseWriter).RemoteAddr() net.Addr`.
   $net.NetAddr remoteAddr() {
-    final $r = $callSync(15594, $W()..h(this));
+    final $r = $callSync(15600, $W()..h(this));
     return $r.p() ? $net.NetAddr.$dec($r) : $nil();
   }
 
   /// Go: `func (dns.ResponseWriter).TsigStatus() error`.
   void tsigStatus() {
-    $callSync(15595, $W()..h(this));
+    $callSync(15601, $W()..h(this));
   }
 
   /// Go: `func (dns.ResponseWriter).TsigTimersOnly(bool)`.
   void tsigTimersOnly(bool arg0) {
     $callSync(
-        15596,
+        15602,
         $W()
           ..h(this)
           ..b(arg0));
@@ -5020,7 +5020,7 @@ mixin DnsResponseWriter$ on GoHandle {
   /// Go: `func (dns.ResponseWriter).Write([]byte) (int, error)`.
   int write(Uint8List arg0) {
     final $r = $callSync(
-        15597,
+        15603,
         $W()
           ..h(this)
           ..bytes(arg0));
@@ -5030,7 +5030,7 @@ mixin DnsResponseWriter$ on GoHandle {
   /// Go: `func (dns.ResponseWriter).WriteMsg(*dns.Msg) error`.
   void writeMsg(DnsMsg msg) {
     $callSync(
-        15598,
+        15604,
         $W()
           ..h(this)
           ..dto(msg));
@@ -5053,14 +5053,14 @@ final class DnsSig implements GoDto {
 
   /// Go: `func (*dns.SIG).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15600, $W()..dto(this));
+    final $r = $callSync(15606, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.SIG).Sign(k crypto.Signer, m *dns.Msg) ([]byte, error)`.
   Uint8List sign($crypto.CryptoSigner k, DnsMsg m) {
     final $r = $callSync(
-        15601,
+        15607,
         $W()
           ..dto(this)
           ..h(k)
@@ -5070,14 +5070,14 @@ final class DnsSig implements GoDto {
 
   /// Go: `func (*dns.RRSIG).String() string`.
   String string() {
-    final $r = $callSync(15602, $W()..dto(this));
+    final $r = $callSync(15608, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*dns.RRSIG).ValidityPeriod(t time.Time) bool`.
   bool validityPeriod(DateTime t) {
     final $r = $callSync(
-        15603,
+        15609,
         $W()
           ..dto(this)
           ..time(t));
@@ -5087,7 +5087,7 @@ final class DnsSig implements GoDto {
   /// Go: `func (*dns.SIG).Verify(k *dns.KEY, buf []byte) error`.
   void verify(DnsKey k, Uint8List buf) {
     $callSync(
-        15604,
+        15610,
         $W()
           ..dto(this)
           ..dto(k)
@@ -5143,7 +5143,7 @@ final class DnsSmimea implements GoDto {
 
   /// Go: `func (*dns.SMIMEA).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15605, $W()..dto(this));
+    final $r = $callSync(15611, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
@@ -5151,7 +5151,7 @@ final class DnsSmimea implements GoDto {
   void sign(int usage, int selector, int matchingType,
       $x509.CryptoX509Certificate cert) {
     $callSync(
-        15606,
+        15612,
         $W()
           ..dto(this)
           ..i64(usage)
@@ -5162,14 +5162,14 @@ final class DnsSmimea implements GoDto {
 
   /// Go: `func (*dns.SMIMEA).String() string`.
   String string() {
-    final $r = $callSync(15607, $W()..dto(this));
+    final $r = $callSync(15613, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*dns.SMIMEA).Verify(cert *x509.Certificate) error`.
   void verify($x509.CryptoX509Certificate cert) {
     $callSync(
-        15608,
+        15614,
         $W()
           ..dto(this)
           ..dto(cert));
@@ -5245,13 +5245,13 @@ final class DnsSoa implements GoDto {
 
   /// Go: `func (*dns.SOA).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15610, $W()..dto(this));
+    final $r = $callSync(15616, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.SOA).String() string`.
   String string() {
-    final $r = $callSync(15611, $W()..dto(this));
+    final $r = $callSync(15617, $W()..dto(this));
     return $r.str();
   }
 }
@@ -5281,13 +5281,13 @@ final class DnsSpf implements GoDto {
 
   /// Go: `func (*dns.SPF).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15612, $W()..dto(this));
+    final $r = $callSync(15618, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.SPF).String() string`.
   String string() {
-    final $r = $callSync(15613, $W()..dto(this));
+    final $r = $callSync(15619, $W()..dto(this));
     return $r.str();
   }
 }
@@ -5336,13 +5336,13 @@ final class DnsSrv implements GoDto {
 
   /// Go: `func (*dns.SRV).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15614, $W()..dto(this));
+    final $r = $callSync(15620, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.SRV).String() string`.
   String string() {
-    final $r = $callSync(15615, $W()..dto(this));
+    final $r = $callSync(15621, $W()..dto(this));
     return $r.str();
   }
 }
@@ -5384,13 +5384,13 @@ final class DnsSshfp implements GoDto {
 
   /// Go: `func (*dns.SSHFP).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15616, $W()..dto(this));
+    final $r = $callSync(15622, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.SSHFP).String() string`.
   String string() {
-    final $r = $callSync(15617, $W()..dto(this));
+    final $r = $callSync(15623, $W()..dto(this));
     return $r.str();
   }
 }
@@ -5436,13 +5436,13 @@ final class DnsSvcb implements GoDto {
 
   /// Go: `func (*dns.SVCB).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15618, $W()..dto(this));
+    final $r = $callSync(15624, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.SVCB).String() string`.
   String string() {
-    final $r = $callSync(15619, $W()..dto(this));
+    final $r = $callSync(15625, $W()..dto(this));
     return $r.str();
   }
 }
@@ -5463,13 +5463,13 @@ final class DnsSvcbAlpn implements GoDto {
 
   /// Go: `func (*dns.SVCBAlpn).Key() dns.SVCBKey`.
   int key() {
-    final $r = $callSync(15620, $W()..dto(this));
+    final $r = $callSync(15626, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dns.SVCBAlpn).String() string`.
   String string() {
-    final $r = $callSync(15621, $W()..dto(this));
+    final $r = $callSync(15627, $W()..dto(this));
     return $r.str();
   }
 }
@@ -5490,13 +5490,13 @@ final class DnsSvcbDoHPath implements GoDto {
 
   /// Go: `func (*dns.SVCBDoHPath).Key() dns.SVCBKey`.
   int key() {
-    final $r = $callSync(15622, $W()..dto(this));
+    final $r = $callSync(15628, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dns.SVCBDoHPath).String() string`.
   String string() {
-    final $r = $callSync(15623, $W()..dto(this));
+    final $r = $callSync(15629, $W()..dto(this));
     return $r.str();
   }
 }
@@ -5517,13 +5517,13 @@ final class DnsSvcbechConfig implements GoDto {
 
   /// Go: `func (*dns.SVCBECHConfig).Key() dns.SVCBKey`.
   int key() {
-    final $r = $callSync(15624, $W()..dto(this));
+    final $r = $callSync(15630, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dns.SVCBECHConfig).String() string`.
   String string() {
-    final $r = $callSync(15625, $W()..dto(this));
+    final $r = $callSync(15631, $W()..dto(this));
     return $r.str();
   }
 }
@@ -5544,13 +5544,13 @@ final class DnsSvcbiPv4Hint implements GoDto {
 
   /// Go: `func (*dns.SVCBIPv4Hint).Key() dns.SVCBKey`.
   int key() {
-    final $r = $callSync(15626, $W()..dto(this));
+    final $r = $callSync(15632, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dns.SVCBIPv4Hint).String() string`.
   String string() {
-    final $r = $callSync(15627, $W()..dto(this));
+    final $r = $callSync(15633, $W()..dto(this));
     return $r.str();
   }
 }
@@ -5571,13 +5571,13 @@ final class DnsSvcbiPv6Hint implements GoDto {
 
   /// Go: `func (*dns.SVCBIPv6Hint).Key() dns.SVCBKey`.
   int key() {
-    final $r = $callSync(15628, $W()..dto(this));
+    final $r = $callSync(15634, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dns.SVCBIPv6Hint).String() string`.
   String string() {
-    final $r = $callSync(15629, $W()..dto(this));
+    final $r = $callSync(15635, $W()..dto(this));
     return $r.str();
   }
 }
@@ -5591,13 +5591,13 @@ class DnsSvcbKeyValue extends GoHandle with DnsSvcbKeyValue$ {
 mixin DnsSvcbKeyValue$ on GoHandle {
   /// Go: `func (dns.SVCBKeyValue).Key() dns.SVCBKey`.
   int key() {
-    final $r = $callSync(15630, $W()..h(this));
+    final $r = $callSync(15636, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (dns.SVCBKeyValue).String() string`.
   String string() {
-    final $r = $callSync(15631, $W()..h(this));
+    final $r = $callSync(15637, $W()..h(this));
     return $r.str();
   }
 }
@@ -5627,13 +5627,13 @@ final class DnsSvcbLocal implements GoDto {
 
   /// Go: `func (*dns.SVCBLocal).Key() dns.SVCBKey`.
   int key() {
-    final $r = $callSync(15632, $W()..dto(this));
+    final $r = $callSync(15638, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dns.SVCBLocal).String() string`.
   String string() {
-    final $r = $callSync(15633, $W()..dto(this));
+    final $r = $callSync(15639, $W()..dto(this));
     return $r.str();
   }
 }
@@ -5654,13 +5654,13 @@ final class DnsSvcbMandatory implements GoDto {
 
   /// Go: `func (*dns.SVCBMandatory).Key() dns.SVCBKey`.
   int key() {
-    final $r = $callSync(15634, $W()..dto(this));
+    final $r = $callSync(15640, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dns.SVCBMandatory).String() string`.
   String string() {
-    final $r = $callSync(15635, $W()..dto(this));
+    final $r = $callSync(15641, $W()..dto(this));
     return $r.str();
   }
 }
@@ -5675,13 +5675,13 @@ final class DnsSvcbNoDefaultAlpn implements GoDto {
 
   /// Go: `func (*dns.SVCBNoDefaultAlpn).Key() dns.SVCBKey`.
   int key() {
-    final $r = $callSync(15636, $W()..dto(this));
+    final $r = $callSync(15642, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dns.SVCBNoDefaultAlpn).String() string`.
   String string() {
-    final $r = $callSync(15637, $W()..dto(this));
+    final $r = $callSync(15643, $W()..dto(this));
     return $r.str();
   }
 }
@@ -5696,13 +5696,13 @@ final class DnsSvcbOhttp implements GoDto {
 
   /// Go: `func (*dns.SVCBOhttp).Key() dns.SVCBKey`.
   int key() {
-    final $r = $callSync(15638, $W()..dto(this));
+    final $r = $callSync(15644, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dns.SVCBOhttp).String() string`.
   String string() {
-    final $r = $callSync(15639, $W()..dto(this));
+    final $r = $callSync(15645, $W()..dto(this));
     return $r.str();
   }
 }
@@ -5723,13 +5723,13 @@ final class DnsSvcbPort implements GoDto {
 
   /// Go: `func (*dns.SVCBPort).Key() dns.SVCBKey`.
   int key() {
-    final $r = $callSync(15640, $W()..dto(this));
+    final $r = $callSync(15646, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*dns.SVCBPort).String() string`.
   String string() {
-    final $r = $callSync(15641, $W()..dto(this));
+    final $r = $callSync(15647, $W()..dto(this));
     return $r.str();
   }
 }
@@ -5756,14 +5756,14 @@ class DnsServeMux extends DnsHandler
 
   /// Go: `func dns.NewServeMux() *dns.ServeMux`.
   factory DnsServeMux() {
-    final $r = $callSync(15529);
+    final $r = $callSync(15535);
     return $r.hnn(DnsServeMux.$h);
   }
 
   /// Go: `func (*dns.ServeMux).Handle(pattern string, handler dns.Handler)`.
   void handle(String pattern, DnsHandler handler) {
     $callSync(
-        15642,
+        15648,
         $W()
           ..h(this)
           ..str(pattern)
@@ -5782,7 +5782,7 @@ class DnsServeMux extends DnsHandler
       FutureOr<void> Function(DnsResponseWriter responseWriter, DnsMsg msg)
           handler) async {
     await $call(
-        15643,
+        15649,
         $W()
           ..h(this)
           ..str(pattern)
@@ -5795,7 +5795,7 @@ class DnsServeMux extends DnsHandler
   /// Go: `func (*dns.ServeMux).HandleRemove(pattern string)`.
   void handleRemove(String pattern) {
     $callSync(
-        15644,
+        15650,
         $W()
           ..h(this)
           ..str(pattern));
@@ -5804,7 +5804,7 @@ class DnsServeMux extends DnsHandler
   /// Go: `func (*dns.ServeMux).ServeDNS(w dns.ResponseWriter, req *dns.Msg)`.
   void serveDns(DnsResponseWriter w, DnsMsg req) {
     $callSync(
-        15645,
+        15651,
         $W()
           ..h(this)
           ..h(w)
@@ -5832,17 +5832,17 @@ class DnsServer extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*dns.Server).ActivateAndServe() error`.
   void activateAndServe() {
-    $callSync(15646, $W()..h(this));
+    $callSync(15652, $W()..h(this));
   }
 
   /// Go: `func (*dns.Server).ListenAndServe() error`.
   void listenAndServe() {
-    $callSync(15647, $W()..h(this));
+    $callSync(15653, $W()..h(this));
   }
 
   /// Go: `func (*dns.Server).Shutdown() error`.
   void shutdown() {
-    $callSync(15648, $W()..h(this));
+    $callSync(15654, $W()..h(this));
   }
 
   /// Go: `func (*dns.Server).ShutdownContext(ctx context.Context) error`.
@@ -5850,7 +5850,7 @@ class DnsServer extends $crypto.CryptoDecrypterOpts
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> shutdownContext($context.Context ctx) async {
     await $call(
-        15649,
+        15655,
         $W()
           ..h(this)
           ..h(ctx));
@@ -5905,13 +5905,13 @@ final class DnsTa implements GoDto {
 
   /// Go: `func (*dns.TA).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15663, $W()..dto(this));
+    final $r = $callSync(15669, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.TA).String() string`.
   String string() {
-    final $r = $callSync(15664, $W()..dto(this));
+    final $r = $callSync(15670, $W()..dto(this));
     return $r.str();
   }
 }
@@ -5947,13 +5947,13 @@ final class DnsTalink implements GoDto {
 
   /// Go: `func (*dns.TALINK).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15665, $W()..dto(this));
+    final $r = $callSync(15671, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.TALINK).String() string`.
   String string() {
-    final $r = $callSync(15666, $W()..dto(this));
+    final $r = $callSync(15672, $W()..dto(this));
     return $r.str();
   }
 }
@@ -6041,13 +6041,13 @@ final class DnsTkey implements GoDto {
 
   /// Go: `func (*dns.TKEY).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15667, $W()..dto(this));
+    final $r = $callSync(15673, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.TKEY).String() string`.
   String string() {
-    final $r = $callSync(15668, $W()..dto(this));
+    final $r = $callSync(15674, $W()..dto(this));
     return $r.str();
   }
 }
@@ -6100,7 +6100,7 @@ final class DnsTlsa implements GoDto {
 
   /// Go: `func (*dns.TLSA).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15669, $W()..dto(this));
+    final $r = $callSync(15675, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
@@ -6108,7 +6108,7 @@ final class DnsTlsa implements GoDto {
   void sign(int usage, int selector, int matchingType,
       $x509.CryptoX509Certificate cert) {
     $callSync(
-        15670,
+        15676,
         $W()
           ..dto(this)
           ..i64(usage)
@@ -6119,14 +6119,14 @@ final class DnsTlsa implements GoDto {
 
   /// Go: `func (*dns.TLSA).String() string`.
   String string() {
-    final $r = $callSync(15671, $W()..dto(this));
+    final $r = $callSync(15677, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*dns.TLSA).Verify(cert *x509.Certificate) error`.
   void verify($x509.CryptoX509Certificate cert) {
     $callSync(
-        15672,
+        15678,
         $W()
           ..dto(this)
           ..dto(cert));
@@ -6219,13 +6219,13 @@ final class DnsTsig implements GoDto {
 
   /// Go: `func (*dns.TSIG).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15674, $W()..dto(this));
+    final $r = $callSync(15680, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.TSIG).String() string`.
   String string() {
-    final $r = $callSync(15675, $W()..dto(this));
+    final $r = $callSync(15681, $W()..dto(this));
     return $r.str();
   }
 }
@@ -6255,13 +6255,13 @@ final class DnsTxt implements GoDto {
 
   /// Go: `func (*dns.TXT).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15676, $W()..dto(this));
+    final $r = $callSync(15682, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.TXT).String() string`.
   String string() {
-    final $r = $callSync(15677, $W()..dto(this));
+    final $r = $callSync(15683, $W()..dto(this));
     return $r.str();
   }
 }
@@ -6297,7 +6297,7 @@ class DnsTransfer extends $net.NetConn
   /// Go: `func (*dns.Conn).Read(p []byte) (n int, err error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        15679,
+        15685,
         $W()
           ..h(this)
           ..i64(n));
@@ -6306,14 +6306,14 @@ class DnsTransfer extends $net.NetConn
 
   /// Go: `func (*dns.Transfer).ReadMsg() (*dns.Msg, error)`.
   DnsMsg readMsg() {
-    final $r = $callSync(15680, $W()..h(this));
+    final $r = $callSync(15686, $W()..h(this));
     return $r.p() ? DnsMsg.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.Conn).ReadMsgHeader(hdr *dns.Header) ([]byte, error)`.
   Uint8List readMsgHeader(DnsHeader hdr) {
     final $r = $callSync(
-        15681,
+        15687,
         $W()
           ..h(this)
           ..dto(hdr));
@@ -6323,7 +6323,7 @@ class DnsTransfer extends $net.NetConn
   /// Go: `func (*dns.Conn).Write(p []byte) (int, error)`.
   int write(Uint8List p) {
     final $r = $callSync(
-        15682,
+        15688,
         $W()
           ..h(this)
           ..bytes(p));
@@ -6333,7 +6333,7 @@ class DnsTransfer extends $net.NetConn
   /// Go: `func (*dns.Transfer).WriteMsg(m *dns.Msg) (err error)`.
   void writeMsg(DnsMsg m) {
     $callSync(
-        15683,
+        15689,
         $W()
           ..h(this)
           ..dto(m));
@@ -6350,7 +6350,7 @@ mixin DnsTsigProvider$ on GoHandle {
   /// Go: `func (dns.TsigProvider).Generate(msg []byte, t *dns.TSIG) ([]byte, error)`.
   Uint8List generate(Uint8List msg, DnsTsig t) {
     final $r = $callSync(
-        15686,
+        15692,
         $W()
           ..h(this)
           ..bytes(msg)
@@ -6361,7 +6361,7 @@ mixin DnsTsigProvider$ on GoHandle {
   /// Go: `func (dns.TsigProvider).Verify(msg []byte, t *dns.TSIG) error`.
   void verify(Uint8List msg, DnsTsig t) {
     $callSync(
-        15687,
+        15693,
         $W()
           ..h(this)
           ..bytes(msg)
@@ -6394,13 +6394,13 @@ final class DnsUid implements GoDto {
 
   /// Go: `func (*dns.UID).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15691, $W()..dto(this));
+    final $r = $callSync(15697, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.UID).String() string`.
   String string() {
-    final $r = $callSync(15692, $W()..dto(this));
+    final $r = $callSync(15698, $W()..dto(this));
     return $r.str();
   }
 }
@@ -6430,13 +6430,13 @@ final class DnsUinfo implements GoDto {
 
   /// Go: `func (*dns.UINFO).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15693, $W()..dto(this));
+    final $r = $callSync(15699, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.UINFO).String() string`.
   String string() {
-    final $r = $callSync(15694, $W()..dto(this));
+    final $r = $callSync(15700, $W()..dto(this));
     return $r.str();
   }
 }
@@ -6478,13 +6478,13 @@ final class DnsUri implements GoDto {
 
   /// Go: `func (*dns.URI).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15695, $W()..dto(this));
+    final $r = $callSync(15701, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.URI).String() string`.
   String string() {
-    final $r = $callSync(15696, $W()..dto(this));
+    final $r = $callSync(15702, $W()..dto(this));
     return $r.str();
   }
 }
@@ -6514,13 +6514,13 @@ final class DnsX25 implements GoDto {
 
   /// Go: `func (*dns.X25).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15700, $W()..dto(this));
+    final $r = $callSync(15706, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.X25).String() string`.
   String string() {
-    final $r = $callSync(15701, $W()..dto(this));
+    final $r = $callSync(15707, $W()..dto(this));
     return $r.str();
   }
 }
@@ -6569,13 +6569,13 @@ final class DnsZonemd implements GoDto {
 
   /// Go: `func (*dns.ZONEMD).Header() *dns.RR_Header`.
   DnsRrHeader header() {
-    final $r = $callSync(15702, $W()..dto(this));
+    final $r = $callSync(15708, $W()..dto(this));
     return $r.p() ? DnsRrHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dns.ZONEMD).String() string`.
   String string() {
-    final $r = $callSync(15703, $W()..dto(this));
+    final $r = $callSync(15709, $W()..dto(this));
     return $r.str();
   }
 }
@@ -6601,7 +6601,7 @@ class DnsZoneParser extends $crypto.CryptoDecrypterOpts
   /// Go: `func dns.NewZoneParser(r io.Reader, origin string, file string) *dns.ZoneParser`.
   factory DnsZoneParser(Object r, String origin, String file) {
     final $r = $callSync(
-        15530,
+        15536,
         $W()
           ..reader(r)
           ..str(origin)
@@ -6611,25 +6611,25 @@ class DnsZoneParser extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*dns.ZoneParser).Comment() string`.
   String comment() {
-    final $r = $callSync(15704, $W()..h(this));
+    final $r = $callSync(15710, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*dns.ZoneParser).Err() error`.
   void err() {
-    $callSync(15705, $W()..h(this));
+    $callSync(15711, $W()..h(this));
   }
 
   /// Go: `func (*dns.ZoneParser).Next() (dns.RR, bool)`.
   (DnsRr, bool) next() {
-    final $r = $callSync(15706, $W()..h(this));
+    final $r = $callSync(15712, $W()..h(this));
     return ($r.hnn(DnsRr.$h), $r.b());
   }
 
   /// Go: `func (*dns.ZoneParser).SetDefaultTTL(ttl uint32)`.
   void setDefaultTtl(int ttl) {
     $callSync(
-        15707,
+        15713,
         $W()
           ..h(this)
           ..i64(ttl));
@@ -6638,7 +6638,7 @@ class DnsZoneParser extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*dns.ZoneParser).SetIncludeAllowed(v bool)`.
   void setIncludeAllowed(bool v) {
     $callSync(
-        15708,
+        15714,
         $W()
           ..h(this)
           ..b(v));
@@ -6647,7 +6647,7 @@ class DnsZoneParser extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*dns.ZoneParser).SetIncludeFS(fsys fs.FS)`.
   void setIncludeFs($fs.IoFs fsys) {
     $callSync(
-        15709,
+        15715,
         $W()
           ..h(this)
           ..h(fsys));
@@ -6867,7 +6867,7 @@ extension GoMiekgDnsApi on GoMiekgDns {
   void activateAndServe(
       $net.NetListener l, $net.NetPacketConn p, DnsHandler handler) {
     $callSync(
-        15290,
+        15296,
         $W()
           ..h(l)
           ..h(p)
@@ -6876,25 +6876,25 @@ extension GoMiekgDnsApi on GoMiekgDns {
 
   /// Go: `var dns.AlgorithmToHash map[uint8]crypto.Hash`.
   Map<int, int> get algorithmToHash {
-    final $r = $callSync(15291);
+    final $r = $callSync(15297);
     return $r.map(() => $r.i64(), () => $r.i64());
   }
 
   /// Go: `var dns.AlgorithmToString map[uint8]string`.
   Map<int, String> get algorithmToString {
-    final $r = $callSync(15292);
+    final $r = $callSync(15298);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `func dns.CanonicalName(s string) string`.
   String canonicalName(String s) {
-    final $r = $callSync(15313, $W()..str(s));
+    final $r = $callSync(15319, $W()..str(s));
     return $r.str();
   }
 
   /// Go: `var dns.CertTypeToString map[uint16]string`.
   Map<int, String> get certTypeToString {
-    final $r = $callSync(15314);
+    final $r = $callSync(15320);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
@@ -6902,7 +6902,7 @@ extension GoMiekgDnsApi on GoMiekgDns {
   String certificateToDane(
       int selector, int matchingType, $x509.CryptoX509Certificate cert) {
     final $r = $callSync(
-        15315,
+        15321,
         $W()
           ..i64(selector)
           ..i64(matchingType)
@@ -6912,26 +6912,26 @@ extension GoMiekgDnsApi on GoMiekgDns {
 
   /// Go: `var dns.ClassToString map[uint16]string`.
   Map<int, String> get classToString {
-    final $r = $callSync(15316);
+    final $r = $callSync(15322);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `func dns.ClientConfigFromFile(resolvconf string) (*dns.ClientConfig, error)`.
   DnsClientConfig clientConfigFromFile(String resolvconf) {
-    final $r = $callSync(15324, $W()..str(resolvconf));
+    final $r = $callSync(15330, $W()..str(resolvconf));
     return $r.p() ? DnsClientConfig.$dec($r) : $nil();
   }
 
   /// Go: `func dns.ClientConfigFromReader(resolvconf io.Reader) (*dns.ClientConfig, error)`.
   DnsClientConfig clientConfigFromReader(Object resolvconf) {
-    final $r = $callSync(15325, $W()..reader(resolvconf));
+    final $r = $callSync(15331, $W()..reader(resolvconf));
     return $r.p() ? DnsClientConfig.$dec($r) : $nil();
   }
 
   /// Go: `func dns.CompareDomainName(s1 string, s2 string) (n int)`.
   int compareDomainName(String s1, String s2) {
     final $r = $callSync(
-        15326,
+        15332,
         $W()
           ..str(s1)
           ..str(s2));
@@ -6940,20 +6940,20 @@ extension GoMiekgDnsApi on GoMiekgDns {
 
   /// Go: `func dns.Copy(r dns.RR) dns.RR`.
   DnsRr copy(DnsRr r) {
-    final $r = $callSync(15333, $W()..h(r));
+    final $r = $callSync(15339, $W()..h(r));
     return $r.hnn(DnsRr.$h);
   }
 
   /// Go: `func dns.CountLabel(s string) (labels int)`.
   int countLabel(String s) {
-    final $r = $callSync(15334, $W()..str(s));
+    final $r = $callSync(15340, $W()..str(s));
     return $r.i64();
   }
 
   /// Go: `func dns.Dedup(rrs []dns.RR, m map[string]dns.RR) []dns.RR`.
   List<DnsRr> dedup(List<DnsRr> rrs, Map<String, DnsRr> m) {
     final $r = $callSync(
-        15354,
+        15360,
         $W()
           ..list(rrs, (w0, e0) => w0.h(e0))
           ..map(m, (w0, k0) => w0.str(k0), (w0, v0) => w0.h(v0)));
@@ -6962,26 +6962,26 @@ extension GoMiekgDnsApi on GoMiekgDns {
 
   /// Go: `var dns.DefaultMsgAcceptFunc dns.MsgAcceptFunc`.
   DnsMsgAcceptFunc get defaultMsgAcceptFunc {
-    final $r = $callSync(15355);
+    final $r = $callSync(15361);
     return $r.hnn(DnsMsgAcceptFunc.$h);
   }
 
   /// Go: `var dns.DefaultMsgInvalidFunc dns.MsgInvalidFunc`.
   DnsMsgInvalidFunc get defaultMsgInvalidFunc {
-    final $r = $callSync(15356);
+    final $r = $callSync(15362);
     return $r.hnn(DnsMsgInvalidFunc.$h);
   }
 
   /// Go: `var dns.DefaultServeMux *dns.ServeMux`.
   DnsServeMux get defaultServeMux {
-    final $r = $callSync(15357);
+    final $r = $callSync(15363);
     return $r.hnn(DnsServeMux.$h);
   }
 
   /// Go: `func dns.Dial(network string, address string) (conn *dns.Conn, err error)`.
   DnsConn dial(String network, String address) {
     final $r = $callSync(
-        15358,
+        15364,
         $W()
           ..str(network)
           ..str(address));
@@ -6991,7 +6991,7 @@ extension GoMiekgDnsApi on GoMiekgDns {
   /// Go: `func dns.DialTimeout(network string, address string, timeout time.Duration) (conn *dns.Conn, err error)`.
   DnsConn dialTimeout(String network, String address, Duration timeout) {
     final $r = $callSync(
-        15359,
+        15365,
         $W()
           ..str(network)
           ..str(address)
@@ -7003,7 +7003,7 @@ extension GoMiekgDnsApi on GoMiekgDns {
   DnsConn dialTimeoutWithTls(String network, String address,
       $tls.CryptoTlsConfig tlsConfig, Duration timeout) {
     final $r = $callSync(
-        15360,
+        15366,
         $W()
           ..str(network)
           ..str(address)
@@ -7016,7 +7016,7 @@ extension GoMiekgDnsApi on GoMiekgDns {
   DnsConn dialWithTls(
       String network, String address, $tls.CryptoTlsConfig tlsConfig) {
     final $r = $callSync(
-        15361,
+        15367,
         $W()
           ..str(network)
           ..str(address)
@@ -7027,7 +7027,7 @@ extension GoMiekgDnsApi on GoMiekgDns {
   /// Go: `func dns.Exchange(m *dns.Msg, a string) (r *dns.Msg, err error)`.
   DnsMsg exchange(DnsMsg m, String a) {
     final $r = $callSync(
-        15402,
+        15408,
         $W()
           ..dto(m)
           ..str(a));
@@ -7037,7 +7037,7 @@ extension GoMiekgDnsApi on GoMiekgDns {
   /// Go: `func dns.ExchangeConn(c net.Conn, m *dns.Msg) (r *dns.Msg, err error)`.
   DnsMsg exchangeConn($net.NetConn c, DnsMsg m) {
     final $r = $callSync(
-        15403,
+        15409,
         $W()
           ..h(c)
           ..dto(m));
@@ -7050,7 +7050,7 @@ extension GoMiekgDnsApi on GoMiekgDns {
   Future<DnsMsg> exchangeContext(
       $context.Context ctx, DnsMsg m, String a) async {
     final $r = await $call(
-        15404,
+        15410,
         $W()
           ..h(ctx)
           ..dto(m)
@@ -7060,14 +7060,14 @@ extension GoMiekgDnsApi on GoMiekgDns {
 
   /// Go: `var dns.ExtendedErrorCodeToString map[uint16]string`.
   Map<int, String> get extendedErrorCodeToString {
-    final $r = $callSync(15405);
+    final $r = $callSync(15411);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `func dns.Field(r dns.RR, i int) string`.
   String field(DnsRr r, int i) {
     final $r = $callSync(
-        15406,
+        15412,
         $W()
           ..h(r)
           ..i64(i));
@@ -7076,14 +7076,14 @@ extension GoMiekgDnsApi on GoMiekgDns {
 
   /// Go: `func dns.Fqdn(s string) string`.
   String fqdn(String s) {
-    final $r = $callSync(15407, $W()..str(s));
+    final $r = $callSync(15413, $W()..str(s));
     return $r.str();
   }
 
   /// Go: `func dns.Handle(pattern string, handler dns.Handler)`.
   void handle(String pattern, DnsHandler handler) {
     $callSync(
-        15418,
+        15424,
         $W()
           ..str(pattern)
           ..h(handler));
@@ -7092,7 +7092,7 @@ extension GoMiekgDnsApi on GoMiekgDns {
   /// Go: `func dns.HandleFailed(w dns.ResponseWriter, r *dns.Msg)`.
   void handleFailed(DnsResponseWriter w, DnsMsg r) {
     $callSync(
-        15419,
+        15425,
         $W()
           ..h(w)
           ..dto(r));
@@ -7110,7 +7110,7 @@ extension GoMiekgDnsApi on GoMiekgDns {
       FutureOr<void> Function(DnsResponseWriter responseWriter, DnsMsg msg)
           handler) async {
     await $call(
-        15420,
+        15426,
         $W()
           ..str(pattern)
           ..cb(
@@ -7121,13 +7121,13 @@ extension GoMiekgDnsApi on GoMiekgDns {
 
   /// Go: `func dns.HandleRemove(pattern string)`.
   void handleRemove(String pattern) {
-    $callSync(15421, $W()..str(pattern));
+    $callSync(15427, $W()..str(pattern));
   }
 
   /// Go: `func dns.HashName(label string, ha uint8, iter uint16, salt string) string`.
   String hashName(String label, int ha, int iter, String salt) {
     final $r = $callSync(
-        15424,
+        15430,
         $W()
           ..str(label)
           ..i64(ha)
@@ -7138,20 +7138,20 @@ extension GoMiekgDnsApi on GoMiekgDns {
 
   /// Go: `var dns.HashToString map[uint8]string`.
   Map<int, String> get hashToString {
-    final $r = $callSync(15425);
+    final $r = $callSync(15431);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `func dns.IsDomainName(s string) (labels int, ok bool)`.
   (int, bool) isDomainName(String s) {
-    final $r = $callSync(15430, $W()..str(s));
+    final $r = $callSync(15436, $W()..str(s));
     return ($r.i64(), $r.b());
   }
 
   /// Go: `func dns.IsDuplicate(r1 dns.RR, r2 dns.RR) bool`.
   bool isDuplicate(DnsRr r1, DnsRr r2) {
     final $r = $callSync(
-        15431,
+        15437,
         $W()
           ..h(r1)
           ..h(r2));
@@ -7160,25 +7160,25 @@ extension GoMiekgDnsApi on GoMiekgDns {
 
   /// Go: `func dns.IsFqdn(s string) bool`.
   bool isFqdn(String s) {
-    final $r = $callSync(15432, $W()..str(s));
+    final $r = $callSync(15438, $W()..str(s));
     return $r.b();
   }
 
   /// Go: `func dns.IsMsg(buf []byte) error`.
   void isMsg(Uint8List buf) {
-    $callSync(15433, $W()..bytes(buf));
+    $callSync(15439, $W()..bytes(buf));
   }
 
   /// Go: `func dns.IsRRset(rrset []dns.RR) bool`.
   bool isRRset(List<DnsRr> rrset) {
-    final $r = $callSync(15434, $W()..list(rrset, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(15440, $W()..list(rrset, (w0, e0) => w0.h(e0)));
     return $r.b();
   }
 
   /// Go: `func dns.IsSubDomain(parent string, child string) bool`.
   bool isSubDomain(String parent, String child) {
     final $r = $callSync(
-        15435,
+        15441,
         $W()
           ..str(parent)
           ..str(child));
@@ -7187,14 +7187,14 @@ extension GoMiekgDnsApi on GoMiekgDns {
 
   /// Go: `func dns.Len(r dns.RR) int`.
   int len(DnsRr r) {
-    final $r = $callSync(15455, $W()..h(r));
+    final $r = $callSync(15461, $W()..h(r));
     return $r.i64();
   }
 
   /// Go: `func dns.ListenAndServe(addr string, network string, handler dns.Handler) error`.
   void listenAndServe(String addr, String network, DnsHandler handler) {
     $callSync(
-        15456,
+        15462,
         $W()
           ..str(addr)
           ..str(network)
@@ -7205,7 +7205,7 @@ extension GoMiekgDnsApi on GoMiekgDns {
   void listenAndServeTls(
       String addr, String certFile, String keyFile, DnsHandler handler) {
     $callSync(
-        15457,
+        15463,
         $W()
           ..str(addr)
           ..str(certFile)
@@ -7216,7 +7216,7 @@ extension GoMiekgDnsApi on GoMiekgDns {
   /// Go: `func dns.NextLabel(s string, offset int) (i int, end bool)`.
   (int, bool) nextLabel(String s, int offset) {
     final $r = $callSync(
-        15531,
+        15537,
         $W()
           ..str(s)
           ..i64(offset));
@@ -7225,13 +7225,13 @@ extension GoMiekgDnsApi on GoMiekgDns {
 
   /// Go: `func dns.NumField(r dns.RR) int`.
   int numField(DnsRr r) {
-    final $r = $callSync(15532, $W()..h(r));
+    final $r = $callSync(15538, $W()..h(r));
     return $r.i64();
   }
 
   /// Go: `var dns.OpcodeToString map[int]string`.
   Map<int, String> get opcodeToString {
-    final $r = $callSync(15549);
+    final $r = $callSync(15555);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
@@ -7239,7 +7239,7 @@ extension GoMiekgDnsApi on GoMiekgDns {
   int packDomainName(String s, Uint8List msg, int off,
       Map<String, int> compression, bool compress) {
     final $r = $callSync(
-        15554,
+        15560,
         $W()
           ..str(s)
           ..bytes(msg)
@@ -7253,7 +7253,7 @@ extension GoMiekgDnsApi on GoMiekgDns {
   int packRr(DnsRr rr, Uint8List msg, int off, Map<String, int> compression,
       bool compress) {
     final $r = $callSync(
-        15555,
+        15561,
         $W()
           ..h(rr)
           ..bytes(msg)
@@ -7266,7 +7266,7 @@ extension GoMiekgDnsApi on GoMiekgDns {
   /// Go: `func dns.PrevLabel(s string, n int) (i int, start bool)`.
   (int, bool) prevLabel(String s, int n) {
     final $r = $callSync(
-        15557,
+        15563,
         $W()
           ..str(s)
           ..i64(n));
@@ -7275,19 +7275,19 @@ extension GoMiekgDnsApi on GoMiekgDns {
 
   /// Go: `func dns.PrivateHandleRemove(rtype uint16)`.
   void privateHandleRemove(int rtype) {
-    $callSync(15558, $W()..i64(rtype));
+    $callSync(15564, $W()..i64(rtype));
   }
 
   /// Go: `var dns.RcodeToString map[int]string`.
   Map<int, String> get rcodeToString {
-    final $r = $callSync(15588);
+    final $r = $callSync(15594);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `func dns.ReadRR(r io.Reader, file string) (dns.RR, error)`.
   DnsRr readRr(Object r, String file) {
     final $r = $callSync(
-        15589,
+        15595,
         $W()
           ..reader(r)
           ..str(file));
@@ -7296,14 +7296,14 @@ extension GoMiekgDnsApi on GoMiekgDns {
 
   /// Go: `func dns.ReverseAddr(addr string) (arpa string, err error)`.
   String reverseAddr(String addr) {
-    final $r = $callSync(15599, $W()..str(addr));
+    final $r = $callSync(15605, $W()..str(addr));
     return $r.str();
   }
 
   /// Go: `func dns.SMIMEAName(email string, domain string) (string, error)`.
   String smimeaName(String email, String domain) {
     final $r = $callSync(
-        15609,
+        15615,
         $W()
           ..str(email)
           ..str(domain));
@@ -7312,86 +7312,86 @@ extension GoMiekgDnsApi on GoMiekgDns {
 
   /// Go: `func dns.Split(s string) []int`.
   List<int> split(String s) {
-    final $r = $callSync(15650, $W()..str(s));
+    final $r = $callSync(15656, $W()..str(s));
     return $r.list(() => $r.i64());
   }
 
   /// Go: `func dns.SplitDomainName(s string) (labels []string)`.
   List<String> splitDomainName(String s) {
-    final $r = $callSync(15651, $W()..str(s));
+    final $r = $callSync(15657, $W()..str(s));
     return $r.list(() => $r.str());
   }
 
   /// Go: `var dns.StatefulTypeToString map[uint16]string`.
   Map<int, String> get statefulTypeToString {
-    final $r = $callSync(15652);
+    final $r = $callSync(15658);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var dns.StringToAlgorithm map[string]uint8`.
   Map<String, int> get stringToAlgorithm {
-    final $r = $callSync(15653);
+    final $r = $callSync(15659);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `var dns.StringToCertType map[string]uint16`.
   Map<String, int> get stringToCertType {
-    final $r = $callSync(15654);
+    final $r = $callSync(15660);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `var dns.StringToClass map[string]uint16`.
   Map<String, int> get stringToClass {
-    final $r = $callSync(15655);
+    final $r = $callSync(15661);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `var dns.StringToExtendedErrorCode map[string]uint16`.
   Map<String, int> get stringToExtendedErrorCode {
-    final $r = $callSync(15656);
+    final $r = $callSync(15662);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `var dns.StringToHash map[string]uint8`.
   Map<String, int> get stringToHash {
-    final $r = $callSync(15657);
+    final $r = $callSync(15663);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `var dns.StringToOpcode map[string]int`.
   Map<String, int> get stringToOpcode {
-    final $r = $callSync(15658);
+    final $r = $callSync(15664);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `var dns.StringToRcode map[string]int`.
   Map<String, int> get stringToRcode {
-    final $r = $callSync(15659);
+    final $r = $callSync(15665);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `var dns.StringToStatefulType map[string]uint16`.
   Map<String, int> get stringToStatefulType {
-    final $r = $callSync(15660);
+    final $r = $callSync(15666);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `func dns.StringToTime(s string) (uint32, error)`.
   int stringToTime(String s) {
-    final $r = $callSync(15661, $W()..str(s));
+    final $r = $callSync(15667, $W()..str(s));
     return $r.i64();
   }
 
   /// Go: `var dns.StringToType map[string]uint16`.
   Map<String, int> get stringToType {
-    final $r = $callSync(15662);
+    final $r = $callSync(15668);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `func dns.TLSAName(name string, service string, network string) (string, error)`.
   String tlsaName(String name, String service, String network) {
     final $r = $callSync(
-        15673,
+        15679,
         $W()
           ..str(name)
           ..str(service)
@@ -7401,7 +7401,7 @@ extension GoMiekgDnsApi on GoMiekgDns {
 
   /// Go: `func dns.TimeToString(t uint32) string`.
   String timeToString(int t) {
-    final $r = $callSync(15678, $W()..i64(t));
+    final $r = $callSync(15684, $W()..i64(t));
     return $r.str();
   }
 
@@ -7409,7 +7409,7 @@ extension GoMiekgDnsApi on GoMiekgDns {
   (Uint8List, String) tsigGenerate(
       DnsMsg m, String secret, String requestMac, bool timersOnly) {
     final $r = $callSync(
-        15684,
+        15690,
         $W()
           ..dto(m)
           ..str(secret)
@@ -7422,7 +7422,7 @@ extension GoMiekgDnsApi on GoMiekgDns {
   (Uint8List, String) tsigGenerateWithProvider(
       DnsMsg m, DnsTsigProvider provider, String requestMac, bool timersOnly) {
     final $r = $callSync(
-        15685,
+        15691,
         $W()
           ..dto(m)
           ..h(provider)
@@ -7435,7 +7435,7 @@ extension GoMiekgDnsApi on GoMiekgDns {
   void tsigVerify(
       Uint8List msg, String secret, String requestMac, bool timersOnly) {
     $callSync(
-        15688,
+        15694,
         $W()
           ..bytes(msg)
           ..str(secret)
@@ -7447,7 +7447,7 @@ extension GoMiekgDnsApi on GoMiekgDns {
   void tsigVerifyWithProvider(Uint8List msg, DnsTsigProvider provider,
       String requestMac, bool timersOnly) {
     $callSync(
-        15689,
+        15695,
         $W()
           ..bytes(msg)
           ..h(provider)
@@ -7457,14 +7457,14 @@ extension GoMiekgDnsApi on GoMiekgDns {
 
   /// Go: `var dns.TypeToString map[uint16]string`.
   Map<int, String> get typeToString {
-    final $r = $callSync(15690);
+    final $r = $callSync(15696);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `func dns.UnpackDomainName(msg []byte, off int) (string, int, error)`.
   (String, int) unpackDomainName(Uint8List msg, int off) {
     final $r = $callSync(
-        15697,
+        15703,
         $W()
           ..bytes(msg)
           ..i64(off));
@@ -7474,7 +7474,7 @@ extension GoMiekgDnsApi on GoMiekgDns {
   /// Go: `func dns.UnpackRR(msg []byte, off int) (rr dns.RR, off1 int, err error)`.
   (DnsRr, int) unpackRr(Uint8List msg, int off) {
     final $r = $callSync(
-        15698,
+        15704,
         $W()
           ..bytes(msg)
           ..i64(off));
@@ -7484,7 +7484,7 @@ extension GoMiekgDnsApi on GoMiekgDns {
   /// Go: `func dns.UnpackRRWithHeader(h dns.RR_Header, msg []byte, off int) (rr dns.RR, off1 int, err error)`.
   (DnsRr, int) unpackRrWithHeader(DnsRrHeader h, Uint8List msg, int off) {
     final $r = $callSync(
-        15699,
+        15705,
         $W()
           ..dto(h)
           ..bytes(msg)

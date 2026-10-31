@@ -24,68 +24,68 @@ final class IpldPrimeNodeMixinsBool implements GoDto {
 
   /// Go: `func (mixins.Bool).AsBytes() ([]byte, error)`.
   Uint8List asBytes() {
-    final $r = $callSync(12250, $W()..dto(this));
+    final $r = $callSync(12256, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (mixins.Bool).AsFloat() (float64, error)`.
   double asFloat() {
-    final $r = $callSync(12251, $W()..dto(this));
+    final $r = $callSync(12257, $W()..dto(this));
     return $r.f64();
   }
 
   /// Go: `func (mixins.Bool).AsInt() (int64, error)`.
   int asInt() {
-    final $r = $callSync(12252, $W()..dto(this));
+    final $r = $callSync(12258, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (mixins.Bool).AsLink() (datamodel.Link, error)`.
   $datamodel.IpldPrimeDatamodelLink asLink() {
-    final $r = $callSync(12253, $W()..dto(this));
+    final $r = $callSync(12259, $W()..dto(this));
     return $r.hnn($datamodel.IpldPrimeDatamodelLink.$h);
   }
 
   /// Go: `func (mixins.Bool).AsString() (string, error)`.
   String asString() {
-    final $r = $callSync(12254, $W()..dto(this));
+    final $r = $callSync(12260, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (mixins.Bool).IsAbsent() bool`.
   bool isAbsent() {
-    final $r = $callSync(12255, $W()..dto(this));
+    final $r = $callSync(12261, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (mixins.Bool).IsNull() bool`.
   bool isNull() {
-    final $r = $callSync(12256, $W()..dto(this));
+    final $r = $callSync(12262, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (mixins.Bool).Kind() datamodel.Kind`.
   int kind() {
-    final $r = $callSync(12257, $W()..dto(this));
+    final $r = $callSync(12263, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (mixins.Bool).Length() int64`.
   int length() {
-    final $r = $callSync(12258, $W()..dto(this));
+    final $r = $callSync(12264, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (mixins.Bool).ListIterator() datamodel.ListIterator`.
   $datamodel.IpldPrimeDatamodelListIterator listIterator() {
-    final $r = $callSync(12259, $W()..dto(this));
+    final $r = $callSync(12265, $W()..dto(this));
     return $r.hnn($datamodel.IpldPrimeDatamodelListIterator.$h);
   }
 
   /// Go: `func (mixins.Bool).LookupByIndex(idx int64) (datamodel.Node, error)`.
   $datamodel.IpldPrimeDatamodelNode lookupByIndex(int idx) {
     final $r = $callSync(
-        12260,
+        12266,
         $W()
           ..dto(this)
           ..i64(idx));
@@ -96,7 +96,7 @@ final class IpldPrimeNodeMixinsBool implements GoDto {
   $datamodel.IpldPrimeDatamodelNode lookupByNode(
       $datamodel.IpldPrimeDatamodelNode key) {
     final $r = $callSync(
-        12261,
+        12267,
         $W()
           ..dto(this)
           ..h(key));
@@ -107,7 +107,7 @@ final class IpldPrimeNodeMixinsBool implements GoDto {
   $datamodel.IpldPrimeDatamodelNode lookupBySegment(
       $datamodel.IpldPrimeDatamodelPathSegment pathSegment) {
     final $r = $callSync(
-        12262,
+        12268,
         $W()
           ..dto(this)
           ..h(pathSegment));
@@ -117,7 +117,7 @@ final class IpldPrimeNodeMixinsBool implements GoDto {
   /// Go: `func (mixins.Bool).LookupByString(string) (datamodel.Node, error)`.
   $datamodel.IpldPrimeDatamodelNode lookupByString(String arg0) {
     final $r = $callSync(
-        12263,
+        12269,
         $W()
           ..dto(this)
           ..str(arg0));
@@ -126,7 +126,7 @@ final class IpldPrimeNodeMixinsBool implements GoDto {
 
   /// Go: `func (mixins.Bool).MapIterator() datamodel.MapIterator`.
   $datamodel.IpldPrimeDatamodelMapIterator mapIterator() {
-    final $r = $callSync(12264, $W()..dto(this));
+    final $r = $callSync(12270, $W()..dto(this));
     return $r.hnn($datamodel.IpldPrimeDatamodelMapIterator.$h);
   }
 }
@@ -149,7 +149,7 @@ final class IpldPrimeNodeMixinsBoolAssembler implements GoDto {
   /// Go: `func (mixins.BoolAssembler).AssignBytes([]byte) error`.
   void assignBytes(Uint8List arg0) {
     $callSync(
-        12265,
+        12271,
         $W()
           ..dto(this)
           ..bytes(arg0));
@@ -158,7 +158,7 @@ final class IpldPrimeNodeMixinsBoolAssembler implements GoDto {
   /// Go: `func (mixins.BoolAssembler).AssignFloat(float64) error`.
   void assignFloat(double arg0) {
     $callSync(
-        12266,
+        12272,
         $W()
           ..dto(this)
           ..f64(arg0));
@@ -167,7 +167,7 @@ final class IpldPrimeNodeMixinsBoolAssembler implements GoDto {
   /// Go: `func (mixins.BoolAssembler).AssignInt(int64) error`.
   void assignInt(int arg0) {
     $callSync(
-        12267,
+        12273,
         $W()
           ..dto(this)
           ..i64(arg0));
@@ -176,7 +176,7 @@ final class IpldPrimeNodeMixinsBoolAssembler implements GoDto {
   /// Go: `func (mixins.BoolAssembler).AssignLink(datamodel.Link) error`.
   void assignLink($datamodel.IpldPrimeDatamodelLink link) {
     $callSync(
-        12268,
+        12274,
         $W()
           ..dto(this)
           ..h(link));
@@ -184,13 +184,13 @@ final class IpldPrimeNodeMixinsBoolAssembler implements GoDto {
 
   /// Go: `func (mixins.BoolAssembler).AssignNull() error`.
   void assignNull() {
-    $callSync(12269, $W()..dto(this));
+    $callSync(12275, $W()..dto(this));
   }
 
   /// Go: `func (mixins.BoolAssembler).AssignString(string) error`.
   void assignString(String arg0) {
     $callSync(
-        12270,
+        12276,
         $W()
           ..dto(this)
           ..str(arg0));
@@ -199,7 +199,7 @@ final class IpldPrimeNodeMixinsBoolAssembler implements GoDto {
   /// Go: `func (mixins.BoolAssembler).BeginList(sizeHint int64) (datamodel.ListAssembler, error)`.
   $datamodel.IpldPrimeDatamodelListAssembler beginList(int sizeHint) {
     final $r = $callSync(
-        12271,
+        12277,
         $W()
           ..dto(this)
           ..i64(sizeHint));
@@ -209,7 +209,7 @@ final class IpldPrimeNodeMixinsBoolAssembler implements GoDto {
   /// Go: `func (mixins.BoolAssembler).BeginMap(sizeHint int64) (datamodel.MapAssembler, error)`.
   $datamodel.IpldPrimeDatamodelMapAssembler beginMap(int sizeHint) {
     final $r = $callSync(
-        12272,
+        12278,
         $W()
           ..dto(this)
           ..i64(sizeHint));
@@ -233,68 +233,68 @@ final class IpldPrimeNodeMixinsBytes implements GoDto {
 
   /// Go: `func (mixins.Bytes).AsBool() (bool, error)`.
   bool asBool() {
-    final $r = $callSync(12273, $W()..dto(this));
+    final $r = $callSync(12279, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (mixins.Bytes).AsFloat() (float64, error)`.
   double asFloat() {
-    final $r = $callSync(12274, $W()..dto(this));
+    final $r = $callSync(12280, $W()..dto(this));
     return $r.f64();
   }
 
   /// Go: `func (mixins.Bytes).AsInt() (int64, error)`.
   int asInt() {
-    final $r = $callSync(12275, $W()..dto(this));
+    final $r = $callSync(12281, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (mixins.Bytes).AsLink() (datamodel.Link, error)`.
   $datamodel.IpldPrimeDatamodelLink asLink() {
-    final $r = $callSync(12276, $W()..dto(this));
+    final $r = $callSync(12282, $W()..dto(this));
     return $r.hnn($datamodel.IpldPrimeDatamodelLink.$h);
   }
 
   /// Go: `func (mixins.Bytes).AsString() (string, error)`.
   String asString() {
-    final $r = $callSync(12277, $W()..dto(this));
+    final $r = $callSync(12283, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (mixins.Bytes).IsAbsent() bool`.
   bool isAbsent() {
-    final $r = $callSync(12278, $W()..dto(this));
+    final $r = $callSync(12284, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (mixins.Bytes).IsNull() bool`.
   bool isNull() {
-    final $r = $callSync(12279, $W()..dto(this));
+    final $r = $callSync(12285, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (mixins.Bytes).Kind() datamodel.Kind`.
   int kind() {
-    final $r = $callSync(12280, $W()..dto(this));
+    final $r = $callSync(12286, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (mixins.Bytes).Length() int64`.
   int length() {
-    final $r = $callSync(12281, $W()..dto(this));
+    final $r = $callSync(12287, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (mixins.Bytes).ListIterator() datamodel.ListIterator`.
   $datamodel.IpldPrimeDatamodelListIterator listIterator() {
-    final $r = $callSync(12282, $W()..dto(this));
+    final $r = $callSync(12288, $W()..dto(this));
     return $r.hnn($datamodel.IpldPrimeDatamodelListIterator.$h);
   }
 
   /// Go: `func (mixins.Bytes).LookupByIndex(idx int64) (datamodel.Node, error)`.
   $datamodel.IpldPrimeDatamodelNode lookupByIndex(int idx) {
     final $r = $callSync(
-        12283,
+        12289,
         $W()
           ..dto(this)
           ..i64(idx));
@@ -305,7 +305,7 @@ final class IpldPrimeNodeMixinsBytes implements GoDto {
   $datamodel.IpldPrimeDatamodelNode lookupByNode(
       $datamodel.IpldPrimeDatamodelNode key) {
     final $r = $callSync(
-        12284,
+        12290,
         $W()
           ..dto(this)
           ..h(key));
@@ -316,7 +316,7 @@ final class IpldPrimeNodeMixinsBytes implements GoDto {
   $datamodel.IpldPrimeDatamodelNode lookupBySegment(
       $datamodel.IpldPrimeDatamodelPathSegment pathSegment) {
     final $r = $callSync(
-        12285,
+        12291,
         $W()
           ..dto(this)
           ..h(pathSegment));
@@ -326,7 +326,7 @@ final class IpldPrimeNodeMixinsBytes implements GoDto {
   /// Go: `func (mixins.Bytes).LookupByString(string) (datamodel.Node, error)`.
   $datamodel.IpldPrimeDatamodelNode lookupByString(String arg0) {
     final $r = $callSync(
-        12286,
+        12292,
         $W()
           ..dto(this)
           ..str(arg0));
@@ -335,7 +335,7 @@ final class IpldPrimeNodeMixinsBytes implements GoDto {
 
   /// Go: `func (mixins.Bytes).MapIterator() datamodel.MapIterator`.
   $datamodel.IpldPrimeDatamodelMapIterator mapIterator() {
-    final $r = $callSync(12287, $W()..dto(this));
+    final $r = $callSync(12293, $W()..dto(this));
     return $r.hnn($datamodel.IpldPrimeDatamodelMapIterator.$h);
   }
 }
@@ -358,7 +358,7 @@ final class IpldPrimeNodeMixinsBytesAssembler implements GoDto {
   /// Go: `func (mixins.BytesAssembler).AssignBool(bool) error`.
   void assignBool(bool arg0) {
     $callSync(
-        12288,
+        12294,
         $W()
           ..dto(this)
           ..b(arg0));
@@ -367,7 +367,7 @@ final class IpldPrimeNodeMixinsBytesAssembler implements GoDto {
   /// Go: `func (mixins.BytesAssembler).AssignFloat(float64) error`.
   void assignFloat(double arg0) {
     $callSync(
-        12289,
+        12295,
         $W()
           ..dto(this)
           ..f64(arg0));
@@ -376,7 +376,7 @@ final class IpldPrimeNodeMixinsBytesAssembler implements GoDto {
   /// Go: `func (mixins.BytesAssembler).AssignInt(int64) error`.
   void assignInt(int arg0) {
     $callSync(
-        12290,
+        12296,
         $W()
           ..dto(this)
           ..i64(arg0));
@@ -385,7 +385,7 @@ final class IpldPrimeNodeMixinsBytesAssembler implements GoDto {
   /// Go: `func (mixins.BytesAssembler).AssignLink(datamodel.Link) error`.
   void assignLink($datamodel.IpldPrimeDatamodelLink link) {
     $callSync(
-        12291,
+        12297,
         $W()
           ..dto(this)
           ..h(link));
@@ -393,13 +393,13 @@ final class IpldPrimeNodeMixinsBytesAssembler implements GoDto {
 
   /// Go: `func (mixins.BytesAssembler).AssignNull() error`.
   void assignNull() {
-    $callSync(12292, $W()..dto(this));
+    $callSync(12298, $W()..dto(this));
   }
 
   /// Go: `func (mixins.BytesAssembler).AssignString(string) error`.
   void assignString(String arg0) {
     $callSync(
-        12293,
+        12299,
         $W()
           ..dto(this)
           ..str(arg0));
@@ -408,7 +408,7 @@ final class IpldPrimeNodeMixinsBytesAssembler implements GoDto {
   /// Go: `func (mixins.BytesAssembler).BeginList(sizeHint int64) (datamodel.ListAssembler, error)`.
   $datamodel.IpldPrimeDatamodelListAssembler beginList(int sizeHint) {
     final $r = $callSync(
-        12294,
+        12300,
         $W()
           ..dto(this)
           ..i64(sizeHint));
@@ -418,7 +418,7 @@ final class IpldPrimeNodeMixinsBytesAssembler implements GoDto {
   /// Go: `func (mixins.BytesAssembler).BeginMap(sizeHint int64) (datamodel.MapAssembler, error)`.
   $datamodel.IpldPrimeDatamodelMapAssembler beginMap(int sizeHint) {
     final $r = $callSync(
-        12295,
+        12301,
         $W()
           ..dto(this)
           ..i64(sizeHint));
@@ -442,68 +442,68 @@ final class IpldPrimeNodeMixinsFloat implements GoDto {
 
   /// Go: `func (mixins.Float).AsBool() (bool, error)`.
   bool asBool() {
-    final $r = $callSync(12296, $W()..dto(this));
+    final $r = $callSync(12302, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (mixins.Float).AsBytes() ([]byte, error)`.
   Uint8List asBytes() {
-    final $r = $callSync(12297, $W()..dto(this));
+    final $r = $callSync(12303, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (mixins.Float).AsInt() (int64, error)`.
   int asInt() {
-    final $r = $callSync(12298, $W()..dto(this));
+    final $r = $callSync(12304, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (mixins.Float).AsLink() (datamodel.Link, error)`.
   $datamodel.IpldPrimeDatamodelLink asLink() {
-    final $r = $callSync(12299, $W()..dto(this));
+    final $r = $callSync(12305, $W()..dto(this));
     return $r.hnn($datamodel.IpldPrimeDatamodelLink.$h);
   }
 
   /// Go: `func (mixins.Float).AsString() (string, error)`.
   String asString() {
-    final $r = $callSync(12300, $W()..dto(this));
+    final $r = $callSync(12306, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (mixins.Float).IsAbsent() bool`.
   bool isAbsent() {
-    final $r = $callSync(12301, $W()..dto(this));
+    final $r = $callSync(12307, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (mixins.Float).IsNull() bool`.
   bool isNull() {
-    final $r = $callSync(12302, $W()..dto(this));
+    final $r = $callSync(12308, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (mixins.Float).Kind() datamodel.Kind`.
   int kind() {
-    final $r = $callSync(12303, $W()..dto(this));
+    final $r = $callSync(12309, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (mixins.Float).Length() int64`.
   int length() {
-    final $r = $callSync(12304, $W()..dto(this));
+    final $r = $callSync(12310, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (mixins.Float).ListIterator() datamodel.ListIterator`.
   $datamodel.IpldPrimeDatamodelListIterator listIterator() {
-    final $r = $callSync(12305, $W()..dto(this));
+    final $r = $callSync(12311, $W()..dto(this));
     return $r.hnn($datamodel.IpldPrimeDatamodelListIterator.$h);
   }
 
   /// Go: `func (mixins.Float).LookupByIndex(idx int64) (datamodel.Node, error)`.
   $datamodel.IpldPrimeDatamodelNode lookupByIndex(int idx) {
     final $r = $callSync(
-        12306,
+        12312,
         $W()
           ..dto(this)
           ..i64(idx));
@@ -514,7 +514,7 @@ final class IpldPrimeNodeMixinsFloat implements GoDto {
   $datamodel.IpldPrimeDatamodelNode lookupByNode(
       $datamodel.IpldPrimeDatamodelNode key) {
     final $r = $callSync(
-        12307,
+        12313,
         $W()
           ..dto(this)
           ..h(key));
@@ -525,7 +525,7 @@ final class IpldPrimeNodeMixinsFloat implements GoDto {
   $datamodel.IpldPrimeDatamodelNode lookupBySegment(
       $datamodel.IpldPrimeDatamodelPathSegment pathSegment) {
     final $r = $callSync(
-        12308,
+        12314,
         $W()
           ..dto(this)
           ..h(pathSegment));
@@ -535,7 +535,7 @@ final class IpldPrimeNodeMixinsFloat implements GoDto {
   /// Go: `func (mixins.Float).LookupByString(string) (datamodel.Node, error)`.
   $datamodel.IpldPrimeDatamodelNode lookupByString(String arg0) {
     final $r = $callSync(
-        12309,
+        12315,
         $W()
           ..dto(this)
           ..str(arg0));
@@ -544,7 +544,7 @@ final class IpldPrimeNodeMixinsFloat implements GoDto {
 
   /// Go: `func (mixins.Float).MapIterator() datamodel.MapIterator`.
   $datamodel.IpldPrimeDatamodelMapIterator mapIterator() {
-    final $r = $callSync(12310, $W()..dto(this));
+    final $r = $callSync(12316, $W()..dto(this));
     return $r.hnn($datamodel.IpldPrimeDatamodelMapIterator.$h);
   }
 }
@@ -567,7 +567,7 @@ final class IpldPrimeNodeMixinsFloatAssembler implements GoDto {
   /// Go: `func (mixins.FloatAssembler).AssignBool(bool) error`.
   void assignBool(bool arg0) {
     $callSync(
-        12311,
+        12317,
         $W()
           ..dto(this)
           ..b(arg0));
@@ -576,7 +576,7 @@ final class IpldPrimeNodeMixinsFloatAssembler implements GoDto {
   /// Go: `func (mixins.FloatAssembler).AssignBytes([]byte) error`.
   void assignBytes(Uint8List arg0) {
     $callSync(
-        12312,
+        12318,
         $W()
           ..dto(this)
           ..bytes(arg0));
@@ -585,7 +585,7 @@ final class IpldPrimeNodeMixinsFloatAssembler implements GoDto {
   /// Go: `func (mixins.FloatAssembler).AssignInt(int64) error`.
   void assignInt(int arg0) {
     $callSync(
-        12313,
+        12319,
         $W()
           ..dto(this)
           ..i64(arg0));
@@ -594,7 +594,7 @@ final class IpldPrimeNodeMixinsFloatAssembler implements GoDto {
   /// Go: `func (mixins.FloatAssembler).AssignLink(datamodel.Link) error`.
   void assignLink($datamodel.IpldPrimeDatamodelLink link) {
     $callSync(
-        12314,
+        12320,
         $W()
           ..dto(this)
           ..h(link));
@@ -602,13 +602,13 @@ final class IpldPrimeNodeMixinsFloatAssembler implements GoDto {
 
   /// Go: `func (mixins.FloatAssembler).AssignNull() error`.
   void assignNull() {
-    $callSync(12315, $W()..dto(this));
+    $callSync(12321, $W()..dto(this));
   }
 
   /// Go: `func (mixins.FloatAssembler).AssignString(string) error`.
   void assignString(String arg0) {
     $callSync(
-        12316,
+        12322,
         $W()
           ..dto(this)
           ..str(arg0));
@@ -617,7 +617,7 @@ final class IpldPrimeNodeMixinsFloatAssembler implements GoDto {
   /// Go: `func (mixins.FloatAssembler).BeginList(sizeHint int64) (datamodel.ListAssembler, error)`.
   $datamodel.IpldPrimeDatamodelListAssembler beginList(int sizeHint) {
     final $r = $callSync(
-        12317,
+        12323,
         $W()
           ..dto(this)
           ..i64(sizeHint));
@@ -627,7 +627,7 @@ final class IpldPrimeNodeMixinsFloatAssembler implements GoDto {
   /// Go: `func (mixins.FloatAssembler).BeginMap(sizeHint int64) (datamodel.MapAssembler, error)`.
   $datamodel.IpldPrimeDatamodelMapAssembler beginMap(int sizeHint) {
     final $r = $callSync(
-        12318,
+        12324,
         $W()
           ..dto(this)
           ..i64(sizeHint));
@@ -651,68 +651,68 @@ final class IpldPrimeNodeMixinsInt implements GoDto {
 
   /// Go: `func (mixins.Int).AsBool() (bool, error)`.
   bool asBool() {
-    final $r = $callSync(12319, $W()..dto(this));
+    final $r = $callSync(12325, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (mixins.Int).AsBytes() ([]byte, error)`.
   Uint8List asBytes() {
-    final $r = $callSync(12320, $W()..dto(this));
+    final $r = $callSync(12326, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (mixins.Int).AsFloat() (float64, error)`.
   double asFloat() {
-    final $r = $callSync(12321, $W()..dto(this));
+    final $r = $callSync(12327, $W()..dto(this));
     return $r.f64();
   }
 
   /// Go: `func (mixins.Int).AsLink() (datamodel.Link, error)`.
   $datamodel.IpldPrimeDatamodelLink asLink() {
-    final $r = $callSync(12322, $W()..dto(this));
+    final $r = $callSync(12328, $W()..dto(this));
     return $r.hnn($datamodel.IpldPrimeDatamodelLink.$h);
   }
 
   /// Go: `func (mixins.Int).AsString() (string, error)`.
   String asString() {
-    final $r = $callSync(12323, $W()..dto(this));
+    final $r = $callSync(12329, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (mixins.Int).IsAbsent() bool`.
   bool isAbsent() {
-    final $r = $callSync(12324, $W()..dto(this));
+    final $r = $callSync(12330, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (mixins.Int).IsNull() bool`.
   bool isNull() {
-    final $r = $callSync(12325, $W()..dto(this));
+    final $r = $callSync(12331, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (mixins.Int).Kind() datamodel.Kind`.
   int kind() {
-    final $r = $callSync(12326, $W()..dto(this));
+    final $r = $callSync(12332, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (mixins.Int).Length() int64`.
   int length() {
-    final $r = $callSync(12327, $W()..dto(this));
+    final $r = $callSync(12333, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (mixins.Int).ListIterator() datamodel.ListIterator`.
   $datamodel.IpldPrimeDatamodelListIterator listIterator() {
-    final $r = $callSync(12328, $W()..dto(this));
+    final $r = $callSync(12334, $W()..dto(this));
     return $r.hnn($datamodel.IpldPrimeDatamodelListIterator.$h);
   }
 
   /// Go: `func (mixins.Int).LookupByIndex(idx int64) (datamodel.Node, error)`.
   $datamodel.IpldPrimeDatamodelNode lookupByIndex(int idx) {
     final $r = $callSync(
-        12329,
+        12335,
         $W()
           ..dto(this)
           ..i64(idx));
@@ -723,7 +723,7 @@ final class IpldPrimeNodeMixinsInt implements GoDto {
   $datamodel.IpldPrimeDatamodelNode lookupByNode(
       $datamodel.IpldPrimeDatamodelNode key) {
     final $r = $callSync(
-        12330,
+        12336,
         $W()
           ..dto(this)
           ..h(key));
@@ -734,7 +734,7 @@ final class IpldPrimeNodeMixinsInt implements GoDto {
   $datamodel.IpldPrimeDatamodelNode lookupBySegment(
       $datamodel.IpldPrimeDatamodelPathSegment pathSegment) {
     final $r = $callSync(
-        12331,
+        12337,
         $W()
           ..dto(this)
           ..h(pathSegment));
@@ -744,7 +744,7 @@ final class IpldPrimeNodeMixinsInt implements GoDto {
   /// Go: `func (mixins.Int).LookupByString(string) (datamodel.Node, error)`.
   $datamodel.IpldPrimeDatamodelNode lookupByString(String arg0) {
     final $r = $callSync(
-        12332,
+        12338,
         $W()
           ..dto(this)
           ..str(arg0));
@@ -753,7 +753,7 @@ final class IpldPrimeNodeMixinsInt implements GoDto {
 
   /// Go: `func (mixins.Int).MapIterator() datamodel.MapIterator`.
   $datamodel.IpldPrimeDatamodelMapIterator mapIterator() {
-    final $r = $callSync(12333, $W()..dto(this));
+    final $r = $callSync(12339, $W()..dto(this));
     return $r.hnn($datamodel.IpldPrimeDatamodelMapIterator.$h);
   }
 }
@@ -776,7 +776,7 @@ final class IpldPrimeNodeMixinsIntAssembler implements GoDto {
   /// Go: `func (mixins.IntAssembler).AssignBool(bool) error`.
   void assignBool(bool arg0) {
     $callSync(
-        12334,
+        12340,
         $W()
           ..dto(this)
           ..b(arg0));
@@ -785,7 +785,7 @@ final class IpldPrimeNodeMixinsIntAssembler implements GoDto {
   /// Go: `func (mixins.IntAssembler).AssignBytes([]byte) error`.
   void assignBytes(Uint8List arg0) {
     $callSync(
-        12335,
+        12341,
         $W()
           ..dto(this)
           ..bytes(arg0));
@@ -794,7 +794,7 @@ final class IpldPrimeNodeMixinsIntAssembler implements GoDto {
   /// Go: `func (mixins.IntAssembler).AssignFloat(float64) error`.
   void assignFloat(double arg0) {
     $callSync(
-        12336,
+        12342,
         $W()
           ..dto(this)
           ..f64(arg0));
@@ -803,7 +803,7 @@ final class IpldPrimeNodeMixinsIntAssembler implements GoDto {
   /// Go: `func (mixins.IntAssembler).AssignLink(datamodel.Link) error`.
   void assignLink($datamodel.IpldPrimeDatamodelLink link) {
     $callSync(
-        12337,
+        12343,
         $W()
           ..dto(this)
           ..h(link));
@@ -811,13 +811,13 @@ final class IpldPrimeNodeMixinsIntAssembler implements GoDto {
 
   /// Go: `func (mixins.IntAssembler).AssignNull() error`.
   void assignNull() {
-    $callSync(12338, $W()..dto(this));
+    $callSync(12344, $W()..dto(this));
   }
 
   /// Go: `func (mixins.IntAssembler).AssignString(string) error`.
   void assignString(String arg0) {
     $callSync(
-        12339,
+        12345,
         $W()
           ..dto(this)
           ..str(arg0));
@@ -826,7 +826,7 @@ final class IpldPrimeNodeMixinsIntAssembler implements GoDto {
   /// Go: `func (mixins.IntAssembler).BeginList(sizeHint int64) (datamodel.ListAssembler, error)`.
   $datamodel.IpldPrimeDatamodelListAssembler beginList(int sizeHint) {
     final $r = $callSync(
-        12340,
+        12346,
         $W()
           ..dto(this)
           ..i64(sizeHint));
@@ -836,7 +836,7 @@ final class IpldPrimeNodeMixinsIntAssembler implements GoDto {
   /// Go: `func (mixins.IntAssembler).BeginMap(sizeHint int64) (datamodel.MapAssembler, error)`.
   $datamodel.IpldPrimeDatamodelMapAssembler beginMap(int sizeHint) {
     final $r = $callSync(
-        12341,
+        12347,
         $W()
           ..dto(this)
           ..i64(sizeHint));
@@ -860,68 +860,68 @@ final class IpldPrimeNodeMixinsLink implements GoDto {
 
   /// Go: `func (mixins.Link).AsBool() (bool, error)`.
   bool asBool() {
-    final $r = $callSync(12342, $W()..dto(this));
+    final $r = $callSync(12348, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (mixins.Link).AsBytes() ([]byte, error)`.
   Uint8List asBytes() {
-    final $r = $callSync(12343, $W()..dto(this));
+    final $r = $callSync(12349, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (mixins.Link).AsFloat() (float64, error)`.
   double asFloat() {
-    final $r = $callSync(12344, $W()..dto(this));
+    final $r = $callSync(12350, $W()..dto(this));
     return $r.f64();
   }
 
   /// Go: `func (mixins.Link).AsInt() (int64, error)`.
   int asInt() {
-    final $r = $callSync(12345, $W()..dto(this));
+    final $r = $callSync(12351, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (mixins.Link).AsString() (string, error)`.
   String asString() {
-    final $r = $callSync(12346, $W()..dto(this));
+    final $r = $callSync(12352, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (mixins.Link).IsAbsent() bool`.
   bool isAbsent() {
-    final $r = $callSync(12347, $W()..dto(this));
+    final $r = $callSync(12353, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (mixins.Link).IsNull() bool`.
   bool isNull() {
-    final $r = $callSync(12348, $W()..dto(this));
+    final $r = $callSync(12354, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (mixins.Link).Kind() datamodel.Kind`.
   int kind() {
-    final $r = $callSync(12349, $W()..dto(this));
+    final $r = $callSync(12355, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (mixins.Link).Length() int64`.
   int length() {
-    final $r = $callSync(12350, $W()..dto(this));
+    final $r = $callSync(12356, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (mixins.Link).ListIterator() datamodel.ListIterator`.
   $datamodel.IpldPrimeDatamodelListIterator listIterator() {
-    final $r = $callSync(12351, $W()..dto(this));
+    final $r = $callSync(12357, $W()..dto(this));
     return $r.hnn($datamodel.IpldPrimeDatamodelListIterator.$h);
   }
 
   /// Go: `func (mixins.Link).LookupByIndex(idx int64) (datamodel.Node, error)`.
   $datamodel.IpldPrimeDatamodelNode lookupByIndex(int idx) {
     final $r = $callSync(
-        12352,
+        12358,
         $W()
           ..dto(this)
           ..i64(idx));
@@ -932,7 +932,7 @@ final class IpldPrimeNodeMixinsLink implements GoDto {
   $datamodel.IpldPrimeDatamodelNode lookupByNode(
       $datamodel.IpldPrimeDatamodelNode key) {
     final $r = $callSync(
-        12353,
+        12359,
         $W()
           ..dto(this)
           ..h(key));
@@ -943,7 +943,7 @@ final class IpldPrimeNodeMixinsLink implements GoDto {
   $datamodel.IpldPrimeDatamodelNode lookupBySegment(
       $datamodel.IpldPrimeDatamodelPathSegment pathSegment) {
     final $r = $callSync(
-        12354,
+        12360,
         $W()
           ..dto(this)
           ..h(pathSegment));
@@ -953,7 +953,7 @@ final class IpldPrimeNodeMixinsLink implements GoDto {
   /// Go: `func (mixins.Link).LookupByString(string) (datamodel.Node, error)`.
   $datamodel.IpldPrimeDatamodelNode lookupByString(String arg0) {
     final $r = $callSync(
-        12355,
+        12361,
         $W()
           ..dto(this)
           ..str(arg0));
@@ -962,7 +962,7 @@ final class IpldPrimeNodeMixinsLink implements GoDto {
 
   /// Go: `func (mixins.Link).MapIterator() datamodel.MapIterator`.
   $datamodel.IpldPrimeDatamodelMapIterator mapIterator() {
-    final $r = $callSync(12356, $W()..dto(this));
+    final $r = $callSync(12362, $W()..dto(this));
     return $r.hnn($datamodel.IpldPrimeDatamodelMapIterator.$h);
   }
 }
@@ -985,7 +985,7 @@ final class IpldPrimeNodeMixinsLinkAssembler implements GoDto {
   /// Go: `func (mixins.LinkAssembler).AssignBool(bool) error`.
   void assignBool(bool arg0) {
     $callSync(
-        12357,
+        12363,
         $W()
           ..dto(this)
           ..b(arg0));
@@ -994,7 +994,7 @@ final class IpldPrimeNodeMixinsLinkAssembler implements GoDto {
   /// Go: `func (mixins.LinkAssembler).AssignBytes([]byte) error`.
   void assignBytes(Uint8List arg0) {
     $callSync(
-        12358,
+        12364,
         $W()
           ..dto(this)
           ..bytes(arg0));
@@ -1003,7 +1003,7 @@ final class IpldPrimeNodeMixinsLinkAssembler implements GoDto {
   /// Go: `func (mixins.LinkAssembler).AssignFloat(float64) error`.
   void assignFloat(double arg0) {
     $callSync(
-        12359,
+        12365,
         $W()
           ..dto(this)
           ..f64(arg0));
@@ -1012,7 +1012,7 @@ final class IpldPrimeNodeMixinsLinkAssembler implements GoDto {
   /// Go: `func (mixins.LinkAssembler).AssignInt(int64) error`.
   void assignInt(int arg0) {
     $callSync(
-        12360,
+        12366,
         $W()
           ..dto(this)
           ..i64(arg0));
@@ -1020,13 +1020,13 @@ final class IpldPrimeNodeMixinsLinkAssembler implements GoDto {
 
   /// Go: `func (mixins.LinkAssembler).AssignNull() error`.
   void assignNull() {
-    $callSync(12361, $W()..dto(this));
+    $callSync(12367, $W()..dto(this));
   }
 
   /// Go: `func (mixins.LinkAssembler).AssignString(string) error`.
   void assignString(String arg0) {
     $callSync(
-        12362,
+        12368,
         $W()
           ..dto(this)
           ..str(arg0));
@@ -1035,7 +1035,7 @@ final class IpldPrimeNodeMixinsLinkAssembler implements GoDto {
   /// Go: `func (mixins.LinkAssembler).BeginList(sizeHint int64) (datamodel.ListAssembler, error)`.
   $datamodel.IpldPrimeDatamodelListAssembler beginList(int sizeHint) {
     final $r = $callSync(
-        12363,
+        12369,
         $W()
           ..dto(this)
           ..i64(sizeHint));
@@ -1045,7 +1045,7 @@ final class IpldPrimeNodeMixinsLinkAssembler implements GoDto {
   /// Go: `func (mixins.LinkAssembler).BeginMap(sizeHint int64) (datamodel.MapAssembler, error)`.
   $datamodel.IpldPrimeDatamodelMapAssembler beginMap(int sizeHint) {
     final $r = $callSync(
-        12364,
+        12370,
         $W()
           ..dto(this)
           ..i64(sizeHint));
@@ -1069,55 +1069,55 @@ final class IpldPrimeNodeMixinsList implements GoDto {
 
   /// Go: `func (mixins.List).AsBool() (bool, error)`.
   bool asBool() {
-    final $r = $callSync(12365, $W()..dto(this));
+    final $r = $callSync(12371, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (mixins.List).AsBytes() ([]byte, error)`.
   Uint8List asBytes() {
-    final $r = $callSync(12366, $W()..dto(this));
+    final $r = $callSync(12372, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (mixins.List).AsFloat() (float64, error)`.
   double asFloat() {
-    final $r = $callSync(12367, $W()..dto(this));
+    final $r = $callSync(12373, $W()..dto(this));
     return $r.f64();
   }
 
   /// Go: `func (mixins.List).AsInt() (int64, error)`.
   int asInt() {
-    final $r = $callSync(12368, $W()..dto(this));
+    final $r = $callSync(12374, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (mixins.List).AsLink() (datamodel.Link, error)`.
   $datamodel.IpldPrimeDatamodelLink asLink() {
-    final $r = $callSync(12369, $W()..dto(this));
+    final $r = $callSync(12375, $W()..dto(this));
     return $r.hnn($datamodel.IpldPrimeDatamodelLink.$h);
   }
 
   /// Go: `func (mixins.List).AsString() (string, error)`.
   String asString() {
-    final $r = $callSync(12370, $W()..dto(this));
+    final $r = $callSync(12376, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (mixins.List).IsAbsent() bool`.
   bool isAbsent() {
-    final $r = $callSync(12371, $W()..dto(this));
+    final $r = $callSync(12377, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (mixins.List).IsNull() bool`.
   bool isNull() {
-    final $r = $callSync(12372, $W()..dto(this));
+    final $r = $callSync(12378, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (mixins.List).Kind() datamodel.Kind`.
   int kind() {
-    final $r = $callSync(12373, $W()..dto(this));
+    final $r = $callSync(12379, $W()..dto(this));
     return $r.i64();
   }
 
@@ -1125,7 +1125,7 @@ final class IpldPrimeNodeMixinsList implements GoDto {
   $datamodel.IpldPrimeDatamodelNode lookupByNode(
       $datamodel.IpldPrimeDatamodelNode key) {
     final $r = $callSync(
-        12374,
+        12380,
         $W()
           ..dto(this)
           ..h(key));
@@ -1135,7 +1135,7 @@ final class IpldPrimeNodeMixinsList implements GoDto {
   /// Go: `func (mixins.List).LookupByString(string) (datamodel.Node, error)`.
   $datamodel.IpldPrimeDatamodelNode lookupByString(String arg0) {
     final $r = $callSync(
-        12375,
+        12381,
         $W()
           ..dto(this)
           ..str(arg0));
@@ -1144,7 +1144,7 @@ final class IpldPrimeNodeMixinsList implements GoDto {
 
   /// Go: `func (mixins.List).MapIterator() datamodel.MapIterator`.
   $datamodel.IpldPrimeDatamodelMapIterator mapIterator() {
-    final $r = $callSync(12376, $W()..dto(this));
+    final $r = $callSync(12382, $W()..dto(this));
     return $r.hnn($datamodel.IpldPrimeDatamodelMapIterator.$h);
   }
 }
@@ -1167,7 +1167,7 @@ final class IpldPrimeNodeMixinsListAssembler implements GoDto {
   /// Go: `func (mixins.ListAssembler).AssignBool(bool) error`.
   void assignBool(bool arg0) {
     $callSync(
-        12377,
+        12383,
         $W()
           ..dto(this)
           ..b(arg0));
@@ -1176,7 +1176,7 @@ final class IpldPrimeNodeMixinsListAssembler implements GoDto {
   /// Go: `func (mixins.ListAssembler).AssignBytes([]byte) error`.
   void assignBytes(Uint8List arg0) {
     $callSync(
-        12378,
+        12384,
         $W()
           ..dto(this)
           ..bytes(arg0));
@@ -1185,7 +1185,7 @@ final class IpldPrimeNodeMixinsListAssembler implements GoDto {
   /// Go: `func (mixins.ListAssembler).AssignFloat(float64) error`.
   void assignFloat(double arg0) {
     $callSync(
-        12379,
+        12385,
         $W()
           ..dto(this)
           ..f64(arg0));
@@ -1194,7 +1194,7 @@ final class IpldPrimeNodeMixinsListAssembler implements GoDto {
   /// Go: `func (mixins.ListAssembler).AssignInt(int64) error`.
   void assignInt(int arg0) {
     $callSync(
-        12380,
+        12386,
         $W()
           ..dto(this)
           ..i64(arg0));
@@ -1203,7 +1203,7 @@ final class IpldPrimeNodeMixinsListAssembler implements GoDto {
   /// Go: `func (mixins.ListAssembler).AssignLink(datamodel.Link) error`.
   void assignLink($datamodel.IpldPrimeDatamodelLink link) {
     $callSync(
-        12381,
+        12387,
         $W()
           ..dto(this)
           ..h(link));
@@ -1211,13 +1211,13 @@ final class IpldPrimeNodeMixinsListAssembler implements GoDto {
 
   /// Go: `func (mixins.ListAssembler).AssignNull() error`.
   void assignNull() {
-    $callSync(12382, $W()..dto(this));
+    $callSync(12388, $W()..dto(this));
   }
 
   /// Go: `func (mixins.ListAssembler).AssignString(string) error`.
   void assignString(String arg0) {
     $callSync(
-        12383,
+        12389,
         $W()
           ..dto(this)
           ..str(arg0));
@@ -1226,7 +1226,7 @@ final class IpldPrimeNodeMixinsListAssembler implements GoDto {
   /// Go: `func (mixins.ListAssembler).BeginMap(sizeHint int64) (datamodel.MapAssembler, error)`.
   $datamodel.IpldPrimeDatamodelMapAssembler beginMap(int sizeHint) {
     final $r = $callSync(
-        12384,
+        12390,
         $W()
           ..dto(this)
           ..i64(sizeHint));
@@ -1250,68 +1250,68 @@ final class IpldPrimeNodeMixinsMap implements GoDto {
 
   /// Go: `func (mixins.Map).AsBool() (bool, error)`.
   bool asBool() {
-    final $r = $callSync(12385, $W()..dto(this));
+    final $r = $callSync(12391, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (mixins.Map).AsBytes() ([]byte, error)`.
   Uint8List asBytes() {
-    final $r = $callSync(12386, $W()..dto(this));
+    final $r = $callSync(12392, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (mixins.Map).AsFloat() (float64, error)`.
   double asFloat() {
-    final $r = $callSync(12387, $W()..dto(this));
+    final $r = $callSync(12393, $W()..dto(this));
     return $r.f64();
   }
 
   /// Go: `func (mixins.Map).AsInt() (int64, error)`.
   int asInt() {
-    final $r = $callSync(12388, $W()..dto(this));
+    final $r = $callSync(12394, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (mixins.Map).AsLink() (datamodel.Link, error)`.
   $datamodel.IpldPrimeDatamodelLink asLink() {
-    final $r = $callSync(12389, $W()..dto(this));
+    final $r = $callSync(12395, $W()..dto(this));
     return $r.hnn($datamodel.IpldPrimeDatamodelLink.$h);
   }
 
   /// Go: `func (mixins.Map).AsString() (string, error)`.
   String asString() {
-    final $r = $callSync(12390, $W()..dto(this));
+    final $r = $callSync(12396, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (mixins.Map).IsAbsent() bool`.
   bool isAbsent() {
-    final $r = $callSync(12391, $W()..dto(this));
+    final $r = $callSync(12397, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (mixins.Map).IsNull() bool`.
   bool isNull() {
-    final $r = $callSync(12392, $W()..dto(this));
+    final $r = $callSync(12398, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (mixins.Map).Kind() datamodel.Kind`.
   int kind() {
-    final $r = $callSync(12393, $W()..dto(this));
+    final $r = $callSync(12399, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (mixins.Map).ListIterator() datamodel.ListIterator`.
   $datamodel.IpldPrimeDatamodelListIterator listIterator() {
-    final $r = $callSync(12394, $W()..dto(this));
+    final $r = $callSync(12400, $W()..dto(this));
     return $r.hnn($datamodel.IpldPrimeDatamodelListIterator.$h);
   }
 
   /// Go: `func (mixins.Map).LookupByIndex(idx int64) (datamodel.Node, error)`.
   $datamodel.IpldPrimeDatamodelNode lookupByIndex(int idx) {
     final $r = $callSync(
-        12395,
+        12401,
         $W()
           ..dto(this)
           ..i64(idx));
@@ -1337,7 +1337,7 @@ final class IpldPrimeNodeMixinsMapAssembler implements GoDto {
   /// Go: `func (mixins.MapAssembler).AssignBool(bool) error`.
   void assignBool(bool arg0) {
     $callSync(
-        12396,
+        12402,
         $W()
           ..dto(this)
           ..b(arg0));
@@ -1346,7 +1346,7 @@ final class IpldPrimeNodeMixinsMapAssembler implements GoDto {
   /// Go: `func (mixins.MapAssembler).AssignBytes([]byte) error`.
   void assignBytes(Uint8List arg0) {
     $callSync(
-        12397,
+        12403,
         $W()
           ..dto(this)
           ..bytes(arg0));
@@ -1355,7 +1355,7 @@ final class IpldPrimeNodeMixinsMapAssembler implements GoDto {
   /// Go: `func (mixins.MapAssembler).AssignFloat(float64) error`.
   void assignFloat(double arg0) {
     $callSync(
-        12398,
+        12404,
         $W()
           ..dto(this)
           ..f64(arg0));
@@ -1364,7 +1364,7 @@ final class IpldPrimeNodeMixinsMapAssembler implements GoDto {
   /// Go: `func (mixins.MapAssembler).AssignInt(int64) error`.
   void assignInt(int arg0) {
     $callSync(
-        12399,
+        12405,
         $W()
           ..dto(this)
           ..i64(arg0));
@@ -1373,7 +1373,7 @@ final class IpldPrimeNodeMixinsMapAssembler implements GoDto {
   /// Go: `func (mixins.MapAssembler).AssignLink(datamodel.Link) error`.
   void assignLink($datamodel.IpldPrimeDatamodelLink link) {
     $callSync(
-        12400,
+        12406,
         $W()
           ..dto(this)
           ..h(link));
@@ -1381,13 +1381,13 @@ final class IpldPrimeNodeMixinsMapAssembler implements GoDto {
 
   /// Go: `func (mixins.MapAssembler).AssignNull() error`.
   void assignNull() {
-    $callSync(12401, $W()..dto(this));
+    $callSync(12407, $W()..dto(this));
   }
 
   /// Go: `func (mixins.MapAssembler).AssignString(string) error`.
   void assignString(String arg0) {
     $callSync(
-        12402,
+        12408,
         $W()
           ..dto(this)
           ..str(arg0));
@@ -1396,7 +1396,7 @@ final class IpldPrimeNodeMixinsMapAssembler implements GoDto {
   /// Go: `func (mixins.MapAssembler).BeginList(sizeHint int64) (datamodel.ListAssembler, error)`.
   $datamodel.IpldPrimeDatamodelListAssembler beginList(int sizeHint) {
     final $r = $callSync(
-        12403,
+        12409,
         $W()
           ..dto(this)
           ..i64(sizeHint));
@@ -1420,68 +1420,68 @@ final class IpldPrimeNodeMixinsString implements GoDto {
 
   /// Go: `func (mixins.String).AsBool() (bool, error)`.
   bool asBool() {
-    final $r = $callSync(12406, $W()..dto(this));
+    final $r = $callSync(12412, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (mixins.String).AsBytes() ([]byte, error)`.
   Uint8List asBytes() {
-    final $r = $callSync(12407, $W()..dto(this));
+    final $r = $callSync(12413, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (mixins.String).AsFloat() (float64, error)`.
   double asFloat() {
-    final $r = $callSync(12408, $W()..dto(this));
+    final $r = $callSync(12414, $W()..dto(this));
     return $r.f64();
   }
 
   /// Go: `func (mixins.String).AsInt() (int64, error)`.
   int asInt() {
-    final $r = $callSync(12409, $W()..dto(this));
+    final $r = $callSync(12415, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (mixins.String).AsLink() (datamodel.Link, error)`.
   $datamodel.IpldPrimeDatamodelLink asLink() {
-    final $r = $callSync(12410, $W()..dto(this));
+    final $r = $callSync(12416, $W()..dto(this));
     return $r.hnn($datamodel.IpldPrimeDatamodelLink.$h);
   }
 
   /// Go: `func (mixins.String).IsAbsent() bool`.
   bool isAbsent() {
-    final $r = $callSync(12411, $W()..dto(this));
+    final $r = $callSync(12417, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (mixins.String).IsNull() bool`.
   bool isNull() {
-    final $r = $callSync(12412, $W()..dto(this));
+    final $r = $callSync(12418, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (mixins.String).Kind() datamodel.Kind`.
   int kind() {
-    final $r = $callSync(12413, $W()..dto(this));
+    final $r = $callSync(12419, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (mixins.String).Length() int64`.
   int length() {
-    final $r = $callSync(12414, $W()..dto(this));
+    final $r = $callSync(12420, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (mixins.String).ListIterator() datamodel.ListIterator`.
   $datamodel.IpldPrimeDatamodelListIterator listIterator() {
-    final $r = $callSync(12415, $W()..dto(this));
+    final $r = $callSync(12421, $W()..dto(this));
     return $r.hnn($datamodel.IpldPrimeDatamodelListIterator.$h);
   }
 
   /// Go: `func (mixins.String).LookupByIndex(idx int64) (datamodel.Node, error)`.
   $datamodel.IpldPrimeDatamodelNode lookupByIndex(int idx) {
     final $r = $callSync(
-        12416,
+        12422,
         $W()
           ..dto(this)
           ..i64(idx));
@@ -1492,7 +1492,7 @@ final class IpldPrimeNodeMixinsString implements GoDto {
   $datamodel.IpldPrimeDatamodelNode lookupByNode(
       $datamodel.IpldPrimeDatamodelNode key) {
     final $r = $callSync(
-        12417,
+        12423,
         $W()
           ..dto(this)
           ..h(key));
@@ -1503,7 +1503,7 @@ final class IpldPrimeNodeMixinsString implements GoDto {
   $datamodel.IpldPrimeDatamodelNode lookupBySegment(
       $datamodel.IpldPrimeDatamodelPathSegment pathSegment) {
     final $r = $callSync(
-        12418,
+        12424,
         $W()
           ..dto(this)
           ..h(pathSegment));
@@ -1513,7 +1513,7 @@ final class IpldPrimeNodeMixinsString implements GoDto {
   /// Go: `func (mixins.String).LookupByString(string) (datamodel.Node, error)`.
   $datamodel.IpldPrimeDatamodelNode lookupByString(String arg0) {
     final $r = $callSync(
-        12419,
+        12425,
         $W()
           ..dto(this)
           ..str(arg0));
@@ -1522,7 +1522,7 @@ final class IpldPrimeNodeMixinsString implements GoDto {
 
   /// Go: `func (mixins.String).MapIterator() datamodel.MapIterator`.
   $datamodel.IpldPrimeDatamodelMapIterator mapIterator() {
-    final $r = $callSync(12420, $W()..dto(this));
+    final $r = $callSync(12426, $W()..dto(this));
     return $r.hnn($datamodel.IpldPrimeDatamodelMapIterator.$h);
   }
 }
@@ -1545,7 +1545,7 @@ final class IpldPrimeNodeMixinsStringAssembler implements GoDto {
   /// Go: `func (mixins.StringAssembler).AssignBool(bool) error`.
   void assignBool(bool arg0) {
     $callSync(
-        12421,
+        12427,
         $W()
           ..dto(this)
           ..b(arg0));
@@ -1554,7 +1554,7 @@ final class IpldPrimeNodeMixinsStringAssembler implements GoDto {
   /// Go: `func (mixins.StringAssembler).AssignBytes([]byte) error`.
   void assignBytes(Uint8List arg0) {
     $callSync(
-        12422,
+        12428,
         $W()
           ..dto(this)
           ..bytes(arg0));
@@ -1563,7 +1563,7 @@ final class IpldPrimeNodeMixinsStringAssembler implements GoDto {
   /// Go: `func (mixins.StringAssembler).AssignFloat(float64) error`.
   void assignFloat(double arg0) {
     $callSync(
-        12423,
+        12429,
         $W()
           ..dto(this)
           ..f64(arg0));
@@ -1572,7 +1572,7 @@ final class IpldPrimeNodeMixinsStringAssembler implements GoDto {
   /// Go: `func (mixins.StringAssembler).AssignInt(int64) error`.
   void assignInt(int arg0) {
     $callSync(
-        12424,
+        12430,
         $W()
           ..dto(this)
           ..i64(arg0));
@@ -1581,7 +1581,7 @@ final class IpldPrimeNodeMixinsStringAssembler implements GoDto {
   /// Go: `func (mixins.StringAssembler).AssignLink(datamodel.Link) error`.
   void assignLink($datamodel.IpldPrimeDatamodelLink link) {
     $callSync(
-        12425,
+        12431,
         $W()
           ..dto(this)
           ..h(link));
@@ -1589,13 +1589,13 @@ final class IpldPrimeNodeMixinsStringAssembler implements GoDto {
 
   /// Go: `func (mixins.StringAssembler).AssignNull() error`.
   void assignNull() {
-    $callSync(12426, $W()..dto(this));
+    $callSync(12432, $W()..dto(this));
   }
 
   /// Go: `func (mixins.StringAssembler).BeginList(sizeHint int64) (datamodel.ListAssembler, error)`.
   $datamodel.IpldPrimeDatamodelListAssembler beginList(int sizeHint) {
     final $r = $callSync(
-        12427,
+        12433,
         $W()
           ..dto(this)
           ..i64(sizeHint));
@@ -1605,7 +1605,7 @@ final class IpldPrimeNodeMixinsStringAssembler implements GoDto {
   /// Go: `func (mixins.StringAssembler).BeginMap(sizeHint int64) (datamodel.MapAssembler, error)`.
   $datamodel.IpldPrimeDatamodelMapAssembler beginMap(int sizeHint) {
     final $r = $callSync(
-        12428,
+        12434,
         $W()
           ..dto(this)
           ..i64(sizeHint));
@@ -1618,7 +1618,7 @@ extension GoIpldIpldPrimeNodeMixinsApi on GoIpldIpldPrimeNodeMixins {
   /// Go: `func mixins.SplitExact(s string, sep string, count int) ([]string, error)`.
   List<String> splitExact(String s, String sep, int count) {
     final $r = $callSync(
-        12404,
+        12410,
         $W()
           ..str(s)
           ..str(sep)
@@ -1629,7 +1629,7 @@ extension GoIpldIpldPrimeNodeMixinsApi on GoIpldIpldPrimeNodeMixins {
   /// Go: `func mixins.SplitN(s string, sep string, n int) []string`.
   List<String> splitN(String s, String sep, int n) {
     final $r = $callSync(
-        12405,
+        12411,
         $W()
           ..str(s)
           ..str(sep)

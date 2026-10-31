@@ -84,13 +84,13 @@ class SysinfoErrPlatformNotSupported extends GolangException {
 extension GoWhyrusleepingSysinfoApi on GoWhyrusleepingSysinfo {
   /// Go: `func sysinfo.DiskUsage(path string) (*sysinfo.DiskStats, error)`.
   SysinfoDiskStats diskUsage(String path) {
-    final $r = $callSync(18978, $W()..str(path));
+    final $r = $callSync(18984, $W()..str(path));
     return $r.p() ? SysinfoDiskStats.$dec($r) : $nil();
   }
 
   /// Go: `func sysinfo.MemoryInfo() (*sysinfo.MemStats, error)`.
   SysinfoMemStats memoryInfo() {
-    final $r = $callSync(18979);
+    final $r = $callSync(18985);
     return $r.p() ? SysinfoMemStats.$dec($r) : $nil();
   }
 }

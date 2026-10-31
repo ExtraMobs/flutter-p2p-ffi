@@ -52,20 +52,20 @@ class JoseV4JsonDecoder extends $runtime.GrpcGatewayV2RuntimeDecoder
 
   /// Go: `func json.NewDecoder(r io.Reader) *json.Decoder`.
   factory JoseV4JsonDecoder(Object r) {
-    final $r = $callSync(6552, $W()..reader(r));
+    final $r = $callSync(6561, $W()..reader(r));
     return $r.hnn(JoseV4JsonDecoder.$h);
   }
 
   /// Go: `func (*json.Decoder).Buffered() io.Reader`.
   $io.IoReader buffered() {
-    final $r = $callSync(6541, $W()..h(this));
+    final $r = $callSync(6550, $W()..h(this));
     return $r.hnn($io.IoReader.$h);
   }
 
   /// Go: `func (*json.Decoder).Decode(v interface{}) error`.
   void decode(Object? v) {
     $callSync(
-        6542,
+        6551,
         $W()
           ..h(this)
           ..any(v));
@@ -73,14 +73,14 @@ class JoseV4JsonDecoder extends $runtime.GrpcGatewayV2RuntimeDecoder
 
   /// Go: `func (*json.Decoder).More() bool`.
   bool more() {
-    final $r = $callSync(6543, $W()..h(this));
+    final $r = $callSync(6552, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*json.Decoder).SetNumberType(t json.NumberUnmarshalType)`.
   void setNumberType(int t) {
     $callSync(
-        6544,
+        6553,
         $W()
           ..h(this)
           ..i64(t));
@@ -88,7 +88,7 @@ class JoseV4JsonDecoder extends $runtime.GrpcGatewayV2RuntimeDecoder
 
   /// Go: `func (*json.Decoder).Token() (json.Token, error)`.
   JoseV4JsonToken token() {
-    final $r = $callSync(6545, $W()..h(this));
+    final $r = $callSync(6554, $W()..h(this));
     return $r.hnn(JoseV4JsonToken.$h);
   }
 
@@ -96,7 +96,7 @@ class JoseV4JsonDecoder extends $runtime.GrpcGatewayV2RuntimeDecoder
   @Deprecated(
       "Use `SetNumberType` instead UseNumber causes the Decoder to unmarshal a number into an interface{} as a Number instead of as a float64.")
   void useNumber() {
-    $callSync(6546, $W()..h(this));
+    $callSync(6555, $W()..h(this));
   }
 }
 
@@ -126,14 +126,14 @@ class JoseV4JsonEncoder extends $runtime.GrpcGatewayV2RuntimeEncoder
 
   /// Go: `func json.NewEncoder(w io.Writer) *json.Encoder`.
   factory JoseV4JsonEncoder(GoHandle? w) {
-    final $r = $callSync(6553, $W()..h(w));
+    final $r = $callSync(6562, $W()..h(w));
     return $r.hnn(JoseV4JsonEncoder.$h);
   }
 
   /// Go: `func (*json.Encoder).Encode(v interface{}) error`.
   void encode(Object? v) {
     $callSync(
-        6547,
+        6556,
         $W()
           ..h(this)
           ..any(v));
@@ -158,7 +158,7 @@ mixin JoseV4JsonUnmarshaler$ on GoHandle {
   /// Go: `func (json.Unmarshaler).UnmarshalJSON([]byte) error`.
   void unmarshalJson(Uint8List arg0) {
     $callSync(
-        6555,
+        6564,
         $W()
           ..h(this)
           ..bytes(arg0));
@@ -166,34 +166,34 @@ mixin JoseV4JsonUnmarshaler$ on GoHandle {
 
   /// Go: type assertion `x.(*sentry.Dsn)`: null if the object is not one.
   $sentry_go.SentryGoDsn? asSentryGoDsn() {
-    final $r = $callSync(447, $W()..h(this));
+    final $r = $callSync(450, $W()..h(this));
     return $r.hn($sentry_go.SentryGoDsn.$h);
   }
 
   /// Go: type assertion `x.(*merkledag.ProtoNode)`: null if the object is not one.
   $merkledag.BoxoIpldMerkledagProtoNode? asBoxoIpldMerkledagProtoNode() {
-    final $r = $callSync(448, $W()..h(this));
+    final $r = $callSync(451, $W()..h(this));
     return $r.hn($merkledag.BoxoIpldMerkledagProtoNode.$h);
   }
 
   /// Go: type assertion `x.(*openapi.NullableBool)`: null if the object is not one.
   $openapi.BoxoPinningRemoteClientOpenapiNullableBool?
       asBoxoPinningRemoteClientOpenapiNullableBool() {
-    final $r = $callSync(449, $W()..h(this));
+    final $r = $callSync(452, $W()..h(this));
     return $r.hn($openapi.BoxoPinningRemoteClientOpenapiNullableBool.$h);
   }
 
   /// Go: type assertion `x.(*openapi.NullableFailure)`: null if the object is not one.
   $openapi.BoxoPinningRemoteClientOpenapiNullableFailure?
       asBoxoPinningRemoteClientOpenapiNullableFailure() {
-    final $r = $callSync(450, $W()..h(this));
+    final $r = $callSync(453, $W()..h(this));
     return $r.hn($openapi.BoxoPinningRemoteClientOpenapiNullableFailure.$h);
   }
 
   /// Go: type assertion `x.(*openapi.NullableFailureError)`: null if the object is not one.
   $openapi.BoxoPinningRemoteClientOpenapiNullableFailureError?
       asBoxoPinningRemoteClientOpenapiNullableFailureError() {
-    final $r = $callSync(451, $W()..h(this));
+    final $r = $callSync(454, $W()..h(this));
     return $r
         .hn($openapi.BoxoPinningRemoteClientOpenapiNullableFailureError.$h);
   }
@@ -201,152 +201,152 @@ mixin JoseV4JsonUnmarshaler$ on GoHandle {
   /// Go: type assertion `x.(*openapi.NullableFloat32)`: null if the object is not one.
   $openapi.BoxoPinningRemoteClientOpenapiNullableFloat32?
       asBoxoPinningRemoteClientOpenapiNullableFloat32() {
-    final $r = $callSync(452, $W()..h(this));
+    final $r = $callSync(455, $W()..h(this));
     return $r.hn($openapi.BoxoPinningRemoteClientOpenapiNullableFloat32.$h);
   }
 
   /// Go: type assertion `x.(*openapi.NullableFloat64)`: null if the object is not one.
   $openapi.BoxoPinningRemoteClientOpenapiNullableFloat64?
       asBoxoPinningRemoteClientOpenapiNullableFloat64() {
-    final $r = $callSync(453, $W()..h(this));
+    final $r = $callSync(456, $W()..h(this));
     return $r.hn($openapi.BoxoPinningRemoteClientOpenapiNullableFloat64.$h);
   }
 
   /// Go: type assertion `x.(*openapi.NullableInt)`: null if the object is not one.
   $openapi.BoxoPinningRemoteClientOpenapiNullableInt?
       asBoxoPinningRemoteClientOpenapiNullableInt() {
-    final $r = $callSync(454, $W()..h(this));
+    final $r = $callSync(457, $W()..h(this));
     return $r.hn($openapi.BoxoPinningRemoteClientOpenapiNullableInt.$h);
   }
 
   /// Go: type assertion `x.(*openapi.NullableInt32)`: null if the object is not one.
   $openapi.BoxoPinningRemoteClientOpenapiNullableInt32?
       asBoxoPinningRemoteClientOpenapiNullableInt32() {
-    final $r = $callSync(455, $W()..h(this));
+    final $r = $callSync(458, $W()..h(this));
     return $r.hn($openapi.BoxoPinningRemoteClientOpenapiNullableInt32.$h);
   }
 
   /// Go: type assertion `x.(*openapi.NullableInt64)`: null if the object is not one.
   $openapi.BoxoPinningRemoteClientOpenapiNullableInt64?
       asBoxoPinningRemoteClientOpenapiNullableInt64() {
-    final $r = $callSync(456, $W()..h(this));
+    final $r = $callSync(459, $W()..h(this));
     return $r.hn($openapi.BoxoPinningRemoteClientOpenapiNullableInt64.$h);
   }
 
   /// Go: type assertion `x.(*openapi.NullablePin)`: null if the object is not one.
   $openapi.BoxoPinningRemoteClientOpenapiNullablePin?
       asBoxoPinningRemoteClientOpenapiNullablePin() {
-    final $r = $callSync(457, $W()..h(this));
+    final $r = $callSync(460, $W()..h(this));
     return $r.hn($openapi.BoxoPinningRemoteClientOpenapiNullablePin.$h);
   }
 
   /// Go: type assertion `x.(*openapi.NullablePinResults)`: null if the object is not one.
   $openapi.BoxoPinningRemoteClientOpenapiNullablePinResults?
       asBoxoPinningRemoteClientOpenapiNullablePinResults() {
-    final $r = $callSync(458, $W()..h(this));
+    final $r = $callSync(461, $W()..h(this));
     return $r.hn($openapi.BoxoPinningRemoteClientOpenapiNullablePinResults.$h);
   }
 
   /// Go: type assertion `x.(*openapi.NullablePinStatus)`: null if the object is not one.
   $openapi.BoxoPinningRemoteClientOpenapiNullablePinStatus?
       asBoxoPinningRemoteClientOpenapiNullablePinStatus() {
-    final $r = $callSync(459, $W()..h(this));
+    final $r = $callSync(462, $W()..h(this));
     return $r.hn($openapi.BoxoPinningRemoteClientOpenapiNullablePinStatus.$h);
   }
 
   /// Go: type assertion `x.(*openapi.NullableStatus)`: null if the object is not one.
   $openapi.BoxoPinningRemoteClientOpenapiNullableStatus?
       asBoxoPinningRemoteClientOpenapiNullableStatus() {
-    final $r = $callSync(460, $W()..h(this));
+    final $r = $callSync(463, $W()..h(this));
     return $r.hn($openapi.BoxoPinningRemoteClientOpenapiNullableStatus.$h);
   }
 
   /// Go: type assertion `x.(*openapi.NullableString)`: null if the object is not one.
   $openapi.BoxoPinningRemoteClientOpenapiNullableString?
       asBoxoPinningRemoteClientOpenapiNullableString() {
-    final $r = $callSync(461, $W()..h(this));
+    final $r = $callSync(464, $W()..h(this));
     return $r.hn($openapi.BoxoPinningRemoteClientOpenapiNullableString.$h);
   }
 
   /// Go: type assertion `x.(*openapi.NullableTime)`: null if the object is not one.
   $openapi.BoxoPinningRemoteClientOpenapiNullableTime?
       asBoxoPinningRemoteClientOpenapiNullableTime() {
-    final $r = $callSync(462, $W()..h(this));
+    final $r = $callSync(465, $W()..h(this));
     return $r.hn($openapi.BoxoPinningRemoteClientOpenapiNullableTime.$h);
   }
 
   /// Go: type assertion `x.(*datastore.Key)`: null if the object is not one.
   $datastore.DatastoreKey? asDatastoreKey() {
-    final $r = $callSync(463, $W()..h(this));
+    final $r = $callSync(466, $W()..h(this));
     return $r.hn($datastore.DatastoreKey.$h);
   }
 
   /// Go: type assertion `x.(*cmds.MaybeError)`: null if the object is not one.
   $ipfs_cmds.IpfsCmdsMaybeError? asIpfsCmdsMaybeError() {
-    final $r = $callSync(464, $W()..h(this));
+    final $r = $callSync(467, $W()..h(this));
     return $r.hn($ipfs_cmds.IpfsCmdsMaybeError.$h);
   }
 
   /// Go: type assertion `x.(*config.OptionalDuration)`: null if the object is not one.
   $config.KuboConfigOptionalDuration? asKuboConfigOptionalDuration() {
-    final $r = $callSync(465, $W()..h(this));
+    final $r = $callSync(468, $W()..h(this));
     return $r.hn($config.KuboConfigOptionalDuration.$h);
   }
 
   /// Go: type assertion `x.(*config.OptionalInteger)`: null if the object is not one.
   $config.KuboConfigOptionalInteger? asKuboConfigOptionalInteger() {
-    final $r = $callSync(466, $W()..h(this));
+    final $r = $callSync(469, $W()..h(this));
     return $r.hn($config.KuboConfigOptionalInteger.$h);
   }
 
   /// Go: type assertion `x.(*config.OptionalString)`: null if the object is not one.
   $config.KuboConfigOptionalString? asKuboConfigOptionalString() {
-    final $r = $callSync(467, $W()..h(this));
+    final $r = $callSync(470, $W()..h(this));
     return $r.hn($config.KuboConfigOptionalString.$h);
   }
 
   /// Go: type assertion `x.(*multiaddr.Component)`: null if the object is not one.
   $multiaddr.MultiaddrComponent? asMultiaddrComponent() {
-    final $r = $callSync(468, $W()..h(this));
+    final $r = $callSync(471, $W()..h(this));
     return $r.hn($multiaddr.MultiaddrComponent.$h);
   }
 
   /// Go: type assertion `x.(*typegen.CborTime)`: null if the object is not one.
   $cbor_gen.CborGenCborTime? asCborGenCborTime() {
-    final $r = $callSync(469, $W()..h(this));
+    final $r = $callSync(472, $W()..h(this));
     return $r.hn($cbor_gen.CborGenCborTime.$h);
   }
 
   /// Go: type assertion `x.(*zapcore.TimeEncoder)`: null if the object is not one.
   $zapcore.ZapZapcoreTimeEncoder? asZapZapcoreTimeEncoder() {
-    final $r = $callSync(470, $W()..h(this));
+    final $r = $callSync(473, $W()..h(this));
     return $r.hn($zapcore.ZapZapcoreTimeEncoder.$h);
   }
 
   /// Go: type assertion `x.(*structpb.ListValue)`: null if the object is not one.
   $structpb.ProtobufTypesKnownStructpbListValue?
       asProtobufTypesKnownStructpbListValue() {
-    final $r = $callSync(471, $W()..h(this));
+    final $r = $callSync(474, $W()..h(this));
     return $r.hn($structpb.ProtobufTypesKnownStructpbListValue.$h);
   }
 
   /// Go: type assertion `x.(*structpb.Struct)`: null if the object is not one.
   $structpb.ProtobufTypesKnownStructpbStruct?
       asProtobufTypesKnownStructpbStruct() {
-    final $r = $callSync(472, $W()..h(this));
+    final $r = $callSync(475, $W()..h(this));
     return $r.hn($structpb.ProtobufTypesKnownStructpbStruct.$h);
   }
 
   /// Go: type assertion `x.(*structpb.Value)`: null if the object is not one.
   $structpb.ProtobufTypesKnownStructpbValue?
       asProtobufTypesKnownStructpbValue() {
-    final $r = $callSync(473, $W()..h(this));
+    final $r = $callSync(476, $W()..h(this));
     return $r.hn($structpb.ProtobufTypesKnownStructpbValue.$h);
   }
 
   /// Go: type assertion `x.(*big.Int)`: null if the object is not one.
   $big.MathBigInt? asMathBigInt() {
-    final $r = $callSync(474, $W()..h(this));
+    final $r = $callSync(477, $W()..h(this));
     return $r.hn($big.MathBigInt.$h);
   }
 }
@@ -457,7 +457,7 @@ extension GoGoJoseJoseV4JsonApi on GoGoJoseJoseV4Json {
   /// Go: `func json.Compact(dst *bytes.Buffer, src []byte) error`.
   void compact($bytes.BytesBuffer dst, Uint8List src) {
     $callSync(
-        6540,
+        6549,
         $W()
           ..h(dst)
           ..bytes(src));
@@ -466,7 +466,7 @@ extension GoGoJoseJoseV4JsonApi on GoGoJoseJoseV4Json {
   /// Go: `func json.HTMLEscape(dst *bytes.Buffer, src []byte)`.
   void htmlEscape($bytes.BytesBuffer dst, Uint8List src) {
     $callSync(
-        6548,
+        6557,
         $W()
           ..h(dst)
           ..bytes(src));
@@ -476,7 +476,7 @@ extension GoGoJoseJoseV4JsonApi on GoGoJoseJoseV4Json {
   void indent(
       $bytes.BytesBuffer dst, Uint8List src, String prefix, String indent) {
     $callSync(
-        6549,
+        6558,
         $W()
           ..h(dst)
           ..bytes(src)
@@ -486,14 +486,14 @@ extension GoGoJoseJoseV4JsonApi on GoGoJoseJoseV4Json {
 
   /// Go: `func json.Marshal(v interface{}) ([]byte, error)`.
   Uint8List marshal(Object? v) {
-    final $r = $callSync(6550, $W()..any(v));
+    final $r = $callSync(6559, $W()..any(v));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func json.MarshalIndent(v interface{}, prefix string, indent string) ([]byte, error)`.
   Uint8List marshalIndent(Object? v, String prefix, String indent) {
     final $r = $callSync(
-        6551,
+        6560,
         $W()
           ..any(v)
           ..str(prefix)
@@ -504,7 +504,7 @@ extension GoGoJoseJoseV4JsonApi on GoGoJoseJoseV4Json {
   /// Go: `func json.Unmarshal(data []byte, v interface{}) error`.
   void unmarshal(Uint8List data, Object? v) {
     $callSync(
-        6554,
+        6563,
         $W()
           ..bytes(data)
           ..any(v));

@@ -41,25 +41,25 @@ class TransportV3PacketioBuffer extends $io.IoCloser
 
   /// Go: `func packetio.NewBuffer() *packetio.Buffer`.
   factory TransportV3PacketioBuffer() {
-    final $r = $callSync(17346);
+    final $r = $callSync(17352);
     return $r.hnn(TransportV3PacketioBuffer.$h);
   }
 
   /// Go: `func (*packetio.Buffer).Close() (err error)`.
   void close() {
-    $callSync(17338, $W()..h(this));
+    $callSync(17344, $W()..h(this));
   }
 
   /// Go: `func (*packetio.Buffer).Count() int`.
   int count() {
-    final $r = $callSync(17339, $W()..h(this));
+    final $r = $callSync(17345, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*packetio.Buffer).Read(packet []byte) (n int, err error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        17340,
+        17346,
         $W()
           ..h(this)
           ..i64(n));
@@ -69,7 +69,7 @@ class TransportV3PacketioBuffer extends $io.IoCloser
   /// Go: `func (*packetio.Buffer).SetLimitCount(limit int)`.
   void setLimitCount(int limit) {
     $callSync(
-        17341,
+        17347,
         $W()
           ..h(this)
           ..i64(limit));
@@ -78,7 +78,7 @@ class TransportV3PacketioBuffer extends $io.IoCloser
   /// Go: `func (*packetio.Buffer).SetLimitSize(limit int)`.
   void setLimitSize(int limit) {
     $callSync(
-        17342,
+        17348,
         $W()
           ..h(this)
           ..i64(limit));
@@ -87,7 +87,7 @@ class TransportV3PacketioBuffer extends $io.IoCloser
   /// Go: `func (*packetio.Buffer).SetReadDeadline(t time.Time) error`.
   void setReadDeadline(DateTime t) {
     $callSync(
-        17343,
+        17349,
         $W()
           ..h(this)
           ..time(t));
@@ -95,14 +95,14 @@ class TransportV3PacketioBuffer extends $io.IoCloser
 
   /// Go: `func (*packetio.Buffer).Size() int`.
   int size() {
-    final $r = $callSync(17344, $W()..h(this));
+    final $r = $callSync(17350, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*packetio.Buffer).Write(packet []byte) (int, error)`.
   int write(Uint8List packet) {
     final $r = $callSync(
-        17345,
+        17351,
         $W()
           ..h(this)
           ..bytes(packet));

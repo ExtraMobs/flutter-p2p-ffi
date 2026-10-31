@@ -60,7 +60,7 @@ class DatastoreMountDatastore extends $datastore.Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<$datastore.DatastoreBatch> batch($context.Context ctx) async {
     final $r = await $call(
-        10656,
+        10665,
         $W()
           ..h(this)
           ..h(ctx));
@@ -72,7 +72,7 @@ class DatastoreMountDatastore extends $datastore.Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> check($context.Context ctx) async {
     await $call(
-        10657,
+        10666,
         $W()
           ..h(this)
           ..h(ctx));
@@ -80,7 +80,7 @@ class DatastoreMountDatastore extends $datastore.Datastore
 
   /// Go: `func (*mount.Datastore).Close() error`.
   void close() {
-    $callSync(10658, $W()..h(this));
+    $callSync(10667, $W()..h(this));
   }
 
   /// Go: `func (*mount.Datastore).CollectGarbage(ctx context.Context) error`.
@@ -88,7 +88,7 @@ class DatastoreMountDatastore extends $datastore.Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> collectGarbage($context.Context ctx) async {
     await $call(
-        10659,
+        10668,
         $W()
           ..h(this)
           ..h(ctx));
@@ -99,7 +99,7 @@ class DatastoreMountDatastore extends $datastore.Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> delete($context.Context ctx, $datastore.DatastoreKey key) async {
     await $call(
-        10660,
+        10669,
         $W()
           ..h(this)
           ..h(ctx)
@@ -111,7 +111,7 @@ class DatastoreMountDatastore extends $datastore.Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> diskUsage($context.Context ctx) async {
     final $r = await $call(
-        10661,
+        10670,
         $W()
           ..h(this)
           ..h(ctx));
@@ -124,7 +124,7 @@ class DatastoreMountDatastore extends $datastore.Datastore
   Future<Uint8List> get(
       $context.Context ctx, $datastore.DatastoreKey key) async {
     final $r = await $call(
-        10662,
+        10671,
         $W()
           ..h(this)
           ..h(ctx)
@@ -137,7 +137,7 @@ class DatastoreMountDatastore extends $datastore.Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getSize($context.Context ctx, $datastore.DatastoreKey key) async {
     final $r = await $call(
-        10663,
+        10672,
         $W()
           ..h(this)
           ..h(ctx)
@@ -150,7 +150,7 @@ class DatastoreMountDatastore extends $datastore.Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> has($context.Context ctx, $datastore.DatastoreKey key) async {
     final $r = await $call(
-        10664,
+        10673,
         $W()
           ..h(this)
           ..h(ctx)
@@ -164,7 +164,7 @@ class DatastoreMountDatastore extends $datastore.Datastore
   Future<void> put($context.Context ctx, $datastore.DatastoreKey key,
       Uint8List value) async {
     await $call(
-        10665,
+        10674,
         $W()
           ..h(this)
           ..h(ctx)
@@ -178,7 +178,7 @@ class DatastoreMountDatastore extends $datastore.Datastore
   Future<$query.DatastoreQueryResults> query(
       $context.Context ctx, $query.DatastoreQuery master) async {
     final $r = await $call(
-        10666,
+        10675,
         $W()
           ..h(this)
           ..h(ctx)
@@ -191,7 +191,7 @@ class DatastoreMountDatastore extends $datastore.Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> scrub($context.Context ctx) async {
     await $call(
-        10667,
+        10676,
         $W()
           ..h(this)
           ..h(ctx));
@@ -203,7 +203,7 @@ class DatastoreMountDatastore extends $datastore.Datastore
   Future<void> sync(
       $context.Context ctx, $datastore.DatastoreKey prefix) async {
     await $call(
-        10668,
+        10677,
         $W()
           ..h(this)
           ..h(ctx)
@@ -249,7 +249,7 @@ class DatastoreMountErrNoMount extends GolangException {
 extension GoIpfsDatastoreMountApi on GoIpfsDatastoreMount {
   /// Go: `func mount.New(mounts []mount.Mount) *mount.Datastore`.
   DatastoreMountDatastore new$(List<DatastoreMount> mounts) {
-    final $r = $callSync(10669, $W()..list(mounts, (w0, e0) => w0.dto(e0)));
+    final $r = $callSync(10678, $W()..list(mounts, (w0, e0) => w0.dto(e0)));
     return $r.hnn(DatastoreMountDatastore.$h);
   }
 }

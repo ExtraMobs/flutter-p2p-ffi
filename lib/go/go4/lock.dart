@@ -10,7 +10,7 @@ import 'package:p2p_ffi/go/io.dart' as $io;
 extension GoGo4LockApi on GoGo4Lock {
   /// Go: `func lock.Lock(name string) (io.Closer, error)`.
   $io.IoCloser lock(String name) {
-    final $r = $callSync(23281, $W()..str(name));
+    final $r = $callSync(23287, $W()..str(name));
     return $r.hnn($io.IoCloser.$h);
   }
 }

@@ -51,29 +51,29 @@ class PebbleV2ObjstorageMemObj extends PebbleV2ObjstorageReadable
 
   /// Go: `func (*objstorage.MemObj).Abort()`.
   void abort() {
-    $callSync(4899, $W()..h(this));
+    $callSync(4908, $W()..h(this));
   }
 
   /// Go: `func (*objstorage.MemObj).Close() error`.
   void close() {
-    $callSync(4900, $W()..h(this));
+    $callSync(4909, $W()..h(this));
   }
 
   /// Go: `func (*objstorage.MemObj).Data() []byte`.
   Uint8List data() {
-    final $r = $callSync(4901, $W()..h(this));
+    final $r = $callSync(4910, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*objstorage.MemObj).Finish() error`.
   void finish() {
-    $callSync(4902, $W()..h(this));
+    $callSync(4911, $W()..h(this));
   }
 
   /// Go: `func (*objstorage.MemObj).NewReadHandle(readBeforeSize objstorage.ReadBeforeSize) objstorage.ReadHandle`.
   PebbleV2ObjstorageReadHandle newReadHandle(int readBeforeSize) {
     final $r = $callSync(
-        4903,
+        4912,
         $W()
           ..h(this)
           ..i64(readBeforeSize));
@@ -85,7 +85,7 @@ class PebbleV2ObjstorageMemObj extends PebbleV2ObjstorageReadable
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> readAt($context.Context ctx, Uint8List p, int off) async {
     await $call(
-        4904,
+        4913,
         $W()
           ..h(this)
           ..h(ctx)
@@ -95,14 +95,14 @@ class PebbleV2ObjstorageMemObj extends PebbleV2ObjstorageReadable
 
   /// Go: `func (*objstorage.MemObj).Size() int64`.
   int size() {
-    final $r = $callSync(4905, $W()..h(this));
+    final $r = $callSync(4914, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*objstorage.MemObj).Write(p []byte) error`.
   void write(Uint8List p) {
     $callSync(
-        4906,
+        4915,
         $W()
           ..h(this)
           ..bytes(p));
@@ -135,7 +135,7 @@ class PebbleV2ObjstorageNoopReadHandle extends PebbleV2ObjstorageReadHandle
 
   /// Go: `func (*objstorage.NoopReadHandle).Close() error`.
   void close() {
-    $callSync(4907, $W()..h(this));
+    $callSync(4916, $W()..h(this));
   }
 
   /// Go: `func (*objstorage.NoopReadHandle).ReadAt(ctx context.Context, p []byte, off int64) error`.
@@ -143,7 +143,7 @@ class PebbleV2ObjstorageNoopReadHandle extends PebbleV2ObjstorageReadHandle
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> readAt($context.Context ctx, Uint8List p, int off) async {
     await $call(
-        4908,
+        4917,
         $W()
           ..h(this)
           ..h(ctx)
@@ -157,7 +157,7 @@ class PebbleV2ObjstorageNoopReadHandle extends PebbleV2ObjstorageReadHandle
   Future<void> recordCacheHit(
       $context.Context ctx, int offset, int size) async {
     await $call(
-        4909,
+        4918,
         $W()
           ..h(this)
           ..h(ctx)
@@ -167,7 +167,7 @@ class PebbleV2ObjstorageNoopReadHandle extends PebbleV2ObjstorageReadHandle
 
   /// Go: `func (*objstorage.NoopReadHandle).SetupForCompaction()`.
   void setupForCompaction() {
-    $callSync(4910, $W()..h(this));
+    $callSync(4919, $W()..h(this));
   }
 }
 
@@ -183,24 +183,24 @@ final class PebbleV2ObjstorageObjectMetadata implements GoDto {
 
   /// Go: `func (*objstorage.ObjectMetadata).AssertValid()`.
   void assertValid() {
-    $callSync(4911, $W()..dto(this));
+    $callSync(4920, $W()..dto(this));
   }
 
   /// Go: `func (*objstorage.ObjectMetadata).IsExternal() bool`.
   bool isExternal() {
-    final $r = $callSync(4912, $W()..dto(this));
+    final $r = $callSync(4921, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*objstorage.ObjectMetadata).IsRemote() bool`.
   bool isRemote() {
-    final $r = $callSync(4913, $W()..dto(this));
+    final $r = $callSync(4922, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*objstorage.ObjectMetadata).IsShared() bool`.
   bool isShared() {
-    final $r = $callSync(4914, $W()..dto(this));
+    final $r = $callSync(4923, $W()..dto(this));
     return $r.b();
   }
 }
@@ -217,7 +217,7 @@ mixin PebbleV2ObjstorageProvider$ on GoHandle {
   List<PebbleV2ObjstorageObjectMetadata> attachRemoteObjects(
       List<PebbleV2ObjstorageRemoteObjectToAttach> objs) {
     final $r = $callSync(
-        4915,
+        4924,
         $W()
           ..h(this)
           ..list(objs, (w0, e0) => w0.dto(e0)));
@@ -227,13 +227,13 @@ mixin PebbleV2ObjstorageProvider$ on GoHandle {
 
   /// Go: `func (objstorage.Provider).Close() error`.
   void close() {
-    $callSync(4916, $W()..h(this));
+    $callSync(4925, $W()..h(this));
   }
 
   /// Go: `func (objstorage.Provider).CreateExternalObjectBacking(locator remote.Locator, objName string) (objstorage.RemoteObjectBacking, error)`.
   Uint8List createExternalObjectBacking(String locator, String objName) {
     final $r = $callSync(
-        4917,
+        4926,
         $W()
           ..h(this)
           ..str(locator)
@@ -244,7 +244,7 @@ mixin PebbleV2ObjstorageProvider$ on GoHandle {
   /// Go: `func (objstorage.Provider).IsSharedForeign(meta objstorage.ObjectMetadata) bool`.
   bool isSharedForeign(PebbleV2ObjstorageObjectMetadata meta) {
     final $r = $callSync(
-        4918,
+        4927,
         $W()
           ..h(this)
           ..dto(meta));
@@ -253,7 +253,7 @@ mixin PebbleV2ObjstorageProvider$ on GoHandle {
 
   /// Go: `func (objstorage.Provider).List() []objstorage.ObjectMetadata`.
   List<PebbleV2ObjstorageObjectMetadata> list() {
-    final $r = $callSync(4919, $W()..h(this));
+    final $r = $callSync(4928, $W()..h(this));
     return $r.list(
         () => $r.p() ? PebbleV2ObjstorageObjectMetadata.$dec($r) : $nil());
   }
@@ -261,7 +261,7 @@ mixin PebbleV2ObjstorageProvider$ on GoHandle {
   /// Go: `func (objstorage.Provider).Metrics() sharedcache.Metrics`.
   $sharedcache.PebbleV2ObjstorageObjstorageproviderSharedcacheMetrics
       metrics() {
-    final $r = $callSync(4920, $W()..h(this));
+    final $r = $callSync(4929, $W()..h(this));
     return $r.p()
         ? $sharedcache.PebbleV2ObjstorageObjstorageproviderSharedcacheMetrics
             .$dec($r)
@@ -271,7 +271,7 @@ mixin PebbleV2ObjstorageProvider$ on GoHandle {
   /// Go: `func (objstorage.Provider).Path(meta objstorage.ObjectMetadata) string`.
   String path(PebbleV2ObjstorageObjectMetadata meta) {
     final $r = $callSync(
-        4921,
+        4930,
         $W()
           ..h(this)
           ..dto(meta));
@@ -282,7 +282,7 @@ mixin PebbleV2ObjstorageProvider$ on GoHandle {
   PebbleV2ObjstorageRemoteObjectBackingHandle remoteObjectBacking(
       PebbleV2ObjstorageObjectMetadata meta) {
     final $r = $callSync(
-        4922,
+        4931,
         $W()
           ..h(this)
           ..dto(meta));
@@ -292,7 +292,7 @@ mixin PebbleV2ObjstorageProvider$ on GoHandle {
   /// Go: `func (objstorage.Provider).SetCreatorID(creatorID objstorage.CreatorID) error`.
   void setCreatorId(int creatorId) {
     $callSync(
-        4923,
+        4932,
         $W()
           ..h(this)
           ..i64(creatorId));
@@ -301,7 +301,7 @@ mixin PebbleV2ObjstorageProvider$ on GoHandle {
   /// Go: `func (objstorage.Provider).Size(meta objstorage.ObjectMetadata) (int64, error)`.
   int size(PebbleV2ObjstorageObjectMetadata meta) {
     final $r = $callSync(
-        4924,
+        4933,
         $W()
           ..h(this)
           ..dto(meta));
@@ -310,7 +310,7 @@ mixin PebbleV2ObjstorageProvider$ on GoHandle {
 
   /// Go: `func (objstorage.Provider).Sync() error`.
   void sync() {
-    $callSync(4925, $W()..h(this));
+    $callSync(4934, $W()..h(this));
   }
 }
 
@@ -324,7 +324,7 @@ class PebbleV2ObjstorageReadHandle extends GoHandle
 mixin PebbleV2ObjstorageReadHandle$ on GoHandle {
   /// Go: `func (objstorage.ReadHandle).Close() error`.
   void close() {
-    $callSync(4926, $W()..h(this));
+    $callSync(4935, $W()..h(this));
   }
 
   /// Go: `func (objstorage.ReadHandle).ReadAt(ctx context.Context, p []byte, off int64) error`.
@@ -332,7 +332,7 @@ mixin PebbleV2ObjstorageReadHandle$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> readAt($context.Context ctx, Uint8List p, int off) async {
     await $call(
-        4927,
+        4936,
         $W()
           ..h(this)
           ..h(ctx)
@@ -346,7 +346,7 @@ mixin PebbleV2ObjstorageReadHandle$ on GoHandle {
   Future<void> recordCacheHit(
       $context.Context ctx, int offset, int size) async {
     await $call(
-        4928,
+        4937,
         $W()
           ..h(this)
           ..h(ctx)
@@ -356,12 +356,12 @@ mixin PebbleV2ObjstorageReadHandle$ on GoHandle {
 
   /// Go: `func (objstorage.ReadHandle).SetupForCompaction()`.
   void setupForCompaction() {
-    $callSync(4929, $W()..h(this));
+    $callSync(4938, $W()..h(this));
   }
 
   /// Go: type assertion `x.(*objstorage.NoopReadHandle)`: null if the object is not one.
   PebbleV2ObjstorageNoopReadHandle? asPebbleV2ObjstorageNoopReadHandle() {
-    final $r = $callSync(396, $W()..h(this));
+    final $r = $callSync(399, $W()..h(this));
     return $r.hn(PebbleV2ObjstorageNoopReadHandle.$h);
   }
 
@@ -369,7 +369,7 @@ mixin PebbleV2ObjstorageReadHandle$ on GoHandle {
   $objstorageprovider
       .PebbleV2ObjstorageObjstorageproviderPreallocatedReadHandle?
       asPebbleV2ObjstorageObjstorageproviderPreallocatedReadHandle() {
-    final $r = $callSync(397, $W()..h(this));
+    final $r = $callSync(400, $W()..h(this));
     return $r.hn($objstorageprovider
         .PebbleV2ObjstorageObjstorageproviderPreallocatedReadHandle.$h);
   }
@@ -385,13 +385,13 @@ class PebbleV2ObjstorageReadable extends GoHandle
 mixin PebbleV2ObjstorageReadable$ on GoHandle {
   /// Go: `func (objstorage.Readable).Close() error`.
   void close() {
-    $callSync(4930, $W()..h(this));
+    $callSync(4939, $W()..h(this));
   }
 
   /// Go: `func (objstorage.Readable).NewReadHandle(readBeforeSize objstorage.ReadBeforeSize) objstorage.ReadHandle`.
   PebbleV2ObjstorageReadHandle newReadHandle(int readBeforeSize) {
     final $r = $callSync(
-        4931,
+        4940,
         $W()
           ..h(this)
           ..i64(readBeforeSize));
@@ -403,7 +403,7 @@ mixin PebbleV2ObjstorageReadable$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> readAt($context.Context ctx, Uint8List p, int off) async {
     await $call(
-        4932,
+        4941,
         $W()
           ..h(this)
           ..h(ctx)
@@ -413,13 +413,13 @@ mixin PebbleV2ObjstorageReadable$ on GoHandle {
 
   /// Go: `func (objstorage.Readable).Size() int64`.
   int size() {
-    final $r = $callSync(4933, $W()..h(this));
+    final $r = $callSync(4942, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: type assertion `x.(*objstorage.MemObj)`: null if the object is not one.
   PebbleV2ObjstorageMemObj? asPebbleV2ObjstorageMemObj() {
-    final $r = $callSync(398, $W()..h(this));
+    final $r = $callSync(401, $W()..h(this));
     return $r.hn(PebbleV2ObjstorageMemObj.$h);
   }
 }
@@ -434,12 +434,12 @@ class PebbleV2ObjstorageRemoteObjectBackingHandle extends GoHandle
 mixin PebbleV2ObjstorageRemoteObjectBackingHandle$ on GoHandle {
   /// Go: `func (objstorage.RemoteObjectBackingHandle).Close()`.
   void close() {
-    $callSync(4934, $W()..h(this));
+    $callSync(4943, $W()..h(this));
   }
 
   /// Go: `func (objstorage.RemoteObjectBackingHandle).Get() (objstorage.RemoteObjectBacking, error)`.
   Uint8List get() {
-    final $r = $callSync(4935, $W()..h(this));
+    final $r = $callSync(4944, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 }
@@ -472,18 +472,18 @@ class PebbleV2ObjstorageWritable extends GoHandle
 mixin PebbleV2ObjstorageWritable$ on GoHandle {
   /// Go: `func (objstorage.Writable).Abort()`.
   void abort() {
-    $callSync(4936, $W()..h(this));
+    $callSync(4945, $W()..h(this));
   }
 
   /// Go: `func (objstorage.Writable).Finish() error`.
   void finish() {
-    $callSync(4937, $W()..h(this));
+    $callSync(4946, $W()..h(this));
   }
 
   /// Go: `func (objstorage.Writable).Write(p []byte) error`.
   void write(Uint8List p) {
     $callSync(
-        4938,
+        4947,
         $W()
           ..h(this)
           ..bytes(p));
@@ -491,7 +491,7 @@ mixin PebbleV2ObjstorageWritable$ on GoHandle {
 
   /// Go: type assertion `x.(*objstorage.MemObj)`: null if the object is not one.
   PebbleV2ObjstorageMemObj? asPebbleV2ObjstorageMemObj() {
-    final $r = $callSync(399, $W()..h(this));
+    final $r = $callSync(402, $W()..h(this));
     return $r.hn(PebbleV2ObjstorageMemObj.$h);
   }
 }
@@ -505,7 +505,7 @@ extension GoCockroachdbPebbleV2ObjstorageApi
   Future<void> copy($context.Context ctx, PebbleV2ObjstorageReadHandle r,
       PebbleV2ObjstorageWritable out, int offset, int length) async {
     await $call(
-        4897,
+        4906,
         $W()
           ..h(ctx)
           ..h(r)
@@ -517,7 +517,7 @@ extension GoCockroachdbPebbleV2ObjstorageApi
   /// Go: `func objstorage.MakeNoopReadHandle(r objstorage.Readable) objstorage.NoopReadHandle`.
   PebbleV2ObjstorageNoopReadHandle makeNoopReadHandle(
       PebbleV2ObjstorageReadable r) {
-    final $r = $callSync(4898, $W()..h(r));
+    final $r = $callSync(4907, $W()..h(r));
     return $r.hnn(PebbleV2ObjstorageNoopReadHandle.$h);
   }
 }

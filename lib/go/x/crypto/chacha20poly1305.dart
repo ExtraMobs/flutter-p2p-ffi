@@ -13,13 +13,13 @@ import 'package:p2p_ffi/go/crypto/cipher.dart' as $cipher;
 extension GoXCryptoChacha20poly1305Api on GoXCryptoChacha20poly1305 {
   /// Go: `func chacha20poly1305.New(key []byte) (cipher.AEAD, error)`.
   $cipher.CryptoCipherAead new$(Uint8List key) {
-    final $r = $callSync(23295, $W()..bytes(key));
+    final $r = $callSync(23301, $W()..bytes(key));
     return $r.hnn($cipher.CryptoCipherAead.$h);
   }
 
   /// Go: `func chacha20poly1305.NewX(key []byte) (cipher.AEAD, error)`.
   $cipher.CryptoCipherAead newX(Uint8List key) {
-    final $r = $callSync(23296, $W()..bytes(key));
+    final $r = $callSync(23302, $W()..bytes(key));
     return $r.hnn($cipher.CryptoCipherAead.$h);
   }
 }

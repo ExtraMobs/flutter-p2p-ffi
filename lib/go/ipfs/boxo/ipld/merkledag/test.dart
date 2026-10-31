@@ -37,7 +37,7 @@ class BoxoIpldMerkledagTestDagGenerator extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func mdutils.NewDAGGenerator() *mdutils.DAGGenerator`.
   factory BoxoIpldMerkledagTestDagGenerator() {
-    final $r = $callSync(9721);
+    final $r = $callSync(9730);
     return $r.hnn(BoxoIpldMerkledagTestDagGenerator.$h);
   }
 
@@ -55,7 +55,7 @@ class BoxoIpldMerkledagTestDagGenerator extends $crypto.CryptoDecrypterOpts
       int fanout,
       int depth) async {
     final $r = await $call(
-        9718,
+        9727,
         $W()
           ..h(this)
           ..cb(
@@ -84,7 +84,7 @@ class BoxoIpldMerkledagTestDagGenerator extends $crypto.CryptoDecrypterOpts
       int fanout,
       int depth) async {
     final $r = await $call(
-        9719,
+        9728,
         $W()
           ..h(this)
           ..cb(
@@ -104,13 +104,13 @@ class BoxoIpldMerkledagTestDagGenerator extends $crypto.CryptoDecrypterOpts
 extension GoIpfsBoxoIpldMerkledagTestApi on GoIpfsBoxoIpldMerkledagTest {
   /// Go: `func mdutils.Bserv() blockservice.BlockService`.
   $blockservice.BoxoBlockserviceBlockService bserv() {
-    final $r = $callSync(9717);
+    final $r = $callSync(9726);
     return $r.hnn($blockservice.BoxoBlockserviceBlockService.$h);
   }
 
   /// Go: `func mdutils.Mock() format.DAGService`.
   $ipld_format.IpldFormatDagService mock() {
-    final $r = $callSync(9720);
+    final $r = $callSync(9729);
     return $r.hnn($ipld_format.IpldFormatDagService.$h);
   }
 }

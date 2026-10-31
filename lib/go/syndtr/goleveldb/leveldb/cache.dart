@@ -33,20 +33,20 @@ class GoleveldbLeveldbCache extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func cache.NewCache(cacher cache.Cacher) *cache.Cache`.
   factory GoleveldbLeveldbCache(GoleveldbLeveldbCacheCacher cacher) {
-    final $r = $callSync(18650, $W()..h(cacher));
+    final $r = $callSync(18656, $W()..h(cacher));
     return $r.hnn(GoleveldbLeveldbCache.$h);
   }
 
   /// Go: `func (*cache.Cache).Capacity() int`.
   int capacity() {
-    final $r = $callSync(18633, $W()..h(this));
+    final $r = $callSync(18639, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*cache.Cache).Close(force bool)`.
   void close(bool force) {
     $callSync(
-        18634,
+        18640,
         $W()
           ..h(this)
           ..b(force));
@@ -62,7 +62,7 @@ class GoleveldbLeveldbCache extends $crypto.CryptoDecrypterOpts
   Future<bool> delete(
       int ns, int key, FutureOr<void> Function() delFunc) async {
     final $r = await $call(
-        18635,
+        18641,
         $W()
           ..h(this)
           ..i64(ns)
@@ -74,7 +74,7 @@ class GoleveldbLeveldbCache extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*cache.Cache).Evict(ns uint64, key uint64) bool`.
   bool evict(int ns, int key) {
     final $r = $callSync(
-        18636,
+        18642,
         $W()
           ..h(this)
           ..i64(ns)
@@ -84,13 +84,13 @@ class GoleveldbLeveldbCache extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*cache.Cache).EvictAll()`.
   void evictAll() {
-    $callSync(18637, $W()..h(this));
+    $callSync(18643, $W()..h(this));
   }
 
   /// Go: `func (*cache.Cache).EvictNS(ns uint64)`.
   void evictNs(int ns) {
     $callSync(
-        18638,
+        18644,
         $W()
           ..h(this)
           ..i64(ns));
@@ -98,20 +98,20 @@ class GoleveldbLeveldbCache extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*cache.Cache).GetStats() cache.Stats`.
   GoleveldbLeveldbCacheStats getStats() {
-    final $r = $callSync(18639, $W()..h(this));
+    final $r = $callSync(18645, $W()..h(this));
     return $r.p() ? GoleveldbLeveldbCacheStats.$dec($r) : $nil();
   }
 
   /// Go: `func (*cache.Cache).Nodes() int`.
   int nodes() {
-    final $r = $callSync(18640, $W()..h(this));
+    final $r = $callSync(18646, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*cache.Cache).SetCapacity(capacity int)`.
   void setCapacity(int capacity) {
     $callSync(
-        18641,
+        18647,
         $W()
           ..h(this)
           ..i64(capacity));
@@ -119,7 +119,7 @@ class GoleveldbLeveldbCache extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*cache.Cache).Size() int`.
   int size() {
-    final $r = $callSync(18642, $W()..h(this));
+    final $r = $callSync(18648, $W()..h(this));
     return $r.i64();
   }
 }
@@ -135,7 +135,7 @@ mixin GoleveldbLeveldbCacheCacher$ on GoHandle {
   /// Go: `func (cache.Cacher).Ban(n *cache.Node)`.
   void ban(GoleveldbLeveldbCacheNode n) {
     $callSync(
-        18643,
+        18649,
         $W()
           ..h(this)
           ..h(n));
@@ -143,14 +143,14 @@ mixin GoleveldbLeveldbCacheCacher$ on GoHandle {
 
   /// Go: `func (cache.Cacher).Capacity() int`.
   int capacity() {
-    final $r = $callSync(18644, $W()..h(this));
+    final $r = $callSync(18650, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (cache.Cacher).Evict(n *cache.Node)`.
   void evict(GoleveldbLeveldbCacheNode n) {
     $callSync(
-        18645,
+        18651,
         $W()
           ..h(this)
           ..h(n));
@@ -159,7 +159,7 @@ mixin GoleveldbLeveldbCacheCacher$ on GoHandle {
   /// Go: `func (cache.Cacher).Promote(n *cache.Node)`.
   void promote(GoleveldbLeveldbCacheNode n) {
     $callSync(
-        18646,
+        18652,
         $W()
           ..h(this)
           ..h(n));
@@ -168,7 +168,7 @@ mixin GoleveldbLeveldbCacheCacher$ on GoHandle {
   /// Go: `func (cache.Cacher).SetCapacity(capacity int)`.
   void setCapacity(int capacity) {
     $callSync(
-        18647,
+        18653,
         $W()
           ..h(this)
           ..i64(capacity));
@@ -197,12 +197,12 @@ class GoleveldbLeveldbCacheHandle extends $util.GoleveldbLeveldbUtilReleaser
 
   /// Go: `func (*cache.Handle).Release()`.
   void release$() {
-    $callSync(18648, $W()..h(this));
+    $callSync(18654, $W()..h(this));
   }
 
   /// Go: `func (*cache.Handle).Value() cache.Value`.
   GoleveldbLeveldbCacheValue value$() {
-    final $r = $callSync(18649, $W()..h(this));
+    final $r = $callSync(18655, $W()..h(this));
     return $r.hnn(GoleveldbLeveldbCacheValue.$h);
   }
 }
@@ -254,37 +254,37 @@ class GoleveldbLeveldbCacheNode extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*cache.Node).GetHandle() *cache.Handle`.
   GoleveldbLeveldbCacheHandle getHandle() {
-    final $r = $callSync(18652, $W()..h(this));
+    final $r = $callSync(18658, $W()..h(this));
     return $r.hnn(GoleveldbLeveldbCacheHandle.$h);
   }
 
   /// Go: `func (*cache.Node).Key() uint64`.
   int key() {
-    final $r = $callSync(18653, $W()..h(this));
+    final $r = $callSync(18659, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*cache.Node).NS() uint64`.
   int ns() {
-    final $r = $callSync(18654, $W()..h(this));
+    final $r = $callSync(18660, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*cache.Node).Ref() int32`.
   int ref() {
-    final $r = $callSync(18655, $W()..h(this));
+    final $r = $callSync(18661, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*cache.Node).Size() int`.
   int size() {
-    final $r = $callSync(18656, $W()..h(this));
+    final $r = $callSync(18662, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*cache.Node).Value() cache.Value`.
   GoleveldbLeveldbCacheValue value$() {
-    final $r = $callSync(18657, $W()..h(this));
+    final $r = $callSync(18663, $W()..h(this));
     return $r.hnn(GoleveldbLeveldbCacheValue.$h);
   }
 }
@@ -377,7 +377,7 @@ mixin GoleveldbLeveldbCacheValue$ on GoHandle {}
 extension GoSyndtrGoleveldbLeveldbCacheApi on GoSyndtrGoleveldbLeveldbCache {
   /// Go: `func cache.NewLRU(capacity int) cache.Cacher`.
   GoleveldbLeveldbCacheCacher newLru(int capacity) {
-    final $r = $callSync(18651, $W()..i64(capacity));
+    final $r = $callSync(18657, $W()..i64(capacity));
     return $r.hnn(GoleveldbLeveldbCacheCacher.$h);
   }
 }

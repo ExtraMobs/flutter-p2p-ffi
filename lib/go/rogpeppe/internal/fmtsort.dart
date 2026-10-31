@@ -32,14 +32,14 @@ final class InternalFmtsortSortedMap implements GoDto {
 
   /// Go: `func (*fmtsort.SortedMap).Len() int`.
   int len() {
-    final $r = $callSync(18573, $W()..dto(this));
+    final $r = $callSync(18579, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*fmtsort.SortedMap).Less(i int, j int) bool`.
   bool less(int i, int j) {
     final $r = $callSync(
-        18574,
+        18580,
         $W()
           ..dto(this)
           ..i64(i)
@@ -50,7 +50,7 @@ final class InternalFmtsortSortedMap implements GoDto {
   /// Go: `func (*fmtsort.SortedMap).Swap(i int, j int)`.
   void swap(int i, int j) {
     $callSync(
-        18575,
+        18581,
         $W()
           ..dto(this)
           ..i64(i)
@@ -62,7 +62,7 @@ final class InternalFmtsortSortedMap implements GoDto {
 extension GoRogpeppeInternalFmtsortApi on GoRogpeppeInternalFmtsort {
   /// Go: `func fmtsort.Sort(mapValue reflect.Value) *fmtsort.SortedMap`.
   InternalFmtsortSortedMap sort($reflect.ReflectValue mapValue) {
-    final $r = $callSync(18572, $W()..h(mapValue));
+    final $r = $callSync(18578, $W()..h(mapValue));
     return $r.p() ? InternalFmtsortSortedMap.$dec($r) : $nil();
   }
 }

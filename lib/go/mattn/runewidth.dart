@@ -30,19 +30,19 @@ class RunewidthCondition extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func runewidth.NewCondition() *runewidth.Condition`.
   factory RunewidthCondition() {
-    final $r = $callSync(15208);
+    final $r = $callSync(15214);
     return $r.hnn(RunewidthCondition.$h);
   }
 
   /// Go: `func (*runewidth.Condition).CreateLUT()`.
   void createLut() {
-    $callSync(15192, $W()..h(this));
+    $callSync(15198, $W()..h(this));
   }
 
   /// Go: `func (*runewidth.Condition).FillLeft(s string, w int) string`.
   String fillLeft(String s, int w) {
     final $r = $callSync(
-        15193,
+        15199,
         $W()
           ..h(this)
           ..str(s)
@@ -53,7 +53,7 @@ class RunewidthCondition extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*runewidth.Condition).FillRight(s string, w int) string`.
   String fillRight(String s, int w) {
     final $r = $callSync(
-        15194,
+        15200,
         $W()
           ..h(this)
           ..str(s)
@@ -64,7 +64,7 @@ class RunewidthCondition extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*runewidth.Condition).RuneWidth(r rune) int`.
   int runeWidth(int r) {
     final $r = $callSync(
-        15195,
+        15201,
         $W()
           ..h(this)
           ..i64(r));
@@ -74,7 +74,7 @@ class RunewidthCondition extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*runewidth.Condition).StringWidth(s string) (width int)`.
   int stringWidth(String s) {
     final $r = $callSync(
-        15196,
+        15202,
         $W()
           ..h(this)
           ..str(s));
@@ -84,7 +84,7 @@ class RunewidthCondition extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*runewidth.Condition).Truncate(s string, w int, tail string) string`.
   String truncate(String s, int w, String tail) {
     final $r = $callSync(
-        15197,
+        15203,
         $W()
           ..h(this)
           ..str(s)
@@ -96,7 +96,7 @@ class RunewidthCondition extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*runewidth.Condition).TruncateLeft(s string, w int, prefix string) string`.
   String truncateLeft(String s, int w, String prefix) {
     final $r = $callSync(
-        15198,
+        15204,
         $W()
           ..h(this)
           ..str(s)
@@ -108,7 +108,7 @@ class RunewidthCondition extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*runewidth.Condition).Wrap(s string, w int) string`.
   String wrap(String s, int w) {
     final $r = $callSync(
-        15199,
+        15205,
         $W()
           ..h(this)
           ..str(s)
@@ -121,25 +121,25 @@ class RunewidthCondition extends $crypto.CryptoDecrypterOpts
 extension GoMattnRunewidthApi on GoMattnRunewidth {
   /// Go: `func runewidth.CreateLUT()`.
   void createLut() {
-    $callSync(15200);
+    $callSync(15206);
   }
 
   /// Go: `var runewidth.DefaultCondition *runewidth.Condition`.
   RunewidthCondition get defaultCondition {
-    final $r = $callSync(15201);
+    final $r = $callSync(15207);
     return $r.hnn(RunewidthCondition.$h);
   }
 
   /// Go: `var runewidth.EastAsianWidth bool`.
   bool get eastAsianWidth {
-    final $r = $callSync(15202);
+    final $r = $callSync(15208);
     return $r.b();
   }
 
   /// Go: `func runewidth.FillLeft(s string, w int) string`.
   String fillLeft(String s, int w) {
     final $r = $callSync(
-        15203,
+        15209,
         $W()
           ..str(s)
           ..i64(w));
@@ -149,7 +149,7 @@ extension GoMattnRunewidthApi on GoMattnRunewidth {
   /// Go: `func runewidth.FillRight(s string, w int) string`.
   String fillRight(String s, int w) {
     final $r = $callSync(
-        15204,
+        15210,
         $W()
           ..str(s)
           ..i64(w));
@@ -158,44 +158,44 @@ extension GoMattnRunewidthApi on GoMattnRunewidth {
 
   /// Go: `func runewidth.IsAmbiguousWidth(r rune) bool`.
   bool isAmbiguousWidth(int r) {
-    final $r = $callSync(15205, $W()..i64(r));
+    final $r = $callSync(15211, $W()..i64(r));
     return $r.b();
   }
 
   /// Go: `func runewidth.IsEastAsian() bool`.
   bool isEastAsian() {
-    final $r = $callSync(15206);
+    final $r = $callSync(15212);
     return $r.b();
   }
 
   /// Go: `func runewidth.IsNeutralWidth(r rune) bool`.
   bool isNeutralWidth(int r) {
-    final $r = $callSync(15207, $W()..i64(r));
+    final $r = $callSync(15213, $W()..i64(r));
     return $r.b();
   }
 
   /// Go: `func runewidth.RuneWidth(r rune) int`.
   int runeWidth(int r) {
-    final $r = $callSync(15209, $W()..i64(r));
+    final $r = $callSync(15215, $W()..i64(r));
     return $r.i64();
   }
 
   /// Go: `var runewidth.StrictEmojiNeutral bool`.
   bool get strictEmojiNeutral {
-    final $r = $callSync(15210);
+    final $r = $callSync(15216);
     return $r.b();
   }
 
   /// Go: `func runewidth.StringWidth(s string) (width int)`.
   int stringWidth(String s) {
-    final $r = $callSync(15211, $W()..str(s));
+    final $r = $callSync(15217, $W()..str(s));
     return $r.i64();
   }
 
   /// Go: `func runewidth.Truncate(s string, w int, tail string) string`.
   String truncate(String s, int w, String tail) {
     final $r = $callSync(
-        15212,
+        15218,
         $W()
           ..str(s)
           ..i64(w)
@@ -206,7 +206,7 @@ extension GoMattnRunewidthApi on GoMattnRunewidth {
   /// Go: `func runewidth.TruncateLeft(s string, w int, prefix string) string`.
   String truncateLeft(String s, int w, String prefix) {
     final $r = $callSync(
-        15213,
+        15219,
         $W()
           ..str(s)
           ..i64(w)
@@ -217,7 +217,7 @@ extension GoMattnRunewidthApi on GoMattnRunewidth {
   /// Go: `func runewidth.Wrap(s string, w int) string`.
   String wrap(String s, int w) {
     final $r = $callSync(
-        15214,
+        15220,
         $W()
           ..str(s)
           ..i64(w));

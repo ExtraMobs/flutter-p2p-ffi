@@ -69,7 +69,7 @@ final class IpldCborBasicIpldStore implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> get($context.Context ctx, $cid.Cid c, Object? out) async {
     await $call(
-        10918,
+        10927,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -82,7 +82,7 @@ final class IpldCborBasicIpldStore implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<$cid.Cid> put($context.Context ctx, Object? v) async {
     final $r = await $call(
-        10919,
+        10928,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -104,7 +104,7 @@ mixin IpldCborIpldBlockstore$ on GoHandle {
   Future<$block_format.BlockFormatBlock> get(
       $context.Context ctx, $cid.Cid cid) async {
     final $r = await $call(
-        10931,
+        10940,
         $W()
           ..h(this)
           ..h(ctx)
@@ -118,7 +118,7 @@ mixin IpldCborIpldBlockstore$ on GoHandle {
   Future<void> put(
       $context.Context ctx, $block_format.BlockFormatBlock block) async {
     await $call(
-        10932,
+        10941,
         $W()
           ..h(this)
           ..h(ctx)
@@ -128,37 +128,37 @@ mixin IpldCborIpldBlockstore$ on GoHandle {
   /// Go: type assertion `x.(*blockstore.ValidatingBlockstore)`: null if the object is not one.
   $blockstore.BoxoBlockstoreValidatingBlockstore?
       asBoxoBlockstoreValidatingBlockstore() {
-    final $r = $callSync(1128, $W()..h(this));
+    final $r = $callSync(1131, $W()..h(this));
     return $r.hn($blockstore.BoxoBlockstoreValidatingBlockstore.$h);
   }
 
   /// Go: type assertion `x.(*filestore.Filestore)`: null if the object is not one.
   $filestore.BoxoFilestore? asBoxoFilestore() {
-    final $r = $callSync(1129, $W()..h(this));
+    final $r = $callSync(1132, $W()..h(this));
     return $r.hn($filestore.BoxoFilestore.$h);
   }
 
   /// Go: type assertion `x.(*verifbs.VerifBS)`: null if the object is not one.
   $verifbs.KuboThirdpartyVerifbsVerifBs? asKuboThirdpartyVerifbsVerifBs() {
-    final $r = $callSync(1130, $W()..h(this));
+    final $r = $callSync(1133, $W()..h(this));
     return $r.hn($verifbs.KuboThirdpartyVerifbsVerifBs.$h);
   }
 
   /// Go: type assertion `x.(*verifbs.VerifBSGC)`: null if the object is not one.
   $verifbs.KuboThirdpartyVerifbsVerifBsgc? asKuboThirdpartyVerifbsVerifBsgc() {
-    final $r = $callSync(1131, $W()..h(this));
+    final $r = $callSync(1134, $W()..h(this));
     return $r.hn($verifbs.KuboThirdpartyVerifbsVerifBsgc.$h);
   }
 
   /// Go: type assertion `x.(*blockstore.ReadOnly)`: null if the object is not one.
   $blockstore2.CarV2BlockstoreReadOnly? asCarV2BlockstoreReadOnly() {
-    final $r = $callSync(1132, $W()..h(this));
+    final $r = $callSync(1135, $W()..h(this));
     return $r.hn($blockstore2.CarV2BlockstoreReadOnly.$h);
   }
 
   /// Go: type assertion `x.(*blockstore.ReadWrite)`: null if the object is not one.
   $blockstore2.CarV2BlockstoreReadWrite? asCarV2BlockstoreReadWrite() {
-    final $r = $callSync(1133, $W()..h(this));
+    final $r = $callSync(1136, $W()..h(this));
     return $r.hn($blockstore2.CarV2BlockstoreReadWrite.$h);
   }
 }
@@ -181,7 +181,7 @@ mixin IpldCborIpldBlockstoreViewer$ on GoHandle {
   Future<void> view(
       $cid.Cid cid, FutureOr<void> Function(Uint8List arg0) callback) async {
     await $call(
-        10933,
+        10942,
         $W()
           ..h(this)
           ..val(cid)
@@ -201,7 +201,7 @@ mixin IpldCborIpldStore$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> get($context.Context ctx, $cid.Cid c, Object? out) async {
     await $call(
-        10934,
+        10943,
         $W()
           ..h(this)
           ..h(ctx)
@@ -214,7 +214,7 @@ mixin IpldCborIpldStore$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<$cid.Cid> put($context.Context ctx, Object? v) async {
     final $r = await $call(
-        10935,
+        10944,
         $W()
           ..h(this)
           ..h(ctx)
@@ -245,45 +245,45 @@ class IpldCborNode extends $ipld_format.IpldFormatNode
 
   /// Go: `func (*cbornode.Node).Cid() cid.Cid`.
   $cid.Cid cid() {
-    final $r = $callSync(10938, $W()..h(this));
+    final $r = $callSync(10947, $W()..h(this));
     return $r.p() ? $cid.Cid($r.str()) : $nil();
   }
 
   /// Go: `func (*cbornode.Node).Copy() format.Node`.
   $ipld_format.IpldFormatNode copy() {
-    final $r = $callSync(10939, $W()..h(this));
+    final $r = $callSync(10948, $W()..h(this));
     return $r.hnn($ipld_format.IpldFormatNode.$h);
   }
 
   /// Go: `func (*cbornode.Node).Links() []*format.Link`.
   List<$ipld_format.IpldFormatLink> links() {
-    final $r = $callSync(10940, $W()..h(this));
+    final $r = $callSync(10949, $W()..h(this));
     return $r
         .list(() => $r.p() ? $ipld_format.IpldFormatLink.$dec($r) : $nil());
   }
 
   /// Go: `func (*cbornode.Node).Loggable() map[string]interface{}`.
   Map<String, Object?> loggable() {
-    final $r = $callSync(10941, $W()..h(this));
+    final $r = $callSync(10950, $W()..h(this));
     return $r.map(() => $r.str(), () => $r.any());
   }
 
   /// Go: `func (*cbornode.Node).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(10942, $W()..h(this));
+    final $r = $callSync(10951, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*cbornode.Node).RawData() []byte`.
   Uint8List rawData() {
-    final $r = $callSync(10943, $W()..h(this));
+    final $r = $callSync(10952, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*cbornode.Node).Resolve(path []string) (interface{}, []string, error)`.
   (Object?, List<String>) resolve(List<String> path) {
     final $r = $callSync(
-        10944,
+        10953,
         $W()
           ..h(this)
           ..list(path, (w0, e0) => w0.str(e0)));
@@ -293,7 +293,7 @@ class IpldCborNode extends $ipld_format.IpldFormatNode
   /// Go: `func (*cbornode.Node).ResolveLink(path []string) (*format.Link, []string, error)`.
   ($ipld_format.IpldFormatLink, List<String>) resolveLink(List<String> path) {
     final $r = $callSync(
-        10945,
+        10954,
         $W()
           ..h(this)
           ..list(path, (w0, e0) => w0.str(e0)));
@@ -305,26 +305,26 @@ class IpldCborNode extends $ipld_format.IpldFormatNode
 
   /// Go: `func (*cbornode.Node).Size() (uint64, error)`.
   int size() {
-    final $r = $callSync(10946, $W()..h(this));
+    final $r = $callSync(10955, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*cbornode.Node).Stat() (*format.NodeStat, error)`.
   $ipld_format.IpldFormatNodeStat stat() {
-    final $r = $callSync(10947, $W()..h(this));
+    final $r = $callSync(10956, $W()..h(this));
     return $r.p() ? $ipld_format.IpldFormatNodeStat.$dec($r) : $nil();
   }
 
   /// Go: `func (*cbornode.Node).String() string`.
   String string() {
-    final $r = $callSync(10948, $W()..h(this));
+    final $r = $callSync(10957, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*cbornode.Node).Tree(path string, depth int) []string`.
   List<String> tree(String path, int depth) {
     final $r = $callSync(
-        10949,
+        10958,
         $W()
           ..h(this)
           ..str(path)
@@ -427,20 +427,20 @@ class IpldCborSerializationError extends GolangException {
 extension GoIpfsIpldCborApi on GoIpfsIpldCbor {
   /// Go: `var cbornode.BigIntAtlasEntry *atlas.AtlasEntry`.
   $atlas.RefmtObjAtlasEntry get bigIntAtlasEntry {
-    final $r = $callSync(10920);
+    final $r = $callSync(10929);
     return $r.p() ? $atlas.RefmtObjAtlasEntry.$dec($r) : $nil();
   }
 
   /// Go: `var cbornode.CborAtlas atlas.Atlas`.
   $atlas.RefmtObjAtlas get cborAtlas {
-    final $r = $callSync(10921);
+    final $r = $callSync(10930);
     return $r.hnn($atlas.RefmtObjAtlas.$h);
   }
 
   /// Go: `func cbornode.Decode(b []byte, mhType uint64, mhLen int) (*cbornode.Node, error)`.
   IpldCborNode decode(Uint8List b, int mhType, int mhLen) {
     final $r = $callSync(
-        10922,
+        10931,
         $W()
           ..bytes(b)
           ..i64(mhType)
@@ -451,14 +451,14 @@ extension GoIpfsIpldCborApi on GoIpfsIpldCbor {
   /// Go: `func cbornode.DecodeBlock(block blocks.Block) (format.Node, error)`.
   $ipld_format.IpldFormatNode decodeBlock(
       $block_format.BlockFormatBlock block) {
-    final $r = $callSync(10923, $W()..dto(block));
+    final $r = $callSync(10932, $W()..dto(block));
     return $r.hnn($ipld_format.IpldFormatNode.$h);
   }
 
   /// Go: `func cbornode.DecodeInto(b []byte, v interface{}) error`.
   void decodeInto(Uint8List b, Object? v) {
     $callSync(
-        10924,
+        10933,
         $W()
           ..bytes(b)
           ..any(v));
@@ -467,7 +467,7 @@ extension GoIpfsIpldCborApi on GoIpfsIpldCbor {
   /// Go: `func cbornode.DecodeReader(r io.Reader, v interface{}) error`.
   void decodeReader(Object r, Object? v) {
     $callSync(
-        10925,
+        10934,
         $W()
           ..reader(r)
           ..any(v));
@@ -475,20 +475,20 @@ extension GoIpfsIpldCborApi on GoIpfsIpldCbor {
 
   /// Go: `func cbornode.DumpObject(obj interface{}) (out []byte, err error)`.
   Uint8List dumpObject(Object? obj) {
-    final $r = $callSync(10926, $W()..any(obj));
+    final $r = $callSync(10935, $W()..any(obj));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func cbornode.Encode(obj interface{}) (out []byte, err error)`.
   Uint8List encode(Object? obj) {
-    final $r = $callSync(10927, $W()..any(obj));
+    final $r = $callSync(10936, $W()..any(obj));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func cbornode.EncodeWriter(obj interface{}, w io.Writer) error`.
   void encodeWriter(Object? obj, GoHandle? w) {
     $callSync(
-        10928,
+        10937,
         $W()
           ..any(obj)
           ..h(w));
@@ -497,7 +497,7 @@ extension GoIpfsIpldCborApi on GoIpfsIpldCbor {
   /// Go: `func cbornode.FromJSON(r io.Reader, mhType uint64, mhLen int) (*cbornode.Node, error)`.
   IpldCborNode fromJson(Object r, int mhType, int mhLen) {
     final $r = $callSync(
-        10929,
+        10938,
         $W()
           ..reader(r)
           ..i64(mhType)
@@ -507,31 +507,31 @@ extension GoIpfsIpldCborApi on GoIpfsIpldCbor {
 
   /// Go: `func cbornode.HumanReadable(blob []byte) (string, error)`.
   String humanReadable(Uint8List blob) {
-    final $r = $callSync(10930, $W()..bytes(blob));
+    final $r = $callSync(10939, $W()..bytes(blob));
     return $r.str();
   }
 
   /// Go: `func cbornode.NewCborStore(bs cbornode.IpldBlockstore) *cbornode.BasicIpldStore`.
   IpldCborBasicIpldStore newCborStore(IpldCborIpldBlockstore bs) {
-    final $r = $callSync(10936, $W()..h(bs));
+    final $r = $callSync(10945, $W()..h(bs));
     return $r.p() ? IpldCborBasicIpldStore.$dec($r) : $nil();
   }
 
   /// Go: `func cbornode.NewMemCborStore() cbornode.IpldStore`.
   IpldCborIpldStore newMemCborStore() {
-    final $r = $callSync(10937);
+    final $r = $callSync(10946);
     return $r.hnn(IpldCborIpldStore.$h);
   }
 
   /// Go: `func cbornode.RegisterCborType(i interface{})`.
   void registerCborType(Object? i) {
-    $callSync(10950, $W()..any(i));
+    $callSync(10959, $W()..any(i));
   }
 
   /// Go: `func cbornode.WrapObject(m interface{}, mhType uint64, mhLen int) (*cbornode.Node, error)`.
   IpldCborNode wrapObject(Object? m, int mhType, int mhLen) {
     final $r = $callSync(
-        10951,
+        10960,
         $W()
           ..any(m)
           ..i64(mhType)

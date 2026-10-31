@@ -47,7 +47,7 @@ class IpldFormatBatch extends IpldFormatNodeAdder
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> add($context.Context ctx, IpldFormatNode nd) async {
     await $call(
-        10967,
+        10973,
         $W()
           ..h(this)
           ..h(ctx)
@@ -59,7 +59,7 @@ class IpldFormatBatch extends IpldFormatNodeAdder
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> addMany($context.Context ctx, List<IpldFormatNode> nodes) async {
     await $call(
-        10968,
+        10974,
         $W()
           ..h(this)
           ..h(ctx)
@@ -68,7 +68,7 @@ class IpldFormatBatch extends IpldFormatNodeAdder
 
   /// Go: `func (*format.Batch).Commit() error`.
   void commit() {
-    $callSync(10969, $W()..h(this));
+    $callSync(10975, $W()..h(this));
   }
 }
 
@@ -104,7 +104,7 @@ class IpldFormatBufferedDag extends IpldFormatDagService
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> add($context.Context ctx, IpldFormatNode n) async {
     await $call(
-        10970,
+        10976,
         $W()
           ..h(this)
           ..h(ctx)
@@ -116,7 +116,7 @@ class IpldFormatBufferedDag extends IpldFormatDagService
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> addMany($context.Context ctx, List<IpldFormatNode> nds) async {
     await $call(
-        10971,
+        10977,
         $W()
           ..h(this)
           ..h(ctx)
@@ -125,7 +125,7 @@ class IpldFormatBufferedDag extends IpldFormatDagService
 
   /// Go: `func (*format.BufferedDAG).Commit() error`.
   void commit() {
-    $callSync(10972, $W()..h(this));
+    $callSync(10978, $W()..h(this));
   }
 
   /// Go: `func (*format.BufferedDAG).Get(ctx context.Context, c cid.Cid) (format.Node, error)`.
@@ -133,7 +133,7 @@ class IpldFormatBufferedDag extends IpldFormatDagService
   /// Asynchronous: runs in a goroutine of the service.
   Future<IpldFormatNode> get($context.Context ctx, $cid.Cid c) async {
     final $r = await $call(
-        10973,
+        10979,
         $W()
           ..h(this)
           ..h(ctx)
@@ -145,7 +145,7 @@ class IpldFormatBufferedDag extends IpldFormatDagService
   Stream<IpldFormatNodeOption> getMany(
           $context.Context ctx, List<$cid.Cid> cs) =>
       $stream(
-              10974,
+              10980,
               $W()
                 ..h(this)
                 ..h(ctx)
@@ -157,7 +157,7 @@ class IpldFormatBufferedDag extends IpldFormatDagService
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> remove($context.Context ctx, $cid.Cid c) async {
     await $call(
-        10975,
+        10981,
         $W()
           ..h(this)
           ..h(ctx)
@@ -169,7 +169,7 @@ class IpldFormatBufferedDag extends IpldFormatDagService
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> removeMany($context.Context ctx, List<$cid.Cid> cs) async {
     await $call(
-        10976,
+        10982,
         $W()
           ..h(this)
           ..h(ctx)
@@ -191,7 +191,7 @@ mixin IpldFormatDagService$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> add($context.Context ctx, IpldFormatNode node) async {
     await $call(
-        10978,
+        10984,
         $W()
           ..h(this)
           ..h(ctx)
@@ -203,7 +203,7 @@ mixin IpldFormatDagService$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> remove($context.Context ctx, $cid.Cid cid) async {
     await $call(
-        10979,
+        10985,
         $W()
           ..h(this)
           ..h(ctx)
@@ -215,7 +215,7 @@ mixin IpldFormatDagService$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> removeMany($context.Context ctx, List<$cid.Cid> cids) async {
     await $call(
-        10980,
+        10986,
         $W()
           ..h(this)
           ..h(ctx)
@@ -224,14 +224,14 @@ mixin IpldFormatDagService$ on GoHandle {
 
   /// Go: type assertion `x.(*format.BufferedDAG)`: null if the object is not one.
   IpldFormatBufferedDag? asIpldFormatBufferedDag() {
-    final $r = $callSync(1134, $W()..h(this));
+    final $r = $callSync(1137, $W()..h(this));
     return $r.hn(IpldFormatBufferedDag.$h);
   }
 
   /// Go: type assertion `x.(iface.APIDagService)`: null if the object is not one.
   $coreiface.KuboCoreCoreifaceApiDagService?
       asKuboCoreCoreifaceApiDagService() {
-    final $r = $callSync(1135, $W()..h(this));
+    final $r = $callSync(1138, $W()..h(this));
     return $r.hn($coreiface.KuboCoreCoreifaceApiDagService.$h);
   }
 }
@@ -293,7 +293,7 @@ final class IpldFormatLink implements GoDto {
   Future<IpldFormatNode> getNode(
       $context.Context ctx, IpldFormatNodeGetter serv) async {
     final $r = await $call(
-        10986,
+        10992,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -316,7 +316,7 @@ mixin IpldFormatLinkGetter$ on GoHandle {
   Future<List<IpldFormatLink>> getLinks(
       $context.Context ctx, $cid.Cid nd) async {
     final $r = await $call(
-        10987,
+        10993,
         $W()
           ..h(this)
           ..h(ctx)
@@ -349,7 +349,7 @@ class IpldFormatNavigableIpldNode extends IpldFormatNavigableNode
   factory IpldFormatNavigableIpldNode(
       IpldFormatNode node, IpldFormatNodeGetter nodeGetter) {
     final $r = $callSync(
-        10997,
+        11003,
         $W()
           ..h(node)
           ..h(nodeGetter));
@@ -358,7 +358,7 @@ class IpldFormatNavigableIpldNode extends IpldFormatNavigableNode
 
   /// Go: `func (*format.NavigableIPLDNode).ChildTotal() uint`.
   int childTotal() {
-    final $r = $callSync(10989, $W()..h(this));
+    final $r = $callSync(10995, $W()..h(this));
     return $r.i64();
   }
 
@@ -368,7 +368,7 @@ class IpldFormatNavigableIpldNode extends IpldFormatNavigableNode
   Future<IpldFormatNavigableNode> fetchChild(
       $context.Context ctx, int childIndex) async {
     final $r = await $call(
-        10990,
+        10996,
         $W()
           ..h(this)
           ..h(ctx)
@@ -378,7 +378,7 @@ class IpldFormatNavigableIpldNode extends IpldFormatNavigableNode
 
   /// Go: `func (*format.NavigableIPLDNode).GetIPLDNode() format.Node`.
   IpldFormatNode getIpldNode() {
-    final $r = $callSync(10991, $W()..h(this));
+    final $r = $callSync(10997, $W()..h(this));
     return $r.hnn(IpldFormatNode.$h);
   }
 }
@@ -392,7 +392,7 @@ class IpldFormatNavigableNode extends GoHandle with IpldFormatNavigableNode$ {
 mixin IpldFormatNavigableNode$ on GoHandle {
   /// Go: `func (format.NavigableNode).ChildTotal() uint`.
   int childTotal() {
-    final $r = $callSync(10992, $W()..h(this));
+    final $r = $callSync(10998, $W()..h(this));
     return $r.i64();
   }
 
@@ -402,7 +402,7 @@ mixin IpldFormatNavigableNode$ on GoHandle {
   Future<IpldFormatNavigableNode> fetchChild(
       $context.Context ctx, int childIndex) async {
     final $r = await $call(
-        10993,
+        10999,
         $W()
           ..h(this)
           ..h(ctx)
@@ -412,13 +412,13 @@ mixin IpldFormatNavigableNode$ on GoHandle {
 
   /// Go: `func (format.NavigableNode).GetIPLDNode() format.Node`.
   IpldFormatNode getIpldNode() {
-    final $r = $callSync(10994, $W()..h(this));
+    final $r = $callSync(11000, $W()..h(this));
     return $r.hnn(IpldFormatNode.$h);
   }
 
   /// Go: type assertion `x.(*format.NavigableIPLDNode)`: null if the object is not one.
   IpldFormatNavigableIpldNode? asIpldFormatNavigableIpldNode() {
-    final $r = $callSync(1136, $W()..h(this));
+    final $r = $callSync(1139, $W()..h(this));
     return $r.hn(IpldFormatNavigableIpldNode.$h);
   }
 }
@@ -432,32 +432,32 @@ class IpldFormatNode extends IpldFormatResolver with IpldFormatNode$ {
 mixin IpldFormatNode$ on GoHandle {
   /// Go: `func (blocks.Block).Cid() cid.Cid`.
   $cid.Cid cid() {
-    final $r = $callSync(11000, $W()..h(this));
+    final $r = $callSync(11006, $W()..h(this));
     return $r.p() ? $cid.Cid($r.str()) : $nil();
   }
 
   /// Go: `func (blocks.Block).RawData() []byte`.
   Uint8List rawData() {
-    final $r = $callSync(11003, $W()..h(this));
+    final $r = $callSync(11009, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (format.Node).Copy() format.Node`.
   IpldFormatNode copy() {
-    final $r = $callSync(11001, $W()..h(this));
+    final $r = $callSync(11007, $W()..h(this));
     return $r.hnn(IpldFormatNode.$h);
   }
 
   /// Go: `func (format.Node).Links() []*format.Link`.
   List<IpldFormatLink> links() {
-    final $r = $callSync(11002, $W()..h(this));
+    final $r = $callSync(11008, $W()..h(this));
     return $r.list(() => $r.p() ? IpldFormatLink.$dec($r) : $nil());
   }
 
   /// Go: `func (format.Node).ResolveLink(path []string) (*format.Link, []string, error)`.
   (IpldFormatLink, List<String>) resolveLink(List<String> path) {
     final $r = $callSync(
-        11004,
+        11010,
         $W()
           ..h(this)
           ..list(path, (w0, e0) => w0.str(e0)));
@@ -466,50 +466,50 @@ mixin IpldFormatNode$ on GoHandle {
 
   /// Go: `func (format.Node).Size() (uint64, error)`.
   int size() {
-    final $r = $callSync(11005, $W()..h(this));
+    final $r = $callSync(11011, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (format.Node).Stat() (*format.NodeStat, error)`.
   IpldFormatNodeStat stat() {
-    final $r = $callSync(11006, $W()..h(this));
+    final $r = $callSync(11012, $W()..h(this));
     return $r.p() ? IpldFormatNodeStat.$dec($r) : $nil();
   }
 
   /// Go: type assertion `x.(*posinfo.FilestoreNode)`: null if the object is not one.
   $posinfo.BoxoFilestorePosinfoFilestoreNode?
       asBoxoFilestorePosinfoFilestoreNode() {
-    final $r = $callSync(1137, $W()..h(this));
+    final $r = $callSync(1140, $W()..h(this));
     return $r.hn($posinfo.BoxoFilestorePosinfoFilestoreNode.$h);
   }
 
   /// Go: type assertion `x.(*merkledag.ProtoNode)`: null if the object is not one.
   $merkledag.BoxoIpldMerkledagProtoNode? asBoxoIpldMerkledagProtoNode() {
-    final $r = $callSync(1138, $W()..h(this));
+    final $r = $callSync(1141, $W()..h(this));
     return $r.hn($merkledag.BoxoIpldMerkledagProtoNode.$h);
   }
 
   /// Go: type assertion `x.(*merkledag.RawNode)`: null if the object is not one.
   $merkledag.BoxoIpldMerkledagRawNode? asBoxoIpldMerkledagRawNode() {
-    final $r = $callSync(1139, $W()..h(this));
+    final $r = $callSync(1142, $W()..h(this));
     return $r.hn($merkledag.BoxoIpldMerkledagRawNode.$h);
   }
 
   /// Go: type assertion `x.(*cbornode.Node)`: null if the object is not one.
   $ipld_cbor.IpldCborNode? asIpldCborNode() {
-    final $r = $callSync(1140, $W()..h(this));
+    final $r = $callSync(1143, $W()..h(this));
     return $r.hn($ipld_cbor.IpldCborNode.$h);
   }
 
   /// Go: type assertion `x.(*ipldlegacy.LegacyNode)`: null if the object is not one.
   $ipld_legacy.IpldLegacyNode? asIpldLegacyNode() {
-    final $r = $callSync(1141, $W()..h(this));
+    final $r = $callSync(1144, $W()..h(this));
     return $r.hn($ipld_legacy.IpldLegacyNode.$h);
   }
 
   /// Go: type assertion `x.(ipldlegacy.UniversalNode)`: null if the object is not one.
   $ipld_legacy.IpldLegacyUniversalNode? asIpldLegacyUniversalNode() {
-    final $r = $callSync(1142, $W()..h(this));
+    final $r = $callSync(1145, $W()..h(this));
     return $r.hn($ipld_legacy.IpldLegacyUniversalNode.$h);
   }
 }
@@ -526,7 +526,7 @@ mixin IpldFormatNodeAdder$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> add($context.Context ctx, IpldFormatNode node) async {
     await $call(
-        11007,
+        11013,
         $W()
           ..h(this)
           ..h(ctx)
@@ -538,7 +538,7 @@ mixin IpldFormatNodeAdder$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> addMany($context.Context ctx, List<IpldFormatNode> nodes) async {
     await $call(
-        11008,
+        11014,
         $W()
           ..h(this)
           ..h(ctx)
@@ -547,26 +547,26 @@ mixin IpldFormatNodeAdder$ on GoHandle {
 
   /// Go: type assertion `x.(*format.Batch)`: null if the object is not one.
   IpldFormatBatch? asIpldFormatBatch() {
-    final $r = $callSync(1143, $W()..h(this));
+    final $r = $callSync(1146, $W()..h(this));
     return $r.hn(IpldFormatBatch.$h);
   }
 
   /// Go: type assertion `x.(*format.BufferedDAG)`: null if the object is not one.
   IpldFormatBufferedDag? asIpldFormatBufferedDag() {
-    final $r = $callSync(1144, $W()..h(this));
+    final $r = $callSync(1147, $W()..h(this));
     return $r.hn(IpldFormatBufferedDag.$h);
   }
 
   /// Go: type assertion `x.(format.DAGService)`: null if the object is not one.
   IpldFormatDagService? asIpldFormatDagService() {
-    final $r = $callSync(1145, $W()..h(this));
+    final $r = $callSync(1148, $W()..h(this));
     return $r.hn(IpldFormatDagService.$h);
   }
 
   /// Go: type assertion `x.(iface.APIDagService)`: null if the object is not one.
   $coreiface.KuboCoreCoreifaceApiDagService?
       asKuboCoreCoreifaceApiDagService() {
-    final $r = $callSync(1146, $W()..h(this));
+    final $r = $callSync(1149, $W()..h(this));
     return $r.hn($coreiface.KuboCoreCoreifaceApiDagService.$h);
   }
 }
@@ -583,7 +583,7 @@ mixin IpldFormatNodeGetter$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<IpldFormatNode> get($context.Context ctx, $cid.Cid cid) async {
     final $r = await $call(
-        11009,
+        11015,
         $W()
           ..h(this)
           ..h(ctx)
@@ -595,7 +595,7 @@ mixin IpldFormatNodeGetter$ on GoHandle {
   Stream<IpldFormatNodeOption> getMany(
           $context.Context ctx, List<$cid.Cid> cids) =>
       $stream(
-              11010,
+              11016,
               $W()
                 ..h(this)
                 ..h(ctx)
@@ -604,26 +604,26 @@ mixin IpldFormatNodeGetter$ on GoHandle {
 
   /// Go: type assertion `x.(*format.BufferedDAG)`: null if the object is not one.
   IpldFormatBufferedDag? asIpldFormatBufferedDag() {
-    final $r = $callSync(1147, $W()..h(this));
+    final $r = $callSync(1150, $W()..h(this));
     return $r.hn(IpldFormatBufferedDag.$h);
   }
 
   /// Go: type assertion `x.(format.DAGService)`: null if the object is not one.
   IpldFormatDagService? asIpldFormatDagService() {
-    final $r = $callSync(1148, $W()..h(this));
+    final $r = $callSync(1151, $W()..h(this));
     return $r.hn(IpldFormatDagService.$h);
   }
 
   /// Go: type assertion `x.(format.LinkGetter)`: null if the object is not one.
   IpldFormatLinkGetter? asIpldFormatLinkGetter() {
-    final $r = $callSync(1149, $W()..h(this));
+    final $r = $callSync(1152, $W()..h(this));
     return $r.hn(IpldFormatLinkGetter.$h);
   }
 
   /// Go: type assertion `x.(iface.APIDagService)`: null if the object is not one.
   $coreiface.KuboCoreCoreifaceApiDagService?
       asKuboCoreCoreifaceApiDagService() {
-    final $r = $callSync(1150, $W()..h(this));
+    final $r = $callSync(1153, $W()..h(this));
     return $r.hn($coreiface.KuboCoreCoreifaceApiDagService.$h);
   }
 }
@@ -675,7 +675,7 @@ class IpldFormatNodePromise extends $crypto.CryptoDecrypterOpts
   /// Asynchronous: runs in a goroutine of the service.
   Future<IpldFormatNode> get($context.Context ctx) async {
     final $r = await $call(
-        11011,
+        11017,
         $W()
           ..h(this)
           ..h(ctx));
@@ -685,7 +685,7 @@ class IpldFormatNodePromise extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*format.NodePromise).Send(nd format.Node)`.
   void send(IpldFormatNode nd) {
     $callSync(
-        11012,
+        11018,
         $W()
           ..h(this)
           ..h(nd));
@@ -747,7 +747,7 @@ final class IpldFormatNodeStat implements GoDto {
 
   /// Go: `func (format.NodeStat).String() string`.
   String string() {
-    final $r = $callSync(11013, $W()..dto(this));
+    final $r = $callSync(11019, $W()..dto(this));
     return $r.str();
   }
 }
@@ -773,7 +773,7 @@ class IpldFormatRegistry extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*format.Registry).Decode(block blocks.Block) (format.Node, error)`.
   IpldFormatNode decode($block_format.BlockFormatBlock block) {
     final $r = $callSync(
-        11014,
+        11020,
         $W()
           ..h(this)
           ..dto(block));
@@ -783,7 +783,7 @@ class IpldFormatRegistry extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*format.Registry).Register(codec uint64, decoder format.DecodeBlockFunc)`.
   void register(int codec, IpldFormatDecodeBlockFunc decoder) {
     $callSync(
-        11015,
+        11021,
         $W()
           ..h(this)
           ..i64(codec)
@@ -801,7 +801,7 @@ mixin IpldFormatResolver$ on GoHandle {
   /// Go: `func (format.Resolver).Resolve(path []string) (any, []string, error)`.
   (Object?, List<String>) resolve(List<String> path) {
     final $r = $callSync(
-        11016,
+        11022,
         $W()
           ..h(this)
           ..list(path, (w0, e0) => w0.str(e0)));
@@ -811,7 +811,7 @@ mixin IpldFormatResolver$ on GoHandle {
   /// Go: `func (format.Resolver).Tree(path string, depth int) []string`.
   List<String> tree(String path, int depth) {
     final $r = $callSync(
-        11017,
+        11023,
         $W()
           ..h(this)
           ..str(path)
@@ -822,43 +822,43 @@ mixin IpldFormatResolver$ on GoHandle {
   /// Go: type assertion `x.(*posinfo.FilestoreNode)`: null if the object is not one.
   $posinfo.BoxoFilestorePosinfoFilestoreNode?
       asBoxoFilestorePosinfoFilestoreNode() {
-    final $r = $callSync(1151, $W()..h(this));
+    final $r = $callSync(1154, $W()..h(this));
     return $r.hn($posinfo.BoxoFilestorePosinfoFilestoreNode.$h);
   }
 
   /// Go: type assertion `x.(*merkledag.ProtoNode)`: null if the object is not one.
   $merkledag.BoxoIpldMerkledagProtoNode? asBoxoIpldMerkledagProtoNode() {
-    final $r = $callSync(1152, $W()..h(this));
+    final $r = $callSync(1155, $W()..h(this));
     return $r.hn($merkledag.BoxoIpldMerkledagProtoNode.$h);
   }
 
   /// Go: type assertion `x.(*merkledag.RawNode)`: null if the object is not one.
   $merkledag.BoxoIpldMerkledagRawNode? asBoxoIpldMerkledagRawNode() {
-    final $r = $callSync(1153, $W()..h(this));
+    final $r = $callSync(1156, $W()..h(this));
     return $r.hn($merkledag.BoxoIpldMerkledagRawNode.$h);
   }
 
   /// Go: type assertion `x.(*cbornode.Node)`: null if the object is not one.
   $ipld_cbor.IpldCborNode? asIpldCborNode() {
-    final $r = $callSync(1154, $W()..h(this));
+    final $r = $callSync(1157, $W()..h(this));
     return $r.hn($ipld_cbor.IpldCborNode.$h);
   }
 
   /// Go: type assertion `x.(*ipldlegacy.LegacyNode)`: null if the object is not one.
   $ipld_legacy.IpldLegacyNode? asIpldLegacyNode() {
-    final $r = $callSync(1155, $W()..h(this));
+    final $r = $callSync(1158, $W()..h(this));
     return $r.hn($ipld_legacy.IpldLegacyNode.$h);
   }
 
   /// Go: type assertion `x.(format.Node)`: null if the object is not one.
   IpldFormatNode? asIpldFormatNode() {
-    final $r = $callSync(1156, $W()..h(this));
+    final $r = $callSync(1159, $W()..h(this));
     return $r.hn(IpldFormatNode.$h);
   }
 
   /// Go: type assertion `x.(ipldlegacy.UniversalNode)`: null if the object is not one.
   $ipld_legacy.IpldLegacyUniversalNode? asIpldLegacyUniversalNode() {
-    final $r = $callSync(1157, $W()..h(this));
+    final $r = $callSync(1160, $W()..h(this));
     return $r.hn($ipld_legacy.IpldLegacyUniversalNode.$h);
   }
 }
@@ -883,13 +883,13 @@ class IpldFormatWalker extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*format.Walker).ActiveChildIndex() uint`.
   int activeChildIndex() {
-    final $r = $callSync(11018, $W()..h(this));
+    final $r = $callSync(11024, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*format.Walker).ActiveNode() format.NavigableNode`.
   IpldFormatNavigableNode activeNode() {
-    final $r = $callSync(11019, $W()..h(this));
+    final $r = $callSync(11025, $W()..h(this));
     return $r.hnn(IpldFormatNavigableNode.$h);
   }
 
@@ -903,7 +903,7 @@ class IpldFormatWalker extends $crypto.CryptoDecrypterOpts
   Future<void> iterate(
       FutureOr<void> Function(IpldFormatNavigableNode node) visitor) async {
     await $call(
-        11020,
+        11026,
         $W()
           ..h(this)
           ..cb((r) => visitor(r.hnn(IpldFormatNavigableNode.$h)), true));
@@ -911,12 +911,12 @@ class IpldFormatWalker extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*format.Walker).NextChild() error`.
   void nextChild() {
-    $callSync(11021, $W()..h(this));
+    $callSync(11027, $W()..h(this));
   }
 
   /// Go: `func (*format.Walker).Pause()`.
   void pause() {
-    $callSync(11022, $W()..h(this));
+    $callSync(11028, $W()..h(this));
   }
 
   /// Go: `func (*format.Walker).Seek(visitor format.Visitor) error`.
@@ -929,7 +929,7 @@ class IpldFormatWalker extends $crypto.CryptoDecrypterOpts
   Future<void> seek(
       FutureOr<void> Function(IpldFormatNavigableNode node) visitor) async {
     await $call(
-        11023,
+        11029,
         $W()
           ..h(this)
           ..cb((r) => visitor(r.hnn(IpldFormatNavigableNode.$h)), true));
@@ -940,7 +940,7 @@ class IpldFormatWalker extends $crypto.CryptoDecrypterOpts
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> setContext($context.Context ctx) async {
     await $call(
-        11024,
+        11030,
         $W()
           ..h(this)
           ..h(ctx));
@@ -1009,7 +1009,7 @@ extension GoIpfsIpldFormatApi on GoIpfsIpldFormat {
   Future<void> copy($context.Context ctx, IpldFormatDagService from,
       IpldFormatDagService to, $cid.Cid root) async {
     await $call(
-        10977,
+        10983,
         $W()
           ..h(ctx)
           ..h(from)
@@ -1021,7 +1021,7 @@ extension GoIpfsIpldFormatApi on GoIpfsIpldFormat {
   IpldFormatNode decode(
       $block_format.BlockFormatBlock block, IpldFormatDecodeBlockFunc decoder) {
     final $r = $callSync(
-        10981,
+        10987,
         $W()
           ..dto(block)
           ..h(decoder));
@@ -1030,7 +1030,7 @@ extension GoIpfsIpldFormatApi on GoIpfsIpldFormat {
 
   /// Go: `func format.ExtractIPLDNode(node format.NavigableNode) format.Node`.
   IpldFormatNode extractIpldNode(IpldFormatNavigableNode node) {
-    final $r = $callSync(10982, $W()..h(node));
+    final $r = $callSync(10988, $W()..h(node));
     return $r.hnn(IpldFormatNode.$h);
   }
 
@@ -1040,7 +1040,7 @@ extension GoIpfsIpldFormatApi on GoIpfsIpldFormat {
   Future<List<IpldFormatNodePromise>> getDag($context.Context ctx,
       IpldFormatNodeGetter ds, IpldFormatNode root) async {
     final $r = await $call(
-        10983,
+        10989,
         $W()
           ..h(ctx)
           ..h(ds)
@@ -1054,7 +1054,7 @@ extension GoIpfsIpldFormatApi on GoIpfsIpldFormat {
   Future<List<IpldFormatLink>> getLinks(
       $context.Context ctx, IpldFormatNodeGetter ng, $cid.Cid c) async {
     final $r = await $call(
-        10984,
+        10990,
         $W()
           ..h(ctx)
           ..h(ng)
@@ -1068,7 +1068,7 @@ extension GoIpfsIpldFormatApi on GoIpfsIpldFormat {
   Future<List<IpldFormatNodePromise>> getNodes($context.Context ctx,
       IpldFormatNodeGetter ds, List<$cid.Cid> keys) async {
     final $r = await $call(
-        10985,
+        10991,
         $W()
           ..h(ctx)
           ..h(ds)
@@ -1078,7 +1078,7 @@ extension GoIpfsIpldFormatApi on GoIpfsIpldFormat {
 
   /// Go: `func format.MakeLink(n format.Node) (*format.Link, error)`.
   IpldFormatLink makeLink(IpldFormatNode n) {
-    final $r = $callSync(10988, $W()..h(n));
+    final $r = $callSync(10994, $W()..h(n));
     return $r.p() ? IpldFormatLink.$dec($r) : $nil();
   }
 
@@ -1088,7 +1088,7 @@ extension GoIpfsIpldFormatApi on GoIpfsIpldFormat {
   Future<IpldFormatBatch> newBatch($context.Context ctx, IpldFormatNodeAdder na,
       [List<IpldFormatBatchOption> opts = const []]) async {
     final $r = await $call(
-        10995,
+        11001,
         $W()
           ..h(ctx)
           ..h(na)
@@ -1103,7 +1103,7 @@ extension GoIpfsIpldFormatApi on GoIpfsIpldFormat {
       $context.Context ctx, IpldFormatDagService ds,
       [List<IpldFormatBatchOption> opts = const []]) async {
     final $r = await $call(
-        10996,
+        11002,
         $W()
           ..h(ctx)
           ..h(ds)
@@ -1115,7 +1115,7 @@ extension GoIpfsIpldFormatApi on GoIpfsIpldFormat {
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<IpldFormatNodePromise> newNodePromise($context.Context ctx) async {
-    final $r = await $call(10998, $W()..h(ctx));
+    final $r = await $call(11004, $W()..h(ctx));
     return $r.hnn(IpldFormatNodePromise.$h);
   }
 
@@ -1125,7 +1125,7 @@ extension GoIpfsIpldFormatApi on GoIpfsIpldFormat {
   Future<IpldFormatWalker> newWalker(
       $context.Context ctx, IpldFormatNavigableNode root) async {
     final $r = await $call(
-        10999,
+        11005,
         $W()
           ..h(ctx)
           ..h(root));

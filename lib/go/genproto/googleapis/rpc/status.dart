@@ -45,47 +45,47 @@ class GenprotoGoogleapisRpcStatus
   /// Go: `func (*status.Status).Descriptor() ([]byte, []int)`.
   @Deprecated("Use Status.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(24225, $W()..h(this));
+    final $r = $callSync(24231, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*status.Status).GetCode() int32`.
   int getCode() {
-    final $r = $callSync(24226, $W()..h(this));
+    final $r = $callSync(24232, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*status.Status).GetDetails() []*anypb.Any`.
   List<$anypb.ProtobufTypesKnownAnypbAny> getDetails() {
-    final $r = $callSync(24227, $W()..h(this));
+    final $r = $callSync(24233, $W()..h(this));
     return $r.list(() => $r.hnn($anypb.ProtobufTypesKnownAnypbAny.$h));
   }
 
   /// Go: `func (*status.Status).GetMessage() string`.
   String getMessage() {
-    final $r = $callSync(24228, $W()..h(this));
+    final $r = $callSync(24234, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*status.Status).ProtoMessage()`.
   void protoMessage() {
-    $callSync(24229, $W()..h(this));
+    $callSync(24235, $W()..h(this));
   }
 
   /// Go: `func (*status.Status).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(24230, $W()..h(this));
+    final $r = $callSync(24236, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*status.Status).Reset()`.
   void reset() {
-    $callSync(24231, $W()..h(this));
+    $callSync(24237, $W()..h(this));
   }
 
   /// Go: `func (*status.Status).String() string`.
   String string() {
-    final $r = $callSync(24232, $W()..h(this));
+    final $r = $callSync(24238, $W()..h(this));
     return $r.str();
   }
 }
@@ -95,7 +95,7 @@ extension GoGenprotoGoogleapisRpcStatusApi on GoGenprotoGoogleapisRpcStatus {
   /// Go: `var status.File_google_rpc_status_proto protoreflect.FileDescriptor`.
   $protoreflect.ProtobufReflectProtoreflectFileDescriptor
       get fileGoogleRpcStatusProto {
-    final $r = $callSync(24224);
+    final $r = $callSync(24230);
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectFileDescriptor.$h);
   }
 }

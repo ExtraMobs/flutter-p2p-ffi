@@ -9,18 +9,18 @@ import 'package:p2p_ffi/src/runtime.dart';
 extension GoIpfsKuboMiscFsutilApi on GoIpfsKuboMiscFsutil {
   /// Go: `func fsutil.DirWritable(dir string) error`.
   void dirWritable(String dir) {
-    $callSync(11682, $W()..str(dir));
+    $callSync(11688, $W()..str(dir));
   }
 
   /// Go: `func fsutil.ExpandHome(path string) (string, error)`.
   String expandHome(String path) {
-    final $r = $callSync(11683, $W()..str(path));
+    final $r = $callSync(11689, $W()..str(path));
     return $r.str();
   }
 
   /// Go: `func fsutil.FileExists(filename string) bool`.
   bool fileExists(String filename) {
-    final $r = $callSync(11684, $W()..str(filename));
+    final $r = $callSync(11690, $W()..str(filename));
     return $r.b();
   }
 }

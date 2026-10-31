@@ -16,7 +16,7 @@ class DtlsV3PkgNetPacketListener extends GoHandle
 mixin DtlsV3PkgNetPacketListener$ on GoHandle {
   /// Go: `func (net.PacketListener).Accept() (net.PacketConn, net.Addr, error)`.
   ($net.NetPacketConn, $net.NetAddr) accept() {
-    final $r = $callSync(16256, $W()..h(this));
+    final $r = $callSync(16262, $W()..h(this));
     return (
       $r.hnn($net.NetPacketConn.$h),
       $r.p() ? $net.NetAddr.$dec($r) : $nil()
@@ -25,13 +25,13 @@ mixin DtlsV3PkgNetPacketListener$ on GoHandle {
 
   /// Go: `func (net.PacketListener).Addr() net.Addr`.
   $net.NetAddr addr() {
-    final $r = $callSync(16257, $W()..h(this));
+    final $r = $callSync(16263, $W()..h(this));
     return $r.p() ? $net.NetAddr.$dec($r) : $nil();
   }
 
   /// Go: `func (net.PacketListener).Close() error`.
   void close() {
-    $callSync(16258, $W()..h(this));
+    $callSync(16264, $W()..h(this));
   }
 }
 
@@ -39,13 +39,13 @@ mixin DtlsV3PkgNetPacketListener$ on GoHandle {
 extension GoPionDtlsV3PkgNetApi on GoPionDtlsV3PkgNet {
   /// Go: `func net.PacketConnFromConn(conn net.Conn) net.PacketConn`.
   $net.NetPacketConn packetConnFromConn($net.NetConn conn) {
-    final $r = $callSync(16255, $W()..h(conn));
+    final $r = $callSync(16261, $W()..h(conn));
     return $r.hnn($net.NetPacketConn.$h);
   }
 
   /// Go: `func net.PacketListenerFromListener(l net.Listener) net.PacketListener`.
   DtlsV3PkgNetPacketListener packetListenerFromListener($net.NetListener l) {
-    final $r = $callSync(16259, $W()..h(l));
+    final $r = $callSync(16265, $W()..h(l));
     return $r.hnn(DtlsV3PkgNetPacketListener.$h);
   }
 }

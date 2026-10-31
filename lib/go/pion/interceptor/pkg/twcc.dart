@@ -41,7 +41,7 @@ class InterceptorPkgTwccHeaderExtensionInterceptor
   $interceptor.InterceptorRtpWriter bindLocalStream(
       $interceptor.InterceptorStreamInfo info, Object writer) {
     final $r = $callSync(
-        16721,
+        16727,
         $W()
           ..h(this)
           ..dto(info)
@@ -62,7 +62,7 @@ final class InterceptorPkgTwccHeaderExtensionInterceptorFactory
   /// Go: `func (*twcc.HeaderExtensionInterceptorFactory).NewInterceptor(_ string) (interceptor.Interceptor, error)`.
   $interceptor.Interceptor newInterceptor(String arg0) {
     final $r = $callSync(
-        16722,
+        16728,
         $W()
           ..dto(this)
           ..str(arg0));
@@ -95,26 +95,26 @@ class InterceptorPkgTwccRecorder extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func twcc.NewRecorder(senderSSRC uint32) *twcc.Recorder`.
   factory InterceptorPkgTwccRecorder(int senderSsrc) {
-    final $r = $callSync(16724, $W()..i64(senderSsrc));
+    final $r = $callSync(16730, $W()..i64(senderSsrc));
     return $r.hnn(InterceptorPkgTwccRecorder.$h);
   }
 
   /// Go: `func (*twcc.Recorder).BuildFeedbackPacket() []rtcp.Packet`.
   List<$rtcp.RtcpPacket> buildFeedbackPacket() {
-    final $r = $callSync(16726, $W()..h(this));
+    final $r = $callSync(16732, $W()..h(this));
     return $r.list(() => $r.hnn($rtcp.RtcpPacket.$h));
   }
 
   /// Go: `func (*twcc.Recorder).PacketsHeld() int`.
   int packetsHeld() {
-    final $r = $callSync(16727, $W()..h(this));
+    final $r = $callSync(16733, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*twcc.Recorder).Record(mediaSSRC uint32, sequenceNumber uint16, arrivalTime int64)`.
   void record(int mediaSsrc, int sequenceNumber, int arrivalTime) {
     $callSync(
-        16728,
+        16734,
         $W()
           ..h(this)
           ..i64(mediaSsrc)
@@ -148,7 +148,7 @@ class InterceptorPkgTwccSenderInterceptor extends $interceptor.Interceptor
   /// Go: `func (*twcc.SenderInterceptor).BindRTCPWriter(writer interceptor.RTCPWriter) interceptor.RTCPWriter`.
   $interceptor.InterceptorRtcpWriter bindRtcpWriter(Object writer) {
     final $r = $callSync(
-        16729,
+        16735,
         $W()
           ..h(this)
           ..reader(writer));
@@ -159,7 +159,7 @@ class InterceptorPkgTwccSenderInterceptor extends $interceptor.Interceptor
   $interceptor.InterceptorRtpReader bindRemoteStream(
       $interceptor.InterceptorStreamInfo info, Object reader) {
     final $r = $callSync(
-        16730,
+        16736,
         $W()
           ..h(this)
           ..dto(info)
@@ -169,7 +169,7 @@ class InterceptorPkgTwccSenderInterceptor extends $interceptor.Interceptor
 
   /// Go: `func (*twcc.SenderInterceptor).Close() error`.
   void close() {
-    $callSync(16731, $W()..h(this));
+    $callSync(16737, $W()..h(this));
   }
 }
 
@@ -197,7 +197,7 @@ class InterceptorPkgTwccSenderInterceptorFactory
   /// Go: `func (*twcc.SenderInterceptorFactory).NewInterceptor(_ string) (interceptor.Interceptor, error)`.
   $interceptor.Interceptor newInterceptor(String arg0) {
     final $r = $callSync(
-        16732,
+        16738,
         $W()
           ..h(this)
           ..str(arg0));
@@ -210,7 +210,7 @@ extension GoPionInterceptorPkgTwccApi on GoPionInterceptorPkgTwcc {
   /// Go: `func twcc.NewHeaderExtensionInterceptor() (*twcc.HeaderExtensionInterceptorFactory, error)`.
   InterceptorPkgTwccHeaderExtensionInterceptorFactory
       newHeaderExtensionInterceptor() {
-    final $r = $callSync(16723);
+    final $r = $callSync(16729);
     return $r.p()
         ? InterceptorPkgTwccHeaderExtensionInterceptorFactory.$dec($r)
         : $nil();
@@ -219,7 +219,7 @@ extension GoPionInterceptorPkgTwccApi on GoPionInterceptorPkgTwcc {
   /// Go: `func twcc.NewSenderInterceptor(opts ...twcc.Option) (*twcc.SenderInterceptorFactory, error)`.
   InterceptorPkgTwccSenderInterceptorFactory newSenderInterceptor(
       [List<InterceptorPkgTwccOption> opts = const []]) {
-    final $r = $callSync(16725, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+    final $r = $callSync(16731, $W()..list(opts, (w0, e0) => w0.opt(e0)));
     return $r.hnn(InterceptorPkgTwccSenderInterceptorFactory.$h);
   }
 }

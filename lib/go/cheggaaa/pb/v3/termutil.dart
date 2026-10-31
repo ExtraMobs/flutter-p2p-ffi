@@ -9,11 +9,11 @@ import 'package:p2p_ffi/src/runtime.dart';
 extension GoCheggaaaPbV3TermutilApi on GoCheggaaaPbV3Termutil {
   /// Go: `func termutil.AutoTerminate(enable bool)`.
   void autoTerminate(bool enable) {
-    $callSync(4370, $W()..b(enable));
+    $callSync(4379, $W()..b(enable));
   }
 
   /// Go: `func termutil.RawModeOff() (err error)`.
   void rawModeOff() {
-    $callSync(4371);
+    $callSync(4380);
   }
 }

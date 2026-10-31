@@ -43,7 +43,7 @@ class GoleveldbLeveldbBatch extends GoleveldbLeveldbBatchReplay
   /// Go: `func (*leveldb.Batch).Delete(key []byte)`.
   void delete(Uint8List key) {
     $callSync(
-        18589,
+        18595,
         $W()
           ..h(this)
           ..bytes(key));
@@ -51,20 +51,20 @@ class GoleveldbLeveldbBatch extends GoleveldbLeveldbBatchReplay
 
   /// Go: `func (*leveldb.Batch).Dump() []byte`.
   Uint8List dump() {
-    final $r = $callSync(18590, $W()..h(this));
+    final $r = $callSync(18596, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*leveldb.Batch).Len() int`.
   int len() {
-    final $r = $callSync(18591, $W()..h(this));
+    final $r = $callSync(18597, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*leveldb.Batch).Load(data []byte) error`.
   void load(Uint8List data) {
     $callSync(
-        18592,
+        18598,
         $W()
           ..h(this)
           ..bytes(data));
@@ -73,7 +73,7 @@ class GoleveldbLeveldbBatch extends GoleveldbLeveldbBatchReplay
   /// Go: `func (*leveldb.Batch).Put(key []byte, value []byte)`.
   void put(Uint8List key, Uint8List value) {
     $callSync(
-        18593,
+        18599,
         $W()
           ..h(this)
           ..bytes(key)
@@ -83,7 +83,7 @@ class GoleveldbLeveldbBatch extends GoleveldbLeveldbBatchReplay
   /// Go: `func (*leveldb.Batch).Replay(r leveldb.BatchReplay) error`.
   void replay(GoleveldbLeveldbBatchReplay r) {
     $callSync(
-        18594,
+        18600,
         $W()
           ..h(this)
           ..h(r));
@@ -91,7 +91,7 @@ class GoleveldbLeveldbBatch extends GoleveldbLeveldbBatchReplay
 
   /// Go: `func (*leveldb.Batch).Reset()`.
   void reset() {
-    $callSync(18595, $W()..h(this));
+    $callSync(18601, $W()..h(this));
   }
 }
 
@@ -130,7 +130,7 @@ mixin GoleveldbLeveldbBatchReplay$ on GoHandle {
   /// Go: `func (leveldb.BatchReplay).Delete(key []byte)`.
   void delete(Uint8List key) {
     $callSync(
-        18596,
+        18602,
         $W()
           ..h(this)
           ..bytes(key));
@@ -139,7 +139,7 @@ mixin GoleveldbLeveldbBatchReplay$ on GoHandle {
   /// Go: `func (leveldb.BatchReplay).Put(key []byte, value []byte)`.
   void put(Uint8List key, Uint8List value) {
     $callSync(
-        18597,
+        18603,
         $W()
           ..h(this)
           ..bytes(key)
@@ -148,7 +148,7 @@ mixin GoleveldbLeveldbBatchReplay$ on GoHandle {
 
   /// Go: type assertion `x.(*leveldb.Batch)`: null if the object is not one.
   GoleveldbLeveldbBatch? asGoleveldbLeveldbBatch() {
-    final $r = $callSync(1933, $W()..h(this));
+    final $r = $callSync(1938, $W()..h(this));
     return $r.hn(GoleveldbLeveldbBatch.$h);
   }
 }
@@ -179,13 +179,13 @@ class GoleveldbLeveldbDb extends GoleveldbLeveldbReader
 
   /// Go: `func (*leveldb.DB).Close() error`.
   void close() {
-    $callSync(18598, $W()..h(this));
+    $callSync(18604, $W()..h(this));
   }
 
   /// Go: `func (*leveldb.DB).CompactRange(r util.Range) error`.
   void compactRange($util.GoleveldbLeveldbUtilRange r) {
     $callSync(
-        18599,
+        18605,
         $W()
           ..h(this)
           ..dto(r));
@@ -194,7 +194,7 @@ class GoleveldbLeveldbDb extends GoleveldbLeveldbReader
   /// Go: `func (*leveldb.DB).Delete(key []byte, wo *opt.WriteOptions) error`.
   void delete(Uint8List key, $opt.GoleveldbLeveldbOptWriteOptions wo) {
     $callSync(
-        18600,
+        18606,
         $W()
           ..h(this)
           ..bytes(key)
@@ -204,7 +204,7 @@ class GoleveldbLeveldbDb extends GoleveldbLeveldbReader
   /// Go: `func (*leveldb.DB).Get(key []byte, ro *opt.ReadOptions) (value []byte, err error)`.
   Uint8List get(Uint8List key, $opt.GoleveldbLeveldbOptReadOptions ro) {
     final $r = $callSync(
-        18601,
+        18607,
         $W()
           ..h(this)
           ..bytes(key)
@@ -215,7 +215,7 @@ class GoleveldbLeveldbDb extends GoleveldbLeveldbReader
   /// Go: `func (*leveldb.DB).GetProperty(name string) (value string, err error)`.
   String getProperty(String name) {
     final $r = $callSync(
-        18602,
+        18608,
         $W()
           ..h(this)
           ..str(name));
@@ -224,14 +224,14 @@ class GoleveldbLeveldbDb extends GoleveldbLeveldbReader
 
   /// Go: `func (*leveldb.DB).GetSnapshot() (*leveldb.Snapshot, error)`.
   GoleveldbLeveldbSnapshot getSnapshot() {
-    final $r = $callSync(18603, $W()..h(this));
+    final $r = $callSync(18609, $W()..h(this));
     return $r.hnn(GoleveldbLeveldbSnapshot.$h);
   }
 
   /// Go: `func (*leveldb.DB).Has(key []byte, ro *opt.ReadOptions) (ret bool, err error)`.
   bool has(Uint8List key, $opt.GoleveldbLeveldbOptReadOptions ro) {
     final $r = $callSync(
-        18604,
+        18610,
         $W()
           ..h(this)
           ..bytes(key)
@@ -244,7 +244,7 @@ class GoleveldbLeveldbDb extends GoleveldbLeveldbReader
       $util.GoleveldbLeveldbUtilRange slice,
       $opt.GoleveldbLeveldbOptReadOptions ro) {
     final $r = $callSync(
-        18605,
+        18611,
         $W()
           ..h(this)
           ..dto(slice)
@@ -254,7 +254,7 @@ class GoleveldbLeveldbDb extends GoleveldbLeveldbReader
 
   /// Go: `func (*leveldb.DB).OpenTransaction() (*leveldb.Transaction, error)`.
   GoleveldbLeveldbTransaction openTransaction() {
-    final $r = $callSync(18606, $W()..h(this));
+    final $r = $callSync(18612, $W()..h(this));
     return $r.hnn(GoleveldbLeveldbTransaction.$h);
   }
 
@@ -262,7 +262,7 @@ class GoleveldbLeveldbDb extends GoleveldbLeveldbReader
   void put(
       Uint8List key, Uint8List value, $opt.GoleveldbLeveldbOptWriteOptions wo) {
     $callSync(
-        18607,
+        18613,
         $W()
           ..h(this)
           ..bytes(key)
@@ -272,13 +272,13 @@ class GoleveldbLeveldbDb extends GoleveldbLeveldbReader
 
   /// Go: `func (*leveldb.DB).SetReadOnly() error`.
   void setReadOnly() {
-    $callSync(18608, $W()..h(this));
+    $callSync(18614, $W()..h(this));
   }
 
   /// Go: `func (*leveldb.DB).SizeOf(ranges []util.Range) (leveldb.Sizes, error)`.
   List<int> sizeOf(List<$util.GoleveldbLeveldbUtilRange> ranges) {
     final $r = $callSync(
-        18609,
+        18615,
         $W()
           ..h(this)
           ..list(ranges, (w0, e0) => w0.dto(e0)));
@@ -288,7 +288,7 @@ class GoleveldbLeveldbDb extends GoleveldbLeveldbReader
   /// Go: `func (*leveldb.DB).Stats(s *leveldb.DBStats) error`.
   void stats(GoleveldbLeveldbDbStats s) {
     $callSync(
-        18610,
+        18616,
         $W()
           ..h(this)
           ..dto(s));
@@ -298,7 +298,7 @@ class GoleveldbLeveldbDb extends GoleveldbLeveldbReader
   void write(
       GoleveldbLeveldbBatch batch, $opt.GoleveldbLeveldbOptWriteOptions wo) {
     $callSync(
-        18611,
+        18617,
         $W()
           ..h(this)
           ..h(batch)
@@ -474,7 +474,7 @@ mixin GoleveldbLeveldbReader$ on GoHandle {
   /// Go: `func (leveldb.Reader).Get(key []byte, ro *opt.ReadOptions) (value []byte, err error)`.
   Uint8List get(Uint8List key, $opt.GoleveldbLeveldbOptReadOptions ro) {
     final $r = $callSync(
-        18616,
+        18622,
         $W()
           ..h(this)
           ..bytes(key)
@@ -487,7 +487,7 @@ mixin GoleveldbLeveldbReader$ on GoHandle {
       $util.GoleveldbLeveldbUtilRange slice,
       $opt.GoleveldbLeveldbOptReadOptions ro) {
     final $r = $callSync(
-        18617,
+        18623,
         $W()
           ..h(this)
           ..dto(slice)
@@ -497,25 +497,25 @@ mixin GoleveldbLeveldbReader$ on GoHandle {
 
   /// Go: type assertion `x.(*leveldb.DB)`: null if the object is not one.
   GoleveldbLeveldbDb? asGoleveldbLeveldbDb() {
-    final $r = $callSync(1934, $W()..h(this));
+    final $r = $callSync(1939, $W()..h(this));
     return $r.hn(GoleveldbLeveldbDb.$h);
   }
 
   /// Go: type assertion `x.(*leveldb.Snapshot)`: null if the object is not one.
   GoleveldbLeveldbSnapshot? asGoleveldbLeveldbSnapshot() {
-    final $r = $callSync(1935, $W()..h(this));
+    final $r = $callSync(1940, $W()..h(this));
     return $r.hn(GoleveldbLeveldbSnapshot.$h);
   }
 
   /// Go: type assertion `x.(*leveldb.Transaction)`: null if the object is not one.
   GoleveldbLeveldbTransaction? asGoleveldbLeveldbTransaction() {
-    final $r = $callSync(1936, $W()..h(this));
+    final $r = $callSync(1941, $W()..h(this));
     return $r.hn(GoleveldbLeveldbTransaction.$h);
   }
 
   /// Go: type assertion `x.(*table.Reader)`: null if the object is not one.
   $table.GoleveldbLeveldbTableReader? asGoleveldbLeveldbTableReader() {
-    final $r = $callSync(1937, $W()..h(this));
+    final $r = $callSync(1942, $W()..h(this));
     return $r.hn($table.GoleveldbLeveldbTableReader.$h);
   }
 }
@@ -545,7 +545,7 @@ class GoleveldbLeveldbSnapshot extends GoleveldbLeveldbReader
   /// Go: `func (*leveldb.Snapshot).Get(key []byte, ro *opt.ReadOptions) (value []byte, err error)`.
   Uint8List get(Uint8List key, $opt.GoleveldbLeveldbOptReadOptions ro) {
     final $r = $callSync(
-        18620,
+        18626,
         $W()
           ..h(this)
           ..bytes(key)
@@ -556,7 +556,7 @@ class GoleveldbLeveldbSnapshot extends GoleveldbLeveldbReader
   /// Go: `func (*leveldb.Snapshot).Has(key []byte, ro *opt.ReadOptions) (ret bool, err error)`.
   bool has(Uint8List key, $opt.GoleveldbLeveldbOptReadOptions ro) {
     final $r = $callSync(
-        18621,
+        18627,
         $W()
           ..h(this)
           ..bytes(key)
@@ -569,7 +569,7 @@ class GoleveldbLeveldbSnapshot extends GoleveldbLeveldbReader
       $util.GoleveldbLeveldbUtilRange slice,
       $opt.GoleveldbLeveldbOptReadOptions ro) {
     final $r = $callSync(
-        18622,
+        18628,
         $W()
           ..h(this)
           ..dto(slice)
@@ -579,12 +579,12 @@ class GoleveldbLeveldbSnapshot extends GoleveldbLeveldbReader
 
   /// Go: `func (*leveldb.Snapshot).Release()`.
   void release$() {
-    $callSync(18623, $W()..h(this));
+    $callSync(18629, $W()..h(this));
   }
 
   /// Go: `func (*leveldb.Snapshot).String() string`.
   String string() {
-    final $r = $callSync(18624, $W()..h(this));
+    final $r = $callSync(18630, $W()..h(this));
     return $r.str();
   }
 }
@@ -611,13 +611,13 @@ class GoleveldbLeveldbTransaction extends GoleveldbLeveldbReader
 
   /// Go: `func (*leveldb.Transaction).Commit() error`.
   void commit() {
-    $callSync(18625, $W()..h(this));
+    $callSync(18631, $W()..h(this));
   }
 
   /// Go: `func (*leveldb.Transaction).Delete(key []byte, wo *opt.WriteOptions) error`.
   void delete(Uint8List key, $opt.GoleveldbLeveldbOptWriteOptions wo) {
     $callSync(
-        18626,
+        18632,
         $W()
           ..h(this)
           ..bytes(key)
@@ -626,13 +626,13 @@ class GoleveldbLeveldbTransaction extends GoleveldbLeveldbReader
 
   /// Go: `func (*leveldb.Transaction).Discard()`.
   void discard() {
-    $callSync(18627, $W()..h(this));
+    $callSync(18633, $W()..h(this));
   }
 
   /// Go: `func (*leveldb.Transaction).Get(key []byte, ro *opt.ReadOptions) ([]byte, error)`.
   Uint8List get(Uint8List key, $opt.GoleveldbLeveldbOptReadOptions ro) {
     final $r = $callSync(
-        18628,
+        18634,
         $W()
           ..h(this)
           ..bytes(key)
@@ -643,7 +643,7 @@ class GoleveldbLeveldbTransaction extends GoleveldbLeveldbReader
   /// Go: `func (*leveldb.Transaction).Has(key []byte, ro *opt.ReadOptions) (bool, error)`.
   bool has(Uint8List key, $opt.GoleveldbLeveldbOptReadOptions ro) {
     final $r = $callSync(
-        18629,
+        18635,
         $W()
           ..h(this)
           ..bytes(key)
@@ -656,7 +656,7 @@ class GoleveldbLeveldbTransaction extends GoleveldbLeveldbReader
       $util.GoleveldbLeveldbUtilRange slice,
       $opt.GoleveldbLeveldbOptReadOptions ro) {
     final $r = $callSync(
-        18630,
+        18636,
         $W()
           ..h(this)
           ..dto(slice)
@@ -668,7 +668,7 @@ class GoleveldbLeveldbTransaction extends GoleveldbLeveldbReader
   void put(
       Uint8List key, Uint8List value, $opt.GoleveldbLeveldbOptWriteOptions wo) {
     $callSync(
-        18631,
+        18637,
         $W()
           ..h(this)
           ..bytes(key)
@@ -679,7 +679,7 @@ class GoleveldbLeveldbTransaction extends GoleveldbLeveldbReader
   /// Go: `func (*leveldb.Transaction).Write(b *leveldb.Batch, wo *opt.WriteOptions) error`.
   void write(GoleveldbLeveldbBatch b, $opt.GoleveldbLeveldbOptWriteOptions wo) {
     $callSync(
-        18632,
+        18638,
         $W()
           ..h(this)
           ..h(b)
@@ -786,14 +786,14 @@ class GoleveldbLeveldbErrSnapshotReleased extends GolangException {
 extension GoSyndtrGoleveldbLeveldbApi on GoSyndtrGoleveldbLeveldb {
   /// Go: `func leveldb.MakeBatch(n int) *leveldb.Batch`.
   GoleveldbLeveldbBatch makeBatch(int n) {
-    final $r = $callSync(18612, $W()..i64(n));
+    final $r = $callSync(18618, $W()..i64(n));
     return $r.hnn(GoleveldbLeveldbBatch.$h);
   }
 
   /// Go: `func leveldb.MakeBatchWithConfig(config *leveldb.BatchConfig) *leveldb.Batch`.
   GoleveldbLeveldbBatch makeBatchWithConfig(
       GoleveldbLeveldbBatchConfig config) {
-    final $r = $callSync(18613, $W()..dto(config));
+    final $r = $callSync(18619, $W()..dto(config));
     return $r.hnn(GoleveldbLeveldbBatch.$h);
   }
 
@@ -801,7 +801,7 @@ extension GoSyndtrGoleveldbLeveldbApi on GoSyndtrGoleveldbLeveldb {
   GoleveldbLeveldbDb open($storage.GoleveldbLeveldbStorage stor,
       $opt.GoleveldbLeveldbOptOptions o) {
     final $r = $callSync(
-        18614,
+        18620,
         $W()
           ..h(stor)
           ..dto(o));
@@ -811,7 +811,7 @@ extension GoSyndtrGoleveldbLeveldbApi on GoSyndtrGoleveldbLeveldb {
   /// Go: `func leveldb.OpenFile(path string, o *opt.Options) (db *leveldb.DB, err error)`.
   GoleveldbLeveldbDb openFile(String path, $opt.GoleveldbLeveldbOptOptions o) {
     final $r = $callSync(
-        18615,
+        18621,
         $W()
           ..str(path)
           ..dto(o));
@@ -822,7 +822,7 @@ extension GoSyndtrGoleveldbLeveldbApi on GoSyndtrGoleveldbLeveldb {
   GoleveldbLeveldbDb recover($storage.GoleveldbLeveldbStorage stor,
       $opt.GoleveldbLeveldbOptOptions o) {
     final $r = $callSync(
-        18618,
+        18624,
         $W()
           ..h(stor)
           ..dto(o));
@@ -833,7 +833,7 @@ extension GoSyndtrGoleveldbLeveldbApi on GoSyndtrGoleveldbLeveldb {
   GoleveldbLeveldbDb recoverFile(
       String path, $opt.GoleveldbLeveldbOptOptions o) {
     final $r = $callSync(
-        18619,
+        18625,
         $W()
           ..str(path)
           ..dto(o));

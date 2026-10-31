@@ -45,41 +45,41 @@ class Libp2pCoreCryptoPbPrivateKey
   /// Go: `func (*pb.PrivateKey).Descriptor() ([]byte, []int)`.
   @Deprecated("Use PrivateKey.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(13933, $W()..h(this));
+    final $r = $callSync(13939, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pb.PrivateKey).GetData() []byte`.
   Uint8List getData() {
-    final $r = $callSync(13934, $W()..h(this));
+    final $r = $callSync(13940, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pb.PrivateKey).GetType() pb.KeyType`.
   int getType() {
-    final $r = $callSync(13935, $W()..h(this));
+    final $r = $callSync(13941, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.PrivateKey).ProtoMessage()`.
   void protoMessage() {
-    $callSync(13936, $W()..h(this));
+    $callSync(13942, $W()..h(this));
   }
 
   /// Go: `func (*pb.PrivateKey).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(13937, $W()..h(this));
+    final $r = $callSync(13943, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pb.PrivateKey).Reset()`.
   void reset() {
-    $callSync(13938, $W()..h(this));
+    $callSync(13944, $W()..h(this));
   }
 
   /// Go: `func (*pb.PrivateKey).String() string`.
   String string() {
-    final $r = $callSync(13939, $W()..h(this));
+    final $r = $callSync(13945, $W()..h(this));
     return $r.str();
   }
 }
@@ -112,41 +112,41 @@ class Libp2pCoreCryptoPbPublicKey
   /// Go: `func (*pb.PublicKey).Descriptor() ([]byte, []int)`.
   @Deprecated("Use PublicKey.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(13940, $W()..h(this));
+    final $r = $callSync(13946, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pb.PublicKey).GetData() []byte`.
   Uint8List getData() {
-    final $r = $callSync(13941, $W()..h(this));
+    final $r = $callSync(13947, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pb.PublicKey).GetType() pb.KeyType`.
   int getType() {
-    final $r = $callSync(13942, $W()..h(this));
+    final $r = $callSync(13948, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.PublicKey).ProtoMessage()`.
   void protoMessage() {
-    $callSync(13943, $W()..h(this));
+    $callSync(13949, $W()..h(this));
   }
 
   /// Go: `func (*pb.PublicKey).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(13944, $W()..h(this));
+    final $r = $callSync(13950, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pb.PublicKey).Reset()`.
   void reset() {
-    $callSync(13945, $W()..h(this));
+    $callSync(13951, $W()..h(this));
   }
 
   /// Go: `func (*pb.PublicKey).String() string`.
   String string() {
-    final $r = $callSync(13946, $W()..h(this));
+    final $r = $callSync(13952, $W()..h(this));
     return $r.str();
   }
 }
@@ -156,19 +156,19 @@ extension GoLibp2pLibp2pCoreCryptoPbApi on GoLibp2pLibp2pCoreCryptoPb {
   /// Go: `var pb.File_core_crypto_pb_crypto_proto protoreflect.FileDescriptor`.
   $protoreflect.ProtobufReflectProtoreflectFileDescriptor
       get fileCoreCryptoPbCryptoProto {
-    final $r = $callSync(13930);
+    final $r = $callSync(13936);
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectFileDescriptor.$h);
   }
 
   /// Go: `var pb.KeyType_name map[int32]string`.
   Map<int, String> get keyTypeName {
-    final $r = $callSync(13931);
+    final $r = $callSync(13937);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var pb.KeyType_value map[string]int32`.
   Map<String, int> get keyTypeValue {
-    final $r = $callSync(13932);
+    final $r = $callSync(13938);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 }

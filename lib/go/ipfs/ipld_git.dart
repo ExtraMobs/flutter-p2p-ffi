@@ -35,7 +35,7 @@ class IpldGitCommitLinkListItr extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*ipldgit.Commit_Link_List__Itr).Done() bool`.
   bool done() {
-    final $r = $callSync(11025, $W()..h(this));
+    final $r = $callSync(11031, $W()..h(this));
     return $r.b();
   }
 }
@@ -60,7 +60,7 @@ class IpldGitStringListItr extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*ipldgit.String_List__Itr).Done() bool`.
   bool done() {
-    final $r = $callSync(11037, $W()..h(this));
+    final $r = $callSync(11043, $W()..h(this));
     return $r.b();
   }
 }
@@ -85,7 +85,7 @@ class IpldGitTagListItr extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*ipldgit.Tag_List__Itr).Done() bool`.
   bool done() {
-    final $r = $callSync(11038, $W()..h(this));
+    final $r = $callSync(11044, $W()..h(this));
     return $r.b();
   }
 }
@@ -110,7 +110,7 @@ class IpldGitTreeItr extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*ipldgit.Tree__Itr).Done() bool`.
   bool done() {
-    final $r = $callSync(11039, $W()..h(this));
+    final $r = $callSync(11045, $W()..h(this));
     return $r.b();
   }
 }
@@ -120,7 +120,7 @@ extension GoIpfsIpldGitApi on GoIpfsIpldGit {
   /// Go: `func ipldgit.Decode(na ipld.NodeAssembler, r io.Reader) error`.
   void decode($datamodel.IpldPrimeDatamodelNodeAssembler na, Object r) {
     $callSync(
-        11026,
+        11032,
         $W()
           ..h(na)
           ..reader(r));
@@ -130,7 +130,7 @@ extension GoIpfsIpldGitApi on GoIpfsIpldGit {
   void decodeBlob(
       $datamodel.IpldPrimeDatamodelNodeAssembler na, $bufio.BufioReader rd) {
     $callSync(
-        11027,
+        11033,
         $W()
           ..h(na)
           ..h(rd));
@@ -139,7 +139,7 @@ extension GoIpfsIpldGitApi on GoIpfsIpldGit {
   /// Go: `func ipldgit.DecodeBlock(block blocks.Block) (ipld.Node, error)`.
   $datamodel.IpldPrimeDatamodelNode decodeBlock(
       $block_format.BlockFormatBlock block) {
-    final $r = $callSync(11028, $W()..dto(block));
+    final $r = $callSync(11034, $W()..dto(block));
     return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
   }
 
@@ -147,7 +147,7 @@ extension GoIpfsIpldGitApi on GoIpfsIpldGit {
   void decodeCommit(
       $datamodel.IpldPrimeDatamodelNodeAssembler na, $bufio.BufioReader rd) {
     $callSync(
-        11029,
+        11035,
         $W()
           ..h(na)
           ..h(rd));
@@ -157,7 +157,7 @@ extension GoIpfsIpldGitApi on GoIpfsIpldGit {
   void decodeTag(
       $datamodel.IpldPrimeDatamodelNodeAssembler na, $bufio.BufioReader rd) {
     $callSync(
-        11030,
+        11036,
         $W()
           ..h(na)
           ..h(rd));
@@ -167,7 +167,7 @@ extension GoIpfsIpldGitApi on GoIpfsIpldGit {
   void decodeTree(
       $datamodel.IpldPrimeDatamodelNodeAssembler na, $bufio.BufioReader rd) {
     $callSync(
-        11031,
+        11037,
         $W()
           ..h(na)
           ..h(rd));
@@ -176,14 +176,14 @@ extension GoIpfsIpldGitApi on GoIpfsIpldGit {
   /// Go: `func ipldgit.DecodeTreeEntry(rd *bufio.Reader) (string, ipld.Node, error)`.
   (String, $datamodel.IpldPrimeDatamodelNode) decodeTreeEntry(
       $bufio.BufioReader rd) {
-    final $r = $callSync(11032, $W()..h(rd));
+    final $r = $callSync(11038, $W()..h(rd));
     return ($r.str(), $r.hnn($datamodel.IpldPrimeDatamodelNode.$h));
   }
 
   /// Go: `func ipldgit.Encode(n ipld.Node, w io.Writer) error`.
   void encode($datamodel.IpldPrimeDatamodelNode n, GoHandle? w) {
     $callSync(
-        11033,
+        11039,
         $W()
           ..h(n)
           ..h(w));
@@ -191,19 +191,19 @@ extension GoIpfsIpldGitApi on GoIpfsIpldGit {
 
   /// Go: `func ipldgit.ParseCompressedObject(r io.Reader) (ipld.Node, error)`.
   $datamodel.IpldPrimeDatamodelNode parseCompressedObject(Object r) {
-    final $r = $callSync(11034, $W()..reader(r));
+    final $r = $callSync(11040, $W()..reader(r));
     return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
   }
 
   /// Go: `func ipldgit.ParseObject(r io.Reader) (ipld.Node, error)`.
   $datamodel.IpldPrimeDatamodelNode parseObject(Object r) {
-    final $r = $callSync(11035, $W()..reader(r));
+    final $r = $callSync(11041, $W()..reader(r));
     return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
   }
 
   /// Go: `func ipldgit.ParseObjectFromBuffer(b []byte) (ipld.Node, error)`.
   $datamodel.IpldPrimeDatamodelNode parseObjectFromBuffer(Uint8List b) {
-    final $r = $callSync(11036, $W()..bytes(b));
+    final $r = $callSync(11042, $W()..bytes(b));
     return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
   }
 }

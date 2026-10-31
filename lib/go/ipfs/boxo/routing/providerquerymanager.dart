@@ -45,7 +45,7 @@ mixin BoxoRoutingProviderquerymanagerProviderQueryDialer$ on GoHandle {
   Future<void> connect(
       $context.Context ctx, $peer.Libp2pCorePeerAddrInfo addrInfo) async {
     await $call(
-        10433,
+        10442,
         $W()
           ..h(this)
           ..h(ctx)
@@ -55,31 +55,31 @@ mixin BoxoRoutingProviderquerymanagerProviderQueryDialer$ on GoHandle {
   /// Go: type assertion `x.(*httpnet.Network)`: null if the object is not one.
   $httpnet.BoxoBitswapNetworkHttpnetNetwork?
       asBoxoBitswapNetworkHttpnetNetwork() {
-    final $r = $callSync(994, $W()..h(this));
+    final $r = $callSync(997, $W()..h(this));
     return $r.hn($httpnet.BoxoBitswapNetworkHttpnetNetwork.$h);
   }
 
   /// Go: type assertion `x.(*coreapi.SwarmAPI)`: null if the object is not one.
   $coreapi.KuboCoreCoreapiSwarmApi? asKuboCoreCoreapiSwarmApi() {
-    final $r = $callSync(995, $W()..h(this));
+    final $r = $callSync(998, $W()..h(this));
     return $r.hn($coreapi.KuboCoreCoreapiSwarmApi.$h);
   }
 
   /// Go: type assertion `x.(*basichost.BasicHost)`: null if the object is not one.
   $basic.Libp2pP2pHostBasicHost? asLibp2pP2pHostBasicHost() {
-    final $r = $callSync(996, $W()..h(this));
+    final $r = $callSync(999, $W()..h(this));
     return $r.hn($basic.Libp2pP2pHostBasicHost.$h);
   }
 
   /// Go: type assertion `x.(*blankhost.BlankHost)`: null if the object is not one.
   $blank.Libp2pP2pHostBlankHost? asLibp2pP2pHostBlankHost() {
-    final $r = $callSync(997, $W()..h(this));
+    final $r = $callSync(1000, $W()..h(this));
     return $r.hn($blank.Libp2pP2pHostBlankHost.$h);
   }
 
   /// Go: type assertion `x.(*routedhost.RoutedHost)`: null if the object is not one.
   $routed.Libp2pP2pHostRoutedHost? asLibp2pP2pHostRoutedHost() {
-    final $r = $callSync(998, $W()..h(this));
+    final $r = $callSync(1001, $W()..h(this));
     return $r.hn($routed.Libp2pP2pHostRoutedHost.$h);
   }
 }
@@ -107,14 +107,14 @@ class BoxoRoutingProviderquerymanagerProviderQueryManager
 
   /// Go: `func (*providerquerymanager.ProviderQueryManager).Close()`.
   void close() {
-    $callSync(10434, $W()..h(this));
+    $callSync(10443, $W()..h(this));
   }
 
   /// Go: `func (*providerquerymanager.ProviderQueryManager).FindProvidersAsync(sessionCtx context.Context, k cid.Cid, max int) <-chan peer.AddrInfo`.
   Stream<$peer.Libp2pCorePeerAddrInfo> findProvidersAsync(
           $context.Context sessionCtx, $cid.Cid k, int max) =>
       $stream(
-              10435,
+              10444,
               $W()
                 ..h(this)
                 ..h(sessionCtx)
@@ -137,7 +137,7 @@ mixin BoxoRoutingProviderquerymanagerProviderQueryPeerRouter$ on GoHandle {
   Future<$peer.Libp2pCorePeerAddrInfo> findPeer(
       $context.Context ctx, $peer.Libp2pCorePeerId id) async {
     final $r = await $call(
-        10436,
+        10445,
         $W()
           ..h(this)
           ..h(ctx)
@@ -147,19 +147,19 @@ mixin BoxoRoutingProviderquerymanagerProviderQueryPeerRouter$ on GoHandle {
 
   /// Go: type assertion `x.(*coreapi.RoutingAPI)`: null if the object is not one.
   $coreapi.KuboCoreCoreapiRoutingApi? asKuboCoreCoreapiRoutingApi() {
-    final $r = $callSync(999, $W()..h(this));
+    final $r = $callSync(1002, $W()..h(this));
     return $r.hn($coreapi.KuboCoreCoreapiRoutingApi.$h);
   }
 
   /// Go: type assertion `x.(*dht.IpfsDHT)`: null if the object is not one.
   $libp2p_kad_dht.Libp2pKadDhtIpfsDht? asLibp2pKadDhtIpfsDht() {
-    final $r = $callSync(1000, $W()..h(this));
+    final $r = $callSync(1003, $W()..h(this));
     return $r.hn($libp2p_kad_dht.Libp2pKadDhtIpfsDht.$h);
   }
 
   /// Go: type assertion `x.(*fullrt.FullRT)`: null if the object is not one.
   $fullrt.Libp2pKadDhtFullrtFullRt? asLibp2pKadDhtFullrtFullRt() {
-    final $r = $callSync(1001, $W()..h(this));
+    final $r = $callSync(1004, $W()..h(this));
     return $r.hn($fullrt.Libp2pKadDhtFullrtFullRt.$h);
   }
 }
@@ -173,7 +173,7 @@ extension GoIpfsBoxoRoutingProviderquerymanagerApi
       $routing.Libp2pCoreRoutingContentDiscovery router,
       [List<BoxoRoutingProviderquerymanagerOption> opts = const []]) {
     final $r = $callSync(
-        10432,
+        10441,
         $W()
           ..h(dialer)
           ..h(router)

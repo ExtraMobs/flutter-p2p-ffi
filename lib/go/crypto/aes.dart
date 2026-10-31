@@ -21,7 +21,7 @@ class CryptoAesKeySizeError extends GolangException {
 extension GoCryptoAesApi on GoCryptoAes {
   /// Go: `func aes.NewCipher(key []byte) (cipher.Block, error)`.
   $cipher.CryptoCipherBlock newCipher(Uint8List key) {
-    final $r = $callSync(3133, $W()..bytes(key));
+    final $r = $callSync(3142, $W()..bytes(key));
     return $r.hnn($cipher.CryptoCipherBlock.$h);
   }
 }

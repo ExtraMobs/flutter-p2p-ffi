@@ -11,7 +11,7 @@ extension GoIpldIpldPrimeCodecRawApi on GoIpldIpldPrimeCodecRaw {
   /// Go: `func raw.Decode(am datamodel.NodeAssembler, r io.Reader) error`.
   void decode($datamodel.IpldPrimeDatamodelNodeAssembler am, Object r) {
     $callSync(
-        12063,
+        12069,
         $W()
           ..h(am)
           ..reader(r));
@@ -20,7 +20,7 @@ extension GoIpldIpldPrimeCodecRawApi on GoIpldIpldPrimeCodecRaw {
   /// Go: `func raw.Encode(node datamodel.Node, w io.Writer) error`.
   void encode($datamodel.IpldPrimeDatamodelNode node, GoHandle? w) {
     $callSync(
-        12064,
+        12070,
         $W()
           ..h(node)
           ..h(w));

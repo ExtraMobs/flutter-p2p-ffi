@@ -10,24 +10,24 @@ import 'package:p2p_ffi/go/net.dart' as $net;
 extension GoWlynxgAnetApi on GoWlynxgAnet {
   /// Go: `func anet.InterfaceAddrs() ([]net.Addr, error)`.
   List<$net.NetAddr> interfaceAddrs() {
-    final $r = $callSync(18982);
+    final $r = $callSync(18988);
     return $r.list(() => $r.p() ? $net.NetAddr.$dec($r) : $nil());
   }
 
   /// Go: `func anet.InterfaceAddrsByInterface(ifi *net.Interface) ([]net.Addr, error)`.
   List<$net.NetAddr> interfaceAddrsByInterface($net.NetInterface ifi) {
-    final $r = $callSync(18983, $W()..dto(ifi));
+    final $r = $callSync(18989, $W()..dto(ifi));
     return $r.list(() => $r.p() ? $net.NetAddr.$dec($r) : $nil());
   }
 
   /// Go: `func anet.Interfaces() ([]net.Interface, error)`.
   List<$net.NetInterface> interfaces() {
-    final $r = $callSync(18984);
+    final $r = $callSync(18990);
     return $r.list(() => $r.p() ? $net.NetInterface.$dec($r) : $nil());
   }
 
   /// Go: `func anet.SetAndroidVersion(version uint)`.
   void setAndroidVersion(int version) {
-    $callSync(18985, $W()..i64(version));
+    $callSync(18991, $W()..i64(version));
   }
 }

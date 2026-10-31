@@ -39,7 +39,7 @@ final class GoBuildConstraintAndExpr implements GoDto {
   /// each invocation (a retained callback, WIRE.md).
   Future<bool> eval(FutureOr<bool> Function(String tag) ok) async {
     final $r = await $call(
-        23196,
+        23202,
         $W()
           ..dto(this)
           ..cb((r) => ok(r.str()), true));
@@ -48,7 +48,7 @@ final class GoBuildConstraintAndExpr implements GoDto {
 
   /// Go: `func (*constraint.AndExpr).String() string`.
   String string() {
-    final $r = $callSync(23197, $W()..dto(this));
+    final $r = $callSync(23203, $W()..dto(this));
     return $r.str();
   }
 }
@@ -69,7 +69,7 @@ mixin GoBuildConstraintExpr$ on GoHandle {
   /// each invocation (a retained callback, WIRE.md).
   Future<bool> eval(FutureOr<bool> Function(String tag) ok) async {
     final $r = await $call(
-        23198,
+        23204,
         $W()
           ..h(this)
           ..cb((r) => ok(r.str()), true));
@@ -78,7 +78,7 @@ mixin GoBuildConstraintExpr$ on GoHandle {
 
   /// Go: `func (constraint.Expr).String() string`.
   String string() {
-    final $r = $callSync(23199, $W()..h(this));
+    final $r = $callSync(23205, $W()..h(this));
     return $r.str();
   }
 }
@@ -106,7 +106,7 @@ final class GoBuildConstraintNotExpr implements GoDto {
   /// each invocation (a retained callback, WIRE.md).
   Future<bool> eval(FutureOr<bool> Function(String tag) ok) async {
     final $r = await $call(
-        23203,
+        23209,
         $W()
           ..dto(this)
           ..cb((r) => ok(r.str()), true));
@@ -115,7 +115,7 @@ final class GoBuildConstraintNotExpr implements GoDto {
 
   /// Go: `func (*constraint.NotExpr).String() string`.
   String string() {
-    final $r = $callSync(23204, $W()..dto(this));
+    final $r = $callSync(23210, $W()..dto(this));
     return $r.str();
   }
 }
@@ -152,7 +152,7 @@ final class GoBuildConstraintOrExpr implements GoDto {
   /// each invocation (a retained callback, WIRE.md).
   Future<bool> eval(FutureOr<bool> Function(String tag) ok) async {
     final $r = await $call(
-        23205,
+        23211,
         $W()
           ..dto(this)
           ..cb((r) => ok(r.str()), true));
@@ -161,7 +161,7 @@ final class GoBuildConstraintOrExpr implements GoDto {
 
   /// Go: `func (*constraint.OrExpr).String() string`.
   String string() {
-    final $r = $callSync(23206, $W()..dto(this));
+    final $r = $callSync(23212, $W()..dto(this));
     return $r.str();
   }
 }
@@ -189,7 +189,7 @@ final class GoBuildConstraintTagExpr implements GoDto {
   /// each invocation (a retained callback, WIRE.md).
   Future<bool> eval(FutureOr<bool> Function(String tag) ok) async {
     final $r = await $call(
-        23209,
+        23215,
         $W()
           ..dto(this)
           ..cb((r) => ok(r.str()), true));
@@ -198,7 +198,7 @@ final class GoBuildConstraintTagExpr implements GoDto {
 
   /// Go: `func (*constraint.TagExpr).String() string`.
   String string() {
-    final $r = $callSync(23210, $W()..dto(this));
+    final $r = $callSync(23216, $W()..dto(this));
     return $r.str();
   }
 }
@@ -225,31 +225,31 @@ class GoBuildConstraintSyntaxError extends GolangException {
 extension GoGoBuildConstraintApi on GoGoBuildConstraint {
   /// Go: `func constraint.GoVersion(x constraint.Expr) string`.
   String goVersion(GoBuildConstraintExpr x) {
-    final $r = $callSync(23200, $W()..h(x));
+    final $r = $callSync(23206, $W()..h(x));
     return $r.str();
   }
 
   /// Go: `func constraint.IsGoBuild(line string) bool`.
   bool isGoBuild(String line) {
-    final $r = $callSync(23201, $W()..str(line));
+    final $r = $callSync(23207, $W()..str(line));
     return $r.b();
   }
 
   /// Go: `func constraint.IsPlusBuild(line string) bool`.
   bool isPlusBuild(String line) {
-    final $r = $callSync(23202, $W()..str(line));
+    final $r = $callSync(23208, $W()..str(line));
     return $r.b();
   }
 
   /// Go: `func constraint.Parse(line string) (constraint.Expr, error)`.
   GoBuildConstraintExpr parse(String line) {
-    final $r = $callSync(23207, $W()..str(line));
+    final $r = $callSync(23213, $W()..str(line));
     return $r.hnn(GoBuildConstraintExpr.$h);
   }
 
   /// Go: `func constraint.PlusBuildLines(x constraint.Expr) ([]string, error)`.
   List<String> plusBuildLines(GoBuildConstraintExpr x) {
-    final $r = $callSync(23208, $W()..h(x));
+    final $r = $callSync(23214, $W()..h(x));
     return $r.list(() => $r.str());
   }
 }

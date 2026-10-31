@@ -33,7 +33,7 @@ mixin QuicGoQuicvarintPeeker$ on GoHandle {
   /// Go: `func (quicvarint.Peeker).Peek(b []byte) (int, error)`.
   int peek(Uint8List b) {
     final $r = $callSync(
-        18503,
+        18509,
         $W()
           ..h(this)
           ..bytes(b));
@@ -42,13 +42,13 @@ mixin QuicGoQuicvarintPeeker$ on GoHandle {
 
   /// Go: type assertion `x.(*quic.ReceiveStream)`: null if the object is not one.
   $quic_go.QuicGoReceiveStream? asQuicGoReceiveStream() {
-    final $r = $callSync(1909, $W()..h(this));
+    final $r = $callSync(1914, $W()..h(this));
     return $r.hn($quic_go.QuicGoReceiveStream.$h);
   }
 
   /// Go: type assertion `x.(*quic.Stream)`: null if the object is not one.
   $quic_go.QuicGoStream? asQuicGoStream() {
-    final $r = $callSync(1910, $W()..h(this));
+    final $r = $callSync(1915, $W()..h(this));
     return $r.hn($quic_go.QuicGoStream.$h);
   }
 }
@@ -59,7 +59,7 @@ class QuicGoQuicvarintReader extends GoHandle with QuicGoQuicvarintReader$ {
 
   /// Go: `func quicvarint.NewReader(r io.Reader) quicvarint.Reader`.
   factory QuicGoQuicvarintReader(Object r) {
-    final $r = $callSync(18499, $W()..reader(r));
+    final $r = $callSync(18505, $W()..reader(r));
     return $r.hnn(QuicGoQuicvarintReader.$h);
   }
 }
@@ -68,85 +68,85 @@ class QuicGoQuicvarintReader extends GoHandle with QuicGoQuicvarintReader$ {
 mixin QuicGoQuicvarintReader$ on GoHandle {
   /// Go: type assertion `x.(*bufio.Reader)`: null if the object is not one.
   $bufio.BufioReader? asBufioReader() {
-    final $r = $callSync(1911, $W()..h(this));
+    final $r = $callSync(1916, $W()..h(this));
     return $r.hn($bufio.BufioReader.$h);
   }
 
   /// Go: type assertion `x.(*bytes.Buffer)`: null if the object is not one.
   $bytes.BytesBuffer? asBytesBuffer() {
-    final $r = $callSync(1912, $W()..h(this));
+    final $r = $callSync(1917, $W()..h(this));
     return $r.hn($bytes.BytesBuffer.$h);
   }
 
   /// Go: type assertion `x.(*bytes.Reader)`: null if the object is not one.
   $bytes.BytesReader? asBytesReader() {
-    final $r = $callSync(1913, $W()..h(this));
+    final $r = $callSync(1918, $W()..h(this));
     return $r.hn($bytes.BytesReader.$h);
   }
 
   /// Go: type assertion `x.(*snappy.Reader)`: null if the object is not one.
   $snappy.SnappyReader? asSnappyReader() {
-    final $r = $callSync(1914, $W()..h(this));
+    final $r = $callSync(1919, $W()..h(this));
     return $r.hn($snappy.SnappyReader.$h);
   }
 
   /// Go: type assertion `x.(*s2.ReadSeeker)`: null if the object is not one.
   $s2.CompressS2ReadSeeker? asCompressS2ReadSeeker() {
-    final $r = $callSync(1915, $W()..h(this));
+    final $r = $callSync(1920, $W()..h(this));
     return $r.hn($s2.CompressS2ReadSeeker.$h);
   }
 
   /// Go: type assertion `x.(*s2.Reader)`: null if the object is not one.
   $s2.CompressS2Reader? asCompressS2Reader() {
-    final $r = $callSync(1916, $W()..h(this));
+    final $r = $callSync(1921, $W()..h(this));
     return $r.hn($s2.CompressS2Reader.$h);
   }
 
   /// Go: type assertion `x.(*pool.Buffer)`: null if the object is not one.
   $buffer_pool.BufferPoolBuffer? asBufferPoolBuffer() {
-    final $r = $callSync(1917, $W()..h(this));
+    final $r = $callSync(1922, $W()..h(this));
     return $r.hn($buffer_pool.BufferPoolBuffer.$h);
   }
 
   /// Go: type assertion `x.(*minlz.ReadSeeker)`: null if the object is not one.
   $minlz.MinlzReadSeeker? asMinlzReadSeeker() {
-    final $r = $callSync(1918, $W()..h(this));
+    final $r = $callSync(1923, $W()..h(this));
     return $r.hn($minlz.MinlzReadSeeker.$h);
   }
 
   /// Go: type assertion `x.(*minlz.Reader)`: null if the object is not one.
   $minlz.MinlzReader? asMinlzReader() {
-    final $r = $callSync(1919, $W()..h(this));
+    final $r = $callSync(1924, $W()..h(this));
     return $r.hn($minlz.MinlzReader.$h);
   }
 
   /// Go: type assertion `x.(*http3.CapsuleReader)`: null if the object is not one.
   $http3.QuicGoHttp3CapsuleReader? asQuicGoHttp3CapsuleReader() {
-    final $r = $callSync(1920, $W()..h(this));
+    final $r = $callSync(1925, $W()..h(this));
     return $r.hn($http3.QuicGoHttp3CapsuleReader.$h);
   }
 
   /// Go: type assertion `x.(*util.Buffer)`: null if the object is not one.
   $util.GoleveldbLeveldbUtilBuffer? asGoleveldbLeveldbUtilBuffer() {
-    final $r = $callSync(1921, $W()..h(this));
+    final $r = $callSync(1926, $W()..h(this));
     return $r.hn($util.GoleveldbLeveldbUtilBuffer.$h);
   }
 
   /// Go: type assertion `x.(*typegen.CborReader)`: null if the object is not one.
   $cbor_gen.CborGenCborReader? asCborGenCborReader() {
-    final $r = $callSync(1922, $W()..h(this));
+    final $r = $callSync(1927, $W()..h(this));
     return $r.hn($cbor_gen.CborGenCborReader.$h);
   }
 
   /// Go: type assertion `x.(*mem.Reader)`: null if the object is not one.
   $mem.GrpcMemReader? asGrpcMemReader() {
-    final $r = $callSync(1923, $W()..h(this));
+    final $r = $callSync(1928, $W()..h(this));
     return $r.hn($mem.GrpcMemReader.$h);
   }
 
   /// Go: type assertion `x.(*strings.Reader)`: null if the object is not one.
   $strings.StringsReader? asStringsReader() {
-    final $r = $callSync(1924, $W()..h(this));
+    final $r = $callSync(1929, $W()..h(this));
     return $r.hn($strings.StringsReader.$h);
   }
 }
@@ -158,7 +158,7 @@ class QuicGoQuicvarintWriter extends $io.IoByteWriter
 
   /// Go: `func quicvarint.NewWriter(w io.Writer) quicvarint.Writer`.
   factory QuicGoQuicvarintWriter(GoHandle? w) {
-    final $r = $callSync(18500, $W()..h(w));
+    final $r = $callSync(18506, $W()..h(w));
     return $r.hnn(QuicGoQuicvarintWriter.$h);
   }
 }
@@ -167,49 +167,49 @@ class QuicGoQuicvarintWriter extends $io.IoByteWriter
 mixin QuicGoQuicvarintWriter$ on GoHandle {
   /// Go: type assertion `x.(*bufio.Writer)`: null if the object is not one.
   $bufio.BufioWriter? asBufioWriter() {
-    final $r = $callSync(1925, $W()..h(this));
+    final $r = $callSync(1930, $W()..h(this));
     return $r.hn($bufio.BufioWriter.$h);
   }
 
   /// Go: type assertion `x.(*bytes.Buffer)`: null if the object is not one.
   $bytes.BytesBuffer? asBytesBuffer() {
-    final $r = $callSync(1926, $W()..h(this));
+    final $r = $callSync(1931, $W()..h(this));
     return $r.hn($bytes.BytesBuffer.$h);
   }
 
   /// Go: type assertion `x.(*pool.Buffer)`: null if the object is not one.
   $buffer_pool.BufferPoolBuffer? asBufferPoolBuffer() {
-    final $r = $callSync(1927, $W()..h(this));
+    final $r = $callSync(1932, $W()..h(this));
     return $r.hn($buffer_pool.BufferPoolBuffer.$h);
   }
 
   /// Go: type assertion `x.(*pool.Writer)`: null if the object is not one.
   $buffer_pool.BufferPoolWriter? asBufferPoolWriter() {
-    final $r = $callSync(1928, $W()..h(this));
+    final $r = $callSync(1933, $W()..h(this));
     return $r.hn($buffer_pool.BufferPoolWriter.$h);
   }
 
   /// Go: type assertion `x.(*util.Buffer)`: null if the object is not one.
   $util.GoleveldbLeveldbUtilBuffer? asGoleveldbLeveldbUtilBuffer() {
-    final $r = $callSync(1929, $W()..h(this));
+    final $r = $callSync(1934, $W()..h(this));
     return $r.hn($util.GoleveldbLeveldbUtilBuffer.$h);
   }
 
   /// Go: type assertion `x.(*buffer.Buffer)`: null if the object is not one.
   $buffer.ZapBuffer? asZapBuffer() {
-    final $r = $callSync(1930, $W()..h(this));
+    final $r = $callSync(1935, $W()..h(this));
     return $r.hn($buffer.ZapBuffer.$h);
   }
 
   /// Go: type assertion `x.(*maphash.Hash)`: null if the object is not one.
   $maphash.HashMaphashHash? asHashMaphashHash() {
-    final $r = $callSync(1931, $W()..h(this));
+    final $r = $callSync(1936, $W()..h(this));
     return $r.hn($maphash.HashMaphashHash.$h);
   }
 
   /// Go: type assertion `x.(*strings.Builder)`: null if the object is not one.
   $strings.StringsBuilder? asStringsBuilder() {
-    final $r = $callSync(1932, $W()..h(this));
+    final $r = $callSync(1937, $W()..h(this));
     return $r.hn($strings.StringsBuilder.$h);
   }
 }
@@ -219,7 +219,7 @@ extension GoQuicGoQuicGoQuicvarintApi on GoQuicGoQuicGoQuicvarint {
   /// Go: `func quicvarint.Append(b []byte, i uint64) []byte`.
   Uint8List append(Uint8List b, int i) {
     final $r = $callSync(
-        18496,
+        18502,
         $W()
           ..bytes(b)
           ..i64(i));
@@ -229,7 +229,7 @@ extension GoQuicGoQuicGoQuicvarintApi on GoQuicGoQuicGoQuicvarint {
   /// Go: `func quicvarint.AppendWithLen(b []byte, i uint64, length int) []byte`.
   Uint8List appendWithLen(Uint8List b, int i, int length) {
     final $r = $callSync(
-        18497,
+        18503,
         $W()
           ..bytes(b)
           ..i64(i)
@@ -239,25 +239,25 @@ extension GoQuicGoQuicGoQuicvarintApi on GoQuicGoQuicGoQuicvarint {
 
   /// Go: `func quicvarint.Len(i uint64) int`.
   int len(int i) {
-    final $r = $callSync(18498, $W()..i64(i));
+    final $r = $callSync(18504, $W()..i64(i));
     return $r.i64();
   }
 
   /// Go: `func quicvarint.Parse(b []byte) (uint64, int, error)`.
   (int, int) parse(Uint8List b) {
-    final $r = $callSync(18501, $W()..bytes(b));
+    final $r = $callSync(18507, $W()..bytes(b));
     return ($r.i64(), $r.i64());
   }
 
   /// Go: `func quicvarint.Peek(p quicvarint.Peeker) (uint64, error)`.
   int peek(QuicGoQuicvarintPeeker p) {
-    final $r = $callSync(18502, $W()..h(p));
+    final $r = $callSync(18508, $W()..h(p));
     return $r.i64();
   }
 
   /// Go: `func quicvarint.Read(r io.ByteReader) (uint64, error)`.
   int read($io.IoByteReader r) {
-    final $r = $callSync(18504, $W()..dto(r));
+    final $r = $callSync(18510, $W()..dto(r));
     return $r.i64();
   }
 }

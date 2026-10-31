@@ -45,7 +45,7 @@ class OtelExportersStdoutStdouttraceExporter
   Future<void> exportSpans(
       $context.Context ctx, List<$trace.OtelSdkTraceReadOnlySpan> spans) async {
     await $call(
-        19259,
+        19265,
         $W()
           ..h(this)
           ..h(ctx)
@@ -54,7 +54,7 @@ class OtelExportersStdoutStdouttraceExporter
 
   /// Go: `func (*stdouttrace.Exporter).MarshalLog() any`.
   Object? marshalLog() {
-    final $r = $callSync(19260, $W()..h(this));
+    final $r = $callSync(19266, $W()..h(this));
     return $r.any();
   }
 
@@ -63,7 +63,7 @@ class OtelExportersStdoutStdouttraceExporter
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> shutdown($context.Context ctx) async {
     await $call(
-        19261,
+        19267,
         $W()
           ..h(this)
           ..h(ctx));
@@ -85,7 +85,7 @@ extension GoOtelExportersStdoutStdouttraceApi
   /// Go: `func stdouttrace.New(options ...stdouttrace.Option) (*stdouttrace.Exporter, error)`.
   OtelExportersStdoutStdouttraceExporter new$(
       [List<OtelExportersStdoutStdouttraceOption> options = const []]) {
-    final $r = $callSync(19262, $W()..list(options, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(19268, $W()..list(options, (w0, e0) => w0.h(e0)));
     return $r.hnn(OtelExportersStdoutStdouttraceExporter.$h);
   }
 }
@@ -95,19 +95,19 @@ extension GoOtelExportersStdoutStdouttraceOptionsApi
     on GoOtelExportersStdoutStdouttraceOptions {
   /// Go: `func stdouttrace.WithPrettyPrint() stdouttrace.Option`.
   OtelExportersStdoutStdouttraceOption withPrettyPrint() {
-    final $r = $callSync(19263);
+    final $r = $callSync(19269);
     return $r.hnn(OtelExportersStdoutStdouttraceOption.$h);
   }
 
   /// Go: `func stdouttrace.WithWriter(w io.Writer) stdouttrace.Option`.
   OtelExportersStdoutStdouttraceOption withWriter(GoHandle? w) {
-    final $r = $callSync(19264, $W()..h(w));
+    final $r = $callSync(19270, $W()..h(w));
     return $r.hnn(OtelExportersStdoutStdouttraceOption.$h);
   }
 
   /// Go: `func stdouttrace.WithoutTimestamps() stdouttrace.Option`.
   OtelExportersStdoutStdouttraceOption withoutTimestamps() {
-    final $r = $callSync(19265);
+    final $r = $callSync(19271);
     return $r.hnn(OtelExportersStdoutStdouttraceOption.$h);
   }
 }

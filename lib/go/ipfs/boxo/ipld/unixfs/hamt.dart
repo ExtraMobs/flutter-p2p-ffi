@@ -39,7 +39,7 @@ class BoxoIpldUnixfsHamtShard extends $crypto.CryptoDecrypterOpts
   factory BoxoIpldUnixfsHamtShard(
       $ipld_format.IpldFormatDagService dserv, int size) {
     final $r = $callSync(
-        9770,
+        9779,
         $W()
           ..h(dserv)
           ..i64(size));
@@ -48,7 +48,7 @@ class BoxoIpldUnixfsHamtShard extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*hamt.Shard).CidBuilder() cid.Builder`.
   $cid.CidBuilder cidBuilder() {
-    final $r = $callSync(9772, $W()..h(this));
+    final $r = $callSync(9781, $W()..h(this));
     return $r.hnn($cid.CidBuilder.$h);
   }
 
@@ -58,7 +58,7 @@ class BoxoIpldUnixfsHamtShard extends $crypto.CryptoDecrypterOpts
   Future<List<$ipld_format.IpldFormatLink>> enumLinks(
       $context.Context ctx) async {
     final $r = await $call(
-        9773,
+        9782,
         $W()
           ..h(this)
           ..h(ctx));
@@ -70,7 +70,7 @@ class BoxoIpldUnixfsHamtShard extends $crypto.CryptoDecrypterOpts
   Stream<$unixfs.BoxoIpldUnixfsLinkResult> enumLinksAsync(
           $context.Context ctx) =>
       $stream(
-              9774,
+              9783,
               $W()
                 ..h(this)
                 ..h(ctx))
@@ -83,7 +83,7 @@ class BoxoIpldUnixfsHamtShard extends $crypto.CryptoDecrypterOpts
   Future<$ipld_format.IpldFormatLink> find(
       $context.Context ctx, String name) async {
     final $r = await $call(
-        9775,
+        9784,
         $W()
           ..h(this)
           ..h(ctx)
@@ -101,7 +101,7 @@ class BoxoIpldUnixfsHamtShard extends $crypto.CryptoDecrypterOpts
   Future<void> forEachLink($context.Context ctx,
       FutureOr<void> Function($ipld_format.IpldFormatLink link) f) async {
     await $call(
-        9776,
+        9785,
         $W()
           ..h(this)
           ..h(ctx)
@@ -111,13 +111,13 @@ class BoxoIpldUnixfsHamtShard extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*hamt.Shard).Link() (*format.Link, error)`.
   $ipld_format.IpldFormatLink link() {
-    final $r = $callSync(9777, $W()..h(this));
+    final $r = $callSync(9786, $W()..h(this));
     return $r.p() ? $ipld_format.IpldFormatLink.$dec($r) : $nil();
   }
 
   /// Go: `func (*hamt.Shard).Node() (format.Node, error)`.
   $ipld_format.IpldFormatNode node() {
-    final $r = $callSync(9778, $W()..h(this));
+    final $r = $callSync(9787, $W()..h(this));
     return $r.hnn($ipld_format.IpldFormatNode.$h);
   }
 
@@ -126,7 +126,7 @@ class BoxoIpldUnixfsHamtShard extends $crypto.CryptoDecrypterOpts
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> remove($context.Context ctx, String name) async {
     await $call(
-        9779,
+        9788,
         $W()
           ..h(this)
           ..h(ctx)
@@ -139,7 +139,7 @@ class BoxoIpldUnixfsHamtShard extends $crypto.CryptoDecrypterOpts
   Future<void> set(
       $context.Context ctx, String name, $ipld_format.IpldFormatNode nd) async {
     await $call(
-        9780,
+        9789,
         $W()
           ..h(this)
           ..h(ctx)
@@ -150,7 +150,7 @@ class BoxoIpldUnixfsHamtShard extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*hamt.Shard).SetCidBuilder(builder cid.Builder)`.
   void setCidBuilder($cid.CidBuilder builder) {
     $callSync(
-        9781,
+        9790,
         $W()
           ..h(this)
           ..h(builder));
@@ -162,7 +162,7 @@ class BoxoIpldUnixfsHamtShard extends $crypto.CryptoDecrypterOpts
   Future<void> setLink($context.Context ctx, String name,
       $ipld_format.IpldFormatLink lnk) async {
     await $call(
-        9782,
+        9791,
         $W()
           ..h(this)
           ..h(ctx)
@@ -173,7 +173,7 @@ class BoxoIpldUnixfsHamtShard extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*hamt.Shard).SetStat(mode os.FileMode, mtime time.Time)`.
   void setStat(int mode, DateTime mtime) {
     $callSync(
-        9783,
+        9792,
         $W()
           ..h(this)
           ..i64(mode)
@@ -186,7 +186,7 @@ class BoxoIpldUnixfsHamtShard extends $crypto.CryptoDecrypterOpts
   Future<$ipld_format.IpldFormatLink> swap($context.Context ctx, String name,
       $ipld_format.IpldFormatNode node) async {
     final $r = await $call(
-        9784,
+        9793,
         $W()
           ..h(this)
           ..h(ctx)
@@ -201,7 +201,7 @@ class BoxoIpldUnixfsHamtShard extends $crypto.CryptoDecrypterOpts
   Future<$ipld_format.IpldFormatLink> take(
       $context.Context ctx, String name) async {
     final $r = await $call(
-        9785,
+        9794,
         $W()
           ..h(this)
           ..h(ctx)
@@ -214,7 +214,7 @@ class BoxoIpldUnixfsHamtShard extends $crypto.CryptoDecrypterOpts
 extension GoIpfsBoxoIpldUnixfsHamtApi on GoIpfsBoxoIpldUnixfsHamt {
   /// Go: `func hamt.Logtwo(v int) (int, error)`.
   int logtwo(int v) {
-    final $r = $callSync(9768, $W()..i64(v));
+    final $r = $callSync(9777, $W()..i64(v));
     return $r.i64();
   }
 
@@ -222,7 +222,7 @@ extension GoIpfsBoxoIpldUnixfsHamtApi on GoIpfsBoxoIpldUnixfsHamt {
   BoxoIpldUnixfsHamtShard newHamtFromDag(
       $ipld_format.IpldFormatDagService dserv, $ipld_format.IpldFormatNode nd) {
     final $r = $callSync(
-        9769,
+        9778,
         $W()
           ..h(dserv)
           ..h(nd));
@@ -233,7 +233,7 @@ extension GoIpfsBoxoIpldUnixfsHamtApi on GoIpfsBoxoIpldUnixfsHamt {
   BoxoIpldUnixfsHamtShard newShardValue($ipld_format.IpldFormatDagService dserv,
       int size, String key, $ipld_format.IpldFormatLink value) {
     final $r = $callSync(
-        9771,
+        9780,
         $W()
           ..h(dserv)
           ..i64(size)

@@ -48,7 +48,7 @@ extension GoStrconvApi on GoStrconv {
   /// Go: `func strconv.AppendBool(dst []byte, b bool) []byte`.
   Uint8List appendBool(Uint8List dst, bool b) {
     final $r = $callSync(
-        27210,
+        27211,
         $W()
           ..bytes(dst)
           ..b(b));
@@ -59,7 +59,7 @@ extension GoStrconvApi on GoStrconv {
   Uint8List appendFloat(
       Uint8List dst, double f, int fmt, int prec, int bitSize) {
     final $r = $callSync(
-        27211,
+        27212,
         $W()
           ..bytes(dst)
           ..f64(f)
@@ -72,7 +72,7 @@ extension GoStrconvApi on GoStrconv {
   /// Go: `func strconv.AppendInt(dst []byte, i int64, base int) []byte`.
   Uint8List appendInt(Uint8List dst, int i, int base) {
     final $r = $callSync(
-        27212,
+        27213,
         $W()
           ..bytes(dst)
           ..i64(i)
@@ -83,7 +83,7 @@ extension GoStrconvApi on GoStrconv {
   /// Go: `func strconv.AppendQuote(dst []byte, s string) []byte`.
   Uint8List appendQuote(Uint8List dst, String s) {
     final $r = $callSync(
-        27213,
+        27214,
         $W()
           ..bytes(dst)
           ..str(s));
@@ -93,7 +93,7 @@ extension GoStrconvApi on GoStrconv {
   /// Go: `func strconv.AppendQuoteRune(dst []byte, r rune) []byte`.
   Uint8List appendQuoteRune(Uint8List dst, int r) {
     final $r = $callSync(
-        27214,
+        27215,
         $W()
           ..bytes(dst)
           ..i64(r));
@@ -103,7 +103,7 @@ extension GoStrconvApi on GoStrconv {
   /// Go: `func strconv.AppendQuoteRuneToASCII(dst []byte, r rune) []byte`.
   Uint8List appendQuoteRuneToAscii(Uint8List dst, int r) {
     final $r = $callSync(
-        27215,
+        27216,
         $W()
           ..bytes(dst)
           ..i64(r));
@@ -113,7 +113,7 @@ extension GoStrconvApi on GoStrconv {
   /// Go: `func strconv.AppendQuoteRuneToGraphic(dst []byte, r rune) []byte`.
   Uint8List appendQuoteRuneToGraphic(Uint8List dst, int r) {
     final $r = $callSync(
-        27216,
+        27217,
         $W()
           ..bytes(dst)
           ..i64(r));
@@ -123,7 +123,7 @@ extension GoStrconvApi on GoStrconv {
   /// Go: `func strconv.AppendQuoteToASCII(dst []byte, s string) []byte`.
   Uint8List appendQuoteToAscii(Uint8List dst, String s) {
     final $r = $callSync(
-        27217,
+        27218,
         $W()
           ..bytes(dst)
           ..str(s));
@@ -133,7 +133,7 @@ extension GoStrconvApi on GoStrconv {
   /// Go: `func strconv.AppendQuoteToGraphic(dst []byte, s string) []byte`.
   Uint8List appendQuoteToGraphic(Uint8List dst, String s) {
     final $r = $callSync(
-        27218,
+        27219,
         $W()
           ..bytes(dst)
           ..str(s));
@@ -143,7 +143,7 @@ extension GoStrconvApi on GoStrconv {
   /// Go: `func strconv.AppendUint(dst []byte, i uint64, base int) []byte`.
   Uint8List appendUint(Uint8List dst, int i, int base) {
     final $r = $callSync(
-        27219,
+        27220,
         $W()
           ..bytes(dst)
           ..i64(i)
@@ -153,26 +153,26 @@ extension GoStrconvApi on GoStrconv {
 
   /// Go: `func strconv.Atoi(s string) (int, error)`.
   int atoi(String s) {
-    final $r = $callSync(27220, $W()..str(s));
+    final $r = $callSync(27221, $W()..str(s));
     return $r.i64();
   }
 
   /// Go: `func strconv.CanBackquote(s string) bool`.
   bool canBackquote(String s) {
-    final $r = $callSync(27221, $W()..str(s));
+    final $r = $callSync(27222, $W()..str(s));
     return $r.b();
   }
 
   /// Go: `func strconv.FormatBool(b bool) string`.
   String formatBool(bool b) {
-    final $r = $callSync(27222, $W()..b(b));
+    final $r = $callSync(27223, $W()..b(b));
     return $r.str();
   }
 
   /// Go: `func strconv.FormatFloat(f float64, fmt byte, prec int, bitSize int) string`.
   String formatFloat(double f, int fmt, int prec, int bitSize) {
     final $r = $callSync(
-        27223,
+        27224,
         $W()
           ..f64(f)
           ..i64(fmt)
@@ -184,7 +184,7 @@ extension GoStrconvApi on GoStrconv {
   /// Go: `func strconv.FormatInt(i int64, base int) string`.
   String formatInt(int i, int base) {
     final $r = $callSync(
-        27224,
+        27225,
         $W()
           ..i64(i)
           ..i64(base));
@@ -194,7 +194,7 @@ extension GoStrconvApi on GoStrconv {
   /// Go: `func strconv.FormatUint(i uint64, base int) string`.
   String formatUint(int i, int base) {
     final $r = $callSync(
-        27225,
+        27226,
         $W()
           ..i64(i)
           ..i64(base));
@@ -203,32 +203,32 @@ extension GoStrconvApi on GoStrconv {
 
   /// Go: `func strconv.IsGraphic(r rune) bool`.
   bool isGraphic(int r) {
-    final $r = $callSync(27226, $W()..i64(r));
+    final $r = $callSync(27227, $W()..i64(r));
     return $r.b();
   }
 
   /// Go: `func strconv.IsPrint(r rune) bool`.
   bool isPrint(int r) {
-    final $r = $callSync(27227, $W()..i64(r));
+    final $r = $callSync(27228, $W()..i64(r));
     return $r.b();
   }
 
   /// Go: `func strconv.Itoa(i int) string`.
   String itoa(int i) {
-    final $r = $callSync(27228, $W()..i64(i));
+    final $r = $callSync(27229, $W()..i64(i));
     return $r.str();
   }
 
   /// Go: `func strconv.ParseBool(str string) (bool, error)`.
   bool parseBool(String str) {
-    final $r = $callSync(27229, $W()..str(str));
+    final $r = $callSync(27230, $W()..str(str));
     return $r.b();
   }
 
   /// Go: `func strconv.ParseFloat(s string, bitSize int) (float64, error)`.
   double parseFloat(String s, int bitSize) {
     final $r = $callSync(
-        27230,
+        27231,
         $W()
           ..str(s)
           ..i64(bitSize));
@@ -238,7 +238,7 @@ extension GoStrconvApi on GoStrconv {
   /// Go: `func strconv.ParseInt(s string, base int, bitSize int) (i int64, err error)`.
   int parseInt(String s, int base, int bitSize) {
     final $r = $callSync(
-        27231,
+        27232,
         $W()
           ..str(s)
           ..i64(base)
@@ -249,7 +249,7 @@ extension GoStrconvApi on GoStrconv {
   /// Go: `func strconv.ParseUint(s string, base int, bitSize int) (uint64, error)`.
   int parseUint(String s, int base, int bitSize) {
     final $r = $callSync(
-        27232,
+        27233,
         $W()
           ..str(s)
           ..i64(base)
@@ -259,56 +259,56 @@ extension GoStrconvApi on GoStrconv {
 
   /// Go: `func strconv.Quote(s string) string`.
   String quote(String s) {
-    final $r = $callSync(27233, $W()..str(s));
+    final $r = $callSync(27234, $W()..str(s));
     return $r.str();
   }
 
   /// Go: `func strconv.QuoteRune(r rune) string`.
   String quoteRune(int r) {
-    final $r = $callSync(27234, $W()..i64(r));
+    final $r = $callSync(27235, $W()..i64(r));
     return $r.str();
   }
 
   /// Go: `func strconv.QuoteRuneToASCII(r rune) string`.
   String quoteRuneToAscii(int r) {
-    final $r = $callSync(27235, $W()..i64(r));
+    final $r = $callSync(27236, $W()..i64(r));
     return $r.str();
   }
 
   /// Go: `func strconv.QuoteRuneToGraphic(r rune) string`.
   String quoteRuneToGraphic(int r) {
-    final $r = $callSync(27236, $W()..i64(r));
+    final $r = $callSync(27237, $W()..i64(r));
     return $r.str();
   }
 
   /// Go: `func strconv.QuoteToASCII(s string) string`.
   String quoteToAscii(String s) {
-    final $r = $callSync(27237, $W()..str(s));
+    final $r = $callSync(27238, $W()..str(s));
     return $r.str();
   }
 
   /// Go: `func strconv.QuoteToGraphic(s string) string`.
   String quoteToGraphic(String s) {
-    final $r = $callSync(27238, $W()..str(s));
+    final $r = $callSync(27239, $W()..str(s));
     return $r.str();
   }
 
   /// Go: `func strconv.QuotedPrefix(s string) (string, error)`.
   String quotedPrefix(String s) {
-    final $r = $callSync(27239, $W()..str(s));
+    final $r = $callSync(27240, $W()..str(s));
     return $r.str();
   }
 
   /// Go: `func strconv.Unquote(s string) (string, error)`.
   String unquote(String s) {
-    final $r = $callSync(27240, $W()..str(s));
+    final $r = $callSync(27241, $W()..str(s));
     return $r.str();
   }
 
   /// Go: `func strconv.UnquoteChar(s string, quote byte) (value rune, multibyte bool, tail string, err error)`.
   (int, bool, String) unquoteChar(String s, int quote) {
     final $r = $callSync(
-        27241,
+        27242,
         $W()
           ..str(s)
           ..i64(quote));

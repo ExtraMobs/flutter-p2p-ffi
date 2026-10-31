@@ -26,7 +26,7 @@ mixin IpldPrimeStoragePeekableStorage$ on GoHandle {
   Future<(Uint8List, $io.IoCloser)> peek(
       $context.Context ctx, String key) async {
     final $r = await $call(
-        12561,
+        12567,
         $W()
           ..h(this)
           ..h(ctx)
@@ -48,52 +48,12 @@ mixin IpldPrimeStorageReadableStorage$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<Uint8List> get($context.Context ctx, String key) async {
     final $r = await $call(
-        12564,
+        12570,
         $W()
           ..h(this)
           ..h(ctx)
           ..str(key));
     return $r.bytes() ?? Uint8List(0);
-  }
-
-  /// Go: type assertion `x.(*storage.StorageCar)`: null if the object is not one.
-  $storage.CarV2StorageCar? asCarV2StorageCar() {
-    final $r = $callSync(1263, $W()..h(this));
-    return $r.hn($storage.CarV2StorageCar.$h);
-  }
-
-  /// Go: type assertion `x.(*bsadapter.Adapter)`: null if the object is not one.
-  $bsadapter.IpldPrimeStorageBsadapterAdapter?
-      asIpldPrimeStorageBsadapterAdapter() {
-    final $r = $callSync(1264, $W()..h(this));
-    return $r.hn($bsadapter.IpldPrimeStorageBsadapterAdapter.$h);
-  }
-
-  /// Go: type assertion `x.(storage.ReadableCar)`: null if the object is not one.
-  $storage.CarV2StorageReadableCar? asCarV2StorageReadableCar() {
-    final $r = $callSync(1265, $W()..h(this));
-    return $r.hn($storage.CarV2StorageReadableCar.$h);
-  }
-}
-
-/// Go: `storage.Storage` (handle).
-class IpldPrimeStorage extends GoHandle with IpldPrimeStorage$ {
-  IpldPrimeStorage.$h(super.$h);
-}
-
-/// The methods of [IpldPrimeStorage], mixed into every class Go also accepts as one.
-mixin IpldPrimeStorage$ on GoHandle {
-  /// Go: `func (storage.Storage).Has(ctx context.Context, key string) (bool, error)`.
-  ///
-  /// Asynchronous: runs in a goroutine of the service.
-  Future<bool> has($context.Context ctx, String key) async {
-    final $r = await $call(
-        12565,
-        $W()
-          ..h(this)
-          ..h(ctx)
-          ..str(key));
-    return $r.b();
   }
 
   /// Go: type assertion `x.(*storage.StorageCar)`: null if the object is not one.
@@ -114,22 +74,62 @@ mixin IpldPrimeStorage$ on GoHandle {
     final $r = $callSync(1268, $W()..h(this));
     return $r.hn($storage.CarV2StorageReadableCar.$h);
   }
+}
+
+/// Go: `storage.Storage` (handle).
+class IpldPrimeStorage extends GoHandle with IpldPrimeStorage$ {
+  IpldPrimeStorage.$h(super.$h);
+}
+
+/// The methods of [IpldPrimeStorage], mixed into every class Go also accepts as one.
+mixin IpldPrimeStorage$ on GoHandle {
+  /// Go: `func (storage.Storage).Has(ctx context.Context, key string) (bool, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<bool> has($context.Context ctx, String key) async {
+    final $r = await $call(
+        12571,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(key));
+    return $r.b();
+  }
+
+  /// Go: type assertion `x.(*storage.StorageCar)`: null if the object is not one.
+  $storage.CarV2StorageCar? asCarV2StorageCar() {
+    final $r = $callSync(1269, $W()..h(this));
+    return $r.hn($storage.CarV2StorageCar.$h);
+  }
+
+  /// Go: type assertion `x.(*bsadapter.Adapter)`: null if the object is not one.
+  $bsadapter.IpldPrimeStorageBsadapterAdapter?
+      asIpldPrimeStorageBsadapterAdapter() {
+    final $r = $callSync(1270, $W()..h(this));
+    return $r.hn($bsadapter.IpldPrimeStorageBsadapterAdapter.$h);
+  }
+
+  /// Go: type assertion `x.(storage.ReadableCar)`: null if the object is not one.
+  $storage.CarV2StorageReadableCar? asCarV2StorageReadableCar() {
+    final $r = $callSync(1271, $W()..h(this));
+    return $r.hn($storage.CarV2StorageReadableCar.$h);
+  }
 
   /// Go: type assertion `x.(storage.WritableCar)`: null if the object is not one.
   $storage.CarV2StorageWritableCar? asCarV2StorageWritableCar() {
-    final $r = $callSync(1269, $W()..h(this));
+    final $r = $callSync(1272, $W()..h(this));
     return $r.hn($storage.CarV2StorageWritableCar.$h);
   }
 
   /// Go: type assertion `x.(storage.ReadableStorage)`: null if the object is not one.
   IpldPrimeStorageReadableStorage? asIpldPrimeStorageReadableStorage() {
-    final $r = $callSync(1270, $W()..h(this));
+    final $r = $callSync(1273, $W()..h(this));
     return $r.hn(IpldPrimeStorageReadableStorage.$h);
   }
 
   /// Go: type assertion `x.(storage.WritableStorage)`: null if the object is not one.
   IpldPrimeStorageWritableStorage? asIpldPrimeStorageWritableStorage() {
-    final $r = $callSync(1271, $W()..h(this));
+    final $r = $callSync(1274, $W()..h(this));
     return $r.hn(IpldPrimeStorageWritableStorage.$h);
   }
 }
@@ -147,7 +147,7 @@ mixin IpldPrimeStorageStreamingReadableStorage$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<$io.IoReadCloser> getStream($context.Context ctx, String key) async {
     final $r = await $call(
-        12566,
+        12572,
         $W()
           ..h(this)
           ..h(ctx)
@@ -157,13 +157,13 @@ mixin IpldPrimeStorageStreamingReadableStorage$ on GoHandle {
 
   /// Go: type assertion `x.(*storage.StorageCar)`: null if the object is not one.
   $storage.CarV2StorageCar? asCarV2StorageCar() {
-    final $r = $callSync(1272, $W()..h(this));
+    final $r = $callSync(1275, $W()..h(this));
     return $r.hn($storage.CarV2StorageCar.$h);
   }
 
   /// Go: type assertion `x.(storage.ReadableCar)`: null if the object is not one.
   $storage.CarV2StorageReadableCar? asCarV2StorageReadableCar() {
-    final $r = $callSync(1273, $W()..h(this));
+    final $r = $callSync(1276, $W()..h(this));
     return $r.hn($storage.CarV2StorageReadableCar.$h);
   }
 }
@@ -182,7 +182,7 @@ mixin IpldPrimeStorageVectorWritableStorage$ on GoHandle {
   Future<void> putVec(
       $context.Context ctx, String key, List<Uint8List> blobVec) async {
     await $call(
-        12567,
+        12573,
         $W()
           ..h(this)
           ..h(ctx)
@@ -204,7 +204,7 @@ mixin IpldPrimeStorageWritableStorage$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> put($context.Context ctx, String key, Uint8List content) async {
     await $call(
-        12568,
+        12574,
         $W()
           ..h(this)
           ..h(ctx)
@@ -214,20 +214,20 @@ mixin IpldPrimeStorageWritableStorage$ on GoHandle {
 
   /// Go: type assertion `x.(*storage.StorageCar)`: null if the object is not one.
   $storage.CarV2StorageCar? asCarV2StorageCar() {
-    final $r = $callSync(1274, $W()..h(this));
+    final $r = $callSync(1277, $W()..h(this));
     return $r.hn($storage.CarV2StorageCar.$h);
   }
 
   /// Go: type assertion `x.(*bsadapter.Adapter)`: null if the object is not one.
   $bsadapter.IpldPrimeStorageBsadapterAdapter?
       asIpldPrimeStorageBsadapterAdapter() {
-    final $r = $callSync(1275, $W()..h(this));
+    final $r = $callSync(1278, $W()..h(this));
     return $r.hn($bsadapter.IpldPrimeStorageBsadapterAdapter.$h);
   }
 
   /// Go: type assertion `x.(storage.WritableCar)`: null if the object is not one.
   $storage.CarV2StorageWritableCar? asCarV2StorageWritableCar() {
-    final $r = $callSync(1276, $W()..h(this));
+    final $r = $callSync(1279, $W()..h(this));
     return $r.hn($storage.CarV2StorageWritableCar.$h);
   }
 }
@@ -240,7 +240,7 @@ extension GoIpldIpldPrimeStorageApi on GoIpldIpldPrimeStorage {
   Future<Uint8List> get($context.Context ctx,
       IpldPrimeStorageReadableStorage store, String key) async {
     final $r = await $call(
-        12557,
+        12563,
         $W()
           ..h(ctx)
           ..h(store)
@@ -254,7 +254,7 @@ extension GoIpldIpldPrimeStorageApi on GoIpldIpldPrimeStorage {
   Future<$io.IoReadCloser> getStream($context.Context ctx,
       IpldPrimeStorageReadableStorage store, String key) async {
     final $r = await $call(
-        12558,
+        12564,
         $W()
           ..h(ctx)
           ..h(store)
@@ -268,7 +268,7 @@ extension GoIpldIpldPrimeStorageApi on GoIpldIpldPrimeStorage {
   Future<bool> has(
       $context.Context ctx, IpldPrimeStorage store, String key) async {
     final $r = await $call(
-        12559,
+        12565,
         $W()
           ..h(ctx)
           ..h(store)
@@ -282,7 +282,7 @@ extension GoIpldIpldPrimeStorageApi on GoIpldIpldPrimeStorage {
   Future<(Uint8List, $io.IoCloser)> peek($context.Context ctx,
       IpldPrimeStorageReadableStorage store, String key) async {
     final $r = await $call(
-        12560,
+        12566,
         $W()
           ..h(ctx)
           ..h(store)
@@ -296,7 +296,7 @@ extension GoIpldIpldPrimeStorageApi on GoIpldIpldPrimeStorage {
   Future<void> put($context.Context ctx, IpldPrimeStorageWritableStorage store,
       String key, Uint8List content) async {
     await $call(
-        12562,
+        12568,
         $W()
           ..h(ctx)
           ..h(store)
@@ -313,7 +313,7 @@ extension GoIpldIpldPrimeStorageApi on GoIpldIpldPrimeStorage {
       String key,
       List<Uint8List> blobVec) async {
     await $call(
-        12563,
+        12569,
         $W()
           ..h(ctx)
           ..h(store)

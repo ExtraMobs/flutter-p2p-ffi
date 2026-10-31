@@ -48,47 +48,47 @@ class GrpcBinarylogGrpcBinarylogV1Address
   /// Go: `func (*grpc_binarylog_v1.Address).Descriptor() ([]byte, []int)`.
   @Deprecated("Use Address.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(24412, $W()..h(this));
+    final $r = $callSync(24418, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*grpc_binarylog_v1.Address).GetAddress() string`.
   String getAddress() {
-    final $r = $callSync(24413, $W()..h(this));
+    final $r = $callSync(24419, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*grpc_binarylog_v1.Address).GetIpPort() uint32`.
   int getIpPort() {
-    final $r = $callSync(24414, $W()..h(this));
+    final $r = $callSync(24420, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*grpc_binarylog_v1.Address).GetType() grpc_binarylog_v1.Address_Type`.
   int getType() {
-    final $r = $callSync(24415, $W()..h(this));
+    final $r = $callSync(24421, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*grpc_binarylog_v1.Address).ProtoMessage()`.
   void protoMessage() {
-    $callSync(24416, $W()..h(this));
+    $callSync(24422, $W()..h(this));
   }
 
   /// Go: `func (*grpc_binarylog_v1.Address).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(24417, $W()..h(this));
+    final $r = $callSync(24423, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*grpc_binarylog_v1.Address).Reset()`.
   void reset() {
-    $callSync(24418, $W()..h(this));
+    $callSync(24424, $W()..h(this));
   }
 
   /// Go: `func (*grpc_binarylog_v1.Address).String() string`.
   String string() {
-    final $r = $callSync(24419, $W()..h(this));
+    final $r = $callSync(24425, $W()..h(this));
     return $r.str();
   }
 }
@@ -121,53 +121,53 @@ class GrpcBinarylogGrpcBinarylogV1ClientHeader
   /// Go: `func (*grpc_binarylog_v1.ClientHeader).Descriptor() ([]byte, []int)`.
   @Deprecated("Use ClientHeader.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(24422, $W()..h(this));
+    final $r = $callSync(24428, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*grpc_binarylog_v1.ClientHeader).GetAuthority() string`.
   String getAuthority() {
-    final $r = $callSync(24423, $W()..h(this));
+    final $r = $callSync(24429, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*grpc_binarylog_v1.ClientHeader).GetMetadata() *grpc_binarylog_v1.Metadata`.
   GrpcBinarylogGrpcBinarylogV1Metadata getMetadata() {
-    final $r = $callSync(24424, $W()..h(this));
+    final $r = $callSync(24430, $W()..h(this));
     return $r.hnn(GrpcBinarylogGrpcBinarylogV1Metadata.$h);
   }
 
   /// Go: `func (*grpc_binarylog_v1.ClientHeader).GetMethodName() string`.
   String getMethodName() {
-    final $r = $callSync(24425, $W()..h(this));
+    final $r = $callSync(24431, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*grpc_binarylog_v1.ClientHeader).GetTimeout() *durationpb.Duration`.
   $durationpb.ProtobufTypesKnownDurationpbDuration getTimeout() {
-    final $r = $callSync(24426, $W()..h(this));
+    final $r = $callSync(24432, $W()..h(this));
     return $r.hnn($durationpb.ProtobufTypesKnownDurationpbDuration.$h);
   }
 
   /// Go: `func (*grpc_binarylog_v1.ClientHeader).ProtoMessage()`.
   void protoMessage() {
-    $callSync(24427, $W()..h(this));
+    $callSync(24433, $W()..h(this));
   }
 
   /// Go: `func (*grpc_binarylog_v1.ClientHeader).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(24428, $W()..h(this));
+    final $r = $callSync(24434, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*grpc_binarylog_v1.ClientHeader).Reset()`.
   void reset() {
-    $callSync(24429, $W()..h(this));
+    $callSync(24435, $W()..h(this));
   }
 
   /// Go: `func (*grpc_binarylog_v1.ClientHeader).String() string`.
   String string() {
-    final $r = $callSync(24430, $W()..h(this));
+    final $r = $callSync(24436, $W()..h(this));
     return $r.str();
   }
 }
@@ -200,95 +200,95 @@ class GrpcBinarylogGrpcBinarylogV1GrpcLogEntry
   /// Go: `func (*grpc_binarylog_v1.GrpcLogEntry).Descriptor() ([]byte, []int)`.
   @Deprecated("Use GrpcLogEntry.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(24432, $W()..h(this));
+    final $r = $callSync(24438, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*grpc_binarylog_v1.GrpcLogEntry).GetCallId() uint64`.
   int getCallId() {
-    final $r = $callSync(24433, $W()..h(this));
+    final $r = $callSync(24439, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*grpc_binarylog_v1.GrpcLogEntry).GetClientHeader() *grpc_binarylog_v1.ClientHeader`.
   GrpcBinarylogGrpcBinarylogV1ClientHeader getClientHeader() {
-    final $r = $callSync(24434, $W()..h(this));
+    final $r = $callSync(24440, $W()..h(this));
     return $r.hnn(GrpcBinarylogGrpcBinarylogV1ClientHeader.$h);
   }
 
   /// Go: `func (*grpc_binarylog_v1.GrpcLogEntry).GetLogger() grpc_binarylog_v1.GrpcLogEntry_Logger`.
   int getLogger() {
-    final $r = $callSync(24435, $W()..h(this));
+    final $r = $callSync(24441, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*grpc_binarylog_v1.GrpcLogEntry).GetMessage() *grpc_binarylog_v1.Message`.
   GrpcBinarylogGrpcBinarylogV1Message getMessage() {
-    final $r = $callSync(24436, $W()..h(this));
+    final $r = $callSync(24442, $W()..h(this));
     return $r.hnn(GrpcBinarylogGrpcBinarylogV1Message.$h);
   }
 
   /// Go: `func (*grpc_binarylog_v1.GrpcLogEntry).GetPayloadTruncated() bool`.
   bool getPayloadTruncated() {
-    final $r = $callSync(24437, $W()..h(this));
+    final $r = $callSync(24443, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*grpc_binarylog_v1.GrpcLogEntry).GetPeer() *grpc_binarylog_v1.Address`.
   GrpcBinarylogGrpcBinarylogV1Address getPeer() {
-    final $r = $callSync(24438, $W()..h(this));
+    final $r = $callSync(24444, $W()..h(this));
     return $r.hnn(GrpcBinarylogGrpcBinarylogV1Address.$h);
   }
 
   /// Go: `func (*grpc_binarylog_v1.GrpcLogEntry).GetSequenceIdWithinCall() uint64`.
   int getSequenceIdWithinCall() {
-    final $r = $callSync(24439, $W()..h(this));
+    final $r = $callSync(24445, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*grpc_binarylog_v1.GrpcLogEntry).GetServerHeader() *grpc_binarylog_v1.ServerHeader`.
   GrpcBinarylogGrpcBinarylogV1ServerHeader getServerHeader() {
-    final $r = $callSync(24440, $W()..h(this));
+    final $r = $callSync(24446, $W()..h(this));
     return $r.hnn(GrpcBinarylogGrpcBinarylogV1ServerHeader.$h);
   }
 
   /// Go: `func (*grpc_binarylog_v1.GrpcLogEntry).GetTimestamp() *timestamppb.Timestamp`.
   $timestamppb.ProtobufTypesKnownTimestamppbTimestamp getTimestamp() {
-    final $r = $callSync(24441, $W()..h(this));
+    final $r = $callSync(24447, $W()..h(this));
     return $r.hnn($timestamppb.ProtobufTypesKnownTimestamppbTimestamp.$h);
   }
 
   /// Go: `func (*grpc_binarylog_v1.GrpcLogEntry).GetTrailer() *grpc_binarylog_v1.Trailer`.
   GrpcBinarylogGrpcBinarylogV1Trailer getTrailer() {
-    final $r = $callSync(24442, $W()..h(this));
+    final $r = $callSync(24448, $W()..h(this));
     return $r.hnn(GrpcBinarylogGrpcBinarylogV1Trailer.$h);
   }
 
   /// Go: `func (*grpc_binarylog_v1.GrpcLogEntry).GetType() grpc_binarylog_v1.GrpcLogEntry_EventType`.
   int getType() {
-    final $r = $callSync(24443, $W()..h(this));
+    final $r = $callSync(24449, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*grpc_binarylog_v1.GrpcLogEntry).ProtoMessage()`.
   void protoMessage() {
-    $callSync(24444, $W()..h(this));
+    $callSync(24450, $W()..h(this));
   }
 
   /// Go: `func (*grpc_binarylog_v1.GrpcLogEntry).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(24445, $W()..h(this));
+    final $r = $callSync(24451, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*grpc_binarylog_v1.GrpcLogEntry).Reset()`.
   void reset() {
-    $callSync(24446, $W()..h(this));
+    $callSync(24452, $W()..h(this));
   }
 
   /// Go: `func (*grpc_binarylog_v1.GrpcLogEntry).String() string`.
   String string() {
-    final $r = $callSync(24447, $W()..h(this));
+    final $r = $callSync(24453, $W()..h(this));
     return $r.str();
   }
 }
@@ -321,41 +321,41 @@ class GrpcBinarylogGrpcBinarylogV1Message
   /// Go: `func (*grpc_binarylog_v1.Message).Descriptor() ([]byte, []int)`.
   @Deprecated("Use Message.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(24452, $W()..h(this));
+    final $r = $callSync(24458, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*grpc_binarylog_v1.Message).GetData() []byte`.
   Uint8List getData() {
-    final $r = $callSync(24453, $W()..h(this));
+    final $r = $callSync(24459, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*grpc_binarylog_v1.Message).GetLength() uint32`.
   int getLength() {
-    final $r = $callSync(24454, $W()..h(this));
+    final $r = $callSync(24460, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*grpc_binarylog_v1.Message).ProtoMessage()`.
   void protoMessage() {
-    $callSync(24455, $W()..h(this));
+    $callSync(24461, $W()..h(this));
   }
 
   /// Go: `func (*grpc_binarylog_v1.Message).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(24456, $W()..h(this));
+    final $r = $callSync(24462, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*grpc_binarylog_v1.Message).Reset()`.
   void reset() {
-    $callSync(24457, $W()..h(this));
+    $callSync(24463, $W()..h(this));
   }
 
   /// Go: `func (*grpc_binarylog_v1.Message).String() string`.
   String string() {
-    final $r = $callSync(24458, $W()..h(this));
+    final $r = $callSync(24464, $W()..h(this));
     return $r.str();
   }
 }
@@ -388,35 +388,35 @@ class GrpcBinarylogGrpcBinarylogV1Metadata
   /// Go: `func (*grpc_binarylog_v1.Metadata).Descriptor() ([]byte, []int)`.
   @Deprecated("Use Metadata.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(24459, $W()..h(this));
+    final $r = $callSync(24465, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*grpc_binarylog_v1.Metadata).GetEntry() []*grpc_binarylog_v1.MetadataEntry`.
   List<GrpcBinarylogGrpcBinarylogV1MetadataEntry> getEntry() {
-    final $r = $callSync(24460, $W()..h(this));
+    final $r = $callSync(24466, $W()..h(this));
     return $r.list(() => $r.hnn(GrpcBinarylogGrpcBinarylogV1MetadataEntry.$h));
   }
 
   /// Go: `func (*grpc_binarylog_v1.Metadata).ProtoMessage()`.
   void protoMessage() {
-    $callSync(24461, $W()..h(this));
+    $callSync(24467, $W()..h(this));
   }
 
   /// Go: `func (*grpc_binarylog_v1.Metadata).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(24462, $W()..h(this));
+    final $r = $callSync(24468, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*grpc_binarylog_v1.Metadata).Reset()`.
   void reset() {
-    $callSync(24463, $W()..h(this));
+    $callSync(24469, $W()..h(this));
   }
 
   /// Go: `func (*grpc_binarylog_v1.Metadata).String() string`.
   String string() {
-    final $r = $callSync(24464, $W()..h(this));
+    final $r = $callSync(24470, $W()..h(this));
     return $r.str();
   }
 }
@@ -449,41 +449,41 @@ class GrpcBinarylogGrpcBinarylogV1MetadataEntry
   /// Go: `func (*grpc_binarylog_v1.MetadataEntry).Descriptor() ([]byte, []int)`.
   @Deprecated("Use MetadataEntry.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(24465, $W()..h(this));
+    final $r = $callSync(24471, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*grpc_binarylog_v1.MetadataEntry).GetKey() string`.
   String getKey() {
-    final $r = $callSync(24466, $W()..h(this));
+    final $r = $callSync(24472, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*grpc_binarylog_v1.MetadataEntry).GetValue() []byte`.
   Uint8List getValue() {
-    final $r = $callSync(24467, $W()..h(this));
+    final $r = $callSync(24473, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*grpc_binarylog_v1.MetadataEntry).ProtoMessage()`.
   void protoMessage() {
-    $callSync(24468, $W()..h(this));
+    $callSync(24474, $W()..h(this));
   }
 
   /// Go: `func (*grpc_binarylog_v1.MetadataEntry).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(24469, $W()..h(this));
+    final $r = $callSync(24475, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*grpc_binarylog_v1.MetadataEntry).Reset()`.
   void reset() {
-    $callSync(24470, $W()..h(this));
+    $callSync(24476, $W()..h(this));
   }
 
   /// Go: `func (*grpc_binarylog_v1.MetadataEntry).String() string`.
   String string() {
-    final $r = $callSync(24471, $W()..h(this));
+    final $r = $callSync(24477, $W()..h(this));
     return $r.str();
   }
 }
@@ -516,35 +516,35 @@ class GrpcBinarylogGrpcBinarylogV1ServerHeader
   /// Go: `func (*grpc_binarylog_v1.ServerHeader).Descriptor() ([]byte, []int)`.
   @Deprecated("Use ServerHeader.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(24472, $W()..h(this));
+    final $r = $callSync(24478, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*grpc_binarylog_v1.ServerHeader).GetMetadata() *grpc_binarylog_v1.Metadata`.
   GrpcBinarylogGrpcBinarylogV1Metadata getMetadata() {
-    final $r = $callSync(24473, $W()..h(this));
+    final $r = $callSync(24479, $W()..h(this));
     return $r.hnn(GrpcBinarylogGrpcBinarylogV1Metadata.$h);
   }
 
   /// Go: `func (*grpc_binarylog_v1.ServerHeader).ProtoMessage()`.
   void protoMessage() {
-    $callSync(24474, $W()..h(this));
+    $callSync(24480, $W()..h(this));
   }
 
   /// Go: `func (*grpc_binarylog_v1.ServerHeader).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(24475, $W()..h(this));
+    final $r = $callSync(24481, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*grpc_binarylog_v1.ServerHeader).Reset()`.
   void reset() {
-    $callSync(24476, $W()..h(this));
+    $callSync(24482, $W()..h(this));
   }
 
   /// Go: `func (*grpc_binarylog_v1.ServerHeader).String() string`.
   String string() {
-    final $r = $callSync(24477, $W()..h(this));
+    final $r = $callSync(24483, $W()..h(this));
     return $r.str();
   }
 }
@@ -577,53 +577,53 @@ class GrpcBinarylogGrpcBinarylogV1Trailer
   /// Go: `func (*grpc_binarylog_v1.Trailer).Descriptor() ([]byte, []int)`.
   @Deprecated("Use Trailer.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(24478, $W()..h(this));
+    final $r = $callSync(24484, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*grpc_binarylog_v1.Trailer).GetMetadata() *grpc_binarylog_v1.Metadata`.
   GrpcBinarylogGrpcBinarylogV1Metadata getMetadata() {
-    final $r = $callSync(24479, $W()..h(this));
+    final $r = $callSync(24485, $W()..h(this));
     return $r.hnn(GrpcBinarylogGrpcBinarylogV1Metadata.$h);
   }
 
   /// Go: `func (*grpc_binarylog_v1.Trailer).GetStatusCode() uint32`.
   int getStatusCode() {
-    final $r = $callSync(24480, $W()..h(this));
+    final $r = $callSync(24486, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*grpc_binarylog_v1.Trailer).GetStatusDetails() []byte`.
   Uint8List getStatusDetails() {
-    final $r = $callSync(24481, $W()..h(this));
+    final $r = $callSync(24487, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*grpc_binarylog_v1.Trailer).GetStatusMessage() string`.
   String getStatusMessage() {
-    final $r = $callSync(24482, $W()..h(this));
+    final $r = $callSync(24488, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*grpc_binarylog_v1.Trailer).ProtoMessage()`.
   void protoMessage() {
-    $callSync(24483, $W()..h(this));
+    $callSync(24489, $W()..h(this));
   }
 
   /// Go: `func (*grpc_binarylog_v1.Trailer).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(24484, $W()..h(this));
+    final $r = $callSync(24490, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*grpc_binarylog_v1.Trailer).Reset()`.
   void reset() {
-    $callSync(24485, $W()..h(this));
+    $callSync(24491, $W()..h(this));
   }
 
   /// Go: `func (*grpc_binarylog_v1.Trailer).String() string`.
   String string() {
-    final $r = $callSync(24486, $W()..h(this));
+    final $r = $callSync(24492, $W()..h(this));
     return $r.str();
   }
 }
@@ -632,44 +632,44 @@ class GrpcBinarylogGrpcBinarylogV1Trailer
 extension GoGrpcBinarylogGrpcBinarylogV1Api on GoGrpcBinarylogGrpcBinarylogV1 {
   /// Go: `var grpc_binarylog_v1.Address_Type_name map[int32]string`.
   Map<int, String> get addressTypeName {
-    final $r = $callSync(24420);
+    final $r = $callSync(24426);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var grpc_binarylog_v1.Address_Type_value map[string]int32`.
   Map<String, int> get addressTypeValue {
-    final $r = $callSync(24421);
+    final $r = $callSync(24427);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `var grpc_binarylog_v1.File_grpc_binlog_v1_binarylog_proto protoreflect.FileDescriptor`.
   $protoreflect.ProtobufReflectProtoreflectFileDescriptor
       get fileGrpcBinlogV1BinarylogProto {
-    final $r = $callSync(24431);
+    final $r = $callSync(24437);
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectFileDescriptor.$h);
   }
 
   /// Go: `var grpc_binarylog_v1.GrpcLogEntry_EventType_name map[int32]string`.
   Map<int, String> get grpcLogEntryEventTypeName {
-    final $r = $callSync(24448);
+    final $r = $callSync(24454);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var grpc_binarylog_v1.GrpcLogEntry_EventType_value map[string]int32`.
   Map<String, int> get grpcLogEntryEventTypeValue {
-    final $r = $callSync(24449);
+    final $r = $callSync(24455);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `var grpc_binarylog_v1.GrpcLogEntry_Logger_name map[int32]string`.
   Map<int, String> get grpcLogEntryLoggerName {
-    final $r = $callSync(24450);
+    final $r = $callSync(24456);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var grpc_binarylog_v1.GrpcLogEntry_Logger_value map[string]int32`.
   Map<String, int> get grpcLogEntryLoggerValue {
-    final $r = $callSync(24451);
+    final $r = $callSync(24457);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 }

@@ -9,13 +9,13 @@ import 'package:p2p_ffi/src/runtime.dart';
 extension GoHtmlApi on GoHtml {
   /// Go: `func html.EscapeString(s string) string`.
   String escapeString(String s) {
-    final $r = $callSync(25670, $W()..str(s));
+    final $r = $callSync(25676, $W()..str(s));
     return $r.str();
   }
 
   /// Go: `func html.UnescapeString(s string) string`.
   String unescapeString(String s) {
-    final $r = $callSync(25671, $W()..str(s));
+    final $r = $callSync(25677, $W()..str(s));
     return $r.str();
   }
 }

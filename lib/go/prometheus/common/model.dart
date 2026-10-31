@@ -46,26 +46,26 @@ final class CommonModelAlert implements GoDto {
 
   /// Go: `func (*model.Alert).Fingerprint() model.Fingerprint`.
   int fingerprint() {
-    final $r = $callSync(18192, $W()..dto(this));
+    final $r = $callSync(18198, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*model.Alert).Name() string`.
   String name() {
-    final $r = $callSync(18193, $W()..dto(this));
+    final $r = $callSync(18199, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*model.Alert).Resolved() bool`.
   bool resolved() {
-    final $r = $callSync(18194, $W()..dto(this));
+    final $r = $callSync(18200, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*model.Alert).ResolvedAt(ts time.Time) bool`.
   bool resolvedAt(DateTime ts) {
     final $r = $callSync(
-        18195,
+        18201,
         $W()
           ..dto(this)
           ..time(ts));
@@ -74,14 +74,14 @@ final class CommonModelAlert implements GoDto {
 
   /// Go: `func (*model.Alert).Status() model.AlertStatus`.
   String status() {
-    final $r = $callSync(18196, $W()..dto(this));
+    final $r = $callSync(18202, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*model.Alert).StatusAt(ts time.Time) model.AlertStatus`.
   String statusAt(DateTime ts) {
     final $r = $callSync(
-        18197,
+        18203,
         $W()
           ..dto(this)
           ..time(ts));
@@ -90,13 +90,13 @@ final class CommonModelAlert implements GoDto {
 
   /// Go: `func (*model.Alert).String() string`.
   String string() {
-    final $r = $callSync(18198, $W()..dto(this));
+    final $r = $callSync(18204, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*model.Alert).Validate() error`.
   void validate() {
-    $callSync(18199, $W()..dto(this));
+    $callSync(18205, $W()..dto(this));
   }
 }
 
@@ -139,7 +139,7 @@ final class CommonModelHistogramBucket implements GoDto {
   /// Go: `func (*model.HistogramBucket).Equal(o *model.HistogramBucket) bool`.
   bool equal(CommonModelHistogramBucket o) {
     final $r = $callSync(
-        18203,
+        18209,
         $W()
           ..dto(this)
           ..dto(o));
@@ -148,20 +148,20 @@ final class CommonModelHistogramBucket implements GoDto {
 
   /// Go: `func (model.HistogramBucket).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(18204, $W()..dto(this));
+    final $r = $callSync(18210, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (model.HistogramBucket).String() string`.
   String string() {
-    final $r = $callSync(18205, $W()..dto(this));
+    final $r = $callSync(18211, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*model.HistogramBucket).UnmarshalJSON(buf []byte) error`.
   void unmarshalJson(Uint8List buf) {
     $callSync(
-        18206,
+        18212,
         $W()
           ..dto(this)
           ..bytes(buf));
@@ -200,7 +200,7 @@ final class CommonModelMatcher implements GoDto {
   /// Go: `func (*model.Matcher).UnmarshalJSON(b []byte) error`.
   void unmarshalJson(Uint8List b) {
     $callSync(
-        18211,
+        18217,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -208,7 +208,7 @@ final class CommonModelMatcher implements GoDto {
 
   /// Go: `func (*model.Matcher).Validate() error`.
   void validate() {
-    $callSync(18212, $W()..dto(this));
+    $callSync(18218, $W()..dto(this));
   }
 }
 
@@ -247,7 +247,7 @@ final class CommonModelSample implements GoDto {
   /// Go: `func (*model.Sample).Equal(o *model.Sample) bool`.
   bool equal(CommonModelSample o) {
     final $r = $callSync(
-        18220,
+        18226,
         $W()
           ..dto(this)
           ..dto(o));
@@ -256,20 +256,20 @@ final class CommonModelSample implements GoDto {
 
   /// Go: `func (model.Sample).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(18221, $W()..dto(this));
+    final $r = $callSync(18227, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (model.Sample).String() string`.
   String string() {
-    final $r = $callSync(18222, $W()..dto(this));
+    final $r = $callSync(18228, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*model.Sample).UnmarshalJSON(b []byte) error`.
   void unmarshalJson(Uint8List b) {
     $callSync(
-        18223,
+        18229,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -310,7 +310,7 @@ final class CommonModelSampleHistogram implements GoDto {
   /// Go: `func (*model.SampleHistogram).Equal(o *model.SampleHistogram) bool`.
   bool equal(CommonModelSampleHistogram o) {
     final $r = $callSync(
-        18224,
+        18230,
         $W()
           ..dto(this)
           ..dto(o));
@@ -319,7 +319,7 @@ final class CommonModelSampleHistogram implements GoDto {
 
   /// Go: `func (model.SampleHistogram).String() string`.
   String string() {
-    final $r = $callSync(18225, $W()..dto(this));
+    final $r = $callSync(18231, $W()..dto(this));
     return $r.str();
   }
 }
@@ -351,7 +351,7 @@ final class CommonModelSampleHistogramPair implements GoDto {
   /// Go: `func (*model.SampleHistogramPair).Equal(o *model.SampleHistogramPair) bool`.
   bool equal(CommonModelSampleHistogramPair o) {
     final $r = $callSync(
-        18226,
+        18232,
         $W()
           ..dto(this)
           ..dto(o));
@@ -360,20 +360,20 @@ final class CommonModelSampleHistogramPair implements GoDto {
 
   /// Go: `func (model.SampleHistogramPair).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(18227, $W()..dto(this));
+    final $r = $callSync(18233, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (model.SampleHistogramPair).String() string`.
   String string() {
-    final $r = $callSync(18228, $W()..dto(this));
+    final $r = $callSync(18234, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*model.SampleHistogramPair).UnmarshalJSON(buf []byte) error`.
   void unmarshalJson(Uint8List buf) {
     $callSync(
-        18229,
+        18235,
         $W()
           ..dto(this)
           ..bytes(buf));
@@ -406,7 +406,7 @@ final class CommonModelSamplePair implements GoDto {
   /// Go: `func (*model.SamplePair).Equal(o *model.SamplePair) bool`.
   bool equal(CommonModelSamplePair o) {
     final $r = $callSync(
-        18230,
+        18236,
         $W()
           ..dto(this)
           ..dto(o));
@@ -415,20 +415,20 @@ final class CommonModelSamplePair implements GoDto {
 
   /// Go: `func (model.SamplePair).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(18231, $W()..dto(this));
+    final $r = $callSync(18237, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (model.SamplePair).String() string`.
   String string() {
-    final $r = $callSync(18232, $W()..dto(this));
+    final $r = $callSync(18238, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*model.SamplePair).UnmarshalJSON(b []byte) error`.
   void unmarshalJson(Uint8List b) {
     $callSync(
-        18233,
+        18239,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -465,20 +465,20 @@ final class CommonModelSampleStream implements GoDto {
 
   /// Go: `func (model.SampleStream).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(18234, $W()..dto(this));
+    final $r = $callSync(18240, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (model.SampleStream).String() string`.
   String string() {
-    final $r = $callSync(18235, $W()..dto(this));
+    final $r = $callSync(18241, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*model.SampleStream).UnmarshalJSON(b []byte) error`.
   void unmarshalJson(Uint8List b) {
     $callSync(
-        18236,
+        18242,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -510,26 +510,26 @@ final class CommonModelScalar implements GoDto {
 
   /// Go: `func (model.Scalar).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(18237, $W()..dto(this));
+    final $r = $callSync(18243, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (model.Scalar).String() string`.
   String string() {
-    final $r = $callSync(18238, $W()..dto(this));
+    final $r = $callSync(18244, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*model.Scalar).Type() model.ValueType`.
   int type() {
-    final $r = $callSync(18239, $W()..dto(this));
+    final $r = $callSync(18245, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*model.Scalar).UnmarshalJSON(b []byte) error`.
   void unmarshalJson(Uint8List b) {
     $callSync(
-        18240,
+        18246,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -601,7 +601,7 @@ final class CommonModelSilence implements GoDto {
 
   /// Go: `func (*model.Silence).Validate() error`.
   void validate() {
-    $callSync(18241, $W()..dto(this));
+    $callSync(18247, $W()..dto(this));
   }
 }
 
@@ -630,26 +630,26 @@ final class CommonModelString implements GoDto {
 
   /// Go: `func (model.String).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(18242, $W()..dto(this));
+    final $r = $callSync(18248, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*model.String).String() string`.
   String string() {
-    final $r = $callSync(18243, $W()..dto(this));
+    final $r = $callSync(18249, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*model.String).Type() model.ValueType`.
   int type() {
-    final $r = $callSync(18244, $W()..dto(this));
+    final $r = $callSync(18250, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*model.String).UnmarshalJSON(b []byte) error`.
   void unmarshalJson(Uint8List b) {
     $callSync(
-        18245,
+        18251,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -662,7 +662,7 @@ extension GoPrometheusCommonModelApi on GoPrometheusCommonModel {
   $go.ClientModelGoMetricFamily escapeMetricFamily(
       $go.ClientModelGoMetricFamily v, int scheme) {
     final $r = $callSync(
-        18200,
+        18206,
         $W()
           ..h(v)
           ..i64(scheme));
@@ -672,7 +672,7 @@ extension GoPrometheusCommonModelApi on GoPrometheusCommonModel {
   /// Go: `func model.EscapeName(name string, scheme model.EscapingScheme) string`.
   String escapeName(String name, int scheme) {
     final $r = $callSync(
-        18201,
+        18207,
         $W()
           ..str(name)
           ..i64(scheme));
@@ -681,7 +681,7 @@ extension GoPrometheusCommonModelApi on GoPrometheusCommonModel {
 
   /// Go: `func model.FingerprintFromString(s string) (model.Fingerprint, error)`.
   int fingerprintFromString(String s) {
-    final $r = $callSync(18202, $W()..str(s));
+    final $r = $callSync(18208, $W()..str(s));
     return $r.i64();
   }
 
@@ -689,7 +689,7 @@ extension GoPrometheusCommonModelApi on GoPrometheusCommonModel {
   @Deprecated(
       "This function should not be used and might be removed in the future. Use [LegacyValidation.IsValidMetricName] instead.")
   bool isValidLegacyMetricName(String n) {
-    final $r = $callSync(18207, $W()..str(n));
+    final $r = $callSync(18213, $W()..str(n));
     return $r.b();
   }
 
@@ -697,32 +697,32 @@ extension GoPrometheusCommonModelApi on GoPrometheusCommonModel {
   @Deprecated(
       "This function should not be used and might be removed in the future. Use [ValidationScheme.IsValidMetricName] instead.")
   bool isValidMetricName(String n) {
-    final $r = $callSync(18208, $W()..str(n));
+    final $r = $callSync(18214, $W()..str(n));
     return $r.b();
   }
 
   /// Go: `var model.LabelNameRE *regexp.Regexp`.
   $regexp.Regexp get labelNameRe {
-    final $r = $callSync(18209);
+    final $r = $callSync(18215);
     return $r.hnn($regexp.Regexp.$h);
   }
 
   /// Go: `func model.LabelsToSignature(labels map[string]string) uint64`.
   int labelsToSignature(Map<String, String> labels) {
-    final $r = $callSync(18210,
+    final $r = $callSync(18216,
         $W()..map(labels, (w0, k0) => w0.str(k0), (w0, v0) => w0.str(v0)));
     return $r.i64();
   }
 
   /// Go: `var model.MetricNameRE *regexp.Regexp`.
   $regexp.Regexp get metricNameRe {
-    final $r = $callSync(18213);
+    final $r = $callSync(18219);
     return $r.hnn($regexp.Regexp.$h);
   }
 
   /// Go: `var model.NameEscapingScheme model.EscapingScheme`.
   int get nameEscapingScheme {
-    final $r = $callSync(18214);
+    final $r = $callSync(18220);
     return $r.i64();
   }
 
@@ -730,56 +730,56 @@ extension GoPrometheusCommonModelApi on GoPrometheusCommonModel {
   @Deprecated(
       "This variable should not be used and might be removed in the far future. If you wish to stick to the legacy name validation use `IsValidLegacyMetricName()` and `LabelName.IsValidLegacy()` methods instead. This variable is here as an escape hatch for emergency cases, given the recent change from `LegacyValidation` to `UTF8Validation`, e.g., to delay UTF-8 migrations in time or aid in debugging unforeseen results of the change. In such a case, a temporary assignment to `LegacyValidation` value in the `init()` function in your main.go or so, could be considered.")
   int get nameValidationScheme {
-    final $r = $callSync(18215);
+    final $r = $callSync(18221);
     return $r.i64();
   }
 
   /// Go: `func model.Now() model.Time`.
   int now() {
-    final $r = $callSync(18216);
+    final $r = $callSync(18222);
     return $r.i64();
   }
 
   /// Go: `func model.ParseDuration(s string) (model.Duration, error)`.
   int parseDuration(String s) {
-    final $r = $callSync(18217, $W()..str(s));
+    final $r = $callSync(18223, $W()..str(s));
     return $r.i64();
   }
 
   /// Go: `func model.ParseDurationAllowNegative(s string) (model.Duration, error)`.
   int parseDurationAllowNegative(String s) {
-    final $r = $callSync(18218, $W()..str(s));
+    final $r = $callSync(18224, $W()..str(s));
     return $r.i64();
   }
 
   /// Go: `func model.ParseFingerprint(s string) (model.Fingerprint, error)`.
   int parseFingerprint(String s) {
-    final $r = $callSync(18219, $W()..str(s));
+    final $r = $callSync(18225, $W()..str(s));
     return $r.i64();
   }
 
   /// Go: `func model.TimeFromUnix(t int64) model.Time`.
   int timeFromUnix(int t) {
-    final $r = $callSync(18246, $W()..i64(t));
+    final $r = $callSync(18252, $W()..i64(t));
     return $r.i64();
   }
 
   /// Go: `func model.TimeFromUnixNano(t int64) model.Time`.
   int timeFromUnixNano(int t) {
-    final $r = $callSync(18247, $W()..i64(t));
+    final $r = $callSync(18253, $W()..i64(t));
     return $r.i64();
   }
 
   /// Go: `func model.ToEscapingScheme(s string) (model.EscapingScheme, error)`.
   int toEscapingScheme(String s) {
-    final $r = $callSync(18248, $W()..str(s));
+    final $r = $callSync(18254, $W()..str(s));
     return $r.i64();
   }
 
   /// Go: `func model.UnescapeName(name string, scheme model.EscapingScheme) string`.
   String unescapeName(String name, int scheme) {
     final $r = $callSync(
-        18249,
+        18255,
         $W()
           ..str(name)
           ..i64(scheme));
@@ -788,13 +788,13 @@ extension GoPrometheusCommonModelApi on GoPrometheusCommonModel {
 
   /// Go: `var model.ZeroSample model.Sample`.
   CommonModelSample get zeroSample {
-    final $r = $callSync(18250);
+    final $r = $callSync(18256);
     return $r.p() ? CommonModelSample.$dec($r) : $nil();
   }
 
   /// Go: `var model.ZeroSamplePair model.SamplePair`.
   CommonModelSamplePair get zeroSamplePair {
-    final $r = $callSync(18251);
+    final $r = $callSync(18257);
     return $r.p() ? CommonModelSamplePair.$dec($r) : $nil();
   }
 }

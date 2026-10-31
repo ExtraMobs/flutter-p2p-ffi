@@ -20,7 +20,7 @@ mixin Libp2pCoreProtocolNegotiator$ on GoHandle {
   /// Go: `func (protocol.Negotiator).Handle(rwc io.ReadWriteCloser) error`.
   void handle(Object rwc) {
     $callSync(
-        14250,
+        14256,
         $W()
           ..h(this)
           ..reader(rwc));
@@ -28,7 +28,7 @@ mixin Libp2pCoreProtocolNegotiator$ on GoHandle {
 
   /// Go: type assertion `x.(protocol.Switch)`: null if the object is not one.
   Libp2pCoreProtocolSwitch? asLibp2pCoreProtocolSwitch() {
-    final $r = $callSync(1379, $W()..h(this));
+    final $r = $callSync(1382, $W()..h(this));
     return $r.hn(Libp2pCoreProtocolSwitch.$h);
   }
 }
@@ -52,7 +52,7 @@ mixin Libp2pCoreProtocolRouter$ on GoHandle {
       FutureOr<void> Function(String protocol, $io.IoReadWriteCloser rwc)
           handler) async {
     await $call(
-        14251,
+        14257,
         $W()
           ..h(this)
           ..str(protocol)
@@ -72,7 +72,7 @@ mixin Libp2pCoreProtocolRouter$ on GoHandle {
       FutureOr<void> Function(String protocol, $io.IoReadWriteCloser rwc)
           handler) async {
     await $call(
-        14252,
+        14258,
         $W()
           ..h(this)
           ..str(protocol)
@@ -82,14 +82,14 @@ mixin Libp2pCoreProtocolRouter$ on GoHandle {
 
   /// Go: `func (protocol.Router).Protocols() []protocol.ID`.
   List<String> protocols() {
-    final $r = $callSync(14253, $W()..h(this));
+    final $r = $callSync(14259, $W()..h(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (protocol.Router).RemoveHandler(protocol protocol.ID)`.
   void removeHandler(String protocol) {
     $callSync(
-        14254,
+        14260,
         $W()
           ..h(this)
           ..str(protocol));
@@ -97,7 +97,7 @@ mixin Libp2pCoreProtocolRouter$ on GoHandle {
 
   /// Go: type assertion `x.(protocol.Switch)`: null if the object is not one.
   Libp2pCoreProtocolSwitch? asLibp2pCoreProtocolSwitch() {
-    final $r = $callSync(1380, $W()..h(this));
+    final $r = $callSync(1383, $W()..h(this));
     return $r.hn(Libp2pCoreProtocolSwitch.$h);
   }
 }
@@ -116,13 +116,13 @@ mixin Libp2pCoreProtocolSwitch$ on GoHandle {}
 extension GoLibp2pLibp2pCoreProtocolApi on GoLibp2pLibp2pCoreProtocol {
   /// Go: `func protocol.ConvertFromStrings(ids []string) (res []protocol.ID)`.
   List<String> convertFromStrings(List<String> ids) {
-    final $r = $callSync(14248, $W()..list(ids, (w0, e0) => w0.str(e0)));
+    final $r = $callSync(14254, $W()..list(ids, (w0, e0) => w0.str(e0)));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func protocol.ConvertToStrings(ids []protocol.ID) (res []string)`.
   List<String> convertToStrings(List<String> ids) {
-    final $r = $callSync(14249, $W()..list(ids, (w0, e0) => w0.str(e0)));
+    final $r = $callSync(14255, $W()..list(ids, (w0, e0) => w0.str(e0)));
     return $r.list(() => $r.str());
   }
 }

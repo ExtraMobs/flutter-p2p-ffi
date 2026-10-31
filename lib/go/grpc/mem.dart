@@ -24,30 +24,30 @@ class GrpcMemBuffer extends GoHandle with GrpcMemBuffer$ {
 mixin GrpcMemBuffer$ on GoHandle {
   /// Go: `func (mem.Buffer).Free()`.
   void free() {
-    $callSync(24657, $W()..h(this));
+    $callSync(24663, $W()..h(this));
   }
 
   /// Go: `func (mem.Buffer).Len() int`.
   int len() {
-    final $r = $callSync(24658, $W()..h(this));
+    final $r = $callSync(24664, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (mem.Buffer).ReadOnlyData() []byte`.
   Uint8List readOnlyData() {
-    final $r = $callSync(24659, $W()..h(this));
+    final $r = $callSync(24665, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (mem.Buffer).Ref()`.
   void ref() {
-    $callSync(24660, $W()..h(this));
+    $callSync(24666, $W()..h(this));
   }
 
   /// Go: `func (mem.Buffer).Slice(start int, end int) mem.Buffer`.
   GrpcMemBuffer slice(int start, int end) {
     final $r = $callSync(
-        24661,
+        24667,
         $W()
           ..h(this)
           ..i64(start)
@@ -90,13 +90,13 @@ class GrpcMemReader extends $io.IoCloser
 
   /// Go: `func (*mem.Reader).Close() error`.
   void close() {
-    $callSync(24669, $W()..h(this));
+    $callSync(24675, $W()..h(this));
   }
 
   /// Go: `func (*mem.Reader).Discard(n int) (discarded int, err error)`.
   int discard(int n) {
     final $r = $callSync(
-        24670,
+        24676,
         $W()
           ..h(this)
           ..i64(n));
@@ -106,7 +106,7 @@ class GrpcMemReader extends $io.IoCloser
   /// Go: `func (*mem.Reader).Peek(n int, res [][]byte) ([][]byte, error)`.
   List<Uint8List> peek(int n, List<Uint8List> res) {
     final $r = $callSync(
-        24671,
+        24677,
         $W()
           ..h(this)
           ..i64(n)
@@ -117,7 +117,7 @@ class GrpcMemReader extends $io.IoCloser
   /// Go: `func (*mem.Reader).Read(buf []byte) (n int, _ error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        24672,
+        24678,
         $W()
           ..h(this)
           ..i64(n));
@@ -126,20 +126,20 @@ class GrpcMemReader extends $io.IoCloser
 
   /// Go: `func (*mem.Reader).ReadByte() (byte, error)`.
   int readByte() {
-    final $r = $callSync(24673, $W()..h(this));
+    final $r = $callSync(24679, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*mem.Reader).Remaining() int`.
   int remaining() {
-    final $r = $callSync(24674, $W()..h(this));
+    final $r = $callSync(24680, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*mem.Reader).Reset(s mem.BufferSlice)`.
   void reset(List<GrpcMemBuffer> s) {
     $callSync(
-        24675,
+        24681,
         $W()
           ..h(this)
           ..list(s, (w0, e0) => w0.h(e0)));
@@ -151,7 +151,7 @@ extension GoGrpcMemApi on GoGrpcMem {
   /// Go: `func mem.Copy(data []byte, pool mem.BufferPool) mem.Buffer`.
   GrpcMemBuffer copy(Uint8List data, GrpcMemBufferPool pool) {
     final $r = $callSync(
-        24662,
+        24668,
         $W()
           ..bytes(data)
           ..h(pool));
@@ -160,13 +160,13 @@ extension GoGrpcMemApi on GoGrpcMem {
 
   /// Go: `func mem.DefaultBufferPool() mem.BufferPool`.
   GrpcMemBufferPool defaultBufferPool() {
-    final $r = $callSync(24663);
+    final $r = $callSync(24669);
     return $r.hnn(GrpcMemBufferPool.$h);
   }
 
   /// Go: `func mem.IsBelowBufferPoolingThreshold(size int) bool`.
   bool isBelowBufferPoolingThreshold(int size) {
-    final $r = $callSync(24664, $W()..i64(size));
+    final $r = $callSync(24670, $W()..i64(size));
     return $r.b();
   }
 
@@ -174,20 +174,20 @@ extension GoGrpcMemApi on GoGrpcMem {
   GrpcMemBufferPool newBinaryTieredBufferPool(
       [Uint8List? powerOfTwoExponents]) {
     final $r =
-        $callSync(24665, $W()..bytes((powerOfTwoExponents ?? Uint8List(0))));
+        $callSync(24671, $W()..bytes((powerOfTwoExponents ?? Uint8List(0))));
     return $r.hnn(GrpcMemBufferPool.$h);
   }
 
   /// Go: `func mem.NewTieredBufferPool(poolSizes ...int) mem.BufferPool`.
   GrpcMemBufferPool newTieredBufferPool([List<int> poolSizes = const []]) {
-    final $r = $callSync(24666, $W()..list(poolSizes, (w0, e0) => w0.i64(e0)));
+    final $r = $callSync(24672, $W()..list(poolSizes, (w0, e0) => w0.i64(e0)));
     return $r.hnn(GrpcMemBufferPool.$h);
   }
 
   /// Go: `func mem.ReadAll(r io.Reader, pool mem.BufferPool) (mem.BufferSlice, error)`.
   List<GrpcMemBuffer> readAll(Object r, GrpcMemBufferPool pool) {
     final $r = $callSync(
-        24667,
+        24673,
         $W()
           ..reader(r)
           ..h(pool));
@@ -197,7 +197,7 @@ extension GoGrpcMemApi on GoGrpcMem {
   /// Go: `func mem.ReadUnsafe(dst []byte, buf mem.Buffer) (int, mem.Buffer)`.
   (int, GrpcMemBuffer) readUnsafe(Uint8List dst, GrpcMemBuffer buf) {
     final $r = $callSync(
-        24668,
+        24674,
         $W()
           ..bytes(dst)
           ..h(buf));
@@ -207,7 +207,7 @@ extension GoGrpcMemApi on GoGrpcMem {
   /// Go: `func mem.SplitUnsafe(buf mem.Buffer, n int) (left mem.Buffer, right mem.Buffer)`.
   (GrpcMemBuffer, GrpcMemBuffer) splitUnsafe(GrpcMemBuffer buf, int n) {
     final $r = $callSync(
-        24676,
+        24682,
         $W()
           ..h(buf)
           ..i64(n));

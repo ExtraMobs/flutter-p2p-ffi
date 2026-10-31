@@ -10,7 +10,7 @@ import 'package:p2p_ffi/go/ipfs/kubo/plugin.dart' as $plugin;
 extension GoIpfsKuboPluginPluginsFxtestApi on GoIpfsKuboPluginPluginsFxtest {
   /// Go: `var fxtest.Plugins []plugin.Plugin`.
   List<$plugin.KuboPlugin> get plugins {
-    final $r = $callSync(11719);
+    final $r = $callSync(11725);
     return $r.list(() => $r.hnn($plugin.KuboPlugin.$h));
   }
 }

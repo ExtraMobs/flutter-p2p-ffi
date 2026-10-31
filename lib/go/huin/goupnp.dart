@@ -144,7 +144,7 @@ final class GoupnpDevice implements GoDto {
   /// Go: `func (*goupnp.Device).FindService(serviceType string) []*goupnp.Service`.
   List<GoupnpService> findService(String serviceType) {
     final $r = $callSync(
-        8300,
+        8309,
         $W()
           ..dto(this)
           ..str(serviceType));
@@ -154,7 +154,7 @@ final class GoupnpDevice implements GoDto {
   /// Go: `func (*goupnp.Device).SetURLBase(urlBase *url.URL)`.
   void setUrlBase($url.NetUrl urlBase) {
     $callSync(
-        8301,
+        8310,
         $W()
           ..dto(this)
           ..dto(urlBase));
@@ -162,7 +162,7 @@ final class GoupnpDevice implements GoDto {
 
   /// Go: `func (*goupnp.Device).String() string`.
   String string() {
-    final $r = $callSync(8302, $W()..dto(this));
+    final $r = $callSync(8311, $W()..dto(this));
     return $r.str();
   }
 
@@ -176,7 +176,7 @@ final class GoupnpDevice implements GoDto {
   Future<void> visitDevices(
       FutureOr<void> Function(GoupnpDevice device) visitor) async {
     await $call(
-        8303,
+        8312,
         $W()
           ..dto(this)
           ..cb((r) => visitor(r.p() ? GoupnpDevice.$dec(r) : $nil()), true));
@@ -192,7 +192,7 @@ final class GoupnpDevice implements GoDto {
   Future<void> visitServices(
       FutureOr<void> Function(GoupnpService service) visitor) async {
     await $call(
-        8304,
+        8313,
         $W()
           ..dto(this)
           ..cb((r) => visitor(r.p() ? GoupnpService.$dec(r) : $nil()), true));
@@ -248,7 +248,7 @@ final class GoupnpIcon implements GoDto {
   /// Go: `func (*goupnp.Icon).SetURLBase(url *url.URL)`.
   void setUrlBase($url.NetUrl url) {
     $callSync(
-        8310,
+        8319,
         $W()
           ..dto(this)
           ..dto(url));
@@ -351,7 +351,7 @@ final class GoupnpRootDevice implements GoDto {
   /// Go: `func (*goupnp.RootDevice).SetURLBase(urlBase *url.URL)`.
   void setUrlBase($url.NetUrl urlBase) {
     $callSync(
-        8316,
+        8325,
         $W()
           ..dto(this)
           ..dto(urlBase));
@@ -406,19 +406,19 @@ final class GoupnpService implements GoDto {
 
   /// Go: `func (*goupnp.Service).NewSOAPClient() *soap.SOAPClient`.
   $soap.GoupnpSoapClient newSoapClient() {
-    final $r = $callSync(8317, $W()..dto(this));
+    final $r = $callSync(8326, $W()..dto(this));
     return $r.p() ? $soap.GoupnpSoapClient.$dec($r) : $nil();
   }
 
   /// Go: `func (*goupnp.Service).RequestSCDP() (*scpd.SCPD, error)`.
   $scpd.GoupnpScpd requestScdp() {
-    final $r = $callSync(8318, $W()..dto(this));
+    final $r = $callSync(8327, $W()..dto(this));
     return $r.p() ? $scpd.GoupnpScpd.$dec($r) : $nil();
   }
 
   /// Go: `func (*goupnp.Service).RequestSCPD() (*scpd.SCPD, error)`.
   $scpd.GoupnpScpd requestScpd() {
-    final $r = $callSync(8319, $W()..dto(this));
+    final $r = $callSync(8328, $W()..dto(this));
     return $r.p() ? $scpd.GoupnpScpd.$dec($r) : $nil();
   }
 
@@ -427,7 +427,7 @@ final class GoupnpService implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<$scpd.GoupnpScpd> requestScpdCtx($context.Context ctx) async {
     final $r = await $call(
-        8320,
+        8329,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -437,7 +437,7 @@ final class GoupnpService implements GoDto {
   /// Go: `func (*goupnp.Service).SetURLBase(urlBase *url.URL)`.
   void setUrlBase($url.NetUrl urlBase) {
     $callSync(
-        8321,
+        8330,
         $W()
           ..dto(this)
           ..dto(urlBase));
@@ -445,7 +445,7 @@ final class GoupnpService implements GoDto {
 
   /// Go: `func (*goupnp.Service).String() string`.
   String string() {
-    final $r = $callSync(8322, $W()..dto(this));
+    final $r = $callSync(8331, $W()..dto(this));
     return $r.str();
   }
 }
@@ -470,13 +470,13 @@ class GoupnpServiceClient extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*goupnp.ServiceClient).GetServiceClient() *goupnp.ServiceClient`.
   GoupnpServiceClient getServiceClient() {
-    final $r = $callSync(8323, $W()..h(this));
+    final $r = $callSync(8332, $W()..h(this));
     return $r.hnn(GoupnpServiceClient.$h);
   }
 
   /// Go: `func (*goupnp.ServiceClient).LocalAddr() net.IP`.
   Uint8List localAddr() {
-    final $r = $callSync(8324, $W()..h(this));
+    final $r = $callSync(8333, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 }
@@ -537,7 +537,7 @@ final class GoupnpUrlField implements GoDto {
   /// Go: `func (*goupnp.URLField).SetURLBase(urlBase *url.URL)`.
   void setUrlBase($url.NetUrl urlBase) {
     $callSync(
-        8325,
+        8334,
         $W()
           ..dto(this)
           ..dto(urlBase));
@@ -562,7 +562,7 @@ class GoupnpContextError extends GolangException {
 extension GoHuinGoupnpApi on GoHuinGoupnp {
   /// Go: `func goupnp.DeviceByURL(loc *url.URL) (*goupnp.RootDevice, error)`.
   GoupnpRootDevice deviceByUrl($url.NetUrl loc) {
-    final $r = $callSync(8305, $W()..dto(loc));
+    final $r = $callSync(8314, $W()..dto(loc));
     return $r.p() ? GoupnpRootDevice.$dec($r) : $nil();
   }
 
@@ -572,7 +572,7 @@ extension GoHuinGoupnpApi on GoHuinGoupnp {
   Future<GoupnpRootDevice> deviceByUrlCtx(
       $context.Context ctx, $url.NetUrl loc) async {
     final $r = await $call(
-        8306,
+        8315,
         $W()
           ..h(ctx)
           ..dto(loc));
@@ -581,7 +581,7 @@ extension GoHuinGoupnpApi on GoHuinGoupnp {
 
   /// Go: `func goupnp.DiscoverDevices(searchTarget string) ([]goupnp.MaybeRootDevice, error)`.
   List<GoupnpMaybeRootDevice> discoverDevices(String searchTarget) {
-    final $r = $callSync(8307, $W()..str(searchTarget));
+    final $r = $callSync(8316, $W()..str(searchTarget));
     return $r.list(() => $r.p() ? GoupnpMaybeRootDevice.$dec($r) : $nil());
   }
 
@@ -591,7 +591,7 @@ extension GoHuinGoupnpApi on GoHuinGoupnp {
   Future<List<GoupnpMaybeRootDevice>> discoverDevicesCtx(
       $context.Context ctx, String searchTarget) async {
     final $r = await $call(
-        8308,
+        8317,
         $W()
           ..h(ctx)
           ..str(searchTarget));
@@ -600,14 +600,14 @@ extension GoHuinGoupnpApi on GoHuinGoupnp {
 
   /// Go: `var goupnp.HTTPClientDefault *http.Client`.
   $http.NetHttpClient get httpClientDefault {
-    final $r = $callSync(8309);
+    final $r = $callSync(8318);
     return $r.p() ? $http.NetHttpClient.$dec($r) : $nil();
   }
 
   /// Go: `func goupnp.NewServiceClients(searchTarget string) (clients []goupnp.ServiceClient, errors []error, err error)`.
   (List<GoupnpServiceClient>, List<String>) newServiceClients(
       String searchTarget) {
-    final $r = $callSync(8311, $W()..str(searchTarget));
+    final $r = $callSync(8320, $W()..str(searchTarget));
     return (
       $r.list(() => $r.hnn(GoupnpServiceClient.$h)),
       $r.list(() => $r.err() ?? $nil())
@@ -618,7 +618,7 @@ extension GoHuinGoupnpApi on GoHuinGoupnp {
   List<GoupnpServiceClient> newServiceClientsByUrl(
       $url.NetUrl loc, String searchTarget) {
     final $r = $callSync(
-        8312,
+        8321,
         $W()
           ..dto(loc)
           ..str(searchTarget));
@@ -631,7 +631,7 @@ extension GoHuinGoupnpApi on GoHuinGoupnp {
   Future<List<GoupnpServiceClient>> newServiceClientsByUrlCtx(
       $context.Context ctx, $url.NetUrl loc, String searchTarget) async {
     final $r = await $call(
-        8313,
+        8322,
         $W()
           ..h(ctx)
           ..dto(loc)
@@ -645,7 +645,7 @@ extension GoHuinGoupnpApi on GoHuinGoupnp {
   Future<(List<GoupnpServiceClient>, List<String>)> newServiceClientsCtx(
       $context.Context ctx, String searchTarget) async {
     final $r = await $call(
-        8314,
+        8323,
         $W()
           ..h(ctx)
           ..str(searchTarget));
@@ -659,7 +659,7 @@ extension GoHuinGoupnpApi on GoHuinGoupnp {
   List<GoupnpServiceClient> newServiceClientsFromRootDevice(
       GoupnpRootDevice rootDevice, $url.NetUrl loc, String searchTarget) {
     final $r = $callSync(
-        8315,
+        8324,
         $W()
           ..dto(rootDevice)
           ..dto(loc)

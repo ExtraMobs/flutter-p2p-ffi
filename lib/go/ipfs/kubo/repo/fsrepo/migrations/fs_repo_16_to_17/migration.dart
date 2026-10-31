@@ -13,13 +13,13 @@ extension GoIpfsKuboRepoFsrepoMigrationsFsRepo16To17MigrationApi
     on GoIpfsKuboRepoFsrepoMigrationsFsRepo16To17Migration {
   /// Go: `var mg16.DefaultBootstrapAddresses []string`.
   List<String> get defaultBootstrapAddresses {
-    final $r = $callSync(11862);
+    final $r = $callSync(11868);
     return $r.list(() => $r.str());
   }
 
   /// Go: `var mg16.Migration *common.BaseMigration`.
   $common.KuboRepoFsrepoMigrationsCommonBaseMigration get migration {
-    final $r = $callSync(11863);
+    final $r = $callSync(11869);
     return $r.p()
         ? $common.KuboRepoFsrepoMigrationsCommonBaseMigration.$dec($r)
         : $nil();
@@ -27,7 +27,7 @@ extension GoIpfsKuboRepoFsrepoMigrationsFsRepo16To17MigrationApi
 
   /// Go: `func mg16.NewMigration() common.Migration`.
   $common.KuboRepoFsrepoMigrationsCommonMigration newMigration() {
-    final $r = $callSync(11864);
+    final $r = $callSync(11870);
     return $r.hnn($common.KuboRepoFsrepoMigrationsCommonMigration.$h);
   }
 }

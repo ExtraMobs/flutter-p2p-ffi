@@ -114,7 +114,7 @@ final class CryptoX509PkixCertificateList implements GoDto {
   /// Go: `func (*pkix.CertificateList).HasExpired(now time.Time) bool`.
   bool hasExpired(DateTime now) {
     final $r = $callSync(
-        3468,
+        3477,
         $W()
           ..dto(this)
           ..time(now));
@@ -244,13 +244,13 @@ final class CryptoX509PkixName implements GoDto {
 
   /// Go: `func (pkix.Name).String() string`.
   String string() {
-    final $r = $callSync(3469, $W()..dto(this));
+    final $r = $callSync(3478, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (pkix.Name).ToRDNSequence() (ret pkix.RDNSequence)`.
   List<List<CryptoX509PkixAttributeTypeAndValue>> toRdnSequence() {
-    final $r = $callSync(3470, $W()..dto(this));
+    final $r = $callSync(3479, $W()..dto(this));
     return $r.list(() => $r.list(
         () => $r.p() ? CryptoX509PkixAttributeTypeAndValue.$dec($r) : $nil()));
   }

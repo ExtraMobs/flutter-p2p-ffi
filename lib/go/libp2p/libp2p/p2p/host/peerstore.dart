@@ -11,14 +11,14 @@ import 'package:p2p_ffi/go/libp2p/libp2p/core/peerstore.dart' as $peerstore;
 extension GoLibp2pLibp2pP2pHostPeerstoreApi on GoLibp2pLibp2pP2pHostPeerstore {
   /// Go: `var peerstore.LatencyEWMASmoothing float64`.
   double get latencyEwmaSmoothing {
-    final $r = $callSync(14483);
+    final $r = $callSync(14489);
     return $r.f64();
   }
 
   /// Go: `func peerstore.PeerInfoIDs(pis []peer.AddrInfo) peer.IDSlice`.
   List<$peer.Libp2pCorePeerId> peerInfoIds(
       List<$peer.Libp2pCorePeerAddrInfo> pis) {
-    final $r = $callSync(14484, $W()..list(pis, (w0, e0) => w0.dto(e0)));
+    final $r = $callSync(14490, $W()..list(pis, (w0, e0) => w0.dto(e0)));
     return $r.list(() => $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil());
   }
 
@@ -26,7 +26,7 @@ extension GoLibp2pLibp2pP2pHostPeerstoreApi on GoLibp2pLibp2pP2pHostPeerstore {
   List<$peer.Libp2pCorePeerAddrInfo> peerInfos(
       $peerstore.Libp2pCorePeerstore ps, List<$peer.Libp2pCorePeerId> peers) {
     final $r = $callSync(
-        14485,
+        14491,
         $W()
           ..h(ps)
           ..list(peers, (w0, e0) => w0.val(e0)));

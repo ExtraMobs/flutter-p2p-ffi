@@ -50,7 +50,7 @@ final class Libp2pKadDhtDualDht implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> bootstrap($context.Context ctx) async {
     await $call(
-        12950,
+        12956,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -58,7 +58,7 @@ final class Libp2pKadDhtDualDht implements GoDto {
 
   /// Go: `func (*dual.DHT).Close() error`.
   void close() {
-    $callSync(12951, $W()..dto(this));
+    $callSync(12957, $W()..dto(this));
   }
 
   /// Go: `func (*dual.DHT).FindPeer(ctx context.Context, pid peer.ID) (pi peer.AddrInfo, err error)`.
@@ -67,7 +67,7 @@ final class Libp2pKadDhtDualDht implements GoDto {
   Future<$peer.Libp2pCorePeerAddrInfo> findPeer(
       $context.Context ctx, $peer.Libp2pCorePeerId pid) async {
     final $r = await $call(
-        12952,
+        12958,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -79,7 +79,7 @@ final class Libp2pKadDhtDualDht implements GoDto {
   Stream<$peer.Libp2pCorePeerAddrInfo> findProvidersAsync(
           $context.Context ctx, $cid.Cid key, int count) =>
       $stream(
-              12953,
+              12959,
               $W()
                 ..dto(this)
                 ..h(ctx)
@@ -93,7 +93,7 @@ final class Libp2pKadDhtDualDht implements GoDto {
   Future<$crypto.Libp2pCoreCryptoPubKey> getPublicKey(
       $context.Context ctx, $peer.Libp2pCorePeerId pid) async {
     final $r = await $call(
-        12954,
+        12960,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -104,7 +104,7 @@ final class Libp2pKadDhtDualDht implements GoDto {
   /// Go: `func (*dual.DHT).GetRoutingTableDiversityStats() []peerdiversity.CplDiversityStats`.
   List<$peerdiversity.Libp2pKbucketPeerdiversityCplDiversityStats>
       getRoutingTableDiversityStats() {
-    final $r = $callSync(12955, $W()..dto(this));
+    final $r = $callSync(12961, $W()..dto(this));
     return $r.list(() => $r.p()
         ? $peerdiversity.Libp2pKbucketPeerdiversityCplDiversityStats.$dec($r)
         : $nil());
@@ -116,7 +116,7 @@ final class Libp2pKadDhtDualDht implements GoDto {
   Future<Uint8List> getValue($context.Context ctx, String key,
       [List<$routing.Libp2pCoreRoutingOption> opts = const []]) async {
     final $r = await $call(
-        12956,
+        12962,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -131,7 +131,7 @@ final class Libp2pKadDhtDualDht implements GoDto {
   Future<void> provide(
       $context.Context ctx, $cid.Cid key, bool announce) async {
     await $call(
-        12957,
+        12963,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -145,7 +145,7 @@ final class Libp2pKadDhtDualDht implements GoDto {
   Future<void> putValue($context.Context ctx, String key, Uint8List val,
       [List<$routing.Libp2pCoreRoutingOption> opts = const []]) async {
     await $call(
-        12958,
+        12964,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -158,7 +158,7 @@ final class Libp2pKadDhtDualDht implements GoDto {
   Stream<Uint8List> searchValue($context.Context ctx, String key,
           [List<$routing.Libp2pCoreRoutingOption> opts = const []]) =>
       $stream(
-              12959,
+              12965,
               $W()
                 ..dto(this)
                 ..h(ctx)
@@ -168,7 +168,7 @@ final class Libp2pKadDhtDualDht implements GoDto {
 
   /// Go: `func (*dual.DHT).WANActive() bool`.
   bool wanActive() {
-    final $r = $callSync(12960, $W()..dto(this));
+    final $r = $callSync(12966, $W()..dto(this));
     return $r.b();
   }
 }
@@ -184,7 +184,7 @@ extension GoLibp2pLibp2pKadDhtDualApi on GoLibp2pLibp2pKadDhtDual {
   Libp2pKadDhtDualDht new$($host.Libp2pCoreHost h,
       [List<Libp2pKadDhtDualOption> options = const []]) {
     final $r = $callSync(
-        12961,
+        12967,
         $W()
           ..h(h)
           ..list(options, (w0, e0) => w0.opt(e0)));

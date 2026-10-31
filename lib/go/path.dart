@@ -18,44 +18,44 @@ class PathErrBadPattern extends GolangException {
 extension GoPathApi on GoPath {
   /// Go: `func path.Base(path string) string`.
   String base(String path) {
-    final $r = $callSync(26967, $W()..str(path));
+    final $r = $callSync(26968, $W()..str(path));
     return $r.str();
   }
 
   /// Go: `func path.Clean(path string) string`.
   String clean(String path) {
-    final $r = $callSync(26968, $W()..str(path));
+    final $r = $callSync(26969, $W()..str(path));
     return $r.str();
   }
 
   /// Go: `func path.Dir(path string) string`.
   String dir(String path) {
-    final $r = $callSync(26969, $W()..str(path));
+    final $r = $callSync(26970, $W()..str(path));
     return $r.str();
   }
 
   /// Go: `func path.Ext(path string) string`.
   String ext(String path) {
-    final $r = $callSync(26970, $W()..str(path));
+    final $r = $callSync(26971, $W()..str(path));
     return $r.str();
   }
 
   /// Go: `func path.IsAbs(path string) bool`.
   bool isAbs(String path) {
-    final $r = $callSync(26971, $W()..str(path));
+    final $r = $callSync(26972, $W()..str(path));
     return $r.b();
   }
 
   /// Go: `func path.Join(elem ...string) string`.
   String join([List<String> elem = const []]) {
-    final $r = $callSync(26972, $W()..list(elem, (w0, e0) => w0.str(e0)));
+    final $r = $callSync(26973, $W()..list(elem, (w0, e0) => w0.str(e0)));
     return $r.str();
   }
 
   /// Go: `func path.Match(pattern string, name string) (matched bool, err error)`.
   bool match(String pattern, String name) {
     final $r = $callSync(
-        26973,
+        26974,
         $W()
           ..str(pattern)
           ..str(name));
@@ -64,7 +64,7 @@ extension GoPathApi on GoPath {
 
   /// Go: `func path.Split(path string) (dir string, file string)`.
   (String, String) split(String path) {
-    final $r = $callSync(26974, $W()..str(path));
+    final $r = $callSync(26975, $W()..str(path));
     return ($r.str(), $r.str());
   }
 }

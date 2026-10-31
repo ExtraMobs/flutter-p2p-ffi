@@ -10,7 +10,7 @@ extension GoIpfsKuboRepoCommonApi on GoIpfsKuboRepoCommon {
   /// Go: `func common.MapGetKV(v map[string]any, key string) (any, error)`.
   Object? mapGetKv(Map<String, Object?> v, String key) {
     final $r = $callSync(
-        11759,
+        11765,
         $W()
           ..map(v, (w0, k0) => w0.str(k0), (w0, v0) => w0.any(v0))
           ..str(key));
@@ -21,7 +21,7 @@ extension GoIpfsKuboRepoCommonApi on GoIpfsKuboRepoCommon {
   Map<String, Object?> mapMergeDeep(
       Map<String, Object?> left, Map<String, Object?> right) {
     final $r = $callSync(
-        11760,
+        11766,
         $W()
           ..map(left, (w0, k0) => w0.str(k0), (w0, v0) => w0.any(v0))
           ..map(right, (w0, k0) => w0.str(k0), (w0, v0) => w0.any(v0)));
@@ -31,7 +31,7 @@ extension GoIpfsKuboRepoCommonApi on GoIpfsKuboRepoCommon {
   /// Go: `func common.MapSetKV(v map[string]any, key string, value any) error`.
   void mapSetKv(Map<String, Object?> v, String key, Object? value) {
     $callSync(
-        11761,
+        11767,
         $W()
           ..map(v, (w0, k0) => w0.str(k0), (w0, v0) => w0.any(v0))
           ..str(key)

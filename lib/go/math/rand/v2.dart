@@ -39,7 +39,7 @@ class MathRandV2ChaCha8 extends $encoding.EncodingBinaryAppender
   /// Go: `func (*rand.ChaCha8).AppendBinary(b []byte) ([]byte, error)`.
   Uint8List appendBinary(Uint8List b) {
     final $r = $callSync(
-        26221,
+        26227,
         $W()
           ..h(this)
           ..bytes(b));
@@ -48,14 +48,14 @@ class MathRandV2ChaCha8 extends $encoding.EncodingBinaryAppender
 
   /// Go: `func (*rand.ChaCha8).MarshalBinary() ([]byte, error)`.
   Uint8List marshalBinary() {
-    final $r = $callSync(26222, $W()..h(this));
+    final $r = $callSync(26228, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*rand.ChaCha8).Read(p []byte) (n int, err error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        26223,
+        26229,
         $W()
           ..h(this)
           ..i64(n));
@@ -64,14 +64,14 @@ class MathRandV2ChaCha8 extends $encoding.EncodingBinaryAppender
 
   /// Go: `func (*rand.ChaCha8).Uint64() uint64`.
   int uint64() {
-    final $r = $callSync(26224, $W()..h(this));
+    final $r = $callSync(26230, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*rand.ChaCha8).UnmarshalBinary(data []byte) error`.
   void unmarshalBinary(Uint8List data) {
     $callSync(
-        26225,
+        26231,
         $W()
           ..h(this)
           ..bytes(data));
@@ -103,7 +103,7 @@ class MathRandV2Pcg extends $encoding.EncodingBinaryAppender
   /// Go: `func rand.NewPCG(seed1 uint64, seed2 uint64) *rand.PCG`.
   factory MathRandV2Pcg(int seed1, int seed2) {
     final $r = $callSync(
-        26236,
+        26242,
         $W()
           ..i64(seed1)
           ..i64(seed2));
@@ -113,7 +113,7 @@ class MathRandV2Pcg extends $encoding.EncodingBinaryAppender
   /// Go: `func (*rand.PCG).AppendBinary(b []byte) ([]byte, error)`.
   Uint8List appendBinary(Uint8List b) {
     final $r = $callSync(
-        26239,
+        26245,
         $W()
           ..h(this)
           ..bytes(b));
@@ -122,14 +122,14 @@ class MathRandV2Pcg extends $encoding.EncodingBinaryAppender
 
   /// Go: `func (*rand.PCG).MarshalBinary() ([]byte, error)`.
   Uint8List marshalBinary() {
-    final $r = $callSync(26240, $W()..h(this));
+    final $r = $callSync(26246, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*rand.PCG).Seed(seed1 uint64, seed2 uint64)`.
   void seed(int seed1, int seed2) {
     $callSync(
-        26241,
+        26247,
         $W()
           ..h(this)
           ..i64(seed1)
@@ -138,14 +138,14 @@ class MathRandV2Pcg extends $encoding.EncodingBinaryAppender
 
   /// Go: `func (*rand.PCG).Uint64() uint64`.
   int uint64() {
-    final $r = $callSync(26242, $W()..h(this));
+    final $r = $callSync(26248, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*rand.PCG).UnmarshalBinary(data []byte) error`.
   void unmarshalBinary(Uint8List data) {
     $callSync(
-        26243,
+        26249,
         $W()
           ..h(this)
           ..bytes(data));
@@ -172,38 +172,38 @@ class MathRandV2Rand extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*rand.Rand).ExpFloat64() float64`.
   double expFloat64() {
-    final $r = $callSync(26245, $W()..h(this));
+    final $r = $callSync(26251, $W()..h(this));
     return $r.f64();
   }
 
   /// Go: `func (*rand.Rand).Float32() float32`.
   double float32() {
-    final $r = $callSync(26246, $W()..h(this));
+    final $r = $callSync(26252, $W()..h(this));
     return $r.f64();
   }
 
   /// Go: `func (*rand.Rand).Float64() float64`.
   double float64() {
-    final $r = $callSync(26247, $W()..h(this));
+    final $r = $callSync(26253, $W()..h(this));
     return $r.f64();
   }
 
   /// Go: `func (*rand.Rand).Int() int`.
   int int$() {
-    final $r = $callSync(26248, $W()..h(this));
+    final $r = $callSync(26254, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*rand.Rand).Int32() int32`.
   int int32() {
-    final $r = $callSync(26249, $W()..h(this));
+    final $r = $callSync(26255, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*rand.Rand).Int32N(n int32) int32`.
   int int32n(int n) {
     final $r = $callSync(
-        26250,
+        26256,
         $W()
           ..h(this)
           ..i64(n));
@@ -212,14 +212,14 @@ class MathRandV2Rand extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*rand.Rand).Int64() int64`.
   int int64() {
-    final $r = $callSync(26251, $W()..h(this));
+    final $r = $callSync(26257, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*rand.Rand).Int64N(n int64) int64`.
   int int64n(int n) {
     final $r = $callSync(
-        26252,
+        26258,
         $W()
           ..h(this)
           ..i64(n));
@@ -229,7 +229,7 @@ class MathRandV2Rand extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*rand.Rand).IntN(n int) int`.
   int intN(int n) {
     final $r = $callSync(
-        26253,
+        26259,
         $W()
           ..h(this)
           ..i64(n));
@@ -238,14 +238,14 @@ class MathRandV2Rand extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*rand.Rand).NormFloat64() float64`.
   double normFloat64() {
-    final $r = $callSync(26254, $W()..h(this));
+    final $r = $callSync(26260, $W()..h(this));
     return $r.f64();
   }
 
   /// Go: `func (*rand.Rand).Perm(n int) []int`.
   List<int> perm(int n) {
     final $r = $callSync(
-        26255,
+        26261,
         $W()
           ..h(this)
           ..i64(n));
@@ -262,7 +262,7 @@ class MathRandV2Rand extends $crypto.CryptoDecrypterOpts
   Future<void> shuffle(
       int n, FutureOr<void> Function(int i, int j) swap) async {
     await $call(
-        26256,
+        26262,
         $W()
           ..h(this)
           ..i64(n)
@@ -271,20 +271,20 @@ class MathRandV2Rand extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*rand.Rand).Uint() uint`.
   int uint() {
-    final $r = $callSync(26257, $W()..h(this));
+    final $r = $callSync(26263, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*rand.Rand).Uint32() uint32`.
   int uint32() {
-    final $r = $callSync(26258, $W()..h(this));
+    final $r = $callSync(26264, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*rand.Rand).Uint32N(n uint32) uint32`.
   int uint32n(int n) {
     final $r = $callSync(
-        26259,
+        26265,
         $W()
           ..h(this)
           ..i64(n));
@@ -293,14 +293,14 @@ class MathRandV2Rand extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*rand.Rand).Uint64() uint64`.
   int uint64() {
-    final $r = $callSync(26260, $W()..h(this));
+    final $r = $callSync(26266, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*rand.Rand).Uint64N(n uint64) uint64`.
   int uint64n(int n) {
     final $r = $callSync(
-        26261,
+        26267,
         $W()
           ..h(this)
           ..i64(n));
@@ -310,7 +310,7 @@ class MathRandV2Rand extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*rand.Rand).UintN(n uint) uint`.
   int uintN(int n) {
     final $r = $callSync(
-        26262,
+        26268,
         $W()
           ..h(this)
           ..i64(n));
@@ -355,7 +355,7 @@ class MathRandV2Zipf extends $crypto.CryptoDecrypterOpts
   /// Go: `func rand.NewZipf(r *rand.Rand, s float64, v float64, imax uint64) *rand.Zipf`.
   factory MathRandV2Zipf(MathRandV2Rand r, double s, double v, int imax) {
     final $r = $callSync(
-        26237,
+        26243,
         $W()
           ..h(r)
           ..f64(s)
@@ -366,7 +366,7 @@ class MathRandV2Zipf extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*rand.Zipf).Uint64() uint64`.
   int uint64() {
-    final $r = $callSync(26270, $W()..h(this));
+    final $r = $callSync(26276, $W()..h(this));
     return $r.i64();
   }
 }
@@ -375,73 +375,73 @@ class MathRandV2Zipf extends $crypto.CryptoDecrypterOpts
 extension GoMathRandV2Api on GoMathRandV2 {
   /// Go: `func rand.ExpFloat64() float64`.
   double expFloat64() {
-    final $r = $callSync(26226);
+    final $r = $callSync(26232);
     return $r.f64();
   }
 
   /// Go: `func rand.Float32() float32`.
   double float32() {
-    final $r = $callSync(26227);
+    final $r = $callSync(26233);
     return $r.f64();
   }
 
   /// Go: `func rand.Float64() float64`.
   double float64() {
-    final $r = $callSync(26228);
+    final $r = $callSync(26234);
     return $r.f64();
   }
 
   /// Go: `func rand.Int() int`.
   int int$() {
-    final $r = $callSync(26229);
+    final $r = $callSync(26235);
     return $r.i64();
   }
 
   /// Go: `func rand.Int32() int32`.
   int int32() {
-    final $r = $callSync(26230);
+    final $r = $callSync(26236);
     return $r.i64();
   }
 
   /// Go: `func rand.Int32N(n int32) int32`.
   int int32n(int n) {
-    final $r = $callSync(26231, $W()..i64(n));
+    final $r = $callSync(26237, $W()..i64(n));
     return $r.i64();
   }
 
   /// Go: `func rand.Int64() int64`.
   int int64() {
-    final $r = $callSync(26232);
+    final $r = $callSync(26238);
     return $r.i64();
   }
 
   /// Go: `func rand.Int64N(n int64) int64`.
   int int64n(int n) {
-    final $r = $callSync(26233, $W()..i64(n));
+    final $r = $callSync(26239, $W()..i64(n));
     return $r.i64();
   }
 
   /// Go: `func rand.IntN(n int) int`.
   int intN(int n) {
-    final $r = $callSync(26234, $W()..i64(n));
+    final $r = $callSync(26240, $W()..i64(n));
     return $r.i64();
   }
 
   /// Go: `func rand.New(src rand.Source) *rand.Rand`.
   MathRandV2Rand new$(MathRandV2Source src) {
-    final $r = $callSync(26235, $W()..dto(src));
+    final $r = $callSync(26241, $W()..dto(src));
     return $r.hnn(MathRandV2Rand.$h);
   }
 
   /// Go: `func rand.NormFloat64() float64`.
   double normFloat64() {
-    final $r = $callSync(26238);
+    final $r = $callSync(26244);
     return $r.f64();
   }
 
   /// Go: `func rand.Perm(n int) []int`.
   List<int> perm(int n) {
-    final $r = $callSync(26244, $W()..i64(n));
+    final $r = $callSync(26250, $W()..i64(n));
     return $r.list(() => $r.i64());
   }
 
@@ -455,7 +455,7 @@ extension GoMathRandV2Api on GoMathRandV2 {
   Future<void> shuffle(
       int n, FutureOr<void> Function(int i, int j) swap) async {
     await $call(
-        26263,
+        26269,
         $W()
           ..i64(n)
           ..cb((r) => swap(r.i64(), r.i64()), true));
@@ -463,37 +463,37 @@ extension GoMathRandV2Api on GoMathRandV2 {
 
   /// Go: `func rand.Uint() uint`.
   int uint() {
-    final $r = $callSync(26264);
+    final $r = $callSync(26270);
     return $r.i64();
   }
 
   /// Go: `func rand.Uint32() uint32`.
   int uint32() {
-    final $r = $callSync(26265);
+    final $r = $callSync(26271);
     return $r.i64();
   }
 
   /// Go: `func rand.Uint32N(n uint32) uint32`.
   int uint32n(int n) {
-    final $r = $callSync(26266, $W()..i64(n));
+    final $r = $callSync(26272, $W()..i64(n));
     return $r.i64();
   }
 
   /// Go: `func rand.Uint64() uint64`.
   int uint64() {
-    final $r = $callSync(26267);
+    final $r = $callSync(26273);
     return $r.i64();
   }
 
   /// Go: `func rand.Uint64N(n uint64) uint64`.
   int uint64n(int n) {
-    final $r = $callSync(26268, $W()..i64(n));
+    final $r = $callSync(26274, $W()..i64(n));
     return $r.i64();
   }
 
   /// Go: `func rand.UintN(n uint) uint`.
   int uintN(int n) {
-    final $r = $callSync(26269, $W()..i64(n));
+    final $r = $callSync(26275, $W()..i64(n));
     return $r.i64();
   }
 }

@@ -45,7 +45,7 @@ class BoxoPinningRemoteClient extends $crypto.CryptoDecrypterOpts
   /// Go: `func go_pinning_service_http_client.NewClient(url string, bearerToken string) *go_pinning_service_http_client.Client`.
   factory BoxoPinningRemoteClient(String url, String bearerToken) {
     final $r = $callSync(
-        10183,
+        10192,
         $W()
           ..str(url)
           ..str(bearerToken));
@@ -59,7 +59,7 @@ class BoxoPinningRemoteClient extends $crypto.CryptoDecrypterOpts
       $context.Context ctx, $cid.Cid cid,
       [List<BoxoPinningRemoteClientAddOption> opts = const []]) async {
     final $r = await $call(
-        10176,
+        10185,
         $W()
           ..h(this)
           ..h(ctx)
@@ -73,7 +73,7 @@ class BoxoPinningRemoteClient extends $crypto.CryptoDecrypterOpts
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> deleteById($context.Context ctx, String pinId) async {
     await $call(
-        10177,
+        10186,
         $W()
           ..h(this)
           ..h(ctx)
@@ -86,7 +86,7 @@ class BoxoPinningRemoteClient extends $crypto.CryptoDecrypterOpts
   Future<BoxoPinningRemoteClientPinStatusGetter> getStatusById(
       $context.Context ctx, String pinId) async {
     final $r = await $call(
-        10178,
+        10187,
         $W()
           ..h(this)
           ..h(ctx)
@@ -98,7 +98,7 @@ class BoxoPinningRemoteClient extends $crypto.CryptoDecrypterOpts
   Stream<BoxoPinningRemoteClientPinStatusGetter> ls($context.Context ctx,
           [List<BoxoPinningRemoteClientLsOption> opts = const []]) =>
       $stream(
-              10179,
+              10188,
               $W()
                 ..h(this)
                 ..h(ctx)
@@ -113,7 +113,7 @@ class BoxoPinningRemoteClient extends $crypto.CryptoDecrypterOpts
       $context.Context ctx,
       [List<BoxoPinningRemoteClientLsOption> opts = const []]) async {
     final $r = await $call(
-        10180,
+        10189,
         $W()
           ..h(this)
           ..h(ctx)
@@ -132,7 +132,7 @@ class BoxoPinningRemoteClient extends $crypto.CryptoDecrypterOpts
       $context.Context ctx,
       [List<BoxoPinningRemoteClientLsOption> opts = const []]) async {
     final $r = await $call(
-        10181,
+        10190,
         $W()
           ..h(this)
           ..h(ctx)
@@ -148,7 +148,7 @@ class BoxoPinningRemoteClient extends $crypto.CryptoDecrypterOpts
       $context.Context ctx, String pinId, $cid.Cid cid,
       [List<BoxoPinningRemoteClientAddOption> opts = const []]) async {
     final $r = await $call(
-        10182,
+        10191,
         $W()
           ..h(this)
           ..h(ctx)

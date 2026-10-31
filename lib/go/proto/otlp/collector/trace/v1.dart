@@ -49,41 +49,41 @@ class OtlpCollectorTraceV1ExportTracePartialSuccess
   /// Go: `func (*v1.ExportTracePartialSuccess).Descriptor() ([]byte, []int)`.
   @Deprecated("Use ExportTracePartialSuccess.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(22465, $W()..h(this));
+    final $r = $callSync(22471, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*v1.ExportTracePartialSuccess).GetErrorMessage() string`.
   String getErrorMessage() {
-    final $r = $callSync(22466, $W()..h(this));
+    final $r = $callSync(22472, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*v1.ExportTracePartialSuccess).GetRejectedSpans() int64`.
   int getRejectedSpans() {
-    final $r = $callSync(22467, $W()..h(this));
+    final $r = $callSync(22473, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*v1.ExportTracePartialSuccess).ProtoMessage()`.
   void protoMessage() {
-    $callSync(22468, $W()..h(this));
+    $callSync(22474, $W()..h(this));
   }
 
   /// Go: `func (*v1.ExportTracePartialSuccess).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(22469, $W()..h(this));
+    final $r = $callSync(22475, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*v1.ExportTracePartialSuccess).Reset()`.
   void reset() {
-    $callSync(22470, $W()..h(this));
+    $callSync(22476, $W()..h(this));
   }
 
   /// Go: `func (*v1.ExportTracePartialSuccess).String() string`.
   String string() {
-    final $r = $callSync(22471, $W()..h(this));
+    final $r = $callSync(22477, $W()..h(this));
     return $r.str();
   }
 }
@@ -116,35 +116,35 @@ class OtlpCollectorTraceV1ExportTraceServiceRequest
   /// Go: `func (*v1.ExportTraceServiceRequest).Descriptor() ([]byte, []int)`.
   @Deprecated("Use ExportTraceServiceRequest.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(22472, $W()..h(this));
+    final $r = $callSync(22478, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*v1.ExportTraceServiceRequest).GetResourceSpans() []*v1.ResourceSpans`.
   List<$v1.OtlpTraceV1ResourceSpans> getResourceSpans() {
-    final $r = $callSync(22473, $W()..h(this));
+    final $r = $callSync(22479, $W()..h(this));
     return $r.list(() => $r.hnn($v1.OtlpTraceV1ResourceSpans.$h));
   }
 
   /// Go: `func (*v1.ExportTraceServiceRequest).ProtoMessage()`.
   void protoMessage() {
-    $callSync(22474, $W()..h(this));
+    $callSync(22480, $W()..h(this));
   }
 
   /// Go: `func (*v1.ExportTraceServiceRequest).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(22475, $W()..h(this));
+    final $r = $callSync(22481, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*v1.ExportTraceServiceRequest).Reset()`.
   void reset() {
-    $callSync(22476, $W()..h(this));
+    $callSync(22482, $W()..h(this));
   }
 
   /// Go: `func (*v1.ExportTraceServiceRequest).String() string`.
   String string() {
-    final $r = $callSync(22477, $W()..h(this));
+    final $r = $callSync(22483, $W()..h(this));
     return $r.str();
   }
 }
@@ -177,35 +177,35 @@ class OtlpCollectorTraceV1ExportTraceServiceResponse
   /// Go: `func (*v1.ExportTraceServiceResponse).Descriptor() ([]byte, []int)`.
   @Deprecated("Use ExportTraceServiceResponse.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(22478, $W()..h(this));
+    final $r = $callSync(22484, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*v1.ExportTraceServiceResponse).GetPartialSuccess() *v1.ExportTracePartialSuccess`.
   OtlpCollectorTraceV1ExportTracePartialSuccess getPartialSuccess() {
-    final $r = $callSync(22479, $W()..h(this));
+    final $r = $callSync(22485, $W()..h(this));
     return $r.hnn(OtlpCollectorTraceV1ExportTracePartialSuccess.$h);
   }
 
   /// Go: `func (*v1.ExportTraceServiceResponse).ProtoMessage()`.
   void protoMessage() {
-    $callSync(22480, $W()..h(this));
+    $callSync(22486, $W()..h(this));
   }
 
   /// Go: `func (*v1.ExportTraceServiceResponse).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(22481, $W()..h(this));
+    final $r = $callSync(22487, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*v1.ExportTraceServiceResponse).Reset()`.
   void reset() {
-    $callSync(22482, $W()..h(this));
+    $callSync(22488, $W()..h(this));
   }
 
   /// Go: `func (*v1.ExportTraceServiceResponse).String() string`.
   String string() {
-    final $r = $callSync(22483, $W()..h(this));
+    final $r = $callSync(22489, $W()..h(this));
     return $r.str();
   }
 }
@@ -218,7 +218,7 @@ class OtlpCollectorTraceV1TraceServiceClient extends GoHandle
   /// Go: `func v1.NewTraceServiceClient(cc grpc.ClientConnInterface) v1.TraceServiceClient`.
   factory OtlpCollectorTraceV1TraceServiceClient(
       $grpc.GrpcClientConnInterface cc) {
-    final $r = $callSync(22485, $W()..h(cc));
+    final $r = $callSync(22491, $W()..h(cc));
     return $r.hnn(OtlpCollectorTraceV1TraceServiceClient.$h);
   }
 }
@@ -232,7 +232,7 @@ mixin OtlpCollectorTraceV1TraceServiceClient$ on GoHandle {
       $context.Context ctx, OtlpCollectorTraceV1ExportTraceServiceRequest in$,
       [List<$grpc.GrpcCallOption> opts = const []]) async {
     final $r = await $call(
-        22491,
+        22497,
         $W()
           ..h(this)
           ..h(ctx)
@@ -258,7 +258,7 @@ mixin OtlpCollectorTraceV1TraceServiceServer$ on GoHandle {
       OtlpCollectorTraceV1ExportTraceServiceRequest
           exportTraceServiceRequest) async {
     final $r = await $call(
-        22492,
+        22498,
         $W()
           ..h(this)
           ..h(ctx)
@@ -284,7 +284,7 @@ final class OtlpCollectorTraceV1UnimplementedTraceServiceServer
       OtlpCollectorTraceV1ExportTraceServiceRequest
           exportTraceServiceRequest) async {
     final $r = await $call(
-        22494,
+        22500,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -298,7 +298,7 @@ extension GoProtoOtlpCollectorTraceV1Api on GoProtoOtlpCollectorTraceV1 {
   /// Go: `var v1.File_opentelemetry_proto_collector_trace_v1_trace_service_proto protoreflect.FileDescriptor`.
   $protoreflect.ProtobufReflectProtoreflectFileDescriptor
       get fileOpentelemetryProtoCollectorTraceV1TraceServiceProto {
-    final $r = $callSync(22484);
+    final $r = $callSync(22490);
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectFileDescriptor.$h);
   }
 
@@ -310,7 +310,7 @@ extension GoProtoOtlpCollectorTraceV1Api on GoProtoOtlpCollectorTraceV1 {
       $runtime.GrpcGatewayV2RuntimeServeMux mux,
       $grpc.GrpcClientConn conn) async {
     await $call(
-        22486,
+        22492,
         $W()
           ..h(ctx)
           ..h(mux)
@@ -325,7 +325,7 @@ extension GoProtoOtlpCollectorTraceV1Api on GoProtoOtlpCollectorTraceV1 {
       $runtime.GrpcGatewayV2RuntimeServeMux mux,
       OtlpCollectorTraceV1TraceServiceClient client) async {
     await $call(
-        22487,
+        22493,
         $W()
           ..h(ctx)
           ..h(mux)
@@ -341,7 +341,7 @@ extension GoProtoOtlpCollectorTraceV1Api on GoProtoOtlpCollectorTraceV1 {
       String endpoint,
       List<$grpc.GrpcDialOption> opts) async {
     await $call(
-        22488,
+        22494,
         $W()
           ..h(ctx)
           ..h(mux)
@@ -357,7 +357,7 @@ extension GoProtoOtlpCollectorTraceV1Api on GoProtoOtlpCollectorTraceV1 {
       $runtime.GrpcGatewayV2RuntimeServeMux mux,
       OtlpCollectorTraceV1TraceServiceServer server) async {
     await $call(
-        22489,
+        22495,
         $W()
           ..h(ctx)
           ..h(mux)
@@ -368,7 +368,7 @@ extension GoProtoOtlpCollectorTraceV1Api on GoProtoOtlpCollectorTraceV1 {
   void registerTraceServiceServer($grpc.GrpcServiceRegistrar s,
       OtlpCollectorTraceV1TraceServiceServer srv) {
     $callSync(
-        22490,
+        22496,
         $W()
           ..h(s)
           ..h(srv));
@@ -376,7 +376,7 @@ extension GoProtoOtlpCollectorTraceV1Api on GoProtoOtlpCollectorTraceV1 {
 
   /// Go: `var v1.TraceService_ServiceDesc grpc.ServiceDesc`.
   $grpc.GrpcServiceDesc get traceServiceServiceDesc {
-    final $r = $callSync(22493);
+    final $r = $callSync(22499);
     return $r.p() ? $grpc.GrpcServiceDesc.$dec($r) : $nil();
   }
 }

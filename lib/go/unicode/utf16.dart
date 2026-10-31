@@ -10,7 +10,7 @@ extension GoUnicodeUtf16Api on GoUnicodeUtf16 {
   /// Go: `func utf16.AppendRune(a []uint16, r rune) []uint16`.
   List<int> appendRune(List<int> a, int r) {
     final $r = $callSync(
-        27969,
+        27970,
         $W()
           ..list(a, (w0, e0) => w0.i64(e0))
           ..i64(r));
@@ -19,14 +19,14 @@ extension GoUnicodeUtf16Api on GoUnicodeUtf16 {
 
   /// Go: `func utf16.Decode(s []uint16) []rune`.
   List<int> decode(List<int> s) {
-    final $r = $callSync(27970, $W()..list(s, (w0, e0) => w0.i64(e0)));
+    final $r = $callSync(27971, $W()..list(s, (w0, e0) => w0.i64(e0)));
     return $r.list(() => $r.i64());
   }
 
   /// Go: `func utf16.DecodeRune(r1 rune, r2 rune) rune`.
   int decodeRune(int r1, int r2) {
     final $r = $callSync(
-        27971,
+        27972,
         $W()
           ..i64(r1)
           ..i64(r2));
@@ -35,25 +35,25 @@ extension GoUnicodeUtf16Api on GoUnicodeUtf16 {
 
   /// Go: `func utf16.Encode(s []rune) []uint16`.
   List<int> encode(List<int> s) {
-    final $r = $callSync(27972, $W()..list(s, (w0, e0) => w0.i64(e0)));
+    final $r = $callSync(27973, $W()..list(s, (w0, e0) => w0.i64(e0)));
     return $r.list(() => $r.i64());
   }
 
   /// Go: `func utf16.EncodeRune(r rune) (r1 rune, r2 rune)`.
   (int, int) encodeRune(int r) {
-    final $r = $callSync(27973, $W()..i64(r));
+    final $r = $callSync(27974, $W()..i64(r));
     return ($r.i64(), $r.i64());
   }
 
   /// Go: `func utf16.IsSurrogate(r rune) bool`.
   bool isSurrogate(int r) {
-    final $r = $callSync(27974, $W()..i64(r));
+    final $r = $callSync(27975, $W()..i64(r));
     return $r.b();
   }
 
   /// Go: `func utf16.RuneLen(r rune) int`.
   int runeLen(int r) {
-    final $r = $callSync(27975, $W()..i64(r));
+    final $r = $callSync(27976, $W()..i64(r));
     return $r.i64();
   }
 }

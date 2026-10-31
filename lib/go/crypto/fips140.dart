@@ -11,19 +11,19 @@ import 'package:p2p_ffi/src/runtime.dart';
 extension GoCryptoFips140Api on GoCryptoFips140 {
   /// Go: `func fips140.Enabled() bool`.
   bool enabled() {
-    final $r = $callSync(3224);
+    final $r = $callSync(3233);
     return $r.b();
   }
 
   /// Go: `func fips140.Enforced() bool`.
   bool enforced() {
-    final $r = $callSync(3225);
+    final $r = $callSync(3234);
     return $r.b();
   }
 
   /// Go: `func fips140.Version() string`.
   String version() {
-    final $r = $callSync(3226);
+    final $r = $callSync(3235);
     return $r.str();
   }
 
@@ -35,6 +35,6 @@ extension GoCryptoFips140Api on GoCryptoFips140 {
   /// later for as long as it holds it (nobody checked which), and waits for
   /// each invocation (a retained callback, WIRE.md).
   Future<void> withoutEnforcement(FutureOr<void> Function() f) async {
-    await $call(3227, $W()..cb((r) => f(), true));
+    await $call(3236, $W()..cb((r) => f(), true));
   }
 }

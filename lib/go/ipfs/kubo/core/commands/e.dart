@@ -26,7 +26,7 @@ extension GoIpfsKuboCoreCommandsEApi on GoIpfsKuboCoreCommandsE {
   /// Go: `func e.TypeErr(expected any, actual any) error`.
   void typeErr(Object? expected, Object? actual) {
     $callSync(
-        11406,
+        11412,
         $W()
           ..any(expected)
           ..any(actual));

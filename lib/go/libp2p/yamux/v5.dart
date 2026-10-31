@@ -124,13 +124,13 @@ class YamuxV5MemoryManager extends GoHandle with YamuxV5MemoryManager$ {
 mixin YamuxV5MemoryManager$ on GoHandle {
   /// Go: `func (yamux.MemoryManager).Done()`.
   void done() {
-    $callSync(15146, $W()..h(this));
+    $callSync(15152, $W()..h(this));
   }
 
   /// Go: `func (yamux.MemoryManager).ReleaseMemory(size int)`.
   void releaseMemory(int size) {
     $callSync(
-        15147,
+        15153,
         $W()
           ..h(this)
           ..i64(size));
@@ -139,7 +139,7 @@ mixin YamuxV5MemoryManager$ on GoHandle {
   /// Go: `func (yamux.MemoryManager).ReserveMemory(size int, prio uint8) error`.
   void reserveMemory(int size, int prio) {
     $callSync(
-        15148,
+        15154,
         $W()
           ..h(this)
           ..i64(size)
@@ -173,31 +173,31 @@ class YamuxV5Session extends $net.NetListener
 
   /// Go: `func (*yamux.Session).Accept() (net.Conn, error)`.
   $net.NetConn accept() {
-    final $r = $callSync(15149, $W()..h(this));
+    final $r = $callSync(15155, $W()..h(this));
     return $r.hnn($net.NetConn.$h);
   }
 
   /// Go: `func (*yamux.Session).AcceptStream() (*yamux.Stream, error)`.
   YamuxV5Stream acceptStream() {
-    final $r = $callSync(15150, $W()..h(this));
+    final $r = $callSync(15156, $W()..h(this));
     return $r.hnn(YamuxV5Stream.$h);
   }
 
   /// Go: `func (*yamux.Session).Addr() net.Addr`.
   $net.NetAddr addr() {
-    final $r = $callSync(15151, $W()..h(this));
+    final $r = $callSync(15157, $W()..h(this));
     return $r.p() ? $net.NetAddr.$dec($r) : $nil();
   }
 
   /// Go: `func (*yamux.Session).Close() error`.
   void close() {
-    $callSync(15152, $W()..h(this));
+    $callSync(15158, $W()..h(this));
   }
 
   /// Go: `func (*yamux.Session).CloseWithError(errCode uint32) error`.
   void closeWithError(int errCode) {
     $callSync(
-        15153,
+        15159,
         $W()
           ..h(this)
           ..i64(errCode));
@@ -205,24 +205,24 @@ class YamuxV5Session extends $net.NetListener
 
   /// Go: `func (*yamux.Session).GoAway() error`.
   void goAway() {
-    $callSync(15154, $W()..h(this));
+    $callSync(15160, $W()..h(this));
   }
 
   /// Go: `func (*yamux.Session).IsClosed() bool`.
   bool isClosed() {
-    final $r = $callSync(15155, $W()..h(this));
+    final $r = $callSync(15161, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*yamux.Session).LocalAddr() net.Addr`.
   $net.NetAddr localAddr() {
-    final $r = $callSync(15156, $W()..h(this));
+    final $r = $callSync(15162, $W()..h(this));
     return $r.p() ? $net.NetAddr.$dec($r) : $nil();
   }
 
   /// Go: `func (*yamux.Session).NumStreams() int`.
   int numStreams() {
-    final $r = $callSync(15157, $W()..h(this));
+    final $r = $callSync(15163, $W()..h(this));
     return $r.i64();
   }
 
@@ -231,7 +231,7 @@ class YamuxV5Session extends $net.NetListener
   /// Asynchronous: runs in a goroutine of the service.
   Future<$net.NetConn> open($context.Context ctx) async {
     final $r = await $call(
-        15158,
+        15164,
         $W()
           ..h(this)
           ..h(ctx));
@@ -243,7 +243,7 @@ class YamuxV5Session extends $net.NetListener
   /// Asynchronous: runs in a goroutine of the service.
   Future<YamuxV5Stream> openStream($context.Context ctx) async {
     final $r = await $call(
-        15159,
+        15165,
         $W()
           ..h(this)
           ..h(ctx));
@@ -252,19 +252,19 @@ class YamuxV5Session extends $net.NetListener
 
   /// Go: `func (*yamux.Session).Ping() (dur time.Duration, err error)`.
   Duration ping() {
-    final $r = $callSync(15160, $W()..h(this));
+    final $r = $callSync(15166, $W()..h(this));
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `func (*yamux.Session).RTT() time.Duration`.
   Duration rtt() {
-    final $r = $callSync(15161, $W()..h(this));
+    final $r = $callSync(15167, $W()..h(this));
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `func (*yamux.Session).RemoteAddr() net.Addr`.
   $net.NetAddr remoteAddr() {
-    final $r = $callSync(15162, $W()..h(this));
+    final $r = $callSync(15168, $W()..h(this));
     return $r.p() ? $net.NetAddr.$dec($r) : $nil();
   }
 }
@@ -299,29 +299,29 @@ class YamuxV5Stream extends $net.NetConn
 
   /// Go: `func (*yamux.Stream).Close() error`.
   void close() {
-    $callSync(15163, $W()..h(this));
+    $callSync(15169, $W()..h(this));
   }
 
   /// Go: `func (*yamux.Stream).CloseRead() error`.
   void closeRead() {
-    $callSync(15164, $W()..h(this));
+    $callSync(15170, $W()..h(this));
   }
 
   /// Go: `func (*yamux.Stream).CloseWrite() error`.
   void closeWrite() {
-    $callSync(15165, $W()..h(this));
+    $callSync(15171, $W()..h(this));
   }
 
   /// Go: `func (*yamux.Stream).LocalAddr() net.Addr`.
   $net.NetAddr localAddr() {
-    final $r = $callSync(15166, $W()..h(this));
+    final $r = $callSync(15172, $W()..h(this));
     return $r.p() ? $net.NetAddr.$dec($r) : $nil();
   }
 
   /// Go: `func (*yamux.Stream).Read(b []byte) (n int, err error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        15167,
+        15173,
         $W()
           ..h(this)
           ..i64(n));
@@ -330,19 +330,19 @@ class YamuxV5Stream extends $net.NetConn
 
   /// Go: `func (*yamux.Stream).RemoteAddr() net.Addr`.
   $net.NetAddr remoteAddr() {
-    final $r = $callSync(15168, $W()..h(this));
+    final $r = $callSync(15174, $W()..h(this));
     return $r.p() ? $net.NetAddr.$dec($r) : $nil();
   }
 
   /// Go: `func (*yamux.Stream).Reset() error`.
   void reset() {
-    $callSync(15169, $W()..h(this));
+    $callSync(15175, $W()..h(this));
   }
 
   /// Go: `func (*yamux.Stream).ResetWithError(errCode uint32) error`.
   void resetWithError(int errCode) {
     $callSync(
-        15170,
+        15176,
         $W()
           ..h(this)
           ..i64(errCode));
@@ -350,14 +350,14 @@ class YamuxV5Stream extends $net.NetConn
 
   /// Go: `func (*yamux.Stream).Session() *yamux.Session`.
   YamuxV5Session session() {
-    final $r = $callSync(15171, $W()..h(this));
+    final $r = $callSync(15177, $W()..h(this));
     return $r.hnn(YamuxV5Session.$h);
   }
 
   /// Go: `func (*yamux.Stream).SetDeadline(t time.Time) error`.
   void setDeadline(DateTime t) {
     $callSync(
-        15172,
+        15178,
         $W()
           ..h(this)
           ..time(t));
@@ -366,7 +366,7 @@ class YamuxV5Stream extends $net.NetConn
   /// Go: `func (*yamux.Stream).SetReadDeadline(t time.Time) error`.
   void setReadDeadline(DateTime t) {
     $callSync(
-        15173,
+        15179,
         $W()
           ..h(this)
           ..time(t));
@@ -375,7 +375,7 @@ class YamuxV5Stream extends $net.NetConn
   /// Go: `func (*yamux.Stream).SetWriteDeadline(t time.Time) error`.
   void setWriteDeadline(DateTime t) {
     $callSync(
-        15174,
+        15180,
         $W()
           ..h(this)
           ..time(t));
@@ -383,14 +383,14 @@ class YamuxV5Stream extends $net.NetConn
 
   /// Go: `func (*yamux.Stream).StreamID() uint32`.
   int streamId() {
-    final $r = $callSync(15175, $W()..h(this));
+    final $r = $callSync(15181, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*yamux.Stream).Write(b []byte) (int, error)`.
   int write(Uint8List b) {
     final $r = $callSync(
-        15176,
+        15182,
         $W()
           ..h(this)
           ..bytes(b));
@@ -447,12 +447,12 @@ class YamuxV5StreamError extends GolangException {
 extension GoLibp2pYamuxV5Api on GoLibp2pYamuxV5 {
   /// Go: `func yamux.DefaultConfig() *yamux.Config`.
   YamuxV5Config defaultConfig() {
-    final $r = $callSync(15145);
+    final $r = $callSync(15151);
     return $r.p() ? YamuxV5Config.$dec($r) : $nil();
   }
 
   /// Go: `func yamux.VerifyConfig(config *yamux.Config) error`.
   void verifyConfig(YamuxV5Config config) {
-    $callSync(15177, $W()..dto(config));
+    $callSync(15183, $W()..dto(config));
   }
 }

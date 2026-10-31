@@ -79,7 +79,7 @@ class Libp2pP2pTransportWebrtcUdpmuxUdpMux extends $v4.IceV4UdpMux
 
   /// Go: `func udpmux.NewUDPMux(socket net.PacketConn) *udpmux.UDPMux`.
   factory Libp2pP2pTransportWebrtcUdpmuxUdpMux($net.NetPacketConn socket) {
-    final $r = $callSync(15066, $W()..h(socket));
+    final $r = $callSync(15072, $W()..h(socket));
     return $r.hnn(Libp2pP2pTransportWebrtcUdpmuxUdpMux.$h);
   }
 
@@ -89,7 +89,7 @@ class Libp2pP2pTransportWebrtcUdpmuxUdpMux extends $v4.IceV4UdpMux
   Future<Libp2pP2pTransportWebrtcUdpmuxCandidate> accept(
       $context.Context ctx) async {
     final $r = await $call(
-        15067,
+        15073,
         $W()
           ..h(this)
           ..h(ctx));
@@ -98,13 +98,13 @@ class Libp2pP2pTransportWebrtcUdpmuxUdpMux extends $v4.IceV4UdpMux
 
   /// Go: `func (*udpmux.UDPMux).Close() error`.
   void close() {
-    $callSync(15068, $W()..h(this));
+    $callSync(15074, $W()..h(this));
   }
 
   /// Go: `func (*udpmux.UDPMux).GetConn(localUfrag string, addr net.Addr) (net.PacketConn, error)`.
   $net.NetPacketConn getConn(String localUfrag, $net.NetAddr addr) {
     final $r = $callSync(
-        15069,
+        15075,
         $W()
           ..h(this)
           ..str(localUfrag)
@@ -114,14 +114,14 @@ class Libp2pP2pTransportWebrtcUdpmuxUdpMux extends $v4.IceV4UdpMux
 
   /// Go: `func (*udpmux.UDPMux).GetListenAddresses() []net.Addr`.
   List<$net.NetAddr> getListenAddresses() {
-    final $r = $callSync(15070, $W()..h(this));
+    final $r = $callSync(15076, $W()..h(this));
     return $r.list(() => $r.p() ? $net.NetAddr.$dec($r) : $nil());
   }
 
   /// Go: `func (*udpmux.UDPMux).RemoveConnByUfrag(localUfrag string)`.
   void removeConnByUfrag(String localUfrag) {
     $callSync(
-        15071,
+        15077,
         $W()
           ..h(this)
           ..str(localUfrag));
@@ -129,7 +129,7 @@ class Libp2pP2pTransportWebrtcUdpmuxUdpMux extends $v4.IceV4UdpMux
 
   /// Go: `func (*udpmux.UDPMux).Start()`.
   void start() {
-    $callSync(15072, $W()..h(this));
+    $callSync(15078, $W()..h(this));
   }
 }
 

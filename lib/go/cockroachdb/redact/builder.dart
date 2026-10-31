@@ -20,7 +20,7 @@ final class RedactBuilderStringBuilder implements GoDto {
   /// Go: `func (*builder.StringBuilder).Print(args ...interface{})`.
   void print([List<Object?> args = const []]) {
     $callSync(
-        5706,
+        5715,
         $W()
           ..dto(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -29,7 +29,7 @@ final class RedactBuilderStringBuilder implements GoDto {
   /// Go: `func (*builder.StringBuilder).Printf(format string, args ...interface{})`.
   void printf(String format, [List<Object?> args = const []]) {
     $callSync(
-        5707,
+        5716,
         $W()
           ..dto(this)
           ..str(format)
@@ -39,7 +39,7 @@ final class RedactBuilderStringBuilder implements GoDto {
   /// Go: `func (*builder.StringBuilder).SafeFloat(s interfaces.SafeFloat)`.
   void safeFloat(double s) {
     $callSync(
-        5708,
+        5717,
         $W()
           ..dto(this)
           ..f64(s));
@@ -48,7 +48,7 @@ final class RedactBuilderStringBuilder implements GoDto {
   /// Go: `func (builder.StringBuilder).SafeFormat(p interfaces.SafePrinter, _ rune)`.
   void safeFormat($interfaces.RedactInterfacesSafePrinter p, int arg1) {
     $callSync(
-        5709,
+        5718,
         $W()
           ..dto(this)
           ..h(p)
@@ -58,7 +58,7 @@ final class RedactBuilderStringBuilder implements GoDto {
   /// Go: `func (*builder.StringBuilder).SafeInt(s interfaces.SafeInt)`.
   void safeInt(int s) {
     $callSync(
-        5710,
+        5719,
         $W()
           ..dto(this)
           ..i64(s));
@@ -67,7 +67,7 @@ final class RedactBuilderStringBuilder implements GoDto {
   /// Go: `func (*builder.StringBuilder).SafeRune(s interfaces.SafeRune)`.
   void safeRune(int s) {
     $callSync(
-        5711,
+        5720,
         $W()
           ..dto(this)
           ..i64(s));
@@ -76,7 +76,7 @@ final class RedactBuilderStringBuilder implements GoDto {
   /// Go: `func (*builder.StringBuilder).SafeString(s interfaces.SafeString)`.
   void safeString(String s) {
     $callSync(
-        5712,
+        5721,
         $W()
           ..dto(this)
           ..str(s));
@@ -85,7 +85,7 @@ final class RedactBuilderStringBuilder implements GoDto {
   /// Go: `func (*builder.StringBuilder).SafeUint(s interfaces.SafeUint)`.
   void safeUint(int s) {
     $callSync(
-        5713,
+        5722,
         $W()
           ..dto(this)
           ..i64(s));
@@ -94,7 +94,7 @@ final class RedactBuilderStringBuilder implements GoDto {
   /// Go: `func (*builder.StringBuilder).UnsafeByte(s byte)`.
   void unsafeByte(int s) {
     $callSync(
-        5714,
+        5723,
         $W()
           ..dto(this)
           ..i64(s));
@@ -103,7 +103,7 @@ final class RedactBuilderStringBuilder implements GoDto {
   /// Go: `func (*builder.StringBuilder).UnsafeBytes(s []byte)`.
   void unsafeBytes(Uint8List s) {
     $callSync(
-        5715,
+        5724,
         $W()
           ..dto(this)
           ..bytes(s));
@@ -112,7 +112,7 @@ final class RedactBuilderStringBuilder implements GoDto {
   /// Go: `func (*builder.StringBuilder).UnsafeRune(s rune)`.
   void unsafeRune(int s) {
     $callSync(
-        5716,
+        5725,
         $W()
           ..dto(this)
           ..i64(s));
@@ -121,7 +121,7 @@ final class RedactBuilderStringBuilder implements GoDto {
   /// Go: `func (*builder.StringBuilder).UnsafeString(s string)`.
   void unsafeString(String s) {
     $callSync(
-        5717,
+        5726,
         $W()
           ..dto(this)
           ..str(s));
@@ -130,7 +130,7 @@ final class RedactBuilderStringBuilder implements GoDto {
   /// Go: `func (*builder.StringBuilder).Write(s []byte) (int, error)`.
   int write(Uint8List s) {
     final $r = $callSync(
-        5718,
+        5727,
         $W()
           ..dto(this)
           ..bytes(s));
@@ -140,7 +140,7 @@ final class RedactBuilderStringBuilder implements GoDto {
   /// Go: `func (*builder.StringBuilder).WriteByte(c byte) error`.
   void writeByte(int c) {
     $callSync(
-        5719,
+        5728,
         $W()
           ..dto(this)
           ..i64(c));
@@ -149,7 +149,7 @@ final class RedactBuilderStringBuilder implements GoDto {
   /// Go: `func (*builder.StringBuilder).WriteRune(r rune) error`.
   void writeRune(int r) {
     $callSync(
-        5720,
+        5729,
         $W()
           ..dto(this)
           ..i64(r));
@@ -158,7 +158,7 @@ final class RedactBuilderStringBuilder implements GoDto {
   /// Go: `func (*builder.StringBuilder).WriteString(s string) (int, error)`.
   int writeString(String s) {
     final $r = $callSync(
-        5721,
+        5730,
         $W()
           ..dto(this)
           ..str(s));

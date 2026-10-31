@@ -19,7 +19,7 @@ class CryptoCipherAead extends GoHandle with CryptoCipherAead$ {
 mixin CryptoCipherAead$ on GoHandle {
   /// Go: `func (cipher.AEAD).NonceSize() int`.
   int nonceSize() {
-    final $r = $callSync(3134, $W()..h(this));
+    final $r = $callSync(3143, $W()..h(this));
     return $r.i64();
   }
 
@@ -27,7 +27,7 @@ mixin CryptoCipherAead$ on GoHandle {
   Uint8List open(Uint8List dst, Uint8List nonce, Uint8List ciphertext,
       Uint8List additionalData) {
     final $r = $callSync(
-        3135,
+        3144,
         $W()
           ..h(this)
           ..bytes(dst)
@@ -39,7 +39,7 @@ mixin CryptoCipherAead$ on GoHandle {
 
   /// Go: `func (cipher.AEAD).Overhead() int`.
   int overhead() {
-    final $r = $callSync(3136, $W()..h(this));
+    final $r = $callSync(3145, $W()..h(this));
     return $r.i64();
   }
 
@@ -47,7 +47,7 @@ mixin CryptoCipherAead$ on GoHandle {
   Uint8List seal(Uint8List dst, Uint8List nonce, Uint8List plaintext,
       Uint8List additionalData) {
     final $r = $callSync(
-        3137,
+        3146,
         $W()
           ..h(this)
           ..bytes(dst)
@@ -73,14 +73,14 @@ class CryptoCipherBlock extends GoHandle with CryptoCipherBlock$ {
 mixin CryptoCipherBlock$ on GoHandle {
   /// Go: `func (cipher.Block).BlockSize() int`.
   int blockSize() {
-    final $r = $callSync(3138, $W()..h(this));
+    final $r = $callSync(3147, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (cipher.Block).Decrypt(dst []byte, src []byte)`.
   void decrypt(Uint8List dst, Uint8List src) {
     $callSync(
-        3139,
+        3148,
         $W()
           ..h(this)
           ..bytes(dst)
@@ -90,7 +90,7 @@ mixin CryptoCipherBlock$ on GoHandle {
   /// Go: `func (cipher.Block).Encrypt(dst []byte, src []byte)`.
   void encrypt(Uint8List dst, Uint8List src) {
     $callSync(
-        3140,
+        3149,
         $W()
           ..h(this)
           ..bytes(dst)
@@ -107,14 +107,14 @@ class CryptoCipherBlockMode extends GoHandle with CryptoCipherBlockMode$ {
 mixin CryptoCipherBlockMode$ on GoHandle {
   /// Go: `func (cipher.BlockMode).BlockSize() int`.
   int blockSize() {
-    final $r = $callSync(3141, $W()..h(this));
+    final $r = $callSync(3150, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (cipher.BlockMode).CryptBlocks(dst []byte, src []byte)`.
   void cryptBlocks(Uint8List dst, Uint8List src) {
     $callSync(
-        3142,
+        3151,
         $W()
           ..h(this)
           ..bytes(dst)
@@ -132,7 +132,7 @@ mixin CryptoCipherStream$ on GoHandle {
   /// Go: `func (cipher.Stream).XORKeyStream(dst []byte, src []byte)`.
   void xorKeyStream(Uint8List dst, Uint8List src) {
     $callSync(
-        3153,
+        3162,
         $W()
           ..h(this)
           ..bytes(dst)
@@ -172,7 +172,7 @@ final class CryptoCipherStreamReader implements GoDto {
   /// Go: `func (cipher.StreamReader).Read(dst []byte) (n int, err error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        3154,
+        3163,
         $W()
           ..dto(this)
           ..i64(n));
@@ -207,13 +207,13 @@ final class CryptoCipherStreamWriter implements GoDto {
 
   /// Go: `func (cipher.StreamWriter).Close() error`.
   void close() {
-    $callSync(3155, $W()..dto(this));
+    $callSync(3164, $W()..dto(this));
   }
 
   /// Go: `func (cipher.StreamWriter).Write(src []byte) (n int, err error)`.
   int write(Uint8List src) {
     final $r = $callSync(
-        3156,
+        3165,
         $W()
           ..dto(this)
           ..bytes(src));
@@ -226,7 +226,7 @@ extension GoCryptoCipherApi on GoCryptoCipher {
   /// Go: `func cipher.NewCBCDecrypter(b cipher.Block, iv []byte) cipher.BlockMode`.
   CryptoCipherBlockMode newCbcDecrypter(CryptoCipherBlock b, Uint8List iv) {
     final $r = $callSync(
-        3143,
+        3152,
         $W()
           ..h(b)
           ..bytes(iv));
@@ -236,7 +236,7 @@ extension GoCryptoCipherApi on GoCryptoCipher {
   /// Go: `func cipher.NewCBCEncrypter(b cipher.Block, iv []byte) cipher.BlockMode`.
   CryptoCipherBlockMode newCbcEncrypter(CryptoCipherBlock b, Uint8List iv) {
     final $r = $callSync(
-        3144,
+        3153,
         $W()
           ..h(b)
           ..bytes(iv));
@@ -248,7 +248,7 @@ extension GoCryptoCipherApi on GoCryptoCipher {
       "CFB mode is not authenticated, which generally enables active attacks to manipulate and recover the plaintext. It is recommended that applications use [AEAD] modes instead. The standard library implementation of CFB is also unoptimized and not validated as part of the FIPS 140-3 module. If an unauthenticated [Stream] mode is required, use [NewCTR] instead.")
   CryptoCipherStream newCfbDecrypter(CryptoCipherBlock block, Uint8List iv) {
     final $r = $callSync(
-        3145,
+        3154,
         $W()
           ..h(block)
           ..bytes(iv));
@@ -260,7 +260,7 @@ extension GoCryptoCipherApi on GoCryptoCipher {
       "CFB mode is not authenticated, which generally enables active attacks to manipulate and recover the plaintext. It is recommended that applications use [AEAD] modes instead. The standard library implementation of CFB is also unoptimized and not validated as part of the FIPS 140-3 module. If an unauthenticated [Stream] mode is required, use [NewCTR] instead.")
   CryptoCipherStream newCfbEncrypter(CryptoCipherBlock block, Uint8List iv) {
     final $r = $callSync(
-        3146,
+        3155,
         $W()
           ..h(block)
           ..bytes(iv));
@@ -270,7 +270,7 @@ extension GoCryptoCipherApi on GoCryptoCipher {
   /// Go: `func cipher.NewCTR(block cipher.Block, iv []byte) cipher.Stream`.
   CryptoCipherStream newCtr(CryptoCipherBlock block, Uint8List iv) {
     final $r = $callSync(
-        3147,
+        3156,
         $W()
           ..h(block)
           ..bytes(iv));
@@ -279,14 +279,14 @@ extension GoCryptoCipherApi on GoCryptoCipher {
 
   /// Go: `func cipher.NewGCM(cipher cipher.Block) (cipher.AEAD, error)`.
   CryptoCipherAead newGcm(CryptoCipherBlock cipher) {
-    final $r = $callSync(3148, $W()..h(cipher));
+    final $r = $callSync(3157, $W()..h(cipher));
     return $r.hnn(CryptoCipherAead.$h);
   }
 
   /// Go: `func cipher.NewGCMWithNonceSize(cipher cipher.Block, size int) (cipher.AEAD, error)`.
   CryptoCipherAead newGcmWithNonceSize(CryptoCipherBlock cipher, int size) {
     final $r = $callSync(
-        3149,
+        3158,
         $W()
           ..h(cipher)
           ..i64(size));
@@ -295,14 +295,14 @@ extension GoCryptoCipherApi on GoCryptoCipher {
 
   /// Go: `func cipher.NewGCMWithRandomNonce(cipher cipher.Block) (cipher.AEAD, error)`.
   CryptoCipherAead newGcmWithRandomNonce(CryptoCipherBlock cipher) {
-    final $r = $callSync(3150, $W()..h(cipher));
+    final $r = $callSync(3159, $W()..h(cipher));
     return $r.hnn(CryptoCipherAead.$h);
   }
 
   /// Go: `func cipher.NewGCMWithTagSize(cipher cipher.Block, tagSize int) (cipher.AEAD, error)`.
   CryptoCipherAead newGcmWithTagSize(CryptoCipherBlock cipher, int tagSize) {
     final $r = $callSync(
-        3151,
+        3160,
         $W()
           ..h(cipher)
           ..i64(tagSize));
@@ -314,7 +314,7 @@ extension GoCryptoCipherApi on GoCryptoCipher {
       "OFB mode is not authenticated, which generally enables active attacks to manipulate and recover the plaintext. It is recommended that applications use [AEAD] modes instead. The standard library implementation of OFB is also unoptimized and not validated as part of the FIPS 140-3 module. If an unauthenticated [Stream] mode is required, use [NewCTR] instead.")
   CryptoCipherStream newOfb(CryptoCipherBlock b, Uint8List iv) {
     final $r = $callSync(
-        3152,
+        3161,
         $W()
           ..h(b)
           ..bytes(iv));

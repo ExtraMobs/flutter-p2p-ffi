@@ -32,14 +32,14 @@ class RefmtObjAtlas extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (atlas.Atlas).GetDefaultMapMorphism() *atlas.MapMorphism`.
   RefmtObjAtlasMapMorphism getDefaultMapMorphism() {
-    final $r = $callSync(17895, $W()..h(this));
+    final $r = $callSync(17901, $W()..h(this));
     return $r.p() ? RefmtObjAtlasMapMorphism.$dec($r) : $nil();
   }
 
   /// Go: `func (atlas.Atlas).GetEntryByTag(tag int) (*atlas.AtlasEntry, bool)`.
   (RefmtObjAtlasEntry, bool) getEntryByTag(int tag) {
     final $r = $callSync(
-        17896,
+        17902,
         $W()
           ..h(this)
           ..i64(tag));
@@ -49,7 +49,7 @@ class RefmtObjAtlas extends $crypto.CryptoDecrypterOpts
   /// Go: `func (atlas.Atlas).WithMapMorphism(m atlas.MapMorphism) atlas.Atlas`.
   RefmtObjAtlas withMapMorphism(RefmtObjAtlasMapMorphism m) {
     final $r = $callSync(
-        17897,
+        17903,
         $W()
           ..h(this)
           ..dto(m));
@@ -162,32 +162,32 @@ class RefmtObjAtlasBuilderCore extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*atlas.BuilderCore).KeyedUnion() *atlas.BuilderUnionKeyedMorphism`.
   RefmtObjAtlasBuilderUnionKeyedMorphism keyedUnion() {
-    final $r = $callSync(17902, $W()..h(this));
+    final $r = $callSync(17908, $W()..h(this));
     return $r.hnn(RefmtObjAtlasBuilderUnionKeyedMorphism.$h);
   }
 
   /// Go: `func (*atlas.BuilderCore).MapMorphism() *atlas.BuilderMapMorphism`.
   RefmtObjAtlasBuilderMapMorphism mapMorphism() {
-    final $r = $callSync(17903, $W()..h(this));
+    final $r = $callSync(17909, $W()..h(this));
     return $r.hnn(RefmtObjAtlasBuilderMapMorphism.$h);
   }
 
   /// Go: `func (*atlas.BuilderCore).StructMap() *atlas.BuilderStructMap`.
   RefmtObjAtlasBuilderStructMap structMap() {
-    final $r = $callSync(17904, $W()..h(this));
+    final $r = $callSync(17910, $W()..h(this));
     return $r.hnn(RefmtObjAtlasBuilderStructMap.$h);
   }
 
   /// Go: `func (*atlas.BuilderCore).Transform() *atlas.BuilderTransform`.
   RefmtObjAtlasBuilderTransform transform() {
-    final $r = $callSync(17905, $W()..h(this));
+    final $r = $callSync(17911, $W()..h(this));
     return $r.hnn(RefmtObjAtlasBuilderTransform.$h);
   }
 
   /// Go: `func (*atlas.BuilderCore).UseTag(tag int) *atlas.BuilderCore`.
   RefmtObjAtlasBuilderCore useTag(int tag) {
     final $r = $callSync(
-        17906,
+        17912,
         $W()
           ..h(this)
           ..i64(tag));
@@ -215,14 +215,14 @@ class RefmtObjAtlasBuilderMapMorphism extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*atlas.BuilderMapMorphism).Complete() *atlas.AtlasEntry`.
   RefmtObjAtlasEntry complete() {
-    final $r = $callSync(17907, $W()..h(this));
+    final $r = $callSync(17913, $W()..h(this));
     return $r.p() ? RefmtObjAtlasEntry.$dec($r) : $nil();
   }
 
   /// Go: `func (*atlas.BuilderMapMorphism).SetKeySortMode(km atlas.KeySortMode) *atlas.BuilderMapMorphism`.
   RefmtObjAtlasBuilderMapMorphism setKeySortMode(String km) {
     final $r = $callSync(
-        17908,
+        17914,
         $W()
           ..h(this)
           ..str(km));
@@ -252,7 +252,7 @@ class RefmtObjAtlasBuilderStructMap extends $crypto.CryptoDecrypterOpts
   RefmtObjAtlasBuilderStructMap addField(
       String fieldName, RefmtObjAtlasStructMapEntry mapping) {
     final $r = $callSync(
-        17909,
+        17915,
         $W()
           ..h(this)
           ..str(fieldName)
@@ -262,14 +262,14 @@ class RefmtObjAtlasBuilderStructMap extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*atlas.BuilderStructMap).Autogenerate() *atlas.BuilderStructMap`.
   RefmtObjAtlasBuilderStructMap autogenerate() {
-    final $r = $callSync(17910, $W()..h(this));
+    final $r = $callSync(17916, $W()..h(this));
     return $r.hnn(RefmtObjAtlasBuilderStructMap.$h);
   }
 
   /// Go: `func (*atlas.BuilderStructMap).AutogenerateWithSortingScheme(sorting atlas.KeySortMode) *atlas.BuilderStructMap`.
   RefmtObjAtlasBuilderStructMap autogenerateWithSortingScheme(String sorting) {
     final $r = $callSync(
-        17911,
+        17917,
         $W()
           ..h(this)
           ..str(sorting));
@@ -278,14 +278,14 @@ class RefmtObjAtlasBuilderStructMap extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*atlas.BuilderStructMap).Complete() *atlas.AtlasEntry`.
   RefmtObjAtlasEntry complete() {
-    final $r = $callSync(17912, $W()..h(this));
+    final $r = $callSync(17918, $W()..h(this));
     return $r.p() ? RefmtObjAtlasEntry.$dec($r) : $nil();
   }
 
   /// Go: `func (*atlas.BuilderStructMap).IgnoreKey(serialKeyName string) *atlas.BuilderStructMap`.
   RefmtObjAtlasBuilderStructMap ignoreKey(String serialKeyName) {
     final $r = $callSync(
-        17913,
+        17919,
         $W()
           ..h(this)
           ..str(serialKeyName));
@@ -313,7 +313,7 @@ class RefmtObjAtlasBuilderTransform extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*atlas.BuilderTransform).Complete() *atlas.AtlasEntry`.
   RefmtObjAtlasEntry complete() {
-    final $r = $callSync(17914, $W()..h(this));
+    final $r = $callSync(17920, $W()..h(this));
     return $r.p() ? RefmtObjAtlasEntry.$dec($r) : $nil();
   }
 
@@ -321,7 +321,7 @@ class RefmtObjAtlasBuilderTransform extends $crypto.CryptoDecrypterOpts
   RefmtObjAtlasBuilderTransform transformMarshal(
       RefmtObjAtlasMarshalTransformFunc trFunc, $reflect.ReflectType toType) {
     final $r = $callSync(
-        17915,
+        17921,
         $W()
           ..h(this)
           ..h(trFunc)
@@ -333,7 +333,7 @@ class RefmtObjAtlasBuilderTransform extends $crypto.CryptoDecrypterOpts
   RefmtObjAtlasBuilderTransform transformUnmarshal(
       RefmtObjAtlasUnmarshalTransformFunc trFunc, $reflect.ReflectType toType) {
     final $r = $callSync(
-        17916,
+        17922,
         $W()
           ..h(this)
           ..h(trFunc)
@@ -492,7 +492,7 @@ class RefmtObjAtlasErrStructureMismatch extends GolangException {
 extension GoPolydawnRefmtObjAtlasApi on GoPolydawnRefmtObjAtlas {
   /// Go: `func atlas.AutogenerateStructMapEntry(rt reflect.Type) *atlas.AtlasEntry`.
   RefmtObjAtlasEntry autogenerateStructMapEntry($reflect.ReflectType rt) {
-    final $r = $callSync(17898, $W()..h(rt));
+    final $r = $callSync(17904, $W()..h(rt));
     return $r.p() ? RefmtObjAtlasEntry.$dec($r) : $nil();
   }
 
@@ -500,7 +500,7 @@ extension GoPolydawnRefmtObjAtlasApi on GoPolydawnRefmtObjAtlas {
   RefmtObjAtlasEntry autogenerateStructMapEntryUsingTags(
       $reflect.ReflectType rt, String tagName, String sorter) {
     final $r = $callSync(
-        17899,
+        17905,
         $W()
           ..h(rt)
           ..str(tagName)
@@ -510,20 +510,20 @@ extension GoPolydawnRefmtObjAtlasApi on GoPolydawnRefmtObjAtlas {
 
   /// Go: `func atlas.Build(entries ...*atlas.AtlasEntry) (atlas.Atlas, error)`.
   RefmtObjAtlas build([List<RefmtObjAtlasEntry> entries = const []]) {
-    final $r = $callSync(17900, $W()..list(entries, (w0, e0) => w0.dto(e0)));
+    final $r = $callSync(17906, $W()..list(entries, (w0, e0) => w0.dto(e0)));
     return $r.hnn(RefmtObjAtlas.$h);
   }
 
   /// Go: `func atlas.BuildEntry(typeHintObj interface{}) *atlas.BuilderCore`.
   RefmtObjAtlasBuilderCore buildEntry(Object? typeHintObj) {
-    final $r = $callSync(17901, $W()..any(typeHintObj));
+    final $r = $callSync(17907, $W()..any(typeHintObj));
     return $r.hnn(RefmtObjAtlasBuilderCore.$h);
   }
 
   /// Go: `func atlas.MakeMarshalTransformFunc(fn interface{}) (atlas.MarshalTransformFunc, reflect.Type)`.
   (RefmtObjAtlasMarshalTransformFunc, $reflect.ReflectType)
       makeMarshalTransformFunc(Object? fn) {
-    final $r = $callSync(17917, $W()..any(fn));
+    final $r = $callSync(17923, $W()..any(fn));
     return (
       $r.hnn(RefmtObjAtlasMarshalTransformFunc.$h),
       $r.hnn($reflect.ReflectType.$h)
@@ -533,7 +533,7 @@ extension GoPolydawnRefmtObjAtlasApi on GoPolydawnRefmtObjAtlas {
   /// Go: `func atlas.MakeUnmarshalTransformFunc(fn interface{}) (atlas.UnmarshalTransformFunc, reflect.Type)`.
   (RefmtObjAtlasUnmarshalTransformFunc, $reflect.ReflectType)
       makeUnmarshalTransformFunc(Object? fn) {
-    final $r = $callSync(17918, $W()..any(fn));
+    final $r = $callSync(17924, $W()..any(fn));
     return (
       $r.hnn(RefmtObjAtlasUnmarshalTransformFunc.$h),
       $r.hnn($reflect.ReflectType.$h)
@@ -542,7 +542,7 @@ extension GoPolydawnRefmtObjAtlasApi on GoPolydawnRefmtObjAtlas {
 
   /// Go: `func atlas.MustBuild(entries ...*atlas.AtlasEntry) atlas.Atlas`.
   RefmtObjAtlas mustBuild([List<RefmtObjAtlasEntry> entries = const []]) {
-    final $r = $callSync(17919, $W()..list(entries, (w0, e0) => w0.dto(e0)));
+    final $r = $callSync(17925, $W()..list(entries, (w0, e0) => w0.dto(e0)));
     return $r.hnn(RefmtObjAtlas.$h);
   }
 }

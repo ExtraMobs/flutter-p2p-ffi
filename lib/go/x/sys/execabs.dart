@@ -21,7 +21,7 @@ extension GoXSysExecabsApi on GoXSysExecabs {
   /// Go: `func execabs.Command(name string, arg ...string) *exec.Cmd`.
   $exec.OsExecCmd command(String name, [List<String> arg = const []]) {
     final $r = $callSync(
-        23833,
+        23839,
         $W()
           ..str(name)
           ..list(arg, (w0, e0) => w0.str(e0)));
@@ -34,7 +34,7 @@ extension GoXSysExecabsApi on GoXSysExecabs {
   Future<$exec.OsExecCmd> commandContext($context.Context ctx, String name,
       [List<String> arg = const []]) async {
     final $r = await $call(
-        23834,
+        23840,
         $W()
           ..h(ctx)
           ..str(name)
@@ -44,7 +44,7 @@ extension GoXSysExecabsApi on GoXSysExecabs {
 
   /// Go: `func execabs.LookPath(file string) (string, error)`.
   String lookPath(String file) {
-    final $r = $callSync(23835, $W()..str(file));
+    final $r = $callSync(23841, $W()..str(file));
     return $r.str();
   }
 }

@@ -10,7 +10,7 @@ import 'package:p2p_ffi/go/otel/trace.dart' as $trace;
 extension GoAutoSdkApi on GoAutoSdk {
   /// Go: `func sdk.TracerProvider() trace.TracerProvider`.
   $trace.OtelTraceTracerProvider tracerProvider() {
-    final $r = $callSync(19085);
+    final $r = $callSync(19091);
     return $r.hnn($trace.OtelTraceTracerProvider.$h);
   }
 }

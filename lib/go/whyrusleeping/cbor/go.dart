@@ -40,7 +40,7 @@ final class CborGoCborTag implements GoDto {
   /// Go: `func (*cbor.CBORTag).ToCBOR(w io.Writer, enc *cbor.Encoder) error`.
   void toCbor(GoHandle? w, CborGoEncoder enc) {
     $callSync(
-        18907,
+        18913,
         $W()
           ..dto(this)
           ..h(w)
@@ -58,7 +58,7 @@ mixin CborGoDecodeValue$ on GoHandle {
   /// Go: `func (cbor.DecodeValue).CreateArray(makeLength int) (cbor.DecodeValueArray, error)`.
   CborGoDecodeValueArray createArray(int makeLength) {
     final $r = $callSync(
-        18908,
+        18914,
         $W()
           ..h(this)
           ..i64(makeLength));
@@ -67,14 +67,14 @@ mixin CborGoDecodeValue$ on GoHandle {
 
   /// Go: `func (cbor.DecodeValue).CreateMap() (cbor.DecodeValueMap, error)`.
   CborGoDecodeValueMap createMap() {
-    final $r = $callSync(18909, $W()..h(this));
+    final $r = $callSync(18915, $W()..h(this));
     return $r.hnn(CborGoDecodeValueMap.$h);
   }
 
   /// Go: `func (cbor.DecodeValue).CreateTag(aux uint64, decoder cbor.TagDecoder) (cbor.DecodeValue, interface{}, error)`.
   (CborGoDecodeValue, Object?) createTag(int aux, CborGoTagDecoder decoder) {
     final $r = $callSync(
-        18910,
+        18916,
         $W()
           ..h(this)
           ..i64(aux)
@@ -84,13 +84,13 @@ mixin CborGoDecodeValue$ on GoHandle {
 
   /// Go: `func (cbor.DecodeValue).Prepare() error`.
   void prepare() {
-    $callSync(18911, $W()..h(this));
+    $callSync(18917, $W()..h(this));
   }
 
   /// Go: `func (cbor.DecodeValue).SetBignum(x *big.Int) error`.
   void setBignum($big.MathBigInt x) {
     $callSync(
-        18912,
+        18918,
         $W()
           ..h(this)
           ..h(x));
@@ -99,7 +99,7 @@ mixin CborGoDecodeValue$ on GoHandle {
   /// Go: `func (cbor.DecodeValue).SetBool(b bool) error`.
   void setBool(bool b) {
     $callSync(
-        18913,
+        18919,
         $W()
           ..h(this)
           ..b(b));
@@ -108,7 +108,7 @@ mixin CborGoDecodeValue$ on GoHandle {
   /// Go: `func (cbor.DecodeValue).SetBytes(buf []byte) error`.
   void setBytes(Uint8List buf) {
     $callSync(
-        18914,
+        18920,
         $W()
           ..h(this)
           ..bytes(buf));
@@ -117,7 +117,7 @@ mixin CborGoDecodeValue$ on GoHandle {
   /// Go: `func (cbor.DecodeValue).SetFloat32(f float32) error`.
   void setFloat32(double f) {
     $callSync(
-        18915,
+        18921,
         $W()
           ..h(this)
           ..f64(f));
@@ -126,7 +126,7 @@ mixin CborGoDecodeValue$ on GoHandle {
   /// Go: `func (cbor.DecodeValue).SetFloat64(d float64) error`.
   void setFloat64(double d) {
     $callSync(
-        18916,
+        18922,
         $W()
           ..h(this)
           ..f64(d));
@@ -135,7 +135,7 @@ mixin CborGoDecodeValue$ on GoHandle {
   /// Go: `func (cbor.DecodeValue).SetInt(i int64) error`.
   void setInt(int i) {
     $callSync(
-        18917,
+        18923,
         $W()
           ..h(this)
           ..i64(i));
@@ -143,13 +143,13 @@ mixin CborGoDecodeValue$ on GoHandle {
 
   /// Go: `func (cbor.DecodeValue).SetNil() error`.
   void setNil() {
-    $callSync(18918, $W()..h(this));
+    $callSync(18924, $W()..h(this));
   }
 
   /// Go: `func (cbor.DecodeValue).SetString(s string) error`.
   void setString(String s) {
     $callSync(
-        18919,
+        18925,
         $W()
           ..h(this)
           ..str(s));
@@ -159,7 +159,7 @@ mixin CborGoDecodeValue$ on GoHandle {
   void setTag(
       int aux, CborGoDecodeValue v, CborGoTagDecoder decoder, Object? i) {
     $callSync(
-        18920,
+        18926,
         $W()
           ..h(this)
           ..i64(aux)
@@ -171,7 +171,7 @@ mixin CborGoDecodeValue$ on GoHandle {
   /// Go: `func (cbor.DecodeValue).SetUint(u uint64) error`.
   void setUint(int u) {
     $callSync(
-        18921,
+        18927,
         $W()
           ..h(this)
           ..i64(u));
@@ -179,7 +179,7 @@ mixin CborGoDecodeValue$ on GoHandle {
 
   /// Go: type assertion `x.(*cbor.MemoryValue)`: null if the object is not one.
   CborGoMemoryValue? asCborGoMemoryValue() {
-    final $r = $callSync(1989, $W()..h(this));
+    final $r = $callSync(1996, $W()..h(this));
     return $r.hn(CborGoMemoryValue.$h);
   }
 }
@@ -194,7 +194,7 @@ mixin CborGoDecodeValueArray$ on GoHandle {
   /// Go: `func (cbor.DecodeValueArray).AppendArray(value cbor.DecodeValue) error`.
   void appendArray(CborGoDecodeValue value) {
     $callSync(
-        18922,
+        18928,
         $W()
           ..h(this)
           ..h(value));
@@ -202,13 +202,13 @@ mixin CborGoDecodeValueArray$ on GoHandle {
 
   /// Go: `func (cbor.DecodeValueArray).EndArray() error`.
   void endArray() {
-    $callSync(18923, $W()..h(this));
+    $callSync(18929, $W()..h(this));
   }
 
   /// Go: `func (cbor.DecodeValueArray).GetArrayValue(index uint64) (cbor.DecodeValue, error)`.
   CborGoDecodeValue getArrayValue(int index) {
     final $r = $callSync(
-        18924,
+        18930,
         $W()
           ..h(this)
           ..i64(index));
@@ -225,14 +225,14 @@ class CborGoDecodeValueMap extends GoHandle with CborGoDecodeValueMap$ {
 mixin CborGoDecodeValueMap$ on GoHandle {
   /// Go: `func (cbor.DecodeValueMap).CreateMapKey() (cbor.DecodeValue, error)`.
   CborGoDecodeValue createMapKey() {
-    final $r = $callSync(18925, $W()..h(this));
+    final $r = $callSync(18931, $W()..h(this));
     return $r.hnn(CborGoDecodeValue.$h);
   }
 
   /// Go: `func (cbor.DecodeValueMap).CreateMapValue(key cbor.DecodeValue) (cbor.DecodeValue, error)`.
   CborGoDecodeValue createMapValue(CborGoDecodeValue key) {
     final $r = $callSync(
-        18926,
+        18932,
         $W()
           ..h(this)
           ..h(key));
@@ -241,13 +241,13 @@ mixin CborGoDecodeValueMap$ on GoHandle {
 
   /// Go: `func (cbor.DecodeValueMap).EndMap() error`.
   void endMap() {
-    $callSync(18927, $W()..h(this));
+    $callSync(18933, $W()..h(this));
   }
 
   /// Go: `func (cbor.DecodeValueMap).SetMap(key cbor.DecodeValue, val cbor.DecodeValue) error`.
   void setMap(CborGoDecodeValue key, CborGoDecodeValue val) {
     $callSync(
-        18928,
+        18934,
         $W()
           ..h(this)
           ..h(key)
@@ -279,14 +279,14 @@ class CborGoDecoder extends $runtime.GrpcGatewayV2RuntimeDecoder
 
   /// Go: `func cbor.NewDecoder(r io.Reader) *cbor.Decoder`.
   factory CborGoDecoder(Object r) {
-    final $r = $callSync(18957, $W()..reader(r));
+    final $r = $callSync(18963, $W()..reader(r));
     return $r.hnn(CborGoDecoder.$h);
   }
 
   /// Go: `func (*cbor.Decoder).Decode(v interface{}) error`.
   void decode(Object? v) {
     $callSync(
-        18929,
+        18935,
         $W()
           ..h(this)
           ..any(v));
@@ -295,7 +295,7 @@ class CborGoDecoder extends $runtime.GrpcGatewayV2RuntimeDecoder
   /// Go: `func (*cbor.Decoder).DecodeAny(v cbor.DecodeValue) error`.
   void decodeAny(CborGoDecodeValue v) {
     $callSync(
-        18930,
+        18936,
         $W()
           ..h(this)
           ..h(v));
@@ -328,14 +328,14 @@ class CborGoEncoder extends $runtime.GrpcGatewayV2RuntimeEncoder
 
   /// Go: `func cbor.NewEncoder(out io.Writer) *cbor.Encoder`.
   factory CborGoEncoder(GoHandle? out) {
-    final $r = $callSync(18958, $W()..h(out));
+    final $r = $callSync(18964, $W()..h(out));
     return $r.hnn(CborGoEncoder.$h);
   }
 
   /// Go: `func (*cbor.Encoder).Encode(ob interface{}) error`.
   void encode(Object? ob) {
     $callSync(
-        18939,
+        18945,
         $W()
           ..h(this)
           ..any(ob));
@@ -352,7 +352,7 @@ mixin CborGoMarshallValue$ on GoHandle {
   /// Go: `func (cbor.MarshallValue).ToCBOR(w io.Writer, enc *cbor.Encoder) error`.
   void toCbor(GoHandle? w, CborGoEncoder enc) {
     $callSync(
-        18941,
+        18947,
         $W()
           ..h(this)
           ..h(w)
@@ -382,14 +382,14 @@ class CborGoMemoryValue extends CborGoDecodeValue
 
   /// Go: `func cbor.NewMemoryValue(value interface{}) *cbor.MemoryValue`.
   factory CborGoMemoryValue(Object? value) {
-    final $r = $callSync(18959, $W()..any(value));
+    final $r = $callSync(18965, $W()..any(value));
     return $r.hnn(CborGoMemoryValue.$h);
   }
 
   /// Go: `func (*cbor.reflectValue).CreateArray(makeLength int) (cbor.DecodeValueArray, error)`.
   CborGoDecodeValueArray createArray(int makeLength) {
     final $r = $callSync(
-        18942,
+        18948,
         $W()
           ..h(this)
           ..i64(makeLength));
@@ -398,14 +398,14 @@ class CborGoMemoryValue extends CborGoDecodeValue
 
   /// Go: `func (*cbor.reflectValue).CreateMap() (cbor.DecodeValueMap, error)`.
   CborGoDecodeValueMap createMap() {
-    final $r = $callSync(18943, $W()..h(this));
+    final $r = $callSync(18949, $W()..h(this));
     return $r.hnn(CborGoDecodeValueMap.$h);
   }
 
   /// Go: `func (*cbor.reflectValue).CreateTag(aux uint64, decoder cbor.TagDecoder) (cbor.DecodeValue, interface{}, error)`.
   (CborGoDecodeValue, Object?) createTag(int aux, CborGoTagDecoder decoder) {
     final $r = $callSync(
-        18944,
+        18950,
         $W()
           ..h(this)
           ..i64(aux)
@@ -415,19 +415,19 @@ class CborGoMemoryValue extends CborGoDecodeValue
 
   /// Go: `func (*cbor.reflectValue).Prepare() error`.
   void prepare() {
-    $callSync(18945, $W()..h(this));
+    $callSync(18951, $W()..h(this));
   }
 
   /// Go: `func (*cbor.MemoryValue).ReflectValue() reflect.Value`.
   $reflect.ReflectValue reflectValue() {
-    final $r = $callSync(18946, $W()..h(this));
+    final $r = $callSync(18952, $W()..h(this));
     return $r.hnn($reflect.ReflectValue.$h);
   }
 
   /// Go: `func (*cbor.reflectValue).SetBignum(x *big.Int) error`.
   void setBignum($big.MathBigInt x) {
     $callSync(
-        18947,
+        18953,
         $W()
           ..h(this)
           ..h(x));
@@ -436,7 +436,7 @@ class CborGoMemoryValue extends CborGoDecodeValue
   /// Go: `func (*cbor.reflectValue).SetBool(b bool) error`.
   void setBool(bool b) {
     $callSync(
-        18948,
+        18954,
         $W()
           ..h(this)
           ..b(b));
@@ -445,7 +445,7 @@ class CborGoMemoryValue extends CborGoDecodeValue
   /// Go: `func (*cbor.reflectValue).SetBytes(buf []byte) error`.
   void setBytes(Uint8List buf) {
     $callSync(
-        18949,
+        18955,
         $W()
           ..h(this)
           ..bytes(buf));
@@ -454,7 +454,7 @@ class CborGoMemoryValue extends CborGoDecodeValue
   /// Go: `func (*cbor.reflectValue).SetFloat32(f float32) error`.
   void setFloat32(double f) {
     $callSync(
-        18950,
+        18956,
         $W()
           ..h(this)
           ..f64(f));
@@ -463,7 +463,7 @@ class CborGoMemoryValue extends CborGoDecodeValue
   /// Go: `func (*cbor.reflectValue).SetFloat64(d float64) error`.
   void setFloat64(double d) {
     $callSync(
-        18951,
+        18957,
         $W()
           ..h(this)
           ..f64(d));
@@ -472,7 +472,7 @@ class CborGoMemoryValue extends CborGoDecodeValue
   /// Go: `func (*cbor.reflectValue).SetInt(i int64) error`.
   void setInt(int i) {
     $callSync(
-        18952,
+        18958,
         $W()
           ..h(this)
           ..i64(i));
@@ -480,13 +480,13 @@ class CborGoMemoryValue extends CborGoDecodeValue
 
   /// Go: `func (*cbor.reflectValue).SetNil() error`.
   void setNil() {
-    $callSync(18953, $W()..h(this));
+    $callSync(18959, $W()..h(this));
   }
 
   /// Go: `func (*cbor.reflectValue).SetString(xs string) error`.
   void setString(String xs) {
     $callSync(
-        18954,
+        18960,
         $W()
           ..h(this)
           ..str(xs));
@@ -496,7 +496,7 @@ class CborGoMemoryValue extends CborGoDecodeValue
   void setTag(int code, CborGoDecodeValue val, CborGoTagDecoder decoder,
       Object? target) {
     $callSync(
-        18955,
+        18961,
         $W()
           ..h(this)
           ..i64(code)
@@ -508,7 +508,7 @@ class CborGoMemoryValue extends CborGoDecodeValue
   /// Go: `func (*cbor.reflectValue).SetUint(u uint64) error`.
   void setUint(int u) {
     $callSync(
-        18956,
+        18962,
         $W()
           ..h(this)
           ..i64(u));
@@ -526,7 +526,7 @@ mixin CborGoSimpleMarshallValue$ on GoHandle {
   /// Go: `func (cbor.SimpleMarshallValue).ToCBOR(w io.Writer) error`.
   void toCbor(GoHandle? w) {
     $callSync(
-        18960,
+        18966,
         $W()
           ..h(this)
           ..h(w));
@@ -542,20 +542,20 @@ class CborGoTagDecoder extends GoHandle with CborGoTagDecoder$ {
 mixin CborGoTagDecoder$ on GoHandle {
   /// Go: `func (cbor.TagDecoder).DecodeTarget() interface{}`.
   Object? decodeTarget() {
-    final $r = $callSync(18961, $W()..h(this));
+    final $r = $callSync(18967, $W()..h(this));
     return $r.any();
   }
 
   /// Go: `func (cbor.TagDecoder).GetTag() uint64`.
   int getTag() {
-    final $r = $callSync(18962, $W()..h(this));
+    final $r = $callSync(18968, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (cbor.TagDecoder).PostDecode(interface{}) (interface{}, error)`.
   Object? postDecode(Object? arg0) {
     final $r = $callSync(
-        18963,
+        18969,
         $W()
           ..h(this)
           ..any(arg0));
@@ -576,14 +576,14 @@ class CborGoInvalidUnmarshalError extends GolangException {
 extension GoWhyrusleepingCborGoApi on GoWhyrusleepingCborGo {
   /// Go: `func cbor.Dumps(ob interface{}) ([]byte, error)`.
   Uint8List dumps(Object? ob) {
-    final $r = $callSync(18931, $W()..any(ob));
+    final $r = $callSync(18937, $W()..any(ob));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func cbor.Encode(out io.Writer, ob interface{}) error`.
   void encode(GoHandle? out, Object? ob) {
     $callSync(
-        18932,
+        18938,
         $W()
           ..h(out)
           ..any(ob));
@@ -592,7 +592,7 @@ extension GoWhyrusleepingCborGoApi on GoWhyrusleepingCborGo {
   /// Go: `func cbor.EncodeInt(tag byte, v uint64, buf []byte) []byte`.
   Uint8List encodeInt(int tag, int v, Uint8List buf) {
     final $r = $callSync(
-        18933,
+        18939,
         $W()
           ..i64(tag)
           ..i64(v)
@@ -603,7 +603,7 @@ extension GoWhyrusleepingCborGoApi on GoWhyrusleepingCborGo {
   /// Go: `func cbor.EncodeInt16(tag byte, v uint16, buf []byte) []byte`.
   Uint8List encodeInt16(int tag, int v, Uint8List buf) {
     final $r = $callSync(
-        18934,
+        18940,
         $W()
           ..i64(tag)
           ..i64(v)
@@ -614,7 +614,7 @@ extension GoWhyrusleepingCborGoApi on GoWhyrusleepingCborGo {
   /// Go: `func cbor.EncodeInt32(tag byte, v uint32, buf []byte) []byte`.
   Uint8List encodeInt32(int tag, int v, Uint8List buf) {
     final $r = $callSync(
-        18935,
+        18941,
         $W()
           ..i64(tag)
           ..i64(v)
@@ -625,7 +625,7 @@ extension GoWhyrusleepingCborGoApi on GoWhyrusleepingCborGo {
   /// Go: `func cbor.EncodeInt64(tag byte, v uint64, buf []byte) []byte`.
   Uint8List encodeInt64(int tag, int v, Uint8List buf) {
     final $r = $callSync(
-        18936,
+        18942,
         $W()
           ..i64(tag)
           ..i64(v)
@@ -636,7 +636,7 @@ extension GoWhyrusleepingCborGoApi on GoWhyrusleepingCborGo {
   /// Go: `func cbor.EncodeInt8(tag byte, v uint8, buf []byte) []byte`.
   Uint8List encodeInt8(int tag, int v, Uint8List buf) {
     final $r = $callSync(
-        18937,
+        18943,
         $W()
           ..i64(tag)
           ..i64(v)
@@ -647,7 +647,7 @@ extension GoWhyrusleepingCborGoApi on GoWhyrusleepingCborGo {
   /// Go: `func cbor.EncodeOpcode(tag byte, opcode byte, buf []byte) []byte`.
   Uint8List encodeOpcode(int tag, int opcode, Uint8List buf) {
     final $r = $callSync(
-        18938,
+        18944,
         $W()
           ..i64(tag)
           ..i64(opcode)
@@ -658,7 +658,7 @@ extension GoWhyrusleepingCborGoApi on GoWhyrusleepingCborGo {
   /// Go: `func cbor.Loads(blob []byte, v interface{}) error`.
   void loads(Uint8List blob, Object? v) {
     $callSync(
-        18940,
+        18946,
         $W()
           ..bytes(blob)
           ..any(v));

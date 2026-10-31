@@ -31,7 +31,7 @@ class PubsubPubSub extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*pubsub.PubSub).Close(topics ...string)`.
   void close([List<String> topics = const []]) {
     $callSync(
-        5752,
+        5761,
         $W()
           ..h(this)
           ..list(topics, (w0, e0) => w0.str(e0)));
@@ -40,7 +40,7 @@ class PubsubPubSub extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*pubsub.PubSub).Pub(msg interface{}, topics ...string)`.
   void pub(Object? msg, [List<String> topics = const []]) {
     $callSync(
-        5753,
+        5762,
         $W()
           ..h(this)
           ..any(msg)
@@ -49,13 +49,13 @@ class PubsubPubSub extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*pubsub.PubSub).Shutdown()`.
   void shutdown() {
-    $callSync(5754, $W()..h(this));
+    $callSync(5763, $W()..h(this));
   }
 
   /// Go: `func (*pubsub.PubSub).TryPub(msg interface{}, topics ...string)`.
   void tryPub(Object? msg, [List<String> topics = const []]) {
     $callSync(
-        5755,
+        5764,
         $W()
           ..h(this)
           ..any(msg)
@@ -67,7 +67,7 @@ class PubsubPubSub extends $crypto.CryptoDecrypterOpts
 extension GoCskrPubsubApi on GoCskrPubsub {
   /// Go: `func pubsub.New(capacity int) *pubsub.PubSub`.
   PubsubPubSub new$(int capacity) {
-    final $r = $callSync(5751, $W()..i64(capacity));
+    final $r = $callSync(5760, $W()..i64(capacity));
     return $r.hnn(PubsubPubSub.$h);
   }
 }

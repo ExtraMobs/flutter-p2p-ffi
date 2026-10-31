@@ -64,7 +64,7 @@ final class DebugMachoDylib implements GoDto {
 
   /// Go: `func (macho.LoadBytes).Raw() []byte`.
   Uint8List raw() {
-    final $r = $callSync(3603, $W()..dto(this));
+    final $r = $callSync(3612, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 }
@@ -103,7 +103,7 @@ final class DebugMachoDysymtab implements GoDto {
 
   /// Go: `func (macho.LoadBytes).Raw() []byte`.
   Uint8List raw() {
-    final $r = $callSync(3604, $W()..dto(this));
+    final $r = $callSync(3613, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 }
@@ -286,31 +286,31 @@ final class DebugMachoFatArch implements GoDto {
 
   /// Go: `func (*macho.File).Close() error`.
   void close() {
-    $callSync(3605, $W()..dto(this));
+    $callSync(3614, $W()..dto(this));
   }
 
   /// Go: `func (*macho.File).DWARF() (*dwarf.Data, error)`.
   $dwarf.DebugDwarfData dwarf() {
-    final $r = $callSync(3606, $W()..dto(this));
+    final $r = $callSync(3615, $W()..dto(this));
     return $r.hnn($dwarf.DebugDwarfData.$h);
   }
 
   /// Go: `func (*macho.File).ImportedLibraries() ([]string, error)`.
   List<String> importedLibraries() {
-    final $r = $callSync(3607, $W()..dto(this));
+    final $r = $callSync(3616, $W()..dto(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (*macho.File).ImportedSymbols() ([]string, error)`.
   List<String> importedSymbols() {
-    final $r = $callSync(3608, $W()..dto(this));
+    final $r = $callSync(3617, $W()..dto(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (*macho.File).Section(name string) *macho.Section`.
   DebugMachoSection section(String name) {
     final $r = $callSync(
-        3609,
+        3618,
         $W()
           ..dto(this)
           ..str(name));
@@ -320,7 +320,7 @@ final class DebugMachoFatArch implements GoDto {
   /// Go: `func (*macho.File).Segment(name string) *macho.Segment`.
   DebugMachoSegment segment(String name) {
     final $r = $callSync(
-        3610,
+        3619,
         $W()
           ..dto(this)
           ..str(name));
@@ -395,13 +395,13 @@ class DebugMachoFatFile extends $io.IoCloser
 
   /// Go: `func macho.NewFatFile(r io.ReaderAt) (*macho.FatFile, error)`.
   factory DebugMachoFatFile(Object r) {
-    final $r = $callSync(3618, $W()..reader(r));
+    final $r = $callSync(3627, $W()..reader(r));
     return $r.hnn(DebugMachoFatFile.$h);
   }
 
   /// Go: `func (*macho.FatFile).Close() error`.
   void close() {
-    $callSync(3611, $W()..h(this));
+    $callSync(3620, $W()..h(this));
   }
 }
 
@@ -429,37 +429,37 @@ class DebugMachoFile extends $io.IoCloser
 
   /// Go: `func macho.NewFile(r io.ReaderAt) (*macho.File, error)`.
   factory DebugMachoFile(Object r) {
-    final $r = $callSync(3619, $W()..reader(r));
+    final $r = $callSync(3628, $W()..reader(r));
     return $r.hnn(DebugMachoFile.$h);
   }
 
   /// Go: `func (*macho.File).Close() error`.
   void close() {
-    $callSync(3612, $W()..h(this));
+    $callSync(3621, $W()..h(this));
   }
 
   /// Go: `func (*macho.File).DWARF() (*dwarf.Data, error)`.
   $dwarf.DebugDwarfData dwarf() {
-    final $r = $callSync(3613, $W()..h(this));
+    final $r = $callSync(3622, $W()..h(this));
     return $r.hnn($dwarf.DebugDwarfData.$h);
   }
 
   /// Go: `func (*macho.File).ImportedLibraries() ([]string, error)`.
   List<String> importedLibraries() {
-    final $r = $callSync(3614, $W()..h(this));
+    final $r = $callSync(3623, $W()..h(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (*macho.File).ImportedSymbols() ([]string, error)`.
   List<String> importedSymbols() {
-    final $r = $callSync(3615, $W()..h(this));
+    final $r = $callSync(3624, $W()..h(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (*macho.File).Section(name string) *macho.Section`.
   DebugMachoSection section(String name) {
     final $r = $callSync(
-        3616,
+        3625,
         $W()
           ..h(this)
           ..str(name));
@@ -469,7 +469,7 @@ class DebugMachoFile extends $io.IoCloser
   /// Go: `func (*macho.File).Segment(name string) *macho.Segment`.
   DebugMachoSegment segment(String name) {
     final $r = $callSync(
-        3617,
+        3626,
         $W()
           ..h(this)
           ..str(name));
@@ -502,7 +502,7 @@ final class DebugMachoRpath implements GoDto {
 
   /// Go: `func (macho.LoadBytes).Raw() []byte`.
   Uint8List raw() {
-    final $r = $callSync(3622, $W()..dto(this));
+    final $r = $callSync(3631, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 }
@@ -527,13 +527,13 @@ class DebugMachoSection extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*macho.Section).Data() ([]byte, error)`.
   Uint8List data() {
-    final $r = $callSync(3623, $W()..h(this));
+    final $r = $callSync(3632, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*macho.Section).Open() io.ReadSeeker`.
   $io.IoReadSeeker open() {
-    final $r = $callSync(3624, $W()..h(this));
+    final $r = $callSync(3633, $W()..h(this));
     return $r.hnn($io.IoReadSeeker.$h);
   }
 }
@@ -558,19 +558,19 @@ class DebugMachoSegment extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*macho.Segment).Data() ([]byte, error)`.
   Uint8List data() {
-    final $r = $callSync(3625, $W()..h(this));
+    final $r = $callSync(3634, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*macho.Segment).Open() io.ReadSeeker`.
   $io.IoReadSeeker open() {
-    final $r = $callSync(3626, $W()..h(this));
+    final $r = $callSync(3635, $W()..h(this));
     return $r.hnn($io.IoReadSeeker.$h);
   }
 
   /// Go: `func (macho.LoadBytes).Raw() []byte`.
   Uint8List raw() {
-    final $r = $callSync(3627, $W()..h(this));
+    final $r = $callSync(3636, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 }
@@ -654,7 +654,7 @@ final class DebugMachoSymtab implements GoDto {
 
   /// Go: `func (macho.LoadBytes).Raw() []byte`.
   Uint8List raw() {
-    final $r = $callSync(3628, $W()..dto(this));
+    final $r = $callSync(3637, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 }
@@ -721,13 +721,13 @@ class DebugMachoFormatError extends GolangException {
 extension GoDebugMachoApi on GoDebugMacho {
   /// Go: `func macho.Open(name string) (*macho.File, error)`.
   DebugMachoFile open(String name) {
-    final $r = $callSync(3620, $W()..str(name));
+    final $r = $callSync(3629, $W()..str(name));
     return $r.hnn(DebugMachoFile.$h);
   }
 
   /// Go: `func macho.OpenFat(name string) (*macho.FatFile, error)`.
   DebugMachoFatFile openFat(String name) {
-    final $r = $callSync(3621, $W()..str(name));
+    final $r = $callSync(3630, $W()..str(name));
     return $r.hnn(DebugMachoFatFile.$h);
   }
 }

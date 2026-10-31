@@ -41,14 +41,14 @@ class TransportV3StdnetNet extends $v3.TransportV3Net
 
   /// Go: `func stdnet.NewNet() (*stdnet.Net, error)`.
   factory TransportV3StdnetNet() {
-    final $r = $callSync(17363);
+    final $r = $callSync(17369);
     return $r.hnn(TransportV3StdnetNet.$h);
   }
 
   /// Go: `func (*stdnet.Net).CreateDialer(d *net.Dialer) transport.Dialer`.
   $v3.TransportV3Dialer createDialer($net.NetDialer d) {
     final $r = $callSync(
-        17349,
+        17355,
         $W()
           ..h(this)
           ..h(d));
@@ -58,7 +58,7 @@ class TransportV3StdnetNet extends $v3.TransportV3Net
   /// Go: `func (*stdnet.Net).Dial(network string, address string) (net.Conn, error)`.
   $net.NetConn dial(String network, String address) {
     final $r = $callSync(
-        17350,
+        17356,
         $W()
           ..h(this)
           ..str(network)
@@ -70,7 +70,7 @@ class TransportV3StdnetNet extends $v3.TransportV3Net
   $v3.TransportV3TcpConn dialTcp(
       String network, $net.NetTcpAddr laddr, $net.NetTcpAddr raddr) {
     final $r = $callSync(
-        17351,
+        17357,
         $W()
           ..h(this)
           ..str(network)
@@ -83,7 +83,7 @@ class TransportV3StdnetNet extends $v3.TransportV3Net
   $v3.TransportV3UdpConn dialUdp(
       String network, $net.NetUdpAddr laddr, $net.NetUdpAddr raddr) {
     final $r = $callSync(
-        17352,
+        17358,
         $W()
           ..h(this)
           ..str(network)
@@ -95,7 +95,7 @@ class TransportV3StdnetNet extends $v3.TransportV3Net
   /// Go: `func (*stdnet.Net).InterfaceByIndex(index int) (*transport.Interface, error)`.
   $v3.TransportV3Interface interfaceByIndex(int index) {
     final $r = $callSync(
-        17353,
+        17359,
         $W()
           ..h(this)
           ..i64(index));
@@ -105,7 +105,7 @@ class TransportV3StdnetNet extends $v3.TransportV3Net
   /// Go: `func (*stdnet.Net).InterfaceByName(name string) (*transport.Interface, error)`.
   $v3.TransportV3Interface interfaceByName(String name) {
     final $r = $callSync(
-        17354,
+        17360,
         $W()
           ..h(this)
           ..str(name));
@@ -114,14 +114,14 @@ class TransportV3StdnetNet extends $v3.TransportV3Net
 
   /// Go: `func (*stdnet.Net).Interfaces() ([]*transport.Interface, error)`.
   List<$v3.TransportV3Interface> interfaces() {
-    final $r = $callSync(17355, $W()..h(this));
+    final $r = $callSync(17361, $W()..h(this));
     return $r.list(() => $r.hnn($v3.TransportV3Interface.$h));
   }
 
   /// Go: `func (*stdnet.Net).ListenPacket(network string, address string) (net.PacketConn, error)`.
   $net.NetPacketConn listenPacket(String network, String address) {
     final $r = $callSync(
-        17356,
+        17362,
         $W()
           ..h(this)
           ..str(network)
@@ -132,7 +132,7 @@ class TransportV3StdnetNet extends $v3.TransportV3Net
   /// Go: `func (*stdnet.Net).ListenTCP(network string, laddr *net.TCPAddr) (transport.TCPListener, error)`.
   $v3.TransportV3TcpListener listenTcp(String network, $net.NetTcpAddr laddr) {
     final $r = $callSync(
-        17357,
+        17363,
         $W()
           ..h(this)
           ..str(network)
@@ -143,7 +143,7 @@ class TransportV3StdnetNet extends $v3.TransportV3Net
   /// Go: `func (*stdnet.Net).ListenUDP(network string, locAddr *net.UDPAddr) (transport.UDPConn, error)`.
   $v3.TransportV3UdpConn listenUdp(String network, $net.NetUdpAddr locAddr) {
     final $r = $callSync(
-        17358,
+        17364,
         $W()
           ..h(this)
           ..str(network)
@@ -154,7 +154,7 @@ class TransportV3StdnetNet extends $v3.TransportV3Net
   /// Go: `func (*stdnet.Net).ResolveIPAddr(network string, address string) (*net.IPAddr, error)`.
   $net.NetIpAddr resolveIpAddr(String network, String address) {
     final $r = $callSync(
-        17359,
+        17365,
         $W()
           ..h(this)
           ..str(network)
@@ -165,7 +165,7 @@ class TransportV3StdnetNet extends $v3.TransportV3Net
   /// Go: `func (*stdnet.Net).ResolveTCPAddr(network string, address string) (*net.TCPAddr, error)`.
   $net.NetTcpAddr resolveTcpAddr(String network, String address) {
     final $r = $callSync(
-        17360,
+        17366,
         $W()
           ..h(this)
           ..str(network)
@@ -176,7 +176,7 @@ class TransportV3StdnetNet extends $v3.TransportV3Net
   /// Go: `func (*stdnet.Net).ResolveUDPAddr(network string, address string) (*net.UDPAddr, error)`.
   $net.NetUdpAddr resolveUdpAddr(String network, String address) {
     final $r = $callSync(
-        17361,
+        17367,
         $W()
           ..h(this)
           ..str(network)
@@ -186,6 +186,6 @@ class TransportV3StdnetNet extends $v3.TransportV3Net
 
   /// Go: `func (*stdnet.Net).UpdateInterfaces() error`.
   void updateInterfaces() {
-    $callSync(17362, $W()..h(this));
+    $callSync(17368, $W()..h(this));
   }
 }

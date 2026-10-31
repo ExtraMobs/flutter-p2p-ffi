@@ -18,7 +18,7 @@ mixin CryptoDecapsulator$ on GoHandle {
   /// Go: `func (crypto.Decapsulator).Decapsulate(ciphertext []byte) (sharedKey []byte, err error)`.
   Uint8List decapsulate(Uint8List ciphertext) {
     final $r = $callSync(
-        3123,
+        3132,
         $W()
           ..h(this)
           ..bytes(ciphertext));
@@ -27,7 +27,7 @@ mixin CryptoDecapsulator$ on GoHandle {
 
   /// Go: `func (crypto.Decapsulator).Encapsulator() crypto.Encapsulator`.
   CryptoEncapsulator encapsulator() {
-    final $r = $callSync(3124, $W()..h(this));
+    final $r = $callSync(3133, $W()..h(this));
     return $r.hnn(CryptoEncapsulator.$h);
   }
 
@@ -54,7 +54,7 @@ mixin CryptoDecrypter$ on GoHandle {
   /// Go: `func (crypto.Decrypter).Decrypt(rand io.Reader, msg []byte, opts crypto.DecrypterOpts) (plaintext []byte, err error)`.
   Uint8List decrypt(Object rand, Uint8List msg, CryptoDecrypterOpts opts) {
     final $r = $callSync(
-        3125,
+        3134,
         $W()
           ..h(this)
           ..reader(rand)
@@ -65,7 +65,7 @@ mixin CryptoDecrypter$ on GoHandle {
 
   /// Go: `func (crypto.Decrypter).Public() crypto.PublicKey`.
   CryptoPublicKey public() {
-    final $r = $callSync(3126, $W()..h(this));
+    final $r = $callSync(3135, $W()..h(this));
     return $r.hnn(CryptoPublicKey.$h);
   }
 }
@@ -87,13 +87,13 @@ class CryptoEncapsulator extends GoHandle with CryptoEncapsulator$ {
 mixin CryptoEncapsulator$ on GoHandle {
   /// Go: `func (crypto.Encapsulator).Bytes() []byte`.
   Uint8List bytes() {
-    final $r = $callSync(3127, $W()..h(this));
+    final $r = $callSync(3136, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (crypto.Encapsulator).Encapsulate() (sharedKey []byte, ciphertext []byte)`.
   (Uint8List, Uint8List) encapsulate() {
-    final $r = $callSync(3128, $W()..h(this));
+    final $r = $callSync(3137, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.bytes() ?? Uint8List(0));
   }
 
@@ -120,7 +120,7 @@ mixin CryptoMessageSigner$ on GoHandle {
   /// Go: `func (crypto.MessageSigner).SignMessage(rand io.Reader, msg []byte, opts crypto.SignerOpts) (signature []byte, err error)`.
   Uint8List signMessage(Object rand, Uint8List msg, CryptoSignerOpts opts) {
     final $r = $callSync(
-        3129,
+        3138,
         $W()
           ..h(this)
           ..reader(rand)
@@ -155,14 +155,14 @@ class CryptoSigner extends GoHandle with CryptoSigner$ {
 mixin CryptoSigner$ on GoHandle {
   /// Go: `func (crypto.Signer).Public() crypto.PublicKey`.
   CryptoPublicKey public() {
-    final $r = $callSync(3131, $W()..h(this));
+    final $r = $callSync(3140, $W()..h(this));
     return $r.hnn(CryptoPublicKey.$h);
   }
 
   /// Go: `func (crypto.Signer).Sign(rand io.Reader, digest []byte, opts crypto.SignerOpts) (signature []byte, err error)`.
   Uint8List sign(Object rand, Uint8List digest, CryptoSignerOpts opts) {
     final $r = $callSync(
-        3132,
+        3141,
         $W()
           ..h(this)
           ..reader(rand)
@@ -200,7 +200,7 @@ extension GoCryptoApi on GoCrypto {
   Uint8List signMessage(
       CryptoSigner signer, Object rand, Uint8List msg, CryptoSignerOpts opts) {
     final $r = $callSync(
-        3130,
+        3139,
         $W()
           ..h(signer)
           ..reader(rand)

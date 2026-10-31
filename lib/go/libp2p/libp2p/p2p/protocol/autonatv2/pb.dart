@@ -47,35 +47,35 @@ class Libp2pP2pProtocolAutonatv2PbDialBack
   /// Go: `func (*pb.DialBack).Descriptor() ([]byte, []int)`.
   @Deprecated("Use DialBack.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(14733, $W()..h(this));
+    final $r = $callSync(14739, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pb.DialBack).GetNonce() uint64`.
   int getNonce() {
-    final $r = $callSync(14734, $W()..h(this));
+    final $r = $callSync(14740, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.DialBack).ProtoMessage()`.
   void protoMessage() {
-    $callSync(14735, $W()..h(this));
+    $callSync(14741, $W()..h(this));
   }
 
   /// Go: `func (*pb.DialBack).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(14736, $W()..h(this));
+    final $r = $callSync(14742, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pb.DialBack).Reset()`.
   void reset() {
-    $callSync(14737, $W()..h(this));
+    $callSync(14743, $W()..h(this));
   }
 
   /// Go: `func (*pb.DialBack).String() string`.
   String string() {
-    final $r = $callSync(14738, $W()..h(this));
+    final $r = $callSync(14744, $W()..h(this));
     return $r.str();
   }
 }
@@ -108,35 +108,35 @@ class Libp2pP2pProtocolAutonatv2PbDialBackResponse
   /// Go: `func (*pb.DialBackResponse).Descriptor() ([]byte, []int)`.
   @Deprecated("Use DialBackResponse.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(14739, $W()..h(this));
+    final $r = $callSync(14745, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pb.DialBackResponse).GetStatus() pb.DialBackResponse_DialBackStatus`.
   int getStatus() {
-    final $r = $callSync(14740, $W()..h(this));
+    final $r = $callSync(14746, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.DialBackResponse).ProtoMessage()`.
   void protoMessage() {
-    $callSync(14741, $W()..h(this));
+    $callSync(14747, $W()..h(this));
   }
 
   /// Go: `func (*pb.DialBackResponse).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(14742, $W()..h(this));
+    final $r = $callSync(14748, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pb.DialBackResponse).Reset()`.
   void reset() {
-    $callSync(14743, $W()..h(this));
+    $callSync(14749, $W()..h(this));
   }
 
   /// Go: `func (*pb.DialBackResponse).String() string`.
   String string() {
-    final $r = $callSync(14744, $W()..h(this));
+    final $r = $callSync(14750, $W()..h(this));
     return $r.str();
   }
 }
@@ -169,41 +169,41 @@ class Libp2pP2pProtocolAutonatv2PbDialDataRequest
   /// Go: `func (*pb.DialDataRequest).Descriptor() ([]byte, []int)`.
   @Deprecated("Use DialDataRequest.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(14747, $W()..h(this));
+    final $r = $callSync(14753, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pb.DialDataRequest).GetAddrIdx() uint32`.
   int getAddrIdx() {
-    final $r = $callSync(14748, $W()..h(this));
+    final $r = $callSync(14754, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.DialDataRequest).GetNumBytes() uint64`.
   int getNumBytes() {
-    final $r = $callSync(14749, $W()..h(this));
+    final $r = $callSync(14755, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.DialDataRequest).ProtoMessage()`.
   void protoMessage() {
-    $callSync(14750, $W()..h(this));
+    $callSync(14756, $W()..h(this));
   }
 
   /// Go: `func (*pb.DialDataRequest).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(14751, $W()..h(this));
+    final $r = $callSync(14757, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pb.DialDataRequest).Reset()`.
   void reset() {
-    $callSync(14752, $W()..h(this));
+    $callSync(14758, $W()..h(this));
   }
 
   /// Go: `func (*pb.DialDataRequest).String() string`.
   String string() {
-    final $r = $callSync(14753, $W()..h(this));
+    final $r = $callSync(14759, $W()..h(this));
     return $r.str();
   }
 }
@@ -236,35 +236,35 @@ class Libp2pP2pProtocolAutonatv2PbDialDataResponse
   /// Go: `func (*pb.DialDataResponse).Descriptor() ([]byte, []int)`.
   @Deprecated("Use DialDataResponse.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(14754, $W()..h(this));
+    final $r = $callSync(14760, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pb.DialDataResponse).GetData() []byte`.
   Uint8List getData() {
-    final $r = $callSync(14755, $W()..h(this));
+    final $r = $callSync(14761, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pb.DialDataResponse).ProtoMessage()`.
   void protoMessage() {
-    $callSync(14756, $W()..h(this));
+    $callSync(14762, $W()..h(this));
   }
 
   /// Go: `func (*pb.DialDataResponse).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(14757, $W()..h(this));
+    final $r = $callSync(14763, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pb.DialDataResponse).Reset()`.
   void reset() {
-    $callSync(14758, $W()..h(this));
+    $callSync(14764, $W()..h(this));
   }
 
   /// Go: `func (*pb.DialDataResponse).String() string`.
   String string() {
-    final $r = $callSync(14759, $W()..h(this));
+    final $r = $callSync(14765, $W()..h(this));
     return $r.str();
   }
 }
@@ -297,41 +297,41 @@ class Libp2pP2pProtocolAutonatv2PbDialRequest
   /// Go: `func (*pb.DialRequest).Descriptor() ([]byte, []int)`.
   @Deprecated("Use DialRequest.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(14760, $W()..h(this));
+    final $r = $callSync(14766, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pb.DialRequest).GetAddrs() [][]byte`.
   List<Uint8List> getAddrs() {
-    final $r = $callSync(14761, $W()..h(this));
+    final $r = $callSync(14767, $W()..h(this));
     return $r.list(() => $r.bytes() ?? Uint8List(0));
   }
 
   /// Go: `func (*pb.DialRequest).GetNonce() uint64`.
   int getNonce() {
-    final $r = $callSync(14762, $W()..h(this));
+    final $r = $callSync(14768, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.DialRequest).ProtoMessage()`.
   void protoMessage() {
-    $callSync(14763, $W()..h(this));
+    $callSync(14769, $W()..h(this));
   }
 
   /// Go: `func (*pb.DialRequest).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(14764, $W()..h(this));
+    final $r = $callSync(14770, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pb.DialRequest).Reset()`.
   void reset() {
-    $callSync(14765, $W()..h(this));
+    $callSync(14771, $W()..h(this));
   }
 
   /// Go: `func (*pb.DialRequest).String() string`.
   String string() {
-    final $r = $callSync(14766, $W()..h(this));
+    final $r = $callSync(14772, $W()..h(this));
     return $r.str();
   }
 }
@@ -364,47 +364,47 @@ class Libp2pP2pProtocolAutonatv2PbDialResponse
   /// Go: `func (*pb.DialResponse).Descriptor() ([]byte, []int)`.
   @Deprecated("Use DialResponse.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(14767, $W()..h(this));
+    final $r = $callSync(14773, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pb.DialResponse).GetAddrIdx() uint32`.
   int getAddrIdx() {
-    final $r = $callSync(14768, $W()..h(this));
+    final $r = $callSync(14774, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.DialResponse).GetDialStatus() pb.DialStatus`.
   int getDialStatus() {
-    final $r = $callSync(14769, $W()..h(this));
+    final $r = $callSync(14775, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.DialResponse).GetStatus() pb.DialResponse_ResponseStatus`.
   int getStatus() {
-    final $r = $callSync(14770, $W()..h(this));
+    final $r = $callSync(14776, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.DialResponse).ProtoMessage()`.
   void protoMessage() {
-    $callSync(14771, $W()..h(this));
+    $callSync(14777, $W()..h(this));
   }
 
   /// Go: `func (*pb.DialResponse).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(14772, $W()..h(this));
+    final $r = $callSync(14778, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pb.DialResponse).Reset()`.
   void reset() {
-    $callSync(14773, $W()..h(this));
+    $callSync(14779, $W()..h(this));
   }
 
   /// Go: `func (*pb.DialResponse).String() string`.
   String string() {
-    final $r = $callSync(14774, $W()..h(this));
+    final $r = $callSync(14780, $W()..h(this));
     return $r.str();
   }
 }
@@ -437,53 +437,53 @@ class Libp2pP2pProtocolAutonatv2PbMessage
   /// Go: `func (*pb.Message).Descriptor() ([]byte, []int)`.
   @Deprecated("Use Message.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(14780, $W()..h(this));
+    final $r = $callSync(14786, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pb.Message).GetDialDataRequest() *pb.DialDataRequest`.
   Libp2pP2pProtocolAutonatv2PbDialDataRequest getDialDataRequest() {
-    final $r = $callSync(14781, $W()..h(this));
+    final $r = $callSync(14787, $W()..h(this));
     return $r.hnn(Libp2pP2pProtocolAutonatv2PbDialDataRequest.$h);
   }
 
   /// Go: `func (*pb.Message).GetDialDataResponse() *pb.DialDataResponse`.
   Libp2pP2pProtocolAutonatv2PbDialDataResponse getDialDataResponse() {
-    final $r = $callSync(14782, $W()..h(this));
+    final $r = $callSync(14788, $W()..h(this));
     return $r.hnn(Libp2pP2pProtocolAutonatv2PbDialDataResponse.$h);
   }
 
   /// Go: `func (*pb.Message).GetDialRequest() *pb.DialRequest`.
   Libp2pP2pProtocolAutonatv2PbDialRequest getDialRequest() {
-    final $r = $callSync(14783, $W()..h(this));
+    final $r = $callSync(14789, $W()..h(this));
     return $r.hnn(Libp2pP2pProtocolAutonatv2PbDialRequest.$h);
   }
 
   /// Go: `func (*pb.Message).GetDialResponse() *pb.DialResponse`.
   Libp2pP2pProtocolAutonatv2PbDialResponse getDialResponse() {
-    final $r = $callSync(14784, $W()..h(this));
+    final $r = $callSync(14790, $W()..h(this));
     return $r.hnn(Libp2pP2pProtocolAutonatv2PbDialResponse.$h);
   }
 
   /// Go: `func (*pb.Message).ProtoMessage()`.
   void protoMessage() {
-    $callSync(14785, $W()..h(this));
+    $callSync(14791, $W()..h(this));
   }
 
   /// Go: `func (*pb.Message).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(14786, $W()..h(this));
+    final $r = $callSync(14792, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pb.Message).Reset()`.
   void reset() {
-    $callSync(14787, $W()..h(this));
+    $callSync(14793, $W()..h(this));
   }
 
   /// Go: `func (*pb.Message).String() string`.
   String string() {
-    final $r = $callSync(14788, $W()..h(this));
+    final $r = $callSync(14794, $W()..h(this));
     return $r.str();
   }
 }
@@ -493,44 +493,44 @@ extension GoLibp2pLibp2pP2pProtocolAutonatv2PbApi
     on GoLibp2pLibp2pP2pProtocolAutonatv2Pb {
   /// Go: `var pb.DialBackResponse_DialBackStatus_name map[int32]string`.
   Map<int, String> get dialBackResponseDialBackStatusName {
-    final $r = $callSync(14745);
+    final $r = $callSync(14751);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var pb.DialBackResponse_DialBackStatus_value map[string]int32`.
   Map<String, int> get dialBackResponseDialBackStatusValue {
-    final $r = $callSync(14746);
+    final $r = $callSync(14752);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `var pb.DialResponse_ResponseStatus_name map[int32]string`.
   Map<int, String> get dialResponseResponseStatusName {
-    final $r = $callSync(14775);
+    final $r = $callSync(14781);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var pb.DialResponse_ResponseStatus_value map[string]int32`.
   Map<String, int> get dialResponseResponseStatusValue {
-    final $r = $callSync(14776);
+    final $r = $callSync(14782);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `var pb.DialStatus_name map[int32]string`.
   Map<int, String> get dialStatusName {
-    final $r = $callSync(14777);
+    final $r = $callSync(14783);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var pb.DialStatus_value map[string]int32`.
   Map<String, int> get dialStatusValue {
-    final $r = $callSync(14778);
+    final $r = $callSync(14784);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `var pb.File_p2p_protocol_autonatv2_pb_autonatv2_proto protoreflect.FileDescriptor`.
   $protoreflect.ProtobufReflectProtoreflectFileDescriptor
       get fileP2pProtocolAutonatv2PbAutonatv2Proto {
-    final $r = $callSync(14779);
+    final $r = $callSync(14785);
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectFileDescriptor.$h);
   }
 }

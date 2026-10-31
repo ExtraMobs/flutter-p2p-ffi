@@ -10,25 +10,25 @@ import 'package:p2p_ffi/go/hash.dart' as $hash;
 extension GoCryptoSha512Api on GoCryptoSha512 {
   /// Go: `func sha512.New() hash.Hash`.
   $hash.Hash new$() {
-    final $r = $callSync(3351);
+    final $r = $callSync(3360);
     return $r.hnn($hash.Hash.$h);
   }
 
   /// Go: `func sha512.New384() hash.Hash`.
   $hash.Hash new384() {
-    final $r = $callSync(3352);
+    final $r = $callSync(3361);
     return $r.hnn($hash.Hash.$h);
   }
 
   /// Go: `func sha512.New512_224() hash.Hash`.
   $hash.Hash new512224() {
-    final $r = $callSync(3353);
+    final $r = $callSync(3362);
     return $r.hnn($hash.Hash.$h);
   }
 
   /// Go: `func sha512.New512_256() hash.Hash`.
   $hash.Hash new512256() {
-    final $r = $callSync(3354);
+    final $r = $callSync(3363);
     return $r.hnn($hash.Hash.$h);
   }
 }

@@ -140,42 +140,42 @@ class DatachannelDataChannel extends $io.IoCloser
 
   /// Go: `func (*datachannel.DataChannel).BufferedAmount() uint64`.
   int bufferedAmount() {
-    final $r = $callSync(16120, $W()..h(this));
+    final $r = $callSync(16126, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*datachannel.DataChannel).BufferedAmountLowThreshold() uint64`.
   int bufferedAmountLowThreshold() {
-    final $r = $callSync(16121, $W()..h(this));
+    final $r = $callSync(16127, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*datachannel.DataChannel).BytesReceived() uint64`.
   int bytesReceived() {
-    final $r = $callSync(16122, $W()..h(this));
+    final $r = $callSync(16128, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*datachannel.DataChannel).BytesSent() uint64`.
   int bytesSent() {
-    final $r = $callSync(16123, $W()..h(this));
+    final $r = $callSync(16129, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*datachannel.DataChannel).Close() error`.
   void close() {
-    $callSync(16124, $W()..h(this));
+    $callSync(16130, $W()..h(this));
   }
 
   /// Go: `func (*datachannel.DataChannel).MessagesReceived() uint32`.
   int messagesReceived() {
-    final $r = $callSync(16125, $W()..h(this));
+    final $r = $callSync(16131, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*datachannel.DataChannel).MessagesSent() uint32`.
   int messagesSent() {
-    final $r = $callSync(16126, $W()..h(this));
+    final $r = $callSync(16132, $W()..h(this));
     return $r.i64();
   }
 
@@ -188,7 +188,7 @@ class DatachannelDataChannel extends $io.IoCloser
   /// each invocation (a retained callback, WIRE.md).
   Future<void> onBufferedAmountLow(FutureOr<void> Function() f) async {
     await $call(
-        16127,
+        16133,
         $W()
           ..h(this)
           ..cb((r) => f(), true));
@@ -203,7 +203,7 @@ class DatachannelDataChannel extends $io.IoCloser
   /// each invocation (a retained callback, WIRE.md).
   Future<void> onOpen(FutureOr<void> Function() f) async {
     await $call(
-        16128,
+        16134,
         $W()
           ..h(this)
           ..cb((r) => f(), true));
@@ -212,7 +212,7 @@ class DatachannelDataChannel extends $io.IoCloser
   /// Go: `func (*datachannel.DataChannel).Read(p []byte) (int, error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        16129,
+        16135,
         $W()
           ..h(this)
           ..i64(n));
@@ -222,7 +222,7 @@ class DatachannelDataChannel extends $io.IoCloser
   /// Go: `func (*datachannel.DataChannel).ReadDataChannel(p []byte) (int, bool, error)`.
   (int, bool) readDataChannel(Uint8List p) {
     final $r = $callSync(
-        16130,
+        16136,
         $W()
           ..h(this)
           ..bytes(p));
@@ -232,7 +232,7 @@ class DatachannelDataChannel extends $io.IoCloser
   /// Go: `func (*datachannel.DataChannel).SetBufferedAmountLowThreshold(th uint64)`.
   void setBufferedAmountLowThreshold(int th) {
     $callSync(
-        16131,
+        16137,
         $W()
           ..h(this)
           ..i64(th));
@@ -241,7 +241,7 @@ class DatachannelDataChannel extends $io.IoCloser
   /// Go: `func (*datachannel.DataChannel).SetReadDeadline(t time.Time) error`.
   void setReadDeadline(DateTime t) {
     $callSync(
-        16132,
+        16138,
         $W()
           ..h(this)
           ..time(t));
@@ -250,7 +250,7 @@ class DatachannelDataChannel extends $io.IoCloser
   /// Go: `func (*datachannel.DataChannel).SetWriteDeadline(t time.Time) error`.
   void setWriteDeadline(DateTime t) {
     $callSync(
-        16133,
+        16139,
         $W()
           ..h(this)
           ..time(t));
@@ -258,14 +258,14 @@ class DatachannelDataChannel extends $io.IoCloser
 
   /// Go: `func (*datachannel.DataChannel).StreamIdentifier() uint16`.
   int streamIdentifier() {
-    final $r = $callSync(16134, $W()..h(this));
+    final $r = $callSync(16140, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*datachannel.DataChannel).Write(p []byte) (n int, err error)`.
   int write(Uint8List p) {
     final $r = $callSync(
-        16135,
+        16141,
         $W()
           ..h(this)
           ..bytes(p));
@@ -275,7 +275,7 @@ class DatachannelDataChannel extends $io.IoCloser
   /// Go: `func (*datachannel.DataChannel).WriteDataChannel(p []byte, isString bool) (n int, err error)`.
   int writeDataChannel(Uint8List p, bool isString) {
     final $r = $callSync(
-        16136,
+        16142,
         $W()
           ..h(this)
           ..bytes(p)
@@ -294,7 +294,7 @@ mixin DatachannelReadDeadliner$ on GoHandle {
   /// Go: `func (datachannel.ReadDeadliner).SetReadDeadline(time.Time) error`.
   void setReadDeadline(DateTime time) {
     $callSync(
-        16138,
+        16144,
         $W()
           ..h(this)
           ..time(time));
@@ -302,239 +302,239 @@ mixin DatachannelReadDeadliner$ on GoHandle {
 
   /// Go: type assertion `x.(*tls.Conn)`: null if the object is not one.
   $tls.CryptoTlsConn? asCryptoTlsConn() {
-    final $r = $callSync(1471, $W()..h(this));
+    final $r = $callSync(1476, $W()..h(this));
     return $r.hn($tls.CryptoTlsConn.$h);
   }
 
   /// Go: type assertion `x.(*atomicfile.File)`: null if the object is not one.
   $atomicfile.AtomicfileFile? asAtomicfileFile() {
-    final $r = $callSync(1472, $W()..h(this));
+    final $r = $callSync(1477, $W()..h(this));
     return $r.hn($atomicfile.AtomicfileFile.$h);
   }
 
   /// Go: type assertion `x.(*websocket.Conn)`: null if the object is not one.
   $websocket.WebsocketConn? asWebsocketConn() {
-    final $r = $callSync(1473, $W()..h(this));
+    final $r = $callSync(1478, $W()..h(this));
     return $r.hn($websocket.WebsocketConn.$h);
   }
 
   /// Go: type assertion `x.(*atomicfile.File)`: null if the object is not one.
   $atomicfile2.KuboRepoFsrepoMigrationsAtomicfileFile?
       asKuboRepoFsrepoMigrationsAtomicfileFile() {
-    final $r = $callSync(1474, $W()..h(this));
+    final $r = $callSync(1479, $W()..h(this));
     return $r.hn($atomicfile2.KuboRepoFsrepoMigrationsAtomicfileFile.$h);
   }
 
   /// Go: type assertion `x.(*swarm.Stream)`: null if the object is not one.
   $swarm.Libp2pP2pNetSwarmStream? asLibp2pP2pNetSwarmStream() {
-    final $r = $callSync(1475, $W()..h(this));
+    final $r = $callSync(1480, $W()..h(this));
     return $r.hn($swarm.Libp2pP2pNetSwarmStream.$h);
   }
 
   /// Go: type assertion `x.(*client.Conn)`: null if the object is not one.
   $client.Libp2pP2pProtocolCircuitv2ClientConn?
       asLibp2pP2pProtocolCircuitv2ClientConn() {
-    final $r = $callSync(1476, $W()..h(this));
+    final $r = $callSync(1481, $W()..h(this));
     return $r.hn($client.Libp2pP2pProtocolCircuitv2ClientConn.$h);
   }
 
   /// Go: type assertion `x.(*insecure.Conn)`: null if the object is not one.
   $insecure.Libp2pP2pSecurityInsecureConn? asLibp2pP2pSecurityInsecureConn() {
-    final $r = $callSync(1477, $W()..h(this));
+    final $r = $callSync(1482, $W()..h(this));
     return $r.hn($insecure.Libp2pP2pSecurityInsecureConn.$h);
   }
 
   /// Go: type assertion `x.(*websocket.Conn)`: null if the object is not one.
   $websocket2.Libp2pP2pTransportWebsocketConn?
       asLibp2pP2pTransportWebsocketConn() {
-    final $r = $callSync(1478, $W()..h(this));
+    final $r = $callSync(1483, $W()..h(this));
     return $r.hn($websocket2.Libp2pP2pTransportWebsocketConn.$h);
   }
 
   /// Go: type assertion `x.(*yamux.Stream)`: null if the object is not one.
   $v5.YamuxV5Stream? asYamuxV5Stream() {
-    final $r = $callSync(1479, $W()..h(this));
+    final $r = $callSync(1484, $W()..h(this));
     return $r.hn($v5.YamuxV5Stream.$h);
   }
 
   /// Go: type assertion `x.(*dns.Conn)`: null if the object is not one.
   $dns.DnsConn? asDnsConn() {
-    final $r = $callSync(1480, $W()..h(this));
+    final $r = $callSync(1485, $W()..h(this));
     return $r.hn($dns.DnsConn.$h);
   }
 
   /// Go: type assertion `x.(*dns.Transfer)`: null if the object is not one.
   $dns.DnsTransfer? asDnsTransfer() {
-    final $r = $callSync(1481, $W()..h(this));
+    final $r = $callSync(1486, $W()..h(this));
     return $r.hn($dns.DnsTransfer.$h);
   }
 
   /// Go: type assertion `x.(*datachannel.DataChannel)`: null if the object is not one.
   DatachannelDataChannel? asDatachannelDataChannel() {
-    final $r = $callSync(1482, $W()..h(this));
+    final $r = $callSync(1487, $W()..h(this));
     return $r.hn(DatachannelDataChannel.$h);
   }
 
   /// Go: type assertion `x.(*dtls.Conn)`: null if the object is not one.
   $v3.DtlsV3Conn? asDtlsV3Conn() {
-    final $r = $callSync(1483, $W()..h(this));
+    final $r = $callSync(1488, $W()..h(this));
     return $r.hn($v3.DtlsV3Conn.$h);
   }
 
   /// Go: type assertion `x.(*ice.Conn)`: null if the object is not one.
   $v4.IceV4Conn? asIceV4Conn() {
-    final $r = $callSync(1484, $W()..h(this));
+    final $r = $callSync(1489, $W()..h(this));
     return $r.hn($v4.IceV4Conn.$h);
   }
 
   /// Go: type assertion `x.(*sctp.Stream)`: null if the object is not one.
   $sctp.SctpStream? asSctpStream() {
-    final $r = $callSync(1485, $W()..h(this));
+    final $r = $callSync(1490, $W()..h(this));
     return $r.hn($sctp.SctpStream.$h);
   }
 
   /// Go: type assertion `x.(*srtp.ReadStreamSRTCP)`: null if the object is not one.
   $v32.SrtpV3ReadStreamSrtcp? asSrtpV3ReadStreamSrtcp() {
-    final $r = $callSync(1486, $W()..h(this));
+    final $r = $callSync(1491, $W()..h(this));
     return $r.hn($v32.SrtpV3ReadStreamSrtcp.$h);
   }
 
   /// Go: type assertion `x.(*srtp.ReadStreamSRTP)`: null if the object is not one.
   $v32.SrtpV3ReadStreamSrtp? asSrtpV3ReadStreamSrtp() {
-    final $r = $callSync(1487, $W()..h(this));
+    final $r = $callSync(1492, $W()..h(this));
     return $r.hn($v32.SrtpV3ReadStreamSrtp.$h);
   }
 
   /// Go: type assertion `x.(*packetio.Buffer)`: null if the object is not one.
   $packetio.TransportV3PacketioBuffer? asTransportV3PacketioBuffer() {
-    final $r = $callSync(1488, $W()..h(this));
+    final $r = $callSync(1493, $W()..h(this));
     return $r.hn($packetio.TransportV3PacketioBuffer.$h);
   }
 
   /// Go: type assertion `x.(*vnet.UDPConn)`: null if the object is not one.
   $vnet.TransportV3VnetUdpConn? asTransportV3VnetUdpConn() {
-    final $r = $callSync(1489, $W()..h(this));
+    final $r = $callSync(1494, $W()..h(this));
     return $r.hn($vnet.TransportV3VnetUdpConn.$h);
   }
 
   /// Go: type assertion `x.(*turn.STUNConn)`: null if the object is not one.
   $v42.TurnV4StunConn? asTurnV4StunConn() {
-    final $r = $callSync(1490, $W()..h(this));
+    final $r = $callSync(1495, $W()..h(this));
     return $r.hn($v42.TurnV4StunConn.$h);
   }
 
   /// Go: type assertion `x.(*webrtc.RTPReceiver)`: null if the object is not one.
   $v43.WebrtcV4RtpReceiver? asWebrtcV4RtpReceiver() {
-    final $r = $callSync(1491, $W()..h(this));
+    final $r = $callSync(1496, $W()..h(this));
     return $r.hn($v43.WebrtcV4RtpReceiver.$h);
   }
 
   /// Go: type assertion `x.(*webrtc.RTPSender)`: null if the object is not one.
   $v43.WebrtcV4RtpSender? asWebrtcV4RtpSender() {
-    final $r = $callSync(1492, $W()..h(this));
+    final $r = $callSync(1497, $W()..h(this));
     return $r.hn($v43.WebrtcV4RtpSender.$h);
   }
 
   /// Go: type assertion `x.(*webrtc.TrackRemote)`: null if the object is not one.
   $v43.WebrtcV4TrackRemote? asWebrtcV4TrackRemote() {
-    final $r = $callSync(1493, $W()..h(this));
+    final $r = $callSync(1498, $W()..h(this));
     return $r.hn($v43.WebrtcV4TrackRemote.$h);
   }
 
   /// Go: type assertion `x.(*quic.ReceiveStream)`: null if the object is not one.
   $quic_go.QuicGoReceiveStream? asQuicGoReceiveStream() {
-    final $r = $callSync(1494, $W()..h(this));
+    final $r = $callSync(1499, $W()..h(this));
     return $r.hn($quic_go.QuicGoReceiveStream.$h);
   }
 
   /// Go: type assertion `x.(*quic.Stream)`: null if the object is not one.
   $quic_go.QuicGoStream? asQuicGoStream() {
-    final $r = $callSync(1495, $W()..h(this));
+    final $r = $callSync(1500, $W()..h(this));
     return $r.hn($quic_go.QuicGoStream.$h);
   }
 
   /// Go: type assertion `x.(*http3.RequestStream)`: null if the object is not one.
   $http3.QuicGoHttp3RequestStream? asQuicGoHttp3RequestStream() {
-    final $r = $callSync(1496, $W()..h(this));
+    final $r = $callSync(1501, $W()..h(this));
     return $r.hn($http3.QuicGoHttp3RequestStream.$h);
   }
 
   /// Go: type assertion `x.(*http3.Stream)`: null if the object is not one.
   $http3.QuicGoHttp3Stream? asQuicGoHttp3Stream() {
-    final $r = $callSync(1497, $W()..h(this));
+    final $r = $callSync(1502, $W()..h(this));
     return $r.hn($http3.QuicGoHttp3Stream.$h);
   }
 
   /// Go: type assertion `x.(*webtransport.ReceiveStream)`: null if the object is not one.
   $webtransport_go.WebtransportGoReceiveStream?
       asWebtransportGoReceiveStream() {
-    final $r = $callSync(1498, $W()..h(this));
+    final $r = $callSync(1503, $W()..h(this));
     return $r.hn($webtransport_go.WebtransportGoReceiveStream.$h);
   }
 
   /// Go: type assertion `x.(*webtransport.Stream)`: null if the object is not one.
   $webtransport_go.WebtransportGoStream? asWebtransportGoStream() {
-    final $r = $callSync(1499, $W()..h(this));
+    final $r = $callSync(1504, $W()..h(this));
     return $r.hn($webtransport_go.WebtransportGoStream.$h);
   }
 
   /// Go: type assertion `x.(*ipv4.PacketConn)`: null if the object is not one.
   $ipv4.NetIpv4PacketConn? asNetIpv4PacketConn() {
-    final $r = $callSync(1500, $W()..h(this));
+    final $r = $callSync(1505, $W()..h(this));
     return $r.hn($ipv4.NetIpv4PacketConn.$h);
   }
 
   /// Go: type assertion `x.(*ipv4.RawConn)`: null if the object is not one.
   $ipv4.NetIpv4RawConn? asNetIpv4RawConn() {
-    final $r = $callSync(1501, $W()..h(this));
+    final $r = $callSync(1506, $W()..h(this));
     return $r.hn($ipv4.NetIpv4RawConn.$h);
   }
 
   /// Go: type assertion `x.(*ipv6.PacketConn)`: null if the object is not one.
   $ipv6.NetIpv6PacketConn? asNetIpv6PacketConn() {
-    final $r = $callSync(1502, $W()..h(this));
+    final $r = $callSync(1507, $W()..h(this));
     return $r.hn($ipv6.NetIpv6PacketConn.$h);
   }
 
   /// Go: type assertion `x.(*net.IPConn)`: null if the object is not one.
   $net.NetIpConn? asNetIpConn() {
-    final $r = $callSync(1503, $W()..h(this));
+    final $r = $callSync(1508, $W()..h(this));
     return $r.hn($net.NetIpConn.$h);
   }
 
   /// Go: type assertion `x.(*net.TCPConn)`: null if the object is not one.
   $net.NetTcpConn? asNetTcpConn() {
-    final $r = $callSync(1504, $W()..h(this));
+    final $r = $callSync(1509, $W()..h(this));
     return $r.hn($net.NetTcpConn.$h);
   }
 
   /// Go: type assertion `x.(*net.UDPConn)`: null if the object is not one.
   $net.NetUdpConn? asNetUdpConn() {
-    final $r = $callSync(1505, $W()..h(this));
+    final $r = $callSync(1510, $W()..h(this));
     return $r.hn($net.NetUdpConn.$h);
   }
 
   /// Go: type assertion `x.(*net.UnixConn)`: null if the object is not one.
   $net.NetUnixConn? asNetUnixConn() {
-    final $r = $callSync(1506, $W()..h(this));
+    final $r = $callSync(1511, $W()..h(this));
     return $r.hn($net.NetUnixConn.$h);
   }
 
   /// Go: type assertion `x.(*http.ResponseController)`: null if the object is not one.
   $http.NetHttpResponseController? asNetHttpResponseController() {
-    final $r = $callSync(1507, $W()..h(this));
+    final $r = $callSync(1512, $W()..h(this));
     return $r.hn($http.NetHttpResponseController.$h);
   }
 
   /// Go: type assertion `x.(*os.File)`: null if the object is not one.
   $os.OsFile? asOsFile() {
-    final $r = $callSync(1508, $W()..h(this));
+    final $r = $callSync(1513, $W()..h(this));
     return $r.hn($os.OsFile.$h);
   }
 
   /// Go: type assertion `x.(datachannel.ReadWriteCloserDeadliner)`: null if the object is not one.
   DatachannelReadWriteCloserDeadliner? asDatachannelReadWriteCloserDeadliner() {
-    final $r = $callSync(1509, $W()..h(this));
+    final $r = $callSync(1514, $W()..h(this));
     return $r.hn(DatachannelReadWriteCloserDeadliner.$h);
   }
 }
@@ -550,13 +550,13 @@ class DatachannelReadWriteCloser extends $io.IoCloser
 mixin DatachannelReadWriteCloser$ on GoHandle {
   /// Go: type assertion `x.(*datachannel.DataChannel)`: null if the object is not one.
   DatachannelDataChannel? asDatachannelDataChannel() {
-    final $r = $callSync(1510, $W()..h(this));
+    final $r = $callSync(1515, $W()..h(this));
     return $r.hn(DatachannelDataChannel.$h);
   }
 
   /// Go: type assertion `x.(datachannel.ReadWriteCloserDeadliner)`: null if the object is not one.
   DatachannelReadWriteCloserDeadliner? asDatachannelReadWriteCloserDeadliner() {
-    final $r = $callSync(1511, $W()..h(this));
+    final $r = $callSync(1516, $W()..h(this));
     return $r.hn(DatachannelReadWriteCloserDeadliner.$h);
   }
 }
@@ -581,7 +581,7 @@ class DatachannelReadWriteCloserDeadliner extends DatachannelReadWriteCloser
 mixin DatachannelReadWriteCloserDeadliner$ on GoHandle {
   /// Go: type assertion `x.(*datachannel.DataChannel)`: null if the object is not one.
   DatachannelDataChannel? asDatachannelDataChannel() {
-    final $r = $callSync(1512, $W()..h(this));
+    final $r = $callSync(1517, $W()..h(this));
     return $r.hn(DatachannelDataChannel.$h);
   }
 }
@@ -596,7 +596,7 @@ mixin DatachannelReader$ on GoHandle {
   /// Go: `func (datachannel.Reader).ReadDataChannel([]byte) (int, bool, error)`.
   (int, bool) readDataChannel(Uint8List arg0) {
     final $r = $callSync(
-        16139,
+        16145,
         $W()
           ..h(this)
           ..bytes(arg0));
@@ -605,19 +605,19 @@ mixin DatachannelReader$ on GoHandle {
 
   /// Go: type assertion `x.(*datachannel.DataChannel)`: null if the object is not one.
   DatachannelDataChannel? asDatachannelDataChannel() {
-    final $r = $callSync(1513, $W()..h(this));
+    final $r = $callSync(1518, $W()..h(this));
     return $r.hn(DatachannelDataChannel.$h);
   }
 
   /// Go: type assertion `x.(datachannel.ReadWriteCloser)`: null if the object is not one.
   DatachannelReadWriteCloser? asDatachannelReadWriteCloser() {
-    final $r = $callSync(1514, $W()..h(this));
+    final $r = $callSync(1519, $W()..h(this));
     return $r.hn(DatachannelReadWriteCloser.$h);
   }
 
   /// Go: type assertion `x.(datachannel.ReadWriteCloserDeadliner)`: null if the object is not one.
   DatachannelReadWriteCloserDeadliner? asDatachannelReadWriteCloserDeadliner() {
-    final $r = $callSync(1515, $W()..h(this));
+    final $r = $callSync(1520, $W()..h(this));
     return $r.hn(DatachannelReadWriteCloserDeadliner.$h);
   }
 }
@@ -633,7 +633,7 @@ mixin DatachannelWriteDeadliner$ on GoHandle {
   /// Go: `func (datachannel.WriteDeadliner).SetWriteDeadline(time.Time) error`.
   void setWriteDeadline(DateTime time) {
     $callSync(
-        16142,
+        16148,
         $W()
           ..h(this)
           ..time(time));
@@ -641,214 +641,214 @@ mixin DatachannelWriteDeadliner$ on GoHandle {
 
   /// Go: type assertion `x.(*tls.Conn)`: null if the object is not one.
   $tls.CryptoTlsConn? asCryptoTlsConn() {
-    final $r = $callSync(1516, $W()..h(this));
+    final $r = $callSync(1521, $W()..h(this));
     return $r.hn($tls.CryptoTlsConn.$h);
   }
 
   /// Go: type assertion `x.(*atomicfile.File)`: null if the object is not one.
   $atomicfile.AtomicfileFile? asAtomicfileFile() {
-    final $r = $callSync(1517, $W()..h(this));
+    final $r = $callSync(1522, $W()..h(this));
     return $r.hn($atomicfile.AtomicfileFile.$h);
   }
 
   /// Go: type assertion `x.(*websocket.Conn)`: null if the object is not one.
   $websocket.WebsocketConn? asWebsocketConn() {
-    final $r = $callSync(1518, $W()..h(this));
+    final $r = $callSync(1523, $W()..h(this));
     return $r.hn($websocket.WebsocketConn.$h);
   }
 
   /// Go: type assertion `x.(*atomicfile.File)`: null if the object is not one.
   $atomicfile2.KuboRepoFsrepoMigrationsAtomicfileFile?
       asKuboRepoFsrepoMigrationsAtomicfileFile() {
-    final $r = $callSync(1519, $W()..h(this));
+    final $r = $callSync(1524, $W()..h(this));
     return $r.hn($atomicfile2.KuboRepoFsrepoMigrationsAtomicfileFile.$h);
   }
 
   /// Go: type assertion `x.(*swarm.Stream)`: null if the object is not one.
   $swarm.Libp2pP2pNetSwarmStream? asLibp2pP2pNetSwarmStream() {
-    final $r = $callSync(1520, $W()..h(this));
+    final $r = $callSync(1525, $W()..h(this));
     return $r.hn($swarm.Libp2pP2pNetSwarmStream.$h);
   }
 
   /// Go: type assertion `x.(*client.Conn)`: null if the object is not one.
   $client.Libp2pP2pProtocolCircuitv2ClientConn?
       asLibp2pP2pProtocolCircuitv2ClientConn() {
-    final $r = $callSync(1521, $W()..h(this));
+    final $r = $callSync(1526, $W()..h(this));
     return $r.hn($client.Libp2pP2pProtocolCircuitv2ClientConn.$h);
   }
 
   /// Go: type assertion `x.(*insecure.Conn)`: null if the object is not one.
   $insecure.Libp2pP2pSecurityInsecureConn? asLibp2pP2pSecurityInsecureConn() {
-    final $r = $callSync(1522, $W()..h(this));
+    final $r = $callSync(1527, $W()..h(this));
     return $r.hn($insecure.Libp2pP2pSecurityInsecureConn.$h);
   }
 
   /// Go: type assertion `x.(*websocket.Conn)`: null if the object is not one.
   $websocket2.Libp2pP2pTransportWebsocketConn?
       asLibp2pP2pTransportWebsocketConn() {
-    final $r = $callSync(1523, $W()..h(this));
+    final $r = $callSync(1528, $W()..h(this));
     return $r.hn($websocket2.Libp2pP2pTransportWebsocketConn.$h);
   }
 
   /// Go: type assertion `x.(*yamux.Stream)`: null if the object is not one.
   $v5.YamuxV5Stream? asYamuxV5Stream() {
-    final $r = $callSync(1524, $W()..h(this));
+    final $r = $callSync(1529, $W()..h(this));
     return $r.hn($v5.YamuxV5Stream.$h);
   }
 
   /// Go: type assertion `x.(*dns.Conn)`: null if the object is not one.
   $dns.DnsConn? asDnsConn() {
-    final $r = $callSync(1525, $W()..h(this));
+    final $r = $callSync(1530, $W()..h(this));
     return $r.hn($dns.DnsConn.$h);
   }
 
   /// Go: type assertion `x.(*dns.Transfer)`: null if the object is not one.
   $dns.DnsTransfer? asDnsTransfer() {
-    final $r = $callSync(1526, $W()..h(this));
+    final $r = $callSync(1531, $W()..h(this));
     return $r.hn($dns.DnsTransfer.$h);
   }
 
   /// Go: type assertion `x.(*datachannel.DataChannel)`: null if the object is not one.
   DatachannelDataChannel? asDatachannelDataChannel() {
-    final $r = $callSync(1527, $W()..h(this));
+    final $r = $callSync(1532, $W()..h(this));
     return $r.hn(DatachannelDataChannel.$h);
   }
 
   /// Go: type assertion `x.(*dtls.Conn)`: null if the object is not one.
   $v3.DtlsV3Conn? asDtlsV3Conn() {
-    final $r = $callSync(1528, $W()..h(this));
+    final $r = $callSync(1533, $W()..h(this));
     return $r.hn($v3.DtlsV3Conn.$h);
   }
 
   /// Go: type assertion `x.(*ice.Conn)`: null if the object is not one.
   $v4.IceV4Conn? asIceV4Conn() {
-    final $r = $callSync(1529, $W()..h(this));
+    final $r = $callSync(1534, $W()..h(this));
     return $r.hn($v4.IceV4Conn.$h);
   }
 
   /// Go: type assertion `x.(*sctp.Stream)`: null if the object is not one.
   $sctp.SctpStream? asSctpStream() {
-    final $r = $callSync(1530, $W()..h(this));
+    final $r = $callSync(1535, $W()..h(this));
     return $r.hn($sctp.SctpStream.$h);
   }
 
   /// Go: type assertion `x.(*srtp.WriteStreamSRTCP)`: null if the object is not one.
   $v32.SrtpV3WriteStreamSrtcp? asSrtpV3WriteStreamSrtcp() {
-    final $r = $callSync(1531, $W()..h(this));
+    final $r = $callSync(1536, $W()..h(this));
     return $r.hn($v32.SrtpV3WriteStreamSrtcp.$h);
   }
 
   /// Go: type assertion `x.(*srtp.WriteStreamSRTP)`: null if the object is not one.
   $v32.SrtpV3WriteStreamSrtp? asSrtpV3WriteStreamSrtp() {
-    final $r = $callSync(1532, $W()..h(this));
+    final $r = $callSync(1537, $W()..h(this));
     return $r.hn($v32.SrtpV3WriteStreamSrtp.$h);
   }
 
   /// Go: type assertion `x.(*vnet.UDPConn)`: null if the object is not one.
   $vnet.TransportV3VnetUdpConn? asTransportV3VnetUdpConn() {
-    final $r = $callSync(1533, $W()..h(this));
+    final $r = $callSync(1538, $W()..h(this));
     return $r.hn($vnet.TransportV3VnetUdpConn.$h);
   }
 
   /// Go: type assertion `x.(*turn.STUNConn)`: null if the object is not one.
   $v42.TurnV4StunConn? asTurnV4StunConn() {
-    final $r = $callSync(1534, $W()..h(this));
+    final $r = $callSync(1539, $W()..h(this));
     return $r.hn($v42.TurnV4StunConn.$h);
   }
 
   /// Go: type assertion `x.(*quic.SendStream)`: null if the object is not one.
   $quic_go.QuicGoSendStream? asQuicGoSendStream() {
-    final $r = $callSync(1535, $W()..h(this));
+    final $r = $callSync(1540, $W()..h(this));
     return $r.hn($quic_go.QuicGoSendStream.$h);
   }
 
   /// Go: type assertion `x.(*quic.Stream)`: null if the object is not one.
   $quic_go.QuicGoStream? asQuicGoStream() {
-    final $r = $callSync(1536, $W()..h(this));
+    final $r = $callSync(1541, $W()..h(this));
     return $r.hn($quic_go.QuicGoStream.$h);
   }
 
   /// Go: type assertion `x.(*http3.RequestStream)`: null if the object is not one.
   $http3.QuicGoHttp3RequestStream? asQuicGoHttp3RequestStream() {
-    final $r = $callSync(1537, $W()..h(this));
+    final $r = $callSync(1542, $W()..h(this));
     return $r.hn($http3.QuicGoHttp3RequestStream.$h);
   }
 
   /// Go: type assertion `x.(*http3.Stream)`: null if the object is not one.
   $http3.QuicGoHttp3Stream? asQuicGoHttp3Stream() {
-    final $r = $callSync(1538, $W()..h(this));
+    final $r = $callSync(1543, $W()..h(this));
     return $r.hn($http3.QuicGoHttp3Stream.$h);
   }
 
   /// Go: type assertion `x.(*webtransport.SendStream)`: null if the object is not one.
   $webtransport_go.WebtransportGoSendStream? asWebtransportGoSendStream() {
-    final $r = $callSync(1539, $W()..h(this));
+    final $r = $callSync(1544, $W()..h(this));
     return $r.hn($webtransport_go.WebtransportGoSendStream.$h);
   }
 
   /// Go: type assertion `x.(*webtransport.Stream)`: null if the object is not one.
   $webtransport_go.WebtransportGoStream? asWebtransportGoStream() {
-    final $r = $callSync(1540, $W()..h(this));
+    final $r = $callSync(1545, $W()..h(this));
     return $r.hn($webtransport_go.WebtransportGoStream.$h);
   }
 
   /// Go: type assertion `x.(*ipv4.PacketConn)`: null if the object is not one.
   $ipv4.NetIpv4PacketConn? asNetIpv4PacketConn() {
-    final $r = $callSync(1541, $W()..h(this));
+    final $r = $callSync(1546, $W()..h(this));
     return $r.hn($ipv4.NetIpv4PacketConn.$h);
   }
 
   /// Go: type assertion `x.(*ipv4.RawConn)`: null if the object is not one.
   $ipv4.NetIpv4RawConn? asNetIpv4RawConn() {
-    final $r = $callSync(1542, $W()..h(this));
+    final $r = $callSync(1547, $W()..h(this));
     return $r.hn($ipv4.NetIpv4RawConn.$h);
   }
 
   /// Go: type assertion `x.(*ipv6.PacketConn)`: null if the object is not one.
   $ipv6.NetIpv6PacketConn? asNetIpv6PacketConn() {
-    final $r = $callSync(1543, $W()..h(this));
+    final $r = $callSync(1548, $W()..h(this));
     return $r.hn($ipv6.NetIpv6PacketConn.$h);
   }
 
   /// Go: type assertion `x.(*net.IPConn)`: null if the object is not one.
   $net.NetIpConn? asNetIpConn() {
-    final $r = $callSync(1544, $W()..h(this));
+    final $r = $callSync(1549, $W()..h(this));
     return $r.hn($net.NetIpConn.$h);
   }
 
   /// Go: type assertion `x.(*net.TCPConn)`: null if the object is not one.
   $net.NetTcpConn? asNetTcpConn() {
-    final $r = $callSync(1545, $W()..h(this));
+    final $r = $callSync(1550, $W()..h(this));
     return $r.hn($net.NetTcpConn.$h);
   }
 
   /// Go: type assertion `x.(*net.UDPConn)`: null if the object is not one.
   $net.NetUdpConn? asNetUdpConn() {
-    final $r = $callSync(1546, $W()..h(this));
+    final $r = $callSync(1551, $W()..h(this));
     return $r.hn($net.NetUdpConn.$h);
   }
 
   /// Go: type assertion `x.(*net.UnixConn)`: null if the object is not one.
   $net.NetUnixConn? asNetUnixConn() {
-    final $r = $callSync(1547, $W()..h(this));
+    final $r = $callSync(1552, $W()..h(this));
     return $r.hn($net.NetUnixConn.$h);
   }
 
   /// Go: type assertion `x.(*http.ResponseController)`: null if the object is not one.
   $http.NetHttpResponseController? asNetHttpResponseController() {
-    final $r = $callSync(1548, $W()..h(this));
+    final $r = $callSync(1553, $W()..h(this));
     return $r.hn($http.NetHttpResponseController.$h);
   }
 
   /// Go: type assertion `x.(*os.File)`: null if the object is not one.
   $os.OsFile? asOsFile() {
-    final $r = $callSync(1549, $W()..h(this));
+    final $r = $callSync(1554, $W()..h(this));
     return $r.hn($os.OsFile.$h);
   }
 
   /// Go: type assertion `x.(datachannel.ReadWriteCloserDeadliner)`: null if the object is not one.
   DatachannelReadWriteCloserDeadliner? asDatachannelReadWriteCloserDeadliner() {
-    final $r = $callSync(1550, $W()..h(this));
+    final $r = $callSync(1555, $W()..h(this));
     return $r.hn(DatachannelReadWriteCloserDeadliner.$h);
   }
 }
@@ -863,7 +863,7 @@ mixin DatachannelWriter$ on GoHandle {
   /// Go: `func (datachannel.Writer).WriteDataChannel([]byte, bool) (int, error)`.
   int writeDataChannel(Uint8List arg0, bool arg1) {
     final $r = $callSync(
-        16143,
+        16149,
         $W()
           ..h(this)
           ..bytes(arg0)
@@ -873,19 +873,19 @@ mixin DatachannelWriter$ on GoHandle {
 
   /// Go: type assertion `x.(*datachannel.DataChannel)`: null if the object is not one.
   DatachannelDataChannel? asDatachannelDataChannel() {
-    final $r = $callSync(1551, $W()..h(this));
+    final $r = $callSync(1556, $W()..h(this));
     return $r.hn(DatachannelDataChannel.$h);
   }
 
   /// Go: type assertion `x.(datachannel.ReadWriteCloser)`: null if the object is not one.
   DatachannelReadWriteCloser? asDatachannelReadWriteCloser() {
-    final $r = $callSync(1552, $W()..h(this));
+    final $r = $callSync(1557, $W()..h(this));
     return $r.hn(DatachannelReadWriteCloser.$h);
   }
 
   /// Go: type assertion `x.(datachannel.ReadWriteCloserDeadliner)`: null if the object is not one.
   DatachannelReadWriteCloserDeadliner? asDatachannelReadWriteCloserDeadliner() {
-    final $r = $callSync(1553, $W()..h(this));
+    final $r = $callSync(1558, $W()..h(this));
     return $r.hn(DatachannelReadWriteCloserDeadliner.$h);
   }
 }
@@ -953,7 +953,7 @@ extension GoPionDatachannelApi on GoPionDatachannel {
       $sctp.SctpAssociation a, DatachannelConfig config,
       [List<DatachannelDataChannel> existingChannels = const []]) {
     final $r = $callSync(
-        16118,
+        16124,
         $W()
           ..h(a)
           ..dto(config)
@@ -965,7 +965,7 @@ extension GoPionDatachannelApi on GoPionDatachannel {
   DatachannelDataChannel client(
       $sctp.SctpStream stream, DatachannelConfig config) {
     final $r = $callSync(
-        16119,
+        16125,
         $W()
           ..h(stream)
           ..dto(config));
@@ -976,7 +976,7 @@ extension GoPionDatachannelApi on GoPionDatachannel {
   DatachannelDataChannel dial(
       $sctp.SctpAssociation a, int id, DatachannelConfig config) {
     final $r = $callSync(
-        16137,
+        16143,
         $W()
           ..h(a)
           ..i64(id)
@@ -988,7 +988,7 @@ extension GoPionDatachannelApi on GoPionDatachannel {
   DatachannelDataChannel server(
       $sctp.SctpStream stream, DatachannelConfig config) {
     final $r = $callSync(
-        16140,
+        16146,
         $W()
           ..h(stream)
           ..dto(config));
@@ -997,7 +997,7 @@ extension GoPionDatachannelApi on GoPionDatachannel {
 
   /// Go: `func datachannel.TryMarshalUnmarshal(msg []byte) int`.
   int tryMarshalUnmarshal(Uint8List msg) {
-    final $r = $callSync(16141, $W()..bytes(msg));
+    final $r = $callSync(16147, $W()..bytes(msg));
     return $r.i64();
   }
 }

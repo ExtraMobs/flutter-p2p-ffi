@@ -33,7 +33,7 @@ class Libp2pP2pNetReuseportTransport extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*reuseport.Transport).Dial(raddr multiaddr.Multiaddr) (manet.Conn, error)`.
   $net.MultiaddrNetConn dial($multiaddr.Multiaddr raddr) {
     final $r = $callSync(
-        14628,
+        14634,
         $W()
           ..h(this)
           ..val(raddr));
@@ -46,7 +46,7 @@ class Libp2pP2pNetReuseportTransport extends $crypto.CryptoDecrypterOpts
   Future<$net.MultiaddrNetConn> dialContext(
       $context.Context ctx, $multiaddr.Multiaddr raddr) async {
     final $r = await $call(
-        14629,
+        14635,
         $W()
           ..h(this)
           ..h(ctx)
@@ -57,7 +57,7 @@ class Libp2pP2pNetReuseportTransport extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*reuseport.Transport).Listen(laddr multiaddr.Multiaddr) (manet.Listener, error)`.
   $net.MultiaddrNetListener listen($multiaddr.Multiaddr laddr) {
     final $r = $callSync(
-        14630,
+        14636,
         $W()
           ..h(this)
           ..val(laddr));

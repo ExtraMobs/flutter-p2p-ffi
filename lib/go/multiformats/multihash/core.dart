@@ -29,20 +29,20 @@ class MultihashCoreErrSumNotSupported extends GolangException {
 extension GoMultiformatsMultihashCoreApi on GoMultiformatsMultihashCore {
   /// Go: `var multihash.DefaultLengths map[uint64]int`.
   Map<int, int> get defaultLengths {
-    final $r = $callSync(16015);
+    final $r = $callSync(16021);
     return $r.map(() => $r.i64(), () => $r.i64());
   }
 
   /// Go: `func multihash.GetHasher(indicator uint64) (hash.Hash, error)`.
   $hash.Hash getHasher(int indicator) {
-    final $r = $callSync(16016, $W()..i64(indicator));
+    final $r = $callSync(16022, $W()..i64(indicator));
     return $r.hnn($hash.Hash.$h);
   }
 
   /// Go: `func multihash.GetVariableHasher(indicator uint64, sizeHint int) (hash.Hash, error)`.
   $hash.Hash getVariableHasher(int indicator, int sizeHint) {
     final $r = $callSync(
-        16017,
+        16023,
         $W()
           ..i64(indicator)
           ..i64(sizeHint));

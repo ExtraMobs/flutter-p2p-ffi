@@ -45,47 +45,47 @@ class GenprotoGoogleapisApiHttpbodyHttpBody
   /// Go: `func (*httpbody.HttpBody).Descriptor() ([]byte, []int)`.
   @Deprecated("Use HttpBody.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(24110, $W()..h(this));
+    final $r = $callSync(24116, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*httpbody.HttpBody).GetContentType() string`.
   String getContentType() {
-    final $r = $callSync(24111, $W()..h(this));
+    final $r = $callSync(24117, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*httpbody.HttpBody).GetData() []byte`.
   Uint8List getData() {
-    final $r = $callSync(24112, $W()..h(this));
+    final $r = $callSync(24118, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*httpbody.HttpBody).GetExtensions() []*anypb.Any`.
   List<$anypb.ProtobufTypesKnownAnypbAny> getExtensions() {
-    final $r = $callSync(24113, $W()..h(this));
+    final $r = $callSync(24119, $W()..h(this));
     return $r.list(() => $r.hnn($anypb.ProtobufTypesKnownAnypbAny.$h));
   }
 
   /// Go: `func (*httpbody.HttpBody).ProtoMessage()`.
   void protoMessage() {
-    $callSync(24114, $W()..h(this));
+    $callSync(24120, $W()..h(this));
   }
 
   /// Go: `func (*httpbody.HttpBody).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(24115, $W()..h(this));
+    final $r = $callSync(24121, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*httpbody.HttpBody).Reset()`.
   void reset() {
-    $callSync(24116, $W()..h(this));
+    $callSync(24122, $W()..h(this));
   }
 
   /// Go: `func (*httpbody.HttpBody).String() string`.
   String string() {
-    final $r = $callSync(24117, $W()..h(this));
+    final $r = $callSync(24123, $W()..h(this));
     return $r.str();
   }
 }
@@ -96,7 +96,7 @@ extension GoGenprotoGoogleapisApiHttpbodyApi
   /// Go: `var httpbody.File_google_api_httpbody_proto protoreflect.FileDescriptor`.
   $protoreflect.ProtobufReflectProtoreflectFileDescriptor
       get fileGoogleApiHttpbodyProto {
-    final $r = $callSync(24109);
+    final $r = $callSync(24115);
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectFileDescriptor.$h);
   }
 }

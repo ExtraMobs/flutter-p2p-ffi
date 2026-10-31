@@ -68,7 +68,7 @@ extension GoIpfsBoxoIpldUnixfsImporterTrickleApi
       $ipld_format.IpldFormatNode basen,
       $helpers.BoxoIpldUnixfsImporterHelpersDagBuilderHelper db) async {
     final $r = await $call(
-        9819,
+        9828,
         $W()
           ..h(ctx)
           ..h(basen)
@@ -79,7 +79,7 @@ extension GoIpfsBoxoIpldUnixfsImporterTrickleApi
   /// Go: `func trickle.Layout(db *helpers.DagBuilderHelper) (format.Node, error)`.
   $ipld_format.IpldFormatNode layout(
       $helpers.BoxoIpldUnixfsImporterHelpersDagBuilderHelper db) {
-    final $r = $callSync(9820, $W()..h(db));
+    final $r = $callSync(9829, $W()..h(db));
     return $r.hnn($ipld_format.IpldFormatNode.$h);
   }
 
@@ -87,7 +87,7 @@ extension GoIpfsBoxoIpldUnixfsImporterTrickleApi
   void verifyTrickleDagStructure($ipld_format.IpldFormatNode nd,
       BoxoIpldUnixfsImporterTrickleVerifyParams p) {
     $callSync(
-        9821,
+        9830,
         $W()
           ..h(nd)
           ..dto(p));

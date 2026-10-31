@@ -46,7 +46,7 @@ final class LogSlogAttr implements GoDto {
   /// Go: `func (slog.Attr).Equal(b slog.Attr) bool`.
   bool equal(LogSlogAttr b) {
     final $r = $callSync(
-        25812,
+        25818,
         $W()
           ..dto(this)
           ..dto(b));
@@ -55,7 +55,7 @@ final class LogSlogAttr implements GoDto {
 
   /// Go: `func (slog.Attr).String() string`.
   String string() {
-    final $r = $callSync(25813, $W()..dto(this));
+    final $r = $callSync(25819, $W()..dto(this));
     return $r.str();
   }
 }
@@ -72,7 +72,7 @@ mixin LogSlogHandler$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> enabled($context.Context ctx, int arg1) async {
     final $r = await $call(
-        25829,
+        25835,
         $W()
           ..h(this)
           ..h(ctx)
@@ -85,7 +85,7 @@ mixin LogSlogHandler$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> handle($context.Context ctx, LogSlogRecord record) async {
     await $call(
-        25830,
+        25836,
         $W()
           ..h(this)
           ..h(ctx)
@@ -95,7 +95,7 @@ mixin LogSlogHandler$ on GoHandle {
   /// Go: `func (slog.Handler).WithAttrs(attrs []slog.Attr) slog.Handler`.
   LogSlogHandler withAttrs(List<LogSlogAttr> attrs) {
     final $r = $callSync(
-        25831,
+        25837,
         $W()
           ..h(this)
           ..list(attrs, (w0, e0) => w0.dto(e0)));
@@ -105,7 +105,7 @@ mixin LogSlogHandler$ on GoHandle {
   /// Go: `func (slog.Handler).WithGroup(name string) slog.Handler`.
   LogSlogHandler withGroup(String name) {
     final $r = $callSync(
-        25832,
+        25838,
         $W()
           ..h(this)
           ..str(name));
@@ -114,25 +114,25 @@ mixin LogSlogHandler$ on GoHandle {
 
   /// Go: type assertion `x.(*zapslog.Handler)`: null if the object is not one.
   $zapslog.ZapExpZapslogHandler? asZapExpZapslogHandler() {
-    final $r = $callSync(2961, $W()..h(this));
+    final $r = $callSync(2968, $W()..h(this));
     return $r.hn($zapslog.ZapExpZapslogHandler.$h);
   }
 
   /// Go: type assertion `x.(*slog.JSONHandler)`: null if the object is not one.
   LogSlogJsonHandler? asLogSlogJsonHandler() {
-    final $r = $callSync(2962, $W()..h(this));
+    final $r = $callSync(2969, $W()..h(this));
     return $r.hn(LogSlogJsonHandler.$h);
   }
 
   /// Go: type assertion `x.(*slog.MultiHandler)`: null if the object is not one.
   LogSlogMultiHandler? asLogSlogMultiHandler() {
-    final $r = $callSync(2963, $W()..h(this));
+    final $r = $callSync(2970, $W()..h(this));
     return $r.hn(LogSlogMultiHandler.$h);
   }
 
   /// Go: type assertion `x.(*slog.TextHandler)`: null if the object is not one.
   LogSlogTextHandler? asLogSlogTextHandler() {
-    final $r = $callSync(2964, $W()..h(this));
+    final $r = $callSync(2971, $W()..h(this));
     return $r.hn(LogSlogTextHandler.$h);
   }
 }
@@ -177,7 +177,7 @@ class LogSlogJsonHandler extends LogSlogHandler
   /// Go: `func slog.NewJSONHandler(w io.Writer, opts *slog.HandlerOptions) *slog.JSONHandler`.
   factory LogSlogJsonHandler(GoHandle? w, LogSlogHandlerOptions opts) {
     final $r = $callSync(
-        25871,
+        25877,
         $W()
           ..h(w)
           ..dto(opts));
@@ -189,7 +189,7 @@ class LogSlogJsonHandler extends LogSlogHandler
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> enabled($context.Context ctx, int level) async {
     final $r = await $call(
-        25839,
+        25845,
         $W()
           ..h(this)
           ..h(ctx)
@@ -202,7 +202,7 @@ class LogSlogJsonHandler extends LogSlogHandler
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> handle($context.Context ctx, LogSlogRecord r) async {
     await $call(
-        25840,
+        25846,
         $W()
           ..h(this)
           ..h(ctx)
@@ -212,7 +212,7 @@ class LogSlogJsonHandler extends LogSlogHandler
   /// Go: `func (*slog.JSONHandler).WithAttrs(attrs []slog.Attr) slog.Handler`.
   LogSlogHandler withAttrs(List<LogSlogAttr> attrs) {
     final $r = $callSync(
-        25841,
+        25847,
         $W()
           ..h(this)
           ..list(attrs, (w0, e0) => w0.dto(e0)));
@@ -222,7 +222,7 @@ class LogSlogJsonHandler extends LogSlogHandler
   /// Go: `func (*slog.JSONHandler).WithGroup(name string) slog.Handler`.
   LogSlogHandler withGroup(String name) {
     final $r = $callSync(
-        25842,
+        25848,
         $W()
           ..h(this)
           ..str(name));
@@ -255,7 +255,7 @@ class LogSlogLevelVar extends $encoding.EncodingTextAppender
   /// Go: `func (*slog.LevelVar).AppendText(b []byte) ([]byte, error)`.
   Uint8List appendText(Uint8List b) {
     final $r = $callSync(
-        25843,
+        25849,
         $W()
           ..h(this)
           ..bytes(b));
@@ -264,20 +264,20 @@ class LogSlogLevelVar extends $encoding.EncodingTextAppender
 
   /// Go: `func (*slog.LevelVar).Level() slog.Level`.
   int level() {
-    final $r = $callSync(25844, $W()..h(this));
+    final $r = $callSync(25850, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*slog.LevelVar).MarshalText() ([]byte, error)`.
   Uint8List marshalText() {
-    final $r = $callSync(25845, $W()..h(this));
+    final $r = $callSync(25851, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*slog.LevelVar).Set(l slog.Level)`.
   void set(int l) {
     $callSync(
-        25846,
+        25852,
         $W()
           ..h(this)
           ..i64(l));
@@ -285,14 +285,14 @@ class LogSlogLevelVar extends $encoding.EncodingTextAppender
 
   /// Go: `func (*slog.LevelVar).String() string`.
   String string() {
-    final $r = $callSync(25847, $W()..h(this));
+    final $r = $callSync(25853, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*slog.LevelVar).UnmarshalText(data []byte) error`.
   void unmarshalText(Uint8List data) {
     $callSync(
-        25848,
+        25854,
         $W()
           ..h(this)
           ..bytes(data));
@@ -308,26 +308,26 @@ class LogSlogLogValuer extends GoHandle with LogSlogLogValuer$ {
 mixin LogSlogLogValuer$ on GoHandle {
   /// Go: `func (slog.LogValuer).LogValue() slog.Value`.
   LogSlogValue logValue() {
-    final $r = $callSync(25851, $W()..h(this));
+    final $r = $callSync(25857, $W()..h(this));
     return $r.hnn(LogSlogValue.$h);
   }
 
   /// Go: type assertion `x.(*pubsub.RPC)`: null if the object is not one.
   $libp2p_pubsub.Libp2pPubsubRpc? asLibp2pPubsubRpc() {
-    final $r = $callSync(2965, $W()..h(this));
+    final $r = $callSync(2972, $W()..h(this));
     return $r.hn($libp2p_pubsub.Libp2pPubsubRpc.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.PartialMessagesExtension)`: null if the object is not one.
   $pb.Libp2pPubsubPbPartialMessagesExtension?
       asLibp2pPubsubPbPartialMessagesExtension() {
-    final $r = $callSync(2966, $W()..h(this));
+    final $r = $callSync(2973, $W()..h(this));
     return $r.hn($pb.Libp2pPubsubPbPartialMessagesExtension.$h);
   }
 
   /// Go: type assertion `x.(*pubsub_pb.RPC)`: null if the object is not one.
   $pb.Libp2pPubsubPbRpc? asLibp2pPubsubPbRpc() {
-    final $r = $callSync(2967, $W()..h(this));
+    final $r = $callSync(2974, $W()..h(this));
     return $r.hn($pb.Libp2pPubsubPbRpc.$h);
   }
 }
@@ -353,7 +353,7 @@ class LogSlogLogger extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*slog.Logger).Debug(msg string, args ...any)`.
   void debug(String msg, [List<Object?> args = const []]) {
     $callSync(
-        25852,
+        25858,
         $W()
           ..h(this)
           ..str(msg)
@@ -366,7 +366,7 @@ class LogSlogLogger extends $crypto.CryptoDecrypterOpts
   Future<void> debugContext($context.Context ctx, String msg,
       [List<Object?> args = const []]) async {
     await $call(
-        25853,
+        25859,
         $W()
           ..h(this)
           ..h(ctx)
@@ -379,7 +379,7 @@ class LogSlogLogger extends $crypto.CryptoDecrypterOpts
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> enabled($context.Context ctx, int level) async {
     final $r = await $call(
-        25854,
+        25860,
         $W()
           ..h(this)
           ..h(ctx)
@@ -390,7 +390,7 @@ class LogSlogLogger extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*slog.Logger).Error(msg string, args ...any)`.
   void error(String msg, [List<Object?> args = const []]) {
     $callSync(
-        25855,
+        25861,
         $W()
           ..h(this)
           ..str(msg)
@@ -403,7 +403,7 @@ class LogSlogLogger extends $crypto.CryptoDecrypterOpts
   Future<void> errorContext($context.Context ctx, String msg,
       [List<Object?> args = const []]) async {
     await $call(
-        25856,
+        25862,
         $W()
           ..h(this)
           ..h(ctx)
@@ -413,14 +413,14 @@ class LogSlogLogger extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*slog.Logger).Handler() slog.Handler`.
   LogSlogHandler handler() {
-    final $r = $callSync(25857, $W()..h(this));
+    final $r = $callSync(25863, $W()..h(this));
     return $r.hnn(LogSlogHandler.$h);
   }
 
   /// Go: `func (*slog.Logger).Info(msg string, args ...any)`.
   void info(String msg, [List<Object?> args = const []]) {
     $callSync(
-        25858,
+        25864,
         $W()
           ..h(this)
           ..str(msg)
@@ -433,7 +433,7 @@ class LogSlogLogger extends $crypto.CryptoDecrypterOpts
   Future<void> infoContext($context.Context ctx, String msg,
       [List<Object?> args = const []]) async {
     await $call(
-        25859,
+        25865,
         $W()
           ..h(this)
           ..h(ctx)
@@ -447,7 +447,7 @@ class LogSlogLogger extends $crypto.CryptoDecrypterOpts
   Future<void> log($context.Context ctx, int level, String msg,
       [List<Object?> args = const []]) async {
     await $call(
-        25860,
+        25866,
         $W()
           ..h(this)
           ..h(ctx)
@@ -462,7 +462,7 @@ class LogSlogLogger extends $crypto.CryptoDecrypterOpts
   Future<void> logAttrs($context.Context ctx, int level, String msg,
       [List<LogSlogAttr> attrs = const []]) async {
     await $call(
-        25861,
+        25867,
         $W()
           ..h(this)
           ..h(ctx)
@@ -474,7 +474,7 @@ class LogSlogLogger extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*slog.Logger).Warn(msg string, args ...any)`.
   void warn(String msg, [List<Object?> args = const []]) {
     $callSync(
-        25862,
+        25868,
         $W()
           ..h(this)
           ..str(msg)
@@ -487,7 +487,7 @@ class LogSlogLogger extends $crypto.CryptoDecrypterOpts
   Future<void> warnContext($context.Context ctx, String msg,
       [List<Object?> args = const []]) async {
     await $call(
-        25863,
+        25869,
         $W()
           ..h(this)
           ..h(ctx)
@@ -498,7 +498,7 @@ class LogSlogLogger extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*slog.Logger).With(args ...any) *slog.Logger`.
   LogSlogLogger with$([List<Object?> args = const []]) {
     final $r = $callSync(
-        25864,
+        25870,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -508,7 +508,7 @@ class LogSlogLogger extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*slog.Logger).WithGroup(name string) *slog.Logger`.
   LogSlogLogger withGroup(String name) {
     final $r = $callSync(
-        25865,
+        25871,
         $W()
           ..h(this)
           ..str(name));
@@ -538,7 +538,7 @@ class LogSlogMultiHandler extends LogSlogHandler
 
   /// Go: `func slog.NewMultiHandler(handlers ...slog.Handler) *slog.MultiHandler`.
   factory LogSlogMultiHandler([List<LogSlogHandler> handlers = const []]) {
-    final $r = $callSync(25873, $W()..list(handlers, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(25879, $W()..list(handlers, (w0, e0) => w0.h(e0)));
     return $r.hnn(LogSlogMultiHandler.$h);
   }
 
@@ -547,7 +547,7 @@ class LogSlogMultiHandler extends LogSlogHandler
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> enabled($context.Context ctx, int l) async {
     final $r = await $call(
-        25866,
+        25872,
         $W()
           ..h(this)
           ..h(ctx)
@@ -560,7 +560,7 @@ class LogSlogMultiHandler extends LogSlogHandler
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> handle($context.Context ctx, LogSlogRecord r) async {
     await $call(
-        25867,
+        25873,
         $W()
           ..h(this)
           ..h(ctx)
@@ -570,7 +570,7 @@ class LogSlogMultiHandler extends LogSlogHandler
   /// Go: `func (*slog.MultiHandler).WithAttrs(attrs []slog.Attr) slog.Handler`.
   LogSlogHandler withAttrs(List<LogSlogAttr> attrs) {
     final $r = $callSync(
-        25868,
+        25874,
         $W()
           ..h(this)
           ..list(attrs, (w0, e0) => w0.dto(e0)));
@@ -580,7 +580,7 @@ class LogSlogMultiHandler extends LogSlogHandler
   /// Go: `func (*slog.MultiHandler).WithGroup(name string) slog.Handler`.
   LogSlogHandler withGroup(String name) {
     final $r = $callSync(
-        25869,
+        25875,
         $W()
           ..h(this)
           ..str(name));
@@ -609,7 +609,7 @@ class LogSlogRecord extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*slog.Record).Add(args ...any)`.
   void add([List<Object?> args = const []]) {
     $callSync(
-        25875,
+        25881,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -618,7 +618,7 @@ class LogSlogRecord extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*slog.Record).AddAttrs(attrs ...slog.Attr)`.
   void addAttrs([List<LogSlogAttr> attrs = const []]) {
     $callSync(
-        25876,
+        25882,
         $W()
           ..h(this)
           ..list(attrs, (w0, e0) => w0.dto(e0)));
@@ -633,7 +633,7 @@ class LogSlogRecord extends $crypto.CryptoDecrypterOpts
   /// each invocation (a retained callback, WIRE.md).
   Future<void> attrs(FutureOr<bool> Function(LogSlogAttr attr) f) async {
     await $call(
-        25877,
+        25883,
         $W()
           ..h(this)
           ..cb((r) => f(r.p() ? LogSlogAttr.$dec(r) : $nil()), true));
@@ -641,19 +641,19 @@ class LogSlogRecord extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (slog.Record).Clone() slog.Record`.
   LogSlogRecord clone() {
-    final $r = $callSync(25878, $W()..h(this));
+    final $r = $callSync(25884, $W()..h(this));
     return $r.hnn(LogSlogRecord.$h);
   }
 
   /// Go: `func (slog.Record).NumAttrs() int`.
   int numAttrs() {
-    final $r = $callSync(25879, $W()..h(this));
+    final $r = $callSync(25885, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (slog.Record).Source() *slog.Source`.
   LogSlogSource source() {
-    final $r = $callSync(25880, $W()..h(this));
+    final $r = $callSync(25886, $W()..h(this));
     return $r.p() ? LogSlogSource.$dec($r) : $nil();
   }
 }
@@ -711,7 +711,7 @@ class LogSlogTextHandler extends LogSlogHandler
   /// Go: `func slog.NewTextHandler(w io.Writer, opts *slog.HandlerOptions) *slog.TextHandler`.
   factory LogSlogTextHandler(GoHandle? w, LogSlogHandlerOptions opts) {
     final $r = $callSync(
-        25874,
+        25880,
         $W()
           ..h(w)
           ..dto(opts));
@@ -723,7 +723,7 @@ class LogSlogTextHandler extends LogSlogHandler
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> enabled($context.Context ctx, int level) async {
     final $r = await $call(
-        25885,
+        25891,
         $W()
           ..h(this)
           ..h(ctx)
@@ -736,7 +736,7 @@ class LogSlogTextHandler extends LogSlogHandler
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> handle($context.Context ctx, LogSlogRecord r) async {
     await $call(
-        25886,
+        25892,
         $W()
           ..h(this)
           ..h(ctx)
@@ -746,7 +746,7 @@ class LogSlogTextHandler extends LogSlogHandler
   /// Go: `func (*slog.TextHandler).WithAttrs(attrs []slog.Attr) slog.Handler`.
   LogSlogHandler withAttrs(List<LogSlogAttr> attrs) {
     final $r = $callSync(
-        25887,
+        25893,
         $W()
           ..h(this)
           ..list(attrs, (w0, e0) => w0.dto(e0)));
@@ -756,7 +756,7 @@ class LogSlogTextHandler extends LogSlogHandler
   /// Go: `func (*slog.TextHandler).WithGroup(name string) slog.Handler`.
   LogSlogHandler withGroup(String name) {
     final $r = $callSync(
-        25888,
+        25894,
         $W()
           ..h(this)
           ..str(name));
@@ -784,26 +784,26 @@ class LogSlogValue extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (slog.Value).Any() any`.
   Object? any() {
-    final $r = $callSync(25893, $W()..h(this));
+    final $r = $callSync(25899, $W()..h(this));
     return $r.any();
   }
 
   /// Go: `func (slog.Value).Bool() bool`.
   bool bool$() {
-    final $r = $callSync(25894, $W()..h(this));
+    final $r = $callSync(25900, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (slog.Value).Duration() time.Duration`.
   Duration duration() {
-    final $r = $callSync(25895, $W()..h(this));
+    final $r = $callSync(25901, $W()..h(this));
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `func (slog.Value).Equal(w slog.Value) bool`.
   bool equal(LogSlogValue w) {
     final $r = $callSync(
-        25896,
+        25902,
         $W()
           ..h(this)
           ..h(w));
@@ -812,55 +812,55 @@ class LogSlogValue extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (slog.Value).Float64() float64`.
   double float64() {
-    final $r = $callSync(25897, $W()..h(this));
+    final $r = $callSync(25903, $W()..h(this));
     return $r.f64();
   }
 
   /// Go: `func (slog.Value).Group() []slog.Attr`.
   List<LogSlogAttr> group() {
-    final $r = $callSync(25898, $W()..h(this));
+    final $r = $callSync(25904, $W()..h(this));
     return $r.list(() => $r.p() ? LogSlogAttr.$dec($r) : $nil());
   }
 
   /// Go: `func (slog.Value).Int64() int64`.
   int int64() {
-    final $r = $callSync(25899, $W()..h(this));
+    final $r = $callSync(25905, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (slog.Value).Kind() slog.Kind`.
   int kind() {
-    final $r = $callSync(25900, $W()..h(this));
+    final $r = $callSync(25906, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (slog.Value).LogValuer() slog.LogValuer`.
   LogSlogLogValuer logValuer() {
-    final $r = $callSync(25901, $W()..h(this));
+    final $r = $callSync(25907, $W()..h(this));
     return $r.hnn(LogSlogLogValuer.$h);
   }
 
   /// Go: `func (slog.Value).Resolve() (rv slog.Value)`.
   LogSlogValue resolve() {
-    final $r = $callSync(25902, $W()..h(this));
+    final $r = $callSync(25908, $W()..h(this));
     return $r.hnn(LogSlogValue.$h);
   }
 
   /// Go: `func (slog.Value).String() string`.
   String string() {
-    final $r = $callSync(25903, $W()..h(this));
+    final $r = $callSync(25909, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (slog.Value).Time() time.Time`.
   DateTime time() {
-    final $r = $callSync(25904, $W()..h(this));
+    final $r = $callSync(25910, $W()..h(this));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func (slog.Value).Uint64() uint64`.
   int uint64() {
-    final $r = $callSync(25905, $W()..h(this));
+    final $r = $callSync(25911, $W()..h(this));
     return $r.i64();
   }
 }
@@ -870,7 +870,7 @@ extension GoLogSlogApi on GoLogSlog {
   /// Go: `func slog.Any(key string, value any) slog.Attr`.
   LogSlogAttr any(String key, Object? value) {
     final $r = $callSync(
-        25810,
+        25816,
         $W()
           ..str(key)
           ..any(value));
@@ -879,14 +879,14 @@ extension GoLogSlogApi on GoLogSlog {
 
   /// Go: `func slog.AnyValue(v any) slog.Value`.
   LogSlogValue anyValue(Object? v) {
-    final $r = $callSync(25811, $W()..any(v));
+    final $r = $callSync(25817, $W()..any(v));
     return $r.hnn(LogSlogValue.$h);
   }
 
   /// Go: `func slog.Bool(key string, v bool) slog.Attr`.
   LogSlogAttr bool$(String key, bool v) {
     final $r = $callSync(
-        25814,
+        25820,
         $W()
           ..str(key)
           ..b(v));
@@ -895,14 +895,14 @@ extension GoLogSlogApi on GoLogSlog {
 
   /// Go: `func slog.BoolValue(v bool) slog.Value`.
   LogSlogValue boolValue(bool v) {
-    final $r = $callSync(25815, $W()..b(v));
+    final $r = $callSync(25821, $W()..b(v));
     return $r.hnn(LogSlogValue.$h);
   }
 
   /// Go: `func slog.Debug(msg string, args ...any)`.
   void debug(String msg, [List<Object?> args = const []]) {
     $callSync(
-        25816,
+        25822,
         $W()
           ..str(msg)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -914,7 +914,7 @@ extension GoLogSlogApi on GoLogSlog {
   Future<void> debugContext($context.Context ctx, String msg,
       [List<Object?> args = const []]) async {
     await $call(
-        25817,
+        25823,
         $W()
           ..h(ctx)
           ..str(msg)
@@ -923,20 +923,20 @@ extension GoLogSlogApi on GoLogSlog {
 
   /// Go: `func slog.Default() *slog.Logger`.
   LogSlogLogger default$() {
-    final $r = $callSync(25818);
+    final $r = $callSync(25824);
     return $r.hnn(LogSlogLogger.$h);
   }
 
   /// Go: `var slog.DiscardHandler slog.Handler`.
   LogSlogHandler get discardHandler {
-    final $r = $callSync(25819);
+    final $r = $callSync(25825);
     return $r.hnn(LogSlogHandler.$h);
   }
 
   /// Go: `func slog.Duration(key string, v time.Duration) slog.Attr`.
   LogSlogAttr duration(String key, Duration v) {
     final $r = $callSync(
-        25820,
+        25826,
         $W()
           ..str(key)
           ..i64((v).inMicroseconds * 1000));
@@ -945,14 +945,14 @@ extension GoLogSlogApi on GoLogSlog {
 
   /// Go: `func slog.DurationValue(v time.Duration) slog.Value`.
   LogSlogValue durationValue(Duration v) {
-    final $r = $callSync(25821, $W()..i64((v).inMicroseconds * 1000));
+    final $r = $callSync(25827, $W()..i64((v).inMicroseconds * 1000));
     return $r.hnn(LogSlogValue.$h);
   }
 
   /// Go: `func slog.Error(msg string, args ...any)`.
   void error(String msg, [List<Object?> args = const []]) {
     $callSync(
-        25822,
+        25828,
         $W()
           ..str(msg)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -964,7 +964,7 @@ extension GoLogSlogApi on GoLogSlog {
   Future<void> errorContext($context.Context ctx, String msg,
       [List<Object?> args = const []]) async {
     await $call(
-        25823,
+        25829,
         $W()
           ..h(ctx)
           ..str(msg)
@@ -974,7 +974,7 @@ extension GoLogSlogApi on GoLogSlog {
   /// Go: `func slog.Float64(key string, v float64) slog.Attr`.
   LogSlogAttr float64(String key, double v) {
     final $r = $callSync(
-        25824,
+        25830,
         $W()
           ..str(key)
           ..f64(v));
@@ -983,14 +983,14 @@ extension GoLogSlogApi on GoLogSlog {
 
   /// Go: `func slog.Float64Value(v float64) slog.Value`.
   LogSlogValue float64Value(double v) {
-    final $r = $callSync(25825, $W()..f64(v));
+    final $r = $callSync(25831, $W()..f64(v));
     return $r.hnn(LogSlogValue.$h);
   }
 
   /// Go: `func slog.Group(key string, args ...any) slog.Attr`.
   LogSlogAttr group(String key, [List<Object?> args = const []]) {
     final $r = $callSync(
-        25826,
+        25832,
         $W()
           ..str(key)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -1000,7 +1000,7 @@ extension GoLogSlogApi on GoLogSlog {
   /// Go: `func slog.GroupAttrs(key string, attrs ...slog.Attr) slog.Attr`.
   LogSlogAttr groupAttrs(String key, [List<LogSlogAttr> attrs = const []]) {
     final $r = $callSync(
-        25827,
+        25833,
         $W()
           ..str(key)
           ..list(attrs, (w0, e0) => w0.dto(e0)));
@@ -1009,14 +1009,14 @@ extension GoLogSlogApi on GoLogSlog {
 
   /// Go: `func slog.GroupValue(as ...slog.Attr) slog.Value`.
   LogSlogValue groupValue([List<LogSlogAttr> as = const []]) {
-    final $r = $callSync(25828, $W()..list(as, (w0, e0) => w0.dto(e0)));
+    final $r = $callSync(25834, $W()..list(as, (w0, e0) => w0.dto(e0)));
     return $r.hnn(LogSlogValue.$h);
   }
 
   /// Go: `func slog.Info(msg string, args ...any)`.
   void info(String msg, [List<Object?> args = const []]) {
     $callSync(
-        25833,
+        25839,
         $W()
           ..str(msg)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -1028,7 +1028,7 @@ extension GoLogSlogApi on GoLogSlog {
   Future<void> infoContext($context.Context ctx, String msg,
       [List<Object?> args = const []]) async {
     await $call(
-        25834,
+        25840,
         $W()
           ..h(ctx)
           ..str(msg)
@@ -1038,7 +1038,7 @@ extension GoLogSlogApi on GoLogSlog {
   /// Go: `func slog.Int(key string, value int) slog.Attr`.
   LogSlogAttr int$(String key, int value) {
     final $r = $callSync(
-        25835,
+        25841,
         $W()
           ..str(key)
           ..i64(value));
@@ -1048,7 +1048,7 @@ extension GoLogSlogApi on GoLogSlog {
   /// Go: `func slog.Int64(key string, value int64) slog.Attr`.
   LogSlogAttr int64(String key, int value) {
     final $r = $callSync(
-        25836,
+        25842,
         $W()
           ..str(key)
           ..i64(value));
@@ -1057,13 +1057,13 @@ extension GoLogSlogApi on GoLogSlog {
 
   /// Go: `func slog.Int64Value(v int64) slog.Value`.
   LogSlogValue int64Value(int v) {
-    final $r = $callSync(25837, $W()..i64(v));
+    final $r = $callSync(25843, $W()..i64(v));
     return $r.hnn(LogSlogValue.$h);
   }
 
   /// Go: `func slog.IntValue(v int) slog.Value`.
   LogSlogValue intValue(int v) {
-    final $r = $callSync(25838, $W()..i64(v));
+    final $r = $callSync(25844, $W()..i64(v));
     return $r.hnn(LogSlogValue.$h);
   }
 
@@ -1073,7 +1073,7 @@ extension GoLogSlogApi on GoLogSlog {
   Future<void> log($context.Context ctx, int level, String msg,
       [List<Object?> args = const []]) async {
     await $call(
-        25849,
+        25855,
         $W()
           ..h(ctx)
           ..i64(level)
@@ -1087,7 +1087,7 @@ extension GoLogSlogApi on GoLogSlog {
   Future<void> logAttrs($context.Context ctx, int level, String msg,
       [List<LogSlogAttr> attrs = const []]) async {
     await $call(
-        25850,
+        25856,
         $W()
           ..h(ctx)
           ..i64(level)
@@ -1097,14 +1097,14 @@ extension GoLogSlogApi on GoLogSlog {
 
   /// Go: `func slog.New(h slog.Handler) *slog.Logger`.
   LogSlogLogger new$(LogSlogHandler h) {
-    final $r = $callSync(25870, $W()..h(h));
+    final $r = $callSync(25876, $W()..h(h));
     return $r.hnn(LogSlogLogger.$h);
   }
 
   /// Go: `func slog.NewLogLogger(h slog.Handler, level slog.Level) *log.Logger`.
   $log.LogLogger newLogLogger(LogSlogHandler h, int level) {
     final $r = $callSync(
-        25872,
+        25878,
         $W()
           ..h(h)
           ..i64(level));
@@ -1113,19 +1113,19 @@ extension GoLogSlogApi on GoLogSlog {
 
   /// Go: `func slog.SetDefault(l *slog.Logger)`.
   void setDefault(LogSlogLogger l) {
-    $callSync(25881, $W()..h(l));
+    $callSync(25887, $W()..h(l));
   }
 
   /// Go: `func slog.SetLogLoggerLevel(level slog.Level) (oldLevel slog.Level)`.
   int setLogLoggerLevel(int level) {
-    final $r = $callSync(25882, $W()..i64(level));
+    final $r = $callSync(25888, $W()..i64(level));
     return $r.i64();
   }
 
   /// Go: `func slog.String(key string, value string) slog.Attr`.
   LogSlogAttr string(String key, String value) {
     final $r = $callSync(
-        25883,
+        25889,
         $W()
           ..str(key)
           ..str(value));
@@ -1134,14 +1134,14 @@ extension GoLogSlogApi on GoLogSlog {
 
   /// Go: `func slog.StringValue(value string) slog.Value`.
   LogSlogValue stringValue(String value) {
-    final $r = $callSync(25884, $W()..str(value));
+    final $r = $callSync(25890, $W()..str(value));
     return $r.hnn(LogSlogValue.$h);
   }
 
   /// Go: `func slog.Time(key string, v time.Time) slog.Attr`.
   LogSlogAttr time(String key, DateTime v) {
     final $r = $callSync(
-        25889,
+        25895,
         $W()
           ..str(key)
           ..time(v));
@@ -1150,14 +1150,14 @@ extension GoLogSlogApi on GoLogSlog {
 
   /// Go: `func slog.TimeValue(v time.Time) slog.Value`.
   LogSlogValue timeValue(DateTime v) {
-    final $r = $callSync(25890, $W()..time(v));
+    final $r = $callSync(25896, $W()..time(v));
     return $r.hnn(LogSlogValue.$h);
   }
 
   /// Go: `func slog.Uint64(key string, v uint64) slog.Attr`.
   LogSlogAttr uint64(String key, int v) {
     final $r = $callSync(
-        25891,
+        25897,
         $W()
           ..str(key)
           ..i64(v));
@@ -1166,14 +1166,14 @@ extension GoLogSlogApi on GoLogSlog {
 
   /// Go: `func slog.Uint64Value(v uint64) slog.Value`.
   LogSlogValue uint64Value(int v) {
-    final $r = $callSync(25892, $W()..i64(v));
+    final $r = $callSync(25898, $W()..i64(v));
     return $r.hnn(LogSlogValue.$h);
   }
 
   /// Go: `func slog.Warn(msg string, args ...any)`.
   void warn(String msg, [List<Object?> args = const []]) {
     $callSync(
-        25906,
+        25912,
         $W()
           ..str(msg)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -1185,7 +1185,7 @@ extension GoLogSlogApi on GoLogSlog {
   Future<void> warnContext($context.Context ctx, String msg,
       [List<Object?> args = const []]) async {
     await $call(
-        25907,
+        25913,
         $W()
           ..h(ctx)
           ..str(msg)
@@ -1194,7 +1194,7 @@ extension GoLogSlogApi on GoLogSlog {
 
   /// Go: `func slog.With(args ...any) *slog.Logger`.
   LogSlogLogger with$([List<Object?> args = const []]) {
-    final $r = $callSync(25908, $W()..list(args, (w0, e0) => w0.any(e0)));
+    final $r = $callSync(25914, $W()..list(args, (w0, e0) => w0.any(e0)));
     return $r.hnn(LogSlogLogger.$h);
   }
 }

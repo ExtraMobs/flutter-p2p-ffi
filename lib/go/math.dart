@@ -9,44 +9,44 @@ import 'package:p2p_ffi/src/runtime.dart';
 extension GoMathApi on GoMath {
   /// Go: `func math.Abs(x float64) float64`.
   double abs(double x) {
-    final $r = $callSync(25923, $W()..f64(x));
+    final $r = $callSync(25929, $W()..f64(x));
     return $r.f64();
   }
 
   /// Go: `func math.Acos(x float64) float64`.
   double acos(double x) {
-    final $r = $callSync(25924, $W()..f64(x));
+    final $r = $callSync(25930, $W()..f64(x));
     return $r.f64();
   }
 
   /// Go: `func math.Acosh(x float64) float64`.
   double acosh(double x) {
-    final $r = $callSync(25925, $W()..f64(x));
+    final $r = $callSync(25931, $W()..f64(x));
     return $r.f64();
   }
 
   /// Go: `func math.Asin(x float64) float64`.
   double asin(double x) {
-    final $r = $callSync(25926, $W()..f64(x));
+    final $r = $callSync(25932, $W()..f64(x));
     return $r.f64();
   }
 
   /// Go: `func math.Asinh(x float64) float64`.
   double asinh(double x) {
-    final $r = $callSync(25927, $W()..f64(x));
+    final $r = $callSync(25933, $W()..f64(x));
     return $r.f64();
   }
 
   /// Go: `func math.Atan(x float64) float64`.
   double atan(double x) {
-    final $r = $callSync(25928, $W()..f64(x));
+    final $r = $callSync(25934, $W()..f64(x));
     return $r.f64();
   }
 
   /// Go: `func math.Atan2(y float64, x float64) float64`.
   double atan2(double y, double x) {
     final $r = $callSync(
-        25929,
+        25935,
         $W()
           ..f64(y)
           ..f64(x));
@@ -55,26 +55,26 @@ extension GoMathApi on GoMath {
 
   /// Go: `func math.Atanh(x float64) float64`.
   double atanh(double x) {
-    final $r = $callSync(25930, $W()..f64(x));
+    final $r = $callSync(25936, $W()..f64(x));
     return $r.f64();
   }
 
   /// Go: `func math.Cbrt(x float64) float64`.
   double cbrt(double x) {
-    final $r = $callSync(25931, $W()..f64(x));
+    final $r = $callSync(25937, $W()..f64(x));
     return $r.f64();
   }
 
   /// Go: `func math.Ceil(x float64) float64`.
   double ceil(double x) {
-    final $r = $callSync(25932, $W()..f64(x));
+    final $r = $callSync(25938, $W()..f64(x));
     return $r.f64();
   }
 
   /// Go: `func math.Copysign(f float64, sign float64) float64`.
   double copysign(double f, double sign) {
     final $r = $callSync(
-        25933,
+        25939,
         $W()
           ..f64(f)
           ..f64(sign));
@@ -83,20 +83,20 @@ extension GoMathApi on GoMath {
 
   /// Go: `func math.Cos(x float64) float64`.
   double cos(double x) {
-    final $r = $callSync(25934, $W()..f64(x));
+    final $r = $callSync(25940, $W()..f64(x));
     return $r.f64();
   }
 
   /// Go: `func math.Cosh(x float64) float64`.
   double cosh(double x) {
-    final $r = $callSync(25935, $W()..f64(x));
+    final $r = $callSync(25941, $W()..f64(x));
     return $r.f64();
   }
 
   /// Go: `func math.Dim(x float64, y float64) float64`.
   double dim(double x, double y) {
     final $r = $callSync(
-        25936,
+        25942,
         $W()
           ..f64(x)
           ..f64(y));
@@ -105,50 +105,50 @@ extension GoMathApi on GoMath {
 
   /// Go: `func math.Erf(x float64) float64`.
   double erf(double x) {
-    final $r = $callSync(25937, $W()..f64(x));
+    final $r = $callSync(25943, $W()..f64(x));
     return $r.f64();
   }
 
   /// Go: `func math.Erfc(x float64) float64`.
   double erfc(double x) {
-    final $r = $callSync(25938, $W()..f64(x));
+    final $r = $callSync(25944, $W()..f64(x));
     return $r.f64();
   }
 
   /// Go: `func math.Erfcinv(x float64) float64`.
   double erfcinv(double x) {
-    final $r = $callSync(25939, $W()..f64(x));
+    final $r = $callSync(25945, $W()..f64(x));
     return $r.f64();
   }
 
   /// Go: `func math.Erfinv(x float64) float64`.
   double erfinv(double x) {
-    final $r = $callSync(25940, $W()..f64(x));
+    final $r = $callSync(25946, $W()..f64(x));
     return $r.f64();
   }
 
   /// Go: `func math.Exp(x float64) float64`.
   double exp(double x) {
-    final $r = $callSync(25941, $W()..f64(x));
+    final $r = $callSync(25947, $W()..f64(x));
     return $r.f64();
   }
 
   /// Go: `func math.Exp2(x float64) float64`.
   double exp2(double x) {
-    final $r = $callSync(25942, $W()..f64(x));
+    final $r = $callSync(25948, $W()..f64(x));
     return $r.f64();
   }
 
   /// Go: `func math.Expm1(x float64) float64`.
   double expm1(double x) {
-    final $r = $callSync(25943, $W()..f64(x));
+    final $r = $callSync(25949, $W()..f64(x));
     return $r.f64();
   }
 
   /// Go: `func math.FMA(x float64, y float64, z float64) float64`.
   double fma(double x, double y, double z) {
     final $r = $callSync(
-        25944,
+        25950,
         $W()
           ..f64(x)
           ..f64(y)
@@ -158,50 +158,50 @@ extension GoMathApi on GoMath {
 
   /// Go: `func math.Float32bits(f float32) uint32`.
   int float32bits(double f) {
-    final $r = $callSync(25945, $W()..f64(f));
+    final $r = $callSync(25951, $W()..f64(f));
     return $r.i64();
   }
 
   /// Go: `func math.Float32frombits(b uint32) float32`.
   double float32frombits(int b) {
-    final $r = $callSync(25946, $W()..i64(b));
+    final $r = $callSync(25952, $W()..i64(b));
     return $r.f64();
   }
 
   /// Go: `func math.Float64bits(f float64) uint64`.
   int float64bits(double f) {
-    final $r = $callSync(25947, $W()..f64(f));
+    final $r = $callSync(25953, $W()..f64(f));
     return $r.i64();
   }
 
   /// Go: `func math.Float64frombits(b uint64) float64`.
   double float64frombits(int b) {
-    final $r = $callSync(25948, $W()..i64(b));
+    final $r = $callSync(25954, $W()..i64(b));
     return $r.f64();
   }
 
   /// Go: `func math.Floor(x float64) float64`.
   double floor(double x) {
-    final $r = $callSync(25949, $W()..f64(x));
+    final $r = $callSync(25955, $W()..f64(x));
     return $r.f64();
   }
 
   /// Go: `func math.Frexp(f float64) (frac float64, exp int)`.
   (double, int) frexp(double f) {
-    final $r = $callSync(25950, $W()..f64(f));
+    final $r = $callSync(25956, $W()..f64(f));
     return ($r.f64(), $r.i64());
   }
 
   /// Go: `func math.Gamma(x float64) float64`.
   double gamma(double x) {
-    final $r = $callSync(25951, $W()..f64(x));
+    final $r = $callSync(25957, $W()..f64(x));
     return $r.f64();
   }
 
   /// Go: `func math.Hypot(p float64, q float64) float64`.
   double hypot(double p, double q) {
     final $r = $callSync(
-        25952,
+        25958,
         $W()
           ..f64(p)
           ..f64(q));
@@ -210,20 +210,20 @@ extension GoMathApi on GoMath {
 
   /// Go: `func math.Ilogb(x float64) int`.
   int ilogb(double x) {
-    final $r = $callSync(25953, $W()..f64(x));
+    final $r = $callSync(25959, $W()..f64(x));
     return $r.i64();
   }
 
   /// Go: `func math.Inf(sign int) float64`.
   double inf(int sign) {
-    final $r = $callSync(25954, $W()..i64(sign));
+    final $r = $callSync(25960, $W()..i64(sign));
     return $r.f64();
   }
 
   /// Go: `func math.IsInf(f float64, sign int) bool`.
   bool isInf(double f, int sign) {
     final $r = $callSync(
-        25955,
+        25961,
         $W()
           ..f64(f)
           ..i64(sign));
@@ -232,26 +232,26 @@ extension GoMathApi on GoMath {
 
   /// Go: `func math.IsNaN(f float64) (is bool)`.
   bool isNaN(double f) {
-    final $r = $callSync(25956, $W()..f64(f));
+    final $r = $callSync(25962, $W()..f64(f));
     return $r.b();
   }
 
   /// Go: `func math.J0(x float64) float64`.
   double j0(double x) {
-    final $r = $callSync(25957, $W()..f64(x));
+    final $r = $callSync(25963, $W()..f64(x));
     return $r.f64();
   }
 
   /// Go: `func math.J1(x float64) float64`.
   double j1(double x) {
-    final $r = $callSync(25958, $W()..f64(x));
+    final $r = $callSync(25964, $W()..f64(x));
     return $r.f64();
   }
 
   /// Go: `func math.Jn(n int, x float64) float64`.
   double jn(int n, double x) {
     final $r = $callSync(
-        25959,
+        25965,
         $W()
           ..i64(n)
           ..f64(x));
@@ -261,7 +261,7 @@ extension GoMathApi on GoMath {
   /// Go: `func math.Ldexp(frac float64, exp int) float64`.
   double ldexp(double frac, int exp) {
     final $r = $callSync(
-        25960,
+        25966,
         $W()
           ..f64(frac)
           ..i64(exp));
@@ -270,44 +270,44 @@ extension GoMathApi on GoMath {
 
   /// Go: `func math.Lgamma(x float64) (lgamma float64, sign int)`.
   (double, int) lgamma(double x) {
-    final $r = $callSync(25961, $W()..f64(x));
+    final $r = $callSync(25967, $W()..f64(x));
     return ($r.f64(), $r.i64());
   }
 
   /// Go: `func math.Log(x float64) float64`.
   double log(double x) {
-    final $r = $callSync(25962, $W()..f64(x));
+    final $r = $callSync(25968, $W()..f64(x));
     return $r.f64();
   }
 
   /// Go: `func math.Log10(x float64) float64`.
   double log10(double x) {
-    final $r = $callSync(25963, $W()..f64(x));
+    final $r = $callSync(25969, $W()..f64(x));
     return $r.f64();
   }
 
   /// Go: `func math.Log1p(x float64) float64`.
   double log1p(double x) {
-    final $r = $callSync(25964, $W()..f64(x));
+    final $r = $callSync(25970, $W()..f64(x));
     return $r.f64();
   }
 
   /// Go: `func math.Log2(x float64) float64`.
   double log2(double x) {
-    final $r = $callSync(25965, $W()..f64(x));
+    final $r = $callSync(25971, $W()..f64(x));
     return $r.f64();
   }
 
   /// Go: `func math.Logb(x float64) float64`.
   double logb(double x) {
-    final $r = $callSync(25966, $W()..f64(x));
+    final $r = $callSync(25972, $W()..f64(x));
     return $r.f64();
   }
 
   /// Go: `func math.Max(x float64, y float64) float64`.
   double max(double x, double y) {
     final $r = $callSync(
-        25967,
+        25973,
         $W()
           ..f64(x)
           ..f64(y));
@@ -317,7 +317,7 @@ extension GoMathApi on GoMath {
   /// Go: `func math.Min(x float64, y float64) float64`.
   double min(double x, double y) {
     final $r = $callSync(
-        25968,
+        25974,
         $W()
           ..f64(x)
           ..f64(y));
@@ -327,7 +327,7 @@ extension GoMathApi on GoMath {
   /// Go: `func math.Mod(x float64, y float64) float64`.
   double mod(double x, double y) {
     final $r = $callSync(
-        25969,
+        25975,
         $W()
           ..f64(x)
           ..f64(y));
@@ -336,20 +336,20 @@ extension GoMathApi on GoMath {
 
   /// Go: `func math.Modf(f float64) (integer float64, fractional float64)`.
   (double, double) modf(double f) {
-    final $r = $callSync(25970, $W()..f64(f));
+    final $r = $callSync(25976, $W()..f64(f));
     return ($r.f64(), $r.f64());
   }
 
   /// Go: `func math.NaN() float64`.
   double naN() {
-    final $r = $callSync(25971);
+    final $r = $callSync(25977);
     return $r.f64();
   }
 
   /// Go: `func math.Nextafter(x float64, y float64) (r float64)`.
   double nextafter(double x, double y) {
     final $r = $callSync(
-        25972,
+        25978,
         $W()
           ..f64(x)
           ..f64(y));
@@ -359,7 +359,7 @@ extension GoMathApi on GoMath {
   /// Go: `func math.Nextafter32(x float32, y float32) (r float32)`.
   double nextafter32(double x, double y) {
     final $r = $callSync(
-        25973,
+        25979,
         $W()
           ..f64(x)
           ..f64(y));
@@ -369,7 +369,7 @@ extension GoMathApi on GoMath {
   /// Go: `func math.Pow(x float64, y float64) float64`.
   double pow(double x, double y) {
     final $r = $callSync(
-        25974,
+        25980,
         $W()
           ..f64(x)
           ..f64(y));
@@ -378,14 +378,14 @@ extension GoMathApi on GoMath {
 
   /// Go: `func math.Pow10(n int) float64`.
   double pow10(int n) {
-    final $r = $callSync(25975, $W()..i64(n));
+    final $r = $callSync(25981, $W()..i64(n));
     return $r.f64();
   }
 
   /// Go: `func math.Remainder(x float64, y float64) float64`.
   double remainder(double x, double y) {
     final $r = $callSync(
-        25976,
+        25982,
         $W()
           ..f64(x)
           ..f64(y));
@@ -394,80 +394,80 @@ extension GoMathApi on GoMath {
 
   /// Go: `func math.Round(x float64) float64`.
   double round(double x) {
-    final $r = $callSync(25977, $W()..f64(x));
+    final $r = $callSync(25983, $W()..f64(x));
     return $r.f64();
   }
 
   /// Go: `func math.RoundToEven(x float64) float64`.
   double roundToEven(double x) {
-    final $r = $callSync(25978, $W()..f64(x));
+    final $r = $callSync(25984, $W()..f64(x));
     return $r.f64();
   }
 
   /// Go: `func math.Signbit(x float64) bool`.
   bool signbit(double x) {
-    final $r = $callSync(25979, $W()..f64(x));
+    final $r = $callSync(25985, $W()..f64(x));
     return $r.b();
   }
 
   /// Go: `func math.Sin(x float64) float64`.
   double sin(double x) {
-    final $r = $callSync(25980, $W()..f64(x));
+    final $r = $callSync(25986, $W()..f64(x));
     return $r.f64();
   }
 
   /// Go: `func math.Sincos(x float64) (sin float64, cos float64)`.
   (double, double) sincos(double x) {
-    final $r = $callSync(25981, $W()..f64(x));
+    final $r = $callSync(25987, $W()..f64(x));
     return ($r.f64(), $r.f64());
   }
 
   /// Go: `func math.Sinh(x float64) float64`.
   double sinh(double x) {
-    final $r = $callSync(25982, $W()..f64(x));
+    final $r = $callSync(25988, $W()..f64(x));
     return $r.f64();
   }
 
   /// Go: `func math.Sqrt(x float64) float64`.
   double sqrt(double x) {
-    final $r = $callSync(25983, $W()..f64(x));
+    final $r = $callSync(25989, $W()..f64(x));
     return $r.f64();
   }
 
   /// Go: `func math.Tan(x float64) float64`.
   double tan(double x) {
-    final $r = $callSync(25984, $W()..f64(x));
+    final $r = $callSync(25990, $W()..f64(x));
     return $r.f64();
   }
 
   /// Go: `func math.Tanh(x float64) float64`.
   double tanh(double x) {
-    final $r = $callSync(25985, $W()..f64(x));
+    final $r = $callSync(25991, $W()..f64(x));
     return $r.f64();
   }
 
   /// Go: `func math.Trunc(x float64) float64`.
   double trunc(double x) {
-    final $r = $callSync(25986, $W()..f64(x));
+    final $r = $callSync(25992, $W()..f64(x));
     return $r.f64();
   }
 
   /// Go: `func math.Y0(x float64) float64`.
   double y0(double x) {
-    final $r = $callSync(25987, $W()..f64(x));
+    final $r = $callSync(25993, $W()..f64(x));
     return $r.f64();
   }
 
   /// Go: `func math.Y1(x float64) float64`.
   double y1(double x) {
-    final $r = $callSync(25988, $W()..f64(x));
+    final $r = $callSync(25994, $W()..f64(x));
     return $r.f64();
   }
 
   /// Go: `func math.Yn(n int, x float64) float64`.
   double yn(int n, double x) {
     final $r = $callSync(
-        25989,
+        25995,
         $W()
           ..i64(n)
           ..f64(x));

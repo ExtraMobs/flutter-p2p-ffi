@@ -40,7 +40,7 @@ final class SdpV3Address implements GoDto {
 
   /// Go: `func (*sdp.Address).String() string`.
   String string() {
-    final $r = $callSync(17095, $W()..dto(this));
+    final $r = $callSync(17101, $W()..dto(this));
     return $r.str();
   }
 }
@@ -70,13 +70,13 @@ final class SdpV3Attribute implements GoDto {
 
   /// Go: `func (sdp.Attribute).IsICECandidate() bool`.
   bool isIceCandidate() {
-    final $r = $callSync(17096, $W()..dto(this));
+    final $r = $callSync(17102, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (sdp.Attribute).String() string`.
   String string() {
-    final $r = $callSync(17097, $W()..dto(this));
+    final $r = $callSync(17103, $W()..dto(this));
     return $r.str();
   }
 }
@@ -115,7 +115,7 @@ final class SdpV3Bandwidth implements GoDto {
 
   /// Go: `func (sdp.Bandwidth).String() string`.
   String string() {
-    final $r = $callSync(17098, $W()..dto(this));
+    final $r = $callSync(17104, $W()..dto(this));
     return $r.str();
   }
 }
@@ -175,7 +175,7 @@ final class SdpV3Codec implements GoDto {
 
   /// Go: `func (sdp.Codec).String() string`.
   String string() {
-    final $r = $callSync(17099, $W()..dto(this));
+    final $r = $callSync(17105, $W()..dto(this));
     return $r.str();
   }
 }
@@ -212,7 +212,7 @@ final class SdpV3ConnectionInformation implements GoDto {
 
   /// Go: `func (sdp.ConnectionInformation).String() string`.
   String string() {
-    final $r = $callSync(17100, $W()..dto(this));
+    final $r = $callSync(17106, $W()..dto(this));
     return $r.str();
   }
 }
@@ -254,26 +254,26 @@ final class SdpV3ExtMap implements GoDto {
 
   /// Go: `func (*sdp.ExtMap).Clone() sdp.Attribute`.
   SdpV3Attribute clone() {
-    final $r = $callSync(17101, $W()..dto(this));
+    final $r = $callSync(17107, $W()..dto(this));
     return $r.p() ? SdpV3Attribute.$dec($r) : $nil();
   }
 
   /// Go: `func (*sdp.ExtMap).Marshal() string`.
   String marshal() {
-    final $r = $callSync(17102, $W()..dto(this));
+    final $r = $callSync(17108, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*sdp.ExtMap).Name() string`.
   String name() {
-    final $r = $callSync(17103, $W()..dto(this));
+    final $r = $callSync(17109, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*sdp.ExtMap).Unmarshal(raw string) error`.
   void unmarshal(String raw) {
     $callSync(
-        17104,
+        17110,
         $W()
           ..dto(this)
           ..str(raw));
@@ -325,7 +325,7 @@ final class SdpV3MediaDescription implements GoDto {
   /// Go: `func (*sdp.MediaDescription).Attribute(key string) (string, bool)`.
   (String, bool) attribute(String key) {
     final $r = $callSync(
-        17105,
+        17111,
         $W()
           ..dto(this)
           ..str(key));
@@ -336,7 +336,7 @@ final class SdpV3MediaDescription implements GoDto {
   @Deprecated("use WithICECandidate instead.")
   SdpV3MediaDescription withCandidate(String value) {
     final $r = $callSync(
-        17106,
+        17112,
         $W()
           ..dto(this)
           ..str(value));
@@ -347,7 +347,7 @@ final class SdpV3MediaDescription implements GoDto {
   SdpV3MediaDescription withCodec(
       int payloadType, String name, int clockrate, int channels, String fmtp) {
     final $r = $callSync(
-        17107,
+        17113,
         $W()
           ..dto(this)
           ..i64(payloadType)
@@ -361,7 +361,7 @@ final class SdpV3MediaDescription implements GoDto {
   /// Go: `func (*sdp.MediaDescription).WithExtMap(e sdp.ExtMap) *sdp.MediaDescription`.
   SdpV3MediaDescription withExtMap(SdpV3ExtMap e) {
     final $r = $callSync(
-        17108,
+        17114,
         $W()
           ..dto(this)
           ..dto(e));
@@ -371,7 +371,7 @@ final class SdpV3MediaDescription implements GoDto {
   /// Go: `func (*sdp.MediaDescription).WithFingerprint(algorithm string, value string) *sdp.MediaDescription`.
   SdpV3MediaDescription withFingerprint(String algorithm, String value) {
     final $r = $callSync(
-        17109,
+        17115,
         $W()
           ..dto(this)
           ..str(algorithm)
@@ -382,7 +382,7 @@ final class SdpV3MediaDescription implements GoDto {
   /// Go: `func (*sdp.MediaDescription).WithICECredentials(username string, password string) *sdp.MediaDescription`.
   SdpV3MediaDescription withIceCredentials(String username, String password) {
     final $r = $callSync(
-        17110,
+        17116,
         $W()
           ..dto(this)
           ..str(username)
@@ -394,7 +394,7 @@ final class SdpV3MediaDescription implements GoDto {
   SdpV3MediaDescription withMediaSource(
       int ssrc, String cname, String streamLabel, String label) {
     final $r = $callSync(
-        17111,
+        17117,
         $W()
           ..dto(this)
           ..i64(ssrc)
@@ -407,7 +407,7 @@ final class SdpV3MediaDescription implements GoDto {
   /// Go: `func (*sdp.MediaDescription).WithPropertyAttribute(key string) *sdp.MediaDescription`.
   SdpV3MediaDescription withPropertyAttribute(String key) {
     final $r = $callSync(
-        17112,
+        17118,
         $W()
           ..dto(this)
           ..str(key));
@@ -416,14 +416,14 @@ final class SdpV3MediaDescription implements GoDto {
 
   /// Go: `func (*sdp.MediaDescription).WithTransportCCExtMap() *sdp.MediaDescription`.
   SdpV3MediaDescription withTransportCcExtMap() {
-    final $r = $callSync(17113, $W()..dto(this));
+    final $r = $callSync(17119, $W()..dto(this));
     return $r.p() ? SdpV3MediaDescription.$dec($r) : $nil();
   }
 
   /// Go: `func (*sdp.MediaDescription).WithValueAttribute(key string, value string) *sdp.MediaDescription`.
   SdpV3MediaDescription withValueAttribute(String key, String value) {
     final $r = $callSync(
-        17114,
+        17120,
         $W()
           ..dto(this)
           ..str(key)
@@ -473,7 +473,7 @@ final class SdpV3MediaName implements GoDto {
 
   /// Go: `func (sdp.MediaName).String() string`.
   String string() {
-    final $r = $callSync(17115, $W()..dto(this));
+    final $r = $callSync(17121, $W()..dto(this));
     return $r.str();
   }
 }
@@ -539,7 +539,7 @@ final class SdpV3Origin implements GoDto {
 
   /// Go: `func (sdp.Origin).String() string`.
   String string() {
-    final $r = $callSync(17121, $W()..dto(this));
+    final $r = $callSync(17127, $W()..dto(this));
     return $r.str();
   }
 }
@@ -569,7 +569,7 @@ final class SdpV3RangedPort implements GoDto {
 
   /// Go: `func (*sdp.RangedPort).String() string`.
   String string() {
-    final $r = $callSync(17122, $W()..dto(this));
+    final $r = $callSync(17128, $W()..dto(this));
     return $r.str();
   }
 }
@@ -605,7 +605,7 @@ final class SdpV3RepeatTime implements GoDto {
 
   /// Go: `func (sdp.RepeatTime).String() string`.
   String string() {
-    final $r = $callSync(17123, $W()..dto(this));
+    final $r = $callSync(17129, $W()..dto(this));
     return $r.str();
   }
 }
@@ -699,7 +699,7 @@ final class SdpV3SessionDescription implements GoDto {
   /// Go: `func (*sdp.SessionDescription).Attribute(key string) (string, bool)`.
   (String, bool) attribute(String key) {
     final $r = $callSync(
-        17124,
+        17130,
         $W()
           ..dto(this)
           ..str(key));
@@ -709,7 +709,7 @@ final class SdpV3SessionDescription implements GoDto {
   /// Go: `func (*sdp.SessionDescription).GetCodecForPayloadType(payloadType uint8) (sdp.Codec, error)`.
   SdpV3Codec getCodecForPayloadType(int payloadType) {
     final $r = $callSync(
-        17125,
+        17131,
         $W()
           ..dto(this)
           ..i64(payloadType));
@@ -719,7 +719,7 @@ final class SdpV3SessionDescription implements GoDto {
   /// Go: `func (*sdp.SessionDescription).GetCodecsForPayloadTypes(payloadTypes []uint8) ([]sdp.Codec, error)`.
   List<SdpV3Codec> getCodecsForPayloadTypes(Uint8List payloadTypes) {
     final $r = $callSync(
-        17126,
+        17132,
         $W()
           ..dto(this)
           ..bytes(payloadTypes));
@@ -729,7 +729,7 @@ final class SdpV3SessionDescription implements GoDto {
   /// Go: `func (*sdp.SessionDescription).GetPayloadTypeForCodec(wanted sdp.Codec) (uint8, error)`.
   int getPayloadTypeForCodec(SdpV3Codec wanted) {
     final $r = $callSync(
-        17127,
+        17133,
         $W()
           ..dto(this)
           ..dto(wanted));
@@ -738,20 +738,20 @@ final class SdpV3SessionDescription implements GoDto {
 
   /// Go: `func (*sdp.SessionDescription).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(17128, $W()..dto(this));
+    final $r = $callSync(17134, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*sdp.SessionDescription).MarshalSize() (marshalSize int)`.
   int marshalSize() {
-    final $r = $callSync(17129, $W()..dto(this));
+    final $r = $callSync(17135, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*sdp.SessionDescription).Unmarshal(value []byte) error`.
   void unmarshal(Uint8List value) {
     $callSync(
-        17130,
+        17136,
         $W()
           ..dto(this)
           ..bytes(value));
@@ -760,7 +760,7 @@ final class SdpV3SessionDescription implements GoDto {
   /// Go: `func (*sdp.SessionDescription).UnmarshalString(value string) error`.
   void unmarshalString(String value) {
     $callSync(
-        17131,
+        17137,
         $W()
           ..dto(this)
           ..str(value));
@@ -769,7 +769,7 @@ final class SdpV3SessionDescription implements GoDto {
   /// Go: `func (*sdp.SessionDescription).WithFingerprint(algorithm string, value string) *sdp.SessionDescription`.
   SdpV3SessionDescription withFingerprint(String algorithm, String value) {
     final $r = $callSync(
-        17132,
+        17138,
         $W()
           ..dto(this)
           ..str(algorithm)
@@ -779,20 +779,20 @@ final class SdpV3SessionDescription implements GoDto {
 
   /// Go: `func (*sdp.SessionDescription).WithICERenomination() *sdp.SessionDescription`.
   SdpV3SessionDescription withIceRenomination() {
-    final $r = $callSync(17133, $W()..dto(this));
+    final $r = $callSync(17139, $W()..dto(this));
     return $r.p() ? SdpV3SessionDescription.$dec($r) : $nil();
   }
 
   /// Go: `func (*sdp.SessionDescription).WithICETrickleAdvertised() *sdp.SessionDescription`.
   SdpV3SessionDescription withIceTrickleAdvertised() {
-    final $r = $callSync(17134, $W()..dto(this));
+    final $r = $callSync(17140, $W()..dto(this));
     return $r.p() ? SdpV3SessionDescription.$dec($r) : $nil();
   }
 
   /// Go: `func (*sdp.SessionDescription).WithMedia(md *sdp.MediaDescription) *sdp.SessionDescription`.
   SdpV3SessionDescription withMedia(SdpV3MediaDescription md) {
     final $r = $callSync(
-        17135,
+        17141,
         $W()
           ..dto(this)
           ..dto(md));
@@ -802,7 +802,7 @@ final class SdpV3SessionDescription implements GoDto {
   /// Go: `func (*sdp.SessionDescription).WithPropertyAttribute(key string) *sdp.SessionDescription`.
   SdpV3SessionDescription withPropertyAttribute(String key) {
     final $r = $callSync(
-        17136,
+        17142,
         $W()
           ..dto(this)
           ..str(key));
@@ -812,7 +812,7 @@ final class SdpV3SessionDescription implements GoDto {
   /// Go: `func (*sdp.SessionDescription).WithValueAttribute(key string, value string) *sdp.SessionDescription`.
   SdpV3SessionDescription withValueAttribute(String key, String value) {
     final $r = $callSync(
-        17137,
+        17143,
         $W()
           ..dto(this)
           ..str(key)
@@ -874,7 +874,7 @@ final class SdpV3TimeZone implements GoDto {
 
   /// Go: `func (sdp.TimeZone).String() string`.
   String string() {
-    final $r = $callSync(17138, $W()..dto(this));
+    final $r = $callSync(17144, $W()..dto(this));
     return $r.str();
   }
 }
@@ -910,7 +910,7 @@ final class SdpV3Timing implements GoDto {
 
   /// Go: `func (sdp.Timing).String() string`.
   String string() {
-    final $r = $callSync(17139, $W()..dto(this));
+    final $r = $callSync(17145, $W()..dto(this));
     return $r.str();
   }
 }
@@ -920,7 +920,7 @@ extension GoPionSdpV3Api on GoPionSdpV3 {
   /// Go: `func sdp.NewAttribute(key string, value string) sdp.Attribute`.
   SdpV3Attribute newAttribute(String key, String value) {
     final $r = $callSync(
-        17116,
+        17122,
         $W()
           ..str(key)
           ..str(value));
@@ -929,7 +929,7 @@ extension GoPionSdpV3Api on GoPionSdpV3 {
 
   /// Go: `func sdp.NewDirection(raw string) (sdp.Direction, error)`.
   int newDirection(String raw) {
-    final $r = $callSync(17117, $W()..str(raw));
+    final $r = $callSync(17123, $W()..str(raw));
     return $r.i64();
   }
 
@@ -937,7 +937,7 @@ extension GoPionSdpV3Api on GoPionSdpV3 {
   SdpV3MediaDescription newJsepMediaDescription(
       String codecType, List<String> arg1) {
     final $r = $callSync(
-        17118,
+        17124,
         $W()
           ..str(codecType)
           ..list(arg1, (w0, e0) => w0.str(e0)));
@@ -946,13 +946,13 @@ extension GoPionSdpV3Api on GoPionSdpV3 {
 
   /// Go: `func sdp.NewJSEPSessionDescription(identity bool) (*sdp.SessionDescription, error)`.
   SdpV3SessionDescription newJsepSessionDescription(bool identity) {
-    final $r = $callSync(17119, $W()..b(identity));
+    final $r = $callSync(17125, $W()..b(identity));
     return $r.p() ? SdpV3SessionDescription.$dec($r) : $nil();
   }
 
   /// Go: `func sdp.NewPropertyAttribute(key string) sdp.Attribute`.
   SdpV3Attribute newPropertyAttribute(String key) {
-    final $r = $callSync(17120, $W()..str(key));
+    final $r = $callSync(17126, $W()..str(key));
     return $r.p() ? SdpV3Attribute.$dec($r) : $nil();
   }
 }

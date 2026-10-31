@@ -34,7 +34,7 @@ class Libp2pPubsubTimecacheFirstSeenCache extends Libp2pPubsubTimecacheTimeCache
   /// Go: `func (*timecache.FirstSeenCache).Add(s string) bool`.
   bool add(String s) {
     final $r = $callSync(
-        13695,
+        13701,
         $W()
           ..h(this)
           ..str(s));
@@ -43,13 +43,13 @@ class Libp2pPubsubTimecacheFirstSeenCache extends Libp2pPubsubTimecacheTimeCache
 
   /// Go: `func (*timecache.FirstSeenCache).Done()`.
   void done() {
-    $callSync(13696, $W()..h(this));
+    $callSync(13702, $W()..h(this));
   }
 
   /// Go: `func (*timecache.FirstSeenCache).Has(s string) bool`.
   bool has(String s) {
     final $r = $callSync(
-        13697,
+        13703,
         $W()
           ..h(this)
           ..str(s));
@@ -80,7 +80,7 @@ class Libp2pPubsubTimecacheLastSeenCache extends Libp2pPubsubTimecacheTimeCache
   /// Go: `func (*timecache.LastSeenCache).Add(s string) bool`.
   bool add(String s) {
     final $r = $callSync(
-        13698,
+        13704,
         $W()
           ..h(this)
           ..str(s));
@@ -89,13 +89,13 @@ class Libp2pPubsubTimecacheLastSeenCache extends Libp2pPubsubTimecacheTimeCache
 
   /// Go: `func (*timecache.LastSeenCache).Done()`.
   void done() {
-    $callSync(13699, $W()..h(this));
+    $callSync(13705, $W()..h(this));
   }
 
   /// Go: `func (*timecache.LastSeenCache).Has(s string) bool`.
   bool has(String s) {
     final $r = $callSync(
-        13700,
+        13706,
         $W()
           ..h(this)
           ..str(s));
@@ -110,7 +110,7 @@ class Libp2pPubsubTimecacheTimeCache extends GoHandle
 
   /// Go: `func timecache.NewTimeCache(ttl time.Duration) timecache.TimeCache`.
   factory Libp2pPubsubTimecacheTimeCache(Duration ttl) {
-    final $r = $callSync(13701, $W()..i64((ttl).inMicroseconds * 1000));
+    final $r = $callSync(13707, $W()..i64((ttl).inMicroseconds * 1000));
     return $r.hnn(Libp2pPubsubTimecacheTimeCache.$h);
   }
 }
@@ -120,7 +120,7 @@ mixin Libp2pPubsubTimecacheTimeCache$ on GoHandle {
   /// Go: `func (timecache.TimeCache).Add(string) bool`.
   bool add(String arg0) {
     final $r = $callSync(
-        13703,
+        13709,
         $W()
           ..h(this)
           ..str(arg0));
@@ -129,13 +129,13 @@ mixin Libp2pPubsubTimecacheTimeCache$ on GoHandle {
 
   /// Go: `func (timecache.TimeCache).Done()`.
   void done() {
-    $callSync(13704, $W()..h(this));
+    $callSync(13710, $W()..h(this));
   }
 
   /// Go: `func (timecache.TimeCache).Has(string) bool`.
   bool has(String arg0) {
     final $r = $callSync(
-        13705,
+        13711,
         $W()
           ..h(this)
           ..str(arg0));
@@ -144,13 +144,13 @@ mixin Libp2pPubsubTimecacheTimeCache$ on GoHandle {
 
   /// Go: type assertion `x.(*timecache.FirstSeenCache)`: null if the object is not one.
   Libp2pPubsubTimecacheFirstSeenCache? asLibp2pPubsubTimecacheFirstSeenCache() {
-    final $r = $callSync(1303, $W()..h(this));
+    final $r = $callSync(1306, $W()..h(this));
     return $r.hn(Libp2pPubsubTimecacheFirstSeenCache.$h);
   }
 
   /// Go: type assertion `x.(*timecache.LastSeenCache)`: null if the object is not one.
   Libp2pPubsubTimecacheLastSeenCache? asLibp2pPubsubTimecacheLastSeenCache() {
-    final $r = $callSync(1304, $W()..h(this));
+    final $r = $callSync(1307, $W()..h(this));
     return $r.hn(Libp2pPubsubTimecacheLastSeenCache.$h);
   }
 }
@@ -161,7 +161,7 @@ extension GoLibp2pLibp2pPubsubTimecacheApi on GoLibp2pLibp2pPubsubTimecache {
   Libp2pPubsubTimecacheTimeCache newTimeCacheWithStrategy(
       int strategy, Duration ttl) {
     final $r = $callSync(
-        13702,
+        13708,
         $W()
           ..i64(strategy)
           ..i64((ttl).inMicroseconds * 1000));

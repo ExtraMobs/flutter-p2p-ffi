@@ -17,7 +17,7 @@ class NetTraceEventLog extends GoHandle with NetTraceEventLog$ {
   /// Go: `func trace.NewEventLog(family string, title string) trace.EventLog`.
   factory NetTraceEventLog(String family, String title) {
     final $r = $callSync(
-        23787,
+        23793,
         $W()
           ..str(family)
           ..str(title));
@@ -30,7 +30,7 @@ mixin NetTraceEventLog$ on GoHandle {
   /// Go: `func (trace.EventLog).Errorf(format string, a ...interface{})`.
   void errorf(String format, [List<Object?> a = const []]) {
     $callSync(
-        23781,
+        23787,
         $W()
           ..h(this)
           ..str(format)
@@ -39,13 +39,13 @@ mixin NetTraceEventLog$ on GoHandle {
 
   /// Go: `func (trace.EventLog).Finish()`.
   void finish() {
-    $callSync(23782, $W()..h(this));
+    $callSync(23788, $W()..h(this));
   }
 
   /// Go: `func (trace.EventLog).Printf(format string, a ...interface{})`.
   void printf(String format, [List<Object?> a = const []]) {
     $callSync(
-        23783,
+        23789,
         $W()
           ..h(this)
           ..str(format)
@@ -62,13 +62,13 @@ class NetTrace extends GoHandle with NetTrace$ {
 mixin NetTrace$ on GoHandle {
   /// Go: `func (trace.Trace).Finish()`.
   void finish() {
-    $callSync(23790, $W()..h(this));
+    $callSync(23796, $W()..h(this));
   }
 
   /// Go: `func (trace.Trace).LazyLog(x fmt.Stringer, sensitive bool)`.
   void lazyLog($fmt.FmtStringer x, bool sensitive) {
     $callSync(
-        23791,
+        23797,
         $W()
           ..h(this)
           ..dto(x)
@@ -78,7 +78,7 @@ mixin NetTrace$ on GoHandle {
   /// Go: `func (trace.Trace).LazyPrintf(format string, a ...interface{})`.
   void lazyPrintf(String format, [List<Object?> a = const []]) {
     $callSync(
-        23792,
+        23798,
         $W()
           ..h(this)
           ..str(format)
@@ -87,13 +87,13 @@ mixin NetTrace$ on GoHandle {
 
   /// Go: `func (trace.Trace).SetError()`.
   void setError() {
-    $callSync(23793, $W()..h(this));
+    $callSync(23799, $W()..h(this));
   }
 
   /// Go: `func (trace.Trace).SetMaxEvents(m int)`.
   void setMaxEvents(int m) {
     $callSync(
-        23794,
+        23800,
         $W()
           ..h(this)
           ..i64(m));
@@ -108,7 +108,7 @@ mixin NetTrace$ on GoHandle {
   /// each invocation (a retained callback, WIRE.md).
   Future<void> setRecycler(FutureOr<void> Function(Object? arg0) f) async {
     await $call(
-        23795,
+        23801,
         $W()
           ..h(this)
           ..cb((r) => f(r.any()), true));
@@ -117,7 +117,7 @@ mixin NetTrace$ on GoHandle {
   /// Go: `func (trace.Trace).SetTraceInfo(traceID uint64, spanID uint64)`.
   void setTraceInfo(int traceId, int spanId) {
     $callSync(
-        23796,
+        23802,
         $W()
           ..h(this)
           ..i64(traceId)
@@ -129,14 +129,14 @@ mixin NetTrace$ on GoHandle {
 extension GoXNetTraceApi on GoXNetTrace {
   /// Go: `var trace.DebugUseAfterFinish bool`.
   bool get debugUseAfterFinish {
-    final $r = $callSync(23780);
+    final $r = $callSync(23786);
     return $r.b();
   }
 
   /// Go: `func trace.Events(w http.ResponseWriter, req *http.Request)`.
   void events($http.NetHttpResponseWriter w, $http.NetHttpRequest req) {
     $callSync(
-        23784,
+        23790,
         $W()
           ..h(w)
           ..h(req));
@@ -146,14 +146,14 @@ extension GoXNetTraceApi on GoXNetTrace {
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<(NetTrace, bool)> fromContext($context.Context ctx) async {
-    final $r = await $call(23785, $W()..h(ctx));
+    final $r = await $call(23791, $W()..h(ctx));
     return ($r.hnn(NetTrace.$h), $r.b());
   }
 
   /// Go: `func trace.New(family string, title string) trace.Trace`.
   NetTrace new$(String family, String title) {
     final $r = $callSync(
-        23786,
+        23792,
         $W()
           ..str(family)
           ..str(title));
@@ -163,7 +163,7 @@ extension GoXNetTraceApi on GoXNetTrace {
   /// Go: `func trace.Render(w io.Writer, req *http.Request, sensitive bool)`.
   void render(GoHandle? w, $http.NetHttpRequest req, bool sensitive) {
     $callSync(
-        23788,
+        23794,
         $W()
           ..h(w)
           ..h(req)
@@ -174,7 +174,7 @@ extension GoXNetTraceApi on GoXNetTrace {
   void renderEvents(
       $http.NetHttpResponseWriter w, $http.NetHttpRequest req, bool sensitive) {
     $callSync(
-        23789,
+        23795,
         $W()
           ..h(w)
           ..h(req)
@@ -184,7 +184,7 @@ extension GoXNetTraceApi on GoXNetTrace {
   /// Go: `func trace.Traces(w http.ResponseWriter, req *http.Request)`.
   void traces($http.NetHttpResponseWriter w, $http.NetHttpRequest req) {
     $callSync(
-        23797,
+        23803,
         $W()
           ..h(w)
           ..h(req));

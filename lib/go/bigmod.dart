@@ -32,25 +32,25 @@ class BigmodModulus extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func bigmod.NewModulus(b []byte) (*bigmod.Modulus, error)`.
   factory BigmodModulus(Uint8List b) {
-    final $r = $callSync(3844, $W()..bytes(b));
+    final $r = $callSync(3853, $W()..bytes(b));
     return $r.hnn(BigmodModulus.$h);
   }
 
   /// Go: `func (*bigmod.Modulus).BitLen() int`.
   int bitLen() {
-    final $r = $callSync(3816, $W()..h(this));
+    final $r = $callSync(3825, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*bigmod.Modulus).Nat() *bigmod.Nat`.
   BigmodNat nat() {
-    final $r = $callSync(3817, $W()..h(this));
+    final $r = $callSync(3826, $W()..h(this));
     return $r.hnn(BigmodNat.$h);
   }
 
   /// Go: `func (*bigmod.Modulus).Size() int`.
   int size() {
-    final $r = $callSync(3818, $W()..h(this));
+    final $r = $callSync(3827, $W()..h(this));
     return $r.i64();
   }
 }
@@ -75,14 +75,14 @@ class BigmodNat extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func bigmod.NewNat() *bigmod.Nat`.
   factory BigmodNat() {
-    final $r = $callSync(3846);
+    final $r = $callSync(3855);
     return $r.hnn(BigmodNat.$h);
   }
 
   /// Go: `func (*bigmod.Nat).Add(y *bigmod.Nat, m *bigmod.Modulus) *bigmod.Nat`.
   BigmodNat add(BigmodNat y, BigmodModulus m) {
     final $r = $callSync(
-        3819,
+        3828,
         $W()
           ..h(this)
           ..h(y)
@@ -92,20 +92,20 @@ class BigmodNat extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*bigmod.Nat).BitLenVarTime() int`.
   int bitLenVarTime() {
-    final $r = $callSync(3820, $W()..h(this));
+    final $r = $callSync(3829, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*bigmod.Nat).Bits() []uint`.
   List<int> bits() {
-    final $r = $callSync(3821, $W()..h(this));
+    final $r = $callSync(3830, $W()..h(this));
     return $r.list(() => $r.i64());
   }
 
   /// Go: `func (*bigmod.Nat).Bytes(m *bigmod.Modulus) []byte`.
   Uint8List bytes(BigmodModulus m) {
     final $r = $callSync(
-        3822,
+        3831,
         $W()
           ..h(this)
           ..h(m));
@@ -115,7 +115,7 @@ class BigmodNat extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*bigmod.Nat).DivShortVarTime(y uint) uint`.
   int divShortVarTime(int y) {
     final $r = $callSync(
-        3823,
+        3832,
         $W()
           ..h(this)
           ..i64(y));
@@ -125,7 +125,7 @@ class BigmodNat extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*bigmod.Nat).Equal(y *bigmod.Nat) uint`.
   int equal(BigmodNat y) {
     final $r = $callSync(
-        3824,
+        3833,
         $W()
           ..h(this)
           ..h(y));
@@ -135,7 +135,7 @@ class BigmodNat extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*bigmod.Nat).Exp(y *bigmod.Nat, e []byte, m *bigmod.Modulus) *bigmod.Nat`.
   BigmodNat exp(BigmodNat y, Uint8List e, BigmodModulus m) {
     final $r = $callSync(
-        3825,
+        3834,
         $W()
           ..h(this)
           ..h(y)
@@ -147,7 +147,7 @@ class BigmodNat extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*bigmod.Nat).ExpShortVarTime(y *bigmod.Nat, e uint, m *bigmod.Modulus) *bigmod.Nat`.
   BigmodNat expShortVarTime(BigmodNat y, int e, BigmodModulus m) {
     final $r = $callSync(
-        3826,
+        3835,
         $W()
           ..h(this)
           ..h(y)
@@ -159,7 +159,7 @@ class BigmodNat extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*bigmod.Nat).ExpandFor(m *bigmod.Modulus) *bigmod.Nat`.
   BigmodNat expandFor(BigmodModulus m) {
     final $r = $callSync(
-        3827,
+        3836,
         $W()
           ..h(this)
           ..h(m));
@@ -169,7 +169,7 @@ class BigmodNat extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*bigmod.Nat).GCDVarTime(a *bigmod.Nat, b *bigmod.Nat) (*bigmod.Nat, error)`.
   BigmodNat gcdVarTime(BigmodNat a, BigmodNat b) {
     final $r = $callSync(
-        3828,
+        3837,
         $W()
           ..h(this)
           ..h(a)
@@ -180,7 +180,7 @@ class BigmodNat extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*bigmod.Nat).InverseVarTime(a *bigmod.Nat, m *bigmod.Modulus) (*bigmod.Nat, bool)`.
   (BigmodNat, bool) inverseVarTime(BigmodNat a, BigmodModulus m) {
     final $r = $callSync(
-        3829,
+        3838,
         $W()
           ..h(this)
           ..h(a)
@@ -191,7 +191,7 @@ class BigmodNat extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*bigmod.Nat).IsMinusOne(m *bigmod.Modulus) uint`.
   int isMinusOne(BigmodModulus m) {
     final $r = $callSync(
-        3830,
+        3839,
         $W()
           ..h(this)
           ..h(m));
@@ -200,26 +200,26 @@ class BigmodNat extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*bigmod.Nat).IsOdd() uint`.
   int isOdd() {
-    final $r = $callSync(3831, $W()..h(this));
+    final $r = $callSync(3840, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*bigmod.Nat).IsOne() uint`.
   int isOne() {
-    final $r = $callSync(3832, $W()..h(this));
+    final $r = $callSync(3841, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*bigmod.Nat).IsZero() uint`.
   int isZero() {
-    final $r = $callSync(3833, $W()..h(this));
+    final $r = $callSync(3842, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*bigmod.Nat).Mod(y *bigmod.Nat, m *bigmod.Modulus) *bigmod.Nat`.
   BigmodNat mod(BigmodNat y, BigmodModulus m) {
     final $r = $callSync(
-        3834,
+        3843,
         $W()
           ..h(this)
           ..h(y)
@@ -230,7 +230,7 @@ class BigmodNat extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*bigmod.Nat).Mul(y *bigmod.Nat, m *bigmod.Modulus) *bigmod.Nat`.
   BigmodNat mul(BigmodNat y, BigmodModulus m) {
     final $r = $callSync(
-        3835,
+        3844,
         $W()
           ..h(this)
           ..h(y)
@@ -241,7 +241,7 @@ class BigmodNat extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*bigmod.Nat).SetBytes(b []byte, m *bigmod.Modulus) (*bigmod.Nat, error)`.
   BigmodNat setBytes(Uint8List b, BigmodModulus m) {
     final $r = $callSync(
-        3836,
+        3845,
         $W()
           ..h(this)
           ..bytes(b)
@@ -252,7 +252,7 @@ class BigmodNat extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*bigmod.Nat).SetOverflowingBytes(b []byte, m *bigmod.Modulus) (*bigmod.Nat, error)`.
   BigmodNat setOverflowingBytes(Uint8List b, BigmodModulus m) {
     final $r = $callSync(
-        3837,
+        3846,
         $W()
           ..h(this)
           ..bytes(b)
@@ -263,7 +263,7 @@ class BigmodNat extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*bigmod.Nat).SetUint(y uint) *bigmod.Nat`.
   BigmodNat setUint(int y) {
     final $r = $callSync(
-        3838,
+        3847,
         $W()
           ..h(this)
           ..i64(y));
@@ -272,14 +272,14 @@ class BigmodNat extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*bigmod.Nat).ShiftRightByOne() *bigmod.Nat`.
   BigmodNat shiftRightByOne() {
-    final $r = $callSync(3839, $W()..h(this));
+    final $r = $callSync(3848, $W()..h(this));
     return $r.hnn(BigmodNat.$h);
   }
 
   /// Go: `func (*bigmod.Nat).ShiftRightVarTime(n uint) *bigmod.Nat`.
   BigmodNat shiftRightVarTime(int n) {
     final $r = $callSync(
-        3840,
+        3849,
         $W()
           ..h(this)
           ..i64(n));
@@ -289,7 +289,7 @@ class BigmodNat extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*bigmod.Nat).Sub(y *bigmod.Nat, m *bigmod.Modulus) *bigmod.Nat`.
   BigmodNat sub(BigmodNat y, BigmodModulus m) {
     final $r = $callSync(
-        3841,
+        3850,
         $W()
           ..h(this)
           ..h(y)
@@ -300,7 +300,7 @@ class BigmodNat extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*bigmod.Nat).SubOne(m *bigmod.Modulus) *bigmod.Nat`.
   BigmodNat subOne(BigmodModulus m) {
     final $r = $callSync(
-        3842,
+        3851,
         $W()
           ..h(this)
           ..h(m));
@@ -309,7 +309,7 @@ class BigmodNat extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*bigmod.Nat).TrailingZeroBitsVarTime() uint`.
   int trailingZeroBitsVarTime() {
-    final $r = $callSync(3843, $W()..h(this));
+    final $r = $callSync(3852, $W()..h(this));
     return $r.i64();
   }
 }
@@ -319,7 +319,7 @@ extension GoBigmodApi on GoBigmod {
   /// Go: `func bigmod.NewModulusProduct(a []byte, b []byte) (*bigmod.Modulus, error)`.
   BigmodModulus newModulusProduct(Uint8List a, Uint8List b) {
     final $r = $callSync(
-        3845,
+        3854,
         $W()
           ..bytes(a)
           ..bytes(b));

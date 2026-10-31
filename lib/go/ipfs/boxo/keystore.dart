@@ -32,14 +32,14 @@ class BoxoKeystoreFsKeystore extends BoxoKeystore
 
   /// Go: `func keystore.NewFSKeystore(dir string) (*keystore.FSKeystore, error)`.
   factory BoxoKeystoreFsKeystore(String dir) {
-    final $r = $callSync(10023, $W()..str(dir));
+    final $r = $callSync(10032, $W()..str(dir));
     return $r.hnn(BoxoKeystoreFsKeystore.$h);
   }
 
   /// Go: `func (*keystore.FSKeystore).Delete(name string) error`.
   void delete(String name) {
     $callSync(
-        10008,
+        10017,
         $W()
           ..h(this)
           ..str(name));
@@ -48,7 +48,7 @@ class BoxoKeystoreFsKeystore extends BoxoKeystore
   /// Go: `func (*keystore.FSKeystore).Get(name string) (crypto.PrivKey, error)`.
   $crypto2.Libp2pCoreCryptoPrivKey get(String name) {
     final $r = $callSync(
-        10009,
+        10018,
         $W()
           ..h(this)
           ..str(name));
@@ -58,7 +58,7 @@ class BoxoKeystoreFsKeystore extends BoxoKeystore
   /// Go: `func (*keystore.FSKeystore).Has(name string) (bool, error)`.
   bool has(String name) {
     final $r = $callSync(
-        10010,
+        10019,
         $W()
           ..h(this)
           ..str(name));
@@ -67,14 +67,14 @@ class BoxoKeystoreFsKeystore extends BoxoKeystore
 
   /// Go: `func (*keystore.FSKeystore).List() ([]string, error)`.
   List<String> list() {
-    final $r = $callSync(10011, $W()..h(this));
+    final $r = $callSync(10020, $W()..h(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (*keystore.FSKeystore).Put(name string, k crypto.PrivKey) error`.
   void put(String name, $crypto2.Libp2pCoreCryptoPrivKey k) {
     $callSync(
-        10012,
+        10021,
         $W()
           ..h(this)
           ..str(name)
@@ -92,7 +92,7 @@ mixin BoxoKeystore$ on GoHandle {
   /// Go: `func (keystore.Keystore).Delete(string) error`.
   void delete(String arg0) {
     $callSync(
-        10013,
+        10022,
         $W()
           ..h(this)
           ..str(arg0));
@@ -101,7 +101,7 @@ mixin BoxoKeystore$ on GoHandle {
   /// Go: `func (keystore.Keystore).Get(string) (crypto.PrivKey, error)`.
   $crypto2.Libp2pCoreCryptoPrivKey get(String arg0) {
     final $r = $callSync(
-        10014,
+        10023,
         $W()
           ..h(this)
           ..str(arg0));
@@ -111,7 +111,7 @@ mixin BoxoKeystore$ on GoHandle {
   /// Go: `func (keystore.Keystore).Has(string) (bool, error)`.
   bool has(String arg0) {
     final $r = $callSync(
-        10015,
+        10024,
         $W()
           ..h(this)
           ..str(arg0));
@@ -120,14 +120,14 @@ mixin BoxoKeystore$ on GoHandle {
 
   /// Go: `func (keystore.Keystore).List() ([]string, error)`.
   List<String> list() {
-    final $r = $callSync(10016, $W()..h(this));
+    final $r = $callSync(10025, $W()..h(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (keystore.Keystore).Put(string, crypto.PrivKey) error`.
   void put(String arg0, $crypto2.Libp2pCoreCryptoPrivKey privKey) {
     $callSync(
-        10017,
+        10026,
         $W()
           ..h(this)
           ..str(arg0)
@@ -136,13 +136,13 @@ mixin BoxoKeystore$ on GoHandle {
 
   /// Go: type assertion `x.(*keystore.FSKeystore)`: null if the object is not one.
   BoxoKeystoreFsKeystore? asBoxoKeystoreFsKeystore() {
-    final $r = $callSync(961, $W()..h(this));
+    final $r = $callSync(964, $W()..h(this));
     return $r.hn(BoxoKeystoreFsKeystore.$h);
   }
 
   /// Go: type assertion `x.(*keystore.MemKeystore)`: null if the object is not one.
   BoxoKeystoreMemKeystore? asBoxoKeystoreMemKeystore() {
-    final $r = $callSync(962, $W()..h(this));
+    final $r = $callSync(965, $W()..h(this));
     return $r.hn(BoxoKeystoreMemKeystore.$h);
   }
 }
@@ -169,14 +169,14 @@ class BoxoKeystoreMemKeystore extends BoxoKeystore
 
   /// Go: `func keystore.NewMemKeystore() *keystore.MemKeystore`.
   factory BoxoKeystoreMemKeystore() {
-    final $r = $callSync(10024);
+    final $r = $callSync(10033);
     return $r.hnn(BoxoKeystoreMemKeystore.$h);
   }
 
   /// Go: `func (*keystore.MemKeystore).Delete(name string) error`.
   void delete(String name) {
     $callSync(
-        10018,
+        10027,
         $W()
           ..h(this)
           ..str(name));
@@ -185,7 +185,7 @@ class BoxoKeystoreMemKeystore extends BoxoKeystore
   /// Go: `func (*keystore.MemKeystore).Get(name string) (crypto.PrivKey, error)`.
   $crypto2.Libp2pCoreCryptoPrivKey get(String name) {
     final $r = $callSync(
-        10019,
+        10028,
         $W()
           ..h(this)
           ..str(name));
@@ -195,7 +195,7 @@ class BoxoKeystoreMemKeystore extends BoxoKeystore
   /// Go: `func (*keystore.MemKeystore).Has(name string) (bool, error)`.
   bool has(String name) {
     final $r = $callSync(
-        10020,
+        10029,
         $W()
           ..h(this)
           ..str(name));
@@ -204,14 +204,14 @@ class BoxoKeystoreMemKeystore extends BoxoKeystore
 
   /// Go: `func (*keystore.MemKeystore).List() ([]string, error)`.
   List<String> list() {
-    final $r = $callSync(10021, $W()..h(this));
+    final $r = $callSync(10030, $W()..h(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (*keystore.MemKeystore).Put(name string, k crypto.PrivKey) error`.
   void put(String name, $crypto2.Libp2pCoreCryptoPrivKey k) {
     $callSync(
-        10022,
+        10031,
         $W()
           ..h(this)
           ..str(name)

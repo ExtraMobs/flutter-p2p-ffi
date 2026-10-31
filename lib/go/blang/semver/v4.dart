@@ -49,7 +49,7 @@ final class SemverV4PrVersion implements GoDto {
   /// Go: `func (semver.PRVersion).Compare(o semver.PRVersion) int`.
   int compare(SemverV4PrVersion o) {
     final $r = $callSync(
-        4038,
+        4047,
         $W()
           ..dto(this)
           ..dto(o));
@@ -58,13 +58,13 @@ final class SemverV4PrVersion implements GoDto {
 
   /// Go: `func (semver.PRVersion).IsNumeric() bool`.
   bool isNumeric() {
-    final $r = $callSync(4039, $W()..dto(this));
+    final $r = $callSync(4048, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (semver.PRVersion).String() string`.
   String string() {
-    final $r = $callSync(4040, $W()..dto(this));
+    final $r = $callSync(4049, $W()..dto(this));
     return $r.str();
   }
 }
@@ -97,7 +97,7 @@ class SemverV4Range extends $crypto.CryptoDecrypterOpts
   Future<SemverV4Range> and(
       FutureOr<bool> Function(SemverV4Version version) f) async {
     final $r = await $call(
-        4044,
+        4053,
         $W()
           ..h(this)
           ..cb((r) => f(r.p() ? SemverV4Version.$dec(r) : $nil()), true));
@@ -114,7 +114,7 @@ class SemverV4Range extends $crypto.CryptoDecrypterOpts
   Future<SemverV4Range> or(
       FutureOr<bool> Function(SemverV4Version version) f) async {
     final $r = await $call(
-        4045,
+        4054,
         $W()
           ..h(this)
           ..cb((r) => f(r.p() ? SemverV4Version.$dec(r) : $nil()), true));
@@ -180,7 +180,7 @@ final class SemverV4Version implements GoDto {
   /// Go: `func (semver.Version).Compare(o semver.Version) int`.
   int compare(SemverV4Version o) {
     final $r = $callSync(
-        4048,
+        4057,
         $W()
           ..dto(this)
           ..dto(o));
@@ -190,7 +190,7 @@ final class SemverV4Version implements GoDto {
   /// Go: `func (semver.Version).EQ(o semver.Version) bool`.
   bool eq(SemverV4Version o) {
     final $r = $callSync(
-        4049,
+        4058,
         $W()
           ..dto(this)
           ..dto(o));
@@ -200,7 +200,7 @@ final class SemverV4Version implements GoDto {
   /// Go: `func (semver.Version).Equals(o semver.Version) bool`.
   bool equals(SemverV4Version o) {
     final $r = $callSync(
-        4050,
+        4059,
         $W()
           ..dto(this)
           ..dto(o));
@@ -209,14 +209,14 @@ final class SemverV4Version implements GoDto {
 
   /// Go: `func (semver.Version).FinalizeVersion() string`.
   String finalizeVersion() {
-    final $r = $callSync(4051, $W()..dto(this));
+    final $r = $callSync(4060, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (semver.Version).GE(o semver.Version) bool`.
   bool ge(SemverV4Version o) {
     final $r = $callSync(
-        4052,
+        4061,
         $W()
           ..dto(this)
           ..dto(o));
@@ -226,7 +226,7 @@ final class SemverV4Version implements GoDto {
   /// Go: `func (semver.Version).GT(o semver.Version) bool`.
   bool gt(SemverV4Version o) {
     final $r = $callSync(
-        4053,
+        4062,
         $W()
           ..dto(this)
           ..dto(o));
@@ -236,7 +236,7 @@ final class SemverV4Version implements GoDto {
   /// Go: `func (semver.Version).GTE(o semver.Version) bool`.
   bool gte(SemverV4Version o) {
     final $r = $callSync(
-        4054,
+        4063,
         $W()
           ..dto(this)
           ..dto(o));
@@ -245,23 +245,23 @@ final class SemverV4Version implements GoDto {
 
   /// Go: `func (*semver.Version).IncrementMajor() error`.
   void incrementMajor() {
-    $callSync(4055, $W()..dto(this));
+    $callSync(4064, $W()..dto(this));
   }
 
   /// Go: `func (*semver.Version).IncrementMinor() error`.
   void incrementMinor() {
-    $callSync(4056, $W()..dto(this));
+    $callSync(4065, $W()..dto(this));
   }
 
   /// Go: `func (*semver.Version).IncrementPatch() error`.
   void incrementPatch() {
-    $callSync(4057, $W()..dto(this));
+    $callSync(4066, $W()..dto(this));
   }
 
   /// Go: `func (semver.Version).LE(o semver.Version) bool`.
   bool le(SemverV4Version o) {
     final $r = $callSync(
-        4058,
+        4067,
         $W()
           ..dto(this)
           ..dto(o));
@@ -271,7 +271,7 @@ final class SemverV4Version implements GoDto {
   /// Go: `func (semver.Version).LT(o semver.Version) bool`.
   bool lt(SemverV4Version o) {
     final $r = $callSync(
-        4059,
+        4068,
         $W()
           ..dto(this)
           ..dto(o));
@@ -281,7 +281,7 @@ final class SemverV4Version implements GoDto {
   /// Go: `func (semver.Version).LTE(o semver.Version) bool`.
   bool lte(SemverV4Version o) {
     final $r = $callSync(
-        4060,
+        4069,
         $W()
           ..dto(this)
           ..dto(o));
@@ -290,14 +290,14 @@ final class SemverV4Version implements GoDto {
 
   /// Go: `func (semver.Version).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(4061, $W()..dto(this));
+    final $r = $callSync(4070, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (semver.Version).NE(o semver.Version) bool`.
   bool ne(SemverV4Version o) {
     final $r = $callSync(
-        4062,
+        4071,
         $W()
           ..dto(this)
           ..dto(o));
@@ -307,7 +307,7 @@ final class SemverV4Version implements GoDto {
   /// Go: `func (*semver.Version).Scan(src interface{}) (err error)`.
   void scan(Object? src) {
     $callSync(
-        4063,
+        4072,
         $W()
           ..dto(this)
           ..any(src));
@@ -315,14 +315,14 @@ final class SemverV4Version implements GoDto {
 
   /// Go: `func (semver.Version).String() string`.
   String string() {
-    final $r = $callSync(4064, $W()..dto(this));
+    final $r = $callSync(4073, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*semver.Version).UnmarshalJSON(data []byte) (err error)`.
   void unmarshalJson(Uint8List data) {
     $callSync(
-        4065,
+        4074,
         $W()
           ..dto(this)
           ..bytes(data));
@@ -330,12 +330,12 @@ final class SemverV4Version implements GoDto {
 
   /// Go: `func (semver.Version).Validate() error`.
   void validate() {
-    $callSync(4066, $W()..dto(this));
+    $callSync(4075, $W()..dto(this));
   }
 
   /// Go: `func (semver.Version).Value() (driver.Value, error)`.
   $driver.DatabaseSqlDriverValue value$() {
-    final $r = $callSync(4067, $W()..dto(this));
+    final $r = $callSync(4076, $W()..dto(this));
     return $r.hnn($driver.DatabaseSqlDriverValue.$h);
   }
 }
@@ -344,72 +344,72 @@ final class SemverV4Version implements GoDto {
 extension GoBlangSemverV4Api on GoBlangSemverV4 {
   /// Go: `func semver.FinalizeVersion(s string) (string, error)`.
   String finalizeVersion(String s) {
-    final $r = $callSync(4031, $W()..str(s));
+    final $r = $callSync(4040, $W()..str(s));
     return $r.str();
   }
 
   /// Go: `func semver.Make(s string) (semver.Version, error)`.
   SemverV4Version make(String s) {
-    final $r = $callSync(4032, $W()..str(s));
+    final $r = $callSync(4041, $W()..str(s));
     return $r.p() ? SemverV4Version.$dec($r) : $nil();
   }
 
   /// Go: `func semver.MustParse(s string) semver.Version`.
   SemverV4Version mustParse(String s) {
-    final $r = $callSync(4033, $W()..str(s));
+    final $r = $callSync(4042, $W()..str(s));
     return $r.p() ? SemverV4Version.$dec($r) : $nil();
   }
 
   /// Go: `func semver.MustParseRange(s string) semver.Range`.
   SemverV4Range mustParseRange(String s) {
-    final $r = $callSync(4034, $W()..str(s));
+    final $r = $callSync(4043, $W()..str(s));
     return $r.hnn(SemverV4Range.$h);
   }
 
   /// Go: `func semver.New(s string) (*semver.Version, error)`.
   SemverV4Version new$(String s) {
-    final $r = $callSync(4035, $W()..str(s));
+    final $r = $callSync(4044, $W()..str(s));
     return $r.p() ? SemverV4Version.$dec($r) : $nil();
   }
 
   /// Go: `func semver.NewBuildVersion(s string) (string, error)`.
   String newBuildVersion(String s) {
-    final $r = $callSync(4036, $W()..str(s));
+    final $r = $callSync(4045, $W()..str(s));
     return $r.str();
   }
 
   /// Go: `func semver.NewPRVersion(s string) (semver.PRVersion, error)`.
   SemverV4PrVersion newPrVersion(String s) {
-    final $r = $callSync(4037, $W()..str(s));
+    final $r = $callSync(4046, $W()..str(s));
     return $r.p() ? SemverV4PrVersion.$dec($r) : $nil();
   }
 
   /// Go: `func semver.Parse(s string) (semver.Version, error)`.
   SemverV4Version parse(String s) {
-    final $r = $callSync(4041, $W()..str(s));
+    final $r = $callSync(4050, $W()..str(s));
     return $r.p() ? SemverV4Version.$dec($r) : $nil();
   }
 
   /// Go: `func semver.ParseRange(s string) (semver.Range, error)`.
   SemverV4Range parseRange(String s) {
-    final $r = $callSync(4042, $W()..str(s));
+    final $r = $callSync(4051, $W()..str(s));
     return $r.hnn(SemverV4Range.$h);
   }
 
   /// Go: `func semver.ParseTolerant(s string) (semver.Version, error)`.
   SemverV4Version parseTolerant(String s) {
-    final $r = $callSync(4043, $W()..str(s));
+    final $r = $callSync(4052, $W()..str(s));
     return $r.p() ? SemverV4Version.$dec($r) : $nil();
   }
 
   /// Go: `func semver.Sort(versions []semver.Version)`.
   void sort(List<SemverV4Version> versions) {
-    $callSync(4046, $W()..list(versions, (w0, e0) => w0.dto(e0)));
+    $callSync(4055, $W()..list(versions, (w0, e0) => w0.dto(e0)));
   }
 
   /// Go: `var semver.SpecVersion semver.Version`.
   SemverV4Version get specVersion {
-    final $r = $callSync(4047);
+    final $r = $callSync(4056);
     return $r.p() ? SemverV4Version.$dec($r) : $nil();
   }
 }

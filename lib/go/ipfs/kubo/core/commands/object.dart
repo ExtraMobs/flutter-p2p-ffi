@@ -69,25 +69,25 @@ class KuboCoreCommandsObjectErrDataEncoding extends GolangException {
 extension GoIpfsKuboCoreCommandsObjectApi on GoIpfsKuboCoreCommandsObject {
   /// Go: `var objectcmd.ObjectCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get objectCmd {
-    final $r = $callSync(11417);
+    final $r = $callSync(11423);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var objectcmd.ObjectDiffCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get objectDiffCmd {
-    final $r = $callSync(11418);
+    final $r = $callSync(11424);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var objectcmd.ObjectPatchCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get objectPatchCmd {
-    final $r = $callSync(11419);
+    final $r = $callSync(11425);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var objectcmd.RemovedObjectCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get removedObjectCmd {
-    final $r = $callSync(11420);
+    final $r = $callSync(11426);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 }

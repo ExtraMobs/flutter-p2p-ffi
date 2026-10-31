@@ -37,7 +37,7 @@ mixin KuboPlugin$ on GoHandle {
   /// Go: `func (plugin.Plugin).Init(env *plugin.Environment) error`.
   void init(KuboPluginEnvironment env) {
     $callSync(
-        11698,
+        11704,
         $W()
           ..h(this)
           ..dto(env));
@@ -45,49 +45,49 @@ mixin KuboPlugin$ on GoHandle {
 
   /// Go: `func (plugin.Plugin).Name() string`.
   String name() {
-    final $r = $callSync(11699, $W()..h(this));
+    final $r = $callSync(11705, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (plugin.Plugin).Version() string`.
   String version() {
-    final $r = $callSync(11700, $W()..h(this));
+    final $r = $callSync(11706, $W()..h(this));
     return $r.str();
   }
 
   /// Go: type assertion `x.(plugin.PluginDaemon)`: null if the object is not one.
   KuboPluginDaemon? asKuboPluginDaemon() {
-    final $r = $callSync(1191, $W()..h(this));
+    final $r = $callSync(1194, $W()..h(this));
     return $r.hn(KuboPluginDaemon.$h);
   }
 
   /// Go: type assertion `x.(plugin.PluginDaemonInternal)`: null if the object is not one.
   KuboPluginDaemonInternal? asKuboPluginDaemonInternal() {
-    final $r = $callSync(1192, $W()..h(this));
+    final $r = $callSync(1195, $W()..h(this));
     return $r.hn(KuboPluginDaemonInternal.$h);
   }
 
   /// Go: type assertion `x.(plugin.PluginDatastore)`: null if the object is not one.
   KuboPluginDatastore? asKuboPluginDatastore() {
-    final $r = $callSync(1193, $W()..h(this));
+    final $r = $callSync(1196, $W()..h(this));
     return $r.hn(KuboPluginDatastore.$h);
   }
 
   /// Go: type assertion `x.(plugin.PluginFx)`: null if the object is not one.
   KuboPluginFx? asKuboPluginFx() {
-    final $r = $callSync(1194, $W()..h(this));
+    final $r = $callSync(1197, $W()..h(this));
     return $r.hn(KuboPluginFx.$h);
   }
 
   /// Go: type assertion `x.(plugin.PluginIPLD)`: null if the object is not one.
   KuboPluginIpld? asKuboPluginIpld() {
-    final $r = $callSync(1195, $W()..h(this));
+    final $r = $callSync(1198, $W()..h(this));
     return $r.hn(KuboPluginIpld.$h);
   }
 
   /// Go: type assertion `x.(plugin.PluginTracer)`: null if the object is not one.
   KuboPluginTracer? asKuboPluginTracer() {
-    final $r = $callSync(1196, $W()..h(this));
+    final $r = $callSync(1199, $W()..h(this));
     return $r.hn(KuboPluginTracer.$h);
   }
 }
@@ -102,7 +102,7 @@ mixin KuboPluginDaemon$ on GoHandle {
   /// Go: `func (plugin.PluginDaemon).Start(iface.CoreAPI) error`.
   void start($coreiface.KuboCoreCoreifaceCoreApi coreApi) {
     $callSync(
-        11701,
+        11707,
         $W()
           ..h(this)
           ..h(coreApi));
@@ -120,7 +120,7 @@ mixin KuboPluginDaemonInternal$ on GoHandle {
   /// Go: `func (plugin.PluginDaemonInternal).Start(*core.IpfsNode) error`.
   void start($core.KuboCoreIpfsNode ipfsNode) {
     $callSync(
-        11702,
+        11708,
         $W()
           ..h(this)
           ..h(ipfsNode));
@@ -136,13 +136,13 @@ class KuboPluginDatastore extends KuboPlugin with KuboPluginDatastore$ {
 mixin KuboPluginDatastore$ on GoHandle {
   /// Go: `func (plugin.PluginDatastore).DatastoreConfigParser() fsrepo.ConfigFromMap`.
   $fsrepo.KuboRepoFsrepoConfigFromMap datastoreConfigParser() {
-    final $r = $callSync(11703, $W()..h(this));
+    final $r = $callSync(11709, $W()..h(this));
     return $r.hnn($fsrepo.KuboRepoFsrepoConfigFromMap.$h);
   }
 
   /// Go: `func (plugin.PluginDatastore).DatastoreTypeName() string`.
   String datastoreTypeName() {
-    final $r = $callSync(11704, $W()..h(this));
+    final $r = $callSync(11710, $W()..h(this));
     return $r.str();
   }
 }
@@ -157,7 +157,7 @@ mixin KuboPluginFx$ on GoHandle {
   /// Go: `func (plugin.PluginFx).Options(core.FXNodeInfo) ([]fx.Option, error)`.
   List<$fx.FxOption> options($core.KuboCoreFxNodeInfo fxNodeInfo) {
     final $r = $callSync(
-        11705,
+        11711,
         $W()
           ..h(this)
           ..dto(fxNodeInfo));
@@ -175,7 +175,7 @@ mixin KuboPluginIpld$ on GoHandle {
   /// Go: `func (plugin.PluginIPLD).Register(multicodec.Registry) error`.
   void register($multicodec.IpldPrimeMulticodecRegistry registry) {
     $callSync(
-        11706,
+        11712,
         $W()
           ..h(this)
           ..h(registry));
@@ -191,7 +191,7 @@ class KuboPluginTracer extends KuboPlugin with KuboPluginTracer$ {
 mixin KuboPluginTracer$ on GoHandle {
   /// Go: `func (plugin.PluginTracer).InitTracer() (opentracing.Tracer, error)`.
   $opentracing_go.OpentracingGoTracer initTracer() {
-    final $r = $callSync(11707, $W()..h(this));
+    final $r = $callSync(11713, $W()..h(this));
     return $r.hnn($opentracing_go.OpentracingGoTracer.$h);
   }
 }

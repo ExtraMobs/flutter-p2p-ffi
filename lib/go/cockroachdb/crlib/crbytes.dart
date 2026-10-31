@@ -11,14 +11,14 @@ import 'package:p2p_ffi/src/runtime.dart';
 extension GoCockroachdbCrlibCrbytesApi on GoCockroachdbCrlibCrbytes {
   /// Go: `func crbytes.AllocAligned(n int) []byte`.
   Uint8List allocAligned(int n) {
-    final $r = $callSync(4372, $W()..i64(n));
+    final $r = $callSync(4381, $W()..i64(n));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func crbytes.CommonPrefix(a []byte, b []byte) int`.
   int commonPrefix(Uint8List a, Uint8List b) {
     final $r = $callSync(
-        4373,
+        4382,
         $W()
           ..bytes(a)
           ..bytes(b));
@@ -27,7 +27,7 @@ extension GoCockroachdbCrlibCrbytesApi on GoCockroachdbCrlibCrbytes {
 
   /// Go: `func crbytes.CopyAligned(s []byte) []byte`.
   Uint8List copyAligned(Uint8List s) {
-    final $r = $callSync(4374, $W()..bytes(s));
+    final $r = $callSync(4383, $W()..bytes(s));
     return $r.bytes() ?? Uint8List(0);
   }
 }

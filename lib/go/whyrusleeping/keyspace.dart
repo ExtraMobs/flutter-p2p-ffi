@@ -40,7 +40,7 @@ final class KeyspaceKey implements GoDto {
   /// Go: `func (keyspace.Key).Distance(k2 keyspace.Key) *big.Int`.
   $big.MathBigInt distance(KeyspaceKey k2) {
     final $r = $callSync(
-        18968,
+        18974,
         $W()
           ..dto(this)
           ..dto(k2));
@@ -50,7 +50,7 @@ final class KeyspaceKey implements GoDto {
   /// Go: `func (keyspace.Key).Equal(k2 keyspace.Key) bool`.
   bool equal(KeyspaceKey k2) {
     final $r = $callSync(
-        18969,
+        18975,
         $W()
           ..dto(this)
           ..dto(k2));
@@ -60,7 +60,7 @@ final class KeyspaceKey implements GoDto {
   /// Go: `func (keyspace.Key).Less(k2 keyspace.Key) bool`.
   bool less(KeyspaceKey k2) {
     final $r = $callSync(
-        18970,
+        18976,
         $W()
           ..dto(this)
           ..dto(k2));
@@ -78,7 +78,7 @@ mixin KeyspaceKeySpace$ on GoHandle {
   /// Go: `func (keyspace.KeySpace).Distance(keyspace.Key, keyspace.Key) *big.Int`.
   $big.MathBigInt distance(KeyspaceKey key, KeyspaceKey key2) {
     final $r = $callSync(
-        18971,
+        18977,
         $W()
           ..h(this)
           ..dto(key)
@@ -89,7 +89,7 @@ mixin KeyspaceKeySpace$ on GoHandle {
   /// Go: `func (keyspace.KeySpace).Equal(keyspace.Key, keyspace.Key) bool`.
   bool equal(KeyspaceKey key, KeyspaceKey key2) {
     final $r = $callSync(
-        18972,
+        18978,
         $W()
           ..h(this)
           ..dto(key)
@@ -100,7 +100,7 @@ mixin KeyspaceKeySpace$ on GoHandle {
   /// Go: `func (keyspace.KeySpace).Key([]byte) keyspace.Key`.
   KeyspaceKey key(Uint8List arg0) {
     final $r = $callSync(
-        18973,
+        18979,
         $W()
           ..h(this)
           ..bytes(arg0));
@@ -110,7 +110,7 @@ mixin KeyspaceKeySpace$ on GoHandle {
   /// Go: `func (keyspace.KeySpace).Less(keyspace.Key, keyspace.Key) bool`.
   bool less(KeyspaceKey key, KeyspaceKey key2) {
     final $r = $callSync(
-        18974,
+        18980,
         $W()
           ..h(this)
           ..dto(key)
@@ -125,7 +125,7 @@ extension GoWhyrusleepingKeyspaceApi on GoWhyrusleepingKeyspace {
   List<KeyspaceKey> sortByDistance(
       KeyspaceKeySpace sp, KeyspaceKey center, List<KeyspaceKey> toSort) {
     final $r = $callSync(
-        18975,
+        18981,
         $W()
           ..h(sp)
           ..dto(center)
@@ -136,7 +136,7 @@ extension GoWhyrusleepingKeyspaceApi on GoWhyrusleepingKeyspace {
   /// Go: `func keyspace.XOR(a []byte, b []byte) []byte`.
   Uint8List xor(Uint8List a, Uint8List b) {
     final $r = $callSync(
-        18976,
+        18982,
         $W()
           ..bytes(a)
           ..bytes(b));
@@ -145,7 +145,7 @@ extension GoWhyrusleepingKeyspaceApi on GoWhyrusleepingKeyspace {
 
   /// Go: `func keyspace.ZeroPrefixLen(id []byte) int`.
   int zeroPrefixLen(Uint8List id) {
-    final $r = $callSync(18977, $W()..bytes(id));
+    final $r = $callSync(18983, $W()..bytes(id));
     return $r.i64();
   }
 }

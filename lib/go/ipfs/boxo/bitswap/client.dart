@@ -37,7 +37,7 @@ mixin BoxoBitswapClientBlockReceivedNotifier$ on GoHandle {
   void receivedBlocks(
       $peer.Libp2pCorePeerId id, List<$block_format.BlockFormatBlock> blocks) {
     $callSync(
-        9127,
+        9136,
         $W()
           ..h(this)
           ..val(id)
@@ -46,13 +46,13 @@ mixin BoxoBitswapClientBlockReceivedNotifier$ on GoHandle {
 
   /// Go: type assertion `x.(*bitswap.Bitswap)`: null if the object is not one.
   $bitswap.BoxoBitswap? asBoxoBitswap() {
-    final $r = $callSync(892, $W()..h(this));
+    final $r = $callSync(895, $W()..h(this));
     return $r.hn($bitswap.BoxoBitswap.$h);
   }
 
   /// Go: type assertion `x.(*server.Server)`: null if the object is not one.
   $server.BoxoBitswapServer? asBoxoBitswapServer() {
-    final $r = $callSync(893, $W()..h(this));
+    final $r = $callSync(896, $W()..h(this));
     return $r.hn($server.BoxoBitswapServer.$h);
   }
 }
@@ -87,7 +87,7 @@ class BoxoBitswapClient extends $exchange.BoxoExchangeSessionExchange
 
   /// Go: `func (*client.Client).Close() error`.
   void close() {
-    $callSync(9128, $W()..h(this));
+    $callSync(9137, $W()..h(this));
   }
 
   /// Go: `func (*client.Client).GetBlock(ctx context.Context, k cid.Cid) (blocks.Block, error)`.
@@ -96,7 +96,7 @@ class BoxoBitswapClient extends $exchange.BoxoExchangeSessionExchange
   Future<$block_format.BlockFormatBlock> getBlock(
       $context.Context ctx, $cid.Cid k) async {
     final $r = await $call(
-        9129,
+        9138,
         $W()
           ..h(this)
           ..h(ctx)
@@ -108,7 +108,7 @@ class BoxoBitswapClient extends $exchange.BoxoExchangeSessionExchange
   Stream<$block_format.BlockFormatBlock> getBlocks(
           $context.Context ctx, List<$cid.Cid> keys) =>
       $stream(
-              9130,
+              9139,
               $W()
                 ..h(this)
                 ..h(ctx)
@@ -117,25 +117,25 @@ class BoxoBitswapClient extends $exchange.BoxoExchangeSessionExchange
 
   /// Go: `func (*client.Client).GetWantBlocks() []cid.Cid`.
   List<$cid.Cid> getWantBlocks() {
-    final $r = $callSync(9131, $W()..h(this));
+    final $r = $callSync(9140, $W()..h(this));
     return $r.list(() => $r.p() ? $cid.Cid($r.str()) : $nil());
   }
 
   /// Go: `func (*client.Client).GetWantHaves() []cid.Cid`.
   List<$cid.Cid> getWantHaves() {
-    final $r = $callSync(9132, $W()..h(this));
+    final $r = $callSync(9141, $W()..h(this));
     return $r.list(() => $r.p() ? $cid.Cid($r.str()) : $nil());
   }
 
   /// Go: `func (*client.Client).GetWantlist() []cid.Cid`.
   List<$cid.Cid> getWantlist() {
-    final $r = $callSync(9133, $W()..h(this));
+    final $r = $callSync(9142, $W()..h(this));
     return $r.list(() => $r.p() ? $cid.Cid($r.str()) : $nil());
   }
 
   /// Go: `func (*client.Client).IsOnline() bool`.
   bool isOnline() {
-    final $r = $callSync(9134, $W()..h(this));
+    final $r = $callSync(9143, $W()..h(this));
     return $r.b();
   }
 
@@ -144,7 +144,7 @@ class BoxoBitswapClient extends $exchange.BoxoExchangeSessionExchange
   /// Asynchronous: runs in a goroutine of the service.
   Future<$exchange.BoxoExchangeFetcher> newSession($context.Context ctx) async {
     final $r = await $call(
-        9135,
+        9144,
         $W()
           ..h(this)
           ..h(ctx));
@@ -157,7 +157,7 @@ class BoxoBitswapClient extends $exchange.BoxoExchangeSessionExchange
   Future<void> notifyNewBlocks($context.Context ctx,
       [List<$block_format.BlockFormatBlock> blks = const []]) async {
     await $call(
-        9136,
+        9145,
         $W()
           ..h(this)
           ..h(ctx)
@@ -167,7 +167,7 @@ class BoxoBitswapClient extends $exchange.BoxoExchangeSessionExchange
   /// Go: `func (*client.Client).PeerConnected(p peer.ID)`.
   void peerConnected($peer.Libp2pCorePeerId p) {
     $callSync(
-        9137,
+        9146,
         $W()
           ..h(this)
           ..val(p));
@@ -176,7 +176,7 @@ class BoxoBitswapClient extends $exchange.BoxoExchangeSessionExchange
   /// Go: `func (*client.Client).PeerDisconnected(p peer.ID)`.
   void peerDisconnected($peer.Libp2pCorePeerId p) {
     $callSync(
-        9138,
+        9147,
         $W()
           ..h(this)
           ..val(p));
@@ -188,7 +188,7 @@ class BoxoBitswapClient extends $exchange.BoxoExchangeSessionExchange
   Future<void> receiveMessage($context.Context ctx, $peer.Libp2pCorePeerId p,
       $message.BoxoBitswapMessageBitSwapMessage incoming) async {
     await $call(
-        9139,
+        9148,
         $W()
           ..h(this)
           ..h(ctx)
@@ -198,7 +198,7 @@ class BoxoBitswapClient extends $exchange.BoxoExchangeSessionExchange
 
   /// Go: `func (*client.Client).Stat() (st client.Stat, err error)`.
   BoxoBitswapClientStat stat() {
-    final $r = $callSync(9140, $W()..h(this));
+    final $r = $callSync(9149, $W()..h(this));
     return $r.p() ? BoxoBitswapClientStat.$dec($r) : $nil();
   }
 }
@@ -289,7 +289,7 @@ extension GoIpfsBoxoBitswapClientApi on GoIpfsBoxoBitswapClient {
       $blockstore.BoxoBlockstore bstore,
       [List<BoxoBitswapClientOption> options = const []]) async {
     final $r = await $call(
-        9141,
+        9150,
         $W()
           ..h(parent)
           ..h(network)

@@ -33,7 +33,7 @@ final class GoupnpDcpsInternetgateway2DeviceProtection1 implements GoDto {
   /// Go: `func (*internetgateway2.DeviceProtection1).AddIdentityList(IdentityList string) (IdentityListResult string, err error)`.
   String addIdentityList(String identityList) {
     final $r = $callSync(
-        8579,
+        8588,
         $W()
           ..dto(this)
           ..str(identityList));
@@ -46,7 +46,7 @@ final class GoupnpDcpsInternetgateway2DeviceProtection1 implements GoDto {
   Future<String> addIdentityListCtx(
       $context.Context ctx, String identityList) async {
     final $r = await $call(
-        8580,
+        8589,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -57,7 +57,7 @@ final class GoupnpDcpsInternetgateway2DeviceProtection1 implements GoDto {
   /// Go: `func (*internetgateway2.DeviceProtection1).AddRolesForIdentity(Identity string, RoleList string) (err error)`.
   void addRolesForIdentity(String identity, String roleList) {
     $callSync(
-        8581,
+        8590,
         $W()
           ..dto(this)
           ..str(identity)
@@ -70,7 +70,7 @@ final class GoupnpDcpsInternetgateway2DeviceProtection1 implements GoDto {
   Future<void> addRolesForIdentityCtx(
       $context.Context ctx, String identity, String roleList) async {
     await $call(
-        8582,
+        8591,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -80,7 +80,7 @@ final class GoupnpDcpsInternetgateway2DeviceProtection1 implements GoDto {
 
   /// Go: `func (*internetgateway2.DeviceProtection1).GetACLData() (ACL string, err error)`.
   String getAclData() {
-    final $r = $callSync(8583, $W()..dto(this));
+    final $r = $callSync(8592, $W()..dto(this));
     return $r.str();
   }
 
@@ -89,7 +89,7 @@ final class GoupnpDcpsInternetgateway2DeviceProtection1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<String> getAclDataCtx($context.Context ctx) async {
     final $r = await $call(
-        8584,
+        8593,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -98,7 +98,7 @@ final class GoupnpDcpsInternetgateway2DeviceProtection1 implements GoDto {
 
   /// Go: `func (*internetgateway2.DeviceProtection1).GetAssignedRoles() (RoleList string, err error)`.
   String getAssignedRoles() {
-    final $r = $callSync(8585, $W()..dto(this));
+    final $r = $callSync(8594, $W()..dto(this));
     return $r.str();
   }
 
@@ -107,7 +107,7 @@ final class GoupnpDcpsInternetgateway2DeviceProtection1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<String> getAssignedRolesCtx($context.Context ctx) async {
     final $r = await $call(
-        8586,
+        8595,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -118,7 +118,7 @@ final class GoupnpDcpsInternetgateway2DeviceProtection1 implements GoDto {
   (String, String) getRolesForAction(
       String deviceUdn, String serviceId, String actionName) {
     final $r = $callSync(
-        8587,
+        8596,
         $W()
           ..dto(this)
           ..str(deviceUdn)
@@ -133,7 +133,7 @@ final class GoupnpDcpsInternetgateway2DeviceProtection1 implements GoDto {
   Future<(String, String)> getRolesForActionCtx($context.Context ctx,
       String deviceUdn, String serviceId, String actionName) async {
     final $r = await $call(
-        8588,
+        8597,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -145,7 +145,7 @@ final class GoupnpDcpsInternetgateway2DeviceProtection1 implements GoDto {
 
   /// Go: `func (*internetgateway2.DeviceProtection1).GetSupportedProtocols() (ProtocolList string, err error)`.
   String getSupportedProtocols() {
-    final $r = $callSync(8589, $W()..dto(this));
+    final $r = $callSync(8598, $W()..dto(this));
     return $r.str();
   }
 
@@ -154,7 +154,7 @@ final class GoupnpDcpsInternetgateway2DeviceProtection1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<String> getSupportedProtocolsCtx($context.Context ctx) async {
     final $r = await $call(
-        8590,
+        8599,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -165,7 +165,7 @@ final class GoupnpDcpsInternetgateway2DeviceProtection1 implements GoDto {
   (Uint8List, Uint8List) getUserLoginChallenge(
       String protocolType, String name) {
     final $r = $callSync(
-        8591,
+        8600,
         $W()
           ..dto(this)
           ..str(protocolType)
@@ -179,7 +179,7 @@ final class GoupnpDcpsInternetgateway2DeviceProtection1 implements GoDto {
   Future<(Uint8List, Uint8List)> getUserLoginChallengeCtx(
       $context.Context ctx, String protocolType, String name) async {
     final $r = await $call(
-        8592,
+        8601,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -191,7 +191,7 @@ final class GoupnpDcpsInternetgateway2DeviceProtection1 implements GoDto {
   /// Go: `func (*internetgateway2.DeviceProtection1).RemoveIdentity(Identity string) (err error)`.
   void removeIdentity(String identity) {
     $callSync(
-        8593,
+        8602,
         $W()
           ..dto(this)
           ..str(identity));
@@ -202,7 +202,7 @@ final class GoupnpDcpsInternetgateway2DeviceProtection1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> removeIdentityCtx($context.Context ctx, String identity) async {
     await $call(
-        8594,
+        8603,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -212,7 +212,7 @@ final class GoupnpDcpsInternetgateway2DeviceProtection1 implements GoDto {
   /// Go: `func (*internetgateway2.DeviceProtection1).RemoveRolesForIdentity(Identity string, RoleList string) (err error)`.
   void removeRolesForIdentity(String identity, String roleList) {
     $callSync(
-        8595,
+        8604,
         $W()
           ..dto(this)
           ..str(identity)
@@ -225,7 +225,7 @@ final class GoupnpDcpsInternetgateway2DeviceProtection1 implements GoDto {
   Future<void> removeRolesForIdentityCtx(
       $context.Context ctx, String identity, String roleList) async {
     await $call(
-        8596,
+        8605,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -236,7 +236,7 @@ final class GoupnpDcpsInternetgateway2DeviceProtection1 implements GoDto {
   /// Go: `func (*internetgateway2.DeviceProtection1).SendSetupMessage(ProtocolType string, InMessage []byte) (OutMessage []byte, err error)`.
   Uint8List sendSetupMessage(String protocolType, Uint8List inMessage) {
     final $r = $callSync(
-        8597,
+        8606,
         $W()
           ..dto(this)
           ..str(protocolType)
@@ -250,7 +250,7 @@ final class GoupnpDcpsInternetgateway2DeviceProtection1 implements GoDto {
   Future<Uint8List> sendSetupMessageCtx(
       $context.Context ctx, String protocolType, Uint8List inMessage) async {
     final $r = await $call(
-        8598,
+        8607,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -263,7 +263,7 @@ final class GoupnpDcpsInternetgateway2DeviceProtection1 implements GoDto {
   void setUserLoginPassword(
       String protocolType, String name, Uint8List stored, Uint8List salt) {
     $callSync(
-        8599,
+        8608,
         $W()
           ..dto(this)
           ..str(protocolType)
@@ -282,7 +282,7 @@ final class GoupnpDcpsInternetgateway2DeviceProtection1 implements GoDto {
       Uint8List stored,
       Uint8List salt) async {
     await $call(
-        8600,
+        8609,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -296,7 +296,7 @@ final class GoupnpDcpsInternetgateway2DeviceProtection1 implements GoDto {
   void userLogin(
       String protocolType, Uint8List challenge, Uint8List authenticator) {
     $callSync(
-        8601,
+        8610,
         $W()
           ..dto(this)
           ..str(protocolType)
@@ -310,7 +310,7 @@ final class GoupnpDcpsInternetgateway2DeviceProtection1 implements GoDto {
   Future<void> userLoginCtx($context.Context ctx, String protocolType,
       Uint8List challenge, Uint8List authenticator) async {
     await $call(
-        8602,
+        8611,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -321,7 +321,7 @@ final class GoupnpDcpsInternetgateway2DeviceProtection1 implements GoDto {
 
   /// Go: `func (*internetgateway2.DeviceProtection1).UserLogout() (err error)`.
   void userLogout() {
-    $callSync(8603, $W()..dto(this));
+    $callSync(8612, $W()..dto(this));
   }
 
   /// Go: `func (*internetgateway2.DeviceProtection1).UserLogoutCtx(ctx context.Context) (err error)`.
@@ -329,7 +329,7 @@ final class GoupnpDcpsInternetgateway2DeviceProtection1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> userLogoutCtx($context.Context ctx) async {
     await $call(
-        8604,
+        8613,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -357,7 +357,7 @@ final class GoupnpDcpsInternetgateway2LanHostConfigManagement1
   /// Go: `func (*internetgateway2.LANHostConfigManagement1).DeleteDNSServer(NewDNSServers string) (err error)`.
   void deleteDnsServer(String newDnsServers) {
     $callSync(
-        8605,
+        8614,
         $W()
           ..dto(this)
           ..str(newDnsServers));
@@ -369,7 +369,7 @@ final class GoupnpDcpsInternetgateway2LanHostConfigManagement1
   Future<void> deleteDnsServerCtx(
       $context.Context ctx, String newDnsServers) async {
     await $call(
-        8606,
+        8615,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -379,7 +379,7 @@ final class GoupnpDcpsInternetgateway2LanHostConfigManagement1
   /// Go: `func (*internetgateway2.LANHostConfigManagement1).DeleteIPRouter(NewIPRouters string) (err error)`.
   void deleteIpRouter(String newIpRouters) {
     $callSync(
-        8607,
+        8616,
         $W()
           ..dto(this)
           ..str(newIpRouters));
@@ -391,7 +391,7 @@ final class GoupnpDcpsInternetgateway2LanHostConfigManagement1
   Future<void> deleteIpRouterCtx(
       $context.Context ctx, String newIpRouters) async {
     await $call(
-        8608,
+        8617,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -401,7 +401,7 @@ final class GoupnpDcpsInternetgateway2LanHostConfigManagement1
   /// Go: `func (*internetgateway2.LANHostConfigManagement1).DeleteReservedAddress(NewReservedAddresses string) (err error)`.
   void deleteReservedAddress(String newReservedAddresses) {
     $callSync(
-        8609,
+        8618,
         $W()
           ..dto(this)
           ..str(newReservedAddresses));
@@ -413,7 +413,7 @@ final class GoupnpDcpsInternetgateway2LanHostConfigManagement1
   Future<void> deleteReservedAddressCtx(
       $context.Context ctx, String newReservedAddresses) async {
     await $call(
-        8610,
+        8619,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -422,7 +422,7 @@ final class GoupnpDcpsInternetgateway2LanHostConfigManagement1
 
   /// Go: `func (*internetgateway2.LANHostConfigManagement1).GetAddressRange() (NewMinAddress string, NewMaxAddress string, err error)`.
   (String, String) getAddressRange() {
-    final $r = $callSync(8611, $W()..dto(this));
+    final $r = $callSync(8620, $W()..dto(this));
     return ($r.str(), $r.str());
   }
 
@@ -431,7 +431,7 @@ final class GoupnpDcpsInternetgateway2LanHostConfigManagement1
   /// Asynchronous: runs in a goroutine of the service.
   Future<(String, String)> getAddressRangeCtx($context.Context ctx) async {
     final $r = await $call(
-        8612,
+        8621,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -440,7 +440,7 @@ final class GoupnpDcpsInternetgateway2LanHostConfigManagement1
 
   /// Go: `func (*internetgateway2.LANHostConfigManagement1).GetDHCPRelay() (NewDHCPRelay bool, err error)`.
   bool getDhcpRelay() {
-    final $r = $callSync(8613, $W()..dto(this));
+    final $r = $callSync(8622, $W()..dto(this));
     return $r.b();
   }
 
@@ -449,7 +449,7 @@ final class GoupnpDcpsInternetgateway2LanHostConfigManagement1
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> getDhcpRelayCtx($context.Context ctx) async {
     final $r = await $call(
-        8614,
+        8623,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -458,7 +458,7 @@ final class GoupnpDcpsInternetgateway2LanHostConfigManagement1
 
   /// Go: `func (*internetgateway2.LANHostConfigManagement1).GetDHCPServerConfigurable() (NewDHCPServerConfigurable bool, err error)`.
   bool getDhcpServerConfigurable() {
-    final $r = $callSync(8615, $W()..dto(this));
+    final $r = $callSync(8624, $W()..dto(this));
     return $r.b();
   }
 
@@ -467,7 +467,7 @@ final class GoupnpDcpsInternetgateway2LanHostConfigManagement1
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> getDhcpServerConfigurableCtx($context.Context ctx) async {
     final $r = await $call(
-        8616,
+        8625,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -476,7 +476,7 @@ final class GoupnpDcpsInternetgateway2LanHostConfigManagement1
 
   /// Go: `func (*internetgateway2.LANHostConfigManagement1).GetDNSServers() (NewDNSServers string, err error)`.
   String getDnsServers() {
-    final $r = $callSync(8617, $W()..dto(this));
+    final $r = $callSync(8626, $W()..dto(this));
     return $r.str();
   }
 
@@ -485,7 +485,7 @@ final class GoupnpDcpsInternetgateway2LanHostConfigManagement1
   /// Asynchronous: runs in a goroutine of the service.
   Future<String> getDnsServersCtx($context.Context ctx) async {
     final $r = await $call(
-        8618,
+        8627,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -494,7 +494,7 @@ final class GoupnpDcpsInternetgateway2LanHostConfigManagement1
 
   /// Go: `func (*internetgateway2.LANHostConfigManagement1).GetDomainName() (NewDomainName string, err error)`.
   String getDomainName() {
-    final $r = $callSync(8619, $W()..dto(this));
+    final $r = $callSync(8628, $W()..dto(this));
     return $r.str();
   }
 
@@ -503,7 +503,7 @@ final class GoupnpDcpsInternetgateway2LanHostConfigManagement1
   /// Asynchronous: runs in a goroutine of the service.
   Future<String> getDomainNameCtx($context.Context ctx) async {
     final $r = await $call(
-        8620,
+        8629,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -512,7 +512,7 @@ final class GoupnpDcpsInternetgateway2LanHostConfigManagement1
 
   /// Go: `func (*internetgateway2.LANHostConfigManagement1).GetIPRoutersList() (NewIPRouters string, err error)`.
   String getIpRoutersList() {
-    final $r = $callSync(8621, $W()..dto(this));
+    final $r = $callSync(8630, $W()..dto(this));
     return $r.str();
   }
 
@@ -521,7 +521,7 @@ final class GoupnpDcpsInternetgateway2LanHostConfigManagement1
   /// Asynchronous: runs in a goroutine of the service.
   Future<String> getIpRoutersListCtx($context.Context ctx) async {
     final $r = await $call(
-        8622,
+        8631,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -530,7 +530,7 @@ final class GoupnpDcpsInternetgateway2LanHostConfigManagement1
 
   /// Go: `func (*internetgateway2.LANHostConfigManagement1).GetReservedAddresses() (NewReservedAddresses string, err error)`.
   String getReservedAddresses() {
-    final $r = $callSync(8623, $W()..dto(this));
+    final $r = $callSync(8632, $W()..dto(this));
     return $r.str();
   }
 
@@ -539,7 +539,7 @@ final class GoupnpDcpsInternetgateway2LanHostConfigManagement1
   /// Asynchronous: runs in a goroutine of the service.
   Future<String> getReservedAddressesCtx($context.Context ctx) async {
     final $r = await $call(
-        8624,
+        8633,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -548,7 +548,7 @@ final class GoupnpDcpsInternetgateway2LanHostConfigManagement1
 
   /// Go: `func (*internetgateway2.LANHostConfigManagement1).GetSubnetMask() (NewSubnetMask string, err error)`.
   String getSubnetMask() {
-    final $r = $callSync(8625, $W()..dto(this));
+    final $r = $callSync(8634, $W()..dto(this));
     return $r.str();
   }
 
@@ -557,7 +557,7 @@ final class GoupnpDcpsInternetgateway2LanHostConfigManagement1
   /// Asynchronous: runs in a goroutine of the service.
   Future<String> getSubnetMaskCtx($context.Context ctx) async {
     final $r = await $call(
-        8626,
+        8635,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -567,7 +567,7 @@ final class GoupnpDcpsInternetgateway2LanHostConfigManagement1
   /// Go: `func (*internetgateway2.LANHostConfigManagement1).SetAddressRange(NewMinAddress string, NewMaxAddress string) (err error)`.
   void setAddressRange(String newMinAddress, String newMaxAddress) {
     $callSync(
-        8627,
+        8636,
         $W()
           ..dto(this)
           ..str(newMinAddress)
@@ -580,7 +580,7 @@ final class GoupnpDcpsInternetgateway2LanHostConfigManagement1
   Future<void> setAddressRangeCtx(
       $context.Context ctx, String newMinAddress, String newMaxAddress) async {
     await $call(
-        8628,
+        8637,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -591,7 +591,7 @@ final class GoupnpDcpsInternetgateway2LanHostConfigManagement1
   /// Go: `func (*internetgateway2.LANHostConfigManagement1).SetDHCPRelay(NewDHCPRelay bool) (err error)`.
   void setDhcpRelay(bool newDhcpRelay) {
     $callSync(
-        8629,
+        8638,
         $W()
           ..dto(this)
           ..b(newDhcpRelay));
@@ -602,7 +602,7 @@ final class GoupnpDcpsInternetgateway2LanHostConfigManagement1
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> setDhcpRelayCtx($context.Context ctx, bool newDhcpRelay) async {
     await $call(
-        8630,
+        8639,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -612,7 +612,7 @@ final class GoupnpDcpsInternetgateway2LanHostConfigManagement1
   /// Go: `func (*internetgateway2.LANHostConfigManagement1).SetDHCPServerConfigurable(NewDHCPServerConfigurable bool) (err error)`.
   void setDhcpServerConfigurable(bool newDhcpServerConfigurable) {
     $callSync(
-        8631,
+        8640,
         $W()
           ..dto(this)
           ..b(newDhcpServerConfigurable));
@@ -624,7 +624,7 @@ final class GoupnpDcpsInternetgateway2LanHostConfigManagement1
   Future<void> setDhcpServerConfigurableCtx(
       $context.Context ctx, bool newDhcpServerConfigurable) async {
     await $call(
-        8632,
+        8641,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -634,7 +634,7 @@ final class GoupnpDcpsInternetgateway2LanHostConfigManagement1
   /// Go: `func (*internetgateway2.LANHostConfigManagement1).SetDNSServer(NewDNSServers string) (err error)`.
   void setDnsServer(String newDnsServers) {
     $callSync(
-        8633,
+        8642,
         $W()
           ..dto(this)
           ..str(newDnsServers));
@@ -646,7 +646,7 @@ final class GoupnpDcpsInternetgateway2LanHostConfigManagement1
   Future<void> setDnsServerCtx(
       $context.Context ctx, String newDnsServers) async {
     await $call(
-        8634,
+        8643,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -656,7 +656,7 @@ final class GoupnpDcpsInternetgateway2LanHostConfigManagement1
   /// Go: `func (*internetgateway2.LANHostConfigManagement1).SetDomainName(NewDomainName string) (err error)`.
   void setDomainName(String newDomainName) {
     $callSync(
-        8635,
+        8644,
         $W()
           ..dto(this)
           ..str(newDomainName));
@@ -668,7 +668,7 @@ final class GoupnpDcpsInternetgateway2LanHostConfigManagement1
   Future<void> setDomainNameCtx(
       $context.Context ctx, String newDomainName) async {
     await $call(
-        8636,
+        8645,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -678,7 +678,7 @@ final class GoupnpDcpsInternetgateway2LanHostConfigManagement1
   /// Go: `func (*internetgateway2.LANHostConfigManagement1).SetIPRouter(NewIPRouters string) (err error)`.
   void setIpRouter(String newIpRouters) {
     $callSync(
-        8637,
+        8646,
         $W()
           ..dto(this)
           ..str(newIpRouters));
@@ -689,7 +689,7 @@ final class GoupnpDcpsInternetgateway2LanHostConfigManagement1
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> setIpRouterCtx($context.Context ctx, String newIpRouters) async {
     await $call(
-        8638,
+        8647,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -699,7 +699,7 @@ final class GoupnpDcpsInternetgateway2LanHostConfigManagement1
   /// Go: `func (*internetgateway2.LANHostConfigManagement1).SetReservedAddress(NewReservedAddresses string) (err error)`.
   void setReservedAddress(String newReservedAddresses) {
     $callSync(
-        8639,
+        8648,
         $W()
           ..dto(this)
           ..str(newReservedAddresses));
@@ -711,7 +711,7 @@ final class GoupnpDcpsInternetgateway2LanHostConfigManagement1
   Future<void> setReservedAddressCtx(
       $context.Context ctx, String newReservedAddresses) async {
     await $call(
-        8640,
+        8649,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -721,7 +721,7 @@ final class GoupnpDcpsInternetgateway2LanHostConfigManagement1
   /// Go: `func (*internetgateway2.LANHostConfigManagement1).SetSubnetMask(NewSubnetMask string) (err error)`.
   void setSubnetMask(String newSubnetMask) {
     $callSync(
-        8641,
+        8650,
         $W()
           ..dto(this)
           ..str(newSubnetMask));
@@ -733,7 +733,7 @@ final class GoupnpDcpsInternetgateway2LanHostConfigManagement1
   Future<void> setSubnetMaskCtx(
       $context.Context ctx, String newSubnetMask) async {
     await $call(
-        8642,
+        8651,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -760,7 +760,7 @@ final class GoupnpDcpsInternetgateway2Layer3Forwarding1 implements GoDto {
 
   /// Go: `func (*internetgateway2.Layer3Forwarding1).GetDefaultConnectionService() (NewDefaultConnectionService string, err error)`.
   String getDefaultConnectionService() {
-    final $r = $callSync(8643, $W()..dto(this));
+    final $r = $callSync(8652, $W()..dto(this));
     return $r.str();
   }
 
@@ -769,7 +769,7 @@ final class GoupnpDcpsInternetgateway2Layer3Forwarding1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<String> getDefaultConnectionServiceCtx($context.Context ctx) async {
     final $r = await $call(
-        8644,
+        8653,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -779,7 +779,7 @@ final class GoupnpDcpsInternetgateway2Layer3Forwarding1 implements GoDto {
   /// Go: `func (*internetgateway2.Layer3Forwarding1).SetDefaultConnectionService(NewDefaultConnectionService string) (err error)`.
   void setDefaultConnectionService(String newDefaultConnectionService) {
     $callSync(
-        8645,
+        8654,
         $W()
           ..dto(this)
           ..str(newDefaultConnectionService));
@@ -791,7 +791,7 @@ final class GoupnpDcpsInternetgateway2Layer3Forwarding1 implements GoDto {
   Future<void> setDefaultConnectionServiceCtx(
       $context.Context ctx, String newDefaultConnectionService) async {
     await $call(
-        8646,
+        8655,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -818,7 +818,7 @@ final class GoupnpDcpsInternetgateway2WanCableLinkConfig1 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANCableLinkConfig1).GetBPIEncryptionEnabled() (NewBPIEncryptionEnabled bool, err error)`.
   bool getBpiEncryptionEnabled() {
-    final $r = $callSync(8707, $W()..dto(this));
+    final $r = $callSync(8716, $W()..dto(this));
     return $r.b();
   }
 
@@ -827,7 +827,7 @@ final class GoupnpDcpsInternetgateway2WanCableLinkConfig1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> getBpiEncryptionEnabledCtx($context.Context ctx) async {
     final $r = await $call(
-        8708,
+        8717,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -836,7 +836,7 @@ final class GoupnpDcpsInternetgateway2WanCableLinkConfig1 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANCableLinkConfig1).GetCableLinkConfigInfo() (NewCableLinkConfigState string, NewLinkType string, err error)`.
   (String, String) getCableLinkConfigInfo() {
-    final $r = $callSync(8709, $W()..dto(this));
+    final $r = $callSync(8718, $W()..dto(this));
     return ($r.str(), $r.str());
   }
 
@@ -846,7 +846,7 @@ final class GoupnpDcpsInternetgateway2WanCableLinkConfig1 implements GoDto {
   Future<(String, String)> getCableLinkConfigInfoCtx(
       $context.Context ctx) async {
     final $r = await $call(
-        8710,
+        8719,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -855,7 +855,7 @@ final class GoupnpDcpsInternetgateway2WanCableLinkConfig1 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANCableLinkConfig1).GetConfigFile() (NewConfigFile string, err error)`.
   String getConfigFile() {
-    final $r = $callSync(8711, $W()..dto(this));
+    final $r = $callSync(8720, $W()..dto(this));
     return $r.str();
   }
 
@@ -864,7 +864,7 @@ final class GoupnpDcpsInternetgateway2WanCableLinkConfig1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<String> getConfigFileCtx($context.Context ctx) async {
     final $r = await $call(
-        8712,
+        8721,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -873,7 +873,7 @@ final class GoupnpDcpsInternetgateway2WanCableLinkConfig1 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANCableLinkConfig1).GetDownstreamFrequency() (NewDownstreamFrequency uint32, err error)`.
   int getDownstreamFrequency() {
-    final $r = $callSync(8713, $W()..dto(this));
+    final $r = $callSync(8722, $W()..dto(this));
     return $r.i64();
   }
 
@@ -882,7 +882,7 @@ final class GoupnpDcpsInternetgateway2WanCableLinkConfig1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getDownstreamFrequencyCtx($context.Context ctx) async {
     final $r = await $call(
-        8714,
+        8723,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -891,7 +891,7 @@ final class GoupnpDcpsInternetgateway2WanCableLinkConfig1 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANCableLinkConfig1).GetDownstreamModulation() (NewDownstreamModulation string, err error)`.
   String getDownstreamModulation() {
-    final $r = $callSync(8715, $W()..dto(this));
+    final $r = $callSync(8724, $W()..dto(this));
     return $r.str();
   }
 
@@ -900,7 +900,7 @@ final class GoupnpDcpsInternetgateway2WanCableLinkConfig1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<String> getDownstreamModulationCtx($context.Context ctx) async {
     final $r = await $call(
-        8716,
+        8725,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -909,7 +909,7 @@ final class GoupnpDcpsInternetgateway2WanCableLinkConfig1 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANCableLinkConfig1).GetTFTPServer() (NewTFTPServer string, err error)`.
   String getTftpServer() {
-    final $r = $callSync(8717, $W()..dto(this));
+    final $r = $callSync(8726, $W()..dto(this));
     return $r.str();
   }
 
@@ -918,7 +918,7 @@ final class GoupnpDcpsInternetgateway2WanCableLinkConfig1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<String> getTftpServerCtx($context.Context ctx) async {
     final $r = await $call(
-        8718,
+        8727,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -927,7 +927,7 @@ final class GoupnpDcpsInternetgateway2WanCableLinkConfig1 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANCableLinkConfig1).GetUpstreamChannelID() (NewUpstreamChannelID uint32, err error)`.
   int getUpstreamChannelId() {
-    final $r = $callSync(8719, $W()..dto(this));
+    final $r = $callSync(8728, $W()..dto(this));
     return $r.i64();
   }
 
@@ -936,7 +936,7 @@ final class GoupnpDcpsInternetgateway2WanCableLinkConfig1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getUpstreamChannelIdCtx($context.Context ctx) async {
     final $r = await $call(
-        8720,
+        8729,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -945,7 +945,7 @@ final class GoupnpDcpsInternetgateway2WanCableLinkConfig1 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANCableLinkConfig1).GetUpstreamFrequency() (NewUpstreamFrequency uint32, err error)`.
   int getUpstreamFrequency() {
-    final $r = $callSync(8721, $W()..dto(this));
+    final $r = $callSync(8730, $W()..dto(this));
     return $r.i64();
   }
 
@@ -954,7 +954,7 @@ final class GoupnpDcpsInternetgateway2WanCableLinkConfig1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getUpstreamFrequencyCtx($context.Context ctx) async {
     final $r = await $call(
-        8722,
+        8731,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -963,7 +963,7 @@ final class GoupnpDcpsInternetgateway2WanCableLinkConfig1 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANCableLinkConfig1).GetUpstreamModulation() (NewUpstreamModulation string, err error)`.
   String getUpstreamModulation() {
-    final $r = $callSync(8723, $W()..dto(this));
+    final $r = $callSync(8732, $W()..dto(this));
     return $r.str();
   }
 
@@ -972,7 +972,7 @@ final class GoupnpDcpsInternetgateway2WanCableLinkConfig1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<String> getUpstreamModulationCtx($context.Context ctx) async {
     final $r = await $call(
-        8724,
+        8733,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -981,7 +981,7 @@ final class GoupnpDcpsInternetgateway2WanCableLinkConfig1 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANCableLinkConfig1).GetUpstreamPowerLevel() (NewUpstreamPowerLevel uint32, err error)`.
   int getUpstreamPowerLevel() {
-    final $r = $callSync(8725, $W()..dto(this));
+    final $r = $callSync(8734, $W()..dto(this));
     return $r.i64();
   }
 
@@ -990,7 +990,7 @@ final class GoupnpDcpsInternetgateway2WanCableLinkConfig1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getUpstreamPowerLevelCtx($context.Context ctx) async {
     final $r = await $call(
-        8726,
+        8735,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -1019,7 +1019,7 @@ final class GoupnpDcpsInternetgateway2WanCommonInterfaceConfig1
   /// Go: `func (*internetgateway2.WANCommonInterfaceConfig1).GetActiveConnection(NewActiveConnectionIndex uint16) (NewActiveConnDeviceContainer string, NewActiveConnectionServiceID string, err error)`.
   (String, String) getActiveConnection(int newActiveConnectionIndex) {
     final $r = $callSync(
-        8727,
+        8736,
         $W()
           ..dto(this)
           ..i64(newActiveConnectionIndex));
@@ -1032,7 +1032,7 @@ final class GoupnpDcpsInternetgateway2WanCommonInterfaceConfig1
   Future<(String, String)> getActiveConnectionCtx(
       $context.Context ctx, int newActiveConnectionIndex) async {
     final $r = await $call(
-        8728,
+        8737,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -1042,7 +1042,7 @@ final class GoupnpDcpsInternetgateway2WanCommonInterfaceConfig1
 
   /// Go: `func (*internetgateway2.WANCommonInterfaceConfig1).GetCommonLinkProperties() (NewWANAccessType string, NewLayer1UpstreamMaxBitRate uint32, NewLayer1DownstreamMaxBitRate uint32, NewPhysicalLinkStatus string, err error)`.
   (String, int, int, String) getCommonLinkProperties() {
-    final $r = $callSync(8729, $W()..dto(this));
+    final $r = $callSync(8738, $W()..dto(this));
     return ($r.str(), $r.i64(), $r.i64(), $r.str());
   }
 
@@ -1052,7 +1052,7 @@ final class GoupnpDcpsInternetgateway2WanCommonInterfaceConfig1
   Future<(String, int, int, String)> getCommonLinkPropertiesCtx(
       $context.Context ctx) async {
     final $r = await $call(
-        8730,
+        8739,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -1061,7 +1061,7 @@ final class GoupnpDcpsInternetgateway2WanCommonInterfaceConfig1
 
   /// Go: `func (*internetgateway2.WANCommonInterfaceConfig1).GetEnabledForInternet() (NewEnabledForInternet bool, err error)`.
   bool getEnabledForInternet() {
-    final $r = $callSync(8731, $W()..dto(this));
+    final $r = $callSync(8740, $W()..dto(this));
     return $r.b();
   }
 
@@ -1070,7 +1070,7 @@ final class GoupnpDcpsInternetgateway2WanCommonInterfaceConfig1
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> getEnabledForInternetCtx($context.Context ctx) async {
     final $r = await $call(
-        8732,
+        8741,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -1079,7 +1079,7 @@ final class GoupnpDcpsInternetgateway2WanCommonInterfaceConfig1
 
   /// Go: `func (*internetgateway2.WANCommonInterfaceConfig1).GetMaximumActiveConnections() (NewMaximumActiveConnections uint16, err error)`.
   int getMaximumActiveConnections() {
-    final $r = $callSync(8733, $W()..dto(this));
+    final $r = $callSync(8742, $W()..dto(this));
     return $r.i64();
   }
 
@@ -1088,7 +1088,7 @@ final class GoupnpDcpsInternetgateway2WanCommonInterfaceConfig1
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getMaximumActiveConnectionsCtx($context.Context ctx) async {
     final $r = await $call(
-        8734,
+        8743,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -1097,7 +1097,7 @@ final class GoupnpDcpsInternetgateway2WanCommonInterfaceConfig1
 
   /// Go: `func (*internetgateway2.WANCommonInterfaceConfig1).GetTotalBytesReceived() (NewTotalBytesReceived uint64, err error)`.
   int getTotalBytesReceived() {
-    final $r = $callSync(8735, $W()..dto(this));
+    final $r = $callSync(8744, $W()..dto(this));
     return $r.i64();
   }
 
@@ -1106,7 +1106,7 @@ final class GoupnpDcpsInternetgateway2WanCommonInterfaceConfig1
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getTotalBytesReceivedCtx($context.Context ctx) async {
     final $r = await $call(
-        8736,
+        8745,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -1115,7 +1115,7 @@ final class GoupnpDcpsInternetgateway2WanCommonInterfaceConfig1
 
   /// Go: `func (*internetgateway2.WANCommonInterfaceConfig1).GetTotalBytesSent() (NewTotalBytesSent uint64, err error)`.
   int getTotalBytesSent() {
-    final $r = $callSync(8737, $W()..dto(this));
+    final $r = $callSync(8746, $W()..dto(this));
     return $r.i64();
   }
 
@@ -1124,7 +1124,7 @@ final class GoupnpDcpsInternetgateway2WanCommonInterfaceConfig1
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getTotalBytesSentCtx($context.Context ctx) async {
     final $r = await $call(
-        8738,
+        8747,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -1133,7 +1133,7 @@ final class GoupnpDcpsInternetgateway2WanCommonInterfaceConfig1
 
   /// Go: `func (*internetgateway2.WANCommonInterfaceConfig1).GetTotalPacketsReceived() (NewTotalPacketsReceived uint32, err error)`.
   int getTotalPacketsReceived() {
-    final $r = $callSync(8739, $W()..dto(this));
+    final $r = $callSync(8748, $W()..dto(this));
     return $r.i64();
   }
 
@@ -1142,7 +1142,7 @@ final class GoupnpDcpsInternetgateway2WanCommonInterfaceConfig1
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getTotalPacketsReceivedCtx($context.Context ctx) async {
     final $r = await $call(
-        8740,
+        8749,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -1151,7 +1151,7 @@ final class GoupnpDcpsInternetgateway2WanCommonInterfaceConfig1
 
   /// Go: `func (*internetgateway2.WANCommonInterfaceConfig1).GetTotalPacketsSent() (NewTotalPacketsSent uint32, err error)`.
   int getTotalPacketsSent() {
-    final $r = $callSync(8741, $W()..dto(this));
+    final $r = $callSync(8750, $W()..dto(this));
     return $r.i64();
   }
 
@@ -1160,7 +1160,7 @@ final class GoupnpDcpsInternetgateway2WanCommonInterfaceConfig1
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getTotalPacketsSentCtx($context.Context ctx) async {
     final $r = await $call(
-        8742,
+        8751,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -1169,7 +1169,7 @@ final class GoupnpDcpsInternetgateway2WanCommonInterfaceConfig1
 
   /// Go: `func (*internetgateway2.WANCommonInterfaceConfig1).GetWANAccessProvider() (NewWANAccessProvider string, err error)`.
   String getWanAccessProvider() {
-    final $r = $callSync(8743, $W()..dto(this));
+    final $r = $callSync(8752, $W()..dto(this));
     return $r.str();
   }
 
@@ -1178,7 +1178,7 @@ final class GoupnpDcpsInternetgateway2WanCommonInterfaceConfig1
   /// Asynchronous: runs in a goroutine of the service.
   Future<String> getWanAccessProviderCtx($context.Context ctx) async {
     final $r = await $call(
-        8744,
+        8753,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -1188,7 +1188,7 @@ final class GoupnpDcpsInternetgateway2WanCommonInterfaceConfig1
   /// Go: `func (*internetgateway2.WANCommonInterfaceConfig1).SetEnabledForInternet(NewEnabledForInternet bool) (err error)`.
   void setEnabledForInternet(bool newEnabledForInternet) {
     $callSync(
-        8745,
+        8754,
         $W()
           ..dto(this)
           ..b(newEnabledForInternet));
@@ -1200,7 +1200,7 @@ final class GoupnpDcpsInternetgateway2WanCommonInterfaceConfig1
   Future<void> setEnabledForInternetCtx(
       $context.Context ctx, bool newEnabledForInternet) async {
     await $call(
-        8746,
+        8755,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -1227,7 +1227,7 @@ final class GoupnpDcpsInternetgateway2WandslLinkConfig1 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANDSLLinkConfig1).GetATMEncapsulation() (NewATMEncapsulation string, err error)`.
   String getAtmEncapsulation() {
-    final $r = $callSync(8747, $W()..dto(this));
+    final $r = $callSync(8756, $W()..dto(this));
     return $r.str();
   }
 
@@ -1236,7 +1236,7 @@ final class GoupnpDcpsInternetgateway2WandslLinkConfig1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<String> getAtmEncapsulationCtx($context.Context ctx) async {
     final $r = await $call(
-        8748,
+        8757,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -1245,7 +1245,7 @@ final class GoupnpDcpsInternetgateway2WandslLinkConfig1 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANDSLLinkConfig1).GetAutoConfig() (NewAutoConfig bool, err error)`.
   bool getAutoConfig() {
-    final $r = $callSync(8749, $W()..dto(this));
+    final $r = $callSync(8758, $W()..dto(this));
     return $r.b();
   }
 
@@ -1254,7 +1254,7 @@ final class GoupnpDcpsInternetgateway2WandslLinkConfig1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> getAutoConfigCtx($context.Context ctx) async {
     final $r = await $call(
-        8750,
+        8759,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -1263,7 +1263,7 @@ final class GoupnpDcpsInternetgateway2WandslLinkConfig1 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANDSLLinkConfig1).GetDSLLinkInfo() (NewLinkType string, NewLinkStatus string, err error)`.
   (String, String) getDslLinkInfo() {
-    final $r = $callSync(8751, $W()..dto(this));
+    final $r = $callSync(8760, $W()..dto(this));
     return ($r.str(), $r.str());
   }
 
@@ -1272,7 +1272,7 @@ final class GoupnpDcpsInternetgateway2WandslLinkConfig1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<(String, String)> getDslLinkInfoCtx($context.Context ctx) async {
     final $r = await $call(
-        8752,
+        8761,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -1281,7 +1281,7 @@ final class GoupnpDcpsInternetgateway2WandslLinkConfig1 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANDSLLinkConfig1).GetDestinationAddress() (NewDestinationAddress string, err error)`.
   String getDestinationAddress() {
-    final $r = $callSync(8753, $W()..dto(this));
+    final $r = $callSync(8762, $W()..dto(this));
     return $r.str();
   }
 
@@ -1290,7 +1290,7 @@ final class GoupnpDcpsInternetgateway2WandslLinkConfig1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<String> getDestinationAddressCtx($context.Context ctx) async {
     final $r = await $call(
-        8754,
+        8763,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -1299,7 +1299,7 @@ final class GoupnpDcpsInternetgateway2WandslLinkConfig1 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANDSLLinkConfig1).GetFCSPreserved() (NewFCSPreserved bool, err error)`.
   bool getFcsPreserved() {
-    final $r = $callSync(8755, $W()..dto(this));
+    final $r = $callSync(8764, $W()..dto(this));
     return $r.b();
   }
 
@@ -1308,7 +1308,7 @@ final class GoupnpDcpsInternetgateway2WandslLinkConfig1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> getFcsPreservedCtx($context.Context ctx) async {
     final $r = await $call(
-        8756,
+        8765,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -1317,7 +1317,7 @@ final class GoupnpDcpsInternetgateway2WandslLinkConfig1 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANDSLLinkConfig1).GetModulationType() (NewModulationType string, err error)`.
   String getModulationType() {
-    final $r = $callSync(8757, $W()..dto(this));
+    final $r = $callSync(8766, $W()..dto(this));
     return $r.str();
   }
 
@@ -1326,7 +1326,7 @@ final class GoupnpDcpsInternetgateway2WandslLinkConfig1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<String> getModulationTypeCtx($context.Context ctx) async {
     final $r = await $call(
-        8758,
+        8767,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -1336,7 +1336,7 @@ final class GoupnpDcpsInternetgateway2WandslLinkConfig1 implements GoDto {
   /// Go: `func (*internetgateway2.WANDSLLinkConfig1).SetATMEncapsulation(NewATMEncapsulation string) (err error)`.
   void setAtmEncapsulation(String newAtmEncapsulation) {
     $callSync(
-        8759,
+        8768,
         $W()
           ..dto(this)
           ..str(newAtmEncapsulation));
@@ -1348,7 +1348,7 @@ final class GoupnpDcpsInternetgateway2WandslLinkConfig1 implements GoDto {
   Future<void> setAtmEncapsulationCtx(
       $context.Context ctx, String newAtmEncapsulation) async {
     await $call(
-        8760,
+        8769,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -1358,7 +1358,7 @@ final class GoupnpDcpsInternetgateway2WandslLinkConfig1 implements GoDto {
   /// Go: `func (*internetgateway2.WANDSLLinkConfig1).SetDSLLinkType(NewLinkType string) (err error)`.
   void setDslLinkType(String newLinkType) {
     $callSync(
-        8761,
+        8770,
         $W()
           ..dto(this)
           ..str(newLinkType));
@@ -1370,7 +1370,7 @@ final class GoupnpDcpsInternetgateway2WandslLinkConfig1 implements GoDto {
   Future<void> setDslLinkTypeCtx(
       $context.Context ctx, String newLinkType) async {
     await $call(
-        8762,
+        8771,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -1380,7 +1380,7 @@ final class GoupnpDcpsInternetgateway2WandslLinkConfig1 implements GoDto {
   /// Go: `func (*internetgateway2.WANDSLLinkConfig1).SetDestinationAddress(NewDestinationAddress string) (err error)`.
   void setDestinationAddress(String newDestinationAddress) {
     $callSync(
-        8763,
+        8772,
         $W()
           ..dto(this)
           ..str(newDestinationAddress));
@@ -1392,7 +1392,7 @@ final class GoupnpDcpsInternetgateway2WandslLinkConfig1 implements GoDto {
   Future<void> setDestinationAddressCtx(
       $context.Context ctx, String newDestinationAddress) async {
     await $call(
-        8764,
+        8773,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -1402,7 +1402,7 @@ final class GoupnpDcpsInternetgateway2WandslLinkConfig1 implements GoDto {
   /// Go: `func (*internetgateway2.WANDSLLinkConfig1).SetFCSPreserved(NewFCSPreserved bool) (err error)`.
   void setFcsPreserved(bool newFcsPreserved) {
     $callSync(
-        8765,
+        8774,
         $W()
           ..dto(this)
           ..b(newFcsPreserved));
@@ -1414,7 +1414,7 @@ final class GoupnpDcpsInternetgateway2WandslLinkConfig1 implements GoDto {
   Future<void> setFcsPreservedCtx(
       $context.Context ctx, bool newFcsPreserved) async {
     await $call(
-        8766,
+        8775,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -1441,7 +1441,7 @@ final class GoupnpDcpsInternetgateway2WanEthernetLinkConfig1 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANEthernetLinkConfig1).GetEthernetLinkStatus() (NewEthernetLinkStatus string, err error)`.
   String getEthernetLinkStatus() {
-    final $r = $callSync(8767, $W()..dto(this));
+    final $r = $callSync(8776, $W()..dto(this));
     return $r.str();
   }
 
@@ -1450,7 +1450,7 @@ final class GoupnpDcpsInternetgateway2WanEthernetLinkConfig1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<String> getEthernetLinkStatusCtx($context.Context ctx) async {
     final $r = await $call(
-        8768,
+        8777,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -1486,7 +1486,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection1 implements GoDto {
       String newPortMappingDescription,
       int newLeaseDuration) {
     $callSync(
-        8769,
+        8778,
         $W()
           ..dto(this)
           ..str(newRemoteHost)
@@ -1513,7 +1513,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection1 implements GoDto {
       String newPortMappingDescription,
       int newLeaseDuration) async {
     await $call(
-        8770,
+        8779,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -1531,7 +1531,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection1 implements GoDto {
   void deletePortMapping(
       String newRemoteHost, int newExternalPort, String newProtocol) {
     $callSync(
-        8771,
+        8780,
         $W()
           ..dto(this)
           ..str(newRemoteHost)
@@ -1545,7 +1545,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection1 implements GoDto {
   Future<void> deletePortMappingCtx($context.Context ctx, String newRemoteHost,
       int newExternalPort, String newProtocol) async {
     await $call(
-        8772,
+        8781,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -1556,7 +1556,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection1 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANIPConnection1).ForceTermination() (err error)`.
   void forceTermination() {
-    $callSync(8773, $W()..dto(this));
+    $callSync(8782, $W()..dto(this));
   }
 
   /// Go: `func (*internetgateway2.WANIPConnection1).ForceTerminationCtx(ctx context.Context) (err error)`.
@@ -1564,7 +1564,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> forceTerminationCtx($context.Context ctx) async {
     await $call(
-        8774,
+        8783,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -1572,7 +1572,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection1 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANIPConnection1).GetAutoDisconnectTime() (NewAutoDisconnectTime uint32, err error)`.
   int getAutoDisconnectTime() {
-    final $r = $callSync(8775, $W()..dto(this));
+    final $r = $callSync(8784, $W()..dto(this));
     return $r.i64();
   }
 
@@ -1581,7 +1581,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getAutoDisconnectTimeCtx($context.Context ctx) async {
     final $r = await $call(
-        8776,
+        8785,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -1590,7 +1590,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection1 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANIPConnection1).GetConnectionTypeInfo() (NewConnectionType string, NewPossibleConnectionTypes string, err error)`.
   (String, String) getConnectionTypeInfo() {
-    final $r = $callSync(8777, $W()..dto(this));
+    final $r = $callSync(8786, $W()..dto(this));
     return ($r.str(), $r.str());
   }
 
@@ -1600,7 +1600,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection1 implements GoDto {
   Future<(String, String)> getConnectionTypeInfoCtx(
       $context.Context ctx) async {
     final $r = await $call(
-        8778,
+        8787,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -1609,7 +1609,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection1 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANIPConnection1).GetExternalIPAddress() (NewExternalIPAddress string, err error)`.
   String getExternalIpAddress() {
-    final $r = $callSync(8779, $W()..dto(this));
+    final $r = $callSync(8788, $W()..dto(this));
     return $r.str();
   }
 
@@ -1618,7 +1618,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<String> getExternalIpAddressCtx($context.Context ctx) async {
     final $r = await $call(
-        8780,
+        8789,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -1629,7 +1629,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection1 implements GoDto {
   (String, int, String, int, String, bool, String, int)
       getGenericPortMappingEntry(int newPortMappingIndex) {
     final $r = $callSync(
-        8781,
+        8790,
         $W()
           ..dto(this)
           ..i64(newPortMappingIndex));
@@ -1652,7 +1652,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection1 implements GoDto {
       getGenericPortMappingEntryCtx(
           $context.Context ctx, int newPortMappingIndex) async {
     final $r = await $call(
-        8782,
+        8791,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -1671,7 +1671,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection1 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANIPConnection1).GetIdleDisconnectTime() (NewIdleDisconnectTime uint32, err error)`.
   int getIdleDisconnectTime() {
-    final $r = $callSync(8783, $W()..dto(this));
+    final $r = $callSync(8792, $W()..dto(this));
     return $r.i64();
   }
 
@@ -1680,7 +1680,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getIdleDisconnectTimeCtx($context.Context ctx) async {
     final $r = await $call(
-        8784,
+        8793,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -1689,7 +1689,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection1 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANIPConnection1).GetNATRSIPStatus() (NewRSIPAvailable bool, NewNATEnabled bool, err error)`.
   (bool, bool) getNatrsipStatus() {
-    final $r = $callSync(8785, $W()..dto(this));
+    final $r = $callSync(8794, $W()..dto(this));
     return ($r.b(), $r.b());
   }
 
@@ -1698,7 +1698,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<(bool, bool)> getNatrsipStatusCtx($context.Context ctx) async {
     final $r = await $call(
-        8786,
+        8795,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -1709,7 +1709,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection1 implements GoDto {
   (int, String, bool, String, int) getSpecificPortMappingEntry(
       String newRemoteHost, int newExternalPort, String newProtocol) {
     final $r = $callSync(
-        8787,
+        8796,
         $W()
           ..dto(this)
           ..str(newRemoteHost)
@@ -1727,7 +1727,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection1 implements GoDto {
       int newExternalPort,
       String newProtocol) async {
     final $r = await $call(
-        8788,
+        8797,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -1739,7 +1739,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection1 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANIPConnection1).GetStatusInfo() (NewConnectionStatus string, NewLastConnectionError string, NewUptime uint32, err error)`.
   (String, String, int) getStatusInfo() {
-    final $r = $callSync(8789, $W()..dto(this));
+    final $r = $callSync(8798, $W()..dto(this));
     return ($r.str(), $r.str(), $r.i64());
   }
 
@@ -1748,7 +1748,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<(String, String, int)> getStatusInfoCtx($context.Context ctx) async {
     final $r = await $call(
-        8790,
+        8799,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -1757,7 +1757,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection1 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANIPConnection1).GetWarnDisconnectDelay() (NewWarnDisconnectDelay uint32, err error)`.
   int getWarnDisconnectDelay() {
-    final $r = $callSync(8791, $W()..dto(this));
+    final $r = $callSync(8800, $W()..dto(this));
     return $r.i64();
   }
 
@@ -1766,7 +1766,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getWarnDisconnectDelayCtx($context.Context ctx) async {
     final $r = await $call(
-        8792,
+        8801,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -1775,7 +1775,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection1 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANIPConnection1).RequestConnection() (err error)`.
   void requestConnection() {
-    $callSync(8793, $W()..dto(this));
+    $callSync(8802, $W()..dto(this));
   }
 
   /// Go: `func (*internetgateway2.WANIPConnection1).RequestConnectionCtx(ctx context.Context) (err error)`.
@@ -1783,7 +1783,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> requestConnectionCtx($context.Context ctx) async {
     await $call(
-        8794,
+        8803,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -1791,7 +1791,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection1 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANIPConnection1).RequestTermination() (err error)`.
   void requestTermination() {
-    $callSync(8795, $W()..dto(this));
+    $callSync(8804, $W()..dto(this));
   }
 
   /// Go: `func (*internetgateway2.WANIPConnection1).RequestTerminationCtx(ctx context.Context) (err error)`.
@@ -1799,7 +1799,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> requestTerminationCtx($context.Context ctx) async {
     await $call(
-        8796,
+        8805,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -1808,7 +1808,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection1 implements GoDto {
   /// Go: `func (*internetgateway2.WANIPConnection1).SetAutoDisconnectTime(NewAutoDisconnectTime uint32) (err error)`.
   void setAutoDisconnectTime(int newAutoDisconnectTime) {
     $callSync(
-        8797,
+        8806,
         $W()
           ..dto(this)
           ..i64(newAutoDisconnectTime));
@@ -1820,7 +1820,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection1 implements GoDto {
   Future<void> setAutoDisconnectTimeCtx(
       $context.Context ctx, int newAutoDisconnectTime) async {
     await $call(
-        8798,
+        8807,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -1830,7 +1830,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection1 implements GoDto {
   /// Go: `func (*internetgateway2.WANIPConnection1).SetConnectionType(NewConnectionType string) (err error)`.
   void setConnectionType(String newConnectionType) {
     $callSync(
-        8799,
+        8808,
         $W()
           ..dto(this)
           ..str(newConnectionType));
@@ -1842,7 +1842,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection1 implements GoDto {
   Future<void> setConnectionTypeCtx(
       $context.Context ctx, String newConnectionType) async {
     await $call(
-        8800,
+        8809,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -1852,7 +1852,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection1 implements GoDto {
   /// Go: `func (*internetgateway2.WANIPConnection1).SetIdleDisconnectTime(NewIdleDisconnectTime uint32) (err error)`.
   void setIdleDisconnectTime(int newIdleDisconnectTime) {
     $callSync(
-        8801,
+        8810,
         $W()
           ..dto(this)
           ..i64(newIdleDisconnectTime));
@@ -1864,7 +1864,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection1 implements GoDto {
   Future<void> setIdleDisconnectTimeCtx(
       $context.Context ctx, int newIdleDisconnectTime) async {
     await $call(
-        8802,
+        8811,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -1874,7 +1874,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection1 implements GoDto {
   /// Go: `func (*internetgateway2.WANIPConnection1).SetWarnDisconnectDelay(NewWarnDisconnectDelay uint32) (err error)`.
   void setWarnDisconnectDelay(int newWarnDisconnectDelay) {
     $callSync(
-        8803,
+        8812,
         $W()
           ..dto(this)
           ..i64(newWarnDisconnectDelay));
@@ -1886,7 +1886,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection1 implements GoDto {
   Future<void> setWarnDisconnectDelayCtx(
       $context.Context ctx, int newWarnDisconnectDelay) async {
     await $call(
-        8804,
+        8813,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -1922,7 +1922,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection2 implements GoDto {
       String newPortMappingDescription,
       int newLeaseDuration) {
     final $r = $callSync(
-        8805,
+        8814,
         $W()
           ..dto(this)
           ..str(newRemoteHost)
@@ -1950,7 +1950,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection2 implements GoDto {
       String newPortMappingDescription,
       int newLeaseDuration) async {
     final $r = await $call(
-        8806,
+        8815,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -1976,7 +1976,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection2 implements GoDto {
       String newPortMappingDescription,
       int newLeaseDuration) {
     $callSync(
-        8807,
+        8816,
         $W()
           ..dto(this)
           ..str(newRemoteHost)
@@ -2003,7 +2003,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection2 implements GoDto {
       String newPortMappingDescription,
       int newLeaseDuration) async {
     await $call(
-        8808,
+        8817,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -2021,7 +2021,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection2 implements GoDto {
   void deletePortMapping(
       String newRemoteHost, int newExternalPort, String newProtocol) {
     $callSync(
-        8809,
+        8818,
         $W()
           ..dto(this)
           ..str(newRemoteHost)
@@ -2035,7 +2035,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection2 implements GoDto {
   Future<void> deletePortMappingCtx($context.Context ctx, String newRemoteHost,
       int newExternalPort, String newProtocol) async {
     await $call(
-        8810,
+        8819,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -2048,7 +2048,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection2 implements GoDto {
   void deletePortMappingRange(
       int newStartPort, int newEndPort, String newProtocol, bool newManage) {
     $callSync(
-        8811,
+        8820,
         $W()
           ..dto(this)
           ..i64(newStartPort)
@@ -2063,7 +2063,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection2 implements GoDto {
   Future<void> deletePortMappingRangeCtx($context.Context ctx, int newStartPort,
       int newEndPort, String newProtocol, bool newManage) async {
     await $call(
-        8812,
+        8821,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -2075,7 +2075,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection2 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANIPConnection2).ForceTermination() (err error)`.
   void forceTermination() {
-    $callSync(8813, $W()..dto(this));
+    $callSync(8822, $W()..dto(this));
   }
 
   /// Go: `func (*internetgateway2.WANIPConnection2).ForceTerminationCtx(ctx context.Context) (err error)`.
@@ -2083,7 +2083,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection2 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> forceTerminationCtx($context.Context ctx) async {
     await $call(
-        8814,
+        8823,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -2091,7 +2091,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection2 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANIPConnection2).GetAutoDisconnectTime() (NewAutoDisconnectTime uint32, err error)`.
   int getAutoDisconnectTime() {
-    final $r = $callSync(8815, $W()..dto(this));
+    final $r = $callSync(8824, $W()..dto(this));
     return $r.i64();
   }
 
@@ -2100,7 +2100,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection2 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getAutoDisconnectTimeCtx($context.Context ctx) async {
     final $r = await $call(
-        8816,
+        8825,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -2109,7 +2109,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection2 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANIPConnection2).GetConnectionTypeInfo() (NewConnectionType string, NewPossibleConnectionTypes string, err error)`.
   (String, String) getConnectionTypeInfo() {
-    final $r = $callSync(8817, $W()..dto(this));
+    final $r = $callSync(8826, $W()..dto(this));
     return ($r.str(), $r.str());
   }
 
@@ -2119,7 +2119,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection2 implements GoDto {
   Future<(String, String)> getConnectionTypeInfoCtx(
       $context.Context ctx) async {
     final $r = await $call(
-        8818,
+        8827,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -2128,7 +2128,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection2 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANIPConnection2).GetExternalIPAddress() (NewExternalIPAddress string, err error)`.
   String getExternalIpAddress() {
-    final $r = $callSync(8819, $W()..dto(this));
+    final $r = $callSync(8828, $W()..dto(this));
     return $r.str();
   }
 
@@ -2137,7 +2137,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection2 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<String> getExternalIpAddressCtx($context.Context ctx) async {
     final $r = await $call(
-        8820,
+        8829,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -2148,7 +2148,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection2 implements GoDto {
   (String, int, String, int, String, bool, String, int)
       getGenericPortMappingEntry(int newPortMappingIndex) {
     final $r = $callSync(
-        8821,
+        8830,
         $W()
           ..dto(this)
           ..i64(newPortMappingIndex));
@@ -2171,7 +2171,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection2 implements GoDto {
       getGenericPortMappingEntryCtx(
           $context.Context ctx, int newPortMappingIndex) async {
     final $r = await $call(
-        8822,
+        8831,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -2190,7 +2190,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection2 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANIPConnection2).GetIdleDisconnectTime() (NewIdleDisconnectTime uint32, err error)`.
   int getIdleDisconnectTime() {
-    final $r = $callSync(8823, $W()..dto(this));
+    final $r = $callSync(8832, $W()..dto(this));
     return $r.i64();
   }
 
@@ -2199,7 +2199,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection2 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getIdleDisconnectTimeCtx($context.Context ctx) async {
     final $r = await $call(
-        8824,
+        8833,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -2210,7 +2210,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection2 implements GoDto {
   String getListOfPortMappings(int newStartPort, int newEndPort,
       String newProtocol, bool newManage, int newNumberOfPorts) {
     final $r = $callSync(
-        8825,
+        8834,
         $W()
           ..dto(this)
           ..i64(newStartPort)
@@ -2232,7 +2232,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection2 implements GoDto {
       bool newManage,
       int newNumberOfPorts) async {
     final $r = await $call(
-        8826,
+        8835,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -2246,7 +2246,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection2 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANIPConnection2).GetNATRSIPStatus() (NewRSIPAvailable bool, NewNATEnabled bool, err error)`.
   (bool, bool) getNatrsipStatus() {
-    final $r = $callSync(8827, $W()..dto(this));
+    final $r = $callSync(8836, $W()..dto(this));
     return ($r.b(), $r.b());
   }
 
@@ -2255,7 +2255,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection2 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<(bool, bool)> getNatrsipStatusCtx($context.Context ctx) async {
     final $r = await $call(
-        8828,
+        8837,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -2266,7 +2266,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection2 implements GoDto {
   (int, String, bool, String, int) getSpecificPortMappingEntry(
       String newRemoteHost, int newExternalPort, String newProtocol) {
     final $r = $callSync(
-        8829,
+        8838,
         $W()
           ..dto(this)
           ..str(newRemoteHost)
@@ -2284,7 +2284,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection2 implements GoDto {
       int newExternalPort,
       String newProtocol) async {
     final $r = await $call(
-        8830,
+        8839,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -2296,7 +2296,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection2 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANIPConnection2).GetStatusInfo() (NewConnectionStatus string, NewLastConnectionError string, NewUptime uint32, err error)`.
   (String, String, int) getStatusInfo() {
-    final $r = $callSync(8831, $W()..dto(this));
+    final $r = $callSync(8840, $W()..dto(this));
     return ($r.str(), $r.str(), $r.i64());
   }
 
@@ -2305,7 +2305,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection2 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<(String, String, int)> getStatusInfoCtx($context.Context ctx) async {
     final $r = await $call(
-        8832,
+        8841,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -2314,7 +2314,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection2 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANIPConnection2).GetWarnDisconnectDelay() (NewWarnDisconnectDelay uint32, err error)`.
   int getWarnDisconnectDelay() {
-    final $r = $callSync(8833, $W()..dto(this));
+    final $r = $callSync(8842, $W()..dto(this));
     return $r.i64();
   }
 
@@ -2323,7 +2323,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection2 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getWarnDisconnectDelayCtx($context.Context ctx) async {
     final $r = await $call(
-        8834,
+        8843,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -2332,7 +2332,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection2 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANIPConnection2).RequestConnection() (err error)`.
   void requestConnection() {
-    $callSync(8835, $W()..dto(this));
+    $callSync(8844, $W()..dto(this));
   }
 
   /// Go: `func (*internetgateway2.WANIPConnection2).RequestConnectionCtx(ctx context.Context) (err error)`.
@@ -2340,7 +2340,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection2 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> requestConnectionCtx($context.Context ctx) async {
     await $call(
-        8836,
+        8845,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -2348,7 +2348,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection2 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANIPConnection2).RequestTermination() (err error)`.
   void requestTermination() {
-    $callSync(8837, $W()..dto(this));
+    $callSync(8846, $W()..dto(this));
   }
 
   /// Go: `func (*internetgateway2.WANIPConnection2).RequestTerminationCtx(ctx context.Context) (err error)`.
@@ -2356,7 +2356,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection2 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> requestTerminationCtx($context.Context ctx) async {
     await $call(
-        8838,
+        8847,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -2365,7 +2365,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection2 implements GoDto {
   /// Go: `func (*internetgateway2.WANIPConnection2).SetAutoDisconnectTime(NewAutoDisconnectTime uint32) (err error)`.
   void setAutoDisconnectTime(int newAutoDisconnectTime) {
     $callSync(
-        8839,
+        8848,
         $W()
           ..dto(this)
           ..i64(newAutoDisconnectTime));
@@ -2377,7 +2377,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection2 implements GoDto {
   Future<void> setAutoDisconnectTimeCtx(
       $context.Context ctx, int newAutoDisconnectTime) async {
     await $call(
-        8840,
+        8849,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -2387,7 +2387,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection2 implements GoDto {
   /// Go: `func (*internetgateway2.WANIPConnection2).SetConnectionType(NewConnectionType string) (err error)`.
   void setConnectionType(String newConnectionType) {
     $callSync(
-        8841,
+        8850,
         $W()
           ..dto(this)
           ..str(newConnectionType));
@@ -2399,7 +2399,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection2 implements GoDto {
   Future<void> setConnectionTypeCtx(
       $context.Context ctx, String newConnectionType) async {
     await $call(
-        8842,
+        8851,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -2409,7 +2409,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection2 implements GoDto {
   /// Go: `func (*internetgateway2.WANIPConnection2).SetIdleDisconnectTime(NewIdleDisconnectTime uint32) (err error)`.
   void setIdleDisconnectTime(int newIdleDisconnectTime) {
     $callSync(
-        8843,
+        8852,
         $W()
           ..dto(this)
           ..i64(newIdleDisconnectTime));
@@ -2421,7 +2421,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection2 implements GoDto {
   Future<void> setIdleDisconnectTimeCtx(
       $context.Context ctx, int newIdleDisconnectTime) async {
     await $call(
-        8844,
+        8853,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -2431,7 +2431,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection2 implements GoDto {
   /// Go: `func (*internetgateway2.WANIPConnection2).SetWarnDisconnectDelay(NewWarnDisconnectDelay uint32) (err error)`.
   void setWarnDisconnectDelay(int newWarnDisconnectDelay) {
     $callSync(
-        8845,
+        8854,
         $W()
           ..dto(this)
           ..i64(newWarnDisconnectDelay));
@@ -2443,7 +2443,7 @@ final class GoupnpDcpsInternetgateway2WanipConnection2 implements GoDto {
   Future<void> setWarnDisconnectDelayCtx(
       $context.Context ctx, int newWarnDisconnectDelay) async {
     await $call(
-        8846,
+        8855,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -2472,7 +2472,7 @@ final class GoupnpDcpsInternetgateway2WaniPv6FirewallControl1 implements GoDto {
   int addPinhole(String remoteHost, int remotePort, String internalClient,
       int internalPort, int protocol, int leaseTime) {
     final $r = $callSync(
-        8847,
+        8856,
         $W()
           ..dto(this)
           ..str(remoteHost)
@@ -2496,7 +2496,7 @@ final class GoupnpDcpsInternetgateway2WaniPv6FirewallControl1 implements GoDto {
       int protocol,
       int leaseTime) async {
     final $r = await $call(
-        8848,
+        8857,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -2512,7 +2512,7 @@ final class GoupnpDcpsInternetgateway2WaniPv6FirewallControl1 implements GoDto {
   /// Go: `func (*internetgateway2.WANIPv6FirewallControl1).CheckPinholeWorking(UniqueID uint16) (IsWorking bool, err error)`.
   bool checkPinholeWorking(int uniqueId) {
     final $r = $callSync(
-        8849,
+        8858,
         $W()
           ..dto(this)
           ..i64(uniqueId));
@@ -2525,7 +2525,7 @@ final class GoupnpDcpsInternetgateway2WaniPv6FirewallControl1 implements GoDto {
   Future<bool> checkPinholeWorkingCtx(
       $context.Context ctx, int uniqueId) async {
     final $r = await $call(
-        8850,
+        8859,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -2536,7 +2536,7 @@ final class GoupnpDcpsInternetgateway2WaniPv6FirewallControl1 implements GoDto {
   /// Go: `func (*internetgateway2.WANIPv6FirewallControl1).DeletePinhole(UniqueID uint16) (err error)`.
   void deletePinhole(int uniqueId) {
     $callSync(
-        8851,
+        8860,
         $W()
           ..dto(this)
           ..i64(uniqueId));
@@ -2547,7 +2547,7 @@ final class GoupnpDcpsInternetgateway2WaniPv6FirewallControl1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> deletePinholeCtx($context.Context ctx, int uniqueId) async {
     await $call(
-        8852,
+        8861,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -2556,7 +2556,7 @@ final class GoupnpDcpsInternetgateway2WaniPv6FirewallControl1 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANIPv6FirewallControl1).GetFirewallStatus() (FirewallEnabled bool, InboundPinholeAllowed bool, err error)`.
   (bool, bool) getFirewallStatus() {
-    final $r = $callSync(8853, $W()..dto(this));
+    final $r = $callSync(8862, $W()..dto(this));
     return ($r.b(), $r.b());
   }
 
@@ -2565,7 +2565,7 @@ final class GoupnpDcpsInternetgateway2WaniPv6FirewallControl1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<(bool, bool)> getFirewallStatusCtx($context.Context ctx) async {
     final $r = await $call(
-        8854,
+        8863,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -2576,7 +2576,7 @@ final class GoupnpDcpsInternetgateway2WaniPv6FirewallControl1 implements GoDto {
   int getOutboundPinholeTimeout(String remoteHost, int remotePort,
       String internalClient, int internalPort, int protocol) {
     final $r = $callSync(
-        8855,
+        8864,
         $W()
           ..dto(this)
           ..str(remoteHost)
@@ -2598,7 +2598,7 @@ final class GoupnpDcpsInternetgateway2WaniPv6FirewallControl1 implements GoDto {
       int internalPort,
       int protocol) async {
     final $r = await $call(
-        8856,
+        8865,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -2613,7 +2613,7 @@ final class GoupnpDcpsInternetgateway2WaniPv6FirewallControl1 implements GoDto {
   /// Go: `func (*internetgateway2.WANIPv6FirewallControl1).GetPinholePackets(UniqueID uint16) (PinholePackets uint32, err error)`.
   int getPinholePackets(int uniqueId) {
     final $r = $callSync(
-        8857,
+        8866,
         $W()
           ..dto(this)
           ..i64(uniqueId));
@@ -2625,7 +2625,7 @@ final class GoupnpDcpsInternetgateway2WaniPv6FirewallControl1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getPinholePacketsCtx($context.Context ctx, int uniqueId) async {
     final $r = await $call(
-        8858,
+        8867,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -2636,7 +2636,7 @@ final class GoupnpDcpsInternetgateway2WaniPv6FirewallControl1 implements GoDto {
   /// Go: `func (*internetgateway2.WANIPv6FirewallControl1).UpdatePinhole(UniqueID uint16, NewLeaseTime uint32) (err error)`.
   void updatePinhole(int uniqueId, int newLeaseTime) {
     $callSync(
-        8859,
+        8868,
         $W()
           ..dto(this)
           ..i64(uniqueId)
@@ -2649,7 +2649,7 @@ final class GoupnpDcpsInternetgateway2WaniPv6FirewallControl1 implements GoDto {
   Future<void> updatePinholeCtx(
       $context.Context ctx, int uniqueId, int newLeaseTime) async {
     await $call(
-        8860,
+        8869,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -2677,7 +2677,7 @@ final class GoupnpDcpsInternetgateway2WanpotsLinkConfig1 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANPOTSLinkConfig1).GetCallRetryInfo() (NewNumberOfRetries uint32, NewDelayBetweenRetries uint32, err error)`.
   (int, int) getCallRetryInfo() {
-    final $r = $callSync(8861, $W()..dto(this));
+    final $r = $callSync(8870, $W()..dto(this));
     return ($r.i64(), $r.i64());
   }
 
@@ -2686,7 +2686,7 @@ final class GoupnpDcpsInternetgateway2WanpotsLinkConfig1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<(int, int)> getCallRetryInfoCtx($context.Context ctx) async {
     final $r = await $call(
-        8862,
+        8871,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -2695,7 +2695,7 @@ final class GoupnpDcpsInternetgateway2WanpotsLinkConfig1 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANPOTSLinkConfig1).GetDataCompression() (NewDataCompression string, err error)`.
   String getDataCompression() {
-    final $r = $callSync(8863, $W()..dto(this));
+    final $r = $callSync(8872, $W()..dto(this));
     return $r.str();
   }
 
@@ -2704,7 +2704,7 @@ final class GoupnpDcpsInternetgateway2WanpotsLinkConfig1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<String> getDataCompressionCtx($context.Context ctx) async {
     final $r = await $call(
-        8864,
+        8873,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -2713,7 +2713,7 @@ final class GoupnpDcpsInternetgateway2WanpotsLinkConfig1 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANPOTSLinkConfig1).GetDataModulationSupported() (NewDataModulationSupported string, err error)`.
   String getDataModulationSupported() {
-    final $r = $callSync(8865, $W()..dto(this));
+    final $r = $callSync(8874, $W()..dto(this));
     return $r.str();
   }
 
@@ -2722,7 +2722,7 @@ final class GoupnpDcpsInternetgateway2WanpotsLinkConfig1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<String> getDataModulationSupportedCtx($context.Context ctx) async {
     final $r = await $call(
-        8866,
+        8875,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -2731,7 +2731,7 @@ final class GoupnpDcpsInternetgateway2WanpotsLinkConfig1 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANPOTSLinkConfig1).GetDataProtocol() (NewDataProtocol string, err error)`.
   String getDataProtocol() {
-    final $r = $callSync(8867, $W()..dto(this));
+    final $r = $callSync(8876, $W()..dto(this));
     return $r.str();
   }
 
@@ -2740,7 +2740,7 @@ final class GoupnpDcpsInternetgateway2WanpotsLinkConfig1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<String> getDataProtocolCtx($context.Context ctx) async {
     final $r = await $call(
-        8868,
+        8877,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -2749,7 +2749,7 @@ final class GoupnpDcpsInternetgateway2WanpotsLinkConfig1 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANPOTSLinkConfig1).GetFclass() (NewFclass string, err error)`.
   String getFclass() {
-    final $r = $callSync(8869, $W()..dto(this));
+    final $r = $callSync(8878, $W()..dto(this));
     return $r.str();
   }
 
@@ -2758,7 +2758,7 @@ final class GoupnpDcpsInternetgateway2WanpotsLinkConfig1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<String> getFclassCtx($context.Context ctx) async {
     final $r = await $call(
-        8870,
+        8879,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -2767,7 +2767,7 @@ final class GoupnpDcpsInternetgateway2WanpotsLinkConfig1 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANPOTSLinkConfig1).GetISPInfo() (NewISPPhoneNumber string, NewISPInfo string, NewLinkType string, err error)`.
   (String, String, String) getIspInfo() {
-    final $r = $callSync(8871, $W()..dto(this));
+    final $r = $callSync(8880, $W()..dto(this));
     return ($r.str(), $r.str(), $r.str());
   }
 
@@ -2776,7 +2776,7 @@ final class GoupnpDcpsInternetgateway2WanpotsLinkConfig1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<(String, String, String)> getIspInfoCtx($context.Context ctx) async {
     final $r = await $call(
-        8872,
+        8881,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -2785,7 +2785,7 @@ final class GoupnpDcpsInternetgateway2WanpotsLinkConfig1 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANPOTSLinkConfig1).GetPlusVTRCommandSupported() (NewPlusVTRCommandSupported bool, err error)`.
   bool getPlusVtrCommandSupported() {
-    final $r = $callSync(8873, $W()..dto(this));
+    final $r = $callSync(8882, $W()..dto(this));
     return $r.b();
   }
 
@@ -2794,7 +2794,7 @@ final class GoupnpDcpsInternetgateway2WanpotsLinkConfig1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> getPlusVtrCommandSupportedCtx($context.Context ctx) async {
     final $r = await $call(
-        8874,
+        8883,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -2804,7 +2804,7 @@ final class GoupnpDcpsInternetgateway2WanpotsLinkConfig1 implements GoDto {
   /// Go: `func (*internetgateway2.WANPOTSLinkConfig1).SetCallRetryInfo(NewNumberOfRetries uint32, NewDelayBetweenRetries uint32) (err error)`.
   void setCallRetryInfo(int newNumberOfRetries, int newDelayBetweenRetries) {
     $callSync(
-        8875,
+        8884,
         $W()
           ..dto(this)
           ..i64(newNumberOfRetries)
@@ -2817,7 +2817,7 @@ final class GoupnpDcpsInternetgateway2WanpotsLinkConfig1 implements GoDto {
   Future<void> setCallRetryInfoCtx($context.Context ctx, int newNumberOfRetries,
       int newDelayBetweenRetries) async {
     await $call(
-        8876,
+        8885,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -2829,7 +2829,7 @@ final class GoupnpDcpsInternetgateway2WanpotsLinkConfig1 implements GoDto {
   void setIspInfo(
       String newIspPhoneNumber, String newIspInfo, String newLinkType) {
     $callSync(
-        8877,
+        8886,
         $W()
           ..dto(this)
           ..str(newIspPhoneNumber)
@@ -2843,7 +2843,7 @@ final class GoupnpDcpsInternetgateway2WanpotsLinkConfig1 implements GoDto {
   Future<void> setIspInfoCtx($context.Context ctx, String newIspPhoneNumber,
       String newIspInfo, String newLinkType) async {
     await $call(
-        8878,
+        8887,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -2881,7 +2881,7 @@ final class GoupnpDcpsInternetgateway2WanpppConnection1 implements GoDto {
       String newPortMappingDescription,
       int newLeaseDuration) {
     $callSync(
-        8879,
+        8888,
         $W()
           ..dto(this)
           ..str(newRemoteHost)
@@ -2908,7 +2908,7 @@ final class GoupnpDcpsInternetgateway2WanpppConnection1 implements GoDto {
       String newPortMappingDescription,
       int newLeaseDuration) async {
     await $call(
-        8880,
+        8889,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -2925,7 +2925,7 @@ final class GoupnpDcpsInternetgateway2WanpppConnection1 implements GoDto {
   /// Go: `func (*internetgateway2.WANPPPConnection1).ConfigureConnection(NewUserName string, NewPassword string) (err error)`.
   void configureConnection(String newUserName, String newPassword) {
     $callSync(
-        8881,
+        8890,
         $W()
           ..dto(this)
           ..str(newUserName)
@@ -2938,7 +2938,7 @@ final class GoupnpDcpsInternetgateway2WanpppConnection1 implements GoDto {
   Future<void> configureConnectionCtx(
       $context.Context ctx, String newUserName, String newPassword) async {
     await $call(
-        8882,
+        8891,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -2950,7 +2950,7 @@ final class GoupnpDcpsInternetgateway2WanpppConnection1 implements GoDto {
   void deletePortMapping(
       String newRemoteHost, int newExternalPort, String newProtocol) {
     $callSync(
-        8883,
+        8892,
         $W()
           ..dto(this)
           ..str(newRemoteHost)
@@ -2964,7 +2964,7 @@ final class GoupnpDcpsInternetgateway2WanpppConnection1 implements GoDto {
   Future<void> deletePortMappingCtx($context.Context ctx, String newRemoteHost,
       int newExternalPort, String newProtocol) async {
     await $call(
-        8884,
+        8893,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -2975,7 +2975,7 @@ final class GoupnpDcpsInternetgateway2WanpppConnection1 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANPPPConnection1).ForceTermination() (err error)`.
   void forceTermination() {
-    $callSync(8885, $W()..dto(this));
+    $callSync(8894, $W()..dto(this));
   }
 
   /// Go: `func (*internetgateway2.WANPPPConnection1).ForceTerminationCtx(ctx context.Context) (err error)`.
@@ -2983,7 +2983,7 @@ final class GoupnpDcpsInternetgateway2WanpppConnection1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> forceTerminationCtx($context.Context ctx) async {
     await $call(
-        8886,
+        8895,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -2991,7 +2991,7 @@ final class GoupnpDcpsInternetgateway2WanpppConnection1 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANPPPConnection1).GetAutoDisconnectTime() (NewAutoDisconnectTime uint32, err error)`.
   int getAutoDisconnectTime() {
-    final $r = $callSync(8887, $W()..dto(this));
+    final $r = $callSync(8896, $W()..dto(this));
     return $r.i64();
   }
 
@@ -3000,7 +3000,7 @@ final class GoupnpDcpsInternetgateway2WanpppConnection1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getAutoDisconnectTimeCtx($context.Context ctx) async {
     final $r = await $call(
-        8888,
+        8897,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -3009,7 +3009,7 @@ final class GoupnpDcpsInternetgateway2WanpppConnection1 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANPPPConnection1).GetConnectionTypeInfo() (NewConnectionType string, NewPossibleConnectionTypes string, err error)`.
   (String, String) getConnectionTypeInfo() {
-    final $r = $callSync(8889, $W()..dto(this));
+    final $r = $callSync(8898, $W()..dto(this));
     return ($r.str(), $r.str());
   }
 
@@ -3019,7 +3019,7 @@ final class GoupnpDcpsInternetgateway2WanpppConnection1 implements GoDto {
   Future<(String, String)> getConnectionTypeInfoCtx(
       $context.Context ctx) async {
     final $r = await $call(
-        8890,
+        8899,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -3028,7 +3028,7 @@ final class GoupnpDcpsInternetgateway2WanpppConnection1 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANPPPConnection1).GetExternalIPAddress() (NewExternalIPAddress string, err error)`.
   String getExternalIpAddress() {
-    final $r = $callSync(8891, $W()..dto(this));
+    final $r = $callSync(8900, $W()..dto(this));
     return $r.str();
   }
 
@@ -3037,7 +3037,7 @@ final class GoupnpDcpsInternetgateway2WanpppConnection1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<String> getExternalIpAddressCtx($context.Context ctx) async {
     final $r = await $call(
-        8892,
+        8901,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -3048,7 +3048,7 @@ final class GoupnpDcpsInternetgateway2WanpppConnection1 implements GoDto {
   (String, int, String, int, String, bool, String, int)
       getGenericPortMappingEntry(int newPortMappingIndex) {
     final $r = $callSync(
-        8893,
+        8902,
         $W()
           ..dto(this)
           ..i64(newPortMappingIndex));
@@ -3071,7 +3071,7 @@ final class GoupnpDcpsInternetgateway2WanpppConnection1 implements GoDto {
       getGenericPortMappingEntryCtx(
           $context.Context ctx, int newPortMappingIndex) async {
     final $r = await $call(
-        8894,
+        8903,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -3090,7 +3090,7 @@ final class GoupnpDcpsInternetgateway2WanpppConnection1 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANPPPConnection1).GetIdleDisconnectTime() (NewIdleDisconnectTime uint32, err error)`.
   int getIdleDisconnectTime() {
-    final $r = $callSync(8895, $W()..dto(this));
+    final $r = $callSync(8904, $W()..dto(this));
     return $r.i64();
   }
 
@@ -3099,7 +3099,7 @@ final class GoupnpDcpsInternetgateway2WanpppConnection1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getIdleDisconnectTimeCtx($context.Context ctx) async {
     final $r = await $call(
-        8896,
+        8905,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -3108,7 +3108,7 @@ final class GoupnpDcpsInternetgateway2WanpppConnection1 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANPPPConnection1).GetLinkLayerMaxBitRates() (NewUpstreamMaxBitRate uint32, NewDownstreamMaxBitRate uint32, err error)`.
   (int, int) getLinkLayerMaxBitRates() {
-    final $r = $callSync(8897, $W()..dto(this));
+    final $r = $callSync(8906, $W()..dto(this));
     return ($r.i64(), $r.i64());
   }
 
@@ -3117,7 +3117,7 @@ final class GoupnpDcpsInternetgateway2WanpppConnection1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<(int, int)> getLinkLayerMaxBitRatesCtx($context.Context ctx) async {
     final $r = await $call(
-        8898,
+        8907,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -3126,7 +3126,7 @@ final class GoupnpDcpsInternetgateway2WanpppConnection1 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANPPPConnection1).GetNATRSIPStatus() (NewRSIPAvailable bool, NewNATEnabled bool, err error)`.
   (bool, bool) getNatrsipStatus() {
-    final $r = $callSync(8899, $W()..dto(this));
+    final $r = $callSync(8908, $W()..dto(this));
     return ($r.b(), $r.b());
   }
 
@@ -3135,7 +3135,7 @@ final class GoupnpDcpsInternetgateway2WanpppConnection1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<(bool, bool)> getNatrsipStatusCtx($context.Context ctx) async {
     final $r = await $call(
-        8900,
+        8909,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -3144,7 +3144,7 @@ final class GoupnpDcpsInternetgateway2WanpppConnection1 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANPPPConnection1).GetPPPAuthenticationProtocol() (NewPPPAuthenticationProtocol string, err error)`.
   String getPppAuthenticationProtocol() {
-    final $r = $callSync(8901, $W()..dto(this));
+    final $r = $callSync(8910, $W()..dto(this));
     return $r.str();
   }
 
@@ -3153,7 +3153,7 @@ final class GoupnpDcpsInternetgateway2WanpppConnection1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<String> getPppAuthenticationProtocolCtx($context.Context ctx) async {
     final $r = await $call(
-        8902,
+        8911,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -3162,7 +3162,7 @@ final class GoupnpDcpsInternetgateway2WanpppConnection1 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANPPPConnection1).GetPPPCompressionProtocol() (NewPPPCompressionProtocol string, err error)`.
   String getPppCompressionProtocol() {
-    final $r = $callSync(8903, $W()..dto(this));
+    final $r = $callSync(8912, $W()..dto(this));
     return $r.str();
   }
 
@@ -3171,7 +3171,7 @@ final class GoupnpDcpsInternetgateway2WanpppConnection1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<String> getPppCompressionProtocolCtx($context.Context ctx) async {
     final $r = await $call(
-        8904,
+        8913,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -3180,7 +3180,7 @@ final class GoupnpDcpsInternetgateway2WanpppConnection1 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANPPPConnection1).GetPPPEncryptionProtocol() (NewPPPEncryptionProtocol string, err error)`.
   String getPppEncryptionProtocol() {
-    final $r = $callSync(8905, $W()..dto(this));
+    final $r = $callSync(8914, $W()..dto(this));
     return $r.str();
   }
 
@@ -3189,7 +3189,7 @@ final class GoupnpDcpsInternetgateway2WanpppConnection1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<String> getPppEncryptionProtocolCtx($context.Context ctx) async {
     final $r = await $call(
-        8906,
+        8915,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -3198,7 +3198,7 @@ final class GoupnpDcpsInternetgateway2WanpppConnection1 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANPPPConnection1).GetPassword() (NewPassword string, err error)`.
   String getPassword() {
-    final $r = $callSync(8907, $W()..dto(this));
+    final $r = $callSync(8916, $W()..dto(this));
     return $r.str();
   }
 
@@ -3207,7 +3207,7 @@ final class GoupnpDcpsInternetgateway2WanpppConnection1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<String> getPasswordCtx($context.Context ctx) async {
     final $r = await $call(
-        8908,
+        8917,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -3218,7 +3218,7 @@ final class GoupnpDcpsInternetgateway2WanpppConnection1 implements GoDto {
   (int, String, bool, String, int) getSpecificPortMappingEntry(
       String newRemoteHost, int newExternalPort, String newProtocol) {
     final $r = $callSync(
-        8909,
+        8918,
         $W()
           ..dto(this)
           ..str(newRemoteHost)
@@ -3236,7 +3236,7 @@ final class GoupnpDcpsInternetgateway2WanpppConnection1 implements GoDto {
       int newExternalPort,
       String newProtocol) async {
     final $r = await $call(
-        8910,
+        8919,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -3248,7 +3248,7 @@ final class GoupnpDcpsInternetgateway2WanpppConnection1 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANPPPConnection1).GetStatusInfo() (NewConnectionStatus string, NewLastConnectionError string, NewUptime uint32, err error)`.
   (String, String, int) getStatusInfo() {
-    final $r = $callSync(8911, $W()..dto(this));
+    final $r = $callSync(8920, $W()..dto(this));
     return ($r.str(), $r.str(), $r.i64());
   }
 
@@ -3257,7 +3257,7 @@ final class GoupnpDcpsInternetgateway2WanpppConnection1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<(String, String, int)> getStatusInfoCtx($context.Context ctx) async {
     final $r = await $call(
-        8912,
+        8921,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -3266,7 +3266,7 @@ final class GoupnpDcpsInternetgateway2WanpppConnection1 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANPPPConnection1).GetUserName() (NewUserName string, err error)`.
   String getUserName() {
-    final $r = $callSync(8913, $W()..dto(this));
+    final $r = $callSync(8922, $W()..dto(this));
     return $r.str();
   }
 
@@ -3275,7 +3275,7 @@ final class GoupnpDcpsInternetgateway2WanpppConnection1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<String> getUserNameCtx($context.Context ctx) async {
     final $r = await $call(
-        8914,
+        8923,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -3284,7 +3284,7 @@ final class GoupnpDcpsInternetgateway2WanpppConnection1 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANPPPConnection1).GetWarnDisconnectDelay() (NewWarnDisconnectDelay uint32, err error)`.
   int getWarnDisconnectDelay() {
-    final $r = $callSync(8915, $W()..dto(this));
+    final $r = $callSync(8924, $W()..dto(this));
     return $r.i64();
   }
 
@@ -3293,7 +3293,7 @@ final class GoupnpDcpsInternetgateway2WanpppConnection1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getWarnDisconnectDelayCtx($context.Context ctx) async {
     final $r = await $call(
-        8916,
+        8925,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -3302,7 +3302,7 @@ final class GoupnpDcpsInternetgateway2WanpppConnection1 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANPPPConnection1).RequestConnection() (err error)`.
   void requestConnection() {
-    $callSync(8917, $W()..dto(this));
+    $callSync(8926, $W()..dto(this));
   }
 
   /// Go: `func (*internetgateway2.WANPPPConnection1).RequestConnectionCtx(ctx context.Context) (err error)`.
@@ -3310,7 +3310,7 @@ final class GoupnpDcpsInternetgateway2WanpppConnection1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> requestConnectionCtx($context.Context ctx) async {
     await $call(
-        8918,
+        8927,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -3318,7 +3318,7 @@ final class GoupnpDcpsInternetgateway2WanpppConnection1 implements GoDto {
 
   /// Go: `func (*internetgateway2.WANPPPConnection1).RequestTermination() (err error)`.
   void requestTermination() {
-    $callSync(8919, $W()..dto(this));
+    $callSync(8928, $W()..dto(this));
   }
 
   /// Go: `func (*internetgateway2.WANPPPConnection1).RequestTerminationCtx(ctx context.Context) (err error)`.
@@ -3326,7 +3326,7 @@ final class GoupnpDcpsInternetgateway2WanpppConnection1 implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> requestTerminationCtx($context.Context ctx) async {
     await $call(
-        8920,
+        8929,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -3335,7 +3335,7 @@ final class GoupnpDcpsInternetgateway2WanpppConnection1 implements GoDto {
   /// Go: `func (*internetgateway2.WANPPPConnection1).SetAutoDisconnectTime(NewAutoDisconnectTime uint32) (err error)`.
   void setAutoDisconnectTime(int newAutoDisconnectTime) {
     $callSync(
-        8921,
+        8930,
         $W()
           ..dto(this)
           ..i64(newAutoDisconnectTime));
@@ -3347,7 +3347,7 @@ final class GoupnpDcpsInternetgateway2WanpppConnection1 implements GoDto {
   Future<void> setAutoDisconnectTimeCtx(
       $context.Context ctx, int newAutoDisconnectTime) async {
     await $call(
-        8922,
+        8931,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -3357,7 +3357,7 @@ final class GoupnpDcpsInternetgateway2WanpppConnection1 implements GoDto {
   /// Go: `func (*internetgateway2.WANPPPConnection1).SetConnectionType(NewConnectionType string) (err error)`.
   void setConnectionType(String newConnectionType) {
     $callSync(
-        8923,
+        8932,
         $W()
           ..dto(this)
           ..str(newConnectionType));
@@ -3369,7 +3369,7 @@ final class GoupnpDcpsInternetgateway2WanpppConnection1 implements GoDto {
   Future<void> setConnectionTypeCtx(
       $context.Context ctx, String newConnectionType) async {
     await $call(
-        8924,
+        8933,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -3379,7 +3379,7 @@ final class GoupnpDcpsInternetgateway2WanpppConnection1 implements GoDto {
   /// Go: `func (*internetgateway2.WANPPPConnection1).SetIdleDisconnectTime(NewIdleDisconnectTime uint32) (err error)`.
   void setIdleDisconnectTime(int newIdleDisconnectTime) {
     $callSync(
-        8925,
+        8934,
         $W()
           ..dto(this)
           ..i64(newIdleDisconnectTime));
@@ -3391,7 +3391,7 @@ final class GoupnpDcpsInternetgateway2WanpppConnection1 implements GoDto {
   Future<void> setIdleDisconnectTimeCtx(
       $context.Context ctx, int newIdleDisconnectTime) async {
     await $call(
-        8926,
+        8935,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -3401,7 +3401,7 @@ final class GoupnpDcpsInternetgateway2WanpppConnection1 implements GoDto {
   /// Go: `func (*internetgateway2.WANPPPConnection1).SetWarnDisconnectDelay(NewWarnDisconnectDelay uint32) (err error)`.
   void setWarnDisconnectDelay(int newWarnDisconnectDelay) {
     $callSync(
-        8927,
+        8936,
         $W()
           ..dto(this)
           ..i64(newWarnDisconnectDelay));
@@ -3413,7 +3413,7 @@ final class GoupnpDcpsInternetgateway2WanpppConnection1 implements GoDto {
   Future<void> setWarnDisconnectDelayCtx(
       $context.Context ctx, int newWarnDisconnectDelay) async {
     await $call(
-        8928,
+        8937,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -3427,7 +3427,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
   /// Go: `func internetgateway2.NewDeviceProtection1Clients() (clients []*internetgateway2.DeviceProtection1, errors []error, err error)`.
   (List<GoupnpDcpsInternetgateway2DeviceProtection1>, List<String>)
       newDeviceProtection1Clients() {
-    final $r = $callSync(8647);
+    final $r = $callSync(8656);
     return (
       $r.list(() => $r.p()
           ? GoupnpDcpsInternetgateway2DeviceProtection1.$dec($r)
@@ -3439,7 +3439,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
   /// Go: `func internetgateway2.NewDeviceProtection1ClientsByURL(loc *url.URL) ([]*internetgateway2.DeviceProtection1, error)`.
   List<GoupnpDcpsInternetgateway2DeviceProtection1>
       newDeviceProtection1ClientsByUrl($url.NetUrl loc) {
-    final $r = $callSync(8648, $W()..dto(loc));
+    final $r = $callSync(8657, $W()..dto(loc));
     return $r.list(() =>
         $r.p() ? GoupnpDcpsInternetgateway2DeviceProtection1.$dec($r) : $nil());
   }
@@ -3451,7 +3451,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
       newDeviceProtection1ClientsByUrlCtx(
           $context.Context ctx, $url.NetUrl loc) async {
     final $r = await $call(
-        8649,
+        8658,
         $W()
           ..h(ctx)
           ..dto(loc));
@@ -3464,7 +3464,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
   /// Asynchronous: runs in a goroutine of the service.
   Future<(List<GoupnpDcpsInternetgateway2DeviceProtection1>, List<String>)>
       newDeviceProtection1ClientsCtx($context.Context ctx) async {
-    final $r = await $call(8650, $W()..h(ctx));
+    final $r = await $call(8659, $W()..h(ctx));
     return (
       $r.list(() => $r.p()
           ? GoupnpDcpsInternetgateway2DeviceProtection1.$dec($r)
@@ -3478,7 +3478,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
       newDeviceProtection1ClientsFromRootDevice(
           $goupnp.GoupnpRootDevice rootDevice, $url.NetUrl loc) {
     final $r = $callSync(
-        8651,
+        8660,
         $W()
           ..dto(rootDevice)
           ..dto(loc));
@@ -3489,7 +3489,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
   /// Go: `func internetgateway2.NewLANHostConfigManagement1Clients() (clients []*internetgateway2.LANHostConfigManagement1, errors []error, err error)`.
   (List<GoupnpDcpsInternetgateway2LanHostConfigManagement1>, List<String>)
       newLanHostConfigManagement1Clients() {
-    final $r = $callSync(8652);
+    final $r = $callSync(8661);
     return (
       $r.list(() => $r.p()
           ? GoupnpDcpsInternetgateway2LanHostConfigManagement1.$dec($r)
@@ -3501,7 +3501,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
   /// Go: `func internetgateway2.NewLANHostConfigManagement1ClientsByURL(loc *url.URL) ([]*internetgateway2.LANHostConfigManagement1, error)`.
   List<GoupnpDcpsInternetgateway2LanHostConfigManagement1>
       newLanHostConfigManagement1ClientsByUrl($url.NetUrl loc) {
-    final $r = $callSync(8653, $W()..dto(loc));
+    final $r = $callSync(8662, $W()..dto(loc));
     return $r.list(() => $r.p()
         ? GoupnpDcpsInternetgateway2LanHostConfigManagement1.$dec($r)
         : $nil());
@@ -3514,7 +3514,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
       newLanHostConfigManagement1ClientsByUrlCtx(
           $context.Context ctx, $url.NetUrl loc) async {
     final $r = await $call(
-        8654,
+        8663,
         $W()
           ..h(ctx)
           ..dto(loc));
@@ -3531,7 +3531,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
         List<GoupnpDcpsInternetgateway2LanHostConfigManagement1>,
         List<String>
       )> newLanHostConfigManagement1ClientsCtx($context.Context ctx) async {
-    final $r = await $call(8655, $W()..h(ctx));
+    final $r = await $call(8664, $W()..h(ctx));
     return (
       $r.list(() => $r.p()
           ? GoupnpDcpsInternetgateway2LanHostConfigManagement1.$dec($r)
@@ -3545,7 +3545,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
       newLanHostConfigManagement1ClientsFromRootDevice(
           $goupnp.GoupnpRootDevice rootDevice, $url.NetUrl loc) {
     final $r = $callSync(
-        8656,
+        8665,
         $W()
           ..dto(rootDevice)
           ..dto(loc));
@@ -3557,7 +3557,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
   /// Go: `func internetgateway2.NewLayer3Forwarding1Clients() (clients []*internetgateway2.Layer3Forwarding1, errors []error, err error)`.
   (List<GoupnpDcpsInternetgateway2Layer3Forwarding1>, List<String>)
       newLayer3Forwarding1Clients() {
-    final $r = $callSync(8657);
+    final $r = $callSync(8666);
     return (
       $r.list(() => $r.p()
           ? GoupnpDcpsInternetgateway2Layer3Forwarding1.$dec($r)
@@ -3569,7 +3569,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
   /// Go: `func internetgateway2.NewLayer3Forwarding1ClientsByURL(loc *url.URL) ([]*internetgateway2.Layer3Forwarding1, error)`.
   List<GoupnpDcpsInternetgateway2Layer3Forwarding1>
       newLayer3Forwarding1ClientsByUrl($url.NetUrl loc) {
-    final $r = $callSync(8658, $W()..dto(loc));
+    final $r = $callSync(8667, $W()..dto(loc));
     return $r.list(() =>
         $r.p() ? GoupnpDcpsInternetgateway2Layer3Forwarding1.$dec($r) : $nil());
   }
@@ -3581,7 +3581,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
       newLayer3Forwarding1ClientsByUrlCtx(
           $context.Context ctx, $url.NetUrl loc) async {
     final $r = await $call(
-        8659,
+        8668,
         $W()
           ..h(ctx)
           ..dto(loc));
@@ -3594,7 +3594,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
   /// Asynchronous: runs in a goroutine of the service.
   Future<(List<GoupnpDcpsInternetgateway2Layer3Forwarding1>, List<String>)>
       newLayer3Forwarding1ClientsCtx($context.Context ctx) async {
-    final $r = await $call(8660, $W()..h(ctx));
+    final $r = await $call(8669, $W()..h(ctx));
     return (
       $r.list(() => $r.p()
           ? GoupnpDcpsInternetgateway2Layer3Forwarding1.$dec($r)
@@ -3608,7 +3608,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
       newLayer3Forwarding1ClientsFromRootDevice(
           $goupnp.GoupnpRootDevice rootDevice, $url.NetUrl loc) {
     final $r = $callSync(
-        8661,
+        8670,
         $W()
           ..dto(rootDevice)
           ..dto(loc));
@@ -3619,7 +3619,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
   /// Go: `func internetgateway2.NewWANCableLinkConfig1Clients() (clients []*internetgateway2.WANCableLinkConfig1, errors []error, err error)`.
   (List<GoupnpDcpsInternetgateway2WanCableLinkConfig1>, List<String>)
       newWanCableLinkConfig1Clients() {
-    final $r = $callSync(8662);
+    final $r = $callSync(8671);
     return (
       $r.list(() => $r.p()
           ? GoupnpDcpsInternetgateway2WanCableLinkConfig1.$dec($r)
@@ -3631,7 +3631,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
   /// Go: `func internetgateway2.NewWANCableLinkConfig1ClientsByURL(loc *url.URL) ([]*internetgateway2.WANCableLinkConfig1, error)`.
   List<GoupnpDcpsInternetgateway2WanCableLinkConfig1>
       newWanCableLinkConfig1ClientsByUrl($url.NetUrl loc) {
-    final $r = $callSync(8663, $W()..dto(loc));
+    final $r = $callSync(8672, $W()..dto(loc));
     return $r.list(() => $r.p()
         ? GoupnpDcpsInternetgateway2WanCableLinkConfig1.$dec($r)
         : $nil());
@@ -3644,7 +3644,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
       newWanCableLinkConfig1ClientsByUrlCtx(
           $context.Context ctx, $url.NetUrl loc) async {
     final $r = await $call(
-        8664,
+        8673,
         $W()
           ..h(ctx)
           ..dto(loc));
@@ -3658,7 +3658,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
   /// Asynchronous: runs in a goroutine of the service.
   Future<(List<GoupnpDcpsInternetgateway2WanCableLinkConfig1>, List<String>)>
       newWanCableLinkConfig1ClientsCtx($context.Context ctx) async {
-    final $r = await $call(8665, $W()..h(ctx));
+    final $r = await $call(8674, $W()..h(ctx));
     return (
       $r.list(() => $r.p()
           ? GoupnpDcpsInternetgateway2WanCableLinkConfig1.$dec($r)
@@ -3672,7 +3672,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
       newWanCableLinkConfig1ClientsFromRootDevice(
           $goupnp.GoupnpRootDevice rootDevice, $url.NetUrl loc) {
     final $r = $callSync(
-        8666,
+        8675,
         $W()
           ..dto(rootDevice)
           ..dto(loc));
@@ -3684,7 +3684,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
   /// Go: `func internetgateway2.NewWANCommonInterfaceConfig1Clients() (clients []*internetgateway2.WANCommonInterfaceConfig1, errors []error, err error)`.
   (List<GoupnpDcpsInternetgateway2WanCommonInterfaceConfig1>, List<String>)
       newWanCommonInterfaceConfig1Clients() {
-    final $r = $callSync(8667);
+    final $r = $callSync(8676);
     return (
       $r.list(() => $r.p()
           ? GoupnpDcpsInternetgateway2WanCommonInterfaceConfig1.$dec($r)
@@ -3696,7 +3696,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
   /// Go: `func internetgateway2.NewWANCommonInterfaceConfig1ClientsByURL(loc *url.URL) ([]*internetgateway2.WANCommonInterfaceConfig1, error)`.
   List<GoupnpDcpsInternetgateway2WanCommonInterfaceConfig1>
       newWanCommonInterfaceConfig1ClientsByUrl($url.NetUrl loc) {
-    final $r = $callSync(8668, $W()..dto(loc));
+    final $r = $callSync(8677, $W()..dto(loc));
     return $r.list(() => $r.p()
         ? GoupnpDcpsInternetgateway2WanCommonInterfaceConfig1.$dec($r)
         : $nil());
@@ -3709,7 +3709,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
       newWanCommonInterfaceConfig1ClientsByUrlCtx(
           $context.Context ctx, $url.NetUrl loc) async {
     final $r = await $call(
-        8669,
+        8678,
         $W()
           ..h(ctx)
           ..dto(loc));
@@ -3726,7 +3726,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
         List<GoupnpDcpsInternetgateway2WanCommonInterfaceConfig1>,
         List<String>
       )> newWanCommonInterfaceConfig1ClientsCtx($context.Context ctx) async {
-    final $r = await $call(8670, $W()..h(ctx));
+    final $r = await $call(8679, $W()..h(ctx));
     return (
       $r.list(() => $r.p()
           ? GoupnpDcpsInternetgateway2WanCommonInterfaceConfig1.$dec($r)
@@ -3740,7 +3740,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
       newWanCommonInterfaceConfig1ClientsFromRootDevice(
           $goupnp.GoupnpRootDevice rootDevice, $url.NetUrl loc) {
     final $r = $callSync(
-        8671,
+        8680,
         $W()
           ..dto(rootDevice)
           ..dto(loc));
@@ -3752,7 +3752,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
   /// Go: `func internetgateway2.NewWANDSLLinkConfig1Clients() (clients []*internetgateway2.WANDSLLinkConfig1, errors []error, err error)`.
   (List<GoupnpDcpsInternetgateway2WandslLinkConfig1>, List<String>)
       newWandslLinkConfig1Clients() {
-    final $r = $callSync(8672);
+    final $r = $callSync(8681);
     return (
       $r.list(() => $r.p()
           ? GoupnpDcpsInternetgateway2WandslLinkConfig1.$dec($r)
@@ -3764,7 +3764,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
   /// Go: `func internetgateway2.NewWANDSLLinkConfig1ClientsByURL(loc *url.URL) ([]*internetgateway2.WANDSLLinkConfig1, error)`.
   List<GoupnpDcpsInternetgateway2WandslLinkConfig1>
       newWandslLinkConfig1ClientsByUrl($url.NetUrl loc) {
-    final $r = $callSync(8673, $W()..dto(loc));
+    final $r = $callSync(8682, $W()..dto(loc));
     return $r.list(() =>
         $r.p() ? GoupnpDcpsInternetgateway2WandslLinkConfig1.$dec($r) : $nil());
   }
@@ -3776,7 +3776,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
       newWandslLinkConfig1ClientsByUrlCtx(
           $context.Context ctx, $url.NetUrl loc) async {
     final $r = await $call(
-        8674,
+        8683,
         $W()
           ..h(ctx)
           ..dto(loc));
@@ -3789,7 +3789,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
   /// Asynchronous: runs in a goroutine of the service.
   Future<(List<GoupnpDcpsInternetgateway2WandslLinkConfig1>, List<String>)>
       newWandslLinkConfig1ClientsCtx($context.Context ctx) async {
-    final $r = await $call(8675, $W()..h(ctx));
+    final $r = await $call(8684, $W()..h(ctx));
     return (
       $r.list(() => $r.p()
           ? GoupnpDcpsInternetgateway2WandslLinkConfig1.$dec($r)
@@ -3803,7 +3803,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
       newWandslLinkConfig1ClientsFromRootDevice(
           $goupnp.GoupnpRootDevice rootDevice, $url.NetUrl loc) {
     final $r = $callSync(
-        8676,
+        8685,
         $W()
           ..dto(rootDevice)
           ..dto(loc));
@@ -3814,7 +3814,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
   /// Go: `func internetgateway2.NewWANEthernetLinkConfig1Clients() (clients []*internetgateway2.WANEthernetLinkConfig1, errors []error, err error)`.
   (List<GoupnpDcpsInternetgateway2WanEthernetLinkConfig1>, List<String>)
       newWanEthernetLinkConfig1Clients() {
-    final $r = $callSync(8677);
+    final $r = $callSync(8686);
     return (
       $r.list(() => $r.p()
           ? GoupnpDcpsInternetgateway2WanEthernetLinkConfig1.$dec($r)
@@ -3826,7 +3826,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
   /// Go: `func internetgateway2.NewWANEthernetLinkConfig1ClientsByURL(loc *url.URL) ([]*internetgateway2.WANEthernetLinkConfig1, error)`.
   List<GoupnpDcpsInternetgateway2WanEthernetLinkConfig1>
       newWanEthernetLinkConfig1ClientsByUrl($url.NetUrl loc) {
-    final $r = $callSync(8678, $W()..dto(loc));
+    final $r = $callSync(8687, $W()..dto(loc));
     return $r.list(() => $r.p()
         ? GoupnpDcpsInternetgateway2WanEthernetLinkConfig1.$dec($r)
         : $nil());
@@ -3839,7 +3839,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
       newWanEthernetLinkConfig1ClientsByUrlCtx(
           $context.Context ctx, $url.NetUrl loc) async {
     final $r = await $call(
-        8679,
+        8688,
         $W()
           ..h(ctx)
           ..dto(loc));
@@ -3853,7 +3853,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
   /// Asynchronous: runs in a goroutine of the service.
   Future<(List<GoupnpDcpsInternetgateway2WanEthernetLinkConfig1>, List<String>)>
       newWanEthernetLinkConfig1ClientsCtx($context.Context ctx) async {
-    final $r = await $call(8680, $W()..h(ctx));
+    final $r = await $call(8689, $W()..h(ctx));
     return (
       $r.list(() => $r.p()
           ? GoupnpDcpsInternetgateway2WanEthernetLinkConfig1.$dec($r)
@@ -3867,7 +3867,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
       newWanEthernetLinkConfig1ClientsFromRootDevice(
           $goupnp.GoupnpRootDevice rootDevice, $url.NetUrl loc) {
     final $r = $callSync(
-        8681,
+        8690,
         $W()
           ..dto(rootDevice)
           ..dto(loc));
@@ -3879,7 +3879,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
   /// Go: `func internetgateway2.NewWANIPConnection1Clients() (clients []*internetgateway2.WANIPConnection1, errors []error, err error)`.
   (List<GoupnpDcpsInternetgateway2WanipConnection1>, List<String>)
       newWanipConnection1Clients() {
-    final $r = $callSync(8682);
+    final $r = $callSync(8691);
     return (
       $r.list(() => $r.p()
           ? GoupnpDcpsInternetgateway2WanipConnection1.$dec($r)
@@ -3891,7 +3891,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
   /// Go: `func internetgateway2.NewWANIPConnection1ClientsByURL(loc *url.URL) ([]*internetgateway2.WANIPConnection1, error)`.
   List<GoupnpDcpsInternetgateway2WanipConnection1>
       newWanipConnection1ClientsByUrl($url.NetUrl loc) {
-    final $r = $callSync(8683, $W()..dto(loc));
+    final $r = $callSync(8692, $W()..dto(loc));
     return $r.list(() =>
         $r.p() ? GoupnpDcpsInternetgateway2WanipConnection1.$dec($r) : $nil());
   }
@@ -3903,7 +3903,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
       newWanipConnection1ClientsByUrlCtx(
           $context.Context ctx, $url.NetUrl loc) async {
     final $r = await $call(
-        8684,
+        8693,
         $W()
           ..h(ctx)
           ..dto(loc));
@@ -3916,7 +3916,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
   /// Asynchronous: runs in a goroutine of the service.
   Future<(List<GoupnpDcpsInternetgateway2WanipConnection1>, List<String>)>
       newWanipConnection1ClientsCtx($context.Context ctx) async {
-    final $r = await $call(8685, $W()..h(ctx));
+    final $r = await $call(8694, $W()..h(ctx));
     return (
       $r.list(() => $r.p()
           ? GoupnpDcpsInternetgateway2WanipConnection1.$dec($r)
@@ -3930,7 +3930,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
       newWanipConnection1ClientsFromRootDevice(
           $goupnp.GoupnpRootDevice rootDevice, $url.NetUrl loc) {
     final $r = $callSync(
-        8686,
+        8695,
         $W()
           ..dto(rootDevice)
           ..dto(loc));
@@ -3941,7 +3941,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
   /// Go: `func internetgateway2.NewWANIPConnection2Clients() (clients []*internetgateway2.WANIPConnection2, errors []error, err error)`.
   (List<GoupnpDcpsInternetgateway2WanipConnection2>, List<String>)
       newWanipConnection2Clients() {
-    final $r = $callSync(8687);
+    final $r = $callSync(8696);
     return (
       $r.list(() => $r.p()
           ? GoupnpDcpsInternetgateway2WanipConnection2.$dec($r)
@@ -3953,7 +3953,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
   /// Go: `func internetgateway2.NewWANIPConnection2ClientsByURL(loc *url.URL) ([]*internetgateway2.WANIPConnection2, error)`.
   List<GoupnpDcpsInternetgateway2WanipConnection2>
       newWanipConnection2ClientsByUrl($url.NetUrl loc) {
-    final $r = $callSync(8688, $W()..dto(loc));
+    final $r = $callSync(8697, $W()..dto(loc));
     return $r.list(() =>
         $r.p() ? GoupnpDcpsInternetgateway2WanipConnection2.$dec($r) : $nil());
   }
@@ -3965,7 +3965,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
       newWanipConnection2ClientsByUrlCtx(
           $context.Context ctx, $url.NetUrl loc) async {
     final $r = await $call(
-        8689,
+        8698,
         $W()
           ..h(ctx)
           ..dto(loc));
@@ -3978,7 +3978,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
   /// Asynchronous: runs in a goroutine of the service.
   Future<(List<GoupnpDcpsInternetgateway2WanipConnection2>, List<String>)>
       newWanipConnection2ClientsCtx($context.Context ctx) async {
-    final $r = await $call(8690, $W()..h(ctx));
+    final $r = await $call(8699, $W()..h(ctx));
     return (
       $r.list(() => $r.p()
           ? GoupnpDcpsInternetgateway2WanipConnection2.$dec($r)
@@ -3992,7 +3992,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
       newWanipConnection2ClientsFromRootDevice(
           $goupnp.GoupnpRootDevice rootDevice, $url.NetUrl loc) {
     final $r = $callSync(
-        8691,
+        8700,
         $W()
           ..dto(rootDevice)
           ..dto(loc));
@@ -4003,7 +4003,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
   /// Go: `func internetgateway2.NewWANIPv6FirewallControl1Clients() (clients []*internetgateway2.WANIPv6FirewallControl1, errors []error, err error)`.
   (List<GoupnpDcpsInternetgateway2WaniPv6FirewallControl1>, List<String>)
       newWaniPv6FirewallControl1Clients() {
-    final $r = $callSync(8692);
+    final $r = $callSync(8701);
     return (
       $r.list(() => $r.p()
           ? GoupnpDcpsInternetgateway2WaniPv6FirewallControl1.$dec($r)
@@ -4015,7 +4015,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
   /// Go: `func internetgateway2.NewWANIPv6FirewallControl1ClientsByURL(loc *url.URL) ([]*internetgateway2.WANIPv6FirewallControl1, error)`.
   List<GoupnpDcpsInternetgateway2WaniPv6FirewallControl1>
       newWaniPv6FirewallControl1ClientsByUrl($url.NetUrl loc) {
-    final $r = $callSync(8693, $W()..dto(loc));
+    final $r = $callSync(8702, $W()..dto(loc));
     return $r.list(() => $r.p()
         ? GoupnpDcpsInternetgateway2WaniPv6FirewallControl1.$dec($r)
         : $nil());
@@ -4028,7 +4028,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
       newWaniPv6FirewallControl1ClientsByUrlCtx(
           $context.Context ctx, $url.NetUrl loc) async {
     final $r = await $call(
-        8694,
+        8703,
         $W()
           ..h(ctx)
           ..dto(loc));
@@ -4045,7 +4045,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
         List<GoupnpDcpsInternetgateway2WaniPv6FirewallControl1>,
         List<String>
       )> newWaniPv6FirewallControl1ClientsCtx($context.Context ctx) async {
-    final $r = await $call(8695, $W()..h(ctx));
+    final $r = await $call(8704, $W()..h(ctx));
     return (
       $r.list(() => $r.p()
           ? GoupnpDcpsInternetgateway2WaniPv6FirewallControl1.$dec($r)
@@ -4059,7 +4059,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
       newWaniPv6FirewallControl1ClientsFromRootDevice(
           $goupnp.GoupnpRootDevice rootDevice, $url.NetUrl loc) {
     final $r = $callSync(
-        8696,
+        8705,
         $W()
           ..dto(rootDevice)
           ..dto(loc));
@@ -4071,7 +4071,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
   /// Go: `func internetgateway2.NewWANPOTSLinkConfig1Clients() (clients []*internetgateway2.WANPOTSLinkConfig1, errors []error, err error)`.
   (List<GoupnpDcpsInternetgateway2WanpotsLinkConfig1>, List<String>)
       newWanpotsLinkConfig1Clients() {
-    final $r = $callSync(8697);
+    final $r = $callSync(8706);
     return (
       $r.list(() => $r.p()
           ? GoupnpDcpsInternetgateway2WanpotsLinkConfig1.$dec($r)
@@ -4083,7 +4083,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
   /// Go: `func internetgateway2.NewWANPOTSLinkConfig1ClientsByURL(loc *url.URL) ([]*internetgateway2.WANPOTSLinkConfig1, error)`.
   List<GoupnpDcpsInternetgateway2WanpotsLinkConfig1>
       newWanpotsLinkConfig1ClientsByUrl($url.NetUrl loc) {
-    final $r = $callSync(8698, $W()..dto(loc));
+    final $r = $callSync(8707, $W()..dto(loc));
     return $r.list(() => $r.p()
         ? GoupnpDcpsInternetgateway2WanpotsLinkConfig1.$dec($r)
         : $nil());
@@ -4096,7 +4096,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
       newWanpotsLinkConfig1ClientsByUrlCtx(
           $context.Context ctx, $url.NetUrl loc) async {
     final $r = await $call(
-        8699,
+        8708,
         $W()
           ..h(ctx)
           ..dto(loc));
@@ -4110,7 +4110,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
   /// Asynchronous: runs in a goroutine of the service.
   Future<(List<GoupnpDcpsInternetgateway2WanpotsLinkConfig1>, List<String>)>
       newWanpotsLinkConfig1ClientsCtx($context.Context ctx) async {
-    final $r = await $call(8700, $W()..h(ctx));
+    final $r = await $call(8709, $W()..h(ctx));
     return (
       $r.list(() => $r.p()
           ? GoupnpDcpsInternetgateway2WanpotsLinkConfig1.$dec($r)
@@ -4124,7 +4124,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
       newWanpotsLinkConfig1ClientsFromRootDevice(
           $goupnp.GoupnpRootDevice rootDevice, $url.NetUrl loc) {
     final $r = $callSync(
-        8701,
+        8710,
         $W()
           ..dto(rootDevice)
           ..dto(loc));
@@ -4136,7 +4136,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
   /// Go: `func internetgateway2.NewWANPPPConnection1Clients() (clients []*internetgateway2.WANPPPConnection1, errors []error, err error)`.
   (List<GoupnpDcpsInternetgateway2WanpppConnection1>, List<String>)
       newWanpppConnection1Clients() {
-    final $r = $callSync(8702);
+    final $r = $callSync(8711);
     return (
       $r.list(() => $r.p()
           ? GoupnpDcpsInternetgateway2WanpppConnection1.$dec($r)
@@ -4148,7 +4148,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
   /// Go: `func internetgateway2.NewWANPPPConnection1ClientsByURL(loc *url.URL) ([]*internetgateway2.WANPPPConnection1, error)`.
   List<GoupnpDcpsInternetgateway2WanpppConnection1>
       newWanpppConnection1ClientsByUrl($url.NetUrl loc) {
-    final $r = $callSync(8703, $W()..dto(loc));
+    final $r = $callSync(8712, $W()..dto(loc));
     return $r.list(() =>
         $r.p() ? GoupnpDcpsInternetgateway2WanpppConnection1.$dec($r) : $nil());
   }
@@ -4160,7 +4160,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
       newWanpppConnection1ClientsByUrlCtx(
           $context.Context ctx, $url.NetUrl loc) async {
     final $r = await $call(
-        8704,
+        8713,
         $W()
           ..h(ctx)
           ..dto(loc));
@@ -4173,7 +4173,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
   /// Asynchronous: runs in a goroutine of the service.
   Future<(List<GoupnpDcpsInternetgateway2WanpppConnection1>, List<String>)>
       newWanpppConnection1ClientsCtx($context.Context ctx) async {
-    final $r = await $call(8705, $W()..h(ctx));
+    final $r = await $call(8714, $W()..h(ctx));
     return (
       $r.list(() => $r.p()
           ? GoupnpDcpsInternetgateway2WanpppConnection1.$dec($r)
@@ -4187,7 +4187,7 @@ extension GoHuinGoupnpDcpsInternetgateway2Api
       newWanpppConnection1ClientsFromRootDevice(
           $goupnp.GoupnpRootDevice rootDevice, $url.NetUrl loc) {
     final $r = $callSync(
-        8706,
+        8715,
         $W()
           ..dto(rootDevice)
           ..dto(loc));

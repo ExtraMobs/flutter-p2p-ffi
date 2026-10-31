@@ -39,13 +39,13 @@ class NetHttp2HpackDecoder extends $io.IoCloser
 
   /// Go: `func (*hpack.Decoder).Close() error`.
   void close() {
-    $callSync(23612, $W()..h(this));
+    $callSync(23618, $W()..h(this));
   }
 
   /// Go: `func (*hpack.Decoder).DecodeFull(p []byte) ([]hpack.HeaderField, error)`.
   List<NetHttp2HpackHeaderField> decodeFull(Uint8List p) {
     final $r = $callSync(
-        23613,
+        23619,
         $W()
           ..h(this)
           ..bytes(p));
@@ -54,14 +54,14 @@ class NetHttp2HpackDecoder extends $io.IoCloser
 
   /// Go: `func (*hpack.Decoder).EmitEnabled() bool`.
   bool emitEnabled() {
-    final $r = $callSync(23614, $W()..h(this));
+    final $r = $callSync(23620, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*hpack.Decoder).SetAllowedMaxDynamicTableSize(v uint32)`.
   void setAllowedMaxDynamicTableSize(int v) {
     $callSync(
-        23615,
+        23621,
         $W()
           ..h(this)
           ..i64(v));
@@ -70,7 +70,7 @@ class NetHttp2HpackDecoder extends $io.IoCloser
   /// Go: `func (*hpack.Decoder).SetEmitEnabled(v bool)`.
   void setEmitEnabled(bool v) {
     $callSync(
-        23616,
+        23622,
         $W()
           ..h(this)
           ..b(v));
@@ -86,7 +86,7 @@ class NetHttp2HpackDecoder extends $io.IoCloser
   Future<void> setEmitFunc(
       FutureOr<void> Function(NetHttp2HpackHeaderField f) emitFunc) async {
     await $call(
-        23617,
+        23623,
         $W()
           ..h(this)
           ..cb(
@@ -98,7 +98,7 @@ class NetHttp2HpackDecoder extends $io.IoCloser
   /// Go: `func (*hpack.Decoder).SetMaxDynamicTableSize(v uint32)`.
   void setMaxDynamicTableSize(int v) {
     $callSync(
-        23618,
+        23624,
         $W()
           ..h(this)
           ..i64(v));
@@ -107,7 +107,7 @@ class NetHttp2HpackDecoder extends $io.IoCloser
   /// Go: `func (*hpack.Decoder).SetMaxStringLength(n int)`.
   void setMaxStringLength(int n) {
     $callSync(
-        23619,
+        23625,
         $W()
           ..h(this)
           ..i64(n));
@@ -116,7 +116,7 @@ class NetHttp2HpackDecoder extends $io.IoCloser
   /// Go: `func (*hpack.Decoder).Write(p []byte) (n int, err error)`.
   int write(Uint8List p) {
     final $r = $callSync(
-        23620,
+        23626,
         $W()
           ..h(this)
           ..bytes(p));
@@ -144,20 +144,20 @@ class NetHttp2HpackEncoder extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func hpack.NewEncoder(w io.Writer) *hpack.Encoder`.
   factory NetHttp2HpackEncoder(GoHandle? w) {
-    final $r = $callSync(23632, $W()..h(w));
+    final $r = $callSync(23638, $W()..h(w));
     return $r.hnn(NetHttp2HpackEncoder.$h);
   }
 
   /// Go: `func (*hpack.Encoder).MaxDynamicTableSize() (v uint32)`.
   int maxDynamicTableSize() {
-    final $r = $callSync(23621, $W()..h(this));
+    final $r = $callSync(23627, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*hpack.Encoder).SetMaxDynamicTableSize(v uint32)`.
   void setMaxDynamicTableSize(int v) {
     $callSync(
-        23622,
+        23628,
         $W()
           ..h(this)
           ..i64(v));
@@ -166,7 +166,7 @@ class NetHttp2HpackEncoder extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*hpack.Encoder).SetMaxDynamicTableSizeLimit(v uint32)`.
   void setMaxDynamicTableSizeLimit(int v) {
     $callSync(
-        23623,
+        23629,
         $W()
           ..h(this)
           ..i64(v));
@@ -175,7 +175,7 @@ class NetHttp2HpackEncoder extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*hpack.Encoder).WriteField(f hpack.HeaderField) error`.
   void writeField(NetHttp2HpackHeaderField f) {
     $callSync(
-        23624,
+        23630,
         $W()
           ..h(this)
           ..dto(f));
@@ -213,19 +213,19 @@ final class NetHttp2HpackHeaderField implements GoDto {
 
   /// Go: `func (hpack.HeaderField).IsPseudo() bool`.
   bool isPseudo() {
-    final $r = $callSync(23625, $W()..dto(this));
+    final $r = $callSync(23631, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (hpack.HeaderField).Size() uint32`.
   int size() {
-    final $r = $callSync(23626, $W()..dto(this));
+    final $r = $callSync(23632, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (hpack.HeaderField).String() string`.
   String string() {
-    final $r = $callSync(23627, $W()..dto(this));
+    final $r = $callSync(23633, $W()..dto(this));
     return $r.str();
   }
 }
@@ -271,7 +271,7 @@ extension GoXNetHttp2HpackApi on GoXNetHttp2Hpack {
   /// Go: `func hpack.AppendHuffmanString(dst []byte, s string) []byte`.
   Uint8List appendHuffmanString(Uint8List dst, String s) {
     final $r = $callSync(
-        23611,
+        23617,
         $W()
           ..bytes(dst)
           ..str(s));
@@ -281,7 +281,7 @@ extension GoXNetHttp2HpackApi on GoXNetHttp2Hpack {
   /// Go: `func hpack.HuffmanDecode(w io.Writer, v []byte) (int, error)`.
   int huffmanDecode(GoHandle? w, Uint8List v) {
     final $r = $callSync(
-        23628,
+        23634,
         $W()
           ..h(w)
           ..bytes(v));
@@ -290,13 +290,13 @@ extension GoXNetHttp2HpackApi on GoXNetHttp2Hpack {
 
   /// Go: `func hpack.HuffmanDecodeToString(v []byte) (string, error)`.
   String huffmanDecodeToString(Uint8List v) {
-    final $r = $callSync(23629, $W()..bytes(v));
+    final $r = $callSync(23635, $W()..bytes(v));
     return $r.str();
   }
 
   /// Go: `func hpack.HuffmanEncodeLength(s string) uint64`.
   int huffmanEncodeLength(String s) {
-    final $r = $callSync(23630, $W()..str(s));
+    final $r = $callSync(23636, $W()..str(s));
     return $r.i64();
   }
 
@@ -310,7 +310,7 @@ extension GoXNetHttp2HpackApi on GoXNetHttp2Hpack {
   Future<NetHttp2HpackDecoder> newDecoder(int maxDynamicTableSize,
       FutureOr<void> Function(NetHttp2HpackHeaderField f) emitFunc) async {
     final $r = await $call(
-        23631,
+        23637,
         $W()
           ..i64(maxDynamicTableSize)
           ..cb(

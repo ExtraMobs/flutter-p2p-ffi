@@ -47,41 +47,41 @@ class Libp2pP2pProtocolHolepunchPbHolePunch
   /// Go: `func (*pb.HolePunch).Descriptor() ([]byte, []int)`.
   @Deprecated("Use HolePunch.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(14918, $W()..h(this));
+    final $r = $callSync(14924, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pb.HolePunch).GetObsAddrs() [][]byte`.
   List<Uint8List> getObsAddrs() {
-    final $r = $callSync(14919, $W()..h(this));
+    final $r = $callSync(14925, $W()..h(this));
     return $r.list(() => $r.bytes() ?? Uint8List(0));
   }
 
   /// Go: `func (*pb.HolePunch).GetType() pb.HolePunch_Type`.
   int getType() {
-    final $r = $callSync(14920, $W()..h(this));
+    final $r = $callSync(14926, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.HolePunch).ProtoMessage()`.
   void protoMessage() {
-    $callSync(14921, $W()..h(this));
+    $callSync(14927, $W()..h(this));
   }
 
   /// Go: `func (*pb.HolePunch).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(14922, $W()..h(this));
+    final $r = $callSync(14928, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pb.HolePunch).Reset()`.
   void reset() {
-    $callSync(14923, $W()..h(this));
+    $callSync(14929, $W()..h(this));
   }
 
   /// Go: `func (*pb.HolePunch).String() string`.
   String string() {
-    final $r = $callSync(14924, $W()..h(this));
+    final $r = $callSync(14930, $W()..h(this));
     return $r.str();
   }
 }
@@ -92,19 +92,19 @@ extension GoLibp2pLibp2pP2pProtocolHolepunchPbApi
   /// Go: `var pb.File_p2p_protocol_holepunch_pb_holepunch_proto protoreflect.FileDescriptor`.
   $protoreflect.ProtobufReflectProtoreflectFileDescriptor
       get fileP2pProtocolHolepunchPbHolepunchProto {
-    final $r = $callSync(14917);
+    final $r = $callSync(14923);
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectFileDescriptor.$h);
   }
 
   /// Go: `var pb.HolePunch_Type_name map[int32]string`.
   Map<int, String> get holePunchTypeName {
-    final $r = $callSync(14925);
+    final $r = $callSync(14931);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var pb.HolePunch_Type_value map[string]int32`.
   Map<String, int> get holePunchTypeValue {
-    final $r = $callSync(14926);
+    final $r = $callSync(14932);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 }

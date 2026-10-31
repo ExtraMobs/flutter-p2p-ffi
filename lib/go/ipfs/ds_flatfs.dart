@@ -51,7 +51,7 @@ class DsFlatfsDatastore extends $datastore.Datastore
 
   /// Go: `func (*flatfs.Datastore).Accuracy() string`.
   String accuracy() {
-    final $r = $callSync(10748, $W()..h(this));
+    final $r = $callSync(10757, $W()..h(this));
     return $r.str();
   }
 
@@ -60,7 +60,7 @@ class DsFlatfsDatastore extends $datastore.Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<$datastore.DatastoreBatch> batch($context.Context ctx) async {
     final $r = await $call(
-        10749,
+        10758,
         $W()
           ..h(this)
           ..h(ctx));
@@ -69,7 +69,7 @@ class DsFlatfsDatastore extends $datastore.Datastore
 
   /// Go: `func (*flatfs.Datastore).Close() error`.
   void close() {
-    $callSync(10750, $W()..h(this));
+    $callSync(10759, $W()..h(this));
   }
 
   /// Go: `func (*flatfs.Datastore).Delete(ctx context.Context, key datastore.Key) error`.
@@ -77,7 +77,7 @@ class DsFlatfsDatastore extends $datastore.Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> delete($context.Context ctx, $datastore.DatastoreKey key) async {
     await $call(
-        10751,
+        10760,
         $W()
           ..h(this)
           ..h(ctx)
@@ -89,7 +89,7 @@ class DsFlatfsDatastore extends $datastore.Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> diskUsage($context.Context ctx) async {
     final $r = await $call(
-        10752,
+        10761,
         $W()
           ..h(this)
           ..h(ctx));
@@ -102,7 +102,7 @@ class DsFlatfsDatastore extends $datastore.Datastore
   Future<Uint8List> get(
       $context.Context ctx, $datastore.DatastoreKey key) async {
     final $r = await $call(
-        10753,
+        10762,
         $W()
           ..h(this)
           ..h(ctx)
@@ -115,7 +115,7 @@ class DsFlatfsDatastore extends $datastore.Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getSize($context.Context ctx, $datastore.DatastoreKey key) async {
     final $r = await $call(
-        10754,
+        10763,
         $W()
           ..h(this)
           ..h(ctx)
@@ -128,7 +128,7 @@ class DsFlatfsDatastore extends $datastore.Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> has($context.Context ctx, $datastore.DatastoreKey key) async {
     final $r = await $call(
-        10755,
+        10764,
         $W()
           ..h(this)
           ..h(ctx)
@@ -142,7 +142,7 @@ class DsFlatfsDatastore extends $datastore.Datastore
   Future<void> put($context.Context ctx, $datastore.DatastoreKey key,
       Uint8List value) async {
     await $call(
-        10756,
+        10765,
         $W()
           ..h(this)
           ..h(ctx)
@@ -156,7 +156,7 @@ class DsFlatfsDatastore extends $datastore.Datastore
   Future<$query.DatastoreQueryResults> query(
       $context.Context ctx, $query.DatastoreQuery q) async {
     final $r = await $call(
-        10757,
+        10766,
         $W()
           ..h(this)
           ..h(ctx)
@@ -166,7 +166,7 @@ class DsFlatfsDatastore extends $datastore.Datastore
 
   /// Go: `func (*flatfs.Datastore).ShardStr() string`.
   String shardStr() {
-    final $r = $callSync(10758, $W()..h(this));
+    final $r = $callSync(10767, $W()..h(this));
     return $r.str();
   }
 
@@ -176,7 +176,7 @@ class DsFlatfsDatastore extends $datastore.Datastore
   Future<void> sync(
       $context.Context ctx, $datastore.DatastoreKey prefix) async {
     await $call(
-        10759,
+        10768,
         $W()
           ..h(this)
           ..h(ctx)
@@ -197,7 +197,7 @@ mixin DsFlatfsDiscardableBatch$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> discard($context.Context ctx) async {
     await $call(
-        10761,
+        10770,
         $W()
           ..h(this)
           ..h(ctx));
@@ -224,7 +224,7 @@ class DsFlatfsShardIdV1 extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*flatfs.ShardIdV1).String() string`.
   String string() {
-    final $r = $callSync(10777, $W()..h(this));
+    final $r = $callSync(10786, $W()..h(this));
     return $r.str();
   }
 }
@@ -279,7 +279,7 @@ extension GoIpfsDsFlatfsApi on GoIpfsDsFlatfs {
   /// Go: `func flatfs.Create(path string, fun *flatfs.ShardIdV1) error`.
   void create(String path, DsFlatfsShardIdV1 fun) {
     $callSync(
-        10746,
+        10755,
         $W()
           ..str(path)
           ..h(fun));
@@ -289,7 +289,7 @@ extension GoIpfsDsFlatfsApi on GoIpfsDsFlatfs {
   DsFlatfsDatastore createOrOpen(
       String path, DsFlatfsShardIdV1 fun, bool sync) {
     final $r = $callSync(
-        10747,
+        10756,
         $W()
           ..str(path)
           ..h(fun)
@@ -299,49 +299,49 @@ extension GoIpfsDsFlatfsApi on GoIpfsDsFlatfs {
 
   /// Go: `func flatfs.DirIsEmpty(name string) (bool, error)`.
   bool dirIsEmpty(String name) {
-    final $r = $callSync(10760, $W()..str(name));
+    final $r = $callSync(10769, $W()..str(name));
     return $r.b();
   }
 
   /// Go: `var flatfs.DiskUsageCalcTimeout time.Duration`.
   Duration get diskUsageCalcTimeout {
-    final $r = $callSync(10762);
+    final $r = $callSync(10771);
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `var flatfs.DiskUsageFile string`.
   String get diskUsageFile {
-    final $r = $callSync(10763);
+    final $r = $callSync(10772);
     return $r.str();
   }
 
   /// Go: `var flatfs.DiskUsageFilesAverage int`.
   int get diskUsageFilesAverage {
-    final $r = $callSync(10764);
+    final $r = $callSync(10773);
     return $r.i64();
   }
 
   /// Go: `func flatfs.DowngradeV1toV0(path string) error`.
   void downgradeV1toV0(String path) {
-    $callSync(10765, $W()..str(path));
+    $callSync(10774, $W()..str(path));
   }
 
   /// Go: `var flatfs.IPFS_DEF_SHARD *flatfs.ShardIdV1`.
   DsFlatfsShardIdV1 get ipfsDefShard {
-    final $r = $callSync(10766);
+    final $r = $callSync(10775);
     return $r.hnn(DsFlatfsShardIdV1.$h);
   }
 
   /// Go: `var flatfs.IPFS_DEF_SHARD_STR string`.
   String get ipfsDefShardStr {
-    final $r = $callSync(10767);
+    final $r = $callSync(10776);
     return $r.str();
   }
 
   /// Go: `func flatfs.Move(oldPath string, newPath string, out io.Writer) error`.
   void move(String oldPath, String newPath, GoHandle? out) {
     $callSync(
-        10768,
+        10777,
         $W()
           ..str(oldPath)
           ..str(newPath)
@@ -350,14 +350,14 @@ extension GoIpfsDsFlatfsApi on GoIpfsDsFlatfs {
 
   /// Go: `func flatfs.NextToLast(suffixLen int) *flatfs.ShardIdV1`.
   DsFlatfsShardIdV1 nextToLast(int suffixLen) {
-    final $r = $callSync(10769, $W()..i64(suffixLen));
+    final $r = $callSync(10778, $W()..i64(suffixLen));
     return $r.hnn(DsFlatfsShardIdV1.$h);
   }
 
   /// Go: `func flatfs.Open(path string, syncFiles bool) (*flatfs.Datastore, error)`.
   DsFlatfsDatastore open(String path, bool syncFiles) {
     final $r = $callSync(
-        10770,
+        10779,
         $W()
           ..str(path)
           ..b(syncFiles));
@@ -366,50 +366,50 @@ extension GoIpfsDsFlatfsApi on GoIpfsDsFlatfs {
 
   /// Go: `func flatfs.ParseShardFunc(str string) (*flatfs.ShardIdV1, error)`.
   DsFlatfsShardIdV1 parseShardFunc(String str) {
-    final $r = $callSync(10771, $W()..str(str));
+    final $r = $callSync(10780, $W()..str(str));
     return $r.hnn(DsFlatfsShardIdV1.$h);
   }
 
   /// Go: `func flatfs.Prefix(prefixLen int) *flatfs.ShardIdV1`.
   DsFlatfsShardIdV1 prefix(int prefixLen) {
-    final $r = $callSync(10772, $W()..i64(prefixLen));
+    final $r = $callSync(10781, $W()..i64(prefixLen));
     return $r.hnn(DsFlatfsShardIdV1.$h);
   }
 
   /// Go: `var flatfs.README_IPFS_DEF_SHARD string`.
   String get readmeIpfsDefShard {
-    final $r = $callSync(10773);
+    final $r = $callSync(10782);
     return $r.str();
   }
 
   /// Go: `func flatfs.ReadShardFunc(dir string) (*flatfs.ShardIdV1, error)`.
   DsFlatfsShardIdV1 readShardFunc(String dir) {
-    final $r = $callSync(10774, $W()..str(dir));
+    final $r = $callSync(10783, $W()..str(dir));
     return $r.hnn(DsFlatfsShardIdV1.$h);
   }
 
   /// Go: `var flatfs.RetryAttempts int`.
   int get retryAttempts {
-    final $r = $callSync(10775);
+    final $r = $callSync(10784);
     return $r.i64();
   }
 
   /// Go: `var flatfs.RetryDelay time.Duration`.
   Duration get retryDelay {
-    final $r = $callSync(10776);
+    final $r = $callSync(10785);
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `func flatfs.Suffix(suffixLen int) *flatfs.ShardIdV1`.
   DsFlatfsShardIdV1 suffix(int suffixLen) {
-    final $r = $callSync(10778, $W()..i64(suffixLen));
+    final $r = $callSync(10787, $W()..i64(suffixLen));
     return $r.hnn(DsFlatfsShardIdV1.$h);
   }
 
   /// Go: `func flatfs.UpgradeV0toV1(path string, prefixLen int) error`.
   void upgradeV0toV1(String path, int prefixLen) {
     $callSync(
-        10779,
+        10788,
         $W()
           ..str(path)
           ..i64(prefixLen));
@@ -418,7 +418,7 @@ extension GoIpfsDsFlatfsApi on GoIpfsDsFlatfs {
   /// Go: `func flatfs.WriteReadme(dir string, id *flatfs.ShardIdV1) error`.
   void writeReadme(String dir, DsFlatfsShardIdV1 id) {
     $callSync(
-        10780,
+        10789,
         $W()
           ..str(dir)
           ..h(id));
@@ -427,7 +427,7 @@ extension GoIpfsDsFlatfsApi on GoIpfsDsFlatfs {
   /// Go: `func flatfs.WriteShardFunc(dir string, id *flatfs.ShardIdV1) error`.
   void writeShardFunc(String dir, DsFlatfsShardIdV1 id) {
     $callSync(
-        10781,
+        10790,
         $W()
           ..str(dir)
           ..h(id));

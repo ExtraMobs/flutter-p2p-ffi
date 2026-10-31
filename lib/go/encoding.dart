@@ -31,7 +31,7 @@ mixin EncodingBinaryAppender$ on GoHandle {
   /// Go: `func (encoding.BinaryAppender).AppendBinary(b []byte) ([]byte, error)`.
   Uint8List appendBinary(Uint8List b) {
     final $r = $callSync(
-        3632,
+        3641,
         $W()
           ..h(this)
           ..bytes(b));
@@ -98,7 +98,7 @@ mixin EncodingBinaryUnmarshaler$ on GoHandle {
   /// Go: `func (encoding.BinaryUnmarshaler).UnmarshalBinary(data []byte) error`.
   void unmarshalBinary(Uint8List data) {
     $callSync(
-        3633,
+        3642,
         $W()
           ..h(this)
           ..bytes(data));
@@ -187,7 +187,7 @@ mixin EncodingTextAppender$ on GoHandle {
   /// Go: `func (encoding.TextAppender).AppendText(b []byte) ([]byte, error)`.
   Uint8List appendText(Uint8List b) {
     final $r = $callSync(
-        3634,
+        3643,
         $W()
           ..h(this)
           ..bytes(b));
@@ -277,7 +277,7 @@ mixin EncodingTextUnmarshaler$ on GoHandle {
   /// Go: `func (encoding.TextUnmarshaler).UnmarshalText(text []byte) error`.
   void unmarshalText(Uint8List text) {
     $callSync(
-        3635,
+        3644,
         $W()
           ..h(this)
           ..bytes(text));

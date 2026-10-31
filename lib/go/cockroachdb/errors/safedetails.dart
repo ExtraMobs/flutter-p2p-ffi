@@ -10,13 +10,13 @@ import 'package:p2p_ffi/go/cockroachdb/redact/interfaces.dart' as $interfaces;
 extension GoCockroachdbErrorsSafedetailsApi on GoCockroachdbErrorsSafedetails {
   /// Go: `func safedetails.Redact(r interface{}) string`.
   String redact(Object? r) {
-    final $r = $callSync(4603, $W()..any(r));
+    final $r = $callSync(4612, $W()..any(r));
     return $r.str();
   }
 
   /// Go: `func safedetails.Safe(v interface{}) redact.SafeValue`.
   $interfaces.RedactInterfacesSafeValue safe(Object? v) {
-    final $r = $callSync(4604, $W()..any(v));
+    final $r = $callSync(4613, $W()..any(v));
     return $r.hnn($interfaces.RedactInterfacesSafeValue.$h);
   }
 }

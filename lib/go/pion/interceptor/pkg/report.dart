@@ -39,7 +39,7 @@ class InterceptorPkgReportReceiverInterceptor extends $interceptor.Interceptor
   /// Go: `func (*report.ReceiverInterceptor).BindRTCPReader(reader interceptor.RTCPReader) interceptor.RTCPReader`.
   $interceptor.InterceptorRtcpReader bindRtcpReader(Object reader) {
     final $r = $callSync(
-        16700,
+        16706,
         $W()
           ..h(this)
           ..reader(reader));
@@ -49,7 +49,7 @@ class InterceptorPkgReportReceiverInterceptor extends $interceptor.Interceptor
   /// Go: `func (*report.ReceiverInterceptor).BindRTCPWriter(writer interceptor.RTCPWriter) interceptor.RTCPWriter`.
   $interceptor.InterceptorRtcpWriter bindRtcpWriter(Object writer) {
     final $r = $callSync(
-        16701,
+        16707,
         $W()
           ..h(this)
           ..reader(writer));
@@ -60,7 +60,7 @@ class InterceptorPkgReportReceiverInterceptor extends $interceptor.Interceptor
   $interceptor.InterceptorRtpReader bindRemoteStream(
       $interceptor.InterceptorStreamInfo info, Object reader) {
     final $r = $callSync(
-        16702,
+        16708,
         $W()
           ..h(this)
           ..dto(info)
@@ -70,13 +70,13 @@ class InterceptorPkgReportReceiverInterceptor extends $interceptor.Interceptor
 
   /// Go: `func (*report.ReceiverInterceptor).Close() error`.
   void close() {
-    $callSync(16703, $W()..h(this));
+    $callSync(16709, $W()..h(this));
   }
 
   /// Go: `func (*report.ReceiverInterceptor).UnbindRemoteStream(info *interceptor.StreamInfo)`.
   void unbindRemoteStream($interceptor.InterceptorStreamInfo info) {
     $callSync(
-        16704,
+        16710,
         $W()
           ..h(this)
           ..dto(info));
@@ -107,7 +107,7 @@ class InterceptorPkgReportReceiverInterceptorFactory
   /// Go: `func (*report.ReceiverInterceptorFactory).NewInterceptor(_ string) (interceptor.Interceptor, error)`.
   $interceptor.Interceptor newInterceptor(String arg0) {
     final $r = $callSync(
-        16705,
+        16711,
         $W()
           ..h(this)
           ..str(arg0));
@@ -146,7 +146,7 @@ class InterceptorPkgReportSenderInterceptor extends $interceptor.Interceptor
   $interceptor.InterceptorRtpWriter bindLocalStream(
       $interceptor.InterceptorStreamInfo info, Object writer) {
     final $r = $callSync(
-        16706,
+        16712,
         $W()
           ..h(this)
           ..dto(info)
@@ -157,7 +157,7 @@ class InterceptorPkgReportSenderInterceptor extends $interceptor.Interceptor
   /// Go: `func (*report.SenderInterceptor).BindRTCPWriter(writer interceptor.RTCPWriter) interceptor.RTCPWriter`.
   $interceptor.InterceptorRtcpWriter bindRtcpWriter(Object writer) {
     final $r = $callSync(
-        16707,
+        16713,
         $W()
           ..h(this)
           ..reader(writer));
@@ -166,13 +166,13 @@ class InterceptorPkgReportSenderInterceptor extends $interceptor.Interceptor
 
   /// Go: `func (*report.SenderInterceptor).Close() error`.
   void close() {
-    $callSync(16708, $W()..h(this));
+    $callSync(16714, $W()..h(this));
   }
 
   /// Go: `func (*report.SenderInterceptor).UnbindLocalStream(info *interceptor.StreamInfo)`.
   void unbindLocalStream($interceptor.InterceptorStreamInfo info) {
     $callSync(
-        16709,
+        16715,
         $W()
           ..h(this)
           ..dto(info));
@@ -203,7 +203,7 @@ class InterceptorPkgReportSenderInterceptorFactory
   /// Go: `func (*report.SenderInterceptorFactory).NewInterceptor(_ string) (interceptor.Interceptor, error)`.
   $interceptor.Interceptor newInterceptor(String arg0) {
     final $r = $callSync(
-        16710,
+        16716,
         $W()
           ..h(this)
           ..str(arg0));
@@ -226,11 +226,11 @@ class InterceptorPkgReportTicker extends GoHandle
 mixin InterceptorPkgReportTicker$ on GoHandle {
   /// Go: `func (report.Ticker).Ch() <-chan time.Time`.
   Stream<DateTime> ch() =>
-      $stream(16711, $W()..h(this)).map((r) => r.p() ? r.time() : $nil());
+      $stream(16717, $W()..h(this)).map((r) => r.p() ? r.time() : $nil());
 
   /// Go: `func (report.Ticker).Stop()`.
   void stop() {
-    $callSync(16712, $W()..h(this));
+    $callSync(16718, $W()..h(this));
   }
 }
 
@@ -258,14 +258,14 @@ extension GoPionInterceptorPkgReportApi on GoPionInterceptorPkgReport {
   /// Go: `func report.NewReceiverInterceptor(opts ...report.ReceiverOption) (*report.ReceiverInterceptorFactory, error)`.
   InterceptorPkgReportReceiverInterceptorFactory newReceiverInterceptor(
       [List<InterceptorPkgReportReceiverOption> opts = const []]) {
-    final $r = $callSync(16698, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+    final $r = $callSync(16704, $W()..list(opts, (w0, e0) => w0.opt(e0)));
     return $r.hnn(InterceptorPkgReportReceiverInterceptorFactory.$h);
   }
 
   /// Go: `func report.NewSenderInterceptor(opts ...report.SenderOption) (*report.SenderInterceptorFactory, error)`.
   InterceptorPkgReportSenderInterceptorFactory newSenderInterceptor(
       [List<InterceptorPkgReportSenderOption> opts = const []]) {
-    final $r = $callSync(16699, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+    final $r = $callSync(16705, $W()..list(opts, (w0, e0) => w0.opt(e0)));
     return $r.hnn(InterceptorPkgReportSenderInterceptorFactory.$h);
   }
 }

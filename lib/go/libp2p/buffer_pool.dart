@@ -49,26 +49,26 @@ class BufferPoolBuffer extends $io.IoByteWriter
 
   /// Go: `func pool.NewBuffer(buf []byte) *pool.Buffer`.
   factory BufferPoolBuffer(Uint8List buf) {
-    final $r = $callSync(12852, $W()..bytes(buf));
+    final $r = $callSync(12858, $W()..bytes(buf));
     return $r.hnn(BufferPoolBuffer.$h);
   }
 
   /// Go: `func (*pool.Buffer).Bytes() []byte`.
   Uint8List bytes() {
-    final $r = $callSync(12833, $W()..h(this));
+    final $r = $callSync(12839, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pool.Buffer).Cap() int`.
   int cap() {
-    final $r = $callSync(12834, $W()..h(this));
+    final $r = $callSync(12840, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pool.Buffer).Grow(n int)`.
   void grow(int n) {
     $callSync(
-        12835,
+        12841,
         $W()
           ..h(this)
           ..i64(n));
@@ -76,14 +76,14 @@ class BufferPoolBuffer extends $io.IoByteWriter
 
   /// Go: `func (*pool.Buffer).Len() int`.
   int len() {
-    final $r = $callSync(12836, $W()..h(this));
+    final $r = $callSync(12842, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pool.Buffer).Next(n int) []byte`.
   Uint8List next(int n) {
     final $r = $callSync(
-        12837,
+        12843,
         $W()
           ..h(this)
           ..i64(n));
@@ -93,7 +93,7 @@ class BufferPoolBuffer extends $io.IoByteWriter
   /// Go: `func (*pool.Buffer).Read(buf []byte) (int, error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        12838,
+        12844,
         $W()
           ..h(this)
           ..i64(n));
@@ -102,14 +102,14 @@ class BufferPoolBuffer extends $io.IoByteWriter
 
   /// Go: `func (*pool.Buffer).ReadByte() (byte, error)`.
   int readByte() {
-    final $r = $callSync(12839, $W()..h(this));
+    final $r = $callSync(12845, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pool.Buffer).ReadFrom(r io.Reader) (int64, error)`.
   int readFrom(Object r) {
     final $r = $callSync(
-        12840,
+        12846,
         $W()
           ..h(this)
           ..reader(r));
@@ -118,19 +118,19 @@ class BufferPoolBuffer extends $io.IoByteWriter
 
   /// Go: `func (*pool.Buffer).Reset()`.
   void reset() {
-    $callSync(12841, $W()..h(this));
+    $callSync(12847, $W()..h(this));
   }
 
   /// Go: `func (*pool.Buffer).String() string`.
   String string() {
-    final $r = $callSync(12842, $W()..h(this));
+    final $r = $callSync(12848, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*pool.Buffer).Truncate(n int)`.
   void truncate(int n) {
     $callSync(
-        12843,
+        12849,
         $W()
           ..h(this)
           ..i64(n));
@@ -139,7 +139,7 @@ class BufferPoolBuffer extends $io.IoByteWriter
   /// Go: `func (*pool.Buffer).Write(buf []byte) (int, error)`.
   int write(Uint8List buf) {
     final $r = $callSync(
-        12844,
+        12850,
         $W()
           ..h(this)
           ..bytes(buf));
@@ -149,7 +149,7 @@ class BufferPoolBuffer extends $io.IoByteWriter
   /// Go: `func (*pool.Buffer).WriteByte(c byte) error`.
   void writeByte(int c) {
     $callSync(
-        12845,
+        12851,
         $W()
           ..h(this)
           ..i64(c));
@@ -158,7 +158,7 @@ class BufferPoolBuffer extends $io.IoByteWriter
   /// Go: `func (*pool.Buffer).WriteString(buf string) (int, error)`.
   int writeString(String buf) {
     final $r = $callSync(
-        12846,
+        12852,
         $W()
           ..h(this)
           ..str(buf));
@@ -168,7 +168,7 @@ class BufferPoolBuffer extends $io.IoByteWriter
   /// Go: `func (*pool.Buffer).WriteTo(w io.Writer) (int64, error)`.
   int writeTo(GoHandle? w) {
     final $r = $callSync(
-        12847,
+        12853,
         $W()
           ..h(this)
           ..h(w));
@@ -197,7 +197,7 @@ class BufferPool extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*pool.BufferPool).Get(length int) []byte`.
   Uint8List get(int length) {
     final $r = $callSync(
-        12848,
+        12854,
         $W()
           ..h(this)
           ..i64(length));
@@ -207,7 +207,7 @@ class BufferPool extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*pool.BufferPool).Put(buf []byte)`.
   void put(Uint8List buf) {
     $callSync(
-        12849,
+        12855,
         $W()
           ..h(this)
           ..bytes(buf));
@@ -244,36 +244,36 @@ class BufferPoolWriter extends $io.IoByteWriter
 
   /// Go: `func (*pool.Writer).Available() int`.
   int available() {
-    final $r = $callSync(12855, $W()..h(this));
+    final $r = $callSync(12861, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pool.Writer).Buffered() int`.
   int buffered() {
-    final $r = $callSync(12856, $W()..h(this));
+    final $r = $callSync(12862, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pool.Writer).Close() error`.
   void close() {
-    $callSync(12857, $W()..h(this));
+    $callSync(12863, $W()..h(this));
   }
 
   /// Go: `func (*pool.Writer).Flush() error`.
   void flush() {
-    $callSync(12858, $W()..h(this));
+    $callSync(12864, $W()..h(this));
   }
 
   /// Go: `func (*pool.Writer).Size() int`.
   int size() {
-    final $r = $callSync(12859, $W()..h(this));
+    final $r = $callSync(12865, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pool.Writer).Write(b []byte) (int, error)`.
   int write(Uint8List b) {
     final $r = $callSync(
-        12860,
+        12866,
         $W()
           ..h(this)
           ..bytes(b));
@@ -283,7 +283,7 @@ class BufferPoolWriter extends $io.IoByteWriter
   /// Go: `func (*pool.Writer).WriteByte(b byte) error`.
   void writeByte(int b) {
     $callSync(
-        12861,
+        12867,
         $W()
           ..h(this)
           ..i64(b));
@@ -292,7 +292,7 @@ class BufferPoolWriter extends $io.IoByteWriter
   /// Go: `func (*pool.Writer).WriteRune(r rune) (int, error)`.
   int writeRune(int r) {
     final $r = $callSync(
-        12862,
+        12868,
         $W()
           ..h(this)
           ..i64(r));
@@ -302,7 +302,7 @@ class BufferPoolWriter extends $io.IoByteWriter
   /// Go: `func (*pool.Writer).WriteString(s string) (int, error)`.
   int writeString(String s) {
     final $r = $callSync(
-        12863,
+        12869,
         $W()
           ..h(this)
           ..str(s));
@@ -314,25 +314,25 @@ class BufferPoolWriter extends $io.IoByteWriter
 extension GoLibp2pBufferPoolApi on GoLibp2pBufferPool {
   /// Go: `func pool.Get(length int) []byte`.
   Uint8List get(int length) {
-    final $r = $callSync(12850, $W()..i64(length));
+    final $r = $callSync(12856, $W()..i64(length));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `var pool.GlobalPool *pool.BufferPool`.
   BufferPool get globalPool {
-    final $r = $callSync(12851);
+    final $r = $callSync(12857);
     return $r.hnn(BufferPool.$h);
   }
 
   /// Go: `func pool.NewBufferString(buf string) *pool.Buffer`.
   BufferPoolBuffer newBufferString(String buf) {
-    final $r = $callSync(12853, $W()..str(buf));
+    final $r = $callSync(12859, $W()..str(buf));
     return $r.hnn(BufferPoolBuffer.$h);
   }
 
   /// Go: `func pool.Put(slice []byte)`.
   void put(Uint8List slice) {
-    $callSync(12854, $W()..bytes(slice));
+    $callSync(12860, $W()..bytes(slice));
   }
 }
 

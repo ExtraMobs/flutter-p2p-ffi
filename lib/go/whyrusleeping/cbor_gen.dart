@@ -32,31 +32,31 @@ class CborGenBytePeeker extends GoHandle with CborGenBytePeeker$ {
 mixin CborGenBytePeeker$ on GoHandle {
   /// Go: type assertion `x.(*bufio.Reader)`: null if the object is not one.
   $bufio.BufioReader? asBufioReader() {
-    final $r = $callSync(1980, $W()..h(this));
+    final $r = $callSync(1987, $W()..h(this));
     return $r.hn($bufio.BufioReader.$h);
   }
 
   /// Go: type assertion `x.(*bytes.Buffer)`: null if the object is not one.
   $bytes.BytesBuffer? asBytesBuffer() {
-    final $r = $callSync(1981, $W()..h(this));
+    final $r = $callSync(1988, $W()..h(this));
     return $r.hn($bytes.BytesBuffer.$h);
   }
 
   /// Go: type assertion `x.(*bytes.Reader)`: null if the object is not one.
   $bytes.BytesReader? asBytesReader() {
-    final $r = $callSync(1982, $W()..h(this));
+    final $r = $callSync(1989, $W()..h(this));
     return $r.hn($bytes.BytesReader.$h);
   }
 
   /// Go: type assertion `x.(*typegen.CborReader)`: null if the object is not one.
   CborGenCborReader? asCborGenCborReader() {
-    final $r = $callSync(1983, $W()..h(this));
+    final $r = $callSync(1990, $W()..h(this));
     return $r.hn(CborGenCborReader.$h);
   }
 
   /// Go: type assertion `x.(*strings.Reader)`: null if the object is not one.
   $strings.StringsReader? asStringsReader() {
-    final $r = $callSync(1984, $W()..h(this));
+    final $r = $callSync(1991, $W()..h(this));
     return $r.hn($strings.StringsReader.$h);
   }
 }
@@ -71,7 +71,7 @@ mixin CborGenCborMarshaler$ on GoHandle {
   /// Go: `func (typegen.CBORMarshaler).MarshalCBOR(io.Writer) error`.
   void marshalCbor(GoHandle? writer) {
     $callSync(
-        18836,
+        18842,
         $W()
           ..h(this)
           ..h(writer));
@@ -79,13 +79,13 @@ mixin CborGenCborMarshaler$ on GoHandle {
 
   /// Go: type assertion `x.(*typegen.CborCid)`: null if the object is not one.
   CborGenCborCid? asCborGenCborCid() {
-    final $r = $callSync(1985, $W()..h(this));
+    final $r = $callSync(1992, $W()..h(this));
     return $r.hn(CborGenCborCid.$h);
   }
 
   /// Go: type assertion `x.(*typegen.CborTime)`: null if the object is not one.
   CborGenCborTime? asCborGenCborTime() {
-    final $r = $callSync(1986, $W()..h(this));
+    final $r = $callSync(1993, $W()..h(this));
     return $r.hn(CborGenCborTime.$h);
   }
 }
@@ -100,7 +100,7 @@ mixin CborGenCborUnmarshaler$ on GoHandle {
   /// Go: `func (typegen.CBORUnmarshaler).UnmarshalCBOR(io.Reader) error`.
   void unmarshalCbor(Object reader) {
     $callSync(
-        18837,
+        18843,
         $W()
           ..h(this)
           ..reader(reader));
@@ -108,13 +108,13 @@ mixin CborGenCborUnmarshaler$ on GoHandle {
 
   /// Go: type assertion `x.(*typegen.CborCid)`: null if the object is not one.
   CborGenCborCid? asCborGenCborCid() {
-    final $r = $callSync(1987, $W()..h(this));
+    final $r = $callSync(1994, $W()..h(this));
     return $r.hn(CborGenCborCid.$h);
   }
 
   /// Go: type assertion `x.(*typegen.CborTime)`: null if the object is not one.
   CborGenCborTime? asCborGenCborTime() {
-    final $r = $callSync(1988, $W()..h(this));
+    final $r = $callSync(1995, $W()..h(this));
     return $r.hn(CborGenCborTime.$h);
   }
 }
@@ -144,7 +144,7 @@ class CborGenCborCid extends CborGenCborMarshaler
   /// Go: `func (typegen.CborCid).MarshalCBOR(w io.Writer) error`.
   void marshalCbor(GoHandle? w) {
     $callSync(
-        18840,
+        18846,
         $W()
           ..h(this)
           ..h(w));
@@ -153,7 +153,7 @@ class CborGenCborCid extends CborGenCborMarshaler
   /// Go: `func (*typegen.CborCid).UnmarshalCBOR(r io.Reader) error`.
   void unmarshalCbor(Object r) {
     $callSync(
-        18841,
+        18847,
         $W()
           ..h(this)
           ..reader(r));
@@ -182,14 +182,14 @@ class CborGenCborReader extends $protodelim.ProtobufEncodingProtodelimReader
 
   /// Go: `func typegen.NewCborReader(r io.Reader) *typegen.CborReader`.
   factory CborGenCborReader(Object r) {
-    final $r = $callSync(18886, $W()..reader(r));
+    final $r = $callSync(18892, $W()..reader(r));
     return $r.hnn(CborGenCborReader.$h);
   }
 
   /// Go: `func (*typegen.CborReader).Read(p []byte) (n int, err error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        18846,
+        18852,
         $W()
           ..h(this)
           ..i64(n));
@@ -198,20 +198,20 @@ class CborGenCborReader extends $protodelim.ProtobufEncodingProtodelimReader
 
   /// Go: `func (*typegen.CborReader).ReadByte() (byte, error)`.
   int readByte() {
-    final $r = $callSync(18847, $W()..h(this));
+    final $r = $callSync(18853, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*typegen.CborReader).ReadHeader() (byte, uint64, error)`.
   (int, int) readHeader() {
-    final $r = $callSync(18848, $W()..h(this));
+    final $r = $callSync(18854, $W()..h(this));
     return ($r.i64(), $r.i64());
   }
 
   /// Go: `func (*typegen.CborReader).SetReader(r io.Reader)`.
   void setReader(Object r) {
     $callSync(
-        18849,
+        18855,
         $W()
           ..h(this)
           ..reader(r));
@@ -219,7 +219,7 @@ class CborGenCborReader extends $protodelim.ProtobufEncodingProtodelimReader
 
   /// Go: `func (*typegen.CborReader).UnreadByte() error`.
   void unreadByte() {
-    $callSync(18850, $W()..h(this));
+    $callSync(18856, $W()..h(this));
   }
 }
 
@@ -252,7 +252,7 @@ class CborGenCborTime extends $json.EncodingJsonUnmarshaler
   /// Go: `func (typegen.CborTime).MarshalCBOR(w io.Writer) error`.
   void marshalCbor(GoHandle? w) {
     $callSync(
-        18851,
+        18857,
         $W()
           ..h(this)
           ..h(w));
@@ -260,20 +260,20 @@ class CborGenCborTime extends $json.EncodingJsonUnmarshaler
 
   /// Go: `func (typegen.CborTime).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(18852, $W()..h(this));
+    final $r = $callSync(18858, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (typegen.CborTime).Time() time.Time`.
   DateTime time() {
-    final $r = $callSync(18853, $W()..h(this));
+    final $r = $callSync(18859, $W()..h(this));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func (*typegen.CborTime).UnmarshalCBOR(r io.Reader) error`.
   void unmarshalCbor(Object r) {
     $callSync(
-        18854,
+        18860,
         $W()
           ..h(this)
           ..reader(r));
@@ -282,7 +282,7 @@ class CborGenCborTime extends $json.EncodingJsonUnmarshaler
   /// Go: `func (*typegen.CborTime).UnmarshalJSON(b []byte) error`.
   void unmarshalJson(Uint8List b) {
     $callSync(
-        18855,
+        18861,
         $W()
           ..h(this)
           ..bytes(b));
@@ -311,14 +311,14 @@ class CborGenCborWriter extends $io.IoStringWriter
 
   /// Go: `func typegen.NewCborWriter(w io.Writer) *typegen.CborWriter`.
   factory CborGenCborWriter(GoHandle? w) {
-    final $r = $callSync(18887, $W()..h(w));
+    final $r = $callSync(18893, $W()..h(w));
     return $r.hnn(CborGenCborWriter.$h);
   }
 
   /// Go: `func (*typegen.CborWriter).CborWriteHeader(t byte, l uint64) error`.
   void cborWriteHeader(int t, int l) {
     $callSync(
-        18857,
+        18863,
         $W()
           ..h(this)
           ..i64(t)
@@ -328,7 +328,7 @@ class CborGenCborWriter extends $io.IoStringWriter
   /// Go: `func (*typegen.CborWriter).SetWriter(w io.Writer)`.
   void setWriter(GoHandle? w) {
     $callSync(
-        18858,
+        18864,
         $W()
           ..h(this)
           ..h(w));
@@ -337,7 +337,7 @@ class CborGenCborWriter extends $io.IoStringWriter
   /// Go: `func (*typegen.CborWriter).Write(p []byte) (n int, err error)`.
   int write(Uint8List p) {
     final $r = $callSync(
-        18859,
+        18865,
         $W()
           ..h(this)
           ..bytes(p));
@@ -347,7 +347,7 @@ class CborGenCborWriter extends $io.IoStringWriter
   /// Go: `func (*typegen.CborWriter).WriteMajorTypeHeader(t byte, l uint64) error`.
   void writeMajorTypeHeader(int t, int l) {
     $callSync(
-        18860,
+        18866,
         $W()
           ..h(this)
           ..i64(t)
@@ -357,7 +357,7 @@ class CborGenCborWriter extends $io.IoStringWriter
   /// Go: `func (*typegen.CborWriter).WriteString(s string) (int, error)`.
   int writeString(String s) {
     final $r = $callSync(
-        18861,
+        18867,
         $W()
           ..h(this)
           ..str(s));
@@ -382,7 +382,7 @@ final class CborGenDeferred implements GoDto {
   /// Go: `func (*typegen.Deferred).MarshalCBOR(w io.Writer) error`.
   void marshalCbor(GoHandle? w) {
     $callSync(
-        18862,
+        18868,
         $W()
           ..dto(this)
           ..h(w));
@@ -391,7 +391,7 @@ final class CborGenDeferred implements GoDto {
   /// Go: `func (*typegen.Deferred).UnmarshalCBOR(br io.Reader) (err error)`.
   void unmarshalCbor(Object br) {
     $callSync(
-        18863,
+        18869,
         $W()
           ..dto(this)
           ..reader(br));
@@ -488,31 +488,31 @@ final class CborGenField implements GoDto {
 
   /// Go: `func (typegen.Field).ElemName() string`.
   String elemName() {
-    final $r = $callSync(18865, $W()..dto(this));
+    final $r = $callSync(18871, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (typegen.Field).EmptyVal() (string, error)`.
   String emptyVal() {
-    final $r = $callSync(18866, $W()..dto(this));
+    final $r = $callSync(18872, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (typegen.Field).IsArray() bool`.
   bool isArray() {
-    final $r = $callSync(18867, $W()..dto(this));
+    final $r = $callSync(18873, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (typegen.Field).Len() int`.
   int len() {
-    final $r = $callSync(18868, $W()..dto(this));
+    final $r = $callSync(18874, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (typegen.Field).TypeName() string`.
   String typeName() {
-    final $r = $callSync(18869, $W()..dto(this));
+    final $r = $callSync(18875, $W()..dto(this));
     return $r.str();
   }
 }
@@ -559,7 +559,7 @@ final class CborGen implements GoDto {
   /// Go: `func (typegen.Gen).GenMapEncodersForType(gti *typegen.GenTypeInfo, w io.Writer) error`.
   void genMapEncodersForType(CborGenTypeInfo gti, GoHandle? w) {
     $callSync(
-        18870,
+        18876,
         $W()
           ..dto(this)
           ..dto(gti)
@@ -569,7 +569,7 @@ final class CborGen implements GoDto {
   /// Go: `func (typegen.Gen).GenTupleEncodersForType(gti *typegen.GenTypeInfo, w io.Writer) error`.
   void genTupleEncodersForType(CborGenTypeInfo gti, GoHandle? w) {
     $callSync(
-        18871,
+        18877,
         $W()
           ..dto(this)
           ..dto(gti)
@@ -580,7 +580,7 @@ final class CborGen implements GoDto {
   void printHeaderAndUtilityMethods(
       GoHandle? w, String pkg, List<CborGenTypeInfo> typeInfos) {
     $callSync(
-        18872,
+        18878,
         $W()
           ..dto(this)
           ..h(w)
@@ -592,7 +592,7 @@ final class CborGen implements GoDto {
   void writeMapEncodersToFile(String fname, String pkg,
       [List<Object?> types = const []]) {
     $callSync(
-        18873,
+        18879,
         $W()
           ..dto(this)
           ..str(fname)
@@ -604,7 +604,7 @@ final class CborGen implements GoDto {
   void writeTupleEncodersToFile(String fname, String pkg,
       [List<Object?> types = const []]) {
     $callSync(
-        18874,
+        18880,
         $W()
           ..dto(this)
           ..str(fname)
@@ -654,37 +654,37 @@ final class CborGenTypeInfo implements GoDto {
 
   /// Go: `func (*typegen.GenTypeInfo).Imports() []typegen.Import`.
   List<CborGenImport> imports() {
-    final $r = $callSync(18877, $W()..dto(this));
+    final $r = $callSync(18883, $W()..dto(this));
     return $r.list(() => $r.p() ? CborGenImport.$dec($r) : $nil());
   }
 
   /// Go: `func (typegen.GenTypeInfo).MapHeader() []byte`.
   Uint8List mapHeader() {
-    final $r = $callSync(18878, $W()..dto(this));
+    final $r = $callSync(18884, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (typegen.GenTypeInfo).MapHeaderAsByteString() string`.
   String mapHeaderAsByteString() {
-    final $r = $callSync(18879, $W()..dto(this));
+    final $r = $callSync(18885, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*typegen.GenTypeInfo).MaxMapKeyLength() int`.
   int maxMapKeyLength() {
-    final $r = $callSync(18880, $W()..dto(this));
+    final $r = $callSync(18886, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (typegen.GenTypeInfo).TupleHeader() []byte`.
   Uint8List tupleHeader() {
-    final $r = $callSync(18881, $W()..dto(this));
+    final $r = $callSync(18887, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (typegen.GenTypeInfo).TupleHeaderAsByteString() string`.
   String tupleHeaderAsByteString() {
-    final $r = $callSync(18882, $W()..dto(this));
+    final $r = $callSync(18888, $W()..dto(this));
     return $r.str();
   }
 }
@@ -717,20 +717,20 @@ final class CborGenImport implements GoDto {
 extension GoWhyrusleepingCborGenApi on GoWhyrusleepingCborGen {
   /// Go: `var typegen.CborBoolFalse []byte`.
   Uint8List get cborBoolFalse {
-    final $r = $callSync(18838);
+    final $r = $callSync(18844);
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `var typegen.CborBoolTrue []byte`.
   Uint8List get cborBoolTrue {
-    final $r = $callSync(18839);
+    final $r = $callSync(18845);
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func typegen.CborEncodeMajorType(t byte, l uint64) []byte`.
   Uint8List cborEncodeMajorType(int t, int l) {
     final $r = $callSync(
-        18842,
+        18848,
         $W()
           ..i64(t)
           ..i64(l));
@@ -739,20 +739,20 @@ extension GoWhyrusleepingCborGenApi on GoWhyrusleepingCborGen {
 
   /// Go: `var typegen.CborNull []byte`.
   Uint8List get cborNull {
-    final $r = $callSync(18843);
+    final $r = $callSync(18849);
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func typegen.CborReadHeader(br io.Reader) (byte, uint64, error)`.
   (int, int) cborReadHeader(Object br) {
-    final $r = $callSync(18844, $W()..reader(br));
+    final $r = $callSync(18850, $W()..reader(br));
     return ($r.i64(), $r.i64());
   }
 
   /// Go: `func typegen.CborReadHeaderBuf(br io.Reader, scratch []byte) (byte, uint64, error)`.
   (int, int) cborReadHeaderBuf(Object br, Uint8List scratch) {
     final $r = $callSync(
-        18845,
+        18851,
         $W()
           ..reader(br)
           ..bytes(scratch));
@@ -762,7 +762,7 @@ extension GoWhyrusleepingCborGenApi on GoWhyrusleepingCborGen {
   /// Go: `func typegen.CborWriteHeader(w io.Writer, t byte, l uint64) error`.
   void cborWriteHeader(GoHandle? w, int t, int l) {
     $callSync(
-        18856,
+        18862,
         $W()
           ..h(w)
           ..i64(t)
@@ -771,14 +771,14 @@ extension GoWhyrusleepingCborGenApi on GoWhyrusleepingCborGen {
 
   /// Go: `func typegen.EncodeBool(b bool) []byte`.
   Uint8List encodeBool(bool b) {
-    final $r = $callSync(18864, $W()..b(b));
+    final $r = $callSync(18870, $W()..b(b));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func typegen.GenMapEncodersForType(gti *typegen.GenTypeInfo, w io.Writer) error`.
   void genMapEncodersForType(CborGenTypeInfo gti, GoHandle? w) {
     $callSync(
-        18875,
+        18881,
         $W()
           ..dto(gti)
           ..h(w));
@@ -787,7 +787,7 @@ extension GoWhyrusleepingCborGenApi on GoWhyrusleepingCborGen {
   /// Go: `func typegen.GenTupleEncodersForType(gti *typegen.GenTypeInfo, w io.Writer) error`.
   void genTupleEncodersForType(CborGenTypeInfo gti, GoHandle? w) {
     $callSync(
-        18876,
+        18882,
         $W()
           ..dto(gti)
           ..h(w));
@@ -795,14 +795,14 @@ extension GoWhyrusleepingCborGenApi on GoWhyrusleepingCborGen {
 
   /// Go: `func typegen.GetPeeker(r io.Reader) typegen.BytePeeker`.
   CborGenBytePeeker getPeeker(Object r) {
-    final $r = $callSync(18883, $W()..reader(r));
+    final $r = $callSync(18889, $W()..reader(r));
     return $r.hnn(CborGenBytePeeker.$h);
   }
 
   /// Go: `func typegen.ImportsForType(currPkg string, t reflect.Type) []typegen.Import`.
   List<CborGenImport> importsForType(String currPkg, $reflect.ReflectType t) {
     final $r = $callSync(
-        18884,
+        18890,
         $W()
           ..str(currPkg)
           ..h(t));
@@ -811,13 +811,13 @@ extension GoWhyrusleepingCborGenApi on GoWhyrusleepingCborGen {
 
   /// Go: `func typegen.MakeByteString(h []byte) string`.
   String makeByteString(Uint8List h) {
-    final $r = $callSync(18885, $W()..bytes(h));
+    final $r = $callSync(18891, $W()..bytes(h));
     return $r.str();
   }
 
   /// Go: `func typegen.ParseTypeInfo(itype interface{}) (*typegen.GenTypeInfo, error)`.
   CborGenTypeInfo parseTypeInfo(Object? itype) {
-    final $r = $callSync(18888, $W()..any(itype));
+    final $r = $callSync(18894, $W()..any(itype));
     return $r.p() ? CborGenTypeInfo.$dec($r) : $nil();
   }
 
@@ -825,7 +825,7 @@ extension GoWhyrusleepingCborGenApi on GoWhyrusleepingCborGen {
   void printHeaderAndUtilityMethods(
       GoHandle? w, String pkg, List<CborGenTypeInfo> typeInfos) {
     $callSync(
-        18889,
+        18895,
         $W()
           ..h(w)
           ..str(pkg)
@@ -835,7 +835,7 @@ extension GoWhyrusleepingCborGenApi on GoWhyrusleepingCborGen {
   /// Go: `func typegen.ReadByteArray(br io.Reader, maxlen uint64) ([]byte, error)`.
   Uint8List readByteArray(Object br, int maxlen) {
     final $r = $callSync(
-        18890,
+        18896,
         $W()
           ..reader(br)
           ..i64(maxlen));
@@ -844,7 +844,7 @@ extension GoWhyrusleepingCborGenApi on GoWhyrusleepingCborGen {
 
   /// Go: `func typegen.ReadCid(br io.Reader) (cid.Cid, error)`.
   $cid.Cid readCid(Object br) {
-    final $r = $callSync(18891, $W()..reader(br));
+    final $r = $callSync(18897, $W()..reader(br));
     return $r.p() ? $cid.Cid($r.str()) : $nil();
   }
 
@@ -852,7 +852,7 @@ extension GoWhyrusleepingCborGenApi on GoWhyrusleepingCborGen {
   (int, bool) readFullStringIntoBuf(
       CborGenCborReader cr, Uint8List buf, int maxLength) {
     final $r = $callSync(
-        18892,
+        18898,
         $W()
           ..h(cr)
           ..bytes(buf)
@@ -862,7 +862,7 @@ extension GoWhyrusleepingCborGenApi on GoWhyrusleepingCborGen {
 
   /// Go: `func typegen.ReadString(r io.Reader) (string, error)`.
   String readString(Object r) {
-    final $r = $callSync(18893, $W()..reader(r));
+    final $r = $callSync(18899, $W()..reader(r));
     return $r.str();
   }
 
@@ -870,7 +870,7 @@ extension GoWhyrusleepingCborGenApi on GoWhyrusleepingCborGen {
   @Deprecated("use ReadString")
   String readStringBuf(Object r, Uint8List arg1) {
     final $r = $callSync(
-        18894,
+        18900,
         $W()
           ..reader(r)
           ..bytes(arg1));
@@ -880,7 +880,7 @@ extension GoWhyrusleepingCborGenApi on GoWhyrusleepingCborGen {
   /// Go: `func typegen.ReadStringWithMax(r io.Reader, maxLength uint64) (string, error)`.
   String readStringWithMax(Object r, int maxLength) {
     final $r = $callSync(
-        18895,
+        18901,
         $W()
           ..reader(r)
           ..i64(maxLength));
@@ -890,7 +890,7 @@ extension GoWhyrusleepingCborGenApi on GoWhyrusleepingCborGen {
   /// Go: `func typegen.ReadTaggedByteArray(br io.Reader, exptag uint64, maxlen uint64) (bs []byte, err error)`.
   Uint8List readTaggedByteArray(Object br, int exptag, int maxlen) {
     final $r = $callSync(
-        18896,
+        18902,
         $W()
           ..reader(br)
           ..i64(exptag)
@@ -908,7 +908,7 @@ extension GoWhyrusleepingCborGenApi on GoWhyrusleepingCborGen {
   Future<void> scanForLinks(
       Object br, FutureOr<void> Function($cid.Cid cid) cb) async {
     await $call(
-        18897,
+        18903,
         $W()
           ..reader(br)
           ..cb((r) => cb(r.p() ? $cid.Cid(r.str()) : $nil()), true));
@@ -916,13 +916,13 @@ extension GoWhyrusleepingCborGenApi on GoWhyrusleepingCborGen {
 
   /// Go: `func typegen.ValidateCBOR(b []byte) error`.
   void validateCbor(Uint8List b) {
-    $callSync(18898, $W()..bytes(b));
+    $callSync(18904, $W()..bytes(b));
   }
 
   /// Go: `func typegen.WriteBool(w io.Writer, b bool) error`.
   void writeBool(GoHandle? w, bool b) {
     $callSync(
-        18899,
+        18905,
         $W()
           ..h(w)
           ..b(b));
@@ -931,7 +931,7 @@ extension GoWhyrusleepingCborGenApi on GoWhyrusleepingCborGen {
   /// Go: `func typegen.WriteByteArray(bw io.Writer, bytes []byte) error`.
   void writeByteArray(GoHandle? bw, Uint8List bytes) {
     $callSync(
-        18900,
+        18906,
         $W()
           ..h(bw)
           ..bytes(bytes));
@@ -940,7 +940,7 @@ extension GoWhyrusleepingCborGenApi on GoWhyrusleepingCborGen {
   /// Go: `func typegen.WriteCid(w io.Writer, c cid.Cid) error`.
   void writeCid(GoHandle? w, $cid.Cid c) {
     $callSync(
-        18901,
+        18907,
         $W()
           ..h(w)
           ..val(c));
@@ -949,7 +949,7 @@ extension GoWhyrusleepingCborGenApi on GoWhyrusleepingCborGen {
   /// Go: `func typegen.WriteCidBuf(buf []byte, w io.Writer, c cid.Cid) error`.
   void writeCidBuf(Uint8List buf, GoHandle? w, $cid.Cid c) {
     $callSync(
-        18902,
+        18908,
         $W()
           ..bytes(buf)
           ..h(w)
@@ -959,7 +959,7 @@ extension GoWhyrusleepingCborGenApi on GoWhyrusleepingCborGen {
   /// Go: `func typegen.WriteMajorTypeHeader(w io.Writer, t byte, l uint64) error`.
   void writeMajorTypeHeader(GoHandle? w, int t, int l) {
     $callSync(
-        18903,
+        18909,
         $W()
           ..h(w)
           ..i64(t)
@@ -969,7 +969,7 @@ extension GoWhyrusleepingCborGenApi on GoWhyrusleepingCborGen {
   /// Go: `func typegen.WriteMajorTypeHeaderBuf(buf []byte, w io.Writer, t byte, l uint64) error`.
   void writeMajorTypeHeaderBuf(Uint8List buf, GoHandle? w, int t, int l) {
     $callSync(
-        18904,
+        18910,
         $W()
           ..bytes(buf)
           ..h(w)
@@ -981,7 +981,7 @@ extension GoWhyrusleepingCborGenApi on GoWhyrusleepingCborGen {
   void writeMapEncodersToFile(String fname, String pkg,
       [List<Object?> types = const []]) {
     $callSync(
-        18905,
+        18911,
         $W()
           ..str(fname)
           ..str(pkg)
@@ -992,7 +992,7 @@ extension GoWhyrusleepingCborGenApi on GoWhyrusleepingCborGen {
   void writeTupleEncodersToFile(String fname, String pkg,
       [List<Object?> types = const []]) {
     $callSync(
-        18906,
+        18912,
         $W()
           ..str(fname)
           ..str(pkg)

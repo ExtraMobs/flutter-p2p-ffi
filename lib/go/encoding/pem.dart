@@ -42,7 +42,7 @@ final class EncodingPemBlock implements GoDto {
 extension GoEncodingPemApi on GoEncodingPem {
   /// Go: `func pem.Decode(data []byte) (p *pem.Block, rest []byte)`.
   (EncodingPemBlock, Uint8List) decode(Uint8List data) {
-    final $r = $callSync(3750, $W()..bytes(data));
+    final $r = $callSync(3759, $W()..bytes(data));
     return (
       $r.p() ? EncodingPemBlock.$dec($r) : $nil(),
       $r.bytes() ?? Uint8List(0)
@@ -52,7 +52,7 @@ extension GoEncodingPemApi on GoEncodingPem {
   /// Go: `func pem.Encode(out io.Writer, b *pem.Block) error`.
   void encode(GoHandle? out, EncodingPemBlock b) {
     $callSync(
-        3751,
+        3760,
         $W()
           ..h(out)
           ..dto(b));
@@ -60,7 +60,7 @@ extension GoEncodingPemApi on GoEncodingPem {
 
   /// Go: `func pem.EncodeToMemory(b *pem.Block) []byte`.
   Uint8List encodeToMemory(EncodingPemBlock b) {
-    final $r = $callSync(3752, $W()..dto(b));
+    final $r = $callSync(3761, $W()..dto(b));
     return $r.bytes() ?? Uint8List(0);
   }
 }

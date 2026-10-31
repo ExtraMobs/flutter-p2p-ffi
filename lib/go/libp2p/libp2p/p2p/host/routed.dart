@@ -57,18 +57,18 @@ class Libp2pP2pHostRoutedHost extends $io.IoCloser
 
   /// Go: `func (*routedhost.RoutedHost).Addrs() []multiaddr.Multiaddr`.
   List<$multiaddr.Multiaddr> addrs() {
-    final $r = $callSync(14576, $W()..h(this));
+    final $r = $callSync(14582, $W()..h(this));
     return $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil());
   }
 
   /// Go: `func (*routedhost.RoutedHost).Close() error`.
   void close() {
-    $callSync(14577, $W()..h(this));
+    $callSync(14583, $W()..h(this));
   }
 
   /// Go: `func (*routedhost.RoutedHost).ConnManager() connmgr.ConnManager`.
   $connmgr.Libp2pCoreConnmgrConnManager connManager() {
-    final $r = $callSync(14578, $W()..h(this));
+    final $r = $callSync(14584, $W()..h(this));
     return $r.hnn($connmgr.Libp2pCoreConnmgrConnManager.$h);
   }
 
@@ -78,7 +78,7 @@ class Libp2pP2pHostRoutedHost extends $io.IoCloser
   Future<void> connect(
       $context.Context ctx, $peer.Libp2pCorePeerAddrInfo pi) async {
     await $call(
-        14579,
+        14585,
         $W()
           ..h(this)
           ..h(ctx)
@@ -87,25 +87,25 @@ class Libp2pP2pHostRoutedHost extends $io.IoCloser
 
   /// Go: `func (*routedhost.RoutedHost).EventBus() event.Bus`.
   $event.Libp2pCoreEventBus eventBus() {
-    final $r = $callSync(14580, $W()..h(this));
+    final $r = $callSync(14586, $W()..h(this));
     return $r.hnn($event.Libp2pCoreEventBus.$h);
   }
 
   /// Go: `func (*routedhost.RoutedHost).ID() peer.ID`.
   $peer.Libp2pCorePeerId id() {
-    final $r = $callSync(14581, $W()..h(this));
+    final $r = $callSync(14587, $W()..h(this));
     return $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil();
   }
 
   /// Go: `func (*routedhost.RoutedHost).Mux() protocol.Switch`.
   $protocol.Libp2pCoreProtocolSwitch mux() {
-    final $r = $callSync(14582, $W()..h(this));
+    final $r = $callSync(14588, $W()..h(this));
     return $r.hnn($protocol.Libp2pCoreProtocolSwitch.$h);
   }
 
   /// Go: `func (*routedhost.RoutedHost).Network() network.Network`.
   $network.Libp2pCoreNetwork network() {
-    final $r = $callSync(14583, $W()..h(this));
+    final $r = $callSync(14589, $W()..h(this));
     return $r.hnn($network.Libp2pCoreNetwork.$h);
   }
 
@@ -116,7 +116,7 @@ class Libp2pP2pHostRoutedHost extends $io.IoCloser
       $context.Context ctx, $peer.Libp2pCorePeerId p,
       [List<String> pids = const []]) async {
     final $r = await $call(
-        14584,
+        14590,
         $W()
           ..h(this)
           ..h(ctx)
@@ -127,14 +127,14 @@ class Libp2pP2pHostRoutedHost extends $io.IoCloser
 
   /// Go: `func (*routedhost.RoutedHost).Peerstore() peerstore.Peerstore`.
   $peerstore.Libp2pCorePeerstore peerstore() {
-    final $r = $callSync(14585, $W()..h(this));
+    final $r = $callSync(14591, $W()..h(this));
     return $r.hnn($peerstore.Libp2pCorePeerstore.$h);
   }
 
   /// Go: `func (*routedhost.RoutedHost).RemoveStreamHandler(pid protocol.ID)`.
   void removeStreamHandler(String pid) {
     $callSync(
-        14586,
+        14592,
         $W()
           ..h(this)
           ..str(pid));
@@ -152,7 +152,7 @@ class Libp2pP2pHostRoutedHost extends $io.IoCloser
       FutureOr<void> Function($network.Libp2pCoreNetworkStream stream)
           handler) async {
     await $call(
-        14587,
+        14593,
         $W()
           ..h(this)
           ..str(pid)
@@ -173,7 +173,7 @@ class Libp2pP2pHostRoutedHost extends $io.IoCloser
       FutureOr<void> Function($network.Libp2pCoreNetworkStream stream)
           handler) async {
     await $call(
-        14588,
+        14594,
         $W()
           ..h(this)
           ..str(pid)
@@ -197,7 +197,7 @@ mixin Libp2pP2pHostRoutedRouting$ on GoHandle {
   Future<$peer.Libp2pCorePeerAddrInfo> findPeer(
       $context.Context ctx, $peer.Libp2pCorePeerId id) async {
     final $r = await $call(
-        14589,
+        14595,
         $W()
           ..h(this)
           ..h(ctx)
@@ -207,19 +207,19 @@ mixin Libp2pP2pHostRoutedRouting$ on GoHandle {
 
   /// Go: type assertion `x.(*coreapi.RoutingAPI)`: null if the object is not one.
   $coreapi.KuboCoreCoreapiRoutingApi? asKuboCoreCoreapiRoutingApi() {
-    final $r = $callSync(1439, $W()..h(this));
+    final $r = $callSync(1442, $W()..h(this));
     return $r.hn($coreapi.KuboCoreCoreapiRoutingApi.$h);
   }
 
   /// Go: type assertion `x.(*dht.IpfsDHT)`: null if the object is not one.
   $libp2p_kad_dht.Libp2pKadDhtIpfsDht? asLibp2pKadDhtIpfsDht() {
-    final $r = $callSync(1440, $W()..h(this));
+    final $r = $callSync(1443, $W()..h(this));
     return $r.hn($libp2p_kad_dht.Libp2pKadDhtIpfsDht.$h);
   }
 
   /// Go: type assertion `x.(*fullrt.FullRT)`: null if the object is not one.
   $fullrt.Libp2pKadDhtFullrtFullRt? asLibp2pKadDhtFullrtFullRt() {
-    final $r = $callSync(1441, $W()..h(this));
+    final $r = $callSync(1444, $W()..h(this));
     return $r.hn($fullrt.Libp2pKadDhtFullrtFullRt.$h);
   }
 }
@@ -230,7 +230,7 @@ extension GoLibp2pLibp2pP2pHostRoutedApi on GoLibp2pLibp2pP2pHostRouted {
   Libp2pP2pHostRoutedHost wrap(
       $host.Libp2pCoreHost h, Libp2pP2pHostRoutedRouting r) {
     final $r = $callSync(
-        14590,
+        14596,
         $W()
           ..h(h)
           ..h(r));

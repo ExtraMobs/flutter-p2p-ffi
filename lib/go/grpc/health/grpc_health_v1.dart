@@ -50,35 +50,35 @@ class GrpcHealthGrpcHealthV1HealthCheckRequest
   /// Go: `func (*grpc_health_v1.HealthCheckRequest).Descriptor() ([]byte, []int)`.
   @Deprecated("Use HealthCheckRequest.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(24623, $W()..h(this));
+    final $r = $callSync(24629, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*grpc_health_v1.HealthCheckRequest).GetService() string`.
   String getService() {
-    final $r = $callSync(24624, $W()..h(this));
+    final $r = $callSync(24630, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*grpc_health_v1.HealthCheckRequest).ProtoMessage()`.
   void protoMessage() {
-    $callSync(24625, $W()..h(this));
+    $callSync(24631, $W()..h(this));
   }
 
   /// Go: `func (*grpc_health_v1.HealthCheckRequest).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(24626, $W()..h(this));
+    final $r = $callSync(24632, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*grpc_health_v1.HealthCheckRequest).Reset()`.
   void reset() {
-    $callSync(24627, $W()..h(this));
+    $callSync(24633, $W()..h(this));
   }
 
   /// Go: `func (*grpc_health_v1.HealthCheckRequest).String() string`.
   String string() {
-    final $r = $callSync(24628, $W()..h(this));
+    final $r = $callSync(24634, $W()..h(this));
     return $r.str();
   }
 }
@@ -111,35 +111,35 @@ class GrpcHealthGrpcHealthV1HealthCheckResponse
   /// Go: `func (*grpc_health_v1.HealthCheckResponse).Descriptor() ([]byte, []int)`.
   @Deprecated("Use HealthCheckResponse.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(24629, $W()..h(this));
+    final $r = $callSync(24635, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*grpc_health_v1.HealthCheckResponse).GetStatus() grpc_health_v1.HealthCheckResponse_ServingStatus`.
   int getStatus() {
-    final $r = $callSync(24630, $W()..h(this));
+    final $r = $callSync(24636, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*grpc_health_v1.HealthCheckResponse).ProtoMessage()`.
   void protoMessage() {
-    $callSync(24631, $W()..h(this));
+    $callSync(24637, $W()..h(this));
   }
 
   /// Go: `func (*grpc_health_v1.HealthCheckResponse).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(24632, $W()..h(this));
+    final $r = $callSync(24638, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*grpc_health_v1.HealthCheckResponse).Reset()`.
   void reset() {
-    $callSync(24633, $W()..h(this));
+    $callSync(24639, $W()..h(this));
   }
 
   /// Go: `func (*grpc_health_v1.HealthCheckResponse).String() string`.
   String string() {
-    final $r = $callSync(24634, $W()..h(this));
+    final $r = $callSync(24640, $W()..h(this));
     return $r.str();
   }
 }
@@ -151,7 +151,7 @@ class GrpcHealthGrpcHealthV1HealthClient extends GoHandle
 
   /// Go: `func grpc_health_v1.NewHealthClient(cc grpc.ClientConnInterface) grpc_health_v1.HealthClient`.
   factory GrpcHealthGrpcHealthV1HealthClient($grpc.GrpcClientConnInterface cc) {
-    final $r = $callSync(24653, $W()..h(cc));
+    final $r = $callSync(24659, $W()..h(cc));
     return $r.hnn(GrpcHealthGrpcHealthV1HealthClient.$h);
   }
 }
@@ -165,7 +165,7 @@ mixin GrpcHealthGrpcHealthV1HealthClient$ on GoHandle {
       $context.Context ctx, GrpcHealthGrpcHealthV1HealthCheckRequest in$,
       [List<$grpc.GrpcCallOption> opts = const []]) async {
     final $r = await $call(
-        24637,
+        24643,
         $W()
           ..h(this)
           ..h(ctx)
@@ -181,7 +181,7 @@ mixin GrpcHealthGrpcHealthV1HealthClient$ on GoHandle {
       $context.Context ctx, GrpcHealthGrpcHealthV1HealthListRequest in$,
       [List<$grpc.GrpcCallOption> opts = const []]) async {
     final $r = await $call(
-        24638,
+        24644,
         $W()
           ..h(this)
           ..h(ctx)
@@ -219,29 +219,29 @@ class GrpcHealthGrpcHealthV1HealthListRequest
   /// Go: `func (*grpc_health_v1.HealthListRequest).Descriptor() ([]byte, []int)`.
   @Deprecated("Use HealthListRequest.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(24639, $W()..h(this));
+    final $r = $callSync(24645, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*grpc_health_v1.HealthListRequest).ProtoMessage()`.
   void protoMessage() {
-    $callSync(24640, $W()..h(this));
+    $callSync(24646, $W()..h(this));
   }
 
   /// Go: `func (*grpc_health_v1.HealthListRequest).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(24641, $W()..h(this));
+    final $r = $callSync(24647, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*grpc_health_v1.HealthListRequest).Reset()`.
   void reset() {
-    $callSync(24642, $W()..h(this));
+    $callSync(24648, $W()..h(this));
   }
 
   /// Go: `func (*grpc_health_v1.HealthListRequest).String() string`.
   String string() {
-    final $r = $callSync(24643, $W()..h(this));
+    final $r = $callSync(24649, $W()..h(this));
     return $r.str();
   }
 }
@@ -274,36 +274,36 @@ class GrpcHealthGrpcHealthV1HealthListResponse
   /// Go: `func (*grpc_health_v1.HealthListResponse).Descriptor() ([]byte, []int)`.
   @Deprecated("Use HealthListResponse.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(24644, $W()..h(this));
+    final $r = $callSync(24650, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*grpc_health_v1.HealthListResponse).GetStatuses() map[string]*grpc_health_v1.HealthCheckResponse`.
   Map<String, GrpcHealthGrpcHealthV1HealthCheckResponse> getStatuses() {
-    final $r = $callSync(24645, $W()..h(this));
+    final $r = $callSync(24651, $W()..h(this));
     return $r.map(() => $r.str(),
         () => $r.hnn(GrpcHealthGrpcHealthV1HealthCheckResponse.$h));
   }
 
   /// Go: `func (*grpc_health_v1.HealthListResponse).ProtoMessage()`.
   void protoMessage() {
-    $callSync(24646, $W()..h(this));
+    $callSync(24652, $W()..h(this));
   }
 
   /// Go: `func (*grpc_health_v1.HealthListResponse).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(24647, $W()..h(this));
+    final $r = $callSync(24653, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*grpc_health_v1.HealthListResponse).Reset()`.
   void reset() {
-    $callSync(24648, $W()..h(this));
+    $callSync(24654, $W()..h(this));
   }
 
   /// Go: `func (*grpc_health_v1.HealthListResponse).String() string`.
   String string() {
-    final $r = $callSync(24649, $W()..h(this));
+    final $r = $callSync(24655, $W()..h(this));
     return $r.str();
   }
 }
@@ -322,7 +322,7 @@ mixin GrpcHealthGrpcHealthV1HealthServer$ on GoHandle {
   Future<GrpcHealthGrpcHealthV1HealthCheckResponse> check($context.Context ctx,
       GrpcHealthGrpcHealthV1HealthCheckRequest healthCheckRequest) async {
     final $r = await $call(
-        24650,
+        24656,
         $W()
           ..h(this)
           ..h(ctx)
@@ -336,7 +336,7 @@ mixin GrpcHealthGrpcHealthV1HealthServer$ on GoHandle {
   Future<GrpcHealthGrpcHealthV1HealthListResponse> list($context.Context ctx,
       GrpcHealthGrpcHealthV1HealthListRequest healthListRequest) async {
     final $r = await $call(
-        24651,
+        24657,
         $W()
           ..h(this)
           ..h(ctx)
@@ -359,7 +359,7 @@ final class GrpcHealthGrpcHealthV1UnimplementedHealthServer implements GoDto {
   Future<GrpcHealthGrpcHealthV1HealthCheckResponse> check($context.Context ctx,
       GrpcHealthGrpcHealthV1HealthCheckRequest healthCheckRequest) async {
     final $r = await $call(
-        24655,
+        24661,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -373,7 +373,7 @@ final class GrpcHealthGrpcHealthV1UnimplementedHealthServer implements GoDto {
   Future<GrpcHealthGrpcHealthV1HealthListResponse> list($context.Context ctx,
       GrpcHealthGrpcHealthV1HealthListRequest healthListRequest) async {
     final $r = await $call(
-        24656,
+        24662,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -387,25 +387,25 @@ extension GoGrpcHealthGrpcHealthV1Api on GoGrpcHealthGrpcHealthV1 {
   /// Go: `var grpc_health_v1.File_grpc_health_v1_health_proto protoreflect.FileDescriptor`.
   $protoreflect.ProtobufReflectProtoreflectFileDescriptor
       get fileGrpcHealthV1HealthProto {
-    final $r = $callSync(24622);
+    final $r = $callSync(24628);
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectFileDescriptor.$h);
   }
 
   /// Go: `var grpc_health_v1.HealthCheckResponse_ServingStatus_name map[int32]string`.
   Map<int, String> get healthCheckResponseServingStatusName {
-    final $r = $callSync(24635);
+    final $r = $callSync(24641);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var grpc_health_v1.HealthCheckResponse_ServingStatus_value map[string]int32`.
   Map<String, int> get healthCheckResponseServingStatusValue {
-    final $r = $callSync(24636);
+    final $r = $callSync(24642);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `var grpc_health_v1.Health_ServiceDesc grpc.ServiceDesc`.
   $grpc.GrpcServiceDesc get healthServiceDesc {
-    final $r = $callSync(24652);
+    final $r = $callSync(24658);
     return $r.p() ? $grpc.GrpcServiceDesc.$dec($r) : $nil();
   }
 
@@ -413,7 +413,7 @@ extension GoGrpcHealthGrpcHealthV1Api on GoGrpcHealthGrpcHealthV1 {
   void registerHealthServer(
       $grpc.GrpcServiceRegistrar s, GrpcHealthGrpcHealthV1HealthServer srv) {
     $callSync(
-        24654,
+        24660,
         $W()
           ..h(s)
           ..h(srv));

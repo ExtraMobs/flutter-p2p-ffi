@@ -49,7 +49,7 @@ final class Libp2pXorKademliaBucketHealthReport implements GoDto {
 
   /// Go: `func (*kademlia.BucketHealthReport).String() string`.
   String string() {
-    final $r = $callSync(13767, $W()..dto(this));
+    final $r = $callSync(13773, $W()..dto(this));
     return $r.str();
   }
 }
@@ -113,7 +113,7 @@ final class Libp2pXorKademliaTableHealthReport implements GoDto {
 
   /// Go: `func (*kademlia.TableHealthReport).String() string`.
   String string() {
-    final $r = $callSync(13771, $W()..dto(this));
+    final $r = $callSync(13777, $W()..dto(this));
     return $r.str();
   }
 }
@@ -123,7 +123,7 @@ extension GoLibp2pLibp2pXorKademliaApi on GoLibp2pLibp2pXorKademlia {
   /// Go: `func kademlia.AllTablesHealth(tables []*kademlia.Table) (report []*kademlia.TableHealthReport)`.
   List<Libp2pXorKademliaTableHealthReport> allTablesHealth(
       List<Libp2pXorKademliaTable> tables) {
-    final $r = $callSync(13764, $W()..list(tables, (w0, e0) => w0.dto(e0)));
+    final $r = $callSync(13770, $W()..list(tables, (w0, e0) => w0.dto(e0)));
     return $r.list(
         () => $r.p() ? Libp2pXorKademliaTableHealthReport.$dec($r) : $nil());
   }
@@ -132,7 +132,7 @@ extension GoLibp2pLibp2pXorKademliaApi on GoLibp2pLibp2pXorKademlia {
   $trie.Libp2pXorTrie bucketAtDepth(
       Uint8List node, $trie.Libp2pXorTrie table, int depth) {
     final $r = $callSync(
-        13765,
+        13771,
         $W()
           ..bytes(node)
           ..dto(table)
@@ -144,7 +144,7 @@ extension GoLibp2pLibp2pXorKademliaApi on GoLibp2pLibp2pXorKademlia {
   List<Libp2pXorKademliaBucketHealthReport> bucketHealth(Uint8List node,
       $trie.Libp2pXorTrie nodeTable, $trie.Libp2pXorTrie knownNodes) {
     final $r = $callSync(
-        13766,
+        13772,
         $W()
           ..bytes(node)
           ..dto(nodeTable)
@@ -157,7 +157,7 @@ extension GoLibp2pLibp2pXorKademliaApi on GoLibp2pLibp2pXorKademlia {
   List<Uint8List> closestN(
       Uint8List node, $trie.Libp2pXorTrie table, int count) {
     final $r = $callSync(
-        13768,
+        13774,
         $W()
           ..bytes(node)
           ..dto(table)
@@ -169,7 +169,7 @@ extension GoLibp2pLibp2pXorKademliaApi on GoLibp2pLibp2pXorKademlia {
   Libp2pXorKademliaTableHealthReport tableHealth(Uint8List node,
       List<Uint8List> nodeContacts, $trie.Libp2pXorTrie knownNodes) {
     final $r = $callSync(
-        13769,
+        13775,
         $W()
           ..bytes(node)
           ..list(nodeContacts, (w0, e0) => w0.bytes(e0))
@@ -181,7 +181,7 @@ extension GoLibp2pLibp2pXorKademliaApi on GoLibp2pLibp2pXorKademlia {
   Libp2pXorKademliaTableHealthReport tableHealthFromSets(Uint8List node,
       List<Uint8List> nodeContacts, List<Uint8List> knownNodes) {
     final $r = $callSync(
-        13770,
+        13776,
         $W()
           ..bytes(node)
           ..list(nodeContacts, (w0, e0) => w0.bytes(e0))

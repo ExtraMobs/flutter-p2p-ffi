@@ -41,7 +41,7 @@ final class KuboRepoFsrepoMigrationsCommonBaseMigration implements GoDto {
   /// Go: `func (*common.BaseMigration).Apply(opts common.Options) error`.
   void apply(KuboRepoFsrepoMigrationsCommonOptions opts) {
     $callSync(
-        11827,
+        11833,
         $W()
           ..dto(this)
           ..dto(opts));
@@ -49,14 +49,14 @@ final class KuboRepoFsrepoMigrationsCommonBaseMigration implements GoDto {
 
   /// Go: `func (*common.BaseMigration).Reversible() bool`.
   bool reversible() {
-    final $r = $callSync(11828, $W()..dto(this));
+    final $r = $callSync(11834, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*common.BaseMigration).Revert(opts common.Options) error`.
   void revert(KuboRepoFsrepoMigrationsCommonOptions opts) {
     $callSync(
-        11829,
+        11835,
         $W()
           ..dto(this)
           ..dto(opts));
@@ -64,7 +64,7 @@ final class KuboRepoFsrepoMigrationsCommonBaseMigration implements GoDto {
 
   /// Go: `func (*common.BaseMigration).Versions() string`.
   String versions() {
-    final $r = $callSync(11830, $W()..dto(this));
+    final $r = $callSync(11836, $W()..dto(this));
     return $r.str();
   }
 }
@@ -98,7 +98,7 @@ mixin KuboRepoFsrepoMigrationsCommonMigration$ on GoHandle {
   /// Go: `func (common.Migration).Apply(opts common.Options) error`.
   void apply(KuboRepoFsrepoMigrationsCommonOptions opts) {
     $callSync(
-        11845,
+        11851,
         $W()
           ..h(this)
           ..dto(opts));
@@ -106,14 +106,14 @@ mixin KuboRepoFsrepoMigrationsCommonMigration$ on GoHandle {
 
   /// Go: `func (common.Migration).Reversible() bool`.
   bool reversible() {
-    final $r = $callSync(11846, $W()..h(this));
+    final $r = $callSync(11852, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (common.Migration).Revert(opts common.Options) error`.
   void revert(KuboRepoFsrepoMigrationsCommonOptions opts) {
     $callSync(
-        11847,
+        11853,
         $W()
           ..h(this)
           ..dto(opts));
@@ -121,7 +121,7 @@ mixin KuboRepoFsrepoMigrationsCommonMigration$ on GoHandle {
 
   /// Go: `func (common.Migration).Versions() string`.
   String versions() {
-    final $r = $callSync(11848, $W()..h(this));
+    final $r = $callSync(11854, $W()..h(this));
     return $r.str();
   }
 }
@@ -192,7 +192,7 @@ extension GoIpfsKuboRepoFsrepoMigrationsCommonApi
   void assertConfigField($testing.TestingT t, Map<String, Object?> config,
       String path, Object? expected) {
     $callSync(
-        11824,
+        11830,
         $W()
           ..h(t)
           ..map(config, (w0, k0) => w0.str(k0), (w0, v0) => w0.any(v0))
@@ -208,7 +208,7 @@ extension GoIpfsKuboRepoFsrepoMigrationsCommonApi
       int toVersion,
       Map<String, Object?> inputConfig) {
     $callSync(
-        11825,
+        11831,
         $W()
           ..h(t)
           ..h(migration)
@@ -225,7 +225,7 @@ extension GoIpfsKuboRepoFsrepoMigrationsCommonApi
       int toVersion,
       Map<String, Object?> inputConfig) {
     final $r = $callSync(
-        11826,
+        11832,
         $W()
           ..h(t)
           ..h(migration)
@@ -238,7 +238,7 @@ extension GoIpfsKuboRepoFsrepoMigrationsCommonApi
   /// Go: `func common.CheckVersion(repoPath string, expectedVersion string) error`.
   void checkVersion(String repoPath, String expectedVersion) {
     $callSync(
-        11831,
+        11837,
         $W()
           ..str(repoPath)
           ..str(expectedVersion));
@@ -247,20 +247,20 @@ extension GoIpfsKuboRepoFsrepoMigrationsCommonApi
   /// Go: `func common.CloneStringMap(m map[string]any) map[string]string`.
   Map<String, String> cloneStringMap(Map<String, Object?> m) {
     final $r = $callSync(
-        11832, $W()..map(m, (w0, k0) => w0.str(k0), (w0, v0) => w0.any(v0)));
+        11838, $W()..map(m, (w0, k0) => w0.str(k0), (w0, v0) => w0.any(v0)));
     return $r.map(() => $r.str(), () => $r.str());
   }
 
   /// Go: `func common.ConvertInterfaceSlice(slice []any) []string`.
   List<String> convertInterfaceSlice(List<Object?> slice) {
-    final $r = $callSync(11833, $W()..list(slice, (w0, e0) => w0.any(e0)));
+    final $r = $callSync(11839, $W()..list(slice, (w0, e0) => w0.any(e0)));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func common.CopyField(config map[string]any, from string, to string) error`.
   void copyField(Map<String, Object?> config, String from, String to) {
     $callSync(
-        11834,
+        11840,
         $W()
           ..map(config, (w0, k0) => w0.str(k0), (w0, v0) => w0.any(v0))
           ..str(from)
@@ -271,7 +271,7 @@ extension GoIpfsKuboRepoFsrepoMigrationsCommonApi
   String createTestRepo(
       $testing.TestingT t, int version, Map<String, Object?> config) {
     final $r = $callSync(
-        11835,
+        11841,
         $W()
           ..h(t)
           ..i64(version)
@@ -282,7 +282,7 @@ extension GoIpfsKuboRepoFsrepoMigrationsCommonApi
   /// Go: `func common.DeleteField(config map[string]any, path string) bool`.
   bool deleteField(Map<String, Object?> config, String path) {
     final $r = $callSync(
-        11836,
+        11842,
         $W()
           ..map(config, (w0, k0) => w0.str(k0), (w0, v0) => w0.any(v0))
           ..str(path));
@@ -293,7 +293,7 @@ extension GoIpfsKuboRepoFsrepoMigrationsCommonApi
   void ensureFieldIs(
       Map<String, Object?> config, String path, Object? expected) {
     $callSync(
-        11837,
+        11843,
         $W()
           ..map(config, (w0, k0) => w0.str(k0), (w0, v0) => w0.any(v0))
           ..str(path)
@@ -304,7 +304,7 @@ extension GoIpfsKuboRepoFsrepoMigrationsCommonApi
   void ensureSliceContains(
       Map<String, Object?> config, String path, String value) {
     $callSync(
-        11838,
+        11844,
         $W()
           ..map(config, (w0, k0) => w0.str(k0), (w0, v0) => w0.any(v0))
           ..str(path)
@@ -313,7 +313,7 @@ extension GoIpfsKuboRepoFsrepoMigrationsCommonApi
 
   /// Go: `func common.GenerateTestConfig(fields map[string]any) map[string]any`.
   Map<String, Object?> generateTestConfig(Map<String, Object?> fields) {
-    final $r = $callSync(11839,
+    final $r = $callSync(11845,
         $W()..map(fields, (w0, k0) => w0.str(k0), (w0, v0) => w0.any(v0)));
     return $r.map(() => $r.str(), () => $r.any());
   }
@@ -321,7 +321,7 @@ extension GoIpfsKuboRepoFsrepoMigrationsCommonApi
   /// Go: `func common.GetField(config map[string]any, path string) (any, bool)`.
   (Object?, bool) getField(Map<String, Object?> config, String path) {
     final $r = $callSync(
-        11840,
+        11846,
         $W()
           ..map(config, (w0, k0) => w0.str(k0), (w0, v0) => w0.any(v0))
           ..str(path));
@@ -331,7 +331,7 @@ extension GoIpfsKuboRepoFsrepoMigrationsCommonApi
   /// Go: `func common.GetMapSection(config map[string]any, path string) (map[string]any, error)`.
   Map<String, Object?> getMapSection(Map<String, Object?> config, String path) {
     final $r = $callSync(
-        11841,
+        11847,
         $W()
           ..map(config, (w0, k0) => w0.str(k0), (w0, v0) => w0.any(v0))
           ..str(path));
@@ -342,7 +342,7 @@ extension GoIpfsKuboRepoFsrepoMigrationsCommonApi
   Map<String, Object?> getOrCreateSection(
       Map<String, Object?> config, String path) {
     final $r = $callSync(
-        11842,
+        11848,
         $W()
           ..map(config, (w0, k0) => w0.str(k0), (w0, v0) => w0.any(v0))
           ..str(path));
@@ -351,7 +351,7 @@ extension GoIpfsKuboRepoFsrepoMigrationsCommonApi
 
   /// Go: `func common.IsEmptySlice(value any) bool`.
   bool isEmptySlice(Object? value) {
-    final $r = $callSync(11843, $W()..any(value));
+    final $r = $callSync(11849, $W()..any(value));
     return $r.b();
   }
 
@@ -359,7 +359,7 @@ extension GoIpfsKuboRepoFsrepoMigrationsCommonApi
   void mergeInto(Map<String, Object?> config, String destination,
       [List<String> sources = const []]) {
     $callSync(
-        11844,
+        11850,
         $W()
           ..map(config, (w0, k0) => w0.str(k0), (w0, v0) => w0.any(v0))
           ..str(destination)
@@ -369,7 +369,7 @@ extension GoIpfsKuboRepoFsrepoMigrationsCommonApi
   /// Go: `func common.MoveField(config map[string]any, from string, to string) error`.
   void moveField(Map<String, Object?> config, String from, String to) {
     $callSync(
-        11849,
+        11855,
         $W()
           ..map(config, (w0, k0) => w0.str(k0), (w0, v0) => w0.any(v0))
           ..str(from)
@@ -378,7 +378,7 @@ extension GoIpfsKuboRepoFsrepoMigrationsCommonApi
 
   /// Go: `func common.ReadConfig(r io.Reader) (map[string]any, error)`.
   Map<String, Object?> readConfig(Object r) {
-    final $r = $callSync(11850, $W()..reader(r));
+    final $r = $callSync(11856, $W()..reader(r));
     return $r.map(() => $r.str(), () => $r.any());
   }
 
@@ -386,7 +386,7 @@ extension GoIpfsKuboRepoFsrepoMigrationsCommonApi
   void renameField(Map<String, Object?> config, String path, String oldName,
       String newName) {
     $callSync(
-        11851,
+        11857,
         $W()
           ..map(config, (w0, k0) => w0.str(k0), (w0, v0) => w0.any(v0))
           ..str(path)
@@ -398,7 +398,7 @@ extension GoIpfsKuboRepoFsrepoMigrationsCommonApi
   Map<String, String> replaceDefaultsWithAuto(
       Map<String, Object?> values, Map<String, String> defaults) {
     final $r = $callSync(
-        11852,
+        11858,
         $W()
           ..map(values, (w0, k0) => w0.str(k0), (w0, v0) => w0.any(v0))
           ..map(defaults, (w0, k0) => w0.str(k0), (w0, v0) => w0.str(v0)));
@@ -409,7 +409,7 @@ extension GoIpfsKuboRepoFsrepoMigrationsCommonApi
   void replaceInSlice(Map<String, Object?> config, String path, String oldValue,
       String newValue) {
     $callSync(
-        11853,
+        11859,
         $W()
           ..map(config, (w0, k0) => w0.str(k0), (w0, v0) => w0.any(v0))
           ..str(path)
@@ -420,7 +420,7 @@ extension GoIpfsKuboRepoFsrepoMigrationsCommonApi
   /// Go: `func common.RevertBackup(configPath string, backupSuffix string) error`.
   void revertBackup(String configPath, String backupSuffix) {
     $callSync(
-        11854,
+        11860,
         $W()
           ..str(configPath)
           ..str(backupSuffix));
@@ -432,7 +432,7 @@ extension GoIpfsKuboRepoFsrepoMigrationsCommonApi
       KuboRepoFsrepoMigrationsCommonMigration migration,
       KuboRepoFsrepoMigrationsCommonTestCase tc) {
     $callSync(
-        11855,
+        11861,
         $W()
           ..h(t)
           ..h(migration)
@@ -441,20 +441,20 @@ extension GoIpfsKuboRepoFsrepoMigrationsCommonApi
 
   /// Go: `func common.SafeCastMap(value any) map[string]any`.
   Map<String, Object?> safeCastMap(Object? value) {
-    final $r = $callSync(11856, $W()..any(value));
+    final $r = $callSync(11862, $W()..any(value));
     return $r.map(() => $r.str(), () => $r.any());
   }
 
   /// Go: `func common.SafeCastSlice(value any) []any`.
   List<Object?> safeCastSlice(Object? value) {
-    final $r = $callSync(11857, $W()..any(value));
+    final $r = $callSync(11863, $W()..any(value));
     return $r.list(() => $r.any());
   }
 
   /// Go: `func common.SetDefault(config map[string]any, path string, value any)`.
   void setDefault(Map<String, Object?> config, String path, Object? value) {
     $callSync(
-        11858,
+        11864,
         $W()
           ..map(config, (w0, k0) => w0.str(k0), (w0, v0) => w0.any(v0))
           ..str(path)
@@ -464,7 +464,7 @@ extension GoIpfsKuboRepoFsrepoMigrationsCommonApi
   /// Go: `func common.SetField(config map[string]any, path string, value any)`.
   void setField(Map<String, Object?> config, String path, Object? value) {
     $callSync(
-        11859,
+        11865,
         $W()
           ..map(config, (w0, k0) => w0.str(k0), (w0, v0) => w0.any(v0))
           ..str(path)
@@ -474,7 +474,7 @@ extension GoIpfsKuboRepoFsrepoMigrationsCommonApi
   /// Go: `func common.WriteConfig(w io.Writer, config map[string]any) error`.
   void writeConfig(GoHandle? w, Map<String, Object?> config) {
     $callSync(
-        11860,
+        11866,
         $W()
           ..h(w)
           ..map(config, (w0, k0) => w0.str(k0), (w0, v0) => w0.any(v0)));
@@ -483,7 +483,7 @@ extension GoIpfsKuboRepoFsrepoMigrationsCommonApi
   /// Go: `func common.WriteVersion(repoPath string, version string) error`.
   void writeVersion(String repoPath, String version) {
     $callSync(
-        11861,
+        11867,
         $W()
           ..str(repoPath)
           ..str(version));

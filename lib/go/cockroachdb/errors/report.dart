@@ -10,7 +10,7 @@ import 'package:p2p_ffi/go/getsentry/sentry_go.dart' as $sentry_go;
 extension GoCockroachdbErrorsReportApi on GoCockroachdbErrorsReport {
   /// Go: `func report.PrintStackTrace(s *report.StackTrace) string`.
   String printStackTrace($sentry_go.SentryGoStacktrace s) {
-    final $r = $callSync(4602, $W()..dto(s));
+    final $r = $callSync(4611, $W()..dto(s));
     return $r.str();
   }
 }

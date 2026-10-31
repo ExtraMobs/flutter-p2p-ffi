@@ -29,7 +29,7 @@ final class GrpcBalancerGrpclbState implements GoDto {
 extension GoGrpcBalancerGrpclbStateApi on GoGrpcBalancerGrpclbState {
   /// Go: `func state.Get(state resolver.State) *state.State`.
   GrpcBalancerGrpclbState get($resolver.GrpcResolverState state) {
-    final $r = $callSync(24409, $W()..dto(state));
+    final $r = $callSync(24415, $W()..dto(state));
     return $r.p() ? GrpcBalancerGrpclbState.$dec($r) : $nil();
   }
 
@@ -37,7 +37,7 @@ extension GoGrpcBalancerGrpclbStateApi on GoGrpcBalancerGrpclbState {
   $resolver.GrpcResolverState set(
       $resolver.GrpcResolverState state, GrpcBalancerGrpclbState s) {
     final $r = $callSync(
-        24410,
+        24416,
         $W()
           ..dto(state)
           ..dto(s));

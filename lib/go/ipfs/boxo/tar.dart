@@ -30,7 +30,7 @@ class BoxoTarExtractor extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*tar.Extractor).Extract(reader io.Reader) error`.
   void extract(Object reader) {
     $callSync(
-        10437,
+        10446,
         $W()
           ..h(this)
           ..reader(reader));

@@ -72,7 +72,7 @@ class PebbleV2VfsDeviceId extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (vfs.DeviceID).String() string`.
   String string() {
-    final $r = $callSync(5569, $W()..h(this));
+    final $r = $callSync(5578, $W()..h(this));
     return $r.str();
   }
 }
@@ -116,7 +116,7 @@ final class PebbleV2VfsDiskSlowInfo implements GoDto {
   /// Go: `func (vfs.DiskSlowInfo).SafeFormat(w redact.SafePrinter, _ rune)`.
   void safeFormat($interfaces.RedactInterfacesSafePrinter w, int arg1) {
     $callSync(
-        5570,
+        5579,
         $W()
           ..dto(this)
           ..h(w)
@@ -125,7 +125,7 @@ final class PebbleV2VfsDiskSlowInfo implements GoDto {
 
   /// Go: `func (vfs.DiskSlowInfo).String() string`.
   String string() {
-    final $r = $callSync(5571, $W()..dto(this));
+    final $r = $callSync(5580, $W()..dto(this));
     return $r.str();
   }
 }
@@ -216,14 +216,14 @@ class PebbleV2VfsDiskWriteStatsCollector extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func vfs.NewDiskWriteStatsCollector() *vfs.DiskWriteStatsCollector`.
   factory PebbleV2VfsDiskWriteStatsCollector() {
-    final $r = $callSync(5625);
+    final $r = $callSync(5634);
     return $r.hnn(PebbleV2VfsDiskWriteStatsCollector.$h);
   }
 
   /// Go: `func (*vfs.DiskWriteStatsCollector).CreateStat(category vfs.DiskWriteCategory) *atomic.Uint64`.
   $atomic.SyncAtomicUint64 createStat(String category) {
     final $r = $callSync(
-        5572,
+        5581,
         $W()
           ..h(this)
           ..str(category));
@@ -232,7 +232,7 @@ class PebbleV2VfsDiskWriteStatsCollector extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*vfs.DiskWriteStatsCollector).GetStats() []vfs.DiskWriteStatsAggregate`.
   List<PebbleV2VfsDiskWriteStatsAggregate> getStats() {
-    final $r = $callSync(5573, $W()..h(this));
+    final $r = $callSync(5582, $W()..h(this));
     return $r.list(
         () => $r.p() ? PebbleV2VfsDiskWriteStatsAggregate.$dec($r) : $nil());
   }
@@ -248,7 +248,7 @@ mixin PebbleV2VfsFs$ on GoHandle {
   /// Go: `func (vfs.FS).Create(name string, category vfs.DiskWriteCategory) (vfs.File, error)`.
   PebbleV2VfsFile create(String name, String category) {
     final $r = $callSync(
-        5574,
+        5583,
         $W()
           ..h(this)
           ..str(name)
@@ -259,7 +259,7 @@ mixin PebbleV2VfsFs$ on GoHandle {
   /// Go: `func (vfs.FS).GetDiskUsage(path string) (vfs.DiskUsage, error)`.
   PebbleV2VfsDiskUsage getDiskUsage(String path) {
     final $r = $callSync(
-        5575,
+        5584,
         $W()
           ..h(this)
           ..str(path));
@@ -269,7 +269,7 @@ mixin PebbleV2VfsFs$ on GoHandle {
   /// Go: `func (vfs.FS).Link(oldname string, newname string) error`.
   void link(String oldname, String newname) {
     $callSync(
-        5576,
+        5585,
         $W()
           ..h(this)
           ..str(oldname)
@@ -279,7 +279,7 @@ mixin PebbleV2VfsFs$ on GoHandle {
   /// Go: `func (vfs.FS).List(dir string) ([]string, error)`.
   List<String> list(String dir) {
     final $r = $callSync(
-        5577,
+        5586,
         $W()
           ..h(this)
           ..str(dir));
@@ -289,7 +289,7 @@ mixin PebbleV2VfsFs$ on GoHandle {
   /// Go: `func (vfs.FS).Lock(name string) (io.Closer, error)`.
   $io.IoCloser lock(String name) {
     final $r = $callSync(
-        5578,
+        5587,
         $W()
           ..h(this)
           ..str(name));
@@ -299,7 +299,7 @@ mixin PebbleV2VfsFs$ on GoHandle {
   /// Go: `func (vfs.FS).MkdirAll(dir string, perm os.FileMode) error`.
   void mkdirAll(String dir, int perm) {
     $callSync(
-        5579,
+        5588,
         $W()
           ..h(this)
           ..str(dir)
@@ -310,7 +310,7 @@ mixin PebbleV2VfsFs$ on GoHandle {
   PebbleV2VfsFile open(String name,
       [List<PebbleV2VfsOpenOption> opts = const []]) {
     final $r = $callSync(
-        5580,
+        5589,
         $W()
           ..h(this)
           ..str(name)
@@ -321,7 +321,7 @@ mixin PebbleV2VfsFs$ on GoHandle {
   /// Go: `func (vfs.FS).OpenDir(name string) (vfs.File, error)`.
   PebbleV2VfsFile openDir(String name) {
     final $r = $callSync(
-        5581,
+        5590,
         $W()
           ..h(this)
           ..str(name));
@@ -332,7 +332,7 @@ mixin PebbleV2VfsFs$ on GoHandle {
   PebbleV2VfsFile openReadWrite(String name, String category,
       [List<PebbleV2VfsOpenOption> opts = const []]) {
     final $r = $callSync(
-        5582,
+        5591,
         $W()
           ..h(this)
           ..str(name)
@@ -344,7 +344,7 @@ mixin PebbleV2VfsFs$ on GoHandle {
   /// Go: `func (vfs.FS).PathBase(path string) string`.
   String pathBase(String path) {
     final $r = $callSync(
-        5583,
+        5592,
         $W()
           ..h(this)
           ..str(path));
@@ -354,7 +354,7 @@ mixin PebbleV2VfsFs$ on GoHandle {
   /// Go: `func (vfs.FS).PathDir(path string) string`.
   String pathDir(String path) {
     final $r = $callSync(
-        5584,
+        5593,
         $W()
           ..h(this)
           ..str(path));
@@ -364,7 +364,7 @@ mixin PebbleV2VfsFs$ on GoHandle {
   /// Go: `func (vfs.FS).PathJoin(elem ...string) string`.
   String pathJoin([List<String> elem = const []]) {
     final $r = $callSync(
-        5585,
+        5594,
         $W()
           ..h(this)
           ..list(elem, (w0, e0) => w0.str(e0)));
@@ -374,7 +374,7 @@ mixin PebbleV2VfsFs$ on GoHandle {
   /// Go: `func (vfs.FS).Remove(name string) error`.
   void remove(String name) {
     $callSync(
-        5586,
+        5595,
         $W()
           ..h(this)
           ..str(name));
@@ -383,7 +383,7 @@ mixin PebbleV2VfsFs$ on GoHandle {
   /// Go: `func (vfs.FS).RemoveAll(name string) error`.
   void removeAll(String name) {
     $callSync(
-        5587,
+        5596,
         $W()
           ..h(this)
           ..str(name));
@@ -392,7 +392,7 @@ mixin PebbleV2VfsFs$ on GoHandle {
   /// Go: `func (vfs.FS).Rename(oldname string, newname string) error`.
   void rename(String oldname, String newname) {
     $callSync(
-        5588,
+        5597,
         $W()
           ..h(this)
           ..str(oldname)
@@ -403,7 +403,7 @@ mixin PebbleV2VfsFs$ on GoHandle {
   PebbleV2VfsFile reuseForWrite(
       String oldname, String newname, String category) {
     final $r = $callSync(
-        5589,
+        5598,
         $W()
           ..h(this)
           ..str(oldname)
@@ -415,7 +415,7 @@ mixin PebbleV2VfsFs$ on GoHandle {
   /// Go: `func (vfs.FS).Stat(name string) (vfs.FileInfo, error)`.
   PebbleV2VfsFileInfo stat(String name) {
     final $r = $callSync(
-        5590,
+        5599,
         $W()
           ..h(this)
           ..str(name));
@@ -424,19 +424,19 @@ mixin PebbleV2VfsFs$ on GoHandle {
 
   /// Go: `func (vfs.FS).Unwrap() vfs.FS`.
   PebbleV2VfsFs unwrap() {
-    final $r = $callSync(5591, $W()..h(this));
+    final $r = $callSync(5600, $W()..h(this));
     return $r.hnn(PebbleV2VfsFs.$h);
   }
 
   /// Go: type assertion `x.(*vfs.MemFS)`: null if the object is not one.
   PebbleV2VfsMemFs? asPebbleV2VfsMemFs() {
-    final $r = $callSync(421, $W()..h(this));
+    final $r = $callSync(424, $W()..h(this));
     return $r.hn(PebbleV2VfsMemFs.$h);
   }
 
   /// Go: type assertion `x.(*wal.DeletableLog)`: null if the object is not one.
   $wal.PebbleV2WalDeletableLog? asPebbleV2WalDeletableLog() {
-    final $r = $callSync(422, $W()..h(this));
+    final $r = $callSync(425, $W()..h(this));
     return $r.hn($wal.PebbleV2WalDeletableLog.$h);
   }
 }
@@ -451,7 +451,7 @@ mixin PebbleV2VfsFile$ on GoHandle {
   /// Go: `func (vfs.File).Preallocate(offset int64, length int64) error`.
   void preallocate(int offset, int length) {
     $callSync(
-        5592,
+        5601,
         $W()
           ..h(this)
           ..i64(offset)
@@ -461,7 +461,7 @@ mixin PebbleV2VfsFile$ on GoHandle {
   /// Go: `func (vfs.File).Prefetch(offset int64, length int64) error`.
   void prefetch(int offset, int length) {
     $callSync(
-        5593,
+        5602,
         $W()
           ..h(this)
           ..i64(offset)
@@ -470,24 +470,24 @@ mixin PebbleV2VfsFile$ on GoHandle {
 
   /// Go: `func (vfs.File).Stat() (vfs.FileInfo, error)`.
   PebbleV2VfsFileInfo stat() {
-    final $r = $callSync(5594, $W()..h(this));
+    final $r = $callSync(5603, $W()..h(this));
     return $r.hnn(PebbleV2VfsFileInfo.$h);
   }
 
   /// Go: `func (vfs.File).Sync() error`.
   void sync() {
-    $callSync(5595, $W()..h(this));
+    $callSync(5604, $W()..h(this));
   }
 
   /// Go: `func (vfs.File).SyncData() error`.
   void syncData() {
-    $callSync(5596, $W()..h(this));
+    $callSync(5605, $W()..h(this));
   }
 
   /// Go: `func (vfs.File).SyncTo(length int64) (fullSync bool, err error)`.
   bool syncTo(int length) {
     final $r = $callSync(
-        5597,
+        5606,
         $W()
           ..h(this)
           ..i64(length));
@@ -506,7 +506,7 @@ class PebbleV2VfsFileInfo extends GoHandle
 mixin PebbleV2VfsFileInfo$ on GoHandle {
   /// Go: `func (vfs.FileInfo).DeviceID() vfs.DeviceID`.
   PebbleV2VfsDeviceId deviceId() {
-    final $r = $callSync(5598, $W()..h(this));
+    final $r = $callSync(5607, $W()..h(this));
     return $r.hnn(PebbleV2VfsDeviceId.$h);
   }
 }
@@ -553,7 +553,7 @@ class PebbleV2VfsMemFs extends PebbleV2VfsFs
   /// Go: `func (*vfs.MemFS).CrashClone(cfg vfs.CrashCloneCfg) *vfs.MemFS`.
   PebbleV2VfsMemFs crashClone(PebbleV2VfsCrashCloneCfg cfg) {
     final $r = $callSync(
-        5601,
+        5610,
         $W()
           ..h(this)
           ..dto(cfg));
@@ -563,7 +563,7 @@ class PebbleV2VfsMemFs extends PebbleV2VfsFs
   /// Go: `func (*vfs.MemFS).Create(fullname string, category vfs.DiskWriteCategory) (vfs.File, error)`.
   PebbleV2VfsFile create(String fullname, String category) {
     final $r = $callSync(
-        5602,
+        5611,
         $W()
           ..h(this)
           ..str(fullname)
@@ -574,7 +574,7 @@ class PebbleV2VfsMemFs extends PebbleV2VfsFs
   /// Go: `func (*vfs.MemFS).GetDiskUsage(string) (vfs.DiskUsage, error)`.
   PebbleV2VfsDiskUsage getDiskUsage(String arg0) {
     final $r = $callSync(
-        5603,
+        5612,
         $W()
           ..h(this)
           ..str(arg0));
@@ -584,7 +584,7 @@ class PebbleV2VfsMemFs extends PebbleV2VfsFs
   /// Go: `func (*vfs.MemFS).Link(oldname string, newname string) error`.
   void link(String oldname, String newname) {
     $callSync(
-        5604,
+        5613,
         $W()
           ..h(this)
           ..str(oldname)
@@ -594,7 +594,7 @@ class PebbleV2VfsMemFs extends PebbleV2VfsFs
   /// Go: `func (*vfs.MemFS).List(dirname string) ([]string, error)`.
   List<String> list(String dirname) {
     final $r = $callSync(
-        5605,
+        5614,
         $W()
           ..h(this)
           ..str(dirname));
@@ -604,7 +604,7 @@ class PebbleV2VfsMemFs extends PebbleV2VfsFs
   /// Go: `func (*vfs.MemFS).Lock(fullname string) (io.Closer, error)`.
   $io.IoCloser lock(String fullname) {
     final $r = $callSync(
-        5606,
+        5615,
         $W()
           ..h(this)
           ..str(fullname));
@@ -614,7 +614,7 @@ class PebbleV2VfsMemFs extends PebbleV2VfsFs
   /// Go: `func (*vfs.MemFS).MkdirAll(dirname string, perm os.FileMode) error`.
   void mkdirAll(String dirname, int perm) {
     $callSync(
-        5607,
+        5616,
         $W()
           ..h(this)
           ..str(dirname)
@@ -625,7 +625,7 @@ class PebbleV2VfsMemFs extends PebbleV2VfsFs
   PebbleV2VfsFile open(String fullname,
       [List<PebbleV2VfsOpenOption> opts = const []]) {
     final $r = $callSync(
-        5608,
+        5617,
         $W()
           ..h(this)
           ..str(fullname)
@@ -636,7 +636,7 @@ class PebbleV2VfsMemFs extends PebbleV2VfsFs
   /// Go: `func (*vfs.MemFS).OpenDir(fullname string) (vfs.File, error)`.
   PebbleV2VfsFile openDir(String fullname) {
     final $r = $callSync(
-        5609,
+        5618,
         $W()
           ..h(this)
           ..str(fullname));
@@ -647,7 +647,7 @@ class PebbleV2VfsMemFs extends PebbleV2VfsFs
   PebbleV2VfsFile openReadWrite(String fullname, String category,
       [List<PebbleV2VfsOpenOption> opts = const []]) {
     final $r = $callSync(
-        5610,
+        5619,
         $W()
           ..h(this)
           ..str(fullname)
@@ -659,7 +659,7 @@ class PebbleV2VfsMemFs extends PebbleV2VfsFs
   /// Go: `func (*vfs.MemFS).PathBase(p string) string`.
   String pathBase(String p) {
     final $r = $callSync(
-        5611,
+        5620,
         $W()
           ..h(this)
           ..str(p));
@@ -669,7 +669,7 @@ class PebbleV2VfsMemFs extends PebbleV2VfsFs
   /// Go: `func (*vfs.MemFS).PathDir(p string) string`.
   String pathDir(String p) {
     final $r = $callSync(
-        5612,
+        5621,
         $W()
           ..h(this)
           ..str(p));
@@ -679,7 +679,7 @@ class PebbleV2VfsMemFs extends PebbleV2VfsFs
   /// Go: `func (*vfs.MemFS).PathJoin(elem ...string) string`.
   String pathJoin([List<String> elem = const []]) {
     final $r = $callSync(
-        5613,
+        5622,
         $W()
           ..h(this)
           ..list(elem, (w0, e0) => w0.str(e0)));
@@ -689,7 +689,7 @@ class PebbleV2VfsMemFs extends PebbleV2VfsFs
   /// Go: `func (*vfs.MemFS).Remove(fullname string) error`.
   void remove(String fullname) {
     $callSync(
-        5614,
+        5623,
         $W()
           ..h(this)
           ..str(fullname));
@@ -698,7 +698,7 @@ class PebbleV2VfsMemFs extends PebbleV2VfsFs
   /// Go: `func (*vfs.MemFS).RemoveAll(fullname string) error`.
   void removeAll(String fullname) {
     $callSync(
-        5615,
+        5624,
         $W()
           ..h(this)
           ..str(fullname));
@@ -707,7 +707,7 @@ class PebbleV2VfsMemFs extends PebbleV2VfsFs
   /// Go: `func (*vfs.MemFS).Rename(oldname string, newname string) error`.
   void rename(String oldname, String newname) {
     $callSync(
-        5616,
+        5625,
         $W()
           ..h(this)
           ..str(oldname)
@@ -718,7 +718,7 @@ class PebbleV2VfsMemFs extends PebbleV2VfsFs
   PebbleV2VfsFile reuseForWrite(
       String oldname, String newname, String category) {
     final $r = $callSync(
-        5617,
+        5626,
         $W()
           ..h(this)
           ..str(oldname)
@@ -730,7 +730,7 @@ class PebbleV2VfsMemFs extends PebbleV2VfsFs
   /// Go: `func (*vfs.MemFS).Stat(name string) (vfs.FileInfo, error)`.
   PebbleV2VfsFileInfo stat(String name) {
     final $r = $callSync(
-        5618,
+        5627,
         $W()
           ..h(this)
           ..str(name));
@@ -739,14 +739,14 @@ class PebbleV2VfsMemFs extends PebbleV2VfsFs
 
   /// Go: `func (*vfs.MemFS).String() string`.
   String string() {
-    final $r = $callSync(5619, $W()..h(this));
+    final $r = $callSync(5628, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*vfs.MemFS).TestingSetDiskUsage(usage vfs.DiskUsage)`.
   void testingSetDiskUsage(PebbleV2VfsDiskUsage usage) {
     $callSync(
-        5620,
+        5629,
         $W()
           ..h(this)
           ..dto(usage));
@@ -755,7 +755,7 @@ class PebbleV2VfsMemFs extends PebbleV2VfsFs
   /// Go: `func (*vfs.MemFS).UnsafeGetFileDataBuffer(fullname string) ([]byte, error)`.
   Uint8List unsafeGetFileDataBuffer(String fullname) {
     final $r = $callSync(
-        5621,
+        5630,
         $W()
           ..h(this)
           ..str(fullname));
@@ -764,14 +764,14 @@ class PebbleV2VfsMemFs extends PebbleV2VfsFs
 
   /// Go: `func (*vfs.MemFS).Unwrap() vfs.FS`.
   PebbleV2VfsFs unwrap() {
-    final $r = $callSync(5622, $W()..h(this));
+    final $r = $callSync(5631, $W()..h(this));
     return $r.hnn(PebbleV2VfsFs.$h);
   }
 
   /// Go: `func (*vfs.MemFS).UseWindowsSemantics(windowsSemantics bool)`.
   void useWindowsSemantics(bool windowsSemantics) {
     $callSync(
-        5623,
+        5632,
         $W()
           ..h(this)
           ..b(windowsSemantics));
@@ -788,7 +788,7 @@ mixin PebbleV2VfsOpenOption$ on GoHandle {
   /// Go: `func (vfs.OpenOption).Apply(vfs.File)`.
   void apply(PebbleV2VfsFile file) {
     $callSync(
-        5631,
+        5640,
         $W()
           ..h(this)
           ..h(file));
@@ -842,7 +842,7 @@ extension GoCockroachdbPebbleV2VfsApi on GoCockroachdbPebbleV2Vfs {
       PebbleV2VfsFs srcFs, PebbleV2VfsFs dstFs, String srcPath, String dstPath,
       [List<PebbleV2VfsCloneOption> opts = const []]) {
     final $r = $callSync(
-        5565,
+        5574,
         $W()
           ..h(srcFs)
           ..h(dstFs)
@@ -855,7 +855,7 @@ extension GoCockroachdbPebbleV2VfsApi on GoCockroachdbPebbleV2Vfs {
   /// Go: `func vfs.Copy(fs vfs.FS, oldname string, newname string) error`.
   void copy(PebbleV2VfsFs fs, String oldname, String newname) {
     $callSync(
-        5566,
+        5575,
         $W()
           ..h(fs)
           ..str(oldname)
@@ -866,7 +866,7 @@ extension GoCockroachdbPebbleV2VfsApi on GoCockroachdbPebbleV2Vfs {
   void copyAcrossFs(PebbleV2VfsFs srcFs, String oldname, PebbleV2VfsFs dstFs,
       String newname) {
     $callSync(
-        5567,
+        5576,
         $W()
           ..h(srcFs)
           ..str(oldname)
@@ -876,7 +876,7 @@ extension GoCockroachdbPebbleV2VfsApi on GoCockroachdbPebbleV2Vfs {
 
   /// Go: `var vfs.Default vfs.FS`.
   PebbleV2VfsFs get default$ {
-    final $r = $callSync(5568);
+    final $r = $callSync(5577);
     return $r.hnn(PebbleV2VfsFs.$h);
   }
 
@@ -884,7 +884,7 @@ extension GoCockroachdbPebbleV2VfsApi on GoCockroachdbPebbleV2Vfs {
   void limitedCopy(
       PebbleV2VfsFs fs, String oldname, String newname, int maxBytes) {
     $callSync(
-        5599,
+        5608,
         $W()
           ..h(fs)
           ..str(oldname)
@@ -895,7 +895,7 @@ extension GoCockroachdbPebbleV2VfsApi on GoCockroachdbPebbleV2Vfs {
   /// Go: `func vfs.LinkOrCopy(fs vfs.FS, oldname string, newname string) error`.
   void linkOrCopy(PebbleV2VfsFs fs, String oldname, String newname) {
     $callSync(
-        5600,
+        5609,
         $W()
           ..h(fs)
           ..str(oldname)
@@ -904,19 +904,19 @@ extension GoCockroachdbPebbleV2VfsApi on GoCockroachdbPebbleV2Vfs {
 
   /// Go: `func vfs.NewCrashableMem() *vfs.MemFS`.
   PebbleV2VfsMemFs newCrashableMem() {
-    final $r = $callSync(5624);
+    final $r = $callSync(5633);
     return $r.hnn(PebbleV2VfsMemFs.$h);
   }
 
   /// Go: `func vfs.NewMem() *vfs.MemFS`.
   PebbleV2VfsMemFs newMem() {
-    final $r = $callSync(5626);
+    final $r = $callSync(5635);
     return $r.hnn(PebbleV2VfsMemFs.$h);
   }
 
   /// Go: `func vfs.NewMemFile(data []byte) vfs.File`.
   PebbleV2VfsFile newMemFile(Uint8List data) {
-    final $r = $callSync(5627, $W()..bytes(data));
+    final $r = $callSync(5636, $W()..bytes(data));
     return $r.hnn(PebbleV2VfsFile.$h);
   }
 
@@ -924,7 +924,7 @@ extension GoCockroachdbPebbleV2VfsApi on GoCockroachdbPebbleV2Vfs {
   PebbleV2VfsFs newSyncingFs(
       PebbleV2VfsFs fs, PebbleV2VfsSyncingFileOptions syncOpts) {
     final $r = $callSync(
-        5628,
+        5637,
         $W()
           ..h(fs)
           ..dto(syncOpts));
@@ -935,7 +935,7 @@ extension GoCockroachdbPebbleV2VfsApi on GoCockroachdbPebbleV2Vfs {
   PebbleV2VfsFile newSyncingFile(
       PebbleV2VfsFile f, PebbleV2VfsSyncingFileOptions opts) {
     final $r = $callSync(
-        5629,
+        5638,
         $W()
           ..h(f)
           ..dto(opts));
@@ -952,7 +952,7 @@ extension GoCockroachdbPebbleV2VfsApi on GoCockroachdbPebbleV2Vfs {
   Future<PebbleV2VfsFs> onDiskFull(
       PebbleV2VfsFs fs, FutureOr<void> Function() fn) async {
     final $r = await $call(
-        5630,
+        5639,
         $W()
           ..h(fs)
           ..cb((r) => fn(), true));
@@ -961,7 +961,7 @@ extension GoCockroachdbPebbleV2VfsApi on GoCockroachdbPebbleV2Vfs {
 
   /// Go: `func vfs.Root(fs vfs.FS) vfs.FS`.
   PebbleV2VfsFs root(PebbleV2VfsFs fs) {
-    final $r = $callSync(5633, $W()..h(fs));
+    final $r = $callSync(5642, $W()..h(fs));
     return $r.hnn(PebbleV2VfsFs.$h);
   }
 
@@ -978,7 +978,7 @@ extension GoCockroachdbPebbleV2VfsApi on GoCockroachdbPebbleV2Vfs {
       PebbleV2VfsDiskWriteStatsCollector statsCollector,
       FutureOr<void> Function(PebbleV2VfsDiskSlowInfo info) onSlowDisk) async {
     final $r = await $call(
-        5635,
+        5644,
         $W()
           ..h(innerFs)
           ..i64((diskSlowThreshold).inMicroseconds * 1000)
@@ -993,7 +993,7 @@ extension GoCockroachdbPebbleV2VfsApi on GoCockroachdbPebbleV2Vfs {
   /// Go: `func vfs.WithLogging(fs vfs.FS, logFn vfs.LogFn) vfs.FS`.
   PebbleV2VfsFs withLogging(PebbleV2VfsFs fs, PebbleV2VfsLogFn logFn) {
     final $r = $callSync(
-        5636,
+        5645,
         $W()
           ..h(fs)
           ..h(logFn));
@@ -1062,13 +1062,13 @@ extension GoCockroachdbPebbleV2VfsOptionsApi
 
   /// Go: `var vfs.RandomReadsOption vfs.OpenOption`.
   PebbleV2VfsOpenOption get randomReadsOption {
-    final $r = $callSync(5632);
+    final $r = $callSync(5641);
     return $r.hnn(PebbleV2VfsOpenOption.$h);
   }
 
   /// Go: `var vfs.SequentialReadsOption vfs.OpenOption`.
   PebbleV2VfsOpenOption get sequentialReadsOption {
-    final $r = $callSync(5634);
+    final $r = $callSync(5643);
     return $r.hnn(PebbleV2VfsOpenOption.$h);
   }
 }

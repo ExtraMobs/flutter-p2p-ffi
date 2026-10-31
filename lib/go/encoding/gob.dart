@@ -42,14 +42,14 @@ class EncodingGobDecoder extends $runtime.GrpcGatewayV2RuntimeDecoder
 
   /// Go: `func gob.NewDecoder(r io.Reader) *gob.Decoder`.
   factory EncodingGobDecoder(Object r) {
-    final $r = $callSync(3715, $W()..reader(r));
+    final $r = $callSync(3724, $W()..reader(r));
     return $r.hnn(EncodingGobDecoder.$h);
   }
 
   /// Go: `func (*gob.Decoder).Decode(e any) error`.
   void decode(Object? e) {
     $callSync(
-        3710,
+        3719,
         $W()
           ..h(this)
           ..any(e));
@@ -58,7 +58,7 @@ class EncodingGobDecoder extends $runtime.GrpcGatewayV2RuntimeDecoder
   /// Go: `func (*gob.Decoder).DecodeValue(v reflect.Value) error`.
   void decodeValue($reflect.ReflectValue v) {
     $callSync(
-        3711,
+        3720,
         $W()
           ..h(this)
           ..h(v));
@@ -91,14 +91,14 @@ class EncodingGobEncoder extends $runtime.GrpcGatewayV2RuntimeEncoder
 
   /// Go: `func gob.NewEncoder(w io.Writer) *gob.Encoder`.
   factory EncodingGobEncoder(GoHandle? w) {
-    final $r = $callSync(3716, $W()..h(w));
+    final $r = $callSync(3725, $W()..h(w));
     return $r.hnn(EncodingGobEncoder.$h);
   }
 
   /// Go: `func (*gob.Encoder).Encode(e any) error`.
   void encode(Object? e) {
     $callSync(
-        3712,
+        3721,
         $W()
           ..h(this)
           ..any(e));
@@ -107,7 +107,7 @@ class EncodingGobEncoder extends $runtime.GrpcGatewayV2RuntimeEncoder
   /// Go: `func (*gob.Encoder).EncodeValue(value reflect.Value) error`.
   void encodeValue($reflect.ReflectValue value) {
     $callSync(
-        3713,
+        3722,
         $W()
           ..h(this)
           ..h(value));
@@ -126,7 +126,7 @@ mixin EncodingGob_GobDecoder$ on GoHandle {
   /// Go: `func (gob.GobDecoder).GobDecode([]byte) error`.
   void gobDecode(Uint8List arg0) {
     $callSync(
-        3714,
+        3723,
         $W()
           ..h(this)
           ..bytes(arg0));
@@ -161,13 +161,13 @@ mixin EncodingGob_GobDecoder$ on GoHandle {
 extension GoEncodingGobApi on GoEncodingGob {
   /// Go: `func gob.Register(value any)`.
   void register(Object? value) {
-    $callSync(3717, $W()..any(value));
+    $callSync(3726, $W()..any(value));
   }
 
   /// Go: `func gob.RegisterName(name string, value any)`.
   void registerName(String name, Object? value) {
     $callSync(
-        3718,
+        3727,
         $W()
           ..str(name)
           ..any(value));

@@ -42,12 +42,12 @@ class PebbleV2ObjstorageObjstorageproviderSharedcacheCache extends $io.IoCloser
 
   /// Go: `func (*sharedcache.Cache).Close() error`.
   void close() {
-    $callSync(4969, $W()..h(this));
+    $callSync(4978, $W()..h(this));
   }
 
   /// Go: `func (*sharedcache.Cache).Metrics() sharedcache.Metrics`.
   PebbleV2ObjstorageObjstorageproviderSharedcacheMetrics metrics() {
-    final $r = $callSync(4970, $W()..h(this));
+    final $r = $callSync(4979, $W()..h(this));
     return $r.p()
         ? PebbleV2ObjstorageObjstorageproviderSharedcacheMetrics.$dec($r)
         : $nil();
@@ -177,13 +177,13 @@ extension GoCockroachdbPebbleV2ObjstorageObjstorageproviderSharedcacheApi
     on GoCockroachdbPebbleV2ObjstorageObjstorageproviderSharedcache {
   /// Go: `var sharedcache.ChannelWriteBuckets []float64`.
   List<double> get channelWriteBuckets {
-    final $r = $callSync(4971);
+    final $r = $callSync(4980);
     return $r.list(() => $r.f64());
   }
 
   /// Go: `var sharedcache.IOBuckets []float64`.
   List<double> get ioBuckets {
-    final $r = $callSync(4972);
+    final $r = $callSync(4981);
     return $r.list(() => $r.f64());
   }
 
@@ -197,7 +197,7 @@ extension GoCockroachdbPebbleV2ObjstorageObjstorageproviderSharedcacheApi
       int sizeBytes,
       int numShards) {
     final $r = $callSync(
-        4973,
+        4982,
         $W()
           ..h(fs)
           ..h(logger)

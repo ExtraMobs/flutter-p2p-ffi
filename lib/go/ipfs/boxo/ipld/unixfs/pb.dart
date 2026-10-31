@@ -45,77 +45,77 @@ class BoxoIpldUnixfsPbData
   /// Go: `func (*pb.Data).Descriptor() ([]byte, []int)`.
   @Deprecated("Use Data.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(9929, $W()..h(this));
+    final $r = $callSync(9938, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pb.Data).GetBlocksizes() []uint64`.
   List<int> getBlocksizes() {
-    final $r = $callSync(9930, $W()..h(this));
+    final $r = $callSync(9939, $W()..h(this));
     return $r.list(() => $r.i64());
   }
 
   /// Go: `func (*pb.Data).GetData() []byte`.
   Uint8List getData() {
-    final $r = $callSync(9931, $W()..h(this));
+    final $r = $callSync(9940, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pb.Data).GetFanout() uint64`.
   int getFanout() {
-    final $r = $callSync(9932, $W()..h(this));
+    final $r = $callSync(9941, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.Data).GetFilesize() uint64`.
   int getFilesize() {
-    final $r = $callSync(9933, $W()..h(this));
+    final $r = $callSync(9942, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.Data).GetHashType() uint64`.
   int getHashType() {
-    final $r = $callSync(9934, $W()..h(this));
+    final $r = $callSync(9943, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.Data).GetMode() uint32`.
   int getMode() {
-    final $r = $callSync(9935, $W()..h(this));
+    final $r = $callSync(9944, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.Data).GetMtime() *pb.IPFSTimestamp`.
   BoxoIpldUnixfsPbIpfsTimestamp getMtime() {
-    final $r = $callSync(9936, $W()..h(this));
+    final $r = $callSync(9945, $W()..h(this));
     return $r.hnn(BoxoIpldUnixfsPbIpfsTimestamp.$h);
   }
 
   /// Go: `func (*pb.Data).GetType() pb.Data_DataType`.
   int getType() {
-    final $r = $callSync(9937, $W()..h(this));
+    final $r = $callSync(9946, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.Data).ProtoMessage()`.
   void protoMessage() {
-    $callSync(9938, $W()..h(this));
+    $callSync(9947, $W()..h(this));
   }
 
   /// Go: `func (*pb.Data).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(9939, $W()..h(this));
+    final $r = $callSync(9948, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pb.Data).Reset()`.
   void reset() {
-    $callSync(9940, $W()..h(this));
+    $callSync(9949, $W()..h(this));
   }
 
   /// Go: `func (*pb.Data).String() string`.
   String string() {
-    final $r = $callSync(9941, $W()..h(this));
+    final $r = $callSync(9950, $W()..h(this));
     return $r.str();
   }
 }
@@ -148,41 +148,41 @@ class BoxoIpldUnixfsPbIpfsTimestamp
   /// Go: `func (*pb.IPFSTimestamp).Descriptor() ([]byte, []int)`.
   @Deprecated("Use IPFSTimestamp.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(9945, $W()..h(this));
+    final $r = $callSync(9954, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pb.IPFSTimestamp).GetNanos() uint32`.
   int getNanos() {
-    final $r = $callSync(9946, $W()..h(this));
+    final $r = $callSync(9955, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.IPFSTimestamp).GetSeconds() int64`.
   int getSeconds() {
-    final $r = $callSync(9947, $W()..h(this));
+    final $r = $callSync(9956, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.IPFSTimestamp).ProtoMessage()`.
   void protoMessage() {
-    $callSync(9948, $W()..h(this));
+    $callSync(9957, $W()..h(this));
   }
 
   /// Go: `func (*pb.IPFSTimestamp).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(9949, $W()..h(this));
+    final $r = $callSync(9958, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pb.IPFSTimestamp).Reset()`.
   void reset() {
-    $callSync(9950, $W()..h(this));
+    $callSync(9959, $W()..h(this));
   }
 
   /// Go: `func (*pb.IPFSTimestamp).String() string`.
   String string() {
-    final $r = $callSync(9951, $W()..h(this));
+    final $r = $callSync(9960, $W()..h(this));
     return $r.str();
   }
 }
@@ -215,35 +215,35 @@ class BoxoIpldUnixfsPbMetadata
   /// Go: `func (*pb.Metadata).Descriptor() ([]byte, []int)`.
   @Deprecated("Use Metadata.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(9952, $W()..h(this));
+    final $r = $callSync(9961, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pb.Metadata).GetMimeType() string`.
   String getMimeType() {
-    final $r = $callSync(9953, $W()..h(this));
+    final $r = $callSync(9962, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*pb.Metadata).ProtoMessage()`.
   void protoMessage() {
-    $callSync(9954, $W()..h(this));
+    $callSync(9963, $W()..h(this));
   }
 
   /// Go: `func (*pb.Metadata).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(9955, $W()..h(this));
+    final $r = $callSync(9964, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pb.Metadata).Reset()`.
   void reset() {
-    $callSync(9956, $W()..h(this));
+    $callSync(9965, $W()..h(this));
   }
 
   /// Go: `func (*pb.Metadata).String() string`.
   String string() {
-    final $r = $callSync(9957, $W()..h(this));
+    final $r = $callSync(9966, $W()..h(this));
     return $r.str();
   }
 }
@@ -252,20 +252,20 @@ class BoxoIpldUnixfsPbMetadata
 extension GoIpfsBoxoIpldUnixfsPbApi on GoIpfsBoxoIpldUnixfsPb {
   /// Go: `var pb.Data_DataType_name map[int32]string`.
   Map<int, String> get dataDataTypeName {
-    final $r = $callSync(9942);
+    final $r = $callSync(9951);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var pb.Data_DataType_value map[string]int32`.
   Map<String, int> get dataDataTypeValue {
-    final $r = $callSync(9943);
+    final $r = $callSync(9952);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `var pb.File_github_com_ipfs_boxo_ipld_unixfs_pb_unixfs_proto protoreflect.FileDescriptor`.
   $protoreflect.ProtobufReflectProtoreflectFileDescriptor
       get fileGithubComIpfsBoxoIpldUnixfsPbUnixfsProto {
-    final $r = $callSync(9944);
+    final $r = $callSync(9953);
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectFileDescriptor.$h);
   }
 }

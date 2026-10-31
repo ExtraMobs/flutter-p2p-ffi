@@ -11,7 +11,7 @@ extension GoIpfsBoxoRoutingHttpFiltersApi on GoIpfsBoxoRoutingHttpFilters {
   String addFiltersToUrl(
       String baseUrl, List<String> protocolFilter, List<String> addrFilter) {
     final $r = $callSync(
-        10402,
+        10411,
         $W()
           ..str(baseUrl)
           ..list(protocolFilter, (w0, e0) => w0.str(e0))
@@ -21,7 +21,7 @@ extension GoIpfsBoxoRoutingHttpFiltersApi on GoIpfsBoxoRoutingHttpFilters {
 
   /// Go: `func filters.ParseFilter(param string) []string`.
   List<String> parseFilter(String param) {
-    final $r = $callSync(10403, $W()..str(param));
+    final $r = $callSync(10412, $W()..str(param));
     return $r.list(() => $r.str());
   }
 }

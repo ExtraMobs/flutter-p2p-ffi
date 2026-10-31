@@ -51,7 +51,7 @@ class BadgerDb extends $sync.SyncLocker
   /// Go: `func (*badger.DB).Backup(w io.Writer, since uint64) (uint64, error)`.
   int backup(GoHandle? w, int since) {
     final $r = $callSync(
-        5851,
+        5860,
         $W()
           ..h(this)
           ..h(w)
@@ -61,18 +61,18 @@ class BadgerDb extends $sync.SyncLocker
 
   /// Go: `func (*badger.DB).Close() error`.
   void close() {
-    $callSync(5852, $W()..h(this));
+    $callSync(5861, $W()..h(this));
   }
 
   /// Go: `func (*badger.DB).DropAll() error`.
   void dropAll() {
-    $callSync(5853, $W()..h(this));
+    $callSync(5862, $W()..h(this));
   }
 
   /// Go: `func (*badger.DB).DropPrefix(prefixes ...[]byte) error`.
   void dropPrefix([List<Uint8List> prefixes = const []]) {
     $callSync(
-        5854,
+        5863,
         $W()
           ..h(this)
           ..list(prefixes, (w0, e0) => w0.bytes(e0)));
@@ -81,7 +81,7 @@ class BadgerDb extends $sync.SyncLocker
   /// Go: `func (*badger.DB).Flatten(workers int) error`.
   void flatten(int workers) {
     $callSync(
-        5855,
+        5864,
         $W()
           ..h(this)
           ..i64(workers));
@@ -91,7 +91,7 @@ class BadgerDb extends $sync.SyncLocker
   BadgerMergeOperator getMergeOperator(
       Uint8List key, BadgerMergeFunc f, Duration dur) {
     final $r = $callSync(
-        5856,
+        5865,
         $W()
           ..h(this)
           ..bytes(key)
@@ -103,7 +103,7 @@ class BadgerDb extends $sync.SyncLocker
   /// Go: `func (*badger.DB).GetSequence(key []byte, bandwidth uint64) (*badger.Sequence, error)`.
   BadgerSequence getSequence(Uint8List key, int bandwidth) {
     final $r = $callSync(
-        5857,
+        5866,
         $W()
           ..h(this)
           ..bytes(key)
@@ -114,7 +114,7 @@ class BadgerDb extends $sync.SyncLocker
   /// Go: `func (*badger.DB).KeySplits(prefix []byte) []string`.
   List<String> keySplits(Uint8List prefix) {
     final $r = $callSync(
-        5858,
+        5867,
         $W()
           ..h(this)
           ..bytes(prefix));
@@ -124,7 +124,7 @@ class BadgerDb extends $sync.SyncLocker
   /// Go: `func (*badger.DB).Load(r io.Reader, maxPendingWrites int) error`.
   void load(Object r, int maxPendingWrites) {
     $callSync(
-        5859,
+        5868,
         $W()
           ..h(this)
           ..reader(r)
@@ -133,20 +133,20 @@ class BadgerDb extends $sync.SyncLocker
 
   /// Go: `func (*badger.DB).MaxBatchCount() int64`.
   int maxBatchCount() {
-    final $r = $callSync(5860, $W()..h(this));
+    final $r = $callSync(5869, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*badger.DB).MaxBatchSize() int64`.
   int maxBatchSize() {
-    final $r = $callSync(5861, $W()..h(this));
+    final $r = $callSync(5870, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*badger.DB).NewKVLoader(maxPendingWrites int) *badger.KVLoader`.
   BadgerKvLoader newKvLoader(int maxPendingWrites) {
     final $r = $callSync(
-        5862,
+        5871,
         $W()
           ..h(this)
           ..i64(maxPendingWrites));
@@ -155,14 +155,14 @@ class BadgerDb extends $sync.SyncLocker
 
   /// Go: `func (*badger.DB).NewStream() *badger.Stream`.
   BadgerStream newStream() {
-    final $r = $callSync(5863, $W()..h(this));
+    final $r = $callSync(5872, $W()..h(this));
     return $r.hnn(BadgerStream.$h);
   }
 
   /// Go: `func (*badger.DB).NewStreamAt(readTs uint64) *badger.Stream`.
   BadgerStream newStreamAt(int readTs) {
     final $r = $callSync(
-        5864,
+        5873,
         $W()
           ..h(this)
           ..i64(readTs));
@@ -171,14 +171,14 @@ class BadgerDb extends $sync.SyncLocker
 
   /// Go: `func (*badger.DB).NewStreamWriter() *badger.StreamWriter`.
   BadgerStreamWriter newStreamWriter() {
-    final $r = $callSync(5865, $W()..h(this));
+    final $r = $callSync(5874, $W()..h(this));
     return $r.hnn(BadgerStreamWriter.$h);
   }
 
   /// Go: `func (*badger.DB).NewTransaction(update bool) *badger.Txn`.
   BadgerTxn newTransaction(bool update) {
     final $r = $callSync(
-        5866,
+        5875,
         $W()
           ..h(this)
           ..b(update));
@@ -188,7 +188,7 @@ class BadgerDb extends $sync.SyncLocker
   /// Go: `func (*badger.DB).NewTransactionAt(readTs uint64, update bool) *badger.Txn`.
   BadgerTxn newTransactionAt(int readTs, bool update) {
     final $r = $callSync(
-        5867,
+        5876,
         $W()
           ..h(this)
           ..i64(readTs)
@@ -198,14 +198,14 @@ class BadgerDb extends $sync.SyncLocker
 
   /// Go: `func (*badger.DB).NewWriteBatch() *badger.WriteBatch`.
   BadgerWriteBatch newWriteBatch() {
-    final $r = $callSync(5868, $W()..h(this));
+    final $r = $callSync(5877, $W()..h(this));
     return $r.hnn(BadgerWriteBatch.$h);
   }
 
   /// Go: `func (*badger.DB).NewWriteBatchAt(commitTs uint64) *badger.WriteBatch`.
   BadgerWriteBatch newWriteBatchAt(int commitTs) {
     final $r = $callSync(
-        5869,
+        5878,
         $W()
           ..h(this)
           ..i64(commitTs));
@@ -215,7 +215,7 @@ class BadgerDb extends $sync.SyncLocker
   /// Go: `func (*badger.DB).PrintHistogram(keyPrefix []byte)`.
   void printHistogram(Uint8List keyPrefix) {
     $callSync(
-        5870,
+        5879,
         $W()
           ..h(this)
           ..bytes(keyPrefix));
@@ -224,7 +224,7 @@ class BadgerDb extends $sync.SyncLocker
   /// Go: `func (*badger.DB).RunValueLogGC(discardRatio float64) error`.
   void runValueLogGc(double discardRatio) {
     $callSync(
-        5871,
+        5880,
         $W()
           ..h(this)
           ..f64(discardRatio));
@@ -233,7 +233,7 @@ class BadgerDb extends $sync.SyncLocker
   /// Go: `func (*badger.DB).SetDiscardTs(ts uint64)`.
   void setDiscardTs(int ts) {
     $callSync(
-        5872,
+        5881,
         $W()
           ..h(this)
           ..i64(ts));
@@ -241,7 +241,7 @@ class BadgerDb extends $sync.SyncLocker
 
   /// Go: `func (*badger.DB).Size() (lsm int64, vlog int64)`.
   (int, int) size() {
-    final $r = $callSync(5873, $W()..h(this));
+    final $r = $callSync(5882, $W()..h(this));
     return ($r.i64(), $r.i64());
   }
 
@@ -256,7 +256,7 @@ class BadgerDb extends $sync.SyncLocker
       $context.Context ctx, FutureOr<void> Function($pb.BadgerPbKvList kv) cb,
       [List<Uint8List> prefixes = const []]) async {
     await $call(
-        5874,
+        5883,
         $W()
           ..h(this)
           ..h(ctx)
@@ -266,13 +266,13 @@ class BadgerDb extends $sync.SyncLocker
 
   /// Go: `func (*badger.DB).Sync() error`.
   void sync() {
-    $callSync(5875, $W()..h(this));
+    $callSync(5884, $W()..h(this));
   }
 
   /// Go: `func (*badger.DB).Tables(withKeysCount bool) []badger.TableInfo`.
   List<BadgerTableInfo> tables(bool withKeysCount) {
     final $r = $callSync(
-        5876,
+        5885,
         $W()
           ..h(this)
           ..b(withKeysCount));
@@ -288,7 +288,7 @@ class BadgerDb extends $sync.SyncLocker
   /// each invocation (a retained callback, WIRE.md).
   Future<void> update(FutureOr<void> Function(BadgerTxn txn) fn) async {
     await $call(
-        5877,
+        5886,
         $W()
           ..h(this)
           ..cb((r) => fn(r.hnn(BadgerTxn.$h)), true));
@@ -303,7 +303,7 @@ class BadgerDb extends $sync.SyncLocker
   /// each invocation (a retained callback, WIRE.md).
   Future<void> view(FutureOr<void> Function(BadgerTxn txn) fn) async {
     await $call(
-        5878,
+        5887,
         $W()
           ..h(this)
           ..cb((r) => fn(r.hnn(BadgerTxn.$h)), true));
@@ -331,7 +331,7 @@ class BadgerEntry extends $crypto.CryptoDecrypterOpts
   /// Go: `func badger.NewEntry(key []byte, value []byte) *badger.Entry`.
   factory BadgerEntry(Uint8List key, Uint8List value) {
     final $r = $callSync(
-        5914,
+        5923,
         $W()
           ..bytes(key)
           ..bytes(value));
@@ -340,14 +340,14 @@ class BadgerEntry extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*badger.Entry).WithDiscard() *badger.Entry`.
   BadgerEntry withDiscard() {
-    final $r = $callSync(5881, $W()..h(this));
+    final $r = $callSync(5890, $W()..h(this));
     return $r.hnn(BadgerEntry.$h);
   }
 
   /// Go: `func (*badger.Entry).WithMeta(meta byte) *badger.Entry`.
   BadgerEntry withMeta(int meta) {
     final $r = $callSync(
-        5882,
+        5891,
         $W()
           ..h(this)
           ..i64(meta));
@@ -357,7 +357,7 @@ class BadgerEntry extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*badger.Entry).WithTTL(dur time.Duration) *badger.Entry`.
   BadgerEntry withTtl(Duration dur) {
     final $r = $callSync(
-        5883,
+        5892,
         $W()
           ..h(this)
           ..i64((dur).inMicroseconds * 1000));
@@ -385,38 +385,38 @@ class BadgerItem extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*badger.Item).DiscardEarlierVersions() bool`.
   bool discardEarlierVersions() {
-    final $r = $callSync(5884, $W()..h(this));
+    final $r = $callSync(5893, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*badger.Item).EstimatedSize() int64`.
   int estimatedSize() {
-    final $r = $callSync(5885, $W()..h(this));
+    final $r = $callSync(5894, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*badger.Item).ExpiresAt() uint64`.
   int expiresAt() {
-    final $r = $callSync(5886, $W()..h(this));
+    final $r = $callSync(5895, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*badger.Item).IsDeletedOrExpired() bool`.
   bool isDeletedOrExpired() {
-    final $r = $callSync(5887, $W()..h(this));
+    final $r = $callSync(5896, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*badger.Item).Key() []byte`.
   Uint8List key() {
-    final $r = $callSync(5888, $W()..h(this));
+    final $r = $callSync(5897, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*badger.Item).KeyCopy(dst []byte) []byte`.
   Uint8List keyCopy(Uint8List dst) {
     final $r = $callSync(
-        5889,
+        5898,
         $W()
           ..h(this)
           ..bytes(dst));
@@ -425,19 +425,19 @@ class BadgerItem extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*badger.Item).KeySize() int64`.
   int keySize() {
-    final $r = $callSync(5890, $W()..h(this));
+    final $r = $callSync(5899, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*badger.Item).String() string`.
   String string() {
-    final $r = $callSync(5891, $W()..h(this));
+    final $r = $callSync(5900, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*badger.Item).UserMeta() byte`.
   int userMeta() {
-    final $r = $callSync(5892, $W()..h(this));
+    final $r = $callSync(5901, $W()..h(this));
     return $r.i64();
   }
 
@@ -450,7 +450,7 @@ class BadgerItem extends $crypto.CryptoDecrypterOpts
   /// each invocation (a retained callback, WIRE.md).
   Future<void> value$(FutureOr<void> Function(Uint8List val) fn) async {
     await $call(
-        5893,
+        5902,
         $W()
           ..h(this)
           ..cb((r) => fn(r.bytes() ?? Uint8List(0)), true));
@@ -459,7 +459,7 @@ class BadgerItem extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*badger.Item).ValueCopy(dst []byte) ([]byte, error)`.
   Uint8List valueCopy(Uint8List dst) {
     final $r = $callSync(
-        5894,
+        5903,
         $W()
           ..h(this)
           ..bytes(dst));
@@ -468,13 +468,13 @@ class BadgerItem extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*badger.Item).ValueSize() int64`.
   int valueSize() {
-    final $r = $callSync(5895, $W()..h(this));
+    final $r = $callSync(5904, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*badger.Item).Version() uint64`.
   int version() {
-    final $r = $callSync(5896, $W()..h(this));
+    final $r = $callSync(5905, $W()..h(this));
     return $r.i64();
   }
 }
@@ -499,29 +499,29 @@ class BadgerIterator extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*badger.Iterator).Close()`.
   void close() {
-    $callSync(5897, $W()..h(this));
+    $callSync(5906, $W()..h(this));
   }
 
   /// Go: `func (*badger.Iterator).Item() *badger.Item`.
   BadgerItem item() {
-    final $r = $callSync(5898, $W()..h(this));
+    final $r = $callSync(5907, $W()..h(this));
     return $r.hnn(BadgerItem.$h);
   }
 
   /// Go: `func (*badger.Iterator).Next()`.
   void next() {
-    $callSync(5899, $W()..h(this));
+    $callSync(5908, $W()..h(this));
   }
 
   /// Go: `func (*badger.Iterator).Rewind()`.
   void rewind() {
-    $callSync(5900, $W()..h(this));
+    $callSync(5909, $W()..h(this));
   }
 
   /// Go: `func (*badger.Iterator).Seek(key []byte)`.
   void seek(Uint8List key) {
     $callSync(
-        5901,
+        5910,
         $W()
           ..h(this)
           ..bytes(key));
@@ -529,14 +529,14 @@ class BadgerIterator extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*badger.Iterator).Valid() bool`.
   bool valid() {
-    final $r = $callSync(5902, $W()..h(this));
+    final $r = $callSync(5911, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*badger.Iterator).ValidForPrefix(prefix []byte) bool`.
   bool validForPrefix(Uint8List prefix) {
     final $r = $callSync(
-        5903,
+        5912,
         $W()
           ..h(this)
           ..bytes(prefix));
@@ -583,13 +583,13 @@ class BadgerKvLoader extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*badger.KVLoader).Finish() error`.
   void finish() {
-    $callSync(5904, $W()..h(this));
+    $callSync(5913, $W()..h(this));
   }
 
   /// Go: `func (*badger.KVLoader).Set(kv *pb.KV) error`.
   void set($pb.BadgerPbKv kv) {
     $callSync(
-        5905,
+        5914,
         $W()
           ..h(this)
           ..dto(kv));
@@ -606,7 +606,7 @@ mixin BadgerLogger$ on GoHandle {
   /// Go: `func (badger.Logger).Debugf(string, ...interface{})`.
   void debugf(String arg0, [List<Object?> arg1 = const []]) {
     $callSync(
-        5907,
+        5916,
         $W()
           ..h(this)
           ..str(arg0)
@@ -616,7 +616,7 @@ mixin BadgerLogger$ on GoHandle {
   /// Go: `func (badger.Logger).Errorf(string, ...interface{})`.
   void errorf(String arg0, [List<Object?> arg1 = const []]) {
     $callSync(
-        5908,
+        5917,
         $W()
           ..h(this)
           ..str(arg0)
@@ -626,7 +626,7 @@ mixin BadgerLogger$ on GoHandle {
   /// Go: `func (badger.Logger).Infof(string, ...interface{})`.
   void infof(String arg0, [List<Object?> arg1 = const []]) {
     $callSync(
-        5909,
+        5918,
         $W()
           ..h(this)
           ..str(arg0)
@@ -636,7 +636,7 @@ mixin BadgerLogger$ on GoHandle {
   /// Go: `func (badger.Logger).Warningf(string, ...interface{})`.
   void warningf(String arg0, [List<Object?> arg1 = const []]) {
     $callSync(
-        5910,
+        5919,
         $W()
           ..h(this)
           ..str(arg0)
@@ -645,13 +645,13 @@ mixin BadgerLogger$ on GoHandle {
 
   /// Go: type assertion `x.(*badger.Options)`: null if the object is not one.
   BadgerOptions? asBadgerOptions() {
-    final $r = $callSync(431, $W()..h(this));
+    final $r = $callSync(434, $W()..h(this));
     return $r.hn(BadgerOptions.$h);
   }
 
   /// Go: type assertion `x.(*log.ZapEventLogger)`: null if the object is not one.
   $v2.LogV2ZapEventLogger? asLogV2ZapEventLogger() {
-    final $r = $callSync(432, $W()..h(this));
+    final $r = $callSync(435, $W()..h(this));
     return $r.hn($v2.LogV2ZapEventLogger.$h);
   }
 }
@@ -734,7 +734,7 @@ class BadgerMergeOperator extends $sync.SyncLocker
   /// Go: `func (*badger.MergeOperator).Add(val []byte) error`.
   void add(Uint8List val) {
     $callSync(
-        5911,
+        5920,
         $W()
           ..h(this)
           ..bytes(val));
@@ -742,13 +742,13 @@ class BadgerMergeOperator extends $sync.SyncLocker
 
   /// Go: `func (*badger.MergeOperator).Get() ([]byte, error)`.
   Uint8List get() {
-    final $r = $callSync(5912, $W()..h(this));
+    final $r = $callSync(5921, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*badger.MergeOperator).Stop()`.
   void stop() {
-    $callSync(5913, $W()..h(this));
+    $callSync(5922, $W()..h(this));
   }
 }
 
@@ -775,7 +775,7 @@ class BadgerOptions extends BadgerLogger
   /// Go: `func (*badger.Options).Debugf(format string, v ...interface{})`.
   void debugf(String format, [List<Object?> v = const []]) {
     $callSync(
-        5917,
+        5926,
         $W()
           ..h(this)
           ..str(format)
@@ -785,7 +785,7 @@ class BadgerOptions extends BadgerLogger
   /// Go: `func (*badger.Options).Errorf(format string, v ...interface{})`.
   void errorf(String format, [List<Object?> v = const []]) {
     $callSync(
-        5918,
+        5927,
         $W()
           ..h(this)
           ..str(format)
@@ -795,7 +795,7 @@ class BadgerOptions extends BadgerLogger
   /// Go: `func (*badger.Options).Infof(format string, v ...interface{})`.
   void infof(String format, [List<Object?> v = const []]) {
     $callSync(
-        5919,
+        5928,
         $W()
           ..h(this)
           ..str(format)
@@ -805,7 +805,7 @@ class BadgerOptions extends BadgerLogger
   /// Go: `func (*badger.Options).Warningf(format string, v ...interface{})`.
   void warningf(String format, [List<Object?> v = const []]) {
     $callSync(
-        5920,
+        5929,
         $W()
           ..h(this)
           ..str(format)
@@ -815,7 +815,7 @@ class BadgerOptions extends BadgerLogger
   /// Go: `func (badger.Options).WithBypassLockGuard(b bool) badger.Options`.
   BadgerOptions withBypassLockGuard(bool b) {
     final $r = $callSync(
-        5921,
+        5930,
         $W()
           ..h(this)
           ..b(b));
@@ -825,7 +825,7 @@ class BadgerOptions extends BadgerLogger
   /// Go: `func (badger.Options).WithCompactL0OnClose(val bool) badger.Options`.
   BadgerOptions withCompactL0OnClose(bool val) {
     final $r = $callSync(
-        5922,
+        5931,
         $W()
           ..h(this)
           ..b(val));
@@ -835,7 +835,7 @@ class BadgerOptions extends BadgerLogger
   /// Go: `func (badger.Options).WithDir(val string) badger.Options`.
   BadgerOptions withDir(String val) {
     final $r = $callSync(
-        5923,
+        5932,
         $W()
           ..h(this)
           ..str(val));
@@ -845,7 +845,7 @@ class BadgerOptions extends BadgerLogger
   /// Go: `func (badger.Options).WithEventLogging(enabled bool) badger.Options`.
   BadgerOptions withEventLogging(bool enabled) {
     final $r = $callSync(
-        5924,
+        5933,
         $W()
           ..h(this)
           ..b(enabled));
@@ -855,7 +855,7 @@ class BadgerOptions extends BadgerLogger
   /// Go: `func (badger.Options).WithLevelOneSize(val int64) badger.Options`.
   BadgerOptions withLevelOneSize(int val) {
     final $r = $callSync(
-        5925,
+        5934,
         $W()
           ..h(this)
           ..i64(val));
@@ -865,7 +865,7 @@ class BadgerOptions extends BadgerLogger
   /// Go: `func (badger.Options).WithLevelSizeMultiplier(val int) badger.Options`.
   BadgerOptions withLevelSizeMultiplier(int val) {
     final $r = $callSync(
-        5926,
+        5935,
         $W()
           ..h(this)
           ..i64(val));
@@ -875,7 +875,7 @@ class BadgerOptions extends BadgerLogger
   /// Go: `func (badger.Options).WithLogRotatesToFlush(val int32) badger.Options`.
   BadgerOptions withLogRotatesToFlush(int val) {
     final $r = $callSync(
-        5927,
+        5936,
         $W()
           ..h(this)
           ..i64(val));
@@ -885,7 +885,7 @@ class BadgerOptions extends BadgerLogger
   /// Go: `func (badger.Options).WithLogger(val badger.Logger) badger.Options`.
   BadgerOptions withLogger(BadgerLogger val) {
     final $r = $callSync(
-        5928,
+        5937,
         $W()
           ..h(this)
           ..h(val));
@@ -895,7 +895,7 @@ class BadgerOptions extends BadgerLogger
   /// Go: `func (badger.Options).WithMaxLevels(val int) badger.Options`.
   BadgerOptions withMaxLevels(int val) {
     final $r = $callSync(
-        5929,
+        5938,
         $W()
           ..h(this)
           ..i64(val));
@@ -905,7 +905,7 @@ class BadgerOptions extends BadgerLogger
   /// Go: `func (badger.Options).WithMaxTableSize(val int64) badger.Options`.
   BadgerOptions withMaxTableSize(int val) {
     final $r = $callSync(
-        5930,
+        5939,
         $W()
           ..h(this)
           ..i64(val));
@@ -915,7 +915,7 @@ class BadgerOptions extends BadgerLogger
   /// Go: `func (badger.Options).WithNumCompactors(val int) badger.Options`.
   BadgerOptions withNumCompactors(int val) {
     final $r = $callSync(
-        5931,
+        5940,
         $W()
           ..h(this)
           ..i64(val));
@@ -925,7 +925,7 @@ class BadgerOptions extends BadgerLogger
   /// Go: `func (badger.Options).WithNumLevelZeroTables(val int) badger.Options`.
   BadgerOptions withNumLevelZeroTables(int val) {
     final $r = $callSync(
-        5932,
+        5941,
         $W()
           ..h(this)
           ..i64(val));
@@ -935,7 +935,7 @@ class BadgerOptions extends BadgerLogger
   /// Go: `func (badger.Options).WithNumLevelZeroTablesStall(val int) badger.Options`.
   BadgerOptions withNumLevelZeroTablesStall(int val) {
     final $r = $callSync(
-        5933,
+        5942,
         $W()
           ..h(this)
           ..i64(val));
@@ -945,7 +945,7 @@ class BadgerOptions extends BadgerLogger
   /// Go: `func (badger.Options).WithNumMemtables(val int) badger.Options`.
   BadgerOptions withNumMemtables(int val) {
     final $r = $callSync(
-        5934,
+        5943,
         $W()
           ..h(this)
           ..i64(val));
@@ -955,7 +955,7 @@ class BadgerOptions extends BadgerLogger
   /// Go: `func (badger.Options).WithNumVersionsToKeep(val int) badger.Options`.
   BadgerOptions withNumVersionsToKeep(int val) {
     final $r = $callSync(
-        5935,
+        5944,
         $W()
           ..h(this)
           ..i64(val));
@@ -965,7 +965,7 @@ class BadgerOptions extends BadgerLogger
   /// Go: `func (badger.Options).WithReadOnly(val bool) badger.Options`.
   BadgerOptions withReadOnly(bool val) {
     final $r = $callSync(
-        5936,
+        5945,
         $W()
           ..h(this)
           ..b(val));
@@ -975,7 +975,7 @@ class BadgerOptions extends BadgerLogger
   /// Go: `func (badger.Options).WithSyncWrites(val bool) badger.Options`.
   BadgerOptions withSyncWrites(bool val) {
     final $r = $callSync(
-        5937,
+        5946,
         $W()
           ..h(this)
           ..b(val));
@@ -985,7 +985,7 @@ class BadgerOptions extends BadgerLogger
   /// Go: `func (badger.Options).WithTableLoadingMode(val options.FileLoadingMode) badger.Options`.
   BadgerOptions withTableLoadingMode(int val) {
     final $r = $callSync(
-        5938,
+        5947,
         $W()
           ..h(this)
           ..i64(val));
@@ -995,7 +995,7 @@ class BadgerOptions extends BadgerLogger
   /// Go: `func (badger.Options).WithTruncate(val bool) badger.Options`.
   BadgerOptions withTruncate(bool val) {
     final $r = $callSync(
-        5939,
+        5948,
         $W()
           ..h(this)
           ..b(val));
@@ -1005,7 +1005,7 @@ class BadgerOptions extends BadgerLogger
   /// Go: `func (badger.Options).WithValueDir(val string) badger.Options`.
   BadgerOptions withValueDir(String val) {
     final $r = $callSync(
-        5940,
+        5949,
         $W()
           ..h(this)
           ..str(val));
@@ -1015,7 +1015,7 @@ class BadgerOptions extends BadgerLogger
   /// Go: `func (badger.Options).WithValueLogFileSize(val int64) badger.Options`.
   BadgerOptions withValueLogFileSize(int val) {
     final $r = $callSync(
-        5941,
+        5950,
         $W()
           ..h(this)
           ..i64(val));
@@ -1025,7 +1025,7 @@ class BadgerOptions extends BadgerLogger
   /// Go: `func (badger.Options).WithValueLogLoadingMode(val options.FileLoadingMode) badger.Options`.
   BadgerOptions withValueLogLoadingMode(int val) {
     final $r = $callSync(
-        5942,
+        5951,
         $W()
           ..h(this)
           ..i64(val));
@@ -1035,7 +1035,7 @@ class BadgerOptions extends BadgerLogger
   /// Go: `func (badger.Options).WithValueLogMaxEntries(val uint32) badger.Options`.
   BadgerOptions withValueLogMaxEntries(int val) {
     final $r = $callSync(
-        5943,
+        5952,
         $W()
           ..h(this)
           ..i64(val));
@@ -1045,7 +1045,7 @@ class BadgerOptions extends BadgerLogger
   /// Go: `func (badger.Options).WithValueThreshold(val int) badger.Options`.
   BadgerOptions withValueThreshold(int val) {
     final $r = $callSync(
-        5944,
+        5953,
         $W()
           ..h(this)
           ..i64(val));
@@ -1055,7 +1055,7 @@ class BadgerOptions extends BadgerLogger
   /// Go: `func (badger.Options).WithVerifyValueChecksum(val bool) badger.Options`.
   BadgerOptions withVerifyValueChecksum(bool val) {
     final $r = $callSync(
-        5945,
+        5954,
         $W()
           ..h(this)
           ..b(val));
@@ -1087,13 +1087,13 @@ class BadgerSequence extends $sync.SyncLocker
 
   /// Go: `func (*badger.Sequence).Next() (uint64, error)`.
   int next() {
-    final $r = $callSync(5947, $W()..h(this));
+    final $r = $callSync(5956, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*badger.Sequence).Release() error`.
   void release$() {
-    $callSync(5948, $W()..h(this));
+    $callSync(5957, $W()..h(this));
   }
 }
 
@@ -1118,7 +1118,7 @@ class BadgerStream extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*badger.Stream).Backup(w io.Writer, since uint64) (uint64, error)`.
   int backup(GoHandle? w, int since) {
     final $r = $callSync(
-        5949,
+        5958,
         $W()
           ..h(this)
           ..h(w)
@@ -1131,7 +1131,7 @@ class BadgerStream extends $crypto.CryptoDecrypterOpts
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> orchestrate($context.Context ctx) async {
     await $call(
-        5950,
+        5959,
         $W()
           ..h(this)
           ..h(ctx));
@@ -1140,7 +1140,7 @@ class BadgerStream extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*badger.Stream).ToList(key []byte, itr *badger.Iterator) (*pb.KVList, error)`.
   $pb.BadgerPbKvList toList(Uint8List key, BadgerIterator itr) {
     final $r = $callSync(
-        5951,
+        5960,
         $W()
           ..h(this)
           ..bytes(key)
@@ -1169,18 +1169,18 @@ class BadgerStreamWriter extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*badger.StreamWriter).Flush() error`.
   void flush() {
-    $callSync(5952, $W()..h(this));
+    $callSync(5961, $W()..h(this));
   }
 
   /// Go: `func (*badger.StreamWriter).Prepare() error`.
   void prepare() {
-    $callSync(5953, $W()..h(this));
+    $callSync(5962, $W()..h(this));
   }
 
   /// Go: `func (*badger.StreamWriter).Write(kvs *pb.KVList) error`.
   void write($pb.BadgerPbKvList kvs) {
     $callSync(
-        5954,
+        5963,
         $W()
           ..h(this)
           ..dto(kvs));
@@ -1280,13 +1280,13 @@ class BadgerTxn extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*badger.Txn).Commit() error`.
   void commit() {
-    $callSync(5955, $W()..h(this));
+    $callSync(5964, $W()..h(this));
   }
 
   /// Go: `func (*badger.Txn).Delete(key []byte) error`.
   void delete(Uint8List key) {
     $callSync(
-        5956,
+        5965,
         $W()
           ..h(this)
           ..bytes(key));
@@ -1294,13 +1294,13 @@ class BadgerTxn extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*badger.Txn).Discard()`.
   void discard() {
-    $callSync(5957, $W()..h(this));
+    $callSync(5966, $W()..h(this));
   }
 
   /// Go: `func (*badger.Txn).Get(key []byte) (item *badger.Item, rerr error)`.
   BadgerItem get(Uint8List key) {
     final $r = $callSync(
-        5958,
+        5967,
         $W()
           ..h(this)
           ..bytes(key));
@@ -1310,7 +1310,7 @@ class BadgerTxn extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*badger.Txn).NewIterator(opt badger.IteratorOptions) *badger.Iterator`.
   BadgerIterator newIterator(BadgerIteratorOptions opt) {
     final $r = $callSync(
-        5959,
+        5968,
         $W()
           ..h(this)
           ..h(opt));
@@ -1320,7 +1320,7 @@ class BadgerTxn extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*badger.Txn).NewKeyIterator(key []byte, opt badger.IteratorOptions) *badger.Iterator`.
   BadgerIterator newKeyIterator(Uint8List key, BadgerIteratorOptions opt) {
     final $r = $callSync(
-        5960,
+        5969,
         $W()
           ..h(this)
           ..bytes(key)
@@ -1330,14 +1330,14 @@ class BadgerTxn extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*badger.Txn).ReadTs() uint64`.
   int readTs() {
-    final $r = $callSync(5961, $W()..h(this));
+    final $r = $callSync(5970, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*badger.Txn).Set(key []byte, val []byte) error`.
   void set(Uint8List key, Uint8List val) {
     $callSync(
-        5962,
+        5971,
         $W()
           ..h(this)
           ..bytes(key)
@@ -1347,7 +1347,7 @@ class BadgerTxn extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*badger.Txn).SetEntry(e *badger.Entry) error`.
   void setEntry(BadgerEntry e) {
     $callSync(
-        5963,
+        5972,
         $W()
           ..h(this)
           ..h(e));
@@ -1378,13 +1378,13 @@ class BadgerWriteBatch extends $sync.SyncLocker
 
   /// Go: `func (*badger.WriteBatch).Cancel()`.
   void cancel() {
-    $callSync(5964, $W()..h(this));
+    $callSync(5973, $W()..h(this));
   }
 
   /// Go: `func (*badger.WriteBatch).Delete(k []byte) error`.
   void delete(Uint8List k) {
     $callSync(
-        5965,
+        5974,
         $W()
           ..h(this)
           ..bytes(k));
@@ -1392,18 +1392,18 @@ class BadgerWriteBatch extends $sync.SyncLocker
 
   /// Go: `func (*badger.WriteBatch).Error() error`.
   void error() {
-    $callSync(5966, $W()..h(this));
+    $callSync(5975, $W()..h(this));
   }
 
   /// Go: `func (*badger.WriteBatch).Flush() error`.
   void flush() {
-    $callSync(5967, $W()..h(this));
+    $callSync(5976, $W()..h(this));
   }
 
   /// Go: `func (*badger.WriteBatch).Set(k []byte, v []byte) error`.
   void set(Uint8List k, Uint8List v) {
     $callSync(
-        5968,
+        5977,
         $W()
           ..h(this)
           ..bytes(k)
@@ -1413,7 +1413,7 @@ class BadgerWriteBatch extends $sync.SyncLocker
   /// Go: `func (*badger.WriteBatch).SetEntry(e *badger.Entry) error`.
   void setEntry(BadgerEntry e) {
     $callSync(
-        5969,
+        5978,
         $W()
           ..h(this)
           ..h(e));
@@ -1422,7 +1422,7 @@ class BadgerWriteBatch extends $sync.SyncLocker
   /// Go: `func (*badger.WriteBatch).SetMaxPendingTxns(max int)`.
   void setMaxPendingTxns(int max) {
     $callSync(
-        5970,
+        5979,
         $W()
           ..h(this)
           ..i64(max));
@@ -1658,37 +1658,37 @@ class BadgerErrZeroBandwidth extends GolangException {
 extension GoDgraphIoBadgerApi on GoDgraphIoBadger {
   /// Go: `var badger.DefaultIteratorOptions badger.IteratorOptions`.
   BadgerIteratorOptions get defaultIteratorOptions {
-    final $r = $callSync(5879);
+    final $r = $callSync(5888);
     return $r.hnn(BadgerIteratorOptions.$h);
   }
 
   /// Go: `func badger.DefaultOptions(path string) badger.Options`.
   BadgerOptions defaultOptions(String path) {
-    final $r = $callSync(5880, $W()..str(path));
+    final $r = $callSync(5889, $W()..str(path));
     return $r.hnn(BadgerOptions.$h);
   }
 
   /// Go: `func badger.LSMOnlyOptions(path string) badger.Options`.
   BadgerOptions lsmOnlyOptions(String path) {
-    final $r = $callSync(5906, $W()..str(path));
+    final $r = $callSync(5915, $W()..str(path));
     return $r.hnn(BadgerOptions.$h);
   }
 
   /// Go: `func badger.Open(opt badger.Options) (db *badger.DB, err error)`.
   BadgerDb open(BadgerOptions opt) {
-    final $r = $callSync(5915, $W()..h(opt));
+    final $r = $callSync(5924, $W()..h(opt));
     return $r.hnn(BadgerDb.$h);
   }
 
   /// Go: `func badger.OpenManaged(opts badger.Options) (*badger.DB, error)`.
   BadgerDb openManaged(BadgerOptions opts) {
-    final $r = $callSync(5916, $W()..h(opts));
+    final $r = $callSync(5925, $W()..h(opts));
     return $r.hnn(BadgerDb.$h);
   }
 
   /// Go: `func badger.ReplayManifestFile(fp *os.File) (badger.Manifest, int64, error)`.
   (BadgerManifest, int) replayManifestFile($os.OsFile fp) {
-    final $r = $callSync(5946, $W()..h(fp));
+    final $r = $callSync(5955, $W()..h(fp));
     return ($r.p() ? BadgerManifest.$dec($r) : $nil(), $r.i64());
   }
 }

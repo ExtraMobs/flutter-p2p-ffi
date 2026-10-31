@@ -20,7 +20,7 @@ extension GoIpfsBoxoBitswapNetworkBsnetApi on GoIpfsBoxoBitswapNetworkBsnet {
       $host.Libp2pCoreHost host,
       [List<BoxoBitswapNetworkBsnetNetOpt> opts = const []]) {
     final $r = $callSync(
-        9276,
+        9285,
         $W()
           ..h(host)
           ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -29,25 +29,25 @@ extension GoIpfsBoxoBitswapNetworkBsnetApi on GoIpfsBoxoBitswapNetworkBsnet {
 
   /// Go: `var bsnet.ProtocolBitswap protocol.ID`.
   String get protocolBitswap {
-    final $r = $callSync(9277);
+    final $r = $callSync(9286);
     return $r.str();
   }
 
   /// Go: `var bsnet.ProtocolBitswapNoVers protocol.ID`.
   String get protocolBitswapNoVers {
-    final $r = $callSync(9278);
+    final $r = $callSync(9287);
     return $r.str();
   }
 
   /// Go: `var bsnet.ProtocolBitswapOneOne protocol.ID`.
   String get protocolBitswapOneOne {
-    final $r = $callSync(9279);
+    final $r = $callSync(9288);
     return $r.str();
   }
 
   /// Go: `var bsnet.ProtocolBitswapOneZero protocol.ID`.
   String get protocolBitswapOneZero {
-    final $r = $callSync(9280);
+    final $r = $callSync(9289);
     return $r.str();
   }
 }

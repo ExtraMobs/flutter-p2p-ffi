@@ -27,7 +27,7 @@ class KuboRepoFsrepoMigrationsFetcher extends GoHandle
 mixin KuboRepoFsrepoMigrationsFetcher$ on GoHandle {
   /// Go: `func (migrations.Fetcher).Close() error`.
   void close() {
-    $callSync(11797, $W()..h(this));
+    $callSync(11803, $W()..h(this));
   }
 
   /// Go: `func (migrations.Fetcher).Fetch(ctx context.Context, filePath string) ([]byte, error)`.
@@ -35,7 +35,7 @@ mixin KuboRepoFsrepoMigrationsFetcher$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<Uint8List> fetch($context.Context ctx, String filePath) async {
     final $r = await $call(
-        11798,
+        11804,
         $W()
           ..h(this)
           ..h(ctx)
@@ -45,14 +45,14 @@ mixin KuboRepoFsrepoMigrationsFetcher$ on GoHandle {
 
   /// Go: type assertion `x.(*migrations.HttpFetcher)`: null if the object is not one.
   KuboRepoFsrepoMigrationsHttpFetcher? asKuboRepoFsrepoMigrationsHttpFetcher() {
-    final $r = $callSync(1208, $W()..h(this));
+    final $r = $callSync(1211, $W()..h(this));
     return $r.hn(KuboRepoFsrepoMigrationsHttpFetcher.$h);
   }
 
   /// Go: type assertion `x.(*migrations.MultiFetcher)`: null if the object is not one.
   KuboRepoFsrepoMigrationsMultiFetcher?
       asKuboRepoFsrepoMigrationsMultiFetcher() {
-    final $r = $callSync(1209, $W()..h(this));
+    final $r = $callSync(1212, $W()..h(this));
     return $r.hn(KuboRepoFsrepoMigrationsMultiFetcher.$h);
   }
 }
@@ -86,7 +86,7 @@ class KuboRepoFsrepoMigrationsHttpFetcher
   factory KuboRepoFsrepoMigrationsHttpFetcher(
       String distPath, String gateway, String userAgent, int fetchLimit) {
     final $r = $callSync(
-        11810,
+        11816,
         $W()
           ..str(distPath)
           ..str(gateway)
@@ -97,7 +97,7 @@ class KuboRepoFsrepoMigrationsHttpFetcher
 
   /// Go: `func (*migrations.HttpFetcher).Close() error`.
   void close() {
-    $callSync(11801, $W()..h(this));
+    $callSync(11807, $W()..h(this));
   }
 
   /// Go: `func (*migrations.HttpFetcher).Fetch(ctx context.Context, filePath string) ([]byte, error)`.
@@ -105,7 +105,7 @@ class KuboRepoFsrepoMigrationsHttpFetcher
   /// Asynchronous: runs in a goroutine of the service.
   Future<Uint8List> fetch($context.Context ctx, String filePath) async {
     final $r = await $call(
-        11802,
+        11808,
         $W()
           ..h(this)
           ..h(ctx)
@@ -142,13 +142,13 @@ class KuboRepoFsrepoMigrationsMultiFetcher
   /// Go: `func migrations.NewMultiFetcher(f ...migrations.Fetcher) *migrations.MultiFetcher`.
   factory KuboRepoFsrepoMigrationsMultiFetcher(
       [List<KuboRepoFsrepoMigrationsFetcher> f = const []]) {
-    final $r = $callSync(11812, $W()..list(f, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(11818, $W()..list(f, (w0, e0) => w0.h(e0)));
     return $r.hnn(KuboRepoFsrepoMigrationsMultiFetcher.$h);
   }
 
   /// Go: `func (*migrations.MultiFetcher).Close() error`.
   void close() {
-    $callSync(11805, $W()..h(this));
+    $callSync(11811, $W()..h(this));
   }
 
   /// Go: `func (*migrations.MultiFetcher).Fetch(ctx context.Context, ipfsPath string) ([]byte, error)`.
@@ -156,7 +156,7 @@ class KuboRepoFsrepoMigrationsMultiFetcher
   /// Asynchronous: runs in a goroutine of the service.
   Future<Uint8List> fetch($context.Context ctx, String ipfsPath) async {
     final $r = await $call(
-        11806,
+        11812,
         $W()
           ..h(this)
           ..h(ctx)
@@ -166,13 +166,13 @@ class KuboRepoFsrepoMigrationsMultiFetcher
 
   /// Go: `func (*migrations.MultiFetcher).Fetchers() []migrations.Fetcher`.
   List<KuboRepoFsrepoMigrationsFetcher> fetchers() {
-    final $r = $callSync(11807, $W()..h(this));
+    final $r = $callSync(11813, $W()..h(this));
     return $r.list(() => $r.hnn(KuboRepoFsrepoMigrationsFetcher.$h));
   }
 
   /// Go: `func (*migrations.MultiFetcher).Len() int`.
   int len() {
-    final $r = $callSync(11808, $W()..h(this));
+    final $r = $callSync(11814, $W()..h(this));
     return $r.i64();
   }
 }
@@ -191,7 +191,7 @@ class KuboRepoFsrepoMigrationsErrMultiFetcherExhausted extends GolangException {
 extension GoIpfsKuboRepoFsrepoMigrationsApi on GoIpfsKuboRepoFsrepoMigrations {
   /// Go: `func migrations.CheckIpfsDir(dir string) (string, error)`.
   String checkIpfsDir(String dir) {
-    final $r = $callSync(11792, $W()..str(dir));
+    final $r = $callSync(11798, $W()..str(dir));
     return $r.str();
   }
 
@@ -204,7 +204,7 @@ extension GoIpfsKuboRepoFsrepoMigrationsApi on GoIpfsKuboRepoFsrepoMigrations {
       String dist,
       bool sortDesc) async {
     final $r = await $call(
-        11793,
+        11799,
         $W()
           ..h(ctx)
           ..h(fetcher)
@@ -215,13 +215,13 @@ extension GoIpfsKuboRepoFsrepoMigrationsApi on GoIpfsKuboRepoFsrepoMigrations {
 
   /// Go: `var migrations.DownloadDirectory string`.
   String get downloadDirectory {
-    final $r = $callSync(11794);
+    final $r = $callSync(11800);
     return $r.str();
   }
 
   /// Go: `func migrations.ExeName(name string) string`.
   String exeName(String name) {
-    final $r = $callSync(11795, $W()..str(name));
+    final $r = $callSync(11801, $W()..str(name));
     return $r.str();
   }
 
@@ -236,7 +236,7 @@ extension GoIpfsKuboRepoFsrepoMigrationsApi on GoIpfsKuboRepoFsrepoMigrations {
       String binName,
       String out) async {
     final $r = await $call(
-        11796,
+        11802,
         $W()
           ..h(ctx)
           ..h(fetcher)
@@ -249,19 +249,19 @@ extension GoIpfsKuboRepoFsrepoMigrationsApi on GoIpfsKuboRepoFsrepoMigrations {
 
   /// Go: `func migrations.GetDistPathEnv(distPath string) string`.
   String getDistPathEnv(String distPath) {
-    final $r = $callSync(11799, $W()..str(distPath));
+    final $r = $callSync(11805, $W()..str(distPath));
     return $r.str();
   }
 
   /// Go: `func migrations.HasEmbeddedMigration(migrationName string) bool`.
   bool hasEmbeddedMigration(String migrationName) {
-    final $r = $callSync(11800, $W()..str(migrationName));
+    final $r = $callSync(11806, $W()..str(migrationName));
     return $r.b();
   }
 
   /// Go: `func migrations.IpfsDir(dir string) (string, error)`.
   String ipfsDir(String dir) {
-    final $r = $callSync(11803, $W()..str(dir));
+    final $r = $callSync(11809, $W()..str(dir));
     return $r.str();
   }
 
@@ -274,7 +274,7 @@ extension GoIpfsKuboRepoFsrepoMigrationsApi on GoIpfsKuboRepoFsrepoMigrations {
       String dist,
       bool stableOnly) async {
     final $r = await $call(
-        11804,
+        11810,
         $W()
           ..h(ctx)
           ..h(fetcher)
@@ -285,14 +285,14 @@ extension GoIpfsKuboRepoFsrepoMigrationsApi on GoIpfsKuboRepoFsrepoMigrations {
 
   /// Go: `func migrations.NeedMigration(target int) (bool, error)`.
   bool needMigration(int target) {
-    final $r = $callSync(11809, $W()..i64(target));
+    final $r = $callSync(11815, $W()..i64(target));
     return $r.b();
   }
 
   /// Go: `func migrations.NewLimitReadCloser(rc io.ReadCloser, limit int64) io.ReadCloser`.
   $io.IoReadCloser newLimitReadCloser(Object rc, int limit) {
     final $r = $callSync(
-        11811,
+        11817,
         $W()
           ..reader(rc)
           ..i64(limit));
@@ -305,7 +305,7 @@ extension GoIpfsKuboRepoFsrepoMigrationsApi on GoIpfsKuboRepoFsrepoMigrations {
   $config.KuboConfigMigration readMigrationConfig(
       String repoRoot, String userConfigFile) {
     final $r = $callSync(
-        11813,
+        11819,
         $W()
           ..str(repoRoot)
           ..str(userConfigFile));
@@ -314,7 +314,7 @@ extension GoIpfsKuboRepoFsrepoMigrationsApi on GoIpfsKuboRepoFsrepoMigrations {
 
   /// Go: `func migrations.RepoVersion(ipfsDir string) (int, error)`.
   int repoVersion(String ipfsDir) {
-    final $r = $callSync(11814, $W()..str(ipfsDir));
+    final $r = $callSync(11820, $W()..str(ipfsDir));
     return $r.i64();
   }
 
@@ -324,7 +324,7 @@ extension GoIpfsKuboRepoFsrepoMigrationsApi on GoIpfsKuboRepoFsrepoMigrations {
   Future<void> runEmbeddedMigration($context.Context ctx, String migrationName,
       String ipfsDir, bool revert) async {
     await $call(
-        11815,
+        11821,
         $W()
           ..h(ctx)
           ..str(migrationName)
@@ -338,7 +338,7 @@ extension GoIpfsKuboRepoFsrepoMigrationsApi on GoIpfsKuboRepoFsrepoMigrations {
   Future<void> runEmbeddedMigrations($context.Context ctx, int targetVer,
       String ipfsDir, bool allowDowngrade) async {
     await $call(
-        11816,
+        11822,
         $W()
           ..h(ctx)
           ..i64(targetVer)
@@ -352,7 +352,7 @@ extension GoIpfsKuboRepoFsrepoMigrationsApi on GoIpfsKuboRepoFsrepoMigrations {
   Future<void> runHybridMigrations($context.Context ctx, int targetVer,
       String ipfsDir, bool allowDowngrade) async {
     await $call(
-        11817,
+        11823,
         $W()
           ..h(ctx)
           ..i64(targetVer)
@@ -372,7 +372,7 @@ extension GoIpfsKuboRepoFsrepoMigrationsApi on GoIpfsKuboRepoFsrepoMigrations {
       String ipfsDir,
       bool allowDowngrade) async {
     await $call(
-        11818,
+        11824,
         $W()
           ..h(ctx)
           ..h(fetcher)
@@ -384,7 +384,7 @@ extension GoIpfsKuboRepoFsrepoMigrationsApi on GoIpfsKuboRepoFsrepoMigrations {
   /// Go: `func migrations.WriteRepoVersion(ipfsDir string, version int) error`.
   void writeRepoVersion(String ipfsDir, int version) {
     $callSync(
-        11819,
+        11825,
         $W()
           ..str(ipfsDir)
           ..i64(version));

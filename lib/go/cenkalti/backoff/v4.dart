@@ -28,30 +28,30 @@ class BackoffV4BackOff extends GoHandle with BackoffV4BackOff$ {
 mixin BackoffV4BackOff$ on GoHandle {
   /// Go: `func (backoff.BackOff).NextBackOff() time.Duration`.
   Duration nextBackOff() {
-    final $r = $callSync(4207, $W()..h(this));
+    final $r = $callSync(4216, $W()..h(this));
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `func (backoff.BackOff).Reset()`.
   void reset() {
-    $callSync(4208, $W()..h(this));
+    $callSync(4217, $W()..h(this));
   }
 
   /// Go: type assertion `x.(*backoff.ExponentialBackOff)`: null if the object is not one.
   BackoffV4ExponentialBackOff? asBackoffV4ExponentialBackOff() {
-    final $r = $callSync(373, $W()..h(this));
+    final $r = $callSync(376, $W()..h(this));
     return $r.hn(BackoffV4ExponentialBackOff.$h);
   }
 
   /// Go: type assertion `x.(*backoff.ExponentialBackOff)`: null if the object is not one.
   $v5.BackoffV5ExponentialBackOff? asBackoffV5ExponentialBackOff() {
-    final $r = $callSync(374, $W()..h(this));
+    final $r = $callSync(377, $W()..h(this));
     return $r.hn($v5.BackoffV5ExponentialBackOff.$h);
   }
 
   /// Go: type assertion `x.(backoff.BackOffContext)`: null if the object is not one.
   BackoffV4BackOffContext? asBackoffV4BackOffContext() {
-    final $r = $callSync(375, $W()..h(this));
+    final $r = $callSync(378, $W()..h(this));
     return $r.hn(BackoffV4BackOffContext.$h);
   }
 }
@@ -83,13 +83,13 @@ final class BackoffV4ConstantBackOff implements GoDto {
 
   /// Go: `func (*backoff.ConstantBackOff).NextBackOff() time.Duration`.
   Duration nextBackOff() {
-    final $r = $callSync(4209, $W()..dto(this));
+    final $r = $callSync(4218, $W()..dto(this));
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `func (*backoff.ConstantBackOff).Reset()`.
   void reset() {
-    $callSync(4210, $W()..dto(this));
+    $callSync(4219, $W()..dto(this));
   }
 }
 
@@ -118,25 +118,25 @@ class BackoffV4ExponentialBackOff extends BackoffV4BackOff
   /// Go: `func backoff.NewExponentialBackOff(opts ...backoff.ExponentialBackOffOpts) *backoff.ExponentialBackOff`.
   factory BackoffV4ExponentialBackOff(
       [List<BackoffV4ExponentialBackOffOpts> opts = const []]) {
-    final $r = $callSync(4215, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+    final $r = $callSync(4224, $W()..list(opts, (w0, e0) => w0.opt(e0)));
     return $r.hnn(BackoffV4ExponentialBackOff.$h);
   }
 
   /// Go: `func (*backoff.ExponentialBackOff).GetElapsedTime() time.Duration`.
   Duration getElapsedTime() {
-    final $r = $callSync(4211, $W()..h(this));
+    final $r = $callSync(4220, $W()..h(this));
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `func (*backoff.ExponentialBackOff).NextBackOff() time.Duration`.
   Duration nextBackOff() {
-    final $r = $callSync(4212, $W()..h(this));
+    final $r = $callSync(4221, $W()..h(this));
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `func (*backoff.ExponentialBackOff).Reset()`.
   void reset() {
-    $callSync(4213, $W()..h(this));
+    $callSync(4222, $W()..h(this));
   }
 }
 
@@ -155,13 +155,13 @@ final class BackoffV4StopBackOff implements GoDto {
 
   /// Go: `func (*backoff.StopBackOff).NextBackOff() time.Duration`.
   Duration nextBackOff() {
-    final $r = $callSync(4219, $W()..dto(this));
+    final $r = $callSync(4228, $W()..dto(this));
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `func (*backoff.StopBackOff).Reset()`.
   void reset() {
-    $callSync(4220, $W()..dto(this));
+    $callSync(4229, $W()..dto(this));
   }
 }
 
@@ -185,13 +185,13 @@ class BackoffV4Ticker extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func backoff.NewTicker(b backoff.BackOff) *backoff.Ticker`.
   factory BackoffV4Ticker(BackoffV4BackOff b) {
-    final $r = $callSync(4216, $W()..h(b));
+    final $r = $callSync(4225, $W()..h(b));
     return $r.hnn(BackoffV4Ticker.$h);
   }
 
   /// Go: `func (*backoff.Ticker).Stop()`.
   void stop() {
-    $callSync(4221, $W()..h(this));
+    $callSync(4230, $W()..h(this));
   }
 }
 
@@ -204,12 +204,12 @@ class BackoffV4Timer extends GoHandle with BackoffV4Timer$ {
 mixin BackoffV4Timer$ on GoHandle {
   /// Go: `func (backoff.Timer).C() <-chan time.Time`.
   Stream<DateTime> c() =>
-      $stream(4222, $W()..h(this)).map((r) => r.p() ? r.time() : $nil());
+      $stream(4231, $W()..h(this)).map((r) => r.p() ? r.time() : $nil());
 
   /// Go: `func (backoff.Timer).Start(duration time.Duration)`.
   void start(Duration duration) {
     $callSync(
-        4223,
+        4232,
         $W()
           ..h(this)
           ..i64((duration).inMicroseconds * 1000));
@@ -217,7 +217,7 @@ mixin BackoffV4Timer$ on GoHandle {
 
   /// Go: `func (backoff.Timer).Stop()`.
   void stop() {
-    $callSync(4224, $W()..h(this));
+    $callSync(4233, $W()..h(this));
   }
 }
 
@@ -231,13 +231,13 @@ final class BackoffV4ZeroBackOff implements GoDto {
 
   /// Go: `func (*backoff.ZeroBackOff).NextBackOff() time.Duration`.
   Duration nextBackOff() {
-    final $r = $callSync(4227, $W()..dto(this));
+    final $r = $callSync(4236, $W()..dto(this));
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `func (*backoff.ZeroBackOff).Reset()`.
   void reset() {
-    $callSync(4228, $W()..dto(this));
+    $callSync(4237, $W()..dto(this));
   }
 }
 
@@ -254,14 +254,14 @@ class BackoffV4PermanentError extends GolangException {
 extension GoCenkaltiBackoffV4Api on GoCenkaltiBackoffV4 {
   /// Go: `func backoff.NewConstantBackOff(d time.Duration) *backoff.ConstantBackOff`.
   BackoffV4ConstantBackOff newConstantBackOff(Duration d) {
-    final $r = $callSync(4214, $W()..i64((d).inMicroseconds * 1000));
+    final $r = $callSync(4223, $W()..i64((d).inMicroseconds * 1000));
     return $r.p() ? BackoffV4ConstantBackOff.$dec($r) : $nil();
   }
 
   /// Go: `func backoff.NewTickerWithTimer(b backoff.BackOff, timer backoff.Timer) *backoff.Ticker`.
   BackoffV4Ticker newTickerWithTimer(BackoffV4BackOff b, BackoffV4Timer timer) {
     final $r = $callSync(
-        4217,
+        4226,
         $W()
           ..h(b)
           ..h(timer));
@@ -277,7 +277,7 @@ extension GoCenkaltiBackoffV4Api on GoCenkaltiBackoffV4 {
   /// each invocation (a retained callback, WIRE.md).
   Future<void> retry(FutureOr<void> Function() o, BackoffV4BackOff b) async {
     await $call(
-        4218,
+        4227,
         $W()
           ..cb((r) => o(), true)
           ..h(b));
@@ -289,7 +289,7 @@ extension GoCenkaltiBackoffV4Api on GoCenkaltiBackoffV4 {
   Future<BackoffV4BackOffContext> withContext(
       BackoffV4BackOff b, $context.Context ctx) async {
     final $r = await $call(
-        4225,
+        4234,
         $W()
           ..h(b)
           ..h(ctx));
@@ -299,7 +299,7 @@ extension GoCenkaltiBackoffV4Api on GoCenkaltiBackoffV4 {
   /// Go: `func backoff.WithMaxRetries(b backoff.BackOff, max uint64) backoff.BackOff`.
   BackoffV4BackOff withMaxRetries(BackoffV4BackOff b, int max) {
     final $r = $callSync(
-        4226,
+        4235,
         $W()
           ..h(b)
           ..i64(max));

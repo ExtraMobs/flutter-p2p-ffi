@@ -45,83 +45,83 @@ class BoxoIpnsPbIpnsRecord
   /// Go: `func (*pb.IpnsRecord).Descriptor() ([]byte, []int)`.
   @Deprecated("Use IpnsRecord.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(9992, $W()..h(this));
+    final $r = $callSync(10001, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pb.IpnsRecord).GetData() []byte`.
   Uint8List getData() {
-    final $r = $callSync(9993, $W()..h(this));
+    final $r = $callSync(10002, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pb.IpnsRecord).GetPubKey() []byte`.
   Uint8List getPubKey() {
-    final $r = $callSync(9994, $W()..h(this));
+    final $r = $callSync(10003, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pb.IpnsRecord).GetSequence() uint64`.
   int getSequence() {
-    final $r = $callSync(9995, $W()..h(this));
+    final $r = $callSync(10004, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.IpnsRecord).GetSignatureV1() []byte`.
   Uint8List getSignatureV1() {
-    final $r = $callSync(9996, $W()..h(this));
+    final $r = $callSync(10005, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pb.IpnsRecord).GetSignatureV2() []byte`.
   Uint8List getSignatureV2() {
-    final $r = $callSync(9997, $W()..h(this));
+    final $r = $callSync(10006, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pb.IpnsRecord).GetTtl() uint64`.
   int getTtl() {
-    final $r = $callSync(9998, $W()..h(this));
+    final $r = $callSync(10007, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.IpnsRecord).GetValidity() []byte`.
   Uint8List getValidity() {
-    final $r = $callSync(9999, $W()..h(this));
+    final $r = $callSync(10008, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pb.IpnsRecord).GetValidityType() pb.IpnsRecord_ValidityType`.
   int getValidityType() {
-    final $r = $callSync(10000, $W()..h(this));
+    final $r = $callSync(10009, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.IpnsRecord).GetValue() []byte`.
   Uint8List getValue() {
-    final $r = $callSync(10001, $W()..h(this));
+    final $r = $callSync(10010, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pb.IpnsRecord).ProtoMessage()`.
   void protoMessage() {
-    $callSync(10002, $W()..h(this));
+    $callSync(10011, $W()..h(this));
   }
 
   /// Go: `func (*pb.IpnsRecord).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(10003, $W()..h(this));
+    final $r = $callSync(10012, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pb.IpnsRecord).Reset()`.
   void reset() {
-    $callSync(10004, $W()..h(this));
+    $callSync(10013, $W()..h(this));
   }
 
   /// Go: `func (*pb.IpnsRecord).String() string`.
   String string() {
-    final $r = $callSync(10005, $W()..h(this));
+    final $r = $callSync(10014, $W()..h(this));
     return $r.str();
   }
 }
@@ -131,19 +131,19 @@ extension GoIpfsBoxoIpnsPbApi on GoIpfsBoxoIpnsPb {
   /// Go: `var pb.File_github_com_ipfs_boxo_ipns_pb_record_proto protoreflect.FileDescriptor`.
   $protoreflect.ProtobufReflectProtoreflectFileDescriptor
       get fileGithubComIpfsBoxoIpnsPbRecordProto {
-    final $r = $callSync(9991);
+    final $r = $callSync(10000);
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectFileDescriptor.$h);
   }
 
   /// Go: `var pb.IpnsRecord_ValidityType_name map[int32]string`.
   Map<int, String> get ipnsRecordValidityTypeName {
-    final $r = $callSync(10006);
+    final $r = $callSync(10015);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var pb.IpnsRecord_ValidityType_value map[string]int32`.
   Map<String, int> get ipnsRecordValidityTypeValue {
-    final $r = $callSync(10007);
+    final $r = $callSync(10016);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 }

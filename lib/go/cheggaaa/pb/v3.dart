@@ -26,7 +26,7 @@ mixin PbV3Element$ on GoHandle {
   /// Go: `func (pb.Element).ProgressElement(state *pb.State, args ...string) string`.
   String progressElement(PbV3State state, [List<String> args = const []]) {
     final $r = $callSync(
-        4276,
+        4285,
         $W()
           ..h(this)
           ..h(state)
@@ -36,19 +36,19 @@ mixin PbV3Element$ on GoHandle {
 
   /// Go: type assertion `x.(*pb.ElementFunc)`: null if the object is not one.
   PbV3ElementFunc? asPbV3ElementFunc() {
-    final $r = $callSync(378, $W()..h(this));
+    final $r = $callSync(381, $W()..h(this));
     return $r.hn(PbV3ElementFunc.$h);
   }
 
   /// Go: type assertion `x.(*pb.ProgressBar)`: null if the object is not one.
   PbV3ProgressBar? asPbV3ProgressBar() {
-    final $r = $callSync(379, $W()..h(this));
+    final $r = $callSync(382, $W()..h(this));
     return $r.hn(PbV3ProgressBar.$h);
   }
 
   /// Go: type assertion `x.(*pb.State)`: null if the object is not one.
   PbV3State? asPbV3State() {
-    final $r = $callSync(380, $W()..h(this));
+    final $r = $callSync(383, $W()..h(this));
     return $r.hn(PbV3State.$h);
   }
 }
@@ -76,7 +76,7 @@ class PbV3ElementFunc extends PbV3Element
   /// Go: `func (pb.ElementFunc).ProgressElement(state *pb.State, args ...string) string`.
   String progressElement(PbV3State state, [List<String> args = const []]) {
     final $r = $callSync(
-        4281,
+        4290,
         $W()
           ..h(this)
           ..h(state)
@@ -105,14 +105,14 @@ class PbV3Pool extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func pb.NewPool(pbs ...*pb.ProgressBar) (pool *pb.Pool)`.
   factory PbV3Pool([List<PbV3ProgressBar> pbs = const []]) {
-    final $r = $callSync(4289, $W()..list(pbs, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(4298, $W()..list(pbs, (w0, e0) => w0.h(e0)));
     return $r.hnn(PbV3Pool.$h);
   }
 
   /// Go: `func (*pb.Pool).Add(pbs ...*pb.ProgressBar)`.
   void add([List<PbV3ProgressBar> pbs = const []]) {
     $callSync(
-        4290,
+        4299,
         $W()
           ..h(this)
           ..list(pbs, (w0, e0) => w0.h(e0)));
@@ -120,12 +120,12 @@ class PbV3Pool extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*pb.Pool).Start() (err error)`.
   void start() {
-    $callSync(4291, $W()..h(this));
+    $callSync(4300, $W()..h(this));
   }
 
   /// Go: `func (*pb.Pool).Stop() error`.
   void stop() {
-    $callSync(4292, $W()..h(this));
+    $callSync(4301, $W()..h(this));
   }
 }
 
@@ -152,7 +152,7 @@ class PbV3ProgressBar extends PbV3Element
   /// Go: `func (*pb.ProgressBar).Add(value int) *pb.ProgressBar`.
   PbV3ProgressBar add(int value) {
     final $r = $callSync(
-        4293,
+        4302,
         $W()
           ..h(this)
           ..i64(value));
@@ -162,7 +162,7 @@ class PbV3ProgressBar extends PbV3Element
   /// Go: `func (*pb.ProgressBar).Add64(value int64) *pb.ProgressBar`.
   PbV3ProgressBar add64(int value) {
     final $r = $callSync(
-        4294,
+        4303,
         $W()
           ..h(this)
           ..i64(value));
@@ -172,7 +172,7 @@ class PbV3ProgressBar extends PbV3Element
   /// Go: `func (*pb.ProgressBar).AddTotal(value int64) *pb.ProgressBar`.
   PbV3ProgressBar addTotal(int value) {
     final $r = $callSync(
-        4295,
+        4304,
         $W()
           ..h(this)
           ..i64(value));
@@ -181,25 +181,25 @@ class PbV3ProgressBar extends PbV3Element
 
   /// Go: `func (*pb.ProgressBar).Current() int64`.
   int current() {
-    final $r = $callSync(4296, $W()..h(this));
+    final $r = $callSync(4305, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.ProgressBar).Err() error`.
   void err() {
-    $callSync(4297, $W()..h(this));
+    $callSync(4306, $W()..h(this));
   }
 
   /// Go: `func (*pb.ProgressBar).Finish() *pb.ProgressBar`.
   PbV3ProgressBar finish() {
-    final $r = $callSync(4298, $W()..h(this));
+    final $r = $callSync(4307, $W()..h(this));
     return $r.hnn(PbV3ProgressBar.$h);
   }
 
   /// Go: `func (*pb.ProgressBar).Format(v int64) string`.
   String format(int v) {
     final $r = $callSync(
-        4299,
+        4308,
         $W()
           ..h(this)
           ..i64(v));
@@ -209,7 +209,7 @@ class PbV3ProgressBar extends PbV3Element
   /// Go: `func (*pb.ProgressBar).Get(key interface{}) interface{}`.
   Object? get(Object? key) {
     final $r = $callSync(
-        4300,
+        4309,
         $W()
           ..h(this)
           ..any(key));
@@ -219,7 +219,7 @@ class PbV3ProgressBar extends PbV3Element
   /// Go: `func (*pb.ProgressBar).GetBool(key interface{}) bool`.
   bool getBool(Object? key) {
     final $r = $callSync(
-        4301,
+        4310,
         $W()
           ..h(this)
           ..any(key));
@@ -228,26 +228,26 @@ class PbV3ProgressBar extends PbV3Element
 
   /// Go: `func (*pb.ProgressBar).Increment() *pb.ProgressBar`.
   PbV3ProgressBar increment() {
-    final $r = $callSync(4302, $W()..h(this));
+    final $r = $callSync(4311, $W()..h(this));
     return $r.hnn(PbV3ProgressBar.$h);
   }
 
   /// Go: `func (*pb.ProgressBar).IsFinished() bool`.
   bool isFinished() {
-    final $r = $callSync(4303, $W()..h(this));
+    final $r = $callSync(4312, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*pb.ProgressBar).IsStarted() bool`.
   bool isStarted() {
-    final $r = $callSync(4304, $W()..h(this));
+    final $r = $callSync(4313, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*pb.ProgressBar).NewProxyReader(r io.Reader) *pb.Reader`.
   PbV3Reader newProxyReader(Object r) {
     final $r = $callSync(
-        4305,
+        4314,
         $W()
           ..h(this)
           ..reader(r));
@@ -257,7 +257,7 @@ class PbV3ProgressBar extends PbV3Element
   /// Go: `func (*pb.ProgressBar).NewProxyWriter(r io.Writer) *pb.Writer`.
   PbV3Writer newProxyWriter(GoHandle? r) {
     final $r = $callSync(
-        4306,
+        4315,
         $W()
           ..h(this)
           ..h(r));
@@ -267,7 +267,7 @@ class PbV3ProgressBar extends PbV3Element
   /// Go: `func (*pb.ProgressBar).ProgressElement(s *pb.State, args ...string) string`.
   String progressElement(PbV3State s, [List<String> args = const []]) {
     final $r = $callSync(
-        4307,
+        4316,
         $W()
           ..h(this)
           ..h(s)
@@ -278,7 +278,7 @@ class PbV3ProgressBar extends PbV3Element
   /// Go: `func (*pb.ProgressBar).Set(key interface{}, value interface{}) *pb.ProgressBar`.
   PbV3ProgressBar set(Object? key, Object? value) {
     final $r = $callSync(
-        4308,
+        4317,
         $W()
           ..h(this)
           ..any(key)
@@ -289,7 +289,7 @@ class PbV3ProgressBar extends PbV3Element
   /// Go: `func (*pb.ProgressBar).SetCurrent(value int64) *pb.ProgressBar`.
   PbV3ProgressBar setCurrent(int value) {
     final $r = $callSync(
-        4309,
+        4318,
         $W()
           ..h(this)
           ..i64(value));
@@ -299,7 +299,7 @@ class PbV3ProgressBar extends PbV3Element
   /// Go: `func (*pb.ProgressBar).SetMaxWidth(maxWidth int) *pb.ProgressBar`.
   PbV3ProgressBar setMaxWidth(int maxWidth) {
     final $r = $callSync(
-        4310,
+        4319,
         $W()
           ..h(this)
           ..i64(maxWidth));
@@ -309,7 +309,7 @@ class PbV3ProgressBar extends PbV3Element
   /// Go: `func (*pb.ProgressBar).SetRefreshRate(dur time.Duration) *pb.ProgressBar`.
   PbV3ProgressBar setRefreshRate(Duration dur) {
     final $r = $callSync(
-        4311,
+        4320,
         $W()
           ..h(this)
           ..i64((dur).inMicroseconds * 1000));
@@ -319,7 +319,7 @@ class PbV3ProgressBar extends PbV3Element
   /// Go: `func (*pb.ProgressBar).SetTemplate(tmpl pb.ProgressBarTemplate) *pb.ProgressBar`.
   PbV3ProgressBar setTemplate(String tmpl) {
     final $r = $callSync(
-        4312,
+        4321,
         $W()
           ..h(this)
           ..str(tmpl));
@@ -329,7 +329,7 @@ class PbV3ProgressBar extends PbV3Element
   /// Go: `func (*pb.ProgressBar).SetTemplateString(tmpl string) *pb.ProgressBar`.
   PbV3ProgressBar setTemplateString(String tmpl) {
     final $r = $callSync(
-        4313,
+        4322,
         $W()
           ..h(this)
           ..str(tmpl));
@@ -339,7 +339,7 @@ class PbV3ProgressBar extends PbV3Element
   /// Go: `func (*pb.ProgressBar).SetTotal(value int64) *pb.ProgressBar`.
   PbV3ProgressBar setTotal(int value) {
     final $r = $callSync(
-        4314,
+        4323,
         $W()
           ..h(this)
           ..i64(value));
@@ -349,7 +349,7 @@ class PbV3ProgressBar extends PbV3Element
   /// Go: `func (*pb.ProgressBar).SetWidth(width int) *pb.ProgressBar`.
   PbV3ProgressBar setWidth(int width) {
     final $r = $callSync(
-        4315,
+        4324,
         $W()
           ..h(this)
           ..i64(width));
@@ -359,7 +359,7 @@ class PbV3ProgressBar extends PbV3Element
   /// Go: `func (*pb.ProgressBar).SetWriter(w io.Writer) *pb.ProgressBar`.
   PbV3ProgressBar setWriter(GoHandle? w) {
     final $r = $callSync(
-        4316,
+        4325,
         $W()
           ..h(this)
           ..h(w));
@@ -368,37 +368,37 @@ class PbV3ProgressBar extends PbV3Element
 
   /// Go: `func (*pb.ProgressBar).Start() *pb.ProgressBar`.
   PbV3ProgressBar start() {
-    final $r = $callSync(4317, $W()..h(this));
+    final $r = $callSync(4326, $W()..h(this));
     return $r.hnn(PbV3ProgressBar.$h);
   }
 
   /// Go: `func (*pb.ProgressBar).StartTime() time.Time`.
   DateTime startTime() {
-    final $r = $callSync(4318, $W()..h(this));
+    final $r = $callSync(4327, $W()..h(this));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func (*pb.ProgressBar).String() string`.
   String string() {
-    final $r = $callSync(4319, $W()..h(this));
+    final $r = $callSync(4328, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*pb.ProgressBar).Total() int64`.
   int total() {
-    final $r = $callSync(4320, $W()..h(this));
+    final $r = $callSync(4329, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.ProgressBar).Width() (width int)`.
   int width() {
-    final $r = $callSync(4321, $W()..h(this));
+    final $r = $callSync(4330, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.ProgressBar).Write() *pb.ProgressBar`.
   PbV3ProgressBar write() {
-    final $r = $callSync(4322, $W()..h(this));
+    final $r = $callSync(4331, $W()..h(this));
     return $r.hnn(PbV3ProgressBar.$h);
   }
 }
@@ -427,13 +427,13 @@ class PbV3Reader extends $io.IoCloser
 
   /// Go: `func (*pb.Reader).Close() (err error)`.
   void close() {
-    $callSync(4323, $W()..h(this));
+    $callSync(4332, $W()..h(this));
   }
 
   /// Go: `func (*pb.Reader).Read(p []byte) (n int, err error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        4324,
+        4333,
         $W()
           ..h(this)
           ..i64(n));
@@ -463,14 +463,14 @@ class PbV3State extends PbV3Element
 
   /// Go: `func (*pb.State).AdaptiveElWidth() int`.
   int adaptiveElWidth() {
-    final $r = $callSync(4330, $W()..h(this));
+    final $r = $callSync(4339, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.ProgressBar).Add(value int) *pb.ProgressBar`.
   PbV3ProgressBar add(int value) {
     final $r = $callSync(
-        4331,
+        4340,
         $W()
           ..h(this)
           ..i64(value));
@@ -480,7 +480,7 @@ class PbV3State extends PbV3Element
   /// Go: `func (*pb.ProgressBar).Add64(value int64) *pb.ProgressBar`.
   PbV3ProgressBar add64(int value) {
     final $r = $callSync(
-        4332,
+        4341,
         $W()
           ..h(this)
           ..i64(value));
@@ -490,7 +490,7 @@ class PbV3State extends PbV3Element
   /// Go: `func (*pb.ProgressBar).AddTotal(value int64) *pb.ProgressBar`.
   PbV3ProgressBar addTotal(int value) {
     final $r = $callSync(
-        4333,
+        4342,
         $W()
           ..h(this)
           ..i64(value));
@@ -499,25 +499,25 @@ class PbV3State extends PbV3Element
 
   /// Go: `func (*pb.ProgressBar).Current() int64`.
   int current() {
-    final $r = $callSync(4334, $W()..h(this));
+    final $r = $callSync(4343, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.ProgressBar).Err() error`.
   void err() {
-    $callSync(4335, $W()..h(this));
+    $callSync(4344, $W()..h(this));
   }
 
   /// Go: `func (*pb.ProgressBar).Finish() *pb.ProgressBar`.
   PbV3ProgressBar finish() {
-    final $r = $callSync(4336, $W()..h(this));
+    final $r = $callSync(4345, $W()..h(this));
     return $r.hnn(PbV3ProgressBar.$h);
   }
 
   /// Go: `func (*pb.ProgressBar).Format(v int64) string`.
   String format(int v) {
     final $r = $callSync(
-        4337,
+        4346,
         $W()
           ..h(this)
           ..i64(v));
@@ -527,7 +527,7 @@ class PbV3State extends PbV3Element
   /// Go: `func (*pb.ProgressBar).Get(key interface{}) interface{}`.
   Object? get(Object? key) {
     final $r = $callSync(
-        4338,
+        4347,
         $W()
           ..h(this)
           ..any(key));
@@ -537,7 +537,7 @@ class PbV3State extends PbV3Element
   /// Go: `func (*pb.ProgressBar).GetBool(key interface{}) bool`.
   bool getBool(Object? key) {
     final $r = $callSync(
-        4339,
+        4348,
         $W()
           ..h(this)
           ..any(key));
@@ -546,44 +546,44 @@ class PbV3State extends PbV3Element
 
   /// Go: `func (*pb.State).Id() uint64`.
   int id() {
-    final $r = $callSync(4340, $W()..h(this));
+    final $r = $callSync(4349, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.ProgressBar).Increment() *pb.ProgressBar`.
   PbV3ProgressBar increment() {
-    final $r = $callSync(4341, $W()..h(this));
+    final $r = $callSync(4350, $W()..h(this));
     return $r.hnn(PbV3ProgressBar.$h);
   }
 
   /// Go: `func (*pb.State).IsAdaptiveWidth() bool`.
   bool isAdaptiveWidth() {
-    final $r = $callSync(4342, $W()..h(this));
+    final $r = $callSync(4351, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*pb.State).IsFinished() bool`.
   bool isFinished() {
-    final $r = $callSync(4343, $W()..h(this));
+    final $r = $callSync(4352, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*pb.State).IsFirst() bool`.
   bool isFirst() {
-    final $r = $callSync(4344, $W()..h(this));
+    final $r = $callSync(4353, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*pb.ProgressBar).IsStarted() bool`.
   bool isStarted() {
-    final $r = $callSync(4345, $W()..h(this));
+    final $r = $callSync(4354, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*pb.ProgressBar).NewProxyReader(r io.Reader) *pb.Reader`.
   PbV3Reader newProxyReader(Object r) {
     final $r = $callSync(
-        4346,
+        4355,
         $W()
           ..h(this)
           ..reader(r));
@@ -593,7 +593,7 @@ class PbV3State extends PbV3Element
   /// Go: `func (*pb.ProgressBar).NewProxyWriter(r io.Writer) *pb.Writer`.
   PbV3Writer newProxyWriter(GoHandle? r) {
     final $r = $callSync(
-        4347,
+        4356,
         $W()
           ..h(this)
           ..h(r));
@@ -603,7 +603,7 @@ class PbV3State extends PbV3Element
   /// Go: `func (*pb.ProgressBar).ProgressElement(s *pb.State, args ...string) string`.
   String progressElement(PbV3State s, [List<String> args = const []]) {
     final $r = $callSync(
-        4348,
+        4357,
         $W()
           ..h(this)
           ..h(s)
@@ -614,7 +614,7 @@ class PbV3State extends PbV3Element
   /// Go: `func (*pb.ProgressBar).Set(key interface{}, value interface{}) *pb.ProgressBar`.
   PbV3ProgressBar set(Object? key, Object? value) {
     final $r = $callSync(
-        4349,
+        4358,
         $W()
           ..h(this)
           ..any(key)
@@ -625,7 +625,7 @@ class PbV3State extends PbV3Element
   /// Go: `func (*pb.ProgressBar).SetCurrent(value int64) *pb.ProgressBar`.
   PbV3ProgressBar setCurrent(int value) {
     final $r = $callSync(
-        4350,
+        4359,
         $W()
           ..h(this)
           ..i64(value));
@@ -635,7 +635,7 @@ class PbV3State extends PbV3Element
   /// Go: `func (*pb.ProgressBar).SetMaxWidth(maxWidth int) *pb.ProgressBar`.
   PbV3ProgressBar setMaxWidth(int maxWidth) {
     final $r = $callSync(
-        4351,
+        4360,
         $W()
           ..h(this)
           ..i64(maxWidth));
@@ -645,7 +645,7 @@ class PbV3State extends PbV3Element
   /// Go: `func (*pb.ProgressBar).SetRefreshRate(dur time.Duration) *pb.ProgressBar`.
   PbV3ProgressBar setRefreshRate(Duration dur) {
     final $r = $callSync(
-        4352,
+        4361,
         $W()
           ..h(this)
           ..i64((dur).inMicroseconds * 1000));
@@ -655,7 +655,7 @@ class PbV3State extends PbV3Element
   /// Go: `func (*pb.ProgressBar).SetTemplate(tmpl pb.ProgressBarTemplate) *pb.ProgressBar`.
   PbV3ProgressBar setTemplate(String tmpl) {
     final $r = $callSync(
-        4353,
+        4362,
         $W()
           ..h(this)
           ..str(tmpl));
@@ -665,7 +665,7 @@ class PbV3State extends PbV3Element
   /// Go: `func (*pb.ProgressBar).SetTemplateString(tmpl string) *pb.ProgressBar`.
   PbV3ProgressBar setTemplateString(String tmpl) {
     final $r = $callSync(
-        4354,
+        4363,
         $W()
           ..h(this)
           ..str(tmpl));
@@ -675,7 +675,7 @@ class PbV3State extends PbV3Element
   /// Go: `func (*pb.ProgressBar).SetTotal(value int64) *pb.ProgressBar`.
   PbV3ProgressBar setTotal(int value) {
     final $r = $callSync(
-        4355,
+        4364,
         $W()
           ..h(this)
           ..i64(value));
@@ -685,7 +685,7 @@ class PbV3State extends PbV3Element
   /// Go: `func (*pb.ProgressBar).SetWidth(width int) *pb.ProgressBar`.
   PbV3ProgressBar setWidth(int width) {
     final $r = $callSync(
-        4356,
+        4365,
         $W()
           ..h(this)
           ..i64(width));
@@ -695,7 +695,7 @@ class PbV3State extends PbV3Element
   /// Go: `func (*pb.ProgressBar).SetWriter(w io.Writer) *pb.ProgressBar`.
   PbV3ProgressBar setWriter(GoHandle? w) {
     final $r = $callSync(
-        4357,
+        4366,
         $W()
           ..h(this)
           ..h(w));
@@ -704,49 +704,49 @@ class PbV3State extends PbV3Element
 
   /// Go: `func (*pb.ProgressBar).Start() *pb.ProgressBar`.
   PbV3ProgressBar start() {
-    final $r = $callSync(4358, $W()..h(this));
+    final $r = $callSync(4367, $W()..h(this));
     return $r.hnn(PbV3ProgressBar.$h);
   }
 
   /// Go: `func (*pb.ProgressBar).StartTime() time.Time`.
   DateTime startTime() {
-    final $r = $callSync(4359, $W()..h(this));
+    final $r = $callSync(4368, $W()..h(this));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func (*pb.ProgressBar).String() string`.
   String string() {
-    final $r = $callSync(4360, $W()..h(this));
+    final $r = $callSync(4369, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*pb.State).Time() time.Time`.
   DateTime time() {
-    final $r = $callSync(4361, $W()..h(this));
+    final $r = $callSync(4370, $W()..h(this));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func (*pb.State).Total() int64`.
   int total() {
-    final $r = $callSync(4362, $W()..h(this));
+    final $r = $callSync(4371, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.State).Value() int64`.
   int value$() {
-    final $r = $callSync(4363, $W()..h(this));
+    final $r = $callSync(4372, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.State).Width() int`.
   int width() {
-    final $r = $callSync(4364, $W()..h(this));
+    final $r = $callSync(4373, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*pb.ProgressBar).Write() *pb.ProgressBar`.
   PbV3ProgressBar write() {
-    final $r = $callSync(4365, $W()..h(this));
+    final $r = $callSync(4374, $W()..h(this));
     return $r.hnn(PbV3ProgressBar.$h);
   }
 }
@@ -775,13 +775,13 @@ class PbV3Writer extends $io.IoCloser
 
   /// Go: `func (*pb.Writer).Close() (err error)`.
   void close() {
-    $callSync(4368, $W()..h(this));
+    $callSync(4377, $W()..h(this));
   }
 
   /// Go: `func (*pb.Writer).Write(p []byte) (n int, err error)`.
   int write(Uint8List p) {
     final $r = $callSync(
-        4369,
+        4378,
         $W()
           ..h(this)
           ..bytes(p));
@@ -793,86 +793,86 @@ class PbV3Writer extends $io.IoCloser
 extension GoCheggaaaPbV3Api on GoCheggaaaPbV3 {
   /// Go: `func pb.CellCount(s string) int`.
   int cellCount(String s) {
-    final $r = $callSync(4274, $W()..str(s));
+    final $r = $callSync(4283, $W()..str(s));
     return $r.i64();
   }
 
   /// Go: `var pb.Default pb.ProgressBarTemplate`.
   String get default$ {
-    final $r = $callSync(4275);
+    final $r = $callSync(4284);
     return $r.str();
   }
 
   /// Go: `var pb.ElementBar pb.ElementFunc`.
   PbV3ElementFunc get elementBar {
-    final $r = $callSync(4277);
+    final $r = $callSync(4286);
     return $r.hnn(PbV3ElementFunc.$h);
   }
 
   /// Go: `var pb.ElementCounters pb.ElementFunc`.
   PbV3ElementFunc get elementCounters {
-    final $r = $callSync(4278);
+    final $r = $callSync(4287);
     return $r.hnn(PbV3ElementFunc.$h);
   }
 
   /// Go: `var pb.ElementCycle pb.ElementFunc`.
   PbV3ElementFunc get elementCycle {
-    final $r = $callSync(4279);
+    final $r = $callSync(4288);
     return $r.hnn(PbV3ElementFunc.$h);
   }
 
   /// Go: `var pb.ElementElapsedTime pb.ElementFunc`.
   PbV3ElementFunc get elementElapsedTime {
-    final $r = $callSync(4280);
+    final $r = $callSync(4289);
     return $r.hnn(PbV3ElementFunc.$h);
   }
 
   /// Go: `var pb.ElementPercent pb.ElementFunc`.
   PbV3ElementFunc get elementPercent {
-    final $r = $callSync(4282);
+    final $r = $callSync(4291);
     return $r.hnn(PbV3ElementFunc.$h);
   }
 
   /// Go: `var pb.ElementRemainingTime pb.ElementFunc`.
   PbV3ElementFunc get elementRemainingTime {
-    final $r = $callSync(4283);
+    final $r = $callSync(4292);
     return $r.hnn(PbV3ElementFunc.$h);
   }
 
   /// Go: `var pb.ElementSpeed pb.ElementFunc`.
   PbV3ElementFunc get elementSpeed {
-    final $r = $callSync(4284);
+    final $r = $callSync(4293);
     return $r.hnn(PbV3ElementFunc.$h);
   }
 
   /// Go: `var pb.ElementString pb.ElementFunc`.
   PbV3ElementFunc get elementString {
-    final $r = $callSync(4285);
+    final $r = $callSync(4294);
     return $r.hnn(PbV3ElementFunc.$h);
   }
 
   /// Go: `var pb.Full pb.ProgressBarTemplate`.
   String get full {
-    final $r = $callSync(4286);
+    final $r = $callSync(4295);
     return $r.str();
   }
 
   /// Go: `func pb.New(total int) *pb.ProgressBar`.
   PbV3ProgressBar new$(int total) {
-    final $r = $callSync(4287, $W()..i64(total));
+    final $r = $callSync(4296, $W()..i64(total));
     return $r.hnn(PbV3ProgressBar.$h);
   }
 
   /// Go: `func pb.New64(total int64) *pb.ProgressBar`.
   PbV3ProgressBar new64(int total) {
-    final $r = $callSync(4288, $W()..i64(total));
+    final $r = $callSync(4297, $W()..i64(total));
     return $r.hnn(PbV3ProgressBar.$h);
   }
 
   /// Go: `func pb.RegisterElement(name string, el pb.Element, adaptive bool)`.
   void registerElement(String name, PbV3Element el, bool adaptive) {
     $callSync(
-        4325,
+        4334,
         $W()
           ..str(name)
           ..h(el)
@@ -881,32 +881,32 @@ extension GoCheggaaaPbV3Api on GoCheggaaaPbV3 {
 
   /// Go: `var pb.Simple pb.ProgressBarTemplate`.
   String get simple {
-    final $r = $callSync(4326);
+    final $r = $callSync(4335);
     return $r.str();
   }
 
   /// Go: `func pb.Start64(total int64) *pb.ProgressBar`.
   PbV3ProgressBar start64(int total) {
-    final $r = $callSync(4327, $W()..i64(total));
+    final $r = $callSync(4336, $W()..i64(total));
     return $r.hnn(PbV3ProgressBar.$h);
   }
 
   /// Go: `func pb.StartNew(total int) *pb.ProgressBar`.
   PbV3ProgressBar startNew(int total) {
-    final $r = $callSync(4328, $W()..i64(total));
+    final $r = $callSync(4337, $W()..i64(total));
     return $r.hnn(PbV3ProgressBar.$h);
   }
 
   /// Go: `func pb.StartPool(pbs ...*pb.ProgressBar) (pool *pb.Pool, err error)`.
   PbV3Pool startPool([List<PbV3ProgressBar> pbs = const []]) {
-    final $r = $callSync(4329, $W()..list(pbs, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(4338, $W()..list(pbs, (w0, e0) => w0.h(e0)));
     return $r.hnn(PbV3Pool.$h);
   }
 
   /// Go: `func pb.StripString(s string, w int) string`.
   String stripString(String s, int w) {
     final $r = $callSync(
-        4366,
+        4375,
         $W()
           ..str(s)
           ..i64(w));
@@ -916,7 +916,7 @@ extension GoCheggaaaPbV3Api on GoCheggaaaPbV3 {
   /// Go: `func pb.StripStringToBuffer(s string, w int, buf *bytes.Buffer)`.
   void stripStringToBuffer(String s, int w, $bytes.BytesBuffer buf) {
     $callSync(
-        4367,
+        4376,
         $W()
           ..str(s)
           ..i64(w)

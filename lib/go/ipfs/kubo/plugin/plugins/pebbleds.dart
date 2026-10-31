@@ -11,7 +11,7 @@ extension GoIpfsKuboPluginPluginsPebbledsApi
     on GoIpfsKuboPluginPluginsPebbleds {
   /// Go: `var pebbleds.Plugins []plugin.Plugin`.
   List<$plugin.KuboPlugin> get plugins {
-    final $r = $callSync(11724);
+    final $r = $callSync(11730);
     return $r.list(() => $r.hnn($plugin.KuboPlugin.$h));
   }
 }

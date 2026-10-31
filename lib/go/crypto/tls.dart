@@ -95,7 +95,7 @@ class CryptoTlsCertificateRequestInfo extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*tls.CertificateRequestInfo).SupportsCertificate(c *tls.Certificate) error`.
   void supportsCertificate(CryptoTlsCertificate c) {
     $callSync(
-        3363,
+        3372,
         $W()
           ..h(this)
           ..dto(c));
@@ -160,7 +160,7 @@ class CryptoTlsClientHelloInfo extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*tls.ClientHelloInfo).SupportsCertificate(c *tls.Certificate) error`.
   void supportsCertificate(CryptoTlsCertificate c) {
     $callSync(
-        3367,
+        3376,
         $W()
           ..h(this)
           ..dto(c));
@@ -178,7 +178,7 @@ mixin CryptoTlsClientSessionCache$ on GoHandle {
   /// Go: `func (tls.ClientSessionCache).Get(sessionKey string) (session *tls.ClientSessionState, ok bool)`.
   (CryptoTlsClientSessionState, bool) get(String sessionKey) {
     final $r = $callSync(
-        3368,
+        3377,
         $W()
           ..h(this)
           ..str(sessionKey));
@@ -188,7 +188,7 @@ mixin CryptoTlsClientSessionCache$ on GoHandle {
   /// Go: `func (tls.ClientSessionCache).Put(sessionKey string, cs *tls.ClientSessionState)`.
   void put(String sessionKey, CryptoTlsClientSessionState cs) {
     $callSync(
-        3369,
+        3378,
         $W()
           ..h(this)
           ..str(sessionKey)
@@ -216,7 +216,7 @@ class CryptoTlsClientSessionState extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*tls.ClientSessionState).ResumptionState() (ticket []byte, state *tls.SessionState, err error)`.
   (Uint8List, CryptoTlsSessionState) resumptionState() {
-    final $r = $callSync(3370, $W()..h(this));
+    final $r = $callSync(3379, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.hnn(CryptoTlsSessionState.$h));
   }
 }
@@ -243,12 +243,12 @@ class CryptoTlsConfig extends $crypto.CryptoDecrypterOpts
   @Deprecated(
       "NameToCertificate only allows associating a single certificate with a given name. Leave that field nil to let the library select the first compatible chain from Certificates.")
   void buildNameToCertificate() {
-    $callSync(3371, $W()..h(this));
+    $callSync(3380, $W()..h(this));
   }
 
   /// Go: `func (*tls.Config).Clone() *tls.Config`.
   CryptoTlsConfig clone() {
-    final $r = $callSync(3372, $W()..h(this));
+    final $r = $callSync(3381, $W()..h(this));
     return $r.hnn(CryptoTlsConfig.$h);
   }
 
@@ -256,7 +256,7 @@ class CryptoTlsConfig extends $crypto.CryptoDecrypterOpts
   CryptoTlsSessionState decryptTicket(
       Uint8List identity, CryptoTlsConnectionState cs) {
     final $r = $callSync(
-        3373,
+        3382,
         $W()
           ..h(this)
           ..bytes(identity)
@@ -268,7 +268,7 @@ class CryptoTlsConfig extends $crypto.CryptoDecrypterOpts
   Uint8List encryptTicket(
       CryptoTlsConnectionState cs, CryptoTlsSessionState ss) {
     final $r = $callSync(
-        3374,
+        3383,
         $W()
           ..h(this)
           ..h(cs)
@@ -307,23 +307,23 @@ class CryptoTlsConn extends $net.NetConn
 
   /// Go: `func (*tls.Conn).Close() error`.
   void close() {
-    $callSync(3375, $W()..h(this));
+    $callSync(3384, $W()..h(this));
   }
 
   /// Go: `func (*tls.Conn).CloseWrite() error`.
   void closeWrite() {
-    $callSync(3376, $W()..h(this));
+    $callSync(3385, $W()..h(this));
   }
 
   /// Go: `func (*tls.Conn).ConnectionState() tls.ConnectionState`.
   CryptoTlsConnectionState connectionState() {
-    final $r = $callSync(3377, $W()..h(this));
+    final $r = $callSync(3386, $W()..h(this));
     return $r.hnn(CryptoTlsConnectionState.$h);
   }
 
   /// Go: `func (*tls.Conn).Handshake() error`.
   void handshake() {
-    $callSync(3378, $W()..h(this));
+    $callSync(3387, $W()..h(this));
   }
 
   /// Go: `func (*tls.Conn).HandshakeContext(ctx context.Context) error`.
@@ -331,7 +331,7 @@ class CryptoTlsConn extends $net.NetConn
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> handshakeContext($context.Context ctx) async {
     await $call(
-        3379,
+        3388,
         $W()
           ..h(this)
           ..h(ctx));
@@ -339,26 +339,26 @@ class CryptoTlsConn extends $net.NetConn
 
   /// Go: `func (*tls.Conn).LocalAddr() net.Addr`.
   $net.NetAddr localAddr() {
-    final $r = $callSync(3380, $W()..h(this));
+    final $r = $callSync(3389, $W()..h(this));
     return $r.p() ? $net.NetAddr.$dec($r) : $nil();
   }
 
   /// Go: `func (*tls.Conn).NetConn() net.Conn`.
   $net.NetConn netConn() {
-    final $r = $callSync(3381, $W()..h(this));
+    final $r = $callSync(3390, $W()..h(this));
     return $r.hnn($net.NetConn.$h);
   }
 
   /// Go: `func (*tls.Conn).OCSPResponse() []byte`.
   Uint8List ocspResponse() {
-    final $r = $callSync(3382, $W()..h(this));
+    final $r = $callSync(3391, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*tls.Conn).Read(b []byte) (int, error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        3383,
+        3392,
         $W()
           ..h(this)
           ..i64(n));
@@ -367,14 +367,14 @@ class CryptoTlsConn extends $net.NetConn
 
   /// Go: `func (*tls.Conn).RemoteAddr() net.Addr`.
   $net.NetAddr remoteAddr() {
-    final $r = $callSync(3384, $W()..h(this));
+    final $r = $callSync(3393, $W()..h(this));
     return $r.p() ? $net.NetAddr.$dec($r) : $nil();
   }
 
   /// Go: `func (*tls.Conn).SetDeadline(t time.Time) error`.
   void setDeadline(DateTime t) {
     $callSync(
-        3385,
+        3394,
         $W()
           ..h(this)
           ..time(t));
@@ -383,7 +383,7 @@ class CryptoTlsConn extends $net.NetConn
   /// Go: `func (*tls.Conn).SetReadDeadline(t time.Time) error`.
   void setReadDeadline(DateTime t) {
     $callSync(
-        3386,
+        3395,
         $W()
           ..h(this)
           ..time(t));
@@ -392,7 +392,7 @@ class CryptoTlsConn extends $net.NetConn
   /// Go: `func (*tls.Conn).SetWriteDeadline(t time.Time) error`.
   void setWriteDeadline(DateTime t) {
     $callSync(
-        3387,
+        3396,
         $W()
           ..h(this)
           ..time(t));
@@ -401,7 +401,7 @@ class CryptoTlsConn extends $net.NetConn
   /// Go: `func (*tls.Conn).VerifyHostname(host string) error`.
   void verifyHostname(String host) {
     $callSync(
-        3388,
+        3397,
         $W()
           ..h(this)
           ..str(host));
@@ -410,7 +410,7 @@ class CryptoTlsConn extends $net.NetConn
   /// Go: `func (*tls.Conn).Write(b []byte) (int, error)`.
   int write(Uint8List b) {
     final $r = $callSync(
-        3389,
+        3398,
         $W()
           ..h(this)
           ..bytes(b));
@@ -441,7 +441,7 @@ class CryptoTlsConnectionState extends $v3.SrtpV3KeyingMaterialExporter
   /// Go: `func (*tls.ConnectionState).ExportKeyingMaterial(label string, context []byte, length int) ([]byte, error)`.
   Uint8List exportKeyingMaterial(String label, Uint8List context, int length) {
     final $r = $callSync(
-        3390,
+        3399,
         $W()
           ..h(this)
           ..str(label)
@@ -477,7 +477,7 @@ final class CryptoTlsDialer implements GoDto {
   /// Go: `func (*tls.Dialer).Dial(network string, addr string) (net.Conn, error)`.
   $net.NetConn dial(String network, String addr) {
     final $r = $callSync(
-        3393,
+        3402,
         $W()
           ..dto(this)
           ..str(network)
@@ -491,7 +491,7 @@ final class CryptoTlsDialer implements GoDto {
   Future<$net.NetConn> dialContext(
       $context.Context ctx, String network, String addr) async {
     final $r = await $call(
-        3394,
+        3403,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -549,19 +549,19 @@ class CryptoTlsQuicConn extends $io.IoCloser
 
   /// Go: `func (*tls.QUICConn).Close() error`.
   void close() {
-    $callSync(3403, $W()..h(this));
+    $callSync(3412, $W()..h(this));
   }
 
   /// Go: `func (*tls.QUICConn).ConnectionState() tls.ConnectionState`.
   CryptoTlsConnectionState connectionState() {
-    final $r = $callSync(3404, $W()..h(this));
+    final $r = $callSync(3413, $W()..h(this));
     return $r.hnn(CryptoTlsConnectionState.$h);
   }
 
   /// Go: `func (*tls.QUICConn).HandleData(level tls.QUICEncryptionLevel, data []byte) error`.
   void handleData(int level, Uint8List data) {
     $callSync(
-        3405,
+        3414,
         $W()
           ..h(this)
           ..i64(level)
@@ -570,14 +570,14 @@ class CryptoTlsQuicConn extends $io.IoCloser
 
   /// Go: `func (*tls.QUICConn).NextEvent() tls.QUICEvent`.
   CryptoTlsQuicEvent nextEvent() {
-    final $r = $callSync(3406, $W()..h(this));
+    final $r = $callSync(3415, $W()..h(this));
     return $r.p() ? CryptoTlsQuicEvent.$dec($r) : $nil();
   }
 
   /// Go: `func (*tls.QUICConn).SendSessionTicket(opts tls.QUICSessionTicketOptions) error`.
   void sendSessionTicket(CryptoTlsQuicSessionTicketOptions opts) {
     $callSync(
-        3407,
+        3416,
         $W()
           ..h(this)
           ..dto(opts));
@@ -586,7 +586,7 @@ class CryptoTlsQuicConn extends $io.IoCloser
   /// Go: `func (*tls.QUICConn).SetTransportParameters(params []byte)`.
   void setTransportParameters(Uint8List params) {
     $callSync(
-        3408,
+        3417,
         $W()
           ..h(this)
           ..bytes(params));
@@ -597,7 +597,7 @@ class CryptoTlsQuicConn extends $io.IoCloser
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> start($context.Context ctx) async {
     await $call(
-        3409,
+        3418,
         $W()
           ..h(this)
           ..h(ctx));
@@ -606,7 +606,7 @@ class CryptoTlsQuicConn extends $io.IoCloser
   /// Go: `func (*tls.QUICConn).StoreSession(session *tls.SessionState) error`.
   void storeSession(CryptoTlsSessionState session) {
     $callSync(
-        3410,
+        3419,
         $W()
           ..h(this)
           ..h(session));
@@ -711,7 +711,7 @@ class CryptoTlsSessionState extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*tls.SessionState).Bytes() ([]byte, error)`.
   Uint8List bytes() {
-    final $r = $callSync(3413, $W()..h(this));
+    final $r = $callSync(3422, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 }
@@ -766,20 +766,20 @@ class CryptoTlsRecordHeaderError extends GolangException {
 extension GoCryptoTlsApi on GoCryptoTls {
   /// Go: `func tls.CipherSuiteName(id uint16) string`.
   String cipherSuiteName(int id) {
-    final $r = $callSync(3364, $W()..i64(id));
+    final $r = $callSync(3373, $W()..i64(id));
     return $r.str();
   }
 
   /// Go: `func tls.CipherSuites() []*tls.CipherSuite`.
   List<CryptoTlsCipherSuite> cipherSuites() {
-    final $r = $callSync(3365);
+    final $r = $callSync(3374);
     return $r.list(() => $r.p() ? CryptoTlsCipherSuite.$dec($r) : $nil());
   }
 
   /// Go: `func tls.Client(conn net.Conn, config *tls.Config) *tls.Conn`.
   CryptoTlsConn client($net.NetConn conn, CryptoTlsConfig config) {
     final $r = $callSync(
-        3366,
+        3375,
         $W()
           ..h(conn)
           ..h(config));
@@ -789,7 +789,7 @@ extension GoCryptoTlsApi on GoCryptoTls {
   /// Go: `func tls.Dial(network string, addr string, config *tls.Config) (*tls.Conn, error)`.
   CryptoTlsConn dial(String network, String addr, CryptoTlsConfig config) {
     final $r = $callSync(
-        3391,
+        3400,
         $W()
           ..str(network)
           ..str(addr)
@@ -801,7 +801,7 @@ extension GoCryptoTlsApi on GoCryptoTls {
   CryptoTlsConn dialWithDialer($net.NetDialer dialer, String network,
       String addr, CryptoTlsConfig config) {
     final $r = $callSync(
-        3392,
+        3401,
         $W()
           ..h(dialer)
           ..str(network)
@@ -812,7 +812,7 @@ extension GoCryptoTlsApi on GoCryptoTls {
 
   /// Go: `func tls.InsecureCipherSuites() []*tls.CipherSuite`.
   List<CryptoTlsCipherSuite> insecureCipherSuites() {
-    final $r = $callSync(3395);
+    final $r = $callSync(3404);
     return $r.list(() => $r.p() ? CryptoTlsCipherSuite.$dec($r) : $nil());
   }
 
@@ -820,7 +820,7 @@ extension GoCryptoTlsApi on GoCryptoTls {
   $net.NetListener listen(
       String network, String laddr, CryptoTlsConfig config) {
     final $r = $callSync(
-        3396,
+        3405,
         $W()
           ..str(network)
           ..str(laddr)
@@ -831,7 +831,7 @@ extension GoCryptoTlsApi on GoCryptoTls {
   /// Go: `func tls.LoadX509KeyPair(certFile string, keyFile string) (tls.Certificate, error)`.
   CryptoTlsCertificate loadX509KeyPair(String certFile, String keyFile) {
     final $r = $callSync(
-        3397,
+        3406,
         $W()
           ..str(certFile)
           ..str(keyFile));
@@ -840,14 +840,14 @@ extension GoCryptoTlsApi on GoCryptoTls {
 
   /// Go: `func tls.NewLRUClientSessionCache(capacity int) tls.ClientSessionCache`.
   CryptoTlsClientSessionCache newLruClientSessionCache(int capacity) {
-    final $r = $callSync(3398, $W()..i64(capacity));
+    final $r = $callSync(3407, $W()..i64(capacity));
     return $r.hnn(CryptoTlsClientSessionCache.$h);
   }
 
   /// Go: `func tls.NewListener(inner net.Listener, config *tls.Config) net.Listener`.
   $net.NetListener newListener($net.NetListener inner, CryptoTlsConfig config) {
     final $r = $callSync(
-        3399,
+        3408,
         $W()
           ..h(inner)
           ..h(config));
@@ -858,7 +858,7 @@ extension GoCryptoTlsApi on GoCryptoTls {
   CryptoTlsClientSessionState newResumptionState(
       Uint8List ticket, CryptoTlsSessionState state) {
     final $r = $callSync(
-        3400,
+        3409,
         $W()
           ..bytes(ticket)
           ..h(state));
@@ -867,26 +867,26 @@ extension GoCryptoTlsApi on GoCryptoTls {
 
   /// Go: `func tls.ParseSessionState(data []byte) (*tls.SessionState, error)`.
   CryptoTlsSessionState parseSessionState(Uint8List data) {
-    final $r = $callSync(3401, $W()..bytes(data));
+    final $r = $callSync(3410, $W()..bytes(data));
     return $r.hnn(CryptoTlsSessionState.$h);
   }
 
   /// Go: `func tls.QUICClient(config *tls.QUICConfig) *tls.QUICConn`.
   CryptoTlsQuicConn quicClient(CryptoTlsQuicConfig config) {
-    final $r = $callSync(3402, $W()..dto(config));
+    final $r = $callSync(3411, $W()..dto(config));
     return $r.hnn(CryptoTlsQuicConn.$h);
   }
 
   /// Go: `func tls.QUICServer(config *tls.QUICConfig) *tls.QUICConn`.
   CryptoTlsQuicConn quicServer(CryptoTlsQuicConfig config) {
-    final $r = $callSync(3411, $W()..dto(config));
+    final $r = $callSync(3420, $W()..dto(config));
     return $r.hnn(CryptoTlsQuicConn.$h);
   }
 
   /// Go: `func tls.Server(conn net.Conn, config *tls.Config) *tls.Conn`.
   CryptoTlsConn server($net.NetConn conn, CryptoTlsConfig config) {
     final $r = $callSync(
-        3412,
+        3421,
         $W()
           ..h(conn)
           ..h(config));
@@ -895,7 +895,7 @@ extension GoCryptoTlsApi on GoCryptoTls {
 
   /// Go: `func tls.VersionName(version uint16) string`.
   String versionName(int version) {
-    final $r = $callSync(3414, $W()..i64(version));
+    final $r = $callSync(3423, $W()..i64(version));
     return $r.str();
   }
 
@@ -903,7 +903,7 @@ extension GoCryptoTlsApi on GoCryptoTls {
   CryptoTlsCertificate x509KeyPair(
       Uint8List certPemBlock, Uint8List keyPemBlock) {
     final $r = $callSync(
-        3415,
+        3424,
         $W()
           ..bytes(certPemBlock)
           ..bytes(keyPemBlock));

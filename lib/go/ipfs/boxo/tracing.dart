@@ -14,7 +14,7 @@ extension GoIpfsBoxoTracingApi on GoIpfsBoxoTracing {
   /// Asynchronous: runs in a goroutine of the service.
   Future<List<$trace.OtelSdkTraceSpanExporter>> newSpanExporters(
       $context.Context ctx) async {
-    final $r = await $call(10438, $W()..h(ctx));
+    final $r = await $call(10447, $W()..h(ctx));
     return $r.list(() => $r.hnn($trace.OtelSdkTraceSpanExporter.$h));
   }
 }

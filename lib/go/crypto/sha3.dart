@@ -41,7 +41,7 @@ class CryptoSha3 extends $hash.HashCloner
   /// Go: `func (*sha3.SHA3).AppendBinary(p []byte) ([]byte, error)`.
   Uint8List appendBinary(Uint8List p) {
     final $r = $callSync(
-        3333,
+        3342,
         $W()
           ..h(this)
           ..bytes(p));
@@ -50,37 +50,37 @@ class CryptoSha3 extends $hash.HashCloner
 
   /// Go: `func (*sha3.SHA3).BlockSize() int`.
   int blockSize() {
-    final $r = $callSync(3334, $W()..h(this));
+    final $r = $callSync(3343, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*sha3.SHA3).Clone() (hash.Cloner, error)`.
   $hash.HashCloner clone() {
-    final $r = $callSync(3335, $W()..h(this));
+    final $r = $callSync(3344, $W()..h(this));
     return $r.hnn($hash.HashCloner.$h);
   }
 
   /// Go: `func (*sha3.SHA3).MarshalBinary() ([]byte, error)`.
   Uint8List marshalBinary() {
-    final $r = $callSync(3336, $W()..h(this));
+    final $r = $callSync(3345, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*sha3.SHA3).Reset()`.
   void reset() {
-    $callSync(3337, $W()..h(this));
+    $callSync(3346, $W()..h(this));
   }
 
   /// Go: `func (*sha3.SHA3).Size() int`.
   int size() {
-    final $r = $callSync(3338, $W()..h(this));
+    final $r = $callSync(3347, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*sha3.SHA3).Sum(b []byte) []byte`.
   Uint8List sum(Uint8List b) {
     final $r = $callSync(
-        3339,
+        3348,
         $W()
           ..h(this)
           ..bytes(b));
@@ -90,7 +90,7 @@ class CryptoSha3 extends $hash.HashCloner
   /// Go: `func (*sha3.SHA3).UnmarshalBinary(data []byte) error`.
   void unmarshalBinary(Uint8List data) {
     $callSync(
-        3340,
+        3349,
         $W()
           ..h(this)
           ..bytes(data));
@@ -99,7 +99,7 @@ class CryptoSha3 extends $hash.HashCloner
   /// Go: `func (*sha3.SHA3).Write(p []byte) (n int, err error)`.
   int write(Uint8List p) {
     final $r = $callSync(
-        3341,
+        3350,
         $W()
           ..h(this)
           ..bytes(p));
@@ -134,7 +134,7 @@ class CryptoSha3Shake extends $hash.HashXof
   /// Go: `func (*sha3.SHAKE).AppendBinary(p []byte) ([]byte, error)`.
   Uint8List appendBinary(Uint8List p) {
     final $r = $callSync(
-        3342,
+        3351,
         $W()
           ..h(this)
           ..bytes(p));
@@ -143,20 +143,20 @@ class CryptoSha3Shake extends $hash.HashXof
 
   /// Go: `func (*sha3.SHAKE).BlockSize() int`.
   int blockSize() {
-    final $r = $callSync(3343, $W()..h(this));
+    final $r = $callSync(3352, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*sha3.SHAKE).MarshalBinary() ([]byte, error)`.
   Uint8List marshalBinary() {
-    final $r = $callSync(3344, $W()..h(this));
+    final $r = $callSync(3353, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*sha3.SHAKE).Read(p []byte) (n int, err error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        3345,
+        3354,
         $W()
           ..h(this)
           ..i64(n));
@@ -165,13 +165,13 @@ class CryptoSha3Shake extends $hash.HashXof
 
   /// Go: `func (*sha3.SHAKE).Reset()`.
   void reset() {
-    $callSync(3346, $W()..h(this));
+    $callSync(3355, $W()..h(this));
   }
 
   /// Go: `func (*sha3.SHAKE).UnmarshalBinary(data []byte) error`.
   void unmarshalBinary(Uint8List data) {
     $callSync(
-        3347,
+        3356,
         $W()
           ..h(this)
           ..bytes(data));
@@ -180,7 +180,7 @@ class CryptoSha3Shake extends $hash.HashXof
   /// Go: `func (*sha3.SHAKE).Write(p []byte) (n int, err error)`.
   int write(Uint8List p) {
     final $r = $callSync(
-        3348,
+        3357,
         $W()
           ..h(this)
           ..bytes(p));
@@ -192,32 +192,32 @@ class CryptoSha3Shake extends $hash.HashXof
 extension GoCryptoSha3Api on GoCryptoSha3 {
   /// Go: `func sha3.New224() *sha3.SHA3`.
   CryptoSha3 new224() {
-    final $r = $callSync(3325);
+    final $r = $callSync(3334);
     return $r.hnn(CryptoSha3.$h);
   }
 
   /// Go: `func sha3.New256() *sha3.SHA3`.
   CryptoSha3 new256() {
-    final $r = $callSync(3326);
+    final $r = $callSync(3335);
     return $r.hnn(CryptoSha3.$h);
   }
 
   /// Go: `func sha3.New384() *sha3.SHA3`.
   CryptoSha3 new384() {
-    final $r = $callSync(3327);
+    final $r = $callSync(3336);
     return $r.hnn(CryptoSha3.$h);
   }
 
   /// Go: `func sha3.New512() *sha3.SHA3`.
   CryptoSha3 new512() {
-    final $r = $callSync(3328);
+    final $r = $callSync(3337);
     return $r.hnn(CryptoSha3.$h);
   }
 
   /// Go: `func sha3.NewCSHAKE128(N []byte, S []byte) *sha3.SHAKE`.
   CryptoSha3Shake newCshake128(Uint8List n, Uint8List s) {
     final $r = $callSync(
-        3329,
+        3338,
         $W()
           ..bytes(n)
           ..bytes(s));
@@ -227,7 +227,7 @@ extension GoCryptoSha3Api on GoCryptoSha3 {
   /// Go: `func sha3.NewCSHAKE256(N []byte, S []byte) *sha3.SHAKE`.
   CryptoSha3Shake newCshake256(Uint8List n, Uint8List s) {
     final $r = $callSync(
-        3330,
+        3339,
         $W()
           ..bytes(n)
           ..bytes(s));
@@ -236,20 +236,20 @@ extension GoCryptoSha3Api on GoCryptoSha3 {
 
   /// Go: `func sha3.NewSHAKE128() *sha3.SHAKE`.
   CryptoSha3Shake newShake128() {
-    final $r = $callSync(3331);
+    final $r = $callSync(3340);
     return $r.hnn(CryptoSha3Shake.$h);
   }
 
   /// Go: `func sha3.NewSHAKE256() *sha3.SHAKE`.
   CryptoSha3Shake newShake256() {
-    final $r = $callSync(3332);
+    final $r = $callSync(3341);
     return $r.hnn(CryptoSha3Shake.$h);
   }
 
   /// Go: `func sha3.SumSHAKE128(data []byte, length int) []byte`.
   Uint8List sumShake128(Uint8List data, int length) {
     final $r = $callSync(
-        3349,
+        3358,
         $W()
           ..bytes(data)
           ..i64(length));
@@ -259,7 +259,7 @@ extension GoCryptoSha3Api on GoCryptoSha3 {
   /// Go: `func sha3.SumSHAKE256(data []byte, length int) []byte`.
   Uint8List sumShake256(Uint8List data, int length) {
     final $r = $callSync(
-        3350,
+        3359,
         $W()
           ..bytes(data)
           ..i64(length));

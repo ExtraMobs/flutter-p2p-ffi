@@ -10,7 +10,7 @@ import 'package:p2p_ffi/src/runtime.dart';
 extension GoGrpcEncodingGzipApi on GoGrpcEncodingGzip {
   /// Go: `func gzip.SetLevel(level int) error`.
   void setLevel(int level) {
-    $callSync(24529, $W()..i64(level));
+    $callSync(24535, $W()..i64(level));
   }
 }
 

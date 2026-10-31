@@ -27,7 +27,7 @@ mixin QuicGoQlogwriterEvent$ on GoHandle {
   void encode(
       $jsontext.QuicGoQlogwriterJsontextEncoder encoder, DateTime eventTime) {
     $callSync(
-        18470,
+        18476,
         $W()
           ..h(this)
           ..h(encoder)
@@ -36,7 +36,7 @@ mixin QuicGoQlogwriterEvent$ on GoHandle {
 
   /// Go: `func (qlogwriter.Event).Name() string`.
   String name() {
-    final $r = $callSync(18471, $W()..h(this));
+    final $r = $callSync(18477, $W()..h(this));
     return $r.str();
   }
 }
@@ -63,25 +63,25 @@ class QuicGoQlogwriterFileSeq extends QuicGoQlogwriterTrace
 
   /// Go: `func qlogwriter.NewFileSeq(w io.WriteCloser) *qlogwriter.FileSeq`.
   factory QuicGoQlogwriterFileSeq(Object w) {
-    final $r = $callSync(18476, $W()..reader(w));
+    final $r = $callSync(18482, $W()..reader(w));
     return $r.hnn(QuicGoQlogwriterFileSeq.$h);
   }
 
   /// Go: `func (*qlogwriter.FileSeq).AddProducer() qlogwriter.Recorder`.
   QuicGoQlogwriterRecorder addProducer() {
-    final $r = $callSync(18472, $W()..h(this));
+    final $r = $callSync(18478, $W()..h(this));
     return $r.hnn(QuicGoQlogwriterRecorder.$h);
   }
 
   /// Go: `func (*qlogwriter.FileSeq).Run()`.
   void run() {
-    $callSync(18473, $W()..h(this));
+    $callSync(18479, $W()..h(this));
   }
 
   /// Go: `func (*qlogwriter.FileSeq).SupportsSchemas(schema string) bool`.
   bool supportsSchemas(String schema) {
     final $r = $callSync(
-        18474,
+        18480,
         $W()
           ..h(this)
           ..str(schema));
@@ -100,7 +100,7 @@ mixin QuicGoQlogwriterRecorder$ on GoHandle {
   /// Go: `func (qlogwriter.Recorder).RecordEvent(qlogwriter.Event)`.
   void recordEvent(QuicGoQlogwriterEvent event) {
     $callSync(
-        18477,
+        18483,
         $W()
           ..h(this)
           ..h(event));
@@ -108,7 +108,7 @@ mixin QuicGoQlogwriterRecorder$ on GoHandle {
 
   /// Go: type assertion `x.(*qlogwriter.Writer)`: null if the object is not one.
   QuicGoQlogwriterWriter? asQuicGoQlogwriterWriter() {
-    final $r = $callSync(1907, $W()..h(this));
+    final $r = $callSync(1912, $W()..h(this));
     return $r.hn(QuicGoQlogwriterWriter.$h);
   }
 }
@@ -122,14 +122,14 @@ class QuicGoQlogwriterTrace extends GoHandle with QuicGoQlogwriterTrace$ {
 mixin QuicGoQlogwriterTrace$ on GoHandle {
   /// Go: `func (qlogwriter.Trace).AddProducer() qlogwriter.Recorder`.
   QuicGoQlogwriterRecorder addProducer() {
-    final $r = $callSync(18478, $W()..h(this));
+    final $r = $callSync(18484, $W()..h(this));
     return $r.hnn(QuicGoQlogwriterRecorder.$h);
   }
 
   /// Go: `func (qlogwriter.Trace).SupportsSchemas(schema string) bool`.
   bool supportsSchemas(String schema) {
     final $r = $callSync(
-        18479,
+        18485,
         $W()
           ..h(this)
           ..str(schema));
@@ -138,7 +138,7 @@ mixin QuicGoQlogwriterTrace$ on GoHandle {
 
   /// Go: type assertion `x.(*qlogwriter.FileSeq)`: null if the object is not one.
   QuicGoQlogwriterFileSeq? asQuicGoQlogwriterFileSeq() {
-    final $r = $callSync(1908, $W()..h(this));
+    final $r = $callSync(1913, $W()..h(this));
     return $r.hn(QuicGoQlogwriterFileSeq.$h);
   }
 }
@@ -167,13 +167,13 @@ class QuicGoQlogwriterWriter extends QuicGoQlogwriterRecorder
 
   /// Go: `func (*qlogwriter.Writer).Close() error`.
   void close() {
-    $callSync(18480, $W()..h(this));
+    $callSync(18486, $W()..h(this));
   }
 
   /// Go: `func (*qlogwriter.Writer).RecordEvent(ev qlogwriter.Event)`.
   void recordEvent(QuicGoQlogwriterEvent ev) {
     $callSync(
-        18481,
+        18487,
         $W()
           ..h(this)
           ..h(ev));
@@ -186,7 +186,7 @@ extension GoQuicGoQuicGoQlogwriterApi on GoQuicGoQuicGoQlogwriter {
   QuicGoQlogwriterFileSeq newConnectionFileSeq(Object w, bool isClient,
       $quic_go.QuicGoConnectionId odcid, List<String> eventSchemas) {
     final $r = $callSync(
-        18475,
+        18481,
         $W()
           ..reader(w)
           ..b(isClient)

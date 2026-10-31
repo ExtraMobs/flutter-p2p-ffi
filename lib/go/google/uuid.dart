@@ -26,26 +26,26 @@ final class UuidNullUuid implements GoDto {
 
   /// Go: `func (uuid.NullUUID).MarshalBinary() ([]byte, error)`.
   Uint8List marshalBinary() {
-    final $r = $callSync(8109, $W()..dto(this));
+    final $r = $callSync(8118, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (uuid.NullUUID).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(8110, $W()..dto(this));
+    final $r = $callSync(8119, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (uuid.NullUUID).MarshalText() ([]byte, error)`.
   Uint8List marshalText() {
-    final $r = $callSync(8111, $W()..dto(this));
+    final $r = $callSync(8120, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*uuid.NullUUID).Scan(value interface{}) error`.
   void scan(Object? value) {
     $callSync(
-        8112,
+        8121,
         $W()
           ..dto(this)
           ..any(value));
@@ -54,7 +54,7 @@ final class UuidNullUuid implements GoDto {
   /// Go: `func (*uuid.NullUUID).UnmarshalBinary(data []byte) error`.
   void unmarshalBinary(Uint8List data) {
     $callSync(
-        8113,
+        8122,
         $W()
           ..dto(this)
           ..bytes(data));
@@ -63,7 +63,7 @@ final class UuidNullUuid implements GoDto {
   /// Go: `func (*uuid.NullUUID).UnmarshalJSON(data []byte) error`.
   void unmarshalJson(Uint8List data) {
     $callSync(
-        8114,
+        8123,
         $W()
           ..dto(this)
           ..bytes(data));
@@ -72,7 +72,7 @@ final class UuidNullUuid implements GoDto {
   /// Go: `func (*uuid.NullUUID).UnmarshalText(data []byte) error`.
   void unmarshalText(Uint8List data) {
     $callSync(
-        8115,
+        8124,
         $W()
           ..dto(this)
           ..bytes(data));
@@ -80,7 +80,7 @@ final class UuidNullUuid implements GoDto {
 
   /// Go: `func (uuid.NullUUID).Value() (driver.Value, error)`.
   $driver.DatabaseSqlDriverValue value$() {
-    final $r = $callSync(8116, $W()..dto(this));
+    final $r = $callSync(8125, $W()..dto(this));
     return $r.hnn($driver.DatabaseSqlDriverValue.$h);
   }
 }
@@ -89,69 +89,69 @@ final class UuidNullUuid implements GoDto {
 extension GoGoogleUuidApi on GoGoogleUuid {
   /// Go: `func uuid.ClockSequence() int`.
   int clockSequence() {
-    final $r = $callSync(8102);
+    final $r = $callSync(8111);
     return $r.i64();
   }
 
   /// Go: `func uuid.DisableRandPool()`.
   void disableRandPool() {
-    $callSync(8103);
+    $callSync(8112);
   }
 
   /// Go: `func uuid.EnableRandPool()`.
   void enableRandPool() {
-    $callSync(8104);
+    $callSync(8113);
   }
 
   /// Go: `func uuid.GetTime() (uuid.Time, uint16, error)`.
   (int, int) getTime() {
-    final $r = $callSync(8105);
+    final $r = $callSync(8114);
     return ($r.i64(), $r.i64());
   }
 
   /// Go: `func uuid.NewString() string`.
   String newString() {
-    final $r = $callSync(8106);
+    final $r = $callSync(8115);
     return $r.str();
   }
 
   /// Go: `func uuid.NodeID() []byte`.
   Uint8List nodeId() {
-    final $r = $callSync(8107);
+    final $r = $callSync(8116);
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func uuid.NodeInterface() string`.
   String nodeInterface() {
-    final $r = $callSync(8108);
+    final $r = $callSync(8117);
     return $r.str();
   }
 
   /// Go: `func uuid.SetClockSequence(seq int)`.
   void setClockSequence(int seq) {
-    $callSync(8117, $W()..i64(seq));
+    $callSync(8126, $W()..i64(seq));
   }
 
   /// Go: `func uuid.SetNodeID(id []byte) bool`.
   bool setNodeId(Uint8List id) {
-    final $r = $callSync(8118, $W()..bytes(id));
+    final $r = $callSync(8127, $W()..bytes(id));
     return $r.b();
   }
 
   /// Go: `func uuid.SetNodeInterface(name string) bool`.
   bool setNodeInterface(String name) {
-    final $r = $callSync(8119, $W()..str(name));
+    final $r = $callSync(8128, $W()..str(name));
     return $r.b();
   }
 
   /// Go: `func uuid.SetRand(r io.Reader)`.
   void setRand(Object r) {
-    $callSync(8120, $W()..reader(r));
+    $callSync(8129, $W()..reader(r));
   }
 
   /// Go: `func uuid.Validate(s string) error`.
   void validate(String s) {
-    $callSync(8121, $W()..str(s));
+    $callSync(8130, $W()..str(s));
   }
 }
 

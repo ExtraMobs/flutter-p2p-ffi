@@ -45,53 +45,53 @@ class Libp2pCoreRecordPbEnvelope
   /// Go: `func (*pb.Envelope).Descriptor() ([]byte, []int)`.
   @Deprecated("Use Envelope.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(14268, $W()..h(this));
+    final $r = $callSync(14274, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pb.Envelope).GetPayload() []byte`.
   Uint8List getPayload() {
-    final $r = $callSync(14269, $W()..h(this));
+    final $r = $callSync(14275, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pb.Envelope).GetPayloadType() []byte`.
   Uint8List getPayloadType() {
-    final $r = $callSync(14270, $W()..h(this));
+    final $r = $callSync(14276, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pb.Envelope).GetPublicKey() *pb.PublicKey`.
   $pb.Libp2pCoreCryptoPbPublicKey getPublicKey() {
-    final $r = $callSync(14271, $W()..h(this));
+    final $r = $callSync(14277, $W()..h(this));
     return $r.hnn($pb.Libp2pCoreCryptoPbPublicKey.$h);
   }
 
   /// Go: `func (*pb.Envelope).GetSignature() []byte`.
   Uint8List getSignature() {
-    final $r = $callSync(14272, $W()..h(this));
+    final $r = $callSync(14278, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pb.Envelope).ProtoMessage()`.
   void protoMessage() {
-    $callSync(14273, $W()..h(this));
+    $callSync(14279, $W()..h(this));
   }
 
   /// Go: `func (*pb.Envelope).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(14274, $W()..h(this));
+    final $r = $callSync(14280, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pb.Envelope).Reset()`.
   void reset() {
-    $callSync(14275, $W()..h(this));
+    $callSync(14281, $W()..h(this));
   }
 
   /// Go: `func (*pb.Envelope).String() string`.
   String string() {
-    final $r = $callSync(14276, $W()..h(this));
+    final $r = $callSync(14282, $W()..h(this));
     return $r.str();
   }
 }
@@ -101,7 +101,7 @@ extension GoLibp2pLibp2pCoreRecordPbApi on GoLibp2pLibp2pCoreRecordPb {
   /// Go: `var pb.File_core_record_pb_envelope_proto protoreflect.FileDescriptor`.
   $protoreflect.ProtobufReflectProtoreflectFileDescriptor
       get fileCoreRecordPbEnvelopeProto {
-    final $r = $callSync(14277);
+    final $r = $callSync(14283);
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectFileDescriptor.$h);
   }
 }

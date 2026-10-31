@@ -62,7 +62,7 @@ class Libp2pKbucketPeerdiversityFilter extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*peerdiversity.Filter).GetDiversityStats() []peerdiversity.CplDiversityStats`.
   List<Libp2pKbucketPeerdiversityCplDiversityStats> getDiversityStats() {
-    final $r = $callSync(13142, $W()..h(this));
+    final $r = $callSync(13148, $W()..h(this));
     return $r.list(() =>
         $r.p() ? Libp2pKbucketPeerdiversityCplDiversityStats.$dec($r) : $nil());
   }
@@ -70,7 +70,7 @@ class Libp2pKbucketPeerdiversityFilter extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*peerdiversity.Filter).Remove(p peer.ID)`.
   void remove($peer.Libp2pCorePeerId p) {
     $callSync(
-        13143,
+        13149,
         $W()
           ..h(this)
           ..val(p));
@@ -79,7 +79,7 @@ class Libp2pKbucketPeerdiversityFilter extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*peerdiversity.Filter).TryAdd(p peer.ID) bool`.
   bool tryAdd($peer.Libp2pCorePeerId p) {
     final $r = $callSync(
-        13144,
+        13150,
         $W()
           ..h(this)
           ..val(p));
@@ -89,7 +89,7 @@ class Libp2pKbucketPeerdiversityFilter extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*peerdiversity.Filter).WhitelistPeers(peers ...peer.ID)`.
   void whitelistPeers([List<$peer.Libp2pCorePeerId> peers = const []]) {
     $callSync(
-        13145,
+        13151,
         $W()
           ..h(this)
           ..list(peers, (w0, e0) => w0.val(e0)));
@@ -138,7 +138,7 @@ mixin Libp2pKbucketPeerdiversityPeerIpGroupFilter$ on GoHandle {
   /// Go: `func (peerdiversity.PeerIPGroupFilter).Allow(peerdiversity.PeerGroupInfo) (allow bool)`.
   bool allow(Libp2pKbucketPeerdiversityPeerGroupInfo peerGroupInfo) {
     final $r = $callSync(
-        13148,
+        13154,
         $W()
           ..h(this)
           ..dto(peerGroupInfo));
@@ -148,7 +148,7 @@ mixin Libp2pKbucketPeerdiversityPeerIpGroupFilter$ on GoHandle {
   /// Go: `func (peerdiversity.PeerIPGroupFilter).Decrement(peerdiversity.PeerGroupInfo)`.
   void decrement(Libp2pKbucketPeerdiversityPeerGroupInfo peerGroupInfo) {
     $callSync(
-        13149,
+        13155,
         $W()
           ..h(this)
           ..dto(peerGroupInfo));
@@ -157,7 +157,7 @@ mixin Libp2pKbucketPeerdiversityPeerIpGroupFilter$ on GoHandle {
   /// Go: `func (peerdiversity.PeerIPGroupFilter).Increment(peerdiversity.PeerGroupInfo)`.
   void increment(Libp2pKbucketPeerdiversityPeerGroupInfo peerGroupInfo) {
     $callSync(
-        13150,
+        13156,
         $W()
           ..h(this)
           ..dto(peerGroupInfo));
@@ -166,7 +166,7 @@ mixin Libp2pKbucketPeerdiversityPeerIpGroupFilter$ on GoHandle {
   /// Go: `func (peerdiversity.PeerIPGroupFilter).PeerAddresses(peer.ID) []multiaddr.Multiaddr`.
   List<$multiaddr.Multiaddr> peerAddresses($peer.Libp2pCorePeerId id) {
     final $r = $callSync(
-        13151,
+        13157,
         $W()
           ..h(this)
           ..val(id));
@@ -179,7 +179,7 @@ extension GoLibp2pLibp2pKbucketPeerdiversityApi
     on GoLibp2pLibp2pKbucketPeerdiversity {
   /// Go: `func peerdiversity.IPGroupKey(ip net.IP) peerdiversity.PeerIPGroupKey`.
   String ipGroupKey(Uint8List ip) {
-    final $r = $callSync(13146, $W()..bytes(ip));
+    final $r = $callSync(13152, $W()..bytes(ip));
     return $r.str();
   }
 
@@ -195,7 +195,7 @@ extension GoLibp2pLibp2pKbucketPeerdiversityApi
       String logKey,
       FutureOr<int> Function($peer.Libp2pCorePeerId id) cplFnc) async {
     final $r = await $call(
-        13147,
+        13153,
         $W()
           ..h(pgm)
           ..str(logKey)

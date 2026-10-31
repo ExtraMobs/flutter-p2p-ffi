@@ -48,7 +48,7 @@ class BoxoIpldUnixfsIoBasicDirectory extends BoxoIpldUnixfsIoDirectory
       $ipld_format.IpldFormatDagService dserv,
       [List<BoxoIpldUnixfsIoDirectoryOption> opts = const []]) {
     final $r = $callSync(
-        9901,
+        9910,
         $W()
           ..h(dserv)
           ..list(opts, (w0, e0) => w0.h(e0)));
@@ -61,7 +61,7 @@ class BoxoIpldUnixfsIoBasicDirectory extends BoxoIpldUnixfsIoDirectory
   Future<void> addChild($context.Context ctx, String name,
       $ipld_format.IpldFormatNode node) async {
     await $call(
-        9822,
+        9831,
         $W()
           ..h(this)
           ..h(ctx)
@@ -73,7 +73,7 @@ class BoxoIpldUnixfsIoBasicDirectory extends BoxoIpldUnixfsIoDirectory
   Stream<$unixfs.BoxoIpldUnixfsLinkResult> enumLinksAsync(
           $context.Context ctx) =>
       $stream(
-              9823,
+              9832,
               $W()
                 ..h(this)
                 ..h(ctx))
@@ -86,7 +86,7 @@ class BoxoIpldUnixfsIoBasicDirectory extends BoxoIpldUnixfsIoDirectory
   Future<$ipld_format.IpldFormatNode> find(
       $context.Context ctx, String name) async {
     final $r = await $call(
-        9824,
+        9833,
         $W()
           ..h(this)
           ..h(ctx)
@@ -104,7 +104,7 @@ class BoxoIpldUnixfsIoBasicDirectory extends BoxoIpldUnixfsIoDirectory
   Future<void> forEachLink($context.Context ctx,
       FutureOr<void> Function($ipld_format.IpldFormatLink link) f) async {
     await $call(
-        9825,
+        9834,
         $W()
           ..h(this)
           ..h(ctx)
@@ -114,37 +114,37 @@ class BoxoIpldUnixfsIoBasicDirectory extends BoxoIpldUnixfsIoDirectory
 
   /// Go: `func (*io.BasicDirectory).GetCidBuilder() cid.Builder`.
   $cid.CidBuilder getCidBuilder() {
-    final $r = $callSync(9826, $W()..h(this));
+    final $r = $callSync(9835, $W()..h(this));
     return $r.hnn($cid.CidBuilder.$h);
   }
 
   /// Go: `func (*io.BasicDirectory).GetHAMTShardingSize() int`.
   int getHamtShardingSize() {
-    final $r = $callSync(9827, $W()..h(this));
+    final $r = $callSync(9836, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*io.BasicDirectory).GetMaxHAMTFanout() int`.
   int getMaxHamtFanout() {
-    final $r = $callSync(9828, $W()..h(this));
+    final $r = $callSync(9837, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*io.BasicDirectory).GetMaxLinks() int`.
   int getMaxLinks() {
-    final $r = $callSync(9829, $W()..h(this));
+    final $r = $callSync(9838, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*io.BasicDirectory).GetNode() (format.Node, error)`.
   $ipld_format.IpldFormatNode getNode() {
-    final $r = $callSync(9830, $W()..h(this));
+    final $r = $callSync(9839, $W()..h(this));
     return $r.hnn($ipld_format.IpldFormatNode.$h);
   }
 
   /// Go: `func (*io.BasicDirectory).GetSizeEstimationMode() io.SizeEstimationMode`.
   int getSizeEstimationMode() {
-    final $r = $callSync(9831, $W()..h(this));
+    final $r = $callSync(9840, $W()..h(this));
     return $r.i64();
   }
 
@@ -153,7 +153,7 @@ class BoxoIpldUnixfsIoBasicDirectory extends BoxoIpldUnixfsIoDirectory
   /// Asynchronous: runs in a goroutine of the service.
   Future<List<$ipld_format.IpldFormatLink>> links($context.Context ctx) async {
     final $r = await $call(
-        9832,
+        9841,
         $W()
           ..h(this)
           ..h(ctx));
@@ -166,7 +166,7 @@ class BoxoIpldUnixfsIoBasicDirectory extends BoxoIpldUnixfsIoDirectory
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> removeChild($context.Context ctx, String name) async {
     await $call(
-        9833,
+        9842,
         $W()
           ..h(this)
           ..h(ctx)
@@ -176,7 +176,7 @@ class BoxoIpldUnixfsIoBasicDirectory extends BoxoIpldUnixfsIoDirectory
   /// Go: `func (*io.BasicDirectory).SetCidBuilder(builder cid.Builder)`.
   void setCidBuilder($cid.CidBuilder builder) {
     $callSync(
-        9834,
+        9843,
         $W()
           ..h(this)
           ..h(builder));
@@ -185,7 +185,7 @@ class BoxoIpldUnixfsIoBasicDirectory extends BoxoIpldUnixfsIoDirectory
   /// Go: `func (*io.BasicDirectory).SetHAMTShardingSize(size int)`.
   void setHamtShardingSize(int size) {
     $callSync(
-        9835,
+        9844,
         $W()
           ..h(this)
           ..i64(size));
@@ -194,7 +194,7 @@ class BoxoIpldUnixfsIoBasicDirectory extends BoxoIpldUnixfsIoDirectory
   /// Go: `func (*io.BasicDirectory).SetMaxHAMTFanout(n int)`.
   void setMaxHamtFanout(int n) {
     $callSync(
-        9836,
+        9845,
         $W()
           ..h(this)
           ..i64(n));
@@ -203,7 +203,7 @@ class BoxoIpldUnixfsIoBasicDirectory extends BoxoIpldUnixfsIoDirectory
   /// Go: `func (*io.BasicDirectory).SetMaxLinks(n int)`.
   void setMaxLinks(int n) {
     $callSync(
-        9837,
+        9846,
         $W()
           ..h(this)
           ..i64(n));
@@ -212,7 +212,7 @@ class BoxoIpldUnixfsIoBasicDirectory extends BoxoIpldUnixfsIoDirectory
   /// Go: `func (*io.BasicDirectory).SetSizeEstimationMode(mode io.SizeEstimationMode)`.
   void setSizeEstimationMode(int mode) {
     $callSync(
-        9838,
+        9847,
         $W()
           ..h(this)
           ..i64(mode));
@@ -221,7 +221,7 @@ class BoxoIpldUnixfsIoBasicDirectory extends BoxoIpldUnixfsIoDirectory
   /// Go: `func (*io.BasicDirectory).SetStat(mode os.FileMode, mtime time.Time)`.
   void setStat(int mode, DateTime mtime) {
     $callSync(
-        9839,
+        9848,
         $W()
           ..h(this)
           ..i64(mode)
@@ -243,7 +243,7 @@ mixin BoxoIpldUnixfsIoDagReader$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<Uint8List> ctxReadFull($context.Context ctx, int n) async {
     final $r = await $call(
-        9840,
+        9849,
         $W()
           ..h(this)
           ..h(ctx)
@@ -253,19 +253,19 @@ mixin BoxoIpldUnixfsIoDagReader$ on GoHandle {
 
   /// Go: `func (io.DagReader).ModTime() time.Time`.
   DateTime modTime() {
-    final $r = $callSync(9841, $W()..h(this));
+    final $r = $callSync(9850, $W()..h(this));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func (io.DagReader).Mode() os.FileMode`.
   int mode() {
-    final $r = $callSync(9842, $W()..h(this));
+    final $r = $callSync(9851, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (io.DagReader).Size() uint64`.
   int size() {
-    final $r = $callSync(9843, $W()..h(this));
+    final $r = $callSync(9852, $W()..h(this));
     return $r.i64();
   }
 }
@@ -279,7 +279,7 @@ class BoxoIpldUnixfsIoDirectory extends GoHandle
   factory BoxoIpldUnixfsIoDirectory($ipld_format.IpldFormatDagService dserv,
       [List<BoxoIpldUnixfsIoDirectoryOption> opts = const []]) {
     final $r = $callSync(
-        9904,
+        9913,
         $W()
           ..h(dserv)
           ..list(opts, (w0, e0) => w0.h(e0)));
@@ -295,7 +295,7 @@ mixin BoxoIpldUnixfsIoDirectory$ on GoHandle {
   Future<void> addChild($context.Context ctx, String name,
       $ipld_format.IpldFormatNode node) async {
     await $call(
-        9845,
+        9854,
         $W()
           ..h(this)
           ..h(ctx)
@@ -307,7 +307,7 @@ mixin BoxoIpldUnixfsIoDirectory$ on GoHandle {
   Stream<$unixfs.BoxoIpldUnixfsLinkResult> enumLinksAsync(
           $context.Context ctx) =>
       $stream(
-              9846,
+              9855,
               $W()
                 ..h(this)
                 ..h(ctx))
@@ -320,7 +320,7 @@ mixin BoxoIpldUnixfsIoDirectory$ on GoHandle {
   Future<$ipld_format.IpldFormatNode> find(
       $context.Context ctx, String arg1) async {
     final $r = await $call(
-        9847,
+        9856,
         $W()
           ..h(this)
           ..h(ctx)
@@ -340,7 +340,7 @@ mixin BoxoIpldUnixfsIoDirectory$ on GoHandle {
       FutureOr<void> Function($ipld_format.IpldFormatLink link)
           callback) async {
     await $call(
-        9848,
+        9857,
         $W()
           ..h(this)
           ..h(ctx)
@@ -352,37 +352,37 @@ mixin BoxoIpldUnixfsIoDirectory$ on GoHandle {
 
   /// Go: `func (io.Directory).GetCidBuilder() cid.Builder`.
   $cid.CidBuilder getCidBuilder() {
-    final $r = $callSync(9849, $W()..h(this));
+    final $r = $callSync(9858, $W()..h(this));
     return $r.hnn($cid.CidBuilder.$h);
   }
 
   /// Go: `func (io.Directory).GetHAMTShardingSize() int`.
   int getHamtShardingSize() {
-    final $r = $callSync(9850, $W()..h(this));
+    final $r = $callSync(9859, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (io.Directory).GetMaxHAMTFanout() int`.
   int getMaxHamtFanout() {
-    final $r = $callSync(9851, $W()..h(this));
+    final $r = $callSync(9860, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (io.Directory).GetMaxLinks() int`.
   int getMaxLinks() {
-    final $r = $callSync(9852, $W()..h(this));
+    final $r = $callSync(9861, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (io.Directory).GetNode() (format.Node, error)`.
   $ipld_format.IpldFormatNode getNode() {
-    final $r = $callSync(9853, $W()..h(this));
+    final $r = $callSync(9862, $W()..h(this));
     return $r.hnn($ipld_format.IpldFormatNode.$h);
   }
 
   /// Go: `func (io.Directory).GetSizeEstimationMode() io.SizeEstimationMode`.
   int getSizeEstimationMode() {
-    final $r = $callSync(9854, $W()..h(this));
+    final $r = $callSync(9863, $W()..h(this));
     return $r.i64();
   }
 
@@ -391,7 +391,7 @@ mixin BoxoIpldUnixfsIoDirectory$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<List<$ipld_format.IpldFormatLink>> links($context.Context ctx) async {
     final $r = await $call(
-        9855,
+        9864,
         $W()
           ..h(this)
           ..h(ctx));
@@ -404,7 +404,7 @@ mixin BoxoIpldUnixfsIoDirectory$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> removeChild($context.Context ctx, String arg1) async {
     await $call(
-        9856,
+        9865,
         $W()
           ..h(this)
           ..h(ctx)
@@ -414,7 +414,7 @@ mixin BoxoIpldUnixfsIoDirectory$ on GoHandle {
   /// Go: `func (io.Directory).SetCidBuilder(cid.Builder)`.
   void setCidBuilder($cid.CidBuilder builder) {
     $callSync(
-        9857,
+        9866,
         $W()
           ..h(this)
           ..h(builder));
@@ -423,7 +423,7 @@ mixin BoxoIpldUnixfsIoDirectory$ on GoHandle {
   /// Go: `func (io.Directory).SetHAMTShardingSize(size int)`.
   void setHamtShardingSize(int size) {
     $callSync(
-        9858,
+        9867,
         $W()
           ..h(this)
           ..i64(size));
@@ -432,7 +432,7 @@ mixin BoxoIpldUnixfsIoDirectory$ on GoHandle {
   /// Go: `func (io.Directory).SetMaxHAMTFanout(n int)`.
   void setMaxHamtFanout(int n) {
     $callSync(
-        9859,
+        9868,
         $W()
           ..h(this)
           ..i64(n));
@@ -441,7 +441,7 @@ mixin BoxoIpldUnixfsIoDirectory$ on GoHandle {
   /// Go: `func (io.Directory).SetMaxLinks(n int)`.
   void setMaxLinks(int n) {
     $callSync(
-        9860,
+        9869,
         $W()
           ..h(this)
           ..i64(n));
@@ -450,7 +450,7 @@ mixin BoxoIpldUnixfsIoDirectory$ on GoHandle {
   /// Go: `func (io.Directory).SetSizeEstimationMode(io.SizeEstimationMode)`.
   void setSizeEstimationMode(int arg0) {
     $callSync(
-        9861,
+        9870,
         $W()
           ..h(this)
           ..i64(arg0));
@@ -459,7 +459,7 @@ mixin BoxoIpldUnixfsIoDirectory$ on GoHandle {
   /// Go: `func (io.Directory).SetStat(os.FileMode, time.Time)`.
   void setStat(int arg0, DateTime time) {
     $callSync(
-        9862,
+        9871,
         $W()
           ..h(this)
           ..i64(arg0)
@@ -468,19 +468,19 @@ mixin BoxoIpldUnixfsIoDirectory$ on GoHandle {
 
   /// Go: type assertion `x.(*io.BasicDirectory)`: null if the object is not one.
   BoxoIpldUnixfsIoBasicDirectory? asBoxoIpldUnixfsIoBasicDirectory() {
-    final $r = $callSync(958, $W()..h(this));
+    final $r = $callSync(961, $W()..h(this));
     return $r.hn(BoxoIpldUnixfsIoBasicDirectory.$h);
   }
 
   /// Go: type assertion `x.(*io.DynamicDirectory)`: null if the object is not one.
   BoxoIpldUnixfsIoDynamicDirectory? asBoxoIpldUnixfsIoDynamicDirectory() {
-    final $r = $callSync(959, $W()..h(this));
+    final $r = $callSync(962, $W()..h(this));
     return $r.hn(BoxoIpldUnixfsIoDynamicDirectory.$h);
   }
 
   /// Go: type assertion `x.(*io.HAMTDirectory)`: null if the object is not one.
   BoxoIpldUnixfsIoHamtDirectory? asBoxoIpldUnixfsIoHamtDirectory() {
-    final $r = $callSync(960, $W()..h(this));
+    final $r = $callSync(963, $W()..h(this));
     return $r.hn(BoxoIpldUnixfsIoHamtDirectory.$h);
   }
 }
@@ -530,7 +530,7 @@ class BoxoIpldUnixfsIoDynamicDirectory extends BoxoIpldUnixfsIoDirectory
   Future<void> addChild(
       $context.Context ctx, String name, $ipld_format.IpldFormatNode nd) async {
     await $call(
-        9863,
+        9872,
         $W()
           ..h(this)
           ..h(ctx)
@@ -542,7 +542,7 @@ class BoxoIpldUnixfsIoDynamicDirectory extends BoxoIpldUnixfsIoDirectory
   Stream<$unixfs.BoxoIpldUnixfsLinkResult> enumLinksAsync(
           $context.Context ctx) =>
       $stream(
-              9864,
+              9873,
               $W()
                 ..h(this)
                 ..h(ctx))
@@ -555,7 +555,7 @@ class BoxoIpldUnixfsIoDynamicDirectory extends BoxoIpldUnixfsIoDirectory
   Future<$ipld_format.IpldFormatNode> find(
       $context.Context ctx, String arg1) async {
     final $r = await $call(
-        9865,
+        9874,
         $W()
           ..h(this)
           ..h(ctx)
@@ -575,7 +575,7 @@ class BoxoIpldUnixfsIoDynamicDirectory extends BoxoIpldUnixfsIoDirectory
       FutureOr<void> Function($ipld_format.IpldFormatLink link)
           callback) async {
     await $call(
-        9866,
+        9875,
         $W()
           ..h(this)
           ..h(ctx)
@@ -587,37 +587,37 @@ class BoxoIpldUnixfsIoDynamicDirectory extends BoxoIpldUnixfsIoDirectory
 
   /// Go: `func (io.Directory).GetCidBuilder() cid.Builder`.
   $cid.CidBuilder getCidBuilder() {
-    final $r = $callSync(9867, $W()..h(this));
+    final $r = $callSync(9876, $W()..h(this));
     return $r.hnn($cid.CidBuilder.$h);
   }
 
   /// Go: `func (io.Directory).GetHAMTShardingSize() int`.
   int getHamtShardingSize() {
-    final $r = $callSync(9868, $W()..h(this));
+    final $r = $callSync(9877, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (io.Directory).GetMaxHAMTFanout() int`.
   int getMaxHamtFanout() {
-    final $r = $callSync(9869, $W()..h(this));
+    final $r = $callSync(9878, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (io.Directory).GetMaxLinks() int`.
   int getMaxLinks() {
-    final $r = $callSync(9870, $W()..h(this));
+    final $r = $callSync(9879, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (io.Directory).GetNode() (format.Node, error)`.
   $ipld_format.IpldFormatNode getNode() {
-    final $r = $callSync(9871, $W()..h(this));
+    final $r = $callSync(9880, $W()..h(this));
     return $r.hnn($ipld_format.IpldFormatNode.$h);
   }
 
   /// Go: `func (io.Directory).GetSizeEstimationMode() io.SizeEstimationMode`.
   int getSizeEstimationMode() {
-    final $r = $callSync(9872, $W()..h(this));
+    final $r = $callSync(9881, $W()..h(this));
     return $r.i64();
   }
 
@@ -626,7 +626,7 @@ class BoxoIpldUnixfsIoDynamicDirectory extends BoxoIpldUnixfsIoDirectory
   /// Asynchronous: runs in a goroutine of the service.
   Future<List<$ipld_format.IpldFormatLink>> links($context.Context ctx) async {
     final $r = await $call(
-        9873,
+        9882,
         $W()
           ..h(this)
           ..h(ctx));
@@ -639,7 +639,7 @@ class BoxoIpldUnixfsIoDynamicDirectory extends BoxoIpldUnixfsIoDirectory
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> removeChild($context.Context ctx, String name) async {
     await $call(
-        9874,
+        9883,
         $W()
           ..h(this)
           ..h(ctx)
@@ -649,7 +649,7 @@ class BoxoIpldUnixfsIoDynamicDirectory extends BoxoIpldUnixfsIoDirectory
   /// Go: `func (io.Directory).SetCidBuilder(cid.Builder)`.
   void setCidBuilder($cid.CidBuilder builder) {
     $callSync(
-        9875,
+        9884,
         $W()
           ..h(this)
           ..h(builder));
@@ -658,7 +658,7 @@ class BoxoIpldUnixfsIoDynamicDirectory extends BoxoIpldUnixfsIoDirectory
   /// Go: `func (io.Directory).SetHAMTShardingSize(size int)`.
   void setHamtShardingSize(int size) {
     $callSync(
-        9876,
+        9885,
         $W()
           ..h(this)
           ..i64(size));
@@ -667,7 +667,7 @@ class BoxoIpldUnixfsIoDynamicDirectory extends BoxoIpldUnixfsIoDirectory
   /// Go: `func (*io.DynamicDirectory).SetMaxHAMTFanout(n int)`.
   void setMaxHamtFanout(int n) {
     $callSync(
-        9877,
+        9886,
         $W()
           ..h(this)
           ..i64(n));
@@ -676,7 +676,7 @@ class BoxoIpldUnixfsIoDynamicDirectory extends BoxoIpldUnixfsIoDirectory
   /// Go: `func (*io.DynamicDirectory).SetMaxLinks(n int)`.
   void setMaxLinks(int n) {
     $callSync(
-        9878,
+        9887,
         $W()
           ..h(this)
           ..i64(n));
@@ -685,7 +685,7 @@ class BoxoIpldUnixfsIoDynamicDirectory extends BoxoIpldUnixfsIoDirectory
   /// Go: `func (io.Directory).SetSizeEstimationMode(io.SizeEstimationMode)`.
   void setSizeEstimationMode(int arg0) {
     $callSync(
-        9879,
+        9888,
         $W()
           ..h(this)
           ..i64(arg0));
@@ -694,7 +694,7 @@ class BoxoIpldUnixfsIoDynamicDirectory extends BoxoIpldUnixfsIoDirectory
   /// Go: `func (*io.DynamicDirectory).SetStat(mode os.FileMode, mtime time.Time)`.
   void setStat(int mode, DateTime mtime) {
     $callSync(
-        9880,
+        9889,
         $W()
           ..h(this)
           ..i64(mode)
@@ -727,7 +727,7 @@ class BoxoIpldUnixfsIoHamtDirectory extends BoxoIpldUnixfsIoDirectory
       $ipld_format.IpldFormatDagService dserv, int sizeChange,
       [List<BoxoIpldUnixfsIoDirectoryOption> opts = const []]) {
     final $r = $callSync(
-        9906,
+        9915,
         $W()
           ..h(dserv)
           ..i64(sizeChange)
@@ -741,7 +741,7 @@ class BoxoIpldUnixfsIoHamtDirectory extends BoxoIpldUnixfsIoDirectory
   Future<void> addChild(
       $context.Context ctx, String name, $ipld_format.IpldFormatNode nd) async {
     await $call(
-        9881,
+        9890,
         $W()
           ..h(this)
           ..h(ctx)
@@ -753,7 +753,7 @@ class BoxoIpldUnixfsIoHamtDirectory extends BoxoIpldUnixfsIoDirectory
   Stream<$unixfs.BoxoIpldUnixfsLinkResult> enumLinksAsync(
           $context.Context ctx) =>
       $stream(
-              9882,
+              9891,
               $W()
                 ..h(this)
                 ..h(ctx))
@@ -766,7 +766,7 @@ class BoxoIpldUnixfsIoHamtDirectory extends BoxoIpldUnixfsIoDirectory
   Future<$ipld_format.IpldFormatNode> find(
       $context.Context ctx, String name) async {
     final $r = await $call(
-        9883,
+        9892,
         $W()
           ..h(this)
           ..h(ctx)
@@ -784,7 +784,7 @@ class BoxoIpldUnixfsIoHamtDirectory extends BoxoIpldUnixfsIoDirectory
   Future<void> forEachLink($context.Context ctx,
       FutureOr<void> Function($ipld_format.IpldFormatLink link) f) async {
     await $call(
-        9884,
+        9893,
         $W()
           ..h(this)
           ..h(ctx)
@@ -794,37 +794,37 @@ class BoxoIpldUnixfsIoHamtDirectory extends BoxoIpldUnixfsIoDirectory
 
   /// Go: `func (*io.HAMTDirectory).GetCidBuilder() cid.Builder`.
   $cid.CidBuilder getCidBuilder() {
-    final $r = $callSync(9885, $W()..h(this));
+    final $r = $callSync(9894, $W()..h(this));
     return $r.hnn($cid.CidBuilder.$h);
   }
 
   /// Go: `func (*io.HAMTDirectory).GetHAMTShardingSize() int`.
   int getHamtShardingSize() {
-    final $r = $callSync(9886, $W()..h(this));
+    final $r = $callSync(9895, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*io.HAMTDirectory).GetMaxHAMTFanout() int`.
   int getMaxHamtFanout() {
-    final $r = $callSync(9887, $W()..h(this));
+    final $r = $callSync(9896, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*io.HAMTDirectory).GetMaxLinks() int`.
   int getMaxLinks() {
-    final $r = $callSync(9888, $W()..h(this));
+    final $r = $callSync(9897, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*io.HAMTDirectory).GetNode() (format.Node, error)`.
   $ipld_format.IpldFormatNode getNode() {
-    final $r = $callSync(9889, $W()..h(this));
+    final $r = $callSync(9898, $W()..h(this));
     return $r.hnn($ipld_format.IpldFormatNode.$h);
   }
 
   /// Go: `func (*io.HAMTDirectory).GetSizeEstimationMode() io.SizeEstimationMode`.
   int getSizeEstimationMode() {
-    final $r = $callSync(9890, $W()..h(this));
+    final $r = $callSync(9899, $W()..h(this));
     return $r.i64();
   }
 
@@ -833,7 +833,7 @@ class BoxoIpldUnixfsIoHamtDirectory extends BoxoIpldUnixfsIoDirectory
   /// Asynchronous: runs in a goroutine of the service.
   Future<List<$ipld_format.IpldFormatLink>> links($context.Context ctx) async {
     final $r = await $call(
-        9891,
+        9900,
         $W()
           ..h(this)
           ..h(ctx));
@@ -846,7 +846,7 @@ class BoxoIpldUnixfsIoHamtDirectory extends BoxoIpldUnixfsIoDirectory
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> removeChild($context.Context ctx, String name) async {
     await $call(
-        9892,
+        9901,
         $W()
           ..h(this)
           ..h(ctx)
@@ -856,7 +856,7 @@ class BoxoIpldUnixfsIoHamtDirectory extends BoxoIpldUnixfsIoDirectory
   /// Go: `func (*io.HAMTDirectory).SetCidBuilder(builder cid.Builder)`.
   void setCidBuilder($cid.CidBuilder builder) {
     $callSync(
-        9893,
+        9902,
         $W()
           ..h(this)
           ..h(builder));
@@ -865,7 +865,7 @@ class BoxoIpldUnixfsIoHamtDirectory extends BoxoIpldUnixfsIoDirectory
   /// Go: `func (*io.HAMTDirectory).SetHAMTShardingSize(size int)`.
   void setHamtShardingSize(int size) {
     $callSync(
-        9894,
+        9903,
         $W()
           ..h(this)
           ..i64(size));
@@ -874,7 +874,7 @@ class BoxoIpldUnixfsIoHamtDirectory extends BoxoIpldUnixfsIoDirectory
   /// Go: `func (*io.HAMTDirectory).SetMaxHAMTFanout(n int)`.
   void setMaxHamtFanout(int n) {
     $callSync(
-        9895,
+        9904,
         $W()
           ..h(this)
           ..i64(n));
@@ -883,7 +883,7 @@ class BoxoIpldUnixfsIoHamtDirectory extends BoxoIpldUnixfsIoDirectory
   /// Go: `func (*io.HAMTDirectory).SetMaxLinks(n int)`.
   void setMaxLinks(int n) {
     $callSync(
-        9896,
+        9905,
         $W()
           ..h(this)
           ..i64(n));
@@ -892,7 +892,7 @@ class BoxoIpldUnixfsIoHamtDirectory extends BoxoIpldUnixfsIoDirectory
   /// Go: `func (*io.HAMTDirectory).SetSizeEstimationMode(mode io.SizeEstimationMode)`.
   void setSizeEstimationMode(int mode) {
     $callSync(
-        9897,
+        9906,
         $W()
           ..h(this)
           ..i64(mode));
@@ -901,7 +901,7 @@ class BoxoIpldUnixfsIoHamtDirectory extends BoxoIpldUnixfsIoDirectory
   /// Go: `func (*io.HAMTDirectory).SetStat(mode os.FileMode, mtime time.Time)`.
   void setStat(int mode, DateTime mtime) {
     $callSync(
-        9898,
+        9907,
         $W()
           ..h(this)
           ..i64(mode)
@@ -998,12 +998,12 @@ final class BoxoIpldUnixfsIoUnixFsProfile implements GoDto {
 
   /// Go: `func (io.UnixFSProfile).ApplyGlobals()`.
   void applyGlobals() {
-    $callSync(9909, $W()..dto(this));
+    $callSync(9918, $W()..dto(this));
   }
 
   /// Go: `func (io.UnixFSProfile).CidBuilder() cid.Builder`.
   $cid.CidBuilder cidBuilder() {
-    final $r = $callSync(9910, $W()..dto(this));
+    final $r = $callSync(9919, $W()..dto(this));
     return $r.hnn($cid.CidBuilder.$h);
   }
 }
@@ -1066,19 +1066,19 @@ class BoxoIpldUnixfsIoErrUnkownNodeType extends GolangException {
 extension GoIpfsBoxoIpldUnixfsIoApi on GoIpfsBoxoIpldUnixfsIo {
   /// Go: `var io.DefaultShardWidth int`.
   int get defaultShardWidth {
-    final $r = $callSync(9844);
+    final $r = $callSync(9853);
     return $r.i64();
   }
 
   /// Go: `var io.HAMTShardingSize int`.
   int get hamtShardingSize {
-    final $r = $callSync(9899);
+    final $r = $callSync(9908);
     return $r.i64();
   }
 
   /// Go: `var io.HAMTSizeEstimation io.SizeEstimationMode`.
   int get hamtSizeEstimation {
-    final $r = $callSync(9900);
+    final $r = $callSync(9909);
     return $r.i64();
   }
 
@@ -1087,7 +1087,7 @@ extension GoIpfsBoxoIpldUnixfsIoApi on GoIpfsBoxoIpldUnixfsIo {
       $ipld_format.IpldFormatDagService dserv,
       $merkledag.BoxoIpldMerkledagProtoNode node) {
     final $r = $callSync(
-        9902,
+        9911,
         $W()
           ..h(dserv)
           ..h(node));
@@ -1102,7 +1102,7 @@ extension GoIpfsBoxoIpldUnixfsIoApi on GoIpfsBoxoIpldUnixfsIo {
       $ipld_format.IpldFormatNode n,
       $ipld_format.IpldFormatNodeGetter serv) async {
     final $r = await $call(
-        9903,
+        9912,
         $W()
           ..h(ctx)
           ..h(n)
@@ -1115,7 +1115,7 @@ extension GoIpfsBoxoIpldUnixfsIoApi on GoIpfsBoxoIpldUnixfsIo {
       $ipld_format.IpldFormatDagService dserv,
       $ipld_format.IpldFormatNode node) {
     final $r = $callSync(
-        9905,
+        9914,
         $W()
           ..h(dserv)
           ..h(node));
@@ -1127,7 +1127,7 @@ extension GoIpfsBoxoIpldUnixfsIoApi on GoIpfsBoxoIpldUnixfsIo {
       $ipld_format.IpldFormatDagService dserv,
       $ipld_format.IpldFormatNode node) {
     final $r = $callSync(
-        9907,
+        9916,
         $W()
           ..h(dserv)
           ..h(node));
@@ -1143,7 +1143,7 @@ extension GoIpfsBoxoIpldUnixfsIoApi on GoIpfsBoxoIpldUnixfsIo {
       $ipld_format.IpldFormatNode nd,
       List<String> names) async {
     final $r = await $call(
-        9908,
+        9917,
         $W()
           ..h(ctx)
           ..h(ds)
@@ -1157,13 +1157,13 @@ extension GoIpfsBoxoIpldUnixfsIoApi on GoIpfsBoxoIpldUnixfsIo {
 
   /// Go: `var io.UnixFS_v0_2015 io.UnixFSProfile`.
   BoxoIpldUnixfsIoUnixFsProfile get unixFsV02015 {
-    final $r = $callSync(9911);
+    final $r = $callSync(9920);
     return $r.p() ? BoxoIpldUnixfsIoUnixFsProfile.$dec($r) : $nil();
   }
 
   /// Go: `var io.UnixFS_v1_2025 io.UnixFSProfile`.
   BoxoIpldUnixfsIoUnixFsProfile get unixFsV12025 {
-    final $r = $callSync(9912);
+    final $r = $callSync(9921);
     return $r.p() ? BoxoIpldUnixfsIoUnixFsProfile.$dec($r) : $nil();
   }
 }
@@ -1184,32 +1184,32 @@ extension GoIpfsBoxoIpldUnixfsIoEnumsApi on GoIpfsBoxoIpldUnixfsIoEnums {
 extension GoIpfsBoxoIpldUnixfsIoOptionsApi on GoIpfsBoxoIpldUnixfsIoOptions {
   /// Go: `func io.WithCidBuilder(cb cid.Builder) io.DirectoryOption`.
   BoxoIpldUnixfsIoDirectoryOption withCidBuilder($cid.CidBuilder cb) {
-    final $r = $callSync(9913, $W()..h(cb));
+    final $r = $callSync(9922, $W()..h(cb));
     return $r.hnn(BoxoIpldUnixfsIoDirectoryOption.$h);
   }
 
   /// Go: `func io.WithMaxHAMTFanout(n int) io.DirectoryOption`.
   BoxoIpldUnixfsIoDirectoryOption withMaxHamtFanout(int n) {
-    final $r = $callSync(9914, $W()..i64(n));
+    final $r = $callSync(9923, $W()..i64(n));
     return $r.hnn(BoxoIpldUnixfsIoDirectoryOption.$h);
   }
 
   /// Go: `func io.WithMaxLinks(n int) io.DirectoryOption`.
   BoxoIpldUnixfsIoDirectoryOption withMaxLinks(int n) {
-    final $r = $callSync(9915, $W()..i64(n));
+    final $r = $callSync(9924, $W()..i64(n));
     return $r.hnn(BoxoIpldUnixfsIoDirectoryOption.$h);
   }
 
   /// Go: `func io.WithSizeEstimationMode(mode io.SizeEstimationMode) io.DirectoryOption`.
   BoxoIpldUnixfsIoDirectoryOption withSizeEstimationMode(int mode) {
-    final $r = $callSync(9916, $W()..i64(mode));
+    final $r = $callSync(9925, $W()..i64(mode));
     return $r.hnn(BoxoIpldUnixfsIoDirectoryOption.$h);
   }
 
   /// Go: `func io.WithStat(mode os.FileMode, mtime time.Time) io.DirectoryOption`.
   BoxoIpldUnixfsIoDirectoryOption withStat(int mode, DateTime mtime) {
     final $r = $callSync(
-        9917,
+        9926,
         $W()
           ..i64(mode)
           ..time(mtime));

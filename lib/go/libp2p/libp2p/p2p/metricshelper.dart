@@ -12,19 +12,19 @@ import 'package:p2p_ffi/go/prometheus/client_golang/prometheus.dart'
 extension GoLibp2pLibp2pP2pMetricshelperApi on GoLibp2pLibp2pP2pMetricshelper {
   /// Go: `func metricshelper.GetDirection(dir network.Direction) string`.
   String getDirection(int dir) {
-    final $r = $callSync(14597, $W()..i64(dir));
+    final $r = $callSync(14603, $W()..i64(dir));
     return $r.str();
   }
 
   /// Go: `func metricshelper.GetIPVersion(addr multiaddr.Multiaddr) string`.
   String getIpVersion($multiaddr.Multiaddr addr) {
-    final $r = $callSync(14598, $W()..val(addr));
+    final $r = $callSync(14604, $W()..val(addr));
     return $r.str();
   }
 
   /// Go: `func metricshelper.GetTransport(a multiaddr.Multiaddr) string`.
   String getTransport($multiaddr.Multiaddr a) {
-    final $r = $callSync(14599, $W()..val(a));
+    final $r = $callSync(14605, $W()..val(a));
     return $r.str();
   }
 
@@ -33,7 +33,7 @@ extension GoLibp2pLibp2pP2pMetricshelperApi on GoLibp2pLibp2pP2pMetricshelper {
       [List<$prometheus.ClientGolangPrometheusCollector> collectors =
           const []]) {
     $callSync(
-        14600,
+        14606,
         $W()
           ..h(reg)
           ..list(collectors, (w0, e0) => w0.h(e0)));

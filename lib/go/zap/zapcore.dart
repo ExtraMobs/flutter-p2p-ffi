@@ -45,7 +45,7 @@ mixin ZapZapcoreArrayEncoder$ on GoHandle {
   /// Go: `func (zapcore.ArrayEncoder).AppendArray(zapcore.ArrayMarshaler) error`.
   void appendArray(ZapZapcoreArrayMarshaler arrayMarshaler) {
     $callSync(
-        22906,
+        22912,
         $W()
           ..h(this)
           ..h(arrayMarshaler));
@@ -54,7 +54,7 @@ mixin ZapZapcoreArrayEncoder$ on GoHandle {
   /// Go: `func (zapcore.ArrayEncoder).AppendDuration(time.Duration)`.
   void appendDuration(Duration arg0) {
     $callSync(
-        22907,
+        22913,
         $W()
           ..h(this)
           ..i64((arg0).inMicroseconds * 1000));
@@ -63,7 +63,7 @@ mixin ZapZapcoreArrayEncoder$ on GoHandle {
   /// Go: `func (zapcore.ArrayEncoder).AppendObject(zapcore.ObjectMarshaler) error`.
   void appendObject(ZapZapcoreObjectMarshaler objectMarshaler) {
     $callSync(
-        22908,
+        22914,
         $W()
           ..h(this)
           ..h(objectMarshaler));
@@ -72,7 +72,7 @@ mixin ZapZapcoreArrayEncoder$ on GoHandle {
   /// Go: `func (zapcore.ArrayEncoder).AppendReflected(value interface{}) error`.
   void appendReflected(Object? value) {
     $callSync(
-        22909,
+        22915,
         $W()
           ..h(this)
           ..any(value));
@@ -81,7 +81,7 @@ mixin ZapZapcoreArrayEncoder$ on GoHandle {
   /// Go: `func (zapcore.ArrayEncoder).AppendTime(time.Time)`.
   void appendTime(DateTime time) {
     $callSync(
-        22910,
+        22916,
         $W()
           ..h(this)
           ..time(time));
@@ -98,7 +98,7 @@ mixin ZapZapcoreArrayMarshaler$ on GoHandle {
   /// Go: `func (zapcore.ArrayMarshaler).MarshalLogArray(zapcore.ArrayEncoder) error`.
   void marshalLogArray(ZapZapcoreArrayEncoder arrayEncoder) {
     $callSync(
-        22911,
+        22917,
         $W()
           ..h(this)
           ..h(arrayEncoder));
@@ -106,7 +106,7 @@ mixin ZapZapcoreArrayMarshaler$ on GoHandle {
 
   /// Go: type assertion `x.(*zapcore.ArrayMarshalerFunc)`: null if the object is not one.
   ZapZapcoreArrayMarshalerFunc? asZapZapcoreArrayMarshalerFunc() {
-    final $r = $callSync(2118, $W()..h(this));
+    final $r = $callSync(2125, $W()..h(this));
     return $r.hn(ZapZapcoreArrayMarshalerFunc.$h);
   }
 }
@@ -134,7 +134,7 @@ class ZapZapcoreArrayMarshalerFunc extends ZapZapcoreArrayMarshaler
   /// Go: `func (zapcore.ArrayMarshalerFunc).MarshalLogArray(enc zapcore.ArrayEncoder) error`.
   void marshalLogArray(ZapZapcoreArrayEncoder enc) {
     $callSync(
-        22912,
+        22918,
         $W()
           ..h(this)
           ..h(enc));
@@ -163,18 +163,18 @@ class ZapZapcoreBufferedWriteSyncer extends ZapZapcoreWriteSyncer
 
   /// Go: `func (*zapcore.BufferedWriteSyncer).Stop() (err error)`.
   void stop() {
-    $callSync(22913, $W()..h(this));
+    $callSync(22919, $W()..h(this));
   }
 
   /// Go: `func (*zapcore.BufferedWriteSyncer).Sync() error`.
   void sync() {
-    $callSync(22914, $W()..h(this));
+    $callSync(22920, $W()..h(this));
   }
 
   /// Go: `func (*zapcore.BufferedWriteSyncer).Write(bs []byte) (int, error)`.
   int write(Uint8List bs) {
     final $r = $callSync(
-        22915,
+        22921,
         $W()
           ..h(this)
           ..bytes(bs));
@@ -205,7 +205,7 @@ class ZapZapcoreCallerEncoder extends $encoding.EncodingTextUnmarshaler
   /// Go: `func (*zapcore.CallerEncoder).UnmarshalText(text []byte) error`.
   void unmarshalText(Uint8List text) {
     $callSync(
-        22916,
+        22922,
         $W()
           ..h(this)
           ..bytes(text));
@@ -242,7 +242,7 @@ mixin ZapZapcoreCheckWriteHook$ on GoHandle {
   void onWrite(
       ZapZapcoreCheckedEntry checkedEntry, List<ZapZapcoreField> fields) {
     $callSync(
-        22919,
+        22925,
         $W()
           ..h(this)
           ..h(checkedEntry)
@@ -271,7 +271,7 @@ class ZapZapcoreCheckedEntry extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*zapcore.CheckedEntry).AddCore(ent zapcore.Entry, core zapcore.Core) *zapcore.CheckedEntry`.
   ZapZapcoreCheckedEntry addCore(ZapZapcoreEntry ent, ZapZapcoreCore core) {
     final $r = $callSync(
-        22920,
+        22926,
         $W()
           ..h(this)
           ..dto(ent)
@@ -283,7 +283,7 @@ class ZapZapcoreCheckedEntry extends $crypto.CryptoDecrypterOpts
   ZapZapcoreCheckedEntry after(
       ZapZapcoreEntry ent, ZapZapcoreCheckWriteHook hook) {
     final $r = $callSync(
-        22921,
+        22927,
         $W()
           ..h(this)
           ..dto(ent)
@@ -295,7 +295,7 @@ class ZapZapcoreCheckedEntry extends $crypto.CryptoDecrypterOpts
   ZapZapcoreCheckedEntry before(
       ZapZapcoreEntry ent, ZapZapcoreCheckPreWriteHook hook) {
     final $r = $callSync(
-        22922,
+        22928,
         $W()
           ..h(this)
           ..dto(ent)
@@ -307,7 +307,7 @@ class ZapZapcoreCheckedEntry extends $crypto.CryptoDecrypterOpts
   @Deprecated("Use [CheckedEntry.After] instead.")
   ZapZapcoreCheckedEntry should(ZapZapcoreEntry ent, int should) {
     final $r = $callSync(
-        22923,
+        22929,
         $W()
           ..h(this)
           ..dto(ent)
@@ -318,7 +318,7 @@ class ZapZapcoreCheckedEntry extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*zapcore.CheckedEntry).Write(fields ...zapcore.Field)`.
   void write([List<ZapZapcoreField> fields = const []]) {
     $callSync(
-        22924,
+        22930,
         $W()
           ..h(this)
           ..list(fields, (w0, e0) => w0.dto(e0)));
@@ -335,7 +335,7 @@ mixin ZapZapcoreClock$ on GoHandle {
   /// Go: `func (zapcore.Clock).NewTicker(time.Duration) *time.Ticker`.
   $time.TimeTicker newTicker(Duration arg0) {
     final $r = $callSync(
-        22925,
+        22931,
         $W()
           ..h(this)
           ..i64((arg0).inMicroseconds * 1000));
@@ -344,7 +344,7 @@ mixin ZapZapcoreClock$ on GoHandle {
 
   /// Go: `func (zapcore.Clock).Now() time.Time`.
   DateTime now() {
-    final $r = $callSync(22926, $W()..h(this));
+    final $r = $callSync(22932, $W()..h(this));
     return $r.p() ? $r.time() : $nil();
   }
 }
@@ -357,7 +357,7 @@ class ZapZapcoreCore extends ZapZapcoreLevelEnabler with ZapZapcoreCore$ {
   factory ZapZapcoreCore(ZapZapcoreEncoder enc, ZapZapcoreWriteSyncer ws,
       ZapZapcoreLevelEnabler enab) {
     final $r = $callSync(
-        22977,
+        22983,
         $W()
           ..h(enc)
           ..h(ws)
@@ -372,7 +372,7 @@ mixin ZapZapcoreCore$ on GoHandle {
   ZapZapcoreCheckedEntry check(
       ZapZapcoreEntry entry, ZapZapcoreCheckedEntry checkedEntry) {
     final $r = $callSync(
-        22927,
+        22933,
         $W()
           ..h(this)
           ..dto(entry)
@@ -382,13 +382,13 @@ mixin ZapZapcoreCore$ on GoHandle {
 
   /// Go: `func (zapcore.Core).Sync() error`.
   void sync() {
-    $callSync(22928, $W()..h(this));
+    $callSync(22934, $W()..h(this));
   }
 
   /// Go: `func (zapcore.Core).With([]zapcore.Field) zapcore.Core`.
   ZapZapcoreCore with$(List<ZapZapcoreField> fields) {
     final $r = $callSync(
-        22929,
+        22935,
         $W()
           ..h(this)
           ..list(fields, (w0, e0) => w0.dto(e0)));
@@ -398,7 +398,7 @@ mixin ZapZapcoreCore$ on GoHandle {
   /// Go: `func (zapcore.Core).Write(zapcore.Entry, []zapcore.Field) error`.
   void write(ZapZapcoreEntry entry, List<ZapZapcoreField> fields) {
     $callSync(
-        22930,
+        22936,
         $W()
           ..h(this)
           ..dto(entry)
@@ -429,7 +429,7 @@ class ZapZapcoreDurationEncoder extends $encoding.EncodingTextUnmarshaler
   /// Go: `func (*zapcore.DurationEncoder).UnmarshalText(text []byte) error`.
   void unmarshalText(Uint8List text) {
     $callSync(
-        22931,
+        22937,
         $W()
           ..h(this)
           ..bytes(text));
@@ -446,7 +446,7 @@ class ZapZapcoreEncoder extends ZapZapcoreObjectEncoder
 mixin ZapZapcoreEncoder$ on GoHandle {
   /// Go: `func (zapcore.Encoder).Clone() zapcore.Encoder`.
   ZapZapcoreEncoder clone() {
-    final $r = $callSync(22932, $W()..h(this));
+    final $r = $callSync(22938, $W()..h(this));
     return $r.hnn(ZapZapcoreEncoder.$h);
   }
 
@@ -454,7 +454,7 @@ mixin ZapZapcoreEncoder$ on GoHandle {
   $buffer.ZapBuffer encodeEntry(
       ZapZapcoreEntry entry, List<ZapZapcoreField> fields) {
     final $r = $callSync(
-        22933,
+        22939,
         $W()
           ..h(this)
           ..dto(entry)
@@ -676,19 +676,19 @@ final class ZapZapcoreEntryCaller implements GoDto {
 
   /// Go: `func (zapcore.EntryCaller).FullPath() string`.
   String fullPath() {
-    final $r = $callSync(22934, $W()..dto(this));
+    final $r = $callSync(22940, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (zapcore.EntryCaller).String() string`.
   String string() {
-    final $r = $callSync(22935, $W()..dto(this));
+    final $r = $callSync(22941, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (zapcore.EntryCaller).TrimmedPath() string`.
   String trimmedPath() {
-    final $r = $callSync(22936, $W()..dto(this));
+    final $r = $callSync(22942, $W()..dto(this));
     return $r.str();
   }
 }
@@ -733,7 +733,7 @@ final class ZapZapcoreField implements GoDto {
   /// Go: `func (zapcore.Field).AddTo(enc zapcore.ObjectEncoder)`.
   void addTo(ZapZapcoreObjectEncoder enc) {
     $callSync(
-        22940,
+        22946,
         $W()
           ..dto(this)
           ..h(enc));
@@ -742,7 +742,7 @@ final class ZapZapcoreField implements GoDto {
   /// Go: `func (zapcore.Field).Equals(other zapcore.Field) bool`.
   bool equals(ZapZapcoreField other) {
     final $r = $callSync(
-        22941,
+        22947,
         $W()
           ..dto(this)
           ..dto(other));
@@ -760,7 +760,7 @@ mixin ZapZapcoreLevelEnabler$ on GoHandle {
   /// Go: `func (zapcore.LevelEnabler).Enabled(zapcore.Level) bool`.
   bool enabled(int arg0) {
     final $r = $callSync(
-        22945,
+        22951,
         $W()
           ..h(this)
           ..i64(arg0));
@@ -769,19 +769,19 @@ mixin ZapZapcoreLevelEnabler$ on GoHandle {
 
   /// Go: type assertion `x.(*zap.AtomicLevel)`: null if the object is not one.
   $zap.ZapAtomicLevel? asZapAtomicLevel() {
-    final $r = $callSync(2119, $W()..h(this));
+    final $r = $callSync(2126, $W()..h(this));
     return $r.hn($zap.ZapAtomicLevel.$h);
   }
 
   /// Go: type assertion `x.(*zap.LevelEnablerFunc)`: null if the object is not one.
   $zap.ZapLevelEnablerFunc? asZapLevelEnablerFunc() {
-    final $r = $callSync(2120, $W()..h(this));
+    final $r = $callSync(2127, $W()..h(this));
     return $r.hn($zap.ZapLevelEnablerFunc.$h);
   }
 
   /// Go: type assertion `x.(zapcore.Core)`: null if the object is not one.
   ZapZapcoreCore? asZapZapcoreCore() {
-    final $r = $callSync(2121, $W()..h(this));
+    final $r = $callSync(2128, $W()..h(this));
     return $r.hn(ZapZapcoreCore.$h);
   }
 }
@@ -809,7 +809,7 @@ class ZapZapcoreLevelEncoder extends $encoding.EncodingTextUnmarshaler
   /// Go: `func (*zapcore.LevelEncoder).UnmarshalText(text []byte) error`.
   void unmarshalText(Uint8List text) {
     $callSync(
-        22946,
+        22952,
         $W()
           ..h(this)
           ..bytes(text));
@@ -838,14 +838,14 @@ class ZapZapcoreMapObjectEncoder extends ZapZapcoreObjectEncoder
 
   /// Go: `func zapcore.NewMapObjectEncoder() *zapcore.MapObjectEncoder`.
   factory ZapZapcoreMapObjectEncoder() {
-    final $r = $callSync(22981);
+    final $r = $callSync(22987);
     return $r.hnn(ZapZapcoreMapObjectEncoder.$h);
   }
 
   /// Go: `func (*zapcore.MapObjectEncoder).AddArray(key string, v zapcore.ArrayMarshaler) error`.
   void addArray(String key, ZapZapcoreArrayMarshaler v) {
     $callSync(
-        22951,
+        22957,
         $W()
           ..h(this)
           ..str(key)
@@ -855,7 +855,7 @@ class ZapZapcoreMapObjectEncoder extends ZapZapcoreObjectEncoder
   /// Go: `func (*zapcore.MapObjectEncoder).AddBinary(k string, v []byte)`.
   void addBinary(String k, Uint8List v) {
     $callSync(
-        22952,
+        22958,
         $W()
           ..h(this)
           ..str(k)
@@ -865,7 +865,7 @@ class ZapZapcoreMapObjectEncoder extends ZapZapcoreObjectEncoder
   /// Go: `func (*zapcore.MapObjectEncoder).AddBool(k string, v bool)`.
   void addBool(String k, bool v) {
     $callSync(
-        22953,
+        22959,
         $W()
           ..h(this)
           ..str(k)
@@ -875,7 +875,7 @@ class ZapZapcoreMapObjectEncoder extends ZapZapcoreObjectEncoder
   /// Go: `func (*zapcore.MapObjectEncoder).AddByteString(k string, v []byte)`.
   void addByteString(String k, Uint8List v) {
     $callSync(
-        22954,
+        22960,
         $W()
           ..h(this)
           ..str(k)
@@ -885,7 +885,7 @@ class ZapZapcoreMapObjectEncoder extends ZapZapcoreObjectEncoder
   /// Go: `func (zapcore.MapObjectEncoder).AddDuration(k string, v time.Duration)`.
   void addDuration(String k, Duration v) {
     $callSync(
-        22955,
+        22961,
         $W()
           ..h(this)
           ..str(k)
@@ -895,7 +895,7 @@ class ZapZapcoreMapObjectEncoder extends ZapZapcoreObjectEncoder
   /// Go: `func (*zapcore.MapObjectEncoder).AddFloat32(k string, v float32)`.
   void addFloat32(String k, double v) {
     $callSync(
-        22956,
+        22962,
         $W()
           ..h(this)
           ..str(k)
@@ -905,7 +905,7 @@ class ZapZapcoreMapObjectEncoder extends ZapZapcoreObjectEncoder
   /// Go: `func (*zapcore.MapObjectEncoder).AddFloat64(k string, v float64)`.
   void addFloat64(String k, double v) {
     $callSync(
-        22957,
+        22963,
         $W()
           ..h(this)
           ..str(k)
@@ -915,7 +915,7 @@ class ZapZapcoreMapObjectEncoder extends ZapZapcoreObjectEncoder
   /// Go: `func (*zapcore.MapObjectEncoder).AddInt(k string, v int)`.
   void addInt(String k, int v) {
     $callSync(
-        22958,
+        22964,
         $W()
           ..h(this)
           ..str(k)
@@ -925,7 +925,7 @@ class ZapZapcoreMapObjectEncoder extends ZapZapcoreObjectEncoder
   /// Go: `func (*zapcore.MapObjectEncoder).AddInt16(k string, v int16)`.
   void addInt16(String k, int v) {
     $callSync(
-        22959,
+        22965,
         $W()
           ..h(this)
           ..str(k)
@@ -935,7 +935,7 @@ class ZapZapcoreMapObjectEncoder extends ZapZapcoreObjectEncoder
   /// Go: `func (*zapcore.MapObjectEncoder).AddInt32(k string, v int32)`.
   void addInt32(String k, int v) {
     $callSync(
-        22960,
+        22966,
         $W()
           ..h(this)
           ..str(k)
@@ -945,7 +945,7 @@ class ZapZapcoreMapObjectEncoder extends ZapZapcoreObjectEncoder
   /// Go: `func (*zapcore.MapObjectEncoder).AddInt64(k string, v int64)`.
   void addInt64(String k, int v) {
     $callSync(
-        22961,
+        22967,
         $W()
           ..h(this)
           ..str(k)
@@ -955,7 +955,7 @@ class ZapZapcoreMapObjectEncoder extends ZapZapcoreObjectEncoder
   /// Go: `func (*zapcore.MapObjectEncoder).AddInt8(k string, v int8)`.
   void addInt8(String k, int v) {
     $callSync(
-        22962,
+        22968,
         $W()
           ..h(this)
           ..str(k)
@@ -965,7 +965,7 @@ class ZapZapcoreMapObjectEncoder extends ZapZapcoreObjectEncoder
   /// Go: `func (*zapcore.MapObjectEncoder).AddObject(k string, v zapcore.ObjectMarshaler) error`.
   void addObject(String k, ZapZapcoreObjectMarshaler v) {
     $callSync(
-        22963,
+        22969,
         $W()
           ..h(this)
           ..str(k)
@@ -975,7 +975,7 @@ class ZapZapcoreMapObjectEncoder extends ZapZapcoreObjectEncoder
   /// Go: `func (*zapcore.MapObjectEncoder).AddReflected(k string, v interface{}) error`.
   void addReflected(String k, Object? v) {
     $callSync(
-        22964,
+        22970,
         $W()
           ..h(this)
           ..str(k)
@@ -985,7 +985,7 @@ class ZapZapcoreMapObjectEncoder extends ZapZapcoreObjectEncoder
   /// Go: `func (*zapcore.MapObjectEncoder).AddString(k string, v string)`.
   void addString(String k, String v) {
     $callSync(
-        22965,
+        22971,
         $W()
           ..h(this)
           ..str(k)
@@ -995,7 +995,7 @@ class ZapZapcoreMapObjectEncoder extends ZapZapcoreObjectEncoder
   /// Go: `func (zapcore.MapObjectEncoder).AddTime(k string, v time.Time)`.
   void addTime(String k, DateTime v) {
     $callSync(
-        22966,
+        22972,
         $W()
           ..h(this)
           ..str(k)
@@ -1005,7 +1005,7 @@ class ZapZapcoreMapObjectEncoder extends ZapZapcoreObjectEncoder
   /// Go: `func (*zapcore.MapObjectEncoder).AddUint(k string, v uint)`.
   void addUint(String k, int v) {
     $callSync(
-        22967,
+        22973,
         $W()
           ..h(this)
           ..str(k)
@@ -1015,7 +1015,7 @@ class ZapZapcoreMapObjectEncoder extends ZapZapcoreObjectEncoder
   /// Go: `func (*zapcore.MapObjectEncoder).AddUint16(k string, v uint16)`.
   void addUint16(String k, int v) {
     $callSync(
-        22968,
+        22974,
         $W()
           ..h(this)
           ..str(k)
@@ -1025,7 +1025,7 @@ class ZapZapcoreMapObjectEncoder extends ZapZapcoreObjectEncoder
   /// Go: `func (*zapcore.MapObjectEncoder).AddUint32(k string, v uint32)`.
   void addUint32(String k, int v) {
     $callSync(
-        22969,
+        22975,
         $W()
           ..h(this)
           ..str(k)
@@ -1035,7 +1035,7 @@ class ZapZapcoreMapObjectEncoder extends ZapZapcoreObjectEncoder
   /// Go: `func (*zapcore.MapObjectEncoder).AddUint64(k string, v uint64)`.
   void addUint64(String k, int v) {
     $callSync(
-        22970,
+        22976,
         $W()
           ..h(this)
           ..str(k)
@@ -1045,7 +1045,7 @@ class ZapZapcoreMapObjectEncoder extends ZapZapcoreObjectEncoder
   /// Go: `func (*zapcore.MapObjectEncoder).AddUint8(k string, v uint8)`.
   void addUint8(String k, int v) {
     $callSync(
-        22971,
+        22977,
         $W()
           ..h(this)
           ..str(k)
@@ -1055,7 +1055,7 @@ class ZapZapcoreMapObjectEncoder extends ZapZapcoreObjectEncoder
   /// Go: `func (*zapcore.MapObjectEncoder).OpenNamespace(k string)`.
   void openNamespace(String k) {
     $callSync(
-        22972,
+        22978,
         $W()
           ..h(this)
           ..str(k));
@@ -1085,7 +1085,7 @@ class ZapZapcoreNameEncoder extends $encoding.EncodingTextUnmarshaler
   /// Go: `func (*zapcore.NameEncoder).UnmarshalText(text []byte) error`.
   void unmarshalText(Uint8List text) {
     $callSync(
-        22974,
+        22980,
         $W()
           ..h(this)
           ..bytes(text));
@@ -1102,7 +1102,7 @@ mixin ZapZapcoreObjectEncoder$ on GoHandle {
   /// Go: `func (zapcore.ObjectEncoder).AddArray(key string, marshaler zapcore.ArrayMarshaler) error`.
   void addArray(String key, ZapZapcoreArrayMarshaler marshaler) {
     $callSync(
-        22987,
+        22993,
         $W()
           ..h(this)
           ..str(key)
@@ -1112,7 +1112,7 @@ mixin ZapZapcoreObjectEncoder$ on GoHandle {
   /// Go: `func (zapcore.ObjectEncoder).AddBinary(key string, value []byte)`.
   void addBinary(String key, Uint8List value) {
     $callSync(
-        22988,
+        22994,
         $W()
           ..h(this)
           ..str(key)
@@ -1122,7 +1122,7 @@ mixin ZapZapcoreObjectEncoder$ on GoHandle {
   /// Go: `func (zapcore.ObjectEncoder).AddBool(key string, value bool)`.
   void addBool(String key, bool value) {
     $callSync(
-        22989,
+        22995,
         $W()
           ..h(this)
           ..str(key)
@@ -1132,7 +1132,7 @@ mixin ZapZapcoreObjectEncoder$ on GoHandle {
   /// Go: `func (zapcore.ObjectEncoder).AddByteString(key string, value []byte)`.
   void addByteString(String key, Uint8List value) {
     $callSync(
-        22990,
+        22996,
         $W()
           ..h(this)
           ..str(key)
@@ -1142,7 +1142,7 @@ mixin ZapZapcoreObjectEncoder$ on GoHandle {
   /// Go: `func (zapcore.ObjectEncoder).AddDuration(key string, value time.Duration)`.
   void addDuration(String key, Duration value) {
     $callSync(
-        22991,
+        22997,
         $W()
           ..h(this)
           ..str(key)
@@ -1152,7 +1152,7 @@ mixin ZapZapcoreObjectEncoder$ on GoHandle {
   /// Go: `func (zapcore.ObjectEncoder).AddFloat32(key string, value float32)`.
   void addFloat32(String key, double value) {
     $callSync(
-        22992,
+        22998,
         $W()
           ..h(this)
           ..str(key)
@@ -1162,7 +1162,7 @@ mixin ZapZapcoreObjectEncoder$ on GoHandle {
   /// Go: `func (zapcore.ObjectEncoder).AddFloat64(key string, value float64)`.
   void addFloat64(String key, double value) {
     $callSync(
-        22993,
+        22999,
         $W()
           ..h(this)
           ..str(key)
@@ -1172,7 +1172,7 @@ mixin ZapZapcoreObjectEncoder$ on GoHandle {
   /// Go: `func (zapcore.ObjectEncoder).AddInt(key string, value int)`.
   void addInt(String key, int value) {
     $callSync(
-        22994,
+        23000,
         $W()
           ..h(this)
           ..str(key)
@@ -1182,7 +1182,7 @@ mixin ZapZapcoreObjectEncoder$ on GoHandle {
   /// Go: `func (zapcore.ObjectEncoder).AddInt16(key string, value int16)`.
   void addInt16(String key, int value) {
     $callSync(
-        22995,
+        23001,
         $W()
           ..h(this)
           ..str(key)
@@ -1192,7 +1192,7 @@ mixin ZapZapcoreObjectEncoder$ on GoHandle {
   /// Go: `func (zapcore.ObjectEncoder).AddInt32(key string, value int32)`.
   void addInt32(String key, int value) {
     $callSync(
-        22996,
+        23002,
         $W()
           ..h(this)
           ..str(key)
@@ -1202,7 +1202,7 @@ mixin ZapZapcoreObjectEncoder$ on GoHandle {
   /// Go: `func (zapcore.ObjectEncoder).AddInt64(key string, value int64)`.
   void addInt64(String key, int value) {
     $callSync(
-        22997,
+        23003,
         $W()
           ..h(this)
           ..str(key)
@@ -1212,7 +1212,7 @@ mixin ZapZapcoreObjectEncoder$ on GoHandle {
   /// Go: `func (zapcore.ObjectEncoder).AddInt8(key string, value int8)`.
   void addInt8(String key, int value) {
     $callSync(
-        22998,
+        23004,
         $W()
           ..h(this)
           ..str(key)
@@ -1222,7 +1222,7 @@ mixin ZapZapcoreObjectEncoder$ on GoHandle {
   /// Go: `func (zapcore.ObjectEncoder).AddObject(key string, marshaler zapcore.ObjectMarshaler) error`.
   void addObject(String key, ZapZapcoreObjectMarshaler marshaler) {
     $callSync(
-        22999,
+        23005,
         $W()
           ..h(this)
           ..str(key)
@@ -1232,7 +1232,7 @@ mixin ZapZapcoreObjectEncoder$ on GoHandle {
   /// Go: `func (zapcore.ObjectEncoder).AddReflected(key string, value interface{}) error`.
   void addReflected(String key, Object? value) {
     $callSync(
-        23000,
+        23006,
         $W()
           ..h(this)
           ..str(key)
@@ -1242,7 +1242,7 @@ mixin ZapZapcoreObjectEncoder$ on GoHandle {
   /// Go: `func (zapcore.ObjectEncoder).AddString(key string, value string)`.
   void addString(String key, String value) {
     $callSync(
-        23001,
+        23007,
         $W()
           ..h(this)
           ..str(key)
@@ -1252,7 +1252,7 @@ mixin ZapZapcoreObjectEncoder$ on GoHandle {
   /// Go: `func (zapcore.ObjectEncoder).AddTime(key string, value time.Time)`.
   void addTime(String key, DateTime value) {
     $callSync(
-        23002,
+        23008,
         $W()
           ..h(this)
           ..str(key)
@@ -1262,7 +1262,7 @@ mixin ZapZapcoreObjectEncoder$ on GoHandle {
   /// Go: `func (zapcore.ObjectEncoder).AddUint(key string, value uint)`.
   void addUint(String key, int value) {
     $callSync(
-        23003,
+        23009,
         $W()
           ..h(this)
           ..str(key)
@@ -1272,7 +1272,7 @@ mixin ZapZapcoreObjectEncoder$ on GoHandle {
   /// Go: `func (zapcore.ObjectEncoder).AddUint16(key string, value uint16)`.
   void addUint16(String key, int value) {
     $callSync(
-        23004,
+        23010,
         $W()
           ..h(this)
           ..str(key)
@@ -1282,7 +1282,7 @@ mixin ZapZapcoreObjectEncoder$ on GoHandle {
   /// Go: `func (zapcore.ObjectEncoder).AddUint32(key string, value uint32)`.
   void addUint32(String key, int value) {
     $callSync(
-        23005,
+        23011,
         $W()
           ..h(this)
           ..str(key)
@@ -1292,7 +1292,7 @@ mixin ZapZapcoreObjectEncoder$ on GoHandle {
   /// Go: `func (zapcore.ObjectEncoder).AddUint64(key string, value uint64)`.
   void addUint64(String key, int value) {
     $callSync(
-        23006,
+        23012,
         $W()
           ..h(this)
           ..str(key)
@@ -1302,7 +1302,7 @@ mixin ZapZapcoreObjectEncoder$ on GoHandle {
   /// Go: `func (zapcore.ObjectEncoder).AddUint8(key string, value uint8)`.
   void addUint8(String key, int value) {
     $callSync(
-        23007,
+        23013,
         $W()
           ..h(this)
           ..str(key)
@@ -1312,7 +1312,7 @@ mixin ZapZapcoreObjectEncoder$ on GoHandle {
   /// Go: `func (zapcore.ObjectEncoder).OpenNamespace(key string)`.
   void openNamespace(String key) {
     $callSync(
-        23008,
+        23014,
         $W()
           ..h(this)
           ..str(key));
@@ -1320,13 +1320,13 @@ mixin ZapZapcoreObjectEncoder$ on GoHandle {
 
   /// Go: type assertion `x.(*zapcore.MapObjectEncoder)`: null if the object is not one.
   ZapZapcoreMapObjectEncoder? asZapZapcoreMapObjectEncoder() {
-    final $r = $callSync(2122, $W()..h(this));
+    final $r = $callSync(2129, $W()..h(this));
     return $r.hn(ZapZapcoreMapObjectEncoder.$h);
   }
 
   /// Go: type assertion `x.(zapcore.Encoder)`: null if the object is not one.
   ZapZapcoreEncoder? asZapZapcoreEncoder() {
-    final $r = $callSync(2123, $W()..h(this));
+    final $r = $callSync(2130, $W()..h(this));
     return $r.hn(ZapZapcoreEncoder.$h);
   }
 }
@@ -1342,7 +1342,7 @@ mixin ZapZapcoreObjectMarshaler$ on GoHandle {
   /// Go: `func (zapcore.ObjectMarshaler).MarshalLogObject(zapcore.ObjectEncoder) error`.
   void marshalLogObject(ZapZapcoreObjectEncoder objectEncoder) {
     $callSync(
-        23009,
+        23015,
         $W()
           ..h(this)
           ..h(objectEncoder));
@@ -1350,7 +1350,7 @@ mixin ZapZapcoreObjectMarshaler$ on GoHandle {
 
   /// Go: type assertion `x.(*zapcore.ObjectMarshalerFunc)`: null if the object is not one.
   ZapZapcoreObjectMarshalerFunc? asZapZapcoreObjectMarshalerFunc() {
-    final $r = $callSync(2124, $W()..h(this));
+    final $r = $callSync(2131, $W()..h(this));
     return $r.hn(ZapZapcoreObjectMarshalerFunc.$h);
   }
 }
@@ -1378,7 +1378,7 @@ class ZapZapcoreObjectMarshalerFunc extends ZapZapcoreObjectMarshaler
   /// Go: `func (zapcore.ObjectMarshalerFunc).MarshalLogObject(enc zapcore.ObjectEncoder) error`.
   void marshalLogObject(ZapZapcoreObjectEncoder enc) {
     $callSync(
-        23010,
+        23016,
         $W()
           ..h(this)
           ..h(enc));
@@ -1396,7 +1396,7 @@ mixin ZapZapcorePrimitiveArrayEncoder$ on GoHandle {
   /// Go: `func (zapcore.PrimitiveArrayEncoder).AppendBool(bool)`.
   void appendBool(bool arg0) {
     $callSync(
-        23012,
+        23018,
         $W()
           ..h(this)
           ..b(arg0));
@@ -1405,7 +1405,7 @@ mixin ZapZapcorePrimitiveArrayEncoder$ on GoHandle {
   /// Go: `func (zapcore.PrimitiveArrayEncoder).AppendByteString([]byte)`.
   void appendByteString(Uint8List arg0) {
     $callSync(
-        23013,
+        23019,
         $W()
           ..h(this)
           ..bytes(arg0));
@@ -1414,7 +1414,7 @@ mixin ZapZapcorePrimitiveArrayEncoder$ on GoHandle {
   /// Go: `func (zapcore.PrimitiveArrayEncoder).AppendFloat32(float32)`.
   void appendFloat32(double arg0) {
     $callSync(
-        23014,
+        23020,
         $W()
           ..h(this)
           ..f64(arg0));
@@ -1423,7 +1423,7 @@ mixin ZapZapcorePrimitiveArrayEncoder$ on GoHandle {
   /// Go: `func (zapcore.PrimitiveArrayEncoder).AppendFloat64(float64)`.
   void appendFloat64(double arg0) {
     $callSync(
-        23015,
+        23021,
         $W()
           ..h(this)
           ..f64(arg0));
@@ -1432,7 +1432,7 @@ mixin ZapZapcorePrimitiveArrayEncoder$ on GoHandle {
   /// Go: `func (zapcore.PrimitiveArrayEncoder).AppendInt(int)`.
   void appendInt(int arg0) {
     $callSync(
-        23016,
+        23022,
         $W()
           ..h(this)
           ..i64(arg0));
@@ -1441,7 +1441,7 @@ mixin ZapZapcorePrimitiveArrayEncoder$ on GoHandle {
   /// Go: `func (zapcore.PrimitiveArrayEncoder).AppendInt16(int16)`.
   void appendInt16(int arg0) {
     $callSync(
-        23017,
+        23023,
         $W()
           ..h(this)
           ..i64(arg0));
@@ -1450,7 +1450,7 @@ mixin ZapZapcorePrimitiveArrayEncoder$ on GoHandle {
   /// Go: `func (zapcore.PrimitiveArrayEncoder).AppendInt32(int32)`.
   void appendInt32(int arg0) {
     $callSync(
-        23018,
+        23024,
         $W()
           ..h(this)
           ..i64(arg0));
@@ -1459,7 +1459,7 @@ mixin ZapZapcorePrimitiveArrayEncoder$ on GoHandle {
   /// Go: `func (zapcore.PrimitiveArrayEncoder).AppendInt64(int64)`.
   void appendInt64(int arg0) {
     $callSync(
-        23019,
+        23025,
         $W()
           ..h(this)
           ..i64(arg0));
@@ -1468,7 +1468,7 @@ mixin ZapZapcorePrimitiveArrayEncoder$ on GoHandle {
   /// Go: `func (zapcore.PrimitiveArrayEncoder).AppendInt8(int8)`.
   void appendInt8(int arg0) {
     $callSync(
-        23020,
+        23026,
         $W()
           ..h(this)
           ..i64(arg0));
@@ -1477,7 +1477,7 @@ mixin ZapZapcorePrimitiveArrayEncoder$ on GoHandle {
   /// Go: `func (zapcore.PrimitiveArrayEncoder).AppendString(string)`.
   void appendString(String arg0) {
     $callSync(
-        23021,
+        23027,
         $W()
           ..h(this)
           ..str(arg0));
@@ -1486,7 +1486,7 @@ mixin ZapZapcorePrimitiveArrayEncoder$ on GoHandle {
   /// Go: `func (zapcore.PrimitiveArrayEncoder).AppendUint(uint)`.
   void appendUint(int arg0) {
     $callSync(
-        23022,
+        23028,
         $W()
           ..h(this)
           ..i64(arg0));
@@ -1495,7 +1495,7 @@ mixin ZapZapcorePrimitiveArrayEncoder$ on GoHandle {
   /// Go: `func (zapcore.PrimitiveArrayEncoder).AppendUint16(uint16)`.
   void appendUint16(int arg0) {
     $callSync(
-        23023,
+        23029,
         $W()
           ..h(this)
           ..i64(arg0));
@@ -1504,7 +1504,7 @@ mixin ZapZapcorePrimitiveArrayEncoder$ on GoHandle {
   /// Go: `func (zapcore.PrimitiveArrayEncoder).AppendUint32(uint32)`.
   void appendUint32(int arg0) {
     $callSync(
-        23024,
+        23030,
         $W()
           ..h(this)
           ..i64(arg0));
@@ -1513,7 +1513,7 @@ mixin ZapZapcorePrimitiveArrayEncoder$ on GoHandle {
   /// Go: `func (zapcore.PrimitiveArrayEncoder).AppendUint64(uint64)`.
   void appendUint64(int arg0) {
     $callSync(
-        23025,
+        23031,
         $W()
           ..h(this)
           ..i64(arg0));
@@ -1522,7 +1522,7 @@ mixin ZapZapcorePrimitiveArrayEncoder$ on GoHandle {
   /// Go: `func (zapcore.PrimitiveArrayEncoder).AppendUint8(uint8)`.
   void appendUint8(int arg0) {
     $callSync(
-        23026,
+        23032,
         $W()
           ..h(this)
           ..i64(arg0));
@@ -1530,7 +1530,7 @@ mixin ZapZapcorePrimitiveArrayEncoder$ on GoHandle {
 
   /// Go: type assertion `x.(zapcore.ArrayEncoder)`: null if the object is not one.
   ZapZapcoreArrayEncoder? asZapZapcoreArrayEncoder() {
-    final $r = $callSync(2125, $W()..h(this));
+    final $r = $callSync(2132, $W()..h(this));
     return $r.hn(ZapZapcoreArrayEncoder.$h);
   }
 }
@@ -1546,7 +1546,7 @@ mixin ZapZapcoreReflectedEncoder$ on GoHandle {
   /// Go: `func (zapcore.ReflectedEncoder).Encode(interface{}) error`.
   void encode(Object? arg0) {
     $callSync(
-        23029,
+        23035,
         $W()
           ..h(this)
           ..any(arg0));
@@ -1554,50 +1554,50 @@ mixin ZapZapcoreReflectedEncoder$ on GoHandle {
 
   /// Go: type assertion `x.(*gob.Encoder)`: null if the object is not one.
   $gob.EncodingGobEncoder? asEncodingGobEncoder() {
-    final $r = $callSync(2126, $W()..h(this));
+    final $r = $callSync(2133, $W()..h(this));
     return $r.hn($gob.EncodingGobEncoder.$h);
   }
 
   /// Go: type assertion `x.(*json.Encoder)`: null if the object is not one.
   $json.EncodingJsonEncoder? asEncodingJsonEncoder() {
-    final $r = $callSync(2127, $W()..h(this));
+    final $r = $callSync(2134, $W()..h(this));
     return $r.hn($json.EncodingJsonEncoder.$h);
   }
 
   /// Go: type assertion `x.(*xml.Encoder)`: null if the object is not one.
   $xml.EncodingXmlEncoder? asEncodingXmlEncoder() {
-    final $r = $callSync(2128, $W()..h(this));
+    final $r = $callSync(2135, $W()..h(this));
     return $r.hn($xml.EncodingXmlEncoder.$h);
   }
 
   /// Go: type assertion `x.(*json.Encoder)`: null if the object is not one.
   $json2.JoseV4JsonEncoder? asJoseV4JsonEncoder() {
-    final $r = $callSync(2129, $W()..h(this));
+    final $r = $callSync(2136, $W()..h(this));
     return $r.hn($json2.JoseV4JsonEncoder.$h);
   }
 
   /// Go: type assertion `x.(*runtime.EncoderFunc)`: null if the object is not one.
   $runtime.GrpcGatewayV2RuntimeEncoderFunc?
       asGrpcGatewayV2RuntimeEncoderFunc() {
-    final $r = $callSync(2130, $W()..h(this));
+    final $r = $callSync(2137, $W()..h(this));
     return $r.hn($runtime.GrpcGatewayV2RuntimeEncoderFunc.$h);
   }
 
   /// Go: type assertion `x.(*cmds.TextEncoder)`: null if the object is not one.
   $ipfs_cmds.IpfsCmdsTextEncoder? asIpfsCmdsTextEncoder() {
-    final $r = $callSync(2131, $W()..h(this));
+    final $r = $callSync(2138, $W()..h(this));
     return $r.hn($ipfs_cmds.IpfsCmdsTextEncoder.$h);
   }
 
   /// Go: type assertion `x.(*cbor.Encoder)`: null if the object is not one.
   $go.CborGoEncoder? asCborGoEncoder() {
-    final $r = $callSync(2132, $W()..h(this));
+    final $r = $callSync(2139, $W()..h(this));
     return $r.hn($go.CborGoEncoder.$h);
   }
 
   /// Go: type assertion `x.(*yaml.Encoder)`: null if the object is not one.
   $yaml_v3.YamlV3Encoder? asYamlV3Encoder() {
-    final $r = $callSync(2133, $W()..h(this));
+    final $r = $callSync(2140, $W()..h(this));
     return $r.hn($yaml_v3.YamlV3Encoder.$h);
   }
 }
@@ -1637,7 +1637,7 @@ class ZapZapcoreTimeEncoder extends $encoding.EncodingTextUnmarshaler
   /// Go: `func (*zapcore.TimeEncoder).UnmarshalJSON(data []byte) error`.
   void unmarshalJson(Uint8List data) {
     $callSync(
-        23035,
+        23041,
         $W()
           ..h(this)
           ..bytes(data));
@@ -1646,7 +1646,7 @@ class ZapZapcoreTimeEncoder extends $encoding.EncodingTextUnmarshaler
   /// Go: `func (*zapcore.TimeEncoder).UnmarshalText(text []byte) error`.
   void unmarshalText(Uint8List text) {
     $callSync(
-        23036,
+        23042,
         $W()
           ..h(this)
           ..bytes(text));
@@ -1662,7 +1662,7 @@ class ZapZapcoreTimeEncoder extends $encoding.EncodingTextUnmarshaler
   Future<void> unmarshalYaml(
       FutureOr<void> Function(Object? arg0) unmarshal) async {
     await $call(
-        23037,
+        23043,
         $W()
           ..h(this)
           ..cb((r) => unmarshal(r.any()), true));
@@ -1678,37 +1678,37 @@ class ZapZapcoreWriteSyncer extends GoHandle with ZapZapcoreWriteSyncer$ {
 mixin ZapZapcoreWriteSyncer$ on GoHandle {
   /// Go: `func (zapcore.WriteSyncer).Sync() error`.
   void sync() {
-    $callSync(23039, $W()..h(this));
+    $callSync(23045, $W()..h(this));
   }
 
   /// Go: type assertion `x.(*atomicfile.File)`: null if the object is not one.
   $atomicfile.AtomicfileFile? asAtomicfileFile() {
-    final $r = $callSync(2134, $W()..h(this));
+    final $r = $callSync(2141, $W()..h(this));
     return $r.hn($atomicfile.AtomicfileFile.$h);
   }
 
   /// Go: type assertion `x.(*mod.DagModifier)`: null if the object is not one.
   $mod.BoxoIpldUnixfsModDagModifier? asBoxoIpldUnixfsModDagModifier() {
-    final $r = $callSync(2135, $W()..h(this));
+    final $r = $callSync(2142, $W()..h(this));
     return $r.hn($mod.BoxoIpldUnixfsModDagModifier.$h);
   }
 
   /// Go: type assertion `x.(*atomicfile.File)`: null if the object is not one.
   $atomicfile2.KuboRepoFsrepoMigrationsAtomicfileFile?
       asKuboRepoFsrepoMigrationsAtomicfileFile() {
-    final $r = $callSync(2136, $W()..h(this));
+    final $r = $callSync(2143, $W()..h(this));
     return $r.hn($atomicfile2.KuboRepoFsrepoMigrationsAtomicfileFile.$h);
   }
 
   /// Go: type assertion `x.(*zapcore.BufferedWriteSyncer)`: null if the object is not one.
   ZapZapcoreBufferedWriteSyncer? asZapZapcoreBufferedWriteSyncer() {
-    final $r = $callSync(2137, $W()..h(this));
+    final $r = $callSync(2144, $W()..h(this));
     return $r.hn(ZapZapcoreBufferedWriteSyncer.$h);
   }
 
   /// Go: type assertion `x.(*os.File)`: null if the object is not one.
   $os.OsFile? asOsFile() {
-    final $r = $callSync(2138, $W()..h(this));
+    final $r = $callSync(2145, $W()..h(this));
     return $r.hn($os.OsFile.$h);
   }
 }
@@ -1717,14 +1717,14 @@ mixin ZapZapcoreWriteSyncer$ on GoHandle {
 extension GoZapZapcoreApi on GoZapZapcore {
   /// Go: `func zapcore.AddSync(w io.Writer) zapcore.WriteSyncer`.
   ZapZapcoreWriteSyncer addSync(GoHandle? w) {
-    final $r = $callSync(22905, $W()..h(w));
+    final $r = $callSync(22911, $W()..h(w));
     return $r.hnn(ZapZapcoreWriteSyncer.$h);
   }
 
   /// Go: `func zapcore.CapitalColorLevelEncoder(l zapcore.Level, enc zapcore.PrimitiveArrayEncoder)`.
   void capitalColorLevelEncoder(int l, ZapZapcorePrimitiveArrayEncoder enc) {
     $callSync(
-        22917,
+        22923,
         $W()
           ..i64(l)
           ..h(enc));
@@ -1733,7 +1733,7 @@ extension GoZapZapcoreApi on GoZapZapcore {
   /// Go: `func zapcore.CapitalLevelEncoder(l zapcore.Level, enc zapcore.PrimitiveArrayEncoder)`.
   void capitalLevelEncoder(int l, ZapZapcorePrimitiveArrayEncoder enc) {
     $callSync(
-        22918,
+        22924,
         $W()
           ..i64(l)
           ..h(enc));
@@ -1742,7 +1742,7 @@ extension GoZapZapcoreApi on GoZapZapcore {
   /// Go: `func zapcore.EpochMillisTimeEncoder(t time.Time, enc zapcore.PrimitiveArrayEncoder)`.
   void epochMillisTimeEncoder(DateTime t, ZapZapcorePrimitiveArrayEncoder enc) {
     $callSync(
-        22937,
+        22943,
         $W()
           ..time(t)
           ..h(enc));
@@ -1751,7 +1751,7 @@ extension GoZapZapcoreApi on GoZapZapcore {
   /// Go: `func zapcore.EpochNanosTimeEncoder(t time.Time, enc zapcore.PrimitiveArrayEncoder)`.
   void epochNanosTimeEncoder(DateTime t, ZapZapcorePrimitiveArrayEncoder enc) {
     $callSync(
-        22938,
+        22944,
         $W()
           ..time(t)
           ..h(enc));
@@ -1760,7 +1760,7 @@ extension GoZapZapcoreApi on GoZapZapcore {
   /// Go: `func zapcore.EpochTimeEncoder(t time.Time, enc zapcore.PrimitiveArrayEncoder)`.
   void epochTimeEncoder(DateTime t, ZapZapcorePrimitiveArrayEncoder enc) {
     $callSync(
-        22939,
+        22945,
         $W()
           ..time(t)
           ..h(enc));
@@ -1770,7 +1770,7 @@ extension GoZapZapcoreApi on GoZapZapcore {
   void fullCallerEncoder(
       ZapZapcoreEntryCaller caller, ZapZapcorePrimitiveArrayEncoder enc) {
     $callSync(
-        22942,
+        22948,
         $W()
           ..dto(caller)
           ..h(enc));
@@ -1779,7 +1779,7 @@ extension GoZapZapcoreApi on GoZapZapcore {
   /// Go: `func zapcore.FullNameEncoder(loggerName string, enc zapcore.PrimitiveArrayEncoder)`.
   void fullNameEncoder(String loggerName, ZapZapcorePrimitiveArrayEncoder enc) {
     $callSync(
-        22943,
+        22949,
         $W()
           ..str(loggerName)
           ..h(enc));
@@ -1788,7 +1788,7 @@ extension GoZapZapcoreApi on GoZapZapcore {
   /// Go: `func zapcore.ISO8601TimeEncoder(t time.Time, enc zapcore.PrimitiveArrayEncoder)`.
   void iso8601TimeEncoder(DateTime t, ZapZapcorePrimitiveArrayEncoder enc) {
     $callSync(
-        22944,
+        22950,
         $W()
           ..time(t)
           ..h(enc));
@@ -1796,20 +1796,20 @@ extension GoZapZapcoreApi on GoZapZapcore {
 
   /// Go: `func zapcore.LevelOf(enab zapcore.LevelEnabler) zapcore.Level`.
   int levelOf(ZapZapcoreLevelEnabler enab) {
-    final $r = $callSync(22947, $W()..h(enab));
+    final $r = $callSync(22953, $W()..h(enab));
     return $r.i64();
   }
 
   /// Go: `func zapcore.Lock(ws zapcore.WriteSyncer) zapcore.WriteSyncer`.
   ZapZapcoreWriteSyncer lock(ZapZapcoreWriteSyncer ws) {
-    final $r = $callSync(22948, $W()..h(ws));
+    final $r = $callSync(22954, $W()..h(ws));
     return $r.hnn(ZapZapcoreWriteSyncer.$h);
   }
 
   /// Go: `func zapcore.LowercaseColorLevelEncoder(l zapcore.Level, enc zapcore.PrimitiveArrayEncoder)`.
   void lowercaseColorLevelEncoder(int l, ZapZapcorePrimitiveArrayEncoder enc) {
     $callSync(
-        22949,
+        22955,
         $W()
           ..i64(l)
           ..h(enc));
@@ -1818,7 +1818,7 @@ extension GoZapZapcoreApi on GoZapZapcore {
   /// Go: `func zapcore.LowercaseLevelEncoder(l zapcore.Level, enc zapcore.PrimitiveArrayEncoder)`.
   void lowercaseLevelEncoder(int l, ZapZapcorePrimitiveArrayEncoder enc) {
     $callSync(
-        22950,
+        22956,
         $W()
           ..i64(l)
           ..h(enc));
@@ -1827,7 +1827,7 @@ extension GoZapZapcoreApi on GoZapZapcore {
   /// Go: `func zapcore.MillisDurationEncoder(d time.Duration, enc zapcore.PrimitiveArrayEncoder)`.
   void millisDurationEncoder(Duration d, ZapZapcorePrimitiveArrayEncoder enc) {
     $callSync(
-        22973,
+        22979,
         $W()
           ..i64((d).inMicroseconds * 1000)
           ..h(enc));
@@ -1836,7 +1836,7 @@ extension GoZapZapcoreApi on GoZapZapcore {
   /// Go: `func zapcore.NanosDurationEncoder(d time.Duration, enc zapcore.PrimitiveArrayEncoder)`.
   void nanosDurationEncoder(Duration d, ZapZapcorePrimitiveArrayEncoder enc) {
     $callSync(
-        22975,
+        22981,
         $W()
           ..i64((d).inMicroseconds * 1000)
           ..h(enc));
@@ -1844,7 +1844,7 @@ extension GoZapZapcoreApi on GoZapZapcore {
 
   /// Go: `func zapcore.NewConsoleEncoder(cfg zapcore.EncoderConfig) zapcore.Encoder`.
   ZapZapcoreEncoder newConsoleEncoder(ZapZapcoreEncoderConfig cfg) {
-    final $r = $callSync(22976, $W()..dto(cfg));
+    final $r = $callSync(22982, $W()..dto(cfg));
     return $r.hnn(ZapZapcoreEncoder.$h);
   }
 
@@ -1852,7 +1852,7 @@ extension GoZapZapcoreApi on GoZapZapcore {
   ZapZapcoreCore newIncreaseLevelCore(
       ZapZapcoreCore core, ZapZapcoreLevelEnabler level) {
     final $r = $callSync(
-        22978,
+        22984,
         $W()
           ..h(core)
           ..h(level));
@@ -1861,7 +1861,7 @@ extension GoZapZapcoreApi on GoZapZapcore {
 
   /// Go: `func zapcore.NewJSONEncoder(cfg zapcore.EncoderConfig) zapcore.Encoder`.
   ZapZapcoreEncoder newJsonEncoder(ZapZapcoreEncoderConfig cfg) {
-    final $r = $callSync(22979, $W()..dto(cfg));
+    final $r = $callSync(22985, $W()..dto(cfg));
     return $r.hnn(ZapZapcoreEncoder.$h);
   }
 
@@ -1869,7 +1869,7 @@ extension GoZapZapcoreApi on GoZapZapcore {
   ZapZapcoreCore newLazyWith(
       ZapZapcoreCore core, List<ZapZapcoreField> fields) {
     final $r = $callSync(
-        22980,
+        22986,
         $W()
           ..h(core)
           ..list(fields, (w0, e0) => w0.dto(e0)));
@@ -1879,13 +1879,13 @@ extension GoZapZapcoreApi on GoZapZapcore {
   /// Go: `func zapcore.NewMultiWriteSyncer(ws ...zapcore.WriteSyncer) zapcore.WriteSyncer`.
   ZapZapcoreWriteSyncer newMultiWriteSyncer(
       [List<ZapZapcoreWriteSyncer> ws = const []]) {
-    final $r = $callSync(22982, $W()..list(ws, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(22988, $W()..list(ws, (w0, e0) => w0.h(e0)));
     return $r.hnn(ZapZapcoreWriteSyncer.$h);
   }
 
   /// Go: `func zapcore.NewNopCore() zapcore.Core`.
   ZapZapcoreCore newNopCore() {
-    final $r = $callSync(22983);
+    final $r = $callSync(22989);
     return $r.hnn(ZapZapcoreCore.$h);
   }
 
@@ -1894,7 +1894,7 @@ extension GoZapZapcoreApi on GoZapZapcore {
   ZapZapcoreCore newSampler(
       ZapZapcoreCore core, Duration tick, int first, int thereafter) {
     final $r = $callSync(
-        22984,
+        22990,
         $W()
           ..h(core)
           ..i64((tick).inMicroseconds * 1000)
@@ -1908,7 +1908,7 @@ extension GoZapZapcoreApi on GoZapZapcore {
       ZapZapcoreCore core, Duration tick, int first, int thereafter,
       [List<ZapZapcoreSamplerOption> opts = const []]) {
     final $r = $callSync(
-        22985,
+        22991,
         $W()
           ..h(core)
           ..i64((tick).inMicroseconds * 1000)
@@ -1920,20 +1920,20 @@ extension GoZapZapcoreApi on GoZapZapcore {
 
   /// Go: `func zapcore.NewTee(cores ...zapcore.Core) zapcore.Core`.
   ZapZapcoreCore newTee([List<ZapZapcoreCore> cores = const []]) {
-    final $r = $callSync(22986, $W()..list(cores, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(22992, $W()..list(cores, (w0, e0) => w0.h(e0)));
     return $r.hnn(ZapZapcoreCore.$h);
   }
 
   /// Go: `func zapcore.ParseLevel(text string) (zapcore.Level, error)`.
   int parseLevel(String text) {
-    final $r = $callSync(23011, $W()..str(text));
+    final $r = $callSync(23017, $W()..str(text));
     return $r.i64();
   }
 
   /// Go: `func zapcore.RFC3339NanoTimeEncoder(t time.Time, enc zapcore.PrimitiveArrayEncoder)`.
   void rfc3339NanoTimeEncoder(DateTime t, ZapZapcorePrimitiveArrayEncoder enc) {
     $callSync(
-        23027,
+        23033,
         $W()
           ..time(t)
           ..h(enc));
@@ -1942,7 +1942,7 @@ extension GoZapZapcoreApi on GoZapZapcore {
   /// Go: `func zapcore.RFC3339TimeEncoder(t time.Time, enc zapcore.PrimitiveArrayEncoder)`.
   void rfc3339TimeEncoder(DateTime t, ZapZapcorePrimitiveArrayEncoder enc) {
     $callSync(
-        23028,
+        23034,
         $W()
           ..time(t)
           ..h(enc));
@@ -1950,14 +1950,14 @@ extension GoZapZapcoreApi on GoZapZapcore {
 
   /// Go: `func zapcore.RegisterHooks(core zapcore.Core, hooks ...func(zapcore.Entry) error) zapcore.Core`.
   ZapZapcoreCore registerHooks(ZapZapcoreCore core) {
-    final $r = $callSync(23030, $W()..h(core));
+    final $r = $callSync(23036, $W()..h(core));
     return $r.hnn(ZapZapcoreCore.$h);
   }
 
   /// Go: `func zapcore.SecondsDurationEncoder(d time.Duration, enc zapcore.PrimitiveArrayEncoder)`.
   void secondsDurationEncoder(Duration d, ZapZapcorePrimitiveArrayEncoder enc) {
     $callSync(
-        23032,
+        23038,
         $W()
           ..i64((d).inMicroseconds * 1000)
           ..h(enc));
@@ -1967,7 +1967,7 @@ extension GoZapZapcoreApi on GoZapZapcore {
   void shortCallerEncoder(
       ZapZapcoreEntryCaller caller, ZapZapcorePrimitiveArrayEncoder enc) {
     $callSync(
-        23033,
+        23039,
         $W()
           ..dto(caller)
           ..h(enc));
@@ -1976,7 +1976,7 @@ extension GoZapZapcoreApi on GoZapZapcore {
   /// Go: `func zapcore.StringDurationEncoder(d time.Duration, enc zapcore.PrimitiveArrayEncoder)`.
   void stringDurationEncoder(Duration d, ZapZapcorePrimitiveArrayEncoder enc) {
     $callSync(
-        23034,
+        23040,
         $W()
           ..i64((d).inMicroseconds * 1000)
           ..h(enc));
@@ -1984,7 +1984,7 @@ extension GoZapZapcoreApi on GoZapZapcore {
 
   /// Go: `func zapcore.TimeEncoderOfLayout(layout string) zapcore.TimeEncoder`.
   ZapZapcoreTimeEncoder timeEncoderOfLayout(String layout) {
-    final $r = $callSync(23038, $W()..str(layout));
+    final $r = $callSync(23044, $W()..str(layout));
     return $r.hnn(ZapZapcoreTimeEncoder.$h);
   }
 }
@@ -2142,7 +2142,7 @@ extension GoZapZapcoreOptionsApi on GoZapZapcoreOptions {
   Future<ZapZapcoreSamplerOption> samplerHook(
       FutureOr<void> Function(ZapZapcoreEntry entry, int dec) hook) async {
     final $r = await $call(
-        23031,
+        23037,
         $W()
           ..cb((r) => hook(r.p() ? ZapZapcoreEntry.$dec(r) : $nil(), r.i64()),
               true));

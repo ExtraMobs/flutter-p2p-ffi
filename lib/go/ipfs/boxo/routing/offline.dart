@@ -30,7 +30,7 @@ extension GoIpfsBoxoRoutingOfflineApi on GoIpfsBoxoRoutingOffline {
       $libp2p_record.Libp2pRecordValidator validator,
       [List<BoxoRoutingOfflineOption> opts = const []]) {
     final $r = $callSync(
-        10431,
+        10440,
         $W()
           ..h(dstore)
           ..h(validator)

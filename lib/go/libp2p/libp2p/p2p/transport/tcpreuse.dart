@@ -39,7 +39,7 @@ class Libp2pP2pTransportTcpreuseConnMgr extends $crypto.CryptoDecrypterOpts
   factory Libp2pP2pTransportTcpreuseConnMgr(
       bool enableReuseport, $transport.Libp2pCoreTransportUpgrader upgrader) {
     final $r = $callSync(
-        15044,
+        15050,
         $W()
           ..b(enableReuseport)
           ..h(upgrader));
@@ -50,7 +50,7 @@ class Libp2pP2pTransportTcpreuseConnMgr extends $crypto.CryptoDecrypterOpts
   $transport.Libp2pCoreTransportGatedMaListener demultiplexedListen(
       $multiaddr.Multiaddr laddr, int connType) {
     final $r = $callSync(
-        15041,
+        15047,
         $W()
           ..h(this)
           ..val(laddr)
@@ -64,7 +64,7 @@ class Libp2pP2pTransportTcpreuseConnMgr extends $crypto.CryptoDecrypterOpts
   Future<$net.MultiaddrNetConn> dialContext(
       $context.Context ctx, $multiaddr.Multiaddr raddr) async {
     final $r = await $call(
-        15042,
+        15048,
         $W()
           ..h(this)
           ..h(ctx)
@@ -87,13 +87,13 @@ extension GoLibp2pLibp2pP2pTransportTcpreuseApi
     on GoLibp2pLibp2pP2pTransportTcpreuse {
   /// Go: `var tcpreuse.EnvReuseportVal bool`.
   bool get envReuseportVal {
-    final $r = $callSync(15043);
+    final $r = $callSync(15049);
     return $r.b();
   }
 
   /// Go: `func tcpreuse.ReuseportIsAvailable() bool`.
   bool reuseportIsAvailable() {
-    final $r = $callSync(15045);
+    final $r = $callSync(15051);
     return $r.b();
   }
 }

@@ -45,7 +45,7 @@ class KuboThirdpartyVerifbsVerifBs extends $blockstore.BoxoBlockstore
   Future<$block_format.BlockFormatBlock> get(
       $context.Context ctx, $cid.Cid c) async {
     final $r = await $call(
-        11879,
+        11885,
         $W()
           ..h(this)
           ..h(ctx)
@@ -59,7 +59,7 @@ class KuboThirdpartyVerifbsVerifBs extends $blockstore.BoxoBlockstore
   Future<void> put(
       $context.Context ctx, $block_format.BlockFormatBlock b) async {
     await $call(
-        11880,
+        11886,
         $W()
           ..h(this)
           ..h(ctx)
@@ -72,7 +72,7 @@ class KuboThirdpartyVerifbsVerifBs extends $blockstore.BoxoBlockstore
   Future<void> putMany(
       $context.Context ctx, List<$block_format.BlockFormatBlock> blks) async {
     await $call(
-        11881,
+        11887,
         $W()
           ..h(this)
           ..h(ctx)
@@ -114,7 +114,7 @@ class KuboThirdpartyVerifbsVerifBsgc extends $blockstore.BoxoBlockstore
   Future<$block_format.BlockFormatBlock> get(
       $context.Context ctx, $cid.Cid c) async {
     final $r = await $call(
-        11882,
+        11888,
         $W()
           ..h(this)
           ..h(ctx)
@@ -128,7 +128,7 @@ class KuboThirdpartyVerifbsVerifBsgc extends $blockstore.BoxoBlockstore
   Future<void> put(
       $context.Context ctx, $block_format.BlockFormatBlock b) async {
     await $call(
-        11883,
+        11889,
         $W()
           ..h(this)
           ..h(ctx)
@@ -141,7 +141,7 @@ class KuboThirdpartyVerifbsVerifBsgc extends $blockstore.BoxoBlockstore
   Future<void> putMany(
       $context.Context ctx, List<$block_format.BlockFormatBlock> blks) async {
     await $call(
-        11884,
+        11890,
         $W()
           ..h(this)
           ..h(ctx)

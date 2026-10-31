@@ -23,7 +23,7 @@ mixin BoxoBitswapMessageBitSwapMessage$ on GoHandle {
   /// Go: `func (message.BitSwapMessage).AddBlock(blocks.Block)`.
   void addBlock($block_format.BlockFormatBlock block) {
     $callSync(
-        9151,
+        9160,
         $W()
           ..h(this)
           ..dto(block));
@@ -32,7 +32,7 @@ mixin BoxoBitswapMessageBitSwapMessage$ on GoHandle {
   /// Go: `func (message.BitSwapMessage).AddBlockPresence(cid.Cid, pb.Message_BlockPresenceType)`.
   void addBlockPresence($cid.Cid cid, int arg1) {
     $callSync(
-        9152,
+        9161,
         $W()
           ..h(this)
           ..val(cid)
@@ -42,7 +42,7 @@ mixin BoxoBitswapMessageBitSwapMessage$ on GoHandle {
   /// Go: `func (message.BitSwapMessage).AddDontHave(cid.Cid)`.
   void addDontHave($cid.Cid cid) {
     $callSync(
-        9153,
+        9162,
         $W()
           ..h(this)
           ..val(cid));
@@ -51,7 +51,7 @@ mixin BoxoBitswapMessageBitSwapMessage$ on GoHandle {
   /// Go: `func (message.BitSwapMessage).AddEntry(key cid.Cid, priority int32, wantType pb.Message_Wantlist_WantType, sendDontHave bool) int`.
   int addEntry($cid.Cid key, int priority, int wantType, bool sendDontHave) {
     final $r = $callSync(
-        9154,
+        9163,
         $W()
           ..h(this)
           ..val(key)
@@ -64,7 +64,7 @@ mixin BoxoBitswapMessageBitSwapMessage$ on GoHandle {
   /// Go: `func (message.BitSwapMessage).AddHave(cid.Cid)`.
   void addHave($cid.Cid cid) {
     $callSync(
-        9155,
+        9164,
         $W()
           ..h(this)
           ..val(cid));
@@ -72,14 +72,14 @@ mixin BoxoBitswapMessageBitSwapMessage$ on GoHandle {
 
   /// Go: `func (message.BitSwapMessage).BlockPresences() []message.BlockPresence`.
   List<BoxoBitswapMessageBlockPresence> blockPresences() {
-    final $r = $callSync(9156, $W()..h(this));
+    final $r = $callSync(9165, $W()..h(this));
     return $r
         .list(() => $r.p() ? BoxoBitswapMessageBlockPresence.$dec($r) : $nil());
   }
 
   /// Go: `func (message.BitSwapMessage).Blocks() []blocks.Block`.
   List<$block_format.BlockFormatBlock> blocks() {
-    final $r = $callSync(9157, $W()..h(this));
+    final $r = $callSync(9166, $W()..h(this));
     return $r
         .list(() => $r.p() ? $block_format.BlockFormatBlock.$dec($r) : $nil());
   }
@@ -87,7 +87,7 @@ mixin BoxoBitswapMessageBitSwapMessage$ on GoHandle {
   /// Go: `func (message.BitSwapMessage).Cancel(key cid.Cid) int`.
   int cancel($cid.Cid key) {
     final $r = $callSync(
-        9158,
+        9167,
         $W()
           ..h(this)
           ..val(key));
@@ -96,19 +96,19 @@ mixin BoxoBitswapMessageBitSwapMessage$ on GoHandle {
 
   /// Go: `func (message.BitSwapMessage).Clone() message.BitSwapMessage`.
   BoxoBitswapMessageBitSwapMessage clone() {
-    final $r = $callSync(9159, $W()..h(this));
+    final $r = $callSync(9168, $W()..h(this));
     return $r.hnn(BoxoBitswapMessageBitSwapMessage.$h);
   }
 
   /// Go: `func (message.BitSwapMessage).DontHaves() []cid.Cid`.
   List<$cid.Cid> dontHaves() {
-    final $r = $callSync(9160, $W()..h(this));
+    final $r = $callSync(9169, $W()..h(this));
     return $r.list(() => $r.p() ? $cid.Cid($r.str()) : $nil());
   }
 
   /// Go: `func (message.BitSwapMessage).Empty() bool`.
   bool empty() {
-    final $r = $callSync(9161, $W()..h(this));
+    final $r = $callSync(9170, $W()..h(this));
     return $r.b();
   }
 
@@ -116,7 +116,7 @@ mixin BoxoBitswapMessageBitSwapMessage$ on GoHandle {
   List<BoxoBitswapMessageEntry> fillWantlist(
       List<BoxoBitswapMessageEntry> entrys) {
     final $r = $callSync(
-        9162,
+        9171,
         $W()
           ..h(this)
           ..list(entrys, (w0, e0) => w0.dto(e0)));
@@ -125,32 +125,32 @@ mixin BoxoBitswapMessageBitSwapMessage$ on GoHandle {
 
   /// Go: `func (message.BitSwapMessage).Full() bool`.
   bool full() {
-    final $r = $callSync(9163, $W()..h(this));
+    final $r = $callSync(9172, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (message.BitSwapMessage).Haves() []cid.Cid`.
   List<$cid.Cid> haves() {
-    final $r = $callSync(9164, $W()..h(this));
+    final $r = $callSync(9173, $W()..h(this));
     return $r.list(() => $r.p() ? $cid.Cid($r.str()) : $nil());
   }
 
   /// Go: `func (message.BitSwapMessage).Loggable() map[string]any`.
   Map<String, Object?> loggable() {
-    final $r = $callSync(9165, $W()..h(this));
+    final $r = $callSync(9174, $W()..h(this));
     return $r.map(() => $r.str(), () => $r.any());
   }
 
   /// Go: `func (message.BitSwapMessage).PendingBytes() int32`.
   int pendingBytes() {
-    final $r = $callSync(9166, $W()..h(this));
+    final $r = $callSync(9175, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (message.BitSwapMessage).Remove(key cid.Cid)`.
   void remove($cid.Cid key) {
     $callSync(
-        9167,
+        9176,
         $W()
           ..h(this)
           ..val(key));
@@ -159,7 +159,7 @@ mixin BoxoBitswapMessageBitSwapMessage$ on GoHandle {
   /// Go: `func (message.BitSwapMessage).Reset(bool)`.
   void reset(bool arg0) {
     $callSync(
-        9168,
+        9177,
         $W()
           ..h(this)
           ..b(arg0));
@@ -168,7 +168,7 @@ mixin BoxoBitswapMessageBitSwapMessage$ on GoHandle {
   /// Go: `func (message.BitSwapMessage).SetPendingBytes(int32)`.
   void setPendingBytes(int arg0) {
     $callSync(
-        9169,
+        9178,
         $W()
           ..h(this)
           ..i64(arg0));
@@ -176,13 +176,13 @@ mixin BoxoBitswapMessageBitSwapMessage$ on GoHandle {
 
   /// Go: `func (message.BitSwapMessage).Size() int`.
   int size() {
-    final $r = $callSync(9170, $W()..h(this));
+    final $r = $callSync(9179, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (message.BitSwapMessage).Wantlist() []message.Entry`.
   List<BoxoBitswapMessageEntry> wantlist() {
-    final $r = $callSync(9171, $W()..h(this));
+    final $r = $callSync(9180, $W()..h(this));
     return $r.list(() => $r.p() ? BoxoBitswapMessageEntry.$dec($r) : $nil());
   }
 }
@@ -245,13 +245,13 @@ final class BoxoBitswapMessageEntry implements GoDto {
 
   /// Go: `func (*message.Entry).Size() int`.
   int size() {
-    final $r = $callSync(9173, $W()..dto(this));
+    final $r = $callSync(9182, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*message.Entry).ToPB() *pb.Message_Wantlist_Entry`.
   $pb.BoxoBitswapMessagePbMessageWantlistEntry toPb() {
-    final $r = $callSync(9174, $W()..dto(this));
+    final $r = $callSync(9183, $W()..dto(this));
     return $r.hnn($pb.BoxoBitswapMessagePbMessageWantlistEntry.$h);
   }
 }
@@ -267,7 +267,7 @@ mixin BoxoBitswapMessageExportable$ on GoHandle {
   /// Go: `func (message.Exportable).ToNetV0(w io.Writer) error`.
   void toNetV0(GoHandle? w) {
     $callSync(
-        9175,
+        9184,
         $W()
           ..h(this)
           ..h(w));
@@ -276,7 +276,7 @@ mixin BoxoBitswapMessageExportable$ on GoHandle {
   /// Go: `func (message.Exportable).ToNetV1(w io.Writer) error`.
   void toNetV1(GoHandle? w) {
     $callSync(
-        9176,
+        9185,
         $W()
           ..h(this)
           ..h(w));
@@ -284,19 +284,19 @@ mixin BoxoBitswapMessageExportable$ on GoHandle {
 
   /// Go: `func (message.Exportable).ToProtoV0() *pb.Message`.
   $pb.BoxoBitswapMessagePbMessage toProtoV0() {
-    final $r = $callSync(9177, $W()..h(this));
+    final $r = $callSync(9186, $W()..h(this));
     return $r.hnn($pb.BoxoBitswapMessagePbMessage.$h);
   }
 
   /// Go: `func (message.Exportable).ToProtoV1() *pb.Message`.
   $pb.BoxoBitswapMessagePbMessage toProtoV1() {
-    final $r = $callSync(9178, $W()..h(this));
+    final $r = $callSync(9187, $W()..h(this));
     return $r.hnn($pb.BoxoBitswapMessagePbMessage.$h);
   }
 
   /// Go: type assertion `x.(message.BitSwapMessage)`: null if the object is not one.
   BoxoBitswapMessageBitSwapMessage? asBoxoBitswapMessageBitSwapMessage() {
-    final $r = $callSync(894, $W()..h(this));
+    final $r = $callSync(897, $W()..h(this));
     return $r.hn(BoxoBitswapMessageBitSwapMessage.$h);
   }
 }
@@ -305,19 +305,19 @@ mixin BoxoBitswapMessageExportable$ on GoHandle {
 extension GoIpfsBoxoBitswapMessageApi on GoIpfsBoxoBitswapMessage {
   /// Go: `func message.BlockPresenceSize(c cid.Cid) int`.
   int blockPresenceSize($cid.Cid c) {
-    final $r = $callSync(9172, $W()..val(c));
+    final $r = $callSync(9181, $W()..val(c));
     return $r.i64();
   }
 
   /// Go: `func message.FromMsgReader(r msgio.Reader) (message.BitSwapMessage, int, error)`.
   (BoxoBitswapMessageBitSwapMessage, int) fromMsgReader($msgio.MsgioReader r) {
-    final $r = $callSync(9179, $W()..h(r));
+    final $r = $callSync(9188, $W()..h(r));
     return ($r.hnn(BoxoBitswapMessageBitSwapMessage.$h), $r.i64());
   }
 
   /// Go: `func message.FromNet(r io.Reader) (message.BitSwapMessage, int, error)`.
   (BoxoBitswapMessageBitSwapMessage, int) fromNet(Object r) {
-    final $r = $callSync(9180, $W()..reader(r));
+    final $r = $callSync(9189, $W()..reader(r));
     return ($r.hnn(BoxoBitswapMessageBitSwapMessage.$h), $r.i64());
   }
 
@@ -325,7 +325,7 @@ extension GoIpfsBoxoBitswapMessageApi on GoIpfsBoxoBitswapMessage {
   $block_format.BlockFormatBlock newWantlistBlock(
       Uint8List bs, $cid.Cid c, $cid.CidPrefix prefix) {
     final $r = $callSync(
-        9181,
+        9190,
         $W()
           ..bytes(bs)
           ..val(c)

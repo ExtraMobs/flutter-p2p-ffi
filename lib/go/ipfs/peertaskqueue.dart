@@ -55,7 +55,7 @@ class PeertaskqueuePeerTaskQueue extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*peertaskqueue.PeerTaskQueue).Clear(p peer.ID)`.
   void clear($peer.Libp2pCorePeerId p) {
     $callSync(
-        11132,
+        11138,
         $W()
           ..h(this)
           ..val(p));
@@ -63,13 +63,13 @@ class PeertaskqueuePeerTaskQueue extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*peertaskqueue.PeerTaskQueue).FullThaw()`.
   void fullThaw() {
-    $callSync(11133, $W()..h(this));
+    $callSync(11139, $W()..h(this));
   }
 
   /// Go: `func (*peertaskqueue.PeerTaskQueue).Options(options ...peertaskqueue.Option) peertaskqueue.Option`.
   PeertaskqueueOption options([List<PeertaskqueueOption> options = const []]) {
     final $r = $callSync(
-        11134,
+        11140,
         $W()
           ..h(this)
           ..list(options, (w0, e0) => w0.h(e0)));
@@ -80,7 +80,7 @@ class PeertaskqueuePeerTaskQueue extends $crypto.CryptoDecrypterOpts
   $peertracker.PeertaskqueuePeertrackerPeerTrackerTopics peerTopics(
       $peer.Libp2pCorePeerId p) {
     final $r = $callSync(
-        11135,
+        11141,
         $W()
           ..h(this)
           ..val(p));
@@ -93,7 +93,7 @@ class PeertaskqueuePeerTaskQueue extends $crypto.CryptoDecrypterOpts
   ($peer.Libp2pCorePeerId, List<$peertask.PeertaskqueuePeertaskTask>, int)
       popTasks(int targetMinWork) {
     final $r = $callSync(
-        11136,
+        11142,
         $W()
           ..h(this)
           ..i64(targetMinWork));
@@ -109,7 +109,7 @@ class PeertaskqueuePeerTaskQueue extends $crypto.CryptoDecrypterOpts
   void pushTasks($peer.Libp2pCorePeerId to,
       [List<$peertask.PeertaskqueuePeertaskTask> tasks = const []]) {
     $callSync(
-        11137,
+        11143,
         $W()
           ..h(this)
           ..val(to)
@@ -120,7 +120,7 @@ class PeertaskqueuePeerTaskQueue extends $crypto.CryptoDecrypterOpts
   void pushTasksTruncated(int n, $peer.Libp2pCorePeerId to,
       [List<$peertask.PeertaskqueuePeertaskTask> tasks = const []]) {
     $callSync(
-        11138,
+        11144,
         $W()
           ..h(this)
           ..i64(n)
@@ -132,7 +132,7 @@ class PeertaskqueuePeerTaskQueue extends $crypto.CryptoDecrypterOpts
   void remove(
       $peertask.PeertaskqueuePeertaskTopic topic, $peer.Libp2pCorePeerId p) {
     $callSync(
-        11139,
+        11145,
         $W()
           ..h(this)
           ..h(topic)
@@ -141,7 +141,7 @@ class PeertaskqueuePeerTaskQueue extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*peertaskqueue.PeerTaskQueue).Stats() *peertaskqueue.PeerTaskQueueStats`.
   PeertaskqueuePeerTaskQueueStats stats() {
-    final $r = $callSync(11140, $W()..h(this));
+    final $r = $callSync(11146, $W()..h(this));
     return $r.p() ? PeertaskqueuePeerTaskQueueStats.$dec($r) : $nil();
   }
 
@@ -149,7 +149,7 @@ class PeertaskqueuePeerTaskQueue extends $crypto.CryptoDecrypterOpts
   void tasksDone($peer.Libp2pCorePeerId to,
       [List<$peertask.PeertaskqueuePeertaskTask> tasks = const []]) {
     $callSync(
-        11141,
+        11147,
         $W()
           ..h(this)
           ..val(to)
@@ -158,7 +158,7 @@ class PeertaskqueuePeerTaskQueue extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*peertaskqueue.PeerTaskQueue).ThawRound()`.
   void thawRound() {
-    $callSync(11142, $W()..h(this));
+    $callSync(11148, $W()..h(this));
   }
 }
 
@@ -198,7 +198,7 @@ extension GoIpfsPeertaskqueueApi on GoIpfsPeertaskqueue {
   /// Go: `func peertaskqueue.New(options ...peertaskqueue.Option) *peertaskqueue.PeerTaskQueue`.
   PeertaskqueuePeerTaskQueue new$(
       [List<PeertaskqueueOption> options = const []]) {
-    final $r = $callSync(11128, $W()..list(options, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(11134, $W()..list(options, (w0, e0) => w0.h(e0)));
     return $r.hnn(PeertaskqueuePeerTaskQueue.$h);
   }
 }
@@ -207,13 +207,13 @@ extension GoIpfsPeertaskqueueApi on GoIpfsPeertaskqueue {
 extension GoIpfsPeertaskqueueOptionsApi on GoIpfsPeertaskqueueOptions {
   /// Go: `func peertaskqueue.IgnoreFreezing(ignoreFreezing bool) peertaskqueue.Option`.
   PeertaskqueueOption ignoreFreezing(bool ignoreFreezing) {
-    final $r = $callSync(11126, $W()..b(ignoreFreezing));
+    final $r = $callSync(11132, $W()..b(ignoreFreezing));
     return $r.hnn(PeertaskqueueOption.$h);
   }
 
   /// Go: `func peertaskqueue.MaxOutstandingWorkPerPeer(count int) peertaskqueue.Option`.
   PeertaskqueueOption maxOutstandingWorkPerPeer(int count) {
-    final $r = $callSync(11127, $W()..i64(count));
+    final $r = $callSync(11133, $W()..i64(count));
     return $r.hnn(PeertaskqueueOption.$h);
   }
 
@@ -227,7 +227,7 @@ extension GoIpfsPeertaskqueueOptionsApi on GoIpfsPeertaskqueueOptions {
   Future<PeertaskqueueOption> onPeerAddedHook(
       FutureOr<void> Function($peer.Libp2pCorePeerId p) onPeerAddedHook) async {
     final $r = await $call(
-        11129,
+        11135,
         $W()
           ..cb(
               (r) => onPeerAddedHook(
@@ -247,7 +247,7 @@ extension GoIpfsPeertaskqueueOptionsApi on GoIpfsPeertaskqueueOptions {
       FutureOr<void> Function($peer.Libp2pCorePeerId p)
           onPeerRemovedHook) async {
     final $r = await $call(
-        11130,
+        11136,
         $W()
           ..cb(
               (r) => onPeerRemovedHook(
@@ -269,7 +269,7 @@ extension GoIpfsPeertaskqueueOptionsApi on GoIpfsPeertaskqueueOptions {
               $peertracker.PeertaskqueuePeertrackerPeerTracker b)
           pc) async {
     final $r = await $call(
-        11131,
+        11137,
         $W()
           ..cb(
               (r) => pc(
@@ -291,7 +291,7 @@ extension GoIpfsPeertaskqueueOptionsApi on GoIpfsPeertaskqueueOptions {
               $peertask.PeertaskqueuePeertaskQueueTask b)
           tc) async {
     final $r = await $call(
-        11143,
+        11149,
         $W()
           ..cb(
               (r) => tc(r.hnn($peertask.PeertaskqueuePeertaskQueueTask.$h),
@@ -303,7 +303,7 @@ extension GoIpfsPeertaskqueueOptionsApi on GoIpfsPeertaskqueueOptions {
   /// Go: `func peertaskqueue.TaskMerger(tmfp peertracker.TaskMerger) peertaskqueue.Option`.
   PeertaskqueueOption taskMerger(
       $peertracker.PeertaskqueuePeertrackerTaskMerger tmfp) {
-    final $r = $callSync(11144, $W()..h(tmfp));
+    final $r = $callSync(11150, $W()..h(tmfp));
     return $r.hnn(PeertaskqueueOption.$h);
   }
 }

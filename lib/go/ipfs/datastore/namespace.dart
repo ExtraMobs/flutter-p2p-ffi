@@ -12,7 +12,7 @@ extension GoIpfsDatastoreNamespaceApi on GoIpfsDatastoreNamespace {
   /// Go: `func namespace.PrefixTransform(prefix datastore.Key) keytransform.PrefixTransform`.
   $keytransform.DatastoreKeytransformPrefixTransform prefixTransform(
       $datastore.DatastoreKey prefix) {
-    final $r = $callSync(10670, $W()..h(prefix));
+    final $r = $callSync(10679, $W()..h(prefix));
     return $r.p()
         ? $keytransform.DatastoreKeytransformPrefixTransform.$dec($r)
         : $nil();
@@ -22,7 +22,7 @@ extension GoIpfsDatastoreNamespaceApi on GoIpfsDatastoreNamespace {
   $keytransform.DatastoreKeytransformDatastore wrap(
       $datastore.Datastore child, $datastore.DatastoreKey prefix) {
     final $r = $callSync(
-        10671,
+        10680,
         $W()
           ..h(child)
           ..h(prefix));

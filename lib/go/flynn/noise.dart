@@ -25,7 +25,7 @@ mixin NoiseCipher$ on GoHandle {
   /// Go: `func (noise.Cipher).Decrypt(out []byte, n uint64, ad []byte, ciphertext []byte) ([]byte, error)`.
   Uint8List decrypt(Uint8List out, int n, Uint8List ad, Uint8List ciphertext) {
     final $r = $callSync(
-        6353,
+        6362,
         $W()
           ..h(this)
           ..bytes(out)
@@ -38,7 +38,7 @@ mixin NoiseCipher$ on GoHandle {
   /// Go: `func (noise.Cipher).Encrypt(out []byte, n uint64, ad []byte, plaintext []byte) []byte`.
   Uint8List encrypt(Uint8List out, int n, Uint8List ad, Uint8List plaintext) {
     final $r = $callSync(
-        6354,
+        6363,
         $W()
           ..h(this)
           ..bytes(out)
@@ -58,13 +58,13 @@ class NoiseCipherFunc extends GoHandle with NoiseCipherFunc$ {
 mixin NoiseCipherFunc$ on GoHandle {
   /// Go: `func (noise.CipherFunc).CipherName() string`.
   String cipherName() {
-    final $r = $callSync(6357, $W()..h(this));
+    final $r = $callSync(6366, $W()..h(this));
     return $r.str();
   }
 
   /// Go: type assertion `x.(noise.CipherSuite)`: null if the object is not one.
   NoiseCipherSuite? asNoiseCipherSuite() {
-    final $r = $callSync(441, $W()..h(this));
+    final $r = $callSync(444, $W()..h(this));
     return $r.hn(NoiseCipherSuite.$h);
   }
 }
@@ -89,14 +89,14 @@ class NoiseCipherState extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*noise.CipherState).Cipher() noise.Cipher`.
   NoiseCipher cipher() {
-    final $r = $callSync(6358, $W()..h(this));
+    final $r = $callSync(6367, $W()..h(this));
     return $r.hnn(NoiseCipher.$h);
   }
 
   /// Go: `func (*noise.CipherState).Decrypt(out []byte, ad []byte, ciphertext []byte) ([]byte, error)`.
   Uint8List decrypt(Uint8List out, Uint8List ad, Uint8List ciphertext) {
     final $r = $callSync(
-        6359,
+        6368,
         $W()
           ..h(this)
           ..bytes(out)
@@ -108,7 +108,7 @@ class NoiseCipherState extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*noise.CipherState).Encrypt(out []byte, ad []byte, plaintext []byte) ([]byte, error)`.
   Uint8List encrypt(Uint8List out, Uint8List ad, Uint8List plaintext) {
     final $r = $callSync(
-        6360,
+        6369,
         $W()
           ..h(this)
           ..bytes(out)
@@ -119,19 +119,19 @@ class NoiseCipherState extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*noise.CipherState).Nonce() uint64`.
   int nonce() {
-    final $r = $callSync(6361, $W()..h(this));
+    final $r = $callSync(6370, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*noise.CipherState).Rekey()`.
   void rekey() {
-    $callSync(6362, $W()..h(this));
+    $callSync(6371, $W()..h(this));
   }
 
   /// Go: `func (*noise.CipherState).SetNonce(n uint64)`.
   void setNonce(int n) {
     $callSync(
-        6363,
+        6372,
         $W()
           ..h(this)
           ..i64(n));
@@ -147,7 +147,7 @@ class NoiseCipherSuite extends NoiseDhFunc
   /// Go: `func noise.NewCipherSuite(dh noise.DHFunc, c noise.CipherFunc, h noise.HashFunc) noise.CipherSuite`.
   factory NoiseCipherSuite(NoiseDhFunc dh, NoiseCipherFunc c, NoiseHashFunc h) {
     final $r = $callSync(
-        6400,
+        6409,
         $W()
           ..h(dh)
           ..h(c)
@@ -160,7 +160,7 @@ class NoiseCipherSuite extends NoiseDhFunc
 mixin NoiseCipherSuite$ on GoHandle {
   /// Go: `func (noise.CipherSuite).Name() []byte`.
   Uint8List name() {
-    final $r = $callSync(6364, $W()..h(this));
+    final $r = $callSync(6373, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 }
@@ -264,7 +264,7 @@ mixin NoiseDhFunc$ on GoHandle {
   /// Go: `func (noise.DHFunc).DH(privkey []byte, pubkey []byte) ([]byte, error)`.
   Uint8List dh(Uint8List privkey, Uint8List pubkey) {
     final $r = $callSync(
-        6366,
+        6375,
         $W()
           ..h(this)
           ..bytes(privkey)
@@ -274,20 +274,20 @@ mixin NoiseDhFunc$ on GoHandle {
 
   /// Go: `func (noise.DHFunc).DHLen() int`.
   int dhLen() {
-    final $r = $callSync(6367, $W()..h(this));
+    final $r = $callSync(6376, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (noise.DHFunc).DHName() string`.
   String dhName() {
-    final $r = $callSync(6368, $W()..h(this));
+    final $r = $callSync(6377, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (noise.DHFunc).GenerateKeypair(random io.Reader) (noise.DHKey, error)`.
   NoiseDhKey generateKeypair(Object random) {
     final $r = $callSync(
-        6369,
+        6378,
         $W()
           ..h(this)
           ..reader(random));
@@ -296,7 +296,7 @@ mixin NoiseDhFunc$ on GoHandle {
 
   /// Go: type assertion `x.(noise.CipherSuite)`: null if the object is not one.
   NoiseCipherSuite? asNoiseCipherSuite() {
-    final $r = $callSync(442, $W()..h(this));
+    final $r = $callSync(445, $W()..h(this));
     return $r.hn(NoiseCipherSuite.$h);
   }
 }
@@ -385,37 +385,37 @@ class NoiseHandshakeState extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func noise.NewHandshakeState(c noise.Config) (*noise.HandshakeState, error)`.
   factory NoiseHandshakeState(NoiseConfig c) {
-    final $r = $callSync(6401, $W()..dto(c));
+    final $r = $callSync(6410, $W()..dto(c));
     return $r.hnn(NoiseHandshakeState.$h);
   }
 
   /// Go: `func (*noise.HandshakeState).ChannelBinding() []byte`.
   Uint8List channelBinding() {
-    final $r = $callSync(6381, $W()..h(this));
+    final $r = $callSync(6390, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*noise.HandshakeState).LocalEphemeral() noise.DHKey`.
   NoiseDhKey localEphemeral() {
-    final $r = $callSync(6382, $W()..h(this));
+    final $r = $callSync(6391, $W()..h(this));
     return $r.p() ? NoiseDhKey.$dec($r) : $nil();
   }
 
   /// Go: `func (*noise.HandshakeState).MessageIndex() int`.
   int messageIndex() {
-    final $r = $callSync(6383, $W()..h(this));
+    final $r = $callSync(6392, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*noise.HandshakeState).PeerEphemeral() []byte`.
   Uint8List peerEphemeral() {
-    final $r = $callSync(6384, $W()..h(this));
+    final $r = $callSync(6393, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*noise.HandshakeState).PeerStatic() []byte`.
   Uint8List peerStatic() {
-    final $r = $callSync(6385, $W()..h(this));
+    final $r = $callSync(6394, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
@@ -423,7 +423,7 @@ class NoiseHandshakeState extends $crypto.CryptoDecrypterOpts
   (Uint8List, NoiseCipherState, NoiseCipherState) readMessage(
       Uint8List out, Uint8List message) {
     final $r = $callSync(
-        6386,
+        6395,
         $W()
           ..h(this)
           ..bytes(out)
@@ -438,7 +438,7 @@ class NoiseHandshakeState extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*noise.HandshakeState).SetPresharedKey(psk []byte) error`.
   void setPresharedKey(Uint8List psk) {
     $callSync(
-        6387,
+        6396,
         $W()
           ..h(this)
           ..bytes(psk));
@@ -448,7 +448,7 @@ class NoiseHandshakeState extends $crypto.CryptoDecrypterOpts
   (Uint8List, NoiseCipherState, NoiseCipherState) writeMessage(
       Uint8List out, Uint8List payload) {
     final $r = $callSync(
-        6388,
+        6397,
         $W()
           ..h(this)
           ..bytes(out)
@@ -470,19 +470,19 @@ class NoiseHashFunc extends GoHandle with NoiseHashFunc$ {
 mixin NoiseHashFunc$ on GoHandle {
   /// Go: `func (noise.HashFunc).Hash() hash.Hash`.
   $hash.Hash hash() {
-    final $r = $callSync(6396, $W()..h(this));
+    final $r = $callSync(6405, $W()..h(this));
     return $r.hnn($hash.Hash.$h);
   }
 
   /// Go: `func (noise.HashFunc).HashName() string`.
   String hashName() {
-    final $r = $callSync(6397, $W()..h(this));
+    final $r = $callSync(6406, $W()..h(this));
     return $r.str();
   }
 
   /// Go: type assertion `x.(noise.CipherSuite)`: null if the object is not one.
   NoiseCipherSuite? asNoiseCipherSuite() {
-    final $r = $callSync(443, $W()..h(this));
+    final $r = $callSync(446, $W()..h(this));
     return $r.hn(NoiseCipherSuite.$h);
   }
 }
@@ -518,139 +518,139 @@ class NoiseErrShortMessage extends GolangException {
 extension GoFlynnNoiseApi on GoFlynnNoise {
   /// Go: `var noise.CipherAESGCM noise.CipherFunc`.
   NoiseCipherFunc get cipherAesgcm {
-    final $r = $callSync(6355);
+    final $r = $callSync(6364);
     return $r.hnn(NoiseCipherFunc.$h);
   }
 
   /// Go: `var noise.CipherChaChaPoly noise.CipherFunc`.
   NoiseCipherFunc get cipherChaChaPoly {
-    final $r = $callSync(6356);
+    final $r = $callSync(6365);
     return $r.hnn(NoiseCipherFunc.$h);
   }
 
   /// Go: `var noise.DH25519 noise.DHFunc`.
   NoiseDhFunc get dh25519 {
-    final $r = $callSync(6365);
+    final $r = $callSync(6374);
     return $r.hnn(NoiseDhFunc.$h);
   }
 
   /// Go: `var noise.HandshakeIK noise.HandshakePattern`.
   NoiseHandshakePattern get handshakeIk {
-    final $r = $callSync(6370);
+    final $r = $callSync(6379);
     return $r.p() ? NoiseHandshakePattern.$dec($r) : $nil();
   }
 
   /// Go: `var noise.HandshakeIN noise.HandshakePattern`.
   NoiseHandshakePattern get handshakeIn {
-    final $r = $callSync(6371);
+    final $r = $callSync(6380);
     return $r.p() ? NoiseHandshakePattern.$dec($r) : $nil();
   }
 
   /// Go: `var noise.HandshakeIX noise.HandshakePattern`.
   NoiseHandshakePattern get handshakeIx {
-    final $r = $callSync(6372);
+    final $r = $callSync(6381);
     return $r.p() ? NoiseHandshakePattern.$dec($r) : $nil();
   }
 
   /// Go: `var noise.HandshakeK noise.HandshakePattern`.
   NoiseHandshakePattern get handshakeK {
-    final $r = $callSync(6373);
+    final $r = $callSync(6382);
     return $r.p() ? NoiseHandshakePattern.$dec($r) : $nil();
   }
 
   /// Go: `var noise.HandshakeKK noise.HandshakePattern`.
   NoiseHandshakePattern get handshakeKk {
-    final $r = $callSync(6374);
+    final $r = $callSync(6383);
     return $r.p() ? NoiseHandshakePattern.$dec($r) : $nil();
   }
 
   /// Go: `var noise.HandshakeKN noise.HandshakePattern`.
   NoiseHandshakePattern get handshakeKn {
-    final $r = $callSync(6375);
+    final $r = $callSync(6384);
     return $r.p() ? NoiseHandshakePattern.$dec($r) : $nil();
   }
 
   /// Go: `var noise.HandshakeKX noise.HandshakePattern`.
   NoiseHandshakePattern get handshakeKx {
-    final $r = $callSync(6376);
+    final $r = $callSync(6385);
     return $r.p() ? NoiseHandshakePattern.$dec($r) : $nil();
   }
 
   /// Go: `var noise.HandshakeN noise.HandshakePattern`.
   NoiseHandshakePattern get handshakeN {
-    final $r = $callSync(6377);
+    final $r = $callSync(6386);
     return $r.p() ? NoiseHandshakePattern.$dec($r) : $nil();
   }
 
   /// Go: `var noise.HandshakeNK noise.HandshakePattern`.
   NoiseHandshakePattern get handshakeNk {
-    final $r = $callSync(6378);
+    final $r = $callSync(6387);
     return $r.p() ? NoiseHandshakePattern.$dec($r) : $nil();
   }
 
   /// Go: `var noise.HandshakeNN noise.HandshakePattern`.
   NoiseHandshakePattern get handshakeNn {
-    final $r = $callSync(6379);
+    final $r = $callSync(6388);
     return $r.p() ? NoiseHandshakePattern.$dec($r) : $nil();
   }
 
   /// Go: `var noise.HandshakeNX noise.HandshakePattern`.
   NoiseHandshakePattern get handshakeNx {
-    final $r = $callSync(6380);
+    final $r = $callSync(6389);
     return $r.p() ? NoiseHandshakePattern.$dec($r) : $nil();
   }
 
   /// Go: `var noise.HandshakeX noise.HandshakePattern`.
   NoiseHandshakePattern get handshakeX {
-    final $r = $callSync(6389);
+    final $r = $callSync(6398);
     return $r.p() ? NoiseHandshakePattern.$dec($r) : $nil();
   }
 
   /// Go: `var noise.HandshakeXK noise.HandshakePattern`.
   NoiseHandshakePattern get handshakeXk {
-    final $r = $callSync(6390);
+    final $r = $callSync(6399);
     return $r.p() ? NoiseHandshakePattern.$dec($r) : $nil();
   }
 
   /// Go: `var noise.HandshakeXN noise.HandshakePattern`.
   NoiseHandshakePattern get handshakeXn {
-    final $r = $callSync(6391);
+    final $r = $callSync(6400);
     return $r.p() ? NoiseHandshakePattern.$dec($r) : $nil();
   }
 
   /// Go: `var noise.HandshakeXX noise.HandshakePattern`.
   NoiseHandshakePattern get handshakeXx {
-    final $r = $callSync(6392);
+    final $r = $callSync(6401);
     return $r.p() ? NoiseHandshakePattern.$dec($r) : $nil();
   }
 
   /// Go: `var noise.HandshakeXXfallback noise.HandshakePattern`.
   NoiseHandshakePattern get handshakeXXfallback {
-    final $r = $callSync(6393);
+    final $r = $callSync(6402);
     return $r.p() ? NoiseHandshakePattern.$dec($r) : $nil();
   }
 
   /// Go: `var noise.HashBLAKE2b noise.HashFunc`.
   NoiseHashFunc get hashBlake2b {
-    final $r = $callSync(6394);
+    final $r = $callSync(6403);
     return $r.hnn(NoiseHashFunc.$h);
   }
 
   /// Go: `var noise.HashBLAKE2s noise.HashFunc`.
   NoiseHashFunc get hashBlake2s {
-    final $r = $callSync(6395);
+    final $r = $callSync(6404);
     return $r.hnn(NoiseHashFunc.$h);
   }
 
   /// Go: `var noise.HashSHA256 noise.HashFunc`.
   NoiseHashFunc get hashSha256 {
-    final $r = $callSync(6398);
+    final $r = $callSync(6407);
     return $r.hnn(NoiseHashFunc.$h);
   }
 
   /// Go: `var noise.HashSHA512 noise.HashFunc`.
   NoiseHashFunc get hashSha512 {
-    final $r = $callSync(6399);
+    final $r = $callSync(6408);
     return $r.hnn(NoiseHashFunc.$h);
   }
 }

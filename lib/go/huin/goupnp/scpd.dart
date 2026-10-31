@@ -31,13 +31,13 @@ final class GoupnpScpdAction implements GoDto {
 
   /// Go: `func (*scpd.Action).InputArguments() []*scpd.Argument`.
   List<GoupnpScpdArgument> inputArguments() {
-    final $r = $callSync(8945, $W()..dto(this));
+    final $r = $callSync(8954, $W()..dto(this));
     return $r.list(() => $r.p() ? GoupnpScpdArgument.$dec($r) : $nil());
   }
 
   /// Go: `func (*scpd.Action).OutputArguments() []*scpd.Argument`.
   List<GoupnpScpdArgument> outputArguments() {
-    final $r = $callSync(8946, $W()..dto(this));
+    final $r = $callSync(8955, $W()..dto(this));
     return $r.list(() => $r.p() ? GoupnpScpdArgument.$dec($r) : $nil());
   }
 }
@@ -113,13 +113,13 @@ final class GoupnpScpdArgument implements GoDto {
 
   /// Go: `func (*scpd.Argument).IsInput() bool`.
   bool isInput() {
-    final $r = $callSync(8947, $W()..dto(this));
+    final $r = $callSync(8956, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*scpd.Argument).IsOutput() bool`.
   bool isOutput() {
-    final $r = $callSync(8948, $W()..dto(this));
+    final $r = $callSync(8957, $W()..dto(this));
     return $r.b();
   }
 }
@@ -197,13 +197,13 @@ final class GoupnpScpd implements GoDto {
 
   /// Go: `func (*scpd.SCPD).Clean()`.
   void clean() {
-    $callSync(8949, $W()..dto(this));
+    $callSync(8958, $W()..dto(this));
   }
 
   /// Go: `func (*scpd.SCPD).GetAction(action string) *scpd.Action`.
   GoupnpScpdAction getAction(String action) {
     final $r = $callSync(
-        8950,
+        8959,
         $W()
           ..dto(this)
           ..str(action));
@@ -213,7 +213,7 @@ final class GoupnpScpd implements GoDto {
   /// Go: `func (*scpd.SCPD).GetStateVariable(variable string) *scpd.StateVariable`.
   GoupnpScpdStateVariable getStateVariable(String variable) {
     final $r = $callSync(
-        8951,
+        8960,
         $W()
           ..dto(this)
           ..str(variable));
@@ -222,7 +222,7 @@ final class GoupnpScpd implements GoDto {
 
   /// Go: `func (*scpd.SCPD).OrderedActions() []scpd.Action`.
   List<GoupnpScpdAction> orderedActions() {
-    final $r = $callSync(8952, $W()..dto(this));
+    final $r = $callSync(8961, $W()..dto(this));
     return $r.list(() => $r.p() ? GoupnpScpdAction.$dec($r) : $nil());
   }
 }

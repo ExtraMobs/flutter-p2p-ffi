@@ -33,7 +33,7 @@ class LogtagsBuffer extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*logtags.Buffer).Add(key string, value interface{}) *logtags.Buffer`.
   LogtagsBuffer add(String key, Object? value) {
     final $r = $callSync(
-        4605,
+        4614,
         $W()
           ..h(this)
           ..str(key)
@@ -44,7 +44,7 @@ class LogtagsBuffer extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*logtags.Buffer).FormatToString(buf *strings.Builder)`.
   void formatToString($strings.StringsBuilder buf) {
     $callSync(
-        4606,
+        4615,
         $W()
           ..h(this)
           ..h(buf));
@@ -52,14 +52,14 @@ class LogtagsBuffer extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*logtags.Buffer).Get() []logtags.Tag`.
   List<LogtagsTag> get() {
-    final $r = $callSync(4607, $W()..h(this));
+    final $r = $callSync(4616, $W()..h(this));
     return $r.list(() => $r.hnn(LogtagsTag.$h));
   }
 
   /// Go: `func (*logtags.Buffer).GetTag(key string) (logtags.Tag, bool)`.
   (LogtagsTag, bool) getTag(String key) {
     final $r = $callSync(
-        4608,
+        4617,
         $W()
           ..h(this)
           ..str(key));
@@ -69,7 +69,7 @@ class LogtagsBuffer extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*logtags.Buffer).Merge(other *logtags.Buffer) *logtags.Buffer`.
   LogtagsBuffer merge(LogtagsBuffer other) {
     final $r = $callSync(
-        4609,
+        4618,
         $W()
           ..h(this)
           ..h(other));
@@ -79,7 +79,7 @@ class LogtagsBuffer extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*logtags.Buffer).Remove(key string) (*logtags.Buffer, bool)`.
   (LogtagsBuffer, bool) remove(String key) {
     final $r = $callSync(
-        4610,
+        4619,
         $W()
           ..h(this)
           ..str(key));
@@ -88,7 +88,7 @@ class LogtagsBuffer extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*logtags.Buffer).String() string`.
   String string() {
-    final $r = $callSync(4611, $W()..h(this));
+    final $r = $callSync(4620, $W()..h(this));
     return $r.str();
   }
 }
@@ -113,19 +113,19 @@ class LogtagsTag extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*logtags.Tag).Key() string`.
   String key() {
-    final $r = $callSync(4614, $W()..h(this));
+    final $r = $callSync(4623, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*logtags.Tag).Value() interface{}`.
   Object? value$() {
-    final $r = $callSync(4615, $W()..h(this));
+    final $r = $callSync(4624, $W()..h(this));
     return $r.any();
   }
 
   /// Go: `func (*logtags.Tag).ValueStr() string`.
   String valueStr() {
-    final $r = $callSync(4616, $W()..h(this));
+    final $r = $callSync(4625, $W()..h(this));
     return $r.str();
   }
 }
@@ -136,14 +136,14 @@ extension GoCockroachdbLogtagsApi on GoCockroachdbLogtags {
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<LogtagsBuffer> fromContext($context.Context ctx) async {
-    final $r = await $call(4612, $W()..h(ctx));
+    final $r = await $call(4621, $W()..h(ctx));
     return $r.hnn(LogtagsBuffer.$h);
   }
 
   /// Go: `func logtags.SingleTagBuffer(key string, value interface{}) *logtags.Buffer`.
   LogtagsBuffer singleTagBuffer(String key, Object? value) {
     final $r = $callSync(
-        4613,
+        4622,
         $W()
           ..str(key)
           ..any(value));

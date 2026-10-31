@@ -18,14 +18,14 @@ class SortInterface extends GoHandle with SortInterface$ {
 mixin SortInterface$ on GoHandle {
   /// Go: `func (sort.Interface).Len() int`.
   int len() {
-    final $r = $callSync(27192, $W()..h(this));
+    final $r = $callSync(27193, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (sort.Interface).Less(i int, j int) bool`.
   bool less(int i, int j) {
     final $r = $callSync(
-        27193,
+        27194,
         $W()
           ..h(this)
           ..i64(i)
@@ -36,7 +36,7 @@ mixin SortInterface$ on GoHandle {
   /// Go: `func (sort.Interface).Swap(i int, j int)`.
   void swap(int i, int j) {
     $callSync(
-        27194,
+        27195,
         $W()
           ..h(this)
           ..i64(i)
@@ -45,13 +45,13 @@ mixin SortInterface$ on GoHandle {
 
   /// Go: type assertion `x.(*proto.StructProperties)`: null if the object is not one.
   $proto.ProtobufProtoStructProperties? asProtobufProtoStructProperties() {
-    final $r = $callSync(3023, $W()..h(this));
+    final $r = $callSync(3030, $W()..h(this));
     return $r.hn($proto.ProtobufProtoStructProperties.$h);
   }
 
   /// Go: type assertion `x.(heap.Interface)`: null if the object is not one.
   $heap.ContainerHeapInterface? asContainerHeapInterface() {
-    final $r = $callSync(3024, $W()..h(this));
+    final $r = $callSync(3031, $W()..h(this));
     return $r.hn($heap.ContainerHeapInterface.$h);
   }
 }
@@ -67,7 +67,7 @@ extension GoSortApi on GoSort {
   /// each invocation (a retained callback, WIRE.md).
   Future<(int, bool)> find(int n, FutureOr<int> Function(int arg0) cmp) async {
     final $r = await $call(
-        27189,
+        27190,
         $W()
           ..i64(n)
           ..cb((r) => cmp(r.i64()), true, (w, v) => w.i64(v as int)));
@@ -76,35 +76,35 @@ extension GoSortApi on GoSort {
 
   /// Go: `func sort.Float64s(x []float64)`.
   void float64s(List<double> x) {
-    $callSync(27190, $W()..list(x, (w0, e0) => w0.f64(e0)));
+    $callSync(27191, $W()..list(x, (w0, e0) => w0.f64(e0)));
   }
 
   /// Go: `func sort.Float64sAreSorted(x []float64) bool`.
   bool float64sAreSorted(List<double> x) {
-    final $r = $callSync(27191, $W()..list(x, (w0, e0) => w0.f64(e0)));
+    final $r = $callSync(27192, $W()..list(x, (w0, e0) => w0.f64(e0)));
     return $r.b();
   }
 
   /// Go: `func sort.Ints(x []int)`.
   void ints(List<int> x) {
-    $callSync(27195, $W()..list(x, (w0, e0) => w0.i64(e0)));
+    $callSync(27196, $W()..list(x, (w0, e0) => w0.i64(e0)));
   }
 
   /// Go: `func sort.IntsAreSorted(x []int) bool`.
   bool intsAreSorted(List<int> x) {
-    final $r = $callSync(27196, $W()..list(x, (w0, e0) => w0.i64(e0)));
+    final $r = $callSync(27197, $W()..list(x, (w0, e0) => w0.i64(e0)));
     return $r.b();
   }
 
   /// Go: `func sort.IsSorted(data sort.Interface) bool`.
   bool isSorted(SortInterface data) {
-    final $r = $callSync(27197, $W()..h(data));
+    final $r = $callSync(27198, $W()..h(data));
     return $r.b();
   }
 
   /// Go: `func sort.Reverse(data sort.Interface) sort.Interface`.
   SortInterface reverse(SortInterface data) {
-    final $r = $callSync(27198, $W()..h(data));
+    final $r = $callSync(27199, $W()..h(data));
     return $r.hnn(SortInterface.$h);
   }
 
@@ -117,7 +117,7 @@ extension GoSortApi on GoSort {
   /// each invocation (a retained callback, WIRE.md).
   Future<int> search(int n, FutureOr<bool> Function(int arg0) f) async {
     final $r = await $call(
-        27199,
+        27200,
         $W()
           ..i64(n)
           ..cb((r) => f(r.i64()), true));
@@ -127,7 +127,7 @@ extension GoSortApi on GoSort {
   /// Go: `func sort.SearchFloat64s(a []float64, x float64) int`.
   int searchFloat64s(List<double> a, double x) {
     final $r = $callSync(
-        27200,
+        27201,
         $W()
           ..list(a, (w0, e0) => w0.f64(e0))
           ..f64(x));
@@ -137,7 +137,7 @@ extension GoSortApi on GoSort {
   /// Go: `func sort.SearchInts(a []int, x int) int`.
   int searchInts(List<int> a, int x) {
     final $r = $callSync(
-        27201,
+        27202,
         $W()
           ..list(a, (w0, e0) => w0.i64(e0))
           ..i64(x));
@@ -147,7 +147,7 @@ extension GoSortApi on GoSort {
   /// Go: `func sort.SearchStrings(a []string, x string) int`.
   int searchStrings(List<String> a, String x) {
     final $r = $callSync(
-        27202,
+        27203,
         $W()
           ..list(a, (w0, e0) => w0.str(e0))
           ..str(x));
@@ -164,7 +164,7 @@ extension GoSortApi on GoSort {
   Future<void> slice(
       Object? x, FutureOr<bool> Function(int i, int j) less) async {
     await $call(
-        27203,
+        27204,
         $W()
           ..any(x)
           ..cb((r) => less(r.i64(), r.i64()), true));
@@ -180,7 +180,7 @@ extension GoSortApi on GoSort {
   Future<bool> sliceIsSorted(
       Object? x, FutureOr<bool> Function(int i, int j) less) async {
     final $r = await $call(
-        27204,
+        27205,
         $W()
           ..any(x)
           ..cb((r) => less(r.i64(), r.i64()), true));
@@ -197,7 +197,7 @@ extension GoSortApi on GoSort {
   Future<void> sliceStable(
       Object? x, FutureOr<bool> Function(int i, int j) less) async {
     await $call(
-        27205,
+        27206,
         $W()
           ..any(x)
           ..cb((r) => less(r.i64(), r.i64()), true));
@@ -205,22 +205,22 @@ extension GoSortApi on GoSort {
 
   /// Go: `func sort.Sort(data sort.Interface)`.
   void sort(SortInterface data) {
-    $callSync(27206, $W()..h(data));
+    $callSync(27207, $W()..h(data));
   }
 
   /// Go: `func sort.Stable(data sort.Interface)`.
   void stable(SortInterface data) {
-    $callSync(27207, $W()..h(data));
+    $callSync(27208, $W()..h(data));
   }
 
   /// Go: `func sort.Strings(x []string)`.
   void strings(List<String> x) {
-    $callSync(27208, $W()..list(x, (w0, e0) => w0.str(e0)));
+    $callSync(27209, $W()..list(x, (w0, e0) => w0.str(e0)));
   }
 
   /// Go: `func sort.StringsAreSorted(x []string) bool`.
   bool stringsAreSorted(List<String> x) {
-    final $r = $callSync(27209, $W()..list(x, (w0, e0) => w0.str(e0)));
+    final $r = $callSync(27210, $W()..list(x, (w0, e0) => w0.str(e0)));
     return $r.b();
   }
 }

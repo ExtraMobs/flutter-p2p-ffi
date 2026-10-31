@@ -10,7 +10,7 @@ extension GoXNetHttpHttpgutsApi on GoXNetHttpHttpguts {
   /// Go: `func httpguts.HeaderValuesContainsToken(values []string, token string) bool`.
   bool headerValuesContainsToken(List<String> values, String token) {
     final $r = $callSync(
-        23493,
+        23499,
         $W()
           ..list(values, (w0, e0) => w0.str(e0))
           ..str(token));
@@ -19,37 +19,37 @@ extension GoXNetHttpHttpgutsApi on GoXNetHttpHttpguts {
 
   /// Go: `func httpguts.IsTokenRune(r rune) bool`.
   bool isTokenRune(int r) {
-    final $r = $callSync(23494, $W()..i64(r));
+    final $r = $callSync(23500, $W()..i64(r));
     return $r.b();
   }
 
   /// Go: `func httpguts.PunycodeHostPort(v string) (string, error)`.
   String punycodeHostPort(String v) {
-    final $r = $callSync(23495, $W()..str(v));
+    final $r = $callSync(23501, $W()..str(v));
     return $r.str();
   }
 
   /// Go: `func httpguts.ValidHeaderFieldName(v string) bool`.
   bool validHeaderFieldName(String v) {
-    final $r = $callSync(23496, $W()..str(v));
+    final $r = $callSync(23502, $W()..str(v));
     return $r.b();
   }
 
   /// Go: `func httpguts.ValidHeaderFieldValue(v string) bool`.
   bool validHeaderFieldValue(String v) {
-    final $r = $callSync(23497, $W()..str(v));
+    final $r = $callSync(23503, $W()..str(v));
     return $r.b();
   }
 
   /// Go: `func httpguts.ValidHostHeader(h string) bool`.
   bool validHostHeader(String h) {
-    final $r = $callSync(23498, $W()..str(h));
+    final $r = $callSync(23504, $W()..str(h));
     return $r.b();
   }
 
   /// Go: `func httpguts.ValidTrailerHeader(name string) bool`.
   bool validTrailerHeader(String name) {
-    final $r = $callSync(23499, $W()..str(name));
+    final $r = $callSync(23505, $W()..str(name));
     return $r.b();
   }
 }

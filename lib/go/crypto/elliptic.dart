@@ -21,7 +21,7 @@ mixin CryptoEllipticCurve$ on GoHandle {
   ($big.MathBigInt, $big.MathBigInt) add($big.MathBigInt x1, $big.MathBigInt y1,
       $big.MathBigInt x2, $big.MathBigInt y2) {
     final $r = $callSync(
-        3203,
+        3212,
         $W()
           ..h(this)
           ..h(x1)
@@ -36,7 +36,7 @@ mixin CryptoEllipticCurve$ on GoHandle {
   ($big.MathBigInt, $big.MathBigInt) double$(
       $big.MathBigInt x1, $big.MathBigInt y1) {
     final $r = $callSync(
-        3204,
+        3213,
         $W()
           ..h(this)
           ..h(x1)
@@ -49,7 +49,7 @@ mixin CryptoEllipticCurve$ on GoHandle {
       "this is a low-level unsafe API. For ECDH, use the crypto/ecdh package. The NewPublicKey methods of NIST curves in crypto/ecdh accept the same encoding as the Unmarshal function, and perform on-curve checks.")
   bool isOnCurve($big.MathBigInt x, $big.MathBigInt y) {
     final $r = $callSync(
-        3205,
+        3214,
         $W()
           ..h(this)
           ..h(x)
@@ -59,7 +59,7 @@ mixin CryptoEllipticCurve$ on GoHandle {
 
   /// Go: `func (elliptic.Curve).Params() *elliptic.CurveParams`.
   CryptoEllipticCurveParams params() {
-    final $r = $callSync(3206, $W()..h(this));
+    final $r = $callSync(3215, $W()..h(this));
     return $r.p() ? CryptoEllipticCurveParams.$dec($r) : $nil();
   }
 
@@ -68,7 +68,7 @@ mixin CryptoEllipticCurve$ on GoHandle {
       "this is a low-level unsafe API. For ECDH, use the crypto/ecdh package. Most uses of ScalarBaseMult can be replaced by a call to the PrivateKey.PublicKey method in crypto/ecdh.")
   ($big.MathBigInt, $big.MathBigInt) scalarBaseMult(Uint8List k) {
     final $r = $callSync(
-        3207,
+        3216,
         $W()
           ..h(this)
           ..bytes(k));
@@ -81,7 +81,7 @@ mixin CryptoEllipticCurve$ on GoHandle {
   ($big.MathBigInt, $big.MathBigInt) scalarMult(
       $big.MathBigInt x1, $big.MathBigInt y1, Uint8List k) {
     final $r = $callSync(
-        3208,
+        3217,
         $W()
           ..h(this)
           ..h(x1)
@@ -163,7 +163,7 @@ final class CryptoEllipticCurveParams implements GoDto {
   ($big.MathBigInt, $big.MathBigInt) add($big.MathBigInt x1, $big.MathBigInt y1,
       $big.MathBigInt x2, $big.MathBigInt y2) {
     final $r = $callSync(
-        3209,
+        3218,
         $W()
           ..dto(this)
           ..h(x1)
@@ -179,7 +179,7 @@ final class CryptoEllipticCurveParams implements GoDto {
   ($big.MathBigInt, $big.MathBigInt) double$(
       $big.MathBigInt x1, $big.MathBigInt y1) {
     final $r = $callSync(
-        3210,
+        3219,
         $W()
           ..dto(this)
           ..h(x1)
@@ -192,7 +192,7 @@ final class CryptoEllipticCurveParams implements GoDto {
       "the [CurveParams] methods are deprecated and are not guaranteed to provide any security property. For ECDH, use the [crypto/ecdh] package. For ECDSA, use the [crypto/ecdsa] package with a [Curve] value returned directly from [P224], [P256], [P384], or [P521].")
   bool isOnCurve($big.MathBigInt x, $big.MathBigInt y) {
     final $r = $callSync(
-        3211,
+        3220,
         $W()
           ..dto(this)
           ..h(x)
@@ -202,7 +202,7 @@ final class CryptoEllipticCurveParams implements GoDto {
 
   /// Go: `func (*elliptic.CurveParams).Params() *elliptic.CurveParams`.
   CryptoEllipticCurveParams params() {
-    final $r = $callSync(3212, $W()..dto(this));
+    final $r = $callSync(3221, $W()..dto(this));
     return $r.p() ? CryptoEllipticCurveParams.$dec($r) : $nil();
   }
 
@@ -211,7 +211,7 @@ final class CryptoEllipticCurveParams implements GoDto {
       "the [CurveParams] methods are deprecated and are not guaranteed to provide any security property. For ECDH, use the [crypto/ecdh] package. For ECDSA, use the [crypto/ecdsa] package with a [Curve] value returned directly from [P224], [P256], [P384], or [P521].")
   ($big.MathBigInt, $big.MathBigInt) scalarBaseMult(Uint8List k) {
     final $r = $callSync(
-        3213,
+        3222,
         $W()
           ..dto(this)
           ..bytes(k));
@@ -224,7 +224,7 @@ final class CryptoEllipticCurveParams implements GoDto {
   ($big.MathBigInt, $big.MathBigInt) scalarMult(
       $big.MathBigInt bx, $big.MathBigInt by, Uint8List k) {
     final $r = $callSync(
-        3214,
+        3223,
         $W()
           ..dto(this)
           ..h(bx)
@@ -242,7 +242,7 @@ extension GoCryptoEllipticApi on GoCryptoElliptic {
   (Uint8List, $big.MathBigInt, $big.MathBigInt) generateKey(
       CryptoEllipticCurve curve, Object rand) {
     final $r = $callSync(
-        3215,
+        3224,
         $W()
           ..h(curve)
           ..reader(rand));
@@ -259,7 +259,7 @@ extension GoCryptoEllipticApi on GoCryptoElliptic {
   Uint8List marshal(
       CryptoEllipticCurve curve, $big.MathBigInt x, $big.MathBigInt y) {
     final $r = $callSync(
-        3216,
+        3225,
         $W()
           ..h(curve)
           ..h(x)
@@ -271,7 +271,7 @@ extension GoCryptoEllipticApi on GoCryptoElliptic {
   Uint8List marshalCompressed(
       CryptoEllipticCurve curve, $big.MathBigInt x, $big.MathBigInt y) {
     final $r = $callSync(
-        3217,
+        3226,
         $W()
           ..h(curve)
           ..h(x)
@@ -281,25 +281,25 @@ extension GoCryptoEllipticApi on GoCryptoElliptic {
 
   /// Go: `func elliptic.P224() elliptic.Curve`.
   CryptoEllipticCurve p224() {
-    final $r = $callSync(3218);
+    final $r = $callSync(3227);
     return $r.hnn(CryptoEllipticCurve.$h);
   }
 
   /// Go: `func elliptic.P256() elliptic.Curve`.
   CryptoEllipticCurve p256() {
-    final $r = $callSync(3219);
+    final $r = $callSync(3228);
     return $r.hnn(CryptoEllipticCurve.$h);
   }
 
   /// Go: `func elliptic.P384() elliptic.Curve`.
   CryptoEllipticCurve p384() {
-    final $r = $callSync(3220);
+    final $r = $callSync(3229);
     return $r.hnn(CryptoEllipticCurve.$h);
   }
 
   /// Go: `func elliptic.P521() elliptic.Curve`.
   CryptoEllipticCurve p521() {
-    final $r = $callSync(3221);
+    final $r = $callSync(3230);
     return $r.hnn(CryptoEllipticCurve.$h);
   }
 
@@ -309,7 +309,7 @@ extension GoCryptoEllipticApi on GoCryptoElliptic {
   ($big.MathBigInt, $big.MathBigInt) unmarshal(
       CryptoEllipticCurve curve, Uint8List data) {
     final $r = $callSync(
-        3222,
+        3231,
         $W()
           ..h(curve)
           ..bytes(data));
@@ -320,7 +320,7 @@ extension GoCryptoEllipticApi on GoCryptoElliptic {
   ($big.MathBigInt, $big.MathBigInt) unmarshalCompressed(
       CryptoEllipticCurve curve, Uint8List data) {
     final $r = $callSync(
-        3223,
+        3232,
         $W()
           ..h(curve)
           ..bytes(data));

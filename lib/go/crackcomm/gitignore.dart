@@ -33,7 +33,7 @@ class GitignoreGitIgnore extends GitignoreIgnoreParser
   /// Go: `func (ignore.GitIgnore).MatchesPath(f string) bool`.
   bool matchesPath(String f) {
     final $r = $callSync(
-        5749,
+        5758,
         $W()
           ..h(this)
           ..str(f));
@@ -51,7 +51,7 @@ mixin GitignoreIgnoreParser$ on GoHandle {
   /// Go: `func (ignore.IgnoreParser).MatchesPath(f string) bool`.
   bool matchesPath(String f) {
     final $r = $callSync(
-        5750,
+        5759,
         $W()
           ..h(this)
           ..str(f));
@@ -60,7 +60,7 @@ mixin GitignoreIgnoreParser$ on GoHandle {
 
   /// Go: type assertion `x.(*ignore.GitIgnore)`: null if the object is not one.
   GitignoreGitIgnore? asGitignoreGitIgnore() {
-    final $r = $callSync(430, $W()..h(this));
+    final $r = $callSync(433, $W()..h(this));
     return $r.hn(GitignoreGitIgnore.$h);
   }
 }
@@ -69,7 +69,7 @@ mixin GitignoreIgnoreParser$ on GoHandle {
 extension GoCrackcommGitignoreApi on GoCrackcommGitignore {
   /// Go: `func ignore.CompileIgnoreFile(fpath string) (*ignore.GitIgnore, error)`.
   GitignoreGitIgnore compileIgnoreFile(String fpath) {
-    final $r = $callSync(5746, $W()..str(fpath));
+    final $r = $callSync(5755, $W()..str(fpath));
     return $r.hnn(GitignoreGitIgnore.$h);
   }
 
@@ -77,7 +77,7 @@ extension GoCrackcommGitignoreApi on GoCrackcommGitignore {
   GitignoreGitIgnore compileIgnoreFileAndLines(String fpath,
       [List<String> lines = const []]) {
     final $r = $callSync(
-        5747,
+        5756,
         $W()
           ..str(fpath)
           ..list(lines, (w0, e0) => w0.str(e0)));
@@ -86,7 +86,7 @@ extension GoCrackcommGitignoreApi on GoCrackcommGitignore {
 
   /// Go: `func ignore.CompileIgnoreLines(lines ...string) (*ignore.GitIgnore, error)`.
   GitignoreGitIgnore compileIgnoreLines([List<String> lines = const []]) {
-    final $r = $callSync(5748, $W()..list(lines, (w0, e0) => w0.str(e0)));
+    final $r = $callSync(5757, $W()..list(lines, (w0, e0) => w0.str(e0)));
     return $r.hnn(GitignoreGitIgnore.$h);
   }
 }

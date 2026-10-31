@@ -21,7 +21,7 @@ final class ShlexDefaultTokenizer implements GoDto {
   /// Go: `func (*shlex.DefaultTokenizer).IsEscape(r rune) bool`.
   bool isEscape(int r) {
     final $r = $callSync(
-        3981,
+        3990,
         $W()
           ..dto(this)
           ..i64(r));
@@ -31,7 +31,7 @@ final class ShlexDefaultTokenizer implements GoDto {
   /// Go: `func (*shlex.DefaultTokenizer).IsEscapedQuote(r rune) bool`.
   bool isEscapedQuote(int r) {
     final $r = $callSync(
-        3982,
+        3991,
         $W()
           ..dto(this)
           ..i64(r));
@@ -41,7 +41,7 @@ final class ShlexDefaultTokenizer implements GoDto {
   /// Go: `func (*shlex.DefaultTokenizer).IsQuote(r rune) bool`.
   bool isQuote(int r) {
     final $r = $callSync(
-        3983,
+        3992,
         $W()
           ..dto(this)
           ..i64(r));
@@ -51,7 +51,7 @@ final class ShlexDefaultTokenizer implements GoDto {
   /// Go: `func (*shlex.DefaultTokenizer).IsWhitespace(r rune) bool`.
   bool isWhitespace(int r) {
     final $r = $callSync(
-        3984,
+        3993,
         $W()
           ..dto(this)
           ..i64(r));
@@ -61,7 +61,7 @@ final class ShlexDefaultTokenizer implements GoDto {
   /// Go: `func (*shlex.DefaultTokenizer).IsWord(r rune) bool`.
   bool isWord(int r) {
     final $r = $callSync(
-        3985,
+        3994,
         $W()
           ..dto(this)
           ..i64(r));
@@ -90,7 +90,7 @@ class ShlexLexer extends $crypto.CryptoDecrypterOpts
   /// Go: `func shlex.NewLexer(r io.Reader, posix bool, whitespacesplit bool) *shlex.Lexer`.
   factory ShlexLexer(Object r, bool posix, bool whitespacesplit) {
     final $r = $callSync(
-        3988,
+        3997,
         $W()
           ..reader(r)
           ..b(posix)
@@ -101,7 +101,7 @@ class ShlexLexer extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*shlex.Lexer).SetTokenizer(t shlex.Tokenizer)`.
   void setTokenizer(ShlexTokenizer t) {
     $callSync(
-        3986,
+        3995,
         $W()
           ..h(this)
           ..h(t));
@@ -109,7 +109,7 @@ class ShlexLexer extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*shlex.Lexer).Split() ([]string, error)`.
   List<String> split() {
-    final $r = $callSync(3987, $W()..h(this));
+    final $r = $callSync(3996, $W()..h(this));
     return $r.list(() => $r.str());
   }
 }
@@ -124,7 +124,7 @@ mixin ShlexTokenizer$ on GoHandle {
   /// Go: `func (shlex.Tokenizer).IsEscape(rune) bool`.
   bool isEscape(int arg0) {
     final $r = $callSync(
-        3991,
+        4000,
         $W()
           ..h(this)
           ..i64(arg0));
@@ -134,7 +134,7 @@ mixin ShlexTokenizer$ on GoHandle {
   /// Go: `func (shlex.Tokenizer).IsEscapedQuote(rune) bool`.
   bool isEscapedQuote(int arg0) {
     final $r = $callSync(
-        3992,
+        4001,
         $W()
           ..h(this)
           ..i64(arg0));
@@ -144,7 +144,7 @@ mixin ShlexTokenizer$ on GoHandle {
   /// Go: `func (shlex.Tokenizer).IsQuote(rune) bool`.
   bool isQuote(int arg0) {
     final $r = $callSync(
-        3993,
+        4002,
         $W()
           ..h(this)
           ..i64(arg0));
@@ -154,7 +154,7 @@ mixin ShlexTokenizer$ on GoHandle {
   /// Go: `func (shlex.Tokenizer).IsWhitespace(rune) bool`.
   bool isWhitespace(int arg0) {
     final $r = $callSync(
-        3994,
+        4003,
         $W()
           ..h(this)
           ..i64(arg0));
@@ -164,7 +164,7 @@ mixin ShlexTokenizer$ on GoHandle {
   /// Go: `func (shlex.Tokenizer).IsWord(rune) bool`.
   bool isWord(int arg0) {
     final $r = $callSync(
-        3995,
+        4004,
         $W()
           ..h(this)
           ..i64(arg0));
@@ -195,7 +195,7 @@ extension GoAnmitsuShlexApi on GoAnmitsuShlex {
   /// Go: `func shlex.NewLexerString(s string, posix bool, whitespacesplit bool) *shlex.Lexer`.
   ShlexLexer newLexerString(String s, bool posix, bool whitespacesplit) {
     final $r = $callSync(
-        3989,
+        3998,
         $W()
           ..str(s)
           ..b(posix)
@@ -206,7 +206,7 @@ extension GoAnmitsuShlexApi on GoAnmitsuShlex {
   /// Go: `func shlex.Split(s string, posix bool) ([]string, error)`.
   List<String> split(String s, bool posix) {
     final $r = $callSync(
-        3990,
+        3999,
         $W()
           ..str(s)
           ..b(posix));

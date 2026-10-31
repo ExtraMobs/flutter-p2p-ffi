@@ -91,7 +91,7 @@ class PebbleV2WalDeletableLog extends $vfs.PebbleV2VfsFs
 
   /// Go: `func (wal.NumWAL).String() string`.
   String string() {
-    final $r = $callSync(5644, $W()..h(this));
+    final $r = $callSync(5653, $W()..h(this));
     return $r.str();
   }
 }
@@ -130,7 +130,7 @@ mixin PebbleV2WalEventListener$ on GoHandle {
   /// Go: `func (wal.EventListener).LogCreated(wal.CreateInfo)`.
   void logCreated(PebbleV2WalCreateInfo createInfo) {
     $callSync(
-        5645,
+        5654,
         $W()
           ..h(this)
           ..dto(createInfo));
@@ -157,7 +157,7 @@ class PebbleV2WalFailoverOptions extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*wal.FailoverOptions).EnsureDefaults()`.
   void ensureDefaults() {
-    $callSync(5646, $W()..h(this));
+    $callSync(5655, $W()..h(this));
   }
 }
 
@@ -222,14 +222,14 @@ class PebbleV2WalFileAccumulator extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*wal.FileAccumulator).Finish() wal.Logs`.
   List<PebbleV2WalLogicalLog> finish() {
-    final $r = $callSync(5647, $W()..h(this));
+    final $r = $callSync(5656, $W()..h(this));
     return $r.list(() => $r.hnn(PebbleV2WalLogicalLog.$h));
   }
 
   /// Go: `func (*wal.FileAccumulator).MaybeAccumulate(fs vfs.FS, path string) (isLogFile bool, err error)`.
   bool maybeAccumulate($vfs.PebbleV2VfsFs fs, String path) {
     final $r = $callSync(
-        5648,
+        5657,
         $W()
           ..h(this)
           ..h(fs)
@@ -259,7 +259,7 @@ class PebbleV2WalLogRecycler extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*wal.LogRecycler).Init(maxNumLogFiles int)`.
   void init(int maxNumLogFiles) {
     $callSync(
-        5650,
+        5659,
         $W()
           ..h(this)
           ..i64(maxNumLogFiles));
@@ -267,14 +267,14 @@ class PebbleV2WalLogRecycler extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*wal.LogRecycler).MinRecycleLogNum() wal.NumWAL`.
   int minRecycleLogNum() {
-    final $r = $callSync(5651, $W()..h(this));
+    final $r = $callSync(5660, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*wal.LogRecycler).SetMinRecycleLogNum(n wal.NumWAL)`.
   void setMinRecycleLogNum(int n) {
     $callSync(
-        5652,
+        5661,
         $W()
           ..h(this)
           ..i64(n));
@@ -282,7 +282,7 @@ class PebbleV2WalLogRecycler extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*wal.LogRecycler).Stats() (count int, size uint64)`.
   (int, int) stats() {
-    final $r = $callSync(5653, $W()..h(this));
+    final $r = $callSync(5662, $W()..h(this));
     return ($r.i64(), $r.i64());
   }
 }
@@ -309,26 +309,26 @@ class PebbleV2WalLogicalLog extends $interfaces.RedactInterfacesSafeFormatter
 
   /// Go: `func (wal.LogicalLog).NumSegments() int`.
   int numSegments() {
-    final $r = $callSync(5654, $W()..h(this));
+    final $r = $callSync(5663, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (wal.LogicalLog).OpenForRead() wal.Reader`.
   PebbleV2WalReader openForRead() {
-    final $r = $callSync(5655, $W()..h(this));
+    final $r = $callSync(5664, $W()..h(this));
     return $r.hnn(PebbleV2WalReader.$h);
   }
 
   /// Go: `func (wal.LogicalLog).PhysicalSize() (uint64, error)`.
   int physicalSize() {
-    final $r = $callSync(5656, $W()..h(this));
+    final $r = $callSync(5665, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (wal.LogicalLog).SafeFormat(w redact.SafePrinter, _ rune)`.
   void safeFormat($interfaces.RedactInterfacesSafePrinter w, int arg1) {
     $callSync(
-        5657,
+        5666,
         $W()
           ..h(this)
           ..h(w)
@@ -338,7 +338,7 @@ class PebbleV2WalLogicalLog extends $interfaces.RedactInterfacesSafeFormatter
   /// Go: `func (wal.LogicalLog).SegmentLocation(i int) (vfs.FS, string)`.
   ($vfs.PebbleV2VfsFs, String) segmentLocation(int i) {
     final $r = $callSync(
-        5658,
+        5667,
         $W()
           ..h(this)
           ..i64(i));
@@ -347,7 +347,7 @@ class PebbleV2WalLogicalLog extends $interfaces.RedactInterfacesSafeFormatter
 
   /// Go: `func (wal.LogicalLog).String() string`.
   String string() {
-    final $r = $callSync(5659, $W()..h(this));
+    final $r = $callSync(5668, $W()..h(this));
     return $r.str();
   }
 }
@@ -361,13 +361,13 @@ class PebbleV2WalManager extends GoHandle with PebbleV2WalManager$ {
 mixin PebbleV2WalManager$ on GoHandle {
   /// Go: `func (wal.Manager).Close() error`.
   void close() {
-    $callSync(5660, $W()..h(this));
+    $callSync(5669, $W()..h(this));
   }
 
   /// Go: `func (wal.Manager).Create(wn wal.NumWAL, jobID int) (wal.Writer, error)`.
   PebbleV2WalWriter create(int wn, int jobId) {
     final $r = $callSync(
-        5661,
+        5670,
         $W()
           ..h(this)
           ..i64(wn)
@@ -377,20 +377,20 @@ mixin PebbleV2WalManager$ on GoHandle {
 
   /// Go: `func (wal.Manager).ElevateWriteStallThresholdForFailover() bool`.
   bool elevateWriteStallThresholdForFailover() {
-    final $r = $callSync(5662, $W()..h(this));
+    final $r = $callSync(5671, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (wal.Manager).List() wal.Logs`.
   List<PebbleV2WalLogicalLog> list() {
-    final $r = $callSync(5663, $W()..h(this));
+    final $r = $callSync(5672, $W()..h(this));
     return $r.list(() => $r.hnn(PebbleV2WalLogicalLog.$h));
   }
 
   /// Go: `func (wal.Manager).Obsolete(minUnflushedNum wal.NumWAL, noRecycle bool) (toDelete []wal.DeletableLog, err error)`.
   List<PebbleV2WalDeletableLog> obsolete(int minUnflushedNum, bool noRecycle) {
     final $r = $callSync(
-        5664,
+        5673,
         $W()
           ..h(this)
           ..i64(minUnflushedNum)
@@ -400,19 +400,19 @@ mixin PebbleV2WalManager$ on GoHandle {
 
   /// Go: `func (wal.Manager).RecyclerForTesting() *wal.LogRecycler`.
   PebbleV2WalLogRecycler recyclerForTesting() {
-    final $r = $callSync(5665, $W()..h(this));
+    final $r = $callSync(5674, $W()..h(this));
     return $r.hnn(PebbleV2WalLogRecycler.$h);
   }
 
   /// Go: `func (wal.Manager).Stats() wal.Stats`.
   PebbleV2WalStats stats() {
-    final $r = $callSync(5666, $W()..h(this));
+    final $r = $callSync(5675, $W()..h(this));
     return $r.p() ? PebbleV2WalStats.$dec($r) : $nil();
   }
 
   /// Go: type assertion `x.(*wal.StandaloneManager)`: null if the object is not one.
   PebbleV2WalStandaloneManager? asPebbleV2WalStandaloneManager() {
-    final $r = $callSync(423, $W()..h(this));
+    final $r = $callSync(426, $W()..h(this));
     return $r.hn(PebbleV2WalStandaloneManager.$h);
   }
 }
@@ -450,7 +450,7 @@ final class PebbleV2WalOffset implements GoDto {
   /// Go: `func (wal.Offset).SafeFormat(w redact.SafePrinter, _ rune)`.
   void safeFormat($interfaces.RedactInterfacesSafePrinter w, int arg1) {
     $callSync(
-        5667,
+        5676,
         $W()
           ..dto(this)
           ..h(w)
@@ -459,7 +459,7 @@ final class PebbleV2WalOffset implements GoDto {
 
   /// Go: `func (wal.Offset).String() string`.
   String string() {
-    final $r = $callSync(5668, $W()..dto(this));
+    final $r = $callSync(5677, $W()..dto(this));
     return $r.str();
   }
 }
@@ -560,13 +560,13 @@ final class PebbleV2WalOptions implements GoDto {
 
   /// Go: `func (*wal.Options).Dirs() []wal.Dir`.
   List<PebbleV2WalDir> dirs() {
-    final $r = $callSync(5669, $W()..dto(this));
+    final $r = $callSync(5678, $W()..dto(this));
     return $r.list(() => $r.p() ? PebbleV2WalDir.$dec($r) : $nil());
   }
 
   /// Go: `func (*wal.FailoverOptions).EnsureDefaults()`.
   void ensureDefaults() {
-    $callSync(5670, $W()..dto(this));
+    $callSync(5679, $W()..dto(this));
   }
 }
 
@@ -579,12 +579,12 @@ class PebbleV2WalReader extends GoHandle with PebbleV2WalReader$ {
 mixin PebbleV2WalReader$ on GoHandle {
   /// Go: `func (wal.Reader).Close() error`.
   void close() {
-    $callSync(5672, $W()..h(this));
+    $callSync(5681, $W()..h(this));
   }
 
   /// Go: `func (wal.Reader).NextRecord() (io.Reader, wal.Offset, error)`.
   ($io.IoReader, PebbleV2WalOffset) nextRecord() {
-    final $r = $callSync(5673, $W()..h(this));
+    final $r = $callSync(5682, $W()..h(this));
     return (
       $r.hnn($io.IoReader.$h),
       $r.p() ? PebbleV2WalOffset.$dec($r) : $nil()
@@ -601,23 +601,23 @@ class PebbleV2WalRefCount extends GoHandle with PebbleV2WalRefCount$ {
 mixin PebbleV2WalRefCount$ on GoHandle {
   /// Go: `func (wal.RefCount).Ref()`.
   void ref() {
-    $callSync(5674, $W()..h(this));
+    $callSync(5683, $W()..h(this));
   }
 
   /// Go: `func (wal.RefCount).Unref()`.
   void unref() {
-    $callSync(5675, $W()..h(this));
+    $callSync(5684, $W()..h(this));
   }
 
   /// Go: type assertion `x.(*pebble.Batch)`: null if the object is not one.
   $v2.PebbleV2Batch? asPebbleV2Batch() {
-    final $r = $callSync(424, $W()..h(this));
+    final $r = $callSync(427, $W()..h(this));
     return $r.hn($v2.PebbleV2Batch.$h);
   }
 
   /// Go: type assertion `x.(*pebble.FileCache)`: null if the object is not one.
   $v2.PebbleV2FileCache? asPebbleV2FileCache() {
-    final $r = $callSync(425, $W()..h(this));
+    final $r = $callSync(428, $W()..h(this));
     return $r.hn($v2.PebbleV2FileCache.$h);
   }
 }
@@ -648,13 +648,13 @@ class PebbleV2WalStandaloneManager extends PebbleV2WalManager
 
   /// Go: `func (*wal.StandaloneManager).Close() error`.
   void close() {
-    $callSync(5677, $W()..h(this));
+    $callSync(5686, $W()..h(this));
   }
 
   /// Go: `func (*wal.StandaloneManager).Create(wn wal.NumWAL, jobID int) (wal.Writer, error)`.
   PebbleV2WalWriter create(int wn, int jobId) {
     final $r = $callSync(
-        5678,
+        5687,
         $W()
           ..h(this)
           ..i64(wn)
@@ -664,20 +664,20 @@ class PebbleV2WalStandaloneManager extends PebbleV2WalManager
 
   /// Go: `func (*wal.StandaloneManager).ElevateWriteStallThresholdForFailover() bool`.
   bool elevateWriteStallThresholdForFailover() {
-    final $r = $callSync(5679, $W()..h(this));
+    final $r = $callSync(5688, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*wal.StandaloneManager).List() wal.Logs`.
   List<PebbleV2WalLogicalLog> list() {
-    final $r = $callSync(5680, $W()..h(this));
+    final $r = $callSync(5689, $W()..h(this));
     return $r.list(() => $r.hnn(PebbleV2WalLogicalLog.$h));
   }
 
   /// Go: `func (*wal.StandaloneManager).Obsolete(minUnflushedNum wal.NumWAL, noRecycle bool) (toDelete []wal.DeletableLog, err error)`.
   List<PebbleV2WalDeletableLog> obsolete(int minUnflushedNum, bool noRecycle) {
     final $r = $callSync(
-        5681,
+        5690,
         $W()
           ..h(this)
           ..i64(minUnflushedNum)
@@ -687,13 +687,13 @@ class PebbleV2WalStandaloneManager extends PebbleV2WalManager
 
   /// Go: `func (*wal.StandaloneManager).RecyclerForTesting() *wal.LogRecycler`.
   PebbleV2WalLogRecycler recyclerForTesting() {
-    final $r = $callSync(5682, $W()..h(this));
+    final $r = $callSync(5691, $W()..h(this));
     return $r.hnn(PebbleV2WalLogRecycler.$h);
   }
 
   /// Go: `func (*wal.StandaloneManager).Stats() wal.Stats`.
   PebbleV2WalStats stats() {
-    final $r = $callSync(5683, $W()..h(this));
+    final $r = $callSync(5692, $W()..h(this));
     return $r.p() ? PebbleV2WalStats.$dec($r) : $nil();
   }
 }
@@ -777,13 +777,13 @@ class PebbleV2WalWriter extends GoHandle with PebbleV2WalWriter$ {
 mixin PebbleV2WalWriter$ on GoHandle {
   /// Go: `func (wal.Writer).Close() (logicalOffset int64, err error)`.
   int close() {
-    final $r = $callSync(5684, $W()..h(this));
+    final $r = $callSync(5693, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (wal.Writer).Metrics() record.LogWriterMetrics`.
   $record.PebbleV2RecordLogWriterMetrics metrics() {
-    final $r = $callSync(5685, $W()..h(this));
+    final $r = $callSync(5694, $W()..h(this));
     return $r.p() ? $record.PebbleV2RecordLogWriterMetrics.$dec($r) : $nil();
   }
 
@@ -791,7 +791,7 @@ mixin PebbleV2WalWriter$ on GoHandle {
   int writeRecord(
       Uint8List p, PebbleV2WalSyncOptions opts, PebbleV2WalRefCount ref) {
     final $r = $callSync(
-        5686,
+        5695,
         $W()
           ..h(this)
           ..bytes(p)
@@ -807,7 +807,7 @@ extension GoCockroachdbPebbleV2WalApi on GoCockroachdbPebbleV2Wal {
   PebbleV2WalManager init(
       PebbleV2WalOptions o, List<PebbleV2WalLogicalLog> initial) {
     final $r = $callSync(
-        5649,
+        5658,
         $W()
           ..dto(o)
           ..list(initial, (w0, e0) => w0.h(e0)));
@@ -816,13 +816,13 @@ extension GoCockroachdbPebbleV2WalApi on GoCockroachdbPebbleV2Wal {
 
   /// Go: `func wal.ParseLogFilename(name string) (wal.NumWAL, wal.LogNameIndex, bool)`.
   (int, int, bool) parseLogFilename(String name) {
-    final $r = $callSync(5671, $W()..str(name));
+    final $r = $callSync(5680, $W()..str(name));
     return ($r.i64(), $r.i64(), $r.b());
   }
 
   /// Go: `func wal.Scan(dirs ...wal.Dir) (wal.Logs, error)`.
   List<PebbleV2WalLogicalLog> scan([List<PebbleV2WalDir> dirs = const []]) {
-    final $r = $callSync(5676, $W()..list(dirs, (w0, e0) => w0.dto(e0)));
+    final $r = $callSync(5685, $W()..list(dirs, (w0, e0) => w0.dto(e0)));
     return $r.list(() => $r.hnn(PebbleV2WalLogicalLog.$h));
   }
 }

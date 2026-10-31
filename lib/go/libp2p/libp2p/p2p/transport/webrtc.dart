@@ -72,7 +72,7 @@ class Libp2pP2pTransportWebrtcWebRtcTransport
   /// Go: `func (*libp2pwebrtc.WebRTCTransport).AddCertHashes(addr multiaddr.Multiaddr) (multiaddr.Multiaddr, bool)`.
   ($multiaddr.Multiaddr, bool) addCertHashes($multiaddr.Multiaddr addr) {
     final $r = $callSync(
-        15048,
+        15054,
         $W()
           ..h(this)
           ..val(addr));
@@ -82,7 +82,7 @@ class Libp2pP2pTransportWebrtcWebRtcTransport
   /// Go: `func (*libp2pwebrtc.WebRTCTransport).CanDial(addr multiaddr.Multiaddr) bool`.
   bool canDial($multiaddr.Multiaddr addr) {
     final $r = $callSync(
-        15049,
+        15055,
         $W()
           ..h(this)
           ..val(addr));
@@ -95,7 +95,7 @@ class Libp2pP2pTransportWebrtcWebRtcTransport
   Future<$transport.Libp2pCoreTransportCapableConn> dial($context.Context ctx,
       $multiaddr.Multiaddr remoteMultiaddr, $peer.Libp2pCorePeerId p) async {
     final $r = await $call(
-        15050,
+        15056,
         $W()
           ..h(this)
           ..h(ctx)
@@ -107,7 +107,7 @@ class Libp2pP2pTransportWebrtcWebRtcTransport
   /// Go: `func (*libp2pwebrtc.WebRTCTransport).Listen(addr multiaddr.Multiaddr) (transport.Listener, error)`.
   $transport.Libp2pCoreTransportListener listen($multiaddr.Multiaddr addr) {
     final $r = $callSync(
-        15051,
+        15057,
         $W()
           ..h(this)
           ..val(addr));
@@ -116,19 +116,19 @@ class Libp2pP2pTransportWebrtcWebRtcTransport
 
   /// Go: `func (*libp2pwebrtc.WebRTCTransport).ListenOrder() int`.
   int listenOrder() {
-    final $r = $callSync(15052, $W()..h(this));
+    final $r = $callSync(15058, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*libp2pwebrtc.WebRTCTransport).Protocols() []int`.
   List<int> protocols() {
-    final $r = $callSync(15053, $W()..h(this));
+    final $r = $callSync(15059, $W()..h(this));
     return $r.list(() => $r.i64());
   }
 
   /// Go: `func (*libp2pwebrtc.WebRTCTransport).Proxy() bool`.
   bool proxy() {
-    final $r = $callSync(15054, $W()..h(this));
+    final $r = $callSync(15060, $W()..h(this));
     return $r.b();
   }
 }
@@ -138,7 +138,7 @@ extension GoLibp2pLibp2pP2pTransportWebrtcApi
     on GoLibp2pLibp2pP2pTransportWebrtc {
   /// Go: `func libp2pwebrtc.IsWebRTCDirectMultiaddr(addr multiaddr.Multiaddr) (bool, int)`.
   (bool, int) isWebRtcDirectMultiaddr($multiaddr.Multiaddr addr) {
-    final $r = $callSync(15046, $W()..val(addr));
+    final $r = $callSync(15052, $W()..val(addr));
     return ($r.b(), $r.i64());
   }
 
@@ -151,7 +151,7 @@ extension GoLibp2pLibp2pP2pTransportWebrtcApi
       Libp2pP2pTransportWebrtcListenUdpFn listenUdp,
       [List<Libp2pP2pTransportWebrtcOption> opts = const []]) {
     final $r = $callSync(
-        15047,
+        15053,
         $W()
           ..h(privKey)
           ..bytes(psk)

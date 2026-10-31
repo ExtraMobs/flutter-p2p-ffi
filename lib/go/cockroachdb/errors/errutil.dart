@@ -11,7 +11,7 @@ extension GoCockroachdbErrorsErrutilApi on GoCockroachdbErrorsErrutil {
   void assertionFailedWithDepthf(int depth, String format,
       [List<Object?> args = const []]) {
     $callSync(
-        4592,
+        4601,
         $W()
           ..i64(depth)
           ..str(format)
@@ -21,7 +21,7 @@ extension GoCockroachdbErrorsErrutilApi on GoCockroachdbErrorsErrutil {
   /// Go: `func errutil.AssertionFailedf(format string, args ...interface{}) error`.
   void assertionFailedf(String format, [List<Object?> args = const []]) {
     $callSync(
-        4593,
+        4602,
         $W()
           ..str(format)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -30,7 +30,7 @@ extension GoCockroachdbErrorsErrutilApi on GoCockroachdbErrorsErrutil {
   /// Go: `func errutil.JoinWithDepth(depth int, errs ...error) error`.
   void joinWithDepth(int depth, [List<String> errs = const []]) {
     $callSync(
-        4594,
+        4603,
         $W()
           ..i64(depth)
           ..list(errs, (w0, e0) => w0.err(e0)));
@@ -38,13 +38,13 @@ extension GoCockroachdbErrorsErrutilApi on GoCockroachdbErrorsErrutil {
 
   /// Go: `func errutil.New(msg string) error`.
   void new$(String msg) {
-    $callSync(4595, $W()..str(msg));
+    $callSync(4604, $W()..str(msg));
   }
 
   /// Go: `func errutil.NewWithDepth(depth int, msg string) error`.
   void newWithDepth(int depth, String msg) {
     $callSync(
-        4596,
+        4605,
         $W()
           ..i64(depth)
           ..str(msg));
@@ -54,7 +54,7 @@ extension GoCockroachdbErrorsErrutilApi on GoCockroachdbErrorsErrutil {
   void newWithDepthf(int depth, String format,
       [List<Object?> args = const []]) {
     $callSync(
-        4597,
+        4606,
         $W()
           ..i64(depth)
           ..str(format)
@@ -64,7 +64,7 @@ extension GoCockroachdbErrorsErrutilApi on GoCockroachdbErrorsErrutil {
   /// Go: `func errutil.Newf(format string, args ...interface{}) error`.
   void newf(String format, [List<Object?> args = const []]) {
     $callSync(
-        4598,
+        4607,
         $W()
           ..str(format)
           ..list(args, (w0, e0) => w0.any(e0)));

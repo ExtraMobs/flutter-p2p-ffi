@@ -43,7 +43,7 @@ class Libp2pP2pNetNat extends $io.IoCloser
   Future<void> addMapping(
       $context.Context ctx, String protocol, int port) async {
     await $call(
-        14623,
+        14629,
         $W()
           ..h(this)
           ..h(ctx)
@@ -53,13 +53,13 @@ class Libp2pP2pNetNat extends $io.IoCloser
 
   /// Go: `func (*nat.NAT).Close() error`.
   void close() {
-    $callSync(14624, $W()..h(this));
+    $callSync(14630, $W()..h(this));
   }
 
   /// Go: `func (*nat.NAT).GetMapping(protocol string, port int) (addr netip.AddrPort, found bool)`.
   ($netip.NetNetipAddrPort, bool) getMapping(String protocol, int port) {
     final $r = $callSync(
-        14625,
+        14631,
         $W()
           ..h(this)
           ..str(protocol)
@@ -73,7 +73,7 @@ class Libp2pP2pNetNat extends $io.IoCloser
   Future<void> removeMapping(
       $context.Context ctx, String protocol, int port) async {
     await $call(
-        14626,
+        14632,
         $W()
           ..h(this)
           ..h(ctx)
@@ -97,7 +97,7 @@ extension GoLibp2pLibp2pP2pNetNatApi on GoLibp2pLibp2pP2pNetNat {
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<Libp2pP2pNetNat> discoverNat($context.Context ctx) async {
-    final $r = await $call(14622, $W()..h(ctx));
+    final $r = await $call(14628, $W()..h(ctx));
     return $r.hnn(Libp2pP2pNetNat.$h);
   }
 }

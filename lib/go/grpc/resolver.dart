@@ -54,7 +54,7 @@ final class GrpcResolverAddress implements GoDto {
   /// Go: `func (resolver.Address).Equal(o resolver.Address) bool`.
   bool equal(GrpcResolverAddress o) {
     final $r = $callSync(
-        24681,
+        24687,
         $W()
           ..dto(this)
           ..dto(o));
@@ -63,7 +63,7 @@ final class GrpcResolverAddress implements GoDto {
 
   /// Go: `func (resolver.Address).String() string`.
   String string() {
-    final $r = $callSync(24682, $W()..dto(this));
+    final $r = $callSync(24688, $W()..dto(this));
     return $r.str();
   }
 }
@@ -79,7 +79,7 @@ mixin GrpcResolverAuthorityOverrider$ on GoHandle {
   /// Go: `func (resolver.AuthorityOverrider).OverrideAuthority(resolver.Target) string`.
   String overrideAuthority(GrpcResolverTarget target) {
     final $r = $callSync(
-        24683,
+        24689,
         $W()
           ..h(this)
           ..dto(target));
@@ -147,7 +147,7 @@ mixin GrpcResolverBuilder$ on GoHandle {
   GrpcResolver build(GrpcResolverTarget target, GrpcResolverClientConn cc,
       GrpcResolverBuildOptions opts) {
     final $r = $callSync(
-        24684,
+        24690,
         $W()
           ..h(this)
           ..dto(target)
@@ -158,7 +158,7 @@ mixin GrpcResolverBuilder$ on GoHandle {
 
   /// Go: `func (resolver.Builder).Scheme() string`.
   String scheme() {
-    final $r = $callSync(24685, $W()..h(this));
+    final $r = $callSync(24691, $W()..h(this));
     return $r.str();
   }
 }
@@ -174,7 +174,7 @@ mixin GrpcResolverClientConn$ on GoHandle {
   @Deprecated("Use UpdateState instead.")
   void newAddress(List<GrpcResolverAddress> addresses) {
     $callSync(
-        24686,
+        24692,
         $W()
           ..h(this)
           ..list(addresses, (w0, e0) => w0.dto(e0)));
@@ -184,7 +184,7 @@ mixin GrpcResolverClientConn$ on GoHandle {
   $serviceconfig.GrpcServiceconfigParseResult parseServiceConfig(
       String serviceConfigJson) {
     final $r = $callSync(
-        24687,
+        24693,
         $W()
           ..h(this)
           ..str(serviceConfigJson));
@@ -196,7 +196,7 @@ mixin GrpcResolverClientConn$ on GoHandle {
   /// Go: `func (resolver.ClientConn).UpdateState(resolver.State) error`.
   void updateState(GrpcResolverState state) {
     $callSync(
-        24688,
+        24694,
         $W()
           ..h(this)
           ..dto(state));
@@ -247,13 +247,13 @@ class GrpcResolver extends GoHandle with GrpcResolver$ {
 mixin GrpcResolver$ on GoHandle {
   /// Go: `func (resolver.Resolver).Close()`.
   void close() {
-    $callSync(24692, $W()..h(this));
+    $callSync(24698, $W()..h(this));
   }
 
   /// Go: `func (resolver.Resolver).ResolveNow(resolver.ResolveNowOptions)`.
   void resolveNow(GrpcResolverResolveNowOptions resolveNowOptions) {
     $callSync(
-        24693,
+        24699,
         $W()
           ..h(this)
           ..dto(resolveNowOptions));
@@ -317,13 +317,13 @@ final class GrpcResolverTarget implements GoDto {
 
   /// Go: `func (resolver.Target).Endpoint() string`.
   String endpoint() {
-    final $r = $callSync(24695, $W()..dto(this));
+    final $r = $callSync(24701, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (resolver.Target).String() string`.
   String string() {
-    final $r = $callSync(24696, $W()..dto(this));
+    final $r = $callSync(24702, $W()..dto(this));
     return $r.str();
   }
 }
@@ -332,28 +332,28 @@ final class GrpcResolverTarget implements GoDto {
 extension GoGrpcResolverApi on GoGrpcResolver {
   /// Go: `func resolver.Get(scheme string) resolver.Builder`.
   GrpcResolverBuilder get(String scheme) {
-    final $r = $callSync(24689, $W()..str(scheme));
+    final $r = $callSync(24695, $W()..str(scheme));
     return $r.hnn(GrpcResolverBuilder.$h);
   }
 
   /// Go: `func resolver.GetDefaultScheme() string`.
   String getDefaultScheme() {
-    final $r = $callSync(24690);
+    final $r = $callSync(24696);
     return $r.str();
   }
 
   /// Go: `func resolver.Register(b resolver.Builder)`.
   void register(GrpcResolverBuilder b) {
-    $callSync(24691, $W()..h(b));
+    $callSync(24697, $W()..h(b));
   }
 
   /// Go: `func resolver.SetDefaultScheme(scheme string)`.
   void setDefaultScheme(String scheme) {
-    $callSync(24694, $W()..str(scheme));
+    $callSync(24700, $W()..str(scheme));
   }
 
   /// Go: `func resolver.ValidateEndpoints(endpoints []resolver.Endpoint) error`.
   void validateEndpoints(List<GrpcResolverEndpoint> endpoints) {
-    $callSync(24697, $W()..list(endpoints, (w0, e0) => w0.dto(e0)));
+    $callSync(24703, $W()..list(endpoints, (w0, e0) => w0.dto(e0)));
   }
 }

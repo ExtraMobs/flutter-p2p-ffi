@@ -41,26 +41,26 @@ class NetIpv6Conn extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func ipv6.NewConn(c net.Conn) *ipv6.Conn`.
   factory NetIpv6Conn($net.NetConn c) {
-    final $r = $callSync(23731, $W()..h(c));
+    final $r = $callSync(23737, $W()..h(c));
     return $r.hnn(NetIpv6Conn.$h);
   }
 
   /// Go: `func (*ipv6.genericOpt).HopLimit() (int, error)`.
   int hopLimit() {
-    final $r = $callSync(23718, $W()..h(this));
+    final $r = $callSync(23724, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*ipv6.Conn).PathMTU() (int, error)`.
   int pathMtu() {
-    final $r = $callSync(23719, $W()..h(this));
+    final $r = $callSync(23725, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*ipv6.genericOpt).SetHopLimit(hoplim int) error`.
   void setHopLimit(int hoplim) {
     $callSync(
-        23720,
+        23726,
         $W()
           ..h(this)
           ..i64(hoplim));
@@ -69,7 +69,7 @@ class NetIpv6Conn extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*ipv6.genericOpt).SetTrafficClass(tclass int) error`.
   void setTrafficClass(int tclass) {
     $callSync(
-        23721,
+        23727,
         $W()
           ..h(this)
           ..i64(tclass));
@@ -77,7 +77,7 @@ class NetIpv6Conn extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*ipv6.genericOpt).TrafficClass() (int, error)`.
   int trafficClass() {
-    final $r = $callSync(23722, $W()..h(this));
+    final $r = $callSync(23728, $W()..h(this));
     return $r.i64();
   }
 }
@@ -144,14 +144,14 @@ final class NetIpv6ControlMessage implements GoDto {
 
   /// Go: `func (*ipv6.ControlMessage).Marshal() []byte`.
   Uint8List marshal() {
-    final $r = $callSync(23723, $W()..dto(this));
+    final $r = $callSync(23729, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*ipv6.ControlMessage).Parse(b []byte) error`.
   void parse(Uint8List b) {
     $callSync(
-        23724,
+        23730,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -159,7 +159,7 @@ final class NetIpv6ControlMessage implements GoDto {
 
   /// Go: `func (*ipv6.ControlMessage).String() string`.
   String string() {
-    final $r = $callSync(23725, $W()..dto(this));
+    final $r = $callSync(23731, $W()..dto(this));
     return $r.str();
   }
 }
@@ -233,7 +233,7 @@ final class NetIpv6Header implements GoDto {
 
   /// Go: `func (*ipv6.Header).String() string`.
   String string() {
-    final $r = $callSync(23726, $W()..dto(this));
+    final $r = $callSync(23732, $W()..dto(this));
     return $r.str();
   }
 }
@@ -259,7 +259,7 @@ class NetIpv6IcmpFilter extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*ipv6.ICMPFilter).Accept(typ ipv6.ICMPType)`.
   void accept(int typ) {
     $callSync(
-        23727,
+        23733,
         $W()
           ..h(this)
           ..i64(typ));
@@ -268,7 +268,7 @@ class NetIpv6IcmpFilter extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*ipv6.ICMPFilter).Block(typ ipv6.ICMPType)`.
   void block(int typ) {
     $callSync(
-        23728,
+        23734,
         $W()
           ..h(this)
           ..i64(typ));
@@ -277,7 +277,7 @@ class NetIpv6IcmpFilter extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*ipv6.ICMPFilter).SetAll(block bool)`.
   void setAll(bool block) {
     $callSync(
-        23729,
+        23735,
         $W()
           ..h(this)
           ..b(block));
@@ -286,7 +286,7 @@ class NetIpv6IcmpFilter extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*ipv6.ICMPFilter).WillBlock(typ ipv6.ICMPType) bool`.
   bool willBlock(int typ) {
     final $r = $callSync(
-        23730,
+        23736,
         $W()
           ..h(this)
           ..i64(typ));
@@ -328,26 +328,26 @@ class NetIpv6PacketConn extends $sync.SyncLocker
 
   /// Go: `func ipv6.NewPacketConn(c net.PacketConn) *ipv6.PacketConn`.
   factory NetIpv6PacketConn($net.NetPacketConn c) {
-    final $r = $callSync(23733, $W()..h(c));
+    final $r = $callSync(23739, $W()..h(c));
     return $r.hnn(NetIpv6PacketConn.$h);
   }
 
   /// Go: `func (*ipv6.dgramOpt).Checksum() (on bool, offset int, err error)`.
   (bool, int) checksum() {
-    final $r = $callSync(23734, $W()..h(this));
+    final $r = $callSync(23740, $W()..h(this));
     return ($r.b(), $r.i64());
   }
 
   /// Go: `func (*ipv6.PacketConn).Close() error`.
   void close() {
-    $callSync(23735, $W()..h(this));
+    $callSync(23741, $W()..h(this));
   }
 
   /// Go: `func (*ipv6.dgramOpt).ExcludeSourceSpecificGroup(ifi *net.Interface, group net.Addr, source net.Addr) error`.
   void excludeSourceSpecificGroup(
       $net.NetInterface ifi, $net.NetAddr group, $net.NetAddr source) {
     $callSync(
-        23736,
+        23742,
         $W()
           ..h(this)
           ..dto(ifi)
@@ -357,13 +357,13 @@ class NetIpv6PacketConn extends $sync.SyncLocker
 
   /// Go: `func (*ipv6.genericOpt).HopLimit() (int, error)`.
   int hopLimit() {
-    final $r = $callSync(23737, $W()..h(this));
+    final $r = $callSync(23743, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*ipv6.dgramOpt).ICMPFilter() (*ipv6.ICMPFilter, error)`.
   NetIpv6IcmpFilter icmpFilter() {
-    final $r = $callSync(23738, $W()..h(this));
+    final $r = $callSync(23744, $W()..h(this));
     return $r.hnn(NetIpv6IcmpFilter.$h);
   }
 
@@ -371,7 +371,7 @@ class NetIpv6PacketConn extends $sync.SyncLocker
   void includeSourceSpecificGroup(
       $net.NetInterface ifi, $net.NetAddr group, $net.NetAddr source) {
     $callSync(
-        23739,
+        23745,
         $W()
           ..h(this)
           ..dto(ifi)
@@ -382,7 +382,7 @@ class NetIpv6PacketConn extends $sync.SyncLocker
   /// Go: `func (*ipv6.dgramOpt).JoinGroup(ifi *net.Interface, group net.Addr) error`.
   void joinGroup($net.NetInterface ifi, $net.NetAddr group) {
     $callSync(
-        23740,
+        23746,
         $W()
           ..h(this)
           ..dto(ifi)
@@ -393,7 +393,7 @@ class NetIpv6PacketConn extends $sync.SyncLocker
   void joinSourceSpecificGroup(
       $net.NetInterface ifi, $net.NetAddr group, $net.NetAddr source) {
     $callSync(
-        23741,
+        23747,
         $W()
           ..h(this)
           ..dto(ifi)
@@ -404,7 +404,7 @@ class NetIpv6PacketConn extends $sync.SyncLocker
   /// Go: `func (*ipv6.dgramOpt).LeaveGroup(ifi *net.Interface, group net.Addr) error`.
   void leaveGroup($net.NetInterface ifi, $net.NetAddr group) {
     $callSync(
-        23742,
+        23748,
         $W()
           ..h(this)
           ..dto(ifi)
@@ -415,7 +415,7 @@ class NetIpv6PacketConn extends $sync.SyncLocker
   void leaveSourceSpecificGroup(
       $net.NetInterface ifi, $net.NetAddr group, $net.NetAddr source) {
     $callSync(
-        23743,
+        23749,
         $W()
           ..h(this)
           ..dto(ifi)
@@ -425,26 +425,26 @@ class NetIpv6PacketConn extends $sync.SyncLocker
 
   /// Go: `func (*ipv6.dgramOpt).MulticastHopLimit() (int, error)`.
   int multicastHopLimit() {
-    final $r = $callSync(23744, $W()..h(this));
+    final $r = $callSync(23750, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*ipv6.dgramOpt).MulticastInterface() (*net.Interface, error)`.
   $net.NetInterface multicastInterface() {
-    final $r = $callSync(23745, $W()..h(this));
+    final $r = $callSync(23751, $W()..h(this));
     return $r.p() ? $net.NetInterface.$dec($r) : $nil();
   }
 
   /// Go: `func (*ipv6.dgramOpt).MulticastLoopback() (bool, error)`.
   bool multicastLoopback() {
-    final $r = $callSync(23746, $W()..h(this));
+    final $r = $callSync(23752, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*ipv6.payloadHandler).ReadBatch(ms []ipv6.Message, flags int) (int, error)`.
   int readBatch(List<$ipv4.NetIpv4Message> ms, int flags) {
     final $r = $callSync(
-        23747,
+        23753,
         $W()
           ..h(this)
           ..list(ms, (w0, e0) => w0.dto(e0))
@@ -455,7 +455,7 @@ class NetIpv6PacketConn extends $sync.SyncLocker
   /// Go: `func (*ipv6.payloadHandler).ReadFrom(b []byte) (n int, cm *ipv6.ControlMessage, src net.Addr, err error)`.
   (int, NetIpv6ControlMessage, $net.NetAddr) readFrom(Uint8List b) {
     final $r = $callSync(
-        23748,
+        23754,
         $W()
           ..h(this)
           ..bytes(b));
@@ -469,7 +469,7 @@ class NetIpv6PacketConn extends $sync.SyncLocker
   /// Go: `func (*ipv6.dgramOpt).SetBPF(filter []bpf.RawInstruction) error`.
   void setBpf(List<$bpf.NetBpfRawInstruction> filter) {
     $callSync(
-        23749,
+        23755,
         $W()
           ..h(this)
           ..list(filter, (w0, e0) => w0.dto(e0)));
@@ -478,7 +478,7 @@ class NetIpv6PacketConn extends $sync.SyncLocker
   /// Go: `func (*ipv6.dgramOpt).SetChecksum(on bool, offset int) error`.
   void setChecksum(bool on, int offset) {
     $callSync(
-        23750,
+        23756,
         $W()
           ..h(this)
           ..b(on)
@@ -488,7 +488,7 @@ class NetIpv6PacketConn extends $sync.SyncLocker
   /// Go: `func (*ipv6.PacketConn).SetControlMessage(cf ipv6.ControlFlags, on bool) error`.
   void setControlMessage(int cf, bool on) {
     $callSync(
-        23751,
+        23757,
         $W()
           ..h(this)
           ..i64(cf)
@@ -498,7 +498,7 @@ class NetIpv6PacketConn extends $sync.SyncLocker
   /// Go: `func (*ipv6.PacketConn).SetDeadline(t time.Time) error`.
   void setDeadline(DateTime t) {
     $callSync(
-        23752,
+        23758,
         $W()
           ..h(this)
           ..time(t));
@@ -507,7 +507,7 @@ class NetIpv6PacketConn extends $sync.SyncLocker
   /// Go: `func (*ipv6.genericOpt).SetHopLimit(hoplim int) error`.
   void setHopLimit(int hoplim) {
     $callSync(
-        23753,
+        23759,
         $W()
           ..h(this)
           ..i64(hoplim));
@@ -516,7 +516,7 @@ class NetIpv6PacketConn extends $sync.SyncLocker
   /// Go: `func (*ipv6.dgramOpt).SetICMPFilter(f *ipv6.ICMPFilter) error`.
   void setIcmpFilter(NetIpv6IcmpFilter f) {
     $callSync(
-        23754,
+        23760,
         $W()
           ..h(this)
           ..h(f));
@@ -525,7 +525,7 @@ class NetIpv6PacketConn extends $sync.SyncLocker
   /// Go: `func (*ipv6.dgramOpt).SetMulticastHopLimit(hoplim int) error`.
   void setMulticastHopLimit(int hoplim) {
     $callSync(
-        23755,
+        23761,
         $W()
           ..h(this)
           ..i64(hoplim));
@@ -534,7 +534,7 @@ class NetIpv6PacketConn extends $sync.SyncLocker
   /// Go: `func (*ipv6.dgramOpt).SetMulticastInterface(ifi *net.Interface) error`.
   void setMulticastInterface($net.NetInterface ifi) {
     $callSync(
-        23756,
+        23762,
         $W()
           ..h(this)
           ..dto(ifi));
@@ -543,7 +543,7 @@ class NetIpv6PacketConn extends $sync.SyncLocker
   /// Go: `func (*ipv6.dgramOpt).SetMulticastLoopback(on bool) error`.
   void setMulticastLoopback(bool on) {
     $callSync(
-        23757,
+        23763,
         $W()
           ..h(this)
           ..b(on));
@@ -552,7 +552,7 @@ class NetIpv6PacketConn extends $sync.SyncLocker
   /// Go: `func (*ipv6.PacketConn).SetReadDeadline(t time.Time) error`.
   void setReadDeadline(DateTime t) {
     $callSync(
-        23758,
+        23764,
         $W()
           ..h(this)
           ..time(t));
@@ -561,7 +561,7 @@ class NetIpv6PacketConn extends $sync.SyncLocker
   /// Go: `func (*ipv6.genericOpt).SetTrafficClass(tclass int) error`.
   void setTrafficClass(int tclass) {
     $callSync(
-        23759,
+        23765,
         $W()
           ..h(this)
           ..i64(tclass));
@@ -570,7 +570,7 @@ class NetIpv6PacketConn extends $sync.SyncLocker
   /// Go: `func (*ipv6.PacketConn).SetWriteDeadline(t time.Time) error`.
   void setWriteDeadline(DateTime t) {
     $callSync(
-        23760,
+        23766,
         $W()
           ..h(this)
           ..time(t));
@@ -578,14 +578,14 @@ class NetIpv6PacketConn extends $sync.SyncLocker
 
   /// Go: `func (*ipv6.genericOpt).TrafficClass() (int, error)`.
   int trafficClass() {
-    final $r = $callSync(23761, $W()..h(this));
+    final $r = $callSync(23767, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*ipv6.payloadHandler).WriteBatch(ms []ipv6.Message, flags int) (int, error)`.
   int writeBatch(List<$ipv4.NetIpv4Message> ms, int flags) {
     final $r = $callSync(
-        23762,
+        23768,
         $W()
           ..h(this)
           ..list(ms, (w0, e0) => w0.dto(e0))
@@ -596,7 +596,7 @@ class NetIpv6PacketConn extends $sync.SyncLocker
   /// Go: `func (*ipv6.payloadHandler).WriteTo(b []byte, cm *ipv6.ControlMessage, dst net.Addr) (n int, err error)`.
   int writeTo(Uint8List b, NetIpv6ControlMessage cm, $net.NetAddr dst) {
     final $r = $callSync(
-        23763,
+        23769,
         $W()
           ..h(this)
           ..bytes(b)
@@ -610,13 +610,13 @@ class NetIpv6PacketConn extends $sync.SyncLocker
 extension GoXNetIpv6Api on GoXNetIpv6 {
   /// Go: `func ipv6.NewControlMessage(cf ipv6.ControlFlags) []byte`.
   Uint8List newControlMessage(int cf) {
-    final $r = $callSync(23732, $W()..i64(cf));
+    final $r = $callSync(23738, $W()..i64(cf));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func ipv6.ParseHeader(b []byte) (*ipv6.Header, error)`.
   NetIpv6Header parseHeader(Uint8List b) {
-    final $r = $callSync(23764, $W()..bytes(b));
+    final $r = $callSync(23770, $W()..bytes(b));
     return $r.p() ? NetIpv6Header.$dec($r) : $nil();
   }
 }

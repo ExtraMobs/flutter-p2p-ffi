@@ -22,7 +22,7 @@ mixin BoxoPinningPinnerDsindexIndexer$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> add($context.Context ctx, String key, String value) async {
     await $call(
-        10161,
+        10170,
         $W()
           ..h(this)
           ..h(ctx)
@@ -35,7 +35,7 @@ mixin BoxoPinningPinnerDsindexIndexer$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> delete($context.Context ctx, String key, String value) async {
     await $call(
-        10162,
+        10171,
         $W()
           ..h(this)
           ..h(ctx)
@@ -48,7 +48,7 @@ mixin BoxoPinningPinnerDsindexIndexer$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> deleteAll($context.Context ctx) async {
     final $r = await $call(
-        10163,
+        10172,
         $W()
           ..h(this)
           ..h(ctx));
@@ -60,7 +60,7 @@ mixin BoxoPinningPinnerDsindexIndexer$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> deleteKey($context.Context ctx, String key) async {
     final $r = await $call(
-        10164,
+        10173,
         $W()
           ..h(this)
           ..h(ctx)
@@ -78,7 +78,7 @@ mixin BoxoPinningPinnerDsindexIndexer$ on GoHandle {
   Future<void> forEach($context.Context ctx, String key,
       FutureOr<bool> Function(String key, String value) fn) async {
     await $call(
-        10165,
+        10174,
         $W()
           ..h(this)
           ..h(ctx)
@@ -91,7 +91,7 @@ mixin BoxoPinningPinnerDsindexIndexer$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> hasAny($context.Context ctx, String key) async {
     final $r = await $call(
-        10166,
+        10175,
         $W()
           ..h(this)
           ..h(ctx)
@@ -104,7 +104,7 @@ mixin BoxoPinningPinnerDsindexIndexer$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> hasValue($context.Context ctx, String key, String value) async {
     final $r = await $call(
-        10167,
+        10176,
         $W()
           ..h(this)
           ..h(ctx)
@@ -118,7 +118,7 @@ mixin BoxoPinningPinnerDsindexIndexer$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<List<String>> search($context.Context ctx, String key) async {
     final $r = await $call(
-        10168,
+        10177,
         $W()
           ..h(this)
           ..h(ctx)
@@ -151,7 +151,7 @@ extension GoIpfsBoxoPinningPinnerDsindexApi on GoIpfsBoxoPinningPinnerDsindex {
   BoxoPinningPinnerDsindexIndexer new$(
       $datastore.Datastore dstore, $datastore.DatastoreKey name) {
     final $r = $callSync(
-        10169,
+        10178,
         $W()
           ..h(dstore)
           ..h(name));
@@ -166,7 +166,7 @@ extension GoIpfsBoxoPinningPinnerDsindexApi on GoIpfsBoxoPinningPinnerDsindex {
       BoxoPinningPinnerDsindexIndexer ref,
       BoxoPinningPinnerDsindexIndexer target) async {
     final $r = await $call(
-        10170,
+        10179,
         $W()
           ..h(ctx)
           ..h(ref)

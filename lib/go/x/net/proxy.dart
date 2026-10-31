@@ -58,7 +58,7 @@ mixin NetProxyContextDialer$ on GoHandle {
   Future<$net.NetConn> dialContext(
       $context.Context ctx, String network, String address) async {
     final $r = await $call(
-        23765,
+        23771,
         $W()
           ..h(this)
           ..h(ctx)
@@ -69,13 +69,13 @@ mixin NetProxyContextDialer$ on GoHandle {
 
   /// Go: type assertion `x.(*proxy.PerHost)`: null if the object is not one.
   NetProxyPerHost? asNetProxyPerHost() {
-    final $r = $callSync(2150, $W()..h(this));
+    final $r = $callSync(2157, $W()..h(this));
     return $r.hn(NetProxyPerHost.$h);
   }
 
   /// Go: type assertion `x.(*net.Dialer)`: null if the object is not one.
   $net.NetDialer? asNetDialer() {
-    final $r = $callSync(2151, $W()..h(this));
+    final $r = $callSync(2158, $W()..h(this));
     return $r.hn($net.NetDialer.$h);
   }
 }
@@ -90,7 +90,7 @@ mixin NetProxyDialer$ on GoHandle {
   /// Go: `func (proxy.Dialer).Dial(network string, addr string) (c net.Conn, err error)`.
   $net.NetConn dial(String network, String addr) {
     final $r = $callSync(
-        23767,
+        23773,
         $W()
           ..h(this)
           ..str(network)
@@ -100,31 +100,31 @@ mixin NetProxyDialer$ on GoHandle {
 
   /// Go: type assertion `x.(*stdnet.Net)`: null if the object is not one.
   $stdnet.TransportV3StdnetNet? asTransportV3StdnetNet() {
-    final $r = $callSync(2152, $W()..h(this));
+    final $r = $callSync(2159, $W()..h(this));
     return $r.hn($stdnet.TransportV3StdnetNet.$h);
   }
 
   /// Go: type assertion `x.(*vnet.Net)`: null if the object is not one.
   $vnet.TransportV3VnetNet? asTransportV3VnetNet() {
-    final $r = $callSync(2153, $W()..h(this));
+    final $r = $callSync(2160, $W()..h(this));
     return $r.hn($vnet.TransportV3VnetNet.$h);
   }
 
   /// Go: type assertion `x.(*stdnet.Net)`: null if the object is not one.
   $stdnet2.TransportV4StdnetNet? asTransportV4StdnetNet() {
-    final $r = $callSync(2154, $W()..h(this));
+    final $r = $callSync(2161, $W()..h(this));
     return $r.hn($stdnet2.TransportV4StdnetNet.$h);
   }
 
   /// Go: type assertion `x.(*proxy.PerHost)`: null if the object is not one.
   NetProxyPerHost? asNetProxyPerHost() {
-    final $r = $callSync(2155, $W()..h(this));
+    final $r = $callSync(2162, $W()..h(this));
     return $r.hn(NetProxyPerHost.$h);
   }
 
   /// Go: type assertion `x.(*net.Dialer)`: null if the object is not one.
   $net.NetDialer? asNetDialer() {
-    final $r = $callSync(2156, $W()..h(this));
+    final $r = $callSync(2163, $W()..h(this));
     return $r.hn($net.NetDialer.$h);
   }
 }
@@ -160,7 +160,7 @@ class NetProxyPerHost extends $tcp.Libp2pP2pTransportTcpContextDialer
   /// Go: `func proxy.NewPerHost(defaultDialer proxy.Dialer, bypass proxy.Dialer) *proxy.PerHost`.
   factory NetProxyPerHost(NetProxyDialer defaultDialer, NetProxyDialer bypass) {
     final $r = $callSync(
-        23771,
+        23777,
         $W()
           ..h(defaultDialer)
           ..h(bypass));
@@ -170,7 +170,7 @@ class NetProxyPerHost extends $tcp.Libp2pP2pTransportTcpContextDialer
   /// Go: `func (*proxy.PerHost).AddFromString(s string)`.
   void addFromString(String s) {
     $callSync(
-        23772,
+        23778,
         $W()
           ..h(this)
           ..str(s));
@@ -179,7 +179,7 @@ class NetProxyPerHost extends $tcp.Libp2pP2pTransportTcpContextDialer
   /// Go: `func (*proxy.PerHost).AddHost(host string)`.
   void addHost(String host) {
     $callSync(
-        23773,
+        23779,
         $W()
           ..h(this)
           ..str(host));
@@ -188,7 +188,7 @@ class NetProxyPerHost extends $tcp.Libp2pP2pTransportTcpContextDialer
   /// Go: `func (*proxy.PerHost).AddIP(ip net.IP)`.
   void addIp(Uint8List ip) {
     $callSync(
-        23774,
+        23780,
         $W()
           ..h(this)
           ..bytes(ip));
@@ -197,7 +197,7 @@ class NetProxyPerHost extends $tcp.Libp2pP2pTransportTcpContextDialer
   /// Go: `func (*proxy.PerHost).AddNetwork(net *net.IPNet)`.
   void addNetwork($net.NetIpNet net) {
     $callSync(
-        23775,
+        23781,
         $W()
           ..h(this)
           ..dto(net));
@@ -206,7 +206,7 @@ class NetProxyPerHost extends $tcp.Libp2pP2pTransportTcpContextDialer
   /// Go: `func (*proxy.PerHost).AddZone(zone string)`.
   void addZone(String zone) {
     $callSync(
-        23776,
+        23782,
         $W()
           ..h(this)
           ..str(zone));
@@ -215,7 +215,7 @@ class NetProxyPerHost extends $tcp.Libp2pP2pTransportTcpContextDialer
   /// Go: `func (*proxy.PerHost).Dial(network string, addr string) (c net.Conn, err error)`.
   $net.NetConn dial(String network, String addr) {
     final $r = $callSync(
-        23777,
+        23783,
         $W()
           ..h(this)
           ..str(network)
@@ -229,7 +229,7 @@ class NetProxyPerHost extends $tcp.Libp2pP2pTransportTcpContextDialer
   Future<$net.NetConn> dialContext(
       $context.Context ctx, String network, String addr) async {
     final $r = await $call(
-        23778,
+        23784,
         $W()
           ..h(this)
           ..h(ctx)
@@ -247,7 +247,7 @@ extension GoXNetProxyApi on GoXNetProxy {
   Future<$net.NetConn> dial(
       $context.Context ctx, String network, String address) async {
     final $r = await $call(
-        23766,
+        23772,
         $W()
           ..h(ctx)
           ..str(network)
@@ -257,20 +257,20 @@ extension GoXNetProxyApi on GoXNetProxy {
 
   /// Go: `func proxy.FromEnvironment() proxy.Dialer`.
   NetProxyDialer fromEnvironment() {
-    final $r = $callSync(23768);
+    final $r = $callSync(23774);
     return $r.hnn(NetProxyDialer.$h);
   }
 
   /// Go: `func proxy.FromEnvironmentUsing(forward proxy.Dialer) proxy.Dialer`.
   NetProxyDialer fromEnvironmentUsing(NetProxyDialer forward) {
-    final $r = $callSync(23769, $W()..h(forward));
+    final $r = $callSync(23775, $W()..h(forward));
     return $r.hnn(NetProxyDialer.$h);
   }
 
   /// Go: `func proxy.FromURL(u *url.URL, forward proxy.Dialer) (proxy.Dialer, error)`.
   NetProxyDialer fromUrl($url.NetUrl u, NetProxyDialer forward) {
     final $r = $callSync(
-        23770,
+        23776,
         $W()
           ..dto(u)
           ..h(forward));
@@ -281,7 +281,7 @@ extension GoXNetProxyApi on GoXNetProxy {
   NetProxyDialer socks5(String network, String address, NetProxyAuth auth,
       NetProxyDialer forward) {
     final $r = $callSync(
-        23779,
+        23785,
         $W()
           ..str(network)
           ..str(address)

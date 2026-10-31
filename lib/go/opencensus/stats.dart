@@ -34,14 +34,14 @@ class StatsFloat64Measure extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*stats.Float64Measure).Description() string`.
   String description() {
-    final $r = $callSync(19020, $W()..h(this));
+    final $r = $callSync(19026, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*stats.Float64Measure).M(v float64) stats.Measurement`.
   StatsMeasurement m(double v) {
     final $r = $callSync(
-        19021,
+        19027,
         $W()
           ..h(this)
           ..f64(v));
@@ -50,13 +50,13 @@ class StatsFloat64Measure extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*stats.Float64Measure).Name() string`.
   String name() {
-    final $r = $callSync(19022, $W()..h(this));
+    final $r = $callSync(19028, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*stats.Float64Measure).Unit() string`.
   String unit() {
-    final $r = $callSync(19023, $W()..h(this));
+    final $r = $callSync(19029, $W()..h(this));
     return $r.str();
   }
 }
@@ -81,14 +81,14 @@ class StatsInt64Measure extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*stats.Int64Measure).Description() string`.
   String description() {
-    final $r = $callSync(19025, $W()..h(this));
+    final $r = $callSync(19031, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*stats.Int64Measure).M(v int64) stats.Measurement`.
   StatsMeasurement m(int v) {
     final $r = $callSync(
-        19026,
+        19032,
         $W()
           ..h(this)
           ..i64(v));
@@ -97,13 +97,13 @@ class StatsInt64Measure extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*stats.Int64Measure).Name() string`.
   String name() {
-    final $r = $callSync(19027, $W()..h(this));
+    final $r = $callSync(19033, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*stats.Int64Measure).Unit() string`.
   String unit() {
-    final $r = $callSync(19028, $W()..h(this));
+    final $r = $callSync(19034, $W()..h(this));
     return $r.str();
   }
 }
@@ -159,13 +159,13 @@ class StatsMeasurement extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (stats.Measurement).Measure() stats.Measure`.
   StatsMeasure measure() {
-    final $r = $callSync(19029, $W()..h(this));
+    final $r = $callSync(19035, $W()..h(this));
     return $r.p() ? StatsMeasure.$dec($r) : $nil();
   }
 
   /// Go: `func (stats.Measurement).Value() float64`.
   double value$() {
-    final $r = $callSync(19030, $W()..h(this));
+    final $r = $callSync(19036, $W()..h(this));
     return $r.f64();
   }
 }
@@ -185,7 +185,7 @@ mixin StatsRecorder$ on GoHandle {
   /// Go: `func (stats.Recorder).Record(*tag.Map, interface{}, map[string]interface{})`.
   void record($tag.TagMap map, Object? arg1, Map<String, Object?> arg2) {
     $callSync(
-        19034,
+        19040,
         $W()
           ..h(this)
           ..h(map)
@@ -195,7 +195,7 @@ mixin StatsRecorder$ on GoHandle {
 
   /// Go: type assertion `x.(view.Meter)`: null if the object is not one.
   $view.StatsViewMeter? asStatsViewMeter() {
-    final $r = $callSync(1990, $W()..h(this));
+    final $r = $callSync(1997, $W()..h(this));
     return $r.hn($view.StatsViewMeter.$h);
   }
 }
@@ -205,7 +205,7 @@ extension GoOpencensusStatsApi on GoOpencensusStats {
   /// Go: `func stats.Float64(name string, description string, unit string) *stats.Float64Measure`.
   StatsFloat64Measure float64(String name, String description, String unit) {
     final $r = $callSync(
-        19019,
+        19025,
         $W()
           ..str(name)
           ..str(description)
@@ -216,7 +216,7 @@ extension GoOpencensusStatsApi on GoOpencensusStats {
   /// Go: `func stats.Int64(name string, description string, unit string) *stats.Int64Measure`.
   StatsInt64Measure int64(String name, String description, String unit) {
     final $r = $callSync(
-        19024,
+        19030,
         $W()
           ..str(name)
           ..str(description)
@@ -230,7 +230,7 @@ extension GoOpencensusStatsApi on GoOpencensusStats {
   Future<void> record($context.Context ctx,
       [List<StatsMeasurement> ms = const []]) async {
     await $call(
-        19031,
+        19037,
         $W()
           ..h(ctx)
           ..list(ms, (w0, e0) => w0.h(e0)));
@@ -242,7 +242,7 @@ extension GoOpencensusStatsApi on GoOpencensusStats {
   Future<void> recordWithOptions($context.Context ctx,
       [List<StatsOptions> ros = const []]) async {
     await $call(
-        19032,
+        19038,
         $W()
           ..h(ctx)
           ..list(ros, (w0, e0) => w0.opt(e0)));
@@ -255,7 +255,7 @@ extension GoOpencensusStatsApi on GoOpencensusStats {
       $context.Context ctx, List<$tag.TagMutator> mutators,
       [List<StatsMeasurement> ms = const []]) async {
     await $call(
-        19033,
+        19039,
         $W()
           ..h(ctx)
           ..list(mutators, (w0, e0) => w0.h(e0))

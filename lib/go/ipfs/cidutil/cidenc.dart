@@ -33,7 +33,7 @@ final class CidutilCidencEncoder implements GoDto {
   /// Go: `func (cidenc.Encoder).Encode(c cid.Cid) string`.
   String encode($cid.Cid c) {
     final $r = $callSync(
-        10530,
+        10539,
         $W()
           ..dto(this)
           ..val(c));
@@ -43,7 +43,7 @@ final class CidutilCidencEncoder implements GoDto {
   /// Go: `func (cidenc.Encoder).Recode(v string) (string, error)`.
   String recode(String v) {
     final $r = $callSync(
-        10531,
+        10540,
         $W()
           ..dto(this)
           ..str(v));
@@ -55,7 +55,7 @@ final class CidutilCidencEncoder implements GoDto {
 extension GoIpfsCidutilCidencApi on GoIpfsCidutilCidenc {
   /// Go: `func cidenc.Default() cidenc.Encoder`.
   CidutilCidencEncoder default$() {
-    final $r = $callSync(10529);
+    final $r = $callSync(10538);
     return $r.p() ? CidutilCidencEncoder.$dec($r) : $nil();
   }
 }

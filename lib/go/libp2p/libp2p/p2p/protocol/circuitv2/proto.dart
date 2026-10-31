@@ -45,26 +45,26 @@ final class Libp2pP2pProtocolCircuitv2ProtoReservationVoucher implements GoDto {
 
   /// Go: `func (*proto.ReservationVoucher).Codec() []byte`.
   Uint8List codec() {
-    final $r = $callSync(14882, $W()..dto(this));
+    final $r = $callSync(14888, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*proto.ReservationVoucher).Domain() string`.
   String domain() {
-    final $r = $callSync(14883, $W()..dto(this));
+    final $r = $callSync(14889, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*proto.ReservationVoucher).MarshalRecord() ([]byte, error)`.
   Uint8List marshalRecord() {
-    final $r = $callSync(14884, $W()..dto(this));
+    final $r = $callSync(14890, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*proto.ReservationVoucher).UnmarshalRecord(blob []byte) error`.
   void unmarshalRecord(Uint8List blob) {
     $callSync(
-        14885,
+        14891,
         $W()
           ..dto(this)
           ..bytes(blob));
@@ -76,7 +76,7 @@ extension GoLibp2pLibp2pP2pProtocolCircuitv2ProtoApi
     on GoLibp2pLibp2pP2pProtocolCircuitv2Proto {
   /// Go: `var proto.RecordCodec []byte`.
   Uint8List get recordCodec {
-    final $r = $callSync(14881);
+    final $r = $callSync(14887);
     return $r.bytes() ?? Uint8List(0);
   }
 }

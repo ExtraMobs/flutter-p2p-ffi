@@ -50,7 +50,7 @@ class Libp2pP2pHostPstoremanagerPeerstoreManager extends $io.IoCloser
       $network.Libp2pCoreNetwork network,
       [List<Libp2pP2pHostPstoremanagerOption> opts = const []]) {
     final $r = $callSync(
-        14489,
+        14495,
         $W()
           ..h(pstore)
           ..h(eventBus)
@@ -61,12 +61,12 @@ class Libp2pP2pHostPstoremanagerPeerstoreManager extends $io.IoCloser
 
   /// Go: `func (*pstoremanager.PeerstoreManager).Close() error`.
   void close() {
-    $callSync(14490, $W()..h(this));
+    $callSync(14496, $W()..h(this));
   }
 
   /// Go: `func (*pstoremanager.PeerstoreManager).Start()`.
   void start() {
-    $callSync(14491, $W()..h(this));
+    $callSync(14497, $W()..h(this));
   }
 }
 

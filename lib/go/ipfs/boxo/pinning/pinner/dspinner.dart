@@ -46,7 +46,7 @@ extension GoIpfsBoxoPinningPinnerDspinnerApi
       $blockstore.BoxoBlockstore bs,
       $walker.BoxoDagWalkerVisitedTracker tracker) {
     final $r = $callSync(
-        10171,
+        10180,
         $W()
           ..h(pinning)
           ..h(bs)
@@ -60,7 +60,7 @@ extension GoIpfsBoxoPinningPinnerDspinnerApi
       $pinner.BoxoPinningPinner pinning,
       $fetcher.BoxoFetcherFactory fetchConfig) {
     final $r = $callSync(
-        10172,
+        10181,
         $W()
           ..b(onlyRoots)
           ..h(pinning)
@@ -74,7 +74,7 @@ extension GoIpfsBoxoPinningPinnerDspinnerApi
       $blockstore.BoxoBlockstore bs,
       $walker.BoxoDagWalkerVisitedTracker tracker) {
     final $r = $callSync(
-        10173,
+        10182,
         $W()
           ..h(pinning)
           ..h(bs)
@@ -89,14 +89,14 @@ extension GoIpfsBoxoPinningPinnerDspinnerOptionsApi
   /// Go: `func dspinner.WithPinnedProvider(prov provider.MultihashProvider) dspinner.Option`.
   BoxoPinningPinnerDspinnerOption withPinnedProvider(
       $provider.BoxoProviderMultihashProvider prov) {
-    final $r = $callSync(10174, $W()..h(prov));
+    final $r = $callSync(10183, $W()..h(prov));
     return $r.hnn(BoxoPinningPinnerDspinnerOption.$h);
   }
 
   /// Go: `func dspinner.WithRootsProvider(prov provider.MultihashProvider) dspinner.Option`.
   BoxoPinningPinnerDspinnerOption withRootsProvider(
       $provider.BoxoProviderMultihashProvider prov) {
-    final $r = $callSync(10175, $W()..h(prov));
+    final $r = $callSync(10184, $W()..h(prov));
     return $r.hnn(BoxoPinningPinnerDspinnerOption.$h);
   }
 }

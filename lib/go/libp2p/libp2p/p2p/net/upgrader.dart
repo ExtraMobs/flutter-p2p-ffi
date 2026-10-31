@@ -55,7 +55,7 @@ class Libp2pP2pNetUpgraderErrNilPeer extends GolangException {
 extension GoLibp2pLibp2pP2pNetUpgraderApi on GoLibp2pLibp2pP2pNetUpgrader {
   /// Go: `var upgrader.AcceptQueueLength int`.
   int get acceptQueueLength {
-    final $r = $callSync(14725);
+    final $r = $callSync(14731);
     return $r.i64();
   }
 
@@ -68,7 +68,7 @@ extension GoLibp2pLibp2pP2pNetUpgraderApi on GoLibp2pLibp2pP2pNetUpgrader {
       $connmgr.Libp2pCoreConnmgrConnectionGater connGater,
       [List<Libp2pP2pNetUpgraderOption> opts = const []]) {
     final $r = $callSync(
-        14726,
+        14732,
         $W()
           ..list(security, (w0, e0) => w0.h(e0))
           ..list(muxers, (w0, e0) => w0.dto(e0))

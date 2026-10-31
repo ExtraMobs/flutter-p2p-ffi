@@ -39,7 +39,7 @@ class BadgerTableBuilder extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*table.Builder).Add(key []byte, value y.ValueStruct)`.
   void add(Uint8List key, $y.BadgerYValueStruct value) {
     $callSync(
-        6069,
+        6078,
         $W()
           ..h(this)
           ..bytes(key)
@@ -48,25 +48,25 @@ class BadgerTableBuilder extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*table.Builder).Close()`.
   void close() {
-    $callSync(6070, $W()..h(this));
+    $callSync(6079, $W()..h(this));
   }
 
   /// Go: `func (*table.Builder).Empty() bool`.
   bool empty() {
-    final $r = $callSync(6071, $W()..h(this));
+    final $r = $callSync(6080, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*table.Builder).Finish() []byte`.
   Uint8List finish() {
-    final $r = $callSync(6072, $W()..h(this));
+    final $r = $callSync(6081, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*table.Builder).ReachedCapacity(cap int64) bool`.
   bool reachedCapacity(int cap) {
     final $r = $callSync(
-        6073,
+        6082,
         $W()
           ..h(this)
           ..i64(cap));
@@ -101,7 +101,7 @@ class BadgerTableConcatIterator extends $y.BadgerYIterator
   /// Go: `func table.NewConcatIterator(tbls []*table.Table, reversed bool) *table.ConcatIterator`.
   factory BadgerTableConcatIterator(List<BadgerTable> tbls, bool reversed) {
     final $r = $callSync(
-        6096,
+        6105,
         $W()
           ..list(tbls, (w0, e0) => w0.h(e0))
           ..b(reversed));
@@ -110,29 +110,29 @@ class BadgerTableConcatIterator extends $y.BadgerYIterator
 
   /// Go: `func (*table.ConcatIterator).Close() error`.
   void close() {
-    $callSync(6074, $W()..h(this));
+    $callSync(6083, $W()..h(this));
   }
 
   /// Go: `func (*table.ConcatIterator).Key() []byte`.
   Uint8List key() {
-    final $r = $callSync(6075, $W()..h(this));
+    final $r = $callSync(6084, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*table.ConcatIterator).Next()`.
   void next() {
-    $callSync(6076, $W()..h(this));
+    $callSync(6085, $W()..h(this));
   }
 
   /// Go: `func (*table.ConcatIterator).Rewind()`.
   void rewind() {
-    $callSync(6077, $W()..h(this));
+    $callSync(6086, $W()..h(this));
   }
 
   /// Go: `func (*table.ConcatIterator).Seek(key []byte)`.
   void seek(Uint8List key) {
     $callSync(
-        6078,
+        6087,
         $W()
           ..h(this)
           ..bytes(key));
@@ -140,13 +140,13 @@ class BadgerTableConcatIterator extends $y.BadgerYIterator
 
   /// Go: `func (*table.ConcatIterator).Valid() bool`.
   bool valid() {
-    final $r = $callSync(6079, $W()..h(this));
+    final $r = $callSync(6088, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*table.ConcatIterator).Value() y.ValueStruct`.
   $y.BadgerYValueStruct value$() {
-    final $r = $callSync(6080, $W()..h(this));
+    final $r = $callSync(6089, $W()..h(this));
     return $r.p() ? $y.BadgerYValueStruct.$dec($r) : $nil();
   }
 }
@@ -177,29 +177,29 @@ class BadgerTableIterator extends $y.BadgerYIterator
 
   /// Go: `func (*table.Iterator).Close() error`.
   void close() {
-    $callSync(6082, $W()..h(this));
+    $callSync(6091, $W()..h(this));
   }
 
   /// Go: `func (*table.Iterator).Key() []byte`.
   Uint8List key() {
-    final $r = $callSync(6083, $W()..h(this));
+    final $r = $callSync(6092, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*table.Iterator).Next()`.
   void next() {
-    $callSync(6084, $W()..h(this));
+    $callSync(6093, $W()..h(this));
   }
 
   /// Go: `func (*table.Iterator).Rewind()`.
   void rewind() {
-    $callSync(6085, $W()..h(this));
+    $callSync(6094, $W()..h(this));
   }
 
   /// Go: `func (*table.Iterator).Seek(key []byte)`.
   void seek(Uint8List key) {
     $callSync(
-        6086,
+        6095,
         $W()
           ..h(this)
           ..bytes(key));
@@ -207,13 +207,13 @@ class BadgerTableIterator extends $y.BadgerYIterator
 
   /// Go: `func (*table.Iterator).Valid() bool`.
   bool valid() {
-    final $r = $callSync(6087, $W()..h(this));
+    final $r = $callSync(6096, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*table.Iterator).Value() (ret y.ValueStruct)`.
   $y.BadgerYValueStruct value$() {
-    final $r = $callSync(6088, $W()..h(this));
+    final $r = $callSync(6097, $W()..h(this));
     return $r.p() ? $y.BadgerYValueStruct.$dec($r) : $nil();
   }
 }
@@ -244,29 +244,29 @@ class BadgerTableMergeIterator extends $y.BadgerYIterator
 
   /// Go: `func (*table.MergeIterator).Close() error`.
   void close() {
-    $callSync(6089, $W()..h(this));
+    $callSync(6098, $W()..h(this));
   }
 
   /// Go: `func (*table.MergeIterator).Key() []byte`.
   Uint8List key() {
-    final $r = $callSync(6090, $W()..h(this));
+    final $r = $callSync(6099, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*table.MergeIterator).Next()`.
   void next() {
-    $callSync(6091, $W()..h(this));
+    $callSync(6100, $W()..h(this));
   }
 
   /// Go: `func (*table.MergeIterator).Rewind()`.
   void rewind() {
-    $callSync(6092, $W()..h(this));
+    $callSync(6101, $W()..h(this));
   }
 
   /// Go: `func (*table.MergeIterator).Seek(key []byte)`.
   void seek(Uint8List key) {
     $callSync(
-        6093,
+        6102,
         $W()
           ..h(this)
           ..bytes(key));
@@ -274,13 +274,13 @@ class BadgerTableMergeIterator extends $y.BadgerYIterator
 
   /// Go: `func (*table.MergeIterator).Valid() bool`.
   bool valid() {
-    final $r = $callSync(6094, $W()..h(this));
+    final $r = $callSync(6103, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*table.MergeIterator).Value() y.ValueStruct`.
   $y.BadgerYValueStruct value$() {
-    final $r = $callSync(6095, $W()..h(this));
+    final $r = $callSync(6104, $W()..h(this));
     return $r.p() ? $y.BadgerYValueStruct.$dec($r) : $nil();
   }
 }
@@ -315,24 +315,24 @@ class BadgerTable extends BadgerTableInterface
 
   /// Go: `func (*table.Table).Biggest() []byte`.
   Uint8List biggest() {
-    final $r = $callSync(6102, $W()..h(this));
+    final $r = $callSync(6111, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*table.Table).Close() error`.
   void close() {
-    $callSync(6103, $W()..h(this));
+    $callSync(6112, $W()..h(this));
   }
 
   /// Go: `func (*table.Table).DecrRef() error`.
   void decrRef() {
-    $callSync(6104, $W()..h(this));
+    $callSync(6113, $W()..h(this));
   }
 
   /// Go: `func (*table.Table).DoesNotHave(key []byte) bool`.
   bool doesNotHave(Uint8List key) {
     final $r = $callSync(
-        6105,
+        6114,
         $W()
           ..h(this)
           ..bytes(key));
@@ -341,25 +341,25 @@ class BadgerTable extends BadgerTableInterface
 
   /// Go: `func (*table.Table).Filename() string`.
   String filename() {
-    final $r = $callSync(6106, $W()..h(this));
+    final $r = $callSync(6115, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*table.Table).ID() uint64`.
   int id() {
-    final $r = $callSync(6107, $W()..h(this));
+    final $r = $callSync(6116, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*table.Table).IncrRef()`.
   void incrRef() {
-    $callSync(6108, $W()..h(this));
+    $callSync(6117, $W()..h(this));
   }
 
   /// Go: `func (*table.Table).NewIterator(reversed bool) *table.Iterator`.
   BadgerTableIterator newIterator(bool reversed) {
     final $r = $callSync(
-        6109,
+        6118,
         $W()
           ..h(this)
           ..b(reversed));
@@ -368,13 +368,13 @@ class BadgerTable extends BadgerTableInterface
 
   /// Go: `func (*table.Table).Size() int64`.
   int size() {
-    final $r = $callSync(6110, $W()..h(this));
+    final $r = $callSync(6119, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*table.Table).Smallest() []byte`.
   Uint8List smallest() {
-    final $r = $callSync(6111, $W()..h(this));
+    final $r = $callSync(6120, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 }
@@ -388,14 +388,14 @@ class BadgerTableInterface extends GoHandle with BadgerTableInterface$ {
 mixin BadgerTableInterface$ on GoHandle {
   /// Go: `func (table.TableInterface).Biggest() []byte`.
   Uint8List biggest() {
-    final $r = $callSync(6112, $W()..h(this));
+    final $r = $callSync(6121, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (table.TableInterface).DoesNotHave(key []byte) bool`.
   bool doesNotHave(Uint8List key) {
     final $r = $callSync(
-        6113,
+        6122,
         $W()
           ..h(this)
           ..bytes(key));
@@ -404,13 +404,13 @@ mixin BadgerTableInterface$ on GoHandle {
 
   /// Go: `func (table.TableInterface).Smallest() []byte`.
   Uint8List smallest() {
-    final $r = $callSync(6114, $W()..h(this));
+    final $r = $callSync(6123, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: type assertion `x.(*table.Table)`: null if the object is not one.
   BadgerTable? asBadgerTable() {
-    final $r = $callSync(433, $W()..h(this));
+    final $r = $callSync(436, $W()..h(this));
     return $r.hn(BadgerTable.$h);
   }
 }
@@ -419,14 +419,14 @@ mixin BadgerTableInterface$ on GoHandle {
 extension GoDgraphIoBadgerTableApi on GoDgraphIoBadgerTable {
   /// Go: `func table.IDToFilename(id uint64) string`.
   String idToFilename(int id) {
-    final $r = $callSync(6081, $W()..i64(id));
+    final $r = $callSync(6090, $W()..i64(id));
     return $r.str();
   }
 
   /// Go: `func table.NewFilename(id uint64, dir string) string`.
   String newFilename(int id, String dir) {
     final $r = $callSync(
-        6097,
+        6106,
         $W()
           ..i64(id)
           ..str(dir));
@@ -437,7 +437,7 @@ extension GoDgraphIoBadgerTableApi on GoDgraphIoBadgerTable {
   $y.BadgerYIterator newMergeIterator(
       List<$y.BadgerYIterator> iters, bool reverse) {
     final $r = $callSync(
-        6098,
+        6107,
         $W()
           ..list(iters, (w0, e0) => w0.h(e0))
           ..b(reverse));
@@ -446,14 +446,14 @@ extension GoDgraphIoBadgerTableApi on GoDgraphIoBadgerTable {
 
   /// Go: `func table.NewTableBuilder() *table.Builder`.
   BadgerTableBuilder newTableBuilder() {
-    final $r = $callSync(6099);
+    final $r = $callSync(6108);
     return $r.hnn(BadgerTableBuilder.$h);
   }
 
   /// Go: `func table.OpenTable(fd *os.File, mode options.FileLoadingMode, cksum []byte) (*table.Table, error)`.
   BadgerTable openTable($os.OsFile fd, int mode, Uint8List cksum) {
     final $r = $callSync(
-        6100,
+        6109,
         $W()
           ..h(fd)
           ..i64(mode)
@@ -463,7 +463,7 @@ extension GoDgraphIoBadgerTableApi on GoDgraphIoBadgerTable {
 
   /// Go: `func table.ParseFileID(name string) (uint64, bool)`.
   (int, bool) parseFileId(String name) {
-    final $r = $callSync(6101, $W()..str(name));
+    final $r = $callSync(6110, $W()..str(name));
     return ($r.i64(), $r.b());
   }
 }

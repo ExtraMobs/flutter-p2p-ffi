@@ -44,7 +44,7 @@ class MimetypeMime extends $crypto.CryptoDecrypterOpts
       String extension,
       [List<String> aliases = const []]) async {
     await $call(
-        6417,
+        6426,
         $W()
           ..h(this)
           ..cb((r) => detector(r.bytes() ?? Uint8List(0), r.i64()), true)
@@ -55,14 +55,14 @@ class MimetypeMime extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*mimetype.MIME).Extension() string`.
   String extension() {
-    final $r = $callSync(6418, $W()..h(this));
+    final $r = $callSync(6427, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*mimetype.MIME).Is(expectedMIME string) bool`.
   bool is$(String expectedMime) {
     final $r = $callSync(
-        6419,
+        6428,
         $W()
           ..h(this)
           ..str(expectedMime));
@@ -71,13 +71,13 @@ class MimetypeMime extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*mimetype.MIME).Parent() *mimetype.MIME`.
   MimetypeMime parent() {
-    final $r = $callSync(6420, $W()..h(this));
+    final $r = $callSync(6429, $W()..h(this));
     return $r.hnn(MimetypeMime.$h);
   }
 
   /// Go: `func (*mimetype.MIME).String() string`.
   String string() {
-    final $r = $callSync(6421, $W()..h(this));
+    final $r = $callSync(6430, $W()..h(this));
     return $r.str();
   }
 }
@@ -86,26 +86,26 @@ class MimetypeMime extends $crypto.CryptoDecrypterOpts
 extension GoGabrielVasileMimetypeApi on GoGabrielVasileMimetype {
   /// Go: `func mimetype.Detect(in []byte) *mimetype.MIME`.
   MimetypeMime detect(Uint8List in$) {
-    final $r = $callSync(6411, $W()..bytes(in$));
+    final $r = $callSync(6420, $W()..bytes(in$));
     return $r.hnn(MimetypeMime.$h);
   }
 
   /// Go: `func mimetype.DetectFile(path string) (*mimetype.MIME, error)`.
   MimetypeMime detectFile(String path) {
-    final $r = $callSync(6412, $W()..str(path));
+    final $r = $callSync(6421, $W()..str(path));
     return $r.hnn(MimetypeMime.$h);
   }
 
   /// Go: `func mimetype.DetectReader(r io.Reader) (*mimetype.MIME, error)`.
   MimetypeMime detectReader(Object r) {
-    final $r = $callSync(6413, $W()..reader(r));
+    final $r = $callSync(6422, $W()..reader(r));
     return $r.hnn(MimetypeMime.$h);
   }
 
   /// Go: `func mimetype.EqualsAny(s string, mimes ...string) bool`.
   bool equalsAny(String s, [List<String> mimes = const []]) {
     final $r = $callSync(
-        6414,
+        6423,
         $W()
           ..str(s)
           ..list(mimes, (w0, e0) => w0.str(e0)));
@@ -125,7 +125,7 @@ extension GoGabrielVasileMimetypeApi on GoGabrielVasileMimetype {
       String extension,
       [List<String> aliases = const []]) async {
     await $call(
-        6415,
+        6424,
         $W()
           ..cb((r) => detector(r.bytes() ?? Uint8List(0), r.i64()), true)
           ..str(mime)
@@ -135,12 +135,12 @@ extension GoGabrielVasileMimetypeApi on GoGabrielVasileMimetype {
 
   /// Go: `func mimetype.Lookup(m string) *mimetype.MIME`.
   MimetypeMime lookup(String m) {
-    final $r = $callSync(6416, $W()..str(m));
+    final $r = $callSync(6425, $W()..str(m));
     return $r.hnn(MimetypeMime.$h);
   }
 
   /// Go: `func mimetype.SetLimit(limit uint32)`.
   void setLimit(int limit) {
-    $callSync(6422, $W()..i64(limit));
+    $callSync(6431, $W()..i64(limit));
   }
 }

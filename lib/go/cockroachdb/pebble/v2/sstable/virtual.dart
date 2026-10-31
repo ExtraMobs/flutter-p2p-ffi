@@ -39,7 +39,7 @@ final class PebbleV2SstableVirtualReaderParams implements GoDto {
       bool endInclusive,
       FutureOr<int> Function(Uint8List arg0, Uint8List arg1) compare) async {
     final $r = await $call(
-        5564,
+        5573,
         $W()
           ..dto(this)
           ..bytes(start)

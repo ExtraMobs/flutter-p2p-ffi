@@ -49,14 +49,14 @@ class MathBigFloat extends $encoding.EncodingTextAppender
 
   /// Go: `func big.NewFloat(x float64) *big.Float`.
   factory MathBigFloat(double x) {
-    final $r = $callSync(26097, $W()..f64(x));
+    final $r = $callSync(26103, $W()..f64(x));
     return $r.hnn(MathBigFloat.$h);
   }
 
   /// Go: `func (*big.Float).Abs(x *big.Float) *big.Float`.
   MathBigFloat abs(MathBigFloat x) {
     final $r = $callSync(
-        25990,
+        25996,
         $W()
           ..h(this)
           ..h(x));
@@ -65,14 +65,14 @@ class MathBigFloat extends $encoding.EncodingTextAppender
 
   /// Go: `func (*big.Float).Acc() big.Accuracy`.
   int acc() {
-    final $r = $callSync(25991, $W()..h(this));
+    final $r = $callSync(25997, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*big.Float).Add(x *big.Float, y *big.Float) *big.Float`.
   MathBigFloat add(MathBigFloat x, MathBigFloat y) {
     final $r = $callSync(
-        25992,
+        25998,
         $W()
           ..h(this)
           ..h(x)
@@ -83,7 +83,7 @@ class MathBigFloat extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Float).Append(buf []byte, fmt byte, prec int) []byte`.
   Uint8List append(Uint8List buf, int fmt, int prec) {
     final $r = $callSync(
-        25993,
+        25999,
         $W()
           ..h(this)
           ..bytes(buf)
@@ -95,7 +95,7 @@ class MathBigFloat extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Float).AppendText(b []byte) ([]byte, error)`.
   Uint8List appendText(Uint8List b) {
     final $r = $callSync(
-        25994,
+        26000,
         $W()
           ..h(this)
           ..bytes(b));
@@ -105,7 +105,7 @@ class MathBigFloat extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Float).Cmp(y *big.Float) int`.
   int cmp(MathBigFloat y) {
     final $r = $callSync(
-        25995,
+        26001,
         $W()
           ..h(this)
           ..h(y));
@@ -115,7 +115,7 @@ class MathBigFloat extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Float).Copy(x *big.Float) *big.Float`.
   MathBigFloat copy(MathBigFloat x) {
     final $r = $callSync(
-        25996,
+        26002,
         $W()
           ..h(this)
           ..h(x));
@@ -124,20 +124,20 @@ class MathBigFloat extends $encoding.EncodingTextAppender
 
   /// Go: `func (*big.Float).Float32() (float32, big.Accuracy)`.
   (double, int) float32() {
-    final $r = $callSync(25997, $W()..h(this));
+    final $r = $callSync(26003, $W()..h(this));
     return ($r.f64(), $r.i64());
   }
 
   /// Go: `func (*big.Float).Float64() (float64, big.Accuracy)`.
   (double, int) float64() {
-    final $r = $callSync(25998, $W()..h(this));
+    final $r = $callSync(26004, $W()..h(this));
     return ($r.f64(), $r.i64());
   }
 
   /// Go: `func (*big.Float).Format(s fmt.State, format rune)`.
   void format($fmt.FmtState s, int format) {
     $callSync(
-        25999,
+        26005,
         $W()
           ..h(this)
           ..h(s)
@@ -147,7 +147,7 @@ class MathBigFloat extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Float).GobDecode(buf []byte) error`.
   void gobDecode(Uint8List buf) {
     $callSync(
-        26000,
+        26006,
         $W()
           ..h(this)
           ..bytes(buf));
@@ -155,14 +155,14 @@ class MathBigFloat extends $encoding.EncodingTextAppender
 
   /// Go: `func (*big.Float).GobEncode() ([]byte, error)`.
   Uint8List gobEncode() {
-    final $r = $callSync(26001, $W()..h(this));
+    final $r = $callSync(26007, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*big.Float).Int(z *big.Int) (*big.Int, big.Accuracy)`.
   (MathBigInt, int) int$(MathBigInt z) {
     final $r = $callSync(
-        26002,
+        26008,
         $W()
           ..h(this)
           ..h(z));
@@ -171,26 +171,26 @@ class MathBigFloat extends $encoding.EncodingTextAppender
 
   /// Go: `func (*big.Float).Int64() (int64, big.Accuracy)`.
   (int, int) int64() {
-    final $r = $callSync(26003, $W()..h(this));
+    final $r = $callSync(26009, $W()..h(this));
     return ($r.i64(), $r.i64());
   }
 
   /// Go: `func (*big.Float).IsInf() bool`.
   bool isInf() {
-    final $r = $callSync(26004, $W()..h(this));
+    final $r = $callSync(26010, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*big.Float).IsInt() bool`.
   bool isInt() {
-    final $r = $callSync(26005, $W()..h(this));
+    final $r = $callSync(26011, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*big.Float).MantExp(mant *big.Float) (exp int)`.
   int mantExp(MathBigFloat mant) {
     final $r = $callSync(
-        26006,
+        26012,
         $W()
           ..h(this)
           ..h(mant));
@@ -199,26 +199,26 @@ class MathBigFloat extends $encoding.EncodingTextAppender
 
   /// Go: `func (*big.Float).MarshalText() (text []byte, err error)`.
   Uint8List marshalText() {
-    final $r = $callSync(26007, $W()..h(this));
+    final $r = $callSync(26013, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*big.Float).MinPrec() uint`.
   int minPrec() {
-    final $r = $callSync(26008, $W()..h(this));
+    final $r = $callSync(26014, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*big.Float).Mode() big.RoundingMode`.
   int mode() {
-    final $r = $callSync(26009, $W()..h(this));
+    final $r = $callSync(26015, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*big.Float).Mul(x *big.Float, y *big.Float) *big.Float`.
   MathBigFloat mul(MathBigFloat x, MathBigFloat y) {
     final $r = $callSync(
-        26010,
+        26016,
         $W()
           ..h(this)
           ..h(x)
@@ -229,7 +229,7 @@ class MathBigFloat extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Float).Neg(x *big.Float) *big.Float`.
   MathBigFloat neg(MathBigFloat x) {
     final $r = $callSync(
-        26011,
+        26017,
         $W()
           ..h(this)
           ..h(x));
@@ -239,7 +239,7 @@ class MathBigFloat extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Float).Parse(s string, base int) (f *big.Float, b int, err error)`.
   (MathBigFloat, int) parse(String s, int base) {
     final $r = $callSync(
-        26012,
+        26018,
         $W()
           ..h(this)
           ..str(s)
@@ -249,14 +249,14 @@ class MathBigFloat extends $encoding.EncodingTextAppender
 
   /// Go: `func (*big.Float).Prec() uint`.
   int prec() {
-    final $r = $callSync(26013, $W()..h(this));
+    final $r = $callSync(26019, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*big.Float).Quo(x *big.Float, y *big.Float) *big.Float`.
   MathBigFloat quo(MathBigFloat x, MathBigFloat y) {
     final $r = $callSync(
-        26014,
+        26020,
         $W()
           ..h(this)
           ..h(x)
@@ -267,7 +267,7 @@ class MathBigFloat extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Float).Rat(z *big.Rat) (*big.Rat, big.Accuracy)`.
   (MathBigRat, int) rat(MathBigRat z) {
     final $r = $callSync(
-        26015,
+        26021,
         $W()
           ..h(this)
           ..h(z));
@@ -277,7 +277,7 @@ class MathBigFloat extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Float).Scan(s fmt.ScanState, ch rune) error`.
   void scan($fmt.FmtScanState s, int ch) {
     $callSync(
-        26016,
+        26022,
         $W()
           ..h(this)
           ..h(s)
@@ -287,7 +287,7 @@ class MathBigFloat extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Float).Set(x *big.Float) *big.Float`.
   MathBigFloat set(MathBigFloat x) {
     final $r = $callSync(
-        26017,
+        26023,
         $W()
           ..h(this)
           ..h(x));
@@ -297,7 +297,7 @@ class MathBigFloat extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Float).SetFloat64(x float64) *big.Float`.
   MathBigFloat setFloat64(double x) {
     final $r = $callSync(
-        26018,
+        26024,
         $W()
           ..h(this)
           ..f64(x));
@@ -307,7 +307,7 @@ class MathBigFloat extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Float).SetInf(signbit bool) *big.Float`.
   MathBigFloat setInf(bool signbit) {
     final $r = $callSync(
-        26019,
+        26025,
         $W()
           ..h(this)
           ..b(signbit));
@@ -317,7 +317,7 @@ class MathBigFloat extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Float).SetInt(x *big.Int) *big.Float`.
   MathBigFloat setInt(MathBigInt x) {
     final $r = $callSync(
-        26020,
+        26026,
         $W()
           ..h(this)
           ..h(x));
@@ -327,7 +327,7 @@ class MathBigFloat extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Float).SetInt64(x int64) *big.Float`.
   MathBigFloat setInt64(int x) {
     final $r = $callSync(
-        26021,
+        26027,
         $W()
           ..h(this)
           ..i64(x));
@@ -337,7 +337,7 @@ class MathBigFloat extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Float).SetMantExp(mant *big.Float, exp int) *big.Float`.
   MathBigFloat setMantExp(MathBigFloat mant, int exp) {
     final $r = $callSync(
-        26022,
+        26028,
         $W()
           ..h(this)
           ..h(mant)
@@ -348,7 +348,7 @@ class MathBigFloat extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Float).SetMode(mode big.RoundingMode) *big.Float`.
   MathBigFloat setMode(int mode) {
     final $r = $callSync(
-        26023,
+        26029,
         $W()
           ..h(this)
           ..i64(mode));
@@ -358,7 +358,7 @@ class MathBigFloat extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Float).SetPrec(prec uint) *big.Float`.
   MathBigFloat setPrec(int prec) {
     final $r = $callSync(
-        26024,
+        26030,
         $W()
           ..h(this)
           ..i64(prec));
@@ -368,7 +368,7 @@ class MathBigFloat extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Float).SetRat(x *big.Rat) *big.Float`.
   MathBigFloat setRat(MathBigRat x) {
     final $r = $callSync(
-        26025,
+        26031,
         $W()
           ..h(this)
           ..h(x));
@@ -378,7 +378,7 @@ class MathBigFloat extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Float).SetString(s string) (*big.Float, bool)`.
   (MathBigFloat, bool) setString(String s) {
     final $r = $callSync(
-        26026,
+        26032,
         $W()
           ..h(this)
           ..str(s));
@@ -388,7 +388,7 @@ class MathBigFloat extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Float).SetUint64(x uint64) *big.Float`.
   MathBigFloat setUint64(int x) {
     final $r = $callSync(
-        26027,
+        26033,
         $W()
           ..h(this)
           ..i64(x));
@@ -397,20 +397,20 @@ class MathBigFloat extends $encoding.EncodingTextAppender
 
   /// Go: `func (*big.Float).Sign() int`.
   int sign() {
-    final $r = $callSync(26028, $W()..h(this));
+    final $r = $callSync(26034, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*big.Float).Signbit() bool`.
   bool signbit() {
-    final $r = $callSync(26029, $W()..h(this));
+    final $r = $callSync(26035, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*big.Float).Sqrt(x *big.Float) *big.Float`.
   MathBigFloat sqrt(MathBigFloat x) {
     final $r = $callSync(
-        26030,
+        26036,
         $W()
           ..h(this)
           ..h(x));
@@ -419,14 +419,14 @@ class MathBigFloat extends $encoding.EncodingTextAppender
 
   /// Go: `func (*big.Float).String() string`.
   String string() {
-    final $r = $callSync(26031, $W()..h(this));
+    final $r = $callSync(26037, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*big.Float).Sub(x *big.Float, y *big.Float) *big.Float`.
   MathBigFloat sub(MathBigFloat x, MathBigFloat y) {
     final $r = $callSync(
-        26032,
+        26038,
         $W()
           ..h(this)
           ..h(x)
@@ -437,7 +437,7 @@ class MathBigFloat extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Float).Text(format byte, prec int) string`.
   String text(int format, int prec) {
     final $r = $callSync(
-        26033,
+        26039,
         $W()
           ..h(this)
           ..i64(format)
@@ -447,14 +447,14 @@ class MathBigFloat extends $encoding.EncodingTextAppender
 
   /// Go: `func (*big.Float).Uint64() (uint64, big.Accuracy)`.
   (int, int) uint64() {
-    final $r = $callSync(26034, $W()..h(this));
+    final $r = $callSync(26040, $W()..h(this));
     return ($r.i64(), $r.i64());
   }
 
   /// Go: `func (*big.Float).UnmarshalText(text []byte) error`.
   void unmarshalText(Uint8List text) {
     $callSync(
-        26035,
+        26041,
         $W()
           ..h(this)
           ..bytes(text));
@@ -495,14 +495,14 @@ class MathBigInt extends $encoding.EncodingTextAppender
 
   /// Go: `func big.NewInt(x int64) *big.Int`.
   factory MathBigInt(int x) {
-    final $r = $callSync(26098, $W()..i64(x));
+    final $r = $callSync(26104, $W()..i64(x));
     return $r.hnn(MathBigInt.$h);
   }
 
   /// Go: `func (*big.Int).Abs(x *big.Int) *big.Int`.
   MathBigInt abs(MathBigInt x) {
     final $r = $callSync(
-        26036,
+        26042,
         $W()
           ..h(this)
           ..h(x));
@@ -512,7 +512,7 @@ class MathBigInt extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Int).Add(x *big.Int, y *big.Int) *big.Int`.
   MathBigInt add(MathBigInt x, MathBigInt y) {
     final $r = $callSync(
-        26037,
+        26043,
         $W()
           ..h(this)
           ..h(x)
@@ -523,7 +523,7 @@ class MathBigInt extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Int).And(x *big.Int, y *big.Int) *big.Int`.
   MathBigInt and(MathBigInt x, MathBigInt y) {
     final $r = $callSync(
-        26038,
+        26044,
         $W()
           ..h(this)
           ..h(x)
@@ -534,7 +534,7 @@ class MathBigInt extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Int).AndNot(x *big.Int, y *big.Int) *big.Int`.
   MathBigInt andNot(MathBigInt x, MathBigInt y) {
     final $r = $callSync(
-        26039,
+        26045,
         $W()
           ..h(this)
           ..h(x)
@@ -545,7 +545,7 @@ class MathBigInt extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Int).Append(buf []byte, base int) []byte`.
   Uint8List append(Uint8List buf, int base) {
     final $r = $callSync(
-        26040,
+        26046,
         $W()
           ..h(this)
           ..bytes(buf)
@@ -556,7 +556,7 @@ class MathBigInt extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Int).AppendText(b []byte) (text []byte, err error)`.
   Uint8List appendText(Uint8List b) {
     final $r = $callSync(
-        26041,
+        26047,
         $W()
           ..h(this)
           ..bytes(b));
@@ -566,7 +566,7 @@ class MathBigInt extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Int).Binomial(n int64, k int64) *big.Int`.
   MathBigInt binomial(int n, int k) {
     final $r = $callSync(
-        26042,
+        26048,
         $W()
           ..h(this)
           ..i64(n)
@@ -577,7 +577,7 @@ class MathBigInt extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Int).Bit(i int) uint`.
   int bit(int i) {
     final $r = $callSync(
-        26043,
+        26049,
         $W()
           ..h(this)
           ..i64(i));
@@ -586,26 +586,26 @@ class MathBigInt extends $encoding.EncodingTextAppender
 
   /// Go: `func (*big.Int).BitLen() int`.
   int bitLen() {
-    final $r = $callSync(26044, $W()..h(this));
+    final $r = $callSync(26050, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*big.Int).Bits() []big.Word`.
   List<int> bits() {
-    final $r = $callSync(26045, $W()..h(this));
+    final $r = $callSync(26051, $W()..h(this));
     return $r.list(() => $r.i64());
   }
 
   /// Go: `func (*big.Int).Bytes() []byte`.
   Uint8List bytes() {
-    final $r = $callSync(26046, $W()..h(this));
+    final $r = $callSync(26052, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*big.Int).Cmp(y *big.Int) (r int)`.
   int cmp(MathBigInt y) {
     final $r = $callSync(
-        26047,
+        26053,
         $W()
           ..h(this)
           ..h(y));
@@ -615,7 +615,7 @@ class MathBigInt extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Int).CmpAbs(y *big.Int) int`.
   int cmpAbs(MathBigInt y) {
     final $r = $callSync(
-        26048,
+        26054,
         $W()
           ..h(this)
           ..h(y));
@@ -625,7 +625,7 @@ class MathBigInt extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Int).Div(x *big.Int, y *big.Int) *big.Int`.
   MathBigInt div(MathBigInt x, MathBigInt y) {
     final $r = $callSync(
-        26049,
+        26055,
         $W()
           ..h(this)
           ..h(x)
@@ -636,7 +636,7 @@ class MathBigInt extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Int).DivMod(x *big.Int, y *big.Int, m *big.Int) (*big.Int, *big.Int)`.
   (MathBigInt, MathBigInt) divMod(MathBigInt x, MathBigInt y, MathBigInt m) {
     final $r = $callSync(
-        26050,
+        26056,
         $W()
           ..h(this)
           ..h(x)
@@ -648,7 +648,7 @@ class MathBigInt extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Int).Exp(x *big.Int, y *big.Int, m *big.Int) *big.Int`.
   MathBigInt exp(MathBigInt x, MathBigInt y, MathBigInt m) {
     final $r = $callSync(
-        26051,
+        26057,
         $W()
           ..h(this)
           ..h(x)
@@ -660,7 +660,7 @@ class MathBigInt extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Int).FillBytes(buf []byte) []byte`.
   Uint8List fillBytes(Uint8List buf) {
     final $r = $callSync(
-        26052,
+        26058,
         $W()
           ..h(this)
           ..bytes(buf));
@@ -669,14 +669,14 @@ class MathBigInt extends $encoding.EncodingTextAppender
 
   /// Go: `func (*big.Int).Float64() (float64, big.Accuracy)`.
   (double, int) float64() {
-    final $r = $callSync(26053, $W()..h(this));
+    final $r = $callSync(26059, $W()..h(this));
     return ($r.f64(), $r.i64());
   }
 
   /// Go: `func (*big.Int).Format(s fmt.State, ch rune)`.
   void format($fmt.FmtState s, int ch) {
     $callSync(
-        26054,
+        26060,
         $W()
           ..h(this)
           ..h(s)
@@ -686,7 +686,7 @@ class MathBigInt extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Int).GCD(x *big.Int, y *big.Int, a *big.Int, b *big.Int) *big.Int`.
   MathBigInt gcd(MathBigInt x, MathBigInt y, MathBigInt a, MathBigInt b) {
     final $r = $callSync(
-        26055,
+        26061,
         $W()
           ..h(this)
           ..h(x)
@@ -699,7 +699,7 @@ class MathBigInt extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Int).GobDecode(buf []byte) error`.
   void gobDecode(Uint8List buf) {
     $callSync(
-        26056,
+        26062,
         $W()
           ..h(this)
           ..bytes(buf));
@@ -707,32 +707,32 @@ class MathBigInt extends $encoding.EncodingTextAppender
 
   /// Go: `func (*big.Int).GobEncode() ([]byte, error)`.
   Uint8List gobEncode() {
-    final $r = $callSync(26057, $W()..h(this));
+    final $r = $callSync(26063, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*big.Int).Int64() int64`.
   int int64() {
-    final $r = $callSync(26058, $W()..h(this));
+    final $r = $callSync(26064, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*big.Int).IsInt64() bool`.
   bool isInt64() {
-    final $r = $callSync(26059, $W()..h(this));
+    final $r = $callSync(26065, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*big.Int).IsUint64() bool`.
   bool isUint64() {
-    final $r = $callSync(26060, $W()..h(this));
+    final $r = $callSync(26066, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*big.Int).Lsh(x *big.Int, n uint) *big.Int`.
   MathBigInt lsh(MathBigInt x, int n) {
     final $r = $callSync(
-        26061,
+        26067,
         $W()
           ..h(this)
           ..h(x)
@@ -742,20 +742,20 @@ class MathBigInt extends $encoding.EncodingTextAppender
 
   /// Go: `func (*big.Int).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(26062, $W()..h(this));
+    final $r = $callSync(26068, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*big.Int).MarshalText() (text []byte, err error)`.
   Uint8List marshalText() {
-    final $r = $callSync(26063, $W()..h(this));
+    final $r = $callSync(26069, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*big.Int).Mod(x *big.Int, y *big.Int) *big.Int`.
   MathBigInt mod(MathBigInt x, MathBigInt y) {
     final $r = $callSync(
-        26064,
+        26070,
         $W()
           ..h(this)
           ..h(x)
@@ -766,7 +766,7 @@ class MathBigInt extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Int).ModInverse(g *big.Int, n *big.Int) *big.Int`.
   MathBigInt modInverse(MathBigInt g, MathBigInt n) {
     final $r = $callSync(
-        26065,
+        26071,
         $W()
           ..h(this)
           ..h(g)
@@ -777,7 +777,7 @@ class MathBigInt extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Int).ModSqrt(x *big.Int, p *big.Int) *big.Int`.
   MathBigInt modSqrt(MathBigInt x, MathBigInt p) {
     final $r = $callSync(
-        26066,
+        26072,
         $W()
           ..h(this)
           ..h(x)
@@ -788,7 +788,7 @@ class MathBigInt extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Int).Mul(x *big.Int, y *big.Int) *big.Int`.
   MathBigInt mul(MathBigInt x, MathBigInt y) {
     final $r = $callSync(
-        26067,
+        26073,
         $W()
           ..h(this)
           ..h(x)
@@ -799,7 +799,7 @@ class MathBigInt extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Int).MulRange(a int64, b int64) *big.Int`.
   MathBigInt mulRange(int a, int b) {
     final $r = $callSync(
-        26068,
+        26074,
         $W()
           ..h(this)
           ..i64(a)
@@ -810,7 +810,7 @@ class MathBigInt extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Int).Neg(x *big.Int) *big.Int`.
   MathBigInt neg(MathBigInt x) {
     final $r = $callSync(
-        26069,
+        26075,
         $W()
           ..h(this)
           ..h(x));
@@ -820,7 +820,7 @@ class MathBigInt extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Int).Not(x *big.Int) *big.Int`.
   MathBigInt not(MathBigInt x) {
     final $r = $callSync(
-        26070,
+        26076,
         $W()
           ..h(this)
           ..h(x));
@@ -830,7 +830,7 @@ class MathBigInt extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Int).Or(x *big.Int, y *big.Int) *big.Int`.
   MathBigInt or(MathBigInt x, MathBigInt y) {
     final $r = $callSync(
-        26071,
+        26077,
         $W()
           ..h(this)
           ..h(x)
@@ -841,7 +841,7 @@ class MathBigInt extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Int).ProbablyPrime(n int) bool`.
   bool probablyPrime(int n) {
     final $r = $callSync(
-        26072,
+        26078,
         $W()
           ..h(this)
           ..i64(n));
@@ -851,7 +851,7 @@ class MathBigInt extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Int).Quo(x *big.Int, y *big.Int) *big.Int`.
   MathBigInt quo(MathBigInt x, MathBigInt y) {
     final $r = $callSync(
-        26073,
+        26079,
         $W()
           ..h(this)
           ..h(x)
@@ -862,7 +862,7 @@ class MathBigInt extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Int).QuoRem(x *big.Int, y *big.Int, r *big.Int) (*big.Int, *big.Int)`.
   (MathBigInt, MathBigInt) quoRem(MathBigInt x, MathBigInt y, MathBigInt r) {
     final $r = $callSync(
-        26074,
+        26080,
         $W()
           ..h(this)
           ..h(x)
@@ -874,7 +874,7 @@ class MathBigInt extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Int).Rand(rnd *rand.Rand, n *big.Int) *big.Int`.
   MathBigInt rand($rand.MathRand rnd, MathBigInt n) {
     final $r = $callSync(
-        26075,
+        26081,
         $W()
           ..h(this)
           ..h(rnd)
@@ -885,7 +885,7 @@ class MathBigInt extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Int).Rem(x *big.Int, y *big.Int) *big.Int`.
   MathBigInt rem(MathBigInt x, MathBigInt y) {
     final $r = $callSync(
-        26076,
+        26082,
         $W()
           ..h(this)
           ..h(x)
@@ -896,7 +896,7 @@ class MathBigInt extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Int).Rsh(x *big.Int, n uint) *big.Int`.
   MathBigInt rsh(MathBigInt x, int n) {
     final $r = $callSync(
-        26077,
+        26083,
         $W()
           ..h(this)
           ..h(x)
@@ -907,7 +907,7 @@ class MathBigInt extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Int).Scan(s fmt.ScanState, ch rune) error`.
   void scan($fmt.FmtScanState s, int ch) {
     $callSync(
-        26078,
+        26084,
         $W()
           ..h(this)
           ..h(s)
@@ -917,7 +917,7 @@ class MathBigInt extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Int).Set(x *big.Int) *big.Int`.
   MathBigInt set(MathBigInt x) {
     final $r = $callSync(
-        26079,
+        26085,
         $W()
           ..h(this)
           ..h(x));
@@ -927,7 +927,7 @@ class MathBigInt extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Int).SetBit(x *big.Int, i int, b uint) *big.Int`.
   MathBigInt setBit(MathBigInt x, int i, int b) {
     final $r = $callSync(
-        26080,
+        26086,
         $W()
           ..h(this)
           ..h(x)
@@ -939,7 +939,7 @@ class MathBigInt extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Int).SetBits(abs []big.Word) *big.Int`.
   MathBigInt setBits(List<int> abs) {
     final $r = $callSync(
-        26081,
+        26087,
         $W()
           ..h(this)
           ..list(abs, (w0, e0) => w0.i64(e0)));
@@ -949,7 +949,7 @@ class MathBigInt extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Int).SetBytes(buf []byte) *big.Int`.
   MathBigInt setBytes(Uint8List buf) {
     final $r = $callSync(
-        26082,
+        26088,
         $W()
           ..h(this)
           ..bytes(buf));
@@ -959,7 +959,7 @@ class MathBigInt extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Int).SetInt64(x int64) *big.Int`.
   MathBigInt setInt64(int x) {
     final $r = $callSync(
-        26083,
+        26089,
         $W()
           ..h(this)
           ..i64(x));
@@ -969,7 +969,7 @@ class MathBigInt extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Int).SetString(s string, base int) (*big.Int, bool)`.
   (MathBigInt, bool) setString(String s, int base) {
     final $r = $callSync(
-        26084,
+        26090,
         $W()
           ..h(this)
           ..str(s)
@@ -980,7 +980,7 @@ class MathBigInt extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Int).SetUint64(x uint64) *big.Int`.
   MathBigInt setUint64(int x) {
     final $r = $callSync(
-        26085,
+        26091,
         $W()
           ..h(this)
           ..i64(x));
@@ -989,14 +989,14 @@ class MathBigInt extends $encoding.EncodingTextAppender
 
   /// Go: `func (*big.Int).Sign() int`.
   int sign() {
-    final $r = $callSync(26086, $W()..h(this));
+    final $r = $callSync(26092, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*big.Int).Sqrt(x *big.Int) *big.Int`.
   MathBigInt sqrt(MathBigInt x) {
     final $r = $callSync(
-        26087,
+        26093,
         $W()
           ..h(this)
           ..h(x));
@@ -1005,14 +1005,14 @@ class MathBigInt extends $encoding.EncodingTextAppender
 
   /// Go: `func (*big.Int).String() string`.
   String string() {
-    final $r = $callSync(26088, $W()..h(this));
+    final $r = $callSync(26094, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*big.Int).Sub(x *big.Int, y *big.Int) *big.Int`.
   MathBigInt sub(MathBigInt x, MathBigInt y) {
     final $r = $callSync(
-        26089,
+        26095,
         $W()
           ..h(this)
           ..h(x)
@@ -1023,7 +1023,7 @@ class MathBigInt extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Int).Text(base int) string`.
   String text(int base) {
     final $r = $callSync(
-        26090,
+        26096,
         $W()
           ..h(this)
           ..i64(base));
@@ -1032,20 +1032,20 @@ class MathBigInt extends $encoding.EncodingTextAppender
 
   /// Go: `func (*big.Int).TrailingZeroBits() uint`.
   int trailingZeroBits() {
-    final $r = $callSync(26091, $W()..h(this));
+    final $r = $callSync(26097, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*big.Int).Uint64() uint64`.
   int uint64() {
-    final $r = $callSync(26092, $W()..h(this));
+    final $r = $callSync(26098, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*big.Int).UnmarshalJSON(text []byte) error`.
   void unmarshalJson(Uint8List text) {
     $callSync(
-        26093,
+        26099,
         $W()
           ..h(this)
           ..bytes(text));
@@ -1054,7 +1054,7 @@ class MathBigInt extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Int).UnmarshalText(text []byte) error`.
   void unmarshalText(Uint8List text) {
     $callSync(
-        26094,
+        26100,
         $W()
           ..h(this)
           ..bytes(text));
@@ -1063,7 +1063,7 @@ class MathBigInt extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Int).Xor(x *big.Int, y *big.Int) *big.Int`.
   MathBigInt xor(MathBigInt x, MathBigInt y) {
     final $r = $callSync(
-        26095,
+        26101,
         $W()
           ..h(this)
           ..h(x)
@@ -1101,7 +1101,7 @@ class MathBigRat extends $encoding.EncodingTextAppender
   /// Go: `func big.NewRat(a int64, b int64) *big.Rat`.
   factory MathBigRat(int a, int b) {
     final $r = $callSync(
-        26099,
+        26105,
         $W()
           ..i64(a)
           ..i64(b));
@@ -1111,7 +1111,7 @@ class MathBigRat extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Rat).Abs(x *big.Rat) *big.Rat`.
   MathBigRat abs(MathBigRat x) {
     final $r = $callSync(
-        26101,
+        26107,
         $W()
           ..h(this)
           ..h(x));
@@ -1121,7 +1121,7 @@ class MathBigRat extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Rat).Add(x *big.Rat, y *big.Rat) *big.Rat`.
   MathBigRat add(MathBigRat x, MathBigRat y) {
     final $r = $callSync(
-        26102,
+        26108,
         $W()
           ..h(this)
           ..h(x)
@@ -1132,7 +1132,7 @@ class MathBigRat extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Rat).AppendText(b []byte) ([]byte, error)`.
   Uint8List appendText(Uint8List b) {
     final $r = $callSync(
-        26103,
+        26109,
         $W()
           ..h(this)
           ..bytes(b));
@@ -1142,7 +1142,7 @@ class MathBigRat extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Rat).Cmp(y *big.Rat) int`.
   int cmp(MathBigRat y) {
     final $r = $callSync(
-        26104,
+        26110,
         $W()
           ..h(this)
           ..h(y));
@@ -1151,32 +1151,32 @@ class MathBigRat extends $encoding.EncodingTextAppender
 
   /// Go: `func (*big.Rat).Denom() *big.Int`.
   MathBigInt denom() {
-    final $r = $callSync(26105, $W()..h(this));
+    final $r = $callSync(26111, $W()..h(this));
     return $r.hnn(MathBigInt.$h);
   }
 
   /// Go: `func (*big.Rat).Float32() (f float32, exact bool)`.
   (double, bool) float32() {
-    final $r = $callSync(26106, $W()..h(this));
+    final $r = $callSync(26112, $W()..h(this));
     return ($r.f64(), $r.b());
   }
 
   /// Go: `func (*big.Rat).Float64() (f float64, exact bool)`.
   (double, bool) float64() {
-    final $r = $callSync(26107, $W()..h(this));
+    final $r = $callSync(26113, $W()..h(this));
     return ($r.f64(), $r.b());
   }
 
   /// Go: `func (*big.Rat).FloatPrec() (n int, exact bool)`.
   (int, bool) floatPrec() {
-    final $r = $callSync(26108, $W()..h(this));
+    final $r = $callSync(26114, $W()..h(this));
     return ($r.i64(), $r.b());
   }
 
   /// Go: `func (*big.Rat).FloatString(prec int) string`.
   String floatString(int prec) {
     final $r = $callSync(
-        26109,
+        26115,
         $W()
           ..h(this)
           ..i64(prec));
@@ -1186,7 +1186,7 @@ class MathBigRat extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Rat).GobDecode(buf []byte) error`.
   void gobDecode(Uint8List buf) {
     $callSync(
-        26110,
+        26116,
         $W()
           ..h(this)
           ..bytes(buf));
@@ -1194,14 +1194,14 @@ class MathBigRat extends $encoding.EncodingTextAppender
 
   /// Go: `func (*big.Rat).GobEncode() ([]byte, error)`.
   Uint8List gobEncode() {
-    final $r = $callSync(26111, $W()..h(this));
+    final $r = $callSync(26117, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*big.Rat).Inv(x *big.Rat) *big.Rat`.
   MathBigRat inv(MathBigRat x) {
     final $r = $callSync(
-        26112,
+        26118,
         $W()
           ..h(this)
           ..h(x));
@@ -1210,20 +1210,20 @@ class MathBigRat extends $encoding.EncodingTextAppender
 
   /// Go: `func (*big.Rat).IsInt() bool`.
   bool isInt() {
-    final $r = $callSync(26113, $W()..h(this));
+    final $r = $callSync(26119, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*big.Rat).MarshalText() (text []byte, err error)`.
   Uint8List marshalText() {
-    final $r = $callSync(26114, $W()..h(this));
+    final $r = $callSync(26120, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*big.Rat).Mul(x *big.Rat, y *big.Rat) *big.Rat`.
   MathBigRat mul(MathBigRat x, MathBigRat y) {
     final $r = $callSync(
-        26115,
+        26121,
         $W()
           ..h(this)
           ..h(x)
@@ -1234,7 +1234,7 @@ class MathBigRat extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Rat).Neg(x *big.Rat) *big.Rat`.
   MathBigRat neg(MathBigRat x) {
     final $r = $callSync(
-        26116,
+        26122,
         $W()
           ..h(this)
           ..h(x));
@@ -1243,14 +1243,14 @@ class MathBigRat extends $encoding.EncodingTextAppender
 
   /// Go: `func (*big.Rat).Num() *big.Int`.
   MathBigInt num$() {
-    final $r = $callSync(26117, $W()..h(this));
+    final $r = $callSync(26123, $W()..h(this));
     return $r.hnn(MathBigInt.$h);
   }
 
   /// Go: `func (*big.Rat).Quo(x *big.Rat, y *big.Rat) *big.Rat`.
   MathBigRat quo(MathBigRat x, MathBigRat y) {
     final $r = $callSync(
-        26118,
+        26124,
         $W()
           ..h(this)
           ..h(x)
@@ -1260,14 +1260,14 @@ class MathBigRat extends $encoding.EncodingTextAppender
 
   /// Go: `func (*big.Rat).RatString() string`.
   String ratString() {
-    final $r = $callSync(26119, $W()..h(this));
+    final $r = $callSync(26125, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*big.Rat).Scan(s fmt.ScanState, ch rune) error`.
   void scan($fmt.FmtScanState s, int ch) {
     $callSync(
-        26120,
+        26126,
         $W()
           ..h(this)
           ..h(s)
@@ -1277,7 +1277,7 @@ class MathBigRat extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Rat).Set(x *big.Rat) *big.Rat`.
   MathBigRat set(MathBigRat x) {
     final $r = $callSync(
-        26121,
+        26127,
         $W()
           ..h(this)
           ..h(x));
@@ -1287,7 +1287,7 @@ class MathBigRat extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Rat).SetFloat64(f float64) *big.Rat`.
   MathBigRat setFloat64(double f) {
     final $r = $callSync(
-        26122,
+        26128,
         $W()
           ..h(this)
           ..f64(f));
@@ -1297,7 +1297,7 @@ class MathBigRat extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Rat).SetFrac(a *big.Int, b *big.Int) *big.Rat`.
   MathBigRat setFrac(MathBigInt a, MathBigInt b) {
     final $r = $callSync(
-        26123,
+        26129,
         $W()
           ..h(this)
           ..h(a)
@@ -1308,7 +1308,7 @@ class MathBigRat extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Rat).SetFrac64(a int64, b int64) *big.Rat`.
   MathBigRat setFrac64(int a, int b) {
     final $r = $callSync(
-        26124,
+        26130,
         $W()
           ..h(this)
           ..i64(a)
@@ -1319,7 +1319,7 @@ class MathBigRat extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Rat).SetInt(x *big.Int) *big.Rat`.
   MathBigRat setInt(MathBigInt x) {
     final $r = $callSync(
-        26125,
+        26131,
         $W()
           ..h(this)
           ..h(x));
@@ -1329,7 +1329,7 @@ class MathBigRat extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Rat).SetInt64(x int64) *big.Rat`.
   MathBigRat setInt64(int x) {
     final $r = $callSync(
-        26126,
+        26132,
         $W()
           ..h(this)
           ..i64(x));
@@ -1339,7 +1339,7 @@ class MathBigRat extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Rat).SetString(s string) (*big.Rat, bool)`.
   (MathBigRat, bool) setString(String s) {
     final $r = $callSync(
-        26127,
+        26133,
         $W()
           ..h(this)
           ..str(s));
@@ -1349,7 +1349,7 @@ class MathBigRat extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Rat).SetUint64(x uint64) *big.Rat`.
   MathBigRat setUint64(int x) {
     final $r = $callSync(
-        26128,
+        26134,
         $W()
           ..h(this)
           ..i64(x));
@@ -1358,20 +1358,20 @@ class MathBigRat extends $encoding.EncodingTextAppender
 
   /// Go: `func (*big.Rat).Sign() int`.
   int sign() {
-    final $r = $callSync(26129, $W()..h(this));
+    final $r = $callSync(26135, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*big.Rat).String() string`.
   String string() {
-    final $r = $callSync(26130, $W()..h(this));
+    final $r = $callSync(26136, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*big.Rat).Sub(x *big.Rat, y *big.Rat) *big.Rat`.
   MathBigRat sub(MathBigRat x, MathBigRat y) {
     final $r = $callSync(
-        26131,
+        26137,
         $W()
           ..h(this)
           ..h(x)
@@ -1382,7 +1382,7 @@ class MathBigRat extends $encoding.EncodingTextAppender
   /// Go: `func (*big.Rat).UnmarshalText(text []byte) error`.
   void unmarshalText(Uint8List text) {
     $callSync(
-        26132,
+        26138,
         $W()
           ..h(this)
           ..bytes(text));
@@ -1403,7 +1403,7 @@ extension GoMathBigApi on GoMathBig {
   /// Go: `func big.Jacobi(x *big.Int, y *big.Int) int`.
   int jacobi(MathBigInt x, MathBigInt y) {
     final $r = $callSync(
-        26096,
+        26102,
         $W()
           ..h(x)
           ..h(y));
@@ -1413,7 +1413,7 @@ extension GoMathBigApi on GoMathBig {
   /// Go: `func big.ParseFloat(s string, base int, prec uint, mode big.RoundingMode) (f *big.Float, b int, err error)`.
   (MathBigFloat, int) parseFloat(String s, int base, int prec, int mode) {
     final $r = $callSync(
-        26100,
+        26106,
         $W()
           ..str(s)
           ..i64(base)

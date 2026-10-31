@@ -33,25 +33,25 @@ class TextTemplateParseActionNode extends TextTemplateParseNode
 
   /// Go: `func (*parse.ActionNode).Copy() parse.Node`.
   TextTemplateParseNode copy() {
-    final $r = $callSync(27560, $W()..h(this));
+    final $r = $callSync(27561, $W()..h(this));
     return $r.hnn(TextTemplateParseNode.$h);
   }
 
   /// Go: `func (parse.Pos).Position() parse.Pos`.
   int position() {
-    final $r = $callSync(27561, $W()..h(this));
+    final $r = $callSync(27562, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*parse.ActionNode).String() string`.
   String string() {
-    final $r = $callSync(27562, $W()..h(this));
+    final $r = $callSync(27563, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (parse.NodeType).Type() parse.NodeType`.
   int type() {
-    final $r = $callSync(27563, $W()..h(this));
+    final $r = $callSync(27564, $W()..h(this));
     return $r.i64();
   }
 }
@@ -78,25 +78,25 @@ class TextTemplateParseBoolNode extends TextTemplateParseNode
 
   /// Go: `func (*parse.BoolNode).Copy() parse.Node`.
   TextTemplateParseNode copy() {
-    final $r = $callSync(27564, $W()..h(this));
+    final $r = $callSync(27565, $W()..h(this));
     return $r.hnn(TextTemplateParseNode.$h);
   }
 
   /// Go: `func (parse.Pos).Position() parse.Pos`.
   int position() {
-    final $r = $callSync(27565, $W()..h(this));
+    final $r = $callSync(27566, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*parse.BoolNode).String() string`.
   String string() {
-    final $r = $callSync(27566, $W()..h(this));
+    final $r = $callSync(27567, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (parse.NodeType).Type() parse.NodeType`.
   int type() {
-    final $r = $callSync(27567, $W()..h(this));
+    final $r = $callSync(27568, $W()..h(this));
     return $r.i64();
   }
 }
@@ -123,25 +123,25 @@ class TextTemplateParseBranchNode extends TextTemplateParseNode
 
   /// Go: `func (*parse.BranchNode).Copy() parse.Node`.
   TextTemplateParseNode copy() {
-    final $r = $callSync(27568, $W()..h(this));
+    final $r = $callSync(27569, $W()..h(this));
     return $r.hnn(TextTemplateParseNode.$h);
   }
 
   /// Go: `func (parse.Pos).Position() parse.Pos`.
   int position() {
-    final $r = $callSync(27569, $W()..h(this));
+    final $r = $callSync(27570, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*parse.BranchNode).String() string`.
   String string() {
-    final $r = $callSync(27570, $W()..h(this));
+    final $r = $callSync(27571, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (parse.NodeType).Type() parse.NodeType`.
   int type() {
-    final $r = $callSync(27571, $W()..h(this));
+    final $r = $callSync(27572, $W()..h(this));
     return $r.i64();
   }
 }
@@ -168,25 +168,25 @@ class TextTemplateParseBreakNode extends TextTemplateParseNode
 
   /// Go: `func (*parse.BreakNode).Copy() parse.Node`.
   TextTemplateParseNode copy() {
-    final $r = $callSync(27572, $W()..h(this));
+    final $r = $callSync(27573, $W()..h(this));
     return $r.hnn(TextTemplateParseNode.$h);
   }
 
   /// Go: `func (parse.Pos).Position() parse.Pos`.
   int position() {
-    final $r = $callSync(27573, $W()..h(this));
+    final $r = $callSync(27574, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*parse.BreakNode).String() string`.
   String string() {
-    final $r = $callSync(27574, $W()..h(this));
+    final $r = $callSync(27575, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (parse.NodeType).Type() parse.NodeType`.
   int type() {
-    final $r = $callSync(27575, $W()..h(this));
+    final $r = $callSync(27576, $W()..h(this));
     return $r.i64();
   }
 }
@@ -214,7 +214,7 @@ class TextTemplateParseChainNode extends TextTemplateParseNode
   /// Go: `func (*parse.ChainNode).Add(field string)`.
   void add(String field) {
     $callSync(
-        27576,
+        27577,
         $W()
           ..h(this)
           ..str(field));
@@ -222,25 +222,25 @@ class TextTemplateParseChainNode extends TextTemplateParseNode
 
   /// Go: `func (*parse.ChainNode).Copy() parse.Node`.
   TextTemplateParseNode copy() {
-    final $r = $callSync(27577, $W()..h(this));
+    final $r = $callSync(27578, $W()..h(this));
     return $r.hnn(TextTemplateParseNode.$h);
   }
 
   /// Go: `func (parse.Pos).Position() parse.Pos`.
   int position() {
-    final $r = $callSync(27578, $W()..h(this));
+    final $r = $callSync(27579, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*parse.ChainNode).String() string`.
   String string() {
-    final $r = $callSync(27579, $W()..h(this));
+    final $r = $callSync(27580, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (parse.NodeType).Type() parse.NodeType`.
   int type() {
-    final $r = $callSync(27580, $W()..h(this));
+    final $r = $callSync(27581, $W()..h(this));
     return $r.i64();
   }
 }
@@ -267,25 +267,25 @@ class TextTemplateParseCommandNode extends TextTemplateParseNode
 
   /// Go: `func (*parse.CommandNode).Copy() parse.Node`.
   TextTemplateParseNode copy() {
-    final $r = $callSync(27581, $W()..h(this));
+    final $r = $callSync(27582, $W()..h(this));
     return $r.hnn(TextTemplateParseNode.$h);
   }
 
   /// Go: `func (parse.Pos).Position() parse.Pos`.
   int position() {
-    final $r = $callSync(27582, $W()..h(this));
+    final $r = $callSync(27583, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*parse.CommandNode).String() string`.
   String string() {
-    final $r = $callSync(27583, $W()..h(this));
+    final $r = $callSync(27584, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (parse.NodeType).Type() parse.NodeType`.
   int type() {
-    final $r = $callSync(27584, $W()..h(this));
+    final $r = $callSync(27585, $W()..h(this));
     return $r.i64();
   }
 }
@@ -312,25 +312,25 @@ class TextTemplateParseCommentNode extends TextTemplateParseNode
 
   /// Go: `func (*parse.CommentNode).Copy() parse.Node`.
   TextTemplateParseNode copy() {
-    final $r = $callSync(27585, $W()..h(this));
+    final $r = $callSync(27586, $W()..h(this));
     return $r.hnn(TextTemplateParseNode.$h);
   }
 
   /// Go: `func (parse.Pos).Position() parse.Pos`.
   int position() {
-    final $r = $callSync(27586, $W()..h(this));
+    final $r = $callSync(27587, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*parse.CommentNode).String() string`.
   String string() {
-    final $r = $callSync(27587, $W()..h(this));
+    final $r = $callSync(27588, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (parse.NodeType).Type() parse.NodeType`.
   int type() {
-    final $r = $callSync(27588, $W()..h(this));
+    final $r = $callSync(27589, $W()..h(this));
     return $r.i64();
   }
 }
@@ -357,25 +357,25 @@ class TextTemplateParseContinueNode extends TextTemplateParseNode
 
   /// Go: `func (*parse.ContinueNode).Copy() parse.Node`.
   TextTemplateParseNode copy() {
-    final $r = $callSync(27589, $W()..h(this));
+    final $r = $callSync(27590, $W()..h(this));
     return $r.hnn(TextTemplateParseNode.$h);
   }
 
   /// Go: `func (parse.Pos).Position() parse.Pos`.
   int position() {
-    final $r = $callSync(27590, $W()..h(this));
+    final $r = $callSync(27591, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*parse.ContinueNode).String() string`.
   String string() {
-    final $r = $callSync(27591, $W()..h(this));
+    final $r = $callSync(27592, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (parse.NodeType).Type() parse.NodeType`.
   int type() {
-    final $r = $callSync(27592, $W()..h(this));
+    final $r = $callSync(27593, $W()..h(this));
     return $r.i64();
   }
 }
@@ -402,25 +402,25 @@ class TextTemplateParseDotNode extends TextTemplateParseNode
 
   /// Go: `func (*parse.DotNode).Copy() parse.Node`.
   TextTemplateParseNode copy() {
-    final $r = $callSync(27593, $W()..h(this));
+    final $r = $callSync(27594, $W()..h(this));
     return $r.hnn(TextTemplateParseNode.$h);
   }
 
   /// Go: `func (parse.Pos).Position() parse.Pos`.
   int position() {
-    final $r = $callSync(27594, $W()..h(this));
+    final $r = $callSync(27595, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*parse.DotNode).String() string`.
   String string() {
-    final $r = $callSync(27595, $W()..h(this));
+    final $r = $callSync(27596, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*parse.DotNode).Type() parse.NodeType`.
   int type() {
-    final $r = $callSync(27596, $W()..h(this));
+    final $r = $callSync(27597, $W()..h(this));
     return $r.i64();
   }
 }
@@ -447,25 +447,25 @@ class TextTemplateParseFieldNode extends TextTemplateParseNode
 
   /// Go: `func (*parse.FieldNode).Copy() parse.Node`.
   TextTemplateParseNode copy() {
-    final $r = $callSync(27597, $W()..h(this));
+    final $r = $callSync(27598, $W()..h(this));
     return $r.hnn(TextTemplateParseNode.$h);
   }
 
   /// Go: `func (parse.Pos).Position() parse.Pos`.
   int position() {
-    final $r = $callSync(27598, $W()..h(this));
+    final $r = $callSync(27599, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*parse.FieldNode).String() string`.
   String string() {
-    final $r = $callSync(27599, $W()..h(this));
+    final $r = $callSync(27600, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (parse.NodeType).Type() parse.NodeType`.
   int type() {
-    final $r = $callSync(27600, $W()..h(this));
+    final $r = $callSync(27601, $W()..h(this));
     return $r.i64();
   }
 }
@@ -492,20 +492,20 @@ class TextTemplateParseIdentifierNode extends TextTemplateParseNode
 
   /// Go: `func (*parse.IdentifierNode).Copy() parse.Node`.
   TextTemplateParseNode copy() {
-    final $r = $callSync(27601, $W()..h(this));
+    final $r = $callSync(27602, $W()..h(this));
     return $r.hnn(TextTemplateParseNode.$h);
   }
 
   /// Go: `func (parse.Pos).Position() parse.Pos`.
   int position() {
-    final $r = $callSync(27602, $W()..h(this));
+    final $r = $callSync(27603, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*parse.IdentifierNode).SetPos(pos parse.Pos) *parse.IdentifierNode`.
   TextTemplateParseIdentifierNode setPos(int pos) {
     final $r = $callSync(
-        27603,
+        27604,
         $W()
           ..h(this)
           ..i64(pos));
@@ -515,7 +515,7 @@ class TextTemplateParseIdentifierNode extends TextTemplateParseNode
   /// Go: `func (*parse.IdentifierNode).SetTree(t *parse.Tree) *parse.IdentifierNode`.
   TextTemplateParseIdentifierNode setTree(TextTemplateParseTree t) {
     final $r = $callSync(
-        27604,
+        27605,
         $W()
           ..h(this)
           ..h(t));
@@ -524,13 +524,13 @@ class TextTemplateParseIdentifierNode extends TextTemplateParseNode
 
   /// Go: `func (*parse.IdentifierNode).String() string`.
   String string() {
-    final $r = $callSync(27605, $W()..h(this));
+    final $r = $callSync(27606, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (parse.NodeType).Type() parse.NodeType`.
   int type() {
-    final $r = $callSync(27606, $W()..h(this));
+    final $r = $callSync(27607, $W()..h(this));
     return $r.i64();
   }
 }
@@ -553,25 +553,25 @@ final class TextTemplateParseIfNode implements GoDto {
 
   /// Go: `func (*parse.IfNode).Copy() parse.Node`.
   TextTemplateParseNode copy() {
-    final $r = $callSync(27607, $W()..dto(this));
+    final $r = $callSync(27608, $W()..dto(this));
     return $r.hnn(TextTemplateParseNode.$h);
   }
 
   /// Go: `func (parse.Pos).Position() parse.Pos`.
   int position() {
-    final $r = $callSync(27608, $W()..dto(this));
+    final $r = $callSync(27609, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*parse.BranchNode).String() string`.
   String string() {
-    final $r = $callSync(27609, $W()..dto(this));
+    final $r = $callSync(27610, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (parse.NodeType).Type() parse.NodeType`.
   int type() {
-    final $r = $callSync(27610, $W()..dto(this));
+    final $r = $callSync(27611, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -598,31 +598,31 @@ class TextTemplateParseListNode extends TextTemplateParseNode
 
   /// Go: `func (*parse.ListNode).Copy() parse.Node`.
   TextTemplateParseNode copy() {
-    final $r = $callSync(27612, $W()..h(this));
+    final $r = $callSync(27613, $W()..h(this));
     return $r.hnn(TextTemplateParseNode.$h);
   }
 
   /// Go: `func (*parse.ListNode).CopyList() *parse.ListNode`.
   TextTemplateParseListNode copyList() {
-    final $r = $callSync(27613, $W()..h(this));
+    final $r = $callSync(27614, $W()..h(this));
     return $r.hnn(TextTemplateParseListNode.$h);
   }
 
   /// Go: `func (parse.Pos).Position() parse.Pos`.
   int position() {
-    final $r = $callSync(27614, $W()..h(this));
+    final $r = $callSync(27615, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*parse.ListNode).String() string`.
   String string() {
-    final $r = $callSync(27615, $W()..h(this));
+    final $r = $callSync(27616, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (parse.NodeType).Type() parse.NodeType`.
   int type() {
-    final $r = $callSync(27616, $W()..h(this));
+    final $r = $callSync(27617, $W()..h(this));
     return $r.i64();
   }
 }
@@ -649,25 +649,25 @@ class TextTemplateParseNilNode extends TextTemplateParseNode
 
   /// Go: `func (*parse.NilNode).Copy() parse.Node`.
   TextTemplateParseNode copy() {
-    final $r = $callSync(27619, $W()..h(this));
+    final $r = $callSync(27620, $W()..h(this));
     return $r.hnn(TextTemplateParseNode.$h);
   }
 
   /// Go: `func (parse.Pos).Position() parse.Pos`.
   int position() {
-    final $r = $callSync(27620, $W()..h(this));
+    final $r = $callSync(27621, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*parse.NilNode).String() string`.
   String string() {
-    final $r = $callSync(27621, $W()..h(this));
+    final $r = $callSync(27622, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*parse.NilNode).Type() parse.NodeType`.
   int type() {
-    final $r = $callSync(27622, $W()..h(this));
+    final $r = $callSync(27623, $W()..h(this));
     return $r.i64();
   }
 }
@@ -681,139 +681,139 @@ class TextTemplateParseNode extends GoHandle with TextTemplateParseNode$ {
 mixin TextTemplateParseNode$ on GoHandle {
   /// Go: `func (parse.Node).Copy() parse.Node`.
   TextTemplateParseNode copy() {
-    final $r = $callSync(27623, $W()..h(this));
+    final $r = $callSync(27624, $W()..h(this));
     return $r.hnn(TextTemplateParseNode.$h);
   }
 
   /// Go: `func (parse.Node).Position() parse.Pos`.
   int position() {
-    final $r = $callSync(27624, $W()..h(this));
+    final $r = $callSync(27625, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (parse.Node).String() string`.
   String string() {
-    final $r = $callSync(27625, $W()..h(this));
+    final $r = $callSync(27626, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (parse.Node).Type() parse.NodeType`.
   int type() {
-    final $r = $callSync(27626, $W()..h(this));
+    final $r = $callSync(27627, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: type assertion `x.(*parse.ActionNode)`: null if the object is not one.
   TextTemplateParseActionNode? asTextTemplateParseActionNode() {
-    final $r = $callSync(3040, $W()..h(this));
+    final $r = $callSync(3049, $W()..h(this));
     return $r.hn(TextTemplateParseActionNode.$h);
   }
 
   /// Go: type assertion `x.(*parse.BoolNode)`: null if the object is not one.
   TextTemplateParseBoolNode? asTextTemplateParseBoolNode() {
-    final $r = $callSync(3041, $W()..h(this));
+    final $r = $callSync(3050, $W()..h(this));
     return $r.hn(TextTemplateParseBoolNode.$h);
   }
 
   /// Go: type assertion `x.(*parse.BranchNode)`: null if the object is not one.
   TextTemplateParseBranchNode? asTextTemplateParseBranchNode() {
-    final $r = $callSync(3042, $W()..h(this));
+    final $r = $callSync(3051, $W()..h(this));
     return $r.hn(TextTemplateParseBranchNode.$h);
   }
 
   /// Go: type assertion `x.(*parse.BreakNode)`: null if the object is not one.
   TextTemplateParseBreakNode? asTextTemplateParseBreakNode() {
-    final $r = $callSync(3043, $W()..h(this));
+    final $r = $callSync(3052, $W()..h(this));
     return $r.hn(TextTemplateParseBreakNode.$h);
   }
 
   /// Go: type assertion `x.(*parse.ChainNode)`: null if the object is not one.
   TextTemplateParseChainNode? asTextTemplateParseChainNode() {
-    final $r = $callSync(3044, $W()..h(this));
+    final $r = $callSync(3053, $W()..h(this));
     return $r.hn(TextTemplateParseChainNode.$h);
   }
 
   /// Go: type assertion `x.(*parse.CommandNode)`: null if the object is not one.
   TextTemplateParseCommandNode? asTextTemplateParseCommandNode() {
-    final $r = $callSync(3045, $W()..h(this));
+    final $r = $callSync(3054, $W()..h(this));
     return $r.hn(TextTemplateParseCommandNode.$h);
   }
 
   /// Go: type assertion `x.(*parse.CommentNode)`: null if the object is not one.
   TextTemplateParseCommentNode? asTextTemplateParseCommentNode() {
-    final $r = $callSync(3046, $W()..h(this));
+    final $r = $callSync(3055, $W()..h(this));
     return $r.hn(TextTemplateParseCommentNode.$h);
   }
 
   /// Go: type assertion `x.(*parse.ContinueNode)`: null if the object is not one.
   TextTemplateParseContinueNode? asTextTemplateParseContinueNode() {
-    final $r = $callSync(3047, $W()..h(this));
+    final $r = $callSync(3056, $W()..h(this));
     return $r.hn(TextTemplateParseContinueNode.$h);
   }
 
   /// Go: type assertion `x.(*parse.DotNode)`: null if the object is not one.
   TextTemplateParseDotNode? asTextTemplateParseDotNode() {
-    final $r = $callSync(3048, $W()..h(this));
+    final $r = $callSync(3057, $W()..h(this));
     return $r.hn(TextTemplateParseDotNode.$h);
   }
 
   /// Go: type assertion `x.(*parse.FieldNode)`: null if the object is not one.
   TextTemplateParseFieldNode? asTextTemplateParseFieldNode() {
-    final $r = $callSync(3049, $W()..h(this));
+    final $r = $callSync(3058, $W()..h(this));
     return $r.hn(TextTemplateParseFieldNode.$h);
   }
 
   /// Go: type assertion `x.(*parse.IdentifierNode)`: null if the object is not one.
   TextTemplateParseIdentifierNode? asTextTemplateParseIdentifierNode() {
-    final $r = $callSync(3050, $W()..h(this));
+    final $r = $callSync(3059, $W()..h(this));
     return $r.hn(TextTemplateParseIdentifierNode.$h);
   }
 
   /// Go: type assertion `x.(*parse.ListNode)`: null if the object is not one.
   TextTemplateParseListNode? asTextTemplateParseListNode() {
-    final $r = $callSync(3051, $W()..h(this));
+    final $r = $callSync(3060, $W()..h(this));
     return $r.hn(TextTemplateParseListNode.$h);
   }
 
   /// Go: type assertion `x.(*parse.NilNode)`: null if the object is not one.
   TextTemplateParseNilNode? asTextTemplateParseNilNode() {
-    final $r = $callSync(3052, $W()..h(this));
+    final $r = $callSync(3061, $W()..h(this));
     return $r.hn(TextTemplateParseNilNode.$h);
   }
 
   /// Go: type assertion `x.(*parse.NumberNode)`: null if the object is not one.
   TextTemplateParseNumberNode? asTextTemplateParseNumberNode() {
-    final $r = $callSync(3053, $W()..h(this));
+    final $r = $callSync(3062, $W()..h(this));
     return $r.hn(TextTemplateParseNumberNode.$h);
   }
 
   /// Go: type assertion `x.(*parse.PipeNode)`: null if the object is not one.
   TextTemplateParsePipeNode? asTextTemplateParsePipeNode() {
-    final $r = $callSync(3054, $W()..h(this));
+    final $r = $callSync(3063, $W()..h(this));
     return $r.hn(TextTemplateParsePipeNode.$h);
   }
 
   /// Go: type assertion `x.(*parse.StringNode)`: null if the object is not one.
   TextTemplateParseStringNode? asTextTemplateParseStringNode() {
-    final $r = $callSync(3055, $W()..h(this));
+    final $r = $callSync(3064, $W()..h(this));
     return $r.hn(TextTemplateParseStringNode.$h);
   }
 
   /// Go: type assertion `x.(*parse.TemplateNode)`: null if the object is not one.
   TextTemplateParseTemplateNode? asTextTemplateParseTemplateNode() {
-    final $r = $callSync(3056, $W()..h(this));
+    final $r = $callSync(3065, $W()..h(this));
     return $r.hn(TextTemplateParseTemplateNode.$h);
   }
 
   /// Go: type assertion `x.(*parse.TextNode)`: null if the object is not one.
   TextTemplateParseTextNode? asTextTemplateParseTextNode() {
-    final $r = $callSync(3057, $W()..h(this));
+    final $r = $callSync(3066, $W()..h(this));
     return $r.hn(TextTemplateParseTextNode.$h);
   }
 
   /// Go: type assertion `x.(*parse.VariableNode)`: null if the object is not one.
   TextTemplateParseVariableNode? asTextTemplateParseVariableNode() {
-    final $r = $callSync(3058, $W()..h(this));
+    final $r = $callSync(3067, $W()..h(this));
     return $r.hn(TextTemplateParseVariableNode.$h);
   }
 }
@@ -840,25 +840,25 @@ class TextTemplateParseNumberNode extends TextTemplateParseNode
 
   /// Go: `func (*parse.NumberNode).Copy() parse.Node`.
   TextTemplateParseNode copy() {
-    final $r = $callSync(27627, $W()..h(this));
+    final $r = $callSync(27628, $W()..h(this));
     return $r.hnn(TextTemplateParseNode.$h);
   }
 
   /// Go: `func (parse.Pos).Position() parse.Pos`.
   int position() {
-    final $r = $callSync(27628, $W()..h(this));
+    final $r = $callSync(27629, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*parse.NumberNode).String() string`.
   String string() {
-    final $r = $callSync(27629, $W()..h(this));
+    final $r = $callSync(27630, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (parse.NodeType).Type() parse.NodeType`.
   int type() {
-    final $r = $callSync(27630, $W()..h(this));
+    final $r = $callSync(27631, $W()..h(this));
     return $r.i64();
   }
 }
@@ -885,31 +885,31 @@ class TextTemplateParsePipeNode extends TextTemplateParseNode
 
   /// Go: `func (*parse.PipeNode).Copy() parse.Node`.
   TextTemplateParseNode copy() {
-    final $r = $callSync(27632, $W()..h(this));
+    final $r = $callSync(27633, $W()..h(this));
     return $r.hnn(TextTemplateParseNode.$h);
   }
 
   /// Go: `func (*parse.PipeNode).CopyPipe() *parse.PipeNode`.
   TextTemplateParsePipeNode copyPipe() {
-    final $r = $callSync(27633, $W()..h(this));
+    final $r = $callSync(27634, $W()..h(this));
     return $r.hnn(TextTemplateParsePipeNode.$h);
   }
 
   /// Go: `func (parse.Pos).Position() parse.Pos`.
   int position() {
-    final $r = $callSync(27634, $W()..h(this));
+    final $r = $callSync(27635, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*parse.PipeNode).String() string`.
   String string() {
-    final $r = $callSync(27635, $W()..h(this));
+    final $r = $callSync(27636, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (parse.NodeType).Type() parse.NodeType`.
   int type() {
-    final $r = $callSync(27636, $W()..h(this));
+    final $r = $callSync(27637, $W()..h(this));
     return $r.i64();
   }
 }
@@ -932,25 +932,25 @@ final class TextTemplateParseRangeNode implements GoDto {
 
   /// Go: `func (*parse.RangeNode).Copy() parse.Node`.
   TextTemplateParseNode copy() {
-    final $r = $callSync(27637, $W()..dto(this));
+    final $r = $callSync(27638, $W()..dto(this));
     return $r.hnn(TextTemplateParseNode.$h);
   }
 
   /// Go: `func (parse.Pos).Position() parse.Pos`.
   int position() {
-    final $r = $callSync(27638, $W()..dto(this));
+    final $r = $callSync(27639, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*parse.BranchNode).String() string`.
   String string() {
-    final $r = $callSync(27639, $W()..dto(this));
+    final $r = $callSync(27640, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (parse.NodeType).Type() parse.NodeType`.
   int type() {
-    final $r = $callSync(27640, $W()..dto(this));
+    final $r = $callSync(27641, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -977,25 +977,25 @@ class TextTemplateParseStringNode extends TextTemplateParseNode
 
   /// Go: `func (*parse.StringNode).Copy() parse.Node`.
   TextTemplateParseNode copy() {
-    final $r = $callSync(27641, $W()..h(this));
+    final $r = $callSync(27642, $W()..h(this));
     return $r.hnn(TextTemplateParseNode.$h);
   }
 
   /// Go: `func (parse.Pos).Position() parse.Pos`.
   int position() {
-    final $r = $callSync(27642, $W()..h(this));
+    final $r = $callSync(27643, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*parse.StringNode).String() string`.
   String string() {
-    final $r = $callSync(27643, $W()..h(this));
+    final $r = $callSync(27644, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (parse.NodeType).Type() parse.NodeType`.
   int type() {
-    final $r = $callSync(27644, $W()..h(this));
+    final $r = $callSync(27645, $W()..h(this));
     return $r.i64();
   }
 }
@@ -1022,25 +1022,25 @@ class TextTemplateParseTemplateNode extends TextTemplateParseNode
 
   /// Go: `func (*parse.TemplateNode).Copy() parse.Node`.
   TextTemplateParseNode copy() {
-    final $r = $callSync(27645, $W()..h(this));
+    final $r = $callSync(27646, $W()..h(this));
     return $r.hnn(TextTemplateParseNode.$h);
   }
 
   /// Go: `func (parse.Pos).Position() parse.Pos`.
   int position() {
-    final $r = $callSync(27646, $W()..h(this));
+    final $r = $callSync(27647, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*parse.TemplateNode).String() string`.
   String string() {
-    final $r = $callSync(27647, $W()..h(this));
+    final $r = $callSync(27648, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (parse.NodeType).Type() parse.NodeType`.
   int type() {
-    final $r = $callSync(27648, $W()..h(this));
+    final $r = $callSync(27649, $W()..h(this));
     return $r.i64();
   }
 }
@@ -1067,25 +1067,25 @@ class TextTemplateParseTextNode extends TextTemplateParseNode
 
   /// Go: `func (*parse.TextNode).Copy() parse.Node`.
   TextTemplateParseNode copy() {
-    final $r = $callSync(27649, $W()..h(this));
+    final $r = $callSync(27650, $W()..h(this));
     return $r.hnn(TextTemplateParseNode.$h);
   }
 
   /// Go: `func (parse.Pos).Position() parse.Pos`.
   int position() {
-    final $r = $callSync(27650, $W()..h(this));
+    final $r = $callSync(27651, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*parse.TextNode).String() string`.
   String string() {
-    final $r = $callSync(27651, $W()..h(this));
+    final $r = $callSync(27652, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (parse.NodeType).Type() parse.NodeType`.
   int type() {
-    final $r = $callSync(27652, $W()..h(this));
+    final $r = $callSync(27653, $W()..h(this));
     return $r.i64();
   }
 }
@@ -1110,14 +1110,14 @@ class TextTemplateParseTree extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*parse.Tree).Copy() *parse.Tree`.
   TextTemplateParseTree copy() {
-    final $r = $callSync(27653, $W()..h(this));
+    final $r = $callSync(27654, $W()..h(this));
     return $r.hnn(TextTemplateParseTree.$h);
   }
 
   /// Go: `func (*parse.Tree).ErrorContext(n parse.Node) (location string, context string)`.
   (String, String) errorContext(TextTemplateParseNode n) {
     final $r = $callSync(
-        27654,
+        27655,
         $W()
           ..h(this)
           ..h(n));
@@ -1129,7 +1129,7 @@ class TextTemplateParseTree extends $crypto.CryptoDecrypterOpts
       Map<String, TextTemplateParseTree> treeSet,
       [List<Map<String, Object?>> funcs = const []]) {
     final $r = $callSync(
-        27655,
+        27656,
         $W()
           ..h(this)
           ..str(text)
@@ -1166,25 +1166,25 @@ class TextTemplateParseVariableNode extends TextTemplateParseNode
 
   /// Go: `func (*parse.VariableNode).Copy() parse.Node`.
   TextTemplateParseNode copy() {
-    final $r = $callSync(27656, $W()..h(this));
+    final $r = $callSync(27657, $W()..h(this));
     return $r.hnn(TextTemplateParseNode.$h);
   }
 
   /// Go: `func (parse.Pos).Position() parse.Pos`.
   int position() {
-    final $r = $callSync(27657, $W()..h(this));
+    final $r = $callSync(27658, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*parse.VariableNode).String() string`.
   String string() {
-    final $r = $callSync(27658, $W()..h(this));
+    final $r = $callSync(27659, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (parse.NodeType).Type() parse.NodeType`.
   int type() {
-    final $r = $callSync(27659, $W()..h(this));
+    final $r = $callSync(27660, $W()..h(this));
     return $r.i64();
   }
 }
@@ -1207,25 +1207,25 @@ final class TextTemplateParseWithNode implements GoDto {
 
   /// Go: `func (*parse.WithNode).Copy() parse.Node`.
   TextTemplateParseNode copy() {
-    final $r = $callSync(27660, $W()..dto(this));
+    final $r = $callSync(27661, $W()..dto(this));
     return $r.hnn(TextTemplateParseNode.$h);
   }
 
   /// Go: `func (parse.Pos).Position() parse.Pos`.
   int position() {
-    final $r = $callSync(27661, $W()..dto(this));
+    final $r = $callSync(27662, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*parse.BranchNode).String() string`.
   String string() {
-    final $r = $callSync(27662, $W()..dto(this));
+    final $r = $callSync(27663, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (parse.NodeType).Type() parse.NodeType`.
   int type() {
-    final $r = $callSync(27663, $W()..dto(this));
+    final $r = $callSync(27664, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -1234,7 +1234,7 @@ final class TextTemplateParseWithNode implements GoDto {
 extension GoTextTemplateParseApi on GoTextTemplateParse {
   /// Go: `func parse.IsEmptyTree(n parse.Node) bool`.
   bool isEmptyTree(TextTemplateParseNode n) {
-    final $r = $callSync(27611, $W()..h(n));
+    final $r = $callSync(27612, $W()..h(n));
     return $r.b();
   }
 
@@ -1242,7 +1242,7 @@ extension GoTextTemplateParseApi on GoTextTemplateParse {
   TextTemplateParseTree new$(String name,
       [List<Map<String, Object?>> funcs = const []]) {
     final $r = $callSync(
-        27617,
+        27618,
         $W()
           ..str(name)
           ..list(
@@ -1254,7 +1254,7 @@ extension GoTextTemplateParseApi on GoTextTemplateParse {
 
   /// Go: `func parse.NewIdentifier(ident string) *parse.IdentifierNode`.
   TextTemplateParseIdentifierNode newIdentifier(String ident) {
-    final $r = $callSync(27618, $W()..str(ident));
+    final $r = $callSync(27619, $W()..str(ident));
     return $r.hnn(TextTemplateParseIdentifierNode.$h);
   }
 
@@ -1263,7 +1263,7 @@ extension GoTextTemplateParseApi on GoTextTemplateParse {
       String name, String text, String leftDelim, String rightDelim,
       [List<Map<String, Object?>> funcs = const []]) {
     final $r = $callSync(
-        27631,
+        27632,
         $W()
           ..str(name)
           ..str(text)

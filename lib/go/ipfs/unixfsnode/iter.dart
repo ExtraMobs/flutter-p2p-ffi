@@ -24,74 +24,74 @@ final class UnixfsnodeIterLink implements GoDto {
 
   /// Go: `func (*iter.IterLink).AsBool() (bool, error)`.
   bool asBool() {
-    final $r = $callSync(11187, $W()..dto(this));
+    final $r = $callSync(11193, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*iter.IterLink).AsBytes() ([]byte, error)`.
   Uint8List asBytes() {
-    final $r = $callSync(11188, $W()..dto(this));
+    final $r = $callSync(11194, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*iter.IterLink).AsFloat() (float64, error)`.
   double asFloat() {
-    final $r = $callSync(11189, $W()..dto(this));
+    final $r = $callSync(11195, $W()..dto(this));
     return $r.f64();
   }
 
   /// Go: `func (*iter.IterLink).AsInt() (int64, error)`.
   int asInt() {
-    final $r = $callSync(11190, $W()..dto(this));
+    final $r = $callSync(11196, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*iter.IterLink).AsLink() (datamodel.Link, error)`.
   $datamodel.IpldPrimeDatamodelLink asLink() {
-    final $r = $callSync(11191, $W()..dto(this));
+    final $r = $callSync(11197, $W()..dto(this));
     return $r.hnn($datamodel.IpldPrimeDatamodelLink.$h);
   }
 
   /// Go: `func (*iter.IterLink).AsString() (string, error)`.
   String asString() {
-    final $r = $callSync(11192, $W()..dto(this));
+    final $r = $callSync(11198, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*iter.IterLink).IsAbsent() bool`.
   bool isAbsent() {
-    final $r = $callSync(11193, $W()..dto(this));
+    final $r = $callSync(11199, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*iter.IterLink).IsNull() bool`.
   bool isNull() {
-    final $r = $callSync(11194, $W()..dto(this));
+    final $r = $callSync(11200, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*iter.IterLink).Kind() datamodel.Kind`.
   int kind() {
-    final $r = $callSync(11195, $W()..dto(this));
+    final $r = $callSync(11201, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*iter.IterLink).Length() int64`.
   int length() {
-    final $r = $callSync(11196, $W()..dto(this));
+    final $r = $callSync(11202, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*iter.IterLink).ListIterator() datamodel.ListIterator`.
   $datamodel.IpldPrimeDatamodelListIterator listIterator() {
-    final $r = $callSync(11197, $W()..dto(this));
+    final $r = $callSync(11203, $W()..dto(this));
     return $r.hnn($datamodel.IpldPrimeDatamodelListIterator.$h);
   }
 
   /// Go: `func (*iter.IterLink).LookupByIndex(idx int64) (datamodel.Node, error)`.
   $datamodel.IpldPrimeDatamodelNode lookupByIndex(int idx) {
     final $r = $callSync(
-        11198,
+        11204,
         $W()
           ..dto(this)
           ..i64(idx));
@@ -102,7 +102,7 @@ final class UnixfsnodeIterLink implements GoDto {
   $datamodel.IpldPrimeDatamodelNode lookupByNode(
       $datamodel.IpldPrimeDatamodelNode key) {
     final $r = $callSync(
-        11199,
+        11205,
         $W()
           ..dto(this)
           ..h(key));
@@ -113,7 +113,7 @@ final class UnixfsnodeIterLink implements GoDto {
   $datamodel.IpldPrimeDatamodelNode lookupBySegment(
       $datamodel.IpldPrimeDatamodelPathSegment seg) {
     final $r = $callSync(
-        11200,
+        11206,
         $W()
           ..dto(this)
           ..h(seg));
@@ -123,7 +123,7 @@ final class UnixfsnodeIterLink implements GoDto {
   /// Go: `func (*iter.IterLink).LookupByString(key string) (datamodel.Node, error)`.
   $datamodel.IpldPrimeDatamodelNode lookupByString(String key) {
     final $r = $callSync(
-        11201,
+        11207,
         $W()
           ..dto(this)
           ..str(key));
@@ -132,19 +132,19 @@ final class UnixfsnodeIterLink implements GoDto {
 
   /// Go: `func (*iter.IterLink).MapIterator() datamodel.MapIterator`.
   $datamodel.IpldPrimeDatamodelMapIterator mapIterator() {
-    final $r = $callSync(11202, $W()..dto(this));
+    final $r = $callSync(11208, $W()..dto(this));
     return $r.hnn($datamodel.IpldPrimeDatamodelMapIterator.$h);
   }
 
   /// Go: `func (*iter.IterLink).Prototype() datamodel.NodePrototype`.
   $datamodel.IpldPrimeDatamodelNodePrototype prototype() {
-    final $r = $callSync(11203, $W()..dto(this));
+    final $r = $callSync(11209, $W()..dto(this));
     return $r.hnn($datamodel.IpldPrimeDatamodelNodePrototype.$h);
   }
 
   /// Go: `func (*iter.IterLink).Representation() datamodel.Node`.
   $datamodel.IpldPrimeDatamodelNode representation() {
-    final $r = $callSync(11204, $W()..dto(this));
+    final $r = $callSync(11210, $W()..dto(this));
     return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
   }
 }
@@ -169,7 +169,7 @@ class UnixfsnodeIterUnixFsDirItr extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*iter.UnixFSDir__Itr).Done() bool`.
   bool done() {
-    final $r = $callSync(11205, $W()..h(this));
+    final $r = $callSync(11211, $W()..h(this));
     return $r.b();
   }
 }
@@ -197,14 +197,14 @@ class UnixfsnodeIterUnixFsDirMapItr
 
   /// Go: `func (*iter.UnixFSDir__MapItr).Done() bool`.
   bool done() {
-    final $r = $callSync(11206, $W()..h(this));
+    final $r = $callSync(11212, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*iter.UnixFSDir__MapItr).Next() (k ipld.Node, v ipld.Node, err error)`.
   ($datamodel.IpldPrimeDatamodelNode, $datamodel.IpldPrimeDatamodelNode)
       next() {
-    final $r = $callSync(11207, $W()..h(this));
+    final $r = $callSync(11213, $W()..h(this));
     return (
       $r.hnn($datamodel.IpldPrimeDatamodelNode.$h),
       $r.hnn($datamodel.IpldPrimeDatamodelNode.$h)

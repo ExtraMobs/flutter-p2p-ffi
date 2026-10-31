@@ -11,14 +11,14 @@ import 'package:p2p_ffi/go/syscall.dart' as $syscall;
 extension GoLibp2pReuseportApi on GoLibp2pReuseport {
   /// Go: `func reuseport.Available() bool`.
   bool available() {
-    final $r = $callSync(15138);
+    final $r = $callSync(15144);
     return $r.b();
   }
 
   /// Go: `func reuseport.Control(network string, address string, c syscall.RawConn) (err error)`.
   void control(String network, String address, $syscall.SyscallRawConn c) {
     $callSync(
-        15139,
+        15145,
         $W()
           ..str(network)
           ..str(address)
@@ -28,7 +28,7 @@ extension GoLibp2pReuseportApi on GoLibp2pReuseport {
   /// Go: `func reuseport.Dial(network string, laddr string, raddr string) (net.Conn, error)`.
   $net.NetConn dial(String network, String laddr, String raddr) {
     final $r = $callSync(
-        15140,
+        15146,
         $W()
           ..str(network)
           ..str(laddr)
@@ -40,7 +40,7 @@ extension GoLibp2pReuseportApi on GoLibp2pReuseport {
   $net.NetConn dialTimeout(
       String network, String laddr, String raddr, Duration timeout) {
     final $r = $callSync(
-        15141,
+        15147,
         $W()
           ..str(network)
           ..str(laddr)
@@ -52,7 +52,7 @@ extension GoLibp2pReuseportApi on GoLibp2pReuseport {
   /// Go: `func reuseport.Listen(network string, address string) (net.Listener, error)`.
   $net.NetListener listen(String network, String address) {
     final $r = $callSync(
-        15142,
+        15148,
         $W()
           ..str(network)
           ..str(address));
@@ -62,7 +62,7 @@ extension GoLibp2pReuseportApi on GoLibp2pReuseport {
   /// Go: `func reuseport.ListenPacket(network string, address string) (net.PacketConn, error)`.
   $net.NetPacketConn listenPacket(String network, String address) {
     final $r = $callSync(
-        15143,
+        15149,
         $W()
           ..str(network)
           ..str(address));
@@ -72,7 +72,7 @@ extension GoLibp2pReuseportApi on GoLibp2pReuseport {
   /// Go: `func reuseport.ResolveAddr(network string, address string) (net.Addr, error)`.
   $net.NetAddr resolveAddr(String network, String address) {
     final $r = $callSync(
-        15144,
+        15150,
         $W()
           ..str(network)
           ..str(address));

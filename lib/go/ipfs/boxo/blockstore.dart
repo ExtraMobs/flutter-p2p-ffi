@@ -32,7 +32,7 @@ class BoxoBlockstore extends GoHandle with BoxoBlockstore$ {
   factory BoxoBlockstore($datastore.DatastoreBatching d,
       [List<BoxoBlockstoreOption> opts = const []]) {
     final $r = $callSync(
-        9341,
+        9350,
         $W()
           ..h(d)
           ..list(opts, (w0, e0) => w0.h(e0)));
@@ -44,7 +44,7 @@ class BoxoBlockstore extends GoHandle with BoxoBlockstore$ {
 mixin BoxoBlockstore$ on GoHandle {
   /// Go: `func (blockstore.Blockstore).AllKeysChan(ctx context.Context) (<-chan cid.Cid, error)`.
   Stream<$cid.Cid> allKeysChan($context.Context ctx) => $stream(
-          9326,
+          9335,
           $W()
             ..h(this)
             ..h(ctx))
@@ -55,7 +55,7 @@ mixin BoxoBlockstore$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> deleteBlock($context.Context ctx, $cid.Cid cid) async {
     await $call(
-        9327,
+        9336,
         $W()
           ..h(this)
           ..h(ctx)
@@ -68,7 +68,7 @@ mixin BoxoBlockstore$ on GoHandle {
   Future<$block_format.BlockFormatBlock> get(
       $context.Context ctx, $cid.Cid cid) async {
     final $r = await $call(
-        9328,
+        9337,
         $W()
           ..h(this)
           ..h(ctx)
@@ -81,7 +81,7 @@ mixin BoxoBlockstore$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getSize($context.Context ctx, $cid.Cid cid) async {
     final $r = await $call(
-        9329,
+        9338,
         $W()
           ..h(this)
           ..h(ctx)
@@ -94,7 +94,7 @@ mixin BoxoBlockstore$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> has($context.Context ctx, $cid.Cid cid) async {
     final $r = await $call(
-        9330,
+        9339,
         $W()
           ..h(this)
           ..h(ctx)
@@ -108,7 +108,7 @@ mixin BoxoBlockstore$ on GoHandle {
   Future<void> put(
       $context.Context ctx, $block_format.BlockFormatBlock block) async {
     await $call(
-        9331,
+        9340,
         $W()
           ..h(this)
           ..h(ctx)
@@ -121,7 +121,7 @@ mixin BoxoBlockstore$ on GoHandle {
   Future<void> putMany(
       $context.Context ctx, List<$block_format.BlockFormatBlock> blocks) async {
     await $call(
-        9332,
+        9341,
         $W()
           ..h(this)
           ..h(ctx)
@@ -130,43 +130,43 @@ mixin BoxoBlockstore$ on GoHandle {
 
   /// Go: type assertion `x.(*blockstore.ValidatingBlockstore)`: null if the object is not one.
   BoxoBlockstoreValidatingBlockstore? asBoxoBlockstoreValidatingBlockstore() {
-    final $r = $callSync(914, $W()..h(this));
+    final $r = $callSync(917, $W()..h(this));
     return $r.hn(BoxoBlockstoreValidatingBlockstore.$h);
   }
 
   /// Go: type assertion `x.(*filestore.Filestore)`: null if the object is not one.
   $filestore.BoxoFilestore? asBoxoFilestore() {
-    final $r = $callSync(915, $W()..h(this));
+    final $r = $callSync(918, $W()..h(this));
     return $r.hn($filestore.BoxoFilestore.$h);
   }
 
   /// Go: type assertion `x.(*verifbs.VerifBS)`: null if the object is not one.
   $verifbs.KuboThirdpartyVerifbsVerifBs? asKuboThirdpartyVerifbsVerifBs() {
-    final $r = $callSync(916, $W()..h(this));
+    final $r = $callSync(919, $W()..h(this));
     return $r.hn($verifbs.KuboThirdpartyVerifbsVerifBs.$h);
   }
 
   /// Go: type assertion `x.(*verifbs.VerifBSGC)`: null if the object is not one.
   $verifbs.KuboThirdpartyVerifbsVerifBsgc? asKuboThirdpartyVerifbsVerifBsgc() {
-    final $r = $callSync(917, $W()..h(this));
+    final $r = $callSync(920, $W()..h(this));
     return $r.hn($verifbs.KuboThirdpartyVerifbsVerifBsgc.$h);
   }
 
   /// Go: type assertion `x.(*blockstore.ReadOnly)`: null if the object is not one.
   $blockstore.CarV2BlockstoreReadOnly? asCarV2BlockstoreReadOnly() {
-    final $r = $callSync(918, $W()..h(this));
+    final $r = $callSync(921, $W()..h(this));
     return $r.hn($blockstore.CarV2BlockstoreReadOnly.$h);
   }
 
   /// Go: type assertion `x.(*blockstore.ReadWrite)`: null if the object is not one.
   $blockstore.CarV2BlockstoreReadWrite? asCarV2BlockstoreReadWrite() {
-    final $r = $callSync(919, $W()..h(this));
+    final $r = $callSync(922, $W()..h(this));
     return $r.hn($blockstore.CarV2BlockstoreReadWrite.$h);
   }
 
   /// Go: type assertion `x.(blockstore.GCBlockstore)`: null if the object is not one.
   BoxoBlockstoreGcBlockstore? asBoxoBlockstoreGcBlockstore() {
-    final $r = $callSync(920, $W()..h(this));
+    final $r = $callSync(923, $W()..h(this));
     return $r.hn(BoxoBlockstoreGcBlockstore.$h);
   }
 }
@@ -181,7 +181,7 @@ class BoxoBlockstoreBloomCacheStatus extends GoHandle
 mixin BoxoBlockstoreBloomCacheStatus$ on GoHandle {
   /// Go: `func (blockstore.BloomCacheStatus).BloomActive() bool`.
   bool bloomActive() {
-    final $r = $callSync(9333, $W()..h(this));
+    final $r = $callSync(9342, $W()..h(this));
     return $r.b();
   }
 
@@ -190,7 +190,7 @@ mixin BoxoBlockstoreBloomCacheStatus$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> rebuild($context.Context ctx) async {
     await $call(
-        9334,
+        9343,
         $W()
           ..h(this)
           ..h(ctx));
@@ -201,7 +201,7 @@ mixin BoxoBlockstoreBloomCacheStatus$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> wait($context.Context ctx) async {
     await $call(
-        9335,
+        9344,
         $W()
           ..h(this)
           ..h(ctx));
@@ -251,7 +251,7 @@ class BoxoBlockstoreGcBlockstore extends BoxoBlockstore
   factory BoxoBlockstoreGcBlockstore(
       BoxoBlockstore bs, BoxoBlockstoreGcLocker gcl) {
     final $r = $callSync(
-        9343,
+        9352,
         $W()
           ..h(bs)
           ..h(gcl));
@@ -263,7 +263,7 @@ class BoxoBlockstoreGcBlockstore extends BoxoBlockstore
 mixin BoxoBlockstoreGcBlockstore$ on GoHandle {
   /// Go: type assertion `x.(*verifbs.VerifBSGC)`: null if the object is not one.
   $verifbs.KuboThirdpartyVerifbsVerifBsgc? asKuboThirdpartyVerifbsVerifBsgc() {
-    final $r = $callSync(921, $W()..h(this));
+    final $r = $callSync(924, $W()..h(this));
     return $r.hn($verifbs.KuboThirdpartyVerifbsVerifBsgc.$h);
   }
 }
@@ -274,7 +274,7 @@ class BoxoBlockstoreGcLocker extends GoHandle with BoxoBlockstoreGcLocker$ {
 
   /// Go: `func blockstore.NewGCLocker() blockstore.GCLocker`.
   factory BoxoBlockstoreGcLocker() {
-    final $r = $callSync(9344);
+    final $r = $callSync(9353);
     return $r.hnn(BoxoBlockstoreGcLocker.$h);
   }
 }
@@ -286,7 +286,7 @@ mixin BoxoBlockstoreGcLocker$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<BoxoBlockstoreUnlocker> gcLock($context.Context ctx) async {
     final $r = await $call(
-        9338,
+        9347,
         $W()
           ..h(this)
           ..h(ctx));
@@ -298,7 +298,7 @@ mixin BoxoBlockstoreGcLocker$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> gcRequested($context.Context ctx) async {
     final $r = await $call(
-        9339,
+        9348,
         $W()
           ..h(this)
           ..h(ctx));
@@ -310,7 +310,7 @@ mixin BoxoBlockstoreGcLocker$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<BoxoBlockstoreUnlocker> pinLock($context.Context ctx) async {
     final $r = await $call(
-        9340,
+        9349,
         $W()
           ..h(this)
           ..h(ctx));
@@ -319,13 +319,13 @@ mixin BoxoBlockstoreGcLocker$ on GoHandle {
 
   /// Go: type assertion `x.(*verifbs.VerifBSGC)`: null if the object is not one.
   $verifbs.KuboThirdpartyVerifbsVerifBsgc? asKuboThirdpartyVerifbsVerifBsgc() {
-    final $r = $callSync(922, $W()..h(this));
+    final $r = $callSync(925, $W()..h(this));
     return $r.hn($verifbs.KuboThirdpartyVerifbsVerifBsgc.$h);
   }
 
   /// Go: type assertion `x.(blockstore.GCBlockstore)`: null if the object is not one.
   BoxoBlockstoreGcBlockstore? asBoxoBlockstoreGcBlockstore() {
-    final $r = $callSync(923, $W()..h(this));
+    final $r = $callSync(926, $W()..h(this));
     return $r.hn(BoxoBlockstoreGcBlockstore.$h);
   }
 }
@@ -361,7 +361,7 @@ mixin BoxoBlockstoreUnlocker$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> unlock($context.Context ctx) async {
     await $call(
-        9348,
+        9357,
         $W()
           ..h(this)
           ..h(ctx));
@@ -394,7 +394,7 @@ class BoxoBlockstoreValidatingBlockstore extends BoxoBlockstore
 
   /// Go: `func (blockstore.Blockstore).AllKeysChan(ctx context.Context) (<-chan cid.Cid, error)`.
   Stream<$cid.Cid> allKeysChan($context.Context ctx) => $stream(
-          9349,
+          9358,
           $W()
             ..h(this)
             ..h(ctx))
@@ -405,7 +405,7 @@ class BoxoBlockstoreValidatingBlockstore extends BoxoBlockstore
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> deleteBlock($context.Context ctx, $cid.Cid cid) async {
     await $call(
-        9350,
+        9359,
         $W()
           ..h(this)
           ..h(ctx)
@@ -418,7 +418,7 @@ class BoxoBlockstoreValidatingBlockstore extends BoxoBlockstore
   Future<$block_format.BlockFormatBlock> get(
       $context.Context ctx, $cid.Cid c) async {
     final $r = await $call(
-        9351,
+        9360,
         $W()
           ..h(this)
           ..h(ctx)
@@ -431,7 +431,7 @@ class BoxoBlockstoreValidatingBlockstore extends BoxoBlockstore
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getSize($context.Context ctx, $cid.Cid cid) async {
     final $r = await $call(
-        9352,
+        9361,
         $W()
           ..h(this)
           ..h(ctx)
@@ -444,7 +444,7 @@ class BoxoBlockstoreValidatingBlockstore extends BoxoBlockstore
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> has($context.Context ctx, $cid.Cid cid) async {
     final $r = await $call(
-        9353,
+        9362,
         $W()
           ..h(this)
           ..h(ctx)
@@ -458,7 +458,7 @@ class BoxoBlockstoreValidatingBlockstore extends BoxoBlockstore
   Future<void> put(
       $context.Context ctx, $block_format.BlockFormatBlock block) async {
     await $call(
-        9354,
+        9363,
         $W()
           ..h(this)
           ..h(ctx)
@@ -471,7 +471,7 @@ class BoxoBlockstoreValidatingBlockstore extends BoxoBlockstore
   Future<void> putMany(
       $context.Context ctx, List<$block_format.BlockFormatBlock> blocks) async {
     await $call(
-        9355,
+        9364,
         $W()
           ..h(this)
           ..h(ctx)
@@ -496,7 +496,7 @@ mixin BoxoBlockstoreViewer$ on GoHandle {
   Future<void> view($context.Context ctx, $cid.Cid cid,
       FutureOr<void> Function(Uint8List arg0) callback) async {
     await $call(
-        9356,
+        9365,
         $W()
           ..h(this)
           ..h(ctx)
@@ -518,7 +518,7 @@ class BoxoBlockstoreErrHashMismatch extends GolangException {
 extension GoIpfsBoxoBlockstoreApi on GoIpfsBoxoBlockstore {
   /// Go: `var blockstore.BlockPrefix datastore.Key`.
   $datastore.DatastoreKey get blockPrefix {
-    final $r = $callSync(9325);
+    final $r = $callSync(9334);
     return $r.hnn($datastore.DatastoreKey.$h);
   }
 
@@ -528,7 +528,7 @@ extension GoIpfsBoxoBlockstoreApi on GoIpfsBoxoBlockstore {
   Future<BoxoBlockstore> cachedBlockstore($context.Context ctx,
       BoxoBlockstore bs, BoxoBlockstoreCacheOpts opts) async {
     final $r = await $call(
-        9336,
+        9345,
         $W()
           ..h(ctx)
           ..h(bs)
@@ -538,20 +538,20 @@ extension GoIpfsBoxoBlockstoreApi on GoIpfsBoxoBlockstore {
 
   /// Go: `func blockstore.DefaultCacheOpts() blockstore.CacheOpts`.
   BoxoBlockstoreCacheOpts defaultCacheOpts() {
-    final $r = $callSync(9337);
+    final $r = $callSync(9346);
     return $r.p() ? BoxoBlockstoreCacheOpts.$dec($r) : $nil();
   }
 
   /// Go: `func blockstore.NewBlockstoreNoPrefix(d datastore.Batching) blockstore.Blockstore`.
   @Deprecated("Use NewBlockstore with the NoPrefix option instead.")
   BoxoBlockstore newBlockstoreNoPrefix($datastore.DatastoreBatching d) {
-    final $r = $callSync(9342, $W()..h(d));
+    final $r = $callSync(9351, $W()..h(d));
     return $r.hnn(BoxoBlockstore.$h);
   }
 
   /// Go: `func blockstore.NewIdStore(bs blockstore.Blockstore) blockstore.Blockstore`.
   BoxoBlockstore newIdStore(BoxoBlockstore bs) {
-    final $r = $callSync(9345, $W()..h(bs));
+    final $r = $callSync(9354, $W()..h(bs));
     return $r.hnn(BoxoBlockstore.$h);
   }
 }
@@ -560,20 +560,20 @@ extension GoIpfsBoxoBlockstoreApi on GoIpfsBoxoBlockstore {
 extension GoIpfsBoxoBlockstoreOptionsApi on GoIpfsBoxoBlockstoreOptions {
   /// Go: `func blockstore.NoPrefix() blockstore.Option`.
   BoxoBlockstoreOption noPrefix() {
-    final $r = $callSync(9346);
+    final $r = $callSync(9355);
     return $r.hnn(BoxoBlockstoreOption.$h);
   }
 
   /// Go: `func blockstore.Provider(provider provider.MultihashProvider) blockstore.Option`.
   BoxoBlockstoreOption provider(
       $provider.BoxoProviderMultihashProvider provider) {
-    final $r = $callSync(9347, $W()..h(provider));
+    final $r = $callSync(9356, $W()..h(provider));
     return $r.hnn(BoxoBlockstoreOption.$h);
   }
 
   /// Go: `func blockstore.WriteThrough(enabled bool) blockstore.Option`.
   BoxoBlockstoreOption writeThrough(bool enabled) {
-    final $r = $callSync(9357, $W()..b(enabled));
+    final $r = $callSync(9366, $W()..b(enabled));
     return $r.hnn(BoxoBlockstoreOption.$h);
   }
 }

@@ -44,7 +44,7 @@ class OtelhttpLabeler extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*otelhttp.Labeler).Add(ls ...attribute.KeyValue)`.
   void add([List<$attribute.OtelAttributeKeyValue> ls = const []]) {
     $callSync(
-        19086,
+        19092,
         $W()
           ..h(this)
           ..list(ls, (w0, e0) => w0.dto(e0)));
@@ -52,7 +52,7 @@ class OtelhttpLabeler extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*otelhttp.Labeler).Get() []attribute.KeyValue`.
   List<$attribute.OtelAttributeKeyValue> get() {
-    final $r = $callSync(19087, $W()..h(this));
+    final $r = $callSync(19093, $W()..h(this));
     return $r.list(
         () => $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil());
   }
@@ -90,7 +90,7 @@ class OtelhttpTransport extends $http.NetHttpRoundTripper
   factory OtelhttpTransport($http.NetHttpRoundTripper base,
       [List<OtelhttpOption> opts = const []]) {
     final $r = $callSync(
-        19090,
+        19096,
         $W()
           ..h(base)
           ..list(opts, (w0, e0) => w0.h(e0)));
@@ -100,7 +100,7 @@ class OtelhttpTransport extends $http.NetHttpRoundTripper
   /// Go: `func (*otelhttp.Transport).RoundTrip(r *http.Request) (*http.Response, error)`.
   $http.NetHttpResponse roundTrip($http.NetHttpRequest r) {
     final $r = $callSync(
-        19092,
+        19098,
         $W()
           ..h(this)
           ..h(r));
@@ -116,7 +116,7 @@ extension GoContribInstrumentationNetHttpOtelhttpApi
   /// Asynchronous: runs in a goroutine of the service.
   Future<(OtelhttpLabeler, bool)> labelerFromContext(
       $context.Context ctx) async {
-    final $r = await $call(19088, $W()..h(ctx));
+    final $r = await $call(19094, $W()..h(ctx));
     return ($r.hnn(OtelhttpLabeler.$h), $r.b());
   }
 
@@ -125,7 +125,7 @@ extension GoContribInstrumentationNetHttpOtelhttpApi
       $http.NetHttpHandler handler, String operation,
       [List<OtelhttpOption> opts = const []]) {
     final $r = $callSync(
-        19089,
+        19095,
         $W()
           ..h(handler)
           ..str(operation)
@@ -137,7 +137,7 @@ extension GoContribInstrumentationNetHttpOtelhttpApi
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<DateTime> startTimeFromContext($context.Context ctx) async {
-    final $r = await $call(19091, $W()..h(ctx));
+    final $r = await $call(19097, $W()..h(ctx));
     return $r.p() ? $r.time() : $nil();
   }
 }
@@ -188,26 +188,26 @@ extension GoContribInstrumentationNetHttpOtelhttpOptionsApi
   Future<OtelhttpOption> withFilter(
       FutureOr<bool> Function($http.NetHttpRequest request) f) async {
     final $r = await $call(
-        19093, $W()..cb((r) => f(r.hnn($http.NetHttpRequest.$h)), true));
+        19099, $W()..cb((r) => f(r.hnn($http.NetHttpRequest.$h)), true));
     return $r.hnn(OtelhttpOption.$h);
   }
 
   /// Go: `func otelhttp.WithMessageEvents(events ...otelhttp.Event) otelhttp.Option`.
   OtelhttpOption withMessageEvents([List<int> events = const []]) {
-    final $r = $callSync(19094, $W()..list(events, (w0, e0) => w0.i64(e0)));
+    final $r = $callSync(19100, $W()..list(events, (w0, e0) => w0.i64(e0)));
     return $r.hnn(OtelhttpOption.$h);
   }
 
   /// Go: `func otelhttp.WithMeterProvider(provider metric.MeterProvider) otelhttp.Option`.
   OtelhttpOption withMeterProvider($metric.OtelMetricMeterProvider provider) {
-    final $r = $callSync(19095, $W()..h(provider));
+    final $r = $callSync(19101, $W()..h(provider));
     return $r.hnn(OtelhttpOption.$h);
   }
 
   /// Go: `func otelhttp.WithPropagators(ps propagation.TextMapPropagator) otelhttp.Option`.
   OtelhttpOption withPropagators(
       $propagation.OtelPropagationTextMapPropagator ps) {
-    final $r = $callSync(19096, $W()..h(ps));
+    final $r = $callSync(19102, $W()..h(ps));
     return $r.hnn(OtelhttpOption.$h);
   }
 
@@ -221,13 +221,13 @@ extension GoContribInstrumentationNetHttpOtelhttpOptionsApi
   Future<OtelhttpOption> withPublicEndpointFn(
       FutureOr<bool> Function($http.NetHttpRequest request) fn) async {
     final $r = await $call(
-        19097, $W()..cb((r) => fn(r.hnn($http.NetHttpRequest.$h)), true));
+        19103, $W()..cb((r) => fn(r.hnn($http.NetHttpRequest.$h)), true));
     return $r.hnn(OtelhttpOption.$h);
   }
 
   /// Go: `func otelhttp.WithServerName(server string) otelhttp.Option`.
   OtelhttpOption withServerName(String server) {
-    final $r = $callSync(19098, $W()..str(server));
+    final $r = $callSync(19104, $W()..str(server));
     return $r.hnn(OtelhttpOption.$h);
   }
 
@@ -242,7 +242,7 @@ extension GoContribInstrumentationNetHttpOtelhttpOptionsApi
       FutureOr<String> Function(String operation, $http.NetHttpRequest r)
           f) async {
     final $r = await $call(
-        19099,
+        19105,
         $W()
           ..cb((r) => f(r.str(), r.hnn($http.NetHttpRequest.$h)), true,
               (w, v) => w.str(v as String)));
@@ -252,13 +252,13 @@ extension GoContribInstrumentationNetHttpOtelhttpOptionsApi
   /// Go: `func otelhttp.WithSpanOptions(opts ...trace.SpanStartOption) otelhttp.Option`.
   OtelhttpOption withSpanOptions(
       [List<$trace.OtelTraceSpanStartOption> opts = const []]) {
-    final $r = $callSync(19100, $W()..list(opts, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(19106, $W()..list(opts, (w0, e0) => w0.h(e0)));
     return $r.hnn(OtelhttpOption.$h);
   }
 
   /// Go: `func otelhttp.WithTracerProvider(provider trace.TracerProvider) otelhttp.Option`.
   OtelhttpOption withTracerProvider($trace.OtelTraceTracerProvider provider) {
-    final $r = $callSync(19101, $W()..h(provider));
+    final $r = $callSync(19107, $W()..h(provider));
     return $r.hnn(OtelhttpOption.$h);
   }
 }

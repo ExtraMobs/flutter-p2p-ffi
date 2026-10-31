@@ -17,19 +17,19 @@ class KuboCoreNodeHelpersMetricsCtx extends GoHandle
 mixin KuboCoreNodeHelpersMetricsCtx$ on GoHandle {
   /// Go: `func (helpers.MetricsCtx).Deadline() (deadline time.Time, ok bool)`.
   (DateTime, bool) deadline() {
-    final $r = $callSync(11636, $W()..h(this));
+    final $r = $callSync(11642, $W()..h(this));
     return ($r.p() ? $r.time() : $nil(), $r.b());
   }
 
   /// Go: `func (helpers.MetricsCtx).Err() error`.
   void err() {
-    $callSync(11637, $W()..h(this));
+    $callSync(11643, $W()..h(this));
   }
 
   /// Go: `func (helpers.MetricsCtx).Value(key any) any`.
   Object? value$(Object? key) {
     final $r = $callSync(
-        11638,
+        11644,
         $W()
           ..h(this)
           ..any(key));
@@ -38,37 +38,37 @@ mixin KuboCoreNodeHelpersMetricsCtx$ on GoHandle {
 
   /// Go: type assertion `x.(*ice.CandidateHost)`: null if the object is not one.
   $v4.IceV4CandidateHost? asIceV4CandidateHost() {
-    final $r = $callSync(1185, $W()..h(this));
+    final $r = $callSync(1188, $W()..h(this));
     return $r.hn($v4.IceV4CandidateHost.$h);
   }
 
   /// Go: type assertion `x.(*ice.CandidatePeerReflexive)`: null if the object is not one.
   $v4.IceV4CandidatePeerReflexive? asIceV4CandidatePeerReflexive() {
-    final $r = $callSync(1186, $W()..h(this));
+    final $r = $callSync(1189, $W()..h(this));
     return $r.hn($v4.IceV4CandidatePeerReflexive.$h);
   }
 
   /// Go: type assertion `x.(*ice.CandidateRelay)`: null if the object is not one.
   $v4.IceV4CandidateRelay? asIceV4CandidateRelay() {
-    final $r = $callSync(1187, $W()..h(this));
+    final $r = $callSync(1190, $W()..h(this));
     return $r.hn($v4.IceV4CandidateRelay.$h);
   }
 
   /// Go: type assertion `x.(*ice.CandidateServerReflexive)`: null if the object is not one.
   $v4.IceV4CandidateServerReflexive? asIceV4CandidateServerReflexive() {
-    final $r = $callSync(1188, $W()..h(this));
+    final $r = $callSync(1191, $W()..h(this));
     return $r.hn($v4.IceV4CandidateServerReflexive.$h);
   }
 
   /// Go: type assertion `x.(*deadline.Deadline)`: null if the object is not one.
   $deadline.TransportV3Deadline? asTransportV3Deadline() {
-    final $r = $callSync(1189, $W()..h(this));
+    final $r = $callSync(1192, $W()..h(this));
     return $r.hn($deadline.TransportV3Deadline.$h);
   }
 
   /// Go: type assertion `x.(*deadline.Deadline)`: null if the object is not one.
   $deadline2.TransportV4Deadline? asTransportV4Deadline() {
-    final $r = $callSync(1190, $W()..h(this));
+    final $r = $callSync(1193, $W()..h(this));
     return $r.hn($deadline2.TransportV4Deadline.$h);
   }
 }

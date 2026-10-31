@@ -9,14 +9,14 @@ import 'package:p2p_ffi/src/runtime.dart';
 extension GoCockroachdbCrlibCrstringsApi on GoCockroachdbCrlibCrstrings {
   /// Go: `func crstrings.FilterEmpty(elems []string) []string`.
   List<String> filterEmpty(List<String> elems) {
-    final $r = $callSync(4375, $W()..list(elems, (w0, e0) => w0.str(e0)));
+    final $r = $callSync(4384, $W()..list(elems, (w0, e0) => w0.str(e0)));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func crstrings.If(flag bool, trueValue string) string`.
   String if$(bool flag, String trueValue) {
     final $r = $callSync(
-        4376,
+        4385,
         $W()
           ..b(flag)
           ..str(trueValue));
@@ -26,7 +26,7 @@ extension GoCockroachdbCrlibCrstringsApi on GoCockroachdbCrlibCrstrings {
   /// Go: `func crstrings.IfElse(flag bool, trueValue string, falseValue string) string`.
   String ifElse(bool flag, String trueValue, String falseValue) {
     final $r = $callSync(
-        4377,
+        4386,
         $W()
           ..b(flag)
           ..str(trueValue)
@@ -36,14 +36,14 @@ extension GoCockroachdbCrlibCrstringsApi on GoCockroachdbCrlibCrstrings {
 
   /// Go: `func crstrings.Lines(s string) []string`.
   List<String> lines(String s) {
-    final $r = $callSync(4378, $W()..str(s));
+    final $r = $callSync(4387, $W()..str(s));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func crstrings.WithSep(a string, separator string, b string) string`.
   String withSep(String a, String separator, String b) {
     final $r = $callSync(
-        4379,
+        4388,
         $W()
           ..str(a)
           ..str(separator)

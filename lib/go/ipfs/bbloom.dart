@@ -33,7 +33,7 @@ class BbloomBloom extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*bbloom.Bloom).Add(entry []byte)`.
   void add(Uint8List entry) {
     $callSync(
-        9058,
+        9067,
         $W()
           ..h(this)
           ..bytes(entry));
@@ -42,7 +42,7 @@ class BbloomBloom extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*bbloom.Bloom).AddIfNotHas(entry []byte) (added bool)`.
   bool addIfNotHas(Uint8List entry) {
     final $r = $callSync(
-        9059,
+        9068,
         $W()
           ..h(this)
           ..bytes(entry));
@@ -52,7 +52,7 @@ class BbloomBloom extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*bbloom.Bloom).AddIfNotHasTS(entry []byte) (added bool)`.
   bool addIfNotHasTs(Uint8List entry) {
     final $r = $callSync(
-        9060,
+        9069,
         $W()
           ..h(this)
           ..bytes(entry));
@@ -62,7 +62,7 @@ class BbloomBloom extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*bbloom.Bloom).AddTS(entry []byte)`.
   void addTs(Uint8List entry) {
     $callSync(
-        9061,
+        9070,
         $W()
           ..h(this)
           ..bytes(entry));
@@ -70,36 +70,36 @@ class BbloomBloom extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*bbloom.Bloom).Clear()`.
   void clear() {
-    $callSync(9062, $W()..h(this));
+    $callSync(9071, $W()..h(this));
   }
 
   /// Go: `func (*bbloom.Bloom).ClearTS()`.
   void clearTs() {
-    $callSync(9063, $W()..h(this));
+    $callSync(9072, $W()..h(this));
   }
 
   /// Go: `func (*bbloom.Bloom).ElementsAdded() uint64`.
   int elementsAdded() {
-    final $r = $callSync(9064, $W()..h(this));
+    final $r = $callSync(9073, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*bbloom.Bloom).FillRatio() float64`.
   double fillRatio() {
-    final $r = $callSync(9065, $W()..h(this));
+    final $r = $callSync(9074, $W()..h(this));
     return $r.f64();
   }
 
   /// Go: `func (*bbloom.Bloom).FillRatioTS() float64`.
   double fillRatioTs() {
-    final $r = $callSync(9066, $W()..h(this));
+    final $r = $callSync(9075, $W()..h(this));
     return $r.f64();
   }
 
   /// Go: `func (*bbloom.Bloom).Has(entry []byte) bool`.
   bool has(Uint8List entry) {
     final $r = $callSync(
-        9067,
+        9076,
         $W()
           ..h(this)
           ..bytes(entry));
@@ -109,7 +109,7 @@ class BbloomBloom extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*bbloom.Bloom).HasTS(entry []byte) bool`.
   bool hasTs(Uint8List entry) {
     final $r = $callSync(
-        9068,
+        9077,
         $W()
           ..h(this)
           ..bytes(entry));
@@ -118,13 +118,13 @@ class BbloomBloom extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*bbloom.Bloom).JSONMarshal() []byte`.
   Uint8List jsonMarshal() {
-    final $r = $callSync(9069, $W()..h(this));
+    final $r = $callSync(9078, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*bbloom.Bloom).JSONMarshalTS() []byte`.
   Uint8List jsonMarshalTs() {
-    final $r = $callSync(9070, $W()..h(this));
+    final $r = $callSync(9079, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 }
@@ -151,20 +151,20 @@ class BbloomErrUsage extends GolangException {
 extension GoIpfsBbloomApi on GoIpfsBbloom {
   /// Go: `func bbloom.JSONUnmarshal(dbData []byte) (*bbloom.Bloom, error)`.
   BbloomBloom jsonUnmarshal(Uint8List dbData) {
-    final $r = $callSync(9071, $W()..bytes(dbData));
+    final $r = $callSync(9080, $W()..bytes(dbData));
     return $r.hnn(BbloomBloom.$h);
   }
 
   /// Go: `func bbloom.New(params ...float64) (bloomfilter *bbloom.Bloom, err error)`.
   BbloomBloom new$([List<double> params = const []]) {
-    final $r = $callSync(9072, $W()..list(params, (w0, e0) => w0.f64(e0)));
+    final $r = $callSync(9081, $W()..list(params, (w0, e0) => w0.f64(e0)));
     return $r.hnn(BbloomBloom.$h);
   }
 
   /// Go: `func bbloom.NewWithBoolset(bs []byte, locs uint64) (bloomfilter *bbloom.Bloom)`.
   BbloomBloom newWithBoolset(Uint8List bs, int locs) {
     final $r = $callSync(
-        9073,
+        9082,
         $W()
           ..bytes(bs)
           ..i64(locs));
@@ -174,7 +174,7 @@ extension GoIpfsBbloomApi on GoIpfsBbloom {
   /// Go: `func bbloom.NewWithBoolsetAndKeys(bs []byte, locs uint64, k0 uint64, k1 uint64) (bloomfilter *bbloom.Bloom)`.
   BbloomBloom newWithBoolsetAndKeys(Uint8List bs, int locs, int k0, int k1) {
     final $r = $callSync(
-        9074,
+        9083,
         $W()
           ..bytes(bs)
           ..i64(locs)
@@ -186,7 +186,7 @@ extension GoIpfsBbloomApi on GoIpfsBbloom {
   /// Go: `func bbloom.NewWithKeys(k0 uint64, k1 uint64, params ...float64) (*bbloom.Bloom, error)`.
   BbloomBloom newWithKeys(int k0, int k1, [List<double> params = const []]) {
     final $r = $callSync(
-        9075,
+        9084,
         $W()
           ..i64(k0)
           ..i64(k1)

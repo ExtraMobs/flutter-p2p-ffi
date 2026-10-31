@@ -34,14 +34,14 @@ class EncodingBase64Encoding extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func base64.NewEncoding(encoder string) *base64.Encoding`.
   factory EncodingBase64Encoding(String encoder) {
-    final $r = $callSync(3670, $W()..str(encoder));
+    final $r = $callSync(3679, $W()..str(encoder));
     return $r.hnn(EncodingBase64Encoding.$h);
   }
 
   /// Go: `func (*base64.Encoding).AppendDecode(dst []byte, src []byte) ([]byte, error)`.
   Uint8List appendDecode(Uint8List dst, Uint8List src) {
     final $r = $callSync(
-        3658,
+        3667,
         $W()
           ..h(this)
           ..bytes(dst)
@@ -52,7 +52,7 @@ class EncodingBase64Encoding extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*base64.Encoding).AppendEncode(dst []byte, src []byte) []byte`.
   Uint8List appendEncode(Uint8List dst, Uint8List src) {
     final $r = $callSync(
-        3659,
+        3668,
         $W()
           ..h(this)
           ..bytes(dst)
@@ -63,7 +63,7 @@ class EncodingBase64Encoding extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*base64.Encoding).Decode(dst []byte, src []byte) (n int, err error)`.
   int decode(Uint8List dst, Uint8List src) {
     final $r = $callSync(
-        3660,
+        3669,
         $W()
           ..h(this)
           ..bytes(dst)
@@ -74,7 +74,7 @@ class EncodingBase64Encoding extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*base64.Encoding).DecodeString(s string) ([]byte, error)`.
   Uint8List decodeString(String s) {
     final $r = $callSync(
-        3661,
+        3670,
         $W()
           ..h(this)
           ..str(s));
@@ -84,7 +84,7 @@ class EncodingBase64Encoding extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*base64.Encoding).DecodedLen(n int) int`.
   int decodedLen(int n) {
     final $r = $callSync(
-        3662,
+        3671,
         $W()
           ..h(this)
           ..i64(n));
@@ -94,7 +94,7 @@ class EncodingBase64Encoding extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*base64.Encoding).Encode(dst []byte, src []byte)`.
   void encode(Uint8List dst, Uint8List src) {
     $callSync(
-        3663,
+        3672,
         $W()
           ..h(this)
           ..bytes(dst)
@@ -104,7 +104,7 @@ class EncodingBase64Encoding extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*base64.Encoding).EncodeToString(src []byte) string`.
   String encodeToString(Uint8List src) {
     final $r = $callSync(
-        3664,
+        3673,
         $W()
           ..h(this)
           ..bytes(src));
@@ -114,7 +114,7 @@ class EncodingBase64Encoding extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*base64.Encoding).EncodedLen(n int) int`.
   int encodedLen(int n) {
     final $r = $callSync(
-        3665,
+        3674,
         $W()
           ..h(this)
           ..i64(n));
@@ -123,14 +123,14 @@ class EncodingBase64Encoding extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (base64.Encoding).Strict() *base64.Encoding`.
   EncodingBase64Encoding strict() {
-    final $r = $callSync(3666, $W()..h(this));
+    final $r = $callSync(3675, $W()..h(this));
     return $r.hnn(EncodingBase64Encoding.$h);
   }
 
   /// Go: `func (base64.Encoding).WithPadding(padding rune) *base64.Encoding`.
   EncodingBase64Encoding withPadding(int padding) {
     final $r = $callSync(
-        3667,
+        3676,
         $W()
           ..h(this)
           ..i64(padding));
@@ -152,7 +152,7 @@ extension GoEncodingBase64Api on GoEncodingBase64 {
   /// Go: `func base64.NewDecoder(enc *base64.Encoding, r io.Reader) io.Reader`.
   $io.IoReader newDecoder(EncodingBase64Encoding enc, Object r) {
     final $r = $callSync(
-        3668,
+        3677,
         $W()
           ..h(enc)
           ..reader(r));
@@ -162,7 +162,7 @@ extension GoEncodingBase64Api on GoEncodingBase64 {
   /// Go: `func base64.NewEncoder(enc *base64.Encoding, w io.Writer) io.WriteCloser`.
   $io.IoWriteCloser newEncoder(EncodingBase64Encoding enc, GoHandle? w) {
     final $r = $callSync(
-        3669,
+        3678,
         $W()
           ..h(enc)
           ..h(w));
@@ -171,25 +171,25 @@ extension GoEncodingBase64Api on GoEncodingBase64 {
 
   /// Go: `var base64.RawStdEncoding *base64.Encoding`.
   EncodingBase64Encoding get rawStdEncoding {
-    final $r = $callSync(3671);
+    final $r = $callSync(3680);
     return $r.hnn(EncodingBase64Encoding.$h);
   }
 
   /// Go: `var base64.RawURLEncoding *base64.Encoding`.
   EncodingBase64Encoding get rawUrlEncoding {
-    final $r = $callSync(3672);
+    final $r = $callSync(3681);
     return $r.hnn(EncodingBase64Encoding.$h);
   }
 
   /// Go: `var base64.StdEncoding *base64.Encoding`.
   EncodingBase64Encoding get stdEncoding {
-    final $r = $callSync(3673);
+    final $r = $callSync(3682);
     return $r.hnn(EncodingBase64Encoding.$h);
   }
 
   /// Go: `var base64.URLEncoding *base64.Encoding`.
   EncodingBase64Encoding get urlEncoding {
-    final $r = $callSync(3674);
+    final $r = $callSync(3683);
     return $r.hnn(EncodingBase64Encoding.$h);
   }
 }

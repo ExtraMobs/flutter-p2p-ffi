@@ -49,7 +49,7 @@ final class GrpcBackoffConfig implements GoDto {
 extension GoGrpcBackoffApi on GoGrpcBackoff {
   /// Go: `var backoff.DefaultConfig backoff.Config`.
   GrpcBackoffConfig get defaultConfig {
-    final $r = $callSync(24379);
+    final $r = $callSync(24385);
     return $r.p() ? GrpcBackoffConfig.$dec($r) : $nil();
   }
 }

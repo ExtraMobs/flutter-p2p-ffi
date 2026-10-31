@@ -31,7 +31,7 @@ class Color extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*color.Color).Add(value ...color.Attribute) *color.Color`.
   Color add([List<int> value = const []]) {
     final $r = $callSync(
-        6269,
+        6278,
         $W()
           ..h(this)
           ..list(value, (w0, e0) => w0.i64(e0)));
@@ -41,7 +41,7 @@ class Color extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*color.Color).AddBgRGB(r int, g int, b int) *color.Color`.
   Color addBgRgb(int r, int g, int b) {
     final $r = $callSync(
-        6270,
+        6279,
         $W()
           ..h(this)
           ..i64(r)
@@ -53,7 +53,7 @@ class Color extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*color.Color).AddRGB(r int, g int, b int) *color.Color`.
   Color addRgb(int r, int g, int b) {
     final $r = $callSync(
-        6271,
+        6280,
         $W()
           ..h(this)
           ..i64(r)
@@ -64,18 +64,18 @@ class Color extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*color.Color).DisableColor()`.
   void disableColor() {
-    $callSync(6272, $W()..h(this));
+    $callSync(6281, $W()..h(this));
   }
 
   /// Go: `func (*color.Color).EnableColor()`.
   void enableColor() {
-    $callSync(6273, $W()..h(this));
+    $callSync(6282, $W()..h(this));
   }
 
   /// Go: `func (*color.Color).Equals(c2 *color.Color) bool`.
   bool equals(Color c2) {
     final $r = $callSync(
-        6274,
+        6283,
         $W()
           ..h(this)
           ..h(c2));
@@ -85,7 +85,7 @@ class Color extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*color.Color).Fprint(w io.Writer, a ...interface{}) (n int, err error)`.
   int fprint(GoHandle? w, [List<Object?> a = const []]) {
     final $r = $callSync(
-        6275,
+        6284,
         $W()
           ..h(this)
           ..h(w)
@@ -96,7 +96,7 @@ class Color extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*color.Color).Fprintf(w io.Writer, format string, a ...interface{}) (n int, err error)`.
   int fprintf(GoHandle? w, String format, [List<Object?> a = const []]) {
     final $r = $callSync(
-        6276,
+        6285,
         $W()
           ..h(this)
           ..h(w)
@@ -108,7 +108,7 @@ class Color extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*color.Color).Fprintln(w io.Writer, a ...interface{}) (n int, err error)`.
   int fprintln(GoHandle? w, [List<Object?> a = const []]) {
     final $r = $callSync(
-        6277,
+        6286,
         $W()
           ..h(this)
           ..h(w)
@@ -119,7 +119,7 @@ class Color extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*color.Color).Print(a ...interface{}) (n int, err error)`.
   int print([List<Object?> a = const []]) {
     final $r = $callSync(
-        6278,
+        6287,
         $W()
           ..h(this)
           ..list(a, (w0, e0) => w0.any(e0)));
@@ -129,7 +129,7 @@ class Color extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*color.Color).Printf(format string, a ...interface{}) (n int, err error)`.
   int printf(String format, [List<Object?> a = const []]) {
     final $r = $callSync(
-        6279,
+        6288,
         $W()
           ..h(this)
           ..str(format)
@@ -140,7 +140,7 @@ class Color extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*color.Color).Println(a ...interface{}) (n int, err error)`.
   int println([List<Object?> a = const []]) {
     final $r = $callSync(
-        6280,
+        6289,
         $W()
           ..h(this)
           ..list(a, (w0, e0) => w0.any(e0)));
@@ -149,14 +149,14 @@ class Color extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*color.Color).Set() *color.Color`.
   Color set() {
-    final $r = $callSync(6281, $W()..h(this));
+    final $r = $callSync(6290, $W()..h(this));
     return $r.hnn(Color.$h);
   }
 
   /// Go: `func (*color.Color).SetWriter(w io.Writer) *color.Color`.
   Color setWriter(GoHandle? w) {
     final $r = $callSync(
-        6282,
+        6291,
         $W()
           ..h(this)
           ..h(w));
@@ -166,7 +166,7 @@ class Color extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*color.Color).Sprint(a ...interface{}) string`.
   String sprint([List<Object?> a = const []]) {
     final $r = $callSync(
-        6283,
+        6292,
         $W()
           ..h(this)
           ..list(a, (w0, e0) => w0.any(e0)));
@@ -176,7 +176,7 @@ class Color extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*color.Color).Sprintf(format string, a ...interface{}) string`.
   String sprintf(String format, [List<Object?> a = const []]) {
     final $r = $callSync(
-        6284,
+        6293,
         $W()
           ..h(this)
           ..str(format)
@@ -187,7 +187,7 @@ class Color extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*color.Color).Sprintln(a ...interface{}) string`.
   String sprintln([List<Object?> a = const []]) {
     final $r = $callSync(
-        6285,
+        6294,
         $W()
           ..h(this)
           ..list(a, (w0, e0) => w0.any(e0)));
@@ -197,7 +197,7 @@ class Color extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*color.Color).UnsetWriter(w io.Writer)`.
   void unsetWriter(GoHandle? w) {
     $callSync(
-        6286,
+        6295,
         $W()
           ..h(this)
           ..h(w));
@@ -209,7 +209,7 @@ extension GoFatihColorApi on GoFatihColor {
   /// Go: `func color.BgRGB(r int, g int, b int) *color.Color`.
   Color bgRgb(int r, int g, int b) {
     final $r = $callSync(
-        6264,
+        6273,
         $W()
           ..i64(r)
           ..i64(g)
@@ -220,7 +220,7 @@ extension GoFatihColorApi on GoFatihColor {
   /// Go: `func color.Black(format string, a ...interface{})`.
   void black(String format, [List<Object?> a = const []]) {
     $callSync(
-        6265,
+        6274,
         $W()
           ..str(format)
           ..list(a, (w0, e0) => w0.any(e0)));
@@ -229,7 +229,7 @@ extension GoFatihColorApi on GoFatihColor {
   /// Go: `func color.BlackString(format string, a ...interface{}) string`.
   String blackString(String format, [List<Object?> a = const []]) {
     final $r = $callSync(
-        6266,
+        6275,
         $W()
           ..str(format)
           ..list(a, (w0, e0) => w0.any(e0)));
@@ -239,7 +239,7 @@ extension GoFatihColorApi on GoFatihColor {
   /// Go: `func color.Blue(format string, a ...interface{})`.
   void blue(String format, [List<Object?> a = const []]) {
     $callSync(
-        6267,
+        6276,
         $W()
           ..str(format)
           ..list(a, (w0, e0) => w0.any(e0)));
@@ -248,7 +248,7 @@ extension GoFatihColorApi on GoFatihColor {
   /// Go: `func color.BlueString(format string, a ...interface{}) string`.
   String blueString(String format, [List<Object?> a = const []]) {
     final $r = $callSync(
-        6268,
+        6277,
         $W()
           ..str(format)
           ..list(a, (w0, e0) => w0.any(e0)));
@@ -258,7 +258,7 @@ extension GoFatihColorApi on GoFatihColor {
   /// Go: `func color.Cyan(format string, a ...interface{})`.
   void cyan(String format, [List<Object?> a = const []]) {
     $callSync(
-        6287,
+        6296,
         $W()
           ..str(format)
           ..list(a, (w0, e0) => w0.any(e0)));
@@ -267,7 +267,7 @@ extension GoFatihColorApi on GoFatihColor {
   /// Go: `func color.CyanString(format string, a ...interface{}) string`.
   String cyanString(String format, [List<Object?> a = const []]) {
     final $r = $callSync(
-        6288,
+        6297,
         $W()
           ..str(format)
           ..list(a, (w0, e0) => w0.any(e0)));
@@ -277,7 +277,7 @@ extension GoFatihColorApi on GoFatihColor {
   /// Go: `func color.Green(format string, a ...interface{})`.
   void green(String format, [List<Object?> a = const []]) {
     $callSync(
-        6289,
+        6298,
         $W()
           ..str(format)
           ..list(a, (w0, e0) => w0.any(e0)));
@@ -286,7 +286,7 @@ extension GoFatihColorApi on GoFatihColor {
   /// Go: `func color.GreenString(format string, a ...interface{}) string`.
   String greenString(String format, [List<Object?> a = const []]) {
     final $r = $callSync(
-        6290,
+        6299,
         $W()
           ..str(format)
           ..list(a, (w0, e0) => w0.any(e0)));
@@ -296,7 +296,7 @@ extension GoFatihColorApi on GoFatihColor {
   /// Go: `func color.HiBlack(format string, a ...interface{})`.
   void hiBlack(String format, [List<Object?> a = const []]) {
     $callSync(
-        6291,
+        6300,
         $W()
           ..str(format)
           ..list(a, (w0, e0) => w0.any(e0)));
@@ -305,7 +305,7 @@ extension GoFatihColorApi on GoFatihColor {
   /// Go: `func color.HiBlackString(format string, a ...interface{}) string`.
   String hiBlackString(String format, [List<Object?> a = const []]) {
     final $r = $callSync(
-        6292,
+        6301,
         $W()
           ..str(format)
           ..list(a, (w0, e0) => w0.any(e0)));
@@ -315,7 +315,7 @@ extension GoFatihColorApi on GoFatihColor {
   /// Go: `func color.HiBlue(format string, a ...interface{})`.
   void hiBlue(String format, [List<Object?> a = const []]) {
     $callSync(
-        6293,
+        6302,
         $W()
           ..str(format)
           ..list(a, (w0, e0) => w0.any(e0)));
@@ -324,7 +324,7 @@ extension GoFatihColorApi on GoFatihColor {
   /// Go: `func color.HiBlueString(format string, a ...interface{}) string`.
   String hiBlueString(String format, [List<Object?> a = const []]) {
     final $r = $callSync(
-        6294,
+        6303,
         $W()
           ..str(format)
           ..list(a, (w0, e0) => w0.any(e0)));
@@ -334,7 +334,7 @@ extension GoFatihColorApi on GoFatihColor {
   /// Go: `func color.HiCyan(format string, a ...interface{})`.
   void hiCyan(String format, [List<Object?> a = const []]) {
     $callSync(
-        6295,
+        6304,
         $W()
           ..str(format)
           ..list(a, (w0, e0) => w0.any(e0)));
@@ -343,7 +343,7 @@ extension GoFatihColorApi on GoFatihColor {
   /// Go: `func color.HiCyanString(format string, a ...interface{}) string`.
   String hiCyanString(String format, [List<Object?> a = const []]) {
     final $r = $callSync(
-        6296,
+        6305,
         $W()
           ..str(format)
           ..list(a, (w0, e0) => w0.any(e0)));
@@ -353,7 +353,7 @@ extension GoFatihColorApi on GoFatihColor {
   /// Go: `func color.HiGreen(format string, a ...interface{})`.
   void hiGreen(String format, [List<Object?> a = const []]) {
     $callSync(
-        6297,
+        6306,
         $W()
           ..str(format)
           ..list(a, (w0, e0) => w0.any(e0)));
@@ -362,7 +362,7 @@ extension GoFatihColorApi on GoFatihColor {
   /// Go: `func color.HiGreenString(format string, a ...interface{}) string`.
   String hiGreenString(String format, [List<Object?> a = const []]) {
     final $r = $callSync(
-        6298,
+        6307,
         $W()
           ..str(format)
           ..list(a, (w0, e0) => w0.any(e0)));
@@ -372,7 +372,7 @@ extension GoFatihColorApi on GoFatihColor {
   /// Go: `func color.HiMagenta(format string, a ...interface{})`.
   void hiMagenta(String format, [List<Object?> a = const []]) {
     $callSync(
-        6299,
+        6308,
         $W()
           ..str(format)
           ..list(a, (w0, e0) => w0.any(e0)));
@@ -381,7 +381,7 @@ extension GoFatihColorApi on GoFatihColor {
   /// Go: `func color.HiMagentaString(format string, a ...interface{}) string`.
   String hiMagentaString(String format, [List<Object?> a = const []]) {
     final $r = $callSync(
-        6300,
+        6309,
         $W()
           ..str(format)
           ..list(a, (w0, e0) => w0.any(e0)));
@@ -391,7 +391,7 @@ extension GoFatihColorApi on GoFatihColor {
   /// Go: `func color.HiRed(format string, a ...interface{})`.
   void hiRed(String format, [List<Object?> a = const []]) {
     $callSync(
-        6301,
+        6310,
         $W()
           ..str(format)
           ..list(a, (w0, e0) => w0.any(e0)));
@@ -400,7 +400,7 @@ extension GoFatihColorApi on GoFatihColor {
   /// Go: `func color.HiRedString(format string, a ...interface{}) string`.
   String hiRedString(String format, [List<Object?> a = const []]) {
     final $r = $callSync(
-        6302,
+        6311,
         $W()
           ..str(format)
           ..list(a, (w0, e0) => w0.any(e0)));
@@ -410,7 +410,7 @@ extension GoFatihColorApi on GoFatihColor {
   /// Go: `func color.HiWhite(format string, a ...interface{})`.
   void hiWhite(String format, [List<Object?> a = const []]) {
     $callSync(
-        6303,
+        6312,
         $W()
           ..str(format)
           ..list(a, (w0, e0) => w0.any(e0)));
@@ -419,7 +419,7 @@ extension GoFatihColorApi on GoFatihColor {
   /// Go: `func color.HiWhiteString(format string, a ...interface{}) string`.
   String hiWhiteString(String format, [List<Object?> a = const []]) {
     final $r = $callSync(
-        6304,
+        6313,
         $W()
           ..str(format)
           ..list(a, (w0, e0) => w0.any(e0)));
@@ -429,7 +429,7 @@ extension GoFatihColorApi on GoFatihColor {
   /// Go: `func color.HiYellow(format string, a ...interface{})`.
   void hiYellow(String format, [List<Object?> a = const []]) {
     $callSync(
-        6305,
+        6314,
         $W()
           ..str(format)
           ..list(a, (w0, e0) => w0.any(e0)));
@@ -438,7 +438,7 @@ extension GoFatihColorApi on GoFatihColor {
   /// Go: `func color.HiYellowString(format string, a ...interface{}) string`.
   String hiYellowString(String format, [List<Object?> a = const []]) {
     final $r = $callSync(
-        6306,
+        6315,
         $W()
           ..str(format)
           ..list(a, (w0, e0) => w0.any(e0)));
@@ -448,7 +448,7 @@ extension GoFatihColorApi on GoFatihColor {
   /// Go: `func color.Magenta(format string, a ...interface{})`.
   void magenta(String format, [List<Object?> a = const []]) {
     $callSync(
-        6307,
+        6316,
         $W()
           ..str(format)
           ..list(a, (w0, e0) => w0.any(e0)));
@@ -457,7 +457,7 @@ extension GoFatihColorApi on GoFatihColor {
   /// Go: `func color.MagentaString(format string, a ...interface{}) string`.
   String magentaString(String format, [List<Object?> a = const []]) {
     final $r = $callSync(
-        6308,
+        6317,
         $W()
           ..str(format)
           ..list(a, (w0, e0) => w0.any(e0)));
@@ -466,20 +466,20 @@ extension GoFatihColorApi on GoFatihColor {
 
   /// Go: `func color.New(value ...color.Attribute) *color.Color`.
   Color new$([List<int> value = const []]) {
-    final $r = $callSync(6309, $W()..list(value, (w0, e0) => w0.i64(e0)));
+    final $r = $callSync(6318, $W()..list(value, (w0, e0) => w0.i64(e0)));
     return $r.hnn(Color.$h);
   }
 
   /// Go: `var color.NoColor bool`.
   bool get noColor {
-    final $r = $callSync(6310);
+    final $r = $callSync(6319);
     return $r.b();
   }
 
   /// Go: `func color.RGB(r int, g int, b int) *color.Color`.
   Color rgb(int r, int g, int b) {
     final $r = $callSync(
-        6311,
+        6320,
         $W()
           ..i64(r)
           ..i64(g)
@@ -490,7 +490,7 @@ extension GoFatihColorApi on GoFatihColor {
   /// Go: `func color.Red(format string, a ...interface{})`.
   void red(String format, [List<Object?> a = const []]) {
     $callSync(
-        6312,
+        6321,
         $W()
           ..str(format)
           ..list(a, (w0, e0) => w0.any(e0)));
@@ -499,7 +499,7 @@ extension GoFatihColorApi on GoFatihColor {
   /// Go: `func color.RedString(format string, a ...interface{}) string`.
   String redString(String format, [List<Object?> a = const []]) {
     final $r = $callSync(
-        6313,
+        6322,
         $W()
           ..str(format)
           ..list(a, (w0, e0) => w0.any(e0)));
@@ -508,19 +508,19 @@ extension GoFatihColorApi on GoFatihColor {
 
   /// Go: `func color.Set(p ...color.Attribute) *color.Color`.
   Color set([List<int> p = const []]) {
-    final $r = $callSync(6314, $W()..list(p, (w0, e0) => w0.i64(e0)));
+    final $r = $callSync(6323, $W()..list(p, (w0, e0) => w0.i64(e0)));
     return $r.hnn(Color.$h);
   }
 
   /// Go: `func color.Unset()`.
   void unset() {
-    $callSync(6315);
+    $callSync(6324);
   }
 
   /// Go: `func color.White(format string, a ...interface{})`.
   void white(String format, [List<Object?> a = const []]) {
     $callSync(
-        6316,
+        6325,
         $W()
           ..str(format)
           ..list(a, (w0, e0) => w0.any(e0)));
@@ -529,7 +529,7 @@ extension GoFatihColorApi on GoFatihColor {
   /// Go: `func color.WhiteString(format string, a ...interface{}) string`.
   String whiteString(String format, [List<Object?> a = const []]) {
     final $r = $callSync(
-        6317,
+        6326,
         $W()
           ..str(format)
           ..list(a, (w0, e0) => w0.any(e0)));
@@ -539,7 +539,7 @@ extension GoFatihColorApi on GoFatihColor {
   /// Go: `func color.Yellow(format string, a ...interface{})`.
   void yellow(String format, [List<Object?> a = const []]) {
     $callSync(
-        6318,
+        6327,
         $W()
           ..str(format)
           ..list(a, (w0, e0) => w0.any(e0)));
@@ -548,7 +548,7 @@ extension GoFatihColorApi on GoFatihColor {
   /// Go: `func color.YellowString(format string, a ...interface{}) string`.
   String yellowString(String format, [List<Object?> a = const []]) {
     final $r = $callSync(
-        6319,
+        6328,
         $W()
           ..str(format)
           ..list(a, (w0, e0) => w0.any(e0)));

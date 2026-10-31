@@ -39,14 +39,14 @@ class PebbleV2RecordLogWriter extends $io.IoCloser
 
   /// Go: `func (*record.LogWriter).Close() error`.
   void close() {
-    $callSync(4987, $W()..h(this));
+    $callSync(4996, $W()..h(this));
   }
 
   /// Go: `func (*record.LogWriter).CloseWithLastQueuedRecord(lastQueuedRecord record.PendingSyncIndex) error`.
   void closeWithLastQueuedRecord(
       PebbleV2RecordPendingSyncIndex lastQueuedRecord) {
     $callSync(
-        4988,
+        4997,
         $W()
           ..h(this)
           ..dto(lastQueuedRecord));
@@ -54,20 +54,20 @@ class PebbleV2RecordLogWriter extends $io.IoCloser
 
   /// Go: `func (*record.LogWriter).Metrics() record.LogWriterMetrics`.
   PebbleV2RecordLogWriterMetrics metrics() {
-    final $r = $callSync(4989, $W()..h(this));
+    final $r = $callSync(4998, $W()..h(this));
     return $r.p() ? PebbleV2RecordLogWriterMetrics.$dec($r) : $nil();
   }
 
   /// Go: `func (*record.LogWriter).Size() int64`.
   int size() {
-    final $r = $callSync(4990, $W()..h(this));
+    final $r = $callSync(4999, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*record.LogWriter).SyncRecordGeneralized(p []byte, ps record.PendingSync) (logSize int64, err2 error)`.
   int syncRecordGeneralized(Uint8List p, PebbleV2RecordPendingSync ps) {
     final $r = $callSync(
-        4991,
+        5000,
         $W()
           ..h(this)
           ..bytes(p)
@@ -78,7 +78,7 @@ class PebbleV2RecordLogWriter extends $io.IoCloser
   /// Go: `func (*record.LogWriter).WriteRecord(p []byte) (int64, error)`.
   int writeRecord(Uint8List p) {
     final $r = $callSync(
-        4992,
+        5001,
         $W()
           ..h(this)
           ..bytes(p));
@@ -108,7 +108,7 @@ final class PebbleV2RecordLogWriterMetrics implements GoDto {
   /// Go: `func (*record.LogWriterMetrics).Merge(x *record.LogWriterMetrics) error`.
   void merge(PebbleV2RecordLogWriterMetrics x) {
     $callSync(
-        4993,
+        5002,
         $W()
           ..dto(this)
           ..dto(x));
@@ -159,13 +159,13 @@ class PebbleV2RecordReader extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*record.Reader).Next() (io.Reader, error)`.
   $io.IoReader next() {
-    final $r = $callSync(4995, $W()..h(this));
+    final $r = $callSync(5004, $W()..h(this));
     return $r.hnn($io.IoReader.$h);
   }
 
   /// Go: `func (*record.Reader).Offset() int64`.
   int offset() {
-    final $r = $callSync(4996, $W()..h(this));
+    final $r = $callSync(5005, $W()..h(this));
     return $r.i64();
   }
 }
@@ -191,7 +191,7 @@ class PebbleV2RecordRotationHelper extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*record.RotationHelper).AddRecord(recordSize int64)`.
   void addRecord(int recordSize) {
     $callSync(
-        4997,
+        5006,
         $W()
           ..h(this)
           ..i64(recordSize));
@@ -199,14 +199,14 @@ class PebbleV2RecordRotationHelper extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*record.RotationHelper).DebugInfo() (lastSnapshotSize int64, sizeSinceLastSnapshot int64)`.
   (int, int) debugInfo() {
-    final $r = $callSync(4998, $W()..h(this));
+    final $r = $callSync(5007, $W()..h(this));
     return ($r.i64(), $r.i64());
   }
 
   /// Go: `func (*record.RotationHelper).Rotate(snapshotSize int64)`.
   void rotate(int snapshotSize) {
     $callSync(
-        4999,
+        5008,
         $W()
           ..h(this)
           ..i64(snapshotSize));
@@ -215,7 +215,7 @@ class PebbleV2RecordRotationHelper extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*record.RotationHelper).ShouldRotate(nextSnapshotSize int64) bool`.
   bool shouldRotate(int nextSnapshotSize) {
     final $r = $callSync(
-        5000,
+        5009,
         $W()
           ..h(this)
           ..i64(nextSnapshotSize));
@@ -247,36 +247,36 @@ class PebbleV2RecordWriter extends $io.IoCloser
 
   /// Go: `func record.NewWriter(w io.Writer) *record.Writer`.
   factory PebbleV2RecordWriter(GoHandle? w) {
-    final $r = $callSync(4994, $W()..h(w));
+    final $r = $callSync(5003, $W()..h(w));
     return $r.hnn(PebbleV2RecordWriter.$h);
   }
 
   /// Go: `func (*record.Writer).Close() error`.
   void close() {
-    $callSync(5001, $W()..h(this));
+    $callSync(5010, $W()..h(this));
   }
 
   /// Go: `func (*record.Writer).Flush() error`.
   void flush() {
-    $callSync(5002, $W()..h(this));
+    $callSync(5011, $W()..h(this));
   }
 
   /// Go: `func (*record.Writer).LastRecordOffset() (int64, error)`.
   int lastRecordOffset() {
-    final $r = $callSync(5003, $W()..h(this));
+    final $r = $callSync(5012, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*record.Writer).Size() int64`.
   int size() {
-    final $r = $callSync(5004, $W()..h(this));
+    final $r = $callSync(5013, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*record.Writer).WriteRecord(p []byte) (int64, error)`.
   int writeRecord(Uint8List p) {
     final $r = $callSync(
-        5005,
+        5014,
         $W()
           ..h(this)
           ..bytes(p));

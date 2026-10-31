@@ -31,7 +31,7 @@ class Libp2pXRateLimiter extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*rate.Limiter).Allow(ipAddr netip.Addr) bool`.
   bool allow($netip.NetNetipAddr ipAddr) {
     final $r = $callSync(
-        15099,
+        15105,
         $W()
           ..h(this)
           ..h(ipAddr));
@@ -60,7 +60,7 @@ class Libp2pXRateSubnetLimiter extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*rate.SubnetLimiter).Allow(ipAddr netip.Addr, now time.Time) bool`.
   bool allow($netip.NetNetipAddr ipAddr, DateTime now) {
     final $r = $callSync(
-        15100,
+        15106,
         $W()
           ..h(this)
           ..h(ipAddr)

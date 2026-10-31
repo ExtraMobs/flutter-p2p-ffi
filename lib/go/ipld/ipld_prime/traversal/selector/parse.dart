@@ -13,38 +13,38 @@ extension GoIpldIpldPrimeTraversalSelectorParseApi
     on GoIpldIpldPrimeTraversalSelectorParse {
   /// Go: `var selectorparse.CommonSelector_ExploreAllRecursively datamodel.Node`.
   $datamodel.IpldPrimeDatamodelNode get commonSelectorExploreAllRecursively {
-    final $r = $callSync(12670);
+    final $r = $callSync(12676);
     return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
   }
 
   /// Go: `var selectorparse.CommonSelector_MatchAllRecursively datamodel.Node`.
   $datamodel.IpldPrimeDatamodelNode get commonSelectorMatchAllRecursively {
-    final $r = $callSync(12671);
+    final $r = $callSync(12677);
     return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
   }
 
   /// Go: `var selectorparse.CommonSelector_MatchChildren datamodel.Node`.
   $datamodel.IpldPrimeDatamodelNode get commonSelectorMatchChildren {
-    final $r = $callSync(12672);
+    final $r = $callSync(12678);
     return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
   }
 
   /// Go: `var selectorparse.CommonSelector_MatchPoint datamodel.Node`.
   $datamodel.IpldPrimeDatamodelNode get commonSelectorMatchPoint {
-    final $r = $callSync(12673);
+    final $r = $callSync(12679);
     return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
   }
 
   /// Go: `func selectorparse.ParseAndCompileJSONSelector(jsonStr string) (selector.Selector, error)`.
   $selector.IpldPrimeTraversalSelector parseAndCompileJsonSelector(
       String jsonStr) {
-    final $r = $callSync(12674, $W()..str(jsonStr));
+    final $r = $callSync(12680, $W()..str(jsonStr));
     return $r.hnn($selector.IpldPrimeTraversalSelector.$h);
   }
 
   /// Go: `func selectorparse.ParseJSONSelector(jsonStr string) (datamodel.Node, error)`.
   $datamodel.IpldPrimeDatamodelNode parseJsonSelector(String jsonStr) {
-    final $r = $callSync(12675, $W()..str(jsonStr));
+    final $r = $callSync(12681, $W()..str(jsonStr));
     return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
   }
 }

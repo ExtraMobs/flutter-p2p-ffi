@@ -40,7 +40,7 @@ final class RtpCodecsAv1ObuExtensionHeader implements GoDto {
 
   /// Go: `func (*obu.ExtensionHeader).Marshal() byte`.
   int marshal() {
-    final $r = $callSync(17051, $W()..dto(this));
+    final $r = $callSync(17057, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -86,13 +86,13 @@ final class RtpCodecsAv1ObuHeader implements GoDto {
 
   /// Go: `func (*obu.Header).Marshal() []byte`.
   Uint8List marshal() {
-    final $r = $callSync(17052, $W()..dto(this));
+    final $r = $callSync(17058, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*obu.Header).Size() int`.
   int size() {
-    final $r = $callSync(17053, $W()..dto(this));
+    final $r = $callSync(17059, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -122,7 +122,7 @@ final class RtpCodecsAv1Obu implements GoDto {
 
   /// Go: `func (*obu.OBU).Marshal() []byte`.
   Uint8List marshal() {
-    final $r = $callSync(17054, $W()..dto(this));
+    final $r = $callSync(17060, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 }
@@ -158,31 +158,31 @@ class RtpCodecsAv1ObuErrShortHeader extends GolangException {
 extension GoPionRtpCodecsAv1ObuApi on GoPionRtpCodecsAv1Obu {
   /// Go: `func obu.EncodeLEB128(in uint) (out uint)`.
   int encodeLeb128(int in$) {
-    final $r = $callSync(17050, $W()..i64(in$));
+    final $r = $callSync(17056, $W()..i64(in$));
     return $r.i64();
   }
 
   /// Go: `func obu.ParseOBUExtensionHeader(headerData byte) obu.ExtensionHeader`.
   RtpCodecsAv1ObuExtensionHeader parseObuExtensionHeader(int headerData) {
-    final $r = $callSync(17055, $W()..i64(headerData));
+    final $r = $callSync(17061, $W()..i64(headerData));
     return $r.p() ? RtpCodecsAv1ObuExtensionHeader.$dec($r) : $nil();
   }
 
   /// Go: `func obu.ParseOBUHeader(data []byte) (*obu.Header, error)`.
   RtpCodecsAv1ObuHeader parseObuHeader(Uint8List data) {
-    final $r = $callSync(17056, $W()..bytes(data));
+    final $r = $callSync(17062, $W()..bytes(data));
     return $r.p() ? RtpCodecsAv1ObuHeader.$dec($r) : $nil();
   }
 
   /// Go: `func obu.ReadLeb128(in []byte) (uint, uint, error)`.
   (int, int) readLeb128(Uint8List in$) {
-    final $r = $callSync(17057, $W()..bytes(in$));
+    final $r = $callSync(17063, $W()..bytes(in$));
     return ($r.i64(), $r.i64());
   }
 
   /// Go: `func obu.WriteToLeb128(in uint) []byte`.
   Uint8List writeToLeb128(int in$) {
-    final $r = $callSync(17058, $W()..i64(in$));
+    final $r = $callSync(17064, $W()..i64(in$));
     return $r.bytes() ?? Uint8List(0);
   }
 }

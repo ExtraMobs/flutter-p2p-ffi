@@ -30,14 +30,14 @@ class WebsocketBufferPool extends GoHandle with WebsocketBufferPool$ {
 mixin WebsocketBufferPool$ on GoHandle {
   /// Go: `func (websocket.BufferPool).Get() interface{}`.
   Object? get() {
-    final $r = $callSync(8122, $W()..h(this));
+    final $r = $callSync(8131, $W()..h(this));
     return $r.any();
   }
 
   /// Go: `func (websocket.BufferPool).Put(interface{})`.
   void put(Object? arg0) {
     $callSync(
-        8123,
+        8132,
         $W()
           ..h(this)
           ..any(arg0));
@@ -45,7 +45,7 @@ mixin WebsocketBufferPool$ on GoHandle {
 
   /// Go: type assertion `x.(*sync.Pool)`: null if the object is not one.
   $sync.SyncPool? asSyncPool() {
-    final $r = $callSync(864, $W()..h(this));
+    final $r = $callSync(867, $W()..h(this));
     return $r.hn($sync.SyncPool.$h);
   }
 }
@@ -78,13 +78,13 @@ class WebsocketConn extends $io.IoCloser
 
   /// Go: `func (*websocket.Conn).Close() error`.
   void close() {
-    $callSync(8124, $W()..h(this));
+    $callSync(8133, $W()..h(this));
   }
 
   /// Go: `func (*websocket.Conn).EnableWriteCompression(enable bool)`.
   void enableWriteCompression(bool enable) {
     $callSync(
-        8125,
+        8134,
         $W()
           ..h(this)
           ..b(enable));
@@ -92,26 +92,26 @@ class WebsocketConn extends $io.IoCloser
 
   /// Go: `func (*websocket.Conn).LocalAddr() net.Addr`.
   $net.NetAddr localAddr() {
-    final $r = $callSync(8126, $W()..h(this));
+    final $r = $callSync(8135, $W()..h(this));
     return $r.p() ? $net.NetAddr.$dec($r) : $nil();
   }
 
   /// Go: `func (*websocket.Conn).NetConn() net.Conn`.
   $net.NetConn netConn() {
-    final $r = $callSync(8127, $W()..h(this));
+    final $r = $callSync(8136, $W()..h(this));
     return $r.hnn($net.NetConn.$h);
   }
 
   /// Go: `func (*websocket.Conn).NextReader() (messageType int, r io.Reader, err error)`.
   (int, $io.IoReader) nextReader() {
-    final $r = $callSync(8128, $W()..h(this));
+    final $r = $callSync(8137, $W()..h(this));
     return ($r.i64(), $r.hnn($io.IoReader.$h));
   }
 
   /// Go: `func (*websocket.Conn).NextWriter(messageType int) (io.WriteCloser, error)`.
   $io.IoWriteCloser nextWriter(int messageType) {
     final $r = $callSync(
-        8129,
+        8138,
         $W()
           ..h(this)
           ..i64(messageType));
@@ -121,7 +121,7 @@ class WebsocketConn extends $io.IoCloser
   /// Go: `func (*websocket.Conn).ReadJSON(v interface{}) error`.
   void readJson(Object? v) {
     $callSync(
-        8130,
+        8139,
         $W()
           ..h(this)
           ..any(v));
@@ -129,13 +129,13 @@ class WebsocketConn extends $io.IoCloser
 
   /// Go: `func (*websocket.Conn).ReadMessage() (messageType int, p []byte, err error)`.
   (int, Uint8List) readMessage() {
-    final $r = $callSync(8131, $W()..h(this));
+    final $r = $callSync(8140, $W()..h(this));
     return ($r.i64(), $r.bytes() ?? Uint8List(0));
   }
 
   /// Go: `func (*websocket.Conn).RemoteAddr() net.Addr`.
   $net.NetAddr remoteAddr() {
-    final $r = $callSync(8132, $W()..h(this));
+    final $r = $callSync(8141, $W()..h(this));
     return $r.p() ? $net.NetAddr.$dec($r) : $nil();
   }
 
@@ -149,7 +149,7 @@ class WebsocketConn extends $io.IoCloser
   Future<void> setCloseHandler(
       FutureOr<void> Function(int code, String text) h) async {
     await $call(
-        8133,
+        8142,
         $W()
           ..h(this)
           ..cb((r) => h(r.i64(), r.str()), true));
@@ -158,7 +158,7 @@ class WebsocketConn extends $io.IoCloser
   /// Go: `func (*websocket.Conn).SetCompressionLevel(level int) error`.
   void setCompressionLevel(int level) {
     $callSync(
-        8134,
+        8143,
         $W()
           ..h(this)
           ..i64(level));
@@ -173,7 +173,7 @@ class WebsocketConn extends $io.IoCloser
   /// each invocation (a retained callback, WIRE.md).
   Future<void> setPingHandler(FutureOr<void> Function(String appData) h) async {
     await $call(
-        8135,
+        8144,
         $W()
           ..h(this)
           ..cb((r) => h(r.str()), true));
@@ -188,7 +188,7 @@ class WebsocketConn extends $io.IoCloser
   /// each invocation (a retained callback, WIRE.md).
   Future<void> setPongHandler(FutureOr<void> Function(String appData) h) async {
     await $call(
-        8136,
+        8145,
         $W()
           ..h(this)
           ..cb((r) => h(r.str()), true));
@@ -197,7 +197,7 @@ class WebsocketConn extends $io.IoCloser
   /// Go: `func (*websocket.Conn).SetReadDeadline(t time.Time) error`.
   void setReadDeadline(DateTime t) {
     $callSync(
-        8137,
+        8146,
         $W()
           ..h(this)
           ..time(t));
@@ -206,7 +206,7 @@ class WebsocketConn extends $io.IoCloser
   /// Go: `func (*websocket.Conn).SetReadLimit(limit int64)`.
   void setReadLimit(int limit) {
     $callSync(
-        8138,
+        8147,
         $W()
           ..h(this)
           ..i64(limit));
@@ -215,7 +215,7 @@ class WebsocketConn extends $io.IoCloser
   /// Go: `func (*websocket.Conn).SetWriteDeadline(t time.Time) error`.
   void setWriteDeadline(DateTime t) {
     $callSync(
-        8139,
+        8148,
         $W()
           ..h(this)
           ..time(t));
@@ -223,20 +223,20 @@ class WebsocketConn extends $io.IoCloser
 
   /// Go: `func (*websocket.Conn).Subprotocol() string`.
   String subprotocol() {
-    final $r = $callSync(8140, $W()..h(this));
+    final $r = $callSync(8149, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*websocket.Conn).UnderlyingConn() net.Conn`.
   $net.NetConn underlyingConn() {
-    final $r = $callSync(8141, $W()..h(this));
+    final $r = $callSync(8150, $W()..h(this));
     return $r.hnn($net.NetConn.$h);
   }
 
   /// Go: `func (*websocket.Conn).WriteControl(messageType int, data []byte, deadline time.Time) error`.
   void writeControl(int messageType, Uint8List data, DateTime deadline) {
     $callSync(
-        8142,
+        8151,
         $W()
           ..h(this)
           ..i64(messageType)
@@ -247,7 +247,7 @@ class WebsocketConn extends $io.IoCloser
   /// Go: `func (*websocket.Conn).WriteJSON(v interface{}) error`.
   void writeJson(Object? v) {
     $callSync(
-        8143,
+        8152,
         $W()
           ..h(this)
           ..any(v));
@@ -256,7 +256,7 @@ class WebsocketConn extends $io.IoCloser
   /// Go: `func (*websocket.Conn).WriteMessage(messageType int, data []byte) error`.
   void writeMessage(int messageType, Uint8List data) {
     $callSync(
-        8144,
+        8153,
         $W()
           ..h(this)
           ..i64(messageType)
@@ -266,7 +266,7 @@ class WebsocketConn extends $io.IoCloser
   /// Go: `func (*websocket.Conn).WritePreparedMessage(pm *websocket.PreparedMessage) error`.
   void writePreparedMessage(WebsocketPreparedMessage pm) {
     $callSync(
-        8145,
+        8154,
         $W()
           ..h(this)
           ..h(pm));
@@ -364,7 +364,7 @@ class WebsocketPreparedMessage extends $crypto.CryptoDecrypterOpts
   /// Go: `func websocket.NewPreparedMessage(messageType int, data []byte) (*websocket.PreparedMessage, error)`.
   factory WebsocketPreparedMessage(int messageType, Uint8List data) {
     final $r = $callSync(
-        8150,
+        8159,
         $W()
           ..i64(messageType)
           ..bytes(data));
@@ -430,14 +430,14 @@ class WebsocketHandshakeError extends GolangException {
 extension GoGorillaWebsocketApi on GoGorillaWebsocket {
   /// Go: `var websocket.DefaultDialer *websocket.Dialer`.
   WebsocketDialer get defaultDialer {
-    final $r = $callSync(8146);
+    final $r = $callSync(8155);
     return $r.p() ? WebsocketDialer.$dec($r) : $nil();
   }
 
   /// Go: `func websocket.FormatCloseMessage(closeCode int, text string) []byte`.
   Uint8List formatCloseMessage(int closeCode, String text) {
     final $r = $callSync(
-        8147,
+        8156,
         $W()
           ..i64(closeCode)
           ..str(text));
@@ -446,14 +446,14 @@ extension GoGorillaWebsocketApi on GoGorillaWebsocket {
 
   /// Go: `func websocket.IsWebSocketUpgrade(r *http.Request) bool`.
   bool isWebSocketUpgrade($http.NetHttpRequest r) {
-    final $r = $callSync(8148, $W()..h(r));
+    final $r = $callSync(8157, $W()..h(r));
     return $r.b();
   }
 
   /// Go: `func websocket.JoinMessages(c *websocket.Conn, term string) io.Reader`.
   $io.IoReader joinMessages(WebsocketConn c, String term) {
     final $r = $callSync(
-        8149,
+        8158,
         $W()
           ..h(c)
           ..str(term));
@@ -464,7 +464,7 @@ extension GoGorillaWebsocketApi on GoGorillaWebsocket {
   @Deprecated("Use c.ReadJSON instead.")
   void readJson(WebsocketConn c, Object? v) {
     $callSync(
-        8151,
+        8160,
         $W()
           ..h(c)
           ..any(v));
@@ -472,7 +472,7 @@ extension GoGorillaWebsocketApi on GoGorillaWebsocket {
 
   /// Go: `func websocket.Subprotocols(r *http.Request) []string`.
   List<String> subprotocols($http.NetHttpRequest r) {
-    final $r = $callSync(8152, $W()..h(r));
+    final $r = $callSync(8161, $W()..h(r));
     return $r.list(() => $r.str());
   }
 
@@ -480,7 +480,7 @@ extension GoGorillaWebsocketApi on GoGorillaWebsocket {
   @Deprecated("Use c.WriteJSON instead.")
   void writeJson(WebsocketConn c, Object? v) {
     $callSync(
-        8153,
+        8162,
         $W()
           ..h(c)
           ..any(v));

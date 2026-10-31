@@ -35,7 +35,7 @@ class Libp2pKadDhtNetsizeEstimator extends $crypto.CryptoDecrypterOpts
   factory Libp2pKadDhtNetsizeEstimator($peer.Libp2pCorePeerId localId,
       $libp2p_kbucket.Libp2pKbucketRoutingTable rt, int bucketSize) {
     final $r = $callSync(
-        12987,
+        12993,
         $W()
           ..val(localId)
           ..h(rt)
@@ -45,14 +45,14 @@ class Libp2pKadDhtNetsizeEstimator extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*netsize.Estimator).NetworkSize() (int32, error)`.
   int networkSize() {
-    final $r = $callSync(12982, $W()..h(this));
+    final $r = $callSync(12988, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*netsize.Estimator).Track(key string, peers []peer.ID) error`.
   void track(String key, List<$peer.Libp2pCorePeerId> peers) {
     $callSync(
-        12983,
+        12989,
         $W()
           ..h(this)
           ..str(key)
@@ -82,26 +82,26 @@ class Libp2pKadDhtNetsizeErrWrongNumOfPeers extends GolangException {
 extension GoLibp2pLibp2pKadDhtNetsizeApi on GoLibp2pLibp2pKadDhtNetsize {
   /// Go: `var netsize.MaxMeasurementAge time.Duration`.
   Duration get maxMeasurementAge {
-    final $r = $callSync(12984);
+    final $r = $callSync(12990);
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `var netsize.MaxMeasurementsThreshold int`.
   int get maxMeasurementsThreshold {
-    final $r = $callSync(12985);
+    final $r = $callSync(12991);
     return $r.i64();
   }
 
   /// Go: `var netsize.MinMeasurementsThreshold int`.
   int get minMeasurementsThreshold {
-    final $r = $callSync(12986);
+    final $r = $callSync(12992);
     return $r.i64();
   }
 
   /// Go: `func netsize.NormedDistance(p peer.ID, k keyspace.Key) float64`.
   double normedDistance($peer.Libp2pCorePeerId p, $keyspace.KeyspaceKey k) {
     final $r = $callSync(
-        12988,
+        12994,
         $W()
           ..val(p)
           ..dto(k));

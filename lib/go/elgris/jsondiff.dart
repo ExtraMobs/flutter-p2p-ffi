@@ -34,7 +34,7 @@ class JsondiffDiff extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*jsondiff.Diff).Add(item jsondiff.DiffItem)`.
   void add(JsondiffDiffItem item) {
     $callSync(
-        6257,
+        6266,
         $W()
           ..h(this)
           ..dto(item));
@@ -42,13 +42,13 @@ class JsondiffDiff extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (jsondiff.Diff).IsEqual() bool`.
   bool isEqual() {
-    final $r = $callSync(6258, $W()..h(this));
+    final $r = $callSync(6267, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (jsondiff.Diff).Items() []jsondiff.DiffItem`.
   List<JsondiffDiffItem> items() {
-    final $r = $callSync(6259, $W()..h(this));
+    final $r = $callSync(6268, $W()..h(this));
     return $r.list(() => $r.p() ? JsondiffDiffItem.$dec($r) : $nil());
   }
 }
@@ -84,7 +84,7 @@ extension GoElgrisJsondiffApi on GoElgrisJsondiff {
   /// Go: `func jsondiff.Compare(a interface{}, b interface{}) jsondiff.Diff`.
   JsondiffDiff compare(Object? a, Object? b) {
     final $r = $callSync(
-        6256,
+        6265,
         $W()
           ..any(a)
           ..any(b));
@@ -93,7 +93,7 @@ extension GoElgrisJsondiffApi on GoElgrisJsondiff {
 
   /// Go: `func jsondiff.Format(diff jsondiff.Diff) []byte`.
   Uint8List format(JsondiffDiff diff) {
-    final $r = $callSync(6260, $W()..h(diff));
+    final $r = $callSync(6269, $W()..h(diff));
     return $r.bytes() ?? Uint8List(0);
   }
 }

@@ -43,7 +43,7 @@ class DtlsV3PkgCryptoCiphersuiteCbc extends $crypto.CryptoDecrypterOpts
       Uint8List remoteMac,
       $prf.DtlsV3PkgCryptoPrfHashFunc hashFunc) {
     final $r = $callSync(
-        16226,
+        16232,
         $W()
           ..bytes(localKey)
           ..bytes(localWriteIv)
@@ -59,7 +59,7 @@ class DtlsV3PkgCryptoCiphersuiteCbc extends $crypto.CryptoDecrypterOpts
   Uint8List decrypt(
       $recordlayer.DtlsV3PkgProtocolRecordlayerHeader header, Uint8List in$) {
     final $r = $callSync(
-        16218,
+        16224,
         $W()
           ..h(this)
           ..dto(header)
@@ -71,7 +71,7 @@ class DtlsV3PkgCryptoCiphersuiteCbc extends $crypto.CryptoDecrypterOpts
   Uint8List encrypt(
       $recordlayer.DtlsV3PkgProtocolRecordlayerRecordLayer pkt, Uint8List raw) {
     final $r = $callSync(
-        16219,
+        16225,
         $W()
           ..h(this)
           ..dto(pkt)
@@ -102,7 +102,7 @@ class DtlsV3PkgCryptoCiphersuiteCcm extends $crypto.CryptoDecrypterOpts
   factory DtlsV3PkgCryptoCiphersuiteCcm(int tagLen, Uint8List localKey,
       Uint8List localWriteIv, Uint8List remoteKey, Uint8List remoteWriteIv) {
     final $r = $callSync(
-        16227,
+        16233,
         $W()
           ..i64(tagLen)
           ..bytes(localKey)
@@ -116,7 +116,7 @@ class DtlsV3PkgCryptoCiphersuiteCcm extends $crypto.CryptoDecrypterOpts
   Uint8List decrypt(
       $recordlayer.DtlsV3PkgProtocolRecordlayerHeader header, Uint8List in$) {
     final $r = $callSync(
-        16220,
+        16226,
         $W()
           ..h(this)
           ..dto(header)
@@ -128,7 +128,7 @@ class DtlsV3PkgCryptoCiphersuiteCcm extends $crypto.CryptoDecrypterOpts
   Uint8List encrypt(
       $recordlayer.DtlsV3PkgProtocolRecordlayerRecordLayer pkt, Uint8List raw) {
     final $r = $callSync(
-        16221,
+        16227,
         $W()
           ..h(this)
           ..dto(pkt)
@@ -160,7 +160,7 @@ class DtlsV3PkgCryptoCiphersuiteChaCha20Poly1305
   factory DtlsV3PkgCryptoCiphersuiteChaCha20Poly1305(Uint8List localKey,
       Uint8List localWriteIv, Uint8List remoteKey, Uint8List remoteWriteIv) {
     final $r = $callSync(
-        16228,
+        16234,
         $W()
           ..bytes(localKey)
           ..bytes(localWriteIv)
@@ -173,7 +173,7 @@ class DtlsV3PkgCryptoCiphersuiteChaCha20Poly1305
   Uint8List decrypt(
       $recordlayer.DtlsV3PkgProtocolRecordlayerHeader header, Uint8List in$) {
     final $r = $callSync(
-        16222,
+        16228,
         $W()
           ..h(this)
           ..dto(header)
@@ -185,7 +185,7 @@ class DtlsV3PkgCryptoCiphersuiteChaCha20Poly1305
   Uint8List encrypt(
       $recordlayer.DtlsV3PkgProtocolRecordlayerRecordLayer pkt, Uint8List raw) {
     final $r = $callSync(
-        16223,
+        16229,
         $W()
           ..h(this)
           ..dto(pkt)
@@ -216,7 +216,7 @@ class DtlsV3PkgCryptoCiphersuiteGcm extends $crypto.CryptoDecrypterOpts
   factory DtlsV3PkgCryptoCiphersuiteGcm(Uint8List localKey,
       Uint8List localWriteIv, Uint8List remoteKey, Uint8List remoteWriteIv) {
     final $r = $callSync(
-        16229,
+        16235,
         $W()
           ..bytes(localKey)
           ..bytes(localWriteIv)
@@ -229,7 +229,7 @@ class DtlsV3PkgCryptoCiphersuiteGcm extends $crypto.CryptoDecrypterOpts
   Uint8List decrypt(
       $recordlayer.DtlsV3PkgProtocolRecordlayerHeader header, Uint8List in$) {
     final $r = $callSync(
-        16224,
+        16230,
         $W()
           ..h(this)
           ..dto(header)
@@ -241,7 +241,7 @@ class DtlsV3PkgCryptoCiphersuiteGcm extends $crypto.CryptoDecrypterOpts
   Uint8List encrypt(
       $recordlayer.DtlsV3PkgProtocolRecordlayerRecordLayer pkt, Uint8List raw) {
     final $r = $callSync(
-        16225,
+        16231,
         $W()
           ..h(this)
           ..dto(pkt)

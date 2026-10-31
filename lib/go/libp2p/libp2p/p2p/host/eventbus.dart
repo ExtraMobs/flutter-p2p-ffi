@@ -18,7 +18,7 @@ class Libp2pP2pHostEventbusMetricsTracer extends GoHandle
   /// Go: `func eventbus.NewMetricsTracer(opts ...eventbus.MetricsTracerOption) eventbus.MetricsTracer`.
   factory Libp2pP2pHostEventbusMetricsTracer(
       [List<Libp2pP2pHostEventbusMetricsTracerOption> opts = const []]) {
-    final $r = $callSync(14475, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+    final $r = $callSync(14481, $W()..list(opts, (w0, e0) => w0.opt(e0)));
     return $r.hnn(Libp2pP2pHostEventbusMetricsTracer.$h);
   }
 }
@@ -28,7 +28,7 @@ mixin Libp2pP2pHostEventbusMetricsTracer$ on GoHandle {
   /// Go: `func (eventbus.MetricsTracer).AddSubscriber(typ reflect.Type)`.
   void addSubscriber($reflect.ReflectType typ) {
     $callSync(
-        14468,
+        14474,
         $W()
           ..h(this)
           ..h(typ));
@@ -37,7 +37,7 @@ mixin Libp2pP2pHostEventbusMetricsTracer$ on GoHandle {
   /// Go: `func (eventbus.MetricsTracer).EventEmitted(typ reflect.Type)`.
   void eventEmitted($reflect.ReflectType typ) {
     $callSync(
-        14469,
+        14475,
         $W()
           ..h(this)
           ..h(typ));
@@ -46,7 +46,7 @@ mixin Libp2pP2pHostEventbusMetricsTracer$ on GoHandle {
   /// Go: `func (eventbus.MetricsTracer).RemoveSubscriber(typ reflect.Type)`.
   void removeSubscriber($reflect.ReflectType typ) {
     $callSync(
-        14470,
+        14476,
         $W()
           ..h(this)
           ..h(typ));
@@ -55,7 +55,7 @@ mixin Libp2pP2pHostEventbusMetricsTracer$ on GoHandle {
   /// Go: `func (eventbus.MetricsTracer).SubscriberEventQueued(name string)`.
   void subscriberEventQueued(String name) {
     $callSync(
-        14471,
+        14477,
         $W()
           ..h(this)
           ..str(name));
@@ -64,7 +64,7 @@ mixin Libp2pP2pHostEventbusMetricsTracer$ on GoHandle {
   /// Go: `func (eventbus.MetricsTracer).SubscriberQueueFull(name string, isFull bool)`.
   void subscriberQueueFull(String name, bool isFull) {
     $callSync(
-        14472,
+        14478,
         $W()
           ..h(this)
           ..str(name)
@@ -74,7 +74,7 @@ mixin Libp2pP2pHostEventbusMetricsTracer$ on GoHandle {
   /// Go: `func (eventbus.MetricsTracer).SubscriberQueueLength(name string, n int)`.
   void subscriberQueueLength(String name, int n) {
     $callSync(
-        14473,
+        14479,
         $W()
           ..h(this)
           ..str(name)
@@ -97,13 +97,13 @@ extension GoLibp2pLibp2pP2pHostEventbusApi on GoLibp2pLibp2pP2pHostEventbus {
   /// Go: `func eventbus.NewBus(opts ...eventbus.Option) event.Bus`.
   $event.Libp2pCoreEventBus newBus(
       [List<Libp2pP2pHostEventbusOption> opts = const []]) {
-    final $r = $callSync(14474, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+    final $r = $callSync(14480, $W()..list(opts, (w0, e0) => w0.opt(e0)));
     return $r.hnn($event.Libp2pCoreEventBus.$h);
   }
 
   /// Go: `func eventbus.Stateful(s any) error`.
   void stateful(Object? s) {
-    $callSync(14476, $W()..any(s));
+    $callSync(14482, $W()..any(s));
   }
 }
 

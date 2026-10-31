@@ -101,7 +101,7 @@ class Secp256k1V4FieldVal extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*secp256k1.FieldVal).Add(val *secp256k1.FieldVal) *secp256k1.FieldVal`.
   Secp256k1V4FieldVal add(Secp256k1V4FieldVal val) {
     final $r = $callSync(
-        5759,
+        5768,
         $W()
           ..h(this)
           ..h(val));
@@ -111,7 +111,7 @@ class Secp256k1V4FieldVal extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*secp256k1.FieldVal).Add2(val *secp256k1.FieldVal, val2 *secp256k1.FieldVal) *secp256k1.FieldVal`.
   Secp256k1V4FieldVal add2(Secp256k1V4FieldVal val, Secp256k1V4FieldVal val2) {
     final $r = $callSync(
-        5760,
+        5769,
         $W()
           ..h(this)
           ..h(val)
@@ -122,7 +122,7 @@ class Secp256k1V4FieldVal extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*secp256k1.FieldVal).AddInt(ui uint16) *secp256k1.FieldVal`.
   Secp256k1V4FieldVal addInt(int ui) {
     final $r = $callSync(
-        5761,
+        5770,
         $W()
           ..h(this)
           ..i64(ui));
@@ -132,7 +132,7 @@ class Secp256k1V4FieldVal extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*secp256k1.FieldVal).Equals(val *secp256k1.FieldVal) bool`.
   bool equals(Secp256k1V4FieldVal val) {
     final $r = $callSync(
-        5762,
+        5771,
         $W()
           ..h(this)
           ..h(val));
@@ -141,56 +141,56 @@ class Secp256k1V4FieldVal extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*secp256k1.FieldVal).Inverse() *secp256k1.FieldVal`.
   Secp256k1V4FieldVal inverse() {
-    final $r = $callSync(5763, $W()..h(this));
+    final $r = $callSync(5772, $W()..h(this));
     return $r.hnn(Secp256k1V4FieldVal.$h);
   }
 
   /// Go: `func (*secp256k1.FieldVal).IsGtOrEqPrimeMinusOrder() bool`.
   bool isGtOrEqPrimeMinusOrder() {
-    final $r = $callSync(5764, $W()..h(this));
+    final $r = $callSync(5773, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*secp256k1.FieldVal).IsOdd() bool`.
   bool isOdd() {
-    final $r = $callSync(5765, $W()..h(this));
+    final $r = $callSync(5774, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*secp256k1.FieldVal).IsOddBit() uint32`.
   int isOddBit() {
-    final $r = $callSync(5766, $W()..h(this));
+    final $r = $callSync(5775, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*secp256k1.FieldVal).IsOne() bool`.
   bool isOne() {
-    final $r = $callSync(5767, $W()..h(this));
+    final $r = $callSync(5776, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*secp256k1.FieldVal).IsOneBit() uint32`.
   int isOneBit() {
-    final $r = $callSync(5768, $W()..h(this));
+    final $r = $callSync(5777, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*secp256k1.FieldVal).IsZero() bool`.
   bool isZero() {
-    final $r = $callSync(5769, $W()..h(this));
+    final $r = $callSync(5778, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*secp256k1.FieldVal).IsZeroBit() uint32`.
   int isZeroBit() {
-    final $r = $callSync(5770, $W()..h(this));
+    final $r = $callSync(5779, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*secp256k1.FieldVal).Mul(val *secp256k1.FieldVal) *secp256k1.FieldVal`.
   Secp256k1V4FieldVal mul(Secp256k1V4FieldVal val) {
     final $r = $callSync(
-        5771,
+        5780,
         $W()
           ..h(this)
           ..h(val));
@@ -200,7 +200,7 @@ class Secp256k1V4FieldVal extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*secp256k1.FieldVal).Mul2(val *secp256k1.FieldVal, val2 *secp256k1.FieldVal) *secp256k1.FieldVal`.
   Secp256k1V4FieldVal mul2(Secp256k1V4FieldVal val, Secp256k1V4FieldVal val2) {
     final $r = $callSync(
-        5772,
+        5781,
         $W()
           ..h(this)
           ..h(val)
@@ -211,7 +211,7 @@ class Secp256k1V4FieldVal extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*secp256k1.FieldVal).MulInt(val uint8) *secp256k1.FieldVal`.
   Secp256k1V4FieldVal mulInt(int val) {
     final $r = $callSync(
-        5773,
+        5782,
         $W()
           ..h(this)
           ..i64(val));
@@ -221,7 +221,7 @@ class Secp256k1V4FieldVal extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*secp256k1.FieldVal).Negate(magnitude uint32) *secp256k1.FieldVal`.
   Secp256k1V4FieldVal negate(int magnitude) {
     final $r = $callSync(
-        5774,
+        5783,
         $W()
           ..h(this)
           ..i64(magnitude));
@@ -231,7 +231,7 @@ class Secp256k1V4FieldVal extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*secp256k1.FieldVal).NegateVal(val *secp256k1.FieldVal, magnitude uint32) *secp256k1.FieldVal`.
   Secp256k1V4FieldVal negateVal(Secp256k1V4FieldVal val, int magnitude) {
     final $r = $callSync(
-        5775,
+        5784,
         $W()
           ..h(this)
           ..h(val)
@@ -241,14 +241,14 @@ class Secp256k1V4FieldVal extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*secp256k1.FieldVal).Normalize() *secp256k1.FieldVal`.
   Secp256k1V4FieldVal normalize() {
-    final $r = $callSync(5776, $W()..h(this));
+    final $r = $callSync(5785, $W()..h(this));
     return $r.hnn(Secp256k1V4FieldVal.$h);
   }
 
   /// Go: `func (*secp256k1.FieldVal).PutBytesUnchecked(b []byte)`.
   void putBytesUnchecked(Uint8List b) {
     $callSync(
-        5777,
+        5786,
         $W()
           ..h(this)
           ..bytes(b));
@@ -257,7 +257,7 @@ class Secp256k1V4FieldVal extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*secp256k1.FieldVal).Set(val *secp256k1.FieldVal) *secp256k1.FieldVal`.
   Secp256k1V4FieldVal set(Secp256k1V4FieldVal val) {
     final $r = $callSync(
-        5778,
+        5787,
         $W()
           ..h(this)
           ..h(val));
@@ -267,7 +267,7 @@ class Secp256k1V4FieldVal extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*secp256k1.FieldVal).SetByteSlice(b []byte) bool`.
   bool setByteSlice(Uint8List b) {
     final $r = $callSync(
-        5779,
+        5788,
         $W()
           ..h(this)
           ..bytes(b));
@@ -277,7 +277,7 @@ class Secp256k1V4FieldVal extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*secp256k1.FieldVal).SetInt(ui uint16) *secp256k1.FieldVal`.
   Secp256k1V4FieldVal setInt(int ui) {
     final $r = $callSync(
-        5780,
+        5789,
         $W()
           ..h(this)
           ..i64(ui));
@@ -286,14 +286,14 @@ class Secp256k1V4FieldVal extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*secp256k1.FieldVal).Square() *secp256k1.FieldVal`.
   Secp256k1V4FieldVal square() {
-    final $r = $callSync(5781, $W()..h(this));
+    final $r = $callSync(5790, $W()..h(this));
     return $r.hnn(Secp256k1V4FieldVal.$h);
   }
 
   /// Go: `func (*secp256k1.FieldVal).SquareRootVal(val *secp256k1.FieldVal) bool`.
   bool squareRootVal(Secp256k1V4FieldVal val) {
     final $r = $callSync(
-        5782,
+        5791,
         $W()
           ..h(this)
           ..h(val));
@@ -303,7 +303,7 @@ class Secp256k1V4FieldVal extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*secp256k1.FieldVal).SquareVal(val *secp256k1.FieldVal) *secp256k1.FieldVal`.
   Secp256k1V4FieldVal squareVal(Secp256k1V4FieldVal val) {
     final $r = $callSync(
-        5783,
+        5792,
         $W()
           ..h(this)
           ..h(val));
@@ -312,13 +312,13 @@ class Secp256k1V4FieldVal extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (secp256k1.FieldVal).String() string`.
   String string() {
-    final $r = $callSync(5784, $W()..h(this));
+    final $r = $callSync(5793, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*secp256k1.FieldVal).Zero()`.
   void zero() {
-    $callSync(5785, $W()..h(this));
+    $callSync(5794, $W()..h(this));
   }
 }
 
@@ -355,7 +355,7 @@ final class Secp256k1V4JacobianPoint implements GoDto {
   /// Go: `func (*secp256k1.JacobianPoint).EquivalentNonConst(other *secp256k1.JacobianPoint) bool`.
   bool equivalentNonConst(Secp256k1V4JacobianPoint other) {
     final $r = $callSync(
-        5789,
+        5798,
         $W()
           ..dto(this)
           ..dto(other));
@@ -365,7 +365,7 @@ final class Secp256k1V4JacobianPoint implements GoDto {
   /// Go: `func (*secp256k1.JacobianPoint).Set(other *secp256k1.JacobianPoint)`.
   void set(Secp256k1V4JacobianPoint other) {
     $callSync(
-        5790,
+        5799,
         $W()
           ..dto(this)
           ..dto(other));
@@ -373,7 +373,7 @@ final class Secp256k1V4JacobianPoint implements GoDto {
 
   /// Go: `func (*secp256k1.JacobianPoint).ToAffine()`.
   void toAffine() {
-    $callSync(5791, $W()..dto(this));
+    $callSync(5800, $W()..dto(this));
   }
 }
 
@@ -400,7 +400,7 @@ final class Secp256k1V4KoblitzCurve implements GoDto {
   ($big.MathBigInt, $big.MathBigInt) add($big.MathBigInt x1, $big.MathBigInt y1,
       $big.MathBigInt x2, $big.MathBigInt y2) {
     final $r = $callSync(
-        5792,
+        5801,
         $W()
           ..dto(this)
           ..h(x1)
@@ -416,7 +416,7 @@ final class Secp256k1V4KoblitzCurve implements GoDto {
   ($big.MathBigInt, $big.MathBigInt) double$(
       $big.MathBigInt x1, $big.MathBigInt y1) {
     final $r = $callSync(
-        5793,
+        5802,
         $W()
           ..dto(this)
           ..h(x1)
@@ -429,7 +429,7 @@ final class Secp256k1V4KoblitzCurve implements GoDto {
       "The standard library elliptic.Curve interface is now deprecated and callers should interact with the safer, and much faster, specialized methods instead.")
   bool isOnCurve($big.MathBigInt x, $big.MathBigInt y) {
     final $r = $callSync(
-        5794,
+        5803,
         $W()
           ..dto(this)
           ..h(x)
@@ -439,7 +439,7 @@ final class Secp256k1V4KoblitzCurve implements GoDto {
 
   /// Go: `func (*secp256k1.KoblitzCurve).Params() *elliptic.CurveParams`.
   $elliptic.CryptoEllipticCurveParams params() {
-    final $r = $callSync(5795, $W()..dto(this));
+    final $r = $callSync(5804, $W()..dto(this));
     return $r.p() ? $elliptic.CryptoEllipticCurveParams.$dec($r) : $nil();
   }
 
@@ -448,7 +448,7 @@ final class Secp256k1V4KoblitzCurve implements GoDto {
       "The standard library elliptic.Curve interface is now deprecated and callers should interact with the safer, and much faster, specialized methods instead.")
   ($big.MathBigInt, $big.MathBigInt) scalarBaseMult(Uint8List k) {
     final $r = $callSync(
-        5796,
+        5805,
         $W()
           ..dto(this)
           ..bytes(k));
@@ -461,7 +461,7 @@ final class Secp256k1V4KoblitzCurve implements GoDto {
   ($big.MathBigInt, $big.MathBigInt) scalarMult(
       $big.MathBigInt bx, $big.MathBigInt by, Uint8List k) {
     final $r = $callSync(
-        5797,
+        5806,
         $W()
           ..dto(this)
           ..h(bx)
@@ -492,7 +492,7 @@ class Secp256k1V4ModNScalar extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*secp256k1.ModNScalar).Add(val *secp256k1.ModNScalar) *secp256k1.ModNScalar`.
   Secp256k1V4ModNScalar add(Secp256k1V4ModNScalar val) {
     final $r = $callSync(
-        5799,
+        5808,
         $W()
           ..h(this)
           ..h(val));
@@ -503,7 +503,7 @@ class Secp256k1V4ModNScalar extends $crypto.CryptoDecrypterOpts
   Secp256k1V4ModNScalar add2(
       Secp256k1V4ModNScalar val1, Secp256k1V4ModNScalar val2) {
     final $r = $callSync(
-        5800,
+        5809,
         $W()
           ..h(this)
           ..h(val1)
@@ -514,7 +514,7 @@ class Secp256k1V4ModNScalar extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*secp256k1.ModNScalar).Equals(val *secp256k1.ModNScalar) bool`.
   bool equals(Secp256k1V4ModNScalar val) {
     final $r = $callSync(
-        5801,
+        5810,
         $W()
           ..h(this)
           ..h(val));
@@ -523,14 +523,14 @@ class Secp256k1V4ModNScalar extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*secp256k1.ModNScalar).InverseNonConst() *secp256k1.ModNScalar`.
   Secp256k1V4ModNScalar inverseNonConst() {
-    final $r = $callSync(5802, $W()..h(this));
+    final $r = $callSync(5811, $W()..h(this));
     return $r.hnn(Secp256k1V4ModNScalar.$h);
   }
 
   /// Go: `func (*secp256k1.ModNScalar).InverseValNonConst(val *secp256k1.ModNScalar) *secp256k1.ModNScalar`.
   Secp256k1V4ModNScalar inverseValNonConst(Secp256k1V4ModNScalar val) {
     final $r = $callSync(
-        5803,
+        5812,
         $W()
           ..h(this)
           ..h(val));
@@ -539,32 +539,32 @@ class Secp256k1V4ModNScalar extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*secp256k1.ModNScalar).IsOdd() bool`.
   bool isOdd() {
-    final $r = $callSync(5804, $W()..h(this));
+    final $r = $callSync(5813, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*secp256k1.ModNScalar).IsOverHalfOrder() bool`.
   bool isOverHalfOrder() {
-    final $r = $callSync(5805, $W()..h(this));
+    final $r = $callSync(5814, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*secp256k1.ModNScalar).IsZero() bool`.
   bool isZero() {
-    final $r = $callSync(5806, $W()..h(this));
+    final $r = $callSync(5815, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*secp256k1.ModNScalar).IsZeroBit() uint32`.
   int isZeroBit() {
-    final $r = $callSync(5807, $W()..h(this));
+    final $r = $callSync(5816, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*secp256k1.ModNScalar).Mul(val *secp256k1.ModNScalar) *secp256k1.ModNScalar`.
   Secp256k1V4ModNScalar mul(Secp256k1V4ModNScalar val) {
     final $r = $callSync(
-        5808,
+        5817,
         $W()
           ..h(this)
           ..h(val));
@@ -575,7 +575,7 @@ class Secp256k1V4ModNScalar extends $crypto.CryptoDecrypterOpts
   Secp256k1V4ModNScalar mul2(
       Secp256k1V4ModNScalar val, Secp256k1V4ModNScalar val2) {
     final $r = $callSync(
-        5809,
+        5818,
         $W()
           ..h(this)
           ..h(val)
@@ -585,14 +585,14 @@ class Secp256k1V4ModNScalar extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*secp256k1.ModNScalar).Negate() *secp256k1.ModNScalar`.
   Secp256k1V4ModNScalar negate() {
-    final $r = $callSync(5810, $W()..h(this));
+    final $r = $callSync(5819, $W()..h(this));
     return $r.hnn(Secp256k1V4ModNScalar.$h);
   }
 
   /// Go: `func (*secp256k1.ModNScalar).NegateVal(val *secp256k1.ModNScalar) *secp256k1.ModNScalar`.
   Secp256k1V4ModNScalar negateVal(Secp256k1V4ModNScalar val) {
     final $r = $callSync(
-        5811,
+        5820,
         $W()
           ..h(this)
           ..h(val));
@@ -602,7 +602,7 @@ class Secp256k1V4ModNScalar extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*secp256k1.ModNScalar).PutBytesUnchecked(b []byte)`.
   void putBytesUnchecked(Uint8List b) {
     $callSync(
-        5812,
+        5821,
         $W()
           ..h(this)
           ..bytes(b));
@@ -611,7 +611,7 @@ class Secp256k1V4ModNScalar extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*secp256k1.ModNScalar).Set(val *secp256k1.ModNScalar) *secp256k1.ModNScalar`.
   Secp256k1V4ModNScalar set(Secp256k1V4ModNScalar val) {
     final $r = $callSync(
-        5813,
+        5822,
         $W()
           ..h(this)
           ..h(val));
@@ -621,7 +621,7 @@ class Secp256k1V4ModNScalar extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*secp256k1.ModNScalar).SetByteSlice(b []byte) bool`.
   bool setByteSlice(Uint8List b) {
     final $r = $callSync(
-        5814,
+        5823,
         $W()
           ..h(this)
           ..bytes(b));
@@ -631,7 +631,7 @@ class Secp256k1V4ModNScalar extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*secp256k1.ModNScalar).SetInt(ui uint32) *secp256k1.ModNScalar`.
   Secp256k1V4ModNScalar setInt(int ui) {
     final $r = $callSync(
-        5815,
+        5824,
         $W()
           ..h(this)
           ..i64(ui));
@@ -640,14 +640,14 @@ class Secp256k1V4ModNScalar extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*secp256k1.ModNScalar).Square() *secp256k1.ModNScalar`.
   Secp256k1V4ModNScalar square() {
-    final $r = $callSync(5816, $W()..h(this));
+    final $r = $callSync(5825, $W()..h(this));
     return $r.hnn(Secp256k1V4ModNScalar.$h);
   }
 
   /// Go: `func (*secp256k1.ModNScalar).SquareVal(val *secp256k1.ModNScalar) *secp256k1.ModNScalar`.
   Secp256k1V4ModNScalar squareVal(Secp256k1V4ModNScalar val) {
     final $r = $callSync(
-        5817,
+        5826,
         $W()
           ..h(this)
           ..h(val));
@@ -656,13 +656,13 @@ class Secp256k1V4ModNScalar extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (secp256k1.ModNScalar).String() string`.
   String string() {
-    final $r = $callSync(5818, $W()..h(this));
+    final $r = $callSync(5827, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*secp256k1.ModNScalar).Zero()`.
   void zero() {
-    $callSync(5819, $W()..h(this));
+    $callSync(5828, $W()..h(this));
   }
 }
 
@@ -682,25 +682,25 @@ final class Secp256k1V4PrivateKey implements GoDto {
 
   /// Go: `func (*secp256k1.PrivateKey).PubKey() *secp256k1.PublicKey`.
   Secp256k1V4PublicKey pubKey() {
-    final $r = $callSync(5826, $W()..dto(this));
+    final $r = $callSync(5835, $W()..dto(this));
     return $r.hnn(Secp256k1V4PublicKey.$h);
   }
 
   /// Go: `func (secp256k1.PrivateKey).Serialize() []byte`.
   Uint8List serialize() {
-    final $r = $callSync(5827, $W()..dto(this));
+    final $r = $callSync(5836, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*secp256k1.PrivateKey).ToECDSA() *ecdsa.PrivateKey`.
   $ecdsa.CryptoEcdsaPrivateKey toEcdsa() {
-    final $r = $callSync(5828, $W()..dto(this));
+    final $r = $callSync(5837, $W()..dto(this));
     return $r.p() ? $ecdsa.CryptoEcdsaPrivateKey.$dec($r) : $nil();
   }
 
   /// Go: `func (*secp256k1.PrivateKey).Zero()`.
   void zero() {
-    $callSync(5829, $W()..dto(this));
+    $callSync(5838, $W()..dto(this));
   }
 }
 
@@ -725,7 +725,7 @@ class Secp256k1V4PublicKey extends $crypto.CryptoDecrypterOpts
   /// Go: `func secp256k1.NewPublicKey(x *secp256k1.FieldVal, y *secp256k1.FieldVal) *secp256k1.PublicKey`.
   factory Secp256k1V4PublicKey(Secp256k1V4FieldVal x, Secp256k1V4FieldVal y) {
     final $r = $callSync(
-        5821,
+        5830,
         $W()
           ..h(x)
           ..h(y));
@@ -735,7 +735,7 @@ class Secp256k1V4PublicKey extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*secp256k1.PublicKey).AsJacobian(result *secp256k1.JacobianPoint)`.
   void asJacobian(Secp256k1V4JacobianPoint result) {
     $callSync(
-        5830,
+        5839,
         $W()
           ..h(this)
           ..dto(result));
@@ -744,7 +744,7 @@ class Secp256k1V4PublicKey extends $crypto.CryptoDecrypterOpts
   /// Go: `func (*secp256k1.PublicKey).IsEqual(otherPubKey *secp256k1.PublicKey) bool`.
   bool isEqual(Secp256k1V4PublicKey otherPubKey) {
     final $r = $callSync(
-        5831,
+        5840,
         $W()
           ..h(this)
           ..h(otherPubKey));
@@ -753,37 +753,37 @@ class Secp256k1V4PublicKey extends $crypto.CryptoDecrypterOpts
 
   /// Go: `func (*secp256k1.PublicKey).IsOnCurve() bool`.
   bool isOnCurve() {
-    final $r = $callSync(5832, $W()..h(this));
+    final $r = $callSync(5841, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (secp256k1.PublicKey).SerializeCompressed() []byte`.
   Uint8List serializeCompressed() {
-    final $r = $callSync(5833, $W()..h(this));
+    final $r = $callSync(5842, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (secp256k1.PublicKey).SerializeUncompressed() []byte`.
   Uint8List serializeUncompressed() {
-    final $r = $callSync(5834, $W()..h(this));
+    final $r = $callSync(5843, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*secp256k1.PublicKey).ToECDSA() *ecdsa.PublicKey`.
   $ecdsa.CryptoEcdsaPublicKey toEcdsa() {
-    final $r = $callSync(5835, $W()..h(this));
+    final $r = $callSync(5844, $W()..h(this));
     return $r.hnn($ecdsa.CryptoEcdsaPublicKey.$h);
   }
 
   /// Go: `func (*secp256k1.PublicKey).X() *big.Int`.
   $big.MathBigInt x() {
-    final $r = $callSync(5836, $W()..h(this));
+    final $r = $callSync(5845, $W()..h(this));
     return $r.hnn($big.MathBigInt.$h);
   }
 
   /// Go: `func (*secp256k1.PublicKey).Y() *big.Int`.
   $big.MathBigInt y() {
-    final $r = $callSync(5837, $W()..h(this));
+    final $r = $callSync(5846, $W()..h(this));
     return $r.hnn($big.MathBigInt.$h);
   }
 }
@@ -817,7 +817,7 @@ extension GoDecredDcrdDcrecSecp256k1V4Api on GoDecredDcrdDcrecSecp256k1V4 {
   void addNonConst(Secp256k1V4JacobianPoint p1, Secp256k1V4JacobianPoint p2,
       Secp256k1V4JacobianPoint result) {
     $callSync(
-        5756,
+        5765,
         $W()
           ..dto(p1)
           ..dto(p2)
@@ -828,7 +828,7 @@ extension GoDecredDcrdDcrecSecp256k1V4Api on GoDecredDcrdDcrecSecp256k1V4 {
   bool decompressY(
       Secp256k1V4FieldVal x, bool odd, Secp256k1V4FieldVal resultY) {
     final $r = $callSync(
-        5757,
+        5766,
         $W()
           ..h(x)
           ..b(odd)
@@ -840,7 +840,7 @@ extension GoDecredDcrdDcrecSecp256k1V4Api on GoDecredDcrdDcrecSecp256k1V4 {
   void doubleNonConst(
       Secp256k1V4JacobianPoint p, Secp256k1V4JacobianPoint result) {
     $callSync(
-        5758,
+        5767,
         $W()
           ..dto(p)
           ..dto(result));
@@ -848,13 +848,13 @@ extension GoDecredDcrdDcrecSecp256k1V4Api on GoDecredDcrdDcrecSecp256k1V4 {
 
   /// Go: `func secp256k1.GeneratePrivateKey() (*secp256k1.PrivateKey, error)`.
   Secp256k1V4PrivateKey generatePrivateKey() {
-    final $r = $callSync(5786);
+    final $r = $callSync(5795);
     return $r.p() ? Secp256k1V4PrivateKey.$dec($r) : $nil();
   }
 
   /// Go: `func secp256k1.GeneratePrivateKeyFromRand(rand io.Reader) (*secp256k1.PrivateKey, error)`.
   Secp256k1V4PrivateKey generatePrivateKeyFromRand(Object rand) {
-    final $r = $callSync(5787, $W()..reader(rand));
+    final $r = $callSync(5796, $W()..reader(rand));
     return $r.p() ? Secp256k1V4PrivateKey.$dec($r) : $nil();
   }
 
@@ -862,7 +862,7 @@ extension GoDecredDcrdDcrecSecp256k1V4Api on GoDecredDcrdDcrecSecp256k1V4 {
   Uint8List generateSharedSecret(
       Secp256k1V4PrivateKey privkey, Secp256k1V4PublicKey pubkey) {
     final $r = $callSync(
-        5788,
+        5797,
         $W()
           ..dto(privkey)
           ..h(pubkey));
@@ -873,7 +873,7 @@ extension GoDecredDcrdDcrecSecp256k1V4Api on GoDecredDcrdDcrecSecp256k1V4 {
   Secp256k1V4JacobianPoint makeJacobianPoint(
       Secp256k1V4FieldVal x, Secp256k1V4FieldVal y, Secp256k1V4FieldVal z) {
     final $r = $callSync(
-        5798,
+        5807,
         $W()
           ..h(x)
           ..h(y)
@@ -883,7 +883,7 @@ extension GoDecredDcrdDcrecSecp256k1V4Api on GoDecredDcrdDcrecSecp256k1V4 {
 
   /// Go: `func secp256k1.NewPrivateKey(key *secp256k1.ModNScalar) *secp256k1.PrivateKey`.
   Secp256k1V4PrivateKey newPrivateKey(Secp256k1V4ModNScalar key) {
-    final $r = $callSync(5820, $W()..h(key));
+    final $r = $callSync(5829, $W()..h(key));
     return $r.p() ? Secp256k1V4PrivateKey.$dec($r) : $nil();
   }
 
@@ -891,7 +891,7 @@ extension GoDecredDcrdDcrecSecp256k1V4Api on GoDecredDcrdDcrecSecp256k1V4 {
   Secp256k1V4ModNScalar nonceRfc6979(Uint8List privKey, Uint8List hash,
       Uint8List extra, Uint8List version, int extraIterations) {
     final $r = $callSync(
-        5822,
+        5831,
         $W()
           ..bytes(privKey)
           ..bytes(hash)
@@ -903,19 +903,19 @@ extension GoDecredDcrdDcrecSecp256k1V4Api on GoDecredDcrdDcrecSecp256k1V4 {
 
   /// Go: `func secp256k1.Params() *secp256k1.CurveParams`.
   Secp256k1V4CurveParams params() {
-    final $r = $callSync(5823);
+    final $r = $callSync(5832);
     return $r.p() ? Secp256k1V4CurveParams.$dec($r) : $nil();
   }
 
   /// Go: `func secp256k1.ParsePubKey(serialized []byte) (key *secp256k1.PublicKey, err error)`.
   Secp256k1V4PublicKey parsePubKey(Uint8List serialized) {
-    final $r = $callSync(5824, $W()..bytes(serialized));
+    final $r = $callSync(5833, $W()..bytes(serialized));
     return $r.hnn(Secp256k1V4PublicKey.$h);
   }
 
   /// Go: `func secp256k1.PrivKeyFromBytes(privKeyBytes []byte) *secp256k1.PrivateKey`.
   Secp256k1V4PrivateKey privKeyFromBytes(Uint8List privKeyBytes) {
-    final $r = $callSync(5825, $W()..bytes(privKeyBytes));
+    final $r = $callSync(5834, $W()..bytes(privKeyBytes));
     return $r.p() ? Secp256k1V4PrivateKey.$dec($r) : $nil();
   }
 
@@ -923,7 +923,7 @@ extension GoDecredDcrdDcrecSecp256k1V4Api on GoDecredDcrdDcrecSecp256k1V4 {
   @Deprecated(
       "The standard library elliptic.Curve interface is now deprecated and callers should interact with the safer, and much faster, specialized methods instead.")
   Secp256k1V4KoblitzCurve s256() {
-    final $r = $callSync(5838);
+    final $r = $callSync(5847);
     return $r.p() ? Secp256k1V4KoblitzCurve.$dec($r) : $nil();
   }
 
@@ -931,7 +931,7 @@ extension GoDecredDcrdDcrecSecp256k1V4Api on GoDecredDcrdDcrecSecp256k1V4 {
   void scalarBaseMultNonConst(
       Secp256k1V4ModNScalar k, Secp256k1V4JacobianPoint result) {
     $callSync(
-        5839,
+        5848,
         $W()
           ..h(k)
           ..dto(result));
@@ -941,7 +941,7 @@ extension GoDecredDcrdDcrecSecp256k1V4Api on GoDecredDcrdDcrecSecp256k1V4 {
   void scalarMultNonConst(Secp256k1V4ModNScalar k,
       Secp256k1V4JacobianPoint point, Secp256k1V4JacobianPoint result) {
     $callSync(
-        5840,
+        5849,
         $W()
           ..h(k)
           ..dto(point)

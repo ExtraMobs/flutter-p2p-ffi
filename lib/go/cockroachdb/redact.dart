@@ -15,26 +15,26 @@ import 'package:p2p_ffi/go/reflect.dart' as $reflect;
 extension GoCockroachdbRedactApi on GoCockroachdbRedact {
   /// Go: `func redact.EndMarker() []byte`.
   Uint8List endMarker() {
-    final $r = $callSync(5687);
+    final $r = $callSync(5696);
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func redact.EscapeBytes(s []byte) redact.RedactableBytes`.
   Uint8List escapeBytes(Uint8List s) {
-    final $r = $callSync(5688, $W()..bytes(s));
+    final $r = $callSync(5697, $W()..bytes(s));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func redact.EscapeMarkers(s []byte) []byte`.
   Uint8List escapeMarkers(Uint8List s) {
-    final $r = $callSync(5689, $W()..bytes(s));
+    final $r = $callSync(5698, $W()..bytes(s));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func redact.Fprint(w io.Writer, args ...interface{}) (n int, err error)`.
   int fprint(GoHandle? w, [List<Object?> args = const []]) {
     final $r = $callSync(
-        5690,
+        5699,
         $W()
           ..h(w)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -44,7 +44,7 @@ extension GoCockroachdbRedactApi on GoCockroachdbRedact {
   /// Go: `func redact.Fprintf(w io.Writer, format string, args ...interface{}) (n int, err error)`.
   int fprintf(GoHandle? w, String format, [List<Object?> args = const []]) {
     final $r = $callSync(
-        5691,
+        5700,
         $W()
           ..h(w)
           ..str(format)
@@ -55,7 +55,7 @@ extension GoCockroachdbRedactApi on GoCockroachdbRedact {
   /// Go: `func redact.HelperForErrorf(format string, args ...interface{}) (redact.RedactableString, error)`.
   String helperForErrorf(String format, [List<Object?> args = const []]) {
     final $r = $callSync(
-        5692,
+        5701,
         $W()
           ..str(format)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -65,7 +65,7 @@ extension GoCockroachdbRedactApi on GoCockroachdbRedact {
   /// Go: `func redact.Join(delim redact.RedactableString, s []redact.RedactableString) redact.RedactableString`.
   String join(String delim, List<String> s) {
     final $r = $callSync(
-        5693,
+        5702,
         $W()
           ..str(delim)
           ..list(s, (w0, e0) => w0.str(e0)));
@@ -76,7 +76,7 @@ extension GoCockroachdbRedactApi on GoCockroachdbRedact {
   void joinTo(
       $interfaces.RedactInterfacesSafeWriter w, String delim, Object? values) {
     $callSync(
-        5694,
+        5703,
         $W()
           ..h(w)
           ..str(delim)
@@ -86,7 +86,7 @@ extension GoCockroachdbRedactApi on GoCockroachdbRedact {
   /// Go: `func redact.MakeFormat(s fmt.State, verb rune) (justV bool, format string)`.
   (bool, String) makeFormat($fmt.FmtState s, int verb) {
     final $r = $callSync(
-        5695,
+        5704,
         $W()
           ..h(s)
           ..i64(verb));
@@ -95,36 +95,36 @@ extension GoCockroachdbRedactApi on GoCockroachdbRedact {
 
   /// Go: `func redact.RedactedMarker() []byte`.
   Uint8List redactedMarker() {
-    final $r = $callSync(5696);
+    final $r = $callSync(5705);
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func redact.RegisterSafeType(t reflect.Type)`.
   void registerSafeType($reflect.ReflectType t) {
-    $callSync(5697, $W()..h(t));
+    $callSync(5706, $W()..h(t));
   }
 
   /// Go: `func redact.Safe(a interface{}) redact.SafeValue`.
   $interfaces.RedactInterfacesSafeValue safe(Object? a) {
-    final $r = $callSync(5698, $W()..any(a));
+    final $r = $callSync(5707, $W()..any(a));
     return $r.hnn($interfaces.RedactInterfacesSafeValue.$h);
   }
 
   /// Go: `func redact.SortStrings(s []redact.RedactableString)`.
   void sortStrings(List<String> s) {
-    $callSync(5699, $W()..list(s, (w0, e0) => w0.str(e0)));
+    $callSync(5708, $W()..list(s, (w0, e0) => w0.str(e0)));
   }
 
   /// Go: `func redact.Sprint(args ...interface{}) redact.RedactableString`.
   String sprint([List<Object?> args = const []]) {
-    final $r = $callSync(5700, $W()..list(args, (w0, e0) => w0.any(e0)));
+    final $r = $callSync(5709, $W()..list(args, (w0, e0) => w0.any(e0)));
     return $r.str();
   }
 
   /// Go: `func redact.Sprintf(format string, args ...interface{}) redact.RedactableString`.
   String sprintf(String format, [List<Object?> args = const []]) {
     final $r = $callSync(
-        5701,
+        5710,
         $W()
           ..str(format)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -142,7 +142,7 @@ extension GoCockroachdbRedactApi on GoCockroachdbRedact {
       FutureOr<void> Function($interfaces.RedactInterfacesSafePrinter w)
           printer) async {
     final $r = await $call(
-        5702,
+        5711,
         $W()
           ..cb(
               (r) => printer(r.hnn($interfaces.RedactInterfacesSafePrinter.$h)),
@@ -152,19 +152,19 @@ extension GoCockroachdbRedactApi on GoCockroachdbRedact {
 
   /// Go: `func redact.StartMarker() []byte`.
   Uint8List startMarker() {
-    final $r = $callSync(5703);
+    final $r = $callSync(5712);
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func redact.StringWithoutMarkers(f redact.SafeFormatter) string`.
   String stringWithoutMarkers($interfaces.RedactInterfacesSafeFormatter f) {
-    final $r = $callSync(5704, $W()..h(f));
+    final $r = $callSync(5713, $W()..h(f));
     return $r.str();
   }
 
   /// Go: `func redact.Unsafe(a interface{}) interface{}`.
   Object? unsafe(Object? a) {
-    final $r = $callSync(5705, $W()..any(a));
+    final $r = $callSync(5714, $W()..any(a));
     return $r.any();
   }
 }

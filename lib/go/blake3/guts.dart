@@ -10,7 +10,7 @@ extension GoBlake3GutsApi on GoBlake3Guts {
   /// Go: `func guts.Eigentrees(counter uint64, chunks uint64) (trees []int)`.
   List<int> eigentrees(int counter, int chunks) {
     final $r = $callSync(
-        25922,
+        25928,
         $W()
           ..i64(counter)
           ..i64(chunks));

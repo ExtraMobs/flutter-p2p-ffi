@@ -21,7 +21,7 @@ final class PebbleV2ObjstorageObjstorageproviderObjiotracingTracer
 
   /// Go: `func (*objiotracing.Tracer).Close()`.
   void close() {
-    $callSync(4956, $W()..dto(this));
+    $callSync(4965, $W()..dto(this));
   }
 }
 
@@ -32,7 +32,7 @@ extension GoCockroachdbPebbleV2ObjstorageObjstorageproviderObjiotracingApi
   PebbleV2ObjstorageObjstorageproviderObjiotracingTracer open(
       $vfs.PebbleV2VfsFs fs, String fsDir) {
     final $r = $callSync(
-        4955,
+        4964,
         $W()
           ..h(fs)
           ..str(fsDir));

@@ -41,13 +41,13 @@ class BoxoPinningRemoteClientOpenapiApiClient
   /// Go: `func openapi.NewAPIClient(cfg *openapi.Configuration) *openapi.APIClient`.
   factory BoxoPinningRemoteClientOpenapiApiClient(
       BoxoPinningRemoteClientOpenapiConfiguration cfg) {
-    final $r = $callSync(10201, $W()..dto(cfg));
+    final $r = $callSync(10210, $W()..dto(cfg));
     return $r.hnn(BoxoPinningRemoteClientOpenapiApiClient.$h);
   }
 
   /// Go: `func (*openapi.APIClient).GetConfig() *openapi.Configuration`.
   BoxoPinningRemoteClientOpenapiConfiguration getConfig() {
-    final $r = $callSync(10184, $W()..h(this));
+    final $r = $callSync(10193, $W()..h(this));
     return $r.p()
         ? BoxoPinningRemoteClientOpenapiConfiguration.$dec($r)
         : $nil();
@@ -187,7 +187,7 @@ final class BoxoPinningRemoteClientOpenapiConfiguration implements GoDto {
   /// Go: `func (*openapi.Configuration).AddDefaultHeader(key string, value string)`.
   void addDefaultHeader(String key, String value) {
     $callSync(
-        10186,
+        10195,
         $W()
           ..dto(this)
           ..str(key)
@@ -197,7 +197,7 @@ final class BoxoPinningRemoteClientOpenapiConfiguration implements GoDto {
   /// Go: `func (*openapi.Configuration).ServerURL(index int, variables map[string]string) (string, error)`.
   String serverUrl(int index, Map<String, String> variables) {
     final $r = $callSync(
-        10187,
+        10196,
         $W()
           ..dto(this)
           ..i64(index)
@@ -211,7 +211,7 @@ final class BoxoPinningRemoteClientOpenapiConfiguration implements GoDto {
   Future<String> serverUrlWithContext(
       $context.Context ctx, String endpoint) async {
     final $r = await $call(
-        10188,
+        10197,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -240,7 +240,7 @@ final class BoxoPinningRemoteClientOpenapiFailure implements GoDto {
 
   /// Go: `func (*openapi.Failure).GetError() openapi.FailureError`.
   BoxoPinningRemoteClientOpenapiFailureError getError() {
-    final $r = $callSync(10189, $W()..dto(this));
+    final $r = $callSync(10198, $W()..dto(this));
     return $r.p()
         ? BoxoPinningRemoteClientOpenapiFailureError.$dec($r)
         : $nil();
@@ -248,7 +248,7 @@ final class BoxoPinningRemoteClientOpenapiFailure implements GoDto {
 
   /// Go: `func (*openapi.Failure).GetErrorOk() (*openapi.FailureError, bool)`.
   (BoxoPinningRemoteClientOpenapiFailureError, bool) getErrorOk() {
-    final $r = $callSync(10190, $W()..dto(this));
+    final $r = $callSync(10199, $W()..dto(this));
     return (
       $r.p() ? BoxoPinningRemoteClientOpenapiFailureError.$dec($r) : $nil(),
       $r.b()
@@ -257,14 +257,14 @@ final class BoxoPinningRemoteClientOpenapiFailure implements GoDto {
 
   /// Go: `func (openapi.Failure).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(10191, $W()..dto(this));
+    final $r = $callSync(10200, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*openapi.Failure).SetError(v openapi.FailureError)`.
   void setError(BoxoPinningRemoteClientOpenapiFailureError v) {
     $callSync(
-        10192,
+        10201,
         $W()
           ..dto(this)
           ..dto(v));
@@ -296,44 +296,44 @@ final class BoxoPinningRemoteClientOpenapiFailureError implements GoDto {
 
   /// Go: `func (*openapi.FailureError).GetDetails() string`.
   String getDetails() {
-    final $r = $callSync(10193, $W()..dto(this));
+    final $r = $callSync(10202, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*openapi.FailureError).GetDetailsOk() (*string, bool)`.
   (String, bool) getDetailsOk() {
-    final $r = $callSync(10194, $W()..dto(this));
+    final $r = $callSync(10203, $W()..dto(this));
     return ($r.p() ? $r.str() : $nil(), $r.b());
   }
 
   /// Go: `func (*openapi.FailureError).GetReason() string`.
   String getReason() {
-    final $r = $callSync(10195, $W()..dto(this));
+    final $r = $callSync(10204, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*openapi.FailureError).GetReasonOk() (*string, bool)`.
   (String, bool) getReasonOk() {
-    final $r = $callSync(10196, $W()..dto(this));
+    final $r = $callSync(10205, $W()..dto(this));
     return ($r.p() ? $r.str() : $nil(), $r.b());
   }
 
   /// Go: `func (*openapi.FailureError).HasDetails() bool`.
   bool hasDetails() {
-    final $r = $callSync(10197, $W()..dto(this));
+    final $r = $callSync(10206, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (openapi.FailureError).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(10198, $W()..dto(this));
+    final $r = $callSync(10207, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*openapi.FailureError).SetDetails(v string)`.
   void setDetails(String v) {
     $callSync(
-        10199,
+        10208,
         $W()
           ..dto(this)
           ..str(v));
@@ -342,7 +342,7 @@ final class BoxoPinningRemoteClientOpenapiFailureError implements GoDto {
   /// Go: `func (*openapi.FailureError).SetReason(v string)`.
   void setReason(String v) {
     $callSync(
-        10200,
+        10209,
         $W()
           ..dto(this)
           ..str(v));
@@ -374,32 +374,32 @@ class BoxoPinningRemoteClientOpenapiNullableBool
 
   /// Go: `func openapi.NewNullableBool(val *bool) *openapi.NullableBool`.
   factory BoxoPinningRemoteClientOpenapiNullableBool(bool? val) {
-    final $r = $callSync(10209, $W()..ptr(val, (w0, v0) => w0.b(v0)));
+    final $r = $callSync(10218, $W()..ptr(val, (w0, v0) => w0.b(v0)));
     return $r.hnn(BoxoPinningRemoteClientOpenapiNullableBool.$h);
   }
 
   /// Go: `func (openapi.NullableBool).Get() *bool`.
   bool get() {
-    final $r = $callSync(10228, $W()..h(this));
+    final $r = $callSync(10237, $W()..h(this));
     return $r.p() ? $r.b() : $nil();
   }
 
   /// Go: `func (openapi.NullableBool).IsSet() bool`.
   bool isSet() {
-    final $r = $callSync(10229, $W()..h(this));
+    final $r = $callSync(10238, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (openapi.NullableBool).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(10230, $W()..h(this));
+    final $r = $callSync(10239, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*openapi.NullableBool).Set(val *bool)`.
   void set(bool? val) {
     $callSync(
-        10231,
+        10240,
         $W()
           ..h(this)
           ..ptr(val, (w0, v0) => w0.b(v0)));
@@ -408,7 +408,7 @@ class BoxoPinningRemoteClientOpenapiNullableBool
   /// Go: `func (*openapi.NullableBool).UnmarshalJSON(src []byte) error`.
   void unmarshalJson(Uint8List src) {
     $callSync(
-        10232,
+        10241,
         $W()
           ..h(this)
           ..bytes(src));
@@ -416,7 +416,7 @@ class BoxoPinningRemoteClientOpenapiNullableBool
 
   /// Go: `func (*openapi.NullableBool).Unset()`.
   void unset() {
-    $callSync(10233, $W()..h(this));
+    $callSync(10242, $W()..h(this));
   }
 }
 
@@ -446,32 +446,32 @@ class BoxoPinningRemoteClientOpenapiNullableFailure
   /// Go: `func openapi.NewNullableFailure(val *openapi.Failure) *openapi.NullableFailure`.
   factory BoxoPinningRemoteClientOpenapiNullableFailure(
       BoxoPinningRemoteClientOpenapiFailure val) {
-    final $r = $callSync(10210, $W()..dto(val));
+    final $r = $callSync(10219, $W()..dto(val));
     return $r.hnn(BoxoPinningRemoteClientOpenapiNullableFailure.$h);
   }
 
   /// Go: `func (openapi.NullableFailure).Get() *openapi.Failure`.
   BoxoPinningRemoteClientOpenapiFailure get() {
-    final $r = $callSync(10234, $W()..h(this));
+    final $r = $callSync(10243, $W()..h(this));
     return $r.p() ? BoxoPinningRemoteClientOpenapiFailure.$dec($r) : $nil();
   }
 
   /// Go: `func (openapi.NullableFailure).IsSet() bool`.
   bool isSet() {
-    final $r = $callSync(10235, $W()..h(this));
+    final $r = $callSync(10244, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (openapi.NullableFailure).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(10236, $W()..h(this));
+    final $r = $callSync(10245, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*openapi.NullableFailure).Set(val *openapi.Failure)`.
   void set(BoxoPinningRemoteClientOpenapiFailure val) {
     $callSync(
-        10237,
+        10246,
         $W()
           ..h(this)
           ..dto(val));
@@ -480,7 +480,7 @@ class BoxoPinningRemoteClientOpenapiNullableFailure
   /// Go: `func (*openapi.NullableFailure).UnmarshalJSON(src []byte) error`.
   void unmarshalJson(Uint8List src) {
     $callSync(
-        10238,
+        10247,
         $W()
           ..h(this)
           ..bytes(src));
@@ -488,7 +488,7 @@ class BoxoPinningRemoteClientOpenapiNullableFailure
 
   /// Go: `func (*openapi.NullableFailure).Unset()`.
   void unset() {
-    $callSync(10239, $W()..h(this));
+    $callSync(10248, $W()..h(this));
   }
 }
 
@@ -518,13 +518,13 @@ class BoxoPinningRemoteClientOpenapiNullableFailureError
   /// Go: `func openapi.NewNullableFailureError(val *openapi.FailureError) *openapi.NullableFailureError`.
   factory BoxoPinningRemoteClientOpenapiNullableFailureError(
       BoxoPinningRemoteClientOpenapiFailureError val) {
-    final $r = $callSync(10211, $W()..dto(val));
+    final $r = $callSync(10220, $W()..dto(val));
     return $r.hnn(BoxoPinningRemoteClientOpenapiNullableFailureError.$h);
   }
 
   /// Go: `func (openapi.NullableFailureError).Get() *openapi.FailureError`.
   BoxoPinningRemoteClientOpenapiFailureError get() {
-    final $r = $callSync(10240, $W()..h(this));
+    final $r = $callSync(10249, $W()..h(this));
     return $r.p()
         ? BoxoPinningRemoteClientOpenapiFailureError.$dec($r)
         : $nil();
@@ -532,20 +532,20 @@ class BoxoPinningRemoteClientOpenapiNullableFailureError
 
   /// Go: `func (openapi.NullableFailureError).IsSet() bool`.
   bool isSet() {
-    final $r = $callSync(10241, $W()..h(this));
+    final $r = $callSync(10250, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (openapi.NullableFailureError).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(10242, $W()..h(this));
+    final $r = $callSync(10251, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*openapi.NullableFailureError).Set(val *openapi.FailureError)`.
   void set(BoxoPinningRemoteClientOpenapiFailureError val) {
     $callSync(
-        10243,
+        10252,
         $W()
           ..h(this)
           ..dto(val));
@@ -554,7 +554,7 @@ class BoxoPinningRemoteClientOpenapiNullableFailureError
   /// Go: `func (*openapi.NullableFailureError).UnmarshalJSON(src []byte) error`.
   void unmarshalJson(Uint8List src) {
     $callSync(
-        10244,
+        10253,
         $W()
           ..h(this)
           ..bytes(src));
@@ -562,7 +562,7 @@ class BoxoPinningRemoteClientOpenapiNullableFailureError
 
   /// Go: `func (*openapi.NullableFailureError).Unset()`.
   void unset() {
-    $callSync(10245, $W()..h(this));
+    $callSync(10254, $W()..h(this));
   }
 }
 
@@ -591,32 +591,32 @@ class BoxoPinningRemoteClientOpenapiNullableFloat32
 
   /// Go: `func openapi.NewNullableFloat32(val *float32) *openapi.NullableFloat32`.
   factory BoxoPinningRemoteClientOpenapiNullableFloat32(double? val) {
-    final $r = $callSync(10212, $W()..ptr(val, (w0, v0) => w0.f64(v0)));
+    final $r = $callSync(10221, $W()..ptr(val, (w0, v0) => w0.f64(v0)));
     return $r.hnn(BoxoPinningRemoteClientOpenapiNullableFloat32.$h);
   }
 
   /// Go: `func (openapi.NullableFloat32).Get() *float32`.
   double get() {
-    final $r = $callSync(10246, $W()..h(this));
+    final $r = $callSync(10255, $W()..h(this));
     return $r.p() ? $r.f64() : $nil();
   }
 
   /// Go: `func (openapi.NullableFloat32).IsSet() bool`.
   bool isSet() {
-    final $r = $callSync(10247, $W()..h(this));
+    final $r = $callSync(10256, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (openapi.NullableFloat32).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(10248, $W()..h(this));
+    final $r = $callSync(10257, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*openapi.NullableFloat32).Set(val *float32)`.
   void set(double? val) {
     $callSync(
-        10249,
+        10258,
         $W()
           ..h(this)
           ..ptr(val, (w0, v0) => w0.f64(v0)));
@@ -625,7 +625,7 @@ class BoxoPinningRemoteClientOpenapiNullableFloat32
   /// Go: `func (*openapi.NullableFloat32).UnmarshalJSON(src []byte) error`.
   void unmarshalJson(Uint8List src) {
     $callSync(
-        10250,
+        10259,
         $W()
           ..h(this)
           ..bytes(src));
@@ -633,7 +633,7 @@ class BoxoPinningRemoteClientOpenapiNullableFloat32
 
   /// Go: `func (*openapi.NullableFloat32).Unset()`.
   void unset() {
-    $callSync(10251, $W()..h(this));
+    $callSync(10260, $W()..h(this));
   }
 }
 
@@ -662,32 +662,32 @@ class BoxoPinningRemoteClientOpenapiNullableFloat64
 
   /// Go: `func openapi.NewNullableFloat64(val *float64) *openapi.NullableFloat64`.
   factory BoxoPinningRemoteClientOpenapiNullableFloat64(double? val) {
-    final $r = $callSync(10213, $W()..ptr(val, (w0, v0) => w0.f64(v0)));
+    final $r = $callSync(10222, $W()..ptr(val, (w0, v0) => w0.f64(v0)));
     return $r.hnn(BoxoPinningRemoteClientOpenapiNullableFloat64.$h);
   }
 
   /// Go: `func (openapi.NullableFloat64).Get() *float64`.
   double get() {
-    final $r = $callSync(10252, $W()..h(this));
+    final $r = $callSync(10261, $W()..h(this));
     return $r.p() ? $r.f64() : $nil();
   }
 
   /// Go: `func (openapi.NullableFloat64).IsSet() bool`.
   bool isSet() {
-    final $r = $callSync(10253, $W()..h(this));
+    final $r = $callSync(10262, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (openapi.NullableFloat64).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(10254, $W()..h(this));
+    final $r = $callSync(10263, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*openapi.NullableFloat64).Set(val *float64)`.
   void set(double? val) {
     $callSync(
-        10255,
+        10264,
         $W()
           ..h(this)
           ..ptr(val, (w0, v0) => w0.f64(v0)));
@@ -696,7 +696,7 @@ class BoxoPinningRemoteClientOpenapiNullableFloat64
   /// Go: `func (*openapi.NullableFloat64).UnmarshalJSON(src []byte) error`.
   void unmarshalJson(Uint8List src) {
     $callSync(
-        10256,
+        10265,
         $W()
           ..h(this)
           ..bytes(src));
@@ -704,7 +704,7 @@ class BoxoPinningRemoteClientOpenapiNullableFloat64
 
   /// Go: `func (*openapi.NullableFloat64).Unset()`.
   void unset() {
-    $callSync(10257, $W()..h(this));
+    $callSync(10266, $W()..h(this));
   }
 }
 
@@ -733,32 +733,32 @@ class BoxoPinningRemoteClientOpenapiNullableInt
 
   /// Go: `func openapi.NewNullableInt(val *int) *openapi.NullableInt`.
   factory BoxoPinningRemoteClientOpenapiNullableInt(int? val) {
-    final $r = $callSync(10214, $W()..ptr(val, (w0, v0) => w0.i64(v0)));
+    final $r = $callSync(10223, $W()..ptr(val, (w0, v0) => w0.i64(v0)));
     return $r.hnn(BoxoPinningRemoteClientOpenapiNullableInt.$h);
   }
 
   /// Go: `func (openapi.NullableInt).Get() *int`.
   int get() {
-    final $r = $callSync(10258, $W()..h(this));
+    final $r = $callSync(10267, $W()..h(this));
     return $r.p() ? $r.i64() : $nil();
   }
 
   /// Go: `func (openapi.NullableInt).IsSet() bool`.
   bool isSet() {
-    final $r = $callSync(10259, $W()..h(this));
+    final $r = $callSync(10268, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (openapi.NullableInt).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(10260, $W()..h(this));
+    final $r = $callSync(10269, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*openapi.NullableInt).Set(val *int)`.
   void set(int? val) {
     $callSync(
-        10261,
+        10270,
         $W()
           ..h(this)
           ..ptr(val, (w0, v0) => w0.i64(v0)));
@@ -767,7 +767,7 @@ class BoxoPinningRemoteClientOpenapiNullableInt
   /// Go: `func (*openapi.NullableInt).UnmarshalJSON(src []byte) error`.
   void unmarshalJson(Uint8List src) {
     $callSync(
-        10262,
+        10271,
         $W()
           ..h(this)
           ..bytes(src));
@@ -775,7 +775,7 @@ class BoxoPinningRemoteClientOpenapiNullableInt
 
   /// Go: `func (*openapi.NullableInt).Unset()`.
   void unset() {
-    $callSync(10263, $W()..h(this));
+    $callSync(10272, $W()..h(this));
   }
 }
 
@@ -804,32 +804,32 @@ class BoxoPinningRemoteClientOpenapiNullableInt32
 
   /// Go: `func openapi.NewNullableInt32(val *int32) *openapi.NullableInt32`.
   factory BoxoPinningRemoteClientOpenapiNullableInt32(int? val) {
-    final $r = $callSync(10215, $W()..ptr(val, (w0, v0) => w0.i64(v0)));
+    final $r = $callSync(10224, $W()..ptr(val, (w0, v0) => w0.i64(v0)));
     return $r.hnn(BoxoPinningRemoteClientOpenapiNullableInt32.$h);
   }
 
   /// Go: `func (openapi.NullableInt32).Get() *int32`.
   int get() {
-    final $r = $callSync(10264, $W()..h(this));
+    final $r = $callSync(10273, $W()..h(this));
     return $r.p() ? $r.i64() : $nil();
   }
 
   /// Go: `func (openapi.NullableInt32).IsSet() bool`.
   bool isSet() {
-    final $r = $callSync(10265, $W()..h(this));
+    final $r = $callSync(10274, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (openapi.NullableInt32).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(10266, $W()..h(this));
+    final $r = $callSync(10275, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*openapi.NullableInt32).Set(val *int32)`.
   void set(int? val) {
     $callSync(
-        10267,
+        10276,
         $W()
           ..h(this)
           ..ptr(val, (w0, v0) => w0.i64(v0)));
@@ -838,7 +838,7 @@ class BoxoPinningRemoteClientOpenapiNullableInt32
   /// Go: `func (*openapi.NullableInt32).UnmarshalJSON(src []byte) error`.
   void unmarshalJson(Uint8List src) {
     $callSync(
-        10268,
+        10277,
         $W()
           ..h(this)
           ..bytes(src));
@@ -846,7 +846,7 @@ class BoxoPinningRemoteClientOpenapiNullableInt32
 
   /// Go: `func (*openapi.NullableInt32).Unset()`.
   void unset() {
-    $callSync(10269, $W()..h(this));
+    $callSync(10278, $W()..h(this));
   }
 }
 
@@ -875,32 +875,32 @@ class BoxoPinningRemoteClientOpenapiNullableInt64
 
   /// Go: `func openapi.NewNullableInt64(val *int64) *openapi.NullableInt64`.
   factory BoxoPinningRemoteClientOpenapiNullableInt64(int? val) {
-    final $r = $callSync(10216, $W()..ptr(val, (w0, v0) => w0.i64(v0)));
+    final $r = $callSync(10225, $W()..ptr(val, (w0, v0) => w0.i64(v0)));
     return $r.hnn(BoxoPinningRemoteClientOpenapiNullableInt64.$h);
   }
 
   /// Go: `func (openapi.NullableInt64).Get() *int64`.
   int get() {
-    final $r = $callSync(10270, $W()..h(this));
+    final $r = $callSync(10279, $W()..h(this));
     return $r.p() ? $r.i64() : $nil();
   }
 
   /// Go: `func (openapi.NullableInt64).IsSet() bool`.
   bool isSet() {
-    final $r = $callSync(10271, $W()..h(this));
+    final $r = $callSync(10280, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (openapi.NullableInt64).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(10272, $W()..h(this));
+    final $r = $callSync(10281, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*openapi.NullableInt64).Set(val *int64)`.
   void set(int? val) {
     $callSync(
-        10273,
+        10282,
         $W()
           ..h(this)
           ..ptr(val, (w0, v0) => w0.i64(v0)));
@@ -909,7 +909,7 @@ class BoxoPinningRemoteClientOpenapiNullableInt64
   /// Go: `func (*openapi.NullableInt64).UnmarshalJSON(src []byte) error`.
   void unmarshalJson(Uint8List src) {
     $callSync(
-        10274,
+        10283,
         $W()
           ..h(this)
           ..bytes(src));
@@ -917,7 +917,7 @@ class BoxoPinningRemoteClientOpenapiNullableInt64
 
   /// Go: `func (*openapi.NullableInt64).Unset()`.
   void unset() {
-    $callSync(10275, $W()..h(this));
+    $callSync(10284, $W()..h(this));
   }
 }
 
@@ -947,32 +947,32 @@ class BoxoPinningRemoteClientOpenapiNullablePin
   /// Go: `func openapi.NewNullablePin(val *openapi.Pin) *openapi.NullablePin`.
   factory BoxoPinningRemoteClientOpenapiNullablePin(
       BoxoPinningRemoteClientOpenapiPin val) {
-    final $r = $callSync(10217, $W()..dto(val));
+    final $r = $callSync(10226, $W()..dto(val));
     return $r.hnn(BoxoPinningRemoteClientOpenapiNullablePin.$h);
   }
 
   /// Go: `func (openapi.NullablePin).Get() *openapi.Pin`.
   BoxoPinningRemoteClientOpenapiPin get() {
-    final $r = $callSync(10276, $W()..h(this));
+    final $r = $callSync(10285, $W()..h(this));
     return $r.p() ? BoxoPinningRemoteClientOpenapiPin.$dec($r) : $nil();
   }
 
   /// Go: `func (openapi.NullablePin).IsSet() bool`.
   bool isSet() {
-    final $r = $callSync(10277, $W()..h(this));
+    final $r = $callSync(10286, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (openapi.NullablePin).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(10278, $W()..h(this));
+    final $r = $callSync(10287, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*openapi.NullablePin).Set(val *openapi.Pin)`.
   void set(BoxoPinningRemoteClientOpenapiPin val) {
     $callSync(
-        10279,
+        10288,
         $W()
           ..h(this)
           ..dto(val));
@@ -981,7 +981,7 @@ class BoxoPinningRemoteClientOpenapiNullablePin
   /// Go: `func (*openapi.NullablePin).UnmarshalJSON(src []byte) error`.
   void unmarshalJson(Uint8List src) {
     $callSync(
-        10280,
+        10289,
         $W()
           ..h(this)
           ..bytes(src));
@@ -989,7 +989,7 @@ class BoxoPinningRemoteClientOpenapiNullablePin
 
   /// Go: `func (*openapi.NullablePin).Unset()`.
   void unset() {
-    $callSync(10281, $W()..h(this));
+    $callSync(10290, $W()..h(this));
   }
 }
 
@@ -1019,32 +1019,32 @@ class BoxoPinningRemoteClientOpenapiNullablePinResults
   /// Go: `func openapi.NewNullablePinResults(val *openapi.PinResults) *openapi.NullablePinResults`.
   factory BoxoPinningRemoteClientOpenapiNullablePinResults(
       BoxoPinningRemoteClientOpenapiPinResults val) {
-    final $r = $callSync(10218, $W()..dto(val));
+    final $r = $callSync(10227, $W()..dto(val));
     return $r.hnn(BoxoPinningRemoteClientOpenapiNullablePinResults.$h);
   }
 
   /// Go: `func (openapi.NullablePinResults).Get() *openapi.PinResults`.
   BoxoPinningRemoteClientOpenapiPinResults get() {
-    final $r = $callSync(10282, $W()..h(this));
+    final $r = $callSync(10291, $W()..h(this));
     return $r.p() ? BoxoPinningRemoteClientOpenapiPinResults.$dec($r) : $nil();
   }
 
   /// Go: `func (openapi.NullablePinResults).IsSet() bool`.
   bool isSet() {
-    final $r = $callSync(10283, $W()..h(this));
+    final $r = $callSync(10292, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (openapi.NullablePinResults).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(10284, $W()..h(this));
+    final $r = $callSync(10293, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*openapi.NullablePinResults).Set(val *openapi.PinResults)`.
   void set(BoxoPinningRemoteClientOpenapiPinResults val) {
     $callSync(
-        10285,
+        10294,
         $W()
           ..h(this)
           ..dto(val));
@@ -1053,7 +1053,7 @@ class BoxoPinningRemoteClientOpenapiNullablePinResults
   /// Go: `func (*openapi.NullablePinResults).UnmarshalJSON(src []byte) error`.
   void unmarshalJson(Uint8List src) {
     $callSync(
-        10286,
+        10295,
         $W()
           ..h(this)
           ..bytes(src));
@@ -1061,7 +1061,7 @@ class BoxoPinningRemoteClientOpenapiNullablePinResults
 
   /// Go: `func (*openapi.NullablePinResults).Unset()`.
   void unset() {
-    $callSync(10287, $W()..h(this));
+    $callSync(10296, $W()..h(this));
   }
 }
 
@@ -1091,32 +1091,32 @@ class BoxoPinningRemoteClientOpenapiNullablePinStatus
   /// Go: `func openapi.NewNullablePinStatus(val *openapi.PinStatus) *openapi.NullablePinStatus`.
   factory BoxoPinningRemoteClientOpenapiNullablePinStatus(
       BoxoPinningRemoteClientOpenapiPinStatus val) {
-    final $r = $callSync(10219, $W()..dto(val));
+    final $r = $callSync(10228, $W()..dto(val));
     return $r.hnn(BoxoPinningRemoteClientOpenapiNullablePinStatus.$h);
   }
 
   /// Go: `func (openapi.NullablePinStatus).Get() *openapi.PinStatus`.
   BoxoPinningRemoteClientOpenapiPinStatus get() {
-    final $r = $callSync(10288, $W()..h(this));
+    final $r = $callSync(10297, $W()..h(this));
     return $r.p() ? BoxoPinningRemoteClientOpenapiPinStatus.$dec($r) : $nil();
   }
 
   /// Go: `func (openapi.NullablePinStatus).IsSet() bool`.
   bool isSet() {
-    final $r = $callSync(10289, $W()..h(this));
+    final $r = $callSync(10298, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (openapi.NullablePinStatus).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(10290, $W()..h(this));
+    final $r = $callSync(10299, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*openapi.NullablePinStatus).Set(val *openapi.PinStatus)`.
   void set(BoxoPinningRemoteClientOpenapiPinStatus val) {
     $callSync(
-        10291,
+        10300,
         $W()
           ..h(this)
           ..dto(val));
@@ -1125,7 +1125,7 @@ class BoxoPinningRemoteClientOpenapiNullablePinStatus
   /// Go: `func (*openapi.NullablePinStatus).UnmarshalJSON(src []byte) error`.
   void unmarshalJson(Uint8List src) {
     $callSync(
-        10292,
+        10301,
         $W()
           ..h(this)
           ..bytes(src));
@@ -1133,7 +1133,7 @@ class BoxoPinningRemoteClientOpenapiNullablePinStatus
 
   /// Go: `func (*openapi.NullablePinStatus).Unset()`.
   void unset() {
-    $callSync(10293, $W()..h(this));
+    $callSync(10302, $W()..h(this));
   }
 }
 
@@ -1162,20 +1162,20 @@ class BoxoPinningRemoteClientOpenapiNullableStatus
 
   /// Go: `func (openapi.NullableStatus).IsSet() bool`.
   bool isSet() {
-    final $r = $callSync(10294, $W()..h(this));
+    final $r = $callSync(10303, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (openapi.NullableStatus).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(10295, $W()..h(this));
+    final $r = $callSync(10304, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*openapi.NullableStatus).UnmarshalJSON(src []byte) error`.
   void unmarshalJson(Uint8List src) {
     $callSync(
-        10296,
+        10305,
         $W()
           ..h(this)
           ..bytes(src));
@@ -1183,7 +1183,7 @@ class BoxoPinningRemoteClientOpenapiNullableStatus
 
   /// Go: `func (*openapi.NullableStatus).Unset()`.
   void unset() {
-    $callSync(10297, $W()..h(this));
+    $callSync(10306, $W()..h(this));
   }
 }
 
@@ -1212,32 +1212,32 @@ class BoxoPinningRemoteClientOpenapiNullableString
 
   /// Go: `func openapi.NewNullableString(val *string) *openapi.NullableString`.
   factory BoxoPinningRemoteClientOpenapiNullableString(String? val) {
-    final $r = $callSync(10220, $W()..ptr(val, (w0, v0) => w0.str(v0)));
+    final $r = $callSync(10229, $W()..ptr(val, (w0, v0) => w0.str(v0)));
     return $r.hnn(BoxoPinningRemoteClientOpenapiNullableString.$h);
   }
 
   /// Go: `func (openapi.NullableString).Get() *string`.
   String get() {
-    final $r = $callSync(10298, $W()..h(this));
+    final $r = $callSync(10307, $W()..h(this));
     return $r.p() ? $r.str() : $nil();
   }
 
   /// Go: `func (openapi.NullableString).IsSet() bool`.
   bool isSet() {
-    final $r = $callSync(10299, $W()..h(this));
+    final $r = $callSync(10308, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (openapi.NullableString).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(10300, $W()..h(this));
+    final $r = $callSync(10309, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*openapi.NullableString).Set(val *string)`.
   void set(String? val) {
     $callSync(
-        10301,
+        10310,
         $W()
           ..h(this)
           ..ptr(val, (w0, v0) => w0.str(v0)));
@@ -1246,7 +1246,7 @@ class BoxoPinningRemoteClientOpenapiNullableString
   /// Go: `func (*openapi.NullableString).UnmarshalJSON(src []byte) error`.
   void unmarshalJson(Uint8List src) {
     $callSync(
-        10302,
+        10311,
         $W()
           ..h(this)
           ..bytes(src));
@@ -1254,7 +1254,7 @@ class BoxoPinningRemoteClientOpenapiNullableString
 
   /// Go: `func (*openapi.NullableString).Unset()`.
   void unset() {
-    $callSync(10303, $W()..h(this));
+    $callSync(10312, $W()..h(this));
   }
 }
 
@@ -1283,32 +1283,32 @@ class BoxoPinningRemoteClientOpenapiNullableTime
 
   /// Go: `func openapi.NewNullableTime(val *time.Time) *openapi.NullableTime`.
   factory BoxoPinningRemoteClientOpenapiNullableTime(DateTime val) {
-    final $r = $callSync(10221, $W()..time(val));
+    final $r = $callSync(10230, $W()..time(val));
     return $r.hnn(BoxoPinningRemoteClientOpenapiNullableTime.$h);
   }
 
   /// Go: `func (openapi.NullableTime).Get() *time.Time`.
   DateTime get() {
-    final $r = $callSync(10304, $W()..h(this));
+    final $r = $callSync(10313, $W()..h(this));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func (openapi.NullableTime).IsSet() bool`.
   bool isSet() {
-    final $r = $callSync(10305, $W()..h(this));
+    final $r = $callSync(10314, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (openapi.NullableTime).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(10306, $W()..h(this));
+    final $r = $callSync(10315, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*openapi.NullableTime).Set(val *time.Time)`.
   void set(DateTime val) {
     $callSync(
-        10307,
+        10316,
         $W()
           ..h(this)
           ..time(val));
@@ -1317,7 +1317,7 @@ class BoxoPinningRemoteClientOpenapiNullableTime
   /// Go: `func (*openapi.NullableTime).UnmarshalJSON(src []byte) error`.
   void unmarshalJson(Uint8List src) {
     $callSync(
-        10308,
+        10317,
         $W()
           ..h(this)
           ..bytes(src));
@@ -1325,7 +1325,7 @@ class BoxoPinningRemoteClientOpenapiNullableTime
 
   /// Go: `func (*openapi.NullableTime).Unset()`.
   void unset() {
-    $callSync(10309, $W()..h(this));
+    $callSync(10318, $W()..h(this));
   }
 }
 
@@ -1356,68 +1356,68 @@ final class BoxoPinningRemoteClientOpenapiPin implements GoDto {
 
   /// Go: `func (*openapi.Pin).GetCid() string`.
   String getCid() {
-    final $r = $callSync(10310, $W()..dto(this));
+    final $r = $callSync(10319, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*openapi.Pin).GetCidOk() (*string, bool)`.
   (String, bool) getCidOk() {
-    final $r = $callSync(10311, $W()..dto(this));
+    final $r = $callSync(10320, $W()..dto(this));
     return ($r.p() ? $r.str() : $nil(), $r.b());
   }
 
   /// Go: `func (*openapi.Pin).GetMeta() map[string]string`.
   Map<String, String> getMeta() {
-    final $r = $callSync(10312, $W()..dto(this));
+    final $r = $callSync(10321, $W()..dto(this));
     return $r.map(() => $r.str(), () => $r.str());
   }
 
   /// Go: `func (*openapi.Pin).GetName() string`.
   String getName() {
-    final $r = $callSync(10313, $W()..dto(this));
+    final $r = $callSync(10322, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*openapi.Pin).GetNameOk() (*string, bool)`.
   (String, bool) getNameOk() {
-    final $r = $callSync(10314, $W()..dto(this));
+    final $r = $callSync(10323, $W()..dto(this));
     return ($r.p() ? $r.str() : $nil(), $r.b());
   }
 
   /// Go: `func (*openapi.Pin).GetOrigins() []string`.
   List<String> getOrigins() {
-    final $r = $callSync(10315, $W()..dto(this));
+    final $r = $callSync(10324, $W()..dto(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (*openapi.Pin).HasMeta() bool`.
   bool hasMeta() {
-    final $r = $callSync(10316, $W()..dto(this));
+    final $r = $callSync(10325, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*openapi.Pin).HasName() bool`.
   bool hasName() {
-    final $r = $callSync(10317, $W()..dto(this));
+    final $r = $callSync(10326, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*openapi.Pin).HasOrigins() bool`.
   bool hasOrigins() {
-    final $r = $callSync(10318, $W()..dto(this));
+    final $r = $callSync(10327, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (openapi.Pin).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(10319, $W()..dto(this));
+    final $r = $callSync(10328, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*openapi.Pin).SetCid(v string)`.
   void setCid(String v) {
     $callSync(
-        10320,
+        10329,
         $W()
           ..dto(this)
           ..str(v));
@@ -1426,7 +1426,7 @@ final class BoxoPinningRemoteClientOpenapiPin implements GoDto {
   /// Go: `func (*openapi.Pin).SetMeta(v map[string]string)`.
   void setMeta(Map<String, String> v) {
     $callSync(
-        10321,
+        10330,
         $W()
           ..dto(this)
           ..map(v, (w0, k0) => w0.str(k0), (w0, v0) => w0.str(v0)));
@@ -1435,7 +1435,7 @@ final class BoxoPinningRemoteClientOpenapiPin implements GoDto {
   /// Go: `func (*openapi.Pin).SetName(v string)`.
   void setName(String v) {
     $callSync(
-        10322,
+        10331,
         $W()
           ..dto(this)
           ..str(v));
@@ -1444,7 +1444,7 @@ final class BoxoPinningRemoteClientOpenapiPin implements GoDto {
   /// Go: `func (*openapi.Pin).SetOrigins(v []string)`.
   void setOrigins(List<String> v) {
     $callSync(
-        10323,
+        10332,
         $W()
           ..dto(this)
           ..list(v, (w0, e0) => w0.str(e0)));
@@ -1478,33 +1478,33 @@ final class BoxoPinningRemoteClientOpenapiPinResults implements GoDto {
 
   /// Go: `func (*openapi.PinResults).GetCount() int32`.
   int getCount() {
-    final $r = $callSync(10324, $W()..dto(this));
+    final $r = $callSync(10333, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*openapi.PinResults).GetCountOk() (*int32, bool)`.
   (int, bool) getCountOk() {
-    final $r = $callSync(10325, $W()..dto(this));
+    final $r = $callSync(10334, $W()..dto(this));
     return ($r.p() ? $r.i64() : $nil(), $r.b());
   }
 
   /// Go: `func (*openapi.PinResults).GetResults() []openapi.PinStatus`.
   List<BoxoPinningRemoteClientOpenapiPinStatus> getResults() {
-    final $r = $callSync(10326, $W()..dto(this));
+    final $r = $callSync(10335, $W()..dto(this));
     return $r.list(() =>
         $r.p() ? BoxoPinningRemoteClientOpenapiPinStatus.$dec($r) : $nil());
   }
 
   /// Go: `func (openapi.PinResults).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(10327, $W()..dto(this));
+    final $r = $callSync(10336, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*openapi.PinResults).SetCount(v int32)`.
   void setCount(int v) {
     $callSync(
-        10328,
+        10337,
         $W()
           ..dto(this)
           ..i64(v));
@@ -1513,7 +1513,7 @@ final class BoxoPinningRemoteClientOpenapiPinResults implements GoDto {
   /// Go: `func (*openapi.PinResults).SetResults(v []openapi.PinStatus)`.
   void setResults(List<BoxoPinningRemoteClientOpenapiPinStatus> v) {
     $callSync(
-        10329,
+        10338,
         $W()
           ..dto(this)
           ..list(v, (w0, e0) => w0.dto(e0)));
@@ -1570,37 +1570,37 @@ final class BoxoPinningRemoteClientOpenapiPinStatus implements GoDto {
 
   /// Go: `func (*openapi.PinStatus).GetCreated() time.Time`.
   DateTime getCreated() {
-    final $r = $callSync(10330, $W()..dto(this));
+    final $r = $callSync(10339, $W()..dto(this));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func (*openapi.PinStatus).GetCreatedOk() (*time.Time, bool)`.
   (DateTime, bool) getCreatedOk() {
-    final $r = $callSync(10331, $W()..dto(this));
+    final $r = $callSync(10340, $W()..dto(this));
     return ($r.p() ? $r.time() : $nil(), $r.b());
   }
 
   /// Go: `func (*openapi.PinStatus).GetDelegates() []string`.
   List<String> getDelegates() {
-    final $r = $callSync(10332, $W()..dto(this));
+    final $r = $callSync(10341, $W()..dto(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (*openapi.PinStatus).GetInfo() map[string]string`.
   Map<String, String> getInfo() {
-    final $r = $callSync(10333, $W()..dto(this));
+    final $r = $callSync(10342, $W()..dto(this));
     return $r.map(() => $r.str(), () => $r.str());
   }
 
   /// Go: `func (*openapi.PinStatus).GetPin() openapi.Pin`.
   BoxoPinningRemoteClientOpenapiPin getPin() {
-    final $r = $callSync(10334, $W()..dto(this));
+    final $r = $callSync(10343, $W()..dto(this));
     return $r.p() ? BoxoPinningRemoteClientOpenapiPin.$dec($r) : $nil();
   }
 
   /// Go: `func (*openapi.PinStatus).GetPinOk() (*openapi.Pin, bool)`.
   (BoxoPinningRemoteClientOpenapiPin, bool) getPinOk() {
-    final $r = $callSync(10335, $W()..dto(this));
+    final $r = $callSync(10344, $W()..dto(this));
     return (
       $r.p() ? BoxoPinningRemoteClientOpenapiPin.$dec($r) : $nil(),
       $r.b()
@@ -1609,38 +1609,38 @@ final class BoxoPinningRemoteClientOpenapiPinStatus implements GoDto {
 
   /// Go: `func (*openapi.PinStatus).GetRequestid() string`.
   String getRequestid() {
-    final $r = $callSync(10336, $W()..dto(this));
+    final $r = $callSync(10345, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*openapi.PinStatus).GetRequestidOk() (*string, bool)`.
   (String, bool) getRequestidOk() {
-    final $r = $callSync(10337, $W()..dto(this));
+    final $r = $callSync(10346, $W()..dto(this));
     return ($r.p() ? $r.str() : $nil(), $r.b());
   }
 
   /// Go: `func (*openapi.PinStatus).GetStatus() openapi.Status`.
   String getStatus() {
-    final $r = $callSync(10338, $W()..dto(this));
+    final $r = $callSync(10347, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*openapi.PinStatus).HasInfo() bool`.
   bool hasInfo() {
-    final $r = $callSync(10339, $W()..dto(this));
+    final $r = $callSync(10348, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (openapi.PinStatus).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(10340, $W()..dto(this));
+    final $r = $callSync(10349, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*openapi.PinStatus).SetCreated(v time.Time)`.
   void setCreated(DateTime v) {
     $callSync(
-        10341,
+        10350,
         $W()
           ..dto(this)
           ..time(v));
@@ -1649,7 +1649,7 @@ final class BoxoPinningRemoteClientOpenapiPinStatus implements GoDto {
   /// Go: `func (*openapi.PinStatus).SetDelegates(v []string)`.
   void setDelegates(List<String> v) {
     $callSync(
-        10342,
+        10351,
         $W()
           ..dto(this)
           ..list(v, (w0, e0) => w0.str(e0)));
@@ -1658,7 +1658,7 @@ final class BoxoPinningRemoteClientOpenapiPinStatus implements GoDto {
   /// Go: `func (*openapi.PinStatus).SetInfo(v map[string]string)`.
   void setInfo(Map<String, String> v) {
     $callSync(
-        10343,
+        10352,
         $W()
           ..dto(this)
           ..map(v, (w0, k0) => w0.str(k0), (w0, v0) => w0.str(v0)));
@@ -1667,7 +1667,7 @@ final class BoxoPinningRemoteClientOpenapiPinStatus implements GoDto {
   /// Go: `func (*openapi.PinStatus).SetPin(v openapi.Pin)`.
   void setPin(BoxoPinningRemoteClientOpenapiPin v) {
     $callSync(
-        10344,
+        10353,
         $W()
           ..dto(this)
           ..dto(v));
@@ -1676,7 +1676,7 @@ final class BoxoPinningRemoteClientOpenapiPinStatus implements GoDto {
   /// Go: `func (*openapi.PinStatus).SetRequestid(v string)`.
   void setRequestid(String v) {
     $callSync(
-        10345,
+        10354,
         $W()
           ..dto(this)
           ..str(v));
@@ -1685,7 +1685,7 @@ final class BoxoPinningRemoteClientOpenapiPinStatus implements GoDto {
   /// Go: `func (*openapi.PinStatus).SetStatus(v openapi.Status)`.
   void setStatus(String v) {
     $callSync(
-        10346,
+        10355,
         $W()
           ..dto(this)
           ..str(v));
@@ -1776,27 +1776,27 @@ extension GoIpfsBoxoPinningRemoteClientOpenapiApi
     on GoIpfsBoxoPinningRemoteClientOpenapi {
   /// Go: `func openapi.CacheExpires(r *http.Response) time.Time`.
   DateTime cacheExpires($http.NetHttpResponse r) {
-    final $r = $callSync(10185, $W()..dto(r));
+    final $r = $callSync(10194, $W()..dto(r));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func openapi.NewAPIResponse(r *http.Response) *openapi.APIResponse`.
   BoxoPinningRemoteClientOpenapiApiResponse newApiResponse(
       $http.NetHttpResponse r) {
-    final $r = $callSync(10202, $W()..dto(r));
+    final $r = $callSync(10211, $W()..dto(r));
     return $r.p() ? BoxoPinningRemoteClientOpenapiApiResponse.$dec($r) : $nil();
   }
 
   /// Go: `func openapi.NewAPIResponseWithError(errorMessage string) *openapi.APIResponse`.
   BoxoPinningRemoteClientOpenapiApiResponse newApiResponseWithError(
       String errorMessage) {
-    final $r = $callSync(10203, $W()..str(errorMessage));
+    final $r = $callSync(10212, $W()..str(errorMessage));
     return $r.p() ? BoxoPinningRemoteClientOpenapiApiResponse.$dec($r) : $nil();
   }
 
   /// Go: `func openapi.NewConfiguration() *openapi.Configuration`.
   BoxoPinningRemoteClientOpenapiConfiguration newConfiguration() {
-    final $r = $callSync(10204);
+    final $r = $callSync(10213);
     return $r.p()
         ? BoxoPinningRemoteClientOpenapiConfiguration.$dec($r)
         : $nil();
@@ -1805,13 +1805,13 @@ extension GoIpfsBoxoPinningRemoteClientOpenapiApi
   /// Go: `func openapi.NewFailure(error_ openapi.FailureError) *openapi.Failure`.
   BoxoPinningRemoteClientOpenapiFailure newFailure(
       BoxoPinningRemoteClientOpenapiFailureError error) {
-    final $r = $callSync(10205, $W()..dto(error));
+    final $r = $callSync(10214, $W()..dto(error));
     return $r.p() ? BoxoPinningRemoteClientOpenapiFailure.$dec($r) : $nil();
   }
 
   /// Go: `func openapi.NewFailureError(reason string) *openapi.FailureError`.
   BoxoPinningRemoteClientOpenapiFailureError newFailureError(String reason) {
-    final $r = $callSync(10206, $W()..str(reason));
+    final $r = $callSync(10215, $W()..str(reason));
     return $r.p()
         ? BoxoPinningRemoteClientOpenapiFailureError.$dec($r)
         : $nil();
@@ -1819,7 +1819,7 @@ extension GoIpfsBoxoPinningRemoteClientOpenapiApi
 
   /// Go: `func openapi.NewFailureErrorWithDefaults() *openapi.FailureError`.
   BoxoPinningRemoteClientOpenapiFailureError newFailureErrorWithDefaults() {
-    final $r = $callSync(10207);
+    final $r = $callSync(10216);
     return $r.p()
         ? BoxoPinningRemoteClientOpenapiFailureError.$dec($r)
         : $nil();
@@ -1827,13 +1827,13 @@ extension GoIpfsBoxoPinningRemoteClientOpenapiApi
 
   /// Go: `func openapi.NewFailureWithDefaults() *openapi.Failure`.
   BoxoPinningRemoteClientOpenapiFailure newFailureWithDefaults() {
-    final $r = $callSync(10208);
+    final $r = $callSync(10217);
     return $r.p() ? BoxoPinningRemoteClientOpenapiFailure.$dec($r) : $nil();
   }
 
   /// Go: `func openapi.NewPin(cid string) *openapi.Pin`.
   BoxoPinningRemoteClientOpenapiPin newPin(String cid) {
-    final $r = $callSync(10222, $W()..str(cid));
+    final $r = $callSync(10231, $W()..str(cid));
     return $r.p() ? BoxoPinningRemoteClientOpenapiPin.$dec($r) : $nil();
   }
 
@@ -1841,7 +1841,7 @@ extension GoIpfsBoxoPinningRemoteClientOpenapiApi
   BoxoPinningRemoteClientOpenapiPinResults newPinResults(
       int count, List<BoxoPinningRemoteClientOpenapiPinStatus> results) {
     final $r = $callSync(
-        10223,
+        10232,
         $W()
           ..i64(count)
           ..list(results, (w0, e0) => w0.dto(e0)));
@@ -1850,7 +1850,7 @@ extension GoIpfsBoxoPinningRemoteClientOpenapiApi
 
   /// Go: `func openapi.NewPinResultsWithDefaults() *openapi.PinResults`.
   BoxoPinningRemoteClientOpenapiPinResults newPinResultsWithDefaults() {
-    final $r = $callSync(10224);
+    final $r = $callSync(10233);
     return $r.p() ? BoxoPinningRemoteClientOpenapiPinResults.$dec($r) : $nil();
   }
 
@@ -1862,7 +1862,7 @@ extension GoIpfsBoxoPinningRemoteClientOpenapiApi
       BoxoPinningRemoteClientOpenapiPin pin,
       List<String> delegates) {
     final $r = $callSync(
-        10225,
+        10234,
         $W()
           ..str(requestid)
           ..str(status)
@@ -1874,61 +1874,61 @@ extension GoIpfsBoxoPinningRemoteClientOpenapiApi
 
   /// Go: `func openapi.NewPinStatusWithDefaults() *openapi.PinStatus`.
   BoxoPinningRemoteClientOpenapiPinStatus newPinStatusWithDefaults() {
-    final $r = $callSync(10226);
+    final $r = $callSync(10235);
     return $r.p() ? BoxoPinningRemoteClientOpenapiPinStatus.$dec($r) : $nil();
   }
 
   /// Go: `func openapi.NewPinWithDefaults() *openapi.Pin`.
   BoxoPinningRemoteClientOpenapiPin newPinWithDefaults() {
-    final $r = $callSync(10227);
+    final $r = $callSync(10236);
     return $r.p() ? BoxoPinningRemoteClientOpenapiPin.$dec($r) : $nil();
   }
 
   /// Go: `func openapi.PtrBool(v bool) *bool`.
   bool ptrBool(bool v) {
-    final $r = $callSync(10347, $W()..b(v));
+    final $r = $callSync(10356, $W()..b(v));
     return $r.p() ? $r.b() : $nil();
   }
 
   /// Go: `func openapi.PtrFloat32(v float32) *float32`.
   double ptrFloat32(double v) {
-    final $r = $callSync(10348, $W()..f64(v));
+    final $r = $callSync(10357, $W()..f64(v));
     return $r.p() ? $r.f64() : $nil();
   }
 
   /// Go: `func openapi.PtrFloat64(v float64) *float64`.
   double ptrFloat64(double v) {
-    final $r = $callSync(10349, $W()..f64(v));
+    final $r = $callSync(10358, $W()..f64(v));
     return $r.p() ? $r.f64() : $nil();
   }
 
   /// Go: `func openapi.PtrInt(v int) *int`.
   int ptrInt(int v) {
-    final $r = $callSync(10350, $W()..i64(v));
+    final $r = $callSync(10359, $W()..i64(v));
     return $r.p() ? $r.i64() : $nil();
   }
 
   /// Go: `func openapi.PtrInt32(v int32) *int32`.
   int ptrInt32(int v) {
-    final $r = $callSync(10351, $W()..i64(v));
+    final $r = $callSync(10360, $W()..i64(v));
     return $r.p() ? $r.i64() : $nil();
   }
 
   /// Go: `func openapi.PtrInt64(v int64) *int64`.
   int ptrInt64(int v) {
-    final $r = $callSync(10352, $W()..i64(v));
+    final $r = $callSync(10361, $W()..i64(v));
     return $r.p() ? $r.i64() : $nil();
   }
 
   /// Go: `func openapi.PtrString(v string) *string`.
   String ptrString(String v) {
-    final $r = $callSync(10353, $W()..str(v));
+    final $r = $callSync(10362, $W()..str(v));
     return $r.p() ? $r.str() : $nil();
   }
 
   /// Go: `func openapi.PtrTime(v time.Time) *time.Time`.
   DateTime ptrTime(DateTime v) {
-    final $r = $callSync(10354, $W()..time(v));
+    final $r = $callSync(10363, $W()..time(v));
     return $r.p() ? $r.time() : $nil();
   }
 }
