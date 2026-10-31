@@ -6,7 +6,10 @@ import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/ipld/ipld_prime/datamodel.dart' as $datamodel;
 import 'package:p2p_ffi/go/ipld/ipld_prime/storage.dart' as $storage;
 
@@ -53,9 +56,21 @@ final class IpldPrimeLinkingLinkContext implements GoDto {
 }
 
 /// Go: `linking.LinkSystem` (handle).
-class IpldPrimeLinkingLinkSystem extends $crypto.CryptoPrivateKey
-    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
-    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+class IpldPrimeLinkingLinkSystem extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   IpldPrimeLinkingLinkSystem.$h(super.$h) : super.$h();
 
   /// Go: `func (*linking.LinkSystem).ComputeLink(lp datamodel.LinkPrototype, n datamodel.Node) (datamodel.Link, error)`.
@@ -63,7 +78,7 @@ class IpldPrimeLinkingLinkSystem extends $crypto.CryptoPrivateKey
       $datamodel.IpldPrimeDatamodelLinkPrototype lp,
       $datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        2048,
+        12190,
         $W()
           ..h(this)
           ..h(lp)
@@ -77,7 +92,7 @@ class IpldPrimeLinkingLinkSystem extends $crypto.CryptoPrivateKey
       $datamodel.IpldPrimeDatamodelLink lnk,
       $datamodel.IpldPrimeDatamodelNodeAssembler na) {
     $callSync(
-        2049,
+        12191,
         $W()
           ..h(this)
           ..dto(lnkCtx)
@@ -91,7 +106,7 @@ class IpldPrimeLinkingLinkSystem extends $crypto.CryptoPrivateKey
       $datamodel.IpldPrimeDatamodelLink lnk,
       $datamodel.IpldPrimeDatamodelNodePrototype np) {
     final $r = $callSync(
-        2050,
+        12192,
         $W()
           ..h(this)
           ..dto(lnkCtx)
@@ -106,7 +121,7 @@ class IpldPrimeLinkingLinkSystem extends $crypto.CryptoPrivateKey
       $datamodel.IpldPrimeDatamodelLink lnk,
       $datamodel.IpldPrimeDatamodelNodePrototype np) {
     final $r = $callSync(
-        2051,
+        12193,
         $W()
           ..h(this)
           ..dto(lnkCtx)
@@ -122,7 +137,7 @@ class IpldPrimeLinkingLinkSystem extends $crypto.CryptoPrivateKey
   Uint8List loadRaw(IpldPrimeLinkingLinkContext lnkCtx,
       $datamodel.IpldPrimeDatamodelLink lnk) {
     final $r = $callSync(
-        2052,
+        12194,
         $W()
           ..h(this)
           ..dto(lnkCtx)
@@ -135,7 +150,7 @@ class IpldPrimeLinkingLinkSystem extends $crypto.CryptoPrivateKey
       $datamodel.IpldPrimeDatamodelLinkPrototype lp,
       $datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        2053,
+        12195,
         $W()
           ..h(this)
           ..h(lp)
@@ -149,7 +164,7 @@ class IpldPrimeLinkingLinkSystem extends $crypto.CryptoPrivateKey
       $datamodel.IpldPrimeDatamodelLink lnk,
       $datamodel.IpldPrimeDatamodelNodeAssembler na) {
     $callSync(
-        2054,
+        12196,
         $W()
           ..h(this)
           ..dto(lnkCtx)
@@ -163,7 +178,7 @@ class IpldPrimeLinkingLinkSystem extends $crypto.CryptoPrivateKey
       $datamodel.IpldPrimeDatamodelLink lnk,
       $datamodel.IpldPrimeDatamodelNodePrototype np) {
     final $r = $callSync(
-        2055,
+        12197,
         $W()
           ..h(this)
           ..dto(lnkCtx)
@@ -178,7 +193,7 @@ class IpldPrimeLinkingLinkSystem extends $crypto.CryptoPrivateKey
       $datamodel.IpldPrimeDatamodelLinkPrototype lp,
       $datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        2056,
+        12198,
         $W()
           ..h(this)
           ..dto(lnkCtx)
@@ -190,7 +205,7 @@ class IpldPrimeLinkingLinkSystem extends $crypto.CryptoPrivateKey
   /// Go: `func (*linking.LinkSystem).SetReadStorage(store storage.ReadableStorage)`.
   void setReadStorage($storage.IpldPrimeStorageReadableStorage store) {
     $callSync(
-        2057,
+        12199,
         $W()
           ..h(this)
           ..h(store));
@@ -199,7 +214,7 @@ class IpldPrimeLinkingLinkSystem extends $crypto.CryptoPrivateKey
   /// Go: `func (*linking.LinkSystem).SetWriteStorage(store storage.WritableStorage)`.
   void setWriteStorage($storage.IpldPrimeStorageWritableStorage store) {
     $callSync(
-        2058,
+        12200,
         $W()
           ..h(this)
           ..h(store));
@@ -211,7 +226,7 @@ class IpldPrimeLinkingLinkSystem extends $crypto.CryptoPrivateKey
       $datamodel.IpldPrimeDatamodelLinkPrototype lp,
       $datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        2059,
+        12201,
         $W()
           ..h(this)
           ..dto(lnkCtx)
@@ -222,19 +237,22 @@ class IpldPrimeLinkingLinkSystem extends $crypto.CryptoPrivateKey
 }
 
 /// Go: `linking.NodeReifier` (handle).
-class IpldPrimeLinkingNodeReifier extends $crypto.CryptoPrivateKey
-    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
-    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+class IpldPrimeLinkingNodeReifier extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   IpldPrimeLinkingNodeReifier.$h(super.$h) : super.$h();
-}
-
-/// Go: `linking.ErrHashMismatch`: an error. Thrown as this class when it is the outermost
-/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class IpldPrimeLinkingErrHashMismatch extends GolangException {
-  IpldPrimeLinkingErrHashMismatch.$(super.base) : super.$from();
-
-  @override
-  String toString() => 'linking.ErrHashMismatch: $message';
 }
 
 /// Go: `linking.ErrLinkingSetup`: an error. Thrown as this class when it is the outermost

@@ -20,7 +20,7 @@ extension GoRuntimeDebugApi on GoRuntimeDebug {
   /// Go: `func debug.SetCrashOutput(f *os.File, opts debug.CrashOptions) error`.
   void setCrashOutput($os.OsFile f, RuntimeDebugCrashOptions opts) {
     $callSync(
-        3521,
+        27188,
         $W()
           ..h(f)
           ..dto(opts));

@@ -2,8 +2,176 @@
 // Go: io/fs
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoIoFsEnums;
+import 'dart:typed_data';
+
+import 'package:p2p_ffi/src/go.dart' show GoIoFs, GoIoFsEnums;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/archive/tar.dart' as $tar;
+import 'package:p2p_ffi/go/archive/zip.dart' as $zip;
+import 'package:p2p_ffi/go/cockroachdb/pebble/v2/vfs.dart' as $vfs;
+import 'package:p2p_ffi/go/embed.dart' as $embed;
+import 'package:p2p_ffi/go/facebookgo/atomicfile.dart' as $atomicfile;
+import 'package:p2p_ffi/go/ipfs/kubo/repo/fsrepo/migrations/atomicfile.dart'
+    as $atomicfile2;
+import 'package:p2p_ffi/go/os.dart' as $os;
+
+/// Go: `fs.DirEntry` (handle).
+class IoFsDirEntry extends GoHandle with IoFsDirEntry$ {
+  IoFsDirEntry.$h(super.$h);
+}
+
+/// The methods of [IoFsDirEntry], mixed into every class Go also accepts as one.
+mixin IoFsDirEntry$ on GoHandle {
+  /// Go: `func (fs.DirEntry).Info() (fs.FileInfo, error)`.
+  IoFsFileInfo info() {
+    final $r = $callSync(25738, $W()..h(this));
+    return $r.hnn(IoFsFileInfo.$h);
+  }
+
+  /// Go: `func (fs.DirEntry).IsDir() bool`.
+  bool isDir() {
+    final $r = $callSync(25739, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (fs.DirEntry).Name() string`.
+  String name() {
+    final $r = $callSync(25740, $W()..h(this));
+    return $r.str();
+  }
+
+  /// Go: `func (fs.DirEntry).Type() fs.FileMode`.
+  int type() {
+    final $r = $callSync(25741, $W()..h(this));
+    return $r.i64();
+  }
+}
+
+/// Go: `fs.FS` (handle).
+class IoFs extends GoHandle with IoFs$ {
+  IoFs.$h(super.$h);
+}
+
+/// The methods of [IoFs], mixed into every class Go also accepts as one.
+mixin IoFs$ on GoHandle {
+  /// Go: `func (fs.FS).Open(name string) (fs.File, error)`.
+  IoFsFile open(String name) {
+    final $r = $callSync(
+        25742,
+        $W()
+          ..h(this)
+          ..str(name));
+    return $r.hnn(IoFsFile.$h);
+  }
+
+  /// Go: type assertion `x.(*zip.ReadCloser)`: null if the object is not one.
+  $zip.ArchiveZipReadCloser? asArchiveZipReadCloser() {
+    final $r = $callSync(2941, $W()..h(this));
+    return $r.hn($zip.ArchiveZipReadCloser.$h);
+  }
+
+  /// Go: type assertion `x.(*zip.Reader)`: null if the object is not one.
+  $zip.ArchiveZipReader? asArchiveZipReader() {
+    final $r = $callSync(2942, $W()..h(this));
+    return $r.hn($zip.ArchiveZipReader.$h);
+  }
+
+  /// Go: type assertion `x.(*embed.FS)`: null if the object is not one.
+  $embed.EmbedFs? asEmbedFs() {
+    final $r = $callSync(2943, $W()..h(this));
+    return $r.hn($embed.EmbedFs.$h);
+  }
+
+  /// Go: type assertion `x.(fs.GlobFS)`: null if the object is not one.
+  IoFsGlobFs? asIoFsGlobFs() {
+    final $r = $callSync(2944, $W()..h(this));
+    return $r.hn(IoFsGlobFs.$h);
+  }
+
+  /// Go: type assertion `x.(fs.ReadDirFS)`: null if the object is not one.
+  IoFsReadDirFs? asIoFsReadDirFs() {
+    final $r = $callSync(2945, $W()..h(this));
+    return $r.hn(IoFsReadDirFs.$h);
+  }
+
+  /// Go: type assertion `x.(fs.ReadFileFS)`: null if the object is not one.
+  IoFsReadFileFs? asIoFsReadFileFs() {
+    final $r = $callSync(2946, $W()..h(this));
+    return $r.hn(IoFsReadFileFs.$h);
+  }
+
+  /// Go: type assertion `x.(fs.ReadLinkFS)`: null if the object is not one.
+  IoFsReadLinkFs? asIoFsReadLinkFs() {
+    final $r = $callSync(2947, $W()..h(this));
+    return $r.hn(IoFsReadLinkFs.$h);
+  }
+
+  /// Go: type assertion `x.(fs.StatFS)`: null if the object is not one.
+  IoFsStatFs? asIoFsStatFs() {
+    final $r = $callSync(2948, $W()..h(this));
+    return $r.hn(IoFsStatFs.$h);
+  }
+
+  /// Go: type assertion `x.(fs.SubFS)`: null if the object is not one.
+  IoFsSubFs? asIoFsSubFs() {
+    final $r = $callSync(2949, $W()..h(this));
+    return $r.hn(IoFsSubFs.$h);
+  }
+}
+
+/// Go: `fs.File` (handle).
+class IoFsFile extends GoHandle with IoFsFile$ {
+  IoFsFile.$h(super.$h);
+}
+
+/// The methods of [IoFsFile], mixed into every class Go also accepts as one.
+mixin IoFsFile$ on GoHandle {
+  /// Go: `func (fs.File).Close() error`.
+  void close() {
+    $callSync(25743, $W()..h(this));
+  }
+
+  /// Go: `func (fs.File).Read([]byte) (int, error)`.
+  Uint8List read(int n) {
+    final $r = $callSync(
+        25744,
+        $W()
+          ..h(this)
+          ..i64(n));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (fs.File).Stat() (fs.FileInfo, error)`.
+  IoFsFileInfo stat() {
+    final $r = $callSync(25745, $W()..h(this));
+    return $r.hnn(IoFsFileInfo.$h);
+  }
+
+  /// Go: type assertion `x.(*atomicfile.File)`: null if the object is not one.
+  $atomicfile.AtomicfileFile? asAtomicfileFile() {
+    final $r = $callSync(2950, $W()..h(this));
+    return $r.hn($atomicfile.AtomicfileFile.$h);
+  }
+
+  /// Go: type assertion `x.(*atomicfile.File)`: null if the object is not one.
+  $atomicfile2.KuboRepoFsrepoMigrationsAtomicfileFile?
+      asKuboRepoFsrepoMigrationsAtomicfileFile() {
+    final $r = $callSync(2951, $W()..h(this));
+    return $r.hn($atomicfile2.KuboRepoFsrepoMigrationsAtomicfileFile.$h);
+  }
+
+  /// Go: type assertion `x.(*os.File)`: null if the object is not one.
+  $os.OsFile? asOsFile() {
+    final $r = $callSync(2952, $W()..h(this));
+    return $r.hn($os.OsFile.$h);
+  }
+
+  /// Go: type assertion `x.(fs.ReadDirFile)`: null if the object is not one.
+  IoFsReadDirFile? asIoFsReadDirFile() {
+    final $r = $callSync(2953, $W()..h(this));
+    return $r.hn(IoFsReadDirFile.$h);
+  }
+}
 
 /// Go: `fs.FileInfo` (handle).
 class IoFsFileInfo extends GoHandle with IoFsFileInfo$ {
@@ -11,7 +179,222 @@ class IoFsFileInfo extends GoHandle with IoFsFileInfo$ {
 }
 
 /// The methods of [IoFsFileInfo], mixed into every class Go also accepts as one.
-mixin IoFsFileInfo$ on GoHandle {}
+mixin IoFsFileInfo$ on GoHandle {
+  /// Go: `func (fs.FileInfo).IsDir() bool`.
+  bool isDir() {
+    final $r = $callSync(25746, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (fs.FileInfo).ModTime() time.Time`.
+  DateTime modTime() {
+    final $r = $callSync(25747, $W()..h(this));
+    return $r.p() ? $r.time() : $nil();
+  }
+
+  /// Go: `func (fs.FileInfo).Mode() fs.FileMode`.
+  int mode() {
+    final $r = $callSync(25748, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (fs.FileInfo).Name() string`.
+  String name() {
+    final $r = $callSync(25749, $W()..h(this));
+    return $r.str();
+  }
+
+  /// Go: `func (fs.FileInfo).Size() int64`.
+  int size() {
+    final $r = $callSync(25750, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (fs.FileInfo).Sys() any`.
+  Object? sys() {
+    final $r = $callSync(25751, $W()..h(this));
+    return $r.any();
+  }
+
+  /// Go: type assertion `x.(tar.FileInfoNames)`: null if the object is not one.
+  $tar.ArchiveTarFileInfoNames? asArchiveTarFileInfoNames() {
+    final $r = $callSync(2954, $W()..h(this));
+    return $r.hn($tar.ArchiveTarFileInfoNames.$h);
+  }
+
+  /// Go: type assertion `x.(vfs.FileInfo)`: null if the object is not one.
+  $vfs.PebbleV2VfsFileInfo? asPebbleV2VfsFileInfo() {
+    final $r = $callSync(2955, $W()..h(this));
+    return $r.hn($vfs.PebbleV2VfsFileInfo.$h);
+  }
+}
+
+/// Go: `fs.GlobFS` (handle).
+class IoFsGlobFs extends IoFs with IoFsGlobFs$ {
+  IoFsGlobFs.$h(super.$h) : super.$h();
+}
+
+/// The methods of [IoFsGlobFs], mixed into every class Go also accepts as one.
+mixin IoFsGlobFs$ on GoHandle {
+  /// Go: `func (fs.GlobFS).Glob(pattern string) ([]string, error)`.
+  List<String> glob(String pattern) {
+    final $r = $callSync(
+        25756,
+        $W()
+          ..h(this)
+          ..str(pattern));
+    return $r.list(() => $r.str());
+  }
+}
+
+/// Go: `fs.ReadDirFS` (handle).
+class IoFsReadDirFs extends IoFs with IoFsReadDirFs$ {
+  IoFsReadDirFs.$h(super.$h) : super.$h();
+}
+
+/// The methods of [IoFsReadDirFs], mixed into every class Go also accepts as one.
+mixin IoFsReadDirFs$ on GoHandle {
+  /// Go: `func (fs.ReadDirFS).ReadDir(name string) ([]fs.DirEntry, error)`.
+  List<IoFsDirEntry> readDir(String name) {
+    final $r = $callSync(
+        25759,
+        $W()
+          ..h(this)
+          ..str(name));
+    return $r.list(() => $r.hnn(IoFsDirEntry.$h));
+  }
+
+  /// Go: type assertion `x.(*embed.FS)`: null if the object is not one.
+  $embed.EmbedFs? asEmbedFs() {
+    final $r = $callSync(2956, $W()..h(this));
+    return $r.hn($embed.EmbedFs.$h);
+  }
+}
+
+/// Go: `fs.ReadDirFile` (handle).
+class IoFsReadDirFile extends IoFsFile with IoFsReadDirFile$ {
+  IoFsReadDirFile.$h(super.$h) : super.$h();
+}
+
+/// The methods of [IoFsReadDirFile], mixed into every class Go also accepts as one.
+mixin IoFsReadDirFile$ on GoHandle {
+  /// Go: `func (fs.ReadDirFile).ReadDir(n int) ([]fs.DirEntry, error)`.
+  List<IoFsDirEntry> readDir(int n) {
+    final $r = $callSync(
+        25760,
+        $W()
+          ..h(this)
+          ..i64(n));
+    return $r.list(() => $r.hnn(IoFsDirEntry.$h));
+  }
+
+  /// Go: type assertion `x.(*atomicfile.File)`: null if the object is not one.
+  $atomicfile.AtomicfileFile? asAtomicfileFile() {
+    final $r = $callSync(2957, $W()..h(this));
+    return $r.hn($atomicfile.AtomicfileFile.$h);
+  }
+
+  /// Go: type assertion `x.(*atomicfile.File)`: null if the object is not one.
+  $atomicfile2.KuboRepoFsrepoMigrationsAtomicfileFile?
+      asKuboRepoFsrepoMigrationsAtomicfileFile() {
+    final $r = $callSync(2958, $W()..h(this));
+    return $r.hn($atomicfile2.KuboRepoFsrepoMigrationsAtomicfileFile.$h);
+  }
+
+  /// Go: type assertion `x.(*os.File)`: null if the object is not one.
+  $os.OsFile? asOsFile() {
+    final $r = $callSync(2959, $W()..h(this));
+    return $r.hn($os.OsFile.$h);
+  }
+}
+
+/// Go: `fs.ReadFileFS` (handle).
+class IoFsReadFileFs extends IoFs with IoFsReadFileFs$ {
+  IoFsReadFileFs.$h(super.$h) : super.$h();
+}
+
+/// The methods of [IoFsReadFileFs], mixed into every class Go also accepts as one.
+mixin IoFsReadFileFs$ on GoHandle {
+  /// Go: `func (fs.ReadFileFS).ReadFile(name string) ([]byte, error)`.
+  Uint8List readFile(String name) {
+    final $r = $callSync(
+        25762,
+        $W()
+          ..h(this)
+          ..str(name));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: type assertion `x.(*embed.FS)`: null if the object is not one.
+  $embed.EmbedFs? asEmbedFs() {
+    final $r = $callSync(2960, $W()..h(this));
+    return $r.hn($embed.EmbedFs.$h);
+  }
+}
+
+/// Go: `fs.ReadLinkFS` (handle).
+class IoFsReadLinkFs extends IoFs with IoFsReadLinkFs$ {
+  IoFsReadLinkFs.$h(super.$h) : super.$h();
+}
+
+/// The methods of [IoFsReadLinkFs], mixed into every class Go also accepts as one.
+mixin IoFsReadLinkFs$ on GoHandle {
+  /// Go: `func (fs.ReadLinkFS).Lstat(name string) (fs.FileInfo, error)`.
+  IoFsFileInfo lstat(String name) {
+    final $r = $callSync(
+        25764,
+        $W()
+          ..h(this)
+          ..str(name));
+    return $r.hnn(IoFsFileInfo.$h);
+  }
+
+  /// Go: `func (fs.ReadLinkFS).ReadLink(name string) (string, error)`.
+  String readLink(String name) {
+    final $r = $callSync(
+        25765,
+        $W()
+          ..h(this)
+          ..str(name));
+    return $r.str();
+  }
+}
+
+/// Go: `fs.StatFS` (handle).
+class IoFsStatFs extends IoFs with IoFsStatFs$ {
+  IoFsStatFs.$h(super.$h) : super.$h();
+}
+
+/// The methods of [IoFsStatFs], mixed into every class Go also accepts as one.
+mixin IoFsStatFs$ on GoHandle {
+  /// Go: `func (fs.StatFS).Stat(name string) (fs.FileInfo, error)`.
+  IoFsFileInfo stat(String name) {
+    final $r = $callSync(
+        25767,
+        $W()
+          ..h(this)
+          ..str(name));
+    return $r.hnn(IoFsFileInfo.$h);
+  }
+}
+
+/// Go: `fs.SubFS` (handle).
+class IoFsSubFs extends IoFs with IoFsSubFs$ {
+  IoFsSubFs.$h(super.$h) : super.$h();
+}
+
+/// The methods of [IoFsSubFs], mixed into every class Go also accepts as one.
+mixin IoFsSubFs$ on GoHandle {
+  /// Go: `func (fs.SubFS).Sub(dir string) (fs.FS, error)`.
+  IoFs sub(String dir) {
+    final $r = $callSync(
+        25769,
+        $W()
+          ..h(this)
+          ..str(dir));
+    return $r.hnn(IoFs.$h);
+  }
+}
 
 /// Go: `var fs.ErrClosed error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
@@ -92,6 +475,103 @@ class IoFsSkipDir extends GolangException {
 
   @override
   String toString() => 'fs.SkipDir: $message';
+}
+
+/// Go: the package-level members of `io/fs` (`go.io.fs`).
+extension GoIoFsApi on GoIoFs {
+  /// Go: `func fs.FileInfoToDirEntry(info fs.FileInfo) fs.DirEntry`.
+  IoFsDirEntry fileInfoToDirEntry(IoFsFileInfo info) {
+    final $r = $callSync(25752, $W()..h(info));
+    return $r.hnn(IoFsDirEntry.$h);
+  }
+
+  /// Go: `func fs.FormatDirEntry(dir fs.DirEntry) string`.
+  String formatDirEntry(IoFsDirEntry dir) {
+    final $r = $callSync(25753, $W()..h(dir));
+    return $r.str();
+  }
+
+  /// Go: `func fs.FormatFileInfo(info fs.FileInfo) string`.
+  String formatFileInfo(IoFsFileInfo info) {
+    final $r = $callSync(25754, $W()..h(info));
+    return $r.str();
+  }
+
+  /// Go: `func fs.Glob(fsys fs.FS, pattern string) (matches []string, err error)`.
+  List<String> glob(IoFs fsys, String pattern) {
+    final $r = $callSync(
+        25755,
+        $W()
+          ..h(fsys)
+          ..str(pattern));
+    return $r.list(() => $r.str());
+  }
+
+  /// Go: `func fs.Lstat(fsys fs.FS, name string) (fs.FileInfo, error)`.
+  IoFsFileInfo lstat(IoFs fsys, String name) {
+    final $r = $callSync(
+        25757,
+        $W()
+          ..h(fsys)
+          ..str(name));
+    return $r.hnn(IoFsFileInfo.$h);
+  }
+
+  /// Go: `func fs.ReadDir(fsys fs.FS, name string) ([]fs.DirEntry, error)`.
+  List<IoFsDirEntry> readDir(IoFs fsys, String name) {
+    final $r = $callSync(
+        25758,
+        $W()
+          ..h(fsys)
+          ..str(name));
+    return $r.list(() => $r.hnn(IoFsDirEntry.$h));
+  }
+
+  /// Go: `func fs.ReadFile(fsys fs.FS, name string) ([]byte, error)`.
+  Uint8List readFile(IoFs fsys, String name) {
+    final $r = $callSync(
+        25761,
+        $W()
+          ..h(fsys)
+          ..str(name));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func fs.ReadLink(fsys fs.FS, name string) (string, error)`.
+  String readLink(IoFs fsys, String name) {
+    final $r = $callSync(
+        25763,
+        $W()
+          ..h(fsys)
+          ..str(name));
+    return $r.str();
+  }
+
+  /// Go: `func fs.Stat(fsys fs.FS, name string) (fs.FileInfo, error)`.
+  IoFsFileInfo stat(IoFs fsys, String name) {
+    final $r = $callSync(
+        25766,
+        $W()
+          ..h(fsys)
+          ..str(name));
+    return $r.hnn(IoFsFileInfo.$h);
+  }
+
+  /// Go: `func fs.Sub(fsys fs.FS, dir string) (fs.FS, error)`.
+  IoFs sub(IoFs fsys, String dir) {
+    final $r = $callSync(
+        25768,
+        $W()
+          ..h(fsys)
+          ..str(dir));
+    return $r.hnn(IoFs.$h);
+  }
+
+  /// Go: `func fs.ValidPath(name string) bool`.
+  bool validPath(String name) {
+    final $r = $callSync(25770, $W()..str(name));
+    return $r.b();
+  }
 }
 
 /// Go: the constants of a named type of `io/fs` (`go.io.fs.enums`).

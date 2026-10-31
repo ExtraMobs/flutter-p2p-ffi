@@ -3,6 +3,8 @@
 library;
 
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/ipfs/boxo/bitswap/message.dart' as $message;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
 
 /// Go: `tracer.Tracer` (handle).
 class BoxoBitswapTracer extends GoHandle with BoxoBitswapTracer$ {
@@ -10,4 +12,26 @@ class BoxoBitswapTracer extends GoHandle with BoxoBitswapTracer$ {
 }
 
 /// The methods of [BoxoBitswapTracer], mixed into every class Go also accepts as one.
-mixin BoxoBitswapTracer$ on GoHandle {}
+mixin BoxoBitswapTracer$ on GoHandle {
+  /// Go: `func (tracer.Tracer).MessageReceived(peer.ID, message.BitSwapMessage)`.
+  void messageReceived($peer.Libp2pCorePeerId id,
+      $message.BoxoBitswapMessageBitSwapMessage bitSwapMessage) {
+    $callSync(
+        9311,
+        $W()
+          ..h(this)
+          ..val(id)
+          ..h(bitSwapMessage));
+  }
+
+  /// Go: `func (tracer.Tracer).MessageSent(peer.ID, message.BitSwapMessage)`.
+  void messageSent($peer.Libp2pCorePeerId id,
+      $message.BoxoBitswapMessageBitSwapMessage bitSwapMessage) {
+    $callSync(
+        9312,
+        $W()
+          ..h(this)
+          ..val(id)
+          ..h(bitSwapMessage));
+  }
+}

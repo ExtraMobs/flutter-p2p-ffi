@@ -2,9 +2,203 @@
 // Go: github.com/ipfs/boxo/ipld/unixfs
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoIpfsBoxoIpldUnixfsEnums;
+import 'dart:typed_data';
+
+import 'package:p2p_ffi/src/go.dart'
+    show GoIpfsBoxoIpldUnixfs, GoIpfsBoxoIpldUnixfsEnums;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
+import 'package:p2p_ffi/go/ipfs/boxo/ipld/merkledag.dart' as $merkledag;
+import 'package:p2p_ffi/go/ipfs/boxo/ipld/unixfs/pb.dart' as $pb;
+import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 import 'package:p2p_ffi/go/ipfs/ipld_format.dart' as $ipld_format;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
+
+/// Go: `unixfs.FSNode` (handle).
+class BoxoIpldUnixfsFsNode extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
+  BoxoIpldUnixfsFsNode.$h(super.$h) : super.$h();
+
+  /// Go: `func unixfs.NewFSNode(dataType pb.Data_DataType) *unixfs.FSNode`.
+  factory BoxoIpldUnixfsFsNode(int dataType) {
+    final $r = $callSync(9762, $W()..i64(dataType));
+    return $r.hnn(BoxoIpldUnixfsFsNode.$h);
+  }
+
+  /// Go: `func (*unixfs.FSNode).AddBlockSize(s uint64)`.
+  void addBlockSize(int s) {
+    $callSync(
+        9730,
+        $W()
+          ..h(this)
+          ..i64(s));
+  }
+
+  /// Go: `func (*unixfs.FSNode).BlockSize(i int) uint64`.
+  int blockSize(int i) {
+    final $r = $callSync(
+        9731,
+        $W()
+          ..h(this)
+          ..i64(i));
+    return $r.i64();
+  }
+
+  /// Go: `func (*unixfs.FSNode).BlockSizes() []uint64`.
+  List<int> blockSizes() {
+    final $r = $callSync(9732, $W()..h(this));
+    return $r.list(() => $r.i64());
+  }
+
+  /// Go: `func (*unixfs.FSNode).Data() []byte`.
+  Uint8List data() {
+    final $r = $callSync(9733, $W()..h(this));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (*unixfs.FSNode).ExtendedMode() uint32`.
+  int extendedMode() {
+    final $r = $callSync(9734, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (*unixfs.FSNode).Fanout() uint64`.
+  int fanout() {
+    final $r = $callSync(9735, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (*unixfs.FSNode).FileSize() uint64`.
+  int fileSize() {
+    final $r = $callSync(9736, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (*unixfs.FSNode).GetBytes() ([]byte, error)`.
+  Uint8List getBytes() {
+    final $r = $callSync(9737, $W()..h(this));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (*unixfs.FSNode).HashType() uint64`.
+  int hashType() {
+    final $r = $callSync(9738, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (*unixfs.FSNode).IsDir() bool`.
+  bool isDir() {
+    final $r = $callSync(9739, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (*unixfs.FSNode).ModTime() time.Time`.
+  DateTime modTime() {
+    final $r = $callSync(9740, $W()..h(this));
+    return $r.p() ? $r.time() : $nil();
+  }
+
+  /// Go: `func (*unixfs.FSNode).Mode() (m os.FileMode)`.
+  int mode() {
+    final $r = $callSync(9741, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (*unixfs.FSNode).NumChildren() int`.
+  int numChildren() {
+    final $r = $callSync(9742, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (*unixfs.FSNode).RemoveAllBlockSizes()`.
+  void removeAllBlockSizes() {
+    $callSync(9743, $W()..h(this));
+  }
+
+  /// Go: `func (*unixfs.FSNode).RemoveBlockSize(i int)`.
+  void removeBlockSize(int i) {
+    $callSync(
+        9744,
+        $W()
+          ..h(this)
+          ..i64(i));
+  }
+
+  /// Go: `func (*unixfs.FSNode).SetData(newData []byte)`.
+  void setData(Uint8List newData) {
+    $callSync(
+        9745,
+        $W()
+          ..h(this)
+          ..bytes(newData));
+  }
+
+  /// Go: `func (*unixfs.FSNode).SetExtendedMode(mode uint32)`.
+  void setExtendedMode(int mode) {
+    $callSync(
+        9746,
+        $W()
+          ..h(this)
+          ..i64(mode));
+  }
+
+  /// Go: `func (*unixfs.FSNode).SetModTime(ts time.Time)`.
+  void setModTime(DateTime ts) {
+    $callSync(
+        9747,
+        $W()
+          ..h(this)
+          ..time(ts));
+  }
+
+  /// Go: `func (*unixfs.FSNode).SetMode(m os.FileMode)`.
+  void setMode(int m) {
+    $callSync(
+        9748,
+        $W()
+          ..h(this)
+          ..i64(m));
+  }
+
+  /// Go: `func (*unixfs.FSNode).SetModeFromUnixPermissions(unixPerms uint32)`.
+  void setModeFromUnixPermissions(int unixPerms) {
+    $callSync(
+        9749,
+        $W()
+          ..h(this)
+          ..i64(unixPerms));
+  }
+
+  /// Go: `func (*unixfs.FSNode).Type() pb.Data_DataType`.
+  int type() {
+    final $r = $callSync(9750, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (*unixfs.FSNode).UpdateFilesize(filesizeDiff int64)`.
+  void updateFilesize(int filesizeDiff) {
+    $callSync(
+        9751,
+        $W()
+          ..h(this)
+          ..i64(filesizeDiff));
+  }
+}
 
 /// Go: `unixfs.LinkResult`.
 final class BoxoIpldUnixfsLinkResult implements GoDto {
@@ -27,6 +221,39 @@ final class BoxoIpldUnixfsLinkResult implements GoDto {
     w
       ..dto(link)
       ..err(err);
+  }
+}
+
+/// Go: `unixfs.Metadata`.
+final class BoxoIpldUnixfsMetadata implements GoDto {
+  BoxoIpldUnixfsMetadata({String? mimeType, int? size})
+      : mimeType = mimeType ?? '',
+        size = size ?? 0;
+
+  BoxoIpldUnixfsMetadata.$dec($R r)
+      : mimeType = r.str(),
+        size = r.i64();
+
+  /// Go: `MimeType`.
+  String mimeType;
+
+  /// Go: `Size`.
+  ///
+  /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
+  /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
+  int size;
+
+  @override
+  void $enc($W w) {
+    w
+      ..str(mimeType)
+      ..i64(size);
+  }
+
+  /// Go: `func (*unixfs.Metadata).Bytes() ([]byte, error)`.
+  Uint8List bytes() {
+    final $r = $callSync(9760, $W()..dto(this));
+    return $r.bytes() ?? Uint8List(0);
   }
 }
 
@@ -55,6 +282,156 @@ class BoxoIpldUnixfsErrUnrecognizedType extends GolangException {
 
   @override
   String toString() => 'unixfs.ErrUnrecognizedType: $message';
+}
+
+/// Go: the package-level members of `github.com/ipfs/boxo/ipld/unixfs` (`go.ipfs.boxo.ipld.unixfs`).
+extension GoIpfsBoxoIpldUnixfsApi on GoIpfsBoxoIpldUnixfs {
+  /// Go: `func unixfs.BytesForMetadata(m *unixfs.Metadata) ([]byte, error)`.
+  Uint8List bytesForMetadata(BoxoIpldUnixfsMetadata m) {
+    final $r = $callSync(9724, $W()..dto(m));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func unixfs.DataSize(data []byte) (uint64, error)`.
+  int dataSize(Uint8List data) {
+    final $r = $callSync(9725, $W()..bytes(data));
+    return $r.i64();
+  }
+
+  /// Go: `func unixfs.EmptyDirNode() *merkledag.ProtoNode`.
+  $merkledag.BoxoIpldMerkledagProtoNode emptyDirNode() {
+    final $r = $callSync(9726);
+    return $r.hnn($merkledag.BoxoIpldMerkledagProtoNode.$h);
+  }
+
+  /// Go: `func unixfs.EmptyDirNodeWithStat(mode os.FileMode, mtime time.Time) *merkledag.ProtoNode`.
+  $merkledag.BoxoIpldMerkledagProtoNode emptyDirNodeWithStat(
+      int mode, DateTime mtime) {
+    final $r = $callSync(
+        9727,
+        $W()
+          ..i64(mode)
+          ..time(mtime));
+    return $r.hnn($merkledag.BoxoIpldMerkledagProtoNode.$h);
+  }
+
+  /// Go: `func unixfs.EmptyFileNode() *merkledag.ProtoNode`.
+  $merkledag.BoxoIpldMerkledagProtoNode emptyFileNode() {
+    final $r = $callSync(9728);
+    return $r.hnn($merkledag.BoxoIpldMerkledagProtoNode.$h);
+  }
+
+  /// Go: `func unixfs.ExtractFSNode(node format.Node) (*unixfs.FSNode, error)`.
+  BoxoIpldUnixfsFsNode extractFsNode($ipld_format.IpldFormatNode node) {
+    final $r = $callSync(9729, $W()..h(node));
+    return $r.hnn(BoxoIpldUnixfsFsNode.$h);
+  }
+
+  /// Go: `func unixfs.FSNodeFromBytes(b []byte) (*unixfs.FSNode, error)`.
+  BoxoIpldUnixfsFsNode fsNodeFromBytes(Uint8List b) {
+    final $r = $callSync(9752, $W()..bytes(b));
+    return $r.hnn(BoxoIpldUnixfsFsNode.$h);
+  }
+
+  /// Go: `func unixfs.FilePBData(data []byte, totalsize uint64) []byte`.
+  Uint8List filePbData(Uint8List data, int totalsize) {
+    final $r = $callSync(
+        9753,
+        $W()
+          ..bytes(data)
+          ..i64(totalsize));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func unixfs.FilePBDataWithStat(data []byte, totalsize uint64, mode os.FileMode, mtime time.Time) []byte`.
+  Uint8List filePbDataWithStat(
+      Uint8List data, int totalsize, int mode, DateTime mtime) {
+    final $r = $callSync(
+        9754,
+        $W()
+          ..bytes(data)
+          ..i64(totalsize)
+          ..i64(mode)
+          ..time(mtime));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func unixfs.FolderPBData() []byte`.
+  Uint8List folderPbData() {
+    final $r = $callSync(9755);
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func unixfs.FolderPBDataWithStat(mode os.FileMode, mtime time.Time) []byte`.
+  Uint8List folderPbDataWithStat(int mode, DateTime mtime) {
+    final $r = $callSync(
+        9756,
+        $W()
+          ..i64(mode)
+          ..time(mtime));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func unixfs.FromBytes(data []byte) (*pb.Data, error)`.
+  $pb.BoxoIpldUnixfsPbData fromBytes(Uint8List data) {
+    final $r = $callSync(9757, $W()..bytes(data));
+    return $r.hnn($pb.BoxoIpldUnixfsPbData.$h);
+  }
+
+  /// Go: `func unixfs.HAMTShardData(data []byte, fanout uint64, hashType uint64) ([]byte, error)`.
+  Uint8List hamtShardData(Uint8List data, int fanout, int hashType) {
+    final $r = $callSync(
+        9758,
+        $W()
+          ..bytes(data)
+          ..i64(fanout)
+          ..i64(hashType));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func unixfs.HAMTShardDataWithStat(data []byte, fanout uint64, hashType uint64, mode os.FileMode, mtime time.Time) ([]byte, error)`.
+  Uint8List hamtShardDataWithStat(
+      Uint8List data, int fanout, int hashType, int mode, DateTime mtime) {
+    final $r = $callSync(
+        9759,
+        $W()
+          ..bytes(data)
+          ..i64(fanout)
+          ..i64(hashType)
+          ..i64(mode)
+          ..time(mtime));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func unixfs.MetadataFromBytes(b []byte) (*unixfs.Metadata, error)`.
+  BoxoIpldUnixfsMetadata metadataFromBytes(Uint8List b) {
+    final $r = $callSync(9761, $W()..bytes(b));
+    return $r.p() ? BoxoIpldUnixfsMetadata.$dec($r) : $nil();
+  }
+
+  /// Go: `func unixfs.ReadUnixFSNodeData(node format.Node) (data []byte, err error)`.
+  Uint8List readUnixFsNodeData($ipld_format.IpldFormatNode node) {
+    final $r = $callSync(9763, $W()..h(node));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func unixfs.SymlinkData(path string) ([]byte, error)`.
+  Uint8List symlinkData(String path) {
+    final $r = $callSync(9764, $W()..str(path));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func unixfs.UnwrapData(data []byte) ([]byte, error)`.
+  Uint8List unwrapData(Uint8List data) {
+    final $r = $callSync(9765, $W()..bytes(data));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func unixfs.WrapData(b []byte) []byte`.
+  Uint8List wrapData(Uint8List b) {
+    final $r = $callSync(9766, $W()..bytes(b));
+    return $r.bytes() ?? Uint8List(0);
+  }
 }
 
 /// Go: the constants of a named type of `github.com/ipfs/boxo/ipld/unixfs` (`go.ipfs.boxo.ipld.unixfs.enums`).

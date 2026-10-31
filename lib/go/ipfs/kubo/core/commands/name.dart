@@ -2,7 +2,9 @@
 // Go: github.com/ipfs/kubo/core/commands/name
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoIpfsKuboCoreCommandsName;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 
 /// Go: `name.IpnsInspectResult` (a kubo command output).
 final class KuboCoreCommandsNameIpnsInspectResult {
@@ -115,4 +117,49 @@ final class KuboCoreCommandsNameResolvedPath {
 
   /// Go: `Path`.
   final String path;
+}
+
+/// Go: the package-level members of `github.com/ipfs/kubo/core/commands/name` (`go.ipfs.kubo.core.commands.name`).
+extension GoIpfsKuboCoreCommandsNameApi on GoIpfsKuboCoreCommandsName {
+  /// Go: `var name.IpnsCmd *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand get ipnsCmd {
+    final $r = $callSync(11410);
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
+  /// Go: `var name.IpnsGetCmd *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand get ipnsGetCmd {
+    final $r = $callSync(11411);
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
+  /// Go: `var name.IpnsInspectCmd *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand get ipnsInspectCmd {
+    final $r = $callSync(11412);
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
+  /// Go: `var name.IpnsPubsubCmd *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand get ipnsPubsubCmd {
+    final $r = $callSync(11413);
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
+  /// Go: `var name.IpnsPutCmd *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand get ipnsPutCmd {
+    final $r = $callSync(11414);
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
+  /// Go: `var name.NameCmd *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand get nameCmd {
+    final $r = $callSync(11415);
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
+  /// Go: `var name.PublishCmd *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand get publishCmd {
+    final $r = $callSync(11416);
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
 }

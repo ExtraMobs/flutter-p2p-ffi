@@ -2,8 +2,133 @@
 // Go: crypto
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoCryptoEnums;
+import 'dart:typed_data';
+
+import 'package:p2p_ffi/src/go.dart' show GoCrypto, GoCryptoEnums;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/crypto/mlkem.dart' as $mlkem;
+
+/// Go: `crypto.Decapsulator` (handle).
+class CryptoDecapsulator extends GoHandle with CryptoDecapsulator$ {
+  CryptoDecapsulator.$h(super.$h);
+}
+
+/// The methods of [CryptoDecapsulator], mixed into every class Go also accepts as one.
+mixin CryptoDecapsulator$ on GoHandle {
+  /// Go: `func (crypto.Decapsulator).Decapsulate(ciphertext []byte) (sharedKey []byte, err error)`.
+  Uint8List decapsulate(Uint8List ciphertext) {
+    final $r = $callSync(
+        3123,
+        $W()
+          ..h(this)
+          ..bytes(ciphertext));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (crypto.Decapsulator).Encapsulator() crypto.Encapsulator`.
+  CryptoEncapsulator encapsulator() {
+    final $r = $callSync(3124, $W()..h(this));
+    return $r.hnn(CryptoEncapsulator.$h);
+  }
+
+  /// Go: type assertion `x.(*mlkem.DecapsulationKey1024)`: null if the object is not one.
+  $mlkem.CryptoMlkemDecapsulationKey1024? asCryptoMlkemDecapsulationKey1024() {
+    final $r = $callSync(260, $W()..h(this));
+    return $r.hn($mlkem.CryptoMlkemDecapsulationKey1024.$h);
+  }
+
+  /// Go: type assertion `x.(*mlkem.DecapsulationKey768)`: null if the object is not one.
+  $mlkem.CryptoMlkemDecapsulationKey768? asCryptoMlkemDecapsulationKey768() {
+    final $r = $callSync(261, $W()..h(this));
+    return $r.hn($mlkem.CryptoMlkemDecapsulationKey768.$h);
+  }
+}
+
+/// Go: `crypto.Decrypter` (handle).
+class CryptoDecrypter extends GoHandle with CryptoDecrypter$ {
+  CryptoDecrypter.$h(super.$h);
+}
+
+/// The methods of [CryptoDecrypter], mixed into every class Go also accepts as one.
+mixin CryptoDecrypter$ on GoHandle {
+  /// Go: `func (crypto.Decrypter).Decrypt(rand io.Reader, msg []byte, opts crypto.DecrypterOpts) (plaintext []byte, err error)`.
+  Uint8List decrypt(Object rand, Uint8List msg, CryptoDecrypterOpts opts) {
+    final $r = $callSync(
+        3125,
+        $W()
+          ..h(this)
+          ..reader(rand)
+          ..bytes(msg)
+          ..h(opts));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (crypto.Decrypter).Public() crypto.PublicKey`.
+  CryptoPublicKey public() {
+    final $r = $callSync(3126, $W()..h(this));
+    return $r.hnn(CryptoPublicKey.$h);
+  }
+}
+
+/// Go: `crypto.DecrypterOpts` (handle).
+class CryptoDecrypterOpts extends GoHandle with CryptoDecrypterOpts$ {
+  CryptoDecrypterOpts.$h(super.$h);
+}
+
+/// The methods of [CryptoDecrypterOpts], mixed into every class Go also accepts as one.
+mixin CryptoDecrypterOpts$ on GoHandle {}
+
+/// Go: `crypto.Encapsulator` (handle).
+class CryptoEncapsulator extends GoHandle with CryptoEncapsulator$ {
+  CryptoEncapsulator.$h(super.$h);
+}
+
+/// The methods of [CryptoEncapsulator], mixed into every class Go also accepts as one.
+mixin CryptoEncapsulator$ on GoHandle {
+  /// Go: `func (crypto.Encapsulator).Bytes() []byte`.
+  Uint8List bytes() {
+    final $r = $callSync(3127, $W()..h(this));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (crypto.Encapsulator).Encapsulate() (sharedKey []byte, ciphertext []byte)`.
+  (Uint8List, Uint8List) encapsulate() {
+    final $r = $callSync(3128, $W()..h(this));
+    return ($r.bytes() ?? Uint8List(0), $r.bytes() ?? Uint8List(0));
+  }
+
+  /// Go: type assertion `x.(*mlkem.EncapsulationKey1024)`: null if the object is not one.
+  $mlkem.CryptoMlkemEncapsulationKey1024? asCryptoMlkemEncapsulationKey1024() {
+    final $r = $callSync(262, $W()..h(this));
+    return $r.hn($mlkem.CryptoMlkemEncapsulationKey1024.$h);
+  }
+
+  /// Go: type assertion `x.(*mlkem.EncapsulationKey768)`: null if the object is not one.
+  $mlkem.CryptoMlkemEncapsulationKey768? asCryptoMlkemEncapsulationKey768() {
+    final $r = $callSync(263, $W()..h(this));
+    return $r.hn($mlkem.CryptoMlkemEncapsulationKey768.$h);
+  }
+}
+
+/// Go: `crypto.MessageSigner` (handle).
+class CryptoMessageSigner extends CryptoSigner with CryptoMessageSigner$ {
+  CryptoMessageSigner.$h(super.$h) : super.$h();
+}
+
+/// The methods of [CryptoMessageSigner], mixed into every class Go also accepts as one.
+mixin CryptoMessageSigner$ on GoHandle {
+  /// Go: `func (crypto.MessageSigner).SignMessage(rand io.Reader, msg []byte, opts crypto.SignerOpts) (signature []byte, err error)`.
+  Uint8List signMessage(Object rand, Uint8List msg, CryptoSignerOpts opts) {
+    final $r = $callSync(
+        3129,
+        $W()
+          ..h(this)
+          ..reader(rand)
+          ..bytes(msg)
+          ..dto(opts));
+    return $r.bytes() ?? Uint8List(0);
+  }
+}
 
 /// Go: `crypto.PrivateKey` (handle).
 class CryptoPrivateKey extends GoHandle with CryptoPrivateKey$ {
@@ -20,6 +145,70 @@ class CryptoPublicKey extends GoHandle with CryptoPublicKey$ {
 
 /// The methods of [CryptoPublicKey], mixed into every class Go also accepts as one.
 mixin CryptoPublicKey$ on GoHandle {}
+
+/// Go: `crypto.Signer` (handle).
+class CryptoSigner extends GoHandle with CryptoSigner$ {
+  CryptoSigner.$h(super.$h);
+}
+
+/// The methods of [CryptoSigner], mixed into every class Go also accepts as one.
+mixin CryptoSigner$ on GoHandle {
+  /// Go: `func (crypto.Signer).Public() crypto.PublicKey`.
+  CryptoPublicKey public() {
+    final $r = $callSync(3131, $W()..h(this));
+    return $r.hnn(CryptoPublicKey.$h);
+  }
+
+  /// Go: `func (crypto.Signer).Sign(rand io.Reader, digest []byte, opts crypto.SignerOpts) (signature []byte, err error)`.
+  Uint8List sign(Object rand, Uint8List digest, CryptoSignerOpts opts) {
+    final $r = $callSync(
+        3132,
+        $W()
+          ..h(this)
+          ..reader(rand)
+          ..bytes(digest)
+          ..dto(opts));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: type assertion `x.(crypto.MessageSigner)`: null if the object is not one.
+  CryptoMessageSigner? asCryptoMessageSigner() {
+    final $r = $callSync(264, $W()..h(this));
+    return $r.hn(CryptoMessageSigner.$h);
+  }
+}
+
+/// Go: `crypto.SignerOpts` (values read from the methods; built in Dart, it
+/// crosses as a Go value that returns them).
+final class CryptoSignerOpts implements GoDto {
+  CryptoSignerOpts({int? hashFunc}) : hashFunc = hashFunc ?? 0;
+
+  CryptoSignerOpts.$dec($R r) : hashFunc = r.i64();
+
+  /// Go: `HashFunc()`.
+  final int hashFunc;
+
+  @override
+  void $enc($W w) {
+    w..i64(hashFunc);
+  }
+}
+
+/// Go: the package-level members of `crypto` (`go.crypto`).
+extension GoCryptoApi on GoCrypto {
+  /// Go: `func crypto.SignMessage(signer crypto.Signer, rand io.Reader, msg []byte, opts crypto.SignerOpts) (signature []byte, err error)`.
+  Uint8List signMessage(
+      CryptoSigner signer, Object rand, Uint8List msg, CryptoSignerOpts opts) {
+    final $r = $callSync(
+        3130,
+        $W()
+          ..h(signer)
+          ..reader(rand)
+          ..bytes(msg)
+          ..dto(opts));
+    return $r.bytes() ?? Uint8List(0);
+  }
+}
 
 /// Go: the constants of a named type of `crypto` (`go.crypto.enums`).
 extension GoCryptoEnumsApi on GoCryptoEnums {

@@ -1,11 +1,12 @@
-# Go symbols exposed to Dart. A line "pkg.*" takes every exported function,
-# variable and method of the package; go/gen/ignore_roots.txt drops what must
-# not cross, and a symbol the generator cannot bridge is skipped (API.md,
-# "omitted"). The other lines are the special roots a "pkg.*" does not reach:
-# one symbol of a package with no "pkg.*" (the stdlib), a struct field
-# (IpfsNode.FilesRoot), a method an interface inherits by embedding, a type
-# alone (a struct with an empty constructor). After editing: `go run ./gen` in
-# go/.
+# Go symbols exposed to Dart. Every package of the host's build on all its
+# targets enters whole by itself (universe in go/gen/main.go): each exported
+# function, variable and method; go/gen/ignore_roots.txt drops what must not
+# cross, and a symbol the generator cannot bridge is skipped (API.md,
+# "omitted"). These lines are the special roots it does not reach: a package
+# outside the host's build ("pkg.*"), a symbol of an ignored package
+# (runtime/debug), a struct field (IpfsNode.FilesRoot), a method an interface
+# inherits by embedding, a type alone (a struct with an empty constructor), a
+# callback read in Go. After editing: `go run ./gen` in go/.
 
 # M1.3 arquivos (Unixfs)
 os.Stat
@@ -185,99 +186,10 @@ github.com/libp2p/go-libp2p/core/event.Subscription.Close
 # from others needs (lesson 16)
 github.com/ipfs/kubo/repo.Repo.Close
 
-# Every exported symbol of these packages (go/gen/ignore_roots.txt drops
-# what must not cross; a symbol the generator cannot bridge is skipped)
-github.com/ipfs/boxo/bitswap.*
-github.com/ipfs/boxo/bitswap/network/bsnet.*
-github.com/ipfs/boxo/blockservice.*
-github.com/ipfs/boxo/blockstore.*
-github.com/ipfs/boxo/chunker.*
-github.com/ipfs/boxo/exchange.*
-github.com/ipfs/boxo/exchange/offline.*
-github.com/ipfs/boxo/fetcher/impl/blockservice.*
-github.com/ipfs/boxo/files.*
-github.com/ipfs/boxo/filestore.*
-github.com/ipfs/boxo/gateway.*
-github.com/ipfs/boxo/ipld/merkledag.*
-github.com/ipfs/boxo/ipld/merkledag/dagutils.*
-github.com/ipfs/boxo/ipld/unixfs/file.*
+# Packages outside the host's build, whole: the generated code imports them
 github.com/ipfs/boxo/ipld/unixfs/importer.*
-github.com/ipfs/boxo/ipld/unixfs/io.*
-github.com/ipfs/boxo/ipns.*
-github.com/ipfs/boxo/mfs.*
-github.com/ipfs/boxo/namesys.*
-github.com/ipfs/boxo/path.*
-github.com/ipfs/boxo/peering.*
-github.com/ipfs/boxo/provider.*
-github.com/ipfs/boxo/verifcid.*
-github.com/ipfs/go-cid.*
-github.com/ipfs/go-datastore.*
-github.com/ipfs/go-datastore/sync.*
-github.com/ipfs/go-ipfs-cmds.*
-github.com/ipfs/go-ipld-format.*
-github.com/ipfs/go-unixfsnode.*
-github.com/ipfs/kubo.*
-github.com/ipfs/kubo/config.*
-github.com/ipfs/kubo/core.*
-github.com/ipfs/kubo/core/commands.*
-github.com/ipfs/kubo/core/coreapi.*
-github.com/ipfs/kubo/core/coreiface.*
-github.com/ipfs/kubo/core/coreiface/options.*
-github.com/ipfs/kubo/core/corerepo.*
-github.com/ipfs/kubo/core/node.*
-github.com/ipfs/kubo/core/node/libp2p.*
-github.com/ipfs/kubo/plugin/loader.*
-github.com/ipfs/kubo/repo.*
-github.com/ipfs/kubo/repo/fsrepo.*
-github.com/ipld/go-car/v2.*
 github.com/ipld/go-car/v2/blockstore.*
-github.com/ipld/go-car/v2/index.*
-github.com/ipld/go-car/v2/storage.*
-github.com/ipld/go-codec-dagpb.*
-github.com/ipld/go-ipld-prime/datamodel.*
-github.com/ipld/go-ipld-prime/linking.*
-github.com/ipld/go-ipld-prime/linking/cid.*
-github.com/ipld/go-ipld-prime/node/basicnode.*
-github.com/ipld/go-ipld-prime/storage.*
 github.com/ipld/go-ipld-prime/storage/bsadapter.*
-github.com/ipld/go-ipld-prime/traversal.*
-github.com/ipld/go-ipld-prime/traversal/selector.*
-github.com/ipld/go-ipld-prime/traversal/selector/builder.*
-github.com/ipld/go-ipld-prime/traversal/selector/parse.*
-github.com/libp2p/go-libp2p.*
-github.com/libp2p/go-libp2p-kad-dht.*
-github.com/libp2p/go-libp2p-kad-dht/pb.*
-github.com/libp2p/go-libp2p-kad-dht/records.*
-github.com/libp2p/go-libp2p-kbucket.*
-github.com/libp2p/go-libp2p-pubsub.*
-github.com/libp2p/go-libp2p-pubsub/pb.*
-github.com/libp2p/go-libp2p/core/connmgr.*
-github.com/libp2p/go-libp2p/core/crypto.*
-github.com/libp2p/go-libp2p/core/event.*
-github.com/libp2p/go-libp2p/core/host.*
-github.com/libp2p/go-libp2p/core/network.*
-github.com/libp2p/go-libp2p/core/peer.*
-github.com/libp2p/go-libp2p/core/peerstore.*
-github.com/libp2p/go-libp2p/core/routing.*
-github.com/libp2p/go-libp2p/p2p/discovery/mdns.*
-github.com/libp2p/go-libp2p/p2p/discovery/routing.*
-github.com/libp2p/go-libp2p/p2p/muxer/yamux.*
-github.com/libp2p/go-libp2p/p2p/net/swarm.*
-github.com/libp2p/go-libp2p/p2p/protocol/circuitv2/relay.*
-github.com/libp2p/go-libp2p/p2p/protocol/holepunch.*
-github.com/libp2p/go-libp2p/p2p/protocol/ping.*
-github.com/libp2p/go-libp2p/p2p/security/noise.*
-github.com/libp2p/go-libp2p/p2p/security/tls.*
-github.com/libp2p/go-libp2p/p2p/transport/quic.*
-github.com/libp2p/go-libp2p/p2p/transport/webrtc.*
-github.com/multiformats/go-multiaddr.*
-github.com/multiformats/go-multibase.*
-github.com/multiformats/go-multicodec.*
-github.com/multiformats/go-multihash.*
-
-# Prometheus: only the reading side, the metrics as data
-github.com/prometheus/client_golang/prometheus.DefaultGatherer
-github.com/prometheus/client_golang/prometheus.Gatherer.Gather
 
 # Checked callbacks: Go only calls them during the call (a "pkg.*" leaves out
 # a function that takes a callback until someone checks it)

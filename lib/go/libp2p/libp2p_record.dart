@@ -4,7 +4,39 @@ library;
 
 import 'dart:typed_data';
 
+import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2pRecord;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/libp2p/libp2p_record/pb.dart' as $pb;
+
+/// Go: `record.PublicKeyValidator`.
+final class Libp2pRecordPublicKeyValidator implements GoDto {
+  Libp2pRecordPublicKeyValidator();
+  Libp2pRecordPublicKeyValidator.$dec($R r);
+
+  @override
+  void $enc($W w) {}
+
+  /// Go: `func (record.PublicKeyValidator).Select(k string, vals [][]byte) (int, error)`.
+  int select(String k, List<Uint8List> vals) {
+    final $r = $callSync(
+        13707,
+        $W()
+          ..dto(this)
+          ..str(k)
+          ..list(vals, (w0, e0) => w0.bytes(e0)));
+    return $r.i64();
+  }
+
+  /// Go: `func (record.PublicKeyValidator).Validate(key string, value []byte) error`.
+  void validate(String key, Uint8List value) {
+    $callSync(
+        13708,
+        $W()
+          ..dto(this)
+          ..str(key)
+          ..bytes(value));
+  }
+}
 
 /// Go: `record.Validator` (handle).
 class Libp2pRecordValidator extends GoHandle with Libp2pRecordValidator$ {
@@ -12,7 +44,28 @@ class Libp2pRecordValidator extends GoHandle with Libp2pRecordValidator$ {
 }
 
 /// The methods of [Libp2pRecordValidator], mixed into every class Go also accepts as one.
-mixin Libp2pRecordValidator$ on GoHandle {}
+mixin Libp2pRecordValidator$ on GoHandle {
+  /// Go: `func (record.Validator).Select(key string, values [][]byte) (int, error)`.
+  int select(String key, List<Uint8List> values) {
+    final $r = $callSync(
+        13710,
+        $W()
+          ..h(this)
+          ..str(key)
+          ..list(values, (w0, e0) => w0.bytes(e0)));
+    return $r.i64();
+  }
+
+  /// Go: `func (record.Validator).Validate(key string, value []byte) error`.
+  void validate(String key, Uint8List value) {
+    $callSync(
+        13711,
+        $W()
+          ..h(this)
+          ..str(key)
+          ..bytes(value));
+  }
+}
 
 /// Go: `record.ErrBetterRecord`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
@@ -39,4 +92,23 @@ class Libp2pRecordErrInvalidRecordType extends GolangException {
 
   @override
   String toString() => 'record.ErrInvalidRecordType: $message';
+}
+
+/// Go: the package-level members of `github.com/libp2p/go-libp2p-record` (`go.libp2p.libp2pRecord`).
+extension GoLibp2pLibp2pRecordApi on GoLibp2pLibp2pRecord {
+  /// Go: `func record.MakePutRecord(key string, value []byte) *pb.Record`.
+  $pb.Libp2pRecordPbRecord makePutRecord(String key, Uint8List value) {
+    final $r = $callSync(
+        13706,
+        $W()
+          ..str(key)
+          ..bytes(value));
+    return $r.hnn($pb.Libp2pRecordPbRecord.$h);
+  }
+
+  /// Go: `func record.SplitKey(key string) (string, string, error)`.
+  (String, String) splitKey(String key) {
+    final $r = $callSync(13709, $W()..str(key));
+    return ($r.str(), $r.str());
+  }
 }

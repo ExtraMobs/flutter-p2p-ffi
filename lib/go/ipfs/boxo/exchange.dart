@@ -4,8 +4,10 @@ library;
 
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
+import 'package:p2p_ffi/go/io.dart' as $io;
 import 'package:p2p_ffi/go/ipfs/block_format.dart' as $block_format;
 import 'package:p2p_ffi/go/ipfs/boxo/bitswap.dart' as $bitswap;
+import 'package:p2p_ffi/go/ipfs/boxo/bitswap/client.dart' as $client;
 import 'package:p2p_ffi/go/ipfs/cid.dart' as $cid;
 
 /// Go: `exchange.Fetcher` (handle).
@@ -21,7 +23,7 @@ mixin BoxoExchangeFetcher$ on GoHandle {
   Future<$block_format.BlockFormatBlock> getBlock(
       $context.Context ctx, $cid.Cid cid) async {
     final $r = await $call(
-        509,
+        9398,
         $W()
           ..h(this)
           ..h(ctx)
@@ -33,7 +35,7 @@ mixin BoxoExchangeFetcher$ on GoHandle {
   Stream<$block_format.BlockFormatBlock> getBlocks(
           $context.Context ctx, List<$cid.Cid> cids) =>
       $stream(
-              510,
+              9399,
               $W()
                 ..h(this)
                 ..h(ctx)
@@ -42,26 +44,33 @@ mixin BoxoExchangeFetcher$ on GoHandle {
 
   /// Go: type assertion `x.(*bitswap.Bitswap)`: null if the object is not one.
   $bitswap.BoxoBitswap? asBoxoBitswap() {
-    final $r = $callSync(80, $W()..h(this));
+    final $r = $callSync(929, $W()..h(this));
     return $r.hn($bitswap.BoxoBitswap.$h);
+  }
+
+  /// Go: type assertion `x.(*client.Client)`: null if the object is not one.
+  $client.BoxoBitswapClient? asBoxoBitswapClient() {
+    final $r = $callSync(930, $W()..h(this));
+    return $r.hn($client.BoxoBitswapClient.$h);
   }
 
   /// Go: type assertion `x.(exchange.Interface)`: null if the object is not one.
   BoxoExchangeInterface? asBoxoExchangeInterface() {
-    final $r = $callSync(81, $W()..h(this));
+    final $r = $callSync(931, $W()..h(this));
     return $r.hn(BoxoExchangeInterface.$h);
   }
 
   /// Go: type assertion `x.(exchange.SessionExchange)`: null if the object is not one.
   BoxoExchangeSessionExchange? asBoxoExchangeSessionExchange() {
-    final $r = $callSync(82, $W()..h(this));
+    final $r = $callSync(932, $W()..h(this));
     return $r.hn(BoxoExchangeSessionExchange.$h);
   }
 }
 
 /// Go: `exchange.Interface` (handle).
-class BoxoExchangeInterface extends BoxoExchangeFetcher
-    with BoxoExchangeInterface$ {
+class BoxoExchangeInterface extends $io.IoCloser
+    with BoxoExchangeFetcher$, BoxoExchangeInterface$
+    implements BoxoExchangeFetcher {
   BoxoExchangeInterface.$h(super.$h) : super.$h();
 }
 
@@ -73,7 +82,7 @@ mixin BoxoExchangeInterface$ on GoHandle {
   Future<void> notifyNewBlocks($context.Context ctx,
       [List<$block_format.BlockFormatBlock> blocks = const []]) async {
     await $call(
-        511,
+        9400,
         $W()
           ..h(this)
           ..h(ctx)
@@ -82,20 +91,27 @@ mixin BoxoExchangeInterface$ on GoHandle {
 
   /// Go: type assertion `x.(*bitswap.Bitswap)`: null if the object is not one.
   $bitswap.BoxoBitswap? asBoxoBitswap() {
-    final $r = $callSync(83, $W()..h(this));
+    final $r = $callSync(933, $W()..h(this));
     return $r.hn($bitswap.BoxoBitswap.$h);
+  }
+
+  /// Go: type assertion `x.(*client.Client)`: null if the object is not one.
+  $client.BoxoBitswapClient? asBoxoBitswapClient() {
+    final $r = $callSync(934, $W()..h(this));
+    return $r.hn($client.BoxoBitswapClient.$h);
   }
 
   /// Go: type assertion `x.(exchange.SessionExchange)`: null if the object is not one.
   BoxoExchangeSessionExchange? asBoxoExchangeSessionExchange() {
-    final $r = $callSync(84, $W()..h(this));
+    final $r = $callSync(935, $W()..h(this));
     return $r.hn(BoxoExchangeSessionExchange.$h);
   }
 }
 
 /// Go: `exchange.SessionExchange` (handle).
 class BoxoExchangeSessionExchange extends BoxoExchangeInterface
-    with BoxoExchangeSessionExchange$ {
+    with $io.IoCloser$, BoxoExchangeSessionExchange$
+    implements $io.IoCloser {
   BoxoExchangeSessionExchange.$h(super.$h) : super.$h();
 }
 
@@ -106,7 +122,7 @@ mixin BoxoExchangeSessionExchange$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<BoxoExchangeFetcher> newSession($context.Context ctx) async {
     final $r = await $call(
-        512,
+        9401,
         $W()
           ..h(this)
           ..h(ctx));
@@ -115,7 +131,13 @@ mixin BoxoExchangeSessionExchange$ on GoHandle {
 
   /// Go: type assertion `x.(*bitswap.Bitswap)`: null if the object is not one.
   $bitswap.BoxoBitswap? asBoxoBitswap() {
-    final $r = $callSync(85, $W()..h(this));
+    final $r = $callSync(936, $W()..h(this));
     return $r.hn($bitswap.BoxoBitswap.$h);
+  }
+
+  /// Go: type assertion `x.(*client.Client)`: null if the object is not one.
+  $client.BoxoBitswapClient? asBoxoBitswapClient() {
+    final $r = $callSync(937, $W()..h(this));
+    return $r.hn($client.BoxoBitswapClient.$h);
   }
 }

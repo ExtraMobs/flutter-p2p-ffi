@@ -2,15 +2,100 @@
 // Go: github.com/libp2p/go-libp2p/core/record
 library;
 
+import 'dart:typed_data';
+
+import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2pCoreRecord;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/crypto.dart' as $crypto2;
 
 /// Go: `record.Envelope` (handle).
-class Libp2pCoreRecordEnvelope extends $crypto.CryptoPrivateKey
-    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
-    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+class Libp2pCoreRecordEnvelope extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   Libp2pCoreRecordEnvelope.$h(super.$h) : super.$h();
+
+  /// Go: `func (*record.Envelope).Equal(other *record.Envelope) bool`.
+  bool equal(Libp2pCoreRecordEnvelope other) {
+    final $r = $callSync(
+        14257,
+        $W()
+          ..h(this)
+          ..h(other));
+    return $r.b();
+  }
+
+  /// Go: `func (*record.Envelope).Marshal() (res []byte, err error)`.
+  Uint8List marshal() {
+    final $r = $callSync(14258, $W()..h(this));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (*record.Envelope).Record() (record.Record, error)`.
+  Libp2pCoreRecord record() {
+    final $r = $callSync(14259, $W()..h(this));
+    return $r.hnn(Libp2pCoreRecord.$h);
+  }
+
+  /// Go: `func (*record.Envelope).TypedRecord(dest record.Record) error`.
+  void typedRecord(Libp2pCoreRecord dest) {
+    $callSync(
+        14260,
+        $W()
+          ..h(this)
+          ..h(dest));
+  }
+}
+
+/// Go: `record.Record` (handle).
+class Libp2pCoreRecord extends GoHandle with Libp2pCoreRecord$ {
+  Libp2pCoreRecord.$h(super.$h);
+}
+
+/// The methods of [Libp2pCoreRecord], mixed into every class Go also accepts as one.
+mixin Libp2pCoreRecord$ on GoHandle {
+  /// Go: `func (record.Record).Codec() []byte`.
+  Uint8List codec() {
+    final $r = $callSync(14261, $W()..h(this));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (record.Record).Domain() string`.
+  String domain() {
+    final $r = $callSync(14262, $W()..h(this));
+    return $r.str();
+  }
+
+  /// Go: `func (record.Record).MarshalRecord() ([]byte, error)`.
+  Uint8List marshalRecord() {
+    final $r = $callSync(14263, $W()..h(this));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (record.Record).UnmarshalRecord([]byte) error`.
+  void unmarshalRecord(Uint8List arg0) {
+    $callSync(
+        14264,
+        $W()
+          ..h(this)
+          ..bytes(arg0));
+  }
 }
 
 /// Go: `var record.ErrEmptyDomain error`: an error. Thrown as this class when it is the outermost
@@ -47,4 +132,51 @@ class Libp2pCoreRecordErrPayloadTypeNotRegistered extends GolangException {
 
   @override
   String toString() => 'record.ErrPayloadTypeNotRegistered: $message';
+}
+
+/// Go: the package-level members of `github.com/libp2p/go-libp2p/core/record` (`go.libp2p.libp2p.core.record`).
+extension GoLibp2pLibp2pCoreRecordApi on GoLibp2pLibp2pCoreRecord {
+  /// Go: `func record.ConsumeEnvelope(data []byte, domain string) (envelope *record.Envelope, rec record.Record, err error)`.
+  (Libp2pCoreRecordEnvelope, Libp2pCoreRecord) consumeEnvelope(
+      Uint8List data, String domain) {
+    final $r = $callSync(
+        14255,
+        $W()
+          ..bytes(data)
+          ..str(domain));
+    return ($r.hnn(Libp2pCoreRecordEnvelope.$h), $r.hnn(Libp2pCoreRecord.$h));
+  }
+
+  /// Go: `func record.ConsumeTypedEnvelope(data []byte, destRecord record.Record) (envelope *record.Envelope, err error)`.
+  Libp2pCoreRecordEnvelope consumeTypedEnvelope(
+      Uint8List data, Libp2pCoreRecord destRecord) {
+    final $r = $callSync(
+        14256,
+        $W()
+          ..bytes(data)
+          ..h(destRecord));
+    return $r.hnn(Libp2pCoreRecordEnvelope.$h);
+  }
+
+  /// Go: `func record.RegisterType(prototype record.Record)`.
+  void registerType(Libp2pCoreRecord prototype) {
+    $callSync(14265, $W()..h(prototype));
+  }
+
+  /// Go: `func record.Seal(rec record.Record, privateKey crypto.PrivKey) (*record.Envelope, error)`.
+  Libp2pCoreRecordEnvelope seal(
+      Libp2pCoreRecord rec, $crypto2.Libp2pCoreCryptoPrivKey privateKey) {
+    final $r = $callSync(
+        14266,
+        $W()
+          ..h(rec)
+          ..h(privateKey));
+    return $r.hnn(Libp2pCoreRecordEnvelope.$h);
+  }
+
+  /// Go: `func record.UnmarshalEnvelope(data []byte) (*record.Envelope, error)`.
+  Libp2pCoreRecordEnvelope unmarshalEnvelope(Uint8List data) {
+    final $r = $callSync(14267, $W()..bytes(data));
+    return $r.hnn(Libp2pCoreRecordEnvelope.$h);
+  }
 }

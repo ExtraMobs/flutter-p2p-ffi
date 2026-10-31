@@ -14,7 +14,11 @@ import 'package:p2p_ffi/src/go.dart'
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
+import 'package:p2p_ffi/go/io.dart' as $io;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/connmgr.dart' as $connmgr;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/crypto.dart' as $crypto2;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/event.dart' as $event;
@@ -23,27 +27,43 @@ import 'package:p2p_ffi/go/libp2p/libp2p/core/network.dart' as $network;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peerstore.dart' as $peerstore;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/transport.dart' as $transport;
+import 'package:p2p_ffi/go/libp2p/libp2p/p2p/host/autorelay.dart' as $autorelay;
 import 'package:p2p_ffi/go/multiformats/multiaddr.dart' as $multiaddr;
 import 'package:p2p_ffi/go/multiformats/multiaddr_dns.dart' as $multiaddr_dns;
+import 'package:p2p_ffi/go/pion/datachannel.dart' as $datachannel;
 import 'package:p2p_ffi/go/prometheus/client_golang/prometheus.dart'
     as $prometheus;
+import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
 
 /// Go: `swarm.BlackHoleSuccessCounter` (handle).
-class Libp2pP2pNetSwarmBlackHoleSuccessCounter extends $crypto.CryptoPrivateKey
-    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
-    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+class Libp2pP2pNetSwarmBlackHoleSuccessCounter
+    extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   Libp2pP2pNetSwarmBlackHoleSuccessCounter.$h(super.$h) : super.$h();
 
   /// Go: `func (*swarm.BlackHoleSuccessCounter).HandleRequest() swarm.BlackHoleState`.
   int handleRequest() {
-    final $r = $callSync(3245, $W()..h(this));
+    final $r = $callSync(14634, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*swarm.BlackHoleSuccessCounter).RecordResult(success bool)`.
   void recordResult(bool success) {
     $callSync(
-        3246,
+        14635,
         $W()
           ..h(this)
           ..b(success));
@@ -51,7 +71,7 @@ class Libp2pP2pNetSwarmBlackHoleSuccessCounter extends $crypto.CryptoPrivateKey
 
   /// Go: `func (*swarm.BlackHoleSuccessCounter).State() swarm.BlackHoleState`.
   int state() {
-    final $r = $callSync(3247, $W()..h(this));
+    final $r = $callSync(14636, $W()..h(this));
     return $r.i64();
   }
 }
@@ -66,7 +86,7 @@ mixin Libp2pP2pNetSwarmClock$ on GoHandle {
   /// Go: `func (swarm.Clock).InstantTimer(when time.Time) swarm.InstantTimer`.
   Libp2pP2pNetSwarmInstantTimer instantTimer(DateTime when) {
     final $r = $callSync(
-        3248,
+        14637,
         $W()
           ..h(this)
           ..time(when));
@@ -75,14 +95,14 @@ mixin Libp2pP2pNetSwarmClock$ on GoHandle {
 
   /// Go: `func (swarm.Clock).Now() time.Time`.
   DateTime now() {
-    final $r = $callSync(3249, $W()..h(this));
+    final $r = $callSync(14638, $W()..h(this));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func (swarm.Clock).Since(t time.Time) time.Duration`.
   Duration since(DateTime t) {
     final $r = $callSync(
-        3250,
+        14639,
         $W()
           ..h(this)
           ..time(t));
@@ -93,15 +113,23 @@ mixin Libp2pP2pNetSwarmClock$ on GoHandle {
 /// Go: `swarm.Conn` (handle).
 class Libp2pP2pNetSwarmConn extends $network.Libp2pCoreNetworkConn
     with
+        $crypto.CryptoDecrypterOpts$,
         $crypto.CryptoPrivateKey$,
         $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
         $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$,
         $network.Libp2pCoreNetworkConnScoper$,
         $network.Libp2pCoreNetworkConnSecurity$
     implements
+        $crypto.CryptoDecrypterOpts,
         $crypto.CryptoPrivateKey,
         $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
         $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic,
         $network.Libp2pCoreNetworkConnScoper,
         $network.Libp2pCoreNetworkConnSecurity {
   Libp2pP2pNetSwarmConn.$h(super.$h) : super.$h();
@@ -109,7 +137,7 @@ class Libp2pP2pNetSwarmConn extends $network.Libp2pCoreNetworkConn
   /// Go: `func (*swarm.Conn).As(target any) bool`.
   bool as(Object? target) {
     final $r = $callSync(
-        3251,
+        14640,
         $W()
           ..h(this)
           ..any(target));
@@ -120,13 +148,13 @@ class Libp2pP2pNetSwarmConn extends $network.Libp2pCoreNetworkConn
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> close() async {
-    await $call(3252, $W()..h(this));
+    await $call(14641, $W()..h(this));
   }
 
   /// Go: `func (*swarm.Conn).CloseWithError(errCode network.ConnErrorCode) error`.
   void closeWithError(int errCode) {
     $callSync(
-        3253,
+        14642,
         $W()
           ..h(this)
           ..i64(errCode));
@@ -134,37 +162,37 @@ class Libp2pP2pNetSwarmConn extends $network.Libp2pCoreNetworkConn
 
   /// Go: `func (*swarm.Conn).ConnState() network.ConnectionState`.
   $network.Libp2pCoreNetworkConnectionState connState() {
-    final $r = $callSync(3254, $W()..h(this));
+    final $r = $callSync(14643, $W()..h(this));
     return $r.p() ? $network.Libp2pCoreNetworkConnectionState.$dec($r) : $nil();
   }
 
   /// Go: `func (*swarm.Conn).GetStreams() []network.Stream`.
   List<$network.Libp2pCoreNetworkStream> getStreams() {
-    final $r = $callSync(3255, $W()..h(this));
+    final $r = $callSync(14644, $W()..h(this));
     return $r.list(() => $r.hnn($network.Libp2pCoreNetworkStream.$h));
   }
 
   /// Go: `func (*swarm.Conn).ID() string`.
   String id() {
-    final $r = $callSync(3256, $W()..h(this));
+    final $r = $callSync(14645, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*swarm.Conn).IsClosed() bool`.
   bool isClosed() {
-    final $r = $callSync(3257, $W()..h(this));
+    final $r = $callSync(14646, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*swarm.Conn).LocalMultiaddr() multiaddr.Multiaddr`.
   $multiaddr.Multiaddr localMultiaddr() {
-    final $r = $callSync(3258, $W()..h(this));
+    final $r = $callSync(14647, $W()..h(this));
     return $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil();
   }
 
   /// Go: `func (*swarm.Conn).LocalPeer() peer.ID`.
   $peer.Libp2pCorePeerId localPeer() {
-    final $r = $callSync(3259, $W()..h(this));
+    final $r = $callSync(14648, $W()..h(this));
     return $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil();
   }
 
@@ -174,7 +202,7 @@ class Libp2pP2pNetSwarmConn extends $network.Libp2pCoreNetworkConn
   Future<$network.Libp2pCoreNetworkStream> newStream(
       $context.Context ctx) async {
     final $r = await $call(
-        3260,
+        14649,
         $W()
           ..h(this)
           ..h(ctx));
@@ -183,51 +211,63 @@ class Libp2pP2pNetSwarmConn extends $network.Libp2pCoreNetworkConn
 
   /// Go: `func (*swarm.Conn).RemoteMultiaddr() multiaddr.Multiaddr`.
   $multiaddr.Multiaddr remoteMultiaddr() {
-    final $r = $callSync(3261, $W()..h(this));
+    final $r = $callSync(14650, $W()..h(this));
     return $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil();
   }
 
   /// Go: `func (*swarm.Conn).RemotePeer() peer.ID`.
   $peer.Libp2pCorePeerId remotePeer() {
-    final $r = $callSync(3262, $W()..h(this));
+    final $r = $callSync(14651, $W()..h(this));
     return $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil();
   }
 
   /// Go: `func (*swarm.Conn).RemotePublicKey() crypto.PubKey`.
   $crypto2.Libp2pCoreCryptoPubKey remotePublicKey() {
-    final $r = $callSync(3263, $W()..h(this));
+    final $r = $callSync(14652, $W()..h(this));
     return $r.hnn($crypto2.Libp2pCoreCryptoPubKey.$h);
   }
 
   /// Go: `func (*swarm.Conn).Scope() network.ConnScope`.
   $network.Libp2pCoreNetworkConnScope scope() {
-    final $r = $callSync(3264, $W()..h(this));
+    final $r = $callSync(14653, $W()..h(this));
     return $r.hnn($network.Libp2pCoreNetworkConnScope.$h);
   }
 
   /// Go: `func (*swarm.Conn).Stat() network.ConnStats`.
   $network.Libp2pCoreNetworkConnStats stat() {
-    final $r = $callSync(3265, $W()..h(this));
+    final $r = $callSync(14654, $W()..h(this));
     return $r.p() ? $network.Libp2pCoreNetworkConnStats.$dec($r) : $nil();
   }
 
   /// Go: `func (*swarm.Conn).String() string`.
   String string() {
-    final $r = $callSync(3266, $W()..h(this));
+    final $r = $callSync(14655, $W()..h(this));
     return $r.str();
   }
 }
 
 /// Go: `swarm.DialBackoff` (handle).
-class Libp2pP2pNetSwarmDialBackoff extends $crypto.CryptoPrivateKey
-    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
-    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+class Libp2pP2pNetSwarmDialBackoff extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   Libp2pP2pNetSwarmDialBackoff.$h(super.$h) : super.$h();
 
   /// Go: `func (*swarm.DialBackoff).AddBackoff(p peer.ID, addr multiaddr.Multiaddr)`.
   void addBackoff($peer.Libp2pCorePeerId p, $multiaddr.Multiaddr addr) {
     $callSync(
-        3269,
+        14658,
         $W()
           ..h(this)
           ..val(p)
@@ -237,7 +277,7 @@ class Libp2pP2pNetSwarmDialBackoff extends $crypto.CryptoPrivateKey
   /// Go: `func (*swarm.DialBackoff).Backoff(p peer.ID, addr multiaddr.Multiaddr) (backoff bool)`.
   bool backoff($peer.Libp2pCorePeerId p, $multiaddr.Multiaddr addr) {
     final $r = $callSync(
-        3270,
+        14659,
         $W()
           ..h(this)
           ..val(p)
@@ -248,7 +288,7 @@ class Libp2pP2pNetSwarmDialBackoff extends $crypto.CryptoPrivateKey
   /// Go: `func (*swarm.DialBackoff).Clear(p peer.ID)`.
   void clear($peer.Libp2pCorePeerId p) {
     $callSync(
-        3271,
+        14660,
         $W()
           ..h(this)
           ..val(p));
@@ -265,12 +305,12 @@ class Libp2pP2pNetSwarmInstantTimer extends GoHandle
 mixin Libp2pP2pNetSwarmInstantTimer$ on GoHandle {
   /// Go: `func (swarm.InstantTimer).Ch() <-chan time.Time`.
   Stream<DateTime> ch() =>
-      $stream(3272, $W()..h(this)).map((r) => r.p() ? r.time() : $nil());
+      $stream(14661, $W()..h(this)).map((r) => r.p() ? r.time() : $nil());
 
   /// Go: `func (swarm.InstantTimer).Reset(d time.Time) bool`.
   bool reset(DateTime d) {
     final $r = $callSync(
-        3273,
+        14662,
         $W()
           ..h(this)
           ..time(d));
@@ -279,13 +319,20 @@ mixin Libp2pP2pNetSwarmInstantTimer$ on GoHandle {
 
   /// Go: `func (swarm.InstantTimer).Stop() bool`.
   bool stop() {
-    final $r = $callSync(3274, $W()..h(this));
+    final $r = $callSync(14663, $W()..h(this));
     return $r.b();
+  }
+
+  /// Go: type assertion `x.(*autorelay.RealTimer)`: null if the object is not one.
+  $autorelay.Libp2pP2pHostAutorelayRealTimer?
+      asLibp2pP2pHostAutorelayRealTimer() {
+    final $r = $callSync(1442, $W()..h(this));
+    return $r.hn($autorelay.Libp2pP2pHostAutorelayRealTimer.$h);
   }
 
   /// Go: type assertion `x.(*swarm.RealTimer)`: null if the object is not one.
   Libp2pP2pNetSwarmRealTimer? asLibp2pP2pNetSwarmRealTimer() {
-    final $r = $callSync(349, $W()..h(this));
+    final $r = $callSync(1443, $W()..h(this));
     return $r.hn(Libp2pP2pNetSwarmRealTimer.$h);
   }
 }
@@ -298,7 +345,7 @@ class Libp2pP2pNetSwarmMetricsTracer extends GoHandle
   /// Go: `func swarm.NewMetricsTracer(opts ...swarm.MetricsTracerOption) swarm.MetricsTracer`.
   factory Libp2pP2pNetSwarmMetricsTracer(
       [List<Libp2pP2pNetSwarmMetricsTracerOption> opts = const []]) {
-    final $r = $callSync(3281, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+    final $r = $callSync(14670, $W()..list(opts, (w0, e0) => w0.opt(e0)));
     return $r.hnn(Libp2pP2pNetSwarmMetricsTracer.$h);
   }
 }
@@ -312,7 +359,7 @@ mixin Libp2pP2pNetSwarmMetricsTracer$ on GoHandle {
       $network.Libp2pCoreNetworkConnectionState connectionState,
       $multiaddr.Multiaddr multiaddr) {
     $callSync(
-        3275,
+        14664,
         $W()
           ..h(this)
           ..i64(arg0)
@@ -327,7 +374,7 @@ mixin Libp2pP2pNetSwarmMetricsTracer$ on GoHandle {
       $network.Libp2pCoreNetworkConnectionState connectionState,
       $multiaddr.Multiaddr multiaddr) {
     $callSync(
-        3276,
+        14665,
         $W()
           ..h(this)
           ..i64((arg0).inMicroseconds * 1000)
@@ -338,7 +385,7 @@ mixin Libp2pP2pNetSwarmMetricsTracer$ on GoHandle {
   /// Go: `func (swarm.MetricsTracer).DialCompleted(success bool, totalDials int, latency time.Duration)`.
   void dialCompleted(bool success, int totalDials, Duration latency) {
     $callSync(
-        3277,
+        14666,
         $W()
           ..h(this)
           ..b(success)
@@ -349,7 +396,7 @@ mixin Libp2pP2pNetSwarmMetricsTracer$ on GoHandle {
   /// Go: `func (swarm.MetricsTracer).DialRankingDelay(d time.Duration)`.
   void dialRankingDelay(Duration d) {
     $callSync(
-        3278,
+        14667,
         $W()
           ..h(this)
           ..i64((d).inMicroseconds * 1000));
@@ -362,7 +409,7 @@ mixin Libp2pP2pNetSwarmMetricsTracer$ on GoHandle {
       $network.Libp2pCoreNetworkConnectionState connectionState,
       $multiaddr.Multiaddr multiaddr) {
     $callSync(
-        3279,
+        14668,
         $W()
           ..h(this)
           ..i64(arg0)
@@ -375,7 +422,7 @@ mixin Libp2pP2pNetSwarmMetricsTracer$ on GoHandle {
   void updatedBlackHoleSuccessCounter(
       String name, int state, int nextProbeAfter, double successFraction) {
     $callSync(
-        3280,
+        14669,
         $W()
           ..h(this)
           ..str(name)
@@ -406,7 +453,7 @@ final class Libp2pP2pNetSwarmRealClock implements GoDto {
   /// Go: `func (swarm.RealClock).InstantTimer(when time.Time) swarm.InstantTimer`.
   Libp2pP2pNetSwarmInstantTimer instantTimer(DateTime when) {
     final $r = $callSync(
-        3284,
+        14673,
         $W()
           ..dto(this)
           ..time(when));
@@ -415,14 +462,14 @@ final class Libp2pP2pNetSwarmRealClock implements GoDto {
 
   /// Go: `func (swarm.RealClock).Now() time.Time`.
   DateTime now() {
-    final $r = $callSync(3285, $W()..dto(this));
+    final $r = $callSync(14674, $W()..dto(this));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func (swarm.RealClock).Since(t time.Time) time.Duration`.
   Duration since(DateTime t) {
     final $r = $callSync(
-        3286,
+        14675,
         $W()
           ..dto(this)
           ..time(t));
@@ -431,25 +478,36 @@ final class Libp2pP2pNetSwarmRealClock implements GoDto {
 }
 
 /// Go: `swarm.RealTimer` (handle).
-class Libp2pP2pNetSwarmRealTimer extends Libp2pP2pNetSwarmInstantTimer
+class Libp2pP2pNetSwarmRealTimer
+    extends $autorelay.Libp2pP2pHostAutorelayInstantTimer
     with
+        $crypto.CryptoDecrypterOpts$,
         $crypto.CryptoPrivateKey$,
         $crypto.CryptoPublicKey$,
-        $ipfs_cmds.IpfsCmdsEnvironment$
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$,
+        Libp2pP2pNetSwarmInstantTimer$
     implements
+        $crypto.CryptoDecrypterOpts,
         $crypto.CryptoPrivateKey,
         $crypto.CryptoPublicKey,
-        $ipfs_cmds.IpfsCmdsEnvironment {
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic,
+        Libp2pP2pNetSwarmInstantTimer {
   Libp2pP2pNetSwarmRealTimer.$h(super.$h) : super.$h();
 
   /// Go: `func (swarm.RealTimer).Ch() <-chan time.Time`.
   Stream<DateTime> ch() =>
-      $stream(3287, $W()..h(this)).map((r) => r.p() ? r.time() : $nil());
+      $stream(14676, $W()..h(this)).map((r) => r.p() ? r.time() : $nil());
 
   /// Go: `func (swarm.RealTimer).Reset(d time.Time) bool`.
   bool reset(DateTime d) {
     final $r = $callSync(
-        3288,
+        14677,
         $W()
           ..h(this)
           ..time(d));
@@ -458,7 +516,7 @@ class Libp2pP2pNetSwarmRealTimer extends Libp2pP2pNetSwarmInstantTimer
 
   /// Go: `func (swarm.RealTimer).Stop() bool`.
   bool stop() {
-    final $r = $callSync(3289, $W()..h(this));
+    final $r = $callSync(14678, $W()..h(this));
     return $r.b();
   }
 }
@@ -490,7 +548,7 @@ final class Libp2pP2pNetSwarmResolverFromMaDns implements GoDto {
       int recursionLimit,
       int outputLimit) async {
     final $r = await $call(
-        3290,
+        14679,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -507,7 +565,7 @@ final class Libp2pP2pNetSwarmResolverFromMaDns implements GoDto {
   Future<List<$multiaddr.Multiaddr>> resolveDnsComponent(
       $context.Context ctx, $multiaddr.Multiaddr maddr, int outputLimit) async {
     final $r = await $call(
-        3291,
+        14680,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -520,49 +578,61 @@ final class Libp2pP2pNetSwarmResolverFromMaDns implements GoDto {
 /// Go: `swarm.Stream` (handle).
 class Libp2pP2pNetSwarmStream extends $network.Libp2pCoreNetworkStream
     with
+        $crypto.CryptoDecrypterOpts$,
         $crypto.CryptoPrivateKey$,
         $crypto.CryptoPublicKey$,
-        $ipfs_cmds.IpfsCmdsEnvironment$
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$,
+        $datachannel.DatachannelReadDeadliner$,
+        $datachannel.DatachannelWriteDeadliner$
     implements
+        $crypto.CryptoDecrypterOpts,
         $crypto.CryptoPrivateKey,
         $crypto.CryptoPublicKey,
-        $ipfs_cmds.IpfsCmdsEnvironment {
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic,
+        $datachannel.DatachannelReadDeadliner,
+        $datachannel.DatachannelWriteDeadliner {
   Libp2pP2pNetSwarmStream.$h(super.$h) : super.$h();
 
   /// Go: `func (*swarm.Stream).Close() error`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> close() async {
-    await $call(3292, $W()..h(this));
+    await $call(14681, $W()..h(this));
   }
 
   /// Go: `func (*swarm.Stream).CloseRead() error`.
   void closeRead() {
-    $callSync(3293, $W()..h(this));
+    $callSync(14682, $W()..h(this));
   }
 
   /// Go: `func (*swarm.Stream).CloseWrite() error`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> closeWrite() async {
-    await $call(3294, $W()..h(this));
+    await $call(14683, $W()..h(this));
   }
 
   /// Go: `func (*swarm.Stream).Conn() network.Conn`.
   $network.Libp2pCoreNetworkConn conn() {
-    final $r = $callSync(3295, $W()..h(this));
+    final $r = $callSync(14684, $W()..h(this));
     return $r.hnn($network.Libp2pCoreNetworkConn.$h);
   }
 
   /// Go: `func (*swarm.Stream).ID() string`.
   String id() {
-    final $r = $callSync(3296, $W()..h(this));
+    final $r = $callSync(14685, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*swarm.Stream).Protocol() protocol.ID`.
   String protocol() {
-    final $r = $callSync(3297, $W()..h(this));
+    final $r = $callSync(14686, $W()..h(this));
     return $r.str();
   }
 
@@ -571,7 +641,7 @@ class Libp2pP2pNetSwarmStream extends $network.Libp2pCoreNetworkStream
   /// Asynchronous: runs in a goroutine of the service.
   Future<Uint8List> read(int n) async {
     final $r = await $call(
-        3298,
+        14687,
         $W()
           ..h(this)
           ..i64(n));
@@ -580,13 +650,13 @@ class Libp2pP2pNetSwarmStream extends $network.Libp2pCoreNetworkStream
 
   /// Go: `func (*swarm.Stream).Reset() error`.
   void reset() {
-    $callSync(3299, $W()..h(this));
+    $callSync(14688, $W()..h(this));
   }
 
   /// Go: `func (*swarm.Stream).ResetWithError(errCode network.StreamErrorCode) error`.
   void resetWithError(int errCode) {
     $callSync(
-        3300,
+        14689,
         $W()
           ..h(this)
           ..i64(errCode));
@@ -594,14 +664,14 @@ class Libp2pP2pNetSwarmStream extends $network.Libp2pCoreNetworkStream
 
   /// Go: `func (*swarm.Stream).Scope() network.StreamScope`.
   $network.Libp2pCoreNetworkStreamScope scope() {
-    final $r = $callSync(3301, $W()..h(this));
+    final $r = $callSync(14690, $W()..h(this));
     return $r.hnn($network.Libp2pCoreNetworkStreamScope.$h);
   }
 
   /// Go: `func (*swarm.Stream).SetDeadline(t time.Time) error`.
   void setDeadline(DateTime t) {
     $callSync(
-        3302,
+        14691,
         $W()
           ..h(this)
           ..time(t));
@@ -610,7 +680,7 @@ class Libp2pP2pNetSwarmStream extends $network.Libp2pCoreNetworkStream
   /// Go: `func (*swarm.Stream).SetProtocol(p protocol.ID) error`.
   void setProtocol(String p) {
     $callSync(
-        3303,
+        14692,
         $W()
           ..h(this)
           ..str(p));
@@ -619,7 +689,7 @@ class Libp2pP2pNetSwarmStream extends $network.Libp2pCoreNetworkStream
   /// Go: `func (*swarm.Stream).SetReadDeadline(t time.Time) error`.
   void setReadDeadline(DateTime t) {
     $callSync(
-        3304,
+        14693,
         $W()
           ..h(this)
           ..time(t));
@@ -628,7 +698,7 @@ class Libp2pP2pNetSwarmStream extends $network.Libp2pCoreNetworkStream
   /// Go: `func (*swarm.Stream).SetWriteDeadline(t time.Time) error`.
   void setWriteDeadline(DateTime t) {
     $callSync(
-        3305,
+        14694,
         $W()
           ..h(this)
           ..time(t));
@@ -636,13 +706,13 @@ class Libp2pP2pNetSwarmStream extends $network.Libp2pCoreNetworkStream
 
   /// Go: `func (*swarm.Stream).Stat() network.Stats`.
   $network.Libp2pCoreNetworkStats stat() {
-    final $r = $callSync(3306, $W()..h(this));
+    final $r = $callSync(14695, $W()..h(this));
     return $r.p() ? $network.Libp2pCoreNetworkStats.$dec($r) : $nil();
   }
 
   /// Go: `func (*swarm.Stream).String() string`.
   String string() {
-    final $r = $callSync(3307, $W()..h(this));
+    final $r = $callSync(14696, $W()..h(this));
     return $r.str();
   }
 
@@ -651,7 +721,7 @@ class Libp2pP2pNetSwarmStream extends $network.Libp2pCoreNetworkStream
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> write(Uint8List p) async {
     final $r = await $call(
-        3308,
+        14697,
         $W()
           ..h(this)
           ..bytes(p));
@@ -660,15 +730,27 @@ class Libp2pP2pNetSwarmStream extends $network.Libp2pCoreNetworkStream
 }
 
 /// Go: `swarm.Swarm` (handle).
-class Libp2pP2pNetSwarm extends $network.Libp2pCoreNetwork
+class Libp2pP2pNetSwarm extends $transport.Libp2pCoreTransportNetwork
     with
+        $crypto.CryptoDecrypterOpts$,
         $crypto.CryptoPrivateKey$,
         $crypto.CryptoPublicKey$,
-        $ipfs_cmds.IpfsCmdsEnvironment$
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $io.IoCloser$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$,
+        $expfmt.CommonExpfmtCloser$
     implements
+        $crypto.CryptoDecrypterOpts,
         $crypto.CryptoPrivateKey,
         $crypto.CryptoPublicKey,
-        $ipfs_cmds.IpfsCmdsEnvironment {
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $io.IoCloser,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic,
+        $expfmt.CommonExpfmtCloser {
   Libp2pP2pNetSwarm.$h(super.$h) : super.$h();
 
   /// Go: `func swarm.NewSwarm(local peer.ID, peers peerstore.Peerstore, eventBus event.Bus, opts ...swarm.Option) (*swarm.Swarm, error)`.
@@ -676,7 +758,7 @@ class Libp2pP2pNetSwarm extends $network.Libp2pCoreNetwork
       $peerstore.Libp2pCorePeerstore peers, $event.Libp2pCoreEventBus eventBus,
       [List<Libp2pP2pNetSwarmOption> opts = const []]) {
     final $r = $callSync(
-        3282,
+        14671,
         $W()
           ..val(local)
           ..h(peers)
@@ -689,7 +771,7 @@ class Libp2pP2pNetSwarm extends $network.Libp2pCoreNetwork
   List<$multiaddr.Multiaddr> addCertHashes(
       List<$multiaddr.Multiaddr> listenAddrs) {
     final $r = $callSync(
-        3309,
+        14698,
         $W()
           ..h(this)
           ..list(listenAddrs, (w0, e0) => w0.val(e0)));
@@ -699,7 +781,7 @@ class Libp2pP2pNetSwarm extends $network.Libp2pCoreNetwork
   /// Go: `func (*swarm.Swarm).AddListenAddr(a multiaddr.Multiaddr) error`.
   void addListenAddr($multiaddr.Multiaddr a) {
     $callSync(
-        3310,
+        14699,
         $W()
           ..h(this)
           ..val(a));
@@ -708,7 +790,7 @@ class Libp2pP2pNetSwarm extends $network.Libp2pCoreNetwork
   /// Go: `func (*swarm.Swarm).AddTransport(t transport.Transport) error`.
   void addTransport($transport.Libp2pCoreTransport t) {
     $callSync(
-        3311,
+        14700,
         $W()
           ..h(this)
           ..h(t));
@@ -716,14 +798,14 @@ class Libp2pP2pNetSwarm extends $network.Libp2pCoreNetwork
 
   /// Go: `func (*swarm.Swarm).Backoff() *swarm.DialBackoff`.
   Libp2pP2pNetSwarmDialBackoff backoff() {
-    final $r = $callSync(3312, $W()..h(this));
+    final $r = $callSync(14701, $W()..h(this));
     return $r.hnn(Libp2pP2pNetSwarmDialBackoff.$h);
   }
 
   /// Go: `func (*swarm.Swarm).CanDial(p peer.ID, addr multiaddr.Multiaddr) bool`.
   bool canDial($peer.Libp2pCorePeerId p, $multiaddr.Multiaddr addr) {
     final $r = $callSync(
-        3313,
+        14702,
         $W()
           ..h(this)
           ..val(p)
@@ -733,13 +815,13 @@ class Libp2pP2pNetSwarm extends $network.Libp2pCoreNetwork
 
   /// Go: `func (*swarm.Swarm).Close() error`.
   void close() {
-    $callSync(3314, $W()..h(this));
+    $callSync(14703, $W()..h(this));
   }
 
   /// Go: `func (*swarm.Swarm).ClosePeer(p peer.ID) error`.
   void closePeer($peer.Libp2pCorePeerId p) {
     $callSync(
-        3315,
+        14704,
         $W()
           ..h(this)
           ..val(p));
@@ -748,7 +830,7 @@ class Libp2pP2pNetSwarm extends $network.Libp2pCoreNetwork
   /// Go: `func (*swarm.Swarm).Connectedness(p peer.ID) network.Connectedness`.
   int connectedness($peer.Libp2pCorePeerId p) {
     final $r = $callSync(
-        3316,
+        14705,
         $W()
           ..h(this)
           ..val(p));
@@ -757,14 +839,14 @@ class Libp2pP2pNetSwarm extends $network.Libp2pCoreNetwork
 
   /// Go: `func (*swarm.Swarm).Conns() []network.Conn`.
   List<$network.Libp2pCoreNetworkConn> conns() {
-    final $r = $callSync(3317, $W()..h(this));
+    final $r = $callSync(14706, $W()..h(this));
     return $r.list(() => $r.hnn($network.Libp2pCoreNetworkConn.$h));
   }
 
   /// Go: `func (*swarm.Swarm).ConnsToPeer(p peer.ID) []network.Conn`.
   List<$network.Libp2pCoreNetworkConn> connsToPeer($peer.Libp2pCorePeerId p) {
     final $r = $callSync(
-        3318,
+        14707,
         $W()
           ..h(this)
           ..val(p));
@@ -777,7 +859,7 @@ class Libp2pP2pNetSwarm extends $network.Libp2pCoreNetwork
   Future<$network.Libp2pCoreNetworkConn> dialPeer(
       $context.Context ctx, $peer.Libp2pCorePeerId p) async {
     final $r = await $call(
-        3319,
+        14708,
         $W()
           ..h(this)
           ..h(ctx)
@@ -787,14 +869,14 @@ class Libp2pP2pNetSwarm extends $network.Libp2pCoreNetwork
 
   /// Go: `func (*swarm.Swarm).InterfaceListenAddresses() ([]multiaddr.Multiaddr, error)`.
   List<$multiaddr.Multiaddr> interfaceListenAddresses() {
-    final $r = $callSync(3320, $W()..h(this));
+    final $r = $callSync(14709, $W()..h(this));
     return $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil());
   }
 
   /// Go: `func (*swarm.Swarm).Listen(addrs ...multiaddr.Multiaddr) error`.
   void listen([List<$multiaddr.Multiaddr> addrs = const []]) {
     $callSync(
-        3321,
+        14710,
         $W()
           ..h(this)
           ..list(addrs, (w0, e0) => w0.val(e0)));
@@ -802,14 +884,14 @@ class Libp2pP2pNetSwarm extends $network.Libp2pCoreNetwork
 
   /// Go: `func (*swarm.Swarm).ListenAddresses() []multiaddr.Multiaddr`.
   List<$multiaddr.Multiaddr> listenAddresses() {
-    final $r = $callSync(3322, $W()..h(this));
+    final $r = $callSync(14711, $W()..h(this));
     return $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil());
   }
 
   /// Go: `func (*swarm.Swarm).ListenClose(addrs ...multiaddr.Multiaddr)`.
   void listenClose([List<$multiaddr.Multiaddr> addrs = const []]) {
     $callSync(
-        3323,
+        14712,
         $W()
           ..h(this)
           ..list(addrs, (w0, e0) => w0.val(e0)));
@@ -817,7 +899,7 @@ class Libp2pP2pNetSwarm extends $network.Libp2pCoreNetwork
 
   /// Go: `func (*swarm.Swarm).LocalPeer() peer.ID`.
   $peer.Libp2pCorePeerId localPeer() {
-    final $r = $callSync(3324, $W()..h(this));
+    final $r = $callSync(14713, $W()..h(this));
     return $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil();
   }
 
@@ -827,7 +909,7 @@ class Libp2pP2pNetSwarm extends $network.Libp2pCoreNetwork
   Future<$network.Libp2pCoreNetworkStream> newStream(
       $context.Context ctx, $peer.Libp2pCorePeerId p) async {
     final $r = await $call(
-        3325,
+        14714,
         $W()
           ..h(this)
           ..h(ctx)
@@ -838,7 +920,7 @@ class Libp2pP2pNetSwarm extends $network.Libp2pCoreNetwork
   /// Go: `func (*swarm.Swarm).Notify(f network.Notifiee)`.
   void notify($network.Libp2pCoreNetworkNotifiee f) {
     $callSync(
-        3326,
+        14715,
         $W()
           ..h(this)
           ..h(f));
@@ -846,19 +928,19 @@ class Libp2pP2pNetSwarm extends $network.Libp2pCoreNetwork
 
   /// Go: `func (*swarm.Swarm).Peers() []peer.ID`.
   List<$peer.Libp2pCorePeerId> peers() {
-    final $r = $callSync(3327, $W()..h(this));
+    final $r = $callSync(14716, $W()..h(this));
     return $r.list(() => $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil());
   }
 
   /// Go: `func (*swarm.Swarm).Peerstore() peerstore.Peerstore`.
   $peerstore.Libp2pCorePeerstore peerstore() {
-    final $r = $callSync(3328, $W()..h(this));
+    final $r = $callSync(14717, $W()..h(this));
     return $r.hnn($peerstore.Libp2pCorePeerstore.$h);
   }
 
   /// Go: `func (*swarm.Swarm).ResourceManager() network.ResourceManager`.
   $network.Libp2pCoreNetworkResourceManager resourceManager() {
-    final $r = $callSync(3329, $W()..h(this));
+    final $r = $callSync(14718, $W()..h(this));
     return $r.hnn($network.Libp2pCoreNetworkResourceManager.$h);
   }
 
@@ -873,7 +955,7 @@ class Libp2pP2pNetSwarm extends $network.Libp2pCoreNetwork
       FutureOr<void> Function($network.Libp2pCoreNetworkStream stream)
           handler) async {
     await $call(
-        3330,
+        14719,
         $W()
           ..h(this)
           ..cb((r) => handler(r.hnn($network.Libp2pCoreNetworkStream.$h)),
@@ -883,7 +965,7 @@ class Libp2pP2pNetSwarm extends $network.Libp2pCoreNetwork
   /// Go: `func (*swarm.Swarm).StopNotify(f network.Notifiee)`.
   void stopNotify($network.Libp2pCoreNetworkNotifiee f) {
     $callSync(
-        3331,
+        14720,
         $W()
           ..h(this)
           ..h(f));
@@ -891,20 +973,20 @@ class Libp2pP2pNetSwarm extends $network.Libp2pCoreNetwork
 
   /// Go: `func (*swarm.Swarm).StreamHandler() network.StreamHandler`.
   $network.Libp2pCoreNetworkStreamHandler streamHandler() {
-    final $r = $callSync(3332, $W()..h(this));
+    final $r = $callSync(14721, $W()..h(this));
     return $r.hnn($network.Libp2pCoreNetworkStreamHandler.$h);
   }
 
   /// Go: `func (*swarm.Swarm).String() string`.
   String string() {
-    final $r = $callSync(3333, $W()..h(this));
+    final $r = $callSync(14722, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*swarm.Swarm).TransportForDialing(a multiaddr.Multiaddr) transport.Transport`.
   $transport.Libp2pCoreTransport transportForDialing($multiaddr.Multiaddr a) {
     final $r = $callSync(
-        3334,
+        14723,
         $W()
           ..h(this)
           ..val(a));
@@ -914,7 +996,7 @@ class Libp2pP2pNetSwarm extends $network.Libp2pCoreNetwork
   /// Go: `func (*swarm.Swarm).TransportForListening(a multiaddr.Multiaddr) transport.Transport`.
   $transport.Libp2pCoreTransport transportForListening($multiaddr.Multiaddr a) {
     final $r = $callSync(
-        3335,
+        14724,
         $W()
           ..h(this)
           ..val(a));
@@ -1066,40 +1148,40 @@ class Libp2pP2pNetSwarmTransportError extends GolangException {
 extension GoLibp2pLibp2pP2pNetSwarmApi on GoLibp2pLibp2pP2pNetSwarm {
   /// Go: `var swarm.BackoffBase time.Duration`.
   Duration get backoffBase {
-    final $r = $callSync(3242);
+    final $r = $callSync(14631);
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `var swarm.BackoffCoef time.Duration`.
   Duration get backoffCoef {
-    final $r = $callSync(3243);
+    final $r = $callSync(14632);
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `var swarm.BackoffMax time.Duration`.
   Duration get backoffMax {
-    final $r = $callSync(3244);
+    final $r = $callSync(14633);
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `func swarm.DefaultDialRanker(addrs []multiaddr.Multiaddr) []network.AddrDelay`.
   List<$network.Libp2pCoreNetworkAddrDelay> defaultDialRanker(
       List<$multiaddr.Multiaddr> addrs) {
-    final $r = $callSync(3267, $W()..list(addrs, (w0, e0) => w0.val(e0)));
+    final $r = $callSync(14656, $W()..list(addrs, (w0, e0) => w0.val(e0)));
     return $r.list(
         () => $r.p() ? $network.Libp2pCoreNetworkAddrDelay.$dec($r) : $nil());
   }
 
   /// Go: `var swarm.DefaultPerPeerRateLimit int`.
   int get defaultPerPeerRateLimit {
-    final $r = $callSync(3268);
+    final $r = $callSync(14657);
     return $r.i64();
   }
 
   /// Go: `func swarm.NoDelayDialRanker(addrs []multiaddr.Multiaddr) []network.AddrDelay`.
   List<$network.Libp2pCoreNetworkAddrDelay> noDelayDialRanker(
       List<$multiaddr.Multiaddr> addrs) {
-    final $r = $callSync(3283, $W()..list(addrs, (w0, e0) => w0.val(e0)));
+    final $r = $callSync(14672, $W()..list(addrs, (w0, e0) => w0.val(e0)));
     return $r.list(
         () => $r.p() ? $network.Libp2pCoreNetworkAddrDelay.$dec($r) : $nil());
   }

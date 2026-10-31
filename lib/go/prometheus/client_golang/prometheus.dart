@@ -2,13 +2,315 @@
 // Go: github.com/prometheus/client_golang/prometheus
 library;
 
+import 'dart:async';
+
 import 'package:p2p_ffi/src/go.dart'
     show
         GoPrometheusClientGolangPrometheus,
         GoPrometheusClientGolangPrometheusConsts,
         GoPrometheusClientGolangPrometheusEnums;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
+import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/metrics_interface.dart' as $metrics_interface;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/prometheus/client_model/go.dart' as $go;
+
+/// Go: `prometheus.Collector` (handle).
+class ClientGolangPrometheusCollector extends GoHandle
+    with ClientGolangPrometheusCollector$ {
+  ClientGolangPrometheusCollector.$h(super.$h);
+}
+
+/// The methods of [ClientGolangPrometheusCollector], mixed into every class Go also accepts as one.
+mixin ClientGolangPrometheusCollector$ on GoHandle {
+  /// Go: `func (prometheus.Collector).Collect(chan<- prometheus.Metric)`.
+  Stream<ClientGolangPrometheusMetric> collect() =>
+      $stream(17960, $W()..h(this))
+          .map((r) => r.hnn(ClientGolangPrometheusMetric.$h));
+
+  /// Go: `func (prometheus.Collector).Describe(chan<- *prometheus.Desc)`.
+  Stream<ClientGolangPrometheusDesc> describe() => $stream(17961, $W()..h(this))
+      .map((r) => r.hnn(ClientGolangPrometheusDesc.$h));
+
+  /// Go: type assertion `x.(*prometheus.CollectorFunc)`: null if the object is not one.
+  ClientGolangPrometheusCollectorFunc? asClientGolangPrometheusCollectorFunc() {
+    final $r = $callSync(1667, $W()..h(this));
+    return $r.hn(ClientGolangPrometheusCollectorFunc.$h);
+  }
+
+  /// Go: type assertion `x.(*prometheus.MetricVec)`: null if the object is not one.
+  ClientGolangPrometheusMetricVec? asClientGolangPrometheusMetricVec() {
+    final $r = $callSync(1668, $W()..h(this));
+    return $r.hn(ClientGolangPrometheusMetricVec.$h);
+  }
+
+  /// Go: type assertion `x.(*prometheus.Registry)`: null if the object is not one.
+  ClientGolangPrometheusRegistry? asClientGolangPrometheusRegistry() {
+    final $r = $callSync(1669, $W()..h(this));
+    return $r.hn(ClientGolangPrometheusRegistry.$h);
+  }
+
+  /// Go: type assertion `x.(prometheus.Counter)`: null if the object is not one.
+  ClientGolangPrometheusCounter? asClientGolangPrometheusCounter() {
+    final $r = $callSync(1670, $W()..h(this));
+    return $r.hn(ClientGolangPrometheusCounter.$h);
+  }
+
+  /// Go: type assertion `x.(prometheus.CounterFunc)`: null if the object is not one.
+  ClientGolangPrometheusCounterFunc? asClientGolangPrometheusCounterFunc() {
+    final $r = $callSync(1671, $W()..h(this));
+    return $r.hn(ClientGolangPrometheusCounterFunc.$h);
+  }
+
+  /// Go: type assertion `x.(prometheus.Gauge)`: null if the object is not one.
+  ClientGolangPrometheusGauge? asClientGolangPrometheusGauge() {
+    final $r = $callSync(1672, $W()..h(this));
+    return $r.hn(ClientGolangPrometheusGauge.$h);
+  }
+
+  /// Go: type assertion `x.(prometheus.GaugeFunc)`: null if the object is not one.
+  ClientGolangPrometheusGaugeFunc? asClientGolangPrometheusGaugeFunc() {
+    final $r = $callSync(1673, $W()..h(this));
+    return $r.hn(ClientGolangPrometheusGaugeFunc.$h);
+  }
+
+  /// Go: type assertion `x.(prometheus.Histogram)`: null if the object is not one.
+  ClientGolangPrometheusHistogram? asClientGolangPrometheusHistogram() {
+    final $r = $callSync(1674, $W()..h(this));
+    return $r.hn(ClientGolangPrometheusHistogram.$h);
+  }
+
+  /// Go: type assertion `x.(prometheus.ObserverVec)`: null if the object is not one.
+  ClientGolangPrometheusObserverVec? asClientGolangPrometheusObserverVec() {
+    final $r = $callSync(1675, $W()..h(this));
+    return $r.hn(ClientGolangPrometheusObserverVec.$h);
+  }
+
+  /// Go: type assertion `x.(prometheus.Summary)`: null if the object is not one.
+  ClientGolangPrometheusSummary? asClientGolangPrometheusSummary() {
+    final $r = $callSync(1676, $W()..h(this));
+    return $r.hn(ClientGolangPrometheusSummary.$h);
+  }
+
+  /// Go: type assertion `x.(prometheus.UntypedFunc)`: null if the object is not one.
+  ClientGolangPrometheusUntypedFunc? asClientGolangPrometheusUntypedFunc() {
+    final $r = $callSync(1677, $W()..h(this));
+    return $r.hn(ClientGolangPrometheusUntypedFunc.$h);
+  }
+}
+
+/// Go: `prometheus.CollectorFunc` (handle).
+class ClientGolangPrometheusCollectorFunc
+    extends ClientGolangPrometheusCollector
+    with
+        $crypto.CryptoDecrypterOpts$,
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoDecrypterOpts,
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
+  ClientGolangPrometheusCollectorFunc.$h(super.$h) : super.$h();
+
+  /// Go: `func (prometheus.CollectorFunc).Collect(ch chan<- prometheus.Metric)`.
+  Stream<ClientGolangPrometheusMetric> collect() =>
+      $stream(17962, $W()..h(this))
+          .map((r) => r.hnn(ClientGolangPrometheusMetric.$h));
+
+  /// Go: `func (prometheus.CollectorFunc).Describe(ch chan<- *prometheus.Desc)`.
+  Stream<ClientGolangPrometheusDesc> describe() => $stream(17963, $W()..h(this))
+      .map((r) => r.hnn(ClientGolangPrometheusDesc.$h));
+}
+
+/// Go: `prometheus.Counter` (handle).
+class ClientGolangPrometheusCounter extends ClientGolangPrometheusMetric
+    with ClientGolangPrometheusCollector$, ClientGolangPrometheusCounter$
+    implements ClientGolangPrometheusCollector {
+  ClientGolangPrometheusCounter.$h(super.$h) : super.$h();
+
+  /// Go: `func prometheus.NewCounter(opts prometheus.CounterOpts) prometheus.Counter`.
+  factory ClientGolangPrometheusCounter(
+      ClientGolangPrometheusCounterOpts opts) {
+    final $r = $callSync(18018, $W()..h(opts));
+    return $r.hnn(ClientGolangPrometheusCounter.$h);
+  }
+}
+
+/// The methods of [ClientGolangPrometheusCounter], mixed into every class Go also accepts as one.
+mixin ClientGolangPrometheusCounter$ on GoHandle {
+  /// Go: `func (prometheus.Counter).Add(float64)`.
+  void add(double arg0) {
+    $callSync(
+        17964,
+        $W()
+          ..h(this)
+          ..f64(arg0));
+  }
+
+  /// Go: `func (prometheus.Counter).Inc()`.
+  void inc() {
+    $callSync(17965, $W()..h(this));
+  }
+}
+
+/// Go: `prometheus.CounterFunc` (handle).
+class ClientGolangPrometheusCounterFunc extends ClientGolangPrometheusMetric
+    with ClientGolangPrometheusCollector$, ClientGolangPrometheusCounterFunc$
+    implements ClientGolangPrometheusCollector {
+  ClientGolangPrometheusCounterFunc.$h(super.$h) : super.$h();
+}
+
+/// The methods of [ClientGolangPrometheusCounterFunc], mixed into every class Go also accepts as one.
+mixin ClientGolangPrometheusCounterFunc$ on GoHandle {}
+
+/// Go: `prometheus.CounterOpts` (handle).
+class ClientGolangPrometheusCounterOpts extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
+  ClientGolangPrometheusCounterOpts.$h(super.$h) : super.$h();
+}
+
+/// Go: `prometheus.CounterVec`.
+final class ClientGolangPrometheusCounterVec implements GoDto {
+  ClientGolangPrometheusCounterVec({ClientGolangPrometheusMetricVec? metricVec})
+      : metricVec = metricVec;
+
+  ClientGolangPrometheusCounterVec.$dec($R r)
+      : metricVec = r.hn(ClientGolangPrometheusMetricVec.$h);
+
+  /// Go: `MetricVec`.
+  ClientGolangPrometheusMetricVec? metricVec;
+
+  @override
+  void $enc($W w) {
+    w..h(metricVec);
+  }
+
+  /// Go: `func (*prometheus.MetricVec).Collect(ch chan<- prometheus.Metric)`.
+  Stream<ClientGolangPrometheusMetric> collect() =>
+      $stream(17966, $W()..dto(this))
+          .map((r) => r.hnn(ClientGolangPrometheusMetric.$h));
+
+  /// Go: `func (*prometheus.MetricVec).DeleteLabelValues(lvs ...string) bool`.
+  bool deleteLabelValues([List<String> lvs = const []]) {
+    final $r = $callSync(
+        17967,
+        $W()
+          ..dto(this)
+          ..list(lvs, (w0, e0) => w0.str(e0)));
+    return $r.b();
+  }
+
+  /// Go: `func (*prometheus.MetricVec).Describe(ch chan<- *prometheus.Desc)`.
+  Stream<ClientGolangPrometheusDesc> describe() =>
+      $stream(17968, $W()..dto(this))
+          .map((r) => r.hnn(ClientGolangPrometheusDesc.$h));
+
+  /// Go: `func (*prometheus.CounterVec).GetMetricWithLabelValues(lvs ...string) (prometheus.Counter, error)`.
+  ClientGolangPrometheusCounter getMetricWithLabelValues(
+      [List<String> lvs = const []]) {
+    final $r = $callSync(
+        17969,
+        $W()
+          ..dto(this)
+          ..list(lvs, (w0, e0) => w0.str(e0)));
+    return $r.hnn(ClientGolangPrometheusCounter.$h);
+  }
+
+  /// Go: `func (*prometheus.MetricVec).Reset()`.
+  void reset() {
+    $callSync(17970, $W()..dto(this));
+  }
+
+  /// Go: `func (*prometheus.CounterVec).WithLabelValues(lvs ...string) prometheus.Counter`.
+  ClientGolangPrometheusCounter withLabelValues([List<String> lvs = const []]) {
+    final $r = $callSync(
+        17971,
+        $W()
+          ..dto(this)
+          ..list(lvs, (w0, e0) => w0.str(e0)));
+    return $r.hnn(ClientGolangPrometheusCounter.$h);
+  }
+}
+
+/// Go: `prometheus.Desc` (handle).
+class ClientGolangPrometheusDesc extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
+  ClientGolangPrometheusDesc.$h(super.$h) : super.$h();
+
+  /// Go: `func (*prometheus.Desc).Err() error`.
+  void err() {
+    $callSync(17975, $W()..h(this));
+  }
+
+  /// Go: `func (*prometheus.Desc).String() string`.
+  String string() {
+    final $r = $callSync(17976, $W()..h(this));
+    return $r.str();
+  }
+}
+
+/// Go: `prometheus.Exemplar`.
+///
+/// Fields that do not cross the bridge: `Labels` (tipo github.com/prometheus/client_golang/prometheus.Labels).
+final class ClientGolangPrometheusExemplar implements GoDto {
+  ClientGolangPrometheusExemplar({double? value$, DateTime? timestamp})
+      : value$ = value$ ?? 0.0,
+        timestamp = timestamp;
+
+  ClientGolangPrometheusExemplar.$dec($R r)
+      : value$ = r.f64(),
+        timestamp = r.p() ? r.time() : null;
+
+  /// Go: `Value`.
+  double value$;
+
+  /// Go: `Timestamp`.
+  DateTime? timestamp;
+
+  @override
+  void $enc($W w) {
+    w
+      ..f64(value$)
+      ..time(timestamp);
+  }
+}
 
 /// Go: `prometheus.Gatherer` (values read from the methods; built in Dart, it
 /// crosses as a Go value that returns them).
@@ -31,6 +333,557 @@ final class ClientGolangPrometheusGatherer implements GoDto {
   }
 }
 
+/// Go: `prometheus.GathererFunc` (handle).
+class ClientGolangPrometheusGathererFunc extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
+  ClientGolangPrometheusGathererFunc.$h(super.$h) : super.$h();
+
+  /// Go: `func (prometheus.GathererFunc).Gather() ([]*io_prometheus_client.MetricFamily, error)`.
+  List<$go.ClientModelGoMetricFamily> gather() {
+    final $r = $callSync(17980, $W()..h(this));
+    return $r.list(() => $r.hnn($go.ClientModelGoMetricFamily.$h));
+  }
+}
+
+/// Go: `prometheus.Gauge` (handle).
+class ClientGolangPrometheusGauge extends ClientGolangPrometheusMetric
+    with ClientGolangPrometheusCollector$, ClientGolangPrometheusGauge$
+    implements ClientGolangPrometheusCollector {
+  ClientGolangPrometheusGauge.$h(super.$h) : super.$h();
+
+  /// Go: `func prometheus.NewGauge(opts prometheus.GaugeOpts) prometheus.Gauge`.
+  factory ClientGolangPrometheusGauge(ClientGolangPrometheusGaugeOpts opts) {
+    final $r = $callSync(18022, $W()..h(opts));
+    return $r.hnn(ClientGolangPrometheusGauge.$h);
+  }
+}
+
+/// The methods of [ClientGolangPrometheusGauge], mixed into every class Go also accepts as one.
+mixin ClientGolangPrometheusGauge$ on GoHandle {
+  /// Go: `func (prometheus.Gauge).Add(float64)`.
+  void add(double arg0) {
+    $callSync(
+        17981,
+        $W()
+          ..h(this)
+          ..f64(arg0));
+  }
+
+  /// Go: `func (prometheus.Gauge).Dec()`.
+  void dec() {
+    $callSync(17982, $W()..h(this));
+  }
+
+  /// Go: `func (prometheus.Gauge).Inc()`.
+  void inc() {
+    $callSync(17983, $W()..h(this));
+  }
+
+  /// Go: `func (prometheus.Gauge).Set(float64)`.
+  void set(double arg0) {
+    $callSync(
+        17984,
+        $W()
+          ..h(this)
+          ..f64(arg0));
+  }
+
+  /// Go: `func (prometheus.Gauge).SetToCurrentTime()`.
+  void setToCurrentTime() {
+    $callSync(17985, $W()..h(this));
+  }
+
+  /// Go: `func (prometheus.Gauge).Sub(float64)`.
+  void sub(double arg0) {
+    $callSync(
+        17986,
+        $W()
+          ..h(this)
+          ..f64(arg0));
+  }
+}
+
+/// Go: `prometheus.GaugeFunc` (handle).
+class ClientGolangPrometheusGaugeFunc extends ClientGolangPrometheusMetric
+    with ClientGolangPrometheusCollector$, ClientGolangPrometheusGaugeFunc$
+    implements ClientGolangPrometheusCollector {
+  ClientGolangPrometheusGaugeFunc.$h(super.$h) : super.$h();
+}
+
+/// The methods of [ClientGolangPrometheusGaugeFunc], mixed into every class Go also accepts as one.
+mixin ClientGolangPrometheusGaugeFunc$ on GoHandle {}
+
+/// Go: `prometheus.GaugeOpts` (handle).
+class ClientGolangPrometheusGaugeOpts extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
+  ClientGolangPrometheusGaugeOpts.$h(super.$h) : super.$h();
+}
+
+/// Go: `prometheus.GaugeVec`.
+final class ClientGolangPrometheusGaugeVec implements GoDto {
+  ClientGolangPrometheusGaugeVec({ClientGolangPrometheusMetricVec? metricVec})
+      : metricVec = metricVec;
+
+  ClientGolangPrometheusGaugeVec.$dec($R r)
+      : metricVec = r.hn(ClientGolangPrometheusMetricVec.$h);
+
+  /// Go: `MetricVec`.
+  ClientGolangPrometheusMetricVec? metricVec;
+
+  @override
+  void $enc($W w) {
+    w..h(metricVec);
+  }
+
+  /// Go: `func (*prometheus.MetricVec).Collect(ch chan<- prometheus.Metric)`.
+  Stream<ClientGolangPrometheusMetric> collect() =>
+      $stream(17987, $W()..dto(this))
+          .map((r) => r.hnn(ClientGolangPrometheusMetric.$h));
+
+  /// Go: `func (*prometheus.MetricVec).DeleteLabelValues(lvs ...string) bool`.
+  bool deleteLabelValues([List<String> lvs = const []]) {
+    final $r = $callSync(
+        17988,
+        $W()
+          ..dto(this)
+          ..list(lvs, (w0, e0) => w0.str(e0)));
+    return $r.b();
+  }
+
+  /// Go: `func (*prometheus.MetricVec).Describe(ch chan<- *prometheus.Desc)`.
+  Stream<ClientGolangPrometheusDesc> describe() =>
+      $stream(17989, $W()..dto(this))
+          .map((r) => r.hnn(ClientGolangPrometheusDesc.$h));
+
+  /// Go: `func (*prometheus.GaugeVec).GetMetricWithLabelValues(lvs ...string) (prometheus.Gauge, error)`.
+  ClientGolangPrometheusGauge getMetricWithLabelValues(
+      [List<String> lvs = const []]) {
+    final $r = $callSync(
+        17990,
+        $W()
+          ..dto(this)
+          ..list(lvs, (w0, e0) => w0.str(e0)));
+    return $r.hnn(ClientGolangPrometheusGauge.$h);
+  }
+
+  /// Go: `func (*prometheus.MetricVec).Reset()`.
+  void reset() {
+    $callSync(17991, $W()..dto(this));
+  }
+
+  /// Go: `func (*prometheus.GaugeVec).WithLabelValues(lvs ...string) prometheus.Gauge`.
+  ClientGolangPrometheusGauge withLabelValues([List<String> lvs = const []]) {
+    final $r = $callSync(
+        17992,
+        $W()
+          ..dto(this)
+          ..list(lvs, (w0, e0) => w0.str(e0)));
+    return $r.hnn(ClientGolangPrometheusGauge.$h);
+  }
+}
+
+/// Go: `prometheus.Histogram` (handle).
+class ClientGolangPrometheusHistogram extends ClientGolangPrometheusMetric
+    with ClientGolangPrometheusCollector$, ClientGolangPrometheusHistogram$
+    implements ClientGolangPrometheusCollector {
+  ClientGolangPrometheusHistogram.$h(super.$h) : super.$h();
+
+  /// Go: `func prometheus.NewHistogram(opts prometheus.HistogramOpts) prometheus.Histogram`.
+  factory ClientGolangPrometheusHistogram(
+      ClientGolangPrometheusHistogramOpts opts) {
+    final $r = $callSync(18026, $W()..h(opts));
+    return $r.hnn(ClientGolangPrometheusHistogram.$h);
+  }
+}
+
+/// The methods of [ClientGolangPrometheusHistogram], mixed into every class Go also accepts as one.
+mixin ClientGolangPrometheusHistogram$ on GoHandle {
+  /// Go: `func (prometheus.Histogram).Observe(float64)`.
+  void observe(double arg0) {
+    $callSync(
+        17993,
+        $W()
+          ..h(this)
+          ..f64(arg0));
+  }
+}
+
+/// Go: `prometheus.HistogramOpts` (handle).
+class ClientGolangPrometheusHistogramOpts extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
+  ClientGolangPrometheusHistogramOpts.$h(super.$h) : super.$h();
+}
+
+/// Go: `prometheus.HistogramVec`.
+final class ClientGolangPrometheusHistogramVec implements GoDto {
+  ClientGolangPrometheusHistogramVec(
+      {ClientGolangPrometheusMetricVec? metricVec})
+      : metricVec = metricVec;
+
+  ClientGolangPrometheusHistogramVec.$dec($R r)
+      : metricVec = r.hn(ClientGolangPrometheusMetricVec.$h);
+
+  /// Go: `MetricVec`.
+  ClientGolangPrometheusMetricVec? metricVec;
+
+  @override
+  void $enc($W w) {
+    w..h(metricVec);
+  }
+
+  /// Go: `func (*prometheus.MetricVec).Collect(ch chan<- prometheus.Metric)`.
+  Stream<ClientGolangPrometheusMetric> collect() =>
+      $stream(17994, $W()..dto(this))
+          .map((r) => r.hnn(ClientGolangPrometheusMetric.$h));
+
+  /// Go: `func (*prometheus.MetricVec).DeleteLabelValues(lvs ...string) bool`.
+  bool deleteLabelValues([List<String> lvs = const []]) {
+    final $r = $callSync(
+        17995,
+        $W()
+          ..dto(this)
+          ..list(lvs, (w0, e0) => w0.str(e0)));
+    return $r.b();
+  }
+
+  /// Go: `func (*prometheus.MetricVec).Describe(ch chan<- *prometheus.Desc)`.
+  Stream<ClientGolangPrometheusDesc> describe() =>
+      $stream(17996, $W()..dto(this))
+          .map((r) => r.hnn(ClientGolangPrometheusDesc.$h));
+
+  /// Go: `func (*prometheus.HistogramVec).GetMetricWithLabelValues(lvs ...string) (prometheus.Observer, error)`.
+  ClientGolangPrometheusObserver getMetricWithLabelValues(
+      [List<String> lvs = const []]) {
+    final $r = $callSync(
+        17997,
+        $W()
+          ..dto(this)
+          ..list(lvs, (w0, e0) => w0.str(e0)));
+    return $r.hnn(ClientGolangPrometheusObserver.$h);
+  }
+
+  /// Go: `func (*prometheus.MetricVec).Reset()`.
+  void reset() {
+    $callSync(17998, $W()..dto(this));
+  }
+
+  /// Go: `func (*prometheus.HistogramVec).WithLabelValues(lvs ...string) prometheus.Observer`.
+  ClientGolangPrometheusObserver withLabelValues(
+      [List<String> lvs = const []]) {
+    final $r = $callSync(
+        17999,
+        $W()
+          ..dto(this)
+          ..list(lvs, (w0, e0) => w0.str(e0)));
+    return $r.hnn(ClientGolangPrometheusObserver.$h);
+  }
+}
+
+/// Go: `prometheus.Metric` (handle).
+class ClientGolangPrometheusMetric extends GoHandle
+    with ClientGolangPrometheusMetric$ {
+  ClientGolangPrometheusMetric.$h(super.$h);
+}
+
+/// The methods of [ClientGolangPrometheusMetric], mixed into every class Go also accepts as one.
+mixin ClientGolangPrometheusMetric$ on GoHandle {
+  /// Go: `func (prometheus.Metric).Desc() *prometheus.Desc`.
+  ClientGolangPrometheusDesc desc() {
+    final $r = $callSync(18002, $W()..h(this));
+    return $r.hnn(ClientGolangPrometheusDesc.$h);
+  }
+
+  /// Go: `func (prometheus.Metric).Write(*io_prometheus_client.Metric) error`.
+  void write($go.ClientModelGoMetric metric) {
+    $callSync(
+        18003,
+        $W()
+          ..h(this)
+          ..h(metric));
+  }
+
+  /// Go: type assertion `x.(prometheus.Counter)`: null if the object is not one.
+  ClientGolangPrometheusCounter? asClientGolangPrometheusCounter() {
+    final $r = $callSync(1678, $W()..h(this));
+    return $r.hn(ClientGolangPrometheusCounter.$h);
+  }
+
+  /// Go: type assertion `x.(prometheus.CounterFunc)`: null if the object is not one.
+  ClientGolangPrometheusCounterFunc? asClientGolangPrometheusCounterFunc() {
+    final $r = $callSync(1679, $W()..h(this));
+    return $r.hn(ClientGolangPrometheusCounterFunc.$h);
+  }
+
+  /// Go: type assertion `x.(prometheus.Gauge)`: null if the object is not one.
+  ClientGolangPrometheusGauge? asClientGolangPrometheusGauge() {
+    final $r = $callSync(1680, $W()..h(this));
+    return $r.hn(ClientGolangPrometheusGauge.$h);
+  }
+
+  /// Go: type assertion `x.(prometheus.GaugeFunc)`: null if the object is not one.
+  ClientGolangPrometheusGaugeFunc? asClientGolangPrometheusGaugeFunc() {
+    final $r = $callSync(1681, $W()..h(this));
+    return $r.hn(ClientGolangPrometheusGaugeFunc.$h);
+  }
+
+  /// Go: type assertion `x.(prometheus.Histogram)`: null if the object is not one.
+  ClientGolangPrometheusHistogram? asClientGolangPrometheusHistogram() {
+    final $r = $callSync(1682, $W()..h(this));
+    return $r.hn(ClientGolangPrometheusHistogram.$h);
+  }
+
+  /// Go: type assertion `x.(prometheus.Summary)`: null if the object is not one.
+  ClientGolangPrometheusSummary? asClientGolangPrometheusSummary() {
+    final $r = $callSync(1683, $W()..h(this));
+    return $r.hn(ClientGolangPrometheusSummary.$h);
+  }
+
+  /// Go: type assertion `x.(prometheus.UntypedFunc)`: null if the object is not one.
+  ClientGolangPrometheusUntypedFunc? asClientGolangPrometheusUntypedFunc() {
+    final $r = $callSync(1684, $W()..h(this));
+    return $r.hn(ClientGolangPrometheusUntypedFunc.$h);
+  }
+}
+
+/// Go: `prometheus.MetricVec` (handle).
+class ClientGolangPrometheusMetricVec extends ClientGolangPrometheusCollector
+    with
+        $crypto.CryptoDecrypterOpts$,
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoDecrypterOpts,
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
+  ClientGolangPrometheusMetricVec.$h(super.$h) : super.$h();
+
+  /// Go: `func (*prometheus.MetricVec).Collect(ch chan<- prometheus.Metric)`.
+  Stream<ClientGolangPrometheusMetric> collect() =>
+      $stream(18004, $W()..h(this))
+          .map((r) => r.hnn(ClientGolangPrometheusMetric.$h));
+
+  /// Go: `func (*prometheus.MetricVec).DeleteLabelValues(lvs ...string) bool`.
+  bool deleteLabelValues([List<String> lvs = const []]) {
+    final $r = $callSync(
+        18005,
+        $W()
+          ..h(this)
+          ..list(lvs, (w0, e0) => w0.str(e0)));
+    return $r.b();
+  }
+
+  /// Go: `func (*prometheus.MetricVec).Describe(ch chan<- *prometheus.Desc)`.
+  Stream<ClientGolangPrometheusDesc> describe() => $stream(18006, $W()..h(this))
+      .map((r) => r.hnn(ClientGolangPrometheusDesc.$h));
+
+  /// Go: `func (*prometheus.MetricVec).GetMetricWithLabelValues(lvs ...string) (prometheus.Metric, error)`.
+  ClientGolangPrometheusMetric getMetricWithLabelValues(
+      [List<String> lvs = const []]) {
+    final $r = $callSync(
+        18007,
+        $W()
+          ..h(this)
+          ..list(lvs, (w0, e0) => w0.str(e0)));
+    return $r.hnn(ClientGolangPrometheusMetric.$h);
+  }
+
+  /// Go: `func (*prometheus.MetricVec).Reset()`.
+  void reset() {
+    $callSync(18008, $W()..h(this));
+  }
+}
+
+/// Go: `prometheus.MultiTRegistry` (handle).
+class ClientGolangPrometheusMultiTRegistry extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
+  ClientGolangPrometheusMultiTRegistry.$h(super.$h) : super.$h();
+
+  /// Go: `func prometheus.NewMultiTRegistry(tGatherers ...prometheus.TransactionalGatherer) *prometheus.MultiTRegistry`.
+  factory ClientGolangPrometheusMultiTRegistry(
+      [List<ClientGolangPrometheusTransactionalGatherer> tGatherers =
+          const []]) {
+    final $r = $callSync(18030, $W()..list(tGatherers, (w0, e0) => w0.h(e0)));
+    return $r.hnn(ClientGolangPrometheusMultiTRegistry.$h);
+  }
+}
+
+/// Go: `prometheus.Observer` (handle).
+class ClientGolangPrometheusObserver extends GoHandle
+    with ClientGolangPrometheusObserver$ {
+  ClientGolangPrometheusObserver.$h(super.$h);
+}
+
+/// The methods of [ClientGolangPrometheusObserver], mixed into every class Go also accepts as one.
+mixin ClientGolangPrometheusObserver$ on GoHandle {
+  /// Go: `func (prometheus.Observer).Observe(float64)`.
+  void observe(double arg0) {
+    $callSync(
+        18038,
+        $W()
+          ..h(this)
+          ..f64(arg0));
+  }
+
+  /// Go: type assertion `x.(*prometheus.ObserverFunc)`: null if the object is not one.
+  ClientGolangPrometheusObserverFunc? asClientGolangPrometheusObserverFunc() {
+    final $r = $callSync(1685, $W()..h(this));
+    return $r.hn(ClientGolangPrometheusObserverFunc.$h);
+  }
+}
+
+/// Go: `prometheus.ObserverFunc` (handle).
+class ClientGolangPrometheusObserverFunc
+    extends $metrics_interface.MetricsInterfaceHistogram
+    with
+        $crypto.CryptoDecrypterOpts$,
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $metrics_interface.MetricsInterfaceSummary$,
+        $peertask.PeertaskqueuePeertaskTopic$,
+        ClientGolangPrometheusObserver$
+    implements
+        $crypto.CryptoDecrypterOpts,
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $metrics_interface.MetricsInterfaceSummary,
+        $peertask.PeertaskqueuePeertaskTopic,
+        ClientGolangPrometheusObserver {
+  ClientGolangPrometheusObserverFunc.$h(super.$h) : super.$h();
+
+  /// Go: `func (prometheus.ObserverFunc).Observe(value float64)`.
+  void observe(double value) {
+    $callSync(
+        18039,
+        $W()
+          ..h(this)
+          ..f64(value));
+  }
+}
+
+/// Go: `prometheus.ObserverVec` (handle).
+class ClientGolangPrometheusObserverVec extends ClientGolangPrometheusCollector
+    with ClientGolangPrometheusObserverVec$ {
+  ClientGolangPrometheusObserverVec.$h(super.$h) : super.$h();
+}
+
+/// The methods of [ClientGolangPrometheusObserverVec], mixed into every class Go also accepts as one.
+mixin ClientGolangPrometheusObserverVec$ on GoHandle {
+  /// Go: `func (prometheus.ObserverVec).GetMetricWithLabelValues(lvs ...string) (prometheus.Observer, error)`.
+  ClientGolangPrometheusObserver getMetricWithLabelValues(
+      [List<String> lvs = const []]) {
+    final $r = $callSync(
+        18040,
+        $W()
+          ..h(this)
+          ..list(lvs, (w0, e0) => w0.str(e0)));
+    return $r.hnn(ClientGolangPrometheusObserver.$h);
+  }
+
+  /// Go: `func (prometheus.ObserverVec).WithLabelValues(...string) prometheus.Observer`.
+  ClientGolangPrometheusObserver withLabelValues(
+      [List<String> arg0 = const []]) {
+    final $r = $callSync(
+        18041,
+        $W()
+          ..h(this)
+          ..list(arg0, (w0, e0) => w0.str(e0)));
+    return $r.hnn(ClientGolangPrometheusObserver.$h);
+  }
+}
+
+/// Go: `prometheus.ProcessCollectorOpts`.
+///
+/// Fields that do not cross the bridge: `PidFn` (func() (int, error)).
+final class ClientGolangPrometheusProcessCollectorOpts implements GoDto {
+  ClientGolangPrometheusProcessCollectorOpts(
+      {String? namespace, bool? reportErrors})
+      : namespace = namespace ?? '',
+        reportErrors = reportErrors ?? false;
+
+  ClientGolangPrometheusProcessCollectorOpts.$dec($R r)
+      : namespace = r.str(),
+        reportErrors = r.b();
+
+  /// Go: `Namespace`.
+  String namespace;
+
+  /// Go: `ReportErrors`.
+  bool reportErrors;
+
+  @override
+  void $enc($W w) {
+    w
+      ..str(namespace)
+      ..b(reportErrors);
+  }
+}
+
 /// Go: `prometheus.Registerer` (handle).
 class ClientGolangPrometheusRegisterer extends GoHandle
     with ClientGolangPrometheusRegisterer$ {
@@ -38,7 +891,305 @@ class ClientGolangPrometheusRegisterer extends GoHandle
 }
 
 /// The methods of [ClientGolangPrometheusRegisterer], mixed into every class Go also accepts as one.
-mixin ClientGolangPrometheusRegisterer$ on GoHandle {}
+mixin ClientGolangPrometheusRegisterer$ on GoHandle {
+  /// Go: `func (prometheus.Registerer).MustRegister(...prometheus.Collector)`.
+  void mustRegister(
+      [List<ClientGolangPrometheusCollector> collectors = const []]) {
+    $callSync(
+        18043,
+        $W()
+          ..h(this)
+          ..list(collectors, (w0, e0) => w0.h(e0)));
+  }
+
+  /// Go: `func (prometheus.Registerer).Register(prometheus.Collector) error`.
+  void register(ClientGolangPrometheusCollector collector) {
+    $callSync(
+        18044,
+        $W()
+          ..h(this)
+          ..h(collector));
+  }
+
+  /// Go: `func (prometheus.Registerer).Unregister(prometheus.Collector) bool`.
+  bool unregister(ClientGolangPrometheusCollector collector) {
+    final $r = $callSync(
+        18045,
+        $W()
+          ..h(this)
+          ..h(collector));
+    return $r.b();
+  }
+
+  /// Go: type assertion `x.(*prometheus.Registry)`: null if the object is not one.
+  ClientGolangPrometheusRegistry? asClientGolangPrometheusRegistry() {
+    final $r = $callSync(1686, $W()..h(this));
+    return $r.hn(ClientGolangPrometheusRegistry.$h);
+  }
+}
+
+/// Go: `prometheus.Registry` (handle).
+class ClientGolangPrometheusRegistry extends ClientGolangPrometheusRegisterer
+    with
+        $crypto.CryptoDecrypterOpts$,
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$,
+        ClientGolangPrometheusCollector$
+    implements
+        $crypto.CryptoDecrypterOpts,
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic,
+        ClientGolangPrometheusCollector {
+  ClientGolangPrometheusRegistry.$h(super.$h) : super.$h();
+
+  /// Go: `func prometheus.NewRegistry() *prometheus.Registry`.
+  factory ClientGolangPrometheusRegistry() {
+    final $r = $callSync(18033);
+    return $r.hnn(ClientGolangPrometheusRegistry.$h);
+  }
+
+  /// Go: `func (*prometheus.Registry).Collect(ch chan<- prometheus.Metric)`.
+  Stream<ClientGolangPrometheusMetric> collect() =>
+      $stream(18046, $W()..h(this))
+          .map((r) => r.hnn(ClientGolangPrometheusMetric.$h));
+
+  /// Go: `func (*prometheus.Registry).Describe(ch chan<- *prometheus.Desc)`.
+  Stream<ClientGolangPrometheusDesc> describe() => $stream(18047, $W()..h(this))
+      .map((r) => r.hnn(ClientGolangPrometheusDesc.$h));
+
+  /// Go: `func (*prometheus.Registry).Gather() ([]*io_prometheus_client.MetricFamily, error)`.
+  List<$go.ClientModelGoMetricFamily> gather() {
+    final $r = $callSync(18048, $W()..h(this));
+    return $r.list(() => $r.hnn($go.ClientModelGoMetricFamily.$h));
+  }
+
+  /// Go: `func (*prometheus.Registry).MustGather() []*io_prometheus_client.MetricFamily`.
+  List<$go.ClientModelGoMetricFamily> mustGather() {
+    final $r = $callSync(18049, $W()..h(this));
+    return $r.list(() => $r.hnn($go.ClientModelGoMetricFamily.$h));
+  }
+
+  /// Go: `func (*prometheus.Registry).MustRegister(cs ...prometheus.Collector)`.
+  void mustRegister([List<ClientGolangPrometheusCollector> cs = const []]) {
+    $callSync(
+        18050,
+        $W()
+          ..h(this)
+          ..list(cs, (w0, e0) => w0.h(e0)));
+  }
+
+  /// Go: `func (*prometheus.Registry).Register(c prometheus.Collector) error`.
+  void register(ClientGolangPrometheusCollector c) {
+    $callSync(
+        18051,
+        $W()
+          ..h(this)
+          ..h(c));
+  }
+
+  /// Go: `func (*prometheus.Registry).Unregister(c prometheus.Collector) bool`.
+  bool unregister(ClientGolangPrometheusCollector c) {
+    final $r = $callSync(
+        18052,
+        $W()
+          ..h(this)
+          ..h(c));
+    return $r.b();
+  }
+}
+
+/// Go: `prometheus.Summary` (handle).
+class ClientGolangPrometheusSummary extends ClientGolangPrometheusMetric
+    with ClientGolangPrometheusCollector$, ClientGolangPrometheusSummary$
+    implements ClientGolangPrometheusCollector {
+  ClientGolangPrometheusSummary.$h(super.$h) : super.$h();
+
+  /// Go: `func prometheus.NewSummary(opts prometheus.SummaryOpts) prometheus.Summary`.
+  factory ClientGolangPrometheusSummary(
+      ClientGolangPrometheusSummaryOpts opts) {
+    final $r = $callSync(18034, $W()..h(opts));
+    return $r.hnn(ClientGolangPrometheusSummary.$h);
+  }
+}
+
+/// The methods of [ClientGolangPrometheusSummary], mixed into every class Go also accepts as one.
+mixin ClientGolangPrometheusSummary$ on GoHandle {
+  /// Go: `func (prometheus.Summary).Observe(float64)`.
+  void observe(double arg0) {
+    $callSync(
+        18053,
+        $W()
+          ..h(this)
+          ..f64(arg0));
+  }
+}
+
+/// Go: `prometheus.SummaryOpts` (handle).
+class ClientGolangPrometheusSummaryOpts extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
+  ClientGolangPrometheusSummaryOpts.$h(super.$h) : super.$h();
+}
+
+/// Go: `prometheus.SummaryVec`.
+final class ClientGolangPrometheusSummaryVec implements GoDto {
+  ClientGolangPrometheusSummaryVec({ClientGolangPrometheusMetricVec? metricVec})
+      : metricVec = metricVec;
+
+  ClientGolangPrometheusSummaryVec.$dec($R r)
+      : metricVec = r.hn(ClientGolangPrometheusMetricVec.$h);
+
+  /// Go: `MetricVec`.
+  ClientGolangPrometheusMetricVec? metricVec;
+
+  @override
+  void $enc($W w) {
+    w..h(metricVec);
+  }
+
+  /// Go: `func (*prometheus.MetricVec).Collect(ch chan<- prometheus.Metric)`.
+  Stream<ClientGolangPrometheusMetric> collect() =>
+      $stream(18054, $W()..dto(this))
+          .map((r) => r.hnn(ClientGolangPrometheusMetric.$h));
+
+  /// Go: `func (*prometheus.MetricVec).DeleteLabelValues(lvs ...string) bool`.
+  bool deleteLabelValues([List<String> lvs = const []]) {
+    final $r = $callSync(
+        18055,
+        $W()
+          ..dto(this)
+          ..list(lvs, (w0, e0) => w0.str(e0)));
+    return $r.b();
+  }
+
+  /// Go: `func (*prometheus.MetricVec).Describe(ch chan<- *prometheus.Desc)`.
+  Stream<ClientGolangPrometheusDesc> describe() =>
+      $stream(18056, $W()..dto(this))
+          .map((r) => r.hnn(ClientGolangPrometheusDesc.$h));
+
+  /// Go: `func (*prometheus.SummaryVec).GetMetricWithLabelValues(lvs ...string) (prometheus.Observer, error)`.
+  ClientGolangPrometheusObserver getMetricWithLabelValues(
+      [List<String> lvs = const []]) {
+    final $r = $callSync(
+        18057,
+        $W()
+          ..dto(this)
+          ..list(lvs, (w0, e0) => w0.str(e0)));
+    return $r.hnn(ClientGolangPrometheusObserver.$h);
+  }
+
+  /// Go: `func (*prometheus.MetricVec).Reset()`.
+  void reset() {
+    $callSync(18058, $W()..dto(this));
+  }
+
+  /// Go: `func (*prometheus.SummaryVec).WithLabelValues(lvs ...string) prometheus.Observer`.
+  ClientGolangPrometheusObserver withLabelValues(
+      [List<String> lvs = const []]) {
+    final $r = $callSync(
+        18059,
+        $W()
+          ..dto(this)
+          ..list(lvs, (w0, e0) => w0.str(e0)));
+    return $r.hnn(ClientGolangPrometheusObserver.$h);
+  }
+}
+
+/// Go: `prometheus.Timer` (handle).
+class ClientGolangPrometheusTimer extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
+  ClientGolangPrometheusTimer.$h(super.$h) : super.$h();
+
+  /// Go: `func prometheus.NewTimer(o prometheus.Observer) *prometheus.Timer`.
+  factory ClientGolangPrometheusTimer(ClientGolangPrometheusObserver o) {
+    final $r = $callSync(18036, $W()..h(o));
+    return $r.hnn(ClientGolangPrometheusTimer.$h);
+  }
+
+  /// Go: `func (*prometheus.Timer).ObserveDuration() time.Duration`.
+  Duration observeDuration() {
+    final $r = $callSync(18060, $W()..h(this));
+    return Duration(microseconds: $r.i64() ~/ 1000);
+  }
+}
+
+/// Go: `prometheus.TransactionalGatherer` (handle).
+class ClientGolangPrometheusTransactionalGatherer extends GoHandle
+    with ClientGolangPrometheusTransactionalGatherer$ {
+  ClientGolangPrometheusTransactionalGatherer.$h(super.$h);
+}
+
+/// The methods of [ClientGolangPrometheusTransactionalGatherer], mixed into every class Go also accepts as one.
+mixin ClientGolangPrometheusTransactionalGatherer$ on GoHandle {
+  /// Go: type assertion `x.(*prometheus.MultiTRegistry)`: null if the object is not one.
+  ClientGolangPrometheusMultiTRegistry?
+      asClientGolangPrometheusMultiTRegistry() {
+    final $r = $callSync(1687, $W()..h(this));
+    return $r.hn(ClientGolangPrometheusMultiTRegistry.$h);
+  }
+}
+
+/// Go: `prometheus.UntypedFunc` (handle).
+class ClientGolangPrometheusUntypedFunc extends ClientGolangPrometheusMetric
+    with ClientGolangPrometheusCollector$, ClientGolangPrometheusUntypedFunc$
+    implements ClientGolangPrometheusCollector {
+  ClientGolangPrometheusUntypedFunc.$h(super.$h) : super.$h();
+}
+
+/// The methods of [ClientGolangPrometheusUntypedFunc], mixed into every class Go also accepts as one.
+mixin ClientGolangPrometheusUntypedFunc$ on GoHandle {}
+
+/// Go: `prometheus.UntypedOpts` (handle).
+class ClientGolangPrometheusUntypedOpts extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
+  ClientGolangPrometheusUntypedOpts.$h(super.$h) : super.$h();
+}
 
 /// Go: `prometheus.AlreadyRegisteredError`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
@@ -61,10 +1212,422 @@ class ClientGolangPrometheusMultiError extends GolangException {
 /// Go: the package-level members of `github.com/prometheus/client_golang/prometheus` (`go.prometheus.clientGolang.prometheus`).
 extension GoPrometheusClientGolangPrometheusApi
     on GoPrometheusClientGolangPrometheus {
+  /// Go: `func prometheus.BuildFQName(namespace string, subsystem string, name string) string`.
+  String buildFqName(String namespace, String subsystem, String name) {
+    final $r = $callSync(
+        17959,
+        $W()
+          ..str(namespace)
+          ..str(subsystem)
+          ..str(name));
+    return $r.str();
+  }
+
+  /// Go: `var prometheus.DefBuckets []float64`.
+  List<double> get defBuckets {
+    final $r = $callSync(17972);
+    return $r.list(() => $r.f64());
+  }
+
   /// Go: `var prometheus.DefaultGatherer prometheus.Gatherer`.
   ClientGolangPrometheusGatherer get defaultGatherer {
-    final $r = $callSync(3508);
+    final $r = $callSync(17973);
     return $r.p() ? ClientGolangPrometheusGatherer.$dec($r) : $nil();
+  }
+
+  /// Go: `var prometheus.DefaultRegisterer prometheus.Registerer`.
+  ClientGolangPrometheusRegisterer get defaultRegisterer {
+    final $r = $callSync(17974);
+    return $r.hnn(ClientGolangPrometheusRegisterer.$h);
+  }
+
+  /// Go: `func prometheus.DescribeByCollect(c prometheus.Collector, descs chan<- *prometheus.Desc)`.
+  Stream<ClientGolangPrometheusDesc> describeByCollect(
+          ClientGolangPrometheusCollector c) =>
+      $stream(17977, $W()..h(c))
+          .map((r) => r.hnn(ClientGolangPrometheusDesc.$h));
+
+  /// Go: `func prometheus.ExponentialBuckets(start float64, factor float64, count int) []float64`.
+  List<double> exponentialBuckets(double start, double factor, int count) {
+    final $r = $callSync(
+        17978,
+        $W()
+          ..f64(start)
+          ..f64(factor)
+          ..i64(count));
+    return $r.list(() => $r.f64());
+  }
+
+  /// Go: `func prometheus.ExponentialBucketsRange(minBucket float64, maxBucket float64, count int) []float64`.
+  List<double> exponentialBucketsRange(
+      double minBucket, double maxBucket, int count) {
+    final $r = $callSync(
+        17979,
+        $W()
+          ..f64(minBucket)
+          ..f64(maxBucket)
+          ..i64(count));
+    return $r.list(() => $r.f64());
+  }
+
+  /// Go: `func prometheus.LinearBuckets(start float64, width float64, count int) []float64`.
+  List<double> linearBuckets(double start, double width, int count) {
+    final $r = $callSync(
+        18000,
+        $W()
+          ..f64(start)
+          ..f64(width)
+          ..i64(count));
+    return $r.list(() => $r.f64());
+  }
+
+  /// Go: `func prometheus.MakeLabelPairs(desc *prometheus.Desc, labelValues []string) []*io_prometheus_client.LabelPair`.
+  List<$go.ClientModelGoLabelPair> makeLabelPairs(
+      ClientGolangPrometheusDesc desc, List<String> labelValues) {
+    final $r = $callSync(
+        18001,
+        $W()
+          ..h(desc)
+          ..list(labelValues, (w0, e0) => w0.str(e0)));
+    return $r.list(() => $r.hnn($go.ClientModelGoLabelPair.$h));
+  }
+
+  /// Go: `func prometheus.MustNewConstMetric(desc *prometheus.Desc, valueType prometheus.ValueType, value float64, labelValues ...string) prometheus.Metric`.
+  ClientGolangPrometheusMetric mustNewConstMetric(
+      ClientGolangPrometheusDesc desc, int valueType, double value,
+      [List<String> labelValues = const []]) {
+    final $r = $callSync(
+        18009,
+        $W()
+          ..h(desc)
+          ..i64(valueType)
+          ..f64(value)
+          ..list(labelValues, (w0, e0) => w0.str(e0)));
+    return $r.hnn(ClientGolangPrometheusMetric.$h);
+  }
+
+  /// Go: `func prometheus.MustNewConstMetricWithCreatedTimestamp(desc *prometheus.Desc, valueType prometheus.ValueType, value float64, ct time.Time, labelValues ...string) prometheus.Metric`.
+  ClientGolangPrometheusMetric mustNewConstMetricWithCreatedTimestamp(
+      ClientGolangPrometheusDesc desc, int valueType, double value, DateTime ct,
+      [List<String> labelValues = const []]) {
+    final $r = $callSync(
+        18010,
+        $W()
+          ..h(desc)
+          ..i64(valueType)
+          ..f64(value)
+          ..time(ct)
+          ..list(labelValues, (w0, e0) => w0.str(e0)));
+    return $r.hnn(ClientGolangPrometheusMetric.$h);
+  }
+
+  /// Go: `func prometheus.MustNewConstNativeHistogram(desc *prometheus.Desc, count uint64, sum float64, positiveBuckets map[int]int64, negativeBuckets map[int]int64, zeroBucket uint64, nativeHistogramSchema int32, nativeHistogramZeroThreshold float64, createdTimestamp time.Time, labelValues ...string) prometheus.Metric`.
+  ClientGolangPrometheusMetric mustNewConstNativeHistogram(
+      ClientGolangPrometheusDesc desc,
+      int count,
+      double sum,
+      Map<int, int> positiveBuckets,
+      Map<int, int> negativeBuckets,
+      int zeroBucket,
+      int nativeHistogramSchema,
+      double nativeHistogramZeroThreshold,
+      DateTime createdTimestamp,
+      [List<String> labelValues = const []]) {
+    final $r = $callSync(
+        18011,
+        $W()
+          ..h(desc)
+          ..i64(count)
+          ..f64(sum)
+          ..map(positiveBuckets, (w0, k0) => w0.i64(k0), (w0, v0) => w0.i64(v0))
+          ..map(negativeBuckets, (w0, k0) => w0.i64(k0), (w0, v0) => w0.i64(v0))
+          ..i64(zeroBucket)
+          ..i64(nativeHistogramSchema)
+          ..f64(nativeHistogramZeroThreshold)
+          ..time(createdTimestamp)
+          ..list(labelValues, (w0, e0) => w0.str(e0)));
+    return $r.hnn(ClientGolangPrometheusMetric.$h);
+  }
+
+  /// Go: `func prometheus.MustNewMetricWithExemplars(m prometheus.Metric, exemplars ...prometheus.Exemplar) prometheus.Metric`.
+  ClientGolangPrometheusMetric mustNewMetricWithExemplars(
+      ClientGolangPrometheusMetric m,
+      [List<ClientGolangPrometheusExemplar> exemplars = const []]) {
+    final $r = $callSync(
+        18012,
+        $W()
+          ..h(m)
+          ..list(exemplars, (w0, e0) => w0.dto(e0)));
+    return $r.hnn(ClientGolangPrometheusMetric.$h);
+  }
+
+  /// Go: `func prometheus.MustRegister(cs ...prometheus.Collector)`.
+  void mustRegister([List<ClientGolangPrometheusCollector> cs = const []]) {
+    $callSync(18013, $W()..list(cs, (w0, e0) => w0.h(e0)));
+  }
+
+  /// Go: `func prometheus.NewBuildInfoCollector() prometheus.Collector`.
+  @Deprecated("Use collectors.NewBuildInfoCollector instead.")
+  ClientGolangPrometheusCollector newBuildInfoCollector() {
+    final $r = $callSync(18014);
+    return $r.hnn(ClientGolangPrometheusCollector.$h);
+  }
+
+  /// Go: `func prometheus.NewConstMetric(desc *prometheus.Desc, valueType prometheus.ValueType, value float64, labelValues ...string) (prometheus.Metric, error)`.
+  ClientGolangPrometheusMetric newConstMetric(
+      ClientGolangPrometheusDesc desc, int valueType, double value,
+      [List<String> labelValues = const []]) {
+    final $r = $callSync(
+        18015,
+        $W()
+          ..h(desc)
+          ..i64(valueType)
+          ..f64(value)
+          ..list(labelValues, (w0, e0) => w0.str(e0)));
+    return $r.hnn(ClientGolangPrometheusMetric.$h);
+  }
+
+  /// Go: `func prometheus.NewConstMetricWithCreatedTimestamp(desc *prometheus.Desc, valueType prometheus.ValueType, value float64, ct time.Time, labelValues ...string) (prometheus.Metric, error)`.
+  ClientGolangPrometheusMetric newConstMetricWithCreatedTimestamp(
+      ClientGolangPrometheusDesc desc, int valueType, double value, DateTime ct,
+      [List<String> labelValues = const []]) {
+    final $r = $callSync(
+        18016,
+        $W()
+          ..h(desc)
+          ..i64(valueType)
+          ..f64(value)
+          ..time(ct)
+          ..list(labelValues, (w0, e0) => w0.str(e0)));
+    return $r.hnn(ClientGolangPrometheusMetric.$h);
+  }
+
+  /// Go: `func prometheus.NewConstNativeHistogram(desc *prometheus.Desc, count uint64, sum float64, positiveBuckets map[int]int64, negativeBuckets map[int]int64, zeroBucket uint64, schema int32, zeroThreshold float64, createdTimestamp time.Time, labelValues ...string) (prometheus.Metric, error)`.
+  ClientGolangPrometheusMetric newConstNativeHistogram(
+      ClientGolangPrometheusDesc desc,
+      int count,
+      double sum,
+      Map<int, int> positiveBuckets,
+      Map<int, int> negativeBuckets,
+      int zeroBucket,
+      int schema,
+      double zeroThreshold,
+      DateTime createdTimestamp,
+      [List<String> labelValues = const []]) {
+    final $r = $callSync(
+        18017,
+        $W()
+          ..h(desc)
+          ..i64(count)
+          ..f64(sum)
+          ..map(positiveBuckets, (w0, k0) => w0.i64(k0), (w0, v0) => w0.i64(v0))
+          ..map(negativeBuckets, (w0, k0) => w0.i64(k0), (w0, v0) => w0.i64(v0))
+          ..i64(zeroBucket)
+          ..i64(schema)
+          ..f64(zeroThreshold)
+          ..time(createdTimestamp)
+          ..list(labelValues, (w0, e0) => w0.str(e0)));
+    return $r.hnn(ClientGolangPrometheusMetric.$h);
+  }
+
+  /// Go: `func prometheus.NewCounterFunc(opts prometheus.CounterOpts, function func() float64) prometheus.CounterFunc`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  ///
+  /// Go calls [function] on the Dart event loop, during the call or
+  /// later for as long as it holds it (nobody checked which), and waits for
+  /// each invocation (a retained callback, WIRE.md).
+  Future<ClientGolangPrometheusCounterFunc> newCounterFunc(
+      ClientGolangPrometheusCounterOpts opts,
+      FutureOr<double> Function() function) async {
+    final $r = await $call(
+        18019,
+        $W()
+          ..h(opts)
+          ..cb((r) => function(), true, (w, v) => w.f64(v as double)));
+    return $r.hnn(ClientGolangPrometheusCounterFunc.$h);
+  }
+
+  /// Go: `func prometheus.NewCounterVec(opts prometheus.CounterOpts, labelNames []string) *prometheus.CounterVec`.
+  ClientGolangPrometheusCounterVec newCounterVec(
+      ClientGolangPrometheusCounterOpts opts, List<String> labelNames) {
+    final $r = $callSync(
+        18020,
+        $W()
+          ..h(opts)
+          ..list(labelNames, (w0, e0) => w0.str(e0)));
+    return $r.p() ? ClientGolangPrometheusCounterVec.$dec($r) : $nil();
+  }
+
+  /// Go: `func prometheus.NewExpvarCollector(exports map[string]*prometheus.Desc) prometheus.Collector`.
+  @Deprecated("Use collectors.NewExpvarCollector instead.")
+  ClientGolangPrometheusCollector newExpvarCollector(
+      Map<String, ClientGolangPrometheusDesc> exports) {
+    final $r = $callSync(18021,
+        $W()..map(exports, (w0, k0) => w0.str(k0), (w0, v0) => w0.h(v0)));
+    return $r.hnn(ClientGolangPrometheusCollector.$h);
+  }
+
+  /// Go: `func prometheus.NewGaugeFunc(opts prometheus.GaugeOpts, function func() float64) prometheus.GaugeFunc`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  ///
+  /// Go calls [function] on the Dart event loop, during the call or
+  /// later for as long as it holds it (nobody checked which), and waits for
+  /// each invocation (a retained callback, WIRE.md).
+  Future<ClientGolangPrometheusGaugeFunc> newGaugeFunc(
+      ClientGolangPrometheusGaugeOpts opts,
+      FutureOr<double> Function() function) async {
+    final $r = await $call(
+        18023,
+        $W()
+          ..h(opts)
+          ..cb((r) => function(), true, (w, v) => w.f64(v as double)));
+    return $r.hnn(ClientGolangPrometheusGaugeFunc.$h);
+  }
+
+  /// Go: `func prometheus.NewGaugeVec(opts prometheus.GaugeOpts, labelNames []string) *prometheus.GaugeVec`.
+  ClientGolangPrometheusGaugeVec newGaugeVec(
+      ClientGolangPrometheusGaugeOpts opts, List<String> labelNames) {
+    final $r = $callSync(
+        18024,
+        $W()
+          ..h(opts)
+          ..list(labelNames, (w0, e0) => w0.str(e0)));
+    return $r.p() ? ClientGolangPrometheusGaugeVec.$dec($r) : $nil();
+  }
+
+  /// Go: `func prometheus.NewGoCollector(opts ...func(o *internal.GoCollectorOptions)) prometheus.Collector`.
+  @Deprecated("Use collectors.NewGoCollector instead.")
+  ClientGolangPrometheusCollector newGoCollector() {
+    final $r = $callSync(18025);
+    return $r.hnn(ClientGolangPrometheusCollector.$h);
+  }
+
+  /// Go: `func prometheus.NewHistogramVec(opts prometheus.HistogramOpts, labelNames []string) *prometheus.HistogramVec`.
+  ClientGolangPrometheusHistogramVec newHistogramVec(
+      ClientGolangPrometheusHistogramOpts opts, List<String> labelNames) {
+    final $r = $callSync(
+        18027,
+        $W()
+          ..h(opts)
+          ..list(labelNames, (w0, e0) => w0.str(e0)));
+    return $r.p() ? ClientGolangPrometheusHistogramVec.$dec($r) : $nil();
+  }
+
+  /// Go: `func prometheus.NewMetricWithExemplars(m prometheus.Metric, exemplars ...prometheus.Exemplar) (prometheus.Metric, error)`.
+  ClientGolangPrometheusMetric newMetricWithExemplars(
+      ClientGolangPrometheusMetric m,
+      [List<ClientGolangPrometheusExemplar> exemplars = const []]) {
+    final $r = $callSync(
+        18028,
+        $W()
+          ..h(m)
+          ..list(exemplars, (w0, e0) => w0.dto(e0)));
+    return $r.hnn(ClientGolangPrometheusMetric.$h);
+  }
+
+  /// Go: `func prometheus.NewMetricWithTimestamp(t time.Time, m prometheus.Metric) prometheus.Metric`.
+  ClientGolangPrometheusMetric newMetricWithTimestamp(
+      DateTime t, ClientGolangPrometheusMetric m) {
+    final $r = $callSync(
+        18029,
+        $W()
+          ..time(t)
+          ..h(m));
+    return $r.hnn(ClientGolangPrometheusMetric.$h);
+  }
+
+  /// Go: `func prometheus.NewPedanticRegistry() *prometheus.Registry`.
+  ClientGolangPrometheusRegistry newPedanticRegistry() {
+    final $r = $callSync(18031);
+    return $r.hnn(ClientGolangPrometheusRegistry.$h);
+  }
+
+  /// Go: `func prometheus.NewProcessCollector(opts prometheus.ProcessCollectorOpts) prometheus.Collector`.
+  @Deprecated("Use collectors.NewProcessCollector instead.")
+  ClientGolangPrometheusCollector newProcessCollector(
+      ClientGolangPrometheusProcessCollectorOpts opts) {
+    final $r = $callSync(18032, $W()..dto(opts));
+    return $r.hnn(ClientGolangPrometheusCollector.$h);
+  }
+
+  /// Go: `func prometheus.NewSummaryVec(opts prometheus.SummaryOpts, labelNames []string) *prometheus.SummaryVec`.
+  ClientGolangPrometheusSummaryVec newSummaryVec(
+      ClientGolangPrometheusSummaryOpts opts, List<String> labelNames) {
+    final $r = $callSync(
+        18035,
+        $W()
+          ..h(opts)
+          ..list(labelNames, (w0, e0) => w0.str(e0)));
+    return $r.p() ? ClientGolangPrometheusSummaryVec.$dec($r) : $nil();
+  }
+
+  /// Go: `func prometheus.NewUntypedFunc(opts prometheus.UntypedOpts, function func() float64) prometheus.UntypedFunc`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  ///
+  /// Go calls [function] on the Dart event loop, during the call or
+  /// later for as long as it holds it (nobody checked which), and waits for
+  /// each invocation (a retained callback, WIRE.md).
+  Future<ClientGolangPrometheusUntypedFunc> newUntypedFunc(
+      ClientGolangPrometheusUntypedOpts opts,
+      FutureOr<double> Function() function) async {
+    final $r = await $call(
+        18037,
+        $W()
+          ..h(opts)
+          ..cb((r) => function(), true, (w, v) => w.f64(v as double)));
+    return $r.hnn(ClientGolangPrometheusUntypedFunc.$h);
+  }
+
+  /// Go: `func prometheus.Register(c prometheus.Collector) error`.
+  void register(ClientGolangPrometheusCollector c) {
+    $callSync(18042, $W()..h(c));
+  }
+
+  /// Go: `func prometheus.ToTransactionalGatherer(g prometheus.Gatherer) prometheus.TransactionalGatherer`.
+  ClientGolangPrometheusTransactionalGatherer toTransactionalGatherer(
+      ClientGolangPrometheusGatherer g) {
+    final $r = $callSync(18061, $W()..dto(g));
+    return $r.hnn(ClientGolangPrometheusTransactionalGatherer.$h);
+  }
+
+  /// Go: `func prometheus.Unregister(c prometheus.Collector) bool`.
+  bool unregister(ClientGolangPrometheusCollector c) {
+    final $r = $callSync(18062, $W()..h(c));
+    return $r.b();
+  }
+
+  /// Go: `func prometheus.WrapCollectorWithPrefix(prefix string, c prometheus.Collector) prometheus.Collector`.
+  ClientGolangPrometheusCollector wrapCollectorWithPrefix(
+      String prefix, ClientGolangPrometheusCollector c) {
+    final $r = $callSync(
+        18063,
+        $W()
+          ..str(prefix)
+          ..h(c));
+    return $r.hnn(ClientGolangPrometheusCollector.$h);
+  }
+
+  /// Go: `func prometheus.WrapRegistererWithPrefix(prefix string, reg prometheus.Registerer) prometheus.Registerer`.
+  ClientGolangPrometheusRegisterer wrapRegistererWithPrefix(
+      String prefix, ClientGolangPrometheusRegisterer reg) {
+    final $r = $callSync(
+        18064,
+        $W()
+          ..str(prefix)
+          ..h(reg));
+    return $r.hnn(ClientGolangPrometheusRegisterer.$h);
+  }
+
+  /// Go: `func prometheus.WriteToTextfile(filename string, g prometheus.Gatherer) error`.
+  void writeToTextfile(String filename, ClientGolangPrometheusGatherer g) {
+    $callSync(
+        18065,
+        $W()
+          ..str(filename)
+          ..dto(g));
   }
 }
 

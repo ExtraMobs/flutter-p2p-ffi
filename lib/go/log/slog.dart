@@ -2,22 +2,1201 @@
 // Go: log/slog
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoLogSlogConsts, GoLogSlogEnums;
+import 'dart:async';
+import 'dart:typed_data';
+
+import 'package:p2p_ffi/src/go.dart'
+    show GoLogSlog, GoLogSlogConsts, GoLogSlogEnums;
+import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/encoding.dart' as $encoding;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
+import 'package:p2p_ffi/go/libp2p/libp2p_pubsub.dart' as $libp2p_pubsub;
+import 'package:p2p_ffi/go/libp2p/libp2p_pubsub/pb.dart' as $pb;
+import 'package:p2p_ffi/go/log.dart' as $log;
+import 'package:p2p_ffi/go/zap/exp/zapslog.dart' as $zapslog;
+
+/// Go: `slog.Attr`.
+final class LogSlogAttr implements GoDto {
+  LogSlogAttr({String? key, LogSlogValue? value$})
+      : key = key ?? '',
+        value$ = value$;
+
+  LogSlogAttr.$dec($R r)
+      : key = r.str(),
+        value$ = r.hn(LogSlogValue.$h);
+
+  /// Go: `Key`.
+  String key;
+
+  /// Go: `Value`.
+  LogSlogValue? value$;
+
+  @override
+  void $enc($W w) {
+    w
+      ..str(key)
+      ..h(value$);
+  }
+
+  /// Go: `func (slog.Attr).Equal(b slog.Attr) bool`.
+  bool equal(LogSlogAttr b) {
+    final $r = $callSync(
+        25812,
+        $W()
+          ..dto(this)
+          ..dto(b));
+    return $r.b();
+  }
+
+  /// Go: `func (slog.Attr).String() string`.
+  String string() {
+    final $r = $callSync(25813, $W()..dto(this));
+    return $r.str();
+  }
+}
+
+/// Go: `slog.Handler` (handle).
+class LogSlogHandler extends GoHandle with LogSlogHandler$ {
+  LogSlogHandler.$h(super.$h);
+}
+
+/// The methods of [LogSlogHandler], mixed into every class Go also accepts as one.
+mixin LogSlogHandler$ on GoHandle {
+  /// Go: `func (slog.Handler).Enabled(context.Context, slog.Level) bool`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<bool> enabled($context.Context ctx, int arg1) async {
+    final $r = await $call(
+        25829,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..i64(arg1));
+    return $r.b();
+  }
+
+  /// Go: `func (slog.Handler).Handle(context.Context, slog.Record) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> handle($context.Context ctx, LogSlogRecord record) async {
+    await $call(
+        25830,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..h(record));
+  }
+
+  /// Go: `func (slog.Handler).WithAttrs(attrs []slog.Attr) slog.Handler`.
+  LogSlogHandler withAttrs(List<LogSlogAttr> attrs) {
+    final $r = $callSync(
+        25831,
+        $W()
+          ..h(this)
+          ..list(attrs, (w0, e0) => w0.dto(e0)));
+    return $r.hnn(LogSlogHandler.$h);
+  }
+
+  /// Go: `func (slog.Handler).WithGroup(name string) slog.Handler`.
+  LogSlogHandler withGroup(String name) {
+    final $r = $callSync(
+        25832,
+        $W()
+          ..h(this)
+          ..str(name));
+    return $r.hnn(LogSlogHandler.$h);
+  }
+
+  /// Go: type assertion `x.(*zapslog.Handler)`: null if the object is not one.
+  $zapslog.ZapExpZapslogHandler? asZapExpZapslogHandler() {
+    final $r = $callSync(2961, $W()..h(this));
+    return $r.hn($zapslog.ZapExpZapslogHandler.$h);
+  }
+
+  /// Go: type assertion `x.(*slog.JSONHandler)`: null if the object is not one.
+  LogSlogJsonHandler? asLogSlogJsonHandler() {
+    final $r = $callSync(2962, $W()..h(this));
+    return $r.hn(LogSlogJsonHandler.$h);
+  }
+
+  /// Go: type assertion `x.(*slog.MultiHandler)`: null if the object is not one.
+  LogSlogMultiHandler? asLogSlogMultiHandler() {
+    final $r = $callSync(2963, $W()..h(this));
+    return $r.hn(LogSlogMultiHandler.$h);
+  }
+
+  /// Go: type assertion `x.(*slog.TextHandler)`: null if the object is not one.
+  LogSlogTextHandler? asLogSlogTextHandler() {
+    final $r = $callSync(2964, $W()..h(this));
+    return $r.hn(LogSlogTextHandler.$h);
+  }
+}
+
+/// Go: `slog.HandlerOptions`.
+///
+/// Fields that do not cross the bridge: `Level` (read-only interface), `ReplaceAttr` (func(groups []string, a log/slog.Attr) log/slog.Attr).
+final class LogSlogHandlerOptions implements GoDto {
+  LogSlogHandlerOptions({bool? addSource}) : addSource = addSource ?? false;
+
+  LogSlogHandlerOptions.$dec($R r) : addSource = r.b();
+
+  /// Go: `AddSource`.
+  bool addSource;
+
+  @override
+  void $enc($W w) {
+    w..b(addSource);
+  }
+}
+
+/// Go: `slog.JSONHandler` (handle).
+class LogSlogJsonHandler extends LogSlogHandler
+    with
+        $crypto.CryptoDecrypterOpts$,
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoDecrypterOpts,
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
+  LogSlogJsonHandler.$h(super.$h) : super.$h();
+
+  /// Go: `func slog.NewJSONHandler(w io.Writer, opts *slog.HandlerOptions) *slog.JSONHandler`.
+  factory LogSlogJsonHandler(GoHandle? w, LogSlogHandlerOptions opts) {
+    final $r = $callSync(
+        25871,
+        $W()
+          ..h(w)
+          ..dto(opts));
+    return $r.hnn(LogSlogJsonHandler.$h);
+  }
+
+  /// Go: `func (*slog.JSONHandler).Enabled(_ context.Context, level slog.Level) bool`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<bool> enabled($context.Context ctx, int level) async {
+    final $r = await $call(
+        25839,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..i64(level));
+    return $r.b();
+  }
+
+  /// Go: `func (*slog.JSONHandler).Handle(_ context.Context, r slog.Record) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> handle($context.Context ctx, LogSlogRecord r) async {
+    await $call(
+        25840,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..h(r));
+  }
+
+  /// Go: `func (*slog.JSONHandler).WithAttrs(attrs []slog.Attr) slog.Handler`.
+  LogSlogHandler withAttrs(List<LogSlogAttr> attrs) {
+    final $r = $callSync(
+        25841,
+        $W()
+          ..h(this)
+          ..list(attrs, (w0, e0) => w0.dto(e0)));
+    return $r.hnn(LogSlogHandler.$h);
+  }
+
+  /// Go: `func (*slog.JSONHandler).WithGroup(name string) slog.Handler`.
+  LogSlogHandler withGroup(String name) {
+    final $r = $callSync(
+        25842,
+        $W()
+          ..h(this)
+          ..str(name));
+    return $r.hnn(LogSlogHandler.$h);
+  }
+}
+
+/// Go: `slog.LevelVar` (handle).
+class LogSlogLevelVar extends $encoding.EncodingTextAppender
+    with
+        $crypto.CryptoDecrypterOpts$,
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $encoding.EncodingTextUnmarshaler$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoDecrypterOpts,
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $encoding.EncodingTextUnmarshaler,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
+  LogSlogLevelVar.$h(super.$h) : super.$h();
+
+  /// Go: `func (*slog.LevelVar).AppendText(b []byte) ([]byte, error)`.
+  Uint8List appendText(Uint8List b) {
+    final $r = $callSync(
+        25843,
+        $W()
+          ..h(this)
+          ..bytes(b));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (*slog.LevelVar).Level() slog.Level`.
+  int level() {
+    final $r = $callSync(25844, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (*slog.LevelVar).MarshalText() ([]byte, error)`.
+  Uint8List marshalText() {
+    final $r = $callSync(25845, $W()..h(this));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (*slog.LevelVar).Set(l slog.Level)`.
+  void set(int l) {
+    $callSync(
+        25846,
+        $W()
+          ..h(this)
+          ..i64(l));
+  }
+
+  /// Go: `func (*slog.LevelVar).String() string`.
+  String string() {
+    final $r = $callSync(25847, $W()..h(this));
+    return $r.str();
+  }
+
+  /// Go: `func (*slog.LevelVar).UnmarshalText(data []byte) error`.
+  void unmarshalText(Uint8List data) {
+    $callSync(
+        25848,
+        $W()
+          ..h(this)
+          ..bytes(data));
+  }
+}
+
+/// Go: `slog.LogValuer` (handle).
+class LogSlogLogValuer extends GoHandle with LogSlogLogValuer$ {
+  LogSlogLogValuer.$h(super.$h);
+}
+
+/// The methods of [LogSlogLogValuer], mixed into every class Go also accepts as one.
+mixin LogSlogLogValuer$ on GoHandle {
+  /// Go: `func (slog.LogValuer).LogValue() slog.Value`.
+  LogSlogValue logValue() {
+    final $r = $callSync(25851, $W()..h(this));
+    return $r.hnn(LogSlogValue.$h);
+  }
+
+  /// Go: type assertion `x.(*pubsub.RPC)`: null if the object is not one.
+  $libp2p_pubsub.Libp2pPubsubRpc? asLibp2pPubsubRpc() {
+    final $r = $callSync(2965, $W()..h(this));
+    return $r.hn($libp2p_pubsub.Libp2pPubsubRpc.$h);
+  }
+
+  /// Go: type assertion `x.(*pubsub_pb.PartialMessagesExtension)`: null if the object is not one.
+  $pb.Libp2pPubsubPbPartialMessagesExtension?
+      asLibp2pPubsubPbPartialMessagesExtension() {
+    final $r = $callSync(2966, $W()..h(this));
+    return $r.hn($pb.Libp2pPubsubPbPartialMessagesExtension.$h);
+  }
+
+  /// Go: type assertion `x.(*pubsub_pb.RPC)`: null if the object is not one.
+  $pb.Libp2pPubsubPbRpc? asLibp2pPubsubPbRpc() {
+    final $r = $callSync(2967, $W()..h(this));
+    return $r.hn($pb.Libp2pPubsubPbRpc.$h);
+  }
+}
 
 /// Go: `slog.Logger` (handle).
-class LogSlogLogger extends $crypto.CryptoPrivateKey
-    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
-    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+class LogSlogLogger extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   LogSlogLogger.$h(super.$h) : super.$h();
+
+  /// Go: `func (*slog.Logger).Debug(msg string, args ...any)`.
+  void debug(String msg, [List<Object?> args = const []]) {
+    $callSync(
+        25852,
+        $W()
+          ..h(this)
+          ..str(msg)
+          ..list(args, (w0, e0) => w0.any(e0)));
+  }
+
+  /// Go: `func (*slog.Logger).DebugContext(ctx context.Context, msg string, args ...any)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> debugContext($context.Context ctx, String msg,
+      [List<Object?> args = const []]) async {
+    await $call(
+        25853,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(msg)
+          ..list(args, (w0, e0) => w0.any(e0)));
+  }
+
+  /// Go: `func (*slog.Logger).Enabled(ctx context.Context, level slog.Level) bool`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<bool> enabled($context.Context ctx, int level) async {
+    final $r = await $call(
+        25854,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..i64(level));
+    return $r.b();
+  }
+
+  /// Go: `func (*slog.Logger).Error(msg string, args ...any)`.
+  void error(String msg, [List<Object?> args = const []]) {
+    $callSync(
+        25855,
+        $W()
+          ..h(this)
+          ..str(msg)
+          ..list(args, (w0, e0) => w0.any(e0)));
+  }
+
+  /// Go: `func (*slog.Logger).ErrorContext(ctx context.Context, msg string, args ...any)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> errorContext($context.Context ctx, String msg,
+      [List<Object?> args = const []]) async {
+    await $call(
+        25856,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(msg)
+          ..list(args, (w0, e0) => w0.any(e0)));
+  }
+
+  /// Go: `func (*slog.Logger).Handler() slog.Handler`.
+  LogSlogHandler handler() {
+    final $r = $callSync(25857, $W()..h(this));
+    return $r.hnn(LogSlogHandler.$h);
+  }
+
+  /// Go: `func (*slog.Logger).Info(msg string, args ...any)`.
+  void info(String msg, [List<Object?> args = const []]) {
+    $callSync(
+        25858,
+        $W()
+          ..h(this)
+          ..str(msg)
+          ..list(args, (w0, e0) => w0.any(e0)));
+  }
+
+  /// Go: `func (*slog.Logger).InfoContext(ctx context.Context, msg string, args ...any)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> infoContext($context.Context ctx, String msg,
+      [List<Object?> args = const []]) async {
+    await $call(
+        25859,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(msg)
+          ..list(args, (w0, e0) => w0.any(e0)));
+  }
+
+  /// Go: `func (*slog.Logger).Log(ctx context.Context, level slog.Level, msg string, args ...any)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> log($context.Context ctx, int level, String msg,
+      [List<Object?> args = const []]) async {
+    await $call(
+        25860,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..i64(level)
+          ..str(msg)
+          ..list(args, (w0, e0) => w0.any(e0)));
+  }
+
+  /// Go: `func (*slog.Logger).LogAttrs(ctx context.Context, level slog.Level, msg string, attrs ...slog.Attr)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> logAttrs($context.Context ctx, int level, String msg,
+      [List<LogSlogAttr> attrs = const []]) async {
+    await $call(
+        25861,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..i64(level)
+          ..str(msg)
+          ..list(attrs, (w0, e0) => w0.dto(e0)));
+  }
+
+  /// Go: `func (*slog.Logger).Warn(msg string, args ...any)`.
+  void warn(String msg, [List<Object?> args = const []]) {
+    $callSync(
+        25862,
+        $W()
+          ..h(this)
+          ..str(msg)
+          ..list(args, (w0, e0) => w0.any(e0)));
+  }
+
+  /// Go: `func (*slog.Logger).WarnContext(ctx context.Context, msg string, args ...any)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> warnContext($context.Context ctx, String msg,
+      [List<Object?> args = const []]) async {
+    await $call(
+        25863,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(msg)
+          ..list(args, (w0, e0) => w0.any(e0)));
+  }
+
+  /// Go: `func (*slog.Logger).With(args ...any) *slog.Logger`.
+  LogSlogLogger with$([List<Object?> args = const []]) {
+    final $r = $callSync(
+        25864,
+        $W()
+          ..h(this)
+          ..list(args, (w0, e0) => w0.any(e0)));
+    return $r.hnn(LogSlogLogger.$h);
+  }
+
+  /// Go: `func (*slog.Logger).WithGroup(name string) *slog.Logger`.
+  LogSlogLogger withGroup(String name) {
+    final $r = $callSync(
+        25865,
+        $W()
+          ..h(this)
+          ..str(name));
+    return $r.hnn(LogSlogLogger.$h);
+  }
+}
+
+/// Go: `slog.MultiHandler` (handle).
+class LogSlogMultiHandler extends LogSlogHandler
+    with
+        $crypto.CryptoDecrypterOpts$,
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoDecrypterOpts,
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
+  LogSlogMultiHandler.$h(super.$h) : super.$h();
+
+  /// Go: `func slog.NewMultiHandler(handlers ...slog.Handler) *slog.MultiHandler`.
+  factory LogSlogMultiHandler([List<LogSlogHandler> handlers = const []]) {
+    final $r = $callSync(25873, $W()..list(handlers, (w0, e0) => w0.h(e0)));
+    return $r.hnn(LogSlogMultiHandler.$h);
+  }
+
+  /// Go: `func (*slog.MultiHandler).Enabled(ctx context.Context, l slog.Level) bool`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<bool> enabled($context.Context ctx, int l) async {
+    final $r = await $call(
+        25866,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..i64(l));
+    return $r.b();
+  }
+
+  /// Go: `func (*slog.MultiHandler).Handle(ctx context.Context, r slog.Record) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> handle($context.Context ctx, LogSlogRecord r) async {
+    await $call(
+        25867,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..h(r));
+  }
+
+  /// Go: `func (*slog.MultiHandler).WithAttrs(attrs []slog.Attr) slog.Handler`.
+  LogSlogHandler withAttrs(List<LogSlogAttr> attrs) {
+    final $r = $callSync(
+        25868,
+        $W()
+          ..h(this)
+          ..list(attrs, (w0, e0) => w0.dto(e0)));
+    return $r.hnn(LogSlogHandler.$h);
+  }
+
+  /// Go: `func (*slog.MultiHandler).WithGroup(name string) slog.Handler`.
+  LogSlogHandler withGroup(String name) {
+    final $r = $callSync(
+        25869,
+        $W()
+          ..h(this)
+          ..str(name));
+    return $r.hnn(LogSlogHandler.$h);
+  }
+}
+
+/// Go: `slog.Record` (handle).
+class LogSlogRecord extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
+  LogSlogRecord.$h(super.$h) : super.$h();
+
+  /// Go: `func (*slog.Record).Add(args ...any)`.
+  void add([List<Object?> args = const []]) {
+    $callSync(
+        25875,
+        $W()
+          ..h(this)
+          ..list(args, (w0, e0) => w0.any(e0)));
+  }
+
+  /// Go: `func (*slog.Record).AddAttrs(attrs ...slog.Attr)`.
+  void addAttrs([List<LogSlogAttr> attrs = const []]) {
+    $callSync(
+        25876,
+        $W()
+          ..h(this)
+          ..list(attrs, (w0, e0) => w0.dto(e0)));
+  }
+
+  /// Go: `func (slog.Record).Attrs(f func(slog.Attr) bool)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  ///
+  /// Go calls [f] on the Dart event loop, during the call or
+  /// later for as long as it holds it (nobody checked which), and waits for
+  /// each invocation (a retained callback, WIRE.md).
+  Future<void> attrs(FutureOr<bool> Function(LogSlogAttr attr) f) async {
+    await $call(
+        25877,
+        $W()
+          ..h(this)
+          ..cb((r) => f(r.p() ? LogSlogAttr.$dec(r) : $nil()), true));
+  }
+
+  /// Go: `func (slog.Record).Clone() slog.Record`.
+  LogSlogRecord clone() {
+    final $r = $callSync(25878, $W()..h(this));
+    return $r.hnn(LogSlogRecord.$h);
+  }
+
+  /// Go: `func (slog.Record).NumAttrs() int`.
+  int numAttrs() {
+    final $r = $callSync(25879, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (slog.Record).Source() *slog.Source`.
+  LogSlogSource source() {
+    final $r = $callSync(25880, $W()..h(this));
+    return $r.p() ? LogSlogSource.$dec($r) : $nil();
+  }
+}
+
+/// Go: `slog.Source`.
+final class LogSlogSource implements GoDto {
+  LogSlogSource({String? function, String? file, int? line})
+      : function = function ?? '',
+        file = file ?? '',
+        line = line ?? 0;
+
+  LogSlogSource.$dec($R r)
+      : function = r.str(),
+        file = r.str(),
+        line = r.i64();
+
+  /// Go: `Function`.
+  String function;
+
+  /// Go: `File`.
+  String file;
+
+  /// Go: `Line`.
+  int line;
+
+  @override
+  void $enc($W w) {
+    w
+      ..str(function)
+      ..str(file)
+      ..i64(line);
+  }
+}
+
+/// Go: `slog.TextHandler` (handle).
+class LogSlogTextHandler extends LogSlogHandler
+    with
+        $crypto.CryptoDecrypterOpts$,
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoDecrypterOpts,
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
+  LogSlogTextHandler.$h(super.$h) : super.$h();
+
+  /// Go: `func slog.NewTextHandler(w io.Writer, opts *slog.HandlerOptions) *slog.TextHandler`.
+  factory LogSlogTextHandler(GoHandle? w, LogSlogHandlerOptions opts) {
+    final $r = $callSync(
+        25874,
+        $W()
+          ..h(w)
+          ..dto(opts));
+    return $r.hnn(LogSlogTextHandler.$h);
+  }
+
+  /// Go: `func (*slog.TextHandler).Enabled(_ context.Context, level slog.Level) bool`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<bool> enabled($context.Context ctx, int level) async {
+    final $r = await $call(
+        25885,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..i64(level));
+    return $r.b();
+  }
+
+  /// Go: `func (*slog.TextHandler).Handle(_ context.Context, r slog.Record) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> handle($context.Context ctx, LogSlogRecord r) async {
+    await $call(
+        25886,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..h(r));
+  }
+
+  /// Go: `func (*slog.TextHandler).WithAttrs(attrs []slog.Attr) slog.Handler`.
+  LogSlogHandler withAttrs(List<LogSlogAttr> attrs) {
+    final $r = $callSync(
+        25887,
+        $W()
+          ..h(this)
+          ..list(attrs, (w0, e0) => w0.dto(e0)));
+    return $r.hnn(LogSlogHandler.$h);
+  }
+
+  /// Go: `func (*slog.TextHandler).WithGroup(name string) slog.Handler`.
+  LogSlogHandler withGroup(String name) {
+    final $r = $callSync(
+        25888,
+        $W()
+          ..h(this)
+          ..str(name));
+    return $r.hnn(LogSlogHandler.$h);
+  }
 }
 
 /// Go: `slog.Value` (handle).
-class LogSlogValue extends $crypto.CryptoPrivateKey
-    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
-    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+class LogSlogValue extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   LogSlogValue.$h(super.$h) : super.$h();
+
+  /// Go: `func (slog.Value).Any() any`.
+  Object? any() {
+    final $r = $callSync(25893, $W()..h(this));
+    return $r.any();
+  }
+
+  /// Go: `func (slog.Value).Bool() bool`.
+  bool bool$() {
+    final $r = $callSync(25894, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (slog.Value).Duration() time.Duration`.
+  Duration duration() {
+    final $r = $callSync(25895, $W()..h(this));
+    return Duration(microseconds: $r.i64() ~/ 1000);
+  }
+
+  /// Go: `func (slog.Value).Equal(w slog.Value) bool`.
+  bool equal(LogSlogValue w) {
+    final $r = $callSync(
+        25896,
+        $W()
+          ..h(this)
+          ..h(w));
+    return $r.b();
+  }
+
+  /// Go: `func (slog.Value).Float64() float64`.
+  double float64() {
+    final $r = $callSync(25897, $W()..h(this));
+    return $r.f64();
+  }
+
+  /// Go: `func (slog.Value).Group() []slog.Attr`.
+  List<LogSlogAttr> group() {
+    final $r = $callSync(25898, $W()..h(this));
+    return $r.list(() => $r.p() ? LogSlogAttr.$dec($r) : $nil());
+  }
+
+  /// Go: `func (slog.Value).Int64() int64`.
+  int int64() {
+    final $r = $callSync(25899, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (slog.Value).Kind() slog.Kind`.
+  int kind() {
+    final $r = $callSync(25900, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (slog.Value).LogValuer() slog.LogValuer`.
+  LogSlogLogValuer logValuer() {
+    final $r = $callSync(25901, $W()..h(this));
+    return $r.hnn(LogSlogLogValuer.$h);
+  }
+
+  /// Go: `func (slog.Value).Resolve() (rv slog.Value)`.
+  LogSlogValue resolve() {
+    final $r = $callSync(25902, $W()..h(this));
+    return $r.hnn(LogSlogValue.$h);
+  }
+
+  /// Go: `func (slog.Value).String() string`.
+  String string() {
+    final $r = $callSync(25903, $W()..h(this));
+    return $r.str();
+  }
+
+  /// Go: `func (slog.Value).Time() time.Time`.
+  DateTime time() {
+    final $r = $callSync(25904, $W()..h(this));
+    return $r.p() ? $r.time() : $nil();
+  }
+
+  /// Go: `func (slog.Value).Uint64() uint64`.
+  int uint64() {
+    final $r = $callSync(25905, $W()..h(this));
+    return $r.i64();
+  }
+}
+
+/// Go: the package-level members of `log/slog` (`go.log.slog`).
+extension GoLogSlogApi on GoLogSlog {
+  /// Go: `func slog.Any(key string, value any) slog.Attr`.
+  LogSlogAttr any(String key, Object? value) {
+    final $r = $callSync(
+        25810,
+        $W()
+          ..str(key)
+          ..any(value));
+    return $r.p() ? LogSlogAttr.$dec($r) : $nil();
+  }
+
+  /// Go: `func slog.AnyValue(v any) slog.Value`.
+  LogSlogValue anyValue(Object? v) {
+    final $r = $callSync(25811, $W()..any(v));
+    return $r.hnn(LogSlogValue.$h);
+  }
+
+  /// Go: `func slog.Bool(key string, v bool) slog.Attr`.
+  LogSlogAttr bool$(String key, bool v) {
+    final $r = $callSync(
+        25814,
+        $W()
+          ..str(key)
+          ..b(v));
+    return $r.p() ? LogSlogAttr.$dec($r) : $nil();
+  }
+
+  /// Go: `func slog.BoolValue(v bool) slog.Value`.
+  LogSlogValue boolValue(bool v) {
+    final $r = $callSync(25815, $W()..b(v));
+    return $r.hnn(LogSlogValue.$h);
+  }
+
+  /// Go: `func slog.Debug(msg string, args ...any)`.
+  void debug(String msg, [List<Object?> args = const []]) {
+    $callSync(
+        25816,
+        $W()
+          ..str(msg)
+          ..list(args, (w0, e0) => w0.any(e0)));
+  }
+
+  /// Go: `func slog.DebugContext(ctx context.Context, msg string, args ...any)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> debugContext($context.Context ctx, String msg,
+      [List<Object?> args = const []]) async {
+    await $call(
+        25817,
+        $W()
+          ..h(ctx)
+          ..str(msg)
+          ..list(args, (w0, e0) => w0.any(e0)));
+  }
+
+  /// Go: `func slog.Default() *slog.Logger`.
+  LogSlogLogger default$() {
+    final $r = $callSync(25818);
+    return $r.hnn(LogSlogLogger.$h);
+  }
+
+  /// Go: `var slog.DiscardHandler slog.Handler`.
+  LogSlogHandler get discardHandler {
+    final $r = $callSync(25819);
+    return $r.hnn(LogSlogHandler.$h);
+  }
+
+  /// Go: `func slog.Duration(key string, v time.Duration) slog.Attr`.
+  LogSlogAttr duration(String key, Duration v) {
+    final $r = $callSync(
+        25820,
+        $W()
+          ..str(key)
+          ..i64((v).inMicroseconds * 1000));
+    return $r.p() ? LogSlogAttr.$dec($r) : $nil();
+  }
+
+  /// Go: `func slog.DurationValue(v time.Duration) slog.Value`.
+  LogSlogValue durationValue(Duration v) {
+    final $r = $callSync(25821, $W()..i64((v).inMicroseconds * 1000));
+    return $r.hnn(LogSlogValue.$h);
+  }
+
+  /// Go: `func slog.Error(msg string, args ...any)`.
+  void error(String msg, [List<Object?> args = const []]) {
+    $callSync(
+        25822,
+        $W()
+          ..str(msg)
+          ..list(args, (w0, e0) => w0.any(e0)));
+  }
+
+  /// Go: `func slog.ErrorContext(ctx context.Context, msg string, args ...any)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> errorContext($context.Context ctx, String msg,
+      [List<Object?> args = const []]) async {
+    await $call(
+        25823,
+        $W()
+          ..h(ctx)
+          ..str(msg)
+          ..list(args, (w0, e0) => w0.any(e0)));
+  }
+
+  /// Go: `func slog.Float64(key string, v float64) slog.Attr`.
+  LogSlogAttr float64(String key, double v) {
+    final $r = $callSync(
+        25824,
+        $W()
+          ..str(key)
+          ..f64(v));
+    return $r.p() ? LogSlogAttr.$dec($r) : $nil();
+  }
+
+  /// Go: `func slog.Float64Value(v float64) slog.Value`.
+  LogSlogValue float64Value(double v) {
+    final $r = $callSync(25825, $W()..f64(v));
+    return $r.hnn(LogSlogValue.$h);
+  }
+
+  /// Go: `func slog.Group(key string, args ...any) slog.Attr`.
+  LogSlogAttr group(String key, [List<Object?> args = const []]) {
+    final $r = $callSync(
+        25826,
+        $W()
+          ..str(key)
+          ..list(args, (w0, e0) => w0.any(e0)));
+    return $r.p() ? LogSlogAttr.$dec($r) : $nil();
+  }
+
+  /// Go: `func slog.GroupAttrs(key string, attrs ...slog.Attr) slog.Attr`.
+  LogSlogAttr groupAttrs(String key, [List<LogSlogAttr> attrs = const []]) {
+    final $r = $callSync(
+        25827,
+        $W()
+          ..str(key)
+          ..list(attrs, (w0, e0) => w0.dto(e0)));
+    return $r.p() ? LogSlogAttr.$dec($r) : $nil();
+  }
+
+  /// Go: `func slog.GroupValue(as ...slog.Attr) slog.Value`.
+  LogSlogValue groupValue([List<LogSlogAttr> as = const []]) {
+    final $r = $callSync(25828, $W()..list(as, (w0, e0) => w0.dto(e0)));
+    return $r.hnn(LogSlogValue.$h);
+  }
+
+  /// Go: `func slog.Info(msg string, args ...any)`.
+  void info(String msg, [List<Object?> args = const []]) {
+    $callSync(
+        25833,
+        $W()
+          ..str(msg)
+          ..list(args, (w0, e0) => w0.any(e0)));
+  }
+
+  /// Go: `func slog.InfoContext(ctx context.Context, msg string, args ...any)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> infoContext($context.Context ctx, String msg,
+      [List<Object?> args = const []]) async {
+    await $call(
+        25834,
+        $W()
+          ..h(ctx)
+          ..str(msg)
+          ..list(args, (w0, e0) => w0.any(e0)));
+  }
+
+  /// Go: `func slog.Int(key string, value int) slog.Attr`.
+  LogSlogAttr int$(String key, int value) {
+    final $r = $callSync(
+        25835,
+        $W()
+          ..str(key)
+          ..i64(value));
+    return $r.p() ? LogSlogAttr.$dec($r) : $nil();
+  }
+
+  /// Go: `func slog.Int64(key string, value int64) slog.Attr`.
+  LogSlogAttr int64(String key, int value) {
+    final $r = $callSync(
+        25836,
+        $W()
+          ..str(key)
+          ..i64(value));
+    return $r.p() ? LogSlogAttr.$dec($r) : $nil();
+  }
+
+  /// Go: `func slog.Int64Value(v int64) slog.Value`.
+  LogSlogValue int64Value(int v) {
+    final $r = $callSync(25837, $W()..i64(v));
+    return $r.hnn(LogSlogValue.$h);
+  }
+
+  /// Go: `func slog.IntValue(v int) slog.Value`.
+  LogSlogValue intValue(int v) {
+    final $r = $callSync(25838, $W()..i64(v));
+    return $r.hnn(LogSlogValue.$h);
+  }
+
+  /// Go: `func slog.Log(ctx context.Context, level slog.Level, msg string, args ...any)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> log($context.Context ctx, int level, String msg,
+      [List<Object?> args = const []]) async {
+    await $call(
+        25849,
+        $W()
+          ..h(ctx)
+          ..i64(level)
+          ..str(msg)
+          ..list(args, (w0, e0) => w0.any(e0)));
+  }
+
+  /// Go: `func slog.LogAttrs(ctx context.Context, level slog.Level, msg string, attrs ...slog.Attr)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> logAttrs($context.Context ctx, int level, String msg,
+      [List<LogSlogAttr> attrs = const []]) async {
+    await $call(
+        25850,
+        $W()
+          ..h(ctx)
+          ..i64(level)
+          ..str(msg)
+          ..list(attrs, (w0, e0) => w0.dto(e0)));
+  }
+
+  /// Go: `func slog.New(h slog.Handler) *slog.Logger`.
+  LogSlogLogger new$(LogSlogHandler h) {
+    final $r = $callSync(25870, $W()..h(h));
+    return $r.hnn(LogSlogLogger.$h);
+  }
+
+  /// Go: `func slog.NewLogLogger(h slog.Handler, level slog.Level) *log.Logger`.
+  $log.LogLogger newLogLogger(LogSlogHandler h, int level) {
+    final $r = $callSync(
+        25872,
+        $W()
+          ..h(h)
+          ..i64(level));
+    return $r.hnn($log.LogLogger.$h);
+  }
+
+  /// Go: `func slog.SetDefault(l *slog.Logger)`.
+  void setDefault(LogSlogLogger l) {
+    $callSync(25881, $W()..h(l));
+  }
+
+  /// Go: `func slog.SetLogLoggerLevel(level slog.Level) (oldLevel slog.Level)`.
+  int setLogLoggerLevel(int level) {
+    final $r = $callSync(25882, $W()..i64(level));
+    return $r.i64();
+  }
+
+  /// Go: `func slog.String(key string, value string) slog.Attr`.
+  LogSlogAttr string(String key, String value) {
+    final $r = $callSync(
+        25883,
+        $W()
+          ..str(key)
+          ..str(value));
+    return $r.p() ? LogSlogAttr.$dec($r) : $nil();
+  }
+
+  /// Go: `func slog.StringValue(value string) slog.Value`.
+  LogSlogValue stringValue(String value) {
+    final $r = $callSync(25884, $W()..str(value));
+    return $r.hnn(LogSlogValue.$h);
+  }
+
+  /// Go: `func slog.Time(key string, v time.Time) slog.Attr`.
+  LogSlogAttr time(String key, DateTime v) {
+    final $r = $callSync(
+        25889,
+        $W()
+          ..str(key)
+          ..time(v));
+    return $r.p() ? LogSlogAttr.$dec($r) : $nil();
+  }
+
+  /// Go: `func slog.TimeValue(v time.Time) slog.Value`.
+  LogSlogValue timeValue(DateTime v) {
+    final $r = $callSync(25890, $W()..time(v));
+    return $r.hnn(LogSlogValue.$h);
+  }
+
+  /// Go: `func slog.Uint64(key string, v uint64) slog.Attr`.
+  LogSlogAttr uint64(String key, int v) {
+    final $r = $callSync(
+        25891,
+        $W()
+          ..str(key)
+          ..i64(v));
+    return $r.p() ? LogSlogAttr.$dec($r) : $nil();
+  }
+
+  /// Go: `func slog.Uint64Value(v uint64) slog.Value`.
+  LogSlogValue uint64Value(int v) {
+    final $r = $callSync(25892, $W()..i64(v));
+    return $r.hnn(LogSlogValue.$h);
+  }
+
+  /// Go: `func slog.Warn(msg string, args ...any)`.
+  void warn(String msg, [List<Object?> args = const []]) {
+    $callSync(
+        25906,
+        $W()
+          ..str(msg)
+          ..list(args, (w0, e0) => w0.any(e0)));
+  }
+
+  /// Go: `func slog.WarnContext(ctx context.Context, msg string, args ...any)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> warnContext($context.Context ctx, String msg,
+      [List<Object?> args = const []]) async {
+    await $call(
+        25907,
+        $W()
+          ..h(ctx)
+          ..str(msg)
+          ..list(args, (w0, e0) => w0.any(e0)));
+  }
+
+  /// Go: `func slog.With(args ...any) *slog.Logger`.
+  LogSlogLogger with$([List<Object?> args = const []]) {
+    final $r = $callSync(25908, $W()..list(args, (w0, e0) => w0.any(e0)));
+    return $r.hnn(LogSlogLogger.$h);
+  }
 }
 
 /// Go: the constants of `log/slog` (`go.log.slog.consts`).

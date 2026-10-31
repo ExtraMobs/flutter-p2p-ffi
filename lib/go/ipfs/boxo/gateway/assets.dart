@@ -2,7 +2,35 @@
 // Go: github.com/ipfs/boxo/gateway/assets
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoIpfsBoxoGatewayAssets;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/html/template.dart' as $template;
+import 'package:p2p_ffi/go/io/fs.dart' as $fs;
+import 'package:p2p_ffi/go/ipld/ipld_prime/datamodel.dart' as $datamodel;
+
+/// Go: `assets.Breadcrumb`.
+final class BoxoGatewayAssetsBreadcrumb implements GoDto {
+  BoxoGatewayAssetsBreadcrumb({String? name, String? path})
+      : name = name ?? '',
+        path = path ?? '';
+
+  BoxoGatewayAssetsBreadcrumb.$dec($R r)
+      : name = r.str(),
+        path = r.str();
+
+  /// Go: `Name`.
+  String name;
+
+  /// Go: `Path`.
+  String path;
+
+  @override
+  void $enc($W w) {
+    w
+      ..str(name)
+      ..str(path);
+  }
+}
 
 /// Go: `assets.MenuItem`.
 final class BoxoGatewayAssetsMenuItem implements GoDto {
@@ -25,5 +53,115 @@ final class BoxoGatewayAssetsMenuItem implements GoDto {
     w
       ..str(url)
       ..str(title);
+  }
+}
+
+/// Go: `assets.ParsedNode`.
+///
+/// Fields that do not cross the bridge: `Keys` ([]), `Values` ([]).
+final class BoxoGatewayAssetsParsedNode implements GoDto {
+  BoxoGatewayAssetsParsedNode({String? value$, String? cid, bool? long})
+      : value$ = value$ ?? '',
+        cid = cid ?? '',
+        long = long ?? false;
+
+  BoxoGatewayAssetsParsedNode.$dec($R r)
+      : value$ = r.str(),
+        cid = r.str(),
+        long = r.b();
+
+  /// Go: `Value`.
+  String value$;
+
+  /// Go: `CID`.
+  String cid;
+
+  /// Go: `Long`.
+  bool long;
+
+  @override
+  void $enc($W w) {
+    w
+      ..str(value$)
+      ..str(cid)
+      ..b(long);
+  }
+}
+
+/// Go: the package-level members of `github.com/ipfs/boxo/gateway/assets` (`go.ipfs.boxo.gateway.assets`).
+extension GoIpfsBoxoGatewayAssetsApi on GoIpfsBoxoGatewayAssets {
+  /// Go: `var assets.AssetHash string`.
+  String get assetHash {
+    final $r = $callSync(9587);
+    return $r.str();
+  }
+
+  /// Go: `func assets.Breadcrumbs(urlPath string, dnslinkOrigin bool) []assets.Breadcrumb`.
+  List<BoxoGatewayAssetsBreadcrumb> breadcrumbs(
+      String urlPath, bool dnslinkOrigin) {
+    final $r = $callSync(
+        9588,
+        $W()
+          ..str(urlPath)
+          ..b(dnslinkOrigin));
+    return $r
+        .list(() => $r.p() ? BoxoGatewayAssetsBreadcrumb.$dec($r) : $nil());
+  }
+
+  /// Go: `func assets.BuildTemplate(fs fs.FS, filename string) (*template.Template, error)`.
+  $template.HtmlTemplate buildTemplate($fs.IoFs fs, String filename) {
+    final $r = $callSync(
+        9589,
+        $W()
+          ..h(fs)
+          ..str(filename));
+    return $r.hnn($template.HtmlTemplate.$h);
+  }
+
+  /// Go: `var assets.DagTemplate *template.Template`.
+  $template.HtmlTemplate get dagTemplate {
+    final $r = $callSync(9590);
+    return $r.hnn($template.HtmlTemplate.$h);
+  }
+
+  /// Go: `var assets.DirectoryTemplate *template.Template`.
+  $template.HtmlTemplate get directoryTemplate {
+    final $r = $callSync(9591);
+    return $r.hnn($template.HtmlTemplate.$h);
+  }
+
+  /// Go: `var assets.ErrorTemplate *template.Template`.
+  $template.HtmlTemplate get errorTemplate {
+    final $r = $callSync(9592);
+    return $r.hnn($template.HtmlTemplate.$h);
+  }
+
+  /// Go: `func assets.HasDNSLinkOrigin(gwURL string, path string) bool`.
+  bool hasDnsLinkOrigin(String gwUrl, String path) {
+    final $r = $callSync(
+        9593,
+        $W()
+          ..str(gwUrl)
+          ..str(path));
+    return $r.b();
+  }
+
+  /// Go: `var assets.KnownIcons map[string]bool`.
+  Map<String, bool> get knownIcons {
+    final $r = $callSync(9594);
+    return $r.map(() => $r.str(), () => $r.b());
+  }
+
+  /// Go: `func assets.ParseNode(node datamodel.Node) (*assets.ParsedNode, error)`.
+  BoxoGatewayAssetsParsedNode parseNode(
+      $datamodel.IpldPrimeDatamodelNode node) {
+    final $r = $callSync(9595, $W()..h(node));
+    return $r.p() ? BoxoGatewayAssetsParsedNode.$dec($r) : $nil();
+  }
+
+  /// Go: `func assets.ShortHash(hash string) string`.
+  String shortHash(String hash) {
+    final $r = $callSync(9596, $W()..str(hash));
+    return $r.str();
   }
 }

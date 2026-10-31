@@ -2,8 +2,155 @@
 // Go: go.uber.org/fx
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoFxConsts, GoFxEnums;
+import 'package:p2p_ffi/src/go.dart'
+    show GoFx, GoFxConsts, GoFxEnums, GoFxOptions;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/context.dart' as $context;
+import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
+import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
+import 'package:p2p_ffi/go/log.dart' as $log;
+import 'package:p2p_ffi/go/os.dart' as $os;
+
+/// Go: `fx.Annotated`.
+///
+/// Fields that do not cross the bridge: `Target` (type interface{}).
+final class FxAnnotated implements GoDto {
+  FxAnnotated({String? name, String? group})
+      : name = name ?? '',
+        group = group ?? '';
+
+  FxAnnotated.$dec($R r)
+      : name = r.str(),
+        group = r.str();
+
+  /// Go: `Name`.
+  String name;
+
+  /// Go: `Group`.
+  String group;
+
+  @override
+  void $enc($W w) {
+    w
+      ..str(name)
+      ..str(group);
+  }
+
+  /// Go: `func (fx.Annotated).String() string`.
+  String string() {
+    final $r = $callSync(22664, $W()..dto(this));
+    return $r.str();
+  }
+}
+
+/// Go: `fx.Annotation` (handle).
+class FxAnnotation extends GoHandle with FxAnnotation$ {
+  FxAnnotation.$h(super.$h);
+}
+
+/// The methods of [FxAnnotation], mixed into every class Go also accepts as one.
+mixin FxAnnotation$ on GoHandle {}
+
+/// Go: `fx.App` (handle).
+class FxApp extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
+  FxApp.$h(super.$h) : super.$h();
+
+  /// Go: `func (*fx.App).Done() <-chan os.Signal`.
+  Stream<$os.OsSignal> done() =>
+      $stream(22665, $W()..h(this)).map((r) => r.hnn($os.OsSignal.$h));
+
+  /// Go: `func (*fx.App).Err() error`.
+  void err() {
+    $callSync(22666, $W()..h(this));
+  }
+
+  /// Go: `func (*fx.App).Run()`.
+  void run() {
+    $callSync(22667, $W()..h(this));
+  }
+
+  /// Go: `func (*fx.App).Start(ctx context.Context) (err error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> start($context.Context ctx) async {
+    await $call(
+        22668,
+        $W()
+          ..h(this)
+          ..h(ctx));
+  }
+
+  /// Go: `func (*fx.App).StartTimeout() time.Duration`.
+  Duration startTimeout() {
+    final $r = $callSync(22669, $W()..h(this));
+    return Duration(microseconds: $r.i64() ~/ 1000);
+  }
+
+  /// Go: `func (*fx.App).Stop(ctx context.Context) (err error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> stop($context.Context ctx) async {
+    await $call(
+        22670,
+        $W()
+          ..h(this)
+          ..h(ctx));
+  }
+
+  /// Go: `func (*fx.App).StopTimeout() time.Duration`.
+  Duration stopTimeout() {
+    final $r = $callSync(22671, $W()..h(this));
+    return Duration(microseconds: $r.i64() ~/ 1000);
+  }
+
+  /// Go: `func (*fx.App).Wait() <-chan fx.ShutdownSignal`.
+  Stream<FxShutdownSignal> wait() => $stream(22672, $W()..h(this))
+      .map((r) => r.p() ? FxShutdownSignal.$dec(r) : $nil());
+}
+
+/// Go: `fx.ErrorHandler` (handle).
+class FxErrorHandler extends GoHandle with FxErrorHandler$ {
+  FxErrorHandler.$h(super.$h);
+}
+
+/// The methods of [FxErrorHandler], mixed into every class Go also accepts as one.
+mixin FxErrorHandler$ on GoHandle {}
+
+/// Go: `fx.Hook` (handle).
+class FxHook extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
+  FxHook.$h(super.$h) : super.$h();
+}
 
 /// Go: `fx.Lifecycle` (handle).
 class FxLifecycle extends GoHandle with FxLifecycle$ {
@@ -11,7 +158,16 @@ class FxLifecycle extends GoHandle with FxLifecycle$ {
 }
 
 /// The methods of [FxLifecycle], mixed into every class Go also accepts as one.
-mixin FxLifecycle$ on GoHandle {}
+mixin FxLifecycle$ on GoHandle {
+  /// Go: `func (fx.Lifecycle).Append(fx.Hook)`.
+  void append(FxHook hook) {
+    $callSync(
+        22681,
+        $W()
+          ..h(this)
+          ..h(hook));
+  }
+}
 
 /// Go: `fx.Option` (handle).
 class FxOption extends GoHandle with FxOption$ {
@@ -20,6 +176,151 @@ class FxOption extends GoHandle with FxOption$ {
 
 /// The methods of [FxOption], mixed into every class Go also accepts as one.
 mixin FxOption$ on GoHandle {}
+
+/// Go: `fx.Printer` (handle).
+class FxPrinter extends GoHandle with FxPrinter$ {
+  FxPrinter.$h(super.$h);
+}
+
+/// The methods of [FxPrinter], mixed into every class Go also accepts as one.
+mixin FxPrinter$ on GoHandle {
+  /// Go: `func (fx.Printer).Printf(string, ...interface{})`.
+  void printf(String arg0, [List<Object?> arg1 = const []]) {
+    $callSync(
+        22691,
+        $W()
+          ..h(this)
+          ..str(arg0)
+          ..list(arg1, (w0, e0) => w0.any(e0)));
+  }
+
+  /// Go: type assertion `x.(*log.Logger)`: null if the object is not one.
+  $log.LogLogger? asLogLogger() {
+    final $r = $callSync(2115, $W()..h(this));
+    return $r.hn($log.LogLogger.$h);
+  }
+}
+
+/// Go: `fx.ShutdownOption` (handle).
+class FxShutdownOption extends GoHandle with FxShutdownOption$ {
+  FxShutdownOption.$h(super.$h);
+}
+
+/// The methods of [FxShutdownOption], mixed into every class Go also accepts as one.
+mixin FxShutdownOption$ on GoHandle {}
+
+/// Go: `fx.ShutdownSignal`.
+final class FxShutdownSignal implements GoDto {
+  FxShutdownSignal({$os.OsSignal? signal, int? exitCode})
+      : signal = signal,
+        exitCode = exitCode ?? 0;
+
+  FxShutdownSignal.$dec($R r)
+      : signal = r.hn($os.OsSignal.$h),
+        exitCode = r.i64();
+
+  /// Go: `Signal`.
+  $os.OsSignal? signal;
+
+  /// Go: `ExitCode`.
+  int exitCode;
+
+  @override
+  void $enc($W w) {
+    w
+      ..h(signal)
+      ..i64(exitCode);
+  }
+
+  /// Go: `func (fx.ShutdownSignal).String() string`.
+  String string() {
+    final $r = $callSync(22697, $W()..dto(this));
+    return $r.str();
+  }
+}
+
+/// Go: `fx.Shutdowner` (handle).
+class FxShutdowner extends GoHandle with FxShutdowner$ {
+  FxShutdowner.$h(super.$h);
+}
+
+/// The methods of [FxShutdowner], mixed into every class Go also accepts as one.
+mixin FxShutdowner$ on GoHandle {
+  /// Go: `func (fx.Shutdowner).Shutdown(...fx.ShutdownOption) error`.
+  void shutdown([List<FxShutdownOption> shutdownOptions = const []]) {
+    $callSync(
+        22699,
+        $W()
+          ..h(this)
+          ..list(shutdownOptions, (w0, e0) => w0.h(e0)));
+  }
+}
+
+/// Go: the package-level members of `go.uber.org/fx` (`go.fx`).
+extension GoFxApi on GoFx {
+  /// Go: `func fx.Annotate(t interface{}, anns ...fx.Annotation) interface{}`.
+  Object? annotate(Object? t, [List<FxAnnotation> anns = const []]) {
+    final $r = $callSync(
+        22663,
+        $W()
+          ..any(t)
+          ..list(anns, (w0, e0) => w0.h(e0)));
+    return $r.any();
+  }
+
+  /// Go: `func fx.As(interfaces ...interface{}) fx.Annotation`.
+  FxAnnotation as([List<Object?> interfaces = const []]) {
+    final $r = $callSync(22673, $W()..list(interfaces, (w0, e0) => w0.any(e0)));
+    return $r.hnn(FxAnnotation.$h);
+  }
+
+  /// Go: `func fx.From(interfaces ...interface{}) fx.Annotation`.
+  FxAnnotation from([List<Object?> interfaces = const []]) {
+    final $r = $callSync(22679, $W()..list(interfaces, (w0, e0) => w0.any(e0)));
+    return $r.hnn(FxAnnotation.$h);
+  }
+
+  /// Go: `func fx.New(opts ...fx.Option) *fx.App`.
+  FxApp new$([List<FxOption> opts = const []]) {
+    final $r = $callSync(22684, $W()..list(opts, (w0, e0) => w0.h(e0)));
+    return $r.hnn(FxApp.$h);
+  }
+
+  /// Go: `func fx.OnStart(onStart interface{}) fx.Annotation`.
+  FxAnnotation onStart(Object? onStart) {
+    final $r = $callSync(22686, $W()..any(onStart));
+    return $r.hnn(FxAnnotation.$h);
+  }
+
+  /// Go: `func fx.OnStop(onStop interface{}) fx.Annotation`.
+  FxAnnotation onStop(Object? onStop) {
+    final $r = $callSync(22687, $W()..any(onStop));
+    return $r.hnn(FxAnnotation.$h);
+  }
+
+  /// Go: `func fx.ParamTags(tags ...string) fx.Annotation`.
+  FxAnnotation paramTags([List<String> tags = const []]) {
+    final $r = $callSync(22689, $W()..list(tags, (w0, e0) => w0.str(e0)));
+    return $r.hnn(FxAnnotation.$h);
+  }
+
+  /// Go: `func fx.ResultTags(tags ...string) fx.Annotation`.
+  FxAnnotation resultTags([List<String> tags = const []]) {
+    final $r = $callSync(22695, $W()..list(tags, (w0, e0) => w0.str(e0)));
+    return $r.hnn(FxAnnotation.$h);
+  }
+
+  /// Go: `func fx.Self() any`.
+  Object? self() {
+    final $r = $callSync(22696);
+    return $r.any();
+  }
+
+  /// Go: `func fx.ValidateApp(opts ...fx.Option) error`.
+  void validateApp([List<FxOption> opts = const []]) {
+    $callSync(22703, $W()..list(opts, (w0, e0) => w0.h(e0)));
+  }
+}
 
 /// Go: the constants of `go.uber.org/fx` (`go.fx.consts`).
 extension GoFxConstsApi on GoFxConsts {
@@ -31,4 +332,129 @@ extension GoFxConstsApi on GoFxConsts {
 extension GoFxEnumsApi on GoFxEnums {
   /// Go: `const fx.DefaultTimeout time.Duration`.
   Duration get defaultTimeout => Duration(microseconds: 15000000);
+}
+
+/// Go: the option constructors of `go.uber.org/fx` (`go.fx.options`).
+extension GoFxOptionsApi on GoFxOptions {
+  /// Go: `func fx.Decorate(decorators ...interface{}) fx.Option`.
+  FxOption decorate([List<Object?> decorators = const []]) {
+    final $r = $callSync(22674, $W()..list(decorators, (w0, e0) => w0.any(e0)));
+    return $r.hnn(FxOption.$h);
+  }
+
+  /// Go: `func fx.Error(errs ...error) fx.Option`.
+  FxOption error([List<String> errs = const []]) {
+    final $r = $callSync(22675, $W()..list(errs, (w0, e0) => w0.err(e0)));
+    return $r.hnn(FxOption.$h);
+  }
+
+  /// Go: `func fx.ErrorHook(funcs ...fx.ErrorHandler) fx.Option`.
+  FxOption errorHook([List<FxErrorHandler> funcs = const []]) {
+    final $r = $callSync(22676, $W()..list(funcs, (w0, e0) => w0.h(e0)));
+    return $r.hnn(FxOption.$h);
+  }
+
+  /// Go: `func fx.ExitCode(code int) fx.ShutdownOption`.
+  FxShutdownOption exitCode(int code) {
+    final $r = $callSync(22677, $W()..i64(code));
+    return $r.hnn(FxShutdownOption.$h);
+  }
+
+  /// Go: `func fx.Extract(target interface{}) fx.Option`.
+  @Deprecated("Use Populate instead.")
+  FxOption extract(Object? target) {
+    final $r = $callSync(22678, $W()..any(target));
+    return $r.hnn(FxOption.$h);
+  }
+
+  /// Go: `func fx.Invoke(funcs ...interface{}) fx.Option`.
+  FxOption invoke([List<Object?> funcs = const []]) {
+    final $r = $callSync(22680, $W()..list(funcs, (w0, e0) => w0.any(e0)));
+    return $r.hnn(FxOption.$h);
+  }
+
+  /// Go: `func fx.Logger(p fx.Printer) fx.Option`.
+  FxOption logger(FxPrinter p) {
+    final $r = $callSync(22682, $W()..h(p));
+    return $r.hnn(FxOption.$h);
+  }
+
+  /// Go: `func fx.Module(name string, opts ...fx.Option) fx.Option`.
+  FxOption module(String name, [List<FxOption> opts = const []]) {
+    final $r = $callSync(
+        22683,
+        $W()
+          ..str(name)
+          ..list(opts, (w0, e0) => w0.h(e0)));
+    return $r.hnn(FxOption.$h);
+  }
+
+  /// Go: `var fx.NopLogger fx.Option`.
+  FxOption get nopLogger {
+    final $r = $callSync(22685);
+    return $r.hnn(FxOption.$h);
+  }
+
+  /// Go: `func fx.Options(opts ...fx.Option) fx.Option`.
+  FxOption options([List<FxOption> opts = const []]) {
+    final $r = $callSync(22688, $W()..list(opts, (w0, e0) => w0.h(e0)));
+    return $r.hnn(FxOption.$h);
+  }
+
+  /// Go: `func fx.Populate(targets ...interface{}) fx.Option`.
+  FxOption populate([List<Object?> targets = const []]) {
+    final $r = $callSync(22690, $W()..list(targets, (w0, e0) => w0.any(e0)));
+    return $r.hnn(FxOption.$h);
+  }
+
+  /// Go: `func fx.Provide(constructors ...interface{}) fx.Option`.
+  FxOption provide([List<Object?> constructors = const []]) {
+    final $r =
+        $callSync(22692, $W()..list(constructors, (w0, e0) => w0.any(e0)));
+    return $r.hnn(FxOption.$h);
+  }
+
+  /// Go: `func fx.RecoverFromPanics() fx.Option`.
+  FxOption recoverFromPanics() {
+    final $r = $callSync(22693);
+    return $r.hnn(FxOption.$h);
+  }
+
+  /// Go: `func fx.Replace(values ...interface{}) fx.Option`.
+  FxOption replace([List<Object?> values = const []]) {
+    final $r = $callSync(22694, $W()..list(values, (w0, e0) => w0.any(e0)));
+    return $r.hnn(FxOption.$h);
+  }
+
+  /// Go: `func fx.ShutdownTimeout(timeout time.Duration) fx.ShutdownOption`.
+  @Deprecated(
+      "This option has no effect. Shutdown is not a blocking operation.")
+  FxShutdownOption shutdownTimeout(Duration timeout) {
+    final $r = $callSync(22698, $W()..i64((timeout).inMicroseconds * 1000));
+    return $r.hnn(FxShutdownOption.$h);
+  }
+
+  /// Go: `func fx.StartTimeout(v time.Duration) fx.Option`.
+  FxOption startTimeout(Duration v) {
+    final $r = $callSync(22700, $W()..i64((v).inMicroseconds * 1000));
+    return $r.hnn(FxOption.$h);
+  }
+
+  /// Go: `func fx.StopTimeout(v time.Duration) fx.Option`.
+  FxOption stopTimeout(Duration v) {
+    final $r = $callSync(22701, $W()..i64((v).inMicroseconds * 1000));
+    return $r.hnn(FxOption.$h);
+  }
+
+  /// Go: `func fx.Supply(values ...interface{}) fx.Option`.
+  FxOption supply([List<Object?> values = const []]) {
+    final $r = $callSync(22702, $W()..list(values, (w0, e0) => w0.any(e0)));
+    return $r.hnn(FxOption.$h);
+  }
+
+  /// Go: `func fx.WithLogger(constructor interface{}) fx.Option`.
+  FxOption withLogger(Object? constructor) {
+    final $r = $callSync(22704, $W()..any(constructor));
+    return $r.hnn(FxOption.$h);
+  }
 }

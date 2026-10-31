@@ -2,9 +2,19 @@
 // Go: github.com/multiformats/go-multiaddr-dns
 library;
 
+import 'package:p2p_ffi/src/go.dart'
+    show GoMultiformatsMultiaddrDns, GoMultiformatsMultiaddrDnsOptions;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
+import 'package:p2p_ffi/go/libp2p/doh_resolver.dart' as $doh_resolver;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/transport.dart' as $transport;
+import 'package:p2p_ffi/go/multiformats/multiaddr.dart' as $multiaddr;
+import 'package:p2p_ffi/go/net.dart' as $net;
 
 /// Go: `madns.BasicResolver` (handle).
 class MultiaddrDnsBasicResolver extends GoHandle
@@ -13,17 +23,282 @@ class MultiaddrDnsBasicResolver extends GoHandle
 }
 
 /// The methods of [MultiaddrDnsBasicResolver], mixed into every class Go also accepts as one.
-mixin MultiaddrDnsBasicResolver$ on GoHandle {}
+mixin MultiaddrDnsBasicResolver$ on GoHandle {
+  /// Go: `func (madns.BasicResolver).LookupIPAddr(context.Context, string) ([]net.IPAddr, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<List<$net.NetIpAddr>> lookupIpAddr(
+      $context.Context ctx, String arg1) async {
+    final $r = await $call(
+        15808,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(arg1));
+    return $r.list(() => $r.p() ? $net.NetIpAddr.$dec($r) : $nil());
+  }
+
+  /// Go: `func (madns.BasicResolver).LookupTXT(context.Context, string) ([]string, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<List<String>> lookupTxt($context.Context ctx, String arg1) async {
+    final $r = await $call(
+        15809,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(arg1));
+    return $r.list(() => $r.str());
+  }
+
+  /// Go: type assertion `x.(*doh.Resolver)`: null if the object is not one.
+  $doh_resolver.DohResolver? asDohResolver() {
+    final $r = $callSync(1461, $W()..h(this));
+    return $r.hn($doh_resolver.DohResolver.$h);
+  }
+
+  /// Go: type assertion `x.(*madns.Resolver)`: null if the object is not one.
+  MultiaddrDnsResolver? asMultiaddrDnsResolver() {
+    final $r = $callSync(1462, $W()..h(this));
+    return $r.hn(MultiaddrDnsResolver.$h);
+  }
+
+  /// Go: type assertion `x.(*net.Resolver)`: null if the object is not one.
+  $net.NetResolver? asNetResolver() {
+    final $r = $callSync(1463, $W()..h(this));
+    return $r.hn($net.NetResolver.$h);
+  }
+}
+
+/// Go: `madns.MockResolver`.
+final class MultiaddrDnsMockResolver implements GoDto {
+  MultiaddrDnsMockResolver(
+      {Map<String, List<$net.NetIpAddr>>? ip, Map<String, List<String>>? txt})
+      : ip = ip ?? {},
+        txt = txt ?? {};
+
+  MultiaddrDnsMockResolver.$dec($R r)
+      : ip = r.map(() => r.str(),
+            () => r.list(() => r.p() ? $net.NetIpAddr.$dec(r) : $nil())),
+        txt = r.map(() => r.str(), () => r.list(() => r.str()));
+
+  /// Go: `IP`.
+  Map<String, List<$net.NetIpAddr>> ip;
+
+  /// Go: `TXT`.
+  Map<String, List<String>> txt;
+
+  @override
+  void $enc($W w) {
+    w
+      ..map(ip, (w0, k0) => w0.str(k0),
+          (w0, v0) => w0.list(v0, (w1, e1) => w1.dto(e1)))
+      ..map(txt, (w0, k0) => w0.str(k0),
+          (w0, v0) => w0.list(v0, (w1, e1) => w1.str(e1)));
+  }
+
+  /// Go: `func (*madns.MockResolver).LookupIPAddr(ctx context.Context, name string) ([]net.IPAddr, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<List<$net.NetIpAddr>> lookupIpAddr(
+      $context.Context ctx, String name) async {
+    final $r = await $call(
+        15812,
+        $W()
+          ..dto(this)
+          ..h(ctx)
+          ..str(name));
+    return $r.list(() => $r.p() ? $net.NetIpAddr.$dec($r) : $nil());
+  }
+
+  /// Go: `func (*madns.MockResolver).LookupTXT(ctx context.Context, name string) ([]string, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<List<String>> lookupTxt($context.Context ctx, String name) async {
+    final $r = await $call(
+        15813,
+        $W()
+          ..dto(this)
+          ..h(ctx)
+          ..str(name));
+    return $r.list(() => $r.str());
+  }
+}
+
+/// Go: `madns.Option` (functional option; constructors in the package).
+final class MultiaddrDnsOption extends GoOption {
+  MultiaddrDnsOption.$(super.$i, super.$a);
+}
 
 /// Go: `madns.Resolver` (handle).
-class MultiaddrDnsResolver extends $crypto.CryptoPrivateKey
+class MultiaddrDnsResolver extends MultiaddrDnsBasicResolver
     with
+        $crypto.CryptoDecrypterOpts$,
+        $crypto.CryptoPrivateKey$,
         $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
         $ipfs_cmds.IpfsCmdsEnvironment$,
-        MultiaddrDnsBasicResolver$
+        $peertask.PeertaskqueuePeertaskTopic$,
+        $transport.Libp2pCoreTransportResolver$,
+        MultiaddrDnsTxtWithTtlResolver$
     implements
+        $crypto.CryptoDecrypterOpts,
+        $crypto.CryptoPrivateKey,
         $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
         $ipfs_cmds.IpfsCmdsEnvironment,
-        MultiaddrDnsBasicResolver {
+        $peertask.PeertaskqueuePeertaskTopic,
+        $transport.Libp2pCoreTransportResolver,
+        MultiaddrDnsTxtWithTtlResolver {
   MultiaddrDnsResolver.$h(super.$h) : super.$h();
+
+  /// Go: `func madns.NewResolver(opts ...madns.Option) (*madns.Resolver, error)`.
+  factory MultiaddrDnsResolver([List<MultiaddrDnsOption> opts = const []]) {
+    final $r = $callSync(15814, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+    return $r.hnn(MultiaddrDnsResolver.$h);
+  }
+
+  /// Go: `func (*madns.Resolver).LookupIPAddr(ctx context.Context, domain string) ([]net.IPAddr, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<List<$net.NetIpAddr>> lookupIpAddr(
+      $context.Context ctx, String domain) async {
+    final $r = await $call(
+        15817,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(domain));
+    return $r.list(() => $r.p() ? $net.NetIpAddr.$dec($r) : $nil());
+  }
+
+  /// Go: `func (*madns.Resolver).LookupTXT(ctx context.Context, txt string) ([]string, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<List<String>> lookupTxt($context.Context ctx, String txt) async {
+    final $r = await $call(
+        15818,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(txt));
+    return $r.list(() => $r.str());
+  }
+
+  /// Go: `func (*madns.Resolver).LookupTXTWithTTL(ctx context.Context, domain string) ([]string, time.Duration, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<(List<String>, Duration)> lookupTxtWithTtl(
+      $context.Context ctx, String domain) async {
+    final $r = await $call(
+        15819,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(domain));
+    return ($r.list(() => $r.str()), Duration(microseconds: $r.i64() ~/ 1000));
+  }
+
+  /// Go: `func (*madns.Resolver).Resolve(ctx context.Context, maddr multiaddr.Multiaddr) ([]multiaddr.Multiaddr, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<List<$multiaddr.Multiaddr>> resolve(
+      $context.Context ctx, $multiaddr.Multiaddr maddr) async {
+    final $r = await $call(
+        15820,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(maddr));
+    return $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil());
+  }
+}
+
+/// Go: `madns.TXTWithTTLResolver` (handle).
+class MultiaddrDnsTxtWithTtlResolver extends GoHandle
+    with MultiaddrDnsTxtWithTtlResolver$ {
+  MultiaddrDnsTxtWithTtlResolver.$h(super.$h);
+}
+
+/// The methods of [MultiaddrDnsTxtWithTtlResolver], mixed into every class Go also accepts as one.
+mixin MultiaddrDnsTxtWithTtlResolver$ on GoHandle {
+  /// Go: `func (madns.TXTWithTTLResolver).LookupTXTWithTTL(ctx context.Context, name string) (txt []string, ttl time.Duration, err error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<(List<String>, Duration)> lookupTxtWithTtl(
+      $context.Context ctx, String name) async {
+    final $r = await $call(
+        15821,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(name));
+    return ($r.list(() => $r.str()), Duration(microseconds: $r.i64() ~/ 1000));
+  }
+
+  /// Go: type assertion `x.(*doh.Resolver)`: null if the object is not one.
+  $doh_resolver.DohResolver? asDohResolver() {
+    final $r = $callSync(1464, $W()..h(this));
+    return $r.hn($doh_resolver.DohResolver.$h);
+  }
+
+  /// Go: type assertion `x.(*madns.Resolver)`: null if the object is not one.
+  MultiaddrDnsResolver? asMultiaddrDnsResolver() {
+    final $r = $callSync(1465, $W()..h(this));
+    return $r.hn(MultiaddrDnsResolver.$h);
+  }
+}
+
+/// Go: the package-level members of `github.com/multiformats/go-multiaddr-dns` (`go.multiformats.multiaddrDns`).
+extension GoMultiformatsMultiaddrDnsApi on GoMultiformatsMultiaddrDns {
+  /// Go: `var madns.DefaultResolver *madns.Resolver`.
+  MultiaddrDnsResolver get defaultResolver {
+    final $r = $callSync(15810);
+    return $r.hnn(MultiaddrDnsResolver.$h);
+  }
+
+  /// Go: `func madns.Matches(maddr multiaddr.Multiaddr) (matches bool)`.
+  bool matches($multiaddr.Multiaddr maddr) {
+    final $r = $callSync(15811, $W()..val(maddr));
+    return $r.b();
+  }
+
+  /// Go: `var madns.ResolvableProtocols []multiaddr.Protocol`.
+  List<$multiaddr.MultiaddrProtocol> get resolvableProtocols {
+    final $r = $callSync(15815);
+    return $r
+        .list(() => $r.p() ? $multiaddr.MultiaddrProtocol.$dec($r) : $nil());
+  }
+
+  /// Go: `func madns.Resolve(ctx context.Context, maddr multiaddr.Multiaddr) ([]multiaddr.Multiaddr, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<List<$multiaddr.Multiaddr>> resolve(
+      $context.Context ctx, $multiaddr.Multiaddr maddr) async {
+    final $r = await $call(
+        15816,
+        $W()
+          ..h(ctx)
+          ..val(maddr));
+    return $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil());
+  }
+}
+
+/// Go: the option constructors of `github.com/multiformats/go-multiaddr-dns` (`go.multiformats.multiaddrDns.options`).
+extension GoMultiformatsMultiaddrDnsOptionsApi
+    on GoMultiformatsMultiaddrDnsOptions {
+  /// Go: `go-multiaddr-dns.WithDefaultResolver`.
+  MultiaddrDnsOption withDefaultResolver(MultiaddrDnsBasicResolver def) =>
+      MultiaddrDnsOption.$(0, (w) => w..h(def));
+
+  /// Go: `go-multiaddr-dns.WithDomainResolver`.
+  MultiaddrDnsOption withDomainResolver(
+          String domain, MultiaddrDnsBasicResolver rslv) =>
+      MultiaddrDnsOption.$(
+          1,
+          (w) => w
+            ..str(domain)
+            ..h(rslv));
 }

@@ -13,7 +13,7 @@ import 'package:p2p_ffi/src/runtime.dart';
 extension GoMultiformatsMulticodecApi on GoMultiformatsMulticodec {
   /// Go: `func multicodec.KnownCodes() []multicodec.Code`.
   List<int> knownCodes() {
-    final $r = $callSync(3482);
+    final $r = $callSync(15989);
     return $r.list(() => $r.i64());
   }
 }

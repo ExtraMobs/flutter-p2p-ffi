@@ -2,15 +2,246 @@
 // Go: mime/multipart
 library;
 
+import 'dart:typed_data';
+
+import 'package:p2p_ffi/src/go.dart' show GoMimeMultipart;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
+import 'package:p2p_ffi/go/io.dart' as $io;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
+import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
+
+/// Go: `multipart.File` (handle).
+class MimeMultipartFile extends GoHandle {
+  MimeMultipartFile.$h(super.$h);
+}
+
+/// Go: `multipart.FileHeader` (handle).
+class MimeMultipartFileHeader extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
+  MimeMultipartFileHeader.$h(super.$h) : super.$h();
+
+  /// Go: `func (*multipart.FileHeader).Open() (multipart.File, error)`.
+  MimeMultipartFile open() {
+    final $r = $callSync(26279, $W()..h(this));
+    return $r.hnn(MimeMultipartFile.$h);
+  }
+}
+
+/// Go: `multipart.Form`.
+final class MimeMultipartForm implements GoDto {
+  MimeMultipartForm(
+      {Map<String, List<String>>? value$,
+      Map<String, List<MimeMultipartFileHeader>>? file})
+      : value$ = value$ ?? {},
+        file = file ?? {};
+
+  MimeMultipartForm.$dec($R r)
+      : value$ = r.map(() => r.str(), () => r.list(() => r.str())),
+        file = r.map(() => r.str(),
+            () => r.list(() => r.hnn(MimeMultipartFileHeader.$h)));
+
+  /// Go: `Value`.
+  Map<String, List<String>> value$;
+
+  /// Go: `File`.
+  Map<String, List<MimeMultipartFileHeader>> file;
+
+  @override
+  void $enc($W w) {
+    w
+      ..map(value$, (w0, k0) => w0.str(k0),
+          (w0, v0) => w0.list(v0, (w1, e1) => w1.str(e1)))
+      ..map(file, (w0, k0) => w0.str(k0),
+          (w0, v0) => w0.list(v0, (w1, e1) => w1.h(e1)));
+  }
+
+  /// Go: `func (*multipart.Form).RemoveAll() error`.
+  void removeAll() {
+    $callSync(26280, $W()..dto(this));
+  }
+}
+
+/// Go: `multipart.Part` (handle).
+class MimeMultipartPart extends $io.IoCloser
+    with
+        $crypto.CryptoDecrypterOpts$,
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$,
+        $expfmt.CommonExpfmtCloser$
+    implements
+        $crypto.CryptoDecrypterOpts,
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic,
+        $expfmt.CommonExpfmtCloser {
+  MimeMultipartPart.$h(super.$h) : super.$h();
+
+  /// Go: `func (*multipart.Part).Close() error`.
+  void close() {
+    $callSync(26283, $W()..h(this));
+  }
+
+  /// Go: `func (*multipart.Part).FileName() string`.
+  String fileName() {
+    final $r = $callSync(26284, $W()..h(this));
+    return $r.str();
+  }
+
+  /// Go: `func (*multipart.Part).FormName() string`.
+  String formName() {
+    final $r = $callSync(26285, $W()..h(this));
+    return $r.str();
+  }
+
+  /// Go: `func (*multipart.Part).Read(d []byte) (n int, err error)`.
+  Uint8List read(int n) {
+    final $r = $callSync(
+        26286,
+        $W()
+          ..h(this)
+          ..i64(n));
+    return $r.bytes() ?? Uint8List(0);
+  }
+}
 
 /// Go: `multipart.Reader` (handle).
-class MimeMultipartReader extends $crypto.CryptoPrivateKey
-    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
-    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+class MimeMultipartReader extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   MimeMultipartReader.$h(super.$h) : super.$h();
+
+  /// Go: `func multipart.NewReader(r io.Reader, boundary string) *multipart.Reader`.
+  factory MimeMultipartReader(Object r, String boundary) {
+    final $r = $callSync(
+        26281,
+        $W()
+          ..reader(r)
+          ..str(boundary));
+    return $r.hnn(MimeMultipartReader.$h);
+  }
+
+  /// Go: `func (*multipart.Reader).NextPart() (*multipart.Part, error)`.
+  MimeMultipartPart nextPart() {
+    final $r = $callSync(26287, $W()..h(this));
+    return $r.hnn(MimeMultipartPart.$h);
+  }
+
+  /// Go: `func (*multipart.Reader).NextRawPart() (*multipart.Part, error)`.
+  MimeMultipartPart nextRawPart() {
+    final $r = $callSync(26288, $W()..h(this));
+    return $r.hnn(MimeMultipartPart.$h);
+  }
+
+  /// Go: `func (*multipart.Reader).ReadForm(maxMemory int64) (*multipart.Form, error)`.
+  MimeMultipartForm readForm(int maxMemory) {
+    final $r = $callSync(
+        26289,
+        $W()
+          ..h(this)
+          ..i64(maxMemory));
+    return $r.p() ? MimeMultipartForm.$dec($r) : $nil();
+  }
+}
+
+/// Go: `multipart.Writer` (handle).
+class MimeMultipartWriter extends $io.IoCloser
+    with
+        $crypto.CryptoDecrypterOpts$,
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$,
+        $expfmt.CommonExpfmtCloser$
+    implements
+        $crypto.CryptoDecrypterOpts,
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic,
+        $expfmt.CommonExpfmtCloser {
+  MimeMultipartWriter.$h(super.$h) : super.$h();
+
+  /// Go: `func multipart.NewWriter(w io.Writer) *multipart.Writer`.
+  factory MimeMultipartWriter(GoHandle? w) {
+    final $r = $callSync(26282, $W()..h(w));
+    return $r.hnn(MimeMultipartWriter.$h);
+  }
+
+  /// Go: `func (*multipart.Writer).Boundary() string`.
+  String boundary() {
+    final $r = $callSync(26290, $W()..h(this));
+    return $r.str();
+  }
+
+  /// Go: `func (*multipart.Writer).Close() error`.
+  void close() {
+    $callSync(26291, $W()..h(this));
+  }
+
+  /// Go: `func (*multipart.Writer).FormDataContentType() string`.
+  String formDataContentType() {
+    final $r = $callSync(26292, $W()..h(this));
+    return $r.str();
+  }
+
+  /// Go: `func (*multipart.Writer).SetBoundary(boundary string) error`.
+  void setBoundary(String boundary) {
+    $callSync(
+        26293,
+        $W()
+          ..h(this)
+          ..str(boundary));
+  }
+
+  /// Go: `func (*multipart.Writer).WriteField(fieldname string, value string) error`.
+  void writeField(String fieldname, String value) {
+    $callSync(
+        26294,
+        $W()
+          ..h(this)
+          ..str(fieldname)
+          ..str(value));
+  }
 }
 
 /// Go: `var multipart.ErrMessageTooLarge error`: an error. Thrown as this class when it is the outermost
@@ -20,4 +251,17 @@ class MimeMultipartErrMessageTooLarge extends GolangException {
 
   @override
   String toString() => 'multipart.ErrMessageTooLarge: $message';
+}
+
+/// Go: the package-level members of `mime/multipart` (`go.mime.multipart`).
+extension GoMimeMultipartApi on GoMimeMultipart {
+  /// Go: `func multipart.FileContentDisposition(fieldname string, filename string) string`.
+  String fileContentDisposition(String fieldname, String filename) {
+    final $r = $callSync(
+        26278,
+        $W()
+          ..str(fieldname)
+          ..str(filename));
+    return $r.str();
+  }
 }

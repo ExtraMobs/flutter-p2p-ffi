@@ -2,29 +2,365 @@
 // Go: bytes
 library;
 
+import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/src/go.dart' show GoBytesConsts;
+import 'package:p2p_ffi/src/go.dart' show GoBytes, GoBytesConsts;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
+import 'package:p2p_ffi/go/io.dart' as $io;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
+import 'package:p2p_ffi/go/protobuf/encoding/protodelim.dart' as $protodelim;
+import 'package:p2p_ffi/go/quic_go/quic_go/quicvarint.dart' as $quicvarint;
+import 'package:p2p_ffi/go/unicode.dart' as $unicode;
 
 /// Go: `bytes.Buffer` (handle).
-class BytesBuffer extends $crypto.CryptoPrivateKey
-    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
-    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+class BytesBuffer extends $io.IoRuneScanner
+    with
+        $crypto.CryptoDecrypterOpts$,
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $io.IoByteWriter$,
+        $io.IoReaderFrom$,
+        $io.IoStringWriter$,
+        $io.IoWriterTo$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$,
+        $protodelim.ProtobufEncodingProtodelimReader$,
+        $quicvarint.QuicGoQuicvarintWriter$
+    implements
+        $crypto.CryptoDecrypterOpts,
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $io.IoByteWriter,
+        $io.IoReaderFrom,
+        $io.IoStringWriter,
+        $io.IoWriterTo,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic,
+        $protodelim.ProtobufEncodingProtodelimReader,
+        $quicvarint.QuicGoQuicvarintWriter {
   BytesBuffer.$h(super.$h) : super.$h();
 
   /// Go: `func bytes.NewBuffer(buf []byte) *bytes.Buffer`.
   factory BytesBuffer(Uint8List buf) {
-    final $r = $callSync(65, $W()..bytes(buf));
+    final $r = $callSync(221, $W()..bytes(buf));
     return $r.hnn(BytesBuffer.$h);
   }
 
   /// Go: `func (*bytes.Buffer).Bytes() []byte`.
   Uint8List bytes() {
-    final $r = $callSync(64, $W()..h(this));
+    final $r = $callSync(172, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (*bytes.Buffer).Available() int`.
+  int available() {
+    final $r = $callSync(170, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (*bytes.Buffer).AvailableBuffer() []byte`.
+  Uint8List availableBuffer() {
+    final $r = $callSync(171, $W()..h(this));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (*bytes.Buffer).Cap() int`.
+  int cap() {
+    final $r = $callSync(173, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (*bytes.Buffer).Grow(n int)`.
+  void grow(int n) {
+    $callSync(
+        174,
+        $W()
+          ..h(this)
+          ..i64(n));
+  }
+
+  /// Go: `func (*bytes.Buffer).Len() int`.
+  int len() {
+    final $r = $callSync(175, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (*bytes.Buffer).Next(n int) []byte`.
+  Uint8List next(int n) {
+    final $r = $callSync(
+        176,
+        $W()
+          ..h(this)
+          ..i64(n));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (*bytes.Buffer).Peek(n int) ([]byte, error)`.
+  Uint8List peek(int n) {
+    final $r = $callSync(
+        177,
+        $W()
+          ..h(this)
+          ..i64(n));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (*bytes.Buffer).Read(p []byte) (n int, err error)`.
+  Uint8List read(int n) {
+    final $r = $callSync(
+        178,
+        $W()
+          ..h(this)
+          ..i64(n));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (*bytes.Buffer).ReadByte() (byte, error)`.
+  int readByte() {
+    final $r = $callSync(179, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (*bytes.Buffer).ReadBytes(delim byte) (line []byte, err error)`.
+  Uint8List readBytes(int delim) {
+    final $r = $callSync(
+        180,
+        $W()
+          ..h(this)
+          ..i64(delim));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (*bytes.Buffer).ReadFrom(r io.Reader) (n int64, err error)`.
+  int readFrom(Object r) {
+    final $r = $callSync(
+        181,
+        $W()
+          ..h(this)
+          ..reader(r));
+    return $r.i64();
+  }
+
+  /// Go: `func (*bytes.Buffer).ReadRune() (r rune, size int, err error)`.
+  (int, int) readRune() {
+    final $r = $callSync(182, $W()..h(this));
+    return ($r.i64(), $r.i64());
+  }
+
+  /// Go: `func (*bytes.Buffer).ReadString(delim byte) (line string, err error)`.
+  String readString(int delim) {
+    final $r = $callSync(
+        183,
+        $W()
+          ..h(this)
+          ..i64(delim));
+    return $r.str();
+  }
+
+  /// Go: `func (*bytes.Buffer).Reset()`.
+  void reset() {
+    $callSync(184, $W()..h(this));
+  }
+
+  /// Go: `func (*bytes.Buffer).String() string`.
+  String string() {
+    final $r = $callSync(185, $W()..h(this));
+    return $r.str();
+  }
+
+  /// Go: `func (*bytes.Buffer).Truncate(n int)`.
+  void truncate(int n) {
+    $callSync(
+        186,
+        $W()
+          ..h(this)
+          ..i64(n));
+  }
+
+  /// Go: `func (*bytes.Buffer).UnreadByte() error`.
+  void unreadByte() {
+    $callSync(187, $W()..h(this));
+  }
+
+  /// Go: `func (*bytes.Buffer).UnreadRune() error`.
+  void unreadRune() {
+    $callSync(188, $W()..h(this));
+  }
+
+  /// Go: `func (*bytes.Buffer).Write(p []byte) (n int, err error)`.
+  int write(Uint8List p) {
+    final $r = $callSync(
+        189,
+        $W()
+          ..h(this)
+          ..bytes(p));
+    return $r.i64();
+  }
+
+  /// Go: `func (*bytes.Buffer).WriteByte(c byte) error`.
+  void writeByte(int c) {
+    $callSync(
+        190,
+        $W()
+          ..h(this)
+          ..i64(c));
+  }
+
+  /// Go: `func (*bytes.Buffer).WriteRune(r rune) (n int, err error)`.
+  int writeRune(int r) {
+    final $r = $callSync(
+        191,
+        $W()
+          ..h(this)
+          ..i64(r));
+    return $r.i64();
+  }
+
+  /// Go: `func (*bytes.Buffer).WriteString(s string) (n int, err error)`.
+  int writeString(String s) {
+    final $r = $callSync(
+        192,
+        $W()
+          ..h(this)
+          ..str(s));
+    return $r.i64();
+  }
+
+  /// Go: `func (*bytes.Buffer).WriteTo(w io.Writer) (n int64, err error)`.
+  int writeTo(GoHandle? w) {
+    final $r = $callSync(
+        193,
+        $W()
+          ..h(this)
+          ..h(w));
+    return $r.i64();
+  }
+}
+
+/// Go: `bytes.Reader` (handle).
+class BytesReader extends $io.IoRuneScanner
+    with
+        $crypto.CryptoDecrypterOpts$,
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $io.IoSeeker$,
+        $io.IoWriterTo$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$,
+        $protodelim.ProtobufEncodingProtodelimReader$
+    implements
+        $crypto.CryptoDecrypterOpts,
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $io.IoSeeker,
+        $io.IoWriterTo,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic,
+        $protodelim.ProtobufEncodingProtodelimReader {
+  BytesReader.$h(super.$h) : super.$h();
+
+  /// Go: `func bytes.NewReader(b []byte) *bytes.Reader`.
+  factory BytesReader(Uint8List b) {
+    final $r = $callSync(223, $W()..bytes(b));
+    return $r.hnn(BytesReader.$h);
+  }
+
+  /// Go: `func (*bytes.Reader).Len() int`.
+  int len() {
+    final $r = $callSync(224, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (*bytes.Reader).Read(b []byte) (n int, err error)`.
+  Uint8List read(int n) {
+    final $r = $callSync(
+        225,
+        $W()
+          ..h(this)
+          ..i64(n));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (*bytes.Reader).ReadAt(b []byte, off int64) (n int, err error)`.
+  Uint8List readAt(int n, int off) {
+    final $r = $callSync(
+        226,
+        $W()
+          ..h(this)
+          ..i64(n)
+          ..i64(off));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (*bytes.Reader).ReadByte() (byte, error)`.
+  int readByte() {
+    final $r = $callSync(227, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (*bytes.Reader).ReadRune() (ch rune, size int, err error)`.
+  (int, int) readRune() {
+    final $r = $callSync(228, $W()..h(this));
+    return ($r.i64(), $r.i64());
+  }
+
+  /// Go: `func (*bytes.Reader).Reset(b []byte)`.
+  void reset(Uint8List b) {
+    $callSync(
+        229,
+        $W()
+          ..h(this)
+          ..bytes(b));
+  }
+
+  /// Go: `func (*bytes.Reader).Seek(offset int64, whence int) (int64, error)`.
+  int seek(int offset, int whence) {
+    final $r = $callSync(
+        230,
+        $W()
+          ..h(this)
+          ..i64(offset)
+          ..i64(whence));
+    return $r.i64();
+  }
+
+  /// Go: `func (*bytes.Reader).Size() int64`.
+  int size() {
+    final $r = $callSync(231, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (*bytes.Reader).UnreadByte() error`.
+  void unreadByte() {
+    $callSync(232, $W()..h(this));
+  }
+
+  /// Go: `func (*bytes.Reader).UnreadRune() error`.
+  void unreadRune() {
+    $callSync(233, $W()..h(this));
+  }
+
+  /// Go: `func (*bytes.Reader).WriteTo(w io.Writer) (n int64, err error)`.
+  int writeTo(GoHandle? w) {
+    final $r = $callSync(
+        234,
+        $W()
+          ..h(this)
+          ..h(w));
+    return $r.i64();
   }
 }
 
@@ -35,6 +371,565 @@ class BytesErrTooLarge extends GolangException {
 
   @override
   String toString() => 'bytes.ErrTooLarge: $message';
+}
+
+/// Go: the package-level members of `bytes` (`go.bytes`).
+extension GoBytesApi on GoBytes {
+  /// Go: `func bytes.Clone(b []byte) []byte`.
+  Uint8List clone(Uint8List b) {
+    final $r = $callSync(194, $W()..bytes(b));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func bytes.Compare(a []byte, b []byte) int`.
+  int compare(Uint8List a, Uint8List b) {
+    final $r = $callSync(
+        195,
+        $W()
+          ..bytes(a)
+          ..bytes(b));
+    return $r.i64();
+  }
+
+  /// Go: `func bytes.Contains(b []byte, subslice []byte) bool`.
+  bool contains(Uint8List b, Uint8List subslice) {
+    final $r = $callSync(
+        196,
+        $W()
+          ..bytes(b)
+          ..bytes(subslice));
+    return $r.b();
+  }
+
+  /// Go: `func bytes.ContainsAny(b []byte, chars string) bool`.
+  bool containsAny(Uint8List b, String chars) {
+    final $r = $callSync(
+        197,
+        $W()
+          ..bytes(b)
+          ..str(chars));
+    return $r.b();
+  }
+
+  /// Go: `func bytes.ContainsFunc(b []byte, f func(rune) bool) bool`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  ///
+  /// Go calls [f] on the Dart event loop, during the call or
+  /// later for as long as it holds it (nobody checked which), and waits for
+  /// each invocation (a retained callback, WIRE.md).
+  Future<bool> containsFunc(
+      Uint8List b, FutureOr<bool> Function(int arg0) f) async {
+    final $r = await $call(
+        198,
+        $W()
+          ..bytes(b)
+          ..cb((r) => f(r.i64()), true));
+    return $r.b();
+  }
+
+  /// Go: `func bytes.ContainsRune(b []byte, r rune) bool`.
+  bool containsRune(Uint8List b, int r) {
+    final $r = $callSync(
+        199,
+        $W()
+          ..bytes(b)
+          ..i64(r));
+    return $r.b();
+  }
+
+  /// Go: `func bytes.Count(s []byte, sep []byte) int`.
+  int count(Uint8List s, Uint8List sep) {
+    final $r = $callSync(
+        200,
+        $W()
+          ..bytes(s)
+          ..bytes(sep));
+    return $r.i64();
+  }
+
+  /// Go: `func bytes.Cut(s []byte, sep []byte) (before []byte, after []byte, found bool)`.
+  (Uint8List, Uint8List, bool) cut(Uint8List s, Uint8List sep) {
+    final $r = $callSync(
+        201,
+        $W()
+          ..bytes(s)
+          ..bytes(sep));
+    return ($r.bytes() ?? Uint8List(0), $r.bytes() ?? Uint8List(0), $r.b());
+  }
+
+  /// Go: `func bytes.CutPrefix(s []byte, prefix []byte) (after []byte, found bool)`.
+  (Uint8List, bool) cutPrefix(Uint8List s, Uint8List prefix) {
+    final $r = $callSync(
+        202,
+        $W()
+          ..bytes(s)
+          ..bytes(prefix));
+    return ($r.bytes() ?? Uint8List(0), $r.b());
+  }
+
+  /// Go: `func bytes.CutSuffix(s []byte, suffix []byte) (before []byte, found bool)`.
+  (Uint8List, bool) cutSuffix(Uint8List s, Uint8List suffix) {
+    final $r = $callSync(
+        203,
+        $W()
+          ..bytes(s)
+          ..bytes(suffix));
+    return ($r.bytes() ?? Uint8List(0), $r.b());
+  }
+
+  /// Go: `func bytes.Equal(a []byte, b []byte) bool`.
+  bool equal(Uint8List a, Uint8List b) {
+    final $r = $callSync(
+        204,
+        $W()
+          ..bytes(a)
+          ..bytes(b));
+    return $r.b();
+  }
+
+  /// Go: `func bytes.EqualFold(s []byte, t []byte) bool`.
+  bool equalFold(Uint8List s, Uint8List t) {
+    final $r = $callSync(
+        205,
+        $W()
+          ..bytes(s)
+          ..bytes(t));
+    return $r.b();
+  }
+
+  /// Go: `func bytes.Fields(s []byte) [][]byte`.
+  List<Uint8List> fields(Uint8List s) {
+    final $r = $callSync(206, $W()..bytes(s));
+    return $r.list(() => $r.bytes() ?? Uint8List(0));
+  }
+
+  /// Go: `func bytes.FieldsFunc(s []byte, f func(rune) bool) [][]byte`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  ///
+  /// Go calls [f] on the Dart event loop, during the call or
+  /// later for as long as it holds it (nobody checked which), and waits for
+  /// each invocation (a retained callback, WIRE.md).
+  Future<List<Uint8List>> fieldsFunc(
+      Uint8List s, FutureOr<bool> Function(int arg0) f) async {
+    final $r = await $call(
+        207,
+        $W()
+          ..bytes(s)
+          ..cb((r) => f(r.i64()), true));
+    return $r.list(() => $r.bytes() ?? Uint8List(0));
+  }
+
+  /// Go: `func bytes.HasPrefix(s []byte, prefix []byte) bool`.
+  bool hasPrefix(Uint8List s, Uint8List prefix) {
+    final $r = $callSync(
+        208,
+        $W()
+          ..bytes(s)
+          ..bytes(prefix));
+    return $r.b();
+  }
+
+  /// Go: `func bytes.HasSuffix(s []byte, suffix []byte) bool`.
+  bool hasSuffix(Uint8List s, Uint8List suffix) {
+    final $r = $callSync(
+        209,
+        $W()
+          ..bytes(s)
+          ..bytes(suffix));
+    return $r.b();
+  }
+
+  /// Go: `func bytes.Index(s []byte, sep []byte) int`.
+  int index(Uint8List s, Uint8List sep) {
+    final $r = $callSync(
+        210,
+        $W()
+          ..bytes(s)
+          ..bytes(sep));
+    return $r.i64();
+  }
+
+  /// Go: `func bytes.IndexAny(s []byte, chars string) int`.
+  int indexAny(Uint8List s, String chars) {
+    final $r = $callSync(
+        211,
+        $W()
+          ..bytes(s)
+          ..str(chars));
+    return $r.i64();
+  }
+
+  /// Go: `func bytes.IndexByte(b []byte, c byte) int`.
+  int indexByte(Uint8List b, int c) {
+    final $r = $callSync(
+        212,
+        $W()
+          ..bytes(b)
+          ..i64(c));
+    return $r.i64();
+  }
+
+  /// Go: `func bytes.IndexFunc(s []byte, f func(r rune) bool) int`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  ///
+  /// Go calls [f] on the Dart event loop, during the call or
+  /// later for as long as it holds it (nobody checked which), and waits for
+  /// each invocation (a retained callback, WIRE.md).
+  Future<int> indexFunc(Uint8List s, FutureOr<bool> Function(int r) f) async {
+    final $r = await $call(
+        213,
+        $W()
+          ..bytes(s)
+          ..cb((r) => f(r.i64()), true));
+    return $r.i64();
+  }
+
+  /// Go: `func bytes.IndexRune(s []byte, r rune) int`.
+  int indexRune(Uint8List s, int r) {
+    final $r = $callSync(
+        214,
+        $W()
+          ..bytes(s)
+          ..i64(r));
+    return $r.i64();
+  }
+
+  /// Go: `func bytes.Join(s [][]byte, sep []byte) []byte`.
+  Uint8List join(List<Uint8List> s, Uint8List sep) {
+    final $r = $callSync(
+        215,
+        $W()
+          ..list(s, (w0, e0) => w0.bytes(e0))
+          ..bytes(sep));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func bytes.LastIndex(s []byte, sep []byte) int`.
+  int lastIndex(Uint8List s, Uint8List sep) {
+    final $r = $callSync(
+        216,
+        $W()
+          ..bytes(s)
+          ..bytes(sep));
+    return $r.i64();
+  }
+
+  /// Go: `func bytes.LastIndexAny(s []byte, chars string) int`.
+  int lastIndexAny(Uint8List s, String chars) {
+    final $r = $callSync(
+        217,
+        $W()
+          ..bytes(s)
+          ..str(chars));
+    return $r.i64();
+  }
+
+  /// Go: `func bytes.LastIndexByte(s []byte, c byte) int`.
+  int lastIndexByte(Uint8List s, int c) {
+    final $r = $callSync(
+        218,
+        $W()
+          ..bytes(s)
+          ..i64(c));
+    return $r.i64();
+  }
+
+  /// Go: `func bytes.LastIndexFunc(s []byte, f func(r rune) bool) int`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  ///
+  /// Go calls [f] on the Dart event loop, during the call or
+  /// later for as long as it holds it (nobody checked which), and waits for
+  /// each invocation (a retained callback, WIRE.md).
+  Future<int> lastIndexFunc(
+      Uint8List s, FutureOr<bool> Function(int r) f) async {
+    final $r = await $call(
+        219,
+        $W()
+          ..bytes(s)
+          ..cb((r) => f(r.i64()), true));
+    return $r.i64();
+  }
+
+  /// Go: `func bytes.Map(mapping func(r rune) rune, s []byte) []byte`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  ///
+  /// Go calls [mapping] on the Dart event loop, during the call or
+  /// later for as long as it holds it (nobody checked which), and waits for
+  /// each invocation (a retained callback, WIRE.md).
+  Future<Uint8List> map(
+      FutureOr<int> Function(int r) mapping, Uint8List s) async {
+    final $r = await $call(
+        220,
+        $W()
+          ..cb((r) => mapping(r.i64()), true, (w, v) => w.i64(v as int))
+          ..bytes(s));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func bytes.NewBufferString(s string) *bytes.Buffer`.
+  BytesBuffer newBufferString(String s) {
+    final $r = $callSync(222, $W()..str(s));
+    return $r.hnn(BytesBuffer.$h);
+  }
+
+  /// Go: `func bytes.Repeat(b []byte, count int) []byte`.
+  Uint8List repeat(Uint8List b, int count) {
+    final $r = $callSync(
+        235,
+        $W()
+          ..bytes(b)
+          ..i64(count));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func bytes.Replace(s []byte, old []byte, new []byte, n int) []byte`.
+  Uint8List replace(Uint8List s, Uint8List old, Uint8List new$, int n) {
+    final $r = $callSync(
+        236,
+        $W()
+          ..bytes(s)
+          ..bytes(old)
+          ..bytes(new$)
+          ..i64(n));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func bytes.ReplaceAll(s []byte, old []byte, new []byte) []byte`.
+  Uint8List replaceAll(Uint8List s, Uint8List old, Uint8List new$) {
+    final $r = $callSync(
+        237,
+        $W()
+          ..bytes(s)
+          ..bytes(old)
+          ..bytes(new$));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func bytes.Runes(s []byte) []rune`.
+  List<int> runes(Uint8List s) {
+    final $r = $callSync(238, $W()..bytes(s));
+    return $r.list(() => $r.i64());
+  }
+
+  /// Go: `func bytes.Split(s []byte, sep []byte) [][]byte`.
+  List<Uint8List> split(Uint8List s, Uint8List sep) {
+    final $r = $callSync(
+        239,
+        $W()
+          ..bytes(s)
+          ..bytes(sep));
+    return $r.list(() => $r.bytes() ?? Uint8List(0));
+  }
+
+  /// Go: `func bytes.SplitAfter(s []byte, sep []byte) [][]byte`.
+  List<Uint8List> splitAfter(Uint8List s, Uint8List sep) {
+    final $r = $callSync(
+        240,
+        $W()
+          ..bytes(s)
+          ..bytes(sep));
+    return $r.list(() => $r.bytes() ?? Uint8List(0));
+  }
+
+  /// Go: `func bytes.SplitAfterN(s []byte, sep []byte, n int) [][]byte`.
+  List<Uint8List> splitAfterN(Uint8List s, Uint8List sep, int n) {
+    final $r = $callSync(
+        241,
+        $W()
+          ..bytes(s)
+          ..bytes(sep)
+          ..i64(n));
+    return $r.list(() => $r.bytes() ?? Uint8List(0));
+  }
+
+  /// Go: `func bytes.SplitN(s []byte, sep []byte, n int) [][]byte`.
+  List<Uint8List> splitN(Uint8List s, Uint8List sep, int n) {
+    final $r = $callSync(
+        242,
+        $W()
+          ..bytes(s)
+          ..bytes(sep)
+          ..i64(n));
+    return $r.list(() => $r.bytes() ?? Uint8List(0));
+  }
+
+  /// Go: `func bytes.Title(s []byte) []byte`.
+  @Deprecated(
+      "The rule Title uses for word boundaries does not handle Unicode punctuation properly. Use golang.org/x/text/cases instead.")
+  Uint8List title(Uint8List s) {
+    final $r = $callSync(243, $W()..bytes(s));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func bytes.ToLower(s []byte) []byte`.
+  Uint8List toLower(Uint8List s) {
+    final $r = $callSync(244, $W()..bytes(s));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func bytes.ToLowerSpecial(c unicode.SpecialCase, s []byte) []byte`.
+  Uint8List toLowerSpecial(List<$unicode.UnicodeCaseRange> c, Uint8List s) {
+    final $r = $callSync(
+        245,
+        $W()
+          ..list(c, (w0, e0) => w0.dto(e0))
+          ..bytes(s));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func bytes.ToTitle(s []byte) []byte`.
+  Uint8List toTitle(Uint8List s) {
+    final $r = $callSync(246, $W()..bytes(s));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func bytes.ToTitleSpecial(c unicode.SpecialCase, s []byte) []byte`.
+  Uint8List toTitleSpecial(List<$unicode.UnicodeCaseRange> c, Uint8List s) {
+    final $r = $callSync(
+        247,
+        $W()
+          ..list(c, (w0, e0) => w0.dto(e0))
+          ..bytes(s));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func bytes.ToUpper(s []byte) []byte`.
+  Uint8List toUpper(Uint8List s) {
+    final $r = $callSync(248, $W()..bytes(s));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func bytes.ToUpperSpecial(c unicode.SpecialCase, s []byte) []byte`.
+  Uint8List toUpperSpecial(List<$unicode.UnicodeCaseRange> c, Uint8List s) {
+    final $r = $callSync(
+        249,
+        $W()
+          ..list(c, (w0, e0) => w0.dto(e0))
+          ..bytes(s));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func bytes.ToValidUTF8(s []byte, replacement []byte) []byte`.
+  Uint8List toValidUtf8(Uint8List s, Uint8List replacement) {
+    final $r = $callSync(
+        250,
+        $W()
+          ..bytes(s)
+          ..bytes(replacement));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func bytes.Trim(s []byte, cutset string) []byte`.
+  Uint8List trim(Uint8List s, String cutset) {
+    final $r = $callSync(
+        251,
+        $W()
+          ..bytes(s)
+          ..str(cutset));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func bytes.TrimFunc(s []byte, f func(r rune) bool) []byte`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  ///
+  /// Go calls [f] on the Dart event loop, during the call or
+  /// later for as long as it holds it (nobody checked which), and waits for
+  /// each invocation (a retained callback, WIRE.md).
+  Future<Uint8List> trimFunc(
+      Uint8List s, FutureOr<bool> Function(int r) f) async {
+    final $r = await $call(
+        252,
+        $W()
+          ..bytes(s)
+          ..cb((r) => f(r.i64()), true));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func bytes.TrimLeft(s []byte, cutset string) []byte`.
+  Uint8List trimLeft(Uint8List s, String cutset) {
+    final $r = $callSync(
+        253,
+        $W()
+          ..bytes(s)
+          ..str(cutset));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func bytes.TrimLeftFunc(s []byte, f func(r rune) bool) []byte`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  ///
+  /// Go calls [f] on the Dart event loop, during the call or
+  /// later for as long as it holds it (nobody checked which), and waits for
+  /// each invocation (a retained callback, WIRE.md).
+  Future<Uint8List> trimLeftFunc(
+      Uint8List s, FutureOr<bool> Function(int r) f) async {
+    final $r = await $call(
+        254,
+        $W()
+          ..bytes(s)
+          ..cb((r) => f(r.i64()), true));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func bytes.TrimPrefix(s []byte, prefix []byte) []byte`.
+  Uint8List trimPrefix(Uint8List s, Uint8List prefix) {
+    final $r = $callSync(
+        255,
+        $W()
+          ..bytes(s)
+          ..bytes(prefix));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func bytes.TrimRight(s []byte, cutset string) []byte`.
+  Uint8List trimRight(Uint8List s, String cutset) {
+    final $r = $callSync(
+        256,
+        $W()
+          ..bytes(s)
+          ..str(cutset));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func bytes.TrimRightFunc(s []byte, f func(r rune) bool) []byte`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  ///
+  /// Go calls [f] on the Dart event loop, during the call or
+  /// later for as long as it holds it (nobody checked which), and waits for
+  /// each invocation (a retained callback, WIRE.md).
+  Future<Uint8List> trimRightFunc(
+      Uint8List s, FutureOr<bool> Function(int r) f) async {
+    final $r = await $call(
+        257,
+        $W()
+          ..bytes(s)
+          ..cb((r) => f(r.i64()), true));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func bytes.TrimSpace(s []byte) []byte`.
+  Uint8List trimSpace(Uint8List s) {
+    final $r = $callSync(258, $W()..bytes(s));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func bytes.TrimSuffix(s []byte, suffix []byte) []byte`.
+  Uint8List trimSuffix(Uint8List s, Uint8List suffix) {
+    final $r = $callSync(
+        259,
+        $W()
+          ..bytes(s)
+          ..bytes(suffix));
+    return $r.bytes() ?? Uint8List(0);
+  }
 }
 
 /// Go: the constants of `bytes` (`go.bytes.consts`).

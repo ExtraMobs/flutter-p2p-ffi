@@ -2,12 +2,167 @@
 // Go: github.com/libp2p/go-libp2p/p2p/security/noise/pb
 library;
 
+import 'dart:typed_data';
+
+import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2pP2pSecurityNoisePb;
+import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/gogo/protobuf/protoc_gen_gogo/descriptor.dart'
+    as $descriptor;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
+import 'package:p2p_ffi/go/protobuf/reflect/protoreflect.dart' as $protoreflect;
+import 'package:p2p_ffi/go/protobuf/runtime/protoiface.dart' as $protoiface;
 
 /// Go: `pb.NoiseExtensions` (handle).
-class Libp2pP2pSecurityNoisePbNoiseExtensions extends $crypto.CryptoPrivateKey
-    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
-    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+class Libp2pP2pSecurityNoisePbNoiseExtensions
+    extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
+    with
+        $crypto.CryptoDecrypterOpts$,
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$,
+        $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
+        $protoiface.ProtobufRuntimeProtoifaceMessageV1$
+    implements
+        $crypto.CryptoDecrypterOpts,
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic,
+        $protoreflect.ProtobufReflectProtoreflectProtoMessage,
+        $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   Libp2pP2pSecurityNoisePbNoiseExtensions.$h(super.$h) : super.$h();
+
+  /// Go: `func (*pb.NoiseExtensions).Descriptor() ([]byte, []int)`.
+  @Deprecated("Use NoiseExtensions.ProtoReflect.Descriptor instead.")
+  (Uint8List, List<int>) descriptor() {
+    final $r = $callSync(14979, $W()..h(this));
+    return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
+  }
+
+  /// Go: `func (*pb.NoiseExtensions).GetStreamMuxers() []string`.
+  List<String> getStreamMuxers() {
+    final $r = $callSync(14980, $W()..h(this));
+    return $r.list(() => $r.str());
+  }
+
+  /// Go: `func (*pb.NoiseExtensions).GetWebtransportCerthashes() [][]byte`.
+  List<Uint8List> getWebtransportCerthashes() {
+    final $r = $callSync(14981, $W()..h(this));
+    return $r.list(() => $r.bytes() ?? Uint8List(0));
+  }
+
+  /// Go: `func (*pb.NoiseExtensions).ProtoMessage()`.
+  void protoMessage() {
+    $callSync(14982, $W()..h(this));
+  }
+
+  /// Go: `func (*pb.NoiseExtensions).ProtoReflect() protoreflect.Message`.
+  $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
+    final $r = $callSync(14983, $W()..h(this));
+    return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
+  }
+
+  /// Go: `func (*pb.NoiseExtensions).Reset()`.
+  void reset() {
+    $callSync(14984, $W()..h(this));
+  }
+
+  /// Go: `func (*pb.NoiseExtensions).String() string`.
+  String string() {
+    final $r = $callSync(14985, $W()..h(this));
+    return $r.str();
+  }
+}
+
+/// Go: `pb.NoiseHandshakePayload` (handle).
+class Libp2pP2pSecurityNoisePbNoiseHandshakePayload
+    extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
+    with
+        $crypto.CryptoDecrypterOpts$,
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$,
+        $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
+        $protoiface.ProtobufRuntimeProtoifaceMessageV1$
+    implements
+        $crypto.CryptoDecrypterOpts,
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic,
+        $protoreflect.ProtobufReflectProtoreflectProtoMessage,
+        $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
+  Libp2pP2pSecurityNoisePbNoiseHandshakePayload.$h(super.$h) : super.$h();
+
+  /// Go: `func (*pb.NoiseHandshakePayload).Descriptor() ([]byte, []int)`.
+  @Deprecated("Use NoiseHandshakePayload.ProtoReflect.Descriptor instead.")
+  (Uint8List, List<int>) descriptor() {
+    final $r = $callSync(14986, $W()..h(this));
+    return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
+  }
+
+  /// Go: `func (*pb.NoiseHandshakePayload).GetExtensions() *pb.NoiseExtensions`.
+  Libp2pP2pSecurityNoisePbNoiseExtensions getExtensions() {
+    final $r = $callSync(14987, $W()..h(this));
+    return $r.hnn(Libp2pP2pSecurityNoisePbNoiseExtensions.$h);
+  }
+
+  /// Go: `func (*pb.NoiseHandshakePayload).GetIdentityKey() []byte`.
+  Uint8List getIdentityKey() {
+    final $r = $callSync(14988, $W()..h(this));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (*pb.NoiseHandshakePayload).GetIdentitySig() []byte`.
+  Uint8List getIdentitySig() {
+    final $r = $callSync(14989, $W()..h(this));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (*pb.NoiseHandshakePayload).ProtoMessage()`.
+  void protoMessage() {
+    $callSync(14990, $W()..h(this));
+  }
+
+  /// Go: `func (*pb.NoiseHandshakePayload).ProtoReflect() protoreflect.Message`.
+  $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
+    final $r = $callSync(14991, $W()..h(this));
+    return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
+  }
+
+  /// Go: `func (*pb.NoiseHandshakePayload).Reset()`.
+  void reset() {
+    $callSync(14992, $W()..h(this));
+  }
+
+  /// Go: `func (*pb.NoiseHandshakePayload).String() string`.
+  String string() {
+    final $r = $callSync(14993, $W()..h(this));
+    return $r.str();
+  }
+}
+
+/// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/security/noise/pb` (`go.libp2p.libp2p.p2p.security.noise.pb`).
+extension GoLibp2pLibp2pP2pSecurityNoisePbApi
+    on GoLibp2pLibp2pP2pSecurityNoisePb {
+  /// Go: `var pb.File_p2p_security_noise_pb_payload_proto protoreflect.FileDescriptor`.
+  $protoreflect.ProtobufReflectProtoreflectFileDescriptor
+      get fileP2pSecurityNoisePbPayloadProto {
+    final $r = $callSync(14978);
+    return $r.hnn($protoreflect.ProtobufReflectProtoreflectFileDescriptor.$h);
+  }
 }

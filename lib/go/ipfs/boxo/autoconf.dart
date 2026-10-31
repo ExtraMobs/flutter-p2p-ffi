@@ -2,16 +2,541 @@
 // Go: github.com/ipfs/boxo/autoconf
 library;
 
+import 'dart:async';
+
 import 'package:p2p_ffi/src/go.dart'
-    show GoIpfsBoxoAutoconfConsts, GoIpfsBoxoAutoconfEnums;
+    show
+        GoIpfsBoxoAutoconf,
+        GoIpfsBoxoAutoconfConsts,
+        GoIpfsBoxoAutoconfEnums,
+        GoIpfsBoxoAutoconfOptions;
+import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
+import 'package:p2p_ffi/go/net/http.dart' as $http;
 
 /// Go: `autoconf.Client` (handle).
-class BoxoAutoconfClient extends $crypto.CryptoPrivateKey
-    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
-    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+class BoxoAutoconfClient extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   BoxoAutoconfClient.$h(super.$h) : super.$h();
+
+  /// Go: `func autoconf.NewClient(options ...autoconf.Option) (*autoconf.Client, error)`.
+  factory BoxoAutoconfClient([List<BoxoAutoconfOption> options = const []]) {
+    final $r = $callSync(9098, $W()..list(options, (w0, e0) => w0.opt(e0)));
+    return $r.hnn(BoxoAutoconfClient.$h);
+  }
+
+  /// Go: `func (*autoconf.Client).GetCached() *autoconf.Config`.
+  BoxoAutoconfConfig getCached() {
+    final $r = $callSync(9076, $W()..h(this));
+    return $r.p() ? BoxoAutoconfConfig.$dec($r) : $nil();
+  }
+
+  /// Go: `func (*autoconf.Client).GetCachedOrRefresh(ctx context.Context) *autoconf.Config`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<BoxoAutoconfConfig> getCachedOrRefresh($context.Context ctx) async {
+    final $r = await $call(
+        9077,
+        $W()
+          ..h(this)
+          ..h(ctx));
+    return $r.p() ? BoxoAutoconfConfig.$dec($r) : $nil();
+  }
+
+  /// Go: `func (*autoconf.Client).GetLatest(ctx context.Context) (*autoconf.Response, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<BoxoAutoconfResponse> getLatest($context.Context ctx) async {
+    final $r = await $call(
+        9078,
+        $W()
+          ..h(this)
+          ..h(ctx));
+    return $r.p() ? BoxoAutoconfResponse.$dec($r) : $nil();
+  }
+
+  /// Go: `func (*autoconf.Client).HasCachedConfig() bool`.
+  bool hasCachedConfig() {
+    final $r = $callSync(9079, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (*autoconf.Client).Start(ctx context.Context) (*autoconf.Config, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<BoxoAutoconfConfig> start($context.Context ctx) async {
+    final $r = await $call(
+        9080,
+        $W()
+          ..h(this)
+          ..h(ctx));
+    return $r.p() ? BoxoAutoconfConfig.$dec($r) : $nil();
+  }
+
+  /// Go: `func (*autoconf.Client).Stop()`.
+  void stop() {
+    $callSync(9081, $W()..h(this));
+  }
+}
+
+/// Go: `autoconf.Config`.
+final class BoxoAutoconfConfig implements GoDto {
+  BoxoAutoconfConfig(
+      {int? autoConfVersion,
+      int? autoConfSchema,
+      int? autoConfTtl,
+      Map<String, BoxoAutoconfSystemConfig>? systemRegistry,
+      Map<String, List<String>>? dnsResolvers,
+      Map<String, BoxoAutoconfEndpointConfig>? delegatedEndpoints})
+      : autoConfVersion = autoConfVersion ?? 0,
+        autoConfSchema = autoConfSchema ?? 0,
+        autoConfTtl = autoConfTtl ?? 0,
+        systemRegistry = systemRegistry ?? {},
+        dnsResolvers = dnsResolvers ?? {},
+        delegatedEndpoints = delegatedEndpoints ?? {};
+
+  BoxoAutoconfConfig.$dec($R r)
+      : autoConfVersion = r.i64(),
+        autoConfSchema = r.i64(),
+        autoConfTtl = r.i64(),
+        systemRegistry = r.map(() => r.str(),
+            () => r.p() ? BoxoAutoconfSystemConfig.$dec(r) : $nil()),
+        dnsResolvers = r.map(() => r.str(), () => r.list(() => r.str())),
+        delegatedEndpoints = r.map(() => r.str(),
+            () => r.p() ? BoxoAutoconfEndpointConfig.$dec(r) : $nil());
+
+  /// Go: `AutoConfVersion`.
+  int autoConfVersion;
+
+  /// Go: `AutoConfSchema`.
+  int autoConfSchema;
+
+  /// Go: `AutoConfTTL`.
+  int autoConfTtl;
+
+  /// Go: `SystemRegistry`.
+  Map<String, BoxoAutoconfSystemConfig> systemRegistry;
+
+  /// Go: `DNSResolvers`.
+  Map<String, List<String>> dnsResolvers;
+
+  /// Go: `DelegatedEndpoints`.
+  Map<String, BoxoAutoconfEndpointConfig> delegatedEndpoints;
+
+  @override
+  void $enc($W w) {
+    w
+      ..i64(autoConfVersion)
+      ..i64(autoConfSchema)
+      ..i64(autoConfTtl)
+      ..map(systemRegistry, (w0, k0) => w0.str(k0), (w0, v0) => w0.dto(v0))
+      ..map(dnsResolvers, (w0, k0) => w0.str(k0),
+          (w0, v0) => w0.list(v0, (w1, e1) => w1.str(e1)))
+      ..map(delegatedEndpoints, (w0, k0) => w0.str(k0), (w0, v0) => w0.dto(v0));
+  }
+
+  /// Go: `func (*autoconf.Config).DelegatedEndpointsForRead(ignoredNativeSystems ...string) map[string]autoconf.EndpointConfig`.
+  Map<String, BoxoAutoconfEndpointConfig> delegatedEndpointsForRead(
+      [List<String> ignoredNativeSystems = const []]) {
+    final $r = $callSync(
+        9082,
+        $W()
+          ..dto(this)
+          ..list(ignoredNativeSystems, (w0, e0) => w0.str(e0)));
+    return $r.map(() => $r.str(),
+        () => $r.p() ? BoxoAutoconfEndpointConfig.$dec($r) : $nil());
+  }
+
+  /// Go: `func (*autoconf.Config).DelegatedEndpointsForWrite(ignoredNativeSystems ...string) map[string]autoconf.EndpointConfig`.
+  Map<String, BoxoAutoconfEndpointConfig> delegatedEndpointsForWrite(
+      [List<String> ignoredNativeSystems = const []]) {
+    final $r = $callSync(
+        9083,
+        $W()
+          ..dto(this)
+          ..list(ignoredNativeSystems, (w0, e0) => w0.str(e0)));
+    return $r.map(() => $r.str(),
+        () => $r.p() ? BoxoAutoconfEndpointConfig.$dec($r) : $nil());
+  }
+
+  /// Go: `func (*autoconf.Config).GetBootstrapPeers(nativeSystems ...string) []string`.
+  List<String> getBootstrapPeers([List<String> nativeSystems = const []]) {
+    final $r = $callSync(
+        9084,
+        $W()
+          ..dto(this)
+          ..list(nativeSystems, (w0, e0) => w0.str(e0)));
+    return $r.list(() => $r.str());
+  }
+
+  /// Go: `func (*autoconf.Config).GetDNSResolvers() map[string][]string`.
+  Map<String, List<String>> getDnsResolvers() {
+    final $r = $callSync(9085, $W()..dto(this));
+    return $r.map(() => $r.str(), () => $r.list(() => $r.str()));
+  }
+
+  /// Go: `func (*autoconf.Config).GetDelegatedEndpoints(ignoredNativeSystems ...string) map[string]autoconf.EndpointConfig`.
+  Map<String, BoxoAutoconfEndpointConfig> getDelegatedEndpoints(
+      [List<String> ignoredNativeSystems = const []]) {
+    final $r = $callSync(
+        9086,
+        $W()
+          ..dto(this)
+          ..list(ignoredNativeSystems, (w0, e0) => w0.str(e0)));
+    return $r.map(() => $r.str(),
+        () => $r.p() ? BoxoAutoconfEndpointConfig.$dec($r) : $nil());
+  }
+
+  /// Go: `func (*autoconf.Config).WithSupportedPathsOnly(supportedPaths ...string) *autoconf.Config`.
+  BoxoAutoconfConfig withSupportedPathsOnly(
+      [List<String> supportedPaths = const []]) {
+    final $r = $callSync(
+        9087,
+        $W()
+          ..dto(this)
+          ..list(supportedPaths, (w0, e0) => w0.str(e0)));
+    return $r.p() ? BoxoAutoconfConfig.$dec($r) : $nil();
+  }
+}
+
+/// Go: `autoconf.DelegatedConfig`.
+final class BoxoAutoconfDelegatedConfig implements GoDto {
+  BoxoAutoconfDelegatedConfig({List<String>? read, List<String>? write})
+      : read = read ?? [],
+        write = write ?? [];
+
+  BoxoAutoconfDelegatedConfig.$dec($R r)
+      : read = r.list(() => r.str()),
+        write = r.list(() => r.str());
+
+  /// Go: `Read`.
+  List<String> read;
+
+  /// Go: `Write`.
+  List<String> write;
+
+  @override
+  void $enc($W w) {
+    w
+      ..list(read, (w0, e0) => w0.str(e0))
+      ..list(write, (w0, e0) => w0.str(e0));
+  }
+}
+
+/// Go: `autoconf.DelegatedRoutingEndpoint`.
+final class BoxoAutoconfDelegatedRoutingEndpoint implements GoDto {
+  BoxoAutoconfDelegatedRoutingEndpoint(
+      {String? baseUrl, BoxoAutoconfEndpointCapabilities? capabilities})
+      : baseUrl = baseUrl ?? '',
+        capabilities = capabilities;
+
+  BoxoAutoconfDelegatedRoutingEndpoint.$dec($R r)
+      : baseUrl = r.str(),
+        capabilities = r.p() ? BoxoAutoconfEndpointCapabilities.$dec(r) : null;
+
+  /// Go: `BaseURL`.
+  String baseUrl;
+
+  /// Go: `Capabilities`.
+  BoxoAutoconfEndpointCapabilities? capabilities;
+
+  @override
+  void $enc($W w) {
+    w
+      ..str(baseUrl)
+      ..dto(capabilities);
+  }
+}
+
+/// Go: `autoconf.EndpointCapabilities`.
+final class BoxoAutoconfEndpointCapabilities implements GoDto {
+  BoxoAutoconfEndpointCapabilities(
+      {bool? providers, bool? peers, bool? ipnsGet, bool? ipnsPut})
+      : providers = providers ?? false,
+        peers = peers ?? false,
+        ipnsGet = ipnsGet ?? false,
+        ipnsPut = ipnsPut ?? false;
+
+  BoxoAutoconfEndpointCapabilities.$dec($R r)
+      : providers = r.b(),
+        peers = r.b(),
+        ipnsGet = r.b(),
+        ipnsPut = r.b();
+
+  /// Go: `Providers`.
+  bool providers;
+
+  /// Go: `Peers`.
+  bool peers;
+
+  /// Go: `IPNSGet`.
+  bool ipnsGet;
+
+  /// Go: `IPNSPut`.
+  bool ipnsPut;
+
+  @override
+  void $enc($W w) {
+    w
+      ..b(providers)
+      ..b(peers)
+      ..b(ipnsGet)
+      ..b(ipnsPut);
+  }
+
+  /// Go: `func (autoconf.EndpointCapabilities).IsEmpty() bool`.
+  bool isEmpty() {
+    final $r = $callSync(9089, $W()..dto(this));
+    return $r.b();
+  }
+
+  /// Go: `func (*autoconf.EndpointCapabilities).Merge(other autoconf.EndpointCapabilities)`.
+  void merge(BoxoAutoconfEndpointCapabilities other) {
+    $callSync(
+        9090,
+        $W()
+          ..dto(this)
+          ..dto(other));
+  }
+}
+
+/// Go: `autoconf.EndpointConfig`.
+final class BoxoAutoconfEndpointConfig implements GoDto {
+  BoxoAutoconfEndpointConfig(
+      {List<String>? systems, List<String>? read, List<String>? write})
+      : systems = systems ?? [],
+        read = read ?? [],
+        write = write ?? [];
+
+  BoxoAutoconfEndpointConfig.$dec($R r)
+      : systems = r.list(() => r.str()),
+        read = r.list(() => r.str()),
+        write = r.list(() => r.str());
+
+  /// Go: `Systems`.
+  List<String> systems;
+
+  /// Go: `Read`.
+  List<String> read;
+
+  /// Go: `Write`.
+  List<String> write;
+
+  @override
+  void $enc($W w) {
+    w
+      ..list(systems, (w0, e0) => w0.str(e0))
+      ..list(read, (w0, e0) => w0.str(e0))
+      ..list(write, (w0, e0) => w0.str(e0));
+  }
+}
+
+/// Go: `autoconf.NativeConfig`.
+final class BoxoAutoconfNativeConfig implements GoDto {
+  BoxoAutoconfNativeConfig({List<String>? bootstrap})
+      : bootstrap = bootstrap ?? [];
+
+  BoxoAutoconfNativeConfig.$dec($R r) : bootstrap = r.list(() => r.str());
+
+  /// Go: `Bootstrap`.
+  List<String> bootstrap;
+
+  @override
+  void $enc($W w) {
+    w..list(bootstrap, (w0, e0) => w0.str(e0));
+  }
+}
+
+/// Go: `autoconf.Option` (functional option; constructors in the package).
+final class BoxoAutoconfOption extends GoOption {
+  BoxoAutoconfOption.$(super.$i, super.$a);
+}
+
+/// Go: `autoconf.Response`.
+final class BoxoAutoconfResponse implements GoDto {
+  BoxoAutoconfResponse(
+      {BoxoAutoconfConfig? config,
+      DateTime? fetchTime,
+      String? version,
+      Duration? cacheAge})
+      : config = config,
+        fetchTime = fetchTime,
+        version = version ?? '',
+        cacheAge = cacheAge ?? Duration.zero;
+
+  BoxoAutoconfResponse.$dec($R r)
+      : config = r.p() ? BoxoAutoconfConfig.$dec(r) : null,
+        fetchTime = r.p() ? r.time() : null,
+        version = r.str(),
+        cacheAge = Duration(microseconds: r.i64() ~/ 1000);
+
+  /// Go: `Config`.
+  BoxoAutoconfConfig? config;
+
+  /// Go: `FetchTime`.
+  DateTime? fetchTime;
+
+  /// Go: `Version`.
+  String version;
+
+  /// Go: `CacheAge`.
+  Duration cacheAge;
+
+  @override
+  void $enc($W w) {
+    w
+      ..dto(config)
+      ..time(fetchTime)
+      ..str(version)
+      ..i64((cacheAge).inMicroseconds * 1000);
+  }
+
+  /// Go: `func (*autoconf.Response).FromCache() bool`.
+  bool fromCache() {
+    final $r = $callSync(9099, $W()..dto(this));
+    return $r.b();
+  }
+}
+
+/// Go: `autoconf.SystemConfig`.
+final class BoxoAutoconfSystemConfig implements GoDto {
+  BoxoAutoconfSystemConfig(
+      {String? url,
+      String? description,
+      BoxoAutoconfNativeConfig? nativeConfig,
+      BoxoAutoconfDelegatedConfig? delegatedConfig})
+      : url = url ?? '',
+        description = description ?? '',
+        nativeConfig = nativeConfig,
+        delegatedConfig = delegatedConfig;
+
+  BoxoAutoconfSystemConfig.$dec($R r)
+      : url = r.str(),
+        description = r.str(),
+        nativeConfig = r.p() ? BoxoAutoconfNativeConfig.$dec(r) : null,
+        delegatedConfig = r.p() ? BoxoAutoconfDelegatedConfig.$dec(r) : null;
+
+  /// Go: `URL`.
+  String url;
+
+  /// Go: `Description`.
+  String description;
+
+  /// Go: `NativeConfig`.
+  BoxoAutoconfNativeConfig? nativeConfig;
+
+  /// Go: `DelegatedConfig`.
+  BoxoAutoconfDelegatedConfig? delegatedConfig;
+
+  @override
+  void $enc($W w) {
+    w
+      ..str(url)
+      ..str(description)
+      ..dto(nativeConfig)
+      ..dto(delegatedConfig);
+  }
+}
+
+/// Go: the package-level members of `github.com/ipfs/boxo/autoconf` (`go.ipfs.boxo.autoconf`).
+extension GoIpfsBoxoAutoconfApi on GoIpfsBoxoAutoconf {
+  /// Go: `func autoconf.DetermineKnownCapabilities(endpoint string, supportsRead bool, supportsWrite bool) (*autoconf.DelegatedRoutingEndpoint, error)`.
+  BoxoAutoconfDelegatedRoutingEndpoint determineKnownCapabilities(
+      String endpoint, bool supportsRead, bool supportsWrite) {
+    final $r = $callSync(
+        9088,
+        $W()
+          ..str(endpoint)
+          ..b(supportsRead)
+          ..b(supportsWrite));
+    return $r.p() ? BoxoAutoconfDelegatedRoutingEndpoint.$dec($r) : $nil();
+  }
+
+  /// Go: `func autoconf.ExpandBootstrapPeers(configPeers []string, autoConf *autoconf.Config, nativeSystems []string) []string`.
+  List<String> expandBootstrapPeers(List<String> configPeers,
+      BoxoAutoconfConfig autoConf, List<String> nativeSystems) {
+    final $r = $callSync(
+        9091,
+        $W()
+          ..list(configPeers, (w0, e0) => w0.str(e0))
+          ..dto(autoConf)
+          ..list(nativeSystems, (w0, e0) => w0.str(e0)));
+    return $r.list(() => $r.str());
+  }
+
+  /// Go: `func autoconf.ExpandDNSResolvers(configResolvers map[string]string, autoConf *autoconf.Config) map[string]string`.
+  Map<String, String> expandDnsResolvers(
+      Map<String, String> configResolvers, BoxoAutoconfConfig autoConf) {
+    final $r = $callSync(
+        9092,
+        $W()
+          ..map(configResolvers, (w0, k0) => w0.str(k0), (w0, v0) => w0.str(v0))
+          ..dto(autoConf));
+    return $r.map(() => $r.str(), () => $r.str());
+  }
+
+  /// Go: `func autoconf.ExpandDelegatedEndpoints(configEndpoints []string, autoConf *autoconf.Config, nativeSystems []string, supportedPaths ...string) []string`.
+  List<String> expandDelegatedEndpoints(List<String> configEndpoints,
+      BoxoAutoconfConfig autoConf, List<String> nativeSystems,
+      [List<String> supportedPaths = const []]) {
+    final $r = $callSync(
+        9093,
+        $W()
+          ..list(configEndpoints, (w0, e0) => w0.str(e0))
+          ..dto(autoConf)
+          ..list(nativeSystems, (w0, e0) => w0.str(e0))
+          ..list(supportedPaths, (w0, e0) => w0.str(e0)));
+    return $r.list(() => $r.str());
+  }
+
+  /// Go: `var autoconf.FallbackBootstrapPeers []string`.
+  List<String> get fallbackBootstrapPeers {
+    final $r = $callSync(9094);
+    return $r.list(() => $r.str());
+  }
+
+  /// Go: `var autoconf.FallbackDNSResolvers map[string][]string`.
+  Map<String, List<String>> get fallbackDnsResolvers {
+    final $r = $callSync(9095);
+    return $r.map(() => $r.str(), () => $r.list(() => $r.str()));
+  }
+
+  /// Go: `func autoconf.GetMainnetFallbackConfig() *autoconf.Config`.
+  BoxoAutoconfConfig getMainnetFallbackConfig() {
+    final $r = $callSync(9096);
+    return $r.p() ? BoxoAutoconfConfig.$dec($r) : $nil();
+  }
+
+  /// Go: `func autoconf.GroupByKnownCapabilities(endpoints []string, supportsRead bool, supportsWrite bool) (map[string]autoconf.EndpointCapabilities, error)`.
+  Map<String, BoxoAutoconfEndpointCapabilities> groupByKnownCapabilities(
+      List<String> endpoints, bool supportsRead, bool supportsWrite) {
+    final $r = $callSync(
+        9097,
+        $W()
+          ..list(endpoints, (w0, e0) => w0.str(e0))
+          ..b(supportsRead)
+          ..b(supportsWrite));
+    return $r.map(() => $r.str(),
+        () => $r.p() ? BoxoAutoconfEndpointCapabilities.$dec($r) : $nil());
+  }
 }
 
 /// Go: the constants of `github.com/ipfs/boxo/autoconf` (`go.ipfs.boxo.autoconf.consts`).
@@ -52,4 +577,56 @@ extension GoIpfsBoxoAutoconfEnumsApi on GoIpfsBoxoAutoconfEnums {
 
   /// Go: `const autoconf.DefaultTimeout time.Duration`.
   Duration get defaultTimeout => Duration(microseconds: 5000000);
+}
+
+/// Go: the option constructors of `github.com/ipfs/boxo/autoconf` (`go.ipfs.boxo.autoconf.options`).
+extension GoIpfsBoxoAutoconfOptionsApi on GoIpfsBoxoAutoconfOptions {
+  /// Go: `autoconf.WithCacheDir`.
+  BoxoAutoconfOption withCacheDir(String dir) =>
+      BoxoAutoconfOption.$(0, (w) => w..str(dir));
+
+  /// Go: `autoconf.WithCacheSize`.
+  BoxoAutoconfOption withCacheSize(int size) =>
+      BoxoAutoconfOption.$(1, (w) => w..i64(size));
+
+  /// Go: `autoconf.WithHTTPClient`.
+  BoxoAutoconfOption withHttpClient($http.NetHttpClient client) =>
+      BoxoAutoconfOption.$(3, (w) => w..dto(client));
+
+  /// Go: `autoconf.WithOnNewVersion`.
+  BoxoAutoconfOption withOnNewVersion(
+          FutureOr<void> Function(
+                  int oldVersion, int newVersion, String configUrl)
+              callback) =>
+      BoxoAutoconfOption.$(
+          4, (w) => w..cb((r) => callback(r.i64(), r.i64(), r.str()), false));
+
+  /// Go: `autoconf.WithOnRefresh`.
+  BoxoAutoconfOption withOnRefresh(
+          FutureOr<void> Function(BoxoAutoconfResponse response) callback) =>
+      BoxoAutoconfOption.$(
+          5,
+          (w) => w
+            ..cb((r) => callback(r.p() ? BoxoAutoconfResponse.$dec(r) : $nil()),
+                false));
+
+  /// Go: `autoconf.WithRefreshInterval`.
+  BoxoAutoconfOption withRefreshInterval(Duration interval) =>
+      BoxoAutoconfOption.$(7, (w) => w..i64((interval).inMicroseconds * 1000));
+
+  /// Go: `autoconf.WithTLSInsecureSkipVerify`.
+  BoxoAutoconfOption withTlsInsecureSkipVerify(bool skip) =>
+      BoxoAutoconfOption.$(8, (w) => w..b(skip));
+
+  /// Go: `autoconf.WithTimeout`.
+  BoxoAutoconfOption withTimeout(Duration timeout) =>
+      BoxoAutoconfOption.$(9, (w) => w..i64((timeout).inMicroseconds * 1000));
+
+  /// Go: `autoconf.WithURL`.
+  BoxoAutoconfOption withUrl(String url) =>
+      BoxoAutoconfOption.$(10, (w) => w..str(url));
+
+  /// Go: `autoconf.WithUserAgent`.
+  BoxoAutoconfOption withUserAgent(String ua) =>
+      BoxoAutoconfOption.$(11, (w) => w..str(ua));
 }

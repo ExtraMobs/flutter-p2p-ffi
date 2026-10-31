@@ -89,6 +89,8 @@ func (e *dartEmitter) errorClasses() []*goError {
 			}
 			switch {
 			case ge.why != "":
+			case e.m.platformDecl[ge.key]:
+				ge.why = platformWhy
 			case fixedErrors[ge.key]:
 				ge.why = "has its runtime class (`GolangEofException`, `GolangNotFoundException`...)"
 			case taken[ge.name]:

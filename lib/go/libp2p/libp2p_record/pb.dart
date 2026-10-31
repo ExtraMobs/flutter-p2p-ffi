@@ -2,12 +2,99 @@
 // Go: github.com/libp2p/go-libp2p-record/pb
 library;
 
+import 'dart:typed_data';
+
+import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2pRecordPb;
+import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/gogo/protobuf/protoc_gen_gogo/descriptor.dart'
+    as $descriptor;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
+import 'package:p2p_ffi/go/protobuf/reflect/protoreflect.dart' as $protoreflect;
+import 'package:p2p_ffi/go/protobuf/runtime/protoiface.dart' as $protoiface;
 
 /// Go: `pb.Record` (handle).
-class Libp2pRecordPbRecord extends $crypto.CryptoPrivateKey
-    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
-    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+class Libp2pRecordPbRecord
+    extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
+    with
+        $crypto.CryptoDecrypterOpts$,
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$,
+        $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
+        $protoiface.ProtobufRuntimeProtoifaceMessageV1$
+    implements
+        $crypto.CryptoDecrypterOpts,
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic,
+        $protoreflect.ProtobufReflectProtoreflectProtoMessage,
+        $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   Libp2pRecordPbRecord.$h(super.$h) : super.$h();
+
+  /// Go: `func (*pb.Record).Descriptor() ([]byte, []int)`.
+  @Deprecated("Use Record.ProtoReflect.Descriptor instead.")
+  (Uint8List, List<int>) descriptor() {
+    final $r = $callSync(13713, $W()..h(this));
+    return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
+  }
+
+  /// Go: `func (*pb.Record).GetKey() []byte`.
+  Uint8List getKey() {
+    final $r = $callSync(13714, $W()..h(this));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (*pb.Record).GetTimeReceived() string`.
+  String getTimeReceived() {
+    final $r = $callSync(13715, $W()..h(this));
+    return $r.str();
+  }
+
+  /// Go: `func (*pb.Record).GetValue() []byte`.
+  Uint8List getValue() {
+    final $r = $callSync(13716, $W()..h(this));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (*pb.Record).ProtoMessage()`.
+  void protoMessage() {
+    $callSync(13717, $W()..h(this));
+  }
+
+  /// Go: `func (*pb.Record).ProtoReflect() protoreflect.Message`.
+  $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
+    final $r = $callSync(13718, $W()..h(this));
+    return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
+  }
+
+  /// Go: `func (*pb.Record).Reset()`.
+  void reset() {
+    $callSync(13719, $W()..h(this));
+  }
+
+  /// Go: `func (*pb.Record).String() string`.
+  String string() {
+    final $r = $callSync(13720, $W()..h(this));
+    return $r.str();
+  }
+}
+
+/// Go: the package-level members of `github.com/libp2p/go-libp2p-record/pb` (`go.libp2p.libp2pRecord.pb`).
+extension GoLibp2pLibp2pRecordPbApi on GoLibp2pLibp2pRecordPb {
+  /// Go: `var pb.File_github_com_libp2p_go_libp2p_record_pb_record_proto protoreflect.FileDescriptor`.
+  $protoreflect.ProtobufReflectProtoreflectFileDescriptor
+      get fileGithubComLibp2pGoLibp2pRecordPbRecordProto {
+    final $r = $callSync(13712);
+    return $r.hnn($protoreflect.ProtobufReflectProtoreflectFileDescriptor.$h);
+  }
 }

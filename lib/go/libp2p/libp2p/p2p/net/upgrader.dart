@@ -2,8 +2,20 @@
 // Go: github.com/libp2p/go-libp2p/p2p/net/upgrader
 library;
 
+import 'dart:typed_data';
+
+import 'package:p2p_ffi/src/go.dart'
+    show GoLibp2pLibp2pP2pNetUpgrader, GoLibp2pLibp2pP2pNetUpgraderOptions;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/libp2p/libp2p/core/connmgr.dart' as $connmgr;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/network.dart' as $network;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/sec.dart' as $sec;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/transport.dart' as $transport;
+
+/// Go: `upgrader.Option` (functional option; constructors in the package).
+final class Libp2pP2pNetUpgraderOption extends GoOption {
+  Libp2pP2pNetUpgraderOption.$(super.$i, super.$a);
+}
 
 /// Go: `upgrader.StreamMuxer`.
 final class Libp2pP2pNetUpgraderStreamMuxer implements GoDto {
@@ -37,4 +49,41 @@ class Libp2pP2pNetUpgraderErrNilPeer extends GolangException {
 
   @override
   String toString() => 'upgrader.ErrNilPeer: $message';
+}
+
+/// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/net/upgrader` (`go.libp2p.libp2p.p2p.net.upgrader`).
+extension GoLibp2pLibp2pP2pNetUpgraderApi on GoLibp2pLibp2pP2pNetUpgrader {
+  /// Go: `var upgrader.AcceptQueueLength int`.
+  int get acceptQueueLength {
+    final $r = $callSync(14725);
+    return $r.i64();
+  }
+
+  /// Go: `func upgrader.New(security []sec.SecureTransport, muxers []upgrader.StreamMuxer, psk pnet.PSK, rcmgr network.ResourceManager, connGater connmgr.ConnectionGater, opts ...upgrader.Option) (transport.Upgrader, error)`.
+  $transport.Libp2pCoreTransportUpgrader new$(
+      List<$sec.Libp2pCoreSecSecureTransport> security,
+      List<Libp2pP2pNetUpgraderStreamMuxer> muxers,
+      Uint8List psk,
+      $network.Libp2pCoreNetworkResourceManager rcmgr,
+      $connmgr.Libp2pCoreConnmgrConnectionGater connGater,
+      [List<Libp2pP2pNetUpgraderOption> opts = const []]) {
+    final $r = $callSync(
+        14726,
+        $W()
+          ..list(security, (w0, e0) => w0.h(e0))
+          ..list(muxers, (w0, e0) => w0.dto(e0))
+          ..bytes(psk)
+          ..h(rcmgr)
+          ..h(connGater)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+    return $r.hnn($transport.Libp2pCoreTransportUpgrader.$h);
+  }
+}
+
+/// Go: the option constructors of `github.com/libp2p/go-libp2p/p2p/net/upgrader` (`go.libp2p.libp2p.p2p.net.upgrader.options`).
+extension GoLibp2pLibp2pP2pNetUpgraderOptionsApi
+    on GoLibp2pLibp2pP2pNetUpgraderOptions {
+  /// Go: `upgrader.WithAcceptTimeout`.
+  Libp2pP2pNetUpgraderOption withAcceptTimeout(Duration t) =>
+      Libp2pP2pNetUpgraderOption.$(0, (w) => w..i64((t).inMicroseconds * 1000));
 }

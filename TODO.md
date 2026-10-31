@@ -54,24 +54,23 @@ lowerCamelCase as Dart names constants and getters.
 - Checked on Windows: go vet, go test, gen -check, dart analyze, the suite and the 63
   lessons.
 
-Pending (on demand, the owner's decision of 2026-10-29: no whole graph for now):
-- **The universe** (the owner's item 1): the whole graph (751 packages outside the
-  stdlib, 124 in it) does not generate yet; the measurement (a scratch worktree) stopped
-  at the Go emitter. Each run takes ~17 min (the Dart side alone ~13 min) and showed:
-  - a package path with a dot in its last element (`otel/semconv/v1.26.0`): `splitRoot`
-    cuts there;
-  - 9 Dart library paths shared by two modules (`errors`: the stdlib, cockroachdb and
-    pkg/errors; `crypto/sha3`: the stdlib and x/crypto; `protobuf/proto` three times;
-    `clock`, `bbloom`, `blake3`, `libdht/kad`...): needs a naming rule;
-  - 11 names that clash in the single import: a type against a type
-    (`gob.Decoder`/`gob.GobDecoder` both `EncodingGobDecoder`, `grpc.BackoffConfig`/
-    `grpc/backoff.Config`, `pebble/v2.WalCreateInfo`), a member against a sub-namespace
-    (`crypto.MD5` and the package `crypto/md5`, `errors.Join`, `grpc.Peer`), `GoScanner`
-    (`go/scanner`) against a namespace class: needs a naming rule;
-  - kubo's command sub-packages (`dagcmd`...) repeat the commands' DTOs; the `context`
-    package clashes with the hand-written `lib/go/context.dart`;
-  - fixed in the generator: a method's class is in its receiver's home library;
-  - open: an option inside a DTO has no Go decoder (`circuitv2/relay.Option`).
+Pending:
+- **The universe** (the owner's item 1; inverted on the owner's request of 2026-10-30,
+  not released yet): every package of the host's build on all four targets enters whole
+  by itself (`universe` in `go/gen/main.go`: 871 packages; internal, vendored, the host
+  and linux's fuse stay out); roots.txt keeps the special roots and the 3 packages the
+  host's build does not reach (`unixfs/importer`, `go-car/v2/blockstore`, `bsadapter`);
+  ignore_roots.txt drops `runtime`, `runtime/*` and `syscall`. A declaration some target
+  lacks or declares otherwise is left out (API.md: "declared otherwise or missing on some
+  target"; linux broke on Windows' `syscall.SysProcAttr`). A kubo command's output type
+  keeps its class for the DTO (`dagcmd.DagStatSummary`).
+  - Size: `zz_generated.go` 1.78 → 13.0 MB; `lib/go` 172 → 803 files (380 k lines); API.md
+    5798 → 38438 rows; the Windows `p2p_host.exe` 106 MB. A run takes ~18 min.
+  - Checked on Windows: go test ./gen, the Windows and linux builds (`-gcflags=-e`), the
+    Android build (arm64, x86_64), `dart analyze lib test tool`, the suite (120).
+  - Open: the lessons still use the old names (`goKubo`...; they migrate before the
+    push); an option inside a DTO has no Go decoder (`circuitv2/relay.Option`); the
+    handles that extend empty interfaces (`type X any`).
 
 ## Done: go-multihash, go-multibase and the lessons' constants (0.27.0)
 

@@ -205,6 +205,11 @@ func generate(rootsFile string) (map[string][]byte, error) {
 	if err != nil {
 		return nil, err
 	}
+	all, err := universe()
+	if err != nil {
+		return nil, err
+	}
+	lines = append(lines, all...)
 	ignore, err := readRoots(filepath.Join(filepath.Dir(rootsFile), "ignore_roots.txt"))
 	if err != nil && !os.IsNotExist(err) {
 		return nil, err
@@ -219,11 +224,19 @@ func generate(rootsFile string) (map[string][]byte, error) {
 	}
 	m := newModel()
 	m.expanded = expanded
-	if m.platform, m.platformObj, err = platformConsts(sortedKeys(pkgs)); err != nil {
+	// the universe's packages too: a type of an ignored one (syscall) still
+	// comes in through the others' signatures
+	paths := sortedKeys(pkgs)
+	for _, l := range all {
+		if p := strings.TrimSuffix(l, ".*"); pkgs[p] == nil {
+			paths = append(paths, p)
+		}
+	}
+	if m.platform, m.platformObj, m.platformDecl, err = platformConsts(paths); err != nil {
 		return nil, err
 	}
 	for _, k := range sortedKeys(m.platform) { // roots of their own: they go to the host
-		if !slices.Contains(lines, k) {
+		if p, _, _ := splitRoot(k); pkgs[p] != nil && !slices.Contains(lines, k) { // not of an ignored package (runtime.GOARCH)
 			lines = append(lines, k)
 		}
 	}
@@ -262,6 +275,11 @@ func generate(rootsFile string) (map[string][]byte, error) {
 		fns = append(fns, fs...)
 	}
 	fns = append(fns, m.casts(fns)...)
+	for _, f := range fns {
+		if f.why == "" && m.platformDecl[f.key] {
+			f.why = platformWhy
+		}
+	}
 	m.leaveHand(fns)
 	m.leaveCmdOutputs(fns, manualNames())
 	if err := m.deprecations(fns); err != nil {
@@ -323,10 +341,52 @@ func readRoots(file string) ([]string, error) {
 	return lines, nil
 }
 
+// universe: a "pkg.*" root for every package of the host's build on all the
+// targets (the generated code compiles for each; fuse is linux's alone), but
+// the host's own module and the packages Go does not let another module
+// import (under an `internal`, vendored). The generated code is left out of
+// the build it looks at: what it imports came from the roots, not the host.
+func universe() ([]string, error) {
+	gen, err := filepath.Abs("zz_generated.go")
+	if err != nil {
+		return nil, err
+	}
+	on := map[string]int{} // package → on how many targets
+	var host string
+	for _, t := range targets {
+		cgo := "0"
+		if t[0] == "android" { // as tool/build.dart builds it (android/amd64 links only with cgo)
+			cgo = "1"
+		}
+		cfg := &packages.Config{
+			Mode:    packages.NeedName | packages.NeedImports | packages.NeedDeps,
+			Env:     append(os.Environ(), "GOOS="+t[0], "GOARCH="+t[1], "CGO_ENABLED="+cgo),
+			Overlay: map[string][]byte{gen: []byte("package main")},
+		}
+		list, err := packages.Load(cfg, ".")
+		if err != nil {
+			return nil, err
+		}
+		if len(list[0].Errors) > 0 {
+			return nil, fmt.Errorf("universe on %s/%s: %v", t[0], t[1], list[0].Errors[0])
+		}
+		host = list[0].PkgPath
+		packages.Visit(list, nil, func(p *packages.Package) { on[p.PkgPath]++ })
+	}
+	var out []string
+	for _, p := range sortedKeys(on) {
+		if on[p] == len(targets) && p != host && !strings.HasPrefix(p, host+"/") &&
+			!strings.HasPrefix(p, "vendor/") && !slices.Contains(strings.Split(p, "/"), "internal") {
+			out = append(out, p+".*")
+		}
+	}
+	return out, nil
+}
+
 // expandRoots: a line "pkg.*" becomes every exported function, variable and
 // method of the package (constants and errors already come with a library);
-// a line matching a pattern of [ignore] ("*" matches anything) is dropped.
-// The lines it adds are marked in [expanded].
+// a line it adds that matches a pattern of [ignore] ("*" matches anything) is
+// dropped, an explicit one stays. The lines it adds are marked in [expanded].
 func expandRoots(lines, ignore []string, expanded map[string]bool) ([]string, error) {
 	var res []*regexp.Regexp
 	for _, p := range ignore {
@@ -377,7 +437,7 @@ func expandRoots(lines, ignore []string, expanded map[string]bool) ([]string, er
 		explicit[l] = true
 	}
 	add := func(l string, exp bool) {
-		if !seen[l] && !ignored(l) {
+		if !seen[l] && (explicit[l] || !ignored(l)) {
 			seen[l] = true
 			out = append(out, l)
 			if exp && !explicit[l] {

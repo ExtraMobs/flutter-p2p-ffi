@@ -2,7 +2,237 @@
 // Go: github.com/ipfs/kubo/core/commands/pin
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoIpfsKuboCoreCommandsPin;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
+
+/// Go: `pin.BadNode`.
+final class KuboCoreCommandsPinBadNode implements GoDto {
+  KuboCoreCommandsPinBadNode({String? cid, String? err})
+      : cid = cid ?? '',
+        err = err ?? '';
+
+  KuboCoreCommandsPinBadNode.$dec($R r)
+      : cid = r.str(),
+        err = r.str();
+
+  /// Go: `Cid`.
+  String cid;
+
+  /// Go: `Err`.
+  String err;
+
+  @override
+  void $enc($W w) {
+    w
+      ..str(cid)
+      ..str(err);
+  }
+}
+
+/// Go: `pin.PinCount`.
+final class KuboCoreCommandsPinCount implements GoDto {
+  KuboCoreCommandsPinCount(
+      {int? queued, int? pinning, int? pinned, int? failed})
+      : queued = queued ?? 0,
+        pinning = pinning ?? 0,
+        pinned = pinned ?? 0,
+        failed = failed ?? 0;
+
+  KuboCoreCommandsPinCount.$dec($R r)
+      : queued = r.i64(),
+        pinning = r.i64(),
+        pinned = r.i64(),
+        failed = r.i64();
+
+  /// Go: `Queued`.
+  int queued;
+
+  /// Go: `Pinning`.
+  int pinning;
+
+  /// Go: `Pinned`.
+  int pinned;
+
+  /// Go: `Failed`.
+  int failed;
+
+  @override
+  void $enc($W w) {
+    w
+      ..i64(queued)
+      ..i64(pinning)
+      ..i64(pinned)
+      ..i64(failed);
+  }
+}
+
+/// Go: `pin.PinServicesList`.
+final class KuboCoreCommandsPinServicesList implements GoDto {
+  KuboCoreCommandsPinServicesList(
+      {List<KuboCoreCommandsPinServiceDetails>? remoteServices})
+      : remoteServices = remoteServices ?? [];
+
+  KuboCoreCommandsPinServicesList.$dec($R r)
+      : remoteServices = r.list(
+            () => r.p() ? KuboCoreCommandsPinServiceDetails.$dec(r) : $nil());
+
+  /// Go: `RemoteServices`.
+  List<KuboCoreCommandsPinServiceDetails> remoteServices;
+
+  @override
+  void $enc($W w) {
+    w..list(remoteServices, (w0, e0) => w0.dto(e0));
+  }
+
+  /// Go: `func (pin.PinServicesList).Len() int`.
+  int len() {
+    final $r = $callSync(11422, $W()..dto(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (pin.PinServicesList).Less(i int, j int) bool`.
+  bool less(int i, int j) {
+    final $r = $callSync(
+        11423,
+        $W()
+          ..dto(this)
+          ..i64(i)
+          ..i64(j));
+    return $r.b();
+  }
+
+  /// Go: `func (pin.PinServicesList).Swap(i int, j int)`.
+  void swap(int i, int j) {
+    $callSync(
+        11424,
+        $W()
+          ..dto(this)
+          ..i64(i)
+          ..i64(j));
+  }
+}
+
+/// Go: `pin.PinStatus`.
+final class KuboCoreCommandsPinStatus implements GoDto {
+  KuboCoreCommandsPinStatus(
+      {bool? ok, List<KuboCoreCommandsPinBadNode>? badNodes})
+      : ok = ok ?? false,
+        badNodes = badNodes ?? [];
+
+  KuboCoreCommandsPinStatus.$dec($R r)
+      : ok = r.b(),
+        badNodes =
+            r.list(() => r.p() ? KuboCoreCommandsPinBadNode.$dec(r) : $nil());
+
+  /// Go: `Ok`.
+  bool ok;
+
+  /// Go: `BadNodes`.
+  List<KuboCoreCommandsPinBadNode> badNodes;
+
+  @override
+  void $enc($W w) {
+    w
+      ..b(ok)
+      ..list(badNodes, (w0, e0) => w0.dto(e0));
+  }
+}
+
+/// Go: `pin.PinVerifyRes`.
+final class KuboCoreCommandsPinVerifyRes implements GoDto {
+  KuboCoreCommandsPinVerifyRes(
+      {String? cid, String? err, KuboCoreCommandsPinStatus? pinStatus})
+      : cid = cid ?? '',
+        err = err ?? '',
+        pinStatus = pinStatus;
+
+  KuboCoreCommandsPinVerifyRes.$dec($R r)
+      : cid = r.str(),
+        err = r.str(),
+        pinStatus = r.p() ? KuboCoreCommandsPinStatus.$dec(r) : null;
+
+  /// Go: `Cid`.
+  String cid;
+
+  /// Go: `Err`.
+  String err;
+
+  /// Go: `PinStatus`.
+  KuboCoreCommandsPinStatus? pinStatus;
+
+  @override
+  void $enc($W w) {
+    w
+      ..str(cid)
+      ..str(err)
+      ..dto(pinStatus);
+  }
+
+  /// Go: `func (pin.PinVerifyRes).Format(out io.Writer)`.
+  void format(GoHandle? out) {
+    $callSync(
+        11425,
+        $W()
+          ..dto(this)
+          ..h(out));
+  }
+}
+
+/// Go: `pin.ServiceDetails`.
+final class KuboCoreCommandsPinServiceDetails implements GoDto {
+  KuboCoreCommandsPinServiceDetails(
+      {String? service, String? apiEndpoint, KuboCoreCommandsPinStat? stat})
+      : service = service ?? '',
+        apiEndpoint = apiEndpoint ?? '',
+        stat = stat;
+
+  KuboCoreCommandsPinServiceDetails.$dec($R r)
+      : service = r.str(),
+        apiEndpoint = r.str(),
+        stat = r.p() ? KuboCoreCommandsPinStat.$dec(r) : null;
+
+  /// Go: `Service`.
+  String service;
+
+  /// Go: `ApiEndpoint`.
+  String apiEndpoint;
+
+  /// Go: `Stat`.
+  KuboCoreCommandsPinStat? stat;
+
+  @override
+  void $enc($W w) {
+    w
+      ..str(service)
+      ..str(apiEndpoint)
+      ..dto(stat);
+  }
+}
+
+/// Go: `pin.Stat`.
+final class KuboCoreCommandsPinStat implements GoDto {
+  KuboCoreCommandsPinStat({String? status, KuboCoreCommandsPinCount? pinCount})
+      : status = status ?? '',
+        pinCount = pinCount;
+
+  KuboCoreCommandsPinStat.$dec($R r)
+      : status = r.str(),
+        pinCount = r.p() ? KuboCoreCommandsPinCount.$dec(r) : null;
+
+  /// Go: `Status`.
+  String status;
+
+  /// Go: `PinCount`.
+  KuboCoreCommandsPinCount? pinCount;
+
+  @override
+  void $enc($W w) {
+    w
+      ..str(status)
+      ..dto(pinCount);
+  }
+}
 
 /// Go: `pin.AddPinOutput` (a kubo command output).
 final class KuboCoreCommandsPinAddPinOutput {
@@ -75,67 +305,6 @@ final class KuboCoreCommandsPinRemotePinOutput {
   final String name;
 }
 
-/// Go: `pin.PinServicesList` (a kubo command output).
-final class KuboCoreCommandsPinServicesList {
-  KuboCoreCommandsPinServicesList.$dec($R r)
-      : remoteServices =
-            r.list(() => KuboCoreCommandsPinServiceDetails.$dec(r));
-
-  /// Go: `RemoteServices`.
-  final List<KuboCoreCommandsPinServiceDetails> remoteServices;
-}
-
-/// Go: `pin.ServiceDetails` (a kubo command output).
-final class KuboCoreCommandsPinServiceDetails {
-  KuboCoreCommandsPinServiceDetails.$dec($R r)
-      : service = r.str(),
-        apiEndpoint = r.str(),
-        stat = r.p() ? KuboCoreCommandsPinStat.$dec(r) : null;
-
-  /// Go: `Service`.
-  final String service;
-
-  /// Go: `ApiEndpoint`.
-  final String apiEndpoint;
-
-  /// Go: `Stat`.
-  final KuboCoreCommandsPinStat? stat;
-}
-
-/// Go: `pin.Stat` (a kubo command output).
-final class KuboCoreCommandsPinStat {
-  KuboCoreCommandsPinStat.$dec($R r)
-      : status = r.str(),
-        pinCount = r.p() ? KuboCoreCommandsPinCount.$dec(r) : null;
-
-  /// Go: `Status`.
-  final String status;
-
-  /// Go: `PinCount`.
-  final KuboCoreCommandsPinCount? pinCount;
-}
-
-/// Go: `pin.PinCount` (a kubo command output).
-final class KuboCoreCommandsPinCount {
-  KuboCoreCommandsPinCount.$dec($R r)
-      : queued = r.i64(),
-        pinning = r.i64(),
-        pinned = r.i64(),
-        failed = r.i64();
-
-  /// Go: `Queued`.
-  final int queued;
-
-  /// Go: `Pinning`.
-  final int pinning;
-
-  /// Go: `Pinned`.
-  final int pinned;
-
-  /// Go: `Failed`.
-  final int failed;
-}
-
 /// Go: `pin.PinOutput` (a kubo command output).
 final class KuboCoreCommandsPinOutput {
   KuboCoreCommandsPinOutput.$dec($R r) : pins = r.list(() => r.str());
@@ -144,36 +313,11 @@ final class KuboCoreCommandsPinOutput {
   final List<String> pins;
 }
 
-/// Go: `pin.PinVerifyRes` (a kubo command output).
-final class KuboCoreCommandsPinVerifyRes {
-  KuboCoreCommandsPinVerifyRes.$dec($R r)
-      : cid = r.str(),
-        err = r.str(),
-        ok = r.b(),
-        badNodes = r.list(() => KuboCoreCommandsPinBadNode.$dec(r));
-
-  /// Go: `Cid`.
-  final String cid;
-
-  /// Go: `Err`.
-  final String err;
-
-  /// Go: `Ok`.
-  final bool ok;
-
-  /// Go: `BadNodes`.
-  final List<KuboCoreCommandsPinBadNode> badNodes;
-}
-
-/// Go: `pin.BadNode` (a kubo command output).
-final class KuboCoreCommandsPinBadNode {
-  KuboCoreCommandsPinBadNode.$dec($R r)
-      : cid = r.str(),
-        err = r.str();
-
-  /// Go: `Cid`.
-  final String cid;
-
-  /// Go: `Err`.
-  final String err;
+/// Go: the package-level members of `github.com/ipfs/kubo/core/commands/pin` (`go.ipfs.kubo.core.commands.pin`).
+extension GoIpfsKuboCoreCommandsPinApi on GoIpfsKuboCoreCommandsPin {
+  /// Go: `var pin.PinCmd *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand get pinCmd {
+    final $r = $callSync(11421);
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
 }

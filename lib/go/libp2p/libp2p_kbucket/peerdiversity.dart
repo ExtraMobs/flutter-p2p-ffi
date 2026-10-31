@@ -2,10 +2,18 @@
 // Go: github.com/libp2p/go-libp2p-kbucket/peerdiversity
 library;
 
+import 'dart:async';
+import 'dart:typed_data';
+
+import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2pKbucketPeerdiversity;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
+import 'package:p2p_ffi/go/multiformats/multiaddr.dart' as $multiaddr;
 
 /// Go: `peerdiversity.CplDiversityStats`.
 final class Libp2pKbucketPeerdiversityCplDiversityStats implements GoDto {
@@ -35,10 +43,88 @@ final class Libp2pKbucketPeerdiversityCplDiversityStats implements GoDto {
 }
 
 /// Go: `peerdiversity.Filter` (handle).
-class Libp2pKbucketPeerdiversityFilter extends $crypto.CryptoPrivateKey
-    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
-    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+class Libp2pKbucketPeerdiversityFilter extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   Libp2pKbucketPeerdiversityFilter.$h(super.$h) : super.$h();
+
+  /// Go: `func (*peerdiversity.Filter).GetDiversityStats() []peerdiversity.CplDiversityStats`.
+  List<Libp2pKbucketPeerdiversityCplDiversityStats> getDiversityStats() {
+    final $r = $callSync(13142, $W()..h(this));
+    return $r.list(() =>
+        $r.p() ? Libp2pKbucketPeerdiversityCplDiversityStats.$dec($r) : $nil());
+  }
+
+  /// Go: `func (*peerdiversity.Filter).Remove(p peer.ID)`.
+  void remove($peer.Libp2pCorePeerId p) {
+    $callSync(
+        13143,
+        $W()
+          ..h(this)
+          ..val(p));
+  }
+
+  /// Go: `func (*peerdiversity.Filter).TryAdd(p peer.ID) bool`.
+  bool tryAdd($peer.Libp2pCorePeerId p) {
+    final $r = $callSync(
+        13144,
+        $W()
+          ..h(this)
+          ..val(p));
+    return $r.b();
+  }
+
+  /// Go: `func (*peerdiversity.Filter).WhitelistPeers(peers ...peer.ID)`.
+  void whitelistPeers([List<$peer.Libp2pCorePeerId> peers = const []]) {
+    $callSync(
+        13145,
+        $W()
+          ..h(this)
+          ..list(peers, (w0, e0) => w0.val(e0)));
+  }
+}
+
+/// Go: `peerdiversity.PeerGroupInfo`.
+final class Libp2pKbucketPeerdiversityPeerGroupInfo implements GoDto {
+  Libp2pKbucketPeerdiversityPeerGroupInfo(
+      {$peer.Libp2pCorePeerId? id, int? cpl, String? ipGroupKey})
+      : id = id,
+        cpl = cpl ?? 0,
+        ipGroupKey = ipGroupKey ?? '';
+
+  Libp2pKbucketPeerdiversityPeerGroupInfo.$dec($R r)
+      : id = r.p() ? $peer.Libp2pCorePeerId(r.str()) : null,
+        cpl = r.i64(),
+        ipGroupKey = r.str();
+
+  /// Go: `Id`.
+  $peer.Libp2pCorePeerId? id;
+
+  /// Go: `Cpl`.
+  int cpl;
+
+  /// Go: `IPGroupKey`.
+  String ipGroupKey;
+
+  @override
+  void $enc($W w) {
+    w
+      ..val(id)
+      ..i64(cpl)
+      ..str(ipGroupKey);
+  }
 }
 
 /// Go: `peerdiversity.PeerIPGroupFilter` (handle).
@@ -48,4 +134,73 @@ class Libp2pKbucketPeerdiversityPeerIpGroupFilter extends GoHandle
 }
 
 /// The methods of [Libp2pKbucketPeerdiversityPeerIpGroupFilter], mixed into every class Go also accepts as one.
-mixin Libp2pKbucketPeerdiversityPeerIpGroupFilter$ on GoHandle {}
+mixin Libp2pKbucketPeerdiversityPeerIpGroupFilter$ on GoHandle {
+  /// Go: `func (peerdiversity.PeerIPGroupFilter).Allow(peerdiversity.PeerGroupInfo) (allow bool)`.
+  bool allow(Libp2pKbucketPeerdiversityPeerGroupInfo peerGroupInfo) {
+    final $r = $callSync(
+        13148,
+        $W()
+          ..h(this)
+          ..dto(peerGroupInfo));
+    return $r.b();
+  }
+
+  /// Go: `func (peerdiversity.PeerIPGroupFilter).Decrement(peerdiversity.PeerGroupInfo)`.
+  void decrement(Libp2pKbucketPeerdiversityPeerGroupInfo peerGroupInfo) {
+    $callSync(
+        13149,
+        $W()
+          ..h(this)
+          ..dto(peerGroupInfo));
+  }
+
+  /// Go: `func (peerdiversity.PeerIPGroupFilter).Increment(peerdiversity.PeerGroupInfo)`.
+  void increment(Libp2pKbucketPeerdiversityPeerGroupInfo peerGroupInfo) {
+    $callSync(
+        13150,
+        $W()
+          ..h(this)
+          ..dto(peerGroupInfo));
+  }
+
+  /// Go: `func (peerdiversity.PeerIPGroupFilter).PeerAddresses(peer.ID) []multiaddr.Multiaddr`.
+  List<$multiaddr.Multiaddr> peerAddresses($peer.Libp2pCorePeerId id) {
+    final $r = $callSync(
+        13151,
+        $W()
+          ..h(this)
+          ..val(id));
+    return $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil());
+  }
+}
+
+/// Go: the package-level members of `github.com/libp2p/go-libp2p-kbucket/peerdiversity` (`go.libp2p.libp2pKbucket.peerdiversity`).
+extension GoLibp2pLibp2pKbucketPeerdiversityApi
+    on GoLibp2pLibp2pKbucketPeerdiversity {
+  /// Go: `func peerdiversity.IPGroupKey(ip net.IP) peerdiversity.PeerIPGroupKey`.
+  String ipGroupKey(Uint8List ip) {
+    final $r = $callSync(13146, $W()..bytes(ip));
+    return $r.str();
+  }
+
+  /// Go: `func peerdiversity.NewFilter(pgm peerdiversity.PeerIPGroupFilter, logKey string, cplFnc func(peer.ID) int) (*peerdiversity.Filter, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  ///
+  /// Go calls [cplFnc] on the Dart event loop, during the call or
+  /// later for as long as it holds it (nobody checked which), and waits for
+  /// each invocation (a retained callback, WIRE.md).
+  Future<Libp2pKbucketPeerdiversityFilter> newFilter(
+      Libp2pKbucketPeerdiversityPeerIpGroupFilter pgm,
+      String logKey,
+      FutureOr<int> Function($peer.Libp2pCorePeerId id) cplFnc) async {
+    final $r = await $call(
+        13147,
+        $W()
+          ..h(pgm)
+          ..str(logKey)
+          ..cb((r) => cplFnc(r.p() ? $peer.Libp2pCorePeerId(r.str()) : $nil()),
+              true, (w, v) => w.i64(v as int)));
+    return $r.hnn(Libp2pKbucketPeerdiversityFilter.$h);
+  }
+}

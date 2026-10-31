@@ -2,9 +2,230 @@
 // Go: github.com/ipfs/boxo/bitswap/server
 library;
 
+import 'dart:async';
+
+import 'package:p2p_ffi/src/go.dart'
+    show GoIpfsBoxoBitswapServer, GoIpfsBoxoBitswapServerOptions;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/context.dart' as $context;
+import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
+import 'package:p2p_ffi/go/ipfs/block_format.dart' as $block_format;
+import 'package:p2p_ffi/go/ipfs/boxo/bitswap/client.dart' as $client;
+import 'package:p2p_ffi/go/ipfs/boxo/bitswap/message.dart' as $message;
+import 'package:p2p_ffi/go/ipfs/boxo/bitswap/network.dart' as $network;
+import 'package:p2p_ffi/go/ipfs/boxo/bitswap/tracer.dart' as $tracer;
+import 'package:p2p_ffi/go/ipfs/boxo/blockstore.dart' as $blockstore;
 import 'package:p2p_ffi/go/ipfs/cid.dart' as $cid;
+import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
+
+/// Go: `server.Option` (functional option; constructors in the package).
+final class BoxoBitswapServerOption extends GoOption {
+  BoxoBitswapServerOption.$(super.$i, super.$a);
+}
+
+/// Go: `server.Server` (handle).
+class BoxoBitswapServer extends $network.BoxoBitswapNetworkReceiver
+    with
+        $crypto.CryptoDecrypterOpts$,
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $client.BoxoBitswapClientBlockReceivedNotifier$,
+        $network.BoxoBitswapNetworkConnectionListener$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoDecrypterOpts,
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $client.BoxoBitswapClientBlockReceivedNotifier,
+        $network.BoxoBitswapNetworkConnectionListener,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
+  BoxoBitswapServer.$h(super.$h) : super.$h();
+
+  /// Go: `func (*server.Server).Close()`.
+  void close() {
+    $callSync(9302, $W()..h(this));
+  }
+
+  /// Go: `func (*server.Server).LedgerForPeer(p peer.ID) *decision.Receipt`.
+  BoxoBitswapServerReceipt ledgerForPeer($peer.Libp2pCorePeerId p) {
+    final $r = $callSync(
+        9303,
+        $W()
+          ..h(this)
+          ..val(p));
+    return $r.p() ? BoxoBitswapServerReceipt.$dec($r) : $nil();
+  }
+
+  /// Go: `func (*server.Server).NotifyNewBlocks(ctx context.Context, blks ...blocks.Block) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> notifyNewBlocks($context.Context ctx,
+      [List<$block_format.BlockFormatBlock> blks = const []]) async {
+    await $call(
+        9304,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..list(blks, (w0, e0) => w0.dto(e0)));
+  }
+
+  /// Go: `func (*server.Server).PeerConnected(p peer.ID)`.
+  void peerConnected($peer.Libp2pCorePeerId p) {
+    $callSync(
+        9305,
+        $W()
+          ..h(this)
+          ..val(p));
+  }
+
+  /// Go: `func (*server.Server).PeerDisconnected(p peer.ID)`.
+  void peerDisconnected($peer.Libp2pCorePeerId p) {
+    $callSync(
+        9306,
+        $W()
+          ..h(this)
+          ..val(p));
+  }
+
+  /// Go: `func (*server.Server).ReceiveMessage(ctx context.Context, p peer.ID, incoming message.BitSwapMessage)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> receiveMessage($context.Context ctx, $peer.Libp2pCorePeerId p,
+      $message.BoxoBitswapMessageBitSwapMessage incoming) async {
+    await $call(
+        9307,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(p)
+          ..h(incoming));
+  }
+
+  /// Go: `func (*server.Server).ReceivedBlocks(from peer.ID, blks []blocks.Block)`.
+  void receivedBlocks(
+      $peer.Libp2pCorePeerId from, List<$block_format.BlockFormatBlock> blks) {
+    $callSync(
+        9308,
+        $W()
+          ..h(this)
+          ..val(from)
+          ..list(blks, (w0, e0) => w0.dto(e0)));
+  }
+
+  /// Go: `func (*server.Server).Stat() (server.Stat, error)`.
+  BoxoBitswapServerStat stat() {
+    final $r = $callSync(9309, $W()..h(this));
+    return $r.p() ? BoxoBitswapServerStat.$dec($r) : $nil();
+  }
+
+  /// Go: `func (*server.Server).WantlistForPeer(p peer.ID) []cid.Cid`.
+  List<$cid.Cid> wantlistForPeer($peer.Libp2pCorePeerId p) {
+    final $r = $callSync(
+        9310,
+        $W()
+          ..h(this)
+          ..val(p));
+    return $r.list(() => $r.p() ? $cid.Cid($r.str()) : $nil());
+  }
+}
+
+/// Go: `server.Stat`.
+final class BoxoBitswapServerStat implements GoDto {
+  BoxoBitswapServerStat({List<String>? peers, int? blocksSent, int? dataSent})
+      : peers = peers ?? [],
+        blocksSent = blocksSent ?? 0,
+        dataSent = dataSent ?? 0;
+
+  BoxoBitswapServerStat.$dec($R r)
+      : peers = r.list(() => r.str()),
+        blocksSent = r.i64(),
+        dataSent = r.i64();
+
+  /// Go: `Peers`.
+  List<String> peers;
+
+  /// Go: `BlocksSent`.
+  ///
+  /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
+  /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
+  int blocksSent;
+
+  /// Go: `DataSent`.
+  ///
+  /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
+  /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
+  int dataSent;
+
+  @override
+  void $enc($W w) {
+    w
+      ..list(peers, (w0, e0) => w0.str(e0))
+      ..i64(blocksSent)
+      ..i64(dataSent);
+  }
+}
+
+/// Go: `decision.Receipt`.
+final class BoxoBitswapServerReceipt implements GoDto {
+  BoxoBitswapServerReceipt(
+      {String? peer, double? value$, int? sent, int? recv, int? exchanged})
+      : peer = peer ?? '',
+        value$ = value$ ?? 0.0,
+        sent = sent ?? 0,
+        recv = recv ?? 0,
+        exchanged = exchanged ?? 0;
+
+  BoxoBitswapServerReceipt.$dec($R r)
+      : peer = r.str(),
+        value$ = r.f64(),
+        sent = r.i64(),
+        recv = r.i64(),
+        exchanged = r.i64();
+
+  /// Go: `Peer`.
+  String peer;
+
+  /// Go: `Value`.
+  double value$;
+
+  /// Go: `Sent`.
+  ///
+  /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
+  /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
+  int sent;
+
+  /// Go: `Recv`.
+  ///
+  /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
+  /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
+  int recv;
+
+  /// Go: `Exchanged`.
+  ///
+  /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
+  /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
+  int exchanged;
+
+  @override
+  void $enc($W w) {
+    w
+      ..str(peer)
+      ..f64(value$)
+      ..i64(sent)
+      ..i64(recv)
+      ..i64(exchanged);
+  }
+}
 
 /// Go: `decision.ScoreLedger` (handle).
 class BoxoBitswapServerScoreLedger extends GoHandle
@@ -67,4 +288,98 @@ final class BoxoBitswapServerTaskInfo implements GoDto {
       ..i64(blockSize)
       ..b(haveBlock);
   }
+}
+
+/// Go: the package-level members of `github.com/ipfs/boxo/bitswap/server` (`go.ipfs.boxo.bitswap.server`).
+extension GoIpfsBoxoBitswapServerApi on GoIpfsBoxoBitswapServer {
+  /// Go: `func server.New(ctx context.Context, network network.BitSwapNetwork, bstore blockstore.Blockstore, options ...server.Option) *server.Server`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<BoxoBitswapServer> new$(
+      $context.Context ctx,
+      $network.BoxoBitswapNetworkBitSwapNetwork network,
+      $blockstore.BoxoBlockstore bstore,
+      [List<BoxoBitswapServerOption> options = const []]) async {
+    final $r = await $call(
+        9301,
+        $W()
+          ..h(ctx)
+          ..h(network)
+          ..h(bstore)
+          ..list(options, (w0, e0) => w0.opt(e0)));
+    return $r.hnn(BoxoBitswapServer.$h);
+  }
+}
+
+/// Go: the option constructors of `github.com/ipfs/boxo/bitswap/server` (`go.ipfs.boxo.bitswap.server.options`).
+extension GoIpfsBoxoBitswapServerOptionsApi on GoIpfsBoxoBitswapServerOptions {
+  /// Go: `server.EngineBlockstoreWorkerCount`.
+  BoxoBitswapServerOption engineBlockstoreWorkerCount(int count) =>
+      BoxoBitswapServerOption.$(0, (w) => w..i64(count));
+
+  /// Go: `server.EngineTaskWorkerCount`.
+  BoxoBitswapServerOption engineTaskWorkerCount(int count) =>
+      BoxoBitswapServerOption.$(1, (w) => w..i64(count));
+
+  /// Go: `server.MaxCidSize`.
+  BoxoBitswapServerOption maxCidSize(int n) =>
+      BoxoBitswapServerOption.$(2, (w) => w..i64(n));
+
+  /// Go: `server.MaxOutstandingBytesPerPeer`.
+  BoxoBitswapServerOption maxOutstandingBytesPerPeer(int count) =>
+      BoxoBitswapServerOption.$(3, (w) => w..i64(count));
+
+  /// Go: `server.MaxQueuedWantlistEntriesPerPeer`.
+  BoxoBitswapServerOption maxQueuedWantlistEntriesPerPeer(int count) =>
+      BoxoBitswapServerOption.$(4, (w) => w..i64(count));
+
+  /// Go: `server.SetSendDontHaves`.
+  BoxoBitswapServerOption setSendDontHaves(bool send) =>
+      BoxoBitswapServerOption.$(5, (w) => w..b(send));
+
+  /// Go: `server.TaskWorkerCount`.
+  BoxoBitswapServerOption taskWorkerCount(int count) =>
+      BoxoBitswapServerOption.$(6, (w) => w..i64(count));
+
+  /// Go: `server.WithPeerBlockRequestFilter`.
+  BoxoBitswapServerOption withPeerBlockRequestFilter(
+          FutureOr<bool> Function($peer.Libp2pCorePeerId p, $cid.Cid c) pbrf) =>
+      BoxoBitswapServerOption.$(
+          7,
+          (w) => w
+            ..cb(
+                (r) => pbrf(r.p() ? $peer.Libp2pCorePeerId(r.str()) : $nil(),
+                    r.p() ? $cid.Cid(r.str()) : $nil()),
+                true));
+
+  /// Go: `server.WithScoreLedger`.
+  BoxoBitswapServerOption withScoreLedger(
+          BoxoBitswapServerScoreLedger scoreLedger) =>
+      BoxoBitswapServerOption.$(8, (w) => w..h(scoreLedger));
+
+  /// Go: `server.WithTargetMessageSize`.
+  BoxoBitswapServerOption withTargetMessageSize(int tms) =>
+      BoxoBitswapServerOption.$(9, (w) => w..i64(tms));
+
+  /// Go: `server.WithTaskComparator`.
+  BoxoBitswapServerOption withTaskComparator(
+          FutureOr<bool> Function(
+                  BoxoBitswapServerTaskInfo ta, BoxoBitswapServerTaskInfo tb)
+              comparator) =>
+      BoxoBitswapServerOption.$(
+          10,
+          (w) => w
+            ..cb(
+                (r) => comparator(
+                    r.p() ? BoxoBitswapServerTaskInfo.$dec(r) : $nil(),
+                    r.p() ? BoxoBitswapServerTaskInfo.$dec(r) : $nil()),
+                true));
+
+  /// Go: `server.WithTracer`.
+  BoxoBitswapServerOption withTracer($tracer.BoxoBitswapTracer tap) =>
+      BoxoBitswapServerOption.$(11, (w) => w..h(tap));
+
+  /// Go: `server.WithWantHaveReplaceSize`.
+  BoxoBitswapServerOption withWantHaveReplaceSize(int size) =>
+      BoxoBitswapServerOption.$(12, (w) => w..i64(size));
 }

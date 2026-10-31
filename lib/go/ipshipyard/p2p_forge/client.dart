@@ -2,15 +2,242 @@
 // Go: github.com/ipshipyard/p2p-forge/client
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoIpshipyardP2pForgeClientConsts;
+import 'dart:async';
+
+import 'package:p2p_ffi/src/go.dart'
+    show
+        GoIpshipyardP2pForgeClient,
+        GoIpshipyardP2pForgeClientConsts,
+        GoIpshipyardP2pForgeClientOptions;
+import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/caddyserver/certmagic.dart' as $certmagic;
+import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/crypto/tls.dart' as $tls;
+import 'package:p2p_ffi/go/crypto/x509.dart' as $x509;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/crypto.dart' as $crypto2;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
+import 'package:p2p_ffi/go/libp2p/libp2p/p2p/host/basic.dart' as $basic;
+import 'package:p2p_ffi/go/multiformats/multiaddr.dart' as $multiaddr;
+import 'package:p2p_ffi/go/net.dart' as $net;
+import 'package:p2p_ffi/go/net/http.dart' as $http;
+import 'package:p2p_ffi/go/zap.dart' as $zap;
+
+/// Go: `client.ForgeAddrInfo`.
+final class P2pForgeClientForgeAddrInfo implements GoDto {
+  P2pForgeClientForgeAddrInfo(
+      {String? escapedIp,
+      String? ipVersion,
+      String? ipMaStr,
+      String? tcpPort,
+      String? peerIdBase36})
+      : escapedIp = escapedIp ?? '',
+        ipVersion = ipVersion ?? '',
+        ipMaStr = ipMaStr ?? '',
+        tcpPort = tcpPort ?? '',
+        peerIdBase36 = peerIdBase36 ?? '';
+
+  P2pForgeClientForgeAddrInfo.$dec($R r)
+      : escapedIp = r.str(),
+        ipVersion = r.str(),
+        ipMaStr = r.str(),
+        tcpPort = r.str(),
+        peerIdBase36 = r.str();
+
+  /// Go: `EscapedIP`.
+  String escapedIp;
+
+  /// Go: `IPVersion`.
+  String ipVersion;
+
+  /// Go: `IPMaStr`.
+  String ipMaStr;
+
+  /// Go: `TCPPort`.
+  String tcpPort;
+
+  /// Go: `PeerIDBase36`.
+  String peerIdBase36;
+
+  @override
+  void $enc($W w) {
+    w
+      ..str(escapedIp)
+      ..str(ipVersion)
+      ..str(ipMaStr)
+      ..str(tcpPort)
+      ..str(peerIdBase36);
+  }
+}
 
 /// Go: `client.P2PForgeCertMgr` (handle).
-class P2pForgeClientP2pForgeCertMgr extends $crypto.CryptoPrivateKey
-    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
-    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+class P2pForgeClientP2pForgeCertMgr extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   P2pForgeClientP2pForgeCertMgr.$h(super.$h) : super.$h();
+
+  /// Go: `func client.NewP2PForgeCertMgr(opts ...client.P2PForgeCertMgrOptions) (*client.P2PForgeCertMgr, error)`.
+  factory P2pForgeClientP2pForgeCertMgr(
+      [List<P2pForgeClientP2pForgeCertMgrOptions> opts = const []]) {
+    final $r = $callSync(12681, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+    return $r.hnn(P2pForgeClientP2pForgeCertMgr.$h);
+  }
+
+  /// Go: `func (*client.P2PForgeCertMgr).AddrStrings() []string`.
+  List<String> addrStrings() {
+    final $r = $callSync(12682, $W()..h(this));
+    return $r.list(() => $r.str());
+  }
+
+  /// Go: `func (*client.P2PForgeCertMgr).AddressFactory() config.AddrsFactory`.
+  $basic.Libp2pP2pHostBasicAddrsFactory addressFactory() {
+    final $r = $callSync(12683, $W()..h(this));
+    return $r.hnn($basic.Libp2pP2pHostBasicAddrsFactory.$h);
+  }
+
+  /// Go: `func (*client.P2PForgeCertMgr).Start() error`.
+  void start() {
+    $callSync(12684, $W()..h(this));
+  }
+
+  /// Go: `func (*client.P2PForgeCertMgr).Stop()`.
+  void stop() {
+    $callSync(12685, $W()..h(this));
+  }
+
+  /// Go: `func (*client.P2PForgeCertMgr).TLSConfig() *tls.Config`.
+  $tls.CryptoTlsConfig tlsConfig() {
+    final $r = $callSync(12686, $W()..h(this));
+    return $r.hnn($tls.CryptoTlsConfig.$h);
+  }
+}
+
+/// Go: `client.P2PForgeCertMgrOptions` (functional option; constructors in the package).
+final class P2pForgeClientP2pForgeCertMgrOptions extends GoOption {
+  P2pForgeClientP2pForgeCertMgrOptions.$(super.$i, super.$a);
+}
+
+/// Go: `client.SendChallengeOption` (functional option; constructors in the package).
+final class P2pForgeClientSendChallengeOption extends GoOption {
+  P2pForgeClientSendChallengeOption.$(super.$i, super.$a);
+}
+
+/// Go: the package-level members of `github.com/ipshipyard/p2p-forge/client` (`go.ipshipyard.p2pForge.client`).
+extension GoIpshipyardP2pForgeClientApi on GoIpshipyardP2pForgeClient {
+  /// Go: `func client.BuildLongForgeMultiaddr(forgeAddrInfo *client.ForgeAddrInfo, forgeDomain string) string`.
+  String buildLongForgeMultiaddr(
+      P2pForgeClientForgeAddrInfo forgeAddrInfo, String forgeDomain) {
+    final $r = $callSync(
+        12676,
+        $W()
+          ..dto(forgeAddrInfo)
+          ..str(forgeDomain));
+    return $r.str();
+  }
+
+  /// Go: `func client.BuildShortForgeMultiaddr(forgeAddrInfo *client.ForgeAddrInfo, forgeDomain string) string`.
+  String buildShortForgeMultiaddr(
+      P2pForgeClientForgeAddrInfo forgeAddrInfo, String forgeDomain) {
+    final $r = $callSync(
+        12677,
+        $W()
+          ..dto(forgeAddrInfo)
+          ..str(forgeDomain));
+    return $r.str();
+  }
+
+  /// Go: `func client.ChallengeRequest(ctx context.Context, registrationURL string, challenge string, addrs []multiaddr.Multiaddr) (*http.Request, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<$http.NetHttpRequest> challengeRequest(
+      $context.Context ctx,
+      String registrationUrl,
+      String challenge,
+      List<$multiaddr.Multiaddr> addrs) async {
+    final $r = await $call(
+        12678,
+        $W()
+          ..h(ctx)
+          ..str(registrationUrl)
+          ..str(challenge)
+          ..list(addrs, (w0, e0) => w0.val(e0)));
+    return $r.hnn($http.NetHttpRequest.$h);
+  }
+
+  /// Go: `func client.CheckBrokerHealth(ctx context.Context, registrationEndpoint string, userAgent string, httpClient *http.Client) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> checkBrokerHealth(
+      $context.Context ctx,
+      String registrationEndpoint,
+      String userAgent,
+      $http.NetHttpClient httpClient) async {
+    await $call(
+        12679,
+        $W()
+          ..h(ctx)
+          ..str(registrationEndpoint)
+          ..str(userAgent)
+          ..dto(httpClient));
+  }
+
+  /// Go: `func client.ExtractForgeAddrInfo(addr multiaddr.Multiaddr, peerID peer.ID) (*client.ForgeAddrInfo, error)`.
+  P2pForgeClientForgeAddrInfo extractForgeAddrInfo(
+      $multiaddr.Multiaddr addr, $peer.Libp2pCorePeerId peerId) {
+    final $r = $callSync(
+        12680,
+        $W()
+          ..val(addr)
+          ..val(peerId));
+    return $r.p() ? P2pForgeClientForgeAddrInfo.$dec($r) : $nil();
+  }
+
+  /// Go: `func client.SendChallenge(ctx context.Context, baseURL string, privKey crypto.PrivKey, challenge string, addrs []multiaddr.Multiaddr, forgeAuth string, userAgent string, modifyForgeRequest func(r *http.Request) error, opts ...client.SendChallengeOption) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  ///
+  /// Go calls [modifyForgeRequest] on the Dart event loop, during the call or
+  /// later for as long as it holds it (nobody checked which), and waits for
+  /// each invocation (a retained callback, WIRE.md).
+  Future<void> sendChallenge(
+      $context.Context ctx,
+      String baseUrl,
+      $crypto2.Libp2pCoreCryptoPrivKey privKey,
+      String challenge,
+      List<$multiaddr.Multiaddr> addrs,
+      String forgeAuth,
+      String userAgent,
+      FutureOr<void> Function($http.NetHttpRequest r) modifyForgeRequest,
+      [List<P2pForgeClientSendChallengeOption> opts = const []]) async {
+    await $call(
+        12687,
+        $W()
+          ..h(ctx)
+          ..str(baseUrl)
+          ..h(privKey)
+          ..str(challenge)
+          ..list(addrs, (w0, e0) => w0.val(e0))
+          ..str(forgeAuth)
+          ..str(userAgent)
+          ..cb((r) => modifyForgeRequest(r.hnn($http.NetHttpRequest.$h)), true)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+  }
 }
 
 /// Go: the constants of `github.com/ipshipyard/p2p-forge/client` (`go.ipshipyard.p2pForge.client.consts`).
@@ -41,4 +268,101 @@ extension GoIpshipyardP2pForgeClientConstsApi
 
   /// Go: `const client.HealthCheckPath untyped string`.
   String get healthCheckPath => "/v1/health";
+}
+
+/// Go: the option constructors of `github.com/ipshipyard/p2p-forge/client` (`go.ipshipyard.p2pForge.client.options`).
+extension GoIpshipyardP2pForgeClientOptionsApi
+    on GoIpshipyardP2pForgeClientOptions {
+  /// Go: `client.WithAllowPrivateForgeAddrs`.
+  P2pForgeClientP2pForgeCertMgrOptions withAllowPrivateForgeAddrs() =>
+      P2pForgeClientP2pForgeCertMgrOptions.$(0, (_) {});
+
+  /// Go: `client.WithCAEndpoint`.
+  P2pForgeClientP2pForgeCertMgrOptions withCaEndpoint(String caEndpoint) =>
+      P2pForgeClientP2pForgeCertMgrOptions.$(1, (w) => w..str(caEndpoint));
+
+  /// Go: `client.WithCertificateStorage`.
+  P2pForgeClientP2pForgeCertMgrOptions withCertificateStorage(
+          $certmagic.CertmagicStorage storage) =>
+      P2pForgeClientP2pForgeCertMgrOptions.$(2, (w) => w..h(storage));
+
+  /// Go: `client.WithChallengeHTTPClient`.
+  P2pForgeClientSendChallengeOption withChallengeHttpClient(
+          $http.NetHttpClient c) =>
+      P2pForgeClientSendChallengeOption.$(0, (w) => w..dto(c));
+
+  /// Go: `client.WithForgeAuth`.
+  P2pForgeClientP2pForgeCertMgrOptions withForgeAuth(String forgeAuth) =>
+      P2pForgeClientP2pForgeCertMgrOptions.$(3, (w) => w..str(forgeAuth));
+
+  /// Go: `client.WithForgeDomain`.
+  P2pForgeClientP2pForgeCertMgrOptions withForgeDomain(String domain) =>
+      P2pForgeClientP2pForgeCertMgrOptions.$(4, (w) => w..str(domain));
+
+  /// Go: `client.WithForgeRegistrationEndpoint`.
+  P2pForgeClientP2pForgeCertMgrOptions withForgeRegistrationEndpoint(
+          String endpoint) =>
+      P2pForgeClientP2pForgeCertMgrOptions.$(5, (w) => w..str(endpoint));
+
+  /// Go: `client.WithHTTPClient`.
+  P2pForgeClientP2pForgeCertMgrOptions withHttpClient($http.NetHttpClient c) =>
+      P2pForgeClientP2pForgeCertMgrOptions.$(6, (w) => w..dto(c));
+
+  /// Go: `client.WithLogger`.
+  P2pForgeClientP2pForgeCertMgrOptions withLogger($zap.ZapSugaredLogger log) =>
+      P2pForgeClientP2pForgeCertMgrOptions.$(7, (w) => w..h(log));
+
+  /// Go: `client.WithModifiedForgeRequest`.
+  P2pForgeClientP2pForgeCertMgrOptions withModifiedForgeRequest(
+          FutureOr<void> Function($http.NetHttpRequest req) fn) =>
+      P2pForgeClientP2pForgeCertMgrOptions.$(
+          8, (w) => w..cb((r) => fn(r.hnn($http.NetHttpRequest.$h)), true));
+
+  /// Go: `client.WithOnCertLoaded`.
+  P2pForgeClientP2pForgeCertMgrOptions withOnCertLoaded(
+          FutureOr<void> Function() fn) =>
+      P2pForgeClientP2pForgeCertMgrOptions.$(
+          9, (w) => w..cb((r) => fn(), false));
+
+  /// Go: `client.WithOnCertRenewed`.
+  P2pForgeClientP2pForgeCertMgrOptions withOnCertRenewed(
+          FutureOr<void> Function() fn) =>
+      P2pForgeClientP2pForgeCertMgrOptions.$(
+          10, (w) => w..cb((r) => fn(), false));
+
+  /// Go: `client.WithRegistrationDelay`.
+  P2pForgeClientP2pForgeCertMgrOptions withRegistrationDelay(
+          Duration registrationDelay) =>
+      P2pForgeClientP2pForgeCertMgrOptions.$(
+          11, (w) => w..i64((registrationDelay).inMicroseconds * 1000));
+
+  /// Go: `client.WithRenewCheckInterval`.
+  P2pForgeClientP2pForgeCertMgrOptions withRenewCheckInterval(
+          Duration renewCheckInterval) =>
+      P2pForgeClientP2pForgeCertMgrOptions.$(
+          12, (w) => w..i64((renewCheckInterval).inMicroseconds * 1000));
+
+  /// Go: `client.WithResolver`.
+  P2pForgeClientP2pForgeCertMgrOptions withResolver(
+          $net.NetResolver resolver) =>
+      P2pForgeClientP2pForgeCertMgrOptions.$(13, (w) => w..h(resolver));
+
+  /// Go: `client.WithShortForgeAddrs`.
+  P2pForgeClientP2pForgeCertMgrOptions withShortForgeAddrs(
+          bool produceShortAddrs) =>
+      P2pForgeClientP2pForgeCertMgrOptions.$(
+          14, (w) => w..b(produceShortAddrs));
+
+  /// Go: `client.WithTrustedRoots`.
+  P2pForgeClientP2pForgeCertMgrOptions withTrustedRoots(
+          $x509.CryptoX509CertPool trustedRoots) =>
+      P2pForgeClientP2pForgeCertMgrOptions.$(15, (w) => w..h(trustedRoots));
+
+  /// Go: `client.WithUserAgent`.
+  P2pForgeClientP2pForgeCertMgrOptions withUserAgent(String userAgent) =>
+      P2pForgeClientP2pForgeCertMgrOptions.$(16, (w) => w..str(userAgent));
+
+  /// Go: `client.WithUserEmail`.
+  P2pForgeClientP2pForgeCertMgrOptions withUserEmail(String email) =>
+      P2pForgeClientP2pForgeCertMgrOptions.$(17, (w) => w..str(email));
 }

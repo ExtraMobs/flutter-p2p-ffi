@@ -17,6 +17,8 @@ library;
 import 'package:p2p_ffi/src/go.dart' show GoContext;
 import 'package:p2p_ffi/src/runtime.dart';
 
+part 'context.g.dart';
+
 /// Go: `context.Context` (handle).
 class Context extends GoHandle {
   Context.$h(super.$h);

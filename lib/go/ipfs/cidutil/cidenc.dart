@@ -2,7 +2,9 @@
 // Go: github.com/ipfs/go-cidutil/cidenc
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoIpfsCidutilCidenc;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/ipfs/cid.dart' as $cid;
 import 'package:p2p_ffi/go/multiformats/multibase.dart' as $multibase;
 
 /// Go: `cidenc.Encoder`.
@@ -26,5 +28,34 @@ final class CidutilCidencEncoder implements GoDto {
     w
       ..h(base)
       ..b(upgrade);
+  }
+
+  /// Go: `func (cidenc.Encoder).Encode(c cid.Cid) string`.
+  String encode($cid.Cid c) {
+    final $r = $callSync(
+        10530,
+        $W()
+          ..dto(this)
+          ..val(c));
+    return $r.str();
+  }
+
+  /// Go: `func (cidenc.Encoder).Recode(v string) (string, error)`.
+  String recode(String v) {
+    final $r = $callSync(
+        10531,
+        $W()
+          ..dto(this)
+          ..str(v));
+    return $r.str();
+  }
+}
+
+/// Go: the package-level members of `github.com/ipfs/go-cidutil/cidenc` (`go.ipfs.cidutil.cidenc`).
+extension GoIpfsCidutilCidencApi on GoIpfsCidutilCidenc {
+  /// Go: `func cidenc.Default() cidenc.Encoder`.
+  CidutilCidencEncoder default$() {
+    final $r = $callSync(10529);
+    return $r.p() ? CidutilCidencEncoder.$dec($r) : $nil();
   }
 }

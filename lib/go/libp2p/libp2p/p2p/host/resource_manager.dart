@@ -2,13 +2,85 @@
 // Go: github.com/libp2p/go-libp2p/p2p/host/resource-manager
 library;
 
+import 'dart:typed_data';
+
 import 'package:p2p_ffi/src/go.dart'
-    show GoLibp2pLibp2pP2pHostResourceManagerEnums;
+    show
+        GoLibp2pLibp2pP2pHostResourceManager,
+        GoLibp2pLibp2pP2pHostResourceManagerEnums,
+        GoLibp2pLibp2pP2pHostResourceManagerOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/network.dart' as $network;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
+import 'package:p2p_ffi/go/libp2p/libp2p/x/rate.dart' as $rate;
+import 'package:p2p_ffi/go/multiformats/multiaddr.dart' as $multiaddr;
+import 'package:p2p_ffi/go/net/netip.dart' as $netip;
+import 'package:p2p_ffi/go/prometheus/client_golang/prometheus.dart'
+    as $prometheus;
+
+/// Go: `rcmgr.Allowlist` (handle).
+class Libp2pP2pHostResourceManagerAllowlist extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
+  Libp2pP2pHostResourceManagerAllowlist.$h(super.$h) : super.$h();
+
+  /// Go: `func (*rcmgr.Allowlist).Add(ma multiaddr.Multiaddr) error`.
+  void add($multiaddr.Multiaddr ma) {
+    $callSync(
+        14494,
+        $W()
+          ..h(this)
+          ..val(ma));
+  }
+
+  /// Go: `func (*rcmgr.Allowlist).Allowed(ma multiaddr.Multiaddr) bool`.
+  bool allowed($multiaddr.Multiaddr ma) {
+    final $r = $callSync(
+        14495,
+        $W()
+          ..h(this)
+          ..val(ma));
+    return $r.b();
+  }
+
+  /// Go: `func (*rcmgr.Allowlist).AllowedPeerAndMultiaddr(peerID peer.ID, ma multiaddr.Multiaddr) bool`.
+  bool allowedPeerAndMultiaddr(
+      $peer.Libp2pCorePeerId peerId, $multiaddr.Multiaddr ma) {
+    final $r = $callSync(
+        14496,
+        $W()
+          ..h(this)
+          ..val(peerId)
+          ..val(ma));
+    return $r.b();
+  }
+
+  /// Go: `func (*rcmgr.Allowlist).Remove(ma multiaddr.Multiaddr) error`.
+  void remove($multiaddr.Multiaddr ma) {
+    $callSync(
+        14497,
+        $W()
+          ..h(this)
+          ..val(ma));
+  }
+}
 
 /// Go: `rcmgr.BaseLimit`.
 final class Libp2pP2pHostResourceManagerBaseLimit implements GoDto {
@@ -75,6 +147,67 @@ final class Libp2pP2pHostResourceManagerBaseLimit implements GoDto {
       ..i64(connsOutbound)
       ..i64(fd)
       ..i64(memory);
+  }
+
+  /// Go: `func (*rcmgr.BaseLimit).Apply(l2 rcmgr.BaseLimit)`.
+  void apply(Libp2pP2pHostResourceManagerBaseLimit l2) {
+    $callSync(
+        14498,
+        $W()
+          ..dto(this)
+          ..dto(l2));
+  }
+
+  /// Go: `func (rcmgr.BaseLimit).GetConnLimit(dir network.Direction) int`.
+  int getConnLimit(int dir) {
+    final $r = $callSync(
+        14499,
+        $W()
+          ..dto(this)
+          ..i64(dir));
+    return $r.i64();
+  }
+
+  /// Go: `func (rcmgr.BaseLimit).GetConnTotalLimit() int`.
+  int getConnTotalLimit() {
+    final $r = $callSync(14500, $W()..dto(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (rcmgr.BaseLimit).GetFDLimit() int`.
+  int getFdLimit() {
+    final $r = $callSync(14501, $W()..dto(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (rcmgr.BaseLimit).GetMemoryLimit() int64`.
+  int getMemoryLimit() {
+    final $r = $callSync(14502, $W()..dto(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (rcmgr.BaseLimit).GetStreamLimit(dir network.Direction) int`.
+  int getStreamLimit(int dir) {
+    final $r = $callSync(
+        14503,
+        $W()
+          ..dto(this)
+          ..i64(dir));
+    return $r.i64();
+  }
+
+  /// Go: `func (rcmgr.BaseLimit).GetStreamTotalLimit() int`.
+  int getStreamTotalLimit() {
+    final $r = $callSync(14504, $W()..dto(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (rcmgr.BaseLimit).ToResourceLimits() rcmgr.ResourceLimits`.
+  Libp2pP2pHostResourceManagerResourceLimits toResourceLimits() {
+    final $r = $callSync(14505, $W()..dto(this));
+    return $r.p()
+        ? Libp2pP2pHostResourceManagerResourceLimits.$dec($r)
+        : $nil();
   }
 }
 
@@ -144,14 +277,391 @@ final class Libp2pP2pHostResourceManagerBaseLimitIncrease implements GoDto {
       ..i64(memory)
       ..f64(fdFraction);
   }
+
+  /// Go: `func (*rcmgr.BaseLimitIncrease).Apply(l2 rcmgr.BaseLimitIncrease)`.
+  void apply(Libp2pP2pHostResourceManagerBaseLimitIncrease l2) {
+    $callSync(
+        14506,
+        $W()
+          ..dto(this)
+          ..dto(l2));
+  }
 }
 
 /// Go: `rcmgr.ConcreteLimitConfig` (handle).
 class Libp2pP2pHostResourceManagerConcreteLimitConfig
-    extends $crypto.CryptoPrivateKey
-    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
-    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+    extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   Libp2pP2pHostResourceManagerConcreteLimitConfig.$h(super.$h) : super.$h();
+
+  /// Go: `func (rcmgr.ConcreteLimitConfig).ToPartialLimitConfig() rcmgr.PartialLimitConfig`.
+  Libp2pP2pHostResourceManagerPartialLimitConfig toPartialLimitConfig() {
+    final $r = $callSync(14507, $W()..h(this));
+    return $r.p()
+        ? Libp2pP2pHostResourceManagerPartialLimitConfig.$dec($r)
+        : $nil();
+  }
+}
+
+/// Go: `rcmgr.ConnLimitPerSubnet`.
+final class Libp2pP2pHostResourceManagerConnLimitPerSubnet implements GoDto {
+  Libp2pP2pHostResourceManagerConnLimitPerSubnet(
+      {int? prefixLength, int? connCount})
+      : prefixLength = prefixLength ?? 0,
+        connCount = connCount ?? 0;
+
+  Libp2pP2pHostResourceManagerConnLimitPerSubnet.$dec($R r)
+      : prefixLength = r.i64(),
+        connCount = r.i64();
+
+  /// Go: `PrefixLength`.
+  int prefixLength;
+
+  /// Go: `ConnCount`.
+  int connCount;
+
+  @override
+  void $enc($W w) {
+    w
+      ..i64(prefixLength)
+      ..i64(connCount);
+  }
+}
+
+/// Go: `rcmgr.Limit` (handle).
+class Libp2pP2pHostResourceManagerLimit extends GoHandle
+    with Libp2pP2pHostResourceManagerLimit$ {
+  Libp2pP2pHostResourceManagerLimit.$h(super.$h);
+}
+
+/// The methods of [Libp2pP2pHostResourceManagerLimit], mixed into every class Go also accepts as one.
+mixin Libp2pP2pHostResourceManagerLimit$ on GoHandle {
+  /// Go: `func (rcmgr.Limit).GetConnLimit(network.Direction) int`.
+  int getConnLimit(int arg0) {
+    final $r = $callSync(
+        14518,
+        $W()
+          ..h(this)
+          ..i64(arg0));
+    return $r.i64();
+  }
+
+  /// Go: `func (rcmgr.Limit).GetConnTotalLimit() int`.
+  int getConnTotalLimit() {
+    final $r = $callSync(14519, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (rcmgr.Limit).GetFDLimit() int`.
+  int getFdLimit() {
+    final $r = $callSync(14520, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (rcmgr.Limit).GetMemoryLimit() int64`.
+  int getMemoryLimit() {
+    final $r = $callSync(14521, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (rcmgr.Limit).GetStreamLimit(network.Direction) int`.
+  int getStreamLimit(int arg0) {
+    final $r = $callSync(
+        14522,
+        $W()
+          ..h(this)
+          ..i64(arg0));
+    return $r.i64();
+  }
+
+  /// Go: `func (rcmgr.Limit).GetStreamTotalLimit() int`.
+  int getStreamTotalLimit() {
+    final $r = $callSync(14523, $W()..h(this));
+    return $r.i64();
+  }
+}
+
+/// Go: `rcmgr.Limiter` (handle).
+class Libp2pP2pHostResourceManagerLimiter extends GoHandle
+    with Libp2pP2pHostResourceManagerLimiter$ {
+  Libp2pP2pHostResourceManagerLimiter.$h(super.$h);
+}
+
+/// The methods of [Libp2pP2pHostResourceManagerLimiter], mixed into every class Go also accepts as one.
+mixin Libp2pP2pHostResourceManagerLimiter$ on GoHandle {
+  /// Go: `func (rcmgr.Limiter).GetAllowlistedSystemLimits() rcmgr.Limit`.
+  Libp2pP2pHostResourceManagerLimit getAllowlistedSystemLimits() {
+    final $r = $callSync(14524, $W()..h(this));
+    return $r.hnn(Libp2pP2pHostResourceManagerLimit.$h);
+  }
+
+  /// Go: `func (rcmgr.Limiter).GetAllowlistedTransientLimits() rcmgr.Limit`.
+  Libp2pP2pHostResourceManagerLimit getAllowlistedTransientLimits() {
+    final $r = $callSync(14525, $W()..h(this));
+    return $r.hnn(Libp2pP2pHostResourceManagerLimit.$h);
+  }
+
+  /// Go: `func (rcmgr.Limiter).GetConnLimits() rcmgr.Limit`.
+  Libp2pP2pHostResourceManagerLimit getConnLimits() {
+    final $r = $callSync(14526, $W()..h(this));
+    return $r.hnn(Libp2pP2pHostResourceManagerLimit.$h);
+  }
+
+  /// Go: `func (rcmgr.Limiter).GetPeerLimits(p peer.ID) rcmgr.Limit`.
+  Libp2pP2pHostResourceManagerLimit getPeerLimits($peer.Libp2pCorePeerId p) {
+    final $r = $callSync(
+        14527,
+        $W()
+          ..h(this)
+          ..val(p));
+    return $r.hnn(Libp2pP2pHostResourceManagerLimit.$h);
+  }
+
+  /// Go: `func (rcmgr.Limiter).GetProtocolLimits(proto protocol.ID) rcmgr.Limit`.
+  Libp2pP2pHostResourceManagerLimit getProtocolLimits(String proto) {
+    final $r = $callSync(
+        14528,
+        $W()
+          ..h(this)
+          ..str(proto));
+    return $r.hnn(Libp2pP2pHostResourceManagerLimit.$h);
+  }
+
+  /// Go: `func (rcmgr.Limiter).GetProtocolPeerLimits(proto protocol.ID) rcmgr.Limit`.
+  Libp2pP2pHostResourceManagerLimit getProtocolPeerLimits(String proto) {
+    final $r = $callSync(
+        14529,
+        $W()
+          ..h(this)
+          ..str(proto));
+    return $r.hnn(Libp2pP2pHostResourceManagerLimit.$h);
+  }
+
+  /// Go: `func (rcmgr.Limiter).GetServiceLimits(svc string) rcmgr.Limit`.
+  Libp2pP2pHostResourceManagerLimit getServiceLimits(String svc) {
+    final $r = $callSync(
+        14530,
+        $W()
+          ..h(this)
+          ..str(svc));
+    return $r.hnn(Libp2pP2pHostResourceManagerLimit.$h);
+  }
+
+  /// Go: `func (rcmgr.Limiter).GetServicePeerLimits(svc string) rcmgr.Limit`.
+  Libp2pP2pHostResourceManagerLimit getServicePeerLimits(String svc) {
+    final $r = $callSync(
+        14531,
+        $W()
+          ..h(this)
+          ..str(svc));
+    return $r.hnn(Libp2pP2pHostResourceManagerLimit.$h);
+  }
+
+  /// Go: `func (rcmgr.Limiter).GetStreamLimits(p peer.ID) rcmgr.Limit`.
+  Libp2pP2pHostResourceManagerLimit getStreamLimits($peer.Libp2pCorePeerId p) {
+    final $r = $callSync(
+        14532,
+        $W()
+          ..h(this)
+          ..val(p));
+    return $r.hnn(Libp2pP2pHostResourceManagerLimit.$h);
+  }
+
+  /// Go: `func (rcmgr.Limiter).GetSystemLimits() rcmgr.Limit`.
+  Libp2pP2pHostResourceManagerLimit getSystemLimits() {
+    final $r = $callSync(14533, $W()..h(this));
+    return $r.hnn(Libp2pP2pHostResourceManagerLimit.$h);
+  }
+
+  /// Go: `func (rcmgr.Limiter).GetTransientLimits() rcmgr.Limit`.
+  Libp2pP2pHostResourceManagerLimit getTransientLimits() {
+    final $r = $callSync(14534, $W()..h(this));
+    return $r.hnn(Libp2pP2pHostResourceManagerLimit.$h);
+  }
+}
+
+/// Go: `rcmgr.MetricsReporter` (handle).
+class Libp2pP2pHostResourceManagerMetricsReporter extends GoHandle
+    with Libp2pP2pHostResourceManagerMetricsReporter$ {
+  Libp2pP2pHostResourceManagerMetricsReporter.$h(super.$h);
+}
+
+/// The methods of [Libp2pP2pHostResourceManagerMetricsReporter], mixed into every class Go also accepts as one.
+mixin Libp2pP2pHostResourceManagerMetricsReporter$ on GoHandle {
+  /// Go: `func (rcmgr.MetricsReporter).AllowConn(dir network.Direction, usefd bool)`.
+  void allowConn(int dir, bool usefd) {
+    $callSync(
+        14535,
+        $W()
+          ..h(this)
+          ..i64(dir)
+          ..b(usefd));
+  }
+
+  /// Go: `func (rcmgr.MetricsReporter).AllowMemory(size int)`.
+  void allowMemory(int size) {
+    $callSync(
+        14536,
+        $W()
+          ..h(this)
+          ..i64(size));
+  }
+
+  /// Go: `func (rcmgr.MetricsReporter).AllowPeer(p peer.ID)`.
+  void allowPeer($peer.Libp2pCorePeerId p) {
+    $callSync(
+        14537,
+        $W()
+          ..h(this)
+          ..val(p));
+  }
+
+  /// Go: `func (rcmgr.MetricsReporter).AllowProtocol(proto protocol.ID)`.
+  void allowProtocol(String proto) {
+    $callSync(
+        14538,
+        $W()
+          ..h(this)
+          ..str(proto));
+  }
+
+  /// Go: `func (rcmgr.MetricsReporter).AllowService(svc string)`.
+  void allowService(String svc) {
+    $callSync(
+        14539,
+        $W()
+          ..h(this)
+          ..str(svc));
+  }
+
+  /// Go: `func (rcmgr.MetricsReporter).AllowStream(p peer.ID, dir network.Direction)`.
+  void allowStream($peer.Libp2pCorePeerId p, int dir) {
+    $callSync(
+        14540,
+        $W()
+          ..h(this)
+          ..val(p)
+          ..i64(dir));
+  }
+
+  /// Go: `func (rcmgr.MetricsReporter).BlockConn(dir network.Direction, usefd bool)`.
+  void blockConn(int dir, bool usefd) {
+    $callSync(
+        14541,
+        $W()
+          ..h(this)
+          ..i64(dir)
+          ..b(usefd));
+  }
+
+  /// Go: `func (rcmgr.MetricsReporter).BlockMemory(size int)`.
+  void blockMemory(int size) {
+    $callSync(
+        14542,
+        $W()
+          ..h(this)
+          ..i64(size));
+  }
+
+  /// Go: `func (rcmgr.MetricsReporter).BlockPeer(p peer.ID)`.
+  void blockPeer($peer.Libp2pCorePeerId p) {
+    $callSync(
+        14543,
+        $W()
+          ..h(this)
+          ..val(p));
+  }
+
+  /// Go: `func (rcmgr.MetricsReporter).BlockProtocol(proto protocol.ID)`.
+  void blockProtocol(String proto) {
+    $callSync(
+        14544,
+        $W()
+          ..h(this)
+          ..str(proto));
+  }
+
+  /// Go: `func (rcmgr.MetricsReporter).BlockProtocolPeer(proto protocol.ID, p peer.ID)`.
+  void blockProtocolPeer(String proto, $peer.Libp2pCorePeerId p) {
+    $callSync(
+        14545,
+        $W()
+          ..h(this)
+          ..str(proto)
+          ..val(p));
+  }
+
+  /// Go: `func (rcmgr.MetricsReporter).BlockService(svc string)`.
+  void blockService(String svc) {
+    $callSync(
+        14546,
+        $W()
+          ..h(this)
+          ..str(svc));
+  }
+
+  /// Go: `func (rcmgr.MetricsReporter).BlockServicePeer(svc string, p peer.ID)`.
+  void blockServicePeer(String svc, $peer.Libp2pCorePeerId p) {
+    $callSync(
+        14547,
+        $W()
+          ..h(this)
+          ..str(svc)
+          ..val(p));
+  }
+
+  /// Go: `func (rcmgr.MetricsReporter).BlockStream(p peer.ID, dir network.Direction)`.
+  void blockStream($peer.Libp2pCorePeerId p, int dir) {
+    $callSync(
+        14548,
+        $W()
+          ..h(this)
+          ..val(p)
+          ..i64(dir));
+  }
+}
+
+/// Go: `rcmgr.NetworkPrefixLimit`.
+final class Libp2pP2pHostResourceManagerNetworkPrefixLimit implements GoDto {
+  Libp2pP2pHostResourceManagerNetworkPrefixLimit(
+      {$netip.NetNetipPrefix? network, int? connCount})
+      : network = network,
+        connCount = connCount ?? 0;
+
+  Libp2pP2pHostResourceManagerNetworkPrefixLimit.$dec($R r)
+      : network = r.hn($netip.NetNetipPrefix.$h),
+        connCount = r.i64();
+
+  /// Go: `Network`.
+  $netip.NetNetipPrefix? network;
+
+  /// Go: `ConnCount`.
+  int connCount;
+
+  @override
+  void $enc($W w) {
+    w
+      ..h(network)
+      ..i64(connCount);
+  }
+}
+
+/// Go: `rcmgr.Option` (functional option; constructors in the package).
+final class Libp2pP2pHostResourceManagerOption extends GoOption {
+  Libp2pP2pHostResourceManagerOption.$(super.$i, super.$a);
 }
 
 /// Go: `rcmgr.PartialLimitConfig`.
@@ -308,6 +818,32 @@ final class Libp2pP2pHostResourceManagerPartialLimitConfig implements GoDto {
       ..dto(conn)
       ..dto(stream);
   }
+
+  /// Go: `func (*rcmgr.PartialLimitConfig).Apply(c rcmgr.PartialLimitConfig)`.
+  void apply(Libp2pP2pHostResourceManagerPartialLimitConfig c) {
+    $callSync(
+        14556,
+        $W()
+          ..dto(this)
+          ..dto(c));
+  }
+
+  /// Go: `func (rcmgr.PartialLimitConfig).Build(defaults rcmgr.ConcreteLimitConfig) rcmgr.ConcreteLimitConfig`.
+  Libp2pP2pHostResourceManagerConcreteLimitConfig build(
+      Libp2pP2pHostResourceManagerConcreteLimitConfig defaults) {
+    final $r = $callSync(
+        14557,
+        $W()
+          ..dto(this)
+          ..h(defaults));
+    return $r.hnn(Libp2pP2pHostResourceManagerConcreteLimitConfig.$h);
+  }
+
+  /// Go: `func (*rcmgr.PartialLimitConfig).MarshalJSON() ([]byte, error)`.
+  Uint8List marshalJson() {
+    final $r = $callSync(14558, $W()..dto(this));
+    return $r.bytes() ?? Uint8List(0);
+  }
 }
 
 /// Go: `rcmgr.ResourceLimits`.
@@ -376,6 +912,40 @@ final class Libp2pP2pHostResourceManagerResourceLimits implements GoDto {
       ..i64(fd)
       ..i64(memory);
   }
+
+  /// Go: `func (*rcmgr.ResourceLimits).Apply(l2 rcmgr.ResourceLimits)`.
+  void apply(Libp2pP2pHostResourceManagerResourceLimits l2) {
+    $callSync(
+        14560,
+        $W()
+          ..dto(this)
+          ..dto(l2));
+  }
+
+  /// Go: `func (*rcmgr.ResourceLimits).Build(defaults rcmgr.Limit) rcmgr.BaseLimit`.
+  Libp2pP2pHostResourceManagerBaseLimit build(
+      Libp2pP2pHostResourceManagerLimit defaults) {
+    final $r = $callSync(
+        14561,
+        $W()
+          ..dto(this)
+          ..h(defaults));
+    return $r.p() ? Libp2pP2pHostResourceManagerBaseLimit.$dec($r) : $nil();
+  }
+
+  /// Go: `func (*rcmgr.ResourceLimits).IsDefault() bool`.
+  bool isDefault() {
+    final $r = $callSync(14562, $W()..dto(this));
+    return $r.b();
+  }
+
+  /// Go: `func (*rcmgr.ResourceLimits).ToMaybeNilPtr() *rcmgr.ResourceLimits`.
+  Libp2pP2pHostResourceManagerResourceLimits toMaybeNilPtr() {
+    final $r = $callSync(14563, $W()..dto(this));
+    return $r.p()
+        ? Libp2pP2pHostResourceManagerResourceLimits.$dec($r)
+        : $nil();
+  }
 }
 
 /// Go: `rcmgr.ResourceManagerStat`.
@@ -425,6 +995,30 @@ final class Libp2pP2pHostResourceManagerStat implements GoDto {
       ..map(services, (w0, k0) => w0.str(k0), (w0, v0) => w0.dto(v0))
       ..map(protocols, (w0, k0) => w0.str(k0), (w0, v0) => w0.dto(v0))
       ..map(peers, (w0, k0) => w0.str(k0.value), (w0, v0) => w0.dto(v0));
+  }
+}
+
+/// Go: `rcmgr.ResourceScopeLimiter` (handle).
+class Libp2pP2pHostResourceManagerResourceScopeLimiter extends GoHandle
+    with Libp2pP2pHostResourceManagerResourceScopeLimiter$ {
+  Libp2pP2pHostResourceManagerResourceScopeLimiter.$h(super.$h);
+}
+
+/// The methods of [Libp2pP2pHostResourceManagerResourceScopeLimiter], mixed into every class Go also accepts as one.
+mixin Libp2pP2pHostResourceManagerResourceScopeLimiter$ on GoHandle {
+  /// Go: `func (rcmgr.ResourceScopeLimiter).Limit() rcmgr.Limit`.
+  Libp2pP2pHostResourceManagerLimit limit() {
+    final $r = $callSync(14564, $W()..h(this));
+    return $r.hnn(Libp2pP2pHostResourceManagerLimit.$h);
+  }
+
+  /// Go: `func (rcmgr.ResourceScopeLimiter).SetLimit(rcmgr.Limit)`.
+  void setLimit(Libp2pP2pHostResourceManagerLimit limit) {
+    $callSync(
+        14565,
+        $W()
+          ..h(this)
+          ..h(limit));
   }
 }
 
@@ -630,6 +1224,241 @@ final class Libp2pP2pHostResourceManagerScalingLimitConfig implements GoDto {
       ..dto(streamBaseLimit)
       ..dto(streamLimitIncrease);
   }
+
+  /// Go: `func (*rcmgr.ScalingLimitConfig).AddPeerLimit(p peer.ID, base rcmgr.BaseLimit, inc rcmgr.BaseLimitIncrease)`.
+  void addPeerLimit(
+      $peer.Libp2pCorePeerId p,
+      Libp2pP2pHostResourceManagerBaseLimit base,
+      Libp2pP2pHostResourceManagerBaseLimitIncrease inc) {
+    $callSync(
+        14566,
+        $W()
+          ..dto(this)
+          ..val(p)
+          ..dto(base)
+          ..dto(inc));
+  }
+
+  /// Go: `func (*rcmgr.ScalingLimitConfig).AddProtocolLimit(proto protocol.ID, base rcmgr.BaseLimit, inc rcmgr.BaseLimitIncrease)`.
+  void addProtocolLimit(
+      String proto,
+      Libp2pP2pHostResourceManagerBaseLimit base,
+      Libp2pP2pHostResourceManagerBaseLimitIncrease inc) {
+    $callSync(
+        14567,
+        $W()
+          ..dto(this)
+          ..str(proto)
+          ..dto(base)
+          ..dto(inc));
+  }
+
+  /// Go: `func (*rcmgr.ScalingLimitConfig).AddProtocolPeerLimit(proto protocol.ID, base rcmgr.BaseLimit, inc rcmgr.BaseLimitIncrease)`.
+  void addProtocolPeerLimit(
+      String proto,
+      Libp2pP2pHostResourceManagerBaseLimit base,
+      Libp2pP2pHostResourceManagerBaseLimitIncrease inc) {
+    $callSync(
+        14568,
+        $W()
+          ..dto(this)
+          ..str(proto)
+          ..dto(base)
+          ..dto(inc));
+  }
+
+  /// Go: `func (*rcmgr.ScalingLimitConfig).AddServiceLimit(svc string, base rcmgr.BaseLimit, inc rcmgr.BaseLimitIncrease)`.
+  void addServiceLimit(String svc, Libp2pP2pHostResourceManagerBaseLimit base,
+      Libp2pP2pHostResourceManagerBaseLimitIncrease inc) {
+    $callSync(
+        14569,
+        $W()
+          ..dto(this)
+          ..str(svc)
+          ..dto(base)
+          ..dto(inc));
+  }
+
+  /// Go: `func (*rcmgr.ScalingLimitConfig).AddServicePeerLimit(svc string, base rcmgr.BaseLimit, inc rcmgr.BaseLimitIncrease)`.
+  void addServicePeerLimit(
+      String svc,
+      Libp2pP2pHostResourceManagerBaseLimit base,
+      Libp2pP2pHostResourceManagerBaseLimitIncrease inc) {
+    $callSync(
+        14570,
+        $W()
+          ..dto(this)
+          ..str(svc)
+          ..dto(base)
+          ..dto(inc));
+  }
+
+  /// Go: `func (*rcmgr.ScalingLimitConfig).AutoScale() rcmgr.ConcreteLimitConfig`.
+  Libp2pP2pHostResourceManagerConcreteLimitConfig autoScale() {
+    final $r = $callSync(14571, $W()..dto(this));
+    return $r.hnn(Libp2pP2pHostResourceManagerConcreteLimitConfig.$h);
+  }
+
+  /// Go: `func (*rcmgr.ScalingLimitConfig).Scale(memory int64, numFD int) rcmgr.ConcreteLimitConfig`.
+  Libp2pP2pHostResourceManagerConcreteLimitConfig scale(int memory, int numFd) {
+    final $r = $callSync(
+        14572,
+        $W()
+          ..dto(this)
+          ..i64(memory)
+          ..i64(numFd));
+    return $r.hnn(Libp2pP2pHostResourceManagerConcreteLimitConfig.$h);
+  }
+}
+
+/// Go: `rcmgr.StatsTraceReporter`.
+final class Libp2pP2pHostResourceManagerStatsTraceReporter implements GoDto {
+  Libp2pP2pHostResourceManagerStatsTraceReporter();
+  Libp2pP2pHostResourceManagerStatsTraceReporter.$dec($R r);
+
+  @override
+  void $enc($W w) {}
+
+  /// Go: `func (rcmgr.StatsTraceReporter).ConsumeEvent(evt rcmgr.TraceEvt)`.
+  void consumeEvent(Libp2pP2pHostResourceManagerTraceEvt evt) {
+    $callSync(
+        14573,
+        $W()
+          ..dto(this)
+          ..dto(evt));
+  }
+
+  /// Go: `func (rcmgr.StatsTraceReporter).ReportSystemLimits(limiter rcmgr.Limiter)`.
+  void reportSystemLimits(Libp2pP2pHostResourceManagerLimiter limiter) {
+    $callSync(
+        14574,
+        $W()
+          ..dto(this)
+          ..h(limiter));
+  }
+}
+
+/// Go: `rcmgr.TraceEvt`.
+///
+/// Fields that do not cross the bridge: `Scope` (*unexported type github.com/libp2p/go-libp2p/p2p/host/resource-manager.scopeClass), `Limit` (type any).
+final class Libp2pP2pHostResourceManagerTraceEvt implements GoDto {
+  Libp2pP2pHostResourceManagerTraceEvt(
+      {String? time,
+      String? type,
+      String? name,
+      int? priority,
+      int? delta,
+      int? deltaIn,
+      int? deltaOut,
+      int? memory,
+      int? streamsIn,
+      int? streamsOut,
+      int? connsIn,
+      int? connsOut,
+      int? fd})
+      : time = time ?? '',
+        type = type ?? '',
+        name = name ?? '',
+        priority = priority ?? 0,
+        delta = delta ?? 0,
+        deltaIn = deltaIn ?? 0,
+        deltaOut = deltaOut ?? 0,
+        memory = memory ?? 0,
+        streamsIn = streamsIn ?? 0,
+        streamsOut = streamsOut ?? 0,
+        connsIn = connsIn ?? 0,
+        connsOut = connsOut ?? 0,
+        fd = fd ?? 0;
+
+  Libp2pP2pHostResourceManagerTraceEvt.$dec($R r)
+      : time = r.str(),
+        type = r.str(),
+        name = r.str(),
+        priority = r.i64(),
+        delta = r.i64(),
+        deltaIn = r.i64(),
+        deltaOut = r.i64(),
+        memory = r.i64(),
+        streamsIn = r.i64(),
+        streamsOut = r.i64(),
+        connsIn = r.i64(),
+        connsOut = r.i64(),
+        fd = r.i64();
+
+  /// Go: `Time`.
+  String time;
+
+  /// Go: `Type`.
+  String type;
+
+  /// Go: `Name`.
+  String name;
+
+  /// Go: `Priority`.
+  int priority;
+
+  /// Go: `Delta`.
+  int delta;
+
+  /// Go: `DeltaIn`.
+  int deltaIn;
+
+  /// Go: `DeltaOut`.
+  int deltaOut;
+
+  /// Go: `Memory`.
+  int memory;
+
+  /// Go: `StreamsIn`.
+  int streamsIn;
+
+  /// Go: `StreamsOut`.
+  int streamsOut;
+
+  /// Go: `ConnsIn`.
+  int connsIn;
+
+  /// Go: `ConnsOut`.
+  int connsOut;
+
+  /// Go: `FD`.
+  int fd;
+
+  @override
+  void $enc($W w) {
+    w
+      ..str(time)
+      ..str(type)
+      ..str(name)
+      ..i64(priority)
+      ..i64(delta)
+      ..i64(deltaIn)
+      ..i64(deltaOut)
+      ..i64(memory)
+      ..i64(streamsIn)
+      ..i64(streamsOut)
+      ..i64(connsIn)
+      ..i64(connsOut)
+      ..i64(fd);
+  }
+}
+
+/// Go: `rcmgr.TraceReporter` (handle).
+class Libp2pP2pHostResourceManagerTraceReporter extends GoHandle
+    with Libp2pP2pHostResourceManagerTraceReporter$ {
+  Libp2pP2pHostResourceManagerTraceReporter.$h(super.$h);
+}
+
+/// The methods of [Libp2pP2pHostResourceManagerTraceReporter], mixed into every class Go also accepts as one.
+mixin Libp2pP2pHostResourceManagerTraceReporter$ on GoHandle {
+  /// Go: `func (rcmgr.TraceReporter).ConsumeEvent(rcmgr.TraceEvt)`.
+  void consumeEvent(Libp2pP2pHostResourceManagerTraceEvt traceEvt) {
+    $callSync(
+        14575,
+        $W()
+          ..h(this)
+          ..dto(traceEvt));
+  }
 }
 
 /// Go: `rcmgr.ErrMemoryLimitExceeded`: an error. Thrown as this class when it is the outermost
@@ -652,6 +1481,140 @@ class Libp2pP2pHostResourceManagerErrStreamOrConnLimitExceeded
 
   @override
   String toString() => 'rcmgr.ErrStreamOrConnLimitExceeded: $message';
+}
+
+/// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/host/resource-manager` (`go.libp2p.libp2p.p2p.host.resourceManager`).
+extension GoLibp2pLibp2pP2pHostResourceManagerApi
+    on GoLibp2pLibp2pP2pHostResourceManager {
+  /// Go: `var rcmgr.DefaultLimits rcmgr.ScalingLimitConfig`.
+  Libp2pP2pHostResourceManagerScalingLimitConfig get defaultLimits {
+    final $r = $callSync(14508);
+    return $r.p()
+        ? Libp2pP2pHostResourceManagerScalingLimitConfig.$dec($r)
+        : $nil();
+  }
+
+  /// Go: `var rcmgr.DefaultNetworkPrefixLimitV4 []rcmgr.NetworkPrefixLimit`.
+  List<Libp2pP2pHostResourceManagerNetworkPrefixLimit>
+      get defaultNetworkPrefixLimitV4 {
+    final $r = $callSync(14509);
+    return $r.list(() => $r.p()
+        ? Libp2pP2pHostResourceManagerNetworkPrefixLimit.$dec($r)
+        : $nil());
+  }
+
+  /// Go: `var rcmgr.DefaultNetworkPrefixLimitV6 []rcmgr.NetworkPrefixLimit`.
+  List<Libp2pP2pHostResourceManagerNetworkPrefixLimit>
+      get defaultNetworkPrefixLimitV6 {
+    final $r = $callSync(14510);
+    return $r.list(() => $r.p()
+        ? Libp2pP2pHostResourceManagerNetworkPrefixLimit.$dec($r)
+        : $nil());
+  }
+
+  /// Go: `func rcmgr.GetAllowlist(rcmgr network.ResourceManager) *rcmgr.Allowlist`.
+  Libp2pP2pHostResourceManagerAllowlist getAllowlist(
+      $network.Libp2pCoreNetworkResourceManager rcmgr) {
+    final $r = $callSync(14511, $W()..h(rcmgr));
+    return $r.hnn(Libp2pP2pHostResourceManagerAllowlist.$h);
+  }
+
+  /// Go: `var rcmgr.InfiniteLimits rcmgr.ConcreteLimitConfig`.
+  Libp2pP2pHostResourceManagerConcreteLimitConfig get infiniteLimits {
+    final $r = $callSync(14512);
+    return $r.hnn(Libp2pP2pHostResourceManagerConcreteLimitConfig.$h);
+  }
+
+  /// Go: `func rcmgr.IsConnScope(name string) bool`.
+  bool isConnScope(String name) {
+    final $r = $callSync(14513, $W()..str(name));
+    return $r.b();
+  }
+
+  /// Go: `func rcmgr.IsSpan(name string) bool`.
+  bool isSpan(String name) {
+    final $r = $callSync(14514, $W()..str(name));
+    return $r.b();
+  }
+
+  /// Go: `func rcmgr.IsStreamScope(name string) bool`.
+  bool isStreamScope(String name) {
+    final $r = $callSync(14515, $W()..str(name));
+    return $r.b();
+  }
+
+  /// Go: `func rcmgr.IsSystemScope(name string) bool`.
+  bool isSystemScope(String name) {
+    final $r = $callSync(14516, $W()..str(name));
+    return $r.b();
+  }
+
+  /// Go: `func rcmgr.IsTransientScope(name string) bool`.
+  bool isTransientScope(String name) {
+    final $r = $callSync(14517, $W()..str(name));
+    return $r.b();
+  }
+
+  /// Go: `func rcmgr.MustRegisterWith(reg prometheus.Registerer)`.
+  void mustRegisterWith($prometheus.ClientGolangPrometheusRegisterer reg) {
+    $callSync(14549, $W()..h(reg));
+  }
+
+  /// Go: `func rcmgr.NewDefaultLimiterFromJSON(in io.Reader) (rcmgr.Limiter, error)`.
+  Libp2pP2pHostResourceManagerLimiter newDefaultLimiterFromJson(Object in$) {
+    final $r = $callSync(14550, $W()..reader(in$));
+    return $r.hnn(Libp2pP2pHostResourceManagerLimiter.$h);
+  }
+
+  /// Go: `func rcmgr.NewFixedLimiter(conf rcmgr.ConcreteLimitConfig) rcmgr.Limiter`.
+  Libp2pP2pHostResourceManagerLimiter newFixedLimiter(
+      Libp2pP2pHostResourceManagerConcreteLimitConfig conf) {
+    final $r = $callSync(14551, $W()..h(conf));
+    return $r.hnn(Libp2pP2pHostResourceManagerLimiter.$h);
+  }
+
+  /// Go: `func rcmgr.NewLimiterFromJSON(in io.Reader, defaults rcmgr.ConcreteLimitConfig) (rcmgr.Limiter, error)`.
+  Libp2pP2pHostResourceManagerLimiter newLimiterFromJson(
+      Object in$, Libp2pP2pHostResourceManagerConcreteLimitConfig defaults) {
+    final $r = $callSync(
+        14552,
+        $W()
+          ..reader(in$)
+          ..h(defaults));
+    return $r.hnn(Libp2pP2pHostResourceManagerLimiter.$h);
+  }
+
+  /// Go: `func rcmgr.NewResourceManager(limits rcmgr.Limiter, opts ...rcmgr.Option) (network.ResourceManager, error)`.
+  $network.Libp2pCoreNetworkResourceManager newResourceManager(
+      Libp2pP2pHostResourceManagerLimiter limits,
+      [List<Libp2pP2pHostResourceManagerOption> opts = const []]) {
+    final $r = $callSync(
+        14553,
+        $W()
+          ..h(limits)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+    return $r.hnn($network.Libp2pCoreNetworkResourceManager.$h);
+  }
+
+  /// Go: `func rcmgr.NewStatsTraceReporter() (rcmgr.StatsTraceReporter, error)`.
+  Libp2pP2pHostResourceManagerStatsTraceReporter newStatsTraceReporter() {
+    final $r = $callSync(14554);
+    return $r.p()
+        ? Libp2pP2pHostResourceManagerStatsTraceReporter.$dec($r)
+        : $nil();
+  }
+
+  /// Go: `func rcmgr.ParseProtocolScopeName(name string) string`.
+  String parseProtocolScopeName(String name) {
+    final $r = $callSync(14555, $W()..str(name));
+    return $r.str();
+  }
+
+  /// Go: `func rcmgr.PeerStrInScopeName(name string) string`.
+  String peerStrInScopeName(String name) {
+    final $r = $callSync(14559, $W()..str(name));
+    return $r.str();
+  }
 }
 
 /// Go: the constants of a named type of `github.com/libp2p/go-libp2p/p2p/host/resource-manager` (`go.libp2p.libp2p.p2p.host.resourceManager.enums`).
@@ -710,4 +1673,57 @@ extension GoLibp2pLibp2pP2pHostResourceManagerEnumsApi
 
   /// Go: `const rcmgr.Unlimited64 rcmgr.LimitVal64`.
   int get unlimited64 => -1;
+}
+
+/// Go: the option constructors of `github.com/libp2p/go-libp2p/p2p/host/resource-manager` (`go.libp2p.libp2p.p2p.host.resourceManager.options`).
+extension GoLibp2pLibp2pP2pHostResourceManagerOptionsApi
+    on GoLibp2pLibp2pP2pHostResourceManagerOptions {
+  /// Go: `resource-manager.WithAllowlistedMultiaddrs`.
+  Libp2pP2pHostResourceManagerOption withAllowlistedMultiaddrs(
+          List<$multiaddr.Multiaddr> mas) =>
+      Libp2pP2pHostResourceManagerOption.$(
+          0, (w) => w..list(mas, (w0, e0) => w0.val(e0)));
+
+  /// Go: `resource-manager.WithConnRateLimiters`.
+  Libp2pP2pHostResourceManagerOption withConnRateLimiters(
+          $rate.Libp2pXRateLimiter connRateLimiter) =>
+      Libp2pP2pHostResourceManagerOption.$(1, (w) => w..h(connRateLimiter));
+
+  /// Go: `resource-manager.WithLimitPerSubnet`.
+  Libp2pP2pHostResourceManagerOption withLimitPerSubnet(
+          List<Libp2pP2pHostResourceManagerConnLimitPerSubnet> ipv4,
+          List<Libp2pP2pHostResourceManagerConnLimitPerSubnet> ipv6) =>
+      Libp2pP2pHostResourceManagerOption.$(
+          2,
+          (w) => w
+            ..list(ipv4, (w0, e0) => w0.dto(e0))
+            ..list(ipv6, (w0, e0) => w0.dto(e0)));
+
+  /// Go: `resource-manager.WithMetricsDisabled`.
+  Libp2pP2pHostResourceManagerOption withMetricsDisabled() =>
+      Libp2pP2pHostResourceManagerOption.$(4, (_) {});
+
+  /// Go: `resource-manager.WithMetrics`.
+  Libp2pP2pHostResourceManagerOption withMetrics(
+          Libp2pP2pHostResourceManagerMetricsReporter reporter) =>
+      Libp2pP2pHostResourceManagerOption.$(3, (w) => w..h(reporter));
+
+  /// Go: `resource-manager.WithNetworkPrefixLimit`.
+  Libp2pP2pHostResourceManagerOption withNetworkPrefixLimit(
+          List<Libp2pP2pHostResourceManagerNetworkPrefixLimit> ipv4,
+          List<Libp2pP2pHostResourceManagerNetworkPrefixLimit> ipv6) =>
+      Libp2pP2pHostResourceManagerOption.$(
+          5,
+          (w) => w
+            ..list(ipv4, (w0, e0) => w0.dto(e0))
+            ..list(ipv6, (w0, e0) => w0.dto(e0)));
+
+  /// Go: `resource-manager.WithTraceReporter`.
+  Libp2pP2pHostResourceManagerOption withTraceReporter(
+          Libp2pP2pHostResourceManagerTraceReporter reporter) =>
+      Libp2pP2pHostResourceManagerOption.$(7, (w) => w..h(reporter));
+
+  /// Go: `resource-manager.WithTrace`.
+  Libp2pP2pHostResourceManagerOption withTrace(String path) =>
+      Libp2pP2pHostResourceManagerOption.$(6, (w) => w..str(path));
 }

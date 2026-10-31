@@ -2,8 +2,12 @@
 // Go: crypto/elliptic
 library;
 
+import 'dart:typed_data';
+
+import 'package:p2p_ffi/src/go.dart' show GoCryptoElliptic;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto/ecdsa.dart' as $ecdsa;
+import 'package:p2p_ffi/go/math/big.dart' as $big;
 
 /// Go: `elliptic.Curve` (handle).
 class CryptoEllipticCurve extends GoHandle with CryptoEllipticCurve$ {
@@ -12,9 +16,314 @@ class CryptoEllipticCurve extends GoHandle with CryptoEllipticCurve$ {
 
 /// The methods of [CryptoEllipticCurve], mixed into every class Go also accepts as one.
 mixin CryptoEllipticCurve$ on GoHandle {
-  /// Go: type assertion `x.(ecdsa.PublicKey)`: null if the object is not one.
+  /// Go: `func (elliptic.Curve).Add(x1 *big.Int, y1 *big.Int, x2 *big.Int, y2 *big.Int) (x *big.Int, y *big.Int)`.
+  @Deprecated("this is a low-level unsafe API.")
+  ($big.MathBigInt, $big.MathBigInt) add($big.MathBigInt x1, $big.MathBigInt y1,
+      $big.MathBigInt x2, $big.MathBigInt y2) {
+    final $r = $callSync(
+        3203,
+        $W()
+          ..h(this)
+          ..h(x1)
+          ..h(y1)
+          ..h(x2)
+          ..h(y2));
+    return ($r.hnn($big.MathBigInt.$h), $r.hnn($big.MathBigInt.$h));
+  }
+
+  /// Go: `func (elliptic.Curve).Double(x1 *big.Int, y1 *big.Int) (x *big.Int, y *big.Int)`.
+  @Deprecated("this is a low-level unsafe API.")
+  ($big.MathBigInt, $big.MathBigInt) double$(
+      $big.MathBigInt x1, $big.MathBigInt y1) {
+    final $r = $callSync(
+        3204,
+        $W()
+          ..h(this)
+          ..h(x1)
+          ..h(y1));
+    return ($r.hnn($big.MathBigInt.$h), $r.hnn($big.MathBigInt.$h));
+  }
+
+  /// Go: `func (elliptic.Curve).IsOnCurve(x *big.Int, y *big.Int) bool`.
+  @Deprecated(
+      "this is a low-level unsafe API. For ECDH, use the crypto/ecdh package. The NewPublicKey methods of NIST curves in crypto/ecdh accept the same encoding as the Unmarshal function, and perform on-curve checks.")
+  bool isOnCurve($big.MathBigInt x, $big.MathBigInt y) {
+    final $r = $callSync(
+        3205,
+        $W()
+          ..h(this)
+          ..h(x)
+          ..h(y));
+    return $r.b();
+  }
+
+  /// Go: `func (elliptic.Curve).Params() *elliptic.CurveParams`.
+  CryptoEllipticCurveParams params() {
+    final $r = $callSync(3206, $W()..h(this));
+    return $r.p() ? CryptoEllipticCurveParams.$dec($r) : $nil();
+  }
+
+  /// Go: `func (elliptic.Curve).ScalarBaseMult(k []byte) (x *big.Int, y *big.Int)`.
+  @Deprecated(
+      "this is a low-level unsafe API. For ECDH, use the crypto/ecdh package. Most uses of ScalarBaseMult can be replaced by a call to the PrivateKey.PublicKey method in crypto/ecdh.")
+  ($big.MathBigInt, $big.MathBigInt) scalarBaseMult(Uint8List k) {
+    final $r = $callSync(
+        3207,
+        $W()
+          ..h(this)
+          ..bytes(k));
+    return ($r.hnn($big.MathBigInt.$h), $r.hnn($big.MathBigInt.$h));
+  }
+
+  /// Go: `func (elliptic.Curve).ScalarMult(x1 *big.Int, y1 *big.Int, k []byte) (x *big.Int, y *big.Int)`.
+  @Deprecated(
+      "this is a low-level unsafe API. For ECDH, use the crypto/ecdh package. Most uses of ScalarMult can be replaced by a call to the ECDH methods of NIST curves in crypto/ecdh.")
+  ($big.MathBigInt, $big.MathBigInt) scalarMult(
+      $big.MathBigInt x1, $big.MathBigInt y1, Uint8List k) {
+    final $r = $callSync(
+        3208,
+        $W()
+          ..h(this)
+          ..h(x1)
+          ..h(y1)
+          ..bytes(k));
+    return ($r.hnn($big.MathBigInt.$h), $r.hnn($big.MathBigInt.$h));
+  }
+
+  /// Go: type assertion `x.(*ecdsa.PublicKey)`: null if the object is not one.
   $ecdsa.CryptoEcdsaPublicKey? asCryptoEcdsaPublicKey() {
-    final $r = $callSync(66, $W()..h(this));
+    final $r = $callSync(268, $W()..h(this));
     return $r.hn($ecdsa.CryptoEcdsaPublicKey.$h);
+  }
+}
+
+/// Go: `elliptic.CurveParams`.
+final class CryptoEllipticCurveParams implements GoDto {
+  CryptoEllipticCurveParams(
+      {$big.MathBigInt? p,
+      $big.MathBigInt? n,
+      $big.MathBigInt? b,
+      $big.MathBigInt? gx,
+      $big.MathBigInt? gy,
+      int? bitSize,
+      String? name})
+      : p = p,
+        n = n,
+        b = b,
+        gx = gx,
+        gy = gy,
+        bitSize = bitSize ?? 0,
+        name = name ?? '';
+
+  CryptoEllipticCurveParams.$dec($R r)
+      : p = r.hn($big.MathBigInt.$h),
+        n = r.hn($big.MathBigInt.$h),
+        b = r.hn($big.MathBigInt.$h),
+        gx = r.hn($big.MathBigInt.$h),
+        gy = r.hn($big.MathBigInt.$h),
+        bitSize = r.i64(),
+        name = r.str();
+
+  /// Go: `P`.
+  $big.MathBigInt? p;
+
+  /// Go: `N`.
+  $big.MathBigInt? n;
+
+  /// Go: `B`.
+  $big.MathBigInt? b;
+
+  /// Go: `Gx`.
+  $big.MathBigInt? gx;
+
+  /// Go: `Gy`.
+  $big.MathBigInt? gy;
+
+  /// Go: `BitSize`.
+  int bitSize;
+
+  /// Go: `Name`.
+  String name;
+
+  @override
+  void $enc($W w) {
+    w
+      ..h(p)
+      ..h(n)
+      ..h(b)
+      ..h(gx)
+      ..h(gy)
+      ..i64(bitSize)
+      ..str(name);
+  }
+
+  /// Go: `func (*elliptic.CurveParams).Add(x1 *big.Int, y1 *big.Int, x2 *big.Int, y2 *big.Int) (*big.Int, *big.Int)`.
+  @Deprecated(
+      "the [CurveParams] methods are deprecated and are not guaranteed to provide any security property. For ECDH, use the [crypto/ecdh] package. For ECDSA, use the [crypto/ecdsa] package with a [Curve] value returned directly from [P224], [P256], [P384], or [P521].")
+  ($big.MathBigInt, $big.MathBigInt) add($big.MathBigInt x1, $big.MathBigInt y1,
+      $big.MathBigInt x2, $big.MathBigInt y2) {
+    final $r = $callSync(
+        3209,
+        $W()
+          ..dto(this)
+          ..h(x1)
+          ..h(y1)
+          ..h(x2)
+          ..h(y2));
+    return ($r.hnn($big.MathBigInt.$h), $r.hnn($big.MathBigInt.$h));
+  }
+
+  /// Go: `func (*elliptic.CurveParams).Double(x1 *big.Int, y1 *big.Int) (*big.Int, *big.Int)`.
+  @Deprecated(
+      "the [CurveParams] methods are deprecated and are not guaranteed to provide any security property. For ECDH, use the [crypto/ecdh] package. For ECDSA, use the [crypto/ecdsa] package with a [Curve] value returned directly from [P224], [P256], [P384], or [P521].")
+  ($big.MathBigInt, $big.MathBigInt) double$(
+      $big.MathBigInt x1, $big.MathBigInt y1) {
+    final $r = $callSync(
+        3210,
+        $W()
+          ..dto(this)
+          ..h(x1)
+          ..h(y1));
+    return ($r.hnn($big.MathBigInt.$h), $r.hnn($big.MathBigInt.$h));
+  }
+
+  /// Go: `func (*elliptic.CurveParams).IsOnCurve(x *big.Int, y *big.Int) bool`.
+  @Deprecated(
+      "the [CurveParams] methods are deprecated and are not guaranteed to provide any security property. For ECDH, use the [crypto/ecdh] package. For ECDSA, use the [crypto/ecdsa] package with a [Curve] value returned directly from [P224], [P256], [P384], or [P521].")
+  bool isOnCurve($big.MathBigInt x, $big.MathBigInt y) {
+    final $r = $callSync(
+        3211,
+        $W()
+          ..dto(this)
+          ..h(x)
+          ..h(y));
+    return $r.b();
+  }
+
+  /// Go: `func (*elliptic.CurveParams).Params() *elliptic.CurveParams`.
+  CryptoEllipticCurveParams params() {
+    final $r = $callSync(3212, $W()..dto(this));
+    return $r.p() ? CryptoEllipticCurveParams.$dec($r) : $nil();
+  }
+
+  /// Go: `func (*elliptic.CurveParams).ScalarBaseMult(k []byte) (*big.Int, *big.Int)`.
+  @Deprecated(
+      "the [CurveParams] methods are deprecated and are not guaranteed to provide any security property. For ECDH, use the [crypto/ecdh] package. For ECDSA, use the [crypto/ecdsa] package with a [Curve] value returned directly from [P224], [P256], [P384], or [P521].")
+  ($big.MathBigInt, $big.MathBigInt) scalarBaseMult(Uint8List k) {
+    final $r = $callSync(
+        3213,
+        $W()
+          ..dto(this)
+          ..bytes(k));
+    return ($r.hnn($big.MathBigInt.$h), $r.hnn($big.MathBigInt.$h));
+  }
+
+  /// Go: `func (*elliptic.CurveParams).ScalarMult(Bx *big.Int, By *big.Int, k []byte) (*big.Int, *big.Int)`.
+  @Deprecated(
+      "the [CurveParams] methods are deprecated and are not guaranteed to provide any security property. For ECDH, use the [crypto/ecdh] package. For ECDSA, use the [crypto/ecdsa] package with a [Curve] value returned directly from [P224], [P256], [P384], or [P521].")
+  ($big.MathBigInt, $big.MathBigInt) scalarMult(
+      $big.MathBigInt bx, $big.MathBigInt by, Uint8List k) {
+    final $r = $callSync(
+        3214,
+        $W()
+          ..dto(this)
+          ..h(bx)
+          ..h(by)
+          ..bytes(k));
+    return ($r.hnn($big.MathBigInt.$h), $r.hnn($big.MathBigInt.$h));
+  }
+}
+
+/// Go: the package-level members of `crypto/elliptic` (`go.crypto.elliptic`).
+extension GoCryptoEllipticApi on GoCryptoElliptic {
+  /// Go: `func elliptic.GenerateKey(curve elliptic.Curve, rand io.Reader) (priv []byte, x *big.Int, y *big.Int, err error)`.
+  @Deprecated(
+      "for ECDH, use the GenerateKey methods of the [crypto/ecdh] package; for ECDSA, use the GenerateKey function of the crypto/ecdsa package.")
+  (Uint8List, $big.MathBigInt, $big.MathBigInt) generateKey(
+      CryptoEllipticCurve curve, Object rand) {
+    final $r = $callSync(
+        3215,
+        $W()
+          ..h(curve)
+          ..reader(rand));
+    return (
+      $r.bytes() ?? Uint8List(0),
+      $r.hnn($big.MathBigInt.$h),
+      $r.hnn($big.MathBigInt.$h)
+    );
+  }
+
+  /// Go: `func elliptic.Marshal(curve elliptic.Curve, x *big.Int, y *big.Int) []byte`.
+  @Deprecated(
+      "for ECDH, use the crypto/ecdh package. This function returns an encoding equivalent to that of PublicKey.Bytes in crypto/ecdh.")
+  Uint8List marshal(
+      CryptoEllipticCurve curve, $big.MathBigInt x, $big.MathBigInt y) {
+    final $r = $callSync(
+        3216,
+        $W()
+          ..h(curve)
+          ..h(x)
+          ..h(y));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func elliptic.MarshalCompressed(curve elliptic.Curve, x *big.Int, y *big.Int) []byte`.
+  Uint8List marshalCompressed(
+      CryptoEllipticCurve curve, $big.MathBigInt x, $big.MathBigInt y) {
+    final $r = $callSync(
+        3217,
+        $W()
+          ..h(curve)
+          ..h(x)
+          ..h(y));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func elliptic.P224() elliptic.Curve`.
+  CryptoEllipticCurve p224() {
+    final $r = $callSync(3218);
+    return $r.hnn(CryptoEllipticCurve.$h);
+  }
+
+  /// Go: `func elliptic.P256() elliptic.Curve`.
+  CryptoEllipticCurve p256() {
+    final $r = $callSync(3219);
+    return $r.hnn(CryptoEllipticCurve.$h);
+  }
+
+  /// Go: `func elliptic.P384() elliptic.Curve`.
+  CryptoEllipticCurve p384() {
+    final $r = $callSync(3220);
+    return $r.hnn(CryptoEllipticCurve.$h);
+  }
+
+  /// Go: `func elliptic.P521() elliptic.Curve`.
+  CryptoEllipticCurve p521() {
+    final $r = $callSync(3221);
+    return $r.hnn(CryptoEllipticCurve.$h);
+  }
+
+  /// Go: `func elliptic.Unmarshal(curve elliptic.Curve, data []byte) (x *big.Int, y *big.Int)`.
+  @Deprecated(
+      "for ECDH, use the crypto/ecdh package. This function accepts an encoding equivalent to that of the NewPublicKey methods in crypto/ecdh.")
+  ($big.MathBigInt, $big.MathBigInt) unmarshal(
+      CryptoEllipticCurve curve, Uint8List data) {
+    final $r = $callSync(
+        3222,
+        $W()
+          ..h(curve)
+          ..bytes(data));
+    return ($r.hnn($big.MathBigInt.$h), $r.hnn($big.MathBigInt.$h));
+  }
+
+  /// Go: `func elliptic.UnmarshalCompressed(curve elliptic.Curve, data []byte) (x *big.Int, y *big.Int)`.
+  ($big.MathBigInt, $big.MathBigInt) unmarshalCompressed(
+      CryptoEllipticCurve curve, Uint8List data) {
+    final $r = $callSync(
+        3223,
+        $W()
+          ..h(curve)
+          ..bytes(data));
+    return ($r.hnn($big.MathBigInt.$h), $r.hnn($big.MathBigInt.$h));
   }
 }

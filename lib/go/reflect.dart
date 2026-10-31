@@ -2,8 +2,207 @@
 // Go: reflect
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoReflectEnums;
+import 'dart:async';
+import 'dart:typed_data';
+
+import 'package:p2p_ffi/src/go.dart' show GoReflect, GoReflectEnums;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
+import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
+
+/// Go: `reflect.MapIter` (handle).
+class ReflectMapIter extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
+  ReflectMapIter.$h(super.$h) : super.$h();
+
+  /// Go: `func (*reflect.MapIter).Key() reflect.Value`.
+  ReflectValue key() {
+    final $r = $callSync(27008, $W()..h(this));
+    return $r.hnn(ReflectValue.$h);
+  }
+
+  /// Go: `func (*reflect.MapIter).Next() bool`.
+  bool next() {
+    final $r = $callSync(27009, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (*reflect.MapIter).Reset(v reflect.Value)`.
+  void reset(ReflectValue v) {
+    $callSync(
+        27010,
+        $W()
+          ..h(this)
+          ..h(v));
+  }
+
+  /// Go: `func (*reflect.MapIter).Value() reflect.Value`.
+  ReflectValue value$() {
+    final $r = $callSync(27011, $W()..h(this));
+    return $r.hnn(ReflectValue.$h);
+  }
+}
+
+/// Go: `reflect.Method`.
+final class ReflectMethod implements GoDto {
+  ReflectMethod(
+      {String? name,
+      String? pkgPath,
+      ReflectType? type,
+      ReflectValue? func,
+      int? index})
+      : name = name ?? '',
+        pkgPath = pkgPath ?? '',
+        type = type,
+        func = func,
+        index = index ?? 0;
+
+  ReflectMethod.$dec($R r)
+      : name = r.str(),
+        pkgPath = r.str(),
+        type = r.hn(ReflectType.$h),
+        func = r.hn(ReflectValue.$h),
+        index = r.i64();
+
+  /// Go: `Name`.
+  String name;
+
+  /// Go: `PkgPath`.
+  String pkgPath;
+
+  /// Go: `Type`.
+  ReflectType? type;
+
+  /// Go: `Func`.
+  ReflectValue? func;
+
+  /// Go: `Index`.
+  int index;
+
+  @override
+  void $enc($W w) {
+    w
+      ..str(name)
+      ..str(pkgPath)
+      ..h(type)
+      ..h(func)
+      ..i64(index);
+  }
+
+  /// Go: `func (reflect.Method).IsExported() bool`.
+  bool isExported() {
+    final $r = $callSync(27013, $W()..dto(this));
+    return $r.b();
+  }
+}
+
+/// Go: `reflect.SelectCase`.
+final class ReflectSelectCase implements GoDto {
+  ReflectSelectCase({int? dir, ReflectValue? chan, ReflectValue? send})
+      : dir = dir ?? 0,
+        chan = chan,
+        send = send;
+
+  ReflectSelectCase.$dec($R r)
+      : dir = r.i64(),
+        chan = r.hn(ReflectValue.$h),
+        send = r.hn(ReflectValue.$h);
+
+  /// Go: `Dir`.
+  int dir;
+
+  /// Go: `Chan`.
+  ReflectValue? chan;
+
+  /// Go: `Send`.
+  ReflectValue? send;
+
+  @override
+  void $enc($W w) {
+    w
+      ..i64(dir)
+      ..h(chan)
+      ..h(send);
+  }
+}
+
+/// Go: `reflect.StructField`.
+///
+/// Fields that do not cross the bridge: `Offset` (basic type uintptr).
+final class ReflectStructField implements GoDto {
+  ReflectStructField(
+      {String? name,
+      String? pkgPath,
+      ReflectType? type,
+      String? tag,
+      List<int>? index,
+      bool? anonymous})
+      : name = name ?? '',
+        pkgPath = pkgPath ?? '',
+        type = type,
+        tag = tag ?? '',
+        index = index ?? [],
+        anonymous = anonymous ?? false;
+
+  ReflectStructField.$dec($R r)
+      : name = r.str(),
+        pkgPath = r.str(),
+        type = r.hn(ReflectType.$h),
+        tag = r.str(),
+        index = r.list(() => r.i64()),
+        anonymous = r.b();
+
+  /// Go: `Name`.
+  String name;
+
+  /// Go: `PkgPath`.
+  String pkgPath;
+
+  /// Go: `Type`.
+  ReflectType? type;
+
+  /// Go: `Tag`.
+  String tag;
+
+  /// Go: `Index`.
+  List<int> index;
+
+  /// Go: `Anonymous`.
+  bool anonymous;
+
+  @override
+  void $enc($W w) {
+    w
+      ..str(name)
+      ..str(pkgPath)
+      ..h(type)
+      ..str(tag)
+      ..list(index, (w0, e0) => w0.i64(e0))
+      ..b(anonymous);
+  }
+
+  /// Go: `func (reflect.StructField).IsExported() bool`.
+  bool isExported() {
+    final $r = $callSync(27019, $W()..dto(this));
+    return $r.b();
+  }
+}
 
 /// Go: `reflect.Type` (handle).
 class ReflectType extends GoHandle with ReflectType$ {
@@ -11,7 +210,819 @@ class ReflectType extends GoHandle with ReflectType$ {
 }
 
 /// The methods of [ReflectType], mixed into every class Go also accepts as one.
-mixin ReflectType$ on GoHandle {}
+mixin ReflectType$ on GoHandle {
+  /// Go: `func (reflect.Type).Align() int`.
+  int align() {
+    final $r = $callSync(27021, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (reflect.Type).AssignableTo(u reflect.Type) bool`.
+  bool assignableTo(ReflectType u) {
+    final $r = $callSync(
+        27022,
+        $W()
+          ..h(this)
+          ..h(u));
+    return $r.b();
+  }
+
+  /// Go: `func (reflect.Type).Bits() int`.
+  int bits() {
+    final $r = $callSync(27023, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (reflect.Type).CanSeq() bool`.
+  bool canSeq() {
+    final $r = $callSync(27024, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (reflect.Type).CanSeq2() bool`.
+  bool canSeq2() {
+    final $r = $callSync(27025, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (reflect.Type).ChanDir() reflect.ChanDir`.
+  int chanDir() {
+    final $r = $callSync(27026, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (reflect.Type).Comparable() bool`.
+  bool comparable() {
+    final $r = $callSync(27027, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (reflect.Type).ConvertibleTo(u reflect.Type) bool`.
+  bool convertibleTo(ReflectType u) {
+    final $r = $callSync(
+        27028,
+        $W()
+          ..h(this)
+          ..h(u));
+    return $r.b();
+  }
+
+  /// Go: `func (reflect.Type).Elem() reflect.Type`.
+  ReflectType elem() {
+    final $r = $callSync(27029, $W()..h(this));
+    return $r.hnn(ReflectType.$h);
+  }
+
+  /// Go: `func (reflect.Type).Field(i int) reflect.StructField`.
+  ReflectStructField field(int i) {
+    final $r = $callSync(
+        27030,
+        $W()
+          ..h(this)
+          ..i64(i));
+    return $r.p() ? ReflectStructField.$dec($r) : $nil();
+  }
+
+  /// Go: `func (reflect.Type).FieldAlign() int`.
+  int fieldAlign() {
+    final $r = $callSync(27031, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (reflect.Type).FieldByIndex(index []int) reflect.StructField`.
+  ReflectStructField fieldByIndex(List<int> index) {
+    final $r = $callSync(
+        27032,
+        $W()
+          ..h(this)
+          ..list(index, (w0, e0) => w0.i64(e0)));
+    return $r.p() ? ReflectStructField.$dec($r) : $nil();
+  }
+
+  /// Go: `func (reflect.Type).FieldByName(name string) (reflect.StructField, bool)`.
+  (ReflectStructField, bool) fieldByName(String name) {
+    final $r = $callSync(
+        27033,
+        $W()
+          ..h(this)
+          ..str(name));
+    return ($r.p() ? ReflectStructField.$dec($r) : $nil(), $r.b());
+  }
+
+  /// Go: `func (reflect.Type).FieldByNameFunc(match func(string) bool) (reflect.StructField, bool)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  ///
+  /// Go calls [match] on the Dart event loop, during the call or
+  /// later for as long as it holds it (nobody checked which), and waits for
+  /// each invocation (a retained callback, WIRE.md).
+  Future<(ReflectStructField, bool)> fieldByNameFunc(
+      FutureOr<bool> Function(String arg0) match) async {
+    final $r = await $call(
+        27034,
+        $W()
+          ..h(this)
+          ..cb((r) => match(r.str()), true));
+    return ($r.p() ? ReflectStructField.$dec($r) : $nil(), $r.b());
+  }
+
+  /// Go: `func (reflect.Type).Implements(u reflect.Type) bool`.
+  bool implements(ReflectType u) {
+    final $r = $callSync(
+        27035,
+        $W()
+          ..h(this)
+          ..h(u));
+    return $r.b();
+  }
+
+  /// Go: `func (reflect.Type).In(i int) reflect.Type`.
+  ReflectType in$(int i) {
+    final $r = $callSync(
+        27036,
+        $W()
+          ..h(this)
+          ..i64(i));
+    return $r.hnn(ReflectType.$h);
+  }
+
+  /// Go: `func (reflect.Type).IsVariadic() bool`.
+  bool isVariadic() {
+    final $r = $callSync(27037, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (reflect.Type).Key() reflect.Type`.
+  ReflectType key() {
+    final $r = $callSync(27038, $W()..h(this));
+    return $r.hnn(ReflectType.$h);
+  }
+
+  /// Go: `func (reflect.Type).Kind() reflect.Kind`.
+  int kind() {
+    final $r = $callSync(27039, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (reflect.Type).Len() int`.
+  int len() {
+    final $r = $callSync(27040, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (reflect.Type).Method(int) reflect.Method`.
+  ReflectMethod method(int arg0) {
+    final $r = $callSync(
+        27041,
+        $W()
+          ..h(this)
+          ..i64(arg0));
+    return $r.p() ? ReflectMethod.$dec($r) : $nil();
+  }
+
+  /// Go: `func (reflect.Type).MethodByName(string) (reflect.Method, bool)`.
+  (ReflectMethod, bool) methodByName(String arg0) {
+    final $r = $callSync(
+        27042,
+        $W()
+          ..h(this)
+          ..str(arg0));
+    return ($r.p() ? ReflectMethod.$dec($r) : $nil(), $r.b());
+  }
+
+  /// Go: `func (reflect.Type).Name() string`.
+  String name() {
+    final $r = $callSync(27043, $W()..h(this));
+    return $r.str();
+  }
+
+  /// Go: `func (reflect.Type).NumField() int`.
+  int numField() {
+    final $r = $callSync(27044, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (reflect.Type).NumIn() int`.
+  int numIn() {
+    final $r = $callSync(27045, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (reflect.Type).NumMethod() int`.
+  int numMethod() {
+    final $r = $callSync(27046, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (reflect.Type).NumOut() int`.
+  int numOut() {
+    final $r = $callSync(27047, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (reflect.Type).Out(i int) reflect.Type`.
+  ReflectType out(int i) {
+    final $r = $callSync(
+        27048,
+        $W()
+          ..h(this)
+          ..i64(i));
+    return $r.hnn(ReflectType.$h);
+  }
+
+  /// Go: `func (reflect.Type).OverflowFloat(x float64) bool`.
+  bool overflowFloat(double x) {
+    final $r = $callSync(
+        27049,
+        $W()
+          ..h(this)
+          ..f64(x));
+    return $r.b();
+  }
+
+  /// Go: `func (reflect.Type).OverflowInt(x int64) bool`.
+  bool overflowInt(int x) {
+    final $r = $callSync(
+        27050,
+        $W()
+          ..h(this)
+          ..i64(x));
+    return $r.b();
+  }
+
+  /// Go: `func (reflect.Type).OverflowUint(x uint64) bool`.
+  bool overflowUint(int x) {
+    final $r = $callSync(
+        27051,
+        $W()
+          ..h(this)
+          ..i64(x));
+    return $r.b();
+  }
+
+  /// Go: `func (reflect.Type).PkgPath() string`.
+  String pkgPath() {
+    final $r = $callSync(27052, $W()..h(this));
+    return $r.str();
+  }
+
+  /// Go: `func (reflect.Type).String() string`.
+  String string() {
+    final $r = $callSync(27053, $W()..h(this));
+    return $r.str();
+  }
+}
+
+/// Go: `reflect.Value` (handle).
+class ReflectValue extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
+  ReflectValue.$h(super.$h) : super.$h();
+
+  /// Go: `func (reflect.Value).Addr() reflect.Value`.
+  ReflectValue addr() {
+    final $r = $callSync(27055, $W()..h(this));
+    return $r.hnn(ReflectValue.$h);
+  }
+
+  /// Go: `func (reflect.Value).Bool() bool`.
+  bool bool$() {
+    final $r = $callSync(27056, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (reflect.Value).Bytes() []byte`.
+  Uint8List bytes() {
+    final $r = $callSync(27057, $W()..h(this));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (reflect.Value).Call(in []reflect.Value) []reflect.Value`.
+  List<ReflectValue> call(List<ReflectValue> in$) {
+    final $r = $callSync(
+        27058,
+        $W()
+          ..h(this)
+          ..list(in$, (w0, e0) => w0.h(e0)));
+    return $r.list(() => $r.hnn(ReflectValue.$h));
+  }
+
+  /// Go: `func (reflect.Value).CallSlice(in []reflect.Value) []reflect.Value`.
+  List<ReflectValue> callSlice(List<ReflectValue> in$) {
+    final $r = $callSync(
+        27059,
+        $W()
+          ..h(this)
+          ..list(in$, (w0, e0) => w0.h(e0)));
+    return $r.list(() => $r.hnn(ReflectValue.$h));
+  }
+
+  /// Go: `func (reflect.Value).CanAddr() bool`.
+  bool canAddr() {
+    final $r = $callSync(27060, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (reflect.Value).CanComplex() bool`.
+  bool canComplex() {
+    final $r = $callSync(27061, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (reflect.Value).CanConvert(t reflect.Type) bool`.
+  bool canConvert(ReflectType t) {
+    final $r = $callSync(
+        27062,
+        $W()
+          ..h(this)
+          ..h(t));
+    return $r.b();
+  }
+
+  /// Go: `func (reflect.Value).CanFloat() bool`.
+  bool canFloat() {
+    final $r = $callSync(27063, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (reflect.Value).CanInt() bool`.
+  bool canInt() {
+    final $r = $callSync(27064, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (reflect.Value).CanInterface() bool`.
+  bool canInterface() {
+    final $r = $callSync(27065, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (reflect.Value).CanSet() bool`.
+  bool canSet() {
+    final $r = $callSync(27066, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (reflect.Value).CanUint() bool`.
+  bool canUint() {
+    final $r = $callSync(27067, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (reflect.Value).Cap() int`.
+  int cap() {
+    final $r = $callSync(27068, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (reflect.Value).Clear()`.
+  void clear() {
+    $callSync(27069, $W()..h(this));
+  }
+
+  /// Go: `func (reflect.Value).Close()`.
+  void close() {
+    $callSync(27070, $W()..h(this));
+  }
+
+  /// Go: `func (reflect.Value).Comparable() (#rv1 bool)`.
+  bool comparable() {
+    final $r = $callSync(27071, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (reflect.Value).Convert(t reflect.Type) reflect.Value`.
+  ReflectValue convert(ReflectType t) {
+    final $r = $callSync(
+        27072,
+        $W()
+          ..h(this)
+          ..h(t));
+    return $r.hnn(ReflectValue.$h);
+  }
+
+  /// Go: `func (reflect.Value).Elem() reflect.Value`.
+  ReflectValue elem() {
+    final $r = $callSync(27073, $W()..h(this));
+    return $r.hnn(ReflectValue.$h);
+  }
+
+  /// Go: `func (reflect.Value).Equal(u reflect.Value) bool`.
+  bool equal(ReflectValue u) {
+    final $r = $callSync(
+        27074,
+        $W()
+          ..h(this)
+          ..h(u));
+    return $r.b();
+  }
+
+  /// Go: `func (reflect.Value).Field(i int) reflect.Value`.
+  ReflectValue field(int i) {
+    final $r = $callSync(
+        27075,
+        $W()
+          ..h(this)
+          ..i64(i));
+    return $r.hnn(ReflectValue.$h);
+  }
+
+  /// Go: `func (reflect.Value).FieldByIndex(index []int) reflect.Value`.
+  ReflectValue fieldByIndex(List<int> index) {
+    final $r = $callSync(
+        27076,
+        $W()
+          ..h(this)
+          ..list(index, (w0, e0) => w0.i64(e0)));
+    return $r.hnn(ReflectValue.$h);
+  }
+
+  /// Go: `func (reflect.Value).FieldByIndexErr(index []int) (reflect.Value, error)`.
+  ReflectValue fieldByIndexErr(List<int> index) {
+    final $r = $callSync(
+        27077,
+        $W()
+          ..h(this)
+          ..list(index, (w0, e0) => w0.i64(e0)));
+    return $r.hnn(ReflectValue.$h);
+  }
+
+  /// Go: `func (reflect.Value).FieldByName(name string) reflect.Value`.
+  ReflectValue fieldByName(String name) {
+    final $r = $callSync(
+        27078,
+        $W()
+          ..h(this)
+          ..str(name));
+    return $r.hnn(ReflectValue.$h);
+  }
+
+  /// Go: `func (reflect.Value).FieldByNameFunc(match func(string) bool) reflect.Value`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  ///
+  /// Go calls [match] on the Dart event loop, during the call or
+  /// later for as long as it holds it (nobody checked which), and waits for
+  /// each invocation (a retained callback, WIRE.md).
+  Future<ReflectValue> fieldByNameFunc(
+      FutureOr<bool> Function(String arg0) match) async {
+    final $r = await $call(
+        27079,
+        $W()
+          ..h(this)
+          ..cb((r) => match(r.str()), true));
+    return $r.hnn(ReflectValue.$h);
+  }
+
+  /// Go: `func (reflect.Value).Float() float64`.
+  double float() {
+    final $r = $callSync(27080, $W()..h(this));
+    return $r.f64();
+  }
+
+  /// Go: `func (reflect.Value).Grow(n int)`.
+  void grow(int n) {
+    $callSync(
+        27081,
+        $W()
+          ..h(this)
+          ..i64(n));
+  }
+
+  /// Go: `func (reflect.Value).Index(i int) reflect.Value`.
+  ReflectValue index(int i) {
+    final $r = $callSync(
+        27082,
+        $W()
+          ..h(this)
+          ..i64(i));
+    return $r.hnn(ReflectValue.$h);
+  }
+
+  /// Go: `func (reflect.Value).Int() int64`.
+  int int$() {
+    final $r = $callSync(27083, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (reflect.Value).Interface() (i any)`.
+  Object? interface() {
+    final $r = $callSync(27084, $W()..h(this));
+    return $r.any();
+  }
+
+  /// Go: `func (reflect.Value).IsNil() bool`.
+  bool isNil() {
+    final $r = $callSync(27085, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (reflect.Value).IsValid() bool`.
+  bool isValid() {
+    final $r = $callSync(27086, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (reflect.Value).IsZero() bool`.
+  bool isZero() {
+    final $r = $callSync(27087, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (reflect.Value).Kind() reflect.Kind`.
+  int kind() {
+    final $r = $callSync(27088, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (reflect.Value).Len() int`.
+  int len() {
+    final $r = $callSync(27089, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (reflect.Value).MapIndex(key reflect.Value) reflect.Value`.
+  ReflectValue mapIndex(ReflectValue key) {
+    final $r = $callSync(
+        27090,
+        $W()
+          ..h(this)
+          ..h(key));
+    return $r.hnn(ReflectValue.$h);
+  }
+
+  /// Go: `func (reflect.Value).MapKeys() []reflect.Value`.
+  List<ReflectValue> mapKeys() {
+    final $r = $callSync(27091, $W()..h(this));
+    return $r.list(() => $r.hnn(ReflectValue.$h));
+  }
+
+  /// Go: `func (reflect.Value).MapRange() *reflect.MapIter`.
+  ReflectMapIter mapRange() {
+    final $r = $callSync(27092, $W()..h(this));
+    return $r.hnn(ReflectMapIter.$h);
+  }
+
+  /// Go: `func (reflect.Value).Method(i int) reflect.Value`.
+  ReflectValue method(int i) {
+    final $r = $callSync(
+        27093,
+        $W()
+          ..h(this)
+          ..i64(i));
+    return $r.hnn(ReflectValue.$h);
+  }
+
+  /// Go: `func (reflect.Value).MethodByName(name string) reflect.Value`.
+  ReflectValue methodByName(String name) {
+    final $r = $callSync(
+        27094,
+        $W()
+          ..h(this)
+          ..str(name));
+    return $r.hnn(ReflectValue.$h);
+  }
+
+  /// Go: `func (reflect.Value).NumField() int`.
+  int numField() {
+    final $r = $callSync(27095, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (reflect.Value).NumMethod() int`.
+  int numMethod() {
+    final $r = $callSync(27096, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (reflect.Value).OverflowFloat(x float64) bool`.
+  bool overflowFloat(double x) {
+    final $r = $callSync(
+        27097,
+        $W()
+          ..h(this)
+          ..f64(x));
+    return $r.b();
+  }
+
+  /// Go: `func (reflect.Value).OverflowInt(x int64) bool`.
+  bool overflowInt(int x) {
+    final $r = $callSync(
+        27098,
+        $W()
+          ..h(this)
+          ..i64(x));
+    return $r.b();
+  }
+
+  /// Go: `func (reflect.Value).OverflowUint(x uint64) bool`.
+  bool overflowUint(int x) {
+    final $r = $callSync(
+        27099,
+        $W()
+          ..h(this)
+          ..i64(x));
+    return $r.b();
+  }
+
+  /// Go: `func (reflect.Value).Recv() (x reflect.Value, ok bool)`.
+  (ReflectValue, bool) recv() {
+    final $r = $callSync(27100, $W()..h(this));
+    return ($r.hnn(ReflectValue.$h), $r.b());
+  }
+
+  /// Go: `func (reflect.Value).Send(x reflect.Value)`.
+  void send(ReflectValue x) {
+    $callSync(
+        27101,
+        $W()
+          ..h(this)
+          ..h(x));
+  }
+
+  /// Go: `func (reflect.Value).Set(x reflect.Value)`.
+  void set(ReflectValue x) {
+    $callSync(
+        27102,
+        $W()
+          ..h(this)
+          ..h(x));
+  }
+
+  /// Go: `func (reflect.Value).SetBool(x bool)`.
+  void setBool(bool x) {
+    $callSync(
+        27103,
+        $W()
+          ..h(this)
+          ..b(x));
+  }
+
+  /// Go: `func (reflect.Value).SetBytes(x []byte)`.
+  void setBytes(Uint8List x) {
+    $callSync(
+        27104,
+        $W()
+          ..h(this)
+          ..bytes(x));
+  }
+
+  /// Go: `func (reflect.Value).SetCap(n int)`.
+  void setCap(int n) {
+    $callSync(
+        27105,
+        $W()
+          ..h(this)
+          ..i64(n));
+  }
+
+  /// Go: `func (reflect.Value).SetFloat(x float64)`.
+  void setFloat(double x) {
+    $callSync(
+        27106,
+        $W()
+          ..h(this)
+          ..f64(x));
+  }
+
+  /// Go: `func (reflect.Value).SetInt(x int64)`.
+  void setInt(int x) {
+    $callSync(
+        27107,
+        $W()
+          ..h(this)
+          ..i64(x));
+  }
+
+  /// Go: `func (reflect.Value).SetIterKey(iter *reflect.MapIter)`.
+  void setIterKey(ReflectMapIter iter) {
+    $callSync(
+        27108,
+        $W()
+          ..h(this)
+          ..h(iter));
+  }
+
+  /// Go: `func (reflect.Value).SetIterValue(iter *reflect.MapIter)`.
+  void setIterValue(ReflectMapIter iter) {
+    $callSync(
+        27109,
+        $W()
+          ..h(this)
+          ..h(iter));
+  }
+
+  /// Go: `func (reflect.Value).SetLen(n int)`.
+  void setLen(int n) {
+    $callSync(
+        27110,
+        $W()
+          ..h(this)
+          ..i64(n));
+  }
+
+  /// Go: `func (reflect.Value).SetMapIndex(key reflect.Value, elem reflect.Value)`.
+  void setMapIndex(ReflectValue key, ReflectValue elem) {
+    $callSync(
+        27111,
+        $W()
+          ..h(this)
+          ..h(key)
+          ..h(elem));
+  }
+
+  /// Go: `func (reflect.Value).SetString(x string)`.
+  void setString(String x) {
+    $callSync(
+        27112,
+        $W()
+          ..h(this)
+          ..str(x));
+  }
+
+  /// Go: `func (reflect.Value).SetUint(x uint64)`.
+  void setUint(int x) {
+    $callSync(
+        27113,
+        $W()
+          ..h(this)
+          ..i64(x));
+  }
+
+  /// Go: `func (reflect.Value).SetZero()`.
+  void setZero() {
+    $callSync(27114, $W()..h(this));
+  }
+
+  /// Go: `func (reflect.Value).Slice(i int, j int) reflect.Value`.
+  ReflectValue slice(int i, int j) {
+    final $r = $callSync(
+        27115,
+        $W()
+          ..h(this)
+          ..i64(i)
+          ..i64(j));
+    return $r.hnn(ReflectValue.$h);
+  }
+
+  /// Go: `func (reflect.Value).Slice3(i int, j int, k int) reflect.Value`.
+  ReflectValue slice3(int i, int j, int k) {
+    final $r = $callSync(
+        27116,
+        $W()
+          ..h(this)
+          ..i64(i)
+          ..i64(j)
+          ..i64(k));
+    return $r.hnn(ReflectValue.$h);
+  }
+
+  /// Go: `func (reflect.Value).String() string`.
+  String string() {
+    final $r = $callSync(27117, $W()..h(this));
+    return $r.str();
+  }
+
+  /// Go: `func (reflect.Value).TryRecv() (x reflect.Value, ok bool)`.
+  (ReflectValue, bool) tryRecv() {
+    final $r = $callSync(27118, $W()..h(this));
+    return ($r.hnn(ReflectValue.$h), $r.b());
+  }
+
+  /// Go: `func (reflect.Value).TrySend(x reflect.Value) bool`.
+  bool trySend(ReflectValue x) {
+    final $r = $callSync(
+        27119,
+        $W()
+          ..h(this)
+          ..h(x));
+    return $r.b();
+  }
+
+  /// Go: `func (reflect.Value).Type() reflect.Type`.
+  ReflectType type() {
+    final $r = $callSync(27120, $W()..h(this));
+    return $r.hnn(ReflectType.$h);
+  }
+
+  /// Go: `func (reflect.Value).Uint() uint64`.
+  int uint() {
+    final $r = $callSync(27121, $W()..h(this));
+    return $r.i64();
+  }
+}
 
 /// Go: `reflect.ValueError`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
@@ -29,6 +1040,195 @@ class ReflectValueError extends GolangException {
 
   @override
   String toString() => 'reflect.ValueError: $message';
+}
+
+/// Go: the package-level members of `reflect` (`go.reflect`).
+extension GoReflectApi on GoReflect {
+  /// Go: `func reflect.Append(s reflect.Value, x ...reflect.Value) reflect.Value`.
+  ReflectValue append(ReflectValue s, [List<ReflectValue> x = const []]) {
+    final $r = $callSync(
+        26996,
+        $W()
+          ..h(s)
+          ..list(x, (w0, e0) => w0.h(e0)));
+    return $r.hnn(ReflectValue.$h);
+  }
+
+  /// Go: `func reflect.AppendSlice(s reflect.Value, t reflect.Value) reflect.Value`.
+  ReflectValue appendSlice(ReflectValue s, ReflectValue t) {
+    final $r = $callSync(
+        26997,
+        $W()
+          ..h(s)
+          ..h(t));
+    return $r.hnn(ReflectValue.$h);
+  }
+
+  /// Go: `func reflect.ArrayOf(length int, elem reflect.Type) reflect.Type`.
+  ReflectType arrayOf(int length, ReflectType elem) {
+    final $r = $callSync(
+        26998,
+        $W()
+          ..i64(length)
+          ..h(elem));
+    return $r.hnn(ReflectType.$h);
+  }
+
+  /// Go: `func reflect.ChanOf(dir reflect.ChanDir, t reflect.Type) reflect.Type`.
+  ReflectType chanOf(int dir, ReflectType t) {
+    final $r = $callSync(
+        26999,
+        $W()
+          ..i64(dir)
+          ..h(t));
+    return $r.hnn(ReflectType.$h);
+  }
+
+  /// Go: `func reflect.Copy(dst reflect.Value, src reflect.Value) int`.
+  int copy(ReflectValue dst, ReflectValue src) {
+    final $r = $callSync(
+        27000,
+        $W()
+          ..h(dst)
+          ..h(src));
+    return $r.i64();
+  }
+
+  /// Go: `func reflect.DeepEqual(x any, y any) bool`.
+  bool deepEqual(Object? x, Object? y) {
+    final $r = $callSync(
+        27001,
+        $W()
+          ..any(x)
+          ..any(y));
+    return $r.b();
+  }
+
+  /// Go: `func reflect.FuncOf(in []reflect.Type, out []reflect.Type, variadic bool) reflect.Type`.
+  ReflectType funcOf(
+      List<ReflectType> in$, List<ReflectType> out, bool variadic) {
+    final $r = $callSync(
+        27002,
+        $W()
+          ..list(in$, (w0, e0) => w0.h(e0))
+          ..list(out, (w0, e0) => w0.h(e0))
+          ..b(variadic));
+    return $r.hnn(ReflectType.$h);
+  }
+
+  /// Go: `func reflect.Indirect(v reflect.Value) reflect.Value`.
+  ReflectValue indirect(ReflectValue v) {
+    final $r = $callSync(27003, $W()..h(v));
+    return $r.hnn(ReflectValue.$h);
+  }
+
+  /// Go: `func reflect.MakeChan(typ reflect.Type, buffer int) reflect.Value`.
+  ReflectValue makeChan(ReflectType typ, int buffer) {
+    final $r = $callSync(
+        27004,
+        $W()
+          ..h(typ)
+          ..i64(buffer));
+    return $r.hnn(ReflectValue.$h);
+  }
+
+  /// Go: `func reflect.MakeMap(typ reflect.Type) reflect.Value`.
+  ReflectValue makeMap(ReflectType typ) {
+    final $r = $callSync(27005, $W()..h(typ));
+    return $r.hnn(ReflectValue.$h);
+  }
+
+  /// Go: `func reflect.MakeMapWithSize(typ reflect.Type, n int) reflect.Value`.
+  ReflectValue makeMapWithSize(ReflectType typ, int n) {
+    final $r = $callSync(
+        27006,
+        $W()
+          ..h(typ)
+          ..i64(n));
+    return $r.hnn(ReflectValue.$h);
+  }
+
+  /// Go: `func reflect.MakeSlice(typ reflect.Type, len int, cap int) reflect.Value`.
+  ReflectValue makeSlice(ReflectType typ, int len, int cap) {
+    final $r = $callSync(
+        27007,
+        $W()
+          ..h(typ)
+          ..i64(len)
+          ..i64(cap));
+    return $r.hnn(ReflectValue.$h);
+  }
+
+  /// Go: `func reflect.MapOf(key reflect.Type, elem reflect.Type) reflect.Type`.
+  ReflectType mapOf(ReflectType key, ReflectType elem) {
+    final $r = $callSync(
+        27012,
+        $W()
+          ..h(key)
+          ..h(elem));
+    return $r.hnn(ReflectType.$h);
+  }
+
+  /// Go: `func reflect.New(typ reflect.Type) reflect.Value`.
+  ReflectValue new$(ReflectType typ) {
+    final $r = $callSync(27014, $W()..h(typ));
+    return $r.hnn(ReflectValue.$h);
+  }
+
+  /// Go: `func reflect.PointerTo(t reflect.Type) reflect.Type`.
+  ReflectType pointerTo(ReflectType t) {
+    final $r = $callSync(27015, $W()..h(t));
+    return $r.hnn(ReflectType.$h);
+  }
+
+  /// Go: `func reflect.PtrTo(t reflect.Type) reflect.Type`.
+  @Deprecated("Superseded by [PointerTo].")
+  ReflectType ptrTo(ReflectType t) {
+    final $r = $callSync(27016, $W()..h(t));
+    return $r.hnn(ReflectType.$h);
+  }
+
+  /// Go: `func reflect.Select(cases []reflect.SelectCase) (chosen int, recv reflect.Value, recvOK bool)`.
+  (int, ReflectValue, bool) select(List<ReflectSelectCase> cases) {
+    final $r = $callSync(27017, $W()..list(cases, (w0, e0) => w0.dto(e0)));
+    return ($r.i64(), $r.hnn(ReflectValue.$h), $r.b());
+  }
+
+  /// Go: `func reflect.SliceOf(t reflect.Type) reflect.Type`.
+  ReflectType sliceOf(ReflectType t) {
+    final $r = $callSync(27018, $W()..h(t));
+    return $r.hnn(ReflectType.$h);
+  }
+
+  /// Go: `func reflect.StructOf(fields []reflect.StructField) reflect.Type`.
+  ReflectType structOf(List<ReflectStructField> fields) {
+    final $r = $callSync(27020, $W()..list(fields, (w0, e0) => w0.dto(e0)));
+    return $r.hnn(ReflectType.$h);
+  }
+
+  /// Go: `func reflect.TypeOf(i any) reflect.Type`.
+  ReflectType typeOf(Object? i) {
+    final $r = $callSync(27054, $W()..any(i));
+    return $r.hnn(ReflectType.$h);
+  }
+
+  /// Go: `func reflect.ValueOf(i any) reflect.Value`.
+  ReflectValue valueOf(Object? i) {
+    final $r = $callSync(27122, $W()..any(i));
+    return $r.hnn(ReflectValue.$h);
+  }
+
+  /// Go: `func reflect.VisibleFields(t reflect.Type) []reflect.StructField`.
+  List<ReflectStructField> visibleFields(ReflectType t) {
+    final $r = $callSync(27123, $W()..h(t));
+    return $r.list(() => $r.p() ? ReflectStructField.$dec($r) : $nil());
+  }
+
+  /// Go: `func reflect.Zero(typ reflect.Type) reflect.Value`.
+  ReflectValue zero(ReflectType typ) {
+    final $r = $callSync(27124, $W()..h(typ));
+    return $r.hnn(ReflectValue.$h);
+  }
 }
 
 /// Go: the constants of a named type of `reflect` (`go.reflect.enums`).

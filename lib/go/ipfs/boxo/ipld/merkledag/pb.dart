@@ -2,15 +2,169 @@
 // Go: github.com/ipfs/boxo/ipld/merkledag/pb
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoIpfsBoxoIpldMerkledagPbConsts;
+import 'dart:typed_data';
+
+import 'package:p2p_ffi/src/go.dart'
+    show GoIpfsBoxoIpldMerkledagPb, GoIpfsBoxoIpldMerkledagPbConsts;
+import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/gogo/protobuf/protoc_gen_gogo/descriptor.dart'
+    as $descriptor;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
+import 'package:p2p_ffi/go/protobuf/reflect/protoreflect.dart' as $protoreflect;
+import 'package:p2p_ffi/go/protobuf/runtime/protoiface.dart' as $protoiface;
+
+/// Go: `pb.PBLink` (handle).
+class BoxoIpldMerkledagPbLink
+    extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
+    with
+        $crypto.CryptoDecrypterOpts$,
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$,
+        $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
+        $protoiface.ProtobufRuntimeProtoifaceMessageV1$
+    implements
+        $crypto.CryptoDecrypterOpts,
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic,
+        $protoreflect.ProtobufReflectProtoreflectProtoMessage,
+        $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
+  BoxoIpldMerkledagPbLink.$h(super.$h) : super.$h();
+
+  /// Go: `func (*pb.PBLink).Descriptor() ([]byte, []int)`.
+  @Deprecated("Use PBLink.ProtoReflect.Descriptor instead.")
+  (Uint8List, List<int>) descriptor() {
+    final $r = $callSync(9702, $W()..h(this));
+    return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
+  }
+
+  /// Go: `func (*pb.PBLink).GetHash() []byte`.
+  Uint8List getHash() {
+    final $r = $callSync(9703, $W()..h(this));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (*pb.PBLink).GetName() string`.
+  String getName() {
+    final $r = $callSync(9704, $W()..h(this));
+    return $r.str();
+  }
+
+  /// Go: `func (*pb.PBLink).GetTsize() uint64`.
+  int getTsize() {
+    final $r = $callSync(9705, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (*pb.PBLink).ProtoMessage()`.
+  void protoMessage() {
+    $callSync(9706, $W()..h(this));
+  }
+
+  /// Go: `func (*pb.PBLink).ProtoReflect() protoreflect.Message`.
+  $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
+    final $r = $callSync(9707, $W()..h(this));
+    return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
+  }
+
+  /// Go: `func (*pb.PBLink).Reset()`.
+  void reset() {
+    $callSync(9708, $W()..h(this));
+  }
+
+  /// Go: `func (*pb.PBLink).String() string`.
+  String string() {
+    final $r = $callSync(9709, $W()..h(this));
+    return $r.str();
+  }
+}
 
 /// Go: `pb.PBNode` (handle).
-class BoxoIpldMerkledagPbNode extends $crypto.CryptoPrivateKey
-    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
-    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+class BoxoIpldMerkledagPbNode
+    extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
+    with
+        $crypto.CryptoDecrypterOpts$,
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$,
+        $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
+        $protoiface.ProtobufRuntimeProtoifaceMessageV1$
+    implements
+        $crypto.CryptoDecrypterOpts,
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic,
+        $protoreflect.ProtobufReflectProtoreflectProtoMessage,
+        $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   BoxoIpldMerkledagPbNode.$h(super.$h) : super.$h();
+
+  /// Go: `func (*pb.PBNode).Descriptor() ([]byte, []int)`.
+  @Deprecated("Use PBNode.ProtoReflect.Descriptor instead.")
+  (Uint8List, List<int>) descriptor() {
+    final $r = $callSync(9710, $W()..h(this));
+    return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
+  }
+
+  /// Go: `func (*pb.PBNode).GetData() []byte`.
+  Uint8List getData() {
+    final $r = $callSync(9711, $W()..h(this));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (*pb.PBNode).GetLinks() []*pb.PBLink`.
+  List<BoxoIpldMerkledagPbLink> getLinks() {
+    final $r = $callSync(9712, $W()..h(this));
+    return $r.list(() => $r.hnn(BoxoIpldMerkledagPbLink.$h));
+  }
+
+  /// Go: `func (*pb.PBNode).ProtoMessage()`.
+  void protoMessage() {
+    $callSync(9713, $W()..h(this));
+  }
+
+  /// Go: `func (*pb.PBNode).ProtoReflect() protoreflect.Message`.
+  $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
+    final $r = $callSync(9714, $W()..h(this));
+    return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
+  }
+
+  /// Go: `func (*pb.PBNode).Reset()`.
+  void reset() {
+    $callSync(9715, $W()..h(this));
+  }
+
+  /// Go: `func (*pb.PBNode).String() string`.
+  String string() {
+    final $r = $callSync(9716, $W()..h(this));
+    return $r.str();
+  }
+}
+
+/// Go: the package-level members of `github.com/ipfs/boxo/ipld/merkledag/pb` (`go.ipfs.boxo.ipld.merkledag.pb`).
+extension GoIpfsBoxoIpldMerkledagPbApi on GoIpfsBoxoIpldMerkledagPb {
+  /// Go: `var pb.File_github_com_ipfs_boxo_ipld_merkledag_pb_merkledag_proto protoreflect.FileDescriptor`.
+  $protoreflect.ProtobufReflectProtoreflectFileDescriptor
+      get fileGithubComIpfsBoxoIpldMerkledagPbMerkledagProto {
+    final $r = $callSync(9701);
+    return $r.hnn($protoreflect.ProtobufReflectProtoreflectFileDescriptor.$h);
+  }
 }
 
 /// Go: the constants of `github.com/ipfs/boxo/ipld/merkledag/pb` (`go.ipfs.boxo.ipld.merkledag.pb.consts`).

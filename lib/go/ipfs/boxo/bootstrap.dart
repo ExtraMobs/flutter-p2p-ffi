@@ -2,14 +2,34 @@
 // Go: github.com/ipfs/boxo/bootstrap
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoIpfsBoxoBootstrap;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
+import 'package:p2p_ffi/go/io.dart' as $io;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/host.dart' as $host;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/routing.dart' as $routing;
 
 /// Go: `bootstrap.BootstrapConfig` (handle).
-class BoxoBootstrapConfig extends $crypto.CryptoPrivateKey
-    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
-    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+class BoxoBootstrapConfig extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   BoxoBootstrapConfig.$h(super.$h) : super.$h();
 }
 
@@ -20,4 +40,33 @@ class BoxoBootstrapErrNotEnoughBootstrapPeers extends GolangException {
 
   @override
   String toString() => 'bootstrap.ErrNotEnoughBootstrapPeers: $message';
+}
+
+/// Go: the package-level members of `github.com/ipfs/boxo/bootstrap` (`go.ipfs.boxo.bootstrap`).
+extension GoIpfsBoxoBootstrapApi on GoIpfsBoxoBootstrap {
+  /// Go: `func bootstrap.Bootstrap(id peer.ID, host host.Host, rt routing.Routing, cfg bootstrap.BootstrapConfig) (io.Closer, error)`.
+  $io.IoCloser bootstrap($peer.Libp2pCorePeerId id, $host.Libp2pCoreHost host,
+      $routing.Libp2pCoreRouting rt, BoxoBootstrapConfig cfg) {
+    final $r = $callSync(
+        9358,
+        $W()
+          ..val(id)
+          ..h(host)
+          ..h(rt)
+          ..h(cfg));
+    return $r.hnn($io.IoCloser.$h);
+  }
+
+  /// Go: `func bootstrap.BootstrapConfigWithPeers(pis []peer.AddrInfo, options ...func(*bootstrap.BootstrapConfig)) bootstrap.BootstrapConfig`.
+  BoxoBootstrapConfig bootstrapConfigWithPeers(
+      List<$peer.Libp2pCorePeerAddrInfo> pis) {
+    final $r = $callSync(9359, $W()..list(pis, (w0, e0) => w0.dto(e0)));
+    return $r.hnn(BoxoBootstrapConfig.$h);
+  }
+
+  /// Go: `var bootstrap.DefaultBootstrapConfig bootstrap.BootstrapConfig`.
+  BoxoBootstrapConfig get defaultBootstrapConfig {
+    final $r = $callSync(9360);
+    return $r.hnn(BoxoBootstrapConfig.$h);
+  }
 }

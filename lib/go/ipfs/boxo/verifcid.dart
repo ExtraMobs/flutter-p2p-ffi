@@ -13,7 +13,7 @@ class BoxoVerifcidAllowlist extends GoHandle with BoxoVerifcidAllowlist$ {
 
   /// Go: `func verifcid.NewAllowlist(allowset map[uint64]bool) verifcid.Allowlist`.
   factory BoxoVerifcidAllowlist(Map<int, bool> allowset) {
-    final $r = $callSync(1048,
+    final $r = $callSync(10455,
         $W()..map(allowset, (w0, k0) => w0.i64(k0), (w0, v0) => w0.b(v0)));
     return $r.hnn(BoxoVerifcidAllowlist.$h);
   }
@@ -24,7 +24,7 @@ mixin BoxoVerifcidAllowlist$ on GoHandle {
   /// Go: `func (verifcid.Allowlist).IsAllowed(code uint64) bool`.
   bool isAllowed(int code) {
     final $r = $callSync(
-        1045,
+        10452,
         $W()
           ..h(this)
           ..i64(code));
@@ -34,7 +34,7 @@ mixin BoxoVerifcidAllowlist$ on GoHandle {
   /// Go: `func (verifcid.Allowlist).MaxDigestSize(code uint64) int`.
   int maxDigestSize(int code) {
     final $r = $callSync(
-        1046,
+        10453,
         $W()
           ..h(this)
           ..i64(code));
@@ -44,7 +44,7 @@ mixin BoxoVerifcidAllowlist$ on GoHandle {
   /// Go: `func (verifcid.Allowlist).MinDigestSize(code uint64) int`.
   int minDigestSize(int code) {
     final $r = $callSync(
-        1047,
+        10454,
         $W()
           ..h(this)
           ..i64(code));
@@ -103,7 +103,7 @@ extension GoIpfsBoxoVerifcidApi on GoIpfsBoxoVerifcid {
   BoxoVerifcidAllowlist newOverridingAllowlist(
       BoxoVerifcidAllowlist override, Map<int, bool> allowset) {
     final $r = $callSync(
-        1049,
+        10456,
         $W()
           ..h(override)
           ..map(allowset, (w0, k0) => w0.i64(k0), (w0, v0) => w0.b(v0)));
@@ -113,7 +113,7 @@ extension GoIpfsBoxoVerifcidApi on GoIpfsBoxoVerifcid {
   /// Go: `func verifcid.ValidateCid(allowlist verifcid.Allowlist, c cid.Cid) error`.
   void validateCid(BoxoVerifcidAllowlist allowlist, $cid.Cid c) {
     $callSync(
-        1050,
+        10457,
         $W()
           ..h(allowlist)
           ..val(c));

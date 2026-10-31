@@ -5,9 +5,12 @@ library;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/boxo/provider.dart' as $provider;
 import 'package:p2p_ffi/go/ipfs/cid.dart' as $cid;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/discovery.dart' as $discovery;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/routing.dart' as $routing;
@@ -15,19 +18,31 @@ import 'package:p2p_ffi/go/libp2p/libp2p/core/routing.dart' as $routing;
 /// Go: `routing.DiscoveryRouting` (handle).
 class Libp2pP2pDiscoveryRouting extends $provider.BoxoProviderProvide
     with
+        $crypto.CryptoDecrypterOpts$,
         $crypto.CryptoPrivateKey$,
         $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
         $provider.BoxoProvider$,
         $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$,
+        $discovery.Libp2pCoreDiscoveryAdvertiser$,
+        $discovery.Libp2pCoreDiscoveryDiscoverer$,
         $routing.Libp2pCoreRoutingContentDiscovery$,
         $routing.Libp2pCoreRoutingContentProviding$,
         $discovery.Libp2pCoreDiscovery$,
         $routing.Libp2pCoreRoutingContentRouting$
     implements
+        $crypto.CryptoDecrypterOpts,
         $crypto.CryptoPrivateKey,
         $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
         $provider.BoxoProvider,
         $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic,
+        $discovery.Libp2pCoreDiscoveryAdvertiser,
+        $discovery.Libp2pCoreDiscoveryDiscoverer,
         $routing.Libp2pCoreRoutingContentDiscovery,
         $routing.Libp2pCoreRoutingContentProviding,
         $discovery.Libp2pCoreDiscovery,
@@ -38,7 +53,7 @@ class Libp2pP2pDiscoveryRouting extends $provider.BoxoProviderProvide
   factory Libp2pP2pDiscoveryRouting($discovery.Libp2pCoreDiscovery disc,
       [List<$discovery.Libp2pCoreDiscoveryOption> opts = const []]) {
     final $r = $callSync(
-        3234,
+        14341,
         $W()
           ..h(disc)
           ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -49,7 +64,7 @@ class Libp2pP2pDiscoveryRouting extends $provider.BoxoProviderProvide
   Stream<$peer.Libp2pCorePeerAddrInfo> findProvidersAsync(
           $context.Context ctx, $cid.Cid c, int limit) =>
       $stream(
-              3232,
+              14339,
               $W()
                 ..h(this)
                 ..h(ctx)
@@ -62,7 +77,7 @@ class Libp2pP2pDiscoveryRouting extends $provider.BoxoProviderProvide
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> provide($context.Context ctx, $cid.Cid c, bool bcast) async {
     await $call(
-        3233,
+        14340,
         $W()
           ..h(this)
           ..h(ctx)
@@ -74,19 +89,31 @@ class Libp2pP2pDiscoveryRouting extends $provider.BoxoProviderProvide
 /// Go: `routing.RoutingDiscovery` (handle).
 class Libp2pP2pDiscoveryRoutingDiscovery extends $provider.BoxoProviderProvide
     with
+        $crypto.CryptoDecrypterOpts$,
         $crypto.CryptoPrivateKey$,
         $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
         $provider.BoxoProvider$,
         $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$,
+        $discovery.Libp2pCoreDiscoveryAdvertiser$,
+        $discovery.Libp2pCoreDiscoveryDiscoverer$,
         $routing.Libp2pCoreRoutingContentDiscovery$,
         $routing.Libp2pCoreRoutingContentProviding$,
         $discovery.Libp2pCoreDiscovery$,
         $routing.Libp2pCoreRoutingContentRouting$
     implements
+        $crypto.CryptoDecrypterOpts,
         $crypto.CryptoPrivateKey,
         $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
         $provider.BoxoProvider,
         $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic,
+        $discovery.Libp2pCoreDiscoveryAdvertiser,
+        $discovery.Libp2pCoreDiscoveryDiscoverer,
         $routing.Libp2pCoreRoutingContentDiscovery,
         $routing.Libp2pCoreRoutingContentProviding,
         $discovery.Libp2pCoreDiscovery,
@@ -96,7 +123,7 @@ class Libp2pP2pDiscoveryRoutingDiscovery extends $provider.BoxoProviderProvide
   /// Go: `func routing.NewRoutingDiscovery(router routing.ContentRouting) *routing.RoutingDiscovery`.
   factory Libp2pP2pDiscoveryRoutingDiscovery(
       $routing.Libp2pCoreRoutingContentRouting router) {
-    final $r = $callSync(3235, $W()..h(router));
+    final $r = $callSync(14342, $W()..h(router));
     return $r.hnn(Libp2pP2pDiscoveryRoutingDiscovery.$h);
   }
 
@@ -106,7 +133,7 @@ class Libp2pP2pDiscoveryRoutingDiscovery extends $provider.BoxoProviderProvide
   Future<Duration> advertise($context.Context ctx, String ns,
       [List<$discovery.Libp2pCoreDiscoveryOption> opts = const []]) async {
     final $r = await $call(
-        3236,
+        14343,
         $W()
           ..h(this)
           ..h(ctx)
@@ -120,7 +147,7 @@ class Libp2pP2pDiscoveryRoutingDiscovery extends $provider.BoxoProviderProvide
           $context.Context ctx, String ns,
           [List<$discovery.Libp2pCoreDiscoveryOption> opts = const []]) =>
       $stream(
-              3237,
+              14344,
               $W()
                 ..h(this)
                 ..h(ctx)

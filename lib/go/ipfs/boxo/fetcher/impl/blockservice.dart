@@ -6,9 +6,12 @@ import 'package:p2p_ffi/src/go.dart' show GoIpfsBoxoFetcherImplBlockservice;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/boxo/blockservice.dart' as $blockservice;
 import 'package:p2p_ffi/go/ipfs/boxo/fetcher.dart' as $fetcher;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/ipld/ipld_prime/linking.dart' as $linking;
 import 'package:p2p_ffi/go/ipld/ipld_prime/traversal.dart' as $traversal;
 
@@ -16,19 +19,27 @@ import 'package:p2p_ffi/go/ipld/ipld_prime/traversal.dart' as $traversal;
 class BoxoFetcherImplBlockserviceFetcherConfig
     extends $fetcher.BoxoFetcherFactory
     with
+        $crypto.CryptoDecrypterOpts$,
         $crypto.CryptoPrivateKey$,
         $crypto.CryptoPublicKey$,
-        $ipfs_cmds.IpfsCmdsEnvironment$
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
     implements
+        $crypto.CryptoDecrypterOpts,
         $crypto.CryptoPrivateKey,
         $crypto.CryptoPublicKey,
-        $ipfs_cmds.IpfsCmdsEnvironment {
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   BoxoFetcherImplBlockserviceFetcherConfig.$h(super.$h) : super.$h();
 
   /// Go: `func bsfetcher.NewFetcherConfig(blockService blockservice.BlockService) bsfetcher.FetcherConfig`.
   factory BoxoFetcherImplBlockserviceFetcherConfig(
       $blockservice.BoxoBlockserviceBlockService blockService) {
-    final $r = $callSync(518, $W()..h(blockService));
+    final $r = $callSync(9417, $W()..h(blockService));
     return $r.hnn(BoxoFetcherImplBlockserviceFetcherConfig.$h);
   }
 
@@ -38,7 +49,7 @@ class BoxoFetcherImplBlockserviceFetcherConfig
   Future<$fetcher.BoxoFetcher> fetcherWithSession(
       $context.Context ctx, $blockservice.BoxoBlockserviceSession s) async {
     final $r = await $call(
-        515,
+        9414,
         $W()
           ..h(this)
           ..h(ctx)
@@ -51,7 +62,7 @@ class BoxoFetcherImplBlockserviceFetcherConfig
   /// Asynchronous: runs in a goroutine of the service.
   Future<$fetcher.BoxoFetcher> newSession($context.Context ctx) async {
     final $r = await $call(
-        516,
+        9415,
         $W()
           ..h(this)
           ..h(ctx));
@@ -62,7 +73,7 @@ class BoxoFetcherImplBlockserviceFetcherConfig
   $fetcher.BoxoFetcherFactory withReifier(
       $linking.IpldPrimeLinkingNodeReifier nr) {
     final $r = $callSync(
-        517,
+        9416,
         $W()
           ..h(this)
           ..h(nr));
@@ -76,7 +87,7 @@ extension GoIpfsBoxoFetcherImplBlockserviceApi
   /// Go: `var bsfetcher.DefaultPrototypeChooser func(lnk ipld.Link, lnkCtx ipld.LinkContext) (ipld.NodePrototype, error)`.
   $traversal.IpldPrimeTraversalLinkTargetNodePrototypeChooser
       get defaultPrototypeChooser {
-    final $r = $callSync(514);
+    final $r = $callSync(9413);
     return $r
         .hnn($traversal.IpldPrimeTraversalLinkTargetNodePrototypeChooser.$h);
   }

@@ -158,6 +158,8 @@ type model struct {
 	// platform: the constants whose value depends on the target (platform.go)
 	platform    map[string]string
 	platformObj map[string]*types.Const // each one as a target that has it declares it
+	// platformDecl: the other symbols some target lacks or declares otherwise
+	platformDecl map[string]bool
 }
 
 func newModel() *model {
@@ -352,6 +354,10 @@ func (m *model) fillNamed(ti *tinfo, n *types.Named) {
 	}
 	if obj.Pkg() == nil || !obj.Exported() || (isInternal(obj.Pkg().Path()) && m.via[objKey(obj)] == nil) {
 		unsupported(ti, "unexported type %s", key)
+		return
+	}
+	if m.platformDecl[key] {
+		unsupported(ti, "type %s %s", key, platformWhy)
 		return
 	}
 	if n.TypeArgs().Len() > 0 {

@@ -4,10 +4,92 @@ library;
 
 import 'package:p2p_ffi/src/go.dart' show GoLibp2pDohResolverOptions;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/context.dart' as $context;
+import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
+import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
+import 'package:p2p_ffi/go/multiformats/multiaddr_dns.dart' as $multiaddr_dns;
+import 'package:p2p_ffi/go/net.dart' as $net;
 
 /// Go: `doh.Option` (functional option; constructors in the package).
 final class DohResolverOption extends GoOption {
   DohResolverOption.$(super.$i, super.$a);
+}
+
+/// Go: `doh.Resolver` (handle).
+class DohResolver extends $multiaddr_dns.MultiaddrDnsBasicResolver
+    with
+        $crypto.CryptoDecrypterOpts$,
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$,
+        $multiaddr_dns.MultiaddrDnsTxtWithTtlResolver$
+    implements
+        $crypto.CryptoDecrypterOpts,
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic,
+        $multiaddr_dns.MultiaddrDnsTxtWithTtlResolver {
+  DohResolver.$h(super.$h) : super.$h();
+
+  /// Go: `func doh.NewResolver(url string, opts ...doh.Option) (*doh.Resolver, error)`.
+  factory DohResolver(String url, [List<DohResolverOption> opts = const []]) {
+    final $r = $callSync(
+        12885,
+        $W()
+          ..str(url)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+    return $r.hnn(DohResolver.$h);
+  }
+
+  /// Go: `func (*doh.Resolver).LookupIPAddr(ctx context.Context, domain string) (result []net.IPAddr, err error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<List<$net.NetIpAddr>> lookupIpAddr(
+      $context.Context ctx, String domain) async {
+    final $r = await $call(
+        12886,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(domain));
+    return $r.list(() => $r.p() ? $net.NetIpAddr.$dec($r) : $nil());
+  }
+
+  /// Go: `func (*doh.Resolver).LookupTXT(ctx context.Context, domain string) ([]string, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<List<String>> lookupTxt($context.Context ctx, String domain) async {
+    final $r = await $call(
+        12887,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(domain));
+    return $r.list(() => $r.str());
+  }
+
+  /// Go: `func (*doh.Resolver).LookupTXTWithTTL(ctx context.Context, domain string) ([]string, time.Duration, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<(List<String>, Duration)> lookupTxtWithTtl(
+      $context.Context ctx, String domain) async {
+    final $r = await $call(
+        12888,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(domain));
+    return ($r.list(() => $r.str()), Duration(microseconds: $r.i64() ~/ 1000));
+  }
 }
 
 /// Go: the option constructors of `github.com/libp2p/go-doh-resolver` (`go.libp2p.dohResolver.options`).

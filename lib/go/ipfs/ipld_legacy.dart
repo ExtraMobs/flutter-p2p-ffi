@@ -2,11 +2,184 @@
 // Go: github.com/ipfs/go-ipld-legacy
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoIpfsIpldLegacyEnums;
+import 'dart:typed_data';
+
+import 'package:p2p_ffi/src/go.dart'
+    show GoIpfsIpldLegacy, GoIpfsIpldLegacyEnums;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/context.dart' as $context;
+import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
+import 'package:p2p_ffi/go/ipfs/block_format.dart' as $block_format;
 import 'package:p2p_ffi/go/ipfs/boxo/ipld/merkledag.dart' as $merkledag;
+import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 import 'package:p2p_ffi/go/ipfs/ipld_format.dart' as $ipld_format;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/ipld/ipld_prime/datamodel.dart' as $datamodel;
+import 'package:p2p_ffi/go/ipld/ipld_prime/linking.dart' as $linking;
+
+/// Go: `ipldlegacy.Decoder` (handle).
+class IpldLegacyDecoder extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
+  IpldLegacyDecoder.$h(super.$h) : super.$h();
+
+  /// Go: `func ipldlegacy.NewDecoder() *ipldlegacy.Decoder`.
+  factory IpldLegacyDecoder() {
+    final $r = $callSync(11050);
+    return $r.hnn(IpldLegacyDecoder.$h);
+  }
+
+  /// Go: `func (*ipldlegacy.Decoder).DecodeNode(ctx context.Context, b blocks.Block) (ipldlegacy.UniversalNode, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<IpldLegacyUniversalNode> decodeNode(
+      $context.Context ctx, $block_format.BlockFormatBlock b) async {
+    final $r = await $call(
+        11040,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..dto(b));
+    return $r.hnn(IpldLegacyUniversalNode.$h);
+  }
+
+  /// Go: `func (*ipldlegacy.Decoder).RegisterCodec(codec uint64, prototype ipld.NodePrototype, converter ipldlegacy.NodeConverter)`.
+  void registerCodec(
+      int codec,
+      $datamodel.IpldPrimeDatamodelNodePrototype prototype,
+      IpldLegacyNodeConverter converter) {
+    $callSync(
+        11041,
+        $W()
+          ..h(this)
+          ..i64(codec)
+          ..h(prototype)
+          ..h(converter));
+  }
+}
+
+/// Go: `ipldlegacy.LegacyNode` (handle).
+class IpldLegacyNode extends $datamodel.IpldPrimeDatamodelNode
+    with
+        $crypto.CryptoDecrypterOpts$,
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $ipld_format.IpldFormatResolver$,
+        $peertask.PeertaskqueuePeertaskTopic$,
+        $ipld_format.IpldFormatNode$
+    implements
+        $crypto.CryptoDecrypterOpts,
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $ipld_format.IpldFormatResolver,
+        $peertask.PeertaskqueuePeertaskTopic,
+        $ipld_format.IpldFormatNode {
+  IpldLegacyNode.$h(super.$h) : super.$h();
+
+  /// Go: `func (*ipldlegacy.LegacyNode).Copy() format.Node`.
+  $ipld_format.IpldFormatNode copy() {
+    final $r = $callSync(11042, $W()..h(this));
+    return $r.hnn($ipld_format.IpldFormatNode.$h);
+  }
+
+  /// Go: `func (*ipldlegacy.LegacyNode).Links() []*format.Link`.
+  List<$ipld_format.IpldFormatLink> links() {
+    final $r = $callSync(11043, $W()..h(this));
+    return $r
+        .list(() => $r.p() ? $ipld_format.IpldFormatLink.$dec($r) : $nil());
+  }
+
+  /// Go: `func (*ipldlegacy.LegacyNode).MarshalJSON() ([]byte, error)`.
+  Uint8List marshalJson() {
+    final $r = $callSync(11044, $W()..h(this));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (*ipldlegacy.LegacyNode).Resolve(path []string) (any, []string, error)`.
+  (Object?, List<String>) resolve(List<String> path) {
+    final $r = $callSync(
+        11045,
+        $W()
+          ..h(this)
+          ..list(path, (w0, e0) => w0.str(e0)));
+    return ($r.any(), $r.list(() => $r.str()));
+  }
+
+  /// Go: `func (*ipldlegacy.LegacyNode).ResolveLink(path []string) (*format.Link, []string, error)`.
+  ($ipld_format.IpldFormatLink, List<String>) resolveLink(List<String> path) {
+    final $r = $callSync(
+        11046,
+        $W()
+          ..h(this)
+          ..list(path, (w0, e0) => w0.str(e0)));
+    return (
+      $r.p() ? $ipld_format.IpldFormatLink.$dec($r) : $nil(),
+      $r.list(() => $r.str())
+    );
+  }
+
+  /// Go: `func (*ipldlegacy.LegacyNode).Size() (uint64, error)`.
+  int size() {
+    final $r = $callSync(11047, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (*ipldlegacy.LegacyNode).Stat() (*format.NodeStat, error)`.
+  $ipld_format.IpldFormatNodeStat stat() {
+    final $r = $callSync(11048, $W()..h(this));
+    return $r.p() ? $ipld_format.IpldFormatNodeStat.$dec($r) : $nil();
+  }
+
+  /// Go: `func (*ipldlegacy.LegacyNode).Tree(path string, depth int) []string`.
+  List<String> tree(String path, int depth) {
+    final $r = $callSync(
+        11049,
+        $W()
+          ..h(this)
+          ..str(path)
+          ..i64(depth));
+    return $r.list(() => $r.str());
+  }
+}
+
+/// Go: `ipldlegacy.NodeConverter` (handle).
+class IpldLegacyNodeConverter extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
+  IpldLegacyNodeConverter.$h(super.$h) : super.$h();
+}
 
 /// Go: `ipldlegacy.UniversalNode` (handle).
 class IpldLegacyUniversalNode extends $ipld_format.IpldFormatNode
@@ -19,14 +192,29 @@ class IpldLegacyUniversalNode extends $ipld_format.IpldFormatNode
 mixin IpldLegacyUniversalNode$ on GoHandle {
   /// Go: type assertion `x.(*merkledag.ProtoNode)`: null if the object is not one.
   $merkledag.BoxoIpldMerkledagProtoNode? asBoxoIpldMerkledagProtoNode() {
-    final $r = $callSync(201, $W()..h(this));
+    final $r = $callSync(1158, $W()..h(this));
     return $r.hn($merkledag.BoxoIpldMerkledagProtoNode.$h);
   }
 
   /// Go: type assertion `x.(*merkledag.RawNode)`: null if the object is not one.
   $merkledag.BoxoIpldMerkledagRawNode? asBoxoIpldMerkledagRawNode() {
-    final $r = $callSync(202, $W()..h(this));
+    final $r = $callSync(1159, $W()..h(this));
     return $r.hn($merkledag.BoxoIpldMerkledagRawNode.$h);
+  }
+
+  /// Go: type assertion `x.(*ipldlegacy.LegacyNode)`: null if the object is not one.
+  IpldLegacyNode? asIpldLegacyNode() {
+    final $r = $callSync(1160, $W()..h(this));
+    return $r.hn(IpldLegacyNode.$h);
+  }
+}
+
+/// Go: the package-level members of `github.com/ipfs/go-ipld-legacy` (`go.ipfs.ipldLegacy`).
+extension GoIpfsIpldLegacyApi on GoIpfsIpldLegacy {
+  /// Go: `func ipldlegacy.NewDecoderWithLS(ls ipld.LinkSystem) *ipldlegacy.Decoder`.
+  IpldLegacyDecoder newDecoderWithLs($linking.IpldPrimeLinkingLinkSystem ls) {
+    final $r = $callSync(11051, $W()..h(ls));
+    return $r.hnn(IpldLegacyDecoder.$h);
   }
 }
 

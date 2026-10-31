@@ -5,6 +5,33 @@ library;
 import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/encoding/asn1.dart' as $asn1;
+import 'package:p2p_ffi/go/math/big.dart' as $big;
+
+/// Go: `pkix.AlgorithmIdentifier`.
+final class CryptoX509PkixAlgorithmIdentifier implements GoDto {
+  CryptoX509PkixAlgorithmIdentifier(
+      {List<int>? algorithm, $asn1.EncodingAsn1RawValue? parameters})
+      : algorithm = algorithm ?? [],
+        parameters = parameters;
+
+  CryptoX509PkixAlgorithmIdentifier.$dec($R r)
+      : algorithm = r.list(() => r.i64()),
+        parameters = r.p() ? $asn1.EncodingAsn1RawValue.$dec(r) : null;
+
+  /// Go: `Algorithm`.
+  List<int> algorithm;
+
+  /// Go: `Parameters`.
+  $asn1.EncodingAsn1RawValue? parameters;
+
+  @override
+  void $enc($W w) {
+    w
+      ..list(algorithm, (w0, e0) => w0.i64(e0))
+      ..dto(parameters);
+  }
+}
 
 /// Go: `pkix.AttributeTypeAndValue`.
 ///
@@ -20,6 +47,78 @@ final class CryptoX509PkixAttributeTypeAndValue implements GoDto {
   @override
   void $enc($W w) {
     w..list(type, (w0, e0) => w0.i64(e0));
+  }
+}
+
+/// Go: `pkix.AttributeTypeAndValueSET`.
+final class CryptoX509PkixAttributeTypeAndValueSet implements GoDto {
+  CryptoX509PkixAttributeTypeAndValueSet(
+      {List<int>? type,
+      List<List<CryptoX509PkixAttributeTypeAndValue>>? value$})
+      : type = type ?? [],
+        value$ = value$ ?? [];
+
+  CryptoX509PkixAttributeTypeAndValueSet.$dec($R r)
+      : type = r.list(() => r.i64()),
+        value$ = r.list(() => r.list(() =>
+            r.p() ? CryptoX509PkixAttributeTypeAndValue.$dec(r) : $nil()));
+
+  /// Go: `Type`.
+  List<int> type;
+
+  /// Go: `Value`.
+  List<List<CryptoX509PkixAttributeTypeAndValue>> value$;
+
+  @override
+  void $enc($W w) {
+    w
+      ..list(type, (w0, e0) => w0.i64(e0))
+      ..list(value$, (w0, e0) => w0.list(e0, (w1, e1) => w1.dto(e1)));
+  }
+}
+
+/// Go: `pkix.CertificateList`.
+@Deprecated("x509.RevocationList should be used instead.")
+final class CryptoX509PkixCertificateList implements GoDto {
+  CryptoX509PkixCertificateList(
+      {CryptoX509PkixTbsCertificateList? tbsCertList,
+      CryptoX509PkixAlgorithmIdentifier? signatureAlgorithm,
+      $asn1.EncodingAsn1BitString? signatureValue})
+      : tbsCertList = tbsCertList,
+        signatureAlgorithm = signatureAlgorithm,
+        signatureValue = signatureValue;
+
+  CryptoX509PkixCertificateList.$dec($R r)
+      : tbsCertList = r.p() ? CryptoX509PkixTbsCertificateList.$dec(r) : null,
+        signatureAlgorithm =
+            r.p() ? CryptoX509PkixAlgorithmIdentifier.$dec(r) : null,
+        signatureValue = r.p() ? $asn1.EncodingAsn1BitString.$dec(r) : null;
+
+  /// Go: `TBSCertList`.
+  CryptoX509PkixTbsCertificateList? tbsCertList;
+
+  /// Go: `SignatureAlgorithm`.
+  CryptoX509PkixAlgorithmIdentifier? signatureAlgorithm;
+
+  /// Go: `SignatureValue`.
+  $asn1.EncodingAsn1BitString? signatureValue;
+
+  @override
+  void $enc($W w) {
+    w
+      ..dto(tbsCertList)
+      ..dto(signatureAlgorithm)
+      ..dto(signatureValue);
+  }
+
+  /// Go: `func (*pkix.CertificateList).HasExpired(now time.Time) bool`.
+  bool hasExpired(DateTime now) {
+    final $r = $callSync(
+        3468,
+        $W()
+          ..dto(this)
+          ..time(now));
+    return $r.b();
   }
 }
 
@@ -141,5 +240,124 @@ final class CryptoX509PkixName implements GoDto {
       ..str(commonName)
       ..list(names, (w0, e0) => w0.dto(e0))
       ..list(extraNames, (w0, e0) => w0.dto(e0));
+  }
+
+  /// Go: `func (pkix.Name).String() string`.
+  String string() {
+    final $r = $callSync(3469, $W()..dto(this));
+    return $r.str();
+  }
+
+  /// Go: `func (pkix.Name).ToRDNSequence() (ret pkix.RDNSequence)`.
+  List<List<CryptoX509PkixAttributeTypeAndValue>> toRdnSequence() {
+    final $r = $callSync(3470, $W()..dto(this));
+    return $r.list(() => $r.list(
+        () => $r.p() ? CryptoX509PkixAttributeTypeAndValue.$dec($r) : $nil()));
+  }
+}
+
+/// Go: `pkix.RevokedCertificate`.
+final class CryptoX509PkixRevokedCertificate implements GoDto {
+  CryptoX509PkixRevokedCertificate(
+      {$big.MathBigInt? serialNumber,
+      DateTime? revocationTime,
+      List<CryptoX509PkixExtension>? extensions})
+      : serialNumber = serialNumber,
+        revocationTime = revocationTime,
+        extensions = extensions ?? [];
+
+  CryptoX509PkixRevokedCertificate.$dec($R r)
+      : serialNumber = r.hn($big.MathBigInt.$h),
+        revocationTime = r.p() ? r.time() : null,
+        extensions =
+            r.list(() => r.p() ? CryptoX509PkixExtension.$dec(r) : $nil());
+
+  /// Go: `SerialNumber`.
+  $big.MathBigInt? serialNumber;
+
+  /// Go: `RevocationTime`.
+  DateTime? revocationTime;
+
+  /// Go: `Extensions`.
+  List<CryptoX509PkixExtension> extensions;
+
+  @override
+  void $enc($W w) {
+    w
+      ..h(serialNumber)
+      ..time(revocationTime)
+      ..list(extensions, (w0, e0) => w0.dto(e0));
+  }
+}
+
+/// Go: `pkix.TBSCertificateList`.
+@Deprecated("x509.RevocationList should be used instead.")
+final class CryptoX509PkixTbsCertificateList implements GoDto {
+  CryptoX509PkixTbsCertificateList(
+      {Uint8List? raw,
+      int? version,
+      CryptoX509PkixAlgorithmIdentifier? signature,
+      List<List<CryptoX509PkixAttributeTypeAndValue>>? issuer,
+      DateTime? thisUpdate,
+      DateTime? nextUpdate,
+      List<CryptoX509PkixRevokedCertificate>? revokedCertificates,
+      List<CryptoX509PkixExtension>? extensions})
+      : raw = raw,
+        version = version ?? 0,
+        signature = signature,
+        issuer = issuer ?? [],
+        thisUpdate = thisUpdate,
+        nextUpdate = nextUpdate,
+        revokedCertificates = revokedCertificates ?? [],
+        extensions = extensions ?? [];
+
+  CryptoX509PkixTbsCertificateList.$dec($R r)
+      : raw = r.bytes(),
+        version = r.i64(),
+        signature = r.p() ? CryptoX509PkixAlgorithmIdentifier.$dec(r) : null,
+        issuer = r.list(() => r.list(() =>
+            r.p() ? CryptoX509PkixAttributeTypeAndValue.$dec(r) : $nil())),
+        thisUpdate = r.p() ? r.time() : null,
+        nextUpdate = r.p() ? r.time() : null,
+        revokedCertificates = r.list(
+            () => r.p() ? CryptoX509PkixRevokedCertificate.$dec(r) : $nil()),
+        extensions =
+            r.list(() => r.p() ? CryptoX509PkixExtension.$dec(r) : $nil());
+
+  /// Go: `Raw`.
+  Uint8List? raw;
+
+  /// Go: `Version`.
+  int version;
+
+  /// Go: `Signature`.
+  CryptoX509PkixAlgorithmIdentifier? signature;
+
+  /// Go: `Issuer`.
+  List<List<CryptoX509PkixAttributeTypeAndValue>> issuer;
+
+  /// Go: `ThisUpdate`.
+  DateTime? thisUpdate;
+
+  /// Go: `NextUpdate`.
+  DateTime? nextUpdate;
+
+  /// Go: `RevokedCertificates`.
+  List<CryptoX509PkixRevokedCertificate> revokedCertificates;
+
+  /// Go: `Extensions`.
+  List<CryptoX509PkixExtension> extensions;
+
+  @override
+  void $enc($W w) {
+    w
+      ..bytes(raw)
+      ..i64(version)
+      ..dto(signature)
+      ..list(issuer, (w0, e0) => w0.list(e0, (w1, e1) => w1.dto(e1)))
+      ..time(thisUpdate)
+      ..time(nextUpdate)
+      ..list(revokedCertificates, (w0, e0) => w0.dto(e0))
+      ..list(extensions, (w0, e0) => w0.dto(e0));
   }
 }

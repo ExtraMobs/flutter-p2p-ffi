@@ -5,8 +5,24 @@ library;
 import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/go.dart'
-    show GoLibp2pLibp2pP2pTransportWebtransport;
+    show
+        GoLibp2pLibp2pP2pTransportWebtransport,
+        GoLibp2pLibp2pP2pTransportWebtransportOptions;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/benbjohnson/clock.dart' as $clock;
+import 'package:p2p_ffi/go/crypto/tls.dart' as $tls;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/connmgr.dart' as $connmgr;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/network.dart' as $network;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/transport.dart' as $transport;
+import 'package:p2p_ffi/go/libp2p/libp2p/p2p/transport/quicreuse.dart'
+    as $quicreuse;
+import 'package:p2p_ffi/go/multiformats/multiaddr.dart' as $multiaddr;
+
+/// Go: `libp2pwebtransport.Option` (functional option; constructors in the package).
+final class Libp2pP2pTransportWebtransportOption extends GoOption {
+  Libp2pP2pTransportWebtransportOption.$(super.$i, super.$a);
+}
 
 /// Go: `libp2pwebtransport.ErrCertHashMismatch`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
@@ -26,7 +42,51 @@ class Libp2pP2pTransportWebtransportErrCertHashMismatch
 /// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/transport/webtransport` (`go.libp2p.libp2p.p2p.transport.webtransport`).
 extension GoLibp2pLibp2pP2pTransportWebtransportApi
     on GoLibp2pLibp2pP2pTransportWebtransport {
+  /// Go: `func libp2pwebtransport.IsWebtransportMultiaddr(multiaddr multiaddr.Multiaddr) (bool, int)`.
+  (bool, int) isWebtransportMultiaddr($multiaddr.Multiaddr multiaddr) {
+    final $r = $callSync(15097, $W()..val(multiaddr));
+    return ($r.b(), $r.i64());
+  }
+
+  /// Go: `func libp2pwebtransport.New(key crypto.PrivKey, psk pnet.PSK, connManager *quicreuse.ConnManager, gater connmgr.ConnectionGater, rcmgr network.ResourceManager, opts ...libp2pwebtransport.Option) (transport.Transport, error)`.
+  $transport.Libp2pCoreTransport new$(
+      $crypto.Libp2pCoreCryptoPrivKey key,
+      Uint8List psk,
+      $quicreuse.Libp2pP2pTransportQuicreuseConnManager connManager,
+      $connmgr.Libp2pCoreConnmgrConnectionGater gater,
+      $network.Libp2pCoreNetworkResourceManager rcmgr,
+      [List<Libp2pP2pTransportWebtransportOption> opts = const []]) {
+    final $r = $callSync(
+        15098,
+        $W()
+          ..h(key)
+          ..bytes(psk)
+          ..h(connManager)
+          ..h(gater)
+          ..h(rcmgr)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+    return $r.hnn($transport.Libp2pCoreTransport.$h);
+  }
+
   /// Go: the function `libp2pwebtransport.New` as a value (a token: Go gets the function
   /// itself, as in `libp2p.Transport(tcp.NewTCPTransport)`).
   GoToken get newFunc => const GoToken(18);
+}
+
+/// Go: the option constructors of `github.com/libp2p/go-libp2p/p2p/transport/webtransport` (`go.libp2p.libp2p.p2p.transport.webtransport.options`).
+extension GoLibp2pLibp2pP2pTransportWebtransportOptionsApi
+    on GoLibp2pLibp2pP2pTransportWebtransportOptions {
+  /// Go: `webtransport.WithClock`.
+  Libp2pP2pTransportWebtransportOption withClock($clock.Clock cl) =>
+      Libp2pP2pTransportWebtransportOption.$(0, (w) => w..h(cl));
+
+  /// Go: `webtransport.WithHandshakeTimeout`.
+  Libp2pP2pTransportWebtransportOption withHandshakeTimeout(Duration d) =>
+      Libp2pP2pTransportWebtransportOption.$(
+          1, (w) => w..i64((d).inMicroseconds * 1000));
+
+  /// Go: `webtransport.WithTLSClientConfig`.
+  Libp2pP2pTransportWebtransportOption withTlsClientConfig(
+          $tls.CryptoTlsConfig c) =>
+      Libp2pP2pTransportWebtransportOption.$(2, (w) => w..h(c));
 }

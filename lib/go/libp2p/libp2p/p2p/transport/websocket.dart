@@ -2,13 +2,342 @@
 // Go: github.com/libp2p/go-libp2p/p2p/transport/websocket
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2pP2pTransportWebsocket;
+import 'dart:async';
+import 'dart:typed_data';
+
+import 'package:p2p_ffi/src/go.dart'
+    show
+        GoLibp2pLibp2pP2pTransportWebsocket,
+        GoLibp2pLibp2pP2pTransportWebsocketOptions;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/context.dart' as $context;
+import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/crypto/tls.dart' as $tls;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
+import 'package:p2p_ffi/go/io.dart' as $io;
+import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/network.dart' as $network;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/transport.dart' as $transport;
+import 'package:p2p_ffi/go/libp2p/libp2p/p2p/transport/tcpreuse.dart'
+    as $tcpreuse;
+import 'package:p2p_ffi/go/multiformats/multiaddr.dart' as $multiaddr;
+import 'package:p2p_ffi/go/multiformats/multiaddr/net.dart' as $net;
+import 'package:p2p_ffi/go/multiformats/multiaddr_fmt.dart' as $multiaddr_fmt;
+import 'package:p2p_ffi/go/net.dart' as $net2;
+import 'package:p2p_ffi/go/net/http.dart' as $http;
+import 'package:p2p_ffi/go/net/url.dart' as $url;
+import 'package:p2p_ffi/go/pion/datachannel.dart' as $datachannel;
+import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
+
+/// Go: `websocket.Addr`.
+final class Libp2pP2pTransportWebsocketAddr implements GoDto {
+  Libp2pP2pTransportWebsocketAddr({$url.NetUrl? url}) : url = url;
+
+  Libp2pP2pTransportWebsocketAddr.$dec($R r)
+      : url = r.p() ? $url.NetUrl.$dec(r) : null;
+
+  /// Go: `URL`.
+  $url.NetUrl? url;
+
+  @override
+  void $enc($W w) {
+    w..dto(url);
+  }
+
+  /// Go: `func (*websocket.Addr).Network() string`.
+  String network() {
+    final $r = $callSync(15073, $W()..dto(this));
+    return $r.str();
+  }
+}
+
+/// Go: `websocket.Conn` (handle).
+class Libp2pP2pTransportWebsocketConn extends $net.MultiaddrNetConn
+    with
+        $crypto.CryptoDecrypterOpts$,
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $io.IoCloser$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$,
+        $datachannel.DatachannelReadDeadliner$,
+        $datachannel.DatachannelWriteDeadliner$,
+        $expfmt.CommonExpfmtCloser$
+    implements
+        $crypto.CryptoDecrypterOpts,
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $io.IoCloser,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic,
+        $datachannel.DatachannelReadDeadliner,
+        $datachannel.DatachannelWriteDeadliner,
+        $expfmt.CommonExpfmtCloser {
+  Libp2pP2pTransportWebsocketConn.$h(super.$h) : super.$h();
+
+  /// Go: `func (*websocket.Conn).Close() error`.
+  void close() {
+    $callSync(15074, $W()..h(this));
+  }
+
+  /// Go: `func (*websocket.Conn).LocalAddr() net.Addr`.
+  $net2.NetAddr localAddr() {
+    final $r = $callSync(15075, $W()..h(this));
+    return $r.p() ? $net2.NetAddr.$dec($r) : $nil();
+  }
+
+  /// Go: `func (*websocket.Conn).LocalMultiaddr() multiaddr.Multiaddr`.
+  $multiaddr.Multiaddr localMultiaddr() {
+    final $r = $callSync(15076, $W()..h(this));
+    return $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil();
+  }
+
+  /// Go: `func (*websocket.Conn).Read(b []byte) (int, error)`.
+  Uint8List read(int n) {
+    final $r = $callSync(
+        15077,
+        $W()
+          ..h(this)
+          ..i64(n));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (*websocket.Conn).RemoteAddr() net.Addr`.
+  $net2.NetAddr remoteAddr() {
+    final $r = $callSync(15078, $W()..h(this));
+    return $r.p() ? $net2.NetAddr.$dec($r) : $nil();
+  }
+
+  /// Go: `func (*websocket.Conn).RemoteMultiaddr() multiaddr.Multiaddr`.
+  $multiaddr.Multiaddr remoteMultiaddr() {
+    final $r = $callSync(15079, $W()..h(this));
+    return $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil();
+  }
+
+  /// Go: `func (*websocket.Conn).SetDeadline(t time.Time) error`.
+  void setDeadline(DateTime t) {
+    $callSync(
+        15080,
+        $W()
+          ..h(this)
+          ..time(t));
+  }
+
+  /// Go: `func (*websocket.Conn).SetReadDeadline(t time.Time) error`.
+  void setReadDeadline(DateTime t) {
+    $callSync(
+        15081,
+        $W()
+          ..h(this)
+          ..time(t));
+  }
+
+  /// Go: `func (*websocket.Conn).SetWriteDeadline(t time.Time) error`.
+  void setWriteDeadline(DateTime t) {
+    $callSync(
+        15082,
+        $W()
+          ..h(this)
+          ..time(t));
+  }
+
+  /// Go: `func (*websocket.Conn).Write(b []byte) (n int, err error)`.
+  int write(Uint8List b) {
+    final $r = $callSync(
+        15083,
+        $W()
+          ..h(this)
+          ..bytes(b));
+    return $r.i64();
+  }
+}
+
+/// Go: `websocket.Option` (functional option; constructors in the package).
+final class Libp2pP2pTransportWebsocketOption extends GoOption {
+  Libp2pP2pTransportWebsocketOption.$(super.$i, super.$a);
+}
+
+/// Go: `websocket.WebsocketTransport` (handle).
+class Libp2pP2pTransportWebsocketTransport
+    extends $transport.Libp2pCoreTransport
+    with
+        $crypto.CryptoDecrypterOpts$,
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$,
+        $transport.Libp2pCoreTransportResolver$
+    implements
+        $crypto.CryptoDecrypterOpts,
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic,
+        $transport.Libp2pCoreTransportResolver {
+  Libp2pP2pTransportWebsocketTransport.$h(super.$h) : super.$h();
+
+  /// Go: `func (*websocket.WebsocketTransport).CanDial(a multiaddr.Multiaddr) bool`.
+  bool canDial($multiaddr.Multiaddr a) {
+    final $r = $callSync(
+        15090,
+        $W()
+          ..h(this)
+          ..val(a));
+    return $r.b();
+  }
+
+  /// Go: `func (*websocket.WebsocketTransport).Dial(ctx context.Context, raddr multiaddr.Multiaddr, p peer.ID) (transport.CapableConn, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<$transport.Libp2pCoreTransportCapableConn> dial($context.Context ctx,
+      $multiaddr.Multiaddr raddr, $peer.Libp2pCorePeerId p) async {
+    final $r = await $call(
+        15091,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(raddr)
+          ..val(p));
+    return $r.hnn($transport.Libp2pCoreTransportCapableConn.$h);
+  }
+
+  /// Go: `func (*websocket.WebsocketTransport).Listen(a multiaddr.Multiaddr) (transport.Listener, error)`.
+  $transport.Libp2pCoreTransportListener listen($multiaddr.Multiaddr a) {
+    final $r = $callSync(
+        15092,
+        $W()
+          ..h(this)
+          ..val(a));
+    return $r.hnn($transport.Libp2pCoreTransportListener.$h);
+  }
+
+  /// Go: `func (*websocket.WebsocketTransport).Protocols() []int`.
+  List<int> protocols() {
+    final $r = $callSync(15093, $W()..h(this));
+    return $r.list(() => $r.i64());
+  }
+
+  /// Go: `func (*websocket.WebsocketTransport).Proxy() bool`.
+  bool proxy() {
+    final $r = $callSync(15094, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (*websocket.WebsocketTransport).Resolve(_ context.Context, maddr multiaddr.Multiaddr) ([]multiaddr.Multiaddr, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<List<$multiaddr.Multiaddr>> resolve(
+      $context.Context ctx, $multiaddr.Multiaddr maddr) async {
+    final $r = await $call(
+        15095,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(maddr));
+    return $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil());
+  }
+}
 
 /// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/transport/websocket` (`go.libp2p.libp2p.p2p.transport.websocket`).
 extension GoLibp2pLibp2pP2pTransportWebsocketApi
     on GoLibp2pLibp2pP2pTransportWebsocket {
+  /// Go: `func websocket.ConvertWebsocketMultiaddrToNetAddr(maddr multiaddr.Multiaddr) (net.Addr, error)`.
+  $net2.NetAddr convertWebsocketMultiaddrToNetAddr($multiaddr.Multiaddr maddr) {
+    final $r = $callSync(15084, $W()..val(maddr));
+    return $r.p() ? $net2.NetAddr.$dec($r) : $nil();
+  }
+
+  /// Go: `var websocket.GracefulCloseTimeout time.Duration`.
+  Duration get gracefulCloseTimeout {
+    final $r = $callSync(15085);
+    return Duration(microseconds: $r.i64() ~/ 1000);
+  }
+
+  /// Go: `func websocket.New(u transport.Upgrader, rcmgr network.ResourceManager, sharedTCP *tcpreuse.ConnMgr, opts ...websocket.Option) (*websocket.WebsocketTransport, error)`.
+  Libp2pP2pTransportWebsocketTransport new$(
+      $transport.Libp2pCoreTransportUpgrader u,
+      $network.Libp2pCoreNetworkResourceManager rcmgr,
+      $tcpreuse.Libp2pP2pTransportTcpreuseConnMgr sharedTcp,
+      [List<Libp2pP2pTransportWebsocketOption> opts = const []]) {
+    final $r = $callSync(
+        15086,
+        $W()
+          ..h(u)
+          ..h(rcmgr)
+          ..h(sharedTcp)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+    return $r.hnn(Libp2pP2pTransportWebsocketTransport.$h);
+  }
+
+  /// Go: `func websocket.NewAddr(host string) *websocket.Addr`.
+  Libp2pP2pTransportWebsocketAddr newAddr(String host) {
+    final $r = $callSync(15087, $W()..str(host));
+    return $r.p() ? Libp2pP2pTransportWebsocketAddr.$dec($r) : $nil();
+  }
+
+  /// Go: `func websocket.NewAddrWithScheme(host string, isSecure bool) *websocket.Addr`.
+  Libp2pP2pTransportWebsocketAddr newAddrWithScheme(
+      String host, bool isSecure) {
+    final $r = $callSync(
+        15088,
+        $W()
+          ..str(host)
+          ..b(isSecure));
+    return $r.p() ? Libp2pP2pTransportWebsocketAddr.$dec($r) : $nil();
+  }
+
+  /// Go: `func websocket.ParseWebsocketNetAddr(a net.Addr) (multiaddr.Multiaddr, error)`.
+  $multiaddr.Multiaddr parseWebsocketNetAddr($net2.NetAddr a) {
+    final $r = $callSync(15089, $W()..dto(a));
+    return $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil();
+  }
+
+  /// Go: `var websocket.WsFmt mafmt.Pattern`.
+  $multiaddr_fmt.MultiaddrFmtPattern get wsFmt {
+    final $r = $callSync(15096);
+    return $r.hnn($multiaddr_fmt.MultiaddrFmtPattern.$h);
+  }
+
   /// Go: the function `websocket.New` as a value (a token: Go gets the function
   /// itself, as in `libp2p.Transport(tcp.NewTCPTransport)`).
   GoToken get newFunc => const GoToken(17);
+}
+
+/// Go: the option constructors of `github.com/libp2p/go-libp2p/p2p/transport/websocket` (`go.libp2p.libp2p.p2p.transport.websocket.options`).
+extension GoLibp2pLibp2pP2pTransportWebsocketOptionsApi
+    on GoLibp2pLibp2pP2pTransportWebsocketOptions {
+  /// Go: `websocket.WithHTTPHandler`.
+  Libp2pP2pTransportWebsocketOption withHttpHandler($http.NetHttpHandler h) =>
+      Libp2pP2pTransportWebsocketOption.$(0, (w) => w..h(h));
+
+  /// Go: `websocket.WithHTTPServerConfig`.
+  Libp2pP2pTransportWebsocketOption withHttpServerConfig(
+          FutureOr<void> Function($http.NetHttpServer server) fn) =>
+      Libp2pP2pTransportWebsocketOption.$(
+          1, (w) => w..cb((r) => fn(r.hnn($http.NetHttpServer.$h)), false));
+
+  /// Go: `websocket.WithHandshakeTimeout`.
+  Libp2pP2pTransportWebsocketOption withHandshakeTimeout(Duration timeout) =>
+      Libp2pP2pTransportWebsocketOption.$(
+          2, (w) => w..i64((timeout).inMicroseconds * 1000));
+
+  /// Go: `websocket.WithTLSClientConfig`.
+  Libp2pP2pTransportWebsocketOption withTlsClientConfig(
+          $tls.CryptoTlsConfig c) =>
+      Libp2pP2pTransportWebsocketOption.$(3, (w) => w..h(c));
+
+  /// Go: `websocket.WithTLSConfig`.
+  Libp2pP2pTransportWebsocketOption withTlsConfig($tls.CryptoTlsConfig conf) =>
+      Libp2pP2pTransportWebsocketOption.$(4, (w) => w..h(conf));
 }

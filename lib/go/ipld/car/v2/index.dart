@@ -9,8 +9,11 @@ import 'package:p2p_ffi/src/go.dart'
     show GoIpldCarV2Index, GoIpldCarV2IndexConsts;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/cid.dart' as $cid;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 
 /// Go: `index.Index` (handle).
 class CarV2Index extends GoHandle with CarV2Index$ {
@@ -19,12 +22,6 @@ class CarV2Index extends GoHandle with CarV2Index$ {
 
 /// The methods of [CarV2Index], mixed into every class Go also accepts as one.
 mixin CarV2Index$ on GoHandle {
-  /// Go: `func (index.Index).Codec() multicodec.Code`.
-  int codec() {
-    final $r = $callSync(1910, $W()..h(this));
-    return $r.i64();
-  }
-
   /// Go: `func (index.Index).GetAll(cid.Cid, func(uint64) bool) error`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
@@ -36,7 +33,7 @@ mixin CarV2Index$ on GoHandle {
       $cid.Cid cid, FutureOr<bool> Function(int offset) callback,
       {int? batchSize}) async {
     await $callCb(
-        1911,
+        11969,
         $W()
           ..h(this)
           ..val(cid)
@@ -44,10 +41,16 @@ mixin CarV2Index$ on GoHandle {
         (r) => callback(r.i64()));
   }
 
+  /// Go: `func (index.Index).Codec() multicodec.Code`.
+  int codec() {
+    final $r = $callSync(11968, $W()..h(this));
+    return $r.i64();
+  }
+
   /// Go: `func (index.Index).Load([]index.Record) error`.
   void load(List<CarV2IndexRecord> records) {
     $callSync(
-        1912,
+        11970,
         $W()
           ..h(this)
           ..list(records, (w0, e0) => w0.dto(e0)));
@@ -56,7 +59,7 @@ mixin CarV2Index$ on GoHandle {
   /// Go: `func (index.Index).Marshal(w io.Writer) (uint64, error)`.
   int marshal(GoHandle? w) {
     final $r = $callSync(
-        1913,
+        11971,
         $W()
           ..h(this)
           ..h(w));
@@ -66,7 +69,7 @@ mixin CarV2Index$ on GoHandle {
   /// Go: `func (index.Index).Unmarshal(r io.Reader) error`.
   void unmarshal(Object r) {
     $callSync(
-        1914,
+        11972,
         $W()
           ..h(this)
           ..reader(r));
@@ -74,13 +77,13 @@ mixin CarV2Index$ on GoHandle {
 
   /// Go: type assertion `x.(*index.InsertionIndex)`: null if the object is not one.
   CarV2IndexInsertionIndex? asCarV2IndexInsertionIndex() {
-    final $r = $callSync(227, $W()..h(this));
+    final $r = $callSync(1226, $W()..h(this));
     return $r.hn(CarV2IndexInsertionIndex.$h);
   }
 
   /// Go: type assertion `x.(index.IterableIndex)`: null if the object is not one.
   CarV2IndexIterableIndex? asCarV2IndexIterableIndex() {
-    final $r = $callSync(228, $W()..h(this));
+    final $r = $callSync(1227, $W()..h(this));
     return $r.hn(CarV2IndexIterableIndex.$h);
   }
 }
@@ -88,35 +91,27 @@ mixin CarV2Index$ on GoHandle {
 /// Go: `index.InsertionIndex` (handle).
 class CarV2IndexInsertionIndex extends CarV2IndexIterableIndex
     with
+        $crypto.CryptoDecrypterOpts$,
         $crypto.CryptoPrivateKey$,
         $crypto.CryptoPublicKey$,
-        $ipfs_cmds.IpfsCmdsEnvironment$
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
     implements
+        $crypto.CryptoDecrypterOpts,
         $crypto.CryptoPrivateKey,
         $crypto.CryptoPublicKey,
-        $ipfs_cmds.IpfsCmdsEnvironment {
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   CarV2IndexInsertionIndex.$h(super.$h) : super.$h();
 
   /// Go: `func index.NewInsertionIndex() *index.InsertionIndex`.
   factory CarV2IndexInsertionIndex() {
-    final $r = $callSync(1929);
+    final $r = $callSync(11987);
     return $r.hnn(CarV2IndexInsertionIndex.$h);
-  }
-
-  /// Go: `func (*index.InsertionIndex).Codec() multicodec.Code`.
-  int codec() {
-    final $r = $callSync(1915, $W()..h(this));
-    return $r.i64();
-  }
-
-  /// Go: `func (*index.InsertionIndex).Flatten(codec multicodec.Code) (index.Index, error)`.
-  CarV2Index flatten(int codec) {
-    final $r = $callSync(
-        1916,
-        $W()
-          ..h(this)
-          ..i64(codec));
-    return $r.hnn(CarV2Index.$h);
   }
 
   /// Go: `func (*index.InsertionIndex).ForEach(f func(multihash.Multihash, uint64) error) error`.
@@ -129,7 +124,7 @@ class CarV2IndexInsertionIndex extends CarV2IndexIterableIndex
   Future<void> forEach(FutureOr<void> Function(Uint8List arg0, int arg1) f,
       {int? batchSize}) async {
     await $callCb(
-        1917,
+        11975,
         $W()
           ..h(this)
           ..u32(batchSize ?? 0),
@@ -146,21 +141,11 @@ class CarV2IndexInsertionIndex extends CarV2IndexIterableIndex
   Future<void> forEachCid(FutureOr<void> Function($cid.Cid cid, int arg1) f,
       {int? batchSize}) async {
     await $callCb(
-        1918,
+        11976,
         $W()
           ..h(this)
           ..u32(batchSize ?? 0),
         (r) => f(r.p() ? $cid.Cid(r.str()) : $nil(), r.i64()));
-  }
-
-  /// Go: `func (*index.InsertionIndex).Get(c cid.Cid) (uint64, error)`.
-  int get($cid.Cid c) {
-    final $r = $callSync(
-        1919,
-        $W()
-          ..h(this)
-          ..val(c));
-    return $r.i64();
   }
 
   /// Go: `func (*index.InsertionIndex).GetAll(c cid.Cid, fn func(uint64) bool) error`.
@@ -173,7 +158,7 @@ class CarV2IndexInsertionIndex extends CarV2IndexIterableIndex
   Future<void> getAll($cid.Cid c, FutureOr<bool> Function(int arg0) fn,
       {int? batchSize}) async {
     await $callCb(
-        1920,
+        11978,
         $W()
           ..h(this)
           ..val(c)
@@ -181,10 +166,36 @@ class CarV2IndexInsertionIndex extends CarV2IndexIterableIndex
         (r) => fn(r.i64()));
   }
 
+  /// Go: `func (*index.InsertionIndex).Codec() multicodec.Code`.
+  int codec() {
+    final $r = $callSync(11973, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (*index.InsertionIndex).Flatten(codec multicodec.Code) (index.Index, error)`.
+  CarV2Index flatten(int codec) {
+    final $r = $callSync(
+        11974,
+        $W()
+          ..h(this)
+          ..i64(codec));
+    return $r.hnn(CarV2Index.$h);
+  }
+
+  /// Go: `func (*index.InsertionIndex).Get(c cid.Cid) (uint64, error)`.
+  int get($cid.Cid c) {
+    final $r = $callSync(
+        11977,
+        $W()
+          ..h(this)
+          ..val(c));
+    return $r.i64();
+  }
+
   /// Go: `func (*index.InsertionIndex).HasExactCID(c cid.Cid) (bool, error)`.
   bool hasExactCid($cid.Cid c) {
     final $r = $callSync(
-        1921,
+        11979,
         $W()
           ..h(this)
           ..val(c));
@@ -194,7 +205,7 @@ class CarV2IndexInsertionIndex extends CarV2IndexIterableIndex
   /// Go: `func (*index.InsertionIndex).HasMultihash(mh multihash.Multihash) (bool, error)`.
   bool hasMultihash(Uint8List mh) {
     final $r = $callSync(
-        1922,
+        11980,
         $W()
           ..h(this)
           ..bytes(mh));
@@ -204,7 +215,7 @@ class CarV2IndexInsertionIndex extends CarV2IndexIterableIndex
   /// Go: `func (*index.InsertionIndex).InsertNoReplace(key cid.Cid, n uint64)`.
   void insertNoReplace($cid.Cid key, int n) {
     $callSync(
-        1923,
+        11981,
         $W()
           ..h(this)
           ..val(key)
@@ -214,7 +225,7 @@ class CarV2IndexInsertionIndex extends CarV2IndexIterableIndex
   /// Go: `func (*index.InsertionIndex).Load(rs []index.Record) error`.
   void load(List<CarV2IndexRecord> rs) {
     $callSync(
-        1924,
+        11982,
         $W()
           ..h(this)
           ..list(rs, (w0, e0) => w0.dto(e0)));
@@ -223,7 +234,7 @@ class CarV2IndexInsertionIndex extends CarV2IndexIterableIndex
   /// Go: `func (*index.InsertionIndex).Marshal(w io.Writer) (uint64, error)`.
   int marshal(GoHandle? w) {
     final $r = $callSync(
-        1925,
+        11983,
         $W()
           ..h(this)
           ..h(w));
@@ -233,7 +244,7 @@ class CarV2IndexInsertionIndex extends CarV2IndexIterableIndex
   /// Go: `func (*index.InsertionIndex).Unmarshal(r io.Reader) error`.
   void unmarshal(Object r) {
     $callSync(
-        1926,
+        11984,
         $W()
           ..h(this)
           ..reader(r));
@@ -258,7 +269,7 @@ mixin CarV2IndexIterableIndex$ on GoHandle {
       FutureOr<void> Function(Uint8List multihash, int offset) callback,
       {int? batchSize}) async {
     await $callCb(
-        1927,
+        11985,
         $W()
           ..h(this)
           ..u32(batchSize ?? 0),
@@ -267,7 +278,7 @@ mixin CarV2IndexIterableIndex$ on GoHandle {
 
   /// Go: type assertion `x.(*index.InsertionIndex)`: null if the object is not one.
   CarV2IndexInsertionIndex? asCarV2IndexInsertionIndex() {
-    final $r = $callSync(229, $W()..h(this));
+    final $r = $callSync(1228, $W()..h(this));
     return $r.hn(CarV2IndexInsertionIndex.$h);
   }
 }
@@ -304,7 +315,7 @@ extension GoIpldCarV2IndexApi on GoIpldCarV2Index {
   /// Go: `func index.GetFirst(idx index.Index, key cid.Cid) (uint64, error)`.
   int getFirst(CarV2Index idx, $cid.Cid key) {
     final $r = $callSync(
-        1909,
+        11967,
         $W()
           ..h(idx)
           ..val(key));
@@ -313,26 +324,26 @@ extension GoIpldCarV2IndexApi on GoIpldCarV2Index {
 
   /// Go: `func index.New(codec multicodec.Code) (index.Index, error)`.
   CarV2Index new$(int codec) {
-    final $r = $callSync(1928, $W()..i64(codec));
+    final $r = $callSync(11986, $W()..i64(codec));
     return $r.hnn(CarV2Index.$h);
   }
 
   /// Go: `func index.ReadCodec(r io.Reader) (multicodec.Code, error)`.
   int readCodec(Object r) {
-    final $r = $callSync(1930, $W()..reader(r));
+    final $r = $callSync(11988, $W()..reader(r));
     return $r.i64();
   }
 
   /// Go: `func index.ReadFrom(r io.Reader) (index.Index, error)`.
   CarV2Index readFrom(Object r) {
-    final $r = $callSync(1931, $W()..reader(r));
+    final $r = $callSync(11989, $W()..reader(r));
     return $r.hnn(CarV2Index.$h);
   }
 
   /// Go: `func index.WriteTo(idx index.Index, w io.Writer) (uint64, error)`.
   int writeTo(CarV2Index idx, GoHandle? w) {
     final $r = $callSync(
-        1932,
+        11990,
         $W()
           ..h(idx)
           ..h(w));

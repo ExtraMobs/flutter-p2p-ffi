@@ -6,7 +6,10 @@ import 'package:p2p_ffi/src/go.dart'
     show GoLibp2pLibp2pP2pMuxerYamux, GoLibp2pLibp2pP2pMuxerYamuxConsts;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/network.dart' as $network;
 import 'package:p2p_ffi/go/libp2p/yamux/v5.dart' as $v5;
 import 'package:p2p_ffi/go/net.dart' as $net;
@@ -14,18 +17,26 @@ import 'package:p2p_ffi/go/net.dart' as $net;
 /// Go: `yamux.Transport` (handle).
 class Libp2pP2pMuxerYamuxTransport extends $network.Libp2pCoreNetworkMultiplexer
     with
+        $crypto.CryptoDecrypterOpts$,
         $crypto.CryptoPrivateKey$,
         $crypto.CryptoPublicKey$,
-        $ipfs_cmds.IpfsCmdsEnvironment$
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
     implements
+        $crypto.CryptoDecrypterOpts,
         $crypto.CryptoPrivateKey,
         $crypto.CryptoPublicKey,
-        $ipfs_cmds.IpfsCmdsEnvironment {
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   Libp2pP2pMuxerYamuxTransport.$h(super.$h) : super.$h();
 
   /// Go: `func (*yamux.Transport).Config() *yamux.Config`.
   $v5.YamuxV5Config config() {
-    final $r = $callSync(3240, $W()..h(this));
+    final $r = $callSync(14603, $W()..h(this));
     return $r.p() ? $v5.YamuxV5Config.$dec($r) : $nil();
   }
 
@@ -33,7 +44,7 @@ class Libp2pP2pMuxerYamuxTransport extends $network.Libp2pCoreNetworkMultiplexer
   $network.Libp2pCoreNetworkMuxedConn newConn($net.NetConn nc, bool isServer,
       $network.Libp2pCoreNetworkPeerScope scope) {
     final $r = $callSync(
-        3241,
+        14604,
         $W()
           ..h(this)
           ..h(nc)
@@ -47,13 +58,13 @@ class Libp2pP2pMuxerYamuxTransport extends $network.Libp2pCoreNetworkMultiplexer
 extension GoLibp2pLibp2pP2pMuxerYamuxApi on GoLibp2pLibp2pP2pMuxerYamux {
   /// Go: `var yamux.DefaultTransport *yamux.Transport`.
   Libp2pP2pMuxerYamuxTransport get defaultTransport {
-    final $r = $callSync(3238);
+    final $r = $callSync(14601);
     return $r.hnn(Libp2pP2pMuxerYamuxTransport.$h);
   }
 
   /// Go: `func yamux.NewMuxedConn(m *yamux.Session) network.MuxedConn`.
   $network.Libp2pCoreNetworkMuxedConn newMuxedConn($v5.YamuxV5Session m) {
-    final $r = $callSync(3239, $W()..h(m));
+    final $r = $callSync(14602, $W()..h(m));
     return $r.hnn($network.Libp2pCoreNetworkMuxedConn.$h);
   }
 }

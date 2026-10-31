@@ -4,75 +4,266 @@ library;
 
 import 'package:p2p_ffi/src/runtime.dart';
 
-/// Go: `stats.Stats` (a kubo command output).
-final class Libp2pKadDhtProviderStats {
-  Libp2pKadDhtProviderStats.$dec($R r)
-      : closed = r.b(),
-        connectivity = Libp2pKadDhtProviderStatsConnectivity.$dec(r),
-        queues = Libp2pKadDhtProviderStatsQueues.$dec(r),
-        schedule = Libp2pKadDhtProviderStatsSchedule.$dec(r),
-        workers = Libp2pKadDhtProviderStatsWorkers.$dec(r),
-        timing = Libp2pKadDhtProviderStatsTiming.$dec(r),
-        operations = Libp2pKadDhtProviderStatsOperations.$dec(r),
-        network = Libp2pKadDhtProviderStatsNetwork.$dec(r);
+/// Go: `stats.Connectivity`.
+final class Libp2pKadDhtProviderStatsConnectivity implements GoDto {
+  Libp2pKadDhtProviderStatsConnectivity({String? status, DateTime? since})
+      : status = status ?? '',
+        since = since;
 
-  /// Go: `Closed`.
-  final bool closed;
-
-  /// Go: `Connectivity`.
-  final Libp2pKadDhtProviderStatsConnectivity connectivity;
-
-  /// Go: `Queues`.
-  final Libp2pKadDhtProviderStatsQueues queues;
-
-  /// Go: `Schedule`.
-  final Libp2pKadDhtProviderStatsSchedule schedule;
-
-  /// Go: `Workers`.
-  final Libp2pKadDhtProviderStatsWorkers workers;
-
-  /// Go: `Timing`.
-  final Libp2pKadDhtProviderStatsTiming timing;
-
-  /// Go: `Operations`.
-  final Libp2pKadDhtProviderStatsOperations operations;
-
-  /// Go: `Network`.
-  final Libp2pKadDhtProviderStatsNetwork network;
-}
-
-/// Go: `stats.Connectivity` (a kubo command output).
-final class Libp2pKadDhtProviderStatsConnectivity {
   Libp2pKadDhtProviderStatsConnectivity.$dec($R r)
       : status = r.str(),
         since = r.p() ? r.time() : null;
 
   /// Go: `Status`.
-  final String status;
+  String status;
 
   /// Go: `Since`.
-  final DateTime? since;
+  DateTime? since;
+
+  @override
+  void $enc($W w) {
+    w
+      ..str(status)
+      ..time(since);
+  }
 }
 
-/// Go: `stats.Queues` (a kubo command output).
-final class Libp2pKadDhtProviderStatsQueues {
+/// Go: `stats.Network`.
+final class Libp2pKadDhtProviderStatsNetwork implements GoDto {
+  Libp2pKadDhtProviderStatsNetwork(
+      {int? peers,
+      int? reachable,
+      bool? completeKeyspaceCoverage,
+      double? avgRegionSize,
+      double? avgHolders,
+      int? replicationFactor})
+      : peers = peers ?? 0,
+        reachable = reachable ?? 0,
+        completeKeyspaceCoverage = completeKeyspaceCoverage ?? false,
+        avgRegionSize = avgRegionSize ?? 0.0,
+        avgHolders = avgHolders ?? 0.0,
+        replicationFactor = replicationFactor ?? 0;
+
+  Libp2pKadDhtProviderStatsNetwork.$dec($R r)
+      : peers = r.i64(),
+        reachable = r.i64(),
+        completeKeyspaceCoverage = r.b(),
+        avgRegionSize = r.f64(),
+        avgHolders = r.f64(),
+        replicationFactor = r.i64();
+
+  /// Go: `Peers`.
+  int peers;
+
+  /// Go: `Reachable`.
+  int reachable;
+
+  /// Go: `CompleteKeyspaceCoverage`.
+  bool completeKeyspaceCoverage;
+
+  /// Go: `AvgRegionSize`.
+  double avgRegionSize;
+
+  /// Go: `AvgHolders`.
+  double avgHolders;
+
+  /// Go: `ReplicationFactor`.
+  int replicationFactor;
+
+  @override
+  void $enc($W w) {
+    w
+      ..i64(peers)
+      ..i64(reachable)
+      ..b(completeKeyspaceCoverage)
+      ..f64(avgRegionSize)
+      ..f64(avgHolders)
+      ..i64(replicationFactor);
+  }
+}
+
+/// Go: `stats.OngoingOperations`.
+final class Libp2pKadDhtProviderStatsOngoingOperations implements GoDto {
+  Libp2pKadDhtProviderStatsOngoingOperations(
+      {int? regionProvides,
+      int? keyProvides,
+      int? regionReprovides,
+      int? keyReprovides})
+      : regionProvides = regionProvides ?? 0,
+        keyProvides = keyProvides ?? 0,
+        regionReprovides = regionReprovides ?? 0,
+        keyReprovides = keyReprovides ?? 0;
+
+  Libp2pKadDhtProviderStatsOngoingOperations.$dec($R r)
+      : regionProvides = r.i64(),
+        keyProvides = r.i64(),
+        regionReprovides = r.i64(),
+        keyReprovides = r.i64();
+
+  /// Go: `RegionProvides`.
+  int regionProvides;
+
+  /// Go: `KeyProvides`.
+  int keyProvides;
+
+  /// Go: `RegionReprovides`.
+  int regionReprovides;
+
+  /// Go: `KeyReprovides`.
+  int keyReprovides;
+
+  @override
+  void $enc($W w) {
+    w
+      ..i64(regionProvides)
+      ..i64(keyProvides)
+      ..i64(regionReprovides)
+      ..i64(keyReprovides);
+  }
+}
+
+/// Go: `stats.Operations`.
+final class Libp2pKadDhtProviderStatsOperations implements GoDto {
+  Libp2pKadDhtProviderStatsOperations(
+      {Libp2pKadDhtProviderStatsOngoingOperations? ongoing,
+      Libp2pKadDhtProviderStatsPastOperations? past})
+      : ongoing = ongoing,
+        past = past;
+
+  Libp2pKadDhtProviderStatsOperations.$dec($R r)
+      : ongoing =
+            r.p() ? Libp2pKadDhtProviderStatsOngoingOperations.$dec(r) : null,
+        past = r.p() ? Libp2pKadDhtProviderStatsPastOperations.$dec(r) : null;
+
+  /// Go: `Ongoing`.
+  Libp2pKadDhtProviderStatsOngoingOperations? ongoing;
+
+  /// Go: `Past`.
+  Libp2pKadDhtProviderStatsPastOperations? past;
+
+  @override
+  void $enc($W w) {
+    w
+      ..dto(ongoing)
+      ..dto(past);
+  }
+}
+
+/// Go: `stats.PastOperations`.
+final class Libp2pKadDhtProviderStatsPastOperations implements GoDto {
+  Libp2pKadDhtProviderStatsPastOperations(
+      {int? recordsProvided,
+      int? keysProvided,
+      int? keysFailed,
+      double? keysProvidedPerMinute,
+      double? keysReprovidedPerMinute,
+      Duration? regionReprovideDuration,
+      double? avgKeysPerReprovide,
+      int? regionReprovidedLastCycle})
+      : recordsProvided = recordsProvided ?? 0,
+        keysProvided = keysProvided ?? 0,
+        keysFailed = keysFailed ?? 0,
+        keysProvidedPerMinute = keysProvidedPerMinute ?? 0.0,
+        keysReprovidedPerMinute = keysReprovidedPerMinute ?? 0.0,
+        regionReprovideDuration = regionReprovideDuration ?? Duration.zero,
+        avgKeysPerReprovide = avgKeysPerReprovide ?? 0.0,
+        regionReprovidedLastCycle = regionReprovidedLastCycle ?? 0;
+
+  Libp2pKadDhtProviderStatsPastOperations.$dec($R r)
+      : recordsProvided = r.i64(),
+        keysProvided = r.i64(),
+        keysFailed = r.i64(),
+        keysProvidedPerMinute = r.f64(),
+        keysReprovidedPerMinute = r.f64(),
+        regionReprovideDuration = Duration(microseconds: r.i64() ~/ 1000),
+        avgKeysPerReprovide = r.f64(),
+        regionReprovidedLastCycle = r.i64();
+
+  /// Go: `RecordsProvided`.
+  int recordsProvided;
+
+  /// Go: `KeysProvided`.
+  int keysProvided;
+
+  /// Go: `KeysFailed`.
+  int keysFailed;
+
+  /// Go: `KeysProvidedPerMinute`.
+  double keysProvidedPerMinute;
+
+  /// Go: `KeysReprovidedPerMinute`.
+  double keysReprovidedPerMinute;
+
+  /// Go: `RegionReprovideDuration`.
+  Duration regionReprovideDuration;
+
+  /// Go: `AvgKeysPerReprovide`.
+  double avgKeysPerReprovide;
+
+  /// Go: `RegionReprovidedLastCycle`.
+  int regionReprovidedLastCycle;
+
+  @override
+  void $enc($W w) {
+    w
+      ..i64(recordsProvided)
+      ..i64(keysProvided)
+      ..i64(keysFailed)
+      ..f64(keysProvidedPerMinute)
+      ..f64(keysReprovidedPerMinute)
+      ..i64((regionReprovideDuration).inMicroseconds * 1000)
+      ..f64(avgKeysPerReprovide)
+      ..i64(regionReprovidedLastCycle);
+  }
+}
+
+/// Go: `stats.Queues`.
+final class Libp2pKadDhtProviderStatsQueues implements GoDto {
+  Libp2pKadDhtProviderStatsQueues(
+      {int? pendingKeyProvides,
+      int? pendingRegionProvides,
+      int? pendingRegionReprovides})
+      : pendingKeyProvides = pendingKeyProvides ?? 0,
+        pendingRegionProvides = pendingRegionProvides ?? 0,
+        pendingRegionReprovides = pendingRegionReprovides ?? 0;
+
   Libp2pKadDhtProviderStatsQueues.$dec($R r)
       : pendingKeyProvides = r.i64(),
         pendingRegionProvides = r.i64(),
         pendingRegionReprovides = r.i64();
 
   /// Go: `PendingKeyProvides`.
-  final int pendingKeyProvides;
+  int pendingKeyProvides;
 
   /// Go: `PendingRegionProvides`.
-  final int pendingRegionProvides;
+  int pendingRegionProvides;
 
   /// Go: `PendingRegionReprovides`.
-  final int pendingRegionReprovides;
+  int pendingRegionReprovides;
+
+  @override
+  void $enc($W w) {
+    w
+      ..i64(pendingKeyProvides)
+      ..i64(pendingRegionProvides)
+      ..i64(pendingRegionReprovides);
+  }
 }
 
-/// Go: `stats.Schedule` (a kubo command output).
-final class Libp2pKadDhtProviderStatsSchedule {
+/// Go: `stats.Schedule`.
+final class Libp2pKadDhtProviderStatsSchedule implements GoDto {
+  Libp2pKadDhtProviderStatsSchedule(
+      {int? keys,
+      int? regions,
+      double? avgPrefixLength,
+      DateTime? nextReprovideAt,
+      String? nextReprovidePrefix})
+      : keys = keys ?? 0,
+        regions = regions ?? 0,
+        avgPrefixLength = avgPrefixLength ?? 0.0,
+        nextReprovideAt = nextReprovideAt,
+        nextReprovidePrefix = nextReprovidePrefix ?? '';
+
   Libp2pKadDhtProviderStatsSchedule.$dec($R r)
       : keys = r.i64(),
         regions = r.i64(),
@@ -81,23 +272,169 @@ final class Libp2pKadDhtProviderStatsSchedule {
         nextReprovidePrefix = r.str();
 
   /// Go: `Keys`.
-  final int keys;
+  int keys;
 
   /// Go: `Regions`.
-  final int regions;
+  int regions;
 
   /// Go: `AvgPrefixLength`.
-  final double avgPrefixLength;
+  double avgPrefixLength;
 
   /// Go: `NextReprovideAt`.
-  final DateTime? nextReprovideAt;
+  DateTime? nextReprovideAt;
 
   /// Go: `NextReprovidePrefix`.
-  final String nextReprovidePrefix;
+  String nextReprovidePrefix;
+
+  @override
+  void $enc($W w) {
+    w
+      ..i64(keys)
+      ..i64(regions)
+      ..f64(avgPrefixLength)
+      ..time(nextReprovideAt)
+      ..str(nextReprovidePrefix);
+  }
 }
 
-/// Go: `stats.Workers` (a kubo command output).
-final class Libp2pKadDhtProviderStatsWorkers {
+/// Go: `stats.Stats`.
+final class Libp2pKadDhtProviderStats implements GoDto {
+  Libp2pKadDhtProviderStats(
+      {bool? closed,
+      Libp2pKadDhtProviderStatsConnectivity? connectivity,
+      Libp2pKadDhtProviderStatsQueues? queues,
+      Libp2pKadDhtProviderStatsSchedule? schedule,
+      Libp2pKadDhtProviderStatsWorkers? workers,
+      Libp2pKadDhtProviderStatsTiming? timing,
+      Libp2pKadDhtProviderStatsOperations? operations,
+      Libp2pKadDhtProviderStatsNetwork? network})
+      : closed = closed ?? false,
+        connectivity = connectivity,
+        queues = queues,
+        schedule = schedule,
+        workers = workers,
+        timing = timing,
+        operations = operations,
+        network = network;
+
+  Libp2pKadDhtProviderStats.$dec($R r)
+      : closed = r.b(),
+        connectivity =
+            r.p() ? Libp2pKadDhtProviderStatsConnectivity.$dec(r) : null,
+        queues = r.p() ? Libp2pKadDhtProviderStatsQueues.$dec(r) : null,
+        schedule = r.p() ? Libp2pKadDhtProviderStatsSchedule.$dec(r) : null,
+        workers = r.p() ? Libp2pKadDhtProviderStatsWorkers.$dec(r) : null,
+        timing = r.p() ? Libp2pKadDhtProviderStatsTiming.$dec(r) : null,
+        operations = r.p() ? Libp2pKadDhtProviderStatsOperations.$dec(r) : null,
+        network = r.p() ? Libp2pKadDhtProviderStatsNetwork.$dec(r) : null;
+
+  /// Go: `Closed`.
+  bool closed;
+
+  /// Go: `Connectivity`.
+  Libp2pKadDhtProviderStatsConnectivity? connectivity;
+
+  /// Go: `Queues`.
+  Libp2pKadDhtProviderStatsQueues? queues;
+
+  /// Go: `Schedule`.
+  Libp2pKadDhtProviderStatsSchedule? schedule;
+
+  /// Go: `Workers`.
+  Libp2pKadDhtProviderStatsWorkers? workers;
+
+  /// Go: `Timing`.
+  Libp2pKadDhtProviderStatsTiming? timing;
+
+  /// Go: `Operations`.
+  Libp2pKadDhtProviderStatsOperations? operations;
+
+  /// Go: `Network`.
+  Libp2pKadDhtProviderStatsNetwork? network;
+
+  @override
+  void $enc($W w) {
+    w
+      ..b(closed)
+      ..dto(connectivity)
+      ..dto(queues)
+      ..dto(schedule)
+      ..dto(workers)
+      ..dto(timing)
+      ..dto(operations)
+      ..dto(network);
+  }
+}
+
+/// Go: `stats.Timing`.
+final class Libp2pKadDhtProviderStatsTiming implements GoDto {
+  Libp2pKadDhtProviderStatsTiming(
+      {Duration? uptime,
+      Duration? reprovidesInterval,
+      DateTime? cycleStart,
+      Duration? currentTimeOffset,
+      Duration? maxReprovideDelay})
+      : uptime = uptime ?? Duration.zero,
+        reprovidesInterval = reprovidesInterval ?? Duration.zero,
+        cycleStart = cycleStart,
+        currentTimeOffset = currentTimeOffset ?? Duration.zero,
+        maxReprovideDelay = maxReprovideDelay ?? Duration.zero;
+
+  Libp2pKadDhtProviderStatsTiming.$dec($R r)
+      : uptime = Duration(microseconds: r.i64() ~/ 1000),
+        reprovidesInterval = Duration(microseconds: r.i64() ~/ 1000),
+        cycleStart = r.p() ? r.time() : null,
+        currentTimeOffset = Duration(microseconds: r.i64() ~/ 1000),
+        maxReprovideDelay = Duration(microseconds: r.i64() ~/ 1000);
+
+  /// Go: `Uptime`.
+  Duration uptime;
+
+  /// Go: `ReprovidesInterval`.
+  Duration reprovidesInterval;
+
+  /// Go: `CycleStart`.
+  DateTime? cycleStart;
+
+  /// Go: `CurrentTimeOffset`.
+  Duration currentTimeOffset;
+
+  /// Go: `MaxReprovideDelay`.
+  Duration maxReprovideDelay;
+
+  @override
+  void $enc($W w) {
+    w
+      ..i64((uptime).inMicroseconds * 1000)
+      ..i64((reprovidesInterval).inMicroseconds * 1000)
+      ..time(cycleStart)
+      ..i64((currentTimeOffset).inMicroseconds * 1000)
+      ..i64((maxReprovideDelay).inMicroseconds * 1000);
+  }
+}
+
+/// Go: `stats.Workers`.
+final class Libp2pKadDhtProviderStatsWorkers implements GoDto {
+  Libp2pKadDhtProviderStatsWorkers(
+      {int? max,
+      int? active,
+      int? activePeriodic,
+      int? activeBurst,
+      int? dedicatedPeriodic,
+      int? dedicatedBurst,
+      int? queuedPeriodic,
+      int? queuedBurst,
+      int? maxProvideConnsPerWorker})
+      : max = max ?? 0,
+        active = active ?? 0,
+        activePeriodic = activePeriodic ?? 0,
+        activeBurst = activeBurst ?? 0,
+        dedicatedPeriodic = dedicatedPeriodic ?? 0,
+        dedicatedBurst = dedicatedBurst ?? 0,
+        queuedPeriodic = queuedPeriodic ?? 0,
+        queuedBurst = queuedBurst ?? 0,
+        maxProvideConnsPerWorker = maxProvideConnsPerWorker ?? 0;
+
   Libp2pKadDhtProviderStatsWorkers.$dec($R r)
       : max = r.i64(),
         active = r.i64(),
@@ -110,154 +447,43 @@ final class Libp2pKadDhtProviderStatsWorkers {
         maxProvideConnsPerWorker = r.i64();
 
   /// Go: `Max`.
-  final int max;
+  int max;
 
   /// Go: `Active`.
-  final int active;
+  int active;
 
   /// Go: `ActivePeriodic`.
-  final int activePeriodic;
+  int activePeriodic;
 
   /// Go: `ActiveBurst`.
-  final int activeBurst;
+  int activeBurst;
 
   /// Go: `DedicatedPeriodic`.
-  final int dedicatedPeriodic;
+  int dedicatedPeriodic;
 
   /// Go: `DedicatedBurst`.
-  final int dedicatedBurst;
+  int dedicatedBurst;
 
   /// Go: `QueuedPeriodic`.
-  final int queuedPeriodic;
+  int queuedPeriodic;
 
   /// Go: `QueuedBurst`.
-  final int queuedBurst;
+  int queuedBurst;
 
   /// Go: `MaxProvideConnsPerWorker`.
-  final int maxProvideConnsPerWorker;
-}
+  int maxProvideConnsPerWorker;
 
-/// Go: `stats.Timing` (a kubo command output).
-final class Libp2pKadDhtProviderStatsTiming {
-  Libp2pKadDhtProviderStatsTiming.$dec($R r)
-      : uptime = Duration(microseconds: r.i64() ~/ 1000),
-        reprovidesInterval = Duration(microseconds: r.i64() ~/ 1000),
-        cycleStart = r.p() ? r.time() : null,
-        currentTimeOffset = Duration(microseconds: r.i64() ~/ 1000),
-        maxReprovideDelay = Duration(microseconds: r.i64() ~/ 1000);
-
-  /// Go: `Uptime`.
-  final Duration uptime;
-
-  /// Go: `ReprovidesInterval`.
-  final Duration reprovidesInterval;
-
-  /// Go: `CycleStart`.
-  final DateTime? cycleStart;
-
-  /// Go: `CurrentTimeOffset`.
-  final Duration currentTimeOffset;
-
-  /// Go: `MaxReprovideDelay`.
-  final Duration maxReprovideDelay;
-}
-
-/// Go: `stats.Operations` (a kubo command output).
-final class Libp2pKadDhtProviderStatsOperations {
-  Libp2pKadDhtProviderStatsOperations.$dec($R r)
-      : ongoing = Libp2pKadDhtProviderStatsOngoingOperations.$dec(r),
-        past = Libp2pKadDhtProviderStatsPastOperations.$dec(r);
-
-  /// Go: `Ongoing`.
-  final Libp2pKadDhtProviderStatsOngoingOperations ongoing;
-
-  /// Go: `Past`.
-  final Libp2pKadDhtProviderStatsPastOperations past;
-}
-
-/// Go: `stats.OngoingOperations` (a kubo command output).
-final class Libp2pKadDhtProviderStatsOngoingOperations {
-  Libp2pKadDhtProviderStatsOngoingOperations.$dec($R r)
-      : regionProvides = r.i64(),
-        keyProvides = r.i64(),
-        regionReprovides = r.i64(),
-        keyReprovides = r.i64();
-
-  /// Go: `RegionProvides`.
-  final int regionProvides;
-
-  /// Go: `KeyProvides`.
-  final int keyProvides;
-
-  /// Go: `RegionReprovides`.
-  final int regionReprovides;
-
-  /// Go: `KeyReprovides`.
-  final int keyReprovides;
-}
-
-/// Go: `stats.PastOperations` (a kubo command output).
-final class Libp2pKadDhtProviderStatsPastOperations {
-  Libp2pKadDhtProviderStatsPastOperations.$dec($R r)
-      : recordsProvided = r.i64(),
-        keysProvided = r.i64(),
-        keysFailed = r.i64(),
-        keysProvidedPerMinute = r.f64(),
-        keysReprovidedPerMinute = r.f64(),
-        regionReprovideDuration = Duration(microseconds: r.i64() ~/ 1000),
-        avgKeysPerReprovide = r.f64(),
-        regionReprovidedLastCycle = r.i64();
-
-  /// Go: `RecordsProvided`.
-  final int recordsProvided;
-
-  /// Go: `KeysProvided`.
-  final int keysProvided;
-
-  /// Go: `KeysFailed`.
-  final int keysFailed;
-
-  /// Go: `KeysProvidedPerMinute`.
-  final double keysProvidedPerMinute;
-
-  /// Go: `KeysReprovidedPerMinute`.
-  final double keysReprovidedPerMinute;
-
-  /// Go: `RegionReprovideDuration`.
-  final Duration regionReprovideDuration;
-
-  /// Go: `AvgKeysPerReprovide`.
-  final double avgKeysPerReprovide;
-
-  /// Go: `RegionReprovidedLastCycle`.
-  final int regionReprovidedLastCycle;
-}
-
-/// Go: `stats.Network` (a kubo command output).
-final class Libp2pKadDhtProviderStatsNetwork {
-  Libp2pKadDhtProviderStatsNetwork.$dec($R r)
-      : peers = r.i64(),
-        reachable = r.i64(),
-        completeKeyspaceCoverage = r.b(),
-        avgRegionSize = r.f64(),
-        avgHolders = r.f64(),
-        replicationFactor = r.i64();
-
-  /// Go: `Peers`.
-  final int peers;
-
-  /// Go: `Reachable`.
-  final int reachable;
-
-  /// Go: `CompleteKeyspaceCoverage`.
-  final bool completeKeyspaceCoverage;
-
-  /// Go: `AvgRegionSize`.
-  final double avgRegionSize;
-
-  /// Go: `AvgHolders`.
-  final double avgHolders;
-
-  /// Go: `ReplicationFactor`.
-  final int replicationFactor;
+  @override
+  void $enc($W w) {
+    w
+      ..i64(max)
+      ..i64(active)
+      ..i64(activePeriodic)
+      ..i64(activeBurst)
+      ..i64(dedicatedPeriodic)
+      ..i64(dedicatedBurst)
+      ..i64(queuedPeriodic)
+      ..i64(queuedBurst)
+      ..i64(maxProvideConnsPerWorker);
+  }
 }

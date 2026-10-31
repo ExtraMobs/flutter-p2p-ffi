@@ -2,7 +2,126 @@
 // Go: github.com/hashicorp/golang-lru/simplelru
 library;
 
+import 'dart:async';
+
+import 'package:p2p_ffi/src/go.dart' show GoHashicorpGolangLruSimplelru;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
+import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
+
+/// Go: `simplelru.LRU` (handle).
+class GolangLruSimplelruLru extends GolangLruSimplelruLruCache
+    with
+        $crypto.CryptoDecrypterOpts$,
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoDecrypterOpts,
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
+  GolangLruSimplelruLru.$h(super.$h) : super.$h();
+
+  /// Go: `func (*simplelru.LRU).Add(key interface{}, value interface{}) (evicted bool)`.
+  bool add(Object? key, Object? value) {
+    final $r = $callSync(
+        8277,
+        $W()
+          ..h(this)
+          ..any(key)
+          ..any(value));
+    return $r.b();
+  }
+
+  /// Go: `func (*simplelru.LRU).Contains(key interface{}) (ok bool)`.
+  bool contains(Object? key) {
+    final $r = $callSync(
+        8278,
+        $W()
+          ..h(this)
+          ..any(key));
+    return $r.b();
+  }
+
+  /// Go: `func (*simplelru.LRU).Get(key interface{}) (value interface{}, ok bool)`.
+  (Object?, bool) get(Object? key) {
+    final $r = $callSync(
+        8279,
+        $W()
+          ..h(this)
+          ..any(key));
+    return ($r.any(), $r.b());
+  }
+
+  /// Go: `func (*simplelru.LRU).GetOldest() (key interface{}, value interface{}, ok bool)`.
+  (Object?, Object?, bool) getOldest() {
+    final $r = $callSync(8280, $W()..h(this));
+    return ($r.any(), $r.any(), $r.b());
+  }
+
+  /// Go: `func (*simplelru.LRU).Keys() []interface{}`.
+  List<Object?> keys() {
+    final $r = $callSync(8281, $W()..h(this));
+    return $r.list(() => $r.any());
+  }
+
+  /// Go: `func (*simplelru.LRU).Len() int`.
+  int len() {
+    final $r = $callSync(8282, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (*simplelru.LRU).Peek(key interface{}) (value interface{}, ok bool)`.
+  (Object?, bool) peek(Object? key) {
+    final $r = $callSync(
+        8283,
+        $W()
+          ..h(this)
+          ..any(key));
+    return ($r.any(), $r.b());
+  }
+
+  /// Go: `func (*simplelru.LRU).Purge()`.
+  void purge() {
+    $callSync(8284, $W()..h(this));
+  }
+
+  /// Go: `func (*simplelru.LRU).Remove(key interface{}) (present bool)`.
+  bool remove(Object? key) {
+    final $r = $callSync(
+        8285,
+        $W()
+          ..h(this)
+          ..any(key));
+    return $r.b();
+  }
+
+  /// Go: `func (*simplelru.LRU).RemoveOldest() (key interface{}, value interface{}, ok bool)`.
+  (Object?, Object?, bool) removeOldest() {
+    final $r = $callSync(8286, $W()..h(this));
+    return ($r.any(), $r.any(), $r.b());
+  }
+
+  /// Go: `func (*simplelru.LRU).Resize(size int) (evicted int)`.
+  int resize(int size) {
+    final $r = $callSync(
+        8287,
+        $W()
+          ..h(this)
+          ..i64(size));
+    return $r.i64();
+  }
+}
 
 /// Go: `simplelru.LRUCache` (handle).
 class GolangLruSimplelruLruCache extends GoHandle
@@ -11,4 +130,120 @@ class GolangLruSimplelruLruCache extends GoHandle
 }
 
 /// The methods of [GolangLruSimplelruLruCache], mixed into every class Go also accepts as one.
-mixin GolangLruSimplelruLruCache$ on GoHandle {}
+mixin GolangLruSimplelruLruCache$ on GoHandle {
+  /// Go: `func (simplelru.LRUCache).Add(key interface{}, value interface{}) bool`.
+  bool add(Object? key, Object? value) {
+    final $r = $callSync(
+        8288,
+        $W()
+          ..h(this)
+          ..any(key)
+          ..any(value));
+    return $r.b();
+  }
+
+  /// Go: `func (simplelru.LRUCache).Contains(key interface{}) (ok bool)`.
+  bool contains(Object? key) {
+    final $r = $callSync(
+        8289,
+        $W()
+          ..h(this)
+          ..any(key));
+    return $r.b();
+  }
+
+  /// Go: `func (simplelru.LRUCache).Get(key interface{}) (value interface{}, ok bool)`.
+  (Object?, bool) get(Object? key) {
+    final $r = $callSync(
+        8290,
+        $W()
+          ..h(this)
+          ..any(key));
+    return ($r.any(), $r.b());
+  }
+
+  /// Go: `func (simplelru.LRUCache).GetOldest() (interface{}, interface{}, bool)`.
+  (Object?, Object?, bool) getOldest() {
+    final $r = $callSync(8291, $W()..h(this));
+    return ($r.any(), $r.any(), $r.b());
+  }
+
+  /// Go: `func (simplelru.LRUCache).Keys() []interface{}`.
+  List<Object?> keys() {
+    final $r = $callSync(8292, $W()..h(this));
+    return $r.list(() => $r.any());
+  }
+
+  /// Go: `func (simplelru.LRUCache).Len() int`.
+  int len() {
+    final $r = $callSync(8293, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (simplelru.LRUCache).Peek(key interface{}) (value interface{}, ok bool)`.
+  (Object?, bool) peek(Object? key) {
+    final $r = $callSync(
+        8294,
+        $W()
+          ..h(this)
+          ..any(key));
+    return ($r.any(), $r.b());
+  }
+
+  /// Go: `func (simplelru.LRUCache).Purge()`.
+  void purge() {
+    $callSync(8295, $W()..h(this));
+  }
+
+  /// Go: `func (simplelru.LRUCache).Remove(key interface{}) bool`.
+  bool remove(Object? key) {
+    final $r = $callSync(
+        8296,
+        $W()
+          ..h(this)
+          ..any(key));
+    return $r.b();
+  }
+
+  /// Go: `func (simplelru.LRUCache).RemoveOldest() (interface{}, interface{}, bool)`.
+  (Object?, Object?, bool) removeOldest() {
+    final $r = $callSync(8297, $W()..h(this));
+    return ($r.any(), $r.any(), $r.b());
+  }
+
+  /// Go: `func (simplelru.LRUCache).Resize(int) int`.
+  int resize(int arg0) {
+    final $r = $callSync(
+        8298,
+        $W()
+          ..h(this)
+          ..i64(arg0));
+    return $r.i64();
+  }
+
+  /// Go: type assertion `x.(*simplelru.LRU)`: null if the object is not one.
+  GolangLruSimplelruLru? asGolangLruSimplelruLru() {
+    final $r = $callSync(881, $W()..h(this));
+    return $r.hn(GolangLruSimplelruLru.$h);
+  }
+}
+
+/// Go: the package-level members of `github.com/hashicorp/golang-lru/simplelru` (`go.hashicorp.golangLru.simplelru`).
+extension GoHashicorpGolangLruSimplelruApi on GoHashicorpGolangLruSimplelru {
+  /// Go: `func simplelru.NewLRU(size int, onEvict simplelru.EvictCallback) (*simplelru.LRU, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  ///
+  /// Go calls [onEvict] on the Dart event loop, during the call or
+  /// later for as long as it holds it (nobody checked which), and waits for
+  /// each invocation (a retained callback, WIRE.md).
+  Future<GolangLruSimplelruLru> newLru(int size,
+      FutureOr<void> Function(Object? key, Object? value) onEvict) async {
+    final $r = await $call(
+        8299,
+        $W()
+          ..i64(size)
+          ..cb((r) => onEvict(r.any(), r.any()), true));
+    return $r.hnn(GolangLruSimplelruLru.$h);
+  }
+}

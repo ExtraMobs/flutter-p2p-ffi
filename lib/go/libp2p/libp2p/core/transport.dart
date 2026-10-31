@@ -4,8 +4,21 @@ library;
 
 import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2pCoreTransportEnums;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/context.dart' as $context;
+import 'package:p2p_ffi/go/io.dart' as $io;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/network.dart' as $network;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
+import 'package:p2p_ffi/go/libp2p/libp2p/p2p/net/swarm.dart' as $swarm;
+import 'package:p2p_ffi/go/libp2p/libp2p/p2p/protocol/circuitv2/client.dart'
+    as $client;
+import 'package:p2p_ffi/go/libp2p/libp2p/p2p/transport/tcp.dart' as $tcp;
 import 'package:p2p_ffi/go/libp2p/libp2p/p2p/transport/webrtc.dart' as $webrtc;
+import 'package:p2p_ffi/go/libp2p/libp2p/p2p/transport/websocket.dart'
+    as $websocket;
+import 'package:p2p_ffi/go/multiformats/multiaddr.dart' as $multiaddr;
+import 'package:p2p_ffi/go/multiformats/multiaddr/net.dart' as $net;
+import 'package:p2p_ffi/go/multiformats/multiaddr_dns.dart' as $multiaddr_dns;
+import 'package:p2p_ffi/go/net.dart' as $net2;
 
 /// Go: `transport.CapableConn` (handle).
 class Libp2pCoreTransportCapableConn extends $network.Libp2pCoreNetworkMuxedConn
@@ -20,7 +33,49 @@ class Libp2pCoreTransportCapableConn extends $network.Libp2pCoreNetworkMuxedConn
 }
 
 /// The methods of [Libp2pCoreTransportCapableConn], mixed into every class Go also accepts as one.
-mixin Libp2pCoreTransportCapableConn$ on GoHandle {}
+mixin Libp2pCoreTransportCapableConn$ on GoHandle {
+  /// Go: `func (transport.CapableConn).Transport() transport.Transport`.
+  Libp2pCoreTransport transport() {
+    final $r = $callSync(14297, $W()..h(this));
+    return $r.hnn(Libp2pCoreTransport.$h);
+  }
+}
+
+/// Go: `transport.GatedMaListener` (handle).
+class Libp2pCoreTransportGatedMaListener extends GoHandle
+    with Libp2pCoreTransportGatedMaListener$ {
+  Libp2pCoreTransportGatedMaListener.$h(super.$h);
+}
+
+/// The methods of [Libp2pCoreTransportGatedMaListener], mixed into every class Go also accepts as one.
+mixin Libp2pCoreTransportGatedMaListener$ on GoHandle {
+  /// Go: `func (transport.GatedMaListener).Accept() (manet.Conn, network.ConnManagementScope, error)`.
+  ($net.MultiaddrNetConn, $network.Libp2pCoreNetworkConnManagementScope)
+      accept() {
+    final $r = $callSync(14298, $W()..h(this));
+    return (
+      $r.hnn($net.MultiaddrNetConn.$h),
+      $r.hnn($network.Libp2pCoreNetworkConnManagementScope.$h)
+    );
+  }
+
+  /// Go: `func (transport.GatedMaListener).Addr() net.Addr`.
+  $net2.NetAddr addr() {
+    final $r = $callSync(14299, $W()..h(this));
+    return $r.p() ? $net2.NetAddr.$dec($r) : $nil();
+  }
+
+  /// Go: `func (transport.GatedMaListener).Close() error`.
+  void close() {
+    $callSync(14300, $W()..h(this));
+  }
+
+  /// Go: `func (transport.GatedMaListener).Multiaddr() multiaddr.Multiaddr`.
+  $multiaddr.Multiaddr multiaddr() {
+    final $r = $callSync(14301, $W()..h(this));
+    return $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil();
+  }
+}
 
 /// Go: `transport.Listener` (handle).
 class Libp2pCoreTransportListener extends GoHandle
@@ -29,7 +84,96 @@ class Libp2pCoreTransportListener extends GoHandle
 }
 
 /// The methods of [Libp2pCoreTransportListener], mixed into every class Go also accepts as one.
-mixin Libp2pCoreTransportListener$ on GoHandle {}
+mixin Libp2pCoreTransportListener$ on GoHandle {
+  /// Go: `func (transport.Listener).Accept() (transport.CapableConn, error)`.
+  Libp2pCoreTransportCapableConn accept() {
+    final $r = $callSync(14302, $W()..h(this));
+    return $r.hnn(Libp2pCoreTransportCapableConn.$h);
+  }
+
+  /// Go: `func (transport.Listener).Addr() net.Addr`.
+  $net2.NetAddr addr() {
+    final $r = $callSync(14303, $W()..h(this));
+    return $r.p() ? $net2.NetAddr.$dec($r) : $nil();
+  }
+
+  /// Go: `func (transport.Listener).Close() error`.
+  void close() {
+    $callSync(14304, $W()..h(this));
+  }
+
+  /// Go: `func (transport.Listener).Multiaddr() multiaddr.Multiaddr`.
+  $multiaddr.Multiaddr multiaddr() {
+    final $r = $callSync(14305, $W()..h(this));
+    return $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil();
+  }
+}
+
+/// Go: `transport.Resolver` (handle).
+class Libp2pCoreTransportResolver extends GoHandle
+    with Libp2pCoreTransportResolver$ {
+  Libp2pCoreTransportResolver.$h(super.$h);
+}
+
+/// The methods of [Libp2pCoreTransportResolver], mixed into every class Go also accepts as one.
+mixin Libp2pCoreTransportResolver$ on GoHandle {
+  /// Go: `func (transport.Resolver).Resolve(ctx context.Context, maddr multiaddr.Multiaddr) ([]multiaddr.Multiaddr, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<List<$multiaddr.Multiaddr>> resolve(
+      $context.Context ctx, $multiaddr.Multiaddr maddr) async {
+    final $r = await $call(
+        14306,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(maddr));
+    return $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil());
+  }
+
+  /// Go: type assertion `x.(*websocket.WebsocketTransport)`: null if the object is not one.
+  $websocket.Libp2pP2pTransportWebsocketTransport?
+      asLibp2pP2pTransportWebsocketTransport() {
+    final $r = $callSync(1425, $W()..h(this));
+    return $r.hn($websocket.Libp2pP2pTransportWebsocketTransport.$h);
+  }
+
+  /// Go: type assertion `x.(*madns.Resolver)`: null if the object is not one.
+  $multiaddr_dns.MultiaddrDnsResolver? asMultiaddrDnsResolver() {
+    final $r = $callSync(1426, $W()..h(this));
+    return $r.hn($multiaddr_dns.MultiaddrDnsResolver.$h);
+  }
+}
+
+/// Go: `transport.SkipResolver` (handle).
+class Libp2pCoreTransportSkipResolver extends GoHandle
+    with Libp2pCoreTransportSkipResolver$ {
+  Libp2pCoreTransportSkipResolver.$h(super.$h);
+}
+
+/// The methods of [Libp2pCoreTransportSkipResolver], mixed into every class Go also accepts as one.
+mixin Libp2pCoreTransportSkipResolver$ on GoHandle {
+  /// Go: `func (transport.SkipResolver).SkipResolve(ctx context.Context, maddr multiaddr.Multiaddr) bool`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<bool> skipResolve(
+      $context.Context ctx, $multiaddr.Multiaddr maddr) async {
+    final $r = await $call(
+        14307,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(maddr));
+    return $r.b();
+  }
+
+  /// Go: type assertion `x.(*client.Client)`: null if the object is not one.
+  $client.Libp2pP2pProtocolCircuitv2Client?
+      asLibp2pP2pProtocolCircuitv2Client() {
+    final $r = $callSync(1427, $W()..h(this));
+    return $r.hn($client.Libp2pP2pProtocolCircuitv2Client.$h);
+  }
+}
 
 /// Go: `transport.Transport` (handle).
 class Libp2pCoreTransport extends GoHandle with Libp2pCoreTransport$ {
@@ -38,11 +182,173 @@ class Libp2pCoreTransport extends GoHandle with Libp2pCoreTransport$ {
 
 /// The methods of [Libp2pCoreTransport], mixed into every class Go also accepts as one.
 mixin Libp2pCoreTransport$ on GoHandle {
+  /// Go: `func (transport.Transport).CanDial(addr multiaddr.Multiaddr) bool`.
+  bool canDial($multiaddr.Multiaddr addr) {
+    final $r = $callSync(
+        14308,
+        $W()
+          ..h(this)
+          ..val(addr));
+    return $r.b();
+  }
+
+  /// Go: `func (transport.Transport).Dial(ctx context.Context, raddr multiaddr.Multiaddr, p peer.ID) (transport.CapableConn, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<Libp2pCoreTransportCapableConn> dial($context.Context ctx,
+      $multiaddr.Multiaddr raddr, $peer.Libp2pCorePeerId p) async {
+    final $r = await $call(
+        14309,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(raddr)
+          ..val(p));
+    return $r.hnn(Libp2pCoreTransportCapableConn.$h);
+  }
+
+  /// Go: `func (transport.Transport).Listen(laddr multiaddr.Multiaddr) (transport.Listener, error)`.
+  Libp2pCoreTransportListener listen($multiaddr.Multiaddr laddr) {
+    final $r = $callSync(
+        14310,
+        $W()
+          ..h(this)
+          ..val(laddr));
+    return $r.hnn(Libp2pCoreTransportListener.$h);
+  }
+
+  /// Go: `func (transport.Transport).Protocols() []int`.
+  List<int> protocols() {
+    final $r = $callSync(14311, $W()..h(this));
+    return $r.list(() => $r.i64());
+  }
+
+  /// Go: `func (transport.Transport).Proxy() bool`.
+  bool proxy() {
+    final $r = $callSync(14312, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: type assertion `x.(*client.Client)`: null if the object is not one.
+  $client.Libp2pP2pProtocolCircuitv2Client?
+      asLibp2pP2pProtocolCircuitv2Client() {
+    final $r = $callSync(1428, $W()..h(this));
+    return $r.hn($client.Libp2pP2pProtocolCircuitv2Client.$h);
+  }
+
+  /// Go: type assertion `x.(*tcp.TcpTransport)`: null if the object is not one.
+  $tcp.Libp2pP2pTransportTcpTransport? asLibp2pP2pTransportTcpTransport() {
+    final $r = $callSync(1429, $W()..h(this));
+    return $r.hn($tcp.Libp2pP2pTransportTcpTransport.$h);
+  }
+
   /// Go: type assertion `x.(*libp2pwebrtc.WebRTCTransport)`: null if the object is not one.
   $webrtc.Libp2pP2pTransportWebrtcWebRtcTransport?
       asLibp2pP2pTransportWebrtcWebRtcTransport() {
-    final $r = $callSync(348, $W()..h(this));
+    final $r = $callSync(1430, $W()..h(this));
     return $r.hn($webrtc.Libp2pP2pTransportWebrtcWebRtcTransport.$h);
+  }
+
+  /// Go: type assertion `x.(*websocket.WebsocketTransport)`: null if the object is not one.
+  $websocket.Libp2pP2pTransportWebsocketTransport?
+      asLibp2pP2pTransportWebsocketTransport() {
+    final $r = $callSync(1431, $W()..h(this));
+    return $r.hn($websocket.Libp2pP2pTransportWebsocketTransport.$h);
+  }
+}
+
+/// Go: `transport.TransportNetwork` (handle).
+class Libp2pCoreTransportNetwork extends $network.Libp2pCoreNetwork
+    with $io.IoCloser$, Libp2pCoreTransportNetwork$
+    implements $io.IoCloser {
+  Libp2pCoreTransportNetwork.$h(super.$h) : super.$h();
+}
+
+/// The methods of [Libp2pCoreTransportNetwork], mixed into every class Go also accepts as one.
+mixin Libp2pCoreTransportNetwork$ on GoHandle {
+  /// Go: `func (transport.TransportNetwork).AddTransport(t transport.Transport) error`.
+  void addTransport(Libp2pCoreTransport t) {
+    $callSync(
+        14313,
+        $W()
+          ..h(this)
+          ..h(t));
+  }
+
+  /// Go: type assertion `x.(*swarm.Swarm)`: null if the object is not one.
+  $swarm.Libp2pP2pNetSwarm? asLibp2pP2pNetSwarm() {
+    final $r = $callSync(1432, $W()..h(this));
+    return $r.hn($swarm.Libp2pP2pNetSwarm.$h);
+  }
+}
+
+/// Go: `transport.Upgrader` (handle).
+class Libp2pCoreTransportUpgrader extends GoHandle
+    with Libp2pCoreTransportUpgrader$ {
+  Libp2pCoreTransportUpgrader.$h(super.$h);
+}
+
+/// The methods of [Libp2pCoreTransportUpgrader], mixed into every class Go also accepts as one.
+mixin Libp2pCoreTransportUpgrader$ on GoHandle {
+  /// Go: `func (transport.Upgrader).GateMaListener(manet.Listener) transport.GatedMaListener`.
+  Libp2pCoreTransportGatedMaListener gateMaListener(
+      $net.MultiaddrNetListener listener) {
+    final $r = $callSync(
+        14314,
+        $W()
+          ..h(this)
+          ..h(listener));
+    return $r.hnn(Libp2pCoreTransportGatedMaListener.$h);
+  }
+
+  /// Go: `func (transport.Upgrader).Upgrade(ctx context.Context, t transport.Transport, maconn manet.Conn, dir network.Direction, p peer.ID, scope network.ConnManagementScope) (transport.CapableConn, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<Libp2pCoreTransportCapableConn> upgrade(
+      $context.Context ctx,
+      Libp2pCoreTransport t,
+      $net.MultiaddrNetConn maconn,
+      int dir,
+      $peer.Libp2pCorePeerId p,
+      $network.Libp2pCoreNetworkConnManagementScope scope) async {
+    final $r = await $call(
+        14315,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..h(t)
+          ..h(maconn)
+          ..i64(dir)
+          ..val(p)
+          ..h(scope));
+    return $r.hnn(Libp2pCoreTransportCapableConn.$h);
+  }
+
+  /// Go: `func (transport.Upgrader).UpgradeGatedMaListener(transport.Transport, transport.GatedMaListener) transport.Listener`.
+  Libp2pCoreTransportListener upgradeGatedMaListener(
+      Libp2pCoreTransport transport,
+      Libp2pCoreTransportGatedMaListener gatedMaListener) {
+    final $r = $callSync(
+        14316,
+        $W()
+          ..h(this)
+          ..h(transport)
+          ..h(gatedMaListener));
+    return $r.hnn(Libp2pCoreTransportListener.$h);
+  }
+
+  /// Go: `func (transport.Upgrader).UpgradeListener(transport.Transport, manet.Listener) transport.Listener`.
+  @Deprecated(
+      "Use UpgradeGatedMaListener(upgrader.GateMaListener(manet.Listener)) instead.")
+  Libp2pCoreTransportListener upgradeListener(
+      Libp2pCoreTransport transport, $net.MultiaddrNetListener listener) {
+    final $r = $callSync(
+        14317,
+        $W()
+          ..h(this)
+          ..h(transport)
+          ..h(listener));
+    return $r.hnn(Libp2pCoreTransportListener.$h);
   }
 }
 

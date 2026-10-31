@@ -2,9 +2,18 @@
 // Go: github.com/ipfs/boxo/fetcher
 library;
 
+import 'dart:async';
+
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/context.dart' as $context;
+import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/boxo/fetcher/impl/blockservice.dart'
     as $blockservice;
+import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
+import 'package:p2p_ffi/go/ipld/ipld_prime/datamodel.dart' as $datamodel;
 
 /// Go: `fetcher.Factory` (handle).
 class BoxoFetcherFactory extends GoHandle with BoxoFetcherFactory$ {
@@ -13,11 +22,82 @@ class BoxoFetcherFactory extends GoHandle with BoxoFetcherFactory$ {
 
 /// The methods of [BoxoFetcherFactory], mixed into every class Go also accepts as one.
 mixin BoxoFetcherFactory$ on GoHandle {
+  /// Go: `func (fetcher.Factory).NewSession(ctx context.Context) fetcher.Fetcher`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<BoxoFetcher> newSession($context.Context ctx) async {
+    final $r = await $call(
+        9403,
+        $W()
+          ..h(this)
+          ..h(ctx));
+    return $r.hnn(BoxoFetcher.$h);
+  }
+
   /// Go: type assertion `x.(*bsfetcher.FetcherConfig)`: null if the object is not one.
   $blockservice.BoxoFetcherImplBlockserviceFetcherConfig?
       asBoxoFetcherImplBlockserviceFetcherConfig() {
-    final $r = $callSync(86, $W()..h(this));
+    final $r = $callSync(938, $W()..h(this));
     return $r.hn($blockservice.BoxoFetcherImplBlockserviceFetcherConfig.$h);
+  }
+}
+
+/// Go: `fetcher.FetchCallback` (handle).
+class BoxoFetcherFetchCallback extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
+  BoxoFetcherFetchCallback.$h(super.$h) : super.$h();
+}
+
+/// Go: `fetcher.FetchResult`.
+final class BoxoFetcherFetchResult implements GoDto {
+  BoxoFetcherFetchResult(
+      {$datamodel.IpldPrimeDatamodelNode? node,
+      $datamodel.IpldPrimeDatamodelPath? path,
+      $datamodel.IpldPrimeDatamodelPath? lastBlockPath,
+      $datamodel.IpldPrimeDatamodelLink? lastBlockLink})
+      : node = node,
+        path = path,
+        lastBlockPath = lastBlockPath,
+        lastBlockLink = lastBlockLink;
+
+  BoxoFetcherFetchResult.$dec($R r)
+      : node = r.hn($datamodel.IpldPrimeDatamodelNode.$h),
+        path = r.hn($datamodel.IpldPrimeDatamodelPath.$h),
+        lastBlockPath = r.hn($datamodel.IpldPrimeDatamodelPath.$h),
+        lastBlockLink = r.hn($datamodel.IpldPrimeDatamodelLink.$h);
+
+  /// Go: `Node`.
+  $datamodel.IpldPrimeDatamodelNode? node;
+
+  /// Go: `Path`.
+  $datamodel.IpldPrimeDatamodelPath? path;
+
+  /// Go: `LastBlockPath`.
+  $datamodel.IpldPrimeDatamodelPath? lastBlockPath;
+
+  /// Go: `LastBlockLink`.
+  $datamodel.IpldPrimeDatamodelLink? lastBlockLink;
+
+  @override
+  void $enc($W w) {
+    w
+      ..h(node)
+      ..h(path)
+      ..h(lastBlockPath)
+      ..h(lastBlockLink);
   }
 }
 
@@ -27,4 +107,80 @@ class BoxoFetcher extends GoHandle with BoxoFetcher$ {
 }
 
 /// The methods of [BoxoFetcher], mixed into every class Go also accepts as one.
-mixin BoxoFetcher$ on GoHandle {}
+mixin BoxoFetcher$ on GoHandle {
+  /// Go: `func (fetcher.Fetcher).BlockMatchingOfType(ctx context.Context, root ipld.Link, selector ipld.Node, nodePrototype ipld.NodePrototype, cb fetcher.FetchCallback) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  ///
+  /// Go calls [cb] on the Dart event loop, during the call or
+  /// later for as long as it holds it (nobody checked which), and waits for
+  /// each invocation (a retained callback, WIRE.md).
+  Future<void> blockMatchingOfType(
+      $context.Context ctx,
+      $datamodel.IpldPrimeDatamodelLink root,
+      $datamodel.IpldPrimeDatamodelNode selector,
+      $datamodel.IpldPrimeDatamodelNodePrototype nodePrototype,
+      FutureOr<void> Function(BoxoFetcherFetchResult result) cb) async {
+    await $call(
+        9404,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..h(root)
+          ..h(selector)
+          ..h(nodePrototype)
+          ..cb((r) => cb(r.p() ? BoxoFetcherFetchResult.$dec(r) : $nil()),
+              true));
+  }
+
+  /// Go: `func (fetcher.Fetcher).BlockOfType(ctx context.Context, link ipld.Link, nodePrototype ipld.NodePrototype) (ipld.Node, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<$datamodel.IpldPrimeDatamodelNode> blockOfType(
+      $context.Context ctx,
+      $datamodel.IpldPrimeDatamodelLink link,
+      $datamodel.IpldPrimeDatamodelNodePrototype nodePrototype) async {
+    final $r = await $call(
+        9405,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..h(link)
+          ..h(nodePrototype));
+    return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
+  }
+
+  /// Go: `func (fetcher.Fetcher).NodeMatching(ctx context.Context, root ipld.Node, selector ipld.Node, cb fetcher.FetchCallback) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  ///
+  /// Go calls [cb] on the Dart event loop, during the call or
+  /// later for as long as it holds it (nobody checked which), and waits for
+  /// each invocation (a retained callback, WIRE.md).
+  Future<void> nodeMatching(
+      $context.Context ctx,
+      $datamodel.IpldPrimeDatamodelNode root,
+      $datamodel.IpldPrimeDatamodelNode selector,
+      FutureOr<void> Function(BoxoFetcherFetchResult result) cb) async {
+    await $call(
+        9406,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..h(root)
+          ..h(selector)
+          ..cb((r) => cb(r.p() ? BoxoFetcherFetchResult.$dec(r) : $nil()),
+              true));
+  }
+
+  /// Go: `func (fetcher.Fetcher).PrototypeFromLink(link ipld.Link) (ipld.NodePrototype, error)`.
+  $datamodel.IpldPrimeDatamodelNodePrototype prototypeFromLink(
+      $datamodel.IpldPrimeDatamodelLink link) {
+    final $r = $callSync(
+        9407,
+        $W()
+          ..h(this)
+          ..h(link));
+    return $r.hnn($datamodel.IpldPrimeDatamodelNodePrototype.$h);
+  }
+}

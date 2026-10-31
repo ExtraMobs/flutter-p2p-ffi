@@ -14,7 +14,10 @@ import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/dig.dart' as $dig;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
 import 'package:p2p_ffi/go/fx.dart' as $fx;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
+import 'package:p2p_ffi/go/io.dart' as $io;
 import 'package:p2p_ffi/go/ipfs/block_format.dart' as $block_format;
 import 'package:p2p_ffi/go/ipfs/boxo/blockservice.dart' as $blockservice;
 import 'package:p2p_ffi/go/ipfs/boxo/blockstore.dart' as $blockstore;
@@ -22,7 +25,7 @@ import 'package:p2p_ffi/go/ipfs/boxo/fetcher.dart' as $fetcher;
 import 'package:p2p_ffi/go/ipfs/boxo/filestore.dart' as $filestore;
 import 'package:p2p_ffi/go/ipfs/boxo/path/resolver.dart' as $resolver;
 import 'package:p2p_ffi/go/ipfs/boxo/peering.dart' as $peering;
-import 'package:p2p_ffi/go/ipfs/boxo/provider.dart' as $provider;
+import 'package:p2p_ffi/go/ipfs/boxo/provider.dart' as $provider2;
 import 'package:p2p_ffi/go/ipfs/cid.dart' as $cid;
 import 'package:p2p_ffi/go/ipfs/datastore.dart' as $datastore;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
@@ -30,6 +33,8 @@ import 'package:p2p_ffi/go/ipfs/ipld_format.dart' as $ipld_format;
 import 'package:p2p_ffi/go/ipfs/kubo/config.dart' as $config;
 import 'package:p2p_ffi/go/ipfs/kubo/core/node/libp2p.dart' as $libp2p;
 import 'package:p2p_ffi/go/ipfs/kubo/repo.dart' as $repo;
+import 'package:p2p_ffi/go/ipfs/kubo/thirdparty/verifbs.dart' as $verifbs;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/ipld/car/v2/blockstore.dart' as $blockstore2;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/host.dart' as $host;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
@@ -37,8 +42,13 @@ import 'package:p2p_ffi/go/libp2p/libp2p/core/peerstore.dart' as $peerstore;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/routing.dart' as $routing;
 import 'package:p2p_ffi/go/libp2p/libp2p/p2p/host/resource_manager.dart'
     as $resource_manager;
+import 'package:p2p_ffi/go/libp2p/libp2p_kad_dht/provider.dart' as $provider;
+import 'package:p2p_ffi/go/libp2p/libp2p_kad_dht/provider/buffered.dart'
+    as $buffered;
+import 'package:p2p_ffi/go/libp2p/libp2p_kad_dht/provider/dual.dart' as $dual;
 import 'package:p2p_ffi/go/libp2p/libp2p_record.dart' as $libp2p_record;
 import 'package:p2p_ffi/go/multiformats/multiaddr_dns.dart' as $multiaddr_dns;
+import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
 
 /// Go: `node.BaseBlocks` (handle).
 class KuboCoreNodeBaseBlocks extends GoHandle with KuboCoreNodeBaseBlocks$ {
@@ -49,7 +59,7 @@ class KuboCoreNodeBaseBlocks extends GoHandle with KuboCoreNodeBaseBlocks$ {
 mixin KuboCoreNodeBaseBlocks$ on GoHandle {
   /// Go: `func (node.BaseBlocks).AllKeysChan(ctx context.Context) (<-chan cid.Cid, error)`.
   Stream<$cid.Cid> allKeysChan($context.Context ctx) => $stream(
-          1676,
+          11586,
           $W()
             ..h(this)
             ..h(ctx))
@@ -60,7 +70,7 @@ mixin KuboCoreNodeBaseBlocks$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> deleteBlock($context.Context ctx, $cid.Cid cid) async {
     await $call(
-        1677,
+        11587,
         $W()
           ..h(this)
           ..h(ctx)
@@ -73,7 +83,7 @@ mixin KuboCoreNodeBaseBlocks$ on GoHandle {
   Future<$block_format.BlockFormatBlock> get(
       $context.Context ctx, $cid.Cid cid) async {
     final $r = await $call(
-        1678,
+        11588,
         $W()
           ..h(this)
           ..h(ctx)
@@ -86,7 +96,7 @@ mixin KuboCoreNodeBaseBlocks$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getSize($context.Context ctx, $cid.Cid cid) async {
     final $r = await $call(
-        1679,
+        11589,
         $W()
           ..h(this)
           ..h(ctx)
@@ -99,7 +109,7 @@ mixin KuboCoreNodeBaseBlocks$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> has($context.Context ctx, $cid.Cid cid) async {
     final $r = await $call(
-        1680,
+        11590,
         $W()
           ..h(this)
           ..h(ctx)
@@ -113,7 +123,7 @@ mixin KuboCoreNodeBaseBlocks$ on GoHandle {
   Future<void> put(
       $context.Context ctx, $block_format.BlockFormatBlock block) async {
     await $call(
-        1681,
+        11591,
         $W()
           ..h(this)
           ..h(ctx)
@@ -126,7 +136,7 @@ mixin KuboCoreNodeBaseBlocks$ on GoHandle {
   Future<void> putMany(
       $context.Context ctx, List<$block_format.BlockFormatBlock> blocks) async {
     await $call(
-        1682,
+        11592,
         $W()
           ..h(this)
           ..h(ctx)
@@ -136,25 +146,37 @@ mixin KuboCoreNodeBaseBlocks$ on GoHandle {
   /// Go: type assertion `x.(*blockstore.ValidatingBlockstore)`: null if the object is not one.
   $blockstore.BoxoBlockstoreValidatingBlockstore?
       asBoxoBlockstoreValidatingBlockstore() {
-    final $r = $callSync(213, $W()..h(this));
+    final $r = $callSync(1175, $W()..h(this));
     return $r.hn($blockstore.BoxoBlockstoreValidatingBlockstore.$h);
   }
 
   /// Go: type assertion `x.(*filestore.Filestore)`: null if the object is not one.
   $filestore.BoxoFilestore? asBoxoFilestore() {
-    final $r = $callSync(214, $W()..h(this));
+    final $r = $callSync(1176, $W()..h(this));
     return $r.hn($filestore.BoxoFilestore.$h);
+  }
+
+  /// Go: type assertion `x.(*verifbs.VerifBS)`: null if the object is not one.
+  $verifbs.KuboThirdpartyVerifbsVerifBs? asKuboThirdpartyVerifbsVerifBs() {
+    final $r = $callSync(1177, $W()..h(this));
+    return $r.hn($verifbs.KuboThirdpartyVerifbsVerifBs.$h);
+  }
+
+  /// Go: type assertion `x.(*verifbs.VerifBSGC)`: null if the object is not one.
+  $verifbs.KuboThirdpartyVerifbsVerifBsgc? asKuboThirdpartyVerifbsVerifBsgc() {
+    final $r = $callSync(1178, $W()..h(this));
+    return $r.hn($verifbs.KuboThirdpartyVerifbsVerifBsgc.$h);
   }
 
   /// Go: type assertion `x.(*blockstore.ReadOnly)`: null if the object is not one.
   $blockstore2.CarV2BlockstoreReadOnly? asCarV2BlockstoreReadOnly() {
-    final $r = $callSync(215, $W()..h(this));
+    final $r = $callSync(1179, $W()..h(this));
     return $r.hn($blockstore2.CarV2BlockstoreReadOnly.$h);
   }
 
   /// Go: type assertion `x.(*blockstore.ReadWrite)`: null if the object is not one.
   $blockstore2.CarV2BlockstoreReadWrite? asCarV2BlockstoreReadWrite() {
-    final $r = $callSync(216, $W()..h(this));
+    final $r = $callSync(1180, $W()..h(this));
     return $r.hn($blockstore2.CarV2BlockstoreReadWrite.$h);
   }
 }
@@ -236,19 +258,19 @@ class KuboCoreNodeDhtProvider extends GoHandle with KuboCoreNodeDhtProvider$ {
 mixin KuboCoreNodeDhtProvider$ on GoHandle {
   /// Go: `func (node.DHTProvider).Clear() int`.
   int clear() {
-    final $r = $callSync(1687, $W()..h(this));
+    final $r = $callSync(11597, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (node.DHTProvider).Close() error`.
   void close() {
-    $callSync(1688, $W()..h(this));
+    $callSync(11598, $W()..h(this));
   }
 
   /// Go: `func (node.DHTProvider).ProvideOnce(keys ...multihash.Multihash) error`.
   void provideOnce([List<Uint8List> keys = const []]) {
     $callSync(
-        1689,
+        11599,
         $W()
           ..h(this)
           ..list(keys, (w0, e0) => w0.bytes(e0)));
@@ -256,13 +278,13 @@ mixin KuboCoreNodeDhtProvider$ on GoHandle {
 
   /// Go: `func (node.DHTProvider).RefreshSchedule() error`.
   void refreshSchedule() {
-    $callSync(1690, $W()..h(this));
+    $callSync(11600, $W()..h(this));
   }
 
   /// Go: `func (node.DHTProvider).StartProviding(force bool, keys ...multihash.Multihash) error`.
   void startProviding(bool force, [List<Uint8List> keys = const []]) {
     $callSync(
-        1691,
+        11601,
         $W()
           ..h(this)
           ..b(force)
@@ -271,8 +293,29 @@ mixin KuboCoreNodeDhtProvider$ on GoHandle {
 
   /// Go: type assertion `x.(*node.LegacyProvider)`: null if the object is not one.
   KuboCoreNodeLegacyProvider? asKuboCoreNodeLegacyProvider() {
-    final $r = $callSync(217, $W()..h(this));
+    final $r = $callSync(1181, $W()..h(this));
     return $r.hn(KuboCoreNodeLegacyProvider.$h);
+  }
+
+  /// Go: type assertion `x.(*provider.SweepingProvider)`: null if the object is not one.
+  $provider.Libp2pKadDhtProviderSweepingProvider?
+      asLibp2pKadDhtProviderSweepingProvider() {
+    final $r = $callSync(1182, $W()..h(this));
+    return $r.hn($provider.Libp2pKadDhtProviderSweepingProvider.$h);
+  }
+
+  /// Go: type assertion `x.(*buffered.SweepingProvider)`: null if the object is not one.
+  $buffered.Libp2pKadDhtProviderBufferedSweepingProvider?
+      asLibp2pKadDhtProviderBufferedSweepingProvider() {
+    final $r = $callSync(1183, $W()..h(this));
+    return $r.hn($buffered.Libp2pKadDhtProviderBufferedSweepingProvider.$h);
+  }
+
+  /// Go: type assertion `x.(*dual.SweepingProvider)`: null if the object is not one.
+  $dual.Libp2pKadDhtProviderDualSweepingProvider?
+      asLibp2pKadDhtProviderDualSweepingProvider() {
+    final $r = $callSync(1184, $W()..h(this));
+    return $r.hn($dual.Libp2pKadDhtProviderDualSweepingProvider.$h);
   }
 }
 
@@ -371,37 +414,49 @@ final class KuboCoreNodeFetchersOut implements GoDto {
 }
 
 /// Go: `node.LegacyProvider` (handle).
-class KuboCoreNodeLegacyProvider extends $provider.BoxoProviderSystem
+class KuboCoreNodeLegacyProvider extends $provider2.BoxoProviderSystem
     with
+        $crypto.CryptoDecrypterOpts$,
         $crypto.CryptoPrivateKey$,
         $crypto.CryptoPublicKey$,
-        $provider.BoxoProviderMultihashProvider$,
-        $provider.BoxoProviderProvide$,
-        $provider.BoxoProviderReprovider$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $io.IoCloser$,
+        $provider2.BoxoProviderMultihashProvider$,
+        $provider2.BoxoProviderProvide$,
+        $provider2.BoxoProviderReprovider$,
         $ipfs_cmds.IpfsCmdsEnvironment$,
         KuboCoreNodeDhtProvider$,
-        $routing.Libp2pCoreRoutingContentProviding$
+        $peertask.PeertaskqueuePeertaskTopic$,
+        $routing.Libp2pCoreRoutingContentProviding$,
+        $expfmt.CommonExpfmtCloser$
     implements
+        $crypto.CryptoDecrypterOpts,
         $crypto.CryptoPrivateKey,
         $crypto.CryptoPublicKey,
-        $provider.BoxoProviderMultihashProvider,
-        $provider.BoxoProviderProvide,
-        $provider.BoxoProviderReprovider,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $io.IoCloser,
+        $provider2.BoxoProviderMultihashProvider,
+        $provider2.BoxoProviderProvide,
+        $provider2.BoxoProviderReprovider,
         $ipfs_cmds.IpfsCmdsEnvironment,
         KuboCoreNodeDhtProvider,
-        $routing.Libp2pCoreRoutingContentProviding {
+        $peertask.PeertaskqueuePeertaskTopic,
+        $routing.Libp2pCoreRoutingContentProviding,
+        $expfmt.CommonExpfmtCloser {
   KuboCoreNodeLegacyProvider.$h(super.$h) : super.$h();
 
   /// Go: `func (*node.LegacyProvider).Clear() int`.
   int clear() {
-    final $r = $callSync(1701, $W()..h(this));
+    final $r = $callSync(11611, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*node.LegacyProvider).ProvideOnce(keys ...multihash.Multihash) error`.
   void provideOnce([List<Uint8List> keys = const []]) {
     $callSync(
-        1702,
+        11612,
         $W()
           ..h(this)
           ..list(keys, (w0, e0) => w0.bytes(e0)));
@@ -409,13 +464,13 @@ class KuboCoreNodeLegacyProvider extends $provider.BoxoProviderSystem
 
   /// Go: `func (*node.LegacyProvider).RefreshSchedule() error`.
   void refreshSchedule() {
-    $callSync(1703, $W()..h(this));
+    $callSync(11613, $W()..h(this));
   }
 
   /// Go: `func (*node.LegacyProvider).StartProviding(force bool, keys ...multihash.Multihash) error`.
   void startProviding(bool force, [List<Uint8List> keys = const []]) {
     $callSync(
-        1704,
+        11614,
         $W()
           ..h(this)
           ..b(force)
@@ -433,19 +488,19 @@ final class KuboCoreNodeNoopProvider implements GoDto {
 
   /// Go: `func (*node.NoopProvider).Clear() int`.
   int clear() {
-    final $r = $callSync(1708, $W()..dto(this));
+    final $r = $callSync(11618, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*node.NoopProvider).Close() error`.
   void close() {
-    $callSync(1709, $W()..dto(this));
+    $callSync(11619, $W()..dto(this));
   }
 
   /// Go: `func (*node.NoopProvider).ProvideOnce(...multihash.Multihash) error`.
   void provideOnce([List<Uint8List> arg0 = const []]) {
     $callSync(
-        1710,
+        11620,
         $W()
           ..dto(this)
           ..list(arg0, (w0, e0) => w0.bytes(e0)));
@@ -453,13 +508,13 @@ final class KuboCoreNodeNoopProvider implements GoDto {
 
   /// Go: `func (*node.NoopProvider).RefreshSchedule() error`.
   void refreshSchedule() {
-    $callSync(1711, $W()..dto(this));
+    $callSync(11621, $W()..dto(this));
   }
 
   /// Go: `func (*node.NoopProvider).StartProviding(bool, ...multihash.Multihash) error`.
   void startProviding(bool arg0, [List<Uint8List> arg1 = const []]) {
     $callSync(
-        1712,
+        11622,
         $W()
           ..dto(this)
           ..b(arg0)
@@ -519,7 +574,7 @@ extension GoIpfsKuboCoreNodeApi on GoIpfsKuboCoreNode {
   /// Go: `func node.Bitswap(serverEnabled bool, libp2pEnabled bool, httpEnabled bool) any`.
   Object? bitswap(bool serverEnabled, bool libp2pEnabled, bool httpEnabled) {
     final $r = $callSync(
-        1684,
+        11594,
         $W()
           ..b(serverEnabled)
           ..b(libp2pEnabled)
@@ -529,39 +584,39 @@ extension GoIpfsKuboCoreNodeApi on GoIpfsKuboCoreNode {
 
   /// Go: `func node.BitswapOptions(cfg *config.Config) any`.
   Object? bitswapOptions($config.KuboConfig cfg) {
-    final $r = $callSync(1685, $W()..json(cfg));
+    final $r = $callSync(11595, $W()..json(cfg));
     return $r.any();
   }
 
   /// Go: `func node.DNSResolver(cfg *config.Config) (*madns.Resolver, error)`.
   $multiaddr_dns.MultiaddrDnsResolver dnsResolver($config.KuboConfig cfg) {
-    final $r = $callSync(1692, $W()..json(cfg));
+    final $r = $callSync(11602, $W()..json(cfg));
     return $r.hnn($multiaddr_dns.MultiaddrDnsResolver.$h);
   }
 
   /// Go: `func node.Dag(bs blockservice.BlockService) format.DAGService`.
   $ipld_format.IpldFormatDagService dag(
       $blockservice.BoxoBlockserviceBlockService bs) {
-    final $r = $callSync(1693, $W()..h(bs));
+    final $r = $callSync(11603, $W()..h(bs));
     return $r.hnn($ipld_format.IpldFormatDagService.$h);
   }
 
   /// Go: `func node.Datastore(repo repo.Repo) datastore.Datastore`.
   $datastore.Datastore datastore($repo.KuboRepo repo) {
-    final $r = $callSync(1694, $W()..h(repo));
+    final $r = $callSync(11604, $W()..h(repo));
     return $r.hnn($datastore.Datastore.$h);
   }
 
   /// Go: `func node.FetcherConfig(bs blockservice.BlockService) node.FetchersOut`.
   KuboCoreNodeFetchersOut fetcherConfig(
       $blockservice.BoxoBlockserviceBlockService bs) {
-    final $r = $callSync(1695, $W()..h(bs));
+    final $r = $callSync(11605, $W()..h(bs));
     return $r.p() ? KuboCoreNodeFetchersOut.$dec($r) : $nil();
   }
 
   /// Go: `var node.FilesRootDatastoreKey datastore.Key`.
   $datastore.DatastoreKey get filesRootDatastoreKey {
-    final $r = $callSync(1696);
+    final $r = $callSync(11606);
     return $r.hnn($datastore.DatastoreKey.$h);
   }
 
@@ -571,7 +626,7 @@ extension GoIpfsKuboCoreNodeApi on GoIpfsKuboCoreNode {
     $blockstore.BoxoBlockstoreGcBlockstore,
     $blockstore.BoxoBlockstore
   ) gcBlockstoreCtor(KuboCoreNodeBaseBlocks bb) {
-    final $r = $callSync(1697, $W()..h(bb));
+    final $r = $callSync(11607, $W()..h(bb));
     return (
       $r.hnn($blockstore.BoxoBlockstoreGcLocker.$h),
       $r.hnn($blockstore.BoxoBlockstoreGcBlockstore.$h),
@@ -581,14 +636,14 @@ extension GoIpfsKuboCoreNodeApi on GoIpfsKuboCoreNode {
 
   /// Go: `func node.OnlineExchange(isBitswapActive bool) any`.
   Object? onlineExchange(bool isBitswapActive) {
-    final $r = $callSync(1716, $W()..b(isBitswapActive));
+    final $r = $callSync(11626, $W()..b(isBitswapActive));
     return $r.any();
   }
 
   /// Go: `func node.PathResolverConfig(fetchers node.FetchersIn) node.PathResolversOut`.
   KuboCoreNodePathResolversOut pathResolverConfig(
       KuboCoreNodeFetchersIn fetchers) {
-    final $r = $callSync(1718, $W()..dto(fetchers));
+    final $r = $callSync(11628, $W()..dto(fetchers));
     return $r.p() ? KuboCoreNodePathResolversOut.$dec($r) : $nil();
   }
 
@@ -596,7 +651,7 @@ extension GoIpfsKuboCoreNodeApi on GoIpfsKuboCoreNode {
   $peering.BoxoPeeringService peering(
       $fx.FxLifecycle lc, $host.Libp2pCoreHost host) {
     final $r = $callSync(
-        1720,
+        11630,
         $W()
           ..h(lc)
           ..h(host));
@@ -606,7 +661,7 @@ extension GoIpfsKuboCoreNodeApi on GoIpfsKuboCoreNode {
   /// Go: `func node.PurgeStaleDHTValueRecords(lc fx.Lifecycle, repo repo.Repo)`.
   void purgeStaleDhtValueRecords($fx.FxLifecycle lc, $repo.KuboRepo repo) {
     $callSync(
-        1721,
+        11631,
         $W()
           ..h(lc)
           ..h(repo));
@@ -615,13 +670,13 @@ extension GoIpfsKuboCoreNodeApi on GoIpfsKuboCoreNode {
   /// Go: `func node.RecordValidator(ps peerstore.Peerstore) record.Validator`.
   $libp2p_record.Libp2pRecordValidator recordValidator(
       $peerstore.Libp2pCorePeerstore ps) {
-    final $r = $callSync(1722, $W()..h(ps));
+    final $r = $callSync(11632, $W()..h(ps));
     return $r.hnn($libp2p_record.Libp2pRecordValidator.$h);
   }
 
   /// Go: `func node.RepoConfig(repo repo.Repo) (*config.Config, error)`.
   $config.KuboConfig repoConfig($repo.KuboRepo repo) {
-    final $r = $callSync(1723, $W()..h(repo));
+    final $r = $callSync(11633, $W()..h(repo));
     return $r.p() ? $config.KuboConfig($r.json()) : $nil();
   }
 }
@@ -663,13 +718,13 @@ extension GoIpfsKuboCoreNodeEnumsApi on GoIpfsKuboCoreNodeEnums {
 extension GoIpfsKuboCoreNodeOptionsApi on GoIpfsKuboCoreNodeOptions {
   /// Go: `var node.BaseLibP2P fx.Option`.
   $fx.FxOption get baseLibP2p {
-    final $r = $callSync(1683);
+    final $r = $callSync(11593);
     return $r.hnn($fx.FxOption.$h);
   }
 
   /// Go: `var node.Core fx.Option`.
   $fx.FxOption get core {
-    final $r = $callSync(1686);
+    final $r = $callSync(11596);
     return $r.hnn($fx.FxOption.$h);
   }
 
@@ -679,7 +734,7 @@ extension GoIpfsKuboCoreNodeOptionsApi on GoIpfsKuboCoreNodeOptions {
   Future<$fx.FxOption> ipfs(
       $context.Context ctx, KuboCoreNodeBuildCfg bcfg) async {
     final $r = await $call(
-        1698,
+        11608,
         $W()
           ..h(ctx)
           ..dto(bcfg));
@@ -688,13 +743,13 @@ extension GoIpfsKuboCoreNodeOptionsApi on GoIpfsKuboCoreNodeOptions {
 
   /// Go: `var node.IPNS fx.Option`.
   $fx.FxOption get ipns {
-    final $r = $callSync(1699);
+    final $r = $callSync(11609);
     return $r.hnn($fx.FxOption.$h);
   }
 
   /// Go: `func node.Identity(cfg *config.Config) fx.Option`.
   $fx.FxOption identity($config.KuboConfig cfg) {
-    final $r = $callSync(1700, $W()..json(cfg));
+    final $r = $callSync(11610, $W()..json(cfg));
     return $r.hnn($fx.FxOption.$h);
   }
 
@@ -702,7 +757,7 @@ extension GoIpfsKuboCoreNodeOptionsApi on GoIpfsKuboCoreNodeOptions {
   $fx.FxOption legacyProviderOpt(Duration reprovideInterval, String strategy,
       bool acceleratedDhtClient, int provideWorkerCount) {
     final $r = $callSync(
-        1705,
+        11615,
         $W()
           ..i64((reprovideInterval).inMicroseconds * 1000)
           ..str(strategy)
@@ -718,7 +773,7 @@ extension GoIpfsKuboCoreNodeOptionsApi on GoIpfsKuboCoreNodeOptions {
       $resource_manager.Libp2pP2pHostResourceManagerPartialLimitConfig
           userResourceOverrides) {
     final $r = $callSync(
-        1706,
+        11616,
         $W()
           ..dto(bcfg)
           ..json(cfg)
@@ -733,7 +788,7 @@ extension GoIpfsKuboCoreNodeOptionsApi on GoIpfsKuboCoreNodeOptions {
       $resource_manager.Libp2pP2pHostResourceManagerPartialLimitConfig
           userResourceOverrides) {
     final $r = $callSync(
-        1707,
+        11617,
         $W()
           ..dto(bcfg)
           ..json(cfg)
@@ -743,13 +798,13 @@ extension GoIpfsKuboCoreNodeOptionsApi on GoIpfsKuboCoreNodeOptions {
 
   /// Go: `func node.Offline(cfg *config.Config) fx.Option`.
   $fx.FxOption offline($config.KuboConfig cfg) {
-    final $r = $callSync(1713, $W()..json(cfg));
+    final $r = $callSync(11623, $W()..json(cfg));
     return $r.hnn($fx.FxOption.$h);
   }
 
   /// Go: `func node.OfflineProviders() fx.Option`.
   $fx.FxOption offlineProviders() {
-    final $r = $callSync(1714);
+    final $r = $callSync(11624);
     return $r.hnn($fx.FxOption.$h);
   }
 
@@ -760,7 +815,7 @@ extension GoIpfsKuboCoreNodeOptionsApi on GoIpfsKuboCoreNodeOptions {
       $resource_manager.Libp2pP2pHostResourceManagerPartialLimitConfig
           userResourceOverrides) {
     final $r = $callSync(
-        1715,
+        11625,
         $W()
           ..dto(bcfg)
           ..json(cfg)
@@ -771,7 +826,7 @@ extension GoIpfsKuboCoreNodeOptionsApi on GoIpfsKuboCoreNodeOptions {
   /// Go: `func node.OnlineProviders(provide bool, cfg *config.Config) fx.Option`.
   $fx.FxOption onlineProviders(bool provide, $config.KuboConfig cfg) {
     final $r = $callSync(
-        1717,
+        11627,
         $W()
           ..b(provide)
           ..json(cfg));
@@ -780,14 +835,14 @@ extension GoIpfsKuboCoreNodeOptionsApi on GoIpfsKuboCoreNodeOptions {
 
   /// Go: `func node.PeerWith(peers ...peer.AddrInfo) fx.Option`.
   $fx.FxOption peerWith([List<$peer.Libp2pCorePeerAddrInfo> peers = const []]) {
-    final $r = $callSync(1719, $W()..list(peers, (w0, e0) => w0.dto(e0)));
+    final $r = $callSync(11629, $W()..list(peers, (w0, e0) => w0.dto(e0)));
     return $r.hnn($fx.FxOption.$h);
   }
 
   /// Go: `func node.Storage(bcfg *node.BuildCfg, cfg *config.Config) fx.Option`.
   $fx.FxOption storage(KuboCoreNodeBuildCfg bcfg, $config.KuboConfig cfg) {
     final $r = $callSync(
-        1724,
+        11634,
         $W()
           ..dto(bcfg)
           ..json(cfg));
@@ -796,7 +851,7 @@ extension GoIpfsKuboCoreNodeOptionsApi on GoIpfsKuboCoreNodeOptions {
 
   /// Go: `func node.SweepingProviderOpt(cfg *config.Config) fx.Option`.
   $fx.FxOption sweepingProviderOpt($config.KuboConfig cfg) {
-    final $r = $callSync(1725, $W()..json(cfg));
+    final $r = $callSync(11635, $W()..json(cfg));
     return $r.hnn($fx.FxOption.$h);
   }
 }

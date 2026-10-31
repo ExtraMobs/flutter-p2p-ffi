@@ -28,6 +28,7 @@ import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/ipfs/kubo/core.dart' as $core;
 import 'package:p2p_ffi/go/ipfs/kubo/core/coreiface.dart' as $coreiface;
 import 'package:p2p_ffi/go/ipfs/cid.dart' as $cid;
+import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 import 'package:p2p_ffi/src/go.dart' show GoIpfsKuboCoreCommandsDag;
 import 'package:p2p_ffi/src/runtime.dart';
 

@@ -18,7 +18,7 @@ extension GoIpfsBoxoIpldUnixfsFileApi on GoIpfsBoxoIpldUnixfsFile {
       $ipld_format.IpldFormatDagService dserv,
       $ipld_format.IpldFormatNode nd) async {
     final $r = await $call(
-        783,
+        9767,
         $W()
           ..h(ctx)
           ..h(dserv)

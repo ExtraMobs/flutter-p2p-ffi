@@ -2,16 +2,114 @@
 // Go: crypto/x509
 library;
 
+import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/src/go.dart' show GoCryptoX509Enums;
+import 'package:p2p_ffi/src/go.dart' show GoCryptoX509, GoCryptoX509Enums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/crypto/ecdsa.dart' as $ecdsa;
+import 'package:p2p_ffi/go/crypto/rsa.dart' as $rsa;
 import 'package:p2p_ffi/go/crypto/x509/pkix.dart' as $pkix;
+import 'package:p2p_ffi/go/encoding.dart' as $encoding;
+import 'package:p2p_ffi/go/encoding/pem.dart' as $pem;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/math/big.dart' as $big;
 import 'package:p2p_ffi/go/net.dart' as $net;
 import 'package:p2p_ffi/go/net/url.dart' as $url;
+
+/// Go: `x509.CertPool` (handle).
+class CryptoX509CertPool extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
+  CryptoX509CertPool.$h(super.$h) : super.$h();
+
+  /// Go: `func x509.NewCertPool() *x509.CertPool`.
+  factory CryptoX509CertPool() {
+    final $r = $callSync(3441);
+    return $r.hnn(CryptoX509CertPool.$h);
+  }
+
+  /// Go: `func (*x509.CertPool).AddCert(cert *x509.Certificate)`.
+  void addCert(CryptoX509Certificate cert) {
+    $callSync(
+        3416,
+        $W()
+          ..h(this)
+          ..dto(cert));
+  }
+
+  /// Go: `func (*x509.CertPool).AddCertWithConstraint(cert *x509.Certificate, constraint func([]*x509.Certificate) error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  ///
+  /// Go calls [constraint] on the Dart event loop, during the call or
+  /// later for as long as it holds it (nobody checked which), and waits for
+  /// each invocation (a retained callback, WIRE.md).
+  Future<void> addCertWithConstraint(
+      CryptoX509Certificate cert,
+      FutureOr<void> Function(List<CryptoX509Certificate> certificates)
+          constraint) async {
+    await $call(
+        3417,
+        $W()
+          ..h(this)
+          ..dto(cert)
+          ..cb(
+              (r) => constraint(
+                  r.list(() => r.p() ? CryptoX509Certificate.$dec(r) : $nil())),
+              true));
+  }
+
+  /// Go: `func (*x509.CertPool).AppendCertsFromPEM(pemCerts []byte) (ok bool)`.
+  bool appendCertsFromPem(Uint8List pemCerts) {
+    final $r = $callSync(
+        3418,
+        $W()
+          ..h(this)
+          ..bytes(pemCerts));
+    return $r.b();
+  }
+
+  /// Go: `func (*x509.CertPool).Clone() *x509.CertPool`.
+  CryptoX509CertPool clone() {
+    final $r = $callSync(3419, $W()..h(this));
+    return $r.hnn(CryptoX509CertPool.$h);
+  }
+
+  /// Go: `func (*x509.CertPool).Equal(other *x509.CertPool) bool`.
+  bool equal(CryptoX509CertPool other) {
+    final $r = $callSync(
+        3420,
+        $W()
+          ..h(this)
+          ..h(other));
+    return $r.b();
+  }
+
+  /// Go: `func (*x509.CertPool).Subjects() [][]byte`.
+  @Deprecated(
+      "if s was returned by [SystemCertPool], Subjects will not include the system roots.")
+  List<Uint8List> subjects() {
+    final $r = $callSync(3421, $W()..h(this));
+    return $r.list(() => $r.bytes() ?? Uint8List(0));
+  }
+}
 
 /// Go: `x509.Certificate`.
 ///
@@ -388,13 +486,325 @@ final class CryptoX509Certificate implements GoDto {
       ..b(requireExplicitPolicyZero)
       ..list(policyMappings, (w0, e0) => w0.dto(e0));
   }
+
+  /// Go: `func (*x509.Certificate).CheckCRLSignature(crl *pkix.CertificateList) error`.
+  @Deprecated("Use [RevocationList.CheckSignatureFrom] instead.")
+  void checkCrlSignature($pkix.CryptoX509PkixCertificateList crl) {
+    $callSync(
+        3422,
+        $W()
+          ..dto(this)
+          ..dto(crl));
+  }
+
+  /// Go: `func (*x509.Certificate).CheckSignature(algo x509.SignatureAlgorithm, signed []byte, signature []byte) error`.
+  void checkSignature(int algo, Uint8List signed, Uint8List signature) {
+    $callSync(
+        3423,
+        $W()
+          ..dto(this)
+          ..i64(algo)
+          ..bytes(signed)
+          ..bytes(signature));
+  }
+
+  /// Go: `func (*x509.Certificate).CheckSignatureFrom(parent *x509.Certificate) error`.
+  void checkSignatureFrom(CryptoX509Certificate parent) {
+    $callSync(
+        3424,
+        $W()
+          ..dto(this)
+          ..dto(parent));
+  }
+
+  /// Go: `func (*x509.Certificate).CreateCRL(rand io.Reader, priv any, revokedCerts []pkix.RevokedCertificate, now time.Time, expiry time.Time) (crlBytes []byte, err error)`.
+  @Deprecated(
+      "this method does not generate an RFC 5280 conformant X.509 v2 CRL. To generate a standards compliant CRL, use [CreateRevocationList] instead.")
+  Uint8List createCrl(
+      Object rand,
+      Object? priv,
+      List<$pkix.CryptoX509PkixRevokedCertificate> revokedCerts,
+      DateTime now,
+      DateTime expiry) {
+    final $r = $callSync(
+        3425,
+        $W()
+          ..dto(this)
+          ..reader(rand)
+          ..any(priv)
+          ..list(revokedCerts, (w0, e0) => w0.dto(e0))
+          ..time(now)
+          ..time(expiry));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (*x509.Certificate).Equal(other *x509.Certificate) bool`.
+  bool equal(CryptoX509Certificate other) {
+    final $r = $callSync(
+        3426,
+        $W()
+          ..dto(this)
+          ..dto(other));
+    return $r.b();
+  }
+
+  /// Go: `func (*x509.Certificate).Verify(opts x509.VerifyOptions) ([][]*x509.Certificate, error)`.
+  List<List<CryptoX509Certificate>> verify(CryptoX509VerifyOptions opts) {
+    final $r = $callSync(
+        3427,
+        $W()
+          ..dto(this)
+          ..h(opts));
+    return $r.list(
+        () => $r.list(() => $r.p() ? CryptoX509Certificate.$dec($r) : $nil()));
+  }
+
+  /// Go: `func (*x509.Certificate).VerifyHostname(h string) error`.
+  void verifyHostname(String h) {
+    $callSync(
+        3428,
+        $W()
+          ..dto(this)
+          ..str(h));
+  }
+}
+
+/// Go: `x509.CertificateRequest`.
+///
+/// Fields that do not cross the bridge: `PublicKey` (type any).
+final class CryptoX509CertificateRequest implements GoDto {
+  CryptoX509CertificateRequest(
+      {Uint8List? raw,
+      Uint8List? rawTbsCertificateRequest,
+      Uint8List? rawSubjectPublicKeyInfo,
+      Uint8List? rawSubject,
+      int? version,
+      Uint8List? signature,
+      int? signatureAlgorithm,
+      int? publicKeyAlgorithm,
+      $pkix.CryptoX509PkixName? subject,
+      List<$pkix.CryptoX509PkixAttributeTypeAndValueSet>? attributes,
+      List<$pkix.CryptoX509PkixExtension>? extensions,
+      List<$pkix.CryptoX509PkixExtension>? extraExtensions,
+      List<String>? dnsNames,
+      List<String>? emailAddresses,
+      List<Uint8List>? ipAddresses,
+      List<$url.NetUrl>? uris})
+      : raw = raw,
+        rawTbsCertificateRequest = rawTbsCertificateRequest,
+        rawSubjectPublicKeyInfo = rawSubjectPublicKeyInfo,
+        rawSubject = rawSubject,
+        version = version ?? 0,
+        signature = signature,
+        signatureAlgorithm = signatureAlgorithm ?? 0,
+        publicKeyAlgorithm = publicKeyAlgorithm ?? 0,
+        subject = subject,
+        attributes = attributes ?? [],
+        extensions = extensions ?? [],
+        extraExtensions = extraExtensions ?? [],
+        dnsNames = dnsNames ?? [],
+        emailAddresses = emailAddresses ?? [],
+        ipAddresses = ipAddresses ?? [],
+        uris = uris ?? [];
+
+  CryptoX509CertificateRequest.$dec($R r)
+      : raw = r.bytes(),
+        rawTbsCertificateRequest = r.bytes(),
+        rawSubjectPublicKeyInfo = r.bytes(),
+        rawSubject = r.bytes(),
+        version = r.i64(),
+        signature = r.bytes(),
+        signatureAlgorithm = r.i64(),
+        publicKeyAlgorithm = r.i64(),
+        subject = r.p() ? $pkix.CryptoX509PkixName.$dec(r) : null,
+        attributes = r.list(() => r.p()
+            ? $pkix.CryptoX509PkixAttributeTypeAndValueSet.$dec(r)
+            : $nil()),
+        extensions = r
+            .list(() => r.p() ? $pkix.CryptoX509PkixExtension.$dec(r) : $nil()),
+        extraExtensions = r
+            .list(() => r.p() ? $pkix.CryptoX509PkixExtension.$dec(r) : $nil()),
+        dnsNames = r.list(() => r.str()),
+        emailAddresses = r.list(() => r.str()),
+        ipAddresses = r.list(() => r.bytes() ?? Uint8List(0)),
+        uris = r.list(() => r.p() ? $url.NetUrl.$dec(r) : $nil());
+
+  /// Go: `Raw`.
+  Uint8List? raw;
+
+  /// Go: `RawTBSCertificateRequest`.
+  Uint8List? rawTbsCertificateRequest;
+
+  /// Go: `RawSubjectPublicKeyInfo`.
+  Uint8List? rawSubjectPublicKeyInfo;
+
+  /// Go: `RawSubject`.
+  Uint8List? rawSubject;
+
+  /// Go: `Version`.
+  int version;
+
+  /// Go: `Signature`.
+  Uint8List? signature;
+
+  /// Go: `SignatureAlgorithm`.
+  int signatureAlgorithm;
+
+  /// Go: `PublicKeyAlgorithm`.
+  int publicKeyAlgorithm;
+
+  /// Go: `Subject`.
+  $pkix.CryptoX509PkixName? subject;
+
+  /// Go: `Attributes`.
+  List<$pkix.CryptoX509PkixAttributeTypeAndValueSet> attributes;
+
+  /// Go: `Extensions`.
+  List<$pkix.CryptoX509PkixExtension> extensions;
+
+  /// Go: `ExtraExtensions`.
+  List<$pkix.CryptoX509PkixExtension> extraExtensions;
+
+  /// Go: `DNSNames`.
+  List<String> dnsNames;
+
+  /// Go: `EmailAddresses`.
+  List<String> emailAddresses;
+
+  /// Go: `IPAddresses`.
+  List<Uint8List> ipAddresses;
+
+  /// Go: `URIs`.
+  List<$url.NetUrl> uris;
+
+  @override
+  void $enc($W w) {
+    w
+      ..bytes(raw)
+      ..bytes(rawTbsCertificateRequest)
+      ..bytes(rawSubjectPublicKeyInfo)
+      ..bytes(rawSubject)
+      ..i64(version)
+      ..bytes(signature)
+      ..i64(signatureAlgorithm)
+      ..i64(publicKeyAlgorithm)
+      ..dto(subject)
+      ..list(attributes, (w0, e0) => w0.dto(e0))
+      ..list(extensions, (w0, e0) => w0.dto(e0))
+      ..list(extraExtensions, (w0, e0) => w0.dto(e0))
+      ..list(dnsNames, (w0, e0) => w0.str(e0))
+      ..list(emailAddresses, (w0, e0) => w0.str(e0))
+      ..list(ipAddresses, (w0, e0) => w0.bytes(e0))
+      ..list(uris, (w0, e0) => w0.dto(e0));
+  }
+
+  /// Go: `func (*x509.CertificateRequest).CheckSignature() error`.
+  void checkSignature() {
+    $callSync(3429, $W()..dto(this));
+  }
 }
 
 /// Go: `x509.OID` (handle).
-class CryptoX509Oid extends $crypto.CryptoPrivateKey
-    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
-    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+class CryptoX509Oid extends $encoding.EncodingBinaryAppender
+    with
+        $crypto.CryptoDecrypterOpts$,
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $encoding.EncodingBinaryUnmarshaler$,
+        $encoding.EncodingTextAppender$,
+        $encoding.EncodingTextUnmarshaler$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoDecrypterOpts,
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $encoding.EncodingBinaryUnmarshaler,
+        $encoding.EncodingTextAppender,
+        $encoding.EncodingTextUnmarshaler,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   CryptoX509Oid.$h(super.$h) : super.$h();
+
+  /// Go: `func (x509.OID).AppendBinary(b []byte) ([]byte, error)`.
+  Uint8List appendBinary(Uint8List b) {
+    final $r = $callSync(
+        3442,
+        $W()
+          ..h(this)
+          ..bytes(b));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (x509.OID).AppendText(b []byte) ([]byte, error)`.
+  Uint8List appendText(Uint8List b) {
+    final $r = $callSync(
+        3443,
+        $W()
+          ..h(this)
+          ..bytes(b));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (x509.OID).Equal(other x509.OID) bool`.
+  bool equal(CryptoX509Oid other) {
+    final $r = $callSync(
+        3444,
+        $W()
+          ..h(this)
+          ..h(other));
+    return $r.b();
+  }
+
+  /// Go: `func (x509.OID).EqualASN1OID(other asn1.ObjectIdentifier) bool`.
+  bool equalAsn1oid(List<int> other) {
+    final $r = $callSync(
+        3445,
+        $W()
+          ..h(this)
+          ..list(other, (w0, e0) => w0.i64(e0)));
+    return $r.b();
+  }
+
+  /// Go: `func (x509.OID).MarshalBinary() ([]byte, error)`.
+  Uint8List marshalBinary() {
+    final $r = $callSync(3446, $W()..h(this));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (x509.OID).MarshalText() ([]byte, error)`.
+  Uint8List marshalText() {
+    final $r = $callSync(3447, $W()..h(this));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (x509.OID).String() string`.
+  String string() {
+    final $r = $callSync(3448, $W()..h(this));
+    return $r.str();
+  }
+
+  /// Go: `func (*x509.OID).UnmarshalBinary(b []byte) error`.
+  void unmarshalBinary(Uint8List b) {
+    $callSync(
+        3449,
+        $W()
+          ..h(this)
+          ..bytes(b));
+  }
+
+  /// Go: `func (*x509.OID).UnmarshalText(text []byte) error`.
+  void unmarshalText(Uint8List text) {
+    $callSync(
+        3450,
+        $W()
+          ..h(this)
+          ..bytes(text));
+  }
 }
 
 /// Go: `x509.PolicyMapping`.
@@ -420,6 +830,204 @@ final class CryptoX509PolicyMapping implements GoDto {
       ..h(issuerDomainPolicy)
       ..h(subjectDomainPolicy);
   }
+}
+
+/// Go: `x509.RevocationList`.
+final class CryptoX509RevocationList implements GoDto {
+  CryptoX509RevocationList(
+      {Uint8List? raw,
+      Uint8List? rawTbsRevocationList,
+      Uint8List? rawIssuer,
+      $pkix.CryptoX509PkixName? issuer,
+      Uint8List? authorityKeyId,
+      Uint8List? signature,
+      int? signatureAlgorithm,
+      List<CryptoX509RevocationListEntry>? revokedCertificateEntries,
+      List<$pkix.CryptoX509PkixRevokedCertificate>? revokedCertificates,
+      $big.MathBigInt? number,
+      DateTime? thisUpdate,
+      DateTime? nextUpdate,
+      List<$pkix.CryptoX509PkixExtension>? extensions,
+      List<$pkix.CryptoX509PkixExtension>? extraExtensions})
+      : raw = raw,
+        rawTbsRevocationList = rawTbsRevocationList,
+        rawIssuer = rawIssuer,
+        issuer = issuer,
+        authorityKeyId = authorityKeyId,
+        signature = signature,
+        signatureAlgorithm = signatureAlgorithm ?? 0,
+        revokedCertificateEntries = revokedCertificateEntries ?? [],
+        revokedCertificates = revokedCertificates ?? [],
+        number = number,
+        thisUpdate = thisUpdate,
+        nextUpdate = nextUpdate,
+        extensions = extensions ?? [],
+        extraExtensions = extraExtensions ?? [];
+
+  CryptoX509RevocationList.$dec($R r)
+      : raw = r.bytes(),
+        rawTbsRevocationList = r.bytes(),
+        rawIssuer = r.bytes(),
+        issuer = r.p() ? $pkix.CryptoX509PkixName.$dec(r) : null,
+        authorityKeyId = r.bytes(),
+        signature = r.bytes(),
+        signatureAlgorithm = r.i64(),
+        revokedCertificateEntries = r
+            .list(() => r.p() ? CryptoX509RevocationListEntry.$dec(r) : $nil()),
+        revokedCertificates = r.list(() =>
+            r.p() ? $pkix.CryptoX509PkixRevokedCertificate.$dec(r) : $nil()),
+        number = r.hn($big.MathBigInt.$h),
+        thisUpdate = r.p() ? r.time() : null,
+        nextUpdate = r.p() ? r.time() : null,
+        extensions = r
+            .list(() => r.p() ? $pkix.CryptoX509PkixExtension.$dec(r) : $nil()),
+        extraExtensions = r
+            .list(() => r.p() ? $pkix.CryptoX509PkixExtension.$dec(r) : $nil());
+
+  /// Go: `Raw`.
+  Uint8List? raw;
+
+  /// Go: `RawTBSRevocationList`.
+  Uint8List? rawTbsRevocationList;
+
+  /// Go: `RawIssuer`.
+  Uint8List? rawIssuer;
+
+  /// Go: `Issuer`.
+  $pkix.CryptoX509PkixName? issuer;
+
+  /// Go: `AuthorityKeyId`.
+  Uint8List? authorityKeyId;
+
+  /// Go: `Signature`.
+  Uint8List? signature;
+
+  /// Go: `SignatureAlgorithm`.
+  int signatureAlgorithm;
+
+  /// Go: `RevokedCertificateEntries`.
+  List<CryptoX509RevocationListEntry> revokedCertificateEntries;
+
+  /// Go: `RevokedCertificates`.
+  List<$pkix.CryptoX509PkixRevokedCertificate> revokedCertificates;
+
+  /// Go: `Number`.
+  $big.MathBigInt? number;
+
+  /// Go: `ThisUpdate`.
+  DateTime? thisUpdate;
+
+  /// Go: `NextUpdate`.
+  DateTime? nextUpdate;
+
+  /// Go: `Extensions`.
+  List<$pkix.CryptoX509PkixExtension> extensions;
+
+  /// Go: `ExtraExtensions`.
+  List<$pkix.CryptoX509PkixExtension> extraExtensions;
+
+  @override
+  void $enc($W w) {
+    w
+      ..bytes(raw)
+      ..bytes(rawTbsRevocationList)
+      ..bytes(rawIssuer)
+      ..dto(issuer)
+      ..bytes(authorityKeyId)
+      ..bytes(signature)
+      ..i64(signatureAlgorithm)
+      ..list(revokedCertificateEntries, (w0, e0) => w0.dto(e0))
+      ..list(revokedCertificates, (w0, e0) => w0.dto(e0))
+      ..h(number)
+      ..time(thisUpdate)
+      ..time(nextUpdate)
+      ..list(extensions, (w0, e0) => w0.dto(e0))
+      ..list(extraExtensions, (w0, e0) => w0.dto(e0));
+  }
+
+  /// Go: `func (*x509.RevocationList).CheckSignatureFrom(parent *x509.Certificate) error`.
+  void checkSignatureFrom(CryptoX509Certificate parent) {
+    $callSync(
+        3465,
+        $W()
+          ..dto(this)
+          ..dto(parent));
+  }
+}
+
+/// Go: `x509.RevocationListEntry`.
+final class CryptoX509RevocationListEntry implements GoDto {
+  CryptoX509RevocationListEntry(
+      {Uint8List? raw,
+      $big.MathBigInt? serialNumber,
+      DateTime? revocationTime,
+      int? reasonCode,
+      List<$pkix.CryptoX509PkixExtension>? extensions,
+      List<$pkix.CryptoX509PkixExtension>? extraExtensions})
+      : raw = raw,
+        serialNumber = serialNumber,
+        revocationTime = revocationTime,
+        reasonCode = reasonCode ?? 0,
+        extensions = extensions ?? [],
+        extraExtensions = extraExtensions ?? [];
+
+  CryptoX509RevocationListEntry.$dec($R r)
+      : raw = r.bytes(),
+        serialNumber = r.hn($big.MathBigInt.$h),
+        revocationTime = r.p() ? r.time() : null,
+        reasonCode = r.i64(),
+        extensions = r
+            .list(() => r.p() ? $pkix.CryptoX509PkixExtension.$dec(r) : $nil()),
+        extraExtensions = r
+            .list(() => r.p() ? $pkix.CryptoX509PkixExtension.$dec(r) : $nil());
+
+  /// Go: `Raw`.
+  Uint8List? raw;
+
+  /// Go: `SerialNumber`.
+  $big.MathBigInt? serialNumber;
+
+  /// Go: `RevocationTime`.
+  DateTime? revocationTime;
+
+  /// Go: `ReasonCode`.
+  int reasonCode;
+
+  /// Go: `Extensions`.
+  List<$pkix.CryptoX509PkixExtension> extensions;
+
+  /// Go: `ExtraExtensions`.
+  List<$pkix.CryptoX509PkixExtension> extraExtensions;
+
+  @override
+  void $enc($W w) {
+    w
+      ..bytes(raw)
+      ..h(serialNumber)
+      ..time(revocationTime)
+      ..i64(reasonCode)
+      ..list(extensions, (w0, e0) => w0.dto(e0))
+      ..list(extraExtensions, (w0, e0) => w0.dto(e0));
+  }
+}
+
+/// Go: `x509.VerifyOptions` (handle).
+class CryptoX509VerifyOptions extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
+  CryptoX509VerifyOptions.$h(super.$h) : super.$h();
 }
 
 /// Go: `x509.CertificateInvalidError`: an error. Thrown as this class when it is the outermost
@@ -515,6 +1123,211 @@ class CryptoX509UnknownAuthorityError extends GolangException {
 
   @override
   String toString() => 'x509.UnknownAuthorityError: $message';
+}
+
+/// Go: the package-level members of `crypto/x509` (`go.crypto.x509`).
+extension GoCryptoX509Api on GoCryptoX509 {
+  /// Go: `func x509.CreateCertificate(rand io.Reader, template *x509.Certificate, parent *x509.Certificate, pub any, priv any) ([]byte, error)`.
+  Uint8List createCertificate(Object rand, CryptoX509Certificate template,
+      CryptoX509Certificate parent, Object? pub, Object? priv) {
+    final $r = $callSync(
+        3430,
+        $W()
+          ..reader(rand)
+          ..dto(template)
+          ..dto(parent)
+          ..any(pub)
+          ..any(priv));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func x509.CreateCertificateRequest(rand io.Reader, template *x509.CertificateRequest, priv any) (csr []byte, err error)`.
+  Uint8List createCertificateRequest(
+      Object rand, CryptoX509CertificateRequest template, Object? priv) {
+    final $r = $callSync(
+        3431,
+        $W()
+          ..reader(rand)
+          ..dto(template)
+          ..any(priv));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func x509.CreateRevocationList(rand io.Reader, template *x509.RevocationList, issuer *x509.Certificate, priv crypto.Signer) ([]byte, error)`.
+  Uint8List createRevocationList(Object rand, CryptoX509RevocationList template,
+      CryptoX509Certificate issuer, $crypto.CryptoSigner priv) {
+    final $r = $callSync(
+        3432,
+        $W()
+          ..reader(rand)
+          ..dto(template)
+          ..dto(issuer)
+          ..h(priv));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func x509.DecryptPEMBlock(b *pem.Block, password []byte) ([]byte, error)`.
+  @Deprecated(
+      "Legacy PEM encryption as specified in RFC 1423 is insecure by design. Since it does not authenticate the ciphertext, it is vulnerable to padding oracle attacks that can let an attacker recover the plaintext.")
+  Uint8List decryptPemBlock($pem.EncodingPemBlock b, Uint8List password) {
+    final $r = $callSync(
+        3433,
+        $W()
+          ..dto(b)
+          ..bytes(password));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func x509.EncryptPEMBlock(rand io.Reader, blockType string, data []byte, password []byte, alg x509.PEMCipher) (*pem.Block, error)`.
+  @Deprecated(
+      "Legacy PEM encryption as specified in RFC 1423 is insecure by design. Since it does not authenticate the ciphertext, it is vulnerable to padding oracle attacks that can let an attacker recover the plaintext.")
+  $pem.EncodingPemBlock encryptPemBlock(Object rand, String blockType,
+      Uint8List data, Uint8List password, int alg) {
+    final $r = $callSync(
+        3434,
+        $W()
+          ..reader(rand)
+          ..str(blockType)
+          ..bytes(data)
+          ..bytes(password)
+          ..i64(alg));
+    return $r.p() ? $pem.EncodingPemBlock.$dec($r) : $nil();
+  }
+
+  /// Go: `func x509.IsEncryptedPEMBlock(b *pem.Block) bool`.
+  @Deprecated(
+      "Legacy PEM encryption as specified in RFC 1423 is insecure by design. Since it does not authenticate the ciphertext, it is vulnerable to padding oracle attacks that can let an attacker recover the plaintext.")
+  bool isEncryptedPemBlock($pem.EncodingPemBlock b) {
+    final $r = $callSync(3435, $W()..dto(b));
+    return $r.b();
+  }
+
+  /// Go: `func x509.MarshalECPrivateKey(key *ecdsa.PrivateKey) ([]byte, error)`.
+  Uint8List marshalEcPrivateKey($ecdsa.CryptoEcdsaPrivateKey key) {
+    final $r = $callSync(3436, $W()..dto(key));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func x509.MarshalPKCS1PrivateKey(key *rsa.PrivateKey) []byte`.
+  Uint8List marshalPkcs1PrivateKey($rsa.CryptoRsaPrivateKey key) {
+    final $r = $callSync(3437, $W()..dto(key));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func x509.MarshalPKCS1PublicKey(key *rsa.PublicKey) []byte`.
+  Uint8List marshalPkcs1PublicKey($rsa.CryptoRsaPublicKey key) {
+    final $r = $callSync(3438, $W()..dto(key));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func x509.MarshalPKCS8PrivateKey(key any) ([]byte, error)`.
+  Uint8List marshalPkcs8PrivateKey(Object? key) {
+    final $r = $callSync(3439, $W()..any(key));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func x509.MarshalPKIXPublicKey(pub any) ([]byte, error)`.
+  Uint8List marshalPkixPublicKey(Object? pub) {
+    final $r = $callSync(3440, $W()..any(pub));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func x509.OIDFromASN1OID(asn1OID asn1.ObjectIdentifier) (x509.OID, error)`.
+  CryptoX509Oid oidFromAsn1oid(List<int> asn1oid) {
+    final $r = $callSync(3451, $W()..list(asn1oid, (w0, e0) => w0.i64(e0)));
+    return $r.hnn(CryptoX509Oid.$h);
+  }
+
+  /// Go: `func x509.OIDFromInts(oid []uint64) (x509.OID, error)`.
+  CryptoX509Oid oidFromInts(List<int> oid) {
+    final $r = $callSync(3452, $W()..list(oid, (w0, e0) => w0.i64(e0)));
+    return $r.hnn(CryptoX509Oid.$h);
+  }
+
+  /// Go: `func x509.ParseCRL(crlBytes []byte) (*pkix.CertificateList, error)`.
+  @Deprecated("Use [ParseRevocationList] instead.")
+  $pkix.CryptoX509PkixCertificateList parseCrl(Uint8List crlBytes) {
+    final $r = $callSync(3453, $W()..bytes(crlBytes));
+    return $r.p() ? $pkix.CryptoX509PkixCertificateList.$dec($r) : $nil();
+  }
+
+  /// Go: `func x509.ParseCertificate(der []byte) (*x509.Certificate, error)`.
+  CryptoX509Certificate parseCertificate(Uint8List der) {
+    final $r = $callSync(3454, $W()..bytes(der));
+    return $r.p() ? CryptoX509Certificate.$dec($r) : $nil();
+  }
+
+  /// Go: `func x509.ParseCertificateRequest(asn1Data []byte) (*x509.CertificateRequest, error)`.
+  CryptoX509CertificateRequest parseCertificateRequest(Uint8List asn1Data) {
+    final $r = $callSync(3455, $W()..bytes(asn1Data));
+    return $r.p() ? CryptoX509CertificateRequest.$dec($r) : $nil();
+  }
+
+  /// Go: `func x509.ParseCertificates(der []byte) ([]*x509.Certificate, error)`.
+  List<CryptoX509Certificate> parseCertificates(Uint8List der) {
+    final $r = $callSync(3456, $W()..bytes(der));
+    return $r.list(() => $r.p() ? CryptoX509Certificate.$dec($r) : $nil());
+  }
+
+  /// Go: `func x509.ParseDERCRL(derBytes []byte) (*pkix.CertificateList, error)`.
+  @Deprecated("Use [ParseRevocationList] instead.")
+  $pkix.CryptoX509PkixCertificateList parseDercrl(Uint8List derBytes) {
+    final $r = $callSync(3457, $W()..bytes(derBytes));
+    return $r.p() ? $pkix.CryptoX509PkixCertificateList.$dec($r) : $nil();
+  }
+
+  /// Go: `func x509.ParseECPrivateKey(der []byte) (*ecdsa.PrivateKey, error)`.
+  $ecdsa.CryptoEcdsaPrivateKey parseEcPrivateKey(Uint8List der) {
+    final $r = $callSync(3458, $W()..bytes(der));
+    return $r.p() ? $ecdsa.CryptoEcdsaPrivateKey.$dec($r) : $nil();
+  }
+
+  /// Go: `func x509.ParseOID(oid string) (x509.OID, error)`.
+  CryptoX509Oid parseOid(String oid) {
+    final $r = $callSync(3459, $W()..str(oid));
+    return $r.hnn(CryptoX509Oid.$h);
+  }
+
+  /// Go: `func x509.ParsePKCS1PrivateKey(der []byte) (*rsa.PrivateKey, error)`.
+  $rsa.CryptoRsaPrivateKey parsePkcs1PrivateKey(Uint8List der) {
+    final $r = $callSync(3460, $W()..bytes(der));
+    return $r.p() ? $rsa.CryptoRsaPrivateKey.$dec($r) : $nil();
+  }
+
+  /// Go: `func x509.ParsePKCS1PublicKey(der []byte) (*rsa.PublicKey, error)`.
+  $rsa.CryptoRsaPublicKey parsePkcs1PublicKey(Uint8List der) {
+    final $r = $callSync(3461, $W()..bytes(der));
+    return $r.p() ? $rsa.CryptoRsaPublicKey.$dec($r) : $nil();
+  }
+
+  /// Go: `func x509.ParsePKCS8PrivateKey(der []byte) (key any, err error)`.
+  Object? parsePkcs8PrivateKey(Uint8List der) {
+    final $r = $callSync(3462, $W()..bytes(der));
+    return $r.any();
+  }
+
+  /// Go: `func x509.ParsePKIXPublicKey(derBytes []byte) (pub any, err error)`.
+  Object? parsePkixPublicKey(Uint8List derBytes) {
+    final $r = $callSync(3463, $W()..bytes(derBytes));
+    return $r.any();
+  }
+
+  /// Go: `func x509.ParseRevocationList(der []byte) (*x509.RevocationList, error)`.
+  CryptoX509RevocationList parseRevocationList(Uint8List der) {
+    final $r = $callSync(3464, $W()..bytes(der));
+    return $r.p() ? CryptoX509RevocationList.$dec($r) : $nil();
+  }
+
+  /// Go: `func x509.SetFallbackRoots(roots *x509.CertPool)`.
+  void setFallbackRoots(CryptoX509CertPool roots) {
+    $callSync(3466, $W()..h(roots));
+  }
+
+  /// Go: `func x509.SystemCertPool() (*x509.CertPool, error)`.
+  CryptoX509CertPool systemCertPool() {
+    final $r = $callSync(3467);
+    return $r.hnn(CryptoX509CertPool.$h);
+  }
 }
 
 /// Go: the constants of a named type of `crypto/x509` (`go.crypto.x509.enums`).

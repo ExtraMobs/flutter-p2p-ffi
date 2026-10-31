@@ -4,8 +4,63 @@ library;
 
 import 'dart:typed_data';
 
+import 'package:p2p_ffi/src/go.dart' show GoIpfsBlockFormat;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/cid.dart' as $cid;
+import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
+
+/// Go: `blocks.BasicBlock` (handle).
+class BlockFormatBasicBlock extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
+  BlockFormatBasicBlock.$h(super.$h) : super.$h();
+
+  /// Go: `func (blocks.BasicBlock).Cid() cid.Cid`.
+  $cid.Cid cid() {
+    final $r = $callSync(10460, $W()..h(this));
+    return $r.p() ? $cid.Cid($r.str()) : $nil();
+  }
+
+  /// Go: `func (blocks.BasicBlock).Loggable() map[string]any`.
+  Map<String, Object?> loggable() {
+    final $r = $callSync(10461, $W()..h(this));
+    return $r.map(() => $r.str(), () => $r.any());
+  }
+
+  /// Go: `func (blocks.BasicBlock).Multihash() multihash.Multihash`.
+  Uint8List multihash() {
+    final $r = $callSync(10462, $W()..h(this));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (blocks.BasicBlock).RawData() []byte`.
+  Uint8List rawData() {
+    final $r = $callSync(10463, $W()..h(this));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (blocks.BasicBlock).String() string`.
+  String string() {
+    final $r = $callSync(10464, $W()..h(this));
+    return $r.str();
+  }
+}
 
 /// Go: `blocks.Block` (values read from the methods; built in Dart, it
 /// crosses as a Go value that returns them).
@@ -55,4 +110,34 @@ class BlockFormatErrWrongHash extends GolangException {
 
   @override
   String toString() => 'blocks.ErrWrongHash: $message';
+}
+
+/// Go: the package-level members of `github.com/ipfs/go-block-format` (`go.ipfs.blockFormat`).
+extension GoIpfsBlockFormatApi on GoIpfsBlockFormat {
+  /// Go: `func blocks.NewBlock(data []byte) *blocks.BasicBlock`.
+  BlockFormatBasicBlock newBlock(Uint8List data) {
+    final $r = $callSync(10465, $W()..bytes(data));
+    return $r.hnn(BlockFormatBasicBlock.$h);
+  }
+
+  /// Go: `func blocks.NewBlockWithCid(data []byte, c cid.Cid) (*blocks.BasicBlock, error)`.
+  BlockFormatBasicBlock newBlockWithCid(Uint8List data, $cid.Cid c) {
+    final $r = $callSync(
+        10466,
+        $W()
+          ..bytes(data)
+          ..val(c));
+    return $r.hnn(BlockFormatBasicBlock.$h);
+  }
+
+  /// Go: `func blocks.NewBlockWithPrefix(data []byte, prefix cid.Prefix) (*blocks.BasicBlock, error)`.
+  BlockFormatBasicBlock newBlockWithPrefix(
+      Uint8List data, $cid.CidPrefix prefix) {
+    final $r = $callSync(
+        10467,
+        $W()
+          ..bytes(data)
+          ..dto(prefix));
+    return $r.hnn(BlockFormatBasicBlock.$h);
+  }
 }

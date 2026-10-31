@@ -2,34 +2,200 @@
 // Go: github.com/ipfs/kubo/routing
 library;
 
+import 'dart:typed_data';
+
+import 'package:p2p_ffi/src/go.dart' show GoIpfsKuboRouting;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/context.dart' as $context;
+import 'package:p2p_ffi/go/ipfs/cid.dart' as $cid;
+import 'package:p2p_ffi/go/ipfs/datastore.dart' as $datastore;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/routing.dart' as $routing;
+import 'package:p2p_ffi/go/libp2p/libp2p_kad_dht/fullrt.dart' as $fullrt;
 import 'package:p2p_ffi/go/libp2p/libp2p_routing_helpers.dart'
     as $libp2p_routing_helpers;
 
+/// Go: `routing.Composer`.
+final class KuboRoutingComposer implements GoDto {
+  KuboRoutingComposer(
+      {$routing.Libp2pCoreRouting? getValueRouter,
+      $routing.Libp2pCoreRouting? putValueRouter,
+      $routing.Libp2pCoreRouting? findPeersRouter,
+      $routing.Libp2pCoreRouting? findProvidersRouter,
+      $routing.Libp2pCoreRouting? provideRouter})
+      : getValueRouter = getValueRouter,
+        putValueRouter = putValueRouter,
+        findPeersRouter = findPeersRouter,
+        findProvidersRouter = findProvidersRouter,
+        provideRouter = provideRouter;
+
+  KuboRoutingComposer.$dec($R r)
+      : getValueRouter = r.hn($routing.Libp2pCoreRouting.$h),
+        putValueRouter = r.hn($routing.Libp2pCoreRouting.$h),
+        findPeersRouter = r.hn($routing.Libp2pCoreRouting.$h),
+        findProvidersRouter = r.hn($routing.Libp2pCoreRouting.$h),
+        provideRouter = r.hn($routing.Libp2pCoreRouting.$h);
+
+  /// Go: `GetValueRouter`.
+  $routing.Libp2pCoreRouting? getValueRouter;
+
+  /// Go: `PutValueRouter`.
+  $routing.Libp2pCoreRouting? putValueRouter;
+
+  /// Go: `FindPeersRouter`.
+  $routing.Libp2pCoreRouting? findPeersRouter;
+
+  /// Go: `FindProvidersRouter`.
+  $routing.Libp2pCoreRouting? findProvidersRouter;
+
+  /// Go: `ProvideRouter`.
+  $routing.Libp2pCoreRouting? provideRouter;
+
+  @override
+  void $enc($W w) {
+    w
+      ..h(getValueRouter)
+      ..h(putValueRouter)
+      ..h(findPeersRouter)
+      ..h(findProvidersRouter)
+      ..h(provideRouter);
+  }
+
+  /// Go: `func (*routing.Composer).Bootstrap(ctx context.Context) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> bootstrap($context.Context ctx) async {
+    await $call(
+        11867,
+        $W()
+          ..dto(this)
+          ..h(ctx));
+  }
+
+  /// Go: `func (*routing.Composer).FindPeer(ctx context.Context, pid peer.ID) (peer.AddrInfo, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<$peer.Libp2pCorePeerAddrInfo> findPeer(
+      $context.Context ctx, $peer.Libp2pCorePeerId pid) async {
+    final $r = await $call(
+        11868,
+        $W()
+          ..dto(this)
+          ..h(ctx)
+          ..val(pid));
+    return $r.p() ? $peer.Libp2pCorePeerAddrInfo.$dec($r) : $nil();
+  }
+
+  /// Go: `func (*routing.Composer).FindProvidersAsync(ctx context.Context, cid cid.Cid, count int) <-chan peer.AddrInfo`.
+  Stream<$peer.Libp2pCorePeerAddrInfo> findProvidersAsync(
+          $context.Context ctx, $cid.Cid cid, int count) =>
+      $stream(
+              11869,
+              $W()
+                ..dto(this)
+                ..h(ctx)
+                ..val(cid)
+                ..i64(count))
+          .map((r) => r.p() ? $peer.Libp2pCorePeerAddrInfo.$dec(r) : $nil());
+
+  /// Go: `func (*routing.Composer).GetValue(ctx context.Context, key string, opts ...routing.Option) ([]byte, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<Uint8List> getValue($context.Context ctx, String key,
+      [List<$routing.Libp2pCoreRoutingOption> opts = const []]) async {
+    final $r = await $call(
+        11870,
+        $W()
+          ..dto(this)
+          ..h(ctx)
+          ..str(key)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (*routing.Composer).Provide(ctx context.Context, cid cid.Cid, provide bool) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> provide($context.Context ctx, $cid.Cid cid, bool provide) async {
+    await $call(
+        11871,
+        $W()
+          ..dto(this)
+          ..h(ctx)
+          ..val(cid)
+          ..b(provide));
+  }
+
+  /// Go: `func (*routing.Composer).ProvideMany(ctx context.Context, keys []multihash.Multihash) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> provideMany($context.Context ctx, List<Uint8List> keys) async {
+    await $call(
+        11872,
+        $W()
+          ..dto(this)
+          ..h(ctx)
+          ..list(keys, (w0, e0) => w0.bytes(e0)));
+  }
+
+  /// Go: `func (*routing.Composer).PutValue(ctx context.Context, key string, val []byte, opts ...routing.Option) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> putValue($context.Context ctx, String key, Uint8List val,
+      [List<$routing.Libp2pCoreRoutingOption> opts = const []]) async {
+    await $call(
+        11873,
+        $W()
+          ..dto(this)
+          ..h(ctx)
+          ..str(key)
+          ..bytes(val)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+  }
+
+  /// Go: `func (*routing.Composer).Ready() bool`.
+  bool ready() {
+    final $r = $callSync(11874, $W()..dto(this));
+    return $r.b();
+  }
+
+  /// Go: `func (*routing.Composer).SearchValue(ctx context.Context, key string, opts ...routing.Option) (<-chan []byte, error)`.
+  Stream<Uint8List> searchValue($context.Context ctx, String key,
+          [List<$routing.Libp2pCoreRoutingOption> opts = const []]) =>
+      $stream(
+              11875,
+              $W()
+                ..dto(this)
+                ..h(ctx)
+                ..str(key)
+                ..list(opts, (w0, e0) => w0.opt(e0)))
+          .map((r) => r.bytes() ?? Uint8List(0));
+}
+
 /// Go: `routing.ProvideManyRouter` (handle).
-class KuboRoutingProvideManyRouter
-    extends $libp2p_routing_helpers.Libp2pRoutingHelpersProvideManyRouter
+class KuboRoutingProvideManyRouter extends $routing.Libp2pCoreRouting
     with
         $routing.Libp2pCoreRoutingContentDiscovery$,
-        $routing.Libp2pCoreRoutingContentProviding$,
         $routing.Libp2pCoreRoutingPeerRouting$,
         $routing.Libp2pCoreRoutingValueStore$,
-        $routing.Libp2pCoreRoutingContentRouting$,
-        $routing.Libp2pCoreRouting$,
+        $libp2p_routing_helpers.Libp2pRoutingHelpersProvideManyRouter$,
         KuboRoutingProvideManyRouter$
     implements
         $routing.Libp2pCoreRoutingContentDiscovery,
-        $routing.Libp2pCoreRoutingContentProviding,
         $routing.Libp2pCoreRoutingPeerRouting,
         $routing.Libp2pCoreRoutingValueStore,
-        $routing.Libp2pCoreRoutingContentRouting,
-        $routing.Libp2pCoreRouting {
+        $libp2p_routing_helpers.Libp2pRoutingHelpersProvideManyRouter {
   KuboRoutingProvideManyRouter.$h(super.$h) : super.$h();
 }
 
 /// The methods of [KuboRoutingProvideManyRouter], mixed into every class Go also accepts as one.
-mixin KuboRoutingProvideManyRouter$ on GoHandle {}
+mixin KuboRoutingProvideManyRouter$ on GoHandle {
+  /// Go: type assertion `x.(*fullrt.FullRT)`: null if the object is not one.
+  $fullrt.Libp2pKadDhtFullrtFullRt? asLibp2pKadDhtFullrtFullRt() {
+    final $r = $callSync(1210, $W()..h(this));
+    return $r.hn($fullrt.Libp2pKadDhtFullrtFullRt.$h);
+  }
+}
 
 /// Go: `routing.ParamNeededError`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
@@ -47,4 +213,28 @@ class KuboRoutingParamNeededError extends GolangException {
 
   @override
   String toString() => 'routing.ParamNeededError: $message';
+}
+
+/// Go: the package-level members of `github.com/ipfs/kubo/routing` (`go.ipfs.kubo.routing`).
+extension GoIpfsKuboRoutingApi on GoIpfsKuboRouting {
+  /// Go: `var routing.DHTDatastoreKey datastore.Key`.
+  $datastore.DatastoreKey get dhtDatastoreKey {
+    final $r = $callSync(11876);
+    return $r.hnn($datastore.DatastoreKey.$h);
+  }
+
+  /// Go: `func routing.DHTValueDatastore(base datastore.Datastore) datastore.Batching`.
+  $datastore.DatastoreBatching dhtValueDatastore($datastore.Datastore base) {
+    final $r = $callSync(11877, $W()..h(base));
+    return $r.hnn($datastore.DatastoreBatching.$h);
+  }
+
+  /// Go: `func routing.NewParamNeededErr(param string, routing config.RouterType) error`.
+  void newParamNeededErr(String param, String routing) {
+    $callSync(
+        11878,
+        $W()
+          ..str(param)
+          ..str(routing));
+  }
 }

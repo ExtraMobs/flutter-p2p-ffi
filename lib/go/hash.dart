@@ -2,7 +2,41 @@
 // Go: hash
 library;
 
+import 'dart:typed_data';
+
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/cespare/xxhash/v2.dart' as $v2;
+import 'package:p2p_ffi/go/crypto/sha3.dart' as $sha3;
+import 'package:p2p_ffi/go/hash/maphash.dart' as $maphash;
+import 'package:p2p_ffi/go/spaolacci/murmur3.dart' as $murmur3;
+import 'package:p2p_ffi/go/x/crypto/sha3.dart' as $sha32;
+import 'package:p2p_ffi/go/zeebo/blake3.dart' as $blake3;
+
+/// Go: `hash.Cloner` (handle).
+class HashCloner extends Hash with HashCloner$ {
+  HashCloner.$h(super.$h) : super.$h();
+}
+
+/// The methods of [HashCloner], mixed into every class Go also accepts as one.
+mixin HashCloner$ on GoHandle {
+  /// Go: `func (hash.Cloner).Clone() (hash.Cloner, error)`.
+  HashCloner clone() {
+    final $r = $callSync(25637, $W()..h(this));
+    return $r.hnn(HashCloner.$h);
+  }
+
+  /// Go: type assertion `x.(*sha3.SHA3)`: null if the object is not one.
+  $sha3.CryptoSha3? asCryptoSha3() {
+    final $r = $callSync(2576, $W()..h(this));
+    return $r.hn($sha3.CryptoSha3.$h);
+  }
+
+  /// Go: type assertion `x.(*maphash.Hash)`: null if the object is not one.
+  $maphash.HashMaphashHash? asHashMaphashHash() {
+    final $r = $callSync(2577, $W()..h(this));
+    return $r.hn($maphash.HashMaphashHash.$h);
+  }
+}
 
 /// Go: `hash.Hash` (handle).
 class Hash extends GoHandle with Hash$ {
@@ -10,4 +44,150 @@ class Hash extends GoHandle with Hash$ {
 }
 
 /// The methods of [Hash], mixed into every class Go also accepts as one.
-mixin Hash$ on GoHandle {}
+mixin Hash$ on GoHandle {
+  /// Go: `func (hash.Hash).BlockSize() int`.
+  int blockSize() {
+    final $r = $callSync(25638, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (hash.Hash).Reset()`.
+  void reset() {
+    $callSync(25639, $W()..h(this));
+  }
+
+  /// Go: `func (hash.Hash).Size() int`.
+  int size() {
+    final $r = $callSync(25640, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (hash.Hash).Sum(b []byte) []byte`.
+  Uint8List sum(Uint8List b) {
+    final $r = $callSync(
+        25641,
+        $W()
+          ..h(this)
+          ..bytes(b));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: type assertion `x.(*sha3.SHA3)`: null if the object is not one.
+  $sha3.CryptoSha3? asCryptoSha3() {
+    final $r = $callSync(2578, $W()..h(this));
+    return $r.hn($sha3.CryptoSha3.$h);
+  }
+
+  /// Go: type assertion `x.(*xxhash.Digest)`: null if the object is not one.
+  $v2.XxhashV2Digest? asXxhashV2Digest() {
+    final $r = $callSync(2579, $W()..h(this));
+    return $r.hn($v2.XxhashV2Digest.$h);
+  }
+
+  /// Go: type assertion `x.(*blake3.Hasher)`: null if the object is not one.
+  $blake3.Blake3Hasher? asBlake3Hasher() {
+    final $r = $callSync(2580, $W()..h(this));
+    return $r.hn($blake3.Blake3Hasher.$h);
+  }
+
+  /// Go: type assertion `x.(*maphash.Hash)`: null if the object is not one.
+  $maphash.HashMaphashHash? asHashMaphashHash() {
+    final $r = $callSync(2581, $W()..h(this));
+    return $r.hn($maphash.HashMaphashHash.$h);
+  }
+
+  /// Go: type assertion `x.(murmur3.Hash128)`: null if the object is not one.
+  $murmur3.Murmur3Hash128? asMurmur3Hash128() {
+    final $r = $callSync(2582, $W()..h(this));
+    return $r.hn($murmur3.Murmur3Hash128.$h);
+  }
+
+  /// Go: type assertion `x.(sha3.ShakeHash)`: null if the object is not one.
+  $sha32.CryptoSha3ShakeHash? asCryptoSha3ShakeHash() {
+    final $r = $callSync(2583, $W()..h(this));
+    return $r.hn($sha32.CryptoSha3ShakeHash.$h);
+  }
+
+  /// Go: type assertion `x.(hash.Cloner)`: null if the object is not one.
+  HashCloner? asHashCloner() {
+    final $r = $callSync(2584, $W()..h(this));
+    return $r.hn(HashCloner.$h);
+  }
+
+  /// Go: type assertion `x.(hash.Hash32)`: null if the object is not one.
+  HashHash32? asHashHash32() {
+    final $r = $callSync(2585, $W()..h(this));
+    return $r.hn(HashHash32.$h);
+  }
+
+  /// Go: type assertion `x.(hash.Hash64)`: null if the object is not one.
+  HashHash64? asHashHash64() {
+    final $r = $callSync(2586, $W()..h(this));
+    return $r.hn(HashHash64.$h);
+  }
+}
+
+/// Go: `hash.Hash32` (handle).
+class HashHash32 extends Hash with HashHash32$ {
+  HashHash32.$h(super.$h) : super.$h();
+}
+
+/// The methods of [HashHash32], mixed into every class Go also accepts as one.
+mixin HashHash32$ on GoHandle {
+  /// Go: `func (hash.Hash32).Sum32() uint32`.
+  int sum32() {
+    final $r = $callSync(25642, $W()..h(this));
+    return $r.i64();
+  }
+}
+
+/// Go: `hash.Hash64` (handle).
+class HashHash64 extends Hash with HashHash64$ {
+  HashHash64.$h(super.$h) : super.$h();
+}
+
+/// The methods of [HashHash64], mixed into every class Go also accepts as one.
+mixin HashHash64$ on GoHandle {
+  /// Go: `func (hash.Hash64).Sum64() uint64`.
+  int sum64() {
+    final $r = $callSync(25643, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: type assertion `x.(*xxhash.Digest)`: null if the object is not one.
+  $v2.XxhashV2Digest? asXxhashV2Digest() {
+    final $r = $callSync(2587, $W()..h(this));
+    return $r.hn($v2.XxhashV2Digest.$h);
+  }
+
+  /// Go: type assertion `x.(*maphash.Hash)`: null if the object is not one.
+  $maphash.HashMaphashHash? asHashMaphashHash() {
+    final $r = $callSync(2588, $W()..h(this));
+    return $r.hn($maphash.HashMaphashHash.$h);
+  }
+}
+
+/// Go: `hash.XOF` (handle).
+class HashXof extends GoHandle with HashXof$ {
+  HashXof.$h(super.$h);
+}
+
+/// The methods of [HashXof], mixed into every class Go also accepts as one.
+mixin HashXof$ on GoHandle {
+  /// Go: `func (hash.XOF).BlockSize() int`.
+  int blockSize() {
+    final $r = $callSync(25644, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (hash.XOF).Reset()`.
+  void reset() {
+    $callSync(25645, $W()..h(this));
+  }
+
+  /// Go: type assertion `x.(*sha3.SHAKE)`: null if the object is not one.
+  $sha3.CryptoSha3Shake? asCryptoSha3Shake() {
+    final $r = $callSync(2589, $W()..h(this));
+    return $r.hn($sha3.CryptoSha3Shake.$h);
+  }
+}

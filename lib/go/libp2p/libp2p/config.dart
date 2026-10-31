@@ -2,14 +2,401 @@
 // Go: github.com/libp2p/go-libp2p/config
 library;
 
+import 'dart:typed_data';
+
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/crypto.dart' as $crypto2;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/fx.dart' as $fx;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/connmgr.dart' as $connmgr;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/host.dart' as $host;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/metrics.dart' as $metrics;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/network.dart' as $network;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/peerstore.dart' as $peerstore;
+import 'package:p2p_ffi/go/libp2p/libp2p/p2p/host/basic.dart' as $basic;
+import 'package:p2p_ffi/go/libp2p/libp2p/p2p/net/swarm.dart' as $swarm;
+import 'package:p2p_ffi/go/libp2p/libp2p/p2p/net/upgrader.dart' as $upgrader;
+import 'package:p2p_ffi/go/multiformats/multiaddr.dart' as $multiaddr;
+import 'package:p2p_ffi/go/prometheus/client_golang/prometheus.dart'
+    as $prometheus;
+
+/// Go: `config.AutoNATConfig`.
+///
+/// Fields that do not cross the bridge: `ForceReachability` (pointer to github.com/libp2p/go-libp2p/core/network.Reachability).
+final class Libp2pConfigAutoNatConfig implements GoDto {
+  Libp2pConfigAutoNatConfig(
+      {bool? enableService,
+      int? throttleGlobalLimit,
+      int? throttlePeerLimit,
+      Duration? throttleInterval})
+      : enableService = enableService ?? false,
+        throttleGlobalLimit = throttleGlobalLimit ?? 0,
+        throttlePeerLimit = throttlePeerLimit ?? 0,
+        throttleInterval = throttleInterval ?? Duration.zero;
+
+  Libp2pConfigAutoNatConfig.$dec($R r)
+      : enableService = r.b(),
+        throttleGlobalLimit = r.i64(),
+        throttlePeerLimit = r.i64(),
+        throttleInterval = Duration(microseconds: r.i64() ~/ 1000);
+
+  /// Go: `EnableService`.
+  bool enableService;
+
+  /// Go: `ThrottleGlobalLimit`.
+  int throttleGlobalLimit;
+
+  /// Go: `ThrottlePeerLimit`.
+  int throttlePeerLimit;
+
+  /// Go: `ThrottleInterval`.
+  Duration throttleInterval;
+
+  @override
+  void $enc($W w) {
+    w
+      ..b(enableService)
+      ..i64(throttleGlobalLimit)
+      ..i64(throttlePeerLimit)
+      ..i64((throttleInterval).inMicroseconds * 1000);
+  }
+}
+
+/// Go: `config.Config`.
+///
+/// Fields that do not cross the bridge: `RelayServiceOpts` (functional options: they cross only as call arguments), `AutoRelayOpts` (functional options: they cross only as call arguments), `HolePunchingOptions` (functional options: they cross only as call arguments), `SwarmOpts` (functional options: they cross only as call arguments).
+final class Libp2pConfig implements GoDto {
+  Libp2pConfig(
+      {String? userAgent,
+      String? protocolVersion,
+      $crypto.Libp2pCoreCryptoPrivKey? peerKey,
+      List<$fx.FxOption>? quicReuse,
+      List<$fx.FxOption>? transports,
+      List<$upgrader.Libp2pP2pNetUpgraderStreamMuxer>? muxers,
+      List<Libp2pConfigSecurity>? securityTransports,
+      bool? insecure,
+      Uint8List? psk,
+      Duration? dialTimeout,
+      bool? relayCustom,
+      bool? relay,
+      bool? enableRelayService,
+      List<$multiaddr.Multiaddr>? listenAddrs,
+      $basic.Libp2pP2pHostBasicAddrsFactory? addrsFactory,
+      $connmgr.Libp2pCoreConnmgrConnectionGater? connectionGater,
+      $connmgr.Libp2pCoreConnmgrConnManager? connManager,
+      $network.Libp2pCoreNetworkResourceManager? resourceManager,
+      Libp2pConfigNatManagerC? natManager,
+      $peerstore.Libp2pCorePeerstore? peerstore,
+      $metrics.Libp2pCoreMetricsReporter? reporter,
+      $network.Libp2pCoreNetworkMultiaddrDnsResolver? multiaddrResolver,
+      bool? disablePing,
+      bool? disableNonPublicAddrPublishing,
+      Libp2pConfigRoutingC? routing,
+      bool? enableAutoRelay,
+      Libp2pConfigAutoNatConfig? autoNatConfig,
+      bool? enableHolePunching,
+      bool? disableMetrics,
+      $prometheus.ClientGolangPrometheusRegisterer? prometheusRegisterer,
+      $network.Libp2pCoreNetworkDialRanker? dialRanker,
+      bool? disableIdentifyAddressDiscovery,
+      bool? enableAutoNaTv2,
+      $swarm.Libp2pP2pNetSwarmBlackHoleSuccessCounter?
+          udpBlackHoleSuccessCounter,
+      bool? customUdpBlackHoleSuccessCounter,
+      $swarm.Libp2pP2pNetSwarmBlackHoleSuccessCounter?
+          iPv6BlackHoleSuccessCounter,
+      bool? customIPv6BlackHoleSuccessCounter,
+      List<$fx.FxOption>? userFxOptions,
+      bool? shareTcpListener})
+      : userAgent = userAgent ?? '',
+        protocolVersion = protocolVersion ?? '',
+        peerKey = peerKey,
+        quicReuse = quicReuse ?? [],
+        transports = transports ?? [],
+        muxers = muxers ?? [],
+        securityTransports = securityTransports ?? [],
+        insecure = insecure ?? false,
+        psk = psk,
+        dialTimeout = dialTimeout ?? Duration.zero,
+        relayCustom = relayCustom ?? false,
+        relay = relay ?? false,
+        enableRelayService = enableRelayService ?? false,
+        listenAddrs = listenAddrs ?? [],
+        addrsFactory = addrsFactory,
+        connectionGater = connectionGater,
+        connManager = connManager,
+        resourceManager = resourceManager,
+        natManager = natManager,
+        peerstore = peerstore,
+        reporter = reporter,
+        multiaddrResolver = multiaddrResolver,
+        disablePing = disablePing ?? false,
+        disableNonPublicAddrPublishing =
+            disableNonPublicAddrPublishing ?? false,
+        routing = routing,
+        enableAutoRelay = enableAutoRelay ?? false,
+        autoNatConfig = autoNatConfig,
+        enableHolePunching = enableHolePunching ?? false,
+        disableMetrics = disableMetrics ?? false,
+        prometheusRegisterer = prometheusRegisterer,
+        dialRanker = dialRanker,
+        disableIdentifyAddressDiscovery =
+            disableIdentifyAddressDiscovery ?? false,
+        enableAutoNaTv2 = enableAutoNaTv2 ?? false,
+        udpBlackHoleSuccessCounter = udpBlackHoleSuccessCounter,
+        customUdpBlackHoleSuccessCounter =
+            customUdpBlackHoleSuccessCounter ?? false,
+        iPv6BlackHoleSuccessCounter = iPv6BlackHoleSuccessCounter,
+        customIPv6BlackHoleSuccessCounter =
+            customIPv6BlackHoleSuccessCounter ?? false,
+        userFxOptions = userFxOptions ?? [],
+        shareTcpListener = shareTcpListener ?? false;
+
+  Libp2pConfig.$dec($R r)
+      : userAgent = r.str(),
+        protocolVersion = r.str(),
+        peerKey = r.hn($crypto.Libp2pCoreCryptoPrivKey.$h),
+        quicReuse = r.list(() => r.hnn($fx.FxOption.$h)),
+        transports = r.list(() => r.hnn($fx.FxOption.$h)),
+        muxers = r.list(() =>
+            r.p() ? $upgrader.Libp2pP2pNetUpgraderStreamMuxer.$dec(r) : $nil()),
+        securityTransports =
+            r.list(() => r.p() ? Libp2pConfigSecurity.$dec(r) : $nil()),
+        insecure = r.b(),
+        psk = r.bytes(),
+        dialTimeout = Duration(microseconds: r.i64() ~/ 1000),
+        relayCustom = r.b(),
+        relay = r.b(),
+        enableRelayService = r.b(),
+        listenAddrs =
+            r.list(() => r.p() ? $multiaddr.Multiaddr(r.str()) : $nil()),
+        addrsFactory = r.hn($basic.Libp2pP2pHostBasicAddrsFactory.$h),
+        connectionGater = r.hn($connmgr.Libp2pCoreConnmgrConnectionGater.$h),
+        connManager = r.hn($connmgr.Libp2pCoreConnmgrConnManager.$h),
+        resourceManager = r.hn($network.Libp2pCoreNetworkResourceManager.$h),
+        natManager = r.hn(Libp2pConfigNatManagerC.$h),
+        peerstore = r.hn($peerstore.Libp2pCorePeerstore.$h),
+        reporter = r.hn($metrics.Libp2pCoreMetricsReporter.$h),
+        multiaddrResolver =
+            r.hn($network.Libp2pCoreNetworkMultiaddrDnsResolver.$h),
+        disablePing = r.b(),
+        disableNonPublicAddrPublishing = r.b(),
+        routing = r.hn(Libp2pConfigRoutingC.$h),
+        enableAutoRelay = r.b(),
+        autoNatConfig = r.p() ? Libp2pConfigAutoNatConfig.$dec(r) : null,
+        enableHolePunching = r.b(),
+        disableMetrics = r.b(),
+        prometheusRegisterer =
+            r.hn($prometheus.ClientGolangPrometheusRegisterer.$h),
+        dialRanker = r.hn($network.Libp2pCoreNetworkDialRanker.$h),
+        disableIdentifyAddressDiscovery = r.b(),
+        enableAutoNaTv2 = r.b(),
+        udpBlackHoleSuccessCounter =
+            r.hn($swarm.Libp2pP2pNetSwarmBlackHoleSuccessCounter.$h),
+        customUdpBlackHoleSuccessCounter = r.b(),
+        iPv6BlackHoleSuccessCounter =
+            r.hn($swarm.Libp2pP2pNetSwarmBlackHoleSuccessCounter.$h),
+        customIPv6BlackHoleSuccessCounter = r.b(),
+        userFxOptions = r.list(() => r.hnn($fx.FxOption.$h)),
+        shareTcpListener = r.b();
+
+  /// Go: `UserAgent`.
+  String userAgent;
+
+  /// Go: `ProtocolVersion`.
+  String protocolVersion;
+
+  /// Go: `PeerKey`.
+  $crypto.Libp2pCoreCryptoPrivKey? peerKey;
+
+  /// Go: `QUICReuse`.
+  List<$fx.FxOption> quicReuse;
+
+  /// Go: `Transports`.
+  List<$fx.FxOption> transports;
+
+  /// Go: `Muxers`.
+  List<$upgrader.Libp2pP2pNetUpgraderStreamMuxer> muxers;
+
+  /// Go: `SecurityTransports`.
+  List<Libp2pConfigSecurity> securityTransports;
+
+  /// Go: `Insecure`.
+  bool insecure;
+
+  /// Go: `PSK`.
+  Uint8List? psk;
+
+  /// Go: `DialTimeout`.
+  Duration dialTimeout;
+
+  /// Go: `RelayCustom`.
+  bool relayCustom;
+
+  /// Go: `Relay`.
+  bool relay;
+
+  /// Go: `EnableRelayService`.
+  bool enableRelayService;
+
+  /// Go: `ListenAddrs`.
+  List<$multiaddr.Multiaddr> listenAddrs;
+
+  /// Go: `AddrsFactory`.
+  $basic.Libp2pP2pHostBasicAddrsFactory? addrsFactory;
+
+  /// Go: `ConnectionGater`.
+  $connmgr.Libp2pCoreConnmgrConnectionGater? connectionGater;
+
+  /// Go: `ConnManager`.
+  $connmgr.Libp2pCoreConnmgrConnManager? connManager;
+
+  /// Go: `ResourceManager`.
+  $network.Libp2pCoreNetworkResourceManager? resourceManager;
+
+  /// Go: `NATManager`.
+  Libp2pConfigNatManagerC? natManager;
+
+  /// Go: `Peerstore`.
+  $peerstore.Libp2pCorePeerstore? peerstore;
+
+  /// Go: `Reporter`.
+  $metrics.Libp2pCoreMetricsReporter? reporter;
+
+  /// Go: `MultiaddrResolver`.
+  $network.Libp2pCoreNetworkMultiaddrDnsResolver? multiaddrResolver;
+
+  /// Go: `DisablePing`.
+  bool disablePing;
+
+  /// Go: `DisableNonPublicAddrPublishing`.
+  bool disableNonPublicAddrPublishing;
+
+  /// Go: `Routing`.
+  Libp2pConfigRoutingC? routing;
+
+  /// Go: `EnableAutoRelay`.
+  bool enableAutoRelay;
+
+  /// Go: `AutoNATConfig`.
+  Libp2pConfigAutoNatConfig? autoNatConfig;
+
+  /// Go: `EnableHolePunching`.
+  bool enableHolePunching;
+
+  /// Go: `DisableMetrics`.
+  bool disableMetrics;
+
+  /// Go: `PrometheusRegisterer`.
+  $prometheus.ClientGolangPrometheusRegisterer? prometheusRegisterer;
+
+  /// Go: `DialRanker`.
+  $network.Libp2pCoreNetworkDialRanker? dialRanker;
+
+  /// Go: `DisableIdentifyAddressDiscovery`.
+  bool disableIdentifyAddressDiscovery;
+
+  /// Go: `EnableAutoNATv2`.
+  bool enableAutoNaTv2;
+
+  /// Go: `UDPBlackHoleSuccessCounter`.
+  $swarm.Libp2pP2pNetSwarmBlackHoleSuccessCounter? udpBlackHoleSuccessCounter;
+
+  /// Go: `CustomUDPBlackHoleSuccessCounter`.
+  bool customUdpBlackHoleSuccessCounter;
+
+  /// Go: `IPv6BlackHoleSuccessCounter`.
+  $swarm.Libp2pP2pNetSwarmBlackHoleSuccessCounter? iPv6BlackHoleSuccessCounter;
+
+  /// Go: `CustomIPv6BlackHoleSuccessCounter`.
+  bool customIPv6BlackHoleSuccessCounter;
+
+  /// Go: `UserFxOptions`.
+  List<$fx.FxOption> userFxOptions;
+
+  /// Go: `ShareTCPListener`.
+  bool shareTcpListener;
+
+  @override
+  void $enc($W w) {
+    w
+      ..str(userAgent)
+      ..str(protocolVersion)
+      ..h(peerKey)
+      ..list(quicReuse, (w0, e0) => w0.h(e0))
+      ..list(transports, (w0, e0) => w0.h(e0))
+      ..list(muxers, (w0, e0) => w0.dto(e0))
+      ..list(securityTransports, (w0, e0) => w0.dto(e0))
+      ..b(insecure)
+      ..bytes(psk)
+      ..i64((dialTimeout).inMicroseconds * 1000)
+      ..b(relayCustom)
+      ..b(relay)
+      ..b(enableRelayService)
+      ..list(listenAddrs, (w0, e0) => w0.val(e0))
+      ..h(addrsFactory)
+      ..h(connectionGater)
+      ..h(connManager)
+      ..h(resourceManager)
+      ..h(natManager)
+      ..h(peerstore)
+      ..h(reporter)
+      ..h(multiaddrResolver)
+      ..b(disablePing)
+      ..b(disableNonPublicAddrPublishing)
+      ..h(routing)
+      ..b(enableAutoRelay)
+      ..dto(autoNatConfig)
+      ..b(enableHolePunching)
+      ..b(disableMetrics)
+      ..h(prometheusRegisterer)
+      ..h(dialRanker)
+      ..b(disableIdentifyAddressDiscovery)
+      ..b(enableAutoNaTv2)
+      ..h(udpBlackHoleSuccessCounter)
+      ..b(customUdpBlackHoleSuccessCounter)
+      ..h(iPv6BlackHoleSuccessCounter)
+      ..b(customIPv6BlackHoleSuccessCounter)
+      ..list(userFxOptions, (w0, e0) => w0.h(e0))
+      ..b(shareTcpListener);
+  }
+
+  /// Go: `func (*config.Config).Apply(opts ...config.Option) error`.
+  void apply([List<Libp2pConfigOption> opts = const []]) {
+    $callSync(
+        13809,
+        $W()
+          ..dto(this)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+  }
+
+  /// Go: `func (*config.Config).NewNode() (host.Host, error)`.
+  $host.Libp2pCoreHost newNode() {
+    final $r = $callSync(13810, $W()..dto(this));
+    return $r.hnn($host.Libp2pCoreHost.$h);
+  }
+}
 
 /// Go: `config.NATManagerC` (handle).
-class Libp2pConfigNatManagerC extends $crypto.CryptoPrivateKey
-    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
-    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+class Libp2pConfigNatManagerC extends $crypto2.CryptoDecrypterOpts
+    with
+        $crypto2.CryptoPrivateKey$,
+        $crypto2.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto2.CryptoPrivateKey,
+        $crypto2.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   Libp2pConfigNatManagerC.$h(super.$h) : super.$h();
 }
 
@@ -19,8 +406,37 @@ final class Libp2pConfigOption extends GoOption {
 }
 
 /// Go: `config.RoutingC` (handle).
-class Libp2pConfigRoutingC extends $crypto.CryptoPrivateKey
-    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
-    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+class Libp2pConfigRoutingC extends $crypto2.CryptoDecrypterOpts
+    with
+        $crypto2.CryptoPrivateKey$,
+        $crypto2.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto2.CryptoPrivateKey,
+        $crypto2.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   Libp2pConfigRoutingC.$h(super.$h) : super.$h();
+}
+
+/// Go: `config.Security`.
+///
+/// Fields that do not cross the bridge: `Constructor` (type any).
+final class Libp2pConfigSecurity implements GoDto {
+  Libp2pConfigSecurity({String? id}) : id = id ?? '';
+
+  Libp2pConfigSecurity.$dec($R r) : id = r.str();
+
+  /// Go: `ID`.
+  String id;
+
+  @override
+  void $enc($W w) {
+    w..str(id);
+  }
 }

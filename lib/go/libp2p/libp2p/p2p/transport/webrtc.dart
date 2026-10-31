@@ -13,7 +13,10 @@ import 'package:p2p_ffi/src/go.dart'
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/connmgr.dart' as $connmgr;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/crypto.dart' as $crypto2;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/network.dart' as $network;
@@ -22,9 +25,21 @@ import 'package:p2p_ffi/go/libp2p/libp2p/core/transport.dart' as $transport;
 import 'package:p2p_ffi/go/multiformats/multiaddr.dart' as $multiaddr;
 
 /// Go: `libp2pwebrtc.ListenUDPFn` (handle).
-class Libp2pP2pTransportWebrtcListenUdpFn extends $crypto.CryptoPrivateKey
-    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
-    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+class Libp2pP2pTransportWebrtcListenUdpFn extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   Libp2pP2pTransportWebrtcListenUdpFn.$h(super.$h) : super.$h();
 }
 
@@ -37,19 +52,27 @@ final class Libp2pP2pTransportWebrtcOption extends GoOption {
 class Libp2pP2pTransportWebrtcWebRtcTransport
     extends $transport.Libp2pCoreTransport
     with
+        $crypto.CryptoDecrypterOpts$,
         $crypto.CryptoPrivateKey$,
         $crypto.CryptoPublicKey$,
-        $ipfs_cmds.IpfsCmdsEnvironment$
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
     implements
+        $crypto.CryptoDecrypterOpts,
         $crypto.CryptoPrivateKey,
         $crypto.CryptoPublicKey,
-        $ipfs_cmds.IpfsCmdsEnvironment {
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   Libp2pP2pTransportWebrtcWebRtcTransport.$h(super.$h) : super.$h();
 
   /// Go: `func (*libp2pwebrtc.WebRTCTransport).AddCertHashes(addr multiaddr.Multiaddr) (multiaddr.Multiaddr, bool)`.
   ($multiaddr.Multiaddr, bool) addCertHashes($multiaddr.Multiaddr addr) {
     final $r = $callSync(
-        3385,
+        15048,
         $W()
           ..h(this)
           ..val(addr));
@@ -59,7 +82,7 @@ class Libp2pP2pTransportWebrtcWebRtcTransport
   /// Go: `func (*libp2pwebrtc.WebRTCTransport).CanDial(addr multiaddr.Multiaddr) bool`.
   bool canDial($multiaddr.Multiaddr addr) {
     final $r = $callSync(
-        3386,
+        15049,
         $W()
           ..h(this)
           ..val(addr));
@@ -72,7 +95,7 @@ class Libp2pP2pTransportWebrtcWebRtcTransport
   Future<$transport.Libp2pCoreTransportCapableConn> dial($context.Context ctx,
       $multiaddr.Multiaddr remoteMultiaddr, $peer.Libp2pCorePeerId p) async {
     final $r = await $call(
-        3387,
+        15050,
         $W()
           ..h(this)
           ..h(ctx)
@@ -84,7 +107,7 @@ class Libp2pP2pTransportWebrtcWebRtcTransport
   /// Go: `func (*libp2pwebrtc.WebRTCTransport).Listen(addr multiaddr.Multiaddr) (transport.Listener, error)`.
   $transport.Libp2pCoreTransportListener listen($multiaddr.Multiaddr addr) {
     final $r = $callSync(
-        3388,
+        15051,
         $W()
           ..h(this)
           ..val(addr));
@@ -93,19 +116,19 @@ class Libp2pP2pTransportWebrtcWebRtcTransport
 
   /// Go: `func (*libp2pwebrtc.WebRTCTransport).ListenOrder() int`.
   int listenOrder() {
-    final $r = $callSync(3389, $W()..h(this));
+    final $r = $callSync(15052, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*libp2pwebrtc.WebRTCTransport).Protocols() []int`.
   List<int> protocols() {
-    final $r = $callSync(3390, $W()..h(this));
+    final $r = $callSync(15053, $W()..h(this));
     return $r.list(() => $r.i64());
   }
 
   /// Go: `func (*libp2pwebrtc.WebRTCTransport).Proxy() bool`.
   bool proxy() {
-    final $r = $callSync(3391, $W()..h(this));
+    final $r = $callSync(15054, $W()..h(this));
     return $r.b();
   }
 }
@@ -115,7 +138,7 @@ extension GoLibp2pLibp2pP2pTransportWebrtcApi
     on GoLibp2pLibp2pP2pTransportWebrtc {
   /// Go: `func libp2pwebrtc.IsWebRTCDirectMultiaddr(addr multiaddr.Multiaddr) (bool, int)`.
   (bool, int) isWebRtcDirectMultiaddr($multiaddr.Multiaddr addr) {
-    final $r = $callSync(3383, $W()..val(addr));
+    final $r = $callSync(15046, $W()..val(addr));
     return ($r.b(), $r.i64());
   }
 
@@ -128,7 +151,7 @@ extension GoLibp2pLibp2pP2pTransportWebrtcApi
       Libp2pP2pTransportWebrtcListenUdpFn listenUdp,
       [List<Libp2pP2pTransportWebrtcOption> opts = const []]) {
     final $r = $callSync(
-        3384,
+        15047,
         $W()
           ..h(privKey)
           ..bytes(psk)

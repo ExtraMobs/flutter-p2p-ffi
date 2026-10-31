@@ -8,36 +8,47 @@ import 'package:p2p_ffi/src/go.dart'
     show GoIpfsBoxoChunker, GoIpfsBoxoChunkerConsts;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 
 /// Go: `chunk.Buzhash` (handle).
 class BoxoChunkerBuzhash extends BoxoChunkerSplitter
     with
+        $crypto.CryptoDecrypterOpts$,
         $crypto.CryptoPrivateKey$,
         $crypto.CryptoPublicKey$,
-        $ipfs_cmds.IpfsCmdsEnvironment$
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
     implements
+        $crypto.CryptoDecrypterOpts,
         $crypto.CryptoPrivateKey,
         $crypto.CryptoPublicKey,
-        $ipfs_cmds.IpfsCmdsEnvironment {
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   BoxoChunkerBuzhash.$h(super.$h) : super.$h();
 
   /// Go: `func chunk.NewBuzhash(r io.Reader) *chunk.Buzhash`.
   factory BoxoChunkerBuzhash(Object r) {
-    final $r = $callSync(499, $W()..reader(r));
+    final $r = $callSync(9367, $W()..reader(r));
     return $r.hnn(BoxoChunkerBuzhash.$h);
   }
 
   /// Go: `func (*chunk.Buzhash).NextBytes() ([]byte, error)`.
   Uint8List nextBytes() {
-    final $r = $callSync(493, $W()..h(this));
+    final $r = $callSync(9361, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*chunk.Buzhash).Reader() io.Reader`.
   $io.IoReader reader() {
-    final $r = $callSync(494, $W()..h(this));
+    final $r = $callSync(9362, $W()..h(this));
     return $r.hnn($io.IoReader.$h);
   }
 }
@@ -45,19 +56,27 @@ class BoxoChunkerBuzhash extends BoxoChunkerSplitter
 /// Go: `chunk.Rabin` (handle).
 class BoxoChunkerRabin extends BoxoChunkerSplitter
     with
+        $crypto.CryptoDecrypterOpts$,
         $crypto.CryptoPrivateKey$,
         $crypto.CryptoPublicKey$,
-        $ipfs_cmds.IpfsCmdsEnvironment$
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
     implements
+        $crypto.CryptoDecrypterOpts,
         $crypto.CryptoPrivateKey,
         $crypto.CryptoPublicKey,
-        $ipfs_cmds.IpfsCmdsEnvironment {
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   BoxoChunkerRabin.$h(super.$h) : super.$h();
 
   /// Go: `func chunk.NewRabin(r io.Reader, avgBlkSize uint64) *chunk.Rabin`.
   factory BoxoChunkerRabin(Object r, int avgBlkSize) {
     final $r = $callSync(
-        500,
+        9368,
         $W()
           ..reader(r)
           ..i64(avgBlkSize));
@@ -66,13 +85,13 @@ class BoxoChunkerRabin extends BoxoChunkerSplitter
 
   /// Go: `func (*chunk.Rabin).NextBytes() ([]byte, error)`.
   Uint8List nextBytes() {
-    final $r = $callSync(503, $W()..h(this));
+    final $r = $callSync(9371, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*chunk.Rabin).Reader() io.Reader`.
   $io.IoReader reader() {
-    final $r = $callSync(504, $W()..h(this));
+    final $r = $callSync(9372, $W()..h(this));
     return $r.hnn($io.IoReader.$h);
   }
 }
@@ -86,40 +105,64 @@ class BoxoChunkerSplitter extends GoHandle with BoxoChunkerSplitter$ {
 mixin BoxoChunkerSplitter$ on GoHandle {
   /// Go: `func (chunk.Splitter).NextBytes() ([]byte, error)`.
   Uint8List nextBytes() {
-    final $r = $callSync(507, $W()..h(this));
+    final $r = $callSync(9375, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (chunk.Splitter).Reader() io.Reader`.
   $io.IoReader reader() {
-    final $r = $callSync(508, $W()..h(this));
+    final $r = $callSync(9376, $W()..h(this));
     return $r.hnn($io.IoReader.$h);
   }
 
   /// Go: type assertion `x.(*chunk.Buzhash)`: null if the object is not one.
   BoxoChunkerBuzhash? asBoxoChunkerBuzhash() {
-    final $r = $callSync(78, $W()..h(this));
+    final $r = $callSync(924, $W()..h(this));
     return $r.hn(BoxoChunkerBuzhash.$h);
   }
 
   /// Go: type assertion `x.(*chunk.Rabin)`: null if the object is not one.
   BoxoChunkerRabin? asBoxoChunkerRabin() {
-    final $r = $callSync(79, $W()..h(this));
+    final $r = $callSync(925, $W()..h(this));
     return $r.hn(BoxoChunkerRabin.$h);
   }
 }
 
 /// Go: `chunk.SplitterFunc` (handle).
-class BoxoChunkerSplitterFunc extends $crypto.CryptoPrivateKey
-    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
-    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+class BoxoChunkerSplitterFunc extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   BoxoChunkerSplitterFunc.$h(super.$h) : super.$h();
 }
 
 /// Go: `chunk.SplitterGen` (handle).
-class BoxoChunkerSplitterGen extends $crypto.CryptoPrivateKey
-    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
-    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+class BoxoChunkerSplitterGen extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   BoxoChunkerSplitterGen.$h(super.$h) : super.$h();
 }
 
@@ -154,20 +197,20 @@ class BoxoChunkerErrSizeMax extends GolangException {
 extension GoIpfsBoxoChunkerApi on GoIpfsBoxoChunker {
   /// Go: `var chunk.DefaultBlockSize int64`.
   int get defaultBlockSize {
-    final $r = $callSync(495);
+    final $r = $callSync(9363);
     return $r.i64();
   }
 
   /// Go: `func chunk.DefaultSplitter(r io.Reader) chunk.Splitter`.
   BoxoChunkerSplitter defaultSplitter(Object r) {
-    final $r = $callSync(496, $W()..reader(r));
+    final $r = $callSync(9364, $W()..reader(r));
     return $r.hnn(BoxoChunkerSplitter.$h);
   }
 
   /// Go: `func chunk.FromString(r io.Reader, chunker string) (chunk.Splitter, error)`.
   BoxoChunkerSplitter fromString(Object r, String chunker) {
     final $r = $callSync(
-        497,
+        9365,
         $W()
           ..reader(r)
           ..str(chunker));
@@ -176,14 +219,14 @@ extension GoIpfsBoxoChunkerApi on GoIpfsBoxoChunker {
 
   /// Go: `var chunk.IpfsRabinPoly chunker.Pol`.
   int get ipfsRabinPoly {
-    final $r = $callSync(498);
+    final $r = $callSync(9366);
     return $r.i64();
   }
 
   /// Go: `func chunk.NewRabinMinMax(r io.Reader, min uint64, avg uint64, max uint64) *chunk.Rabin`.
   BoxoChunkerRabin newRabinMinMax(Object r, int min, int avg, int max) {
     final $r = $callSync(
-        501,
+        9369,
         $W()
           ..reader(r)
           ..i64(min)
@@ -195,7 +238,7 @@ extension GoIpfsBoxoChunkerApi on GoIpfsBoxoChunker {
   /// Go: `func chunk.NewSizeSplitter(r io.Reader, size int64) chunk.Splitter`.
   BoxoChunkerSplitter newSizeSplitter(Object r, int size) {
     final $r = $callSync(
-        502,
+        9370,
         $W()
           ..reader(r)
           ..i64(size));
@@ -205,7 +248,7 @@ extension GoIpfsBoxoChunkerApi on GoIpfsBoxoChunker {
   /// Go: `func chunk.Register(name string, fn chunk.SplitterFunc)`.
   void register(String name, BoxoChunkerSplitterFunc fn) {
     $callSync(
-        505,
+        9373,
         $W()
           ..str(name)
           ..h(fn));
@@ -213,7 +256,7 @@ extension GoIpfsBoxoChunkerApi on GoIpfsBoxoChunker {
 
   /// Go: `func chunk.SizeSplitterGen(size int64) chunk.SplitterGen`.
   BoxoChunkerSplitterGen sizeSplitterGen(int size) {
-    final $r = $callSync(506, $W()..i64(size));
+    final $r = $callSync(9374, $W()..i64(size));
     return $r.hnn(BoxoChunkerSplitterGen.$h);
   }
 }

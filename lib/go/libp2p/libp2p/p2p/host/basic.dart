@@ -2,12 +2,508 @@
 // Go: github.com/libp2p/go-libp2p/p2p/host/basic
 library;
 
+import 'dart:async';
+
+import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2pP2pHostBasic;
+import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
+import 'package:p2p_ffi/go/io.dart' as $io;
+import 'package:p2p_ffi/go/ipfs/boxo/routing/providerquerymanager.dart'
+    as $providerquerymanager;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/connmgr.dart' as $connmgr;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/event.dart' as $event;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/network.dart' as $network;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/peerstore.dart' as $peerstore;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/protocol.dart' as $protocol;
+import 'package:p2p_ffi/go/libp2p/libp2p/p2p/host/autonat.dart' as $autonat;
+import 'package:p2p_ffi/go/libp2p/libp2p/p2p/host/observedaddrs.dart'
+    as $observedaddrs;
+import 'package:p2p_ffi/go/libp2p/libp2p/p2p/protocol/autonatv2.dart'
+    as $autonatv2;
+import 'package:p2p_ffi/go/libp2p/libp2p/p2p/protocol/identify.dart'
+    as $identify;
+import 'package:p2p_ffi/go/multiformats/multiaddr.dart' as $multiaddr;
+import 'package:p2p_ffi/go/prometheus/client_golang/prometheus.dart'
+    as $prometheus;
+import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
 
 /// Go: `basichost.AddrsFactory` (handle).
-class Libp2pP2pHostBasicAddrsFactory extends $crypto.CryptoPrivateKey
-    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
-    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+class Libp2pP2pHostBasicAddrsFactory extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   Libp2pP2pHostBasicAddrsFactory.$h(super.$h) : super.$h();
+}
+
+/// Go: `basichost.BasicHost` (handle).
+class Libp2pP2pHostBasicHost extends $io.IoCloser
+    with
+        $crypto.CryptoDecrypterOpts$,
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $providerquerymanager
+        .BoxoRoutingProviderquerymanagerProviderQueryDialer$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$,
+        $expfmt.CommonExpfmtCloser$
+    implements
+        $crypto.CryptoDecrypterOpts,
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $providerquerymanager
+        .BoxoRoutingProviderquerymanagerProviderQueryDialer,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic,
+        $expfmt.CommonExpfmtCloser {
+  Libp2pP2pHostBasicHost.$h(super.$h) : super.$h();
+
+  /// Go: `func (*basichost.BasicHost).Addrs() []multiaddr.Multiaddr`.
+  List<$multiaddr.Multiaddr> addrs() {
+    final $r = $callSync(14424, $W()..h(this));
+    return $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil());
+  }
+
+  /// Go: `func (*basichost.BasicHost).AllAddrs() []multiaddr.Multiaddr`.
+  List<$multiaddr.Multiaddr> allAddrs() {
+    final $r = $callSync(14425, $W()..h(this));
+    return $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil());
+  }
+
+  /// Go: `func (*basichost.BasicHost).Close() error`.
+  void close() {
+    $callSync(14426, $W()..h(this));
+  }
+
+  /// Go: `func (*basichost.BasicHost).ConfirmedAddrs() (reachable []multiaddr.Multiaddr, unreachable []multiaddr.Multiaddr, unknown []multiaddr.Multiaddr)`.
+  (
+    List<$multiaddr.Multiaddr>,
+    List<$multiaddr.Multiaddr>,
+    List<$multiaddr.Multiaddr>
+  ) confirmedAddrs() {
+    final $r = $callSync(14427, $W()..h(this));
+    return (
+      $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil()),
+      $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil()),
+      $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil())
+    );
+  }
+
+  /// Go: `func (*basichost.BasicHost).ConnManager() connmgr.ConnManager`.
+  $connmgr.Libp2pCoreConnmgrConnManager connManager() {
+    final $r = $callSync(14428, $W()..h(this));
+    return $r.hnn($connmgr.Libp2pCoreConnmgrConnManager.$h);
+  }
+
+  /// Go: `func (*basichost.BasicHost).Connect(ctx context.Context, pi peer.AddrInfo) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> connect(
+      $context.Context ctx, $peer.Libp2pCorePeerAddrInfo pi) async {
+    await $call(
+        14429,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..dto(pi));
+  }
+
+  /// Go: `func (*basichost.BasicHost).EventBus() event.Bus`.
+  $event.Libp2pCoreEventBus eventBus() {
+    final $r = $callSync(14430, $W()..h(this));
+    return $r.hnn($event.Libp2pCoreEventBus.$h);
+  }
+
+  /// Go: `func (*basichost.BasicHost).GetAutoNat() autonat.AutoNAT`.
+  @Deprecated("Use `BasicHost.Reachability` to get the host's reachability.")
+  $autonat.Libp2pP2pHostAutonatAutoNat getAutoNat() {
+    final $r = $callSync(14431, $W()..h(this));
+    return $r.hnn($autonat.Libp2pP2pHostAutonatAutoNat.$h);
+  }
+
+  /// Go: `func (*basichost.BasicHost).ID() peer.ID`.
+  $peer.Libp2pCorePeerId id() {
+    final $r = $callSync(14432, $W()..h(this));
+    return $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil();
+  }
+
+  /// Go: `func (*basichost.BasicHost).IDService() identify.IDService`.
+  $identify.Libp2pP2pProtocolIdentifyIdService idService() {
+    final $r = $callSync(14433, $W()..h(this));
+    return $r.hnn($identify.Libp2pP2pProtocolIdentifyIdService.$h);
+  }
+
+  /// Go: `func (*basichost.BasicHost).Mux() protocol.Switch`.
+  $protocol.Libp2pCoreProtocolSwitch mux() {
+    final $r = $callSync(14434, $W()..h(this));
+    return $r.hnn($protocol.Libp2pCoreProtocolSwitch.$h);
+  }
+
+  /// Go: `func (*basichost.BasicHost).Network() network.Network`.
+  $network.Libp2pCoreNetwork network() {
+    final $r = $callSync(14435, $W()..h(this));
+    return $r.hnn($network.Libp2pCoreNetwork.$h);
+  }
+
+  /// Go: `func (*basichost.BasicHost).NewStream(ctx context.Context, p peer.ID, pids ...protocol.ID) (str network.Stream, strErr error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<$network.Libp2pCoreNetworkStream> newStream(
+      $context.Context ctx, $peer.Libp2pCorePeerId p,
+      [List<String> pids = const []]) async {
+    final $r = await $call(
+        14436,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(p)
+          ..list(pids, (w0, e0) => w0.str(e0)));
+    return $r.hnn($network.Libp2pCoreNetworkStream.$h);
+  }
+
+  /// Go: `func (*basichost.BasicHost).Peerstore() peerstore.Peerstore`.
+  $peerstore.Libp2pCorePeerstore peerstore() {
+    final $r = $callSync(14437, $W()..h(this));
+    return $r.hnn($peerstore.Libp2pCorePeerstore.$h);
+  }
+
+  /// Go: `func (*basichost.BasicHost).Reachability() network.Reachability`.
+  int reachability() {
+    final $r = $callSync(14438, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (*basichost.BasicHost).RemoveStreamHandler(pid protocol.ID)`.
+  void removeStreamHandler(String pid) {
+    $callSync(
+        14439,
+        $W()
+          ..h(this)
+          ..str(pid));
+  }
+
+  /// Go: `func (*basichost.BasicHost).SetAutoNat(a autonat.AutoNAT)`.
+  void setAutoNat($autonat.Libp2pP2pHostAutonatAutoNat a) {
+    $callSync(
+        14440,
+        $W()
+          ..h(this)
+          ..h(a));
+  }
+
+  /// Go: `func (*basichost.BasicHost).SetStreamHandler(pid protocol.ID, handler network.StreamHandler)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  ///
+  /// Go calls [handler] on the Dart event loop, during the call or
+  /// later for as long as it holds it (nobody checked which), and waits for
+  /// each invocation (a retained callback, WIRE.md).
+  Future<void> setStreamHandler(
+      String pid,
+      FutureOr<void> Function($network.Libp2pCoreNetworkStream stream)
+          handler) async {
+    await $call(
+        14441,
+        $W()
+          ..h(this)
+          ..str(pid)
+          ..cb((r) => handler(r.hnn($network.Libp2pCoreNetworkStream.$h)),
+              true));
+  }
+
+  /// Go: `func (*basichost.BasicHost).SetStreamHandlerMatch(pid protocol.ID, m func(protocol.ID) bool, handler network.StreamHandler)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  ///
+  /// Go calls [m] on the Dart event loop, during the call or
+  /// later for as long as it holds it (nobody checked which), and waits for
+  /// each invocation (a retained callback, WIRE.md).
+  Future<void> setStreamHandlerMatch(
+      String pid,
+      FutureOr<bool> Function(String arg0) m,
+      FutureOr<void> Function($network.Libp2pCoreNetworkStream stream)
+          handler) async {
+    await $call(
+        14442,
+        $W()
+          ..h(this)
+          ..str(pid)
+          ..cb((r) => m(r.str()), true)
+          ..cb((r) => handler(r.hnn($network.Libp2pCoreNetworkStream.$h)),
+              true));
+  }
+
+  /// Go: `func (*basichost.BasicHost).Start()`.
+  void start() {
+    $callSync(14443, $W()..h(this));
+  }
+}
+
+/// Go: `basichost.HostOpts`.
+///
+/// Fields that do not cross the bridge: `MultistreamMuxer` (*generic github.com/multiformats/go-multistream.MultistreamMuxer[github.com/libp2p/go-libp2p/core/protocol.ID]), `NATManager` (func(github.com/libp2p/go-libp2p/core/network.Network) github.com/libp2p/go-libp2p/p2p/host/basic.NATManager), `RelayServiceOpts` (functional options: they cross only as call arguments), `HolePunchingOptions` (functional options: they cross only as call arguments).
+final class Libp2pP2pHostBasicHostOpts implements GoDto {
+  Libp2pP2pHostBasicHostOpts(
+      {$event.Libp2pCoreEventBus? eventBus,
+      Duration? negotiationTimeout,
+      Libp2pP2pHostBasicAddrsFactory? addrsFactory,
+      $connmgr.Libp2pCoreConnmgrConnManager? connManager,
+      bool? enablePing,
+      bool? enableRelayService,
+      String? userAgent,
+      String? protocolVersion,
+      bool? disableSignedPeerRecord,
+      bool? disableNonPublicAddrPublishing,
+      bool? enableHolePunching,
+      bool? enableMetrics,
+      $prometheus.ClientGolangPrometheusRegisterer? prometheusRegisterer,
+      Libp2pP2pHostBasicMetricsTracker? autoNaTv2MetricsTracker,
+      Libp2pP2pHostBasicObservedAddrsManager? observedAddrsManager,
+      $autonatv2.Libp2pP2pProtocolAutonatv2AutoNat? autoNaTv2})
+      : eventBus = eventBus,
+        negotiationTimeout = negotiationTimeout ?? Duration.zero,
+        addrsFactory = addrsFactory,
+        connManager = connManager,
+        enablePing = enablePing ?? false,
+        enableRelayService = enableRelayService ?? false,
+        userAgent = userAgent ?? '',
+        protocolVersion = protocolVersion ?? '',
+        disableSignedPeerRecord = disableSignedPeerRecord ?? false,
+        disableNonPublicAddrPublishing =
+            disableNonPublicAddrPublishing ?? false,
+        enableHolePunching = enableHolePunching ?? false,
+        enableMetrics = enableMetrics ?? false,
+        prometheusRegisterer = prometheusRegisterer,
+        autoNaTv2MetricsTracker = autoNaTv2MetricsTracker,
+        observedAddrsManager = observedAddrsManager,
+        autoNaTv2 = autoNaTv2;
+
+  Libp2pP2pHostBasicHostOpts.$dec($R r)
+      : eventBus = r.hn($event.Libp2pCoreEventBus.$h),
+        negotiationTimeout = Duration(microseconds: r.i64() ~/ 1000),
+        addrsFactory = r.hn(Libp2pP2pHostBasicAddrsFactory.$h),
+        connManager = r.hn($connmgr.Libp2pCoreConnmgrConnManager.$h),
+        enablePing = r.b(),
+        enableRelayService = r.b(),
+        userAgent = r.str(),
+        protocolVersion = r.str(),
+        disableSignedPeerRecord = r.b(),
+        disableNonPublicAddrPublishing = r.b(),
+        enableHolePunching = r.b(),
+        enableMetrics = r.b(),
+        prometheusRegisterer =
+            r.hn($prometheus.ClientGolangPrometheusRegisterer.$h),
+        autoNaTv2MetricsTracker = r.hn(Libp2pP2pHostBasicMetricsTracker.$h),
+        observedAddrsManager = r.hn(Libp2pP2pHostBasicObservedAddrsManager.$h),
+        autoNaTv2 = r.hn($autonatv2.Libp2pP2pProtocolAutonatv2AutoNat.$h);
+
+  /// Go: `EventBus`.
+  $event.Libp2pCoreEventBus? eventBus;
+
+  /// Go: `NegotiationTimeout`.
+  Duration negotiationTimeout;
+
+  /// Go: `AddrsFactory`.
+  Libp2pP2pHostBasicAddrsFactory? addrsFactory;
+
+  /// Go: `ConnManager`.
+  $connmgr.Libp2pCoreConnmgrConnManager? connManager;
+
+  /// Go: `EnablePing`.
+  bool enablePing;
+
+  /// Go: `EnableRelayService`.
+  bool enableRelayService;
+
+  /// Go: `UserAgent`.
+  String userAgent;
+
+  /// Go: `ProtocolVersion`.
+  String protocolVersion;
+
+  /// Go: `DisableSignedPeerRecord`.
+  bool disableSignedPeerRecord;
+
+  /// Go: `DisableNonPublicAddrPublishing`.
+  bool disableNonPublicAddrPublishing;
+
+  /// Go: `EnableHolePunching`.
+  bool enableHolePunching;
+
+  /// Go: `EnableMetrics`.
+  bool enableMetrics;
+
+  /// Go: `PrometheusRegisterer`.
+  $prometheus.ClientGolangPrometheusRegisterer? prometheusRegisterer;
+
+  /// Go: `AutoNATv2MetricsTracker`.
+  Libp2pP2pHostBasicMetricsTracker? autoNaTv2MetricsTracker;
+
+  /// Go: `ObservedAddrsManager`.
+  Libp2pP2pHostBasicObservedAddrsManager? observedAddrsManager;
+
+  /// Go: `AutoNATv2`.
+  $autonatv2.Libp2pP2pProtocolAutonatv2AutoNat? autoNaTv2;
+
+  @override
+  void $enc($W w) {
+    w
+      ..h(eventBus)
+      ..i64((negotiationTimeout).inMicroseconds * 1000)
+      ..h(addrsFactory)
+      ..h(connManager)
+      ..b(enablePing)
+      ..b(enableRelayService)
+      ..str(userAgent)
+      ..str(protocolVersion)
+      ..b(disableSignedPeerRecord)
+      ..b(disableNonPublicAddrPublishing)
+      ..b(enableHolePunching)
+      ..b(enableMetrics)
+      ..h(prometheusRegisterer)
+      ..h(autoNaTv2MetricsTracker)
+      ..h(observedAddrsManager)
+      ..h(autoNaTv2);
+  }
+}
+
+/// Go: `basichost.MetricsTracker` (handle).
+class Libp2pP2pHostBasicMetricsTracker extends GoHandle
+    with Libp2pP2pHostBasicMetricsTracker$ {
+  Libp2pP2pHostBasicMetricsTracker.$h(super.$h);
+}
+
+/// The methods of [Libp2pP2pHostBasicMetricsTracker], mixed into every class Go also accepts as one.
+mixin Libp2pP2pHostBasicMetricsTracker$ on GoHandle {
+  /// Go: `func (basichost.MetricsTracker).ConfirmedAddrsChanged(reachable []multiaddr.Multiaddr, unreachable []multiaddr.Multiaddr, unknown []multiaddr.Multiaddr)`.
+  void confirmedAddrsChanged(
+      List<$multiaddr.Multiaddr> reachable,
+      List<$multiaddr.Multiaddr> unreachable,
+      List<$multiaddr.Multiaddr> unknown) {
+    $callSync(
+        14446,
+        $W()
+          ..h(this)
+          ..list(reachable, (w0, e0) => w0.val(e0))
+          ..list(unreachable, (w0, e0) => w0.val(e0))
+          ..list(unknown, (w0, e0) => w0.val(e0)));
+  }
+
+  /// Go: `func (basichost.MetricsTracker).ReachabilityTrackerClosed()`.
+  void reachabilityTrackerClosed() {
+    $callSync(14447, $W()..h(this));
+  }
+}
+
+/// Go: `basichost.NATManager` (handle).
+class Libp2pP2pHostBasicNatManager extends $io.IoCloser
+    with Libp2pP2pHostBasicNatManager$ {
+  Libp2pP2pHostBasicNatManager.$h(super.$h) : super.$h();
+
+  /// Go: `func basichost.NewNATManager(net network.Network) basichost.NATManager`.
+  factory Libp2pP2pHostBasicNatManager($network.Libp2pCoreNetwork net) {
+    final $r = $callSync(14451, $W()..h(net));
+    return $r.hnn(Libp2pP2pHostBasicNatManager.$h);
+  }
+}
+
+/// The methods of [Libp2pP2pHostBasicNatManager], mixed into every class Go also accepts as one.
+mixin Libp2pP2pHostBasicNatManager$ on GoHandle {
+  /// Go: `func (basichost.NATManager).GetMapping(multiaddr.Multiaddr) multiaddr.Multiaddr`.
+  $multiaddr.Multiaddr getMapping($multiaddr.Multiaddr multiaddr) {
+    final $r = $callSync(
+        14448,
+        $W()
+          ..h(this)
+          ..val(multiaddr));
+    return $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil();
+  }
+
+  /// Go: `func (basichost.NATManager).HasDiscoveredNAT() bool`.
+  bool hasDiscoveredNat() {
+    final $r = $callSync(14449, $W()..h(this));
+    return $r.b();
+  }
+}
+
+/// Go: `basichost.ObservedAddrsManager` (handle).
+class Libp2pP2pHostBasicObservedAddrsManager extends GoHandle
+    with Libp2pP2pHostBasicObservedAddrsManager$ {
+  Libp2pP2pHostBasicObservedAddrsManager.$h(super.$h);
+}
+
+/// The methods of [Libp2pP2pHostBasicObservedAddrsManager], mixed into every class Go also accepts as one.
+mixin Libp2pP2pHostBasicObservedAddrsManager$ on GoHandle {
+  /// Go: `func (basichost.ObservedAddrsManager).Addrs(minObservers int) []multiaddr.Multiaddr`.
+  List<$multiaddr.Multiaddr> addrs(int minObservers) {
+    final $r = $callSync(
+        14452,
+        $W()
+          ..h(this)
+          ..i64(minObservers));
+    return $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil());
+  }
+
+  /// Go: `func (basichost.ObservedAddrsManager).AddrsFor(local multiaddr.Multiaddr) []multiaddr.Multiaddr`.
+  List<$multiaddr.Multiaddr> addrsFor($multiaddr.Multiaddr local) {
+    final $r = $callSync(
+        14453,
+        $W()
+          ..h(this)
+          ..val(local));
+    return $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil());
+  }
+
+  /// Go: type assertion `x.(*observedaddrs.Manager)`: null if the object is not one.
+  $observedaddrs.Libp2pP2pHostObservedaddrsManager?
+      asLibp2pP2pHostObservedaddrsManager() {
+    final $r = $callSync(1438, $W()..h(this));
+    return $r.hn($observedaddrs.Libp2pP2pHostObservedaddrsManager.$h);
+  }
+}
+
+/// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/host/basic` (`go.libp2p.libp2p.p2p.host.basic`).
+extension GoLibp2pLibp2pP2pHostBasicApi on GoLibp2pLibp2pP2pHostBasic {
+  /// Go: `var basichost.DefaultAddrsFactory func(addrs []multiaddr.Multiaddr) []multiaddr.Multiaddr`.
+  Libp2pP2pHostBasicAddrsFactory get defaultAddrsFactory {
+    final $r = $callSync(14444);
+    return $r.hnn(Libp2pP2pHostBasicAddrsFactory.$h);
+  }
+
+  /// Go: `var basichost.DefaultNegotiationTimeout time.Duration`.
+  Duration get defaultNegotiationTimeout {
+    final $r = $callSync(14445);
+    return Duration(microseconds: $r.i64() ~/ 1000);
+  }
+
+  /// Go: `func basichost.NewHost(n network.Network, opts *basichost.HostOpts) (*basichost.BasicHost, error)`.
+  Libp2pP2pHostBasicHost newHost(
+      $network.Libp2pCoreNetwork n, Libp2pP2pHostBasicHostOpts opts) {
+    final $r = $callSync(
+        14450,
+        $W()
+          ..h(n)
+          ..dto(opts));
+    return $r.hnn(Libp2pP2pHostBasicHost.$h);
+  }
 }

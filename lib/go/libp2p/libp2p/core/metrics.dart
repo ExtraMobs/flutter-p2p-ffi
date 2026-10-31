@@ -4,19 +4,131 @@ library;
 
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
 
 /// Go: `metrics.BandwidthCounter` (handle).
-class Libp2pCoreMetricsBandwidthCounter extends $crypto.CryptoPrivateKey
+class Libp2pCoreMetricsBandwidthCounter extends Libp2pCoreMetricsReporter
     with
+        $crypto.CryptoDecrypterOpts$,
+        $crypto.CryptoPrivateKey$,
         $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
         $ipfs_cmds.IpfsCmdsEnvironment$,
-        Libp2pCoreMetricsReporter$
+        $peertask.PeertaskqueuePeertaskTopic$
     implements
+        $crypto.CryptoDecrypterOpts,
+        $crypto.CryptoPrivateKey,
         $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
         $ipfs_cmds.IpfsCmdsEnvironment,
-        Libp2pCoreMetricsReporter {
+        $peertask.PeertaskqueuePeertaskTopic {
   Libp2pCoreMetricsBandwidthCounter.$h(super.$h) : super.$h();
+
+  /// Go: `func metrics.NewBandwidthCounter() *metrics.BandwidthCounter`.
+  factory Libp2pCoreMetricsBandwidthCounter() {
+    final $r = $callSync(13982);
+    return $r.hnn(Libp2pCoreMetricsBandwidthCounter.$h);
+  }
+
+  /// Go: `func (*metrics.BandwidthCounter).GetBandwidthByPeer() map[peer.ID]metrics.Stats`.
+  Map<$peer.Libp2pCorePeerId, Libp2pCoreMetricsStats> getBandwidthByPeer() {
+    final $r = $callSync(13971, $W()..h(this));
+    return $r.map(() => $peer.Libp2pCorePeerId($r.str()),
+        () => $r.p() ? Libp2pCoreMetricsStats.$dec($r) : $nil());
+  }
+
+  /// Go: `func (*metrics.BandwidthCounter).GetBandwidthByProtocol() map[protocol.ID]metrics.Stats`.
+  Map<String, Libp2pCoreMetricsStats> getBandwidthByProtocol() {
+    final $r = $callSync(13972, $W()..h(this));
+    return $r.map(() => $r.str(),
+        () => $r.p() ? Libp2pCoreMetricsStats.$dec($r) : $nil());
+  }
+
+  /// Go: `func (*metrics.BandwidthCounter).GetBandwidthForPeer(p peer.ID) (out metrics.Stats)`.
+  Libp2pCoreMetricsStats getBandwidthForPeer($peer.Libp2pCorePeerId p) {
+    final $r = $callSync(
+        13973,
+        $W()
+          ..h(this)
+          ..val(p));
+    return $r.p() ? Libp2pCoreMetricsStats.$dec($r) : $nil();
+  }
+
+  /// Go: `func (*metrics.BandwidthCounter).GetBandwidthForProtocol(proto protocol.ID) (out metrics.Stats)`.
+  Libp2pCoreMetricsStats getBandwidthForProtocol(String proto) {
+    final $r = $callSync(
+        13974,
+        $W()
+          ..h(this)
+          ..str(proto));
+    return $r.p() ? Libp2pCoreMetricsStats.$dec($r) : $nil();
+  }
+
+  /// Go: `func (*metrics.BandwidthCounter).GetBandwidthTotals() (out metrics.Stats)`.
+  Libp2pCoreMetricsStats getBandwidthTotals() {
+    final $r = $callSync(13975, $W()..h(this));
+    return $r.p() ? Libp2pCoreMetricsStats.$dec($r) : $nil();
+  }
+
+  /// Go: `func (*metrics.BandwidthCounter).LogRecvMessage(size int64)`.
+  void logRecvMessage(int size) {
+    $callSync(
+        13976,
+        $W()
+          ..h(this)
+          ..i64(size));
+  }
+
+  /// Go: `func (*metrics.BandwidthCounter).LogRecvMessageStream(size int64, proto protocol.ID, p peer.ID)`.
+  void logRecvMessageStream(int size, String proto, $peer.Libp2pCorePeerId p) {
+    $callSync(
+        13977,
+        $W()
+          ..h(this)
+          ..i64(size)
+          ..str(proto)
+          ..val(p));
+  }
+
+  /// Go: `func (*metrics.BandwidthCounter).LogSentMessage(size int64)`.
+  void logSentMessage(int size) {
+    $callSync(
+        13978,
+        $W()
+          ..h(this)
+          ..i64(size));
+  }
+
+  /// Go: `func (*metrics.BandwidthCounter).LogSentMessageStream(size int64, proto protocol.ID, p peer.ID)`.
+  void logSentMessageStream(int size, String proto, $peer.Libp2pCorePeerId p) {
+    $callSync(
+        13979,
+        $W()
+          ..h(this)
+          ..i64(size)
+          ..str(proto)
+          ..val(p));
+  }
+
+  /// Go: `func (*metrics.BandwidthCounter).Reset()`.
+  void reset() {
+    $callSync(13980, $W()..h(this));
+  }
+
+  /// Go: `func (*metrics.BandwidthCounter).TrimIdle(since time.Time)`.
+  void trimIdle(DateTime since) {
+    $callSync(
+        13981,
+        $W()
+          ..h(this)
+          ..time(since));
+  }
 }
 
 /// Go: `metrics.Reporter` (handle).
@@ -26,10 +138,117 @@ class Libp2pCoreMetricsReporter extends GoHandle
 }
 
 /// The methods of [Libp2pCoreMetricsReporter], mixed into every class Go also accepts as one.
-mixin Libp2pCoreMetricsReporter$ on GoHandle {}
+mixin Libp2pCoreMetricsReporter$ on GoHandle {
+  /// Go: `func (metrics.Reporter).GetBandwidthByPeer() map[peer.ID]metrics.Stats`.
+  Map<$peer.Libp2pCorePeerId, Libp2pCoreMetricsStats> getBandwidthByPeer() {
+    final $r = $callSync(13983, $W()..h(this));
+    return $r.map(() => $peer.Libp2pCorePeerId($r.str()),
+        () => $r.p() ? Libp2pCoreMetricsStats.$dec($r) : $nil());
+  }
 
-/// Go: `metrics.Stats` (a kubo command output).
-final class Libp2pCoreMetricsStats {
+  /// Go: `func (metrics.Reporter).GetBandwidthByProtocol() map[protocol.ID]metrics.Stats`.
+  Map<String, Libp2pCoreMetricsStats> getBandwidthByProtocol() {
+    final $r = $callSync(13984, $W()..h(this));
+    return $r.map(() => $r.str(),
+        () => $r.p() ? Libp2pCoreMetricsStats.$dec($r) : $nil());
+  }
+
+  /// Go: `func (metrics.Reporter).GetBandwidthForPeer(peer.ID) metrics.Stats`.
+  Libp2pCoreMetricsStats getBandwidthForPeer($peer.Libp2pCorePeerId id) {
+    final $r = $callSync(
+        13985,
+        $W()
+          ..h(this)
+          ..val(id));
+    return $r.p() ? Libp2pCoreMetricsStats.$dec($r) : $nil();
+  }
+
+  /// Go: `func (metrics.Reporter).GetBandwidthForProtocol(protocol.ID) metrics.Stats`.
+  Libp2pCoreMetricsStats getBandwidthForProtocol(String arg0) {
+    final $r = $callSync(
+        13986,
+        $W()
+          ..h(this)
+          ..str(arg0));
+    return $r.p() ? Libp2pCoreMetricsStats.$dec($r) : $nil();
+  }
+
+  /// Go: `func (metrics.Reporter).GetBandwidthTotals() metrics.Stats`.
+  Libp2pCoreMetricsStats getBandwidthTotals() {
+    final $r = $callSync(13987, $W()..h(this));
+    return $r.p() ? Libp2pCoreMetricsStats.$dec($r) : $nil();
+  }
+
+  /// Go: `func (metrics.Reporter).LogRecvMessage(int64)`.
+  void logRecvMessage(int arg0) {
+    $callSync(
+        13988,
+        $W()
+          ..h(this)
+          ..i64(arg0));
+  }
+
+  /// Go: `func (metrics.Reporter).LogRecvMessageStream(int64, protocol.ID, peer.ID)`.
+  void logRecvMessageStream(int arg0, String arg1, $peer.Libp2pCorePeerId id) {
+    $callSync(
+        13989,
+        $W()
+          ..h(this)
+          ..i64(arg0)
+          ..str(arg1)
+          ..val(id));
+  }
+
+  /// Go: `func (metrics.Reporter).LogSentMessage(int64)`.
+  void logSentMessage(int arg0) {
+    $callSync(
+        13990,
+        $W()
+          ..h(this)
+          ..i64(arg0));
+  }
+
+  /// Go: `func (metrics.Reporter).LogSentMessageStream(int64, protocol.ID, peer.ID)`.
+  void logSentMessageStream(int arg0, String arg1, $peer.Libp2pCorePeerId id) {
+    $callSync(
+        13991,
+        $W()
+          ..h(this)
+          ..i64(arg0)
+          ..str(arg1)
+          ..val(id));
+  }
+
+  /// Go: `func (metrics.Reporter).Reset()`.
+  void reset() {
+    $callSync(13992, $W()..h(this));
+  }
+
+  /// Go: `func (metrics.Reporter).TrimIdle(since time.Time)`.
+  void trimIdle(DateTime since) {
+    $callSync(
+        13993,
+        $W()
+          ..h(this)
+          ..time(since));
+  }
+
+  /// Go: type assertion `x.(*metrics.BandwidthCounter)`: null if the object is not one.
+  Libp2pCoreMetricsBandwidthCounter? asLibp2pCoreMetricsBandwidthCounter() {
+    final $r = $callSync(1342, $W()..h(this));
+    return $r.hn(Libp2pCoreMetricsBandwidthCounter.$h);
+  }
+}
+
+/// Go: `metrics.Stats`.
+final class Libp2pCoreMetricsStats implements GoDto {
+  Libp2pCoreMetricsStats(
+      {int? totalIn, int? totalOut, double? rateIn, double? rateOut})
+      : totalIn = totalIn ?? 0,
+        totalOut = totalOut ?? 0,
+        rateIn = rateIn ?? 0.0,
+        rateOut = rateOut ?? 0.0;
+
   Libp2pCoreMetricsStats.$dec($R r)
       : totalIn = r.i64(),
         totalOut = r.i64(),
@@ -37,14 +256,23 @@ final class Libp2pCoreMetricsStats {
         rateOut = r.f64();
 
   /// Go: `TotalIn`.
-  final int totalIn;
+  int totalIn;
 
   /// Go: `TotalOut`.
-  final int totalOut;
+  int totalOut;
 
   /// Go: `RateIn`.
-  final double rateIn;
+  double rateIn;
 
   /// Go: `RateOut`.
-  final double rateOut;
+  double rateOut;
+
+  @override
+  void $enc($W w) {
+    w
+      ..i64(totalIn)
+      ..i64(totalOut)
+      ..f64(rateIn)
+      ..f64(rateOut);
+  }
 }

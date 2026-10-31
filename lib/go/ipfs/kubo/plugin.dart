@@ -3,6 +3,29 @@
 library;
 
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/fx.dart' as $fx;
+import 'package:p2p_ffi/go/ipfs/kubo/core.dart' as $core;
+import 'package:p2p_ffi/go/ipfs/kubo/core/coreiface.dart' as $coreiface;
+import 'package:p2p_ffi/go/ipfs/kubo/repo/fsrepo.dart' as $fsrepo;
+import 'package:p2p_ffi/go/ipld/ipld_prime/multicodec.dart' as $multicodec;
+import 'package:p2p_ffi/go/opentracing/opentracing_go.dart' as $opentracing_go;
+
+/// Go: `plugin.Environment`.
+///
+/// Fields that do not cross the bridge: `Config` (type any).
+final class KuboPluginEnvironment implements GoDto {
+  KuboPluginEnvironment({String? repo}) : repo = repo ?? '';
+
+  KuboPluginEnvironment.$dec($R r) : repo = r.str();
+
+  /// Go: `Repo`.
+  String repo;
+
+  @override
+  void $enc($W w) {
+    w..str(repo);
+  }
+}
 
 /// Go: `plugin.Plugin` (handle).
 class KuboPlugin extends GoHandle with KuboPlugin$ {
@@ -10,4 +33,165 @@ class KuboPlugin extends GoHandle with KuboPlugin$ {
 }
 
 /// The methods of [KuboPlugin], mixed into every class Go also accepts as one.
-mixin KuboPlugin$ on GoHandle {}
+mixin KuboPlugin$ on GoHandle {
+  /// Go: `func (plugin.Plugin).Init(env *plugin.Environment) error`.
+  void init(KuboPluginEnvironment env) {
+    $callSync(
+        11698,
+        $W()
+          ..h(this)
+          ..dto(env));
+  }
+
+  /// Go: `func (plugin.Plugin).Name() string`.
+  String name() {
+    final $r = $callSync(11699, $W()..h(this));
+    return $r.str();
+  }
+
+  /// Go: `func (plugin.Plugin).Version() string`.
+  String version() {
+    final $r = $callSync(11700, $W()..h(this));
+    return $r.str();
+  }
+
+  /// Go: type assertion `x.(plugin.PluginDaemon)`: null if the object is not one.
+  KuboPluginDaemon? asKuboPluginDaemon() {
+    final $r = $callSync(1191, $W()..h(this));
+    return $r.hn(KuboPluginDaemon.$h);
+  }
+
+  /// Go: type assertion `x.(plugin.PluginDaemonInternal)`: null if the object is not one.
+  KuboPluginDaemonInternal? asKuboPluginDaemonInternal() {
+    final $r = $callSync(1192, $W()..h(this));
+    return $r.hn(KuboPluginDaemonInternal.$h);
+  }
+
+  /// Go: type assertion `x.(plugin.PluginDatastore)`: null if the object is not one.
+  KuboPluginDatastore? asKuboPluginDatastore() {
+    final $r = $callSync(1193, $W()..h(this));
+    return $r.hn(KuboPluginDatastore.$h);
+  }
+
+  /// Go: type assertion `x.(plugin.PluginFx)`: null if the object is not one.
+  KuboPluginFx? asKuboPluginFx() {
+    final $r = $callSync(1194, $W()..h(this));
+    return $r.hn(KuboPluginFx.$h);
+  }
+
+  /// Go: type assertion `x.(plugin.PluginIPLD)`: null if the object is not one.
+  KuboPluginIpld? asKuboPluginIpld() {
+    final $r = $callSync(1195, $W()..h(this));
+    return $r.hn(KuboPluginIpld.$h);
+  }
+
+  /// Go: type assertion `x.(plugin.PluginTracer)`: null if the object is not one.
+  KuboPluginTracer? asKuboPluginTracer() {
+    final $r = $callSync(1196, $W()..h(this));
+    return $r.hn(KuboPluginTracer.$h);
+  }
+}
+
+/// Go: `plugin.PluginDaemon` (handle).
+class KuboPluginDaemon extends KuboPlugin with KuboPluginDaemon$ {
+  KuboPluginDaemon.$h(super.$h) : super.$h();
+}
+
+/// The methods of [KuboPluginDaemon], mixed into every class Go also accepts as one.
+mixin KuboPluginDaemon$ on GoHandle {
+  /// Go: `func (plugin.PluginDaemon).Start(iface.CoreAPI) error`.
+  void start($coreiface.KuboCoreCoreifaceCoreApi coreApi) {
+    $callSync(
+        11701,
+        $W()
+          ..h(this)
+          ..h(coreApi));
+  }
+}
+
+/// Go: `plugin.PluginDaemonInternal` (handle).
+class KuboPluginDaemonInternal extends KuboPlugin
+    with KuboPluginDaemonInternal$ {
+  KuboPluginDaemonInternal.$h(super.$h) : super.$h();
+}
+
+/// The methods of [KuboPluginDaemonInternal], mixed into every class Go also accepts as one.
+mixin KuboPluginDaemonInternal$ on GoHandle {
+  /// Go: `func (plugin.PluginDaemonInternal).Start(*core.IpfsNode) error`.
+  void start($core.KuboCoreIpfsNode ipfsNode) {
+    $callSync(
+        11702,
+        $W()
+          ..h(this)
+          ..h(ipfsNode));
+  }
+}
+
+/// Go: `plugin.PluginDatastore` (handle).
+class KuboPluginDatastore extends KuboPlugin with KuboPluginDatastore$ {
+  KuboPluginDatastore.$h(super.$h) : super.$h();
+}
+
+/// The methods of [KuboPluginDatastore], mixed into every class Go also accepts as one.
+mixin KuboPluginDatastore$ on GoHandle {
+  /// Go: `func (plugin.PluginDatastore).DatastoreConfigParser() fsrepo.ConfigFromMap`.
+  $fsrepo.KuboRepoFsrepoConfigFromMap datastoreConfigParser() {
+    final $r = $callSync(11703, $W()..h(this));
+    return $r.hnn($fsrepo.KuboRepoFsrepoConfigFromMap.$h);
+  }
+
+  /// Go: `func (plugin.PluginDatastore).DatastoreTypeName() string`.
+  String datastoreTypeName() {
+    final $r = $callSync(11704, $W()..h(this));
+    return $r.str();
+  }
+}
+
+/// Go: `plugin.PluginFx` (handle).
+class KuboPluginFx extends KuboPlugin with KuboPluginFx$ {
+  KuboPluginFx.$h(super.$h) : super.$h();
+}
+
+/// The methods of [KuboPluginFx], mixed into every class Go also accepts as one.
+mixin KuboPluginFx$ on GoHandle {
+  /// Go: `func (plugin.PluginFx).Options(core.FXNodeInfo) ([]fx.Option, error)`.
+  List<$fx.FxOption> options($core.KuboCoreFxNodeInfo fxNodeInfo) {
+    final $r = $callSync(
+        11705,
+        $W()
+          ..h(this)
+          ..dto(fxNodeInfo));
+    return $r.list(() => $r.hnn($fx.FxOption.$h));
+  }
+}
+
+/// Go: `plugin.PluginIPLD` (handle).
+class KuboPluginIpld extends KuboPlugin with KuboPluginIpld$ {
+  KuboPluginIpld.$h(super.$h) : super.$h();
+}
+
+/// The methods of [KuboPluginIpld], mixed into every class Go also accepts as one.
+mixin KuboPluginIpld$ on GoHandle {
+  /// Go: `func (plugin.PluginIPLD).Register(multicodec.Registry) error`.
+  void register($multicodec.IpldPrimeMulticodecRegistry registry) {
+    $callSync(
+        11706,
+        $W()
+          ..h(this)
+          ..h(registry));
+  }
+}
+
+/// Go: `plugin.PluginTracer` (handle).
+class KuboPluginTracer extends KuboPlugin with KuboPluginTracer$ {
+  KuboPluginTracer.$h(super.$h) : super.$h();
+}
+
+/// The methods of [KuboPluginTracer], mixed into every class Go also accepts as one.
+mixin KuboPluginTracer$ on GoHandle {
+  /// Go: `func (plugin.PluginTracer).InitTracer() (opentracing.Tracer, error)`.
+  $opentracing_go.OpentracingGoTracer initTracer() {
+    final $r = $callSync(11707, $W()..h(this));
+    return $r.hnn($opentracing_go.OpentracingGoTracer.$h);
+  }
+}

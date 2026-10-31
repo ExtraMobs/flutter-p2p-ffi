@@ -2,9 +2,11 @@
 // Go: github.com/ipfs/kubo/core/commands/object
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoIpfsKuboCoreCommandsObject;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/ipfs/boxo/ipld/merkledag/dagutils.dart' as $dagutils;
 import 'package:p2p_ffi/go/ipfs/cid.dart' as $cid;
+import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 
 /// Go: `objectcmd.Changes` (a kubo command output).
 final class KuboCoreCommandsObjectChanges {
@@ -61,4 +63,31 @@ class KuboCoreCommandsObjectErrDataEncoding extends GolangException {
 
   @override
   String toString() => 'objectcmd.ErrDataEncoding: $message';
+}
+
+/// Go: the package-level members of `github.com/ipfs/kubo/core/commands/object` (`go.ipfs.kubo.core.commands.object`).
+extension GoIpfsKuboCoreCommandsObjectApi on GoIpfsKuboCoreCommandsObject {
+  /// Go: `var objectcmd.ObjectCmd *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand get objectCmd {
+    final $r = $callSync(11417);
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
+  /// Go: `var objectcmd.ObjectDiffCmd *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand get objectDiffCmd {
+    final $r = $callSync(11418);
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
+  /// Go: `var objectcmd.ObjectPatchCmd *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand get objectPatchCmd {
+    final $r = $callSync(11419);
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
+  /// Go: `var objectcmd.RemovedObjectCmd *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand get removedObjectCmd {
+    final $r = $callSync(11420);
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
 }

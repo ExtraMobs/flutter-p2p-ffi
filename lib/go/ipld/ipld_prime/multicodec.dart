@@ -2,12 +2,148 @@
 // Go: github.com/ipld/go-ipld-prime/multicodec
 library;
 
+import 'dart:async';
+
+import 'package:p2p_ffi/src/go.dart' show GoIpldIpldPrimeMulticodec;
+import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
+import 'package:p2p_ffi/go/io.dart' as $io;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
+import 'package:p2p_ffi/go/ipld/ipld_prime/codec.dart' as $codec;
+import 'package:p2p_ffi/go/ipld/ipld_prime/datamodel.dart' as $datamodel;
 
 /// Go: `multicodec.Registry` (handle).
-class IpldPrimeMulticodecRegistry extends $crypto.CryptoPrivateKey
-    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
-    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+class IpldPrimeMulticodecRegistry extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   IpldPrimeMulticodecRegistry.$h(super.$h) : super.$h();
+
+  /// Go: `func (*multicodec.Registry).ListDecoders() []uint64`.
+  List<int> listDecoders() {
+    final $r = $callSync(12215, $W()..h(this));
+    return $r.list(() => $r.i64());
+  }
+
+  /// Go: `func (*multicodec.Registry).ListEncoders() []uint64`.
+  List<int> listEncoders() {
+    final $r = $callSync(12216, $W()..h(this));
+    return $r.list(() => $r.i64());
+  }
+
+  /// Go: `func (*multicodec.Registry).LookupDecoder(indicator uint64) (codec.Decoder, error)`.
+  $codec.IpldPrimeCodecDecoder lookupDecoder(int indicator) {
+    final $r = $callSync(
+        12217,
+        $W()
+          ..h(this)
+          ..i64(indicator));
+    return $r.hnn($codec.IpldPrimeCodecDecoder.$h);
+  }
+
+  /// Go: `func (*multicodec.Registry).LookupEncoder(indicator uint64) (codec.Encoder, error)`.
+  $codec.IpldPrimeCodecEncoder lookupEncoder(int indicator) {
+    final $r = $callSync(
+        12218,
+        $W()
+          ..h(this)
+          ..i64(indicator));
+    return $r.hnn($codec.IpldPrimeCodecEncoder.$h);
+  }
+
+  /// Go: `func (*multicodec.Registry).RegisterDecoder(indicator uint64, decodeFunc codec.Decoder)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  ///
+  /// Go calls [decodeFunc] on the Dart event loop, during the call or
+  /// later for as long as it holds it (nobody checked which), and waits for
+  /// each invocation (a retained callback, WIRE.md).
+  Future<void> registerDecoder(
+      int indicator,
+      FutureOr<void> Function(
+              $datamodel.IpldPrimeDatamodelNodeAssembler nodeAssembler,
+              $io.IoReader reader)
+          decodeFunc) async {
+    await $call(
+        12219,
+        $W()
+          ..h(this)
+          ..i64(indicator)
+          ..cb(
+              (r) => decodeFunc(
+                  r.hnn($datamodel.IpldPrimeDatamodelNodeAssembler.$h),
+                  r.hnn($io.IoReader.$h)),
+              true));
+  }
+}
+
+/// Go: the package-level members of `github.com/ipld/go-ipld-prime/multicodec` (`go.ipld.ipldPrime.multicodec`).
+extension GoIpldIpldPrimeMulticodecApi on GoIpldIpldPrimeMulticodec {
+  /// Go: `var multicodec.DefaultRegistry multicodec.Registry`.
+  IpldPrimeMulticodecRegistry get defaultRegistry {
+    final $r = $callSync(12209);
+    return $r.hnn(IpldPrimeMulticodecRegistry.$h);
+  }
+
+  /// Go: `func multicodec.ListDecoders() []uint64`.
+  List<int> listDecoders() {
+    final $r = $callSync(12210);
+    return $r.list(() => $r.i64());
+  }
+
+  /// Go: `func multicodec.ListEncoders() []uint64`.
+  List<int> listEncoders() {
+    final $r = $callSync(12211);
+    return $r.list(() => $r.i64());
+  }
+
+  /// Go: `func multicodec.LookupDecoder(indicator uint64) (codec.Decoder, error)`.
+  $codec.IpldPrimeCodecDecoder lookupDecoder(int indicator) {
+    final $r = $callSync(12212, $W()..i64(indicator));
+    return $r.hnn($codec.IpldPrimeCodecDecoder.$h);
+  }
+
+  /// Go: `func multicodec.LookupEncoder(indicator uint64) (codec.Encoder, error)`.
+  $codec.IpldPrimeCodecEncoder lookupEncoder(int indicator) {
+    final $r = $callSync(12213, $W()..i64(indicator));
+    return $r.hnn($codec.IpldPrimeCodecEncoder.$h);
+  }
+
+  /// Go: `func multicodec.RegisterDecoder(indicator uint64, decodeFunc codec.Decoder)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  ///
+  /// Go calls [decodeFunc] on the Dart event loop, during the call or
+  /// later for as long as it holds it (nobody checked which), and waits for
+  /// each invocation (a retained callback, WIRE.md).
+  Future<void> registerDecoder(
+      int indicator,
+      FutureOr<void> Function(
+              $datamodel.IpldPrimeDatamodelNodeAssembler nodeAssembler,
+              $io.IoReader reader)
+          decodeFunc) async {
+    await $call(
+        12214,
+        $W()
+          ..i64(indicator)
+          ..cb(
+              (r) => decodeFunc(
+                  r.hnn($datamodel.IpldPrimeDatamodelNodeAssembler.$h),
+                  r.hnn($io.IoReader.$h)),
+              true));
+  }
 }

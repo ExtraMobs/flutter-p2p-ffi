@@ -8,24 +8,39 @@ import 'package:p2p_ffi/src/go.dart'
     show GoMultiformatsMultibase, GoMultiformatsMultibaseConsts;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 
 /// Go: `multibase.Encoder` (handle).
-class MultibaseEncoder extends $crypto.CryptoPrivateKey
-    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
-    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+class MultibaseEncoder extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   MultibaseEncoder.$h(super.$h) : super.$h();
 
   /// Go: `func multibase.NewEncoder(base multibase.Encoding) (multibase.Encoder, error)`.
   factory MultibaseEncoder(int base) {
-    final $r = $callSync(3481, $W()..i64(base));
+    final $r = $callSync(15988, $W()..i64(base));
     return $r.hnn(MultibaseEncoder.$h);
   }
 
   /// Go: `func (multibase.Encoder).Encode(data []byte) string`.
   String encode(Uint8List data) {
     final $r = $callSync(
-        3475,
+        15982,
         $W()
           ..h(this)
           ..bytes(data));
@@ -34,7 +49,7 @@ class MultibaseEncoder extends $crypto.CryptoPrivateKey
 
   /// Go: `func (multibase.Encoder).Encoding() multibase.Encoding`.
   int encoding() {
-    final $r = $callSync(3476, $W()..h(this));
+    final $r = $callSync(15983, $W()..h(this));
     return $r.i64();
   }
 }
@@ -52,14 +67,14 @@ class MultibaseErrUnsupportedEncoding extends GolangException {
 extension GoMultiformatsMultibaseApi on GoMultiformatsMultibase {
   /// Go: `func multibase.Decode(data string) (multibase.Encoding, []byte, error)`.
   (int, Uint8List) decode(String data) {
-    final $r = $callSync(3473, $W()..str(data));
+    final $r = $callSync(15980, $W()..str(data));
     return ($r.i64(), $r.bytes() ?? Uint8List(0));
   }
 
   /// Go: `func multibase.Encode(base multibase.Encoding, data []byte) (string, error)`.
   String encode(int base, Uint8List data) {
     final $r = $callSync(
-        3474,
+        15981,
         $W()
           ..i64(base)
           ..bytes(data));
@@ -68,25 +83,25 @@ extension GoMultiformatsMultibaseApi on GoMultiformatsMultibase {
 
   /// Go: `func multibase.EncoderByName(str string) (multibase.Encoder, error)`.
   MultibaseEncoder encoderByName(String str) {
-    final $r = $callSync(3477, $W()..str(str));
+    final $r = $callSync(15984, $W()..str(str));
     return $r.hnn(MultibaseEncoder.$h);
   }
 
   /// Go: `var multibase.EncodingToStr map[multibase.Encoding]string`.
   Map<int, String> get encodingToStr {
-    final $r = $callSync(3478);
+    final $r = $callSync(15985);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var multibase.Encodings map[string]multibase.Encoding`.
   Map<String, int> get encodings {
-    final $r = $callSync(3479);
+    final $r = $callSync(15986);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `func multibase.MustNewEncoder(base multibase.Encoding) multibase.Encoder`.
   MultibaseEncoder mustNewEncoder(int base) {
-    final $r = $callSync(3480, $W()..i64(base));
+    final $r = $callSync(15987, $W()..i64(base));
     return $r.hnn(MultibaseEncoder.$h);
   }
 }

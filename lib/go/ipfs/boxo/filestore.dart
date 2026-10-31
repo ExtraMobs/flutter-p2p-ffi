@@ -12,6 +12,8 @@ import 'package:p2p_ffi/src/go.dart'
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/block_format.dart' as $block_format;
 import 'package:p2p_ffi/go/ipfs/boxo/blockstore.dart' as $blockstore;
 import 'package:p2p_ffi/go/ipfs/boxo/filestore/posinfo.dart' as $posinfo;
@@ -19,19 +21,33 @@ import 'package:p2p_ffi/go/ipfs/boxo/provider.dart' as $provider;
 import 'package:p2p_ffi/go/ipfs/cid.dart' as $cid;
 import 'package:p2p_ffi/go/ipfs/datastore.dart' as $datastore;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/ipld_cbor.dart' as $ipld_cbor;
 import 'package:p2p_ffi/go/ipfs/kubo/core/node.dart' as $node;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 
 /// Go: `filestore.FileManager` (handle).
-class BoxoFilestoreFileManager extends $crypto.CryptoPrivateKey
-    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
-    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+class BoxoFilestoreFileManager extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   BoxoFilestoreFileManager.$h(super.$h) : super.$h();
 
   /// Go: `func filestore.NewFileManager(ds datastore.Batching, root string, options ...filestore.Option) *filestore.FileManager`.
   factory BoxoFilestoreFileManager($datastore.DatastoreBatching ds, String root,
       [List<BoxoFilestoreOption> options = const []]) {
     final $r = $callSync(
-        617,
+        9516,
         $W()
           ..h(ds)
           ..str(root)
@@ -41,7 +57,7 @@ class BoxoFilestoreFileManager extends $crypto.CryptoPrivateKey
 
   /// Go: `func (*filestore.FileManager).AllKeysChan(ctx context.Context) (<-chan cid.Cid, error)`.
   Stream<$cid.Cid> allKeysChan($context.Context ctx) => $stream(
-          597,
+          9496,
           $W()
             ..h(this)
             ..h(ctx))
@@ -52,7 +68,7 @@ class BoxoFilestoreFileManager extends $crypto.CryptoPrivateKey
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> deleteBlock($context.Context ctx, $cid.Cid c) async {
     await $call(
-        598,
+        9497,
         $W()
           ..h(this)
           ..h(ctx)
@@ -65,7 +81,7 @@ class BoxoFilestoreFileManager extends $crypto.CryptoPrivateKey
   Future<$block_format.BlockFormatBlock> get(
       $context.Context ctx, $cid.Cid c) async {
     final $r = await $call(
-        599,
+        9498,
         $W()
           ..h(this)
           ..h(ctx)
@@ -78,7 +94,7 @@ class BoxoFilestoreFileManager extends $crypto.CryptoPrivateKey
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getSize($context.Context ctx, $cid.Cid c) async {
     final $r = await $call(
-        600,
+        9499,
         $W()
           ..h(this)
           ..h(ctx)
@@ -91,7 +107,7 @@ class BoxoFilestoreFileManager extends $crypto.CryptoPrivateKey
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> has($context.Context ctx, $cid.Cid c) async {
     final $r = await $call(
-        601,
+        9500,
         $W()
           ..h(this)
           ..h(ctx)
@@ -105,7 +121,7 @@ class BoxoFilestoreFileManager extends $crypto.CryptoPrivateKey
   Future<void> put($context.Context ctx,
       $posinfo.BoxoFilestorePosinfoFilestoreNode b) async {
     await $call(
-        602,
+        9501,
         $W()
           ..h(this)
           ..h(ctx)
@@ -118,7 +134,7 @@ class BoxoFilestoreFileManager extends $crypto.CryptoPrivateKey
   Future<void> putMany($context.Context ctx,
       List<$posinfo.BoxoFilestorePosinfoFilestoreNode> bs) async {
     await $call(
-        603,
+        9502,
         $W()
           ..h(this)
           ..h(ctx)
@@ -129,15 +145,25 @@ class BoxoFilestoreFileManager extends $crypto.CryptoPrivateKey
 /// Go: `filestore.Filestore` (handle).
 class BoxoFilestore extends $blockstore.BoxoBlockstore
     with
+        $crypto.CryptoDecrypterOpts$,
         $crypto.CryptoPrivateKey$,
         $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
         $ipfs_cmds.IpfsCmdsEnvironment$,
-        $node.KuboCoreNodeBaseBlocks$
+        $ipld_cbor.IpldCborIpldBlockstore$,
+        $node.KuboCoreNodeBaseBlocks$,
+        $peertask.PeertaskqueuePeertaskTopic$
     implements
+        $crypto.CryptoDecrypterOpts,
         $crypto.CryptoPrivateKey,
         $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
         $ipfs_cmds.IpfsCmdsEnvironment,
-        $node.KuboCoreNodeBaseBlocks {
+        $ipld_cbor.IpldCborIpldBlockstore,
+        $node.KuboCoreNodeBaseBlocks,
+        $peertask.PeertaskqueuePeertaskTopic {
   BoxoFilestore.$h(super.$h) : super.$h();
 
   /// Go: `func filestore.NewFilestore(bs blockstore.Blockstore, fm *filestore.FileManager, prov provider.MultihashProvider) *filestore.Filestore`.
@@ -146,7 +172,7 @@ class BoxoFilestore extends $blockstore.BoxoBlockstore
       BoxoFilestoreFileManager fm,
       $provider.BoxoProviderMultihashProvider prov) {
     final $r = $callSync(
-        618,
+        9517,
         $W()
           ..h(bs)
           ..h(fm)
@@ -156,7 +182,7 @@ class BoxoFilestore extends $blockstore.BoxoBlockstore
 
   /// Go: `func (*filestore.Filestore).AllKeysChan(ctx context.Context) (<-chan cid.Cid, error)`.
   Stream<$cid.Cid> allKeysChan($context.Context ctx) => $stream(
-          604,
+          9503,
           $W()
             ..h(this)
             ..h(ctx))
@@ -167,7 +193,7 @@ class BoxoFilestore extends $blockstore.BoxoBlockstore
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> deleteBlock($context.Context ctx, $cid.Cid c) async {
     await $call(
-        605,
+        9504,
         $W()
           ..h(this)
           ..h(ctx)
@@ -176,7 +202,7 @@ class BoxoFilestore extends $blockstore.BoxoBlockstore
 
   /// Go: `func (*filestore.Filestore).FileManager() *filestore.FileManager`.
   BoxoFilestoreFileManager fileManager() {
-    final $r = $callSync(606, $W()..h(this));
+    final $r = $callSync(9505, $W()..h(this));
     return $r.hnn(BoxoFilestoreFileManager.$h);
   }
 
@@ -186,7 +212,7 @@ class BoxoFilestore extends $blockstore.BoxoBlockstore
   Future<$block_format.BlockFormatBlock> get(
       $context.Context ctx, $cid.Cid c) async {
     final $r = await $call(
-        607,
+        9506,
         $W()
           ..h(this)
           ..h(ctx)
@@ -199,7 +225,7 @@ class BoxoFilestore extends $blockstore.BoxoBlockstore
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getSize($context.Context ctx, $cid.Cid c) async {
     final $r = await $call(
-        608,
+        9507,
         $W()
           ..h(this)
           ..h(ctx)
@@ -212,7 +238,7 @@ class BoxoFilestore extends $blockstore.BoxoBlockstore
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> has($context.Context ctx, $cid.Cid c) async {
     final $r = await $call(
-        609,
+        9508,
         $W()
           ..h(this)
           ..h(ctx)
@@ -222,7 +248,7 @@ class BoxoFilestore extends $blockstore.BoxoBlockstore
 
   /// Go: `func (*filestore.Filestore).MainBlockstore() blockstore.Blockstore`.
   $blockstore.BoxoBlockstore mainBlockstore() {
-    final $r = $callSync(610, $W()..h(this));
+    final $r = $callSync(9509, $W()..h(this));
     return $r.hnn($blockstore.BoxoBlockstore.$h);
   }
 
@@ -232,7 +258,7 @@ class BoxoFilestore extends $blockstore.BoxoBlockstore
   Future<void> put(
       $context.Context ctx, $block_format.BlockFormatBlock b) async {
     await $call(
-        611,
+        9510,
         $W()
           ..h(this)
           ..h(ctx)
@@ -245,7 +271,7 @@ class BoxoFilestore extends $blockstore.BoxoBlockstore
   Future<void> putMany(
       $context.Context ctx, List<$block_format.BlockFormatBlock> bs) async {
     await $call(
-        612,
+        9511,
         $W()
           ..h(this)
           ..h(ctx)
@@ -321,7 +347,7 @@ final class BoxoFilestoreListRes implements GoDto {
   /// each invocation (a retained callback, WIRE.md).
   Future<String> formatLong(FutureOr<String> Function($cid.Cid cid) enc) async {
     final $r = await $call(
-        616,
+        9515,
         $W()
           ..dto(this)
           ..cb((r) => enc(r.p() ? $cid.Cid(r.str()) : $nil()), true,
@@ -371,13 +397,13 @@ class BoxoFilestoreErrUrlstoreNotEnabled extends GolangException {
 extension GoIpfsBoxoFilestoreApi on GoIpfsBoxoFilestore {
   /// Go: `var filestore.FilestorePrefix datastore.Key`.
   $datastore.DatastoreKey get filestorePrefix {
-    final $r = $callSync(613);
+    final $r = $callSync(9512);
     return $r.hnn($datastore.DatastoreKey.$h);
   }
 
   /// Go: `func filestore.IsURL(str string) bool`.
   bool isUrl(String str) {
-    final $r = $callSync(614, $W()..str(str));
+    final $r = $callSync(9513, $W()..str(str));
     return $r.b();
   }
 
@@ -387,7 +413,7 @@ extension GoIpfsBoxoFilestoreApi on GoIpfsBoxoFilestore {
   Future<BoxoFilestoreListRes> list(
       $context.Context ctx, BoxoFilestore fs, $cid.Cid key) async {
     final $r = await $call(
-        615,
+        9514,
         $W()
           ..h(ctx)
           ..h(fs)
@@ -401,7 +427,7 @@ extension GoIpfsBoxoFilestoreApi on GoIpfsBoxoFilestore {
   Future<BoxoFilestoreListRes> verify(
       $context.Context ctx, BoxoFilestore fs, $cid.Cid key) async {
     final $r = await $call(
-        619,
+        9518,
         $W()
           ..h(ctx)
           ..h(fs)

@@ -7,10 +7,13 @@ import 'package:p2p_ffi/src/go.dart'
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/boxo/ipld/merkledag.dart' as $merkledag;
 import 'package:p2p_ffi/go/ipfs/cid.dart' as $cid;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 import 'package:p2p_ffi/go/ipfs/ipld_format.dart' as $ipld_format;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 
 /// Go: `dagutils.Change`.
 final class BoxoIpldMerkledagDagutilsChange implements GoDto {
@@ -50,7 +53,7 @@ final class BoxoIpldMerkledagDagutilsChange implements GoDto {
 
   /// Go: `func (*dagutils.Change).String() string`.
   String string() {
-    final $r = $callSync(773, $W()..dto(this));
+    final $r = $callSync(9691, $W()..dto(this));
     return $r.str();
   }
 }
@@ -81,9 +84,21 @@ final class BoxoIpldMerkledagDagutilsConflict implements GoDto {
 }
 
 /// Go: `dagutils.Editor` (handle).
-class BoxoIpldMerkledagDagutilsEditor extends $crypto.CryptoPrivateKey
-    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
-    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+class BoxoIpldMerkledagDagutilsEditor extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   BoxoIpldMerkledagDagutilsEditor.$h(super.$h) : super.$h();
 
   /// Go: `func (*dagutils.Editor).Finalize(ctx context.Context, ds format.DAGService) (*merkledag.ProtoNode, error)`.
@@ -92,7 +107,7 @@ class BoxoIpldMerkledagDagutilsEditor extends $crypto.CryptoPrivateKey
   Future<$merkledag.BoxoIpldMerkledagProtoNode> finalize(
       $context.Context ctx, $ipld_format.IpldFormatDagService ds) async {
     final $r = await $call(
-        776,
+        9694,
         $W()
           ..h(this)
           ..h(ctx)
@@ -102,13 +117,13 @@ class BoxoIpldMerkledagDagutilsEditor extends $crypto.CryptoPrivateKey
 
   /// Go: `func (*dagutils.Editor).GetDagService() format.DAGService`.
   $ipld_format.IpldFormatDagService getDagService() {
-    final $r = $callSync(777, $W()..h(this));
+    final $r = $callSync(9695, $W()..h(this));
     return $r.hnn($ipld_format.IpldFormatDagService.$h);
   }
 
   /// Go: `func (*dagutils.Editor).GetNode() *merkledag.ProtoNode`.
   $merkledag.BoxoIpldMerkledagProtoNode getNode() {
-    final $r = $callSync(778, $W()..h(this));
+    final $r = $callSync(9696, $W()..h(this));
     return $r.hnn($merkledag.BoxoIpldMerkledagProtoNode.$h);
   }
 
@@ -117,7 +132,7 @@ class BoxoIpldMerkledagDagutilsEditor extends $crypto.CryptoPrivateKey
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> rmLink($context.Context ctx, String pth) async {
     await $call(
-        779,
+        9697,
         $W()
           ..h(this)
           ..h(ctx)
@@ -137,7 +152,7 @@ extension GoIpfsBoxoIpldMerkledagDagutilsApi
       $merkledag.BoxoIpldMerkledagProtoNode nd,
       List<BoxoIpldMerkledagDagutilsChange> cs) async {
     final $r = await $call(
-        772,
+        9690,
         $W()
           ..h(ctx)
           ..h(ds)
@@ -155,7 +170,7 @@ extension GoIpfsBoxoIpldMerkledagDagutilsApi
       $ipld_format.IpldFormatNode a,
       $ipld_format.IpldFormatNode b) async {
     final $r = await $call(
-        774,
+        9692,
         $W()
           ..h(ctx)
           ..h(ds)
@@ -174,7 +189,7 @@ extension GoIpfsBoxoIpldMerkledagDagutilsApi
       $cid.Cid from,
       $cid.Cid to) async {
     await $call(
-        775,
+        9693,
         $W()
           ..h(ctx)
           ..h(dserv)
@@ -189,7 +204,7 @@ extension GoIpfsBoxoIpldMerkledagDagutilsApi
   ) mergeDiffs(List<BoxoIpldMerkledagDagutilsChange> a,
       List<BoxoIpldMerkledagDagutilsChange> b) {
     final $r = $callSync(
-        780,
+        9698,
         $W()
           ..list(a, (w0, e0) => w0.dto(e0))
           ..list(b, (w0, e0) => w0.dto(e0)));
@@ -205,7 +220,7 @@ extension GoIpfsBoxoIpldMerkledagDagutilsApi
       $merkledag.BoxoIpldMerkledagProtoNode root,
       $ipld_format.IpldFormatDagService source) {
     final $r = $callSync(
-        781,
+        9699,
         $W()
           ..h(root)
           ..h(source));
@@ -214,7 +229,7 @@ extension GoIpfsBoxoIpldMerkledagDagutilsApi
 
   /// Go: `func dagutils.NewMemoryDagService() format.DAGService`.
   $ipld_format.IpldFormatDagService newMemoryDagService() {
-    final $r = $callSync(782);
+    final $r = $callSync(9700);
     return $r.hnn($ipld_format.IpldFormatDagService.$h);
   }
 }

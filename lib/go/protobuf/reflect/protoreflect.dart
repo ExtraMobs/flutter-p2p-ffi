@@ -2,8 +2,64 @@
 // Go: google.golang.org/protobuf/reflect/protoreflect
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoProtobufReflectProtoreflectEnums;
+import 'dart:async';
+import 'dart:typed_data';
+
+import 'package:p2p_ffi/src/go.dart'
+    show GoProtobufReflectProtoreflect, GoProtobufReflectProtoreflectEnums;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/genproto/googleapis/api/httpbody.dart' as $httpbody;
+import 'package:p2p_ffi/go/genproto/googleapis/rpc/errdetails.dart'
+    as $errdetails;
+import 'package:p2p_ffi/go/genproto/googleapis/rpc/status.dart' as $status;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
+import 'package:p2p_ffi/go/grpc/binarylog/grpc_binarylog_v1.dart'
+    as $grpc_binarylog_v1;
+import 'package:p2p_ffi/go/grpc/health/grpc_health_v1.dart' as $grpc_health_v1;
+import 'package:p2p_ffi/go/ipfs/boxo/bitswap/message/pb.dart' as $pb;
+import 'package:p2p_ffi/go/ipfs/boxo/filestore/pb.dart' as $pb2;
+import 'package:p2p_ffi/go/ipfs/boxo/ipld/merkledag/pb.dart' as $pb3;
+import 'package:p2p_ffi/go/ipfs/boxo/ipld/unixfs/pb.dart' as $pb4;
+import 'package:p2p_ffi/go/ipfs/boxo/ipns/pb.dart' as $pb5;
+import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/crypto/pb.dart' as $pb9;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/peer/pb.dart' as $pb10;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/record/pb.dart' as $pb11;
+import 'package:p2p_ffi/go/libp2p/libp2p/p2p/host/autonat/pb.dart' as $pb12;
+import 'package:p2p_ffi/go/libp2p/libp2p/p2p/protocol/autonatv2/pb.dart'
+    as $pb13;
+import 'package:p2p_ffi/go/libp2p/libp2p/p2p/protocol/circuitv2/pb.dart'
+    as $pb14;
+import 'package:p2p_ffi/go/libp2p/libp2p/p2p/protocol/holepunch/pb.dart'
+    as $pb15;
+import 'package:p2p_ffi/go/libp2p/libp2p/p2p/protocol/identify/pb.dart'
+    as $pb16;
+import 'package:p2p_ffi/go/libp2p/libp2p/p2p/security/insecure/pb.dart'
+    as $pb17;
+import 'package:p2p_ffi/go/libp2p/libp2p/p2p/security/noise/pb.dart' as $pb18;
+import 'package:p2p_ffi/go/libp2p/libp2p/p2p/transport/webrtc/pb.dart' as $pb19;
+import 'package:p2p_ffi/go/libp2p/libp2p_kad_dht/pb.dart' as $pb6;
+import 'package:p2p_ffi/go/libp2p/libp2p_pubsub.dart' as $libp2p_pubsub;
+import 'package:p2p_ffi/go/libp2p/libp2p_pubsub/pb.dart' as $pb7;
+import 'package:p2p_ffi/go/libp2p/libp2p_record/pb.dart' as $pb8;
+import 'package:p2p_ffi/go/prometheus/client_model/go.dart' as $go;
+import 'package:p2p_ffi/go/proto/otlp/collector/trace/v1.dart' as $v1;
+import 'package:p2p_ffi/go/proto/otlp/common/v1.dart' as $v12;
+import 'package:p2p_ffi/go/proto/otlp/resource/v1.dart' as $v13;
+import 'package:p2p_ffi/go/proto/otlp/trace/v1.dart' as $v14;
+import 'package:p2p_ffi/go/protobuf/types/descriptorpb.dart' as $descriptorpb;
+import 'package:p2p_ffi/go/protobuf/types/gofeaturespb.dart' as $gofeaturespb;
+import 'package:p2p_ffi/go/protobuf/types/known/anypb.dart' as $anypb;
+import 'package:p2p_ffi/go/protobuf/types/known/durationpb.dart' as $durationpb;
+import 'package:p2p_ffi/go/protobuf/types/known/fieldmaskpb.dart'
+    as $fieldmaskpb;
+import 'package:p2p_ffi/go/protobuf/types/known/structpb.dart' as $structpb;
+import 'package:p2p_ffi/go/protobuf/types/known/timestamppb.dart'
+    as $timestamppb;
+import 'package:p2p_ffi/go/protobuf/types/known/wrapperspb.dart' as $wrapperspb;
 
 /// Go: `protoreflect.Descriptor` (handle).
 class ProtobufReflectProtoreflectDescriptor extends GoHandle
@@ -12,7 +68,736 @@ class ProtobufReflectProtoreflectDescriptor extends GoHandle
 }
 
 /// The methods of [ProtobufReflectProtoreflectDescriptor], mixed into every class Go also accepts as one.
-mixin ProtobufReflectProtoreflectDescriptor$ on GoHandle {}
+mixin ProtobufReflectProtoreflectDescriptor$ on GoHandle {
+  /// Go: `func (protoreflect.Descriptor).FullName() protoreflect.FullName`.
+  String fullName() {
+    final $r = $callSync(24816, $W()..h(this));
+    return $r.str();
+  }
+
+  /// Go: `func (protoreflect.Descriptor).Index() int`.
+  int index() {
+    final $r = $callSync(24817, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (protoreflect.Descriptor).IsPlaceholder() bool`.
+  bool isPlaceholder() {
+    final $r = $callSync(24818, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (protoreflect.Descriptor).Name() protoreflect.Name`.
+  String name() {
+    final $r = $callSync(24819, $W()..h(this));
+    return $r.str();
+  }
+
+  /// Go: `func (protoreflect.Descriptor).Options() protoreflect.ProtoMessage`.
+  ProtobufReflectProtoreflectProtoMessage options() {
+    final $r = $callSync(24820, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectProtoMessage.$h);
+  }
+
+  /// Go: `func (protoreflect.Descriptor).Parent() protoreflect.Descriptor`.
+  ProtobufReflectProtoreflectDescriptor parent() {
+    final $r = $callSync(24821, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectDescriptor.$h);
+  }
+
+  /// Go: `func (protoreflect.Descriptor).ParentFile() protoreflect.FileDescriptor`.
+  ProtobufReflectProtoreflectFileDescriptor parentFile() {
+    final $r = $callSync(24822, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectFileDescriptor.$h);
+  }
+
+  /// Go: `func (protoreflect.Descriptor).Syntax() protoreflect.Syntax`.
+  int syntax() {
+    final $r = $callSync(24823, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: type assertion `x.(*protoreflect.FileImport)`: null if the object is not one.
+  ProtobufReflectProtoreflectFileImport?
+      asProtobufReflectProtoreflectFileImport() {
+    final $r = $callSync(2183, $W()..h(this));
+    return $r.hn(ProtobufReflectProtoreflectFileImport.$h);
+  }
+
+  /// Go: type assertion `x.(protoreflect.EnumDescriptor)`: null if the object is not one.
+  ProtobufReflectProtoreflectEnumDescriptor?
+      asProtobufReflectProtoreflectEnumDescriptor() {
+    final $r = $callSync(2184, $W()..h(this));
+    return $r.hn(ProtobufReflectProtoreflectEnumDescriptor.$h);
+  }
+
+  /// Go: type assertion `x.(protoreflect.EnumValueDescriptor)`: null if the object is not one.
+  ProtobufReflectProtoreflectEnumValueDescriptor?
+      asProtobufReflectProtoreflectEnumValueDescriptor() {
+    final $r = $callSync(2185, $W()..h(this));
+    return $r.hn(ProtobufReflectProtoreflectEnumValueDescriptor.$h);
+  }
+
+  /// Go: type assertion `x.(protoreflect.ExtensionTypeDescriptor)`: null if the object is not one.
+  ProtobufReflectProtoreflectExtensionTypeDescriptor?
+      asProtobufReflectProtoreflectExtensionTypeDescriptor() {
+    final $r = $callSync(2186, $W()..h(this));
+    return $r.hn(ProtobufReflectProtoreflectExtensionTypeDescriptor.$h);
+  }
+
+  /// Go: type assertion `x.(protoreflect.FieldDescriptor)`: null if the object is not one.
+  ProtobufReflectProtoreflectFieldDescriptor?
+      asProtobufReflectProtoreflectFieldDescriptor() {
+    final $r = $callSync(2187, $W()..h(this));
+    return $r.hn(ProtobufReflectProtoreflectFieldDescriptor.$h);
+  }
+
+  /// Go: type assertion `x.(protoreflect.FileDescriptor)`: null if the object is not one.
+  ProtobufReflectProtoreflectFileDescriptor?
+      asProtobufReflectProtoreflectFileDescriptor() {
+    final $r = $callSync(2188, $W()..h(this));
+    return $r.hn(ProtobufReflectProtoreflectFileDescriptor.$h);
+  }
+
+  /// Go: type assertion `x.(protoreflect.MessageDescriptor)`: null if the object is not one.
+  ProtobufReflectProtoreflectMessageDescriptor?
+      asProtobufReflectProtoreflectMessageDescriptor() {
+    final $r = $callSync(2189, $W()..h(this));
+    return $r.hn(ProtobufReflectProtoreflectMessageDescriptor.$h);
+  }
+
+  /// Go: type assertion `x.(protoreflect.MethodDescriptor)`: null if the object is not one.
+  ProtobufReflectProtoreflectMethodDescriptor?
+      asProtobufReflectProtoreflectMethodDescriptor() {
+    final $r = $callSync(2190, $W()..h(this));
+    return $r.hn(ProtobufReflectProtoreflectMethodDescriptor.$h);
+  }
+
+  /// Go: type assertion `x.(protoreflect.OneofDescriptor)`: null if the object is not one.
+  ProtobufReflectProtoreflectOneofDescriptor?
+      asProtobufReflectProtoreflectOneofDescriptor() {
+    final $r = $callSync(2191, $W()..h(this));
+    return $r.hn(ProtobufReflectProtoreflectOneofDescriptor.$h);
+  }
+
+  /// Go: type assertion `x.(protoreflect.ServiceDescriptor)`: null if the object is not one.
+  ProtobufReflectProtoreflectServiceDescriptor?
+      asProtobufReflectProtoreflectServiceDescriptor() {
+    final $r = $callSync(2192, $W()..h(this));
+    return $r.hn(ProtobufReflectProtoreflectServiceDescriptor.$h);
+  }
+}
+
+/// Go: `protoreflect.Enum` (handle).
+class ProtobufReflectProtoreflectEnum extends GoHandle
+    with ProtobufReflectProtoreflectEnum$ {
+  ProtobufReflectProtoreflectEnum.$h(super.$h);
+}
+
+/// The methods of [ProtobufReflectProtoreflectEnum], mixed into every class Go also accepts as one.
+mixin ProtobufReflectProtoreflectEnum$ on GoHandle {
+  /// Go: `func (protoreflect.Enum).Descriptor() protoreflect.EnumDescriptor`.
+  ProtobufReflectProtoreflectEnumDescriptor descriptor() {
+    final $r = $callSync(24824, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectEnumDescriptor.$h);
+  }
+
+  /// Go: `func (protoreflect.Enum).Number() protoreflect.EnumNumber`.
+  int number() {
+    final $r = $callSync(24825, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (protoreflect.Enum).Type() protoreflect.EnumType`.
+  ProtobufReflectProtoreflectEnumType type() {
+    final $r = $callSync(24826, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectEnumType.$h);
+  }
+}
+
+/// Go: `protoreflect.EnumDescriptor` (handle).
+class ProtobufReflectProtoreflectEnumDescriptor
+    extends ProtobufReflectProtoreflectDescriptor
+    with ProtobufReflectProtoreflectEnumDescriptor$ {
+  ProtobufReflectProtoreflectEnumDescriptor.$h(super.$h) : super.$h();
+}
+
+/// The methods of [ProtobufReflectProtoreflectEnumDescriptor], mixed into every class Go also accepts as one.
+mixin ProtobufReflectProtoreflectEnumDescriptor$ on GoHandle {
+  /// Go: `func (protoreflect.EnumDescriptor).IsClosed() bool`.
+  bool isClosed() {
+    final $r = $callSync(24827, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (protoreflect.EnumDescriptor).ReservedNames() protoreflect.Names`.
+  ProtobufReflectProtoreflectNames reservedNames() {
+    final $r = $callSync(24828, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectNames.$h);
+  }
+
+  /// Go: `func (protoreflect.EnumDescriptor).ReservedRanges() protoreflect.EnumRanges`.
+  ProtobufReflectProtoreflectEnumRanges reservedRanges() {
+    final $r = $callSync(24829, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectEnumRanges.$h);
+  }
+
+  /// Go: `func (protoreflect.EnumDescriptor).Values() protoreflect.EnumValueDescriptors`.
+  ProtobufReflectProtoreflectEnumValueDescriptors values() {
+    final $r = $callSync(24830, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectEnumValueDescriptors.$h);
+  }
+}
+
+/// Go: `protoreflect.EnumDescriptors` (handle).
+class ProtobufReflectProtoreflectEnumDescriptors extends GoHandle
+    with ProtobufReflectProtoreflectEnumDescriptors$ {
+  ProtobufReflectProtoreflectEnumDescriptors.$h(super.$h);
+}
+
+/// The methods of [ProtobufReflectProtoreflectEnumDescriptors], mixed into every class Go also accepts as one.
+mixin ProtobufReflectProtoreflectEnumDescriptors$ on GoHandle {
+  /// Go: `func (protoreflect.EnumDescriptors).ByName(s protoreflect.Name) protoreflect.EnumDescriptor`.
+  ProtobufReflectProtoreflectEnumDescriptor byName(String s) {
+    final $r = $callSync(
+        24831,
+        $W()
+          ..h(this)
+          ..str(s));
+    return $r.hnn(ProtobufReflectProtoreflectEnumDescriptor.$h);
+  }
+
+  /// Go: `func (protoreflect.EnumDescriptors).Get(i int) protoreflect.EnumDescriptor`.
+  ProtobufReflectProtoreflectEnumDescriptor get(int i) {
+    final $r = $callSync(
+        24832,
+        $W()
+          ..h(this)
+          ..i64(i));
+    return $r.hnn(ProtobufReflectProtoreflectEnumDescriptor.$h);
+  }
+
+  /// Go: `func (protoreflect.EnumDescriptors).Len() int`.
+  int len() {
+    final $r = $callSync(24833, $W()..h(this));
+    return $r.i64();
+  }
+}
+
+/// Go: `protoreflect.EnumRanges` (handle).
+class ProtobufReflectProtoreflectEnumRanges extends GoHandle
+    with ProtobufReflectProtoreflectEnumRanges$ {
+  ProtobufReflectProtoreflectEnumRanges.$h(super.$h);
+}
+
+/// The methods of [ProtobufReflectProtoreflectEnumRanges], mixed into every class Go also accepts as one.
+mixin ProtobufReflectProtoreflectEnumRanges$ on GoHandle {
+  /// Go: `func (protoreflect.EnumRanges).Has(n protoreflect.EnumNumber) bool`.
+  bool has(int n) {
+    final $r = $callSync(
+        24834,
+        $W()
+          ..h(this)
+          ..i64(n));
+    return $r.b();
+  }
+
+  /// Go: `func (protoreflect.EnumRanges).Len() int`.
+  int len() {
+    final $r = $callSync(24835, $W()..h(this));
+    return $r.i64();
+  }
+}
+
+/// Go: `protoreflect.EnumType` (handle).
+class ProtobufReflectProtoreflectEnumType extends GoHandle
+    with ProtobufReflectProtoreflectEnumType$ {
+  ProtobufReflectProtoreflectEnumType.$h(super.$h);
+}
+
+/// The methods of [ProtobufReflectProtoreflectEnumType], mixed into every class Go also accepts as one.
+mixin ProtobufReflectProtoreflectEnumType$ on GoHandle {
+  /// Go: `func (protoreflect.EnumType).Descriptor() protoreflect.EnumDescriptor`.
+  ProtobufReflectProtoreflectEnumDescriptor descriptor() {
+    final $r = $callSync(24836, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectEnumDescriptor.$h);
+  }
+
+  /// Go: `func (protoreflect.EnumType).New(n protoreflect.EnumNumber) protoreflect.Enum`.
+  ProtobufReflectProtoreflectEnum new$(int n) {
+    final $r = $callSync(
+        24837,
+        $W()
+          ..h(this)
+          ..i64(n));
+    return $r.hnn(ProtobufReflectProtoreflectEnum.$h);
+  }
+}
+
+/// Go: `protoreflect.EnumValueDescriptor` (handle).
+class ProtobufReflectProtoreflectEnumValueDescriptor
+    extends ProtobufReflectProtoreflectDescriptor
+    with ProtobufReflectProtoreflectEnumValueDescriptor$ {
+  ProtobufReflectProtoreflectEnumValueDescriptor.$h(super.$h) : super.$h();
+}
+
+/// The methods of [ProtobufReflectProtoreflectEnumValueDescriptor], mixed into every class Go also accepts as one.
+mixin ProtobufReflectProtoreflectEnumValueDescriptor$ on GoHandle {
+  /// Go: `func (protoreflect.EnumValueDescriptor).Number() protoreflect.EnumNumber`.
+  int number() {
+    final $r = $callSync(24838, $W()..h(this));
+    return $r.i64();
+  }
+}
+
+/// Go: `protoreflect.EnumValueDescriptors` (handle).
+class ProtobufReflectProtoreflectEnumValueDescriptors extends GoHandle
+    with ProtobufReflectProtoreflectEnumValueDescriptors$ {
+  ProtobufReflectProtoreflectEnumValueDescriptors.$h(super.$h);
+}
+
+/// The methods of [ProtobufReflectProtoreflectEnumValueDescriptors], mixed into every class Go also accepts as one.
+mixin ProtobufReflectProtoreflectEnumValueDescriptors$ on GoHandle {
+  /// Go: `func (protoreflect.EnumValueDescriptors).ByName(s protoreflect.Name) protoreflect.EnumValueDescriptor`.
+  ProtobufReflectProtoreflectEnumValueDescriptor byName(String s) {
+    final $r = $callSync(
+        24839,
+        $W()
+          ..h(this)
+          ..str(s));
+    return $r.hnn(ProtobufReflectProtoreflectEnumValueDescriptor.$h);
+  }
+
+  /// Go: `func (protoreflect.EnumValueDescriptors).ByNumber(n protoreflect.EnumNumber) protoreflect.EnumValueDescriptor`.
+  ProtobufReflectProtoreflectEnumValueDescriptor byNumber(int n) {
+    final $r = $callSync(
+        24840,
+        $W()
+          ..h(this)
+          ..i64(n));
+    return $r.hnn(ProtobufReflectProtoreflectEnumValueDescriptor.$h);
+  }
+
+  /// Go: `func (protoreflect.EnumValueDescriptors).Get(i int) protoreflect.EnumValueDescriptor`.
+  ProtobufReflectProtoreflectEnumValueDescriptor get(int i) {
+    final $r = $callSync(
+        24841,
+        $W()
+          ..h(this)
+          ..i64(i));
+    return $r.hnn(ProtobufReflectProtoreflectEnumValueDescriptor.$h);
+  }
+
+  /// Go: `func (protoreflect.EnumValueDescriptors).Len() int`.
+  int len() {
+    final $r = $callSync(24842, $W()..h(this));
+    return $r.i64();
+  }
+}
+
+/// Go: `protoreflect.ExtensionDescriptors` (handle).
+class ProtobufReflectProtoreflectExtensionDescriptors extends GoHandle
+    with ProtobufReflectProtoreflectExtensionDescriptors$ {
+  ProtobufReflectProtoreflectExtensionDescriptors.$h(super.$h);
+}
+
+/// The methods of [ProtobufReflectProtoreflectExtensionDescriptors], mixed into every class Go also accepts as one.
+mixin ProtobufReflectProtoreflectExtensionDescriptors$ on GoHandle {
+  /// Go: `func (protoreflect.ExtensionDescriptors).ByName(s protoreflect.Name) protoreflect.ExtensionDescriptor`.
+  ProtobufReflectProtoreflectFieldDescriptor byName(String s) {
+    final $r = $callSync(
+        24843,
+        $W()
+          ..h(this)
+          ..str(s));
+    return $r.hnn(ProtobufReflectProtoreflectFieldDescriptor.$h);
+  }
+
+  /// Go: `func (protoreflect.ExtensionDescriptors).Get(i int) protoreflect.ExtensionDescriptor`.
+  ProtobufReflectProtoreflectFieldDescriptor get(int i) {
+    final $r = $callSync(
+        24844,
+        $W()
+          ..h(this)
+          ..i64(i));
+    return $r.hnn(ProtobufReflectProtoreflectFieldDescriptor.$h);
+  }
+
+  /// Go: `func (protoreflect.ExtensionDescriptors).Len() int`.
+  int len() {
+    final $r = $callSync(24845, $W()..h(this));
+    return $r.i64();
+  }
+}
+
+/// Go: `protoreflect.ExtensionType` (handle).
+class ProtobufReflectProtoreflectExtensionType extends GoHandle
+    with ProtobufReflectProtoreflectExtensionType$ {
+  ProtobufReflectProtoreflectExtensionType.$h(super.$h);
+}
+
+/// The methods of [ProtobufReflectProtoreflectExtensionType], mixed into every class Go also accepts as one.
+mixin ProtobufReflectProtoreflectExtensionType$ on GoHandle {
+  /// Go: `func (protoreflect.ExtensionType).InterfaceOf(protoreflect.Value) any`.
+  Object? interfaceOf(ProtobufReflectProtoreflectValue value) {
+    final $r = $callSync(
+        24846,
+        $W()
+          ..h(this)
+          ..h(value));
+    return $r.any();
+  }
+
+  /// Go: `func (protoreflect.ExtensionType).IsValidInterface(any) bool`.
+  bool isValidInterface(Object? arg0) {
+    final $r = $callSync(
+        24847,
+        $W()
+          ..h(this)
+          ..any(arg0));
+    return $r.b();
+  }
+
+  /// Go: `func (protoreflect.ExtensionType).IsValidValue(protoreflect.Value) bool`.
+  bool isValidValue(ProtobufReflectProtoreflectValue value) {
+    final $r = $callSync(
+        24848,
+        $W()
+          ..h(this)
+          ..h(value));
+    return $r.b();
+  }
+
+  /// Go: `func (protoreflect.ExtensionType).New() protoreflect.Value`.
+  ProtobufReflectProtoreflectValue new$() {
+    final $r = $callSync(24849, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectValue.$h);
+  }
+
+  /// Go: `func (protoreflect.ExtensionType).TypeDescriptor() protoreflect.ExtensionTypeDescriptor`.
+  ProtobufReflectProtoreflectExtensionTypeDescriptor typeDescriptor() {
+    final $r = $callSync(24850, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectExtensionTypeDescriptor.$h);
+  }
+
+  /// Go: `func (protoreflect.ExtensionType).ValueOf(any) protoreflect.Value`.
+  ProtobufReflectProtoreflectValue valueOf(Object? arg0) {
+    final $r = $callSync(
+        24851,
+        $W()
+          ..h(this)
+          ..any(arg0));
+    return $r.hnn(ProtobufReflectProtoreflectValue.$h);
+  }
+
+  /// Go: `func (protoreflect.ExtensionType).Zero() protoreflect.Value`.
+  ProtobufReflectProtoreflectValue zero() {
+    final $r = $callSync(24852, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectValue.$h);
+  }
+}
+
+/// Go: `protoreflect.ExtensionTypeDescriptor` (handle).
+class ProtobufReflectProtoreflectExtensionTypeDescriptor extends GoHandle
+    with
+        ProtobufReflectProtoreflectDescriptor$,
+        ProtobufReflectProtoreflectFieldDescriptor$,
+        ProtobufReflectProtoreflectExtensionTypeDescriptor$
+    implements
+        ProtobufReflectProtoreflectDescriptor,
+        ProtobufReflectProtoreflectFieldDescriptor {
+  ProtobufReflectProtoreflectExtensionTypeDescriptor.$h(super.$h);
+}
+
+/// The methods of [ProtobufReflectProtoreflectExtensionTypeDescriptor], mixed into every class Go also accepts as one.
+mixin ProtobufReflectProtoreflectExtensionTypeDescriptor$ on GoHandle {
+  /// Go: `func (protoreflect.ExtensionTypeDescriptor).Descriptor() protoreflect.ExtensionDescriptor`.
+  ProtobufReflectProtoreflectFieldDescriptor descriptor() {
+    final $r = $callSync(24853, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectFieldDescriptor.$h);
+  }
+
+  /// Go: `func (protoreflect.ExtensionTypeDescriptor).Type() protoreflect.ExtensionType`.
+  ProtobufReflectProtoreflectExtensionType type() {
+    final $r = $callSync(24854, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectExtensionType.$h);
+  }
+}
+
+/// Go: `protoreflect.FieldDescriptor` (handle).
+class ProtobufReflectProtoreflectFieldDescriptor
+    extends ProtobufReflectProtoreflectDescriptor
+    with ProtobufReflectProtoreflectFieldDescriptor$ {
+  ProtobufReflectProtoreflectFieldDescriptor.$h(super.$h) : super.$h();
+}
+
+/// The methods of [ProtobufReflectProtoreflectFieldDescriptor], mixed into every class Go also accepts as one.
+mixin ProtobufReflectProtoreflectFieldDescriptor$ on GoHandle {
+  /// Go: `func (protoreflect.FieldDescriptor).Cardinality() protoreflect.Cardinality`.
+  int cardinality() {
+    final $r = $callSync(24855, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (protoreflect.FieldDescriptor).ContainingMessage() protoreflect.MessageDescriptor`.
+  ProtobufReflectProtoreflectMessageDescriptor containingMessage() {
+    final $r = $callSync(24856, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectMessageDescriptor.$h);
+  }
+
+  /// Go: `func (protoreflect.FieldDescriptor).ContainingOneof() protoreflect.OneofDescriptor`.
+  ProtobufReflectProtoreflectOneofDescriptor containingOneof() {
+    final $r = $callSync(24857, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectOneofDescriptor.$h);
+  }
+
+  /// Go: `func (protoreflect.FieldDescriptor).Default() protoreflect.Value`.
+  ProtobufReflectProtoreflectValue default$() {
+    final $r = $callSync(24858, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectValue.$h);
+  }
+
+  /// Go: `func (protoreflect.FieldDescriptor).DefaultEnumValue() protoreflect.EnumValueDescriptor`.
+  ProtobufReflectProtoreflectEnumValueDescriptor defaultEnumValue() {
+    final $r = $callSync(24859, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectEnumValueDescriptor.$h);
+  }
+
+  /// Go: `func (protoreflect.FieldDescriptor).Enum() protoreflect.EnumDescriptor`.
+  ProtobufReflectProtoreflectEnumDescriptor enum$() {
+    final $r = $callSync(24860, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectEnumDescriptor.$h);
+  }
+
+  /// Go: `func (protoreflect.FieldDescriptor).HasDefault() bool`.
+  bool hasDefault() {
+    final $r = $callSync(24861, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (protoreflect.FieldDescriptor).HasJSONName() bool`.
+  bool hasJsonName() {
+    final $r = $callSync(24862, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (protoreflect.FieldDescriptor).HasOptionalKeyword() bool`.
+  bool hasOptionalKeyword() {
+    final $r = $callSync(24863, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (protoreflect.FieldDescriptor).HasPresence() bool`.
+  bool hasPresence() {
+    final $r = $callSync(24864, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (protoreflect.FieldDescriptor).IsExtension() bool`.
+  bool isExtension() {
+    final $r = $callSync(24865, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (protoreflect.FieldDescriptor).IsList() bool`.
+  bool isList() {
+    final $r = $callSync(24866, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (protoreflect.FieldDescriptor).IsMap() bool`.
+  bool isMap() {
+    final $r = $callSync(24867, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (protoreflect.FieldDescriptor).IsPacked() bool`.
+  bool isPacked() {
+    final $r = $callSync(24868, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (protoreflect.FieldDescriptor).IsWeak() bool`.
+  @Deprecated("support for weak fields has been removed.")
+  bool isWeak() {
+    final $r = $callSync(24869, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (protoreflect.FieldDescriptor).JSONName() string`.
+  String jsonName() {
+    final $r = $callSync(24870, $W()..h(this));
+    return $r.str();
+  }
+
+  /// Go: `func (protoreflect.FieldDescriptor).Kind() protoreflect.Kind`.
+  int kind() {
+    final $r = $callSync(24871, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (protoreflect.FieldDescriptor).MapKey() protoreflect.FieldDescriptor`.
+  ProtobufReflectProtoreflectFieldDescriptor mapKey() {
+    final $r = $callSync(24872, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectFieldDescriptor.$h);
+  }
+
+  /// Go: `func (protoreflect.FieldDescriptor).MapValue() protoreflect.FieldDescriptor`.
+  ProtobufReflectProtoreflectFieldDescriptor mapValue() {
+    final $r = $callSync(24873, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectFieldDescriptor.$h);
+  }
+
+  /// Go: `func (protoreflect.FieldDescriptor).Message() protoreflect.MessageDescriptor`.
+  ProtobufReflectProtoreflectMessageDescriptor message() {
+    final $r = $callSync(24874, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectMessageDescriptor.$h);
+  }
+
+  /// Go: `func (protoreflect.FieldDescriptor).Number() protoreflect.FieldNumber`.
+  int number() {
+    final $r = $callSync(24875, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (protoreflect.FieldDescriptor).TextName() string`.
+  String textName() {
+    final $r = $callSync(24876, $W()..h(this));
+    return $r.str();
+  }
+
+  /// Go: type assertion `x.(protoreflect.ExtensionTypeDescriptor)`: null if the object is not one.
+  ProtobufReflectProtoreflectExtensionTypeDescriptor?
+      asProtobufReflectProtoreflectExtensionTypeDescriptor() {
+    final $r = $callSync(2193, $W()..h(this));
+    return $r.hn(ProtobufReflectProtoreflectExtensionTypeDescriptor.$h);
+  }
+}
+
+/// Go: `protoreflect.FieldDescriptors` (handle).
+class ProtobufReflectProtoreflectFieldDescriptors extends GoHandle
+    with ProtobufReflectProtoreflectFieldDescriptors$ {
+  ProtobufReflectProtoreflectFieldDescriptors.$h(super.$h);
+}
+
+/// The methods of [ProtobufReflectProtoreflectFieldDescriptors], mixed into every class Go also accepts as one.
+mixin ProtobufReflectProtoreflectFieldDescriptors$ on GoHandle {
+  /// Go: `func (protoreflect.FieldDescriptors).ByJSONName(s string) protoreflect.FieldDescriptor`.
+  ProtobufReflectProtoreflectFieldDescriptor byJsonName(String s) {
+    final $r = $callSync(
+        24877,
+        $W()
+          ..h(this)
+          ..str(s));
+    return $r.hnn(ProtobufReflectProtoreflectFieldDescriptor.$h);
+  }
+
+  /// Go: `func (protoreflect.FieldDescriptors).ByName(s protoreflect.Name) protoreflect.FieldDescriptor`.
+  ProtobufReflectProtoreflectFieldDescriptor byName(String s) {
+    final $r = $callSync(
+        24878,
+        $W()
+          ..h(this)
+          ..str(s));
+    return $r.hnn(ProtobufReflectProtoreflectFieldDescriptor.$h);
+  }
+
+  /// Go: `func (protoreflect.FieldDescriptors).ByNumber(n protoreflect.FieldNumber) protoreflect.FieldDescriptor`.
+  ProtobufReflectProtoreflectFieldDescriptor byNumber(int n) {
+    final $r = $callSync(
+        24879,
+        $W()
+          ..h(this)
+          ..i64(n));
+    return $r.hnn(ProtobufReflectProtoreflectFieldDescriptor.$h);
+  }
+
+  /// Go: `func (protoreflect.FieldDescriptors).ByTextName(s string) protoreflect.FieldDescriptor`.
+  ProtobufReflectProtoreflectFieldDescriptor byTextName(String s) {
+    final $r = $callSync(
+        24880,
+        $W()
+          ..h(this)
+          ..str(s));
+    return $r.hnn(ProtobufReflectProtoreflectFieldDescriptor.$h);
+  }
+
+  /// Go: `func (protoreflect.FieldDescriptors).Get(i int) protoreflect.FieldDescriptor`.
+  ProtobufReflectProtoreflectFieldDescriptor get(int i) {
+    final $r = $callSync(
+        24881,
+        $W()
+          ..h(this)
+          ..i64(i));
+    return $r.hnn(ProtobufReflectProtoreflectFieldDescriptor.$h);
+  }
+
+  /// Go: `func (protoreflect.FieldDescriptors).Len() int`.
+  int len() {
+    final $r = $callSync(24882, $W()..h(this));
+    return $r.i64();
+  }
+}
+
+/// Go: `protoreflect.FieldNumbers` (handle).
+class ProtobufReflectProtoreflectFieldNumbers extends GoHandle
+    with ProtobufReflectProtoreflectFieldNumbers$ {
+  ProtobufReflectProtoreflectFieldNumbers.$h(super.$h);
+}
+
+/// The methods of [ProtobufReflectProtoreflectFieldNumbers], mixed into every class Go also accepts as one.
+mixin ProtobufReflectProtoreflectFieldNumbers$ on GoHandle {
+  /// Go: `func (protoreflect.FieldNumbers).Get(i int) protoreflect.FieldNumber`.
+  int get(int i) {
+    final $r = $callSync(
+        24883,
+        $W()
+          ..h(this)
+          ..i64(i));
+    return $r.i64();
+  }
+
+  /// Go: `func (protoreflect.FieldNumbers).Has(n protoreflect.FieldNumber) bool`.
+  bool has(int n) {
+    final $r = $callSync(
+        24884,
+        $W()
+          ..h(this)
+          ..i64(n));
+    return $r.b();
+  }
+
+  /// Go: `func (protoreflect.FieldNumbers).Len() int`.
+  int len() {
+    final $r = $callSync(24885, $W()..h(this));
+    return $r.i64();
+  }
+}
+
+/// Go: `protoreflect.FieldRanges` (handle).
+class ProtobufReflectProtoreflectFieldRanges extends GoHandle
+    with ProtobufReflectProtoreflectFieldRanges$ {
+  ProtobufReflectProtoreflectFieldRanges.$h(super.$h);
+}
+
+/// The methods of [ProtobufReflectProtoreflectFieldRanges], mixed into every class Go also accepts as one.
+mixin ProtobufReflectProtoreflectFieldRanges$ on GoHandle {
+  /// Go: `func (protoreflect.FieldRanges).Has(n protoreflect.FieldNumber) bool`.
+  bool has(int n) {
+    final $r = $callSync(
+        24886,
+        $W()
+          ..h(this)
+          ..i64(n));
+    return $r.b();
+  }
+
+  /// Go: `func (protoreflect.FieldRanges).Len() int`.
+  int len() {
+    final $r = $callSync(24887, $W()..h(this));
+    return $r.i64();
+  }
+}
 
 /// Go: `protoreflect.FileDescriptor` (handle).
 class ProtobufReflectProtoreflectFileDescriptor
@@ -22,7 +807,446 @@ class ProtobufReflectProtoreflectFileDescriptor
 }
 
 /// The methods of [ProtobufReflectProtoreflectFileDescriptor], mixed into every class Go also accepts as one.
-mixin ProtobufReflectProtoreflectFileDescriptor$ on GoHandle {}
+mixin ProtobufReflectProtoreflectFileDescriptor$ on GoHandle {
+  /// Go: `func (protoreflect.FileDescriptor).Enums() protoreflect.EnumDescriptors`.
+  ProtobufReflectProtoreflectEnumDescriptors enums() {
+    final $r = $callSync(24888, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectEnumDescriptors.$h);
+  }
+
+  /// Go: `func (protoreflect.FileDescriptor).Extensions() protoreflect.ExtensionDescriptors`.
+  ProtobufReflectProtoreflectExtensionDescriptors extensions() {
+    final $r = $callSync(24889, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectExtensionDescriptors.$h);
+  }
+
+  /// Go: `func (protoreflect.FileDescriptor).Imports() protoreflect.FileImports`.
+  ProtobufReflectProtoreflectFileImports imports() {
+    final $r = $callSync(24890, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectFileImports.$h);
+  }
+
+  /// Go: `func (protoreflect.FileDescriptor).Messages() protoreflect.MessageDescriptors`.
+  ProtobufReflectProtoreflectMessageDescriptors messages() {
+    final $r = $callSync(24891, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectMessageDescriptors.$h);
+  }
+
+  /// Go: `func (protoreflect.FileDescriptor).Package() protoreflect.FullName`.
+  String package() {
+    final $r = $callSync(24892, $W()..h(this));
+    return $r.str();
+  }
+
+  /// Go: `func (protoreflect.FileDescriptor).Path() string`.
+  String path() {
+    final $r = $callSync(24893, $W()..h(this));
+    return $r.str();
+  }
+
+  /// Go: `func (protoreflect.FileDescriptor).Services() protoreflect.ServiceDescriptors`.
+  ProtobufReflectProtoreflectServiceDescriptors services() {
+    final $r = $callSync(24894, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectServiceDescriptors.$h);
+  }
+
+  /// Go: `func (protoreflect.FileDescriptor).SourceLocations() protoreflect.SourceLocations`.
+  ProtobufReflectProtoreflectSourceLocations sourceLocations() {
+    final $r = $callSync(24895, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectSourceLocations.$h);
+  }
+
+  /// Go: type assertion `x.(*protoreflect.FileImport)`: null if the object is not one.
+  ProtobufReflectProtoreflectFileImport?
+      asProtobufReflectProtoreflectFileImport() {
+    final $r = $callSync(2194, $W()..h(this));
+    return $r.hn(ProtobufReflectProtoreflectFileImport.$h);
+  }
+}
+
+/// Go: `protoreflect.FileImport` (handle).
+class ProtobufReflectProtoreflectFileImport
+    extends ProtobufReflectProtoreflectFileDescriptor
+    with
+        $crypto.CryptoDecrypterOpts$,
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoDecrypterOpts,
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
+  ProtobufReflectProtoreflectFileImport.$h(super.$h) : super.$h();
+
+  /// Go: `func (protoreflect.FileDescriptor).Enums() protoreflect.EnumDescriptors`.
+  ProtobufReflectProtoreflectEnumDescriptors enums() {
+    final $r = $callSync(24896, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectEnumDescriptors.$h);
+  }
+
+  /// Go: `func (protoreflect.FileDescriptor).Extensions() protoreflect.ExtensionDescriptors`.
+  ProtobufReflectProtoreflectExtensionDescriptors extensions() {
+    final $r = $callSync(24897, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectExtensionDescriptors.$h);
+  }
+
+  /// Go: `func (protoreflect.Descriptor).FullName() protoreflect.FullName`.
+  String fullName() {
+    final $r = $callSync(24898, $W()..h(this));
+    return $r.str();
+  }
+
+  /// Go: `func (protoreflect.FileDescriptor).Imports() protoreflect.FileImports`.
+  ProtobufReflectProtoreflectFileImports imports() {
+    final $r = $callSync(24899, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectFileImports.$h);
+  }
+
+  /// Go: `func (protoreflect.Descriptor).Index() int`.
+  int index() {
+    final $r = $callSync(24900, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (protoreflect.Descriptor).IsPlaceholder() bool`.
+  bool isPlaceholder() {
+    final $r = $callSync(24901, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (protoreflect.FileDescriptor).Messages() protoreflect.MessageDescriptors`.
+  ProtobufReflectProtoreflectMessageDescriptors messages() {
+    final $r = $callSync(24902, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectMessageDescriptors.$h);
+  }
+
+  /// Go: `func (protoreflect.Descriptor).Name() protoreflect.Name`.
+  String name() {
+    final $r = $callSync(24903, $W()..h(this));
+    return $r.str();
+  }
+
+  /// Go: `func (protoreflect.Descriptor).Options() protoreflect.ProtoMessage`.
+  ProtobufReflectProtoreflectProtoMessage options() {
+    final $r = $callSync(24904, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectProtoMessage.$h);
+  }
+
+  /// Go: `func (protoreflect.FileDescriptor).Package() protoreflect.FullName`.
+  String package() {
+    final $r = $callSync(24905, $W()..h(this));
+    return $r.str();
+  }
+
+  /// Go: `func (protoreflect.Descriptor).Parent() protoreflect.Descriptor`.
+  ProtobufReflectProtoreflectDescriptor parent() {
+    final $r = $callSync(24906, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectDescriptor.$h);
+  }
+
+  /// Go: `func (protoreflect.Descriptor).ParentFile() protoreflect.FileDescriptor`.
+  ProtobufReflectProtoreflectFileDescriptor parentFile() {
+    final $r = $callSync(24907, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectFileDescriptor.$h);
+  }
+
+  /// Go: `func (protoreflect.FileDescriptor).Path() string`.
+  String path() {
+    final $r = $callSync(24908, $W()..h(this));
+    return $r.str();
+  }
+
+  /// Go: `func (protoreflect.isFileDescriptor).ProtoType(protoreflect.FileDescriptor)`.
+  void protoType(ProtobufReflectProtoreflectFileDescriptor fileDescriptor) {
+    $callSync(
+        24909,
+        $W()
+          ..h(this)
+          ..h(fileDescriptor));
+  }
+
+  /// Go: `func (protoreflect.FileDescriptor).Services() protoreflect.ServiceDescriptors`.
+  ProtobufReflectProtoreflectServiceDescriptors services() {
+    final $r = $callSync(24910, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectServiceDescriptors.$h);
+  }
+
+  /// Go: `func (protoreflect.FileDescriptor).SourceLocations() protoreflect.SourceLocations`.
+  ProtobufReflectProtoreflectSourceLocations sourceLocations() {
+    final $r = $callSync(24911, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectSourceLocations.$h);
+  }
+
+  /// Go: `func (protoreflect.Descriptor).Syntax() protoreflect.Syntax`.
+  int syntax() {
+    final $r = $callSync(24912, $W()..h(this));
+    return $r.i64();
+  }
+}
+
+/// Go: `protoreflect.FileImports` (handle).
+class ProtobufReflectProtoreflectFileImports extends GoHandle
+    with ProtobufReflectProtoreflectFileImports$ {
+  ProtobufReflectProtoreflectFileImports.$h(super.$h);
+}
+
+/// The methods of [ProtobufReflectProtoreflectFileImports], mixed into every class Go also accepts as one.
+mixin ProtobufReflectProtoreflectFileImports$ on GoHandle {
+  /// Go: `func (protoreflect.FileImports).Get(i int) protoreflect.FileImport`.
+  ProtobufReflectProtoreflectFileImport get(int i) {
+    final $r = $callSync(
+        24913,
+        $W()
+          ..h(this)
+          ..i64(i));
+    return $r.hnn(ProtobufReflectProtoreflectFileImport.$h);
+  }
+
+  /// Go: `func (protoreflect.FileImports).Len() int`.
+  int len() {
+    final $r = $callSync(24914, $W()..h(this));
+    return $r.i64();
+  }
+}
+
+/// Go: `protoreflect.List` (handle).
+class ProtobufReflectProtoreflectList extends GoHandle
+    with ProtobufReflectProtoreflectList$ {
+  ProtobufReflectProtoreflectList.$h(super.$h);
+}
+
+/// The methods of [ProtobufReflectProtoreflectList], mixed into every class Go also accepts as one.
+mixin ProtobufReflectProtoreflectList$ on GoHandle {
+  /// Go: `func (protoreflect.List).Append(protoreflect.Value)`.
+  void append(ProtobufReflectProtoreflectValue value) {
+    $callSync(
+        24915,
+        $W()
+          ..h(this)
+          ..h(value));
+  }
+
+  /// Go: `func (protoreflect.List).AppendMutable() protoreflect.Value`.
+  ProtobufReflectProtoreflectValue appendMutable() {
+    final $r = $callSync(24916, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectValue.$h);
+  }
+
+  /// Go: `func (protoreflect.List).Get(int) protoreflect.Value`.
+  ProtobufReflectProtoreflectValue get(int arg0) {
+    final $r = $callSync(
+        24917,
+        $W()
+          ..h(this)
+          ..i64(arg0));
+    return $r.hnn(ProtobufReflectProtoreflectValue.$h);
+  }
+
+  /// Go: `func (protoreflect.List).IsValid() bool`.
+  bool isValid() {
+    final $r = $callSync(24918, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (protoreflect.List).Len() int`.
+  int len() {
+    final $r = $callSync(24919, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (protoreflect.List).NewElement() protoreflect.Value`.
+  ProtobufReflectProtoreflectValue newElement() {
+    final $r = $callSync(24920, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectValue.$h);
+  }
+
+  /// Go: `func (protoreflect.List).Set(int, protoreflect.Value)`.
+  void set(int arg0, ProtobufReflectProtoreflectValue value) {
+    $callSync(
+        24921,
+        $W()
+          ..h(this)
+          ..i64(arg0)
+          ..h(value));
+  }
+
+  /// Go: `func (protoreflect.List).Truncate(int)`.
+  void truncate(int arg0) {
+    $callSync(
+        24922,
+        $W()
+          ..h(this)
+          ..i64(arg0));
+  }
+}
+
+/// Go: `protoreflect.Map` (handle).
+class ProtobufReflectProtoreflectMap extends GoHandle
+    with ProtobufReflectProtoreflectMap$ {
+  ProtobufReflectProtoreflectMap.$h(super.$h);
+}
+
+/// The methods of [ProtobufReflectProtoreflectMap], mixed into every class Go also accepts as one.
+mixin ProtobufReflectProtoreflectMap$ on GoHandle {
+  /// Go: `func (protoreflect.Map).Clear(protoreflect.MapKey)`.
+  void clear(ProtobufReflectProtoreflectMapKey mapKey) {
+    $callSync(
+        24923,
+        $W()
+          ..h(this)
+          ..h(mapKey));
+  }
+
+  /// Go: `func (protoreflect.Map).Get(protoreflect.MapKey) protoreflect.Value`.
+  ProtobufReflectProtoreflectValue get(
+      ProtobufReflectProtoreflectMapKey mapKey) {
+    final $r = $callSync(
+        24924,
+        $W()
+          ..h(this)
+          ..h(mapKey));
+    return $r.hnn(ProtobufReflectProtoreflectValue.$h);
+  }
+
+  /// Go: `func (protoreflect.Map).Has(protoreflect.MapKey) bool`.
+  bool has(ProtobufReflectProtoreflectMapKey mapKey) {
+    final $r = $callSync(
+        24925,
+        $W()
+          ..h(this)
+          ..h(mapKey));
+    return $r.b();
+  }
+
+  /// Go: `func (protoreflect.Map).IsValid() bool`.
+  bool isValid() {
+    final $r = $callSync(24926, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (protoreflect.Map).Len() int`.
+  int len() {
+    final $r = $callSync(24927, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (protoreflect.Map).Mutable(protoreflect.MapKey) protoreflect.Value`.
+  ProtobufReflectProtoreflectValue mutable(
+      ProtobufReflectProtoreflectMapKey mapKey) {
+    final $r = $callSync(
+        24928,
+        $W()
+          ..h(this)
+          ..h(mapKey));
+    return $r.hnn(ProtobufReflectProtoreflectValue.$h);
+  }
+
+  /// Go: `func (protoreflect.Map).NewValue() protoreflect.Value`.
+  ProtobufReflectProtoreflectValue newValue() {
+    final $r = $callSync(24929, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectValue.$h);
+  }
+
+  /// Go: `func (protoreflect.Map).Range(f func(protoreflect.MapKey, protoreflect.Value) bool)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  ///
+  /// Go calls [f] on the Dart event loop, during the call or
+  /// later for as long as it holds it (nobody checked which), and waits for
+  /// each invocation (a retained callback, WIRE.md).
+  Future<void> range(
+      FutureOr<bool> Function(ProtobufReflectProtoreflectMapKey mapKey,
+              ProtobufReflectProtoreflectValue value)
+          f) async {
+    await $call(
+        24930,
+        $W()
+          ..h(this)
+          ..cb(
+              (r) => f(r.hnn(ProtobufReflectProtoreflectMapKey.$h),
+                  r.hnn(ProtobufReflectProtoreflectValue.$h)),
+              true));
+  }
+
+  /// Go: `func (protoreflect.Map).Set(protoreflect.MapKey, protoreflect.Value)`.
+  void set(ProtobufReflectProtoreflectMapKey mapKey,
+      ProtobufReflectProtoreflectValue value) {
+    $callSync(
+        24931,
+        $W()
+          ..h(this)
+          ..h(mapKey)
+          ..h(value));
+  }
+}
+
+/// Go: `protoreflect.MapKey` (handle).
+class ProtobufReflectProtoreflectMapKey extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
+  ProtobufReflectProtoreflectMapKey.$h(super.$h) : super.$h();
+
+  /// Go: `func (protoreflect.MapKey).Bool() bool`.
+  bool bool$() {
+    final $r = $callSync(24932, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (protoreflect.MapKey).Int() int64`.
+  int int$() {
+    final $r = $callSync(24933, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (protoreflect.MapKey).Interface() any`.
+  Object? interface() {
+    final $r = $callSync(24934, $W()..h(this));
+    return $r.any();
+  }
+
+  /// Go: `func (protoreflect.MapKey).IsValid() bool`.
+  bool isValid() {
+    final $r = $callSync(24935, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (protoreflect.MapKey).String() string`.
+  String string() {
+    final $r = $callSync(24936, $W()..h(this));
+    return $r.str();
+  }
+
+  /// Go: `func (protoreflect.MapKey).Uint() uint64`.
+  int uint() {
+    final $r = $callSync(24937, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (protoreflect.MapKey).Value() protoreflect.Value`.
+  ProtobufReflectProtoreflectValue value$() {
+    final $r = $callSync(24938, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectValue.$h);
+  }
+}
 
 /// Go: `protoreflect.Message` (handle).
 class ProtobufReflectProtoreflectMessage extends GoHandle
@@ -31,7 +1255,2153 @@ class ProtobufReflectProtoreflectMessage extends GoHandle
 }
 
 /// The methods of [ProtobufReflectProtoreflectMessage], mixed into every class Go also accepts as one.
-mixin ProtobufReflectProtoreflectMessage$ on GoHandle {}
+mixin ProtobufReflectProtoreflectMessage$ on GoHandle {
+  /// Go: `func (protoreflect.Message).Clear(protoreflect.FieldDescriptor)`.
+  void clear(ProtobufReflectProtoreflectFieldDescriptor fieldDescriptor) {
+    $callSync(
+        24939,
+        $W()
+          ..h(this)
+          ..h(fieldDescriptor));
+  }
+
+  /// Go: `func (protoreflect.Message).Descriptor() protoreflect.MessageDescriptor`.
+  ProtobufReflectProtoreflectMessageDescriptor descriptor() {
+    final $r = $callSync(24940, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectMessageDescriptor.$h);
+  }
+
+  /// Go: `func (protoreflect.Message).Get(protoreflect.FieldDescriptor) protoreflect.Value`.
+  ProtobufReflectProtoreflectValue get(
+      ProtobufReflectProtoreflectFieldDescriptor fieldDescriptor) {
+    final $r = $callSync(
+        24941,
+        $W()
+          ..h(this)
+          ..h(fieldDescriptor));
+    return $r.hnn(ProtobufReflectProtoreflectValue.$h);
+  }
+
+  /// Go: `func (protoreflect.Message).GetUnknown() protoreflect.RawFields`.
+  Uint8List getUnknown() {
+    final $r = $callSync(24942, $W()..h(this));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (protoreflect.Message).Has(protoreflect.FieldDescriptor) bool`.
+  bool has(ProtobufReflectProtoreflectFieldDescriptor fieldDescriptor) {
+    final $r = $callSync(
+        24943,
+        $W()
+          ..h(this)
+          ..h(fieldDescriptor));
+    return $r.b();
+  }
+
+  /// Go: `func (protoreflect.Message).Interface() protoreflect.ProtoMessage`.
+  ProtobufReflectProtoreflectProtoMessage interface() {
+    final $r = $callSync(24944, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectProtoMessage.$h);
+  }
+
+  /// Go: `func (protoreflect.Message).IsValid() bool`.
+  bool isValid() {
+    final $r = $callSync(24945, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (protoreflect.Message).Mutable(protoreflect.FieldDescriptor) protoreflect.Value`.
+  ProtobufReflectProtoreflectValue mutable(
+      ProtobufReflectProtoreflectFieldDescriptor fieldDescriptor) {
+    final $r = $callSync(
+        24946,
+        $W()
+          ..h(this)
+          ..h(fieldDescriptor));
+    return $r.hnn(ProtobufReflectProtoreflectValue.$h);
+  }
+
+  /// Go: `func (protoreflect.Message).New() protoreflect.Message`.
+  ProtobufReflectProtoreflectMessage new$() {
+    final $r = $callSync(24947, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectMessage.$h);
+  }
+
+  /// Go: `func (protoreflect.Message).NewField(protoreflect.FieldDescriptor) protoreflect.Value`.
+  ProtobufReflectProtoreflectValue newField(
+      ProtobufReflectProtoreflectFieldDescriptor fieldDescriptor) {
+    final $r = $callSync(
+        24948,
+        $W()
+          ..h(this)
+          ..h(fieldDescriptor));
+    return $r.hnn(ProtobufReflectProtoreflectValue.$h);
+  }
+
+  /// Go: `func (protoreflect.Message).Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  ///
+  /// Go calls [f] on the Dart event loop, during the call or
+  /// later for as long as it holds it (nobody checked which), and waits for
+  /// each invocation (a retained callback, WIRE.md).
+  Future<void> range(
+      FutureOr<bool> Function(
+              ProtobufReflectProtoreflectFieldDescriptor fieldDescriptor,
+              ProtobufReflectProtoreflectValue value)
+          f) async {
+    await $call(
+        24949,
+        $W()
+          ..h(this)
+          ..cb(
+              (r) => f(r.hnn(ProtobufReflectProtoreflectFieldDescriptor.$h),
+                  r.hnn(ProtobufReflectProtoreflectValue.$h)),
+              true));
+  }
+
+  /// Go: `func (protoreflect.Message).Set(protoreflect.FieldDescriptor, protoreflect.Value)`.
+  void set(ProtobufReflectProtoreflectFieldDescriptor fieldDescriptor,
+      ProtobufReflectProtoreflectValue value) {
+    $callSync(
+        24950,
+        $W()
+          ..h(this)
+          ..h(fieldDescriptor)
+          ..h(value));
+  }
+
+  /// Go: `func (protoreflect.Message).SetUnknown(protoreflect.RawFields)`.
+  void setUnknown(Uint8List arg0) {
+    $callSync(
+        24951,
+        $W()
+          ..h(this)
+          ..bytes(arg0));
+  }
+
+  /// Go: `func (protoreflect.Message).Type() protoreflect.MessageType`.
+  ProtobufReflectProtoreflectMessageType type() {
+    final $r = $callSync(24952, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectMessageType.$h);
+  }
+
+  /// Go: `func (protoreflect.Message).WhichOneof(protoreflect.OneofDescriptor) protoreflect.FieldDescriptor`.
+  ProtobufReflectProtoreflectFieldDescriptor whichOneof(
+      ProtobufReflectProtoreflectOneofDescriptor oneofDescriptor) {
+    final $r = $callSync(
+        24953,
+        $W()
+          ..h(this)
+          ..h(oneofDescriptor));
+    return $r.hnn(ProtobufReflectProtoreflectFieldDescriptor.$h);
+  }
+}
+
+/// Go: `protoreflect.MessageDescriptor` (handle).
+class ProtobufReflectProtoreflectMessageDescriptor
+    extends ProtobufReflectProtoreflectDescriptor
+    with ProtobufReflectProtoreflectMessageDescriptor$ {
+  ProtobufReflectProtoreflectMessageDescriptor.$h(super.$h) : super.$h();
+}
+
+/// The methods of [ProtobufReflectProtoreflectMessageDescriptor], mixed into every class Go also accepts as one.
+mixin ProtobufReflectProtoreflectMessageDescriptor$ on GoHandle {
+  /// Go: `func (protoreflect.MessageDescriptor).Enums() protoreflect.EnumDescriptors`.
+  ProtobufReflectProtoreflectEnumDescriptors enums() {
+    final $r = $callSync(24954, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectEnumDescriptors.$h);
+  }
+
+  /// Go: `func (protoreflect.MessageDescriptor).ExtensionRangeOptions(i int) protoreflect.ProtoMessage`.
+  ProtobufReflectProtoreflectProtoMessage extensionRangeOptions(int i) {
+    final $r = $callSync(
+        24955,
+        $W()
+          ..h(this)
+          ..i64(i));
+    return $r.hnn(ProtobufReflectProtoreflectProtoMessage.$h);
+  }
+
+  /// Go: `func (protoreflect.MessageDescriptor).ExtensionRanges() protoreflect.FieldRanges`.
+  ProtobufReflectProtoreflectFieldRanges extensionRanges() {
+    final $r = $callSync(24956, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectFieldRanges.$h);
+  }
+
+  /// Go: `func (protoreflect.MessageDescriptor).Extensions() protoreflect.ExtensionDescriptors`.
+  ProtobufReflectProtoreflectExtensionDescriptors extensions() {
+    final $r = $callSync(24957, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectExtensionDescriptors.$h);
+  }
+
+  /// Go: `func (protoreflect.MessageDescriptor).Fields() protoreflect.FieldDescriptors`.
+  ProtobufReflectProtoreflectFieldDescriptors fields() {
+    final $r = $callSync(24958, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectFieldDescriptors.$h);
+  }
+
+  /// Go: `func (protoreflect.MessageDescriptor).IsMapEntry() bool`.
+  bool isMapEntry() {
+    final $r = $callSync(24959, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (protoreflect.MessageDescriptor).Messages() protoreflect.MessageDescriptors`.
+  ProtobufReflectProtoreflectMessageDescriptors messages() {
+    final $r = $callSync(24960, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectMessageDescriptors.$h);
+  }
+
+  /// Go: `func (protoreflect.MessageDescriptor).Oneofs() protoreflect.OneofDescriptors`.
+  ProtobufReflectProtoreflectOneofDescriptors oneofs() {
+    final $r = $callSync(24961, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectOneofDescriptors.$h);
+  }
+
+  /// Go: `func (protoreflect.MessageDescriptor).RequiredNumbers() protoreflect.FieldNumbers`.
+  ProtobufReflectProtoreflectFieldNumbers requiredNumbers() {
+    final $r = $callSync(24962, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectFieldNumbers.$h);
+  }
+
+  /// Go: `func (protoreflect.MessageDescriptor).ReservedNames() protoreflect.Names`.
+  ProtobufReflectProtoreflectNames reservedNames() {
+    final $r = $callSync(24963, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectNames.$h);
+  }
+
+  /// Go: `func (protoreflect.MessageDescriptor).ReservedRanges() protoreflect.FieldRanges`.
+  ProtobufReflectProtoreflectFieldRanges reservedRanges() {
+    final $r = $callSync(24964, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectFieldRanges.$h);
+  }
+}
+
+/// Go: `protoreflect.MessageDescriptors` (handle).
+class ProtobufReflectProtoreflectMessageDescriptors extends GoHandle
+    with ProtobufReflectProtoreflectMessageDescriptors$ {
+  ProtobufReflectProtoreflectMessageDescriptors.$h(super.$h);
+}
+
+/// The methods of [ProtobufReflectProtoreflectMessageDescriptors], mixed into every class Go also accepts as one.
+mixin ProtobufReflectProtoreflectMessageDescriptors$ on GoHandle {
+  /// Go: `func (protoreflect.MessageDescriptors).ByName(s protoreflect.Name) protoreflect.MessageDescriptor`.
+  ProtobufReflectProtoreflectMessageDescriptor byName(String s) {
+    final $r = $callSync(
+        24965,
+        $W()
+          ..h(this)
+          ..str(s));
+    return $r.hnn(ProtobufReflectProtoreflectMessageDescriptor.$h);
+  }
+
+  /// Go: `func (protoreflect.MessageDescriptors).Get(i int) protoreflect.MessageDescriptor`.
+  ProtobufReflectProtoreflectMessageDescriptor get(int i) {
+    final $r = $callSync(
+        24966,
+        $W()
+          ..h(this)
+          ..i64(i));
+    return $r.hnn(ProtobufReflectProtoreflectMessageDescriptor.$h);
+  }
+
+  /// Go: `func (protoreflect.MessageDescriptors).Len() int`.
+  int len() {
+    final $r = $callSync(24967, $W()..h(this));
+    return $r.i64();
+  }
+}
+
+/// Go: `protoreflect.MessageFieldTypes` (handle).
+class ProtobufReflectProtoreflectMessageFieldTypes
+    extends ProtobufReflectProtoreflectMessageType
+    with ProtobufReflectProtoreflectMessageFieldTypes$ {
+  ProtobufReflectProtoreflectMessageFieldTypes.$h(super.$h) : super.$h();
+}
+
+/// The methods of [ProtobufReflectProtoreflectMessageFieldTypes], mixed into every class Go also accepts as one.
+mixin ProtobufReflectProtoreflectMessageFieldTypes$ on GoHandle {
+  /// Go: `func (protoreflect.MessageFieldTypes).Enum(i int) protoreflect.EnumType`.
+  ProtobufReflectProtoreflectEnumType enum$(int i) {
+    final $r = $callSync(
+        24968,
+        $W()
+          ..h(this)
+          ..i64(i));
+    return $r.hnn(ProtobufReflectProtoreflectEnumType.$h);
+  }
+
+  /// Go: `func (protoreflect.MessageFieldTypes).Message(i int) protoreflect.MessageType`.
+  ProtobufReflectProtoreflectMessageType message(int i) {
+    final $r = $callSync(
+        24969,
+        $W()
+          ..h(this)
+          ..i64(i));
+    return $r.hnn(ProtobufReflectProtoreflectMessageType.$h);
+  }
+}
+
+/// Go: `protoreflect.MessageType` (handle).
+class ProtobufReflectProtoreflectMessageType extends GoHandle
+    with ProtobufReflectProtoreflectMessageType$ {
+  ProtobufReflectProtoreflectMessageType.$h(super.$h);
+}
+
+/// The methods of [ProtobufReflectProtoreflectMessageType], mixed into every class Go also accepts as one.
+mixin ProtobufReflectProtoreflectMessageType$ on GoHandle {
+  /// Go: `func (protoreflect.MessageType).Descriptor() protoreflect.MessageDescriptor`.
+  ProtobufReflectProtoreflectMessageDescriptor descriptor() {
+    final $r = $callSync(24970, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectMessageDescriptor.$h);
+  }
+
+  /// Go: `func (protoreflect.MessageType).New() protoreflect.Message`.
+  ProtobufReflectProtoreflectMessage new$() {
+    final $r = $callSync(24971, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectMessage.$h);
+  }
+
+  /// Go: `func (protoreflect.MessageType).Zero() protoreflect.Message`.
+  ProtobufReflectProtoreflectMessage zero() {
+    final $r = $callSync(24972, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectMessage.$h);
+  }
+
+  /// Go: type assertion `x.(protoreflect.MessageFieldTypes)`: null if the object is not one.
+  ProtobufReflectProtoreflectMessageFieldTypes?
+      asProtobufReflectProtoreflectMessageFieldTypes() {
+    final $r = $callSync(2195, $W()..h(this));
+    return $r.hn(ProtobufReflectProtoreflectMessageFieldTypes.$h);
+  }
+}
+
+/// Go: `protoreflect.MethodDescriptor` (handle).
+class ProtobufReflectProtoreflectMethodDescriptor
+    extends ProtobufReflectProtoreflectDescriptor
+    with ProtobufReflectProtoreflectMethodDescriptor$ {
+  ProtobufReflectProtoreflectMethodDescriptor.$h(super.$h) : super.$h();
+}
+
+/// The methods of [ProtobufReflectProtoreflectMethodDescriptor], mixed into every class Go also accepts as one.
+mixin ProtobufReflectProtoreflectMethodDescriptor$ on GoHandle {
+  /// Go: `func (protoreflect.MethodDescriptor).Input() protoreflect.MessageDescriptor`.
+  ProtobufReflectProtoreflectMessageDescriptor input() {
+    final $r = $callSync(24973, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectMessageDescriptor.$h);
+  }
+
+  /// Go: `func (protoreflect.MethodDescriptor).IsStreamingClient() bool`.
+  bool isStreamingClient() {
+    final $r = $callSync(24974, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (protoreflect.MethodDescriptor).IsStreamingServer() bool`.
+  bool isStreamingServer() {
+    final $r = $callSync(24975, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (protoreflect.MethodDescriptor).Output() protoreflect.MessageDescriptor`.
+  ProtobufReflectProtoreflectMessageDescriptor output() {
+    final $r = $callSync(24976, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectMessageDescriptor.$h);
+  }
+}
+
+/// Go: `protoreflect.MethodDescriptors` (handle).
+class ProtobufReflectProtoreflectMethodDescriptors extends GoHandle
+    with ProtobufReflectProtoreflectMethodDescriptors$ {
+  ProtobufReflectProtoreflectMethodDescriptors.$h(super.$h);
+}
+
+/// The methods of [ProtobufReflectProtoreflectMethodDescriptors], mixed into every class Go also accepts as one.
+mixin ProtobufReflectProtoreflectMethodDescriptors$ on GoHandle {
+  /// Go: `func (protoreflect.MethodDescriptors).ByName(s protoreflect.Name) protoreflect.MethodDescriptor`.
+  ProtobufReflectProtoreflectMethodDescriptor byName(String s) {
+    final $r = $callSync(
+        24977,
+        $W()
+          ..h(this)
+          ..str(s));
+    return $r.hnn(ProtobufReflectProtoreflectMethodDescriptor.$h);
+  }
+
+  /// Go: `func (protoreflect.MethodDescriptors).Get(i int) protoreflect.MethodDescriptor`.
+  ProtobufReflectProtoreflectMethodDescriptor get(int i) {
+    final $r = $callSync(
+        24978,
+        $W()
+          ..h(this)
+          ..i64(i));
+    return $r.hnn(ProtobufReflectProtoreflectMethodDescriptor.$h);
+  }
+
+  /// Go: `func (protoreflect.MethodDescriptors).Len() int`.
+  int len() {
+    final $r = $callSync(24979, $W()..h(this));
+    return $r.i64();
+  }
+}
+
+/// Go: `protoreflect.Names` (handle).
+class ProtobufReflectProtoreflectNames extends GoHandle
+    with ProtobufReflectProtoreflectNames$ {
+  ProtobufReflectProtoreflectNames.$h(super.$h);
+}
+
+/// The methods of [ProtobufReflectProtoreflectNames], mixed into every class Go also accepts as one.
+mixin ProtobufReflectProtoreflectNames$ on GoHandle {
+  /// Go: `func (protoreflect.Names).Get(i int) protoreflect.Name`.
+  String get(int i) {
+    final $r = $callSync(
+        24980,
+        $W()
+          ..h(this)
+          ..i64(i));
+    return $r.str();
+  }
+
+  /// Go: `func (protoreflect.Names).Has(s protoreflect.Name) bool`.
+  bool has(String s) {
+    final $r = $callSync(
+        24981,
+        $W()
+          ..h(this)
+          ..str(s));
+    return $r.b();
+  }
+
+  /// Go: `func (protoreflect.Names).Len() int`.
+  int len() {
+    final $r = $callSync(24982, $W()..h(this));
+    return $r.i64();
+  }
+}
+
+/// Go: `protoreflect.OneofDescriptor` (handle).
+class ProtobufReflectProtoreflectOneofDescriptor
+    extends ProtobufReflectProtoreflectDescriptor
+    with ProtobufReflectProtoreflectOneofDescriptor$ {
+  ProtobufReflectProtoreflectOneofDescriptor.$h(super.$h) : super.$h();
+}
+
+/// The methods of [ProtobufReflectProtoreflectOneofDescriptor], mixed into every class Go also accepts as one.
+mixin ProtobufReflectProtoreflectOneofDescriptor$ on GoHandle {
+  /// Go: `func (protoreflect.OneofDescriptor).Fields() protoreflect.FieldDescriptors`.
+  ProtobufReflectProtoreflectFieldDescriptors fields() {
+    final $r = $callSync(24983, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectFieldDescriptors.$h);
+  }
+
+  /// Go: `func (protoreflect.OneofDescriptor).IsSynthetic() bool`.
+  bool isSynthetic() {
+    final $r = $callSync(24984, $W()..h(this));
+    return $r.b();
+  }
+}
+
+/// Go: `protoreflect.OneofDescriptors` (handle).
+class ProtobufReflectProtoreflectOneofDescriptors extends GoHandle
+    with ProtobufReflectProtoreflectOneofDescriptors$ {
+  ProtobufReflectProtoreflectOneofDescriptors.$h(super.$h);
+}
+
+/// The methods of [ProtobufReflectProtoreflectOneofDescriptors], mixed into every class Go also accepts as one.
+mixin ProtobufReflectProtoreflectOneofDescriptors$ on GoHandle {
+  /// Go: `func (protoreflect.OneofDescriptors).ByName(s protoreflect.Name) protoreflect.OneofDescriptor`.
+  ProtobufReflectProtoreflectOneofDescriptor byName(String s) {
+    final $r = $callSync(
+        24985,
+        $W()
+          ..h(this)
+          ..str(s));
+    return $r.hnn(ProtobufReflectProtoreflectOneofDescriptor.$h);
+  }
+
+  /// Go: `func (protoreflect.OneofDescriptors).Get(i int) protoreflect.OneofDescriptor`.
+  ProtobufReflectProtoreflectOneofDescriptor get(int i) {
+    final $r = $callSync(
+        24986,
+        $W()
+          ..h(this)
+          ..i64(i));
+    return $r.hnn(ProtobufReflectProtoreflectOneofDescriptor.$h);
+  }
+
+  /// Go: `func (protoreflect.OneofDescriptors).Len() int`.
+  int len() {
+    final $r = $callSync(24987, $W()..h(this));
+    return $r.i64();
+  }
+}
+
+/// Go: `protoreflect.ProtoMessage` (handle).
+class ProtobufReflectProtoreflectProtoMessage extends GoHandle
+    with ProtobufReflectProtoreflectProtoMessage$ {
+  ProtobufReflectProtoreflectProtoMessage.$h(super.$h);
+}
+
+/// The methods of [ProtobufReflectProtoreflectProtoMessage], mixed into every class Go also accepts as one.
+mixin ProtobufReflectProtoreflectProtoMessage$ on GoHandle {
+  /// Go: `func (protoreflect.ProtoMessage).ProtoReflect() protoreflect.Message`.
+  ProtobufReflectProtoreflectMessage protoReflect() {
+    final $r = $callSync(24988, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectMessage.$h);
+  }
+
+  /// Go: type assertion `x.(*pb.Message)`: null if the object is not one.
+  $pb.BoxoBitswapMessagePbMessage? asBoxoBitswapMessagePbMessage() {
+    final $r = $callSync(2196, $W()..h(this));
+    return $r.hn($pb.BoxoBitswapMessagePbMessage.$h);
+  }
+
+  /// Go: type assertion `x.(*pb.Message_Block)`: null if the object is not one.
+  $pb.BoxoBitswapMessagePbMessageBlock? asBoxoBitswapMessagePbMessageBlock() {
+    final $r = $callSync(2197, $W()..h(this));
+    return $r.hn($pb.BoxoBitswapMessagePbMessageBlock.$h);
+  }
+
+  /// Go: type assertion `x.(*pb.Message_BlockPresence)`: null if the object is not one.
+  $pb.BoxoBitswapMessagePbMessageBlockPresence?
+      asBoxoBitswapMessagePbMessageBlockPresence() {
+    final $r = $callSync(2198, $W()..h(this));
+    return $r.hn($pb.BoxoBitswapMessagePbMessageBlockPresence.$h);
+  }
+
+  /// Go: type assertion `x.(*pb.Message_Wantlist)`: null if the object is not one.
+  $pb.BoxoBitswapMessagePbMessageWantlist?
+      asBoxoBitswapMessagePbMessageWantlist() {
+    final $r = $callSync(2199, $W()..h(this));
+    return $r.hn($pb.BoxoBitswapMessagePbMessageWantlist.$h);
+  }
+
+  /// Go: type assertion `x.(*pb.Message_Wantlist_Entry)`: null if the object is not one.
+  $pb.BoxoBitswapMessagePbMessageWantlistEntry?
+      asBoxoBitswapMessagePbMessageWantlistEntry() {
+    final $r = $callSync(2200, $W()..h(this));
+    return $r.hn($pb.BoxoBitswapMessagePbMessageWantlistEntry.$h);
+  }
+
+  /// Go: type assertion `x.(*pb.DataObj)`: null if the object is not one.
+  $pb2.BoxoFilestorePbDataObj? asBoxoFilestorePbDataObj() {
+    final $r = $callSync(2201, $W()..h(this));
+    return $r.hn($pb2.BoxoFilestorePbDataObj.$h);
+  }
+
+  /// Go: type assertion `x.(*pb.PBLink)`: null if the object is not one.
+  $pb3.BoxoIpldMerkledagPbLink? asBoxoIpldMerkledagPbLink() {
+    final $r = $callSync(2202, $W()..h(this));
+    return $r.hn($pb3.BoxoIpldMerkledagPbLink.$h);
+  }
+
+  /// Go: type assertion `x.(*pb.PBNode)`: null if the object is not one.
+  $pb3.BoxoIpldMerkledagPbNode? asBoxoIpldMerkledagPbNode() {
+    final $r = $callSync(2203, $W()..h(this));
+    return $r.hn($pb3.BoxoIpldMerkledagPbNode.$h);
+  }
+
+  /// Go: type assertion `x.(*pb.Data)`: null if the object is not one.
+  $pb4.BoxoIpldUnixfsPbData? asBoxoIpldUnixfsPbData() {
+    final $r = $callSync(2204, $W()..h(this));
+    return $r.hn($pb4.BoxoIpldUnixfsPbData.$h);
+  }
+
+  /// Go: type assertion `x.(*pb.IPFSTimestamp)`: null if the object is not one.
+  $pb4.BoxoIpldUnixfsPbIpfsTimestamp? asBoxoIpldUnixfsPbIpfsTimestamp() {
+    final $r = $callSync(2205, $W()..h(this));
+    return $r.hn($pb4.BoxoIpldUnixfsPbIpfsTimestamp.$h);
+  }
+
+  /// Go: type assertion `x.(*pb.Metadata)`: null if the object is not one.
+  $pb4.BoxoIpldUnixfsPbMetadata? asBoxoIpldUnixfsPbMetadata() {
+    final $r = $callSync(2206, $W()..h(this));
+    return $r.hn($pb4.BoxoIpldUnixfsPbMetadata.$h);
+  }
+
+  /// Go: type assertion `x.(*pb.IpnsRecord)`: null if the object is not one.
+  $pb5.BoxoIpnsPbIpnsRecord? asBoxoIpnsPbIpnsRecord() {
+    final $r = $callSync(2207, $W()..h(this));
+    return $r.hn($pb5.BoxoIpnsPbIpnsRecord.$h);
+  }
+
+  /// Go: type assertion `x.(*dht_pb.Message)`: null if the object is not one.
+  $pb6.Libp2pKadDhtPbMessage? asLibp2pKadDhtPbMessage() {
+    final $r = $callSync(2208, $W()..h(this));
+    return $r.hn($pb6.Libp2pKadDhtPbMessage.$h);
+  }
+
+  /// Go: type assertion `x.(*dht_pb.Message_Peer)`: null if the object is not one.
+  $pb6.Libp2pKadDhtPbMessagePeer? asLibp2pKadDhtPbMessagePeer() {
+    final $r = $callSync(2209, $W()..h(this));
+    return $r.hn($pb6.Libp2pKadDhtPbMessagePeer.$h);
+  }
+
+  /// Go: type assertion `x.(*pubsub.RPC)`: null if the object is not one.
+  $libp2p_pubsub.Libp2pPubsubRpc? asLibp2pPubsubRpc() {
+    final $r = $callSync(2210, $W()..h(this));
+    return $r.hn($libp2p_pubsub.Libp2pPubsubRpc.$h);
+  }
+
+  /// Go: type assertion `x.(*pubsub_pb.ControlExtensions)`: null if the object is not one.
+  $pb7.Libp2pPubsubPbControlExtensions? asLibp2pPubsubPbControlExtensions() {
+    final $r = $callSync(2211, $W()..h(this));
+    return $r.hn($pb7.Libp2pPubsubPbControlExtensions.$h);
+  }
+
+  /// Go: type assertion `x.(*pubsub_pb.ControlGraft)`: null if the object is not one.
+  $pb7.Libp2pPubsubPbControlGraft? asLibp2pPubsubPbControlGraft() {
+    final $r = $callSync(2212, $W()..h(this));
+    return $r.hn($pb7.Libp2pPubsubPbControlGraft.$h);
+  }
+
+  /// Go: type assertion `x.(*pubsub_pb.ControlIDontWant)`: null if the object is not one.
+  $pb7.Libp2pPubsubPbControlIDontWant? asLibp2pPubsubPbControlIDontWant() {
+    final $r = $callSync(2213, $W()..h(this));
+    return $r.hn($pb7.Libp2pPubsubPbControlIDontWant.$h);
+  }
+
+  /// Go: type assertion `x.(*pubsub_pb.ControlIHave)`: null if the object is not one.
+  $pb7.Libp2pPubsubPbControlIHave? asLibp2pPubsubPbControlIHave() {
+    final $r = $callSync(2214, $W()..h(this));
+    return $r.hn($pb7.Libp2pPubsubPbControlIHave.$h);
+  }
+
+  /// Go: type assertion `x.(*pubsub_pb.ControlIWant)`: null if the object is not one.
+  $pb7.Libp2pPubsubPbControlIWant? asLibp2pPubsubPbControlIWant() {
+    final $r = $callSync(2215, $W()..h(this));
+    return $r.hn($pb7.Libp2pPubsubPbControlIWant.$h);
+  }
+
+  /// Go: type assertion `x.(*pubsub_pb.ControlMessage)`: null if the object is not one.
+  $pb7.Libp2pPubsubPbControlMessage? asLibp2pPubsubPbControlMessage() {
+    final $r = $callSync(2216, $W()..h(this));
+    return $r.hn($pb7.Libp2pPubsubPbControlMessage.$h);
+  }
+
+  /// Go: type assertion `x.(*pubsub_pb.ControlPrune)`: null if the object is not one.
+  $pb7.Libp2pPubsubPbControlPrune? asLibp2pPubsubPbControlPrune() {
+    final $r = $callSync(2217, $W()..h(this));
+    return $r.hn($pb7.Libp2pPubsubPbControlPrune.$h);
+  }
+
+  /// Go: type assertion `x.(*pubsub_pb.Message)`: null if the object is not one.
+  $pb7.Libp2pPubsubPbMessage? asLibp2pPubsubPbMessage() {
+    final $r = $callSync(2218, $W()..h(this));
+    return $r.hn($pb7.Libp2pPubsubPbMessage.$h);
+  }
+
+  /// Go: type assertion `x.(*pubsub_pb.PartialMessagesExtension)`: null if the object is not one.
+  $pb7.Libp2pPubsubPbPartialMessagesExtension?
+      asLibp2pPubsubPbPartialMessagesExtension() {
+    final $r = $callSync(2219, $W()..h(this));
+    return $r.hn($pb7.Libp2pPubsubPbPartialMessagesExtension.$h);
+  }
+
+  /// Go: type assertion `x.(*pubsub_pb.PeerInfo)`: null if the object is not one.
+  $pb7.Libp2pPubsubPbPeerInfo? asLibp2pPubsubPbPeerInfo() {
+    final $r = $callSync(2220, $W()..h(this));
+    return $r.hn($pb7.Libp2pPubsubPbPeerInfo.$h);
+  }
+
+  /// Go: type assertion `x.(*pubsub_pb.RPC)`: null if the object is not one.
+  $pb7.Libp2pPubsubPbRpc? asLibp2pPubsubPbRpc() {
+    final $r = $callSync(2221, $W()..h(this));
+    return $r.hn($pb7.Libp2pPubsubPbRpc.$h);
+  }
+
+  /// Go: type assertion `x.(*pubsub_pb.RPC_SubOpts)`: null if the object is not one.
+  $pb7.Libp2pPubsubPbRpcSubOpts? asLibp2pPubsubPbRpcSubOpts() {
+    final $r = $callSync(2222, $W()..h(this));
+    return $r.hn($pb7.Libp2pPubsubPbRpcSubOpts.$h);
+  }
+
+  /// Go: type assertion `x.(*pubsub_pb.TestExtension)`: null if the object is not one.
+  $pb7.Libp2pPubsubPbTestExtension? asLibp2pPubsubPbTestExtension() {
+    final $r = $callSync(2223, $W()..h(this));
+    return $r.hn($pb7.Libp2pPubsubPbTestExtension.$h);
+  }
+
+  /// Go: type assertion `x.(*pubsub_pb.TraceEvent)`: null if the object is not one.
+  $pb7.Libp2pPubsubPbTraceEvent? asLibp2pPubsubPbTraceEvent() {
+    final $r = $callSync(2224, $W()..h(this));
+    return $r.hn($pb7.Libp2pPubsubPbTraceEvent.$h);
+  }
+
+  /// Go: type assertion `x.(*pubsub_pb.TraceEventBatch)`: null if the object is not one.
+  $pb7.Libp2pPubsubPbTraceEventBatch? asLibp2pPubsubPbTraceEventBatch() {
+    final $r = $callSync(2225, $W()..h(this));
+    return $r.hn($pb7.Libp2pPubsubPbTraceEventBatch.$h);
+  }
+
+  /// Go: type assertion `x.(*pubsub_pb.TraceEvent_ControlGraftMeta)`: null if the object is not one.
+  $pb7.Libp2pPubsubPbTraceEventControlGraftMeta?
+      asLibp2pPubsubPbTraceEventControlGraftMeta() {
+    final $r = $callSync(2226, $W()..h(this));
+    return $r.hn($pb7.Libp2pPubsubPbTraceEventControlGraftMeta.$h);
+  }
+
+  /// Go: type assertion `x.(*pubsub_pb.TraceEvent_ControlIDontWantMeta)`: null if the object is not one.
+  $pb7.Libp2pPubsubPbTraceEventControlIDontWantMeta?
+      asLibp2pPubsubPbTraceEventControlIDontWantMeta() {
+    final $r = $callSync(2227, $W()..h(this));
+    return $r.hn($pb7.Libp2pPubsubPbTraceEventControlIDontWantMeta.$h);
+  }
+
+  /// Go: type assertion `x.(*pubsub_pb.TraceEvent_ControlIHaveMeta)`: null if the object is not one.
+  $pb7.Libp2pPubsubPbTraceEventControlIHaveMeta?
+      asLibp2pPubsubPbTraceEventControlIHaveMeta() {
+    final $r = $callSync(2228, $W()..h(this));
+    return $r.hn($pb7.Libp2pPubsubPbTraceEventControlIHaveMeta.$h);
+  }
+
+  /// Go: type assertion `x.(*pubsub_pb.TraceEvent_ControlIWantMeta)`: null if the object is not one.
+  $pb7.Libp2pPubsubPbTraceEventControlIWantMeta?
+      asLibp2pPubsubPbTraceEventControlIWantMeta() {
+    final $r = $callSync(2229, $W()..h(this));
+    return $r.hn($pb7.Libp2pPubsubPbTraceEventControlIWantMeta.$h);
+  }
+
+  /// Go: type assertion `x.(*pubsub_pb.TraceEvent_ControlMeta)`: null if the object is not one.
+  $pb7.Libp2pPubsubPbTraceEventControlMeta?
+      asLibp2pPubsubPbTraceEventControlMeta() {
+    final $r = $callSync(2230, $W()..h(this));
+    return $r.hn($pb7.Libp2pPubsubPbTraceEventControlMeta.$h);
+  }
+
+  /// Go: type assertion `x.(*pubsub_pb.TraceEvent_ControlPruneMeta)`: null if the object is not one.
+  $pb7.Libp2pPubsubPbTraceEventControlPruneMeta?
+      asLibp2pPubsubPbTraceEventControlPruneMeta() {
+    final $r = $callSync(2231, $W()..h(this));
+    return $r.hn($pb7.Libp2pPubsubPbTraceEventControlPruneMeta.$h);
+  }
+
+  /// Go: type assertion `x.(*pubsub_pb.TraceEvent_DeliverMessage)`: null if the object is not one.
+  $pb7.Libp2pPubsubPbTraceEventDeliverMessage?
+      asLibp2pPubsubPbTraceEventDeliverMessage() {
+    final $r = $callSync(2232, $W()..h(this));
+    return $r.hn($pb7.Libp2pPubsubPbTraceEventDeliverMessage.$h);
+  }
+
+  /// Go: type assertion `x.(*pubsub_pb.TraceEvent_DropRPC)`: null if the object is not one.
+  $pb7.Libp2pPubsubPbTraceEventDropRpc? asLibp2pPubsubPbTraceEventDropRpc() {
+    final $r = $callSync(2233, $W()..h(this));
+    return $r.hn($pb7.Libp2pPubsubPbTraceEventDropRpc.$h);
+  }
+
+  /// Go: type assertion `x.(*pubsub_pb.TraceEvent_DuplicateMessage)`: null if the object is not one.
+  $pb7.Libp2pPubsubPbTraceEventDuplicateMessage?
+      asLibp2pPubsubPbTraceEventDuplicateMessage() {
+    final $r = $callSync(2234, $W()..h(this));
+    return $r.hn($pb7.Libp2pPubsubPbTraceEventDuplicateMessage.$h);
+  }
+
+  /// Go: type assertion `x.(*pubsub_pb.TraceEvent_Graft)`: null if the object is not one.
+  $pb7.Libp2pPubsubPbTraceEventGraft? asLibp2pPubsubPbTraceEventGraft() {
+    final $r = $callSync(2235, $W()..h(this));
+    return $r.hn($pb7.Libp2pPubsubPbTraceEventGraft.$h);
+  }
+
+  /// Go: type assertion `x.(*pubsub_pb.TraceEvent_Join)`: null if the object is not one.
+  $pb7.Libp2pPubsubPbTraceEventJoin? asLibp2pPubsubPbTraceEventJoin() {
+    final $r = $callSync(2236, $W()..h(this));
+    return $r.hn($pb7.Libp2pPubsubPbTraceEventJoin.$h);
+  }
+
+  /// Go: type assertion `x.(*pubsub_pb.TraceEvent_Leave)`: null if the object is not one.
+  $pb7.Libp2pPubsubPbTraceEventLeave? asLibp2pPubsubPbTraceEventLeave() {
+    final $r = $callSync(2237, $W()..h(this));
+    return $r.hn($pb7.Libp2pPubsubPbTraceEventLeave.$h);
+  }
+
+  /// Go: type assertion `x.(*pubsub_pb.TraceEvent_MessageMeta)`: null if the object is not one.
+  $pb7.Libp2pPubsubPbTraceEventMessageMeta?
+      asLibp2pPubsubPbTraceEventMessageMeta() {
+    final $r = $callSync(2238, $W()..h(this));
+    return $r.hn($pb7.Libp2pPubsubPbTraceEventMessageMeta.$h);
+  }
+
+  /// Go: type assertion `x.(*pubsub_pb.TraceEvent_OnClosedOutboundStream)`: null if the object is not one.
+  $pb7.Libp2pPubsubPbTraceEventOnClosedOutboundStream?
+      asLibp2pPubsubPbTraceEventOnClosedOutboundStream() {
+    final $r = $callSync(2239, $W()..h(this));
+    return $r.hn($pb7.Libp2pPubsubPbTraceEventOnClosedOutboundStream.$h);
+  }
+
+  /// Go: type assertion `x.(*pubsub_pb.TraceEvent_OnNewOutboundStream)`: null if the object is not one.
+  $pb7.Libp2pPubsubPbTraceEventOnNewOutboundStream?
+      asLibp2pPubsubPbTraceEventOnNewOutboundStream() {
+    final $r = $callSync(2240, $W()..h(this));
+    return $r.hn($pb7.Libp2pPubsubPbTraceEventOnNewOutboundStream.$h);
+  }
+
+  /// Go: type assertion `x.(*pubsub_pb.TraceEvent_Prune)`: null if the object is not one.
+  $pb7.Libp2pPubsubPbTraceEventPrune? asLibp2pPubsubPbTraceEventPrune() {
+    final $r = $callSync(2241, $W()..h(this));
+    return $r.hn($pb7.Libp2pPubsubPbTraceEventPrune.$h);
+  }
+
+  /// Go: type assertion `x.(*pubsub_pb.TraceEvent_PublishMessage)`: null if the object is not one.
+  $pb7.Libp2pPubsubPbTraceEventPublishMessage?
+      asLibp2pPubsubPbTraceEventPublishMessage() {
+    final $r = $callSync(2242, $W()..h(this));
+    return $r.hn($pb7.Libp2pPubsubPbTraceEventPublishMessage.$h);
+  }
+
+  /// Go: type assertion `x.(*pubsub_pb.TraceEvent_RPCMeta)`: null if the object is not one.
+  $pb7.Libp2pPubsubPbTraceEventRpcMeta? asLibp2pPubsubPbTraceEventRpcMeta() {
+    final $r = $callSync(2243, $W()..h(this));
+    return $r.hn($pb7.Libp2pPubsubPbTraceEventRpcMeta.$h);
+  }
+
+  /// Go: type assertion `x.(*pubsub_pb.TraceEvent_RecvRPC)`: null if the object is not one.
+  $pb7.Libp2pPubsubPbTraceEventRecvRpc? asLibp2pPubsubPbTraceEventRecvRpc() {
+    final $r = $callSync(2244, $W()..h(this));
+    return $r.hn($pb7.Libp2pPubsubPbTraceEventRecvRpc.$h);
+  }
+
+  /// Go: type assertion `x.(*pubsub_pb.TraceEvent_RejectMessage)`: null if the object is not one.
+  $pb7.Libp2pPubsubPbTraceEventRejectMessage?
+      asLibp2pPubsubPbTraceEventRejectMessage() {
+    final $r = $callSync(2245, $W()..h(this));
+    return $r.hn($pb7.Libp2pPubsubPbTraceEventRejectMessage.$h);
+  }
+
+  /// Go: type assertion `x.(*pubsub_pb.TraceEvent_SendRPC)`: null if the object is not one.
+  $pb7.Libp2pPubsubPbTraceEventSendRpc? asLibp2pPubsubPbTraceEventSendRpc() {
+    final $r = $callSync(2246, $W()..h(this));
+    return $r.hn($pb7.Libp2pPubsubPbTraceEventSendRpc.$h);
+  }
+
+  /// Go: type assertion `x.(*pubsub_pb.TraceEvent_SubMeta)`: null if the object is not one.
+  $pb7.Libp2pPubsubPbTraceEventSubMeta? asLibp2pPubsubPbTraceEventSubMeta() {
+    final $r = $callSync(2247, $W()..h(this));
+    return $r.hn($pb7.Libp2pPubsubPbTraceEventSubMeta.$h);
+  }
+
+  /// Go: type assertion `x.(*pb.Record)`: null if the object is not one.
+  $pb8.Libp2pRecordPbRecord? asLibp2pRecordPbRecord() {
+    final $r = $callSync(2248, $W()..h(this));
+    return $r.hn($pb8.Libp2pRecordPbRecord.$h);
+  }
+
+  /// Go: type assertion `x.(*pb.PrivateKey)`: null if the object is not one.
+  $pb9.Libp2pCoreCryptoPbPrivateKey? asLibp2pCoreCryptoPbPrivateKey() {
+    final $r = $callSync(2249, $W()..h(this));
+    return $r.hn($pb9.Libp2pCoreCryptoPbPrivateKey.$h);
+  }
+
+  /// Go: type assertion `x.(*pb.PublicKey)`: null if the object is not one.
+  $pb9.Libp2pCoreCryptoPbPublicKey? asLibp2pCoreCryptoPbPublicKey() {
+    final $r = $callSync(2250, $W()..h(this));
+    return $r.hn($pb9.Libp2pCoreCryptoPbPublicKey.$h);
+  }
+
+  /// Go: type assertion `x.(*pb.PeerRecord)`: null if the object is not one.
+  $pb10.Libp2pCorePeerPbPeerRecord? asLibp2pCorePeerPbPeerRecord() {
+    final $r = $callSync(2251, $W()..h(this));
+    return $r.hn($pb10.Libp2pCorePeerPbPeerRecord.$h);
+  }
+
+  /// Go: type assertion `x.(*pb.PeerRecord_AddressInfo)`: null if the object is not one.
+  $pb10.Libp2pCorePeerPbPeerRecordAddressInfo?
+      asLibp2pCorePeerPbPeerRecordAddressInfo() {
+    final $r = $callSync(2252, $W()..h(this));
+    return $r.hn($pb10.Libp2pCorePeerPbPeerRecordAddressInfo.$h);
+  }
+
+  /// Go: type assertion `x.(*pb.Envelope)`: null if the object is not one.
+  $pb11.Libp2pCoreRecordPbEnvelope? asLibp2pCoreRecordPbEnvelope() {
+    final $r = $callSync(2253, $W()..h(this));
+    return $r.hn($pb11.Libp2pCoreRecordPbEnvelope.$h);
+  }
+
+  /// Go: type assertion `x.(*pb.Message)`: null if the object is not one.
+  $pb12.Libp2pP2pHostAutonatPbMessage? asLibp2pP2pHostAutonatPbMessage() {
+    final $r = $callSync(2254, $W()..h(this));
+    return $r.hn($pb12.Libp2pP2pHostAutonatPbMessage.$h);
+  }
+
+  /// Go: type assertion `x.(*pb.Message_Dial)`: null if the object is not one.
+  $pb12.Libp2pP2pHostAutonatPbMessageDial?
+      asLibp2pP2pHostAutonatPbMessageDial() {
+    final $r = $callSync(2255, $W()..h(this));
+    return $r.hn($pb12.Libp2pP2pHostAutonatPbMessageDial.$h);
+  }
+
+  /// Go: type assertion `x.(*pb.Message_DialResponse)`: null if the object is not one.
+  $pb12.Libp2pP2pHostAutonatPbMessageDialResponse?
+      asLibp2pP2pHostAutonatPbMessageDialResponse() {
+    final $r = $callSync(2256, $W()..h(this));
+    return $r.hn($pb12.Libp2pP2pHostAutonatPbMessageDialResponse.$h);
+  }
+
+  /// Go: type assertion `x.(*pb.Message_PeerInfo)`: null if the object is not one.
+  $pb12.Libp2pP2pHostAutonatPbMessagePeerInfo?
+      asLibp2pP2pHostAutonatPbMessagePeerInfo() {
+    final $r = $callSync(2257, $W()..h(this));
+    return $r.hn($pb12.Libp2pP2pHostAutonatPbMessagePeerInfo.$h);
+  }
+
+  /// Go: type assertion `x.(*pb.DialBack)`: null if the object is not one.
+  $pb13.Libp2pP2pProtocolAutonatv2PbDialBack?
+      asLibp2pP2pProtocolAutonatv2PbDialBack() {
+    final $r = $callSync(2258, $W()..h(this));
+    return $r.hn($pb13.Libp2pP2pProtocolAutonatv2PbDialBack.$h);
+  }
+
+  /// Go: type assertion `x.(*pb.DialBackResponse)`: null if the object is not one.
+  $pb13.Libp2pP2pProtocolAutonatv2PbDialBackResponse?
+      asLibp2pP2pProtocolAutonatv2PbDialBackResponse() {
+    final $r = $callSync(2259, $W()..h(this));
+    return $r.hn($pb13.Libp2pP2pProtocolAutonatv2PbDialBackResponse.$h);
+  }
+
+  /// Go: type assertion `x.(*pb.DialDataRequest)`: null if the object is not one.
+  $pb13.Libp2pP2pProtocolAutonatv2PbDialDataRequest?
+      asLibp2pP2pProtocolAutonatv2PbDialDataRequest() {
+    final $r = $callSync(2260, $W()..h(this));
+    return $r.hn($pb13.Libp2pP2pProtocolAutonatv2PbDialDataRequest.$h);
+  }
+
+  /// Go: type assertion `x.(*pb.DialDataResponse)`: null if the object is not one.
+  $pb13.Libp2pP2pProtocolAutonatv2PbDialDataResponse?
+      asLibp2pP2pProtocolAutonatv2PbDialDataResponse() {
+    final $r = $callSync(2261, $W()..h(this));
+    return $r.hn($pb13.Libp2pP2pProtocolAutonatv2PbDialDataResponse.$h);
+  }
+
+  /// Go: type assertion `x.(*pb.DialRequest)`: null if the object is not one.
+  $pb13.Libp2pP2pProtocolAutonatv2PbDialRequest?
+      asLibp2pP2pProtocolAutonatv2PbDialRequest() {
+    final $r = $callSync(2262, $W()..h(this));
+    return $r.hn($pb13.Libp2pP2pProtocolAutonatv2PbDialRequest.$h);
+  }
+
+  /// Go: type assertion `x.(*pb.DialResponse)`: null if the object is not one.
+  $pb13.Libp2pP2pProtocolAutonatv2PbDialResponse?
+      asLibp2pP2pProtocolAutonatv2PbDialResponse() {
+    final $r = $callSync(2263, $W()..h(this));
+    return $r.hn($pb13.Libp2pP2pProtocolAutonatv2PbDialResponse.$h);
+  }
+
+  /// Go: type assertion `x.(*pb.Message)`: null if the object is not one.
+  $pb13.Libp2pP2pProtocolAutonatv2PbMessage?
+      asLibp2pP2pProtocolAutonatv2PbMessage() {
+    final $r = $callSync(2264, $W()..h(this));
+    return $r.hn($pb13.Libp2pP2pProtocolAutonatv2PbMessage.$h);
+  }
+
+  /// Go: type assertion `x.(*pb.HopMessage)`: null if the object is not one.
+  $pb14.Libp2pP2pProtocolCircuitv2PbHopMessage?
+      asLibp2pP2pProtocolCircuitv2PbHopMessage() {
+    final $r = $callSync(2265, $W()..h(this));
+    return $r.hn($pb14.Libp2pP2pProtocolCircuitv2PbHopMessage.$h);
+  }
+
+  /// Go: type assertion `x.(*pb.Limit)`: null if the object is not one.
+  $pb14.Libp2pP2pProtocolCircuitv2PbLimit?
+      asLibp2pP2pProtocolCircuitv2PbLimit() {
+    final $r = $callSync(2266, $W()..h(this));
+    return $r.hn($pb14.Libp2pP2pProtocolCircuitv2PbLimit.$h);
+  }
+
+  /// Go: type assertion `x.(*pb.Peer)`: null if the object is not one.
+  $pb14.Libp2pP2pProtocolCircuitv2PbPeer? asLibp2pP2pProtocolCircuitv2PbPeer() {
+    final $r = $callSync(2267, $W()..h(this));
+    return $r.hn($pb14.Libp2pP2pProtocolCircuitv2PbPeer.$h);
+  }
+
+  /// Go: type assertion `x.(*pb.Reservation)`: null if the object is not one.
+  $pb14.Libp2pP2pProtocolCircuitv2PbReservation?
+      asLibp2pP2pProtocolCircuitv2PbReservation() {
+    final $r = $callSync(2268, $W()..h(this));
+    return $r.hn($pb14.Libp2pP2pProtocolCircuitv2PbReservation.$h);
+  }
+
+  /// Go: type assertion `x.(*pb.ReservationVoucher)`: null if the object is not one.
+  $pb14.Libp2pP2pProtocolCircuitv2PbReservationVoucher?
+      asLibp2pP2pProtocolCircuitv2PbReservationVoucher() {
+    final $r = $callSync(2269, $W()..h(this));
+    return $r.hn($pb14.Libp2pP2pProtocolCircuitv2PbReservationVoucher.$h);
+  }
+
+  /// Go: type assertion `x.(*pb.StopMessage)`: null if the object is not one.
+  $pb14.Libp2pP2pProtocolCircuitv2PbStopMessage?
+      asLibp2pP2pProtocolCircuitv2PbStopMessage() {
+    final $r = $callSync(2270, $W()..h(this));
+    return $r.hn($pb14.Libp2pP2pProtocolCircuitv2PbStopMessage.$h);
+  }
+
+  /// Go: type assertion `x.(*pb.HolePunch)`: null if the object is not one.
+  $pb15.Libp2pP2pProtocolHolepunchPbHolePunch?
+      asLibp2pP2pProtocolHolepunchPbHolePunch() {
+    final $r = $callSync(2271, $W()..h(this));
+    return $r.hn($pb15.Libp2pP2pProtocolHolepunchPbHolePunch.$h);
+  }
+
+  /// Go: type assertion `x.(*pb.Identify)`: null if the object is not one.
+  $pb16.Libp2pP2pProtocolIdentifyPbIdentify?
+      asLibp2pP2pProtocolIdentifyPbIdentify() {
+    final $r = $callSync(2272, $W()..h(this));
+    return $r.hn($pb16.Libp2pP2pProtocolIdentifyPbIdentify.$h);
+  }
+
+  /// Go: type assertion `x.(*pb.Exchange)`: null if the object is not one.
+  $pb17.Libp2pP2pSecurityInsecurePbExchange?
+      asLibp2pP2pSecurityInsecurePbExchange() {
+    final $r = $callSync(2273, $W()..h(this));
+    return $r.hn($pb17.Libp2pP2pSecurityInsecurePbExchange.$h);
+  }
+
+  /// Go: type assertion `x.(*pb.NoiseExtensions)`: null if the object is not one.
+  $pb18.Libp2pP2pSecurityNoisePbNoiseExtensions?
+      asLibp2pP2pSecurityNoisePbNoiseExtensions() {
+    final $r = $callSync(2274, $W()..h(this));
+    return $r.hn($pb18.Libp2pP2pSecurityNoisePbNoiseExtensions.$h);
+  }
+
+  /// Go: type assertion `x.(*pb.NoiseHandshakePayload)`: null if the object is not one.
+  $pb18.Libp2pP2pSecurityNoisePbNoiseHandshakePayload?
+      asLibp2pP2pSecurityNoisePbNoiseHandshakePayload() {
+    final $r = $callSync(2275, $W()..h(this));
+    return $r.hn($pb18.Libp2pP2pSecurityNoisePbNoiseHandshakePayload.$h);
+  }
+
+  /// Go: type assertion `x.(*pb.Message)`: null if the object is not one.
+  $pb19.Libp2pP2pTransportWebrtcPbMessage?
+      asLibp2pP2pTransportWebrtcPbMessage() {
+    final $r = $callSync(2276, $W()..h(this));
+    return $r.hn($pb19.Libp2pP2pTransportWebrtcPbMessage.$h);
+  }
+
+  /// Go: type assertion `x.(*io_prometheus_client.Bucket)`: null if the object is not one.
+  $go.ClientModelGoBucket? asClientModelGoBucket() {
+    final $r = $callSync(2277, $W()..h(this));
+    return $r.hn($go.ClientModelGoBucket.$h);
+  }
+
+  /// Go: type assertion `x.(*io_prometheus_client.BucketSpan)`: null if the object is not one.
+  $go.ClientModelGoBucketSpan? asClientModelGoBucketSpan() {
+    final $r = $callSync(2278, $W()..h(this));
+    return $r.hn($go.ClientModelGoBucketSpan.$h);
+  }
+
+  /// Go: type assertion `x.(*io_prometheus_client.Counter)`: null if the object is not one.
+  $go.ClientModelGoCounter? asClientModelGoCounter() {
+    final $r = $callSync(2279, $W()..h(this));
+    return $r.hn($go.ClientModelGoCounter.$h);
+  }
+
+  /// Go: type assertion `x.(*io_prometheus_client.Exemplar)`: null if the object is not one.
+  $go.ClientModelGoExemplar? asClientModelGoExemplar() {
+    final $r = $callSync(2280, $W()..h(this));
+    return $r.hn($go.ClientModelGoExemplar.$h);
+  }
+
+  /// Go: type assertion `x.(*io_prometheus_client.Gauge)`: null if the object is not one.
+  $go.ClientModelGoGauge? asClientModelGoGauge() {
+    final $r = $callSync(2281, $W()..h(this));
+    return $r.hn($go.ClientModelGoGauge.$h);
+  }
+
+  /// Go: type assertion `x.(*io_prometheus_client.Histogram)`: null if the object is not one.
+  $go.ClientModelGoHistogram? asClientModelGoHistogram() {
+    final $r = $callSync(2282, $W()..h(this));
+    return $r.hn($go.ClientModelGoHistogram.$h);
+  }
+
+  /// Go: type assertion `x.(*io_prometheus_client.LabelPair)`: null if the object is not one.
+  $go.ClientModelGoLabelPair? asClientModelGoLabelPair() {
+    final $r = $callSync(2283, $W()..h(this));
+    return $r.hn($go.ClientModelGoLabelPair.$h);
+  }
+
+  /// Go: type assertion `x.(*io_prometheus_client.Metric)`: null if the object is not one.
+  $go.ClientModelGoMetric? asClientModelGoMetric() {
+    final $r = $callSync(2284, $W()..h(this));
+    return $r.hn($go.ClientModelGoMetric.$h);
+  }
+
+  /// Go: type assertion `x.(*io_prometheus_client.MetricFamily)`: null if the object is not one.
+  $go.ClientModelGoMetricFamily? asClientModelGoMetricFamily() {
+    final $r = $callSync(2285, $W()..h(this));
+    return $r.hn($go.ClientModelGoMetricFamily.$h);
+  }
+
+  /// Go: type assertion `x.(*io_prometheus_client.Quantile)`: null if the object is not one.
+  $go.ClientModelGoQuantile? asClientModelGoQuantile() {
+    final $r = $callSync(2286, $W()..h(this));
+    return $r.hn($go.ClientModelGoQuantile.$h);
+  }
+
+  /// Go: type assertion `x.(*io_prometheus_client.Summary)`: null if the object is not one.
+  $go.ClientModelGoSummary? asClientModelGoSummary() {
+    final $r = $callSync(2287, $W()..h(this));
+    return $r.hn($go.ClientModelGoSummary.$h);
+  }
+
+  /// Go: type assertion `x.(*io_prometheus_client.Untyped)`: null if the object is not one.
+  $go.ClientModelGoUntyped? asClientModelGoUntyped() {
+    final $r = $callSync(2288, $W()..h(this));
+    return $r.hn($go.ClientModelGoUntyped.$h);
+  }
+
+  /// Go: type assertion `x.(*v1.ExportTracePartialSuccess)`: null if the object is not one.
+  $v1.OtlpCollectorTraceV1ExportTracePartialSuccess?
+      asOtlpCollectorTraceV1ExportTracePartialSuccess() {
+    final $r = $callSync(2289, $W()..h(this));
+    return $r.hn($v1.OtlpCollectorTraceV1ExportTracePartialSuccess.$h);
+  }
+
+  /// Go: type assertion `x.(*v1.ExportTraceServiceRequest)`: null if the object is not one.
+  $v1.OtlpCollectorTraceV1ExportTraceServiceRequest?
+      asOtlpCollectorTraceV1ExportTraceServiceRequest() {
+    final $r = $callSync(2290, $W()..h(this));
+    return $r.hn($v1.OtlpCollectorTraceV1ExportTraceServiceRequest.$h);
+  }
+
+  /// Go: type assertion `x.(*v1.ExportTraceServiceResponse)`: null if the object is not one.
+  $v1.OtlpCollectorTraceV1ExportTraceServiceResponse?
+      asOtlpCollectorTraceV1ExportTraceServiceResponse() {
+    final $r = $callSync(2291, $W()..h(this));
+    return $r.hn($v1.OtlpCollectorTraceV1ExportTraceServiceResponse.$h);
+  }
+
+  /// Go: type assertion `x.(*v1.AnyValue)`: null if the object is not one.
+  $v12.OtlpCommonV1AnyValue? asOtlpCommonV1AnyValue() {
+    final $r = $callSync(2292, $W()..h(this));
+    return $r.hn($v12.OtlpCommonV1AnyValue.$h);
+  }
+
+  /// Go: type assertion `x.(*v1.ArrayValue)`: null if the object is not one.
+  $v12.OtlpCommonV1ArrayValue? asOtlpCommonV1ArrayValue() {
+    final $r = $callSync(2293, $W()..h(this));
+    return $r.hn($v12.OtlpCommonV1ArrayValue.$h);
+  }
+
+  /// Go: type assertion `x.(*v1.EntityRef)`: null if the object is not one.
+  $v12.OtlpCommonV1EntityRef? asOtlpCommonV1EntityRef() {
+    final $r = $callSync(2294, $W()..h(this));
+    return $r.hn($v12.OtlpCommonV1EntityRef.$h);
+  }
+
+  /// Go: type assertion `x.(*v1.InstrumentationScope)`: null if the object is not one.
+  $v12.OtlpCommonV1InstrumentationScope? asOtlpCommonV1InstrumentationScope() {
+    final $r = $callSync(2295, $W()..h(this));
+    return $r.hn($v12.OtlpCommonV1InstrumentationScope.$h);
+  }
+
+  /// Go: type assertion `x.(*v1.KeyValue)`: null if the object is not one.
+  $v12.OtlpCommonV1KeyValue? asOtlpCommonV1KeyValue() {
+    final $r = $callSync(2296, $W()..h(this));
+    return $r.hn($v12.OtlpCommonV1KeyValue.$h);
+  }
+
+  /// Go: type assertion `x.(*v1.KeyValueList)`: null if the object is not one.
+  $v12.OtlpCommonV1KeyValueList? asOtlpCommonV1KeyValueList() {
+    final $r = $callSync(2297, $W()..h(this));
+    return $r.hn($v12.OtlpCommonV1KeyValueList.$h);
+  }
+
+  /// Go: type assertion `x.(*v1.Resource)`: null if the object is not one.
+  $v13.OtlpResourceV1Resource? asOtlpResourceV1Resource() {
+    final $r = $callSync(2298, $W()..h(this));
+    return $r.hn($v13.OtlpResourceV1Resource.$h);
+  }
+
+  /// Go: type assertion `x.(*v1.ResourceSpans)`: null if the object is not one.
+  $v14.OtlpTraceV1ResourceSpans? asOtlpTraceV1ResourceSpans() {
+    final $r = $callSync(2299, $W()..h(this));
+    return $r.hn($v14.OtlpTraceV1ResourceSpans.$h);
+  }
+
+  /// Go: type assertion `x.(*v1.ScopeSpans)`: null if the object is not one.
+  $v14.OtlpTraceV1ScopeSpans? asOtlpTraceV1ScopeSpans() {
+    final $r = $callSync(2300, $W()..h(this));
+    return $r.hn($v14.OtlpTraceV1ScopeSpans.$h);
+  }
+
+  /// Go: type assertion `x.(*v1.Span)`: null if the object is not one.
+  $v14.OtlpTraceV1Span? asOtlpTraceV1Span() {
+    final $r = $callSync(2301, $W()..h(this));
+    return $r.hn($v14.OtlpTraceV1Span.$h);
+  }
+
+  /// Go: type assertion `x.(*v1.Span_Event)`: null if the object is not one.
+  $v14.OtlpTraceV1SpanEvent? asOtlpTraceV1SpanEvent() {
+    final $r = $callSync(2302, $W()..h(this));
+    return $r.hn($v14.OtlpTraceV1SpanEvent.$h);
+  }
+
+  /// Go: type assertion `x.(*v1.Span_Link)`: null if the object is not one.
+  $v14.OtlpTraceV1SpanLink? asOtlpTraceV1SpanLink() {
+    final $r = $callSync(2303, $W()..h(this));
+    return $r.hn($v14.OtlpTraceV1SpanLink.$h);
+  }
+
+  /// Go: type assertion `x.(*v1.Status)`: null if the object is not one.
+  $v14.OtlpTraceV1Status? asOtlpTraceV1Status() {
+    final $r = $callSync(2304, $W()..h(this));
+    return $r.hn($v14.OtlpTraceV1Status.$h);
+  }
+
+  /// Go: type assertion `x.(*v1.TracesData)`: null if the object is not one.
+  $v14.OtlpTraceV1TracesData? asOtlpTraceV1TracesData() {
+    final $r = $callSync(2305, $W()..h(this));
+    return $r.hn($v14.OtlpTraceV1TracesData.$h);
+  }
+
+  /// Go: type assertion `x.(*httpbody.HttpBody)`: null if the object is not one.
+  $httpbody.GenprotoGoogleapisApiHttpbodyHttpBody?
+      asGenprotoGoogleapisApiHttpbodyHttpBody() {
+    final $r = $callSync(2306, $W()..h(this));
+    return $r.hn($httpbody.GenprotoGoogleapisApiHttpbodyHttpBody.$h);
+  }
+
+  /// Go: type assertion `x.(*errdetails.BadRequest)`: null if the object is not one.
+  $errdetails.GenprotoGoogleapisRpcErrdetailsBadRequest?
+      asGenprotoGoogleapisRpcErrdetailsBadRequest() {
+    final $r = $callSync(2307, $W()..h(this));
+    return $r.hn($errdetails.GenprotoGoogleapisRpcErrdetailsBadRequest.$h);
+  }
+
+  /// Go: type assertion `x.(*errdetails.BadRequest_FieldViolation)`: null if the object is not one.
+  $errdetails.GenprotoGoogleapisRpcErrdetailsBadRequestFieldViolation?
+      asGenprotoGoogleapisRpcErrdetailsBadRequestFieldViolation() {
+    final $r = $callSync(2308, $W()..h(this));
+    return $r.hn(
+        $errdetails.GenprotoGoogleapisRpcErrdetailsBadRequestFieldViolation.$h);
+  }
+
+  /// Go: type assertion `x.(*errdetails.DebugInfo)`: null if the object is not one.
+  $errdetails.GenprotoGoogleapisRpcErrdetailsDebugInfo?
+      asGenprotoGoogleapisRpcErrdetailsDebugInfo() {
+    final $r = $callSync(2309, $W()..h(this));
+    return $r.hn($errdetails.GenprotoGoogleapisRpcErrdetailsDebugInfo.$h);
+  }
+
+  /// Go: type assertion `x.(*errdetails.ErrorInfo)`: null if the object is not one.
+  $errdetails.GenprotoGoogleapisRpcErrdetailsErrorInfo?
+      asGenprotoGoogleapisRpcErrdetailsErrorInfo() {
+    final $r = $callSync(2310, $W()..h(this));
+    return $r.hn($errdetails.GenprotoGoogleapisRpcErrdetailsErrorInfo.$h);
+  }
+
+  /// Go: type assertion `x.(*errdetails.Help)`: null if the object is not one.
+  $errdetails.GenprotoGoogleapisRpcErrdetailsHelp?
+      asGenprotoGoogleapisRpcErrdetailsHelp() {
+    final $r = $callSync(2311, $W()..h(this));
+    return $r.hn($errdetails.GenprotoGoogleapisRpcErrdetailsHelp.$h);
+  }
+
+  /// Go: type assertion `x.(*errdetails.Help_Link)`: null if the object is not one.
+  $errdetails.GenprotoGoogleapisRpcErrdetailsHelpLink?
+      asGenprotoGoogleapisRpcErrdetailsHelpLink() {
+    final $r = $callSync(2312, $W()..h(this));
+    return $r.hn($errdetails.GenprotoGoogleapisRpcErrdetailsHelpLink.$h);
+  }
+
+  /// Go: type assertion `x.(*errdetails.LocalizedMessage)`: null if the object is not one.
+  $errdetails.GenprotoGoogleapisRpcErrdetailsLocalizedMessage?
+      asGenprotoGoogleapisRpcErrdetailsLocalizedMessage() {
+    final $r = $callSync(2313, $W()..h(this));
+    return $r
+        .hn($errdetails.GenprotoGoogleapisRpcErrdetailsLocalizedMessage.$h);
+  }
+
+  /// Go: type assertion `x.(*errdetails.PreconditionFailure)`: null if the object is not one.
+  $errdetails.GenprotoGoogleapisRpcErrdetailsPreconditionFailure?
+      asGenprotoGoogleapisRpcErrdetailsPreconditionFailure() {
+    final $r = $callSync(2314, $W()..h(this));
+    return $r
+        .hn($errdetails.GenprotoGoogleapisRpcErrdetailsPreconditionFailure.$h);
+  }
+
+  /// Go: type assertion `x.(*errdetails.PreconditionFailure_Violation)`: null if the object is not one.
+  $errdetails.GenprotoGoogleapisRpcErrdetailsPreconditionFailureViolation?
+      asGenprotoGoogleapisRpcErrdetailsPreconditionFailureViolation() {
+    final $r = $callSync(2315, $W()..h(this));
+    return $r.hn($errdetails
+        .GenprotoGoogleapisRpcErrdetailsPreconditionFailureViolation.$h);
+  }
+
+  /// Go: type assertion `x.(*errdetails.QuotaFailure)`: null if the object is not one.
+  $errdetails.GenprotoGoogleapisRpcErrdetailsQuotaFailure?
+      asGenprotoGoogleapisRpcErrdetailsQuotaFailure() {
+    final $r = $callSync(2316, $W()..h(this));
+    return $r.hn($errdetails.GenprotoGoogleapisRpcErrdetailsQuotaFailure.$h);
+  }
+
+  /// Go: type assertion `x.(*errdetails.QuotaFailure_Violation)`: null if the object is not one.
+  $errdetails.GenprotoGoogleapisRpcErrdetailsQuotaFailureViolation?
+      asGenprotoGoogleapisRpcErrdetailsQuotaFailureViolation() {
+    final $r = $callSync(2317, $W()..h(this));
+    return $r.hn(
+        $errdetails.GenprotoGoogleapisRpcErrdetailsQuotaFailureViolation.$h);
+  }
+
+  /// Go: type assertion `x.(*errdetails.RequestInfo)`: null if the object is not one.
+  $errdetails.GenprotoGoogleapisRpcErrdetailsRequestInfo?
+      asGenprotoGoogleapisRpcErrdetailsRequestInfo() {
+    final $r = $callSync(2318, $W()..h(this));
+    return $r.hn($errdetails.GenprotoGoogleapisRpcErrdetailsRequestInfo.$h);
+  }
+
+  /// Go: type assertion `x.(*errdetails.ResourceInfo)`: null if the object is not one.
+  $errdetails.GenprotoGoogleapisRpcErrdetailsResourceInfo?
+      asGenprotoGoogleapisRpcErrdetailsResourceInfo() {
+    final $r = $callSync(2319, $W()..h(this));
+    return $r.hn($errdetails.GenprotoGoogleapisRpcErrdetailsResourceInfo.$h);
+  }
+
+  /// Go: type assertion `x.(*errdetails.RetryInfo)`: null if the object is not one.
+  $errdetails.GenprotoGoogleapisRpcErrdetailsRetryInfo?
+      asGenprotoGoogleapisRpcErrdetailsRetryInfo() {
+    final $r = $callSync(2320, $W()..h(this));
+    return $r.hn($errdetails.GenprotoGoogleapisRpcErrdetailsRetryInfo.$h);
+  }
+
+  /// Go: type assertion `x.(*status.Status)`: null if the object is not one.
+  $status.GenprotoGoogleapisRpcStatus? asGenprotoGoogleapisRpcStatus() {
+    final $r = $callSync(2321, $W()..h(this));
+    return $r.hn($status.GenprotoGoogleapisRpcStatus.$h);
+  }
+
+  /// Go: type assertion `x.(*grpc_binarylog_v1.Address)`: null if the object is not one.
+  $grpc_binarylog_v1.GrpcBinarylogGrpcBinarylogV1Address?
+      asGrpcBinarylogGrpcBinarylogV1Address() {
+    final $r = $callSync(2322, $W()..h(this));
+    return $r.hn($grpc_binarylog_v1.GrpcBinarylogGrpcBinarylogV1Address.$h);
+  }
+
+  /// Go: type assertion `x.(*grpc_binarylog_v1.ClientHeader)`: null if the object is not one.
+  $grpc_binarylog_v1.GrpcBinarylogGrpcBinarylogV1ClientHeader?
+      asGrpcBinarylogGrpcBinarylogV1ClientHeader() {
+    final $r = $callSync(2323, $W()..h(this));
+    return $r
+        .hn($grpc_binarylog_v1.GrpcBinarylogGrpcBinarylogV1ClientHeader.$h);
+  }
+
+  /// Go: type assertion `x.(*grpc_binarylog_v1.GrpcLogEntry)`: null if the object is not one.
+  $grpc_binarylog_v1.GrpcBinarylogGrpcBinarylogV1GrpcLogEntry?
+      asGrpcBinarylogGrpcBinarylogV1GrpcLogEntry() {
+    final $r = $callSync(2324, $W()..h(this));
+    return $r
+        .hn($grpc_binarylog_v1.GrpcBinarylogGrpcBinarylogV1GrpcLogEntry.$h);
+  }
+
+  /// Go: type assertion `x.(*grpc_binarylog_v1.Message)`: null if the object is not one.
+  $grpc_binarylog_v1.GrpcBinarylogGrpcBinarylogV1Message?
+      asGrpcBinarylogGrpcBinarylogV1Message() {
+    final $r = $callSync(2325, $W()..h(this));
+    return $r.hn($grpc_binarylog_v1.GrpcBinarylogGrpcBinarylogV1Message.$h);
+  }
+
+  /// Go: type assertion `x.(*grpc_binarylog_v1.Metadata)`: null if the object is not one.
+  $grpc_binarylog_v1.GrpcBinarylogGrpcBinarylogV1Metadata?
+      asGrpcBinarylogGrpcBinarylogV1Metadata() {
+    final $r = $callSync(2326, $W()..h(this));
+    return $r.hn($grpc_binarylog_v1.GrpcBinarylogGrpcBinarylogV1Metadata.$h);
+  }
+
+  /// Go: type assertion `x.(*grpc_binarylog_v1.MetadataEntry)`: null if the object is not one.
+  $grpc_binarylog_v1.GrpcBinarylogGrpcBinarylogV1MetadataEntry?
+      asGrpcBinarylogGrpcBinarylogV1MetadataEntry() {
+    final $r = $callSync(2327, $W()..h(this));
+    return $r
+        .hn($grpc_binarylog_v1.GrpcBinarylogGrpcBinarylogV1MetadataEntry.$h);
+  }
+
+  /// Go: type assertion `x.(*grpc_binarylog_v1.ServerHeader)`: null if the object is not one.
+  $grpc_binarylog_v1.GrpcBinarylogGrpcBinarylogV1ServerHeader?
+      asGrpcBinarylogGrpcBinarylogV1ServerHeader() {
+    final $r = $callSync(2328, $W()..h(this));
+    return $r
+        .hn($grpc_binarylog_v1.GrpcBinarylogGrpcBinarylogV1ServerHeader.$h);
+  }
+
+  /// Go: type assertion `x.(*grpc_binarylog_v1.Trailer)`: null if the object is not one.
+  $grpc_binarylog_v1.GrpcBinarylogGrpcBinarylogV1Trailer?
+      asGrpcBinarylogGrpcBinarylogV1Trailer() {
+    final $r = $callSync(2329, $W()..h(this));
+    return $r.hn($grpc_binarylog_v1.GrpcBinarylogGrpcBinarylogV1Trailer.$h);
+  }
+
+  /// Go: type assertion `x.(*grpc_health_v1.HealthCheckRequest)`: null if the object is not one.
+  $grpc_health_v1.GrpcHealthGrpcHealthV1HealthCheckRequest?
+      asGrpcHealthGrpcHealthV1HealthCheckRequest() {
+    final $r = $callSync(2330, $W()..h(this));
+    return $r.hn($grpc_health_v1.GrpcHealthGrpcHealthV1HealthCheckRequest.$h);
+  }
+
+  /// Go: type assertion `x.(*grpc_health_v1.HealthCheckResponse)`: null if the object is not one.
+  $grpc_health_v1.GrpcHealthGrpcHealthV1HealthCheckResponse?
+      asGrpcHealthGrpcHealthV1HealthCheckResponse() {
+    final $r = $callSync(2331, $W()..h(this));
+    return $r.hn($grpc_health_v1.GrpcHealthGrpcHealthV1HealthCheckResponse.$h);
+  }
+
+  /// Go: type assertion `x.(*grpc_health_v1.HealthListRequest)`: null if the object is not one.
+  $grpc_health_v1.GrpcHealthGrpcHealthV1HealthListRequest?
+      asGrpcHealthGrpcHealthV1HealthListRequest() {
+    final $r = $callSync(2332, $W()..h(this));
+    return $r.hn($grpc_health_v1.GrpcHealthGrpcHealthV1HealthListRequest.$h);
+  }
+
+  /// Go: type assertion `x.(*grpc_health_v1.HealthListResponse)`: null if the object is not one.
+  $grpc_health_v1.GrpcHealthGrpcHealthV1HealthListResponse?
+      asGrpcHealthGrpcHealthV1HealthListResponse() {
+    final $r = $callSync(2333, $W()..h(this));
+    return $r.hn($grpc_health_v1.GrpcHealthGrpcHealthV1HealthListResponse.$h);
+  }
+
+  /// Go: type assertion `x.(*descriptorpb.DescriptorProto)`: null if the object is not one.
+  $descriptorpb.ProtobufTypesDescriptorpbDescriptorProto?
+      asProtobufTypesDescriptorpbDescriptorProto() {
+    final $r = $callSync(2334, $W()..h(this));
+    return $r.hn($descriptorpb.ProtobufTypesDescriptorpbDescriptorProto.$h);
+  }
+
+  /// Go: type assertion `x.(*descriptorpb.DescriptorProto_ExtensionRange)`: null if the object is not one.
+  $descriptorpb.ProtobufTypesDescriptorpbDescriptorProtoExtensionRange?
+      asProtobufTypesDescriptorpbDescriptorProtoExtensionRange() {
+    final $r = $callSync(2335, $W()..h(this));
+    return $r.hn($descriptorpb
+        .ProtobufTypesDescriptorpbDescriptorProtoExtensionRange.$h);
+  }
+
+  /// Go: type assertion `x.(*descriptorpb.DescriptorProto_ReservedRange)`: null if the object is not one.
+  $descriptorpb.ProtobufTypesDescriptorpbDescriptorProtoReservedRange?
+      asProtobufTypesDescriptorpbDescriptorProtoReservedRange() {
+    final $r = $callSync(2336, $W()..h(this));
+    return $r.hn(
+        $descriptorpb.ProtobufTypesDescriptorpbDescriptorProtoReservedRange.$h);
+  }
+
+  /// Go: type assertion `x.(*descriptorpb.EnumDescriptorProto)`: null if the object is not one.
+  $descriptorpb.ProtobufTypesDescriptorpbEnumDescriptorProto?
+      asProtobufTypesDescriptorpbEnumDescriptorProto() {
+    final $r = $callSync(2337, $W()..h(this));
+    return $r.hn($descriptorpb.ProtobufTypesDescriptorpbEnumDescriptorProto.$h);
+  }
+
+  /// Go: type assertion `x.(*descriptorpb.EnumDescriptorProto_EnumReservedRange)`: null if the object is not one.
+  $descriptorpb.ProtobufTypesDescriptorpbEnumDescriptorProtoEnumReservedRange?
+      asProtobufTypesDescriptorpbEnumDescriptorProtoEnumReservedRange() {
+    final $r = $callSync(2338, $W()..h(this));
+    return $r.hn($descriptorpb
+        .ProtobufTypesDescriptorpbEnumDescriptorProtoEnumReservedRange.$h);
+  }
+
+  /// Go: type assertion `x.(*descriptorpb.EnumOptions)`: null if the object is not one.
+  $descriptorpb.ProtobufTypesDescriptorpbEnumOptions?
+      asProtobufTypesDescriptorpbEnumOptions() {
+    final $r = $callSync(2339, $W()..h(this));
+    return $r.hn($descriptorpb.ProtobufTypesDescriptorpbEnumOptions.$h);
+  }
+
+  /// Go: type assertion `x.(*descriptorpb.EnumValueDescriptorProto)`: null if the object is not one.
+  $descriptorpb.ProtobufTypesDescriptorpbEnumValueDescriptorProto?
+      asProtobufTypesDescriptorpbEnumValueDescriptorProto() {
+    final $r = $callSync(2340, $W()..h(this));
+    return $r
+        .hn($descriptorpb.ProtobufTypesDescriptorpbEnumValueDescriptorProto.$h);
+  }
+
+  /// Go: type assertion `x.(*descriptorpb.EnumValueOptions)`: null if the object is not one.
+  $descriptorpb.ProtobufTypesDescriptorpbEnumValueOptions?
+      asProtobufTypesDescriptorpbEnumValueOptions() {
+    final $r = $callSync(2341, $W()..h(this));
+    return $r.hn($descriptorpb.ProtobufTypesDescriptorpbEnumValueOptions.$h);
+  }
+
+  /// Go: type assertion `x.(*descriptorpb.ExtensionRangeOptions)`: null if the object is not one.
+  $descriptorpb.ProtobufTypesDescriptorpbExtensionRangeOptions?
+      asProtobufTypesDescriptorpbExtensionRangeOptions() {
+    final $r = $callSync(2342, $W()..h(this));
+    return $r
+        .hn($descriptorpb.ProtobufTypesDescriptorpbExtensionRangeOptions.$h);
+  }
+
+  /// Go: type assertion `x.(*descriptorpb.ExtensionRangeOptions_Declaration)`: null if the object is not one.
+  $descriptorpb.ProtobufTypesDescriptorpbExtensionRangeOptionsDeclaration?
+      asProtobufTypesDescriptorpbExtensionRangeOptionsDeclaration() {
+    final $r = $callSync(2343, $W()..h(this));
+    return $r.hn($descriptorpb
+        .ProtobufTypesDescriptorpbExtensionRangeOptionsDeclaration.$h);
+  }
+
+  /// Go: type assertion `x.(*descriptorpb.FeatureSet)`: null if the object is not one.
+  $descriptorpb.ProtobufTypesDescriptorpbFeatureSet?
+      asProtobufTypesDescriptorpbFeatureSet() {
+    final $r = $callSync(2344, $W()..h(this));
+    return $r.hn($descriptorpb.ProtobufTypesDescriptorpbFeatureSet.$h);
+  }
+
+  /// Go: type assertion `x.(*descriptorpb.FeatureSetDefaults)`: null if the object is not one.
+  $descriptorpb.ProtobufTypesDescriptorpbFeatureSetDefaults?
+      asProtobufTypesDescriptorpbFeatureSetDefaults() {
+    final $r = $callSync(2345, $W()..h(this));
+    return $r.hn($descriptorpb.ProtobufTypesDescriptorpbFeatureSetDefaults.$h);
+  }
+
+  /// Go: type assertion `x.(*descriptorpb.FeatureSetDefaults_FeatureSetEditionDefault)`: null if the object is not one.
+  $descriptorpb
+      .ProtobufTypesDescriptorpbFeatureSetDefaultsFeatureSetEditionDefault?
+      asProtobufTypesDescriptorpbFeatureSetDefaultsFeatureSetEditionDefault() {
+    final $r = $callSync(2346, $W()..h(this));
+    return $r.hn($descriptorpb
+        .ProtobufTypesDescriptorpbFeatureSetDefaultsFeatureSetEditionDefault
+        .$h);
+  }
+
+  /// Go: type assertion `x.(*descriptorpb.FeatureSet_VisibilityFeature)`: null if the object is not one.
+  $descriptorpb.ProtobufTypesDescriptorpbFeatureSetVisibilityFeature?
+      asProtobufTypesDescriptorpbFeatureSetVisibilityFeature() {
+    final $r = $callSync(2347, $W()..h(this));
+    return $r.hn(
+        $descriptorpb.ProtobufTypesDescriptorpbFeatureSetVisibilityFeature.$h);
+  }
+
+  /// Go: type assertion `x.(*descriptorpb.FieldDescriptorProto)`: null if the object is not one.
+  $descriptorpb.ProtobufTypesDescriptorpbFieldDescriptorProto?
+      asProtobufTypesDescriptorpbFieldDescriptorProto() {
+    final $r = $callSync(2348, $W()..h(this));
+    return $r
+        .hn($descriptorpb.ProtobufTypesDescriptorpbFieldDescriptorProto.$h);
+  }
+
+  /// Go: type assertion `x.(*descriptorpb.FieldOptions)`: null if the object is not one.
+  $descriptorpb.ProtobufTypesDescriptorpbFieldOptions?
+      asProtobufTypesDescriptorpbFieldOptions() {
+    final $r = $callSync(2349, $W()..h(this));
+    return $r.hn($descriptorpb.ProtobufTypesDescriptorpbFieldOptions.$h);
+  }
+
+  /// Go: type assertion `x.(*descriptorpb.FieldOptions_EditionDefault)`: null if the object is not one.
+  $descriptorpb.ProtobufTypesDescriptorpbFieldOptionsEditionDefault?
+      asProtobufTypesDescriptorpbFieldOptionsEditionDefault() {
+    final $r = $callSync(2350, $W()..h(this));
+    return $r.hn(
+        $descriptorpb.ProtobufTypesDescriptorpbFieldOptionsEditionDefault.$h);
+  }
+
+  /// Go: type assertion `x.(*descriptorpb.FieldOptions_FeatureSupport)`: null if the object is not one.
+  $descriptorpb.ProtobufTypesDescriptorpbFieldOptionsFeatureSupport?
+      asProtobufTypesDescriptorpbFieldOptionsFeatureSupport() {
+    final $r = $callSync(2351, $W()..h(this));
+    return $r.hn(
+        $descriptorpb.ProtobufTypesDescriptorpbFieldOptionsFeatureSupport.$h);
+  }
+
+  /// Go: type assertion `x.(*descriptorpb.FileDescriptorProto)`: null if the object is not one.
+  $descriptorpb.ProtobufTypesDescriptorpbFileDescriptorProto?
+      asProtobufTypesDescriptorpbFileDescriptorProto() {
+    final $r = $callSync(2352, $W()..h(this));
+    return $r.hn($descriptorpb.ProtobufTypesDescriptorpbFileDescriptorProto.$h);
+  }
+
+  /// Go: type assertion `x.(*descriptorpb.FileDescriptorSet)`: null if the object is not one.
+  $descriptorpb.ProtobufTypesDescriptorpbFileDescriptorSet?
+      asProtobufTypesDescriptorpbFileDescriptorSet() {
+    final $r = $callSync(2353, $W()..h(this));
+    return $r.hn($descriptorpb.ProtobufTypesDescriptorpbFileDescriptorSet.$h);
+  }
+
+  /// Go: type assertion `x.(*descriptorpb.FileOptions)`: null if the object is not one.
+  $descriptorpb.ProtobufTypesDescriptorpbFileOptions?
+      asProtobufTypesDescriptorpbFileOptions() {
+    final $r = $callSync(2354, $W()..h(this));
+    return $r.hn($descriptorpb.ProtobufTypesDescriptorpbFileOptions.$h);
+  }
+
+  /// Go: type assertion `x.(*descriptorpb.GeneratedCodeInfo)`: null if the object is not one.
+  $descriptorpb.ProtobufTypesDescriptorpbGeneratedCodeInfo?
+      asProtobufTypesDescriptorpbGeneratedCodeInfo() {
+    final $r = $callSync(2355, $W()..h(this));
+    return $r.hn($descriptorpb.ProtobufTypesDescriptorpbGeneratedCodeInfo.$h);
+  }
+
+  /// Go: type assertion `x.(*descriptorpb.GeneratedCodeInfo_Annotation)`: null if the object is not one.
+  $descriptorpb.ProtobufTypesDescriptorpbGeneratedCodeInfoAnnotation?
+      asProtobufTypesDescriptorpbGeneratedCodeInfoAnnotation() {
+    final $r = $callSync(2356, $W()..h(this));
+    return $r.hn(
+        $descriptorpb.ProtobufTypesDescriptorpbGeneratedCodeInfoAnnotation.$h);
+  }
+
+  /// Go: type assertion `x.(*descriptorpb.MessageOptions)`: null if the object is not one.
+  $descriptorpb.ProtobufTypesDescriptorpbMessageOptions?
+      asProtobufTypesDescriptorpbMessageOptions() {
+    final $r = $callSync(2357, $W()..h(this));
+    return $r.hn($descriptorpb.ProtobufTypesDescriptorpbMessageOptions.$h);
+  }
+
+  /// Go: type assertion `x.(*descriptorpb.MethodDescriptorProto)`: null if the object is not one.
+  $descriptorpb.ProtobufTypesDescriptorpbMethodDescriptorProto?
+      asProtobufTypesDescriptorpbMethodDescriptorProto() {
+    final $r = $callSync(2358, $W()..h(this));
+    return $r
+        .hn($descriptorpb.ProtobufTypesDescriptorpbMethodDescriptorProto.$h);
+  }
+
+  /// Go: type assertion `x.(*descriptorpb.MethodOptions)`: null if the object is not one.
+  $descriptorpb.ProtobufTypesDescriptorpbMethodOptions?
+      asProtobufTypesDescriptorpbMethodOptions() {
+    final $r = $callSync(2359, $W()..h(this));
+    return $r.hn($descriptorpb.ProtobufTypesDescriptorpbMethodOptions.$h);
+  }
+
+  /// Go: type assertion `x.(*descriptorpb.OneofDescriptorProto)`: null if the object is not one.
+  $descriptorpb.ProtobufTypesDescriptorpbOneofDescriptorProto?
+      asProtobufTypesDescriptorpbOneofDescriptorProto() {
+    final $r = $callSync(2360, $W()..h(this));
+    return $r
+        .hn($descriptorpb.ProtobufTypesDescriptorpbOneofDescriptorProto.$h);
+  }
+
+  /// Go: type assertion `x.(*descriptorpb.OneofOptions)`: null if the object is not one.
+  $descriptorpb.ProtobufTypesDescriptorpbOneofOptions?
+      asProtobufTypesDescriptorpbOneofOptions() {
+    final $r = $callSync(2361, $W()..h(this));
+    return $r.hn($descriptorpb.ProtobufTypesDescriptorpbOneofOptions.$h);
+  }
+
+  /// Go: type assertion `x.(*descriptorpb.ServiceDescriptorProto)`: null if the object is not one.
+  $descriptorpb.ProtobufTypesDescriptorpbServiceDescriptorProto?
+      asProtobufTypesDescriptorpbServiceDescriptorProto() {
+    final $r = $callSync(2362, $W()..h(this));
+    return $r
+        .hn($descriptorpb.ProtobufTypesDescriptorpbServiceDescriptorProto.$h);
+  }
+
+  /// Go: type assertion `x.(*descriptorpb.ServiceOptions)`: null if the object is not one.
+  $descriptorpb.ProtobufTypesDescriptorpbServiceOptions?
+      asProtobufTypesDescriptorpbServiceOptions() {
+    final $r = $callSync(2363, $W()..h(this));
+    return $r.hn($descriptorpb.ProtobufTypesDescriptorpbServiceOptions.$h);
+  }
+
+  /// Go: type assertion `x.(*descriptorpb.SourceCodeInfo)`: null if the object is not one.
+  $descriptorpb.ProtobufTypesDescriptorpbSourceCodeInfo?
+      asProtobufTypesDescriptorpbSourceCodeInfo() {
+    final $r = $callSync(2364, $W()..h(this));
+    return $r.hn($descriptorpb.ProtobufTypesDescriptorpbSourceCodeInfo.$h);
+  }
+
+  /// Go: type assertion `x.(*descriptorpb.SourceCodeInfo_Location)`: null if the object is not one.
+  $descriptorpb.ProtobufTypesDescriptorpbSourceCodeInfoLocation?
+      asProtobufTypesDescriptorpbSourceCodeInfoLocation() {
+    final $r = $callSync(2365, $W()..h(this));
+    return $r
+        .hn($descriptorpb.ProtobufTypesDescriptorpbSourceCodeInfoLocation.$h);
+  }
+
+  /// Go: type assertion `x.(*descriptorpb.UninterpretedOption)`: null if the object is not one.
+  $descriptorpb.ProtobufTypesDescriptorpbUninterpretedOption?
+      asProtobufTypesDescriptorpbUninterpretedOption() {
+    final $r = $callSync(2366, $W()..h(this));
+    return $r.hn($descriptorpb.ProtobufTypesDescriptorpbUninterpretedOption.$h);
+  }
+
+  /// Go: type assertion `x.(*descriptorpb.UninterpretedOption_NamePart)`: null if the object is not one.
+  $descriptorpb.ProtobufTypesDescriptorpbUninterpretedOptionNamePart?
+      asProtobufTypesDescriptorpbUninterpretedOptionNamePart() {
+    final $r = $callSync(2367, $W()..h(this));
+    return $r.hn(
+        $descriptorpb.ProtobufTypesDescriptorpbUninterpretedOptionNamePart.$h);
+  }
+
+  /// Go: type assertion `x.(*gofeaturespb.GoFeatures)`: null if the object is not one.
+  $gofeaturespb.ProtobufTypesGofeaturespbGoFeatures?
+      asProtobufTypesGofeaturespbGoFeatures() {
+    final $r = $callSync(2368, $W()..h(this));
+    return $r.hn($gofeaturespb.ProtobufTypesGofeaturespbGoFeatures.$h);
+  }
+
+  /// Go: type assertion `x.(*anypb.Any)`: null if the object is not one.
+  $anypb.ProtobufTypesKnownAnypbAny? asProtobufTypesKnownAnypbAny() {
+    final $r = $callSync(2369, $W()..h(this));
+    return $r.hn($anypb.ProtobufTypesKnownAnypbAny.$h);
+  }
+
+  /// Go: type assertion `x.(*durationpb.Duration)`: null if the object is not one.
+  $durationpb.ProtobufTypesKnownDurationpbDuration?
+      asProtobufTypesKnownDurationpbDuration() {
+    final $r = $callSync(2370, $W()..h(this));
+    return $r.hn($durationpb.ProtobufTypesKnownDurationpbDuration.$h);
+  }
+
+  /// Go: type assertion `x.(*fieldmaskpb.FieldMask)`: null if the object is not one.
+  $fieldmaskpb.ProtobufTypesKnownFieldmaskpbFieldMask?
+      asProtobufTypesKnownFieldmaskpbFieldMask() {
+    final $r = $callSync(2371, $W()..h(this));
+    return $r.hn($fieldmaskpb.ProtobufTypesKnownFieldmaskpbFieldMask.$h);
+  }
+
+  /// Go: type assertion `x.(*structpb.ListValue)`: null if the object is not one.
+  $structpb.ProtobufTypesKnownStructpbListValue?
+      asProtobufTypesKnownStructpbListValue() {
+    final $r = $callSync(2372, $W()..h(this));
+    return $r.hn($structpb.ProtobufTypesKnownStructpbListValue.$h);
+  }
+
+  /// Go: type assertion `x.(*structpb.Struct)`: null if the object is not one.
+  $structpb.ProtobufTypesKnownStructpbStruct?
+      asProtobufTypesKnownStructpbStruct() {
+    final $r = $callSync(2373, $W()..h(this));
+    return $r.hn($structpb.ProtobufTypesKnownStructpbStruct.$h);
+  }
+
+  /// Go: type assertion `x.(*structpb.Value)`: null if the object is not one.
+  $structpb.ProtobufTypesKnownStructpbValue?
+      asProtobufTypesKnownStructpbValue() {
+    final $r = $callSync(2374, $W()..h(this));
+    return $r.hn($structpb.ProtobufTypesKnownStructpbValue.$h);
+  }
+
+  /// Go: type assertion `x.(*timestamppb.Timestamp)`: null if the object is not one.
+  $timestamppb.ProtobufTypesKnownTimestamppbTimestamp?
+      asProtobufTypesKnownTimestamppbTimestamp() {
+    final $r = $callSync(2375, $W()..h(this));
+    return $r.hn($timestamppb.ProtobufTypesKnownTimestamppbTimestamp.$h);
+  }
+
+  /// Go: type assertion `x.(*wrapperspb.BoolValue)`: null if the object is not one.
+  $wrapperspb.ProtobufTypesKnownWrapperspbBoolValue?
+      asProtobufTypesKnownWrapperspbBoolValue() {
+    final $r = $callSync(2376, $W()..h(this));
+    return $r.hn($wrapperspb.ProtobufTypesKnownWrapperspbBoolValue.$h);
+  }
+
+  /// Go: type assertion `x.(*wrapperspb.BytesValue)`: null if the object is not one.
+  $wrapperspb.ProtobufTypesKnownWrapperspbBytesValue?
+      asProtobufTypesKnownWrapperspbBytesValue() {
+    final $r = $callSync(2377, $W()..h(this));
+    return $r.hn($wrapperspb.ProtobufTypesKnownWrapperspbBytesValue.$h);
+  }
+
+  /// Go: type assertion `x.(*wrapperspb.DoubleValue)`: null if the object is not one.
+  $wrapperspb.ProtobufTypesKnownWrapperspbDoubleValue?
+      asProtobufTypesKnownWrapperspbDoubleValue() {
+    final $r = $callSync(2378, $W()..h(this));
+    return $r.hn($wrapperspb.ProtobufTypesKnownWrapperspbDoubleValue.$h);
+  }
+
+  /// Go: type assertion `x.(*wrapperspb.FloatValue)`: null if the object is not one.
+  $wrapperspb.ProtobufTypesKnownWrapperspbFloatValue?
+      asProtobufTypesKnownWrapperspbFloatValue() {
+    final $r = $callSync(2379, $W()..h(this));
+    return $r.hn($wrapperspb.ProtobufTypesKnownWrapperspbFloatValue.$h);
+  }
+
+  /// Go: type assertion `x.(*wrapperspb.Int32Value)`: null if the object is not one.
+  $wrapperspb.ProtobufTypesKnownWrapperspbInt32Value?
+      asProtobufTypesKnownWrapperspbInt32Value() {
+    final $r = $callSync(2380, $W()..h(this));
+    return $r.hn($wrapperspb.ProtobufTypesKnownWrapperspbInt32Value.$h);
+  }
+
+  /// Go: type assertion `x.(*wrapperspb.Int64Value)`: null if the object is not one.
+  $wrapperspb.ProtobufTypesKnownWrapperspbInt64Value?
+      asProtobufTypesKnownWrapperspbInt64Value() {
+    final $r = $callSync(2381, $W()..h(this));
+    return $r.hn($wrapperspb.ProtobufTypesKnownWrapperspbInt64Value.$h);
+  }
+
+  /// Go: type assertion `x.(*wrapperspb.StringValue)`: null if the object is not one.
+  $wrapperspb.ProtobufTypesKnownWrapperspbStringValue?
+      asProtobufTypesKnownWrapperspbStringValue() {
+    final $r = $callSync(2382, $W()..h(this));
+    return $r.hn($wrapperspb.ProtobufTypesKnownWrapperspbStringValue.$h);
+  }
+
+  /// Go: type assertion `x.(*wrapperspb.UInt32Value)`: null if the object is not one.
+  $wrapperspb.ProtobufTypesKnownWrapperspbUInt32Value?
+      asProtobufTypesKnownWrapperspbUInt32Value() {
+    final $r = $callSync(2383, $W()..h(this));
+    return $r.hn($wrapperspb.ProtobufTypesKnownWrapperspbUInt32Value.$h);
+  }
+
+  /// Go: type assertion `x.(*wrapperspb.UInt64Value)`: null if the object is not one.
+  $wrapperspb.ProtobufTypesKnownWrapperspbUInt64Value?
+      asProtobufTypesKnownWrapperspbUInt64Value() {
+    final $r = $callSync(2384, $W()..h(this));
+    return $r.hn($wrapperspb.ProtobufTypesKnownWrapperspbUInt64Value.$h);
+  }
+}
+
+/// Go: `protoreflect.ServiceDescriptor` (handle).
+class ProtobufReflectProtoreflectServiceDescriptor
+    extends ProtobufReflectProtoreflectDescriptor
+    with ProtobufReflectProtoreflectServiceDescriptor$ {
+  ProtobufReflectProtoreflectServiceDescriptor.$h(super.$h) : super.$h();
+}
+
+/// The methods of [ProtobufReflectProtoreflectServiceDescriptor], mixed into every class Go also accepts as one.
+mixin ProtobufReflectProtoreflectServiceDescriptor$ on GoHandle {
+  /// Go: `func (protoreflect.ServiceDescriptor).Methods() protoreflect.MethodDescriptors`.
+  ProtobufReflectProtoreflectMethodDescriptors methods() {
+    final $r = $callSync(24989, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectMethodDescriptors.$h);
+  }
+}
+
+/// Go: `protoreflect.ServiceDescriptors` (handle).
+class ProtobufReflectProtoreflectServiceDescriptors extends GoHandle
+    with ProtobufReflectProtoreflectServiceDescriptors$ {
+  ProtobufReflectProtoreflectServiceDescriptors.$h(super.$h);
+}
+
+/// The methods of [ProtobufReflectProtoreflectServiceDescriptors], mixed into every class Go also accepts as one.
+mixin ProtobufReflectProtoreflectServiceDescriptors$ on GoHandle {
+  /// Go: `func (protoreflect.ServiceDescriptors).ByName(s protoreflect.Name) protoreflect.ServiceDescriptor`.
+  ProtobufReflectProtoreflectServiceDescriptor byName(String s) {
+    final $r = $callSync(
+        24990,
+        $W()
+          ..h(this)
+          ..str(s));
+    return $r.hnn(ProtobufReflectProtoreflectServiceDescriptor.$h);
+  }
+
+  /// Go: `func (protoreflect.ServiceDescriptors).Get(i int) protoreflect.ServiceDescriptor`.
+  ProtobufReflectProtoreflectServiceDescriptor get(int i) {
+    final $r = $callSync(
+        24991,
+        $W()
+          ..h(this)
+          ..i64(i));
+    return $r.hnn(ProtobufReflectProtoreflectServiceDescriptor.$h);
+  }
+
+  /// Go: `func (protoreflect.ServiceDescriptors).Len() int`.
+  int len() {
+    final $r = $callSync(24992, $W()..h(this));
+    return $r.i64();
+  }
+}
+
+/// Go: `protoreflect.SourceLocation`.
+final class ProtobufReflectProtoreflectSourceLocation implements GoDto {
+  ProtobufReflectProtoreflectSourceLocation(
+      {List<int>? path,
+      int? startLine,
+      int? startColumn,
+      int? endLine,
+      int? endColumn,
+      List<String>? leadingDetachedComments,
+      String? leadingComments,
+      String? trailingComments,
+      int? next})
+      : path = path ?? [],
+        startLine = startLine ?? 0,
+        startColumn = startColumn ?? 0,
+        endLine = endLine ?? 0,
+        endColumn = endColumn ?? 0,
+        leadingDetachedComments = leadingDetachedComments ?? [],
+        leadingComments = leadingComments ?? '',
+        trailingComments = trailingComments ?? '',
+        next = next ?? 0;
+
+  ProtobufReflectProtoreflectSourceLocation.$dec($R r)
+      : path = r.list(() => r.i64()),
+        startLine = r.i64(),
+        startColumn = r.i64(),
+        endLine = r.i64(),
+        endColumn = r.i64(),
+        leadingDetachedComments = r.list(() => r.str()),
+        leadingComments = r.str(),
+        trailingComments = r.str(),
+        next = r.i64();
+
+  /// Go: `Path`.
+  List<int> path;
+
+  /// Go: `StartLine`.
+  int startLine;
+
+  /// Go: `StartColumn`.
+  int startColumn;
+
+  /// Go: `EndLine`.
+  int endLine;
+
+  /// Go: `EndColumn`.
+  int endColumn;
+
+  /// Go: `LeadingDetachedComments`.
+  List<String> leadingDetachedComments;
+
+  /// Go: `LeadingComments`.
+  String leadingComments;
+
+  /// Go: `TrailingComments`.
+  String trailingComments;
+
+  /// Go: `Next`.
+  int next;
+
+  @override
+  void $enc($W w) {
+    w
+      ..list(path, (w0, e0) => w0.i64(e0))
+      ..i64(startLine)
+      ..i64(startColumn)
+      ..i64(endLine)
+      ..i64(endColumn)
+      ..list(leadingDetachedComments, (w0, e0) => w0.str(e0))
+      ..str(leadingComments)
+      ..str(trailingComments)
+      ..i64(next);
+  }
+}
+
+/// Go: `protoreflect.SourceLocations` (handle).
+class ProtobufReflectProtoreflectSourceLocations extends GoHandle
+    with ProtobufReflectProtoreflectSourceLocations$ {
+  ProtobufReflectProtoreflectSourceLocations.$h(super.$h);
+}
+
+/// The methods of [ProtobufReflectProtoreflectSourceLocations], mixed into every class Go also accepts as one.
+mixin ProtobufReflectProtoreflectSourceLocations$ on GoHandle {
+  /// Go: `func (protoreflect.SourceLocations).ByDescriptor(desc protoreflect.Descriptor) protoreflect.SourceLocation`.
+  ProtobufReflectProtoreflectSourceLocation byDescriptor(
+      ProtobufReflectProtoreflectDescriptor desc) {
+    final $r = $callSync(
+        24993,
+        $W()
+          ..h(this)
+          ..h(desc));
+    return $r.p() ? ProtobufReflectProtoreflectSourceLocation.$dec($r) : $nil();
+  }
+
+  /// Go: `func (protoreflect.SourceLocations).ByPath(path protoreflect.SourcePath) protoreflect.SourceLocation`.
+  ProtobufReflectProtoreflectSourceLocation byPath(List<int> path) {
+    final $r = $callSync(
+        24994,
+        $W()
+          ..h(this)
+          ..list(path, (w0, e0) => w0.i64(e0)));
+    return $r.p() ? ProtobufReflectProtoreflectSourceLocation.$dec($r) : $nil();
+  }
+
+  /// Go: `func (protoreflect.SourceLocations).Get(int) protoreflect.SourceLocation`.
+  ProtobufReflectProtoreflectSourceLocation get(int arg0) {
+    final $r = $callSync(
+        24995,
+        $W()
+          ..h(this)
+          ..i64(arg0));
+    return $r.p() ? ProtobufReflectProtoreflectSourceLocation.$dec($r) : $nil();
+  }
+
+  /// Go: `func (protoreflect.SourceLocations).Len() int`.
+  int len() {
+    final $r = $callSync(24996, $W()..h(this));
+    return $r.i64();
+  }
+}
+
+/// Go: `protoreflect.Value` (handle).
+class ProtobufReflectProtoreflectValue extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
+  ProtobufReflectProtoreflectValue.$h(super.$h) : super.$h();
+
+  /// Go: `func (protoreflect.Value).Bool() bool`.
+  bool bool$() {
+    final $r = $callSync(24997, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (protoreflect.Value).Bytes() []byte`.
+  Uint8List bytes() {
+    final $r = $callSync(24998, $W()..h(this));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (protoreflect.Value).Enum() protoreflect.EnumNumber`.
+  int enum$() {
+    final $r = $callSync(24999, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (protoreflect.Value).Equal(v2 protoreflect.Value) bool`.
+  bool equal(ProtobufReflectProtoreflectValue v2) {
+    final $r = $callSync(
+        25000,
+        $W()
+          ..h(this)
+          ..h(v2));
+    return $r.b();
+  }
+
+  /// Go: `func (protoreflect.Value).Float() float64`.
+  double float() {
+    final $r = $callSync(25001, $W()..h(this));
+    return $r.f64();
+  }
+
+  /// Go: `func (protoreflect.Value).Int() int64`.
+  int int$() {
+    final $r = $callSync(25002, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (protoreflect.Value).Interface() any`.
+  Object? interface() {
+    final $r = $callSync(25003, $W()..h(this));
+    return $r.any();
+  }
+
+  /// Go: `func (protoreflect.Value).IsValid() bool`.
+  bool isValid() {
+    final $r = $callSync(25004, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (protoreflect.Value).List() protoreflect.List`.
+  ProtobufReflectProtoreflectList list() {
+    final $r = $callSync(25005, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectList.$h);
+  }
+
+  /// Go: `func (protoreflect.Value).Map() protoreflect.Map`.
+  ProtobufReflectProtoreflectMap map() {
+    final $r = $callSync(25006, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectMap.$h);
+  }
+
+  /// Go: `func (protoreflect.Value).MapKey() protoreflect.MapKey`.
+  ProtobufReflectProtoreflectMapKey mapKey() {
+    final $r = $callSync(25007, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectMapKey.$h);
+  }
+
+  /// Go: `func (protoreflect.Value).Message() protoreflect.Message`.
+  ProtobufReflectProtoreflectMessage message() {
+    final $r = $callSync(25008, $W()..h(this));
+    return $r.hnn(ProtobufReflectProtoreflectMessage.$h);
+  }
+
+  /// Go: `func (protoreflect.Value).String() string`.
+  String string() {
+    final $r = $callSync(25009, $W()..h(this));
+    return $r.str();
+  }
+
+  /// Go: `func (protoreflect.Value).Uint() uint64`.
+  int uint() {
+    final $r = $callSync(25010, $W()..h(this));
+    return $r.i64();
+  }
+}
+
+/// Go: the package-level members of `google.golang.org/protobuf/reflect/protoreflect` (`go.protobuf.reflect.protoreflect`).
+extension GoProtobufReflectProtoreflectApi on GoProtobufReflectProtoreflect {
+  /// Go: `func protoreflect.ValueOf(v any) protoreflect.Value`.
+  ProtobufReflectProtoreflectValue valueOf(Object? v) {
+    final $r = $callSync(25011, $W()..any(v));
+    return $r.hnn(ProtobufReflectProtoreflectValue.$h);
+  }
+
+  /// Go: `func protoreflect.ValueOfBool(v bool) protoreflect.Value`.
+  ProtobufReflectProtoreflectValue valueOfBool(bool v) {
+    final $r = $callSync(25012, $W()..b(v));
+    return $r.hnn(ProtobufReflectProtoreflectValue.$h);
+  }
+
+  /// Go: `func protoreflect.ValueOfBytes(v []byte) protoreflect.Value`.
+  ProtobufReflectProtoreflectValue valueOfBytes(Uint8List v) {
+    final $r = $callSync(25013, $W()..bytes(v));
+    return $r.hnn(ProtobufReflectProtoreflectValue.$h);
+  }
+
+  /// Go: `func protoreflect.ValueOfEnum(v protoreflect.EnumNumber) protoreflect.Value`.
+  ProtobufReflectProtoreflectValue valueOfEnum(int v) {
+    final $r = $callSync(25014, $W()..i64(v));
+    return $r.hnn(ProtobufReflectProtoreflectValue.$h);
+  }
+
+  /// Go: `func protoreflect.ValueOfFloat32(v float32) protoreflect.Value`.
+  ProtobufReflectProtoreflectValue valueOfFloat32(double v) {
+    final $r = $callSync(25015, $W()..f64(v));
+    return $r.hnn(ProtobufReflectProtoreflectValue.$h);
+  }
+
+  /// Go: `func protoreflect.ValueOfFloat64(v float64) protoreflect.Value`.
+  ProtobufReflectProtoreflectValue valueOfFloat64(double v) {
+    final $r = $callSync(25016, $W()..f64(v));
+    return $r.hnn(ProtobufReflectProtoreflectValue.$h);
+  }
+
+  /// Go: `func protoreflect.ValueOfInt32(v int32) protoreflect.Value`.
+  ProtobufReflectProtoreflectValue valueOfInt32(int v) {
+    final $r = $callSync(25017, $W()..i64(v));
+    return $r.hnn(ProtobufReflectProtoreflectValue.$h);
+  }
+
+  /// Go: `func protoreflect.ValueOfInt64(v int64) protoreflect.Value`.
+  ProtobufReflectProtoreflectValue valueOfInt64(int v) {
+    final $r = $callSync(25018, $W()..i64(v));
+    return $r.hnn(ProtobufReflectProtoreflectValue.$h);
+  }
+
+  /// Go: `func protoreflect.ValueOfList(v protoreflect.List) protoreflect.Value`.
+  ProtobufReflectProtoreflectValue valueOfList(
+      ProtobufReflectProtoreflectList v) {
+    final $r = $callSync(25019, $W()..h(v));
+    return $r.hnn(ProtobufReflectProtoreflectValue.$h);
+  }
+
+  /// Go: `func protoreflect.ValueOfMap(v protoreflect.Map) protoreflect.Value`.
+  ProtobufReflectProtoreflectValue valueOfMap(
+      ProtobufReflectProtoreflectMap v) {
+    final $r = $callSync(25020, $W()..h(v));
+    return $r.hnn(ProtobufReflectProtoreflectValue.$h);
+  }
+
+  /// Go: `func protoreflect.ValueOfMessage(v protoreflect.Message) protoreflect.Value`.
+  ProtobufReflectProtoreflectValue valueOfMessage(
+      ProtobufReflectProtoreflectMessage v) {
+    final $r = $callSync(25021, $W()..h(v));
+    return $r.hnn(ProtobufReflectProtoreflectValue.$h);
+  }
+
+  /// Go: `func protoreflect.ValueOfString(v string) protoreflect.Value`.
+  ProtobufReflectProtoreflectValue valueOfString(String v) {
+    final $r = $callSync(25022, $W()..str(v));
+    return $r.hnn(ProtobufReflectProtoreflectValue.$h);
+  }
+
+  /// Go: `func protoreflect.ValueOfUint32(v uint32) protoreflect.Value`.
+  ProtobufReflectProtoreflectValue valueOfUint32(int v) {
+    final $r = $callSync(25023, $W()..i64(v));
+    return $r.hnn(ProtobufReflectProtoreflectValue.$h);
+  }
+
+  /// Go: `func protoreflect.ValueOfUint64(v uint64) protoreflect.Value`.
+  ProtobufReflectProtoreflectValue valueOfUint64(int v) {
+    final $r = $callSync(25024, $W()..i64(v));
+    return $r.hnn(ProtobufReflectProtoreflectValue.$h);
+  }
+}
 
 /// Go: the constants of a named type of `google.golang.org/protobuf/reflect/protoreflect` (`go.protobuf.reflect.protoreflect.enums`).
 extension GoProtobufReflectProtoreflectEnumsApi

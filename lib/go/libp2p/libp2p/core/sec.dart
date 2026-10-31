@@ -3,8 +3,13 @@
 library;
 
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/network.dart' as $network;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
+import 'package:p2p_ffi/go/libp2p/libp2p/p2p/security/insecure.dart'
+    as $insecure;
+import 'package:p2p_ffi/go/libp2p/libp2p/p2p/security/noise.dart' as $noise;
+import 'package:p2p_ffi/go/libp2p/libp2p/p2p/security/tls.dart' as $tls;
 import 'package:p2p_ffi/go/net.dart' as $net;
 
 /// Go: `sec.SecureConn` (handle).
@@ -15,7 +20,84 @@ class Libp2pCoreSecSecureConn extends $net.NetConn
 }
 
 /// The methods of [Libp2pCoreSecSecureConn], mixed into every class Go also accepts as one.
-mixin Libp2pCoreSecSecureConn$ on GoHandle {}
+mixin Libp2pCoreSecSecureConn$ on GoHandle {
+  /// Go: type assertion `x.(*insecure.Conn)`: null if the object is not one.
+  $insecure.Libp2pP2pSecurityInsecureConn? asLibp2pP2pSecurityInsecureConn() {
+    final $r = $callSync(1420, $W()..h(this));
+    return $r.hn($insecure.Libp2pP2pSecurityInsecureConn.$h);
+  }
+}
+
+/// Go: `sec.SecureTransport` (handle).
+class Libp2pCoreSecSecureTransport extends GoHandle
+    with Libp2pCoreSecSecureTransport$ {
+  Libp2pCoreSecSecureTransport.$h(super.$h);
+}
+
+/// The methods of [Libp2pCoreSecSecureTransport], mixed into every class Go also accepts as one.
+mixin Libp2pCoreSecSecureTransport$ on GoHandle {
+  /// Go: `func (sec.SecureTransport).ID() protocol.ID`.
+  String id() {
+    final $r = $callSync(14294, $W()..h(this));
+    return $r.str();
+  }
+
+  /// Go: `func (sec.SecureTransport).SecureInbound(ctx context.Context, insecure net.Conn, p peer.ID) (sec.SecureConn, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<Libp2pCoreSecSecureConn> secureInbound($context.Context ctx,
+      $net.NetConn insecure, $peer.Libp2pCorePeerId p) async {
+    final $r = await $call(
+        14295,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..h(insecure)
+          ..val(p));
+    return $r.hnn(Libp2pCoreSecSecureConn.$h);
+  }
+
+  /// Go: `func (sec.SecureTransport).SecureOutbound(ctx context.Context, insecure net.Conn, p peer.ID) (sec.SecureConn, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<Libp2pCoreSecSecureConn> secureOutbound($context.Context ctx,
+      $net.NetConn insecure, $peer.Libp2pCorePeerId p) async {
+    final $r = await $call(
+        14296,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..h(insecure)
+          ..val(p));
+    return $r.hnn(Libp2pCoreSecSecureConn.$h);
+  }
+
+  /// Go: type assertion `x.(*insecure.Transport)`: null if the object is not one.
+  $insecure.Libp2pP2pSecurityInsecureTransport?
+      asLibp2pP2pSecurityInsecureTransport() {
+    final $r = $callSync(1421, $W()..h(this));
+    return $r.hn($insecure.Libp2pP2pSecurityInsecureTransport.$h);
+  }
+
+  /// Go: type assertion `x.(*noise.SessionTransport)`: null if the object is not one.
+  $noise.Libp2pP2pSecurityNoiseSessionTransport?
+      asLibp2pP2pSecurityNoiseSessionTransport() {
+    final $r = $callSync(1422, $W()..h(this));
+    return $r.hn($noise.Libp2pP2pSecurityNoiseSessionTransport.$h);
+  }
+
+  /// Go: type assertion `x.(*noise.Transport)`: null if the object is not one.
+  $noise.Libp2pP2pSecurityNoiseTransport? asLibp2pP2pSecurityNoiseTransport() {
+    final $r = $callSync(1423, $W()..h(this));
+    return $r.hn($noise.Libp2pP2pSecurityNoiseTransport.$h);
+  }
+
+  /// Go: type assertion `x.(*libp2ptls.Transport)`: null if the object is not one.
+  $tls.Libp2pP2pSecurityTlsTransport? asLibp2pP2pSecurityTlsTransport() {
+    final $r = $callSync(1424, $W()..h(this));
+    return $r.hn($tls.Libp2pP2pSecurityTlsTransport.$h);
+  }
+}
 
 /// Go: `sec.ErrPeerIDMismatch`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).

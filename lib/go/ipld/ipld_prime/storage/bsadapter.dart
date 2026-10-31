@@ -7,41 +7,52 @@ import 'dart:typed_data';
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/boxo/blockstore.dart' as $blockstore;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/ipld/ipld_prime/storage.dart' as $storage;
 
 /// Go: `bsadapter.Adapter` (handle).
 class IpldPrimeStorageBsadapterAdapter
     extends $storage.IpldPrimeStorageReadableStorage
     with
+        $crypto.CryptoDecrypterOpts$,
         $crypto.CryptoPrivateKey$,
         $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
         $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$,
         $storage.IpldPrimeStorageWritableStorage$
     implements
+        $crypto.CryptoDecrypterOpts,
         $crypto.CryptoPrivateKey,
         $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
         $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic,
         $storage.IpldPrimeStorageWritableStorage {
   IpldPrimeStorageBsadapterAdapter.$h(super.$h) : super.$h();
 
   /// Go: `func bsadapter.NewAdapter() *bsadapter.Adapter`.
   factory IpldPrimeStorageBsadapterAdapter() {
-    final $r = $callSync(2098);
+    final $r = $callSync(12569);
     return $r.hnn(IpldPrimeStorageBsadapterAdapter.$h);
   }
 
   /// Go: `field Wrapped blockstore.Blockstore`.
   $blockstore.BoxoBlockstore get wrapped {
-    final $r = $callSync(2102, $W()..h(this));
+    final $r = $callSync(12573, $W()..h(this));
     return $r.hnn($blockstore.BoxoBlockstore.$h);
   }
 
   /// Go: `field Wrapped blockstore.Blockstore`.
   set wrapped($blockstore.BoxoBlockstore wrapped) {
     $callSync(
-        2103,
+        12574,
         $W()
           ..h(this)
           ..h(wrapped));
@@ -52,7 +63,7 @@ class IpldPrimeStorageBsadapterAdapter
   /// Asynchronous: runs in a goroutine of the service.
   Future<Uint8List> get($context.Context ctx, String key) async {
     final $r = await $call(
-        2099,
+        12570,
         $W()
           ..h(this)
           ..h(ctx)
@@ -65,7 +76,7 @@ class IpldPrimeStorageBsadapterAdapter
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> has($context.Context ctx, String key) async {
     final $r = await $call(
-        2100,
+        12571,
         $W()
           ..h(this)
           ..h(ctx)
@@ -78,7 +89,7 @@ class IpldPrimeStorageBsadapterAdapter
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> put($context.Context ctx, String key, Uint8List content) async {
     await $call(
-        2101,
+        12572,
         $W()
           ..h(this)
           ..h(ctx)

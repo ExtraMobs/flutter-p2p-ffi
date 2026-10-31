@@ -2,12 +2,160 @@
 // Go: github.com/libp2p/go-libp2p/core/peer/pb
 library;
 
+import 'dart:typed_data';
+
+import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2pCorePeerPb;
+import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/gogo/protobuf/protoc_gen_gogo/descriptor.dart'
+    as $descriptor;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
+import 'package:p2p_ffi/go/protobuf/reflect/protoreflect.dart' as $protoreflect;
+import 'package:p2p_ffi/go/protobuf/runtime/protoiface.dart' as $protoiface;
 
 /// Go: `pb.PeerRecord` (handle).
-class Libp2pCorePeerPbPeerRecord extends $crypto.CryptoPrivateKey
-    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
-    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+class Libp2pCorePeerPbPeerRecord
+    extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
+    with
+        $crypto.CryptoDecrypterOpts$,
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$,
+        $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
+        $protoiface.ProtobufRuntimeProtoifaceMessageV1$
+    implements
+        $crypto.CryptoDecrypterOpts,
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic,
+        $protoreflect.ProtobufReflectProtoreflectProtoMessage,
+        $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   Libp2pCorePeerPbPeerRecord.$h(super.$h) : super.$h();
+
+  /// Go: `func (*pb.PeerRecord).Descriptor() ([]byte, []int)`.
+  @Deprecated("Use PeerRecord.ProtoReflect.Descriptor instead.")
+  (Uint8List, List<int>) descriptor() {
+    final $r = $callSync(14185, $W()..h(this));
+    return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
+  }
+
+  /// Go: `func (*pb.PeerRecord).GetAddresses() []*pb.PeerRecord_AddressInfo`.
+  List<Libp2pCorePeerPbPeerRecordAddressInfo> getAddresses() {
+    final $r = $callSync(14186, $W()..h(this));
+    return $r.list(() => $r.hnn(Libp2pCorePeerPbPeerRecordAddressInfo.$h));
+  }
+
+  /// Go: `func (*pb.PeerRecord).GetPeerId() []byte`.
+  Uint8List getPeerId() {
+    final $r = $callSync(14187, $W()..h(this));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (*pb.PeerRecord).GetSeq() uint64`.
+  int getSeq() {
+    final $r = $callSync(14188, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (*pb.PeerRecord).ProtoMessage()`.
+  void protoMessage() {
+    $callSync(14189, $W()..h(this));
+  }
+
+  /// Go: `func (*pb.PeerRecord).ProtoReflect() protoreflect.Message`.
+  $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
+    final $r = $callSync(14190, $W()..h(this));
+    return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
+  }
+
+  /// Go: `func (*pb.PeerRecord).Reset()`.
+  void reset() {
+    $callSync(14191, $W()..h(this));
+  }
+
+  /// Go: `func (*pb.PeerRecord).String() string`.
+  String string() {
+    final $r = $callSync(14192, $W()..h(this));
+    return $r.str();
+  }
+}
+
+/// Go: `pb.PeerRecord_AddressInfo` (handle).
+class Libp2pCorePeerPbPeerRecordAddressInfo
+    extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
+    with
+        $crypto.CryptoDecrypterOpts$,
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$,
+        $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
+        $protoiface.ProtobufRuntimeProtoifaceMessageV1$
+    implements
+        $crypto.CryptoDecrypterOpts,
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic,
+        $protoreflect.ProtobufReflectProtoreflectProtoMessage,
+        $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
+  Libp2pCorePeerPbPeerRecordAddressInfo.$h(super.$h) : super.$h();
+
+  /// Go: `func (*pb.PeerRecord_AddressInfo).Descriptor() ([]byte, []int)`.
+  @Deprecated("Use PeerRecord_AddressInfo.ProtoReflect.Descriptor instead.")
+  (Uint8List, List<int>) descriptor() {
+    final $r = $callSync(14193, $W()..h(this));
+    return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
+  }
+
+  /// Go: `func (*pb.PeerRecord_AddressInfo).GetMultiaddr() []byte`.
+  Uint8List getMultiaddr() {
+    final $r = $callSync(14194, $W()..h(this));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (*pb.PeerRecord_AddressInfo).ProtoMessage()`.
+  void protoMessage() {
+    $callSync(14195, $W()..h(this));
+  }
+
+  /// Go: `func (*pb.PeerRecord_AddressInfo).ProtoReflect() protoreflect.Message`.
+  $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
+    final $r = $callSync(14196, $W()..h(this));
+    return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
+  }
+
+  /// Go: `func (*pb.PeerRecord_AddressInfo).Reset()`.
+  void reset() {
+    $callSync(14197, $W()..h(this));
+  }
+
+  /// Go: `func (*pb.PeerRecord_AddressInfo).String() string`.
+  String string() {
+    final $r = $callSync(14198, $W()..h(this));
+    return $r.str();
+  }
+}
+
+/// Go: the package-level members of `github.com/libp2p/go-libp2p/core/peer/pb` (`go.libp2p.libp2p.core.peer.pb`).
+extension GoLibp2pLibp2pCorePeerPbApi on GoLibp2pLibp2pCorePeerPb {
+  /// Go: `var pb.File_core_peer_pb_peer_record_proto protoreflect.FileDescriptor`.
+  $protoreflect.ProtobufReflectProtoreflectFileDescriptor
+      get fileCorePeerPbPeerRecordProto {
+    final $r = $callSync(14184);
+    return $r.hnn($protoreflect.ProtobufReflectProtoreflectFileDescriptor.$h);
+  }
 }

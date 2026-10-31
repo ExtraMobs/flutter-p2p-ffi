@@ -2,8 +2,14 @@
 // Go: github.com/ipfs/boxo/path/resolver
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoIpfsBoxoPathResolver;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/context.dart' as $context;
+import 'package:p2p_ffi/go/ipfs/boxo/fetcher.dart' as $fetcher;
+import 'package:p2p_ffi/go/ipfs/boxo/path.dart' as $path;
 import 'package:p2p_ffi/go/ipfs/cid.dart' as $cid;
+import 'package:p2p_ffi/go/ipfs_shipyard/nopfs/ipfs.dart' as $ipfs;
+import 'package:p2p_ffi/go/ipld/ipld_prime/datamodel.dart' as $datamodel;
 
 /// Go: `resolver.Resolver` (handle).
 class BoxoPathResolver extends GoHandle with BoxoPathResolver$ {
@@ -11,7 +17,59 @@ class BoxoPathResolver extends GoHandle with BoxoPathResolver$ {
 }
 
 /// The methods of [BoxoPathResolver], mixed into every class Go also accepts as one.
-mixin BoxoPathResolver$ on GoHandle {}
+mixin BoxoPathResolver$ on GoHandle {
+  /// Go: `func (resolver.Resolver).ResolvePath(context.Context, path.ImmutablePath) (ipld.Node, ipld.Link, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<($datamodel.IpldPrimeDatamodelNode, $datamodel.IpldPrimeDatamodelLink)>
+      resolvePath($context.Context ctx,
+          $path.BoxoPathImmutablePath immutablePath) async {
+    final $r = await $call(
+        10134,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(immutablePath));
+    return (
+      $r.hnn($datamodel.IpldPrimeDatamodelNode.$h),
+      $r.hnn($datamodel.IpldPrimeDatamodelLink.$h)
+    );
+  }
+
+  /// Go: `func (resolver.Resolver).ResolvePathComponents(context.Context, path.ImmutablePath) ([]ipld.Node, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<List<$datamodel.IpldPrimeDatamodelNode>> resolvePathComponents(
+      $context.Context ctx, $path.BoxoPathImmutablePath immutablePath) async {
+    final $r = await $call(
+        10135,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(immutablePath));
+    return $r.list(() => $r.hnn($datamodel.IpldPrimeDatamodelNode.$h));
+  }
+
+  /// Go: `func (resolver.Resolver).ResolveToLastNode(context.Context, path.ImmutablePath) (cid.Cid, []string, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<($cid.Cid, List<String>)> resolveToLastNode(
+      $context.Context ctx, $path.BoxoPathImmutablePath immutablePath) async {
+    final $r = await $call(
+        10136,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(immutablePath));
+    return ($r.p() ? $cid.Cid($r.str()) : $nil(), $r.list(() => $r.str()));
+  }
+
+  /// Go: type assertion `x.(*ipfs.Resolver)`: null if the object is not one.
+  $ipfs.NopfsIpfsResolver? asNopfsIpfsResolver() {
+    final $r = $callSync(973, $W()..h(this));
+    return $r.hn($ipfs.NopfsIpfsResolver.$h);
+  }
+}
 
 /// Go: `resolver.ErrNoLink`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
@@ -29,4 +87,13 @@ class BoxoPathResolverErrNoLink extends GolangException {
 
   @override
   String toString() => 'resolver.ErrNoLink: $message';
+}
+
+/// Go: the package-level members of `github.com/ipfs/boxo/path/resolver` (`go.ipfs.boxo.path.resolver`).
+extension GoIpfsBoxoPathResolverApi on GoIpfsBoxoPathResolver {
+  /// Go: `func resolver.NewBasicResolver(factory fetcher.Factory) resolver.Resolver`.
+  BoxoPathResolver newBasicResolver($fetcher.BoxoFetcherFactory factory) {
+    final $r = $callSync(10133, $W()..h(factory));
+    return $r.hnn(BoxoPathResolver.$h);
+  }
 }

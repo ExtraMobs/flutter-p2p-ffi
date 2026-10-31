@@ -2,8 +2,36 @@
 // Go: github.com/libp2p/go-libp2p/core/protocol
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2pCoreProtocolEnums;
+import 'dart:async';
+
+import 'package:p2p_ffi/src/go.dart'
+    show GoLibp2pLibp2pCoreProtocol, GoLibp2pLibp2pCoreProtocolEnums;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/io.dart' as $io;
+
+/// Go: `protocol.Negotiator` (handle).
+class Libp2pCoreProtocolNegotiator extends GoHandle
+    with Libp2pCoreProtocolNegotiator$ {
+  Libp2pCoreProtocolNegotiator.$h(super.$h);
+}
+
+/// The methods of [Libp2pCoreProtocolNegotiator], mixed into every class Go also accepts as one.
+mixin Libp2pCoreProtocolNegotiator$ on GoHandle {
+  /// Go: `func (protocol.Negotiator).Handle(rwc io.ReadWriteCloser) error`.
+  void handle(Object rwc) {
+    $callSync(
+        14250,
+        $W()
+          ..h(this)
+          ..reader(rwc));
+  }
+
+  /// Go: type assertion `x.(protocol.Switch)`: null if the object is not one.
+  Libp2pCoreProtocolSwitch? asLibp2pCoreProtocolSwitch() {
+    final $r = $callSync(1379, $W()..h(this));
+    return $r.hn(Libp2pCoreProtocolSwitch.$h);
+  }
+}
 
 /// Go: `protocol.Router` (handle).
 class Libp2pCoreProtocolRouter extends GoHandle with Libp2pCoreProtocolRouter$ {
@@ -11,16 +39,93 @@ class Libp2pCoreProtocolRouter extends GoHandle with Libp2pCoreProtocolRouter$ {
 }
 
 /// The methods of [Libp2pCoreProtocolRouter], mixed into every class Go also accepts as one.
-mixin Libp2pCoreProtocolRouter$ on GoHandle {}
+mixin Libp2pCoreProtocolRouter$ on GoHandle {
+  /// Go: `func (protocol.Router).AddHandler(protocol protocol.ID, handler protocol.HandlerFunc)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  ///
+  /// Go calls [handler] on the Dart event loop, during the call or
+  /// later for as long as it holds it (nobody checked which), and waits for
+  /// each invocation (a retained callback, WIRE.md).
+  Future<void> addHandler(
+      String protocol,
+      FutureOr<void> Function(String protocol, $io.IoReadWriteCloser rwc)
+          handler) async {
+    await $call(
+        14251,
+        $W()
+          ..h(this)
+          ..str(protocol)
+          ..cb((r) => handler(r.str(), r.hnn($io.IoReadWriteCloser.$h)), true));
+  }
+
+  /// Go: `func (protocol.Router).AddHandlerWithFunc(protocol protocol.ID, match func(protocol.ID) bool, handler protocol.HandlerFunc)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  ///
+  /// Go calls [match] on the Dart event loop, during the call or
+  /// later for as long as it holds it (nobody checked which), and waits for
+  /// each invocation (a retained callback, WIRE.md).
+  Future<void> addHandlerWithFunc(
+      String protocol,
+      FutureOr<bool> Function(String arg0) match,
+      FutureOr<void> Function(String protocol, $io.IoReadWriteCloser rwc)
+          handler) async {
+    await $call(
+        14252,
+        $W()
+          ..h(this)
+          ..str(protocol)
+          ..cb((r) => match(r.str()), true)
+          ..cb((r) => handler(r.str(), r.hnn($io.IoReadWriteCloser.$h)), true));
+  }
+
+  /// Go: `func (protocol.Router).Protocols() []protocol.ID`.
+  List<String> protocols() {
+    final $r = $callSync(14253, $W()..h(this));
+    return $r.list(() => $r.str());
+  }
+
+  /// Go: `func (protocol.Router).RemoveHandler(protocol protocol.ID)`.
+  void removeHandler(String protocol) {
+    $callSync(
+        14254,
+        $W()
+          ..h(this)
+          ..str(protocol));
+  }
+
+  /// Go: type assertion `x.(protocol.Switch)`: null if the object is not one.
+  Libp2pCoreProtocolSwitch? asLibp2pCoreProtocolSwitch() {
+    final $r = $callSync(1380, $W()..h(this));
+    return $r.hn(Libp2pCoreProtocolSwitch.$h);
+  }
+}
 
 /// Go: `protocol.Switch` (handle).
 class Libp2pCoreProtocolSwitch extends Libp2pCoreProtocolRouter
-    with Libp2pCoreProtocolSwitch$ {
+    with Libp2pCoreProtocolNegotiator$, Libp2pCoreProtocolSwitch$
+    implements Libp2pCoreProtocolNegotiator {
   Libp2pCoreProtocolSwitch.$h(super.$h) : super.$h();
 }
 
 /// The methods of [Libp2pCoreProtocolSwitch], mixed into every class Go also accepts as one.
 mixin Libp2pCoreProtocolSwitch$ on GoHandle {}
+
+/// Go: the package-level members of `github.com/libp2p/go-libp2p/core/protocol` (`go.libp2p.libp2p.core.protocol`).
+extension GoLibp2pLibp2pCoreProtocolApi on GoLibp2pLibp2pCoreProtocol {
+  /// Go: `func protocol.ConvertFromStrings(ids []string) (res []protocol.ID)`.
+  List<String> convertFromStrings(List<String> ids) {
+    final $r = $callSync(14248, $W()..list(ids, (w0, e0) => w0.str(e0)));
+    return $r.list(() => $r.str());
+  }
+
+  /// Go: `func protocol.ConvertToStrings(ids []protocol.ID) (res []string)`.
+  List<String> convertToStrings(List<String> ids) {
+    final $r = $callSync(14249, $W()..list(ids, (w0, e0) => w0.str(e0)));
+    return $r.list(() => $r.str());
+  }
+}
 
 /// Go: the constants of a named type of `github.com/libp2p/go-libp2p/core/protocol` (`go.libp2p.libp2p.core.protocol.enums`).
 extension GoLibp2pLibp2pCoreProtocolEnumsApi

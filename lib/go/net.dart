@@ -4,9 +4,42 @@ library;
 
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/src/go.dart' show GoNetConsts, GoNetEnums;
+import 'package:p2p_ffi/src/go.dart' show GoNet, GoNetConsts, GoNetEnums;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/context.dart' as $context;
+import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/crypto/tls.dart' as $tls;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
+import 'package:p2p_ffi/go/io.dart' as $io;
+import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/sec.dart' as $sec;
+import 'package:p2p_ffi/go/libp2p/libp2p/p2p/protocol/circuitv2/client.dart'
+    as $client;
+import 'package:p2p_ffi/go/libp2p/libp2p/p2p/security/insecure.dart'
+    as $insecure;
+import 'package:p2p_ffi/go/libp2p/libp2p/p2p/transport/tcp.dart' as $tcp;
+import 'package:p2p_ffi/go/libp2p/libp2p/p2p/transport/websocket.dart'
+    as $websocket;
+import 'package:p2p_ffi/go/libp2p/yamux/v5.dart' as $v5;
+import 'package:p2p_ffi/go/miekg/dns.dart' as $dns;
+import 'package:p2p_ffi/go/multiformats/multiaddr/net.dart' as $net;
+import 'package:p2p_ffi/go/multiformats/multiaddr_dns.dart' as $multiaddr_dns;
+import 'package:p2p_ffi/go/net/netip.dart' as $netip;
+import 'package:p2p_ffi/go/os.dart' as $os;
+import 'package:p2p_ffi/go/pion/datachannel.dart' as $datachannel;
+import 'package:p2p_ffi/go/pion/dtls/v3.dart' as $v3;
+import 'package:p2p_ffi/go/pion/ice/v4.dart' as $v4;
+import 'package:p2p_ffi/go/pion/transport/v3.dart' as $v32;
+import 'package:p2p_ffi/go/pion/transport/v3/vnet.dart' as $vnet;
+import 'package:p2p_ffi/go/pion/transport/v4.dart' as $v42;
+import 'package:p2p_ffi/go/pion/turn/v4.dart' as $v43;
+import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
+import 'package:p2p_ffi/go/quic_go/quic_go.dart' as $quic_go;
+import 'package:p2p_ffi/go/syscall.dart' as $syscall;
+import 'package:p2p_ffi/go/x/net/ipv4.dart' as $ipv4;
+import 'package:p2p_ffi/go/x/net/proxy.dart' as $proxy;
 
 /// Go: `net.Addr` (values read from the methods; built in Dart, it
 /// crosses as a Go value that returns them).
@@ -40,10 +73,544 @@ class NetConn extends GoHandle with NetConn$ {
 
 /// The methods of [NetConn], mixed into every class Go also accepts as one.
 mixin NetConn$ on GoHandle {
+  /// Go: `func (net.Conn).Close() error`.
+  void close() {
+    $callSync(26301, $W()..h(this));
+  }
+
+  /// Go: `func (net.Conn).LocalAddr() net.Addr`.
+  NetAddr localAddr() {
+    final $r = $callSync(26302, $W()..h(this));
+    return $r.p() ? NetAddr.$dec($r) : $nil();
+  }
+
+  /// Go: `func (net.Conn).Read(b []byte) (n int, err error)`.
+  Uint8List read(int n) {
+    final $r = $callSync(
+        26303,
+        $W()
+          ..h(this)
+          ..i64(n));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (net.Conn).RemoteAddr() net.Addr`.
+  NetAddr remoteAddr() {
+    final $r = $callSync(26304, $W()..h(this));
+    return $r.p() ? NetAddr.$dec($r) : $nil();
+  }
+
+  /// Go: `func (net.Conn).SetDeadline(t time.Time) error`.
+  void setDeadline(DateTime t) {
+    $callSync(
+        26305,
+        $W()
+          ..h(this)
+          ..time(t));
+  }
+
+  /// Go: `func (net.Conn).SetReadDeadline(t time.Time) error`.
+  void setReadDeadline(DateTime t) {
+    $callSync(
+        26306,
+        $W()
+          ..h(this)
+          ..time(t));
+  }
+
+  /// Go: `func (net.Conn).SetWriteDeadline(t time.Time) error`.
+  void setWriteDeadline(DateTime t) {
+    $callSync(
+        26307,
+        $W()
+          ..h(this)
+          ..time(t));
+  }
+
+  /// Go: `func (net.Conn).Write(b []byte) (n int, err error)`.
+  int write(Uint8List b) {
+    final $r = $callSync(
+        26308,
+        $W()
+          ..h(this)
+          ..bytes(b));
+    return $r.i64();
+  }
+
+  /// Go: type assertion `x.(*tls.Conn)`: null if the object is not one.
+  $tls.CryptoTlsConn? asCryptoTlsConn() {
+    final $r = $callSync(2971, $W()..h(this));
+    return $r.hn($tls.CryptoTlsConn.$h);
+  }
+
+  /// Go: type assertion `x.(*client.Conn)`: null if the object is not one.
+  $client.Libp2pP2pProtocolCircuitv2ClientConn?
+      asLibp2pP2pProtocolCircuitv2ClientConn() {
+    final $r = $callSync(2972, $W()..h(this));
+    return $r.hn($client.Libp2pP2pProtocolCircuitv2ClientConn.$h);
+  }
+
+  /// Go: type assertion `x.(*insecure.Conn)`: null if the object is not one.
+  $insecure.Libp2pP2pSecurityInsecureConn? asLibp2pP2pSecurityInsecureConn() {
+    final $r = $callSync(2973, $W()..h(this));
+    return $r.hn($insecure.Libp2pP2pSecurityInsecureConn.$h);
+  }
+
+  /// Go: type assertion `x.(*websocket.Conn)`: null if the object is not one.
+  $websocket.Libp2pP2pTransportWebsocketConn?
+      asLibp2pP2pTransportWebsocketConn() {
+    final $r = $callSync(2974, $W()..h(this));
+    return $r.hn($websocket.Libp2pP2pTransportWebsocketConn.$h);
+  }
+
+  /// Go: type assertion `x.(*yamux.Stream)`: null if the object is not one.
+  $v5.YamuxV5Stream? asYamuxV5Stream() {
+    final $r = $callSync(2975, $W()..h(this));
+    return $r.hn($v5.YamuxV5Stream.$h);
+  }
+
+  /// Go: type assertion `x.(*dns.Conn)`: null if the object is not one.
+  $dns.DnsConn? asDnsConn() {
+    final $r = $callSync(2976, $W()..h(this));
+    return $r.hn($dns.DnsConn.$h);
+  }
+
+  /// Go: type assertion `x.(*dns.Transfer)`: null if the object is not one.
+  $dns.DnsTransfer? asDnsTransfer() {
+    final $r = $callSync(2977, $W()..h(this));
+    return $r.hn($dns.DnsTransfer.$h);
+  }
+
+  /// Go: type assertion `x.(*dtls.Conn)`: null if the object is not one.
+  $v3.DtlsV3Conn? asDtlsV3Conn() {
+    final $r = $callSync(2978, $W()..h(this));
+    return $r.hn($v3.DtlsV3Conn.$h);
+  }
+
+  /// Go: type assertion `x.(*ice.Conn)`: null if the object is not one.
+  $v4.IceV4Conn? asIceV4Conn() {
+    final $r = $callSync(2979, $W()..h(this));
+    return $r.hn($v4.IceV4Conn.$h);
+  }
+
+  /// Go: type assertion `x.(*vnet.UDPConn)`: null if the object is not one.
+  $vnet.TransportV3VnetUdpConn? asTransportV3VnetUdpConn() {
+    final $r = $callSync(2980, $W()..h(this));
+    return $r.hn($vnet.TransportV3VnetUdpConn.$h);
+  }
+
+  /// Go: type assertion `x.(*ipv4.RawConn)`: null if the object is not one.
+  $ipv4.NetIpv4RawConn? asNetIpv4RawConn() {
+    final $r = $callSync(2981, $W()..h(this));
+    return $r.hn($ipv4.NetIpv4RawConn.$h);
+  }
+
+  /// Go: type assertion `x.(*net.IPConn)`: null if the object is not one.
+  NetIpConn? asNetIpConn() {
+    final $r = $callSync(2982, $W()..h(this));
+    return $r.hn(NetIpConn.$h);
+  }
+
+  /// Go: type assertion `x.(*net.TCPConn)`: null if the object is not one.
+  NetTcpConn? asNetTcpConn() {
+    final $r = $callSync(2983, $W()..h(this));
+    return $r.hn(NetTcpConn.$h);
+  }
+
+  /// Go: type assertion `x.(*net.UDPConn)`: null if the object is not one.
+  NetUdpConn? asNetUdpConn() {
+    final $r = $callSync(2984, $W()..h(this));
+    return $r.hn(NetUdpConn.$h);
+  }
+
+  /// Go: type assertion `x.(*net.UnixConn)`: null if the object is not one.
+  NetUnixConn? asNetUnixConn() {
+    final $r = $callSync(2985, $W()..h(this));
+    return $r.hn(NetUnixConn.$h);
+  }
+
   /// Go: type assertion `x.(sec.SecureConn)`: null if the object is not one.
   $sec.Libp2pCoreSecSecureConn? asLibp2pCoreSecSecureConn() {
-    final $r = $callSync(414, $W()..h(this));
+    final $r = $callSync(2986, $W()..h(this));
     return $r.hn($sec.Libp2pCoreSecSecureConn.$h);
+  }
+
+  /// Go: type assertion `x.(manet.Conn)`: null if the object is not one.
+  $net.MultiaddrNetConn? asMultiaddrNetConn() {
+    final $r = $callSync(2987, $W()..h(this));
+    return $r.hn($net.MultiaddrNetConn.$h);
+  }
+
+  /// Go: type assertion `x.(transport.TCPConn)`: null if the object is not one.
+  $v32.TransportV3TcpConn? asTransportV3TcpConn() {
+    final $r = $callSync(2988, $W()..h(this));
+    return $r.hn($v32.TransportV3TcpConn.$h);
+  }
+
+  /// Go: type assertion `x.(transport.TCPConn)`: null if the object is not one.
+  $v42.TransportV4TcpConn? asTransportV4TcpConn() {
+    final $r = $callSync(2989, $W()..h(this));
+    return $r.hn($v42.TransportV4TcpConn.$h);
+  }
+}
+
+/// Go: `net.Dialer` (handle).
+class NetDialer extends $tcp.Libp2pP2pTransportTcpContextDialer
+    with
+        $crypto.CryptoDecrypterOpts$,
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$,
+        $v32.TransportV3Dialer$,
+        $v42.TransportV4Dialer$,
+        $proxy.NetProxyContextDialer$,
+        $proxy.NetProxyDialer$
+    implements
+        $crypto.CryptoDecrypterOpts,
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic,
+        $v32.TransportV3Dialer,
+        $v42.TransportV4Dialer,
+        $proxy.NetProxyContextDialer,
+        $proxy.NetProxyDialer {
+  NetDialer.$h(super.$h) : super.$h();
+
+  /// Go: `func (*net.Dialer).Dial(network string, address string) (net.Conn, error)`.
+  NetConn dial(String network, String address) {
+    final $r = $callSync(
+        26316,
+        $W()
+          ..h(this)
+          ..str(network)
+          ..str(address));
+    return $r.hnn(NetConn.$h);
+  }
+
+  /// Go: `func (*net.Dialer).DialContext(ctx context.Context, network string, address string) (net.Conn, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<NetConn> dialContext(
+      $context.Context ctx, String network, String address) async {
+    final $r = await $call(
+        26317,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(network)
+          ..str(address));
+    return $r.hnn(NetConn.$h);
+  }
+
+  /// Go: `func (*net.Dialer).DialIP(ctx context.Context, network string, laddr netip.Addr, raddr netip.Addr) (*net.IPConn, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<NetIpConn> dialIp($context.Context ctx, String network,
+      $netip.NetNetipAddr laddr, $netip.NetNetipAddr raddr) async {
+    final $r = await $call(
+        26318,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(network)
+          ..h(laddr)
+          ..h(raddr));
+    return $r.hnn(NetIpConn.$h);
+  }
+
+  /// Go: `func (*net.Dialer).DialTCP(ctx context.Context, network string, laddr netip.AddrPort, raddr netip.AddrPort) (*net.TCPConn, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<NetTcpConn> dialTcp($context.Context ctx, String network,
+      $netip.NetNetipAddrPort laddr, $netip.NetNetipAddrPort raddr) async {
+    final $r = await $call(
+        26319,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(network)
+          ..h(laddr)
+          ..h(raddr));
+    return $r.hnn(NetTcpConn.$h);
+  }
+
+  /// Go: `func (*net.Dialer).DialUDP(ctx context.Context, network string, laddr netip.AddrPort, raddr netip.AddrPort) (*net.UDPConn, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<NetUdpConn> dialUdp($context.Context ctx, String network,
+      $netip.NetNetipAddrPort laddr, $netip.NetNetipAddrPort raddr) async {
+    final $r = await $call(
+        26320,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(network)
+          ..h(laddr)
+          ..h(raddr));
+    return $r.hnn(NetUdpConn.$h);
+  }
+
+  /// Go: `func (*net.Dialer).DialUnix(ctx context.Context, network string, laddr *net.UnixAddr, raddr *net.UnixAddr) (*net.UnixConn, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<NetUnixConn> dialUnix($context.Context ctx, String network,
+      NetUnixAddr laddr, NetUnixAddr raddr) async {
+    final $r = await $call(
+        26321,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(network)
+          ..dto(laddr)
+          ..dto(raddr));
+    return $r.hnn(NetUnixConn.$h);
+  }
+
+  /// Go: `func (*net.Dialer).MultipathTCP() bool`.
+  bool multipathTcp() {
+    final $r = $callSync(26322, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (*net.Dialer).SetMultipathTCP(use bool)`.
+  void setMultipathTcp(bool use) {
+    $callSync(
+        26323,
+        $W()
+          ..h(this)
+          ..b(use));
+  }
+}
+
+/// Go: `net.IPAddr`.
+final class NetIpAddr implements GoDto {
+  NetIpAddr({Uint8List? ip, String? zone})
+      : ip = ip,
+        zone = zone ?? '';
+
+  NetIpAddr.$dec($R r)
+      : ip = r.bytes(),
+        zone = r.str();
+
+  /// Go: `IP`.
+  Uint8List? ip;
+
+  /// Go: `Zone`.
+  String zone;
+
+  @override
+  void $enc($W w) {
+    w
+      ..bytes(ip)
+      ..str(zone);
+  }
+
+  /// Go: `func (*net.IPAddr).Network() string`.
+  String network() {
+    final $r = $callSync(26327, $W()..dto(this));
+    return $r.str();
+  }
+
+  /// Go: `func (*net.IPAddr).String() string`.
+  String string() {
+    final $r = $callSync(26328, $W()..dto(this));
+    return $r.str();
+  }
+}
+
+/// Go: `net.IPConn` (handle).
+class NetIpConn extends NetConn
+    with
+        $crypto.CryptoDecrypterOpts$,
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $io.IoCloser$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$,
+        NetPacketConn$,
+        $datachannel.DatachannelReadDeadliner$,
+        $datachannel.DatachannelWriteDeadliner$,
+        $expfmt.CommonExpfmtCloser$
+    implements
+        $crypto.CryptoDecrypterOpts,
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $io.IoCloser,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic,
+        NetPacketConn,
+        $datachannel.DatachannelReadDeadliner,
+        $datachannel.DatachannelWriteDeadliner,
+        $expfmt.CommonExpfmtCloser {
+  NetIpConn.$h(super.$h) : super.$h();
+
+  /// Go: `func (*net.conn).Close() error`.
+  void close() {
+    $callSync(26329, $W()..h(this));
+  }
+
+  /// Go: `func (*net.conn).File() (f *os.File, err error)`.
+  $os.OsFile file() {
+    final $r = $callSync(26330, $W()..h(this));
+    return $r.hnn($os.OsFile.$h);
+  }
+
+  /// Go: `func (*net.conn).LocalAddr() net.Addr`.
+  NetAddr localAddr() {
+    final $r = $callSync(26331, $W()..h(this));
+    return $r.p() ? NetAddr.$dec($r) : $nil();
+  }
+
+  /// Go: `func (*net.conn).Read(b []byte) (int, error)`.
+  Uint8List read(int n) {
+    final $r = $callSync(
+        26332,
+        $W()
+          ..h(this)
+          ..i64(n));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (*net.IPConn).ReadFrom(b []byte) (int, net.Addr, error)`.
+  (int, NetAddr) readFrom(Uint8List b) {
+    final $r = $callSync(
+        26333,
+        $W()
+          ..h(this)
+          ..bytes(b));
+    return ($r.i64(), $r.p() ? NetAddr.$dec($r) : $nil());
+  }
+
+  /// Go: `func (*net.IPConn).ReadFromIP(b []byte) (int, *net.IPAddr, error)`.
+  (int, NetIpAddr) readFromIp(Uint8List b) {
+    final $r = $callSync(
+        26334,
+        $W()
+          ..h(this)
+          ..bytes(b));
+    return ($r.i64(), $r.p() ? NetIpAddr.$dec($r) : $nil());
+  }
+
+  /// Go: `func (*net.IPConn).ReadMsgIP(b []byte, oob []byte) (n int, oobn int, flags int, addr *net.IPAddr, err error)`.
+  (int, int, int, NetIpAddr) readMsgIp(Uint8List b, Uint8List oob) {
+    final $r = $callSync(
+        26335,
+        $W()
+          ..h(this)
+          ..bytes(b)
+          ..bytes(oob));
+    return ($r.i64(), $r.i64(), $r.i64(), $r.p() ? NetIpAddr.$dec($r) : $nil());
+  }
+
+  /// Go: `func (*net.conn).RemoteAddr() net.Addr`.
+  NetAddr remoteAddr() {
+    final $r = $callSync(26336, $W()..h(this));
+    return $r.p() ? NetAddr.$dec($r) : $nil();
+  }
+
+  /// Go: `func (*net.conn).SetDeadline(t time.Time) error`.
+  void setDeadline(DateTime t) {
+    $callSync(
+        26337,
+        $W()
+          ..h(this)
+          ..time(t));
+  }
+
+  /// Go: `func (*net.conn).SetReadBuffer(bytes int) error`.
+  void setReadBuffer(int bytes) {
+    $callSync(
+        26338,
+        $W()
+          ..h(this)
+          ..i64(bytes));
+  }
+
+  /// Go: `func (*net.conn).SetReadDeadline(t time.Time) error`.
+  void setReadDeadline(DateTime t) {
+    $callSync(
+        26339,
+        $W()
+          ..h(this)
+          ..time(t));
+  }
+
+  /// Go: `func (*net.conn).SetWriteBuffer(bytes int) error`.
+  void setWriteBuffer(int bytes) {
+    $callSync(
+        26340,
+        $W()
+          ..h(this)
+          ..i64(bytes));
+  }
+
+  /// Go: `func (*net.conn).SetWriteDeadline(t time.Time) error`.
+  void setWriteDeadline(DateTime t) {
+    $callSync(
+        26341,
+        $W()
+          ..h(this)
+          ..time(t));
+  }
+
+  /// Go: `func (*net.IPConn).SyscallConn() (syscall.RawConn, error)`.
+  $syscall.SyscallRawConn syscallConn() {
+    final $r = $callSync(26342, $W()..h(this));
+    return $r.hnn($syscall.SyscallRawConn.$h);
+  }
+
+  /// Go: `func (*net.conn).Write(b []byte) (int, error)`.
+  int write(Uint8List b) {
+    final $r = $callSync(
+        26343,
+        $W()
+          ..h(this)
+          ..bytes(b));
+    return $r.i64();
+  }
+
+  /// Go: `func (*net.IPConn).WriteMsgIP(b []byte, oob []byte, addr *net.IPAddr) (n int, oobn int, err error)`.
+  (int, int) writeMsgIp(Uint8List b, Uint8List oob, NetIpAddr addr) {
+    final $r = $callSync(
+        26344,
+        $W()
+          ..h(this)
+          ..bytes(b)
+          ..bytes(oob)
+          ..dto(addr));
+    return ($r.i64(), $r.i64());
+  }
+
+  /// Go: `func (*net.IPConn).WriteTo(b []byte, addr net.Addr) (int, error)`.
+  int writeTo(Uint8List b, NetAddr addr) {
+    final $r = $callSync(
+        26345,
+        $W()
+          ..h(this)
+          ..bytes(b)
+          ..dto(addr));
+    return $r.i64();
+  }
+
+  /// Go: `func (*net.IPConn).WriteToIP(b []byte, addr *net.IPAddr) (int, error)`.
+  int writeToIp(Uint8List b, NetIpAddr addr) {
+    final $r = $callSync(
+        26346,
+        $W()
+          ..h(this)
+          ..bytes(b)
+          ..dto(addr));
+    return $r.i64();
   }
 }
 
@@ -68,6 +635,1543 @@ final class NetIpNet implements GoDto {
     w
       ..bytes(ip)
       ..bytes(mask);
+  }
+
+  /// Go: `func (*net.IPNet).Contains(ip net.IP) bool`.
+  bool contains(Uint8List ip) {
+    final $r = $callSync(
+        26347,
+        $W()
+          ..dto(this)
+          ..bytes(ip));
+    return $r.b();
+  }
+
+  /// Go: `func (*net.IPNet).Network() string`.
+  String network() {
+    final $r = $callSync(26348, $W()..dto(this));
+    return $r.str();
+  }
+
+  /// Go: `func (*net.IPNet).String() string`.
+  String string() {
+    final $r = $callSync(26349, $W()..dto(this));
+    return $r.str();
+  }
+}
+
+/// Go: `net.Interface`.
+final class NetInterface implements GoDto {
+  NetInterface(
+      {int? index, int? mtu, String? name, Uint8List? hardwareAddr, int? flags})
+      : index = index ?? 0,
+        mtu = mtu ?? 0,
+        name = name ?? '',
+        hardwareAddr = hardwareAddr,
+        flags = flags ?? 0;
+
+  NetInterface.$dec($R r)
+      : index = r.i64(),
+        mtu = r.i64(),
+        name = r.str(),
+        hardwareAddr = r.bytes(),
+        flags = r.i64();
+
+  /// Go: `Index`.
+  int index;
+
+  /// Go: `MTU`.
+  int mtu;
+
+  /// Go: `Name`.
+  String name;
+
+  /// Go: `HardwareAddr`.
+  Uint8List? hardwareAddr;
+
+  /// Go: `Flags`.
+  ///
+  /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
+  /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
+  int flags;
+
+  @override
+  void $enc($W w) {
+    w
+      ..i64(index)
+      ..i64(mtu)
+      ..str(name)
+      ..bytes(hardwareAddr)
+      ..i64(flags);
+  }
+
+  /// Go: `func (*net.Interface).Addrs() ([]net.Addr, error)`.
+  List<NetAddr> addrs() {
+    final $r = $callSync(26362, $W()..dto(this));
+    return $r.list(() => $r.p() ? NetAddr.$dec($r) : $nil());
+  }
+
+  /// Go: `func (*net.Interface).MulticastAddrs() ([]net.Addr, error)`.
+  List<NetAddr> multicastAddrs() {
+    final $r = $callSync(26363, $W()..dto(this));
+    return $r.list(() => $r.p() ? NetAddr.$dec($r) : $nil());
+  }
+}
+
+/// Go: `net.KeepAliveConfig`.
+final class NetKeepAliveConfig implements GoDto {
+  NetKeepAliveConfig(
+      {bool? enable, Duration? idle, Duration? interval, int? count})
+      : enable = enable ?? false,
+        idle = idle ?? Duration.zero,
+        interval = interval ?? Duration.zero,
+        count = count ?? 0;
+
+  NetKeepAliveConfig.$dec($R r)
+      : enable = r.b(),
+        idle = Duration(microseconds: r.i64() ~/ 1000),
+        interval = Duration(microseconds: r.i64() ~/ 1000),
+        count = r.i64();
+
+  /// Go: `Enable`.
+  bool enable;
+
+  /// Go: `Idle`.
+  Duration idle;
+
+  /// Go: `Interval`.
+  Duration interval;
+
+  /// Go: `Count`.
+  int count;
+
+  @override
+  void $enc($W w) {
+    w
+      ..b(enable)
+      ..i64((idle).inMicroseconds * 1000)
+      ..i64((interval).inMicroseconds * 1000)
+      ..i64(count);
+  }
+}
+
+/// Go: `net.ListenConfig` (handle).
+class NetListenConfig extends $v42.TransportV4ListenConfig
+    with
+        $crypto.CryptoDecrypterOpts$,
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoDecrypterOpts,
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
+  NetListenConfig.$h(super.$h) : super.$h();
+
+  /// Go: `func (*net.ListenConfig).Listen(ctx context.Context, network string, address string) (net.Listener, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<NetListener> listen(
+      $context.Context ctx, String network, String address) async {
+    final $r = await $call(
+        26370,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(network)
+          ..str(address));
+    return $r.hnn(NetListener.$h);
+  }
+
+  /// Go: `func (*net.ListenConfig).ListenPacket(ctx context.Context, network string, address string) (net.PacketConn, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<NetPacketConn> listenPacket(
+      $context.Context ctx, String network, String address) async {
+    final $r = await $call(
+        26371,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(network)
+          ..str(address));
+    return $r.hnn(NetPacketConn.$h);
+  }
+
+  /// Go: `func (*net.ListenConfig).MultipathTCP() bool`.
+  bool multipathTcp() {
+    final $r = $callSync(26372, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (*net.ListenConfig).SetMultipathTCP(use bool)`.
+  void setMultipathTcp(bool use) {
+    $callSync(
+        26373,
+        $W()
+          ..h(this)
+          ..b(use));
+  }
+}
+
+/// Go: `net.Listener` (handle).
+class NetListener extends GoHandle with NetListener$ {
+  NetListener.$h(super.$h);
+}
+
+/// The methods of [NetListener], mixed into every class Go also accepts as one.
+mixin NetListener$ on GoHandle {
+  /// Go: `func (net.Listener).Accept() (net.Conn, error)`.
+  NetConn accept() {
+    final $r = $callSync(26381, $W()..h(this));
+    return $r.hnn(NetConn.$h);
+  }
+
+  /// Go: `func (net.Listener).Addr() net.Addr`.
+  NetAddr addr() {
+    final $r = $callSync(26382, $W()..h(this));
+    return $r.p() ? NetAddr.$dec($r) : $nil();
+  }
+
+  /// Go: `func (net.Listener).Close() error`.
+  void close() {
+    $callSync(26383, $W()..h(this));
+  }
+
+  /// Go: type assertion `x.(*yamux.Session)`: null if the object is not one.
+  $v5.YamuxV5Session? asYamuxV5Session() {
+    final $r = $callSync(2990, $W()..h(this));
+    return $r.hn($v5.YamuxV5Session.$h);
+  }
+
+  /// Go: type assertion `x.(*net.TCPListener)`: null if the object is not one.
+  NetTcpListener? asNetTcpListener() {
+    final $r = $callSync(2991, $W()..h(this));
+    return $r.hn(NetTcpListener.$h);
+  }
+
+  /// Go: type assertion `x.(*net.UnixListener)`: null if the object is not one.
+  NetUnixListener? asNetUnixListener() {
+    final $r = $callSync(2992, $W()..h(this));
+    return $r.hn(NetUnixListener.$h);
+  }
+
+  /// Go: type assertion `x.(transport.TCPListener)`: null if the object is not one.
+  $v32.TransportV3TcpListener? asTransportV3TcpListener() {
+    final $r = $callSync(2993, $W()..h(this));
+    return $r.hn($v32.TransportV3TcpListener.$h);
+  }
+
+  /// Go: type assertion `x.(transport.TCPListener)`: null if the object is not one.
+  $v42.TransportV4TcpListener? asTransportV4TcpListener() {
+    final $r = $callSync(2994, $W()..h(this));
+    return $r.hn($v42.TransportV4TcpListener.$h);
+  }
+}
+
+/// Go: `net.MX`.
+final class NetMx implements GoDto {
+  NetMx({String? host, int? pref})
+      : host = host ?? '',
+        pref = pref ?? 0;
+
+  NetMx.$dec($R r)
+      : host = r.str(),
+        pref = r.i64();
+
+  /// Go: `Host`.
+  String host;
+
+  /// Go: `Pref`.
+  int pref;
+
+  @override
+  void $enc($W w) {
+    w
+      ..str(host)
+      ..i64(pref);
+  }
+}
+
+/// Go: `net.NS`.
+final class NetNs implements GoDto {
+  NetNs({String? host}) : host = host ?? '';
+
+  NetNs.$dec($R r) : host = r.str();
+
+  /// Go: `Host`.
+  String host;
+
+  @override
+  void $enc($W w) {
+    w..str(host);
+  }
+}
+
+/// Go: `net.PacketConn` (handle).
+class NetPacketConn extends GoHandle with NetPacketConn$ {
+  NetPacketConn.$h(super.$h);
+}
+
+/// The methods of [NetPacketConn], mixed into every class Go also accepts as one.
+mixin NetPacketConn$ on GoHandle {
+  /// Go: `func (net.PacketConn).Close() error`.
+  void close() {
+    $callSync(26393, $W()..h(this));
+  }
+
+  /// Go: `func (net.PacketConn).LocalAddr() net.Addr`.
+  NetAddr localAddr() {
+    final $r = $callSync(26394, $W()..h(this));
+    return $r.p() ? NetAddr.$dec($r) : $nil();
+  }
+
+  /// Go: `func (net.PacketConn).ReadFrom(p []byte) (n int, addr net.Addr, err error)`.
+  (int, NetAddr) readFrom(Uint8List p) {
+    final $r = $callSync(
+        26395,
+        $W()
+          ..h(this)
+          ..bytes(p));
+    return ($r.i64(), $r.p() ? NetAddr.$dec($r) : $nil());
+  }
+
+  /// Go: `func (net.PacketConn).SetDeadline(t time.Time) error`.
+  void setDeadline(DateTime t) {
+    $callSync(
+        26396,
+        $W()
+          ..h(this)
+          ..time(t));
+  }
+
+  /// Go: `func (net.PacketConn).SetReadDeadline(t time.Time) error`.
+  void setReadDeadline(DateTime t) {
+    $callSync(
+        26397,
+        $W()
+          ..h(this)
+          ..time(t));
+  }
+
+  /// Go: `func (net.PacketConn).SetWriteDeadline(t time.Time) error`.
+  void setWriteDeadline(DateTime t) {
+    $callSync(
+        26398,
+        $W()
+          ..h(this)
+          ..time(t));
+  }
+
+  /// Go: `func (net.PacketConn).WriteTo(p []byte, addr net.Addr) (n int, err error)`.
+  int writeTo(Uint8List p, NetAddr addr) {
+    final $r = $callSync(
+        26399,
+        $W()
+          ..h(this)
+          ..bytes(p)
+          ..dto(addr));
+    return $r.i64();
+  }
+
+  /// Go: type assertion `x.(*vnet.UDPConn)`: null if the object is not one.
+  $vnet.TransportV3VnetUdpConn? asTransportV3VnetUdpConn() {
+    final $r = $callSync(2995, $W()..h(this));
+    return $r.hn($vnet.TransportV3VnetUdpConn.$h);
+  }
+
+  /// Go: type assertion `x.(*turn.STUNConn)`: null if the object is not one.
+  $v43.TurnV4StunConn? asTurnV4StunConn() {
+    final $r = $callSync(2996, $W()..h(this));
+    return $r.hn($v43.TurnV4StunConn.$h);
+  }
+
+  /// Go: type assertion `x.(*net.IPConn)`: null if the object is not one.
+  NetIpConn? asNetIpConn() {
+    final $r = $callSync(2997, $W()..h(this));
+    return $r.hn(NetIpConn.$h);
+  }
+
+  /// Go: type assertion `x.(*net.UDPConn)`: null if the object is not one.
+  NetUdpConn? asNetUdpConn() {
+    final $r = $callSync(2998, $W()..h(this));
+    return $r.hn(NetUdpConn.$h);
+  }
+
+  /// Go: type assertion `x.(*net.UnixConn)`: null if the object is not one.
+  NetUnixConn? asNetUnixConn() {
+    final $r = $callSync(2999, $W()..h(this));
+    return $r.hn(NetUnixConn.$h);
+  }
+
+  /// Go: type assertion `x.(manet.PacketConn)`: null if the object is not one.
+  $net.MultiaddrNetPacketConn? asMultiaddrNetPacketConn() {
+    final $r = $callSync(3000, $W()..h(this));
+    return $r.hn($net.MultiaddrNetPacketConn.$h);
+  }
+
+  /// Go: type assertion `x.(quic.OOBCapablePacketConn)`: null if the object is not one.
+  $quic_go.QuicGoOobCapablePacketConn? asQuicGoOobCapablePacketConn() {
+    final $r = $callSync(3001, $W()..h(this));
+    return $r.hn($quic_go.QuicGoOobCapablePacketConn.$h);
+  }
+}
+
+/// Go: `net.Resolver` (handle).
+class NetResolver extends $multiaddr_dns.MultiaddrDnsBasicResolver
+    with
+        $crypto.CryptoDecrypterOpts$,
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoDecrypterOpts,
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
+  NetResolver.$h(super.$h) : super.$h();
+
+  /// Go: `func (*net.Resolver).LookupAddr(ctx context.Context, addr string) ([]string, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<List<String>> lookupAddr($context.Context ctx, String addr) async {
+    final $r = await $call(
+        26408,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(addr));
+    return $r.list(() => $r.str());
+  }
+
+  /// Go: `func (*net.Resolver).LookupCNAME(ctx context.Context, host string) (string, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<String> lookupCname($context.Context ctx, String host) async {
+    final $r = await $call(
+        26409,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(host));
+    return $r.str();
+  }
+
+  /// Go: `func (*net.Resolver).LookupHost(ctx context.Context, host string) (addrs []string, err error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<List<String>> lookupHost($context.Context ctx, String host) async {
+    final $r = await $call(
+        26410,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(host));
+    return $r.list(() => $r.str());
+  }
+
+  /// Go: `func (*net.Resolver).LookupIP(ctx context.Context, network string, host string) ([]net.IP, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<List<Uint8List>> lookupIp(
+      $context.Context ctx, String network, String host) async {
+    final $r = await $call(
+        26411,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(network)
+          ..str(host));
+    return $r.list(() => $r.bytes() ?? Uint8List(0));
+  }
+
+  /// Go: `func (*net.Resolver).LookupIPAddr(ctx context.Context, host string) ([]net.IPAddr, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<List<NetIpAddr>> lookupIpAddr(
+      $context.Context ctx, String host) async {
+    final $r = await $call(
+        26412,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(host));
+    return $r.list(() => $r.p() ? NetIpAddr.$dec($r) : $nil());
+  }
+
+  /// Go: `func (*net.Resolver).LookupMX(ctx context.Context, name string) ([]*net.MX, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<List<NetMx>> lookupMx($context.Context ctx, String name) async {
+    final $r = await $call(
+        26413,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(name));
+    return $r.list(() => $r.p() ? NetMx.$dec($r) : $nil());
+  }
+
+  /// Go: `func (*net.Resolver).LookupNS(ctx context.Context, name string) ([]*net.NS, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<List<NetNs>> lookupNs($context.Context ctx, String name) async {
+    final $r = await $call(
+        26414,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(name));
+    return $r.list(() => $r.p() ? NetNs.$dec($r) : $nil());
+  }
+
+  /// Go: `func (*net.Resolver).LookupNetIP(ctx context.Context, network string, host string) ([]netip.Addr, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<List<$netip.NetNetipAddr>> lookupNetIp(
+      $context.Context ctx, String network, String host) async {
+    final $r = await $call(
+        26415,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(network)
+          ..str(host));
+    return $r.list(() => $r.hnn($netip.NetNetipAddr.$h));
+  }
+
+  /// Go: `func (*net.Resolver).LookupPort(ctx context.Context, network string, service string) (port int, err error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<int> lookupPort(
+      $context.Context ctx, String network, String service) async {
+    final $r = await $call(
+        26416,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(network)
+          ..str(service));
+    return $r.i64();
+  }
+
+  /// Go: `func (*net.Resolver).LookupSRV(ctx context.Context, service string, proto string, name string) (string, []*net.SRV, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<(String, List<NetSrv>)> lookupSrv(
+      $context.Context ctx, String service, String proto, String name) async {
+    final $r = await $call(
+        26417,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(service)
+          ..str(proto)
+          ..str(name));
+    return ($r.str(), $r.list(() => $r.p() ? NetSrv.$dec($r) : $nil()));
+  }
+
+  /// Go: `func (*net.Resolver).LookupTXT(ctx context.Context, name string) ([]string, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<List<String>> lookupTxt($context.Context ctx, String name) async {
+    final $r = await $call(
+        26418,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(name));
+    return $r.list(() => $r.str());
+  }
+}
+
+/// Go: `net.SRV`.
+final class NetSrv implements GoDto {
+  NetSrv({String? target, int? port, int? priority, int? weight})
+      : target = target ?? '',
+        port = port ?? 0,
+        priority = priority ?? 0,
+        weight = weight ?? 0;
+
+  NetSrv.$dec($R r)
+      : target = r.str(),
+        port = r.i64(),
+        priority = r.i64(),
+        weight = r.i64();
+
+  /// Go: `Target`.
+  String target;
+
+  /// Go: `Port`.
+  int port;
+
+  /// Go: `Priority`.
+  int priority;
+
+  /// Go: `Weight`.
+  int weight;
+
+  @override
+  void $enc($W w) {
+    w
+      ..str(target)
+      ..i64(port)
+      ..i64(priority)
+      ..i64(weight);
+  }
+}
+
+/// Go: `net.TCPAddr`.
+final class NetTcpAddr implements GoDto {
+  NetTcpAddr({Uint8List? ip, int? port, String? zone})
+      : ip = ip,
+        port = port ?? 0,
+        zone = zone ?? '';
+
+  NetTcpAddr.$dec($R r)
+      : ip = r.bytes(),
+        port = r.i64(),
+        zone = r.str();
+
+  /// Go: `IP`.
+  Uint8List? ip;
+
+  /// Go: `Port`.
+  int port;
+
+  /// Go: `Zone`.
+  String zone;
+
+  @override
+  void $enc($W w) {
+    w
+      ..bytes(ip)
+      ..i64(port)
+      ..str(zone);
+  }
+
+  /// Go: `func (*net.TCPAddr).AddrPort() netip.AddrPort`.
+  $netip.NetNetipAddrPort addrPort() {
+    final $r = $callSync(26420, $W()..dto(this));
+    return $r.hnn($netip.NetNetipAddrPort.$h);
+  }
+
+  /// Go: `func (*net.TCPAddr).Network() string`.
+  String network() {
+    final $r = $callSync(26421, $W()..dto(this));
+    return $r.str();
+  }
+
+  /// Go: `func (*net.TCPAddr).String() string`.
+  String string() {
+    final $r = $callSync(26422, $W()..dto(this));
+    return $r.str();
+  }
+}
+
+/// Go: `net.TCPConn` (handle).
+class NetTcpConn extends $v32.TransportV3TcpConn
+    with
+        $crypto.CryptoDecrypterOpts$,
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $io.IoCloser$,
+        $io.IoReaderFrom$,
+        $io.IoWriterTo$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$,
+        $datachannel.DatachannelReadDeadliner$,
+        $datachannel.DatachannelWriteDeadliner$,
+        $expfmt.CommonExpfmtCloser$,
+        $v42.TransportV4TcpConn$
+    implements
+        $crypto.CryptoDecrypterOpts,
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $io.IoCloser,
+        $io.IoReaderFrom,
+        $io.IoWriterTo,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic,
+        $datachannel.DatachannelReadDeadliner,
+        $datachannel.DatachannelWriteDeadliner,
+        $expfmt.CommonExpfmtCloser,
+        $v42.TransportV4TcpConn {
+  NetTcpConn.$h(super.$h) : super.$h();
+
+  /// Go: `func (*net.conn).Close() error`.
+  void close() {
+    $callSync(26424, $W()..h(this));
+  }
+
+  /// Go: `func (*net.TCPConn).CloseRead() error`.
+  void closeRead() {
+    $callSync(26425, $W()..h(this));
+  }
+
+  /// Go: `func (*net.TCPConn).CloseWrite() error`.
+  void closeWrite() {
+    $callSync(26426, $W()..h(this));
+  }
+
+  /// Go: `func (*net.conn).File() (f *os.File, err error)`.
+  $os.OsFile file() {
+    final $r = $callSync(26427, $W()..h(this));
+    return $r.hnn($os.OsFile.$h);
+  }
+
+  /// Go: `func (*net.conn).LocalAddr() net.Addr`.
+  NetAddr localAddr() {
+    final $r = $callSync(26428, $W()..h(this));
+    return $r.p() ? NetAddr.$dec($r) : $nil();
+  }
+
+  /// Go: `func (*net.TCPConn).MultipathTCP() (bool, error)`.
+  bool multipathTcp() {
+    final $r = $callSync(26429, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (*net.conn).Read(b []byte) (int, error)`.
+  Uint8List read(int n) {
+    final $r = $callSync(
+        26430,
+        $W()
+          ..h(this)
+          ..i64(n));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (*net.TCPConn).ReadFrom(r io.Reader) (int64, error)`.
+  int readFrom(Object r) {
+    final $r = $callSync(
+        26431,
+        $W()
+          ..h(this)
+          ..reader(r));
+    return $r.i64();
+  }
+
+  /// Go: `func (*net.conn).RemoteAddr() net.Addr`.
+  NetAddr remoteAddr() {
+    final $r = $callSync(26432, $W()..h(this));
+    return $r.p() ? NetAddr.$dec($r) : $nil();
+  }
+
+  /// Go: `func (*net.conn).SetDeadline(t time.Time) error`.
+  void setDeadline(DateTime t) {
+    $callSync(
+        26433,
+        $W()
+          ..h(this)
+          ..time(t));
+  }
+
+  /// Go: `func (*net.TCPConn).SetKeepAlive(keepalive bool) error`.
+  void setKeepAlive(bool keepalive) {
+    $callSync(
+        26434,
+        $W()
+          ..h(this)
+          ..b(keepalive));
+  }
+
+  /// Go: `func (*net.TCPConn).SetKeepAliveConfig(config net.KeepAliveConfig) error`.
+  void setKeepAliveConfig(NetKeepAliveConfig config) {
+    $callSync(
+        26435,
+        $W()
+          ..h(this)
+          ..dto(config));
+  }
+
+  /// Go: `func (*net.TCPConn).SetKeepAlivePeriod(d time.Duration) error`.
+  void setKeepAlivePeriod(Duration d) {
+    $callSync(
+        26436,
+        $W()
+          ..h(this)
+          ..i64((d).inMicroseconds * 1000));
+  }
+
+  /// Go: `func (*net.TCPConn).SetLinger(sec int) error`.
+  void setLinger(int sec) {
+    $callSync(
+        26437,
+        $W()
+          ..h(this)
+          ..i64(sec));
+  }
+
+  /// Go: `func (*net.TCPConn).SetNoDelay(noDelay bool) error`.
+  void setNoDelay(bool noDelay) {
+    $callSync(
+        26438,
+        $W()
+          ..h(this)
+          ..b(noDelay));
+  }
+
+  /// Go: `func (*net.conn).SetReadBuffer(bytes int) error`.
+  void setReadBuffer(int bytes) {
+    $callSync(
+        26439,
+        $W()
+          ..h(this)
+          ..i64(bytes));
+  }
+
+  /// Go: `func (*net.conn).SetReadDeadline(t time.Time) error`.
+  void setReadDeadline(DateTime t) {
+    $callSync(
+        26440,
+        $W()
+          ..h(this)
+          ..time(t));
+  }
+
+  /// Go: `func (*net.conn).SetWriteBuffer(bytes int) error`.
+  void setWriteBuffer(int bytes) {
+    $callSync(
+        26441,
+        $W()
+          ..h(this)
+          ..i64(bytes));
+  }
+
+  /// Go: `func (*net.conn).SetWriteDeadline(t time.Time) error`.
+  void setWriteDeadline(DateTime t) {
+    $callSync(
+        26442,
+        $W()
+          ..h(this)
+          ..time(t));
+  }
+
+  /// Go: `func (*net.TCPConn).SyscallConn() (syscall.RawConn, error)`.
+  $syscall.SyscallRawConn syscallConn() {
+    final $r = $callSync(26443, $W()..h(this));
+    return $r.hnn($syscall.SyscallRawConn.$h);
+  }
+
+  /// Go: `func (*net.conn).Write(b []byte) (int, error)`.
+  int write(Uint8List b) {
+    final $r = $callSync(
+        26444,
+        $W()
+          ..h(this)
+          ..bytes(b));
+    return $r.i64();
+  }
+
+  /// Go: `func (*net.TCPConn).WriteTo(w io.Writer) (int64, error)`.
+  int writeTo(GoHandle? w) {
+    final $r = $callSync(
+        26445,
+        $W()
+          ..h(this)
+          ..h(w));
+    return $r.i64();
+  }
+}
+
+/// Go: `net.TCPListener` (handle).
+class NetTcpListener extends NetListener
+    with
+        $crypto.CryptoDecrypterOpts$,
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $io.IoCloser$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$,
+        $expfmt.CommonExpfmtCloser$
+    implements
+        $crypto.CryptoDecrypterOpts,
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $io.IoCloser,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic,
+        $expfmt.CommonExpfmtCloser {
+  NetTcpListener.$h(super.$h) : super.$h();
+
+  /// Go: `func (*net.TCPListener).Accept() (net.Conn, error)`.
+  NetConn accept() {
+    final $r = $callSync(26446, $W()..h(this));
+    return $r.hnn(NetConn.$h);
+  }
+
+  /// Go: `func (*net.TCPListener).AcceptTCP() (*net.TCPConn, error)`.
+  NetTcpConn acceptTcp() {
+    final $r = $callSync(26447, $W()..h(this));
+    return $r.hnn(NetTcpConn.$h);
+  }
+
+  /// Go: `func (*net.TCPListener).Addr() net.Addr`.
+  NetAddr addr() {
+    final $r = $callSync(26448, $W()..h(this));
+    return $r.p() ? NetAddr.$dec($r) : $nil();
+  }
+
+  /// Go: `func (*net.TCPListener).Close() error`.
+  void close() {
+    $callSync(26449, $W()..h(this));
+  }
+
+  /// Go: `func (*net.TCPListener).File() (f *os.File, err error)`.
+  $os.OsFile file() {
+    final $r = $callSync(26450, $W()..h(this));
+    return $r.hnn($os.OsFile.$h);
+  }
+
+  /// Go: `func (*net.TCPListener).SetDeadline(t time.Time) error`.
+  void setDeadline(DateTime t) {
+    $callSync(
+        26451,
+        $W()
+          ..h(this)
+          ..time(t));
+  }
+
+  /// Go: `func (*net.TCPListener).SyscallConn() (syscall.RawConn, error)`.
+  $syscall.SyscallRawConn syscallConn() {
+    final $r = $callSync(26452, $W()..h(this));
+    return $r.hnn($syscall.SyscallRawConn.$h);
+  }
+}
+
+/// Go: `net.UDPAddr`.
+final class NetUdpAddr implements GoDto {
+  NetUdpAddr({Uint8List? ip, int? port, String? zone})
+      : ip = ip,
+        port = port ?? 0,
+        zone = zone ?? '';
+
+  NetUdpAddr.$dec($R r)
+      : ip = r.bytes(),
+        port = r.i64(),
+        zone = r.str();
+
+  /// Go: `IP`.
+  Uint8List? ip;
+
+  /// Go: `Port`.
+  int port;
+
+  /// Go: `Zone`.
+  String zone;
+
+  @override
+  void $enc($W w) {
+    w
+      ..bytes(ip)
+      ..i64(port)
+      ..str(zone);
+  }
+
+  /// Go: `func (*net.UDPAddr).AddrPort() netip.AddrPort`.
+  $netip.NetNetipAddrPort addrPort() {
+    final $r = $callSync(26453, $W()..dto(this));
+    return $r.hnn($netip.NetNetipAddrPort.$h);
+  }
+
+  /// Go: `func (*net.UDPAddr).Network() string`.
+  String network() {
+    final $r = $callSync(26454, $W()..dto(this));
+    return $r.str();
+  }
+
+  /// Go: `func (*net.UDPAddr).String() string`.
+  String string() {
+    final $r = $callSync(26455, $W()..dto(this));
+    return $r.str();
+  }
+}
+
+/// Go: `net.UDPConn` (handle).
+class NetUdpConn extends $v32.TransportV3UdpConn
+    with
+        $crypto.CryptoDecrypterOpts$,
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $io.IoCloser$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$,
+        NetConn$,
+        NetPacketConn$,
+        $datachannel.DatachannelReadDeadliner$,
+        $datachannel.DatachannelWriteDeadliner$,
+        $v42.TransportV4UdpConn$,
+        $expfmt.CommonExpfmtCloser$,
+        $quic_go.QuicGoOobCapablePacketConn$
+    implements
+        $crypto.CryptoDecrypterOpts,
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $io.IoCloser,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic,
+        NetConn,
+        NetPacketConn,
+        $datachannel.DatachannelReadDeadliner,
+        $datachannel.DatachannelWriteDeadliner,
+        $v42.TransportV4UdpConn,
+        $expfmt.CommonExpfmtCloser,
+        $quic_go.QuicGoOobCapablePacketConn {
+  NetUdpConn.$h(super.$h) : super.$h();
+
+  /// Go: `func (*net.conn).Close() error`.
+  void close() {
+    $callSync(26457, $W()..h(this));
+  }
+
+  /// Go: `func (*net.conn).File() (f *os.File, err error)`.
+  $os.OsFile file() {
+    final $r = $callSync(26458, $W()..h(this));
+    return $r.hnn($os.OsFile.$h);
+  }
+
+  /// Go: `func (*net.conn).LocalAddr() net.Addr`.
+  NetAddr localAddr() {
+    final $r = $callSync(26459, $W()..h(this));
+    return $r.p() ? NetAddr.$dec($r) : $nil();
+  }
+
+  /// Go: `func (*net.conn).Read(b []byte) (int, error)`.
+  Uint8List read(int n) {
+    final $r = $callSync(
+        26460,
+        $W()
+          ..h(this)
+          ..i64(n));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (*net.UDPConn).ReadFrom(b []byte) (int, net.Addr, error)`.
+  (int, NetAddr) readFrom(Uint8List b) {
+    final $r = $callSync(
+        26461,
+        $W()
+          ..h(this)
+          ..bytes(b));
+    return ($r.i64(), $r.p() ? NetAddr.$dec($r) : $nil());
+  }
+
+  /// Go: `func (*net.UDPConn).ReadFromUDP(b []byte) (n int, addr *net.UDPAddr, err error)`.
+  (int, NetUdpAddr) readFromUdp(Uint8List b) {
+    final $r = $callSync(
+        26462,
+        $W()
+          ..h(this)
+          ..bytes(b));
+    return ($r.i64(), $r.p() ? NetUdpAddr.$dec($r) : $nil());
+  }
+
+  /// Go: `func (*net.UDPConn).ReadFromUDPAddrPort(b []byte) (n int, addr netip.AddrPort, err error)`.
+  (int, $netip.NetNetipAddrPort) readFromUdpAddrPort(Uint8List b) {
+    final $r = $callSync(
+        26463,
+        $W()
+          ..h(this)
+          ..bytes(b));
+    return ($r.i64(), $r.hnn($netip.NetNetipAddrPort.$h));
+  }
+
+  /// Go: `func (*net.UDPConn).ReadMsgUDP(b []byte, oob []byte) (n int, oobn int, flags int, addr *net.UDPAddr, err error)`.
+  (int, int, int, NetUdpAddr) readMsgUdp(Uint8List b, Uint8List oob) {
+    final $r = $callSync(
+        26464,
+        $W()
+          ..h(this)
+          ..bytes(b)
+          ..bytes(oob));
+    return (
+      $r.i64(),
+      $r.i64(),
+      $r.i64(),
+      $r.p() ? NetUdpAddr.$dec($r) : $nil()
+    );
+  }
+
+  /// Go: `func (*net.UDPConn).ReadMsgUDPAddrPort(b []byte, oob []byte) (n int, oobn int, flags int, addr netip.AddrPort, err error)`.
+  (int, int, int, $netip.NetNetipAddrPort) readMsgUdpAddrPort(
+      Uint8List b, Uint8List oob) {
+    final $r = $callSync(
+        26465,
+        $W()
+          ..h(this)
+          ..bytes(b)
+          ..bytes(oob));
+    return ($r.i64(), $r.i64(), $r.i64(), $r.hnn($netip.NetNetipAddrPort.$h));
+  }
+
+  /// Go: `func (*net.conn).RemoteAddr() net.Addr`.
+  NetAddr remoteAddr() {
+    final $r = $callSync(26466, $W()..h(this));
+    return $r.p() ? NetAddr.$dec($r) : $nil();
+  }
+
+  /// Go: `func (*net.conn).SetDeadline(t time.Time) error`.
+  void setDeadline(DateTime t) {
+    $callSync(
+        26467,
+        $W()
+          ..h(this)
+          ..time(t));
+  }
+
+  /// Go: `func (*net.conn).SetReadBuffer(bytes int) error`.
+  void setReadBuffer(int bytes) {
+    $callSync(
+        26468,
+        $W()
+          ..h(this)
+          ..i64(bytes));
+  }
+
+  /// Go: `func (*net.conn).SetReadDeadline(t time.Time) error`.
+  void setReadDeadline(DateTime t) {
+    $callSync(
+        26469,
+        $W()
+          ..h(this)
+          ..time(t));
+  }
+
+  /// Go: `func (*net.conn).SetWriteBuffer(bytes int) error`.
+  void setWriteBuffer(int bytes) {
+    $callSync(
+        26470,
+        $W()
+          ..h(this)
+          ..i64(bytes));
+  }
+
+  /// Go: `func (*net.conn).SetWriteDeadline(t time.Time) error`.
+  void setWriteDeadline(DateTime t) {
+    $callSync(
+        26471,
+        $W()
+          ..h(this)
+          ..time(t));
+  }
+
+  /// Go: `func (*net.UDPConn).SyscallConn() (syscall.RawConn, error)`.
+  $syscall.SyscallRawConn syscallConn() {
+    final $r = $callSync(26472, $W()..h(this));
+    return $r.hnn($syscall.SyscallRawConn.$h);
+  }
+
+  /// Go: `func (*net.conn).Write(b []byte) (int, error)`.
+  int write(Uint8List b) {
+    final $r = $callSync(
+        26473,
+        $W()
+          ..h(this)
+          ..bytes(b));
+    return $r.i64();
+  }
+
+  /// Go: `func (*net.UDPConn).WriteMsgUDP(b []byte, oob []byte, addr *net.UDPAddr) (n int, oobn int, err error)`.
+  (int, int) writeMsgUdp(Uint8List b, Uint8List oob, NetUdpAddr addr) {
+    final $r = $callSync(
+        26474,
+        $W()
+          ..h(this)
+          ..bytes(b)
+          ..bytes(oob)
+          ..dto(addr));
+    return ($r.i64(), $r.i64());
+  }
+
+  /// Go: `func (*net.UDPConn).WriteMsgUDPAddrPort(b []byte, oob []byte, addr netip.AddrPort) (n int, oobn int, err error)`.
+  (int, int) writeMsgUdpAddrPort(
+      Uint8List b, Uint8List oob, $netip.NetNetipAddrPort addr) {
+    final $r = $callSync(
+        26475,
+        $W()
+          ..h(this)
+          ..bytes(b)
+          ..bytes(oob)
+          ..h(addr));
+    return ($r.i64(), $r.i64());
+  }
+
+  /// Go: `func (*net.UDPConn).WriteTo(b []byte, addr net.Addr) (int, error)`.
+  int writeTo(Uint8List b, NetAddr addr) {
+    final $r = $callSync(
+        26476,
+        $W()
+          ..h(this)
+          ..bytes(b)
+          ..dto(addr));
+    return $r.i64();
+  }
+
+  /// Go: `func (*net.UDPConn).WriteToUDP(b []byte, addr *net.UDPAddr) (int, error)`.
+  int writeToUdp(Uint8List b, NetUdpAddr addr) {
+    final $r = $callSync(
+        26477,
+        $W()
+          ..h(this)
+          ..bytes(b)
+          ..dto(addr));
+    return $r.i64();
+  }
+
+  /// Go: `func (*net.UDPConn).WriteToUDPAddrPort(b []byte, addr netip.AddrPort) (int, error)`.
+  int writeToUdpAddrPort(Uint8List b, $netip.NetNetipAddrPort addr) {
+    final $r = $callSync(
+        26478,
+        $W()
+          ..h(this)
+          ..bytes(b)
+          ..h(addr));
+    return $r.i64();
+  }
+}
+
+/// Go: `net.UnixAddr`.
+final class NetUnixAddr implements GoDto {
+  NetUnixAddr({String? name, String? net})
+      : name = name ?? '',
+        net = net ?? '';
+
+  NetUnixAddr.$dec($R r)
+      : name = r.str(),
+        net = r.str();
+
+  /// Go: `Name`.
+  String name;
+
+  /// Go: `Net`.
+  String net;
+
+  @override
+  void $enc($W w) {
+    w
+      ..str(name)
+      ..str(net);
+  }
+
+  /// Go: `func (*net.UnixAddr).Network() string`.
+  String network() {
+    final $r = $callSync(26479, $W()..dto(this));
+    return $r.str();
+  }
+
+  /// Go: `func (*net.UnixAddr).String() string`.
+  String string() {
+    final $r = $callSync(26480, $W()..dto(this));
+    return $r.str();
+  }
+}
+
+/// Go: `net.UnixConn` (handle).
+class NetUnixConn extends NetConn
+    with
+        $crypto.CryptoDecrypterOpts$,
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $io.IoCloser$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$,
+        NetPacketConn$,
+        $datachannel.DatachannelReadDeadliner$,
+        $datachannel.DatachannelWriteDeadliner$,
+        $expfmt.CommonExpfmtCloser$
+    implements
+        $crypto.CryptoDecrypterOpts,
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $io.IoCloser,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic,
+        NetPacketConn,
+        $datachannel.DatachannelReadDeadliner,
+        $datachannel.DatachannelWriteDeadliner,
+        $expfmt.CommonExpfmtCloser {
+  NetUnixConn.$h(super.$h) : super.$h();
+
+  /// Go: `func (*net.conn).Close() error`.
+  void close() {
+    $callSync(26481, $W()..h(this));
+  }
+
+  /// Go: `func (*net.UnixConn).CloseRead() error`.
+  void closeRead() {
+    $callSync(26482, $W()..h(this));
+  }
+
+  /// Go: `func (*net.UnixConn).CloseWrite() error`.
+  void closeWrite() {
+    $callSync(26483, $W()..h(this));
+  }
+
+  /// Go: `func (*net.conn).File() (f *os.File, err error)`.
+  $os.OsFile file() {
+    final $r = $callSync(26484, $W()..h(this));
+    return $r.hnn($os.OsFile.$h);
+  }
+
+  /// Go: `func (*net.conn).LocalAddr() net.Addr`.
+  NetAddr localAddr() {
+    final $r = $callSync(26485, $W()..h(this));
+    return $r.p() ? NetAddr.$dec($r) : $nil();
+  }
+
+  /// Go: `func (*net.conn).Read(b []byte) (int, error)`.
+  Uint8List read(int n) {
+    final $r = $callSync(
+        26486,
+        $W()
+          ..h(this)
+          ..i64(n));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (*net.UnixConn).ReadFrom(b []byte) (int, net.Addr, error)`.
+  (int, NetAddr) readFrom(Uint8List b) {
+    final $r = $callSync(
+        26487,
+        $W()
+          ..h(this)
+          ..bytes(b));
+    return ($r.i64(), $r.p() ? NetAddr.$dec($r) : $nil());
+  }
+
+  /// Go: `func (*net.UnixConn).ReadFromUnix(b []byte) (int, *net.UnixAddr, error)`.
+  (int, NetUnixAddr) readFromUnix(Uint8List b) {
+    final $r = $callSync(
+        26488,
+        $W()
+          ..h(this)
+          ..bytes(b));
+    return ($r.i64(), $r.p() ? NetUnixAddr.$dec($r) : $nil());
+  }
+
+  /// Go: `func (*net.UnixConn).ReadMsgUnix(b []byte, oob []byte) (n int, oobn int, flags int, addr *net.UnixAddr, err error)`.
+  (int, int, int, NetUnixAddr) readMsgUnix(Uint8List b, Uint8List oob) {
+    final $r = $callSync(
+        26489,
+        $W()
+          ..h(this)
+          ..bytes(b)
+          ..bytes(oob));
+    return (
+      $r.i64(),
+      $r.i64(),
+      $r.i64(),
+      $r.p() ? NetUnixAddr.$dec($r) : $nil()
+    );
+  }
+
+  /// Go: `func (*net.conn).RemoteAddr() net.Addr`.
+  NetAddr remoteAddr() {
+    final $r = $callSync(26490, $W()..h(this));
+    return $r.p() ? NetAddr.$dec($r) : $nil();
+  }
+
+  /// Go: `func (*net.conn).SetDeadline(t time.Time) error`.
+  void setDeadline(DateTime t) {
+    $callSync(
+        26491,
+        $W()
+          ..h(this)
+          ..time(t));
+  }
+
+  /// Go: `func (*net.conn).SetReadBuffer(bytes int) error`.
+  void setReadBuffer(int bytes) {
+    $callSync(
+        26492,
+        $W()
+          ..h(this)
+          ..i64(bytes));
+  }
+
+  /// Go: `func (*net.conn).SetReadDeadline(t time.Time) error`.
+  void setReadDeadline(DateTime t) {
+    $callSync(
+        26493,
+        $W()
+          ..h(this)
+          ..time(t));
+  }
+
+  /// Go: `func (*net.conn).SetWriteBuffer(bytes int) error`.
+  void setWriteBuffer(int bytes) {
+    $callSync(
+        26494,
+        $W()
+          ..h(this)
+          ..i64(bytes));
+  }
+
+  /// Go: `func (*net.conn).SetWriteDeadline(t time.Time) error`.
+  void setWriteDeadline(DateTime t) {
+    $callSync(
+        26495,
+        $W()
+          ..h(this)
+          ..time(t));
+  }
+
+  /// Go: `func (*net.UnixConn).SyscallConn() (syscall.RawConn, error)`.
+  $syscall.SyscallRawConn syscallConn() {
+    final $r = $callSync(26496, $W()..h(this));
+    return $r.hnn($syscall.SyscallRawConn.$h);
+  }
+
+  /// Go: `func (*net.conn).Write(b []byte) (int, error)`.
+  int write(Uint8List b) {
+    final $r = $callSync(
+        26497,
+        $W()
+          ..h(this)
+          ..bytes(b));
+    return $r.i64();
+  }
+
+  /// Go: `func (*net.UnixConn).WriteMsgUnix(b []byte, oob []byte, addr *net.UnixAddr) (n int, oobn int, err error)`.
+  (int, int) writeMsgUnix(Uint8List b, Uint8List oob, NetUnixAddr addr) {
+    final $r = $callSync(
+        26498,
+        $W()
+          ..h(this)
+          ..bytes(b)
+          ..bytes(oob)
+          ..dto(addr));
+    return ($r.i64(), $r.i64());
+  }
+
+  /// Go: `func (*net.UnixConn).WriteTo(b []byte, addr net.Addr) (int, error)`.
+  int writeTo(Uint8List b, NetAddr addr) {
+    final $r = $callSync(
+        26499,
+        $W()
+          ..h(this)
+          ..bytes(b)
+          ..dto(addr));
+    return $r.i64();
+  }
+
+  /// Go: `func (*net.UnixConn).WriteToUnix(b []byte, addr *net.UnixAddr) (int, error)`.
+  int writeToUnix(Uint8List b, NetUnixAddr addr) {
+    final $r = $callSync(
+        26500,
+        $W()
+          ..h(this)
+          ..bytes(b)
+          ..dto(addr));
+    return $r.i64();
+  }
+}
+
+/// Go: `net.UnixListener` (handle).
+class NetUnixListener extends NetListener
+    with
+        $crypto.CryptoDecrypterOpts$,
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $io.IoCloser$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$,
+        $expfmt.CommonExpfmtCloser$
+    implements
+        $crypto.CryptoDecrypterOpts,
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $io.IoCloser,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic,
+        $expfmt.CommonExpfmtCloser {
+  NetUnixListener.$h(super.$h) : super.$h();
+
+  /// Go: `func (*net.UnixListener).Accept() (net.Conn, error)`.
+  NetConn accept() {
+    final $r = $callSync(26501, $W()..h(this));
+    return $r.hnn(NetConn.$h);
+  }
+
+  /// Go: `func (*net.UnixListener).AcceptUnix() (*net.UnixConn, error)`.
+  NetUnixConn acceptUnix() {
+    final $r = $callSync(26502, $W()..h(this));
+    return $r.hnn(NetUnixConn.$h);
+  }
+
+  /// Go: `func (*net.UnixListener).Addr() net.Addr`.
+  NetAddr addr() {
+    final $r = $callSync(26503, $W()..h(this));
+    return $r.p() ? NetAddr.$dec($r) : $nil();
+  }
+
+  /// Go: `func (*net.UnixListener).Close() error`.
+  void close() {
+    $callSync(26504, $W()..h(this));
+  }
+
+  /// Go: `func (*net.UnixListener).File() (f *os.File, err error)`.
+  $os.OsFile file() {
+    final $r = $callSync(26505, $W()..h(this));
+    return $r.hnn($os.OsFile.$h);
+  }
+
+  /// Go: `func (*net.UnixListener).SetDeadline(t time.Time) error`.
+  void setDeadline(DateTime t) {
+    $callSync(
+        26506,
+        $W()
+          ..h(this)
+          ..time(t));
+  }
+
+  /// Go: `func (*net.UnixListener).SetUnlinkOnClose(unlink bool)`.
+  void setUnlinkOnClose(bool unlink) {
+    $callSync(
+        26507,
+        $W()
+          ..h(this)
+          ..b(unlink));
+  }
+
+  /// Go: `func (*net.UnixListener).SyscallConn() (syscall.RawConn, error)`.
+  $syscall.SyscallRawConn syscallConn() {
+    final $r = $callSync(26508, $W()..h(this));
+    return $r.hnn($syscall.SyscallRawConn.$h);
   }
 }
 
@@ -202,6 +2306,453 @@ class NetUnknownNetworkError extends GolangException {
 
   @override
   String toString() => 'net.UnknownNetworkError: $message';
+}
+
+/// Go: the package-level members of `net` (`go.net`).
+extension GoNetApi on GoNet {
+  /// Go: `func net.CIDRMask(ones int, bits int) net.IPMask`.
+  Uint8List cidrMask(int ones, int bits) {
+    final $r = $callSync(
+        26300,
+        $W()
+          ..i64(ones)
+          ..i64(bits));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `var net.DefaultResolver *net.Resolver`.
+  NetResolver get defaultResolver {
+    final $r = $callSync(26309);
+    return $r.hnn(NetResolver.$h);
+  }
+
+  /// Go: `func net.Dial(network string, address string) (net.Conn, error)`.
+  NetConn dial(String network, String address) {
+    final $r = $callSync(
+        26310,
+        $W()
+          ..str(network)
+          ..str(address));
+    return $r.hnn(NetConn.$h);
+  }
+
+  /// Go: `func net.DialIP(network string, laddr *net.IPAddr, raddr *net.IPAddr) (*net.IPConn, error)`.
+  NetIpConn dialIp(String network, NetIpAddr laddr, NetIpAddr raddr) {
+    final $r = $callSync(
+        26311,
+        $W()
+          ..str(network)
+          ..dto(laddr)
+          ..dto(raddr));
+    return $r.hnn(NetIpConn.$h);
+  }
+
+  /// Go: `func net.DialTCP(network string, laddr *net.TCPAddr, raddr *net.TCPAddr) (*net.TCPConn, error)`.
+  NetTcpConn dialTcp(String network, NetTcpAddr laddr, NetTcpAddr raddr) {
+    final $r = $callSync(
+        26312,
+        $W()
+          ..str(network)
+          ..dto(laddr)
+          ..dto(raddr));
+    return $r.hnn(NetTcpConn.$h);
+  }
+
+  /// Go: `func net.DialTimeout(network string, address string, timeout time.Duration) (net.Conn, error)`.
+  NetConn dialTimeout(String network, String address, Duration timeout) {
+    final $r = $callSync(
+        26313,
+        $W()
+          ..str(network)
+          ..str(address)
+          ..i64((timeout).inMicroseconds * 1000));
+    return $r.hnn(NetConn.$h);
+  }
+
+  /// Go: `func net.DialUDP(network string, laddr *net.UDPAddr, raddr *net.UDPAddr) (*net.UDPConn, error)`.
+  NetUdpConn dialUdp(String network, NetUdpAddr laddr, NetUdpAddr raddr) {
+    final $r = $callSync(
+        26314,
+        $W()
+          ..str(network)
+          ..dto(laddr)
+          ..dto(raddr));
+    return $r.hnn(NetUdpConn.$h);
+  }
+
+  /// Go: `func net.DialUnix(network string, laddr *net.UnixAddr, raddr *net.UnixAddr) (*net.UnixConn, error)`.
+  NetUnixConn dialUnix(String network, NetUnixAddr laddr, NetUnixAddr raddr) {
+    final $r = $callSync(
+        26315,
+        $W()
+          ..str(network)
+          ..dto(laddr)
+          ..dto(raddr));
+    return $r.hnn(NetUnixConn.$h);
+  }
+
+  /// Go: `func net.FileConn(f *os.File) (c net.Conn, err error)`.
+  NetConn fileConn($os.OsFile f) {
+    final $r = $callSync(26324, $W()..h(f));
+    return $r.hnn(NetConn.$h);
+  }
+
+  /// Go: `func net.FileListener(f *os.File) (ln net.Listener, err error)`.
+  NetListener fileListener($os.OsFile f) {
+    final $r = $callSync(26325, $W()..h(f));
+    return $r.hnn(NetListener.$h);
+  }
+
+  /// Go: `func net.FilePacketConn(f *os.File) (c net.PacketConn, err error)`.
+  NetPacketConn filePacketConn($os.OsFile f) {
+    final $r = $callSync(26326, $W()..h(f));
+    return $r.hnn(NetPacketConn.$h);
+  }
+
+  /// Go: `func net.IPv4(a byte, b byte, c byte, d byte) net.IP`.
+  Uint8List iPv4(int a, int b, int c, int d) {
+    final $r = $callSync(
+        26350,
+        $W()
+          ..i64(a)
+          ..i64(b)
+          ..i64(c)
+          ..i64(d));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func net.IPv4Mask(a byte, b byte, c byte, d byte) net.IPMask`.
+  Uint8List iPv4Mask(int a, int b, int c, int d) {
+    final $r = $callSync(
+        26351,
+        $W()
+          ..i64(a)
+          ..i64(b)
+          ..i64(c)
+          ..i64(d));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `var net.IPv4allrouter net.IP`.
+  Uint8List get iPv4allrouter {
+    final $r = $callSync(26352);
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `var net.IPv4allsys net.IP`.
+  Uint8List get iPv4allsys {
+    final $r = $callSync(26353);
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `var net.IPv4bcast net.IP`.
+  Uint8List get iPv4bcast {
+    final $r = $callSync(26354);
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `var net.IPv4zero net.IP`.
+  Uint8List get iPv4zero {
+    final $r = $callSync(26355);
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `var net.IPv6interfacelocalallnodes net.IP`.
+  Uint8List get iPv6interfacelocalallnodes {
+    final $r = $callSync(26356);
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `var net.IPv6linklocalallnodes net.IP`.
+  Uint8List get iPv6linklocalallnodes {
+    final $r = $callSync(26357);
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `var net.IPv6linklocalallrouters net.IP`.
+  Uint8List get iPv6linklocalallrouters {
+    final $r = $callSync(26358);
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `var net.IPv6loopback net.IP`.
+  Uint8List get iPv6loopback {
+    final $r = $callSync(26359);
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `var net.IPv6unspecified net.IP`.
+  Uint8List get iPv6unspecified {
+    final $r = $callSync(26360);
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `var net.IPv6zero net.IP`.
+  Uint8List get iPv6zero {
+    final $r = $callSync(26361);
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func net.InterfaceAddrs() ([]net.Addr, error)`.
+  List<NetAddr> interfaceAddrs() {
+    final $r = $callSync(26364);
+    return $r.list(() => $r.p() ? NetAddr.$dec($r) : $nil());
+  }
+
+  /// Go: `func net.InterfaceByIndex(index int) (*net.Interface, error)`.
+  NetInterface interfaceByIndex(int index) {
+    final $r = $callSync(26365, $W()..i64(index));
+    return $r.p() ? NetInterface.$dec($r) : $nil();
+  }
+
+  /// Go: `func net.InterfaceByName(name string) (*net.Interface, error)`.
+  NetInterface interfaceByName(String name) {
+    final $r = $callSync(26366, $W()..str(name));
+    return $r.p() ? NetInterface.$dec($r) : $nil();
+  }
+
+  /// Go: `func net.Interfaces() ([]net.Interface, error)`.
+  List<NetInterface> interfaces() {
+    final $r = $callSync(26367);
+    return $r.list(() => $r.p() ? NetInterface.$dec($r) : $nil());
+  }
+
+  /// Go: `func net.JoinHostPort(host string, port string) string`.
+  String joinHostPort(String host, String port) {
+    final $r = $callSync(
+        26368,
+        $W()
+          ..str(host)
+          ..str(port));
+    return $r.str();
+  }
+
+  /// Go: `func net.Listen(network string, address string) (net.Listener, error)`.
+  NetListener listen(String network, String address) {
+    final $r = $callSync(
+        26369,
+        $W()
+          ..str(network)
+          ..str(address));
+    return $r.hnn(NetListener.$h);
+  }
+
+  /// Go: `func net.ListenIP(network string, laddr *net.IPAddr) (*net.IPConn, error)`.
+  NetIpConn listenIp(String network, NetIpAddr laddr) {
+    final $r = $callSync(
+        26374,
+        $W()
+          ..str(network)
+          ..dto(laddr));
+    return $r.hnn(NetIpConn.$h);
+  }
+
+  /// Go: `func net.ListenMulticastUDP(network string, ifi *net.Interface, gaddr *net.UDPAddr) (*net.UDPConn, error)`.
+  NetUdpConn listenMulticastUdp(
+      String network, NetInterface ifi, NetUdpAddr gaddr) {
+    final $r = $callSync(
+        26375,
+        $W()
+          ..str(network)
+          ..dto(ifi)
+          ..dto(gaddr));
+    return $r.hnn(NetUdpConn.$h);
+  }
+
+  /// Go: `func net.ListenPacket(network string, address string) (net.PacketConn, error)`.
+  NetPacketConn listenPacket(String network, String address) {
+    final $r = $callSync(
+        26376,
+        $W()
+          ..str(network)
+          ..str(address));
+    return $r.hnn(NetPacketConn.$h);
+  }
+
+  /// Go: `func net.ListenTCP(network string, laddr *net.TCPAddr) (*net.TCPListener, error)`.
+  NetTcpListener listenTcp(String network, NetTcpAddr laddr) {
+    final $r = $callSync(
+        26377,
+        $W()
+          ..str(network)
+          ..dto(laddr));
+    return $r.hnn(NetTcpListener.$h);
+  }
+
+  /// Go: `func net.ListenUDP(network string, laddr *net.UDPAddr) (*net.UDPConn, error)`.
+  NetUdpConn listenUdp(String network, NetUdpAddr laddr) {
+    final $r = $callSync(
+        26378,
+        $W()
+          ..str(network)
+          ..dto(laddr));
+    return $r.hnn(NetUdpConn.$h);
+  }
+
+  /// Go: `func net.ListenUnix(network string, laddr *net.UnixAddr) (*net.UnixListener, error)`.
+  NetUnixListener listenUnix(String network, NetUnixAddr laddr) {
+    final $r = $callSync(
+        26379,
+        $W()
+          ..str(network)
+          ..dto(laddr));
+    return $r.hnn(NetUnixListener.$h);
+  }
+
+  /// Go: `func net.ListenUnixgram(network string, laddr *net.UnixAddr) (*net.UnixConn, error)`.
+  NetUnixConn listenUnixgram(String network, NetUnixAddr laddr) {
+    final $r = $callSync(
+        26380,
+        $W()
+          ..str(network)
+          ..dto(laddr));
+    return $r.hnn(NetUnixConn.$h);
+  }
+
+  /// Go: `func net.LookupAddr(addr string) (names []string, err error)`.
+  List<String> lookupAddr(String addr) {
+    final $r = $callSync(26384, $W()..str(addr));
+    return $r.list(() => $r.str());
+  }
+
+  /// Go: `func net.LookupCNAME(host string) (cname string, err error)`.
+  String lookupCname(String host) {
+    final $r = $callSync(26385, $W()..str(host));
+    return $r.str();
+  }
+
+  /// Go: `func net.LookupHost(host string) (addrs []string, err error)`.
+  List<String> lookupHost(String host) {
+    final $r = $callSync(26386, $W()..str(host));
+    return $r.list(() => $r.str());
+  }
+
+  /// Go: `func net.LookupIP(host string) ([]net.IP, error)`.
+  List<Uint8List> lookupIp(String host) {
+    final $r = $callSync(26387, $W()..str(host));
+    return $r.list(() => $r.bytes() ?? Uint8List(0));
+  }
+
+  /// Go: `func net.LookupMX(name string) ([]*net.MX, error)`.
+  List<NetMx> lookupMx(String name) {
+    final $r = $callSync(26388, $W()..str(name));
+    return $r.list(() => $r.p() ? NetMx.$dec($r) : $nil());
+  }
+
+  /// Go: `func net.LookupNS(name string) ([]*net.NS, error)`.
+  List<NetNs> lookupNs(String name) {
+    final $r = $callSync(26389, $W()..str(name));
+    return $r.list(() => $r.p() ? NetNs.$dec($r) : $nil());
+  }
+
+  /// Go: `func net.LookupPort(network string, service string) (port int, err error)`.
+  int lookupPort(String network, String service) {
+    final $r = $callSync(
+        26390,
+        $W()
+          ..str(network)
+          ..str(service));
+    return $r.i64();
+  }
+
+  /// Go: `func net.LookupSRV(service string, proto string, name string) (cname string, addrs []*net.SRV, err error)`.
+  (String, List<NetSrv>) lookupSrv(String service, String proto, String name) {
+    final $r = $callSync(
+        26391,
+        $W()
+          ..str(service)
+          ..str(proto)
+          ..str(name));
+    return ($r.str(), $r.list(() => $r.p() ? NetSrv.$dec($r) : $nil()));
+  }
+
+  /// Go: `func net.LookupTXT(name string) ([]string, error)`.
+  List<String> lookupTxt(String name) {
+    final $r = $callSync(26392, $W()..str(name));
+    return $r.list(() => $r.str());
+  }
+
+  /// Go: `func net.ParseCIDR(s string) (net.IP, *net.IPNet, error)`.
+  (Uint8List, NetIpNet) parseCidr(String s) {
+    final $r = $callSync(26400, $W()..str(s));
+    return ($r.bytes() ?? Uint8List(0), $r.p() ? NetIpNet.$dec($r) : $nil());
+  }
+
+  /// Go: `func net.ParseIP(s string) net.IP`.
+  Uint8List parseIp(String s) {
+    final $r = $callSync(26401, $W()..str(s));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func net.ParseMAC(s string) (hw net.HardwareAddr, err error)`.
+  Uint8List parseMac(String s) {
+    final $r = $callSync(26402, $W()..str(s));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func net.Pipe() (net.Conn, net.Conn)`.
+  (NetConn, NetConn) pipe() {
+    final $r = $callSync(26403);
+    return ($r.hnn(NetConn.$h), $r.hnn(NetConn.$h));
+  }
+
+  /// Go: `func net.ResolveIPAddr(network string, address string) (*net.IPAddr, error)`.
+  NetIpAddr resolveIpAddr(String network, String address) {
+    final $r = $callSync(
+        26404,
+        $W()
+          ..str(network)
+          ..str(address));
+    return $r.p() ? NetIpAddr.$dec($r) : $nil();
+  }
+
+  /// Go: `func net.ResolveTCPAddr(network string, address string) (*net.TCPAddr, error)`.
+  NetTcpAddr resolveTcpAddr(String network, String address) {
+    final $r = $callSync(
+        26405,
+        $W()
+          ..str(network)
+          ..str(address));
+    return $r.p() ? NetTcpAddr.$dec($r) : $nil();
+  }
+
+  /// Go: `func net.ResolveUDPAddr(network string, address string) (*net.UDPAddr, error)`.
+  NetUdpAddr resolveUdpAddr(String network, String address) {
+    final $r = $callSync(
+        26406,
+        $W()
+          ..str(network)
+          ..str(address));
+    return $r.p() ? NetUdpAddr.$dec($r) : $nil();
+  }
+
+  /// Go: `func net.ResolveUnixAddr(network string, address string) (*net.UnixAddr, error)`.
+  NetUnixAddr resolveUnixAddr(String network, String address) {
+    final $r = $callSync(
+        26407,
+        $W()
+          ..str(network)
+          ..str(address));
+    return $r.p() ? NetUnixAddr.$dec($r) : $nil();
+  }
+
+  /// Go: `func net.SplitHostPort(hostport string) (host string, port string, err error)`.
+  (String, String) splitHostPort(String hostport) {
+    final $r = $callSync(26419, $W()..str(hostport));
+    return ($r.str(), $r.str());
+  }
+
+  /// Go: `func net.TCPAddrFromAddrPort(addr netip.AddrPort) *net.TCPAddr`.
+  NetTcpAddr tcpAddrFromAddrPort($netip.NetNetipAddrPort addr) {
+    final $r = $callSync(26423, $W()..h(addr));
+    return $r.p() ? NetTcpAddr.$dec($r) : $nil();
+  }
+
+  /// Go: `func net.UDPAddrFromAddrPort(addr netip.AddrPort) *net.UDPAddr`.
+  NetUdpAddr udpAddrFromAddrPort($netip.NetNetipAddrPort addr) {
+    final $r = $callSync(26456, $W()..h(addr));
+    return $r.p() ? NetUdpAddr.$dec($r) : $nil();
+  }
 }
 
 /// Go: the constants of `net` (`go.net.consts`).

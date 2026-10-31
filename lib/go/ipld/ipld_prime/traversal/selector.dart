@@ -9,19 +9,34 @@ import 'package:p2p_ffi/src/go.dart'
         GoIpldIpldPrimeTraversalSelectorEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/ipld/ipld_prime/datamodel.dart' as $datamodel;
 
 /// Go: `selector.Condition` (handle).
-class IpldPrimeTraversalSelectorCondition extends $crypto.CryptoPrivateKey
-    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
-    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+class IpldPrimeTraversalSelectorCondition extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   IpldPrimeTraversalSelectorCondition.$h(super.$h) : super.$h();
 
   /// Go: `func (*selector.Condition).Match(n datamodel.Node) bool`.
   bool match($datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        2121,
+        12592,
         $W()
           ..h(this)
           ..h(n));
@@ -32,19 +47,27 @@ class IpldPrimeTraversalSelectorCondition extends $crypto.CryptoPrivateKey
 /// Go: `selector.ExploreAll` (handle).
 class IpldPrimeTraversalSelectorExploreAll extends IpldPrimeTraversalSelector
     with
+        $crypto.CryptoDecrypterOpts$,
         $crypto.CryptoPrivateKey$,
         $crypto.CryptoPublicKey$,
-        $ipfs_cmds.IpfsCmdsEnvironment$
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
     implements
+        $crypto.CryptoDecrypterOpts,
         $crypto.CryptoPrivateKey,
         $crypto.CryptoPublicKey,
-        $ipfs_cmds.IpfsCmdsEnvironment {
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   IpldPrimeTraversalSelectorExploreAll.$h(super.$h) : super.$h();
 
   /// Go: `func (selector.ExploreAll).Decide(n datamodel.Node) bool`.
   bool decide($datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        2122,
+        12593,
         $W()
           ..h(this)
           ..h(n));
@@ -55,7 +78,7 @@ class IpldPrimeTraversalSelectorExploreAll extends IpldPrimeTraversalSelector
   IpldPrimeTraversalSelector explore($datamodel.IpldPrimeDatamodelNode n,
       $datamodel.IpldPrimeDatamodelPathSegment p) {
     final $r = $callSync(
-        2123,
+        12594,
         $W()
           ..h(this)
           ..h(n)
@@ -65,7 +88,7 @@ class IpldPrimeTraversalSelectorExploreAll extends IpldPrimeTraversalSelector
 
   /// Go: `func (selector.ExploreAll).Interests() []datamodel.PathSegment`.
   List<$datamodel.IpldPrimeDatamodelPathSegment> interests() {
-    final $r = $callSync(2124, $W()..h(this));
+    final $r = $callSync(12595, $W()..h(this));
     return $r.list(() => $r.hnn($datamodel.IpldPrimeDatamodelPathSegment.$h));
   }
 
@@ -73,7 +96,7 @@ class IpldPrimeTraversalSelectorExploreAll extends IpldPrimeTraversalSelector
   $datamodel.IpldPrimeDatamodelNode match(
       $datamodel.IpldPrimeDatamodelNode node) {
     final $r = $callSync(
-        2125,
+        12596,
         $W()
           ..h(this)
           ..h(node));
@@ -84,19 +107,27 @@ class IpldPrimeTraversalSelectorExploreAll extends IpldPrimeTraversalSelector
 /// Go: `selector.ExploreFields` (handle).
 class IpldPrimeTraversalSelectorExploreFields extends IpldPrimeTraversalSelector
     with
+        $crypto.CryptoDecrypterOpts$,
         $crypto.CryptoPrivateKey$,
         $crypto.CryptoPublicKey$,
-        $ipfs_cmds.IpfsCmdsEnvironment$
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
     implements
+        $crypto.CryptoDecrypterOpts,
         $crypto.CryptoPrivateKey,
         $crypto.CryptoPublicKey,
-        $ipfs_cmds.IpfsCmdsEnvironment {
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   IpldPrimeTraversalSelectorExploreFields.$h(super.$h) : super.$h();
 
   /// Go: `func (selector.ExploreFields).Decide(n datamodel.Node) bool`.
   bool decide($datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        2126,
+        12597,
         $W()
           ..h(this)
           ..h(n));
@@ -107,7 +138,7 @@ class IpldPrimeTraversalSelectorExploreFields extends IpldPrimeTraversalSelector
   IpldPrimeTraversalSelector explore($datamodel.IpldPrimeDatamodelNode n,
       $datamodel.IpldPrimeDatamodelPathSegment p) {
     final $r = $callSync(
-        2127,
+        12598,
         $W()
           ..h(this)
           ..h(n)
@@ -117,7 +148,7 @@ class IpldPrimeTraversalSelectorExploreFields extends IpldPrimeTraversalSelector
 
   /// Go: `func (selector.ExploreFields).Interests() []datamodel.PathSegment`.
   List<$datamodel.IpldPrimeDatamodelPathSegment> interests() {
-    final $r = $callSync(2128, $W()..h(this));
+    final $r = $callSync(12599, $W()..h(this));
     return $r.list(() => $r.hnn($datamodel.IpldPrimeDatamodelPathSegment.$h));
   }
 
@@ -125,7 +156,7 @@ class IpldPrimeTraversalSelectorExploreFields extends IpldPrimeTraversalSelector
   $datamodel.IpldPrimeDatamodelNode match(
       $datamodel.IpldPrimeDatamodelNode node) {
     final $r = $callSync(
-        2129,
+        12600,
         $W()
           ..h(this)
           ..h(node));
@@ -136,19 +167,27 @@ class IpldPrimeTraversalSelectorExploreFields extends IpldPrimeTraversalSelector
 /// Go: `selector.ExploreIndex` (handle).
 class IpldPrimeTraversalSelectorExploreIndex extends IpldPrimeTraversalSelector
     with
+        $crypto.CryptoDecrypterOpts$,
         $crypto.CryptoPrivateKey$,
         $crypto.CryptoPublicKey$,
-        $ipfs_cmds.IpfsCmdsEnvironment$
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
     implements
+        $crypto.CryptoDecrypterOpts,
         $crypto.CryptoPrivateKey,
         $crypto.CryptoPublicKey,
-        $ipfs_cmds.IpfsCmdsEnvironment {
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   IpldPrimeTraversalSelectorExploreIndex.$h(super.$h) : super.$h();
 
   /// Go: `func (selector.ExploreIndex).Decide(n datamodel.Node) bool`.
   bool decide($datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        2130,
+        12601,
         $W()
           ..h(this)
           ..h(n));
@@ -159,7 +198,7 @@ class IpldPrimeTraversalSelectorExploreIndex extends IpldPrimeTraversalSelector
   IpldPrimeTraversalSelector explore($datamodel.IpldPrimeDatamodelNode n,
       $datamodel.IpldPrimeDatamodelPathSegment p) {
     final $r = $callSync(
-        2131,
+        12602,
         $W()
           ..h(this)
           ..h(n)
@@ -169,7 +208,7 @@ class IpldPrimeTraversalSelectorExploreIndex extends IpldPrimeTraversalSelector
 
   /// Go: `func (selector.ExploreIndex).Interests() []datamodel.PathSegment`.
   List<$datamodel.IpldPrimeDatamodelPathSegment> interests() {
-    final $r = $callSync(2132, $W()..h(this));
+    final $r = $callSync(12603, $W()..h(this));
     return $r.list(() => $r.hnn($datamodel.IpldPrimeDatamodelPathSegment.$h));
   }
 
@@ -177,7 +216,7 @@ class IpldPrimeTraversalSelectorExploreIndex extends IpldPrimeTraversalSelector
   $datamodel.IpldPrimeDatamodelNode match(
       $datamodel.IpldPrimeDatamodelNode node) {
     final $r = $callSync(
-        2133,
+        12604,
         $W()
           ..h(this)
           ..h(node));
@@ -189,19 +228,27 @@ class IpldPrimeTraversalSelectorExploreIndex extends IpldPrimeTraversalSelector
 class IpldPrimeTraversalSelectorExploreInterpretAs
     extends IpldPrimeTraversalSelector
     with
+        $crypto.CryptoDecrypterOpts$,
         $crypto.CryptoPrivateKey$,
         $crypto.CryptoPublicKey$,
-        $ipfs_cmds.IpfsCmdsEnvironment$
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
     implements
+        $crypto.CryptoDecrypterOpts,
         $crypto.CryptoPrivateKey,
         $crypto.CryptoPublicKey,
-        $ipfs_cmds.IpfsCmdsEnvironment {
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   IpldPrimeTraversalSelectorExploreInterpretAs.$h(super.$h) : super.$h();
 
   /// Go: `func (selector.ExploreInterpretAs).Decide(n datamodel.Node) bool`.
   bool decide($datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        2134,
+        12605,
         $W()
           ..h(this)
           ..h(n));
@@ -212,7 +259,7 @@ class IpldPrimeTraversalSelectorExploreInterpretAs
   IpldPrimeTraversalSelector explore($datamodel.IpldPrimeDatamodelNode n,
       $datamodel.IpldPrimeDatamodelPathSegment p) {
     final $r = $callSync(
-        2135,
+        12606,
         $W()
           ..h(this)
           ..h(n)
@@ -222,7 +269,7 @@ class IpldPrimeTraversalSelectorExploreInterpretAs
 
   /// Go: `func (selector.ExploreInterpretAs).Interests() []datamodel.PathSegment`.
   List<$datamodel.IpldPrimeDatamodelPathSegment> interests() {
-    final $r = $callSync(2136, $W()..h(this));
+    final $r = $callSync(12607, $W()..h(this));
     return $r.list(() => $r.hnn($datamodel.IpldPrimeDatamodelPathSegment.$h));
   }
 
@@ -230,7 +277,7 @@ class IpldPrimeTraversalSelectorExploreInterpretAs
   $datamodel.IpldPrimeDatamodelNode match(
       $datamodel.IpldPrimeDatamodelNode node) {
     final $r = $callSync(
-        2137,
+        12608,
         $W()
           ..h(this)
           ..h(node));
@@ -239,7 +286,7 @@ class IpldPrimeTraversalSelectorExploreInterpretAs
 
   /// Go: `func (selector.ExploreInterpretAs).NamedReifier() string`.
   String namedReifier() {
-    final $r = $callSync(2138, $W()..h(this));
+    final $r = $callSync(12609, $W()..h(this));
     return $r.str();
   }
 }
@@ -247,19 +294,27 @@ class IpldPrimeTraversalSelectorExploreInterpretAs
 /// Go: `selector.ExploreRange` (handle).
 class IpldPrimeTraversalSelectorExploreRange extends IpldPrimeTraversalSelector
     with
+        $crypto.CryptoDecrypterOpts$,
         $crypto.CryptoPrivateKey$,
         $crypto.CryptoPublicKey$,
-        $ipfs_cmds.IpfsCmdsEnvironment$
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
     implements
+        $crypto.CryptoDecrypterOpts,
         $crypto.CryptoPrivateKey,
         $crypto.CryptoPublicKey,
-        $ipfs_cmds.IpfsCmdsEnvironment {
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   IpldPrimeTraversalSelectorExploreRange.$h(super.$h) : super.$h();
 
   /// Go: `func (selector.ExploreRange).Decide(n datamodel.Node) bool`.
   bool decide($datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        2139,
+        12610,
         $W()
           ..h(this)
           ..h(n));
@@ -270,7 +325,7 @@ class IpldPrimeTraversalSelectorExploreRange extends IpldPrimeTraversalSelector
   IpldPrimeTraversalSelector explore($datamodel.IpldPrimeDatamodelNode n,
       $datamodel.IpldPrimeDatamodelPathSegment p) {
     final $r = $callSync(
-        2140,
+        12611,
         $W()
           ..h(this)
           ..h(n)
@@ -280,7 +335,7 @@ class IpldPrimeTraversalSelectorExploreRange extends IpldPrimeTraversalSelector
 
   /// Go: `func (selector.ExploreRange).Interests() []datamodel.PathSegment`.
   List<$datamodel.IpldPrimeDatamodelPathSegment> interests() {
-    final $r = $callSync(2141, $W()..h(this));
+    final $r = $callSync(12612, $W()..h(this));
     return $r.list(() => $r.hnn($datamodel.IpldPrimeDatamodelPathSegment.$h));
   }
 
@@ -288,7 +343,7 @@ class IpldPrimeTraversalSelectorExploreRange extends IpldPrimeTraversalSelector
   $datamodel.IpldPrimeDatamodelNode match(
       $datamodel.IpldPrimeDatamodelNode node) {
     final $r = $callSync(
-        2142,
+        12613,
         $W()
           ..h(this)
           ..h(node));
@@ -300,19 +355,27 @@ class IpldPrimeTraversalSelectorExploreRange extends IpldPrimeTraversalSelector
 class IpldPrimeTraversalSelectorExploreRecursive
     extends IpldPrimeTraversalSelector
     with
+        $crypto.CryptoDecrypterOpts$,
         $crypto.CryptoPrivateKey$,
         $crypto.CryptoPublicKey$,
-        $ipfs_cmds.IpfsCmdsEnvironment$
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
     implements
+        $crypto.CryptoDecrypterOpts,
         $crypto.CryptoPrivateKey,
         $crypto.CryptoPublicKey,
-        $ipfs_cmds.IpfsCmdsEnvironment {
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   IpldPrimeTraversalSelectorExploreRecursive.$h(super.$h) : super.$h();
 
   /// Go: `func (selector.ExploreRecursive).Decide(n datamodel.Node) bool`.
   bool decide($datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        2143,
+        12614,
         $W()
           ..h(this)
           ..h(n));
@@ -323,7 +386,7 @@ class IpldPrimeTraversalSelectorExploreRecursive
   IpldPrimeTraversalSelector explore($datamodel.IpldPrimeDatamodelNode n,
       $datamodel.IpldPrimeDatamodelPathSegment p) {
     final $r = $callSync(
-        2144,
+        12615,
         $W()
           ..h(this)
           ..h(n)
@@ -333,7 +396,7 @@ class IpldPrimeTraversalSelectorExploreRecursive
 
   /// Go: `func (selector.ExploreRecursive).Interests() []datamodel.PathSegment`.
   List<$datamodel.IpldPrimeDatamodelPathSegment> interests() {
-    final $r = $callSync(2145, $W()..h(this));
+    final $r = $callSync(12616, $W()..h(this));
     return $r.list(() => $r.hnn($datamodel.IpldPrimeDatamodelPathSegment.$h));
   }
 
@@ -341,7 +404,7 @@ class IpldPrimeTraversalSelectorExploreRecursive
   $datamodel.IpldPrimeDatamodelNode match(
       $datamodel.IpldPrimeDatamodelNode node) {
     final $r = $callSync(
-        2146,
+        12617,
         $W()
           ..h(this)
           ..h(node));
@@ -360,7 +423,7 @@ final class IpldPrimeTraversalSelectorExploreRecursiveEdge implements GoDto {
   /// Go: `func (selector.ExploreRecursiveEdge).Decide(n datamodel.Node) bool`.
   bool decide($datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        2147,
+        12618,
         $W()
           ..dto(this)
           ..h(n));
@@ -371,7 +434,7 @@ final class IpldPrimeTraversalSelectorExploreRecursiveEdge implements GoDto {
   IpldPrimeTraversalSelector explore($datamodel.IpldPrimeDatamodelNode n,
       $datamodel.IpldPrimeDatamodelPathSegment p) {
     final $r = $callSync(
-        2148,
+        12619,
         $W()
           ..dto(this)
           ..h(n)
@@ -381,7 +444,7 @@ final class IpldPrimeTraversalSelectorExploreRecursiveEdge implements GoDto {
 
   /// Go: `func (selector.ExploreRecursiveEdge).Interests() []datamodel.PathSegment`.
   List<$datamodel.IpldPrimeDatamodelPathSegment> interests() {
-    final $r = $callSync(2149, $W()..dto(this));
+    final $r = $callSync(12620, $W()..dto(this));
     return $r.list(() => $r.hnn($datamodel.IpldPrimeDatamodelPathSegment.$h));
   }
 
@@ -389,7 +452,7 @@ final class IpldPrimeTraversalSelectorExploreRecursiveEdge implements GoDto {
   $datamodel.IpldPrimeDatamodelNode match(
       $datamodel.IpldPrimeDatamodelNode node) {
     final $r = $callSync(
-        2150,
+        12621,
         $W()
           ..dto(this)
           ..h(node));
@@ -417,7 +480,7 @@ final class IpldPrimeTraversalSelectorExploreUnion implements GoDto {
   /// Go: `func (selector.ExploreUnion).Decide(n datamodel.Node) bool`.
   bool decide($datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        2151,
+        12622,
         $W()
           ..dto(this)
           ..h(n));
@@ -428,7 +491,7 @@ final class IpldPrimeTraversalSelectorExploreUnion implements GoDto {
   IpldPrimeTraversalSelector explore($datamodel.IpldPrimeDatamodelNode n,
       $datamodel.IpldPrimeDatamodelPathSegment p) {
     final $r = $callSync(
-        2152,
+        12623,
         $W()
           ..dto(this)
           ..h(n)
@@ -438,14 +501,14 @@ final class IpldPrimeTraversalSelectorExploreUnion implements GoDto {
 
   /// Go: `func (selector.ExploreUnion).Interests() []datamodel.PathSegment`.
   List<$datamodel.IpldPrimeDatamodelPathSegment> interests() {
-    final $r = $callSync(2153, $W()..dto(this));
+    final $r = $callSync(12624, $W()..dto(this));
     return $r.list(() => $r.hnn($datamodel.IpldPrimeDatamodelPathSegment.$h));
   }
 
   /// Go: `func (selector.ExploreUnion).Match(n datamodel.Node) (datamodel.Node, error)`.
   $datamodel.IpldPrimeDatamodelNode match($datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        2154,
+        12625,
         $W()
           ..dto(this)
           ..h(n));
@@ -472,7 +535,7 @@ final class IpldPrimeTraversalSelectorMatcher implements GoDto {
   /// Go: `func (selector.Matcher).Decide(n datamodel.Node) bool`.
   bool decide($datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        2155,
+        12626,
         $W()
           ..dto(this)
           ..h(n));
@@ -483,7 +546,7 @@ final class IpldPrimeTraversalSelectorMatcher implements GoDto {
   IpldPrimeTraversalSelector explore($datamodel.IpldPrimeDatamodelNode n,
       $datamodel.IpldPrimeDatamodelPathSegment p) {
     final $r = $callSync(
-        2156,
+        12627,
         $W()
           ..dto(this)
           ..h(n)
@@ -493,7 +556,7 @@ final class IpldPrimeTraversalSelectorMatcher implements GoDto {
 
   /// Go: `func (selector.Matcher).Interests() []datamodel.PathSegment`.
   List<$datamodel.IpldPrimeDatamodelPathSegment> interests() {
-    final $r = $callSync(2157, $W()..dto(this));
+    final $r = $callSync(12628, $W()..dto(this));
     return $r.list(() => $r.hnn($datamodel.IpldPrimeDatamodelPathSegment.$h));
   }
 
@@ -501,7 +564,7 @@ final class IpldPrimeTraversalSelectorMatcher implements GoDto {
   $datamodel.IpldPrimeDatamodelNode match(
       $datamodel.IpldPrimeDatamodelNode node) {
     final $r = $callSync(
-        2158,
+        12629,
         $W()
           ..dto(this)
           ..h(node));
@@ -510,16 +573,28 @@ final class IpldPrimeTraversalSelectorMatcher implements GoDto {
 }
 
 /// Go: `selector.ParseContext` (handle).
-class IpldPrimeTraversalSelectorParseContext extends $crypto.CryptoPrivateKey
-    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
-    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+class IpldPrimeTraversalSelectorParseContext extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   IpldPrimeTraversalSelectorParseContext.$h(super.$h) : super.$h();
 
   /// Go: `func (selector.ParseContext).ParseCondition(n datamodel.Node) (selector.Condition, error)`.
   IpldPrimeTraversalSelectorCondition parseCondition(
       $datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        2160,
+        12631,
         $W()
           ..h(this)
           ..h(n));
@@ -530,7 +605,7 @@ class IpldPrimeTraversalSelectorParseContext extends $crypto.CryptoPrivateKey
   IpldPrimeTraversalSelector parseExploreAll(
       $datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        2161,
+        12632,
         $W()
           ..h(this)
           ..h(n));
@@ -541,7 +616,7 @@ class IpldPrimeTraversalSelectorParseContext extends $crypto.CryptoPrivateKey
   IpldPrimeTraversalSelector parseExploreFields(
       $datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        2162,
+        12633,
         $W()
           ..h(this)
           ..h(n));
@@ -552,7 +627,7 @@ class IpldPrimeTraversalSelectorParseContext extends $crypto.CryptoPrivateKey
   IpldPrimeTraversalSelector parseExploreIndex(
       $datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        2163,
+        12634,
         $W()
           ..h(this)
           ..h(n));
@@ -563,7 +638,7 @@ class IpldPrimeTraversalSelectorParseContext extends $crypto.CryptoPrivateKey
   IpldPrimeTraversalSelector parseExploreInterpretAs(
       $datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        2164,
+        12635,
         $W()
           ..h(this)
           ..h(n));
@@ -574,7 +649,7 @@ class IpldPrimeTraversalSelectorParseContext extends $crypto.CryptoPrivateKey
   IpldPrimeTraversalSelector parseExploreRange(
       $datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        2165,
+        12636,
         $W()
           ..h(this)
           ..h(n));
@@ -585,7 +660,7 @@ class IpldPrimeTraversalSelectorParseContext extends $crypto.CryptoPrivateKey
   IpldPrimeTraversalSelector parseExploreRecursive(
       $datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        2166,
+        12637,
         $W()
           ..h(this)
           ..h(n));
@@ -596,7 +671,7 @@ class IpldPrimeTraversalSelectorParseContext extends $crypto.CryptoPrivateKey
   IpldPrimeTraversalSelector parseExploreRecursiveEdge(
       $datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        2167,
+        12638,
         $W()
           ..h(this)
           ..h(n));
@@ -607,7 +682,7 @@ class IpldPrimeTraversalSelectorParseContext extends $crypto.CryptoPrivateKey
   IpldPrimeTraversalSelector parseExploreUnion(
       $datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        2168,
+        12639,
         $W()
           ..h(this)
           ..h(n));
@@ -617,7 +692,7 @@ class IpldPrimeTraversalSelectorParseContext extends $crypto.CryptoPrivateKey
   /// Go: `func (selector.ParseContext).ParseMatcher(n datamodel.Node) (selector.Selector, error)`.
   IpldPrimeTraversalSelector parseMatcher($datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        2169,
+        12640,
         $W()
           ..h(this)
           ..h(n));
@@ -628,7 +703,7 @@ class IpldPrimeTraversalSelectorParseContext extends $crypto.CryptoPrivateKey
   IpldPrimeTraversalSelector parseSelector(
       $datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        2170,
+        12641,
         $W()
           ..h(this)
           ..h(n));
@@ -639,7 +714,7 @@ class IpldPrimeTraversalSelectorParseContext extends $crypto.CryptoPrivateKey
   IpldPrimeTraversalSelectorParseContext pushParent(
       IpldPrimeTraversalSelectorParsedParent parent) {
     final $r = $callSync(
-        2171,
+        12642,
         $W()
           ..h(this)
           ..h(parent));
@@ -658,7 +733,7 @@ mixin IpldPrimeTraversalSelectorParsedParent$ on GoHandle {
   /// Go: `func (selector.ParsedParent).Link(s selector.Selector) bool`.
   bool link(IpldPrimeTraversalSelector s) {
     final $r = $callSync(
-        2173,
+        12644,
         $W()
           ..h(this)
           ..h(s));
@@ -667,20 +742,33 @@ mixin IpldPrimeTraversalSelectorParsedParent$ on GoHandle {
 }
 
 /// Go: `selector.RecursionLimit` (handle).
-class IpldPrimeTraversalSelectorRecursionLimit extends $crypto.CryptoPrivateKey
-    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
-    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+class IpldPrimeTraversalSelectorRecursionLimit
+    extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   IpldPrimeTraversalSelectorRecursionLimit.$h(super.$h) : super.$h();
 
   /// Go: `func (selector.RecursionLimit).Depth() int64`.
   int depth() {
-    final $r = $callSync(2174, $W()..h(this));
+    final $r = $callSync(12645, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (selector.RecursionLimit).Mode() selector.RecursionLimit_Mode`.
   int mode() {
-    final $r = $callSync(2175, $W()..h(this));
+    final $r = $callSync(12646, $W()..h(this));
     return $r.i64();
   }
 }
@@ -693,7 +781,7 @@ class IpldPrimeTraversalSelectorSegmentIterator extends GoHandle
   /// Go: `func selector.NewSegmentIterator(n datamodel.Node) selector.SegmentIterator`.
   factory IpldPrimeTraversalSelectorSegmentIterator(
       $datamodel.IpldPrimeDatamodelNode n) {
-    final $r = $callSync(2159, $W()..h(n));
+    final $r = $callSync(12630, $W()..h(n));
     return $r.hnn(IpldPrimeTraversalSelectorSegmentIterator.$h);
   }
 }
@@ -702,14 +790,14 @@ class IpldPrimeTraversalSelectorSegmentIterator extends GoHandle
 mixin IpldPrimeTraversalSelectorSegmentIterator$ on GoHandle {
   /// Go: `func (selector.SegmentIterator).Done() bool`.
   bool done() {
-    final $r = $callSync(2178, $W()..h(this));
+    final $r = $callSync(12649, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (selector.SegmentIterator).Next() (pathSegment datamodel.PathSegment, value datamodel.Node, err error)`.
   ($datamodel.IpldPrimeDatamodelPathSegment, $datamodel.IpldPrimeDatamodelNode)
       next() {
-    final $r = $callSync(2179, $W()..h(this));
+    final $r = $callSync(12650, $W()..h(this));
     return (
       $r.hnn($datamodel.IpldPrimeDatamodelPathSegment.$h),
       $r.hnn($datamodel.IpldPrimeDatamodelNode.$h)
@@ -728,7 +816,7 @@ mixin IpldPrimeTraversalSelector$ on GoHandle {
   /// Go: `func (selector.Selector).Decide(node datamodel.Node) bool`.
   bool decide($datamodel.IpldPrimeDatamodelNode node) {
     final $r = $callSync(
-        2180,
+        12651,
         $W()
           ..h(this)
           ..h(node));
@@ -739,7 +827,7 @@ mixin IpldPrimeTraversalSelector$ on GoHandle {
   IpldPrimeTraversalSelector explore($datamodel.IpldPrimeDatamodelNode node,
       $datamodel.IpldPrimeDatamodelPathSegment child) {
     final $r = $callSync(
-        2181,
+        12652,
         $W()
           ..h(this)
           ..h(node)
@@ -749,7 +837,7 @@ mixin IpldPrimeTraversalSelector$ on GoHandle {
 
   /// Go: `func (selector.Selector).Interests() []datamodel.PathSegment`.
   List<$datamodel.IpldPrimeDatamodelPathSegment> interests() {
-    final $r = $callSync(2182, $W()..h(this));
+    final $r = $callSync(12653, $W()..h(this));
     return $r.list(() => $r.hnn($datamodel.IpldPrimeDatamodelPathSegment.$h));
   }
 
@@ -757,7 +845,7 @@ mixin IpldPrimeTraversalSelector$ on GoHandle {
   $datamodel.IpldPrimeDatamodelNode match(
       $datamodel.IpldPrimeDatamodelNode node) {
     final $r = $callSync(
-        2183,
+        12654,
         $W()
           ..h(this)
           ..h(node));
@@ -767,42 +855,42 @@ mixin IpldPrimeTraversalSelector$ on GoHandle {
   /// Go: type assertion `x.(*selector.ExploreAll)`: null if the object is not one.
   IpldPrimeTraversalSelectorExploreAll?
       asIpldPrimeTraversalSelectorExploreAll() {
-    final $r = $callSync(253, $W()..h(this));
+    final $r = $callSync(1277, $W()..h(this));
     return $r.hn(IpldPrimeTraversalSelectorExploreAll.$h);
   }
 
   /// Go: type assertion `x.(*selector.ExploreFields)`: null if the object is not one.
   IpldPrimeTraversalSelectorExploreFields?
       asIpldPrimeTraversalSelectorExploreFields() {
-    final $r = $callSync(254, $W()..h(this));
+    final $r = $callSync(1278, $W()..h(this));
     return $r.hn(IpldPrimeTraversalSelectorExploreFields.$h);
   }
 
   /// Go: type assertion `x.(*selector.ExploreIndex)`: null if the object is not one.
   IpldPrimeTraversalSelectorExploreIndex?
       asIpldPrimeTraversalSelectorExploreIndex() {
-    final $r = $callSync(255, $W()..h(this));
+    final $r = $callSync(1279, $W()..h(this));
     return $r.hn(IpldPrimeTraversalSelectorExploreIndex.$h);
   }
 
   /// Go: type assertion `x.(*selector.ExploreInterpretAs)`: null if the object is not one.
   IpldPrimeTraversalSelectorExploreInterpretAs?
       asIpldPrimeTraversalSelectorExploreInterpretAs() {
-    final $r = $callSync(256, $W()..h(this));
+    final $r = $callSync(1280, $W()..h(this));
     return $r.hn(IpldPrimeTraversalSelectorExploreInterpretAs.$h);
   }
 
   /// Go: type assertion `x.(*selector.ExploreRange)`: null if the object is not one.
   IpldPrimeTraversalSelectorExploreRange?
       asIpldPrimeTraversalSelectorExploreRange() {
-    final $r = $callSync(257, $W()..h(this));
+    final $r = $callSync(1281, $W()..h(this));
     return $r.hn(IpldPrimeTraversalSelectorExploreRange.$h);
   }
 
   /// Go: type assertion `x.(*selector.ExploreRecursive)`: null if the object is not one.
   IpldPrimeTraversalSelectorExploreRecursive?
       asIpldPrimeTraversalSelectorExploreRecursive() {
-    final $r = $callSync(258, $W()..h(this));
+    final $r = $callSync(1282, $W()..h(this));
     return $r.hn(IpldPrimeTraversalSelectorExploreRecursive.$h);
   }
 }
@@ -833,7 +921,7 @@ final class IpldPrimeTraversalSelectorSlice implements GoDto {
   /// Go: `func (selector.Slice).Slice(n datamodel.Node) (datamodel.Node, error)`.
   $datamodel.IpldPrimeDatamodelNode slice($datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        2184,
+        12655,
         $W()
           ..dto(this)
           ..h(n));
@@ -847,26 +935,26 @@ extension GoIpldIpldPrimeTraversalSelectorApi
   /// Go: `func selector.CompileSelector(dmt datamodel.Node) (selector.Selector, error)`.
   IpldPrimeTraversalSelector compileSelector(
       $datamodel.IpldPrimeDatamodelNode dmt) {
-    final $r = $callSync(2120, $W()..h(dmt));
+    final $r = $callSync(12591, $W()..h(dmt));
     return $r.hnn(IpldPrimeTraversalSelector.$h);
   }
 
   /// Go: `func selector.ParseSelector(dmt datamodel.Node) (selector.Selector, error)`.
   IpldPrimeTraversalSelector parseSelector(
       $datamodel.IpldPrimeDatamodelNode dmt) {
-    final $r = $callSync(2172, $W()..h(dmt));
+    final $r = $callSync(12643, $W()..h(dmt));
     return $r.hnn(IpldPrimeTraversalSelector.$h);
   }
 
   /// Go: `func selector.RecursionLimitDepth(depth int64) selector.RecursionLimit`.
   IpldPrimeTraversalSelectorRecursionLimit recursionLimitDepth(int depth) {
-    final $r = $callSync(2176, $W()..i64(depth));
+    final $r = $callSync(12647, $W()..i64(depth));
     return $r.hnn(IpldPrimeTraversalSelectorRecursionLimit.$h);
   }
 
   /// Go: `func selector.RecursionLimitNone() selector.RecursionLimit`.
   IpldPrimeTraversalSelectorRecursionLimit recursionLimitNone() {
-    final $r = $callSync(2177);
+    final $r = $callSync(12648);
     return $r.hnn(IpldPrimeTraversalSelectorRecursionLimit.$h);
   }
 }

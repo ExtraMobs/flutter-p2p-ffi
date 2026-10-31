@@ -12,31 +12,31 @@ class BoxoPathImmutablePath extends BoxoPath {
 
   /// Go: `func (path.ImmutablePath).Mutable() bool`.
   bool mutable() {
-    final $r = $callSync(1006, $W()..val(this));
+    final $r = $callSync(10117, $W()..val(this));
     return $r.b();
   }
 
   /// Go: `func (path.ImmutablePath).Namespace() string`.
   String namespace() {
-    final $r = $callSync(1007, $W()..val(this));
+    final $r = $callSync(10118, $W()..val(this));
     return $r.str();
   }
 
   /// Go: `func (path.ImmutablePath).RootCid() cid.Cid`.
   $cid.Cid rootCid() {
-    final $r = $callSync(1008, $W()..val(this));
+    final $r = $callSync(10119, $W()..val(this));
     return $r.p() ? $cid.Cid($r.str()) : $nil();
   }
 
   /// Go: `func (path.ImmutablePath).Segments() []string`.
   List<String> segments() {
-    final $r = $callSync(1009, $W()..val(this));
+    final $r = $callSync(10120, $W()..val(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (path.ImmutablePath).String() string`.
   String string() {
-    final $r = $callSync(1010, $W()..val(this));
+    final $r = $callSync(10121, $W()..val(this));
     return $r.str();
   }
 }
@@ -47,25 +47,25 @@ class BoxoPath extends GoValue {
 
   /// Go: `func (path.Path).Mutable() bool`.
   bool mutable() {
-    final $r = $callSync(1016, $W()..val(this));
+    final $r = $callSync(10127, $W()..val(this));
     return $r.b();
   }
 
   /// Go: `func (path.Path).Namespace() string`.
   String namespace() {
-    final $r = $callSync(1017, $W()..val(this));
+    final $r = $callSync(10128, $W()..val(this));
     return $r.str();
   }
 
   /// Go: `func (path.Path).Segments() []string`.
   List<String> segments() {
-    final $r = $callSync(1018, $W()..val(this));
+    final $r = $callSync(10129, $W()..val(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (path.Path).String() string`.
   String string() {
-    final $r = $callSync(1019, $W()..val(this));
+    final $r = $callSync(10130, $W()..val(this));
     return $r.str();
   }
 }
@@ -110,14 +110,14 @@ class BoxoPathErrUnknownNamespace extends GolangException {
 extension GoIpfsBoxoPathApi on GoIpfsBoxoPath {
   /// Go: `func path.FromCid(cid cid.Cid) path.ImmutablePath`.
   BoxoPathImmutablePath fromCid($cid.Cid cid) {
-    final $r = $callSync(1005, $W()..val(cid));
+    final $r = $callSync(10116, $W()..val(cid));
     return $r.p() ? BoxoPathImmutablePath($r.str()) : $nil();
   }
 
   /// Go: `func path.Join(p path.Path, segments ...string) (path.Path, error)`.
   BoxoPath join(BoxoPath p, [List<String> segments = const []]) {
     final $r = $callSync(
-        1011,
+        10122,
         $W()
           ..val(p)
           ..list(segments, (w0, e0) => w0.str(e0)));
@@ -126,37 +126,37 @@ extension GoIpfsBoxoPathApi on GoIpfsBoxoPath {
 
   /// Go: `func path.NewImmutablePath(p path.Path) (path.ImmutablePath, error)`.
   BoxoPathImmutablePath newImmutablePath(BoxoPath p) {
-    final $r = $callSync(1012, $W()..val(p));
+    final $r = $callSync(10123, $W()..val(p));
     return $r.p() ? BoxoPathImmutablePath($r.str()) : $nil();
   }
 
   /// Go: `func path.NewPath(str string) (path.Path, error)`.
   BoxoPath newPath(String str) {
-    final $r = $callSync(1013, $W()..str(str));
+    final $r = $callSync(10124, $W()..str(str));
     return $r.p() ? BoxoPath($r.str()) : $nil();
   }
 
   /// Go: `func path.NewPathFromSegments(segments ...string) (path.Path, error)`.
   BoxoPath newPathFromSegments([List<String> segments = const []]) {
-    final $r = $callSync(1014, $W()..list(segments, (w0, e0) => w0.str(e0)));
+    final $r = $callSync(10125, $W()..list(segments, (w0, e0) => w0.str(e0)));
     return $r.p() ? BoxoPath($r.str()) : $nil();
   }
 
   /// Go: `func path.NewPathFromURI(str string) (path.Path, error)`.
   BoxoPath newPathFromUri(String str) {
-    final $r = $callSync(1015, $W()..str(str));
+    final $r = $callSync(10126, $W()..str(str));
     return $r.p() ? BoxoPath($r.str()) : $nil();
   }
 
   /// Go: `func path.SegmentsToString(segments ...string) string`.
   String segmentsToString([List<String> segments = const []]) {
-    final $r = $callSync(1020, $W()..list(segments, (w0, e0) => w0.str(e0)));
+    final $r = $callSync(10131, $W()..list(segments, (w0, e0) => w0.str(e0)));
     return $r.str();
   }
 
   /// Go: `func path.StringToSegments(str string) []string`.
   List<String> stringToSegments(String str) {
-    final $r = $callSync(1021, $W()..str(str));
+    final $r = $callSync(10132, $W()..str(str));
     return $r.list(() => $r.str());
   }
 }

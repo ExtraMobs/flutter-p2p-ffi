@@ -8,29 +8,43 @@ import 'package:p2p_ffi/src/go.dart' show GoIpfsKuboCoreCoreapi;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
 import 'package:p2p_ffi/go/ipfs/boxo/files.dart' as $files;
 import 'package:p2p_ffi/go/ipfs/boxo/ipns.dart' as $ipns;
 import 'package:p2p_ffi/go/ipfs/boxo/path.dart' as $path;
+import 'package:p2p_ffi/go/ipfs/boxo/routing/providerquerymanager.dart'
+    as $providerquerymanager;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 import 'package:p2p_ffi/go/ipfs/ipld_format.dart' as $ipld_format;
 import 'package:p2p_ffi/go/ipfs/kubo/core.dart' as $core;
 import 'package:p2p_ffi/go/ipfs/kubo/core/coreiface.dart' as $coreiface;
 import 'package:p2p_ffi/go/ipfs/kubo/core/coreiface/options.dart' as $options;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/routing.dart' as $routing;
+import 'package:p2p_ffi/go/libp2p/libp2p/p2p/host/routed.dart' as $routed;
 import 'package:p2p_ffi/go/multiformats/multiaddr.dart' as $multiaddr;
 
 /// Go: `coreapi.BlockAPI` (handle).
 class KuboCoreCoreapiBlockApi extends $coreiface.KuboCoreCoreifaceBlockApi
     with
+        $crypto.CryptoDecrypterOpts$,
         $crypto.CryptoPrivateKey$,
         $crypto.CryptoPublicKey$,
-        $ipfs_cmds.IpfsCmdsEnvironment$
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
     implements
+        $crypto.CryptoDecrypterOpts,
         $crypto.CryptoPrivateKey,
         $crypto.CryptoPublicKey,
-        $ipfs_cmds.IpfsCmdsEnvironment {
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   KuboCoreCoreapiBlockApi.$h(super.$h) : super.$h();
 
   /// Go: `func (*coreapi.BlockAPI).Get(ctx context.Context, p path.Path) (io.Reader, error)`.
@@ -38,7 +52,7 @@ class KuboCoreCoreapiBlockApi extends $coreiface.KuboCoreCoreifaceBlockApi
   /// Asynchronous: runs in a goroutine of the service.
   Future<$io.IoReader> get($context.Context ctx, $path.BoxoPath p) async {
     final $r = await $call(
-        1522,
+        11426,
         $W()
           ..h(this)
           ..h(ctx)
@@ -54,7 +68,7 @@ class KuboCoreCoreapiBlockApi extends $coreiface.KuboCoreCoreifaceBlockApi
       [List<$options.KuboCoreCoreifaceOptionsBlockPutOption> opts =
           const []]) async {
     final $r = await $call(
-        1523,
+        11427,
         $W()
           ..h(this)
           ..h(ctx)
@@ -70,7 +84,7 @@ class KuboCoreCoreapiBlockApi extends $coreiface.KuboCoreCoreifaceBlockApi
       [List<$options.KuboCoreCoreifaceOptionsBlockRmOption> opts =
           const []]) async {
     await $call(
-        1524,
+        11428,
         $W()
           ..h(this)
           ..h(ctx)
@@ -84,7 +98,7 @@ class KuboCoreCoreapiBlockApi extends $coreiface.KuboCoreCoreifaceBlockApi
   Future<$coreiface.KuboCoreCoreifaceBlockStat> stat(
       $context.Context ctx, $path.BoxoPath p) async {
     final $r = await $call(
-        1525,
+        11429,
         $W()
           ..h(this)
           ..h(ctx)
@@ -94,20 +108,32 @@ class KuboCoreCoreapiBlockApi extends $coreiface.KuboCoreCoreifaceBlockApi
 }
 
 /// Go: `coreapi.BlockStat` (handle).
-class KuboCoreCoreapiBlockStat extends $crypto.CryptoPrivateKey
-    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
-    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+class KuboCoreCoreapiBlockStat extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   KuboCoreCoreapiBlockStat.$h(super.$h) : super.$h();
 
   /// Go: `func (*coreapi.BlockStat).Path() path.ImmutablePath`.
   $path.BoxoPathImmutablePath path() {
-    final $r = $callSync(1526, $W()..h(this));
+    final $r = $callSync(11430, $W()..h(this));
     return $r.p() ? $path.BoxoPathImmutablePath($r.str()) : $nil();
   }
 
   /// Go: `func (*coreapi.BlockStat).Size() int`.
   int size() {
-    final $r = $callSync(1527, $W()..h(this));
+    final $r = $callSync(11431, $W()..h(this));
     return $r.i64();
   }
 }
@@ -115,54 +141,62 @@ class KuboCoreCoreapiBlockStat extends $crypto.CryptoPrivateKey
 /// Go: `coreapi.CoreAPI` (handle).
 class KuboCoreCoreapiCoreApi extends $coreiface.KuboCoreCoreifaceCoreApi
     with
+        $crypto.CryptoDecrypterOpts$,
         $crypto.CryptoPrivateKey$,
         $crypto.CryptoPublicKey$,
-        $ipfs_cmds.IpfsCmdsEnvironment$
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
     implements
+        $crypto.CryptoDecrypterOpts,
         $crypto.CryptoPrivateKey,
         $crypto.CryptoPublicKey,
-        $ipfs_cmds.IpfsCmdsEnvironment {
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   KuboCoreCoreapiCoreApi.$h(super.$h) : super.$h();
 
   /// Go: `func (*coreapi.CoreAPI).Block() iface.BlockAPI`.
   $coreiface.KuboCoreCoreifaceBlockApi block() {
-    final $r = $callSync(1528, $W()..h(this));
+    final $r = $callSync(11432, $W()..h(this));
     return $r.hnn($coreiface.KuboCoreCoreifaceBlockApi.$h);
   }
 
   /// Go: `func (*coreapi.CoreAPI).Dag() iface.APIDagService`.
   $coreiface.KuboCoreCoreifaceApiDagService dag() {
-    final $r = $callSync(1529, $W()..h(this));
+    final $r = $callSync(11433, $W()..h(this));
     return $r.hnn($coreiface.KuboCoreCoreifaceApiDagService.$h);
   }
 
   /// Go: `func (*coreapi.CoreAPI).Key() iface.KeyAPI`.
   $coreiface.KuboCoreCoreifaceKeyApi key() {
-    final $r = $callSync(1530, $W()..h(this));
+    final $r = $callSync(11434, $W()..h(this));
     return $r.hnn($coreiface.KuboCoreCoreifaceKeyApi.$h);
   }
 
   /// Go: `func (*coreapi.CoreAPI).Name() iface.NameAPI`.
   $coreiface.KuboCoreCoreifaceNameApi name() {
-    final $r = $callSync(1531, $W()..h(this));
+    final $r = $callSync(11435, $W()..h(this));
     return $r.hnn($coreiface.KuboCoreCoreifaceNameApi.$h);
   }
 
   /// Go: `func (*coreapi.CoreAPI).Object() iface.ObjectAPI`.
   $coreiface.KuboCoreCoreifaceObjectApi object() {
-    final $r = $callSync(1532, $W()..h(this));
+    final $r = $callSync(11436, $W()..h(this));
     return $r.hnn($coreiface.KuboCoreCoreifaceObjectApi.$h);
   }
 
   /// Go: `func (*coreapi.CoreAPI).Pin() iface.PinAPI`.
   $coreiface.KuboCoreCoreifacePinApi pin() {
-    final $r = $callSync(1533, $W()..h(this));
+    final $r = $callSync(11437, $W()..h(this));
     return $r.hnn($coreiface.KuboCoreCoreifacePinApi.$h);
   }
 
   /// Go: `func (*coreapi.CoreAPI).PubSub() iface.PubSubAPI`.
   $coreiface.KuboCoreCoreifacePubSubApi pubSub() {
-    final $r = $callSync(1534, $W()..h(this));
+    final $r = $callSync(11438, $W()..h(this));
     return $r.hnn($coreiface.KuboCoreCoreifacePubSubApi.$h);
   }
 
@@ -172,7 +206,7 @@ class KuboCoreCoreapiCoreApi extends $coreiface.KuboCoreCoreifaceCoreApi
   Future<$ipld_format.IpldFormatNode> resolveNode(
       $context.Context ctx, $path.BoxoPath p) async {
     final $r = await $call(
-        1535,
+        11439,
         $W()
           ..h(this)
           ..h(ctx)
@@ -186,7 +220,7 @@ class KuboCoreCoreapiCoreApi extends $coreiface.KuboCoreCoreifaceCoreApi
   Future<($path.BoxoPathImmutablePath, List<String>)> resolvePath(
       $context.Context ctx, $path.BoxoPath p) async {
     final $r = await $call(
-        1536,
+        11440,
         $W()
           ..h(this)
           ..h(ctx)
@@ -199,19 +233,19 @@ class KuboCoreCoreapiCoreApi extends $coreiface.KuboCoreCoreifaceCoreApi
 
   /// Go: `func (*coreapi.CoreAPI).Routing() iface.RoutingAPI`.
   $coreiface.KuboCoreCoreifaceRoutingApi routing() {
-    final $r = $callSync(1537, $W()..h(this));
+    final $r = $callSync(11441, $W()..h(this));
     return $r.hnn($coreiface.KuboCoreCoreifaceRoutingApi.$h);
   }
 
   /// Go: `func (*coreapi.CoreAPI).Swarm() iface.SwarmAPI`.
   $coreiface.KuboCoreCoreifaceSwarmApi swarm() {
-    final $r = $callSync(1538, $W()..h(this));
+    final $r = $callSync(11442, $W()..h(this));
     return $r.hnn($coreiface.KuboCoreCoreifaceSwarmApi.$h);
   }
 
   /// Go: `func (*coreapi.CoreAPI).Unixfs() iface.UnixfsAPI`.
   $coreiface.KuboCoreCoreifaceUnixfsApi unixfs() {
-    final $r = $callSync(1539, $W()..h(this));
+    final $r = $callSync(11443, $W()..h(this));
     return $r.hnn($coreiface.KuboCoreCoreifaceUnixfsApi.$h);
   }
 
@@ -219,7 +253,7 @@ class KuboCoreCoreapiCoreApi extends $coreiface.KuboCoreCoreifaceCoreApi
   $coreiface.KuboCoreCoreifaceCoreApi withOptions(
       [List<$options.KuboCoreCoreifaceOptionsApiOption> opts = const []]) {
     final $r = $callSync(
-        1540,
+        11444,
         $W()
           ..h(this)
           ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -230,13 +264,21 @@ class KuboCoreCoreapiCoreApi extends $coreiface.KuboCoreCoreifaceCoreApi
 /// Go: `coreapi.KeyAPI` (handle).
 class KuboCoreCoreapiKeyApi extends $coreiface.KuboCoreCoreifaceKeyApi
     with
+        $crypto.CryptoDecrypterOpts$,
         $crypto.CryptoPrivateKey$,
         $crypto.CryptoPublicKey$,
-        $ipfs_cmds.IpfsCmdsEnvironment$
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
     implements
+        $crypto.CryptoDecrypterOpts,
         $crypto.CryptoPrivateKey,
         $crypto.CryptoPublicKey,
-        $ipfs_cmds.IpfsCmdsEnvironment {
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   KuboCoreCoreapiKeyApi.$h(super.$h) : super.$h();
 
   /// Go: `func (*coreapi.KeyAPI).Generate(ctx context.Context, name string, opts ...options.KeyGenerateOption) (iface.Key, error)`.
@@ -247,7 +289,7 @@ class KuboCoreCoreapiKeyApi extends $coreiface.KuboCoreCoreifaceKeyApi
       [List<$options.KuboCoreCoreifaceOptionsKeyGenerateOption> opts =
           const []]) async {
     final $r = await $call(
-        1541,
+        11445,
         $W()
           ..h(this)
           ..h(ctx)
@@ -262,7 +304,7 @@ class KuboCoreCoreapiKeyApi extends $coreiface.KuboCoreCoreifaceKeyApi
   Future<List<$coreiface.KuboCoreCoreifaceKey>> list(
       $context.Context ctx) async {
     final $r = await $call(
-        1542,
+        11446,
         $W()
           ..h(this)
           ..h(ctx));
@@ -276,7 +318,7 @@ class KuboCoreCoreapiKeyApi extends $coreiface.KuboCoreCoreifaceKeyApi
   Future<$coreiface.KuboCoreCoreifaceKey> remove(
       $context.Context ctx, String name) async {
     final $r = await $call(
-        1543,
+        11447,
         $W()
           ..h(this)
           ..h(ctx)
@@ -292,7 +334,7 @@ class KuboCoreCoreapiKeyApi extends $coreiface.KuboCoreCoreifaceKeyApi
       [List<$options.KuboCoreCoreifaceOptionsKeyRenameOption> opts =
           const []]) async {
     final $r = await $call(
-        1544,
+        11448,
         $W()
           ..h(this)
           ..h(ctx)
@@ -307,7 +349,7 @@ class KuboCoreCoreapiKeyApi extends $coreiface.KuboCoreCoreifaceKeyApi
   /// Asynchronous: runs in a goroutine of the service.
   Future<$coreiface.KuboCoreCoreifaceKey> self($context.Context ctx) async {
     final $r = await $call(
-        1545,
+        11449,
         $W()
           ..h(this)
           ..h(ctx));
@@ -320,7 +362,7 @@ class KuboCoreCoreapiKeyApi extends $coreiface.KuboCoreCoreifaceKeyApi
   Future<($coreiface.KuboCoreCoreifaceKey, Uint8List)> sign(
       $context.Context ctx, String name, Uint8List data) async {
     final $r = await $call(
-        1546,
+        11450,
         $W()
           ..h(this)
           ..h(ctx)
@@ -338,7 +380,7 @@ class KuboCoreCoreapiKeyApi extends $coreiface.KuboCoreCoreifaceKeyApi
   Future<($coreiface.KuboCoreCoreifaceKey, bool)> verify($context.Context ctx,
       String keyOrName, Uint8List signature, Uint8List data) async {
     final $r = await $call(
-        1547,
+        11451,
         $W()
           ..h(this)
           ..h(ctx)
@@ -352,13 +394,21 @@ class KuboCoreCoreapiKeyApi extends $coreiface.KuboCoreCoreifaceKeyApi
 /// Go: `coreapi.NameAPI` (handle).
 class KuboCoreCoreapiNameApi extends $coreiface.KuboCoreCoreifaceNameApi
     with
+        $crypto.CryptoDecrypterOpts$,
         $crypto.CryptoPrivateKey$,
         $crypto.CryptoPublicKey$,
-        $ipfs_cmds.IpfsCmdsEnvironment$
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
     implements
+        $crypto.CryptoDecrypterOpts,
         $crypto.CryptoPrivateKey,
         $crypto.CryptoPublicKey,
-        $ipfs_cmds.IpfsCmdsEnvironment {
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   KuboCoreCoreapiNameApi.$h(super.$h) : super.$h();
 
   /// Go: `func (*coreapi.NameAPI).Publish(ctx context.Context, p path.Path, opts ...options.NamePublishOption) (ipns.Name, error)`.
@@ -368,7 +418,7 @@ class KuboCoreCoreapiNameApi extends $coreiface.KuboCoreCoreifaceNameApi
       [List<$options.KuboCoreCoreifaceOptionsNamePublishOption> opts =
           const []]) async {
     final $r = await $call(
-        1548,
+        11452,
         $W()
           ..h(this)
           ..h(ctx)
@@ -384,7 +434,7 @@ class KuboCoreCoreapiNameApi extends $coreiface.KuboCoreCoreifaceNameApi
       [List<$options.KuboCoreCoreifaceOptionsNameResolveOption> opts =
           const []]) async {
     final $r = await $call(
-        1549,
+        11453,
         $W()
           ..h(this)
           ..h(ctx)
@@ -399,7 +449,7 @@ class KuboCoreCoreapiNameApi extends $coreiface.KuboCoreCoreifaceNameApi
           [List<$options.KuboCoreCoreifaceOptionsNameResolveOption> opts =
               const []]) =>
       $stream(
-              1550,
+              11454,
               $W()
                 ..h(this)
                 ..h(ctx)
@@ -412,13 +462,21 @@ class KuboCoreCoreapiNameApi extends $coreiface.KuboCoreCoreifaceNameApi
 /// Go: `coreapi.ObjectAPI` (handle).
 class KuboCoreCoreapiObjectApi extends $coreiface.KuboCoreCoreifaceObjectApi
     with
+        $crypto.CryptoDecrypterOpts$,
         $crypto.CryptoPrivateKey$,
         $crypto.CryptoPublicKey$,
-        $ipfs_cmds.IpfsCmdsEnvironment$
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
     implements
+        $crypto.CryptoDecrypterOpts,
         $crypto.CryptoPrivateKey,
         $crypto.CryptoPublicKey,
-        $ipfs_cmds.IpfsCmdsEnvironment {
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   KuboCoreCoreapiObjectApi.$h(super.$h) : super.$h();
 
   /// Go: `func (*coreapi.ObjectAPI).AddLink(ctx context.Context, base path.Path, name string, child path.Path, opts ...options.ObjectAddLinkOption) (path.ImmutablePath, error)`.
@@ -429,7 +487,7 @@ class KuboCoreCoreapiObjectApi extends $coreiface.KuboCoreCoreifaceObjectApi
       [List<$options.KuboCoreCoreifaceOptionsObjectAddLinkOption> opts =
           const []]) async {
     final $r = await $call(
-        1552,
+        11456,
         $W()
           ..h(this)
           ..h(ctx)
@@ -446,7 +504,7 @@ class KuboCoreCoreapiObjectApi extends $coreiface.KuboCoreCoreifaceObjectApi
   Future<List<$coreiface.KuboCoreCoreifaceObjectChange>> diff(
       $context.Context ctx, $path.BoxoPath before, $path.BoxoPath after) async {
     final $r = await $call(
-        1553,
+        11457,
         $W()
           ..h(this)
           ..h(ctx)
@@ -464,7 +522,7 @@ class KuboCoreCoreapiObjectApi extends $coreiface.KuboCoreCoreifaceObjectApi
       [List<$options.KuboCoreCoreifaceOptionsObjectRmLinkOption> opts =
           const []]) async {
     final $r = await $call(
-        1554,
+        11458,
         $W()
           ..h(this)
           ..h(ctx)
@@ -478,13 +536,21 @@ class KuboCoreCoreapiObjectApi extends $coreiface.KuboCoreCoreifaceObjectApi
 /// Go: `coreapi.PinAPI` (handle).
 class KuboCoreCoreapiPinApi extends $coreiface.KuboCoreCoreifacePinApi
     with
+        $crypto.CryptoDecrypterOpts$,
         $crypto.CryptoPrivateKey$,
         $crypto.CryptoPublicKey$,
-        $ipfs_cmds.IpfsCmdsEnvironment$
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
     implements
+        $crypto.CryptoDecrypterOpts,
         $crypto.CryptoPrivateKey,
         $crypto.CryptoPublicKey,
-        $ipfs_cmds.IpfsCmdsEnvironment {
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   KuboCoreCoreapiPinApi.$h(super.$h) : super.$h();
 
   /// Go: `func (*coreapi.PinAPI).Add(ctx context.Context, p path.Path, opts ...options.PinAddOption) error`.
@@ -494,7 +560,7 @@ class KuboCoreCoreapiPinApi extends $coreiface.KuboCoreCoreifacePinApi
       [List<$options.KuboCoreCoreifaceOptionsPinAddOption> opts =
           const []]) async {
     await $call(
-        1555,
+        11459,
         $W()
           ..h(this)
           ..h(ctx)
@@ -509,7 +575,7 @@ class KuboCoreCoreapiPinApi extends $coreiface.KuboCoreCoreifacePinApi
       [List<$options.KuboCoreCoreifaceOptionsPinIsPinnedOption> opts =
           const []]) async {
     final $r = await $call(
-        1556,
+        11460,
         $W()
           ..h(this)
           ..h(ctx)
@@ -523,7 +589,7 @@ class KuboCoreCoreapiPinApi extends $coreiface.KuboCoreCoreifacePinApi
           [List<$options.KuboCoreCoreifaceOptionsPinLsOption> opts =
               const []]) =>
       $stream(
-              1557,
+              11461,
               $W()
                 ..h(this)
                 ..h(ctx)
@@ -537,7 +603,7 @@ class KuboCoreCoreapiPinApi extends $coreiface.KuboCoreCoreifacePinApi
       [List<$options.KuboCoreCoreifaceOptionsPinRmOption> opts =
           const []]) async {
     await $call(
-        1558,
+        11462,
         $W()
           ..h(this)
           ..h(ctx)
@@ -553,7 +619,7 @@ class KuboCoreCoreapiPinApi extends $coreiface.KuboCoreCoreifacePinApi
       [List<$options.KuboCoreCoreifaceOptionsPinUpdateOption> opts =
           const []]) async {
     await $call(
-        1559,
+        11463,
         $W()
           ..h(this)
           ..h(ctx)
@@ -565,7 +631,7 @@ class KuboCoreCoreapiPinApi extends $coreiface.KuboCoreCoreifacePinApi
   /// Go: `func (*coreapi.PinAPI).Verify(ctx context.Context) (<-chan iface.PinStatus, error)`.
   Stream<$coreiface.KuboCoreCoreifacePinStatus> verify($context.Context ctx) =>
       $stream(
-              1560,
+              11464,
               $W()
                 ..h(this)
                 ..h(ctx))
@@ -576,13 +642,21 @@ class KuboCoreCoreapiPinApi extends $coreiface.KuboCoreCoreifacePinApi
 /// Go: `coreapi.PubSubAPI` (handle).
 class KuboCoreCoreapiPubSubApi extends $coreiface.KuboCoreCoreifacePubSubApi
     with
+        $crypto.CryptoDecrypterOpts$,
         $crypto.CryptoPrivateKey$,
         $crypto.CryptoPublicKey$,
-        $ipfs_cmds.IpfsCmdsEnvironment$
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
     implements
+        $crypto.CryptoDecrypterOpts,
         $crypto.CryptoPrivateKey,
         $crypto.CryptoPublicKey,
-        $ipfs_cmds.IpfsCmdsEnvironment {
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   KuboCoreCoreapiPubSubApi.$h(super.$h) : super.$h();
 
   /// Go: `func (*coreapi.PubSubAPI).Ls(ctx context.Context) ([]string, error)`.
@@ -590,7 +664,7 @@ class KuboCoreCoreapiPubSubApi extends $coreiface.KuboCoreCoreifacePubSubApi
   /// Asynchronous: runs in a goroutine of the service.
   Future<List<String>> ls($context.Context ctx) async {
     final $r = await $call(
-        1561,
+        11465,
         $W()
           ..h(this)
           ..h(ctx));
@@ -604,7 +678,7 @@ class KuboCoreCoreapiPubSubApi extends $coreiface.KuboCoreCoreifacePubSubApi
       [List<$options.KuboCoreCoreifaceOptionsPubSubPeersOption> opts =
           const []]) async {
     final $r = await $call(
-        1562,
+        11466,
         $W()
           ..h(this)
           ..h(ctx)
@@ -618,7 +692,7 @@ class KuboCoreCoreapiPubSubApi extends $coreiface.KuboCoreCoreifacePubSubApi
   Future<void> publish(
       $context.Context ctx, String topic, Uint8List data) async {
     await $call(
-        1563,
+        11467,
         $W()
           ..h(this)
           ..h(ctx)
@@ -634,7 +708,7 @@ class KuboCoreCoreapiPubSubApi extends $coreiface.KuboCoreCoreifacePubSubApi
       [List<$options.KuboCoreCoreifaceOptionsPubSubSubscribeOption> opts =
           const []]) async {
     final $r = await $call(
-        1564,
+        11468,
         $W()
           ..h(this)
           ..h(ctx)
@@ -647,15 +721,29 @@ class KuboCoreCoreapiPubSubApi extends $coreiface.KuboCoreCoreifacePubSubApi
 /// Go: `coreapi.RoutingAPI` (handle).
 class KuboCoreCoreapiRoutingApi extends $coreiface.KuboCoreCoreifaceRoutingApi
     with
+        $crypto.CryptoDecrypterOpts$,
         $crypto.CryptoPrivateKey$,
         $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $providerquerymanager
+        .BoxoRoutingProviderquerymanagerProviderQueryPeerRouter$,
         $ipfs_cmds.IpfsCmdsEnvironment$,
-        $routing.Libp2pCoreRoutingPeerRouting$
+        $peertask.PeertaskqueuePeertaskTopic$,
+        $routing.Libp2pCoreRoutingPeerRouting$,
+        $routed.Libp2pP2pHostRoutedRouting$
     implements
+        $crypto.CryptoDecrypterOpts,
         $crypto.CryptoPrivateKey,
         $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $providerquerymanager
+        .BoxoRoutingProviderquerymanagerProviderQueryPeerRouter,
         $ipfs_cmds.IpfsCmdsEnvironment,
-        $routing.Libp2pCoreRoutingPeerRouting {
+        $peertask.PeertaskqueuePeertaskTopic,
+        $routing.Libp2pCoreRoutingPeerRouting,
+        $routed.Libp2pP2pHostRoutedRouting {
   KuboCoreCoreapiRoutingApi.$h(super.$h) : super.$h();
 
   /// Go: `func (*coreapi.RoutingAPI).FindPeer(ctx context.Context, p peer.ID) (peer.AddrInfo, error)`.
@@ -664,7 +752,7 @@ class KuboCoreCoreapiRoutingApi extends $coreiface.KuboCoreCoreifaceRoutingApi
   Future<$peer.Libp2pCorePeerAddrInfo> findPeer(
       $context.Context ctx, $peer.Libp2pCorePeerId p) async {
     final $r = await $call(
-        1565,
+        11469,
         $W()
           ..h(this)
           ..h(ctx)
@@ -678,7 +766,7 @@ class KuboCoreCoreapiRoutingApi extends $coreiface.KuboCoreCoreifaceRoutingApi
           [List<$options.KuboCoreCoreifaceOptionsRoutingFindProvidersOption>
               opts = const []]) =>
       $stream(
-              1566,
+              11470,
               $W()
                 ..h(this)
                 ..h(ctx)
@@ -691,7 +779,7 @@ class KuboCoreCoreapiRoutingApi extends $coreiface.KuboCoreCoreifaceRoutingApi
   /// Asynchronous: runs in a goroutine of the service.
   Future<Uint8List> get($context.Context ctx, String key) async {
     final $r = await $call(
-        1567,
+        11471,
         $W()
           ..h(this)
           ..h(ctx)
@@ -706,7 +794,7 @@ class KuboCoreCoreapiRoutingApi extends $coreiface.KuboCoreCoreifaceRoutingApi
       [List<$options.KuboCoreCoreifaceOptionsRoutingProvideOption> opts =
           const []]) async {
     await $call(
-        1568,
+        11472,
         $W()
           ..h(this)
           ..h(ctx)
@@ -721,7 +809,7 @@ class KuboCoreCoreapiRoutingApi extends $coreiface.KuboCoreCoreifaceRoutingApi
       [List<$options.KuboCoreCoreifaceOptionsRoutingPutOption> opts =
           const []]) async {
     await $call(
-        1569,
+        11473,
         $W()
           ..h(this)
           ..h(ctx)
@@ -734,13 +822,25 @@ class KuboCoreCoreapiRoutingApi extends $coreiface.KuboCoreCoreifaceRoutingApi
 /// Go: `coreapi.SwarmAPI` (handle).
 class KuboCoreCoreapiSwarmApi extends $coreiface.KuboCoreCoreifaceSwarmApi
     with
+        $crypto.CryptoDecrypterOpts$,
         $crypto.CryptoPrivateKey$,
         $crypto.CryptoPublicKey$,
-        $ipfs_cmds.IpfsCmdsEnvironment$
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $providerquerymanager
+        .BoxoRoutingProviderquerymanagerProviderQueryDialer$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
     implements
+        $crypto.CryptoDecrypterOpts,
         $crypto.CryptoPrivateKey,
         $crypto.CryptoPublicKey,
-        $ipfs_cmds.IpfsCmdsEnvironment {
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $providerquerymanager
+        .BoxoRoutingProviderquerymanagerProviderQueryDialer,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   KuboCoreCoreapiSwarmApi.$h(super.$h) : super.$h();
 
   /// Go: `func (*coreapi.SwarmAPI).Connect(ctx context.Context, pi peer.AddrInfo) error`.
@@ -749,7 +849,7 @@ class KuboCoreCoreapiSwarmApi extends $coreiface.KuboCoreCoreifaceSwarmApi
   Future<void> connect(
       $context.Context ctx, $peer.Libp2pCorePeerAddrInfo pi) async {
     await $call(
-        1570,
+        11474,
         $W()
           ..h(this)
           ..h(ctx)
@@ -762,7 +862,7 @@ class KuboCoreCoreapiSwarmApi extends $coreiface.KuboCoreCoreifaceSwarmApi
   Future<void> disconnect(
       $context.Context ctx, $multiaddr.Multiaddr addr) async {
     await $call(
-        1571,
+        11475,
         $W()
           ..h(this)
           ..h(ctx)
@@ -775,7 +875,7 @@ class KuboCoreCoreapiSwarmApi extends $coreiface.KuboCoreCoreifaceSwarmApi
   Future<Map<$peer.Libp2pCorePeerId, List<$multiaddr.Multiaddr>>> knownAddrs(
       $context.Context ctx) async {
     final $r = await $call(
-        1572,
+        11476,
         $W()
           ..h(this)
           ..h(ctx));
@@ -788,7 +888,7 @@ class KuboCoreCoreapiSwarmApi extends $coreiface.KuboCoreCoreifaceSwarmApi
   /// Asynchronous: runs in a goroutine of the service.
   Future<List<$multiaddr.Multiaddr>> listenAddrs($context.Context ctx) async {
     final $r = await $call(
-        1573,
+        11477,
         $W()
           ..h(this)
           ..h(ctx));
@@ -800,7 +900,7 @@ class KuboCoreCoreapiSwarmApi extends $coreiface.KuboCoreCoreifaceSwarmApi
   /// Asynchronous: runs in a goroutine of the service.
   Future<List<$multiaddr.Multiaddr>> localAddrs($context.Context ctx) async {
     final $r = await $call(
-        1574,
+        11478,
         $W()
           ..h(this)
           ..h(ctx));
@@ -813,7 +913,7 @@ class KuboCoreCoreapiSwarmApi extends $coreiface.KuboCoreCoreifaceSwarmApi
   Future<List<$coreiface.KuboCoreCoreifaceConnectionInfo>> peers(
       $context.Context ctx) async {
     final $r = await $call(
-        1575,
+        11479,
         $W()
           ..h(this)
           ..h(ctx));
@@ -825,13 +925,21 @@ class KuboCoreCoreapiSwarmApi extends $coreiface.KuboCoreCoreifaceSwarmApi
 /// Go: `coreapi.UnixfsAPI` (handle).
 class KuboCoreCoreapiUnixfsApi extends $coreiface.KuboCoreCoreifaceUnixfsApi
     with
+        $crypto.CryptoDecrypterOpts$,
         $crypto.CryptoPrivateKey$,
         $crypto.CryptoPublicKey$,
-        $ipfs_cmds.IpfsCmdsEnvironment$
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
     implements
+        $crypto.CryptoDecrypterOpts,
         $crypto.CryptoPrivateKey,
         $crypto.CryptoPublicKey,
-        $ipfs_cmds.IpfsCmdsEnvironment {
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   KuboCoreCoreapiUnixfsApi.$h(super.$h) : super.$h();
 
   /// Go: `func (*coreapi.UnixfsAPI).Add(ctx context.Context, files files.Node, opts ...options.UnixfsAddOption) (path.ImmutablePath, error)`.
@@ -842,7 +950,7 @@ class KuboCoreCoreapiUnixfsApi extends $coreiface.KuboCoreCoreifaceUnixfsApi
       [List<$options.KuboCoreCoreifaceOptionsUnixfsAddOption> opts =
           const []]) async {
     final $r = await $call(
-        1576,
+        11480,
         $W()
           ..h(this)
           ..h(ctx)
@@ -857,7 +965,7 @@ class KuboCoreCoreapiUnixfsApi extends $coreiface.KuboCoreCoreifaceUnixfsApi
   Future<$files.BoxoFilesNode> get(
       $context.Context ctx, $path.BoxoPath p) async {
     final $r = await $call(
-        1577,
+        11481,
         $W()
           ..h(this)
           ..h(ctx)
@@ -871,7 +979,7 @@ class KuboCoreCoreapiUnixfsApi extends $coreiface.KuboCoreCoreifaceUnixfsApi
           [List<$options.KuboCoreCoreifaceOptionsUnixfsLsOption> opts =
               const []]) =>
       $stream(
-              1578,
+              11482,
               $W()
                 ..h(this)
                 ..h(ctx)
@@ -887,7 +995,7 @@ extension GoIpfsKuboCoreCoreapiApi on GoIpfsKuboCoreCoreapi {
   $coreiface.KuboCoreCoreifaceCoreApi newCoreApi($core.KuboCoreIpfsNode n,
       [List<$options.KuboCoreCoreifaceOptionsApiOption> opts = const []]) {
     final $r = $callSync(
-        1551,
+        11455,
         $W()
           ..h(n)
           ..list(opts, (w0, e0) => w0.opt(e0)));

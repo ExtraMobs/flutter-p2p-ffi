@@ -9,6 +9,8 @@ import 'package:p2p_ffi/src/go.dart'
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/boxo/bitswap.dart' as $bitswap;
 import 'package:p2p_ffi/go/ipfs/boxo/bitswap/server/internal/decision.dart'
     as $decision;
@@ -27,6 +29,7 @@ import 'package:p2p_ffi/go/ipfs/kubo/core/commands/object.dart' as $object;
 import 'package:p2p_ffi/go/ipfs/kubo/core/commands/pin.dart' as $pin;
 import 'package:p2p_ffi/go/ipfs/kubo/core/corerepo.dart' as $corerepo;
 import 'package:p2p_ffi/go/ipfs/kubo/core/node/libp2p.dart' as $libp2p;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/metrics.dart' as $metrics;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/routing.dart' as $routing;
@@ -58,22 +61,34 @@ final class KuboCoreCommandsBlockStat implements GoDto {
 
   /// Go: `func (commands.BlockStat).String() string`.
   String string() {
-    final $r = $callSync(1471, $W()..dto(this));
+    final $r = $callSync(11326, $W()..dto(this));
     return $r.str();
   }
 }
 
 /// Go: `commands.RefWriter` (handle).
-class KuboCoreCommandsRefWriter extends $crypto.CryptoPrivateKey
-    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
-    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+class KuboCoreCommandsRefWriter extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   KuboCoreCommandsRefWriter.$h(super.$h) : super.$h();
 
   /// Go: `func (*commands.RefWriter).WriteEdge(from cid.Cid, to cid.Cid, linkname string, enc cidenc.Encoder) error`.
   void writeEdge($cid.Cid from, $cid.Cid to, String linkname,
       $cidenc.CidutilCidencEncoder enc) {
     $callSync(
-        1509,
+        11364,
         $W()
           ..h(this)
           ..val(from)
@@ -85,7 +100,7 @@ class KuboCoreCommandsRefWriter extends $crypto.CryptoPrivateKey
   /// Go: `func (*commands.RefWriter).WriteRefs(c cid.Cid, enc cidenc.Encoder) (int, error)`.
   int writeRefs($cid.Cid c, $cidenc.CidutilCidencEncoder enc) {
     final $r = $callSync(
-        1510,
+        11365,
         $W()
           ..h(this)
           ..val(c)
@@ -750,7 +765,61 @@ final class KuboCoreCommandsProvideOnceEvent {
 /// Go: `commands.provideStats` (a kubo command output).
 final class KuboCoreCommandsProvideStats {
   KuboCoreCommandsProvideStats.$dec($R r)
-      : sweep = r.p() ? $stats.Libp2pKadDhtProviderStats.$dec(r) : null,
+      : sweep = r.p()
+            ? ($stats.Libp2pKadDhtProviderStats(
+                closed: r.b(),
+                connectivity: $stats.Libp2pKadDhtProviderStatsConnectivity(
+                    status: r.str(), since: r.p() ? r.time() : null),
+                queues: $stats.Libp2pKadDhtProviderStatsQueues(
+                    pendingKeyProvides: r.i64(),
+                    pendingRegionProvides: r.i64(),
+                    pendingRegionReprovides: r.i64()),
+                schedule: $stats.Libp2pKadDhtProviderStatsSchedule(
+                    keys: r.i64(),
+                    regions: r.i64(),
+                    avgPrefixLength: r.f64(),
+                    nextReprovideAt: r.p() ? r.time() : null,
+                    nextReprovidePrefix: r.str()),
+                workers: $stats.Libp2pKadDhtProviderStatsWorkers(
+                    max: r.i64(),
+                    active: r.i64(),
+                    activePeriodic: r.i64(),
+                    activeBurst: r.i64(),
+                    dedicatedPeriodic: r.i64(),
+                    dedicatedBurst: r.i64(),
+                    queuedPeriodic: r.i64(),
+                    queuedBurst: r.i64(),
+                    maxProvideConnsPerWorker: r.i64()),
+                timing: $stats.Libp2pKadDhtProviderStatsTiming(
+                    uptime: Duration(microseconds: r.i64() ~/ 1000),
+                    reprovidesInterval: Duration(microseconds: r.i64() ~/ 1000),
+                    cycleStart: r.p() ? r.time() : null,
+                    currentTimeOffset: Duration(microseconds: r.i64() ~/ 1000),
+                    maxReprovideDelay: Duration(microseconds: r.i64() ~/ 1000)),
+                operations: $stats.Libp2pKadDhtProviderStatsOperations(
+                    ongoing: $stats.Libp2pKadDhtProviderStatsOngoingOperations(
+                        regionProvides: r.i64(),
+                        keyProvides: r.i64(),
+                        regionReprovides: r.i64(),
+                        keyReprovides: r.i64()),
+                    past: $stats.Libp2pKadDhtProviderStatsPastOperations(
+                        recordsProvided: r.i64(),
+                        keysProvided: r.i64(),
+                        keysFailed: r.i64(),
+                        keysProvidedPerMinute: r.f64(),
+                        keysReprovidedPerMinute: r.f64(),
+                        regionReprovideDuration:
+                            Duration(microseconds: r.i64() ~/ 1000),
+                        avgKeysPerReprovide: r.f64(),
+                        regionReprovidedLastCycle: r.i64())),
+                network: $stats.Libp2pKadDhtProviderStatsNetwork(
+                    peers: r.i64(),
+                    reachable: r.i64(),
+                    completeKeyspaceCoverage: r.b(),
+                    avgRegionSize: r.f64(),
+                    avgHolders: r.f64(),
+                    replicationFactor: r.i64())))
+            : null,
         legacy = r.p()
             ? ($provider.BoxoProviderReproviderStats(
                 totalReprovides: r.i64(),
@@ -1073,73 +1142,73 @@ class KuboCoreCommandsErrSelfUnsupported extends GolangException {
 extension GoIpfsKuboCoreCommandsApi on GoIpfsKuboCoreCommands {
   /// Go: `var commands.ActiveReqsCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get activeReqsCmd {
-    final $r = $callSync(1467);
+    final $r = $callSync(11322);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.AddCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get addCmd {
-    final $r = $callSync(1468);
+    final $r = $callSync(11323);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.BitswapCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get bitswapCmd {
-    final $r = $callSync(1469);
+    final $r = $callSync(11324);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.BlockCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get blockCmd {
-    final $r = $callSync(1470);
+    final $r = $callSync(11325);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.BootstrapCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get bootstrapCmd {
-    final $r = $callSync(1472);
+    final $r = $callSync(11327);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.CatCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get catCmd {
-    final $r = $callSync(1473);
+    final $r = $callSync(11328);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.CidCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get cidCmd {
-    final $r = $callSync(1474);
+    final $r = $callSync(11329);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `func commands.CommandsCmd(root *cmds.Command) *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand commandsCmd($ipfs_cmds.IpfsCmdsCommand root) {
-    final $r = $callSync(1475, $W()..dto(root));
+    final $r = $callSync(11330, $W()..dto(root));
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.CommandsDaemonCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get commandsDaemonCmd {
-    final $r = $callSync(1476);
+    final $r = $callSync(11331);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `func commands.CompletionCmd(root *cmds.Command) *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand completionCmd($ipfs_cmds.IpfsCmdsCommand root) {
-    final $r = $callSync(1477, $W()..dto(root));
+    final $r = $callSync(11332, $W()..dto(root));
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.ConfigCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get configCmd {
-    final $r = $callSync(1478);
+    final $r = $callSync(11333);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `func commands.CreateCmdExtras(opts ...func(e *cmds.Extra)) *cmds.Extra`.
   $ipfs_cmds.IpfsCmdsExtra createCmdExtras() {
-    final $r = $callSync(1479);
+    final $r = $callSync(11334);
     return $r.hnn($ipfs_cmds.IpfsCmdsExtra.$h);
   }
 
@@ -1147,7 +1216,7 @@ extension GoIpfsKuboCoreCommandsApi on GoIpfsKuboCoreCommands {
   void daemonNotRunning(
       $ipfs_cmds.IpfsCmdsRequest req, $ipfs_cmds.IpfsCmdsEnvironment env) {
     $callSync(
-        1480,
+        11335,
         $W()
           ..h(req)
           ..h(env));
@@ -1155,7 +1224,7 @@ extension GoIpfsKuboCoreCommandsApi on GoIpfsKuboCoreCommands {
 
   /// Go: `var commands.DefaultBufSize int`.
   int get defaultBufSize {
-    final $r = $callSync(1481);
+    final $r = $callSync(11336);
     return $r.i64();
   }
 
@@ -1163,7 +1232,7 @@ extension GoIpfsKuboCoreCommandsApi on GoIpfsKuboCoreCommands {
   KuboCoreCommandsVersionCheckOutput detectNewKuboVersion(
       $core.KuboCoreIpfsNode nd, int minPercent) {
     final $r = $callSync(
-        1482,
+        11337,
         $W()
           ..h(nd)
           ..i64(minPercent));
@@ -1172,109 +1241,109 @@ extension GoIpfsKuboCoreCommandsApi on GoIpfsKuboCoreCommands {
 
   /// Go: `var commands.DhtCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get dhtCmd {
-    final $r = $callSync(1483);
+    final $r = $callSync(11338);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.DiagCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get diagCmd {
-    final $r = $callSync(1484);
+    final $r = $callSync(11339);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `func commands.ExternalBinary(instructions string) *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand externalBinary(String instructions) {
-    final $r = $callSync(1485, $W()..str(instructions));
+    final $r = $callSync(11340, $W()..str(instructions));
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.FileStoreCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get fileStoreCmd {
-    final $r = $callSync(1486);
+    final $r = $callSync(11341);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.FilesCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get filesCmd {
-    final $r = $callSync(1487);
+    final $r = $callSync(11342);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.GetCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get getCmd {
-    final $r = $callSync(1488);
+    final $r = $callSync(11343);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `func commands.GetDoesNotUseConfigAsInput(e *cmds.Extra) (val bool, found bool)`.
   (bool, bool) getDoesNotUseConfigAsInput($ipfs_cmds.IpfsCmdsExtra e) {
-    final $r = $callSync(1489, $W()..h(e));
+    final $r = $callSync(11344, $W()..h(e));
     return ($r.b(), $r.b());
   }
 
   /// Go: `func commands.GetDoesNotUseRepo(e *cmds.Extra) (val bool, found bool)`.
   (bool, bool) getDoesNotUseRepo($ipfs_cmds.IpfsCmdsExtra e) {
-    final $r = $callSync(1490, $W()..h(e));
+    final $r = $callSync(11345, $W()..h(e));
     return ($r.b(), $r.b());
   }
 
   /// Go: `func commands.GetPreemptsAutoUpdate(e *cmds.Extra) (val bool, found bool)`.
   (bool, bool) getPreemptsAutoUpdate($ipfs_cmds.IpfsCmdsExtra e) {
-    final $r = $callSync(1491, $W()..h(e));
+    final $r = $callSync(11346, $W()..h(e));
     return ($r.b(), $r.b());
   }
 
   /// Go: `var commands.HumanJSONEncoder func(*cmds.Request) func(io.Writer) cmds.Encoder`.
   $ipfs_cmds.IpfsCmdsEncoderFunc get humanJsonEncoder {
-    final $r = $callSync(1492);
+    final $r = $callSync(11347);
     return $r.hnn($ipfs_cmds.IpfsCmdsEncoderFunc.$h);
   }
 
   /// Go: `var commands.IDCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get idCmd {
-    final $r = $callSync(1493);
+    final $r = $callSync(11348);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.KeyCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get keyCmd {
-    final $r = $callSync(1494);
+    final $r = $callSync(11349);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.LogCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get logCmd {
-    final $r = $callSync(1495);
+    final $r = $callSync(11350);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.LsCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get lsCmd {
-    final $r = $callSync(1496);
+    final $r = $callSync(11351);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.MbaseCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get mbaseCmd {
-    final $r = $callSync(1497);
+    final $r = $callSync(11352);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.MountCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get mountCmd {
-    final $r = $callSync(1498);
+    final $r = $callSync(11353);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.P2PCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get p2pCmd {
-    final $r = $callSync(1499);
+    final $r = $callSync(11354);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `func commands.ParsePeerParam(text string) (multiaddr.Multiaddr, peer.ID, error)`.
   ($multiaddr.Multiaddr, $peer.Libp2pCorePeerId) parsePeerParam(String text) {
-    final $r = $callSync(1500, $W()..str(text));
+    final $r = $callSync(11355, $W()..str(text));
     return (
       $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil(),
       $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil()
@@ -1283,115 +1352,115 @@ extension GoIpfsKuboCoreCommandsApi on GoIpfsKuboCoreCommands {
 
   /// Go: `var commands.PingCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get pingCmd {
-    final $r = $callSync(1501);
+    final $r = $callSync(11356);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.ProvideCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get provideCmd {
-    final $r = $callSync(1502);
+    final $r = $callSync(11357);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.PubsubCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get pubsubCmd {
-    final $r = $callSync(1503);
+    final $r = $callSync(11358);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.PubsubLsCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get pubsubLsCmd {
-    final $r = $callSync(1504);
+    final $r = $callSync(11359);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.PubsubPeersCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get pubsubPeersCmd {
-    final $r = $callSync(1505);
+    final $r = $callSync(11360);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.PubsubPubCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get pubsubPubCmd {
-    final $r = $callSync(1506);
+    final $r = $callSync(11361);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.PubsubResetCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get pubsubResetCmd {
-    final $r = $callSync(1507);
+    final $r = $callSync(11362);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.PubsubSubCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get pubsubSubCmd {
-    final $r = $callSync(1508);
+    final $r = $callSync(11363);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.RefsCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get refsCmd {
-    final $r = $callSync(1511);
+    final $r = $callSync(11366);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.RefsLocalCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get refsLocalCmd {
-    final $r = $callSync(1512);
+    final $r = $callSync(11367);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.RemovedDHTCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get removedDhtCmd {
-    final $r = $callSync(1513);
+    final $r = $callSync(11368);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.RepoCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get repoCmd {
-    final $r = $callSync(1514);
+    final $r = $callSync(11369);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.ResolveCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get resolveCmd {
-    final $r = $callSync(1515);
+    final $r = $callSync(11370);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.Root *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get root {
-    final $r = $callSync(1516);
+    final $r = $callSync(11371);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.RoutingCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get routingCmd {
-    final $r = $callSync(1517);
+    final $r = $callSync(11372);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.StatsCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get statsCmd {
-    final $r = $callSync(1518);
+    final $r = $callSync(11373);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.SwarmCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get swarmCmd {
-    final $r = $callSync(1519);
+    final $r = $callSync(11374);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.UpdateCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get updateCmd {
-    final $r = $callSync(1520);
+    final $r = $callSync(11375);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.VersionCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get versionCmd {
-    final $r = $callSync(1521);
+    final $r = $callSync(11376);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
@@ -3622,7 +3691,22 @@ extension GoIpfsKuboCoreCommandsApi on GoIpfsKuboCoreCommands {
             'cid-base': cidBase,
             'upgrade-cidv0-in-output': upgradeCidv0InOutput
           },
-          (r) => $pin.KuboCoreCommandsPinServicesList.$dec(r));
+          (r) => $pin.KuboCoreCommandsPinServicesList(
+              remoteServices: r.list(() =>
+                  $pin.KuboCoreCommandsPinServiceDetails(
+                      service: r.str(),
+                      apiEndpoint: r.str(),
+                      stat: r.p()
+                          ? ($pin.KuboCoreCommandsPinStat(
+                              status: r.str(),
+                              pinCount: r.p()
+                                  ? $pin.KuboCoreCommandsPinCount(
+                                      queued: r.i64(),
+                                      pinning: r.i64(),
+                                      pinned: r.i64(),
+                                      failed: r.i64())
+                                  : null))
+                          : null))));
 
   /// `ipfs pin remote service rm`: Remove remote pinning service.
   Stream<Object?> pinRemoteServiceRm(
@@ -3705,7 +3789,13 @@ extension GoIpfsKuboCoreCommandsApi on GoIpfsKuboCoreCommands {
             'cid-base': cidBase,
             'upgrade-cidv0-in-output': upgradeCidv0InOutput
           },
-          (r) => $pin.KuboCoreCommandsPinVerifyRes.$dec(r));
+          (r) => $pin.KuboCoreCommandsPinVerifyRes(
+              cid: r.str(),
+              err: r.str(),
+              pinStatus: $pin.KuboCoreCommandsPinStatus(
+                  ok: r.b(),
+                  badNodes: r.list(() => $pin.KuboCoreCommandsPinBadNode(
+                      cid: r.str(), err: r.str())))));
 
   /// `ipfs ping`: Send echo request packets to IPFS hosts.
   Stream<KuboCoreCommandsPingResult> ping($core.KuboCoreIpfsNode node,
@@ -4342,7 +4432,11 @@ extension GoIpfsKuboCoreCommandsApi on GoIpfsKuboCoreCommands {
             'cid-base': cidBase,
             'upgrade-cidv0-in-output': upgradeCidv0InOutput
           },
-          (r) => $metrics.Libp2pCoreMetricsStats.$dec(r));
+          (r) => $metrics.Libp2pCoreMetricsStats(
+              totalIn: r.i64(),
+              totalOut: r.i64(),
+              rateIn: r.f64(),
+              rateOut: r.f64()));
 
   /// `ipfs stats dht`: Returns statistics about the node's DHT(s).
   Stream<KuboCoreCommandsDhtStat> statsDht(

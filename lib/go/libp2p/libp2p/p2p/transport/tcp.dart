@@ -2,12 +2,205 @@
 // Go: github.com/libp2p/go-libp2p/p2p/transport/tcp
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2pP2pTransportTcp;
+import 'package:p2p_ffi/src/go.dart'
+    show GoLibp2pLibp2pP2pTransportTcp, GoLibp2pLibp2pP2pTransportTcpOptions;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/context.dart' as $context;
+import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
+import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/network.dart' as $network;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/transport.dart' as $transport;
+import 'package:p2p_ffi/go/libp2p/libp2p/p2p/transport/tcpreuse.dart'
+    as $tcpreuse;
+import 'package:p2p_ffi/go/multiformats/multiaddr.dart' as $multiaddr;
+import 'package:p2p_ffi/go/net.dart' as $net;
+import 'package:p2p_ffi/go/x/net/proxy.dart' as $proxy;
+
+/// Go: `tcp.ContextDialer` (handle).
+class Libp2pP2pTransportTcpContextDialer extends GoHandle
+    with Libp2pP2pTransportTcpContextDialer$ {
+  Libp2pP2pTransportTcpContextDialer.$h(super.$h);
+}
+
+/// The methods of [Libp2pP2pTransportTcpContextDialer], mixed into every class Go also accepts as one.
+mixin Libp2pP2pTransportTcpContextDialer$ on GoHandle {
+  /// Go: `func (tcp.ContextDialer).DialContext(ctx context.Context, network string, address string) (net.Conn, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<$net.NetConn> dialContext(
+      $context.Context ctx, String network, String address) async {
+    final $r = await $call(
+        15032,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(network)
+          ..str(address));
+    return $r.hnn($net.NetConn.$h);
+  }
+
+  /// Go: type assertion `x.(*proxy.PerHost)`: null if the object is not one.
+  $proxy.NetProxyPerHost? asNetProxyPerHost() {
+    final $r = $callSync(1446, $W()..h(this));
+    return $r.hn($proxy.NetProxyPerHost.$h);
+  }
+
+  /// Go: type assertion `x.(*net.Dialer)`: null if the object is not one.
+  $net.NetDialer? asNetDialer() {
+    final $r = $callSync(1447, $W()..h(this));
+    return $r.hn($net.NetDialer.$h);
+  }
+}
+
+/// Go: `tcp.DialerForAddr` (handle).
+class Libp2pP2pTransportTcpDialerForAddr extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
+  Libp2pP2pTransportTcpDialerForAddr.$h(super.$h) : super.$h();
+}
+
+/// Go: `tcp.Option` (functional option; constructors in the package).
+final class Libp2pP2pTransportTcpOption extends GoOption {
+  Libp2pP2pTransportTcpOption.$(super.$i, super.$a);
+}
+
+/// Go: `tcp.TcpTransport` (handle).
+class Libp2pP2pTransportTcpTransport extends $transport.Libp2pCoreTransport
+    with
+        $crypto.CryptoDecrypterOpts$,
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoDecrypterOpts,
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
+  Libp2pP2pTransportTcpTransport.$h(super.$h) : super.$h();
+
+  /// Go: `func (*tcp.TcpTransport).CanDial(addr multiaddr.Multiaddr) bool`.
+  bool canDial($multiaddr.Multiaddr addr) {
+    final $r = $callSync(
+        15034,
+        $W()
+          ..h(this)
+          ..val(addr));
+    return $r.b();
+  }
+
+  /// Go: `func (*tcp.TcpTransport).Dial(ctx context.Context, raddr multiaddr.Multiaddr, p peer.ID) (transport.CapableConn, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<$transport.Libp2pCoreTransportCapableConn> dial($context.Context ctx,
+      $multiaddr.Multiaddr raddr, $peer.Libp2pCorePeerId p) async {
+    final $r = await $call(
+        15035,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(raddr)
+          ..val(p));
+    return $r.hnn($transport.Libp2pCoreTransportCapableConn.$h);
+  }
+
+  /// Go: `func (*tcp.TcpTransport).Listen(laddr multiaddr.Multiaddr) (transport.Listener, error)`.
+  $transport.Libp2pCoreTransportListener listen($multiaddr.Multiaddr laddr) {
+    final $r = $callSync(
+        15036,
+        $W()
+          ..h(this)
+          ..val(laddr));
+    return $r.hnn($transport.Libp2pCoreTransportListener.$h);
+  }
+
+  /// Go: `func (*tcp.TcpTransport).Protocols() []int`.
+  List<int> protocols() {
+    final $r = $callSync(15037, $W()..h(this));
+    return $r.list(() => $r.i64());
+  }
+
+  /// Go: `func (*tcp.TcpTransport).Proxy() bool`.
+  bool proxy() {
+    final $r = $callSync(15038, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (*tcp.TcpTransport).String() string`.
+  String string() {
+    final $r = $callSync(15039, $W()..h(this));
+    return $r.str();
+  }
+
+  /// Go: `func (*tcp.TcpTransport).UseReuseport() bool`.
+  bool useReuseport() {
+    final $r = $callSync(15040, $W()..h(this));
+    return $r.b();
+  }
+}
 
 /// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/transport/tcp` (`go.libp2p.libp2p.p2p.transport.tcp`).
 extension GoLibp2pLibp2pP2pTransportTcpApi on GoLibp2pLibp2pP2pTransportTcp {
+  /// Go: `func tcp.NewTCPTransport(upgrader transport.Upgrader, rcmgr network.ResourceManager, sharedTCP *tcpreuse.ConnMgr, opts ...tcp.Option) (*tcp.TcpTransport, error)`.
+  Libp2pP2pTransportTcpTransport newTcpTransport(
+      $transport.Libp2pCoreTransportUpgrader upgrader,
+      $network.Libp2pCoreNetworkResourceManager rcmgr,
+      $tcpreuse.Libp2pP2pTransportTcpreuseConnMgr sharedTcp,
+      [List<Libp2pP2pTransportTcpOption> opts = const []]) {
+    final $r = $callSync(
+        15033,
+        $W()
+          ..h(upgrader)
+          ..h(rcmgr)
+          ..h(sharedTcp)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+    return $r.hnn(Libp2pP2pTransportTcpTransport.$h);
+  }
+
   /// Go: the function `tcp.NewTCPTransport` as a value (a token: Go gets the function
   /// itself, as in `libp2p.Transport(tcp.NewTCPTransport)`).
   GoToken get newTcpTransportFunc => const GoToken(15);
+}
+
+/// Go: the option constructors of `github.com/libp2p/go-libp2p/p2p/transport/tcp` (`go.libp2p.libp2p.p2p.transport.tcp.options`).
+extension GoLibp2pLibp2pP2pTransportTcpOptionsApi
+    on GoLibp2pLibp2pP2pTransportTcpOptions {
+  /// Go: `tcp.DisableReuseport`.
+  Libp2pP2pTransportTcpOption disableReuseport() =>
+      Libp2pP2pTransportTcpOption.$(0, (_) {});
+
+  /// Go: `tcp.WithConnectionTimeout`.
+  Libp2pP2pTransportTcpOption withConnectionTimeout(Duration d) =>
+      Libp2pP2pTransportTcpOption.$(
+          1, (w) => w..i64((d).inMicroseconds * 1000));
+
+  /// Go: `tcp.WithDialerForAddr`.
+  Libp2pP2pTransportTcpOption withDialerForAddr(
+          Libp2pP2pTransportTcpDialerForAddr d) =>
+      Libp2pP2pTransportTcpOption.$(2, (w) => w..h(d));
+
+  /// Go: `tcp.WithMetrics`.
+  Libp2pP2pTransportTcpOption withMetrics() =>
+      Libp2pP2pTransportTcpOption.$(3, (_) {});
 }

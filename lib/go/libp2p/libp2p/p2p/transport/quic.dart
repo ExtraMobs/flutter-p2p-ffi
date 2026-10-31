@@ -36,7 +36,7 @@ class Libp2pP2pTransportQuicErrHolePunching extends GolangException {
 extension GoLibp2pLibp2pP2pTransportQuicApi on GoLibp2pLibp2pP2pTransportQuic {
   /// Go: `var libp2pquic.HolePunchTimeout time.Duration`.
   Duration get holePunchTimeout {
-    final $r = $callSync(3381);
+    final $r = $callSync(15001);
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
@@ -49,7 +49,7 @@ extension GoLibp2pLibp2pP2pTransportQuicApi on GoLibp2pLibp2pP2pTransportQuic {
       $network.Libp2pCoreNetworkResourceManager rcmgr,
       [List<Libp2pP2pTransportQuicOption> opts = const []]) {
     final $r = $callSync(
-        3382,
+        15002,
         $W()
           ..h(key)
           ..h(connManager)

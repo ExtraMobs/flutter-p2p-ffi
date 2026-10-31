@@ -2,24 +2,403 @@
 // Go: go.uber.org/dig
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoDigConsts;
+import 'dart:async';
+
+import 'package:p2p_ffi/src/go.dart' show GoDig, GoDigConsts, GoDigOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
+
+/// Go: `dig.BeforeCallbackInfo`.
+final class DigBeforeCallbackInfo implements GoDto {
+  DigBeforeCallbackInfo({String? name}) : name = name ?? '';
+
+  DigBeforeCallbackInfo.$dec($R r) : name = r.str();
+
+  /// Go: `Name`.
+  String name;
+
+  @override
+  void $enc($W w) {
+    w..str(name);
+  }
+}
+
+/// Go: `dig.CallbackInfo`.
+final class DigCallbackInfo implements GoDto {
+  DigCallbackInfo({String? name, String? error, Duration? runtime})
+      : name = name ?? '',
+        error = error,
+        runtime = runtime ?? Duration.zero;
+
+  DigCallbackInfo.$dec($R r)
+      : name = r.str(),
+        error = r.err(),
+        runtime = Duration(microseconds: r.i64() ~/ 1000);
+
+  /// Go: `Name`.
+  String name;
+
+  /// Go: `Error`.
+  String? error;
+
+  /// Go: `Runtime`.
+  Duration runtime;
+
+  @override
+  void $enc($W w) {
+    w
+      ..str(name)
+      ..err(error)
+      ..i64((runtime).inMicroseconds * 1000);
+  }
+}
+
+/// Go: `dig.Container` (handle).
+class DigContainer extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
+  DigContainer.$h(super.$h) : super.$h();
+
+  /// Go: `func (*dig.Container).Decorate(decorator interface{}, opts ...dig.DecorateOption) error`.
+  void decorate(Object? decorator, [List<DigDecorateOption> opts = const []]) {
+    $callSync(
+        22634,
+        $W()
+          ..h(this)
+          ..any(decorator)
+          ..list(opts, (w0, e0) => w0.h(e0)));
+  }
+
+  /// Go: `func (*dig.Container).Invoke(function interface{}, opts ...dig.InvokeOption) error`.
+  void invoke(Object? function, [List<DigInvokeOption> opts = const []]) {
+    $callSync(
+        22635,
+        $W()
+          ..h(this)
+          ..any(function)
+          ..list(opts, (w0, e0) => w0.h(e0)));
+  }
+
+  /// Go: `func (*dig.Container).Provide(constructor interface{}, opts ...dig.ProvideOption) error`.
+  void provide(Object? constructor, [List<DigProvideOption> opts = const []]) {
+    $callSync(
+        22636,
+        $W()
+          ..h(this)
+          ..any(constructor)
+          ..list(opts, (w0, e0) => w0.h(e0)));
+  }
+
+  /// Go: `func (*dig.Container).Scope(name string, opts ...dig.ScopeOption) *dig.Scope`.
+  DigScope scope(String name, [List<DigScopeOption> opts = const []]) {
+    final $r = $callSync(
+        22637,
+        $W()
+          ..h(this)
+          ..str(name)
+          ..list(opts, (w0, e0) => w0.h(e0)));
+    return $r.hnn(DigScope.$h);
+  }
+
+  /// Go: `func (*dig.Container).String() string`.
+  String string() {
+    final $r = $callSync(22638, $W()..h(this));
+    return $r.str();
+  }
+}
+
+/// Go: `dig.DecorateInfo`.
+final class DigDecorateInfo implements GoDto {
+  DigDecorateInfo({int? id, List<DigInput>? inputs, List<DigOutput>? outputs})
+      : id = id ?? 0,
+        inputs = inputs ?? [],
+        outputs = outputs ?? [];
+
+  DigDecorateInfo.$dec($R r)
+      : id = r.i64(),
+        inputs = r.list(() => r.hnn(DigInput.$h)),
+        outputs = r.list(() => r.hnn(DigOutput.$h));
+
+  /// Go: `ID`.
+  int id;
+
+  /// Go: `Inputs`.
+  List<DigInput> inputs;
+
+  /// Go: `Outputs`.
+  List<DigOutput> outputs;
+
+  @override
+  void $enc($W w) {
+    w
+      ..i64(id)
+      ..list(inputs, (w0, e0) => w0.h(e0))
+      ..list(outputs, (w0, e0) => w0.h(e0));
+  }
+}
+
+/// Go: `dig.DecorateOption` (handle).
+class DigDecorateOption extends GoHandle with DigDecorateOption$ {
+  DigDecorateOption.$h(super.$h);
+}
+
+/// The methods of [DigDecorateOption], mixed into every class Go also accepts as one.
+mixin DigDecorateOption$ on GoHandle {}
 
 /// Go: `dig.In` (handle).
-class DigIn extends $crypto.CryptoPrivateKey
-    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
-    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+class DigIn extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   DigIn.$h(super.$h) : super.$h();
 }
 
+/// Go: `dig.Input` (handle).
+class DigInput extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
+  DigInput.$h(super.$h) : super.$h();
+
+  /// Go: `func (*dig.Input).String() string`.
+  String string() {
+    final $r = $callSync(22646, $W()..h(this));
+    return $r.str();
+  }
+}
+
+/// Go: `dig.InvokeInfo`.
+final class DigInvokeInfo implements GoDto {
+  DigInvokeInfo({List<DigInput>? inputs}) : inputs = inputs ?? [];
+
+  DigInvokeInfo.$dec($R r) : inputs = r.list(() => r.hnn(DigInput.$h));
+
+  /// Go: `Inputs`.
+  List<DigInput> inputs;
+
+  @override
+  void $enc($W w) {
+    w..list(inputs, (w0, e0) => w0.h(e0));
+  }
+}
+
+/// Go: `dig.InvokeOption` (handle).
+class DigInvokeOption extends GoHandle with DigInvokeOption$ {
+  DigInvokeOption.$h(super.$h);
+}
+
+/// The methods of [DigInvokeOption], mixed into every class Go also accepts as one.
+mixin DigInvokeOption$ on GoHandle {}
+
+/// Go: `dig.Option` (handle).
+class DigOption extends GoHandle with DigOption$ {
+  DigOption.$h(super.$h);
+}
+
+/// The methods of [DigOption], mixed into every class Go also accepts as one.
+mixin DigOption$ on GoHandle {}
+
 /// Go: `dig.Out` (handle).
-class DigOut extends $crypto.CryptoPrivateKey
-    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
-    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+class DigOut extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   DigOut.$h(super.$h) : super.$h();
 }
+
+/// Go: `dig.Output` (handle).
+class DigOutput extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
+  DigOutput.$h(super.$h) : super.$h();
+
+  /// Go: `func (*dig.Output).String() string`.
+  String string() {
+    final $r = $callSync(22651, $W()..h(this));
+    return $r.str();
+  }
+}
+
+/// Go: `dig.ProvideInfo`.
+final class DigProvideInfo implements GoDto {
+  DigProvideInfo({int? id, List<DigInput>? inputs, List<DigOutput>? outputs})
+      : id = id ?? 0,
+        inputs = inputs ?? [],
+        outputs = outputs ?? [];
+
+  DigProvideInfo.$dec($R r)
+      : id = r.i64(),
+        inputs = r.list(() => r.hnn(DigInput.$h)),
+        outputs = r.list(() => r.hnn(DigOutput.$h));
+
+  /// Go: `ID`.
+  int id;
+
+  /// Go: `Inputs`.
+  List<DigInput> inputs;
+
+  /// Go: `Outputs`.
+  List<DigOutput> outputs;
+
+  @override
+  void $enc($W w) {
+    w
+      ..i64(id)
+      ..list(inputs, (w0, e0) => w0.h(e0))
+      ..list(outputs, (w0, e0) => w0.h(e0));
+  }
+}
+
+/// Go: `dig.ProvideOption` (handle).
+class DigProvideOption extends GoHandle with DigProvideOption$ {
+  DigProvideOption.$h(super.$h);
+}
+
+/// The methods of [DigProvideOption], mixed into every class Go also accepts as one.
+mixin DigProvideOption$ on GoHandle {}
+
+/// Go: `dig.Scope` (handle).
+class DigScope extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
+  DigScope.$h(super.$h) : super.$h();
+
+  /// Go: `func (*dig.Scope).Decorate(decorator interface{}, opts ...dig.DecorateOption) error`.
+  void decorate(Object? decorator, [List<DigDecorateOption> opts = const []]) {
+    $callSync(
+        22653,
+        $W()
+          ..h(this)
+          ..any(decorator)
+          ..list(opts, (w0, e0) => w0.h(e0)));
+  }
+
+  /// Go: `func (*dig.Scope).Invoke(function interface{}, opts ...dig.InvokeOption) (err error)`.
+  void invoke(Object? function, [List<DigInvokeOption> opts = const []]) {
+    $callSync(
+        22654,
+        $W()
+          ..h(this)
+          ..any(function)
+          ..list(opts, (w0, e0) => w0.h(e0)));
+  }
+
+  /// Go: `func (*dig.Scope).Provide(constructor interface{}, opts ...dig.ProvideOption) error`.
+  void provide(Object? constructor, [List<DigProvideOption> opts = const []]) {
+    $callSync(
+        22655,
+        $W()
+          ..h(this)
+          ..any(constructor)
+          ..list(opts, (w0, e0) => w0.h(e0)));
+  }
+
+  /// Go: `func (*dig.Scope).Scope(name string, opts ...dig.ScopeOption) *dig.Scope`.
+  DigScope scope(String name, [List<DigScopeOption> opts = const []]) {
+    final $r = $callSync(
+        22656,
+        $W()
+          ..h(this)
+          ..str(name)
+          ..list(opts, (w0, e0) => w0.h(e0)));
+    return $r.hnn(DigScope.$h);
+  }
+
+  /// Go: `func (*dig.Scope).String() string`.
+  String string() {
+    final $r = $callSync(22657, $W()..h(this));
+    return $r.str();
+  }
+}
+
+/// Go: `dig.ScopeOption` (handle).
+class DigScopeOption extends GoHandle with DigScopeOption$ {
+  DigScopeOption.$h(super.$h);
+}
+
+/// The methods of [DigScopeOption], mixed into every class Go also accepts as one.
+mixin DigScopeOption$ on GoHandle {}
+
+/// Go: `dig.VisualizeOption` (handle).
+class DigVisualizeOption extends GoHandle with DigVisualizeOption$ {
+  DigVisualizeOption.$h(super.$h);
+}
+
+/// The methods of [DigVisualizeOption], mixed into every class Go also accepts as one.
+mixin DigVisualizeOption$ on GoHandle {}
 
 /// Go: `dig.PanicError`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
@@ -30,8 +409,171 @@ class DigPanicError extends GolangException {
   String toString() => 'dig.PanicError: $message';
 }
 
+/// Go: the package-level members of `go.uber.org/dig` (`go.dig`).
+extension GoDigApi on GoDig {
+  /// Go: `func dig.IsIn(o interface{}) bool`.
+  bool isIn(Object? o) {
+    final $r = $callSync(22647, $W()..any(o));
+    return $r.b();
+  }
+
+  /// Go: `func dig.IsOut(o interface{}) bool`.
+  bool isOut(Object? o) {
+    final $r = $callSync(22648, $W()..any(o));
+    return $r.b();
+  }
+
+  /// Go: `func dig.New(opts ...dig.Option) *dig.Container`.
+  DigContainer new$([List<DigOption> opts = const []]) {
+    final $r = $callSync(22650, $W()..list(opts, (w0, e0) => w0.h(e0)));
+    return $r.hnn(DigContainer.$h);
+  }
+
+  /// Go: `func dig.Visualize(c *dig.Container, w io.Writer, opts ...dig.VisualizeOption) error`.
+  void visualize(DigContainer c, GoHandle? w,
+      [List<DigVisualizeOption> opts = const []]) {
+    $callSync(
+        22658,
+        $W()
+          ..h(c)
+          ..h(w)
+          ..list(opts, (w0, e0) => w0.h(e0)));
+  }
+}
+
 /// Go: the constants of `go.uber.org/dig` (`go.dig.consts`).
 extension GoDigConstsApi on GoDigConsts {
   /// Go: `const dig.Version untyped string`.
   String get version => "1.19.0";
+}
+
+/// Go: the option constructors of `go.uber.org/dig` (`go.dig.options`).
+extension GoDigOptionsApi on GoDigOptions {
+  /// Go: `func dig.As(i ...interface{}) dig.ProvideOption`.
+  DigProvideOption as([List<Object?> i = const []]) {
+    final $r = $callSync(22633, $W()..list(i, (w0, e0) => w0.any(e0)));
+    return $r.hnn(DigProvideOption.$h);
+  }
+
+  /// Go: `func dig.DeferAcyclicVerification() dig.Option`.
+  DigOption deferAcyclicVerification() {
+    final $r = $callSync(22639);
+    return $r.hnn(DigOption.$h);
+  }
+
+  /// Go: `func dig.DryRun(dry bool) dig.Option`.
+  DigOption dryRun(bool dry) {
+    final $r = $callSync(22640, $W()..b(dry));
+    return $r.hnn(DigOption.$h);
+  }
+
+  /// Go: `func dig.Export(export bool) dig.ProvideOption`.
+  DigProvideOption export(bool export) {
+    final $r = $callSync(22641, $W()..b(export));
+    return $r.hnn(DigProvideOption.$h);
+  }
+
+  /// Go: `func dig.FillDecorateInfo(info *dig.DecorateInfo) dig.DecorateOption`.
+  DigDecorateOption fillDecorateInfo(DigDecorateInfo info) {
+    final $r = $callSync(22642, $W()..dto(info));
+    return $r.hnn(DigDecorateOption.$h);
+  }
+
+  /// Go: `func dig.FillInvokeInfo(info *dig.InvokeInfo) dig.InvokeOption`.
+  DigInvokeOption fillInvokeInfo(DigInvokeInfo info) {
+    final $r = $callSync(22643, $W()..dto(info));
+    return $r.hnn(DigInvokeOption.$h);
+  }
+
+  /// Go: `func dig.FillProvideInfo(info *dig.ProvideInfo) dig.ProvideOption`.
+  DigProvideOption fillProvideInfo(DigProvideInfo info) {
+    final $r = $callSync(22644, $W()..dto(info));
+    return $r.hnn(DigProvideOption.$h);
+  }
+
+  /// Go: `func dig.Group(group string) dig.ProvideOption`.
+  DigProvideOption group(String group) {
+    final $r = $callSync(22645, $W()..str(group));
+    return $r.hnn(DigProvideOption.$h);
+  }
+
+  /// Go: `func dig.Name(name string) dig.ProvideOption`.
+  DigProvideOption name(String name) {
+    final $r = $callSync(22649, $W()..str(name));
+    return $r.hnn(DigProvideOption.$h);
+  }
+
+  /// Go: `func dig.RecoverFromPanics() dig.Option`.
+  DigOption recoverFromPanics() {
+    final $r = $callSync(22652);
+    return $r.hnn(DigOption.$h);
+  }
+
+  /// Go: `func dig.WithDecoratorBeforeCallback(callback dig.BeforeCallback) dig.DecorateOption`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  ///
+  /// Go calls [callback] on the Dart event loop, during the call or
+  /// later for as long as it holds it (nobody checked which), and waits for
+  /// each invocation (a retained callback, WIRE.md).
+  Future<DigDecorateOption> withDecoratorBeforeCallback(
+      FutureOr<void> Function(DigBeforeCallbackInfo bci) callback) async {
+    final $r = await $call(
+        22659,
+        $W()
+          ..cb((r) => callback(r.p() ? DigBeforeCallbackInfo.$dec(r) : $nil()),
+              true));
+    return $r.hnn(DigDecorateOption.$h);
+  }
+
+  /// Go: `func dig.WithDecoratorCallback(callback dig.Callback) dig.DecorateOption`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  ///
+  /// Go calls [callback] on the Dart event loop, during the call or
+  /// later for as long as it holds it (nobody checked which), and waits for
+  /// each invocation (a retained callback, WIRE.md).
+  Future<DigDecorateOption> withDecoratorCallback(
+      FutureOr<void> Function(DigCallbackInfo callbackInfo) callback) async {
+    final $r = await $call(
+        22660,
+        $W()
+          ..cb(
+              (r) => callback(r.p() ? DigCallbackInfo.$dec(r) : $nil()), true));
+    return $r.hnn(DigDecorateOption.$h);
+  }
+
+  /// Go: `func dig.WithProviderBeforeCallback(callback dig.BeforeCallback) dig.ProvideOption`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  ///
+  /// Go calls [callback] on the Dart event loop, during the call or
+  /// later for as long as it holds it (nobody checked which), and waits for
+  /// each invocation (a retained callback, WIRE.md).
+  Future<DigProvideOption> withProviderBeforeCallback(
+      FutureOr<void> Function(DigBeforeCallbackInfo bci) callback) async {
+    final $r = await $call(
+        22661,
+        $W()
+          ..cb((r) => callback(r.p() ? DigBeforeCallbackInfo.$dec(r) : $nil()),
+              true));
+    return $r.hnn(DigProvideOption.$h);
+  }
+
+  /// Go: `func dig.WithProviderCallback(callback dig.Callback) dig.ProvideOption`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  ///
+  /// Go calls [callback] on the Dart event loop, during the call or
+  /// later for as long as it holds it (nobody checked which), and waits for
+  /// each invocation (a retained callback, WIRE.md).
+  Future<DigProvideOption> withProviderCallback(
+      FutureOr<void> Function(DigCallbackInfo callbackInfo) callback) async {
+    final $r = await $call(
+        22662,
+        $W()
+          ..cb(
+              (r) => callback(r.p() ? DigCallbackInfo.$dec(r) : $nil()), true));
+    return $r.hnn(DigProvideOption.$h);
+  }
 }

@@ -2,12 +2,91 @@
 // Go: github.com/crackcomm/go-gitignore
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoCrackcommGitignore;
+import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 
 /// Go: `ignore.GitIgnore` (handle).
-class GitignoreGitIgnore extends $crypto.CryptoPrivateKey
-    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
-    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+class GitignoreGitIgnore extends GitignoreIgnoreParser
+    with
+        $crypto.CryptoDecrypterOpts$,
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoDecrypterOpts,
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   GitignoreGitIgnore.$h(super.$h) : super.$h();
+
+  /// Go: `func (ignore.GitIgnore).MatchesPath(f string) bool`.
+  bool matchesPath(String f) {
+    final $r = $callSync(
+        5749,
+        $W()
+          ..h(this)
+          ..str(f));
+    return $r.b();
+  }
+}
+
+/// Go: `ignore.IgnoreParser` (handle).
+class GitignoreIgnoreParser extends GoHandle with GitignoreIgnoreParser$ {
+  GitignoreIgnoreParser.$h(super.$h);
+}
+
+/// The methods of [GitignoreIgnoreParser], mixed into every class Go also accepts as one.
+mixin GitignoreIgnoreParser$ on GoHandle {
+  /// Go: `func (ignore.IgnoreParser).MatchesPath(f string) bool`.
+  bool matchesPath(String f) {
+    final $r = $callSync(
+        5750,
+        $W()
+          ..h(this)
+          ..str(f));
+    return $r.b();
+  }
+
+  /// Go: type assertion `x.(*ignore.GitIgnore)`: null if the object is not one.
+  GitignoreGitIgnore? asGitignoreGitIgnore() {
+    final $r = $callSync(430, $W()..h(this));
+    return $r.hn(GitignoreGitIgnore.$h);
+  }
+}
+
+/// Go: the package-level members of `github.com/crackcomm/go-gitignore` (`go.crackcomm.gitignore`).
+extension GoCrackcommGitignoreApi on GoCrackcommGitignore {
+  /// Go: `func ignore.CompileIgnoreFile(fpath string) (*ignore.GitIgnore, error)`.
+  GitignoreGitIgnore compileIgnoreFile(String fpath) {
+    final $r = $callSync(5746, $W()..str(fpath));
+    return $r.hnn(GitignoreGitIgnore.$h);
+  }
+
+  /// Go: `func ignore.CompileIgnoreFileAndLines(fpath string, lines ...string) (*ignore.GitIgnore, error)`.
+  GitignoreGitIgnore compileIgnoreFileAndLines(String fpath,
+      [List<String> lines = const []]) {
+    final $r = $callSync(
+        5747,
+        $W()
+          ..str(fpath)
+          ..list(lines, (w0, e0) => w0.str(e0)));
+    return $r.hnn(GitignoreGitIgnore.$h);
+  }
+
+  /// Go: `func ignore.CompileIgnoreLines(lines ...string) (*ignore.GitIgnore, error)`.
+  GitignoreGitIgnore compileIgnoreLines([List<String> lines = const []]) {
+    final $r = $callSync(5748, $W()..list(lines, (w0, e0) => w0.str(e0)));
+    return $r.hnn(GitignoreGitIgnore.$h);
+  }
 }

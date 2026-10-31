@@ -2,10 +2,17 @@
 // Go: crypto/ecdsa
 library;
 
+import 'dart:typed_data';
+
+import 'package:p2p_ffi/src/go.dart' show GoCryptoEcdsa;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/crypto/ecdh.dart' as $ecdh;
 import 'package:p2p_ffi/go/crypto/elliptic.dart' as $elliptic;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/math/big.dart' as $big;
 
 /// Go: `ecdsa.PrivateKey`.
@@ -30,17 +37,170 @@ final class CryptoEcdsaPrivateKey implements GoDto {
       ..h(publicKey)
       ..h(d);
   }
+
+  /// Go: `func (*ecdsa.PrivateKey).Bytes() ([]byte, error)`.
+  Uint8List bytes() {
+    final $r = $callSync(3185, $W()..dto(this));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (*ecdsa.PrivateKey).ECDH() (*ecdh.PrivateKey, error)`.
+  $ecdh.CryptoEcdhPrivateKey ecdh() {
+    final $r = $callSync(3186, $W()..dto(this));
+    return $r.hnn($ecdh.CryptoEcdhPrivateKey.$h);
+  }
+
+  /// Go: `func (*ecdsa.PrivateKey).Equal(x crypto.PrivateKey) bool`.
+  bool equal($crypto.CryptoPrivateKey x) {
+    final $r = $callSync(
+        3187,
+        $W()
+          ..dto(this)
+          ..h(x));
+    return $r.b();
+  }
+
+  /// Go: `func (*ecdsa.PrivateKey).Public() crypto.PublicKey`.
+  $crypto.CryptoPublicKey public() {
+    final $r = $callSync(3188, $W()..dto(this));
+    return $r.hnn($crypto.CryptoPublicKey.$h);
+  }
+
+  /// Go: `func (*ecdsa.PrivateKey).Sign(random io.Reader, digest []byte, opts crypto.SignerOpts) ([]byte, error)`.
+  Uint8List sign(
+      Object random, Uint8List digest, $crypto.CryptoSignerOpts opts) {
+    final $r = $callSync(
+        3189,
+        $W()
+          ..dto(this)
+          ..reader(random)
+          ..bytes(digest)
+          ..dto(opts));
+    return $r.bytes() ?? Uint8List(0);
+  }
 }
 
 /// Go: `ecdsa.PublicKey` (handle).
 class CryptoEcdsaPublicKey extends $elliptic.CryptoEllipticCurve
     with
+        $crypto.CryptoDecrypterOpts$,
         $crypto.CryptoPrivateKey$,
         $crypto.CryptoPublicKey$,
-        $ipfs_cmds.IpfsCmdsEnvironment$
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
     implements
+        $crypto.CryptoDecrypterOpts,
         $crypto.CryptoPrivateKey,
         $crypto.CryptoPublicKey,
-        $ipfs_cmds.IpfsCmdsEnvironment {
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   CryptoEcdsaPublicKey.$h(super.$h) : super.$h();
+
+  /// Go: `func (*ecdsa.PublicKey).Bytes() ([]byte, error)`.
+  Uint8List bytes() {
+    final $r = $callSync(3190, $W()..h(this));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (*ecdsa.PublicKey).ECDH() (*ecdh.PublicKey, error)`.
+  $ecdh.CryptoEcdhPublicKey ecdh() {
+    final $r = $callSync(3191, $W()..h(this));
+    return $r.hnn($ecdh.CryptoEcdhPublicKey.$h);
+  }
+
+  /// Go: `func (*ecdsa.PublicKey).Equal(x crypto.PublicKey) bool`.
+  bool equal($crypto.CryptoPublicKey x) {
+    final $r = $callSync(
+        3192,
+        $W()
+          ..h(this)
+          ..h(x));
+    return $r.b();
+  }
+}
+
+/// Go: the package-level members of `crypto/ecdsa` (`go.crypto.ecdsa`).
+extension GoCryptoEcdsaApi on GoCryptoEcdsa {
+  /// Go: `func ecdsa.GenerateKey(c elliptic.Curve, r io.Reader) (*ecdsa.PrivateKey, error)`.
+  CryptoEcdsaPrivateKey generateKey($elliptic.CryptoEllipticCurve c, Object r) {
+    final $r = $callSync(
+        3182,
+        $W()
+          ..h(c)
+          ..reader(r));
+    return $r.p() ? CryptoEcdsaPrivateKey.$dec($r) : $nil();
+  }
+
+  /// Go: `func ecdsa.ParseRawPrivateKey(curve elliptic.Curve, data []byte) (*ecdsa.PrivateKey, error)`.
+  CryptoEcdsaPrivateKey parseRawPrivateKey(
+      $elliptic.CryptoEllipticCurve curve, Uint8List data) {
+    final $r = $callSync(
+        3183,
+        $W()
+          ..h(curve)
+          ..bytes(data));
+    return $r.p() ? CryptoEcdsaPrivateKey.$dec($r) : $nil();
+  }
+
+  /// Go: `func ecdsa.ParseUncompressedPublicKey(curve elliptic.Curve, data []byte) (*ecdsa.PublicKey, error)`.
+  CryptoEcdsaPublicKey parseUncompressedPublicKey(
+      $elliptic.CryptoEllipticCurve curve, Uint8List data) {
+    final $r = $callSync(
+        3184,
+        $W()
+          ..h(curve)
+          ..bytes(data));
+    return $r.hnn(CryptoEcdsaPublicKey.$h);
+  }
+
+  /// Go: `func ecdsa.Sign(rand io.Reader, priv *ecdsa.PrivateKey, hash []byte) (r *big.Int, s *big.Int, err error)`.
+  ($big.MathBigInt, $big.MathBigInt) sign(
+      Object rand, CryptoEcdsaPrivateKey priv, Uint8List hash) {
+    final $r = $callSync(
+        3193,
+        $W()
+          ..reader(rand)
+          ..dto(priv)
+          ..bytes(hash));
+    return ($r.hnn($big.MathBigInt.$h), $r.hnn($big.MathBigInt.$h));
+  }
+
+  /// Go: `func ecdsa.SignASN1(r io.Reader, priv *ecdsa.PrivateKey, hash []byte) ([]byte, error)`.
+  Uint8List signAsn1(Object r, CryptoEcdsaPrivateKey priv, Uint8List hash) {
+    final $r = $callSync(
+        3194,
+        $W()
+          ..reader(r)
+          ..dto(priv)
+          ..bytes(hash));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func ecdsa.Verify(pub *ecdsa.PublicKey, hash []byte, r *big.Int, s *big.Int) bool`.
+  bool verify(CryptoEcdsaPublicKey pub, Uint8List hash, $big.MathBigInt r,
+      $big.MathBigInt s) {
+    final $r = $callSync(
+        3195,
+        $W()
+          ..h(pub)
+          ..bytes(hash)
+          ..h(r)
+          ..h(s));
+    return $r.b();
+  }
+
+  /// Go: `func ecdsa.VerifyASN1(pub *ecdsa.PublicKey, hash []byte, sig []byte) bool`.
+  bool verifyAsn1(CryptoEcdsaPublicKey pub, Uint8List hash, Uint8List sig) {
+    final $r = $callSync(
+        3196,
+        $W()
+          ..h(pub)
+          ..bytes(hash)
+          ..bytes(sig));
+    return $r.b();
+  }
 }

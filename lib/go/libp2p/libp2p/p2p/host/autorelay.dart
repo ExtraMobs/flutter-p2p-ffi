@@ -5,8 +5,71 @@ library;
 import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2pP2pHostAutorelayOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
+import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
+import 'package:p2p_ffi/go/io.dart' as $io;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/host.dart' as $host;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
+import 'package:p2p_ffi/go/libp2p/libp2p/p2p/net/swarm.dart' as $swarm;
+import 'package:p2p_ffi/go/prometheus/client_golang/prometheus.dart'
+    as $prometheus;
+import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
+
+/// Go: `autorelay.AutoRelay` (handle).
+class Libp2pP2pHostAutorelayAutoRelay extends $io.IoCloser
+    with
+        $crypto.CryptoDecrypterOpts$,
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$,
+        $expfmt.CommonExpfmtCloser$
+    implements
+        $crypto.CryptoDecrypterOpts,
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic,
+        $expfmt.CommonExpfmtCloser {
+  Libp2pP2pHostAutorelayAutoRelay.$h(super.$h) : super.$h();
+
+  /// Go: `func autorelay.NewAutoRelay(host host.Host, opts ...autorelay.Option) (*autorelay.AutoRelay, error)`.
+  factory Libp2pP2pHostAutorelayAutoRelay($host.Libp2pCoreHost host,
+      [List<Libp2pP2pHostAutorelayOption> opts = const []]) {
+    final $r = $callSync(
+        14416,
+        $W()
+          ..h(host)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+    return $r.hnn(Libp2pP2pHostAutorelayAutoRelay.$h);
+  }
+
+  /// Go: `func (*autorelay.AutoRelay).Close() error`.
+  void close() {
+    $callSync(14398, $W()..h(this));
+  }
+
+  /// Go: `func (*autorelay.AutoRelay).IsPeerInBackoff(peerID peer.ID) bool`.
+  bool isPeerInBackoff($peer.Libp2pCorePeerId peerId) {
+    final $r = $callSync(
+        14399,
+        $W()
+          ..h(this)
+          ..val(peerId));
+    return $r.b();
+  }
+
+  /// Go: `func (*autorelay.AutoRelay).Start()`.
+  void start() {
+    $callSync(14400, $W()..h(this));
+  }
+}
 
 /// Go: `autorelay.ClockWithInstantTimer` (handle).
 class Libp2pP2pHostAutorelayClockWithInstantTimer extends GoHandle
@@ -15,16 +78,172 @@ class Libp2pP2pHostAutorelayClockWithInstantTimer extends GoHandle
 }
 
 /// The methods of [Libp2pP2pHostAutorelayClockWithInstantTimer], mixed into every class Go also accepts as one.
-mixin Libp2pP2pHostAutorelayClockWithInstantTimer$ on GoHandle {}
+mixin Libp2pP2pHostAutorelayClockWithInstantTimer$ on GoHandle {
+  /// Go: `func (autorelay.ClockWithInstantTimer).InstantTimer(when time.Time) autorelay.InstantTimer`.
+  Libp2pP2pHostAutorelayInstantTimer instantTimer(DateTime when) {
+    final $r = $callSync(
+        14401,
+        $W()
+          ..h(this)
+          ..time(when));
+    return $r.hnn(Libp2pP2pHostAutorelayInstantTimer.$h);
+  }
+
+  /// Go: `func (autorelay.ClockWithInstantTimer).Now() time.Time`.
+  DateTime now() {
+    final $r = $callSync(14402, $W()..h(this));
+    return $r.p() ? $r.time() : $nil();
+  }
+
+  /// Go: `func (autorelay.ClockWithInstantTimer).Since(t time.Time) time.Duration`.
+  Duration since(DateTime t) {
+    final $r = $callSync(
+        14403,
+        $W()
+          ..h(this)
+          ..time(t));
+    return Duration(microseconds: $r.i64() ~/ 1000);
+  }
+}
+
+/// Go: `autorelay.InstantTimer` (handle).
+class Libp2pP2pHostAutorelayInstantTimer extends GoHandle
+    with Libp2pP2pHostAutorelayInstantTimer$ {
+  Libp2pP2pHostAutorelayInstantTimer.$h(super.$h);
+}
+
+/// The methods of [Libp2pP2pHostAutorelayInstantTimer], mixed into every class Go also accepts as one.
+mixin Libp2pP2pHostAutorelayInstantTimer$ on GoHandle {
+  /// Go: `func (autorelay.InstantTimer).Ch() <-chan time.Time`.
+  Stream<DateTime> ch() =>
+      $stream(14404, $W()..h(this)).map((r) => r.p() ? r.time() : $nil());
+
+  /// Go: `func (autorelay.InstantTimer).Reset(d time.Time) bool`.
+  bool reset(DateTime d) {
+    final $r = $callSync(
+        14405,
+        $W()
+          ..h(this)
+          ..time(d));
+    return $r.b();
+  }
+
+  /// Go: `func (autorelay.InstantTimer).Stop() bool`.
+  bool stop() {
+    final $r = $callSync(14406, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: type assertion `x.(*autorelay.RealTimer)`: null if the object is not one.
+  Libp2pP2pHostAutorelayRealTimer? asLibp2pP2pHostAutorelayRealTimer() {
+    final $r = $callSync(1436, $W()..h(this));
+    return $r.hn(Libp2pP2pHostAutorelayRealTimer.$h);
+  }
+
+  /// Go: type assertion `x.(*swarm.RealTimer)`: null if the object is not one.
+  $swarm.Libp2pP2pNetSwarmRealTimer? asLibp2pP2pNetSwarmRealTimer() {
+    final $r = $callSync(1437, $W()..h(this));
+    return $r.hn($swarm.Libp2pP2pNetSwarmRealTimer.$h);
+  }
+}
 
 /// Go: `autorelay.MetricsTracer` (handle).
 class Libp2pP2pHostAutorelayMetricsTracer extends GoHandle
     with Libp2pP2pHostAutorelayMetricsTracer$ {
   Libp2pP2pHostAutorelayMetricsTracer.$h(super.$h);
+
+  /// Go: `func autorelay.NewMetricsTracer(opts ...autorelay.MetricsTracerOption) autorelay.MetricsTracer`.
+  factory Libp2pP2pHostAutorelayMetricsTracer(
+      [List<Libp2pP2pHostAutorelayMetricsTracerOption> opts = const []]) {
+    final $r = $callSync(14417, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+    return $r.hnn(Libp2pP2pHostAutorelayMetricsTracer.$h);
+  }
 }
 
 /// The methods of [Libp2pP2pHostAutorelayMetricsTracer], mixed into every class Go also accepts as one.
-mixin Libp2pP2pHostAutorelayMetricsTracer$ on GoHandle {}
+mixin Libp2pP2pHostAutorelayMetricsTracer$ on GoHandle {
+  /// Go: `func (autorelay.MetricsTracer).CandidateAdded(cnt int)`.
+  void candidateAdded(int cnt) {
+    $callSync(
+        14407,
+        $W()
+          ..h(this)
+          ..i64(cnt));
+  }
+
+  /// Go: `func (autorelay.MetricsTracer).CandidateChecked(supportsCircuitV2 bool)`.
+  void candidateChecked(bool supportsCircuitV2) {
+    $callSync(
+        14408,
+        $W()
+          ..h(this)
+          ..b(supportsCircuitV2));
+  }
+
+  /// Go: `func (autorelay.MetricsTracer).CandidateRemoved(cnt int)`.
+  void candidateRemoved(int cnt) {
+    $callSync(
+        14409,
+        $W()
+          ..h(this)
+          ..i64(cnt));
+  }
+
+  /// Go: `func (autorelay.MetricsTracer).DesiredReservations(int)`.
+  void desiredReservations(int arg0) {
+    $callSync(
+        14410,
+        $W()
+          ..h(this)
+          ..i64(arg0));
+  }
+
+  /// Go: `func (autorelay.MetricsTracer).RelayAddressCount(int)`.
+  void relayAddressCount(int arg0) {
+    $callSync(
+        14411,
+        $W()
+          ..h(this)
+          ..i64(arg0));
+  }
+
+  /// Go: `func (autorelay.MetricsTracer).RelayAddressUpdated()`.
+  void relayAddressUpdated() {
+    $callSync(14412, $W()..h(this));
+  }
+
+  /// Go: `func (autorelay.MetricsTracer).RelayFinderStatus(isActive bool)`.
+  void relayFinderStatus(bool isActive) {
+    $callSync(
+        14413,
+        $W()
+          ..h(this)
+          ..b(isActive));
+  }
+
+  /// Go: `func (autorelay.MetricsTracer).ReservationEnded(cnt int)`.
+  void reservationEnded(int cnt) {
+    $callSync(
+        14414,
+        $W()
+          ..h(this)
+          ..i64(cnt));
+  }
+
+  /// Go: `func (autorelay.MetricsTracer).ReservationOpened(cnt int)`.
+  void reservationOpened(int cnt) {
+    $callSync(
+        14415,
+        $W()
+          ..h(this)
+          ..i64(cnt));
+  }
+}
+
+/// Go: `autorelay.MetricsTracerOption` (functional option; constructors in the package).
+final class Libp2pP2pHostAutorelayMetricsTracerOption extends GoOption {
+  Libp2pP2pHostAutorelayMetricsTracerOption.$(super.$i, super.$a);
+}
 
 /// Go: `autorelay.Option` (functional option; constructors in the package).
 final class Libp2pP2pHostAutorelayOption extends GoOption {
@@ -32,10 +251,100 @@ final class Libp2pP2pHostAutorelayOption extends GoOption {
 }
 
 /// Go: `autorelay.PeerSource` (handle).
-class Libp2pP2pHostAutorelayPeerSource extends $crypto.CryptoPrivateKey
-    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
-    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+class Libp2pP2pHostAutorelayPeerSource extends $crypto.CryptoDecrypterOpts
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic {
   Libp2pP2pHostAutorelayPeerSource.$h(super.$h) : super.$h();
+}
+
+/// Go: `autorelay.RealClock`.
+final class Libp2pP2pHostAutorelayRealClock implements GoDto {
+  Libp2pP2pHostAutorelayRealClock();
+  Libp2pP2pHostAutorelayRealClock.$dec($R r);
+
+  @override
+  void $enc($W w) {}
+
+  /// Go: `func (autorelay.RealClock).InstantTimer(when time.Time) autorelay.InstantTimer`.
+  Libp2pP2pHostAutorelayInstantTimer instantTimer(DateTime when) {
+    final $r = $callSync(
+        14418,
+        $W()
+          ..dto(this)
+          ..time(when));
+    return $r.hnn(Libp2pP2pHostAutorelayInstantTimer.$h);
+  }
+
+  /// Go: `func (autorelay.RealClock).Now() time.Time`.
+  DateTime now() {
+    final $r = $callSync(14419, $W()..dto(this));
+    return $r.p() ? $r.time() : $nil();
+  }
+
+  /// Go: `func (autorelay.RealClock).Since(t time.Time) time.Duration`.
+  Duration since(DateTime t) {
+    final $r = $callSync(
+        14420,
+        $W()
+          ..dto(this)
+          ..time(t));
+    return Duration(microseconds: $r.i64() ~/ 1000);
+  }
+}
+
+/// Go: `autorelay.RealTimer` (handle).
+class Libp2pP2pHostAutorelayRealTimer extends Libp2pP2pHostAutorelayInstantTimer
+    with
+        $crypto.CryptoDecrypterOpts$,
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $xml.EncodingXmlToken$,
+        $proto.ProtobufProtoGeneratedMessage$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $peertask.PeertaskqueuePeertaskTopic$,
+        $swarm.Libp2pP2pNetSwarmInstantTimer$
+    implements
+        $crypto.CryptoDecrypterOpts,
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $xml.EncodingXmlToken,
+        $proto.ProtobufProtoGeneratedMessage,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $peertask.PeertaskqueuePeertaskTopic,
+        $swarm.Libp2pP2pNetSwarmInstantTimer {
+  Libp2pP2pHostAutorelayRealTimer.$h(super.$h) : super.$h();
+
+  /// Go: `func (autorelay.RealTimer).Ch() <-chan time.Time`.
+  Stream<DateTime> ch() =>
+      $stream(14421, $W()..h(this)).map((r) => r.p() ? r.time() : $nil());
+
+  /// Go: `func (autorelay.RealTimer).Reset(d time.Time) bool`.
+  bool reset(DateTime d) {
+    final $r = $callSync(
+        14422,
+        $W()
+          ..h(this)
+          ..time(d));
+    return $r.b();
+  }
+
+  /// Go: `func (autorelay.RealTimer).Stop() bool`.
+  bool stop() {
+    final $r = $callSync(14423, $W()..h(this));
+    return $r.b();
+  }
 }
 
 /// Go: the option constructors of `github.com/libp2p/go-libp2p/p2p/host/autorelay` (`go.libp2p.libp2p.p2p.host.autorelay.options`).
@@ -87,6 +396,11 @@ extension GoLibp2pLibp2pP2pHostAutorelayOptionsApi
   Libp2pP2pHostAutorelayOption withPeerSource(
           Libp2pP2pHostAutorelayPeerSource f) =>
       Libp2pP2pHostAutorelayOption.$(9, (w) => w..h(f));
+
+  /// Go: `autorelay.WithRegisterer`.
+  Libp2pP2pHostAutorelayMetricsTracerOption withRegisterer(
+          $prometheus.ClientGolangPrometheusRegisterer reg) =>
+      Libp2pP2pHostAutorelayMetricsTracerOption.$(0, (w) => w..h(reg));
 
   /// Go: `autorelay.WithStaticRelays`.
   Libp2pP2pHostAutorelayOption withStaticRelays(

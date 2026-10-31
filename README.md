@@ -261,12 +261,12 @@ returning a `Stream`; their result types are named after their Go packages
   and the `p2p_shm` into `native/` (not in git). Needs Go (`GOTOOLCHAIN=auto` downloads the
   pinned one) and a C compiler for the `p2p_shm`: mingw-w64 on Windows, gcc on linux, the NDK
   for Android.
-- **To expose more of Go:** a line `package.*` in `go/gen/roots.txt` takes every exported
-  function, variable and method of the package; a symbol the generator cannot bridge is
-  skipped (API.md lists it with the reason), and `go/gen/ignore_roots.txt` drops, with the
-  reason, what must not cross. The other lines of `roots.txt` are the special roots
-  (`package.Function` of a package without `.*`, a struct field, a method inherited by
-  embedding). Then build.
+- **What crosses:** every package of the host's build on all its targets (Windows, linux,
+  Android) enters whole by itself: every exported function, variable and method; a symbol
+  the generator cannot bridge is skipped (API.md lists it with the reason), and
+  `go/gen/ignore_roots.txt` drops, with the reason, what must not cross. `go/gen/roots.txt`
+  keeps only the special roots (a symbol of an ignored package, a struct field, a method
+  inherited by embedding, a checked callback). Then build.
 - `go run ./gen -check` (in `go/`) fails when the generated files are out of date.
 - **Upstream patches:** the build patches two kubo/boxo bugs and stops if the patched code
   moves in a new version; `go/upstream_test.go` fails once upstream fixes them, and then the
