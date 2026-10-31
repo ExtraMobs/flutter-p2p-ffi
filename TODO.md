@@ -194,10 +194,12 @@ examples removed.
   kubo's `unixfs get` as "could not resolve name", not `context.Canceled` (19); after
   `P2pService.restart()` the old `context.background()` is a stale handle too (19); on
   Windows Go's monotonic clock reads a loopback ping as 0 µs (14).
-- Pending: in lesson 10's sequence, a second `mfs.File.open(write)` while a writer is
-  open (in Go it waits for the lock) ended with the p2p_host gone (exit code 143, empty
-  crash log). An isolated repro (`open` twice with a Dart `.timeout`) does not crash.
-  The lesson no longer does it; to look into.
+- Looked into (2026-10-31), not a bridge bug: in lesson 10's sequence, a second
+  `mfs.File.open(write)` while a writer is open, given up by a Dart `.timeout`, keeps
+  waiting in Go (`File.Open` takes `desclock` without looking at the context); when the
+  first writer closes it takes the lock and returns a descriptor nobody closes, so every
+  later open waits for good. The lesson hung until killed from outside (143 = SIGTERM,
+  hence the empty crash log). Lesson 10 now says so.
 - Checked on Windows: the 63 lessons run; dart analyze, dart test (113), go vet, go test,
   gen -check. The public-network lesson fetched a CID published by the IPFS gateway
   checker (the same CID was checked through a local IPFS Desktop first).

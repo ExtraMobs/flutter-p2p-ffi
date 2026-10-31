@@ -126,7 +126,10 @@ Future<void> main() async {
             .drain<void>());
     // (Opening a file for writing while another descriptor is open does not
     // fail: it waits until the first is closed, as in Go. Close each
-    // descriptor in a finally, or the next open waits for good.)
+    // descriptor in a finally, or the next open waits for good. A Dart
+    // .timeout() on that open does not undo it (lesson 19): Go's Open ignores
+    // the context while it waits, takes the lock when the first closes and
+    // returns a descriptor nobody closes, so every later open waits.)
     await mistake('removing a folder that is not empty',
         why: 'files rm refuses folders unless told to remove what is inside',
         instead: 'filesRm(..., recursive: true)',

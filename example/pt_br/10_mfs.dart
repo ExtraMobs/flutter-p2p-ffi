@@ -127,7 +127,10 @@ Future<void> main() async {
             .drain<void>());
     // (Abrir um arquivo para escrita enquanto outro descritor está aberto não
     // falha: espera o primeiro ser fechado, como no Go. Feche cada descritor
-    // num finally, senão a próxima abertura espera para sempre.)
+    // num finally, senão a próxima abertura espera para sempre. Um .timeout()
+    // do Dart nessa abertura não a desfaz (lição 19): o Open do Go ignora o
+    // contexto enquanto espera, pega a trava quando o primeiro fecha e devolve
+    // um descritor que ninguém fecha, e toda abertura seguinte espera.)
     await mistake('remover uma pasta que não está vazia',
         why: 'o files rm recusa pastas, a menos que você mande remover o que '
             'tem dentro',
