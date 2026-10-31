@@ -1,5 +1,51 @@
 # Pendências do ipfs_ffi
 
+## Done: the host's whole build, namespaces by author (0.29.0)
+
+The owner's decisions (2026-10-28 to 2026-10-30): every package enters as far as the
+generator can bridge it, roots.txt keeps only the special roots and ignore_roots.txt
+drops what must not cross; one `go` constant with the package's path after its URL's
+host, the author first; constants and options in layers under the namespace.
+
+- **The universe:** every package of the host's build on all four targets enters whole
+  by itself (`universe` in `go/gen/main.go`: 871 packages; internal, vendored, the host
+  and linux's fuse stay out). roots.txt keeps the special roots and the 3 packages the
+  build does not reach (`unixfs/importer`, `go-car/v2/blockstore`, `bsadapter`);
+  ignore_roots.txt drops `runtime`, `runtime/*`, `syscall` and `os/signal` (they act on
+  the p2p_host process).
+- **Namespaces:** `go.<author>.<path>` (`go.ipfs.boxo.mfs`, `go.ipfs.cid`,
+  `go.libp2p.libp2p.core.peer`, `go.x.crypto`, the stdlib beside the authors:
+  `go.context`); a module that is only a host takes its name as the author
+  (`go.opencensus.trace`). Constants are in `consts` or `enums`
+  (`go.ipfs.cid.consts.raw`, `go.multiformats.multicodec.enums.raw`), functional options
+  and `...Option` values in `options` (`go.ipfs.boxo.mfs.options.withMaxLinks`); any other
+  member with a sub-package's name gets a `$` (`go.cockroachdb.errors.join$`).
+- **Classes:** when two types would get the same class, the longer Go name keeps it
+  after a `_` (`Grpc_BackoffConfig`); a class two modules declare (`bbloom.Bloom`) leaves
+  the single import and is reached through its origin's library (API.md).
+- **Left out, with the reason in API.md:** a declaration some target lacks or declares
+  otherwise (linux broke on Windows' `syscall.SysProcAttr`); a struct holding a lock by
+  value (go vet: `sync.Mutex`, `tls.Config`...; by pointer it is a handle); a method of a
+  kubo command's output type, whose class stays the command's DTO
+  (`dagcmd.DagStatSummary`).
+- **Size:** `zz_generated.go` 1.78 → 13.0 MB; `lib/go` 172 → 802 files (380 k lines);
+  API.md 5798 → 38437 rows; the Windows `p2p_host.exe` 106 MB; the release APK
+  (arm64 only) 38.0 MB, `libp2p_host.so` 108 MB unpacked, 31.9 MB in it. A generator run
+  takes ~25 min.
+- **Lessons:** migrated in the three languages; lesson 01 says why it builds
+  `blocks.Block` in Dart although `blocks.NewBlockWithCid` is exposed now (it gives a
+  handle, `BlockFormatBasicBlock`, not the value `bs.put` takes).
+- Checked: go vet ./..., go test ./..., gen -check, the Windows, linux and Android
+  builds, dart analyze (lib, test, tool and the three languages), the suite on Windows
+  and linux (WSL, the host cross-built) 120/120, the 63 lessons on Windows, the
+  integration tests on the emulator (Android 17, x86_64): ipfs 4/4, libp2p 1/1,
+  network 1/1.
+
+Pending:
+- An option inside a DTO has no Go decoder (`circuitv2/relay.Option`).
+- The handles that extend empty interfaces (`type X any`: every handle is a
+  `CryptoPrivateKey$`...); the owner asked to leave them for now.
+
 ## Done: namespaces as classes, `pkg.*` and ignore_roots.txt (0.28.0)
 
 The owner's decisions (2026-10-28): one import with a namespace tree (option a); every
@@ -54,23 +100,6 @@ lowerCamelCase as Dart names constants and getters.
 - Checked on Windows: go vet, go test, gen -check, dart analyze, the suite and the 63
   lessons.
 
-Pending:
-- **The universe** (the owner's item 1; inverted on the owner's request of 2026-10-30,
-  not released yet): every package of the host's build on all four targets enters whole
-  by itself (`universe` in `go/gen/main.go`: 871 packages; internal, vendored, the host
-  and linux's fuse stay out); roots.txt keeps the special roots and the 3 packages the
-  host's build does not reach (`unixfs/importer`, `go-car/v2/blockstore`, `bsadapter`);
-  ignore_roots.txt drops `runtime`, `runtime/*` and `syscall`. A declaration some target
-  lacks or declares otherwise is left out (API.md: "declared otherwise or missing on some
-  target"; linux broke on Windows' `syscall.SysProcAttr`). A kubo command's output type
-  keeps its class for the DTO (`dagcmd.DagStatSummary`).
-  - Size: `zz_generated.go` 1.78 → 13.0 MB; `lib/go` 172 → 803 files (380 k lines); API.md
-    5798 → 38438 rows; the Windows `p2p_host.exe` 106 MB. A run takes ~18 min.
-  - Checked on Windows: go test ./gen, the Windows and linux builds (`-gcflags=-e`), the
-    Android build (arm64, x86_64), `dart analyze lib test tool`, the suite (120).
-  - Open: the lessons still use the old names (`goKubo`...; they migrate before the
-    push); an option inside a DTO has no Go decoder (`circuitv2/relay.Option`); the
-    handles that extend empty interfaces (`type X any`).
 
 ## Done: go-multihash, go-multibase and the lessons' constants (0.27.0)
 
