@@ -1,5 +1,26 @@
 # Pendências do ipfs_ffi
 
+## Done: functional options inside a struct (0.31.0)
+
+The owner's decision (2026-10-31): a struct's field of functional options crosses
+instead of being skipped (`config.Config.RelayServiceOpts`, `basichost.HostOpts`,
+kubo's `libp2p.Libp2pOpts.Opts`, `namesys.PublishOptions.IPNSOptions`...).
+
+- **Go → Dart:** an option Go made comes as its handle, in the option's class
+  (`$optOf`); sent back, it goes as the constructor index `0xFFFFFFFF` + that handle
+  (WIRE.md). A `[]Option` result crosses the same way (two functions entered:
+  `config.Import.MFSRootOptions`, kubo's `libp2p.Host`).
+- **Dart → Go:** inside a struct, options are read with the call that carries it (the
+  reader knows its `req`); their sinks close when the call ends, as a parameter's. A value
+  a callback returns cannot carry them (an error). A map of options stays skipped.
+- **Lesson 10:** the pending crash (0.26.0) was not a bridge bug: a second
+  `mfs.File.open(write)` given up by a Dart `.timeout` kept waiting in Go and later held
+  the lock for good; the lesson says so.
+- Tests: `TestDecOptsIn` (Go); "an option Go made, read from a struct, goes back to Go"
+  (kubo's `BandwidthCounter` into `libp2p.New`: the reporter counts the traffic).
+- Checked: go vet ./..., go test ./..., the generator run, the Windows build, dart analyze
+  (lib, test, tool and the three languages), the suite on Windows 121/121, the 63 lessons.
+
 ## Done: an interface without methods is any handle (0.30.0)
 
 The owner's decision (2026-10-31): a named empty interface (`crypto.PrivateKey`,
@@ -54,10 +75,6 @@ host, the author first; constants and options in layers under the namespace.
   and linux (WSL, the host cross-built) 120/120, the 63 lessons on Windows, the
   integration tests on the emulator (Android 17, x86_64): ipfs 4/4, libp2p 1/1,
   network 1/1.
-
-Pending:
-- A struct read from Go and sent back loses its fields of functional options
-  (`config.Config.RelayServiceOpts`, skipped: an option crosses only as a call argument).
 
 ## Done: namespaces as classes, `pkg.*` and ignore_roots.txt (0.28.0)
 
