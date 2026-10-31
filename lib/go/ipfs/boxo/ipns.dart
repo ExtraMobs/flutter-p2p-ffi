@@ -11,34 +11,15 @@ import 'package:p2p_ffi/src/go.dart'
         GoIpfsBoxoIpnsEnums,
         GoIpfsBoxoIpnsOptions;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/boxo/path.dart' as $path;
 import 'package:p2p_ffi/go/ipfs/cid.dart' as $cid;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
-import 'package:p2p_ffi/go/libp2p/libp2p/core/crypto.dart' as $crypto2;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peerstore.dart' as $peerstore;
 
 /// Go: `ipns.MetadataValue` (handle).
-class BoxoIpnsMetadataValue extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  BoxoIpnsMetadataValue.$h(super.$h) : super.$h();
+class BoxoIpnsMetadataValue extends GoHandle {
+  BoxoIpnsMetadataValue.$h(super.$h);
 
   /// Go: `func (ipns.MetadataValue).AsBool() (bool, error)`.
   bool asBool() {
@@ -137,25 +118,11 @@ final class BoxoIpnsOption extends GoOption {
 }
 
 /// Go: `ipns.Record` (handle).
-class BoxoIpnsRecord extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  BoxoIpnsRecord.$h(super.$h) : super.$h();
+class BoxoIpnsRecord extends GoHandle {
+  BoxoIpnsRecord.$h(super.$h);
 
   /// Go: `func ipns.NewRecord(sk crypto.PrivKey, value path.Path, seq uint64, eol time.Time, ttl time.Duration, opts ...ipns.Option) (*ipns.Record, error)`.
-  factory BoxoIpnsRecord($crypto2.Libp2pCoreCryptoPrivKey sk,
+  factory BoxoIpnsRecord($crypto.Libp2pCoreCryptoPrivKey sk,
       $path.BoxoPath value, int seq, DateTime eol, Duration ttl,
       [List<BoxoIpnsOption> opts = const []]) {
     final $r = $callSync(
@@ -191,9 +158,9 @@ class BoxoIpnsRecord extends $crypto.CryptoDecrypterOpts
   }
 
   /// Go: `func (*ipns.Record).PubKey() (crypto.PubKey, error)`.
-  $crypto2.Libp2pCoreCryptoPubKey pubKey() {
+  $crypto.Libp2pCoreCryptoPubKey pubKey() {
     final $r = $callSync(9989, $W()..h(this));
-    return $r.hnn($crypto2.Libp2pCoreCryptoPubKey.$h);
+    return $r.hnn($crypto.Libp2pCoreCryptoPubKey.$h);
   }
 
   /// Go: `func (*ipns.Record).Sequence() (uint64, error)`.
@@ -421,14 +388,14 @@ class BoxoIpnsErrUnrecognizedValidity extends GolangException {
 /// Go: the package-level members of `github.com/ipfs/boxo/ipns` (`go.ipfs.boxo.ipns`).
 extension GoIpfsBoxoIpnsApi on GoIpfsBoxoIpns {
   /// Go: `func ipns.ExtractPublicKey(rec *ipns.Record, name ipns.Name) (crypto.PubKey, error)`.
-  $crypto2.Libp2pCoreCryptoPubKey extractPublicKey(
+  $crypto.Libp2pCoreCryptoPubKey extractPublicKey(
       BoxoIpnsRecord rec, BoxoIpnsName name) {
     final $r = $callSync(
         9967,
         $W()
           ..h(rec)
           ..val(name));
-    return $r.hnn($crypto2.Libp2pCoreCryptoPubKey.$h);
+    return $r.hnn($crypto.Libp2pCoreCryptoPubKey.$h);
   }
 
   /// Go: `func ipns.MarshalRecord(rec *ipns.Record) ([]byte, error)`.
@@ -468,7 +435,7 @@ extension GoIpfsBoxoIpnsApi on GoIpfsBoxoIpns {
   }
 
   /// Go: `func ipns.Validate(rec *ipns.Record, pk crypto.PubKey) error`.
-  void validate(BoxoIpnsRecord rec, $crypto2.Libp2pCoreCryptoPubKey pk) {
+  void validate(BoxoIpnsRecord rec, $crypto.Libp2pCoreCryptoPubKey pk) {
     $callSync(
         9996,
         $W()

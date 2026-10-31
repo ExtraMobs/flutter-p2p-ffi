@@ -6,32 +6,13 @@ import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/go.dart' show GoIpfsIpldCborEncoding;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/polydawn/refmt.dart' as $refmt;
 import 'package:p2p_ffi/go/polydawn/refmt/cbor.dart' as $cbor;
 import 'package:p2p_ffi/go/polydawn/refmt/obj/atlas.dart' as $atlas;
 
 /// Go: `encoding.Marshaller` (handle).
-class IpldCborEncodingMarshaller extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  IpldCborEncodingMarshaller.$h(super.$h) : super.$h();
+class IpldCborEncodingMarshaller extends GoHandle {
+  IpldCborEncodingMarshaller.$h(super.$h);
 
   /// Go: `func (*encoding.Marshaller).Encode(obj interface{}, w io.Writer) error`.
   void encode(Object? obj, GoHandle? w) {
@@ -55,23 +36,7 @@ class IpldCborEncodingMarshaller extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `encoding.PooledCloner` (handle).
-class IpldCborEncodingPooledCloner extends $refmt.RefmtCloner
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class IpldCborEncodingPooledCloner extends $refmt.RefmtCloner {
   IpldCborEncodingPooledCloner.$h(super.$h) : super.$h();
 
   /// Go: `func (*encoding.PooledCloner).Clone(a interface{}, b interface{}) error`.
@@ -86,22 +51,8 @@ class IpldCborEncodingPooledCloner extends $refmt.RefmtCloner
 }
 
 /// Go: `encoding.PooledMarshaller` (handle).
-class IpldCborEncodingPooledMarshaller extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  IpldCborEncodingPooledMarshaller.$h(super.$h) : super.$h();
+class IpldCborEncodingPooledMarshaller extends GoHandle {
+  IpldCborEncodingPooledMarshaller.$h(super.$h);
 
   /// Go: `func (*encoding.PooledMarshaller).Encode(obj interface{}, w io.Writer) error`.
   void encode(Object? obj, GoHandle? w) {
@@ -125,22 +76,8 @@ class IpldCborEncodingPooledMarshaller extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `encoding.PooledUnmarshaller` (handle).
-class IpldCborEncodingPooledUnmarshaller extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  IpldCborEncodingPooledUnmarshaller.$h(super.$h) : super.$h();
+class IpldCborEncodingPooledUnmarshaller extends GoHandle {
+  IpldCborEncodingPooledUnmarshaller.$h(super.$h);
 
   /// Go: `func (*encoding.PooledUnmarshaller).Decode(r io.Reader, obj interface{}) error`.
   void decode(Object r, Object? obj) {
@@ -164,22 +101,8 @@ class IpldCborEncodingPooledUnmarshaller extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `encoding.Unmarshaller` (handle).
-class IpldCborEncodingUnmarshaller extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  IpldCborEncodingUnmarshaller.$h(super.$h) : super.$h();
+class IpldCborEncodingUnmarshaller extends GoHandle {
+  IpldCborEncodingUnmarshaller.$h(super.$h);
 
   /// Go: `func (*encoding.Unmarshaller).Decode(r io.Reader, obj interface{}) (err error)`.
   void decode(Object r, Object? obj) {

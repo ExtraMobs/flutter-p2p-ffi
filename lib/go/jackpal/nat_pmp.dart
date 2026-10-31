@@ -7,11 +7,6 @@ import 'dart:typed_data';
 import 'package:p2p_ffi/src/go.dart'
     show GoJackpalNatPmp, GoJackpalNatPmpConsts;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 
 /// Go: `natpmp.AddPortMappingResult`.
 final class NatPmpAddPortMappingResult implements GoDto {
@@ -54,22 +49,8 @@ final class NatPmpAddPortMappingResult implements GoDto {
 }
 
 /// Go: `natpmp.Client` (handle).
-class NatPmpClient extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  NatPmpClient.$h(super.$h) : super.$h();
+class NatPmpClient extends GoHandle {
+  NatPmpClient.$h(super.$h);
 
   /// Go: `func natpmp.NewClient(gateway net.IP) (nat *natpmp.Client)`.
   factory NatPmpClient(Uint8List gateway) {

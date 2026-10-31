@@ -6,14 +6,9 @@ import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto2;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
 import 'package:p2p_ffi/go/ipfs/cid.dart' as $cid;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 import 'package:p2p_ffi/go/ipfs/kubo/routing.dart' as $routing2;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/routing.dart' as $routing;
@@ -204,26 +199,12 @@ final class Libp2pRoutingHelpersCompose implements GoDto {
 class Libp2pRoutingHelpersLimitedValueStore
     extends $routing.Libp2pCoreRoutingValueStore
     with
-        $crypto2.CryptoDecrypterOpts$,
-        $crypto2.CryptoPrivateKey$,
-        $crypto2.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
         $io.IoCloser$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $routing.Libp2pCoreRoutingPubKeyFetcher$,
         Libp2pRoutingHelpersBootstrap$,
         $expfmt.CommonExpfmtCloser$
     implements
-        $crypto2.CryptoDecrypterOpts,
-        $crypto2.CryptoPrivateKey,
-        $crypto2.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
         $io.IoCloser,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $routing.Libp2pCoreRoutingPubKeyFetcher,
         Libp2pRoutingHelpersBootstrap,
         $expfmt.CommonExpfmtCloser {

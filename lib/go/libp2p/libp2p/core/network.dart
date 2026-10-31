@@ -12,12 +12,7 @@ import 'package:p2p_ffi/src/go.dart'
         GoLibp2pLibp2pCoreNetworkEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto2;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peerstore.dart' as $peerstore;
@@ -378,22 +373,8 @@ final class Libp2pCoreNetworkConnectionState implements GoDto {
 }
 
 /// Go: `network.DialRanker` (handle).
-class Libp2pCoreNetworkDialRanker extends $crypto2.CryptoDecrypterOpts
-    with
-        $crypto2.CryptoPrivateKey$,
-        $crypto2.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto2.CryptoPrivateKey,
-        $crypto2.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  Libp2pCoreNetworkDialRanker.$h(super.$h) : super.$h();
+class Libp2pCoreNetworkDialRanker extends GoHandle {
+  Libp2pCoreNetworkDialRanker.$h(super.$h);
 }
 
 /// Go: `network.Dialer` (handle).
@@ -1904,22 +1885,8 @@ mixin Libp2pCoreNetworkStream$ on GoHandle {
 }
 
 /// Go: `network.StreamHandler` (handle).
-class Libp2pCoreNetworkStreamHandler extends $crypto2.CryptoDecrypterOpts
-    with
-        $crypto2.CryptoPrivateKey$,
-        $crypto2.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto2.CryptoPrivateKey,
-        $crypto2.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  Libp2pCoreNetworkStreamHandler.$h(super.$h) : super.$h();
+class Libp2pCoreNetworkStreamHandler extends GoHandle {
+  Libp2pCoreNetworkStreamHandler.$h(super.$h);
 }
 
 /// Go: `network.StreamManagementScope` (handle).

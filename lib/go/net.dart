@@ -7,13 +7,8 @@ import 'dart:typed_data';
 import 'package:p2p_ffi/src/go.dart' show GoNet, GoNetConsts, GoNetEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/crypto/tls.dart' as $tls;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/sec.dart' as $sec;
 import 'package:p2p_ffi/go/libp2p/libp2p/p2p/protocol/circuitv2/client.dart'
     as $client;
@@ -257,25 +252,11 @@ mixin NetConn$ on GoHandle {
 /// Go: `net.Dialer` (handle).
 class NetDialer extends $tcp.Libp2pP2pTransportTcpContextDialer
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $v32.TransportV3Dialer$,
         $v42.TransportV4Dialer$,
         $proxy.NetProxyContextDialer$,
         $proxy.NetProxyDialer$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $v32.TransportV3Dialer,
         $v42.TransportV4Dialer,
         $proxy.NetProxyContextDialer,
@@ -427,27 +408,13 @@ final class NetIpAddr implements GoDto {
 /// Go: `net.IPConn` (handle).
 class NetIpConn extends NetConn
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
         $io.IoCloser$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         NetPacketConn$,
         $datachannel.DatachannelReadDeadliner$,
         $datachannel.DatachannelWriteDeadliner$,
         $expfmt.CommonExpfmtCloser$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
         $io.IoCloser,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         NetPacketConn,
         $datachannel.DatachannelReadDeadliner,
         $datachannel.DatachannelWriteDeadliner,
@@ -756,23 +723,7 @@ final class NetKeepAliveConfig implements GoDto {
 }
 
 /// Go: `net.ListenConfig` (handle).
-class NetListenConfig extends $v42.TransportV4ListenConfig
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class NetListenConfig extends $v42.TransportV4ListenConfig {
   NetListenConfig.$h(super.$h) : super.$h();
 
   /// Go: `func (*net.ListenConfig).Listen(ctx context.Context, network string, address string) (net.Listener, error)`.
@@ -1025,23 +976,7 @@ mixin NetPacketConn$ on GoHandle {
 }
 
 /// Go: `net.Resolver` (handle).
-class NetResolver extends $multiaddr_dns.MultiaddrDnsBasicResolver
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class NetResolver extends $multiaddr_dns.MultiaddrDnsBasicResolver {
   NetResolver.$h(super.$h) : super.$h();
 
   /// Go: `func (*net.Resolver).LookupAddr(ctx context.Context, addr string) ([]string, error)`.
@@ -1285,31 +1220,17 @@ final class NetTcpAddr implements GoDto {
 /// Go: `net.TCPConn` (handle).
 class NetTcpConn extends $v32.TransportV3TcpConn
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
         $io.IoCloser$,
         $io.IoReaderFrom$,
         $io.IoWriterTo$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $datachannel.DatachannelReadDeadliner$,
         $datachannel.DatachannelWriteDeadliner$,
         $expfmt.CommonExpfmtCloser$,
         $v42.TransportV4TcpConn$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
         $io.IoCloser,
         $io.IoReaderFrom,
         $io.IoWriterTo,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $datachannel.DatachannelReadDeadliner,
         $datachannel.DatachannelWriteDeadliner,
         $expfmt.CommonExpfmtCloser,
@@ -1494,26 +1415,8 @@ class NetTcpConn extends $v32.TransportV3TcpConn
 
 /// Go: `net.TCPListener` (handle).
 class NetTcpListener extends NetListener
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $io.IoCloser$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $io.IoCloser,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $io.IoCloser$, $expfmt.CommonExpfmtCloser$
+    implements $io.IoCloser, $expfmt.CommonExpfmtCloser {
   NetTcpListener.$h(super.$h) : super.$h();
 
   /// Go: `func (*net.TCPListener).Accept() (net.Conn, error)`.
@@ -1612,14 +1515,7 @@ final class NetUdpAddr implements GoDto {
 /// Go: `net.UDPConn` (handle).
 class NetUdpConn extends $v32.TransportV3UdpConn
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
         $io.IoCloser$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         NetConn$,
         NetPacketConn$,
         $datachannel.DatachannelReadDeadliner$,
@@ -1628,14 +1524,7 @@ class NetUdpConn extends $v32.TransportV3UdpConn
         $expfmt.CommonExpfmtCloser$,
         $quic_go.QuicGoOobCapablePacketConn$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
         $io.IoCloser,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         NetConn,
         NetPacketConn,
         $datachannel.DatachannelReadDeadliner,
@@ -1895,27 +1784,13 @@ final class NetUnixAddr implements GoDto {
 /// Go: `net.UnixConn` (handle).
 class NetUnixConn extends NetConn
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
         $io.IoCloser$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         NetPacketConn$,
         $datachannel.DatachannelReadDeadliner$,
         $datachannel.DatachannelWriteDeadliner$,
         $expfmt.CommonExpfmtCloser$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
         $io.IoCloser,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         NetPacketConn,
         $datachannel.DatachannelReadDeadliner,
         $datachannel.DatachannelWriteDeadliner,
@@ -2099,26 +1974,8 @@ class NetUnixConn extends NetConn
 
 /// Go: `net.UnixListener` (handle).
 class NetUnixListener extends NetListener
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $io.IoCloser$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $io.IoCloser,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $io.IoCloser$, $expfmt.CommonExpfmtCloser$
+    implements $io.IoCloser, $expfmt.CommonExpfmtCloser {
   NetUnixListener.$h(super.$h) : super.$h();
 
   /// Go: `func (*net.UnixListener).Accept() (net.Conn, error)`.

@@ -4,40 +4,15 @@ library;
 
 import 'package:p2p_ffi/src/go.dart' show GoLog, GoLogConsts;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
 import 'package:p2p_ffi/go/fx.dart' as $fx;
 import 'package:p2p_ffi/go/go_logr/stdr.dart' as $stdr;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/grpc/grpclog.dart' as $grpclog;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/kr/pretty.dart' as $pretty;
 
 /// Go: `log.Logger` (handle).
 class LogLogger extends $grpclog.GrpcGrpclogLogger
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $fx.FxPrinter$,
-        $stdr.StdrStdLogger$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $pretty.PrettyPrintfer$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $fx.FxPrinter,
-        $stdr.StdrStdLogger,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $pretty.PrettyPrintfer {
+    with $fx.FxPrinter$, $stdr.StdrStdLogger$, $pretty.PrettyPrintfer$
+    implements $fx.FxPrinter, $stdr.StdrStdLogger, $pretty.PrettyPrintfer {
   LogLogger.$h(super.$h) : super.$h();
 
   /// Go: `func (*log.Logger).Fatal(v ...any)`.

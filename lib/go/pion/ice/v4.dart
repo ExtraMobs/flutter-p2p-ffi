@@ -9,13 +9,8 @@ import 'package:p2p_ffi/src/go.dart'
     show GoPionIceV4, GoPionIceV4Consts, GoPionIceV4Enums, GoPionIceV4Options;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 import 'package:p2p_ffi/go/ipfs/kubo/core/node/helpers.dart' as $helpers;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/libp2p/libp2p/p2p/transport/webrtc/udpmux.dart'
     as $udpmux;
 import 'package:p2p_ffi/go/net.dart' as $net;
@@ -28,24 +23,8 @@ import 'package:p2p_ffi/go/x/net/proxy.dart' as $proxy;
 
 /// Go: `ice.Agent` (handle).
 class IceV4Agent extends $io.IoCloser
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   IceV4Agent.$h(super.$h) : super.$h();
 
   /// Go: `func ice.NewAgent(config *ice.AgentConfig) (*ice.Agent, error)`.
@@ -702,24 +681,8 @@ final class IceV4CandidateExtension implements GoDto {
 
 /// Go: `ice.CandidateHost` (handle).
 class IceV4CandidateHost extends IceV4Candidate
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $helpers.KuboCoreNodeHelpersMetricsCtx$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $helpers.KuboCoreNodeHelpersMetricsCtx,
-        $peertask.PeertaskqueuePeertaskTopic {
+    with $helpers.KuboCoreNodeHelpersMetricsCtx$
+    implements $helpers.KuboCoreNodeHelpersMetricsCtx {
   IceV4CandidateHost.$h(super.$h) : super.$h();
 
   /// Go: `func ice.NewCandidateHost(config *ice.CandidateHostConfig) (*ice.CandidateHost, error)`.
@@ -986,22 +949,8 @@ final class IceV4CandidateHostConfig implements GoDto {
 }
 
 /// Go: `ice.CandidatePair` (handle).
-class IceV4CandidatePair extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  IceV4CandidatePair.$h(super.$h) : super.$h();
+class IceV4CandidatePair extends GoHandle {
+  IceV4CandidatePair.$h(super.$h);
 
   /// Go: `func (*ice.CandidatePair).CurrentRoundTripTime() float64`.
   double currentRoundTripTime() {
@@ -1367,24 +1316,8 @@ final class IceV4CandidatePairStats implements GoDto {
 
 /// Go: `ice.CandidatePeerReflexive` (handle).
 class IceV4CandidatePeerReflexive extends IceV4Candidate
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $helpers.KuboCoreNodeHelpersMetricsCtx$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $helpers.KuboCoreNodeHelpersMetricsCtx,
-        $peertask.PeertaskqueuePeertaskTopic {
+    with $helpers.KuboCoreNodeHelpersMetricsCtx$
+    implements $helpers.KuboCoreNodeHelpersMetricsCtx {
   IceV4CandidatePeerReflexive.$h(super.$h) : super.$h();
 
   /// Go: `func ice.NewCandidatePeerReflexive(config *ice.CandidatePeerReflexiveConfig) (*ice.CandidatePeerReflexive, error)`.
@@ -1693,24 +1626,8 @@ final class IceV4CandidateRelatedAddress implements GoDto {
 
 /// Go: `ice.CandidateRelay` (handle).
 class IceV4CandidateRelay extends IceV4Candidate
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $helpers.KuboCoreNodeHelpersMetricsCtx$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $helpers.KuboCoreNodeHelpersMetricsCtx,
-        $peertask.PeertaskqueuePeertaskTopic {
+    with $helpers.KuboCoreNodeHelpersMetricsCtx$
+    implements $helpers.KuboCoreNodeHelpersMetricsCtx {
   IceV4CandidateRelay.$h(super.$h) : super.$h();
 
   /// Go: `func ice.NewCandidateRelay(config *ice.CandidateRelayConfig) (*ice.CandidateRelay, error)`.
@@ -1993,24 +1910,8 @@ final class IceV4CandidateRelayConfig implements GoDto {
 
 /// Go: `ice.CandidateServerReflexive` (handle).
 class IceV4CandidateServerReflexive extends IceV4Candidate
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $helpers.KuboCoreNodeHelpersMetricsCtx$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $helpers.KuboCoreNodeHelpersMetricsCtx,
-        $peertask.PeertaskqueuePeertaskTopic {
+    with $helpers.KuboCoreNodeHelpersMetricsCtx$
+    implements $helpers.KuboCoreNodeHelpersMetricsCtx {
   IceV4CandidateServerReflexive.$h(super.$h) : super.$h();
 
   /// Go: `func ice.NewCandidateServerReflexive(config *ice.CandidateServerReflexiveConfig) (*ice.CandidateServerReflexive, error)`.
@@ -2362,26 +2263,12 @@ final class IceV4CandidateStats implements GoDto {
 /// Go: `ice.Conn` (handle).
 class IceV4Conn extends $net.NetConn
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
         $io.IoCloser$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $datachannel.DatachannelReadDeadliner$,
         $datachannel.DatachannelWriteDeadliner$,
         $expfmt.CommonExpfmtCloser$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
         $io.IoCloser,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $datachannel.DatachannelReadDeadliner,
         $datachannel.DatachannelWriteDeadliner,
         $expfmt.CommonExpfmtCloser {
@@ -2466,26 +2353,8 @@ class IceV4Conn extends $net.NetConn
 
 /// Go: `ice.MultiTCPMuxDefault` (handle).
 class IceV4MultiTcpMuxDefault extends IceV4TcpMux
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        IceV4AllConnsGetter$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        IceV4AllConnsGetter,
-        $expfmt.CommonExpfmtCloser {
+    with IceV4AllConnsGetter$, $expfmt.CommonExpfmtCloser$
+    implements IceV4AllConnsGetter, $expfmt.CommonExpfmtCloser {
   IceV4MultiTcpMuxDefault.$h(super.$h) : super.$h();
 
   /// Go: `func ice.NewMultiTCPMuxDefault(muxes ...ice.TCPMux) *ice.MultiTCPMuxDefault`.
@@ -2537,24 +2406,8 @@ class IceV4MultiTcpMuxDefault extends IceV4TcpMux
 
 /// Go: `ice.MultiUDPMuxDefault` (handle).
 class IceV4MultiUdpMuxDefault extends IceV4UdpMux
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   IceV4MultiUdpMuxDefault.$h(super.$h) : super.$h();
 
   /// Go: `func ice.NewMultiUDPMuxDefault(muxes ...ice.UDPMux) *ice.MultiUDPMuxDefault`.
@@ -2639,24 +2492,8 @@ mixin IceV4TcpMux$ on GoHandle {
 
 /// Go: `ice.TCPMuxDefault` (handle).
 class IceV4TcpMuxDefault extends IceV4TcpMux
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   IceV4TcpMuxDefault.$h(super.$h) : super.$h();
 
   /// Go: `func ice.NewTCPMuxDefault(params ice.TCPMuxParams) *ice.TCPMuxDefault`.
@@ -2821,24 +2658,8 @@ mixin IceV4UdpMux$ on GoHandle {
 
 /// Go: `ice.UDPMuxDefault` (handle).
 class IceV4UdpMuxDefault extends IceV4UdpMux
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   IceV4UdpMuxDefault.$h(super.$h) : super.$h();
 
   /// Go: `func ice.NewUDPMuxDefault(params ice.UDPMuxParams) *ice.UDPMuxDefault`.
@@ -2981,24 +2802,8 @@ mixin IceV4UniversalUdpMux$ on GoHandle {
 
 /// Go: `ice.UniversalUDPMuxDefault` (handle).
 class IceV4UniversalUdpMuxDefault extends IceV4UniversalUdpMux
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   IceV4UniversalUdpMuxDefault.$h(super.$h) : super.$h();
 
   /// Go: `func ice.NewUniversalUDPMuxDefault(params ice.UniversalUDPMuxParams) *ice.UniversalUDPMuxDefault`.

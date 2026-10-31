@@ -6,35 +6,16 @@ import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/go.dart' show GoDgraphIoBadgerTable;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/dgraph_io/badger/y.dart' as $y;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/os.dart' as $os;
 import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
 import 'package:p2p_ffi/go/sync.dart' as $sync;
 import 'package:p2p_ffi/go/syndtr/goleveldb/leveldb/storage.dart' as $storage;
 
 /// Go: `table.Builder` (handle).
-class BadgerTableBuilder extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  BadgerTableBuilder.$h(super.$h) : super.$h();
+class BadgerTableBuilder extends GoHandle {
+  BadgerTableBuilder.$h(super.$h);
 
   /// Go: `func (*table.Builder).Add(key []byte, value y.ValueStruct)`.
   void add(Uint8List key, $y.BadgerYValueStruct value) {
@@ -76,26 +57,8 @@ class BadgerTableBuilder extends $crypto.CryptoDecrypterOpts
 
 /// Go: `table.ConcatIterator` (handle).
 class BadgerTableConcatIterator extends $y.BadgerYIterator
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $io.IoCloser$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $io.IoCloser,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $io.IoCloser$, $expfmt.CommonExpfmtCloser$
+    implements $io.IoCloser, $expfmt.CommonExpfmtCloser {
   BadgerTableConcatIterator.$h(super.$h) : super.$h();
 
   /// Go: `func table.NewConcatIterator(tbls []*table.Table, reversed bool) *table.ConcatIterator`.
@@ -153,26 +116,8 @@ class BadgerTableConcatIterator extends $y.BadgerYIterator
 
 /// Go: `table.Iterator` (handle).
 class BadgerTableIterator extends $y.BadgerYIterator
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $io.IoCloser$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $io.IoCloser,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $io.IoCloser$, $expfmt.CommonExpfmtCloser$
+    implements $io.IoCloser, $expfmt.CommonExpfmtCloser {
   BadgerTableIterator.$h(super.$h) : super.$h();
 
   /// Go: `func (*table.Iterator).Close() error`.
@@ -220,26 +165,8 @@ class BadgerTableIterator extends $y.BadgerYIterator
 
 /// Go: `table.MergeIterator` (handle).
 class BadgerTableMergeIterator extends $y.BadgerYIterator
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $io.IoCloser$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $io.IoCloser,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $io.IoCloser$, $expfmt.CommonExpfmtCloser$
+    implements $io.IoCloser, $expfmt.CommonExpfmtCloser {
   BadgerTableMergeIterator.$h(super.$h) : super.$h();
 
   /// Go: `func (*table.MergeIterator).Close() error`.
@@ -288,26 +215,12 @@ class BadgerTableMergeIterator extends $y.BadgerYIterator
 /// Go: `table.Table` (handle).
 class BadgerTable extends BadgerTableInterface
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
         $io.IoCloser$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $expfmt.CommonExpfmtCloser$,
         $sync.SyncLocker$,
         $storage.GoleveldbLeveldbStorageLocker$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
         $io.IoCloser,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $expfmt.CommonExpfmtCloser,
         $sync.SyncLocker,
         $storage.GoleveldbLeveldbStorageLocker {

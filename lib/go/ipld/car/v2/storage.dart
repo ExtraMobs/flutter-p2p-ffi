@@ -7,13 +7,8 @@ import 'dart:typed_data';
 import 'package:p2p_ffi/src/go.dart' show GoIpldCarV2Storage;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
 import 'package:p2p_ffi/go/ipfs/cid.dart' as $cid;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/ipld/car/v2.dart' as $v2;
 import 'package:p2p_ffi/go/ipld/car/v2/index.dart' as $index;
 import 'package:p2p_ffi/go/ipld/ipld_prime/storage.dart' as $storage;
@@ -56,24 +51,10 @@ class CarV2StorageReaderAtWriterAt extends GoHandle {
 /// Go: `storage.StorageCar` (handle).
 class CarV2StorageCar extends CarV2StorageReadableCar
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $storage.IpldPrimeStorageStreamingReadableStorage$,
         $storage.IpldPrimeStorageWritableStorage$,
         CarV2StorageWritableCar$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $storage.IpldPrimeStorageStreamingReadableStorage,
         $storage.IpldPrimeStorageWritableStorage,
         CarV2StorageWritableCar {

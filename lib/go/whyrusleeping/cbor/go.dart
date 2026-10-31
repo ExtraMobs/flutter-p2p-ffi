@@ -7,13 +7,9 @@ import 'dart:typed_data';
 import 'package:p2p_ffi/src/go.dart'
     show GoWhyrusleepingCborGo, GoWhyrusleepingCborGoConsts;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/grpc_ecosystem/grpc_gateway/v2/runtime.dart'
     as $runtime;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/math/big.dart' as $big;
 import 'package:p2p_ffi/go/reflect.dart' as $reflect;
 import 'package:p2p_ffi/go/zap/zapcore.dart' as $zapcore;
@@ -257,24 +253,8 @@ mixin CborGoDecodeValueMap$ on GoHandle {
 
 /// Go: `cbor.Decoder` (handle).
 class CborGoDecoder extends $runtime.GrpcGatewayV2RuntimeDecoder
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsDecoder$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsDecoder,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    with $ipfs_cmds.IpfsCmdsDecoder$
+    implements $ipfs_cmds.IpfsCmdsDecoder {
   CborGoDecoder.$h(super.$h) : super.$h();
 
   /// Go: `func cbor.NewDecoder(r io.Reader) *cbor.Decoder`.
@@ -304,26 +284,8 @@ class CborGoDecoder extends $runtime.GrpcGatewayV2RuntimeDecoder
 
 /// Go: `cbor.Encoder` (handle).
 class CborGoEncoder extends $runtime.GrpcGatewayV2RuntimeEncoder
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEncoder$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $zapcore.ZapZapcoreReflectedEncoder$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEncoder,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $zapcore.ZapZapcoreReflectedEncoder {
+    with $ipfs_cmds.IpfsCmdsEncoder$, $zapcore.ZapZapcoreReflectedEncoder$
+    implements $ipfs_cmds.IpfsCmdsEncoder, $zapcore.ZapZapcoreReflectedEncoder {
   CborGoEncoder.$h(super.$h) : super.$h();
 
   /// Go: `func cbor.NewEncoder(out io.Writer) *cbor.Encoder`.
@@ -361,23 +323,7 @@ mixin CborGoMarshallValue$ on GoHandle {
 }
 
 /// Go: `cbor.MemoryValue` (handle).
-class CborGoMemoryValue extends CborGoDecodeValue
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class CborGoMemoryValue extends CborGoDecodeValue {
   CborGoMemoryValue.$h(super.$h) : super.$h();
 
   /// Go: `func cbor.NewMemoryValue(value interface{}) *cbor.MemoryValue`.

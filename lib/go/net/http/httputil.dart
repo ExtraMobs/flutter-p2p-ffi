@@ -7,12 +7,7 @@ import 'dart:typed_data';
 import 'package:p2p_ffi/src/go.dart' show GoNetHttpHttputil;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/bufio.dart' as $bufio;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/log.dart' as $log;
 import 'package:p2p_ffi/go/net.dart' as $net;
 import 'package:p2p_ffi/go/net/http.dart' as $http;
@@ -46,24 +41,8 @@ mixin NetHttpHttputilBufferPool$ on GoHandle {
 /// Go: `httputil.ClientConn` (handle).
 @Deprecated("Use Client or Transport in package [net/http] instead.")
 class NetHttpHttputilClientConn extends $io.IoCloser
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   NetHttpHttputilClientConn.$h(super.$h) : super.$h();
 
   /// Go: `func httputil.NewClientConn(c net.Conn, r *bufio.Reader) *httputil.ClientConn`.
@@ -218,24 +197,8 @@ final class NetHttpHttputilReverseProxy implements GoDto {
 /// Go: `httputil.ServerConn` (handle).
 @Deprecated("Use the Server in package [net/http] instead.")
 class NetHttpHttputilServerConn extends $io.IoCloser
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   NetHttpHttputilServerConn.$h(super.$h) : super.$h();
 
   /// Go: `func httputil.NewServerConn(c net.Conn, r *bufio.Reader) *httputil.ServerConn`.

@@ -8,9 +8,6 @@ import 'package:p2p_ffi/src/go.dart'
     show GoIpfsBoxoBitswap, GoIpfsBoxoBitswapOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
 import 'package:p2p_ffi/go/ipfs/block_format.dart' as $block_format;
 import 'package:p2p_ffi/go/ipfs/boxo/bitswap/client.dart' as $client;
@@ -21,8 +18,6 @@ import 'package:p2p_ffi/go/ipfs/boxo/bitswap/tracer.dart' as $tracer;
 import 'package:p2p_ffi/go/ipfs/boxo/blockstore.dart' as $blockstore;
 import 'package:p2p_ffi/go/ipfs/boxo/exchange.dart' as $exchange;
 import 'package:p2p_ffi/go/ipfs/cid.dart' as $cid;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/routing.dart' as $routing;
 import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
@@ -30,30 +25,16 @@ import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
 /// Go: `bitswap.Bitswap` (handle).
 class BoxoBitswap extends $exchange.BoxoExchangeSessionExchange
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
         $io.IoCloser$,
         $client.BoxoBitswapClientBlockReceivedNotifier$,
         $network.BoxoBitswapNetworkConnectionListener$,
         $network.BoxoBitswapNetworkReceiver$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $expfmt.CommonExpfmtCloser$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
         $io.IoCloser,
         $client.BoxoBitswapClientBlockReceivedNotifier,
         $network.BoxoBitswapNetworkConnectionListener,
         $network.BoxoBitswapNetworkReceiver,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $expfmt.CommonExpfmtCloser {
   BoxoBitswap.$h(super.$h) : super.$h();
 
@@ -125,22 +106,8 @@ class BoxoBitswap extends $exchange.BoxoExchangeSessionExchange
 }
 
 /// Go: `bitswap.Option` (handle).
-class BoxoBitswapOption extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  BoxoBitswapOption.$h(super.$h) : super.$h();
+class BoxoBitswapOption extends GoHandle {
+  BoxoBitswapOption.$h(super.$h);
 }
 
 /// Go: `bitswap.Stat`.

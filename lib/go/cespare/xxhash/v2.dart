@@ -6,37 +6,14 @@ import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/go.dart' show GoCespareXxhashV2;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/encoding.dart' as $encoding;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/hash.dart' as $hash;
 import 'package:p2p_ffi/go/io.dart' as $io;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 
 /// Go: `xxhash.Digest` (handle).
 class XxhashV2Digest extends $hash.HashHash64
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $encoding.EncodingBinaryUnmarshaler$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $io.IoStringWriter$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $encoding.EncodingBinaryUnmarshaler,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $io.IoStringWriter,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    with $encoding.EncodingBinaryUnmarshaler$, $io.IoStringWriter$
+    implements $encoding.EncodingBinaryUnmarshaler, $io.IoStringWriter {
   XxhashV2Digest.$h(super.$h) : super.$h();
 
   /// Go: `func (*xxhash.Digest).BlockSize() int`.

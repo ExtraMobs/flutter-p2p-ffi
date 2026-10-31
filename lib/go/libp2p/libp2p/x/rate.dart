@@ -3,30 +3,11 @@
 library;
 
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/net/netip.dart' as $netip;
 
 /// Go: `rate.Limiter` (handle).
-class Libp2pXRateLimiter extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  Libp2pXRateLimiter.$h(super.$h) : super.$h();
+class Libp2pXRateLimiter extends GoHandle {
+  Libp2pXRateLimiter.$h(super.$h);
 
   /// Go: `func (*rate.Limiter).Allow(ipAddr netip.Addr) bool`.
   bool allow($netip.NetNetipAddr ipAddr) {
@@ -40,22 +21,8 @@ class Libp2pXRateLimiter extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `rate.SubnetLimiter` (handle).
-class Libp2pXRateSubnetLimiter extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  Libp2pXRateSubnetLimiter.$h(super.$h) : super.$h();
+class Libp2pXRateSubnetLimiter extends GoHandle {
+  Libp2pXRateSubnetLimiter.$h(super.$h);
 
   /// Go: `func (*rate.SubnetLimiter).Allow(ipAddr netip.Addr, now time.Time) bool`.
   bool allow($netip.NetNetipAddr ipAddr, DateTime now) {

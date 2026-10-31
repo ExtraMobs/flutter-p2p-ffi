@@ -12,39 +12,16 @@ import 'package:p2p_ffi/src/go.dart'
         GoPionStunV3Enums,
         GoPionStunV3Options;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/encoding.dart' as $encoding;
 import 'package:p2p_ffi/go/encoding/gob.dart' as $gob;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/pion/logging.dart' as $logging;
 import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
 
 /// Go: `stun.Agent` (handle).
 class StunV3Agent extends StunV3ClientAgent
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $io.IoCloser$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $io.IoCloser,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $io.IoCloser$, $expfmt.CommonExpfmtCloser$
+    implements $io.IoCloser, $expfmt.CommonExpfmtCloser {
   StunV3Agent.$h(super.$h) : super.$h();
 
   /// Go: `func (*stun.Agent).Close() error`.
@@ -147,24 +124,8 @@ mixin StunV3Checker$ on GoHandle {
 
 /// Go: `stun.Client` (handle).
 class StunV3Client extends $io.IoCloser
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   StunV3Client.$h(super.$h) : super.$h();
 
   /// Go: `func stun.NewClient(conn stun.Connection, options ...stun.ClientOption) (*stun.Client, error)`.
@@ -359,22 +320,8 @@ final class StunV3DecodeErrPlace implements GoDto {
 }
 
 /// Go: `stun.DialConfig` (handle).
-class StunV3DialConfig extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  StunV3DialConfig.$h(super.$h) : super.$h();
+class StunV3DialConfig extends GoHandle {
+  StunV3DialConfig.$h(super.$h);
 }
 
 /// Go: `stun.ErrorCodeAttribute`.
@@ -496,22 +443,8 @@ mixin StunV3Getter$ on GoHandle {
 }
 
 /// Go: `stun.Handler` (handle).
-class StunV3Handler extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  StunV3Handler.$h(super.$h) : super.$h();
+class StunV3Handler extends GoHandle {
+  StunV3Handler.$h(super.$h);
 }
 
 /// Go: `stun.MappedAddress`.
@@ -585,28 +518,14 @@ final class StunV3MappedAddress implements GoDto {
 /// Go: `stun.Message` (handle).
 class StunV3Message extends $encoding.EncodingBinaryUnmarshaler
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
         $gob.EncodingGob_GobDecoder$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
         $io.IoReaderFrom$,
         $io.IoWriterTo$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         StunV3Setter$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
         $gob.EncodingGob_GobDecoder,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
         $io.IoReaderFrom,
         $io.IoWriterTo,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         StunV3Setter {
   StunV3Message.$h(super.$h) : super.$h();
 

@@ -8,12 +8,7 @@ import 'dart:typed_data';
 import 'package:p2p_ffi/src/go.dart'
     show GoIpldCarV2Index, GoIpldCarV2IndexConsts;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/cid.dart' as $cid;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 
 /// Go: `index.Index` (handle).
 class CarV2Index extends GoHandle with CarV2Index$ {
@@ -89,23 +84,7 @@ mixin CarV2Index$ on GoHandle {
 }
 
 /// Go: `index.InsertionIndex` (handle).
-class CarV2IndexInsertionIndex extends CarV2IndexIterableIndex
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class CarV2IndexInsertionIndex extends CarV2IndexIterableIndex {
   CarV2IndexInsertionIndex.$h(super.$h) : super.$h();
 
   /// Go: `func index.NewInsertionIndex() *index.InsertionIndex`.

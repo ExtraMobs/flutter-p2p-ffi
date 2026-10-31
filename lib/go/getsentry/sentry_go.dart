@@ -13,14 +13,9 @@ import 'package:p2p_ffi/src/go.dart'
         GoGetsentrySentryGoOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/crypto/x509.dart' as $x509;
 import 'package:p2p_ffi/go/encoding/json.dart' as $json;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
 import 'package:p2p_ffi/go/go_jose/jose/v4/json.dart' as $json2;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/log.dart' as $log;
 import 'package:p2p_ffi/go/net/http.dart' as $http;
 import 'package:p2p_ffi/go/net/url.dart' as $url;
@@ -155,22 +150,8 @@ final class SentryGoCheckIn implements GoDto {
 }
 
 /// Go: `sentry.Client` (handle).
-class SentryGoClient extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  SentryGoClient.$h(super.$h) : super.$h();
+class SentryGoClient extends GoHandle {
+  SentryGoClient.$h(super.$h);
 
   /// Go: `func sentry.NewClient(options sentry.ClientOptions) (*sentry.Client, error)`.
   factory SentryGoClient(SentryGoClientOptions options) {
@@ -433,24 +414,8 @@ final class SentryGoClientOptions implements GoDto {
 
 /// Go: `sentry.Dsn` (handle).
 class SentryGoDsn extends $json.EncodingJsonUnmarshaler
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $json2.JoseV4JsonUnmarshaler$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $json2.JoseV4JsonUnmarshaler,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    with $json2.JoseV4JsonUnmarshaler$
+    implements $json2.JoseV4JsonUnmarshaler {
   SentryGoDsn.$h(super.$h) : super.$h();
 
   /// Go: `func sentry.NewDsn(rawURL string) (*sentry.Dsn, error)`.
@@ -580,22 +545,8 @@ final class SentryGoDynamicSamplingContext implements GoDto {
 }
 
 /// Go: `sentry.Event` (handle).
-class SentryGoEvent extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  SentryGoEvent.$h(super.$h) : super.$h();
+class SentryGoEvent extends GoHandle {
+  SentryGoEvent.$h(super.$h);
 
   /// Go: `func sentry.NewEvent() *sentry.Event`.
   factory SentryGoEvent() {
@@ -678,22 +629,8 @@ mixin SentryGoEventModifier$ on GoHandle {
 }
 
 /// Go: `sentry.EventProcessor` (handle).
-class SentryGoEventProcessor extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  SentryGoEventProcessor.$h(super.$h) : super.$h();
+class SentryGoEventProcessor extends GoHandle {
+  SentryGoEventProcessor.$h(super.$h);
 }
 
 /// Go: `sentry.Frame`.
@@ -842,23 +779,7 @@ final class SentryGoFrame implements GoDto {
 }
 
 /// Go: `sentry.HTTPSyncTransport` (handle).
-class SentryGoHttpSyncTransport extends SentryGoTransport
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class SentryGoHttpSyncTransport extends SentryGoTransport {
   SentryGoHttpSyncTransport.$h(super.$h) : super.$h();
 
   /// Go: `func sentry.NewHTTPSyncTransport() *sentry.HTTPSyncTransport`.
@@ -897,23 +818,7 @@ class SentryGoHttpSyncTransport extends SentryGoTransport
 }
 
 /// Go: `sentry.HTTPTransport` (handle).
-class SentryGoHttpTransport extends SentryGoTransport
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class SentryGoHttpTransport extends SentryGoTransport {
   SentryGoHttpTransport.$h(super.$h) : super.$h();
 
   /// Go: `func sentry.NewHTTPTransport() *sentry.HTTPTransport`.
@@ -952,22 +857,8 @@ class SentryGoHttpTransport extends SentryGoTransport
 }
 
 /// Go: `sentry.Hub` (handle).
-class SentryGoHub extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  SentryGoHub.$h(super.$h) : super.$h();
+class SentryGoHub extends GoHandle {
+  SentryGoHub.$h(super.$h);
 
   /// Go: `func sentry.NewHub(client *sentry.Client, scope *sentry.Scope) *sentry.Hub`.
   factory SentryGoHub(SentryGoClient client, SentryGoScope scope) {
@@ -1274,23 +1165,7 @@ final class SentryGoSamplingContext implements GoDto {
 }
 
 /// Go: `sentry.Scope` (handle).
-class SentryGoScope extends SentryGoEventModifier
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class SentryGoScope extends SentryGoEventModifier {
   SentryGoScope.$h(super.$h) : super.$h();
 
   /// Go: `func sentry.NewScope() *sentry.Scope`.
@@ -1494,22 +1369,8 @@ class SentryGoScope extends SentryGoEventModifier
 }
 
 /// Go: `sentry.Span` (handle).
-class SentryGoSpan extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  SentryGoSpan.$h(super.$h) : super.$h();
+class SentryGoSpan extends GoHandle {
+  SentryGoSpan.$h(super.$h);
 
   /// Go: `func (*sentry.Span).Finish()`.
   void finish() {
@@ -1689,22 +1550,8 @@ final class SentryGoTraceParentContext implements GoDto {
 }
 
 /// Go: `sentry.TracesSampler` (handle).
-class SentryGoTracesSampler extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  SentryGoTracesSampler.$h(super.$h) : super.$h();
+class SentryGoTracesSampler extends GoHandle {
+  SentryGoTracesSampler.$h(super.$h);
 
   /// Go: `func (sentry.TracesSampler).Sample(ctx sentry.SamplingContext) float64`.
   double sample(SentryGoSamplingContext ctx) {

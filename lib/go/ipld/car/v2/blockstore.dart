@@ -5,17 +5,12 @@ library;
 import 'package:p2p_ffi/src/go.dart' show GoIpldCarV2Blockstore;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
 import 'package:p2p_ffi/go/ipfs/block_format.dart' as $block_format;
 import 'package:p2p_ffi/go/ipfs/boxo/blockstore.dart' as $blockstore;
 import 'package:p2p_ffi/go/ipfs/cid.dart' as $cid;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 import 'package:p2p_ffi/go/ipfs/ipld_cbor.dart' as $ipld_cbor;
 import 'package:p2p_ffi/go/ipfs/kubo/core/node.dart' as $node;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/ipld/car/v2.dart' as $v2;
 import 'package:p2p_ffi/go/ipld/car/v2/index.dart' as $index;
 import 'package:p2p_ffi/go/os.dart' as $os;
@@ -139,30 +134,16 @@ mixin CarV2Blockstore$ on GoHandle {
 /// Go: `blockstore.ReadOnly` (handle).
 class CarV2BlockstoreReadOnly extends CarV2Blockstore
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
         $io.IoCloser$,
         $blockstore.BoxoBlockstore$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
         $ipld_cbor.IpldCborIpldBlockstore$,
         $node.KuboCoreNodeBaseBlocks$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $expfmt.CommonExpfmtCloser$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
         $io.IoCloser,
         $blockstore.BoxoBlockstore,
-        $ipfs_cmds.IpfsCmdsEnvironment,
         $ipld_cbor.IpldCborIpldBlockstore,
         $node.KuboCoreNodeBaseBlocks,
-        $peertask.PeertaskqueuePeertaskTopic,
         $expfmt.CommonExpfmtCloser {
   CarV2BlockstoreReadOnly.$h(super.$h) : super.$h();
 
@@ -294,30 +275,16 @@ class CarV2BlockstoreReadOnly extends CarV2Blockstore
 /// Go: `blockstore.ReadWrite` (handle).
 class CarV2BlockstoreReadWrite extends CarV2Blockstore
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
         $io.IoCloser$,
         $blockstore.BoxoBlockstore$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
         $ipld_cbor.IpldCborIpldBlockstore$,
         $node.KuboCoreNodeBaseBlocks$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $expfmt.CommonExpfmtCloser$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
         $io.IoCloser,
         $blockstore.BoxoBlockstore,
-        $ipfs_cmds.IpfsCmdsEnvironment,
         $ipld_cbor.IpldCborIpldBlockstore,
         $node.KuboCoreNodeBaseBlocks,
-        $peertask.PeertaskqueuePeertaskTopic,
         $expfmt.CommonExpfmtCloser {
   CarV2BlockstoreReadWrite.$h(super.$h) : super.$h();
 

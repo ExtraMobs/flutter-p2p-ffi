@@ -5,32 +5,12 @@ library;
 import 'package:p2p_ffi/src/go.dart' show GoOtelSemconvV1430Otelconv;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/otel/attribute.dart' as $attribute;
 import 'package:p2p_ffi/go/otel/metric.dart' as $metric;
 
 /// Go: `otelconv.SDKExporterLogExported` (handle).
-class OtelSemconvV1430OtelconvSdkExporterLogExported
-    extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelSemconvV1430OtelconvSdkExporterLogExported.$h(super.$h) : super.$h();
+class OtelSemconvV1430OtelconvSdkExporterLogExported extends GoHandle {
+  OtelSemconvV1430OtelconvSdkExporterLogExported.$h(super.$h);
 
   /// Go: `func otelconv.NewSDKExporterLogExported(m metric.Meter, opt ...metric.Int64CounterOption) (otelconv.SDKExporterLogExported, error)`.
   factory OtelSemconvV1430OtelconvSdkExporterLogExported(
@@ -149,23 +129,7 @@ class OtelSemconvV1430OtelconvSdkExporterLogExported
 
 /// Go: `otelconv.SDKExporterLogExportedObservable` (handle).
 class OtelSemconvV1430OtelconvSdkExporterLogExportedObservable
-    extends $metric.OtelMetricInt64Observable
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    extends $metric.OtelMetricInt64Observable {
   OtelSemconvV1430OtelconvSdkExporterLogExportedObservable.$h(super.$h)
       : super.$h();
 
@@ -257,23 +221,8 @@ class OtelSemconvV1430OtelconvSdkExporterLogExportedObservable
 }
 
 /// Go: `otelconv.SDKExporterLogInflight` (handle).
-class OtelSemconvV1430OtelconvSdkExporterLogInflight
-    extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelSemconvV1430OtelconvSdkExporterLogInflight.$h(super.$h) : super.$h();
+class OtelSemconvV1430OtelconvSdkExporterLogInflight extends GoHandle {
+  OtelSemconvV1430OtelconvSdkExporterLogInflight.$h(super.$h);
 
   /// Go: `func otelconv.NewSDKExporterLogInflight(m metric.Meter, opt ...metric.Int64UpDownCounterOption) (otelconv.SDKExporterLogInflight, error)`.
   factory OtelSemconvV1430OtelconvSdkExporterLogInflight(
@@ -382,23 +331,7 @@ class OtelSemconvV1430OtelconvSdkExporterLogInflight
 
 /// Go: `otelconv.SDKExporterLogInflightObservable` (handle).
 class OtelSemconvV1430OtelconvSdkExporterLogInflightObservable
-    extends $metric.OtelMetricInt64Observable
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    extends $metric.OtelMetricInt64Observable {
   OtelSemconvV1430OtelconvSdkExporterLogInflightObservable.$h(super.$h)
       : super.$h();
 
@@ -482,23 +415,8 @@ class OtelSemconvV1430OtelconvSdkExporterLogInflightObservable
 
 /// Go: `otelconv.SDKExporterMetricDataPointExported` (handle).
 class OtelSemconvV1430OtelconvSdkExporterMetricDataPointExported
-    extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelSemconvV1430OtelconvSdkExporterMetricDataPointExported.$h(super.$h)
-      : super.$h();
+    extends GoHandle {
+  OtelSemconvV1430OtelconvSdkExporterMetricDataPointExported.$h(super.$h);
 
   /// Go: `func otelconv.NewSDKExporterMetricDataPointExported(m metric.Meter, opt ...metric.Int64CounterOption) (otelconv.SDKExporterMetricDataPointExported, error)`.
   factory OtelSemconvV1430OtelconvSdkExporterMetricDataPointExported(
@@ -618,23 +536,7 @@ class OtelSemconvV1430OtelconvSdkExporterMetricDataPointExported
 
 /// Go: `otelconv.SDKExporterMetricDataPointExportedObservable` (handle).
 class OtelSemconvV1430OtelconvSdkExporterMetricDataPointExportedObservable
-    extends $metric.OtelMetricInt64Observable
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    extends $metric.OtelMetricInt64Observable {
   OtelSemconvV1430OtelconvSdkExporterMetricDataPointExportedObservable.$h(
       super.$h)
       : super.$h();
@@ -730,23 +632,8 @@ class OtelSemconvV1430OtelconvSdkExporterMetricDataPointExportedObservable
 
 /// Go: `otelconv.SDKExporterMetricDataPointInflight` (handle).
 class OtelSemconvV1430OtelconvSdkExporterMetricDataPointInflight
-    extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelSemconvV1430OtelconvSdkExporterMetricDataPointInflight.$h(super.$h)
-      : super.$h();
+    extends GoHandle {
+  OtelSemconvV1430OtelconvSdkExporterMetricDataPointInflight.$h(super.$h);
 
   /// Go: `func otelconv.NewSDKExporterMetricDataPointInflight(m metric.Meter, opt ...metric.Int64UpDownCounterOption) (otelconv.SDKExporterMetricDataPointInflight, error)`.
   factory OtelSemconvV1430OtelconvSdkExporterMetricDataPointInflight(
@@ -856,23 +743,7 @@ class OtelSemconvV1430OtelconvSdkExporterMetricDataPointInflight
 
 /// Go: `otelconv.SDKExporterMetricDataPointInflightObservable` (handle).
 class OtelSemconvV1430OtelconvSdkExporterMetricDataPointInflightObservable
-    extends $metric.OtelMetricInt64Observable
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    extends $metric.OtelMetricInt64Observable {
   OtelSemconvV1430OtelconvSdkExporterMetricDataPointInflightObservable.$h(
       super.$h)
       : super.$h();
@@ -958,24 +829,8 @@ class OtelSemconvV1430OtelconvSdkExporterMetricDataPointInflightObservable
 }
 
 /// Go: `otelconv.SDKExporterOperationDuration` (handle).
-class OtelSemconvV1430OtelconvSdkExporterOperationDuration
-    extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelSemconvV1430OtelconvSdkExporterOperationDuration.$h(super.$h)
-      : super.$h();
+class OtelSemconvV1430OtelconvSdkExporterOperationDuration extends GoHandle {
+  OtelSemconvV1430OtelconvSdkExporterOperationDuration.$h(super.$h);
 
   /// Go: `func otelconv.NewSDKExporterOperationDuration(m metric.Meter, opt ...metric.Float64HistogramOption) (otelconv.SDKExporterOperationDuration, error)`.
   factory OtelSemconvV1430OtelconvSdkExporterOperationDuration(
@@ -1113,23 +968,8 @@ class OtelSemconvV1430OtelconvSdkExporterOperationDuration
 }
 
 /// Go: `otelconv.SDKExporterSpanExported` (handle).
-class OtelSemconvV1430OtelconvSdkExporterSpanExported
-    extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelSemconvV1430OtelconvSdkExporterSpanExported.$h(super.$h) : super.$h();
+class OtelSemconvV1430OtelconvSdkExporterSpanExported extends GoHandle {
+  OtelSemconvV1430OtelconvSdkExporterSpanExported.$h(super.$h);
 
   /// Go: `func otelconv.NewSDKExporterSpanExported(m metric.Meter, opt ...metric.Int64CounterOption) (otelconv.SDKExporterSpanExported, error)`.
   factory OtelSemconvV1430OtelconvSdkExporterSpanExported(
@@ -1248,23 +1088,7 @@ class OtelSemconvV1430OtelconvSdkExporterSpanExported
 
 /// Go: `otelconv.SDKExporterSpanExportedObservable` (handle).
 class OtelSemconvV1430OtelconvSdkExporterSpanExportedObservable
-    extends $metric.OtelMetricInt64Observable
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    extends $metric.OtelMetricInt64Observable {
   OtelSemconvV1430OtelconvSdkExporterSpanExportedObservable.$h(super.$h)
       : super.$h();
 
@@ -1356,23 +1180,8 @@ class OtelSemconvV1430OtelconvSdkExporterSpanExportedObservable
 }
 
 /// Go: `otelconv.SDKExporterSpanInflight` (handle).
-class OtelSemconvV1430OtelconvSdkExporterSpanInflight
-    extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelSemconvV1430OtelconvSdkExporterSpanInflight.$h(super.$h) : super.$h();
+class OtelSemconvV1430OtelconvSdkExporterSpanInflight extends GoHandle {
+  OtelSemconvV1430OtelconvSdkExporterSpanInflight.$h(super.$h);
 
   /// Go: `func otelconv.NewSDKExporterSpanInflight(m metric.Meter, opt ...metric.Int64UpDownCounterOption) (otelconv.SDKExporterSpanInflight, error)`.
   factory OtelSemconvV1430OtelconvSdkExporterSpanInflight(
@@ -1481,23 +1290,7 @@ class OtelSemconvV1430OtelconvSdkExporterSpanInflight
 
 /// Go: `otelconv.SDKExporterSpanInflightObservable` (handle).
 class OtelSemconvV1430OtelconvSdkExporterSpanInflightObservable
-    extends $metric.OtelMetricInt64Observable
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    extends $metric.OtelMetricInt64Observable {
   OtelSemconvV1430OtelconvSdkExporterSpanInflightObservable.$h(super.$h)
       : super.$h();
 
@@ -1580,22 +1373,8 @@ class OtelSemconvV1430OtelconvSdkExporterSpanInflightObservable
 }
 
 /// Go: `otelconv.SDKLogCreated` (handle).
-class OtelSemconvV1430OtelconvSdkLogCreated extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelSemconvV1430OtelconvSdkLogCreated.$h(super.$h) : super.$h();
+class OtelSemconvV1430OtelconvSdkLogCreated extends GoHandle {
+  OtelSemconvV1430OtelconvSdkLogCreated.$h(super.$h);
 
   /// Go: `func otelconv.NewSDKLogCreated(m metric.Meter, opt ...metric.Int64CounterOption) (otelconv.SDKLogCreated, error)`.
   factory OtelSemconvV1430OtelconvSdkLogCreated($metric.OtelMetricMeter m,
@@ -1663,23 +1442,7 @@ class OtelSemconvV1430OtelconvSdkLogCreated extends $crypto.CryptoDecrypterOpts
 
 /// Go: `otelconv.SDKLogCreatedObservable` (handle).
 class OtelSemconvV1430OtelconvSdkLogCreatedObservable
-    extends $metric.OtelMetricInt64Observable
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    extends $metric.OtelMetricInt64Observable {
   OtelSemconvV1430OtelconvSdkLogCreatedObservable.$h(super.$h) : super.$h();
 
   /// Go: `func otelconv.NewSDKLogCreatedObservable(m metric.Meter, opt ...metric.Int64ObservableCounterOption) (otelconv.SDKLogCreatedObservable, error)`.
@@ -1721,23 +1484,8 @@ class OtelSemconvV1430OtelconvSdkLogCreatedObservable
 
 /// Go: `otelconv.SDKMetricReaderCollectionDuration` (handle).
 class OtelSemconvV1430OtelconvSdkMetricReaderCollectionDuration
-    extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelSemconvV1430OtelconvSdkMetricReaderCollectionDuration.$h(super.$h)
-      : super.$h();
+    extends GoHandle {
+  OtelSemconvV1430OtelconvSdkMetricReaderCollectionDuration.$h(super.$h);
 
   /// Go: `func otelconv.NewSDKMetricReaderCollectionDuration(m metric.Meter, opt ...metric.Float64HistogramOption) (otelconv.SDKMetricReaderCollectionDuration, error)`.
   factory OtelSemconvV1430OtelconvSdkMetricReaderCollectionDuration(
@@ -1835,23 +1583,8 @@ class OtelSemconvV1430OtelconvSdkMetricReaderCollectionDuration
 }
 
 /// Go: `otelconv.SDKProcessorLogProcessed` (handle).
-class OtelSemconvV1430OtelconvSdkProcessorLogProcessed
-    extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelSemconvV1430OtelconvSdkProcessorLogProcessed.$h(super.$h) : super.$h();
+class OtelSemconvV1430OtelconvSdkProcessorLogProcessed extends GoHandle {
+  OtelSemconvV1430OtelconvSdkProcessorLogProcessed.$h(super.$h);
 
   /// Go: `func otelconv.NewSDKProcessorLogProcessed(m metric.Meter, opt ...metric.Int64CounterOption) (otelconv.SDKProcessorLogProcessed, error)`.
   factory OtelSemconvV1430OtelconvSdkProcessorLogProcessed(
@@ -1950,23 +1683,7 @@ class OtelSemconvV1430OtelconvSdkProcessorLogProcessed
 
 /// Go: `otelconv.SDKProcessorLogProcessedObservable` (handle).
 class OtelSemconvV1430OtelconvSdkProcessorLogProcessedObservable
-    extends $metric.OtelMetricInt64Observable
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    extends $metric.OtelMetricInt64Observable {
   OtelSemconvV1430OtelconvSdkProcessorLogProcessedObservable.$h(super.$h)
       : super.$h();
 
@@ -2040,23 +1757,7 @@ class OtelSemconvV1430OtelconvSdkProcessorLogProcessedObservable
 
 /// Go: `otelconv.SDKProcessorLogQueueCapacity` (handle).
 class OtelSemconvV1430OtelconvSdkProcessorLogQueueCapacity
-    extends $metric.OtelMetricInt64Observable
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    extends $metric.OtelMetricInt64Observable {
   OtelSemconvV1430OtelconvSdkProcessorLogQueueCapacity.$h(super.$h)
       : super.$h();
 
@@ -2120,23 +1821,7 @@ class OtelSemconvV1430OtelconvSdkProcessorLogQueueCapacity
 
 /// Go: `otelconv.SDKProcessorLogQueueSize` (handle).
 class OtelSemconvV1430OtelconvSdkProcessorLogQueueSize
-    extends $metric.OtelMetricInt64Observable
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    extends $metric.OtelMetricInt64Observable {
   OtelSemconvV1430OtelconvSdkProcessorLogQueueSize.$h(super.$h) : super.$h();
 
   /// Go: `func otelconv.NewSDKProcessorLogQueueSize(m metric.Meter, opt ...metric.Int64ObservableUpDownCounterOption) (otelconv.SDKProcessorLogQueueSize, error)`.
@@ -2198,23 +1883,8 @@ class OtelSemconvV1430OtelconvSdkProcessorLogQueueSize
 }
 
 /// Go: `otelconv.SDKProcessorSpanProcessed` (handle).
-class OtelSemconvV1430OtelconvSdkProcessorSpanProcessed
-    extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelSemconvV1430OtelconvSdkProcessorSpanProcessed.$h(super.$h) : super.$h();
+class OtelSemconvV1430OtelconvSdkProcessorSpanProcessed extends GoHandle {
+  OtelSemconvV1430OtelconvSdkProcessorSpanProcessed.$h(super.$h);
 
   /// Go: `func otelconv.NewSDKProcessorSpanProcessed(m metric.Meter, opt ...metric.Int64CounterOption) (otelconv.SDKProcessorSpanProcessed, error)`.
   factory OtelSemconvV1430OtelconvSdkProcessorSpanProcessed(
@@ -2313,23 +1983,7 @@ class OtelSemconvV1430OtelconvSdkProcessorSpanProcessed
 
 /// Go: `otelconv.SDKProcessorSpanProcessedObservable` (handle).
 class OtelSemconvV1430OtelconvSdkProcessorSpanProcessedObservable
-    extends $metric.OtelMetricInt64Observable
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    extends $metric.OtelMetricInt64Observable {
   OtelSemconvV1430OtelconvSdkProcessorSpanProcessedObservable.$h(super.$h)
       : super.$h();
 
@@ -2403,23 +2057,7 @@ class OtelSemconvV1430OtelconvSdkProcessorSpanProcessedObservable
 
 /// Go: `otelconv.SDKProcessorSpanQueueCapacity` (handle).
 class OtelSemconvV1430OtelconvSdkProcessorSpanQueueCapacity
-    extends $metric.OtelMetricInt64Observable
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    extends $metric.OtelMetricInt64Observable {
   OtelSemconvV1430OtelconvSdkProcessorSpanQueueCapacity.$h(super.$h)
       : super.$h();
 
@@ -2483,23 +2121,7 @@ class OtelSemconvV1430OtelconvSdkProcessorSpanQueueCapacity
 
 /// Go: `otelconv.SDKProcessorSpanQueueSize` (handle).
 class OtelSemconvV1430OtelconvSdkProcessorSpanQueueSize
-    extends $metric.OtelMetricInt64Observable
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    extends $metric.OtelMetricInt64Observable {
   OtelSemconvV1430OtelconvSdkProcessorSpanQueueSize.$h(super.$h) : super.$h();
 
   /// Go: `func otelconv.NewSDKProcessorSpanQueueSize(m metric.Meter, opt ...metric.Int64ObservableUpDownCounterOption) (otelconv.SDKProcessorSpanQueueSize, error)`.
@@ -2561,22 +2183,8 @@ class OtelSemconvV1430OtelconvSdkProcessorSpanQueueSize
 }
 
 /// Go: `otelconv.SDKSpanLive` (handle).
-class OtelSemconvV1430OtelconvSdkSpanLive extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelSemconvV1430OtelconvSdkSpanLive.$h(super.$h) : super.$h();
+class OtelSemconvV1430OtelconvSdkSpanLive extends GoHandle {
+  OtelSemconvV1430OtelconvSdkSpanLive.$h(super.$h);
 
   /// Go: `func otelconv.NewSDKSpanLive(m metric.Meter, opt ...metric.Int64UpDownCounterOption) (otelconv.SDKSpanLive, error)`.
   factory OtelSemconvV1430OtelconvSdkSpanLive($metric.OtelMetricMeter m,
@@ -2654,23 +2262,7 @@ class OtelSemconvV1430OtelconvSdkSpanLive extends $crypto.CryptoDecrypterOpts
 
 /// Go: `otelconv.SDKSpanLiveObservable` (handle).
 class OtelSemconvV1430OtelconvSdkSpanLiveObservable
-    extends $metric.OtelMetricInt64Observable
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    extends $metric.OtelMetricInt64Observable {
   OtelSemconvV1430OtelconvSdkSpanLiveObservable.$h(super.$h) : super.$h();
 
   /// Go: `func otelconv.NewSDKSpanLiveObservable(m metric.Meter, opt ...metric.Int64ObservableUpDownCounterOption) (otelconv.SDKSpanLiveObservable, error)`.
@@ -2722,22 +2314,8 @@ class OtelSemconvV1430OtelconvSdkSpanLiveObservable
 }
 
 /// Go: `otelconv.SDKSpanStarted` (handle).
-class OtelSemconvV1430OtelconvSdkSpanStarted extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelSemconvV1430OtelconvSdkSpanStarted.$h(super.$h) : super.$h();
+class OtelSemconvV1430OtelconvSdkSpanStarted extends GoHandle {
+  OtelSemconvV1430OtelconvSdkSpanStarted.$h(super.$h);
 
   /// Go: `func otelconv.NewSDKSpanStarted(m metric.Meter, opt ...metric.Int64CounterOption) (otelconv.SDKSpanStarted, error)`.
   factory OtelSemconvV1430OtelconvSdkSpanStarted($metric.OtelMetricMeter m,
@@ -2825,23 +2403,7 @@ class OtelSemconvV1430OtelconvSdkSpanStarted extends $crypto.CryptoDecrypterOpts
 
 /// Go: `otelconv.SDKSpanStartedObservable` (handle).
 class OtelSemconvV1430OtelconvSdkSpanStartedObservable
-    extends $metric.OtelMetricInt64Observable
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    extends $metric.OtelMetricInt64Observable {
   OtelSemconvV1430OtelconvSdkSpanStartedObservable.$h(super.$h) : super.$h();
 
   /// Go: `func otelconv.NewSDKSpanStartedObservable(m metric.Meter, opt ...metric.Int64ObservableCounterOption) (otelconv.SDKSpanStartedObservable, error)`.

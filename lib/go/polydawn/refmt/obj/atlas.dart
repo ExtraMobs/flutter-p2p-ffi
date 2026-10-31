@@ -5,30 +5,11 @@ library;
 import 'package:p2p_ffi/src/go.dart'
     show GoPolydawnRefmtObjAtlas, GoPolydawnRefmtObjAtlasEnums;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/reflect.dart' as $reflect;
 
 /// Go: `atlas.Atlas` (handle).
-class RefmtObjAtlas extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  RefmtObjAtlas.$h(super.$h) : super.$h();
+class RefmtObjAtlas extends GoHandle {
+  RefmtObjAtlas.$h(super.$h);
 
   /// Go: `func (atlas.Atlas).GetDefaultMapMorphism() *atlas.MapMorphism`.
   RefmtObjAtlasMapMorphism getDefaultMapMorphism() {
@@ -143,22 +124,8 @@ final class RefmtObjAtlasEntry implements GoDto {
 }
 
 /// Go: `atlas.BuilderCore` (handle).
-class RefmtObjAtlasBuilderCore extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  RefmtObjAtlasBuilderCore.$h(super.$h) : super.$h();
+class RefmtObjAtlasBuilderCore extends GoHandle {
+  RefmtObjAtlasBuilderCore.$h(super.$h);
 
   /// Go: `func (*atlas.BuilderCore).KeyedUnion() *atlas.BuilderUnionKeyedMorphism`.
   RefmtObjAtlasBuilderUnionKeyedMorphism keyedUnion() {
@@ -196,22 +163,8 @@ class RefmtObjAtlasBuilderCore extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `atlas.BuilderMapMorphism` (handle).
-class RefmtObjAtlasBuilderMapMorphism extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  RefmtObjAtlasBuilderMapMorphism.$h(super.$h) : super.$h();
+class RefmtObjAtlasBuilderMapMorphism extends GoHandle {
+  RefmtObjAtlasBuilderMapMorphism.$h(super.$h);
 
   /// Go: `func (*atlas.BuilderMapMorphism).Complete() *atlas.AtlasEntry`.
   RefmtObjAtlasEntry complete() {
@@ -231,22 +184,8 @@ class RefmtObjAtlasBuilderMapMorphism extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `atlas.BuilderStructMap` (handle).
-class RefmtObjAtlasBuilderStructMap extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  RefmtObjAtlasBuilderStructMap.$h(super.$h) : super.$h();
+class RefmtObjAtlasBuilderStructMap extends GoHandle {
+  RefmtObjAtlasBuilderStructMap.$h(super.$h);
 
   /// Go: `func (*atlas.BuilderStructMap).AddField(fieldName string, mapping atlas.StructMapEntry) *atlas.BuilderStructMap`.
   RefmtObjAtlasBuilderStructMap addField(
@@ -294,22 +233,8 @@ class RefmtObjAtlasBuilderStructMap extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `atlas.BuilderTransform` (handle).
-class RefmtObjAtlasBuilderTransform extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  RefmtObjAtlasBuilderTransform.$h(super.$h) : super.$h();
+class RefmtObjAtlasBuilderTransform extends GoHandle {
+  RefmtObjAtlasBuilderTransform.$h(super.$h);
 
   /// Go: `func (*atlas.BuilderTransform).Complete() *atlas.AtlasEntry`.
   RefmtObjAtlasEntry complete() {
@@ -343,22 +268,8 @@ class RefmtObjAtlasBuilderTransform extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `atlas.BuilderUnionKeyedMorphism` (handle).
-class RefmtObjAtlasBuilderUnionKeyedMorphism extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  RefmtObjAtlasBuilderUnionKeyedMorphism.$h(super.$h) : super.$h();
+class RefmtObjAtlasBuilderUnionKeyedMorphism extends GoHandle {
+  RefmtObjAtlasBuilderUnionKeyedMorphism.$h(super.$h);
 }
 
 /// Go: `atlas.MapMorphism`.
@@ -378,22 +289,8 @@ final class RefmtObjAtlasMapMorphism implements GoDto {
 }
 
 /// Go: `atlas.MarshalTransformFunc` (handle).
-class RefmtObjAtlasMarshalTransformFunc extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  RefmtObjAtlasMarshalTransformFunc.$h(super.$h) : super.$h();
+class RefmtObjAtlasMarshalTransformFunc extends GoHandle {
+  RefmtObjAtlasMarshalTransformFunc.$h(super.$h);
 }
 
 /// Go: `atlas.StructMap`.
@@ -414,22 +311,8 @@ final class RefmtObjAtlasStructMap implements GoDto {
 }
 
 /// Go: `atlas.StructMapEntry` (handle).
-class RefmtObjAtlasStructMapEntry extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  RefmtObjAtlasStructMapEntry.$h(super.$h) : super.$h();
+class RefmtObjAtlasStructMapEntry extends GoHandle {
+  RefmtObjAtlasStructMapEntry.$h(super.$h);
 }
 
 /// Go: `atlas.UnionKeyedMorphism`.
@@ -452,22 +335,8 @@ final class RefmtObjAtlasUnionKeyedMorphism implements GoDto {
 }
 
 /// Go: `atlas.UnmarshalTransformFunc` (handle).
-class RefmtObjAtlasUnmarshalTransformFunc extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  RefmtObjAtlasUnmarshalTransformFunc.$h(super.$h) : super.$h();
+class RefmtObjAtlasUnmarshalTransformFunc extends GoHandle {
+  RefmtObjAtlasUnmarshalTransformFunc.$h(super.$h);
 }
 
 /// Go: `atlas.ErrStructureMismatch`: an error. Thrown as this class when it is the outermost

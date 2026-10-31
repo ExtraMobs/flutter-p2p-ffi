@@ -5,32 +5,12 @@ library;
 import 'package:p2p_ffi/src/go.dart' show GoOtelSemconvV1430Httpconv;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/otel/attribute.dart' as $attribute;
 import 'package:p2p_ffi/go/otel/metric.dart' as $metric;
 
 /// Go: `httpconv.ClientActiveRequests` (handle).
-class OtelSemconvV1430HttpconvClientActiveRequests
-    extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelSemconvV1430HttpconvClientActiveRequests.$h(super.$h) : super.$h();
+class OtelSemconvV1430HttpconvClientActiveRequests extends GoHandle {
+  OtelSemconvV1430HttpconvClientActiveRequests.$h(super.$h);
 
   /// Go: `func httpconv.NewClientActiveRequests(m metric.Meter, opt ...metric.Int64UpDownCounterOption) (httpconv.ClientActiveRequests, error)`.
   factory OtelSemconvV1430HttpconvClientActiveRequests(
@@ -132,23 +112,7 @@ class OtelSemconvV1430HttpconvClientActiveRequests
 
 /// Go: `httpconv.ClientActiveRequestsObservable` (handle).
 class OtelSemconvV1430HttpconvClientActiveRequestsObservable
-    extends $metric.OtelMetricInt64Observable
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    extends $metric.OtelMetricInt64Observable {
   OtelSemconvV1430HttpconvClientActiveRequestsObservable.$h(super.$h)
       : super.$h();
 
@@ -241,23 +205,8 @@ class OtelSemconvV1430HttpconvClientActiveRequestsObservable
 }
 
 /// Go: `httpconv.ClientConnectionDuration` (handle).
-class OtelSemconvV1430HttpconvClientConnectionDuration
-    extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelSemconvV1430HttpconvClientConnectionDuration.$h(super.$h) : super.$h();
+class OtelSemconvV1430HttpconvClientConnectionDuration extends GoHandle {
+  OtelSemconvV1430HttpconvClientConnectionDuration.$h(super.$h);
 
   /// Go: `func httpconv.NewClientConnectionDuration(m metric.Meter, opt ...metric.Float64HistogramOption) (httpconv.ClientConnectionDuration, error)`.
   factory OtelSemconvV1430HttpconvClientConnectionDuration(
@@ -358,23 +307,8 @@ class OtelSemconvV1430HttpconvClientConnectionDuration
 }
 
 /// Go: `httpconv.ClientOpenConnections` (handle).
-class OtelSemconvV1430HttpconvClientOpenConnections
-    extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelSemconvV1430HttpconvClientOpenConnections.$h(super.$h) : super.$h();
+class OtelSemconvV1430HttpconvClientOpenConnections extends GoHandle {
+  OtelSemconvV1430HttpconvClientOpenConnections.$h(super.$h);
 
   /// Go: `func httpconv.NewClientOpenConnections(m metric.Meter, opt ...metric.Int64UpDownCounterOption) (httpconv.ClientOpenConnections, error)`.
   factory OtelSemconvV1430HttpconvClientOpenConnections(
@@ -477,23 +411,7 @@ class OtelSemconvV1430HttpconvClientOpenConnections
 
 /// Go: `httpconv.ClientOpenConnectionsObservable` (handle).
 class OtelSemconvV1430HttpconvClientOpenConnectionsObservable
-    extends $metric.OtelMetricInt64Observable
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    extends $metric.OtelMetricInt64Observable {
   OtelSemconvV1430HttpconvClientOpenConnectionsObservable.$h(super.$h)
       : super.$h();
 
@@ -596,23 +514,8 @@ class OtelSemconvV1430HttpconvClientOpenConnectionsObservable
 }
 
 /// Go: `httpconv.ClientRequestBodySize` (handle).
-class OtelSemconvV1430HttpconvClientRequestBodySize
-    extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelSemconvV1430HttpconvClientRequestBodySize.$h(super.$h) : super.$h();
+class OtelSemconvV1430HttpconvClientRequestBodySize extends GoHandle {
+  OtelSemconvV1430HttpconvClientRequestBodySize.$h(super.$h);
 
   /// Go: `func httpconv.NewClientRequestBodySize(m metric.Meter, opt ...metric.Int64HistogramOption) (httpconv.ClientRequestBodySize, error)`.
   factory OtelSemconvV1430HttpconvClientRequestBodySize(
@@ -744,23 +647,8 @@ class OtelSemconvV1430HttpconvClientRequestBodySize
 }
 
 /// Go: `httpconv.ClientRequestDuration` (handle).
-class OtelSemconvV1430HttpconvClientRequestDuration
-    extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelSemconvV1430HttpconvClientRequestDuration.$h(super.$h) : super.$h();
+class OtelSemconvV1430HttpconvClientRequestDuration extends GoHandle {
+  OtelSemconvV1430HttpconvClientRequestDuration.$h(super.$h);
 
   /// Go: `func httpconv.NewClientRequestDuration(m metric.Meter, opt ...metric.Float64HistogramOption) (httpconv.ClientRequestDuration, error)`.
   factory OtelSemconvV1430HttpconvClientRequestDuration(
@@ -892,23 +780,8 @@ class OtelSemconvV1430HttpconvClientRequestDuration
 }
 
 /// Go: `httpconv.ClientResponseBodySize` (handle).
-class OtelSemconvV1430HttpconvClientResponseBodySize
-    extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelSemconvV1430HttpconvClientResponseBodySize.$h(super.$h) : super.$h();
+class OtelSemconvV1430HttpconvClientResponseBodySize extends GoHandle {
+  OtelSemconvV1430HttpconvClientResponseBodySize.$h(super.$h);
 
   /// Go: `func httpconv.NewClientResponseBodySize(m metric.Meter, opt ...metric.Int64HistogramOption) (httpconv.ClientResponseBodySize, error)`.
   factory OtelSemconvV1430HttpconvClientResponseBodySize(
@@ -1040,23 +913,8 @@ class OtelSemconvV1430HttpconvClientResponseBodySize
 }
 
 /// Go: `httpconv.ServerActiveRequests` (handle).
-class OtelSemconvV1430HttpconvServerActiveRequests
-    extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelSemconvV1430HttpconvServerActiveRequests.$h(super.$h) : super.$h();
+class OtelSemconvV1430HttpconvServerActiveRequests extends GoHandle {
+  OtelSemconvV1430HttpconvServerActiveRequests.$h(super.$h);
 
   /// Go: `func httpconv.NewServerActiveRequests(m metric.Meter, opt ...metric.Int64UpDownCounterOption) (httpconv.ServerActiveRequests, error)`.
   factory OtelSemconvV1430HttpconvServerActiveRequests(
@@ -1148,23 +1006,7 @@ class OtelSemconvV1430HttpconvServerActiveRequests
 
 /// Go: `httpconv.ServerActiveRequestsObservable` (handle).
 class OtelSemconvV1430HttpconvServerActiveRequestsObservable
-    extends $metric.OtelMetricInt64Observable
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    extends $metric.OtelMetricInt64Observable {
   OtelSemconvV1430HttpconvServerActiveRequestsObservable.$h(super.$h)
       : super.$h();
 
@@ -1247,23 +1089,8 @@ class OtelSemconvV1430HttpconvServerActiveRequestsObservable
 }
 
 /// Go: `httpconv.ServerRequestBodySize` (handle).
-class OtelSemconvV1430HttpconvServerRequestBodySize
-    extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelSemconvV1430HttpconvServerRequestBodySize.$h(super.$h) : super.$h();
+class OtelSemconvV1430HttpconvServerRequestBodySize extends GoHandle {
+  OtelSemconvV1430HttpconvServerRequestBodySize.$h(super.$h);
 
   /// Go: `func httpconv.NewServerRequestBodySize(m metric.Meter, opt ...metric.Int64HistogramOption) (httpconv.ServerRequestBodySize, error)`.
   factory OtelSemconvV1430HttpconvServerRequestBodySize(
@@ -1414,23 +1241,8 @@ class OtelSemconvV1430HttpconvServerRequestBodySize
 }
 
 /// Go: `httpconv.ServerRequestDuration` (handle).
-class OtelSemconvV1430HttpconvServerRequestDuration
-    extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelSemconvV1430HttpconvServerRequestDuration.$h(super.$h) : super.$h();
+class OtelSemconvV1430HttpconvServerRequestDuration extends GoHandle {
+  OtelSemconvV1430HttpconvServerRequestDuration.$h(super.$h);
 
   /// Go: `func httpconv.NewServerRequestDuration(m metric.Meter, opt ...metric.Float64HistogramOption) (httpconv.ServerRequestDuration, error)`.
   factory OtelSemconvV1430HttpconvServerRequestDuration(
@@ -1581,23 +1393,8 @@ class OtelSemconvV1430HttpconvServerRequestDuration
 }
 
 /// Go: `httpconv.ServerResponseBodySize` (handle).
-class OtelSemconvV1430HttpconvServerResponseBodySize
-    extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelSemconvV1430HttpconvServerResponseBodySize.$h(super.$h) : super.$h();
+class OtelSemconvV1430HttpconvServerResponseBodySize extends GoHandle {
+  OtelSemconvV1430HttpconvServerResponseBodySize.$h(super.$h);
 
   /// Go: `func httpconv.NewServerResponseBodySize(m metric.Meter, opt ...metric.Int64HistogramOption) (httpconv.ServerResponseBodySize, error)`.
   factory OtelSemconvV1430HttpconvServerResponseBodySize(

@@ -7,14 +7,9 @@ import 'dart:typed_data';
 import 'package:p2p_ffi/src/go.dart'
     show GoIpldIpldPrimeDatamodel, GoIpldIpldPrimeDatamodelEnums;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
 import 'package:p2p_ffi/go/ipfs/boxo/ipld/merkledag.dart' as $merkledag;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 import 'package:p2p_ffi/go/ipfs/ipld_legacy.dart' as $ipld_legacy;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/ipfs/unixfsnode/file.dart' as $file;
 import 'package:p2p_ffi/go/ipfs/unixfsnode/iter.dart' as $iter;
 import 'package:p2p_ffi/go/ipld/ipld_prime/adl.dart' as $adl;
@@ -571,22 +566,8 @@ mixin IpldPrimeDatamodelNodePrototypeSupportingAmend$ on GoHandle {
 }
 
 /// Go: `datamodel.Path` (handle).
-class IpldPrimeDatamodelPath extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  IpldPrimeDatamodelPath.$h(super.$h) : super.$h();
+class IpldPrimeDatamodelPath extends GoHandle {
+  IpldPrimeDatamodelPath.$h(super.$h);
 
   /// Go: `func datamodel.NewPath(segments []datamodel.PathSegment) datamodel.Path`.
   factory IpldPrimeDatamodelPath(List<IpldPrimeDatamodelPathSegment> segments) {
@@ -691,22 +672,8 @@ class IpldPrimeDatamodelPath extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `datamodel.PathSegment` (handle).
-class IpldPrimeDatamodelPathSegment extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  IpldPrimeDatamodelPathSegment.$h(super.$h) : super.$h();
+class IpldPrimeDatamodelPathSegment extends GoHandle {
+  IpldPrimeDatamodelPathSegment.$h(super.$h);
 
   /// Go: `func (datamodel.PathSegment).Equals(o datamodel.PathSegment) bool`.
   bool equals(IpldPrimeDatamodelPathSegment o) {

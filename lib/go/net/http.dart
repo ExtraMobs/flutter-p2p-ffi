@@ -12,22 +12,17 @@ import 'package:p2p_ffi/go/bufio.dart' as $bufio;
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/contrib/instrumentation/net/http/otelhttp.dart'
     as $otelhttp;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/crypto/tls.dart' as $tls;
 import 'package:p2p_ffi/go/encoding/csv.dart' as $csv;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
 import 'package:p2p_ffi/go/facebookgo/atomicfile.dart' as $atomicfile;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/grpc.dart' as $grpc;
 import 'package:p2p_ffi/go/grpc_ecosystem/grpc_gateway/v2/runtime.dart'
     as $runtime;
 import 'package:p2p_ffi/go/io.dart' as $io;
 import 'package:p2p_ffi/go/io/fs.dart' as $fs;
 import 'package:p2p_ffi/go/ipfs/boxo/routing/http/client.dart' as $client;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 import 'package:p2p_ffi/go/ipfs/kubo/repo/fsrepo/migrations/atomicfile.dart'
     as $atomicfile2;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/libp2p/libp2p/p2p/http/auth.dart' as $auth;
 import 'package:p2p_ffi/go/mime/multipart.dart' as $multipart;
 import 'package:p2p_ffi/go/net.dart' as $net;
@@ -127,24 +122,10 @@ final class NetHttpClient implements GoDto {
 /// Go: `http.ClientConn` (handle).
 class NetHttpClientConn extends $io.IoCloser
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         NetHttpRoundTripper$,
         $expfmt.CommonExpfmtCloser$,
         $util.GoleveldbLeveldbUtilReleaser$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         NetHttpRoundTripper,
         $expfmt.CommonExpfmtCloser,
         $util.GoleveldbLeveldbUtilReleaser {
@@ -378,22 +359,8 @@ mixin NetHttpCookieJar$ on GoHandle {
 }
 
 /// Go: `http.CrossOriginProtection` (handle).
-class NetHttpCrossOriginProtection extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  NetHttpCrossOriginProtection.$h(super.$h) : super.$h();
+class NetHttpCrossOriginProtection extends GoHandle {
+  NetHttpCrossOriginProtection.$h(super.$h);
 
   /// Go: `func http.NewCrossOriginProtection() *http.CrossOriginProtection`.
   factory NetHttpCrossOriginProtection() {
@@ -586,23 +553,7 @@ mixin NetHttpHandler$ on GoHandle {
 }
 
 /// Go: `http.HandlerFunc` (handle).
-class NetHttpHandlerFunc extends NetHttpHandler
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class NetHttpHandlerFunc extends NetHttpHandler {
   NetHttpHandlerFunc.$h(super.$h) : super.$h();
 
   /// Go: `func (http.HandlerFunc).ServeHTTP(w http.ResponseWriter, r *http.Request)`.
@@ -640,22 +591,8 @@ mixin NetHttpHijacker$ on GoHandle {
 }
 
 /// Go: `http.Protocols` (handle).
-class NetHttpProtocols extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  NetHttpProtocols.$h(super.$h) : super.$h();
+class NetHttpProtocols extends GoHandle {
+  NetHttpProtocols.$h(super.$h);
 
   /// Go: `func (http.Protocols).HTTP1() bool`.
   bool http1() {
@@ -745,22 +682,8 @@ mixin NetHttpPusher$ on GoHandle {
 }
 
 /// Go: `http.Request` (handle).
-class NetHttpRequest extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  NetHttpRequest.$h(super.$h) : super.$h();
+class NetHttpRequest extends GoHandle {
+  NetHttpRequest.$h(super.$h);
 
   /// Go: `func http.NewRequest(method string, url string, body io.Reader) (*http.Request, error)`.
   factory NetHttpRequest(String method, String url, Object body) {
@@ -1097,23 +1020,9 @@ final class NetHttpResponse implements GoDto {
 /// Go: `http.ResponseController` (handle).
 class NetHttpResponseController extends NetHttpHijacker
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $datachannel.DatachannelReadDeadliner$,
         $datachannel.DatachannelWriteDeadliner$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $datachannel.DatachannelReadDeadliner,
         $datachannel.DatachannelWriteDeadliner {
   NetHttpResponseController.$h(super.$h) : super.$h();
@@ -1263,23 +1172,7 @@ mixin NetHttpRoundTripper$ on GoHandle {
 }
 
 /// Go: `http.ServeMux` (handle).
-class NetHttpServeMux extends NetHttpHandler
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class NetHttpServeMux extends NetHttpHandler {
   NetHttpServeMux.$h(super.$h) : super.$h();
 
   /// Go: `func http.NewServeMux() *http.ServeMux`.
@@ -1344,24 +1237,8 @@ class NetHttpServeMux extends NetHttpHandler
 
 /// Go: `http.Server` (handle).
 class NetHttpServer extends $io.IoCloser
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   NetHttpServer.$h(super.$h) : super.$h();
 
   /// Go: `func (*http.Server).Close() error`.
@@ -1441,23 +1318,7 @@ class NetHttpServer extends $io.IoCloser
 }
 
 /// Go: `http.Transport` (handle).
-class NetHttpTransport extends NetHttpRoundTripper
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class NetHttpTransport extends NetHttpRoundTripper {
   NetHttpTransport.$h(super.$h) : super.$h();
 
   /// Go: `func (*http.Transport).CancelRequest(req *http.Request)`.

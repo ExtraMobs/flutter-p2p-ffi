@@ -12,17 +12,12 @@ import 'package:p2p_ffi/src/go.dart'
         GoLibp2pLibp2pKadDhtOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/boxo/provider.dart' as $provider;
 import 'package:p2p_ffi/go/ipfs/boxo/routing/providerquerymanager.dart'
     as $providerquerymanager;
 import 'package:p2p_ffi/go/ipfs/cid.dart' as $cid;
 import 'package:p2p_ffi/go/ipfs/datastore.dart' as $datastore;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
-import 'package:p2p_ffi/go/libp2p/libp2p/core/crypto.dart' as $crypto2;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/host.dart' as $host;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/network.dart' as $network;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
@@ -42,17 +37,10 @@ import 'package:p2p_ffi/go/multiformats/multiaddr.dart' as $multiaddr;
 /// Go: `dht.IpfsDHT` (handle).
 class Libp2pKadDhtIpfsDht extends $routing.Libp2pCoreRouting
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
         $provider.BoxoProviderProvide$,
         $provider.BoxoProvider$,
         $providerquerymanager
         .BoxoRoutingProviderquerymanagerProviderQueryPeerRouter$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $routing.Libp2pCoreRoutingContentDiscovery$,
         $routing.Libp2pCoreRoutingPeerRouting$,
         $routing.Libp2pCoreRoutingPubKeyFetcher$,
@@ -61,17 +49,10 @@ class Libp2pKadDhtIpfsDht extends $routing.Libp2pCoreRouting
         $provider2.Libp2pKadDhtProviderKadClosestPeersRouter$,
         $libp2p_routing_helpers.Libp2pRoutingHelpersBootstrap$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
         $provider.BoxoProviderProvide,
         $provider.BoxoProvider,
         $providerquerymanager
         .BoxoRoutingProviderquerymanagerProviderQueryPeerRouter,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $routing.Libp2pCoreRoutingContentDiscovery,
         $routing.Libp2pCoreRoutingPeerRouting,
         $routing.Libp2pCoreRoutingPubKeyFetcher,
@@ -183,7 +164,7 @@ class Libp2pKadDhtIpfsDht extends $routing.Libp2pCoreRouting
   /// Go: `func (*dht.IpfsDHT).GetPublicKey(ctx context.Context, p peer.ID) (crypto.PubKey, error)`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
-  Future<$crypto2.Libp2pCoreCryptoPubKey> getPublicKey(
+  Future<$crypto.Libp2pCoreCryptoPubKey> getPublicKey(
       $context.Context ctx, $peer.Libp2pCorePeerId p) async {
     final $r = await $call(
         12923,
@@ -191,7 +172,7 @@ class Libp2pKadDhtIpfsDht extends $routing.Libp2pCoreRouting
           ..h(this)
           ..h(ctx)
           ..val(p));
-    return $r.hnn($crypto2.Libp2pCoreCryptoPubKey.$h);
+    return $r.hnn($crypto.Libp2pCoreCryptoPubKey.$h);
   }
 
   /// Go: `func (*dht.IpfsDHT).GetRoutingTableDiversityStats() []peerdiversity.CplDiversityStats`.

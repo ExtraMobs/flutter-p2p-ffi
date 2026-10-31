@@ -6,70 +6,23 @@ import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/go.dart' show GoArchiveZip, GoArchiveZipConsts;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
 import 'package:p2p_ffi/go/io/fs.dart' as $fs;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
 
 /// Go: `zip.Compressor` (handle).
-class ArchiveZipCompressor extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  ArchiveZipCompressor.$h(super.$h) : super.$h();
+class ArchiveZipCompressor extends GoHandle {
+  ArchiveZipCompressor.$h(super.$h);
 }
 
 /// Go: `zip.Decompressor` (handle).
-class ArchiveZipDecompressor extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  ArchiveZipDecompressor.$h(super.$h) : super.$h();
+class ArchiveZipDecompressor extends GoHandle {
+  ArchiveZipDecompressor.$h(super.$h);
 }
 
 /// Go: `zip.File` (handle).
-class ArchiveZipFile extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  ArchiveZipFile.$h(super.$h) : super.$h();
+class ArchiveZipFile extends GoHandle {
+  ArchiveZipFile.$h(super.$h);
 
   /// Go: `func (*zip.File).DataOffset() (offset int64, err error)`.
   int dataOffset() {
@@ -305,26 +258,8 @@ final class ArchiveZipFileHeader implements GoDto {
 
 /// Go: `zip.ReadCloser` (handle).
 class ArchiveZipReadCloser extends $io.IoCloser
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $fs.IoFs$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $fs.IoFs,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $fs.IoFs$, $expfmt.CommonExpfmtCloser$
+    implements $fs.IoFs, $expfmt.CommonExpfmtCloser {
   ArchiveZipReadCloser.$h(super.$h) : super.$h();
 
   /// Go: `func (*zip.ReadCloser).Close() error`.
@@ -354,23 +289,7 @@ class ArchiveZipReadCloser extends $io.IoCloser
 }
 
 /// Go: `zip.Reader` (handle).
-class ArchiveZipReader extends $fs.IoFs
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class ArchiveZipReader extends $fs.IoFs {
   ArchiveZipReader.$h(super.$h) : super.$h();
 
   /// Go: `func zip.NewReader(r io.ReaderAt, size int64) (*zip.Reader, error)`.
@@ -406,24 +325,8 @@ class ArchiveZipReader extends $fs.IoFs
 
 /// Go: `zip.Writer` (handle).
 class ArchiveZipWriter extends $io.IoCloser
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   ArchiveZipWriter.$h(super.$h) : super.$h();
 
   /// Go: `func zip.NewWriter(w io.Writer) *zip.Writer`.

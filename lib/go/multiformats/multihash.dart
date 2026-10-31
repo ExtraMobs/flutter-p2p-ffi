@@ -8,12 +8,7 @@ import 'dart:typed_data';
 import 'package:p2p_ffi/src/go.dart'
     show GoMultiformatsMultihash, GoMultiformatsMultihashConsts;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/hash.dart' as $hash;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 
 /// Go: `multihash.DecodedMultihash`.
 final class MultihashDecodedMultihash implements GoDto {
@@ -76,22 +71,8 @@ mixin MultihashReader$ on GoHandle {
 }
 
 /// Go: `multihash.Set` (handle).
-class MultihashSet extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  MultihashSet.$h(super.$h) : super.$h();
+class MultihashSet extends GoHandle {
+  MultihashSet.$h(super.$h);
 
   /// Go: `func multihash.NewSet() *multihash.Set`.
   factory MultihashSet() {

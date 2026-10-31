@@ -4,30 +4,11 @@ library;
 
 import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2pKadDhtQpeersetEnums;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
 
 /// Go: `qpeerset.QueryPeerset` (handle).
-class Libp2pKadDhtQpeersetQueryPeerset extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  Libp2pKadDhtQpeersetQueryPeerset.$h(super.$h) : super.$h();
+class Libp2pKadDhtQpeersetQueryPeerset extends GoHandle {
+  Libp2pKadDhtQpeersetQueryPeerset.$h(super.$h);
 
   /// Go: `func qpeerset.NewQueryPeerset(key string) *qpeerset.QueryPeerset`.
   factory Libp2pKadDhtQpeersetQueryPeerset(String key) {

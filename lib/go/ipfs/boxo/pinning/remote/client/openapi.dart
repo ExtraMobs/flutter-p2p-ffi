@@ -10,33 +10,13 @@ import 'package:p2p_ffi/src/go.dart'
         GoIpfsBoxoPinningRemoteClientOpenapiEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/encoding/json.dart' as $json;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
 import 'package:p2p_ffi/go/go_jose/jose/v4/json.dart' as $json2;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/net/http.dart' as $http;
 
 /// Go: `openapi.APIClient` (handle).
-class BoxoPinningRemoteClientOpenapiApiClient
-    extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  BoxoPinningRemoteClientOpenapiApiClient.$h(super.$h) : super.$h();
+class BoxoPinningRemoteClientOpenapiApiClient extends GoHandle {
+  BoxoPinningRemoteClientOpenapiApiClient.$h(super.$h);
 
   /// Go: `func openapi.NewAPIClient(cfg *openapi.Configuration) *openapi.APIClient`.
   factory BoxoPinningRemoteClientOpenapiApiClient(
@@ -352,24 +332,8 @@ final class BoxoPinningRemoteClientOpenapiFailureError implements GoDto {
 /// Go: `openapi.NullableBool` (handle).
 class BoxoPinningRemoteClientOpenapiNullableBool
     extends $json.EncodingJsonUnmarshaler
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $json2.JoseV4JsonUnmarshaler$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $json2.JoseV4JsonUnmarshaler,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    with $json2.JoseV4JsonUnmarshaler$
+    implements $json2.JoseV4JsonUnmarshaler {
   BoxoPinningRemoteClientOpenapiNullableBool.$h(super.$h) : super.$h();
 
   /// Go: `func openapi.NewNullableBool(val *bool) *openapi.NullableBool`.
@@ -423,24 +387,8 @@ class BoxoPinningRemoteClientOpenapiNullableBool
 /// Go: `openapi.NullableFailure` (handle).
 class BoxoPinningRemoteClientOpenapiNullableFailure
     extends $json.EncodingJsonUnmarshaler
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $json2.JoseV4JsonUnmarshaler$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $json2.JoseV4JsonUnmarshaler,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    with $json2.JoseV4JsonUnmarshaler$
+    implements $json2.JoseV4JsonUnmarshaler {
   BoxoPinningRemoteClientOpenapiNullableFailure.$h(super.$h) : super.$h();
 
   /// Go: `func openapi.NewNullableFailure(val *openapi.Failure) *openapi.NullableFailure`.
@@ -495,24 +443,8 @@ class BoxoPinningRemoteClientOpenapiNullableFailure
 /// Go: `openapi.NullableFailureError` (handle).
 class BoxoPinningRemoteClientOpenapiNullableFailureError
     extends $json.EncodingJsonUnmarshaler
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $json2.JoseV4JsonUnmarshaler$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $json2.JoseV4JsonUnmarshaler,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    with $json2.JoseV4JsonUnmarshaler$
+    implements $json2.JoseV4JsonUnmarshaler {
   BoxoPinningRemoteClientOpenapiNullableFailureError.$h(super.$h) : super.$h();
 
   /// Go: `func openapi.NewNullableFailureError(val *openapi.FailureError) *openapi.NullableFailureError`.
@@ -569,24 +501,8 @@ class BoxoPinningRemoteClientOpenapiNullableFailureError
 /// Go: `openapi.NullableFloat32` (handle).
 class BoxoPinningRemoteClientOpenapiNullableFloat32
     extends $json.EncodingJsonUnmarshaler
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $json2.JoseV4JsonUnmarshaler$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $json2.JoseV4JsonUnmarshaler,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    with $json2.JoseV4JsonUnmarshaler$
+    implements $json2.JoseV4JsonUnmarshaler {
   BoxoPinningRemoteClientOpenapiNullableFloat32.$h(super.$h) : super.$h();
 
   /// Go: `func openapi.NewNullableFloat32(val *float32) *openapi.NullableFloat32`.
@@ -640,24 +556,8 @@ class BoxoPinningRemoteClientOpenapiNullableFloat32
 /// Go: `openapi.NullableFloat64` (handle).
 class BoxoPinningRemoteClientOpenapiNullableFloat64
     extends $json.EncodingJsonUnmarshaler
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $json2.JoseV4JsonUnmarshaler$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $json2.JoseV4JsonUnmarshaler,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    with $json2.JoseV4JsonUnmarshaler$
+    implements $json2.JoseV4JsonUnmarshaler {
   BoxoPinningRemoteClientOpenapiNullableFloat64.$h(super.$h) : super.$h();
 
   /// Go: `func openapi.NewNullableFloat64(val *float64) *openapi.NullableFloat64`.
@@ -711,24 +611,8 @@ class BoxoPinningRemoteClientOpenapiNullableFloat64
 /// Go: `openapi.NullableInt` (handle).
 class BoxoPinningRemoteClientOpenapiNullableInt
     extends $json.EncodingJsonUnmarshaler
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $json2.JoseV4JsonUnmarshaler$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $json2.JoseV4JsonUnmarshaler,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    with $json2.JoseV4JsonUnmarshaler$
+    implements $json2.JoseV4JsonUnmarshaler {
   BoxoPinningRemoteClientOpenapiNullableInt.$h(super.$h) : super.$h();
 
   /// Go: `func openapi.NewNullableInt(val *int) *openapi.NullableInt`.
@@ -782,24 +666,8 @@ class BoxoPinningRemoteClientOpenapiNullableInt
 /// Go: `openapi.NullableInt32` (handle).
 class BoxoPinningRemoteClientOpenapiNullableInt32
     extends $json.EncodingJsonUnmarshaler
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $json2.JoseV4JsonUnmarshaler$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $json2.JoseV4JsonUnmarshaler,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    with $json2.JoseV4JsonUnmarshaler$
+    implements $json2.JoseV4JsonUnmarshaler {
   BoxoPinningRemoteClientOpenapiNullableInt32.$h(super.$h) : super.$h();
 
   /// Go: `func openapi.NewNullableInt32(val *int32) *openapi.NullableInt32`.
@@ -853,24 +721,8 @@ class BoxoPinningRemoteClientOpenapiNullableInt32
 /// Go: `openapi.NullableInt64` (handle).
 class BoxoPinningRemoteClientOpenapiNullableInt64
     extends $json.EncodingJsonUnmarshaler
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $json2.JoseV4JsonUnmarshaler$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $json2.JoseV4JsonUnmarshaler,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    with $json2.JoseV4JsonUnmarshaler$
+    implements $json2.JoseV4JsonUnmarshaler {
   BoxoPinningRemoteClientOpenapiNullableInt64.$h(super.$h) : super.$h();
 
   /// Go: `func openapi.NewNullableInt64(val *int64) *openapi.NullableInt64`.
@@ -924,24 +776,8 @@ class BoxoPinningRemoteClientOpenapiNullableInt64
 /// Go: `openapi.NullablePin` (handle).
 class BoxoPinningRemoteClientOpenapiNullablePin
     extends $json.EncodingJsonUnmarshaler
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $json2.JoseV4JsonUnmarshaler$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $json2.JoseV4JsonUnmarshaler,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    with $json2.JoseV4JsonUnmarshaler$
+    implements $json2.JoseV4JsonUnmarshaler {
   BoxoPinningRemoteClientOpenapiNullablePin.$h(super.$h) : super.$h();
 
   /// Go: `func openapi.NewNullablePin(val *openapi.Pin) *openapi.NullablePin`.
@@ -996,24 +832,8 @@ class BoxoPinningRemoteClientOpenapiNullablePin
 /// Go: `openapi.NullablePinResults` (handle).
 class BoxoPinningRemoteClientOpenapiNullablePinResults
     extends $json.EncodingJsonUnmarshaler
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $json2.JoseV4JsonUnmarshaler$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $json2.JoseV4JsonUnmarshaler,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    with $json2.JoseV4JsonUnmarshaler$
+    implements $json2.JoseV4JsonUnmarshaler {
   BoxoPinningRemoteClientOpenapiNullablePinResults.$h(super.$h) : super.$h();
 
   /// Go: `func openapi.NewNullablePinResults(val *openapi.PinResults) *openapi.NullablePinResults`.
@@ -1068,24 +888,8 @@ class BoxoPinningRemoteClientOpenapiNullablePinResults
 /// Go: `openapi.NullablePinStatus` (handle).
 class BoxoPinningRemoteClientOpenapiNullablePinStatus
     extends $json.EncodingJsonUnmarshaler
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $json2.JoseV4JsonUnmarshaler$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $json2.JoseV4JsonUnmarshaler,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    with $json2.JoseV4JsonUnmarshaler$
+    implements $json2.JoseV4JsonUnmarshaler {
   BoxoPinningRemoteClientOpenapiNullablePinStatus.$h(super.$h) : super.$h();
 
   /// Go: `func openapi.NewNullablePinStatus(val *openapi.PinStatus) *openapi.NullablePinStatus`.
@@ -1140,24 +944,8 @@ class BoxoPinningRemoteClientOpenapiNullablePinStatus
 /// Go: `openapi.NullableStatus` (handle).
 class BoxoPinningRemoteClientOpenapiNullableStatus
     extends $json.EncodingJsonUnmarshaler
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $json2.JoseV4JsonUnmarshaler$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $json2.JoseV4JsonUnmarshaler,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    with $json2.JoseV4JsonUnmarshaler$
+    implements $json2.JoseV4JsonUnmarshaler {
   BoxoPinningRemoteClientOpenapiNullableStatus.$h(super.$h) : super.$h();
 
   /// Go: `func (openapi.NullableStatus).IsSet() bool`.
@@ -1190,24 +978,8 @@ class BoxoPinningRemoteClientOpenapiNullableStatus
 /// Go: `openapi.NullableString` (handle).
 class BoxoPinningRemoteClientOpenapiNullableString
     extends $json.EncodingJsonUnmarshaler
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $json2.JoseV4JsonUnmarshaler$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $json2.JoseV4JsonUnmarshaler,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    with $json2.JoseV4JsonUnmarshaler$
+    implements $json2.JoseV4JsonUnmarshaler {
   BoxoPinningRemoteClientOpenapiNullableString.$h(super.$h) : super.$h();
 
   /// Go: `func openapi.NewNullableString(val *string) *openapi.NullableString`.
@@ -1261,24 +1033,8 @@ class BoxoPinningRemoteClientOpenapiNullableString
 /// Go: `openapi.NullableTime` (handle).
 class BoxoPinningRemoteClientOpenapiNullableTime
     extends $json.EncodingJsonUnmarshaler
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $json2.JoseV4JsonUnmarshaler$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $json2.JoseV4JsonUnmarshaler,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    with $json2.JoseV4JsonUnmarshaler$
+    implements $json2.JoseV4JsonUnmarshaler {
   BoxoPinningRemoteClientOpenapiNullableTime.$h(super.$h) : super.$h();
 
   /// Go: `func openapi.NewNullableTime(val *time.Time) *openapi.NullableTime`.

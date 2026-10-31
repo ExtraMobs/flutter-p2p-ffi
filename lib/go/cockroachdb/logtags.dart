@@ -5,30 +5,11 @@ library;
 import 'package:p2p_ffi/src/go.dart' show GoCockroachdbLogtags;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/strings.dart' as $strings;
 
 /// Go: `logtags.Buffer` (handle).
-class LogtagsBuffer extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  LogtagsBuffer.$h(super.$h) : super.$h();
+class LogtagsBuffer extends GoHandle {
+  LogtagsBuffer.$h(super.$h);
 
   /// Go: `func (*logtags.Buffer).Add(key string, value interface{}) *logtags.Buffer`.
   LogtagsBuffer add(String key, Object? value) {
@@ -94,22 +75,8 @@ class LogtagsBuffer extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `logtags.Tag` (handle).
-class LogtagsTag extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  LogtagsTag.$h(super.$h) : super.$h();
+class LogtagsTag extends GoHandle {
+  LogtagsTag.$h(super.$h);
 
   /// Go: `func (*logtags.Tag).Key() string`.
   String key() {

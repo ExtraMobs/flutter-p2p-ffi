@@ -8,34 +8,15 @@ import 'package:p2p_ffi/src/go.dart'
     show GoIpfsIpldLegacy, GoIpfsIpldLegacyEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/block_format.dart' as $block_format;
 import 'package:p2p_ffi/go/ipfs/boxo/ipld/merkledag.dart' as $merkledag;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 import 'package:p2p_ffi/go/ipfs/ipld_format.dart' as $ipld_format;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/ipld/ipld_prime/datamodel.dart' as $datamodel;
 import 'package:p2p_ffi/go/ipld/ipld_prime/linking.dart' as $linking;
 
 /// Go: `ipldlegacy.Decoder` (handle).
-class IpldLegacyDecoder extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  IpldLegacyDecoder.$h(super.$h) : super.$h();
+class IpldLegacyDecoder extends GoHandle {
+  IpldLegacyDecoder.$h(super.$h);
 
   /// Go: `func ipldlegacy.NewDecoder() *ipldlegacy.Decoder`.
   factory IpldLegacyDecoder() {
@@ -74,26 +55,8 @@ class IpldLegacyDecoder extends $crypto.CryptoDecrypterOpts
 
 /// Go: `ipldlegacy.LegacyNode` (handle).
 class IpldLegacyNode extends $datamodel.IpldPrimeDatamodelNode
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $ipld_format.IpldFormatResolver$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $ipld_format.IpldFormatNode$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $ipld_format.IpldFormatResolver,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $ipld_format.IpldFormatNode {
+    with $ipld_format.IpldFormatResolver$, $ipld_format.IpldFormatNode$
+    implements $ipld_format.IpldFormatResolver, $ipld_format.IpldFormatNode {
   IpldLegacyNode.$h(super.$h) : super.$h();
 
   /// Go: `func (*ipldlegacy.LegacyNode).Copy() format.Node`.
@@ -163,22 +126,8 @@ class IpldLegacyNode extends $datamodel.IpldPrimeDatamodelNode
 }
 
 /// Go: `ipldlegacy.NodeConverter` (handle).
-class IpldLegacyNodeConverter extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  IpldLegacyNodeConverter.$h(super.$h) : super.$h();
+class IpldLegacyNodeConverter extends GoHandle {
+  IpldLegacyNodeConverter.$h(super.$h);
 }
 
 /// Go: `ipldlegacy.UniversalNode` (handle).

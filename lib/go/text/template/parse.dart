@@ -5,30 +5,9 @@ library;
 import 'package:p2p_ffi/src/go.dart'
     show GoTextTemplateParse, GoTextTemplateParseEnums;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 
 /// Go: `parse.ActionNode` (handle).
-class TextTemplateParseActionNode extends TextTemplateParseNode
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class TextTemplateParseActionNode extends TextTemplateParseNode {
   TextTemplateParseActionNode.$h(super.$h) : super.$h();
 
   /// Go: `func (*parse.ActionNode).Copy() parse.Node`.
@@ -57,23 +36,7 @@ class TextTemplateParseActionNode extends TextTemplateParseNode
 }
 
 /// Go: `parse.BoolNode` (handle).
-class TextTemplateParseBoolNode extends TextTemplateParseNode
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class TextTemplateParseBoolNode extends TextTemplateParseNode {
   TextTemplateParseBoolNode.$h(super.$h) : super.$h();
 
   /// Go: `func (*parse.BoolNode).Copy() parse.Node`.
@@ -102,23 +65,7 @@ class TextTemplateParseBoolNode extends TextTemplateParseNode
 }
 
 /// Go: `parse.BranchNode` (handle).
-class TextTemplateParseBranchNode extends TextTemplateParseNode
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class TextTemplateParseBranchNode extends TextTemplateParseNode {
   TextTemplateParseBranchNode.$h(super.$h) : super.$h();
 
   /// Go: `func (*parse.BranchNode).Copy() parse.Node`.
@@ -147,23 +94,7 @@ class TextTemplateParseBranchNode extends TextTemplateParseNode
 }
 
 /// Go: `parse.BreakNode` (handle).
-class TextTemplateParseBreakNode extends TextTemplateParseNode
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class TextTemplateParseBreakNode extends TextTemplateParseNode {
   TextTemplateParseBreakNode.$h(super.$h) : super.$h();
 
   /// Go: `func (*parse.BreakNode).Copy() parse.Node`.
@@ -192,23 +123,7 @@ class TextTemplateParseBreakNode extends TextTemplateParseNode
 }
 
 /// Go: `parse.ChainNode` (handle).
-class TextTemplateParseChainNode extends TextTemplateParseNode
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class TextTemplateParseChainNode extends TextTemplateParseNode {
   TextTemplateParseChainNode.$h(super.$h) : super.$h();
 
   /// Go: `func (*parse.ChainNode).Add(field string)`.
@@ -246,23 +161,7 @@ class TextTemplateParseChainNode extends TextTemplateParseNode
 }
 
 /// Go: `parse.CommandNode` (handle).
-class TextTemplateParseCommandNode extends TextTemplateParseNode
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class TextTemplateParseCommandNode extends TextTemplateParseNode {
   TextTemplateParseCommandNode.$h(super.$h) : super.$h();
 
   /// Go: `func (*parse.CommandNode).Copy() parse.Node`.
@@ -291,23 +190,7 @@ class TextTemplateParseCommandNode extends TextTemplateParseNode
 }
 
 /// Go: `parse.CommentNode` (handle).
-class TextTemplateParseCommentNode extends TextTemplateParseNode
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class TextTemplateParseCommentNode extends TextTemplateParseNode {
   TextTemplateParseCommentNode.$h(super.$h) : super.$h();
 
   /// Go: `func (*parse.CommentNode).Copy() parse.Node`.
@@ -336,23 +219,7 @@ class TextTemplateParseCommentNode extends TextTemplateParseNode
 }
 
 /// Go: `parse.ContinueNode` (handle).
-class TextTemplateParseContinueNode extends TextTemplateParseNode
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class TextTemplateParseContinueNode extends TextTemplateParseNode {
   TextTemplateParseContinueNode.$h(super.$h) : super.$h();
 
   /// Go: `func (*parse.ContinueNode).Copy() parse.Node`.
@@ -381,23 +248,7 @@ class TextTemplateParseContinueNode extends TextTemplateParseNode
 }
 
 /// Go: `parse.DotNode` (handle).
-class TextTemplateParseDotNode extends TextTemplateParseNode
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class TextTemplateParseDotNode extends TextTemplateParseNode {
   TextTemplateParseDotNode.$h(super.$h) : super.$h();
 
   /// Go: `func (*parse.DotNode).Copy() parse.Node`.
@@ -426,23 +277,7 @@ class TextTemplateParseDotNode extends TextTemplateParseNode
 }
 
 /// Go: `parse.FieldNode` (handle).
-class TextTemplateParseFieldNode extends TextTemplateParseNode
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class TextTemplateParseFieldNode extends TextTemplateParseNode {
   TextTemplateParseFieldNode.$h(super.$h) : super.$h();
 
   /// Go: `func (*parse.FieldNode).Copy() parse.Node`.
@@ -471,23 +306,7 @@ class TextTemplateParseFieldNode extends TextTemplateParseNode
 }
 
 /// Go: `parse.IdentifierNode` (handle).
-class TextTemplateParseIdentifierNode extends TextTemplateParseNode
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class TextTemplateParseIdentifierNode extends TextTemplateParseNode {
   TextTemplateParseIdentifierNode.$h(super.$h) : super.$h();
 
   /// Go: `func (*parse.IdentifierNode).Copy() parse.Node`.
@@ -577,23 +396,7 @@ final class TextTemplateParseIfNode implements GoDto {
 }
 
 /// Go: `parse.ListNode` (handle).
-class TextTemplateParseListNode extends TextTemplateParseNode
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class TextTemplateParseListNode extends TextTemplateParseNode {
   TextTemplateParseListNode.$h(super.$h) : super.$h();
 
   /// Go: `func (*parse.ListNode).Copy() parse.Node`.
@@ -628,23 +431,7 @@ class TextTemplateParseListNode extends TextTemplateParseNode
 }
 
 /// Go: `parse.NilNode` (handle).
-class TextTemplateParseNilNode extends TextTemplateParseNode
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class TextTemplateParseNilNode extends TextTemplateParseNode {
   TextTemplateParseNilNode.$h(super.$h) : super.$h();
 
   /// Go: `func (*parse.NilNode).Copy() parse.Node`.
@@ -819,23 +606,7 @@ mixin TextTemplateParseNode$ on GoHandle {
 }
 
 /// Go: `parse.NumberNode` (handle).
-class TextTemplateParseNumberNode extends TextTemplateParseNode
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class TextTemplateParseNumberNode extends TextTemplateParseNode {
   TextTemplateParseNumberNode.$h(super.$h) : super.$h();
 
   /// Go: `func (*parse.NumberNode).Copy() parse.Node`.
@@ -864,23 +635,7 @@ class TextTemplateParseNumberNode extends TextTemplateParseNode
 }
 
 /// Go: `parse.PipeNode` (handle).
-class TextTemplateParsePipeNode extends TextTemplateParseNode
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class TextTemplateParsePipeNode extends TextTemplateParseNode {
   TextTemplateParsePipeNode.$h(super.$h) : super.$h();
 
   /// Go: `func (*parse.PipeNode).Copy() parse.Node`.
@@ -956,23 +711,7 @@ final class TextTemplateParseRangeNode implements GoDto {
 }
 
 /// Go: `parse.StringNode` (handle).
-class TextTemplateParseStringNode extends TextTemplateParseNode
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class TextTemplateParseStringNode extends TextTemplateParseNode {
   TextTemplateParseStringNode.$h(super.$h) : super.$h();
 
   /// Go: `func (*parse.StringNode).Copy() parse.Node`.
@@ -1001,23 +740,7 @@ class TextTemplateParseStringNode extends TextTemplateParseNode
 }
 
 /// Go: `parse.TemplateNode` (handle).
-class TextTemplateParseTemplateNode extends TextTemplateParseNode
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class TextTemplateParseTemplateNode extends TextTemplateParseNode {
   TextTemplateParseTemplateNode.$h(super.$h) : super.$h();
 
   /// Go: `func (*parse.TemplateNode).Copy() parse.Node`.
@@ -1046,23 +769,7 @@ class TextTemplateParseTemplateNode extends TextTemplateParseNode
 }
 
 /// Go: `parse.TextNode` (handle).
-class TextTemplateParseTextNode extends TextTemplateParseNode
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class TextTemplateParseTextNode extends TextTemplateParseNode {
   TextTemplateParseTextNode.$h(super.$h) : super.$h();
 
   /// Go: `func (*parse.TextNode).Copy() parse.Node`.
@@ -1091,22 +798,8 @@ class TextTemplateParseTextNode extends TextTemplateParseNode
 }
 
 /// Go: `parse.Tree` (handle).
-class TextTemplateParseTree extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  TextTemplateParseTree.$h(super.$h) : super.$h();
+class TextTemplateParseTree extends GoHandle {
+  TextTemplateParseTree.$h(super.$h);
 
   /// Go: `func (*parse.Tree).Copy() *parse.Tree`.
   TextTemplateParseTree copy() {
@@ -1145,23 +838,7 @@ class TextTemplateParseTree extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `parse.VariableNode` (handle).
-class TextTemplateParseVariableNode extends TextTemplateParseNode
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class TextTemplateParseVariableNode extends TextTemplateParseNode {
   TextTemplateParseVariableNode.$h(super.$h) : super.$h();
 
   /// Go: `func (*parse.VariableNode).Copy() parse.Node`.

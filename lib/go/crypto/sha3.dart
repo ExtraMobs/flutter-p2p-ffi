@@ -6,36 +6,15 @@ import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/go.dart' show GoCryptoSha3;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/encoding.dart' as $encoding;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/hash.dart' as $hash;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 
 /// Go: `sha3.SHA3` (handle).
 class CryptoSha3 extends $hash.HashCloner
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $encoding.EncodingBinaryAppender$,
-        $encoding.EncodingBinaryUnmarshaler$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
+    with $encoding.EncodingBinaryAppender$, $encoding.EncodingBinaryUnmarshaler$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
         $encoding.EncodingBinaryAppender,
-        $encoding.EncodingBinaryUnmarshaler,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+        $encoding.EncodingBinaryUnmarshaler {
   CryptoSha3.$h(super.$h) : super.$h();
 
   /// Go: `func (*sha3.SHA3).AppendBinary(p []byte) ([]byte, error)`.
@@ -109,26 +88,10 @@ class CryptoSha3 extends $hash.HashCloner
 
 /// Go: `sha3.SHAKE` (handle).
 class CryptoSha3Shake extends $hash.HashXof
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $encoding.EncodingBinaryAppender$,
-        $encoding.EncodingBinaryUnmarshaler$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
+    with $encoding.EncodingBinaryAppender$, $encoding.EncodingBinaryUnmarshaler$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
         $encoding.EncodingBinaryAppender,
-        $encoding.EncodingBinaryUnmarshaler,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+        $encoding.EncodingBinaryUnmarshaler {
   CryptoSha3Shake.$h(super.$h) : super.$h();
 
   /// Go: `func (*sha3.SHAKE).AppendBinary(p []byte) ([]byte, error)`.

@@ -7,13 +7,8 @@ import 'dart:typed_data';
 import 'package:p2p_ffi/src/go.dart'
     show GoIpfsBoxoBitswapMessagePb, GoIpfsBoxoBitswapMessagePbEnums;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
 import 'package:p2p_ffi/go/gogo/protobuf/protoc_gen_gogo/descriptor.dart'
     as $descriptor;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/protobuf/reflect/protoreflect.dart' as $protoreflect;
 import 'package:p2p_ffi/go/protobuf/runtime/protoiface.dart' as $protoiface;
 
@@ -21,23 +16,9 @@ import 'package:p2p_ffi/go/protobuf/runtime/protoiface.dart' as $protoiface;
 class BoxoBitswapMessagePbMessage
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   BoxoBitswapMessagePbMessage.$h(super.$h) : super.$h();
@@ -106,23 +87,9 @@ class BoxoBitswapMessagePbMessage
 class BoxoBitswapMessagePbMessageBlock
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   BoxoBitswapMessagePbMessageBlock.$h(super.$h) : super.$h();
@@ -173,23 +140,9 @@ class BoxoBitswapMessagePbMessageBlock
 class BoxoBitswapMessagePbMessageBlockPresence
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   BoxoBitswapMessagePbMessageBlockPresence.$h(super.$h) : super.$h();
@@ -240,23 +193,9 @@ class BoxoBitswapMessagePbMessageBlockPresence
 class BoxoBitswapMessagePbMessageWantlist
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   BoxoBitswapMessagePbMessageWantlist.$h(super.$h) : super.$h();
@@ -307,23 +246,9 @@ class BoxoBitswapMessagePbMessageWantlist
 class BoxoBitswapMessagePbMessageWantlistEntry
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   BoxoBitswapMessagePbMessageWantlistEntry.$h(super.$h) : super.$h();

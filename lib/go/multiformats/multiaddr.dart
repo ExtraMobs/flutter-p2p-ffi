@@ -11,40 +11,21 @@ import 'package:p2p_ffi/src/go.dart'
         GoMultiformatsMultiaddrConsts,
         GoMultiformatsMultiaddrEnums;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/encoding.dart' as $encoding;
 import 'package:p2p_ffi/go/encoding/json.dart' as $json;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
 import 'package:p2p_ffi/go/go_jose/jose/v4/json.dart' as $json2;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/net.dart' as $net;
 
 /// Go: `multiaddr.Component` (handle).
 class MultiaddrComponent extends $encoding.EncodingBinaryUnmarshaler
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
         $encoding.EncodingTextUnmarshaler$,
         $json.EncodingJsonUnmarshaler$,
-        $xml.EncodingXmlToken$,
-        $json2.JoseV4JsonUnmarshaler$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
+        $json2.JoseV4JsonUnmarshaler$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
         $encoding.EncodingTextUnmarshaler,
         $json.EncodingJsonUnmarshaler,
-        $xml.EncodingXmlToken,
-        $json2.JoseV4JsonUnmarshaler,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+        $json2.JoseV4JsonUnmarshaler {
   MultiaddrComponent.$h(super.$h) : super.$h();
 
   /// Go: `func multiaddr.NewComponent(protocol string, value string) (*multiaddr.Component, error)`.
@@ -202,22 +183,8 @@ class MultiaddrComponent extends $encoding.EncodingBinaryUnmarshaler
 }
 
 /// Go: `multiaddr.Filters` (handle).
-class MultiaddrFilters extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  MultiaddrFilters.$h(super.$h) : super.$h();
+class MultiaddrFilters extends GoHandle {
+  MultiaddrFilters.$h(super.$h);
 
   /// Go: `func multiaddr.NewFilters() *multiaddr.Filters`.
   factory MultiaddrFilters() {

@@ -5,11 +5,6 @@ library;
 import 'package:p2p_ffi/src/go.dart' show GoLibp2pDohResolverOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/multiformats/multiaddr_dns.dart' as $multiaddr_dns;
 import 'package:p2p_ffi/go/net.dart' as $net;
 
@@ -20,24 +15,8 @@ final class DohResolverOption extends GoOption {
 
 /// Go: `doh.Resolver` (handle).
 class DohResolver extends $multiaddr_dns.MultiaddrDnsBasicResolver
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $multiaddr_dns.MultiaddrDnsTxtWithTtlResolver$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $multiaddr_dns.MultiaddrDnsTxtWithTtlResolver {
+    with $multiaddr_dns.MultiaddrDnsTxtWithTtlResolver$
+    implements $multiaddr_dns.MultiaddrDnsTxtWithTtlResolver {
   DohResolver.$h(super.$h) : super.$h();
 
   /// Go: `func doh.NewResolver(url string, opts ...doh.Option) (*doh.Resolver, error)`.

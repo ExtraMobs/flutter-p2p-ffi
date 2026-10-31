@@ -8,9 +8,6 @@ import 'package:p2p_ffi/src/go.dart'
     show GoIpfsBoxoBitswapServer, GoIpfsBoxoBitswapServerOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/block_format.dart' as $block_format;
 import 'package:p2p_ffi/go/ipfs/boxo/bitswap/client.dart' as $client;
 import 'package:p2p_ffi/go/ipfs/boxo/bitswap/message.dart' as $message;
@@ -18,8 +15,6 @@ import 'package:p2p_ffi/go/ipfs/boxo/bitswap/network.dart' as $network;
 import 'package:p2p_ffi/go/ipfs/boxo/bitswap/tracer.dart' as $tracer;
 import 'package:p2p_ffi/go/ipfs/boxo/blockstore.dart' as $blockstore;
 import 'package:p2p_ffi/go/ipfs/cid.dart' as $cid;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
 
 /// Go: `server.Option` (functional option; constructors in the package).
@@ -30,25 +25,11 @@ final class BoxoBitswapServerOption extends GoOption {
 /// Go: `server.Server` (handle).
 class BoxoBitswapServer extends $network.BoxoBitswapNetworkReceiver
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
         $client.BoxoBitswapClientBlockReceivedNotifier$,
-        $network.BoxoBitswapNetworkConnectionListener$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
+        $network.BoxoBitswapNetworkConnectionListener$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
         $client.BoxoBitswapClientBlockReceivedNotifier,
-        $network.BoxoBitswapNetworkConnectionListener,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+        $network.BoxoBitswapNetworkConnectionListener {
   BoxoBitswapServer.$h(super.$h) : super.$h();
 
   /// Go: `func (*server.Server).Close()`.

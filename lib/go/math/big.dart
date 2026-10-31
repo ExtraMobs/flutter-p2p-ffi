@@ -7,44 +7,25 @@ import 'dart:typed_data';
 import 'package:p2p_ffi/src/go.dart'
     show GoMathBig, GoMathBigConsts, GoMathBigEnums;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/encoding.dart' as $encoding;
 import 'package:p2p_ffi/go/encoding/gob.dart' as $gob;
 import 'package:p2p_ffi/go/encoding/json.dart' as $json;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
 import 'package:p2p_ffi/go/fmt.dart' as $fmt;
 import 'package:p2p_ffi/go/go_jose/jose/v4/json.dart' as $json2;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/math/rand.dart' as $rand;
 
 /// Go: `big.Float` (handle).
 class MathBigFloat extends $encoding.EncodingTextAppender
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
         $encoding.EncodingTextUnmarshaler$,
         $gob.EncodingGob_GobDecoder$,
-        $xml.EncodingXmlToken$,
         $fmt.FmtFormatter$,
-        $fmt.FmtScanner$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
+        $fmt.FmtScanner$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
         $encoding.EncodingTextUnmarshaler,
         $gob.EncodingGob_GobDecoder,
-        $xml.EncodingXmlToken,
         $fmt.FmtFormatter,
-        $fmt.FmtScanner,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+        $fmt.FmtScanner {
   MathBigFloat.$h(super.$h) : super.$h();
 
   /// Go: `func big.NewFloat(x float64) *big.Float`.
@@ -464,33 +445,19 @@ class MathBigFloat extends $encoding.EncodingTextAppender
 /// Go: `big.Int` (handle).
 class MathBigInt extends $encoding.EncodingTextAppender
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
         $encoding.EncodingTextUnmarshaler$,
         $gob.EncodingGob_GobDecoder$,
         $json.EncodingJsonUnmarshaler$,
-        $xml.EncodingXmlToken$,
         $fmt.FmtFormatter$,
         $fmt.FmtScanner$,
-        $json2.JoseV4JsonUnmarshaler$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
+        $json2.JoseV4JsonUnmarshaler$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
         $encoding.EncodingTextUnmarshaler,
         $gob.EncodingGob_GobDecoder,
         $json.EncodingJsonUnmarshaler,
-        $xml.EncodingXmlToken,
         $fmt.FmtFormatter,
         $fmt.FmtScanner,
-        $json2.JoseV4JsonUnmarshaler,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+        $json2.JoseV4JsonUnmarshaler {
   MathBigInt.$h(super.$h) : super.$h();
 
   /// Go: `func big.NewInt(x int64) *big.Int`.
@@ -1075,27 +1042,13 @@ class MathBigInt extends $encoding.EncodingTextAppender
 /// Go: `big.Rat` (handle).
 class MathBigRat extends $encoding.EncodingTextAppender
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
         $encoding.EncodingTextUnmarshaler$,
         $gob.EncodingGob_GobDecoder$,
-        $xml.EncodingXmlToken$,
-        $fmt.FmtScanner$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
+        $fmt.FmtScanner$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
         $encoding.EncodingTextUnmarshaler,
         $gob.EncodingGob_GobDecoder,
-        $xml.EncodingXmlToken,
-        $fmt.FmtScanner,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+        $fmt.FmtScanner {
   MathBigRat.$h(super.$h) : super.$h();
 
   /// Go: `func big.NewRat(a int64, b int64) *big.Rat`.

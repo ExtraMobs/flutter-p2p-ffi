@@ -13,14 +13,9 @@ import 'package:p2p_ffi/src/go.dart'
         GoLibp2pLibp2pPubsubOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
 import 'package:p2p_ffi/go/gogo/protobuf/protoc_gen_gogo/descriptor.dart'
     as $descriptor;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
-import 'package:p2p_ffi/go/libp2p/libp2p/core/crypto.dart' as $crypto2;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/discovery.dart' as $discovery;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/host.dart' as $host;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
@@ -32,41 +27,13 @@ import 'package:p2p_ffi/go/protobuf/runtime/protoiface.dart' as $protoiface;
 import 'package:p2p_ffi/go/regexp.dart' as $regexp;
 
 /// Go: `pubsub.BackoffConnectorFactory` (handle).
-class Libp2pPubsubBackoffConnectorFactory extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  Libp2pPubsubBackoffConnectorFactory.$h(super.$h) : super.$h();
+class Libp2pPubsubBackoffConnectorFactory extends GoHandle {
+  Libp2pPubsubBackoffConnectorFactory.$h(super.$h);
 }
 
 /// Go: `pubsub.BatchPubOpt` (handle).
-class Libp2pPubsubBatchPubOpt extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  Libp2pPubsubBatchPubOpt.$h(super.$h) : super.$h();
+class Libp2pPubsubBatchPubOpt extends GoHandle {
+  Libp2pPubsubBatchPubOpt.$h(super.$h);
 }
 
 /// Go: `pubsub.BatchPublishOptions`.
@@ -187,23 +154,7 @@ mixin Libp2pPubsubEventTracer$ on GoHandle {
 }
 
 /// Go: `pubsub.FloodSubRouter` (handle).
-class Libp2pPubsubFloodSubRouter extends Libp2pPubsubPubSubRouter
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class Libp2pPubsubFloodSubRouter extends Libp2pPubsubPubSubRouter {
   Libp2pPubsubFloodSubRouter.$h(super.$h) : super.$h();
 
   /// Go: `func (*pubsub.FloodSubRouter).AcceptFrom(peer.ID) pubsub.AcceptStatus`.
@@ -575,24 +526,8 @@ final class Libp2pPubsubGossipSubParams implements GoDto {
 
 /// Go: `pubsub.GossipSubRouter` (handle).
 class Libp2pPubsubGossipSubRouter extends Libp2pPubsubPubSubRouter
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        Libp2pPubsubBatchPublisher$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        Libp2pPubsubBatchPublisher {
+    with Libp2pPubsubBatchPublisher$
+    implements Libp2pPubsubBatchPublisher {
   Libp2pPubsubGossipSubRouter.$h(super.$h) : super.$h();
 
   /// Go: `func (*pubsub.GossipSubRouter).AcceptFrom(p peer.ID) pubsub.AcceptStatus`.
@@ -763,23 +698,7 @@ class Libp2pPubsubGossipSubRouter extends Libp2pPubsubPubSubRouter
 }
 
 /// Go: `pubsub.JSONTracer` (handle).
-class Libp2pPubsubJsonTracer extends Libp2pPubsubEventTracer
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class Libp2pPubsubJsonTracer extends Libp2pPubsubEventTracer {
   Libp2pPubsubJsonTracer.$h(super.$h) : super.$h();
 
   /// Go: `func pubsub.NewJSONTracer(file string) (*pubsub.JSONTracer, error)`.
@@ -852,41 +771,13 @@ final class Libp2pPubsubMessage implements GoDto {
 }
 
 /// Go: `pubsub.MessageBatch` (handle).
-class Libp2pPubsubMessageBatch extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  Libp2pPubsubMessageBatch.$h(super.$h) : super.$h();
+class Libp2pPubsubMessageBatch extends GoHandle {
+  Libp2pPubsubMessageBatch.$h(super.$h);
 }
 
 /// Go: `pubsub.MessageCache` (handle).
-class Libp2pPubsubMessageCache extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  Libp2pPubsubMessageCache.$h(super.$h) : super.$h();
+class Libp2pPubsubMessageCache extends GoHandle {
+  Libp2pPubsubMessageCache.$h(super.$h);
 
   /// Go: `func pubsub.NewMessageCache(gossip int, history int) *pubsub.MessageCache`.
   factory Libp2pPubsubMessageCache(int gossip, int history) {
@@ -968,23 +859,7 @@ final class Libp2pPubsubOption extends GoOption {
 }
 
 /// Go: `pubsub.PBTracer` (handle).
-class Libp2pPubsubPbTracer extends Libp2pPubsubEventTracer
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class Libp2pPubsubPbTracer extends Libp2pPubsubEventTracer {
   Libp2pPubsubPbTracer.$h(super.$h) : super.$h();
 
   /// Go: `func pubsub.NewPBTracer(file string) (*pubsub.PBTracer, error)`.
@@ -1009,22 +884,8 @@ class Libp2pPubsubPbTracer extends Libp2pPubsubEventTracer
 }
 
 /// Go: `pubsub.PXRecordReducer` (handle).
-class Libp2pPubsubPxRecordReducer extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  Libp2pPubsubPxRecordReducer.$h(super.$h) : super.$h();
+class Libp2pPubsubPxRecordReducer extends GoHandle {
+  Libp2pPubsubPxRecordReducer.$h(super.$h);
 }
 
 /// Go: `pubsub.PeerEvent`.
@@ -1395,22 +1256,8 @@ final class Libp2pPubsubPubOpt extends GoOption {
 }
 
 /// Go: `pubsub.PubSub` (handle).
-class Libp2pPubsubPubSub extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  Libp2pPubsubPubSub.$h(super.$h) : super.$h();
+class Libp2pPubsubPubSub extends GoHandle {
+  Libp2pPubsubPubSub.$h(super.$h);
 
   /// Go: `func (*pubsub.PubSub).AddDirectPeer(pInfo peer.AddrInfo) error`.
   ///
@@ -1719,24 +1566,10 @@ mixin Libp2pPubsubPubSubRouter$ on GoHandle {
 /// Go: `pubsub.RPC` (handle).
 class Libp2pPubsubRpc extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $slog.LogSlogLogValuer$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $slog.LogSlogLogValuer,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
@@ -1782,23 +1615,7 @@ mixin Libp2pPubsubRpcScheduler$ on GoHandle {
 }
 
 /// Go: `pubsub.RandomSubRouter` (handle).
-class Libp2pPubsubRandomSubRouter extends Libp2pPubsubPubSubRouter
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class Libp2pPubsubRandomSubRouter extends Libp2pPubsubPubSubRouter {
   Libp2pPubsubRandomSubRouter.$h(super.$h) : super.$h();
 
   /// Go: `func (*pubsub.RandomSubRouter).AcceptFrom(peer.ID) pubsub.AcceptStatus`.
@@ -2076,42 +1893,12 @@ mixin Libp2pPubsubRawTracer$ on GoHandle {
 }
 
 /// Go: `pubsub.RelayCancelFunc` (handle).
-class Libp2pPubsubRelayCancelFunc extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  Libp2pPubsubRelayCancelFunc.$h(super.$h) : super.$h();
+class Libp2pPubsubRelayCancelFunc extends GoHandle {
+  Libp2pPubsubRelayCancelFunc.$h(super.$h);
 }
 
 /// Go: `pubsub.RemoteTracer` (handle).
-class Libp2pPubsubRemoteTracer extends Libp2pPubsubEventTracer
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class Libp2pPubsubRemoteTracer extends Libp2pPubsubEventTracer {
   Libp2pPubsubRemoteTracer.$h(super.$h) : super.$h();
 
   /// Go: `func (*pubsub.basicTracer).Close()`.
@@ -2130,23 +1917,8 @@ class Libp2pPubsubRemoteTracer extends Libp2pPubsubEventTracer
 }
 
 /// Go: `pubsub.RoundRobinMessageIDScheduler` (handle).
-class Libp2pPubsubRoundRobinMessageIdScheduler extends Libp2pPubsubRpcScheduler
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class Libp2pPubsubRoundRobinMessageIdScheduler
+    extends Libp2pPubsubRpcScheduler {
   Libp2pPubsubRoundRobinMessageIdScheduler.$h(super.$h) : super.$h();
 
   /// Go: `func (*pubsub.RoundRobinMessageIDScheduler).AddRPC(peer peer.ID, msgID string, rpc *pubsub.RPC)`.
@@ -2162,22 +1934,8 @@ class Libp2pPubsubRoundRobinMessageIdScheduler extends Libp2pPubsubRpcScheduler
 }
 
 /// Go: `pubsub.RouterReady` (handle).
-class Libp2pPubsubRouterReady extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  Libp2pPubsubRouterReady.$h(super.$h) : super.$h();
+class Libp2pPubsubRouterReady extends GoHandle {
+  Libp2pPubsubRouterReady.$h(super.$h);
 }
 
 /// Go: `pubsub.SubOpt` (functional option; constructors in the package).
@@ -2186,22 +1944,8 @@ final class Libp2pPubsubSubOpt extends GoOption {
 }
 
 /// Go: `pubsub.Subscription` (handle).
-class Libp2pPubsubSubscription extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  Libp2pPubsubSubscription.$h(super.$h) : super.$h();
+class Libp2pPubsubSubscription extends GoHandle {
+  Libp2pPubsubSubscription.$h(super.$h);
 
   /// Go: `func (*pubsub.Subscription).Cancel()`.
   ///
@@ -2273,23 +2017,7 @@ final class Libp2pPubsubTestExtensionConfig implements GoDto {
 }
 
 /// Go: `pubsub.TimeCachedBlacklist` (handle).
-class Libp2pPubsubTimeCachedBlacklist extends Libp2pPubsubBlacklist
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class Libp2pPubsubTimeCachedBlacklist extends Libp2pPubsubBlacklist {
   Libp2pPubsubTimeCachedBlacklist.$h(super.$h) : super.$h();
 
   /// Go: `func (*pubsub.TimeCachedBlacklist).Add(p peer.ID) bool`.
@@ -2314,22 +2042,8 @@ class Libp2pPubsubTimeCachedBlacklist extends Libp2pPubsubBlacklist
 }
 
 /// Go: `pubsub.Topic` (handle).
-class Libp2pPubsubTopic extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  Libp2pPubsubTopic.$h(super.$h) : super.$h();
+class Libp2pPubsubTopic extends GoHandle {
+  Libp2pPubsubTopic.$h(super.$h);
 
   /// Go: `func (*pubsub.Topic).AddToBatch(ctx context.Context, batch *pubsub.MessageBatch, data []byte, opts ...pubsub.PubOpt) error`.
   ///
@@ -2425,22 +2139,8 @@ class Libp2pPubsubTopic extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `pubsub.TopicEventHandler` (handle).
-class Libp2pPubsubTopicEventHandler extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  Libp2pPubsubTopicEventHandler.$h(super.$h) : super.$h();
+class Libp2pPubsubTopicEventHandler extends GoHandle {
+  Libp2pPubsubTopicEventHandler.$h(super.$h);
 
   /// Go: `func (*pubsub.TopicEventHandler).Cancel()`.
   ///
@@ -2463,22 +2163,8 @@ class Libp2pPubsubTopicEventHandler extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `pubsub.TopicEventHandlerOpt` (handle).
-class Libp2pPubsubTopicEventHandlerOpt extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  Libp2pPubsubTopicEventHandlerOpt.$h(super.$h) : super.$h();
+class Libp2pPubsubTopicEventHandlerOpt extends GoHandle {
+  Libp2pPubsubTopicEventHandlerOpt.$h(super.$h);
 }
 
 /// Go: `pubsub.TopicOpt` (functional option; constructors in the package).
@@ -2628,22 +2314,8 @@ final class Libp2pPubsubTopicScoreParams implements GoDto {
 }
 
 /// Go: `pubsub.ValidatorEx` (handle).
-class Libp2pPubsubValidatorEx extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  Libp2pPubsubValidatorEx.$h(super.$h) : super.$h();
+class Libp2pPubsubValidatorEx extends GoHandle {
+  Libp2pPubsubValidatorEx.$h(super.$h);
 }
 
 /// Go: `pubsub.ValidatorOpt` (functional option; constructors in the package).
@@ -3708,7 +3380,7 @@ extension GoLibp2pLibp2pPubsubOptionsApi on GoLibp2pLibp2pPubsubOptions {
 
   /// Go: `go-libp2p-pubsub.WithSecretKeyAndPeerId`.
   Libp2pPubsubPubOpt withSecretKeyAndPeerId(
-          $crypto2.Libp2pCoreCryptoPrivKey key, $peer.Libp2pCorePeerId pid) =>
+          $crypto.Libp2pCoreCryptoPrivKey key, $peer.Libp2pCorePeerId pid) =>
       Libp2pPubsubPubOpt.$(
           2,
           (w) => w

@@ -4,11 +4,6 @@ library;
 
 import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2pKadDhtCrawlerOptions;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/host.dart' as $host;
 
 /// Go: `crawler.Crawler` (handle).
@@ -20,23 +15,7 @@ class Libp2pKadDhtCrawler extends GoHandle with Libp2pKadDhtCrawler$ {
 mixin Libp2pKadDhtCrawler$ on GoHandle {}
 
 /// Go: `crawler.DefaultCrawler` (handle).
-class Libp2pKadDhtCrawlerDefaultCrawler extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        Libp2pKadDhtCrawler$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        Libp2pKadDhtCrawler {
+class Libp2pKadDhtCrawlerDefaultCrawler extends Libp2pKadDhtCrawler {
   Libp2pKadDhtCrawlerDefaultCrawler.$h(super.$h) : super.$h();
 
   /// Go: `func crawler.NewDefaultCrawler(host host.Host, opts ...crawler.Option) (*crawler.DefaultCrawler, error)`.

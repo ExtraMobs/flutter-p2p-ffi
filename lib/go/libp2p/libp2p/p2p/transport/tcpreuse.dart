@@ -8,32 +8,13 @@ import 'package:p2p_ffi/src/go.dart'
         GoLibp2pLibp2pP2pTransportTcpreuseEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/transport.dart' as $transport;
 import 'package:p2p_ffi/go/multiformats/multiaddr.dart' as $multiaddr;
 import 'package:p2p_ffi/go/multiformats/multiaddr/net.dart' as $net;
 
 /// Go: `tcpreuse.ConnMgr` (handle).
-class Libp2pP2pTransportTcpreuseConnMgr extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  Libp2pP2pTransportTcpreuseConnMgr.$h(super.$h) : super.$h();
+class Libp2pP2pTransportTcpreuseConnMgr extends GoHandle {
+  Libp2pP2pTransportTcpreuseConnMgr.$h(super.$h);
 
   /// Go: `func tcpreuse.NewConnMgr(enableReuseport bool, upgrader transport.Upgrader) *tcpreuse.ConnMgr`.
   factory Libp2pP2pTransportTcpreuseConnMgr(

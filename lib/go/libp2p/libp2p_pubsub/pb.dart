@@ -7,13 +7,8 @@ import 'dart:typed_data';
 import 'package:p2p_ffi/src/go.dart'
     show GoLibp2pLibp2pPubsubPb, GoLibp2pLibp2pPubsubPbEnums;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
 import 'package:p2p_ffi/go/gogo/protobuf/protoc_gen_gogo/descriptor.dart'
     as $descriptor;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/log/slog.dart' as $slog;
 import 'package:p2p_ffi/go/protobuf/reflect/protoreflect.dart' as $protoreflect;
 import 'package:p2p_ffi/go/protobuf/runtime/protoiface.dart' as $protoiface;
@@ -22,23 +17,9 @@ import 'package:p2p_ffi/go/protobuf/runtime/protoiface.dart' as $protoiface;
 class Libp2pPubsubPbControlExtensions
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   Libp2pPubsubPbControlExtensions.$h(super.$h) : super.$h();
@@ -89,23 +70,9 @@ class Libp2pPubsubPbControlExtensions
 class Libp2pPubsubPbControlGraft
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   Libp2pPubsubPbControlGraft.$h(super.$h) : super.$h();
@@ -150,23 +117,9 @@ class Libp2pPubsubPbControlGraft
 class Libp2pPubsubPbControlIDontWant
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   Libp2pPubsubPbControlIDontWant.$h(super.$h) : super.$h();
@@ -211,23 +164,9 @@ class Libp2pPubsubPbControlIDontWant
 class Libp2pPubsubPbControlIHave
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   Libp2pPubsubPbControlIHave.$h(super.$h) : super.$h();
@@ -278,23 +217,9 @@ class Libp2pPubsubPbControlIHave
 class Libp2pPubsubPbControlIWant
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   Libp2pPubsubPbControlIWant.$h(super.$h) : super.$h();
@@ -339,23 +264,9 @@ class Libp2pPubsubPbControlIWant
 class Libp2pPubsubPbControlMessage
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   Libp2pPubsubPbControlMessage.$h(super.$h) : super.$h();
@@ -430,23 +341,9 @@ class Libp2pPubsubPbControlMessage
 class Libp2pPubsubPbControlPrune
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   Libp2pPubsubPbControlPrune.$h(super.$h) : super.$h();
@@ -503,23 +400,9 @@ class Libp2pPubsubPbControlPrune
 class Libp2pPubsubPbMessage
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   Libp2pPubsubPbMessage.$h(super.$h) : super.$h();
@@ -594,24 +477,10 @@ class Libp2pPubsubPbMessage
 class Libp2pPubsubPbPartialMessagesExtension
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $slog.LogSlogLogValuer$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $slog.LogSlogLogValuer,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
@@ -681,23 +550,9 @@ class Libp2pPubsubPbPartialMessagesExtension
 class Libp2pPubsubPbPeerInfo
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   Libp2pPubsubPbPeerInfo.$h(super.$h) : super.$h();
@@ -748,24 +603,10 @@ class Libp2pPubsubPbPeerInfo
 class Libp2pPubsubPbRpc
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $slog.LogSlogLogValuer$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $slog.LogSlogLogValuer,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
@@ -841,23 +682,9 @@ class Libp2pPubsubPbRpc
 class Libp2pPubsubPbRpcSubOpts
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   Libp2pPubsubPbRpcSubOpts.$h(super.$h) : super.$h();
@@ -920,23 +747,9 @@ class Libp2pPubsubPbRpcSubOpts
 class Libp2pPubsubPbTestExtension
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   Libp2pPubsubPbTestExtension.$h(super.$h) : super.$h();
@@ -975,23 +788,9 @@ class Libp2pPubsubPbTestExtension
 class Libp2pPubsubPbTraceEvent
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   Libp2pPubsubPbTraceEvent.$h(super.$h) : super.$h();
@@ -1126,23 +925,9 @@ class Libp2pPubsubPbTraceEvent
 class Libp2pPubsubPbTraceEventBatch
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   Libp2pPubsubPbTraceEventBatch.$h(super.$h) : super.$h();
@@ -1187,23 +972,9 @@ class Libp2pPubsubPbTraceEventBatch
 class Libp2pPubsubPbTraceEventControlGraftMeta
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   Libp2pPubsubPbTraceEventControlGraftMeta.$h(super.$h) : super.$h();
@@ -1249,23 +1020,9 @@ class Libp2pPubsubPbTraceEventControlGraftMeta
 class Libp2pPubsubPbTraceEventControlIDontWantMeta
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   Libp2pPubsubPbTraceEventControlIDontWantMeta.$h(super.$h) : super.$h();
@@ -1311,23 +1068,9 @@ class Libp2pPubsubPbTraceEventControlIDontWantMeta
 class Libp2pPubsubPbTraceEventControlIHaveMeta
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   Libp2pPubsubPbTraceEventControlIHaveMeta.$h(super.$h) : super.$h();
@@ -1379,23 +1122,9 @@ class Libp2pPubsubPbTraceEventControlIHaveMeta
 class Libp2pPubsubPbTraceEventControlIWantMeta
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   Libp2pPubsubPbTraceEventControlIWantMeta.$h(super.$h) : super.$h();
@@ -1441,23 +1170,9 @@ class Libp2pPubsubPbTraceEventControlIWantMeta
 class Libp2pPubsubPbTraceEventControlMeta
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   Libp2pPubsubPbTraceEventControlMeta.$h(super.$h) : super.$h();
@@ -1527,23 +1242,9 @@ class Libp2pPubsubPbTraceEventControlMeta
 class Libp2pPubsubPbTraceEventControlPruneMeta
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   Libp2pPubsubPbTraceEventControlPruneMeta.$h(super.$h) : super.$h();
@@ -1595,23 +1296,9 @@ class Libp2pPubsubPbTraceEventControlPruneMeta
 class Libp2pPubsubPbTraceEventDeliverMessage
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   Libp2pPubsubPbTraceEventDeliverMessage.$h(super.$h) : super.$h();
@@ -1668,23 +1355,9 @@ class Libp2pPubsubPbTraceEventDeliverMessage
 class Libp2pPubsubPbTraceEventDropRpc
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   Libp2pPubsubPbTraceEventDropRpc.$h(super.$h) : super.$h();
@@ -1735,23 +1408,9 @@ class Libp2pPubsubPbTraceEventDropRpc
 class Libp2pPubsubPbTraceEventDuplicateMessage
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   Libp2pPubsubPbTraceEventDuplicateMessage.$h(super.$h) : super.$h();
@@ -1809,23 +1468,9 @@ class Libp2pPubsubPbTraceEventDuplicateMessage
 class Libp2pPubsubPbTraceEventGraft
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   Libp2pPubsubPbTraceEventGraft.$h(super.$h) : super.$h();
@@ -1876,23 +1521,9 @@ class Libp2pPubsubPbTraceEventGraft
 class Libp2pPubsubPbTraceEventJoin
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   Libp2pPubsubPbTraceEventJoin.$h(super.$h) : super.$h();
@@ -1937,23 +1568,9 @@ class Libp2pPubsubPbTraceEventJoin
 class Libp2pPubsubPbTraceEventLeave
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   Libp2pPubsubPbTraceEventLeave.$h(super.$h) : super.$h();
@@ -1998,23 +1615,9 @@ class Libp2pPubsubPbTraceEventLeave
 class Libp2pPubsubPbTraceEventMessageMeta
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   Libp2pPubsubPbTraceEventMessageMeta.$h(super.$h) : super.$h();
@@ -2065,23 +1668,9 @@ class Libp2pPubsubPbTraceEventMessageMeta
 class Libp2pPubsubPbTraceEventOnClosedOutboundStream
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   Libp2pPubsubPbTraceEventOnClosedOutboundStream.$h(super.$h) : super.$h();
@@ -2127,23 +1716,9 @@ class Libp2pPubsubPbTraceEventOnClosedOutboundStream
 class Libp2pPubsubPbTraceEventOnNewOutboundStream
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   Libp2pPubsubPbTraceEventOnNewOutboundStream.$h(super.$h) : super.$h();
@@ -2195,23 +1770,9 @@ class Libp2pPubsubPbTraceEventOnNewOutboundStream
 class Libp2pPubsubPbTraceEventPrune
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   Libp2pPubsubPbTraceEventPrune.$h(super.$h) : super.$h();
@@ -2262,23 +1823,9 @@ class Libp2pPubsubPbTraceEventPrune
 class Libp2pPubsubPbTraceEventPublishMessage
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   Libp2pPubsubPbTraceEventPublishMessage.$h(super.$h) : super.$h();
@@ -2329,23 +1876,9 @@ class Libp2pPubsubPbTraceEventPublishMessage
 class Libp2pPubsubPbTraceEventRpcMeta
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   Libp2pPubsubPbTraceEventRpcMeta.$h(super.$h) : super.$h();
@@ -2402,23 +1935,9 @@ class Libp2pPubsubPbTraceEventRpcMeta
 class Libp2pPubsubPbTraceEventRecvRpc
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   Libp2pPubsubPbTraceEventRecvRpc.$h(super.$h) : super.$h();
@@ -2469,23 +1988,9 @@ class Libp2pPubsubPbTraceEventRecvRpc
 class Libp2pPubsubPbTraceEventRejectMessage
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   Libp2pPubsubPbTraceEventRejectMessage.$h(super.$h) : super.$h();
@@ -2548,23 +2053,9 @@ class Libp2pPubsubPbTraceEventRejectMessage
 class Libp2pPubsubPbTraceEventSendRpc
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   Libp2pPubsubPbTraceEventSendRpc.$h(super.$h) : super.$h();
@@ -2615,23 +2106,9 @@ class Libp2pPubsubPbTraceEventSendRpc
 class Libp2pPubsubPbTraceEventSubMeta
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   Libp2pPubsubPbTraceEventSubMeta.$h(super.$h) : super.$h();

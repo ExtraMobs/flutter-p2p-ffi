@@ -7,13 +7,8 @@ import 'dart:typed_data';
 import 'package:p2p_ffi/src/go.dart'
     show GoFlynnNoise, GoFlynnNoiseConsts, GoFlynnNoiseEnums;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/hash.dart' as $hash;
 import 'package:p2p_ffi/go/io.dart' as $io;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 
 /// Go: `noise.Cipher` (handle).
 class NoiseCipher extends GoHandle with NoiseCipher$ {
@@ -70,22 +65,8 @@ mixin NoiseCipherFunc$ on GoHandle {
 }
 
 /// Go: `noise.CipherState` (handle).
-class NoiseCipherState extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  NoiseCipherState.$h(super.$h) : super.$h();
+class NoiseCipherState extends GoHandle {
+  NoiseCipherState.$h(super.$h);
 
   /// Go: `func (*noise.CipherState).Cipher() noise.Cipher`.
   NoiseCipher cipher() {
@@ -366,22 +347,8 @@ final class NoiseHandshakePattern implements GoDto {
 }
 
 /// Go: `noise.HandshakeState` (handle).
-class NoiseHandshakeState extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  NoiseHandshakeState.$h(super.$h) : super.$h();
+class NoiseHandshakeState extends GoHandle {
+  NoiseHandshakeState.$h(super.$h);
 
   /// Go: `func noise.NewHandshakeState(c noise.Config) (*noise.HandshakeState, error)`.
   factory NoiseHandshakeState(NoiseConfig c) {

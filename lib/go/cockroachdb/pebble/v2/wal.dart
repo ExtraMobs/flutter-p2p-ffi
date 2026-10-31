@@ -10,12 +10,7 @@ import 'package:p2p_ffi/go/cockroachdb/pebble/v2.dart' as $v2;
 import 'package:p2p_ffi/go/cockroachdb/pebble/v2/record.dart' as $record;
 import 'package:p2p_ffi/go/cockroachdb/pebble/v2/vfs.dart' as $vfs;
 import 'package:p2p_ffi/go/cockroachdb/redact/interfaces.dart' as $interfaces;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/prometheus/client_golang/prometheus.dart'
     as $prometheus;
 import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
@@ -70,23 +65,7 @@ final class PebbleV2WalCreateInfo implements GoDto {
 }
 
 /// Go: `wal.DeletableLog` (handle).
-class PebbleV2WalDeletableLog extends $vfs.PebbleV2VfsFs
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class PebbleV2WalDeletableLog extends $vfs.PebbleV2VfsFs {
   PebbleV2WalDeletableLog.$h(super.$h) : super.$h();
 
   /// Go: `func (wal.NumWAL).String() string`.
@@ -138,22 +117,8 @@ mixin PebbleV2WalEventListener$ on GoHandle {
 }
 
 /// Go: `wal.FailoverOptions` (handle).
-class PebbleV2WalFailoverOptions extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2WalFailoverOptions.$h(super.$h) : super.$h();
+class PebbleV2WalFailoverOptions extends GoHandle {
+  PebbleV2WalFailoverOptions.$h(super.$h);
 
   /// Go: `func (*wal.FailoverOptions).EnsureDefaults()`.
   void ensureDefaults() {
@@ -203,22 +168,8 @@ final class PebbleV2WalFailoverStats implements GoDto {
 }
 
 /// Go: `wal.FileAccumulator` (handle).
-class PebbleV2WalFileAccumulator extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2WalFileAccumulator.$h(super.$h) : super.$h();
+class PebbleV2WalFileAccumulator extends GoHandle {
+  PebbleV2WalFileAccumulator.$h(super.$h);
 
   /// Go: `func (*wal.FileAccumulator).Finish() wal.Logs`.
   List<PebbleV2WalLogicalLog> finish() {
@@ -239,22 +190,8 @@ class PebbleV2WalFileAccumulator extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `wal.LogRecycler` (handle).
-class PebbleV2WalLogRecycler extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2WalLogRecycler.$h(super.$h) : super.$h();
+class PebbleV2WalLogRecycler extends GoHandle {
+  PebbleV2WalLogRecycler.$h(super.$h);
 
   /// Go: `func (*wal.LogRecycler).Init(maxNumLogFiles int)`.
   void init(int maxNumLogFiles) {
@@ -288,23 +225,7 @@ class PebbleV2WalLogRecycler extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `wal.LogicalLog` (handle).
-class PebbleV2WalLogicalLog extends $interfaces.RedactInterfacesSafeFormatter
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class PebbleV2WalLogicalLog extends $interfaces.RedactInterfacesSafeFormatter {
   PebbleV2WalLogicalLog.$h(super.$h) : super.$h();
 
   /// Go: `func (wal.LogicalLog).NumSegments() int`.
@@ -624,26 +545,8 @@ mixin PebbleV2WalRefCount$ on GoHandle {
 
 /// Go: `wal.StandaloneManager` (handle).
 class PebbleV2WalStandaloneManager extends PebbleV2WalManager
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $io.IoCloser$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $io.IoCloser,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $io.IoCloser$, $expfmt.CommonExpfmtCloser$
+    implements $io.IoCloser, $expfmt.CommonExpfmtCloser {
   PebbleV2WalStandaloneManager.$h(super.$h) : super.$h();
 
   /// Go: `func (*wal.StandaloneManager).Close() error`.

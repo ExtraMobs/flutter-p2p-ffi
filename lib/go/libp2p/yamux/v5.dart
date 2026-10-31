@@ -7,12 +7,7 @@ import 'dart:typed_data';
 import 'package:p2p_ffi/src/go.dart' show GoLibp2pYamuxV5;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/net.dart' as $net;
 import 'package:p2p_ffi/go/pion/datachannel.dart' as $datachannel;
 import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
@@ -149,26 +144,8 @@ mixin YamuxV5MemoryManager$ on GoHandle {
 
 /// Go: `yamux.Session` (handle).
 class YamuxV5Session extends $net.NetListener
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $io.IoCloser$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $io.IoCloser,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $io.IoCloser$, $expfmt.CommonExpfmtCloser$
+    implements $io.IoCloser, $expfmt.CommonExpfmtCloser {
   YamuxV5Session.$h(super.$h) : super.$h();
 
   /// Go: `func (*yamux.Session).Accept() (net.Conn, error)`.
@@ -272,26 +249,12 @@ class YamuxV5Session extends $net.NetListener
 /// Go: `yamux.Stream` (handle).
 class YamuxV5Stream extends $net.NetConn
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
         $io.IoCloser$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $datachannel.DatachannelReadDeadliner$,
         $datachannel.DatachannelWriteDeadliner$,
         $expfmt.CommonExpfmtCloser$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
         $io.IoCloser,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $datachannel.DatachannelReadDeadliner,
         $datachannel.DatachannelWriteDeadliner,
         $expfmt.CommonExpfmtCloser {

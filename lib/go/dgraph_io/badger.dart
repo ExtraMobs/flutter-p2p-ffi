@@ -9,14 +9,9 @@ import 'package:p2p_ffi/src/go.dart'
     show GoDgraphIoBadger, GoDgraphIoBadgerConsts;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/dgraph_io/badger/pb.dart' as $pb;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 import 'package:p2p_ffi/go/ipfs/log/v2.dart' as $v2;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/os.dart' as $os;
 import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
 import 'package:p2p_ffi/go/sync.dart' as $sync;
@@ -25,25 +20,11 @@ import 'package:p2p_ffi/go/syndtr/goleveldb/leveldb/storage.dart' as $storage;
 /// Go: `badger.DB` (handle).
 class BadgerDb extends $sync.SyncLocker
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
         $io.IoCloser$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $expfmt.CommonExpfmtCloser$,
         $storage.GoleveldbLeveldbStorageLocker$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
         $io.IoCloser,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $expfmt.CommonExpfmtCloser,
         $storage.GoleveldbLeveldbStorageLocker {
   BadgerDb.$h(super.$h) : super.$h();
@@ -311,22 +292,8 @@ class BadgerDb extends $sync.SyncLocker
 }
 
 /// Go: `badger.Entry` (handle).
-class BadgerEntry extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  BadgerEntry.$h(super.$h) : super.$h();
+class BadgerEntry extends GoHandle {
+  BadgerEntry.$h(super.$h);
 
   /// Go: `func badger.NewEntry(key []byte, value []byte) *badger.Entry`.
   factory BadgerEntry(Uint8List key, Uint8List value) {
@@ -366,22 +333,8 @@ class BadgerEntry extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `badger.Item` (handle).
-class BadgerItem extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  BadgerItem.$h(super.$h) : super.$h();
+class BadgerItem extends GoHandle {
+  BadgerItem.$h(super.$h);
 
   /// Go: `func (*badger.Item).DiscardEarlierVersions() bool`.
   bool discardEarlierVersions() {
@@ -480,22 +433,8 @@ class BadgerItem extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `badger.Iterator` (handle).
-class BadgerIterator extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  BadgerIterator.$h(super.$h) : super.$h();
+class BadgerIterator extends GoHandle {
+  BadgerIterator.$h(super.$h);
 
   /// Go: `func (*badger.Iterator).Close()`.
   void close() {
@@ -545,41 +484,13 @@ class BadgerIterator extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `badger.IteratorOptions` (handle).
-class BadgerIteratorOptions extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  BadgerIteratorOptions.$h(super.$h) : super.$h();
+class BadgerIteratorOptions extends GoHandle {
+  BadgerIteratorOptions.$h(super.$h);
 }
 
 /// Go: `badger.KVLoader` (handle).
-class BadgerKvLoader extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  BadgerKvLoader.$h(super.$h) : super.$h();
+class BadgerKvLoader extends GoHandle {
+  BadgerKvLoader.$h(super.$h);
 
   /// Go: `func (*badger.KVLoader).Finish() error`.
   void finish() {
@@ -691,44 +602,14 @@ final class BadgerManifest implements GoDto {
 }
 
 /// Go: `badger.MergeFunc` (handle).
-class BadgerMergeFunc extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  BadgerMergeFunc.$h(super.$h) : super.$h();
+class BadgerMergeFunc extends GoHandle {
+  BadgerMergeFunc.$h(super.$h);
 }
 
 /// Go: `badger.MergeOperator` (handle).
 class BadgerMergeOperator extends $sync.SyncLocker
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $storage.GoleveldbLeveldbStorageLocker$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $storage.GoleveldbLeveldbStorageLocker {
+    with $storage.GoleveldbLeveldbStorageLocker$
+    implements $storage.GoleveldbLeveldbStorageLocker {
   BadgerMergeOperator.$h(super.$h) : super.$h();
 
   /// Go: `func (*badger.MergeOperator).Add(val []byte) error`.
@@ -753,23 +634,7 @@ class BadgerMergeOperator extends $sync.SyncLocker
 }
 
 /// Go: `badger.Options` (handle).
-class BadgerOptions extends BadgerLogger
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class BadgerOptions extends BadgerLogger {
   BadgerOptions.$h(super.$h) : super.$h();
 
   /// Go: `func (*badger.Options).Debugf(format string, v ...interface{})`.
@@ -1065,24 +930,8 @@ class BadgerOptions extends BadgerLogger
 
 /// Go: `badger.Sequence` (handle).
 class BadgerSequence extends $sync.SyncLocker
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $storage.GoleveldbLeveldbStorageLocker$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $storage.GoleveldbLeveldbStorageLocker {
+    with $storage.GoleveldbLeveldbStorageLocker$
+    implements $storage.GoleveldbLeveldbStorageLocker {
   BadgerSequence.$h(super.$h) : super.$h();
 
   /// Go: `func (*badger.Sequence).Next() (uint64, error)`.
@@ -1098,22 +947,8 @@ class BadgerSequence extends $sync.SyncLocker
 }
 
 /// Go: `badger.Stream` (handle).
-class BadgerStream extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  BadgerStream.$h(super.$h) : super.$h();
+class BadgerStream extends GoHandle {
+  BadgerStream.$h(super.$h);
 
   /// Go: `func (*badger.Stream).Backup(w io.Writer, since uint64) (uint64, error)`.
   int backup(GoHandle? w, int since) {
@@ -1150,22 +985,8 @@ class BadgerStream extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `badger.StreamWriter` (handle).
-class BadgerStreamWriter extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  BadgerStreamWriter.$h(super.$h) : super.$h();
+class BadgerStreamWriter extends GoHandle {
+  BadgerStreamWriter.$h(super.$h);
 
   /// Go: `func (*badger.StreamWriter).Flush() error`.
   void flush() {
@@ -1261,22 +1082,8 @@ final class BadgerTableManifest implements GoDto {
 }
 
 /// Go: `badger.Txn` (handle).
-class BadgerTxn extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  BadgerTxn.$h(super.$h) : super.$h();
+class BadgerTxn extends GoHandle {
+  BadgerTxn.$h(super.$h);
 
   /// Go: `func (*badger.Txn).Commit() error`.
   void commit() {
@@ -1356,24 +1163,8 @@ class BadgerTxn extends $crypto.CryptoDecrypterOpts
 
 /// Go: `badger.WriteBatch` (handle).
 class BadgerWriteBatch extends $sync.SyncLocker
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $storage.GoleveldbLeveldbStorageLocker$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $storage.GoleveldbLeveldbStorageLocker {
+    with $storage.GoleveldbLeveldbStorageLocker$
+    implements $storage.GoleveldbLeveldbStorageLocker {
   BadgerWriteBatch.$h(super.$h) : super.$h();
 
   /// Go: `func (*badger.WriteBatch).Cancel()`.

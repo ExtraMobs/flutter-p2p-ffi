@@ -6,31 +6,12 @@ import 'package:p2p_ffi/src/go.dart'
     show GoOpencensusStats, GoOpencensusStatsConsts, GoOpencensusStatsOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/opencensus/stats/view.dart' as $view;
 import 'package:p2p_ffi/go/opencensus/tag.dart' as $tag;
 
 /// Go: `stats.Float64Measure` (handle).
-class StatsFloat64Measure extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  StatsFloat64Measure.$h(super.$h) : super.$h();
+class StatsFloat64Measure extends GoHandle {
+  StatsFloat64Measure.$h(super.$h);
 
   /// Go: `func (*stats.Float64Measure).Description() string`.
   String description() {
@@ -62,22 +43,8 @@ class StatsFloat64Measure extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `stats.Int64Measure` (handle).
-class StatsInt64Measure extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  StatsInt64Measure.$h(super.$h) : super.$h();
+class StatsInt64Measure extends GoHandle {
+  StatsInt64Measure.$h(super.$h);
 
   /// Go: `func (*stats.Int64Measure).Description() string`.
   String description() {
@@ -140,22 +107,8 @@ final class StatsMeasure implements GoDto {
 }
 
 /// Go: `stats.Measurement` (handle).
-class StatsMeasurement extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  StatsMeasurement.$h(super.$h) : super.$h();
+class StatsMeasurement extends GoHandle {
+  StatsMeasurement.$h(super.$h);
 
   /// Go: `func (stats.Measurement).Measure() stats.Measure`.
   StatsMeasure measure() {

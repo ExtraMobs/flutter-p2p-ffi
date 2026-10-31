@@ -7,34 +7,13 @@ import 'dart:typed_data';
 import 'package:p2p_ffi/src/go.dart' show GoCockroachdbPebbleV2RecordConsts;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/cockroachdb/pebble/v2.dart' as $v2;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
 
 /// Go: `record.LogWriter` (handle).
 class PebbleV2RecordLogWriter extends $io.IoCloser
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   PebbleV2RecordLogWriter.$h(super.$h) : super.$h();
 
   /// Go: `func (*record.LogWriter).Close() error`.
@@ -140,22 +119,8 @@ final class PebbleV2RecordPendingSyncIndex implements GoDto {
 }
 
 /// Go: `record.Reader` (handle).
-class PebbleV2RecordReader extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2RecordReader.$h(super.$h) : super.$h();
+class PebbleV2RecordReader extends GoHandle {
+  PebbleV2RecordReader.$h(super.$h);
 
   /// Go: `func (*record.Reader).Next() (io.Reader, error)`.
   $io.IoReader next() {
@@ -171,22 +136,8 @@ class PebbleV2RecordReader extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `record.RotationHelper` (handle).
-class PebbleV2RecordRotationHelper extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2RecordRotationHelper.$h(super.$h) : super.$h();
+class PebbleV2RecordRotationHelper extends GoHandle {
+  PebbleV2RecordRotationHelper.$h(super.$h);
 
   /// Go: `func (*record.RotationHelper).AddRecord(recordSize int64)`.
   void addRecord(int recordSize) {
@@ -225,24 +176,8 @@ class PebbleV2RecordRotationHelper extends $crypto.CryptoDecrypterOpts
 
 /// Go: `record.Writer` (handle).
 class PebbleV2RecordWriter extends $io.IoCloser
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   PebbleV2RecordWriter.$h(super.$h) : super.$h();
 
   /// Go: `func record.NewWriter(w io.Writer) *record.Writer`.

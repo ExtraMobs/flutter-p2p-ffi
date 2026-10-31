@@ -3,31 +3,10 @@
 library;
 
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
-import 'package:p2p_ffi/go/libp2p/libp2p/core/crypto.dart' as $crypto2;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/crypto.dart' as $crypto;
 
 /// Go: `keystore.FSKeystore` (handle).
-class BoxoKeystoreFsKeystore extends BoxoKeystore
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class BoxoKeystoreFsKeystore extends BoxoKeystore {
   BoxoKeystoreFsKeystore.$h(super.$h) : super.$h();
 
   /// Go: `func keystore.NewFSKeystore(dir string) (*keystore.FSKeystore, error)`.
@@ -46,13 +25,13 @@ class BoxoKeystoreFsKeystore extends BoxoKeystore
   }
 
   /// Go: `func (*keystore.FSKeystore).Get(name string) (crypto.PrivKey, error)`.
-  $crypto2.Libp2pCoreCryptoPrivKey get(String name) {
+  $crypto.Libp2pCoreCryptoPrivKey get(String name) {
     final $r = $callSync(
         10018,
         $W()
           ..h(this)
           ..str(name));
-    return $r.hnn($crypto2.Libp2pCoreCryptoPrivKey.$h);
+    return $r.hnn($crypto.Libp2pCoreCryptoPrivKey.$h);
   }
 
   /// Go: `func (*keystore.FSKeystore).Has(name string) (bool, error)`.
@@ -72,7 +51,7 @@ class BoxoKeystoreFsKeystore extends BoxoKeystore
   }
 
   /// Go: `func (*keystore.FSKeystore).Put(name string, k crypto.PrivKey) error`.
-  void put(String name, $crypto2.Libp2pCoreCryptoPrivKey k) {
+  void put(String name, $crypto.Libp2pCoreCryptoPrivKey k) {
     $callSync(
         10021,
         $W()
@@ -99,13 +78,13 @@ mixin BoxoKeystore$ on GoHandle {
   }
 
   /// Go: `func (keystore.Keystore).Get(string) (crypto.PrivKey, error)`.
-  $crypto2.Libp2pCoreCryptoPrivKey get(String arg0) {
+  $crypto.Libp2pCoreCryptoPrivKey get(String arg0) {
     final $r = $callSync(
         10023,
         $W()
           ..h(this)
           ..str(arg0));
-    return $r.hnn($crypto2.Libp2pCoreCryptoPrivKey.$h);
+    return $r.hnn($crypto.Libp2pCoreCryptoPrivKey.$h);
   }
 
   /// Go: `func (keystore.Keystore).Has(string) (bool, error)`.
@@ -125,7 +104,7 @@ mixin BoxoKeystore$ on GoHandle {
   }
 
   /// Go: `func (keystore.Keystore).Put(string, crypto.PrivKey) error`.
-  void put(String arg0, $crypto2.Libp2pCoreCryptoPrivKey privKey) {
+  void put(String arg0, $crypto.Libp2pCoreCryptoPrivKey privKey) {
     $callSync(
         10026,
         $W()
@@ -148,23 +127,7 @@ mixin BoxoKeystore$ on GoHandle {
 }
 
 /// Go: `keystore.MemKeystore` (handle).
-class BoxoKeystoreMemKeystore extends BoxoKeystore
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class BoxoKeystoreMemKeystore extends BoxoKeystore {
   BoxoKeystoreMemKeystore.$h(super.$h) : super.$h();
 
   /// Go: `func keystore.NewMemKeystore() *keystore.MemKeystore`.
@@ -183,13 +146,13 @@ class BoxoKeystoreMemKeystore extends BoxoKeystore
   }
 
   /// Go: `func (*keystore.MemKeystore).Get(name string) (crypto.PrivKey, error)`.
-  $crypto2.Libp2pCoreCryptoPrivKey get(String name) {
+  $crypto.Libp2pCoreCryptoPrivKey get(String name) {
     final $r = $callSync(
         10028,
         $W()
           ..h(this)
           ..str(name));
-    return $r.hnn($crypto2.Libp2pCoreCryptoPrivKey.$h);
+    return $r.hnn($crypto.Libp2pCoreCryptoPrivKey.$h);
   }
 
   /// Go: `func (*keystore.MemKeystore).Has(name string) (bool, error)`.
@@ -209,7 +172,7 @@ class BoxoKeystoreMemKeystore extends BoxoKeystore
   }
 
   /// Go: `func (*keystore.MemKeystore).Put(name string, k crypto.PrivKey) error`.
-  void put(String name, $crypto2.Libp2pCoreCryptoPrivKey k) {
+  void put(String name, $crypto.Libp2pCoreCryptoPrivKey k) {
     $callSync(
         10031,
         $W()

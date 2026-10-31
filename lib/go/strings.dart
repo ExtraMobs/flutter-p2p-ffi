@@ -7,38 +7,15 @@ import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/go.dart' show GoStrings;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/protobuf/encoding/protodelim.dart' as $protodelim;
 import 'package:p2p_ffi/go/quic_go/quic_go/quicvarint.dart' as $quicvarint;
 import 'package:p2p_ffi/go/unicode.dart' as $unicode;
 
 /// Go: `strings.Builder` (handle).
 class StringsBuilder extends $io.IoByteWriter
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $io.IoStringWriter$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $quicvarint.QuicGoQuicvarintWriter$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $io.IoStringWriter,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $quicvarint.QuicGoQuicvarintWriter {
+    with $io.IoStringWriter$, $quicvarint.QuicGoQuicvarintWriter$
+    implements $io.IoStringWriter, $quicvarint.QuicGoQuicvarintWriter {
   StringsBuilder.$h(super.$h) : super.$h();
 
   /// Go: `func (*strings.Builder).Cap() int`.
@@ -116,26 +93,12 @@ class StringsBuilder extends $io.IoByteWriter
 /// Go: `strings.Reader` (handle).
 class StringsReader extends $io.IoRuneScanner
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
         $io.IoSeeker$,
         $io.IoWriterTo$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protodelim.ProtobufEncodingProtodelimReader$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
         $io.IoSeeker,
         $io.IoWriterTo,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protodelim.ProtobufEncodingProtodelimReader {
   StringsReader.$h(super.$h) : super.$h();
 
@@ -232,22 +195,8 @@ class StringsReader extends $io.IoRuneScanner
 }
 
 /// Go: `strings.Replacer` (handle).
-class StringsReplacer extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  StringsReplacer.$h(super.$h) : super.$h();
+class StringsReplacer extends GoHandle {
+  StringsReplacer.$h(super.$h);
 
   /// Go: `func strings.NewReplacer(oldnew ...string) *strings.Replacer`.
   factory StringsReplacer([List<String> oldnew = const []]) {

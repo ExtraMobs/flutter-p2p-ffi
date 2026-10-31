@@ -8,13 +8,8 @@ import 'package:p2p_ffi/src/go.dart'
     show GoIpfsLogV2, GoIpfsLogV2Consts, GoIpfsLogV2Enums, GoIpfsLogV2Options;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/cockroachdb/pebble/v2.dart' as $v2;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/dgraph_io/badger.dart' as $badger;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/log/slog.dart' as $slog;
 import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
 import 'package:p2p_ffi/go/zap.dart' as $zap;
@@ -90,24 +85,8 @@ final class LogV2Config implements GoDto {
 
 /// Go: `log.PipeReader` (handle).
 class LogV2PipeReader extends $io.IoCloser
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   LogV2PipeReader.$h(super.$h) : super.$h();
 
   /// Go: `func log.NewPipeReader(opts ...log.PipeReaderOption) *log.PipeReader`.
@@ -276,26 +255,8 @@ mixin LogV2StandardLogger$ on GoHandle {
 
 /// Go: `log.ZapEventLogger` (handle).
 class LogV2ZapEventLogger extends LogV2StandardLogger
-    with
-        $v2.PebbleV2Logger$,
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $badger.BadgerLogger$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $v2.PebbleV2Logger,
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $badger.BadgerLogger,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    with $v2.PebbleV2Logger$, $badger.BadgerLogger$
+    implements $v2.PebbleV2Logger, $badger.BadgerLogger {
   LogV2ZapEventLogger.$h(super.$h) : super.$h();
 
   /// Go: `func (*log.ZapEventLogger).LevelEnabled(level log.LogLevel) bool`.

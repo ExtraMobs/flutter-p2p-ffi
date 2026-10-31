@@ -177,8 +177,7 @@ class DatabaseSqlDriverExecer extends GoHandle with DatabaseSqlDriverExecer$ {
 /// The methods of [DatabaseSqlDriverExecer], mixed into every class Go also accepts as one.
 mixin DatabaseSqlDriverExecer$ on GoHandle {
   /// Go: `func (driver.Execer).Exec(query string, args []driver.Value) (driver.Result, error)`.
-  DatabaseSqlDriverResult exec(
-      String query, List<DatabaseSqlDriverValue> args) {
+  DatabaseSqlDriverResult exec(String query, List<GoHandle> args) {
     final $r = $callSync(
         3490,
         $W()
@@ -215,8 +214,7 @@ mixin DatabaseSqlDriverExecerContext$ on GoHandle {
 
 /// Go: `driver.NamedValue`.
 final class DatabaseSqlDriverNamedValue implements GoDto {
-  DatabaseSqlDriverNamedValue(
-      {String? name, int? ordinal, DatabaseSqlDriverValue? value$})
+  DatabaseSqlDriverNamedValue({String? name, int? ordinal, GoHandle? value$})
       : name = name ?? '',
         ordinal = ordinal ?? 0,
         value$ = value$;
@@ -233,7 +231,7 @@ final class DatabaseSqlDriverNamedValue implements GoDto {
   int ordinal;
 
   /// Go: `Value`.
-  DatabaseSqlDriverValue? value$;
+  GoHandle? value$;
 
   @override
   void $enc($W w) {
@@ -279,7 +277,7 @@ final class DatabaseSqlDriverNotNull implements GoDto {
   }
 
   /// Go: `func (driver.NotNull).ConvertValue(v any) (driver.Value, error)`.
-  DatabaseSqlDriverValue convertValue(Object? v) {
+  GoHandle convertValue(Object? v) {
     final $r = $callSync(
         3495,
         $W()
@@ -306,7 +304,7 @@ final class DatabaseSqlDriverNull implements GoDto {
   }
 
   /// Go: `func (driver.Null).ConvertValue(v any) (driver.Value, error)`.
-  DatabaseSqlDriverValue convertValue(Object? v) {
+  GoHandle convertValue(Object? v) {
     final $r = $callSync(
         3496,
         $W()
@@ -350,7 +348,7 @@ class DatabaseSqlDriverQueryer extends GoHandle with DatabaseSqlDriverQueryer$ {
 /// The methods of [DatabaseSqlDriverQueryer], mixed into every class Go also accepts as one.
 mixin DatabaseSqlDriverQueryer$ on GoHandle {
   /// Go: `func (driver.Queryer).Query(query string, args []driver.Value) (driver.Rows, error)`.
-  DatabaseSqlDriverRows query(String query, List<DatabaseSqlDriverValue> args) {
+  DatabaseSqlDriverRows query(String query, List<GoHandle> args) {
     final $r = $callSync(
         3498,
         $W()
@@ -431,7 +429,7 @@ mixin DatabaseSqlDriverRows$ on GoHandle {
   }
 
   /// Go: `func (driver.Rows).Next(dest []driver.Value) error`.
-  void next(List<DatabaseSqlDriverValue> dest) {
+  void next(List<GoHandle> dest) {
     $callSync(
         3502,
         $W()
@@ -633,7 +631,7 @@ mixin DatabaseSqlDriverStmt$ on GoHandle {
   /// Go: `func (driver.Stmt).Exec(args []driver.Value) (driver.Result, error)`.
   @Deprecated(
       "Drivers should implement StmtExecContext instead (or additionally).")
-  DatabaseSqlDriverResult exec(List<DatabaseSqlDriverValue> args) {
+  DatabaseSqlDriverResult exec(List<GoHandle> args) {
     final $r = $callSync(
         3512,
         $W()
@@ -651,7 +649,7 @@ mixin DatabaseSqlDriverStmt$ on GoHandle {
   /// Go: `func (driver.Stmt).Query(args []driver.Value) (driver.Rows, error)`.
   @Deprecated(
       "Drivers should implement StmtQueryContext instead (or additionally).")
-  DatabaseSqlDriverRows query(List<DatabaseSqlDriverValue> args) {
+  DatabaseSqlDriverRows query(List<GoHandle> args) {
     final $r = $callSync(
         3514,
         $W()
@@ -773,7 +771,7 @@ class DatabaseSqlDriverValueConverter extends GoHandle
 /// The methods of [DatabaseSqlDriverValueConverter], mixed into every class Go also accepts as one.
 mixin DatabaseSqlDriverValueConverter$ on GoHandle {
   /// Go: `func (driver.ValueConverter).ConvertValue(v any) (driver.Value, error)`.
-  DatabaseSqlDriverValue convertValue(Object? v) {
+  GoHandle convertValue(Object? v) {
     final $r = $callSync(
         3517,
         $W()
@@ -791,7 +789,7 @@ class DatabaseSqlDriverValuer extends GoHandle with DatabaseSqlDriverValuer$ {
 /// The methods of [DatabaseSqlDriverValuer], mixed into every class Go also accepts as one.
 mixin DatabaseSqlDriverValuer$ on GoHandle {
   /// Go: `func (driver.Valuer).Value() (driver.Value, error)`.
-  DatabaseSqlDriverValue value$() {
+  GoHandle value$() {
     final $r = $callSync(3518, $W()..h(this));
     return $r.hnn(DatabaseSqlDriverValue.$h);
   }

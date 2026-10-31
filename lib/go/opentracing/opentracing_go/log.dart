@@ -6,11 +6,6 @@ import 'dart:async';
 
 import 'package:p2p_ffi/src/go.dart' show GoOpentracingOpentracingGoLog;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 
 /// Go: `log.Encoder` (handle).
 class OpentracingGoLogEncoder extends GoHandle with OpentracingGoLogEncoder$ {
@@ -137,22 +132,8 @@ mixin OpentracingGoLogEncoder$ on GoHandle {
 }
 
 /// Go: `log.Field` (handle).
-class OpentracingGoLogField extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OpentracingGoLogField.$h(super.$h) : super.$h();
+class OpentracingGoLogField extends GoHandle {
+  OpentracingGoLogField.$h(super.$h);
 
   /// Go: `func (log.Field).Key() string`.
   String key() {

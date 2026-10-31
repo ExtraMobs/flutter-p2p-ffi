@@ -400,13 +400,24 @@ func (m *model) fillNamed(ti *tinfo, n *types.Named) {
 	}
 }
 
+// emptyIface: a named interface without methods (crypto.PrivateKey,
+// xml.Token): every Go type satisfies it, so it crosses as a handle Dart types
+// GoHandle (any handle), and no class extends it or mixes it in.
+func emptyIface(t *tinfo) bool {
+	if t.k != kHandle || t.named == nil {
+		return false
+	}
+	it, ok := t.named.Underlying().(*types.Interface)
+	return ok && it.NumMethods() == 0
+}
+
 // Interface: só-getters (sem parâmetros, valores atravessáveis, sem Close)
 // vira instantâneo; o resto é handle.
 func (m *model) fillInterface(ti *tinfo, n *types.Named, u *types.Interface) {
 	ti.k = kHandle
 	for i := 0; i < u.NumEmbeddeds(); i++ {
 		if en, ok := u.EmbeddedType(i).(*types.Named); ok {
-			if e := m.classify(en); e.k == kHandle && !e.reader {
+			if e := m.classify(en); e.k == kHandle && !e.reader && !emptyIface(e) {
 				ti.super = e
 				break
 			}

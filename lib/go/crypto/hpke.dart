@@ -8,10 +8,6 @@ import 'package:p2p_ffi/src/go.dart' show GoCryptoHpke;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/crypto/ecdh.dart' as $ecdh;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 
 /// Go: `hpke.AEAD` (handle).
 class CryptoHpkeAead extends GoHandle with CryptoHpkeAead$ {
@@ -156,22 +152,8 @@ mixin CryptoHpkePublicKey$ on GoHandle {
 }
 
 /// Go: `hpke.Recipient` (handle).
-class CryptoHpkeRecipient extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  CryptoHpkeRecipient.$h(super.$h) : super.$h();
+class CryptoHpkeRecipient extends GoHandle {
+  CryptoHpkeRecipient.$h(super.$h);
 
   /// Go: `func hpke.NewRecipient(enc []byte, k hpke.PrivateKey, kdf hpke.KDF, aead hpke.AEAD, info []byte) (*hpke.Recipient, error)`.
   factory CryptoHpkeRecipient(Uint8List enc, CryptoHpkePrivateKey k,
@@ -211,22 +193,8 @@ class CryptoHpkeRecipient extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `hpke.Sender` (handle).
-class CryptoHpkeSender extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  CryptoHpkeSender.$h(super.$h) : super.$h();
+class CryptoHpkeSender extends GoHandle {
+  CryptoHpkeSender.$h(super.$h);
 
   /// Go: `func (*hpke.Sender).Export(exporterContext string, length int) ([]byte, error)`.
   Uint8List export(String exporterContext, int length) {

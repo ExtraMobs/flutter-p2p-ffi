@@ -8,17 +8,12 @@ import 'dart:typed_data';
 import 'package:p2p_ffi/src/go.dart'
     show GoPionDatachannel, GoPionDatachannelConsts, GoPionDatachannelEnums;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/crypto/tls.dart' as $tls;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
 import 'package:p2p_ffi/go/facebookgo/atomicfile.dart' as $atomicfile;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/gorilla/websocket.dart' as $websocket;
 import 'package:p2p_ffi/go/io.dart' as $io;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 import 'package:p2p_ffi/go/ipfs/kubo/repo/fsrepo/migrations/atomicfile.dart'
     as $atomicfile2;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/libp2p/libp2p/p2p/net/swarm.dart' as $swarm;
 import 'package:p2p_ffi/go/libp2p/libp2p/p2p/protocol/circuitv2/client.dart'
     as $client;
@@ -111,26 +106,12 @@ final class DatachannelConfig implements GoDto {
 /// Go: `datachannel.DataChannel` (handle).
 class DatachannelDataChannel extends $io.IoCloser
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         DatachannelReadDeadliner$,
         DatachannelReader$,
         DatachannelWriteDeadliner$,
         DatachannelWriter$,
         $expfmt.CommonExpfmtCloser$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         DatachannelReadDeadliner,
         DatachannelReader,
         DatachannelWriteDeadliner,

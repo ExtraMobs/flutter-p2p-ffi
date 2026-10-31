@@ -6,12 +6,7 @@ import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/go.dart' show GoMimeMultipart;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
 
 /// Go: `multipart.File` (handle).
@@ -20,22 +15,8 @@ class MimeMultipartFile extends GoHandle {
 }
 
 /// Go: `multipart.FileHeader` (handle).
-class MimeMultipartFileHeader extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  MimeMultipartFileHeader.$h(super.$h) : super.$h();
+class MimeMultipartFileHeader extends GoHandle {
+  MimeMultipartFileHeader.$h(super.$h);
 
   /// Go: `func (*multipart.FileHeader).Open() (multipart.File, error)`.
   MimeMultipartFile open() {
@@ -80,24 +61,8 @@ final class MimeMultipartForm implements GoDto {
 
 /// Go: `multipart.Part` (handle).
 class MimeMultipartPart extends $io.IoCloser
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   MimeMultipartPart.$h(super.$h) : super.$h();
 
   /// Go: `func (*multipart.Part).Close() error`.
@@ -129,22 +94,8 @@ class MimeMultipartPart extends $io.IoCloser
 }
 
 /// Go: `multipart.Reader` (handle).
-class MimeMultipartReader extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  MimeMultipartReader.$h(super.$h) : super.$h();
+class MimeMultipartReader extends GoHandle {
+  MimeMultipartReader.$h(super.$h);
 
   /// Go: `func multipart.NewReader(r io.Reader, boundary string) *multipart.Reader`.
   factory MimeMultipartReader(Object r, String boundary) {
@@ -181,24 +132,8 @@ class MimeMultipartReader extends $crypto.CryptoDecrypterOpts
 
 /// Go: `multipart.Writer` (handle).
 class MimeMultipartWriter extends $io.IoCloser
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   MimeMultipartWriter.$h(super.$h) : super.$h();
 
   /// Go: `func multipart.NewWriter(w io.Writer) *multipart.Writer`.

@@ -8,13 +8,10 @@ import 'dart:typed_data';
 import 'package:p2p_ffi/src/go.dart'
     show GoProtobufReflectProtoreflect, GoProtobufReflectProtoreflectEnums;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
 import 'package:p2p_ffi/go/genproto/googleapis/api/httpbody.dart' as $httpbody;
 import 'package:p2p_ffi/go/genproto/googleapis/rpc/errdetails.dart'
     as $errdetails;
 import 'package:p2p_ffi/go/genproto/googleapis/rpc/status.dart' as $status;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/grpc/binarylog/grpc_binarylog_v1.dart'
     as $grpc_binarylog_v1;
 import 'package:p2p_ffi/go/grpc/health/grpc_health_v1.dart' as $grpc_health_v1;
@@ -23,8 +20,6 @@ import 'package:p2p_ffi/go/ipfs/boxo/filestore/pb.dart' as $pb2;
 import 'package:p2p_ffi/go/ipfs/boxo/ipld/merkledag/pb.dart' as $pb3;
 import 'package:p2p_ffi/go/ipfs/boxo/ipld/unixfs/pb.dart' as $pb4;
 import 'package:p2p_ffi/go/ipfs/boxo/ipns/pb.dart' as $pb5;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/crypto/pb.dart' as $pb9;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peer/pb.dart' as $pb10;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/record/pb.dart' as $pb11;
@@ -866,23 +861,7 @@ mixin ProtobufReflectProtoreflectFileDescriptor$ on GoHandle {
 
 /// Go: `protoreflect.FileImport` (handle).
 class ProtobufReflectProtoreflectFileImport
-    extends ProtobufReflectProtoreflectFileDescriptor
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    extends ProtobufReflectProtoreflectFileDescriptor {
   ProtobufReflectProtoreflectFileImport.$h(super.$h) : super.$h();
 
   /// Go: `func (protoreflect.FileDescriptor).Enums() protoreflect.EnumDescriptors`.
@@ -1188,22 +1167,8 @@ mixin ProtobufReflectProtoreflectMap$ on GoHandle {
 }
 
 /// Go: `protoreflect.MapKey` (handle).
-class ProtobufReflectProtoreflectMapKey extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  ProtobufReflectProtoreflectMapKey.$h(super.$h) : super.$h();
+class ProtobufReflectProtoreflectMapKey extends GoHandle {
+  ProtobufReflectProtoreflectMapKey.$h(super.$h);
 
   /// Go: `func (protoreflect.MapKey).Bool() bool`.
   bool bool$() {
@@ -3207,22 +3172,8 @@ mixin ProtobufReflectProtoreflectSourceLocations$ on GoHandle {
 }
 
 /// Go: `protoreflect.Value` (handle).
-class ProtobufReflectProtoreflectValue extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  ProtobufReflectProtoreflectValue.$h(super.$h) : super.$h();
+class ProtobufReflectProtoreflectValue extends GoHandle {
+  ProtobufReflectProtoreflectValue.$h(super.$h);
 
   /// Go: `func (protoreflect.Value).Bool() bool`.
   bool bool$() {

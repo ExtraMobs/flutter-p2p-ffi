@@ -11,30 +11,11 @@ import 'package:p2p_ffi/src/go.dart'
         GoXTextLanguageEnums,
         GoXTextLanguageOptions;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/encoding.dart' as $encoding;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 
 /// Go: `language.Base` (handle).
-class TextLanguageBase extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  TextLanguageBase.$h(super.$h) : super.$h();
+class TextLanguageBase extends GoHandle {
+  TextLanguageBase.$h(super.$h);
 
   /// Go: `func (language.Base).ISO3() string`.
   String iso3() {
@@ -97,22 +78,8 @@ final class TextLanguageCoverage implements GoDto {
 }
 
 /// Go: `language.Extension` (handle).
-class TextLanguageExtension extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  TextLanguageExtension.$h(super.$h) : super.$h();
+class TextLanguageExtension extends GoHandle {
+  TextLanguageExtension.$h(super.$h);
 
   /// Go: `func (language.Extension).String() string`.
   String string() {
@@ -168,22 +135,8 @@ mixin TextLanguageMatcher$ on GoHandle {
 }
 
 /// Go: `language.Region` (handle).
-class TextLanguageRegion extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  TextLanguageRegion.$h(super.$h) : super.$h();
+class TextLanguageRegion extends GoHandle {
+  TextLanguageRegion.$h(super.$h);
 
   /// Go: `func (language.Region).Canonicalize() language.Region`.
   TextLanguageRegion canonicalize() {
@@ -245,22 +198,8 @@ class TextLanguageRegion extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `language.Script` (handle).
-class TextLanguageScript extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  TextLanguageScript.$h(super.$h) : super.$h();
+class TextLanguageScript extends GoHandle {
+  TextLanguageScript.$h(super.$h);
 
   /// Go: `func (language.Script).IsPrivateUse() bool`.
   bool isPrivateUse() {
@@ -276,23 +215,7 @@ class TextLanguageScript extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `language.Tag` (handle).
-class TextLanguageTag extends $encoding.EncodingTextUnmarshaler
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class TextLanguageTag extends $encoding.EncodingTextUnmarshaler {
   TextLanguageTag.$h(super.$h) : super.$h();
 
   /// Go: `func (language.Tag).Base() (language.Base, language.Confidence)`.
@@ -401,22 +324,8 @@ class TextLanguageTag extends $encoding.EncodingTextUnmarshaler
 }
 
 /// Go: `language.Variant` (handle).
-class TextLanguageVariant extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  TextLanguageVariant.$h(super.$h) : super.$h();
+class TextLanguageVariant extends GoHandle {
+  TextLanguageVariant.$h(super.$h);
 
   /// Go: `func (language.Variant).String() string`.
   String string() {

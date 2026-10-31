@@ -6,13 +6,8 @@ import 'dart:async';
 
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/boxo/fetcher/impl/blockservice.dart'
     as $blockservice;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/ipld/ipld_prime/datamodel.dart' as $datamodel;
 
 /// Go: `fetcher.Factory` (handle).
@@ -43,22 +38,8 @@ mixin BoxoFetcherFactory$ on GoHandle {
 }
 
 /// Go: `fetcher.FetchCallback` (handle).
-class BoxoFetcherFetchCallback extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  BoxoFetcherFetchCallback.$h(super.$h) : super.$h();
+class BoxoFetcherFetchCallback extends GoHandle {
+  BoxoFetcherFetchCallback.$h(super.$h);
 }
 
 /// Go: `fetcher.FetchResult`.

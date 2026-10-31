@@ -6,12 +6,7 @@ import 'package:p2p_ffi/src/go.dart'
     show GoLibp2pLibp2pP2pSecurityNoise, GoLibp2pLibp2pP2pSecurityNoiseConsts;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
-import 'package:p2p_ffi/go/libp2p/libp2p/core/crypto.dart' as $crypto2;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/sec.dart' as $sec;
 import 'package:p2p_ffi/go/libp2p/libp2p/p2p/net/upgrader.dart' as $upgrader;
@@ -58,23 +53,7 @@ mixin Libp2pP2pSecurityNoiseEarlyDataHandler$ on GoHandle {
 
 /// Go: `noise.SessionTransport` (handle).
 class Libp2pP2pSecurityNoiseSessionTransport
-    extends $sec.Libp2pCoreSecSecureTransport
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    extends $sec.Libp2pCoreSecSecureTransport {
   Libp2pP2pSecurityNoiseSessionTransport.$h(super.$h) : super.$h();
 
   /// Go: `func (*noise.SessionTransport).ID() protocol.ID`.
@@ -115,23 +94,8 @@ class Libp2pP2pSecurityNoiseSessionTransport
 }
 
 /// Go: `noise.Transport` (handle).
-class Libp2pP2pSecurityNoiseTransport extends $sec.Libp2pCoreSecSecureTransport
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class Libp2pP2pSecurityNoiseTransport
+    extends $sec.Libp2pCoreSecSecureTransport {
   Libp2pP2pSecurityNoiseTransport.$h(super.$h) : super.$h();
 
   /// Go: `func (*noise.Transport).ID() protocol.ID`.
@@ -182,7 +146,7 @@ extension GoLibp2pLibp2pP2pSecurityNoiseApi on GoLibp2pLibp2pP2pSecurityNoise {
   /// Go: `func noise.New(id protocol.ID, privkey crypto.PrivKey, muxers []upgrader.StreamMuxer) (*noise.Transport, error)`.
   Libp2pP2pSecurityNoiseTransport new$(
       String id,
-      $crypto2.Libp2pCoreCryptoPrivKey privkey,
+      $crypto.Libp2pCoreCryptoPrivKey privkey,
       List<$upgrader.Libp2pP2pNetUpgraderStreamMuxer> muxers) {
     final $r = $callSync(
         14976,

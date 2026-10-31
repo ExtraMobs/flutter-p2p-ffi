@@ -14,10 +14,6 @@ import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/crypto/tls.dart' as $tls;
 import 'package:p2p_ffi/go/crypto/x509.dart' as $x509;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/mholt/acmez/v3.dart' as $v3;
 import 'package:p2p_ffi/go/mholt/acmez/v3/acme.dart' as $acme;
 import 'package:p2p_ffi/go/net.dart' as $net;
@@ -26,28 +22,11 @@ import 'package:p2p_ffi/go/zap.dart' as $zap;
 
 /// Go: `certmagic.ACMEIssuer` (handle).
 class CertmagicAcmeIssuer extends CertmagicIssuer
-    with
-        CertmagicPreChecker$,
-        CertmagicRenewalInfoGetter$,
-        CertmagicRevoker$,
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
+    with CertmagicPreChecker$, CertmagicRenewalInfoGetter$, CertmagicRevoker$
     implements
         CertmagicPreChecker,
         CertmagicRenewalInfoGetter,
-        CertmagicRevoker,
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+        CertmagicRevoker {
   CertmagicAcmeIssuer.$h(super.$h) : super.$h();
 
   /// Go: `func certmagic.NewACMEIssuer(cfg *certmagic.Config, template certmagic.ACMEIssuer) *certmagic.ACMEIssuer`.
@@ -161,22 +140,8 @@ class CertmagicAcmeIssuer extends CertmagicIssuer
 }
 
 /// Go: `certmagic.Cache` (handle).
-class CertmagicCache extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  CertmagicCache.$h(super.$h) : super.$h();
+class CertmagicCache extends GoHandle {
+  CertmagicCache.$h(super.$h);
 
   /// Go: `func certmagic.NewCache(opts certmagic.CacheOptions) *certmagic.Cache`.
   factory CertmagicCache(CertmagicCacheOptions opts) {
@@ -286,22 +251,8 @@ final class CertmagicCacheOptions implements GoDto {
 }
 
 /// Go: `certmagic.Certificate` (handle).
-class CertmagicCertificate extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  CertmagicCertificate.$h(super.$h) : super.$h();
+class CertmagicCertificate extends GoHandle {
+  CertmagicCertificate.$h(super.$h);
 
   /// Go: `func (certmagic.Certificate).Empty() bool`.
   bool empty() {
@@ -349,22 +300,8 @@ class CertmagicCertificate extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `certmagic.CertificateResource` (handle).
-class CertmagicCertificateResource extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  CertmagicCertificateResource.$h(super.$h) : super.$h();
+class CertmagicCertificateResource extends GoHandle {
+  CertmagicCertificateResource.$h(super.$h);
 
   /// Go: `func (*certmagic.CertificateResource).NamesKey() string`.
   String namesKey() {
@@ -396,22 +333,8 @@ mixin CertmagicCertificateSelector$ on GoHandle {
 }
 
 /// Go: `certmagic.Challenge` (handle).
-class CertmagicChallenge extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  CertmagicChallenge.$h(super.$h) : super.$h();
+class CertmagicChallenge extends GoHandle {
+  CertmagicChallenge.$h(super.$h);
 }
 
 /// Go: `certmagic.CleanStorageOptions`.
@@ -469,22 +392,8 @@ final class CertmagicCleanStorageOptions implements GoDto {
 }
 
 /// Go: `certmagic.Config` (handle).
-class CertmagicConfig extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  CertmagicConfig.$h(super.$h) : super.$h();
+class CertmagicConfig extends GoHandle {
+  CertmagicConfig.$h(super.$h);
 
   /// Go: `func (*certmagic.Config).CacheManagedCertificate(ctx context.Context, domain string) (certmagic.Certificate, error)`.
   ///
@@ -708,44 +617,14 @@ class CertmagicConfig extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `certmagic.ConfigGetter` (handle).
-class CertmagicConfigGetter extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  CertmagicConfigGetter.$h(super.$h) : super.$h();
+class CertmagicConfigGetter extends GoHandle {
+  CertmagicConfigGetter.$h(super.$h);
 }
 
 /// Go: `certmagic.DNS01Solver` (handle).
 class CertmagicDns01Solver extends $v3.AcmezV3Solver
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $v3.AcmezV3Waiter$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $v3.AcmezV3Waiter {
+    with $v3.AcmezV3Waiter$
+    implements $v3.AcmezV3Waiter {
   CertmagicDns01Solver.$h(super.$h) : super.$h();
 
   /// Go: `func (*certmagic.DNS01Solver).CleanUp(ctx context.Context, challenge acme.Challenge) error`.
@@ -789,44 +668,14 @@ class CertmagicDns01Solver extends $v3.AcmezV3Solver
 }
 
 /// Go: `certmagic.DNSManager` (handle).
-class CertmagicDnsManager extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  CertmagicDnsManager.$h(super.$h) : super.$h();
+class CertmagicDnsManager extends GoHandle {
+  CertmagicDnsManager.$h(super.$h);
 }
 
 /// Go: `certmagic.FileStorage` (handle).
 class CertmagicFileStorage extends CertmagicStorage
-    with
-        CertmagicTryLocker$,
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        CertmagicTryLocker,
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    with CertmagicTryLocker$
+    implements CertmagicTryLocker {
   CertmagicFileStorage.$h(super.$h) : super.$h();
 
   /// Go: `func (*certmagic.FileStorage).Delete(_ context.Context, key string) error`.
@@ -1106,7 +955,7 @@ class CertmagicKeyGenerator extends GoHandle with CertmagicKeyGenerator$ {
 /// The methods of [CertmagicKeyGenerator], mixed into every class Go also accepts as one.
 mixin CertmagicKeyGenerator$ on GoHandle {
   /// Go: `func (certmagic.KeyGenerator).GenerateKey() (crypto.PrivateKey, error)`.
-  $crypto.CryptoPrivateKey generateKey() {
+  GoHandle generateKey() {
     final $r = $callSync(4150, $W()..h(this));
     return $r.hnn($crypto.CryptoPrivateKey.$h);
   }
@@ -1324,22 +1173,8 @@ mixin CertmagicRevoker$ on GoHandle {
 }
 
 /// Go: `certmagic.RingBufferRateLimiter` (handle).
-class CertmagicRingBufferRateLimiter extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  CertmagicRingBufferRateLimiter.$h(super.$h) : super.$h();
+class CertmagicRingBufferRateLimiter extends GoHandle {
+  CertmagicRingBufferRateLimiter.$h(super.$h);
 
   /// Go: `func (*certmagic.RingBufferRateLimiter).Allow() bool`.
   bool allow() {
@@ -1409,7 +1244,7 @@ final class CertmagicStandardKeyGenerator implements GoDto {
   }
 
   /// Go: `func (certmagic.StandardKeyGenerator).GenerateKey() (crypto.PrivateKey, error)`.
-  $crypto.CryptoPrivateKey generateKey() {
+  GoHandle generateKey() {
     final $r = $callSync(4182, $W()..dto(this));
     return $r.hnn($crypto.CryptoPrivateKey.$h);
   }
@@ -1903,7 +1738,7 @@ extension GoCaddyserverCertmagicApi on GoCaddyserverCertmagic {
   }
 
   /// Go: `func certmagic.PEMEncodePrivateKey(key crypto.PrivateKey) ([]byte, error)`.
-  Uint8List pemEncodePrivateKey($crypto.CryptoPrivateKey key) {
+  Uint8List pemEncodePrivateKey(GoHandle key) {
     final $r = $callSync(4167, $W()..h(key));
     return $r.bytes() ?? Uint8List(0);
   }

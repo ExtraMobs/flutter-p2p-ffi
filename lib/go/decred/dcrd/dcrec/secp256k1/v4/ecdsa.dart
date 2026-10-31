@@ -9,30 +9,11 @@ import 'package:p2p_ffi/src/go.dart'
         GoDecredDcrdDcrecSecp256k1V4Ecdsa,
         GoDecredDcrdDcrecSecp256k1V4EcdsaEnums;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/decred/dcrd/dcrec/secp256k1/v4.dart' as $v4;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 
 /// Go: `ecdsa.Signature` (handle).
-class Secp256k1V4EcdsaSignature extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  Secp256k1V4EcdsaSignature.$h(super.$h) : super.$h();
+class Secp256k1V4EcdsaSignature extends GoHandle {
+  Secp256k1V4EcdsaSignature.$h(super.$h);
 
   /// Go: `func ecdsa.NewSignature(r *secp256k1.ModNScalar, s *secp256k1.ModNScalar) *ecdsa.Signature`.
   factory Secp256k1V4EcdsaSignature(

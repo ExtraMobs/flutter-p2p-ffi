@@ -11,37 +11,18 @@ import 'package:p2p_ffi/src/go.dart'
         GoIpfsBoxoFilestoreOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/block_format.dart' as $block_format;
 import 'package:p2p_ffi/go/ipfs/boxo/blockstore.dart' as $blockstore;
 import 'package:p2p_ffi/go/ipfs/boxo/filestore/posinfo.dart' as $posinfo;
 import 'package:p2p_ffi/go/ipfs/boxo/provider.dart' as $provider;
 import 'package:p2p_ffi/go/ipfs/cid.dart' as $cid;
 import 'package:p2p_ffi/go/ipfs/datastore.dart' as $datastore;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 import 'package:p2p_ffi/go/ipfs/ipld_cbor.dart' as $ipld_cbor;
 import 'package:p2p_ffi/go/ipfs/kubo/core/node.dart' as $node;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 
 /// Go: `filestore.FileManager` (handle).
-class BoxoFilestoreFileManager extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  BoxoFilestoreFileManager.$h(super.$h) : super.$h();
+class BoxoFilestoreFileManager extends GoHandle {
+  BoxoFilestoreFileManager.$h(super.$h);
 
   /// Go: `func filestore.NewFileManager(ds datastore.Batching, root string, options ...filestore.Option) *filestore.FileManager`.
   factory BoxoFilestoreFileManager($datastore.DatastoreBatching ds, String root,
@@ -144,26 +125,8 @@ class BoxoFilestoreFileManager extends $crypto.CryptoDecrypterOpts
 
 /// Go: `filestore.Filestore` (handle).
 class BoxoFilestore extends $blockstore.BoxoBlockstore
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $ipld_cbor.IpldCborIpldBlockstore$,
-        $node.KuboCoreNodeBaseBlocks$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $ipld_cbor.IpldCborIpldBlockstore,
-        $node.KuboCoreNodeBaseBlocks,
-        $peertask.PeertaskqueuePeertaskTopic {
+    with $ipld_cbor.IpldCborIpldBlockstore$, $node.KuboCoreNodeBaseBlocks$
+    implements $ipld_cbor.IpldCborIpldBlockstore, $node.KuboCoreNodeBaseBlocks {
   BoxoFilestore.$h(super.$h) : super.$h();
 
   /// Go: `func filestore.NewFilestore(bs blockstore.Blockstore, fm *filestore.FileManager, prov provider.MultihashProvider) *filestore.Filestore`.

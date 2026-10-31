@@ -5,11 +5,6 @@ library;
 import 'package:p2p_ffi/src/go.dart'
     show GoIpldIpldPrimeSchema, GoIpldIpldPrimeSchemaEnums;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/ipld/ipld_prime/datamodel.dart' as $datamodel;
 
 /// Go: `schema.EnumRepresentation` (handle).
@@ -31,22 +26,8 @@ class IpldPrimeSchemaImplicitValue extends GoHandle
 mixin IpldPrimeSchemaImplicitValue$ on GoHandle {}
 
 /// Go: `schema.StructField` (handle).
-class IpldPrimeSchemaStructField extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  IpldPrimeSchemaStructField.$h(super.$h) : super.$h();
+class IpldPrimeSchemaStructField extends GoHandle {
+  IpldPrimeSchemaStructField.$h(super.$h);
 
   /// Go: `func (schema.StructField).IsMaybe() bool`.
   bool isMaybe() {
@@ -119,23 +100,7 @@ final class IpldPrimeSchemaStructRepresentationListPairs implements GoDto {
 
 /// Go: `schema.StructRepresentation_Map` (handle).
 class IpldPrimeSchemaStructRepresentationMap
-    extends IpldPrimeSchemaStructRepresentation
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    extends IpldPrimeSchemaStructRepresentation {
   IpldPrimeSchemaStructRepresentationMap.$h(super.$h) : super.$h();
 
   /// Go: `func (schema.StructRepresentation_Map).FieldHasRename(field schema.StructField) bool`.
@@ -171,23 +136,7 @@ class IpldPrimeSchemaStructRepresentationMap
 
 /// Go: `schema.StructRepresentation_Stringjoin` (handle).
 class IpldPrimeSchemaStructRepresentationStringjoin
-    extends IpldPrimeSchemaStructRepresentation
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    extends IpldPrimeSchemaStructRepresentation {
   IpldPrimeSchemaStructRepresentationStringjoin.$h(super.$h) : super.$h();
 
   /// Go: `func (schema.StructRepresentation_Stringjoin).GetDelim() string`.
@@ -311,23 +260,7 @@ mixin IpldPrimeSchemaType$ on GoHandle {
 }
 
 /// Go: `schema.TypeAny` (handle).
-class IpldPrimeSchemaTypeAny extends IpldPrimeSchemaType
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class IpldPrimeSchemaTypeAny extends IpldPrimeSchemaType {
   IpldPrimeSchemaTypeAny.$h(super.$h) : super.$h();
 
   /// Go: `func (schema.typeBase).Name() schema.TypeName`.
@@ -356,23 +289,7 @@ class IpldPrimeSchemaTypeAny extends IpldPrimeSchemaType
 }
 
 /// Go: `schema.TypeBool` (handle).
-class IpldPrimeSchemaTypeBool extends IpldPrimeSchemaType
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class IpldPrimeSchemaTypeBool extends IpldPrimeSchemaType {
   IpldPrimeSchemaTypeBool.$h(super.$h) : super.$h();
 
   /// Go: `func (schema.typeBase).Name() schema.TypeName`.
@@ -401,23 +318,7 @@ class IpldPrimeSchemaTypeBool extends IpldPrimeSchemaType
 }
 
 /// Go: `schema.TypeBytes` (handle).
-class IpldPrimeSchemaTypeBytes extends IpldPrimeSchemaType
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class IpldPrimeSchemaTypeBytes extends IpldPrimeSchemaType {
   IpldPrimeSchemaTypeBytes.$h(super.$h) : super.$h();
 
   /// Go: `func (schema.typeBase).Name() schema.TypeName`.
@@ -446,23 +347,7 @@ class IpldPrimeSchemaTypeBytes extends IpldPrimeSchemaType
 }
 
 /// Go: `schema.TypeEnum` (handle).
-class IpldPrimeSchemaTypeEnum extends IpldPrimeSchemaType
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class IpldPrimeSchemaTypeEnum extends IpldPrimeSchemaType {
   IpldPrimeSchemaTypeEnum.$h(super.$h) : super.$h();
 
   /// Go: `func (schema.TypeEnum).Members() []string`.
@@ -503,23 +388,7 @@ class IpldPrimeSchemaTypeEnum extends IpldPrimeSchemaType
 }
 
 /// Go: `schema.TypeFloat` (handle).
-class IpldPrimeSchemaTypeFloat extends IpldPrimeSchemaType
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class IpldPrimeSchemaTypeFloat extends IpldPrimeSchemaType {
   IpldPrimeSchemaTypeFloat.$h(super.$h) : super.$h();
 
   /// Go: `func (schema.typeBase).Name() schema.TypeName`.
@@ -548,23 +417,7 @@ class IpldPrimeSchemaTypeFloat extends IpldPrimeSchemaType
 }
 
 /// Go: `schema.TypeInt` (handle).
-class IpldPrimeSchemaTypeInt extends IpldPrimeSchemaType
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class IpldPrimeSchemaTypeInt extends IpldPrimeSchemaType {
   IpldPrimeSchemaTypeInt.$h(super.$h) : super.$h();
 
   /// Go: `func (schema.typeBase).Name() schema.TypeName`.
@@ -593,23 +446,7 @@ class IpldPrimeSchemaTypeInt extends IpldPrimeSchemaType
 }
 
 /// Go: `schema.TypeLink` (handle).
-class IpldPrimeSchemaTypeLink extends IpldPrimeSchemaType
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class IpldPrimeSchemaTypeLink extends IpldPrimeSchemaType {
   IpldPrimeSchemaTypeLink.$h(super.$h) : super.$h();
 
   /// Go: `func (schema.TypeLink).HasReferencedType() bool`.
@@ -650,23 +487,7 @@ class IpldPrimeSchemaTypeLink extends IpldPrimeSchemaType
 }
 
 /// Go: `schema.TypeList` (handle).
-class IpldPrimeSchemaTypeList extends IpldPrimeSchemaType
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class IpldPrimeSchemaTypeList extends IpldPrimeSchemaType {
   IpldPrimeSchemaTypeList.$h(super.$h) : super.$h();
 
   /// Go: `func (schema.TypeList).IsAnonymous() bool`.
@@ -713,23 +534,7 @@ class IpldPrimeSchemaTypeList extends IpldPrimeSchemaType
 }
 
 /// Go: `schema.TypeMap` (handle).
-class IpldPrimeSchemaTypeMap extends IpldPrimeSchemaType
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class IpldPrimeSchemaTypeMap extends IpldPrimeSchemaType {
   IpldPrimeSchemaTypeMap.$h(super.$h) : super.$h();
 
   /// Go: `func (schema.TypeMap).IsAnonymous() bool`.
@@ -782,23 +587,7 @@ class IpldPrimeSchemaTypeMap extends IpldPrimeSchemaType
 }
 
 /// Go: `schema.TypeString` (handle).
-class IpldPrimeSchemaTypeString extends IpldPrimeSchemaType
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class IpldPrimeSchemaTypeString extends IpldPrimeSchemaType {
   IpldPrimeSchemaTypeString.$h(super.$h) : super.$h();
 
   /// Go: `func (schema.typeBase).Name() schema.TypeName`.
@@ -827,23 +616,7 @@ class IpldPrimeSchemaTypeString extends IpldPrimeSchemaType
 }
 
 /// Go: `schema.TypeStruct` (handle).
-class IpldPrimeSchemaTypeStruct extends IpldPrimeSchemaType
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class IpldPrimeSchemaTypeStruct extends IpldPrimeSchemaType {
   IpldPrimeSchemaTypeStruct.$h(super.$h) : super.$h();
 
   /// Go: `func (schema.TypeStruct).Field(name string) *schema.StructField`.
@@ -894,22 +667,8 @@ class IpldPrimeSchemaTypeStruct extends IpldPrimeSchemaType
 }
 
 /// Go: `schema.TypeSystem` (handle).
-class IpldPrimeSchemaTypeSystem extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  IpldPrimeSchemaTypeSystem.$h(super.$h) : super.$h();
+class IpldPrimeSchemaTypeSystem extends GoHandle {
+  IpldPrimeSchemaTypeSystem.$h(super.$h);
 
   /// Go: `func (*schema.TypeSystem).Accumulate(typ schema.Type)`.
   void accumulate(IpldPrimeSchemaType typ) {
@@ -955,23 +714,7 @@ class IpldPrimeSchemaTypeSystem extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `schema.TypeUnion` (handle).
-class IpldPrimeSchemaTypeUnion extends IpldPrimeSchemaType
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class IpldPrimeSchemaTypeUnion extends IpldPrimeSchemaType {
   IpldPrimeSchemaTypeUnion.$h(super.$h) : super.$h();
 
   /// Go: `func (schema.TypeUnion).Members() []schema.Type`.
@@ -1107,45 +850,13 @@ mixin IpldPrimeSchemaUnionRepresentation$ on GoHandle {
 
 /// Go: `schema.UnionRepresentation_Inline` (handle).
 class IpldPrimeSchemaUnionRepresentationInline
-    extends IpldPrimeSchemaUnionRepresentation
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    extends IpldPrimeSchemaUnionRepresentation {
   IpldPrimeSchemaUnionRepresentationInline.$h(super.$h) : super.$h();
 }
 
 /// Go: `schema.UnionRepresentation_Keyed` (handle).
 class IpldPrimeSchemaUnionRepresentationKeyed
-    extends IpldPrimeSchemaUnionRepresentation
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    extends IpldPrimeSchemaUnionRepresentation {
   IpldPrimeSchemaUnionRepresentationKeyed.$h(super.$h) : super.$h();
 
   /// Go: `func (schema.UnionRepresentation_Keyed).GetDiscriminant(t schema.Type) string`.
@@ -1161,23 +872,7 @@ class IpldPrimeSchemaUnionRepresentationKeyed
 
 /// Go: `schema.UnionRepresentation_Kinded` (handle).
 class IpldPrimeSchemaUnionRepresentationKinded
-    extends IpldPrimeSchemaUnionRepresentation
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    extends IpldPrimeSchemaUnionRepresentation {
   IpldPrimeSchemaUnionRepresentationKinded.$h(super.$h) : super.$h();
 
   /// Go: `func (schema.UnionRepresentation_Kinded).GetMember(k datamodel.Kind) schema.TypeName`.
@@ -1193,23 +888,7 @@ class IpldPrimeSchemaUnionRepresentationKinded
 
 /// Go: `schema.UnionRepresentation_Stringprefix` (handle).
 class IpldPrimeSchemaUnionRepresentationStringprefix
-    extends IpldPrimeSchemaUnionRepresentation
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    extends IpldPrimeSchemaUnionRepresentation {
   IpldPrimeSchemaUnionRepresentationStringprefix.$h(super.$h) : super.$h();
 
   /// Go: `func (schema.UnionRepresentation_Stringprefix).GetDelim() string`.

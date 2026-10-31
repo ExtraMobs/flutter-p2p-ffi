@@ -10,12 +10,7 @@ import 'package:p2p_ffi/src/go.dart'
         GoPrometheusClientGolangPrometheusConsts,
         GoPrometheusClientGolangPrometheusEnums;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 import 'package:p2p_ffi/go/ipfs/metrics_interface.dart' as $metrics_interface;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/prometheus/client_model/go.dart' as $go;
 
 /// Go: `prometheus.Collector` (handle).
@@ -104,23 +99,7 @@ mixin ClientGolangPrometheusCollector$ on GoHandle {
 
 /// Go: `prometheus.CollectorFunc` (handle).
 class ClientGolangPrometheusCollectorFunc
-    extends ClientGolangPrometheusCollector
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    extends ClientGolangPrometheusCollector {
   ClientGolangPrometheusCollectorFunc.$h(super.$h) : super.$h();
 
   /// Go: `func (prometheus.CollectorFunc).Collect(ch chan<- prometheus.Metric)`.
@@ -175,22 +154,8 @@ class ClientGolangPrometheusCounterFunc extends ClientGolangPrometheusMetric
 mixin ClientGolangPrometheusCounterFunc$ on GoHandle {}
 
 /// Go: `prometheus.CounterOpts` (handle).
-class ClientGolangPrometheusCounterOpts extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  ClientGolangPrometheusCounterOpts.$h(super.$h) : super.$h();
+class ClientGolangPrometheusCounterOpts extends GoHandle {
+  ClientGolangPrometheusCounterOpts.$h(super.$h);
 }
 
 /// Go: `prometheus.CounterVec`.
@@ -257,22 +222,8 @@ final class ClientGolangPrometheusCounterVec implements GoDto {
 }
 
 /// Go: `prometheus.Desc` (handle).
-class ClientGolangPrometheusDesc extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  ClientGolangPrometheusDesc.$h(super.$h) : super.$h();
+class ClientGolangPrometheusDesc extends GoHandle {
+  ClientGolangPrometheusDesc.$h(super.$h);
 
   /// Go: `func (*prometheus.Desc).Err() error`.
   void err() {
@@ -334,22 +285,8 @@ final class ClientGolangPrometheusGatherer implements GoDto {
 }
 
 /// Go: `prometheus.GathererFunc` (handle).
-class ClientGolangPrometheusGathererFunc extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  ClientGolangPrometheusGathererFunc.$h(super.$h) : super.$h();
+class ClientGolangPrometheusGathererFunc extends GoHandle {
+  ClientGolangPrometheusGathererFunc.$h(super.$h);
 
   /// Go: `func (prometheus.GathererFunc).Gather() ([]*io_prometheus_client.MetricFamily, error)`.
   List<$go.ClientModelGoMetricFamily> gather() {
@@ -427,22 +364,8 @@ class ClientGolangPrometheusGaugeFunc extends ClientGolangPrometheusMetric
 mixin ClientGolangPrometheusGaugeFunc$ on GoHandle {}
 
 /// Go: `prometheus.GaugeOpts` (handle).
-class ClientGolangPrometheusGaugeOpts extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  ClientGolangPrometheusGaugeOpts.$h(super.$h) : super.$h();
+class ClientGolangPrometheusGaugeOpts extends GoHandle {
+  ClientGolangPrometheusGaugeOpts.$h(super.$h);
 }
 
 /// Go: `prometheus.GaugeVec`.
@@ -535,22 +458,8 @@ mixin ClientGolangPrometheusHistogram$ on GoHandle {
 }
 
 /// Go: `prometheus.HistogramOpts` (handle).
-class ClientGolangPrometheusHistogramOpts extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  ClientGolangPrometheusHistogramOpts.$h(super.$h) : super.$h();
+class ClientGolangPrometheusHistogramOpts extends GoHandle {
+  ClientGolangPrometheusHistogramOpts.$h(super.$h);
 }
 
 /// Go: `prometheus.HistogramVec`.
@@ -685,23 +594,7 @@ mixin ClientGolangPrometheusMetric$ on GoHandle {
 }
 
 /// Go: `prometheus.MetricVec` (handle).
-class ClientGolangPrometheusMetricVec extends ClientGolangPrometheusCollector
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class ClientGolangPrometheusMetricVec extends ClientGolangPrometheusCollector {
   ClientGolangPrometheusMetricVec.$h(super.$h) : super.$h();
 
   /// Go: `func (*prometheus.MetricVec).Collect(ch chan<- prometheus.Metric)`.
@@ -741,22 +634,8 @@ class ClientGolangPrometheusMetricVec extends ClientGolangPrometheusCollector
 }
 
 /// Go: `prometheus.MultiTRegistry` (handle).
-class ClientGolangPrometheusMultiTRegistry extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  ClientGolangPrometheusMultiTRegistry.$h(super.$h) : super.$h();
+class ClientGolangPrometheusMultiTRegistry extends GoHandle {
+  ClientGolangPrometheusMultiTRegistry.$h(super.$h);
 
   /// Go: `func prometheus.NewMultiTRegistry(tGatherers ...prometheus.TransactionalGatherer) *prometheus.MultiTRegistry`.
   factory ClientGolangPrometheusMultiTRegistry(
@@ -795,24 +674,10 @@ mixin ClientGolangPrometheusObserver$ on GoHandle {
 class ClientGolangPrometheusObserverFunc
     extends $metrics_interface.MetricsInterfaceHistogram
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
         $metrics_interface.MetricsInterfaceSummary$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         ClientGolangPrometheusObserver$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
         $metrics_interface.MetricsInterfaceSummary,
-        $peertask.PeertaskqueuePeertaskTopic,
         ClientGolangPrometheusObserver {
   ClientGolangPrometheusObserverFunc.$h(super.$h) : super.$h();
 
@@ -930,24 +795,8 @@ mixin ClientGolangPrometheusRegisterer$ on GoHandle {
 
 /// Go: `prometheus.Registry` (handle).
 class ClientGolangPrometheusRegistry extends ClientGolangPrometheusRegisterer
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        ClientGolangPrometheusCollector$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        ClientGolangPrometheusCollector {
+    with ClientGolangPrometheusCollector$
+    implements ClientGolangPrometheusCollector {
   ClientGolangPrometheusRegistry.$h(super.$h) : super.$h();
 
   /// Go: `func prometheus.NewRegistry() *prometheus.Registry`.
@@ -1033,22 +882,8 @@ mixin ClientGolangPrometheusSummary$ on GoHandle {
 }
 
 /// Go: `prometheus.SummaryOpts` (handle).
-class ClientGolangPrometheusSummaryOpts extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  ClientGolangPrometheusSummaryOpts.$h(super.$h) : super.$h();
+class ClientGolangPrometheusSummaryOpts extends GoHandle {
+  ClientGolangPrometheusSummaryOpts.$h(super.$h);
 }
 
 /// Go: `prometheus.SummaryVec`.
@@ -1116,22 +951,8 @@ final class ClientGolangPrometheusSummaryVec implements GoDto {
 }
 
 /// Go: `prometheus.Timer` (handle).
-class ClientGolangPrometheusTimer extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  ClientGolangPrometheusTimer.$h(super.$h) : super.$h();
+class ClientGolangPrometheusTimer extends GoHandle {
+  ClientGolangPrometheusTimer.$h(super.$h);
 
   /// Go: `func prometheus.NewTimer(o prometheus.Observer) *prometheus.Timer`.
   factory ClientGolangPrometheusTimer(ClientGolangPrometheusObserver o) {
@@ -1173,22 +994,8 @@ class ClientGolangPrometheusUntypedFunc extends ClientGolangPrometheusMetric
 mixin ClientGolangPrometheusUntypedFunc$ on GoHandle {}
 
 /// Go: `prometheus.UntypedOpts` (handle).
-class ClientGolangPrometheusUntypedOpts extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  ClientGolangPrometheusUntypedOpts.$h(super.$h) : super.$h();
+class ClientGolangPrometheusUntypedOpts extends GoHandle {
+  ClientGolangPrometheusUntypedOpts.$h(super.$h);
 }
 
 /// Go: `prometheus.AlreadyRegisteredError`: an error. Thrown as this class when it is the outermost

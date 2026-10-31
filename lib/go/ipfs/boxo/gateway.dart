@@ -13,9 +13,6 @@ import 'package:p2p_ffi/src/go.dart'
         GoIpfsBoxoGatewayOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
 import 'package:p2p_ffi/go/ipfs/boxo/blockservice.dart' as $blockservice;
 import 'package:p2p_ffi/go/ipfs/boxo/blockstore.dart' as $blockstore;
@@ -25,8 +22,6 @@ import 'package:p2p_ffi/go/ipfs/boxo/namesys.dart' as $namesys;
 import 'package:p2p_ffi/go/ipfs/boxo/path.dart' as $path;
 import 'package:p2p_ffi/go/ipfs/boxo/path/resolver.dart' as $resolver;
 import 'package:p2p_ffi/go/ipfs/cid.dart' as $cid;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/libp2p/doh_resolver.dart' as $doh_resolver;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/routing.dart' as $routing;
 import 'package:p2p_ffi/go/multiformats/multiaddr_dns.dart' as $multiaddr_dns;
@@ -41,23 +36,7 @@ final class BoxoGatewayBackendOption extends GoOption {
 }
 
 /// Go: `gateway.BlocksBackend` (handle).
-class BoxoGatewayBlocksBackend extends BoxoGatewayIpfsBackend
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class BoxoGatewayBlocksBackend extends BoxoGatewayIpfsBackend {
   BoxoGatewayBlocksBackend.$h(super.$h) : super.$h();
 
   /// Go: `func gateway.NewBlocksBackend(blockService blockservice.BlockService, opts ...gateway.BackendOption) (*gateway.BlocksBackend, error)`.
@@ -260,23 +239,7 @@ final class BoxoGatewayByteRange implements GoDto {
 }
 
 /// Go: `gateway.CarBackend` (handle).
-class BoxoGatewayCarBackend extends BoxoGatewayIpfsBackend
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class BoxoGatewayCarBackend extends BoxoGatewayIpfsBackend {
   BoxoGatewayCarBackend.$h(super.$h) : super.$h();
 
   /// Go: `func gateway.NewCarBackend(f gateway.CarFetcher, opts ...gateway.BackendOption) (*gateway.CarBackend, error)`.
@@ -720,24 +683,8 @@ final class BoxoGatewayDagByteRange implements GoDto {
 
 /// Go: `gateway.GetResponse` (handle).
 class BoxoGatewayGetResponse extends $io.IoCloser
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   BoxoGatewayGetResponse.$h(super.$h) : super.$h();
 
   /// Go: `func (*gateway.GetResponse).Close() error`.
@@ -748,24 +695,8 @@ class BoxoGatewayGetResponse extends $io.IoCloser
 
 /// Go: `gateway.HeadResponse` (handle).
 class BoxoGatewayHeadResponse extends $io.IoCloser
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   BoxoGatewayHeadResponse.$h(super.$h) : super.$h();
 
   /// Go: `func (*gateway.HeadResponse).Close() error`.
@@ -775,22 +706,8 @@ class BoxoGatewayHeadResponse extends $io.IoCloser
 }
 
 /// Go: `gateway.Headers` (handle).
-class BoxoGatewayHeaders extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  BoxoGatewayHeaders.$h(super.$h) : super.$h();
+class BoxoGatewayHeaders extends GoHandle {
+  BoxoGatewayHeaders.$h(super.$h);
 
   /// Go: `func gateway.NewHeaders(headers map[string][]string) *gateway.Headers`.
   factory BoxoGatewayHeaders(Map<String, List<String>> headers) {

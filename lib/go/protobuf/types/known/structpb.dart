@@ -7,15 +7,10 @@ import 'dart:typed_data';
 import 'package:p2p_ffi/src/go.dart'
     show GoProtobufTypesKnownStructpb, GoProtobufTypesKnownStructpbEnums;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/encoding/json.dart' as $json;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
 import 'package:p2p_ffi/go/go_jose/jose/v4/json.dart' as $json2;
 import 'package:p2p_ffi/go/gogo/protobuf/protoc_gen_gogo/descriptor.dart'
     as $descriptor;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/protobuf/reflect/protoreflect.dart' as $protoreflect;
 import 'package:p2p_ffi/go/protobuf/runtime/protoiface.dart' as $protoiface;
 
@@ -23,27 +18,13 @@ import 'package:p2p_ffi/go/protobuf/runtime/protoiface.dart' as $protoiface;
 class ProtobufTypesKnownStructpbListValue
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
         $json.EncodingJsonUnmarshaler$,
-        $xml.EncodingXmlToken$,
         $json2.JoseV4JsonUnmarshaler$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
         $json.EncodingJsonUnmarshaler,
-        $xml.EncodingXmlToken,
         $json2.JoseV4JsonUnmarshaler,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   ProtobufTypesKnownStructpbListValue.$h(super.$h) : super.$h();
@@ -109,27 +90,13 @@ class ProtobufTypesKnownStructpbListValue
 class ProtobufTypesKnownStructpbStruct
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
         $json.EncodingJsonUnmarshaler$,
-        $xml.EncodingXmlToken$,
         $json2.JoseV4JsonUnmarshaler$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
         $json.EncodingJsonUnmarshaler,
-        $xml.EncodingXmlToken,
         $json2.JoseV4JsonUnmarshaler,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   ProtobufTypesKnownStructpbStruct.$h(super.$h) : super.$h();
@@ -203,27 +170,13 @@ class ProtobufTypesKnownStructpbStruct
 class ProtobufTypesKnownStructpbValue
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
         $json.EncodingJsonUnmarshaler$,
-        $xml.EncodingXmlToken$,
         $json2.JoseV4JsonUnmarshaler$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
         $json.EncodingJsonUnmarshaler,
-        $xml.EncodingXmlToken,
         $json2.JoseV4JsonUnmarshaler,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   ProtobufTypesKnownStructpbValue.$h(super.$h) : super.$h();

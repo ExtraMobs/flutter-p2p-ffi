@@ -8,9 +8,6 @@ import 'package:p2p_ffi/src/go.dart'
     show GoIpfsKuboCoreCommands, GoIpfsKuboCoreCommandsConsts;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/boxo/bitswap.dart' as $bitswap;
 import 'package:p2p_ffi/go/ipfs/boxo/bitswap/server/internal/decision.dart'
     as $decision;
@@ -29,7 +26,6 @@ import 'package:p2p_ffi/go/ipfs/kubo/core/commands/object.dart' as $object;
 import 'package:p2p_ffi/go/ipfs/kubo/core/commands/pin.dart' as $pin;
 import 'package:p2p_ffi/go/ipfs/kubo/core/corerepo.dart' as $corerepo;
 import 'package:p2p_ffi/go/ipfs/kubo/core/node/libp2p.dart' as $libp2p;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/metrics.dart' as $metrics;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/routing.dart' as $routing;
@@ -67,22 +63,8 @@ final class KuboCoreCommandsBlockStat implements GoDto {
 }
 
 /// Go: `commands.RefWriter` (handle).
-class KuboCoreCommandsRefWriter extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  KuboCoreCommandsRefWriter.$h(super.$h) : super.$h();
+class KuboCoreCommandsRefWriter extends GoHandle {
+  KuboCoreCommandsRefWriter.$h(super.$h);
 
   /// Go: `func (*commands.RefWriter).WriteEdge(from cid.Cid, to cid.Cid, linkname string, enc cidenc.Encoder) error`.
   void writeEdge($cid.Cid from, $cid.Cid to, String linkname,
@@ -1213,8 +1195,7 @@ extension GoIpfsKuboCoreCommandsApi on GoIpfsKuboCoreCommands {
   }
 
   /// Go: `func commands.DaemonNotRunning(req *cmds.Request, env cmds.Environment) error`.
-  void daemonNotRunning(
-      $ipfs_cmds.IpfsCmdsRequest req, $ipfs_cmds.IpfsCmdsEnvironment env) {
+  void daemonNotRunning($ipfs_cmds.IpfsCmdsRequest req, GoHandle env) {
     $callSync(
         11341,
         $W()

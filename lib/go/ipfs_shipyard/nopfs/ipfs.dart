@@ -5,9 +5,6 @@ library;
 import 'package:p2p_ffi/src/go.dart' show GoIpfsShipyardNopfsIpfs;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/block_format.dart' as $block_format;
 import 'package:p2p_ffi/go/ipfs/boxo/blockservice.dart' as $blockservice;
 import 'package:p2p_ffi/go/ipfs/boxo/blockstore.dart' as $blockstore;
@@ -16,34 +13,16 @@ import 'package:p2p_ffi/go/ipfs/boxo/namesys.dart' as $namesys;
 import 'package:p2p_ffi/go/ipfs/boxo/path.dart' as $path;
 import 'package:p2p_ffi/go/ipfs/boxo/path/resolver.dart' as $resolver;
 import 'package:p2p_ffi/go/ipfs/cid.dart' as $cid;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/ipfs_shipyard/nopfs.dart' as $nopfs;
 import 'package:p2p_ffi/go/ipld/ipld_prime/datamodel.dart' as $datamodel;
-import 'package:p2p_ffi/go/libp2p/libp2p/core/crypto.dart' as $crypto2;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
 
 /// Go: `ipfs.BlockService` (handle).
 class NopfsIpfsBlockService extends $blockservice.BoxoBlockserviceBlockService
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $blockservice.BoxoBlockserviceBlockGetter$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
+    with $blockservice.BoxoBlockserviceBlockGetter$, $expfmt.CommonExpfmtCloser$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
         $blockservice.BoxoBlockserviceBlockGetter,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $expfmt.CommonExpfmtCloser {
   NopfsIpfsBlockService.$h(super.$h) : super.$h();
 
@@ -130,33 +109,15 @@ class NopfsIpfsBlockService extends $blockservice.BoxoBlockserviceBlockService
 
 /// Go: `ipfs.NameSystem` (handle).
 class NopfsIpfsNameSystem extends $namesys.BoxoNamesysResolver
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $namesys.BoxoNamesysPublisher$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $namesys.BoxoNamesysNameSystem$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $namesys.BoxoNamesysPublisher,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $namesys.BoxoNamesysNameSystem {
+    with $namesys.BoxoNamesysPublisher$, $namesys.BoxoNamesysNameSystem$
+    implements $namesys.BoxoNamesysPublisher, $namesys.BoxoNamesysNameSystem {
   NopfsIpfsNameSystem.$h(super.$h) : super.$h();
 
   /// Go: `func (*ipfs.NameSystem).Publish(ctx context.Context, name crypto.PrivKey, value path.Path, options ...namesys.PublishOption) error`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> publish($context.Context ctx,
-      $crypto2.Libp2pCoreCryptoPrivKey name, $path.BoxoPath value,
+      $crypto.Libp2pCoreCryptoPrivKey name, $path.BoxoPath value,
       [List<$namesys.BoxoNamesysPublishOption> options = const []]) async {
     await $call(
         9058,
@@ -199,23 +160,7 @@ class NopfsIpfsNameSystem extends $namesys.BoxoNamesysResolver
 }
 
 /// Go: `ipfs.Resolver` (handle).
-class NopfsIpfsResolver extends $resolver.BoxoPathResolver
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class NopfsIpfsResolver extends $resolver.BoxoPathResolver {
   NopfsIpfsResolver.$h(super.$h) : super.$h();
 
   /// Go: `func (*ipfs.Resolver).ResolvePath(ctx context.Context, fpath path.ImmutablePath) (ipld.Node, ipld.Link, error)`.

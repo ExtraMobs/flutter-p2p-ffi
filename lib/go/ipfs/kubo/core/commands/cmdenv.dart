@@ -94,7 +94,7 @@ extension GoIpfsKuboCoreCommandsCmdenvApi on GoIpfsKuboCoreCommandsCmdenv {
 
   /// Go: `func cmdenv.GetApi(env cmds.Environment, req *cmds.Request) (iface.CoreAPI, error)`.
   $coreiface.KuboCoreCoreifaceCoreApi getApi(
-      $ipfs_cmds.IpfsCmdsEnvironment env, $ipfs_cmds.IpfsCmdsRequest req) {
+      GoHandle env, $ipfs_cmds.IpfsCmdsRequest req) {
     final $r = $callSync(
         11388,
         $W()
@@ -110,7 +110,7 @@ extension GoIpfsKuboCoreCommandsCmdenvApi on GoIpfsKuboCoreCommandsCmdenv {
   }
 
   /// Go: `func cmdenv.GetConfigRoot(env cmds.Environment) (string, error)`.
-  String getConfigRoot($ipfs_cmds.IpfsCmdsEnvironment env) {
+  String getConfigRoot(GoHandle env) {
     final $r = $callSync(11390, $W()..h(env));
     return $r.str();
   }

@@ -6,12 +6,7 @@ import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/go.dart' show GoBufio, GoBufioConsts;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/protobuf/encoding/protodelim.dart' as $protodelim;
 import 'package:p2p_ffi/go/quic_go/quic_go/quicvarint.dart' as $quicvarint;
 
@@ -205,26 +200,8 @@ final class BufioReadWriter implements GoDto {
 
 /// Go: `bufio.Reader` (handle).
 class BufioReader extends $io.IoRuneScanner
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $io.IoWriterTo$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $protodelim.ProtobufEncodingProtodelimReader$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $io.IoWriterTo,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $protodelim.ProtobufEncodingProtodelimReader {
+    with $io.IoWriterTo$, $protodelim.ProtobufEncodingProtodelimReader$
+    implements $io.IoWriterTo, $protodelim.ProtobufEncodingProtodelimReader {
   BufioReader.$h(super.$h) : super.$h();
 
   /// Go: `func bufio.NewReader(rd io.Reader) *bufio.Reader`.
@@ -354,22 +331,8 @@ class BufioReader extends $io.IoRuneScanner
 }
 
 /// Go: `bufio.Scanner` (handle).
-class BufioScanner extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  BufioScanner.$h(super.$h) : super.$h();
+class BufioScanner extends GoHandle {
+  BufioScanner.$h(super.$h);
 
   /// Go: `func bufio.NewScanner(r io.Reader) *bufio.Scanner`.
   factory BufioScanner(Object r) {
@@ -421,47 +384,19 @@ class BufioScanner extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `bufio.SplitFunc` (handle).
-class BufioSplitFunc extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  BufioSplitFunc.$h(super.$h) : super.$h();
+class BufioSplitFunc extends GoHandle {
+  BufioSplitFunc.$h(super.$h);
 }
 
 /// Go: `bufio.Writer` (handle).
 class BufioWriter extends $io.IoByteWriter
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
         $io.IoReaderFrom$,
         $io.IoStringWriter$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $quicvarint.QuicGoQuicvarintWriter$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
         $io.IoReaderFrom,
         $io.IoStringWriter,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $quicvarint.QuicGoQuicvarintWriter {
   BufioWriter.$h(super.$h) : super.$h();
 

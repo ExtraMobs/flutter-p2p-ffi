@@ -9,10 +9,6 @@ import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/crypto/ecdh.dart' as $ecdh;
 import 'package:p2p_ffi/go/crypto/elliptic.dart' as $elliptic;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/math/big.dart' as $big;
 
 /// Go: `ecdsa.PrivateKey`.
@@ -51,7 +47,7 @@ final class CryptoEcdsaPrivateKey implements GoDto {
   }
 
   /// Go: `func (*ecdsa.PrivateKey).Equal(x crypto.PrivateKey) bool`.
-  bool equal($crypto.CryptoPrivateKey x) {
+  bool equal(GoHandle x) {
     final $r = $callSync(
         3196,
         $W()
@@ -61,7 +57,7 @@ final class CryptoEcdsaPrivateKey implements GoDto {
   }
 
   /// Go: `func (*ecdsa.PrivateKey).Public() crypto.PublicKey`.
-  $crypto.CryptoPublicKey public() {
+  GoHandle public() {
     final $r = $callSync(3197, $W()..dto(this));
     return $r.hnn($crypto.CryptoPublicKey.$h);
   }
@@ -81,23 +77,7 @@ final class CryptoEcdsaPrivateKey implements GoDto {
 }
 
 /// Go: `ecdsa.PublicKey` (handle).
-class CryptoEcdsaPublicKey extends $elliptic.CryptoEllipticCurve
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class CryptoEcdsaPublicKey extends $elliptic.CryptoEllipticCurve {
   CryptoEcdsaPublicKey.$h(super.$h) : super.$h();
 
   /// Go: `func (*ecdsa.PublicKey).Bytes() ([]byte, error)`.
@@ -113,7 +93,7 @@ class CryptoEcdsaPublicKey extends $elliptic.CryptoEllipticCurve
   }
 
   /// Go: `func (*ecdsa.PublicKey).Equal(x crypto.PublicKey) bool`.
-  bool equal($crypto.CryptoPublicKey x) {
+  bool equal(GoHandle x) {
     final $r = $callSync(
         3201,
         $W()

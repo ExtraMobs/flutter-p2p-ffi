@@ -6,16 +6,11 @@ import 'package:p2p_ffi/src/go.dart'
     show GoIpfsBoxoRoutingHttpClient, GoIpfsBoxoRoutingHttpClientOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/boxo/ipns.dart' as $ipns;
 import 'package:p2p_ffi/go/ipfs/boxo/routing/http/contentrouter.dart'
     as $contentrouter;
 import 'package:p2p_ffi/go/ipfs/cid.dart' as $cid;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
-import 'package:p2p_ffi/go/libp2p/libp2p/core/crypto.dart' as $crypto2;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
 import 'package:p2p_ffi/go/multiformats/multiaddr.dart' as $multiaddr;
 import 'package:p2p_ffi/go/net/http.dart' as $http;
@@ -23,23 +18,7 @@ import 'package:p2p_ffi/go/opencensus/stats/view.dart' as $view;
 
 /// Go: `client.Client` (handle).
 class BoxoRoutingHttpClient
-    extends $contentrouter.BoxoRoutingHttpContentrouterClient
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    extends $contentrouter.BoxoRoutingHttpContentrouterClient {
   BoxoRoutingHttpClient.$h(super.$h) : super.$h();
 
   /// Go: `func (*client.Client).GetIPNS(ctx context.Context, name ipns.Name) (record *ipns.Record, err error)`.
@@ -95,23 +74,7 @@ final class BoxoRoutingHttpClientOption extends GoOption {
 
 /// Go: `client.ResponseBodyLimitedTransport` (handle).
 class BoxoRoutingHttpClientResponseBodyLimitedTransport
-    extends $http.NetHttpRoundTripper
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    extends $http.NetHttpRoundTripper {
   BoxoRoutingHttpClientResponseBodyLimitedTransport.$h(super.$h) : super.$h();
 
   /// Go: `func (*client.ResponseBodyLimitedTransport).RoundTrip(req *http.Request) (*http.Response, error)`.
@@ -213,7 +176,7 @@ extension GoIpfsBoxoRoutingHttpClientOptionsApi
 
   /// Go: `client.WithIdentity`.
   BoxoRoutingHttpClientOption withIdentity(
-          $crypto2.Libp2pCoreCryptoPrivKey identity) =>
+          $crypto.Libp2pCoreCryptoPrivKey identity) =>
       BoxoRoutingHttpClientOption.$(3, (w) => w..h(identity));
 
   /// Go: `client.WithProtocolFilter`.

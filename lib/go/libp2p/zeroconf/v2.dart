@@ -8,11 +8,6 @@ import 'package:p2p_ffi/src/go.dart'
     show GoLibp2pZeroconfV2, GoLibp2pZeroconfV2Enums, GoLibp2pZeroconfV2Options;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/net.dart' as $net;
 
 /// Go: `zeroconf.ClientOption` (functional option; constructors in the package).
@@ -21,22 +16,8 @@ final class ZeroconfV2ClientOption extends GoOption {
 }
 
 /// Go: `zeroconf.Server` (handle).
-class ZeroconfV2Server extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  ZeroconfV2Server.$h(super.$h) : super.$h();
+class ZeroconfV2Server extends GoHandle {
+  ZeroconfV2Server.$h(super.$h);
 
   /// Go: `func (*zeroconf.Server).SetText(text []string)`.
   void setText(List<String> text) {
@@ -148,22 +129,8 @@ final class ZeroconfV2ServiceEntry implements GoDto {
 }
 
 /// Go: `zeroconf.ServiceRecord` (handle).
-class ZeroconfV2ServiceRecord extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  ZeroconfV2ServiceRecord.$h(super.$h) : super.$h();
+class ZeroconfV2ServiceRecord extends GoHandle {
+  ZeroconfV2ServiceRecord.$h(super.$h);
 
   /// Go: `func (*zeroconf.ServiceRecord).ServiceInstanceName() string`.
   String serviceInstanceName() {

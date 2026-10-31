@@ -10,19 +10,14 @@ import 'package:p2p_ffi/src/go.dart'
         GoIpfsKuboCoreNodeLibp2pConsts,
         GoIpfsKuboCoreNodeLibp2pOptions;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/dig.dart' as $dig;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
 import 'package:p2p_ffi/go/fx.dart' as $fx;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 import 'package:p2p_ffi/go/ipfs/kubo/config.dart' as $config;
 import 'package:p2p_ffi/go/ipfs/kubo/repo.dart' as $repo;
 import 'package:p2p_ffi/go/ipfs/kubo/routing.dart' as $routing;
 import 'package:p2p_ffi/go/ipfs/log/v2.dart' as $v2;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/ipshipyard/p2p_forge/client.dart' as $client;
-import 'package:p2p_ffi/go/libp2p/libp2p/core/crypto.dart' as $crypto2;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/host.dart' as $host;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/metrics.dart' as $metrics;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
@@ -34,22 +29,8 @@ import 'package:p2p_ffi/go/libp2p/libp2p_pubsub.dart' as $libp2p_pubsub;
 import 'package:p2p_ffi/go/multiformats/multiaddr_dns.dart' as $multiaddr_dns;
 
 /// Go: `libp2p.HostOption` (handle).
-class KuboCoreNodeLibp2pHostOption extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  KuboCoreNodeLibp2pHostOption.$h(super.$h) : super.$h();
+class KuboCoreNodeLibp2pHostOption extends GoHandle {
+  KuboCoreNodeLibp2pHostOption.$h(super.$h);
 }
 
 /// Go: `libp2p.Libp2pOpts`.
@@ -321,22 +302,8 @@ final class KuboCoreNodeLibp2pResourceLimitsAndUsage implements GoDto {
 }
 
 /// Go: `libp2p.RoutingOption` (handle).
-class KuboCoreNodeLibp2pRoutingOption extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  KuboCoreNodeLibp2pRoutingOption.$h(super.$h) : super.$h();
+class KuboCoreNodeLibp2pRoutingOption extends GoHandle {
+  KuboCoreNodeLibp2pRoutingOption.$h(super.$h);
 }
 
 /// Go: `var libp2p.ErrNoResourceMgr error`: an error. Thrown as this class when it is the outermost
@@ -499,7 +466,7 @@ extension GoIpfsKuboCoreNodeLibp2pApi on GoIpfsKuboCoreNodeLibp2p {
 
   /// Go: `func libp2p.PstoreAddSelfKeys(id peer.ID, sk crypto.PrivKey, ps peerstore.Peerstore) error`.
   void pstoreAddSelfKeys($peer.Libp2pCorePeerId id,
-      $crypto2.Libp2pCoreCryptoPrivKey sk, $peerstore.Libp2pCorePeerstore ps) {
+      $crypto.Libp2pCoreCryptoPrivKey sk, $peerstore.Libp2pCorePeerstore ps) {
     $callSync(
         11671,
         $W()

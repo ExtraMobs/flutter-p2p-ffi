@@ -9,34 +9,15 @@ import 'package:p2p_ffi/src/go.dart'
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/bytes.dart' as $bytes;
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/dgraph_io/badger/skl.dart' as $skl;
 import 'package:p2p_ffi/go/dgraph_io/badger/table.dart' as $table;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
 import 'package:p2p_ffi/go/expvar.dart' as $expvar;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/os.dart' as $os;
 import 'package:p2p_ffi/go/x/net/trace.dart' as $trace;
 
 /// Go: `y.Closer` (handle).
-class BadgerYCloser extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  BadgerYCloser.$h(super.$h) : super.$h();
+class BadgerYCloser extends GoHandle {
+  BadgerYCloser.$h(super.$h);
 
   /// Go: `func y.NewCloser(initial int) *y.Closer`.
   factory BadgerYCloser(int initial) {
@@ -149,22 +130,8 @@ mixin BadgerYIterator$ on GoHandle {
 }
 
 /// Go: `y.Slice` (handle).
-class BadgerYSlice extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  BadgerYSlice.$h(super.$h) : super.$h();
+class BadgerYSlice extends GoHandle {
+  BadgerYSlice.$h(super.$h);
 
   /// Go: `func (*y.Slice).Resize(sz int) []byte`.
   Uint8List resize(int sz) {
@@ -178,22 +145,8 @@ class BadgerYSlice extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `y.Throttle` (handle).
-class BadgerYThrottle extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  BadgerYThrottle.$h(super.$h) : super.$h();
+class BadgerYThrottle extends GoHandle {
+  BadgerYThrottle.$h(super.$h);
 
   /// Go: `func y.NewThrottle(max int) *y.Throttle`.
   factory BadgerYThrottle(int max) {
@@ -299,22 +252,8 @@ final class BadgerYValueStruct implements GoDto {
 }
 
 /// Go: `y.WaterMark` (handle).
-class BadgerYWaterMark extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  BadgerYWaterMark.$h(super.$h) : super.$h();
+class BadgerYWaterMark extends GoHandle {
+  BadgerYWaterMark.$h(super.$h);
 
   /// Go: `func (*y.WaterMark).Begin(index uint64)`.
   void begin(int index) {

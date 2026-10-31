@@ -6,11 +6,6 @@ import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/go.dart' show GoPolydawnRefmtCbor;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/polydawn/refmt.dart' as $refmt;
 import 'package:p2p_ffi/go/polydawn/refmt/obj/atlas.dart' as $atlas;
 import 'package:p2p_ffi/go/polydawn/refmt/shared.dart' as $shared;
@@ -84,24 +79,8 @@ final class RefmtCborDecodeOptions implements GoDto {
 
 /// Go: `cbor.Decoder` (handle).
 class RefmtCborDecoder extends $shared.RefmtSharedTokenSink
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $shared.RefmtSharedTokenSource$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $shared.RefmtSharedTokenSource {
+    with $shared.RefmtSharedTokenSource$
+    implements $shared.RefmtSharedTokenSource {
   RefmtCborDecoder.$h(super.$h) : super.$h();
 
   /// Go: `func cbor.NewDecoder(cfg cbor.DecodeOptions, r io.Reader) (d *cbor.Decoder)`.
@@ -146,24 +125,8 @@ final class RefmtCborEncodeOptions implements GoDto {
 
 /// Go: `cbor.Encoder` (handle).
 class RefmtCborEncoder extends $shared.RefmtSharedTokenSink
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $shared.RefmtSharedTokenSource$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $shared.RefmtSharedTokenSource {
+    with $shared.RefmtSharedTokenSource$
+    implements $shared.RefmtSharedTokenSource {
   RefmtCborEncoder.$h(super.$h) : super.$h();
 
   /// Go: `func cbor.NewEncoder(w io.Writer) (d *cbor.Encoder)`.
@@ -189,23 +152,7 @@ class RefmtCborEncoder extends $shared.RefmtSharedTokenSink
 }
 
 /// Go: `cbor.Marshaller` (handle).
-class RefmtCborMarshaller extends $refmt.RefmtMarshaller
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class RefmtCborMarshaller extends $refmt.RefmtMarshaller {
   RefmtCborMarshaller.$h(super.$h) : super.$h();
 
   /// Go: `func cbor.NewMarshaller(wr io.Writer) *cbor.Marshaller`.
@@ -225,23 +172,7 @@ class RefmtCborMarshaller extends $refmt.RefmtMarshaller
 }
 
 /// Go: `cbor.Unmarshaller` (handle).
-class RefmtCborUnmarshaller extends $refmt.RefmtUnmarshaller
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class RefmtCborUnmarshaller extends $refmt.RefmtUnmarshaller {
   RefmtCborUnmarshaller.$h(super.$h) : super.$h();
 
   /// Go: `func cbor.NewUnmarshaller(cfg cbor.DecodeOptions, r io.Reader) *cbor.Unmarshaller`.

@@ -12,12 +12,8 @@ import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/crypto/tls.dart' as $tls;
 import 'package:p2p_ffi/go/crypto/x509.dart' as $x509;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
 import 'package:p2p_ffi/go/io/fs.dart' as $fs;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/net.dart' as $net;
 import 'package:p2p_ffi/go/pion/datachannel.dart' as $datachannel;
 import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
@@ -381,7 +377,7 @@ final class DnsCdnskey implements GoDto {
   }
 
   /// Go: `func (*dns.DNSKEY).Generate(bits int) (crypto.PrivateKey, error)`.
-  $crypto.CryptoPrivateKey generate(int bits) {
+  GoHandle generate(int bits) {
     final $r = $callSync(
         15301,
         $W()
@@ -403,7 +399,7 @@ final class DnsCdnskey implements GoDto {
   }
 
   /// Go: `func (*dns.DNSKEY).NewPrivateKey(s string) (crypto.PrivateKey, error)`.
-  $crypto.CryptoPrivateKey newPrivateKey(String s) {
+  GoHandle newPrivateKey(String s) {
     final $r = $callSync(
         15304,
         $W()
@@ -413,7 +409,7 @@ final class DnsCdnskey implements GoDto {
   }
 
   /// Go: `func (*dns.DNSKEY).PrivateKeyString(p crypto.PrivateKey) string`.
-  String privateKeyString($crypto.CryptoPrivateKey p) {
+  String privateKeyString(GoHandle p) {
     final $r = $callSync(
         15305,
         $W()
@@ -423,7 +419,7 @@ final class DnsCdnskey implements GoDto {
   }
 
   /// Go: `func (*dns.DNSKEY).ReadPrivateKey(q io.Reader, file string) (crypto.PrivateKey, error)`.
-  $crypto.CryptoPrivateKey readPrivateKey(Object q, String file) {
+  GoHandle readPrivateKey(Object q, String file) {
     final $r = $callSync(
         15306,
         $W()
@@ -875,26 +871,12 @@ final class DnsClientConfig implements GoDto {
 /// Go: `dns.Conn` (handle).
 class DnsConn extends $net.NetConn
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
         $io.IoCloser$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $datachannel.DatachannelReadDeadliner$,
         $datachannel.DatachannelWriteDeadliner$,
         $expfmt.CommonExpfmtCloser$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
         $io.IoCloser,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $datachannel.DatachannelReadDeadliner,
         $datachannel.DatachannelWriteDeadliner,
         $expfmt.CommonExpfmtCloser {
@@ -1112,7 +1094,7 @@ final class DnsDnskey implements GoDto {
   }
 
   /// Go: `func (*dns.DNSKEY).Generate(bits int) (crypto.PrivateKey, error)`.
-  $crypto.CryptoPrivateKey generate(int bits) {
+  GoHandle generate(int bits) {
     final $r = $callSync(
         15348,
         $W()
@@ -1134,7 +1116,7 @@ final class DnsDnskey implements GoDto {
   }
 
   /// Go: `func (*dns.DNSKEY).NewPrivateKey(s string) (crypto.PrivateKey, error)`.
-  $crypto.CryptoPrivateKey newPrivateKey(String s) {
+  GoHandle newPrivateKey(String s) {
     final $r = $callSync(
         15351,
         $W()
@@ -1144,7 +1126,7 @@ final class DnsDnskey implements GoDto {
   }
 
   /// Go: `func (*dns.DNSKEY).PrivateKeyString(p crypto.PrivateKey) string`.
-  String privateKeyString($crypto.CryptoPrivateKey p) {
+  String privateKeyString(GoHandle p) {
     final $r = $callSync(
         15352,
         $W()
@@ -1154,7 +1136,7 @@ final class DnsDnskey implements GoDto {
   }
 
   /// Go: `func (*dns.DNSKEY).ReadPrivateKey(q io.Reader, file string) (crypto.PrivateKey, error)`.
-  $crypto.CryptoPrivateKey readPrivateKey(Object q, String file) {
+  GoHandle readPrivateKey(Object q, String file) {
     final $r = $callSync(
         15353,
         $W()
@@ -2297,23 +2279,7 @@ mixin DnsHandler$ on GoHandle {
 }
 
 /// Go: `dns.HandlerFunc` (handle).
-class DnsHandlerFunc extends DnsHandler
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class DnsHandlerFunc extends DnsHandler {
   DnsHandlerFunc.$h(super.$h) : super.$h();
 
   /// Go: `func (dns.HandlerFunc).ServeDNS(w dns.ResponseWriter, r *dns.Msg)`.
@@ -2511,7 +2477,7 @@ final class DnsKey implements GoDto {
   }
 
   /// Go: `func (*dns.DNSKEY).Generate(bits int) (crypto.PrivateKey, error)`.
-  $crypto.CryptoPrivateKey generate(int bits) {
+  GoHandle generate(int bits) {
     final $r = $callSync(
         15442,
         $W()
@@ -2533,7 +2499,7 @@ final class DnsKey implements GoDto {
   }
 
   /// Go: `func (*dns.DNSKEY).NewPrivateKey(s string) (crypto.PrivateKey, error)`.
-  $crypto.CryptoPrivateKey newPrivateKey(String s) {
+  GoHandle newPrivateKey(String s) {
     final $r = $callSync(
         15445,
         $W()
@@ -2543,7 +2509,7 @@ final class DnsKey implements GoDto {
   }
 
   /// Go: `func (*dns.DNSKEY).PrivateKeyString(p crypto.PrivateKey) string`.
-  String privateKeyString($crypto.CryptoPrivateKey p) {
+  String privateKeyString(GoHandle p) {
     final $r = $callSync(
         15446,
         $W()
@@ -2553,7 +2519,7 @@ final class DnsKey implements GoDto {
   }
 
   /// Go: `func (*dns.DNSKEY).ReadPrivateKey(q io.Reader, file string) (crypto.PrivateKey, error)`.
-  $crypto.CryptoPrivateKey readPrivateKey(Object q, String file) {
+  GoHandle readPrivateKey(Object q, String file) {
     final $r = $callSync(
         15447,
         $W()
@@ -3420,22 +3386,8 @@ final class DnsMsg implements GoDto {
 }
 
 /// Go: `dns.MsgAcceptFunc` (handle).
-class DnsMsgAcceptFunc extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  DnsMsgAcceptFunc.$h(super.$h) : super.$h();
+class DnsMsgAcceptFunc extends GoHandle {
+  DnsMsgAcceptFunc.$h(super.$h);
 }
 
 /// Go: `dns.MsgHdr`.
@@ -3534,22 +3486,8 @@ final class DnsMsgHdr implements GoDto {
 }
 
 /// Go: `dns.MsgInvalidFunc` (handle).
-class DnsMsgInvalidFunc extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  DnsMsgInvalidFunc.$h(super.$h) : super.$h();
+class DnsMsgInvalidFunc extends GoHandle {
+  DnsMsgInvalidFunc.$h(super.$h);
 }
 
 /// Go: `dns.NAPTR`.
@@ -4389,23 +4327,7 @@ mixin DnsPacketConnReader$ on GoHandle {
 }
 
 /// Go: `dns.PrivateRR` (handle).
-class DnsPrivateRr extends DnsRr
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class DnsPrivateRr extends DnsRr {
   DnsPrivateRr.$h(super.$h) : super.$h();
 
   /// Go: `func (*dns.PrivateRR).Header() *dns.RR_Header`.
@@ -5735,23 +5657,7 @@ final class DnsSvcbPort implements GoDto {
 }
 
 /// Go: `dns.ServeMux` (handle).
-class DnsServeMux extends DnsHandler
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class DnsServeMux extends DnsHandler {
   DnsServeMux.$h(super.$h) : super.$h();
 
   /// Go: `func dns.NewServeMux() *dns.ServeMux`.
@@ -5813,22 +5719,8 @@ class DnsServeMux extends DnsHandler
 }
 
 /// Go: `dns.Server` (handle).
-class DnsServer extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  DnsServer.$h(super.$h) : super.$h();
+class DnsServer extends GoHandle {
+  DnsServer.$h(super.$h);
 
   /// Go: `func (*dns.Server).ActivateAndServe() error`.
   void activateAndServe() {
@@ -6269,26 +6161,12 @@ final class DnsTxt implements GoDto {
 /// Go: `dns.Transfer` (handle).
 class DnsTransfer extends $net.NetConn
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
         $io.IoCloser$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $datachannel.DatachannelReadDeadliner$,
         $datachannel.DatachannelWriteDeadliner$,
         $expfmt.CommonExpfmtCloser$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
         $io.IoCloser,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $datachannel.DatachannelReadDeadliner,
         $datachannel.DatachannelWriteDeadliner,
         $expfmt.CommonExpfmtCloser {
@@ -6581,22 +6459,8 @@ final class DnsZonemd implements GoDto {
 }
 
 /// Go: `dns.ZoneParser` (handle).
-class DnsZoneParser extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  DnsZoneParser.$h(super.$h) : super.$h();
+class DnsZoneParser extends GoHandle {
+  DnsZoneParser.$h(super.$h);
 
   /// Go: `func dns.NewZoneParser(r io.Reader, origin string, file string) *dns.ZoneParser`.
   factory DnsZoneParser(Object r, String origin, String file) {

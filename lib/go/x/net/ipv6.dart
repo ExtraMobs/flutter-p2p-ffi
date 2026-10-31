@@ -7,12 +7,7 @@ import 'dart:typed_data';
 import 'package:p2p_ffi/src/go.dart'
     show GoXNetIpv6, GoXNetIpv6Consts, GoXNetIpv6Enums;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/net.dart' as $net;
 import 'package:p2p_ffi/go/pion/datachannel.dart' as $datachannel;
 import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
@@ -22,22 +17,8 @@ import 'package:p2p_ffi/go/x/net/bpf.dart' as $bpf;
 import 'package:p2p_ffi/go/x/net/ipv4.dart' as $ipv4;
 
 /// Go: `ipv6.Conn` (handle).
-class NetIpv6Conn extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  NetIpv6Conn.$h(super.$h) : super.$h();
+class NetIpv6Conn extends GoHandle {
+  NetIpv6Conn.$h(super.$h);
 
   /// Go: `func ipv6.NewConn(c net.Conn) *ipv6.Conn`.
   factory NetIpv6Conn($net.NetConn c) {
@@ -239,22 +220,8 @@ final class NetIpv6Header implements GoDto {
 }
 
 /// Go: `ipv6.ICMPFilter` (handle).
-class NetIpv6IcmpFilter extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  NetIpv6IcmpFilter.$h(super.$h) : super.$h();
+class NetIpv6IcmpFilter extends GoHandle {
+  NetIpv6IcmpFilter.$h(super.$h);
 
   /// Go: `func (*ipv6.ICMPFilter).Accept(typ ipv6.ICMPType)`.
   void accept(int typ) {
@@ -297,28 +264,14 @@ class NetIpv6IcmpFilter extends $crypto.CryptoDecrypterOpts
 /// Go: `ipv6.PacketConn` (handle).
 class NetIpv6PacketConn extends $sync.SyncLocker
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
         $io.IoCloser$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $datachannel.DatachannelReadDeadliner$,
         $datachannel.DatachannelWriteDeadliner$,
         $expfmt.CommonExpfmtCloser$,
         $storage.GoleveldbLeveldbStorageLocker$,
         $bpf.NetBpfSetter$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
         $io.IoCloser,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $datachannel.DatachannelReadDeadliner,
         $datachannel.DatachannelWriteDeadliner,
         $expfmt.CommonExpfmtCloser,

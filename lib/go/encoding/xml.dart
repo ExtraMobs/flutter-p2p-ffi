@@ -6,13 +6,10 @@ import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/go.dart' show GoEncodingXml, GoEncodingXmlConsts;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/grpc_ecosystem/grpc_gateway/v2/runtime.dart'
     as $runtime;
 import 'package:p2p_ffi/go/io.dart' as $io;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
 import 'package:p2p_ffi/go/zap/zapcore.dart' as $zapcore;
 
@@ -42,26 +39,10 @@ final class EncodingXmlAttr implements GoDto {
 
 /// Go: `xml.Decoder` (handle).
 class EncodingXmlDecoder extends EncodingXmlTokenReader
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $runtime.GrpcGatewayV2RuntimeDecoder$,
-        $ipfs_cmds.IpfsCmdsDecoder$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
+    with $runtime.GrpcGatewayV2RuntimeDecoder$, $ipfs_cmds.IpfsCmdsDecoder$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
         $runtime.GrpcGatewayV2RuntimeDecoder,
-        $ipfs_cmds.IpfsCmdsDecoder,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+        $ipfs_cmds.IpfsCmdsDecoder {
   EncodingXmlDecoder.$h(super.$h) : super.$h();
 
   /// Go: `func xml.NewDecoder(r io.Reader) *xml.Decoder`.
@@ -102,7 +83,7 @@ class EncodingXmlDecoder extends EncodingXmlTokenReader
   }
 
   /// Go: `func (*xml.Decoder).RawToken() (xml.Token, error)`.
-  EncodingXmlToken rawToken() {
+  GoHandle rawToken() {
     final $r = $callSync(3767, $W()..h(this));
     return $r.hnn(EncodingXmlToken.$h);
   }
@@ -113,7 +94,7 @@ class EncodingXmlDecoder extends EncodingXmlTokenReader
   }
 
   /// Go: `func (*xml.Decoder).Token() (xml.Token, error)`.
-  EncodingXmlToken token() {
+  GoHandle token() {
     final $r = $callSync(3769, $W()..h(this));
     return $r.hnn(EncodingXmlToken.$h);
   }
@@ -122,27 +103,13 @@ class EncodingXmlDecoder extends EncodingXmlTokenReader
 /// Go: `xml.Encoder` (handle).
 class EncodingXmlEncoder extends $runtime.GrpcGatewayV2RuntimeEncoder
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
         $io.IoCloser$,
         $ipfs_cmds.IpfsCmdsEncoder$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $expfmt.CommonExpfmtCloser$,
         $zapcore.ZapZapcoreReflectedEncoder$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
         $io.IoCloser,
         $ipfs_cmds.IpfsCmdsEncoder,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $expfmt.CommonExpfmtCloser,
         $zapcore.ZapZapcoreReflectedEncoder {
   EncodingXmlEncoder.$h(super.$h) : super.$h();
@@ -178,7 +145,7 @@ class EncodingXmlEncoder extends $runtime.GrpcGatewayV2RuntimeEncoder
   }
 
   /// Go: `func (*xml.Encoder).EncodeToken(t xml.Token) error`.
-  void encodeToken(EncodingXmlToken t) {
+  void encodeToken(GoHandle t) {
     $callSync(
         3773,
         $W()
@@ -360,7 +327,7 @@ class EncodingXmlTokenReader extends GoHandle with EncodingXmlTokenReader$ {
 /// The methods of [EncodingXmlTokenReader], mixed into every class Go also accepts as one.
 mixin EncodingXmlTokenReader$ on GoHandle {
   /// Go: `func (xml.TokenReader).Token() (xml.Token, error)`.
-  EncodingXmlToken token() {
+  GoHandle token() {
     final $r = $callSync(3790, $W()..h(this));
     return $r.hnn(EncodingXmlToken.$h);
   }
@@ -473,7 +440,7 @@ class EncodingXmlUnsupportedTypeError extends GolangException {
 /// Go: the package-level members of `encoding/xml` (`go.encoding.xml`).
 extension GoEncodingXmlApi on GoEncodingXml {
   /// Go: `func xml.CopyToken(t xml.Token) xml.Token`.
-  EncodingXmlToken copyToken(EncodingXmlToken t) {
+  GoHandle copyToken(GoHandle t) {
     final $r = $callSync(3762, $W()..h(t));
     return $r.hnn(EncodingXmlToken.$h);
   }

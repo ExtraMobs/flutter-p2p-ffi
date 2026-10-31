@@ -6,11 +6,6 @@ import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/go.dart' show GoXTerm;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 
 /// Go: `term.History` (handle).
 class TermHistory extends GoHandle with TermHistory$ {
@@ -46,41 +41,13 @@ mixin TermHistory$ on GoHandle {
 }
 
 /// Go: `term.State` (handle).
-class TermState extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  TermState.$h(super.$h) : super.$h();
+class TermState extends GoHandle {
+  TermState.$h(super.$h);
 }
 
 /// Go: `term.Terminal` (handle).
-class TermTerminal extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  TermTerminal.$h(super.$h) : super.$h();
+class TermTerminal extends GoHandle {
+  TermTerminal.$h(super.$h);
 
   /// Go: `func term.NewTerminal(c io.ReadWriter, prompt string) *term.Terminal`.
   factory TermTerminal(Object c, String prompt) {

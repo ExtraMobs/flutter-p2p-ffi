@@ -7,31 +7,12 @@ import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/go.dart' show GoOtelAttribute, GoOtelAttributeEnums;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
 import 'package:p2p_ffi/go/fmt.dart' as $fmt;
 import 'package:p2p_ffi/go/go_logr/logr.dart' as $logr;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 
 /// Go: `attribute.Distinct` (handle).
-class OtelAttributeDistinct extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelAttributeDistinct.$h(super.$h) : super.$h();
+class OtelAttributeDistinct extends GoHandle {
+  OtelAttributeDistinct.$h(super.$h);
 
   /// Go: `func (attribute.Distinct).Valid() bool`.
   bool valid() {
@@ -65,22 +46,8 @@ mixin OtelAttributeEncoder$ on GoHandle {
 }
 
 /// Go: `attribute.EncoderID` (handle).
-class OtelAttributeEncoderId extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelAttributeEncoderId.$h(super.$h) : super.$h();
+class OtelAttributeEncoderId extends GoHandle {
+  OtelAttributeEncoderId.$h(super.$h);
 
   /// Go: `func attribute.NewEncoderID() attribute.EncoderID`.
   factory OtelAttributeEncoderId() {
@@ -96,41 +63,13 @@ class OtelAttributeEncoderId extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `attribute.Filter` (handle).
-class OtelAttributeFilter extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelAttributeFilter.$h(super.$h) : super.$h();
+class OtelAttributeFilter extends GoHandle {
+  OtelAttributeFilter.$h(super.$h);
 }
 
 /// Go: `attribute.Hasher` (handle).
-class OtelAttributeHasher extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelAttributeHasher.$h(super.$h) : super.$h();
+class OtelAttributeHasher extends GoHandle {
+  OtelAttributeHasher.$h(super.$h);
 
   /// Go: `func attribute.NewHasher() *attribute.Hasher`.
   factory OtelAttributeHasher() {
@@ -160,22 +99,8 @@ class OtelAttributeHasher extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `attribute.Iterator` (handle).
-class OtelAttributeIterator extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelAttributeIterator.$h(super.$h) : super.$h();
+class OtelAttributeIterator extends GoHandle {
+  OtelAttributeIterator.$h(super.$h);
 
   /// Go: `func (*attribute.Iterator).Attribute() attribute.KeyValue`.
   OtelAttributeKeyValue attribute() {
@@ -253,22 +178,8 @@ final class OtelAttributeKeyValue implements GoDto {
 }
 
 /// Go: `attribute.MergeIterator` (handle).
-class OtelAttributeMergeIterator extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelAttributeMergeIterator.$h(super.$h) : super.$h();
+class OtelAttributeMergeIterator extends GoHandle {
+  OtelAttributeMergeIterator.$h(super.$h);
 
   /// Go: `func attribute.NewMergeIterator(s1 *attribute.Set, s2 *attribute.Set) attribute.MergeIterator`.
   factory OtelAttributeMergeIterator(OtelAttributeSet s1, OtelAttributeSet s2) {
@@ -301,23 +212,7 @@ class OtelAttributeMergeIterator extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `attribute.Set` (handle).
-class OtelAttributeSet extends $logr.LogrMarshaler
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class OtelAttributeSet extends $logr.LogrMarshaler {
   OtelAttributeSet.$h(super.$h) : super.$h();
 
   /// Go: `func attribute.NewSet(kvs ...attribute.KeyValue) attribute.Set`.
@@ -435,22 +330,8 @@ class OtelAttributeSet extends $logr.LogrMarshaler
 }
 
 /// Go: `attribute.Value` (handle).
-class OtelAttributeValue extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelAttributeValue.$h(super.$h) : super.$h();
+class OtelAttributeValue extends GoHandle {
+  OtelAttributeValue.$h(super.$h);
 
   /// Go: `func (attribute.Value).AsBool() bool`.
   bool asBool() {

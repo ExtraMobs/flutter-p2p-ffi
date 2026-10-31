@@ -3,11 +3,6 @@
 library;
 
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/net.dart' as $net;
 import 'package:p2p_ffi/go/pion/transport/v3.dart' as $v3;
 import 'package:p2p_ffi/go/pion/transport/v4.dart' as $v4;
@@ -15,25 +10,8 @@ import 'package:p2p_ffi/go/x/net/proxy.dart' as $proxy;
 
 /// Go: `stdnet.Net` (handle).
 class TransportV3StdnetNet extends $v3.TransportV3Net
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $v3.TransportV3Dialer$,
-        $v4.TransportV4Dialer$,
-        $proxy.NetProxyDialer$
+    with $v3.TransportV3Dialer$, $v4.TransportV4Dialer$, $proxy.NetProxyDialer$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $v3.TransportV3Dialer,
         $v4.TransportV4Dialer,
         $proxy.NetProxyDialer {

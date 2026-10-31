@@ -10,11 +10,7 @@ import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/crypto/x509.dart' as $x509;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/net.dart' as $net;
 import 'package:p2p_ffi/go/pion/datachannel.dart' as $datachannel;
 import 'package:p2p_ffi/go/pion/srtp/v3.dart' as $v3;
@@ -24,7 +20,7 @@ import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
 final class CryptoTlsCertificate implements GoDto {
   CryptoTlsCertificate(
       {List<Uint8List>? certificate,
-      $crypto.CryptoPrivateKey? privateKey,
+      GoHandle? privateKey,
       List<int>? supportedSignatureAlgorithms,
       Uint8List? ocspStaple,
       List<Uint8List>? signedCertificateTimestamps,
@@ -48,7 +44,7 @@ final class CryptoTlsCertificate implements GoDto {
   List<Uint8List> certificate;
 
   /// Go: `PrivateKey`.
-  $crypto.CryptoPrivateKey? privateKey;
+  GoHandle? privateKey;
 
   /// Go: `SupportedSignatureAlgorithms`.
   List<int> supportedSignatureAlgorithms;
@@ -75,22 +71,8 @@ final class CryptoTlsCertificate implements GoDto {
 }
 
 /// Go: `tls.CertificateRequestInfo` (handle).
-class CryptoTlsCertificateRequestInfo extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  CryptoTlsCertificateRequestInfo.$h(super.$h) : super.$h();
+class CryptoTlsCertificateRequestInfo extends GoHandle {
+  CryptoTlsCertificateRequestInfo.$h(super.$h);
 
   /// Go: `func (*tls.CertificateRequestInfo).SupportsCertificate(c *tls.Certificate) error`.
   void supportsCertificate(CryptoTlsCertificate c) {
@@ -140,22 +122,8 @@ final class CryptoTlsCipherSuite implements GoDto {
 }
 
 /// Go: `tls.ClientHelloInfo` (handle).
-class CryptoTlsClientHelloInfo extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  CryptoTlsClientHelloInfo.$h(super.$h) : super.$h();
+class CryptoTlsClientHelloInfo extends GoHandle {
+  CryptoTlsClientHelloInfo.$h(super.$h);
 
   /// Go: `func (*tls.ClientHelloInfo).SupportsCertificate(c *tls.Certificate) error`.
   void supportsCertificate(CryptoTlsCertificate c) {
@@ -197,22 +165,8 @@ mixin CryptoTlsClientSessionCache$ on GoHandle {
 }
 
 /// Go: `tls.ClientSessionState` (handle).
-class CryptoTlsClientSessionState extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  CryptoTlsClientSessionState.$h(super.$h) : super.$h();
+class CryptoTlsClientSessionState extends GoHandle {
+  CryptoTlsClientSessionState.$h(super.$h);
 
   /// Go: `func (*tls.ClientSessionState).ResumptionState() (ticket []byte, state *tls.SessionState, err error)`.
   (Uint8List, CryptoTlsSessionState) resumptionState() {
@@ -222,22 +176,8 @@ class CryptoTlsClientSessionState extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `tls.Config` (handle).
-class CryptoTlsConfig extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  CryptoTlsConfig.$h(super.$h) : super.$h();
+class CryptoTlsConfig extends GoHandle {
+  CryptoTlsConfig.$h(super.$h);
 
   /// Go: `func (*tls.Config).BuildNameToCertificate()`.
   @Deprecated(
@@ -280,26 +220,12 @@ class CryptoTlsConfig extends $crypto.CryptoDecrypterOpts
 /// Go: `tls.Conn` (handle).
 class CryptoTlsConn extends $net.NetConn
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
         $io.IoCloser$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $datachannel.DatachannelReadDeadliner$,
         $datachannel.DatachannelWriteDeadliner$,
         $expfmt.CommonExpfmtCloser$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
         $io.IoCloser,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $datachannel.DatachannelReadDeadliner,
         $datachannel.DatachannelWriteDeadliner,
         $expfmt.CommonExpfmtCloser {
@@ -419,23 +345,7 @@ class CryptoTlsConn extends $net.NetConn
 }
 
 /// Go: `tls.ConnectionState` (handle).
-class CryptoTlsConnectionState extends $v3.SrtpV3KeyingMaterialExporter
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class CryptoTlsConnectionState extends $v3.SrtpV3KeyingMaterialExporter {
   CryptoTlsConnectionState.$h(super.$h) : super.$h();
 
   /// Go: `func (*tls.ConnectionState).ExportKeyingMaterial(label string, context []byte, length int) ([]byte, error)`.
@@ -527,24 +437,8 @@ final class CryptoTlsQuicConfig implements GoDto {
 
 /// Go: `tls.QUICConn` (handle).
 class CryptoTlsQuicConn extends $io.IoCloser
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   CryptoTlsQuicConn.$h(super.$h) : super.$h();
 
   /// Go: `func (*tls.QUICConn).Close() error`.
@@ -692,22 +586,8 @@ final class CryptoTlsQuicSessionTicketOptions implements GoDto {
 }
 
 /// Go: `tls.SessionState` (handle).
-class CryptoTlsSessionState extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  CryptoTlsSessionState.$h(super.$h) : super.$h();
+class CryptoTlsSessionState extends GoHandle {
+  CryptoTlsSessionState.$h(super.$h);
 
   /// Go: `func (*tls.SessionState).Bytes() ([]byte, error)`.
   Uint8List bytes() {

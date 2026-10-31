@@ -11,11 +11,6 @@ import 'package:p2p_ffi/src/go.dart'
         GoXTextUnicodeBidiEnums,
         GoXTextUnicodeBidiOptions;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 
 /// Go: `bidi.Option` (functional option; constructors in the package).
 final class TextUnicodeBidiOption extends GoOption {
@@ -23,22 +18,8 @@ final class TextUnicodeBidiOption extends GoOption {
 }
 
 /// Go: `bidi.Ordering` (handle).
-class TextUnicodeBidiOrdering extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  TextUnicodeBidiOrdering.$h(super.$h) : super.$h();
+class TextUnicodeBidiOrdering extends GoHandle {
+  TextUnicodeBidiOrdering.$h(super.$h);
 
   /// Go: `func (*bidi.Ordering).Direction() bidi.Direction`.
   int direction() {
@@ -64,22 +45,8 @@ class TextUnicodeBidiOrdering extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `bidi.Paragraph` (handle).
-class TextUnicodeBidiParagraph extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  TextUnicodeBidiParagraph.$h(super.$h) : super.$h();
+class TextUnicodeBidiParagraph extends GoHandle {
+  TextUnicodeBidiParagraph.$h(super.$h);
 
   /// Go: `func (*bidi.Paragraph).Direction() bidi.Direction`.
   int direction() {
@@ -144,22 +111,8 @@ class TextUnicodeBidiParagraph extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `bidi.Properties` (handle).
-class TextUnicodeBidiProperties extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  TextUnicodeBidiProperties.$h(super.$h) : super.$h();
+class TextUnicodeBidiProperties extends GoHandle {
+  TextUnicodeBidiProperties.$h(super.$h);
 
   /// Go: `func (bidi.Properties).Class() bidi.Class`.
   int class$() {
@@ -181,22 +134,8 @@ class TextUnicodeBidiProperties extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `bidi.Run` (handle).
-class TextUnicodeBidiRun extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  TextUnicodeBidiRun.$h(super.$h) : super.$h();
+class TextUnicodeBidiRun extends GoHandle {
+  TextUnicodeBidiRun.$h(super.$h);
 
   /// Go: `func (*bidi.Run).Bytes() []byte`.
   Uint8List bytes() {

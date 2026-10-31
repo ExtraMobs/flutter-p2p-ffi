@@ -7,12 +7,7 @@ import 'dart:typed_data';
 import 'package:p2p_ffi/src/go.dart'
     show GoXNetIpv4, GoXNetIpv4Consts, GoXNetIpv4Enums;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/net.dart' as $net;
 import 'package:p2p_ffi/go/pion/datachannel.dart' as $datachannel;
 import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
@@ -66,22 +61,8 @@ final class NetIpv4Message implements GoDto {
 }
 
 /// Go: `ipv4.Conn` (handle).
-class NetIpv4Conn extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  NetIpv4Conn.$h(super.$h) : super.$h();
+class NetIpv4Conn extends GoHandle {
+  NetIpv4Conn.$h(super.$h);
 
   /// Go: `func ipv4.NewConn(c net.Conn) *ipv4.Conn`.
   factory NetIpv4Conn($net.NetConn c) {
@@ -303,22 +284,8 @@ final class NetIpv4Header implements GoDto {
 }
 
 /// Go: `ipv4.ICMPFilter` (handle).
-class NetIpv4IcmpFilter extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  NetIpv4IcmpFilter.$h(super.$h) : super.$h();
+class NetIpv4IcmpFilter extends GoHandle {
+  NetIpv4IcmpFilter.$h(super.$h);
 
   /// Go: `func (*ipv4.ICMPFilter).Accept(typ ipv4.ICMPType)`.
   void accept(int typ) {
@@ -361,28 +328,14 @@ class NetIpv4IcmpFilter extends $crypto.CryptoDecrypterOpts
 /// Go: `ipv4.PacketConn` (handle).
 class NetIpv4PacketConn extends $sync.SyncLocker
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
         $io.IoCloser$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $datachannel.DatachannelReadDeadliner$,
         $datachannel.DatachannelWriteDeadliner$,
         $expfmt.CommonExpfmtCloser$,
         $storage.GoleveldbLeveldbStorageLocker$,
         $bpf.NetBpfSetter$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
         $io.IoCloser,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $datachannel.DatachannelReadDeadliner,
         $datachannel.DatachannelWriteDeadliner,
         $expfmt.CommonExpfmtCloser,
@@ -657,14 +610,7 @@ class NetIpv4PacketConn extends $sync.SyncLocker
 /// Go: `ipv4.RawConn` (handle).
 class NetIpv4RawConn extends $net.NetConn
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
         $io.IoCloser$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $datachannel.DatachannelReadDeadliner$,
         $datachannel.DatachannelWriteDeadliner$,
         $expfmt.CommonExpfmtCloser$,
@@ -672,14 +618,7 @@ class NetIpv4RawConn extends $net.NetConn
         $storage.GoleveldbLeveldbStorageLocker$,
         $bpf.NetBpfSetter$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
         $io.IoCloser,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $datachannel.DatachannelReadDeadliner,
         $datachannel.DatachannelWriteDeadliner,
         $expfmt.CommonExpfmtCloser,

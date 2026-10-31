@@ -7,11 +7,6 @@ import 'dart:async';
 import 'package:p2p_ffi/src/go.dart'
     show GoIpldIpldPrimeTraversal, GoIpldIpldPrimeTraversalEnums;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/ipld/ipld_prime/datamodel.dart' as $datamodel;
 import 'package:p2p_ffi/go/ipld/ipld_prime/linking.dart' as $linking;
 import 'package:p2p_ffi/go/ipld/ipld_prime/linking/preload.dart' as $preload;
@@ -101,23 +96,8 @@ final class IpldPrimeTraversalConfig implements GoDto {
 }
 
 /// Go: `traversal.LinkTargetNodePrototypeChooser` (handle).
-class IpldPrimeTraversalLinkTargetNodePrototypeChooser
-    extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  IpldPrimeTraversalLinkTargetNodePrototypeChooser.$h(super.$h) : super.$h();
+class IpldPrimeTraversalLinkTargetNodePrototypeChooser extends GoHandle {
+  IpldPrimeTraversalLinkTargetNodePrototypeChooser.$h(super.$h);
 }
 
 /// Go: `traversal.Progress`.
@@ -305,22 +285,8 @@ final class IpldPrimeTraversalProgress implements GoDto {
 }
 
 /// Go: `traversal.TransformFn` (handle).
-class IpldPrimeTraversalTransformFn extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  IpldPrimeTraversalTransformFn.$h(super.$h) : super.$h();
+class IpldPrimeTraversalTransformFn extends GoHandle {
+  IpldPrimeTraversalTransformFn.$h(super.$h);
 }
 
 /// Go: `traversal.ErrBudgetExceeded`: an error. Thrown as this class when it is the outermost

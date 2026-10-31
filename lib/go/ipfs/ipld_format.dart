@@ -9,37 +9,16 @@ import 'package:p2p_ffi/src/go.dart'
     show GoIpfsIpldFormat, GoIpfsIpldFormatOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/block_format.dart' as $block_format;
 import 'package:p2p_ffi/go/ipfs/boxo/filestore/posinfo.dart' as $posinfo;
 import 'package:p2p_ffi/go/ipfs/boxo/ipld/merkledag.dart' as $merkledag;
 import 'package:p2p_ffi/go/ipfs/cid.dart' as $cid;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 import 'package:p2p_ffi/go/ipfs/ipld_cbor.dart' as $ipld_cbor;
 import 'package:p2p_ffi/go/ipfs/ipld_legacy.dart' as $ipld_legacy;
 import 'package:p2p_ffi/go/ipfs/kubo/core/coreiface.dart' as $coreiface;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 
 /// Go: `format.Batch` (handle).
-class IpldFormatBatch extends IpldFormatNodeAdder
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class IpldFormatBatch extends IpldFormatNodeAdder {
   IpldFormatBatch.$h(super.$h) : super.$h();
 
   /// Go: `func (*format.Batch).Add(ctx context.Context, nd format.Node) error`.
@@ -79,24 +58,8 @@ final class IpldFormatBatchOption extends GoOption {
 
 /// Go: `format.BufferedDAG` (handle).
 class IpldFormatBufferedDag extends IpldFormatDagService
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        IpldFormatNodeAdder$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        IpldFormatNodeAdder,
-        $peertask.PeertaskqueuePeertaskTopic {
+    with IpldFormatNodeAdder$
+    implements IpldFormatNodeAdder {
   IpldFormatBufferedDag.$h(super.$h) : super.$h();
 
   /// Go: `func (*format.BufferedDAG).Add(ctx context.Context, n format.Node) error`.
@@ -237,22 +200,8 @@ mixin IpldFormatDagService$ on GoHandle {
 }
 
 /// Go: `format.DecodeBlockFunc` (handle).
-class IpldFormatDecodeBlockFunc extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  IpldFormatDecodeBlockFunc.$h(super.$h) : super.$h();
+class IpldFormatDecodeBlockFunc extends GoHandle {
+  IpldFormatDecodeBlockFunc.$h(super.$h);
 }
 
 /// Go: `format.Link`.
@@ -326,23 +275,7 @@ mixin IpldFormatLinkGetter$ on GoHandle {
 }
 
 /// Go: `format.NavigableIPLDNode` (handle).
-class IpldFormatNavigableIpldNode extends IpldFormatNavigableNode
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class IpldFormatNavigableIpldNode extends IpldFormatNavigableNode {
   IpldFormatNavigableIpldNode.$h(super.$h) : super.$h();
 
   /// Go: `func format.NewNavigableIPLDNode(node format.Node, nodeGetter format.NodeGetter) *format.NavigableIPLDNode`.
@@ -653,22 +586,8 @@ final class IpldFormatNodeOption implements GoDto {
 }
 
 /// Go: `format.NodePromise` (handle).
-class IpldFormatNodePromise extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  IpldFormatNodePromise.$h(super.$h) : super.$h();
+class IpldFormatNodePromise extends GoHandle {
+  IpldFormatNodePromise.$h(super.$h);
 
   /// Go: `func (*format.NodePromise).Get(ctx context.Context) (format.Node, error)`.
   ///
@@ -753,22 +672,8 @@ final class IpldFormatNodeStat implements GoDto {
 }
 
 /// Go: `format.Registry` (handle).
-class IpldFormatRegistry extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  IpldFormatRegistry.$h(super.$h) : super.$h();
+class IpldFormatRegistry extends GoHandle {
+  IpldFormatRegistry.$h(super.$h);
 
   /// Go: `func (*format.Registry).Decode(block blocks.Block) (format.Node, error)`.
   IpldFormatNode decode($block_format.BlockFormatBlock block) {
@@ -864,22 +769,8 @@ mixin IpldFormatResolver$ on GoHandle {
 }
 
 /// Go: `format.Walker` (handle).
-class IpldFormatWalker extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  IpldFormatWalker.$h(super.$h) : super.$h();
+class IpldFormatWalker extends GoHandle {
+  IpldFormatWalker.$h(super.$h);
 
   /// Go: `func (*format.Walker).ActiveChildIndex() uint`.
   int activeChildIndex() {

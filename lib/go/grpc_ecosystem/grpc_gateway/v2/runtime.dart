@@ -13,16 +13,13 @@ import 'package:p2p_ffi/src/go.dart'
         GoGrpcEcosystemGrpcGatewayV2RuntimeOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/encoding/gob.dart' as $gob;
 import 'package:p2p_ffi/go/encoding/json.dart' as $json;
 import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
 import 'package:p2p_ffi/go/go_jose/jose/v4/json.dart' as $json2;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/grpc.dart' as $grpc;
 import 'package:p2p_ffi/go/grpc/health/grpc_health_v1.dart' as $grpc_health_v1;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/net/http.dart' as $http;
 import 'package:p2p_ffi/go/protobuf/encoding/protojson.dart' as $protojson;
 import 'package:p2p_ffi/go/protobuf/reflect/protoreflect.dart' as $protoreflect;
@@ -37,23 +34,8 @@ import 'package:p2p_ffi/go/yaml_v3.dart' as $yaml_v3;
 import 'package:p2p_ffi/go/zap/zapcore.dart' as $zapcore;
 
 /// Go: `runtime.AnnotateContextOption` (handle).
-class GrpcGatewayV2RuntimeAnnotateContextOption
-    extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  GrpcGatewayV2RuntimeAnnotateContextOption.$h(super.$h) : super.$h();
+class GrpcGatewayV2RuntimeAnnotateContextOption extends GoHandle {
+  GrpcGatewayV2RuntimeAnnotateContextOption.$h(super.$h);
 }
 
 /// Go: `runtime.Decoder` (handle).
@@ -118,24 +100,8 @@ mixin GrpcGatewayV2RuntimeDecoder$ on GoHandle {
 
 /// Go: `runtime.DecoderFunc` (handle).
 class GrpcGatewayV2RuntimeDecoderFunc extends GrpcGatewayV2RuntimeDecoder
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsDecoder$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsDecoder,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    with $ipfs_cmds.IpfsCmdsDecoder$
+    implements $ipfs_cmds.IpfsCmdsDecoder {
   GrpcGatewayV2RuntimeDecoderFunc.$h(super.$h) : super.$h();
 
   /// Go: `func (runtime.DecoderFunc).Decode(v interface{}) error`.
@@ -253,26 +219,8 @@ mixin GrpcGatewayV2RuntimeEncoder$ on GoHandle {
 
 /// Go: `runtime.EncoderFunc` (handle).
 class GrpcGatewayV2RuntimeEncoderFunc extends GrpcGatewayV2RuntimeEncoder
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEncoder$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $zapcore.ZapZapcoreReflectedEncoder$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEncoder,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $zapcore.ZapZapcoreReflectedEncoder {
+    with $ipfs_cmds.IpfsCmdsEncoder$, $zapcore.ZapZapcoreReflectedEncoder$
+    implements $ipfs_cmds.IpfsCmdsEncoder, $zapcore.ZapZapcoreReflectedEncoder {
   GrpcGatewayV2RuntimeEncoderFunc.$h(super.$h) : super.$h();
 
   /// Go: `func (runtime.EncoderFunc).Encode(v interface{}) error`.
@@ -286,63 +234,18 @@ class GrpcGatewayV2RuntimeEncoderFunc extends GrpcGatewayV2RuntimeEncoder
 }
 
 /// Go: `runtime.ErrorHandlerFunc` (handle).
-class GrpcGatewayV2RuntimeErrorHandlerFunc extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  GrpcGatewayV2RuntimeErrorHandlerFunc.$h(super.$h) : super.$h();
+class GrpcGatewayV2RuntimeErrorHandlerFunc extends GoHandle {
+  GrpcGatewayV2RuntimeErrorHandlerFunc.$h(super.$h);
 }
 
 /// Go: `runtime.ForwardResponseRewriter` (handle).
-class GrpcGatewayV2RuntimeForwardResponseRewriter
-    extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  GrpcGatewayV2RuntimeForwardResponseRewriter.$h(super.$h) : super.$h();
+class GrpcGatewayV2RuntimeForwardResponseRewriter extends GoHandle {
+  GrpcGatewayV2RuntimeForwardResponseRewriter.$h(super.$h);
 }
 
 /// Go: `runtime.HTTPBodyMarshaler` (handle).
 class GrpcGatewayV2RuntimeHttpBodyMarshaler
-    extends GrpcGatewayV2RuntimeMarshaler
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    extends GrpcGatewayV2RuntimeMarshaler {
   GrpcGatewayV2RuntimeHttpBodyMarshaler.$h(super.$h) : super.$h();
 
   /// Go: `func (*runtime.HTTPBodyMarshaler).ContentType(v interface{}) string`.
@@ -397,22 +300,8 @@ class GrpcGatewayV2RuntimeHttpBodyMarshaler
 }
 
 /// Go: `runtime.HeaderMatcherFunc` (handle).
-class GrpcGatewayV2RuntimeHeaderMatcherFunc extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  GrpcGatewayV2RuntimeHeaderMatcherFunc.$h(super.$h) : super.$h();
+class GrpcGatewayV2RuntimeHeaderMatcherFunc extends GoHandle {
+  GrpcGatewayV2RuntimeHeaderMatcherFunc.$h(super.$h);
 }
 
 /// Go: `runtime.JSONBuiltin`.
@@ -645,41 +534,13 @@ mixin GrpcGatewayV2RuntimeMarshaler$ on GoHandle {
 }
 
 /// Go: `runtime.Middleware` (handle).
-class GrpcGatewayV2RuntimeMiddleware extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  GrpcGatewayV2RuntimeMiddleware.$h(super.$h) : super.$h();
+class GrpcGatewayV2RuntimeMiddleware extends GoHandle {
+  GrpcGatewayV2RuntimeMiddleware.$h(super.$h);
 }
 
 /// Go: `runtime.Pattern` (handle).
-class GrpcGatewayV2RuntimePattern extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  GrpcGatewayV2RuntimePattern.$h(super.$h) : super.$h();
+class GrpcGatewayV2RuntimePattern extends GoHandle {
+  GrpcGatewayV2RuntimePattern.$h(super.$h);
 
   /// Go: `func runtime.NewPattern(version int, ops []int, pool []string, verb string) (runtime.Pattern, error)`.
   factory GrpcGatewayV2RuntimePattern(
@@ -801,23 +662,7 @@ class GrpcGatewayV2RuntimeQueryParameterParser extends GoHandle
 mixin GrpcGatewayV2RuntimeQueryParameterParser$ on GoHandle {}
 
 /// Go: `runtime.ServeMux` (handle).
-class GrpcGatewayV2RuntimeServeMux extends $http.NetHttpHandler
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class GrpcGatewayV2RuntimeServeMux extends $http.NetHttpHandler {
   GrpcGatewayV2RuntimeServeMux.$h(super.$h) : super.$h();
 
   /// Go: `func runtime.NewServeMux(opts ...runtime.ServeMuxOption) *runtime.ServeMux`.
@@ -910,23 +755,7 @@ final class GrpcGatewayV2RuntimeServerMetadata implements GoDto {
 
 /// Go: `runtime.ServerTransportStream` (handle).
 class GrpcGatewayV2RuntimeServerTransportStream
-    extends $grpc.GrpcServerTransportStream
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    extends $grpc.GrpcServerTransportStream {
   GrpcGatewayV2RuntimeServerTransportStream.$h(super.$h) : super.$h();
 
   /// Go: `func (*runtime.ServerTransportStream).Method() string`.
@@ -956,23 +785,8 @@ mixin GrpcGatewayV2RuntimeStreamContentType$ on GoHandle {
 }
 
 /// Go: `runtime.StreamErrorHandlerFunc` (handle).
-class GrpcGatewayV2RuntimeStreamErrorHandlerFunc
-    extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  GrpcGatewayV2RuntimeStreamErrorHandlerFunc.$h(super.$h) : super.$h();
+class GrpcGatewayV2RuntimeStreamErrorHandlerFunc extends GoHandle {
+  GrpcGatewayV2RuntimeStreamErrorHandlerFunc.$h(super.$h);
 }
 
 /// Go: `var runtime.ErrInvalidPattern error`: an error. Thrown as this class when it is the outermost

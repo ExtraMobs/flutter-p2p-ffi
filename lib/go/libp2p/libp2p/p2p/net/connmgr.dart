@@ -9,13 +9,8 @@ import 'package:p2p_ffi/src/go.dart'
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/benbjohnson/clock.dart' as $clock;
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
 import 'package:p2p_ffi/go/ipfs/boxo/bitswap/network.dart' as $network;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/connmgr.dart' as $connmgr;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/network.dart' as $network2;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
@@ -25,27 +20,13 @@ import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
 class Libp2pP2pNetConnmgrBasicConnMgr
     extends $connmgr.Libp2pCoreConnmgrConnManager
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
         $io.IoCloser$,
         $network.BoxoBitswapNetworkPeerTagger$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $expfmt.CommonExpfmtCloser$,
         $connmgr.Libp2pCoreConnmgrDecayer$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
         $io.IoCloser,
         $network.BoxoBitswapNetworkPeerTagger,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $expfmt.CommonExpfmtCloser,
         $connmgr.Libp2pCoreConnmgrDecayer {
   Libp2pP2pNetConnmgrBasicConnMgr.$h(super.$h) : super.$h();

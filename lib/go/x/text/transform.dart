@@ -7,12 +7,7 @@ import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/go.dart' show GoXTextTransform;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
 import 'package:p2p_ffi/go/x/text/cases.dart' as $cases;
 import 'package:p2p_ffi/go/x/text/secure/bidirule.dart' as $bidirule;
@@ -32,22 +27,8 @@ final class TextTransformNopResetter implements GoDto {
 }
 
 /// Go: `transform.Reader` (handle).
-class TextTransformReader extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  TextTransformReader.$h(super.$h) : super.$h();
+class TextTransformReader extends GoHandle {
+  TextTransformReader.$h(super.$h);
 
   /// Go: `func transform.NewReader(r io.Reader, t transform.Transformer) *transform.Reader`.
   factory TextTransformReader(Object r, TextTransformTransformer t) {
@@ -147,24 +128,8 @@ mixin TextTransformTransformer$ on GoHandle {
 
 /// Go: `transform.Writer` (handle).
 class TextTransformWriter extends $io.IoCloser
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   TextTransformWriter.$h(super.$h) : super.$h();
 
   /// Go: `func transform.NewWriter(w io.Writer, t transform.Transformer) *transform.Writer`.

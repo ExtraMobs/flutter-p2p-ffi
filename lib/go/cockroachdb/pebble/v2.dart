@@ -22,13 +22,8 @@ import 'package:p2p_ffi/go/cockroachdb/pebble/v2/vfs.dart' as $vfs;
 import 'package:p2p_ffi/go/cockroachdb/pebble/v2/wal.dart' as $wal;
 import 'package:p2p_ffi/go/cockroachdb/redact/interfaces.dart' as $interfaces;
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 import 'package:p2p_ffi/go/ipfs/log/v2.dart' as $v2;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
 import 'package:p2p_ffi/go/zap.dart' as $zap;
 
@@ -37,26 +32,12 @@ class PebbleV2Batch extends PebbleV2Writer
     with
         PebbleV2Reader$,
         $wal.PebbleV2WalRefCount$,
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
         $io.IoCloser$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $expfmt.CommonExpfmtCloser$
     implements
         PebbleV2Reader,
         $wal.PebbleV2WalRefCount,
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
         $io.IoCloser,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $expfmt.CommonExpfmtCloser {
   PebbleV2Batch.$h(super.$h) : super.$h();
 
@@ -908,24 +889,8 @@ mixin PebbleV2CompactionScheduler$ on GoHandle {
 
 /// Go: `pebble.ConcurrencyLimitScheduler` (handle).
 class PebbleV2ConcurrencyLimitScheduler extends PebbleV2CompactionScheduler
-    with
-        PebbleV2CompactionGrantHandle$,
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        PebbleV2CompactionGrantHandle,
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    with PebbleV2CompactionGrantHandle$
+    implements PebbleV2CompactionGrantHandle {
   PebbleV2ConcurrencyLimitScheduler.$h(super.$h) : super.$h();
 
   /// Go: `func (*pebble.ConcurrencyLimitScheduler).CumulativeStats(stats base.CompactionGrantHandleStats)`.
@@ -988,26 +953,12 @@ class PebbleV2Db extends PebbleV2Writer
     with
         PebbleV2DbForCompaction$,
         PebbleV2Reader$,
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
         $io.IoCloser$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $expfmt.CommonExpfmtCloser$
     implements
         PebbleV2DbForCompaction,
         PebbleV2Reader,
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
         $io.IoCloser,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $expfmt.CommonExpfmtCloser {
   PebbleV2Db.$h(super.$h) : super.$h();
 
@@ -1658,22 +1609,8 @@ final class PebbleV2DataCorruptionInfo implements GoDto {
 }
 
 /// Go: `pebble.DeferredBatchOp` (handle).
-class PebbleV2DeferredBatchOp extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2DeferredBatchOp.$h(super.$h) : super.$h();
+class PebbleV2DeferredBatchOp extends GoHandle {
+  PebbleV2DeferredBatchOp.$h(super.$h);
 
   /// Go: `func (pebble.DeferredBatchOp).Finish() error`.
   void finish() {
@@ -1811,26 +1748,8 @@ final class PebbleV2EventListener implements GoDto {
 
 /// Go: `pebble.EventuallyFileOnlySnapshot` (handle).
 class PebbleV2EventuallyFileOnlySnapshot extends PebbleV2Reader
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $io.IoCloser$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $io.IoCloser,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $io.IoCloser$, $expfmt.CommonExpfmtCloser$
+    implements $io.IoCloser, $expfmt.CommonExpfmtCloser {
   PebbleV2EventuallyFileOnlySnapshot.$h(super.$h) : super.$h();
 
   /// Go: `func (*pebble.EventuallyFileOnlySnapshot).Close() error`.
@@ -1979,23 +1898,7 @@ final class PebbleV2ExternalFile implements GoDto {
 }
 
 /// Go: `pebble.FileCache` (handle).
-class PebbleV2FileCache extends $wal.PebbleV2WalRefCount
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class PebbleV2FileCache extends $wal.PebbleV2WalRefCount {
   PebbleV2FileCache.$h(super.$h) : super.$h();
 
   /// Go: `func pebble.NewFileCache(numShards int, size int) *pebble.FileCache`.
@@ -2167,22 +2070,8 @@ final class PebbleV2IngestOperationStats implements GoDto {
 }
 
 /// Go: `pebble.IterOptions` (handle).
-class PebbleV2IterOptions extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2IterOptions.$h(super.$h) : super.$h();
+class PebbleV2IterOptions extends GoHandle {
+  PebbleV2IterOptions.$h(super.$h);
 
   /// Go: `func (*pebble.IterOptions).GetLowerBound() []byte`.
   Uint8List getLowerBound() {
@@ -2199,24 +2088,8 @@ class PebbleV2IterOptions extends $crypto.CryptoDecrypterOpts
 
 /// Go: `pebble.Iterator` (handle).
 class PebbleV2Iterator extends $io.IoCloser
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   PebbleV2Iterator.$h(super.$h) : super.$h();
 
   /// Go: `func (*pebble.Iterator).Clone(opts pebble.CloneOptions) (*pebble.Iterator, error)`.
@@ -2959,24 +2832,8 @@ final class PebbleV2LevelOptions implements GoDto {
 
 /// Go: `pebble.Lock` (handle).
 class PebbleV2Lock extends $io.IoCloser
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   PebbleV2Lock.$h(super.$h) : super.$h();
 
   /// Go: `func (*pebble.Lock).Close() error`.
@@ -3135,23 +2992,7 @@ final class PebbleV2ManifestDeleteInfo implements GoDto {
 }
 
 /// Go: `pebble.Metrics` (handle).
-class PebbleV2Metrics extends $interfaces.RedactInterfacesSafeFormatter
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class PebbleV2Metrics extends $interfaces.RedactInterfacesSafeFormatter {
   PebbleV2Metrics.$h(super.$h) : super.$h();
 
   /// Go: `func (*pebble.Metrics).DiskSpaceUsage() uint64`.
@@ -3244,22 +3085,8 @@ final class PebbleV2NoMultiLevel implements GoDto {
 }
 
 /// Go: `pebble.Options` (handle).
-class PebbleV2Options extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2Options.$h(super.$h) : super.$h();
+class PebbleV2Options extends GoHandle {
+  PebbleV2Options.$h(super.$h);
 
   /// Go: `func (*pebble.Options).AddEventListener(l pebble.EventListener)`.
   void addEventListener(PebbleV2EventListener l) {
@@ -3663,46 +3490,14 @@ final class PebbleV2ScanStatisticsOptions implements GoDto {
 }
 
 /// Go: `pebble.SharedSSTMeta` (handle).
-class PebbleV2SharedSstMeta extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2SharedSstMeta.$h(super.$h) : super.$h();
+class PebbleV2SharedSstMeta extends GoHandle {
+  PebbleV2SharedSstMeta.$h(super.$h);
 }
 
 /// Go: `pebble.Snapshot` (handle).
 class PebbleV2Snapshot extends PebbleV2Reader
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $io.IoCloser$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $io.IoCloser,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $io.IoCloser$, $expfmt.CommonExpfmtCloser$
+    implements $io.IoCloser, $expfmt.CommonExpfmtCloser {
   PebbleV2Snapshot.$h(super.$h) : super.$h();
 
   /// Go: `func (*pebble.Snapshot).Close() error`.
@@ -3780,22 +3575,8 @@ final class PebbleV2SpanPolicy implements GoDto {
 }
 
 /// Go: `pebble.SpanPolicyFunc` (handle).
-class PebbleV2SpanPolicyFunc extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2SpanPolicyFunc.$h(super.$h) : super.$h();
+class PebbleV2SpanPolicyFunc extends GoHandle {
+  PebbleV2SpanPolicyFunc.$h(super.$h);
 }
 
 /// Go: `pebble.TableCreateInfo`.
@@ -3895,23 +3676,8 @@ final class PebbleV2TableDeleteInfo implements GoDto {
 }
 
 /// Go: `pebble.TableIngestInfo` (handle).
-class PebbleV2TableIngestInfo extends $interfaces.RedactInterfacesSafeFormatter
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class PebbleV2TableIngestInfo
+    extends $interfaces.RedactInterfacesSafeFormatter {
   PebbleV2TableIngestInfo.$h(super.$h) : super.$h();
 
   /// Go: `func (pebble.TableIngestInfo).SafeFormat(w redact.SafePrinter, _ rune)`.
@@ -3996,22 +3762,8 @@ final class PebbleV2TableValidatedInfo implements GoDto {
 }
 
 /// Go: `pebble.UserKeyCategories` (handle).
-class PebbleV2UserKeyCategories extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2UserKeyCategories.$h(super.$h) : super.$h();
+class PebbleV2UserKeyCategories extends GoHandle {
+  PebbleV2UserKeyCategories.$h(super.$h);
 
   /// Go: `func (*pebble.UserKeyCategories).CategorizeKey(userKey []byte) string`.
   String categorizeKey(Uint8List userKey) {
@@ -4419,22 +4171,8 @@ mixin PebbleV2Writer$ on GoHandle {
 }
 
 /// Go: `base.AbbreviatedKey` (handle).
-class PebbleV2AbbreviatedKey extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2AbbreviatedKey.$h(super.$h) : super.$h();
+class PebbleV2AbbreviatedKey extends GoHandle {
+  PebbleV2AbbreviatedKey.$h(super.$h);
 }
 
 /// Go: `base.AttributeAndLen`.
@@ -4533,22 +4271,8 @@ final class PebbleV2CompactionGrantHandleStats implements GoDto {
 }
 
 /// Go: `base.Compare` (handle).
-class PebbleV2Compare extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2Compare.$h(super.$h) : super.$h();
+class PebbleV2Compare extends GoHandle {
+  PebbleV2Compare.$h(super.$h);
 }
 
 /// Go: `base.Comparer`.
@@ -4615,22 +4339,8 @@ final class PebbleV2Comparer implements GoDto {
 }
 
 /// Go: `base.Equal` (handle).
-class PebbleV2Equal extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2Equal.$h(super.$h) : super.$h();
+class PebbleV2Equal extends GoHandle {
+  PebbleV2Equal.$h(super.$h);
 }
 
 /// Go: `base.FilterPolicy` (handle).
@@ -4825,22 +4535,8 @@ class PebbleV2LoggerAndTracer extends PebbleV2Logger
 mixin PebbleV2LoggerAndTracer$ on GoHandle {}
 
 /// Go: `base.Merge` (handle).
-class PebbleV2Merge extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2Merge.$h(super.$h) : super.$h();
+class PebbleV2Merge extends GoHandle {
+  PebbleV2Merge.$h(super.$h);
 }
 
 /// Go: `base.Merger`.
@@ -4868,60 +4564,18 @@ final class PebbleV2Merger implements GoDto {
 }
 
 /// Go: `base.Separator` (handle).
-class PebbleV2Separator extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2Separator.$h(super.$h) : super.$h();
+class PebbleV2Separator extends GoHandle {
+  PebbleV2Separator.$h(super.$h);
 }
 
 /// Go: `base.Split` (handle).
-class PebbleV2Split extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2Split.$h(super.$h) : super.$h();
+class PebbleV2Split extends GoHandle {
+  PebbleV2Split.$h(super.$h);
 }
 
 /// Go: `base.Successor` (handle).
-class PebbleV2Successor extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2Successor.$h(super.$h) : super.$h();
+class PebbleV2Successor extends GoHandle {
+  PebbleV2Successor.$h(super.$h);
 }
 
 /// Go: `base.ThroughputMetric`.
@@ -4956,22 +4610,8 @@ final class PebbleV2ThroughputMetric implements GoDto {
 }
 
 /// Go: `manifest.TableInfo` (handle).
-class PebbleV2TableInfo extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2TableInfo.$h(super.$h) : super.$h();
+class PebbleV2TableInfo extends GoHandle {
+  PebbleV2TableInfo.$h(super.$h);
 }
 
 /// Go: `var pebble.ErrBatchTooLarge error`: an error. Thrown as this class when it is the outermost

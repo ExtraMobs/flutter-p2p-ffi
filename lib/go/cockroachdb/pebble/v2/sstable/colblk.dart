@@ -15,31 +15,12 @@ import 'package:p2p_ffi/go/cockroachdb/pebble/v2.dart' as $v2;
 import 'package:p2p_ffi/go/cockroachdb/pebble/v2/rangekey.dart' as $rangekey;
 import 'package:p2p_ffi/go/cockroachdb/pebble/v2/sstable/block.dart' as $block;
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
 
 /// Go: `colblk.Bitmap` (handle).
-class PebbleV2SstableColblkBitmap extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2SstableColblkBitmap.$h(super.$h) : super.$h();
+class PebbleV2SstableColblkBitmap extends GoHandle {
+  PebbleV2SstableColblkBitmap.$h(super.$h);
 
   /// Go: `func (colblk.Bitmap).At(i int) bool`.
   bool at(int i) {
@@ -100,23 +81,7 @@ class PebbleV2SstableColblkBitmap extends $crypto.CryptoDecrypterOpts
 
 /// Go: `colblk.BitmapBuilder` (handle).
 class PebbleV2SstableColblkBitmapBuilder
-    extends PebbleV2SstableColblkColumnWriter
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    extends PebbleV2SstableColblkColumnWriter {
   PebbleV2SstableColblkBitmapBuilder.$h(super.$h) : super.$h();
 
   /// Go: `func (*colblk.BitmapBuilder).DataType(int) colblk.DataType`.
@@ -205,22 +170,8 @@ class PebbleV2SstableColblkBitmapBuilder
 }
 
 /// Go: `colblk.BlockDecoder` (handle).
-class PebbleV2SstableColblkBlockDecoder extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2SstableColblkBlockDecoder.$h(super.$h) : super.$h();
+class PebbleV2SstableColblkBlockDecoder extends GoHandle {
+  PebbleV2SstableColblkBlockDecoder.$h(super.$h);
 
   /// Go: `func (*colblk.BlockDecoder).Bitmap(col int) colblk.Bitmap`.
   PebbleV2SstableColblkBitmap bitmap(int col) {
@@ -302,22 +253,8 @@ class PebbleV2SstableColblkBlockDecoder extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `colblk.BlockEncoder` (handle).
-class PebbleV2SstableColblkBlockEncoder extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2SstableColblkBlockEncoder.$h(super.$h) : super.$h();
+class PebbleV2SstableColblkBlockEncoder extends GoHandle {
+  PebbleV2SstableColblkBlockEncoder.$h(super.$h);
 
   /// Go: `func (*colblk.BlockEncoder).Data() []byte`.
   Uint8List data() {
@@ -429,22 +366,8 @@ mixin PebbleV2SstableColblkColumnWriter$ on GoHandle {
 }
 
 /// Go: `colblk.DataBlockDecoder` (handle).
-class PebbleV2SstableColblkDataBlockDecoder extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2SstableColblkDataBlockDecoder.$h(super.$h) : super.$h();
+class PebbleV2SstableColblkDataBlockDecoder extends GoHandle {
+  PebbleV2SstableColblkDataBlockDecoder.$h(super.$h);
 
   /// Go: `func (*colblk.DataBlockDecoder).BlockDecoder() *colblk.BlockDecoder`.
   PebbleV2SstableColblkBlockDecoder blockDecoder() {
@@ -476,22 +399,8 @@ class PebbleV2SstableColblkDataBlockDecoder extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `colblk.DataBlockEncoder` (handle).
-class PebbleV2SstableColblkDataBlockEncoder extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2SstableColblkDataBlockEncoder.$h(super.$h) : super.$h();
+class PebbleV2SstableColblkDataBlockEncoder extends GoHandle {
+  PebbleV2SstableColblkDataBlockEncoder.$h(super.$h);
 
   /// Go: `func (*colblk.DataBlockEncoder).Init(schema *colblk.KeySchema)`.
   void init(PebbleV2SstableColblkKeySchema schema) {
@@ -539,26 +448,8 @@ class PebbleV2SstableColblkDataBlockEncoder extends $crypto.CryptoDecrypterOpts
 /// Go: `colblk.DataBlockIter` (handle).
 class PebbleV2SstableColblkDataBlockIter
     extends $block.PebbleV2SstableBlockDataBlockIterator
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $io.IoCloser$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $io.IoCloser,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $io.IoCloser$, $expfmt.CommonExpfmtCloser$
+    implements $io.IoCloser, $expfmt.CommonExpfmtCloser {
   PebbleV2SstableColblkDataBlockIter.$h(super.$h) : super.$h();
 
   /// Go: `func (*colblk.DataBlockIter).Close() error`.
@@ -673,22 +564,8 @@ class PebbleV2SstableColblkDataBlockIter
 }
 
 /// Go: `colblk.DataBlockRewriter` (handle).
-class PebbleV2SstableColblkDataBlockRewriter extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2SstableColblkDataBlockRewriter.$h(super.$h) : super.$h();
+class PebbleV2SstableColblkDataBlockRewriter extends GoHandle {
+  PebbleV2SstableColblkDataBlockRewriter.$h(super.$h);
 
   /// Go: `func colblk.NewDataBlockRewriter(keySchema *colblk.KeySchema, comparer *base.Comparer) *colblk.DataBlockRewriter`.
   factory PebbleV2SstableColblkDataBlockRewriter(
@@ -703,23 +580,8 @@ class PebbleV2SstableColblkDataBlockRewriter extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `colblk.DataBlockValidator` (handle).
-class PebbleV2SstableColblkDataBlockValidator
-    extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2SstableColblkDataBlockValidator.$h(super.$h) : super.$h();
+class PebbleV2SstableColblkDataBlockValidator extends GoHandle {
+  PebbleV2SstableColblkDataBlockValidator.$h(super.$h);
 
   /// Go: `func (*colblk.DataBlockValidator).Validate(data []byte, comparer *base.Comparer, keySchema *colblk.KeySchema) error`.
   void validate(Uint8List data, $v2.PebbleV2Comparer comparer,
@@ -853,22 +715,8 @@ final class PebbleV2SstableColblkHeader implements GoDto {
 }
 
 /// Go: `colblk.IndexBlockDecoder` (handle).
-class PebbleV2SstableColblkIndexBlockDecoder extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2SstableColblkIndexBlockDecoder.$h(super.$h) : super.$h();
+class PebbleV2SstableColblkIndexBlockDecoder extends GoHandle {
+  PebbleV2SstableColblkIndexBlockDecoder.$h(super.$h);
 
   /// Go: `func (*colblk.IndexBlockDecoder).DebugString() string`.
   String debugString() {
@@ -887,22 +735,8 @@ class PebbleV2SstableColblkIndexBlockDecoder extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `colblk.IndexBlockWriter` (handle).
-class PebbleV2SstableColblkIndexBlockWriter extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2SstableColblkIndexBlockWriter.$h(super.$h) : super.$h();
+class PebbleV2SstableColblkIndexBlockWriter extends GoHandle {
+  PebbleV2SstableColblkIndexBlockWriter.$h(super.$h);
 
   /// Go: `func (*colblk.IndexBlockWriter).AddBlockHandle(separator []byte, handle block.Handle, blockProperties []byte) int`.
   int addBlockHandle(Uint8List separator,
@@ -963,26 +797,8 @@ class PebbleV2SstableColblkIndexBlockWriter extends $crypto.CryptoDecrypterOpts
 /// Go: `colblk.IndexIter` (handle).
 class PebbleV2SstableColblkIndexIter
     extends $block.PebbleV2SstableBlockIndexBlockIterator
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $io.IoCloser$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $io.IoCloser,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $io.IoCloser$, $expfmt.CommonExpfmtCloser$
+    implements $io.IoCloser, $expfmt.CommonExpfmtCloser {
   PebbleV2SstableColblkIndexIter.$h(super.$h) : super.$h();
 
   /// Go: `func (*colblk.IndexIter).BlockHandleWithProperties() (block.HandleWithProperties, error)`.
@@ -1268,23 +1084,8 @@ mixin PebbleV2SstableColblkKeySeeker$ on GoHandle {
 }
 
 /// Go: `colblk.KeyValueBlockDecoder` (handle).
-class PebbleV2SstableColblkKeyValueBlockDecoder
-    extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2SstableColblkKeyValueBlockDecoder.$h(super.$h) : super.$h();
+class PebbleV2SstableColblkKeyValueBlockDecoder extends GoHandle {
+  PebbleV2SstableColblkKeyValueBlockDecoder.$h(super.$h);
 
   /// Go: `func (*colblk.KeyValueBlockDecoder).BlockDecoder() *colblk.BlockDecoder`.
   PebbleV2SstableColblkBlockDecoder blockDecoder() {
@@ -1329,23 +1130,8 @@ class PebbleV2SstableColblkKeyValueBlockDecoder
 }
 
 /// Go: `colblk.KeyValueBlockWriter` (handle).
-class PebbleV2SstableColblkKeyValueBlockWriter
-    extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2SstableColblkKeyValueBlockWriter.$h(super.$h) : super.$h();
+class PebbleV2SstableColblkKeyValueBlockWriter extends GoHandle {
+  PebbleV2SstableColblkKeyValueBlockWriter.$h(super.$h);
 
   /// Go: `func (*colblk.KeyValueBlockWriter).AddKV(key []byte, value []byte)`.
   void addKv(Uint8List key, Uint8List value) {
@@ -1432,23 +1218,8 @@ mixin PebbleV2SstableColblkKeyWriter$ on GoHandle {
 }
 
 /// Go: `colblk.KeyspanBlockWriter` (handle).
-class PebbleV2SstableColblkKeyspanBlockWriter
-    extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2SstableColblkKeyspanBlockWriter.$h(super.$h) : super.$h();
+class PebbleV2SstableColblkKeyspanBlockWriter extends GoHandle {
+  PebbleV2SstableColblkKeyspanBlockWriter.$h(super.$h);
 
   /// Go: `func (*colblk.KeyspanBlockWriter).AddSpan(s keyspan.Span)`.
   void addSpan($rangekey.PebbleV2RangekeySpan s) {
@@ -1515,22 +1286,8 @@ class PebbleV2SstableColblkKeyspanBlockWriter
 }
 
 /// Go: `colblk.KeyspanDecoder` (handle).
-class PebbleV2SstableColblkKeyspanDecoder extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2SstableColblkKeyspanDecoder.$h(super.$h) : super.$h();
+class PebbleV2SstableColblkKeyspanDecoder extends GoHandle {
+  PebbleV2SstableColblkKeyspanDecoder.$h(super.$h);
 
   /// Go: `func (*colblk.KeyspanDecoder).DebugString() string`.
   String debugString() {
@@ -1549,22 +1306,8 @@ class PebbleV2SstableColblkKeyspanDecoder extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `colblk.KeyspanIter` (handle).
-class PebbleV2SstableColblkKeyspanIter extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2SstableColblkKeyspanIter.$h(super.$h) : super.$h();
+class PebbleV2SstableColblkKeyspanIter extends GoHandle {
+  PebbleV2SstableColblkKeyspanIter.$h(super.$h);
 
   /// Go: `func (*colblk.KeyspanIter).Close()`.
   void close() {
@@ -1628,22 +1371,8 @@ class PebbleV2SstableColblkKeyspanIter extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `colblk.PrefixBytes` (handle).
-class PebbleV2SstableColblkPrefixBytes extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2SstableColblkPrefixBytes.$h(super.$h) : super.$h();
+class PebbleV2SstableColblkPrefixBytes extends GoHandle {
+  PebbleV2SstableColblkPrefixBytes.$h(super.$h);
 
   /// Go: `func (colblk.PrefixBytes).At(i int) []byte`.
   Uint8List at(int i) {
@@ -1741,23 +1470,7 @@ class PebbleV2SstableColblkPrefixBytes extends $crypto.CryptoDecrypterOpts
 
 /// Go: `colblk.PrefixBytesBuilder` (handle).
 class PebbleV2SstableColblkPrefixBytesBuilder
-    extends PebbleV2SstableColblkColumnWriter
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    extends PebbleV2SstableColblkColumnWriter {
   PebbleV2SstableColblkPrefixBytesBuilder.$h(super.$h) : super.$h();
 
   /// Go: `func (*colblk.PrefixBytesBuilder).DataType(int) colblk.DataType`.
@@ -1852,22 +1565,8 @@ class PebbleV2SstableColblkPrefixBytesBuilder
 }
 
 /// Go: `colblk.PrefixBytesIter` (handle).
-class PebbleV2SstableColblkPrefixBytesIter extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2SstableColblkPrefixBytesIter.$h(super.$h) : super.$h();
+class PebbleV2SstableColblkPrefixBytesIter extends GoHandle {
+  PebbleV2SstableColblkPrefixBytesIter.$h(super.$h);
 
   /// Go: `func (*colblk.PrefixBytesIter).Init(maxKeyLength int, syntheticPrefix block.SyntheticPrefix)`.
   void init(int maxKeyLength, Uint8List syntheticPrefix) {
@@ -1881,22 +1580,8 @@ class PebbleV2SstableColblkPrefixBytesIter extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `colblk.RawBytes` (handle).
-class PebbleV2SstableColblkRawBytes extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2SstableColblkRawBytes.$h(super.$h) : super.$h();
+class PebbleV2SstableColblkRawBytes extends GoHandle {
+  PebbleV2SstableColblkRawBytes.$h(super.$h);
 
   /// Go: `func (colblk.RawBytes).At(i int) []byte`.
   Uint8List at(int i) {
@@ -1938,23 +1623,7 @@ class PebbleV2SstableColblkRawBytes extends $crypto.CryptoDecrypterOpts
 
 /// Go: `colblk.RawBytesBuilder` (handle).
 class PebbleV2SstableColblkRawBytesBuilder
-    extends PebbleV2SstableColblkColumnWriter
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    extends PebbleV2SstableColblkColumnWriter {
   PebbleV2SstableColblkRawBytesBuilder.$h(super.$h) : super.$h();
 
   /// Go: `func (*colblk.RawBytesBuilder).DataType(int) colblk.DataType`.
@@ -2054,23 +1723,8 @@ class PebbleV2SstableColblkRawBytesBuilder
 }
 
 /// Go: `colblk.ReferenceLivenessBlockDecoder` (handle).
-class PebbleV2SstableColblkReferenceLivenessBlockDecoder
-    extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2SstableColblkReferenceLivenessBlockDecoder.$h(super.$h) : super.$h();
+class PebbleV2SstableColblkReferenceLivenessBlockDecoder extends GoHandle {
+  PebbleV2SstableColblkReferenceLivenessBlockDecoder.$h(super.$h);
 
   /// Go: `func (*colblk.ReferenceLivenessBlockDecoder).BlockDecoder() *colblk.BlockDecoder`.
   PebbleV2SstableColblkBlockDecoder blockDecoder() {
@@ -2105,23 +1759,8 @@ class PebbleV2SstableColblkReferenceLivenessBlockDecoder
 }
 
 /// Go: `colblk.ReferenceLivenessBlockEncoder` (handle).
-class PebbleV2SstableColblkReferenceLivenessBlockEncoder
-    extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2SstableColblkReferenceLivenessBlockEncoder.$h(super.$h) : super.$h();
+class PebbleV2SstableColblkReferenceLivenessBlockEncoder extends GoHandle {
+  PebbleV2SstableColblkReferenceLivenessBlockEncoder.$h(super.$h);
 
   /// Go: `func (*colblk.ReferenceLivenessBlockEncoder).AddReferenceLiveness(referenceID int, v []byte)`.
   void addReferenceLiveness(int referenceId, Uint8List v) {
@@ -2157,23 +1796,8 @@ class PebbleV2SstableColblkReferenceLivenessBlockEncoder
 }
 
 /// Go: `colblk.UintBuilder` (handle).
-class PebbleV2SstableColblkUintBuilder extends PebbleV2SstableColblkColumnWriter
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class PebbleV2SstableColblkUintBuilder
+    extends PebbleV2SstableColblkColumnWriter {
   PebbleV2SstableColblkUintBuilder.$h(super.$h) : super.$h();
 
   /// Go: `func (*colblk.UintBuilder).DataType(int) colblk.DataType`.
@@ -2263,22 +1887,8 @@ class PebbleV2SstableColblkUintBuilder extends PebbleV2SstableColblkColumnWriter
 }
 
 /// Go: `colblk.UnsafeOffsets` (handle).
-class PebbleV2SstableColblkUnsafeOffsets extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2SstableColblkUnsafeOffsets.$h(super.$h) : super.$h();
+class PebbleV2SstableColblkUnsafeOffsets extends GoHandle {
+  PebbleV2SstableColblkUnsafeOffsets.$h(super.$h);
 
   /// Go: `func (colblk.UnsafeOffsets).At(i int) uint32`.
   int at(int i) {
@@ -2302,22 +1912,8 @@ class PebbleV2SstableColblkUnsafeOffsets extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `colblk.UnsafeUints` (handle).
-class PebbleV2SstableColblkUnsafeUints extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2SstableColblkUnsafeUints.$h(super.$h) : super.$h();
+class PebbleV2SstableColblkUnsafeUints extends GoHandle {
+  PebbleV2SstableColblkUnsafeUints.$h(super.$h);
 
   /// Go: `func (colblk.UnsafeUints).At(i int) uint64`.
   int at(int i) {

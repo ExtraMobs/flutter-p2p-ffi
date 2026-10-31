@@ -7,11 +7,6 @@ import 'dart:typed_data';
 import 'package:p2p_ffi/src/go.dart' show GoPolydawnRefmtShared;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/bytes.dart' as $bytes;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/polydawn/refmt/cbor.dart' as $cbor;
 import 'package:p2p_ffi/go/polydawn/refmt/json.dart' as $json;
 import 'package:p2p_ffi/go/polydawn/refmt/obj.dart' as $obj;
@@ -96,23 +91,7 @@ mixin RefmtSharedSlickReader$ on GoHandle {
 }
 
 /// Go: `shared.SlickReaderSlice` (handle).
-class RefmtSharedSlickReaderSlice extends RefmtSharedSlickReader
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class RefmtSharedSlickReaderSlice extends RefmtSharedSlickReader {
   RefmtSharedSlickReaderSlice.$h(super.$h) : super.$h();
 
   /// Go: `func (*shared.SlickReaderSlice).NumRead() int`.
@@ -174,23 +153,7 @@ class RefmtSharedSlickReaderSlice extends RefmtSharedSlickReader
 }
 
 /// Go: `shared.SlickReaderStream` (handle).
-class RefmtSharedSlickReaderStream extends RefmtSharedSlickReader
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class RefmtSharedSlickReaderStream extends RefmtSharedSlickReader {
   RefmtSharedSlickReaderStream.$h(super.$h) : super.$h();
 
   /// Go: `func (*shared.SlickReaderStream).NumRead() int`.
@@ -252,22 +215,8 @@ class RefmtSharedSlickReaderStream extends RefmtSharedSlickReader
 }
 
 /// Go: `shared.TokenPump` (handle).
-class RefmtSharedTokenPump extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  RefmtSharedTokenPump.$h(super.$h) : super.$h();
+class RefmtSharedTokenPump extends GoHandle {
+  RefmtSharedTokenPump.$h(super.$h);
 
   /// Go: `func (shared.TokenPump).Run() error`.
   void run() {

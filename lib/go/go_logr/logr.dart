@@ -5,11 +5,6 @@ library;
 import 'package:p2p_ffi/src/go.dart' show GoGoLogrLogr;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/log/slog.dart' as $slog;
 import 'package:p2p_ffi/go/otel/attribute.dart' as $attribute;
 import 'package:p2p_ffi/go/otel/exporters/otlp/otlptrace.dart' as $otlptrace;
@@ -100,22 +95,8 @@ mixin LogrLogSink$ on GoHandle {
 }
 
 /// Go: `logr.Logger` (handle).
-class LogrLogger extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  LogrLogger.$h(super.$h) : super.$h();
+class LogrLogger extends GoHandle {
+  LogrLogger.$h(super.$h);
 
   /// Go: `func (logr.Logger).Enabled() bool`.
   bool enabled() {

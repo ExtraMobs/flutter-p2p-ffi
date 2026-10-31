@@ -11,32 +11,13 @@ import 'package:p2p_ffi/src/go.dart'
         GoKlauspostCompressS2Consts,
         GoKlauspostCompressS2Options;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
 import 'package:p2p_ffi/go/protobuf/encoding/protodelim.dart' as $protodelim;
 
 /// Go: `s2.Dict` (handle).
-class CompressS2Dict extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  CompressS2Dict.$h(super.$h) : super.$h();
+class CompressS2Dict extends GoHandle {
+  CompressS2Dict.$h(super.$h);
 
   /// Go: `func s2.NewDict(dict []byte) *s2.Dict`.
   factory CompressS2Dict(Uint8List dict) {
@@ -96,22 +77,8 @@ class CompressS2Dict extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `s2.Index` (handle).
-class CompressS2Index extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  CompressS2Index.$h(super.$h) : super.$h();
+class CompressS2Index extends GoHandle {
+  CompressS2Index.$h(super.$h);
 
   /// Go: `func (*s2.Index).Find(offset int64) (compressedOff int64, uncompressedOff int64, err error)`.
   (int, int) find(int offset) {
@@ -213,24 +180,8 @@ final class CompressS2Lz4sConverter implements GoDto {
 
 /// Go: `s2.ReadSeeker` (handle).
 class CompressS2ReadSeeker extends $io.IoSeeker
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $protodelim.ProtobufEncodingProtodelimReader$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $protodelim.ProtobufEncodingProtodelimReader {
+    with $protodelim.ProtobufEncodingProtodelimReader$
+    implements $protodelim.ProtobufEncodingProtodelimReader {
   CompressS2ReadSeeker.$h(super.$h) : super.$h();
 
   /// Go: `func (*s2.Reader).DecodeConcurrent(w io.Writer, concurrent int) (written int64, err error)`.
@@ -336,23 +287,7 @@ class CompressS2ReadSeeker extends $io.IoSeeker
 }
 
 /// Go: `s2.Reader` (handle).
-class CompressS2Reader extends $protodelim.ProtobufEncodingProtodelimReader
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class CompressS2Reader extends $protodelim.ProtobufEncodingProtodelimReader {
   CompressS2Reader.$h(super.$h) : super.$h();
 
   /// Go: `func s2.NewReader(r io.Reader, opts ...s2.ReaderOption) *s2.Reader`.
@@ -453,26 +388,8 @@ final class CompressS2ReaderOption extends GoOption {
 
 /// Go: `s2.Writer` (handle).
 class CompressS2Writer extends $io.IoCloser
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $io.IoReaderFrom$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $io.IoReaderFrom,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $io.IoReaderFrom$, $expfmt.CommonExpfmtCloser$
+    implements $io.IoReaderFrom, $expfmt.CommonExpfmtCloser {
   CompressS2Writer.$h(super.$h) : super.$h();
 
   /// Go: `func s2.NewWriter(w io.Writer, opts ...s2.WriterOption) *s2.Writer`.

@@ -10,13 +10,8 @@ import 'package:p2p_ffi/src/go.dart'
         GoDecredDcrdDcrecSecp256k1V4Consts,
         GoDecredDcrdDcrecSecp256k1V4Enums;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/crypto/ecdsa.dart' as $ecdsa;
 import 'package:p2p_ffi/go/crypto/elliptic.dart' as $elliptic;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/math/big.dart' as $big;
 
 /// Go: `secp256k1.CurveParams`.
@@ -81,22 +76,8 @@ final class Secp256k1V4CurveParams implements GoDto {
 }
 
 /// Go: `secp256k1.FieldVal` (handle).
-class Secp256k1V4FieldVal extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  Secp256k1V4FieldVal.$h(super.$h) : super.$h();
+class Secp256k1V4FieldVal extends GoHandle {
+  Secp256k1V4FieldVal.$h(super.$h);
 
   /// Go: `func (*secp256k1.FieldVal).Add(val *secp256k1.FieldVal) *secp256k1.FieldVal`.
   Secp256k1V4FieldVal add(Secp256k1V4FieldVal val) {
@@ -472,22 +453,8 @@ final class Secp256k1V4KoblitzCurve implements GoDto {
 }
 
 /// Go: `secp256k1.ModNScalar` (handle).
-class Secp256k1V4ModNScalar extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  Secp256k1V4ModNScalar.$h(super.$h) : super.$h();
+class Secp256k1V4ModNScalar extends GoHandle {
+  Secp256k1V4ModNScalar.$h(super.$h);
 
   /// Go: `func (*secp256k1.ModNScalar).Add(val *secp256k1.ModNScalar) *secp256k1.ModNScalar`.
   Secp256k1V4ModNScalar add(Secp256k1V4ModNScalar val) {
@@ -705,22 +672,8 @@ final class Secp256k1V4PrivateKey implements GoDto {
 }
 
 /// Go: `secp256k1.PublicKey` (handle).
-class Secp256k1V4PublicKey extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  Secp256k1V4PublicKey.$h(super.$h) : super.$h();
+class Secp256k1V4PublicKey extends GoHandle {
+  Secp256k1V4PublicKey.$h(super.$h);
 
   /// Go: `func secp256k1.NewPublicKey(x *secp256k1.FieldVal, y *secp256k1.FieldVal) *secp256k1.PublicKey`.
   factory Secp256k1V4PublicKey(Secp256k1V4FieldVal x, Secp256k1V4FieldVal y) {

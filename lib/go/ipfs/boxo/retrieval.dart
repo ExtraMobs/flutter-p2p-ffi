@@ -9,12 +9,7 @@ import 'package:p2p_ffi/src/go.dart'
         GoIpfsBoxoRetrievalEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/cid.dart' as $cid;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
 
 /// Go: `retrieval.Snapshot`.
@@ -88,22 +83,8 @@ final class BoxoRetrievalSnapshot implements GoDto {
 }
 
 /// Go: `retrieval.State` (handle).
-class BoxoRetrievalState extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  BoxoRetrievalState.$h(super.$h) : super.$h();
+class BoxoRetrievalState extends GoHandle {
+  BoxoRetrievalState.$h(super.$h);
 
   /// Go: `func retrieval.NewState() *retrieval.State`.
   factory BoxoRetrievalState() {

@@ -5,12 +5,7 @@ library;
 import 'package:p2p_ffi/src/go.dart'
     show GoKoronSsdp, GoKoronSsdpConsts, GoKoronSsdpOptions;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/libp2p/libp2p/p2p/discovery/mdns.dart' as $mdns;
 import 'package:p2p_ffi/go/log.dart' as $log;
 import 'package:p2p_ffi/go/net.dart' as $net;
@@ -18,24 +13,8 @@ import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
 
 /// Go: `ssdp.Advertiser` (handle).
 class SsdpAdvertiser extends $io.IoCloser
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   SsdpAdvertiser.$h(super.$h) : super.$h();
 
   /// Go: `func (*ssdp.Advertiser).Alive() error`.
@@ -55,22 +34,8 @@ class SsdpAdvertiser extends $io.IoCloser
 }
 
 /// Go: `ssdp.AliveMessage` (handle).
-class SsdpAliveMessage extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  SsdpAliveMessage.$h(super.$h) : super.$h();
+class SsdpAliveMessage extends GoHandle {
+  SsdpAliveMessage.$h(super.$h);
 
   /// Go: `func (*ssdp.AliveMessage).MaxAge() int`.
   int maxAge() {
@@ -105,23 +70,7 @@ mixin SsdpLocationProvider$ on GoHandle {
 }
 
 /// Go: `ssdp.LocationProviderFunc` (handle).
-class SsdpLocationProviderFunc extends SsdpLocationProvider
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class SsdpLocationProviderFunc extends SsdpLocationProvider {
   SsdpLocationProviderFunc.$h(super.$h) : super.$h();
 
   /// Go: `func (ssdp.LocationProviderFunc).Location(from net.Addr, ifi *net.Interface) string`.
@@ -138,24 +87,8 @@ class SsdpLocationProviderFunc extends SsdpLocationProvider
 
 /// Go: `ssdp.Monitor` (handle).
 class SsdpMonitor extends $mdns.Libp2pP2pDiscoveryMdnsService
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   SsdpMonitor.$h(super.$h) : super.$h();
 
   /// Go: `func (*ssdp.Monitor).Close() error`.
@@ -178,22 +111,8 @@ class SsdpOption extends GoHandle with SsdpOption$ {
 mixin SsdpOption$ on GoHandle {}
 
 /// Go: `ssdp.Service` (handle).
-class SsdpService extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  SsdpService.$h(super.$h) : super.$h();
+class SsdpService extends GoHandle {
+  SsdpService.$h(super.$h);
 
   /// Go: `func (*ssdp.Service).MaxAge() int`.
   int maxAge() {

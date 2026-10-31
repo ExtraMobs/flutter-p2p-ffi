@@ -8,15 +8,10 @@ import 'package:p2p_ffi/src/go.dart'
     show GoIpfsKuboRepoFsrepo, GoIpfsKuboRepoFsrepoConsts;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/boxo/filestore.dart' as $filestore;
 import 'package:p2p_ffi/go/ipfs/boxo/keystore.dart' as $keystore;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 import 'package:p2p_ffi/go/ipfs/kubo/config.dart' as $config;
 import 'package:p2p_ffi/go/ipfs/kubo/repo.dart' as $repo;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/libp2p/libp2p/p2p/host/resource_manager.dart'
     as $resource_manager;
 import 'package:p2p_ffi/go/multiformats/multiaddr.dart' as $multiaddr;
@@ -24,22 +19,8 @@ import 'package:p2p_ffi/go/net.dart' as $net;
 import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
 
 /// Go: `fsrepo.ConfigFromMap` (handle).
-class KuboRepoFsrepoConfigFromMap extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  KuboRepoFsrepoConfigFromMap.$h(super.$h) : super.$h();
+class KuboRepoFsrepoConfigFromMap extends GoHandle {
+  KuboRepoFsrepoConfigFromMap.$h(super.$h);
 }
 
 /// Go: `fsrepo.DatastoreConfig` (handle).
@@ -63,24 +44,8 @@ mixin KuboRepoFsrepoDatastoreConfig$ on GoHandle {
 
 /// Go: `fsrepo.FSRepo` (handle).
 class KuboRepoFsrepoFsRepo extends $repo.KuboRepo
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   KuboRepoFsrepoFsRepo.$h(super.$h) : super.$h();
 
   /// Go: `func (*fsrepo.FSRepo).BackupConfig(prefix string) (string, error)`.

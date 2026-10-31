@@ -6,7 +6,6 @@ import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/go.dart' show GoPionDtlsV3PkgCryptoSignaturehash;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/crypto/x509.dart' as $x509;
 
 /// Go: `signaturehash.Algorithm`.
@@ -86,8 +85,7 @@ extension GoPionDtlsV3PkgCryptoSignaturehashApi
 
   /// Go: `func signaturehash.SelectSignatureScheme(sigs []signaturehash.Algorithm, privateKey crypto.PrivateKey) (signaturehash.Algorithm, error)`.
   DtlsV3PkgCryptoSignaturehashAlgorithm selectSignatureScheme(
-      List<DtlsV3PkgCryptoSignaturehashAlgorithm> sigs,
-      $crypto.CryptoPrivateKey privateKey) {
+      List<DtlsV3PkgCryptoSignaturehashAlgorithm> sigs, GoHandle privateKey) {
     final $r = $callSync(
         16259,
         $W()
@@ -98,8 +96,7 @@ extension GoPionDtlsV3PkgCryptoSignaturehashApi
 
   /// Go: `func signaturehash.SelectSignatureScheme13(sigs []signaturehash.Algorithm, privateKey crypto.PrivateKey) (signaturehash.Algorithm, error)`.
   DtlsV3PkgCryptoSignaturehashAlgorithm selectSignatureScheme13(
-      List<DtlsV3PkgCryptoSignaturehashAlgorithm> sigs,
-      $crypto.CryptoPrivateKey privateKey) {
+      List<DtlsV3PkgCryptoSignaturehashAlgorithm> sigs, GoHandle privateKey) {
     final $r = $callSync(
         16260,
         $W()

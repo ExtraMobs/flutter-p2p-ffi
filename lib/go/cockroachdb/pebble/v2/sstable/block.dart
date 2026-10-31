@@ -22,12 +22,7 @@ import 'package:p2p_ffi/go/cockroachdb/pebble/v2/sstable/rowblk.dart'
     as $rowblk;
 import 'package:p2p_ffi/go/cockroachdb/pebble/v2/sstable/valblk.dart'
     as $valblk;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
 import 'package:p2p_ffi/go/syndtr/goleveldb/leveldb/util.dart' as $util;
 
@@ -41,42 +36,12 @@ class PebbleV2SstableBlockDecompressor extends GoHandle
 mixin PebbleV2SstableBlockDecompressor$ on GoHandle {}
 
 /// Go: `block.AllocedBuffer` (handle).
-class PebbleV2SstableBlockAllocedBuffer extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2SstableBlockAllocedBuffer.$h(super.$h) : super.$h();
+class PebbleV2SstableBlockAllocedBuffer extends GoHandle {
+  PebbleV2SstableBlockAllocedBuffer.$h(super.$h);
 }
 
 /// Go: `block.Buf` (handle).
-class PebbleV2SstableBlockBuf extends $util.GoleveldbLeveldbUtilReleaser
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class PebbleV2SstableBlockBuf extends $util.GoleveldbLeveldbUtilReleaser {
   PebbleV2SstableBlockBuf.$h(super.$h) : super.$h();
 
   /// Go: `func (*block.Buf).Release()`.
@@ -93,23 +58,7 @@ class PebbleV2SstableBlockBuf extends $util.GoleveldbLeveldbUtilReleaser
 
 /// Go: `block.BufferHandle` (handle).
 class PebbleV2SstableBlockBufferHandle
-    extends $util.GoleveldbLeveldbUtilReleaser
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    extends $util.GoleveldbLeveldbUtilReleaser {
   PebbleV2SstableBlockBufferHandle.$h(super.$h) : super.$h();
 
   /// Go: `func (block.BufferHandle).BlockData() []byte`.
@@ -131,23 +80,8 @@ class PebbleV2SstableBlockBufferHandle
 }
 
 /// Go: `block.BufferPool` (handle).
-class PebbleV2SstableBlockBufferPool extends $util.GoleveldbLeveldbUtilReleaser
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class PebbleV2SstableBlockBufferPool
+    extends $util.GoleveldbLeveldbUtilReleaser {
   PebbleV2SstableBlockBufferPool.$h(super.$h) : super.$h();
 
   /// Go: `func (*block.BufferPool).Alloc(n int) block.Buf`.
@@ -248,23 +182,8 @@ final class PebbleV2SstableBlockCategoryStatsAggregate implements GoDto {
 }
 
 /// Go: `block.CategoryStatsCollector` (handle).
-class PebbleV2SstableBlockCategoryStatsCollector
-    extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2SstableBlockCategoryStatsCollector.$h(super.$h) : super.$h();
+class PebbleV2SstableBlockCategoryStatsCollector extends GoHandle {
+  PebbleV2SstableBlockCategoryStatsCollector.$h(super.$h);
 
   /// Go: `func (*block.CategoryStatsCollector).Accumulator(p uint64, category block.Category) *block.CategoryStatsShard`.
   PebbleV2SstableBlockCategoryStatsShard accumulator(int p, int category) {
@@ -286,22 +205,8 @@ class PebbleV2SstableBlockCategoryStatsCollector
 }
 
 /// Go: `block.CategoryStatsShard` (handle).
-class PebbleV2SstableBlockCategoryStatsShard extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2SstableBlockCategoryStatsShard.$h(super.$h) : super.$h();
+class PebbleV2SstableBlockCategoryStatsShard extends GoHandle {
+  PebbleV2SstableBlockCategoryStatsShard.$h(super.$h);
 
   /// Go: `func (*block.CategoryStatsShard).Accumulate(blockBytes uint64, blockBytesInCache uint64, blockReadDuration time.Duration)`.
   void accumulate(
@@ -317,22 +222,8 @@ class PebbleV2SstableBlockCategoryStatsShard extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `block.Checksummer` (handle).
-class PebbleV2SstableBlockChecksummer extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2SstableBlockChecksummer.$h(super.$h) : super.$h();
+class PebbleV2SstableBlockChecksummer extends GoHandle {
+  PebbleV2SstableBlockChecksummer.$h(super.$h);
 
   /// Go: `func (*block.Checksummer).Checksum(block []byte, blockType byte) (checksum uint32)`.
   int checksum(Uint8List block, int blockType) {
@@ -397,22 +288,8 @@ final class PebbleV2SstableBlockCompressionProfile implements GoDto {
 }
 
 /// Go: `block.CompressionStats` (handle).
-class PebbleV2SstableBlockCompressionStats extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2SstableBlockCompressionStats.$h(super.$h) : super.$h();
+class PebbleV2SstableBlockCompressionStats extends GoHandle {
+  PebbleV2SstableBlockCompressionStats.$h(super.$h);
 
   /// Go: `func (*block.CompressionStats).MergeWith(other *block.CompressionStats)`.
   void mergeWith(PebbleV2SstableBlockCompressionStats other) {
@@ -431,22 +308,8 @@ class PebbleV2SstableBlockCompressionStats extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `block.Compressor` (handle).
-class PebbleV2SstableBlockCompressor extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2SstableBlockCompressor.$h(super.$h) : super.$h();
+class PebbleV2SstableBlockCompressor extends GoHandle {
+  PebbleV2SstableBlockCompressor.$h(super.$h);
 
   /// Go: `func (*block.Compressor).Close()`.
   void close() {
@@ -552,22 +415,8 @@ mixin PebbleV2SstableBlockDataBlockIterator$ on GoHandle {
 }
 
 /// Go: `block.FlushGovernor` (handle).
-class PebbleV2SstableBlockFlushGovernor extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2SstableBlockFlushGovernor.$h(super.$h) : super.$h();
+class PebbleV2SstableBlockFlushGovernor extends GoHandle {
+  PebbleV2SstableBlockFlushGovernor.$h(super.$h);
 
   /// Go: `func (*block.FlushGovernor).LowWatermark() int`.
   int lowWatermark() {
@@ -967,22 +816,8 @@ final class PebbleV2SstableBlockIterTransforms implements GoDto {
 }
 
 /// Go: `block.PhysicalBlock` (handle).
-class PebbleV2SstableBlockPhysicalBlock extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2SstableBlockPhysicalBlock.$h(super.$h) : super.$h();
+class PebbleV2SstableBlockPhysicalBlock extends GoHandle {
+  PebbleV2SstableBlockPhysicalBlock.$h(super.$h);
 
   /// Go: `func block.NewPhysicalBlock(data []byte) block.PhysicalBlock`.
   factory PebbleV2SstableBlockPhysicalBlock(Uint8List data) {
@@ -1075,24 +910,8 @@ final class PebbleV2SstableBlockReadEnv implements GoDto {
 
 /// Go: `block.Reader` (handle).
 class PebbleV2SstableBlockReader extends $io.IoCloser
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   PebbleV2SstableBlockReader.$h(super.$h) : super.$h();
 
   /// Go: `func (*block.Reader).ChecksumType() block.ChecksumType`.
@@ -1169,23 +988,8 @@ final class PebbleV2SstableBlockReaderOptions implements GoDto {
 }
 
 /// Go: `block.SyntheticPrefixAndSuffix` (handle).
-class PebbleV2SstableBlockSyntheticPrefixAndSuffix
-    extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2SstableBlockSyntheticPrefixAndSuffix.$h(super.$h) : super.$h();
+class PebbleV2SstableBlockSyntheticPrefixAndSuffix extends GoHandle {
+  PebbleV2SstableBlockSyntheticPrefixAndSuffix.$h(super.$h);
 
   /// Go: `func (block.SyntheticPrefixAndSuffix).HasPrefix() bool`.
   bool hasPrefix() {
@@ -1237,23 +1041,8 @@ class PebbleV2SstableBlockSyntheticPrefixAndSuffix
 }
 
 /// Go: `block.TempBuffer` (handle).
-class PebbleV2SstableBlockTempBuffer extends $util.GoleveldbLeveldbUtilReleaser
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class PebbleV2SstableBlockTempBuffer
+    extends $util.GoleveldbLeveldbUtilReleaser {
   PebbleV2SstableBlockTempBuffer.$h(super.$h) : super.$h();
 
   /// Go: `func block.NewTempBuffer() *block.TempBuffer`.
@@ -1305,23 +1094,7 @@ class PebbleV2SstableBlockTempBuffer extends $util.GoleveldbLeveldbUtilReleaser
 }
 
 /// Go: `block.Value` (handle).
-class PebbleV2SstableBlockValue extends $util.GoleveldbLeveldbUtilReleaser
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class PebbleV2SstableBlockValue extends $util.GoleveldbLeveldbUtilReleaser {
   PebbleV2SstableBlockValue.$h(super.$h) : super.$h();
 
   /// Go: `func (block.Value).BlockData() []byte`.

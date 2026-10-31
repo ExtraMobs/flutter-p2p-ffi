@@ -7,35 +7,14 @@ import 'dart:async';
 import 'package:p2p_ffi/src/go.dart'
     show GoPionInterceptorPkgNack, GoPionInterceptorPkgNackOptions;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/pion/interceptor.dart' as $interceptor;
 import 'package:p2p_ffi/go/pion/logging.dart' as $logging;
 import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
 
 /// Go: `nack.GeneratorInterceptor` (handle).
 class InterceptorPkgNackGeneratorInterceptor extends $interceptor.Interceptor
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   InterceptorPkgNackGeneratorInterceptor.$h(super.$h) : super.$h();
 
   /// Go: `func (*nack.GeneratorInterceptor).BindRTCPWriter(writer interceptor.RTCPWriter) interceptor.RTCPWriter`.
@@ -77,23 +56,7 @@ class InterceptorPkgNackGeneratorInterceptor extends $interceptor.Interceptor
 
 /// Go: `nack.GeneratorInterceptorFactory` (handle).
 class InterceptorPkgNackGeneratorInterceptorFactory
-    extends $interceptor.InterceptorFactory
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    extends $interceptor.InterceptorFactory {
   InterceptorPkgNackGeneratorInterceptorFactory.$h(super.$h) : super.$h();
 
   /// Go: `func (*nack.GeneratorInterceptorFactory).NewInterceptor(_ string) (interceptor.Interceptor, error)`.
@@ -114,24 +77,8 @@ final class InterceptorPkgNackGeneratorOption extends GoOption {
 
 /// Go: `nack.ResponderInterceptor` (handle).
 class InterceptorPkgNackResponderInterceptor extends $interceptor.Interceptor
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   InterceptorPkgNackResponderInterceptor.$h(super.$h) : super.$h();
 
   /// Go: `func (*nack.ResponderInterceptor).BindLocalStream(info *interceptor.StreamInfo, writer interceptor.RTPWriter) interceptor.RTPWriter`.
@@ -168,23 +115,7 @@ class InterceptorPkgNackResponderInterceptor extends $interceptor.Interceptor
 
 /// Go: `nack.ResponderInterceptorFactory` (handle).
 class InterceptorPkgNackResponderInterceptorFactory
-    extends $interceptor.InterceptorFactory
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    extends $interceptor.InterceptorFactory {
   InterceptorPkgNackResponderInterceptorFactory.$h(super.$h) : super.$h();
 
   /// Go: `func (*nack.ResponderInterceptorFactory).NewInterceptor(_ string) (interceptor.Interceptor, error)`.

@@ -7,29 +7,10 @@ import 'dart:async';
 import 'package:p2p_ffi/src/go.dart' show GoXTimeRate, GoXTimeRateEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 
 /// Go: `rate.Limiter` (handle).
-class TimeRateLimiter extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  TimeRateLimiter.$h(super.$h) : super.$h();
+class TimeRateLimiter extends GoHandle {
+  TimeRateLimiter.$h(super.$h);
 
   /// Go: `func rate.NewLimiter(r rate.Limit, b int) *rate.Limiter`.
   factory TimeRateLimiter(double r, int b) {
@@ -166,22 +147,8 @@ class TimeRateLimiter extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `rate.Reservation` (handle).
-class TimeRateReservation extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  TimeRateReservation.$h(super.$h) : super.$h();
+class TimeRateReservation extends GoHandle {
+  TimeRateReservation.$h(super.$h);
 
   /// Go: `func (*rate.Reservation).Cancel()`.
   void cancel() {
@@ -221,22 +188,8 @@ class TimeRateReservation extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `rate.Sometimes` (handle).
-class TimeRateSometimes extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  TimeRateSometimes.$h(super.$h) : super.$h();
+class TimeRateSometimes extends GoHandle {
+  TimeRateSometimes.$h(super.$h);
 
   /// Go: `func (*rate.Sometimes).Do(f func())`.
   ///

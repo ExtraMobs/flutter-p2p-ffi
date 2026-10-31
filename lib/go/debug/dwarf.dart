@@ -6,12 +6,7 @@ import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/go.dart' show GoDebugDwarf, GoDebugDwarfEnums;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/encoding/binary.dart' as $binary;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 
 /// Go: `dwarf.AddrType`.
 final class DebugDwarfAddrType implements GoDto {
@@ -326,22 +321,8 @@ final class DebugDwarfComplexType implements GoDto {
 }
 
 /// Go: `dwarf.Data` (handle).
-class DebugDwarfData extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  DebugDwarfData.$h(super.$h) : super.$h();
+class DebugDwarfData extends GoHandle {
+  DebugDwarfData.$h(super.$h);
 
   /// Go: `func (*dwarf.Data).AddSection(name string, contents []byte) error`.
   void addSection(String name, Uint8List contents) {
@@ -841,22 +822,8 @@ final class DebugDwarfLineFile implements GoDto {
 }
 
 /// Go: `dwarf.LineReader` (handle).
-class DebugDwarfLineReader extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  DebugDwarfLineReader.$h(super.$h) : super.$h();
+class DebugDwarfLineReader extends GoHandle {
+  DebugDwarfLineReader.$h(super.$h);
 
   /// Go: `func (*dwarf.LineReader).Files() []*dwarf.LineFile`.
   List<DebugDwarfLineFile> files() {
@@ -905,22 +872,8 @@ class DebugDwarfLineReader extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `dwarf.LineReaderPos` (handle).
-class DebugDwarfLineReaderPos extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  DebugDwarfLineReaderPos.$h(super.$h) : super.$h();
+class DebugDwarfLineReaderPos extends GoHandle {
+  DebugDwarfLineReaderPos.$h(super.$h);
 }
 
 /// Go: `dwarf.PtrType`.
@@ -1005,22 +958,8 @@ final class DebugDwarfQualType implements GoDto {
 }
 
 /// Go: `dwarf.Reader` (handle).
-class DebugDwarfReader extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  DebugDwarfReader.$h(super.$h) : super.$h();
+class DebugDwarfReader extends GoHandle {
+  DebugDwarfReader.$h(super.$h);
 
   /// Go: `func (*dwarf.Reader).AddressSize() int`.
   int addressSize() {

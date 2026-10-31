@@ -7,34 +7,13 @@ import 'dart:typed_data';
 import 'package:p2p_ffi/src/go.dart' show GoNetTextproto;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/bufio.dart' as $bufio;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
 
 /// Go: `textproto.Conn` (handle).
 class NetTextprotoConn extends $io.IoCloser
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   NetTextprotoConn.$h(super.$h) : super.$h();
 
   /// Go: `func textproto.NewConn(conn io.ReadWriteCloser) *textproto.Conn`.
@@ -181,22 +160,8 @@ class NetTextprotoConn extends $io.IoCloser
 }
 
 /// Go: `textproto.Pipeline` (handle).
-class NetTextprotoPipeline extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  NetTextprotoPipeline.$h(super.$h) : super.$h();
+class NetTextprotoPipeline extends GoHandle {
+  NetTextprotoPipeline.$h(super.$h);
 
   /// Go: `func (*textproto.Pipeline).EndRequest(id uint)`.
   void endRequest(int id) {
@@ -242,22 +207,8 @@ class NetTextprotoPipeline extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `textproto.Reader` (handle).
-class NetTextprotoReader extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  NetTextprotoReader.$h(super.$h) : super.$h();
+class NetTextprotoReader extends GoHandle {
+  NetTextprotoReader.$h(super.$h);
 
   /// Go: `func textproto.NewReader(r *bufio.Reader) *textproto.Reader`.
   factory NetTextprotoReader($bufio.BufioReader r) {
@@ -329,22 +280,8 @@ class NetTextprotoReader extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `textproto.Writer` (handle).
-class NetTextprotoWriter extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  NetTextprotoWriter.$h(super.$h) : super.$h();
+class NetTextprotoWriter extends GoHandle {
+  NetTextprotoWriter.$h(super.$h);
 
   /// Go: `func textproto.NewWriter(w *bufio.Writer) *textproto.Writer`.
   factory NetTextprotoWriter($bufio.BufioWriter w) {

@@ -5,11 +5,6 @@ library;
 import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/ipld/ipld_prime/datamodel.dart' as $datamodel;
 import 'package:p2p_ffi/go/ipld/ipld_prime/storage.dart' as $storage;
 
@@ -56,22 +51,8 @@ final class IpldPrimeLinkingLinkContext implements GoDto {
 }
 
 /// Go: `linking.LinkSystem` (handle).
-class IpldPrimeLinkingLinkSystem extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  IpldPrimeLinkingLinkSystem.$h(super.$h) : super.$h();
+class IpldPrimeLinkingLinkSystem extends GoHandle {
+  IpldPrimeLinkingLinkSystem.$h(super.$h);
 
   /// Go: `func (*linking.LinkSystem).ComputeLink(lp datamodel.LinkPrototype, n datamodel.Node) (datamodel.Link, error)`.
   $datamodel.IpldPrimeDatamodelLink computeLink(
@@ -237,22 +218,8 @@ class IpldPrimeLinkingLinkSystem extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `linking.NodeReifier` (handle).
-class IpldPrimeLinkingNodeReifier extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  IpldPrimeLinkingNodeReifier.$h(super.$h) : super.$h();
+class IpldPrimeLinkingNodeReifier extends GoHandle {
+  IpldPrimeLinkingNodeReifier.$h(super.$h);
 }
 
 /// Go: `linking.ErrLinkingSetup`: an error. Thrown as this class when it is the outermost

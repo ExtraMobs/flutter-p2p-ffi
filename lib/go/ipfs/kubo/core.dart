@@ -5,10 +5,7 @@ library;
 import 'package:p2p_ffi/src/go.dart' show GoIpfsKuboCore;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
 import 'package:p2p_ffi/go/fx.dart' as $fx;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/boxo/blockservice.dart' as $blockservice;
 import 'package:p2p_ffi/go/ipfs/boxo/blockstore.dart' as $blockstore;
 import 'package:p2p_ffi/go/ipfs/boxo/bootstrap.dart' as $bootstrap;
@@ -16,10 +13,8 @@ import 'package:p2p_ffi/go/ipfs/boxo/exchange.dart' as $exchange;
 import 'package:p2p_ffi/go/ipfs/boxo/mfs.dart' as $mfs;
 import 'package:p2p_ffi/go/ipfs/boxo/peering.dart' as $peering;
 import 'package:p2p_ffi/go/ipfs/datastore.dart' as $datastore;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 import 'package:p2p_ffi/go/ipfs/kubo/core/node.dart' as $node;
 import 'package:p2p_ffi/go/ipfs/kubo/repo.dart' as $repo;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/host.dart' as $host;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/network.dart' as $network;
 
@@ -41,22 +36,8 @@ final class KuboCoreFxNodeInfo implements GoDto {
 }
 
 /// Go: `core.IpfsNode` (handle).
-class KuboCoreIpfsNode extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  KuboCoreIpfsNode.$h(super.$h) : super.$h();
+class KuboCoreIpfsNode extends GoHandle {
+  KuboCoreIpfsNode.$h(super.$h);
 
   /// Go: `field FilesRoot *mfs.Root`.
   $mfs.BoxoMfsRoot get filesRoot {

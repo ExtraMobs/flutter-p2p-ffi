@@ -7,30 +7,9 @@ import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/go.dart' show GoMathRand;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 
 /// Go: `rand.Rand` (handle).
-class MathRand extends MathRandSource64
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class MathRand extends MathRandSource64 {
   MathRand.$h(super.$h) : super.$h();
 
   /// Go: `func (*rand.Rand).ExpFloat64() float64`.
@@ -226,22 +205,8 @@ mixin MathRandSource64$ on GoHandle {
 }
 
 /// Go: `rand.Zipf` (handle).
-class MathRandZipf extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  MathRandZipf.$h(super.$h) : super.$h();
+class MathRandZipf extends GoHandle {
+  MathRandZipf.$h(super.$h);
 
   /// Go: `func rand.NewZipf(r *rand.Rand, s float64, v float64, imax uint64) *rand.Zipf`.
   factory MathRandZipf(MathRand r, double s, double v, int imax) {

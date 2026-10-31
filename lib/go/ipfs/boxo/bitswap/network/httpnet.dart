@@ -10,37 +10,17 @@ import 'package:p2p_ffi/src/go.dart'
         GoIpfsBoxoBitswapNetworkHttpnetOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/boxo/bitswap/message.dart' as $message;
 import 'package:p2p_ffi/go/ipfs/boxo/bitswap/network.dart' as $network;
 import 'package:p2p_ffi/go/ipfs/boxo/routing/providerquerymanager.dart'
     as $providerquerymanager;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/host.dart' as $host;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
 import 'package:p2p_ffi/go/libp2p/libp2p/p2p/protocol/ping.dart' as $ping;
 
 /// Go: `httpnet.CooldownTracker` (handle).
-class BoxoBitswapNetworkHttpnetCooldownTracker
-    extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  BoxoBitswapNetworkHttpnetCooldownTracker.$h(super.$h) : super.$h();
+class BoxoBitswapNetworkHttpnetCooldownTracker extends GoHandle {
+  BoxoBitswapNetworkHttpnetCooldownTracker.$h(super.$h);
 
   /// Go: `func httpnet.NewCooldownTracker() *httpnet.CooldownTracker`.
   factory BoxoBitswapNetworkHttpnetCooldownTracker() {
@@ -53,27 +33,13 @@ class BoxoBitswapNetworkHttpnetCooldownTracker
 class BoxoBitswapNetworkHttpnetNetwork
     extends $network.BoxoBitswapNetworkBitSwapNetwork
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
         $network.BoxoBitswapNetworkPeerTagger$,
         $providerquerymanager
-        .BoxoRoutingProviderquerymanagerProviderQueryDialer$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
+        .BoxoRoutingProviderquerymanagerProviderQueryDialer$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
         $network.BoxoBitswapNetworkPeerTagger,
         $providerquerymanager
-        .BoxoRoutingProviderquerymanagerProviderQueryDialer,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+        .BoxoRoutingProviderquerymanagerProviderQueryDialer {
   BoxoBitswapNetworkHttpnetNetwork.$h(super.$h) : super.$h();
 
   /// Go: `func (*httpnet.Network).Connect(ctx context.Context, pi peer.AddrInfo) error`.

@@ -5,29 +5,10 @@ library;
 import 'package:p2p_ffi/src/go.dart' show GoOtelBaggage;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 
 /// Go: `baggage.Baggage` (handle).
-class OtelBaggage extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelBaggage.$h(super.$h) : super.$h();
+class OtelBaggage extends GoHandle {
+  OtelBaggage.$h(super.$h);
 
   /// Go: `func (baggage.Baggage).DeleteMember(key string) baggage.Baggage`.
   OtelBaggage deleteMember(String key) {
@@ -79,22 +60,8 @@ class OtelBaggage extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `baggage.Member` (handle).
-class OtelBaggageMember extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelBaggageMember.$h(super.$h) : super.$h();
+class OtelBaggageMember extends GoHandle {
+  OtelBaggageMember.$h(super.$h);
 
   /// Go: `func baggage.NewMember(key string, value string, props ...baggage.Property) (baggage.Member, error)`.
   factory OtelBaggageMember(String key, String value,
@@ -134,22 +101,8 @@ class OtelBaggageMember extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `baggage.Property` (handle).
-class OtelBaggageProperty extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelBaggageProperty.$h(super.$h) : super.$h();
+class OtelBaggageProperty extends GoHandle {
+  OtelBaggageProperty.$h(super.$h);
 
   /// Go: `func (baggage.Property).Key() string`.
   String key() {

@@ -7,34 +7,15 @@ import 'dart:async';
 import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2pCoreConnmgr;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/network.dart' as $network;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
 import 'package:p2p_ffi/go/libp2p/libp2p/p2p/net/connmgr.dart' as $connmgr;
 import 'package:p2p_ffi/go/multiformats/multiaddr.dart' as $multiaddr;
 
 /// Go: `connmgr.BumpFn` (handle).
-class Libp2pCoreConnmgrBumpFn extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  Libp2pCoreConnmgrBumpFn.$h(super.$h) : super.$h();
+class Libp2pCoreConnmgrBumpFn extends GoHandle {
+  Libp2pCoreConnmgrBumpFn.$h(super.$h);
 }
 
 /// Go: `connmgr.ConnManager` (handle).
@@ -231,22 +212,8 @@ mixin Libp2pCoreConnmgrConnectionGater$ on GoHandle {
 }
 
 /// Go: `connmgr.DecayFn` (handle).
-class Libp2pCoreConnmgrDecayFn extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  Libp2pCoreConnmgrDecayFn.$h(super.$h) : super.$h();
+class Libp2pCoreConnmgrDecayFn extends GoHandle {
+  Libp2pCoreConnmgrDecayFn.$h(super.$h);
 }
 
 /// Go: `connmgr.Decayer` (handle).

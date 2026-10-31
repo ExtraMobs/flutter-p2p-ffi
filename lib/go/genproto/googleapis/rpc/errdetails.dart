@@ -6,13 +6,8 @@ import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/go.dart' show GoGenprotoGoogleapisRpcErrdetails;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
 import 'package:p2p_ffi/go/gogo/protobuf/protoc_gen_gogo/descriptor.dart'
     as $descriptor;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/protobuf/reflect/protoreflect.dart' as $protoreflect;
 import 'package:p2p_ffi/go/protobuf/runtime/protoiface.dart' as $protoiface;
 import 'package:p2p_ffi/go/protobuf/types/known/durationpb.dart' as $durationpb;
@@ -21,23 +16,9 @@ import 'package:p2p_ffi/go/protobuf/types/known/durationpb.dart' as $durationpb;
 class GenprotoGoogleapisRpcErrdetailsBadRequest
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   GenprotoGoogleapisRpcErrdetailsBadRequest.$h(super.$h) : super.$h();
@@ -84,23 +65,9 @@ class GenprotoGoogleapisRpcErrdetailsBadRequest
 class GenprotoGoogleapisRpcErrdetailsBadRequestFieldViolation
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   GenprotoGoogleapisRpcErrdetailsBadRequestFieldViolation.$h(super.$h)
@@ -164,23 +131,9 @@ class GenprotoGoogleapisRpcErrdetailsBadRequestFieldViolation
 class GenprotoGoogleapisRpcErrdetailsDebugInfo
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   GenprotoGoogleapisRpcErrdetailsDebugInfo.$h(super.$h) : super.$h();
@@ -231,23 +184,9 @@ class GenprotoGoogleapisRpcErrdetailsDebugInfo
 class GenprotoGoogleapisRpcErrdetailsErrorInfo
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   GenprotoGoogleapisRpcErrdetailsErrorInfo.$h(super.$h) : super.$h();
@@ -304,23 +243,9 @@ class GenprotoGoogleapisRpcErrdetailsErrorInfo
 class GenprotoGoogleapisRpcErrdetailsHelp
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   GenprotoGoogleapisRpcErrdetailsHelp.$h(super.$h) : super.$h();
@@ -365,23 +290,9 @@ class GenprotoGoogleapisRpcErrdetailsHelp
 class GenprotoGoogleapisRpcErrdetailsHelpLink
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   GenprotoGoogleapisRpcErrdetailsHelpLink.$h(super.$h) : super.$h();
@@ -432,23 +343,9 @@ class GenprotoGoogleapisRpcErrdetailsHelpLink
 class GenprotoGoogleapisRpcErrdetailsLocalizedMessage
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   GenprotoGoogleapisRpcErrdetailsLocalizedMessage.$h(super.$h) : super.$h();
@@ -499,23 +396,9 @@ class GenprotoGoogleapisRpcErrdetailsLocalizedMessage
 class GenprotoGoogleapisRpcErrdetailsPreconditionFailure
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   GenprotoGoogleapisRpcErrdetailsPreconditionFailure.$h(super.$h) : super.$h();
@@ -562,23 +445,9 @@ class GenprotoGoogleapisRpcErrdetailsPreconditionFailure
 class GenprotoGoogleapisRpcErrdetailsPreconditionFailureViolation
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   GenprotoGoogleapisRpcErrdetailsPreconditionFailureViolation.$h(super.$h)
@@ -637,23 +506,9 @@ class GenprotoGoogleapisRpcErrdetailsPreconditionFailureViolation
 class GenprotoGoogleapisRpcErrdetailsQuotaFailure
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   GenprotoGoogleapisRpcErrdetailsQuotaFailure.$h(super.$h) : super.$h();
@@ -699,23 +554,9 @@ class GenprotoGoogleapisRpcErrdetailsQuotaFailure
 class GenprotoGoogleapisRpcErrdetailsQuotaFailureViolation
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   GenprotoGoogleapisRpcErrdetailsQuotaFailureViolation.$h(super.$h)
@@ -803,23 +644,9 @@ class GenprotoGoogleapisRpcErrdetailsQuotaFailureViolation
 class GenprotoGoogleapisRpcErrdetailsRequestInfo
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   GenprotoGoogleapisRpcErrdetailsRequestInfo.$h(super.$h) : super.$h();
@@ -870,23 +697,9 @@ class GenprotoGoogleapisRpcErrdetailsRequestInfo
 class GenprotoGoogleapisRpcErrdetailsResourceInfo
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   GenprotoGoogleapisRpcErrdetailsResourceInfo.$h(super.$h) : super.$h();
@@ -949,23 +762,9 @@ class GenprotoGoogleapisRpcErrdetailsResourceInfo
 class GenprotoGoogleapisRpcErrdetailsRetryInfo
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   GenprotoGoogleapisRpcErrdetailsRetryInfo.$h(super.$h) : super.$h();

@@ -5,13 +5,8 @@ library;
 import 'package:p2p_ffi/src/go.dart'
     show GoHuinGoupnpHttpu, GoHuinGoupnpHttpuConsts;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/huin/goupnp/ssdp.dart' as $ssdp;
 import 'package:p2p_ffi/go/io.dart' as $io;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/net.dart' as $net;
 import 'package:p2p_ffi/go/net/http.dart' as $http;
 import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
@@ -86,30 +81,16 @@ mixin GoupnpHttpuClientInterfaceCtx$ on GoHandle {
 /// Go: `httpu.HTTPUClient` (handle).
 class GoupnpHttpuClient extends GoupnpHttpuClientInterface
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
         GoupnpHttpuClientInterfaceCtx$,
         $ssdp.GoupnpSsdpHttpuClient$,
         $ssdp.GoupnpSsdpHttpuClientCtx$,
         $io.IoCloser$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $expfmt.CommonExpfmtCloser$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
         GoupnpHttpuClientInterfaceCtx,
         $ssdp.GoupnpSsdpHttpuClient,
         $ssdp.GoupnpSsdpHttpuClientCtx,
         $io.IoCloser,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $expfmt.CommonExpfmtCloser {
   GoupnpHttpuClient.$h(super.$h) : super.$h();
 
@@ -180,23 +161,7 @@ mixin GoupnpHttpuHandler$ on GoHandle {
 }
 
 /// Go: `httpu.HandlerFunc` (handle).
-class GoupnpHttpuHandlerFunc extends GoupnpHttpuHandler
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class GoupnpHttpuHandlerFunc extends GoupnpHttpuHandler {
   GoupnpHttpuHandlerFunc.$h(super.$h) : super.$h();
 
   /// Go: `func (httpu.HandlerFunc).ServeMessage(r *http.Request)`.
@@ -211,24 +176,8 @@ class GoupnpHttpuHandlerFunc extends GoupnpHttpuHandler
 
 /// Go: `httpu.MultiClient` (handle).
 class GoupnpHttpuMultiClient extends GoupnpHttpuClientInterface
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ssdp.GoupnpSsdpHttpuClient$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ssdp.GoupnpSsdpHttpuClient,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    with $ssdp.GoupnpSsdpHttpuClient$
+    implements $ssdp.GoupnpSsdpHttpuClient {
   GoupnpHttpuMultiClient.$h(super.$h) : super.$h();
 
   /// Go: `func httpu.NewMultiClient(delegates []httpu.ClientInterface) *httpu.MultiClient`.
@@ -253,24 +202,8 @@ class GoupnpHttpuMultiClient extends GoupnpHttpuClientInterface
 
 /// Go: `httpu.MultiClientCtx` (handle).
 class GoupnpHttpuMultiClientCtx extends GoupnpHttpuClientInterfaceCtx
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ssdp.GoupnpSsdpHttpuClientCtx$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ssdp.GoupnpSsdpHttpuClientCtx,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    with $ssdp.GoupnpSsdpHttpuClientCtx$
+    implements $ssdp.GoupnpSsdpHttpuClientCtx {
   GoupnpHttpuMultiClientCtx.$h(super.$h) : super.$h();
 
   /// Go: `func httpu.NewMultiClientCtx(delegates []httpu.ClientInterfaceCtx) *httpu.MultiClientCtx`.

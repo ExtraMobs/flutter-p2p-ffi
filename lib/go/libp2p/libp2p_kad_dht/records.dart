@@ -8,14 +8,9 @@ import 'package:p2p_ffi/src/go.dart'
     show GoLibp2pLibp2pKadDhtRecordsConsts, GoLibp2pLibp2pKadDhtRecordsOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/hashicorp/golang_lru/simplelru.dart' as $simplelru;
 import 'package:p2p_ffi/go/io.dart' as $io;
 import 'package:p2p_ffi/go/ipfs/datastore.dart' as $datastore;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peerstore.dart' as $peerstore;
 import 'package:p2p_ffi/go/libp2p/libp2p_record.dart' as $libp2p_record;
@@ -30,24 +25,8 @@ final class Libp2pKadDhtRecordsOption extends GoOption {
 /// Go: `records.ProviderManager` (handle).
 class Libp2pKadDhtRecordsProviderManager
     extends Libp2pKadDhtRecordsProviderStore
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   Libp2pKadDhtRecordsProviderManager.$h(super.$h) : super.$h();
 
   /// Go: `func records.NewProviderManager(local peer.ID, ps peerstore.Peerstore, dstore datastore.Batching, opts ...records.Option) (*records.ProviderManager, error)`.
@@ -145,24 +124,8 @@ mixin Libp2pKadDhtRecordsProviderStore$ on GoHandle {
 
 /// Go: `records.ValueStore` (handle).
 class Libp2pKadDhtRecordsValueStore extends $io.IoCloser
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   Libp2pKadDhtRecordsValueStore.$h(super.$h) : super.$h();
 
   /// Go: `func records.NewValueStore(dstore datastore.Datastore, validator record.Validator, maxRecordAge time.Duration) *records.ValueStore`.

@@ -5,32 +5,13 @@ library;
 import 'package:p2p_ffi/src/go.dart'
     show GoOpencensusStatsView, GoOpencensusStatsViewEnums;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/opencensus/resource.dart' as $resource;
 import 'package:p2p_ffi/go/opencensus/stats.dart' as $stats;
 import 'package:p2p_ffi/go/opencensus/tag.dart' as $tag;
 
 /// Go: `view.Aggregation` (handle).
-class StatsViewAggregation extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  StatsViewAggregation.$h(super.$h) : super.$h();
+class StatsViewAggregation extends GoHandle {
+  StatsViewAggregation.$h(super.$h);
 }
 
 /// Go: `view.AggregationData` (handle).
@@ -124,23 +105,7 @@ final class StatsViewData implements GoDto {
 }
 
 /// Go: `view.DistributionData` (handle).
-class StatsViewDistributionData extends StatsViewAggregationData
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class StatsViewDistributionData extends StatsViewAggregationData {
   StatsViewDistributionData.$h(super.$h) : super.$h();
 
   /// Go: `func (*view.DistributionData).StartTime() time.Time`.

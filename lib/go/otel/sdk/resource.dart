@@ -8,12 +8,7 @@ import 'package:p2p_ffi/src/go.dart'
     show GoOtelSdkResource, GoOtelSdkResourceOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
 import 'package:p2p_ffi/go/go_logr/logr.dart' as $logr;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/otel/attribute.dart' as $attribute;
 
 /// Go: `resource.Detector` (handle).
@@ -45,23 +40,7 @@ class OtelSdkResourceOption extends GoHandle with OtelSdkResourceOption$ {
 mixin OtelSdkResourceOption$ on GoHandle {}
 
 /// Go: `resource.Resource` (handle).
-class OtelSdkResource extends $logr.LogrMarshaler
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class OtelSdkResource extends $logr.LogrMarshaler {
   OtelSdkResource.$h(super.$h) : super.$h();
 
   /// Go: `func (*resource.Resource).Attributes() []attribute.KeyValue`.

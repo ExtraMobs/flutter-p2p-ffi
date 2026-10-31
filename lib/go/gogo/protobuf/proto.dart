@@ -7,15 +7,12 @@ import 'dart:typed_data';
 import 'package:p2p_ffi/src/go.dart'
     show GoGogoProtobufProto, GoGogoProtobufProtoConsts;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
 import 'package:p2p_ffi/go/genproto/googleapis/api/httpbody.dart' as $httpbody;
 import 'package:p2p_ffi/go/genproto/googleapis/rpc/errdetails.dart'
     as $errdetails;
 import 'package:p2p_ffi/go/genproto/googleapis/rpc/status.dart' as $status;
 import 'package:p2p_ffi/go/gogo/protobuf/protoc_gen_gogo/descriptor.dart'
     as $descriptor;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/grpc/binarylog/grpc_binarylog_v1.dart'
     as $grpc_binarylog_v1;
 import 'package:p2p_ffi/go/grpc/health/grpc_health_v1.dart' as $grpc_health_v1;
@@ -24,8 +21,6 @@ import 'package:p2p_ffi/go/ipfs/boxo/filestore/pb.dart' as $pb2;
 import 'package:p2p_ffi/go/ipfs/boxo/ipld/merkledag/pb.dart' as $pb3;
 import 'package:p2p_ffi/go/ipfs/boxo/ipld/unixfs/pb.dart' as $pb4;
 import 'package:p2p_ffi/go/ipfs/boxo/ipns/pb.dart' as $pb5;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/crypto/pb.dart' as $pb9;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peer/pb.dart' as $pb10;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/record/pb.dart' as $pb11;
@@ -66,22 +61,8 @@ import 'package:p2p_ffi/go/reflect.dart' as $reflect;
 import 'package:p2p_ffi/go/sort.dart' as $sort;
 
 /// Go: `proto.Buffer` (handle).
-class ProtobufProtoBuffer extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  ProtobufProtoBuffer.$h(super.$h) : super.$h();
+class ProtobufProtoBuffer extends GoHandle {
+  ProtobufProtoBuffer.$h(super.$h);
 
   /// Go: `func proto.NewBuffer(e []byte) *proto.Buffer`.
   factory ProtobufProtoBuffer(Uint8List e) {
@@ -284,22 +265,8 @@ class ProtobufProtoBuffer extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `proto.Extension` (handle).
-class ProtobufProtoExtension extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  ProtobufProtoExtension.$h(super.$h) : super.$h();
+class ProtobufProtoExtension extends GoHandle {
+  ProtobufProtoExtension.$h(super.$h);
 
   /// Go: `func proto.NewExtension(e []byte) proto.Extension`.
   factory ProtobufProtoExtension(Uint8List e) {
@@ -413,22 +380,8 @@ final class ProtobufProtoExtensionRange implements GoDto {
 }
 
 /// Go: `proto.InternalMessageInfo` (handle).
-class ProtobufProtoInternalMessageInfo extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  ProtobufProtoInternalMessageInfo.$h(super.$h) : super.$h();
+class ProtobufProtoInternalMessageInfo extends GoHandle {
+  ProtobufProtoInternalMessageInfo.$h(super.$h);
 
   /// Go: `func (*proto.InternalMessageInfo).DiscardUnknown(m proto.Message)`.
   void discardUnknown(ProtobufProtoMessage m) {
@@ -1812,22 +1765,8 @@ mixin ProtobufProtoMessage$ on GoHandle {
 }
 
 /// Go: `proto.Properties` (handle).
-class ProtobufProtoProperties extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  ProtobufProtoProperties.$h(super.$h) : super.$h();
+class ProtobufProtoProperties extends GoHandle {
+  ProtobufProtoProperties.$h(super.$h);
 
   /// Go: `func (*proto.Properties).Init(typ reflect.Type, name string, tag string, f *reflect.StructField)`.
   void init($reflect.ReflectType typ, String name, String tag,
@@ -1942,23 +1881,7 @@ final class ProtobufProtoStats implements GoDto {
 }
 
 /// Go: `proto.StructProperties` (handle).
-class ProtobufProtoStructProperties extends $sort.SortInterface
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class ProtobufProtoStructProperties extends $sort.SortInterface {
   ProtobufProtoStructProperties.$h(super.$h) : super.$h();
 
   /// Go: `func (*proto.StructProperties).Len() int`.
@@ -2063,22 +1986,8 @@ mixin ProtobufProtoUnmarshaler$ on GoHandle {
 }
 
 /// Go: `proto.XXX_InternalExtensions` (handle).
-class ProtobufProtoXxxInternalExtensions extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  ProtobufProtoXxxInternalExtensions.$h(super.$h) : super.$h();
+class ProtobufProtoXxxInternalExtensions extends GoHandle {
+  ProtobufProtoXxxInternalExtensions.$h(super.$h);
 }
 
 /// Go: `var proto.ErrInternalBadWireType error`: an error. Thrown as this class when it is the outermost

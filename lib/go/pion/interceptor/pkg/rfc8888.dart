@@ -5,11 +5,6 @@ library;
 import 'package:p2p_ffi/src/go.dart'
     show GoPionInterceptorPkgRfc8888, GoPionInterceptorPkgRfc8888Options;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/pion/interceptor.dart' as $interceptor;
 import 'package:p2p_ffi/go/pion/rtcp.dart' as $rtcp;
 import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
@@ -20,22 +15,8 @@ final class InterceptorPkgRfc8888Option extends GoOption {
 }
 
 /// Go: `rfc8888.Recorder` (handle).
-class InterceptorPkgRfc8888Recorder extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  InterceptorPkgRfc8888Recorder.$h(super.$h) : super.$h();
+class InterceptorPkgRfc8888Recorder extends GoHandle {
+  InterceptorPkgRfc8888Recorder.$h(super.$h);
 
   /// Go: `func rfc8888.NewRecorder() *rfc8888.Recorder`.
   factory InterceptorPkgRfc8888Recorder() {
@@ -69,24 +50,8 @@ class InterceptorPkgRfc8888Recorder extends $crypto.CryptoDecrypterOpts
 
 /// Go: `rfc8888.SenderInterceptor` (handle).
 class InterceptorPkgRfc8888SenderInterceptor extends $interceptor.Interceptor
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   InterceptorPkgRfc8888SenderInterceptor.$h(super.$h) : super.$h();
 
   /// Go: `func (*rfc8888.SenderInterceptor).BindRTCPWriter(writer interceptor.RTCPWriter) interceptor.RTCPWriter`.
@@ -119,23 +84,7 @@ class InterceptorPkgRfc8888SenderInterceptor extends $interceptor.Interceptor
 
 /// Go: `rfc8888.SenderInterceptorFactory` (handle).
 class InterceptorPkgRfc8888SenderInterceptorFactory
-    extends $interceptor.InterceptorFactory
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    extends $interceptor.InterceptorFactory {
   InterceptorPkgRfc8888SenderInterceptorFactory.$h(super.$h) : super.$h();
 
   /// Go: `func (*rfc8888.SenderInterceptorFactory).NewInterceptor(_ string) (interceptor.Interceptor, error)`.
@@ -150,22 +99,8 @@ class InterceptorPkgRfc8888SenderInterceptorFactory
 }
 
 /// Go: `rfc8888.TickerFactory` (handle).
-class InterceptorPkgRfc8888TickerFactory extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  InterceptorPkgRfc8888TickerFactory.$h(super.$h) : super.$h();
+class InterceptorPkgRfc8888TickerFactory extends GoHandle {
+  InterceptorPkgRfc8888TickerFactory.$h(super.$h);
 }
 
 /// Go: the package-level members of `github.com/pion/interceptor/pkg/rfc8888` (`go.pion.interceptor.pkg.rfc8888`).

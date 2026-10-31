@@ -6,33 +6,12 @@ import 'dart:async';
 
 import 'package:p2p_ffi/src/go.dart' show GoTesting;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/kr/pretty.dart' as $pretty;
 
 /// Go: `testing.B` (handle).
 class TestingB extends TestingTb
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $pretty.PrettyLogfer$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $pretty.PrettyLogfer {
+    with $pretty.PrettyLogfer$
+    implements $pretty.PrettyLogfer {
   TestingB.$h(super.$h) : super.$h();
 
   /// Go: `func (*testing.common).ArtifactDir() string`.
@@ -475,24 +454,8 @@ final class TestingCoverBlock implements GoDto {
 
 /// Go: `testing.F` (handle).
 class TestingF extends TestingTb
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $pretty.PrettyLogfer$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $pretty.PrettyLogfer {
+    with $pretty.PrettyLogfer$
+    implements $pretty.PrettyLogfer {
   TestingF.$h(super.$h) : super.$h();
 
   /// Go: `func (*testing.F).Add(args ...any)`.
@@ -685,22 +648,8 @@ class TestingF extends TestingTb
 }
 
 /// Go: `testing.M` (handle).
-class TestingM extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  TestingM.$h(super.$h) : super.$h();
+class TestingM extends GoHandle {
+  TestingM.$h(super.$h);
 
   /// Go: `func (*testing.M).Run() (code int)`.
   int run() {
@@ -710,22 +659,8 @@ class TestingM extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `testing.PB` (handle).
-class TestingPb extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  TestingPb.$h(super.$h) : super.$h();
+class TestingPb extends GoHandle {
+  TestingPb.$h(super.$h);
 
   /// Go: `func (*testing.PB).Next() bool`.
   bool next() {
@@ -736,24 +671,8 @@ class TestingPb extends $crypto.CryptoDecrypterOpts
 
 /// Go: `testing.T` (handle).
 class TestingT extends TestingTb
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $pretty.PrettyLogfer$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $pretty.PrettyLogfer {
+    with $pretty.PrettyLogfer$
+    implements $pretty.PrettyLogfer {
   TestingT.$h(super.$h) : super.$h();
 
   /// Go: `func (*testing.common).ArtifactDir() string`.

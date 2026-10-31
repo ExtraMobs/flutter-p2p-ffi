@@ -7,16 +7,11 @@ import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/go.dart' show GoGrpcBalancer;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/grpc/channelz.dart' as $channelz;
 import 'package:p2p_ffi/go/grpc/credentials.dart' as $credentials;
 import 'package:p2p_ffi/go/grpc/experimental/stats.dart' as $stats;
 import 'package:p2p_ffi/go/grpc/resolver.dart' as $resolver;
 import 'package:p2p_ffi/go/grpc/serviceconfig.dart' as $serviceconfig;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 
 /// Go: `balancer.Balancer` (handle).
 class GrpcBalancer extends GoHandle with GrpcBalancer$ {
@@ -262,22 +257,8 @@ mixin GrpcBalancerConfigParser$ on GoHandle {
 }
 
 /// Go: `balancer.ConnectivityStateEvaluator` (handle).
-class GrpcBalancerConnectivityStateEvaluator extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  GrpcBalancerConnectivityStateEvaluator.$h(super.$h) : super.$h();
+class GrpcBalancerConnectivityStateEvaluator extends GoHandle {
+  GrpcBalancerConnectivityStateEvaluator.$h(super.$h);
 
   /// Go: `func (*balancer.ConnectivityStateEvaluator).CurrentState() connectivity.State`.
   int currentState() {

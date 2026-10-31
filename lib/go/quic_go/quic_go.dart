@@ -9,13 +9,8 @@ import 'package:p2p_ffi/src/go.dart'
     show GoQuicGoQuicGo, GoQuicGoQuicGoConsts, GoQuicGoQuicGoEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/crypto/tls.dart' as $tls;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/libp2p/libp2p/p2p/transport/quicreuse.dart'
     as $quicreuse;
 import 'package:p2p_ffi/go/net.dart' as $net;
@@ -27,22 +22,8 @@ import 'package:p2p_ffi/go/quic_go/quic_go/quicvarint.dart' as $quicvarint;
 import 'package:p2p_ffi/go/syscall.dart' as $syscall;
 
 /// Go: `quic.ClientToken` (handle).
-class QuicGoClientToken extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  QuicGoClientToken.$h(super.$h) : super.$h();
+class QuicGoClientToken extends GoHandle {
+  QuicGoClientToken.$h(super.$h);
 }
 
 /// Go: `quic.Config`.
@@ -191,22 +172,8 @@ final class QuicGoConfig implements GoDto {
 }
 
 /// Go: `quic.Conn` (handle).
-class QuicGoConn extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  QuicGoConn.$h(super.$h) : super.$h();
+class QuicGoConn extends GoHandle {
+  QuicGoConn.$h(super.$h);
 
   /// Go: `func (*quic.Conn).AcceptStream(ctx context.Context) (*quic.Stream, error)`.
   ///
@@ -519,25 +486,11 @@ final class QuicGoConnectionStats implements GoDto {
 class QuicGoEarlyListener
     extends $quicreuse.Libp2pP2pTransportQuicreuseQuicListener
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
         $io.IoCloser$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $expfmt.CommonExpfmtCloser$,
         $http3.QuicGoHttp3QuicListener$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
         $io.IoCloser,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $expfmt.CommonExpfmtCloser,
         $http3.QuicGoHttp3QuicListener {
   QuicGoEarlyListener.$h(super.$h) : super.$h();
@@ -569,25 +522,11 @@ class QuicGoEarlyListener
 /// Go: `quic.Listener` (handle).
 class QuicGoListener extends $quicreuse.Libp2pP2pTransportQuicreuseQuicListener
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
         $io.IoCloser$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $expfmt.CommonExpfmtCloser$,
         $http3.QuicGoHttp3QuicListener$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
         $io.IoCloser,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $expfmt.CommonExpfmtCloser,
         $http3.QuicGoHttp3QuicListener {
   QuicGoListener.$h(super.$h) : super.$h();
@@ -676,24 +615,8 @@ mixin QuicGoOobCapablePacketConn$ on GoHandle {
 
 /// Go: `quic.Path` (handle).
 class QuicGoPath extends $io.IoCloser
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   QuicGoPath.$h(super.$h) : super.$h();
 
   /// Go: `func (*quic.Path).Close() error`.
@@ -720,24 +643,8 @@ class QuicGoPath extends $io.IoCloser
 
 /// Go: `quic.ReceiveStream` (handle).
 class QuicGoReceiveStream extends $datachannel.DatachannelReadDeadliner
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $quicvarint.QuicGoQuicvarintPeeker$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $quicvarint.QuicGoQuicvarintPeeker {
+    with $quicvarint.QuicGoQuicvarintPeeker$
+    implements $quicvarint.QuicGoQuicvarintPeeker {
   QuicGoReceiveStream.$h(super.$h) : super.$h();
 
   /// Go: `func (*quic.ReceiveStream).CancelRead(errorCode quic.StreamErrorCode)`.
@@ -803,24 +710,8 @@ class QuicGoReceiveStream extends $datachannel.DatachannelReadDeadliner
 
 /// Go: `quic.SendStream` (handle).
 class QuicGoSendStream extends $io.IoCloser
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $datachannel.DatachannelWriteDeadliner$,
-        $expfmt.CommonExpfmtCloser$
+    with $datachannel.DatachannelWriteDeadliner$, $expfmt.CommonExpfmtCloser$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $datachannel.DatachannelWriteDeadliner,
         $expfmt.CommonExpfmtCloser {
   QuicGoSendStream.$h(super.$h) : super.$h();
@@ -910,25 +801,11 @@ class QuicGoSendStream extends $io.IoCloser
 /// Go: `quic.Stream` (handle).
 class QuicGoStream extends $io.IoCloser
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $datachannel.DatachannelReadDeadliner$,
         $datachannel.DatachannelWriteDeadliner$,
         $expfmt.CommonExpfmtCloser$,
         $quicvarint.QuicGoQuicvarintPeeker$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $datachannel.DatachannelReadDeadliner,
         $datachannel.DatachannelWriteDeadliner,
         $expfmt.CommonExpfmtCloser,
@@ -1110,24 +987,8 @@ mixin QuicGoTokenStore$ on GoHandle {
 
 /// Go: `quic.Transport` (handle).
 class QuicGoTransport extends $io.IoCloser
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   QuicGoTransport.$h(super.$h) : super.$h();
 
   /// Go: `func (*quic.Transport).Close() error`.
@@ -1217,22 +1078,8 @@ class QuicGoTransport extends $io.IoCloser
 }
 
 /// Go: `protocol.ConnectionID` (handle).
-class QuicGoConnectionId extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  QuicGoConnectionId.$h(super.$h) : super.$h();
+class QuicGoConnectionId extends GoHandle {
+  QuicGoConnectionId.$h(super.$h);
 }
 
 /// Go: `qerr.ApplicationError`: an error. Thrown as this class when it is the outermost

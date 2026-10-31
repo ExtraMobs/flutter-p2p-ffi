@@ -11,13 +11,8 @@ import 'package:p2p_ffi/src/go.dart'
         GoLibp2pLibp2pKadDhtPbEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
 import 'package:p2p_ffi/go/gogo/protobuf/protoc_gen_gogo/descriptor.dart'
     as $descriptor;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/host.dart' as $host;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/network.dart' as $network;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
@@ -30,23 +25,9 @@ import 'package:p2p_ffi/go/protobuf/runtime/protoiface.dart' as $protoiface;
 class Libp2pKadDhtPbMessage
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   Libp2pKadDhtPbMessage.$h(super.$h) : super.$h();
@@ -215,23 +196,9 @@ mixin Libp2pKadDhtPbMessageSenderWithDisconnect$ on GoHandle {
 class Libp2pKadDhtPbMessagePeer
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   Libp2pKadDhtPbMessagePeer.$h(super.$h) : super.$h();
@@ -316,22 +283,8 @@ final class Libp2pKadDhtPbPeerRoutingInfo implements GoDto {
 }
 
 /// Go: `dht_pb.ProtocolMessenger` (handle).
-class Libp2pKadDhtPbProtocolMessenger extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  Libp2pKadDhtPbProtocolMessenger.$h(super.$h) : super.$h();
+class Libp2pKadDhtPbProtocolMessenger extends GoHandle {
+  Libp2pKadDhtPbProtocolMessenger.$h(super.$h);
 
   /// Go: `func dht_pb.NewProtocolMessenger(msgSender dht_pb.MessageSender, opts ...dht_pb.ProtocolMessengerOption) (*dht_pb.ProtocolMessenger, error)`.
   factory Libp2pKadDhtPbProtocolMessenger(Libp2pKadDhtPbMessageSender msgSender,
@@ -462,22 +415,8 @@ class Libp2pKadDhtPbProtocolMessenger extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `dht_pb.ProtocolMessengerOption` (handle).
-class Libp2pKadDhtPbProtocolMessengerOption extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  Libp2pKadDhtPbProtocolMessengerOption.$h(super.$h) : super.$h();
+class Libp2pKadDhtPbProtocolMessengerOption extends GoHandle {
+  Libp2pKadDhtPbProtocolMessengerOption.$h(super.$h);
 }
 
 /// Go: the package-level members of `github.com/libp2p/go-libp2p-kad-dht/pb` (`go.libp2p.libp2pKadDht.pb`).

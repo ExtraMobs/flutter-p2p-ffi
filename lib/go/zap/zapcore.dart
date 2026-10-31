@@ -12,21 +12,18 @@ import 'package:p2p_ffi/src/go.dart'
         GoZapZapcoreEnums,
         GoZapZapcoreOptions;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/encoding.dart' as $encoding;
 import 'package:p2p_ffi/go/encoding/gob.dart' as $gob;
 import 'package:p2p_ffi/go/encoding/json.dart' as $json;
 import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
 import 'package:p2p_ffi/go/facebookgo/atomicfile.dart' as $atomicfile;
 import 'package:p2p_ffi/go/go_jose/jose/v4/json.dart' as $json2;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/grpc_ecosystem/grpc_gateway/v2/runtime.dart'
     as $runtime;
 import 'package:p2p_ffi/go/ipfs/boxo/ipld/unixfs/mod.dart' as $mod;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 import 'package:p2p_ffi/go/ipfs/kubo/repo/fsrepo/migrations/atomicfile.dart'
     as $atomicfile2;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/os.dart' as $os;
 import 'package:p2p_ffi/go/time.dart' as $time;
 import 'package:p2p_ffi/go/whyrusleeping/cbor/go.dart' as $go;
@@ -112,23 +109,7 @@ mixin ZapZapcoreArrayMarshaler$ on GoHandle {
 }
 
 /// Go: `zapcore.ArrayMarshalerFunc` (handle).
-class ZapZapcoreArrayMarshalerFunc extends ZapZapcoreArrayMarshaler
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class ZapZapcoreArrayMarshalerFunc extends ZapZapcoreArrayMarshaler {
   ZapZapcoreArrayMarshalerFunc.$h(super.$h) : super.$h();
 
   /// Go: `func (zapcore.ArrayMarshalerFunc).MarshalLogArray(enc zapcore.ArrayEncoder) error`.
@@ -142,23 +123,7 @@ class ZapZapcoreArrayMarshalerFunc extends ZapZapcoreArrayMarshaler
 }
 
 /// Go: `zapcore.BufferedWriteSyncer` (handle).
-class ZapZapcoreBufferedWriteSyncer extends ZapZapcoreWriteSyncer
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class ZapZapcoreBufferedWriteSyncer extends ZapZapcoreWriteSyncer {
   ZapZapcoreBufferedWriteSyncer.$h(super.$h) : super.$h();
 
   /// Go: `func (*zapcore.BufferedWriteSyncer).Stop() (err error)`.
@@ -183,23 +148,7 @@ class ZapZapcoreBufferedWriteSyncer extends ZapZapcoreWriteSyncer
 }
 
 /// Go: `zapcore.CallerEncoder` (handle).
-class ZapZapcoreCallerEncoder extends $encoding.EncodingTextUnmarshaler
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class ZapZapcoreCallerEncoder extends $encoding.EncodingTextUnmarshaler {
   ZapZapcoreCallerEncoder.$h(super.$h) : super.$h();
 
   /// Go: `func (*zapcore.CallerEncoder).UnmarshalText(text []byte) error`.
@@ -213,22 +162,8 @@ class ZapZapcoreCallerEncoder extends $encoding.EncodingTextUnmarshaler
 }
 
 /// Go: `zapcore.CheckPreWriteHook` (handle).
-class ZapZapcoreCheckPreWriteHook extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  ZapZapcoreCheckPreWriteHook.$h(super.$h) : super.$h();
+class ZapZapcoreCheckPreWriteHook extends GoHandle {
+  ZapZapcoreCheckPreWriteHook.$h(super.$h);
 }
 
 /// Go: `zapcore.CheckWriteHook` (handle).
@@ -251,22 +186,8 @@ mixin ZapZapcoreCheckWriteHook$ on GoHandle {
 }
 
 /// Go: `zapcore.CheckedEntry` (handle).
-class ZapZapcoreCheckedEntry extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  ZapZapcoreCheckedEntry.$h(super.$h) : super.$h();
+class ZapZapcoreCheckedEntry extends GoHandle {
+  ZapZapcoreCheckedEntry.$h(super.$h);
 
   /// Go: `func (*zapcore.CheckedEntry).AddCore(ent zapcore.Entry, core zapcore.Core) *zapcore.CheckedEntry`.
   ZapZapcoreCheckedEntry addCore(ZapZapcoreEntry ent, ZapZapcoreCore core) {
@@ -407,23 +328,7 @@ mixin ZapZapcoreCore$ on GoHandle {
 }
 
 /// Go: `zapcore.DurationEncoder` (handle).
-class ZapZapcoreDurationEncoder extends $encoding.EncodingTextUnmarshaler
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class ZapZapcoreDurationEncoder extends $encoding.EncodingTextUnmarshaler {
   ZapZapcoreDurationEncoder.$h(super.$h) : super.$h();
 
   /// Go: `func (*zapcore.DurationEncoder).UnmarshalText(text []byte) error`.
@@ -787,23 +692,7 @@ mixin ZapZapcoreLevelEnabler$ on GoHandle {
 }
 
 /// Go: `zapcore.LevelEncoder` (handle).
-class ZapZapcoreLevelEncoder extends $encoding.EncodingTextUnmarshaler
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class ZapZapcoreLevelEncoder extends $encoding.EncodingTextUnmarshaler {
   ZapZapcoreLevelEncoder.$h(super.$h) : super.$h();
 
   /// Go: `func (*zapcore.LevelEncoder).UnmarshalText(text []byte) error`.
@@ -817,23 +706,7 @@ class ZapZapcoreLevelEncoder extends $encoding.EncodingTextUnmarshaler
 }
 
 /// Go: `zapcore.MapObjectEncoder` (handle).
-class ZapZapcoreMapObjectEncoder extends ZapZapcoreObjectEncoder
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class ZapZapcoreMapObjectEncoder extends ZapZapcoreObjectEncoder {
   ZapZapcoreMapObjectEncoder.$h(super.$h) : super.$h();
 
   /// Go: `func zapcore.NewMapObjectEncoder() *zapcore.MapObjectEncoder`.
@@ -1063,23 +936,7 @@ class ZapZapcoreMapObjectEncoder extends ZapZapcoreObjectEncoder
 }
 
 /// Go: `zapcore.NameEncoder` (handle).
-class ZapZapcoreNameEncoder extends $encoding.EncodingTextUnmarshaler
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class ZapZapcoreNameEncoder extends $encoding.EncodingTextUnmarshaler {
   ZapZapcoreNameEncoder.$h(super.$h) : super.$h();
 
   /// Go: `func (*zapcore.NameEncoder).UnmarshalText(text []byte) error`.
@@ -1356,23 +1213,7 @@ mixin ZapZapcoreObjectMarshaler$ on GoHandle {
 }
 
 /// Go: `zapcore.ObjectMarshalerFunc` (handle).
-class ZapZapcoreObjectMarshalerFunc extends ZapZapcoreObjectMarshaler
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class ZapZapcoreObjectMarshalerFunc extends ZapZapcoreObjectMarshaler {
   ZapZapcoreObjectMarshalerFunc.$h(super.$h) : super.$h();
 
   /// Go: `func (zapcore.ObjectMarshalerFunc).MarshalLogObject(enc zapcore.ObjectEncoder) error`.
@@ -1612,26 +1453,8 @@ mixin ZapZapcoreSamplerOption$ on GoHandle {}
 
 /// Go: `zapcore.TimeEncoder` (handle).
 class ZapZapcoreTimeEncoder extends $encoding.EncodingTextUnmarshaler
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $json.EncodingJsonUnmarshaler$,
-        $xml.EncodingXmlToken$,
-        $json2.JoseV4JsonUnmarshaler$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $json.EncodingJsonUnmarshaler,
-        $xml.EncodingXmlToken,
-        $json2.JoseV4JsonUnmarshaler,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    with $json.EncodingJsonUnmarshaler$, $json2.JoseV4JsonUnmarshaler$
+    implements $json.EncodingJsonUnmarshaler, $json2.JoseV4JsonUnmarshaler {
   ZapZapcoreTimeEncoder.$h(super.$h) : super.$h();
 
   /// Go: `func (*zapcore.TimeEncoder).UnmarshalJSON(data []byte) error`.

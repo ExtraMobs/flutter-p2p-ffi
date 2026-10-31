@@ -8,12 +8,7 @@ import 'package:p2p_ffi/src/go.dart'
     show GoQuicGoWebtransportGo, GoQuicGoWebtransportGoEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/net.dart' as $net;
 import 'package:p2p_ffi/go/net/http.dart' as $http;
 import 'package:p2p_ffi/go/pion/datachannel.dart' as $datachannel;
@@ -22,23 +17,7 @@ import 'package:p2p_ffi/go/quic_go/quic_go.dart' as $quic_go;
 import 'package:p2p_ffi/go/quic_go/quic_go/http3.dart' as $http3;
 
 /// Go: `webtransport.ClientConn` (handle).
-class WebtransportGoClientConn extends $http.NetHttpRoundTripper
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class WebtransportGoClientConn extends $http.NetHttpRoundTripper {
   WebtransportGoClientConn.$h(super.$h) : super.$h();
 
   /// Go: `func (*webtransport.ClientConn).RoundTrip(req *http.Request) (*http.Response, error)`.
@@ -53,23 +32,8 @@ class WebtransportGoClientConn extends $http.NetHttpRoundTripper
 }
 
 /// Go: `webtransport.ReceiveStream` (handle).
-class WebtransportGoReceiveStream extends $datachannel.DatachannelReadDeadliner
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class WebtransportGoReceiveStream
+    extends $datachannel.DatachannelReadDeadliner {
   WebtransportGoReceiveStream.$h(super.$h) : super.$h();
 
   /// Go: `func (*webtransport.ReceiveStream).CancelRead(e webtransport.StreamErrorCode)`.
@@ -109,24 +73,8 @@ class WebtransportGoReceiveStream extends $datachannel.DatachannelReadDeadliner
 
 /// Go: `webtransport.SendStream` (handle).
 class WebtransportGoSendStream extends $io.IoCloser
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $datachannel.DatachannelWriteDeadliner$,
-        $expfmt.CommonExpfmtCloser$
+    with $datachannel.DatachannelWriteDeadliner$, $expfmt.CommonExpfmtCloser$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $datachannel.DatachannelWriteDeadliner,
         $expfmt.CommonExpfmtCloser {
   WebtransportGoSendStream.$h(super.$h) : super.$h();
@@ -173,24 +121,8 @@ class WebtransportGoSendStream extends $io.IoCloser
 
 /// Go: `webtransport.Server` (handle).
 class WebtransportGoServer extends $io.IoCloser
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   WebtransportGoServer.$h(super.$h) : super.$h();
 
   /// Go: `func (*webtransport.Server).Close() error`.
@@ -245,22 +177,8 @@ class WebtransportGoServer extends $io.IoCloser
 }
 
 /// Go: `webtransport.Session` (handle).
-class WebtransportGoSession extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  WebtransportGoSession.$h(super.$h) : super.$h();
+class WebtransportGoSession extends GoHandle {
+  WebtransportGoSession.$h(super.$h);
 
   /// Go: `func (*webtransport.Session).AcceptStream(ctx context.Context) (*webtransport.Stream, error)`.
   ///
@@ -403,24 +321,10 @@ final class WebtransportGoSessionState implements GoDto {
 /// Go: `webtransport.Stream` (handle).
 class WebtransportGoStream extends $io.IoCloser
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $datachannel.DatachannelReadDeadliner$,
         $datachannel.DatachannelWriteDeadliner$,
         $expfmt.CommonExpfmtCloser$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $datachannel.DatachannelReadDeadliner,
         $datachannel.DatachannelWriteDeadliner,
         $expfmt.CommonExpfmtCloser {
@@ -505,24 +409,8 @@ class WebtransportGoStream extends $io.IoCloser
 
 /// Go: `webtransport.Transport` (handle).
 class WebtransportGoTransport extends $io.IoCloser
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   WebtransportGoTransport.$h(super.$h) : super.$h();
 
   /// Go: `func (*webtransport.Transport).Close() error`.

@@ -502,6 +502,9 @@ func (e *dartEmitter) dt(t *tinfo, from *dartLib) string {
 		}
 		return e.ref(t, from)
 	case kHandle, kDTO, kSnap, kOpts:
+		if emptyIface(t) { // crypto.PrivateKey: Go takes any value, Dart any handle
+			return "GoHandle"
+		}
 		return e.ref(t, from)
 	case kSlice:
 		return "List<" + e.dt(t.elem, from) + ">"
@@ -1530,7 +1533,7 @@ func (e *dartEmitter) linkConcrete() {
 			// só interfaces com métodos expostos (io.Closer sem métodos gerados
 			// não acrescenta nada); os casts (asProtoNode) não contam: senão a
 			// interface que só serve de parâmetro (datamodel.Node) ganharia
-			if c.t.k == kHandle && !c.t.reader && types.IsInterface(c.t.named) && (realMethods(c) > 0 || e.paramIfaces[classKey(c.t)] || e.optIfaces[classKey(c.t)]) {
+			if c.t.k == kHandle && !c.t.reader && types.IsInterface(c.t.named) && !emptyIface(c.t) && (realMethods(c) > 0 || e.paramIfaces[classKey(c.t)] || e.optIfaces[classKey(c.t)]) {
 				ifaces = append(ifaces, c)
 			}
 		}

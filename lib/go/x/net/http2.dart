@@ -9,13 +9,8 @@ import 'package:p2p_ffi/src/go.dart'
     show GoXNetHttp2, GoXNetHttp2Consts, GoXNetHttp2Enums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/database/sql/driver.dart' as $driver;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/net.dart' as $net;
 import 'package:p2p_ffi/go/net/http.dart' as $http;
 import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
@@ -24,26 +19,9 @@ import 'package:p2p_ffi/go/x/net/http2/hpack.dart' as $hpack;
 /// Go: `http2.ClientConn` (handle).
 @Deprecated("Use [http.ClientConn] instead.")
 class NetHttp2ClientConn extends $driver.DatabaseSqlDriverPinger
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $io.IoCloser$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $http.NetHttpRoundTripper$,
-        $expfmt.CommonExpfmtCloser$
+    with $io.IoCloser$, $http.NetHttpRoundTripper$, $expfmt.CommonExpfmtCloser$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
         $io.IoCloser,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $http.NetHttpRoundTripper,
         $expfmt.CommonExpfmtCloser {
   NetHttp2ClientConn.$h(super.$h) : super.$h();
@@ -202,23 +180,7 @@ final class NetHttp2ClientConnState implements GoDto {
 }
 
 /// Go: `http2.ContinuationFrame` (handle).
-class NetHttp2ContinuationFrame extends NetHttp2Frame
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class NetHttp2ContinuationFrame extends NetHttp2Frame {
   NetHttp2ContinuationFrame.$h(super.$h) : super.$h();
 
   /// Go: `func (http2.FrameHeader).Header() http2.FrameHeader`.
@@ -247,23 +209,7 @@ class NetHttp2ContinuationFrame extends NetHttp2Frame
 }
 
 /// Go: `http2.DataFrame` (handle).
-class NetHttp2DataFrame extends NetHttp2Frame
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class NetHttp2DataFrame extends NetHttp2Frame {
   NetHttp2DataFrame.$h(super.$h) : super.$h();
 
   /// Go: `func (*http2.DataFrame).Data() []byte`.
@@ -354,23 +300,7 @@ mixin NetHttp2Frame$ on GoHandle {
 }
 
 /// Go: `http2.FrameHeader` (handle).
-class NetHttp2FrameHeader extends NetHttp2Frame
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class NetHttp2FrameHeader extends NetHttp2Frame {
   NetHttp2FrameHeader.$h(super.$h) : super.$h();
 
   /// Go: `func (http2.FrameHeader).Header() http2.FrameHeader`.
@@ -388,22 +318,8 @@ class NetHttp2FrameHeader extends NetHttp2Frame
 
 /// Go: `http2.FrameWriteRequest` (handle).
 @Deprecated("User-provided write schedulers are deprecated.")
-class NetHttp2FrameWriteRequest extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  NetHttp2FrameWriteRequest.$h(super.$h) : super.$h();
+class NetHttp2FrameWriteRequest extends GoHandle {
+  NetHttp2FrameWriteRequest.$h(super.$h);
 
   /// Go: `func (http2.FrameWriteRequest).Consume(n int32) (http2.FrameWriteRequest, http2.FrameWriteRequest, int)`.
   (NetHttp2FrameWriteRequest, NetHttp2FrameWriteRequest, int) consume(int n) {
@@ -439,22 +355,8 @@ class NetHttp2FrameWriteRequest extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `http2.Framer` (handle).
-class NetHttp2Framer extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  NetHttp2Framer.$h(super.$h) : super.$h();
+class NetHttp2Framer extends GoHandle {
+  NetHttp2Framer.$h(super.$h);
 
   /// Go: `func http2.NewFramer(w io.Writer, r io.Reader) *http2.Framer`.
   factory NetHttp2Framer(GoHandle? w, Object r) {
@@ -640,23 +542,7 @@ class NetHttp2Framer extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `http2.GoAwayFrame` (handle).
-class NetHttp2GoAwayFrame extends NetHttp2Frame
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class NetHttp2GoAwayFrame extends NetHttp2Frame {
   NetHttp2GoAwayFrame.$h(super.$h) : super.$h();
 
   /// Go: `func (*http2.GoAwayFrame).DebugData() []byte`.
@@ -679,23 +565,7 @@ class NetHttp2GoAwayFrame extends NetHttp2Frame
 }
 
 /// Go: `http2.HeadersFrame` (handle).
-class NetHttp2HeadersFrame extends NetHttp2Frame
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class NetHttp2HeadersFrame extends NetHttp2Frame {
   NetHttp2HeadersFrame.$h(super.$h) : super.$h();
 
   /// Go: `func (*http2.HeadersFrame).HasPriority() bool`.
@@ -885,22 +755,8 @@ final class NetHttp2MetaHeadersFrame implements GoDto {
 
 /// Go: `http2.OpenStreamOptions` (handle).
 @Deprecated("User-provided write schedulers are deprecated.")
-class NetHttp2OpenStreamOptions extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  NetHttp2OpenStreamOptions.$h(super.$h) : super.$h();
+class NetHttp2OpenStreamOptions extends GoHandle {
+  NetHttp2OpenStreamOptions.$h(super.$h);
 }
 
 /// Go: `http2.PingFrame`.
@@ -983,22 +839,8 @@ final class NetHttp2PriorityFrame implements GoDto {
 }
 
 /// Go: `http2.PriorityParam` (handle).
-class NetHttp2PriorityParam extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  NetHttp2PriorityParam.$h(super.$h) : super.$h();
+class NetHttp2PriorityParam extends GoHandle {
+  NetHttp2PriorityParam.$h(super.$h);
 
   /// Go: `func (http2.PriorityParam).IsZero() bool`.
   bool isZero() {
@@ -1087,23 +929,7 @@ final class NetHttp2PriorityWriteSchedulerConfig implements GoDto {
 }
 
 /// Go: `http2.PushPromiseFrame` (handle).
-class NetHttp2PushPromiseFrame extends NetHttp2Frame
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class NetHttp2PushPromiseFrame extends NetHttp2Frame {
   NetHttp2PushPromiseFrame.$h(super.$h) : super.$h();
 
   /// Go: `func (http2.FrameHeader).Header() http2.FrameHeader`.
@@ -1216,22 +1042,8 @@ final class NetHttp2RstStreamFrame implements GoDto {
 
 /// Go: `http2.RoundTripOpt` (handle).
 @Deprecated("There are no options to set.")
-class NetHttp2RoundTripOpt extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  NetHttp2RoundTripOpt.$h(super.$h) : super.$h();
+class NetHttp2RoundTripOpt extends GoHandle {
+  NetHttp2RoundTripOpt.$h(super.$h);
 }
 
 /// Go: `http2.ServeConnOpts`.
@@ -1286,22 +1098,8 @@ final class NetHttp2ServeConnOpts implements GoDto {
 
 /// Go: `http2.Server` (handle).
 @Deprecated("Use [http.Server] instead.")
-class NetHttp2Server extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  NetHttp2Server.$h(super.$h) : super.$h();
+class NetHttp2Server extends GoHandle {
+  NetHttp2Server.$h(super.$h);
 
   /// Go: `func (*http2.Server).ServeConn(c net.Conn, opts *http2.ServeConnOpts)`.
   @Deprecated("Use [http.Server.Serve] or [http.Server.ServeTLS] instead.")
@@ -1351,23 +1149,7 @@ final class NetHttp2Setting implements GoDto {
 }
 
 /// Go: `http2.SettingsFrame` (handle).
-class NetHttp2SettingsFrame extends NetHttp2Frame
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class NetHttp2SettingsFrame extends NetHttp2Frame {
   NetHttp2SettingsFrame.$h(super.$h) : super.$h();
 
   /// Go: `func (*http2.SettingsFrame).ForeachSetting(fn func(http2.Setting) error) error`.
@@ -1439,23 +1221,7 @@ class NetHttp2SettingsFrame extends NetHttp2Frame
 
 /// Go: `http2.Transport` (handle).
 @Deprecated("Use [http.Transport] instead.")
-class NetHttp2Transport extends $http.NetHttpRoundTripper
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class NetHttp2Transport extends $http.NetHttpRoundTripper {
   NetHttp2Transport.$h(super.$h) : super.$h();
 
   /// Go: `func (*http2.Transport).CloseIdleConnections()`.
@@ -1501,23 +1267,7 @@ class NetHttp2Transport extends $http.NetHttpRoundTripper
 }
 
 /// Go: `http2.UnknownFrame` (handle).
-class NetHttp2UnknownFrame extends NetHttp2Frame
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class NetHttp2UnknownFrame extends NetHttp2Frame {
   NetHttp2UnknownFrame.$h(super.$h) : super.$h();
 
   /// Go: `func (http2.FrameHeader).Header() http2.FrameHeader`.

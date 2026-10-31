@@ -7,32 +7,14 @@ import 'dart:typed_data';
 import 'package:p2p_ffi/src/go.dart'
     show GoGolangProtobufProto, GoGolangProtobufProtoConsts;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/pion/rtcp.dart' as $rtcp;
 import 'package:p2p_ffi/go/protobuf/reflect/protoreflect.dart' as $protoreflect;
 import 'package:p2p_ffi/go/protobuf/runtime/protoiface.dart' as $protoiface;
 import 'package:p2p_ffi/go/reflect.dart' as $reflect;
 
 /// Go: `proto.Buffer` (handle).
-class ProtobufProtoBuffer extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  ProtobufProtoBuffer.$h(super.$h) : super.$h();
+class ProtobufProtoBuffer extends GoHandle {
+  ProtobufProtoBuffer.$h(super.$h);
 
   /// Go: `func proto.NewBuffer(buf []byte) *proto.Buffer`.
   factory ProtobufProtoBuffer(Uint8List buf) {
@@ -1005,15 +987,13 @@ extension GoGolangProtobufProtoApi on GoGolangProtobufProto {
   }
 
   /// Go: `func proto.MessageV1(m proto.GeneratedMessage) protoiface.MessageV1`.
-  $protoiface.ProtobufRuntimeProtoifaceMessageV1 messageV1(
-      ProtobufProtoGeneratedMessage m) {
+  $protoiface.ProtobufRuntimeProtoifaceMessageV1 messageV1(GoHandle m) {
     final $r = $callSync(8064, $W()..h(m));
     return $r.hnn($protoiface.ProtobufRuntimeProtoifaceMessageV1.$h);
   }
 
   /// Go: `func proto.MessageV2(m proto.GeneratedMessage) proto.Message`.
-  $protoreflect.ProtobufReflectProtoreflectProtoMessage messageV2(
-      ProtobufProtoGeneratedMessage m) {
+  $protoreflect.ProtobufReflectProtoreflectProtoMessage messageV2(GoHandle m) {
     final $r = $callSync(8065, $W()..h(m));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectProtoMessage.$h);
   }

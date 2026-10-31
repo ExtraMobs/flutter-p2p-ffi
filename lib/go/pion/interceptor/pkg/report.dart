@@ -5,35 +5,14 @@ library;
 import 'package:p2p_ffi/src/go.dart'
     show GoPionInterceptorPkgReport, GoPionInterceptorPkgReportOptions;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/pion/interceptor.dart' as $interceptor;
 import 'package:p2p_ffi/go/pion/logging.dart' as $logging;
 import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
 
 /// Go: `report.ReceiverInterceptor` (handle).
 class InterceptorPkgReportReceiverInterceptor extends $interceptor.Interceptor
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   InterceptorPkgReportReceiverInterceptor.$h(super.$h) : super.$h();
 
   /// Go: `func (*report.ReceiverInterceptor).BindRTCPReader(reader interceptor.RTCPReader) interceptor.RTCPReader`.
@@ -85,23 +64,7 @@ class InterceptorPkgReportReceiverInterceptor extends $interceptor.Interceptor
 
 /// Go: `report.ReceiverInterceptorFactory` (handle).
 class InterceptorPkgReportReceiverInterceptorFactory
-    extends $interceptor.InterceptorFactory
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    extends $interceptor.InterceptorFactory {
   InterceptorPkgReportReceiverInterceptorFactory.$h(super.$h) : super.$h();
 
   /// Go: `func (*report.ReceiverInterceptorFactory).NewInterceptor(_ string) (interceptor.Interceptor, error)`.
@@ -122,24 +85,8 @@ final class InterceptorPkgReportReceiverOption extends GoOption {
 
 /// Go: `report.SenderInterceptor` (handle).
 class InterceptorPkgReportSenderInterceptor extends $interceptor.Interceptor
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   InterceptorPkgReportSenderInterceptor.$h(super.$h) : super.$h();
 
   /// Go: `func (*report.SenderInterceptor).BindLocalStream(info *interceptor.StreamInfo, writer interceptor.RTPWriter) interceptor.RTPWriter`.
@@ -181,23 +128,7 @@ class InterceptorPkgReportSenderInterceptor extends $interceptor.Interceptor
 
 /// Go: `report.SenderInterceptorFactory` (handle).
 class InterceptorPkgReportSenderInterceptorFactory
-    extends $interceptor.InterceptorFactory
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    extends $interceptor.InterceptorFactory {
   InterceptorPkgReportSenderInterceptorFactory.$h(super.$h) : super.$h();
 
   /// Go: `func (*report.SenderInterceptorFactory).NewInterceptor(_ string) (interceptor.Interceptor, error)`.
@@ -235,22 +166,8 @@ mixin InterceptorPkgReportTicker$ on GoHandle {
 }
 
 /// Go: `report.TickerFactory` (handle).
-class InterceptorPkgReportTickerFactory extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  InterceptorPkgReportTickerFactory.$h(super.$h) : super.$h();
+class InterceptorPkgReportTickerFactory extends GoHandle {
+  InterceptorPkgReportTickerFactory.$h(super.$h);
 }
 
 /// Go: the package-level members of `github.com/pion/interceptor/pkg/report` (`go.pion.interceptor.pkg.report`).

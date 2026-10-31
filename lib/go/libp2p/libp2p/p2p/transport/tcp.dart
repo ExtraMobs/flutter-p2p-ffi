@@ -6,11 +6,6 @@ import 'package:p2p_ffi/src/go.dart'
     show GoLibp2pLibp2pP2pTransportTcp, GoLibp2pLibp2pP2pTransportTcpOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/network.dart' as $network;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/transport.dart' as $transport;
@@ -57,22 +52,8 @@ mixin Libp2pP2pTransportTcpContextDialer$ on GoHandle {
 }
 
 /// Go: `tcp.DialerForAddr` (handle).
-class Libp2pP2pTransportTcpDialerForAddr extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  Libp2pP2pTransportTcpDialerForAddr.$h(super.$h) : super.$h();
+class Libp2pP2pTransportTcpDialerForAddr extends GoHandle {
+  Libp2pP2pTransportTcpDialerForAddr.$h(super.$h);
 }
 
 /// Go: `tcp.Option` (functional option; constructors in the package).
@@ -81,23 +62,7 @@ final class Libp2pP2pTransportTcpOption extends GoOption {
 }
 
 /// Go: `tcp.TcpTransport` (handle).
-class Libp2pP2pTransportTcpTransport extends $transport.Libp2pCoreTransport
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class Libp2pP2pTransportTcpTransport extends $transport.Libp2pCoreTransport {
   Libp2pP2pTransportTcpTransport.$h(super.$h) : super.$h();
 
   /// Go: `func (*tcp.TcpTransport).CanDial(addr multiaddr.Multiaddr) bool`.

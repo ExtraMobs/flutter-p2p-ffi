@@ -11,30 +11,10 @@ import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/crypto/ecdsa.dart' as $ecdsa;
 import 'package:p2p_ffi/go/crypto/elliptic.dart' as $elliptic;
 import 'package:p2p_ffi/go/decred/dcrd/dcrec/secp256k1/v4.dart' as $v4;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/crypto/pb.dart' as $pb;
 
 /// Go: `crypto.ECDSAPrivateKey` (handle).
-class Libp2pCoreCryptoEcdsaPrivateKey extends Libp2pCoreCryptoPrivKey
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class Libp2pCoreCryptoEcdsaPrivateKey extends Libp2pCoreCryptoPrivKey {
   Libp2pCoreCryptoEcdsaPrivateKey.$h(super.$h) : super.$h();
 
   /// Go: `func (*crypto.ECDSAPrivateKey).Equals(o crypto.Key) bool`.
@@ -77,23 +57,7 @@ class Libp2pCoreCryptoEcdsaPrivateKey extends Libp2pCoreCryptoPrivKey
 }
 
 /// Go: `crypto.ECDSAPublicKey` (handle).
-class Libp2pCoreCryptoEcdsaPublicKey extends Libp2pCoreCryptoPubKey
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class Libp2pCoreCryptoEcdsaPublicKey extends Libp2pCoreCryptoPubKey {
   Libp2pCoreCryptoEcdsaPublicKey.$h(super.$h) : super.$h();
 
   /// Go: `func (*crypto.ECDSAPublicKey).Equals(o crypto.Key) bool`.
@@ -131,23 +95,7 @@ class Libp2pCoreCryptoEcdsaPublicKey extends Libp2pCoreCryptoPubKey
 }
 
 /// Go: `crypto.Ed25519PrivateKey` (handle).
-class Libp2pCoreCryptoEd25519PrivateKey extends Libp2pCoreCryptoPrivKey
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class Libp2pCoreCryptoEd25519PrivateKey extends Libp2pCoreCryptoPrivKey {
   Libp2pCoreCryptoEd25519PrivateKey.$h(super.$h) : super.$h();
 
   /// Go: `func (*crypto.Ed25519PrivateKey).Equals(o crypto.Key) bool`.
@@ -190,23 +138,7 @@ class Libp2pCoreCryptoEd25519PrivateKey extends Libp2pCoreCryptoPrivKey
 }
 
 /// Go: `crypto.Ed25519PublicKey` (handle).
-class Libp2pCoreCryptoEd25519PublicKey extends Libp2pCoreCryptoPubKey
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class Libp2pCoreCryptoEd25519PublicKey extends Libp2pCoreCryptoPubKey {
   Libp2pCoreCryptoEd25519PublicKey.$h(super.$h) : super.$h();
 
   /// Go: `func (*crypto.Ed25519PublicKey).Equals(o crypto.Key) bool`.
@@ -371,22 +303,8 @@ mixin Libp2pCoreCryptoPrivKey$ on GoHandle {
 }
 
 /// Go: `crypto.PrivKeyUnmarshaller` (handle).
-class Libp2pCoreCryptoPrivKeyUnmarshaller extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  Libp2pCoreCryptoPrivKeyUnmarshaller.$h(super.$h) : super.$h();
+class Libp2pCoreCryptoPrivKeyUnmarshaller extends GoHandle {
+  Libp2pCoreCryptoPrivKeyUnmarshaller.$h(super.$h);
 }
 
 /// Go: `crypto.PubKey` (handle).
@@ -434,42 +352,12 @@ mixin Libp2pCoreCryptoPubKey$ on GoHandle {
 }
 
 /// Go: `crypto.PubKeyUnmarshaller` (handle).
-class Libp2pCoreCryptoPubKeyUnmarshaller extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  Libp2pCoreCryptoPubKeyUnmarshaller.$h(super.$h) : super.$h();
+class Libp2pCoreCryptoPubKeyUnmarshaller extends GoHandle {
+  Libp2pCoreCryptoPubKeyUnmarshaller.$h(super.$h);
 }
 
 /// Go: `crypto.RsaPrivateKey` (handle).
-class Libp2pCoreCryptoRsaPrivateKey extends Libp2pCoreCryptoPrivKey
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class Libp2pCoreCryptoRsaPrivateKey extends Libp2pCoreCryptoPrivKey {
   Libp2pCoreCryptoRsaPrivateKey.$h(super.$h) : super.$h();
 
   /// Go: `func (*crypto.RsaPrivateKey).Equals(k crypto.Key) bool`.
@@ -512,23 +400,7 @@ class Libp2pCoreCryptoRsaPrivateKey extends Libp2pCoreCryptoPrivKey
 }
 
 /// Go: `crypto.RsaPublicKey` (handle).
-class Libp2pCoreCryptoRsaPublicKey extends Libp2pCoreCryptoPubKey
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class Libp2pCoreCryptoRsaPublicKey extends Libp2pCoreCryptoPubKey {
   Libp2pCoreCryptoRsaPublicKey.$h(super.$h) : super.$h();
 
   /// Go: `func (*crypto.RsaPublicKey).Equals(k crypto.Key) bool`.
@@ -621,23 +493,7 @@ final class Libp2pCoreCryptoSecp256k1PrivateKey implements GoDto {
 }
 
 /// Go: `crypto.Secp256k1PublicKey` (handle).
-class Libp2pCoreCryptoSecp256k1PublicKey extends Libp2pCoreCryptoPubKey
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class Libp2pCoreCryptoSecp256k1PublicKey extends Libp2pCoreCryptoPubKey {
   Libp2pCoreCryptoSecp256k1PublicKey.$h(super.$h) : super.$h();
 
   /// Go: `func (*crypto.Secp256k1PublicKey).Equals(o crypto.Key) bool`.
@@ -874,7 +730,7 @@ extension GoLibp2pLibp2pCoreCryptoApi on GoLibp2pLibp2pCoreCrypto {
 
   /// Go: `func crypto.KeyPairFromStdKey(priv crypto.PrivateKey) (crypto.PrivKey, crypto.PubKey, error)`.
   (Libp2pCoreCryptoPrivKey, Libp2pCoreCryptoPubKey) keyPairFromStdKey(
-      $crypto.CryptoPrivateKey priv) {
+      GoHandle priv) {
     final $r = $callSync(13892, $W()..h(priv));
     return (
       $r.hnn(Libp2pCoreCryptoPrivKey.$h),
@@ -919,7 +775,7 @@ extension GoLibp2pLibp2pCoreCryptoApi on GoLibp2pLibp2pCoreCrypto {
   }
 
   /// Go: `func crypto.PrivKeyToStdKey(priv crypto.PrivKey) (crypto.PrivateKey, error)`.
-  $crypto.CryptoPrivateKey privKeyToStdKey(Libp2pCoreCryptoPrivKey priv) {
+  GoHandle privKeyToStdKey(Libp2pCoreCryptoPrivKey priv) {
     final $r = $callSync(13901, $W()..h(priv));
     return $r.hnn($crypto.CryptoPrivateKey.$h);
   }
@@ -932,7 +788,7 @@ extension GoLibp2pLibp2pCoreCryptoApi on GoLibp2pLibp2pCoreCrypto {
   }
 
   /// Go: `func crypto.PubKeyToStdKey(pub crypto.PubKey) (crypto.PublicKey, error)`.
-  $crypto.CryptoPublicKey pubKeyToStdKey(Libp2pCoreCryptoPubKey pub) {
+  GoHandle pubKeyToStdKey(Libp2pCoreCryptoPubKey pub) {
     final $r = $callSync(13904, $W()..h(pub));
     return $r.hnn($crypto.CryptoPublicKey.$h);
   }

@@ -6,37 +6,18 @@ import 'dart:async';
 
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/Jorropo/jsync.dart' as $jsync;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/dgraph_io/badger.dart' as $badger;
 import 'package:p2p_ffi/go/dgraph_io/badger/table.dart' as $table;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/gorilla/websocket.dart' as $websocket;
 import 'package:p2p_ffi/go/ipfs/datastore/sync.dart' as $sync;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 import 'package:p2p_ffi/go/ipfs/kubo/p2p.dart' as $p2p;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/syndtr/goleveldb/leveldb/storage.dart' as $storage;
 import 'package:p2p_ffi/go/x/net/ipv4.dart' as $ipv4;
 import 'package:p2p_ffi/go/x/net/ipv6.dart' as $ipv6;
 
 /// Go: `sync.Cond` (handle).
-class SyncCond extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  SyncCond.$h(super.$h) : super.$h();
+class SyncCond extends GoHandle {
+  SyncCond.$h(super.$h);
 
   /// Go: `func sync.NewCond(l sync.Locker) *sync.Cond`.
   factory SyncCond(SyncLocker l) {
@@ -163,22 +144,8 @@ mixin SyncLocker$ on GoHandle {
 }
 
 /// Go: `sync.Map` (handle).
-class SyncMap extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  SyncMap.$h(super.$h) : super.$h();
+class SyncMap extends GoHandle {
+  SyncMap.$h(super.$h);
 
   /// Go: `func (*sync.Map).Clear()`.
   void clear() {
@@ -288,24 +255,8 @@ class SyncMap extends $crypto.CryptoDecrypterOpts
 
 /// Go: `sync.Mutex` (handle).
 class SyncMutex extends SyncLocker
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $storage.GoleveldbLeveldbStorageLocker$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $storage.GoleveldbLeveldbStorageLocker {
+    with $storage.GoleveldbLeveldbStorageLocker$
+    implements $storage.GoleveldbLeveldbStorageLocker {
   SyncMutex.$h(super.$h) : super.$h();
 
   /// Go: `func (*sync.Mutex).Lock()`.
@@ -326,22 +277,8 @@ class SyncMutex extends SyncLocker
 }
 
 /// Go: `sync.Once` (handle).
-class SyncOnce extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  SyncOnce.$h(super.$h) : super.$h();
+class SyncOnce extends GoHandle {
+  SyncOnce.$h(super.$h);
 
   /// Go: `func (*sync.Once).Do(f func())`.
   ///
@@ -360,23 +297,7 @@ class SyncOnce extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `sync.Pool` (handle).
-class SyncPool extends $websocket.WebsocketBufferPool
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class SyncPool extends $websocket.WebsocketBufferPool {
   SyncPool.$h(super.$h) : super.$h();
 
   /// Go: `func (*sync.Pool).Get() any`.
@@ -397,24 +318,8 @@ class SyncPool extends $websocket.WebsocketBufferPool
 
 /// Go: `sync.RWMutex` (handle).
 class SyncRwMutex extends SyncLocker
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $storage.GoleveldbLeveldbStorageLocker$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $storage.GoleveldbLeveldbStorageLocker {
+    with $storage.GoleveldbLeveldbStorageLocker$
+    implements $storage.GoleveldbLeveldbStorageLocker {
   SyncRwMutex.$h(super.$h) : super.$h();
 
   /// Go: `func (*sync.RWMutex).Lock()`.
@@ -457,22 +362,8 @@ class SyncRwMutex extends SyncLocker
 }
 
 /// Go: `sync.WaitGroup` (handle).
-class SyncWaitGroup extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  SyncWaitGroup.$h(super.$h) : super.$h();
+class SyncWaitGroup extends GoHandle {
+  SyncWaitGroup.$h(super.$h);
 
   /// Go: `func (*sync.WaitGroup).Add(delta int)`.
   void add(int delta) {

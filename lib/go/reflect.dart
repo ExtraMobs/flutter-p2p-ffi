@@ -7,29 +7,10 @@ import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/go.dart' show GoReflect, GoReflectEnums;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 
 /// Go: `reflect.MapIter` (handle).
-class ReflectMapIter extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  ReflectMapIter.$h(super.$h) : super.$h();
+class ReflectMapIter extends GoHandle {
+  ReflectMapIter.$h(super.$h);
 
   /// Go: `func (*reflect.MapIter).Key() reflect.Value`.
   ReflectValue key() {
@@ -474,22 +455,8 @@ mixin ReflectType$ on GoHandle {
 }
 
 /// Go: `reflect.Value` (handle).
-class ReflectValue extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  ReflectValue.$h(super.$h) : super.$h();
+class ReflectValue extends GoHandle {
+  ReflectValue.$h(super.$h);
 
   /// Go: `func (reflect.Value).Addr() reflect.Value`.
   ReflectValue addr() {

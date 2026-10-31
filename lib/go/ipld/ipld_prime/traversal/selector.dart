@@ -8,30 +8,11 @@ import 'package:p2p_ffi/src/go.dart'
         GoIpldIpldPrimeTraversalSelectorConsts,
         GoIpldIpldPrimeTraversalSelectorEnums;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/ipld/ipld_prime/datamodel.dart' as $datamodel;
 
 /// Go: `selector.Condition` (handle).
-class IpldPrimeTraversalSelectorCondition extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  IpldPrimeTraversalSelectorCondition.$h(super.$h) : super.$h();
+class IpldPrimeTraversalSelectorCondition extends GoHandle {
+  IpldPrimeTraversalSelectorCondition.$h(super.$h);
 
   /// Go: `func (*selector.Condition).Match(n datamodel.Node) bool`.
   bool match($datamodel.IpldPrimeDatamodelNode n) {
@@ -45,23 +26,7 @@ class IpldPrimeTraversalSelectorCondition extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `selector.ExploreAll` (handle).
-class IpldPrimeTraversalSelectorExploreAll extends IpldPrimeTraversalSelector
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class IpldPrimeTraversalSelectorExploreAll extends IpldPrimeTraversalSelector {
   IpldPrimeTraversalSelectorExploreAll.$h(super.$h) : super.$h();
 
   /// Go: `func (selector.ExploreAll).Decide(n datamodel.Node) bool`.
@@ -105,23 +70,8 @@ class IpldPrimeTraversalSelectorExploreAll extends IpldPrimeTraversalSelector
 }
 
 /// Go: `selector.ExploreFields` (handle).
-class IpldPrimeTraversalSelectorExploreFields extends IpldPrimeTraversalSelector
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class IpldPrimeTraversalSelectorExploreFields
+    extends IpldPrimeTraversalSelector {
   IpldPrimeTraversalSelectorExploreFields.$h(super.$h) : super.$h();
 
   /// Go: `func (selector.ExploreFields).Decide(n datamodel.Node) bool`.
@@ -165,23 +115,8 @@ class IpldPrimeTraversalSelectorExploreFields extends IpldPrimeTraversalSelector
 }
 
 /// Go: `selector.ExploreIndex` (handle).
-class IpldPrimeTraversalSelectorExploreIndex extends IpldPrimeTraversalSelector
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class IpldPrimeTraversalSelectorExploreIndex
+    extends IpldPrimeTraversalSelector {
   IpldPrimeTraversalSelectorExploreIndex.$h(super.$h) : super.$h();
 
   /// Go: `func (selector.ExploreIndex).Decide(n datamodel.Node) bool`.
@@ -226,23 +161,7 @@ class IpldPrimeTraversalSelectorExploreIndex extends IpldPrimeTraversalSelector
 
 /// Go: `selector.ExploreInterpretAs` (handle).
 class IpldPrimeTraversalSelectorExploreInterpretAs
-    extends IpldPrimeTraversalSelector
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    extends IpldPrimeTraversalSelector {
   IpldPrimeTraversalSelectorExploreInterpretAs.$h(super.$h) : super.$h();
 
   /// Go: `func (selector.ExploreInterpretAs).Decide(n datamodel.Node) bool`.
@@ -292,23 +211,8 @@ class IpldPrimeTraversalSelectorExploreInterpretAs
 }
 
 /// Go: `selector.ExploreRange` (handle).
-class IpldPrimeTraversalSelectorExploreRange extends IpldPrimeTraversalSelector
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class IpldPrimeTraversalSelectorExploreRange
+    extends IpldPrimeTraversalSelector {
   IpldPrimeTraversalSelectorExploreRange.$h(super.$h) : super.$h();
 
   /// Go: `func (selector.ExploreRange).Decide(n datamodel.Node) bool`.
@@ -353,23 +257,7 @@ class IpldPrimeTraversalSelectorExploreRange extends IpldPrimeTraversalSelector
 
 /// Go: `selector.ExploreRecursive` (handle).
 class IpldPrimeTraversalSelectorExploreRecursive
-    extends IpldPrimeTraversalSelector
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    extends IpldPrimeTraversalSelector {
   IpldPrimeTraversalSelectorExploreRecursive.$h(super.$h) : super.$h();
 
   /// Go: `func (selector.ExploreRecursive).Decide(n datamodel.Node) bool`.
@@ -573,22 +461,8 @@ final class IpldPrimeTraversalSelectorMatcher implements GoDto {
 }
 
 /// Go: `selector.ParseContext` (handle).
-class IpldPrimeTraversalSelectorParseContext extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  IpldPrimeTraversalSelectorParseContext.$h(super.$h) : super.$h();
+class IpldPrimeTraversalSelectorParseContext extends GoHandle {
+  IpldPrimeTraversalSelectorParseContext.$h(super.$h);
 
   /// Go: `func (selector.ParseContext).ParseCondition(n datamodel.Node) (selector.Condition, error)`.
   IpldPrimeTraversalSelectorCondition parseCondition(
@@ -742,23 +616,8 @@ mixin IpldPrimeTraversalSelectorParsedParent$ on GoHandle {
 }
 
 /// Go: `selector.RecursionLimit` (handle).
-class IpldPrimeTraversalSelectorRecursionLimit
-    extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  IpldPrimeTraversalSelectorRecursionLimit.$h(super.$h) : super.$h();
+class IpldPrimeTraversalSelectorRecursionLimit extends GoHandle {
+  IpldPrimeTraversalSelectorRecursionLimit.$h(super.$h);
 
   /// Go: `func (selector.RecursionLimit).Depth() int64`.
   int depth() {

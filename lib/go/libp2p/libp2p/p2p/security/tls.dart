@@ -9,39 +9,20 @@ import 'package:p2p_ffi/src/go.dart'
         GoLibp2pLibp2pP2pSecurityTlsOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/crypto/x509.dart' as $x509;
 import 'package:p2p_ffi/go/crypto/x509/pkix.dart' as $pkix;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
-import 'package:p2p_ffi/go/libp2p/libp2p/core/crypto.dart' as $crypto2;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/sec.dart' as $sec;
 import 'package:p2p_ffi/go/libp2p/libp2p/p2p/net/upgrader.dart' as $upgrader;
 import 'package:p2p_ffi/go/net.dart' as $net;
 
 /// Go: `libp2ptls.Identity` (handle).
-class Libp2pP2pSecurityTlsIdentity extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  Libp2pP2pSecurityTlsIdentity.$h(super.$h) : super.$h();
+class Libp2pP2pSecurityTlsIdentity extends GoHandle {
+  Libp2pP2pSecurityTlsIdentity.$h(super.$h);
 
   /// Go: `func libp2ptls.NewIdentity(privKey crypto.PrivKey, opts ...libp2ptls.IdentityOption) (*libp2ptls.Identity, error)`.
-  factory Libp2pP2pSecurityTlsIdentity($crypto2.Libp2pCoreCryptoPrivKey privKey,
+  factory Libp2pP2pSecurityTlsIdentity($crypto.Libp2pCoreCryptoPrivKey privKey,
       [List<Libp2pP2pSecurityTlsIdentityOption> opts = const []]) {
     final $r = $callSync(
         15002,
@@ -58,23 +39,7 @@ final class Libp2pP2pSecurityTlsIdentityOption extends GoOption {
 }
 
 /// Go: `libp2ptls.Transport` (handle).
-class Libp2pP2pSecurityTlsTransport extends $sec.Libp2pCoreSecSecureTransport
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class Libp2pP2pSecurityTlsTransport extends $sec.Libp2pCoreSecSecureTransport {
   Libp2pP2pSecurityTlsTransport.$h(super.$h) : super.$h();
 
   /// Go: `func (*libp2ptls.Transport).ID() protocol.ID`.
@@ -118,7 +83,7 @@ class Libp2pP2pSecurityTlsTransport extends $sec.Libp2pCoreSecSecureTransport
 extension GoLibp2pLibp2pP2pSecurityTlsApi on GoLibp2pLibp2pP2pSecurityTls {
   /// Go: `func libp2ptls.GenerateSignedExtension(sk crypto.PrivKey, pubKey crypto.PublicKey) (pkix.Extension, error)`.
   $pkix.CryptoX509PkixExtension generateSignedExtension(
-      $crypto2.Libp2pCoreCryptoPrivKey sk, $crypto.CryptoPublicKey pubKey) {
+      $crypto.Libp2pCoreCryptoPrivKey sk, GoHandle pubKey) {
     final $r = $callSync(
         15000,
         $W()
@@ -130,7 +95,7 @@ extension GoLibp2pLibp2pP2pSecurityTlsApi on GoLibp2pLibp2pP2pSecurityTls {
   /// Go: `func libp2ptls.New(id protocol.ID, key crypto.PrivKey, muxers []upgrader.StreamMuxer) (*libp2ptls.Transport, error)`.
   Libp2pP2pSecurityTlsTransport new$(
       String id,
-      $crypto2.Libp2pCoreCryptoPrivKey key,
+      $crypto.Libp2pCoreCryptoPrivKey key,
       List<$upgrader.Libp2pP2pNetUpgraderStreamMuxer> muxers) {
     final $r = $callSync(
         15001,
@@ -142,10 +107,10 @@ extension GoLibp2pLibp2pP2pSecurityTlsApi on GoLibp2pLibp2pP2pSecurityTls {
   }
 
   /// Go: `func libp2ptls.PubKeyFromCertChain(chain []*x509.Certificate) (crypto.PubKey, error)`.
-  $crypto2.Libp2pCoreCryptoPubKey pubKeyFromCertChain(
+  $crypto.Libp2pCoreCryptoPubKey pubKeyFromCertChain(
       List<$x509.CryptoX509Certificate> chain) {
     final $r = $callSync(15003, $W()..list(chain, (w0, e0) => w0.dto(e0)));
-    return $r.hnn($crypto2.Libp2pCoreCryptoPubKey.$h);
+    return $r.hnn($crypto.Libp2pCoreCryptoPubKey.$h);
   }
 
   /// Go: the function `libp2ptls.New` as a value (a token: Go gets the function

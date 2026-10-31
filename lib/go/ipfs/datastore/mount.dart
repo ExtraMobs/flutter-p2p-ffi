@@ -7,24 +7,14 @@ import 'dart:typed_data';
 import 'package:p2p_ffi/src/go.dart' show GoIpfsDatastoreMount;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
 import 'package:p2p_ffi/go/ipfs/datastore.dart' as $datastore;
 import 'package:p2p_ffi/go/ipfs/datastore/query.dart' as $query;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
 
 /// Go: `mount.Datastore` (handle).
 class DatastoreMountDatastore extends $datastore.Datastore
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
         $io.IoCloser$,
         $datastore.DatastoreBatchingFeature$,
         $datastore.DatastoreCheckedFeature$,
@@ -32,16 +22,9 @@ class DatastoreMountDatastore extends $datastore.Datastore
         $datastore.DatastorePersistentFeature$,
         $datastore.DatastoreScrubbedFeature$,
         $datastore.DatastoreWrite$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $expfmt.CommonExpfmtCloser$,
         $datastore.DatastoreBatching$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
         $io.IoCloser,
         $datastore.DatastoreBatchingFeature,
         $datastore.DatastoreCheckedFeature,
@@ -49,8 +32,6 @@ class DatastoreMountDatastore extends $datastore.Datastore
         $datastore.DatastorePersistentFeature,
         $datastore.DatastoreScrubbedFeature,
         $datastore.DatastoreWrite,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $expfmt.CommonExpfmtCloser,
         $datastore.DatastoreBatching {
   DatastoreMountDatastore.$h(super.$h) : super.$h();

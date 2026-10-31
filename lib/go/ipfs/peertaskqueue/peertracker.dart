@@ -7,10 +7,6 @@ import 'dart:async';
 import 'package:p2p_ffi/src/go.dart'
     show GoIpfsPeertaskqueuePeertracker, GoIpfsPeertaskqueuePeertrackerOptions;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 import 'package:p2p_ffi/go/ipfs/ipfs_pq.dart' as $ipfs_pq;
 import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
@@ -53,42 +49,12 @@ final class PeertaskqueuePeertrackerOption extends GoOption {
 }
 
 /// Go: `peertracker.PeerComparator` (handle).
-class PeertaskqueuePeertrackerPeerComparator extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PeertaskqueuePeertrackerPeerComparator.$h(super.$h) : super.$h();
+class PeertaskqueuePeertrackerPeerComparator extends GoHandle {
+  PeertaskqueuePeertrackerPeerComparator.$h(super.$h);
 }
 
 /// Go: `peertracker.PeerTracker` (handle).
-class PeertaskqueuePeertrackerPeerTracker extends $ipfs_pq.IpfsPqElem
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class PeertaskqueuePeertrackerPeerTracker extends $ipfs_pq.IpfsPqElem {
   PeertaskqueuePeertrackerPeerTracker.$h(super.$h) : super.$h();
 
   /// Go: `func (*peertracker.PeerTracker).Freeze()`.
@@ -154,7 +120,7 @@ class PeertaskqueuePeertrackerPeerTracker extends $ipfs_pq.IpfsPqElem
   }
 
   /// Go: `func (*peertracker.PeerTracker).Remove(topic peertask.Topic) bool`.
-  bool remove($peertask.PeertaskqueuePeertaskTopic topic) {
+  bool remove(GoHandle topic) {
     final $r = $callSync(
         11168,
         $W()
@@ -233,8 +199,7 @@ final class PeertaskqueuePeertrackerPeerTrackerStats implements GoDto {
 /// Go: `peertracker.PeerTrackerTopics`.
 final class PeertaskqueuePeertrackerPeerTrackerTopics implements GoDto {
   PeertaskqueuePeertrackerPeerTrackerTopics(
-      {List<$peertask.PeertaskqueuePeertaskTopic>? pending,
-      List<$peertask.PeertaskqueuePeertaskTopic>? active})
+      {List<GoHandle>? pending, List<GoHandle>? active})
       : pending = pending ?? [],
         active = active ?? [];
 
@@ -243,10 +208,10 @@ final class PeertaskqueuePeertrackerPeerTrackerTopics implements GoDto {
         active = r.list(() => r.hnn($peertask.PeertaskqueuePeertaskTopic.$h));
 
   /// Go: `Pending`.
-  List<$peertask.PeertaskqueuePeertaskTopic> pending;
+  List<GoHandle> pending;
 
   /// Go: `Active`.
-  List<$peertask.PeertaskqueuePeertaskTopic> active;
+  List<GoHandle> active;
 
   @override
   void $enc($W w) {

@@ -11,12 +11,7 @@ import 'package:p2p_ffi/src/go.dart'
         GoIpfsBoxoPinningRemoteClientEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/cid.dart' as $cid;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/multiformats/multiaddr.dart' as $multiaddr;
 
 /// Go: `go_pinning_service_http_client.AddOption` (functional option; constructors in the package).
@@ -25,22 +20,8 @@ final class BoxoPinningRemoteClientAddOption extends GoOption {
 }
 
 /// Go: `go_pinning_service_http_client.Client` (handle).
-class BoxoPinningRemoteClient extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  BoxoPinningRemoteClient.$h(super.$h) : super.$h();
+class BoxoPinningRemoteClient extends GoHandle {
+  BoxoPinningRemoteClient.$h(super.$h);
 
   /// Go: `func go_pinning_service_http_client.NewClient(url string, bearerToken string) *go_pinning_service_http_client.Client`.
   factory BoxoPinningRemoteClient(String url, String bearerToken) {

@@ -4,39 +4,16 @@ library;
 
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/block_format.dart' as $block_format;
 import 'package:p2p_ffi/go/ipfs/boxo/blockstore.dart' as $blockstore;
 import 'package:p2p_ffi/go/ipfs/cid.dart' as $cid;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 import 'package:p2p_ffi/go/ipfs/ipld_cbor.dart' as $ipld_cbor;
 import 'package:p2p_ffi/go/ipfs/kubo/core/node.dart' as $node;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 
 /// Go: `verifbs.VerifBS` (handle).
 class KuboThirdpartyVerifbsVerifBs extends $blockstore.BoxoBlockstore
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $ipld_cbor.IpldCborIpldBlockstore$,
-        $node.KuboCoreNodeBaseBlocks$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $ipld_cbor.IpldCborIpldBlockstore,
-        $node.KuboCoreNodeBaseBlocks,
-        $peertask.PeertaskqueuePeertaskTopic {
+    with $ipld_cbor.IpldCborIpldBlockstore$, $node.KuboCoreNodeBaseBlocks$
+    implements $ipld_cbor.IpldCborIpldBlockstore, $node.KuboCoreNodeBaseBlocks {
   KuboThirdpartyVerifbsVerifBs.$h(super.$h) : super.$h();
 
   /// Go: `func (*verifbs.VerifBS).Get(ctx context.Context, c cid.Cid) (blocks.Block, error)`.
@@ -83,28 +60,14 @@ class KuboThirdpartyVerifbsVerifBs extends $blockstore.BoxoBlockstore
 /// Go: `verifbs.VerifBSGC` (handle).
 class KuboThirdpartyVerifbsVerifBsgc extends $blockstore.BoxoBlockstore
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
         $blockstore.BoxoBlockstoreGcLocker$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
         $ipld_cbor.IpldCborIpldBlockstore$,
         $node.KuboCoreNodeBaseBlocks$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $blockstore.BoxoBlockstoreGcBlockstore$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
         $blockstore.BoxoBlockstoreGcLocker,
-        $ipfs_cmds.IpfsCmdsEnvironment,
         $ipld_cbor.IpldCborIpldBlockstore,
         $node.KuboCoreNodeBaseBlocks,
-        $peertask.PeertaskqueuePeertaskTopic,
         $blockstore.BoxoBlockstoreGcBlockstore {
   KuboThirdpartyVerifbsVerifBsgc.$h(super.$h) : super.$h();
 

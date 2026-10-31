@@ -6,11 +6,6 @@ import 'dart:async';
 
 import 'package:p2p_ffi/src/go.dart' show GoBenbjohnsonClock;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 
 /// Go: `clock.Clock` (handle).
 class Clock extends GoHandle with Clock$ {
@@ -115,23 +110,7 @@ mixin Clock$ on GoHandle {
 }
 
 /// Go: `clock.Mock` (handle).
-class ClockMock extends Clock
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class ClockMock extends Clock {
   ClockMock.$h(super.$h) : super.$h();
 
   /// Go: `func clock.NewMock() *clock.Mock`.
@@ -254,22 +233,8 @@ class ClockMock extends Clock
 }
 
 /// Go: `clock.Ticker` (handle).
-class ClockTicker extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  ClockTicker.$h(super.$h) : super.$h();
+class ClockTicker extends GoHandle {
+  ClockTicker.$h(super.$h);
 
   /// Go: `func (*clock.Ticker).Reset(dur time.Duration)`.
   void reset(Duration dur) {
@@ -287,22 +252,8 @@ class ClockTicker extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `clock.Timer` (handle).
-class ClockTimer extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  ClockTimer.$h(super.$h) : super.$h();
+class ClockTimer extends GoHandle {
+  ClockTimer.$h(super.$h);
 
   /// Go: `func (*clock.Timer).Reset(d time.Duration) bool`.
   bool reset(Duration d) {

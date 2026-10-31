@@ -7,13 +7,8 @@ import 'dart:typed_data';
 import 'package:p2p_ffi/src/go.dart'
     show GoPionSrtpV3, GoPionSrtpV3Enums, GoPionSrtpV3Options;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/crypto/tls.dart' as $tls;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/net.dart' as $net;
 import 'package:p2p_ffi/go/pion/datachannel.dart' as $datachannel;
 import 'package:p2p_ffi/go/pion/dtls/v3.dart' as $v3;
@@ -77,22 +72,8 @@ final class SrtpV3Config implements GoDto {
 }
 
 /// Go: `srtp.Context` (handle).
-class SrtpV3Context extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  SrtpV3Context.$h(super.$h) : super.$h();
+class SrtpV3Context extends GoHandle {
+  SrtpV3Context.$h(super.$h);
 
   /// Go: `func (*srtp.Context).AddCipherForMKI(mki []byte, masterKey []byte, masterSalt []byte) error`.
   void addCipherForMki(
@@ -257,24 +238,8 @@ mixin SrtpV3KeyingMaterialExporter$ on GoHandle {
 
 /// Go: `srtp.ReadStreamSRTCP` (handle).
 class SrtpV3ReadStreamSrtcp extends $io.IoCloser
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $datachannel.DatachannelReadDeadliner$,
-        $expfmt.CommonExpfmtCloser$
+    with $datachannel.DatachannelReadDeadliner$, $expfmt.CommonExpfmtCloser$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $datachannel.DatachannelReadDeadliner,
         $expfmt.CommonExpfmtCloser {
   SrtpV3ReadStreamSrtcp.$h(super.$h) : super.$h();
@@ -322,24 +287,8 @@ class SrtpV3ReadStreamSrtcp extends $io.IoCloser
 
 /// Go: `srtp.ReadStreamSRTP` (handle).
 class SrtpV3ReadStreamSrtp extends $io.IoCloser
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $datachannel.DatachannelReadDeadliner$,
-        $expfmt.CommonExpfmtCloser$
+    with $datachannel.DatachannelReadDeadliner$, $expfmt.CommonExpfmtCloser$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $datachannel.DatachannelReadDeadliner,
         $expfmt.CommonExpfmtCloser {
   SrtpV3ReadStreamSrtp.$h(super.$h) : super.$h();
@@ -427,24 +376,8 @@ final class SrtpV3SessionKeys implements GoDto {
 
 /// Go: `srtp.SessionSRTCP` (handle).
 class SrtpV3SessionSrtcp extends $io.IoCloser
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   SrtpV3SessionSrtcp.$h(super.$h) : super.$h();
 
   /// Go: `func srtp.NewSessionSRTCP(conn net.Conn, config *srtp.Config) (*srtp.SessionSRTCP, error)`.
@@ -487,24 +420,8 @@ class SrtpV3SessionSrtcp extends $io.IoCloser
 
 /// Go: `srtp.SessionSRTP` (handle).
 class SrtpV3SessionSrtp extends $io.IoCloser
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   SrtpV3SessionSrtp.$h(super.$h) : super.$h();
 
   /// Go: `func srtp.NewSessionSRTP(conn net.Conn, config *srtp.Config) (*srtp.SessionSRTP, error)`.
@@ -546,23 +463,7 @@ class SrtpV3SessionSrtp extends $io.IoCloser
 }
 
 /// Go: `srtp.WriteStreamSRTCP` (handle).
-class SrtpV3WriteStreamSrtcp extends $datachannel.DatachannelWriteDeadliner
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class SrtpV3WriteStreamSrtcp extends $datachannel.DatachannelWriteDeadliner {
   SrtpV3WriteStreamSrtcp.$h(super.$h) : super.$h();
 
   /// Go: `func (*srtp.WriteStreamSRTCP).SetWriteDeadline(t time.Time) error`.
@@ -598,24 +499,8 @@ class SrtpV3WriteStreamSrtcp extends $datachannel.DatachannelWriteDeadliner
 
 /// Go: `srtp.WriteStreamSRTP` (handle).
 class SrtpV3WriteStreamSrtp extends $v4.WebrtcV4TrackLocalWriter
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $datachannel.DatachannelWriteDeadliner$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $datachannel.DatachannelWriteDeadliner {
+    with $datachannel.DatachannelWriteDeadliner$
+    implements $datachannel.DatachannelWriteDeadliner {
   SrtpV3WriteStreamSrtp.$h(super.$h) : super.$h();
 
   /// Go: `func (*srtp.WriteStreamSRTP).SetWriteDeadline(t time.Time) error`.

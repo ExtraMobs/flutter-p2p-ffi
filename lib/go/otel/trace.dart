@@ -9,33 +9,14 @@ import 'package:p2p_ffi/src/go.dart'
     show GoOtelTrace, GoOtelTraceEnums, GoOtelTraceOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/otel/attribute.dart' as $attribute;
 import 'package:p2p_ffi/go/otel/sdk/trace.dart' as $trace;
 import 'package:p2p_ffi/go/otel/trace/embedded.dart' as $embedded;
 import 'package:p2p_ffi/go/otel/trace/noop.dart' as $noop;
 
 /// Go: `trace.EventConfig` (handle).
-class OtelTraceEventConfig extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelTraceEventConfig.$h(super.$h) : super.$h();
+class OtelTraceEventConfig extends GoHandle {
+  OtelTraceEventConfig.$h(super.$h);
 
   /// Go: `func trace.NewEventConfig(options ...trace.EventOption) trace.EventConfig`.
   factory OtelTraceEventConfig(
@@ -213,22 +194,8 @@ mixin OtelTraceSpan$ on GoHandle {
 }
 
 /// Go: `trace.SpanConfig` (handle).
-class OtelTraceSpanConfig extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelTraceSpanConfig.$h(super.$h) : super.$h();
+class OtelTraceSpanConfig extends GoHandle {
+  OtelTraceSpanConfig.$h(super.$h);
 
   /// Go: `func (*trace.SpanConfig).Attributes() []attribute.KeyValue`.
   List<$attribute.OtelAttributeKeyValue> attributes() {
@@ -269,22 +236,8 @@ class OtelTraceSpanConfig extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `trace.SpanContext` (handle).
-class OtelTraceSpanContext extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelTraceSpanContext.$h(super.$h) : super.$h();
+class OtelTraceSpanContext extends GoHandle {
+  OtelTraceSpanContext.$h(super.$h);
 
   /// Go: `func trace.NewSpanContext(config trace.SpanContextConfig) trace.SpanContext`.
   factory OtelTraceSpanContext(OtelTraceSpanContextConfig config) {
@@ -497,22 +450,8 @@ mixin OtelTraceSpanStartOption$ on GoHandle {
 }
 
 /// Go: `trace.TraceState` (handle).
-class OtelTraceState extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelTraceState.$h(super.$h) : super.$h();
+class OtelTraceState extends GoHandle {
+  OtelTraceState.$h(super.$h);
 
   /// Go: `func (trace.TraceState).Delete(key string) trace.TraceState`.
   OtelTraceState delete(String key) {
@@ -589,22 +528,8 @@ class OtelTraceTracer extends $embedded.OtelTraceEmbeddedTracer
 mixin OtelTraceTracer$ on GoHandle {}
 
 /// Go: `trace.TracerConfig` (handle).
-class OtelTraceTracerConfig extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelTraceTracerConfig.$h(super.$h) : super.$h();
+class OtelTraceTracerConfig extends GoHandle {
+  OtelTraceTracerConfig.$h(super.$h);
 
   /// Go: `func trace.NewTracerConfig(options ...trace.TracerOption) trace.TracerConfig`.
   factory OtelTraceTracerConfig(

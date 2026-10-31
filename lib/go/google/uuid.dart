@@ -79,7 +79,7 @@ final class UuidNullUuid implements GoDto {
   }
 
   /// Go: `func (uuid.NullUUID).Value() (driver.Value, error)`.
-  $driver.DatabaseSqlDriverValue value$() {
+  GoHandle value$() {
     final $r = $callSync(8125, $W()..dto(this));
     return $r.hnn($driver.DatabaseSqlDriverValue.$h);
   }

@@ -7,33 +7,12 @@ import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/go.dart' show GoMathRandV2;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/encoding.dart' as $encoding;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 
 /// Go: `rand.ChaCha8` (handle).
 class MathRandV2ChaCha8 extends $encoding.EncodingBinaryAppender
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $encoding.EncodingBinaryUnmarshaler$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $encoding.EncodingBinaryUnmarshaler,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    with $encoding.EncodingBinaryUnmarshaler$
+    implements $encoding.EncodingBinaryUnmarshaler {
   MathRandV2ChaCha8.$h(super.$h) : super.$h();
 
   /// Go: `func (*rand.ChaCha8).AppendBinary(b []byte) ([]byte, error)`.
@@ -80,24 +59,8 @@ class MathRandV2ChaCha8 extends $encoding.EncodingBinaryAppender
 
 /// Go: `rand.PCG` (handle).
 class MathRandV2Pcg extends $encoding.EncodingBinaryAppender
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $encoding.EncodingBinaryUnmarshaler$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $encoding.EncodingBinaryUnmarshaler,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    with $encoding.EncodingBinaryUnmarshaler$
+    implements $encoding.EncodingBinaryUnmarshaler {
   MathRandV2Pcg.$h(super.$h) : super.$h();
 
   /// Go: `func rand.NewPCG(seed1 uint64, seed2 uint64) *rand.PCG`.
@@ -153,22 +116,8 @@ class MathRandV2Pcg extends $encoding.EncodingBinaryAppender
 }
 
 /// Go: `rand.Rand` (handle).
-class MathRandV2Rand extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  MathRandV2Rand.$h(super.$h) : super.$h();
+class MathRandV2Rand extends GoHandle {
+  MathRandV2Rand.$h(super.$h);
 
   /// Go: `func (*rand.Rand).ExpFloat64() float64`.
   double expFloat64() {
@@ -335,22 +284,8 @@ final class MathRandV2Source implements GoDto {
 }
 
 /// Go: `rand.Zipf` (handle).
-class MathRandV2Zipf extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  MathRandV2Zipf.$h(super.$h) : super.$h();
+class MathRandV2Zipf extends GoHandle {
+  MathRandV2Zipf.$h(super.$h);
 
   /// Go: `func rand.NewZipf(r *rand.Rand, s float64, v float64, imax uint64) *rand.Zipf`.
   factory MathRandV2Zipf(MathRandV2Rand r, double s, double v, int imax) {

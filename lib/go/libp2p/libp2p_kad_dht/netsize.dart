@@ -4,32 +4,13 @@ library;
 
 import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2pKadDhtNetsize;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
 import 'package:p2p_ffi/go/libp2p/libp2p_kbucket.dart' as $libp2p_kbucket;
 import 'package:p2p_ffi/go/whyrusleeping/keyspace.dart' as $keyspace;
 
 /// Go: `netsize.Estimator` (handle).
-class Libp2pKadDhtNetsizeEstimator extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  Libp2pKadDhtNetsizeEstimator.$h(super.$h) : super.$h();
+class Libp2pKadDhtNetsizeEstimator extends GoHandle {
+  Libp2pKadDhtNetsizeEstimator.$h(super.$h);
 
   /// Go: `func netsize.NewEstimator(localID peer.ID, rt *kbucket.RoutingTable, bucketSize int) *netsize.Estimator`.
   factory Libp2pKadDhtNetsizeEstimator($peer.Libp2pCorePeerId localId,

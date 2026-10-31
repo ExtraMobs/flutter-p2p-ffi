@@ -9,15 +9,10 @@ import 'package:p2p_ffi/src/go.dart'
         GoLibp2pLibp2pKadDhtProviderDual,
         GoLibp2pLibp2pKadDhtProviderDualOptions;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
 import 'package:p2p_ffi/go/ipfs/boxo/provider.dart' as $provider;
 import 'package:p2p_ffi/go/ipfs/datastore.dart' as $datastore;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 import 'package:p2p_ffi/go/ipfs/kubo/core/node.dart' as $node;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/libp2p/libp2p_kad_dht/dual.dart' as $dual;
 import 'package:p2p_ffi/go/libp2p/libp2p_kad_dht/pb.dart' as $pb;
 import 'package:p2p_ffi/go/libp2p/libp2p_kad_dht/provider/keystore.dart'
@@ -33,26 +28,12 @@ final class Libp2pKadDhtProviderDualOption extends GoOption {
 class Libp2pKadDhtProviderDualSweepingProvider
     extends $node.KuboCoreNodeDhtProvider
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
         $io.IoCloser$,
         $provider.BoxoProviderMultihashProvider$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $expfmt.CommonExpfmtCloser$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
         $io.IoCloser,
         $provider.BoxoProviderMultihashProvider,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $expfmt.CommonExpfmtCloser {
   Libp2pKadDhtProviderDualSweepingProvider.$h(super.$h) : super.$h();
 

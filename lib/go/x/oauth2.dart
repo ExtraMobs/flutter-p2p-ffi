@@ -8,11 +8,6 @@ import 'package:p2p_ffi/src/go.dart'
     show GoXOauth2, GoXOauth2Enums, GoXOauth2Options;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/net/http.dart' as $http;
 
 /// Go: `oauth2.AuthCodeOption` (handle).
@@ -24,22 +19,8 @@ class Oauth2AuthCodeOption extends GoHandle with Oauth2AuthCodeOption$ {
 mixin Oauth2AuthCodeOption$ on GoHandle {}
 
 /// Go: `oauth2.Config` (handle).
-class Oauth2Config extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  Oauth2Config.$h(super.$h) : super.$h();
+class Oauth2Config extends GoHandle {
+  Oauth2Config.$h(super.$h);
 
   /// Go: `func (*oauth2.Config).AuthCodeURL(state string, opts ...oauth2.AuthCodeOption) string`.
   String authCodeUrl(String state,
@@ -212,22 +193,8 @@ final class Oauth2DeviceAuthResponse implements GoDto {
 }
 
 /// Go: `oauth2.Token` (handle).
-class Oauth2Token extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  Oauth2Token.$h(super.$h) : super.$h();
+class Oauth2Token extends GoHandle {
+  Oauth2Token.$h(super.$h);
 
   /// Go: `func (*oauth2.Token).Extra(key string) any`.
   Object? extra(String key) {

@@ -4,10 +4,6 @@ library;
 
 import 'package:p2p_ffi/src/go.dart' show GoIpfsPeertaskqueuePeertask;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 import 'package:p2p_ffi/go/ipfs/ipfs_pq.dart' as $ipfs_pq;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
 
@@ -21,23 +17,7 @@ class PeertaskqueuePeertaskData extends GoHandle
 mixin PeertaskqueuePeertaskData$ on GoHandle {}
 
 /// Go: `peertask.QueueTask` (handle).
-class PeertaskqueuePeertaskQueueTask extends $ipfs_pq.IpfsPqElem
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        PeertaskqueuePeertaskTopic {
+class PeertaskqueuePeertaskQueueTask extends $ipfs_pq.IpfsPqElem {
   PeertaskqueuePeertaskQueueTask.$h(super.$h) : super.$h();
 
   /// Go: `func peertask.NewQueueTask(task peertask.Task, target peer.ID, created time.Time) *peertask.QueueTask`.
@@ -69,32 +49,14 @@ class PeertaskqueuePeertaskQueueTask extends $ipfs_pq.IpfsPqElem
 }
 
 /// Go: `peertask.QueueTaskComparator` (handle).
-class PeertaskqueuePeertaskQueueTaskComparator
-    extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        PeertaskqueuePeertaskTopic {
-  PeertaskqueuePeertaskQueueTaskComparator.$h(super.$h) : super.$h();
+class PeertaskqueuePeertaskQueueTaskComparator extends GoHandle {
+  PeertaskqueuePeertaskQueueTaskComparator.$h(super.$h);
 }
 
 /// Go: `peertask.Task`.
 final class PeertaskqueuePeertaskTask implements GoDto {
   PeertaskqueuePeertaskTask(
-      {PeertaskqueuePeertaskTopic? topic,
-      int? priority,
-      int? work,
-      PeertaskqueuePeertaskData? data})
+      {GoHandle? topic, int? priority, int? work, GoHandle? data})
       : topic = topic,
         priority = priority ?? 0,
         work = work ?? 0,
@@ -107,7 +69,7 @@ final class PeertaskqueuePeertaskTask implements GoDto {
         data = r.hn(PeertaskqueuePeertaskData.$h);
 
   /// Go: `Topic`.
-  PeertaskqueuePeertaskTopic? topic;
+  GoHandle? topic;
 
   /// Go: `Priority`.
   int priority;
@@ -116,7 +78,7 @@ final class PeertaskqueuePeertaskTask implements GoDto {
   int work;
 
   /// Go: `Data`.
-  PeertaskqueuePeertaskData? data;
+  GoHandle? data;
 
   @override
   void $enc($W w) {

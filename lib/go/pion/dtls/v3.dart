@@ -13,15 +13,10 @@ import 'package:p2p_ffi/src/go.dart'
         GoPionDtlsV3Options;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/crypto/tls.dart' as $tls;
 import 'package:p2p_ffi/go/crypto/x509.dart' as $x509;
 import 'package:p2p_ffi/go/encoding.dart' as $encoding;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/net.dart' as $net;
 import 'package:p2p_ffi/go/pion/datachannel.dart' as $datachannel;
 import 'package:p2p_ffi/go/pion/dtls/v3/pkg/net.dart' as $net2;
@@ -143,47 +138,19 @@ mixin DtlsV3ClientOption$ on GoHandle {
 /// Go: `dtls.Config` (handle).
 @Deprecated(
     "prefer the options-based APIs (`*WithOptions`) to construct immutable configs, This will be removed in the next major version.")
-class DtlsV3Config extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  DtlsV3Config.$h(super.$h) : super.$h();
+class DtlsV3Config extends GoHandle {
+  DtlsV3Config.$h(super.$h);
 }
 
 /// Go: `dtls.Conn` (handle).
 class DtlsV3Conn extends $net.NetConn
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
         $io.IoCloser$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $datachannel.DatachannelReadDeadliner$,
         $datachannel.DatachannelWriteDeadliner$,
         $expfmt.CommonExpfmtCloser$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
         $io.IoCloser,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $datachannel.DatachannelReadDeadliner,
         $datachannel.DatachannelWriteDeadliner,
         $expfmt.CommonExpfmtCloser {
@@ -297,22 +264,8 @@ class DtlsV3Option extends DtlsV3ServerOption with DtlsV3Option$ {
 mixin DtlsV3Option$ on GoHandle {}
 
 /// Go: `dtls.PSKCallback` (handle).
-class DtlsV3PskCallback extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  DtlsV3PskCallback.$h(super.$h) : super.$h();
+class DtlsV3PskCallback extends GoHandle {
+  DtlsV3PskCallback.$h(super.$h);
 }
 
 /// Go: `dtls.ServerOption` (handle).
@@ -392,24 +345,8 @@ mixin DtlsV3SessionStore$ on GoHandle {
 
 /// Go: `dtls.State` (handle).
 class DtlsV3State extends $encoding.EncodingBinaryUnmarshaler
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $v3.SrtpV3KeyingMaterialExporter$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $v3.SrtpV3KeyingMaterialExporter {
+    with $v3.SrtpV3KeyingMaterialExporter$
+    implements $v3.SrtpV3KeyingMaterialExporter {
   DtlsV3State.$h(super.$h) : super.$h();
 
   /// Go: `func (*dtls.State).ExportKeyingMaterial(label string, context []byte, length int) ([]byte, error)`.

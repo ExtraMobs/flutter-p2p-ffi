@@ -5,33 +5,12 @@ library;
 import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/pion/rtp.dart' as $rtp;
 
 /// Go: `codecs.AV1Depacketizer` (handle).
 class RtpCodecsAv1Depacketizer extends $rtp.RtpDepacketizer
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $rtp.RtpPartitionHeadChecker$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $rtp.RtpPartitionHeadChecker {
+    with $rtp.RtpPartitionHeadChecker$
+    implements $rtp.RtpPartitionHeadChecker {
   RtpCodecsAv1Depacketizer.$h(super.$h) : super.$h();
 
   /// Go: `func (*codecs.AV1Depacketizer).IsPartitionHead(payload []byte) bool`.
@@ -76,22 +55,8 @@ class RtpCodecsAv1Depacketizer extends $rtp.RtpDepacketizer
 }
 
 /// Go: `codecs.AV1Packet` (handle).
-class RtpCodecsAv1Packet extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  RtpCodecsAv1Packet.$h(super.$h) : super.$h();
+class RtpCodecsAv1Packet extends GoHandle {
+  RtpCodecsAv1Packet.$h(super.$h);
 
   /// Go: `func (*codecs.AV1Packet).Unmarshal(payload []byte) ([]byte, error)`.
   Uint8List unmarshal(Uint8List payload) {
@@ -166,24 +131,8 @@ final class RtpCodecsG722Payloader implements GoDto {
 
 /// Go: `codecs.H264Packet` (handle).
 class RtpCodecsH264Packet extends $rtp.RtpDepacketizer
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $rtp.RtpPartitionHeadChecker$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $rtp.RtpPartitionHeadChecker {
+    with $rtp.RtpPartitionHeadChecker$
+    implements $rtp.RtpPartitionHeadChecker {
   RtpCodecsH264Packet.$h(super.$h) : super.$h();
 
   /// Go: `func (*codecs.H264Packet).IsDetectedFinalPacketInSequence(rtpPacketMarketBit bool) bool`.
@@ -259,23 +208,7 @@ final class RtpCodecsH264PartitionHeadChecker implements GoDto {
 }
 
 /// Go: `codecs.H264Payloader` (handle).
-class RtpCodecsH264Payloader extends $rtp.RtpPayloader
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class RtpCodecsH264Payloader extends $rtp.RtpPayloader {
   RtpCodecsH264Payloader.$h(super.$h) : super.$h();
 
   /// Go: `func (*codecs.H264Payloader).Payload(mtu uint16, payload []byte) [][]byte`.
@@ -291,22 +224,8 @@ class RtpCodecsH264Payloader extends $rtp.RtpPayloader
 }
 
 /// Go: `codecs.H265AggregationPacket` (handle).
-class RtpCodecsH265AggregationPacket extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  RtpCodecsH265AggregationPacket.$h(super.$h) : super.$h();
+class RtpCodecsH265AggregationPacket extends GoHandle {
+  RtpCodecsH265AggregationPacket.$h(super.$h);
 
   /// Go: `func (*codecs.H265AggregationPacket).FirstUnit() *codecs.H265AggregationUnitFirst`.
   RtpCodecsH265AggregationUnitFirst firstUnit() {
@@ -341,22 +260,8 @@ class RtpCodecsH265AggregationPacket extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `codecs.H265AggregationUnit` (handle).
-class RtpCodecsH265AggregationUnit extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  RtpCodecsH265AggregationUnit.$h(super.$h) : super.$h();
+class RtpCodecsH265AggregationUnit extends GoHandle {
+  RtpCodecsH265AggregationUnit.$h(super.$h);
 
   /// Go: `func (codecs.H265AggregationUnit).DOND() *uint8`.
   int dond() {
@@ -378,22 +283,8 @@ class RtpCodecsH265AggregationUnit extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `codecs.H265AggregationUnitFirst` (handle).
-class RtpCodecsH265AggregationUnitFirst extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  RtpCodecsH265AggregationUnitFirst.$h(super.$h) : super.$h();
+class RtpCodecsH265AggregationUnitFirst extends GoHandle {
+  RtpCodecsH265AggregationUnitFirst.$h(super.$h);
 
   /// Go: `func (codecs.H265AggregationUnitFirst).DONL() *uint16`.
   int donl() {
@@ -415,22 +306,8 @@ class RtpCodecsH265AggregationUnitFirst extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `codecs.H265FragmentationUnitPacket` (handle).
-class RtpCodecsH265FragmentationUnitPacket extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  RtpCodecsH265FragmentationUnitPacket.$h(super.$h) : super.$h();
+class RtpCodecsH265FragmentationUnitPacket extends GoHandle {
+  RtpCodecsH265FragmentationUnitPacket.$h(super.$h);
 
   /// Go: `func (*codecs.H265FragmentationUnitPacket).DONL() *uint16`.
   int donl() {
@@ -477,22 +354,8 @@ class RtpCodecsH265FragmentationUnitPacket extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `codecs.H265PACIPacket` (handle).
-class RtpCodecsH265paciPacket extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  RtpCodecsH265paciPacket.$h(super.$h) : super.$h();
+class RtpCodecsH265paciPacket extends GoHandle {
+  RtpCodecsH265paciPacket.$h(super.$h);
 
   /// Go: `func (*codecs.H265PACIPacket).A() bool`.
   bool a() {
@@ -567,24 +430,8 @@ class RtpCodecsH265paciPacket extends $crypto.CryptoDecrypterOpts
 
 /// Go: `codecs.H265Packet` (handle).
 class RtpCodecsH265Packet extends $rtp.RtpDepacketizer
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $rtp.RtpPartitionHeadChecker$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $rtp.RtpPartitionHeadChecker {
+    with $rtp.RtpPartitionHeadChecker$
+    implements $rtp.RtpPartitionHeadChecker {
   RtpCodecsH265Packet.$h(super.$h) : super.$h();
 
   /// Go: `func (*codecs.H265Packet).IsPartitionHead(payload []byte) bool`.
@@ -638,23 +485,7 @@ class RtpCodecsH265Packet extends $rtp.RtpDepacketizer
 }
 
 /// Go: `codecs.H265Payloader` (handle).
-class RtpCodecsH265Payloader extends $rtp.RtpPayloader
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class RtpCodecsH265Payloader extends $rtp.RtpPayloader {
   RtpCodecsH265Payloader.$h(super.$h) : super.$h();
 
   /// Go: `func (*codecs.H265Payloader).Payload(mtu uint16, payload []byte) [][]byte`.
@@ -670,22 +501,8 @@ class RtpCodecsH265Payloader extends $rtp.RtpPayloader
 }
 
 /// Go: `codecs.H265SingleNALUnitPacket` (handle).
-class RtpCodecsH265SingleNalUnitPacket extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  RtpCodecsH265SingleNalUnitPacket.$h(super.$h) : super.$h();
+class RtpCodecsH265SingleNalUnitPacket extends GoHandle {
+  RtpCodecsH265SingleNalUnitPacket.$h(super.$h);
 
   /// Go: `func (*codecs.H265SingleNALUnitPacket).DONL() *uint16`.
   int donl() {
@@ -727,24 +544,8 @@ class RtpCodecsH265SingleNalUnitPacket extends $crypto.CryptoDecrypterOpts
 
 /// Go: `codecs.OpusPacket` (handle).
 class RtpCodecsOpusPacket extends $rtp.RtpDepacketizer
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $rtp.RtpPartitionHeadChecker$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $rtp.RtpPartitionHeadChecker {
+    with $rtp.RtpPartitionHeadChecker$
+    implements $rtp.RtpPartitionHeadChecker {
   RtpCodecsOpusPacket.$h(super.$h) : super.$h();
 
   /// Go: `func (*codecs.audioDepacketizer).IsPartitionHead(_ []byte) bool`.
@@ -822,24 +623,8 @@ final class RtpCodecsOpusPayloader implements GoDto {
 
 /// Go: `codecs.VP8Packet` (handle).
 class RtpCodecsVp8Packet extends $rtp.RtpDepacketizer
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $rtp.RtpPartitionHeadChecker$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $rtp.RtpPartitionHeadChecker {
+    with $rtp.RtpPartitionHeadChecker$
+    implements $rtp.RtpPartitionHeadChecker {
   RtpCodecsVp8Packet.$h(super.$h) : super.$h();
 
   /// Go: `func (*codecs.VP8Packet).IsPartitionHead(payload []byte) bool`.
@@ -905,23 +690,7 @@ final class RtpCodecsVp8PartitionHeadChecker implements GoDto {
 }
 
 /// Go: `codecs.VP8Payloader` (handle).
-class RtpCodecsVp8Payloader extends $rtp.RtpPayloader
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class RtpCodecsVp8Payloader extends $rtp.RtpPayloader {
   RtpCodecsVp8Payloader.$h(super.$h) : super.$h();
 
   /// Go: `func (*codecs.VP8Payloader).Payload(mtu uint16, payload []byte) [][]byte`.
@@ -938,24 +707,8 @@ class RtpCodecsVp8Payloader extends $rtp.RtpPayloader
 
 /// Go: `codecs.VP9Packet` (handle).
 class RtpCodecsVp9Packet extends $rtp.RtpDepacketizer
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $rtp.RtpPartitionHeadChecker$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $rtp.RtpPartitionHeadChecker {
+    with $rtp.RtpPartitionHeadChecker$
+    implements $rtp.RtpPartitionHeadChecker {
   RtpCodecsVp9Packet.$h(super.$h) : super.$h();
 
   /// Go: `func (*codecs.VP9Packet).IsPartitionHead(payload []byte) bool`.
@@ -1021,23 +774,7 @@ final class RtpCodecsVp9PartitionHeadChecker implements GoDto {
 }
 
 /// Go: `codecs.VP9Payloader` (handle).
-class RtpCodecsVp9Payloader extends $rtp.RtpPayloader
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class RtpCodecsVp9Payloader extends $rtp.RtpPayloader {
   RtpCodecsVp9Payloader.$h(super.$h) : super.$h();
 
   /// Go: `func (*codecs.VP9Payloader).Payload(mtu uint16, payload []byte) [][]byte`.

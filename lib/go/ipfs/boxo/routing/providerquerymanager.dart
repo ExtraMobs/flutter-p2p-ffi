@@ -10,14 +10,9 @@ import 'package:p2p_ffi/src/go.dart'
         GoIpfsBoxoRoutingProviderquerymanagerOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/boxo/bitswap/network/httpnet.dart' as $httpnet;
 import 'package:p2p_ffi/go/ipfs/cid.dart' as $cid;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 import 'package:p2p_ffi/go/ipfs/kubo/core/coreapi.dart' as $coreapi;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/routing.dart' as $routing;
 import 'package:p2p_ffi/go/libp2p/libp2p/p2p/host/basic.dart' as $basic;
@@ -86,23 +81,7 @@ mixin BoxoRoutingProviderquerymanagerProviderQueryDialer$ on GoHandle {
 
 /// Go: `providerquerymanager.ProviderQueryManager` (handle).
 class BoxoRoutingProviderquerymanagerProviderQueryManager
-    extends $routing.Libp2pCoreRoutingContentDiscovery
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    extends $routing.Libp2pCoreRoutingContentDiscovery {
   BoxoRoutingProviderquerymanagerProviderQueryManager.$h(super.$h) : super.$h();
 
   /// Go: `func (*providerquerymanager.ProviderQueryManager).Close()`.

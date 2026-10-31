@@ -10,12 +10,7 @@ import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/cockroachdb/pebble/v2/sstable/block.dart' as $block;
 import 'package:p2p_ffi/go/cockroachdb/pebble/v2/sstable/valblk.dart'
     as $valblk;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/net/http.dart' as $http;
 import 'package:p2p_ffi/go/protobuf/encoding/protodelim.dart' as $protodelim;
 import 'package:p2p_ffi/go/quic_go/quic_go/quicvarint.dart' as $quicvarint;
@@ -28,24 +23,8 @@ import 'package:p2p_ffi/go/syndtr/goleveldb/leveldb/table.dart' as $table;
 /// Go: `util.BasicReleaser` (handle).
 class GoleveldbLeveldbUtilBasicReleaser
     extends GoleveldbLeveldbUtilReleaseSetter
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        GoleveldbLeveldbUtilReleaser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        GoleveldbLeveldbUtilReleaser {
+    with GoleveldbLeveldbUtilReleaser$
+    implements GoleveldbLeveldbUtilReleaser {
   GoleveldbLeveldbUtilBasicReleaser.$h(super.$h) : super.$h();
 
   /// Go: `func (*util.BasicReleaser).Release()`.
@@ -72,29 +51,15 @@ class GoleveldbLeveldbUtilBasicReleaser
 /// Go: `util.Buffer` (handle).
 class GoleveldbLeveldbUtilBuffer extends $filter.GoleveldbLeveldbFilterBuffer
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
         $io.IoByteWriter$,
         $io.IoReaderFrom$,
         $io.IoWriterTo$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protodelim.ProtobufEncodingProtodelimReader$,
         $quicvarint.QuicGoQuicvarintWriter$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
         $io.IoByteWriter,
         $io.IoReaderFrom,
         $io.IoWriterTo,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protodelim.ProtobufEncodingProtodelimReader,
         $quicvarint.QuicGoQuicvarintWriter {
   GoleveldbLeveldbUtilBuffer.$h(super.$h) : super.$h();
@@ -233,22 +198,8 @@ class GoleveldbLeveldbUtilBuffer extends $filter.GoleveldbLeveldbFilterBuffer
 }
 
 /// Go: `util.BufferPool` (handle).
-class GoleveldbLeveldbUtilBufferPool extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  GoleveldbLeveldbUtilBufferPool.$h(super.$h) : super.$h();
+class GoleveldbLeveldbUtilBufferPool extends GoHandle {
+  GoleveldbLeveldbUtilBufferPool.$h(super.$h);
 
   /// Go: `func util.NewBufferPool(baseline int) *util.BufferPool`.
   factory GoleveldbLeveldbUtilBufferPool(int baseline) {

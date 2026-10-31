@@ -7,17 +7,12 @@ import 'dart:typed_data';
 import 'package:p2p_ffi/src/go.dart'
     show GoIpfsKuboConfig, GoIpfsKuboConfigConsts, GoIpfsKuboConfigEnums;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto2;
 import 'package:p2p_ffi/go/encoding/json.dart' as $json;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
 import 'package:p2p_ffi/go/go_jose/jose/v4/json.dart' as $json2;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/boxo/autoconf.dart' as $autoconf;
 import 'package:p2p_ffi/go/ipfs/boxo/chunker.dart' as $chunker;
 import 'package:p2p_ffi/go/ipfs/cid.dart' as $cid;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 import 'package:p2p_ffi/go/ipfs/kubo/core/coreiface/options.dart' as $options;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
 
@@ -570,24 +565,8 @@ final class KuboConfigOptionalBytes implements GoDto {
 
 /// Go: `config.OptionalDuration` (handle).
 class KuboConfigOptionalDuration extends $json.EncodingJsonUnmarshaler
-    with
-        $crypto2.CryptoDecrypterOpts$,
-        $crypto2.CryptoPrivateKey$,
-        $crypto2.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $json2.JoseV4JsonUnmarshaler$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto2.CryptoDecrypterOpts,
-        $crypto2.CryptoPrivateKey,
-        $crypto2.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $json2.JoseV4JsonUnmarshaler,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    with $json2.JoseV4JsonUnmarshaler$
+    implements $json2.JoseV4JsonUnmarshaler {
   KuboConfigOptionalDuration.$h(super.$h) : super.$h();
 
   /// Go: `func config.NewOptionalDuration(d time.Duration) *config.OptionalDuration`.
@@ -636,24 +615,8 @@ class KuboConfigOptionalDuration extends $json.EncodingJsonUnmarshaler
 
 /// Go: `config.OptionalInteger` (handle).
 class KuboConfigOptionalInteger extends $json.EncodingJsonUnmarshaler
-    with
-        $crypto2.CryptoDecrypterOpts$,
-        $crypto2.CryptoPrivateKey$,
-        $crypto2.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $json2.JoseV4JsonUnmarshaler$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto2.CryptoDecrypterOpts,
-        $crypto2.CryptoPrivateKey,
-        $crypto2.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $json2.JoseV4JsonUnmarshaler,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    with $json2.JoseV4JsonUnmarshaler$
+    implements $json2.JoseV4JsonUnmarshaler {
   KuboConfigOptionalInteger.$h(super.$h) : super.$h();
 
   /// Go: `func config.NewOptionalInteger(v int64) *config.OptionalInteger`.
@@ -702,24 +665,8 @@ class KuboConfigOptionalInteger extends $json.EncodingJsonUnmarshaler
 
 /// Go: `config.OptionalString` (handle).
 class KuboConfigOptionalString extends $json.EncodingJsonUnmarshaler
-    with
-        $crypto2.CryptoDecrypterOpts$,
-        $crypto2.CryptoPrivateKey$,
-        $crypto2.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $json2.JoseV4JsonUnmarshaler$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto2.CryptoDecrypterOpts,
-        $crypto2.CryptoPrivateKey,
-        $crypto2.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $json2.JoseV4JsonUnmarshaler,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    with $json2.JoseV4JsonUnmarshaler$
+    implements $json2.JoseV4JsonUnmarshaler {
   KuboConfigOptionalString.$h(super.$h) : super.$h();
 
   /// Go: `func config.NewOptionalString(s string) *config.OptionalString`.

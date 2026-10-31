@@ -10,11 +10,6 @@ import 'package:p2p_ffi/src/go.dart'
         GoOtelSdkTraceOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/otel/attribute.dart' as $attribute;
 import 'package:p2p_ffi/go/otel/exporters/otlp/otlptrace.dart' as $otlptrace;
 import 'package:p2p_ffi/go/otel/exporters/stdout/stdouttrace.dart'
@@ -547,23 +542,7 @@ final class OtelSdkTraceStatus implements GoDto {
 }
 
 /// Go: `trace.TracerProvider` (handle).
-class OtelSdkTraceTracerProvider extends $trace.OtelTraceTracerProvider
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class OtelSdkTraceTracerProvider extends $trace.OtelTraceTracerProvider {
   OtelSdkTraceTracerProvider.$h(super.$h) : super.$h();
 
   /// Go: `func trace.NewTracerProvider(opts ...trace.TracerProviderOption) *trace.TracerProvider`.

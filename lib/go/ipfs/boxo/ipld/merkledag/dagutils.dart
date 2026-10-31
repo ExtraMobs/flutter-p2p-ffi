@@ -6,14 +6,9 @@ import 'package:p2p_ffi/src/go.dart'
     show GoIpfsBoxoIpldMerkledagDagutils, GoIpfsBoxoIpldMerkledagDagutilsEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/boxo/ipld/merkledag.dart' as $merkledag;
 import 'package:p2p_ffi/go/ipfs/cid.dart' as $cid;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 import 'package:p2p_ffi/go/ipfs/ipld_format.dart' as $ipld_format;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 
 /// Go: `dagutils.Change`.
 final class BoxoIpldMerkledagDagutilsChange implements GoDto {
@@ -84,22 +79,8 @@ final class BoxoIpldMerkledagDagutilsConflict implements GoDto {
 }
 
 /// Go: `dagutils.Editor` (handle).
-class BoxoIpldMerkledagDagutilsEditor extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  BoxoIpldMerkledagDagutilsEditor.$h(super.$h) : super.$h();
+class BoxoIpldMerkledagDagutilsEditor extends GoHandle {
+  BoxoIpldMerkledagDagutilsEditor.$h(super.$h);
 
   /// Go: `func (*dagutils.Editor).Finalize(ctx context.Context, ds format.DAGService) (*merkledag.ProtoNode, error)`.
   ///

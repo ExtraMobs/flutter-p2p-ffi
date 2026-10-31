@@ -6,37 +6,18 @@ import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/go.dart' show GoNetNetip;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/encoding.dart' as $encoding;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 
 /// Go: `netip.Addr` (handle).
 class NetNetipAddr extends $encoding.EncodingBinaryAppender
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
         $encoding.EncodingBinaryUnmarshaler$,
         $encoding.EncodingTextAppender$,
-        $encoding.EncodingTextUnmarshaler$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
+        $encoding.EncodingTextUnmarshaler$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
         $encoding.EncodingBinaryUnmarshaler,
         $encoding.EncodingTextAppender,
-        $encoding.EncodingTextUnmarshaler,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+        $encoding.EncodingTextUnmarshaler {
   NetNetipAddr.$h(super.$h) : super.$h();
 
   /// Go: `func (netip.Addr).AppendBinary(b []byte) ([]byte, error)`.
@@ -263,27 +244,13 @@ class NetNetipAddr extends $encoding.EncodingBinaryAppender
 /// Go: `netip.AddrPort` (handle).
 class NetNetipAddrPort extends $encoding.EncodingBinaryAppender
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
         $encoding.EncodingBinaryUnmarshaler$,
         $encoding.EncodingTextAppender$,
-        $encoding.EncodingTextUnmarshaler$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
+        $encoding.EncodingTextUnmarshaler$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
         $encoding.EncodingBinaryUnmarshaler,
         $encoding.EncodingTextAppender,
-        $encoding.EncodingTextUnmarshaler,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+        $encoding.EncodingTextUnmarshaler {
   NetNetipAddrPort.$h(super.$h) : super.$h();
 
   /// Go: `func (netip.AddrPort).Addr() netip.Addr`.
@@ -384,27 +351,13 @@ class NetNetipAddrPort extends $encoding.EncodingBinaryAppender
 /// Go: `netip.Prefix` (handle).
 class NetNetipPrefix extends $encoding.EncodingBinaryAppender
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
         $encoding.EncodingBinaryUnmarshaler$,
         $encoding.EncodingTextAppender$,
-        $encoding.EncodingTextUnmarshaler$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
+        $encoding.EncodingTextUnmarshaler$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
         $encoding.EncodingBinaryUnmarshaler,
         $encoding.EncodingTextAppender,
-        $encoding.EncodingTextUnmarshaler,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+        $encoding.EncodingTextUnmarshaler {
   NetNetipPrefix.$h(super.$h) : super.$h();
 
   /// Go: `func (netip.Prefix).Addr() netip.Addr`.

@@ -6,32 +6,13 @@ import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/go.dart' show GoPionDtlsV3PkgCryptoCiphersuiteEnums;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/pion/dtls/v3/pkg/crypto/prf.dart' as $prf;
 import 'package:p2p_ffi/go/pion/dtls/v3/pkg/protocol/recordlayer.dart'
     as $recordlayer;
 
 /// Go: `ciphersuite.CBC` (handle).
-class DtlsV3PkgCryptoCiphersuiteCbc extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  DtlsV3PkgCryptoCiphersuiteCbc.$h(super.$h) : super.$h();
+class DtlsV3PkgCryptoCiphersuiteCbc extends GoHandle {
+  DtlsV3PkgCryptoCiphersuiteCbc.$h(super.$h);
 
   /// Go: `func ciphersuite.NewCBC(localKey []byte, localWriteIV []byte, localMac []byte, remoteKey []byte, remoteWriteIV []byte, remoteMac []byte, hashFunc prf.HashFunc) (*ciphersuite.CBC, error)`.
   factory DtlsV3PkgCryptoCiphersuiteCbc(
@@ -81,22 +62,8 @@ class DtlsV3PkgCryptoCiphersuiteCbc extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `ciphersuite.CCM` (handle).
-class DtlsV3PkgCryptoCiphersuiteCcm extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  DtlsV3PkgCryptoCiphersuiteCcm.$h(super.$h) : super.$h();
+class DtlsV3PkgCryptoCiphersuiteCcm extends GoHandle {
+  DtlsV3PkgCryptoCiphersuiteCcm.$h(super.$h);
 
   /// Go: `func ciphersuite.NewCCM(tagLen ciphersuite.CCMTagLen, localKey []byte, localWriteIV []byte, remoteKey []byte, remoteWriteIV []byte) (*ciphersuite.CCM, error)`.
   factory DtlsV3PkgCryptoCiphersuiteCcm(int tagLen, Uint8List localKey,
@@ -138,23 +105,8 @@ class DtlsV3PkgCryptoCiphersuiteCcm extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `ciphersuite.ChaCha20Poly1305` (handle).
-class DtlsV3PkgCryptoCiphersuiteChaCha20Poly1305
-    extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  DtlsV3PkgCryptoCiphersuiteChaCha20Poly1305.$h(super.$h) : super.$h();
+class DtlsV3PkgCryptoCiphersuiteChaCha20Poly1305 extends GoHandle {
+  DtlsV3PkgCryptoCiphersuiteChaCha20Poly1305.$h(super.$h);
 
   /// Go: `func ciphersuite.NewChaCha20Poly1305(localKey []byte, localWriteIV []byte, remoteKey []byte, remoteWriteIV []byte) (*ciphersuite.ChaCha20Poly1305, error)`.
   factory DtlsV3PkgCryptoCiphersuiteChaCha20Poly1305(Uint8List localKey,
@@ -195,22 +147,8 @@ class DtlsV3PkgCryptoCiphersuiteChaCha20Poly1305
 }
 
 /// Go: `ciphersuite.GCM` (handle).
-class DtlsV3PkgCryptoCiphersuiteGcm extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  DtlsV3PkgCryptoCiphersuiteGcm.$h(super.$h) : super.$h();
+class DtlsV3PkgCryptoCiphersuiteGcm extends GoHandle {
+  DtlsV3PkgCryptoCiphersuiteGcm.$h(super.$h);
 
   /// Go: `func ciphersuite.NewGCM(localKey []byte, localWriteIV []byte, remoteKey []byte, remoteWriteIV []byte) (*ciphersuite.GCM, error)`.
   factory DtlsV3PkgCryptoCiphersuiteGcm(Uint8List localKey,

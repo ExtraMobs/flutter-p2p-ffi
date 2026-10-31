@@ -17,12 +17,7 @@ import 'package:p2p_ffi/go/cockroachdb/pebble/v2/objstorage/objstorageprovider.d
 import 'package:p2p_ffi/go/cockroachdb/pebble/v2/sstable/block.dart' as $block;
 import 'package:p2p_ffi/go/cockroachdb/redact/interfaces.dart' as $interfaces;
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
 
 /// Go: `blob.FileMapping` (handle).
@@ -36,26 +31,8 @@ mixin PebbleV2SstableBlobFileMapping$ on GoHandle {}
 
 /// Go: `blob.FileReader` (handle).
 class PebbleV2SstableBlobFileReader extends PebbleV2SstableBlobValueReader
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $io.IoCloser$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $io.IoCloser,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $io.IoCloser$, $expfmt.CommonExpfmtCloser$
+    implements $io.IoCloser, $expfmt.CommonExpfmtCloser {
   PebbleV2SstableBlobFileReader.$h(super.$h) : super.$h();
 
   /// Go: `func (*blob.FileReader).Close() error`.
@@ -145,22 +122,8 @@ final class PebbleV2SstableBlobFileReaderOptions implements GoDto {
 }
 
 /// Go: `blob.FileRewriter` (handle).
-class PebbleV2SstableBlobFileRewriter extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2SstableBlobFileRewriter.$h(super.$h) : super.$h();
+class PebbleV2SstableBlobFileRewriter extends GoHandle {
+  PebbleV2SstableBlobFileRewriter.$h(super.$h);
 
   /// Go: `func (*blob.FileRewriter).Close() (blob.FileWriterStats, error)`.
   PebbleV2SstableBlobFileWriterStats close() {
@@ -185,22 +148,8 @@ class PebbleV2SstableBlobFileRewriter extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `blob.FileWriter` (handle).
-class PebbleV2SstableBlobFileWriter extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2SstableBlobFileWriter.$h(super.$h) : super.$h();
+class PebbleV2SstableBlobFileWriter extends GoHandle {
+  PebbleV2SstableBlobFileWriter.$h(super.$h);
 
   /// Go: `func (*blob.FileWriter).AddValue(v []byte) blob.Handle`.
   PebbleV2SstableBlobHandle addValue(Uint8List v) {
@@ -489,24 +438,8 @@ mixin PebbleV2SstableBlobReaderProvider$ on GoHandle {}
 
 /// Go: `blob.ValueFetcher` (handle).
 class PebbleV2SstableBlobValueFetcher extends $io.IoCloser
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   PebbleV2SstableBlobValueFetcher.$h(super.$h) : super.$h();
 
   /// Go: `func (*blob.ValueFetcher).Close() error`.

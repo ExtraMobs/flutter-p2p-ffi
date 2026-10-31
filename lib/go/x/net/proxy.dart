@@ -7,11 +7,6 @@ import 'dart:typed_data';
 import 'package:p2p_ffi/src/go.dart' show GoXNetProxy;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/libp2p/libp2p/p2p/transport/tcp.dart' as $tcp;
 import 'package:p2p_ffi/go/net.dart' as $net;
 import 'package:p2p_ffi/go/net/url.dart' as $url;
@@ -132,25 +127,11 @@ mixin NetProxyDialer$ on GoHandle {
 /// Go: `proxy.PerHost` (handle).
 class NetProxyPerHost extends $tcp.Libp2pP2pTransportTcpContextDialer
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $v3.TransportV3Dialer$,
         $v4.TransportV4Dialer$,
         NetProxyContextDialer$,
         NetProxyDialer$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $v3.TransportV3Dialer,
         $v4.TransportV4Dialer,
         NetProxyContextDialer,

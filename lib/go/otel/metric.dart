@@ -7,11 +7,6 @@ import 'dart:async';
 import 'package:p2p_ffi/src/go.dart' show GoOtelMetricOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/otel/attribute.dart' as $attribute;
 import 'package:p2p_ffi/go/otel/metric/embedded.dart' as $embedded;
 import 'package:p2p_ffi/go/otel/metric/noop.dart' as $noop;
@@ -19,22 +14,8 @@ import 'package:p2p_ffi/go/otel/semconv/v1_43_0/httpconv.dart' as $httpconv;
 import 'package:p2p_ffi/go/otel/semconv/v1_43_0/otelconv.dart' as $otelconv;
 
 /// Go: `metric.AddConfig` (handle).
-class OtelMetricAddConfig extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelMetricAddConfig.$h(super.$h) : super.$h();
+class OtelMetricAddConfig extends GoHandle {
+  OtelMetricAddConfig.$h(super.$h);
 
   /// Go: `func metric.NewAddConfig(opts []metric.AddOption) metric.AddConfig`.
   factory OtelMetricAddConfig(List<OtelMetricAddOption> opts) {
@@ -64,22 +45,8 @@ mixin OtelMetricAddOption$ on GoHandle {
 }
 
 /// Go: `metric.Float64Callback` (handle).
-class OtelMetricFloat64Callback extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelMetricFloat64Callback.$h(super.$h) : super.$h();
+class OtelMetricFloat64Callback extends GoHandle {
+  OtelMetricFloat64Callback.$h(super.$h);
 }
 
 /// Go: `metric.Float64Counter` (handle).
@@ -124,22 +91,8 @@ mixin OtelMetricFloat64Counter$ on GoHandle {
 }
 
 /// Go: `metric.Float64CounterConfig` (handle).
-class OtelMetricFloat64CounterConfig extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelMetricFloat64CounterConfig.$h(super.$h) : super.$h();
+class OtelMetricFloat64CounterConfig extends GoHandle {
+  OtelMetricFloat64CounterConfig.$h(super.$h);
 
   /// Go: `func metric.NewFloat64CounterConfig(opts ...metric.Float64CounterOption) metric.Float64CounterConfig`.
   factory OtelMetricFloat64CounterConfig(
@@ -218,22 +171,8 @@ mixin OtelMetricFloat64Gauge$ on GoHandle {
 }
 
 /// Go: `metric.Float64GaugeConfig` (handle).
-class OtelMetricFloat64GaugeConfig extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelMetricFloat64GaugeConfig.$h(super.$h) : super.$h();
+class OtelMetricFloat64GaugeConfig extends GoHandle {
+  OtelMetricFloat64GaugeConfig.$h(super.$h);
 
   /// Go: `func metric.NewFloat64GaugeConfig(opts ...metric.Float64GaugeOption) metric.Float64GaugeConfig`.
   factory OtelMetricFloat64GaugeConfig(
@@ -312,22 +251,8 @@ mixin OtelMetricFloat64Histogram$ on GoHandle {
 }
 
 /// Go: `metric.Float64HistogramConfig` (handle).
-class OtelMetricFloat64HistogramConfig extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelMetricFloat64HistogramConfig.$h(super.$h) : super.$h();
+class OtelMetricFloat64HistogramConfig extends GoHandle {
+  OtelMetricFloat64HistogramConfig.$h(super.$h);
 
   /// Go: `func metric.NewFloat64HistogramConfig(opts ...metric.Float64HistogramOption) metric.Float64HistogramConfig`.
   factory OtelMetricFloat64HistogramConfig(
@@ -414,23 +339,8 @@ class OtelMetricFloat64ObservableCounter extends OtelMetricFloat64Observable
 mixin OtelMetricFloat64ObservableCounter$ on GoHandle {}
 
 /// Go: `metric.Float64ObservableCounterConfig` (handle).
-class OtelMetricFloat64ObservableCounterConfig
-    extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelMetricFloat64ObservableCounterConfig.$h(super.$h) : super.$h();
+class OtelMetricFloat64ObservableCounterConfig extends GoHandle {
+  OtelMetricFloat64ObservableCounterConfig.$h(super.$h);
 
   /// Go: `func metric.NewFloat64ObservableCounterConfig(opts ...metric.Float64ObservableCounterOption) metric.Float64ObservableCounterConfig`.
   factory OtelMetricFloat64ObservableCounterConfig(
@@ -489,22 +399,8 @@ class OtelMetricFloat64ObservableGauge extends OtelMetricFloat64Observable
 mixin OtelMetricFloat64ObservableGauge$ on GoHandle {}
 
 /// Go: `metric.Float64ObservableGaugeConfig` (handle).
-class OtelMetricFloat64ObservableGaugeConfig extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelMetricFloat64ObservableGaugeConfig.$h(super.$h) : super.$h();
+class OtelMetricFloat64ObservableGaugeConfig extends GoHandle {
+  OtelMetricFloat64ObservableGaugeConfig.$h(super.$h);
 
   /// Go: `func metric.NewFloat64ObservableGaugeConfig(opts ...metric.Float64ObservableGaugeOption) metric.Float64ObservableGaugeConfig`.
   factory OtelMetricFloat64ObservableGaugeConfig(
@@ -574,23 +470,8 @@ class OtelMetricFloat64ObservableUpDownCounter
 mixin OtelMetricFloat64ObservableUpDownCounter$ on GoHandle {}
 
 /// Go: `metric.Float64ObservableUpDownCounterConfig` (handle).
-class OtelMetricFloat64ObservableUpDownCounterConfig
-    extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelMetricFloat64ObservableUpDownCounterConfig.$h(super.$h) : super.$h();
+class OtelMetricFloat64ObservableUpDownCounterConfig extends GoHandle {
+  OtelMetricFloat64ObservableUpDownCounterConfig.$h(super.$h);
 
   /// Go: `func metric.NewFloat64ObservableUpDownCounterConfig(opts ...metric.Float64ObservableUpDownCounterOption) metric.Float64ObservableUpDownCounterConfig`.
   factory OtelMetricFloat64ObservableUpDownCounterConfig(
@@ -709,22 +590,8 @@ mixin OtelMetricFloat64UpDownCounter$ on GoHandle {
 }
 
 /// Go: `metric.Float64UpDownCounterConfig` (handle).
-class OtelMetricFloat64UpDownCounterConfig extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelMetricFloat64UpDownCounterConfig.$h(super.$h) : super.$h();
+class OtelMetricFloat64UpDownCounterConfig extends GoHandle {
+  OtelMetricFloat64UpDownCounterConfig.$h(super.$h);
 
   /// Go: `func metric.NewFloat64UpDownCounterConfig(opts ...metric.Float64UpDownCounterOption) metric.Float64UpDownCounterConfig`.
   factory OtelMetricFloat64UpDownCounterConfig(
@@ -780,22 +647,8 @@ class OtelMetricInstrumentOption extends OtelMetricInt64CounterOption
 mixin OtelMetricInstrumentOption$ on GoHandle {}
 
 /// Go: `metric.Int64Callback` (handle).
-class OtelMetricInt64Callback extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelMetricInt64Callback.$h(super.$h) : super.$h();
+class OtelMetricInt64Callback extends GoHandle {
+  OtelMetricInt64Callback.$h(super.$h);
 }
 
 /// Go: `metric.Int64Counter` (handle).
@@ -840,22 +693,8 @@ mixin OtelMetricInt64Counter$ on GoHandle {
 }
 
 /// Go: `metric.Int64CounterConfig` (handle).
-class OtelMetricInt64CounterConfig extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelMetricInt64CounterConfig.$h(super.$h) : super.$h();
+class OtelMetricInt64CounterConfig extends GoHandle {
+  OtelMetricInt64CounterConfig.$h(super.$h);
 
   /// Go: `func metric.NewInt64CounterConfig(opts ...metric.Int64CounterOption) metric.Int64CounterConfig`.
   factory OtelMetricInt64CounterConfig(
@@ -934,22 +773,8 @@ mixin OtelMetricInt64Gauge$ on GoHandle {
 }
 
 /// Go: `metric.Int64GaugeConfig` (handle).
-class OtelMetricInt64GaugeConfig extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelMetricInt64GaugeConfig.$h(super.$h) : super.$h();
+class OtelMetricInt64GaugeConfig extends GoHandle {
+  OtelMetricInt64GaugeConfig.$h(super.$h);
 
   /// Go: `func metric.NewInt64GaugeConfig(opts ...metric.Int64GaugeOption) metric.Int64GaugeConfig`.
   factory OtelMetricInt64GaugeConfig(
@@ -1028,22 +853,8 @@ mixin OtelMetricInt64Histogram$ on GoHandle {
 }
 
 /// Go: `metric.Int64HistogramConfig` (handle).
-class OtelMetricInt64HistogramConfig extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelMetricInt64HistogramConfig.$h(super.$h) : super.$h();
+class OtelMetricInt64HistogramConfig extends GoHandle {
+  OtelMetricInt64HistogramConfig.$h(super.$h);
 
   /// Go: `func metric.NewInt64HistogramConfig(opts ...metric.Int64HistogramOption) metric.Int64HistogramConfig`.
   factory OtelMetricInt64HistogramConfig(
@@ -1330,22 +1141,8 @@ mixin OtelMetricInt64ObservableCounter$ on GoHandle {
 }
 
 /// Go: `metric.Int64ObservableCounterConfig` (handle).
-class OtelMetricInt64ObservableCounterConfig extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelMetricInt64ObservableCounterConfig.$h(super.$h) : super.$h();
+class OtelMetricInt64ObservableCounterConfig extends GoHandle {
+  OtelMetricInt64ObservableCounterConfig.$h(super.$h);
 
   /// Go: `func metric.NewInt64ObservableCounterConfig(opts ...metric.Int64ObservableCounterOption) metric.Int64ObservableCounterConfig`.
   factory OtelMetricInt64ObservableCounterConfig(
@@ -1404,22 +1201,8 @@ class OtelMetricInt64ObservableGauge extends OtelMetricInt64Observable
 mixin OtelMetricInt64ObservableGauge$ on GoHandle {}
 
 /// Go: `metric.Int64ObservableGaugeConfig` (handle).
-class OtelMetricInt64ObservableGaugeConfig extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelMetricInt64ObservableGaugeConfig.$h(super.$h) : super.$h();
+class OtelMetricInt64ObservableGaugeConfig extends GoHandle {
+  OtelMetricInt64ObservableGaugeConfig.$h(super.$h);
 
   /// Go: `func metric.NewInt64ObservableGaugeConfig(opts ...metric.Int64ObservableGaugeOption) metric.Int64ObservableGaugeConfig`.
   factory OtelMetricInt64ObservableGaugeConfig(
@@ -1576,23 +1359,8 @@ mixin OtelMetricInt64ObservableUpDownCounter$ on GoHandle {
 }
 
 /// Go: `metric.Int64ObservableUpDownCounterConfig` (handle).
-class OtelMetricInt64ObservableUpDownCounterConfig
-    extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelMetricInt64ObservableUpDownCounterConfig.$h(super.$h) : super.$h();
+class OtelMetricInt64ObservableUpDownCounterConfig extends GoHandle {
+  OtelMetricInt64ObservableUpDownCounterConfig.$h(super.$h);
 
   /// Go: `func metric.NewInt64ObservableUpDownCounterConfig(opts ...metric.Int64ObservableUpDownCounterOption) metric.Int64ObservableUpDownCounterConfig`.
   factory OtelMetricInt64ObservableUpDownCounterConfig(
@@ -1708,22 +1476,8 @@ mixin OtelMetricInt64UpDownCounter$ on GoHandle {
 }
 
 /// Go: `metric.Int64UpDownCounterConfig` (handle).
-class OtelMetricInt64UpDownCounterConfig extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelMetricInt64UpDownCounterConfig.$h(super.$h) : super.$h();
+class OtelMetricInt64UpDownCounterConfig extends GoHandle {
+  OtelMetricInt64UpDownCounterConfig.$h(super.$h);
 
   /// Go: `func metric.NewInt64UpDownCounterConfig(opts ...metric.Int64UpDownCounterOption) metric.Int64UpDownCounterConfig`.
   factory OtelMetricInt64UpDownCounterConfig(
@@ -1979,22 +1733,8 @@ mixin OtelMetricMeter$ on GoHandle {
 }
 
 /// Go: `metric.MeterConfig` (handle).
-class OtelMetricMeterConfig extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelMetricMeterConfig.$h(super.$h) : super.$h();
+class OtelMetricMeterConfig extends GoHandle {
+  OtelMetricMeterConfig.$h(super.$h);
 
   /// Go: `func metric.NewMeterConfig(opts ...metric.MeterOption) metric.MeterConfig`.
   factory OtelMetricMeterConfig([List<OtelMetricMeterOption> opts = const []]) {
@@ -2259,22 +1999,8 @@ mixin OtelMetricObservable$ on GoHandle {
 }
 
 /// Go: `metric.ObserveConfig` (handle).
-class OtelMetricObserveConfig extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelMetricObserveConfig.$h(super.$h) : super.$h();
+class OtelMetricObserveConfig extends GoHandle {
+  OtelMetricObserveConfig.$h(super.$h);
 
   /// Go: `func metric.NewObserveConfig(opts []metric.ObserveOption) metric.ObserveConfig`.
   factory OtelMetricObserveConfig(List<OtelMetricObserveOption> opts) {
@@ -2343,22 +2069,8 @@ mixin OtelMetricObserver$ on GoHandle {
 }
 
 /// Go: `metric.RecordConfig` (handle).
-class OtelMetricRecordConfig extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelMetricRecordConfig.$h(super.$h) : super.$h();
+class OtelMetricRecordConfig extends GoHandle {
+  OtelMetricRecordConfig.$h(super.$h);
 
   /// Go: `func metric.NewRecordConfig(opts []metric.RecordOption) metric.RecordConfig`.
   factory OtelMetricRecordConfig(List<OtelMetricRecordOption> opts) {

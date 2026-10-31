@@ -5,18 +5,13 @@ library;
 import 'package:p2p_ffi/src/go.dart' show GoIpfsBoxoBitswapNetwork;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/boxo/bitswap.dart' as $bitswap;
 import 'package:p2p_ffi/go/ipfs/boxo/bitswap/client.dart' as $client;
 import 'package:p2p_ffi/go/ipfs/boxo/bitswap/message.dart' as $message;
 import 'package:p2p_ffi/go/ipfs/boxo/bitswap/network/httpnet.dart' as $httpnet;
 import 'package:p2p_ffi/go/ipfs/boxo/bitswap/server.dart' as $server;
 import 'package:p2p_ffi/go/ipfs/cid.dart' as $cid;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 import 'package:p2p_ffi/go/ipfs/kubo/p2p.dart' as $p2p;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/host.dart' as $host;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peerstore.dart' as $peerstore;
@@ -147,22 +142,8 @@ mixin BoxoBitswapNetworkBitSwapNetwork$ on GoHandle {
 }
 
 /// Go: `network.ConnectEventManager` (handle).
-class BoxoBitswapNetworkConnectEventManager extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  BoxoBitswapNetworkConnectEventManager.$h(super.$h) : super.$h();
+class BoxoBitswapNetworkConnectEventManager extends GoHandle {
+  BoxoBitswapNetworkConnectEventManager.$h(super.$h);
 
   /// Go: `func network.NewConnectEventManager(connListeners ...network.ConnectionListener) *network.ConnectEventManager`.
   factory BoxoBitswapNetworkConnectEventManager(

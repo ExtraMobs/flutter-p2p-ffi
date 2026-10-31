@@ -8,9 +8,6 @@ import 'dart:typed_data';
 import 'package:p2p_ffi/src/go.dart' show GoGrpc, GoGrpcConsts, GoGrpcOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/grpc/backoff.dart' as $backoff;
 import 'package:p2p_ffi/go/grpc/channelz.dart' as $channelz;
 import 'package:p2p_ffi/go/grpc/credentials.dart' as $credentials;
@@ -23,8 +20,6 @@ import 'package:p2p_ffi/go/grpc/tap.dart' as $tap;
 import 'package:p2p_ffi/go/grpc_ecosystem/grpc_gateway/v2/runtime.dart'
     as $runtime;
 import 'package:p2p_ffi/go/io.dart' as $io;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/net.dart' as $net;
 import 'package:p2p_ffi/go/net/http.dart' as $http;
 import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
@@ -58,26 +53,8 @@ mixin GrpcCallOption$ on GoHandle {}
 
 /// Go: `grpc.ClientConn` (handle).
 class GrpcClientConn extends GrpcClientConnInterface
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $io.IoCloser$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $io.IoCloser,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $io.IoCloser$, $expfmt.CommonExpfmtCloser$
+    implements $io.IoCloser, $expfmt.CommonExpfmtCloser {
   GrpcClientConn.$h(super.$h) : super.$h();
 
   /// Go: `func (*grpc.ClientConn).CanonicalTarget() string`.
@@ -393,22 +370,8 @@ final class GrpcMethodDesc implements GoDto {
 }
 
 /// Go: `grpc.MethodHandler` (handle).
-class GrpcMethodHandler extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  GrpcMethodHandler.$h(super.$h) : super.$h();
+class GrpcMethodHandler extends GoHandle {
+  GrpcMethodHandler.$h(super.$h);
 }
 
 /// Go: `grpc.MethodInfo`.
@@ -442,22 +405,8 @@ final class GrpcMethodInfo implements GoDto {
 }
 
 /// Go: `grpc.PreparedMsg` (handle).
-class GrpcPreparedMsg extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  GrpcPreparedMsg.$h(super.$h) : super.$h();
+class GrpcPreparedMsg extends GoHandle {
+  GrpcPreparedMsg.$h(super.$h);
 
   /// Go: `func (*grpc.PreparedMsg).Encode(s grpc.Stream, msg any) error`.
   void encode(GrpcStream s, Object? msg) {
@@ -472,24 +421,8 @@ class GrpcPreparedMsg extends $crypto.CryptoDecrypterOpts
 
 /// Go: `grpc.Server` (handle).
 class GrpcServer extends GrpcServiceRegistrar
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $http.NetHttpHandler$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $http.NetHttpHandler {
+    with $http.NetHttpHandler$
+    implements $http.NetHttpHandler {
   GrpcServer.$h(super.$h) : super.$h();
 
   /// Go: `func grpc.NewServer(opt ...grpc.ServerOption) *grpc.Server`.
@@ -708,22 +641,8 @@ mixin GrpcStream$ on GoHandle {
 }
 
 /// Go: `grpc.StreamClientInterceptor` (handle).
-class GrpcStreamClientInterceptor extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  GrpcStreamClientInterceptor.$h(super.$h) : super.$h();
+class GrpcStreamClientInterceptor extends GoHandle {
+  GrpcStreamClientInterceptor.$h(super.$h);
 }
 
 /// Go: `grpc.StreamDesc`.
@@ -767,22 +686,8 @@ final class GrpcStreamDesc implements GoDto {
 }
 
 /// Go: `grpc.StreamHandler` (handle).
-class GrpcStreamHandler extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  GrpcStreamHandler.$h(super.$h) : super.$h();
+class GrpcStreamHandler extends GoHandle {
+  GrpcStreamHandler.$h(super.$h);
 }
 
 /// Go: `grpc.StreamServerInfo`.
@@ -817,60 +722,18 @@ final class GrpcStreamServerInfo implements GoDto {
 }
 
 /// Go: `grpc.StreamServerInterceptor` (handle).
-class GrpcStreamServerInterceptor extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  GrpcStreamServerInterceptor.$h(super.$h) : super.$h();
+class GrpcStreamServerInterceptor extends GoHandle {
+  GrpcStreamServerInterceptor.$h(super.$h);
 }
 
 /// Go: `grpc.UnaryClientInterceptor` (handle).
-class GrpcUnaryClientInterceptor extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  GrpcUnaryClientInterceptor.$h(super.$h) : super.$h();
+class GrpcUnaryClientInterceptor extends GoHandle {
+  GrpcUnaryClientInterceptor.$h(super.$h);
 }
 
 /// Go: `grpc.UnaryServerInterceptor` (handle).
-class GrpcUnaryServerInterceptor extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  GrpcUnaryServerInterceptor.$h(super.$h) : super.$h();
+class GrpcUnaryServerInterceptor extends GoHandle {
+  GrpcUnaryServerInterceptor.$h(super.$h);
 }
 
 /// Go: `serviceconfig.MethodConfig`.

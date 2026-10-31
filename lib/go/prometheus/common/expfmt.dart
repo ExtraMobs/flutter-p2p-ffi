@@ -35,7 +35,6 @@ import 'package:p2p_ffi/go/cockroachdb/pebble/v2/wal.dart' as $wal;
 import 'package:p2p_ffi/go/compress/flate.dart' as $flate;
 import 'package:p2p_ffi/go/compress/gzip.dart' as $gzip;
 import 'package:p2p_ffi/go/compress/zlib.dart' as $zlib;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/crypto/tls.dart' as $tls;
 import 'package:p2p_ffi/go/debug/macho.dart' as $macho;
 import 'package:p2p_ffi/go/dgraph_io/badger.dart' as $badger;
@@ -44,7 +43,6 @@ import 'package:p2p_ffi/go/dgraph_io/badger/table.dart' as $table;
 import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
 import 'package:p2p_ffi/go/facebookgo/atomicfile.dart' as $atomicfile;
 import 'package:p2p_ffi/go/fsnotify/fsnotify.dart' as $fsnotify;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/golang/snappy.dart' as $snappy;
 import 'package:p2p_ffi/go/gorilla/websocket.dart' as $websocket;
 import 'package:p2p_ffi/go/grpc.dart' as $grpc;
@@ -65,7 +63,6 @@ import 'package:p2p_ffi/go/ipfs/ds_flatfs.dart' as $ds_flatfs;
 import 'package:p2p_ffi/go/ipfs/ds_leveldb.dart' as $ds_leveldb;
 import 'package:p2p_ffi/go/ipfs/ds_pebble.dart' as $ds_pebble;
 import 'package:p2p_ffi/go/ipfs/dsqueue.dart' as $dsqueue;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 import 'package:p2p_ffi/go/ipfs/kubo/core.dart' as $core;
 import 'package:p2p_ffi/go/ipfs/kubo/core/node.dart' as $node;
 import 'package:p2p_ffi/go/ipfs/kubo/plugin/loader.dart' as $loader;
@@ -75,7 +72,6 @@ import 'package:p2p_ffi/go/ipfs/kubo/repo/fsrepo/migrations.dart'
 import 'package:p2p_ffi/go/ipfs/kubo/repo/fsrepo/migrations/atomicfile.dart'
     as $atomicfile2;
 import 'package:p2p_ffi/go/ipfs/log/v2.dart' as $v22;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/ipfs_shipyard/nopfs.dart' as $nopfs;
 import 'package:p2p_ffi/go/ipfs_shipyard/nopfs/ipfs.dart' as $ipfs;
 import 'package:p2p_ffi/go/ipld/car/v2.dart' as $v23;
@@ -1593,22 +1589,8 @@ final class CommonExpfmtEncoderOption extends GoOption {
 }
 
 /// Go: `expfmt.TextParser` (handle).
-class CommonExpfmtTextParser extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  CommonExpfmtTextParser.$h(super.$h) : super.$h();
+class CommonExpfmtTextParser extends GoHandle {
+  CommonExpfmtTextParser.$h(super.$h);
 
   /// Go: `func expfmt.NewTextParser(nameValidationScheme model.ValidationScheme) expfmt.TextParser`.
   factory CommonExpfmtTextParser(int nameValidationScheme) {

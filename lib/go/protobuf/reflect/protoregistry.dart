@@ -6,11 +6,6 @@ import 'dart:async';
 
 import 'package:p2p_ffi/src/go.dart' show GoProtobufReflectProtoregistry;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/protobuf/reflect/protodesc.dart' as $protodesc;
 import 'package:p2p_ffi/go/protobuf/reflect/protoreflect.dart' as $protoreflect;
 
@@ -54,23 +49,7 @@ mixin ProtobufReflectProtoregistryExtensionTypeResolver$ on GoHandle {
 
 /// Go: `protoregistry.Files` (handle).
 class ProtobufReflectProtoregistryFiles
-    extends $protodesc.ProtobufReflectProtodescResolver
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    extends $protodesc.ProtobufReflectProtodescResolver {
   ProtobufReflectProtoregistryFiles.$h(super.$h) : super.$h();
 
   /// Go: `func (*protoregistry.Files).FindDescriptorByName(name protoreflect.FullName) (protoreflect.Descriptor, error)`.
@@ -208,24 +187,8 @@ mixin ProtobufReflectProtoregistryMessageTypeResolver$ on GoHandle {
 /// Go: `protoregistry.Types` (handle).
 class ProtobufReflectProtoregistryTypes
     extends ProtobufReflectProtoregistryExtensionTypeResolver
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        ProtobufReflectProtoregistryMessageTypeResolver$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        ProtobufReflectProtoregistryMessageTypeResolver {
+    with ProtobufReflectProtoregistryMessageTypeResolver$
+    implements ProtobufReflectProtoregistryMessageTypeResolver {
   ProtobufReflectProtoregistryTypes.$h(super.$h) : super.$h();
 
   /// Go: `func (*protoregistry.Types).FindEnumByName(enum protoreflect.FullName) (protoreflect.EnumType, error)`.

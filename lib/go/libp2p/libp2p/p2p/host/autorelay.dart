@@ -4,12 +4,7 @@ library;
 
 import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2pP2pHostAutorelayOptions;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/host.dart' as $host;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
 import 'package:p2p_ffi/go/libp2p/libp2p/p2p/net/swarm.dart' as $swarm;
@@ -19,24 +14,8 @@ import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
 
 /// Go: `autorelay.AutoRelay` (handle).
 class Libp2pP2pHostAutorelayAutoRelay extends $io.IoCloser
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   Libp2pP2pHostAutorelayAutoRelay.$h(super.$h) : super.$h();
 
   /// Go: `func autorelay.NewAutoRelay(host host.Host, opts ...autorelay.Option) (*autorelay.AutoRelay, error)`.
@@ -251,22 +230,8 @@ final class Libp2pP2pHostAutorelayOption extends GoOption {
 }
 
 /// Go: `autorelay.PeerSource` (handle).
-class Libp2pP2pHostAutorelayPeerSource extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  Libp2pP2pHostAutorelayPeerSource.$h(super.$h) : super.$h();
+class Libp2pP2pHostAutorelayPeerSource extends GoHandle {
+  Libp2pP2pHostAutorelayPeerSource.$h(super.$h);
 }
 
 /// Go: `autorelay.RealClock`.
@@ -306,24 +271,8 @@ final class Libp2pP2pHostAutorelayRealClock implements GoDto {
 
 /// Go: `autorelay.RealTimer` (handle).
 class Libp2pP2pHostAutorelayRealTimer extends Libp2pP2pHostAutorelayInstantTimer
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $swarm.Libp2pP2pNetSwarmInstantTimer$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $swarm.Libp2pP2pNetSwarmInstantTimer {
+    with $swarm.Libp2pP2pNetSwarmInstantTimer$
+    implements $swarm.Libp2pP2pNetSwarmInstantTimer {
   Libp2pP2pHostAutorelayRealTimer.$h(super.$h) : super.$h();
 
   /// Go: `func (autorelay.RealTimer).Ch() <-chan time.Time`.

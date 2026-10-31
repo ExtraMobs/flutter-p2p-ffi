@@ -7,31 +7,10 @@ import 'dart:typed_data';
 import 'package:p2p_ffi/src/go.dart'
     show GoIpfsBoxoChunker, GoIpfsBoxoChunkerConsts;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 
 /// Go: `chunk.Buzhash` (handle).
-class BoxoChunkerBuzhash extends BoxoChunkerSplitter
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class BoxoChunkerBuzhash extends BoxoChunkerSplitter {
   BoxoChunkerBuzhash.$h(super.$h) : super.$h();
 
   /// Go: `func chunk.NewBuzhash(r io.Reader) *chunk.Buzhash`.
@@ -54,23 +33,7 @@ class BoxoChunkerBuzhash extends BoxoChunkerSplitter
 }
 
 /// Go: `chunk.Rabin` (handle).
-class BoxoChunkerRabin extends BoxoChunkerSplitter
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class BoxoChunkerRabin extends BoxoChunkerSplitter {
   BoxoChunkerRabin.$h(super.$h) : super.$h();
 
   /// Go: `func chunk.NewRabin(r io.Reader, avgBlkSize uint64) *chunk.Rabin`.
@@ -129,41 +92,13 @@ mixin BoxoChunkerSplitter$ on GoHandle {
 }
 
 /// Go: `chunk.SplitterFunc` (handle).
-class BoxoChunkerSplitterFunc extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  BoxoChunkerSplitterFunc.$h(super.$h) : super.$h();
+class BoxoChunkerSplitterFunc extends GoHandle {
+  BoxoChunkerSplitterFunc.$h(super.$h);
 }
 
 /// Go: `chunk.SplitterGen` (handle).
-class BoxoChunkerSplitterGen extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  BoxoChunkerSplitterGen.$h(super.$h) : super.$h();
+class BoxoChunkerSplitterGen extends GoHandle {
+  BoxoChunkerSplitterGen.$h(super.$h);
 }
 
 /// Go: `var chunk.ErrRabinMin error`: an error. Thrown as this class when it is the outermost

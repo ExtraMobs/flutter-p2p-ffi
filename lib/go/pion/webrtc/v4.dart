@@ -8,13 +8,8 @@ import 'dart:typed_data';
 import 'package:p2p_ffi/src/go.dart'
     show GoPionWebrtcV4, GoPionWebrtcV4Consts, GoPionWebrtcV4Enums;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/crypto/x509.dart' as $x509;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/net.dart' as $net;
 import 'package:p2p_ffi/go/pion/datachannel.dart' as $datachannel;
 import 'package:p2p_ffi/go/pion/ice/v4.dart' as $v4;
@@ -32,22 +27,8 @@ import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
 import 'package:p2p_ffi/go/x/net/proxy.dart' as $proxy;
 
 /// Go: `webrtc.API` (handle).
-class WebrtcV4Api extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  WebrtcV4Api.$h(super.$h) : super.$h();
+class WebrtcV4Api extends GoHandle {
+  WebrtcV4Api.$h(super.$h);
 
   /// Go: `func webrtc.NewAPI(options ...func(*webrtc.API)) *webrtc.API`.
   factory WebrtcV4Api() {
@@ -163,26 +144,11 @@ final class WebrtcV4AnswerOptions implements GoDto {
 }
 
 /// Go: `webrtc.Certificate` (handle).
-class WebrtcV4Certificate extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  WebrtcV4Certificate.$h(super.$h) : super.$h();
+class WebrtcV4Certificate extends GoHandle {
+  WebrtcV4Certificate.$h(super.$h);
 
   /// Go: `func webrtc.NewCertificate(key crypto.PrivateKey, tpl x509.Certificate) (*webrtc.Certificate, error)`.
-  factory WebrtcV4Certificate(
-      $crypto.CryptoPrivateKey key, $x509.CryptoX509Certificate tpl) {
+  factory WebrtcV4Certificate(GoHandle key, $x509.CryptoX509Certificate tpl) {
     final $r = $callSync(
         17640,
         $W()
@@ -339,22 +305,8 @@ final class WebrtcV4DtlsParameters implements GoDto {
 }
 
 /// Go: `webrtc.DTLSTransport` (handle).
-class WebrtcV4DtlsTransport extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  WebrtcV4DtlsTransport.$h(super.$h) : super.$h();
+class WebrtcV4DtlsTransport extends GoHandle {
+  WebrtcV4DtlsTransport.$h(super.$h);
 
   /// Go: `func (*webrtc.DTLSTransport).GetLocalParameters() (webrtc.DTLSParameters, error)`.
   WebrtcV4DtlsParameters getLocalParameters() {
@@ -422,24 +374,8 @@ class WebrtcV4DtlsTransport extends $crypto.CryptoDecrypterOpts
 
 /// Go: `webrtc.DataChannel` (handle).
 class WebrtcV4DataChannel extends $io.IoCloser
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   WebrtcV4DataChannel.$h(super.$h) : super.$h();
 
   /// Go: `func (*webrtc.DataChannel).BufferedAmount() uint64`.
@@ -775,22 +711,8 @@ final class WebrtcV4DataChannelParameters implements GoDto {
 }
 
 /// Go: `webrtc.ICECandidate` (handle).
-class WebrtcV4IceCandidate extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  WebrtcV4IceCandidate.$h(super.$h) : super.$h();
+class WebrtcV4IceCandidate extends GoHandle {
+  WebrtcV4IceCandidate.$h(super.$h);
 
   /// Go: `func (webrtc.ICECandidate).String() string`.
   String string() {
@@ -852,22 +774,8 @@ final class WebrtcV4IceCandidateInit implements GoDto {
 }
 
 /// Go: `webrtc.ICECandidatePair` (handle).
-class WebrtcV4IceCandidatePair extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  WebrtcV4IceCandidatePair.$h(super.$h) : super.$h();
+class WebrtcV4IceCandidatePair extends GoHandle {
+  WebrtcV4IceCandidatePair.$h(super.$h);
 
   /// Go: `func webrtc.NewICECandidatePair(local *webrtc.ICECandidate, remote *webrtc.ICECandidate) *webrtc.ICECandidatePair`.
   factory WebrtcV4IceCandidatePair(
@@ -1198,24 +1106,8 @@ final class WebrtcV4IceGatherOptions implements GoDto {
 
 /// Go: `webrtc.ICEGatherer` (handle).
 class WebrtcV4IceGatherer extends $io.IoCloser
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   WebrtcV4IceGatherer.$h(super.$h) : super.$h();
 
   /// Go: `func (*webrtc.ICEGatherer).Close() error`.
@@ -1362,22 +1254,8 @@ final class WebrtcV4IceServer implements GoDto {
 }
 
 /// Go: `webrtc.ICETransport` (handle).
-class WebrtcV4IceTransport extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  WebrtcV4IceTransport.$h(super.$h) : super.$h();
+class WebrtcV4IceTransport extends GoHandle {
+  WebrtcV4IceTransport.$h(super.$h);
 
   /// Go: `func webrtc.NewICETransport(gatherer *webrtc.ICEGatherer, loggerFactory logging.LoggerFactory) *webrtc.ICETransport`.
   factory WebrtcV4IceTransport(WebrtcV4IceGatherer gatherer,
@@ -1489,22 +1367,8 @@ class WebrtcV4IceTransport extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `webrtc.MediaEngine` (handle).
-class WebrtcV4MediaEngine extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  WebrtcV4MediaEngine.$h(super.$h) : super.$h();
+class WebrtcV4MediaEngine extends GoHandle {
+  WebrtcV4MediaEngine.$h(super.$h);
 
   /// Go: `func (*webrtc.MediaEngine).RegisterCodec(codec webrtc.RTPCodecParameters, typ webrtc.RTPCodecType) error`.
   void registerCodec(WebrtcV4RtpCodecParameters codec, int typ) {
@@ -1588,24 +1452,8 @@ final class WebrtcV4OfferOptions implements GoDto {
 
 /// Go: `webrtc.PeerConnection` (handle).
 class WebrtcV4PeerConnection extends $io.IoCloser
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   WebrtcV4PeerConnection.$h(super.$h) : super.$h();
 
   /// Go: `func webrtc.NewPeerConnection(configuration webrtc.Configuration) (*webrtc.PeerConnection, error)`.
@@ -2049,22 +1897,8 @@ final class WebrtcV4RtpCodecCapability implements GoDto {
 }
 
 /// Go: `webrtc.RTPCodecParameters` (handle).
-class WebrtcV4RtpCodecParameters extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  WebrtcV4RtpCodecParameters.$h(super.$h) : super.$h();
+class WebrtcV4RtpCodecParameters extends GoHandle {
+  WebrtcV4RtpCodecParameters.$h(super.$h);
 }
 
 /// Go: `webrtc.RTPCodingParameters`.
@@ -2252,23 +2086,7 @@ final class WebrtcV4RtpReceiveParameters implements GoDto {
 }
 
 /// Go: `webrtc.RTPReceiver` (handle).
-class WebrtcV4RtpReceiver extends $datachannel.DatachannelReadDeadliner
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class WebrtcV4RtpReceiver extends $datachannel.DatachannelReadDeadliner {
   WebrtcV4RtpReceiver.$h(super.$h) : super.$h();
 
   /// Go: `func (*webrtc.RTPReceiver).GetParameters() webrtc.RTPParameters`.
@@ -2387,23 +2205,7 @@ final class WebrtcV4RtpSendParameters implements GoDto {
 }
 
 /// Go: `webrtc.RTPSender` (handle).
-class WebrtcV4RtpSender extends $datachannel.DatachannelReadDeadliner
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class WebrtcV4RtpSender extends $datachannel.DatachannelReadDeadliner {
   WebrtcV4RtpSender.$h(super.$h) : super.$h();
 
   /// Go: `func (*webrtc.RTPSender).AddEncoding(track webrtc.TrackLocal) error`.
@@ -2477,22 +2279,8 @@ class WebrtcV4RtpSender extends $datachannel.DatachannelReadDeadliner
 }
 
 /// Go: `webrtc.RTPTransceiver` (handle).
-class WebrtcV4RtpTransceiver extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  WebrtcV4RtpTransceiver.$h(super.$h) : super.$h();
+class WebrtcV4RtpTransceiver extends GoHandle {
+  WebrtcV4RtpTransceiver.$h(super.$h);
 
   /// Go: `func (*webrtc.RTPTransceiver).Direction() webrtc.RTPTransceiverDirection`.
   int direction() {
@@ -2601,22 +2389,8 @@ final class WebrtcV4SctpCapabilities implements GoDto {
 }
 
 /// Go: `webrtc.SCTPTransport` (handle).
-class WebrtcV4SctpTransport extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  WebrtcV4SctpTransport.$h(super.$h) : super.$h();
+class WebrtcV4SctpTransport extends GoHandle {
+  WebrtcV4SctpTransport.$h(super.$h);
 
   /// Go: `func (*webrtc.SCTPTransport).BufferedAmount() int`.
   int bufferedAmount() {
@@ -2696,22 +2470,8 @@ class WebrtcV4SctpTransport extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `webrtc.SessionDescription` (handle).
-class WebrtcV4SessionDescription extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  WebrtcV4SessionDescription.$h(super.$h) : super.$h();
+class WebrtcV4SessionDescription extends GoHandle {
+  WebrtcV4SessionDescription.$h(super.$h);
 
   /// Go: `func (*webrtc.SessionDescription).Unmarshal() (*sdp.SessionDescription, error)`.
   $v3.SdpV3SessionDescription unmarshal() {
@@ -2721,22 +2481,8 @@ class WebrtcV4SessionDescription extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `webrtc.SettingEngine` (handle).
-class WebrtcV4SettingEngine extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  WebrtcV4SettingEngine.$h(super.$h) : super.$h();
+class WebrtcV4SettingEngine extends GoHandle {
+  WebrtcV4SettingEngine.$h(super.$h);
 
   /// Go: `func (*webrtc.SettingEngine).DetachDataChannels()`.
   void detachDataChannels() {
@@ -3395,23 +3141,7 @@ mixin WebrtcV4TrackLocalContext$ on GoHandle {
 }
 
 /// Go: `webrtc.TrackLocalStaticRTP` (handle).
-class WebrtcV4TrackLocalStaticRtp extends WebrtcV4TrackLocal
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class WebrtcV4TrackLocalStaticRtp extends WebrtcV4TrackLocal {
   WebrtcV4TrackLocalStaticRtp.$h(super.$h) : super.$h();
 
   /// Go: `func webrtc.NewTrackLocalStaticRTP(c webrtc.RTPCodecCapability, id string, streamID string, options ...func(*webrtc.TrackLocalStaticRTP)) (*webrtc.TrackLocalStaticRTP, error)`.
@@ -3496,23 +3226,7 @@ class WebrtcV4TrackLocalStaticRtp extends WebrtcV4TrackLocal
 }
 
 /// Go: `webrtc.TrackLocalStaticSample` (handle).
-class WebrtcV4TrackLocalStaticSample extends WebrtcV4TrackLocal
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class WebrtcV4TrackLocalStaticSample extends WebrtcV4TrackLocal {
   WebrtcV4TrackLocalStaticSample.$h(super.$h) : super.$h();
 
   /// Go: `func webrtc.NewTrackLocalStaticSample(c webrtc.RTPCodecCapability, id string, streamID string, options ...func(*webrtc.TrackLocalStaticRTP)) (*webrtc.TrackLocalStaticSample, error)`.
@@ -3631,23 +3345,7 @@ mixin WebrtcV4TrackLocalWriter$ on GoHandle {
 }
 
 /// Go: `webrtc.TrackRemote` (handle).
-class WebrtcV4TrackRemote extends $datachannel.DatachannelReadDeadliner
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class WebrtcV4TrackRemote extends $datachannel.DatachannelReadDeadliner {
   WebrtcV4TrackRemote.$h(super.$h) : super.$h();
 
   /// Go: `func (*webrtc.TrackRemote).Codec() webrtc.RTPCodecParameters`.
@@ -4122,8 +3820,8 @@ extension GoPionWebrtcV4Api on GoPionWebrtcV4 {
   }
 
   /// Go: `func webrtc.CertificateFromX509(privateKey crypto.PrivateKey, certificate *x509.Certificate) webrtc.Certificate`.
-  WebrtcV4Certificate certificateFromX509($crypto.CryptoPrivateKey privateKey,
-      $x509.CryptoX509Certificate certificate) {
+  WebrtcV4Certificate certificateFromX509(
+      GoHandle privateKey, $x509.CryptoX509Certificate certificate) {
     final $r = $callSync(
         17569,
         $W()
@@ -4197,7 +3895,7 @@ extension GoPionWebrtcV4Api on GoPionWebrtcV4 {
   }
 
   /// Go: `func webrtc.GenerateCertificate(secretKey crypto.PrivateKey) (*webrtc.Certificate, error)`.
-  WebrtcV4Certificate generateCertificate($crypto.CryptoPrivateKey secretKey) {
+  WebrtcV4Certificate generateCertificate(GoHandle secretKey) {
     final $r = $callSync(17608, $W()..h(secretKey));
     return $r.hnn(WebrtcV4Certificate.$h);
   }

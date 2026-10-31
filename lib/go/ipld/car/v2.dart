@@ -10,17 +10,12 @@ import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/bufio.dart' as $bufio;
 import 'package:p2p_ffi/go/bytes.dart' as $bytes;
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
 import 'package:p2p_ffi/go/facebookgo/atomicfile.dart' as $atomicfile;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
 import 'package:p2p_ffi/go/ipfs/block_format.dart' as $block_format;
 import 'package:p2p_ffi/go/ipfs/cid.dart' as $cid;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 import 'package:p2p_ffi/go/ipfs/kubo/repo/fsrepo/migrations/atomicfile.dart'
     as $atomicfile2;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/ipld/car/v2/index.dart' as $index;
 import 'package:p2p_ffi/go/ipld/ipld_prime/datamodel.dart' as $datamodel;
 import 'package:p2p_ffi/go/ipld/ipld_prime/linking.dart' as $linking;
@@ -80,22 +75,8 @@ final class CarV2BlockMetadata implements GoDto {
 }
 
 /// Go: `car.BlockReader` (handle).
-class CarV2BlockReader extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  CarV2BlockReader.$h(super.$h) : super.$h();
+class CarV2BlockReader extends GoHandle {
+  CarV2BlockReader.$h(super.$h);
 
   /// Go: `func car.NewBlockReader(r io.Reader, opts ...car.Option) (*car.BlockReader, error)`.
   factory CarV2BlockReader(Object r, [List<CarV2Option> opts = const []]) {
@@ -471,24 +452,8 @@ final class CarV2Options implements GoDto {
 
 /// Go: `car.Reader` (handle).
 class CarV2Reader extends $io.IoCloser
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   CarV2Reader.$h(super.$h) : super.$h();
 
   /// Go: `func car.NewReader(r io.ReaderAt, opts ...car.Option) (*car.Reader, error)`.

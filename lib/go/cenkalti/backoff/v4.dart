@@ -13,11 +13,6 @@ import 'package:p2p_ffi/src/go.dart'
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/cenkalti/backoff/v5.dart' as $v5;
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 
 /// Go: `backoff.BackOff` (handle).
 class BackoffV4BackOff extends GoHandle with BackoffV4BackOff$ {
@@ -95,24 +90,8 @@ final class BackoffV4ConstantBackOff implements GoDto {
 
 /// Go: `backoff.ExponentialBackOff` (handle).
 class BackoffV4ExponentialBackOff extends BackoffV4BackOff
-    with
-        $v5.BackoffV5BackOff$,
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $v5.BackoffV5BackOff,
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    with $v5.BackoffV5BackOff$
+    implements $v5.BackoffV5BackOff {
   BackoffV4ExponentialBackOff.$h(super.$h) : super.$h();
 
   /// Go: `func backoff.NewExponentialBackOff(opts ...backoff.ExponentialBackOffOpts) *backoff.ExponentialBackOff`.
@@ -166,22 +145,8 @@ final class BackoffV4StopBackOff implements GoDto {
 }
 
 /// Go: `backoff.Ticker` (handle).
-class BackoffV4Ticker extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  BackoffV4Ticker.$h(super.$h) : super.$h();
+class BackoffV4Ticker extends GoHandle {
+  BackoffV4Ticker.$h(super.$h);
 
   /// Go: `func backoff.NewTicker(b backoff.BackOff) *backoff.Ticker`.
   factory BackoffV4Ticker(BackoffV4BackOff b) {

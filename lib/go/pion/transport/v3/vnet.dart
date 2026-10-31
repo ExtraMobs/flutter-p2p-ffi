@@ -13,12 +13,7 @@ import 'package:p2p_ffi/src/go.dart'
         GoPionTransportV3VnetOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/net.dart' as $net;
 import 'package:p2p_ffi/go/pion/datachannel.dart' as $datachannel;
 import 'package:p2p_ffi/go/pion/logging.dart' as $logging;
@@ -78,23 +73,7 @@ mixin TransportV3VnetChunk$ on GoHandle {
 }
 
 /// Go: `vnet.DelayFilter` (handle).
-class TransportV3VnetDelayFilter extends TransportV3VnetNic
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class TransportV3VnetDelayFilter extends TransportV3VnetNic {
   TransportV3VnetDelayFilter.$h(super.$h) : super.$h();
 
   /// Go: `func vnet.NewDelayFilter(nic vnet.NIC, delay time.Duration) (*vnet.DelayFilter, error)`.
@@ -120,23 +99,7 @@ class TransportV3VnetDelayFilter extends TransportV3VnetNic
 }
 
 /// Go: `vnet.LossFilter` (handle).
-class TransportV3VnetLossFilter extends TransportV3VnetNic
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class TransportV3VnetLossFilter extends TransportV3VnetNic {
   TransportV3VnetLossFilter.$h(super.$h) : super.$h();
 
   /// Go: `func vnet.NewLossFilter(nic vnet.NIC, chance int) (*vnet.LossFilter, error)`.
@@ -245,25 +208,11 @@ mixin TransportV3VnetNic$ on GoHandle {
 /// Go: `vnet.Net` (handle).
 class TransportV3VnetNet extends $v3.TransportV3Net
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $v3.TransportV3Dialer$,
         TransportV3VnetNic$,
         $v4.TransportV4Dialer$,
         $proxy.NetProxyDialer$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $v3.TransportV3Dialer,
         TransportV3VnetNic,
         $v4.TransportV4Dialer,
@@ -441,23 +390,7 @@ final class TransportV3VnetNetConfig implements GoDto {
 }
 
 /// Go: `vnet.Router` (handle).
-class TransportV3VnetRouter extends TransportV3VnetNic
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class TransportV3VnetRouter extends TransportV3VnetNic {
   TransportV3VnetRouter.$h(super.$h) : super.$h();
 
   /// Go: `func vnet.NewRouter(config *vnet.RouterConfig) (*vnet.Router, error)`.
@@ -606,46 +539,14 @@ final class TransportV3VnetRouterConfig implements GoDto {
 }
 
 /// Go: `vnet.TBFOption` (handle).
-class TransportV3VnetTbfOption extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  TransportV3VnetTbfOption.$h(super.$h) : super.$h();
+class TransportV3VnetTbfOption extends GoHandle {
+  TransportV3VnetTbfOption.$h(super.$h);
 }
 
 /// Go: `vnet.TokenBucketFilter` (handle).
 class TransportV3VnetTokenBucketFilter extends $io.IoCloser
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        TransportV3VnetNic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        TransportV3VnetNic,
-        $expfmt.CommonExpfmtCloser {
+    with TransportV3VnetNic$, $expfmt.CommonExpfmtCloser$
+    implements TransportV3VnetNic, $expfmt.CommonExpfmtCloser {
   TransportV3VnetTokenBucketFilter.$h(super.$h) : super.$h();
 
   /// Go: `func vnet.NewTokenBucketFilter(n vnet.NIC, opts ...vnet.TBFOption) (*vnet.TokenBucketFilter, error)`.
@@ -679,14 +580,7 @@ class TransportV3VnetTokenBucketFilter extends $io.IoCloser
 /// Go: `vnet.UDPConn` (handle).
 class TransportV3VnetUdpConn extends $v3.TransportV3UdpConn
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
         $io.IoCloser$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $net.NetConn$,
         $net.NetPacketConn$,
         $datachannel.DatachannelReadDeadliner$,
@@ -694,14 +588,7 @@ class TransportV3VnetUdpConn extends $v3.TransportV3UdpConn
         $v4.TransportV4UdpConn$,
         $expfmt.CommonExpfmtCloser$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
         $io.IoCloser,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $net.NetConn,
         $net.NetPacketConn,
         $datachannel.DatachannelReadDeadliner,
@@ -866,24 +753,8 @@ class TransportV3VnetUdpConn extends $v3.TransportV3UdpConn
 
 /// Go: `vnet.UDPProxy` (handle).
 class TransportV3VnetUdpProxy extends $io.IoCloser
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   TransportV3VnetUdpProxy.$h(super.$h) : super.$h();
 
   /// Go: `func (*vnet.UDPProxy).Close() error`.

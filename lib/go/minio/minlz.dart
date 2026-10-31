@@ -8,32 +8,13 @@ import 'dart:typed_data';
 import 'package:p2p_ffi/src/go.dart'
     show GoMinioMinlz, GoMinioMinlzConsts, GoMinioMinlzOptions;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
 import 'package:p2p_ffi/go/protobuf/encoding/protodelim.dart' as $protodelim;
 
 /// Go: `minlz.Index` (handle).
-class MinlzIndex extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  MinlzIndex.$h(super.$h) : super.$h();
+class MinlzIndex extends GoHandle {
+  MinlzIndex.$h(super.$h);
 
   /// Go: `func (*minlz.Index).Find(offset int64) (compressedOff int64, uncompressedOff int64, err error)`.
   (int, int) find(int offset) {
@@ -73,26 +54,8 @@ class MinlzIndex extends $crypto.CryptoDecrypterOpts
 
 /// Go: `minlz.ReadSeeker` (handle).
 class MinlzReadSeeker extends $io.IoSeeker
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $io.IoWriterTo$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $protodelim.ProtobufEncodingProtodelimReader$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $io.IoWriterTo,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $protodelim.ProtobufEncodingProtodelimReader {
+    with $io.IoWriterTo$, $protodelim.ProtobufEncodingProtodelimReader$
+    implements $io.IoWriterTo, $protodelim.ProtobufEncodingProtodelimReader {
   MinlzReadSeeker.$h(super.$h) : super.$h();
 
   /// Go: `func (*minlz.Reader).DecodeConcurrent(w io.Writer, concurrent int) (written int64, err error)`.
@@ -214,24 +177,8 @@ class MinlzReadSeeker extends $io.IoSeeker
 
 /// Go: `minlz.Reader` (handle).
 class MinlzReader extends $io.IoWriterTo
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $protodelim.ProtobufEncodingProtodelimReader$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $protodelim.ProtobufEncodingProtodelimReader {
+    with $protodelim.ProtobufEncodingProtodelimReader$
+    implements $protodelim.ProtobufEncodingProtodelimReader {
   MinlzReader.$h(super.$h) : super.$h();
 
   /// Go: `func minlz.NewReader(r io.Reader, opts ...minlz.ReaderOption) *minlz.Reader`.
@@ -340,26 +287,8 @@ final class MinlzReaderOption extends GoOption {
 
 /// Go: `minlz.Writer` (handle).
 class MinlzWriter extends $io.IoCloser
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $io.IoReaderFrom$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $io.IoReaderFrom,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $io.IoReaderFrom$, $expfmt.CommonExpfmtCloser$
+    implements $io.IoReaderFrom, $expfmt.CommonExpfmtCloser {
   MinlzWriter.$h(super.$h) : super.$h();
 
   /// Go: `func minlz.NewWriter(w io.Writer, opts ...minlz.WriterOption) *minlz.Writer`.

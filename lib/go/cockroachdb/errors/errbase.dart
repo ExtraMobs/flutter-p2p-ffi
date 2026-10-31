@@ -9,12 +9,7 @@ import 'package:p2p_ffi/src/go.dart'
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/cockroachdb/errors/errorspb.dart' as $errorspb;
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/gogo/protobuf/proto.dart' as $proto2;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
+import 'package:p2p_ffi/go/gogo/protobuf/proto.dart' as $proto;
 
 /// Go: `errbase.Formatter` (handle).
 class ErrorsErrbaseFormatter extends GoHandle with ErrorsErrbaseFormatter$ {
@@ -129,42 +124,13 @@ mixin ErrorsErrbaseSafeFormatter$ on GoHandle {
 }
 
 /// Go: `errbase.WrapperEncoder` (handle).
-class ErrorsErrbaseWrapperEncoder extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  ErrorsErrbaseWrapperEncoder.$h(super.$h) : super.$h();
+class ErrorsErrbaseWrapperEncoder extends GoHandle {
+  ErrorsErrbaseWrapperEncoder.$h(super.$h);
 }
 
 /// Go: `errbase.WrapperEncoderWithMessageType` (handle).
-class ErrorsErrbaseWrapperEncoderWithMessageType
-    extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  ErrorsErrbaseWrapperEncoderWithMessageType.$h(super.$h) : super.$h();
+class ErrorsErrbaseWrapperEncoderWithMessageType extends GoHandle {
+  ErrorsErrbaseWrapperEncoderWithMessageType.$h(super.$h);
 }
 
 /// Go: `errbase.OpaqueErrno`: an error. Thrown as this class when it is the outermost
@@ -200,18 +166,15 @@ extension GoCockroachdbErrorsErrbaseApi on GoCockroachdbErrorsErrbase {
   Future<void> registerLeafDecoder(
       String theType,
       FutureOr<void> Function($context.Context ctx, String msg,
-              List<String> safeDetails, $proto2.ProtobufProtoMessage payload)
+              List<String> safeDetails, $proto.ProtobufProtoMessage payload)
           decoder) async {
     await $call(
         4428,
         $W()
           ..str(theType)
           ..cb(
-              (r) => decoder(
-                  r.hnn($context.Context.$h),
-                  r.str(),
-                  r.list(() => r.str()),
-                  r.hnn($proto2.ProtobufProtoMessage.$h)),
+              (r) => decoder(r.hnn($context.Context.$h), r.str(),
+                  r.list(() => r.str()), r.hnn($proto.ProtobufProtoMessage.$h)),
               true));
   }
 
@@ -229,7 +192,7 @@ extension GoCockroachdbErrorsErrbaseApi on GoCockroachdbErrorsErrbase {
               List<String> causes,
               String msgPrefix,
               List<String> safeDetails,
-              $proto2.ProtobufProtoMessage payload)
+              $proto.ProtobufProtoMessage payload)
           decoder) async {
     await $call(
         4429,
@@ -241,7 +204,7 @@ extension GoCockroachdbErrorsErrbaseApi on GoCockroachdbErrorsErrbase {
                   r.list(() => r.err() ?? $nil()),
                   r.str(),
                   r.list(() => r.str()),
-                  r.hnn($proto2.ProtobufProtoMessage.$h)),
+                  r.hnn($proto.ProtobufProtoMessage.$h)),
               true));
   }
 

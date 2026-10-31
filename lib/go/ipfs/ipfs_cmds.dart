@@ -12,16 +12,13 @@ import 'package:p2p_ffi/src/go.dart'
         GoIpfsIpfsCmdsEnums,
         GoIpfsIpfsCmdsOptions;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/encoding/gob.dart' as $gob;
 import 'package:p2p_ffi/go/encoding/json.dart' as $json;
 import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
 import 'package:p2p_ffi/go/go_jose/jose/v4/json.dart' as $json2;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/grpc_ecosystem/grpc_gateway/v2/runtime.dart'
     as $runtime;
 import 'package:p2p_ffi/go/io.dart' as $io;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/whyrusleeping/cbor/go.dart' as $go;
 import 'package:p2p_ffi/go/yaml_v3.dart' as $yaml_v3;
 import 'package:p2p_ffi/go/zap/zapcore.dart' as $zapcore;
@@ -193,8 +190,7 @@ final class IpfsCmdsCommand implements GoDto {
   }
 
   /// Go: `func (*cmds.Command).Call(req *cmds.Request, re cmds.ResponseEmitter, env cmds.Environment)`.
-  void call(IpfsCmdsRequest req, IpfsCmdsResponseEmitter re,
-      IpfsCmdsEnvironment env) {
+  void call(IpfsCmdsRequest req, IpfsCmdsResponseEmitter re, GoHandle env) {
     $callSync(
         10831,
         $W()
@@ -382,22 +378,8 @@ mixin IpfsCmdsEncoder$ on GoHandle {
 }
 
 /// Go: `cmds.EncoderFunc` (handle).
-class IpfsCmdsEncoderFunc extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  IpfsCmdsEncoderFunc.$h(super.$h) : super.$h();
+class IpfsCmdsEncoderFunc extends GoHandle {
+  IpfsCmdsEncoderFunc.$h(super.$h);
 }
 
 /// Go: `cmds.Environment` (handle).
@@ -422,8 +404,7 @@ class IpfsCmdsExecutor extends GoHandle with IpfsCmdsExecutor$ {
 /// The methods of [IpfsCmdsExecutor], mixed into every class Go also accepts as one.
 mixin IpfsCmdsExecutor$ on GoHandle {
   /// Go: `func (cmds.Executor).Execute(req *cmds.Request, re cmds.ResponseEmitter, env cmds.Environment) error`.
-  void execute(IpfsCmdsRequest req, IpfsCmdsResponseEmitter re,
-      IpfsCmdsEnvironment env) {
+  void execute(IpfsCmdsRequest req, IpfsCmdsResponseEmitter re, GoHandle env) {
     $callSync(
         10844,
         $W()
@@ -435,22 +416,8 @@ mixin IpfsCmdsExecutor$ on GoHandle {
 }
 
 /// Go: `cmds.Extra` (handle).
-class IpfsCmdsExtra extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  IpfsCmdsExtra.$h(super.$h) : super.$h();
+class IpfsCmdsExtra extends GoHandle {
+  IpfsCmdsExtra.$h(super.$h);
 
   /// Go: `func (*cmds.Extra).GetValue(key any) (any, bool)`.
   (Object?, bool) getValue(Object? key) {
@@ -491,22 +458,8 @@ final class IpfsCmdsFlusher implements GoDto {
 }
 
 /// Go: `cmds.Function` (handle).
-class IpfsCmdsFunction extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  IpfsCmdsFunction.$h(super.$h) : super.$h();
+class IpfsCmdsFunction extends GoHandle {
+  IpfsCmdsFunction.$h(super.$h);
 }
 
 /// Go: `cmds.HTTPHelpText`.
@@ -618,24 +571,8 @@ final class IpfsCmdsHelpText implements GoDto {
 
 /// Go: `cmds.MaybeError` (handle).
 class IpfsCmdsMaybeError extends $json.EncodingJsonUnmarshaler
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $json2.JoseV4JsonUnmarshaler$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $json2.JoseV4JsonUnmarshaler,
-        $proto.ProtobufProtoGeneratedMessage,
-        IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    with $json2.JoseV4JsonUnmarshaler$
+    implements $json2.JoseV4JsonUnmarshaler {
   IpfsCmdsMaybeError.$h(super.$h) : super.$h();
 
   /// Go: `func (*cmds.MaybeError).Get() (any, error)`.
@@ -723,22 +660,8 @@ mixin IpfsCmdsOption$ on GoHandle {
 }
 
 /// Go: `cmds.ReqLog` (handle).
-class IpfsCmdsReqLog extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  IpfsCmdsReqLog.$h(super.$h) : super.$h();
+class IpfsCmdsReqLog extends GoHandle {
+  IpfsCmdsReqLog.$h(super.$h);
 
   /// Go: `func (*cmds.ReqLog).Add(req *cmds.Request) *cmds.ReqLogEntry`.
   IpfsCmdsReqLogEntry add(IpfsCmdsRequest req) {
@@ -857,22 +780,8 @@ final class IpfsCmdsReqLogEntry implements GoDto {
 }
 
 /// Go: `cmds.Request` (handle).
-class IpfsCmdsRequest extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  IpfsCmdsRequest.$h(super.$h) : super.$h();
+class IpfsCmdsRequest extends GoHandle {
+  IpfsCmdsRequest.$h(super.$h);
 
   /// Go: `func (*cmds.Request).BodyArgs() cmds.StdinArguments`.
   IpfsCmdsStdinArguments bodyArgs() {
@@ -1028,26 +937,8 @@ mixin IpfsCmdsStdinArguments$ on GoHandle {
 
 /// Go: `cmds.TextEncoder` (handle).
 class IpfsCmdsTextEncoder extends $runtime.GrpcGatewayV2RuntimeEncoder
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        IpfsCmdsEncoder$,
-        IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $zapcore.ZapZapcoreReflectedEncoder$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        IpfsCmdsEncoder,
-        IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $zapcore.ZapZapcoreReflectedEncoder {
+    with IpfsCmdsEncoder$, $zapcore.ZapZapcoreReflectedEncoder$
+    implements IpfsCmdsEncoder, $zapcore.ZapZapcoreReflectedEncoder {
   IpfsCmdsTextEncoder.$h(super.$h) : super.$h();
 
   /// Go: `func (cmds.TextEncoder).Encode(v any) error`.

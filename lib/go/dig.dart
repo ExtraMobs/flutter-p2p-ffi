@@ -6,11 +6,6 @@ import 'dart:async';
 
 import 'package:p2p_ffi/src/go.dart' show GoDig, GoDigConsts, GoDigOptions;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 
 /// Go: `dig.BeforeCallbackInfo`.
 final class DigBeforeCallbackInfo implements GoDto {
@@ -58,22 +53,8 @@ final class DigCallbackInfo implements GoDto {
 }
 
 /// Go: `dig.Container` (handle).
-class DigContainer extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  DigContainer.$h(super.$h) : super.$h();
+class DigContainer extends GoHandle {
+  DigContainer.$h(super.$h);
 
   /// Go: `func (*dig.Container).Decorate(decorator interface{}, opts ...dig.DecorateOption) error`.
   void decorate(Object? decorator, [List<DigDecorateOption> opts = const []]) {
@@ -162,41 +143,13 @@ class DigDecorateOption extends GoHandle with DigDecorateOption$ {
 mixin DigDecorateOption$ on GoHandle {}
 
 /// Go: `dig.In` (handle).
-class DigIn extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  DigIn.$h(super.$h) : super.$h();
+class DigIn extends GoHandle {
+  DigIn.$h(super.$h);
 }
 
 /// Go: `dig.Input` (handle).
-class DigInput extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  DigInput.$h(super.$h) : super.$h();
+class DigInput extends GoHandle {
+  DigInput.$h(super.$h);
 
   /// Go: `func (*dig.Input).String() string`.
   String string() {
@@ -237,41 +190,13 @@ class DigOption extends GoHandle with DigOption$ {
 mixin DigOption$ on GoHandle {}
 
 /// Go: `dig.Out` (handle).
-class DigOut extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  DigOut.$h(super.$h) : super.$h();
+class DigOut extends GoHandle {
+  DigOut.$h(super.$h);
 }
 
 /// Go: `dig.Output` (handle).
-class DigOutput extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  DigOutput.$h(super.$h) : super.$h();
+class DigOutput extends GoHandle {
+  DigOutput.$h(super.$h);
 
   /// Go: `func (*dig.Output).String() string`.
   String string() {
@@ -319,22 +244,8 @@ class DigProvideOption extends GoHandle with DigProvideOption$ {
 mixin DigProvideOption$ on GoHandle {}
 
 /// Go: `dig.Scope` (handle).
-class DigScope extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  DigScope.$h(super.$h) : super.$h();
+class DigScope extends GoHandle {
+  DigScope.$h(super.$h);
 
   /// Go: `func (*dig.Scope).Decorate(decorator interface{}, opts ...dig.DecorateOption) error`.
   void decorate(Object? decorator, [List<DigDecorateOption> opts = const []]) {

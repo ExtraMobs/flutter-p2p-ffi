@@ -4,29 +4,10 @@ library;
 
 import 'package:p2p_ffi/src/go.dart' show GoQuicGoQuicGoQlogwriterJsontext;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 
 /// Go: `jsontext.Encoder` (handle).
-class QuicGoQlogwriterJsontextEncoder extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  QuicGoQlogwriterJsontextEncoder.$h(super.$h) : super.$h();
+class QuicGoQlogwriterJsontextEncoder extends GoHandle {
+  QuicGoQlogwriterJsontextEncoder.$h(super.$h);
 
   /// Go: `func jsontext.NewEncoder(w io.Writer) *jsontext.Encoder`.
   factory QuicGoQlogwriterJsontextEncoder(GoHandle? w) {
@@ -45,22 +26,8 @@ class QuicGoQlogwriterJsontextEncoder extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `jsontext.Token` (handle).
-class QuicGoQlogwriterJsontextToken extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  QuicGoQlogwriterJsontextToken.$h(super.$h) : super.$h();
+class QuicGoQlogwriterJsontextToken extends GoHandle {
+  QuicGoQlogwriterJsontextToken.$h(super.$h);
 }
 
 /// Go: the package-level members of `github.com/quic-go/quic-go/qlogwriter/jsontext` (`go.quicGo.quicGo.qlogwriter.jsontext`).

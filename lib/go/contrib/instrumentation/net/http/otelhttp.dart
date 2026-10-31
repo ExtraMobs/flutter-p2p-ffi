@@ -12,11 +12,6 @@ import 'package:p2p_ffi/src/go.dart'
         GoContribInstrumentationNetHttpOtelhttpOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/net/http.dart' as $http;
 import 'package:p2p_ffi/go/otel/attribute.dart' as $attribute;
 import 'package:p2p_ffi/go/otel/metric.dart' as $metric;
@@ -24,22 +19,8 @@ import 'package:p2p_ffi/go/otel/propagation.dart' as $propagation;
 import 'package:p2p_ffi/go/otel/trace.dart' as $trace;
 
 /// Go: `otelhttp.Labeler` (handle).
-class OtelhttpLabeler extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  OtelhttpLabeler.$h(super.$h) : super.$h();
+class OtelhttpLabeler extends GoHandle {
+  OtelhttpLabeler.$h(super.$h);
 
   /// Go: `func (*otelhttp.Labeler).Add(ls ...attribute.KeyValue)`.
   void add([List<$attribute.OtelAttributeKeyValue> ls = const []]) {
@@ -67,23 +48,7 @@ class OtelhttpOption extends GoHandle with OtelhttpOption$ {
 mixin OtelhttpOption$ on GoHandle {}
 
 /// Go: `otelhttp.Transport` (handle).
-class OtelhttpTransport extends $http.NetHttpRoundTripper
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class OtelhttpTransport extends $http.NetHttpRoundTripper {
   OtelhttpTransport.$h(super.$h) : super.$h();
 
   /// Go: `func otelhttp.NewTransport(base http.RoundTripper, opts ...otelhttp.Option) *otelhttp.Transport`.

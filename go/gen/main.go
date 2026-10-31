@@ -803,10 +803,10 @@ func (m *model) casts(fns []*fn) []*fn {
 	}
 	var out []*fn
 	for _, i := range ifaces {
-		it := i.named.Underlying().(*types.Interface)
-		if it.NumMethods() == 0 { // crypto.PrivateKey is an `any`: every type would be a cast
+		if emptyIface(i) { // crypto.PrivateKey is an `any`: every type would be a cast
 			continue
 		}
+		it := i.named.Underlying().(*types.Interface)
 		named := map[string]bool{} // T and *T are one Dart class: one cast
 		// e para as interfaces que embutem esta (index.Index →
 		// index.IterableIndex): o `x.(Maior)` do Go; entre interfaces sem

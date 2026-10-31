@@ -4,11 +4,6 @@ library;
 
 import 'package:p2p_ffi/src/go.dart' show GoBeorn7PerksQuantile;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 
 /// Go: `quantile.Sample`.
 final class PerksQuantileSample implements GoDto {
@@ -41,22 +36,8 @@ final class PerksQuantileSample implements GoDto {
 }
 
 /// Go: `quantile.Stream` (handle).
-class PerksQuantileStream extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PerksQuantileStream.$h(super.$h) : super.$h();
+class PerksQuantileStream extends GoHandle {
+  PerksQuantileStream.$h(super.$h);
 
   /// Go: `func (*quantile.Stream).Count() int`.
   int count() {

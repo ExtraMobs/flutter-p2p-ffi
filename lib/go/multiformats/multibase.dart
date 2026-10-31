@@ -7,29 +7,10 @@ import 'dart:typed_data';
 import 'package:p2p_ffi/src/go.dart'
     show GoMultiformatsMultibase, GoMultiformatsMultibaseConsts;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 
 /// Go: `multibase.Encoder` (handle).
-class MultibaseEncoder extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  MultibaseEncoder.$h(super.$h) : super.$h();
+class MultibaseEncoder extends GoHandle {
+  MultibaseEncoder.$h(super.$h);
 
   /// Go: `func multibase.NewEncoder(base multibase.Encoding) (multibase.Encoder, error)`.
   factory MultibaseEncoder(int base) {

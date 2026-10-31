@@ -7,12 +7,7 @@ import 'dart:typed_data';
 import 'package:p2p_ffi/src/go.dart'
     show GoLibp2pBufferPool, GoLibp2pBufferPoolConsts;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
 import 'package:p2p_ffi/go/protobuf/encoding/protodelim.dart' as $protodelim;
 import 'package:p2p_ffi/go/quic_go/quic_go/quicvarint.dart' as $quicvarint;
@@ -20,29 +15,15 @@ import 'package:p2p_ffi/go/quic_go/quic_go/quicvarint.dart' as $quicvarint;
 /// Go: `pool.Buffer` (handle).
 class BufferPoolBuffer extends $io.IoByteWriter
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
         $io.IoReaderFrom$,
         $io.IoStringWriter$,
         $io.IoWriterTo$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protodelim.ProtobufEncodingProtodelimReader$,
         $quicvarint.QuicGoQuicvarintWriter$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
         $io.IoReaderFrom,
         $io.IoStringWriter,
         $io.IoWriterTo,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protodelim.ProtobufEncodingProtodelimReader,
         $quicvarint.QuicGoQuicvarintWriter {
   BufferPoolBuffer.$h(super.$h) : super.$h();
@@ -177,22 +158,8 @@ class BufferPoolBuffer extends $io.IoByteWriter
 }
 
 /// Go: `pool.BufferPool` (handle).
-class BufferPool extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  BufferPool.$h(super.$h) : super.$h();
+class BufferPool extends GoHandle {
+  BufferPool.$h(super.$h);
 
   /// Go: `func (*pool.BufferPool).Get(length int) []byte`.
   Uint8List get(int length) {
@@ -217,27 +184,13 @@ class BufferPool extends $crypto.CryptoDecrypterOpts
 /// Go: `pool.Writer` (handle).
 class BufferPoolWriter extends $io.IoByteWriter
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
         $io.IoCloser$,
         $io.IoStringWriter$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $expfmt.CommonExpfmtCloser$,
         $quicvarint.QuicGoQuicvarintWriter$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
         $io.IoCloser,
         $io.IoStringWriter,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $expfmt.CommonExpfmtCloser,
         $quicvarint.QuicGoQuicvarintWriter {
   BufferPoolWriter.$h(super.$h) : super.$h();

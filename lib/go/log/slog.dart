@@ -9,12 +9,7 @@ import 'package:p2p_ffi/src/go.dart'
     show GoLogSlog, GoLogSlogConsts, GoLogSlogEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/encoding.dart' as $encoding;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/libp2p/libp2p_pubsub.dart' as $libp2p_pubsub;
 import 'package:p2p_ffi/go/libp2p/libp2p_pubsub/pb.dart' as $pb;
 import 'package:p2p_ffi/go/log.dart' as $log;
@@ -155,23 +150,7 @@ final class LogSlogHandlerOptions implements GoDto {
 }
 
 /// Go: `slog.JSONHandler` (handle).
-class LogSlogJsonHandler extends LogSlogHandler
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class LogSlogJsonHandler extends LogSlogHandler {
   LogSlogJsonHandler.$h(super.$h) : super.$h();
 
   /// Go: `func slog.NewJSONHandler(w io.Writer, opts *slog.HandlerOptions) *slog.JSONHandler`.
@@ -232,24 +211,8 @@ class LogSlogJsonHandler extends LogSlogHandler
 
 /// Go: `slog.LevelVar` (handle).
 class LogSlogLevelVar extends $encoding.EncodingTextAppender
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $encoding.EncodingTextUnmarshaler$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $encoding.EncodingTextUnmarshaler,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    with $encoding.EncodingTextUnmarshaler$
+    implements $encoding.EncodingTextUnmarshaler {
   LogSlogLevelVar.$h(super.$h) : super.$h();
 
   /// Go: `func (*slog.LevelVar).AppendText(b []byte) ([]byte, error)`.
@@ -333,22 +296,8 @@ mixin LogSlogLogValuer$ on GoHandle {
 }
 
 /// Go: `slog.Logger` (handle).
-class LogSlogLogger extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  LogSlogLogger.$h(super.$h) : super.$h();
+class LogSlogLogger extends GoHandle {
+  LogSlogLogger.$h(super.$h);
 
   /// Go: `func (*slog.Logger).Debug(msg string, args ...any)`.
   void debug(String msg, [List<Object?> args = const []]) {
@@ -517,23 +466,7 @@ class LogSlogLogger extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `slog.MultiHandler` (handle).
-class LogSlogMultiHandler extends LogSlogHandler
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class LogSlogMultiHandler extends LogSlogHandler {
   LogSlogMultiHandler.$h(super.$h) : super.$h();
 
   /// Go: `func slog.NewMultiHandler(handlers ...slog.Handler) *slog.MultiHandler`.
@@ -589,22 +522,8 @@ class LogSlogMultiHandler extends LogSlogHandler
 }
 
 /// Go: `slog.Record` (handle).
-class LogSlogRecord extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  LogSlogRecord.$h(super.$h) : super.$h();
+class LogSlogRecord extends GoHandle {
+  LogSlogRecord.$h(super.$h);
 
   /// Go: `func (*slog.Record).Add(args ...any)`.
   void add([List<Object?> args = const []]) {
@@ -689,23 +608,7 @@ final class LogSlogSource implements GoDto {
 }
 
 /// Go: `slog.TextHandler` (handle).
-class LogSlogTextHandler extends LogSlogHandler
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class LogSlogTextHandler extends LogSlogHandler {
   LogSlogTextHandler.$h(super.$h) : super.$h();
 
   /// Go: `func slog.NewTextHandler(w io.Writer, opts *slog.HandlerOptions) *slog.TextHandler`.
@@ -765,22 +668,8 @@ class LogSlogTextHandler extends LogSlogHandler
 }
 
 /// Go: `slog.Value` (handle).
-class LogSlogValue extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  LogSlogValue.$h(super.$h) : super.$h();
+class LogSlogValue extends GoHandle {
+  LogSlogValue.$h(super.$h);
 
   /// Go: `func (slog.Value).Any() any`.
   Object? any() {

@@ -52,7 +52,7 @@ class CryptoDecrypter extends GoHandle with CryptoDecrypter$ {
 /// The methods of [CryptoDecrypter], mixed into every class Go also accepts as one.
 mixin CryptoDecrypter$ on GoHandle {
   /// Go: `func (crypto.Decrypter).Decrypt(rand io.Reader, msg []byte, opts crypto.DecrypterOpts) (plaintext []byte, err error)`.
-  Uint8List decrypt(Object rand, Uint8List msg, CryptoDecrypterOpts opts) {
+  Uint8List decrypt(Object rand, Uint8List msg, GoHandle opts) {
     final $r = $callSync(
         3134,
         $W()
@@ -64,7 +64,7 @@ mixin CryptoDecrypter$ on GoHandle {
   }
 
   /// Go: `func (crypto.Decrypter).Public() crypto.PublicKey`.
-  CryptoPublicKey public() {
+  GoHandle public() {
     final $r = $callSync(3135, $W()..h(this));
     return $r.hnn(CryptoPublicKey.$h);
   }
@@ -154,7 +154,7 @@ class CryptoSigner extends GoHandle with CryptoSigner$ {
 /// The methods of [CryptoSigner], mixed into every class Go also accepts as one.
 mixin CryptoSigner$ on GoHandle {
   /// Go: `func (crypto.Signer).Public() crypto.PublicKey`.
-  CryptoPublicKey public() {
+  GoHandle public() {
     final $r = $callSync(3140, $W()..h(this));
     return $r.hnn(CryptoPublicKey.$h);
   }

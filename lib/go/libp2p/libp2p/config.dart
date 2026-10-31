@@ -5,12 +5,7 @@ library;
 import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto2;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
 import 'package:p2p_ffi/go/fx.dart' as $fx;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/connmgr.dart' as $connmgr;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/host.dart' as $host;
@@ -382,22 +377,8 @@ final class Libp2pConfig implements GoDto {
 }
 
 /// Go: `config.NATManagerC` (handle).
-class Libp2pConfigNatManagerC extends $crypto2.CryptoDecrypterOpts
-    with
-        $crypto2.CryptoPrivateKey$,
-        $crypto2.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto2.CryptoPrivateKey,
-        $crypto2.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  Libp2pConfigNatManagerC.$h(super.$h) : super.$h();
+class Libp2pConfigNatManagerC extends GoHandle {
+  Libp2pConfigNatManagerC.$h(super.$h);
 }
 
 /// Go: `config.Option` (functional option; constructors in the package).
@@ -406,22 +387,8 @@ final class Libp2pConfigOption extends GoOption {
 }
 
 /// Go: `config.RoutingC` (handle).
-class Libp2pConfigRoutingC extends $crypto2.CryptoDecrypterOpts
-    with
-        $crypto2.CryptoPrivateKey$,
-        $crypto2.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto2.CryptoPrivateKey,
-        $crypto2.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  Libp2pConfigRoutingC.$h(super.$h) : super.$h();
+class Libp2pConfigRoutingC extends GoHandle {
+  Libp2pConfigRoutingC.$h(super.$h);
 }
 
 /// Go: `config.Security`.

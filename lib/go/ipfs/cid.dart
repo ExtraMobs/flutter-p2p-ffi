@@ -7,14 +7,9 @@ import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/go.dart' show GoIpfsCid, GoIpfsCidConsts;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/boxo/dag/walker.dart' as $walker;
 import 'package:p2p_ffi/go/ipfs/boxo/ipld/merkledag/traverse.dart' as $traverse;
 import 'package:p2p_ffi/go/ipfs/cidutil.dart' as $cidutil;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/multiformats/multibase.dart' as $multibase;
 
 /// Go: `cid.Builder` (handle).
@@ -286,24 +281,8 @@ final class CidPrefix implements GoDto {
 
 /// Go: `cid.Set` (handle).
 class CidSet extends $walker.BoxoDagWalkerVisitedTracker
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $traverse.BoxoIpldMerkledagTraverseVisited$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $traverse.BoxoIpldMerkledagTraverseVisited,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    with $traverse.BoxoIpldMerkledagTraverseVisited$
+    implements $traverse.BoxoIpldMerkledagTraverseVisited {
   CidSet.$h(super.$h) : super.$h();
 
   /// Go: `func cid.NewSet() *cid.Set`.

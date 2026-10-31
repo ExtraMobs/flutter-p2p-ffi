@@ -7,12 +7,7 @@ import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/go.dart' show GoBytes, GoBytesConsts;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/protobuf/encoding/protodelim.dart' as $protodelim;
 import 'package:p2p_ffi/go/quic_go/quic_go/quicvarint.dart' as $quicvarint;
 import 'package:p2p_ffi/go/unicode.dart' as $unicode;
@@ -20,31 +15,17 @@ import 'package:p2p_ffi/go/unicode.dart' as $unicode;
 /// Go: `bytes.Buffer` (handle).
 class BytesBuffer extends $io.IoRuneScanner
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
         $io.IoByteWriter$,
         $io.IoReaderFrom$,
         $io.IoStringWriter$,
         $io.IoWriterTo$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protodelim.ProtobufEncodingProtodelimReader$,
         $quicvarint.QuicGoQuicvarintWriter$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
         $io.IoByteWriter,
         $io.IoReaderFrom,
         $io.IoStringWriter,
         $io.IoWriterTo,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protodelim.ProtobufEncodingProtodelimReader,
         $quicvarint.QuicGoQuicvarintWriter {
   BytesBuffer.$h(super.$h) : super.$h();
@@ -249,26 +230,12 @@ class BytesBuffer extends $io.IoRuneScanner
 /// Go: `bytes.Reader` (handle).
 class BytesReader extends $io.IoRuneScanner
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
         $io.IoSeeker$,
         $io.IoWriterTo$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protodelim.ProtobufEncodingProtodelimReader$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
         $io.IoSeeker,
         $io.IoWriterTo,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protodelim.ProtobufEncodingProtodelimReader {
   BytesReader.$h(super.$h) : super.$h();
 

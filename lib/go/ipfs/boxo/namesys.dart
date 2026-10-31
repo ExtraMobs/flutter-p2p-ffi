@@ -10,16 +10,11 @@ import 'package:p2p_ffi/src/go.dart'
         GoIpfsBoxoNamesysOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/boxo/ipns.dart' as $ipns;
 import 'package:p2p_ffi/go/ipfs/boxo/path.dart' as $path;
 import 'package:p2p_ffi/go/ipfs/datastore.dart' as $datastore;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/ipfs_shipyard/nopfs/ipfs.dart' as $ipfs;
-import 'package:p2p_ffi/go/libp2p/libp2p/core/crypto.dart' as $crypto2;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/routing.dart' as $routing;
 import 'package:p2p_ffi/go/multiformats/multiaddr_dns.dart' as $multiaddr_dns;
@@ -62,23 +57,7 @@ final class BoxoNamesysAsyncResult implements GoDto {
 }
 
 /// Go: `namesys.DNSResolver` (handle).
-class BoxoNamesysDnsResolver extends BoxoNamesysResolver
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class BoxoNamesysDnsResolver extends BoxoNamesysResolver {
   BoxoNamesysDnsResolver.$h(super.$h) : super.$h();
 
   /// Go: `func namesys.NewDNSResolver(lookup namesys.LookupTXTFunc) *namesys.DNSResolver`.
@@ -117,23 +96,7 @@ class BoxoNamesysDnsResolver extends BoxoNamesysResolver
 }
 
 /// Go: `namesys.IPNSPublisher` (handle).
-class BoxoNamesysIpnsPublisher extends BoxoNamesysPublisher
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class BoxoNamesysIpnsPublisher extends BoxoNamesysPublisher {
   BoxoNamesysIpnsPublisher.$h(super.$h) : super.$h();
 
   /// Go: `func namesys.NewIPNSPublisher(route routing.ValueStore, ds datastore.Datastore) *namesys.IPNSPublisher`.
@@ -166,7 +129,7 @@ class BoxoNamesysIpnsPublisher extends BoxoNamesysPublisher
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> publish($context.Context ctx,
-      $crypto2.Libp2pCoreCryptoPrivKey priv, $path.BoxoPath value,
+      $crypto.Libp2pCoreCryptoPrivKey priv, $path.BoxoPath value,
       [List<BoxoNamesysPublishOption> options = const []]) async {
     await $call(
         10105,
@@ -180,23 +143,7 @@ class BoxoNamesysIpnsPublisher extends BoxoNamesysPublisher
 }
 
 /// Go: `namesys.IPNSResolver` (handle).
-class BoxoNamesysIpnsResolver extends BoxoNamesysResolver
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class BoxoNamesysIpnsResolver extends BoxoNamesysResolver {
   BoxoNamesysIpnsResolver.$h(super.$h) : super.$h();
 
   /// Go: `func namesys.NewIPNSResolver(route routing.ValueStore) *namesys.IPNSResolver`.
@@ -235,41 +182,13 @@ class BoxoNamesysIpnsResolver extends BoxoNamesysResolver
 }
 
 /// Go: `namesys.LookupTXTFunc` (handle).
-class BoxoNamesysLookupTxtFunc extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  BoxoNamesysLookupTxtFunc.$h(super.$h) : super.$h();
+class BoxoNamesysLookupTxtFunc extends GoHandle {
+  BoxoNamesysLookupTxtFunc.$h(super.$h);
 }
 
 /// Go: `namesys.LookupTXTWithTTLFunc` (handle).
-class BoxoNamesysLookupTxtWithTtlFunc extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  BoxoNamesysLookupTxtWithTtlFunc.$h(super.$h) : super.$h();
+class BoxoNamesysLookupTxtWithTtlFunc extends GoHandle {
+  BoxoNamesysLookupTxtWithTtlFunc.$h(super.$h);
 }
 
 /// Go: `namesys.NameSystem` (handle).
@@ -351,8 +270,8 @@ mixin BoxoNamesysPublisher$ on GoHandle {
   /// Go: `func (namesys.Publisher).Publish(ctx context.Context, sk crypto.PrivKey, value path.Path, options ...namesys.PublishOption) error`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
-  Future<void> publish($context.Context ctx,
-      $crypto2.Libp2pCoreCryptoPrivKey sk, $path.BoxoPath value,
+  Future<void> publish($context.Context ctx, $crypto.Libp2pCoreCryptoPrivKey sk,
+      $path.BoxoPath value,
       [List<BoxoNamesysPublishOption> options = const []]) async {
     await $call(
         10118,
@@ -622,7 +541,7 @@ extension GoIpfsBoxoNamesysApi on GoIpfsBoxoNamesys {
   Future<void> publishIpnsRecord(
       $context.Context ctx,
       $routing.Libp2pCoreRoutingValueStore r,
-      $crypto2.Libp2pCoreCryptoPubKey pubKey,
+      $crypto.Libp2pCoreCryptoPubKey pubKey,
       $ipns.BoxoIpnsRecord rec) async {
     await $call(
         10117,
@@ -657,7 +576,7 @@ extension GoIpfsBoxoNamesysApi on GoIpfsBoxoNamesys {
       $context.Context ctx,
       $routing.Libp2pCoreRoutingValueStore r,
       $peer.Libp2pCorePeerId pid,
-      $crypto2.Libp2pCoreCryptoPubKey pubKey) async {
+      $crypto.Libp2pCoreCryptoPubKey pubKey) async {
     await $call(
         10120,
         $W()

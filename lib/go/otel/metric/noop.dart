@@ -6,31 +6,10 @@ import 'dart:async';
 
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/otel/metric.dart' as $metric;
 
 /// Go: `noop.Float64Counter` (handle).
-class OtelMetricNoopFloat64Counter extends $metric.OtelMetricFloat64Counter
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class OtelMetricNoopFloat64Counter extends $metric.OtelMetricFloat64Counter {
   OtelMetricNoopFloat64Counter.$h(super.$h) : super.$h();
 
   /// Go: `func (noop.Float64Counter).Add(context.Context, float64, ...metric.AddOption)`.
@@ -61,23 +40,7 @@ class OtelMetricNoopFloat64Counter extends $metric.OtelMetricFloat64Counter
 }
 
 /// Go: `noop.Float64Gauge` (handle).
-class OtelMetricNoopFloat64Gauge extends $metric.OtelMetricFloat64Gauge
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class OtelMetricNoopFloat64Gauge extends $metric.OtelMetricFloat64Gauge {
   OtelMetricNoopFloat64Gauge.$h(super.$h) : super.$h();
 
   /// Go: `func (noop.Float64Gauge).Enabled(context.Context) bool`.
@@ -108,23 +71,8 @@ class OtelMetricNoopFloat64Gauge extends $metric.OtelMetricFloat64Gauge
 }
 
 /// Go: `noop.Float64Histogram` (handle).
-class OtelMetricNoopFloat64Histogram extends $metric.OtelMetricFloat64Histogram
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class OtelMetricNoopFloat64Histogram
+    extends $metric.OtelMetricFloat64Histogram {
   OtelMetricNoopFloat64Histogram.$h(super.$h) : super.$h();
 
   /// Go: `func (noop.Float64Histogram).Enabled(context.Context) bool`.
@@ -155,23 +103,7 @@ class OtelMetricNoopFloat64Histogram extends $metric.OtelMetricFloat64Histogram
 }
 
 /// Go: `noop.Float64Observer` (handle).
-class OtelMetricNoopFloat64Observer extends $metric.OtelMetricFloat64Observer
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class OtelMetricNoopFloat64Observer extends $metric.OtelMetricFloat64Observer {
   OtelMetricNoopFloat64Observer.$h(super.$h) : super.$h();
 
   /// Go: `func (noop.Float64Observer).Observe(float64, ...metric.ObserveOption)`.
@@ -188,23 +120,7 @@ class OtelMetricNoopFloat64Observer extends $metric.OtelMetricFloat64Observer
 
 /// Go: `noop.Float64UpDownCounter` (handle).
 class OtelMetricNoopFloat64UpDownCounter
-    extends $metric.OtelMetricFloat64UpDownCounter
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    extends $metric.OtelMetricFloat64UpDownCounter {
   OtelMetricNoopFloat64UpDownCounter.$h(super.$h) : super.$h();
 
   /// Go: `func (noop.Float64UpDownCounter).Add(context.Context, float64, ...metric.AddOption)`.
@@ -235,23 +151,7 @@ class OtelMetricNoopFloat64UpDownCounter
 }
 
 /// Go: `noop.Int64Counter` (handle).
-class OtelMetricNoopInt64Counter extends $metric.OtelMetricInt64Counter
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class OtelMetricNoopInt64Counter extends $metric.OtelMetricInt64Counter {
   OtelMetricNoopInt64Counter.$h(super.$h) : super.$h();
 
   /// Go: `func (noop.Int64Counter).Add(context.Context, int64, ...metric.AddOption)`.
@@ -282,23 +182,7 @@ class OtelMetricNoopInt64Counter extends $metric.OtelMetricInt64Counter
 }
 
 /// Go: `noop.Int64Gauge` (handle).
-class OtelMetricNoopInt64Gauge extends $metric.OtelMetricInt64Gauge
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class OtelMetricNoopInt64Gauge extends $metric.OtelMetricInt64Gauge {
   OtelMetricNoopInt64Gauge.$h(super.$h) : super.$h();
 
   /// Go: `func (noop.Int64Gauge).Enabled(context.Context) bool`.
@@ -329,23 +213,7 @@ class OtelMetricNoopInt64Gauge extends $metric.OtelMetricInt64Gauge
 }
 
 /// Go: `noop.Int64Histogram` (handle).
-class OtelMetricNoopInt64Histogram extends $metric.OtelMetricInt64Histogram
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class OtelMetricNoopInt64Histogram extends $metric.OtelMetricInt64Histogram {
   OtelMetricNoopInt64Histogram.$h(super.$h) : super.$h();
 
   /// Go: `func (noop.Int64Histogram).Enabled(context.Context) bool`.
@@ -376,23 +244,7 @@ class OtelMetricNoopInt64Histogram extends $metric.OtelMetricInt64Histogram
 }
 
 /// Go: `noop.Int64Observer` (handle).
-class OtelMetricNoopInt64Observer extends $metric.OtelMetricInt64Observer
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class OtelMetricNoopInt64Observer extends $metric.OtelMetricInt64Observer {
   OtelMetricNoopInt64Observer.$h(super.$h) : super.$h();
 
   /// Go: `func (noop.Int64Observer).Observe(int64, ...metric.ObserveOption)`.
@@ -409,23 +261,7 @@ class OtelMetricNoopInt64Observer extends $metric.OtelMetricInt64Observer
 
 /// Go: `noop.Int64UpDownCounter` (handle).
 class OtelMetricNoopInt64UpDownCounter
-    extends $metric.OtelMetricInt64UpDownCounter
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    extends $metric.OtelMetricInt64UpDownCounter {
   OtelMetricNoopInt64UpDownCounter.$h(super.$h) : super.$h();
 
   /// Go: `func (noop.Int64UpDownCounter).Add(context.Context, int64, ...metric.AddOption)`.
@@ -456,23 +292,7 @@ class OtelMetricNoopInt64UpDownCounter
 }
 
 /// Go: `noop.Meter` (handle).
-class OtelMetricNoopMeter extends $metric.OtelMetricMeter
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class OtelMetricNoopMeter extends $metric.OtelMetricMeter {
   OtelMetricNoopMeter.$h(super.$h) : super.$h();
 
   /// Go: `func (noop.Meter).Float64Counter(string, ...metric.Float64CounterOption) (metric.Float64Counter, error)`.
@@ -685,23 +505,7 @@ class OtelMetricNoopMeter extends $metric.OtelMetricMeter
 }
 
 /// Go: `noop.MeterProvider` (handle).
-class OtelMetricNoopMeterProvider extends $metric.OtelMetricMeterProvider
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class OtelMetricNoopMeterProvider extends $metric.OtelMetricMeterProvider {
   OtelMetricNoopMeterProvider.$h(super.$h) : super.$h();
 
   /// Go: `func noop.NewMeterProvider() noop.MeterProvider`.
@@ -724,23 +528,7 @@ class OtelMetricNoopMeterProvider extends $metric.OtelMetricMeterProvider
 }
 
 /// Go: `noop.Observer` (handle).
-class OtelMetricNoopObserver extends $metric.OtelMetricObserver
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class OtelMetricNoopObserver extends $metric.OtelMetricObserver {
   OtelMetricNoopObserver.$h(super.$h) : super.$h();
 
   /// Go: `func (noop.Observer).ObserveFloat64(metric.Float64Observable, float64, ...metric.ObserveOption)`.
@@ -770,23 +558,7 @@ class OtelMetricNoopObserver extends $metric.OtelMetricObserver
 }
 
 /// Go: `noop.Registration` (handle).
-class OtelMetricNoopRegistration extends $metric.OtelMetricRegistration
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class OtelMetricNoopRegistration extends $metric.OtelMetricRegistration {
   OtelMetricNoopRegistration.$h(super.$h) : super.$h();
 
   /// Go: `func (noop.Registration).Unregister() error`.

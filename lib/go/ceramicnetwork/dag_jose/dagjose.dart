@@ -4,11 +4,6 @@ library;
 
 import 'package:p2p_ffi/src/go.dart' show GoCeramicnetworkDagJoseDagjose;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/ipld/ipld_prime/datamodel.dart' as $datamodel;
 
 /// Go: `dagjose.DecodeOptions`.
@@ -57,22 +52,8 @@ final class DagJoseDagjoseDecodeOptions implements GoDto {
 }
 
 /// Go: `dagjose.DecodedRecipients__Itr` (handle).
-class DagJoseDagjoseDecodedRecipientsItr extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  DagJoseDagjoseDecodedRecipientsItr.$h(super.$h) : super.$h();
+class DagJoseDagjoseDecodedRecipientsItr extends GoHandle {
+  DagJoseDagjoseDecodedRecipientsItr.$h(super.$h);
 
   /// Go: `func (*dagjose.DecodedRecipients__Itr).Done() bool`.
   bool done() {
@@ -82,22 +63,8 @@ class DagJoseDagjoseDecodedRecipientsItr extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `dagjose.DecodedSignatures__Itr` (handle).
-class DagJoseDagjoseDecodedSignaturesItr extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  DagJoseDagjoseDecodedSignaturesItr.$h(super.$h) : super.$h();
+class DagJoseDagjoseDecodedSignaturesItr extends GoHandle {
+  DagJoseDagjoseDecodedSignaturesItr.$h(super.$h);
 
   /// Go: `func (*dagjose.DecodedSignatures__Itr).Done() bool`.
   bool done() {
@@ -107,22 +74,8 @@ class DagJoseDagjoseDecodedSignaturesItr extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `dagjose.EncodedRecipients__Itr` (handle).
-class DagJoseDagjoseEncodedRecipientsItr extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  DagJoseDagjoseEncodedRecipientsItr.$h(super.$h) : super.$h();
+class DagJoseDagjoseEncodedRecipientsItr extends GoHandle {
+  DagJoseDagjoseEncodedRecipientsItr.$h(super.$h);
 
   /// Go: `func (*dagjose.EncodedRecipients__Itr).Done() bool`.
   bool done() {
@@ -132,22 +85,8 @@ class DagJoseDagjoseEncodedRecipientsItr extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `dagjose.EncodedSignatures__Itr` (handle).
-class DagJoseDagjoseEncodedSignaturesItr extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  DagJoseDagjoseEncodedSignaturesItr.$h(super.$h) : super.$h();
+class DagJoseDagjoseEncodedSignaturesItr extends GoHandle {
+  DagJoseDagjoseEncodedSignaturesItr.$h(super.$h);
 
   /// Go: `func (*dagjose.EncodedSignatures__Itr).Done() bool`.
   bool done() {
@@ -157,22 +96,8 @@ class DagJoseDagjoseEncodedSignaturesItr extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `dagjose.List__Itr` (handle).
-class DagJoseDagjoseListItr extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  DagJoseDagjoseListItr.$h(super.$h) : super.$h();
+class DagJoseDagjoseListItr extends GoHandle {
+  DagJoseDagjoseListItr.$h(super.$h);
 
   /// Go: `func (*dagjose.List__Itr).Done() bool`.
   bool done() {
@@ -182,22 +107,8 @@ class DagJoseDagjoseListItr extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `dagjose.Map__Itr` (handle).
-class DagJoseDagjoseMapItr extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  DagJoseDagjoseMapItr.$h(super.$h) : super.$h();
+class DagJoseDagjoseMapItr extends GoHandle {
+  DagJoseDagjoseMapItr.$h(super.$h);
 
   /// Go: `func (*dagjose.Map__Itr).Done() bool`.
   bool done() {

@@ -14,37 +14,14 @@ import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/cockroachdb/pebble/v2.dart' as $v2;
 import 'package:p2p_ffi/go/cockroachdb/pebble/v2/sstable/block.dart' as $block;
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
 
 /// Go: `rowblk.IndexIter` (handle).
 class PebbleV2SstableRowblkIndexIter
     extends $block.PebbleV2SstableBlockIndexBlockIterator
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $io.IoCloser$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $io.IoCloser,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $io.IoCloser$, $expfmt.CommonExpfmtCloser$
+    implements $io.IoCloser, $expfmt.CommonExpfmtCloser {
   PebbleV2SstableRowblkIndexIter.$h(super.$h) : super.$h();
 
   /// Go: `func (*rowblk.IndexIter).BlockHandleWithProperties() (block.HandleWithProperties, error)`.
@@ -174,26 +151,8 @@ class PebbleV2SstableRowblkIndexIter
 /// Go: `rowblk.Iter` (handle).
 class PebbleV2SstableRowblkIter
     extends $block.PebbleV2SstableBlockDataBlockIterator
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $io.IoCloser$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $io.IoCloser,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $io.IoCloser$, $expfmt.CommonExpfmtCloser$
+    implements $io.IoCloser, $expfmt.CommonExpfmtCloser {
   PebbleV2SstableRowblkIter.$h(super.$h) : super.$h();
 
   /// Go: `func (*rowblk.Iter).Close() error`.
@@ -332,24 +291,8 @@ class PebbleV2SstableRowblkIter
 
 /// Go: `rowblk.RawIter` (handle).
 class PebbleV2SstableRowblkRawIter extends $io.IoCloser
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   PebbleV2SstableRowblkRawIter.$h(super.$h) : super.$h();
 
   /// Go: `func (*rowblk.RawIter).Close() error`.
@@ -423,22 +366,8 @@ class PebbleV2SstableRowblkRawIter extends $io.IoCloser
 }
 
 /// Go: `rowblk.Rewriter` (handle).
-class PebbleV2SstableRowblkRewriter extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2SstableRowblkRewriter.$h(super.$h) : super.$h();
+class PebbleV2SstableRowblkRewriter extends GoHandle {
+  PebbleV2SstableRowblkRewriter.$h(super.$h);
 
   /// Go: `func rowblk.NewRewriter(comparer *base.Comparer, restartInterval int) *rowblk.Rewriter`.
   factory PebbleV2SstableRowblkRewriter(
@@ -453,22 +382,8 @@ class PebbleV2SstableRowblkRewriter extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `rowblk.Writer` (handle).
-class PebbleV2SstableRowblkWriter extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2SstableRowblkWriter.$h(super.$h) : super.$h();
+class PebbleV2SstableRowblkWriter extends GoHandle {
+  PebbleV2SstableRowblkWriter.$h(super.$h);
 
   /// Go: `func (*rowblk.Writer).AddRaw(key []byte, value []byte) error`.
   void addRaw(Uint8List key, Uint8List value) {

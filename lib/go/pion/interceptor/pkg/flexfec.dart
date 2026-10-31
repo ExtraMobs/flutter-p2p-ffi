@@ -8,11 +8,6 @@ import 'package:p2p_ffi/src/go.dart'
         GoPionInterceptorPkgFlexfecConsts,
         GoPionInterceptorPkgFlexfecOptions;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/pion/interceptor.dart' as $interceptor;
 import 'package:p2p_ffi/go/pion/interceptor/pkg/flexfec/util.dart' as $util;
 import 'package:p2p_ffi/go/pion/rtp.dart' as $rtp;
@@ -40,24 +35,8 @@ mixin InterceptorPkgFlexfecEncoderFactory$ on GoHandle {
 
 /// Go: `flexfec.FecInterceptor` (handle).
 class InterceptorPkgFlexfecFecInterceptor extends $interceptor.Interceptor
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   InterceptorPkgFlexfecFecInterceptor.$h(super.$h) : super.$h();
 
   /// Go: `func (*flexfec.FecInterceptor).BindLocalStream(info *interceptor.StreamInfo, writer interceptor.RTPWriter) interceptor.RTPWriter`.
@@ -84,23 +63,7 @@ class InterceptorPkgFlexfecFecInterceptor extends $interceptor.Interceptor
 
 /// Go: `flexfec.FecInterceptorFactory` (handle).
 class InterceptorPkgFlexfecFecInterceptorFactory
-    extends $interceptor.InterceptorFactory
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    extends $interceptor.InterceptorFactory {
   InterceptorPkgFlexfecFecInterceptorFactory.$h(super.$h) : super.$h();
 
   /// Go: `func (*flexfec.FecInterceptorFactory).NewInterceptor(_ string) (interceptor.Interceptor, error)`.
@@ -154,23 +117,7 @@ mixin InterceptorPkgFlexfecFlexEncoder$ on GoHandle {
 
 /// Go: `flexfec.FlexEncoder03` (handle).
 class InterceptorPkgFlexfecFlexEncoder03
-    extends InterceptorPkgFlexfecFlexEncoder
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    extends InterceptorPkgFlexfecFlexEncoder {
   InterceptorPkgFlexfecFlexEncoder03.$h(super.$h) : super.$h();
 
   /// Go: `func flexfec.NewFlexEncoder03(payloadType uint8, ssrc uint32) *flexfec.FlexEncoder03`.
@@ -218,23 +165,7 @@ final class InterceptorPkgFlexfecFlexEncoder03Factory implements GoDto {
 
 /// Go: `flexfec.FlexEncoder20` (handle).
 class InterceptorPkgFlexfecFlexEncoder20
-    extends InterceptorPkgFlexfecFlexEncoder
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    extends InterceptorPkgFlexfecFlexEncoder {
   InterceptorPkgFlexfecFlexEncoder20.$h(super.$h) : super.$h();
 
   /// Go: `func (*flexfec.FlexEncoder20).EncodeFec(mediaPackets []rtp.Packet, numFecPackets uint32) []rtp.Packet`.
@@ -251,23 +182,8 @@ class InterceptorPkgFlexfecFlexEncoder20
 }
 
 /// Go: `flexfec.ProtectionCoverage` (handle).
-class InterceptorPkgFlexfecProtectionCoverage
-    extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  InterceptorPkgFlexfecProtectionCoverage.$h(super.$h) : super.$h();
+class InterceptorPkgFlexfecProtectionCoverage extends GoHandle {
+  InterceptorPkgFlexfecProtectionCoverage.$h(super.$h);
 
   /// Go: `func (*flexfec.ProtectionCoverage).ExtractMask1(fecPacketIndex uint32) uint16`.
   int extractMask1(int fecPacketIndex) {

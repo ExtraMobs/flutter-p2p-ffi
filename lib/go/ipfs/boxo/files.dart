@@ -9,13 +9,8 @@ import 'package:p2p_ffi/src/go.dart'
     show GoIpfsBoxoFiles, GoIpfsBoxoFilesConsts;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crackcomm/gitignore.dart' as $gitignore;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
 import 'package:p2p_ffi/go/io/fs.dart' as $fs;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/mime/multipart.dart' as $multipart;
 import 'package:p2p_ffi/go/net/url.dart' as $url;
 import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
@@ -179,22 +174,8 @@ final class BoxoFilesFilter implements GoDto {
 }
 
 /// Go: `files.MultiFileReader` (handle).
-class BoxoFilesMultiFileReader extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  BoxoFilesMultiFileReader.$h(super.$h) : super.$h();
+class BoxoFilesMultiFileReader extends GoHandle {
+  BoxoFilesMultiFileReader.$h(super.$h);
 
   /// Go: `func files.NewMultiFileReader(file files.Directory, form bool, rawAbsPath bool) *files.MultiFileReader`.
   factory BoxoFilesMultiFileReader(
@@ -295,26 +276,8 @@ mixin BoxoFilesNode$ on GoHandle {
 
 /// Go: `files.ReaderFile` (handle).
 class BoxoFilesReaderFile extends BoxoFilesFileInfo
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $io.IoSeeker$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $io.IoSeeker,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $io.IoSeeker$, $expfmt.CommonExpfmtCloser$
+    implements $io.IoSeeker, $expfmt.CommonExpfmtCloser {
   BoxoFilesReaderFile.$h(super.$h) : super.$h();
 
   /// Go: `func (*files.ReaderFile).AbsPath() string`.
@@ -401,24 +364,8 @@ final class BoxoFilesSerialFileOptions implements GoDto {
 
 /// Go: `files.SliceFile` (handle).
 class BoxoFilesSliceFile extends BoxoFilesDirectory
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   BoxoFilesSliceFile.$h(super.$h) : super.$h();
 
   /// Go: `func (*files.SliceFile).Close() error`.
@@ -459,26 +406,8 @@ class BoxoFilesSliceFile extends BoxoFilesDirectory
 
 /// Go: `files.Symlink` (handle).
 class BoxoFilesSymlink extends BoxoFilesNode
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $io.IoSeeker$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $io.IoSeeker,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $io.IoSeeker$, $expfmt.CommonExpfmtCloser$
+    implements $io.IoSeeker, $expfmt.CommonExpfmtCloser {
   BoxoFilesSymlink.$h(super.$h) : super.$h();
 
   /// Go: `func (*files.Symlink).Close() error`.
@@ -528,24 +457,8 @@ class BoxoFilesSymlink extends BoxoFilesNode
 
 /// Go: `files.TarWriter` (handle).
 class BoxoFilesTarWriter extends $io.IoCloser
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   BoxoFilesTarWriter.$h(super.$h) : super.$h();
 
   /// Go: `func files.NewTarWriter(w io.Writer) (*files.TarWriter, error)`.
@@ -581,24 +494,8 @@ class BoxoFilesTarWriter extends $io.IoCloser
 
 /// Go: `files.WebFile` (handle).
 class BoxoFilesWebFile extends BoxoFilesFileInfo
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   BoxoFilesWebFile.$h(super.$h) : super.$h();
 
   /// Go: `func files.NewWebFile(url *url.URL) *files.WebFile`.

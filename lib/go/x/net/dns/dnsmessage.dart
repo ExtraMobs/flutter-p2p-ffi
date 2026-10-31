@@ -7,11 +7,6 @@ import 'dart:typed_data';
 import 'package:p2p_ffi/src/go.dart'
     show GoXNetDnsDnsmessage, GoXNetDnsDnsmessageEnums;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 
 /// Go: `dnsmessage.AAAAResource`.
 ///
@@ -48,22 +43,8 @@ final class NetDnsDnsmessageAResource implements GoDto {
 }
 
 /// Go: `dnsmessage.Builder` (handle).
-class NetDnsDnsmessageBuilder extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  NetDnsDnsmessageBuilder.$h(super.$h) : super.$h();
+class NetDnsDnsmessageBuilder extends GoHandle {
+  NetDnsDnsmessageBuilder.$h(super.$h);
 
   /// Go: `func dnsmessage.NewBuilder(buf []byte, h dnsmessage.Header) dnsmessage.Builder`.
   factory NetDnsDnsmessageBuilder(Uint8List buf, NetDnsDnsmessageHeader h) {
@@ -661,22 +642,8 @@ final class NetDnsDnsmessagePtrResource implements GoDto {
 }
 
 /// Go: `dnsmessage.Parser` (handle).
-class NetDnsDnsmessageParser extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  NetDnsDnsmessageParser.$h(super.$h) : super.$h();
+class NetDnsDnsmessageParser extends GoHandle {
+  NetDnsDnsmessageParser.$h(super.$h);
 
   /// Go: `func (*dnsmessage.Parser).AAAAResource() (dnsmessage.AAAAResource, error)`.
   NetDnsDnsmessageAaaaResource aaaaResource() {

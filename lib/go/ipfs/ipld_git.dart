@@ -7,31 +7,12 @@ import 'dart:typed_data';
 import 'package:p2p_ffi/src/go.dart' show GoIpfsIpldGit;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/bufio.dart' as $bufio;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/block_format.dart' as $block_format;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/ipld/ipld_prime/datamodel.dart' as $datamodel;
 
 /// Go: `ipldgit.Commit_Link_List__Itr` (handle).
-class IpldGitCommitLinkListItr extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  IpldGitCommitLinkListItr.$h(super.$h) : super.$h();
+class IpldGitCommitLinkListItr extends GoHandle {
+  IpldGitCommitLinkListItr.$h(super.$h);
 
   /// Go: `func (*ipldgit.Commit_Link_List__Itr).Done() bool`.
   bool done() {
@@ -41,22 +22,8 @@ class IpldGitCommitLinkListItr extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `ipldgit.String_List__Itr` (handle).
-class IpldGitStringListItr extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  IpldGitStringListItr.$h(super.$h) : super.$h();
+class IpldGitStringListItr extends GoHandle {
+  IpldGitStringListItr.$h(super.$h);
 
   /// Go: `func (*ipldgit.String_List__Itr).Done() bool`.
   bool done() {
@@ -66,22 +33,8 @@ class IpldGitStringListItr extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `ipldgit.Tag_List__Itr` (handle).
-class IpldGitTagListItr extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  IpldGitTagListItr.$h(super.$h) : super.$h();
+class IpldGitTagListItr extends GoHandle {
+  IpldGitTagListItr.$h(super.$h);
 
   /// Go: `func (*ipldgit.Tag_List__Itr).Done() bool`.
   bool done() {
@@ -91,22 +44,8 @@ class IpldGitTagListItr extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `ipldgit.Tree__Itr` (handle).
-class IpldGitTreeItr extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  IpldGitTreeItr.$h(super.$h) : super.$h();
+class IpldGitTreeItr extends GoHandle {
+  IpldGitTreeItr.$h(super.$h);
 
   /// Go: `func (*ipldgit.Tree__Itr).Done() bool`.
   bool done() {

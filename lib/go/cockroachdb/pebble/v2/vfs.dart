@@ -13,13 +13,8 @@ import 'package:p2p_ffi/src/go.dart'
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/cockroachdb/pebble/v2/wal.dart' as $wal;
 import 'package:p2p_ffi/go/cockroachdb/redact/interfaces.dart' as $interfaces;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
 import 'package:p2p_ffi/go/io/fs.dart' as $fs;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/math/rand/v2.dart' as $v2;
 import 'package:p2p_ffi/go/sync/atomic.dart' as $atomic;
 
@@ -53,22 +48,8 @@ final class PebbleV2VfsCrashCloneCfg implements GoDto {
 }
 
 /// Go: `vfs.DeviceID` (handle).
-class PebbleV2VfsDeviceId extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2VfsDeviceId.$h(super.$h) : super.$h();
+class PebbleV2VfsDeviceId extends GoHandle {
+  PebbleV2VfsDeviceId.$h(super.$h);
 
   /// Go: `func (vfs.DeviceID).String() string`.
   String string() {
@@ -197,22 +178,8 @@ final class PebbleV2VfsDiskWriteStatsAggregate implements GoDto {
 }
 
 /// Go: `vfs.DiskWriteStatsCollector` (handle).
-class PebbleV2VfsDiskWriteStatsCollector extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2VfsDiskWriteStatsCollector.$h(super.$h) : super.$h();
+class PebbleV2VfsDiskWriteStatsCollector extends GoHandle {
+  PebbleV2VfsDiskWriteStatsCollector.$h(super.$h);
 
   /// Go: `func vfs.NewDiskWriteStatsCollector() *vfs.DiskWriteStatsCollector`.
   factory PebbleV2VfsDiskWriteStatsCollector() {
@@ -512,42 +479,12 @@ mixin PebbleV2VfsFileInfo$ on GoHandle {
 }
 
 /// Go: `vfs.LogFn` (handle).
-class PebbleV2VfsLogFn extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2VfsLogFn.$h(super.$h) : super.$h();
+class PebbleV2VfsLogFn extends GoHandle {
+  PebbleV2VfsLogFn.$h(super.$h);
 }
 
 /// Go: `vfs.MemFS` (handle).
-class PebbleV2VfsMemFs extends PebbleV2VfsFs
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class PebbleV2VfsMemFs extends PebbleV2VfsFs {
   PebbleV2VfsMemFs.$h(super.$h) : super.$h();
 
   /// Go: `func (*vfs.MemFS).CrashClone(cfg vfs.CrashCloneCfg) *vfs.MemFS`.

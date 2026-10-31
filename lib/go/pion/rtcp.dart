@@ -8,12 +8,8 @@ import 'dart:typed_data';
 import 'package:p2p_ffi/src/go.dart'
     show GoPionRtcp, GoPionRtcpConsts, GoPionRtcpEnums;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
 import 'package:p2p_ffi/go/gogo/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto2;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 
 /// Go: `rtcp.ApplicationDefined`.
 final class RtcpApplicationDefined implements GoDto {
@@ -1297,26 +1293,10 @@ mixin RtcpReportBlock$ on GoHandle {
 
 /// Go: `rtcp.RunLengthChunk` (handle).
 class RtcpRunLengthChunk extends RtcpPacketStatusChunk
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoUnmarshaler$,
-        $proto2.ProtobufProtoGeneratedMessage$,
-        $proto2.ProtobufProtoUnmarshaler$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
+    with $proto.ProtobufProtoUnmarshaler$, $proto2.ProtobufProtoUnmarshaler$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
         $proto.ProtobufProtoUnmarshaler,
-        $proto2.ProtobufProtoGeneratedMessage,
-        $proto2.ProtobufProtoUnmarshaler,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+        $proto2.ProtobufProtoUnmarshaler {
   RtcpRunLengthChunk.$h(super.$h) : super.$h();
 
   /// Go: `func (rtcp.RunLengthChunk).Marshal() ([]byte, error)`.
@@ -1827,26 +1807,10 @@ final class RtcpStatisticsSummaryReportBlock implements GoDto {
 
 /// Go: `rtcp.StatusVectorChunk` (handle).
 class RtcpStatusVectorChunk extends RtcpPacketStatusChunk
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoUnmarshaler$,
-        $proto2.ProtobufProtoGeneratedMessage$,
-        $proto2.ProtobufProtoUnmarshaler$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
+    with $proto.ProtobufProtoUnmarshaler$, $proto2.ProtobufProtoUnmarshaler$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
         $proto.ProtobufProtoUnmarshaler,
-        $proto2.ProtobufProtoGeneratedMessage,
-        $proto2.ProtobufProtoUnmarshaler,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+        $proto2.ProtobufProtoUnmarshaler {
   RtcpStatusVectorChunk.$h(super.$h) : super.$h();
 
   /// Go: `func (rtcp.StatusVectorChunk).Marshal() ([]byte, error)`.
@@ -2080,23 +2044,7 @@ final class RtcpUnknownReportBlock implements GoDto {
 }
 
 /// Go: `rtcp.VoIPMetricsReportBlock` (handle).
-class RtcpVoIpMetricsReportBlock extends RtcpReportBlock
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto2.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto2.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class RtcpVoIpMetricsReportBlock extends RtcpReportBlock {
   RtcpVoIpMetricsReportBlock.$h(super.$h) : super.$h();
 
   /// Go: `func (*rtcp.VoIPMetricsReportBlock).DestinationSSRC() []uint32`.

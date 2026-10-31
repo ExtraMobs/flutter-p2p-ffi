@@ -10,15 +10,10 @@ import 'package:p2p_ffi/src/go.dart'
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/bufio.dart' as $bufio;
 import 'package:p2p_ffi/go/bytes.dart' as $bytes;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/encoding/json.dart' as $json;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
 import 'package:p2p_ffi/go/go_jose/jose/v4/json.dart' as $json2;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
 import 'package:p2p_ffi/go/ipfs/cid.dart' as $cid;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/protobuf/encoding/protodelim.dart' as $protodelim;
 import 'package:p2p_ffi/go/reflect.dart' as $reflect;
 import 'package:p2p_ffi/go/strings.dart' as $strings;
@@ -121,24 +116,8 @@ mixin CborGenCborUnmarshaler$ on GoHandle {
 
 /// Go: `typegen.CborCid` (handle).
 class CborGenCborCid extends CborGenCborMarshaler
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        CborGenCborUnmarshaler$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        CborGenCborUnmarshaler {
+    with CborGenCborUnmarshaler$
+    implements CborGenCborUnmarshaler {
   CborGenCborCid.$h(super.$h) : super.$h();
 
   /// Go: `func (typegen.CborCid).MarshalCBOR(w io.Writer) error`.
@@ -161,23 +140,7 @@ class CborGenCborCid extends CborGenCborMarshaler
 }
 
 /// Go: `typegen.CborReader` (handle).
-class CborGenCborReader extends $protodelim.ProtobufEncodingProtodelimReader
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class CborGenCborReader extends $protodelim.ProtobufEncodingProtodelimReader {
   CborGenCborReader.$h(super.$h) : super.$h();
 
   /// Go: `func typegen.NewCborReader(r io.Reader) *typegen.CborReader`.
@@ -226,25 +189,11 @@ class CborGenCborReader extends $protodelim.ProtobufEncodingProtodelimReader
 /// Go: `typegen.CborTime` (handle).
 class CborGenCborTime extends $json.EncodingJsonUnmarshaler
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
         $json2.JoseV4JsonUnmarshaler$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         CborGenCborMarshaler$,
         CborGenCborUnmarshaler$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
         $json2.JoseV4JsonUnmarshaler,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         CborGenCborMarshaler,
         CborGenCborUnmarshaler {
   CborGenCborTime.$h(super.$h) : super.$h();
@@ -290,23 +239,7 @@ class CborGenCborTime extends $json.EncodingJsonUnmarshaler
 }
 
 /// Go: `typegen.CborWriter` (handle).
-class CborGenCborWriter extends $io.IoStringWriter
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class CborGenCborWriter extends $io.IoStringWriter {
   CborGenCborWriter.$h(super.$h) : super.$h();
 
   /// Go: `func typegen.NewCborWriter(w io.Writer) *typegen.CborWriter`.

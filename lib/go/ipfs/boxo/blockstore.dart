@@ -9,19 +9,14 @@ import 'package:p2p_ffi/src/go.dart'
     show GoIpfsBoxoBlockstore, GoIpfsBoxoBlockstoreOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/block_format.dart' as $block_format;
 import 'package:p2p_ffi/go/ipfs/boxo/filestore.dart' as $filestore;
 import 'package:p2p_ffi/go/ipfs/boxo/provider.dart' as $provider;
 import 'package:p2p_ffi/go/ipfs/cid.dart' as $cid;
 import 'package:p2p_ffi/go/ipfs/datastore.dart' as $datastore;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 import 'package:p2p_ffi/go/ipfs/ipld_cbor.dart' as $ipld_cbor;
 import 'package:p2p_ffi/go/ipfs/kubo/core/node.dart' as $node;
 import 'package:p2p_ffi/go/ipfs/kubo/thirdparty/verifbs.dart' as $verifbs;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/ipld/car/v2/blockstore.dart' as $blockstore;
 
 /// Go: `blockstore.Blockstore` (handle).
@@ -331,22 +326,8 @@ mixin BoxoBlockstoreGcLocker$ on GoHandle {
 }
 
 /// Go: `blockstore.Option` (handle).
-class BoxoBlockstoreOption extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  BoxoBlockstoreOption.$h(super.$h) : super.$h();
+class BoxoBlockstoreOption extends GoHandle {
+  BoxoBlockstoreOption.$h(super.$h);
 }
 
 /// Go: `blockstore.Unlocker` (handle).
@@ -370,26 +351,8 @@ mixin BoxoBlockstoreUnlocker$ on GoHandle {
 
 /// Go: `blockstore.ValidatingBlockstore` (handle).
 class BoxoBlockstoreValidatingBlockstore extends BoxoBlockstore
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $ipld_cbor.IpldCborIpldBlockstore$,
-        $node.KuboCoreNodeBaseBlocks$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $ipld_cbor.IpldCborIpldBlockstore,
-        $node.KuboCoreNodeBaseBlocks,
-        $peertask.PeertaskqueuePeertaskTopic {
+    with $ipld_cbor.IpldCborIpldBlockstore$, $node.KuboCoreNodeBaseBlocks$
+    implements $ipld_cbor.IpldCborIpldBlockstore, $node.KuboCoreNodeBaseBlocks {
   BoxoBlockstoreValidatingBlockstore.$h(super.$h) : super.$h();
 
   /// Go: `func (blockstore.Blockstore).AllKeysChan(ctx context.Context) (<-chan cid.Cid, error)`.

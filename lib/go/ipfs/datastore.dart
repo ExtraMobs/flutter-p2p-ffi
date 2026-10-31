@@ -8,11 +8,8 @@ import 'package:p2p_ffi/src/go.dart'
     show GoIpfsDatastore, GoIpfsDatastoreConsts;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/encoding/json.dart' as $json;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
 import 'package:p2p_ffi/go/go_jose/jose/v4/json.dart' as $json2;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
 import 'package:p2p_ffi/go/ipfs/datastore/keytransform.dart' as $keytransform;
 import 'package:p2p_ffi/go/ipfs/datastore/mount.dart' as $mount;
@@ -22,9 +19,7 @@ import 'package:p2p_ffi/go/ipfs/ds_badger.dart' as $ds_badger;
 import 'package:p2p_ffi/go/ipfs/ds_flatfs.dart' as $ds_flatfs;
 import 'package:p2p_ffi/go/ipfs/ds_leveldb.dart' as $ds_leveldb;
 import 'package:p2p_ffi/go/ipfs/ds_pebble.dart' as $ds_pebble;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 import 'package:p2p_ffi/go/ipfs/kubo/repo.dart' as $repo;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
 
 /// Go: `datastore.Batch` (handle).
@@ -464,24 +459,8 @@ mixin DatastoreGcFeature$ on GoHandle {
 
 /// Go: `datastore.Key` (handle).
 class DatastoreKey extends $json.EncodingJsonUnmarshaler
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $json2.JoseV4JsonUnmarshaler$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $json2.JoseV4JsonUnmarshaler,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    with $json2.JoseV4JsonUnmarshaler$
+    implements $json2.JoseV4JsonUnmarshaler {
   DatastoreKey.$h(super.$h) : super.$h();
 
   /// Go: `func datastore.NewKey(s string) datastore.Key`.
@@ -664,23 +643,7 @@ class DatastoreKey extends $json.EncodingJsonUnmarshaler
 }
 
 /// Go: `datastore.LogBatch` (handle).
-class DatastoreLogBatch extends DatastoreBatch
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class DatastoreLogBatch extends DatastoreBatch {
   DatastoreLogBatch.$h(super.$h) : super.$h();
 
   /// Go: `func (*datastore.LogBatch).Commit(ctx context.Context) error`.
@@ -724,11 +687,6 @@ class DatastoreLogBatch extends DatastoreBatch
 /// Go: `datastore.LogDatastore` (handle).
 class DatastoreLogDatastore extends DatastoreShim
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
         $io.IoCloser$,
         DatastoreBatchingFeature$,
         DatastoreCheckedFeature$,
@@ -736,16 +694,9 @@ class DatastoreLogDatastore extends DatastoreShim
         DatastorePersistentFeature$,
         DatastoreScrubbedFeature$,
         DatastoreWrite$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $expfmt.CommonExpfmtCloser$,
         DatastoreBatching$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
         $io.IoCloser,
         DatastoreBatchingFeature,
         DatastoreCheckedFeature,
@@ -753,8 +704,6 @@ class DatastoreLogDatastore extends DatastoreShim
         DatastorePersistentFeature,
         DatastoreScrubbedFeature,
         DatastoreWrite,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $expfmt.CommonExpfmtCloser,
         DatastoreBatching {
   DatastoreLogDatastore.$h(super.$h) : super.$h();
@@ -932,29 +881,15 @@ class DatastoreLogDatastore extends DatastoreShim
 /// Go: `datastore.MapDatastore` (handle).
 class DatastoreMapDatastore extends Datastore
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
         $io.IoCloser$,
         DatastoreBatchingFeature$,
         DatastoreWrite$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $expfmt.CommonExpfmtCloser$,
         DatastoreBatching$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
         $io.IoCloser,
         DatastoreBatchingFeature,
         DatastoreWrite,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $expfmt.CommonExpfmtCloser,
         DatastoreBatching {
   DatastoreMapDatastore.$h(super.$h) : super.$h();
@@ -1077,11 +1012,6 @@ class DatastoreMapDatastore extends Datastore
 /// Go: `datastore.NullDatastore` (handle).
 class DatastoreNullDatastore extends Datastore
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
         $io.IoCloser$,
         DatastoreBatchingFeature$,
         DatastoreCheckedFeature$,
@@ -1090,16 +1020,9 @@ class DatastoreNullDatastore extends Datastore
         DatastoreScrubbedFeature$,
         DatastoreTxnFeature$,
         DatastoreWrite$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $expfmt.CommonExpfmtCloser$,
         DatastoreBatching$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
         $io.IoCloser,
         DatastoreBatchingFeature,
         DatastoreCheckedFeature,
@@ -1108,8 +1031,6 @@ class DatastoreNullDatastore extends Datastore
         DatastoreScrubbedFeature,
         DatastoreTxnFeature,
         DatastoreWrite,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $expfmt.CommonExpfmtCloser,
         DatastoreBatching {
   DatastoreNullDatastore.$h(super.$h) : super.$h();

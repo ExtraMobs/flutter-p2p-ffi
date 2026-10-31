@@ -7,31 +7,10 @@ import 'dart:async';
 import 'package:p2p_ffi/src/go.dart' show GoExpvar;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/VividCortex/ewma.dart' as $ewma;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/net/http.dart' as $http;
 
 /// Go: `expvar.Float` (handle).
-class ExpvarFloat extends $ewma.EwmaMovingAverage
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class ExpvarFloat extends $ewma.EwmaMovingAverage {
   ExpvarFloat.$h(super.$h) : super.$h();
 
   /// Go: `func expvar.NewFloat(name string) *expvar.Float`.
@@ -72,22 +51,8 @@ class ExpvarFloat extends $ewma.EwmaMovingAverage
 }
 
 /// Go: `expvar.Func` (handle).
-class ExpvarFunc extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  ExpvarFunc.$h(super.$h) : super.$h();
+class ExpvarFunc extends GoHandle {
+  ExpvarFunc.$h(super.$h);
 
   /// Go: `func (expvar.Func).String() string`.
   String string() {
@@ -103,22 +68,8 @@ class ExpvarFunc extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `expvar.Int` (handle).
-class ExpvarInt extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  ExpvarInt.$h(super.$h) : super.$h();
+class ExpvarInt extends GoHandle {
+  ExpvarInt.$h(super.$h);
 
   /// Go: `func expvar.NewInt(name string) *expvar.Int`.
   factory ExpvarInt(String name) {
@@ -175,22 +126,8 @@ final class ExpvarKeyValue implements GoDto {
 }
 
 /// Go: `expvar.Map` (handle).
-class ExpvarMap extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  ExpvarMap.$h(super.$h) : super.$h();
+class ExpvarMap extends GoHandle {
+  ExpvarMap.$h(super.$h);
 
   /// Go: `func expvar.NewMap(name string) *expvar.Map`.
   factory ExpvarMap(String name) {
@@ -276,22 +213,8 @@ class ExpvarMap extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `expvar.String` (handle).
-class ExpvarString extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  ExpvarString.$h(super.$h) : super.$h();
+class ExpvarString extends GoHandle {
+  ExpvarString.$h(super.$h);
 
   /// Go: `func expvar.NewString(name string) *expvar.String`.
   factory ExpvarString(String name) {

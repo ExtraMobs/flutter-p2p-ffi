@@ -14,11 +14,6 @@ import 'package:p2p_ffi/go/cockroachdb/pebble/v2.dart' as $v2;
 import 'package:p2p_ffi/go/cockroachdb/pebble/v2/sstable.dart' as $sstable;
 import 'package:p2p_ffi/go/cockroachdb/pebble/v2/sstable/block.dart' as $block;
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/syndtr/goleveldb/leveldb/util.dart' as $util;
 
 /// Go: `valblk.ExternalBlockReader` (handle).
@@ -189,24 +184,8 @@ mixin PebbleV2SstableValblkLayoutWriter$ on GoHandle {
 }
 
 /// Go: `valblk.Reader` (handle).
-class PebbleV2SstableValblkReader
-    extends $block.PebbleV2SstableBlockGetInternalValueForPrefixAndValueHandler
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class PebbleV2SstableValblkReader extends $block
+    .PebbleV2SstableBlockGetInternalValueForPrefixAndValueHandler {
   PebbleV2SstableValblkReader.$h(super.$h) : super.$h();
 
   /// Go: `func (*valblk.Reader).Close()`.
@@ -243,23 +222,7 @@ mixin PebbleV2SstableValblkReaderProvider$ on GoHandle {
 }
 
 /// Go: `valblk.Writer` (handle).
-class PebbleV2SstableValblkWriter extends $util.GoleveldbLeveldbUtilReleaser
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class PebbleV2SstableValblkWriter extends $util.GoleveldbLeveldbUtilReleaser {
   PebbleV2SstableValblkWriter.$h(super.$h) : super.$h();
 
   /// Go: `func (*valblk.Writer).AddValue(v []byte) (valblk.Handle, error)`.

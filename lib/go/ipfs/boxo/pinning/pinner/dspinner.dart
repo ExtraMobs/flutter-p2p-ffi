@@ -7,34 +7,15 @@ import 'package:p2p_ffi/src/go.dart'
         GoIpfsBoxoPinningPinnerDspinner,
         GoIpfsBoxoPinningPinnerDspinnerOptions;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/boxo/blockstore.dart' as $blockstore;
 import 'package:p2p_ffi/go/ipfs/boxo/dag/walker.dart' as $walker;
 import 'package:p2p_ffi/go/ipfs/boxo/fetcher.dart' as $fetcher;
 import 'package:p2p_ffi/go/ipfs/boxo/pinning/pinner.dart' as $pinner;
 import 'package:p2p_ffi/go/ipfs/boxo/provider.dart' as $provider;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 
 /// Go: `dspinner.Option` (handle).
-class BoxoPinningPinnerDspinnerOption extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  BoxoPinningPinnerDspinnerOption.$h(super.$h) : super.$h();
+class BoxoPinningPinnerDspinnerOption extends GoHandle {
+  BoxoPinningPinnerDspinnerOption.$h(super.$h);
 }
 
 /// Go: the package-level members of `github.com/ipfs/boxo/pinning/pinner/dspinner` (`go.ipfs.boxo.pinning.pinner.dspinner`).

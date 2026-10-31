@@ -4,29 +4,10 @@ library;
 
 import 'package:p2p_ffi/src/go.dart' show GoSyncAtomic;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 
 /// Go: `atomic.Bool` (handle).
-class SyncAtomicBool extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  SyncAtomicBool.$h(super.$h) : super.$h();
+class SyncAtomicBool extends GoHandle {
+  SyncAtomicBool.$h(super.$h);
 
   /// Go: `func (*atomic.Bool).CompareAndSwap(old bool, new bool) (swapped bool)`.
   bool compareAndSwap(bool old, bool new$) {
@@ -66,22 +47,8 @@ class SyncAtomicBool extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `atomic.Int32` (handle).
-class SyncAtomicInt32 extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  SyncAtomicInt32.$h(super.$h) : super.$h();
+class SyncAtomicInt32 extends GoHandle {
+  SyncAtomicInt32.$h(super.$h);
 
   /// Go: `func (*atomic.Int32).Add(delta int32) (new int32)`.
   int add(int delta) {
@@ -151,22 +118,8 @@ class SyncAtomicInt32 extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `atomic.Int64` (handle).
-class SyncAtomicInt64 extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  SyncAtomicInt64.$h(super.$h) : super.$h();
+class SyncAtomicInt64 extends GoHandle {
+  SyncAtomicInt64.$h(super.$h);
 
   /// Go: `func (*atomic.Int64).Add(delta int64) (new int64)`.
   int add(int delta) {
@@ -236,22 +189,8 @@ class SyncAtomicInt64 extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `atomic.Uint32` (handle).
-class SyncAtomicUint32 extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  SyncAtomicUint32.$h(super.$h) : super.$h();
+class SyncAtomicUint32 extends GoHandle {
+  SyncAtomicUint32.$h(super.$h);
 
   /// Go: `func (*atomic.Uint32).Add(delta uint32) (new uint32)`.
   int add(int delta) {
@@ -321,22 +260,8 @@ class SyncAtomicUint32 extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `atomic.Uint64` (handle).
-class SyncAtomicUint64 extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  SyncAtomicUint64.$h(super.$h) : super.$h();
+class SyncAtomicUint64 extends GoHandle {
+  SyncAtomicUint64.$h(super.$h);
 
   /// Go: `func (*atomic.Uint64).Add(delta uint64) (new uint64)`.
   int add(int delta) {
@@ -406,22 +331,8 @@ class SyncAtomicUint64 extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `atomic.Value` (handle).
-class SyncAtomicValue extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  SyncAtomicValue.$h(super.$h) : super.$h();
+class SyncAtomicValue extends GoHandle {
+  SyncAtomicValue.$h(super.$h);
 
   /// Go: `func (*atomic.Value).CompareAndSwap(old any, new any) (swapped bool)`.
   bool compareAndSwap(Object? old, Object? new$) {

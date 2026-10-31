@@ -6,11 +6,6 @@ import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/go.dart' show GoPionRtp, GoPionRtpConsts;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/pion/rtp/codecs.dart' as $codecs;
 
 /// Go: `rtp.AbsCaptureTimeExtension`.
@@ -219,22 +214,8 @@ mixin RtpDepacketizer$ on GoHandle {
 }
 
 /// Go: `rtp.Extension` (handle).
-class RtpExtension extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  RtpExtension.$h(super.$h) : super.$h();
+class RtpExtension extends GoHandle {
+  RtpExtension.$h(super.$h);
 }
 
 /// Go: `rtp.Header`.
@@ -507,23 +488,7 @@ mixin RtpHeaderExtension$ on GoHandle {
 }
 
 /// Go: `rtp.OneByteHeaderExtension` (handle).
-class RtpOneByteHeaderExtension extends RtpHeaderExtension
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class RtpOneByteHeaderExtension extends RtpHeaderExtension {
   RtpOneByteHeaderExtension.$h(super.$h) : super.$h();
 
   /// Go: `func (*rtp.OneByteHeaderExtension).Del(id uint8) error`.
@@ -772,22 +737,8 @@ mixin RtpPacketizer$ on GoHandle {
 }
 
 /// Go: `rtp.PacketizerOption` (handle).
-class RtpPacketizerOption extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  RtpPacketizerOption.$h(super.$h) : super.$h();
+class RtpPacketizerOption extends GoHandle {
+  RtpPacketizerOption.$h(super.$h);
 }
 
 /// Go: `rtp.PartitionHeadChecker` (handle).
@@ -927,23 +878,7 @@ final class RtpPlayoutDelayExtension implements GoDto {
 }
 
 /// Go: `rtp.RawExtension` (handle).
-class RtpRawExtension extends RtpHeaderExtension
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class RtpRawExtension extends RtpHeaderExtension {
   RtpRawExtension.$h(super.$h) : super.$h();
 
   /// Go: `func (*rtp.RawExtension).Del(id uint8) error`.
@@ -1125,23 +1060,7 @@ final class RtpTransportCcExtension implements GoDto {
 }
 
 /// Go: `rtp.TwoByteHeaderExtension` (handle).
-class RtpTwoByteHeaderExtension extends RtpHeaderExtension
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class RtpTwoByteHeaderExtension extends RtpHeaderExtension {
   RtpTwoByteHeaderExtension.$h(super.$h) : super.$h();
 
   /// Go: `func (*rtp.TwoByteHeaderExtension).Del(id uint8) error`.

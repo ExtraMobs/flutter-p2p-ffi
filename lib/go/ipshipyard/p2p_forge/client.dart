@@ -12,14 +12,9 @@ import 'package:p2p_ffi/src/go.dart'
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/caddyserver/certmagic.dart' as $certmagic;
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/crypto/tls.dart' as $tls;
 import 'package:p2p_ffi/go/crypto/x509.dart' as $x509;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
-import 'package:p2p_ffi/go/libp2p/libp2p/core/crypto.dart' as $crypto2;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
 import 'package:p2p_ffi/go/libp2p/libp2p/p2p/host/basic.dart' as $basic;
 import 'package:p2p_ffi/go/multiformats/multiaddr.dart' as $multiaddr;
@@ -75,22 +70,8 @@ final class P2pForgeClientForgeAddrInfo implements GoDto {
 }
 
 /// Go: `client.P2PForgeCertMgr` (handle).
-class P2pForgeClientP2pForgeCertMgr extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  P2pForgeClientP2pForgeCertMgr.$h(super.$h) : super.$h();
+class P2pForgeClientP2pForgeCertMgr extends GoHandle {
+  P2pForgeClientP2pForgeCertMgr.$h(super.$h);
 
   /// Go: `func client.NewP2PForgeCertMgr(opts ...client.P2PForgeCertMgrOptions) (*client.P2PForgeCertMgr, error)`.
   factory P2pForgeClientP2pForgeCertMgr(
@@ -218,7 +199,7 @@ extension GoIpshipyardP2pForgeClientApi on GoIpshipyardP2pForgeClient {
   Future<void> sendChallenge(
       $context.Context ctx,
       String baseUrl,
-      $crypto2.Libp2pCoreCryptoPrivKey privKey,
+      $crypto.Libp2pCoreCryptoPrivKey privKey,
       String challenge,
       List<$multiaddr.Multiaddr> addrs,
       String forgeAuth,

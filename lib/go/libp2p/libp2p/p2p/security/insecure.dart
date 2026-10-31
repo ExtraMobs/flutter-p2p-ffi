@@ -8,13 +8,8 @@ import 'package:p2p_ffi/src/go.dart'
         GoLibp2pLibp2pP2pSecurityInsecureConsts;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
-import 'package:p2p_ffi/go/libp2p/libp2p/core/crypto.dart' as $crypto2;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/network.dart' as $network;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/sec.dart' as $sec;
@@ -25,27 +20,13 @@ import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
 /// Go: `insecure.Conn` (handle).
 class Libp2pP2pSecurityInsecureConn extends $net.NetConn
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
         $io.IoCloser$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $network.Libp2pCoreNetworkConnSecurity$,
         $datachannel.DatachannelReadDeadliner$,
         $datachannel.DatachannelWriteDeadliner$,
         $expfmt.CommonExpfmtCloser$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
         $io.IoCloser,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $network.Libp2pCoreNetworkConnSecurity,
         $datachannel.DatachannelReadDeadliner,
         $datachannel.DatachannelWriteDeadliner,
@@ -71,31 +52,15 @@ class Libp2pP2pSecurityInsecureConn extends $net.NetConn
   }
 
   /// Go: `func (*insecure.Conn).RemotePublicKey() crypto.PubKey`.
-  $crypto2.Libp2pCoreCryptoPubKey remotePublicKey() {
+  $crypto.Libp2pCoreCryptoPubKey remotePublicKey() {
     final $r = $callSync(14960, $W()..h(this));
-    return $r.hnn($crypto2.Libp2pCoreCryptoPubKey.$h);
+    return $r.hnn($crypto.Libp2pCoreCryptoPubKey.$h);
   }
 }
 
 /// Go: `insecure.Transport` (handle).
 class Libp2pP2pSecurityInsecureTransport
-    extends $sec.Libp2pCoreSecSecureTransport
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    extends $sec.Libp2pCoreSecSecureTransport {
   Libp2pP2pSecurityInsecureTransport.$h(super.$h) : super.$h();
 
   /// Go: `func (*insecure.Transport).ID() protocol.ID`.
@@ -146,7 +111,7 @@ extension GoLibp2pLibp2pP2pSecurityInsecureApi
     on GoLibp2pLibp2pP2pSecurityInsecure {
   /// Go: `func insecure.NewWithIdentity(protocolID protocol.ID, id peer.ID, key crypto.PrivKey) *insecure.Transport`.
   Libp2pP2pSecurityInsecureTransport newWithIdentity(String protocolId,
-      $peer.Libp2pCorePeerId id, $crypto2.Libp2pCoreCryptoPrivKey key) {
+      $peer.Libp2pCorePeerId id, $crypto.Libp2pCoreCryptoPrivKey key) {
     final $r = $callSync(
         14961,
         $W()

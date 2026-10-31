@@ -7,40 +7,17 @@ import 'dart:typed_data';
 import 'package:p2p_ffi/src/go.dart' show GoZap, GoZapEnums, GoZapOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/cockroachdb/pebble/v2.dart' as $v22;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/encoding.dart' as $encoding;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
 import 'package:p2p_ffi/go/fmt.dart' as $fmt;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 import 'package:p2p_ffi/go/ipfs/log/v2.dart' as $v2;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/log.dart' as $log;
 import 'package:p2p_ffi/go/net/http.dart' as $http;
 import 'package:p2p_ffi/go/zap/zapcore.dart' as $zapcore;
 
 /// Go: `zap.AtomicLevel` (handle).
 class ZapAtomicLevel extends $encoding.EncodingTextUnmarshaler
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $http.NetHttpHandler$,
-        $zapcore.ZapZapcoreLevelEnabler$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $http.NetHttpHandler,
-        $zapcore.ZapZapcoreLevelEnabler {
+    with $http.NetHttpHandler$, $zapcore.ZapZapcoreLevelEnabler$
+    implements $http.NetHttpHandler, $zapcore.ZapZapcoreLevelEnabler {
   ZapAtomicLevel.$h(super.$h) : super.$h();
 
   /// Go: `func zap.NewAtomicLevel() zap.AtomicLevel`.
@@ -199,23 +176,7 @@ final class ZapConfig implements GoDto {
 }
 
 /// Go: `zap.LevelEnablerFunc` (handle).
-class ZapLevelEnablerFunc extends $zapcore.ZapZapcoreLevelEnabler
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class ZapLevelEnablerFunc extends $zapcore.ZapZapcoreLevelEnabler {
   ZapLevelEnablerFunc.$h(super.$h) : super.$h();
 
   /// Go: `func (zap.LevelEnablerFunc).Enabled(lvl zapcore.Level) bool`.
@@ -230,22 +191,8 @@ class ZapLevelEnablerFunc extends $zapcore.ZapZapcoreLevelEnabler
 }
 
 /// Go: `zap.Logger` (handle).
-class ZapLogger extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  ZapLogger.$h(super.$h) : super.$h();
+class ZapLogger extends GoHandle {
+  ZapLogger.$h(super.$h);
 
   /// Go: `func (*zap.Logger).Check(lvl zapcore.Level, msg string) *zapcore.CheckedEntry`.
   $zapcore.ZapZapcoreCheckedEntry check(int lvl, String msg) {
@@ -446,24 +393,8 @@ final class ZapSamplingConfig implements GoDto {
 
 /// Go: `zap.SugaredLogger` (handle).
 class ZapSugaredLogger extends $v2.LogV2StandardLogger
-    with
-        $v22.PebbleV2Logger$,
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $v22.PebbleV2Logger,
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+    with $v22.PebbleV2Logger$
+    implements $v22.PebbleV2Logger {
   ZapSugaredLogger.$h(super.$h) : super.$h();
 
   /// Go: `func (*zap.SugaredLogger).DPanic(args ...interface{})`.

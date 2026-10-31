@@ -7,12 +7,7 @@ import 'dart:async';
 import 'package:p2p_ffi/src/go.dart' show GoIpfsKuboP2p;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/boxo/bitswap/network.dart' as $network;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/host.dart' as $host;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peerstore.dart' as $peerstore;
@@ -48,24 +43,8 @@ mixin KuboP2pListener$ on GoHandle {
 
 /// Go: `p2p.Listeners` (handle).
 class KuboP2pListeners extends $sync.SyncLocker
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $storage.GoleveldbLeveldbStorageLocker$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $storage.GoleveldbLeveldbStorageLocker {
+    with $storage.GoleveldbLeveldbStorageLocker$
+    implements $storage.GoleveldbLeveldbStorageLocker {
   KuboP2pListeners.$h(super.$h) : super.$h();
 
   /// Go: `func (*p2p.Listeners).Close(matchFunc func(listener p2p.Listener) bool) int`.
@@ -96,22 +75,8 @@ class KuboP2pListeners extends $sync.SyncLocker
 }
 
 /// Go: `p2p.P2P` (handle).
-class KuboP2p extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  KuboP2p.$h(super.$h) : super.$h();
+class KuboP2p extends GoHandle {
+  KuboP2p.$h(super.$h);
 
   /// Go: `func (*p2p.P2P).CheckProtoExists(proto protocol.ID) bool`.
   bool checkProtoExists(String proto) {
@@ -160,46 +125,14 @@ class KuboP2p extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `p2p.Stream` (handle).
-class KuboP2pStream extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  KuboP2pStream.$h(super.$h) : super.$h();
+class KuboP2pStream extends GoHandle {
+  KuboP2pStream.$h(super.$h);
 }
 
 /// Go: `p2p.StreamRegistry` (handle).
 class KuboP2pStreamRegistry extends $network.BoxoBitswapNetworkPeerTagger
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $sync.SyncLocker$,
-        $storage.GoleveldbLeveldbStorageLocker$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $sync.SyncLocker,
-        $storage.GoleveldbLeveldbStorageLocker {
+    with $sync.SyncLocker$, $storage.GoleveldbLeveldbStorageLocker$
+    implements $sync.SyncLocker, $storage.GoleveldbLeveldbStorageLocker {
   KuboP2pStreamRegistry.$h(super.$h) : super.$h();
 
   /// Go: `func (*p2p.StreamRegistry).Close(s *p2p.Stream)`.

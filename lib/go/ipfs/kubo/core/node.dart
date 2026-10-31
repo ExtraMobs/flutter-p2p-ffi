@@ -12,11 +12,8 @@ import 'package:p2p_ffi/src/go.dart'
         GoIpfsKuboCoreNodeOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/dig.dart' as $dig;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
 import 'package:p2p_ffi/go/fx.dart' as $fx;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
 import 'package:p2p_ffi/go/ipfs/block_format.dart' as $block_format;
 import 'package:p2p_ffi/go/ipfs/boxo/blockservice.dart' as $blockservice;
@@ -28,13 +25,11 @@ import 'package:p2p_ffi/go/ipfs/boxo/peering.dart' as $peering;
 import 'package:p2p_ffi/go/ipfs/boxo/provider.dart' as $provider2;
 import 'package:p2p_ffi/go/ipfs/cid.dart' as $cid;
 import 'package:p2p_ffi/go/ipfs/datastore.dart' as $datastore;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 import 'package:p2p_ffi/go/ipfs/ipld_format.dart' as $ipld_format;
 import 'package:p2p_ffi/go/ipfs/kubo/config.dart' as $config;
 import 'package:p2p_ffi/go/ipfs/kubo/core/node/libp2p.dart' as $libp2p;
 import 'package:p2p_ffi/go/ipfs/kubo/repo.dart' as $repo;
 import 'package:p2p_ffi/go/ipfs/kubo/thirdparty/verifbs.dart' as $verifbs;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/ipld/car/v2/blockstore.dart' as $blockstore2;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/host.dart' as $host;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
@@ -416,33 +411,19 @@ final class KuboCoreNodeFetchersOut implements GoDto {
 /// Go: `node.LegacyProvider` (handle).
 class KuboCoreNodeLegacyProvider extends $provider2.BoxoProviderSystem
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
         $io.IoCloser$,
         $provider2.BoxoProviderMultihashProvider$,
         $provider2.BoxoProviderProvide$,
         $provider2.BoxoProviderReprovider$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
         KuboCoreNodeDhtProvider$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $routing.Libp2pCoreRoutingContentProviding$,
         $expfmt.CommonExpfmtCloser$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
         $io.IoCloser,
         $provider2.BoxoProviderMultihashProvider,
         $provider2.BoxoProviderProvide,
         $provider2.BoxoProviderReprovider,
-        $ipfs_cmds.IpfsCmdsEnvironment,
         KuboCoreNodeDhtProvider,
-        $peertask.PeertaskqueuePeertaskTopic,
         $routing.Libp2pCoreRoutingContentProviding,
         $expfmt.CommonExpfmtCloser {
   KuboCoreNodeLegacyProvider.$h(super.$h) : super.$h();

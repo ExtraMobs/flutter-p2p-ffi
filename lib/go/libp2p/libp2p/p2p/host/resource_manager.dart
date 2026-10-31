@@ -10,11 +10,6 @@ import 'package:p2p_ffi/src/go.dart'
         GoLibp2pLibp2pP2pHostResourceManagerEnums,
         GoLibp2pLibp2pP2pHostResourceManagerOptions;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/network.dart' as $network;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
 import 'package:p2p_ffi/go/libp2p/libp2p/x/rate.dart' as $rate;
@@ -24,22 +19,8 @@ import 'package:p2p_ffi/go/prometheus/client_golang/prometheus.dart'
     as $prometheus;
 
 /// Go: `rcmgr.Allowlist` (handle).
-class Libp2pP2pHostResourceManagerAllowlist extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  Libp2pP2pHostResourceManagerAllowlist.$h(super.$h) : super.$h();
+class Libp2pP2pHostResourceManagerAllowlist extends GoHandle {
+  Libp2pP2pHostResourceManagerAllowlist.$h(super.$h);
 
   /// Go: `func (*rcmgr.Allowlist).Add(ma multiaddr.Multiaddr) error`.
   void add($multiaddr.Multiaddr ma) {
@@ -289,23 +270,8 @@ final class Libp2pP2pHostResourceManagerBaseLimitIncrease implements GoDto {
 }
 
 /// Go: `rcmgr.ConcreteLimitConfig` (handle).
-class Libp2pP2pHostResourceManagerConcreteLimitConfig
-    extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  Libp2pP2pHostResourceManagerConcreteLimitConfig.$h(super.$h) : super.$h();
+class Libp2pP2pHostResourceManagerConcreteLimitConfig extends GoHandle {
+  Libp2pP2pHostResourceManagerConcreteLimitConfig.$h(super.$h);
 
   /// Go: `func (rcmgr.ConcreteLimitConfig).ToPartialLimitConfig() rcmgr.PartialLimitConfig`.
   Libp2pP2pHostResourceManagerPartialLimitConfig toPartialLimitConfig() {

@@ -7,34 +7,14 @@ import 'dart:typed_data';
 import 'package:p2p_ffi/src/go.dart' show GoIpfsBoxoIpldUnixfsImporterHelpers;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/ipfs/boxo/chunker.dart' as $chunker;
 import 'package:p2p_ffi/go/ipfs/boxo/ipld/merkledag.dart' as $merkledag;
 import 'package:p2p_ffi/go/ipfs/cid.dart' as $cid;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 import 'package:p2p_ffi/go/ipfs/ipld_format.dart' as $ipld_format;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 
 /// Go: `helpers.DagBuilderHelper` (handle).
-class BoxoIpldUnixfsImporterHelpersDagBuilderHelper
-    extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  BoxoIpldUnixfsImporterHelpersDagBuilderHelper.$h(super.$h) : super.$h();
+class BoxoIpldUnixfsImporterHelpersDagBuilderHelper extends GoHandle {
+  BoxoIpldUnixfsImporterHelpersDagBuilderHelper.$h(super.$h);
 
   /// Go: `func (*helpers.DagBuilderHelper).Add(node format.Node) error`.
   void add($ipld_format.IpldFormatNode node) {
@@ -227,23 +207,8 @@ final class BoxoIpldUnixfsImporterHelpersDagBuilderParams implements GoDto {
 }
 
 /// Go: `helpers.FSNodeOverDag` (handle).
-class BoxoIpldUnixfsImporterHelpersFsNodeOverDag
-    extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  BoxoIpldUnixfsImporterHelpersFsNodeOverDag.$h(super.$h) : super.$h();
+class BoxoIpldUnixfsImporterHelpersFsNodeOverDag extends GoHandle {
+  BoxoIpldUnixfsImporterHelpersFsNodeOverDag.$h(super.$h);
 
   /// Go: `func (*helpers.FSNodeOverDag).AddChild(child format.Node, fileSize uint64, db *helpers.DagBuilderHelper) error`.
   void addChild($ipld_format.IpldFormatNode child, int fileSize,

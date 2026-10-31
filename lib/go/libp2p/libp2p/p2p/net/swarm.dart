@@ -13,14 +13,9 @@ import 'package:p2p_ffi/src/go.dart'
         GoLibp2pLibp2pP2pNetSwarmOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/connmgr.dart' as $connmgr;
-import 'package:p2p_ffi/go/libp2p/libp2p/core/crypto.dart' as $crypto2;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/event.dart' as $event;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/metrics.dart' as $metrics;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/network.dart' as $network;
@@ -36,23 +31,8 @@ import 'package:p2p_ffi/go/prometheus/client_golang/prometheus.dart'
 import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
 
 /// Go: `swarm.BlackHoleSuccessCounter` (handle).
-class Libp2pP2pNetSwarmBlackHoleSuccessCounter
-    extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  Libp2pP2pNetSwarmBlackHoleSuccessCounter.$h(super.$h) : super.$h();
+class Libp2pP2pNetSwarmBlackHoleSuccessCounter extends GoHandle {
+  Libp2pP2pNetSwarmBlackHoleSuccessCounter.$h(super.$h);
 
   /// Go: `func (*swarm.BlackHoleSuccessCounter).HandleRequest() swarm.BlackHoleState`.
   int handleRequest() {
@@ -113,23 +93,9 @@ mixin Libp2pP2pNetSwarmClock$ on GoHandle {
 /// Go: `swarm.Conn` (handle).
 class Libp2pP2pNetSwarmConn extends $network.Libp2pCoreNetworkConn
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $network.Libp2pCoreNetworkConnScoper$,
         $network.Libp2pCoreNetworkConnSecurity$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $network.Libp2pCoreNetworkConnScoper,
         $network.Libp2pCoreNetworkConnSecurity {
   Libp2pP2pNetSwarmConn.$h(super.$h) : super.$h();
@@ -222,9 +188,9 @@ class Libp2pP2pNetSwarmConn extends $network.Libp2pCoreNetworkConn
   }
 
   /// Go: `func (*swarm.Conn).RemotePublicKey() crypto.PubKey`.
-  $crypto2.Libp2pCoreCryptoPubKey remotePublicKey() {
+  $crypto.Libp2pCoreCryptoPubKey remotePublicKey() {
     final $r = $callSync(14658, $W()..h(this));
-    return $r.hnn($crypto2.Libp2pCoreCryptoPubKey.$h);
+    return $r.hnn($crypto.Libp2pCoreCryptoPubKey.$h);
   }
 
   /// Go: `func (*swarm.Conn).Scope() network.ConnScope`.
@@ -247,22 +213,8 @@ class Libp2pP2pNetSwarmConn extends $network.Libp2pCoreNetworkConn
 }
 
 /// Go: `swarm.DialBackoff` (handle).
-class Libp2pP2pNetSwarmDialBackoff extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  Libp2pP2pNetSwarmDialBackoff.$h(super.$h) : super.$h();
+class Libp2pP2pNetSwarmDialBackoff extends GoHandle {
+  Libp2pP2pNetSwarmDialBackoff.$h(super.$h);
 
   /// Go: `func (*swarm.DialBackoff).AddBackoff(p peer.ID, addr multiaddr.Multiaddr)`.
   void addBackoff($peer.Libp2pCorePeerId p, $multiaddr.Multiaddr addr) {
@@ -405,7 +357,7 @@ mixin Libp2pP2pNetSwarmMetricsTracer$ on GoHandle {
   /// Go: `func (swarm.MetricsTracer).OpenedConnection(network.Direction, crypto.PubKey, network.ConnectionState, multiaddr.Multiaddr)`.
   void openedConnection(
       int arg0,
-      $crypto2.Libp2pCoreCryptoPubKey pubKey,
+      $crypto.Libp2pCoreCryptoPubKey pubKey,
       $network.Libp2pCoreNetworkConnectionState connectionState,
       $multiaddr.Multiaddr multiaddr) {
     $callSync(
@@ -480,24 +432,8 @@ final class Libp2pP2pNetSwarmRealClock implements GoDto {
 /// Go: `swarm.RealTimer` (handle).
 class Libp2pP2pNetSwarmRealTimer
     extends $autorelay.Libp2pP2pHostAutorelayInstantTimer
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        Libp2pP2pNetSwarmInstantTimer$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        Libp2pP2pNetSwarmInstantTimer {
+    with Libp2pP2pNetSwarmInstantTimer$
+    implements Libp2pP2pNetSwarmInstantTimer {
   Libp2pP2pNetSwarmRealTimer.$h(super.$h) : super.$h();
 
   /// Go: `func (swarm.RealTimer).Ch() <-chan time.Time`.
@@ -578,23 +514,9 @@ final class Libp2pP2pNetSwarmResolverFromMaDns implements GoDto {
 /// Go: `swarm.Stream` (handle).
 class Libp2pP2pNetSwarmStream extends $network.Libp2pCoreNetworkStream
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $datachannel.DatachannelReadDeadliner$,
         $datachannel.DatachannelWriteDeadliner$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $datachannel.DatachannelReadDeadliner,
         $datachannel.DatachannelWriteDeadliner {
   Libp2pP2pNetSwarmStream.$h(super.$h) : super.$h();
@@ -731,26 +653,8 @@ class Libp2pP2pNetSwarmStream extends $network.Libp2pCoreNetworkStream
 
 /// Go: `swarm.Swarm` (handle).
 class Libp2pP2pNetSwarm extends $transport.Libp2pCoreTransportNetwork
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $io.IoCloser$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $io.IoCloser,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $io.IoCloser$, $expfmt.CommonExpfmtCloser$
+    implements $io.IoCloser, $expfmt.CommonExpfmtCloser {
   Libp2pP2pNetSwarm.$h(super.$h) : super.$h();
 
   /// Go: `func swarm.NewSwarm(local peer.ID, peers peerstore.Peerstore, eventBus event.Bus, opts ...swarm.Option) (*swarm.Swarm, error)`.

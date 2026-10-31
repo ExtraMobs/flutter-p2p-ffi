@@ -7,12 +7,7 @@ import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/go.dart' show GoBlangSemverV4;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/database/sql/driver.dart' as $driver;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 
 /// Go: `semver.PRVersion`.
 final class SemverV4PrVersion implements GoDto {
@@ -70,22 +65,8 @@ final class SemverV4PrVersion implements GoDto {
 }
 
 /// Go: `semver.Range` (handle).
-class SemverV4Range extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  SemverV4Range.$h(super.$h) : super.$h();
+class SemverV4Range extends GoHandle {
+  SemverV4Range.$h(super.$h);
 
   /// Go: `func (semver.Range).AND(f semver.Range) semver.Range`.
   ///
@@ -334,7 +315,7 @@ final class SemverV4Version implements GoDto {
   }
 
   /// Go: `func (semver.Version).Value() (driver.Value, error)`.
-  $driver.DatabaseSqlDriverValue value$() {
+  GoHandle value$() {
     final $r = $callSync(4076, $W()..dto(this));
     return $r.hnn($driver.DatabaseSqlDriverValue.$h);
   }

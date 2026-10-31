@@ -7,10 +7,6 @@ import 'dart:typed_data';
 import 'package:p2p_ffi/src/go.dart' show GoCryptoEcdh;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 
 /// Go: `ecdh.Curve` (handle).
 class CryptoEcdhCurve extends GoHandle with CryptoEcdhCurve$ {
@@ -87,23 +83,7 @@ mixin CryptoEcdhKeyExchanger$ on GoHandle {
 }
 
 /// Go: `ecdh.PrivateKey` (handle).
-class CryptoEcdhPrivateKey extends CryptoEcdhKeyExchanger
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class CryptoEcdhPrivateKey extends CryptoEcdhKeyExchanger {
   CryptoEcdhPrivateKey.$h(super.$h) : super.$h();
 
   /// Go: `func (*ecdh.PrivateKey).Bytes() []byte`.
@@ -129,7 +109,7 @@ class CryptoEcdhPrivateKey extends CryptoEcdhKeyExchanger
   }
 
   /// Go: `func (*ecdh.PrivateKey).Equal(x crypto.PrivateKey) bool`.
-  bool equal($crypto.CryptoPrivateKey x) {
+  bool equal(GoHandle x) {
     final $r = $callSync(
         3184,
         $W()
@@ -139,7 +119,7 @@ class CryptoEcdhPrivateKey extends CryptoEcdhKeyExchanger
   }
 
   /// Go: `func (*ecdh.PrivateKey).Public() crypto.PublicKey`.
-  $crypto.CryptoPublicKey public() {
+  GoHandle public() {
     final $r = $callSync(3185, $W()..h(this));
     return $r.hnn($crypto.CryptoPublicKey.$h);
   }
@@ -152,22 +132,8 @@ class CryptoEcdhPrivateKey extends CryptoEcdhKeyExchanger
 }
 
 /// Go: `ecdh.PublicKey` (handle).
-class CryptoEcdhPublicKey extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  CryptoEcdhPublicKey.$h(super.$h) : super.$h();
+class CryptoEcdhPublicKey extends GoHandle {
+  CryptoEcdhPublicKey.$h(super.$h);
 
   /// Go: `func (*ecdh.PublicKey).Bytes() []byte`.
   Uint8List bytes() {
@@ -182,7 +148,7 @@ class CryptoEcdhPublicKey extends $crypto.CryptoDecrypterOpts
   }
 
   /// Go: `func (*ecdh.PublicKey).Equal(x crypto.PublicKey) bool`.
-  bool equal($crypto.CryptoPublicKey x) {
+  bool equal(GoHandle x) {
     final $r = $callSync(
         3189,
         $W()

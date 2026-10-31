@@ -14,37 +14,14 @@ import 'package:p2p_ffi/go/cockroachdb/pebble/v2/objstorage.dart'
     as $objstorage;
 import 'package:p2p_ffi/go/cockroachdb/pebble/v2/vfs.dart' as $vfs;
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
 
 /// Go: `objstorageprovider.PreallocatedReadHandle` (handle).
 class PebbleV2ObjstorageObjstorageproviderPreallocatedReadHandle
     extends $objstorage.PebbleV2ObjstorageReadHandle
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $io.IoCloser$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $io.IoCloser,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $io.IoCloser$, $expfmt.CommonExpfmtCloser$
+    implements $io.IoCloser, $expfmt.CommonExpfmtCloser {
   PebbleV2ObjstorageObjstorageproviderPreallocatedReadHandle.$h(super.$h)
       : super.$h();
 
@@ -87,23 +64,8 @@ class PebbleV2ObjstorageObjstorageproviderPreallocatedReadHandle
 }
 
 /// Go: `objstorageprovider.ReadaheadConfig` (handle).
-class PebbleV2ObjstorageObjstorageproviderReadaheadConfig
-    extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  PebbleV2ObjstorageObjstorageproviderReadaheadConfig.$h(super.$h) : super.$h();
+class PebbleV2ObjstorageObjstorageproviderReadaheadConfig extends GoHandle {
+  PebbleV2ObjstorageObjstorageproviderReadaheadConfig.$h(super.$h);
 
   /// Go: `func objstorageprovider.NewReadaheadConfig() *objstorageprovider.ReadaheadConfig`.
   factory PebbleV2ObjstorageObjstorageproviderReadaheadConfig() {

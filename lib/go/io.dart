@@ -39,7 +39,6 @@ import 'package:p2p_ffi/go/cockroachdb/pebble/v2/wal.dart' as $wal;
 import 'package:p2p_ffi/go/compress/flate.dart' as $flate;
 import 'package:p2p_ffi/go/compress/gzip.dart' as $gzip;
 import 'package:p2p_ffi/go/compress/zlib.dart' as $zlib;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/crypto/tls.dart' as $tls;
 import 'package:p2p_ffi/go/debug/macho.dart' as $macho;
 import 'package:p2p_ffi/go/dgraph_io/badger.dart' as $badger;
@@ -48,7 +47,6 @@ import 'package:p2p_ffi/go/dgraph_io/badger/table.dart' as $table;
 import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
 import 'package:p2p_ffi/go/facebookgo/atomicfile.dart' as $atomicfile;
 import 'package:p2p_ffi/go/fsnotify/fsnotify.dart' as $fsnotify;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/golang/snappy.dart' as $snappy;
 import 'package:p2p_ffi/go/gorilla/websocket.dart' as $websocket;
 import 'package:p2p_ffi/go/grpc.dart' as $grpc;
@@ -85,7 +83,6 @@ import 'package:p2p_ffi/go/ipfs/kubo/repo/fsrepo/migrations.dart'
 import 'package:p2p_ffi/go/ipfs/kubo/repo/fsrepo/migrations/atomicfile.dart'
     as $atomicfile2;
 import 'package:p2p_ffi/go/ipfs/log/v2.dart' as $v22;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/ipfs_shipyard/nopfs.dart' as $nopfs;
 import 'package:p2p_ffi/go/ipfs_shipyard/nopfs/ipfs.dart' as $ipfs;
 import 'package:p2p_ffi/go/ipld/car/v2.dart' as $v23;
@@ -2032,23 +2029,7 @@ final class IoLimitedReader implements GoDto {
 }
 
 /// Go: `io.OffsetWriter` (handle).
-class IoOffsetWriter extends IoSeeker
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class IoOffsetWriter extends IoSeeker {
   IoOffsetWriter.$h(super.$h) : super.$h();
 
   /// Go: `func io.NewOffsetWriter(w io.WriterAt, off int64) *io.OffsetWriter`.
@@ -2096,24 +2077,8 @@ class IoOffsetWriter extends IoSeeker
 
 /// Go: `io.PipeReader` (handle).
 class IoPipeReader extends IoCloser
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   IoPipeReader.$h(super.$h) : super.$h();
 
   /// Go: `func (*io.PipeReader).Close() error`.
@@ -2134,24 +2099,8 @@ class IoPipeReader extends IoCloser
 
 /// Go: `io.PipeWriter` (handle).
 class IoPipeWriter extends IoCloser
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $expfmt.CommonExpfmtCloser$
+    implements $expfmt.CommonExpfmtCloser {
   IoPipeWriter.$h(super.$h) : super.$h();
 
   /// Go: `func (*io.PipeWriter).Close() error`.
@@ -2398,23 +2347,7 @@ mixin IoRuneScanner$ on GoHandle {
 }
 
 /// Go: `io.SectionReader` (handle).
-class IoSectionReader extends IoSeeker
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class IoSectionReader extends IoSeeker {
   IoSectionReader.$h(super.$h) : super.$h();
 
   /// Go: `func io.NewSectionReader(r io.ReaderAt, off int64, n int64) *io.SectionReader`.

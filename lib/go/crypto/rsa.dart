@@ -7,11 +7,7 @@ import 'dart:typed_data';
 import 'package:p2p_ffi/src/go.dart' show GoCryptoRsa, GoCryptoRsaConsts;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/hash.dart' as $hash;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/math/big.dart' as $big;
 
 /// Go: `rsa.OAEPOptions`.
@@ -84,22 +80,8 @@ final class CryptoRsaPssOptions implements GoDto {
 }
 
 /// Go: `rsa.PrecomputedValues` (handle).
-class CryptoRsaPrecomputedValues extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  CryptoRsaPrecomputedValues.$h(super.$h) : super.$h();
+class CryptoRsaPrecomputedValues extends GoHandle {
+  CryptoRsaPrecomputedValues.$h(super.$h);
 }
 
 /// Go: `rsa.PrivateKey`.
@@ -142,8 +124,7 @@ final class CryptoRsaPrivateKey implements GoDto {
   }
 
   /// Go: `func (*rsa.PrivateKey).Decrypt(rand io.Reader, ciphertext []byte, opts crypto.DecrypterOpts) (plaintext []byte, err error)`.
-  Uint8List decrypt(
-      Object rand, Uint8List ciphertext, $crypto.CryptoDecrypterOpts opts) {
+  Uint8List decrypt(Object rand, Uint8List ciphertext, GoHandle opts) {
     final $r = $callSync(
         3318,
         $W()
@@ -155,7 +136,7 @@ final class CryptoRsaPrivateKey implements GoDto {
   }
 
   /// Go: `func (*rsa.PrivateKey).Equal(x crypto.PrivateKey) bool`.
-  bool equal($crypto.CryptoPrivateKey x) {
+  bool equal(GoHandle x) {
     final $r = $callSync(
         3319,
         $W()
@@ -170,7 +151,7 @@ final class CryptoRsaPrivateKey implements GoDto {
   }
 
   /// Go: `func (*rsa.PrivateKey).Public() crypto.PublicKey`.
-  $crypto.CryptoPublicKey public() {
+  GoHandle public() {
     final $r = $callSync(3321, $W()..dto(this));
     return $r.hnn($crypto.CryptoPublicKey.$h);
   }
@@ -223,7 +204,7 @@ final class CryptoRsaPublicKey implements GoDto {
   }
 
   /// Go: `func (*rsa.PublicKey).Equal(x crypto.PublicKey) bool`.
-  bool equal($crypto.CryptoPublicKey x) {
+  bool equal(GoHandle x) {
     final $r = $callSync(
         3325,
         $W()

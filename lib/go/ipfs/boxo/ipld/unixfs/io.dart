@@ -12,35 +12,14 @@ import 'package:p2p_ffi/src/go.dart'
         GoIpfsBoxoIpldUnixfsIoOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
 import 'package:p2p_ffi/go/ipfs/boxo/ipld/merkledag.dart' as $merkledag;
 import 'package:p2p_ffi/go/ipfs/boxo/ipld/unixfs.dart' as $unixfs;
 import 'package:p2p_ffi/go/ipfs/cid.dart' as $cid;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 import 'package:p2p_ffi/go/ipfs/ipld_format.dart' as $ipld_format;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 
 /// Go: `io.BasicDirectory` (handle).
-class BoxoIpldUnixfsIoBasicDirectory extends BoxoIpldUnixfsIoDirectory
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class BoxoIpldUnixfsIoBasicDirectory extends BoxoIpldUnixfsIoDirectory {
   BoxoIpldUnixfsIoBasicDirectory.$h(super.$h) : super.$h();
 
   /// Go: `func io.NewBasicDirectory(dserv format.DAGService, opts ...io.DirectoryOption) (*io.BasicDirectory, error)`.
@@ -486,42 +465,12 @@ mixin BoxoIpldUnixfsIoDirectory$ on GoHandle {
 }
 
 /// Go: `io.DirectoryOption` (handle).
-class BoxoIpldUnixfsIoDirectoryOption extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  BoxoIpldUnixfsIoDirectoryOption.$h(super.$h) : super.$h();
+class BoxoIpldUnixfsIoDirectoryOption extends GoHandle {
+  BoxoIpldUnixfsIoDirectoryOption.$h(super.$h);
 }
 
 /// Go: `io.DynamicDirectory` (handle).
-class BoxoIpldUnixfsIoDynamicDirectory extends BoxoIpldUnixfsIoDirectory
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class BoxoIpldUnixfsIoDynamicDirectory extends BoxoIpldUnixfsIoDirectory {
   BoxoIpldUnixfsIoDynamicDirectory.$h(super.$h) : super.$h();
 
   /// Go: `func (*io.DynamicDirectory).AddChild(ctx context.Context, name string, nd format.Node) error`.
@@ -703,23 +652,7 @@ class BoxoIpldUnixfsIoDynamicDirectory extends BoxoIpldUnixfsIoDirectory
 }
 
 /// Go: `io.HAMTDirectory` (handle).
-class BoxoIpldUnixfsIoHamtDirectory extends BoxoIpldUnixfsIoDirectory
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class BoxoIpldUnixfsIoHamtDirectory extends BoxoIpldUnixfsIoDirectory {
   BoxoIpldUnixfsIoHamtDirectory.$h(super.$h) : super.$h();
 
   /// Go: `func io.NewHAMTDirectory(dserv format.DAGService, sizeChange int, opts ...io.DirectoryOption) (*io.HAMTDirectory, error)`.

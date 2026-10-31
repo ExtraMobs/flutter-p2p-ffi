@@ -13,31 +13,13 @@ import 'package:p2p_ffi/go/crypto/rsa.dart' as $rsa;
 import 'package:p2p_ffi/go/crypto/x509/pkix.dart' as $pkix;
 import 'package:p2p_ffi/go/encoding.dart' as $encoding;
 import 'package:p2p_ffi/go/encoding/pem.dart' as $pem;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/math/big.dart' as $big;
 import 'package:p2p_ffi/go/net.dart' as $net;
 import 'package:p2p_ffi/go/net/url.dart' as $url;
 
 /// Go: `x509.CertPool` (handle).
-class CryptoX509CertPool extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  CryptoX509CertPool.$h(super.$h) : super.$h();
+class CryptoX509CertPool extends GoHandle {
+  CryptoX509CertPool.$h(super.$h);
 
   /// Go: `func x509.NewCertPool() *x509.CertPool`.
   factory CryptoX509CertPool() {
@@ -707,27 +689,13 @@ final class CryptoX509CertificateRequest implements GoDto {
 /// Go: `x509.OID` (handle).
 class CryptoX509Oid extends $encoding.EncodingBinaryAppender
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
         $encoding.EncodingBinaryUnmarshaler$,
         $encoding.EncodingTextAppender$,
-        $encoding.EncodingTextUnmarshaler$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
+        $encoding.EncodingTextUnmarshaler$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
         $encoding.EncodingBinaryUnmarshaler,
         $encoding.EncodingTextAppender,
-        $encoding.EncodingTextUnmarshaler,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+        $encoding.EncodingTextUnmarshaler {
   CryptoX509Oid.$h(super.$h) : super.$h();
 
   /// Go: `func (x509.OID).AppendBinary(b []byte) ([]byte, error)`.
@@ -1012,22 +980,8 @@ final class CryptoX509RevocationListEntry implements GoDto {
 }
 
 /// Go: `x509.VerifyOptions` (handle).
-class CryptoX509VerifyOptions extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  CryptoX509VerifyOptions.$h(super.$h) : super.$h();
+class CryptoX509VerifyOptions extends GoHandle {
+  CryptoX509VerifyOptions.$h(super.$h);
 }
 
 /// Go: `x509.CertificateInvalidError`: an error. Thrown as this class when it is the outermost

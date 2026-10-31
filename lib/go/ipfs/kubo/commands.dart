@@ -3,32 +3,13 @@
 library;
 
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 import 'package:p2p_ffi/go/ipfs/kubo/config.dart' as $config;
 import 'package:p2p_ffi/go/ipfs/kubo/core.dart' as $core;
 import 'package:p2p_ffi/go/ipfs/kubo/core/coreiface.dart' as $coreiface;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 
 /// Go: `commands.Context` (handle).
-class KuboCommandsContext extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  KuboCommandsContext.$h(super.$h) : super.$h();
+class KuboCommandsContext extends GoHandle {
+  KuboCommandsContext.$h(super.$h);
 
   /// Go: `func (*commands.Context).ClearCachedNode()`.
   void clearCachedNode() {
@@ -60,22 +41,8 @@ class KuboCommandsContext extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `commands.ReqLog` (handle).
-class KuboCommandsReqLog extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  KuboCommandsReqLog.$h(super.$h) : super.$h();
+class KuboCommandsReqLog extends GoHandle {
+  KuboCommandsReqLog.$h(super.$h);
 
   /// Go: `func (*commands.ReqLog).AddEntry(rle *commands.ReqLogEntry)`.
   void addEntry(KuboCommandsReqLogEntry rle) {
@@ -117,22 +84,8 @@ class KuboCommandsReqLog extends $crypto.CryptoDecrypterOpts
 }
 
 /// Go: `commands.ReqLogEntry` (handle).
-class KuboCommandsReqLogEntry extends $crypto.CryptoDecrypterOpts
-    with
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
-  KuboCommandsReqLogEntry.$h(super.$h) : super.$h();
+class KuboCommandsReqLogEntry extends GoHandle {
+  KuboCommandsReqLogEntry.$h(super.$h);
 
   /// Go: `func (*commands.ReqLogEntry).Copy() *commands.ReqLogEntry`.
   KuboCommandsReqLogEntry copy() {

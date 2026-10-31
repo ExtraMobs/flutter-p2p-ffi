@@ -8,18 +8,13 @@ import 'package:p2p_ffi/src/go.dart'
     show GoLibp2pLibp2pP2pProtocolCircuitv2Client;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/host.dart' as $host;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/network.dart' as $network;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/transport.dart' as $transport;
 import 'package:p2p_ffi/go/libp2p/libp2p/p2p/protocol/circuitv2/proto.dart'
-    as $proto2;
+    as $proto;
 import 'package:p2p_ffi/go/multiformats/multiaddr.dart' as $multiaddr;
 import 'package:p2p_ffi/go/multiformats/multiaddr/net.dart' as $net;
 import 'package:p2p_ffi/go/net.dart' as $net2;
@@ -29,25 +24,11 @@ import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
 /// Go: `client.Client` (handle).
 class Libp2pP2pProtocolCircuitv2Client extends $transport.Libp2pCoreTransport
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
         $io.IoCloser$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $transport.Libp2pCoreTransportSkipResolver$,
         $expfmt.CommonExpfmtCloser$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
         $io.IoCloser,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $transport.Libp2pCoreTransportSkipResolver,
         $expfmt.CommonExpfmtCloser {
   Libp2pP2pProtocolCircuitv2Client.$h(super.$h) : super.$h();
@@ -133,26 +114,12 @@ class Libp2pP2pProtocolCircuitv2Client extends $transport.Libp2pCoreTransport
 /// Go: `client.Conn` (handle).
 class Libp2pP2pProtocolCircuitv2ClientConn extends $net.MultiaddrNetConn
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
         $io.IoCloser$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $datachannel.DatachannelReadDeadliner$,
         $datachannel.DatachannelWriteDeadliner$,
         $expfmt.CommonExpfmtCloser$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
         $io.IoCloser,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $datachannel.DatachannelReadDeadliner,
         $datachannel.DatachannelWriteDeadliner,
         $expfmt.CommonExpfmtCloser {
@@ -243,26 +210,8 @@ class Libp2pP2pProtocolCircuitv2ClientConn extends $net.MultiaddrNetConn
 
 /// Go: `client.Listener` (handle).
 class Libp2pP2pProtocolCircuitv2ClientListener extends $net.MultiaddrNetListener
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $io.IoCloser$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $io.IoCloser,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $io.IoCloser$, $expfmt.CommonExpfmtCloser$
+    implements $io.IoCloser, $expfmt.CommonExpfmtCloser {
   Libp2pP2pProtocolCircuitv2ClientListener.$h(super.$h) : super.$h();
 
   /// Go: `func (*client.Listener).Accept() (manet.Conn, error)`.
@@ -332,7 +281,7 @@ final class Libp2pP2pProtocolCircuitv2ClientReservation implements GoDto {
       List<$multiaddr.Multiaddr>? addrs,
       Duration? limitDuration,
       int? limitData,
-      $proto2.Libp2pP2pProtocolCircuitv2ProtoReservationVoucher? voucher})
+      $proto.Libp2pP2pProtocolCircuitv2ProtoReservationVoucher? voucher})
       : expiration = expiration,
         addrs = addrs ?? [],
         limitDuration = limitDuration ?? Duration.zero,
@@ -345,7 +294,7 @@ final class Libp2pP2pProtocolCircuitv2ClientReservation implements GoDto {
         limitDuration = Duration(microseconds: r.i64() ~/ 1000),
         limitData = r.i64(),
         voucher = r.p()
-            ? $proto2.Libp2pP2pProtocolCircuitv2ProtoReservationVoucher.$dec(r)
+            ? $proto.Libp2pP2pProtocolCircuitv2ProtoReservationVoucher.$dec(r)
             : null;
 
   /// Go: `Expiration`.
@@ -364,7 +313,7 @@ final class Libp2pP2pProtocolCircuitv2ClientReservation implements GoDto {
   int limitData;
 
   /// Go: `Voucher`.
-  $proto2.Libp2pP2pProtocolCircuitv2ProtoReservationVoucher? voucher;
+  $proto.Libp2pP2pProtocolCircuitv2ProtoReservationVoucher? voucher;
 
   @override
   void $enc($W w) {

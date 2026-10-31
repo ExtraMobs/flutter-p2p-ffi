@@ -6,14 +6,9 @@ import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/go.dart' show GoProtobufTypesKnownAnypb;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
 import 'package:p2p_ffi/go/gogo/protobuf/protoc_gen_gogo/descriptor.dart'
     as $descriptor;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
-import 'package:p2p_ffi/go/protobuf/proto.dart' as $proto2;
+import 'package:p2p_ffi/go/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/protobuf/reflect/protoreflect.dart' as $protoreflect;
 import 'package:p2p_ffi/go/protobuf/runtime/protoiface.dart' as $protoiface;
 
@@ -21,23 +16,9 @@ import 'package:p2p_ffi/go/protobuf/runtime/protoiface.dart' as $protoiface;
 class ProtobufTypesKnownAnypbAny
     extends $descriptor.ProtobufProtocGenGogoDescriptorMessage
     with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage$,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1$
     implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
         $protoreflect.ProtobufReflectProtoreflectProtoMessage,
         $protoiface.ProtobufRuntimeProtoifaceMessageV1 {
   ProtobufTypesKnownAnypbAny.$h(super.$h) : super.$h();
@@ -137,7 +118,7 @@ extension GoProtobufTypesKnownAnypbApi on GoProtobufTypesKnownAnypb {
   void marshalFrom(
       ProtobufTypesKnownAnypbAny dst,
       $protoreflect.ProtobufReflectProtoreflectProtoMessage src,
-      $proto2.ProtobufProtoMarshalOptions opts) {
+      $proto.ProtobufProtoMarshalOptions opts) {
     $callSync(
         25476,
         $W()
@@ -156,7 +137,7 @@ extension GoProtobufTypesKnownAnypbApi on GoProtobufTypesKnownAnypb {
   /// Go: `func anypb.UnmarshalNew(src *anypb.Any, opts proto.UnmarshalOptions) (dst proto.Message, err error)`.
   $protoreflect.ProtobufReflectProtoreflectProtoMessage unmarshalNew(
       ProtobufTypesKnownAnypbAny src,
-      $proto2.ProtobufProtoUnmarshalOptions opts) {
+      $proto.ProtobufProtoUnmarshalOptions opts) {
     final $r = $callSync(
         25478,
         $W()
@@ -169,7 +150,7 @@ extension GoProtobufTypesKnownAnypbApi on GoProtobufTypesKnownAnypb {
   void unmarshalTo(
       ProtobufTypesKnownAnypbAny src,
       $protoreflect.ProtobufReflectProtoreflectProtoMessage dst,
-      $proto2.ProtobufProtoUnmarshalOptions opts) {
+      $proto.ProtobufProtoUnmarshalOptions opts) {
     $callSync(
         25479,
         $W()

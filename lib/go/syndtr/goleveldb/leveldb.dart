@@ -6,12 +6,7 @@ import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/go.dart' show GoSyndtrGoleveldbLeveldb;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/encoding/xml.dart' as $xml;
-import 'package:p2p_ffi/go/golang/protobuf/proto.dart' as $proto;
 import 'package:p2p_ffi/go/io.dart' as $io;
-import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipfs/peertaskqueue/peertask.dart' as $peertask;
 import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
 import 'package:p2p_ffi/go/syndtr/goleveldb/leveldb/cache.dart' as $cache;
 import 'package:p2p_ffi/go/syndtr/goleveldb/leveldb/iterator.dart' as $iterator;
@@ -21,23 +16,7 @@ import 'package:p2p_ffi/go/syndtr/goleveldb/leveldb/table.dart' as $table;
 import 'package:p2p_ffi/go/syndtr/goleveldb/leveldb/util.dart' as $util;
 
 /// Go: `leveldb.Batch` (handle).
-class GoleveldbLeveldbBatch extends GoleveldbLeveldbBatchReplay
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class GoleveldbLeveldbBatch extends GoleveldbLeveldbBatchReplay {
   GoleveldbLeveldbBatch.$h(super.$h) : super.$h();
 
   /// Go: `func (*leveldb.Batch).Delete(key []byte)`.
@@ -155,26 +134,8 @@ mixin GoleveldbLeveldbBatchReplay$ on GoHandle {
 
 /// Go: `leveldb.DB` (handle).
 class GoleveldbLeveldbDb extends GoleveldbLeveldbReader
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $io.IoCloser$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $expfmt.CommonExpfmtCloser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $io.IoCloser,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $expfmt.CommonExpfmtCloser {
+    with $io.IoCloser$, $expfmt.CommonExpfmtCloser$
+    implements $io.IoCloser, $expfmt.CommonExpfmtCloser {
   GoleveldbLeveldbDb.$h(super.$h) : super.$h();
 
   /// Go: `func (*leveldb.DB).Close() error`.
@@ -522,24 +483,8 @@ mixin GoleveldbLeveldbReader$ on GoHandle {
 
 /// Go: `leveldb.Snapshot` (handle).
 class GoleveldbLeveldbSnapshot extends GoleveldbLeveldbReader
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$,
-        $util.GoleveldbLeveldbUtilReleaser$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic,
-        $util.GoleveldbLeveldbUtilReleaser {
+    with $util.GoleveldbLeveldbUtilReleaser$
+    implements $util.GoleveldbLeveldbUtilReleaser {
   GoleveldbLeveldbSnapshot.$h(super.$h) : super.$h();
 
   /// Go: `func (*leveldb.Snapshot).Get(key []byte, ro *opt.ReadOptions) (value []byte, err error)`.
@@ -590,23 +535,7 @@ class GoleveldbLeveldbSnapshot extends GoleveldbLeveldbReader
 }
 
 /// Go: `leveldb.Transaction` (handle).
-class GoleveldbLeveldbTransaction extends GoleveldbLeveldbReader
-    with
-        $crypto.CryptoDecrypterOpts$,
-        $crypto.CryptoPrivateKey$,
-        $crypto.CryptoPublicKey$,
-        $xml.EncodingXmlToken$,
-        $proto.ProtobufProtoGeneratedMessage$,
-        $ipfs_cmds.IpfsCmdsEnvironment$,
-        $peertask.PeertaskqueuePeertaskTopic$
-    implements
-        $crypto.CryptoDecrypterOpts,
-        $crypto.CryptoPrivateKey,
-        $crypto.CryptoPublicKey,
-        $xml.EncodingXmlToken,
-        $proto.ProtobufProtoGeneratedMessage,
-        $ipfs_cmds.IpfsCmdsEnvironment,
-        $peertask.PeertaskqueuePeertaskTopic {
+class GoleveldbLeveldbTransaction extends GoleveldbLeveldbReader {
   GoleveldbLeveldbTransaction.$h(super.$h) : super.$h();
 
   /// Go: `func (*leveldb.Transaction).Commit() error`.
