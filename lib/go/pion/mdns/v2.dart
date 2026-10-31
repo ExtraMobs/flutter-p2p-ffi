@@ -85,7 +85,7 @@ class MdnsV2Conn extends $io.IoCloser
 
   /// Go: `func (*mdns.Conn).Close() error`.
   void close() {
-    $callSync(16770, $W()..h(this));
+    $callSync(16772, $W()..h(this));
   }
 
   /// Go: `func (*mdns.Conn).Query(ctx context.Context, name string) (dnsmessage.ResourceHeader, net.Addr, error)`.
@@ -96,7 +96,7 @@ class MdnsV2Conn extends $io.IoCloser
   Future<($dnsmessage.NetDnsDnsmessageResourceHeader, $net.NetAddr)> query(
       $context.Context ctx, String name) async {
     final $r = await $call(
-        16771,
+        16773,
         $W()
           ..h(this)
           ..h(ctx)
@@ -113,7 +113,7 @@ class MdnsV2Conn extends $io.IoCloser
   Future<($dnsmessage.NetDnsDnsmessageResourceHeader, $netip.NetNetipAddr)>
       queryAddr($context.Context ctx, String name) async {
     final $r = await $call(
-        16772,
+        16774,
         $W()
           ..h(this)
           ..h(ctx)
@@ -131,7 +131,7 @@ extension GoPionMdnsV2Api on GoPionMdnsV2 {
   MdnsV2Conn server($ipv4.NetIpv4PacketConn multicastPktConnV4,
       $ipv6.NetIpv6PacketConn multicastPktConnV6, MdnsV2Config config) {
     final $r = $callSync(
-        16773,
+        16775,
         $W()
           ..h(multicastPktConnV4)
           ..h(multicastPktConnV6)

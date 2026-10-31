@@ -23,7 +23,7 @@ class GoleveldbLeveldbJournalReader extends GoHandle {
   factory GoleveldbLeveldbJournalReader(Object r,
       GoleveldbLeveldbJournalDropper dropper, bool strict, bool checksum) {
     final $r = $callSync(
-        18696,
+        18698,
         $W()
           ..reader(r)
           ..h(dropper)
@@ -34,7 +34,7 @@ class GoleveldbLeveldbJournalReader extends GoHandle {
 
   /// Go: `func (*journal.Reader).Next() (io.Reader, error)`.
   $io.IoReader next() {
-    final $r = $callSync(18698, $W()..h(this));
+    final $r = $callSync(18700, $W()..h(this));
     return $r.hnn($io.IoReader.$h);
   }
 
@@ -42,7 +42,7 @@ class GoleveldbLeveldbJournalReader extends GoHandle {
   void reset(Object reader, GoleveldbLeveldbJournalDropper dropper, bool strict,
       bool checksum) {
     $callSync(
-        18699,
+        18701,
         $W()
           ..h(this)
           ..reader(reader)
@@ -60,24 +60,24 @@ class GoleveldbLeveldbJournalWriter extends $io.IoCloser
 
   /// Go: `func journal.NewWriter(w io.Writer) *journal.Writer`.
   factory GoleveldbLeveldbJournalWriter(GoHandle? w) {
-    final $r = $callSync(18697, $W()..h(w));
+    final $r = $callSync(18699, $W()..h(w));
     return $r.hnn(GoleveldbLeveldbJournalWriter.$h);
   }
 
   /// Go: `func (*journal.Writer).Close() error`.
   void close() {
-    $callSync(18700, $W()..h(this));
+    $callSync(18702, $W()..h(this));
   }
 
   /// Go: `func (*journal.Writer).Flush() error`.
   void flush() {
-    $callSync(18701, $W()..h(this));
+    $callSync(18703, $W()..h(this));
   }
 
   /// Go: `func (*journal.Writer).Reset(writer io.Writer) (err error)`.
   void reset(GoHandle? writer) {
     $callSync(
-        18702,
+        18704,
         $W()
           ..h(this)
           ..h(writer));
@@ -85,7 +85,7 @@ class GoleveldbLeveldbJournalWriter extends $io.IoCloser
 
   /// Go: `func (*journal.Writer).Size() int64`.
   int size() {
-    final $r = $callSync(18703, $W()..h(this));
+    final $r = $callSync(18705, $W()..h(this));
     return $r.i64();
   }
 }

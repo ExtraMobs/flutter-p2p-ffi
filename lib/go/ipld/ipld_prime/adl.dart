@@ -16,7 +16,7 @@ class IpldPrimeAdl extends $datamodel.IpldPrimeDatamodelNode
 mixin IpldPrimeAdl$ on GoHandle {
   /// Go: `func (adl.ADL).Substrate() datamodel.Node`.
   $datamodel.IpldPrimeDatamodelNode substrate() {
-    final $r = $callSync(12051, $W()..h(this));
+    final $r = $callSync(12053, $W()..h(this));
     return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
   }
 

@@ -20,7 +20,7 @@ mixin GoleveldbLeveldbIteratorArray$ on GoHandle {
   /// Go: `func (iterator.Array).Index(i int) (key []byte, value []byte)`.
   (Uint8List, Uint8List) index(int i) {
     final $r = $callSync(
-        18678,
+        18680,
         $W()
           ..h(this)
           ..i64(i));
@@ -40,7 +40,7 @@ mixin GoleveldbLeveldbIteratorArrayIndexer$ on GoHandle {
   /// Go: `func (iterator.ArrayIndexer).Get(i int) iterator.Iterator`.
   GoleveldbLeveldbIterator get(int i) {
     final $r = $callSync(
-        18679,
+        18681,
         $W()
           ..h(this)
           ..i64(i));
@@ -58,14 +58,14 @@ class GoleveldbLeveldbIteratorBasicArray extends GoHandle
 mixin GoleveldbLeveldbIteratorBasicArray$ on GoHandle {
   /// Go: `func (iterator.BasicArray).Len() int`.
   int len() {
-    final $r = $callSync(18680, $W()..h(this));
+    final $r = $callSync(18682, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (iterator.BasicArray).Search(key []byte) int`.
   int search(Uint8List key) {
     final $r = $callSync(
-        18681,
+        18683,
         $W()
           ..h(this)
           ..bytes(key));
@@ -103,12 +103,12 @@ class GoleveldbLeveldbIteratorCommonIterator
 mixin GoleveldbLeveldbIteratorCommonIterator$ on GoHandle {
   /// Go: `func (iterator.CommonIterator).Error() error`.
   void error() {
-    $callSync(18682, $W()..h(this));
+    $callSync(18684, $W()..h(this));
   }
 
   /// Go: `func (iterator.CommonIterator).Valid() bool`.
   bool valid() {
-    final $r = $callSync(18683, $W()..h(this));
+    final $r = $callSync(18685, $W()..h(this));
     return $r.b();
   }
 
@@ -141,13 +141,13 @@ class GoleveldbLeveldbIterator extends GoleveldbLeveldbIteratorCommonIterator
 mixin GoleveldbLeveldbIterator$ on GoHandle {
   /// Go: `func (iterator.Iterator).Key() []byte`.
   Uint8List key() {
-    final $r = $callSync(18684, $W()..h(this));
+    final $r = $callSync(18686, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (iterator.Iterator).Value() []byte`.
   Uint8List value$() {
-    final $r = $callSync(18685, $W()..h(this));
+    final $r = $callSync(18687, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 }
@@ -169,7 +169,7 @@ class GoleveldbLeveldbIteratorIndexer
 mixin GoleveldbLeveldbIteratorIndexer$ on GoHandle {
   /// Go: `func (iterator.IteratorIndexer).Get() iterator.Iterator`.
   GoleveldbLeveldbIterator get() {
-    final $r = $callSync(18686, $W()..h(this));
+    final $r = $callSync(18688, $W()..h(this));
     return $r.hnn(GoleveldbLeveldbIterator.$h);
   }
 }
@@ -184,32 +184,32 @@ class GoleveldbLeveldbIteratorSeeker extends GoHandle
 mixin GoleveldbLeveldbIteratorSeeker$ on GoHandle {
   /// Go: `func (iterator.IteratorSeeker).First() bool`.
   bool first() {
-    final $r = $callSync(18687, $W()..h(this));
+    final $r = $callSync(18689, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (iterator.IteratorSeeker).Last() bool`.
   bool last() {
-    final $r = $callSync(18688, $W()..h(this));
+    final $r = $callSync(18690, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (iterator.IteratorSeeker).Next() bool`.
   bool next() {
-    final $r = $callSync(18689, $W()..h(this));
+    final $r = $callSync(18691, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (iterator.IteratorSeeker).Prev() bool`.
   bool prev() {
-    final $r = $callSync(18690, $W()..h(this));
+    final $r = $callSync(18692, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (iterator.IteratorSeeker).Seek(key []byte) bool`.
   bool seek(Uint8List key) {
     final $r = $callSync(
-        18691,
+        18693,
         $W()
           ..h(this)
           ..bytes(key));
@@ -251,14 +251,14 @@ extension GoSyndtrGoleveldbLeveldbIteratorApi
   /// Go: `func iterator.NewArrayIndexer(array iterator.ArrayIndexer) iterator.IteratorIndexer`.
   GoleveldbLeveldbIteratorIndexer newArrayIndexer(
       GoleveldbLeveldbIteratorArrayIndexer array) {
-    final $r = $callSync(18692, $W()..h(array));
+    final $r = $callSync(18694, $W()..h(array));
     return $r.hnn(GoleveldbLeveldbIteratorIndexer.$h);
   }
 
   /// Go: `func iterator.NewArrayIterator(array iterator.Array) iterator.Iterator`.
   GoleveldbLeveldbIterator newArrayIterator(
       GoleveldbLeveldbIteratorArray array) {
-    final $r = $callSync(18693, $W()..h(array));
+    final $r = $callSync(18695, $W()..h(array));
     return $r.hnn(GoleveldbLeveldbIterator.$h);
   }
 
@@ -266,7 +266,7 @@ extension GoSyndtrGoleveldbLeveldbIteratorApi
   GoleveldbLeveldbIterator newIndexedIterator(
       GoleveldbLeveldbIteratorIndexer index, bool strict) {
     final $r = $callSync(
-        18694,
+        18696,
         $W()
           ..h(index)
           ..b(strict));
@@ -279,7 +279,7 @@ extension GoSyndtrGoleveldbLeveldbIteratorApi
       $comparer.GoleveldbLeveldbComparer cmp,
       bool strict) {
     final $r = $callSync(
-        18695,
+        18697,
         $W()
           ..list(iters, (w0, e0) => w0.h(e0))
           ..h(cmp)

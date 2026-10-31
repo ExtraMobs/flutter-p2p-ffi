@@ -37,7 +37,7 @@ mixin KuboPlugin$ on GoHandle {
   /// Go: `func (plugin.Plugin).Init(env *plugin.Environment) error`.
   void init(KuboPluginEnvironment env) {
     $callSync(
-        11704,
+        11706,
         $W()
           ..h(this)
           ..dto(env));
@@ -45,13 +45,13 @@ mixin KuboPlugin$ on GoHandle {
 
   /// Go: `func (plugin.Plugin).Name() string`.
   String name() {
-    final $r = $callSync(11705, $W()..h(this));
+    final $r = $callSync(11707, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (plugin.Plugin).Version() string`.
   String version() {
-    final $r = $callSync(11706, $W()..h(this));
+    final $r = $callSync(11708, $W()..h(this));
     return $r.str();
   }
 
@@ -102,7 +102,7 @@ mixin KuboPluginDaemon$ on GoHandle {
   /// Go: `func (plugin.PluginDaemon).Start(iface.CoreAPI) error`.
   void start($coreiface.KuboCoreCoreifaceCoreApi coreApi) {
     $callSync(
-        11707,
+        11709,
         $W()
           ..h(this)
           ..h(coreApi));
@@ -120,7 +120,7 @@ mixin KuboPluginDaemonInternal$ on GoHandle {
   /// Go: `func (plugin.PluginDaemonInternal).Start(*core.IpfsNode) error`.
   void start($core.KuboCoreIpfsNode ipfsNode) {
     $callSync(
-        11708,
+        11710,
         $W()
           ..h(this)
           ..h(ipfsNode));
@@ -136,13 +136,13 @@ class KuboPluginDatastore extends KuboPlugin with KuboPluginDatastore$ {
 mixin KuboPluginDatastore$ on GoHandle {
   /// Go: `func (plugin.PluginDatastore).DatastoreConfigParser() fsrepo.ConfigFromMap`.
   $fsrepo.KuboRepoFsrepoConfigFromMap datastoreConfigParser() {
-    final $r = $callSync(11709, $W()..h(this));
+    final $r = $callSync(11711, $W()..h(this));
     return $r.hnn($fsrepo.KuboRepoFsrepoConfigFromMap.$h);
   }
 
   /// Go: `func (plugin.PluginDatastore).DatastoreTypeName() string`.
   String datastoreTypeName() {
-    final $r = $callSync(11710, $W()..h(this));
+    final $r = $callSync(11712, $W()..h(this));
     return $r.str();
   }
 }
@@ -157,7 +157,7 @@ mixin KuboPluginFx$ on GoHandle {
   /// Go: `func (plugin.PluginFx).Options(core.FXNodeInfo) ([]fx.Option, error)`.
   List<$fx.FxOption> options($core.KuboCoreFxNodeInfo fxNodeInfo) {
     final $r = $callSync(
-        11711,
+        11713,
         $W()
           ..h(this)
           ..dto(fxNodeInfo));
@@ -175,7 +175,7 @@ mixin KuboPluginIpld$ on GoHandle {
   /// Go: `func (plugin.PluginIPLD).Register(multicodec.Registry) error`.
   void register($multicodec.IpldPrimeMulticodecRegistry registry) {
     $callSync(
-        11712,
+        11714,
         $W()
           ..h(this)
           ..h(registry));
@@ -191,7 +191,7 @@ class KuboPluginTracer extends KuboPlugin with KuboPluginTracer$ {
 mixin KuboPluginTracer$ on GoHandle {
   /// Go: `func (plugin.PluginTracer).InitTracer() (opentracing.Tracer, error)`.
   $opentracing_go.OpentracingGoTracer initTracer() {
-    final $r = $callSync(11713, $W()..h(this));
+    final $r = $callSync(11715, $W()..h(this));
     return $r.hnn($opentracing_go.OpentracingGoTracer.$h);
   }
 }

@@ -21,6 +21,10 @@ import 'package:p2p_ffi/go/libp2p/libp2p/p2p/host/observedaddrs.dart'
     as $observedaddrs;
 import 'package:p2p_ffi/go/libp2p/libp2p/p2p/protocol/autonatv2.dart'
     as $autonatv2;
+import 'package:p2p_ffi/go/libp2p/libp2p/p2p/protocol/circuitv2/relay.dart'
+    as $relay;
+import 'package:p2p_ffi/go/libp2p/libp2p/p2p/protocol/holepunch.dart'
+    as $holepunch;
 import 'package:p2p_ffi/go/libp2p/libp2p/p2p/protocol/identify.dart'
     as $identify;
 import 'package:p2p_ffi/go/multiformats/multiaddr.dart' as $multiaddr;
@@ -47,19 +51,19 @@ class Libp2pP2pHostBasicHost extends $io.IoCloser
 
   /// Go: `func (*basichost.BasicHost).Addrs() []multiaddr.Multiaddr`.
   List<$multiaddr.Multiaddr> addrs() {
-    final $r = $callSync(14430, $W()..h(this));
+    final $r = $callSync(14432, $W()..h(this));
     return $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil());
   }
 
   /// Go: `func (*basichost.BasicHost).AllAddrs() []multiaddr.Multiaddr`.
   List<$multiaddr.Multiaddr> allAddrs() {
-    final $r = $callSync(14431, $W()..h(this));
+    final $r = $callSync(14433, $W()..h(this));
     return $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil());
   }
 
   /// Go: `func (*basichost.BasicHost).Close() error`.
   void close() {
-    $callSync(14432, $W()..h(this));
+    $callSync(14434, $W()..h(this));
   }
 
   /// Go: `func (*basichost.BasicHost).ConfirmedAddrs() (reachable []multiaddr.Multiaddr, unreachable []multiaddr.Multiaddr, unknown []multiaddr.Multiaddr)`.
@@ -68,7 +72,7 @@ class Libp2pP2pHostBasicHost extends $io.IoCloser
     List<$multiaddr.Multiaddr>,
     List<$multiaddr.Multiaddr>
   ) confirmedAddrs() {
-    final $r = $callSync(14433, $W()..h(this));
+    final $r = $callSync(14435, $W()..h(this));
     return (
       $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil()),
       $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil()),
@@ -78,7 +82,7 @@ class Libp2pP2pHostBasicHost extends $io.IoCloser
 
   /// Go: `func (*basichost.BasicHost).ConnManager() connmgr.ConnManager`.
   $connmgr.Libp2pCoreConnmgrConnManager connManager() {
-    final $r = $callSync(14434, $W()..h(this));
+    final $r = $callSync(14436, $W()..h(this));
     return $r.hnn($connmgr.Libp2pCoreConnmgrConnManager.$h);
   }
 
@@ -88,7 +92,7 @@ class Libp2pP2pHostBasicHost extends $io.IoCloser
   Future<void> connect(
       $context.Context ctx, $peer.Libp2pCorePeerAddrInfo pi) async {
     await $call(
-        14435,
+        14437,
         $W()
           ..h(this)
           ..h(ctx)
@@ -97,38 +101,38 @@ class Libp2pP2pHostBasicHost extends $io.IoCloser
 
   /// Go: `func (*basichost.BasicHost).EventBus() event.Bus`.
   $event.Libp2pCoreEventBus eventBus() {
-    final $r = $callSync(14436, $W()..h(this));
+    final $r = $callSync(14438, $W()..h(this));
     return $r.hnn($event.Libp2pCoreEventBus.$h);
   }
 
   /// Go: `func (*basichost.BasicHost).GetAutoNat() autonat.AutoNAT`.
   @Deprecated("Use `BasicHost.Reachability` to get the host's reachability.")
   $autonat.Libp2pP2pHostAutonatAutoNat getAutoNat() {
-    final $r = $callSync(14437, $W()..h(this));
+    final $r = $callSync(14439, $W()..h(this));
     return $r.hnn($autonat.Libp2pP2pHostAutonatAutoNat.$h);
   }
 
   /// Go: `func (*basichost.BasicHost).ID() peer.ID`.
   $peer.Libp2pCorePeerId id() {
-    final $r = $callSync(14438, $W()..h(this));
+    final $r = $callSync(14440, $W()..h(this));
     return $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil();
   }
 
   /// Go: `func (*basichost.BasicHost).IDService() identify.IDService`.
   $identify.Libp2pP2pProtocolIdentifyIdService idService() {
-    final $r = $callSync(14439, $W()..h(this));
+    final $r = $callSync(14441, $W()..h(this));
     return $r.hnn($identify.Libp2pP2pProtocolIdentifyIdService.$h);
   }
 
   /// Go: `func (*basichost.BasicHost).Mux() protocol.Switch`.
   $protocol.Libp2pCoreProtocolSwitch mux() {
-    final $r = $callSync(14440, $W()..h(this));
+    final $r = $callSync(14442, $W()..h(this));
     return $r.hnn($protocol.Libp2pCoreProtocolSwitch.$h);
   }
 
   /// Go: `func (*basichost.BasicHost).Network() network.Network`.
   $network.Libp2pCoreNetwork network() {
-    final $r = $callSync(14441, $W()..h(this));
+    final $r = $callSync(14443, $W()..h(this));
     return $r.hnn($network.Libp2pCoreNetwork.$h);
   }
 
@@ -139,7 +143,7 @@ class Libp2pP2pHostBasicHost extends $io.IoCloser
       $context.Context ctx, $peer.Libp2pCorePeerId p,
       [List<String> pids = const []]) async {
     final $r = await $call(
-        14442,
+        14444,
         $W()
           ..h(this)
           ..h(ctx)
@@ -150,20 +154,20 @@ class Libp2pP2pHostBasicHost extends $io.IoCloser
 
   /// Go: `func (*basichost.BasicHost).Peerstore() peerstore.Peerstore`.
   $peerstore.Libp2pCorePeerstore peerstore() {
-    final $r = $callSync(14443, $W()..h(this));
+    final $r = $callSync(14445, $W()..h(this));
     return $r.hnn($peerstore.Libp2pCorePeerstore.$h);
   }
 
   /// Go: `func (*basichost.BasicHost).Reachability() network.Reachability`.
   int reachability() {
-    final $r = $callSync(14444, $W()..h(this));
+    final $r = $callSync(14446, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*basichost.BasicHost).RemoveStreamHandler(pid protocol.ID)`.
   void removeStreamHandler(String pid) {
     $callSync(
-        14445,
+        14447,
         $W()
           ..h(this)
           ..str(pid));
@@ -172,7 +176,7 @@ class Libp2pP2pHostBasicHost extends $io.IoCloser
   /// Go: `func (*basichost.BasicHost).SetAutoNat(a autonat.AutoNAT)`.
   void setAutoNat($autonat.Libp2pP2pHostAutonatAutoNat a) {
     $callSync(
-        14446,
+        14448,
         $W()
           ..h(this)
           ..h(a));
@@ -190,7 +194,7 @@ class Libp2pP2pHostBasicHost extends $io.IoCloser
       FutureOr<void> Function($network.Libp2pCoreNetworkStream stream)
           handler) async {
     await $call(
-        14447,
+        14449,
         $W()
           ..h(this)
           ..str(pid)
@@ -211,7 +215,7 @@ class Libp2pP2pHostBasicHost extends $io.IoCloser
       FutureOr<void> Function($network.Libp2pCoreNetworkStream stream)
           handler) async {
     await $call(
-        14448,
+        14450,
         $W()
           ..h(this)
           ..str(pid)
@@ -222,13 +226,13 @@ class Libp2pP2pHostBasicHost extends $io.IoCloser
 
   /// Go: `func (*basichost.BasicHost).Start()`.
   void start() {
-    $callSync(14449, $W()..h(this));
+    $callSync(14451, $W()..h(this));
   }
 }
 
 /// Go: `basichost.HostOpts`.
 ///
-/// Fields that do not cross the bridge: `MultistreamMuxer` (*generic github.com/multiformats/go-multistream.MultistreamMuxer[github.com/libp2p/go-libp2p/core/protocol.ID]), `NATManager` (func(github.com/libp2p/go-libp2p/core/network.Network) github.com/libp2p/go-libp2p/p2p/host/basic.NATManager), `RelayServiceOpts` (functional options: they cross only as call arguments), `HolePunchingOptions` (functional options: they cross only as call arguments).
+/// Fields that do not cross the bridge: `MultistreamMuxer` (*generic github.com/multiformats/go-multistream.MultistreamMuxer[github.com/libp2p/go-libp2p/core/protocol.ID]), `NATManager` (func(github.com/libp2p/go-libp2p/core/network.Network) github.com/libp2p/go-libp2p/p2p/host/basic.NATManager).
 final class Libp2pP2pHostBasicHostOpts implements GoDto {
   Libp2pP2pHostBasicHostOpts(
       {$event.Libp2pCoreEventBus? eventBus,
@@ -237,11 +241,13 @@ final class Libp2pP2pHostBasicHostOpts implements GoDto {
       $connmgr.Libp2pCoreConnmgrConnManager? connManager,
       bool? enablePing,
       bool? enableRelayService,
+      List<$relay.Libp2pP2pProtocolCircuitv2RelayOption>? relayServiceOpts,
       String? userAgent,
       String? protocolVersion,
       bool? disableSignedPeerRecord,
       bool? disableNonPublicAddrPublishing,
       bool? enableHolePunching,
+      List<$holepunch.Libp2pP2pProtocolHolepunchOption>? holePunchingOptions,
       bool? enableMetrics,
       $prometheus.ClientGolangPrometheusRegisterer? prometheusRegisterer,
       Libp2pP2pHostBasicMetricsTracker? autoNaTv2MetricsTracker,
@@ -253,12 +259,14 @@ final class Libp2pP2pHostBasicHostOpts implements GoDto {
         connManager = connManager,
         enablePing = enablePing ?? false,
         enableRelayService = enableRelayService ?? false,
+        relayServiceOpts = relayServiceOpts ?? [],
         userAgent = userAgent ?? '',
         protocolVersion = protocolVersion ?? '',
         disableSignedPeerRecord = disableSignedPeerRecord ?? false,
         disableNonPublicAddrPublishing =
             disableNonPublicAddrPublishing ?? false,
         enableHolePunching = enableHolePunching ?? false,
+        holePunchingOptions = holePunchingOptions ?? [],
         enableMetrics = enableMetrics ?? false,
         prometheusRegisterer = prometheusRegisterer,
         autoNaTv2MetricsTracker = autoNaTv2MetricsTracker,
@@ -272,11 +280,17 @@ final class Libp2pP2pHostBasicHostOpts implements GoDto {
         connManager = r.hn($connmgr.Libp2pCoreConnmgrConnManager.$h),
         enablePing = r.b(),
         enableRelayService = r.b(),
+        relayServiceOpts = r.list(() =>
+            $relay.Libp2pP2pProtocolCircuitv2RelayOption.$(
+                $optHandle, $optOf(r))),
         userAgent = r.str(),
         protocolVersion = r.str(),
         disableSignedPeerRecord = r.b(),
         disableNonPublicAddrPublishing = r.b(),
         enableHolePunching = r.b(),
+        holePunchingOptions = r.list(() =>
+            $holepunch.Libp2pP2pProtocolHolepunchOption.$(
+                $optHandle, $optOf(r))),
         enableMetrics = r.b(),
         prometheusRegisterer =
             r.hn($prometheus.ClientGolangPrometheusRegisterer.$h),
@@ -302,6 +316,9 @@ final class Libp2pP2pHostBasicHostOpts implements GoDto {
   /// Go: `EnableRelayService`.
   bool enableRelayService;
 
+  /// Go: `RelayServiceOpts`.
+  List<$relay.Libp2pP2pProtocolCircuitv2RelayOption> relayServiceOpts;
+
   /// Go: `UserAgent`.
   String userAgent;
 
@@ -316,6 +333,9 @@ final class Libp2pP2pHostBasicHostOpts implements GoDto {
 
   /// Go: `EnableHolePunching`.
   bool enableHolePunching;
+
+  /// Go: `HolePunchingOptions`.
+  List<$holepunch.Libp2pP2pProtocolHolepunchOption> holePunchingOptions;
 
   /// Go: `EnableMetrics`.
   bool enableMetrics;
@@ -341,11 +361,13 @@ final class Libp2pP2pHostBasicHostOpts implements GoDto {
       ..h(connManager)
       ..b(enablePing)
       ..b(enableRelayService)
+      ..list(relayServiceOpts, (w0, e0) => w0.opt(e0))
       ..str(userAgent)
       ..str(protocolVersion)
       ..b(disableSignedPeerRecord)
       ..b(disableNonPublicAddrPublishing)
       ..b(enableHolePunching)
+      ..list(holePunchingOptions, (w0, e0) => w0.opt(e0))
       ..b(enableMetrics)
       ..h(prometheusRegisterer)
       ..h(autoNaTv2MetricsTracker)
@@ -368,7 +390,7 @@ mixin Libp2pP2pHostBasicMetricsTracker$ on GoHandle {
       List<$multiaddr.Multiaddr> unreachable,
       List<$multiaddr.Multiaddr> unknown) {
     $callSync(
-        14452,
+        14454,
         $W()
           ..h(this)
           ..list(reachable, (w0, e0) => w0.val(e0))
@@ -378,7 +400,7 @@ mixin Libp2pP2pHostBasicMetricsTracker$ on GoHandle {
 
   /// Go: `func (basichost.MetricsTracker).ReachabilityTrackerClosed()`.
   void reachabilityTrackerClosed() {
-    $callSync(14453, $W()..h(this));
+    $callSync(14455, $W()..h(this));
   }
 }
 
@@ -389,7 +411,7 @@ class Libp2pP2pHostBasicNatManager extends $io.IoCloser
 
   /// Go: `func basichost.NewNATManager(net network.Network) basichost.NATManager`.
   factory Libp2pP2pHostBasicNatManager($network.Libp2pCoreNetwork net) {
-    final $r = $callSync(14457, $W()..h(net));
+    final $r = $callSync(14459, $W()..h(net));
     return $r.hnn(Libp2pP2pHostBasicNatManager.$h);
   }
 }
@@ -399,7 +421,7 @@ mixin Libp2pP2pHostBasicNatManager$ on GoHandle {
   /// Go: `func (basichost.NATManager).GetMapping(multiaddr.Multiaddr) multiaddr.Multiaddr`.
   $multiaddr.Multiaddr getMapping($multiaddr.Multiaddr multiaddr) {
     final $r = $callSync(
-        14454,
+        14456,
         $W()
           ..h(this)
           ..val(multiaddr));
@@ -408,7 +430,7 @@ mixin Libp2pP2pHostBasicNatManager$ on GoHandle {
 
   /// Go: `func (basichost.NATManager).HasDiscoveredNAT() bool`.
   bool hasDiscoveredNat() {
-    final $r = $callSync(14455, $W()..h(this));
+    final $r = $callSync(14457, $W()..h(this));
     return $r.b();
   }
 }
@@ -424,7 +446,7 @@ mixin Libp2pP2pHostBasicObservedAddrsManager$ on GoHandle {
   /// Go: `func (basichost.ObservedAddrsManager).Addrs(minObservers int) []multiaddr.Multiaddr`.
   List<$multiaddr.Multiaddr> addrs(int minObservers) {
     final $r = $callSync(
-        14458,
+        14460,
         $W()
           ..h(this)
           ..i64(minObservers));
@@ -434,7 +456,7 @@ mixin Libp2pP2pHostBasicObservedAddrsManager$ on GoHandle {
   /// Go: `func (basichost.ObservedAddrsManager).AddrsFor(local multiaddr.Multiaddr) []multiaddr.Multiaddr`.
   List<$multiaddr.Multiaddr> addrsFor($multiaddr.Multiaddr local) {
     final $r = $callSync(
-        14459,
+        14461,
         $W()
           ..h(this)
           ..val(local));
@@ -453,13 +475,13 @@ mixin Libp2pP2pHostBasicObservedAddrsManager$ on GoHandle {
 extension GoLibp2pLibp2pP2pHostBasicApi on GoLibp2pLibp2pP2pHostBasic {
   /// Go: `var basichost.DefaultAddrsFactory func(addrs []multiaddr.Multiaddr) []multiaddr.Multiaddr`.
   Libp2pP2pHostBasicAddrsFactory get defaultAddrsFactory {
-    final $r = $callSync(14450);
+    final $r = $callSync(14452);
     return $r.hnn(Libp2pP2pHostBasicAddrsFactory.$h);
   }
 
   /// Go: `var basichost.DefaultNegotiationTimeout time.Duration`.
   Duration get defaultNegotiationTimeout {
-    final $r = $callSync(14451);
+    final $r = $callSync(14453);
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
@@ -467,7 +489,7 @@ extension GoLibp2pLibp2pP2pHostBasicApi on GoLibp2pLibp2pP2pHostBasic {
   Libp2pP2pHostBasicHost newHost(
       $network.Libp2pCoreNetwork n, Libp2pP2pHostBasicHostOpts opts) {
     final $r = $callSync(
-        14456,
+        14458,
         $W()
           ..h(n)
           ..dto(opts));

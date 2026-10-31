@@ -12,7 +12,7 @@ class MultierrInvoke extends GoHandle {
 
   /// Go: `func (multierr.Invoke).Invoke() error`.
   void invoke() {
-    $callSync(22722, $W()..h(this));
+    $callSync(22724, $W()..h(this));
   }
 }
 
@@ -36,12 +36,12 @@ final class MultierrInvoker implements GoDto {
 extension GoMultierrApi on GoMultierr {
   /// Go: `func multierr.Close(closer io.Closer) multierr.Invoker`.
   MultierrInvoker close($io.IoCloser closer) {
-    final $r = $callSync(22720, $W()..h(closer));
+    final $r = $callSync(22722, $W()..h(closer));
     return $r.p() ? MultierrInvoker.$dec($r) : $nil();
   }
 
   /// Go: `func multierr.Combine(errors ...error) error`.
   void combine([List<String> errors = const []]) {
-    $callSync(22721, $W()..list(errors, (w0, e0) => w0.err(e0)));
+    $callSync(22723, $W()..list(errors, (w0, e0) => w0.err(e0)));
   }
 }

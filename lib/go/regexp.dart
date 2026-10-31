@@ -19,7 +19,7 @@ class Regexp extends $encoding.EncodingTextAppender
   /// Go: `func (*regexp.Regexp).AppendText(b []byte) ([]byte, error)`.
   Uint8List appendText(Uint8List b) {
     final $r = $callSync(
-        27134,
+        27136,
         $W()
           ..h(this)
           ..bytes(b));
@@ -30,7 +30,7 @@ class Regexp extends $encoding.EncodingTextAppender
   @Deprecated(
       "In earlier releases, when using a [Regexp] in multiple goroutines, giving each goroutine its own copy helped to avoid lock contention. As of Go 1.12, using Copy is no longer necessary to avoid lock contention. Copy may still be appropriate if the reason for its use is to make two copies with different [Regexp.Longest] settings.")
   Regexp copy() {
-    final $r = $callSync(27135, $W()..h(this));
+    final $r = $callSync(27137, $W()..h(this));
     return $r.hnn(Regexp.$h);
   }
 
@@ -38,7 +38,7 @@ class Regexp extends $encoding.EncodingTextAppender
   Uint8List expand(
       Uint8List dst, Uint8List template, Uint8List src, List<int> match) {
     final $r = $callSync(
-        27136,
+        27138,
         $W()
           ..h(this)
           ..bytes(dst)
@@ -52,7 +52,7 @@ class Regexp extends $encoding.EncodingTextAppender
   Uint8List expandString(
       Uint8List dst, String template, String src, List<int> match) {
     final $r = $callSync(
-        27137,
+        27139,
         $W()
           ..h(this)
           ..bytes(dst)
@@ -65,7 +65,7 @@ class Regexp extends $encoding.EncodingTextAppender
   /// Go: `func (*regexp.Regexp).Find(b []byte) []byte`.
   Uint8List find(Uint8List b) {
     final $r = $callSync(
-        27138,
+        27140,
         $W()
           ..h(this)
           ..bytes(b));
@@ -75,7 +75,7 @@ class Regexp extends $encoding.EncodingTextAppender
   /// Go: `func (*regexp.Regexp).FindAll(b []byte, n int) [][]byte`.
   List<Uint8List> findAll(Uint8List b, int n) {
     final $r = $callSync(
-        27139,
+        27141,
         $W()
           ..h(this)
           ..bytes(b)
@@ -86,7 +86,7 @@ class Regexp extends $encoding.EncodingTextAppender
   /// Go: `func (*regexp.Regexp).FindAllIndex(b []byte, n int) [][]int`.
   List<List<int>> findAllIndex(Uint8List b, int n) {
     final $r = $callSync(
-        27140,
+        27142,
         $W()
           ..h(this)
           ..bytes(b)
@@ -97,7 +97,7 @@ class Regexp extends $encoding.EncodingTextAppender
   /// Go: `func (*regexp.Regexp).FindAllString(s string, n int) []string`.
   List<String> findAllString(String s, int n) {
     final $r = $callSync(
-        27141,
+        27143,
         $W()
           ..h(this)
           ..str(s)
@@ -108,7 +108,7 @@ class Regexp extends $encoding.EncodingTextAppender
   /// Go: `func (*regexp.Regexp).FindAllStringIndex(s string, n int) [][]int`.
   List<List<int>> findAllStringIndex(String s, int n) {
     final $r = $callSync(
-        27142,
+        27144,
         $W()
           ..h(this)
           ..str(s)
@@ -119,7 +119,7 @@ class Regexp extends $encoding.EncodingTextAppender
   /// Go: `func (*regexp.Regexp).FindAllStringSubmatch(s string, n int) [][]string`.
   List<List<String>> findAllStringSubmatch(String s, int n) {
     final $r = $callSync(
-        27143,
+        27145,
         $W()
           ..h(this)
           ..str(s)
@@ -130,7 +130,7 @@ class Regexp extends $encoding.EncodingTextAppender
   /// Go: `func (*regexp.Regexp).FindAllStringSubmatchIndex(s string, n int) [][]int`.
   List<List<int>> findAllStringSubmatchIndex(String s, int n) {
     final $r = $callSync(
-        27144,
+        27146,
         $W()
           ..h(this)
           ..str(s)
@@ -141,7 +141,7 @@ class Regexp extends $encoding.EncodingTextAppender
   /// Go: `func (*regexp.Regexp).FindAllSubmatch(b []byte, n int) [][][]byte`.
   List<List<Uint8List>> findAllSubmatch(Uint8List b, int n) {
     final $r = $callSync(
-        27145,
+        27147,
         $W()
           ..h(this)
           ..bytes(b)
@@ -152,7 +152,7 @@ class Regexp extends $encoding.EncodingTextAppender
   /// Go: `func (*regexp.Regexp).FindAllSubmatchIndex(b []byte, n int) [][]int`.
   List<List<int>> findAllSubmatchIndex(Uint8List b, int n) {
     final $r = $callSync(
-        27146,
+        27148,
         $W()
           ..h(this)
           ..bytes(b)
@@ -163,7 +163,7 @@ class Regexp extends $encoding.EncodingTextAppender
   /// Go: `func (*regexp.Regexp).FindIndex(b []byte) (loc []int)`.
   List<int> findIndex(Uint8List b) {
     final $r = $callSync(
-        27147,
+        27149,
         $W()
           ..h(this)
           ..bytes(b));
@@ -173,7 +173,7 @@ class Regexp extends $encoding.EncodingTextAppender
   /// Go: `func (*regexp.Regexp).FindReaderIndex(r io.RuneReader) (loc []int)`.
   List<int> findReaderIndex($io.IoRuneReader r) {
     final $r = $callSync(
-        27148,
+        27150,
         $W()
           ..h(this)
           ..h(r));
@@ -183,7 +183,7 @@ class Regexp extends $encoding.EncodingTextAppender
   /// Go: `func (*regexp.Regexp).FindReaderSubmatchIndex(r io.RuneReader) []int`.
   List<int> findReaderSubmatchIndex($io.IoRuneReader r) {
     final $r = $callSync(
-        27149,
+        27151,
         $W()
           ..h(this)
           ..h(r));
@@ -193,7 +193,7 @@ class Regexp extends $encoding.EncodingTextAppender
   /// Go: `func (*regexp.Regexp).FindString(s string) string`.
   String findString(String s) {
     final $r = $callSync(
-        27150,
+        27152,
         $W()
           ..h(this)
           ..str(s));
@@ -203,7 +203,7 @@ class Regexp extends $encoding.EncodingTextAppender
   /// Go: `func (*regexp.Regexp).FindStringIndex(s string) (loc []int)`.
   List<int> findStringIndex(String s) {
     final $r = $callSync(
-        27151,
+        27153,
         $W()
           ..h(this)
           ..str(s));
@@ -213,7 +213,7 @@ class Regexp extends $encoding.EncodingTextAppender
   /// Go: `func (*regexp.Regexp).FindStringSubmatch(s string) []string`.
   List<String> findStringSubmatch(String s) {
     final $r = $callSync(
-        27152,
+        27154,
         $W()
           ..h(this)
           ..str(s));
@@ -223,7 +223,7 @@ class Regexp extends $encoding.EncodingTextAppender
   /// Go: `func (*regexp.Regexp).FindStringSubmatchIndex(s string) []int`.
   List<int> findStringSubmatchIndex(String s) {
     final $r = $callSync(
-        27153,
+        27155,
         $W()
           ..h(this)
           ..str(s));
@@ -233,7 +233,7 @@ class Regexp extends $encoding.EncodingTextAppender
   /// Go: `func (*regexp.Regexp).FindSubmatch(b []byte) [][]byte`.
   List<Uint8List> findSubmatch(Uint8List b) {
     final $r = $callSync(
-        27154,
+        27156,
         $W()
           ..h(this)
           ..bytes(b));
@@ -243,7 +243,7 @@ class Regexp extends $encoding.EncodingTextAppender
   /// Go: `func (*regexp.Regexp).FindSubmatchIndex(b []byte) []int`.
   List<int> findSubmatchIndex(Uint8List b) {
     final $r = $callSync(
-        27155,
+        27157,
         $W()
           ..h(this)
           ..bytes(b));
@@ -252,25 +252,25 @@ class Regexp extends $encoding.EncodingTextAppender
 
   /// Go: `func (*regexp.Regexp).LiteralPrefix() (prefix string, complete bool)`.
   (String, bool) literalPrefix() {
-    final $r = $callSync(27156, $W()..h(this));
+    final $r = $callSync(27158, $W()..h(this));
     return ($r.str(), $r.b());
   }
 
   /// Go: `func (*regexp.Regexp).Longest()`.
   void longest() {
-    $callSync(27157, $W()..h(this));
+    $callSync(27159, $W()..h(this));
   }
 
   /// Go: `func (*regexp.Regexp).MarshalText() ([]byte, error)`.
   Uint8List marshalText() {
-    final $r = $callSync(27158, $W()..h(this));
+    final $r = $callSync(27160, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*regexp.Regexp).Match(b []byte) bool`.
   bool match(Uint8List b) {
     final $r = $callSync(
-        27159,
+        27161,
         $W()
           ..h(this)
           ..bytes(b));
@@ -280,7 +280,7 @@ class Regexp extends $encoding.EncodingTextAppender
   /// Go: `func (*regexp.Regexp).MatchReader(r io.RuneReader) bool`.
   bool matchReader($io.IoRuneReader r) {
     final $r = $callSync(
-        27160,
+        27162,
         $W()
           ..h(this)
           ..h(r));
@@ -290,7 +290,7 @@ class Regexp extends $encoding.EncodingTextAppender
   /// Go: `func (*regexp.Regexp).MatchString(s string) bool`.
   bool matchString(String s) {
     final $r = $callSync(
-        27161,
+        27163,
         $W()
           ..h(this)
           ..str(s));
@@ -299,14 +299,14 @@ class Regexp extends $encoding.EncodingTextAppender
 
   /// Go: `func (*regexp.Regexp).NumSubexp() int`.
   int numSubexp() {
-    final $r = $callSync(27162, $W()..h(this));
+    final $r = $callSync(27164, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*regexp.Regexp).ReplaceAll(src []byte, repl []byte) []byte`.
   Uint8List replaceAll(Uint8List src, Uint8List repl) {
     final $r = $callSync(
-        27163,
+        27165,
         $W()
           ..h(this)
           ..bytes(src)
@@ -317,7 +317,7 @@ class Regexp extends $encoding.EncodingTextAppender
   /// Go: `func (*regexp.Regexp).ReplaceAllLiteral(src []byte, repl []byte) []byte`.
   Uint8List replaceAllLiteral(Uint8List src, Uint8List repl) {
     final $r = $callSync(
-        27164,
+        27166,
         $W()
           ..h(this)
           ..bytes(src)
@@ -328,7 +328,7 @@ class Regexp extends $encoding.EncodingTextAppender
   /// Go: `func (*regexp.Regexp).ReplaceAllLiteralString(src string, repl string) string`.
   String replaceAllLiteralString(String src, String repl) {
     final $r = $callSync(
-        27165,
+        27167,
         $W()
           ..h(this)
           ..str(src)
@@ -339,7 +339,7 @@ class Regexp extends $encoding.EncodingTextAppender
   /// Go: `func (*regexp.Regexp).ReplaceAllString(src string, repl string) string`.
   String replaceAllString(String src, String repl) {
     final $r = $callSync(
-        27166,
+        27168,
         $W()
           ..h(this)
           ..str(src)
@@ -357,7 +357,7 @@ class Regexp extends $encoding.EncodingTextAppender
   Future<String> replaceAllStringFunc(
       String src, FutureOr<String> Function(String arg0) repl) async {
     final $r = await $call(
-        27167,
+        27169,
         $W()
           ..h(this)
           ..str(src)
@@ -368,7 +368,7 @@ class Regexp extends $encoding.EncodingTextAppender
   /// Go: `func (*regexp.Regexp).Split(s string, n int) []string`.
   List<String> split(String s, int n) {
     final $r = $callSync(
-        27168,
+        27170,
         $W()
           ..h(this)
           ..str(s)
@@ -378,14 +378,14 @@ class Regexp extends $encoding.EncodingTextAppender
 
   /// Go: `func (*regexp.Regexp).String() string`.
   String string() {
-    final $r = $callSync(27169, $W()..h(this));
+    final $r = $callSync(27171, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*regexp.Regexp).SubexpIndex(name string) int`.
   int subexpIndex(String name) {
     final $r = $callSync(
-        27170,
+        27172,
         $W()
           ..h(this)
           ..str(name));
@@ -394,14 +394,14 @@ class Regexp extends $encoding.EncodingTextAppender
 
   /// Go: `func (*regexp.Regexp).SubexpNames() []string`.
   List<String> subexpNames() {
-    final $r = $callSync(27171, $W()..h(this));
+    final $r = $callSync(27173, $W()..h(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (*regexp.Regexp).UnmarshalText(text []byte) error`.
   void unmarshalText(Uint8List text) {
     $callSync(
-        27172,
+        27174,
         $W()
           ..h(this)
           ..bytes(text));
@@ -412,20 +412,20 @@ class Regexp extends $encoding.EncodingTextAppender
 extension GoRegexpApi on GoRegexp {
   /// Go: `func regexp.Compile(expr string) (*regexp.Regexp, error)`.
   Regexp compile(String expr) {
-    final $r = $callSync(27126, $W()..str(expr));
+    final $r = $callSync(27128, $W()..str(expr));
     return $r.hnn(Regexp.$h);
   }
 
   /// Go: `func regexp.CompilePOSIX(expr string) (*regexp.Regexp, error)`.
   Regexp compilePosix(String expr) {
-    final $r = $callSync(27127, $W()..str(expr));
+    final $r = $callSync(27129, $W()..str(expr));
     return $r.hnn(Regexp.$h);
   }
 
   /// Go: `func regexp.Match(pattern string, b []byte) (matched bool, err error)`.
   bool match(String pattern, Uint8List b) {
     final $r = $callSync(
-        27128,
+        27130,
         $W()
           ..str(pattern)
           ..bytes(b));
@@ -435,7 +435,7 @@ extension GoRegexpApi on GoRegexp {
   /// Go: `func regexp.MatchReader(pattern string, r io.RuneReader) (matched bool, err error)`.
   bool matchReader(String pattern, $io.IoRuneReader r) {
     final $r = $callSync(
-        27129,
+        27131,
         $W()
           ..str(pattern)
           ..h(r));
@@ -445,7 +445,7 @@ extension GoRegexpApi on GoRegexp {
   /// Go: `func regexp.MatchString(pattern string, s string) (matched bool, err error)`.
   bool matchString(String pattern, String s) {
     final $r = $callSync(
-        27130,
+        27132,
         $W()
           ..str(pattern)
           ..str(s));
@@ -454,19 +454,19 @@ extension GoRegexpApi on GoRegexp {
 
   /// Go: `func regexp.MustCompile(str string) *regexp.Regexp`.
   Regexp mustCompile(String str) {
-    final $r = $callSync(27131, $W()..str(str));
+    final $r = $callSync(27133, $W()..str(str));
     return $r.hnn(Regexp.$h);
   }
 
   /// Go: `func regexp.MustCompilePOSIX(str string) *regexp.Regexp`.
   Regexp mustCompilePosix(String str) {
-    final $r = $callSync(27132, $W()..str(str));
+    final $r = $callSync(27134, $W()..str(str));
     return $r.hnn(Regexp.$h);
   }
 
   /// Go: `func regexp.QuoteMeta(s string) string`.
   String quoteMeta(String s) {
-    final $r = $callSync(27133, $W()..str(s));
+    final $r = $callSync(27135, $W()..str(s));
     return $r.str();
   }
 }

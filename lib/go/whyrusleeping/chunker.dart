@@ -64,7 +64,7 @@ final class ChunkerChunk implements GoDto {
   /// Go: `func (chunker.Chunk).Reader(r io.ReaderAt) io.Reader`.
   $io.IoReader reader(Object r) {
     final $r = $callSync(
-        18970,
+        18972,
         $W()
           ..dto(this)
           ..reader(r));
@@ -78,7 +78,7 @@ class Chunker extends GoHandle {
 
   /// Go: `func (*chunker.Chunker).Next() (*chunker.Chunk, error)`.
   ChunkerChunk next() {
-    final $r = $callSync(18971, $W()..h(this));
+    final $r = $callSync(18973, $W()..h(this));
     return $r.p() ? ChunkerChunk.$dec($r) : $nil();
   }
 }
@@ -88,7 +88,7 @@ extension GoWhyrusleepingChunkerApi on GoWhyrusleepingChunker {
   /// Go: `func chunker.New(rd io.Reader, pol chunker.Pol, h hash.Hash, avSize uint64, min uint64, max uint64) *chunker.Chunker`.
   Chunker new$(Object rd, int pol, $hash.Hash h, int avSize, int min, int max) {
     final $r = $callSync(
-        18972,
+        18974,
         $W()
           ..reader(rd)
           ..i64(pol)
@@ -101,7 +101,7 @@ extension GoWhyrusleepingChunkerApi on GoWhyrusleepingChunker {
 
   /// Go: `func chunker.RandomPolynomial() (chunker.Pol, error)`.
   int randomPolynomial() {
-    final $r = $callSync(18973);
+    final $r = $callSync(18975);
     return $r.i64();
   }
 }

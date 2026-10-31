@@ -14,7 +14,7 @@ class NetHttpCookiejarJar extends $http.NetHttpCookieJar {
   /// Go: `func (*cookiejar.Jar).Cookies(u *url.URL) (cookies []*http.Cookie)`.
   List<$http.NetHttpCookie> cookies($url.NetUrl u) {
     final $r = $callSync(
-        26650,
+        26652,
         $W()
           ..h(this)
           ..dto(u));
@@ -24,7 +24,7 @@ class NetHttpCookiejarJar extends $http.NetHttpCookieJar {
   /// Go: `func (*cookiejar.Jar).SetCookies(u *url.URL, cookies []*http.Cookie)`.
   void setCookies($url.NetUrl u, List<$http.NetHttpCookie> cookies) {
     $callSync(
-        26651,
+        26653,
         $W()
           ..h(this)
           ..dto(u)
@@ -60,7 +60,7 @@ mixin NetHttpCookiejarPublicSuffixList$ on GoHandle {
   /// Go: `func (cookiejar.PublicSuffixList).PublicSuffix(domain string) string`.
   String publicSuffix(String domain) {
     final $r = $callSync(
-        26653,
+        26655,
         $W()
           ..h(this)
           ..str(domain));
@@ -69,7 +69,7 @@ mixin NetHttpCookiejarPublicSuffixList$ on GoHandle {
 
   /// Go: `func (cookiejar.PublicSuffixList).String() string`.
   String string() {
-    final $r = $callSync(26654, $W()..h(this));
+    final $r = $callSync(26656, $W()..h(this));
     return $r.str();
   }
 }
@@ -78,7 +78,7 @@ mixin NetHttpCookiejarPublicSuffixList$ on GoHandle {
 extension GoNetHttpCookiejarApi on GoNetHttpCookiejar {
   /// Go: `func cookiejar.New(o *cookiejar.Options) (*cookiejar.Jar, error)`.
   NetHttpCookiejarJar new$(NetHttpCookiejarOptions o) {
-    final $r = $callSync(26652, $W()..dto(o));
+    final $r = $callSync(26654, $W()..dto(o));
     return $r.hnn(NetHttpCookiejarJar.$h);
   }
 }

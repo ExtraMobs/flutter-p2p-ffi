@@ -18,7 +18,7 @@ mixin PrettyLogfer$ on GoHandle {
   /// Go: `func (pretty.Logfer).Logf(format string, a ...interface{})`.
   void logf(String format, [List<Object?> a = const []]) {
     $callSync(
-        12808,
+        12810,
         $W()
           ..h(this)
           ..str(format)
@@ -54,7 +54,7 @@ mixin PrettyPrintfer$ on GoHandle {
   /// Go: `func (pretty.Printfer).Printf(format string, a ...interface{})`.
   void printf(String format, [List<Object?> a = const []]) {
     $callSync(
-        12813,
+        12815,
         $W()
           ..h(this)
           ..str(format)
@@ -73,7 +73,7 @@ extension GoKrPrettyApi on GoKrPretty {
   /// Go: `func pretty.Diff(a interface{}, b interface{}) (desc []string)`.
   List<String> diff(Object? a, Object? b) {
     final $r = $callSync(
-        12800,
+        12802,
         $W()
           ..any(a)
           ..any(b));
@@ -83,7 +83,7 @@ extension GoKrPrettyApi on GoKrPretty {
   /// Go: `func pretty.Errorf(format string, a ...interface{}) error`.
   void errorf(String format, [List<Object?> a = const []]) {
     $callSync(
-        12801,
+        12803,
         $W()
           ..str(format)
           ..list(a, (w0, e0) => w0.any(e0)));
@@ -92,7 +92,7 @@ extension GoKrPrettyApi on GoKrPretty {
   /// Go: `func pretty.Fdiff(w io.Writer, a interface{}, b interface{})`.
   void fdiff(GoHandle? w, Object? a, Object? b) {
     $callSync(
-        12802,
+        12804,
         $W()
           ..h(w)
           ..any(a)
@@ -101,14 +101,14 @@ extension GoKrPrettyApi on GoKrPretty {
 
   /// Go: `func pretty.Formatter(x interface{}) (f fmt.Formatter)`.
   $fmt.FmtFormatter formatter(Object? x) {
-    final $r = $callSync(12803, $W()..any(x));
+    final $r = $callSync(12805, $W()..any(x));
     return $r.hnn($fmt.FmtFormatter.$h);
   }
 
   /// Go: `func pretty.Fprintf(w io.Writer, format string, a ...interface{}) (n int, error error)`.
   int fprintf(GoHandle? w, String format, [List<Object?> a = const []]) {
     final $r = $callSync(
-        12804,
+        12806,
         $W()
           ..h(w)
           ..str(format)
@@ -119,7 +119,7 @@ extension GoKrPrettyApi on GoKrPretty {
   /// Go: `func pretty.Ldiff(l pretty.Logfer, a interface{}, b interface{})`.
   void ldiff(PrettyLogfer l, Object? a, Object? b) {
     $callSync(
-        12805,
+        12807,
         $W()
           ..h(l)
           ..any(a)
@@ -128,13 +128,13 @@ extension GoKrPrettyApi on GoKrPretty {
 
   /// Go: `func pretty.Log(a ...interface{})`.
   void log([List<Object?> a = const []]) {
-    $callSync(12806, $W()..list(a, (w0, e0) => w0.any(e0)));
+    $callSync(12808, $W()..list(a, (w0, e0) => w0.any(e0)));
   }
 
   /// Go: `func pretty.Logf(format string, a ...interface{})`.
   void logf(String format, [List<Object?> a = const []]) {
     $callSync(
-        12807,
+        12809,
         $W()
           ..str(format)
           ..list(a, (w0, e0) => w0.any(e0)));
@@ -142,13 +142,13 @@ extension GoKrPrettyApi on GoKrPretty {
 
   /// Go: `func pretty.Logln(a ...interface{})`.
   void logln([List<Object?> a = const []]) {
-    $callSync(12809, $W()..list(a, (w0, e0) => w0.any(e0)));
+    $callSync(12811, $W()..list(a, (w0, e0) => w0.any(e0)));
   }
 
   /// Go: `func pretty.Pdiff(p pretty.Printfer, a interface{}, b interface{})`.
   void pdiff(PrettyPrintfer p, Object? a, Object? b) {
     $callSync(
-        12810,
+        12812,
         $W()
           ..h(p)
           ..any(a)
@@ -157,14 +157,14 @@ extension GoKrPrettyApi on GoKrPretty {
 
   /// Go: `func pretty.Print(a ...interface{}) (n int, errno error)`.
   int print([List<Object?> a = const []]) {
-    final $r = $callSync(12811, $W()..list(a, (w0, e0) => w0.any(e0)));
+    final $r = $callSync(12813, $W()..list(a, (w0, e0) => w0.any(e0)));
     return $r.i64();
   }
 
   /// Go: `func pretty.Printf(format string, a ...interface{}) (n int, errno error)`.
   int printf(String format, [List<Object?> a = const []]) {
     final $r = $callSync(
-        12812,
+        12814,
         $W()
           ..str(format)
           ..list(a, (w0, e0) => w0.any(e0)));
@@ -173,20 +173,20 @@ extension GoKrPrettyApi on GoKrPretty {
 
   /// Go: `func pretty.Println(a ...interface{}) (n int, errno error)`.
   int println([List<Object?> a = const []]) {
-    final $r = $callSync(12814, $W()..list(a, (w0, e0) => w0.any(e0)));
+    final $r = $callSync(12816, $W()..list(a, (w0, e0) => w0.any(e0)));
     return $r.i64();
   }
 
   /// Go: `func pretty.Sprint(a ...interface{}) string`.
   String sprint([List<Object?> a = const []]) {
-    final $r = $callSync(12815, $W()..list(a, (w0, e0) => w0.any(e0)));
+    final $r = $callSync(12817, $W()..list(a, (w0, e0) => w0.any(e0)));
     return $r.str();
   }
 
   /// Go: `func pretty.Sprintf(format string, a ...interface{}) string`.
   String sprintf(String format, [List<Object?> a = const []]) {
     final $r = $callSync(
-        12816,
+        12818,
         $W()
           ..str(format)
           ..list(a, (w0, e0) => w0.any(e0)));

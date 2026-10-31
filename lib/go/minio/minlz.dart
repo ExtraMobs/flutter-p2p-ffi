@@ -19,7 +19,7 @@ class MinlzIndex extends GoHandle {
   /// Go: `func (*minlz.Index).Find(offset int64) (compressedOff int64, uncompressedOff int64, err error)`.
   (int, int) find(int offset) {
     final $r = $callSync(
-        15721,
+        15723,
         $W()
           ..h(this)
           ..i64(offset));
@@ -28,14 +28,14 @@ class MinlzIndex extends GoHandle {
 
   /// Go: `func (*minlz.Index).JSON() []byte`.
   Uint8List json() {
-    final $r = $callSync(15722, $W()..h(this));
+    final $r = $callSync(15724, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*minlz.Index).Load(b []byte) ([]byte, error)`.
   Uint8List load(Uint8List b) {
     final $r = $callSync(
-        15723,
+        15725,
         $W()
           ..h(this)
           ..bytes(b));
@@ -45,7 +45,7 @@ class MinlzIndex extends GoHandle {
   /// Go: `func (*minlz.Index).LoadStream(rs io.ReadSeeker) error`.
   void loadStream(Object rs) {
     $callSync(
-        15724,
+        15726,
         $W()
           ..h(this)
           ..reader(rs));
@@ -61,7 +61,7 @@ class MinlzReadSeeker extends $io.IoSeeker
   /// Go: `func (*minlz.Reader).DecodeConcurrent(w io.Writer, concurrent int) (written int64, err error)`.
   int decodeConcurrent(GoHandle? w, int concurrent) {
     final $r = $callSync(
-        15730,
+        15732,
         $W()
           ..h(this)
           ..h(w)
@@ -71,20 +71,20 @@ class MinlzReadSeeker extends $io.IoSeeker
 
   /// Go: `func (*minlz.Reader).GetBufferCapacity() int`.
   int getBufferCapacity() {
-    final $r = $callSync(15731, $W()..h(this));
+    final $r = $callSync(15733, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*minlz.ReadSeeker).Index() *minlz.Index`.
   MinlzIndex index() {
-    final $r = $callSync(15732, $W()..h(this));
+    final $r = $callSync(15734, $W()..h(this));
     return $r.hnn(MinlzIndex.$h);
   }
 
   /// Go: `func (*minlz.Reader).Read(p []byte) (int, error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        15733,
+        15735,
         $W()
           ..h(this)
           ..i64(n));
@@ -94,7 +94,7 @@ class MinlzReadSeeker extends $io.IoSeeker
   /// Go: `func (*minlz.ReadSeeker).ReadAt(p []byte, offset int64) (int, error)`.
   Uint8List readAt(int n, int offset) {
     final $r = $callSync(
-        15734,
+        15736,
         $W()
           ..h(this)
           ..i64(n)
@@ -104,14 +104,14 @@ class MinlzReadSeeker extends $io.IoSeeker
 
   /// Go: `func (*minlz.Reader).ReadByte() (byte, error)`.
   int readByte() {
-    final $r = $callSync(15735, $W()..h(this));
+    final $r = $callSync(15737, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*minlz.Reader).ReadSeeker(index []byte) (*minlz.ReadSeeker, error)`.
   MinlzReadSeeker readSeeker(Uint8List index) {
     final $r = $callSync(
-        15736,
+        15738,
         $W()
           ..h(this)
           ..bytes(index));
@@ -121,7 +121,7 @@ class MinlzReadSeeker extends $io.IoSeeker
   /// Go: `func (*minlz.Reader).Reset(reader io.Reader)`.
   void reset(Object reader) {
     $callSync(
-        15737,
+        15739,
         $W()
           ..h(this)
           ..reader(reader));
@@ -130,7 +130,7 @@ class MinlzReadSeeker extends $io.IoSeeker
   /// Go: `func (*minlz.ReadSeeker).Seek(offset int64, whence int) (int64, error)`.
   int seek(int offset, int whence) {
     final $r = $callSync(
-        15738,
+        15740,
         $W()
           ..h(this)
           ..i64(offset)
@@ -141,7 +141,7 @@ class MinlzReadSeeker extends $io.IoSeeker
   /// Go: `func (*minlz.Reader).Skip(n int64) error`.
   void skip(int n) {
     $callSync(
-        15739,
+        15741,
         $W()
           ..h(this)
           ..i64(n));
@@ -157,7 +157,7 @@ class MinlzReadSeeker extends $io.IoSeeker
   Future<void> userChunkCb(
       int id, FutureOr<void> Function($io.IoReader r) fn) async {
     await $call(
-        15740,
+        15742,
         $W()
           ..h(this)
           ..i64(id)
@@ -167,7 +167,7 @@ class MinlzReadSeeker extends $io.IoSeeker
   /// Go: `func (*minlz.Reader).WriteTo(w io.Writer) (n int64, err error)`.
   int writeTo(GoHandle? w) {
     final $r = $callSync(
-        15741,
+        15743,
         $W()
           ..h(this)
           ..h(w));
@@ -184,7 +184,7 @@ class MinlzReader extends $io.IoWriterTo
   /// Go: `func minlz.NewReader(r io.Reader, opts ...minlz.ReaderOption) *minlz.Reader`.
   factory MinlzReader(Object r, [List<MinlzReaderOption> opts = const []]) {
     final $r = $callSync(
-        15728,
+        15730,
         $W()
           ..reader(r)
           ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -194,7 +194,7 @@ class MinlzReader extends $io.IoWriterTo
   /// Go: `func (*minlz.Reader).DecodeConcurrent(w io.Writer, concurrent int) (written int64, err error)`.
   int decodeConcurrent(GoHandle? w, int concurrent) {
     final $r = $callSync(
-        15742,
+        15744,
         $W()
           ..h(this)
           ..h(w)
@@ -204,14 +204,14 @@ class MinlzReader extends $io.IoWriterTo
 
   /// Go: `func (*minlz.Reader).GetBufferCapacity() int`.
   int getBufferCapacity() {
-    final $r = $callSync(15743, $W()..h(this));
+    final $r = $callSync(15745, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*minlz.Reader).Read(p []byte) (int, error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        15744,
+        15746,
         $W()
           ..h(this)
           ..i64(n));
@@ -220,14 +220,14 @@ class MinlzReader extends $io.IoWriterTo
 
   /// Go: `func (*minlz.Reader).ReadByte() (byte, error)`.
   int readByte() {
-    final $r = $callSync(15745, $W()..h(this));
+    final $r = $callSync(15747, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*minlz.Reader).ReadSeeker(index []byte) (*minlz.ReadSeeker, error)`.
   MinlzReadSeeker readSeeker(Uint8List index) {
     final $r = $callSync(
-        15746,
+        15748,
         $W()
           ..h(this)
           ..bytes(index));
@@ -237,7 +237,7 @@ class MinlzReader extends $io.IoWriterTo
   /// Go: `func (*minlz.Reader).Reset(reader io.Reader)`.
   void reset(Object reader) {
     $callSync(
-        15747,
+        15749,
         $W()
           ..h(this)
           ..reader(reader));
@@ -246,7 +246,7 @@ class MinlzReader extends $io.IoWriterTo
   /// Go: `func (*minlz.Reader).Skip(n int64) error`.
   void skip(int n) {
     $callSync(
-        15748,
+        15750,
         $W()
           ..h(this)
           ..i64(n));
@@ -262,7 +262,7 @@ class MinlzReader extends $io.IoWriterTo
   Future<void> userChunkCb(
       int id, FutureOr<void> Function($io.IoReader r) fn) async {
     await $call(
-        15749,
+        15751,
         $W()
           ..h(this)
           ..i64(id)
@@ -272,7 +272,7 @@ class MinlzReader extends $io.IoWriterTo
   /// Go: `func (*minlz.Reader).WriteTo(w io.Writer) (n int64, err error)`.
   int writeTo(GoHandle? w) {
     final $r = $callSync(
-        15750,
+        15752,
         $W()
           ..h(this)
           ..h(w));
@@ -294,7 +294,7 @@ class MinlzWriter extends $io.IoCloser
   /// Go: `func minlz.NewWriter(w io.Writer, opts ...minlz.WriterOption) *minlz.Writer`.
   factory MinlzWriter(GoHandle? w, [List<MinlzWriterOption> opts = const []]) {
     final $r = $callSync(
-        15729,
+        15731,
         $W()
           ..h(w)
           ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -304,7 +304,7 @@ class MinlzWriter extends $io.IoCloser
   /// Go: `func (*minlz.Writer).AddUserChunk(id uint8, data []byte) (err error)`.
   void addUserChunk(int id, Uint8List data) {
     $callSync(
-        15754,
+        15756,
         $W()
           ..h(this)
           ..i64(id)
@@ -313,24 +313,24 @@ class MinlzWriter extends $io.IoCloser
 
   /// Go: `func (*minlz.Writer).AsyncFlush() error`.
   void asyncFlush() {
-    $callSync(15755, $W()..h(this));
+    $callSync(15757, $W()..h(this));
   }
 
   /// Go: `func (*minlz.Writer).Close() error`.
   void close() {
-    $callSync(15756, $W()..h(this));
+    $callSync(15758, $W()..h(this));
   }
 
   /// Go: `func (*minlz.Writer).CloseIndex() ([]byte, error)`.
   Uint8List closeIndex() {
-    final $r = $callSync(15757, $W()..h(this));
+    final $r = $callSync(15759, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*minlz.Writer).EncodeBuffer(buf []byte) (err error)`.
   void encodeBuffer(Uint8List buf) {
     $callSync(
-        15758,
+        15760,
         $W()
           ..h(this)
           ..bytes(buf));
@@ -338,13 +338,13 @@ class MinlzWriter extends $io.IoCloser
 
   /// Go: `func (*minlz.Writer).Flush() error`.
   void flush() {
-    $callSync(15759, $W()..h(this));
+    $callSync(15761, $W()..h(this));
   }
 
   /// Go: `func (*minlz.Writer).ReadFrom(r io.Reader) (n int64, err error)`.
   int readFrom(Object r) {
     final $r = $callSync(
-        15760,
+        15762,
         $W()
           ..h(this)
           ..reader(r));
@@ -354,7 +354,7 @@ class MinlzWriter extends $io.IoCloser
   /// Go: `func (*minlz.Writer).Reset(writer io.Writer)`.
   void reset(GoHandle? writer) {
     $callSync(
-        15761,
+        15763,
         $W()
           ..h(this)
           ..h(writer));
@@ -363,7 +363,7 @@ class MinlzWriter extends $io.IoCloser
   /// Go: `func (*minlz.Writer).Write(p []byte) (nRet int, errRet error)`.
   int write(Uint8List p) {
     final $r = $callSync(
-        15762,
+        15764,
         $W()
           ..h(this)
           ..bytes(p));
@@ -372,7 +372,7 @@ class MinlzWriter extends $io.IoCloser
 
   /// Go: `func (*minlz.Writer).Written() (input int64, output int64)`.
   (int, int) written() {
-    final $r = $callSync(15763, $W()..h(this));
+    final $r = $callSync(15765, $W()..h(this));
     return ($r.i64(), $r.i64());
   }
 }
@@ -446,7 +446,7 @@ extension GoMinioMinlzApi on GoMinioMinlz {
   /// Go: `func minlz.AppendDecoded(dst []byte, src []byte) ([]byte, error)`.
   Uint8List appendDecoded(Uint8List dst, Uint8List src) {
     final $r = $callSync(
-        15716,
+        15718,
         $W()
           ..bytes(dst)
           ..bytes(src));
@@ -456,7 +456,7 @@ extension GoMinioMinlzApi on GoMinioMinlz {
   /// Go: `func minlz.AppendEncoded(dst []byte, src []byte, level int) ([]byte, error)`.
   Uint8List appendEncoded(Uint8List dst, Uint8List src, int level) {
     final $r = $callSync(
-        15717,
+        15719,
         $W()
           ..bytes(dst)
           ..bytes(src)
@@ -467,7 +467,7 @@ extension GoMinioMinlzApi on GoMinioMinlz {
   /// Go: `func minlz.Decode(dst []byte, src []byte) ([]byte, error)`.
   Uint8List decode(Uint8List dst, Uint8List src) {
     final $r = $callSync(
-        15718,
+        15720,
         $W()
           ..bytes(dst)
           ..bytes(src));
@@ -476,14 +476,14 @@ extension GoMinioMinlzApi on GoMinioMinlz {
 
   /// Go: `func minlz.DecodedLen(src []byte) (int, error)`.
   int decodedLen(Uint8List src) {
-    final $r = $callSync(15719, $W()..bytes(src));
+    final $r = $callSync(15721, $W()..bytes(src));
     return $r.i64();
   }
 
   /// Go: `func minlz.Encode(dst []byte, src []byte, level int) ([]byte, error)`.
   Uint8List encode(Uint8List dst, Uint8List src, int level) {
     final $r = $callSync(
-        15720,
+        15722,
         $W()
           ..bytes(dst)
           ..bytes(src)
@@ -493,38 +493,38 @@ extension GoMinioMinlzApi on GoMinioMinlz {
 
   /// Go: `func minlz.IndexStream(r io.Reader) ([]byte, error)`.
   Uint8List indexStream(Object r) {
-    final $r = $callSync(15725, $W()..reader(r));
+    final $r = $callSync(15727, $W()..reader(r));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func minlz.IsMinLZ(src []byte) (ok bool, size int, err error)`.
   (bool, int) isMinLz(Uint8List src) {
-    final $r = $callSync(15726, $W()..bytes(src));
+    final $r = $callSync(15728, $W()..bytes(src));
     return ($r.b(), $r.i64());
   }
 
   /// Go: `func minlz.MaxEncodedLen(srcLen int) int`.
   int maxEncodedLen(int srcLen) {
-    final $r = $callSync(15727, $W()..i64(srcLen));
+    final $r = $callSync(15729, $W()..i64(srcLen));
     return $r.i64();
   }
 
   /// Go: `func minlz.RemoveIndexHeaders(b []byte) []byte`.
   Uint8List removeIndexHeaders(Uint8List b) {
-    final $r = $callSync(15751, $W()..bytes(b));
+    final $r = $callSync(15753, $W()..bytes(b));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func minlz.RestoreIndexHeaders(in []byte) []byte`.
   Uint8List restoreIndexHeaders(Uint8List in$) {
-    final $r = $callSync(15752, $W()..bytes(in$));
+    final $r = $callSync(15754, $W()..bytes(in$));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func minlz.TryEncode(dst []byte, src []byte, level int) []byte`.
   Uint8List tryEncode(Uint8List dst, Uint8List src, int level) {
     final $r = $callSync(
-        15753,
+        15755,
         $W()
           ..bytes(dst)
           ..bytes(src)

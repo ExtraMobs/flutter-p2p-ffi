@@ -38,14 +38,14 @@ class Libp2pP2pHostAutonatAmbientAutoNat
 
   /// Go: `func (*autonat.AmbientAutoNAT).Close() error`.
   void close() {
-    $callSync(14351, $W()..h(this));
+    $callSync(14353, $W()..h(this));
   }
 
   /// Go: `func (*autonat.AmbientAutoNAT).Connected(_ network.Network, c network.Conn)`.
   void connected(
       $network.Libp2pCoreNetwork network, $network.Libp2pCoreNetworkConn c) {
     $callSync(
-        14352,
+        14354,
         $W()
           ..h(this)
           ..h(network)
@@ -56,7 +56,7 @@ class Libp2pP2pHostAutonatAmbientAutoNat
   void disconnected(
       $network.Libp2pCoreNetwork network, $network.Libp2pCoreNetworkConn conn) {
     $callSync(
-        14353,
+        14355,
         $W()
           ..h(this)
           ..h(network)
@@ -67,7 +67,7 @@ class Libp2pP2pHostAutonatAmbientAutoNat
   void listen(
       $network.Libp2pCoreNetwork network, $multiaddr.Multiaddr multiaddr) {
     $callSync(
-        14354,
+        14356,
         $W()
           ..h(this)
           ..h(network)
@@ -78,7 +78,7 @@ class Libp2pP2pHostAutonatAmbientAutoNat
   void listenClose(
       $network.Libp2pCoreNetwork network, $multiaddr.Multiaddr multiaddr) {
     $callSync(
-        14355,
+        14357,
         $W()
           ..h(this)
           ..h(network)
@@ -87,7 +87,7 @@ class Libp2pP2pHostAutonatAmbientAutoNat
 
   /// Go: `func (*autonat.AmbientAutoNAT).Status() network.Reachability`.
   int status() {
-    final $r = $callSync(14356, $W()..h(this));
+    final $r = $callSync(14358, $W()..h(this));
     return $r.i64();
   }
 }
@@ -102,7 +102,7 @@ class Libp2pP2pHostAutonatAutoNat extends $io.IoCloser
 mixin Libp2pP2pHostAutonatAutoNat$ on GoHandle {
   /// Go: `func (autonat.AutoNAT).Status() network.Reachability`.
   int status() {
-    final $r = $callSync(14357, $W()..h(this));
+    final $r = $callSync(14359, $W()..h(this));
     return $r.i64();
   }
 
@@ -132,7 +132,7 @@ mixin Libp2pP2pHostAutonatClient$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> dialBack($context.Context ctx, $peer.Libp2pCorePeerId p) async {
     await $call(
-        14358,
+        14360,
         $W()
           ..h(this)
           ..h(ctx)
@@ -148,7 +148,7 @@ class Libp2pP2pHostAutonatMetricsTracer extends GoHandle
   /// Go: `func autonat.NewMetricsTracer(opts ...autonat.MetricsTracerOption) autonat.MetricsTracer`.
   factory Libp2pP2pHostAutonatMetricsTracer(
       [List<Libp2pP2pHostAutonatMetricsTracerOption> opts = const []]) {
-    final $r = $callSync(14367, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+    final $r = $callSync(14369, $W()..list(opts, (w0, e0) => w0.opt(e0)));
     return $r.hnn(Libp2pP2pHostAutonatMetricsTracer.$h);
   }
 }
@@ -158,7 +158,7 @@ mixin Libp2pP2pHostAutonatMetricsTracer$ on GoHandle {
   /// Go: `func (autonat.MetricsTracer).NextProbeTime(t time.Time)`.
   void nextProbeTime(DateTime t) {
     $callSync(
-        14359,
+        14361,
         $W()
           ..h(this)
           ..time(t));
@@ -167,7 +167,7 @@ mixin Libp2pP2pHostAutonatMetricsTracer$ on GoHandle {
   /// Go: `func (autonat.MetricsTracer).OutgoingDialRefused(reason string)`.
   void outgoingDialRefused(String reason) {
     $callSync(
-        14360,
+        14362,
         $W()
           ..h(this)
           ..str(reason));
@@ -176,7 +176,7 @@ mixin Libp2pP2pHostAutonatMetricsTracer$ on GoHandle {
   /// Go: `func (autonat.MetricsTracer).OutgoingDialResponse(status pb.Message_ResponseStatus)`.
   void outgoingDialResponse(int status) {
     $callSync(
-        14361,
+        14363,
         $W()
           ..h(this)
           ..i64(status));
@@ -185,7 +185,7 @@ mixin Libp2pP2pHostAutonatMetricsTracer$ on GoHandle {
   /// Go: `func (autonat.MetricsTracer).ReachabilityStatus(status network.Reachability)`.
   void reachabilityStatus(int status) {
     $callSync(
-        14362,
+        14364,
         $W()
           ..h(this)
           ..i64(status));
@@ -194,7 +194,7 @@ mixin Libp2pP2pHostAutonatMetricsTracer$ on GoHandle {
   /// Go: `func (autonat.MetricsTracer).ReachabilityStatusConfidence(confidence int)`.
   void reachabilityStatusConfidence(int confidence) {
     $callSync(
-        14363,
+        14365,
         $W()
           ..h(this)
           ..i64(confidence));
@@ -203,7 +203,7 @@ mixin Libp2pP2pHostAutonatMetricsTracer$ on GoHandle {
   /// Go: `func (autonat.MetricsTracer).ReceivedDialResponse(status pb.Message_ResponseStatus)`.
   void receivedDialResponse(int status) {
     $callSync(
-        14364,
+        14366,
         $W()
           ..h(this)
           ..i64(status));
@@ -228,12 +228,12 @@ class Libp2pP2pHostAutonatStaticAutoNat extends Libp2pP2pHostAutonatAutoNat
 
   /// Go: `func (*autonat.StaticAutoNAT).Close() error`.
   void close() {
-    $callSync(14368, $W()..h(this));
+    $callSync(14370, $W()..h(this));
   }
 
   /// Go: `func (*autonat.StaticAutoNAT).Status() network.Reachability`.
   int status() {
-    final $r = $callSync(14369, $W()..h(this));
+    final $r = $callSync(14371, $W()..h(this));
     return $r.i64();
   }
 }
@@ -262,7 +262,7 @@ extension GoLibp2pLibp2pP2pHostAutonatApi on GoLibp2pLibp2pP2pHostAutonat {
   Libp2pP2pHostAutonatAutoNat new$($host.Libp2pCoreHost h,
       [List<Libp2pP2pHostAutonatOption> options = const []]) {
     final $r = $callSync(
-        14365,
+        14367,
         $W()
           ..h(h)
           ..list(options, (w0, e0) => w0.opt(e0)));
@@ -275,7 +275,7 @@ extension GoLibp2pLibp2pP2pHostAutonatApi on GoLibp2pLibp2pP2pHostAutonat {
       Libp2pP2pHostAutonatAddrFunc addrFunc,
       Libp2pP2pHostAutonatMetricsTracer mt) {
     final $r = $callSync(
-        14366,
+        14368,
         $W()
           ..h(h)
           ..h(addrFunc)

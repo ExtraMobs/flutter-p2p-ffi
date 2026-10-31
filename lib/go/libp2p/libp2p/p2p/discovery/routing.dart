@@ -34,7 +34,7 @@ class Libp2pP2pDiscoveryRouting extends $provider.BoxoProviderProvide
   factory Libp2pP2pDiscoveryRouting($discovery.Libp2pCoreDiscovery disc,
       [List<$discovery.Libp2pCoreDiscoveryOption> opts = const []]) {
     final $r = $callSync(
-        14347,
+        14349,
         $W()
           ..h(disc)
           ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -45,7 +45,7 @@ class Libp2pP2pDiscoveryRouting extends $provider.BoxoProviderProvide
   Stream<$peer.Libp2pCorePeerAddrInfo> findProvidersAsync(
           $context.Context ctx, $cid.Cid c, int limit) =>
       $stream(
-              14345,
+              14347,
               $W()
                 ..h(this)
                 ..h(ctx)
@@ -58,7 +58,7 @@ class Libp2pP2pDiscoveryRouting extends $provider.BoxoProviderProvide
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> provide($context.Context ctx, $cid.Cid c, bool bcast) async {
     await $call(
-        14346,
+        14348,
         $W()
           ..h(this)
           ..h(ctx)
@@ -90,7 +90,7 @@ class Libp2pP2pDiscoveryRoutingDiscovery extends $provider.BoxoProviderProvide
   /// Go: `func routing.NewRoutingDiscovery(router routing.ContentRouting) *routing.RoutingDiscovery`.
   factory Libp2pP2pDiscoveryRoutingDiscovery(
       $routing.Libp2pCoreRoutingContentRouting router) {
-    final $r = $callSync(14348, $W()..h(router));
+    final $r = $callSync(14350, $W()..h(router));
     return $r.hnn(Libp2pP2pDiscoveryRoutingDiscovery.$h);
   }
 
@@ -100,7 +100,7 @@ class Libp2pP2pDiscoveryRoutingDiscovery extends $provider.BoxoProviderProvide
   Future<Duration> advertise($context.Context ctx, String ns,
       [List<$discovery.Libp2pCoreDiscoveryOption> opts = const []]) async {
     final $r = await $call(
-        14349,
+        14351,
         $W()
           ..h(this)
           ..h(ctx)
@@ -114,7 +114,7 @@ class Libp2pP2pDiscoveryRoutingDiscovery extends $provider.BoxoProviderProvide
           $context.Context ctx, String ns,
           [List<$discovery.Libp2pCoreDiscoveryOption> opts = const []]) =>
       $stream(
-              14350,
+              14352,
               $W()
                 ..h(this)
                 ..h(ctx)

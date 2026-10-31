@@ -21,14 +21,14 @@ class YamlV3Decoder extends $runtime.GrpcGatewayV2RuntimeDecoder
 
   /// Go: `func yaml.NewDecoder(r io.Reader) *yaml.Decoder`.
   factory YamlV3Decoder(Object r) {
-    final $r = $callSync(25633, $W()..reader(r));
+    final $r = $callSync(25635, $W()..reader(r));
     return $r.hnn(YamlV3Decoder.$h);
   }
 
   /// Go: `func (*yaml.Decoder).Decode(v interface{}) (err error)`.
   void decode(Object? v) {
     $callSync(
-        25626,
+        25628,
         $W()
           ..h(this)
           ..any(v));
@@ -37,7 +37,7 @@ class YamlV3Decoder extends $runtime.GrpcGatewayV2RuntimeDecoder
   /// Go: `func (*yaml.Decoder).KnownFields(enable bool)`.
   void knownFields(bool enable) {
     $callSync(
-        25627,
+        25629,
         $W()
           ..h(this)
           ..b(enable));
@@ -60,19 +60,19 @@ class YamlV3Encoder extends $runtime.GrpcGatewayV2RuntimeEncoder
 
   /// Go: `func yaml.NewEncoder(w io.Writer) *yaml.Encoder`.
   factory YamlV3Encoder(GoHandle? w) {
-    final $r = $callSync(25634, $W()..h(w));
+    final $r = $callSync(25636, $W()..h(w));
     return $r.hnn(YamlV3Encoder.$h);
   }
 
   /// Go: `func (*yaml.Encoder).Close() (err error)`.
   void close() {
-    $callSync(25628, $W()..h(this));
+    $callSync(25630, $W()..h(this));
   }
 
   /// Go: `func (*yaml.Encoder).Encode(v interface{}) (err error)`.
   void encode(Object? v) {
     $callSync(
-        25629,
+        25631,
         $W()
           ..h(this)
           ..any(v));
@@ -81,7 +81,7 @@ class YamlV3Encoder extends $runtime.GrpcGatewayV2RuntimeEncoder
   /// Go: `func (*yaml.Encoder).SetIndent(spaces int)`.
   void setIndent(int spaces) {
     $callSync(
-        25630,
+        25632,
         $W()
           ..h(this)
           ..i64(spaces));
@@ -97,7 +97,7 @@ class YamlV3Marshaler extends GoHandle with YamlV3Marshaler$ {
 mixin YamlV3Marshaler$ on GoHandle {
   /// Go: `func (yaml.Marshaler).MarshalYAML() (interface{}, error)`.
   Object? marshalYaml() {
-    final $r = $callSync(25632, $W()..h(this));
+    final $r = $callSync(25634, $W()..h(this));
     return $r.any();
   }
 }
@@ -188,7 +188,7 @@ final class YamlV3Node implements GoDto {
   /// Go: `func (*yaml.Node).Decode(v interface{}) (err error)`.
   void decode(Object? v) {
     $callSync(
-        25635,
+        25637,
         $W()
           ..dto(this)
           ..any(v));
@@ -197,7 +197,7 @@ final class YamlV3Node implements GoDto {
   /// Go: `func (*yaml.Node).Encode(v interface{}) (err error)`.
   void encode(Object? v) {
     $callSync(
-        25636,
+        25638,
         $W()
           ..dto(this)
           ..any(v));
@@ -205,20 +205,20 @@ final class YamlV3Node implements GoDto {
 
   /// Go: `func (*yaml.Node).IsZero() bool`.
   bool isZero() {
-    final $r = $callSync(25637, $W()..dto(this));
+    final $r = $callSync(25639, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*yaml.Node).LongTag() string`.
   String longTag() {
-    final $r = $callSync(25638, $W()..dto(this));
+    final $r = $callSync(25640, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*yaml.Node).SetString(s string)`.
   void setString(String s) {
     $callSync(
-        25639,
+        25641,
         $W()
           ..dto(this)
           ..str(s));
@@ -226,7 +226,7 @@ final class YamlV3Node implements GoDto {
 
   /// Go: `func (*yaml.Node).ShortTag() string`.
   String shortTag() {
-    final $r = $callSync(25640, $W()..dto(this));
+    final $r = $callSync(25642, $W()..dto(this));
     return $r.str();
   }
 }
@@ -241,7 +241,7 @@ mixin YamlV3Unmarshaler$ on GoHandle {
   /// Go: `func (yaml.Unmarshaler).UnmarshalYAML(value *yaml.Node) error`.
   void unmarshalYaml(YamlV3Node value) {
     $callSync(
-        25642,
+        25644,
         $W()
           ..h(this)
           ..dto(value));
@@ -261,14 +261,14 @@ class YamlV3TypeError extends GolangException {
 extension GoYamlV3Api on GoYamlV3 {
   /// Go: `func yaml.Marshal(in interface{}) (out []byte, err error)`.
   Uint8List marshal(Object? in$) {
-    final $r = $callSync(25631, $W()..any(in$));
+    final $r = $callSync(25633, $W()..any(in$));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func yaml.Unmarshal(in []byte, out interface{}) (err error)`.
   void unmarshal(Uint8List in$, Object? out) {
     $callSync(
-        25641,
+        25643,
         $W()
           ..bytes(in$)
           ..any(out));

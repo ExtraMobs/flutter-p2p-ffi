@@ -25,7 +25,7 @@ mixin Libp2pCoreDiscoveryAdvertiser$ on GoHandle {
   Future<Duration> advertise($context.Context ctx, String ns,
       [List<Libp2pCoreDiscoveryOption> opts = const []]) async {
     final $r = await $call(
-        13953,
+        13955,
         $W()
           ..h(this)
           ..h(ctx)
@@ -74,7 +74,7 @@ mixin Libp2pCoreDiscoveryDiscoverer$ on GoHandle {
           $context.Context ctx, String ns,
           [List<Libp2pCoreDiscoveryOption> opts = const []]) =>
       $stream(
-              13954,
+              13956,
               $W()
                 ..h(this)
                 ..h(ctx)
@@ -172,7 +172,7 @@ final class Libp2pCoreDiscoveryOptions implements GoDto {
   /// Go: `func (*discovery.Options).Apply(options ...discovery.Option) error`.
   void apply([List<Libp2pCoreDiscoveryOption> options = const []]) {
     $callSync(
-        13955,
+        13957,
         $W()
           ..dto(this)
           ..list(options, (w0, e0) => w0.opt(e0)));

@@ -30,7 +30,7 @@ mixin Libp2pRoutingHelpersBootstrap$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> bootstrap($context.Context ctx) async {
     await $call(
-        13727,
+        13729,
         $W()
           ..h(this)
           ..h(ctx));
@@ -93,7 +93,7 @@ final class Libp2pRoutingHelpersCompose implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> bootstrap($context.Context ctx) async {
     await $call(
-        13728,
+        13730,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -105,7 +105,7 @@ final class Libp2pRoutingHelpersCompose implements GoDto {
   Future<$peer.Libp2pCorePeerAddrInfo> findPeer(
       $context.Context ctx, $peer.Libp2pCorePeerId p) async {
     final $r = await $call(
-        13729,
+        13731,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -117,7 +117,7 @@ final class Libp2pRoutingHelpersCompose implements GoDto {
   Stream<$peer.Libp2pCorePeerAddrInfo> findProvidersAsync(
           $context.Context ctx, $cid.Cid c, int count) =>
       $stream(
-              13730,
+              13732,
               $W()
                 ..dto(this)
                 ..h(ctx)
@@ -131,7 +131,7 @@ final class Libp2pRoutingHelpersCompose implements GoDto {
   Future<$crypto.Libp2pCoreCryptoPubKey> getPublicKey(
       $context.Context ctx, $peer.Libp2pCorePeerId p) async {
     final $r = await $call(
-        13731,
+        13733,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -145,7 +145,7 @@ final class Libp2pRoutingHelpersCompose implements GoDto {
   Future<Uint8List> getValue($context.Context ctx, String key,
       [List<$routing.Libp2pCoreRoutingOption> opts = const []]) async {
     final $r = await $call(
-        13732,
+        13734,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -159,7 +159,7 @@ final class Libp2pRoutingHelpersCompose implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> provide($context.Context ctx, $cid.Cid c, bool local) async {
     await $call(
-        13733,
+        13735,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -173,7 +173,7 @@ final class Libp2pRoutingHelpersCompose implements GoDto {
   Future<void> putValue($context.Context ctx, String key, Uint8List value,
       [List<$routing.Libp2pCoreRoutingOption> opts = const []]) async {
     await $call(
-        13734,
+        13736,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -186,7 +186,7 @@ final class Libp2pRoutingHelpersCompose implements GoDto {
   Stream<Uint8List> searchValue($context.Context ctx, String key,
           [List<$routing.Libp2pCoreRoutingOption> opts = const []]) =>
       $stream(
-              13735,
+              13737,
               $W()
                 ..dto(this)
                 ..h(ctx)
@@ -215,7 +215,7 @@ class Libp2pRoutingHelpersLimitedValueStore
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> bootstrap($context.Context ctx) async {
     await $call(
-        13736,
+        13738,
         $W()
           ..h(this)
           ..h(ctx));
@@ -223,7 +223,7 @@ class Libp2pRoutingHelpersLimitedValueStore
 
   /// Go: `func (*routinghelpers.LimitedValueStore).Close() error`.
   void close() {
-    $callSync(13737, $W()..h(this));
+    $callSync(13739, $W()..h(this));
   }
 
   /// Go: `func (*routinghelpers.LimitedValueStore).GetPublicKey(ctx context.Context, p peer.ID) (crypto.PubKey, error)`.
@@ -232,7 +232,7 @@ class Libp2pRoutingHelpersLimitedValueStore
   Future<$crypto.Libp2pCoreCryptoPubKey> getPublicKey(
       $context.Context ctx, $peer.Libp2pCorePeerId p) async {
     final $r = await $call(
-        13738,
+        13740,
         $W()
           ..h(this)
           ..h(ctx)
@@ -246,7 +246,7 @@ class Libp2pRoutingHelpersLimitedValueStore
   Future<Uint8List> getValue($context.Context ctx, String key,
       [List<$routing.Libp2pCoreRoutingOption> opts = const []]) async {
     final $r = await $call(
-        13739,
+        13741,
         $W()
           ..h(this)
           ..h(ctx)
@@ -258,7 +258,7 @@ class Libp2pRoutingHelpersLimitedValueStore
   /// Go: `func (*routinghelpers.LimitedValueStore).KeySupported(key string) bool`.
   bool keySupported(String key) {
     final $r = $callSync(
-        13740,
+        13742,
         $W()
           ..h(this)
           ..str(key));
@@ -271,7 +271,7 @@ class Libp2pRoutingHelpersLimitedValueStore
   Future<void> putValue($context.Context ctx, String key, Uint8List value,
       [List<$routing.Libp2pCoreRoutingOption> opts = const []]) async {
     await $call(
-        13741,
+        13743,
         $W()
           ..h(this)
           ..h(ctx)
@@ -284,7 +284,7 @@ class Libp2pRoutingHelpersLimitedValueStore
   Stream<Uint8List> searchValue($context.Context ctx, String key,
           [List<$routing.Libp2pCoreRoutingOption> opts = const []]) =>
       $stream(
-              13742,
+              13744,
               $W()
                 ..h(this)
                 ..h(ctx)
@@ -306,7 +306,7 @@ final class Libp2pRoutingHelpersNull implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> bootstrap($context.Context ctx) async {
     await $call(
-        13743,
+        13745,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -314,7 +314,7 @@ final class Libp2pRoutingHelpersNull implements GoDto {
 
   /// Go: `func (routinghelpers.Null).Close() error`.
   void close() {
-    $callSync(13744, $W()..dto(this));
+    $callSync(13746, $W()..dto(this));
   }
 
   /// Go: `func (routinghelpers.Null).FindPeer(context.Context, peer.ID) (peer.AddrInfo, error)`.
@@ -323,7 +323,7 @@ final class Libp2pRoutingHelpersNull implements GoDto {
   Future<$peer.Libp2pCorePeerAddrInfo> findPeer(
       $context.Context ctx, $peer.Libp2pCorePeerId id) async {
     final $r = await $call(
-        13745,
+        13747,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -335,7 +335,7 @@ final class Libp2pRoutingHelpersNull implements GoDto {
   Stream<$peer.Libp2pCorePeerAddrInfo> findProvidersAsync(
           $context.Context ctx, $cid.Cid cid, int arg2) =>
       $stream(
-              13746,
+              13748,
               $W()
                 ..dto(this)
                 ..h(ctx)
@@ -349,7 +349,7 @@ final class Libp2pRoutingHelpersNull implements GoDto {
   Future<Uint8List> getValue($context.Context ctx, String arg1,
       [List<$routing.Libp2pCoreRoutingOption> opts = const []]) async {
     final $r = await $call(
-        13747,
+        13749,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -363,7 +363,7 @@ final class Libp2pRoutingHelpersNull implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> provide($context.Context ctx, $cid.Cid cid, bool arg2) async {
     await $call(
-        13748,
+        13750,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -377,7 +377,7 @@ final class Libp2pRoutingHelpersNull implements GoDto {
   Future<void> putValue($context.Context ctx, String arg1, Uint8List arg2,
       [List<$routing.Libp2pCoreRoutingOption> opts = const []]) async {
     await $call(
-        13749,
+        13751,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -390,7 +390,7 @@ final class Libp2pRoutingHelpersNull implements GoDto {
   Stream<Uint8List> searchValue($context.Context ctx, String key,
           [List<$routing.Libp2pCoreRoutingOption> opts = const []]) =>
       $stream(
-              13750,
+              13752,
               $W()
                 ..dto(this)
                 ..h(ctx)
@@ -429,7 +429,7 @@ final class Libp2pRoutingHelpersParallel implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> bootstrap($context.Context ctx) async {
     await $call(
-        13751,
+        13753,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -437,7 +437,7 @@ final class Libp2pRoutingHelpersParallel implements GoDto {
 
   /// Go: `func (routinghelpers.Parallel).Close() error`.
   void close() {
-    $callSync(13752, $W()..dto(this));
+    $callSync(13754, $W()..dto(this));
   }
 
   /// Go: `func (routinghelpers.Parallel).FindPeer(ctx context.Context, p peer.ID) (peer.AddrInfo, error)`.
@@ -446,7 +446,7 @@ final class Libp2pRoutingHelpersParallel implements GoDto {
   Future<$peer.Libp2pCorePeerAddrInfo> findPeer(
       $context.Context ctx, $peer.Libp2pCorePeerId p) async {
     final $r = await $call(
-        13753,
+        13755,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -458,7 +458,7 @@ final class Libp2pRoutingHelpersParallel implements GoDto {
   Stream<$peer.Libp2pCorePeerAddrInfo> findProvidersAsync(
           $context.Context ctx, $cid.Cid c, int count) =>
       $stream(
-              13754,
+              13756,
               $W()
                 ..dto(this)
                 ..h(ctx)
@@ -472,7 +472,7 @@ final class Libp2pRoutingHelpersParallel implements GoDto {
   Future<$crypto.Libp2pCoreCryptoPubKey> getPublicKey(
       $context.Context ctx, $peer.Libp2pCorePeerId p) async {
     final $r = await $call(
-        13755,
+        13757,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -486,7 +486,7 @@ final class Libp2pRoutingHelpersParallel implements GoDto {
   Future<Uint8List> getValue($context.Context ctx, String key,
       [List<$routing.Libp2pCoreRoutingOption> opts = const []]) async {
     final $r = await $call(
-        13756,
+        13758,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -500,7 +500,7 @@ final class Libp2pRoutingHelpersParallel implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> provide($context.Context ctx, $cid.Cid c, bool local) async {
     await $call(
-        13757,
+        13759,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -514,7 +514,7 @@ final class Libp2pRoutingHelpersParallel implements GoDto {
   Future<void> putValue($context.Context ctx, String key, Uint8List value,
       [List<$routing.Libp2pCoreRoutingOption> opts = const []]) async {
     await $call(
-        13758,
+        13760,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -527,7 +527,7 @@ final class Libp2pRoutingHelpersParallel implements GoDto {
   Stream<Uint8List> searchValue($context.Context ctx, String key,
           [List<$routing.Libp2pCoreRoutingOption> opts = const []]) =>
       $stream(
-              13759,
+              13761,
               $W()
                 ..dto(this)
                 ..h(ctx)
@@ -549,7 +549,7 @@ mixin Libp2pRoutingHelpersProvideManyRouter$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> provideMany($context.Context ctx, List<Uint8List> keys) async {
     await $call(
-        13760,
+        13762,
         $W()
           ..h(this)
           ..h(ctx)
@@ -599,7 +599,7 @@ final class Libp2pRoutingHelpersTiered implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> bootstrap($context.Context ctx) async {
     await $call(
-        13761,
+        13763,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -607,7 +607,7 @@ final class Libp2pRoutingHelpersTiered implements GoDto {
 
   /// Go: `func (routinghelpers.Tiered).Close() error`.
   void close() {
-    $callSync(13762, $W()..dto(this));
+    $callSync(13764, $W()..dto(this));
   }
 
   /// Go: `func (routinghelpers.Tiered).FindPeer(ctx context.Context, p peer.ID) (peer.AddrInfo, error)`.
@@ -616,7 +616,7 @@ final class Libp2pRoutingHelpersTiered implements GoDto {
   Future<$peer.Libp2pCorePeerAddrInfo> findPeer(
       $context.Context ctx, $peer.Libp2pCorePeerId p) async {
     final $r = await $call(
-        13763,
+        13765,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -628,7 +628,7 @@ final class Libp2pRoutingHelpersTiered implements GoDto {
   Stream<$peer.Libp2pCorePeerAddrInfo> findProvidersAsync(
           $context.Context ctx, $cid.Cid c, int count) =>
       $stream(
-              13764,
+              13766,
               $W()
                 ..dto(this)
                 ..h(ctx)
@@ -642,7 +642,7 @@ final class Libp2pRoutingHelpersTiered implements GoDto {
   Future<$crypto.Libp2pCoreCryptoPubKey> getPublicKey(
       $context.Context ctx, $peer.Libp2pCorePeerId p) async {
     final $r = await $call(
-        13765,
+        13767,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -656,7 +656,7 @@ final class Libp2pRoutingHelpersTiered implements GoDto {
   Future<Uint8List> getValue($context.Context ctx, String key,
       [List<$routing.Libp2pCoreRoutingOption> opts = const []]) async {
     final $r = await $call(
-        13766,
+        13768,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -670,7 +670,7 @@ final class Libp2pRoutingHelpersTiered implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> provide($context.Context ctx, $cid.Cid c, bool local) async {
     await $call(
-        13767,
+        13769,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -684,7 +684,7 @@ final class Libp2pRoutingHelpersTiered implements GoDto {
   Future<void> putValue($context.Context ctx, String key, Uint8List value,
       [List<$routing.Libp2pCoreRoutingOption> opts = const []]) async {
     await $call(
-        13768,
+        13770,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -697,7 +697,7 @@ final class Libp2pRoutingHelpersTiered implements GoDto {
   Stream<Uint8List> searchValue($context.Context ctx, String key,
           [List<$routing.Libp2pCoreRoutingOption> opts = const []]) =>
       $stream(
-              13769,
+              13771,
               $W()
                 ..dto(this)
                 ..h(ctx)

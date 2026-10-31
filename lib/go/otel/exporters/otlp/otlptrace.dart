@@ -22,7 +22,7 @@ mixin OtelExportersOtlpOtlptraceClient$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> start($context.Context ctx) async {
     await $call(
-        19223,
+        19225,
         $W()
           ..h(this)
           ..h(ctx));
@@ -33,7 +33,7 @@ mixin OtelExportersOtlpOtlptraceClient$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> stop($context.Context ctx) async {
     await $call(
-        19224,
+        19226,
         $W()
           ..h(this)
           ..h(ctx));
@@ -45,7 +45,7 @@ mixin OtelExportersOtlpOtlptraceClient$ on GoHandle {
   Future<void> uploadTraces($context.Context ctx,
       List<$v1.OtlpTraceV1ResourceSpans> protoSpans) async {
     await $call(
-        19225,
+        19227,
         $W()
           ..h(this)
           ..h(ctx)
@@ -65,7 +65,7 @@ class OtelExportersOtlpOtlptraceExporter extends $trace.OtelSdkTraceSpanExporter
   Future<void> exportSpans(
       $context.Context ctx, List<$trace.OtelSdkTraceReadOnlySpan> ss) async {
     await $call(
-        19226,
+        19228,
         $W()
           ..h(this)
           ..h(ctx)
@@ -74,7 +74,7 @@ class OtelExportersOtlpOtlptraceExporter extends $trace.OtelSdkTraceSpanExporter
 
   /// Go: `func (*otlptrace.Exporter).MarshalLog() any`.
   Object? marshalLog() {
-    final $r = $callSync(19227, $W()..h(this));
+    final $r = $callSync(19229, $W()..h(this));
     return $r.any();
   }
 
@@ -83,7 +83,7 @@ class OtelExportersOtlpOtlptraceExporter extends $trace.OtelSdkTraceSpanExporter
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> shutdown($context.Context ctx) async {
     await $call(
-        19228,
+        19230,
         $W()
           ..h(this)
           ..h(ctx));
@@ -94,7 +94,7 @@ class OtelExportersOtlpOtlptraceExporter extends $trace.OtelSdkTraceSpanExporter
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> start($context.Context ctx) async {
     await $call(
-        19229,
+        19231,
         $W()
           ..h(this)
           ..h(ctx));
@@ -109,7 +109,7 @@ extension GoOtelExportersOtlpOtlptraceApi on GoOtelExportersOtlpOtlptrace {
   Future<OtelExportersOtlpOtlptraceExporter> new$(
       $context.Context ctx, OtelExportersOtlpOtlptraceClient client) async {
     final $r = await $call(
-        19230,
+        19232,
         $W()
           ..h(ctx)
           ..h(client));
@@ -119,13 +119,13 @@ extension GoOtelExportersOtlpOtlptraceApi on GoOtelExportersOtlpOtlptrace {
   /// Go: `func otlptrace.NewUnstarted(client otlptrace.Client) *otlptrace.Exporter`.
   OtelExportersOtlpOtlptraceExporter newUnstarted(
       OtelExportersOtlpOtlptraceClient client) {
-    final $r = $callSync(19231, $W()..h(client));
+    final $r = $callSync(19233, $W()..h(client));
     return $r.hnn(OtelExportersOtlpOtlptraceExporter.$h);
   }
 
   /// Go: `func otlptrace.Version() string`.
   String version() {
-    final $r = $callSync(19232);
+    final $r = $callSync(19234);
     return $r.str();
   }
 }

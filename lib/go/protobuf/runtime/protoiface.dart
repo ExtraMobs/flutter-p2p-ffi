@@ -62,17 +62,17 @@ class ProtobufRuntimeProtoifaceMessageV1 extends GoHandle
 mixin ProtobufRuntimeProtoifaceMessageV1$ on GoHandle {
   /// Go: `func (protoiface.MessageV1).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25060, $W()..h(this));
+    $callSync(25062, $W()..h(this));
   }
 
   /// Go: `func (protoiface.MessageV1).Reset()`.
   void reset() {
-    $callSync(25061, $W()..h(this));
+    $callSync(25063, $W()..h(this));
   }
 
   /// Go: `func (protoiface.MessageV1).String() string`.
   String string() {
-    final $r = $callSync(25062, $W()..h(this));
+    final $r = $callSync(25064, $W()..h(this));
     return $r.str();
   }
 

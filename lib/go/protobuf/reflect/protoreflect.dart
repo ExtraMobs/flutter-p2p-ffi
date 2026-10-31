@@ -66,49 +66,49 @@ class ProtobufReflectProtoreflectDescriptor extends GoHandle
 mixin ProtobufReflectProtoreflectDescriptor$ on GoHandle {
   /// Go: `func (protoreflect.Descriptor).FullName() protoreflect.FullName`.
   String fullName() {
-    final $r = $callSync(24822, $W()..h(this));
+    final $r = $callSync(24824, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (protoreflect.Descriptor).Index() int`.
   int index() {
-    final $r = $callSync(24823, $W()..h(this));
+    final $r = $callSync(24825, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (protoreflect.Descriptor).IsPlaceholder() bool`.
   bool isPlaceholder() {
-    final $r = $callSync(24824, $W()..h(this));
+    final $r = $callSync(24826, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (protoreflect.Descriptor).Name() protoreflect.Name`.
   String name() {
-    final $r = $callSync(24825, $W()..h(this));
+    final $r = $callSync(24827, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (protoreflect.Descriptor).Options() protoreflect.ProtoMessage`.
   ProtobufReflectProtoreflectProtoMessage options() {
-    final $r = $callSync(24826, $W()..h(this));
+    final $r = $callSync(24828, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectProtoMessage.$h);
   }
 
   /// Go: `func (protoreflect.Descriptor).Parent() protoreflect.Descriptor`.
   ProtobufReflectProtoreflectDescriptor parent() {
-    final $r = $callSync(24827, $W()..h(this));
+    final $r = $callSync(24829, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectDescriptor.$h);
   }
 
   /// Go: `func (protoreflect.Descriptor).ParentFile() protoreflect.FileDescriptor`.
   ProtobufReflectProtoreflectFileDescriptor parentFile() {
-    final $r = $callSync(24828, $W()..h(this));
+    final $r = $callSync(24830, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectFileDescriptor.$h);
   }
 
   /// Go: `func (protoreflect.Descriptor).Syntax() protoreflect.Syntax`.
   int syntax() {
-    final $r = $callSync(24829, $W()..h(this));
+    final $r = $callSync(24831, $W()..h(this));
     return $r.i64();
   }
 
@@ -193,19 +193,19 @@ class ProtobufReflectProtoreflectEnum extends GoHandle
 mixin ProtobufReflectProtoreflectEnum$ on GoHandle {
   /// Go: `func (protoreflect.Enum).Descriptor() protoreflect.EnumDescriptor`.
   ProtobufReflectProtoreflectEnumDescriptor descriptor() {
-    final $r = $callSync(24830, $W()..h(this));
+    final $r = $callSync(24832, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectEnumDescriptor.$h);
   }
 
   /// Go: `func (protoreflect.Enum).Number() protoreflect.EnumNumber`.
   int number() {
-    final $r = $callSync(24831, $W()..h(this));
+    final $r = $callSync(24833, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (protoreflect.Enum).Type() protoreflect.EnumType`.
   ProtobufReflectProtoreflectEnumType type() {
-    final $r = $callSync(24832, $W()..h(this));
+    final $r = $callSync(24834, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectEnumType.$h);
   }
 }
@@ -221,25 +221,25 @@ class ProtobufReflectProtoreflectEnumDescriptor
 mixin ProtobufReflectProtoreflectEnumDescriptor$ on GoHandle {
   /// Go: `func (protoreflect.EnumDescriptor).IsClosed() bool`.
   bool isClosed() {
-    final $r = $callSync(24833, $W()..h(this));
+    final $r = $callSync(24835, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (protoreflect.EnumDescriptor).ReservedNames() protoreflect.Names`.
   ProtobufReflectProtoreflectNames reservedNames() {
-    final $r = $callSync(24834, $W()..h(this));
+    final $r = $callSync(24836, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectNames.$h);
   }
 
   /// Go: `func (protoreflect.EnumDescriptor).ReservedRanges() protoreflect.EnumRanges`.
   ProtobufReflectProtoreflectEnumRanges reservedRanges() {
-    final $r = $callSync(24835, $W()..h(this));
+    final $r = $callSync(24837, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectEnumRanges.$h);
   }
 
   /// Go: `func (protoreflect.EnumDescriptor).Values() protoreflect.EnumValueDescriptors`.
   ProtobufReflectProtoreflectEnumValueDescriptors values() {
-    final $r = $callSync(24836, $W()..h(this));
+    final $r = $callSync(24838, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectEnumValueDescriptors.$h);
   }
 }
@@ -255,7 +255,7 @@ mixin ProtobufReflectProtoreflectEnumDescriptors$ on GoHandle {
   /// Go: `func (protoreflect.EnumDescriptors).ByName(s protoreflect.Name) protoreflect.EnumDescriptor`.
   ProtobufReflectProtoreflectEnumDescriptor byName(String s) {
     final $r = $callSync(
-        24837,
+        24839,
         $W()
           ..h(this)
           ..str(s));
@@ -265,7 +265,7 @@ mixin ProtobufReflectProtoreflectEnumDescriptors$ on GoHandle {
   /// Go: `func (protoreflect.EnumDescriptors).Get(i int) protoreflect.EnumDescriptor`.
   ProtobufReflectProtoreflectEnumDescriptor get(int i) {
     final $r = $callSync(
-        24838,
+        24840,
         $W()
           ..h(this)
           ..i64(i));
@@ -274,7 +274,7 @@ mixin ProtobufReflectProtoreflectEnumDescriptors$ on GoHandle {
 
   /// Go: `func (protoreflect.EnumDescriptors).Len() int`.
   int len() {
-    final $r = $callSync(24839, $W()..h(this));
+    final $r = $callSync(24841, $W()..h(this));
     return $r.i64();
   }
 }
@@ -290,7 +290,7 @@ mixin ProtobufReflectProtoreflectEnumRanges$ on GoHandle {
   /// Go: `func (protoreflect.EnumRanges).Has(n protoreflect.EnumNumber) bool`.
   bool has(int n) {
     final $r = $callSync(
-        24840,
+        24842,
         $W()
           ..h(this)
           ..i64(n));
@@ -299,7 +299,7 @@ mixin ProtobufReflectProtoreflectEnumRanges$ on GoHandle {
 
   /// Go: `func (protoreflect.EnumRanges).Len() int`.
   int len() {
-    final $r = $callSync(24841, $W()..h(this));
+    final $r = $callSync(24843, $W()..h(this));
     return $r.i64();
   }
 }
@@ -314,14 +314,14 @@ class ProtobufReflectProtoreflectEnumType extends GoHandle
 mixin ProtobufReflectProtoreflectEnumType$ on GoHandle {
   /// Go: `func (protoreflect.EnumType).Descriptor() protoreflect.EnumDescriptor`.
   ProtobufReflectProtoreflectEnumDescriptor descriptor() {
-    final $r = $callSync(24842, $W()..h(this));
+    final $r = $callSync(24844, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectEnumDescriptor.$h);
   }
 
   /// Go: `func (protoreflect.EnumType).New(n protoreflect.EnumNumber) protoreflect.Enum`.
   ProtobufReflectProtoreflectEnum new$(int n) {
     final $r = $callSync(
-        24843,
+        24845,
         $W()
           ..h(this)
           ..i64(n));
@@ -340,7 +340,7 @@ class ProtobufReflectProtoreflectEnumValueDescriptor
 mixin ProtobufReflectProtoreflectEnumValueDescriptor$ on GoHandle {
   /// Go: `func (protoreflect.EnumValueDescriptor).Number() protoreflect.EnumNumber`.
   int number() {
-    final $r = $callSync(24844, $W()..h(this));
+    final $r = $callSync(24846, $W()..h(this));
     return $r.i64();
   }
 }
@@ -356,7 +356,7 @@ mixin ProtobufReflectProtoreflectEnumValueDescriptors$ on GoHandle {
   /// Go: `func (protoreflect.EnumValueDescriptors).ByName(s protoreflect.Name) protoreflect.EnumValueDescriptor`.
   ProtobufReflectProtoreflectEnumValueDescriptor byName(String s) {
     final $r = $callSync(
-        24845,
+        24847,
         $W()
           ..h(this)
           ..str(s));
@@ -366,7 +366,7 @@ mixin ProtobufReflectProtoreflectEnumValueDescriptors$ on GoHandle {
   /// Go: `func (protoreflect.EnumValueDescriptors).ByNumber(n protoreflect.EnumNumber) protoreflect.EnumValueDescriptor`.
   ProtobufReflectProtoreflectEnumValueDescriptor byNumber(int n) {
     final $r = $callSync(
-        24846,
+        24848,
         $W()
           ..h(this)
           ..i64(n));
@@ -376,7 +376,7 @@ mixin ProtobufReflectProtoreflectEnumValueDescriptors$ on GoHandle {
   /// Go: `func (protoreflect.EnumValueDescriptors).Get(i int) protoreflect.EnumValueDescriptor`.
   ProtobufReflectProtoreflectEnumValueDescriptor get(int i) {
     final $r = $callSync(
-        24847,
+        24849,
         $W()
           ..h(this)
           ..i64(i));
@@ -385,7 +385,7 @@ mixin ProtobufReflectProtoreflectEnumValueDescriptors$ on GoHandle {
 
   /// Go: `func (protoreflect.EnumValueDescriptors).Len() int`.
   int len() {
-    final $r = $callSync(24848, $W()..h(this));
+    final $r = $callSync(24850, $W()..h(this));
     return $r.i64();
   }
 }
@@ -401,7 +401,7 @@ mixin ProtobufReflectProtoreflectExtensionDescriptors$ on GoHandle {
   /// Go: `func (protoreflect.ExtensionDescriptors).ByName(s protoreflect.Name) protoreflect.ExtensionDescriptor`.
   ProtobufReflectProtoreflectFieldDescriptor byName(String s) {
     final $r = $callSync(
-        24849,
+        24851,
         $W()
           ..h(this)
           ..str(s));
@@ -411,7 +411,7 @@ mixin ProtobufReflectProtoreflectExtensionDescriptors$ on GoHandle {
   /// Go: `func (protoreflect.ExtensionDescriptors).Get(i int) protoreflect.ExtensionDescriptor`.
   ProtobufReflectProtoreflectFieldDescriptor get(int i) {
     final $r = $callSync(
-        24850,
+        24852,
         $W()
           ..h(this)
           ..i64(i));
@@ -420,7 +420,7 @@ mixin ProtobufReflectProtoreflectExtensionDescriptors$ on GoHandle {
 
   /// Go: `func (protoreflect.ExtensionDescriptors).Len() int`.
   int len() {
-    final $r = $callSync(24851, $W()..h(this));
+    final $r = $callSync(24853, $W()..h(this));
     return $r.i64();
   }
 }
@@ -436,7 +436,7 @@ mixin ProtobufReflectProtoreflectExtensionType$ on GoHandle {
   /// Go: `func (protoreflect.ExtensionType).InterfaceOf(protoreflect.Value) any`.
   Object? interfaceOf(ProtobufReflectProtoreflectValue value) {
     final $r = $callSync(
-        24852,
+        24854,
         $W()
           ..h(this)
           ..h(value));
@@ -446,7 +446,7 @@ mixin ProtobufReflectProtoreflectExtensionType$ on GoHandle {
   /// Go: `func (protoreflect.ExtensionType).IsValidInterface(any) bool`.
   bool isValidInterface(Object? arg0) {
     final $r = $callSync(
-        24853,
+        24855,
         $W()
           ..h(this)
           ..any(arg0));
@@ -456,7 +456,7 @@ mixin ProtobufReflectProtoreflectExtensionType$ on GoHandle {
   /// Go: `func (protoreflect.ExtensionType).IsValidValue(protoreflect.Value) bool`.
   bool isValidValue(ProtobufReflectProtoreflectValue value) {
     final $r = $callSync(
-        24854,
+        24856,
         $W()
           ..h(this)
           ..h(value));
@@ -465,20 +465,20 @@ mixin ProtobufReflectProtoreflectExtensionType$ on GoHandle {
 
   /// Go: `func (protoreflect.ExtensionType).New() protoreflect.Value`.
   ProtobufReflectProtoreflectValue new$() {
-    final $r = $callSync(24855, $W()..h(this));
+    final $r = $callSync(24857, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectValue.$h);
   }
 
   /// Go: `func (protoreflect.ExtensionType).TypeDescriptor() protoreflect.ExtensionTypeDescriptor`.
   ProtobufReflectProtoreflectExtensionTypeDescriptor typeDescriptor() {
-    final $r = $callSync(24856, $W()..h(this));
+    final $r = $callSync(24858, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectExtensionTypeDescriptor.$h);
   }
 
   /// Go: `func (protoreflect.ExtensionType).ValueOf(any) protoreflect.Value`.
   ProtobufReflectProtoreflectValue valueOf(Object? arg0) {
     final $r = $callSync(
-        24857,
+        24859,
         $W()
           ..h(this)
           ..any(arg0));
@@ -487,7 +487,7 @@ mixin ProtobufReflectProtoreflectExtensionType$ on GoHandle {
 
   /// Go: `func (protoreflect.ExtensionType).Zero() protoreflect.Value`.
   ProtobufReflectProtoreflectValue zero() {
-    final $r = $callSync(24858, $W()..h(this));
+    final $r = $callSync(24860, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectValue.$h);
   }
 }
@@ -508,13 +508,13 @@ class ProtobufReflectProtoreflectExtensionTypeDescriptor extends GoHandle
 mixin ProtobufReflectProtoreflectExtensionTypeDescriptor$ on GoHandle {
   /// Go: `func (protoreflect.ExtensionTypeDescriptor).Descriptor() protoreflect.ExtensionDescriptor`.
   ProtobufReflectProtoreflectFieldDescriptor descriptor() {
-    final $r = $callSync(24859, $W()..h(this));
+    final $r = $callSync(24861, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectFieldDescriptor.$h);
   }
 
   /// Go: `func (protoreflect.ExtensionTypeDescriptor).Type() protoreflect.ExtensionType`.
   ProtobufReflectProtoreflectExtensionType type() {
-    final $r = $callSync(24860, $W()..h(this));
+    final $r = $callSync(24862, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectExtensionType.$h);
   }
 }
@@ -530,134 +530,134 @@ class ProtobufReflectProtoreflectFieldDescriptor
 mixin ProtobufReflectProtoreflectFieldDescriptor$ on GoHandle {
   /// Go: `func (protoreflect.FieldDescriptor).Cardinality() protoreflect.Cardinality`.
   int cardinality() {
-    final $r = $callSync(24861, $W()..h(this));
+    final $r = $callSync(24863, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (protoreflect.FieldDescriptor).ContainingMessage() protoreflect.MessageDescriptor`.
   ProtobufReflectProtoreflectMessageDescriptor containingMessage() {
-    final $r = $callSync(24862, $W()..h(this));
+    final $r = $callSync(24864, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectMessageDescriptor.$h);
   }
 
   /// Go: `func (protoreflect.FieldDescriptor).ContainingOneof() protoreflect.OneofDescriptor`.
   ProtobufReflectProtoreflectOneofDescriptor containingOneof() {
-    final $r = $callSync(24863, $W()..h(this));
+    final $r = $callSync(24865, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectOneofDescriptor.$h);
   }
 
   /// Go: `func (protoreflect.FieldDescriptor).Default() protoreflect.Value`.
   ProtobufReflectProtoreflectValue default$() {
-    final $r = $callSync(24864, $W()..h(this));
+    final $r = $callSync(24866, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectValue.$h);
   }
 
   /// Go: `func (protoreflect.FieldDescriptor).DefaultEnumValue() protoreflect.EnumValueDescriptor`.
   ProtobufReflectProtoreflectEnumValueDescriptor defaultEnumValue() {
-    final $r = $callSync(24865, $W()..h(this));
+    final $r = $callSync(24867, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectEnumValueDescriptor.$h);
   }
 
   /// Go: `func (protoreflect.FieldDescriptor).Enum() protoreflect.EnumDescriptor`.
   ProtobufReflectProtoreflectEnumDescriptor enum$() {
-    final $r = $callSync(24866, $W()..h(this));
+    final $r = $callSync(24868, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectEnumDescriptor.$h);
   }
 
   /// Go: `func (protoreflect.FieldDescriptor).HasDefault() bool`.
   bool hasDefault() {
-    final $r = $callSync(24867, $W()..h(this));
+    final $r = $callSync(24869, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (protoreflect.FieldDescriptor).HasJSONName() bool`.
   bool hasJsonName() {
-    final $r = $callSync(24868, $W()..h(this));
+    final $r = $callSync(24870, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (protoreflect.FieldDescriptor).HasOptionalKeyword() bool`.
   bool hasOptionalKeyword() {
-    final $r = $callSync(24869, $W()..h(this));
+    final $r = $callSync(24871, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (protoreflect.FieldDescriptor).HasPresence() bool`.
   bool hasPresence() {
-    final $r = $callSync(24870, $W()..h(this));
+    final $r = $callSync(24872, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (protoreflect.FieldDescriptor).IsExtension() bool`.
   bool isExtension() {
-    final $r = $callSync(24871, $W()..h(this));
+    final $r = $callSync(24873, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (protoreflect.FieldDescriptor).IsList() bool`.
   bool isList() {
-    final $r = $callSync(24872, $W()..h(this));
+    final $r = $callSync(24874, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (protoreflect.FieldDescriptor).IsMap() bool`.
   bool isMap() {
-    final $r = $callSync(24873, $W()..h(this));
+    final $r = $callSync(24875, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (protoreflect.FieldDescriptor).IsPacked() bool`.
   bool isPacked() {
-    final $r = $callSync(24874, $W()..h(this));
+    final $r = $callSync(24876, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (protoreflect.FieldDescriptor).IsWeak() bool`.
   @Deprecated("support for weak fields has been removed.")
   bool isWeak() {
-    final $r = $callSync(24875, $W()..h(this));
+    final $r = $callSync(24877, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (protoreflect.FieldDescriptor).JSONName() string`.
   String jsonName() {
-    final $r = $callSync(24876, $W()..h(this));
+    final $r = $callSync(24878, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (protoreflect.FieldDescriptor).Kind() protoreflect.Kind`.
   int kind() {
-    final $r = $callSync(24877, $W()..h(this));
+    final $r = $callSync(24879, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (protoreflect.FieldDescriptor).MapKey() protoreflect.FieldDescriptor`.
   ProtobufReflectProtoreflectFieldDescriptor mapKey() {
-    final $r = $callSync(24878, $W()..h(this));
+    final $r = $callSync(24880, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectFieldDescriptor.$h);
   }
 
   /// Go: `func (protoreflect.FieldDescriptor).MapValue() protoreflect.FieldDescriptor`.
   ProtobufReflectProtoreflectFieldDescriptor mapValue() {
-    final $r = $callSync(24879, $W()..h(this));
+    final $r = $callSync(24881, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectFieldDescriptor.$h);
   }
 
   /// Go: `func (protoreflect.FieldDescriptor).Message() protoreflect.MessageDescriptor`.
   ProtobufReflectProtoreflectMessageDescriptor message() {
-    final $r = $callSync(24880, $W()..h(this));
+    final $r = $callSync(24882, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectMessageDescriptor.$h);
   }
 
   /// Go: `func (protoreflect.FieldDescriptor).Number() protoreflect.FieldNumber`.
   int number() {
-    final $r = $callSync(24881, $W()..h(this));
+    final $r = $callSync(24883, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (protoreflect.FieldDescriptor).TextName() string`.
   String textName() {
-    final $r = $callSync(24882, $W()..h(this));
+    final $r = $callSync(24884, $W()..h(this));
     return $r.str();
   }
 
@@ -680,7 +680,7 @@ mixin ProtobufReflectProtoreflectFieldDescriptors$ on GoHandle {
   /// Go: `func (protoreflect.FieldDescriptors).ByJSONName(s string) protoreflect.FieldDescriptor`.
   ProtobufReflectProtoreflectFieldDescriptor byJsonName(String s) {
     final $r = $callSync(
-        24883,
+        24885,
         $W()
           ..h(this)
           ..str(s));
@@ -690,7 +690,7 @@ mixin ProtobufReflectProtoreflectFieldDescriptors$ on GoHandle {
   /// Go: `func (protoreflect.FieldDescriptors).ByName(s protoreflect.Name) protoreflect.FieldDescriptor`.
   ProtobufReflectProtoreflectFieldDescriptor byName(String s) {
     final $r = $callSync(
-        24884,
+        24886,
         $W()
           ..h(this)
           ..str(s));
@@ -700,7 +700,7 @@ mixin ProtobufReflectProtoreflectFieldDescriptors$ on GoHandle {
   /// Go: `func (protoreflect.FieldDescriptors).ByNumber(n protoreflect.FieldNumber) protoreflect.FieldDescriptor`.
   ProtobufReflectProtoreflectFieldDescriptor byNumber(int n) {
     final $r = $callSync(
-        24885,
+        24887,
         $W()
           ..h(this)
           ..i64(n));
@@ -710,7 +710,7 @@ mixin ProtobufReflectProtoreflectFieldDescriptors$ on GoHandle {
   /// Go: `func (protoreflect.FieldDescriptors).ByTextName(s string) protoreflect.FieldDescriptor`.
   ProtobufReflectProtoreflectFieldDescriptor byTextName(String s) {
     final $r = $callSync(
-        24886,
+        24888,
         $W()
           ..h(this)
           ..str(s));
@@ -720,7 +720,7 @@ mixin ProtobufReflectProtoreflectFieldDescriptors$ on GoHandle {
   /// Go: `func (protoreflect.FieldDescriptors).Get(i int) protoreflect.FieldDescriptor`.
   ProtobufReflectProtoreflectFieldDescriptor get(int i) {
     final $r = $callSync(
-        24887,
+        24889,
         $W()
           ..h(this)
           ..i64(i));
@@ -729,7 +729,7 @@ mixin ProtobufReflectProtoreflectFieldDescriptors$ on GoHandle {
 
   /// Go: `func (protoreflect.FieldDescriptors).Len() int`.
   int len() {
-    final $r = $callSync(24888, $W()..h(this));
+    final $r = $callSync(24890, $W()..h(this));
     return $r.i64();
   }
 }
@@ -745,7 +745,7 @@ mixin ProtobufReflectProtoreflectFieldNumbers$ on GoHandle {
   /// Go: `func (protoreflect.FieldNumbers).Get(i int) protoreflect.FieldNumber`.
   int get(int i) {
     final $r = $callSync(
-        24889,
+        24891,
         $W()
           ..h(this)
           ..i64(i));
@@ -755,7 +755,7 @@ mixin ProtobufReflectProtoreflectFieldNumbers$ on GoHandle {
   /// Go: `func (protoreflect.FieldNumbers).Has(n protoreflect.FieldNumber) bool`.
   bool has(int n) {
     final $r = $callSync(
-        24890,
+        24892,
         $W()
           ..h(this)
           ..i64(n));
@@ -764,7 +764,7 @@ mixin ProtobufReflectProtoreflectFieldNumbers$ on GoHandle {
 
   /// Go: `func (protoreflect.FieldNumbers).Len() int`.
   int len() {
-    final $r = $callSync(24891, $W()..h(this));
+    final $r = $callSync(24893, $W()..h(this));
     return $r.i64();
   }
 }
@@ -780,7 +780,7 @@ mixin ProtobufReflectProtoreflectFieldRanges$ on GoHandle {
   /// Go: `func (protoreflect.FieldRanges).Has(n protoreflect.FieldNumber) bool`.
   bool has(int n) {
     final $r = $callSync(
-        24892,
+        24894,
         $W()
           ..h(this)
           ..i64(n));
@@ -789,7 +789,7 @@ mixin ProtobufReflectProtoreflectFieldRanges$ on GoHandle {
 
   /// Go: `func (protoreflect.FieldRanges).Len() int`.
   int len() {
-    final $r = $callSync(24893, $W()..h(this));
+    final $r = $callSync(24895, $W()..h(this));
     return $r.i64();
   }
 }
@@ -805,49 +805,49 @@ class ProtobufReflectProtoreflectFileDescriptor
 mixin ProtobufReflectProtoreflectFileDescriptor$ on GoHandle {
   /// Go: `func (protoreflect.FileDescriptor).Enums() protoreflect.EnumDescriptors`.
   ProtobufReflectProtoreflectEnumDescriptors enums() {
-    final $r = $callSync(24894, $W()..h(this));
+    final $r = $callSync(24896, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectEnumDescriptors.$h);
   }
 
   /// Go: `func (protoreflect.FileDescriptor).Extensions() protoreflect.ExtensionDescriptors`.
   ProtobufReflectProtoreflectExtensionDescriptors extensions() {
-    final $r = $callSync(24895, $W()..h(this));
+    final $r = $callSync(24897, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectExtensionDescriptors.$h);
   }
 
   /// Go: `func (protoreflect.FileDescriptor).Imports() protoreflect.FileImports`.
   ProtobufReflectProtoreflectFileImports imports() {
-    final $r = $callSync(24896, $W()..h(this));
+    final $r = $callSync(24898, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectFileImports.$h);
   }
 
   /// Go: `func (protoreflect.FileDescriptor).Messages() protoreflect.MessageDescriptors`.
   ProtobufReflectProtoreflectMessageDescriptors messages() {
-    final $r = $callSync(24897, $W()..h(this));
+    final $r = $callSync(24899, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectMessageDescriptors.$h);
   }
 
   /// Go: `func (protoreflect.FileDescriptor).Package() protoreflect.FullName`.
   String package() {
-    final $r = $callSync(24898, $W()..h(this));
+    final $r = $callSync(24900, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (protoreflect.FileDescriptor).Path() string`.
   String path() {
-    final $r = $callSync(24899, $W()..h(this));
+    final $r = $callSync(24901, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (protoreflect.FileDescriptor).Services() protoreflect.ServiceDescriptors`.
   ProtobufReflectProtoreflectServiceDescriptors services() {
-    final $r = $callSync(24900, $W()..h(this));
+    final $r = $callSync(24902, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectServiceDescriptors.$h);
   }
 
   /// Go: `func (protoreflect.FileDescriptor).SourceLocations() protoreflect.SourceLocations`.
   ProtobufReflectProtoreflectSourceLocations sourceLocations() {
-    final $r = $callSync(24901, $W()..h(this));
+    final $r = $callSync(24903, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectSourceLocations.$h);
   }
 
@@ -866,86 +866,86 @@ class ProtobufReflectProtoreflectFileImport
 
   /// Go: `func (protoreflect.FileDescriptor).Enums() protoreflect.EnumDescriptors`.
   ProtobufReflectProtoreflectEnumDescriptors enums() {
-    final $r = $callSync(24902, $W()..h(this));
+    final $r = $callSync(24904, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectEnumDescriptors.$h);
   }
 
   /// Go: `func (protoreflect.FileDescriptor).Extensions() protoreflect.ExtensionDescriptors`.
   ProtobufReflectProtoreflectExtensionDescriptors extensions() {
-    final $r = $callSync(24903, $W()..h(this));
+    final $r = $callSync(24905, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectExtensionDescriptors.$h);
   }
 
   /// Go: `func (protoreflect.Descriptor).FullName() protoreflect.FullName`.
   String fullName() {
-    final $r = $callSync(24904, $W()..h(this));
+    final $r = $callSync(24906, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (protoreflect.FileDescriptor).Imports() protoreflect.FileImports`.
   ProtobufReflectProtoreflectFileImports imports() {
-    final $r = $callSync(24905, $W()..h(this));
+    final $r = $callSync(24907, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectFileImports.$h);
   }
 
   /// Go: `func (protoreflect.Descriptor).Index() int`.
   int index() {
-    final $r = $callSync(24906, $W()..h(this));
+    final $r = $callSync(24908, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (protoreflect.Descriptor).IsPlaceholder() bool`.
   bool isPlaceholder() {
-    final $r = $callSync(24907, $W()..h(this));
+    final $r = $callSync(24909, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (protoreflect.FileDescriptor).Messages() protoreflect.MessageDescriptors`.
   ProtobufReflectProtoreflectMessageDescriptors messages() {
-    final $r = $callSync(24908, $W()..h(this));
+    final $r = $callSync(24910, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectMessageDescriptors.$h);
   }
 
   /// Go: `func (protoreflect.Descriptor).Name() protoreflect.Name`.
   String name() {
-    final $r = $callSync(24909, $W()..h(this));
+    final $r = $callSync(24911, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (protoreflect.Descriptor).Options() protoreflect.ProtoMessage`.
   ProtobufReflectProtoreflectProtoMessage options() {
-    final $r = $callSync(24910, $W()..h(this));
+    final $r = $callSync(24912, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectProtoMessage.$h);
   }
 
   /// Go: `func (protoreflect.FileDescriptor).Package() protoreflect.FullName`.
   String package() {
-    final $r = $callSync(24911, $W()..h(this));
+    final $r = $callSync(24913, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (protoreflect.Descriptor).Parent() protoreflect.Descriptor`.
   ProtobufReflectProtoreflectDescriptor parent() {
-    final $r = $callSync(24912, $W()..h(this));
+    final $r = $callSync(24914, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectDescriptor.$h);
   }
 
   /// Go: `func (protoreflect.Descriptor).ParentFile() protoreflect.FileDescriptor`.
   ProtobufReflectProtoreflectFileDescriptor parentFile() {
-    final $r = $callSync(24913, $W()..h(this));
+    final $r = $callSync(24915, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectFileDescriptor.$h);
   }
 
   /// Go: `func (protoreflect.FileDescriptor).Path() string`.
   String path() {
-    final $r = $callSync(24914, $W()..h(this));
+    final $r = $callSync(24916, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (protoreflect.isFileDescriptor).ProtoType(protoreflect.FileDescriptor)`.
   void protoType(ProtobufReflectProtoreflectFileDescriptor fileDescriptor) {
     $callSync(
-        24915,
+        24917,
         $W()
           ..h(this)
           ..h(fileDescriptor));
@@ -953,19 +953,19 @@ class ProtobufReflectProtoreflectFileImport
 
   /// Go: `func (protoreflect.FileDescriptor).Services() protoreflect.ServiceDescriptors`.
   ProtobufReflectProtoreflectServiceDescriptors services() {
-    final $r = $callSync(24916, $W()..h(this));
+    final $r = $callSync(24918, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectServiceDescriptors.$h);
   }
 
   /// Go: `func (protoreflect.FileDescriptor).SourceLocations() protoreflect.SourceLocations`.
   ProtobufReflectProtoreflectSourceLocations sourceLocations() {
-    final $r = $callSync(24917, $W()..h(this));
+    final $r = $callSync(24919, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectSourceLocations.$h);
   }
 
   /// Go: `func (protoreflect.Descriptor).Syntax() protoreflect.Syntax`.
   int syntax() {
-    final $r = $callSync(24918, $W()..h(this));
+    final $r = $callSync(24920, $W()..h(this));
     return $r.i64();
   }
 }
@@ -981,7 +981,7 @@ mixin ProtobufReflectProtoreflectFileImports$ on GoHandle {
   /// Go: `func (protoreflect.FileImports).Get(i int) protoreflect.FileImport`.
   ProtobufReflectProtoreflectFileImport get(int i) {
     final $r = $callSync(
-        24919,
+        24921,
         $W()
           ..h(this)
           ..i64(i));
@@ -990,7 +990,7 @@ mixin ProtobufReflectProtoreflectFileImports$ on GoHandle {
 
   /// Go: `func (protoreflect.FileImports).Len() int`.
   int len() {
-    final $r = $callSync(24920, $W()..h(this));
+    final $r = $callSync(24922, $W()..h(this));
     return $r.i64();
   }
 }
@@ -1006,7 +1006,7 @@ mixin ProtobufReflectProtoreflectList$ on GoHandle {
   /// Go: `func (protoreflect.List).Append(protoreflect.Value)`.
   void append(ProtobufReflectProtoreflectValue value) {
     $callSync(
-        24921,
+        24923,
         $W()
           ..h(this)
           ..h(value));
@@ -1014,14 +1014,14 @@ mixin ProtobufReflectProtoreflectList$ on GoHandle {
 
   /// Go: `func (protoreflect.List).AppendMutable() protoreflect.Value`.
   ProtobufReflectProtoreflectValue appendMutable() {
-    final $r = $callSync(24922, $W()..h(this));
+    final $r = $callSync(24924, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectValue.$h);
   }
 
   /// Go: `func (protoreflect.List).Get(int) protoreflect.Value`.
   ProtobufReflectProtoreflectValue get(int arg0) {
     final $r = $callSync(
-        24923,
+        24925,
         $W()
           ..h(this)
           ..i64(arg0));
@@ -1030,26 +1030,26 @@ mixin ProtobufReflectProtoreflectList$ on GoHandle {
 
   /// Go: `func (protoreflect.List).IsValid() bool`.
   bool isValid() {
-    final $r = $callSync(24924, $W()..h(this));
+    final $r = $callSync(24926, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (protoreflect.List).Len() int`.
   int len() {
-    final $r = $callSync(24925, $W()..h(this));
+    final $r = $callSync(24927, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (protoreflect.List).NewElement() protoreflect.Value`.
   ProtobufReflectProtoreflectValue newElement() {
-    final $r = $callSync(24926, $W()..h(this));
+    final $r = $callSync(24928, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectValue.$h);
   }
 
   /// Go: `func (protoreflect.List).Set(int, protoreflect.Value)`.
   void set(int arg0, ProtobufReflectProtoreflectValue value) {
     $callSync(
-        24927,
+        24929,
         $W()
           ..h(this)
           ..i64(arg0)
@@ -1059,7 +1059,7 @@ mixin ProtobufReflectProtoreflectList$ on GoHandle {
   /// Go: `func (protoreflect.List).Truncate(int)`.
   void truncate(int arg0) {
     $callSync(
-        24928,
+        24930,
         $W()
           ..h(this)
           ..i64(arg0));
@@ -1077,7 +1077,7 @@ mixin ProtobufReflectProtoreflectMap$ on GoHandle {
   /// Go: `func (protoreflect.Map).Clear(protoreflect.MapKey)`.
   void clear(ProtobufReflectProtoreflectMapKey mapKey) {
     $callSync(
-        24929,
+        24931,
         $W()
           ..h(this)
           ..h(mapKey));
@@ -1087,7 +1087,7 @@ mixin ProtobufReflectProtoreflectMap$ on GoHandle {
   ProtobufReflectProtoreflectValue get(
       ProtobufReflectProtoreflectMapKey mapKey) {
     final $r = $callSync(
-        24930,
+        24932,
         $W()
           ..h(this)
           ..h(mapKey));
@@ -1097,7 +1097,7 @@ mixin ProtobufReflectProtoreflectMap$ on GoHandle {
   /// Go: `func (protoreflect.Map).Has(protoreflect.MapKey) bool`.
   bool has(ProtobufReflectProtoreflectMapKey mapKey) {
     final $r = $callSync(
-        24931,
+        24933,
         $W()
           ..h(this)
           ..h(mapKey));
@@ -1106,13 +1106,13 @@ mixin ProtobufReflectProtoreflectMap$ on GoHandle {
 
   /// Go: `func (protoreflect.Map).IsValid() bool`.
   bool isValid() {
-    final $r = $callSync(24932, $W()..h(this));
+    final $r = $callSync(24934, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (protoreflect.Map).Len() int`.
   int len() {
-    final $r = $callSync(24933, $W()..h(this));
+    final $r = $callSync(24935, $W()..h(this));
     return $r.i64();
   }
 
@@ -1120,7 +1120,7 @@ mixin ProtobufReflectProtoreflectMap$ on GoHandle {
   ProtobufReflectProtoreflectValue mutable(
       ProtobufReflectProtoreflectMapKey mapKey) {
     final $r = $callSync(
-        24934,
+        24936,
         $W()
           ..h(this)
           ..h(mapKey));
@@ -1129,7 +1129,7 @@ mixin ProtobufReflectProtoreflectMap$ on GoHandle {
 
   /// Go: `func (protoreflect.Map).NewValue() protoreflect.Value`.
   ProtobufReflectProtoreflectValue newValue() {
-    final $r = $callSync(24935, $W()..h(this));
+    final $r = $callSync(24937, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectValue.$h);
   }
 
@@ -1145,7 +1145,7 @@ mixin ProtobufReflectProtoreflectMap$ on GoHandle {
               ProtobufReflectProtoreflectValue value)
           f) async {
     await $call(
-        24936,
+        24938,
         $W()
           ..h(this)
           ..cb(
@@ -1158,7 +1158,7 @@ mixin ProtobufReflectProtoreflectMap$ on GoHandle {
   void set(ProtobufReflectProtoreflectMapKey mapKey,
       ProtobufReflectProtoreflectValue value) {
     $callSync(
-        24937,
+        24939,
         $W()
           ..h(this)
           ..h(mapKey)
@@ -1172,43 +1172,43 @@ class ProtobufReflectProtoreflectMapKey extends GoHandle {
 
   /// Go: `func (protoreflect.MapKey).Bool() bool`.
   bool bool$() {
-    final $r = $callSync(24938, $W()..h(this));
+    final $r = $callSync(24940, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (protoreflect.MapKey).Int() int64`.
   int int$() {
-    final $r = $callSync(24939, $W()..h(this));
+    final $r = $callSync(24941, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (protoreflect.MapKey).Interface() any`.
   Object? interface() {
-    final $r = $callSync(24940, $W()..h(this));
+    final $r = $callSync(24942, $W()..h(this));
     return $r.any();
   }
 
   /// Go: `func (protoreflect.MapKey).IsValid() bool`.
   bool isValid() {
-    final $r = $callSync(24941, $W()..h(this));
+    final $r = $callSync(24943, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (protoreflect.MapKey).String() string`.
   String string() {
-    final $r = $callSync(24942, $W()..h(this));
+    final $r = $callSync(24944, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (protoreflect.MapKey).Uint() uint64`.
   int uint() {
-    final $r = $callSync(24943, $W()..h(this));
+    final $r = $callSync(24945, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (protoreflect.MapKey).Value() protoreflect.Value`.
   ProtobufReflectProtoreflectValue value$() {
-    final $r = $callSync(24944, $W()..h(this));
+    final $r = $callSync(24946, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectValue.$h);
   }
 }
@@ -1224,7 +1224,7 @@ mixin ProtobufReflectProtoreflectMessage$ on GoHandle {
   /// Go: `func (protoreflect.Message).Clear(protoreflect.FieldDescriptor)`.
   void clear(ProtobufReflectProtoreflectFieldDescriptor fieldDescriptor) {
     $callSync(
-        24945,
+        24947,
         $W()
           ..h(this)
           ..h(fieldDescriptor));
@@ -1232,7 +1232,7 @@ mixin ProtobufReflectProtoreflectMessage$ on GoHandle {
 
   /// Go: `func (protoreflect.Message).Descriptor() protoreflect.MessageDescriptor`.
   ProtobufReflectProtoreflectMessageDescriptor descriptor() {
-    final $r = $callSync(24946, $W()..h(this));
+    final $r = $callSync(24948, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectMessageDescriptor.$h);
   }
 
@@ -1240,7 +1240,7 @@ mixin ProtobufReflectProtoreflectMessage$ on GoHandle {
   ProtobufReflectProtoreflectValue get(
       ProtobufReflectProtoreflectFieldDescriptor fieldDescriptor) {
     final $r = $callSync(
-        24947,
+        24949,
         $W()
           ..h(this)
           ..h(fieldDescriptor));
@@ -1249,14 +1249,14 @@ mixin ProtobufReflectProtoreflectMessage$ on GoHandle {
 
   /// Go: `func (protoreflect.Message).GetUnknown() protoreflect.RawFields`.
   Uint8List getUnknown() {
-    final $r = $callSync(24948, $W()..h(this));
+    final $r = $callSync(24950, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (protoreflect.Message).Has(protoreflect.FieldDescriptor) bool`.
   bool has(ProtobufReflectProtoreflectFieldDescriptor fieldDescriptor) {
     final $r = $callSync(
-        24949,
+        24951,
         $W()
           ..h(this)
           ..h(fieldDescriptor));
@@ -1265,13 +1265,13 @@ mixin ProtobufReflectProtoreflectMessage$ on GoHandle {
 
   /// Go: `func (protoreflect.Message).Interface() protoreflect.ProtoMessage`.
   ProtobufReflectProtoreflectProtoMessage interface() {
-    final $r = $callSync(24950, $W()..h(this));
+    final $r = $callSync(24952, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectProtoMessage.$h);
   }
 
   /// Go: `func (protoreflect.Message).IsValid() bool`.
   bool isValid() {
-    final $r = $callSync(24951, $W()..h(this));
+    final $r = $callSync(24953, $W()..h(this));
     return $r.b();
   }
 
@@ -1279,7 +1279,7 @@ mixin ProtobufReflectProtoreflectMessage$ on GoHandle {
   ProtobufReflectProtoreflectValue mutable(
       ProtobufReflectProtoreflectFieldDescriptor fieldDescriptor) {
     final $r = $callSync(
-        24952,
+        24954,
         $W()
           ..h(this)
           ..h(fieldDescriptor));
@@ -1288,7 +1288,7 @@ mixin ProtobufReflectProtoreflectMessage$ on GoHandle {
 
   /// Go: `func (protoreflect.Message).New() protoreflect.Message`.
   ProtobufReflectProtoreflectMessage new$() {
-    final $r = $callSync(24953, $W()..h(this));
+    final $r = $callSync(24955, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectMessage.$h);
   }
 
@@ -1296,7 +1296,7 @@ mixin ProtobufReflectProtoreflectMessage$ on GoHandle {
   ProtobufReflectProtoreflectValue newField(
       ProtobufReflectProtoreflectFieldDescriptor fieldDescriptor) {
     final $r = $callSync(
-        24954,
+        24956,
         $W()
           ..h(this)
           ..h(fieldDescriptor));
@@ -1316,7 +1316,7 @@ mixin ProtobufReflectProtoreflectMessage$ on GoHandle {
               ProtobufReflectProtoreflectValue value)
           f) async {
     await $call(
-        24955,
+        24957,
         $W()
           ..h(this)
           ..cb(
@@ -1329,7 +1329,7 @@ mixin ProtobufReflectProtoreflectMessage$ on GoHandle {
   void set(ProtobufReflectProtoreflectFieldDescriptor fieldDescriptor,
       ProtobufReflectProtoreflectValue value) {
     $callSync(
-        24956,
+        24958,
         $W()
           ..h(this)
           ..h(fieldDescriptor)
@@ -1339,7 +1339,7 @@ mixin ProtobufReflectProtoreflectMessage$ on GoHandle {
   /// Go: `func (protoreflect.Message).SetUnknown(protoreflect.RawFields)`.
   void setUnknown(Uint8List arg0) {
     $callSync(
-        24957,
+        24959,
         $W()
           ..h(this)
           ..bytes(arg0));
@@ -1347,7 +1347,7 @@ mixin ProtobufReflectProtoreflectMessage$ on GoHandle {
 
   /// Go: `func (protoreflect.Message).Type() protoreflect.MessageType`.
   ProtobufReflectProtoreflectMessageType type() {
-    final $r = $callSync(24958, $W()..h(this));
+    final $r = $callSync(24960, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectMessageType.$h);
   }
 
@@ -1355,7 +1355,7 @@ mixin ProtobufReflectProtoreflectMessage$ on GoHandle {
   ProtobufReflectProtoreflectFieldDescriptor whichOneof(
       ProtobufReflectProtoreflectOneofDescriptor oneofDescriptor) {
     final $r = $callSync(
-        24959,
+        24961,
         $W()
           ..h(this)
           ..h(oneofDescriptor));
@@ -1374,14 +1374,14 @@ class ProtobufReflectProtoreflectMessageDescriptor
 mixin ProtobufReflectProtoreflectMessageDescriptor$ on GoHandle {
   /// Go: `func (protoreflect.MessageDescriptor).Enums() protoreflect.EnumDescriptors`.
   ProtobufReflectProtoreflectEnumDescriptors enums() {
-    final $r = $callSync(24960, $W()..h(this));
+    final $r = $callSync(24962, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectEnumDescriptors.$h);
   }
 
   /// Go: `func (protoreflect.MessageDescriptor).ExtensionRangeOptions(i int) protoreflect.ProtoMessage`.
   ProtobufReflectProtoreflectProtoMessage extensionRangeOptions(int i) {
     final $r = $callSync(
-        24961,
+        24963,
         $W()
           ..h(this)
           ..i64(i));
@@ -1390,55 +1390,55 @@ mixin ProtobufReflectProtoreflectMessageDescriptor$ on GoHandle {
 
   /// Go: `func (protoreflect.MessageDescriptor).ExtensionRanges() protoreflect.FieldRanges`.
   ProtobufReflectProtoreflectFieldRanges extensionRanges() {
-    final $r = $callSync(24962, $W()..h(this));
+    final $r = $callSync(24964, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectFieldRanges.$h);
   }
 
   /// Go: `func (protoreflect.MessageDescriptor).Extensions() protoreflect.ExtensionDescriptors`.
   ProtobufReflectProtoreflectExtensionDescriptors extensions() {
-    final $r = $callSync(24963, $W()..h(this));
+    final $r = $callSync(24965, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectExtensionDescriptors.$h);
   }
 
   /// Go: `func (protoreflect.MessageDescriptor).Fields() protoreflect.FieldDescriptors`.
   ProtobufReflectProtoreflectFieldDescriptors fields() {
-    final $r = $callSync(24964, $W()..h(this));
+    final $r = $callSync(24966, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectFieldDescriptors.$h);
   }
 
   /// Go: `func (protoreflect.MessageDescriptor).IsMapEntry() bool`.
   bool isMapEntry() {
-    final $r = $callSync(24965, $W()..h(this));
+    final $r = $callSync(24967, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (protoreflect.MessageDescriptor).Messages() protoreflect.MessageDescriptors`.
   ProtobufReflectProtoreflectMessageDescriptors messages() {
-    final $r = $callSync(24966, $W()..h(this));
+    final $r = $callSync(24968, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectMessageDescriptors.$h);
   }
 
   /// Go: `func (protoreflect.MessageDescriptor).Oneofs() protoreflect.OneofDescriptors`.
   ProtobufReflectProtoreflectOneofDescriptors oneofs() {
-    final $r = $callSync(24967, $W()..h(this));
+    final $r = $callSync(24969, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectOneofDescriptors.$h);
   }
 
   /// Go: `func (protoreflect.MessageDescriptor).RequiredNumbers() protoreflect.FieldNumbers`.
   ProtobufReflectProtoreflectFieldNumbers requiredNumbers() {
-    final $r = $callSync(24968, $W()..h(this));
+    final $r = $callSync(24970, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectFieldNumbers.$h);
   }
 
   /// Go: `func (protoreflect.MessageDescriptor).ReservedNames() protoreflect.Names`.
   ProtobufReflectProtoreflectNames reservedNames() {
-    final $r = $callSync(24969, $W()..h(this));
+    final $r = $callSync(24971, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectNames.$h);
   }
 
   /// Go: `func (protoreflect.MessageDescriptor).ReservedRanges() protoreflect.FieldRanges`.
   ProtobufReflectProtoreflectFieldRanges reservedRanges() {
-    final $r = $callSync(24970, $W()..h(this));
+    final $r = $callSync(24972, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectFieldRanges.$h);
   }
 }
@@ -1454,7 +1454,7 @@ mixin ProtobufReflectProtoreflectMessageDescriptors$ on GoHandle {
   /// Go: `func (protoreflect.MessageDescriptors).ByName(s protoreflect.Name) protoreflect.MessageDescriptor`.
   ProtobufReflectProtoreflectMessageDescriptor byName(String s) {
     final $r = $callSync(
-        24971,
+        24973,
         $W()
           ..h(this)
           ..str(s));
@@ -1464,7 +1464,7 @@ mixin ProtobufReflectProtoreflectMessageDescriptors$ on GoHandle {
   /// Go: `func (protoreflect.MessageDescriptors).Get(i int) protoreflect.MessageDescriptor`.
   ProtobufReflectProtoreflectMessageDescriptor get(int i) {
     final $r = $callSync(
-        24972,
+        24974,
         $W()
           ..h(this)
           ..i64(i));
@@ -1473,7 +1473,7 @@ mixin ProtobufReflectProtoreflectMessageDescriptors$ on GoHandle {
 
   /// Go: `func (protoreflect.MessageDescriptors).Len() int`.
   int len() {
-    final $r = $callSync(24973, $W()..h(this));
+    final $r = $callSync(24975, $W()..h(this));
     return $r.i64();
   }
 }
@@ -1490,7 +1490,7 @@ mixin ProtobufReflectProtoreflectMessageFieldTypes$ on GoHandle {
   /// Go: `func (protoreflect.MessageFieldTypes).Enum(i int) protoreflect.EnumType`.
   ProtobufReflectProtoreflectEnumType enum$(int i) {
     final $r = $callSync(
-        24974,
+        24976,
         $W()
           ..h(this)
           ..i64(i));
@@ -1500,7 +1500,7 @@ mixin ProtobufReflectProtoreflectMessageFieldTypes$ on GoHandle {
   /// Go: `func (protoreflect.MessageFieldTypes).Message(i int) protoreflect.MessageType`.
   ProtobufReflectProtoreflectMessageType message(int i) {
     final $r = $callSync(
-        24975,
+        24977,
         $W()
           ..h(this)
           ..i64(i));
@@ -1518,19 +1518,19 @@ class ProtobufReflectProtoreflectMessageType extends GoHandle
 mixin ProtobufReflectProtoreflectMessageType$ on GoHandle {
   /// Go: `func (protoreflect.MessageType).Descriptor() protoreflect.MessageDescriptor`.
   ProtobufReflectProtoreflectMessageDescriptor descriptor() {
-    final $r = $callSync(24976, $W()..h(this));
+    final $r = $callSync(24978, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectMessageDescriptor.$h);
   }
 
   /// Go: `func (protoreflect.MessageType).New() protoreflect.Message`.
   ProtobufReflectProtoreflectMessage new$() {
-    final $r = $callSync(24977, $W()..h(this));
+    final $r = $callSync(24979, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (protoreflect.MessageType).Zero() protoreflect.Message`.
   ProtobufReflectProtoreflectMessage zero() {
-    final $r = $callSync(24978, $W()..h(this));
+    final $r = $callSync(24980, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectMessage.$h);
   }
 
@@ -1553,25 +1553,25 @@ class ProtobufReflectProtoreflectMethodDescriptor
 mixin ProtobufReflectProtoreflectMethodDescriptor$ on GoHandle {
   /// Go: `func (protoreflect.MethodDescriptor).Input() protoreflect.MessageDescriptor`.
   ProtobufReflectProtoreflectMessageDescriptor input() {
-    final $r = $callSync(24979, $W()..h(this));
+    final $r = $callSync(24981, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectMessageDescriptor.$h);
   }
 
   /// Go: `func (protoreflect.MethodDescriptor).IsStreamingClient() bool`.
   bool isStreamingClient() {
-    final $r = $callSync(24980, $W()..h(this));
+    final $r = $callSync(24982, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (protoreflect.MethodDescriptor).IsStreamingServer() bool`.
   bool isStreamingServer() {
-    final $r = $callSync(24981, $W()..h(this));
+    final $r = $callSync(24983, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (protoreflect.MethodDescriptor).Output() protoreflect.MessageDescriptor`.
   ProtobufReflectProtoreflectMessageDescriptor output() {
-    final $r = $callSync(24982, $W()..h(this));
+    final $r = $callSync(24984, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectMessageDescriptor.$h);
   }
 }
@@ -1587,7 +1587,7 @@ mixin ProtobufReflectProtoreflectMethodDescriptors$ on GoHandle {
   /// Go: `func (protoreflect.MethodDescriptors).ByName(s protoreflect.Name) protoreflect.MethodDescriptor`.
   ProtobufReflectProtoreflectMethodDescriptor byName(String s) {
     final $r = $callSync(
-        24983,
+        24985,
         $W()
           ..h(this)
           ..str(s));
@@ -1597,7 +1597,7 @@ mixin ProtobufReflectProtoreflectMethodDescriptors$ on GoHandle {
   /// Go: `func (protoreflect.MethodDescriptors).Get(i int) protoreflect.MethodDescriptor`.
   ProtobufReflectProtoreflectMethodDescriptor get(int i) {
     final $r = $callSync(
-        24984,
+        24986,
         $W()
           ..h(this)
           ..i64(i));
@@ -1606,7 +1606,7 @@ mixin ProtobufReflectProtoreflectMethodDescriptors$ on GoHandle {
 
   /// Go: `func (protoreflect.MethodDescriptors).Len() int`.
   int len() {
-    final $r = $callSync(24985, $W()..h(this));
+    final $r = $callSync(24987, $W()..h(this));
     return $r.i64();
   }
 }
@@ -1622,7 +1622,7 @@ mixin ProtobufReflectProtoreflectNames$ on GoHandle {
   /// Go: `func (protoreflect.Names).Get(i int) protoreflect.Name`.
   String get(int i) {
     final $r = $callSync(
-        24986,
+        24988,
         $W()
           ..h(this)
           ..i64(i));
@@ -1632,7 +1632,7 @@ mixin ProtobufReflectProtoreflectNames$ on GoHandle {
   /// Go: `func (protoreflect.Names).Has(s protoreflect.Name) bool`.
   bool has(String s) {
     final $r = $callSync(
-        24987,
+        24989,
         $W()
           ..h(this)
           ..str(s));
@@ -1641,7 +1641,7 @@ mixin ProtobufReflectProtoreflectNames$ on GoHandle {
 
   /// Go: `func (protoreflect.Names).Len() int`.
   int len() {
-    final $r = $callSync(24988, $W()..h(this));
+    final $r = $callSync(24990, $W()..h(this));
     return $r.i64();
   }
 }
@@ -1657,13 +1657,13 @@ class ProtobufReflectProtoreflectOneofDescriptor
 mixin ProtobufReflectProtoreflectOneofDescriptor$ on GoHandle {
   /// Go: `func (protoreflect.OneofDescriptor).Fields() protoreflect.FieldDescriptors`.
   ProtobufReflectProtoreflectFieldDescriptors fields() {
-    final $r = $callSync(24989, $W()..h(this));
+    final $r = $callSync(24991, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectFieldDescriptors.$h);
   }
 
   /// Go: `func (protoreflect.OneofDescriptor).IsSynthetic() bool`.
   bool isSynthetic() {
-    final $r = $callSync(24990, $W()..h(this));
+    final $r = $callSync(24992, $W()..h(this));
     return $r.b();
   }
 }
@@ -1679,7 +1679,7 @@ mixin ProtobufReflectProtoreflectOneofDescriptors$ on GoHandle {
   /// Go: `func (protoreflect.OneofDescriptors).ByName(s protoreflect.Name) protoreflect.OneofDescriptor`.
   ProtobufReflectProtoreflectOneofDescriptor byName(String s) {
     final $r = $callSync(
-        24991,
+        24993,
         $W()
           ..h(this)
           ..str(s));
@@ -1689,7 +1689,7 @@ mixin ProtobufReflectProtoreflectOneofDescriptors$ on GoHandle {
   /// Go: `func (protoreflect.OneofDescriptors).Get(i int) protoreflect.OneofDescriptor`.
   ProtobufReflectProtoreflectOneofDescriptor get(int i) {
     final $r = $callSync(
-        24992,
+        24994,
         $W()
           ..h(this)
           ..i64(i));
@@ -1698,7 +1698,7 @@ mixin ProtobufReflectProtoreflectOneofDescriptors$ on GoHandle {
 
   /// Go: `func (protoreflect.OneofDescriptors).Len() int`.
   int len() {
-    final $r = $callSync(24993, $W()..h(this));
+    final $r = $callSync(24995, $W()..h(this));
     return $r.i64();
   }
 }
@@ -1713,7 +1713,7 @@ class ProtobufReflectProtoreflectProtoMessage extends GoHandle
 mixin ProtobufReflectProtoreflectProtoMessage$ on GoHandle {
   /// Go: `func (protoreflect.ProtoMessage).ProtoReflect() protoreflect.Message`.
   ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(24994, $W()..h(this));
+    final $r = $callSync(24996, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectMessage.$h);
   }
 
@@ -3010,7 +3010,7 @@ class ProtobufReflectProtoreflectServiceDescriptor
 mixin ProtobufReflectProtoreflectServiceDescriptor$ on GoHandle {
   /// Go: `func (protoreflect.ServiceDescriptor).Methods() protoreflect.MethodDescriptors`.
   ProtobufReflectProtoreflectMethodDescriptors methods() {
-    final $r = $callSync(24995, $W()..h(this));
+    final $r = $callSync(24997, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectMethodDescriptors.$h);
   }
 }
@@ -3026,7 +3026,7 @@ mixin ProtobufReflectProtoreflectServiceDescriptors$ on GoHandle {
   /// Go: `func (protoreflect.ServiceDescriptors).ByName(s protoreflect.Name) protoreflect.ServiceDescriptor`.
   ProtobufReflectProtoreflectServiceDescriptor byName(String s) {
     final $r = $callSync(
-        24996,
+        24998,
         $W()
           ..h(this)
           ..str(s));
@@ -3036,7 +3036,7 @@ mixin ProtobufReflectProtoreflectServiceDescriptors$ on GoHandle {
   /// Go: `func (protoreflect.ServiceDescriptors).Get(i int) protoreflect.ServiceDescriptor`.
   ProtobufReflectProtoreflectServiceDescriptor get(int i) {
     final $r = $callSync(
-        24997,
+        24999,
         $W()
           ..h(this)
           ..i64(i));
@@ -3045,7 +3045,7 @@ mixin ProtobufReflectProtoreflectServiceDescriptors$ on GoHandle {
 
   /// Go: `func (protoreflect.ServiceDescriptors).Len() int`.
   int len() {
-    final $r = $callSync(24998, $W()..h(this));
+    final $r = $callSync(25000, $W()..h(this));
     return $r.i64();
   }
 }
@@ -3137,7 +3137,7 @@ mixin ProtobufReflectProtoreflectSourceLocations$ on GoHandle {
   ProtobufReflectProtoreflectSourceLocation byDescriptor(
       ProtobufReflectProtoreflectDescriptor desc) {
     final $r = $callSync(
-        24999,
+        25001,
         $W()
           ..h(this)
           ..h(desc));
@@ -3147,7 +3147,7 @@ mixin ProtobufReflectProtoreflectSourceLocations$ on GoHandle {
   /// Go: `func (protoreflect.SourceLocations).ByPath(path protoreflect.SourcePath) protoreflect.SourceLocation`.
   ProtobufReflectProtoreflectSourceLocation byPath(List<int> path) {
     final $r = $callSync(
-        25000,
+        25002,
         $W()
           ..h(this)
           ..list(path, (w0, e0) => w0.i64(e0)));
@@ -3157,7 +3157,7 @@ mixin ProtobufReflectProtoreflectSourceLocations$ on GoHandle {
   /// Go: `func (protoreflect.SourceLocations).Get(int) protoreflect.SourceLocation`.
   ProtobufReflectProtoreflectSourceLocation get(int arg0) {
     final $r = $callSync(
-        25001,
+        25003,
         $W()
           ..h(this)
           ..i64(arg0));
@@ -3166,7 +3166,7 @@ mixin ProtobufReflectProtoreflectSourceLocations$ on GoHandle {
 
   /// Go: `func (protoreflect.SourceLocations).Len() int`.
   int len() {
-    final $r = $callSync(25002, $W()..h(this));
+    final $r = $callSync(25004, $W()..h(this));
     return $r.i64();
   }
 }
@@ -3177,26 +3177,26 @@ class ProtobufReflectProtoreflectValue extends GoHandle {
 
   /// Go: `func (protoreflect.Value).Bool() bool`.
   bool bool$() {
-    final $r = $callSync(25003, $W()..h(this));
+    final $r = $callSync(25005, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (protoreflect.Value).Bytes() []byte`.
   Uint8List bytes() {
-    final $r = $callSync(25004, $W()..h(this));
+    final $r = $callSync(25006, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (protoreflect.Value).Enum() protoreflect.EnumNumber`.
   int enum$() {
-    final $r = $callSync(25005, $W()..h(this));
+    final $r = $callSync(25007, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (protoreflect.Value).Equal(v2 protoreflect.Value) bool`.
   bool equal(ProtobufReflectProtoreflectValue v2) {
     final $r = $callSync(
-        25006,
+        25008,
         $W()
           ..h(this)
           ..h(v2));
@@ -3205,61 +3205,61 @@ class ProtobufReflectProtoreflectValue extends GoHandle {
 
   /// Go: `func (protoreflect.Value).Float() float64`.
   double float() {
-    final $r = $callSync(25007, $W()..h(this));
+    final $r = $callSync(25009, $W()..h(this));
     return $r.f64();
   }
 
   /// Go: `func (protoreflect.Value).Int() int64`.
   int int$() {
-    final $r = $callSync(25008, $W()..h(this));
+    final $r = $callSync(25010, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (protoreflect.Value).Interface() any`.
   Object? interface() {
-    final $r = $callSync(25009, $W()..h(this));
+    final $r = $callSync(25011, $W()..h(this));
     return $r.any();
   }
 
   /// Go: `func (protoreflect.Value).IsValid() bool`.
   bool isValid() {
-    final $r = $callSync(25010, $W()..h(this));
+    final $r = $callSync(25012, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (protoreflect.Value).List() protoreflect.List`.
   ProtobufReflectProtoreflectList list() {
-    final $r = $callSync(25011, $W()..h(this));
+    final $r = $callSync(25013, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectList.$h);
   }
 
   /// Go: `func (protoreflect.Value).Map() protoreflect.Map`.
   ProtobufReflectProtoreflectMap map() {
-    final $r = $callSync(25012, $W()..h(this));
+    final $r = $callSync(25014, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectMap.$h);
   }
 
   /// Go: `func (protoreflect.Value).MapKey() protoreflect.MapKey`.
   ProtobufReflectProtoreflectMapKey mapKey() {
-    final $r = $callSync(25013, $W()..h(this));
+    final $r = $callSync(25015, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectMapKey.$h);
   }
 
   /// Go: `func (protoreflect.Value).Message() protoreflect.Message`.
   ProtobufReflectProtoreflectMessage message() {
-    final $r = $callSync(25014, $W()..h(this));
+    final $r = $callSync(25016, $W()..h(this));
     return $r.hnn(ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (protoreflect.Value).String() string`.
   String string() {
-    final $r = $callSync(25015, $W()..h(this));
+    final $r = $callSync(25017, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (protoreflect.Value).Uint() uint64`.
   int uint() {
-    final $r = $callSync(25016, $W()..h(this));
+    final $r = $callSync(25018, $W()..h(this));
     return $r.i64();
   }
 }
@@ -3268,88 +3268,88 @@ class ProtobufReflectProtoreflectValue extends GoHandle {
 extension GoProtobufReflectProtoreflectApi on GoProtobufReflectProtoreflect {
   /// Go: `func protoreflect.ValueOf(v any) protoreflect.Value`.
   ProtobufReflectProtoreflectValue valueOf(Object? v) {
-    final $r = $callSync(25017, $W()..any(v));
+    final $r = $callSync(25019, $W()..any(v));
     return $r.hnn(ProtobufReflectProtoreflectValue.$h);
   }
 
   /// Go: `func protoreflect.ValueOfBool(v bool) protoreflect.Value`.
   ProtobufReflectProtoreflectValue valueOfBool(bool v) {
-    final $r = $callSync(25018, $W()..b(v));
+    final $r = $callSync(25020, $W()..b(v));
     return $r.hnn(ProtobufReflectProtoreflectValue.$h);
   }
 
   /// Go: `func protoreflect.ValueOfBytes(v []byte) protoreflect.Value`.
   ProtobufReflectProtoreflectValue valueOfBytes(Uint8List v) {
-    final $r = $callSync(25019, $W()..bytes(v));
+    final $r = $callSync(25021, $W()..bytes(v));
     return $r.hnn(ProtobufReflectProtoreflectValue.$h);
   }
 
   /// Go: `func protoreflect.ValueOfEnum(v protoreflect.EnumNumber) protoreflect.Value`.
   ProtobufReflectProtoreflectValue valueOfEnum(int v) {
-    final $r = $callSync(25020, $W()..i64(v));
+    final $r = $callSync(25022, $W()..i64(v));
     return $r.hnn(ProtobufReflectProtoreflectValue.$h);
   }
 
   /// Go: `func protoreflect.ValueOfFloat32(v float32) protoreflect.Value`.
   ProtobufReflectProtoreflectValue valueOfFloat32(double v) {
-    final $r = $callSync(25021, $W()..f64(v));
+    final $r = $callSync(25023, $W()..f64(v));
     return $r.hnn(ProtobufReflectProtoreflectValue.$h);
   }
 
   /// Go: `func protoreflect.ValueOfFloat64(v float64) protoreflect.Value`.
   ProtobufReflectProtoreflectValue valueOfFloat64(double v) {
-    final $r = $callSync(25022, $W()..f64(v));
+    final $r = $callSync(25024, $W()..f64(v));
     return $r.hnn(ProtobufReflectProtoreflectValue.$h);
   }
 
   /// Go: `func protoreflect.ValueOfInt32(v int32) protoreflect.Value`.
   ProtobufReflectProtoreflectValue valueOfInt32(int v) {
-    final $r = $callSync(25023, $W()..i64(v));
+    final $r = $callSync(25025, $W()..i64(v));
     return $r.hnn(ProtobufReflectProtoreflectValue.$h);
   }
 
   /// Go: `func protoreflect.ValueOfInt64(v int64) protoreflect.Value`.
   ProtobufReflectProtoreflectValue valueOfInt64(int v) {
-    final $r = $callSync(25024, $W()..i64(v));
+    final $r = $callSync(25026, $W()..i64(v));
     return $r.hnn(ProtobufReflectProtoreflectValue.$h);
   }
 
   /// Go: `func protoreflect.ValueOfList(v protoreflect.List) protoreflect.Value`.
   ProtobufReflectProtoreflectValue valueOfList(
       ProtobufReflectProtoreflectList v) {
-    final $r = $callSync(25025, $W()..h(v));
+    final $r = $callSync(25027, $W()..h(v));
     return $r.hnn(ProtobufReflectProtoreflectValue.$h);
   }
 
   /// Go: `func protoreflect.ValueOfMap(v protoreflect.Map) protoreflect.Value`.
   ProtobufReflectProtoreflectValue valueOfMap(
       ProtobufReflectProtoreflectMap v) {
-    final $r = $callSync(25026, $W()..h(v));
+    final $r = $callSync(25028, $W()..h(v));
     return $r.hnn(ProtobufReflectProtoreflectValue.$h);
   }
 
   /// Go: `func protoreflect.ValueOfMessage(v protoreflect.Message) protoreflect.Value`.
   ProtobufReflectProtoreflectValue valueOfMessage(
       ProtobufReflectProtoreflectMessage v) {
-    final $r = $callSync(25027, $W()..h(v));
+    final $r = $callSync(25029, $W()..h(v));
     return $r.hnn(ProtobufReflectProtoreflectValue.$h);
   }
 
   /// Go: `func protoreflect.ValueOfString(v string) protoreflect.Value`.
   ProtobufReflectProtoreflectValue valueOfString(String v) {
-    final $r = $callSync(25028, $W()..str(v));
+    final $r = $callSync(25030, $W()..str(v));
     return $r.hnn(ProtobufReflectProtoreflectValue.$h);
   }
 
   /// Go: `func protoreflect.ValueOfUint32(v uint32) protoreflect.Value`.
   ProtobufReflectProtoreflectValue valueOfUint32(int v) {
-    final $r = $callSync(25029, $W()..i64(v));
+    final $r = $callSync(25031, $W()..i64(v));
     return $r.hnn(ProtobufReflectProtoreflectValue.$h);
   }
 
   /// Go: `func protoreflect.ValueOfUint64(v uint64) protoreflect.Value`.
   ProtobufReflectProtoreflectValue valueOfUint64(int v) {
-    final $r = $callSync(25030, $W()..i64(v));
+    final $r = $callSync(25032, $W()..i64(v));
     return $r.hnn(ProtobufReflectProtoreflectValue.$h);
   }
 }

@@ -166,7 +166,7 @@ final class QuicGoConfig implements GoDto {
 
   /// Go: `func (*quic.Config).Clone() *quic.Config`.
   QuicGoConfig clone() {
-    final $r = $callSync(18264, $W()..dto(this));
+    final $r = $callSync(18266, $W()..dto(this));
     return $r.p() ? QuicGoConfig.$dec($r) : $nil();
   }
 }
@@ -180,7 +180,7 @@ class QuicGoConn extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<QuicGoStream> acceptStream($context.Context ctx) async {
     final $r = await $call(
-        18265,
+        18267,
         $W()
           ..h(this)
           ..h(ctx));
@@ -192,7 +192,7 @@ class QuicGoConn extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<QuicGoReceiveStream> acceptUniStream($context.Context ctx) async {
     final $r = await $call(
-        18266,
+        18268,
         $W()
           ..h(this)
           ..h(ctx));
@@ -202,7 +202,7 @@ class QuicGoConn extends GoHandle {
   /// Go: `func (*quic.Conn).AddPath(t *quic.Transport) (*quic.Path, error)`.
   QuicGoPath addPath(QuicGoTransport t) {
     final $r = $callSync(
-        18267,
+        18269,
         $W()
           ..h(this)
           ..h(t));
@@ -212,7 +212,7 @@ class QuicGoConn extends GoHandle {
   /// Go: `func (*quic.Conn).CloseWithError(code quic.ApplicationErrorCode, desc string) error`.
   void closeWithError(int code, String desc) {
     $callSync(
-        18268,
+        18270,
         $W()
           ..h(this)
           ..i64(code)
@@ -221,19 +221,19 @@ class QuicGoConn extends GoHandle {
 
   /// Go: `func (*quic.Conn).ConnectionState() quic.ConnectionState`.
   QuicGoConnectionState connectionState() {
-    final $r = $callSync(18269, $W()..h(this));
+    final $r = $callSync(18271, $W()..h(this));
     return $r.p() ? QuicGoConnectionState.$dec($r) : $nil();
   }
 
   /// Go: `func (*quic.Conn).ConnectionStats() quic.ConnectionStats`.
   QuicGoConnectionStats connectionStats() {
-    final $r = $callSync(18270, $W()..h(this));
+    final $r = $callSync(18272, $W()..h(this));
     return $r.p() ? QuicGoConnectionStats.$dec($r) : $nil();
   }
 
   /// Go: `func (*quic.Conn).LocalAddr() net.Addr`.
   $net.NetAddr localAddr() {
-    final $r = $callSync(18271, $W()..h(this));
+    final $r = $callSync(18273, $W()..h(this));
     return $r.p() ? $net.NetAddr.$dec($r) : $nil();
   }
 
@@ -242,7 +242,7 @@ class QuicGoConn extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<QuicGoConn> nextConnection($context.Context ctx) async {
     final $r = await $call(
-        18272,
+        18274,
         $W()
           ..h(this)
           ..h(ctx));
@@ -251,7 +251,7 @@ class QuicGoConn extends GoHandle {
 
   /// Go: `func (*quic.Conn).OpenStream() (*quic.Stream, error)`.
   QuicGoStream openStream() {
-    final $r = $callSync(18273, $W()..h(this));
+    final $r = $callSync(18275, $W()..h(this));
     return $r.hnn(QuicGoStream.$h);
   }
 
@@ -260,7 +260,7 @@ class QuicGoConn extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<QuicGoStream> openStreamSync($context.Context ctx) async {
     final $r = await $call(
-        18274,
+        18276,
         $W()
           ..h(this)
           ..h(ctx));
@@ -269,7 +269,7 @@ class QuicGoConn extends GoHandle {
 
   /// Go: `func (*quic.Conn).OpenUniStream() (*quic.SendStream, error)`.
   QuicGoSendStream openUniStream() {
-    final $r = $callSync(18275, $W()..h(this));
+    final $r = $callSync(18277, $W()..h(this));
     return $r.hnn(QuicGoSendStream.$h);
   }
 
@@ -278,7 +278,7 @@ class QuicGoConn extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<QuicGoSendStream> openUniStreamSync($context.Context ctx) async {
     final $r = await $call(
-        18276,
+        18278,
         $W()
           ..h(this)
           ..h(ctx));
@@ -287,7 +287,7 @@ class QuicGoConn extends GoHandle {
 
   /// Go: `func (*quic.Conn).QlogTrace() qlogwriter.Trace`.
   $qlogwriter.QuicGoQlogwriterTrace qlogTrace() {
-    final $r = $callSync(18277, $W()..h(this));
+    final $r = $callSync(18279, $W()..h(this));
     return $r.hnn($qlogwriter.QuicGoQlogwriterTrace.$h);
   }
 
@@ -296,7 +296,7 @@ class QuicGoConn extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<Uint8List> receiveDatagram($context.Context ctx) async {
     final $r = await $call(
-        18278,
+        18280,
         $W()
           ..h(this)
           ..h(ctx));
@@ -305,14 +305,14 @@ class QuicGoConn extends GoHandle {
 
   /// Go: `func (*quic.Conn).RemoteAddr() net.Addr`.
   $net.NetAddr remoteAddr() {
-    final $r = $callSync(18279, $W()..h(this));
+    final $r = $callSync(18281, $W()..h(this));
     return $r.p() ? $net.NetAddr.$dec($r) : $nil();
   }
 
   /// Go: `func (*quic.Conn).SendDatagram(p []byte) error`.
   void sendDatagram(Uint8List p) {
     $callSync(
-        18280,
+        18282,
         $W()
           ..h(this)
           ..bytes(p));
@@ -329,13 +329,13 @@ class QuicGoConnectionIdGenerator extends GoHandle
 mixin QuicGoConnectionIdGenerator$ on GoHandle {
   /// Go: `func (quic.ConnectionIDGenerator).ConnectionIDLen() int`.
   int connectionIdLen() {
-    final $r = $callSync(18282, $W()..h(this));
+    final $r = $callSync(18284, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (quic.ConnectionIDGenerator).GenerateConnectionID() (quic.ConnectionID, error)`.
   QuicGoConnectionId generateConnectionId() {
-    final $r = $callSync(18283, $W()..h(this));
+    final $r = $callSync(18285, $W()..h(this));
     return $r.hnn(QuicGoConnectionId.$h);
   }
 }
@@ -500,7 +500,7 @@ class QuicGoEarlyListener
   /// Asynchronous: runs in a goroutine of the service.
   Future<QuicGoConn> accept($context.Context ctx) async {
     final $r = await $call(
-        18288,
+        18290,
         $W()
           ..h(this)
           ..h(ctx));
@@ -509,13 +509,13 @@ class QuicGoEarlyListener
 
   /// Go: `func (*quic.EarlyListener).Addr() net.Addr`.
   $net.NetAddr addr() {
-    final $r = $callSync(18289, $W()..h(this));
+    final $r = $callSync(18291, $W()..h(this));
     return $r.p() ? $net.NetAddr.$dec($r) : $nil();
   }
 
   /// Go: `func (*quic.EarlyListener).Close() error`.
   void close() {
-    $callSync(18290, $W()..h(this));
+    $callSync(18292, $W()..h(this));
   }
 }
 
@@ -536,7 +536,7 @@ class QuicGoListener extends $quicreuse.Libp2pP2pTransportQuicreuseQuicListener
   /// Asynchronous: runs in a goroutine of the service.
   Future<QuicGoConn> accept($context.Context ctx) async {
     final $r = await $call(
-        18295,
+        18297,
         $W()
           ..h(this)
           ..h(ctx));
@@ -545,13 +545,13 @@ class QuicGoListener extends $quicreuse.Libp2pP2pTransportQuicreuseQuicListener
 
   /// Go: `func (*quic.Listener).Addr() net.Addr`.
   $net.NetAddr addr() {
-    final $r = $callSync(18296, $W()..h(this));
+    final $r = $callSync(18298, $W()..h(this));
     return $r.p() ? $net.NetAddr.$dec($r) : $nil();
   }
 
   /// Go: `func (*quic.Listener).Close() error`.
   void close() {
-    $callSync(18297, $W()..h(this));
+    $callSync(18299, $W()..h(this));
   }
 }
 
@@ -566,7 +566,7 @@ mixin QuicGoOobCapablePacketConn$ on GoHandle {
   /// Go: `func (quic.OOBCapablePacketConn).ReadMsgUDP(b []byte, oob []byte) (n int, oobn int, flags int, addr *net.UDPAddr, err error)`.
   (int, int, int, $net.NetUdpAddr) readMsgUdp(Uint8List b, Uint8List oob) {
     final $r = $callSync(
-        18299,
+        18301,
         $W()
           ..h(this)
           ..bytes(b)
@@ -582,7 +582,7 @@ mixin QuicGoOobCapablePacketConn$ on GoHandle {
   /// Go: `func (quic.OOBCapablePacketConn).SetReadBuffer(int) error`.
   void setReadBuffer(int arg0) {
     $callSync(
-        18300,
+        18302,
         $W()
           ..h(this)
           ..i64(arg0));
@@ -590,14 +590,14 @@ mixin QuicGoOobCapablePacketConn$ on GoHandle {
 
   /// Go: `func (quic.OOBCapablePacketConn).SyscallConn() (syscall.RawConn, error)`.
   $syscall.SyscallRawConn syscallConn() {
-    final $r = $callSync(18301, $W()..h(this));
+    final $r = $callSync(18303, $W()..h(this));
     return $r.hnn($syscall.SyscallRawConn.$h);
   }
 
   /// Go: `func (quic.OOBCapablePacketConn).WriteMsgUDP(b []byte, oob []byte, addr *net.UDPAddr) (n int, oobn int, err error)`.
   (int, int) writeMsgUdp(Uint8List b, Uint8List oob, $net.NetUdpAddr addr) {
     final $r = $callSync(
-        18302,
+        18304,
         $W()
           ..h(this)
           ..bytes(b)
@@ -621,7 +621,7 @@ class QuicGoPath extends $io.IoCloser
 
   /// Go: `func (*quic.Path).Close() error`.
   void close() {
-    $callSync(18303, $W()..h(this));
+    $callSync(18305, $W()..h(this));
   }
 
   /// Go: `func (*quic.Path).Probe(ctx context.Context) error`.
@@ -629,7 +629,7 @@ class QuicGoPath extends $io.IoCloser
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> probe($context.Context ctx) async {
     await $call(
-        18304,
+        18306,
         $W()
           ..h(this)
           ..h(ctx));
@@ -637,7 +637,7 @@ class QuicGoPath extends $io.IoCloser
 
   /// Go: `func (*quic.Path).Switch() error`.
   void switch$() {
-    $callSync(18305, $W()..h(this));
+    $callSync(18307, $W()..h(this));
   }
 }
 
@@ -650,7 +650,7 @@ class QuicGoReceiveStream extends $datachannel.DatachannelReadDeadliner
   /// Go: `func (*quic.ReceiveStream).CancelRead(errorCode quic.StreamErrorCode)`.
   void cancelRead(int errorCode) {
     $callSync(
-        18306,
+        18308,
         $W()
           ..h(this)
           ..i64(errorCode));
@@ -659,7 +659,7 @@ class QuicGoReceiveStream extends $datachannel.DatachannelReadDeadliner
   /// Go: `func (*quic.ReceiveStream).Peek(b []byte) (int, error)`.
   int peek(Uint8List b) {
     final $r = $callSync(
-        18307,
+        18309,
         $W()
           ..h(this)
           ..bytes(b));
@@ -669,7 +669,7 @@ class QuicGoReceiveStream extends $datachannel.DatachannelReadDeadliner
   /// Go: `func (*quic.ReceiveStream).Read(p []byte) (int, error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        18308,
+        18310,
         $W()
           ..h(this)
           ..i64(n));
@@ -679,7 +679,7 @@ class QuicGoReceiveStream extends $datachannel.DatachannelReadDeadliner
   /// Go: `func (*quic.ReceiveStream).SetReadDeadline(t time.Time) error`.
   void setReadDeadline(DateTime t) {
     $callSync(
-        18309,
+        18311,
         $W()
           ..h(this)
           ..time(t));
@@ -695,7 +695,7 @@ class QuicGoReceiveStream extends $datachannel.DatachannelReadDeadliner
   Future<void> setReceiveFinalSizeCallback(
       FutureOr<void> Function(int arg0) callback) async {
     await $call(
-        18310,
+        18312,
         $W()
           ..h(this)
           ..cb((r) => callback(r.i64()), true));
@@ -703,7 +703,7 @@ class QuicGoReceiveStream extends $datachannel.DatachannelReadDeadliner
 
   /// Go: `func (*quic.ReceiveStream).StreamID() quic.StreamID`.
   int streamId() {
-    final $r = $callSync(18311, $W()..h(this));
+    final $r = $callSync(18313, $W()..h(this));
     return $r.i64();
   }
 }
@@ -719,7 +719,7 @@ class QuicGoSendStream extends $io.IoCloser
   /// Go: `func (*quic.SendStream).CancelWrite(errorCode quic.StreamErrorCode)`.
   void cancelWrite(int errorCode) {
     $callSync(
-        18312,
+        18314,
         $W()
           ..h(this)
           ..i64(errorCode));
@@ -727,13 +727,13 @@ class QuicGoSendStream extends $io.IoCloser
 
   /// Go: `func (*quic.SendStream).Close() error`.
   void close() {
-    $callSync(18313, $W()..h(this));
+    $callSync(18315, $W()..h(this));
   }
 
   /// Go: `func (*quic.SendStream).SetPriority(urgency int8, incremental bool)`.
   void setPriority(int urgency, bool incremental) {
     $callSync(
-        18314,
+        18316,
         $W()
           ..h(this)
           ..i64(urgency)
@@ -742,13 +742,13 @@ class QuicGoSendStream extends $io.IoCloser
 
   /// Go: `func (*quic.SendStream).SetReliableBoundary()`.
   void setReliableBoundary() {
-    $callSync(18315, $W()..h(this));
+    $callSync(18317, $W()..h(this));
   }
 
   /// Go: `func (*quic.SendStream).SetWriteDeadline(t time.Time) error`.
   void setWriteDeadline(DateTime t) {
     $callSync(
-        18316,
+        18318,
         $W()
           ..h(this)
           ..time(t));
@@ -756,14 +756,14 @@ class QuicGoSendStream extends $io.IoCloser
 
   /// Go: `func (*quic.SendStream).StreamID() quic.StreamID`.
   int streamId() {
-    final $r = $callSync(18317, $W()..h(this));
+    final $r = $callSync(18319, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*quic.SendStream).TryWriteAll(p []byte) error`.
   void tryWriteAll(Uint8List p) {
     $callSync(
-        18318,
+        18320,
         $W()
           ..h(this)
           ..bytes(p));
@@ -772,7 +772,7 @@ class QuicGoSendStream extends $io.IoCloser
   /// Go: `func (*quic.SendStream).Write(p []byte) (int, error)`.
   int write(Uint8List p) {
     final $r = $callSync(
-        18319,
+        18321,
         $W()
           ..h(this)
           ..bytes(p));
@@ -789,7 +789,7 @@ class QuicGoSendStream extends $io.IoCloser
   Future<int> writeWithLimit(
       Uint8List p, FutureOr<int> Function(int maxBytes) limiter) async {
     final $r = await $call(
-        18320,
+        18322,
         $W()
           ..h(this)
           ..bytes(p)
@@ -815,7 +815,7 @@ class QuicGoStream extends $io.IoCloser
   /// Go: `func (*quic.Stream).CancelRead(errorCode quic.StreamErrorCode)`.
   void cancelRead(int errorCode) {
     $callSync(
-        18321,
+        18323,
         $W()
           ..h(this)
           ..i64(errorCode));
@@ -824,7 +824,7 @@ class QuicGoStream extends $io.IoCloser
   /// Go: `func (*quic.Stream).CancelWrite(errorCode quic.StreamErrorCode)`.
   void cancelWrite(int errorCode) {
     $callSync(
-        18322,
+        18324,
         $W()
           ..h(this)
           ..i64(errorCode));
@@ -832,13 +832,13 @@ class QuicGoStream extends $io.IoCloser
 
   /// Go: `func (*quic.Stream).Close() error`.
   void close() {
-    $callSync(18323, $W()..h(this));
+    $callSync(18325, $W()..h(this));
   }
 
   /// Go: `func (*quic.Stream).Peek(b []byte) (int, error)`.
   int peek(Uint8List b) {
     final $r = $callSync(
-        18324,
+        18326,
         $W()
           ..h(this)
           ..bytes(b));
@@ -848,7 +848,7 @@ class QuicGoStream extends $io.IoCloser
   /// Go: `func (*quic.Stream).Read(p []byte) (int, error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        18325,
+        18327,
         $W()
           ..h(this)
           ..i64(n));
@@ -858,7 +858,7 @@ class QuicGoStream extends $io.IoCloser
   /// Go: `func (*quic.Stream).SetDeadline(t time.Time) error`.
   void setDeadline(DateTime t) {
     $callSync(
-        18326,
+        18328,
         $W()
           ..h(this)
           ..time(t));
@@ -867,7 +867,7 @@ class QuicGoStream extends $io.IoCloser
   /// Go: `func (*quic.Stream).SetPriority(urgency int8, incremental bool)`.
   void setPriority(int urgency, bool incremental) {
     $callSync(
-        18327,
+        18329,
         $W()
           ..h(this)
           ..i64(urgency)
@@ -877,7 +877,7 @@ class QuicGoStream extends $io.IoCloser
   /// Go: `func (*quic.Stream).SetReadDeadline(t time.Time) error`.
   void setReadDeadline(DateTime t) {
     $callSync(
-        18328,
+        18330,
         $W()
           ..h(this)
           ..time(t));
@@ -893,7 +893,7 @@ class QuicGoStream extends $io.IoCloser
   Future<void> setReceiveFinalSizeCallback(
       FutureOr<void> Function(int arg0) callback) async {
     await $call(
-        18329,
+        18331,
         $W()
           ..h(this)
           ..cb((r) => callback(r.i64()), true));
@@ -901,13 +901,13 @@ class QuicGoStream extends $io.IoCloser
 
   /// Go: `func (*quic.Stream).SetReliableBoundary()`.
   void setReliableBoundary() {
-    $callSync(18330, $W()..h(this));
+    $callSync(18332, $W()..h(this));
   }
 
   /// Go: `func (*quic.Stream).SetWriteDeadline(t time.Time) error`.
   void setWriteDeadline(DateTime t) {
     $callSync(
-        18331,
+        18333,
         $W()
           ..h(this)
           ..time(t));
@@ -915,14 +915,14 @@ class QuicGoStream extends $io.IoCloser
 
   /// Go: `func (*quic.Stream).StreamID() quic.StreamID`.
   int streamId() {
-    final $r = $callSync(18332, $W()..h(this));
+    final $r = $callSync(18334, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*quic.Stream).TryWriteAll(p []byte) error`.
   void tryWriteAll(Uint8List p) {
     $callSync(
-        18333,
+        18335,
         $W()
           ..h(this)
           ..bytes(p));
@@ -931,7 +931,7 @@ class QuicGoStream extends $io.IoCloser
   /// Go: `func (*quic.Stream).Write(p []byte) (int, error)`.
   int write(Uint8List p) {
     final $r = $callSync(
-        18334,
+        18336,
         $W()
           ..h(this)
           ..bytes(p));
@@ -948,7 +948,7 @@ class QuicGoStream extends $io.IoCloser
   Future<int> writeWithLimit(
       Uint8List p, FutureOr<int> Function(int maxBytes) limiter) async {
     final $r = await $call(
-        18335,
+        18337,
         $W()
           ..h(this)
           ..bytes(p)
@@ -967,7 +967,7 @@ mixin QuicGoTokenStore$ on GoHandle {
   /// Go: `func (quic.TokenStore).Pop(key string) (token *quic.ClientToken)`.
   QuicGoClientToken pop(String key) {
     final $r = $callSync(
-        18337,
+        18339,
         $W()
           ..h(this)
           ..str(key));
@@ -977,7 +977,7 @@ mixin QuicGoTokenStore$ on GoHandle {
   /// Go: `func (quic.TokenStore).Put(key string, token *quic.ClientToken)`.
   void put(String key, QuicGoClientToken token) {
     $callSync(
-        18338,
+        18340,
         $W()
           ..h(this)
           ..str(key)
@@ -993,7 +993,7 @@ class QuicGoTransport extends $io.IoCloser
 
   /// Go: `func (*quic.Transport).Close() error`.
   void close() {
-    $callSync(18339, $W()..h(this));
+    $callSync(18341, $W()..h(this));
   }
 
   /// Go: `func (*quic.Transport).Dial(ctx context.Context, addr net.Addr, tlsConf *tls.Config, conf *quic.Config) (*quic.Conn, error)`.
@@ -1002,7 +1002,7 @@ class QuicGoTransport extends $io.IoCloser
   Future<QuicGoConn> dial($context.Context ctx, $net.NetAddr addr,
       $tls.CryptoTlsConfig tlsConf, QuicGoConfig conf) async {
     final $r = await $call(
-        18340,
+        18342,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1018,7 +1018,7 @@ class QuicGoTransport extends $io.IoCloser
   Future<QuicGoConn> dialEarly($context.Context ctx, $net.NetAddr addr,
       $tls.CryptoTlsConfig tlsConf, QuicGoConfig conf) async {
     final $r = await $call(
-        18341,
+        18343,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1031,7 +1031,7 @@ class QuicGoTransport extends $io.IoCloser
   /// Go: `func (*quic.Transport).Listen(tlsConf *tls.Config, conf *quic.Config) (*quic.Listener, error)`.
   QuicGoListener listen($tls.CryptoTlsConfig tlsConf, QuicGoConfig conf) {
     final $r = $callSync(
-        18342,
+        18344,
         $W()
           ..h(this)
           ..h(tlsConf)
@@ -1043,7 +1043,7 @@ class QuicGoTransport extends $io.IoCloser
   QuicGoEarlyListener listenEarly(
       $tls.CryptoTlsConfig tlsConf, QuicGoConfig conf) {
     final $r = $callSync(
-        18343,
+        18345,
         $W()
           ..h(this)
           ..h(tlsConf)
@@ -1057,7 +1057,7 @@ class QuicGoTransport extends $io.IoCloser
   Future<(int, $net.NetAddr)> readNonQuicPacket(
       $context.Context ctx, Uint8List b) async {
     final $r = await $call(
-        18344,
+        18346,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1068,7 +1068,7 @@ class QuicGoTransport extends $io.IoCloser
   /// Go: `func (*quic.Transport).WriteTo(b []byte, addr net.Addr) (int, error)`.
   int writeTo(Uint8List b, $net.NetAddr addr) {
     final $r = $callSync(
-        18345,
+        18347,
         $W()
           ..h(this)
           ..bytes(b)
@@ -1260,7 +1260,7 @@ class QuicGoVersionNegotiationError extends GolangException {
 extension GoQuicGoQuicGoApi on GoQuicGoQuicGo {
   /// Go: `func quic.ConnectionIDFromBytes(b []byte) quic.ConnectionID`.
   QuicGoConnectionId connectionIdFromBytes(Uint8List b) {
-    final $r = $callSync(18281, $W()..bytes(b));
+    final $r = $callSync(18283, $W()..bytes(b));
     return $r.hnn(QuicGoConnectionId.$h);
   }
 
@@ -1274,7 +1274,7 @@ extension GoQuicGoQuicGoApi on GoQuicGoQuicGo {
       $tls.CryptoTlsConfig tlsConf,
       QuicGoConfig conf) async {
     final $r = await $call(
-        18284,
+        18286,
         $W()
           ..h(ctx)
           ..h(c)
@@ -1290,7 +1290,7 @@ extension GoQuicGoQuicGoApi on GoQuicGoQuicGo {
   Future<QuicGoConn> dialAddr($context.Context ctx, String addr,
       $tls.CryptoTlsConfig tlsConf, QuicGoConfig conf) async {
     final $r = await $call(
-        18285,
+        18287,
         $W()
           ..h(ctx)
           ..str(addr)
@@ -1305,7 +1305,7 @@ extension GoQuicGoQuicGoApi on GoQuicGoQuicGo {
   Future<QuicGoConn> dialAddrEarly($context.Context ctx, String addr,
       $tls.CryptoTlsConfig tlsConf, QuicGoConfig conf) async {
     final $r = await $call(
-        18286,
+        18288,
         $W()
           ..h(ctx)
           ..str(addr)
@@ -1324,7 +1324,7 @@ extension GoQuicGoQuicGoApi on GoQuicGoQuicGo {
       $tls.CryptoTlsConfig tlsConf,
       QuicGoConfig conf) async {
     final $r = await $call(
-        18287,
+        18289,
         $W()
           ..h(ctx)
           ..h(c)
@@ -1338,7 +1338,7 @@ extension GoQuicGoQuicGoApi on GoQuicGoQuicGo {
   QuicGoListener listen($net.NetPacketConn conn, $tls.CryptoTlsConfig tlsConf,
       QuicGoConfig config) {
     final $r = $callSync(
-        18291,
+        18293,
         $W()
           ..h(conn)
           ..h(tlsConf)
@@ -1350,7 +1350,7 @@ extension GoQuicGoQuicGoApi on GoQuicGoQuicGo {
   QuicGoListener listenAddr(
       String addr, $tls.CryptoTlsConfig tlsConf, QuicGoConfig config) {
     final $r = $callSync(
-        18292,
+        18294,
         $W()
           ..str(addr)
           ..h(tlsConf)
@@ -1362,7 +1362,7 @@ extension GoQuicGoQuicGoApi on GoQuicGoQuicGo {
   QuicGoEarlyListener listenAddrEarly(
       String addr, $tls.CryptoTlsConfig tlsConf, QuicGoConfig config) {
     final $r = $callSync(
-        18293,
+        18295,
         $W()
           ..str(addr)
           ..h(tlsConf)
@@ -1374,7 +1374,7 @@ extension GoQuicGoQuicGoApi on GoQuicGoQuicGo {
   QuicGoEarlyListener listenEarly($net.NetPacketConn conn,
       $tls.CryptoTlsConfig tlsConf, QuicGoConfig config) {
     final $r = $callSync(
-        18294,
+        18296,
         $W()
           ..h(conn)
           ..h(tlsConf)
@@ -1385,7 +1385,7 @@ extension GoQuicGoQuicGoApi on GoQuicGoQuicGo {
   /// Go: `func quic.NewLRUTokenStore(maxOrigins int, tokensPerOrigin int) quic.TokenStore`.
   QuicGoTokenStore newLruTokenStore(int maxOrigins, int tokensPerOrigin) {
     final $r = $callSync(
-        18298,
+        18300,
         $W()
           ..i64(maxOrigins)
           ..i64(tokensPerOrigin));
@@ -1394,7 +1394,7 @@ extension GoQuicGoQuicGoApi on GoQuicGoQuicGo {
 
   /// Go: `func quic.SupportedVersions() []quic.Version`.
   List<int> supportedVersions() {
-    final $r = $callSync(18336);
+    final $r = $callSync(18338);
     return $r.list(() => $r.i64());
   }
 }

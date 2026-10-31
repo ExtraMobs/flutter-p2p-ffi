@@ -12,14 +12,14 @@ class CpuidV2CpuInfo extends GoHandle {
 
   /// Go: `func (cpuid.CPUInfo).ARM64Level() (major int, minor int)`.
   (int, int) arm64Level() {
-    final $r = $callSync(12760, $W()..h(this));
+    final $r = $callSync(12762, $W()..h(this));
     return ($r.i64(), $r.i64());
   }
 
   /// Go: `func (cpuid.CPUInfo).AnyOf(ids ...cpuid.FeatureID) bool`.
   bool anyOf([List<int> ids = const []]) {
     final $r = $callSync(
-        12761,
+        12763,
         $W()
           ..h(this)
           ..list(ids, (w0, e0) => w0.i64(e0)));
@@ -29,7 +29,7 @@ class CpuidV2CpuInfo extends GoHandle {
   /// Go: `func (*cpuid.CPUInfo).Disable(ids ...cpuid.FeatureID) bool`.
   bool disable([List<int> ids = const []]) {
     final $r = $callSync(
-        12762,
+        12764,
         $W()
           ..h(this)
           ..list(ids, (w0, e0) => w0.i64(e0)));
@@ -39,7 +39,7 @@ class CpuidV2CpuInfo extends GoHandle {
   /// Go: `func (*cpuid.CPUInfo).Enable(ids ...cpuid.FeatureID) bool`.
   bool enable([List<int> ids = const []]) {
     final $r = $callSync(
-        12763,
+        12765,
         $W()
           ..h(this)
           ..list(ids, (w0, e0) => w0.i64(e0)));
@@ -48,20 +48,20 @@ class CpuidV2CpuInfo extends GoHandle {
 
   /// Go: `func (cpuid.CPUInfo).FeatureSet() []string`.
   List<String> featureSet() {
-    final $r = $callSync(12764, $W()..h(this));
+    final $r = $callSync(12766, $W()..h(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (cpuid.CPUInfo).GOARM64() string`.
   String goarm64() {
-    final $r = $callSync(12765, $W()..h(this));
+    final $r = $callSync(12767, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*cpuid.CPUInfo).Has(id cpuid.FeatureID) bool`.
   bool has(int id) {
     final $r = $callSync(
-        12766,
+        12768,
         $W()
           ..h(this)
           ..i64(id));
@@ -70,14 +70,14 @@ class CpuidV2CpuInfo extends GoHandle {
 
   /// Go: `func (cpuid.CPUInfo).Ia32TscAux() uint32`.
   int ia32TscAux() {
-    final $r = $callSync(12767, $W()..h(this));
+    final $r = $callSync(12769, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (cpuid.CPUInfo).IsVendor(v cpuid.Vendor) bool`.
   bool isVendor(int v) {
     final $r = $callSync(
-        12768,
+        12770,
         $W()
           ..h(this)
           ..i64(v));
@@ -86,26 +86,26 @@ class CpuidV2CpuInfo extends GoHandle {
 
   /// Go: `func (cpuid.CPUInfo).LogicalCPU() int`.
   int logicalCpu() {
-    final $r = $callSync(12769, $W()..h(this));
+    final $r = $callSync(12771, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (cpuid.CPUInfo).RTCounter() uint64`.
   int rtCounter() {
-    final $r = $callSync(12770, $W()..h(this));
+    final $r = $callSync(12772, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (cpuid.CPUInfo).RVProfile() int`.
   int rvProfile() {
-    final $r = $callSync(12771, $W()..h(this));
+    final $r = $callSync(12773, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (cpuid.CPUInfo).Supports(ids ...cpuid.FeatureID) bool`.
   bool supports([List<int> ids = const []]) {
     final $r = $callSync(
-        12772,
+        12774,
         $W()
           ..h(this)
           ..list(ids, (w0, e0) => w0.i64(e0)));
@@ -114,19 +114,19 @@ class CpuidV2CpuInfo extends GoHandle {
 
   /// Go: `func (cpuid.CPUInfo).SveLengths() (vl uint64, pl uint64)`.
   (int, int) sveLengths() {
-    final $r = $callSync(12773, $W()..h(this));
+    final $r = $callSync(12775, $W()..h(this));
     return ($r.i64(), $r.i64());
   }
 
   /// Go: `func (cpuid.CPUInfo).VM() bool`.
   bool vm() {
-    final $r = $callSync(12774, $W()..h(this));
+    final $r = $callSync(12776, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (cpuid.CPUInfo).X64Level() int`.
   int x64Level() {
-    final $r = $callSync(12775, $W()..h(this));
+    final $r = $callSync(12777, $W()..h(this));
     return $r.i64();
   }
 }
@@ -135,28 +135,28 @@ class CpuidV2CpuInfo extends GoHandle {
 extension GoKlauspostCpuidV2Api on GoKlauspostCpuidV2 {
   /// Go: `var cpuid.CPU cpuid.CPUInfo`.
   CpuidV2CpuInfo get cpu {
-    final $r = $callSync(12759);
+    final $r = $callSync(12761);
     return $r.hnn(CpuidV2CpuInfo.$h);
   }
 
   /// Go: `func cpuid.Detect()`.
   void detect() {
-    $callSync(12776);
+    $callSync(12778);
   }
 
   /// Go: `func cpuid.DetectARM()`.
   void detectArm() {
-    $callSync(12777);
+    $callSync(12779);
   }
 
   /// Go: `func cpuid.Flags()`.
   void flags() {
-    $callSync(12778);
+    $callSync(12780);
   }
 
   /// Go: `func cpuid.ParseFeature(s string) cpuid.FeatureID`.
   int parseFeature(String s) {
-    final $r = $callSync(12779, $W()..str(s));
+    final $r = $callSync(12781, $W()..str(s));
     return $r.i64();
   }
 }

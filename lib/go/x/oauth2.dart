@@ -26,7 +26,7 @@ class Oauth2Config extends GoHandle {
   String authCodeUrl(String state,
       [List<Oauth2AuthCodeOption> opts = const []]) {
     final $r = $callSync(
-        23807,
+        23809,
         $W()
           ..h(this)
           ..str(state)
@@ -40,7 +40,7 @@ class Oauth2Config extends GoHandle {
   Future<$http.NetHttpClient> client(
       $context.Context ctx, Oauth2Token t) async {
     final $r = await $call(
-        23808,
+        23810,
         $W()
           ..h(this)
           ..h(ctx)
@@ -55,7 +55,7 @@ class Oauth2Config extends GoHandle {
       $context.Context ctx, Oauth2DeviceAuthResponse da,
       [List<Oauth2AuthCodeOption> opts = const []]) async {
     final $r = await $call(
-        23809,
+        23811,
         $W()
           ..h(this)
           ..h(ctx)
@@ -70,7 +70,7 @@ class Oauth2Config extends GoHandle {
   Future<Oauth2DeviceAuthResponse> deviceAuth($context.Context ctx,
       [List<Oauth2AuthCodeOption> opts = const []]) async {
     final $r = await $call(
-        23810,
+        23812,
         $W()
           ..h(this)
           ..h(ctx)
@@ -84,7 +84,7 @@ class Oauth2Config extends GoHandle {
   Future<Oauth2Token> exchange($context.Context ctx, String code,
       [List<Oauth2AuthCodeOption> opts = const []]) async {
     final $r = await $call(
-        23811,
+        23813,
         $W()
           ..h(this)
           ..h(ctx)
@@ -99,7 +99,7 @@ class Oauth2Config extends GoHandle {
   Future<Oauth2Token> passwordCredentialsToken(
       $context.Context ctx, String username, String password) async {
     final $r = await $call(
-        23812,
+        23814,
         $W()
           ..h(this)
           ..h(ctx)
@@ -114,7 +114,7 @@ class Oauth2Config extends GoHandle {
   Future<Oauth2TokenSource> tokenSource(
       $context.Context ctx, Oauth2Token t) async {
     final $r = await $call(
-        23813,
+        23815,
         $W()
           ..h(this)
           ..h(ctx)
@@ -178,14 +178,14 @@ final class Oauth2DeviceAuthResponse implements GoDto {
 
   /// Go: `func (oauth2.DeviceAuthResponse).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(23814, $W()..dto(this));
+    final $r = $callSync(23816, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*oauth2.DeviceAuthResponse).UnmarshalJSON(data []byte) error`.
   void unmarshalJson(Uint8List data) {
     $callSync(
-        23815,
+        23817,
         $W()
           ..dto(this)
           ..bytes(data));
@@ -199,7 +199,7 @@ class Oauth2Token extends GoHandle {
   /// Go: `func (*oauth2.Token).Extra(key string) any`.
   Object? extra(String key) {
     final $r = $callSync(
-        23825,
+        23827,
         $W()
           ..h(this)
           ..str(key));
@@ -209,7 +209,7 @@ class Oauth2Token extends GoHandle {
   /// Go: `func (*oauth2.Token).SetAuthHeader(r *http.Request)`.
   void setAuthHeader($http.NetHttpRequest r) {
     $callSync(
-        23826,
+        23828,
         $W()
           ..h(this)
           ..h(r));
@@ -217,20 +217,20 @@ class Oauth2Token extends GoHandle {
 
   /// Go: `func (*oauth2.Token).Type() string`.
   String type() {
-    final $r = $callSync(23827, $W()..h(this));
+    final $r = $callSync(23829, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*oauth2.Token).Valid() bool`.
   bool valid() {
-    final $r = $callSync(23828, $W()..h(this));
+    final $r = $callSync(23830, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*oauth2.Token).WithExtra(extra any) *oauth2.Token`.
   Oauth2Token withExtra(Object? extra) {
     final $r = $callSync(
-        23829,
+        23831,
         $W()
           ..h(this)
           ..any(extra));
@@ -247,7 +247,7 @@ class Oauth2TokenSource extends GoHandle with Oauth2TokenSource$ {
 mixin Oauth2TokenSource$ on GoHandle {
   /// Go: `func (oauth2.TokenSource).Token() (*oauth2.Token, error)`.
   Oauth2Token token() {
-    final $r = $callSync(23830, $W()..h(this));
+    final $r = $callSync(23832, $W()..h(this));
     return $r.hnn(Oauth2Token.$h);
   }
 }
@@ -279,7 +279,7 @@ final class Oauth2Transport implements GoDto {
   @Deprecated("use contexts for cancellation instead.")
   void cancelRequest($http.NetHttpRequest req) {
     $callSync(
-        23831,
+        23833,
         $W()
           ..dto(this)
           ..h(req));
@@ -288,7 +288,7 @@ final class Oauth2Transport implements GoDto {
   /// Go: `func (*oauth2.Transport).RoundTrip(req *http.Request) (*http.Response, error)`.
   $http.NetHttpResponse roundTrip($http.NetHttpRequest req) {
     final $r = $callSync(
-        23832,
+        23834,
         $W()
           ..dto(this)
           ..h(req));
@@ -326,7 +326,7 @@ class Oauth2RetrieveError extends GolangException {
 extension GoXOauth2Api on GoXOauth2 {
   /// Go: `func oauth2.GenerateVerifier() string`.
   String generateVerifier() {
-    final $r = $callSync(23816);
+    final $r = $callSync(23818);
     return $r.str();
   }
 
@@ -336,7 +336,7 @@ extension GoXOauth2Api on GoXOauth2 {
   Future<$http.NetHttpClient> newClient(
       $context.Context ctx, Oauth2TokenSource src) async {
     final $r = await $call(
-        23817,
+        23819,
         $W()
           ..h(ctx)
           ..h(src));
@@ -347,13 +347,13 @@ extension GoXOauth2Api on GoXOauth2 {
   @Deprecated(
       "this function no longer does anything. Caller code that wants to avoid potential extra HTTP requests made during auto-probing of the provider's auth style should set Endpoint.AuthStyle.")
   void registerBrokenAuthHeaderProvider(String tokenUrl) {
-    $callSync(23818, $W()..str(tokenUrl));
+    $callSync(23820, $W()..str(tokenUrl));
   }
 
   /// Go: `func oauth2.ReuseTokenSource(t *oauth2.Token, src oauth2.TokenSource) oauth2.TokenSource`.
   Oauth2TokenSource reuseTokenSource(Oauth2Token t, Oauth2TokenSource src) {
     final $r = $callSync(
-        23819,
+        23821,
         $W()
           ..h(t)
           ..h(src));
@@ -364,7 +364,7 @@ extension GoXOauth2Api on GoXOauth2 {
   Oauth2TokenSource reuseTokenSourceWithExpiry(
       Oauth2Token t, Oauth2TokenSource src, Duration earlyExpiry) {
     final $r = $callSync(
-        23820,
+        23822,
         $W()
           ..h(t)
           ..h(src)
@@ -374,13 +374,13 @@ extension GoXOauth2Api on GoXOauth2 {
 
   /// Go: `func oauth2.S256ChallengeFromVerifier(verifier string) string`.
   String s256ChallengeFromVerifier(String verifier) {
-    final $r = $callSync(23821, $W()..str(verifier));
+    final $r = $callSync(23823, $W()..str(verifier));
     return $r.str();
   }
 
   /// Go: `func oauth2.StaticTokenSource(t *oauth2.Token) oauth2.TokenSource`.
   Oauth2TokenSource staticTokenSource(Oauth2Token t) {
-    final $r = $callSync(23824, $W()..h(t));
+    final $r = $callSync(23826, $W()..h(t));
     return $r.hnn(Oauth2TokenSource.$h);
   }
 }
@@ -401,32 +401,32 @@ extension GoXOauth2EnumsApi on GoXOauth2Enums {
 extension GoXOauth2OptionsApi on GoXOauth2Options {
   /// Go: `var oauth2.AccessTypeOffline oauth2.AuthCodeOption`.
   Oauth2AuthCodeOption get accessTypeOffline {
-    final $r = $callSync(23804);
+    final $r = $callSync(23806);
     return $r.hnn(Oauth2AuthCodeOption.$h);
   }
 
   /// Go: `var oauth2.AccessTypeOnline oauth2.AuthCodeOption`.
   Oauth2AuthCodeOption get accessTypeOnline {
-    final $r = $callSync(23805);
+    final $r = $callSync(23807);
     return $r.hnn(Oauth2AuthCodeOption.$h);
   }
 
   /// Go: `var oauth2.ApprovalForce oauth2.AuthCodeOption`.
   Oauth2AuthCodeOption get approvalForce {
-    final $r = $callSync(23806);
+    final $r = $callSync(23808);
     return $r.hnn(Oauth2AuthCodeOption.$h);
   }
 
   /// Go: `func oauth2.S256ChallengeOption(verifier string) oauth2.AuthCodeOption`.
   Oauth2AuthCodeOption s256ChallengeOption(String verifier) {
-    final $r = $callSync(23822, $W()..str(verifier));
+    final $r = $callSync(23824, $W()..str(verifier));
     return $r.hnn(Oauth2AuthCodeOption.$h);
   }
 
   /// Go: `func oauth2.SetAuthURLParam(key string, value string) oauth2.AuthCodeOption`.
   Oauth2AuthCodeOption setAuthUrlParam(String key, String value) {
     final $r = $callSync(
-        23823,
+        23825,
         $W()
           ..str(key)
           ..str(value));
@@ -435,7 +435,7 @@ extension GoXOauth2OptionsApi on GoXOauth2Options {
 
   /// Go: `func oauth2.VerifierOption(verifier string) oauth2.AuthCodeOption`.
   Oauth2AuthCodeOption verifierOption(String verifier) {
-    final $r = $callSync(23833, $W()..str(verifier));
+    final $r = $callSync(23835, $W()..str(verifier));
     return $r.hnn(Oauth2AuthCodeOption.$h);
   }
 }

@@ -31,7 +31,7 @@ class MultiaddrComponent extends $encoding.EncodingBinaryUnmarshaler
   /// Go: `func multiaddr.NewComponent(protocol string, value string) (*multiaddr.Component, error)`.
   factory MultiaddrComponent(String protocol, String value) {
     final $r = $callSync(
-        15895,
+        15897,
         $W()
           ..str(protocol)
           ..str(value));
@@ -40,20 +40,20 @@ class MultiaddrComponent extends $encoding.EncodingBinaryUnmarshaler
 
   /// Go: `func (*multiaddr.Component).Bytes() []byte`.
   Uint8List bytes() {
-    final $r = $callSync(15850, $W()..h(this));
+    final $r = $callSync(15852, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*multiaddr.Component).Code() int`.
   int code() {
-    final $r = $callSync(15851, $W()..h(this));
+    final $r = $callSync(15853, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*multiaddr.Component).Compare(o *multiaddr.Component) int`.
   int compare(MultiaddrComponent o) {
     final $r = $callSync(
-        15852,
+        15854,
         $W()
           ..h(this)
           ..h(o));
@@ -63,7 +63,7 @@ class MultiaddrComponent extends $encoding.EncodingBinaryUnmarshaler
   /// Go: `func (*multiaddr.Component).Decapsulate(o multiaddr.Multiaddrer) multiaddr.Multiaddr`.
   Multiaddr decapsulate(MultiaddrMultiaddrer o) {
     final $r = $callSync(
-        15853,
+        15855,
         $W()
           ..h(this)
           ..dto(o));
@@ -73,7 +73,7 @@ class MultiaddrComponent extends $encoding.EncodingBinaryUnmarshaler
   /// Go: `func (*multiaddr.Component).Encapsulate(o multiaddr.Multiaddrer) multiaddr.Multiaddr`.
   Multiaddr encapsulate(MultiaddrMultiaddrer o) {
     final $r = $callSync(
-        15854,
+        15856,
         $W()
           ..h(this)
           ..dto(o));
@@ -83,7 +83,7 @@ class MultiaddrComponent extends $encoding.EncodingBinaryUnmarshaler
   /// Go: `func (*multiaddr.Component).Equal(o *multiaddr.Component) bool`.
   bool equal(MultiaddrComponent o) {
     final $r = $callSync(
-        15855,
+        15857,
         $W()
           ..h(this)
           ..h(o));
@@ -92,56 +92,56 @@ class MultiaddrComponent extends $encoding.EncodingBinaryUnmarshaler
 
   /// Go: `func (*multiaddr.Component).MarshalBinary() ([]byte, error)`.
   Uint8List marshalBinary() {
-    final $r = $callSync(15856, $W()..h(this));
+    final $r = $callSync(15858, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*multiaddr.Component).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(15857, $W()..h(this));
+    final $r = $callSync(15859, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*multiaddr.Component).MarshalText() ([]byte, error)`.
   Uint8List marshalText() {
-    final $r = $callSync(15858, $W()..h(this));
+    final $r = $callSync(15860, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*multiaddr.Component).Multiaddr() multiaddr.Multiaddr`.
   Multiaddr multiaddr() {
-    final $r = $callSync(15859, $W()..h(this));
+    final $r = $callSync(15861, $W()..h(this));
     return $r.p() ? Multiaddr($r.str()) : $nil();
   }
 
   /// Go: `func (*multiaddr.Component).Protocol() multiaddr.Protocol`.
   MultiaddrProtocol protocol() {
-    final $r = $callSync(15860, $W()..h(this));
+    final $r = $callSync(15862, $W()..h(this));
     return $r.p() ? MultiaddrProtocol.$dec($r) : $nil();
   }
 
   /// Go: `func (*multiaddr.Component).Protocols() []multiaddr.Protocol`.
   List<MultiaddrProtocol> protocols() {
-    final $r = $callSync(15861, $W()..h(this));
+    final $r = $callSync(15863, $W()..h(this));
     return $r.list(() => $r.p() ? MultiaddrProtocol.$dec($r) : $nil());
   }
 
   /// Go: `func (*multiaddr.Component).RawValue() []byte`.
   Uint8List rawValue() {
-    final $r = $callSync(15862, $W()..h(this));
+    final $r = $callSync(15864, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*multiaddr.Component).String() string`.
   String string() {
-    final $r = $callSync(15863, $W()..h(this));
+    final $r = $callSync(15865, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*multiaddr.Component).UnmarshalBinary(data []byte) error`.
   void unmarshalBinary(Uint8List data) {
     $callSync(
-        15864,
+        15866,
         $W()
           ..h(this)
           ..bytes(data));
@@ -150,7 +150,7 @@ class MultiaddrComponent extends $encoding.EncodingBinaryUnmarshaler
   /// Go: `func (*multiaddr.Component).UnmarshalJSON(data []byte) error`.
   void unmarshalJson(Uint8List data) {
     $callSync(
-        15865,
+        15867,
         $W()
           ..h(this)
           ..bytes(data));
@@ -159,7 +159,7 @@ class MultiaddrComponent extends $encoding.EncodingBinaryUnmarshaler
   /// Go: `func (*multiaddr.Component).UnmarshalText(data []byte) error`.
   void unmarshalText(Uint8List data) {
     $callSync(
-        15866,
+        15868,
         $W()
           ..h(this)
           ..bytes(data));
@@ -167,14 +167,14 @@ class MultiaddrComponent extends $encoding.EncodingBinaryUnmarshaler
 
   /// Go: `func (*multiaddr.Component).Value() string`.
   String value$() {
-    final $r = $callSync(15867, $W()..h(this));
+    final $r = $callSync(15869, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*multiaddr.Component).ValueForProtocol(code int) (string, error)`.
   String valueForProtocol(int code) {
     final $r = $callSync(
-        15868,
+        15870,
         $W()
           ..h(this)
           ..i64(code));
@@ -188,14 +188,14 @@ class MultiaddrFilters extends GoHandle {
 
   /// Go: `func multiaddr.NewFilters() *multiaddr.Filters`.
   factory MultiaddrFilters() {
-    final $r = $callSync(15896);
+    final $r = $callSync(15898);
     return $r.hnn(MultiaddrFilters.$h);
   }
 
   /// Go: `func (*multiaddr.Filters).ActionForFilter(ipnet net.IPNet) (action multiaddr.Action, ok bool)`.
   (int, bool) actionForFilter($net.NetIpNet ipnet) {
     final $r = $callSync(
-        15871,
+        15873,
         $W()
           ..h(this)
           ..dto(ipnet));
@@ -205,7 +205,7 @@ class MultiaddrFilters extends GoHandle {
   /// Go: `func (*multiaddr.Filters).AddFilter(ipnet net.IPNet, action multiaddr.Action)`.
   void addFilter($net.NetIpNet ipnet, int action) {
     $callSync(
-        15872,
+        15874,
         $W()
           ..h(this)
           ..dto(ipnet)
@@ -215,7 +215,7 @@ class MultiaddrFilters extends GoHandle {
   /// Go: `func (*multiaddr.Filters).AddrBlocked(a multiaddr.Multiaddr) (deny bool)`.
   bool addrBlocked(Multiaddr a) {
     final $r = $callSync(
-        15873,
+        15875,
         $W()
           ..h(this)
           ..val(a));
@@ -225,7 +225,7 @@ class MultiaddrFilters extends GoHandle {
   /// Go: `func (*multiaddr.Filters).FiltersForAction(action multiaddr.Action) (result []net.IPNet)`.
   List<$net.NetIpNet> filtersForAction(int action) {
     final $r = $callSync(
-        15874,
+        15876,
         $W()
           ..h(this)
           ..i64(action));
@@ -235,7 +235,7 @@ class MultiaddrFilters extends GoHandle {
   /// Go: `func (*multiaddr.Filters).RemoveLiteral(ipnet net.IPNet) (removed bool)`.
   bool removeLiteral($net.NetIpNet ipnet) {
     final $r = $callSync(
-        15875,
+        15877,
         $W()
           ..h(this)
           ..dto(ipnet));
@@ -250,7 +250,7 @@ class Multiaddr extends GoValue {
   /// Go: `func (multiaddr.Multiaddr).AppendComponent(cs ...*multiaddr.Component) multiaddr.Multiaddr`.
   Multiaddr appendComponent([List<MultiaddrComponent> cs = const []]) {
     final $r = $callSync(
-        15878,
+        15880,
         $W()
           ..val(this)
           ..list(cs, (w0, e0) => w0.h(e0)));
@@ -259,14 +259,14 @@ class Multiaddr extends GoValue {
 
   /// Go: `func (multiaddr.Multiaddr).Bytes() []byte`.
   Uint8List bytes() {
-    final $r = $callSync(15879, $W()..val(this));
+    final $r = $callSync(15881, $W()..val(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (multiaddr.Multiaddr).Compare(o multiaddr.Multiaddr) int`.
   int compare(Multiaddr o) {
     final $r = $callSync(
-        15880,
+        15882,
         $W()
           ..val(this)
           ..val(o));
@@ -276,7 +276,7 @@ class Multiaddr extends GoValue {
   /// Go: `func (multiaddr.Multiaddr).Decapsulate(rightPartsAny multiaddr.Multiaddrer) multiaddr.Multiaddr`.
   Multiaddr decapsulate(MultiaddrMultiaddrer rightPartsAny) {
     final $r = $callSync(
-        15881,
+        15883,
         $W()
           ..val(this)
           ..dto(rightPartsAny));
@@ -286,7 +286,7 @@ class Multiaddr extends GoValue {
   /// Go: `func (multiaddr.Multiaddr).Encapsulate(other multiaddr.Multiaddrer) multiaddr.Multiaddr`.
   Multiaddr encapsulate(MultiaddrMultiaddrer other) {
     final $r = $callSync(
-        15882,
+        15884,
         $W()
           ..val(this)
           ..dto(other));
@@ -296,7 +296,7 @@ class Multiaddr extends GoValue {
   /// Go: `func (multiaddr.Multiaddr).Equal(m2 multiaddr.Multiaddr) bool`.
   bool equal(Multiaddr m2) {
     final $r = $callSync(
-        15883,
+        15885,
         $W()
           ..val(this)
           ..val(m2));
@@ -305,50 +305,50 @@ class Multiaddr extends GoValue {
 
   /// Go: `func (multiaddr.Multiaddr).MarshalBinary() ([]byte, error)`.
   Uint8List marshalBinary() {
-    final $r = $callSync(15884, $W()..val(this));
+    final $r = $callSync(15886, $W()..val(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (multiaddr.Multiaddr).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(15885, $W()..val(this));
+    final $r = $callSync(15887, $W()..val(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (multiaddr.Multiaddr).MarshalText() ([]byte, error)`.
   Uint8List marshalText() {
-    final $r = $callSync(15886, $W()..val(this));
+    final $r = $callSync(15888, $W()..val(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (multiaddr.Multiaddr).Match(p ...meg.Pattern) (bool, error)`.
   bool match() {
-    final $r = $callSync(15887, $W()..val(this));
+    final $r = $callSync(15889, $W()..val(this));
     return $r.b();
   }
 
   /// Go: `func (multiaddr.Multiaddr).Multiaddr() multiaddr.Multiaddr`.
   Multiaddr multiaddr() {
-    final $r = $callSync(15888, $W()..val(this));
+    final $r = $callSync(15890, $W()..val(this));
     return $r.p() ? Multiaddr($r.str()) : $nil();
   }
 
   /// Go: `func (multiaddr.Multiaddr).Protocols() []multiaddr.Protocol`.
   List<MultiaddrProtocol> protocols() {
-    final $r = $callSync(15889, $W()..val(this));
+    final $r = $callSync(15891, $W()..val(this));
     return $r.list(() => $r.p() ? MultiaddrProtocol.$dec($r) : $nil());
   }
 
   /// Go: `func (multiaddr.Multiaddr).String() string`.
   String string() {
-    final $r = $callSync(15890, $W()..val(this));
+    final $r = $callSync(15892, $W()..val(this));
     return $r.str();
   }
 
   /// Go: `func (*multiaddr.Multiaddr).UnmarshalBinary(data []byte) error`.
   void unmarshalBinary(Uint8List data) {
     $callSync(
-        15891,
+        15893,
         $W()
           ..val(this)
           ..bytes(data));
@@ -357,7 +357,7 @@ class Multiaddr extends GoValue {
   /// Go: `func (*multiaddr.Multiaddr).UnmarshalJSON(data []byte) error`.
   void unmarshalJson(Uint8List data) {
     $callSync(
-        15892,
+        15894,
         $W()
           ..val(this)
           ..bytes(data));
@@ -366,7 +366,7 @@ class Multiaddr extends GoValue {
   /// Go: `func (*multiaddr.Multiaddr).UnmarshalText(data []byte) error`.
   void unmarshalText(Uint8List data) {
     $callSync(
-        15893,
+        15895,
         $W()
           ..val(this)
           ..bytes(data));
@@ -375,7 +375,7 @@ class Multiaddr extends GoValue {
   /// Go: `func (multiaddr.Multiaddr).ValueForProtocol(code int) (value string, err error)`.
   String valueForProtocol(int code) {
     final $r = $callSync(
-        15894,
+        15896,
         $W()
           ..val(this)
           ..i64(code));
@@ -464,7 +464,7 @@ mixin MultiaddrTranscoder$ on GoHandle {
   /// Go: `func (multiaddr.Transcoder).BytesToString([]byte) (string, error)`.
   String bytesToString(Uint8List arg0) {
     final $r = $callSync(
-        15909,
+        15911,
         $W()
           ..h(this)
           ..bytes(arg0));
@@ -474,7 +474,7 @@ mixin MultiaddrTranscoder$ on GoHandle {
   /// Go: `func (multiaddr.Transcoder).StringToBytes(string) ([]byte, error)`.
   Uint8List stringToBytes(String arg0) {
     final $r = $callSync(
-        15910,
+        15912,
         $W()
           ..h(this)
           ..str(arg0));
@@ -484,7 +484,7 @@ mixin MultiaddrTranscoder$ on GoHandle {
   /// Go: `func (multiaddr.Transcoder).ValidateBytes([]byte) error`.
   void validateBytes(Uint8List arg0) {
     $callSync(
-        15911,
+        15913,
         $W()
           ..h(this)
           ..bytes(arg0));
@@ -513,7 +513,7 @@ extension GoMultiformatsMultiaddrApi on GoMultiformatsMultiaddr {
       Multiaddr m, FutureOr<bool> Function(MultiaddrComponent c) cb,
       {int? batchSize}) async {
     await $callCb(
-        15876,
+        15878,
         $W()
           ..val(m)
           ..u32(batchSize ?? 1),
@@ -531,7 +531,7 @@ extension GoMultiformatsMultiaddrApi on GoMultiformatsMultiaddr {
       Multiaddr m, FutureOr<bool> Function(MultiaddrComponent component) cb,
       {int? batchSize}) async {
     final $r = await $callCb(
-        15906,
+        15908,
         $W()
           ..val(m)
           ..u32(batchSize ?? 1),
@@ -544,25 +544,25 @@ extension GoMultiformatsMultiaddrApi on GoMultiformatsMultiaddr {
 
   /// Go: `func multiaddr.AddProtocol(p multiaddr.Protocol) error`.
   void addProtocol(MultiaddrProtocol p) {
-    $callSync(15847, $W()..dto(p));
+    $callSync(15849, $W()..dto(p));
   }
 
   /// Go: `func multiaddr.Cast(b []byte) multiaddr.Multiaddr`.
   Multiaddr cast(Uint8List b) {
-    final $r = $callSync(15848, $W()..bytes(b));
+    final $r = $callSync(15850, $W()..bytes(b));
     return $r.p() ? Multiaddr($r.str()) : $nil();
   }
 
   /// Go: `func multiaddr.CodeToVarint(num int) []byte`.
   Uint8List codeToVarint(int num) {
-    final $r = $callSync(15849, $W()..i64(num));
+    final $r = $callSync(15851, $W()..i64(num));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func multiaddr.Contains(addrs []multiaddr.Multiaddr, addr multiaddr.Multiaddr) bool`.
   bool contains(List<Multiaddr> addrs, Multiaddr addr) {
     final $r = $callSync(
-        15869,
+        15871,
         $W()
           ..list(addrs, (w0, e0) => w0.val(e0))
           ..val(addr));
@@ -571,68 +571,68 @@ extension GoMultiformatsMultiaddrApi on GoMultiformatsMultiaddr {
 
   /// Go: `func multiaddr.FilterAddrs(a []multiaddr.Multiaddr, filters ...func(multiaddr.Multiaddr) bool) []multiaddr.Multiaddr`.
   List<Multiaddr> filterAddrs(List<Multiaddr> a) {
-    final $r = $callSync(15870, $W()..list(a, (w0, e0) => w0.val(e0)));
+    final $r = $callSync(15872, $W()..list(a, (w0, e0) => w0.val(e0)));
     return $r.list(() => $r.p() ? Multiaddr($r.str()) : $nil());
   }
 
   /// Go: `func multiaddr.Join(msInterfaces ...multiaddr.Multiaddrer) multiaddr.Multiaddr`.
   Multiaddr join([List<MultiaddrMultiaddrer> msInterfaces = const []]) {
     final $r =
-        $callSync(15877, $W()..list(msInterfaces, (w0, e0) => w0.dto(e0)));
+        $callSync(15879, $W()..list(msInterfaces, (w0, e0) => w0.dto(e0)));
     return $r.p() ? Multiaddr($r.str()) : $nil();
   }
 
   /// Go: `func multiaddr.NewMultiaddr(s string) (a multiaddr.Multiaddr, err error)`.
   Multiaddr newMultiaddr(String s) {
-    final $r = $callSync(15897, $W()..str(s));
+    final $r = $callSync(15899, $W()..str(s));
     return $r.p() ? Multiaddr($r.str()) : $nil();
   }
 
   /// Go: `func multiaddr.NewMultiaddrBytes(b []byte) (a multiaddr.Multiaddr, err error)`.
   Multiaddr newMultiaddrBytes(Uint8List b) {
-    final $r = $callSync(15898, $W()..bytes(b));
+    final $r = $callSync(15900, $W()..bytes(b));
     return $r.p() ? Multiaddr($r.str()) : $nil();
   }
 
   /// Go: `func multiaddr.ProtocolWithCode(c int) multiaddr.Protocol`.
   MultiaddrProtocol protocolWithCode(int c) {
-    final $r = $callSync(15899, $W()..i64(c));
+    final $r = $callSync(15901, $W()..i64(c));
     return $r.p() ? MultiaddrProtocol.$dec($r) : $nil();
   }
 
   /// Go: `func multiaddr.ProtocolWithName(s string) multiaddr.Protocol`.
   MultiaddrProtocol protocolWithName(String s) {
-    final $r = $callSync(15900, $W()..str(s));
+    final $r = $callSync(15902, $W()..str(s));
     return $r.p() ? MultiaddrProtocol.$dec($r) : $nil();
   }
 
   /// Go: `var multiaddr.Protocols []multiaddr.Protocol`.
   List<MultiaddrProtocol> get protocols {
-    final $r = $callSync(15901);
+    final $r = $callSync(15903);
     return $r.list(() => $r.p() ? MultiaddrProtocol.$dec($r) : $nil());
   }
 
   /// Go: `func multiaddr.ProtocolsWithString(s string) ([]multiaddr.Protocol, error)`.
   List<MultiaddrProtocol> protocolsWithString(String s) {
-    final $r = $callSync(15902, $W()..str(s));
+    final $r = $callSync(15904, $W()..str(s));
     return $r.list(() => $r.p() ? MultiaddrProtocol.$dec($r) : $nil());
   }
 
   /// Go: `func multiaddr.ReadVarintCode(b []byte) (int, int, error)`.
   (int, int) readVarintCode(Uint8List b) {
-    final $r = $callSync(15903, $W()..bytes(b));
+    final $r = $callSync(15905, $W()..bytes(b));
     return ($r.i64(), $r.i64());
   }
 
   /// Go: `func multiaddr.Split(m multiaddr.Multiaddr) []multiaddr.Component`.
   List<MultiaddrComponent> split(Multiaddr m) {
-    final $r = $callSync(15904, $W()..val(m));
+    final $r = $callSync(15906, $W()..val(m));
     return $r.list(() => $r.hnn(MultiaddrComponent.$h));
   }
 
   /// Go: `func multiaddr.SplitFirst(m multiaddr.Multiaddr) (*multiaddr.Component, multiaddr.Multiaddr)`.
   (MultiaddrComponent, Multiaddr) splitFirst(Multiaddr m) {
-    final $r = $callSync(15905, $W()..val(m));
+    final $r = $callSync(15907, $W()..val(m));
     return (
       $r.hnn(MultiaddrComponent.$h),
       $r.p() ? Multiaddr($r.str()) : $nil()
@@ -641,7 +641,7 @@ extension GoMultiformatsMultiaddrApi on GoMultiformatsMultiaddr {
 
   /// Go: `func multiaddr.SplitLast(m multiaddr.Multiaddr) (multiaddr.Multiaddr, *multiaddr.Component)`.
   (Multiaddr, MultiaddrComponent) splitLast(Multiaddr m) {
-    final $r = $callSync(15907, $W()..val(m));
+    final $r = $callSync(15909, $W()..val(m));
     return (
       $r.p() ? Multiaddr($r.str()) : $nil(),
       $r.hnn(MultiaddrComponent.$h)
@@ -650,103 +650,103 @@ extension GoMultiformatsMultiaddrApi on GoMultiformatsMultiaddr {
 
   /// Go: `func multiaddr.StringCast(s string) multiaddr.Multiaddr`.
   Multiaddr stringCast(String s) {
-    final $r = $callSync(15908, $W()..str(s));
+    final $r = $callSync(15910, $W()..str(s));
     return $r.p() ? Multiaddr($r.str()) : $nil();
   }
 
   /// Go: `var multiaddr.TranscoderCertHash multiaddr.Transcoder`.
   MultiaddrTranscoder get transcoderCertHash {
-    final $r = $callSync(15912);
+    final $r = $callSync(15914);
     return $r.hnn(MultiaddrTranscoder.$h);
   }
 
   /// Go: `var multiaddr.TranscoderDns multiaddr.Transcoder`.
   MultiaddrTranscoder get transcoderDns {
-    final $r = $callSync(15913);
+    final $r = $callSync(15915);
     return $r.hnn(MultiaddrTranscoder.$h);
   }
 
   /// Go: `var multiaddr.TranscoderGarlic32 multiaddr.Transcoder`.
   MultiaddrTranscoder get transcoderGarlic32 {
-    final $r = $callSync(15914);
+    final $r = $callSync(15916);
     return $r.hnn(MultiaddrTranscoder.$h);
   }
 
   /// Go: `var multiaddr.TranscoderGarlic64 multiaddr.Transcoder`.
   MultiaddrTranscoder get transcoderGarlic64 {
-    final $r = $callSync(15915);
+    final $r = $callSync(15917);
     return $r.hnn(MultiaddrTranscoder.$h);
   }
 
   /// Go: `var multiaddr.TranscoderHTTPPath multiaddr.Transcoder`.
   MultiaddrTranscoder get transcoderHttpPath {
-    final $r = $callSync(15916);
+    final $r = $callSync(15918);
     return $r.hnn(MultiaddrTranscoder.$h);
   }
 
   /// Go: `var multiaddr.TranscoderIP4 multiaddr.Transcoder`.
   MultiaddrTranscoder get transcoderIp4 {
-    final $r = $callSync(15917);
+    final $r = $callSync(15919);
     return $r.hnn(MultiaddrTranscoder.$h);
   }
 
   /// Go: `var multiaddr.TranscoderIP6 multiaddr.Transcoder`.
   MultiaddrTranscoder get transcoderIp6 {
-    final $r = $callSync(15918);
+    final $r = $callSync(15920);
     return $r.hnn(MultiaddrTranscoder.$h);
   }
 
   /// Go: `var multiaddr.TranscoderIP6Zone multiaddr.Transcoder`.
   MultiaddrTranscoder get transcoderIp6Zone {
-    final $r = $callSync(15919);
+    final $r = $callSync(15921);
     return $r.hnn(MultiaddrTranscoder.$h);
   }
 
   /// Go: `var multiaddr.TranscoderIPCIDR multiaddr.Transcoder`.
   MultiaddrTranscoder get transcoderIpcidr {
-    final $r = $callSync(15920);
+    final $r = $callSync(15922);
     return $r.hnn(MultiaddrTranscoder.$h);
   }
 
   /// Go: `var multiaddr.TranscoderMemory multiaddr.Transcoder`.
   MultiaddrTranscoder get transcoderMemory {
-    final $r = $callSync(15921);
+    final $r = $callSync(15923);
     return $r.hnn(MultiaddrTranscoder.$h);
   }
 
   /// Go: `var multiaddr.TranscoderOnion multiaddr.Transcoder`.
   MultiaddrTranscoder get transcoderOnion {
-    final $r = $callSync(15922);
+    final $r = $callSync(15924);
     return $r.hnn(MultiaddrTranscoder.$h);
   }
 
   /// Go: `var multiaddr.TranscoderOnion3 multiaddr.Transcoder`.
   MultiaddrTranscoder get transcoderOnion3 {
-    final $r = $callSync(15923);
+    final $r = $callSync(15925);
     return $r.hnn(MultiaddrTranscoder.$h);
   }
 
   /// Go: `var multiaddr.TranscoderP2P multiaddr.Transcoder`.
   MultiaddrTranscoder get transcoderP2p {
-    final $r = $callSync(15924);
+    final $r = $callSync(15926);
     return $r.hnn(MultiaddrTranscoder.$h);
   }
 
   /// Go: `var multiaddr.TranscoderPort multiaddr.Transcoder`.
   MultiaddrTranscoder get transcoderPort {
-    final $r = $callSync(15925);
+    final $r = $callSync(15927);
     return $r.hnn(MultiaddrTranscoder.$h);
   }
 
   /// Go: `var multiaddr.TranscoderUnix multiaddr.Transcoder`.
   MultiaddrTranscoder get transcoderUnix {
-    final $r = $callSync(15926);
+    final $r = $callSync(15928);
     return $r.hnn(MultiaddrTranscoder.$h);
   }
 
   /// Go: `func multiaddr.Unique(addrs []multiaddr.Multiaddr) []multiaddr.Multiaddr`.
   List<Multiaddr> unique(List<Multiaddr> addrs) {
-    final $r = $callSync(15927, $W()..list(addrs, (w0, e0) => w0.val(e0)));
+    final $r = $callSync(15929, $W()..list(addrs, (w0, e0) => w0.val(e0)));
     return $r.list(() => $r.p() ? Multiaddr($r.str()) : $nil());
   }
 }

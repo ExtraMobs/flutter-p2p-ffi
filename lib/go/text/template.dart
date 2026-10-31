@@ -16,7 +16,7 @@ class TextTemplate extends GoHandle {
   /// Go: `func (*template.Template).AddParseTree(name string, tree *parse.Tree) (*template.Template, error)`.
   TextTemplate addParseTree(String name, $parse.TextTemplateParseTree tree) {
     final $r = $callSync(
-        27545,
+        27547,
         $W()
           ..h(this)
           ..str(name)
@@ -26,20 +26,20 @@ class TextTemplate extends GoHandle {
 
   /// Go: `func (*template.Template).Clone() (*template.Template, error)`.
   TextTemplate clone() {
-    final $r = $callSync(27546, $W()..h(this));
+    final $r = $callSync(27548, $W()..h(this));
     return $r.hnn(TextTemplate.$h);
   }
 
   /// Go: `func (*template.Template).DefinedTemplates() string`.
   String definedTemplates() {
-    final $r = $callSync(27547, $W()..h(this));
+    final $r = $callSync(27549, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*template.Template).Delims(left string, right string) *template.Template`.
   TextTemplate delims(String left, String right) {
     final $r = $callSync(
-        27548,
+        27550,
         $W()
           ..h(this)
           ..str(left)
@@ -50,7 +50,7 @@ class TextTemplate extends GoHandle {
   /// Go: `func (*template.Template).Execute(wr io.Writer, data any) error`.
   void execute(GoHandle? wr, Object? data) {
     $callSync(
-        27549,
+        27551,
         $W()
           ..h(this)
           ..h(wr)
@@ -60,7 +60,7 @@ class TextTemplate extends GoHandle {
   /// Go: `func (*template.Template).ExecuteTemplate(wr io.Writer, name string, data any) error`.
   void executeTemplate(GoHandle? wr, String name, Object? data) {
     $callSync(
-        27550,
+        27552,
         $W()
           ..h(this)
           ..h(wr)
@@ -71,7 +71,7 @@ class TextTemplate extends GoHandle {
   /// Go: `func (*template.Template).Lookup(name string) *template.Template`.
   TextTemplate lookup(String name) {
     final $r = $callSync(
-        27551,
+        27553,
         $W()
           ..h(this)
           ..str(name));
@@ -80,14 +80,14 @@ class TextTemplate extends GoHandle {
 
   /// Go: `func (*template.Template).Name() string`.
   String name() {
-    final $r = $callSync(27552, $W()..h(this));
+    final $r = $callSync(27554, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*template.Template).New(name string) *template.Template`.
   TextTemplate new$(String name) {
     final $r = $callSync(
-        27553,
+        27555,
         $W()
           ..h(this)
           ..str(name));
@@ -97,7 +97,7 @@ class TextTemplate extends GoHandle {
   /// Go: `func (*template.Template).Option(opt ...string) *template.Template`.
   TextTemplate option([List<String> opt = const []]) {
     final $r = $callSync(
-        27554,
+        27556,
         $W()
           ..h(this)
           ..list(opt, (w0, e0) => w0.str(e0)));
@@ -107,7 +107,7 @@ class TextTemplate extends GoHandle {
   /// Go: `func (*template.Template).Parse(text string) (*template.Template, error)`.
   TextTemplate parse(String text) {
     final $r = $callSync(
-        27555,
+        27557,
         $W()
           ..h(this)
           ..str(text));
@@ -117,7 +117,7 @@ class TextTemplate extends GoHandle {
   /// Go: `func (*template.Template).ParseFS(fsys fs.FS, patterns ...string) (*template.Template, error)`.
   TextTemplate parseFs($fs.IoFs fsys, [List<String> patterns = const []]) {
     final $r = $callSync(
-        27556,
+        27558,
         $W()
           ..h(this)
           ..h(fsys)
@@ -128,7 +128,7 @@ class TextTemplate extends GoHandle {
   /// Go: `func (*template.Template).ParseFiles(filenames ...string) (*template.Template, error)`.
   TextTemplate parseFiles([List<String> filenames = const []]) {
     final $r = $callSync(
-        27557,
+        27559,
         $W()
           ..h(this)
           ..list(filenames, (w0, e0) => w0.str(e0)));
@@ -138,7 +138,7 @@ class TextTemplate extends GoHandle {
   /// Go: `func (*template.Template).ParseGlob(pattern string) (*template.Template, error)`.
   TextTemplate parseGlob(String pattern) {
     final $r = $callSync(
-        27558,
+        27560,
         $W()
           ..h(this)
           ..str(pattern));
@@ -147,7 +147,7 @@ class TextTemplate extends GoHandle {
 
   /// Go: `func (*template.Template).Templates() []*template.Template`.
   List<TextTemplate> templates() {
-    final $r = $callSync(27559, $W()..h(this));
+    final $r = $callSync(27561, $W()..h(this));
     return $r.list(() => $r.hnn(TextTemplate.$h));
   }
 }
@@ -171,7 +171,7 @@ extension GoTextTemplateApi on GoTextTemplate {
   /// Go: `func template.HTMLEscape(w io.Writer, b []byte)`.
   void htmlEscape(GoHandle? w, Uint8List b) {
     $callSync(
-        27534,
+        27536,
         $W()
           ..h(w)
           ..bytes(b));
@@ -179,26 +179,26 @@ extension GoTextTemplateApi on GoTextTemplate {
 
   /// Go: `func template.HTMLEscapeString(s string) string`.
   String htmlEscapeString(String s) {
-    final $r = $callSync(27535, $W()..str(s));
+    final $r = $callSync(27537, $W()..str(s));
     return $r.str();
   }
 
   /// Go: `func template.HTMLEscaper(args ...any) string`.
   String htmlEscaper([List<Object?> args = const []]) {
-    final $r = $callSync(27536, $W()..list(args, (w0, e0) => w0.any(e0)));
+    final $r = $callSync(27538, $W()..list(args, (w0, e0) => w0.any(e0)));
     return $r.str();
   }
 
   /// Go: `func template.IsTrue(val any) (truth bool, ok bool)`.
   (bool, bool) isTrue(Object? val) {
-    final $r = $callSync(27537, $W()..any(val));
+    final $r = $callSync(27539, $W()..any(val));
     return ($r.b(), $r.b());
   }
 
   /// Go: `func template.JSEscape(w io.Writer, b []byte)`.
   void jsEscape(GoHandle? w, Uint8List b) {
     $callSync(
-        27538,
+        27540,
         $W()
           ..h(w)
           ..bytes(b));
@@ -206,26 +206,26 @@ extension GoTextTemplateApi on GoTextTemplate {
 
   /// Go: `func template.JSEscapeString(s string) string`.
   String jsEscapeString(String s) {
-    final $r = $callSync(27539, $W()..str(s));
+    final $r = $callSync(27541, $W()..str(s));
     return $r.str();
   }
 
   /// Go: `func template.JSEscaper(args ...any) string`.
   String jsEscaper([List<Object?> args = const []]) {
-    final $r = $callSync(27540, $W()..list(args, (w0, e0) => w0.any(e0)));
+    final $r = $callSync(27542, $W()..list(args, (w0, e0) => w0.any(e0)));
     return $r.str();
   }
 
   /// Go: `func template.New(name string) *template.Template`.
   TextTemplate new$(String name) {
-    final $r = $callSync(27541, $W()..str(name));
+    final $r = $callSync(27543, $W()..str(name));
     return $r.hnn(TextTemplate.$h);
   }
 
   /// Go: `func template.ParseFS(fsys fs.FS, patterns ...string) (*template.Template, error)`.
   TextTemplate parseFs($fs.IoFs fsys, [List<String> patterns = const []]) {
     final $r = $callSync(
-        27542,
+        27544,
         $W()
           ..h(fsys)
           ..list(patterns, (w0, e0) => w0.str(e0)));
@@ -234,19 +234,19 @@ extension GoTextTemplateApi on GoTextTemplate {
 
   /// Go: `func template.ParseFiles(filenames ...string) (*template.Template, error)`.
   TextTemplate parseFiles([List<String> filenames = const []]) {
-    final $r = $callSync(27543, $W()..list(filenames, (w0, e0) => w0.str(e0)));
+    final $r = $callSync(27545, $W()..list(filenames, (w0, e0) => w0.str(e0)));
     return $r.hnn(TextTemplate.$h);
   }
 
   /// Go: `func template.ParseGlob(pattern string) (*template.Template, error)`.
   TextTemplate parseGlob(String pattern) {
-    final $r = $callSync(27544, $W()..str(pattern));
+    final $r = $callSync(27546, $W()..str(pattern));
     return $r.hnn(TextTemplate.$h);
   }
 
   /// Go: `func template.URLQueryEscaper(args ...any) string`.
   String urlQueryEscaper([List<Object?> args = const []]) {
-    final $r = $callSync(27560, $W()..list(args, (w0, e0) => w0.any(e0)));
+    final $r = $callSync(27562, $W()..list(args, (w0, e0) => w0.any(e0)));
     return $r.str();
   }
 }

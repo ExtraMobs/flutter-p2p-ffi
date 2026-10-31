@@ -24,25 +24,25 @@ class IoFsDirEntry extends GoHandle with IoFsDirEntry$ {
 mixin IoFsDirEntry$ on GoHandle {
   /// Go: `func (fs.DirEntry).Info() (fs.FileInfo, error)`.
   IoFsFileInfo info() {
-    final $r = $callSync(25744, $W()..h(this));
+    final $r = $callSync(25746, $W()..h(this));
     return $r.hnn(IoFsFileInfo.$h);
   }
 
   /// Go: `func (fs.DirEntry).IsDir() bool`.
   bool isDir() {
-    final $r = $callSync(25745, $W()..h(this));
+    final $r = $callSync(25747, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (fs.DirEntry).Name() string`.
   String name() {
-    final $r = $callSync(25746, $W()..h(this));
+    final $r = $callSync(25748, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (fs.DirEntry).Type() fs.FileMode`.
   int type() {
-    final $r = $callSync(25747, $W()..h(this));
+    final $r = $callSync(25749, $W()..h(this));
     return $r.i64();
   }
 }
@@ -57,7 +57,7 @@ mixin IoFs$ on GoHandle {
   /// Go: `func (fs.FS).Open(name string) (fs.File, error)`.
   IoFsFile open(String name) {
     final $r = $callSync(
-        25748,
+        25750,
         $W()
           ..h(this)
           ..str(name));
@@ -128,13 +128,13 @@ class IoFsFile extends GoHandle with IoFsFile$ {
 mixin IoFsFile$ on GoHandle {
   /// Go: `func (fs.File).Close() error`.
   void close() {
-    $callSync(25749, $W()..h(this));
+    $callSync(25751, $W()..h(this));
   }
 
   /// Go: `func (fs.File).Read([]byte) (int, error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        25750,
+        25752,
         $W()
           ..h(this)
           ..i64(n));
@@ -143,7 +143,7 @@ mixin IoFsFile$ on GoHandle {
 
   /// Go: `func (fs.File).Stat() (fs.FileInfo, error)`.
   IoFsFileInfo stat() {
-    final $r = $callSync(25751, $W()..h(this));
+    final $r = $callSync(25753, $W()..h(this));
     return $r.hnn(IoFsFileInfo.$h);
   }
 
@@ -182,37 +182,37 @@ class IoFsFileInfo extends GoHandle with IoFsFileInfo$ {
 mixin IoFsFileInfo$ on GoHandle {
   /// Go: `func (fs.FileInfo).IsDir() bool`.
   bool isDir() {
-    final $r = $callSync(25752, $W()..h(this));
+    final $r = $callSync(25754, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (fs.FileInfo).ModTime() time.Time`.
   DateTime modTime() {
-    final $r = $callSync(25753, $W()..h(this));
+    final $r = $callSync(25755, $W()..h(this));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func (fs.FileInfo).Mode() fs.FileMode`.
   int mode() {
-    final $r = $callSync(25754, $W()..h(this));
+    final $r = $callSync(25756, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (fs.FileInfo).Name() string`.
   String name() {
-    final $r = $callSync(25755, $W()..h(this));
+    final $r = $callSync(25757, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (fs.FileInfo).Size() int64`.
   int size() {
-    final $r = $callSync(25756, $W()..h(this));
+    final $r = $callSync(25758, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (fs.FileInfo).Sys() any`.
   Object? sys() {
-    final $r = $callSync(25757, $W()..h(this));
+    final $r = $callSync(25759, $W()..h(this));
     return $r.any();
   }
 
@@ -239,7 +239,7 @@ mixin IoFsGlobFs$ on GoHandle {
   /// Go: `func (fs.GlobFS).Glob(pattern string) ([]string, error)`.
   List<String> glob(String pattern) {
     final $r = $callSync(
-        25762,
+        25764,
         $W()
           ..h(this)
           ..str(pattern));
@@ -257,7 +257,7 @@ mixin IoFsReadDirFs$ on GoHandle {
   /// Go: `func (fs.ReadDirFS).ReadDir(name string) ([]fs.DirEntry, error)`.
   List<IoFsDirEntry> readDir(String name) {
     final $r = $callSync(
-        25765,
+        25767,
         $W()
           ..h(this)
           ..str(name));
@@ -281,7 +281,7 @@ mixin IoFsReadDirFile$ on GoHandle {
   /// Go: `func (fs.ReadDirFile).ReadDir(n int) ([]fs.DirEntry, error)`.
   List<IoFsDirEntry> readDir(int n) {
     final $r = $callSync(
-        25766,
+        25768,
         $W()
           ..h(this)
           ..i64(n));
@@ -318,7 +318,7 @@ mixin IoFsReadFileFs$ on GoHandle {
   /// Go: `func (fs.ReadFileFS).ReadFile(name string) ([]byte, error)`.
   Uint8List readFile(String name) {
     final $r = $callSync(
-        25768,
+        25770,
         $W()
           ..h(this)
           ..str(name));
@@ -342,7 +342,7 @@ mixin IoFsReadLinkFs$ on GoHandle {
   /// Go: `func (fs.ReadLinkFS).Lstat(name string) (fs.FileInfo, error)`.
   IoFsFileInfo lstat(String name) {
     final $r = $callSync(
-        25770,
+        25772,
         $W()
           ..h(this)
           ..str(name));
@@ -352,7 +352,7 @@ mixin IoFsReadLinkFs$ on GoHandle {
   /// Go: `func (fs.ReadLinkFS).ReadLink(name string) (string, error)`.
   String readLink(String name) {
     final $r = $callSync(
-        25771,
+        25773,
         $W()
           ..h(this)
           ..str(name));
@@ -370,7 +370,7 @@ mixin IoFsStatFs$ on GoHandle {
   /// Go: `func (fs.StatFS).Stat(name string) (fs.FileInfo, error)`.
   IoFsFileInfo stat(String name) {
     final $r = $callSync(
-        25773,
+        25775,
         $W()
           ..h(this)
           ..str(name));
@@ -388,7 +388,7 @@ mixin IoFsSubFs$ on GoHandle {
   /// Go: `func (fs.SubFS).Sub(dir string) (fs.FS, error)`.
   IoFs sub(String dir) {
     final $r = $callSync(
-        25775,
+        25777,
         $W()
           ..h(this)
           ..str(dir));
@@ -481,26 +481,26 @@ class IoFsSkipDir extends GolangException {
 extension GoIoFsApi on GoIoFs {
   /// Go: `func fs.FileInfoToDirEntry(info fs.FileInfo) fs.DirEntry`.
   IoFsDirEntry fileInfoToDirEntry(IoFsFileInfo info) {
-    final $r = $callSync(25758, $W()..h(info));
+    final $r = $callSync(25760, $W()..h(info));
     return $r.hnn(IoFsDirEntry.$h);
   }
 
   /// Go: `func fs.FormatDirEntry(dir fs.DirEntry) string`.
   String formatDirEntry(IoFsDirEntry dir) {
-    final $r = $callSync(25759, $W()..h(dir));
+    final $r = $callSync(25761, $W()..h(dir));
     return $r.str();
   }
 
   /// Go: `func fs.FormatFileInfo(info fs.FileInfo) string`.
   String formatFileInfo(IoFsFileInfo info) {
-    final $r = $callSync(25760, $W()..h(info));
+    final $r = $callSync(25762, $W()..h(info));
     return $r.str();
   }
 
   /// Go: `func fs.Glob(fsys fs.FS, pattern string) (matches []string, err error)`.
   List<String> glob(IoFs fsys, String pattern) {
     final $r = $callSync(
-        25761,
+        25763,
         $W()
           ..h(fsys)
           ..str(pattern));
@@ -510,7 +510,7 @@ extension GoIoFsApi on GoIoFs {
   /// Go: `func fs.Lstat(fsys fs.FS, name string) (fs.FileInfo, error)`.
   IoFsFileInfo lstat(IoFs fsys, String name) {
     final $r = $callSync(
-        25763,
+        25765,
         $W()
           ..h(fsys)
           ..str(name));
@@ -520,7 +520,7 @@ extension GoIoFsApi on GoIoFs {
   /// Go: `func fs.ReadDir(fsys fs.FS, name string) ([]fs.DirEntry, error)`.
   List<IoFsDirEntry> readDir(IoFs fsys, String name) {
     final $r = $callSync(
-        25764,
+        25766,
         $W()
           ..h(fsys)
           ..str(name));
@@ -530,7 +530,7 @@ extension GoIoFsApi on GoIoFs {
   /// Go: `func fs.ReadFile(fsys fs.FS, name string) ([]byte, error)`.
   Uint8List readFile(IoFs fsys, String name) {
     final $r = $callSync(
-        25767,
+        25769,
         $W()
           ..h(fsys)
           ..str(name));
@@ -540,7 +540,7 @@ extension GoIoFsApi on GoIoFs {
   /// Go: `func fs.ReadLink(fsys fs.FS, name string) (string, error)`.
   String readLink(IoFs fsys, String name) {
     final $r = $callSync(
-        25769,
+        25771,
         $W()
           ..h(fsys)
           ..str(name));
@@ -550,7 +550,7 @@ extension GoIoFsApi on GoIoFs {
   /// Go: `func fs.Stat(fsys fs.FS, name string) (fs.FileInfo, error)`.
   IoFsFileInfo stat(IoFs fsys, String name) {
     final $r = $callSync(
-        25772,
+        25774,
         $W()
           ..h(fsys)
           ..str(name));
@@ -560,7 +560,7 @@ extension GoIoFsApi on GoIoFs {
   /// Go: `func fs.Sub(fsys fs.FS, dir string) (fs.FS, error)`.
   IoFs sub(IoFs fsys, String dir) {
     final $r = $callSync(
-        25774,
+        25776,
         $W()
           ..h(fsys)
           ..str(dir));
@@ -569,7 +569,7 @@ extension GoIoFsApi on GoIoFs {
 
   /// Go: `func fs.ValidPath(name string) bool`.
   bool validPath(String name) {
-    final $r = $callSync(25776, $W()..str(name));
+    final $r = $callSync(25778, $W()..str(name));
     return $r.b();
   }
 }

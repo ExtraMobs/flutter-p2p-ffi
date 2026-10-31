@@ -28,13 +28,13 @@ class Libp2pP2pTransportQuicreuseConnManager extends $io.IoCloser
 
   /// Go: `func (*quicreuse.ConnManager).ClientConfig() *quic.Config`.
   $quic_go.QuicGoConfig clientConfig() {
-    final $r = $callSync(15009, $W()..h(this));
+    final $r = $callSync(15011, $W()..h(this));
     return $r.p() ? $quic_go.QuicGoConfig.$dec($r) : $nil();
   }
 
   /// Go: `func (*quicreuse.ConnManager).Close() error`.
   void close() {
-    $callSync(15010, $W()..h(this));
+    $callSync(15012, $W()..h(this));
   }
 
   /// Go: `func (*quicreuse.ConnManager).DialQUIC(ctx context.Context, raddr multiaddr.Multiaddr, tlsConf *tls.Config, allowWindowIncrease func(conn *quic.Conn, delta uint64) bool) (*quic.Conn, error)`.
@@ -51,7 +51,7 @@ class Libp2pP2pTransportQuicreuseConnManager extends $io.IoCloser
       FutureOr<bool> Function($quic_go.QuicGoConn conn, int delta)
           allowWindowIncrease) async {
     final $r = await $call(
-        15011,
+        15013,
         $W()
           ..h(this)
           ..h(ctx)
@@ -77,7 +77,7 @@ class Libp2pP2pTransportQuicreuseConnManager extends $io.IoCloser
       FutureOr<bool> Function($quic_go.QuicGoConn conn, int delta)
           allowWindowIncrease) async {
     final $r = await $call(
-        15012,
+        15014,
         $W()
           ..h(this)
           ..val(addr)
@@ -103,7 +103,7 @@ class Libp2pP2pTransportQuicreuseConnManager extends $io.IoCloser
       FutureOr<bool> Function($quic_go.QuicGoConn conn, int delta)
           allowWindowIncrease) async {
     final $r = await $call(
-        15013,
+        15015,
         $W()
           ..h(this)
           ..any(association)
@@ -118,7 +118,7 @@ class Libp2pP2pTransportQuicreuseConnManager extends $io.IoCloser
 
   /// Go: `func (*quicreuse.ConnManager).Protocols() []int`.
   List<int> protocols() {
-    final $r = $callSync(15014, $W()..h(this));
+    final $r = $callSync(15016, $W()..h(this));
     return $r.list(() => $r.i64());
   }
 
@@ -126,7 +126,7 @@ class Libp2pP2pTransportQuicreuseConnManager extends $io.IoCloser
   $net.NetPacketConn sharedNonQuicPacketConn(
       String arg0, $net.NetUdpAddr laddr) {
     final $r = $callSync(
-        15015,
+        15017,
         $W()
           ..h(this)
           ..str(arg0)
@@ -138,7 +138,7 @@ class Libp2pP2pTransportQuicreuseConnManager extends $io.IoCloser
   Libp2pP2pTransportQuicreuseRefCountedQuicTransport transportForDial(
       String network, $net.NetUdpAddr raddr) {
     final $r = $callSync(
-        15016,
+        15018,
         $W()
           ..h(this)
           ..str(network)
@@ -151,7 +151,7 @@ class Libp2pP2pTransportQuicreuseConnManager extends $io.IoCloser
       transportWithAssociationForDial(
           Object? association, String network, $net.NetUdpAddr raddr) {
     final $r = $callSync(
-        15017,
+        15019,
         $W()
           ..h(this)
           ..any(association)
@@ -174,7 +174,7 @@ mixin Libp2pP2pTransportQuicreuseListener$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<$quic_go.QuicGoConn> accept($context.Context ctx) async {
     final $r = await $call(
-        15019,
+        15021,
         $W()
           ..h(this)
           ..h(ctx));
@@ -183,13 +183,13 @@ mixin Libp2pP2pTransportQuicreuseListener$ on GoHandle {
 
   /// Go: `func (quicreuse.Listener).Addr() net.Addr`.
   $net.NetAddr addr() {
-    final $r = $callSync(15020, $W()..h(this));
+    final $r = $callSync(15022, $W()..h(this));
     return $r.p() ? $net.NetAddr.$dec($r) : $nil();
   }
 
   /// Go: `func (quicreuse.Listener).Multiaddrs() []multiaddr.Multiaddr`.
   List<$multiaddr.Multiaddr> multiaddrs() {
-    final $r = $callSync(15021, $W()..h(this));
+    final $r = $callSync(15023, $W()..h(this));
     return $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil());
   }
 }
@@ -212,7 +212,7 @@ mixin Libp2pP2pTransportQuicreuseQuicListener$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<$quic_go.QuicGoConn> accept($context.Context ctx) async {
     final $r = await $call(
-        15022,
+        15024,
         $W()
           ..h(this)
           ..h(ctx));
@@ -221,13 +221,13 @@ mixin Libp2pP2pTransportQuicreuseQuicListener$ on GoHandle {
 
   /// Go: `func (quicreuse.QUICListener).Addr() net.Addr`.
   $net.NetAddr addr() {
-    final $r = $callSync(15023, $W()..h(this));
+    final $r = $callSync(15025, $W()..h(this));
     return $r.p() ? $net.NetAddr.$dec($r) : $nil();
   }
 
   /// Go: `func (quicreuse.QUICListener).Close() error`.
   void close() {
-    $callSync(15024, $W()..h(this));
+    $callSync(15026, $W()..h(this));
   }
 
   /// Go: type assertion `x.(*quic.EarlyListener)`: null if the object is not one.
@@ -257,7 +257,7 @@ mixin Libp2pP2pTransportQuicreuseQuicTransport$ on GoHandle {
   Future<$quic_go.QuicGoConn> dial($context.Context ctx, $net.NetAddr addr,
       $tls.CryptoTlsConfig tlsConf, $quic_go.QuicGoConfig conf) async {
     final $r = await $call(
-        15025,
+        15027,
         $W()
           ..h(this)
           ..h(ctx)
@@ -271,7 +271,7 @@ mixin Libp2pP2pTransportQuicreuseQuicTransport$ on GoHandle {
   Libp2pP2pTransportQuicreuseQuicListener listen(
       $tls.CryptoTlsConfig tlsConf, $quic_go.QuicGoConfig conf) {
     final $r = $callSync(
-        15026,
+        15028,
         $W()
           ..h(this)
           ..h(tlsConf)
@@ -285,7 +285,7 @@ mixin Libp2pP2pTransportQuicreuseQuicTransport$ on GoHandle {
   Future<(int, $net.NetAddr)> readNonQuicPacket(
       $context.Context ctx, Uint8List b) async {
     final $r = await $call(
-        15027,
+        15029,
         $W()
           ..h(this)
           ..h(ctx)
@@ -296,7 +296,7 @@ mixin Libp2pP2pTransportQuicreuseQuicTransport$ on GoHandle {
   /// Go: `func (quicreuse.QUICTransport).WriteTo(b []byte, addr net.Addr) (int, error)`.
   int writeTo(Uint8List b, $net.NetAddr addr) {
     final $r = $callSync(
-        15028,
+        15030,
         $W()
           ..h(this)
           ..bytes(b)
@@ -315,12 +315,12 @@ class Libp2pP2pTransportQuicreuseRefCountedQuicTransport extends GoHandle
 mixin Libp2pP2pTransportQuicreuseRefCountedQuicTransport$ on GoHandle {
   /// Go: `func (quicreuse.RefCountedQUICTransport).Close() error`.
   void close() {
-    $callSync(15029, $W()..h(this));
+    $callSync(15031, $W()..h(this));
   }
 
   /// Go: `func (quicreuse.RefCountedQUICTransport).DecreaseCount()`.
   void decreaseCount() {
-    $callSync(15030, $W()..h(this));
+    $callSync(15032, $W()..h(this));
   }
 
   /// Go: `func (quicreuse.RefCountedQUICTransport).Dial(ctx context.Context, addr net.Addr, tlsConf *tls.Config, conf *quic.Config) (*quic.Conn, error)`.
@@ -329,7 +329,7 @@ mixin Libp2pP2pTransportQuicreuseRefCountedQuicTransport$ on GoHandle {
   Future<$quic_go.QuicGoConn> dial($context.Context ctx, $net.NetAddr addr,
       $tls.CryptoTlsConfig tlsConf, $quic_go.QuicGoConfig conf) async {
     final $r = await $call(
-        15031,
+        15033,
         $W()
           ..h(this)
           ..h(ctx)
@@ -341,14 +341,14 @@ mixin Libp2pP2pTransportQuicreuseRefCountedQuicTransport$ on GoHandle {
 
   /// Go: `func (quicreuse.RefCountedQUICTransport).IncreaseCount()`.
   void increaseCount() {
-    $callSync(15032, $W()..h(this));
+    $callSync(15034, $W()..h(this));
   }
 
   /// Go: `func (quicreuse.RefCountedQUICTransport).Listen(tlsConf *tls.Config, conf *quic.Config) (quicreuse.QUICListener, error)`.
   Libp2pP2pTransportQuicreuseQuicListener listen(
       $tls.CryptoTlsConfig tlsConf, $quic_go.QuicGoConfig conf) {
     final $r = $callSync(
-        15033,
+        15035,
         $W()
           ..h(this)
           ..h(tlsConf)
@@ -358,14 +358,14 @@ mixin Libp2pP2pTransportQuicreuseRefCountedQuicTransport$ on GoHandle {
 
   /// Go: `func (quicreuse.RefCountedQUICTransport).LocalAddr() net.Addr`.
   $net.NetAddr localAddr() {
-    final $r = $callSync(15034, $W()..h(this));
+    final $r = $callSync(15036, $W()..h(this));
     return $r.p() ? $net.NetAddr.$dec($r) : $nil();
   }
 
   /// Go: `func (quicreuse.RefCountedQUICTransport).WriteTo([]byte, net.Addr) (int, error)`.
   int writeTo(Uint8List arg0, $net.NetAddr addr) {
     final $r = $callSync(
-        15035,
+        15037,
         $W()
           ..h(this)
           ..bytes(arg0)
@@ -385,7 +385,7 @@ mixin Libp2pP2pTransportQuicreuseSourceIpSelector$ on GoHandle {
   /// Go: `func (quicreuse.SourceIPSelector).PreferredSourceIPForDestination(dst *net.UDPAddr) (net.IP, error)`.
   Uint8List preferredSourceIpForDestination($net.NetUdpAddr dst) {
     final $r = $callSync(
-        15036,
+        15038,
         $W()
           ..h(this)
           ..dto(dst));
@@ -398,14 +398,14 @@ extension GoLibp2pLibp2pP2pTransportQuicreuseApi
     on GoLibp2pLibp2pP2pTransportQuicreuse {
   /// Go: `func quicreuse.FromQuicMultiaddr(addr multiaddr.Multiaddr) (*net.UDPAddr, quic.Version, error)`.
   ($net.NetUdpAddr, int) fromQuicMultiaddr($multiaddr.Multiaddr addr) {
-    final $r = $callSync(15018, $W()..val(addr));
+    final $r = $callSync(15020, $W()..val(addr));
     return ($r.p() ? $net.NetUdpAddr.$dec($r) : $nil(), $r.i64());
   }
 
   /// Go: `func quicreuse.ToQuicMultiaddr(na net.Addr, version quic.Version) (multiaddr.Multiaddr, error)`.
   $multiaddr.Multiaddr toQuicMultiaddr($net.NetAddr na, int version) {
     final $r = $callSync(
-        15037,
+        15039,
         $W()
           ..dto(na)
           ..i64(version));

@@ -13,7 +13,7 @@ class Libp2pGologshimConfig extends GoHandle {
   /// Go: `func (*gologshim.Config).LevelForSystem(system string) slog.Level`.
   int levelForSystem(String system) {
     final $r = $callSync(
-        14324,
+        14326,
         $W()
           ..h(this)
           ..str(system));
@@ -25,12 +25,12 @@ class Libp2pGologshimConfig extends GoHandle {
 extension GoLibp2pLibp2pGologshimApi on GoLibp2pLibp2pGologshim {
   /// Go: `func gologshim.Logger(system string) *slog.Logger`.
   $slog.LogSlogLogger logger(String system) {
-    final $r = $callSync(14325, $W()..str(system));
+    final $r = $callSync(14327, $W()..str(system));
     return $r.hnn($slog.LogSlogLogger.$h);
   }
 
   /// Go: `func gologshim.SetDefaultHandler(handler slog.Handler)`.
   void setDefaultHandler($slog.LogSlogHandler handler) {
-    $callSync(14326, $W()..h(handler));
+    $callSync(14328, $W()..h(handler));
   }
 }

@@ -63,7 +63,7 @@ final class GrpcStatsBegin implements GoDto {
 
   /// Go: `func (*stats.Begin).IsClient() bool`.
   bool isClient() {
-    final $r = $callSync(24707, $W()..dto(this));
+    final $r = $callSync(24709, $W()..dto(this));
     return $r.b();
   }
 }
@@ -84,7 +84,7 @@ final class GrpcStatsConnBegin implements GoDto {
 
   /// Go: `func (*stats.ConnBegin).IsClient() bool`.
   bool isClient() {
-    final $r = $callSync(24708, $W()..dto(this));
+    final $r = $callSync(24710, $W()..dto(this));
     return $r.b();
   }
 }
@@ -105,7 +105,7 @@ final class GrpcStatsConnEnd implements GoDto {
 
   /// Go: `func (*stats.ConnEnd).IsClient() bool`.
   bool isClient() {
-    final $r = $callSync(24709, $W()..dto(this));
+    final $r = $callSync(24711, $W()..dto(this));
     return $r.b();
   }
 }
@@ -119,7 +119,7 @@ class GrpcStatsConnStats extends GoHandle with GrpcStatsConnStats$ {
 mixin GrpcStatsConnStats$ on GoHandle {
   /// Go: `func (stats.ConnStats).IsClient() bool`.
   bool isClient() {
-    final $r = $callSync(24710, $W()..h(this));
+    final $r = $callSync(24712, $W()..h(this));
     return $r.b();
   }
 }
@@ -134,7 +134,7 @@ final class GrpcStatsDelayedPickComplete implements GoDto {
 
   /// Go: `func (*stats.DelayedPickComplete).IsClient() bool`.
   bool isClient() {
-    final $r = $callSync(24711, $W()..dto(this));
+    final $r = $callSync(24713, $W()..dto(this));
     return $r.b();
   }
 }
@@ -179,7 +179,7 @@ final class GrpcStatsEnd implements GoDto {
 
   /// Go: `func (*stats.End).IsClient() bool`.
   bool isClient() {
-    final $r = $callSync(24712, $W()..dto(this));
+    final $r = $callSync(24714, $W()..dto(this));
     return $r.b();
   }
 }
@@ -197,7 +197,7 @@ mixin GrpcStatsHandler$ on GoHandle {
   Future<void> handleConn(
       $context.Context ctx, GrpcStatsConnStats connStats) async {
     await $call(
-        24713,
+        24715,
         $W()
           ..h(this)
           ..h(ctx)
@@ -210,7 +210,7 @@ mixin GrpcStatsHandler$ on GoHandle {
   Future<void> handleRpc(
       $context.Context ctx, GrpcStatsRpcStats rpcStats) async {
     await $call(
-        24714,
+        24716,
         $W()
           ..h(this)
           ..h(ctx)
@@ -258,7 +258,7 @@ final class GrpcStatsInHeader implements GoDto {
 
   /// Go: `func (*stats.InHeader).IsClient() bool`.
   bool isClient() {
-    final $r = $callSync(24715, $W()..dto(this));
+    final $r = $callSync(24717, $W()..dto(this));
     return $r.b();
   }
 }
@@ -313,7 +313,7 @@ final class GrpcStatsInPayload implements GoDto {
 
   /// Go: `func (*stats.InPayload).IsClient() bool`.
   bool isClient() {
-    final $r = $callSync(24716, $W()..dto(this));
+    final $r = $callSync(24718, $W()..dto(this));
     return $r.b();
   }
 }
@@ -345,7 +345,7 @@ final class GrpcStatsInTrailer implements GoDto {
 
   /// Go: `func (*stats.InTrailer).IsClient() bool`.
   bool isClient() {
-    final $r = $callSync(24717, $W()..dto(this));
+    final $r = $callSync(24719, $W()..dto(this));
     return $r.b();
   }
 }
@@ -357,14 +357,14 @@ class GrpcStatsMetricSet extends GoHandle {
   /// Go: `func stats.NewMetricSet(metricNames ...string) *stats.MetricSet`.
   factory GrpcStatsMetricSet([List<String> metricNames = const []]) {
     final $r =
-        $callSync(24722, $W()..list(metricNames, (w0, e0) => w0.str(e0)));
+        $callSync(24724, $W()..list(metricNames, (w0, e0) => w0.str(e0)));
     return $r.hnn(GrpcStatsMetricSet.$h);
   }
 
   /// Go: `func (*stats.MetricSet).Add(metricNames ...string) *stats.MetricSet`.
   GrpcStatsMetricSet add([List<String> metricNames = const []]) {
     final $r = $callSync(
-        24718,
+        24720,
         $W()
           ..h(this)
           ..list(metricNames, (w0, e0) => w0.str(e0)));
@@ -374,7 +374,7 @@ class GrpcStatsMetricSet extends GoHandle {
   /// Go: `func (*stats.MetricSet).Join(metrics *stats.MetricSet) *stats.MetricSet`.
   GrpcStatsMetricSet join(GrpcStatsMetricSet metrics) {
     final $r = $callSync(
-        24719,
+        24721,
         $W()
           ..h(this)
           ..h(metrics));
@@ -383,14 +383,14 @@ class GrpcStatsMetricSet extends GoHandle {
 
   /// Go: `func (*stats.MetricSet).Metrics() map[string]bool`.
   Map<String, bool> metrics() {
-    final $r = $callSync(24720, $W()..h(this));
+    final $r = $callSync(24722, $W()..h(this));
     return $r.map(() => $r.str(), () => $r.b());
   }
 
   /// Go: `func (*stats.MetricSet).Remove(metricNames ...string) *stats.MetricSet`.
   GrpcStatsMetricSet remove([List<String> metricNames = const []]) {
     final $r = $callSync(
-        24721,
+        24723,
         $W()
           ..h(this)
           ..list(metricNames, (w0, e0) => w0.str(e0)));
@@ -431,7 +431,7 @@ final class GrpcStatsOutHeader implements GoDto {
 
   /// Go: `func (*stats.OutHeader).IsClient() bool`.
   bool isClient() {
-    final $r = $callSync(24723, $W()..dto(this));
+    final $r = $callSync(24725, $W()..dto(this));
     return $r.b();
   }
 }
@@ -486,7 +486,7 @@ final class GrpcStatsOutPayload implements GoDto {
 
   /// Go: `func (*stats.OutPayload).IsClient() bool`.
   bool isClient() {
-    final $r = $callSync(24724, $W()..dto(this));
+    final $r = $callSync(24726, $W()..dto(this));
     return $r.b();
   }
 }
@@ -518,7 +518,7 @@ final class GrpcStatsOutTrailer implements GoDto {
 
   /// Go: `func (*stats.OutTrailer).IsClient() bool`.
   bool isClient() {
-    final $r = $callSync(24725, $W()..dto(this));
+    final $r = $callSync(24727, $W()..dto(this));
     return $r.b();
   }
 }
@@ -532,7 +532,7 @@ class GrpcStatsRpcStats extends GoHandle with GrpcStatsRpcStats$ {
 mixin GrpcStatsRpcStats$ on GoHandle {
   /// Go: `func (stats.RPCStats).IsClient() bool`.
   bool isClient() {
-    final $r = $callSync(24726, $W()..h(this));
+    final $r = $callSync(24728, $W()..h(this));
     return $r.b();
   }
 }
@@ -544,7 +544,7 @@ extension GoGrpcStatsApi on GoGrpcStats {
   /// Asynchronous: runs in a goroutine of the service.
   @Deprecated("obtain the `grpc-tags-bin` header from metadata instead.")
   Future<Uint8List> tags($context.Context ctx) async {
-    final $r = await $call(24727, $W()..h(ctx));
+    final $r = await $call(24729, $W()..h(ctx));
     return $r.bytes() ?? Uint8List(0);
   }
 
@@ -553,7 +553,7 @@ extension GoGrpcStatsApi on GoGrpcStats {
   /// Asynchronous: runs in a goroutine of the service.
   @Deprecated("obtain the `grpc-trace-bin` header from metadata instead.")
   Future<Uint8List> trace($context.Context ctx) async {
-    final $r = await $call(24728, $W()..h(ctx));
+    final $r = await $call(24730, $W()..h(ctx));
     return $r.bytes() ?? Uint8List(0);
   }
 }

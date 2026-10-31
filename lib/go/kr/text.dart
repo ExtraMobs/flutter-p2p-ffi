@@ -12,7 +12,7 @@ extension GoKrTextApi on GoKrText {
   /// Go: `func text.Indent(s string, prefix string) string`.
   String indent(String s, String prefix) {
     final $r = $callSync(
-        12817,
+        12819,
         $W()
           ..str(s)
           ..str(prefix));
@@ -22,7 +22,7 @@ extension GoKrTextApi on GoKrText {
   /// Go: `func text.IndentBytes(b []byte, prefix []byte) []byte`.
   Uint8List indentBytes(Uint8List b, Uint8List prefix) {
     final $r = $callSync(
-        12818,
+        12820,
         $W()
           ..bytes(b)
           ..bytes(prefix));
@@ -32,7 +32,7 @@ extension GoKrTextApi on GoKrText {
   /// Go: `func text.Wrap(s string, lim int) string`.
   String wrap(String s, int lim) {
     final $r = $callSync(
-        12819,
+        12821,
         $W()
           ..str(s)
           ..i64(lim));
@@ -42,7 +42,7 @@ extension GoKrTextApi on GoKrText {
   /// Go: `func text.WrapBytes(b []byte, lim int) []byte`.
   Uint8List wrapBytes(Uint8List b, int lim) {
     final $r = $callSync(
-        12820,
+        12822,
         $W()
           ..bytes(b)
           ..i64(lim));
@@ -53,7 +53,7 @@ extension GoKrTextApi on GoKrText {
   List<List<Uint8List>> wrapWords(
       List<Uint8List> words, int spc, int lim, int pen) {
     final $r = $callSync(
-        12821,
+        12823,
         $W()
           ..list(words, (w0, e0) => w0.bytes(e0))
           ..i64(spc)

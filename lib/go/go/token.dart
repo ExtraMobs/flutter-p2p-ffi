@@ -16,7 +16,7 @@ class GoTokenFile extends GoHandle {
   /// Go: `func (*token.File).AddLine(offset int)`.
   void addLine(int offset) {
     $callSync(
-        23252,
+        23254,
         $W()
           ..h(this)
           ..i64(offset));
@@ -25,7 +25,7 @@ class GoTokenFile extends GoHandle {
   /// Go: `func (*token.File).AddLineColumnInfo(offset int, filename string, line int, column int)`.
   void addLineColumnInfo(int offset, String filename, int line, int column) {
     $callSync(
-        23253,
+        23255,
         $W()
           ..h(this)
           ..i64(offset)
@@ -37,7 +37,7 @@ class GoTokenFile extends GoHandle {
   /// Go: `func (*token.File).AddLineInfo(offset int, filename string, line int)`.
   void addLineInfo(int offset, String filename, int line) {
     $callSync(
-        23254,
+        23256,
         $W()
           ..h(this)
           ..i64(offset)
@@ -47,20 +47,20 @@ class GoTokenFile extends GoHandle {
 
   /// Go: `func (*token.File).Base() int`.
   int base() {
-    final $r = $callSync(23255, $W()..h(this));
+    final $r = $callSync(23257, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*token.File).End() token.Pos`.
   int end() {
-    final $r = $callSync(23256, $W()..h(this));
+    final $r = $callSync(23258, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*token.File).Line(p token.Pos) int`.
   int line(int p) {
     final $r = $callSync(
-        23257,
+        23259,
         $W()
           ..h(this)
           ..i64(p));
@@ -69,14 +69,14 @@ class GoTokenFile extends GoHandle {
 
   /// Go: `func (*token.File).LineCount() int`.
   int lineCount() {
-    final $r = $callSync(23258, $W()..h(this));
+    final $r = $callSync(23260, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*token.File).LineStart(line int) token.Pos`.
   int lineStart(int line) {
     final $r = $callSync(
-        23259,
+        23261,
         $W()
           ..h(this)
           ..i64(line));
@@ -85,14 +85,14 @@ class GoTokenFile extends GoHandle {
 
   /// Go: `func (*token.File).Lines() []int`.
   List<int> lines() {
-    final $r = $callSync(23260, $W()..h(this));
+    final $r = $callSync(23262, $W()..h(this));
     return $r.list(() => $r.i64());
   }
 
   /// Go: `func (*token.File).MergeLine(line int)`.
   void mergeLine(int line) {
     $callSync(
-        23261,
+        23263,
         $W()
           ..h(this)
           ..i64(line));
@@ -100,14 +100,14 @@ class GoTokenFile extends GoHandle {
 
   /// Go: `func (*token.File).Name() string`.
   String name() {
-    final $r = $callSync(23262, $W()..h(this));
+    final $r = $callSync(23264, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*token.File).Offset(p token.Pos) int`.
   int offset(int p) {
     final $r = $callSync(
-        23263,
+        23265,
         $W()
           ..h(this)
           ..i64(p));
@@ -117,7 +117,7 @@ class GoTokenFile extends GoHandle {
   /// Go: `func (*token.File).Pos(offset int) token.Pos`.
   int pos(int offset) {
     final $r = $callSync(
-        23264,
+        23266,
         $W()
           ..h(this)
           ..i64(offset));
@@ -127,7 +127,7 @@ class GoTokenFile extends GoHandle {
   /// Go: `func (*token.File).Position(p token.Pos) (pos token.Position)`.
   GoTokenPosition position(int p) {
     final $r = $callSync(
-        23265,
+        23267,
         $W()
           ..h(this)
           ..i64(p));
@@ -137,7 +137,7 @@ class GoTokenFile extends GoHandle {
   /// Go: `func (*token.File).PositionFor(p token.Pos, adjusted bool) (pos token.Position)`.
   GoTokenPosition positionFor(int p, bool adjusted) {
     final $r = $callSync(
-        23266,
+        23268,
         $W()
           ..h(this)
           ..i64(p)
@@ -148,7 +148,7 @@ class GoTokenFile extends GoHandle {
   /// Go: `func (*token.File).SetLines(lines []int) bool`.
   bool setLines(List<int> lines) {
     final $r = $callSync(
-        23267,
+        23269,
         $W()
           ..h(this)
           ..list(lines, (w0, e0) => w0.i64(e0)));
@@ -158,7 +158,7 @@ class GoTokenFile extends GoHandle {
   /// Go: `func (*token.File).SetLinesForContent(content []byte)`.
   void setLinesForContent(Uint8List content) {
     $callSync(
-        23268,
+        23270,
         $W()
           ..h(this)
           ..bytes(content));
@@ -166,7 +166,7 @@ class GoTokenFile extends GoHandle {
 
   /// Go: `func (*token.File).Size() int`.
   int size() {
-    final $r = $callSync(23269, $W()..h(this));
+    final $r = $callSync(23271, $W()..h(this));
     return $r.i64();
   }
 }
@@ -177,14 +177,14 @@ class GoTokenFileSet extends GoHandle {
 
   /// Go: `func token.NewFileSet() *token.FileSet`.
   factory GoTokenFileSet() {
-    final $r = $callSync(23284);
+    final $r = $callSync(23286);
     return $r.hnn(GoTokenFileSet.$h);
   }
 
   /// Go: `func (*token.FileSet).AddExistingFiles(files ...*token.File)`.
   void addExistingFiles([List<GoTokenFile> files = const []]) {
     $callSync(
-        23270,
+        23272,
         $W()
           ..h(this)
           ..list(files, (w0, e0) => w0.h(e0)));
@@ -193,7 +193,7 @@ class GoTokenFileSet extends GoHandle {
   /// Go: `func (*token.FileSet).AddFile(filename string, base int, size int) *token.File`.
   GoTokenFile addFile(String filename, int base, int size) {
     final $r = $callSync(
-        23271,
+        23273,
         $W()
           ..h(this)
           ..str(filename)
@@ -204,14 +204,14 @@ class GoTokenFileSet extends GoHandle {
 
   /// Go: `func (*token.FileSet).Base() int`.
   int base() {
-    final $r = $callSync(23272, $W()..h(this));
+    final $r = $callSync(23274, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*token.FileSet).File(p token.Pos) (f *token.File)`.
   GoTokenFile file(int p) {
     final $r = $callSync(
-        23273,
+        23275,
         $W()
           ..h(this)
           ..i64(p));
@@ -227,7 +227,7 @@ class GoTokenFileSet extends GoHandle {
   /// each invocation (a retained callback, WIRE.md).
   Future<void> iterate(FutureOr<bool> Function(GoTokenFile file) yield) async {
     await $call(
-        23274,
+        23276,
         $W()
           ..h(this)
           ..cb((r) => yield(r.hnn(GoTokenFile.$h)), true));
@@ -236,7 +236,7 @@ class GoTokenFileSet extends GoHandle {
   /// Go: `func (*token.FileSet).Position(p token.Pos) (pos token.Position)`.
   GoTokenPosition position(int p) {
     final $r = $callSync(
-        23275,
+        23277,
         $W()
           ..h(this)
           ..i64(p));
@@ -246,7 +246,7 @@ class GoTokenFileSet extends GoHandle {
   /// Go: `func (*token.FileSet).PositionFor(p token.Pos, adjusted bool) (pos token.Position)`.
   GoTokenPosition positionFor(int p, bool adjusted) {
     final $r = $callSync(
-        23276,
+        23278,
         $W()
           ..h(this)
           ..i64(p)
@@ -263,7 +263,7 @@ class GoTokenFileSet extends GoHandle {
   /// each invocation (a retained callback, WIRE.md).
   Future<void> read(FutureOr<void> Function(Object? arg0) decode) async {
     await $call(
-        23277,
+        23279,
         $W()
           ..h(this)
           ..cb((r) => decode(r.any()), true));
@@ -272,7 +272,7 @@ class GoTokenFileSet extends GoHandle {
   /// Go: `func (*token.FileSet).RemoveFile(file *token.File)`.
   void removeFile(GoTokenFile file) {
     $callSync(
-        23278,
+        23280,
         $W()
           ..h(this)
           ..h(file));
@@ -287,7 +287,7 @@ class GoTokenFileSet extends GoHandle {
   /// each invocation (a retained callback, WIRE.md).
   Future<void> write(FutureOr<void> Function(Object? arg0) encode) async {
     await $call(
-        23279,
+        23281,
         $W()
           ..h(this)
           ..cb((r) => encode(r.any()), true));
@@ -331,13 +331,13 @@ final class GoTokenPosition implements GoDto {
 
   /// Go: `func (*token.Position).IsValid() bool`.
   bool isValid() {
-    final $r = $callSync(23285, $W()..dto(this));
+    final $r = $callSync(23287, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (token.Position).String() string`.
   String string() {
-    final $r = $callSync(23286, $W()..dto(this));
+    final $r = $callSync(23288, $W()..dto(this));
     return $r.str();
   }
 }
@@ -346,25 +346,25 @@ final class GoTokenPosition implements GoDto {
 extension GoGoTokenApi on GoGoToken {
   /// Go: `func token.IsExported(name string) bool`.
   bool isExported(String name) {
-    final $r = $callSync(23280, $W()..str(name));
+    final $r = $callSync(23282, $W()..str(name));
     return $r.b();
   }
 
   /// Go: `func token.IsIdentifier(name string) bool`.
   bool isIdentifier(String name) {
-    final $r = $callSync(23281, $W()..str(name));
+    final $r = $callSync(23283, $W()..str(name));
     return $r.b();
   }
 
   /// Go: `func token.IsKeyword(name string) bool`.
   bool isKeyword(String name) {
-    final $r = $callSync(23282, $W()..str(name));
+    final $r = $callSync(23284, $W()..str(name));
     return $r.b();
   }
 
   /// Go: `func token.Lookup(ident string) token.Token`.
   int lookup(String ident) {
-    final $r = $callSync(23283, $W()..str(ident));
+    final $r = $callSync(23285, $W()..str(ident));
     return $r.i64();
   }
 }

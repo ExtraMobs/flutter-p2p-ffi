@@ -59,7 +59,7 @@ class DigContainer extends GoHandle {
   /// Go: `func (*dig.Container).Decorate(decorator interface{}, opts ...dig.DecorateOption) error`.
   void decorate(Object? decorator, [List<DigDecorateOption> opts = const []]) {
     $callSync(
-        22640,
+        22642,
         $W()
           ..h(this)
           ..any(decorator)
@@ -69,7 +69,7 @@ class DigContainer extends GoHandle {
   /// Go: `func (*dig.Container).Invoke(function interface{}, opts ...dig.InvokeOption) error`.
   void invoke(Object? function, [List<DigInvokeOption> opts = const []]) {
     $callSync(
-        22641,
+        22643,
         $W()
           ..h(this)
           ..any(function)
@@ -79,7 +79,7 @@ class DigContainer extends GoHandle {
   /// Go: `func (*dig.Container).Provide(constructor interface{}, opts ...dig.ProvideOption) error`.
   void provide(Object? constructor, [List<DigProvideOption> opts = const []]) {
     $callSync(
-        22642,
+        22644,
         $W()
           ..h(this)
           ..any(constructor)
@@ -89,7 +89,7 @@ class DigContainer extends GoHandle {
   /// Go: `func (*dig.Container).Scope(name string, opts ...dig.ScopeOption) *dig.Scope`.
   DigScope scope(String name, [List<DigScopeOption> opts = const []]) {
     final $r = $callSync(
-        22643,
+        22645,
         $W()
           ..h(this)
           ..str(name)
@@ -99,7 +99,7 @@ class DigContainer extends GoHandle {
 
   /// Go: `func (*dig.Container).String() string`.
   String string() {
-    final $r = $callSync(22644, $W()..h(this));
+    final $r = $callSync(22646, $W()..h(this));
     return $r.str();
   }
 }
@@ -153,7 +153,7 @@ class DigInput extends GoHandle {
 
   /// Go: `func (*dig.Input).String() string`.
   String string() {
-    final $r = $callSync(22652, $W()..h(this));
+    final $r = $callSync(22654, $W()..h(this));
     return $r.str();
   }
 }
@@ -200,7 +200,7 @@ class DigOutput extends GoHandle {
 
   /// Go: `func (*dig.Output).String() string`.
   String string() {
-    final $r = $callSync(22657, $W()..h(this));
+    final $r = $callSync(22659, $W()..h(this));
     return $r.str();
   }
 }
@@ -250,7 +250,7 @@ class DigScope extends GoHandle {
   /// Go: `func (*dig.Scope).Decorate(decorator interface{}, opts ...dig.DecorateOption) error`.
   void decorate(Object? decorator, [List<DigDecorateOption> opts = const []]) {
     $callSync(
-        22659,
+        22661,
         $W()
           ..h(this)
           ..any(decorator)
@@ -260,7 +260,7 @@ class DigScope extends GoHandle {
   /// Go: `func (*dig.Scope).Invoke(function interface{}, opts ...dig.InvokeOption) (err error)`.
   void invoke(Object? function, [List<DigInvokeOption> opts = const []]) {
     $callSync(
-        22660,
+        22662,
         $W()
           ..h(this)
           ..any(function)
@@ -270,7 +270,7 @@ class DigScope extends GoHandle {
   /// Go: `func (*dig.Scope).Provide(constructor interface{}, opts ...dig.ProvideOption) error`.
   void provide(Object? constructor, [List<DigProvideOption> opts = const []]) {
     $callSync(
-        22661,
+        22663,
         $W()
           ..h(this)
           ..any(constructor)
@@ -280,7 +280,7 @@ class DigScope extends GoHandle {
   /// Go: `func (*dig.Scope).Scope(name string, opts ...dig.ScopeOption) *dig.Scope`.
   DigScope scope(String name, [List<DigScopeOption> opts = const []]) {
     final $r = $callSync(
-        22662,
+        22664,
         $W()
           ..h(this)
           ..str(name)
@@ -290,7 +290,7 @@ class DigScope extends GoHandle {
 
   /// Go: `func (*dig.Scope).String() string`.
   String string() {
-    final $r = $callSync(22663, $W()..h(this));
+    final $r = $callSync(22665, $W()..h(this));
     return $r.str();
   }
 }
@@ -324,19 +324,19 @@ class DigPanicError extends GolangException {
 extension GoDigApi on GoDig {
   /// Go: `func dig.IsIn(o interface{}) bool`.
   bool isIn(Object? o) {
-    final $r = $callSync(22653, $W()..any(o));
+    final $r = $callSync(22655, $W()..any(o));
     return $r.b();
   }
 
   /// Go: `func dig.IsOut(o interface{}) bool`.
   bool isOut(Object? o) {
-    final $r = $callSync(22654, $W()..any(o));
+    final $r = $callSync(22656, $W()..any(o));
     return $r.b();
   }
 
   /// Go: `func dig.New(opts ...dig.Option) *dig.Container`.
   DigContainer new$([List<DigOption> opts = const []]) {
-    final $r = $callSync(22656, $W()..list(opts, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(22658, $W()..list(opts, (w0, e0) => w0.h(e0)));
     return $r.hnn(DigContainer.$h);
   }
 
@@ -344,7 +344,7 @@ extension GoDigApi on GoDig {
   void visualize(DigContainer c, GoHandle? w,
       [List<DigVisualizeOption> opts = const []]) {
     $callSync(
-        22664,
+        22666,
         $W()
           ..h(c)
           ..h(w)
@@ -362,61 +362,61 @@ extension GoDigConstsApi on GoDigConsts {
 extension GoDigOptionsApi on GoDigOptions {
   /// Go: `func dig.As(i ...interface{}) dig.ProvideOption`.
   DigProvideOption as([List<Object?> i = const []]) {
-    final $r = $callSync(22639, $W()..list(i, (w0, e0) => w0.any(e0)));
+    final $r = $callSync(22641, $W()..list(i, (w0, e0) => w0.any(e0)));
     return $r.hnn(DigProvideOption.$h);
   }
 
   /// Go: `func dig.DeferAcyclicVerification() dig.Option`.
   DigOption deferAcyclicVerification() {
-    final $r = $callSync(22645);
+    final $r = $callSync(22647);
     return $r.hnn(DigOption.$h);
   }
 
   /// Go: `func dig.DryRun(dry bool) dig.Option`.
   DigOption dryRun(bool dry) {
-    final $r = $callSync(22646, $W()..b(dry));
+    final $r = $callSync(22648, $W()..b(dry));
     return $r.hnn(DigOption.$h);
   }
 
   /// Go: `func dig.Export(export bool) dig.ProvideOption`.
   DigProvideOption export(bool export) {
-    final $r = $callSync(22647, $W()..b(export));
+    final $r = $callSync(22649, $W()..b(export));
     return $r.hnn(DigProvideOption.$h);
   }
 
   /// Go: `func dig.FillDecorateInfo(info *dig.DecorateInfo) dig.DecorateOption`.
   DigDecorateOption fillDecorateInfo(DigDecorateInfo info) {
-    final $r = $callSync(22648, $W()..dto(info));
+    final $r = $callSync(22650, $W()..dto(info));
     return $r.hnn(DigDecorateOption.$h);
   }
 
   /// Go: `func dig.FillInvokeInfo(info *dig.InvokeInfo) dig.InvokeOption`.
   DigInvokeOption fillInvokeInfo(DigInvokeInfo info) {
-    final $r = $callSync(22649, $W()..dto(info));
+    final $r = $callSync(22651, $W()..dto(info));
     return $r.hnn(DigInvokeOption.$h);
   }
 
   /// Go: `func dig.FillProvideInfo(info *dig.ProvideInfo) dig.ProvideOption`.
   DigProvideOption fillProvideInfo(DigProvideInfo info) {
-    final $r = $callSync(22650, $W()..dto(info));
+    final $r = $callSync(22652, $W()..dto(info));
     return $r.hnn(DigProvideOption.$h);
   }
 
   /// Go: `func dig.Group(group string) dig.ProvideOption`.
   DigProvideOption group(String group) {
-    final $r = $callSync(22651, $W()..str(group));
+    final $r = $callSync(22653, $W()..str(group));
     return $r.hnn(DigProvideOption.$h);
   }
 
   /// Go: `func dig.Name(name string) dig.ProvideOption`.
   DigProvideOption name(String name) {
-    final $r = $callSync(22655, $W()..str(name));
+    final $r = $callSync(22657, $W()..str(name));
     return $r.hnn(DigProvideOption.$h);
   }
 
   /// Go: `func dig.RecoverFromPanics() dig.Option`.
   DigOption recoverFromPanics() {
-    final $r = $callSync(22658);
+    final $r = $callSync(22660);
     return $r.hnn(DigOption.$h);
   }
 
@@ -430,7 +430,7 @@ extension GoDigOptionsApi on GoDigOptions {
   Future<DigDecorateOption> withDecoratorBeforeCallback(
       FutureOr<void> Function(DigBeforeCallbackInfo bci) callback) async {
     final $r = await $call(
-        22665,
+        22667,
         $W()
           ..cb((r) => callback(r.p() ? DigBeforeCallbackInfo.$dec(r) : $nil()),
               true));
@@ -447,7 +447,7 @@ extension GoDigOptionsApi on GoDigOptions {
   Future<DigDecorateOption> withDecoratorCallback(
       FutureOr<void> Function(DigCallbackInfo callbackInfo) callback) async {
     final $r = await $call(
-        22666,
+        22668,
         $W()
           ..cb(
               (r) => callback(r.p() ? DigCallbackInfo.$dec(r) : $nil()), true));
@@ -464,7 +464,7 @@ extension GoDigOptionsApi on GoDigOptions {
   Future<DigProvideOption> withProviderBeforeCallback(
       FutureOr<void> Function(DigBeforeCallbackInfo bci) callback) async {
     final $r = await $call(
-        22667,
+        22669,
         $W()
           ..cb((r) => callback(r.p() ? DigBeforeCallbackInfo.$dec(r) : $nil()),
               true));
@@ -481,7 +481,7 @@ extension GoDigOptionsApi on GoDigOptions {
   Future<DigProvideOption> withProviderCallback(
       FutureOr<void> Function(DigCallbackInfo callbackInfo) callback) async {
     final $r = await $call(
-        22668,
+        22670,
         $W()
           ..cb(
               (r) => callback(r.p() ? DigCallbackInfo.$dec(r) : $nil()), true));

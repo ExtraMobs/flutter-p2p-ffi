@@ -20,7 +20,7 @@ class InterceptorPkgNackGeneratorInterceptor extends $interceptor.Interceptor
   /// Go: `func (*nack.GeneratorInterceptor).BindRTCPWriter(writer interceptor.RTCPWriter) interceptor.RTCPWriter`.
   $interceptor.InterceptorRtcpWriter bindRtcpWriter(Object writer) {
     final $r = $callSync(
-        16693,
+        16695,
         $W()
           ..h(this)
           ..reader(writer));
@@ -31,7 +31,7 @@ class InterceptorPkgNackGeneratorInterceptor extends $interceptor.Interceptor
   $interceptor.InterceptorRtpReader bindRemoteStream(
       $interceptor.InterceptorStreamInfo info, Object reader) {
     final $r = $callSync(
-        16694,
+        16696,
         $W()
           ..h(this)
           ..dto(info)
@@ -41,13 +41,13 @@ class InterceptorPkgNackGeneratorInterceptor extends $interceptor.Interceptor
 
   /// Go: `func (*nack.GeneratorInterceptor).Close() error`.
   void close() {
-    $callSync(16695, $W()..h(this));
+    $callSync(16697, $W()..h(this));
   }
 
   /// Go: `func (*nack.GeneratorInterceptor).UnbindRemoteStream(info *interceptor.StreamInfo)`.
   void unbindRemoteStream($interceptor.InterceptorStreamInfo info) {
     $callSync(
-        16696,
+        16698,
         $W()
           ..h(this)
           ..dto(info));
@@ -62,7 +62,7 @@ class InterceptorPkgNackGeneratorInterceptorFactory
   /// Go: `func (*nack.GeneratorInterceptorFactory).NewInterceptor(_ string) (interceptor.Interceptor, error)`.
   $interceptor.Interceptor newInterceptor(String arg0) {
     final $r = $callSync(
-        16697,
+        16699,
         $W()
           ..h(this)
           ..str(arg0));
@@ -85,7 +85,7 @@ class InterceptorPkgNackResponderInterceptor extends $interceptor.Interceptor
   $interceptor.InterceptorRtpWriter bindLocalStream(
       $interceptor.InterceptorStreamInfo info, Object writer) {
     final $r = $callSync(
-        16700,
+        16702,
         $W()
           ..h(this)
           ..dto(info)
@@ -96,7 +96,7 @@ class InterceptorPkgNackResponderInterceptor extends $interceptor.Interceptor
   /// Go: `func (*nack.ResponderInterceptor).BindRTCPReader(reader interceptor.RTCPReader) interceptor.RTCPReader`.
   $interceptor.InterceptorRtcpReader bindRtcpReader(Object reader) {
     final $r = $callSync(
-        16701,
+        16703,
         $W()
           ..h(this)
           ..reader(reader));
@@ -106,7 +106,7 @@ class InterceptorPkgNackResponderInterceptor extends $interceptor.Interceptor
   /// Go: `func (*nack.ResponderInterceptor).UnbindLocalStream(info *interceptor.StreamInfo)`.
   void unbindLocalStream($interceptor.InterceptorStreamInfo info) {
     $callSync(
-        16702,
+        16704,
         $W()
           ..h(this)
           ..dto(info));
@@ -121,7 +121,7 @@ class InterceptorPkgNackResponderInterceptorFactory
   /// Go: `func (*nack.ResponderInterceptorFactory).NewInterceptor(_ string) (interceptor.Interceptor, error)`.
   $interceptor.Interceptor newInterceptor(String arg0) {
     final $r = $callSync(
-        16703,
+        16705,
         $W()
           ..h(this)
           ..str(arg0));
@@ -148,14 +148,14 @@ extension GoPionInterceptorPkgNackApi on GoPionInterceptorPkgNack {
   /// Go: `func nack.NewGeneratorInterceptor(opts ...nack.GeneratorOption) (*nack.GeneratorInterceptorFactory, error)`.
   InterceptorPkgNackGeneratorInterceptorFactory newGeneratorInterceptor(
       [List<InterceptorPkgNackGeneratorOption> opts = const []]) {
-    final $r = $callSync(16698, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+    final $r = $callSync(16700, $W()..list(opts, (w0, e0) => w0.opt(e0)));
     return $r.hnn(InterceptorPkgNackGeneratorInterceptorFactory.$h);
   }
 
   /// Go: `func nack.NewResponderInterceptor(opts ...nack.ResponderOption) (*nack.ResponderInterceptorFactory, error)`.
   InterceptorPkgNackResponderInterceptorFactory newResponderInterceptor(
       [List<InterceptorPkgNackResponderOption> opts = const []]) {
-    final $r = $callSync(16699, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+    final $r = $callSync(16701, $W()..list(opts, (w0, e0) => w0.opt(e0)));
     return $r.hnn(InterceptorPkgNackResponderInterceptorFactory.$h);
   }
 }

@@ -21,7 +21,7 @@ final class RefmtJsonDecodeOptions implements GoDto {
 
   /// Go: `func (json.DecodeOptions).IsDecodeOptions()`.
   void isDecodeOptions() {
-    $callSync(17875, $W()..dto(this));
+    $callSync(17877, $W()..dto(this));
   }
 }
 
@@ -33,19 +33,19 @@ class RefmtJsonDecoder extends $shared.RefmtSharedTokenSink
 
   /// Go: `func json.NewDecoder(r io.Reader) (d *json.Decoder)`.
   factory RefmtJsonDecoder(Object r) {
-    final $r = $callSync(17884, $W()..reader(r));
+    final $r = $callSync(17886, $W()..reader(r));
     return $r.hnn(RefmtJsonDecoder.$h);
   }
 
   /// Go: `func (*json.Decoder).Reset()`.
   void reset() {
-    $callSync(17876, $W()..h(this));
+    $callSync(17878, $W()..h(this));
   }
 
   /// Go: `func (*json.Decoder).Step(tokenSlot *tok.Token) (done bool, err error)`.
   bool step($tok.RefmtTokToken tokenSlot) {
     final $r = $callSync(
-        17877,
+        17879,
         $W()
           ..h(this)
           ..dto(tokenSlot));
@@ -78,7 +78,7 @@ final class RefmtJsonEncodeOptions implements GoDto {
 
   /// Go: `func (json.EncodeOptions).IsEncodeOptions()`.
   void isEncodeOptions() {
-    $callSync(17878, $W()..dto(this));
+    $callSync(17880, $W()..dto(this));
   }
 }
 
@@ -91,7 +91,7 @@ class RefmtJsonEncoder extends $shared.RefmtSharedTokenSink
   /// Go: `func json.NewEncoder(wr io.Writer, cfg json.EncodeOptions) *json.Encoder`.
   factory RefmtJsonEncoder(GoHandle? wr, RefmtJsonEncodeOptions cfg) {
     final $r = $callSync(
-        17885,
+        17887,
         $W()
           ..h(wr)
           ..dto(cfg));
@@ -100,13 +100,13 @@ class RefmtJsonEncoder extends $shared.RefmtSharedTokenSink
 
   /// Go: `func (*json.Encoder).Reset()`.
   void reset() {
-    $callSync(17879, $W()..h(this));
+    $callSync(17881, $W()..h(this));
   }
 
   /// Go: `func (*json.Encoder).Step(tok *tok.Token) (done bool, err error)`.
   bool step($tok.RefmtTokToken tok) {
     final $r = $callSync(
-        17880,
+        17882,
         $W()
           ..h(this)
           ..dto(tok));
@@ -120,14 +120,14 @@ class RefmtJsonMarshaller extends $refmt.RefmtMarshaller {
 
   /// Go: `func json.NewMarshaller(wr io.Writer) *json.Marshaller`.
   factory RefmtJsonMarshaller(GoHandle? wr) {
-    final $r = $callSync(17886, $W()..h(wr));
+    final $r = $callSync(17888, $W()..h(wr));
     return $r.hnn(RefmtJsonMarshaller.$h);
   }
 
   /// Go: `func (*json.Marshaller).Marshal(v interface{}) error`.
   void marshal(Object? v) {
     $callSync(
-        17883,
+        17885,
         $W()
           ..h(this)
           ..any(v));
@@ -140,14 +140,14 @@ class RefmtJsonUnmarshaller extends $refmt.RefmtUnmarshaller {
 
   /// Go: `func json.NewUnmarshaller(r io.Reader) *json.Unmarshaller`.
   factory RefmtJsonUnmarshaller(Object r) {
-    final $r = $callSync(17888, $W()..reader(r));
+    final $r = $callSync(17890, $W()..reader(r));
     return $r.hnn(RefmtJsonUnmarshaller.$h);
   }
 
   /// Go: `func (*json.Unmarshaller).Unmarshal(v interface{}) error`.
   void unmarshal(Object? v) {
     $callSync(
-        17892,
+        17894,
         $W()
           ..h(this)
           ..any(v));
@@ -158,7 +158,7 @@ class RefmtJsonUnmarshaller extends $refmt.RefmtUnmarshaller {
 extension GoPolydawnRefmtJsonApi on GoPolydawnRefmtJson {
   /// Go: `func json.Marshal(v interface{}) ([]byte, error)`.
   Uint8List marshal(Object? v) {
-    final $r = $callSync(17881, $W()..any(v));
+    final $r = $callSync(17883, $W()..any(v));
     return $r.bytes() ?? Uint8List(0);
   }
 
@@ -166,7 +166,7 @@ extension GoPolydawnRefmtJsonApi on GoPolydawnRefmtJson {
   Uint8List marshalAtlased(
       RefmtJsonEncodeOptions cfg, Object? v, $atlas.RefmtObjAtlas atl) {
     final $r = $callSync(
-        17882,
+        17884,
         $W()
           ..dto(cfg)
           ..any(v)
@@ -178,7 +178,7 @@ extension GoPolydawnRefmtJsonApi on GoPolydawnRefmtJson {
   RefmtJsonMarshaller newMarshallerAtlased(
       GoHandle? wr, RefmtJsonEncodeOptions cfg, $atlas.RefmtObjAtlas atl) {
     final $r = $callSync(
-        17887,
+        17889,
         $W()
           ..h(wr)
           ..dto(cfg)
@@ -190,7 +190,7 @@ extension GoPolydawnRefmtJsonApi on GoPolydawnRefmtJson {
   RefmtJsonUnmarshaller newUnmarshallerAtlased(
       Object r, $atlas.RefmtObjAtlas atl) {
     final $r = $callSync(
-        17889,
+        17891,
         $W()
           ..reader(r)
           ..h(atl));
@@ -200,7 +200,7 @@ extension GoPolydawnRefmtJsonApi on GoPolydawnRefmtJson {
   /// Go: `func json.Unmarshal(data []byte, v interface{}) error`.
   void unmarshal(Uint8List data, Object? v) {
     $callSync(
-        17890,
+        17892,
         $W()
           ..bytes(data)
           ..any(v));
@@ -209,7 +209,7 @@ extension GoPolydawnRefmtJsonApi on GoPolydawnRefmtJson {
   /// Go: `func json.UnmarshalAtlased(data []byte, v interface{}, atl atlas.Atlas) error`.
   void unmarshalAtlased(Uint8List data, Object? v, $atlas.RefmtObjAtlas atl) {
     $callSync(
-        17891,
+        17893,
         $W()
           ..bytes(data)
           ..any(v)

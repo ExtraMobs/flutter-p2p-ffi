@@ -34,7 +34,7 @@ class Libp2pKadDhtRecordsProviderManager
       $peerstore.Libp2pCorePeerstore ps, $datastore.DatastoreBatching dstore,
       [List<Libp2pKadDhtRecordsOption> opts = const []]) {
     final $r = $callSync(
-        13096,
+        13098,
         $W()
           ..val(local)
           ..h(ps)
@@ -49,7 +49,7 @@ class Libp2pKadDhtRecordsProviderManager
   Future<void> addProvider($context.Context ctx, Uint8List k,
       $peer.Libp2pCorePeerAddrInfo provInfo) async {
     await $call(
-        13098,
+        13100,
         $W()
           ..h(this)
           ..h(ctx)
@@ -59,7 +59,7 @@ class Libp2pKadDhtRecordsProviderManager
 
   /// Go: `func (*records.ProviderManager).Close() error`.
   void close() {
-    $callSync(13099, $W()..h(this));
+    $callSync(13101, $W()..h(this));
   }
 
   /// Go: `func (*records.ProviderManager).GetProviders(ctx context.Context, k []byte) ([]peer.AddrInfo, error)`.
@@ -68,7 +68,7 @@ class Libp2pKadDhtRecordsProviderManager
   Future<List<$peer.Libp2pCorePeerAddrInfo>> getProviders(
       $context.Context ctx, Uint8List k) async {
     final $r = await $call(
-        13100,
+        13102,
         $W()
           ..h(this)
           ..h(ctx)
@@ -92,7 +92,7 @@ mixin Libp2pKadDhtRecordsProviderStore$ on GoHandle {
   Future<void> addProvider($context.Context ctx, Uint8List key,
       $peer.Libp2pCorePeerAddrInfo prov) async {
     await $call(
-        13101,
+        13103,
         $W()
           ..h(this)
           ..h(ctx)
@@ -106,7 +106,7 @@ mixin Libp2pKadDhtRecordsProviderStore$ on GoHandle {
   Future<List<$peer.Libp2pCorePeerAddrInfo>> getProviders(
       $context.Context ctx, Uint8List key) async {
     final $r = await $call(
-        13102,
+        13104,
         $W()
           ..h(this)
           ..h(ctx)
@@ -132,7 +132,7 @@ class Libp2pKadDhtRecordsValueStore extends $io.IoCloser
   factory Libp2pKadDhtRecordsValueStore($datastore.Datastore dstore,
       $libp2p_record.Libp2pRecordValidator validator, Duration maxRecordAge) {
     final $r = $callSync(
-        13097,
+        13099,
         $W()
           ..h(dstore)
           ..h(validator)
@@ -142,7 +142,7 @@ class Libp2pKadDhtRecordsValueStore extends $io.IoCloser
 
   /// Go: `func (*records.ValueStore).Close() error`.
   void close() {
-    $callSync(13103, $W()..h(this));
+    $callSync(13105, $W()..h(this));
   }
 
   /// Go: `func (*records.ValueStore).Get(ctx context.Context, key string) (*pb.Record, error)`.
@@ -150,7 +150,7 @@ class Libp2pKadDhtRecordsValueStore extends $io.IoCloser
   /// Asynchronous: runs in a goroutine of the service.
   Future<$pb.Libp2pRecordPbRecord> get($context.Context ctx, String key) async {
     final $r = await $call(
-        13104,
+        13106,
         $W()
           ..h(this)
           ..h(ctx)
@@ -164,7 +164,7 @@ class Libp2pKadDhtRecordsValueStore extends $io.IoCloser
   Future<void> put(
       $context.Context ctx, String key, $pb.Libp2pRecordPbRecord rec) async {
     await $call(
-        13105,
+        13107,
         $W()
           ..h(this)
           ..h(ctx)
@@ -177,7 +177,7 @@ class Libp2pKadDhtRecordsValueStore extends $io.IoCloser
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> startGc($context.Context ctx, Duration interval) async {
     await $call(
-        13106,
+        13108,
         $W()
           ..h(this)
           ..h(ctx)

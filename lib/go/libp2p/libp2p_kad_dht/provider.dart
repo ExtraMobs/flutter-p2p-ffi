@@ -41,7 +41,7 @@ mixin Libp2pKadDhtProviderKadClosestPeersRouter$ on GoHandle {
   Future<List<$peer.Libp2pCorePeerId>> getClosestPeers(
       $context.Context ctx, String arg1) async {
     final $r = await $call(
-        13042,
+        13044,
         $W()
           ..h(this)
           ..h(ctx)
@@ -82,7 +82,7 @@ class Libp2pKadDhtProviderSweepingProvider extends $node.KuboCoreNodeDhtProvider
   /// Go: `func (*provider.SweepingProvider).AddToSchedule(keys ...multihash.Multihash) error`.
   void addToSchedule([List<Uint8List> keys = const []]) {
     $callSync(
-        13044,
+        13046,
         $W()
           ..h(this)
           ..list(keys, (w0, e0) => w0.bytes(e0)));
@@ -90,19 +90,19 @@ class Libp2pKadDhtProviderSweepingProvider extends $node.KuboCoreNodeDhtProvider
 
   /// Go: `func (*provider.SweepingProvider).Clear() int`.
   int clear() {
-    final $r = $callSync(13045, $W()..h(this));
+    final $r = $callSync(13047, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*provider.SweepingProvider).Close() error`.
   void close() {
-    $callSync(13046, $W()..h(this));
+    $callSync(13048, $W()..h(this));
   }
 
   /// Go: `func (*provider.SweepingProvider).ProvideOnce(keys ...multihash.Multihash) error`.
   void provideOnce([List<Uint8List> keys = const []]) {
     $callSync(
-        13047,
+        13049,
         $W()
           ..h(this)
           ..list(keys, (w0, e0) => w0.bytes(e0)));
@@ -110,13 +110,13 @@ class Libp2pKadDhtProviderSweepingProvider extends $node.KuboCoreNodeDhtProvider
 
   /// Go: `func (*provider.SweepingProvider).RefreshSchedule() error`.
   void refreshSchedule() {
-    $callSync(13048, $W()..h(this));
+    $callSync(13050, $W()..h(this));
   }
 
   /// Go: `func (*provider.SweepingProvider).StartProviding(force bool, keys ...multihash.Multihash) error`.
   void startProviding(bool force, [List<Uint8List> keys = const []]) {
     $callSync(
-        13049,
+        13051,
         $W()
           ..h(this)
           ..b(force)
@@ -128,7 +128,7 @@ class Libp2pKadDhtProviderSweepingProvider extends $node.KuboCoreNodeDhtProvider
   /// Asynchronous: runs in a goroutine of the service.
   Future<$stats.Libp2pKadDhtProviderStats> stats($context.Context ctx) async {
     final $r = await $call(
-        13050,
+        13052,
         $W()
           ..h(this)
           ..h(ctx));
@@ -138,7 +138,7 @@ class Libp2pKadDhtProviderSweepingProvider extends $node.KuboCoreNodeDhtProvider
   /// Go: `func (*provider.SweepingProvider).StopProviding(keys ...multihash.Multihash) error`.
   void stopProviding([List<Uint8List> keys = const []]) {
     $callSync(
-        13051,
+        13053,
         $W()
           ..h(this)
           ..list(keys, (w0, e0) => w0.bytes(e0)));
@@ -159,7 +159,7 @@ extension GoLibp2pLibp2pKadDhtProviderApi on GoLibp2pLibp2pKadDhtProvider {
   /// Go: `func provider.New(opts ...provider.Option) (*provider.SweepingProvider, error)`.
   Libp2pKadDhtProviderSweepingProvider new$(
       [List<Libp2pKadDhtProviderOption> opts = const []]) {
-    final $r = $callSync(13043, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+    final $r = $callSync(13045, $W()..list(opts, (w0, e0) => w0.opt(e0)));
     return $r.hnn(Libp2pKadDhtProviderSweepingProvider.$h);
   }
 }

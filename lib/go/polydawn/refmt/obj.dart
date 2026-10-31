@@ -24,14 +24,14 @@ class RefmtObjMarshaller extends $shared.RefmtSharedTokenSink
 
   /// Go: `func obj.NewMarshaller(atl atlas.Atlas) *obj.Marshaller`.
   factory RefmtObjMarshaller($atlas.RefmtObjAtlas atl) {
-    final $r = $callSync(17896, $W()..h(atl));
+    final $r = $callSync(17898, $W()..h(atl));
     return $r.hnn(RefmtObjMarshaller.$h);
   }
 
   /// Go: `func (*obj.Marshaller).Bind(v interface{}) error`.
   void bind(Object? v) {
     $callSync(
-        17893,
+        17895,
         $W()
           ..h(this)
           ..any(v));
@@ -41,7 +41,7 @@ class RefmtObjMarshaller extends $shared.RefmtSharedTokenSink
   void recurse($tok.RefmtTokToken tok, $reflect.ReflectValue rv,
       $reflect.ReflectType rt, RefmtObjMarshalMachine nextMach) {
     $callSync(
-        17894,
+        17896,
         $W()
           ..h(this)
           ..dto(tok)
@@ -53,7 +53,7 @@ class RefmtObjMarshaller extends $shared.RefmtSharedTokenSink
   /// Go: `func (*obj.Marshaller).Step(tok *tok.Token) (bool, error)`.
   bool step($tok.RefmtTokToken tok) {
     final $r = $callSync(
-        17895,
+        17897,
         $W()
           ..h(this)
           ..dto(tok));
@@ -77,14 +77,14 @@ class RefmtObjUnmarshaller extends $shared.RefmtSharedTokenSink
 
   /// Go: `func obj.NewUnmarshaller(atl atlas.Atlas) *obj.Unmarshaller`.
   factory RefmtObjUnmarshaller($atlas.RefmtObjAtlas atl) {
-    final $r = $callSync(17897, $W()..h(atl));
+    final $r = $callSync(17899, $W()..h(atl));
     return $r.hnn(RefmtObjUnmarshaller.$h);
   }
 
   /// Go: `func (*obj.Unmarshaller).Bind(v interface{}) error`.
   void bind(Object? v) {
     $callSync(
-        17898,
+        17900,
         $W()
           ..h(this)
           ..any(v));
@@ -94,7 +94,7 @@ class RefmtObjUnmarshaller extends $shared.RefmtSharedTokenSink
   void recurse($tok.RefmtTokToken tok, $reflect.ReflectValue rv,
       $reflect.ReflectType rt, RefmtObjUnmarshalMachine nextMach) {
     $callSync(
-        17899,
+        17901,
         $W()
           ..h(this)
           ..dto(tok)
@@ -106,7 +106,7 @@ class RefmtObjUnmarshaller extends $shared.RefmtSharedTokenSink
   /// Go: `func (*obj.Unmarshaller).Step(tok *tok.Token) (bool, error)`.
   bool step($tok.RefmtTokToken tok) {
     final $r = $callSync(
-        17900,
+        17902,
         $W()
           ..h(this)
           ..dto(tok));

@@ -17,7 +17,7 @@ mixin Libp2pPubsubPartialmessagesRouter$ on GoHandle {
   /// Go: `func (partialmessages.Router).PeerRequestsPartial(peer peer.ID, topic string) bool`.
   bool peerRequestsPartial($peer.Libp2pCorePeerId peer, String topic) {
     final $r = $callSync(
-        13407,
+        13409,
         $W()
           ..h(this)
           ..val(peer)
@@ -29,7 +29,7 @@ mixin Libp2pPubsubPartialmessagesRouter$ on GoHandle {
   void sendRpc($peer.Libp2pCorePeerId p,
       $pb.Libp2pPubsubPbPartialMessagesExtension r, bool urgent) {
     $callSync(
-        13408,
+        13410,
         $W()
           ..h(this)
           ..val(p)

@@ -17,7 +17,7 @@ class OtelSemconvV1430OtelconvSdkExporterLogExported extends GoHandle {
       $metric.OtelMetricMeter m,
       [List<$metric.OtelMetricInt64CounterOption> opt = const []]) {
     final $r = $callSync(
-        22135,
+        22137,
         $W()
           ..h(m)
           ..list(opt, (w0, e0) => w0.h(e0)));
@@ -30,7 +30,7 @@ class OtelSemconvV1430OtelconvSdkExporterLogExported extends GoHandle {
   Future<void> add($context.Context ctx, int incr,
       [List<$attribute.OtelAttributeKeyValue> attrs = const []]) async {
     await $call(
-        22163,
+        22165,
         $W()
           ..h(this)
           ..h(ctx)
@@ -44,7 +44,7 @@ class OtelSemconvV1430OtelconvSdkExporterLogExported extends GoHandle {
   Future<void> addSet(
       $context.Context ctx, int incr, $attribute.OtelAttributeSet set) async {
     await $call(
-        22164,
+        22166,
         $W()
           ..h(this)
           ..h(ctx)
@@ -55,7 +55,7 @@ class OtelSemconvV1430OtelconvSdkExporterLogExported extends GoHandle {
   /// Go: `func (otelconv.SDKExporterLogExported).AttrComponentName(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrComponentName(String val) {
     final $r = $callSync(
-        22165,
+        22167,
         $W()
           ..h(this)
           ..str(val));
@@ -65,7 +65,7 @@ class OtelSemconvV1430OtelconvSdkExporterLogExported extends GoHandle {
   /// Go: `func (otelconv.SDKExporterLogExported).AttrComponentType(val otelconv.ComponentTypeAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrComponentType(String val) {
     final $r = $callSync(
-        22166,
+        22168,
         $W()
           ..h(this)
           ..str(val));
@@ -75,7 +75,7 @@ class OtelSemconvV1430OtelconvSdkExporterLogExported extends GoHandle {
   /// Go: `func (otelconv.SDKExporterLogExported).AttrErrorType(val otelconv.ErrorTypeAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrErrorType(String val) {
     final $r = $callSync(
-        22167,
+        22169,
         $W()
           ..h(this)
           ..str(val));
@@ -85,7 +85,7 @@ class OtelSemconvV1430OtelconvSdkExporterLogExported extends GoHandle {
   /// Go: `func (otelconv.SDKExporterLogExported).AttrServerAddress(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrServerAddress(String val) {
     final $r = $callSync(
-        22168,
+        22170,
         $W()
           ..h(this)
           ..str(val));
@@ -95,7 +95,7 @@ class OtelSemconvV1430OtelconvSdkExporterLogExported extends GoHandle {
   /// Go: `func (otelconv.SDKExporterLogExported).AttrServerPort(val int) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrServerPort(int val) {
     final $r = $callSync(
-        22169,
+        22171,
         $W()
           ..h(this)
           ..i64(val));
@@ -104,25 +104,25 @@ class OtelSemconvV1430OtelconvSdkExporterLogExported extends GoHandle {
 
   /// Go: `func (otelconv.SDKExporterLogExported).Description() string`.
   String description() {
-    final $r = $callSync(22170, $W()..h(this));
+    final $r = $callSync(22172, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKExporterLogExported).Inst() metric.Int64Counter`.
   $metric.OtelMetricInt64Counter inst() {
-    final $r = $callSync(22171, $W()..h(this));
+    final $r = $callSync(22173, $W()..h(this));
     return $r.hnn($metric.OtelMetricInt64Counter.$h);
   }
 
   /// Go: `func (otelconv.SDKExporterLogExported).Name() string`.
   String name() {
-    final $r = $callSync(22172, $W()..h(this));
+    final $r = $callSync(22174, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKExporterLogExported).Unit() string`.
   String unit() {
-    final $r = $callSync(22173, $W()..h(this));
+    final $r = $callSync(22175, $W()..h(this));
     return $r.str();
   }
 }
@@ -138,7 +138,7 @@ class OtelSemconvV1430OtelconvSdkExporterLogExportedObservable
       $metric.OtelMetricMeter m,
       [List<$metric.OtelMetricInt64ObservableCounterOption> opt = const []]) {
     final $r = $callSync(
-        22136,
+        22138,
         $W()
           ..h(m)
           ..list(opt, (w0, e0) => w0.h(e0)));
@@ -148,7 +148,7 @@ class OtelSemconvV1430OtelconvSdkExporterLogExportedObservable
   /// Go: `func (otelconv.SDKExporterLogExportedObservable).AttrComponentName(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrComponentName(String val) {
     final $r = $callSync(
-        22174,
+        22176,
         $W()
           ..h(this)
           ..str(val));
@@ -158,7 +158,7 @@ class OtelSemconvV1430OtelconvSdkExporterLogExportedObservable
   /// Go: `func (otelconv.SDKExporterLogExportedObservable).AttrComponentType(val otelconv.ComponentTypeAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrComponentType(String val) {
     final $r = $callSync(
-        22175,
+        22177,
         $W()
           ..h(this)
           ..str(val));
@@ -168,7 +168,7 @@ class OtelSemconvV1430OtelconvSdkExporterLogExportedObservable
   /// Go: `func (otelconv.SDKExporterLogExportedObservable).AttrErrorType(val otelconv.ErrorTypeAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrErrorType(String val) {
     final $r = $callSync(
-        22176,
+        22178,
         $W()
           ..h(this)
           ..str(val));
@@ -178,7 +178,7 @@ class OtelSemconvV1430OtelconvSdkExporterLogExportedObservable
   /// Go: `func (otelconv.SDKExporterLogExportedObservable).AttrServerAddress(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrServerAddress(String val) {
     final $r = $callSync(
-        22177,
+        22179,
         $W()
           ..h(this)
           ..str(val));
@@ -188,7 +188,7 @@ class OtelSemconvV1430OtelconvSdkExporterLogExportedObservable
   /// Go: `func (otelconv.SDKExporterLogExportedObservable).AttrServerPort(val int) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrServerPort(int val) {
     final $r = $callSync(
-        22178,
+        22180,
         $W()
           ..h(this)
           ..i64(val));
@@ -197,25 +197,25 @@ class OtelSemconvV1430OtelconvSdkExporterLogExportedObservable
 
   /// Go: `func (otelconv.SDKExporterLogExportedObservable).Description() string`.
   String description() {
-    final $r = $callSync(22179, $W()..h(this));
+    final $r = $callSync(22181, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKExporterLogExportedObservable).Inst() metric.Int64ObservableCounter`.
   $metric.OtelMetricInt64ObservableCounter inst() {
-    final $r = $callSync(22180, $W()..h(this));
+    final $r = $callSync(22182, $W()..h(this));
     return $r.hnn($metric.OtelMetricInt64ObservableCounter.$h);
   }
 
   /// Go: `func (otelconv.SDKExporterLogExportedObservable).Name() string`.
   String name() {
-    final $r = $callSync(22181, $W()..h(this));
+    final $r = $callSync(22183, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKExporterLogExportedObservable).Unit() string`.
   String unit() {
-    final $r = $callSync(22182, $W()..h(this));
+    final $r = $callSync(22184, $W()..h(this));
     return $r.str();
   }
 }
@@ -229,7 +229,7 @@ class OtelSemconvV1430OtelconvSdkExporterLogInflight extends GoHandle {
       $metric.OtelMetricMeter m,
       [List<$metric.OtelMetricInt64UpDownCounterOption> opt = const []]) {
     final $r = $callSync(
-        22137,
+        22139,
         $W()
           ..h(m)
           ..list(opt, (w0, e0) => w0.h(e0)));
@@ -242,7 +242,7 @@ class OtelSemconvV1430OtelconvSdkExporterLogInflight extends GoHandle {
   Future<void> add($context.Context ctx, int incr,
       [List<$attribute.OtelAttributeKeyValue> attrs = const []]) async {
     await $call(
-        22183,
+        22185,
         $W()
           ..h(this)
           ..h(ctx)
@@ -256,7 +256,7 @@ class OtelSemconvV1430OtelconvSdkExporterLogInflight extends GoHandle {
   Future<void> addSet(
       $context.Context ctx, int incr, $attribute.OtelAttributeSet set) async {
     await $call(
-        22184,
+        22186,
         $W()
           ..h(this)
           ..h(ctx)
@@ -267,7 +267,7 @@ class OtelSemconvV1430OtelconvSdkExporterLogInflight extends GoHandle {
   /// Go: `func (otelconv.SDKExporterLogInflight).AttrComponentName(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrComponentName(String val) {
     final $r = $callSync(
-        22185,
+        22187,
         $W()
           ..h(this)
           ..str(val));
@@ -277,7 +277,7 @@ class OtelSemconvV1430OtelconvSdkExporterLogInflight extends GoHandle {
   /// Go: `func (otelconv.SDKExporterLogInflight).AttrComponentType(val otelconv.ComponentTypeAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrComponentType(String val) {
     final $r = $callSync(
-        22186,
+        22188,
         $W()
           ..h(this)
           ..str(val));
@@ -287,7 +287,7 @@ class OtelSemconvV1430OtelconvSdkExporterLogInflight extends GoHandle {
   /// Go: `func (otelconv.SDKExporterLogInflight).AttrServerAddress(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrServerAddress(String val) {
     final $r = $callSync(
-        22187,
+        22189,
         $W()
           ..h(this)
           ..str(val));
@@ -297,7 +297,7 @@ class OtelSemconvV1430OtelconvSdkExporterLogInflight extends GoHandle {
   /// Go: `func (otelconv.SDKExporterLogInflight).AttrServerPort(val int) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrServerPort(int val) {
     final $r = $callSync(
-        22188,
+        22190,
         $W()
           ..h(this)
           ..i64(val));
@@ -306,25 +306,25 @@ class OtelSemconvV1430OtelconvSdkExporterLogInflight extends GoHandle {
 
   /// Go: `func (otelconv.SDKExporterLogInflight).Description() string`.
   String description() {
-    final $r = $callSync(22189, $W()..h(this));
+    final $r = $callSync(22191, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKExporterLogInflight).Inst() metric.Int64UpDownCounter`.
   $metric.OtelMetricInt64UpDownCounter inst() {
-    final $r = $callSync(22190, $W()..h(this));
+    final $r = $callSync(22192, $W()..h(this));
     return $r.hnn($metric.OtelMetricInt64UpDownCounter.$h);
   }
 
   /// Go: `func (otelconv.SDKExporterLogInflight).Name() string`.
   String name() {
-    final $r = $callSync(22191, $W()..h(this));
+    final $r = $callSync(22193, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKExporterLogInflight).Unit() string`.
   String unit() {
-    final $r = $callSync(22192, $W()..h(this));
+    final $r = $callSync(22194, $W()..h(this));
     return $r.str();
   }
 }
@@ -341,7 +341,7 @@ class OtelSemconvV1430OtelconvSdkExporterLogInflightObservable
       [List<$metric.OtelMetricInt64ObservableUpDownCounterOption> opt =
           const []]) {
     final $r = $callSync(
-        22138,
+        22140,
         $W()
           ..h(m)
           ..list(opt, (w0, e0) => w0.h(e0)));
@@ -351,7 +351,7 @@ class OtelSemconvV1430OtelconvSdkExporterLogInflightObservable
   /// Go: `func (otelconv.SDKExporterLogInflightObservable).AttrComponentName(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrComponentName(String val) {
     final $r = $callSync(
-        22193,
+        22195,
         $W()
           ..h(this)
           ..str(val));
@@ -361,7 +361,7 @@ class OtelSemconvV1430OtelconvSdkExporterLogInflightObservable
   /// Go: `func (otelconv.SDKExporterLogInflightObservable).AttrComponentType(val otelconv.ComponentTypeAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrComponentType(String val) {
     final $r = $callSync(
-        22194,
+        22196,
         $W()
           ..h(this)
           ..str(val));
@@ -371,7 +371,7 @@ class OtelSemconvV1430OtelconvSdkExporterLogInflightObservable
   /// Go: `func (otelconv.SDKExporterLogInflightObservable).AttrServerAddress(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrServerAddress(String val) {
     final $r = $callSync(
-        22195,
+        22197,
         $W()
           ..h(this)
           ..str(val));
@@ -381,7 +381,7 @@ class OtelSemconvV1430OtelconvSdkExporterLogInflightObservable
   /// Go: `func (otelconv.SDKExporterLogInflightObservable).AttrServerPort(val int) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrServerPort(int val) {
     final $r = $callSync(
-        22196,
+        22198,
         $W()
           ..h(this)
           ..i64(val));
@@ -390,25 +390,25 @@ class OtelSemconvV1430OtelconvSdkExporterLogInflightObservable
 
   /// Go: `func (otelconv.SDKExporterLogInflightObservable).Description() string`.
   String description() {
-    final $r = $callSync(22197, $W()..h(this));
+    final $r = $callSync(22199, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKExporterLogInflightObservable).Inst() metric.Int64ObservableUpDownCounter`.
   $metric.OtelMetricInt64ObservableUpDownCounter inst() {
-    final $r = $callSync(22198, $W()..h(this));
+    final $r = $callSync(22200, $W()..h(this));
     return $r.hnn($metric.OtelMetricInt64ObservableUpDownCounter.$h);
   }
 
   /// Go: `func (otelconv.SDKExporterLogInflightObservable).Name() string`.
   String name() {
-    final $r = $callSync(22199, $W()..h(this));
+    final $r = $callSync(22201, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKExporterLogInflightObservable).Unit() string`.
   String unit() {
-    final $r = $callSync(22200, $W()..h(this));
+    final $r = $callSync(22202, $W()..h(this));
     return $r.str();
   }
 }
@@ -423,7 +423,7 @@ class OtelSemconvV1430OtelconvSdkExporterMetricDataPointExported
       $metric.OtelMetricMeter m,
       [List<$metric.OtelMetricInt64CounterOption> opt = const []]) {
     final $r = $callSync(
-        22139,
+        22141,
         $W()
           ..h(m)
           ..list(opt, (w0, e0) => w0.h(e0)));
@@ -437,7 +437,7 @@ class OtelSemconvV1430OtelconvSdkExporterMetricDataPointExported
   Future<void> add($context.Context ctx, int incr,
       [List<$attribute.OtelAttributeKeyValue> attrs = const []]) async {
     await $call(
-        22201,
+        22203,
         $W()
           ..h(this)
           ..h(ctx)
@@ -451,7 +451,7 @@ class OtelSemconvV1430OtelconvSdkExporterMetricDataPointExported
   Future<void> addSet(
       $context.Context ctx, int incr, $attribute.OtelAttributeSet set) async {
     await $call(
-        22202,
+        22204,
         $W()
           ..h(this)
           ..h(ctx)
@@ -462,7 +462,7 @@ class OtelSemconvV1430OtelconvSdkExporterMetricDataPointExported
   /// Go: `func (otelconv.SDKExporterMetricDataPointExported).AttrComponentName(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrComponentName(String val) {
     final $r = $callSync(
-        22203,
+        22205,
         $W()
           ..h(this)
           ..str(val));
@@ -472,7 +472,7 @@ class OtelSemconvV1430OtelconvSdkExporterMetricDataPointExported
   /// Go: `func (otelconv.SDKExporterMetricDataPointExported).AttrComponentType(val otelconv.ComponentTypeAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrComponentType(String val) {
     final $r = $callSync(
-        22204,
+        22206,
         $W()
           ..h(this)
           ..str(val));
@@ -482,7 +482,7 @@ class OtelSemconvV1430OtelconvSdkExporterMetricDataPointExported
   /// Go: `func (otelconv.SDKExporterMetricDataPointExported).AttrErrorType(val otelconv.ErrorTypeAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrErrorType(String val) {
     final $r = $callSync(
-        22205,
+        22207,
         $W()
           ..h(this)
           ..str(val));
@@ -492,7 +492,7 @@ class OtelSemconvV1430OtelconvSdkExporterMetricDataPointExported
   /// Go: `func (otelconv.SDKExporterMetricDataPointExported).AttrServerAddress(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrServerAddress(String val) {
     final $r = $callSync(
-        22206,
+        22208,
         $W()
           ..h(this)
           ..str(val));
@@ -502,7 +502,7 @@ class OtelSemconvV1430OtelconvSdkExporterMetricDataPointExported
   /// Go: `func (otelconv.SDKExporterMetricDataPointExported).AttrServerPort(val int) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrServerPort(int val) {
     final $r = $callSync(
-        22207,
+        22209,
         $W()
           ..h(this)
           ..i64(val));
@@ -511,25 +511,25 @@ class OtelSemconvV1430OtelconvSdkExporterMetricDataPointExported
 
   /// Go: `func (otelconv.SDKExporterMetricDataPointExported).Description() string`.
   String description() {
-    final $r = $callSync(22208, $W()..h(this));
+    final $r = $callSync(22210, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKExporterMetricDataPointExported).Inst() metric.Int64Counter`.
   $metric.OtelMetricInt64Counter inst() {
-    final $r = $callSync(22209, $W()..h(this));
+    final $r = $callSync(22211, $W()..h(this));
     return $r.hnn($metric.OtelMetricInt64Counter.$h);
   }
 
   /// Go: `func (otelconv.SDKExporterMetricDataPointExported).Name() string`.
   String name() {
-    final $r = $callSync(22210, $W()..h(this));
+    final $r = $callSync(22212, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKExporterMetricDataPointExported).Unit() string`.
   String unit() {
-    final $r = $callSync(22211, $W()..h(this));
+    final $r = $callSync(22213, $W()..h(this));
     return $r.str();
   }
 }
@@ -546,7 +546,7 @@ class OtelSemconvV1430OtelconvSdkExporterMetricDataPointExportedObservable
       $metric.OtelMetricMeter m,
       [List<$metric.OtelMetricInt64ObservableCounterOption> opt = const []]) {
     final $r = $callSync(
-        22140,
+        22142,
         $W()
           ..h(m)
           ..list(opt, (w0, e0) => w0.h(e0)));
@@ -558,7 +558,7 @@ class OtelSemconvV1430OtelconvSdkExporterMetricDataPointExportedObservable
   /// Go: `func (otelconv.SDKExporterMetricDataPointExportedObservable).AttrComponentName(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrComponentName(String val) {
     final $r = $callSync(
-        22212,
+        22214,
         $W()
           ..h(this)
           ..str(val));
@@ -568,7 +568,7 @@ class OtelSemconvV1430OtelconvSdkExporterMetricDataPointExportedObservable
   /// Go: `func (otelconv.SDKExporterMetricDataPointExportedObservable).AttrComponentType(val otelconv.ComponentTypeAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrComponentType(String val) {
     final $r = $callSync(
-        22213,
+        22215,
         $W()
           ..h(this)
           ..str(val));
@@ -578,7 +578,7 @@ class OtelSemconvV1430OtelconvSdkExporterMetricDataPointExportedObservable
   /// Go: `func (otelconv.SDKExporterMetricDataPointExportedObservable).AttrErrorType(val otelconv.ErrorTypeAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrErrorType(String val) {
     final $r = $callSync(
-        22214,
+        22216,
         $W()
           ..h(this)
           ..str(val));
@@ -588,7 +588,7 @@ class OtelSemconvV1430OtelconvSdkExporterMetricDataPointExportedObservable
   /// Go: `func (otelconv.SDKExporterMetricDataPointExportedObservable).AttrServerAddress(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrServerAddress(String val) {
     final $r = $callSync(
-        22215,
+        22217,
         $W()
           ..h(this)
           ..str(val));
@@ -598,7 +598,7 @@ class OtelSemconvV1430OtelconvSdkExporterMetricDataPointExportedObservable
   /// Go: `func (otelconv.SDKExporterMetricDataPointExportedObservable).AttrServerPort(val int) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrServerPort(int val) {
     final $r = $callSync(
-        22216,
+        22218,
         $W()
           ..h(this)
           ..i64(val));
@@ -607,25 +607,25 @@ class OtelSemconvV1430OtelconvSdkExporterMetricDataPointExportedObservable
 
   /// Go: `func (otelconv.SDKExporterMetricDataPointExportedObservable).Description() string`.
   String description() {
-    final $r = $callSync(22217, $W()..h(this));
+    final $r = $callSync(22219, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKExporterMetricDataPointExportedObservable).Inst() metric.Int64ObservableCounter`.
   $metric.OtelMetricInt64ObservableCounter inst() {
-    final $r = $callSync(22218, $W()..h(this));
+    final $r = $callSync(22220, $W()..h(this));
     return $r.hnn($metric.OtelMetricInt64ObservableCounter.$h);
   }
 
   /// Go: `func (otelconv.SDKExporterMetricDataPointExportedObservable).Name() string`.
   String name() {
-    final $r = $callSync(22219, $W()..h(this));
+    final $r = $callSync(22221, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKExporterMetricDataPointExportedObservable).Unit() string`.
   String unit() {
-    final $r = $callSync(22220, $W()..h(this));
+    final $r = $callSync(22222, $W()..h(this));
     return $r.str();
   }
 }
@@ -640,7 +640,7 @@ class OtelSemconvV1430OtelconvSdkExporterMetricDataPointInflight
       $metric.OtelMetricMeter m,
       [List<$metric.OtelMetricInt64UpDownCounterOption> opt = const []]) {
     final $r = $callSync(
-        22141,
+        22143,
         $W()
           ..h(m)
           ..list(opt, (w0, e0) => w0.h(e0)));
@@ -654,7 +654,7 @@ class OtelSemconvV1430OtelconvSdkExporterMetricDataPointInflight
   Future<void> add($context.Context ctx, int incr,
       [List<$attribute.OtelAttributeKeyValue> attrs = const []]) async {
     await $call(
-        22221,
+        22223,
         $W()
           ..h(this)
           ..h(ctx)
@@ -668,7 +668,7 @@ class OtelSemconvV1430OtelconvSdkExporterMetricDataPointInflight
   Future<void> addSet(
       $context.Context ctx, int incr, $attribute.OtelAttributeSet set) async {
     await $call(
-        22222,
+        22224,
         $W()
           ..h(this)
           ..h(ctx)
@@ -679,7 +679,7 @@ class OtelSemconvV1430OtelconvSdkExporterMetricDataPointInflight
   /// Go: `func (otelconv.SDKExporterMetricDataPointInflight).AttrComponentName(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrComponentName(String val) {
     final $r = $callSync(
-        22223,
+        22225,
         $W()
           ..h(this)
           ..str(val));
@@ -689,7 +689,7 @@ class OtelSemconvV1430OtelconvSdkExporterMetricDataPointInflight
   /// Go: `func (otelconv.SDKExporterMetricDataPointInflight).AttrComponentType(val otelconv.ComponentTypeAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrComponentType(String val) {
     final $r = $callSync(
-        22224,
+        22226,
         $W()
           ..h(this)
           ..str(val));
@@ -699,7 +699,7 @@ class OtelSemconvV1430OtelconvSdkExporterMetricDataPointInflight
   /// Go: `func (otelconv.SDKExporterMetricDataPointInflight).AttrServerAddress(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrServerAddress(String val) {
     final $r = $callSync(
-        22225,
+        22227,
         $W()
           ..h(this)
           ..str(val));
@@ -709,7 +709,7 @@ class OtelSemconvV1430OtelconvSdkExporterMetricDataPointInflight
   /// Go: `func (otelconv.SDKExporterMetricDataPointInflight).AttrServerPort(val int) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrServerPort(int val) {
     final $r = $callSync(
-        22226,
+        22228,
         $W()
           ..h(this)
           ..i64(val));
@@ -718,25 +718,25 @@ class OtelSemconvV1430OtelconvSdkExporterMetricDataPointInflight
 
   /// Go: `func (otelconv.SDKExporterMetricDataPointInflight).Description() string`.
   String description() {
-    final $r = $callSync(22227, $W()..h(this));
+    final $r = $callSync(22229, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKExporterMetricDataPointInflight).Inst() metric.Int64UpDownCounter`.
   $metric.OtelMetricInt64UpDownCounter inst() {
-    final $r = $callSync(22228, $W()..h(this));
+    final $r = $callSync(22230, $W()..h(this));
     return $r.hnn($metric.OtelMetricInt64UpDownCounter.$h);
   }
 
   /// Go: `func (otelconv.SDKExporterMetricDataPointInflight).Name() string`.
   String name() {
-    final $r = $callSync(22229, $W()..h(this));
+    final $r = $callSync(22231, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKExporterMetricDataPointInflight).Unit() string`.
   String unit() {
-    final $r = $callSync(22230, $W()..h(this));
+    final $r = $callSync(22232, $W()..h(this));
     return $r.str();
   }
 }
@@ -754,7 +754,7 @@ class OtelSemconvV1430OtelconvSdkExporterMetricDataPointInflightObservable
       [List<$metric.OtelMetricInt64ObservableUpDownCounterOption> opt =
           const []]) {
     final $r = $callSync(
-        22142,
+        22144,
         $W()
           ..h(m)
           ..list(opt, (w0, e0) => w0.h(e0)));
@@ -766,7 +766,7 @@ class OtelSemconvV1430OtelconvSdkExporterMetricDataPointInflightObservable
   /// Go: `func (otelconv.SDKExporterMetricDataPointInflightObservable).AttrComponentName(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrComponentName(String val) {
     final $r = $callSync(
-        22231,
+        22233,
         $W()
           ..h(this)
           ..str(val));
@@ -776,7 +776,7 @@ class OtelSemconvV1430OtelconvSdkExporterMetricDataPointInflightObservable
   /// Go: `func (otelconv.SDKExporterMetricDataPointInflightObservable).AttrComponentType(val otelconv.ComponentTypeAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrComponentType(String val) {
     final $r = $callSync(
-        22232,
+        22234,
         $W()
           ..h(this)
           ..str(val));
@@ -786,7 +786,7 @@ class OtelSemconvV1430OtelconvSdkExporterMetricDataPointInflightObservable
   /// Go: `func (otelconv.SDKExporterMetricDataPointInflightObservable).AttrServerAddress(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrServerAddress(String val) {
     final $r = $callSync(
-        22233,
+        22235,
         $W()
           ..h(this)
           ..str(val));
@@ -796,7 +796,7 @@ class OtelSemconvV1430OtelconvSdkExporterMetricDataPointInflightObservable
   /// Go: `func (otelconv.SDKExporterMetricDataPointInflightObservable).AttrServerPort(val int) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrServerPort(int val) {
     final $r = $callSync(
-        22234,
+        22236,
         $W()
           ..h(this)
           ..i64(val));
@@ -805,25 +805,25 @@ class OtelSemconvV1430OtelconvSdkExporterMetricDataPointInflightObservable
 
   /// Go: `func (otelconv.SDKExporterMetricDataPointInflightObservable).Description() string`.
   String description() {
-    final $r = $callSync(22235, $W()..h(this));
+    final $r = $callSync(22237, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKExporterMetricDataPointInflightObservable).Inst() metric.Int64ObservableUpDownCounter`.
   $metric.OtelMetricInt64ObservableUpDownCounter inst() {
-    final $r = $callSync(22236, $W()..h(this));
+    final $r = $callSync(22238, $W()..h(this));
     return $r.hnn($metric.OtelMetricInt64ObservableUpDownCounter.$h);
   }
 
   /// Go: `func (otelconv.SDKExporterMetricDataPointInflightObservable).Name() string`.
   String name() {
-    final $r = $callSync(22237, $W()..h(this));
+    final $r = $callSync(22239, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKExporterMetricDataPointInflightObservable).Unit() string`.
   String unit() {
-    final $r = $callSync(22238, $W()..h(this));
+    final $r = $callSync(22240, $W()..h(this));
     return $r.str();
   }
 }
@@ -837,7 +837,7 @@ class OtelSemconvV1430OtelconvSdkExporterOperationDuration extends GoHandle {
       $metric.OtelMetricMeter m,
       [List<$metric.OtelMetricFloat64HistogramOption> opt = const []]) {
     final $r = $callSync(
-        22143,
+        22145,
         $W()
           ..h(m)
           ..list(opt, (w0, e0) => w0.h(e0)));
@@ -847,7 +847,7 @@ class OtelSemconvV1430OtelconvSdkExporterOperationDuration extends GoHandle {
   /// Go: `func (otelconv.SDKExporterOperationDuration).AttrComponentName(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrComponentName(String val) {
     final $r = $callSync(
-        22239,
+        22241,
         $W()
           ..h(this)
           ..str(val));
@@ -857,7 +857,7 @@ class OtelSemconvV1430OtelconvSdkExporterOperationDuration extends GoHandle {
   /// Go: `func (otelconv.SDKExporterOperationDuration).AttrComponentType(val otelconv.ComponentTypeAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrComponentType(String val) {
     final $r = $callSync(
-        22240,
+        22242,
         $W()
           ..h(this)
           ..str(val));
@@ -867,7 +867,7 @@ class OtelSemconvV1430OtelconvSdkExporterOperationDuration extends GoHandle {
   /// Go: `func (otelconv.SDKExporterOperationDuration).AttrErrorType(val otelconv.ErrorTypeAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrErrorType(String val) {
     final $r = $callSync(
-        22241,
+        22243,
         $W()
           ..h(this)
           ..str(val));
@@ -877,7 +877,7 @@ class OtelSemconvV1430OtelconvSdkExporterOperationDuration extends GoHandle {
   /// Go: `func (otelconv.SDKExporterOperationDuration).AttrHTTPResponseStatusCode(val int) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrHttpResponseStatusCode(int val) {
     final $r = $callSync(
-        22242,
+        22244,
         $W()
           ..h(this)
           ..i64(val));
@@ -887,7 +887,7 @@ class OtelSemconvV1430OtelconvSdkExporterOperationDuration extends GoHandle {
   /// Go: `func (otelconv.SDKExporterOperationDuration).AttrRPCResponseStatusCode(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrRpcResponseStatusCode(String val) {
     final $r = $callSync(
-        22243,
+        22245,
         $W()
           ..h(this)
           ..str(val));
@@ -897,7 +897,7 @@ class OtelSemconvV1430OtelconvSdkExporterOperationDuration extends GoHandle {
   /// Go: `func (otelconv.SDKExporterOperationDuration).AttrServerAddress(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrServerAddress(String val) {
     final $r = $callSync(
-        22244,
+        22246,
         $W()
           ..h(this)
           ..str(val));
@@ -907,7 +907,7 @@ class OtelSemconvV1430OtelconvSdkExporterOperationDuration extends GoHandle {
   /// Go: `func (otelconv.SDKExporterOperationDuration).AttrServerPort(val int) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrServerPort(int val) {
     final $r = $callSync(
-        22245,
+        22247,
         $W()
           ..h(this)
           ..i64(val));
@@ -916,19 +916,19 @@ class OtelSemconvV1430OtelconvSdkExporterOperationDuration extends GoHandle {
 
   /// Go: `func (otelconv.SDKExporterOperationDuration).Description() string`.
   String description() {
-    final $r = $callSync(22246, $W()..h(this));
+    final $r = $callSync(22248, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKExporterOperationDuration).Inst() metric.Float64Histogram`.
   $metric.OtelMetricFloat64Histogram inst() {
-    final $r = $callSync(22247, $W()..h(this));
+    final $r = $callSync(22249, $W()..h(this));
     return $r.hnn($metric.OtelMetricFloat64Histogram.$h);
   }
 
   /// Go: `func (otelconv.SDKExporterOperationDuration).Name() string`.
   String name() {
-    final $r = $callSync(22248, $W()..h(this));
+    final $r = $callSync(22250, $W()..h(this));
     return $r.str();
   }
 
@@ -938,7 +938,7 @@ class OtelSemconvV1430OtelconvSdkExporterOperationDuration extends GoHandle {
   Future<void> record($context.Context ctx, double val,
       [List<$attribute.OtelAttributeKeyValue> attrs = const []]) async {
     await $call(
-        22249,
+        22251,
         $W()
           ..h(this)
           ..h(ctx)
@@ -952,7 +952,7 @@ class OtelSemconvV1430OtelconvSdkExporterOperationDuration extends GoHandle {
   Future<void> recordSet(
       $context.Context ctx, double val, $attribute.OtelAttributeSet set) async {
     await $call(
-        22250,
+        22252,
         $W()
           ..h(this)
           ..h(ctx)
@@ -962,7 +962,7 @@ class OtelSemconvV1430OtelconvSdkExporterOperationDuration extends GoHandle {
 
   /// Go: `func (otelconv.SDKExporterOperationDuration).Unit() string`.
   String unit() {
-    final $r = $callSync(22251, $W()..h(this));
+    final $r = $callSync(22253, $W()..h(this));
     return $r.str();
   }
 }
@@ -976,7 +976,7 @@ class OtelSemconvV1430OtelconvSdkExporterSpanExported extends GoHandle {
       $metric.OtelMetricMeter m,
       [List<$metric.OtelMetricInt64CounterOption> opt = const []]) {
     final $r = $callSync(
-        22144,
+        22146,
         $W()
           ..h(m)
           ..list(opt, (w0, e0) => w0.h(e0)));
@@ -989,7 +989,7 @@ class OtelSemconvV1430OtelconvSdkExporterSpanExported extends GoHandle {
   Future<void> add($context.Context ctx, int incr,
       [List<$attribute.OtelAttributeKeyValue> attrs = const []]) async {
     await $call(
-        22252,
+        22254,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1003,7 +1003,7 @@ class OtelSemconvV1430OtelconvSdkExporterSpanExported extends GoHandle {
   Future<void> addSet(
       $context.Context ctx, int incr, $attribute.OtelAttributeSet set) async {
     await $call(
-        22253,
+        22255,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1014,7 +1014,7 @@ class OtelSemconvV1430OtelconvSdkExporterSpanExported extends GoHandle {
   /// Go: `func (otelconv.SDKExporterSpanExported).AttrComponentName(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrComponentName(String val) {
     final $r = $callSync(
-        22254,
+        22256,
         $W()
           ..h(this)
           ..str(val));
@@ -1024,7 +1024,7 @@ class OtelSemconvV1430OtelconvSdkExporterSpanExported extends GoHandle {
   /// Go: `func (otelconv.SDKExporterSpanExported).AttrComponentType(val otelconv.ComponentTypeAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrComponentType(String val) {
     final $r = $callSync(
-        22255,
+        22257,
         $W()
           ..h(this)
           ..str(val));
@@ -1034,7 +1034,7 @@ class OtelSemconvV1430OtelconvSdkExporterSpanExported extends GoHandle {
   /// Go: `func (otelconv.SDKExporterSpanExported).AttrErrorType(val otelconv.ErrorTypeAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrErrorType(String val) {
     final $r = $callSync(
-        22256,
+        22258,
         $W()
           ..h(this)
           ..str(val));
@@ -1044,7 +1044,7 @@ class OtelSemconvV1430OtelconvSdkExporterSpanExported extends GoHandle {
   /// Go: `func (otelconv.SDKExporterSpanExported).AttrServerAddress(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrServerAddress(String val) {
     final $r = $callSync(
-        22257,
+        22259,
         $W()
           ..h(this)
           ..str(val));
@@ -1054,7 +1054,7 @@ class OtelSemconvV1430OtelconvSdkExporterSpanExported extends GoHandle {
   /// Go: `func (otelconv.SDKExporterSpanExported).AttrServerPort(val int) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrServerPort(int val) {
     final $r = $callSync(
-        22258,
+        22260,
         $W()
           ..h(this)
           ..i64(val));
@@ -1063,25 +1063,25 @@ class OtelSemconvV1430OtelconvSdkExporterSpanExported extends GoHandle {
 
   /// Go: `func (otelconv.SDKExporterSpanExported).Description() string`.
   String description() {
-    final $r = $callSync(22259, $W()..h(this));
+    final $r = $callSync(22261, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKExporterSpanExported).Inst() metric.Int64Counter`.
   $metric.OtelMetricInt64Counter inst() {
-    final $r = $callSync(22260, $W()..h(this));
+    final $r = $callSync(22262, $W()..h(this));
     return $r.hnn($metric.OtelMetricInt64Counter.$h);
   }
 
   /// Go: `func (otelconv.SDKExporterSpanExported).Name() string`.
   String name() {
-    final $r = $callSync(22261, $W()..h(this));
+    final $r = $callSync(22263, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKExporterSpanExported).Unit() string`.
   String unit() {
-    final $r = $callSync(22262, $W()..h(this));
+    final $r = $callSync(22264, $W()..h(this));
     return $r.str();
   }
 }
@@ -1097,7 +1097,7 @@ class OtelSemconvV1430OtelconvSdkExporterSpanExportedObservable
       $metric.OtelMetricMeter m,
       [List<$metric.OtelMetricInt64ObservableCounterOption> opt = const []]) {
     final $r = $callSync(
-        22145,
+        22147,
         $W()
           ..h(m)
           ..list(opt, (w0, e0) => w0.h(e0)));
@@ -1107,7 +1107,7 @@ class OtelSemconvV1430OtelconvSdkExporterSpanExportedObservable
   /// Go: `func (otelconv.SDKExporterSpanExportedObservable).AttrComponentName(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrComponentName(String val) {
     final $r = $callSync(
-        22263,
+        22265,
         $W()
           ..h(this)
           ..str(val));
@@ -1117,7 +1117,7 @@ class OtelSemconvV1430OtelconvSdkExporterSpanExportedObservable
   /// Go: `func (otelconv.SDKExporterSpanExportedObservable).AttrComponentType(val otelconv.ComponentTypeAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrComponentType(String val) {
     final $r = $callSync(
-        22264,
+        22266,
         $W()
           ..h(this)
           ..str(val));
@@ -1127,7 +1127,7 @@ class OtelSemconvV1430OtelconvSdkExporterSpanExportedObservable
   /// Go: `func (otelconv.SDKExporterSpanExportedObservable).AttrErrorType(val otelconv.ErrorTypeAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrErrorType(String val) {
     final $r = $callSync(
-        22265,
+        22267,
         $W()
           ..h(this)
           ..str(val));
@@ -1137,7 +1137,7 @@ class OtelSemconvV1430OtelconvSdkExporterSpanExportedObservable
   /// Go: `func (otelconv.SDKExporterSpanExportedObservable).AttrServerAddress(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrServerAddress(String val) {
     final $r = $callSync(
-        22266,
+        22268,
         $W()
           ..h(this)
           ..str(val));
@@ -1147,7 +1147,7 @@ class OtelSemconvV1430OtelconvSdkExporterSpanExportedObservable
   /// Go: `func (otelconv.SDKExporterSpanExportedObservable).AttrServerPort(val int) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrServerPort(int val) {
     final $r = $callSync(
-        22267,
+        22269,
         $W()
           ..h(this)
           ..i64(val));
@@ -1156,25 +1156,25 @@ class OtelSemconvV1430OtelconvSdkExporterSpanExportedObservable
 
   /// Go: `func (otelconv.SDKExporterSpanExportedObservable).Description() string`.
   String description() {
-    final $r = $callSync(22268, $W()..h(this));
+    final $r = $callSync(22270, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKExporterSpanExportedObservable).Inst() metric.Int64ObservableCounter`.
   $metric.OtelMetricInt64ObservableCounter inst() {
-    final $r = $callSync(22269, $W()..h(this));
+    final $r = $callSync(22271, $W()..h(this));
     return $r.hnn($metric.OtelMetricInt64ObservableCounter.$h);
   }
 
   /// Go: `func (otelconv.SDKExporterSpanExportedObservable).Name() string`.
   String name() {
-    final $r = $callSync(22270, $W()..h(this));
+    final $r = $callSync(22272, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKExporterSpanExportedObservable).Unit() string`.
   String unit() {
-    final $r = $callSync(22271, $W()..h(this));
+    final $r = $callSync(22273, $W()..h(this));
     return $r.str();
   }
 }
@@ -1188,7 +1188,7 @@ class OtelSemconvV1430OtelconvSdkExporterSpanInflight extends GoHandle {
       $metric.OtelMetricMeter m,
       [List<$metric.OtelMetricInt64UpDownCounterOption> opt = const []]) {
     final $r = $callSync(
-        22146,
+        22148,
         $W()
           ..h(m)
           ..list(opt, (w0, e0) => w0.h(e0)));
@@ -1201,7 +1201,7 @@ class OtelSemconvV1430OtelconvSdkExporterSpanInflight extends GoHandle {
   Future<void> add($context.Context ctx, int incr,
       [List<$attribute.OtelAttributeKeyValue> attrs = const []]) async {
     await $call(
-        22272,
+        22274,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1215,7 +1215,7 @@ class OtelSemconvV1430OtelconvSdkExporterSpanInflight extends GoHandle {
   Future<void> addSet(
       $context.Context ctx, int incr, $attribute.OtelAttributeSet set) async {
     await $call(
-        22273,
+        22275,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1226,7 +1226,7 @@ class OtelSemconvV1430OtelconvSdkExporterSpanInflight extends GoHandle {
   /// Go: `func (otelconv.SDKExporterSpanInflight).AttrComponentName(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrComponentName(String val) {
     final $r = $callSync(
-        22274,
+        22276,
         $W()
           ..h(this)
           ..str(val));
@@ -1236,7 +1236,7 @@ class OtelSemconvV1430OtelconvSdkExporterSpanInflight extends GoHandle {
   /// Go: `func (otelconv.SDKExporterSpanInflight).AttrComponentType(val otelconv.ComponentTypeAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrComponentType(String val) {
     final $r = $callSync(
-        22275,
+        22277,
         $W()
           ..h(this)
           ..str(val));
@@ -1246,7 +1246,7 @@ class OtelSemconvV1430OtelconvSdkExporterSpanInflight extends GoHandle {
   /// Go: `func (otelconv.SDKExporterSpanInflight).AttrServerAddress(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrServerAddress(String val) {
     final $r = $callSync(
-        22276,
+        22278,
         $W()
           ..h(this)
           ..str(val));
@@ -1256,7 +1256,7 @@ class OtelSemconvV1430OtelconvSdkExporterSpanInflight extends GoHandle {
   /// Go: `func (otelconv.SDKExporterSpanInflight).AttrServerPort(val int) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrServerPort(int val) {
     final $r = $callSync(
-        22277,
+        22279,
         $W()
           ..h(this)
           ..i64(val));
@@ -1265,25 +1265,25 @@ class OtelSemconvV1430OtelconvSdkExporterSpanInflight extends GoHandle {
 
   /// Go: `func (otelconv.SDKExporterSpanInflight).Description() string`.
   String description() {
-    final $r = $callSync(22278, $W()..h(this));
+    final $r = $callSync(22280, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKExporterSpanInflight).Inst() metric.Int64UpDownCounter`.
   $metric.OtelMetricInt64UpDownCounter inst() {
-    final $r = $callSync(22279, $W()..h(this));
+    final $r = $callSync(22281, $W()..h(this));
     return $r.hnn($metric.OtelMetricInt64UpDownCounter.$h);
   }
 
   /// Go: `func (otelconv.SDKExporterSpanInflight).Name() string`.
   String name() {
-    final $r = $callSync(22280, $W()..h(this));
+    final $r = $callSync(22282, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKExporterSpanInflight).Unit() string`.
   String unit() {
-    final $r = $callSync(22281, $W()..h(this));
+    final $r = $callSync(22283, $W()..h(this));
     return $r.str();
   }
 }
@@ -1300,7 +1300,7 @@ class OtelSemconvV1430OtelconvSdkExporterSpanInflightObservable
       [List<$metric.OtelMetricInt64ObservableUpDownCounterOption> opt =
           const []]) {
     final $r = $callSync(
-        22147,
+        22149,
         $W()
           ..h(m)
           ..list(opt, (w0, e0) => w0.h(e0)));
@@ -1310,7 +1310,7 @@ class OtelSemconvV1430OtelconvSdkExporterSpanInflightObservable
   /// Go: `func (otelconv.SDKExporterSpanInflightObservable).AttrComponentName(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrComponentName(String val) {
     final $r = $callSync(
-        22282,
+        22284,
         $W()
           ..h(this)
           ..str(val));
@@ -1320,7 +1320,7 @@ class OtelSemconvV1430OtelconvSdkExporterSpanInflightObservable
   /// Go: `func (otelconv.SDKExporterSpanInflightObservable).AttrComponentType(val otelconv.ComponentTypeAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrComponentType(String val) {
     final $r = $callSync(
-        22283,
+        22285,
         $W()
           ..h(this)
           ..str(val));
@@ -1330,7 +1330,7 @@ class OtelSemconvV1430OtelconvSdkExporterSpanInflightObservable
   /// Go: `func (otelconv.SDKExporterSpanInflightObservable).AttrServerAddress(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrServerAddress(String val) {
     final $r = $callSync(
-        22284,
+        22286,
         $W()
           ..h(this)
           ..str(val));
@@ -1340,7 +1340,7 @@ class OtelSemconvV1430OtelconvSdkExporterSpanInflightObservable
   /// Go: `func (otelconv.SDKExporterSpanInflightObservable).AttrServerPort(val int) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrServerPort(int val) {
     final $r = $callSync(
-        22285,
+        22287,
         $W()
           ..h(this)
           ..i64(val));
@@ -1349,25 +1349,25 @@ class OtelSemconvV1430OtelconvSdkExporterSpanInflightObservable
 
   /// Go: `func (otelconv.SDKExporterSpanInflightObservable).Description() string`.
   String description() {
-    final $r = $callSync(22286, $W()..h(this));
+    final $r = $callSync(22288, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKExporterSpanInflightObservable).Inst() metric.Int64ObservableUpDownCounter`.
   $metric.OtelMetricInt64ObservableUpDownCounter inst() {
-    final $r = $callSync(22287, $W()..h(this));
+    final $r = $callSync(22289, $W()..h(this));
     return $r.hnn($metric.OtelMetricInt64ObservableUpDownCounter.$h);
   }
 
   /// Go: `func (otelconv.SDKExporterSpanInflightObservable).Name() string`.
   String name() {
-    final $r = $callSync(22288, $W()..h(this));
+    final $r = $callSync(22290, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKExporterSpanInflightObservable).Unit() string`.
   String unit() {
-    final $r = $callSync(22289, $W()..h(this));
+    final $r = $callSync(22291, $W()..h(this));
     return $r.str();
   }
 }
@@ -1380,7 +1380,7 @@ class OtelSemconvV1430OtelconvSdkLogCreated extends GoHandle {
   factory OtelSemconvV1430OtelconvSdkLogCreated($metric.OtelMetricMeter m,
       [List<$metric.OtelMetricInt64CounterOption> opt = const []]) {
     final $r = $callSync(
-        22148,
+        22150,
         $W()
           ..h(m)
           ..list(opt, (w0, e0) => w0.h(e0)));
@@ -1393,7 +1393,7 @@ class OtelSemconvV1430OtelconvSdkLogCreated extends GoHandle {
   Future<void> add($context.Context ctx, int incr,
       [List<$attribute.OtelAttributeKeyValue> attrs = const []]) async {
     await $call(
-        22290,
+        22292,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1407,7 +1407,7 @@ class OtelSemconvV1430OtelconvSdkLogCreated extends GoHandle {
   Future<void> addSet(
       $context.Context ctx, int incr, $attribute.OtelAttributeSet set) async {
     await $call(
-        22291,
+        22293,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1417,25 +1417,25 @@ class OtelSemconvV1430OtelconvSdkLogCreated extends GoHandle {
 
   /// Go: `func (otelconv.SDKLogCreated).Description() string`.
   String description() {
-    final $r = $callSync(22292, $W()..h(this));
+    final $r = $callSync(22294, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKLogCreated).Inst() metric.Int64Counter`.
   $metric.OtelMetricInt64Counter inst() {
-    final $r = $callSync(22293, $W()..h(this));
+    final $r = $callSync(22295, $W()..h(this));
     return $r.hnn($metric.OtelMetricInt64Counter.$h);
   }
 
   /// Go: `func (otelconv.SDKLogCreated).Name() string`.
   String name() {
-    final $r = $callSync(22294, $W()..h(this));
+    final $r = $callSync(22296, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKLogCreated).Unit() string`.
   String unit() {
-    final $r = $callSync(22295, $W()..h(this));
+    final $r = $callSync(22297, $W()..h(this));
     return $r.str();
   }
 }
@@ -1450,7 +1450,7 @@ class OtelSemconvV1430OtelconvSdkLogCreatedObservable
       $metric.OtelMetricMeter m,
       [List<$metric.OtelMetricInt64ObservableCounterOption> opt = const []]) {
     final $r = $callSync(
-        22149,
+        22151,
         $W()
           ..h(m)
           ..list(opt, (w0, e0) => w0.h(e0)));
@@ -1459,25 +1459,25 @@ class OtelSemconvV1430OtelconvSdkLogCreatedObservable
 
   /// Go: `func (otelconv.SDKLogCreatedObservable).Description() string`.
   String description() {
-    final $r = $callSync(22296, $W()..h(this));
+    final $r = $callSync(22298, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKLogCreatedObservable).Inst() metric.Int64ObservableCounter`.
   $metric.OtelMetricInt64ObservableCounter inst() {
-    final $r = $callSync(22297, $W()..h(this));
+    final $r = $callSync(22299, $W()..h(this));
     return $r.hnn($metric.OtelMetricInt64ObservableCounter.$h);
   }
 
   /// Go: `func (otelconv.SDKLogCreatedObservable).Name() string`.
   String name() {
-    final $r = $callSync(22298, $W()..h(this));
+    final $r = $callSync(22300, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKLogCreatedObservable).Unit() string`.
   String unit() {
-    final $r = $callSync(22299, $W()..h(this));
+    final $r = $callSync(22301, $W()..h(this));
     return $r.str();
   }
 }
@@ -1492,7 +1492,7 @@ class OtelSemconvV1430OtelconvSdkMetricReaderCollectionDuration
       $metric.OtelMetricMeter m,
       [List<$metric.OtelMetricFloat64HistogramOption> opt = const []]) {
     final $r = $callSync(
-        22150,
+        22152,
         $W()
           ..h(m)
           ..list(opt, (w0, e0) => w0.h(e0)));
@@ -1502,7 +1502,7 @@ class OtelSemconvV1430OtelconvSdkMetricReaderCollectionDuration
   /// Go: `func (otelconv.SDKMetricReaderCollectionDuration).AttrComponentName(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrComponentName(String val) {
     final $r = $callSync(
-        22300,
+        22302,
         $W()
           ..h(this)
           ..str(val));
@@ -1512,7 +1512,7 @@ class OtelSemconvV1430OtelconvSdkMetricReaderCollectionDuration
   /// Go: `func (otelconv.SDKMetricReaderCollectionDuration).AttrComponentType(val otelconv.ComponentTypeAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrComponentType(String val) {
     final $r = $callSync(
-        22301,
+        22303,
         $W()
           ..h(this)
           ..str(val));
@@ -1522,7 +1522,7 @@ class OtelSemconvV1430OtelconvSdkMetricReaderCollectionDuration
   /// Go: `func (otelconv.SDKMetricReaderCollectionDuration).AttrErrorType(val otelconv.ErrorTypeAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrErrorType(String val) {
     final $r = $callSync(
-        22302,
+        22304,
         $W()
           ..h(this)
           ..str(val));
@@ -1531,19 +1531,19 @@ class OtelSemconvV1430OtelconvSdkMetricReaderCollectionDuration
 
   /// Go: `func (otelconv.SDKMetricReaderCollectionDuration).Description() string`.
   String description() {
-    final $r = $callSync(22303, $W()..h(this));
+    final $r = $callSync(22305, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKMetricReaderCollectionDuration).Inst() metric.Float64Histogram`.
   $metric.OtelMetricFloat64Histogram inst() {
-    final $r = $callSync(22304, $W()..h(this));
+    final $r = $callSync(22306, $W()..h(this));
     return $r.hnn($metric.OtelMetricFloat64Histogram.$h);
   }
 
   /// Go: `func (otelconv.SDKMetricReaderCollectionDuration).Name() string`.
   String name() {
-    final $r = $callSync(22305, $W()..h(this));
+    final $r = $callSync(22307, $W()..h(this));
     return $r.str();
   }
 
@@ -1553,7 +1553,7 @@ class OtelSemconvV1430OtelconvSdkMetricReaderCollectionDuration
   Future<void> record($context.Context ctx, double val,
       [List<$attribute.OtelAttributeKeyValue> attrs = const []]) async {
     await $call(
-        22306,
+        22308,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1567,7 +1567,7 @@ class OtelSemconvV1430OtelconvSdkMetricReaderCollectionDuration
   Future<void> recordSet(
       $context.Context ctx, double val, $attribute.OtelAttributeSet set) async {
     await $call(
-        22307,
+        22309,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1577,7 +1577,7 @@ class OtelSemconvV1430OtelconvSdkMetricReaderCollectionDuration
 
   /// Go: `func (otelconv.SDKMetricReaderCollectionDuration).Unit() string`.
   String unit() {
-    final $r = $callSync(22308, $W()..h(this));
+    final $r = $callSync(22310, $W()..h(this));
     return $r.str();
   }
 }
@@ -1591,7 +1591,7 @@ class OtelSemconvV1430OtelconvSdkProcessorLogProcessed extends GoHandle {
       $metric.OtelMetricMeter m,
       [List<$metric.OtelMetricInt64CounterOption> opt = const []]) {
     final $r = $callSync(
-        22151,
+        22153,
         $W()
           ..h(m)
           ..list(opt, (w0, e0) => w0.h(e0)));
@@ -1604,7 +1604,7 @@ class OtelSemconvV1430OtelconvSdkProcessorLogProcessed extends GoHandle {
   Future<void> add($context.Context ctx, int incr,
       [List<$attribute.OtelAttributeKeyValue> attrs = const []]) async {
     await $call(
-        22309,
+        22311,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1618,7 +1618,7 @@ class OtelSemconvV1430OtelconvSdkProcessorLogProcessed extends GoHandle {
   Future<void> addSet(
       $context.Context ctx, int incr, $attribute.OtelAttributeSet set) async {
     await $call(
-        22310,
+        22312,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1629,7 +1629,7 @@ class OtelSemconvV1430OtelconvSdkProcessorLogProcessed extends GoHandle {
   /// Go: `func (otelconv.SDKProcessorLogProcessed).AttrComponentName(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrComponentName(String val) {
     final $r = $callSync(
-        22311,
+        22313,
         $W()
           ..h(this)
           ..str(val));
@@ -1639,7 +1639,7 @@ class OtelSemconvV1430OtelconvSdkProcessorLogProcessed extends GoHandle {
   /// Go: `func (otelconv.SDKProcessorLogProcessed).AttrComponentType(val otelconv.ComponentTypeAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrComponentType(String val) {
     final $r = $callSync(
-        22312,
+        22314,
         $W()
           ..h(this)
           ..str(val));
@@ -1649,7 +1649,7 @@ class OtelSemconvV1430OtelconvSdkProcessorLogProcessed extends GoHandle {
   /// Go: `func (otelconv.SDKProcessorLogProcessed).AttrErrorType(val otelconv.ErrorTypeAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrErrorType(String val) {
     final $r = $callSync(
-        22313,
+        22315,
         $W()
           ..h(this)
           ..str(val));
@@ -1658,25 +1658,25 @@ class OtelSemconvV1430OtelconvSdkProcessorLogProcessed extends GoHandle {
 
   /// Go: `func (otelconv.SDKProcessorLogProcessed).Description() string`.
   String description() {
-    final $r = $callSync(22314, $W()..h(this));
+    final $r = $callSync(22316, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKProcessorLogProcessed).Inst() metric.Int64Counter`.
   $metric.OtelMetricInt64Counter inst() {
-    final $r = $callSync(22315, $W()..h(this));
+    final $r = $callSync(22317, $W()..h(this));
     return $r.hnn($metric.OtelMetricInt64Counter.$h);
   }
 
   /// Go: `func (otelconv.SDKProcessorLogProcessed).Name() string`.
   String name() {
-    final $r = $callSync(22316, $W()..h(this));
+    final $r = $callSync(22318, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKProcessorLogProcessed).Unit() string`.
   String unit() {
-    final $r = $callSync(22317, $W()..h(this));
+    final $r = $callSync(22319, $W()..h(this));
     return $r.str();
   }
 }
@@ -1692,7 +1692,7 @@ class OtelSemconvV1430OtelconvSdkProcessorLogProcessedObservable
       $metric.OtelMetricMeter m,
       [List<$metric.OtelMetricInt64ObservableCounterOption> opt = const []]) {
     final $r = $callSync(
-        22152,
+        22154,
         $W()
           ..h(m)
           ..list(opt, (w0, e0) => w0.h(e0)));
@@ -1703,7 +1703,7 @@ class OtelSemconvV1430OtelconvSdkProcessorLogProcessedObservable
   /// Go: `func (otelconv.SDKProcessorLogProcessedObservable).AttrComponentName(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrComponentName(String val) {
     final $r = $callSync(
-        22318,
+        22320,
         $W()
           ..h(this)
           ..str(val));
@@ -1713,7 +1713,7 @@ class OtelSemconvV1430OtelconvSdkProcessorLogProcessedObservable
   /// Go: `func (otelconv.SDKProcessorLogProcessedObservable).AttrComponentType(val otelconv.ComponentTypeAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrComponentType(String val) {
     final $r = $callSync(
-        22319,
+        22321,
         $W()
           ..h(this)
           ..str(val));
@@ -1723,7 +1723,7 @@ class OtelSemconvV1430OtelconvSdkProcessorLogProcessedObservable
   /// Go: `func (otelconv.SDKProcessorLogProcessedObservable).AttrErrorType(val otelconv.ErrorTypeAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrErrorType(String val) {
     final $r = $callSync(
-        22320,
+        22322,
         $W()
           ..h(this)
           ..str(val));
@@ -1732,25 +1732,25 @@ class OtelSemconvV1430OtelconvSdkProcessorLogProcessedObservable
 
   /// Go: `func (otelconv.SDKProcessorLogProcessedObservable).Description() string`.
   String description() {
-    final $r = $callSync(22321, $W()..h(this));
+    final $r = $callSync(22323, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKProcessorLogProcessedObservable).Inst() metric.Int64ObservableCounter`.
   $metric.OtelMetricInt64ObservableCounter inst() {
-    final $r = $callSync(22322, $W()..h(this));
+    final $r = $callSync(22324, $W()..h(this));
     return $r.hnn($metric.OtelMetricInt64ObservableCounter.$h);
   }
 
   /// Go: `func (otelconv.SDKProcessorLogProcessedObservable).Name() string`.
   String name() {
-    final $r = $callSync(22323, $W()..h(this));
+    final $r = $callSync(22325, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKProcessorLogProcessedObservable).Unit() string`.
   String unit() {
-    final $r = $callSync(22324, $W()..h(this));
+    final $r = $callSync(22326, $W()..h(this));
     return $r.str();
   }
 }
@@ -1767,7 +1767,7 @@ class OtelSemconvV1430OtelconvSdkProcessorLogQueueCapacity
       [List<$metric.OtelMetricInt64ObservableUpDownCounterOption> opt =
           const []]) {
     final $r = $callSync(
-        22153,
+        22155,
         $W()
           ..h(m)
           ..list(opt, (w0, e0) => w0.h(e0)));
@@ -1777,7 +1777,7 @@ class OtelSemconvV1430OtelconvSdkProcessorLogQueueCapacity
   /// Go: `func (otelconv.SDKProcessorLogQueueCapacity).AttrComponentName(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrComponentName(String val) {
     final $r = $callSync(
-        22325,
+        22327,
         $W()
           ..h(this)
           ..str(val));
@@ -1787,7 +1787,7 @@ class OtelSemconvV1430OtelconvSdkProcessorLogQueueCapacity
   /// Go: `func (otelconv.SDKProcessorLogQueueCapacity).AttrComponentType(val otelconv.ComponentTypeAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrComponentType(String val) {
     final $r = $callSync(
-        22326,
+        22328,
         $W()
           ..h(this)
           ..str(val));
@@ -1796,25 +1796,25 @@ class OtelSemconvV1430OtelconvSdkProcessorLogQueueCapacity
 
   /// Go: `func (otelconv.SDKProcessorLogQueueCapacity).Description() string`.
   String description() {
-    final $r = $callSync(22327, $W()..h(this));
+    final $r = $callSync(22329, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKProcessorLogQueueCapacity).Inst() metric.Int64ObservableUpDownCounter`.
   $metric.OtelMetricInt64ObservableUpDownCounter inst() {
-    final $r = $callSync(22328, $W()..h(this));
+    final $r = $callSync(22330, $W()..h(this));
     return $r.hnn($metric.OtelMetricInt64ObservableUpDownCounter.$h);
   }
 
   /// Go: `func (otelconv.SDKProcessorLogQueueCapacity).Name() string`.
   String name() {
-    final $r = $callSync(22329, $W()..h(this));
+    final $r = $callSync(22331, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKProcessorLogQueueCapacity).Unit() string`.
   String unit() {
-    final $r = $callSync(22330, $W()..h(this));
+    final $r = $callSync(22332, $W()..h(this));
     return $r.str();
   }
 }
@@ -1830,7 +1830,7 @@ class OtelSemconvV1430OtelconvSdkProcessorLogQueueSize
       [List<$metric.OtelMetricInt64ObservableUpDownCounterOption> opt =
           const []]) {
     final $r = $callSync(
-        22154,
+        22156,
         $W()
           ..h(m)
           ..list(opt, (w0, e0) => w0.h(e0)));
@@ -1840,7 +1840,7 @@ class OtelSemconvV1430OtelconvSdkProcessorLogQueueSize
   /// Go: `func (otelconv.SDKProcessorLogQueueSize).AttrComponentName(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrComponentName(String val) {
     final $r = $callSync(
-        22331,
+        22333,
         $W()
           ..h(this)
           ..str(val));
@@ -1850,7 +1850,7 @@ class OtelSemconvV1430OtelconvSdkProcessorLogQueueSize
   /// Go: `func (otelconv.SDKProcessorLogQueueSize).AttrComponentType(val otelconv.ComponentTypeAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrComponentType(String val) {
     final $r = $callSync(
-        22332,
+        22334,
         $W()
           ..h(this)
           ..str(val));
@@ -1859,25 +1859,25 @@ class OtelSemconvV1430OtelconvSdkProcessorLogQueueSize
 
   /// Go: `func (otelconv.SDKProcessorLogQueueSize).Description() string`.
   String description() {
-    final $r = $callSync(22333, $W()..h(this));
+    final $r = $callSync(22335, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKProcessorLogQueueSize).Inst() metric.Int64ObservableUpDownCounter`.
   $metric.OtelMetricInt64ObservableUpDownCounter inst() {
-    final $r = $callSync(22334, $W()..h(this));
+    final $r = $callSync(22336, $W()..h(this));
     return $r.hnn($metric.OtelMetricInt64ObservableUpDownCounter.$h);
   }
 
   /// Go: `func (otelconv.SDKProcessorLogQueueSize).Name() string`.
   String name() {
-    final $r = $callSync(22335, $W()..h(this));
+    final $r = $callSync(22337, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKProcessorLogQueueSize).Unit() string`.
   String unit() {
-    final $r = $callSync(22336, $W()..h(this));
+    final $r = $callSync(22338, $W()..h(this));
     return $r.str();
   }
 }
@@ -1891,7 +1891,7 @@ class OtelSemconvV1430OtelconvSdkProcessorSpanProcessed extends GoHandle {
       $metric.OtelMetricMeter m,
       [List<$metric.OtelMetricInt64CounterOption> opt = const []]) {
     final $r = $callSync(
-        22155,
+        22157,
         $W()
           ..h(m)
           ..list(opt, (w0, e0) => w0.h(e0)));
@@ -1904,7 +1904,7 @@ class OtelSemconvV1430OtelconvSdkProcessorSpanProcessed extends GoHandle {
   Future<void> add($context.Context ctx, int incr,
       [List<$attribute.OtelAttributeKeyValue> attrs = const []]) async {
     await $call(
-        22337,
+        22339,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1918,7 +1918,7 @@ class OtelSemconvV1430OtelconvSdkProcessorSpanProcessed extends GoHandle {
   Future<void> addSet(
       $context.Context ctx, int incr, $attribute.OtelAttributeSet set) async {
     await $call(
-        22338,
+        22340,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1929,7 +1929,7 @@ class OtelSemconvV1430OtelconvSdkProcessorSpanProcessed extends GoHandle {
   /// Go: `func (otelconv.SDKProcessorSpanProcessed).AttrComponentName(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrComponentName(String val) {
     final $r = $callSync(
-        22339,
+        22341,
         $W()
           ..h(this)
           ..str(val));
@@ -1939,7 +1939,7 @@ class OtelSemconvV1430OtelconvSdkProcessorSpanProcessed extends GoHandle {
   /// Go: `func (otelconv.SDKProcessorSpanProcessed).AttrComponentType(val otelconv.ComponentTypeAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrComponentType(String val) {
     final $r = $callSync(
-        22340,
+        22342,
         $W()
           ..h(this)
           ..str(val));
@@ -1949,7 +1949,7 @@ class OtelSemconvV1430OtelconvSdkProcessorSpanProcessed extends GoHandle {
   /// Go: `func (otelconv.SDKProcessorSpanProcessed).AttrErrorType(val otelconv.ErrorTypeAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrErrorType(String val) {
     final $r = $callSync(
-        22341,
+        22343,
         $W()
           ..h(this)
           ..str(val));
@@ -1958,25 +1958,25 @@ class OtelSemconvV1430OtelconvSdkProcessorSpanProcessed extends GoHandle {
 
   /// Go: `func (otelconv.SDKProcessorSpanProcessed).Description() string`.
   String description() {
-    final $r = $callSync(22342, $W()..h(this));
+    final $r = $callSync(22344, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKProcessorSpanProcessed).Inst() metric.Int64Counter`.
   $metric.OtelMetricInt64Counter inst() {
-    final $r = $callSync(22343, $W()..h(this));
+    final $r = $callSync(22345, $W()..h(this));
     return $r.hnn($metric.OtelMetricInt64Counter.$h);
   }
 
   /// Go: `func (otelconv.SDKProcessorSpanProcessed).Name() string`.
   String name() {
-    final $r = $callSync(22344, $W()..h(this));
+    final $r = $callSync(22346, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKProcessorSpanProcessed).Unit() string`.
   String unit() {
-    final $r = $callSync(22345, $W()..h(this));
+    final $r = $callSync(22347, $W()..h(this));
     return $r.str();
   }
 }
@@ -1992,7 +1992,7 @@ class OtelSemconvV1430OtelconvSdkProcessorSpanProcessedObservable
       $metric.OtelMetricMeter m,
       [List<$metric.OtelMetricInt64ObservableCounterOption> opt = const []]) {
     final $r = $callSync(
-        22156,
+        22158,
         $W()
           ..h(m)
           ..list(opt, (w0, e0) => w0.h(e0)));
@@ -2003,7 +2003,7 @@ class OtelSemconvV1430OtelconvSdkProcessorSpanProcessedObservable
   /// Go: `func (otelconv.SDKProcessorSpanProcessedObservable).AttrComponentName(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrComponentName(String val) {
     final $r = $callSync(
-        22346,
+        22348,
         $W()
           ..h(this)
           ..str(val));
@@ -2013,7 +2013,7 @@ class OtelSemconvV1430OtelconvSdkProcessorSpanProcessedObservable
   /// Go: `func (otelconv.SDKProcessorSpanProcessedObservable).AttrComponentType(val otelconv.ComponentTypeAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrComponentType(String val) {
     final $r = $callSync(
-        22347,
+        22349,
         $W()
           ..h(this)
           ..str(val));
@@ -2023,7 +2023,7 @@ class OtelSemconvV1430OtelconvSdkProcessorSpanProcessedObservable
   /// Go: `func (otelconv.SDKProcessorSpanProcessedObservable).AttrErrorType(val otelconv.ErrorTypeAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrErrorType(String val) {
     final $r = $callSync(
-        22348,
+        22350,
         $W()
           ..h(this)
           ..str(val));
@@ -2032,25 +2032,25 @@ class OtelSemconvV1430OtelconvSdkProcessorSpanProcessedObservable
 
   /// Go: `func (otelconv.SDKProcessorSpanProcessedObservable).Description() string`.
   String description() {
-    final $r = $callSync(22349, $W()..h(this));
+    final $r = $callSync(22351, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKProcessorSpanProcessedObservable).Inst() metric.Int64ObservableCounter`.
   $metric.OtelMetricInt64ObservableCounter inst() {
-    final $r = $callSync(22350, $W()..h(this));
+    final $r = $callSync(22352, $W()..h(this));
     return $r.hnn($metric.OtelMetricInt64ObservableCounter.$h);
   }
 
   /// Go: `func (otelconv.SDKProcessorSpanProcessedObservable).Name() string`.
   String name() {
-    final $r = $callSync(22351, $W()..h(this));
+    final $r = $callSync(22353, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKProcessorSpanProcessedObservable).Unit() string`.
   String unit() {
-    final $r = $callSync(22352, $W()..h(this));
+    final $r = $callSync(22354, $W()..h(this));
     return $r.str();
   }
 }
@@ -2067,7 +2067,7 @@ class OtelSemconvV1430OtelconvSdkProcessorSpanQueueCapacity
       [List<$metric.OtelMetricInt64ObservableUpDownCounterOption> opt =
           const []]) {
     final $r = $callSync(
-        22157,
+        22159,
         $W()
           ..h(m)
           ..list(opt, (w0, e0) => w0.h(e0)));
@@ -2077,7 +2077,7 @@ class OtelSemconvV1430OtelconvSdkProcessorSpanQueueCapacity
   /// Go: `func (otelconv.SDKProcessorSpanQueueCapacity).AttrComponentName(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrComponentName(String val) {
     final $r = $callSync(
-        22353,
+        22355,
         $W()
           ..h(this)
           ..str(val));
@@ -2087,7 +2087,7 @@ class OtelSemconvV1430OtelconvSdkProcessorSpanQueueCapacity
   /// Go: `func (otelconv.SDKProcessorSpanQueueCapacity).AttrComponentType(val otelconv.ComponentTypeAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrComponentType(String val) {
     final $r = $callSync(
-        22354,
+        22356,
         $W()
           ..h(this)
           ..str(val));
@@ -2096,25 +2096,25 @@ class OtelSemconvV1430OtelconvSdkProcessorSpanQueueCapacity
 
   /// Go: `func (otelconv.SDKProcessorSpanQueueCapacity).Description() string`.
   String description() {
-    final $r = $callSync(22355, $W()..h(this));
+    final $r = $callSync(22357, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKProcessorSpanQueueCapacity).Inst() metric.Int64ObservableUpDownCounter`.
   $metric.OtelMetricInt64ObservableUpDownCounter inst() {
-    final $r = $callSync(22356, $W()..h(this));
+    final $r = $callSync(22358, $W()..h(this));
     return $r.hnn($metric.OtelMetricInt64ObservableUpDownCounter.$h);
   }
 
   /// Go: `func (otelconv.SDKProcessorSpanQueueCapacity).Name() string`.
   String name() {
-    final $r = $callSync(22357, $W()..h(this));
+    final $r = $callSync(22359, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKProcessorSpanQueueCapacity).Unit() string`.
   String unit() {
-    final $r = $callSync(22358, $W()..h(this));
+    final $r = $callSync(22360, $W()..h(this));
     return $r.str();
   }
 }
@@ -2130,7 +2130,7 @@ class OtelSemconvV1430OtelconvSdkProcessorSpanQueueSize
       [List<$metric.OtelMetricInt64ObservableUpDownCounterOption> opt =
           const []]) {
     final $r = $callSync(
-        22158,
+        22160,
         $W()
           ..h(m)
           ..list(opt, (w0, e0) => w0.h(e0)));
@@ -2140,7 +2140,7 @@ class OtelSemconvV1430OtelconvSdkProcessorSpanQueueSize
   /// Go: `func (otelconv.SDKProcessorSpanQueueSize).AttrComponentName(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrComponentName(String val) {
     final $r = $callSync(
-        22359,
+        22361,
         $W()
           ..h(this)
           ..str(val));
@@ -2150,7 +2150,7 @@ class OtelSemconvV1430OtelconvSdkProcessorSpanQueueSize
   /// Go: `func (otelconv.SDKProcessorSpanQueueSize).AttrComponentType(val otelconv.ComponentTypeAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrComponentType(String val) {
     final $r = $callSync(
-        22360,
+        22362,
         $W()
           ..h(this)
           ..str(val));
@@ -2159,25 +2159,25 @@ class OtelSemconvV1430OtelconvSdkProcessorSpanQueueSize
 
   /// Go: `func (otelconv.SDKProcessorSpanQueueSize).Description() string`.
   String description() {
-    final $r = $callSync(22361, $W()..h(this));
+    final $r = $callSync(22363, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKProcessorSpanQueueSize).Inst() metric.Int64ObservableUpDownCounter`.
   $metric.OtelMetricInt64ObservableUpDownCounter inst() {
-    final $r = $callSync(22362, $W()..h(this));
+    final $r = $callSync(22364, $W()..h(this));
     return $r.hnn($metric.OtelMetricInt64ObservableUpDownCounter.$h);
   }
 
   /// Go: `func (otelconv.SDKProcessorSpanQueueSize).Name() string`.
   String name() {
-    final $r = $callSync(22363, $W()..h(this));
+    final $r = $callSync(22365, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKProcessorSpanQueueSize).Unit() string`.
   String unit() {
-    final $r = $callSync(22364, $W()..h(this));
+    final $r = $callSync(22366, $W()..h(this));
     return $r.str();
   }
 }
@@ -2190,7 +2190,7 @@ class OtelSemconvV1430OtelconvSdkSpanLive extends GoHandle {
   factory OtelSemconvV1430OtelconvSdkSpanLive($metric.OtelMetricMeter m,
       [List<$metric.OtelMetricInt64UpDownCounterOption> opt = const []]) {
     final $r = $callSync(
-        22159,
+        22161,
         $W()
           ..h(m)
           ..list(opt, (w0, e0) => w0.h(e0)));
@@ -2203,7 +2203,7 @@ class OtelSemconvV1430OtelconvSdkSpanLive extends GoHandle {
   Future<void> add($context.Context ctx, int incr,
       [List<$attribute.OtelAttributeKeyValue> attrs = const []]) async {
     await $call(
-        22365,
+        22367,
         $W()
           ..h(this)
           ..h(ctx)
@@ -2217,7 +2217,7 @@ class OtelSemconvV1430OtelconvSdkSpanLive extends GoHandle {
   Future<void> addSet(
       $context.Context ctx, int incr, $attribute.OtelAttributeSet set) async {
     await $call(
-        22366,
+        22368,
         $W()
           ..h(this)
           ..h(ctx)
@@ -2228,7 +2228,7 @@ class OtelSemconvV1430OtelconvSdkSpanLive extends GoHandle {
   /// Go: `func (otelconv.SDKSpanLive).AttrSpanSamplingResult(val otelconv.SpanSamplingResultAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrSpanSamplingResult(String val) {
     final $r = $callSync(
-        22367,
+        22369,
         $W()
           ..h(this)
           ..str(val));
@@ -2237,25 +2237,25 @@ class OtelSemconvV1430OtelconvSdkSpanLive extends GoHandle {
 
   /// Go: `func (otelconv.SDKSpanLive).Description() string`.
   String description() {
-    final $r = $callSync(22368, $W()..h(this));
+    final $r = $callSync(22370, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKSpanLive).Inst() metric.Int64UpDownCounter`.
   $metric.OtelMetricInt64UpDownCounter inst() {
-    final $r = $callSync(22369, $W()..h(this));
+    final $r = $callSync(22371, $W()..h(this));
     return $r.hnn($metric.OtelMetricInt64UpDownCounter.$h);
   }
 
   /// Go: `func (otelconv.SDKSpanLive).Name() string`.
   String name() {
-    final $r = $callSync(22370, $W()..h(this));
+    final $r = $callSync(22372, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKSpanLive).Unit() string`.
   String unit() {
-    final $r = $callSync(22371, $W()..h(this));
+    final $r = $callSync(22373, $W()..h(this));
     return $r.str();
   }
 }
@@ -2271,7 +2271,7 @@ class OtelSemconvV1430OtelconvSdkSpanLiveObservable
       [List<$metric.OtelMetricInt64ObservableUpDownCounterOption> opt =
           const []]) {
     final $r = $callSync(
-        22160,
+        22162,
         $W()
           ..h(m)
           ..list(opt, (w0, e0) => w0.h(e0)));
@@ -2281,7 +2281,7 @@ class OtelSemconvV1430OtelconvSdkSpanLiveObservable
   /// Go: `func (otelconv.SDKSpanLiveObservable).AttrSpanSamplingResult(val otelconv.SpanSamplingResultAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrSpanSamplingResult(String val) {
     final $r = $callSync(
-        22372,
+        22374,
         $W()
           ..h(this)
           ..str(val));
@@ -2290,25 +2290,25 @@ class OtelSemconvV1430OtelconvSdkSpanLiveObservable
 
   /// Go: `func (otelconv.SDKSpanLiveObservable).Description() string`.
   String description() {
-    final $r = $callSync(22373, $W()..h(this));
+    final $r = $callSync(22375, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKSpanLiveObservable).Inst() metric.Int64ObservableUpDownCounter`.
   $metric.OtelMetricInt64ObservableUpDownCounter inst() {
-    final $r = $callSync(22374, $W()..h(this));
+    final $r = $callSync(22376, $W()..h(this));
     return $r.hnn($metric.OtelMetricInt64ObservableUpDownCounter.$h);
   }
 
   /// Go: `func (otelconv.SDKSpanLiveObservable).Name() string`.
   String name() {
-    final $r = $callSync(22375, $W()..h(this));
+    final $r = $callSync(22377, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKSpanLiveObservable).Unit() string`.
   String unit() {
-    final $r = $callSync(22376, $W()..h(this));
+    final $r = $callSync(22378, $W()..h(this));
     return $r.str();
   }
 }
@@ -2321,7 +2321,7 @@ class OtelSemconvV1430OtelconvSdkSpanStarted extends GoHandle {
   factory OtelSemconvV1430OtelconvSdkSpanStarted($metric.OtelMetricMeter m,
       [List<$metric.OtelMetricInt64CounterOption> opt = const []]) {
     final $r = $callSync(
-        22161,
+        22163,
         $W()
           ..h(m)
           ..list(opt, (w0, e0) => w0.h(e0)));
@@ -2334,7 +2334,7 @@ class OtelSemconvV1430OtelconvSdkSpanStarted extends GoHandle {
   Future<void> add($context.Context ctx, int incr,
       [List<$attribute.OtelAttributeKeyValue> attrs = const []]) async {
     await $call(
-        22377,
+        22379,
         $W()
           ..h(this)
           ..h(ctx)
@@ -2348,7 +2348,7 @@ class OtelSemconvV1430OtelconvSdkSpanStarted extends GoHandle {
   Future<void> addSet(
       $context.Context ctx, int incr, $attribute.OtelAttributeSet set) async {
     await $call(
-        22378,
+        22380,
         $W()
           ..h(this)
           ..h(ctx)
@@ -2359,7 +2359,7 @@ class OtelSemconvV1430OtelconvSdkSpanStarted extends GoHandle {
   /// Go: `func (otelconv.SDKSpanStarted).AttrSpanParentOrigin(val otelconv.SpanParentOriginAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrSpanParentOrigin(String val) {
     final $r = $callSync(
-        22379,
+        22381,
         $W()
           ..h(this)
           ..str(val));
@@ -2369,7 +2369,7 @@ class OtelSemconvV1430OtelconvSdkSpanStarted extends GoHandle {
   /// Go: `func (otelconv.SDKSpanStarted).AttrSpanSamplingResult(val otelconv.SpanSamplingResultAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrSpanSamplingResult(String val) {
     final $r = $callSync(
-        22380,
+        22382,
         $W()
           ..h(this)
           ..str(val));
@@ -2378,25 +2378,25 @@ class OtelSemconvV1430OtelconvSdkSpanStarted extends GoHandle {
 
   /// Go: `func (otelconv.SDKSpanStarted).Description() string`.
   String description() {
-    final $r = $callSync(22381, $W()..h(this));
+    final $r = $callSync(22383, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKSpanStarted).Inst() metric.Int64Counter`.
   $metric.OtelMetricInt64Counter inst() {
-    final $r = $callSync(22382, $W()..h(this));
+    final $r = $callSync(22384, $W()..h(this));
     return $r.hnn($metric.OtelMetricInt64Counter.$h);
   }
 
   /// Go: `func (otelconv.SDKSpanStarted).Name() string`.
   String name() {
-    final $r = $callSync(22383, $W()..h(this));
+    final $r = $callSync(22385, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKSpanStarted).Unit() string`.
   String unit() {
-    final $r = $callSync(22384, $W()..h(this));
+    final $r = $callSync(22386, $W()..h(this));
     return $r.str();
   }
 }
@@ -2411,7 +2411,7 @@ class OtelSemconvV1430OtelconvSdkSpanStartedObservable
       $metric.OtelMetricMeter m,
       [List<$metric.OtelMetricInt64ObservableCounterOption> opt = const []]) {
     final $r = $callSync(
-        22162,
+        22164,
         $W()
           ..h(m)
           ..list(opt, (w0, e0) => w0.h(e0)));
@@ -2421,7 +2421,7 @@ class OtelSemconvV1430OtelconvSdkSpanStartedObservable
   /// Go: `func (otelconv.SDKSpanStartedObservable).AttrSpanParentOrigin(val otelconv.SpanParentOriginAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrSpanParentOrigin(String val) {
     final $r = $callSync(
-        22385,
+        22387,
         $W()
           ..h(this)
           ..str(val));
@@ -2431,7 +2431,7 @@ class OtelSemconvV1430OtelconvSdkSpanStartedObservable
   /// Go: `func (otelconv.SDKSpanStartedObservable).AttrSpanSamplingResult(val otelconv.SpanSamplingResultAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrSpanSamplingResult(String val) {
     final $r = $callSync(
-        22386,
+        22388,
         $W()
           ..h(this)
           ..str(val));
@@ -2440,25 +2440,25 @@ class OtelSemconvV1430OtelconvSdkSpanStartedObservable
 
   /// Go: `func (otelconv.SDKSpanStartedObservable).Description() string`.
   String description() {
-    final $r = $callSync(22387, $W()..h(this));
+    final $r = $callSync(22389, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKSpanStartedObservable).Inst() metric.Int64ObservableCounter`.
   $metric.OtelMetricInt64ObservableCounter inst() {
-    final $r = $callSync(22388, $W()..h(this));
+    final $r = $callSync(22390, $W()..h(this));
     return $r.hnn($metric.OtelMetricInt64ObservableCounter.$h);
   }
 
   /// Go: `func (otelconv.SDKSpanStartedObservable).Name() string`.
   String name() {
-    final $r = $callSync(22389, $W()..h(this));
+    final $r = $callSync(22391, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (otelconv.SDKSpanStartedObservable).Unit() string`.
   String unit() {
-    final $r = $callSync(22390, $W()..h(this));
+    final $r = $callSync(22392, $W()..h(this));
     return $r.str();
   }
 }
@@ -2467,139 +2467,139 @@ class OtelSemconvV1430OtelconvSdkSpanStartedObservable
 extension GoOtelSemconvV1430OtelconvApi on GoOtelSemconvV1430Otelconv {
   /// Go: `var otelconv.ComponentTypeBatchingLogProcessor otelconv.ComponentTypeAttr`.
   String get componentTypeBatchingLogProcessor {
-    final $r = $callSync(22118);
+    final $r = $callSync(22120);
     return $r.str();
   }
 
   /// Go: `var otelconv.ComponentTypeBatchingSpanProcessor otelconv.ComponentTypeAttr`.
   String get componentTypeBatchingSpanProcessor {
-    final $r = $callSync(22119);
+    final $r = $callSync(22121);
     return $r.str();
   }
 
   /// Go: `var otelconv.ComponentTypeOtlpGRPCLogExporter otelconv.ComponentTypeAttr`.
   String get componentTypeOtlpGrpcLogExporter {
-    final $r = $callSync(22120);
+    final $r = $callSync(22122);
     return $r.str();
   }
 
   /// Go: `var otelconv.ComponentTypeOtlpGRPCMetricExporter otelconv.ComponentTypeAttr`.
   String get componentTypeOtlpGrpcMetricExporter {
-    final $r = $callSync(22121);
+    final $r = $callSync(22123);
     return $r.str();
   }
 
   /// Go: `var otelconv.ComponentTypeOtlpGRPCSpanExporter otelconv.ComponentTypeAttr`.
   String get componentTypeOtlpGrpcSpanExporter {
-    final $r = $callSync(22122);
+    final $r = $callSync(22124);
     return $r.str();
   }
 
   /// Go: `var otelconv.ComponentTypeOtlpHTTPJSONLogExporter otelconv.ComponentTypeAttr`.
   String get componentTypeOtlpHttpjsonLogExporter {
-    final $r = $callSync(22123);
+    final $r = $callSync(22125);
     return $r.str();
   }
 
   /// Go: `var otelconv.ComponentTypeOtlpHTTPJSONMetricExporter otelconv.ComponentTypeAttr`.
   String get componentTypeOtlpHttpjsonMetricExporter {
-    final $r = $callSync(22124);
+    final $r = $callSync(22126);
     return $r.str();
   }
 
   /// Go: `var otelconv.ComponentTypeOtlpHTTPJSONSpanExporter otelconv.ComponentTypeAttr`.
   String get componentTypeOtlpHttpjsonSpanExporter {
-    final $r = $callSync(22125);
+    final $r = $callSync(22127);
     return $r.str();
   }
 
   /// Go: `var otelconv.ComponentTypeOtlpHTTPLogExporter otelconv.ComponentTypeAttr`.
   String get componentTypeOtlpHttpLogExporter {
-    final $r = $callSync(22126);
+    final $r = $callSync(22128);
     return $r.str();
   }
 
   /// Go: `var otelconv.ComponentTypeOtlpHTTPMetricExporter otelconv.ComponentTypeAttr`.
   String get componentTypeOtlpHttpMetricExporter {
-    final $r = $callSync(22127);
+    final $r = $callSync(22129);
     return $r.str();
   }
 
   /// Go: `var otelconv.ComponentTypeOtlpHTTPSpanExporter otelconv.ComponentTypeAttr`.
   String get componentTypeOtlpHttpSpanExporter {
-    final $r = $callSync(22128);
+    final $r = $callSync(22130);
     return $r.str();
   }
 
   /// Go: `var otelconv.ComponentTypePeriodicMetricReader otelconv.ComponentTypeAttr`.
   String get componentTypePeriodicMetricReader {
-    final $r = $callSync(22129);
+    final $r = $callSync(22131);
     return $r.str();
   }
 
   /// Go: `var otelconv.ComponentTypePrometheusHTTPTextMetricExporter otelconv.ComponentTypeAttr`.
   String get componentTypePrometheusHttpTextMetricExporter {
-    final $r = $callSync(22130);
+    final $r = $callSync(22132);
     return $r.str();
   }
 
   /// Go: `var otelconv.ComponentTypeSimpleLogProcessor otelconv.ComponentTypeAttr`.
   String get componentTypeSimpleLogProcessor {
-    final $r = $callSync(22131);
+    final $r = $callSync(22133);
     return $r.str();
   }
 
   /// Go: `var otelconv.ComponentTypeSimpleSpanProcessor otelconv.ComponentTypeAttr`.
   String get componentTypeSimpleSpanProcessor {
-    final $r = $callSync(22132);
+    final $r = $callSync(22134);
     return $r.str();
   }
 
   /// Go: `var otelconv.ComponentTypeZipkinHTTPSpanExporter otelconv.ComponentTypeAttr`.
   String get componentTypeZipkinHttpSpanExporter {
-    final $r = $callSync(22133);
+    final $r = $callSync(22135);
     return $r.str();
   }
 
   /// Go: `var otelconv.ErrorTypeOther otelconv.ErrorTypeAttr`.
   String get errorTypeOther {
-    final $r = $callSync(22134);
+    final $r = $callSync(22136);
     return $r.str();
   }
 
   /// Go: `var otelconv.SpanParentOriginLocal otelconv.SpanParentOriginAttr`.
   String get spanParentOriginLocal {
-    final $r = $callSync(22391);
+    final $r = $callSync(22393);
     return $r.str();
   }
 
   /// Go: `var otelconv.SpanParentOriginNone otelconv.SpanParentOriginAttr`.
   String get spanParentOriginNone {
-    final $r = $callSync(22392);
+    final $r = $callSync(22394);
     return $r.str();
   }
 
   /// Go: `var otelconv.SpanParentOriginRemote otelconv.SpanParentOriginAttr`.
   String get spanParentOriginRemote {
-    final $r = $callSync(22393);
+    final $r = $callSync(22395);
     return $r.str();
   }
 
   /// Go: `var otelconv.SpanSamplingResultDrop otelconv.SpanSamplingResultAttr`.
   String get spanSamplingResultDrop {
-    final $r = $callSync(22394);
+    final $r = $callSync(22396);
     return $r.str();
   }
 
   /// Go: `var otelconv.SpanSamplingResultRecordAndSample otelconv.SpanSamplingResultAttr`.
   String get spanSamplingResultRecordAndSample {
-    final $r = $callSync(22395);
+    final $r = $callSync(22397);
     return $r.str();
   }
 
   /// Go: `var otelconv.SpanSamplingResultRecordOnly otelconv.SpanSamplingResultAttr`.
   String get spanSamplingResultRecordOnly {
-    final $r = $callSync(22396);
+    final $r = $callSync(22398);
     return $r.str();
   }
 }

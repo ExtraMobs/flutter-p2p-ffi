@@ -14,7 +14,7 @@ class OtelTraceNoopSpan extends $trace.OtelTraceSpan {
   void addEvent(String arg0,
       [List<$trace.OtelTraceEventOption> eventOptions = const []]) {
     $callSync(
-        22461,
+        22463,
         $W()
           ..h(this)
           ..str(arg0)
@@ -24,7 +24,7 @@ class OtelTraceNoopSpan extends $trace.OtelTraceSpan {
   /// Go: `func (noop.Span).AddLink(trace.Link)`.
   void addLink($trace.OtelTraceLink link) {
     $callSync(
-        22462,
+        22464,
         $W()
           ..h(this)
           ..dto(link));
@@ -33,7 +33,7 @@ class OtelTraceNoopSpan extends $trace.OtelTraceSpan {
   /// Go: `func (noop.Span).End(...trace.SpanEndOption)`.
   void end([List<$trace.OtelTraceSpanEndOption> spanEndOptions = const []]) {
     $callSync(
-        22463,
+        22465,
         $W()
           ..h(this)
           ..list(spanEndOptions, (w0, e0) => w0.h(e0)));
@@ -41,7 +41,7 @@ class OtelTraceNoopSpan extends $trace.OtelTraceSpan {
 
   /// Go: `func (noop.Span).IsRecording() bool`.
   bool isRecording() {
-    final $r = $callSync(22464, $W()..h(this));
+    final $r = $callSync(22466, $W()..h(this));
     return $r.b();
   }
 
@@ -49,7 +49,7 @@ class OtelTraceNoopSpan extends $trace.OtelTraceSpan {
   void setAttributes(
       [List<$attribute.OtelAttributeKeyValue> keyValues = const []]) {
     $callSync(
-        22465,
+        22467,
         $W()
           ..h(this)
           ..list(keyValues, (w0, e0) => w0.dto(e0)));
@@ -58,7 +58,7 @@ class OtelTraceNoopSpan extends $trace.OtelTraceSpan {
   /// Go: `func (noop.Span).SetName(string)`.
   void setName(String arg0) {
     $callSync(
-        22466,
+        22468,
         $W()
           ..h(this)
           ..str(arg0));
@@ -67,7 +67,7 @@ class OtelTraceNoopSpan extends $trace.OtelTraceSpan {
   /// Go: `func (noop.Span).SetStatus(codes.Code, string)`.
   void setStatus(int arg0, String arg1) {
     $callSync(
-        22467,
+        22469,
         $W()
           ..h(this)
           ..i64(arg0)
@@ -76,13 +76,13 @@ class OtelTraceNoopSpan extends $trace.OtelTraceSpan {
 
   /// Go: `func (noop.Span).SpanContext() trace.SpanContext`.
   $trace.OtelTraceSpanContext spanContext() {
-    final $r = $callSync(22468, $W()..h(this));
+    final $r = $callSync(22470, $W()..h(this));
     return $r.hnn($trace.OtelTraceSpanContext.$h);
   }
 
   /// Go: `func (noop.Span).TracerProvider() trace.TracerProvider`.
   $trace.OtelTraceTracerProvider tracerProvider() {
-    final $r = $callSync(22469, $W()..h(this));
+    final $r = $callSync(22471, $W()..h(this));
     return $r.hnn($trace.OtelTraceTracerProvider.$h);
   }
 }
@@ -93,7 +93,7 @@ class OtelTraceNoopTracerProvider extends $trace.OtelTraceTracerProvider {
 
   /// Go: `func noop.NewTracerProvider() noop.TracerProvider`.
   factory OtelTraceNoopTracerProvider() {
-    final $r = $callSync(22460);
+    final $r = $callSync(22462);
     return $r.hnn(OtelTraceNoopTracerProvider.$h);
   }
 
@@ -101,7 +101,7 @@ class OtelTraceNoopTracerProvider extends $trace.OtelTraceTracerProvider {
   $trace.OtelTraceTracer tracer(String arg0,
       [List<$trace.OtelTraceTracerOption> tracerOptions = const []]) {
     final $r = $callSync(
-        22470,
+        22472,
         $W()
           ..h(this)
           ..str(arg0)

@@ -24,7 +24,7 @@ mixin InterceptorPkgFlexfecEncoderFactory$ on GoHandle {
   /// Go: `func (flexfec.EncoderFactory).NewEncoder(payloadType uint8, ssrc uint32) flexfec.FlexEncoder`.
   InterceptorPkgFlexfecFlexEncoder newEncoder(int payloadType, int ssrc) {
     final $r = $callSync(
-        16667,
+        16669,
         $W()
           ..h(this)
           ..i64(payloadType)
@@ -43,7 +43,7 @@ class InterceptorPkgFlexfecFecInterceptor extends $interceptor.Interceptor
   $interceptor.InterceptorRtpWriter bindLocalStream(
       $interceptor.InterceptorStreamInfo info, Object writer) {
     final $r = $callSync(
-        16668,
+        16670,
         $W()
           ..h(this)
           ..dto(info)
@@ -54,7 +54,7 @@ class InterceptorPkgFlexfecFecInterceptor extends $interceptor.Interceptor
   /// Go: `func (*flexfec.FecInterceptor).UnbindLocalStream(info *interceptor.StreamInfo)`.
   void unbindLocalStream($interceptor.InterceptorStreamInfo info) {
     $callSync(
-        16669,
+        16671,
         $W()
           ..h(this)
           ..dto(info));
@@ -69,7 +69,7 @@ class InterceptorPkgFlexfecFecInterceptorFactory
   /// Go: `func (*flexfec.FecInterceptorFactory).NewInterceptor(_ string) (interceptor.Interceptor, error)`.
   $interceptor.Interceptor newInterceptor(String arg0) {
     final $r = $callSync(
-        16670,
+        16672,
         $W()
           ..h(this)
           ..str(arg0));
@@ -94,7 +94,7 @@ mixin InterceptorPkgFlexfecFlexEncoder$ on GoHandle {
   List<$rtp.RtpPacket> encodeFec(
       List<$rtp.RtpPacket> mediaPackets, int numFecPackets) {
     final $r = $callSync(
-        16671,
+        16673,
         $W()
           ..h(this)
           ..list(mediaPackets, (w0, e0) => w0.dto(e0))
@@ -123,7 +123,7 @@ class InterceptorPkgFlexfecFlexEncoder03
   /// Go: `func flexfec.NewFlexEncoder03(payloadType uint8, ssrc uint32) *flexfec.FlexEncoder03`.
   factory InterceptorPkgFlexfecFlexEncoder03(int payloadType, int ssrc) {
     final $r = $callSync(
-        16678,
+        16680,
         $W()
           ..i64(payloadType)
           ..i64(ssrc));
@@ -134,7 +134,7 @@ class InterceptorPkgFlexfecFlexEncoder03
   List<$rtp.RtpPacket> encodeFec(
       List<$rtp.RtpPacket> mediaPackets, int numFecPackets) {
     final $r = $callSync(
-        16672,
+        16674,
         $W()
           ..h(this)
           ..list(mediaPackets, (w0, e0) => w0.dto(e0))
@@ -154,7 +154,7 @@ final class InterceptorPkgFlexfecFlexEncoder03Factory implements GoDto {
   /// Go: `func (flexfec.FlexEncoder03Factory).NewEncoder(payloadType uint8, ssrc uint32) flexfec.FlexEncoder`.
   InterceptorPkgFlexfecFlexEncoder newEncoder(int payloadType, int ssrc) {
     final $r = $callSync(
-        16673,
+        16675,
         $W()
           ..dto(this)
           ..i64(payloadType)
@@ -172,7 +172,7 @@ class InterceptorPkgFlexfecFlexEncoder20
   List<$rtp.RtpPacket> encodeFec(
       List<$rtp.RtpPacket> mediaPackets, int numFecPackets) {
     final $r = $callSync(
-        16674,
+        16676,
         $W()
           ..h(this)
           ..list(mediaPackets, (w0, e0) => w0.dto(e0))
@@ -188,7 +188,7 @@ class InterceptorPkgFlexfecProtectionCoverage extends GoHandle {
   /// Go: `func (*flexfec.ProtectionCoverage).ExtractMask1(fecPacketIndex uint32) uint16`.
   int extractMask1(int fecPacketIndex) {
     final $r = $callSync(
-        16679,
+        16681,
         $W()
           ..h(this)
           ..i64(fecPacketIndex));
@@ -198,7 +198,7 @@ class InterceptorPkgFlexfecProtectionCoverage extends GoHandle {
   /// Go: `func (*flexfec.ProtectionCoverage).ExtractMask2(fecPacketIndex uint32) uint32`.
   int extractMask2(int fecPacketIndex) {
     final $r = $callSync(
-        16680,
+        16682,
         $W()
           ..h(this)
           ..i64(fecPacketIndex));
@@ -208,7 +208,7 @@ class InterceptorPkgFlexfecProtectionCoverage extends GoHandle {
   /// Go: `func (*flexfec.ProtectionCoverage).ExtractMask3(fecPacketIndex uint32) uint64`.
   int extractMask3(int fecPacketIndex) {
     final $r = $callSync(
-        16681,
+        16683,
         $W()
           ..h(this)
           ..i64(fecPacketIndex));
@@ -218,7 +218,7 @@ class InterceptorPkgFlexfecProtectionCoverage extends GoHandle {
   /// Go: `func (*flexfec.ProtectionCoverage).ExtractMask3_03(fecPacketIndex uint32) uint64`.
   int extractMask303(int fecPacketIndex) {
     final $r = $callSync(
-        16682,
+        16684,
         $W()
           ..h(this)
           ..i64(fecPacketIndex));
@@ -229,7 +229,7 @@ class InterceptorPkgFlexfecProtectionCoverage extends GoHandle {
   $util.InterceptorPkgFlexfecUtilMediaPacketIterator getCoveredBy(
       int fecPacketIndex) {
     final $r = $callSync(
-        16683,
+        16685,
         $W()
           ..h(this)
           ..i64(fecPacketIndex));
@@ -239,7 +239,7 @@ class InterceptorPkgFlexfecProtectionCoverage extends GoHandle {
   /// Go: `func (*flexfec.ProtectionCoverage).UpdateCoverage(mediaPackets []rtp.Packet, numFecPackets uint32)`.
   void updateCoverage(List<$rtp.RtpPacket> mediaPackets, int numFecPackets) {
     $callSync(
-        16684,
+        16686,
         $W()
           ..h(this)
           ..list(mediaPackets, (w0, e0) => w0.dto(e0))
@@ -253,7 +253,7 @@ extension GoPionInterceptorPkgFlexfecApi on GoPionInterceptorPkgFlexfec {
   InterceptorPkgFlexfecProtectionCoverage newCoverage(
       List<$rtp.RtpPacket> mediaPackets, int numFecPackets) {
     final $r = $callSync(
-        16675,
+        16677,
         $W()
           ..list(mediaPackets, (w0, e0) => w0.dto(e0))
           ..i64(numFecPackets));
@@ -263,14 +263,14 @@ extension GoPionInterceptorPkgFlexfecApi on GoPionInterceptorPkgFlexfec {
   /// Go: `func flexfec.NewFecInterceptor(opts ...flexfec.FecOption) (*flexfec.FecInterceptorFactory, error)`.
   InterceptorPkgFlexfecFecInterceptorFactory newFecInterceptor(
       [List<InterceptorPkgFlexfecFecOption> opts = const []]) {
-    final $r = $callSync(16676, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+    final $r = $callSync(16678, $W()..list(opts, (w0, e0) => w0.opt(e0)));
     return $r.hnn(InterceptorPkgFlexfecFecInterceptorFactory.$h);
   }
 
   /// Go: `func flexfec.NewFlexEncoder(payloadType uint8, ssrc uint32) *flexfec.FlexEncoder20`.
   InterceptorPkgFlexfecFlexEncoder20 newFlexEncoder(int payloadType, int ssrc) {
     final $r = $callSync(
-        16677,
+        16679,
         $W()
           ..i64(payloadType)
           ..i64(ssrc));

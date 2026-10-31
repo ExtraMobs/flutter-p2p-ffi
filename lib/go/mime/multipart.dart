@@ -20,7 +20,7 @@ class MimeMultipartFileHeader extends GoHandle {
 
   /// Go: `func (*multipart.FileHeader).Open() (multipart.File, error)`.
   MimeMultipartFile open() {
-    final $r = $callSync(26285, $W()..h(this));
+    final $r = $callSync(26287, $W()..h(this));
     return $r.hnn(MimeMultipartFile.$h);
   }
 }
@@ -55,7 +55,7 @@ final class MimeMultipartForm implements GoDto {
 
   /// Go: `func (*multipart.Form).RemoveAll() error`.
   void removeAll() {
-    $callSync(26286, $W()..dto(this));
+    $callSync(26288, $W()..dto(this));
   }
 }
 
@@ -67,25 +67,25 @@ class MimeMultipartPart extends $io.IoCloser
 
   /// Go: `func (*multipart.Part).Close() error`.
   void close() {
-    $callSync(26289, $W()..h(this));
+    $callSync(26291, $W()..h(this));
   }
 
   /// Go: `func (*multipart.Part).FileName() string`.
   String fileName() {
-    final $r = $callSync(26290, $W()..h(this));
+    final $r = $callSync(26292, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*multipart.Part).FormName() string`.
   String formName() {
-    final $r = $callSync(26291, $W()..h(this));
+    final $r = $callSync(26293, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*multipart.Part).Read(d []byte) (n int, err error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        26292,
+        26294,
         $W()
           ..h(this)
           ..i64(n));
@@ -100,7 +100,7 @@ class MimeMultipartReader extends GoHandle {
   /// Go: `func multipart.NewReader(r io.Reader, boundary string) *multipart.Reader`.
   factory MimeMultipartReader(Object r, String boundary) {
     final $r = $callSync(
-        26287,
+        26289,
         $W()
           ..reader(r)
           ..str(boundary));
@@ -109,20 +109,20 @@ class MimeMultipartReader extends GoHandle {
 
   /// Go: `func (*multipart.Reader).NextPart() (*multipart.Part, error)`.
   MimeMultipartPart nextPart() {
-    final $r = $callSync(26293, $W()..h(this));
+    final $r = $callSync(26295, $W()..h(this));
     return $r.hnn(MimeMultipartPart.$h);
   }
 
   /// Go: `func (*multipart.Reader).NextRawPart() (*multipart.Part, error)`.
   MimeMultipartPart nextRawPart() {
-    final $r = $callSync(26294, $W()..h(this));
+    final $r = $callSync(26296, $W()..h(this));
     return $r.hnn(MimeMultipartPart.$h);
   }
 
   /// Go: `func (*multipart.Reader).ReadForm(maxMemory int64) (*multipart.Form, error)`.
   MimeMultipartForm readForm(int maxMemory) {
     final $r = $callSync(
-        26295,
+        26297,
         $W()
           ..h(this)
           ..i64(maxMemory));
@@ -138,31 +138,31 @@ class MimeMultipartWriter extends $io.IoCloser
 
   /// Go: `func multipart.NewWriter(w io.Writer) *multipart.Writer`.
   factory MimeMultipartWriter(GoHandle? w) {
-    final $r = $callSync(26288, $W()..h(w));
+    final $r = $callSync(26290, $W()..h(w));
     return $r.hnn(MimeMultipartWriter.$h);
   }
 
   /// Go: `func (*multipart.Writer).Boundary() string`.
   String boundary() {
-    final $r = $callSync(26296, $W()..h(this));
+    final $r = $callSync(26298, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*multipart.Writer).Close() error`.
   void close() {
-    $callSync(26297, $W()..h(this));
+    $callSync(26299, $W()..h(this));
   }
 
   /// Go: `func (*multipart.Writer).FormDataContentType() string`.
   String formDataContentType() {
-    final $r = $callSync(26298, $W()..h(this));
+    final $r = $callSync(26300, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*multipart.Writer).SetBoundary(boundary string) error`.
   void setBoundary(String boundary) {
     $callSync(
-        26299,
+        26301,
         $W()
           ..h(this)
           ..str(boundary));
@@ -171,7 +171,7 @@ class MimeMultipartWriter extends $io.IoCloser
   /// Go: `func (*multipart.Writer).WriteField(fieldname string, value string) error`.
   void writeField(String fieldname, String value) {
     $callSync(
-        26300,
+        26302,
         $W()
           ..h(this)
           ..str(fieldname)
@@ -193,7 +193,7 @@ extension GoMimeMultipartApi on GoMimeMultipart {
   /// Go: `func multipart.FileContentDisposition(fieldname string, filename string) string`.
   String fileContentDisposition(String fieldname, String filename) {
     final $r = $callSync(
-        26284,
+        26286,
         $W()
           ..str(fieldname)
           ..str(filename));

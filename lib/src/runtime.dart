@@ -680,6 +680,21 @@ abstract class GoOption {
   final void Function($W w) $a;
 }
 
+/// The constructor index of an option Go made (a struct's field of options,
+/// `Libp2pOpts.opts`): it goes back to Go as its handle (WIRE.md).
+const $optHandle = 0xFFFFFFFF;
+
+/// The arguments of an option Go made, read from [r]: its handle, which the
+/// option keeps alive.
+void Function($W w) $optOf($R r) {
+  final h = r.hn(_GoOptionRef.new);
+  return (w) => w.h(h);
+}
+
+final class _GoOptionRef extends GoHandle {
+  _GoOptionRef(super.$h);
+}
+
 /// Non-null result: a Go nil becomes an GolangException.
 Never $nil() => throw GolangException('Go returned nil');
 

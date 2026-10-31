@@ -11,7 +11,7 @@ extension GoIpldIpldPrimeCodecJsonApi on GoIpldIpldPrimeCodecJson {
   /// Go: `func json.Decode(na datamodel.NodeAssembler, r io.Reader) error`.
   void decode($datamodel.IpldPrimeDatamodelNodeAssembler na, Object r) {
     $callSync(
-        12067,
+        12069,
         $W()
           ..h(na)
           ..reader(r));
@@ -20,7 +20,7 @@ extension GoIpldIpldPrimeCodecJsonApi on GoIpldIpldPrimeCodecJson {
   /// Go: `func json.Encode(n datamodel.Node, w io.Writer) error`.
   void encode($datamodel.IpldPrimeDatamodelNode n, GoHandle? w) {
     $callSync(
-        12068,
+        12070,
         $W()
           ..h(n)
           ..h(w));

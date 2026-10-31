@@ -59,7 +59,7 @@ class IpldPrimeLinkingLinkSystem extends GoHandle {
       $datamodel.IpldPrimeDatamodelLinkPrototype lp,
       $datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        12196,
+        12198,
         $W()
           ..h(this)
           ..h(lp)
@@ -73,7 +73,7 @@ class IpldPrimeLinkingLinkSystem extends GoHandle {
       $datamodel.IpldPrimeDatamodelLink lnk,
       $datamodel.IpldPrimeDatamodelNodeAssembler na) {
     $callSync(
-        12197,
+        12199,
         $W()
           ..h(this)
           ..dto(lnkCtx)
@@ -87,7 +87,7 @@ class IpldPrimeLinkingLinkSystem extends GoHandle {
       $datamodel.IpldPrimeDatamodelLink lnk,
       $datamodel.IpldPrimeDatamodelNodePrototype np) {
     final $r = $callSync(
-        12198,
+        12200,
         $W()
           ..h(this)
           ..dto(lnkCtx)
@@ -102,7 +102,7 @@ class IpldPrimeLinkingLinkSystem extends GoHandle {
       $datamodel.IpldPrimeDatamodelLink lnk,
       $datamodel.IpldPrimeDatamodelNodePrototype np) {
     final $r = $callSync(
-        12199,
+        12201,
         $W()
           ..h(this)
           ..dto(lnkCtx)
@@ -118,7 +118,7 @@ class IpldPrimeLinkingLinkSystem extends GoHandle {
   Uint8List loadRaw(IpldPrimeLinkingLinkContext lnkCtx,
       $datamodel.IpldPrimeDatamodelLink lnk) {
     final $r = $callSync(
-        12200,
+        12202,
         $W()
           ..h(this)
           ..dto(lnkCtx)
@@ -131,7 +131,7 @@ class IpldPrimeLinkingLinkSystem extends GoHandle {
       $datamodel.IpldPrimeDatamodelLinkPrototype lp,
       $datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        12201,
+        12203,
         $W()
           ..h(this)
           ..h(lp)
@@ -145,7 +145,7 @@ class IpldPrimeLinkingLinkSystem extends GoHandle {
       $datamodel.IpldPrimeDatamodelLink lnk,
       $datamodel.IpldPrimeDatamodelNodeAssembler na) {
     $callSync(
-        12202,
+        12204,
         $W()
           ..h(this)
           ..dto(lnkCtx)
@@ -159,7 +159,7 @@ class IpldPrimeLinkingLinkSystem extends GoHandle {
       $datamodel.IpldPrimeDatamodelLink lnk,
       $datamodel.IpldPrimeDatamodelNodePrototype np) {
     final $r = $callSync(
-        12203,
+        12205,
         $W()
           ..h(this)
           ..dto(lnkCtx)
@@ -174,7 +174,7 @@ class IpldPrimeLinkingLinkSystem extends GoHandle {
       $datamodel.IpldPrimeDatamodelLinkPrototype lp,
       $datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        12204,
+        12206,
         $W()
           ..h(this)
           ..dto(lnkCtx)
@@ -186,7 +186,7 @@ class IpldPrimeLinkingLinkSystem extends GoHandle {
   /// Go: `func (*linking.LinkSystem).SetReadStorage(store storage.ReadableStorage)`.
   void setReadStorage($storage.IpldPrimeStorageReadableStorage store) {
     $callSync(
-        12205,
+        12207,
         $W()
           ..h(this)
           ..h(store));
@@ -195,7 +195,7 @@ class IpldPrimeLinkingLinkSystem extends GoHandle {
   /// Go: `func (*linking.LinkSystem).SetWriteStorage(store storage.WritableStorage)`.
   void setWriteStorage($storage.IpldPrimeStorageWritableStorage store) {
     $callSync(
-        12206,
+        12208,
         $W()
           ..h(this)
           ..h(store));
@@ -207,7 +207,7 @@ class IpldPrimeLinkingLinkSystem extends GoHandle {
       $datamodel.IpldPrimeDatamodelLinkPrototype lp,
       $datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        12207,
+        12209,
         $W()
           ..h(this)
           ..dto(lnkCtx)

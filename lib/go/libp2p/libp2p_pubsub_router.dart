@@ -33,7 +33,7 @@ mixin Libp2pPubsubRouterPubsub$ on GoHandle {
   $libp2p_pubsub.Libp2pPubsubTopic join(String topic,
       [List<$libp2p_pubsub.Libp2pPubsubTopicOpt> opts = const []]) {
     final $r = $callSync(
-        13160,
+        13162,
         $W()
           ..h(this)
           ..str(topic)
@@ -45,7 +45,7 @@ mixin Libp2pPubsubRouterPubsub$ on GoHandle {
   void registerTopicValidator(String topic, Object? validator,
       [List<$libp2p_pubsub.Libp2pPubsubValidatorOpt> opts = const []]) {
     $callSync(
-        13161,
+        13163,
         $W()
           ..h(this)
           ..str(topic)
@@ -68,7 +68,7 @@ class Libp2pPubsubRouterPubsubValueStore
   /// Go: `func (*namesys.PubsubValueStore).Cancel(name string) (bool, error)`.
   bool cancel(String name) {
     final $r = $callSync(
-        13162,
+        13164,
         $W()
           ..h(this)
           ..str(name));
@@ -77,7 +77,7 @@ class Libp2pPubsubRouterPubsubValueStore
 
   /// Go: `func (*namesys.PubsubValueStore).GetSubscriptions() []string`.
   List<String> getSubscriptions() {
-    final $r = $callSync(13163, $W()..h(this));
+    final $r = $callSync(13165, $W()..h(this));
     return $r.list(() => $r.str());
   }
 
@@ -87,7 +87,7 @@ class Libp2pPubsubRouterPubsubValueStore
   Future<Uint8List> getValue($context.Context ctx, String key,
       [List<$routing.Libp2pCoreRoutingOption> opts = const []]) async {
     final $r = await $call(
-        13164,
+        13166,
         $W()
           ..h(this)
           ..h(ctx)
@@ -102,7 +102,7 @@ class Libp2pPubsubRouterPubsubValueStore
   Future<void> putValue($context.Context ctx, String key, Uint8List value,
       [List<$routing.Libp2pCoreRoutingOption> opts = const []]) async {
     await $call(
-        13165,
+        13167,
         $W()
           ..h(this)
           ..h(ctx)
@@ -115,7 +115,7 @@ class Libp2pPubsubRouterPubsubValueStore
   Stream<Uint8List> searchValue($context.Context ctx, String key,
           [List<$routing.Libp2pCoreRoutingOption> opts = const []]) =>
       $stream(
-              13166,
+              13168,
               $W()
                 ..h(this)
                 ..h(ctx)
@@ -126,7 +126,7 @@ class Libp2pPubsubRouterPubsubValueStore
   /// Go: `func (*namesys.PubsubValueStore).Subscribe(key string) error`.
   void subscribe(String key) {
     $callSync(
-        13167,
+        13169,
         $W()
           ..h(this)
           ..str(key));
@@ -137,7 +137,7 @@ class Libp2pPubsubRouterPubsubValueStore
 extension GoLibp2pLibp2pPubsubRouterApi on GoLibp2pLibp2pPubsubRouter {
   /// Go: `func namesys.KeyToTopic(key string) string`.
   String keyToTopic(String key) {
-    final $r = $callSync(13158, $W()..str(key));
+    final $r = $callSync(13160, $W()..str(key));
     return $r.str();
   }
 
@@ -151,7 +151,7 @@ extension GoLibp2pLibp2pPubsubRouterApi on GoLibp2pLibp2pPubsubRouter {
       $libp2p_record.Libp2pRecordValidator validator,
       [List<Libp2pPubsubRouterOption> opts = const []]) async {
     final $r = await $call(
-        13159,
+        13161,
         $W()
           ..h(ctx)
           ..h(host)

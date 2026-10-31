@@ -13,66 +13,66 @@ class UnisegGraphemes extends GoHandle {
 
   /// Go: `func uniseg.NewGraphemes(str string) *uniseg.Graphemes`.
   factory UnisegGraphemes(String str) {
-    final $r = $callSync(18573, $W()..str(str));
+    final $r = $callSync(18575, $W()..str(str));
     return $r.hnn(UnisegGraphemes.$h);
   }
 
   /// Go: `func (*uniseg.Graphemes).Bytes() []byte`.
   Uint8List bytes() {
-    final $r = $callSync(18561, $W()..h(this));
+    final $r = $callSync(18563, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*uniseg.Graphemes).IsSentenceBoundary() bool`.
   bool isSentenceBoundary() {
-    final $r = $callSync(18562, $W()..h(this));
+    final $r = $callSync(18564, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*uniseg.Graphemes).IsWordBoundary() bool`.
   bool isWordBoundary() {
-    final $r = $callSync(18563, $W()..h(this));
+    final $r = $callSync(18565, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*uniseg.Graphemes).LineBreak() int`.
   int lineBreak() {
-    final $r = $callSync(18564, $W()..h(this));
+    final $r = $callSync(18566, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*uniseg.Graphemes).Next() bool`.
   bool next() {
-    final $r = $callSync(18565, $W()..h(this));
+    final $r = $callSync(18567, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*uniseg.Graphemes).Positions() (int, int)`.
   (int, int) positions() {
-    final $r = $callSync(18566, $W()..h(this));
+    final $r = $callSync(18568, $W()..h(this));
     return ($r.i64(), $r.i64());
   }
 
   /// Go: `func (*uniseg.Graphemes).Reset()`.
   void reset() {
-    $callSync(18567, $W()..h(this));
+    $callSync(18569, $W()..h(this));
   }
 
   /// Go: `func (*uniseg.Graphemes).Runes() []rune`.
   List<int> runes() {
-    final $r = $callSync(18568, $W()..h(this));
+    final $r = $callSync(18570, $W()..h(this));
     return $r.list(() => $r.i64());
   }
 
   /// Go: `func (*uniseg.Graphemes).Str() string`.
   String str() {
-    final $r = $callSync(18569, $W()..h(this));
+    final $r = $callSync(18571, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*uniseg.Graphemes).Width() int`.
   int width() {
-    final $r = $callSync(18570, $W()..h(this));
+    final $r = $callSync(18572, $W()..h(this));
     return $r.i64();
   }
 }
@@ -81,7 +81,7 @@ class UnisegGraphemes extends GoHandle {
 extension GoRivoUnisegApi on GoRivoUniseg {
   /// Go: `var uniseg.EastAsianAmbiguousWidth int`.
   int get eastAsianAmbiguousWidth {
-    final $r = $callSync(18551);
+    final $r = $callSync(18553);
     return $r.i64();
   }
 
@@ -89,7 +89,7 @@ extension GoRivoUnisegApi on GoRivoUniseg {
   (Uint8List, Uint8List, int, int) firstGraphemeCluster(
       Uint8List b, int state) {
     final $r = $callSync(
-        18552,
+        18554,
         $W()
           ..bytes(b)
           ..i64(state));
@@ -105,7 +105,7 @@ extension GoRivoUnisegApi on GoRivoUniseg {
   (String, String, int, int) firstGraphemeClusterInString(
       String str, int state) {
     final $r = $callSync(
-        18553,
+        18555,
         $W()
           ..str(str)
           ..i64(state));
@@ -115,7 +115,7 @@ extension GoRivoUnisegApi on GoRivoUniseg {
   /// Go: `func uniseg.FirstLineSegment(b []byte, state int) (segment []byte, rest []byte, mustBreak bool, newState int)`.
   (Uint8List, Uint8List, bool, int) firstLineSegment(Uint8List b, int state) {
     final $r = $callSync(
-        18554,
+        18556,
         $W()
           ..bytes(b)
           ..i64(state));
@@ -130,7 +130,7 @@ extension GoRivoUnisegApi on GoRivoUniseg {
   /// Go: `func uniseg.FirstLineSegmentInString(str string, state int) (segment string, rest string, mustBreak bool, newState int)`.
   (String, String, bool, int) firstLineSegmentInString(String str, int state) {
     final $r = $callSync(
-        18555,
+        18557,
         $W()
           ..str(str)
           ..i64(state));
@@ -140,7 +140,7 @@ extension GoRivoUnisegApi on GoRivoUniseg {
   /// Go: `func uniseg.FirstSentence(b []byte, state int) (sentence []byte, rest []byte, newState int)`.
   (Uint8List, Uint8List, int) firstSentence(Uint8List b, int state) {
     final $r = $callSync(
-        18556,
+        18558,
         $W()
           ..bytes(b)
           ..i64(state));
@@ -150,7 +150,7 @@ extension GoRivoUnisegApi on GoRivoUniseg {
   /// Go: `func uniseg.FirstSentenceInString(str string, state int) (sentence string, rest string, newState int)`.
   (String, String, int) firstSentenceInString(String str, int state) {
     final $r = $callSync(
-        18557,
+        18559,
         $W()
           ..str(str)
           ..i64(state));
@@ -160,7 +160,7 @@ extension GoRivoUnisegApi on GoRivoUniseg {
   /// Go: `func uniseg.FirstWord(b []byte, state int) (word []byte, rest []byte, newState int)`.
   (Uint8List, Uint8List, int) firstWord(Uint8List b, int state) {
     final $r = $callSync(
-        18558,
+        18560,
         $W()
           ..bytes(b)
           ..i64(state));
@@ -170,7 +170,7 @@ extension GoRivoUnisegApi on GoRivoUniseg {
   /// Go: `func uniseg.FirstWordInString(str string, state int) (word string, rest string, newState int)`.
   (String, String, int) firstWordInString(String str, int state) {
     final $r = $callSync(
-        18559,
+        18561,
         $W()
           ..str(str)
           ..i64(state));
@@ -179,32 +179,32 @@ extension GoRivoUnisegApi on GoRivoUniseg {
 
   /// Go: `func uniseg.GraphemeClusterCount(s string) (n int)`.
   int graphemeClusterCount(String s) {
-    final $r = $callSync(18560, $W()..str(s));
+    final $r = $callSync(18562, $W()..str(s));
     return $r.i64();
   }
 
   /// Go: `func uniseg.HasTrailingLineBreak(b []byte) bool`.
   bool hasTrailingLineBreak(Uint8List b) {
-    final $r = $callSync(18571, $W()..bytes(b));
+    final $r = $callSync(18573, $W()..bytes(b));
     return $r.b();
   }
 
   /// Go: `func uniseg.HasTrailingLineBreakInString(str string) bool`.
   bool hasTrailingLineBreakInString(String str) {
-    final $r = $callSync(18572, $W()..str(str));
+    final $r = $callSync(18574, $W()..str(str));
     return $r.b();
   }
 
   /// Go: `func uniseg.ReverseString(s string) string`.
   String reverseString(String s) {
-    final $r = $callSync(18574, $W()..str(s));
+    final $r = $callSync(18576, $W()..str(s));
     return $r.str();
   }
 
   /// Go: `func uniseg.Step(b []byte, state int) (cluster []byte, rest []byte, boundaries int, newState int)`.
   (Uint8List, Uint8List, int, int) step(Uint8List b, int state) {
     final $r = $callSync(
-        18575,
+        18577,
         $W()
           ..bytes(b)
           ..i64(state));
@@ -219,7 +219,7 @@ extension GoRivoUnisegApi on GoRivoUniseg {
   /// Go: `func uniseg.StepString(str string, state int) (cluster string, rest string, boundaries int, newState int)`.
   (String, String, int, int) stepString(String str, int state) {
     final $r = $callSync(
-        18576,
+        18578,
         $W()
           ..str(str)
           ..i64(state));
@@ -228,7 +228,7 @@ extension GoRivoUnisegApi on GoRivoUniseg {
 
   /// Go: `func uniseg.StringWidth(s string) (width int)`.
   int stringWidth(String s) {
-    final $r = $callSync(18577, $W()..str(s));
+    final $r = $callSync(18579, $W()..str(s));
     return $r.i64();
   }
 }

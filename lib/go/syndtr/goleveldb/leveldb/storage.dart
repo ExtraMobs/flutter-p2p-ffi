@@ -44,13 +44,13 @@ final class GoleveldbLeveldbStorageFileDesc implements GoDto {
 
   /// Go: `func (storage.FileDesc).String() string`.
   String string() {
-    final $r = $callSync(18781, $W()..dto(this));
+    final $r = $callSync(18783, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (storage.FileDesc).Zero() bool`.
   bool zero() {
-    final $r = $callSync(18782, $W()..dto(this));
+    final $r = $callSync(18784, $W()..dto(this));
     return $r.b();
   }
 }
@@ -65,7 +65,7 @@ class GoleveldbLeveldbStorageLocker extends GoHandle
 mixin GoleveldbLeveldbStorageLocker$ on GoHandle {
   /// Go: `func (storage.Locker).Unlock()`.
   void unlock() {
-    $callSync(18784, $W()..h(this));
+    $callSync(18786, $W()..h(this));
   }
 
   /// Go: type assertion `x.(*jsync.NoCopy)`: null if the object is not one.
@@ -167,13 +167,13 @@ class GoleveldbLeveldbStorage extends GoHandle with GoleveldbLeveldbStorage$ {
 mixin GoleveldbLeveldbStorage$ on GoHandle {
   /// Go: `func (storage.Storage).Close() error`.
   void close() {
-    $callSync(18787, $W()..h(this));
+    $callSync(18789, $W()..h(this));
   }
 
   /// Go: `func (storage.Storage).Create(fd storage.FileDesc) (storage.Writer, error)`.
   GoleveldbLeveldbStorageWriter create(GoleveldbLeveldbStorageFileDesc fd) {
     final $r = $callSync(
-        18788,
+        18790,
         $W()
           ..h(this)
           ..dto(fd));
@@ -182,14 +182,14 @@ mixin GoleveldbLeveldbStorage$ on GoHandle {
 
   /// Go: `func (storage.Storage).GetMeta() (storage.FileDesc, error)`.
   GoleveldbLeveldbStorageFileDesc getMeta() {
-    final $r = $callSync(18789, $W()..h(this));
+    final $r = $callSync(18791, $W()..h(this));
     return $r.p() ? GoleveldbLeveldbStorageFileDesc.$dec($r) : $nil();
   }
 
   /// Go: `func (storage.Storage).List(ft storage.FileType) ([]storage.FileDesc, error)`.
   List<GoleveldbLeveldbStorageFileDesc> list(int ft) {
     final $r = $callSync(
-        18790,
+        18792,
         $W()
           ..h(this)
           ..i64(ft));
@@ -199,14 +199,14 @@ mixin GoleveldbLeveldbStorage$ on GoHandle {
 
   /// Go: `func (storage.Storage).Lock() (storage.Locker, error)`.
   GoleveldbLeveldbStorageLocker lock() {
-    final $r = $callSync(18791, $W()..h(this));
+    final $r = $callSync(18793, $W()..h(this));
     return $r.hnn(GoleveldbLeveldbStorageLocker.$h);
   }
 
   /// Go: `func (storage.Storage).Log(str string)`.
   void log(String str) {
     $callSync(
-        18792,
+        18794,
         $W()
           ..h(this)
           ..str(str));
@@ -215,7 +215,7 @@ mixin GoleveldbLeveldbStorage$ on GoHandle {
   /// Go: `func (storage.Storage).Open(fd storage.FileDesc) (storage.Reader, error)`.
   GoleveldbLeveldbStorageReader open(GoleveldbLeveldbStorageFileDesc fd) {
     final $r = $callSync(
-        18793,
+        18795,
         $W()
           ..h(this)
           ..dto(fd));
@@ -225,7 +225,7 @@ mixin GoleveldbLeveldbStorage$ on GoHandle {
   /// Go: `func (storage.Storage).Remove(fd storage.FileDesc) error`.
   void remove(GoleveldbLeveldbStorageFileDesc fd) {
     $callSync(
-        18794,
+        18796,
         $W()
           ..h(this)
           ..dto(fd));
@@ -235,7 +235,7 @@ mixin GoleveldbLeveldbStorage$ on GoHandle {
   void rename(GoleveldbLeveldbStorageFileDesc oldfd,
       GoleveldbLeveldbStorageFileDesc newfd) {
     $callSync(
-        18795,
+        18797,
         $W()
           ..h(this)
           ..dto(oldfd)
@@ -245,7 +245,7 @@ mixin GoleveldbLeveldbStorage$ on GoHandle {
   /// Go: `func (storage.Storage).SetMeta(fd storage.FileDesc) error`.
   void setMeta(GoleveldbLeveldbStorageFileDesc fd) {
     $callSync(
-        18796,
+        18798,
         $W()
           ..h(this)
           ..dto(fd));
@@ -322,20 +322,20 @@ extension GoSyndtrGoleveldbLeveldbStorageApi
     on GoSyndtrGoleveldbLeveldbStorage {
   /// Go: `func storage.FileDescOk(fd storage.FileDesc) bool`.
   bool fileDescOk(GoleveldbLeveldbStorageFileDesc fd) {
-    final $r = $callSync(18783, $W()..dto(fd));
+    final $r = $callSync(18785, $W()..dto(fd));
     return $r.b();
   }
 
   /// Go: `func storage.NewMemStorage() storage.Storage`.
   GoleveldbLeveldbStorage newMemStorage() {
-    final $r = $callSync(18785);
+    final $r = $callSync(18787);
     return $r.hnn(GoleveldbLeveldbStorage.$h);
   }
 
   /// Go: `func storage.OpenFile(path string, readOnly bool) (storage.Storage, error)`.
   GoleveldbLeveldbStorage openFile(String path, bool readOnly) {
     final $r = $callSync(
-        18786,
+        18788,
         $W()
           ..str(path)
           ..b(readOnly));

@@ -21,7 +21,7 @@ class HashCloner extends Hash with HashCloner$ {
 mixin HashCloner$ on GoHandle {
   /// Go: `func (hash.Cloner).Clone() (hash.Cloner, error)`.
   HashCloner clone() {
-    final $r = $callSync(25643, $W()..h(this));
+    final $r = $callSync(25645, $W()..h(this));
     return $r.hnn(HashCloner.$h);
   }
 
@@ -47,25 +47,25 @@ class Hash extends GoHandle with Hash$ {
 mixin Hash$ on GoHandle {
   /// Go: `func (hash.Hash).BlockSize() int`.
   int blockSize() {
-    final $r = $callSync(25644, $W()..h(this));
+    final $r = $callSync(25646, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (hash.Hash).Reset()`.
   void reset() {
-    $callSync(25645, $W()..h(this));
+    $callSync(25647, $W()..h(this));
   }
 
   /// Go: `func (hash.Hash).Size() int`.
   int size() {
-    final $r = $callSync(25646, $W()..h(this));
+    final $r = $callSync(25648, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (hash.Hash).Sum(b []byte) []byte`.
   Uint8List sum(Uint8List b) {
     final $r = $callSync(
-        25647,
+        25649,
         $W()
           ..h(this)
           ..bytes(b));
@@ -136,7 +136,7 @@ class HashHash32 extends Hash with HashHash32$ {
 mixin HashHash32$ on GoHandle {
   /// Go: `func (hash.Hash32).Sum32() uint32`.
   int sum32() {
-    final $r = $callSync(25648, $W()..h(this));
+    final $r = $callSync(25650, $W()..h(this));
     return $r.i64();
   }
 }
@@ -150,7 +150,7 @@ class HashHash64 extends Hash with HashHash64$ {
 mixin HashHash64$ on GoHandle {
   /// Go: `func (hash.Hash64).Sum64() uint64`.
   int sum64() {
-    final $r = $callSync(25649, $W()..h(this));
+    final $r = $callSync(25651, $W()..h(this));
     return $r.i64();
   }
 
@@ -176,13 +176,13 @@ class HashXof extends GoHandle with HashXof$ {
 mixin HashXof$ on GoHandle {
   /// Go: `func (hash.XOF).BlockSize() int`.
   int blockSize() {
-    final $r = $callSync(25650, $W()..h(this));
+    final $r = $callSync(25652, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (hash.XOF).Reset()`.
   void reset() {
-    $callSync(25651, $W()..h(this));
+    $callSync(25653, $W()..h(this));
   }
 
   /// Go: type assertion `x.(*sha3.SHAKE)`: null if the object is not one.

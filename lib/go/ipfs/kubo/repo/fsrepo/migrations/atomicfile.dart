@@ -40,18 +40,18 @@ class KuboRepoFsrepoMigrationsAtomicfileFile extends $http.NetHttpFile
 
   /// Go: `func (*atomicfile.File).Abort() error`.
   void abort() {
-    $callSync(11826, $W()..h(this));
+    $callSync(11828, $W()..h(this));
   }
 
   /// Go: `func (*atomicfile.File).Close() error`.
   void close() {
-    $callSync(11827, $W()..h(this));
+    $callSync(11829, $W()..h(this));
   }
 
   /// Go: `func (*atomicfile.File).ReadFrom(r io.Reader) (int64, error)`.
   int readFrom(Object r) {
     final $r = $callSync(
-        11828,
+        11830,
         $W()
           ..h(this)
           ..reader(r));
@@ -65,7 +65,7 @@ extension GoIpfsKuboRepoFsrepoMigrationsAtomicfileApi
   /// Go: `func atomicfile.New(path string, mode os.FileMode) (*atomicfile.File, error)`.
   KuboRepoFsrepoMigrationsAtomicfileFile new$(String path, int mode) {
     final $r = $callSync(
-        11829,
+        11831,
         $W()
           ..str(path)
           ..i64(mode));

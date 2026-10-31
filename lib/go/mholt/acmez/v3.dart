@@ -24,7 +24,7 @@ mixin AcmezV3CsrSource$ on GoHandle {
   Future<$x509.CryptoX509CertificateRequest> csr($context.Context ctx,
       List<$acme.AcmezV3AcmeIdentifier> identifiers) async {
     final $r = await $call(
-        15242,
+        15244,
         $W()
           ..h(this)
           ..h(ctx)
@@ -64,7 +64,7 @@ final class AcmezV3Client implements GoDto {
   Future<List<$acme.AcmezV3AcmeCertificate>> obtainCertificate(
       $context.Context ctx, AcmezV3OrderParameters params) async {
     final $r = await $call(
-        15243,
+        15245,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -82,7 +82,7 @@ final class AcmezV3Client implements GoDto {
       $crypto.CryptoSigner certPrivateKey,
       List<String> sans) async {
     final $r = await $call(
-        15244,
+        15246,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -169,7 +169,7 @@ mixin AcmezV3Payloader$ on GoHandle {
   Future<Object?> payload(
       $context.Context ctx, $acme.AcmezV3AcmeChallenge challenge) async {
     final $r = await $call(
-        15248,
+        15250,
         $W()
           ..h(this)
           ..h(ctx)
@@ -191,7 +191,7 @@ mixin AcmezV3Solver$ on GoHandle {
   Future<void> cleanUp(
       $context.Context ctx, $acme.AcmezV3AcmeChallenge challenge) async {
     await $call(
-        15249,
+        15251,
         $W()
           ..h(this)
           ..h(ctx)
@@ -204,7 +204,7 @@ mixin AcmezV3Solver$ on GoHandle {
   Future<void> present(
       $context.Context ctx, $acme.AcmezV3AcmeChallenge challenge) async {
     await $call(
-        15250,
+        15252,
         $W()
           ..h(this)
           ..h(ctx)
@@ -231,7 +231,7 @@ mixin AcmezV3Waiter$ on GoHandle {
   Future<void> wait(
       $context.Context ctx, $acme.AcmezV3AcmeChallenge challenge) async {
     await $call(
-        15253,
+        15255,
         $W()
           ..h(this)
           ..h(ctx)
@@ -251,7 +251,7 @@ extension GoMholtAcmezV3Api on GoMholtAcmezV3 {
   String mailReplyChallengeResponse($acme.AcmezV3AcmeChallenge c,
       String mailSubject, String messageId, String replyTo) {
     final $r = $callSync(
-        15245,
+        15247,
         $W()
           ..dto(c)
           ..str(mailSubject)
@@ -264,7 +264,7 @@ extension GoMholtAcmezV3Api on GoMholtAcmezV3 {
   $x509.CryptoX509CertificateRequest newCsr(
       $crypto.CryptoSigner privateKey, List<String> sans) {
     final $r = $callSync(
-        15246,
+        15248,
         $W()
           ..h(privateKey)
           ..list(sans, (w0, e0) => w0.str(e0)));
@@ -276,7 +276,7 @@ extension GoMholtAcmezV3Api on GoMholtAcmezV3 {
       $acme.AcmezV3AcmeAccount account,
       $x509.CryptoX509CertificateRequest csr) {
     final $r = $callSync(
-        15247,
+        15249,
         $W()
           ..dto(account)
           ..dto(csr));
@@ -285,14 +285,14 @@ extension GoMholtAcmezV3Api on GoMholtAcmezV3 {
 
   /// Go: `func acmez.StaticCSR(csr *x509.CertificateRequest) acmez.CSRSource`.
   AcmezV3CsrSource staticCsr($x509.CryptoX509CertificateRequest csr) {
-    final $r = $callSync(15251, $W()..dto(csr));
+    final $r = $callSync(15253, $W()..dto(csr));
     return $r.hnn(AcmezV3CsrSource.$h);
   }
 
   /// Go: `func acmez.TLSALPN01ChallengeCert(challenge acme.Challenge) (*tls.Certificate, error)`.
   $tls.CryptoTlsCertificate tlsalpn01ChallengeCert(
       $acme.AcmezV3AcmeChallenge challenge) {
-    final $r = $callSync(15252, $W()..dto(challenge));
+    final $r = $callSync(15254, $W()..dto(challenge));
     return $r.p() ? $tls.CryptoTlsCertificate.$dec($r) : $nil();
   }
 }

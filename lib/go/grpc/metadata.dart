@@ -12,7 +12,7 @@ extension GoGrpcMetadataApi on GoGrpcMetadata {
   @Deprecated("use k and v directly instead.")
   (String, String) decodeKeyValue(String k, String v) {
     final $r = $callSync(
-        24683,
+        24685,
         $W()
           ..str(k)
           ..str(v));
@@ -25,7 +25,7 @@ extension GoGrpcMetadataApi on GoGrpcMetadata {
   Future<List<String>> valueFromIncomingContext(
       $context.Context ctx, String key) async {
     final $r = await $call(
-        24684,
+        24686,
         $W()
           ..h(ctx)
           ..str(key));

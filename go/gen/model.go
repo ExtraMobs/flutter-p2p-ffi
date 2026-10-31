@@ -489,8 +489,8 @@ func (m *model) fillStruct(ti *tinfo, n *types.Named, u *types.Struct) {
 			if ft.k == kSnap {
 				fd.skipped = "read-only interface"
 			}
-			if (ft.k == kSlice || ft.k == kMap) && ft.elem.k == kOpts { // config.Config.RelayServiceOpts
-				fd.skipped = "functional options: they cross only as call arguments"
+			if ft.k == kMap && ft.elem.k == kOpts {
+				fd.skipped = "a map of functional options"
 			}
 		default:
 			fd.skipped = ft.why

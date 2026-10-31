@@ -14,7 +14,7 @@ class Libp2pP2pNetReuseportTransport extends GoHandle {
   /// Go: `func (*reuseport.Transport).Dial(raddr multiaddr.Multiaddr) (manet.Conn, error)`.
   $net.MultiaddrNetConn dial($multiaddr.Multiaddr raddr) {
     final $r = $callSync(
-        14634,
+        14636,
         $W()
           ..h(this)
           ..val(raddr));
@@ -27,7 +27,7 @@ class Libp2pP2pNetReuseportTransport extends GoHandle {
   Future<$net.MultiaddrNetConn> dialContext(
       $context.Context ctx, $multiaddr.Multiaddr raddr) async {
     final $r = await $call(
-        14635,
+        14637,
         $W()
           ..h(this)
           ..h(ctx)
@@ -38,7 +38,7 @@ class Libp2pP2pNetReuseportTransport extends GoHandle {
   /// Go: `func (*reuseport.Transport).Listen(laddr multiaddr.Multiaddr) (manet.Listener, error)`.
   $net.MultiaddrNetListener listen($multiaddr.Multiaddr laddr) {
     final $r = $callSync(
-        14636,
+        14638,
         $W()
           ..h(this)
           ..val(laddr));

@@ -20,23 +20,31 @@ import 'package:p2p_ffi/go/prometheus/common/expfmt.dart' as $expfmt;
 
 /// Go: `srtp.Config`.
 ///
-/// Fields that do not cross the bridge: `BufferFactory` (func(packetType github.com/pion/transport/v3/packetio.BufferPacketType, ssrc uint32) io.ReadWriteCloser), `LocalOptions` (functional options: they cross only as call arguments), `RemoteOptions` (functional options: they cross only as call arguments).
+/// Fields that do not cross the bridge: `BufferFactory` (func(packetType github.com/pion/transport/v3/packetio.BufferPacketType, ssrc uint32) io.ReadWriteCloser).
 final class SrtpV3Config implements GoDto {
   SrtpV3Config(
       {SrtpV3SessionKeys? keys,
       int? profile,
       $logging.LoggingLoggerFactory? loggerFactory,
-      DateTime? acceptStreamTimeout})
+      DateTime? acceptStreamTimeout,
+      List<SrtpV3ContextOption>? localOptions,
+      List<SrtpV3ContextOption>? remoteOptions})
       : keys = keys,
         profile = profile ?? 0,
         loggerFactory = loggerFactory,
-        acceptStreamTimeout = acceptStreamTimeout;
+        acceptStreamTimeout = acceptStreamTimeout,
+        localOptions = localOptions ?? [],
+        remoteOptions = remoteOptions ?? [];
 
   SrtpV3Config.$dec($R r)
       : keys = r.p() ? SrtpV3SessionKeys.$dec(r) : null,
         profile = r.i64(),
         loggerFactory = r.hn($logging.LoggingLoggerFactory.$h),
-        acceptStreamTimeout = r.p() ? r.time() : null;
+        acceptStreamTimeout = r.p() ? r.time() : null,
+        localOptions =
+            r.list(() => SrtpV3ContextOption.$($optHandle, $optOf(r))),
+        remoteOptions =
+            r.list(() => SrtpV3ContextOption.$($optHandle, $optOf(r)));
 
   /// Go: `Keys`.
   SrtpV3SessionKeys? keys;
@@ -50,20 +58,28 @@ final class SrtpV3Config implements GoDto {
   /// Go: `AcceptStreamTimeout`.
   DateTime? acceptStreamTimeout;
 
+  /// Go: `LocalOptions`.
+  List<SrtpV3ContextOption> localOptions;
+
+  /// Go: `RemoteOptions`.
+  List<SrtpV3ContextOption> remoteOptions;
+
   @override
   void $enc($W w) {
     w
       ..dto(keys)
       ..i64(profile)
       ..h(loggerFactory)
-      ..time(acceptStreamTimeout);
+      ..time(acceptStreamTimeout)
+      ..list(localOptions, (w0, e0) => w0.opt(e0))
+      ..list(remoteOptions, (w0, e0) => w0.opt(e0));
   }
 
   /// Go: `func (*srtp.Config).ExtractSessionKeysFromDTLS(exporter srtp.KeyingMaterialExporter, isClient bool) error`.
   void extractSessionKeysFromDtls(
       SrtpV3KeyingMaterialExporter exporter, bool isClient) {
     $callSync(
-        17146,
+        17148,
         $W()
           ..dto(this)
           ..h(exporter)
@@ -79,7 +95,7 @@ class SrtpV3Context extends GoHandle {
   void addCipherForMki(
       Uint8List mki, Uint8List masterKey, Uint8List masterSalt) {
     $callSync(
-        17147,
+        17149,
         $W()
           ..h(this)
           ..bytes(mki)
@@ -91,7 +107,7 @@ class SrtpV3Context extends GoHandle {
   Uint8List decryptRtcp(
       Uint8List dst, Uint8List encrypted, $rtcp.RtcpHeader header) {
     final $r = $callSync(
-        17148,
+        17150,
         $W()
           ..h(this)
           ..bytes(dst)
@@ -104,7 +120,7 @@ class SrtpV3Context extends GoHandle {
   Uint8List decryptRtp(
       Uint8List dst, Uint8List encrypted, $rtp.RtpHeader header) {
     final $r = $callSync(
-        17149,
+        17151,
         $W()
           ..h(this)
           ..bytes(dst)
@@ -117,7 +133,7 @@ class SrtpV3Context extends GoHandle {
   Uint8List encryptRtcp(
       Uint8List dst, Uint8List decrypted, $rtcp.RtcpHeader header) {
     final $r = $callSync(
-        17150,
+        17152,
         $W()
           ..h(this)
           ..bytes(dst)
@@ -130,7 +146,7 @@ class SrtpV3Context extends GoHandle {
   Uint8List encryptRtp(
       Uint8List dst, Uint8List plaintext, $rtp.RtpHeader header) {
     final $r = $callSync(
-        17151,
+        17153,
         $W()
           ..h(this)
           ..bytes(dst)
@@ -142,7 +158,7 @@ class SrtpV3Context extends GoHandle {
   /// Go: `func (*srtp.Context).Index(ssrc uint32) (uint32, bool)`.
   (int, bool) index(int ssrc) {
     final $r = $callSync(
-        17152,
+        17154,
         $W()
           ..h(this)
           ..i64(ssrc));
@@ -152,7 +168,7 @@ class SrtpV3Context extends GoHandle {
   /// Go: `func (*srtp.Context).ROC(ssrc uint32) (uint32, bool)`.
   (int, bool) roc(int ssrc) {
     final $r = $callSync(
-        17153,
+        17155,
         $W()
           ..h(this)
           ..i64(ssrc));
@@ -162,7 +178,7 @@ class SrtpV3Context extends GoHandle {
   /// Go: `func (*srtp.Context).RemoveMKI(mki []byte) error`.
   void removeMki(Uint8List mki) {
     $callSync(
-        17154,
+        17156,
         $W()
           ..h(this)
           ..bytes(mki));
@@ -171,7 +187,7 @@ class SrtpV3Context extends GoHandle {
   /// Go: `func (*srtp.Context).SetIndex(ssrc uint32, index uint32)`.
   void setIndex(int ssrc, int index) {
     $callSync(
-        17155,
+        17157,
         $W()
           ..h(this)
           ..i64(ssrc)
@@ -181,7 +197,7 @@ class SrtpV3Context extends GoHandle {
   /// Go: `func (*srtp.Context).SetROC(ssrc uint32, roc uint32)`.
   void setRoc(int ssrc, int roc) {
     $callSync(
-        17156,
+        17158,
         $W()
           ..h(this)
           ..i64(ssrc)
@@ -191,7 +207,7 @@ class SrtpV3Context extends GoHandle {
   /// Go: `func (*srtp.Context).SetSendMKI(mki []byte) error`.
   void setSendMki(Uint8List mki) {
     $callSync(
-        17157,
+        17159,
         $W()
           ..h(this)
           ..bytes(mki));
@@ -214,7 +230,7 @@ mixin SrtpV3KeyingMaterialExporter$ on GoHandle {
   /// Go: `func (srtp.KeyingMaterialExporter).ExportKeyingMaterial(label string, context []byte, length int) ([]byte, error)`.
   Uint8List exportKeyingMaterial(String label, Uint8List context, int length) {
     final $r = $callSync(
-        17159,
+        17161,
         $W()
           ..h(this)
           ..str(label)
@@ -246,19 +262,19 @@ class SrtpV3ReadStreamSrtcp extends $io.IoCloser
 
   /// Go: `func (*srtp.ReadStreamSRTCP).Close() error`.
   void close() {
-    $callSync(17162, $W()..h(this));
+    $callSync(17164, $W()..h(this));
   }
 
   /// Go: `func (*srtp.ReadStreamSRTCP).GetSSRC() uint32`.
   int getSsrc() {
-    final $r = $callSync(17163, $W()..h(this));
+    final $r = $callSync(17165, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*srtp.ReadStreamSRTCP).Read(buf []byte) (int, error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        17164,
+        17166,
         $W()
           ..h(this)
           ..i64(n));
@@ -268,7 +284,7 @@ class SrtpV3ReadStreamSrtcp extends $io.IoCloser
   /// Go: `func (*srtp.ReadStreamSRTCP).ReadRTCP(buf []byte) (int, *rtcp.Header, error)`.
   (int, $rtcp.RtcpHeader) readRtcp(Uint8List buf) {
     final $r = $callSync(
-        17165,
+        17167,
         $W()
           ..h(this)
           ..bytes(buf));
@@ -278,7 +294,7 @@ class SrtpV3ReadStreamSrtcp extends $io.IoCloser
   /// Go: `func (*srtp.ReadStreamSRTCP).SetReadDeadline(t time.Time) error`.
   void setReadDeadline(DateTime t) {
     $callSync(
-        17166,
+        17168,
         $W()
           ..h(this)
           ..time(t));
@@ -295,19 +311,19 @@ class SrtpV3ReadStreamSrtp extends $io.IoCloser
 
   /// Go: `func (*srtp.ReadStreamSRTP).Close() error`.
   void close() {
-    $callSync(17167, $W()..h(this));
+    $callSync(17169, $W()..h(this));
   }
 
   /// Go: `func (*srtp.ReadStreamSRTP).GetSSRC() uint32`.
   int getSsrc() {
-    final $r = $callSync(17168, $W()..h(this));
+    final $r = $callSync(17170, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*srtp.ReadStreamSRTP).Read(buf []byte) (int, error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        17169,
+        17171,
         $W()
           ..h(this)
           ..i64(n));
@@ -317,7 +333,7 @@ class SrtpV3ReadStreamSrtp extends $io.IoCloser
   /// Go: `func (*srtp.ReadStreamSRTP).ReadRTP(buf []byte) (int, *rtp.Header, error)`.
   (int, $rtp.RtpHeader) readRtp(Uint8List buf) {
     final $r = $callSync(
-        17170,
+        17172,
         $W()
           ..h(this)
           ..bytes(buf));
@@ -327,7 +343,7 @@ class SrtpV3ReadStreamSrtp extends $io.IoCloser
   /// Go: `func (*srtp.ReadStreamSRTP).SetReadDeadline(t time.Time) error`.
   void setReadDeadline(DateTime t) {
     $callSync(
-        17171,
+        17173,
         $W()
           ..h(this)
           ..time(t));
@@ -383,7 +399,7 @@ class SrtpV3SessionSrtcp extends $io.IoCloser
   /// Go: `func srtp.NewSessionSRTCP(conn net.Conn, config *srtp.Config) (*srtp.SessionSRTCP, error)`.
   factory SrtpV3SessionSrtcp($net.NetConn conn, SrtpV3Config config) {
     final $r = $callSync(
-        17160,
+        17162,
         $W()
           ..h(conn)
           ..dto(config));
@@ -392,19 +408,19 @@ class SrtpV3SessionSrtcp extends $io.IoCloser
 
   /// Go: `func (*srtp.SessionSRTCP).AcceptStream() (*srtp.ReadStreamSRTCP, uint32, error)`.
   (SrtpV3ReadStreamSrtcp, int) acceptStream() {
-    final $r = $callSync(17172, $W()..h(this));
+    final $r = $callSync(17174, $W()..h(this));
     return ($r.hnn(SrtpV3ReadStreamSrtcp.$h), $r.i64());
   }
 
   /// Go: `func (*srtp.SessionSRTCP).Close() error`.
   void close() {
-    $callSync(17173, $W()..h(this));
+    $callSync(17175, $W()..h(this));
   }
 
   /// Go: `func (*srtp.SessionSRTCP).OpenReadStream(ssrc uint32) (*srtp.ReadStreamSRTCP, error)`.
   SrtpV3ReadStreamSrtcp openReadStream(int ssrc) {
     final $r = $callSync(
-        17174,
+        17176,
         $W()
           ..h(this)
           ..i64(ssrc));
@@ -413,7 +429,7 @@ class SrtpV3SessionSrtcp extends $io.IoCloser
 
   /// Go: `func (*srtp.SessionSRTCP).OpenWriteStream() (*srtp.WriteStreamSRTCP, error)`.
   SrtpV3WriteStreamSrtcp openWriteStream() {
-    final $r = $callSync(17175, $W()..h(this));
+    final $r = $callSync(17177, $W()..h(this));
     return $r.hnn(SrtpV3WriteStreamSrtcp.$h);
   }
 }
@@ -427,7 +443,7 @@ class SrtpV3SessionSrtp extends $io.IoCloser
   /// Go: `func srtp.NewSessionSRTP(conn net.Conn, config *srtp.Config) (*srtp.SessionSRTP, error)`.
   factory SrtpV3SessionSrtp($net.NetConn conn, SrtpV3Config config) {
     final $r = $callSync(
-        17161,
+        17163,
         $W()
           ..h(conn)
           ..dto(config));
@@ -436,19 +452,19 @@ class SrtpV3SessionSrtp extends $io.IoCloser
 
   /// Go: `func (*srtp.SessionSRTP).AcceptStream() (*srtp.ReadStreamSRTP, uint32, error)`.
   (SrtpV3ReadStreamSrtp, int) acceptStream() {
-    final $r = $callSync(17176, $W()..h(this));
+    final $r = $callSync(17178, $W()..h(this));
     return ($r.hnn(SrtpV3ReadStreamSrtp.$h), $r.i64());
   }
 
   /// Go: `func (*srtp.SessionSRTP).Close() error`.
   void close() {
-    $callSync(17177, $W()..h(this));
+    $callSync(17179, $W()..h(this));
   }
 
   /// Go: `func (*srtp.SessionSRTP).OpenReadStream(ssrc uint32) (*srtp.ReadStreamSRTP, error)`.
   SrtpV3ReadStreamSrtp openReadStream(int ssrc) {
     final $r = $callSync(
-        17178,
+        17180,
         $W()
           ..h(this)
           ..i64(ssrc));
@@ -457,7 +473,7 @@ class SrtpV3SessionSrtp extends $io.IoCloser
 
   /// Go: `func (*srtp.SessionSRTP).OpenWriteStream() (*srtp.WriteStreamSRTP, error)`.
   SrtpV3WriteStreamSrtp openWriteStream() {
-    final $r = $callSync(17179, $W()..h(this));
+    final $r = $callSync(17181, $W()..h(this));
     return $r.hnn(SrtpV3WriteStreamSrtp.$h);
   }
 }
@@ -469,7 +485,7 @@ class SrtpV3WriteStreamSrtcp extends $datachannel.DatachannelWriteDeadliner {
   /// Go: `func (*srtp.WriteStreamSRTCP).SetWriteDeadline(t time.Time) error`.
   void setWriteDeadline(DateTime t) {
     $callSync(
-        17180,
+        17182,
         $W()
           ..h(this)
           ..time(t));
@@ -478,7 +494,7 @@ class SrtpV3WriteStreamSrtcp extends $datachannel.DatachannelWriteDeadliner {
   /// Go: `func (*srtp.WriteStreamSRTCP).Write(b []byte) (int, error)`.
   int write(Uint8List b) {
     final $r = $callSync(
-        17181,
+        17183,
         $W()
           ..h(this)
           ..bytes(b));
@@ -488,7 +504,7 @@ class SrtpV3WriteStreamSrtcp extends $datachannel.DatachannelWriteDeadliner {
   /// Go: `func (*srtp.WriteStreamSRTCP).WriteRTCP(header *rtcp.Header, payload []byte) (int, error)`.
   int writeRtcp($rtcp.RtcpHeader header, Uint8List payload) {
     final $r = $callSync(
-        17182,
+        17184,
         $W()
           ..h(this)
           ..dto(header)
@@ -506,7 +522,7 @@ class SrtpV3WriteStreamSrtp extends $v4.WebrtcV4TrackLocalWriter
   /// Go: `func (*srtp.WriteStreamSRTP).SetWriteDeadline(t time.Time) error`.
   void setWriteDeadline(DateTime t) {
     $callSync(
-        17183,
+        17185,
         $W()
           ..h(this)
           ..time(t));
@@ -515,7 +531,7 @@ class SrtpV3WriteStreamSrtp extends $v4.WebrtcV4TrackLocalWriter
   /// Go: `func (*srtp.WriteStreamSRTP).Write(b []byte) (int, error)`.
   int write(Uint8List b) {
     final $r = $callSync(
-        17184,
+        17186,
         $W()
           ..h(this)
           ..bytes(b));
@@ -525,7 +541,7 @@ class SrtpV3WriteStreamSrtp extends $v4.WebrtcV4TrackLocalWriter
   /// Go: `func (*srtp.WriteStreamSRTP).WriteRTP(header *rtp.Header, payload []byte) (int, error)`.
   int writeRtp($rtp.RtpHeader header, Uint8List payload) {
     final $r = $callSync(
-        17185,
+        17187,
         $W()
           ..h(this)
           ..dto(header)
@@ -559,7 +575,7 @@ extension GoPionSrtpV3Api on GoPionSrtpV3 {
       Uint8List masterKey, Uint8List masterSalt, int profile,
       [List<SrtpV3ContextOption> opts = const []]) {
     final $r = $callSync(
-        17158,
+        17160,
         $W()
           ..bytes(masterKey)
           ..bytes(masterSalt)

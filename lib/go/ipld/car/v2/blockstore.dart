@@ -25,7 +25,7 @@ class CarV2Blockstore extends GoHandle with CarV2Blockstore$ {
 mixin CarV2Blockstore$ on GoHandle {
   /// Go: `func (blockstore.Blockstore).AllKeysChan(ctx context.Context) (<-chan cid.Cid, error)`.
   Stream<$cid.Cid> allKeysChan($context.Context ctx) => $stream(
-          11936,
+          11938,
           $W()
             ..h(this)
             ..h(ctx))
@@ -36,7 +36,7 @@ mixin CarV2Blockstore$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> deleteBlock($context.Context ctx, $cid.Cid cid) async {
     await $call(
-        11937,
+        11939,
         $W()
           ..h(this)
           ..h(ctx)
@@ -49,7 +49,7 @@ mixin CarV2Blockstore$ on GoHandle {
   Future<$block_format.BlockFormatBlock> get(
       $context.Context ctx, $cid.Cid cid) async {
     final $r = await $call(
-        11938,
+        11940,
         $W()
           ..h(this)
           ..h(ctx)
@@ -62,7 +62,7 @@ mixin CarV2Blockstore$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getSize($context.Context ctx, $cid.Cid cid) async {
     final $r = await $call(
-        11939,
+        11941,
         $W()
           ..h(this)
           ..h(ctx)
@@ -75,7 +75,7 @@ mixin CarV2Blockstore$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> has($context.Context ctx, $cid.Cid cid) async {
     final $r = await $call(
-        11940,
+        11942,
         $W()
           ..h(this)
           ..h(ctx)
@@ -86,7 +86,7 @@ mixin CarV2Blockstore$ on GoHandle {
   /// Go: `func (blockstore.Blockstore).HashOnRead(enabled bool)`.
   void hashOnRead(bool enabled) {
     $callSync(
-        11941,
+        11943,
         $W()
           ..h(this)
           ..b(enabled));
@@ -98,7 +98,7 @@ mixin CarV2Blockstore$ on GoHandle {
   Future<void> put(
       $context.Context ctx, $block_format.BlockFormatBlock block) async {
     await $call(
-        11942,
+        11944,
         $W()
           ..h(this)
           ..h(ctx)
@@ -111,7 +111,7 @@ mixin CarV2Blockstore$ on GoHandle {
   Future<void> putMany(
       $context.Context ctx, List<$block_format.BlockFormatBlock> blocks) async {
     await $call(
-        11943,
+        11945,
         $W()
           ..h(this)
           ..h(ctx)
@@ -151,7 +151,7 @@ class CarV2BlockstoreReadOnly extends CarV2Blockstore
   factory CarV2BlockstoreReadOnly(Object backing, $index.CarV2Index idx,
       [List<$v2.CarV2Option> opts = const []]) {
     final $r = $callSync(
-        11944,
+        11946,
         $W()
           ..reader(backing)
           ..h(idx)
@@ -161,7 +161,7 @@ class CarV2BlockstoreReadOnly extends CarV2Blockstore
 
   /// Go: `func (*blockstore.ReadOnly).AllKeysChan(ctx context.Context) (<-chan cid.Cid, error)`.
   Stream<$cid.Cid> allKeysChan($context.Context ctx) => $stream(
-          11948,
+          11950,
           $W()
             ..h(this)
             ..h(ctx))
@@ -169,7 +169,7 @@ class CarV2BlockstoreReadOnly extends CarV2Blockstore
 
   /// Go: `func (*blockstore.ReadOnly).Close() error`.
   void close() {
-    $callSync(11949, $W()..h(this));
+    $callSync(11951, $W()..h(this));
   }
 
   /// Go: `func (*blockstore.ReadOnly).DeleteBlock(_ context.Context, _ cid.Cid) error`.
@@ -177,7 +177,7 @@ class CarV2BlockstoreReadOnly extends CarV2Blockstore
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> deleteBlock($context.Context ctx, $cid.Cid cid) async {
     await $call(
-        11950,
+        11952,
         $W()
           ..h(this)
           ..h(ctx)
@@ -190,7 +190,7 @@ class CarV2BlockstoreReadOnly extends CarV2Blockstore
   Future<$block_format.BlockFormatBlock> get(
       $context.Context ctx, $cid.Cid key) async {
     final $r = await $call(
-        11951,
+        11953,
         $W()
           ..h(this)
           ..h(ctx)
@@ -203,7 +203,7 @@ class CarV2BlockstoreReadOnly extends CarV2Blockstore
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getSize($context.Context ctx, $cid.Cid key) async {
     final $r = await $call(
-        11952,
+        11954,
         $W()
           ..h(this)
           ..h(ctx)
@@ -216,7 +216,7 @@ class CarV2BlockstoreReadOnly extends CarV2Blockstore
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> has($context.Context ctx, $cid.Cid key) async {
     final $r = await $call(
-        11953,
+        11955,
         $W()
           ..h(this)
           ..h(ctx)
@@ -227,7 +227,7 @@ class CarV2BlockstoreReadOnly extends CarV2Blockstore
   /// Go: `func (*blockstore.ReadOnly).HashOnRead(bool)`.
   void hashOnRead(bool arg0) {
     $callSync(
-        11954,
+        11956,
         $W()
           ..h(this)
           ..b(arg0));
@@ -235,7 +235,7 @@ class CarV2BlockstoreReadOnly extends CarV2Blockstore
 
   /// Go: `func (*blockstore.ReadOnly).Index() index.Index`.
   $index.CarV2Index index() {
-    final $r = $callSync(11955, $W()..h(this));
+    final $r = $callSync(11957, $W()..h(this));
     return $r.hnn($index.CarV2Index.$h);
   }
 
@@ -245,7 +245,7 @@ class CarV2BlockstoreReadOnly extends CarV2Blockstore
   Future<void> put(
       $context.Context ctx, $block_format.BlockFormatBlock block) async {
     await $call(
-        11956,
+        11958,
         $W()
           ..h(this)
           ..h(ctx)
@@ -258,7 +258,7 @@ class CarV2BlockstoreReadOnly extends CarV2Blockstore
   Future<void> putMany(
       $context.Context ctx, List<$block_format.BlockFormatBlock> blocks) async {
     await $call(
-        11957,
+        11959,
         $W()
           ..h(this)
           ..h(ctx)
@@ -267,7 +267,7 @@ class CarV2BlockstoreReadOnly extends CarV2Blockstore
 
   /// Go: `func (*blockstore.ReadOnly).Roots() ([]cid.Cid, error)`.
   List<$cid.Cid> roots() {
-    final $r = $callSync(11958, $W()..h(this));
+    final $r = $callSync(11960, $W()..h(this));
     return $r.list(() => $r.p() ? $cid.Cid($r.str()) : $nil());
   }
 }
@@ -290,7 +290,7 @@ class CarV2BlockstoreReadWrite extends CarV2Blockstore
 
   /// Go: `func (*blockstore.ReadWrite).AllKeysChan(ctx context.Context) (<-chan cid.Cid, error)`.
   Stream<$cid.Cid> allKeysChan($context.Context ctx) => $stream(
-          11959,
+          11961,
           $W()
             ..h(this)
             ..h(ctx))
@@ -298,7 +298,7 @@ class CarV2BlockstoreReadWrite extends CarV2Blockstore
 
   /// Go: `func (*blockstore.ReadWrite).Close() error`.
   void close() {
-    $callSync(11960, $W()..h(this));
+    $callSync(11962, $W()..h(this));
   }
 
   /// Go: `func (*blockstore.ReadWrite).DeleteBlock(_ context.Context, _ cid.Cid) error`.
@@ -306,7 +306,7 @@ class CarV2BlockstoreReadWrite extends CarV2Blockstore
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> deleteBlock($context.Context ctx, $cid.Cid cid) async {
     await $call(
-        11961,
+        11963,
         $W()
           ..h(this)
           ..h(ctx)
@@ -315,17 +315,17 @@ class CarV2BlockstoreReadWrite extends CarV2Blockstore
 
   /// Go: `func (*blockstore.ReadWrite).Discard()`.
   void discard() {
-    $callSync(11962, $W()..h(this));
+    $callSync(11964, $W()..h(this));
   }
 
   /// Go: `func (*blockstore.ReadWrite).Finalize() error`.
   void finalize() {
-    $callSync(11963, $W()..h(this));
+    $callSync(11965, $W()..h(this));
   }
 
   /// Go: `func (*blockstore.ReadWrite).FinalizeReadOnly() error`.
   void finalizeReadOnly() {
-    $callSync(11964, $W()..h(this));
+    $callSync(11966, $W()..h(this));
   }
 
   /// Go: `func (*blockstore.ReadWrite).Get(ctx context.Context, key cid.Cid) (blocks.Block, error)`.
@@ -334,7 +334,7 @@ class CarV2BlockstoreReadWrite extends CarV2Blockstore
   Future<$block_format.BlockFormatBlock> get(
       $context.Context ctx, $cid.Cid key) async {
     final $r = await $call(
-        11965,
+        11967,
         $W()
           ..h(this)
           ..h(ctx)
@@ -347,7 +347,7 @@ class CarV2BlockstoreReadWrite extends CarV2Blockstore
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getSize($context.Context ctx, $cid.Cid key) async {
     final $r = await $call(
-        11966,
+        11968,
         $W()
           ..h(this)
           ..h(ctx)
@@ -360,7 +360,7 @@ class CarV2BlockstoreReadWrite extends CarV2Blockstore
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> has($context.Context ctx, $cid.Cid key) async {
     final $r = await $call(
-        11967,
+        11969,
         $W()
           ..h(this)
           ..h(ctx)
@@ -371,7 +371,7 @@ class CarV2BlockstoreReadWrite extends CarV2Blockstore
   /// Go: `func (*blockstore.ReadWrite).HashOnRead(enable bool)`.
   void hashOnRead(bool enable) {
     $callSync(
-        11968,
+        11970,
         $W()
           ..h(this)
           ..b(enable));
@@ -379,7 +379,7 @@ class CarV2BlockstoreReadWrite extends CarV2Blockstore
 
   /// Go: `func (*blockstore.ReadWrite).Index() index.Index`.
   $index.CarV2Index index() {
-    final $r = $callSync(11969, $W()..h(this));
+    final $r = $callSync(11971, $W()..h(this));
     return $r.hnn($index.CarV2Index.$h);
   }
 
@@ -389,7 +389,7 @@ class CarV2BlockstoreReadWrite extends CarV2Blockstore
   Future<void> put(
       $context.Context ctx, $block_format.BlockFormatBlock blk) async {
     await $call(
-        11970,
+        11972,
         $W()
           ..h(this)
           ..h(ctx)
@@ -402,7 +402,7 @@ class CarV2BlockstoreReadWrite extends CarV2Blockstore
   Future<void> putMany(
       $context.Context ctx, List<$block_format.BlockFormatBlock> blks) async {
     await $call(
-        11971,
+        11973,
         $W()
           ..h(this)
           ..h(ctx)
@@ -411,7 +411,7 @@ class CarV2BlockstoreReadWrite extends CarV2Blockstore
 
   /// Go: `func (*blockstore.ReadWrite).Roots() ([]cid.Cid, error)`.
   List<$cid.Cid> roots() {
-    final $r = $callSync(11972, $W()..h(this));
+    final $r = $callSync(11974, $W()..h(this));
     return $r.list(() => $r.p() ? $cid.Cid($r.str()) : $nil());
   }
 }
@@ -422,7 +422,7 @@ extension GoIpldCarV2BlockstoreApi on GoIpldCarV2Blockstore {
   CarV2BlockstoreReadOnly openReadOnly(String path,
       [List<$v2.CarV2Option> opts = const []]) {
     final $r = $callSync(
-        11945,
+        11947,
         $W()
           ..str(path)
           ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -433,7 +433,7 @@ extension GoIpldCarV2BlockstoreApi on GoIpldCarV2Blockstore {
   CarV2BlockstoreReadWrite openReadWrite(String path, List<$cid.Cid> roots,
       [List<$v2.CarV2Option> opts = const []]) {
     final $r = $callSync(
-        11946,
+        11948,
         $W()
           ..str(path)
           ..list(roots, (w0, e0) => w0.val(e0))
@@ -445,7 +445,7 @@ extension GoIpldCarV2BlockstoreApi on GoIpldCarV2Blockstore {
   CarV2BlockstoreReadWrite openReadWriteFile($os.OsFile f, List<$cid.Cid> roots,
       [List<$v2.CarV2Option> opts = const []]) {
     final $r = $callSync(
-        11947,
+        11949,
         $W()
           ..h(f)
           ..list(roots, (w0, e0) => w0.val(e0))

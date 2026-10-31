@@ -13980,6 +13980,7 @@ Omitted:
 | `func config.HumanOutput(value any) ([]byte, error)` | `go.ipfs.kubo.config.humanOutput` | sync |
 | `func (*config.Identity).DecodePrivateKey(passphrase string) (crypto.PrivKey, error)` | `KuboConfigIdentity.decodePrivateKey` | sync |
 | `func (*config.Import).HAMTSizeEstimationMode() io.SizeEstimationMode` | `KuboConfigImport.hamtSizeEstimationMode` | sync |
+| `func (*config.Import).MFSRootOptions() ([]mfs.Option, error)` | `KuboConfigImport.mfsRootOptions` | sync |
 | `func (*config.Import).PBNodeFieldOrderMode() merkledag.PBNodeFieldOrder` | `KuboConfigImport.pbNodeFieldOrderMode` | sync |
 | `func (*config.Import).UnixFSCidBuilder() (cid.Builder, error)` | `KuboConfigImport.unixFsCidBuilder` | sync |
 | `func (*config.Import).UnixFSSplitterFunc() chunk.SplitterGen` | `KuboConfigImport.unixFsSplitterFunc` | sync |
@@ -14190,7 +14191,6 @@ Omitted:
 - `func (config.Flag).String() string`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/ipfs/kubo/config.Flag
 - `func (*config.Flag).UnmarshalJSON(input []byte) error`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/ipfs/kubo/config.Flag
 - `func (config.Flag).WithDefault(defaultValue bool) bool`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/ipfs/kubo/config.Flag
-- `func (*config.Import).MFSRootOptions() ([]mfs.Option, error)`: result 0: []github.com/ipfs/boxo/mfs.Option
 - `func (config.Methods).Check() error`: receiver is neither a handle, a DTO nor a value type: *tipo github.com/ipfs/kubo/config.Methods
 - `func (config.Priority).MarshalJSON() ([]byte, error)`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/ipfs/kubo/config.Priority
 - `func (config.Priority).String() string`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/ipfs/kubo/config.Priority
@@ -14799,6 +14799,7 @@ Omitted:
 | `func libp2p.DetectNAT(h host.Host) string` | `go.ipfs.kubo.core.node.libp2p.detectNat` | sync |
 | `func libp2p.FloodSub(pubsubOptions ...pubsub.Option) any` | `go.ipfs.kubo.core.node.libp2p.floodSub` | sync |
 | `func libp2p.GossipSub(pubsubOptions ...pubsub.Option) any` | `go.ipfs.kubo.core.node.libp2p.gossipSub` | sync |
+| `func libp2p.Host(mctx helpers.MetricsCtx, lc fx.Lifecycle, params libp2p.P2PHostIn) (out libp2p.P2PHostOut, err error)` | `go.ipfs.kubo.core.node.libp2p.host` | sync |
 | `func libp2p.LimitConfig(cfg config.SwarmConfig, userResourceOverrides rcmgr.PartialLimitConfig) (limitConfig rcmgr.ConcreteLimitConfig, logMessageForStartup string, err error)` | `go.ipfs.kubo.core.node.libp2p.limitConfig` | sync |
 | `func libp2p.LimitConfigsToInfo(stats libp2p.LimitsConfigAndUsage) libp2p.ResourceInfos` | `go.ipfs.kubo.core.node.libp2p.limitConfigsToInfo` | sync |
 | `func (libp2p.LimitsConfigAndUsage).MarshalJSON() ([]byte, error)` | `KuboCoreNodeLibp2pLimitsConfigAndUsage.marshalJson` | sync |
@@ -14832,7 +14833,6 @@ Omitted:
 - `func libp2p.DiscoveryHandler(mctx helpers.MetricsCtx, lc fx.Lifecycle, host host.Host) *libp2p.discoveryHandler`: result 0: *unexported type github.com/ipfs/kubo/core/node/libp2p.discoveryHandler
 - `func libp2p.ForceReachability(val *config.OptionalString) func() (opts libp2p.Libp2pOpts, err error)`: result 0: func() (opts github.com/ipfs/kubo/core/node/libp2p.Libp2pOpts, err error)
 - `func libp2p.HolePunching(flag config.Flag, hasRelayClient bool) func() (opts libp2p.Libp2pOpts, err error)`: result 0: func() (opts github.com/ipfs/kubo/core/node/libp2p.Libp2pOpts, err error)
-- `func libp2p.Host(mctx helpers.MetricsCtx, lc fx.Lifecycle, params libp2p.P2PHostIn) (out libp2p.P2PHostOut, err error)`: parameter params: github.com/ipfs/kubo/core/node/libp2p.P2PHostIn with an option inside
 - `func libp2p.MonitorCGNAT() func(fx.Lifecycle, host.Host) error`: result 0: func(go.uber.org/fx.Lifecycle, github.com/libp2p/go-libp2p/core/host.Host) error
 - `func libp2p.MonitorDeadListeners(swarmListen []string, addrFilters []string, noAnnounce []string) func(fx.Lifecycle, host.Host) error`: result 0: func(go.uber.org/fx.Lifecycle, github.com/libp2p/go-libp2p/core/host.Host) error
 - `var libp2p.NatPortMap func() (opts libp2p.Libp2pOpts, err error)`: result 0: func() (opts github.com/ipfs/kubo/core/node/libp2p.Libp2pOpts, err error)
@@ -45186,7 +45186,6 @@ Omitted:
 - `github.com/grpc-ecosystem/grpc-gateway/v2/runtime.ServerMetadata.TrailerMD`: tipo google.golang.org/grpc/metadata.MD
 - `github.com/ipfs/boxo/gateway/assets.ParsedNode.Keys`: []
 - `github.com/ipfs/boxo/gateway/assets.ParsedNode.Values`: []
-- `github.com/ipfs/boxo/namesys.PublishOptions.IPNSOptions`: functional options: they cross only as call arguments
 - `github.com/ipfs/boxo/pinning/remote/client/openapi.Pin.Origins`: pointer to []string
 - `github.com/ipfs/boxo/pinning/remote/client/openapi.Pin.Meta`: pointer to map[string]string
 - `github.com/ipfs/boxo/pinning/remote/client/openapi.PinStatus.Info`: pointer to map[string]string
@@ -45210,10 +45209,8 @@ Omitted:
 - `github.com/ipfs/kubo/config.Transports.Security`: struct{TLS github.com/ipfs/kubo/config.Priority "json:\",omitempty\""; Noise github.com/ipfs/kubo/config.Priority "json:\",omitempty\""}
 - `github.com/ipfs/kubo/config.Transports.Multiplexers`: struct{Yamux github.com/ipfs/kubo/config.Priority "json:\",omitempty\""}
 - `github.com/ipfs/kubo/core/coreiface/options.NamePublishSettings.TTL`: pointer to time.Duration
-- `github.com/ipfs/kubo/core/coreiface/options.NameResolveSettings.ResolveOpts`: functional options: they cross only as call arguments
 - `github.com/ipfs/kubo/core/coreiface/options.UnixfsAddSettings.SizeEstimationMode`: pointer to github.com/ipfs/boxo/ipld/unixfs/io.SizeEstimationMode
 - `github.com/ipfs/kubo/core/coreiface/options.UnixfsAddSettings.Events`: type chan<- any
-- `github.com/ipfs/kubo/core/node/libp2p.Libp2pOpts.Opts`: functional options: they cross only as call arguments
 - `github.com/ipfs/kubo/plugin.Environment.Config`: type any
 - `github.com/ipfs/kubo/repo/fsrepo/migrations/common.BaseMigration.Convert`: func(in io.ReadSeeker, out io.Writer) error
 - `github.com/ipfs/kubo/repo/fsrepo/migrations/common.ConfigAssertion.Expected`: type any
@@ -45247,10 +45244,6 @@ Omitted:
 - `github.com/libp2p/go-libp2p-pubsub.TestExtensionConfig.OnReceiveTestExtension`: func(from github.com/libp2p/go-libp2p/core/peer.ID)
 - `github.com/libp2p/go-libp2p-xor/trie.Trie.Branch`: [2]*github.com/libp2p/go-libp2p-xor/trie.Trie
 - `github.com/libp2p/go-libp2p/config.AutoNATConfig.ForceReachability`: pointer to github.com/libp2p/go-libp2p/core/network.Reachability
-- `github.com/libp2p/go-libp2p/config.Config.RelayServiceOpts`: functional options: they cross only as call arguments
-- `github.com/libp2p/go-libp2p/config.Config.AutoRelayOpts`: functional options: they cross only as call arguments
-- `github.com/libp2p/go-libp2p/config.Config.HolePunchingOptions`: functional options: they cross only as call arguments
-- `github.com/libp2p/go-libp2p/config.Config.SwarmOpts`: functional options: they cross only as call arguments
 - `github.com/libp2p/go-libp2p/config.Security.Constructor`: type any
 - `github.com/libp2p/go-libp2p/core/discovery.Options.Other`: map keyed by any
 - `github.com/libp2p/go-libp2p/core/network.NotifyBundle.ListenF`: func(github.com/libp2p/go-libp2p/core/network.Network, github.com/multiformats/go-multiaddr.Multiaddr)
@@ -45261,8 +45254,6 @@ Omitted:
 - `github.com/libp2p/go-libp2p/core/routing.Options.Other`: map keyed by any
 - `github.com/libp2p/go-libp2p/p2p/host/basic.HostOpts.MultistreamMuxer`: *generic github.com/multiformats/go-multistream.MultistreamMuxer[github.com/libp2p/go-libp2p/core/protocol.ID]
 - `github.com/libp2p/go-libp2p/p2p/host/basic.HostOpts.NATManager`: func(github.com/libp2p/go-libp2p/core/network.Network) github.com/libp2p/go-libp2p/p2p/host/basic.NATManager
-- `github.com/libp2p/go-libp2p/p2p/host/basic.HostOpts.RelayServiceOpts`: functional options: they cross only as call arguments
-- `github.com/libp2p/go-libp2p/p2p/host/basic.HostOpts.HolePunchingOptions`: functional options: they cross only as call arguments
 - `github.com/libp2p/go-libp2p/p2p/host/resource-manager.ScalingLimitConfig.ServiceLimits`: map[string]unexported type github.com/libp2p/go-libp2p/p2p/host/resource-manager.baseLimitConfig
 - `github.com/libp2p/go-libp2p/p2p/host/resource-manager.ScalingLimitConfig.ServicePeerLimits`: map[string]unexported type github.com/libp2p/go-libp2p/p2p/host/resource-manager.baseLimitConfig
 - `github.com/libp2p/go-libp2p/p2p/host/resource-manager.ScalingLimitConfig.ProtocolLimits`: map[string]unexported type github.com/libp2p/go-libp2p/p2p/host/resource-manager.baseLimitConfig
@@ -45304,8 +45295,6 @@ Omitted:
 - `github.com/pion/sdp/v3.SessionDescription.PhoneNumber`: pointer to github.com/pion/sdp/v3.PhoneNumber
 - `github.com/pion/sdp/v3.SessionDescription.EncryptionKey`: pointer to github.com/pion/sdp/v3.EncryptionKey
 - `github.com/pion/srtp/v3.Config.BufferFactory`: func(packetType github.com/pion/transport/v3/packetio.BufferPacketType, ssrc uint32) io.ReadWriteCloser
-- `github.com/pion/srtp/v3.Config.LocalOptions`: functional options: they cross only as call arguments
-- `github.com/pion/srtp/v3.Config.RemoteOptions`: functional options: they cross only as call arguments
 - `github.com/pion/stun/v3.Event.TransactionID`: [12]byte
 - `github.com/pion/webrtc/v4.ICEServer.Credential`: type interface{}
 - `github.com/pion/webrtc/v4/pkg/media.Sample.Metadata`: type interface{}

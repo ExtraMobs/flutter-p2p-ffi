@@ -17,29 +17,29 @@ class KuboPluginLoader extends $io.IoCloser
 
   /// Go: `func loader.NewPluginLoader(repo string) (*loader.PluginLoader, error)`.
   factory KuboPluginLoader(String repo) {
-    final $r = $callSync(11714, $W()..str(repo));
+    final $r = $callSync(11716, $W()..str(repo));
     return $r.hnn(KuboPluginLoader.$h);
   }
 
   /// Go: `func (*loader.PluginLoader).Close() error`.
   void close() {
-    $callSync(11715, $W()..h(this));
+    $callSync(11717, $W()..h(this));
   }
 
   /// Go: `func (*loader.PluginLoader).Initialize() error`.
   void initialize() {
-    $callSync(11716, $W()..h(this));
+    $callSync(11718, $W()..h(this));
   }
 
   /// Go: `func (*loader.PluginLoader).Inject() error`.
   void inject() {
-    $callSync(11717, $W()..h(this));
+    $callSync(11719, $W()..h(this));
   }
 
   /// Go: `func (*loader.PluginLoader).Load(pl plugin.Plugin) error`.
   void load($plugin.KuboPlugin pl) {
     $callSync(
-        11718,
+        11720,
         $W()
           ..h(this)
           ..h(pl));
@@ -48,7 +48,7 @@ class KuboPluginLoader extends $io.IoCloser
   /// Go: `func (*loader.PluginLoader).LoadDirectory(pluginDir string) error`.
   void loadDirectory(String pluginDir) {
     $callSync(
-        11719,
+        11721,
         $W()
           ..h(this)
           ..str(pluginDir));
@@ -57,7 +57,7 @@ class KuboPluginLoader extends $io.IoCloser
   /// Go: `func (*loader.PluginLoader).Start(node *core.IpfsNode) error`.
   void start($core.KuboCoreIpfsNode node) {
     $callSync(
-        11720,
+        11722,
         $W()
           ..h(this)
           ..h(node));
@@ -68,6 +68,6 @@ class KuboPluginLoader extends $io.IoCloser
 extension GoIpfsKuboPluginLoaderApi on GoIpfsKuboPluginLoader {
   /// Go: `func loader.Preload(plugins ...plugin.Plugin)`.
   void preload([List<$plugin.KuboPlugin> plugins = const []]) {
-    $callSync(11721, $W()..list(plugins, (w0, e0) => w0.h(e0)));
+    $callSync(11723, $W()..list(plugins, (w0, e0) => w0.h(e0)));
   }
 }

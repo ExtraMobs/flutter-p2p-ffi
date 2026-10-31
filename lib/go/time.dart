@@ -14,7 +14,7 @@ class TimeLocation extends GoHandle {
 
   /// Go: `func (*time.Location).String() string`.
   String string() {
-    final $r = $callSync(27672, $W()..h(this));
+    final $r = $callSync(27674, $W()..h(this));
     return $r.str();
   }
 }
@@ -25,14 +25,14 @@ class TimeTicker extends GoHandle {
 
   /// Go: `func time.NewTicker(d time.Duration) *time.Ticker`.
   factory TimeTicker(Duration d) {
-    final $r = $callSync(27673, $W()..i64((d).inMicroseconds * 1000));
+    final $r = $callSync(27675, $W()..i64((d).inMicroseconds * 1000));
     return $r.hnn(TimeTicker.$h);
   }
 
   /// Go: `func (*time.Ticker).Reset(d time.Duration)`.
   void reset(Duration d) {
     $callSync(
-        27682,
+        27684,
         $W()
           ..h(this)
           ..i64((d).inMicroseconds * 1000));
@@ -40,7 +40,7 @@ class TimeTicker extends GoHandle {
 
   /// Go: `func (*time.Ticker).Stop()`.
   void stop() {
-    $callSync(27683, $W()..h(this));
+    $callSync(27685, $W()..h(this));
   }
 }
 
@@ -50,14 +50,14 @@ class TimeTimer extends GoHandle {
 
   /// Go: `func time.NewTimer(d time.Duration) *time.Timer`.
   factory TimeTimer(Duration d) {
-    final $r = $callSync(27674, $W()..i64((d).inMicroseconds * 1000));
+    final $r = $callSync(27676, $W()..i64((d).inMicroseconds * 1000));
     return $r.hnn(TimeTimer.$h);
   }
 
   /// Go: `func (*time.Timer).Reset(d time.Duration) bool`.
   bool reset(Duration d) {
     final $r = $callSync(
-        27684,
+        27686,
         $W()
           ..h(this)
           ..i64((d).inMicroseconds * 1000));
@@ -66,7 +66,7 @@ class TimeTimer extends GoHandle {
 
   /// Go: `func (*time.Timer).Stop() bool`.
   bool stop() {
-    final $r = $callSync(27685, $W()..h(this));
+    final $r = $callSync(27687, $W()..h(this));
     return $r.b();
   }
 }
@@ -105,7 +105,7 @@ class TimeParseError extends GolangException {
 extension GoTimeApi on GoTime {
   /// Go: `func time.After(d time.Duration) <-chan time.Time`.
   Stream<DateTime> after(Duration d) =>
-      $stream(27665, $W()..i64((d).inMicroseconds * 1000))
+      $stream(27667, $W()..i64((d).inMicroseconds * 1000))
           .map((r) => r.p() ? r.time() : $nil());
 
   /// Go: `func time.AfterFunc(d time.Duration, f func()) *time.Timer`.
@@ -117,7 +117,7 @@ extension GoTimeApi on GoTime {
   /// each invocation (a retained callback, WIRE.md).
   Future<TimeTimer> afterFunc(Duration d, FutureOr<void> Function() f) async {
     final $r = await $call(
-        27666,
+        27668,
         $W()
           ..i64((d).inMicroseconds * 1000)
           ..cb((r) => f(), true));
@@ -128,7 +128,7 @@ extension GoTimeApi on GoTime {
   DateTime date(int year, int month, int day, int hour, int min, int sec,
       int nsec, TimeLocation loc) {
     final $r = $callSync(
-        27667,
+        27669,
         $W()
           ..i64(year)
           ..i64(month)
@@ -144,7 +144,7 @@ extension GoTimeApi on GoTime {
   /// Go: `func time.FixedZone(name string, offset int) *time.Location`.
   TimeLocation fixedZone(String name, int offset) {
     final $r = $callSync(
-        27668,
+        27670,
         $W()
           ..str(name)
           ..i64(offset));
@@ -153,14 +153,14 @@ extension GoTimeApi on GoTime {
 
   /// Go: `func time.LoadLocation(name string) (*time.Location, error)`.
   TimeLocation loadLocation(String name) {
-    final $r = $callSync(27669, $W()..str(name));
+    final $r = $callSync(27671, $W()..str(name));
     return $r.hnn(TimeLocation.$h);
   }
 
   /// Go: `func time.LoadLocationFromTZData(name string, data []byte) (*time.Location, error)`.
   TimeLocation loadLocationFromTzData(String name, Uint8List data) {
     final $r = $callSync(
-        27670,
+        27672,
         $W()
           ..str(name)
           ..bytes(data));
@@ -169,20 +169,20 @@ extension GoTimeApi on GoTime {
 
   /// Go: `var time.Local *time.Location`.
   TimeLocation get local {
-    final $r = $callSync(27671);
+    final $r = $callSync(27673);
     return $r.hnn(TimeLocation.$h);
   }
 
   /// Go: `func time.Now() time.Time`.
   DateTime now() {
-    final $r = $callSync(27675);
+    final $r = $callSync(27677);
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func time.Parse(layout string, value string) (time.Time, error)`.
   DateTime parse(String layout, String value) {
     final $r = $callSync(
-        27676,
+        27678,
         $W()
           ..str(layout)
           ..str(value));
@@ -191,14 +191,14 @@ extension GoTimeApi on GoTime {
 
   /// Go: `func time.ParseDuration(s string) (time.Duration, error)`.
   Duration parseDuration(String s) {
-    final $r = $callSync(27677, $W()..str(s));
+    final $r = $callSync(27679, $W()..str(s));
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `func time.ParseInLocation(layout string, value string, loc *time.Location) (time.Time, error)`.
   DateTime parseInLocation(String layout, String value, TimeLocation loc) {
     final $r = $callSync(
-        27678,
+        27680,
         $W()
           ..str(layout)
           ..str(value)
@@ -208,30 +208,30 @@ extension GoTimeApi on GoTime {
 
   /// Go: `func time.Since(t time.Time) time.Duration`.
   Duration since(DateTime t) {
-    final $r = $callSync(27679, $W()..time(t));
+    final $r = $callSync(27681, $W()..time(t));
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `func time.Sleep(d time.Duration)`.
   void sleep(Duration d) {
-    $callSync(27680, $W()..i64((d).inMicroseconds * 1000));
+    $callSync(27682, $W()..i64((d).inMicroseconds * 1000));
   }
 
   /// Go: `func time.Tick(d time.Duration) <-chan time.Time`.
   Stream<DateTime> tick(Duration d) =>
-      $stream(27681, $W()..i64((d).inMicroseconds * 1000))
+      $stream(27683, $W()..i64((d).inMicroseconds * 1000))
           .map((r) => r.p() ? r.time() : $nil());
 
   /// Go: `var time.UTC *time.Location`.
   TimeLocation get utc {
-    final $r = $callSync(27686);
+    final $r = $callSync(27688);
     return $r.hnn(TimeLocation.$h);
   }
 
   /// Go: `func time.Unix(sec int64, nsec int64) time.Time`.
   DateTime unix(int sec, int nsec) {
     final $r = $callSync(
-        27687,
+        27689,
         $W()
           ..i64(sec)
           ..i64(nsec));
@@ -240,19 +240,19 @@ extension GoTimeApi on GoTime {
 
   /// Go: `func time.UnixMicro(usec int64) time.Time`.
   DateTime unixMicro(int usec) {
-    final $r = $callSync(27688, $W()..i64(usec));
+    final $r = $callSync(27690, $W()..i64(usec));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func time.UnixMilli(msec int64) time.Time`.
   DateTime unixMilli(int msec) {
-    final $r = $callSync(27689, $W()..i64(msec));
+    final $r = $callSync(27691, $W()..i64(msec));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func time.Until(t time.Time) time.Duration`.
   Duration until(DateTime t) {
-    final $r = $callSync(27690, $W()..time(t));
+    final $r = $callSync(27692, $W()..time(t));
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 }

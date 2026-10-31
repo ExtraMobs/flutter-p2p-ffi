@@ -19,7 +19,7 @@ class InterceptorChain extends Interceptor
 
   /// Go: `func interceptor.NewChain(interceptors []interceptor.Interceptor) *interceptor.Chain`.
   factory InterceptorChain(List<Interceptor> interceptors) {
-    final $r = $callSync(16657, $W()..list(interceptors, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(16659, $W()..list(interceptors, (w0, e0) => w0.h(e0)));
     return $r.hnn(InterceptorChain.$h);
   }
 
@@ -27,7 +27,7 @@ class InterceptorChain extends Interceptor
   InterceptorRtpWriter bindLocalStream(
       InterceptorStreamInfo ctx, Object writer) {
     final $r = $callSync(
-        16643,
+        16645,
         $W()
           ..h(this)
           ..dto(ctx)
@@ -38,7 +38,7 @@ class InterceptorChain extends Interceptor
   /// Go: `func (*interceptor.Chain).BindRTCPReader(reader interceptor.RTCPReader) interceptor.RTCPReader`.
   InterceptorRtcpReader bindRtcpReader(Object reader) {
     final $r = $callSync(
-        16644,
+        16646,
         $W()
           ..h(this)
           ..reader(reader));
@@ -48,7 +48,7 @@ class InterceptorChain extends Interceptor
   /// Go: `func (*interceptor.Chain).BindRTCPWriter(writer interceptor.RTCPWriter) interceptor.RTCPWriter`.
   InterceptorRtcpWriter bindRtcpWriter(Object writer) {
     final $r = $callSync(
-        16645,
+        16647,
         $W()
           ..h(this)
           ..reader(writer));
@@ -59,7 +59,7 @@ class InterceptorChain extends Interceptor
   InterceptorRtpReader bindRemoteStream(
       InterceptorStreamInfo ctx, Object reader) {
     final $r = $callSync(
-        16646,
+        16648,
         $W()
           ..h(this)
           ..dto(ctx)
@@ -69,13 +69,13 @@ class InterceptorChain extends Interceptor
 
   /// Go: `func (*interceptor.Chain).Close() error`.
   void close() {
-    $callSync(16647, $W()..h(this));
+    $callSync(16649, $W()..h(this));
   }
 
   /// Go: `func (*interceptor.Chain).UnbindLocalStream(ctx *interceptor.StreamInfo)`.
   void unbindLocalStream(InterceptorStreamInfo ctx) {
     $callSync(
-        16648,
+        16650,
         $W()
           ..h(this)
           ..dto(ctx));
@@ -84,7 +84,7 @@ class InterceptorChain extends Interceptor
   /// Go: `func (*interceptor.Chain).UnbindRemoteStream(ctx *interceptor.StreamInfo)`.
   void unbindRemoteStream(InterceptorStreamInfo ctx) {
     $callSync(
-        16649,
+        16651,
         $W()
           ..h(this)
           ..dto(ctx));
@@ -101,7 +101,7 @@ mixin InterceptorFactory$ on GoHandle {
   /// Go: `func (interceptor.Factory).NewInterceptor(id string) (interceptor.Interceptor, error)`.
   Interceptor newInterceptor(String id) {
     final $r = $callSync(
-        16650,
+        16652,
         $W()
           ..h(this)
           ..str(id));
@@ -169,7 +169,7 @@ mixin Interceptor$ on GoHandle {
   InterceptorRtpWriter bindLocalStream(
       InterceptorStreamInfo info, Object writer) {
     final $r = $callSync(
-        16651,
+        16653,
         $W()
           ..h(this)
           ..dto(info)
@@ -180,7 +180,7 @@ mixin Interceptor$ on GoHandle {
   /// Go: `func (interceptor.Interceptor).BindRTCPReader(reader interceptor.RTCPReader) interceptor.RTCPReader`.
   InterceptorRtcpReader bindRtcpReader(Object reader) {
     final $r = $callSync(
-        16652,
+        16654,
         $W()
           ..h(this)
           ..reader(reader));
@@ -190,7 +190,7 @@ mixin Interceptor$ on GoHandle {
   /// Go: `func (interceptor.Interceptor).BindRTCPWriter(writer interceptor.RTCPWriter) interceptor.RTCPWriter`.
   InterceptorRtcpWriter bindRtcpWriter(Object writer) {
     final $r = $callSync(
-        16653,
+        16655,
         $W()
           ..h(this)
           ..reader(writer));
@@ -201,7 +201,7 @@ mixin Interceptor$ on GoHandle {
   InterceptorRtpReader bindRemoteStream(
       InterceptorStreamInfo info, Object reader) {
     final $r = $callSync(
-        16654,
+        16656,
         $W()
           ..h(this)
           ..dto(info)
@@ -212,7 +212,7 @@ mixin Interceptor$ on GoHandle {
   /// Go: `func (interceptor.Interceptor).UnbindLocalStream(info *interceptor.StreamInfo)`.
   void unbindLocalStream(InterceptorStreamInfo info) {
     $callSync(
-        16655,
+        16657,
         $W()
           ..h(this)
           ..dto(info));
@@ -221,7 +221,7 @@ mixin Interceptor$ on GoHandle {
   /// Go: `func (interceptor.Interceptor).UnbindRemoteStream(info *interceptor.StreamInfo)`.
   void unbindRemoteStream(InterceptorStreamInfo info) {
     $callSync(
-        16656,
+        16658,
         $W()
           ..h(this)
           ..dto(info));
@@ -302,7 +302,7 @@ final class InterceptorNoOp implements GoDto {
   InterceptorRtpWriter bindLocalStream(
       InterceptorStreamInfo streamInfo, Object writer) {
     final $r = $callSync(
-        16658,
+        16660,
         $W()
           ..dto(this)
           ..dto(streamInfo)
@@ -313,7 +313,7 @@ final class InterceptorNoOp implements GoDto {
   /// Go: `func (*interceptor.NoOp).BindRTCPReader(reader interceptor.RTCPReader) interceptor.RTCPReader`.
   InterceptorRtcpReader bindRtcpReader(Object reader) {
     final $r = $callSync(
-        16659,
+        16661,
         $W()
           ..dto(this)
           ..reader(reader));
@@ -323,7 +323,7 @@ final class InterceptorNoOp implements GoDto {
   /// Go: `func (*interceptor.NoOp).BindRTCPWriter(writer interceptor.RTCPWriter) interceptor.RTCPWriter`.
   InterceptorRtcpWriter bindRtcpWriter(Object writer) {
     final $r = $callSync(
-        16660,
+        16662,
         $W()
           ..dto(this)
           ..reader(writer));
@@ -334,7 +334,7 @@ final class InterceptorNoOp implements GoDto {
   InterceptorRtpReader bindRemoteStream(
       InterceptorStreamInfo streamInfo, Object reader) {
     final $r = $callSync(
-        16661,
+        16663,
         $W()
           ..dto(this)
           ..dto(streamInfo)
@@ -344,13 +344,13 @@ final class InterceptorNoOp implements GoDto {
 
   /// Go: `func (*interceptor.NoOp).Close() error`.
   void close() {
-    $callSync(16662, $W()..dto(this));
+    $callSync(16664, $W()..dto(this));
   }
 
   /// Go: `func (*interceptor.NoOp).UnbindLocalStream(_ *interceptor.StreamInfo)`.
   void unbindLocalStream(InterceptorStreamInfo streamInfo) {
     $callSync(
-        16663,
+        16665,
         $W()
           ..dto(this)
           ..dto(streamInfo));
@@ -359,7 +359,7 @@ final class InterceptorNoOp implements GoDto {
   /// Go: `func (*interceptor.NoOp).UnbindRemoteStream(_ *interceptor.StreamInfo)`.
   void unbindRemoteStream(InterceptorStreamInfo streamInfo) {
     $callSync(
-        16664,
+        16666,
         $W()
           ..dto(this)
           ..dto(streamInfo));
@@ -441,7 +441,7 @@ class InterceptorRegistry extends GoHandle {
   /// Go: `func (*interceptor.Registry).Add(f interceptor.Factory)`.
   void add(InterceptorFactory f) {
     $callSync(
-        16665,
+        16667,
         $W()
           ..h(this)
           ..h(f));
@@ -450,7 +450,7 @@ class InterceptorRegistry extends GoHandle {
   /// Go: `func (*interceptor.Registry).Build(id string) (interceptor.Interceptor, error)`.
   Interceptor build(String id) {
     final $r = $callSync(
-        16666,
+        16668,
         $W()
           ..h(this)
           ..str(id));

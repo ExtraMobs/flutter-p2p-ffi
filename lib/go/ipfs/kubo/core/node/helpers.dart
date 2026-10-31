@@ -17,19 +17,19 @@ class KuboCoreNodeHelpersMetricsCtx extends GoHandle
 mixin KuboCoreNodeHelpersMetricsCtx$ on GoHandle {
   /// Go: `func (helpers.MetricsCtx).Deadline() (deadline time.Time, ok bool)`.
   (DateTime, bool) deadline() {
-    final $r = $callSync(11642, $W()..h(this));
+    final $r = $callSync(11643, $W()..h(this));
     return ($r.p() ? $r.time() : $nil(), $r.b());
   }
 
   /// Go: `func (helpers.MetricsCtx).Err() error`.
   void err() {
-    $callSync(11643, $W()..h(this));
+    $callSync(11644, $W()..h(this));
   }
 
   /// Go: `func (helpers.MetricsCtx).Value(key any) any`.
   Object? value$(Object? key) {
     final $r = $callSync(
-        11644,
+        11645,
         $W()
           ..h(this)
           ..any(key));

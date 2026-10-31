@@ -55,7 +55,7 @@ class GrpcBalancerEndpointshardingExitIdler extends GoHandle
 mixin GrpcBalancerEndpointshardingExitIdler$ on GoHandle {
   /// Go: `func (endpointsharding.ExitIdler).ExitIdle()`.
   void exitIdle() {
-    $callSync(24413, $W()..h(this));
+    $callSync(24415, $W()..h(this));
   }
 }
 
@@ -80,7 +80,7 @@ extension GoGrpcBalancerEndpointshardingApi on GoGrpcBalancerEndpointsharding {
   /// Go: `func endpointsharding.ChildStatesFromPicker(picker balancer.Picker) []endpointsharding.ChildState`.
   List<GrpcBalancerEndpointshardingChildState> childStatesFromPicker(
       $balancer.GrpcBalancerPicker picker) {
-    final $r = $callSync(24412, $W()..h(picker));
+    final $r = $callSync(24414, $W()..h(picker));
     return $r.list(() =>
         $r.p() ? GrpcBalancerEndpointshardingChildState.$dec($r) : $nil());
   }
@@ -92,7 +92,7 @@ extension GoGrpcBalancerEndpointshardingApi on GoGrpcBalancerEndpointsharding {
       GrpcBalancerEndpointshardingChildBuilderFunc childBuilder,
       GrpcBalancerEndpointshardingOptions esOpts) {
     final $r = $callSync(
-        24414,
+        24416,
         $W()
           ..h(cc)
           ..dto(opts)

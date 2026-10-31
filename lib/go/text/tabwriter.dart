@@ -15,7 +15,7 @@ class TextTabwriterWriter extends GoHandle {
   factory TextTabwriterWriter(GoHandle? output, int minwidth, int tabwidth,
       int padding, int padchar, int flags) {
     final $r = $callSync(
-        27530,
+        27532,
         $W()
           ..h(output)
           ..i64(minwidth)
@@ -28,14 +28,14 @@ class TextTabwriterWriter extends GoHandle {
 
   /// Go: `func (*tabwriter.Writer).Flush() error`.
   void flush() {
-    $callSync(27531, $W()..h(this));
+    $callSync(27533, $W()..h(this));
   }
 
   /// Go: `func (*tabwriter.Writer).Init(output io.Writer, minwidth int, tabwidth int, padding int, padchar byte, flags uint) *tabwriter.Writer`.
   TextTabwriterWriter init(GoHandle? output, int minwidth, int tabwidth,
       int padding, int padchar, int flags) {
     final $r = $callSync(
-        27532,
+        27534,
         $W()
           ..h(this)
           ..h(output)
@@ -50,7 +50,7 @@ class TextTabwriterWriter extends GoHandle {
   /// Go: `func (*tabwriter.Writer).Write(buf []byte) (n int, err error)`.
   int write(Uint8List buf) {
     final $r = $callSync(
-        27533,
+        27535,
         $W()
           ..h(this)
           ..bytes(buf));

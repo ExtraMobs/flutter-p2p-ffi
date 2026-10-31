@@ -15,7 +15,7 @@ class Libp2pCoreRecordEnvelope extends GoHandle {
   /// Go: `func (*record.Envelope).Equal(other *record.Envelope) bool`.
   bool equal(Libp2pCoreRecordEnvelope other) {
     final $r = $callSync(
-        14263,
+        14265,
         $W()
           ..h(this)
           ..h(other));
@@ -24,20 +24,20 @@ class Libp2pCoreRecordEnvelope extends GoHandle {
 
   /// Go: `func (*record.Envelope).Marshal() (res []byte, err error)`.
   Uint8List marshal() {
-    final $r = $callSync(14264, $W()..h(this));
+    final $r = $callSync(14266, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*record.Envelope).Record() (record.Record, error)`.
   Libp2pCoreRecord record() {
-    final $r = $callSync(14265, $W()..h(this));
+    final $r = $callSync(14267, $W()..h(this));
     return $r.hnn(Libp2pCoreRecord.$h);
   }
 
   /// Go: `func (*record.Envelope).TypedRecord(dest record.Record) error`.
   void typedRecord(Libp2pCoreRecord dest) {
     $callSync(
-        14266,
+        14268,
         $W()
           ..h(this)
           ..h(dest));
@@ -53,26 +53,26 @@ class Libp2pCoreRecord extends GoHandle with Libp2pCoreRecord$ {
 mixin Libp2pCoreRecord$ on GoHandle {
   /// Go: `func (record.Record).Codec() []byte`.
   Uint8List codec() {
-    final $r = $callSync(14267, $W()..h(this));
+    final $r = $callSync(14269, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (record.Record).Domain() string`.
   String domain() {
-    final $r = $callSync(14268, $W()..h(this));
+    final $r = $callSync(14270, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (record.Record).MarshalRecord() ([]byte, error)`.
   Uint8List marshalRecord() {
-    final $r = $callSync(14269, $W()..h(this));
+    final $r = $callSync(14271, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (record.Record).UnmarshalRecord([]byte) error`.
   void unmarshalRecord(Uint8List arg0) {
     $callSync(
-        14270,
+        14272,
         $W()
           ..h(this)
           ..bytes(arg0));
@@ -121,7 +121,7 @@ extension GoLibp2pLibp2pCoreRecordApi on GoLibp2pLibp2pCoreRecord {
   (Libp2pCoreRecordEnvelope, Libp2pCoreRecord) consumeEnvelope(
       Uint8List data, String domain) {
     final $r = $callSync(
-        14261,
+        14263,
         $W()
           ..bytes(data)
           ..str(domain));
@@ -132,7 +132,7 @@ extension GoLibp2pLibp2pCoreRecordApi on GoLibp2pLibp2pCoreRecord {
   Libp2pCoreRecordEnvelope consumeTypedEnvelope(
       Uint8List data, Libp2pCoreRecord destRecord) {
     final $r = $callSync(
-        14262,
+        14264,
         $W()
           ..bytes(data)
           ..h(destRecord));
@@ -141,14 +141,14 @@ extension GoLibp2pLibp2pCoreRecordApi on GoLibp2pLibp2pCoreRecord {
 
   /// Go: `func record.RegisterType(prototype record.Record)`.
   void registerType(Libp2pCoreRecord prototype) {
-    $callSync(14271, $W()..h(prototype));
+    $callSync(14273, $W()..h(prototype));
   }
 
   /// Go: `func record.Seal(rec record.Record, privateKey crypto.PrivKey) (*record.Envelope, error)`.
   Libp2pCoreRecordEnvelope seal(
       Libp2pCoreRecord rec, $crypto.Libp2pCoreCryptoPrivKey privateKey) {
     final $r = $callSync(
-        14272,
+        14274,
         $W()
           ..h(rec)
           ..h(privateKey));
@@ -157,7 +157,7 @@ extension GoLibp2pLibp2pCoreRecordApi on GoLibp2pLibp2pCoreRecord {
 
   /// Go: `func record.UnmarshalEnvelope(data []byte) (*record.Envelope, error)`.
   Libp2pCoreRecordEnvelope unmarshalEnvelope(Uint8List data) {
-    final $r = $callSync(14273, $W()..bytes(data));
+    final $r = $callSync(14275, $W()..bytes(data));
     return $r.hnn(Libp2pCoreRecordEnvelope.$h);
   }
 }

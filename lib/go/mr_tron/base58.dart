@@ -13,7 +13,7 @@ class Base58Alphabet extends GoHandle {
 
   /// Go: `func base58.NewAlphabet(s string) *base58.Alphabet`.
   factory Base58Alphabet(String s) {
-    final $r = $callSync(15775, $W()..str(s));
+    final $r = $callSync(15777, $W()..str(s));
     return $r.hnn(Base58Alphabet.$h);
   }
 }
@@ -22,20 +22,20 @@ class Base58Alphabet extends GoHandle {
 extension GoMrTronBase58Api on GoMrTronBase58 {
   /// Go: `var base58.BTCAlphabet *base58.Alphabet`.
   Base58Alphabet get btcAlphabet {
-    final $r = $callSync(15765);
+    final $r = $callSync(15767);
     return $r.hnn(Base58Alphabet.$h);
   }
 
   /// Go: `func base58.Decode(str string) ([]byte, error)`.
   Uint8List decode(String str) {
-    final $r = $callSync(15766, $W()..str(str));
+    final $r = $callSync(15768, $W()..str(str));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func base58.DecodeAlphabet(str string, alphabet *base58.Alphabet) ([]byte, error)`.
   Uint8List decodeAlphabet(String str, Base58Alphabet alphabet) {
     final $r = $callSync(
-        15767,
+        15769,
         $W()
           ..str(str)
           ..h(alphabet));
@@ -44,14 +44,14 @@ extension GoMrTronBase58Api on GoMrTronBase58 {
 
   /// Go: `func base58.Encode(bin []byte) string`.
   String encode(Uint8List bin) {
-    final $r = $callSync(15768, $W()..bytes(bin));
+    final $r = $callSync(15770, $W()..bytes(bin));
     return $r.str();
   }
 
   /// Go: `func base58.EncodeAlphabet(bin []byte, alphabet *base58.Alphabet) string`.
   String encodeAlphabet(Uint8List bin, Base58Alphabet alphabet) {
     final $r = $callSync(
-        15769,
+        15771,
         $W()
           ..bytes(bin)
           ..h(alphabet));
@@ -60,14 +60,14 @@ extension GoMrTronBase58Api on GoMrTronBase58 {
 
   /// Go: `func base58.FastBase58Decoding(str string) ([]byte, error)`.
   Uint8List fastBase58Decoding(String str) {
-    final $r = $callSync(15770, $W()..str(str));
+    final $r = $callSync(15772, $W()..str(str));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func base58.FastBase58DecodingAlphabet(str string, alphabet *base58.Alphabet) ([]byte, error)`.
   Uint8List fastBase58DecodingAlphabet(String str, Base58Alphabet alphabet) {
     final $r = $callSync(
-        15771,
+        15773,
         $W()
           ..str(str)
           ..h(alphabet));
@@ -76,14 +76,14 @@ extension GoMrTronBase58Api on GoMrTronBase58 {
 
   /// Go: `func base58.FastBase58Encoding(bin []byte) string`.
   String fastBase58Encoding(Uint8List bin) {
-    final $r = $callSync(15772, $W()..bytes(bin));
+    final $r = $callSync(15774, $W()..bytes(bin));
     return $r.str();
   }
 
   /// Go: `func base58.FastBase58EncodingAlphabet(bin []byte, alphabet *base58.Alphabet) string`.
   String fastBase58EncodingAlphabet(Uint8List bin, Base58Alphabet alphabet) {
     final $r = $callSync(
-        15773,
+        15775,
         $W()
           ..bytes(bin)
           ..h(alphabet));
@@ -92,20 +92,20 @@ extension GoMrTronBase58Api on GoMrTronBase58 {
 
   /// Go: `var base58.FlickrAlphabet *base58.Alphabet`.
   Base58Alphabet get flickrAlphabet {
-    final $r = $callSync(15774);
+    final $r = $callSync(15776);
     return $r.hnn(Base58Alphabet.$h);
   }
 
   /// Go: `func base58.TrivialBase58Decoding(str string) ([]byte, error)`.
   Uint8List trivialBase58Decoding(String str) {
-    final $r = $callSync(15776, $W()..str(str));
+    final $r = $callSync(15778, $W()..str(str));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func base58.TrivialBase58DecodingAlphabet(str string, alphabet *base58.Alphabet) ([]byte, error)`.
   Uint8List trivialBase58DecodingAlphabet(String str, Base58Alphabet alphabet) {
     final $r = $callSync(
-        15777,
+        15779,
         $W()
           ..str(str)
           ..h(alphabet));
@@ -114,14 +114,14 @@ extension GoMrTronBase58Api on GoMrTronBase58 {
 
   /// Go: `func base58.TrivialBase58Encoding(a []byte) string`.
   String trivialBase58Encoding(Uint8List a) {
-    final $r = $callSync(15778, $W()..bytes(a));
+    final $r = $callSync(15780, $W()..bytes(a));
     return $r.str();
   }
 
   /// Go: `func base58.TrivialBase58EncodingAlphabet(a []byte, alphabet *base58.Alphabet) string`.
   String trivialBase58EncodingAlphabet(Uint8List a, Base58Alphabet alphabet) {
     final $r = $callSync(
-        15779,
+        15781,
         $W()
           ..bytes(a)
           ..h(alphabet));

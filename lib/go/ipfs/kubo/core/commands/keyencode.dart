@@ -17,7 +17,7 @@ class KuboCoreCommandsKeyencodeKeyEncoder extends GoHandle {
   /// Go: `func (keyencode.KeyEncoder).FormatID(id peer.ID) string`.
   String formatId($peer.Libp2pCorePeerId id) {
     final $r = $callSync(
-        11413,
+        11414,
         $W()
           ..h(this)
           ..val(id));
@@ -30,7 +30,7 @@ extension GoIpfsKuboCoreCommandsKeyencodeApi
     on GoIpfsKuboCoreCommandsKeyencode {
   /// Go: `func keyencode.KeyEncoderFromString(formatLabel string) (keyencode.KeyEncoder, error)`.
   KuboCoreCommandsKeyencodeKeyEncoder keyEncoderFromString(String formatLabel) {
-    final $r = $callSync(11414, $W()..str(formatLabel));
+    final $r = $callSync(11415, $W()..str(formatLabel));
     return $r.hnn(KuboCoreCommandsKeyencodeKeyEncoder.$h);
   }
 }
@@ -40,7 +40,7 @@ extension GoIpfsKuboCoreCommandsKeyencodeOptionsApi
     on GoIpfsKuboCoreCommandsKeyencodeOptions {
   /// Go: `var keyencode.OptionIPNSBase cmds.Option`.
   $ipfs_cmds.IpfsCmdsOption get optionIpnsBase {
-    final $r = $callSync(11415);
+    final $r = $callSync(11416);
     return $r.hnn($ipfs_cmds.IpfsCmdsOption.$h);
   }
 }

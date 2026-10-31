@@ -267,6 +267,23 @@ void main() {
     await r.close();
   });
 
+  test('an option Go made, read from a struct, goes back to Go', () async {
+    // kubo's libp2p.BandwidthCounter: Libp2pOpts{Opts: [BandwidthReporter]}
+    final (opts, reporter) = go.ipfs.kubo.core.node.libp2p.bandwidthCounter();
+    expect(opts.opts, hasLength(1));
+    final h = await go.libp2p.libp2p.new$([
+      go.libp2p.libp2p.options.listenAddrStrings(['/ip4/127.0.0.1/tcp/0']),
+      ...opts.opts,
+    ]);
+    await h.connect(ctx, go.libp2p.libp2p.core.host.infoFromHost(a));
+    // identify runs streams after the connection: the counter sees them
+    for (var i = 0; reporter.getBandwidthTotals().totalOut == 0; i++) {
+      expect(i, lessThan(100), reason: 'the reporter counted nothing');
+      await Future<void>.delayed(const Duration(milliseconds: 50));
+    }
+    await h.close();
+  });
+
   test('an option that keeps a function: a subscription filter', () async {
     final psA = await go.libp2p.libp2pPubsub.newGossipSub(ctx, a);
     final psB = await go.libp2p.libp2pPubsub.newGossipSub(ctx, b);

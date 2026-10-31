@@ -26,7 +26,7 @@ class ProtobufTypesKnownFieldmaskpbFieldMask
   void append($protoreflect.ProtobufReflectProtoreflectProtoMessage m,
       [List<String> paths = const []]) {
     $callSync(
-        25492,
+        25494,
         $W()
           ..h(this)
           ..h(m)
@@ -36,20 +36,20 @@ class ProtobufTypesKnownFieldmaskpbFieldMask
   /// Go: `func (*fieldmaskpb.FieldMask).Descriptor() ([]byte, []int)`.
   @Deprecated("Use FieldMask.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(25493, $W()..h(this));
+    final $r = $callSync(25495, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*fieldmaskpb.FieldMask).GetPaths() []string`.
   List<String> getPaths() {
-    final $r = $callSync(25494, $W()..h(this));
+    final $r = $callSync(25496, $W()..h(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (*fieldmaskpb.FieldMask).IsValid(m proto.Message) bool`.
   bool isValid($protoreflect.ProtobufReflectProtoreflectProtoMessage m) {
     final $r = $callSync(
-        25495,
+        25497,
         $W()
           ..h(this)
           ..h(m));
@@ -58,28 +58,28 @@ class ProtobufTypesKnownFieldmaskpbFieldMask
 
   /// Go: `func (*fieldmaskpb.FieldMask).Normalize()`.
   void normalize() {
-    $callSync(25496, $W()..h(this));
+    $callSync(25498, $W()..h(this));
   }
 
   /// Go: `func (*fieldmaskpb.FieldMask).ProtoMessage()`.
   void protoMessage() {
-    $callSync(25497, $W()..h(this));
+    $callSync(25499, $W()..h(this));
   }
 
   /// Go: `func (*fieldmaskpb.FieldMask).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(25498, $W()..h(this));
+    final $r = $callSync(25500, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*fieldmaskpb.FieldMask).Reset()`.
   void reset() {
-    $callSync(25499, $W()..h(this));
+    $callSync(25501, $W()..h(this));
   }
 
   /// Go: `func (*fieldmaskpb.FieldMask).String() string`.
   String string() {
-    final $r = $callSync(25500, $W()..h(this));
+    final $r = $callSync(25502, $W()..h(this));
     return $r.str();
   }
 }
@@ -90,7 +90,7 @@ extension GoProtobufTypesKnownFieldmaskpbApi
   /// Go: `var fieldmaskpb.File_google_protobuf_field_mask_proto protoreflect.FileDescriptor`.
   $protoreflect.ProtobufReflectProtoreflectFileDescriptor
       get fileGoogleProtobufFieldMaskProto {
-    final $r = $callSync(25501);
+    final $r = $callSync(25503);
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectFileDescriptor.$h);
   }
 
@@ -100,7 +100,7 @@ extension GoProtobufTypesKnownFieldmaskpbApi
       ProtobufTypesKnownFieldmaskpbFieldMask my,
       [List<ProtobufTypesKnownFieldmaskpbFieldMask> ms = const []]) {
     final $r = $callSync(
-        25502,
+        25504,
         $W()
           ..h(mx)
           ..h(my)
@@ -113,7 +113,7 @@ extension GoProtobufTypesKnownFieldmaskpbApi
       $protoreflect.ProtobufReflectProtoreflectProtoMessage m,
       [List<String> paths = const []]) {
     final $r = $callSync(
-        25503,
+        25505,
         $W()
           ..h(m)
           ..list(paths, (w0, e0) => w0.str(e0)));
@@ -126,7 +126,7 @@ extension GoProtobufTypesKnownFieldmaskpbApi
       ProtobufTypesKnownFieldmaskpbFieldMask my,
       [List<ProtobufTypesKnownFieldmaskpbFieldMask> ms = const []]) {
     final $r = $callSync(
-        25504,
+        25506,
         $W()
           ..h(mx)
           ..h(my)

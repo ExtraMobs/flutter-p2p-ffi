@@ -38,7 +38,7 @@ class Libp2pCoreSecSecureTransport extends GoHandle
 mixin Libp2pCoreSecSecureTransport$ on GoHandle {
   /// Go: `func (sec.SecureTransport).ID() protocol.ID`.
   String id() {
-    final $r = $callSync(14300, $W()..h(this));
+    final $r = $callSync(14302, $W()..h(this));
     return $r.str();
   }
 
@@ -48,7 +48,7 @@ mixin Libp2pCoreSecSecureTransport$ on GoHandle {
   Future<Libp2pCoreSecSecureConn> secureInbound($context.Context ctx,
       $net.NetConn insecure, $peer.Libp2pCorePeerId p) async {
     final $r = await $call(
-        14301,
+        14303,
         $W()
           ..h(this)
           ..h(ctx)
@@ -63,7 +63,7 @@ mixin Libp2pCoreSecSecureTransport$ on GoHandle {
   Future<Libp2pCoreSecSecureConn> secureOutbound($context.Context ctx,
       $net.NetConn insecure, $peer.Libp2pCorePeerId p) async {
     final $r = await $call(
-        14302,
+        14304,
         $W()
           ..h(this)
           ..h(ctx)

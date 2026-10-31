@@ -19,7 +19,7 @@ mixin GoleveldbLeveldbFilterBuffer$ on GoHandle {
   /// Go: `func (filter.Buffer).Alloc(n int) []byte`.
   Uint8List alloc(int n) {
     final $r = $callSync(
-        18669,
+        18671,
         $W()
           ..h(this)
           ..i64(n));
@@ -29,7 +29,7 @@ mixin GoleveldbLeveldbFilterBuffer$ on GoHandle {
   /// Go: `func (filter.Buffer).Write(p []byte) (n int, err error)`.
   int write(Uint8List p) {
     final $r = $callSync(
-        18670,
+        18672,
         $W()
           ..h(this)
           ..bytes(p));
@@ -39,7 +39,7 @@ mixin GoleveldbLeveldbFilterBuffer$ on GoHandle {
   /// Go: `func (filter.Buffer).WriteByte(c byte) error`.
   void writeByte(int c) {
     $callSync(
-        18671,
+        18673,
         $W()
           ..h(this)
           ..i64(c));
@@ -62,7 +62,7 @@ mixin GoleveldbLeveldbFilter$ on GoHandle {
   /// Go: `func (filter.Filter).Contains(filter []byte, key []byte) bool`.
   bool contains(Uint8List filter, Uint8List key) {
     final $r = $callSync(
-        18672,
+        18674,
         $W()
           ..h(this)
           ..bytes(filter)
@@ -72,13 +72,13 @@ mixin GoleveldbLeveldbFilter$ on GoHandle {
 
   /// Go: `func (filter.Filter).Name() string`.
   String name() {
-    final $r = $callSync(18673, $W()..h(this));
+    final $r = $callSync(18675, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (filter.Filter).NewGenerator() filter.FilterGenerator`.
   GoleveldbLeveldbFilterGenerator newGenerator() {
-    final $r = $callSync(18674, $W()..h(this));
+    final $r = $callSync(18676, $W()..h(this));
     return $r.hnn(GoleveldbLeveldbFilterGenerator.$h);
   }
 }
@@ -94,7 +94,7 @@ mixin GoleveldbLeveldbFilterGenerator$ on GoHandle {
   /// Go: `func (filter.FilterGenerator).Add(key []byte)`.
   void add(Uint8List key) {
     $callSync(
-        18675,
+        18677,
         $W()
           ..h(this)
           ..bytes(key));
@@ -103,7 +103,7 @@ mixin GoleveldbLeveldbFilterGenerator$ on GoHandle {
   /// Go: `func (filter.FilterGenerator).Generate(b filter.Buffer)`.
   void generate(GoleveldbLeveldbFilterBuffer b) {
     $callSync(
-        18676,
+        18678,
         $W()
           ..h(this)
           ..h(b));
@@ -114,7 +114,7 @@ mixin GoleveldbLeveldbFilterGenerator$ on GoHandle {
 extension GoSyndtrGoleveldbLeveldbFilterApi on GoSyndtrGoleveldbLeveldbFilter {
   /// Go: `func filter.NewBloomFilter(bitsPerKey int) filter.Filter`.
   GoleveldbLeveldbFilter newBloomFilter(int bitsPerKey) {
-    final $r = $callSync(18677, $W()..i64(bitsPerKey));
+    final $r = $callSync(18679, $W()..i64(bitsPerKey));
     return $r.hnn(GoleveldbLeveldbFilter.$h);
   }
 }

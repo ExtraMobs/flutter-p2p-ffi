@@ -15,25 +15,25 @@ class Blake3Hasher extends $hash.Hash {
 
   /// Go: `func (*blake3.Hasher).BlockSize() int`.
   int blockSize() {
-    final $r = $callSync(25917, $W()..h(this));
+    final $r = $callSync(25919, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*blake3.Hasher).Reset()`.
   void reset() {
-    $callSync(25918, $W()..h(this));
+    $callSync(25920, $W()..h(this));
   }
 
   /// Go: `func (*blake3.Hasher).Size() int`.
   int size() {
-    final $r = $callSync(25919, $W()..h(this));
+    final $r = $callSync(25921, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*blake3.Hasher).Sum(b []byte) (sum []byte)`.
   Uint8List sum(Uint8List b) {
     final $r = $callSync(
-        25920,
+        25922,
         $W()
           ..h(this)
           ..bytes(b));
@@ -43,7 +43,7 @@ class Blake3Hasher extends $hash.Hash {
   /// Go: `func (*blake3.Hasher).Write(p []byte) (int, error)`.
   int write(Uint8List p) {
     final $r = $callSync(
-        25921,
+        25923,
         $W()
           ..h(this)
           ..bytes(p));
@@ -52,7 +52,7 @@ class Blake3Hasher extends $hash.Hash {
 
   /// Go: `func (*blake3.Hasher).XOF() *blake3.OutputReader`.
   Blake3OutputReader xof() {
-    final $r = $callSync(25922, $W()..h(this));
+    final $r = $callSync(25924, $W()..h(this));
     return $r.hnn(Blake3OutputReader.$h);
   }
 }
@@ -64,7 +64,7 @@ class Blake3OutputReader extends $io.IoSeeker {
   /// Go: `func (*blake3.OutputReader).Read(p []byte) (int, error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        25924,
+        25926,
         $W()
           ..h(this)
           ..i64(n));
@@ -74,7 +74,7 @@ class Blake3OutputReader extends $io.IoSeeker {
   /// Go: `func (*blake3.OutputReader).Seek(offset int64, whence int) (int64, error)`.
   int seek(int offset, int whence) {
     final $r = $callSync(
-        25925,
+        25927,
         $W()
           ..h(this)
           ..i64(offset)
@@ -89,7 +89,7 @@ extension GoBlake3Api on GoBlake3 {
   @Deprecated("Use bao.EncodedSize instead.")
   int baoEncodedSize(int dataLen, bool outboard) {
     final $r = $callSync(
-        25915,
+        25917,
         $W()
           ..i64(dataLen)
           ..b(outboard));
@@ -99,7 +99,7 @@ extension GoBlake3Api on GoBlake3 {
   /// Go: `func blake3.DeriveKey(subKey []byte, ctx string, srcKey []byte)`.
   void deriveKey(Uint8List subKey, String ctx, Uint8List srcKey) {
     $callSync(
-        25916,
+        25918,
         $W()
           ..bytes(subKey)
           ..str(ctx)
@@ -109,7 +109,7 @@ extension GoBlake3Api on GoBlake3 {
   /// Go: `func blake3.New(size int, key []byte) *blake3.Hasher`.
   Blake3Hasher new$(int size, Uint8List key) {
     final $r = $callSync(
-        25923,
+        25925,
         $W()
           ..i64(size)
           ..bytes(key));

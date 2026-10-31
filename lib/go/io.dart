@@ -224,7 +224,7 @@ mixin IoByteWriter$ on GoHandle {
   /// Go: `func (io.ByteWriter).WriteByte(c byte) error`.
   void writeByte(int c) {
     $callSync(
-        25705,
+        25707,
         $W()
           ..h(this)
           ..i64(c));
@@ -294,7 +294,7 @@ class IoCloser extends GoHandle with IoCloser$ {
 mixin IoCloser$ on GoHandle {
   /// Go: `func (io.Closer).Close() error`.
   void close() {
-    $callSync(25706, $W()..h(this));
+    $callSync(25708, $W()..h(this));
   }
 
   /// Go: type assertion `x.(*tar.Writer)`: null if the object is not one.
@@ -2020,7 +2020,7 @@ final class IoLimitedReader implements GoDto {
   /// Go: `func (*io.LimitedReader).Read(p []byte) (n int, err error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        25711,
+        25713,
         $W()
           ..dto(this)
           ..i64(n));
@@ -2035,7 +2035,7 @@ class IoOffsetWriter extends IoSeeker {
   /// Go: `func io.NewOffsetWriter(w io.WriterAt, off int64) *io.OffsetWriter`.
   factory IoOffsetWriter(Object w, int off) {
     final $r = $callSync(
-        25713,
+        25715,
         $W()
           ..reader(w)
           ..i64(off));
@@ -2045,7 +2045,7 @@ class IoOffsetWriter extends IoSeeker {
   /// Go: `func (*io.OffsetWriter).Seek(offset int64, whence int) (int64, error)`.
   int seek(int offset, int whence) {
     final $r = $callSync(
-        25716,
+        25718,
         $W()
           ..h(this)
           ..i64(offset)
@@ -2056,7 +2056,7 @@ class IoOffsetWriter extends IoSeeker {
   /// Go: `func (*io.OffsetWriter).Write(p []byte) (n int, err error)`.
   int write(Uint8List p) {
     final $r = $callSync(
-        25717,
+        25719,
         $W()
           ..h(this)
           ..bytes(p));
@@ -2066,7 +2066,7 @@ class IoOffsetWriter extends IoSeeker {
   /// Go: `func (*io.OffsetWriter).WriteAt(p []byte, off int64) (n int, err error)`.
   int writeAt(Uint8List p, int off) {
     final $r = $callSync(
-        25718,
+        25720,
         $W()
           ..h(this)
           ..bytes(p)
@@ -2083,13 +2083,13 @@ class IoPipeReader extends IoCloser
 
   /// Go: `func (*io.PipeReader).Close() error`.
   void close() {
-    $callSync(25720, $W()..h(this));
+    $callSync(25722, $W()..h(this));
   }
 
   /// Go: `func (*io.PipeReader).Read(data []byte) (n int, err error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        25721,
+        25723,
         $W()
           ..h(this)
           ..i64(n));
@@ -2105,13 +2105,13 @@ class IoPipeWriter extends IoCloser
 
   /// Go: `func (*io.PipeWriter).Close() error`.
   void close() {
-    $callSync(25722, $W()..h(this));
+    $callSync(25724, $W()..h(this));
   }
 
   /// Go: `func (*io.PipeWriter).Write(data []byte) (n int, err error)`.
   int write(Uint8List data) {
     final $r = $callSync(
-        25723,
+        25725,
         $W()
           ..h(this)
           ..bytes(data));
@@ -2125,7 +2125,7 @@ class IoReadCloser extends GoHandle {
 
   /// Go: `func (io.Closer).Close() error`.
   void close() {
-    $callSync(25726, $W()..h(this));
+    $callSync(25728, $W()..h(this));
   }
 }
 
@@ -2156,7 +2156,7 @@ class IoReader extends GoHandle {
   /// Go: `func (io.Reader).Read(p []byte) (n int, err error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        25728,
+        25730,
         $W()
           ..h(this)
           ..i64(n));
@@ -2171,7 +2171,7 @@ class IoReaderAt extends GoHandle {
   /// Go: `func (io.ReaderAt).ReadAt(p []byte, off int64) (n int, err error)`.
   Uint8List readAt(int n, int off) {
     final $r = $callSync(
-        25729,
+        25731,
         $W()
           ..h(this)
           ..i64(n)
@@ -2190,7 +2190,7 @@ mixin IoReaderFrom$ on GoHandle {
   /// Go: `func (io.ReaderFrom).ReadFrom(r io.Reader) (n int64, err error)`.
   int readFrom(Object r) {
     final $r = $callSync(
-        25730,
+        25732,
         $W()
           ..h(this)
           ..reader(r));
@@ -2274,7 +2274,7 @@ class IoRuneReader extends GoHandle with IoRuneReader$ {
 mixin IoRuneReader$ on GoHandle {
   /// Go: `func (io.RuneReader).ReadRune() (r rune, size int, err error)`.
   (int, int) readRune() {
-    final $r = $callSync(25731, $W()..h(this));
+    final $r = $callSync(25733, $W()..h(this));
     return ($r.i64(), $r.i64());
   }
 
@@ -2318,7 +2318,7 @@ class IoRuneScanner extends IoRuneReader with IoRuneScanner$ {
 mixin IoRuneScanner$ on GoHandle {
   /// Go: `func (io.RuneScanner).UnreadRune() error`.
   void unreadRune() {
-    $callSync(25732, $W()..h(this));
+    $callSync(25734, $W()..h(this));
   }
 
   /// Go: type assertion `x.(*bufio.Reader)`: null if the object is not one.
@@ -2353,7 +2353,7 @@ class IoSectionReader extends IoSeeker {
   /// Go: `func io.NewSectionReader(r io.ReaderAt, off int64, n int64) *io.SectionReader`.
   factory IoSectionReader(Object r, int off, int n) {
     final $r = $callSync(
-        25714,
+        25716,
         $W()
           ..reader(r)
           ..i64(off)
@@ -2363,14 +2363,14 @@ class IoSectionReader extends IoSeeker {
 
   /// Go: `func (*io.SectionReader).Outer() (r io.ReaderAt, off int64, n int64)`.
   (IoReaderAt, int, int) outer() {
-    final $r = $callSync(25733, $W()..h(this));
+    final $r = $callSync(25735, $W()..h(this));
     return ($r.hnn(IoReaderAt.$h), $r.i64(), $r.i64());
   }
 
   /// Go: `func (*io.SectionReader).Read(p []byte) (n int, err error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        25734,
+        25736,
         $W()
           ..h(this)
           ..i64(n));
@@ -2380,7 +2380,7 @@ class IoSectionReader extends IoSeeker {
   /// Go: `func (*io.SectionReader).ReadAt(p []byte, off int64) (n int, err error)`.
   Uint8List readAt(int n, int off) {
     final $r = $callSync(
-        25735,
+        25737,
         $W()
           ..h(this)
           ..i64(n)
@@ -2391,7 +2391,7 @@ class IoSectionReader extends IoSeeker {
   /// Go: `func (*io.SectionReader).Seek(offset int64, whence int) (int64, error)`.
   int seek(int offset, int whence) {
     final $r = $callSync(
-        25736,
+        25738,
         $W()
           ..h(this)
           ..i64(offset)
@@ -2401,7 +2401,7 @@ class IoSectionReader extends IoSeeker {
 
   /// Go: `func (*io.SectionReader).Size() int64`.
   int size() {
-    final $r = $callSync(25737, $W()..h(this));
+    final $r = $callSync(25739, $W()..h(this));
     return $r.i64();
   }
 }
@@ -2416,7 +2416,7 @@ mixin IoSeeker$ on GoHandle {
   /// Go: `func (io.Seeker).Seek(offset int64, whence int) (int64, error)`.
   int seek(int offset, int whence) {
     final $r = $callSync(
-        25738,
+        25740,
         $W()
           ..h(this)
           ..i64(offset)
@@ -2550,7 +2550,7 @@ mixin IoStringWriter$ on GoHandle {
   /// Go: `func (io.StringWriter).WriteString(s string) (n int, err error)`.
   int writeString(String s) {
     final $r = $callSync(
-        25739,
+        25741,
         $W()
           ..h(this)
           ..str(s));
@@ -2649,7 +2649,7 @@ class IoWriterAt extends GoHandle {
   /// Go: `func (io.WriterAt).WriteAt(p []byte, off int64) (n int, err error)`.
   int writeAt(Uint8List p, int off) {
     final $r = $callSync(
-        25742,
+        25744,
         $W()
           ..h(this)
           ..bytes(p)
@@ -2668,7 +2668,7 @@ mixin IoWriterTo$ on GoHandle {
   /// Go: `func (io.WriterTo).WriteTo(w io.Writer) (n int64, err error)`.
   int writeTo(GoHandle? w) {
     final $r = $callSync(
-        25743,
+        25745,
         $W()
           ..h(this)
           ..h(w));
@@ -2813,14 +2813,14 @@ class IoErrShortWrite extends GolangException {
 extension GoIoApi on GoIo {
   /// Go: `func io.ReadAll(r io.Reader) ([]byte, error)`.
   Uint8List readAll(Object r) {
-    final $r = $callSync(25724, $W()..reader(r));
+    final $r = $callSync(25726, $W()..reader(r));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func io.Copy(dst io.Writer, src io.Reader) (written int64, err error)`.
   int copy(GoHandle? dst, Object src) {
     final $r = $callSync(
-        25707,
+        25709,
         $W()
           ..h(dst)
           ..reader(src));
@@ -2830,7 +2830,7 @@ extension GoIoApi on GoIo {
   /// Go: `func io.CopyBuffer(dst io.Writer, src io.Reader, buf []byte) (written int64, err error)`.
   int copyBuffer(GoHandle? dst, Object src, Uint8List buf) {
     final $r = $callSync(
-        25708,
+        25710,
         $W()
           ..h(dst)
           ..reader(src)
@@ -2841,7 +2841,7 @@ extension GoIoApi on GoIo {
   /// Go: `func io.CopyN(dst io.Writer, src io.Reader, n int64) (written int64, err error)`.
   int copyN(GoHandle? dst, Object src, int n) {
     final $r = $callSync(
-        25709,
+        25711,
         $W()
           ..h(dst)
           ..reader(src)
@@ -2852,7 +2852,7 @@ extension GoIoApi on GoIo {
   /// Go: `func io.LimitReader(r io.Reader, n int64) io.Reader`.
   IoReader limitReader(Object r, int n) {
     final $r = $callSync(
-        25710,
+        25712,
         $W()
           ..reader(r)
           ..i64(n));
@@ -2861,26 +2861,26 @@ extension GoIoApi on GoIo {
 
   /// Go: `func io.MultiReader(readers ...io.Reader) io.Reader`.
   IoReader multiReader([List<IoReader> readers = const []]) {
-    final $r = $callSync(25712, $W()..list(readers, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(25714, $W()..list(readers, (w0, e0) => w0.h(e0)));
     return $r.hnn(IoReader.$h);
   }
 
   /// Go: `func io.NopCloser(r io.Reader) io.ReadCloser`.
   IoReadCloser nopCloser(Object r) {
-    final $r = $callSync(25715, $W()..reader(r));
+    final $r = $callSync(25717, $W()..reader(r));
     return $r.hnn(IoReadCloser.$h);
   }
 
   /// Go: `func io.Pipe() (*io.PipeReader, *io.PipeWriter)`.
   (IoPipeReader, IoPipeWriter) pipe() {
-    final $r = $callSync(25719);
+    final $r = $callSync(25721);
     return ($r.hnn(IoPipeReader.$h), $r.hnn(IoPipeWriter.$h));
   }
 
   /// Go: `func io.ReadAtLeast(r io.Reader, buf []byte, min int) (n int, err error)`.
   int readAtLeast(Object r, Uint8List buf, int min) {
     final $r = $callSync(
-        25725,
+        25727,
         $W()
           ..reader(r)
           ..bytes(buf)
@@ -2891,7 +2891,7 @@ extension GoIoApi on GoIo {
   /// Go: `func io.ReadFull(r io.Reader, buf []byte) (n int, err error)`.
   int readFull(Object r, Uint8List buf) {
     final $r = $callSync(
-        25727,
+        25729,
         $W()
           ..reader(r)
           ..bytes(buf));
@@ -2901,7 +2901,7 @@ extension GoIoApi on GoIo {
   /// Go: `func io.TeeReader(r io.Reader, w io.Writer) io.Reader`.
   IoReader teeReader(Object r, GoHandle? w) {
     final $r = $callSync(
-        25740,
+        25742,
         $W()
           ..reader(r)
           ..h(w));
@@ -2911,7 +2911,7 @@ extension GoIoApi on GoIo {
   /// Go: `func io.WriteString(w io.Writer, s string) (n int, err error)`.
   int writeString(GoHandle? w, String s) {
     final $r = $callSync(
-        25741,
+        25743,
         $W()
           ..h(w)
           ..str(s));

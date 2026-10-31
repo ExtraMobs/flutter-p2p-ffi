@@ -12,7 +12,7 @@ class Libp2pXRateLimiter extends GoHandle {
   /// Go: `func (*rate.Limiter).Allow(ipAddr netip.Addr) bool`.
   bool allow($netip.NetNetipAddr ipAddr) {
     final $r = $callSync(
-        15105,
+        15107,
         $W()
           ..h(this)
           ..h(ipAddr));
@@ -27,7 +27,7 @@ class Libp2pXRateSubnetLimiter extends GoHandle {
   /// Go: `func (*rate.SubnetLimiter).Allow(ipAddr netip.Addr, now time.Time) bool`.
   bool allow($netip.NetNetipAddr ipAddr, DateTime now) {
     final $r = $callSync(
-        15106,
+        15108,
         $W()
           ..h(this)
           ..h(ipAddr)

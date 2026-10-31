@@ -16,20 +16,20 @@ class IpldPrimeMulticodecRegistry extends GoHandle {
 
   /// Go: `func (*multicodec.Registry).ListDecoders() []uint64`.
   List<int> listDecoders() {
-    final $r = $callSync(12221, $W()..h(this));
+    final $r = $callSync(12223, $W()..h(this));
     return $r.list(() => $r.i64());
   }
 
   /// Go: `func (*multicodec.Registry).ListEncoders() []uint64`.
   List<int> listEncoders() {
-    final $r = $callSync(12222, $W()..h(this));
+    final $r = $callSync(12224, $W()..h(this));
     return $r.list(() => $r.i64());
   }
 
   /// Go: `func (*multicodec.Registry).LookupDecoder(indicator uint64) (codec.Decoder, error)`.
   $codec.IpldPrimeCodecDecoder lookupDecoder(int indicator) {
     final $r = $callSync(
-        12223,
+        12225,
         $W()
           ..h(this)
           ..i64(indicator));
@@ -39,7 +39,7 @@ class IpldPrimeMulticodecRegistry extends GoHandle {
   /// Go: `func (*multicodec.Registry).LookupEncoder(indicator uint64) (codec.Encoder, error)`.
   $codec.IpldPrimeCodecEncoder lookupEncoder(int indicator) {
     final $r = $callSync(
-        12224,
+        12226,
         $W()
           ..h(this)
           ..i64(indicator));
@@ -60,7 +60,7 @@ class IpldPrimeMulticodecRegistry extends GoHandle {
               $io.IoReader reader)
           decodeFunc) async {
     await $call(
-        12225,
+        12227,
         $W()
           ..h(this)
           ..i64(indicator)
@@ -76,31 +76,31 @@ class IpldPrimeMulticodecRegistry extends GoHandle {
 extension GoIpldIpldPrimeMulticodecApi on GoIpldIpldPrimeMulticodec {
   /// Go: `var multicodec.DefaultRegistry multicodec.Registry`.
   IpldPrimeMulticodecRegistry get defaultRegistry {
-    final $r = $callSync(12215);
+    final $r = $callSync(12217);
     return $r.hnn(IpldPrimeMulticodecRegistry.$h);
   }
 
   /// Go: `func multicodec.ListDecoders() []uint64`.
   List<int> listDecoders() {
-    final $r = $callSync(12216);
+    final $r = $callSync(12218);
     return $r.list(() => $r.i64());
   }
 
   /// Go: `func multicodec.ListEncoders() []uint64`.
   List<int> listEncoders() {
-    final $r = $callSync(12217);
+    final $r = $callSync(12219);
     return $r.list(() => $r.i64());
   }
 
   /// Go: `func multicodec.LookupDecoder(indicator uint64) (codec.Decoder, error)`.
   $codec.IpldPrimeCodecDecoder lookupDecoder(int indicator) {
-    final $r = $callSync(12218, $W()..i64(indicator));
+    final $r = $callSync(12220, $W()..i64(indicator));
     return $r.hnn($codec.IpldPrimeCodecDecoder.$h);
   }
 
   /// Go: `func multicodec.LookupEncoder(indicator uint64) (codec.Encoder, error)`.
   $codec.IpldPrimeCodecEncoder lookupEncoder(int indicator) {
-    final $r = $callSync(12219, $W()..i64(indicator));
+    final $r = $callSync(12221, $W()..i64(indicator));
     return $r.hnn($codec.IpldPrimeCodecEncoder.$h);
   }
 
@@ -118,7 +118,7 @@ extension GoIpldIpldPrimeMulticodecApi on GoIpldIpldPrimeMulticodec {
               $io.IoReader reader)
           decodeFunc) async {
     await $call(
-        12220,
+        12222,
         $W()
           ..i64(indicator)
           ..cb(

@@ -44,7 +44,7 @@ mixin GrpcBalancerBasePickerBuilder$ on GoHandle {
   /// Go: `func (base.PickerBuilder).Build(info base.PickerBuildInfo) balancer.Picker`.
   $balancer.GrpcBalancerPicker build(GrpcBalancerBasePickerBuildInfo info) {
     final $r = $callSync(
-        24411,
+        24413,
         $W()
           ..h(this)
           ..dto(info));
@@ -58,7 +58,7 @@ extension GoGrpcBalancerBaseApi on GoGrpcBalancerBase {
   $balancer.GrpcBalancerBuilder newBalancerBuilder(String name,
       GrpcBalancerBasePickerBuilder pb, GrpcBalancerBaseConfig config) {
     final $r = $callSync(
-        24410,
+        24412,
         $W()
           ..str(name)
           ..h(pb)

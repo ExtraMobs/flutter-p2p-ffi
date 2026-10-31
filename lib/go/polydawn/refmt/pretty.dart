@@ -14,19 +14,19 @@ class RefmtPrettyEncoder extends $shared.RefmtSharedTokenSink
 
   /// Go: `func pretty.NewEncoder(wr io.Writer) *pretty.Encoder`.
   factory RefmtPrettyEncoder(GoHandle? wr) {
-    final $r = $callSync(17928, $W()..h(wr));
+    final $r = $callSync(17930, $W()..h(wr));
     return $r.hnn(RefmtPrettyEncoder.$h);
   }
 
   /// Go: `func (*pretty.Encoder).Reset()`.
   void reset() {
-    $callSync(17926, $W()..h(this));
+    $callSync(17928, $W()..h(this));
   }
 
   /// Go: `func (*pretty.Encoder).Step(tok *tok.Token) (done bool, err error)`.
   bool step($tok.RefmtTokToken tok) {
     final $r = $callSync(
-        17927,
+        17929,
         $W()
           ..h(this)
           ..dto(tok));

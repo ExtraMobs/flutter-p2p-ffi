@@ -12,9 +12,14 @@ import 'package:p2p_ffi/go/libp2p/libp2p/core/host.dart' as $host;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/metrics.dart' as $metrics;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/network.dart' as $network;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/peerstore.dart' as $peerstore;
+import 'package:p2p_ffi/go/libp2p/libp2p/p2p/host/autorelay.dart' as $autorelay;
 import 'package:p2p_ffi/go/libp2p/libp2p/p2p/host/basic.dart' as $basic;
 import 'package:p2p_ffi/go/libp2p/libp2p/p2p/net/swarm.dart' as $swarm;
 import 'package:p2p_ffi/go/libp2p/libp2p/p2p/net/upgrader.dart' as $upgrader;
+import 'package:p2p_ffi/go/libp2p/libp2p/p2p/protocol/circuitv2/relay.dart'
+    as $relay;
+import 'package:p2p_ffi/go/libp2p/libp2p/p2p/protocol/holepunch.dart'
+    as $holepunch;
 import 'package:p2p_ffi/go/multiformats/multiaddr.dart' as $multiaddr;
 import 'package:p2p_ffi/go/prometheus/client_golang/prometheus.dart'
     as $prometheus;
@@ -62,8 +67,6 @@ final class Libp2pConfigAutoNatConfig implements GoDto {
 }
 
 /// Go: `config.Config`.
-///
-/// Fields that do not cross the bridge: `RelayServiceOpts` (functional options: they cross only as call arguments), `AutoRelayOpts` (functional options: they cross only as call arguments), `HolePunchingOptions` (functional options: they cross only as call arguments), `SwarmOpts` (functional options: they cross only as call arguments).
 final class Libp2pConfig implements GoDto {
   Libp2pConfig(
       {String? userAgent,
@@ -79,6 +82,7 @@ final class Libp2pConfig implements GoDto {
       bool? relayCustom,
       bool? relay,
       bool? enableRelayService,
+      List<$relay.Libp2pP2pProtocolCircuitv2RelayOption>? relayServiceOpts,
       List<$multiaddr.Multiaddr>? listenAddrs,
       $basic.Libp2pP2pHostBasicAddrsFactory? addrsFactory,
       $connmgr.Libp2pCoreConnmgrConnectionGater? connectionGater,
@@ -92,11 +96,14 @@ final class Libp2pConfig implements GoDto {
       bool? disableNonPublicAddrPublishing,
       Libp2pConfigRoutingC? routing,
       bool? enableAutoRelay,
+      List<$autorelay.Libp2pP2pHostAutorelayOption>? autoRelayOpts,
       Libp2pConfigAutoNatConfig? autoNatConfig,
       bool? enableHolePunching,
+      List<$holepunch.Libp2pP2pProtocolHolepunchOption>? holePunchingOptions,
       bool? disableMetrics,
       $prometheus.ClientGolangPrometheusRegisterer? prometheusRegisterer,
       $network.Libp2pCoreNetworkDialRanker? dialRanker,
+      List<$swarm.Libp2pP2pNetSwarmOption>? swarmOpts,
       bool? disableIdentifyAddressDiscovery,
       bool? enableAutoNaTv2,
       $swarm.Libp2pP2pNetSwarmBlackHoleSuccessCounter?
@@ -120,6 +127,7 @@ final class Libp2pConfig implements GoDto {
         relayCustom = relayCustom ?? false,
         relay = relay ?? false,
         enableRelayService = enableRelayService ?? false,
+        relayServiceOpts = relayServiceOpts ?? [],
         listenAddrs = listenAddrs ?? [],
         addrsFactory = addrsFactory,
         connectionGater = connectionGater,
@@ -134,11 +142,14 @@ final class Libp2pConfig implements GoDto {
             disableNonPublicAddrPublishing ?? false,
         routing = routing,
         enableAutoRelay = enableAutoRelay ?? false,
+        autoRelayOpts = autoRelayOpts ?? [],
         autoNatConfig = autoNatConfig,
         enableHolePunching = enableHolePunching ?? false,
+        holePunchingOptions = holePunchingOptions ?? [],
         disableMetrics = disableMetrics ?? false,
         prometheusRegisterer = prometheusRegisterer,
         dialRanker = dialRanker,
+        swarmOpts = swarmOpts ?? [],
         disableIdentifyAddressDiscovery =
             disableIdentifyAddressDiscovery ?? false,
         enableAutoNaTv2 = enableAutoNaTv2 ?? false,
@@ -167,6 +178,9 @@ final class Libp2pConfig implements GoDto {
         relayCustom = r.b(),
         relay = r.b(),
         enableRelayService = r.b(),
+        relayServiceOpts = r.list(() =>
+            $relay.Libp2pP2pProtocolCircuitv2RelayOption.$(
+                $optHandle, $optOf(r))),
         listenAddrs =
             r.list(() => r.p() ? $multiaddr.Multiaddr(r.str()) : $nil()),
         addrsFactory = r.hn($basic.Libp2pP2pHostBasicAddrsFactory.$h),
@@ -182,12 +196,19 @@ final class Libp2pConfig implements GoDto {
         disableNonPublicAddrPublishing = r.b(),
         routing = r.hn(Libp2pConfigRoutingC.$h),
         enableAutoRelay = r.b(),
+        autoRelayOpts = r.list(() =>
+            $autorelay.Libp2pP2pHostAutorelayOption.$($optHandle, $optOf(r))),
         autoNatConfig = r.p() ? Libp2pConfigAutoNatConfig.$dec(r) : null,
         enableHolePunching = r.b(),
+        holePunchingOptions = r.list(() =>
+            $holepunch.Libp2pP2pProtocolHolepunchOption.$(
+                $optHandle, $optOf(r))),
         disableMetrics = r.b(),
         prometheusRegisterer =
             r.hn($prometheus.ClientGolangPrometheusRegisterer.$h),
         dialRanker = r.hn($network.Libp2pCoreNetworkDialRanker.$h),
+        swarmOpts = r.list(
+            () => $swarm.Libp2pP2pNetSwarmOption.$($optHandle, $optOf(r))),
         disableIdentifyAddressDiscovery = r.b(),
         enableAutoNaTv2 = r.b(),
         udpBlackHoleSuccessCounter =
@@ -238,6 +259,9 @@ final class Libp2pConfig implements GoDto {
   /// Go: `EnableRelayService`.
   bool enableRelayService;
 
+  /// Go: `RelayServiceOpts`.
+  List<$relay.Libp2pP2pProtocolCircuitv2RelayOption> relayServiceOpts;
+
   /// Go: `ListenAddrs`.
   List<$multiaddr.Multiaddr> listenAddrs;
 
@@ -277,11 +301,17 @@ final class Libp2pConfig implements GoDto {
   /// Go: `EnableAutoRelay`.
   bool enableAutoRelay;
 
+  /// Go: `AutoRelayOpts`.
+  List<$autorelay.Libp2pP2pHostAutorelayOption> autoRelayOpts;
+
   /// Go: `AutoNATConfig`.
   Libp2pConfigAutoNatConfig? autoNatConfig;
 
   /// Go: `EnableHolePunching`.
   bool enableHolePunching;
+
+  /// Go: `HolePunchingOptions`.
+  List<$holepunch.Libp2pP2pProtocolHolepunchOption> holePunchingOptions;
 
   /// Go: `DisableMetrics`.
   bool disableMetrics;
@@ -291,6 +321,9 @@ final class Libp2pConfig implements GoDto {
 
   /// Go: `DialRanker`.
   $network.Libp2pCoreNetworkDialRanker? dialRanker;
+
+  /// Go: `SwarmOpts`.
+  List<$swarm.Libp2pP2pNetSwarmOption> swarmOpts;
 
   /// Go: `DisableIdentifyAddressDiscovery`.
   bool disableIdentifyAddressDiscovery;
@@ -332,6 +365,7 @@ final class Libp2pConfig implements GoDto {
       ..b(relayCustom)
       ..b(relay)
       ..b(enableRelayService)
+      ..list(relayServiceOpts, (w0, e0) => w0.opt(e0))
       ..list(listenAddrs, (w0, e0) => w0.val(e0))
       ..h(addrsFactory)
       ..h(connectionGater)
@@ -345,11 +379,14 @@ final class Libp2pConfig implements GoDto {
       ..b(disableNonPublicAddrPublishing)
       ..h(routing)
       ..b(enableAutoRelay)
+      ..list(autoRelayOpts, (w0, e0) => w0.opt(e0))
       ..dto(autoNatConfig)
       ..b(enableHolePunching)
+      ..list(holePunchingOptions, (w0, e0) => w0.opt(e0))
       ..b(disableMetrics)
       ..h(prometheusRegisterer)
       ..h(dialRanker)
+      ..list(swarmOpts, (w0, e0) => w0.opt(e0))
       ..b(disableIdentifyAddressDiscovery)
       ..b(enableAutoNaTv2)
       ..h(udpBlackHoleSuccessCounter)
@@ -363,7 +400,7 @@ final class Libp2pConfig implements GoDto {
   /// Go: `func (*config.Config).Apply(opts ...config.Option) error`.
   void apply([List<Libp2pConfigOption> opts = const []]) {
     $callSync(
-        13815,
+        13817,
         $W()
           ..dto(this)
           ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -371,7 +408,7 @@ final class Libp2pConfig implements GoDto {
 
   /// Go: `func (*config.Config).NewNode() (host.Host, error)`.
   $host.Libp2pCoreHost newNode() {
-    final $r = $callSync(13816, $W()..dto(this));
+    final $r = $callSync(13818, $W()..dto(this));
     return $r.hnn($host.Libp2pCoreHost.$h);
   }
 }

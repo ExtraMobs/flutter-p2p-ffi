@@ -29,7 +29,7 @@ mixin MsgioPbioReader$ on GoHandle {
   /// Go: `func (pbio.Reader).ReadMsg(msg proto.Message) error`.
   void readMsg($protoreflect.ProtobufReflectProtoreflectProtoMessage msg) {
     $callSync(
-        15135,
+        15137,
         $W()
           ..h(this)
           ..h(msg));
@@ -70,7 +70,7 @@ mixin MsgioPbioWriter$ on GoHandle {
   void writeMsg(
       $protoreflect.ProtobufReflectProtoreflectProtoMessage protoMessage) {
     $callSync(
-        15136,
+        15138,
         $W()
           ..h(this)
           ..h(protoMessage));
@@ -88,7 +88,7 @@ extension GoLibp2pMsgioPbioApi on GoLibp2pMsgioPbio {
   /// Go: `func pbio.NewDelimitedReader(r io.Reader, maxSize int) pbio.ReadCloser`.
   MsgioPbioReadCloser newDelimitedReader(Object r, int maxSize) {
     final $r = $callSync(
-        15133,
+        15135,
         $W()
           ..reader(r)
           ..i64(maxSize));
@@ -97,7 +97,7 @@ extension GoLibp2pMsgioPbioApi on GoLibp2pMsgioPbio {
 
   /// Go: `func pbio.NewDelimitedWriter(w io.Writer) pbio.WriteCloser`.
   MsgioPbioWriteCloser newDelimitedWriter(GoHandle? w) {
-    final $r = $callSync(15134, $W()..h(w));
+    final $r = $callSync(15136, $W()..h(w));
     return $r.hnn(MsgioPbioWriteCloser.$h);
   }
 }

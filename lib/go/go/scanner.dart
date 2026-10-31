@@ -26,7 +26,7 @@ class GoScanner extends GoHandle {
       FutureOr<void> Function($token.GoTokenPosition pos, String msg) err,
       int mode) async {
     await $call(
-        23250,
+        23252,
         $W()
           ..h(this)
           ..h(file)
@@ -40,7 +40,7 @@ class GoScanner extends GoHandle {
 
   /// Go: `func (*scanner.Scanner).Scan() (pos token.Pos, tok token.Token, lit string)`.
   (int, int, String) scan() {
-    final $r = $callSync(23251, $W()..h(this));
+    final $r = $callSync(23253, $W()..h(this));
     return ($r.i64(), $r.i64(), $r.str());
   }
 }

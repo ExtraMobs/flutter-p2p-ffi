@@ -15,7 +15,7 @@ class ProtobufEncodingPrototextMarshalOptions extends GoHandle {
   /// Go: `func (prototext.MarshalOptions).Format(m proto.Message) string`.
   String format($protoreflect.ProtobufReflectProtoreflectProtoMessage m) {
     final $r = $callSync(
-        24745,
+        24747,
         $W()
           ..h(this)
           ..h(m));
@@ -25,7 +25,7 @@ class ProtobufEncodingPrototextMarshalOptions extends GoHandle {
   /// Go: `func (prototext.MarshalOptions).Marshal(m proto.Message) ([]byte, error)`.
   Uint8List marshal($protoreflect.ProtobufReflectProtoreflectProtoMessage m) {
     final $r = $callSync(
-        24746,
+        24748,
         $W()
           ..h(this)
           ..h(m));
@@ -36,7 +36,7 @@ class ProtobufEncodingPrototextMarshalOptions extends GoHandle {
   Uint8List marshalAppend(
       Uint8List b, $protoreflect.ProtobufReflectProtoreflectProtoMessage m) {
     final $r = $callSync(
-        24747,
+        24749,
         $W()
           ..h(this)
           ..bytes(b)
@@ -81,7 +81,7 @@ final class ProtobufEncodingPrototextUnmarshalOptions implements GoDto {
   void unmarshal(
       Uint8List b, $protoreflect.ProtobufReflectProtoreflectProtoMessage m) {
     $callSync(
-        24749,
+        24751,
         $W()
           ..dto(this)
           ..bytes(b)
@@ -93,13 +93,13 @@ final class ProtobufEncodingPrototextUnmarshalOptions implements GoDto {
 extension GoProtobufEncodingPrototextApi on GoProtobufEncodingPrototext {
   /// Go: `func prototext.Format(m proto.Message) string`.
   String format($protoreflect.ProtobufReflectProtoreflectProtoMessage m) {
-    final $r = $callSync(24743, $W()..h(m));
+    final $r = $callSync(24745, $W()..h(m));
     return $r.str();
   }
 
   /// Go: `func prototext.Marshal(m proto.Message) ([]byte, error)`.
   Uint8List marshal($protoreflect.ProtobufReflectProtoreflectProtoMessage m) {
-    final $r = $callSync(24744, $W()..h(m));
+    final $r = $callSync(24746, $W()..h(m));
     return $r.bytes() ?? Uint8List(0);
   }
 
@@ -107,7 +107,7 @@ extension GoProtobufEncodingPrototextApi on GoProtobufEncodingPrototext {
   void unmarshal(
       Uint8List b, $protoreflect.ProtobufReflectProtoreflectProtoMessage m) {
     $callSync(
-        24748,
+        24750,
         $W()
           ..bytes(b)
           ..h(m));

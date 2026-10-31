@@ -20,14 +20,14 @@ class MultiaddrNetCodecMap extends GoHandle {
 
   /// Go: `func manet.NewCodecMap() *manet.CodecMap`.
   factory MultiaddrNetCodecMap() {
-    final $r = $callSync(15963);
+    final $r = $callSync(15965);
     return $r.hnn(MultiaddrNetCodecMap.$h);
   }
 
   /// Go: `func (*manet.CodecMap).FromNetAddr(a net.Addr) (multiaddr.Multiaddr, error)`.
   $multiaddr.Multiaddr fromNetAddr($net.NetAddr a) {
     final $r = $callSync(
-        15929,
+        15931,
         $W()
           ..h(this)
           ..dto(a));
@@ -38,7 +38,7 @@ class MultiaddrNetCodecMap extends GoHandle {
   void registerFromNetAddr(MultiaddrNetFromNetAddrFunc from,
       [List<String> networks = const []]) {
     $callSync(
-        15930,
+        15932,
         $W()
           ..h(this)
           ..h(from)
@@ -49,7 +49,7 @@ class MultiaddrNetCodecMap extends GoHandle {
   void registerToNetAddr(MultiaddrNetToNetAddrFunc to,
       [List<String> protocols = const []]) {
     $callSync(
-        15931,
+        15933,
         $W()
           ..h(this)
           ..h(to)
@@ -59,7 +59,7 @@ class MultiaddrNetCodecMap extends GoHandle {
   /// Go: `func (*manet.CodecMap).ToNetAddr(maddr multiaddr.Multiaddr) (net.Addr, error)`.
   $net.NetAddr toNetAddr($multiaddr.Multiaddr maddr) {
     final $r = $callSync(
-        15932,
+        15934,
         $W()
           ..h(this)
           ..val(maddr));
@@ -76,13 +76,13 @@ class MultiaddrNetConn extends $net.NetConn with MultiaddrNetConn$ {
 mixin MultiaddrNetConn$ on GoHandle {
   /// Go: `func (manet.Conn).LocalMultiaddr() multiaddr.Multiaddr`.
   $multiaddr.Multiaddr localMultiaddr() {
-    final $r = $callSync(15933, $W()..h(this));
+    final $r = $callSync(15935, $W()..h(this));
     return $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil();
   }
 
   /// Go: `func (manet.Conn).RemoteMultiaddr() multiaddr.Multiaddr`.
   $multiaddr.Multiaddr remoteMultiaddr() {
-    final $r = $callSync(15934, $W()..h(this));
+    final $r = $callSync(15936, $W()..h(this));
     return $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil();
   }
 
@@ -127,7 +127,7 @@ final class MultiaddrNetDialer implements GoDto {
   /// Go: `func (*manet.Dialer).Dial(remote multiaddr.Multiaddr) (manet.Conn, error)`.
   MultiaddrNetConn dial($multiaddr.Multiaddr remote) {
     final $r = $callSync(
-        15937,
+        15939,
         $W()
           ..dto(this)
           ..val(remote));
@@ -140,7 +140,7 @@ final class MultiaddrNetDialer implements GoDto {
   Future<MultiaddrNetConn> dialContext(
       $context.Context ctx, $multiaddr.Multiaddr remote) async {
     final $r = await $call(
-        15938,
+        15940,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -163,24 +163,24 @@ class MultiaddrNetListener extends GoHandle with MultiaddrNetListener$ {
 mixin MultiaddrNetListener$ on GoHandle {
   /// Go: `func (manet.Listener).Accept() (manet.Conn, error)`.
   MultiaddrNetConn accept() {
-    final $r = $callSync(15957, $W()..h(this));
+    final $r = $callSync(15959, $W()..h(this));
     return $r.hnn(MultiaddrNetConn.$h);
   }
 
   /// Go: `func (manet.Listener).Addr() net.Addr`.
   $net.NetAddr addr() {
-    final $r = $callSync(15958, $W()..h(this));
+    final $r = $callSync(15960, $W()..h(this));
     return $r.p() ? $net.NetAddr.$dec($r) : $nil();
   }
 
   /// Go: `func (manet.Listener).Close() error`.
   void close() {
-    $callSync(15959, $W()..h(this));
+    $callSync(15961, $W()..h(this));
   }
 
   /// Go: `func (manet.Listener).Multiaddr() multiaddr.Multiaddr`.
   $multiaddr.Multiaddr multiaddr() {
-    final $r = $callSync(15960, $W()..h(this));
+    final $r = $callSync(15962, $W()..h(this));
     return $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil();
   }
 
@@ -202,14 +202,14 @@ class MultiaddrNetPacketConn extends $net.NetPacketConn
 mixin MultiaddrNetPacketConn$ on GoHandle {
   /// Go: `func (manet.PacketConn).LocalMultiaddr() multiaddr.Multiaddr`.
   $multiaddr.Multiaddr localMultiaddr() {
-    final $r = $callSync(15964, $W()..h(this));
+    final $r = $callSync(15966, $W()..h(this));
     return $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil();
   }
 
   /// Go: `func (manet.PacketConn).ReadFromMultiaddr(b []byte) (int, multiaddr.Multiaddr, error)`.
   (int, $multiaddr.Multiaddr) readFromMultiaddr(Uint8List b) {
     final $r = $callSync(
-        15965,
+        15967,
         $W()
           ..h(this)
           ..bytes(b));
@@ -219,7 +219,7 @@ mixin MultiaddrNetPacketConn$ on GoHandle {
   /// Go: `func (manet.PacketConn).WriteToMultiaddr(b []byte, maddr multiaddr.Multiaddr) (int, error)`.
   int writeToMultiaddr(Uint8List b, $multiaddr.Multiaddr maddr) {
     final $r = $callSync(
-        15966,
+        15968,
         $W()
           ..h(this)
           ..bytes(b)
@@ -239,7 +239,7 @@ extension GoMultiformatsMultiaddrNetApi on GoMultiformatsMultiaddrNet {
   List<$multiaddr.Multiaddr> addrMatch(
       $multiaddr.Multiaddr match, List<$multiaddr.Multiaddr> addrs) {
     final $r = $callSync(
-        15928,
+        15930,
         $W()
           ..val(match)
           ..list(addrs, (w0, e0) => w0.val(e0)));
@@ -248,26 +248,26 @@ extension GoMultiformatsMultiaddrNetApi on GoMultiformatsMultiaddrNet {
 
   /// Go: `func manet.Dial(remote multiaddr.Multiaddr) (manet.Conn, error)`.
   MultiaddrNetConn dial($multiaddr.Multiaddr remote) {
-    final $r = $callSync(15935, $W()..val(remote));
+    final $r = $callSync(15937, $W()..val(remote));
     return $r.hnn(MultiaddrNetConn.$h);
   }
 
   /// Go: `func manet.DialArgs(m multiaddr.Multiaddr) (string, string, error)`.
   (String, String) dialArgs($multiaddr.Multiaddr m) {
-    final $r = $callSync(15936, $W()..val(m));
+    final $r = $callSync(15938, $W()..val(m));
     return ($r.str(), $r.str());
   }
 
   /// Go: `func manet.FromIP(ip net.IP) (multiaddr.Multiaddr, error)`.
   $multiaddr.Multiaddr fromIp(Uint8List ip) {
-    final $r = $callSync(15939, $W()..bytes(ip));
+    final $r = $callSync(15941, $W()..bytes(ip));
     return $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil();
   }
 
   /// Go: `func manet.FromIPAndZone(ip net.IP, zone string) (multiaddr.Multiaddr, error)`.
   $multiaddr.Multiaddr fromIpAndZone(Uint8List ip, String zone) {
     final $r = $callSync(
-        15940,
+        15942,
         $W()
           ..bytes(ip)
           ..str(zone));
@@ -276,121 +276,121 @@ extension GoMultiformatsMultiaddrNetApi on GoMultiformatsMultiaddrNet {
 
   /// Go: `func manet.FromNetAddr(a net.Addr) (multiaddr.Multiaddr, error)`.
   $multiaddr.Multiaddr fromNetAddr($net.NetAddr a) {
-    final $r = $callSync(15941, $W()..dto(a));
+    final $r = $callSync(15943, $W()..dto(a));
     return $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil();
   }
 
   /// Go: `var manet.IP4Loopback multiaddr.Multiaddr`.
   $multiaddr.Multiaddr get ip4Loopback {
-    final $r = $callSync(15942);
+    final $r = $callSync(15944);
     return $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil();
   }
 
   /// Go: `var manet.IP4MappedIP6Loopback multiaddr.Multiaddr`.
   $multiaddr.Multiaddr get ip4MappedIp6Loopback {
-    final $r = $callSync(15943);
+    final $r = $callSync(15945);
     return $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil();
   }
 
   /// Go: `var manet.IP4Unspecified multiaddr.Multiaddr`.
   $multiaddr.Multiaddr get ip4Unspecified {
-    final $r = $callSync(15944);
+    final $r = $callSync(15946);
     return $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil();
   }
 
   /// Go: `var manet.IP6Loopback multiaddr.Multiaddr`.
   $multiaddr.Multiaddr get ip6Loopback {
-    final $r = $callSync(15945);
+    final $r = $callSync(15947);
     return $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil();
   }
 
   /// Go: `var manet.IP6Unspecified multiaddr.Multiaddr`.
   $multiaddr.Multiaddr get ip6Unspecified {
-    final $r = $callSync(15946);
+    final $r = $callSync(15948);
     return $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil();
   }
 
   /// Go: `func manet.InterfaceMultiaddrs() ([]multiaddr.Multiaddr, error)`.
   List<$multiaddr.Multiaddr> interfaceMultiaddrs() {
-    final $r = $callSync(15947);
+    final $r = $callSync(15949);
     return $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil());
   }
 
   /// Go: `func manet.IsIP6LinkLocal(m multiaddr.Multiaddr) bool`.
   bool isIp6LinkLocal($multiaddr.Multiaddr m) {
-    final $r = $callSync(15948, $W()..val(m));
+    final $r = $callSync(15950, $W()..val(m));
     return $r.b();
   }
 
   /// Go: `func manet.IsIPLoopback(m multiaddr.Multiaddr) bool`.
   bool isIpLoopback($multiaddr.Multiaddr m) {
-    final $r = $callSync(15949, $W()..val(m));
+    final $r = $callSync(15951, $W()..val(m));
     return $r.b();
   }
 
   /// Go: `func manet.IsIPUnspecified(m multiaddr.Multiaddr) bool`.
   bool isIpUnspecified($multiaddr.Multiaddr m) {
-    final $r = $callSync(15950, $W()..val(m));
+    final $r = $callSync(15952, $W()..val(m));
     return $r.b();
   }
 
   /// Go: `func manet.IsNAT64IPv4ConvertedIPv6Addr(addr multiaddr.Multiaddr) bool`.
   bool isNat64iPv4ConvertedIPv6Addr($multiaddr.Multiaddr addr) {
-    final $r = $callSync(15951, $W()..val(addr));
+    final $r = $callSync(15953, $W()..val(addr));
     return $r.b();
   }
 
   /// Go: `func manet.IsPrivateAddr(a multiaddr.Multiaddr) bool`.
   bool isPrivateAddr($multiaddr.Multiaddr a) {
-    final $r = $callSync(15952, $W()..val(a));
+    final $r = $callSync(15954, $W()..val(a));
     return $r.b();
   }
 
   /// Go: `func manet.IsPublicAddr(a multiaddr.Multiaddr) bool`.
   bool isPublicAddr($multiaddr.Multiaddr a) {
-    final $r = $callSync(15953, $W()..val(a));
+    final $r = $callSync(15955, $W()..val(a));
     return $r.b();
   }
 
   /// Go: `func manet.IsThinWaist(m multiaddr.Multiaddr) bool`.
   bool isThinWaist($multiaddr.Multiaddr m) {
-    final $r = $callSync(15954, $W()..val(m));
+    final $r = $callSync(15956, $W()..val(m));
     return $r.b();
   }
 
   /// Go: `func manet.Listen(laddr multiaddr.Multiaddr) (manet.Listener, error)`.
   MultiaddrNetListener listen($multiaddr.Multiaddr laddr) {
-    final $r = $callSync(15955, $W()..val(laddr));
+    final $r = $callSync(15957, $W()..val(laddr));
     return $r.hnn(MultiaddrNetListener.$h);
   }
 
   /// Go: `func manet.ListenPacket(laddr multiaddr.Multiaddr) (manet.PacketConn, error)`.
   MultiaddrNetPacketConn listenPacket($multiaddr.Multiaddr laddr) {
-    final $r = $callSync(15956, $W()..val(laddr));
+    final $r = $callSync(15958, $W()..val(laddr));
     return $r.hnn(MultiaddrNetPacketConn.$h);
   }
 
   /// Go: `func manet.MultiaddrToIPNet(m multiaddr.Multiaddr) (*net.IPNet, error)`.
   $net.NetIpNet multiaddrToIpNet($multiaddr.Multiaddr m) {
-    final $r = $callSync(15961, $W()..val(m));
+    final $r = $callSync(15963, $W()..val(m));
     return $r.p() ? $net.NetIpNet.$dec($r) : $nil();
   }
 
   /// Go: `func manet.NetListener(l manet.Listener) net.Listener`.
   $net.NetListener netListener(MultiaddrNetListener l) {
-    final $r = $callSync(15962, $W()..h(l));
+    final $r = $callSync(15964, $W()..h(l));
     return $r.hnn($net.NetListener.$h);
   }
 
   /// Go: `var manet.Private4 []*net.IPNet`.
   List<$net.NetIpNet> get private4 {
-    final $r = $callSync(15967);
+    final $r = $callSync(15969);
     return $r.list(() => $r.p() ? $net.NetIpNet.$dec($r) : $nil());
   }
 
   /// Go: `var manet.Private6 []*net.IPNet`.
   List<$net.NetIpNet> get private6 {
-    final $r = $callSync(15968);
+    final $r = $callSync(15970);
     return $r.list(() => $r.p() ? $net.NetIpNet.$dec($r) : $nil());
   }
 
@@ -398,7 +398,7 @@ extension GoMultiformatsMultiaddrNetApi on GoMultiformatsMultiaddrNet {
   void registerFromNetAddr(MultiaddrNetFromNetAddrFunc from,
       [List<String> networks = const []]) {
     $callSync(
-        15969,
+        15971,
         $W()
           ..h(from)
           ..list(networks, (w0, e0) => w0.str(e0)));
@@ -408,7 +408,7 @@ extension GoMultiformatsMultiaddrNetApi on GoMultiformatsMultiaddrNet {
   void registerToNetAddr(MultiaddrNetToNetAddrFunc to,
       [List<String> protocols = const []]) {
     $callSync(
-        15970,
+        15972,
         $W()
           ..h(to)
           ..list(protocols, (w0, e0) => w0.str(e0)));
@@ -418,7 +418,7 @@ extension GoMultiformatsMultiaddrNetApi on GoMultiformatsMultiaddrNet {
   List<$multiaddr.Multiaddr> resolveUnspecifiedAddress(
       $multiaddr.Multiaddr resolve, List<$multiaddr.Multiaddr> ifaceAddrs) {
     final $r = $callSync(
-        15971,
+        15973,
         $W()
           ..val(resolve)
           ..list(ifaceAddrs, (w0, e0) => w0.val(e0)));
@@ -430,7 +430,7 @@ extension GoMultiformatsMultiaddrNetApi on GoMultiformatsMultiaddrNet {
       List<$multiaddr.Multiaddr> unspecAddrs,
       List<$multiaddr.Multiaddr> ifaceAddrs) {
     final $r = $callSync(
-        15972,
+        15974,
         $W()
           ..list(unspecAddrs, (w0, e0) => w0.val(e0))
           ..list(ifaceAddrs, (w0, e0) => w0.val(e0)));
@@ -439,43 +439,43 @@ extension GoMultiformatsMultiaddrNetApi on GoMultiformatsMultiaddrNet {
 
   /// Go: `func manet.ToIP(addr multiaddr.Multiaddr) (net.IP, error)`.
   Uint8List toIp($multiaddr.Multiaddr addr) {
-    final $r = $callSync(15973, $W()..val(addr));
+    final $r = $callSync(15975, $W()..val(addr));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func manet.ToNetAddr(maddr multiaddr.Multiaddr) (net.Addr, error)`.
   $net.NetAddr toNetAddr($multiaddr.Multiaddr maddr) {
-    final $r = $callSync(15974, $W()..val(maddr));
+    final $r = $callSync(15976, $W()..val(maddr));
     return $r.p() ? $net.NetAddr.$dec($r) : $nil();
   }
 
   /// Go: `var manet.Unroutable4 []*net.IPNet`.
   List<$net.NetIpNet> get unroutable4 {
-    final $r = $callSync(15975);
+    final $r = $callSync(15977);
     return $r.list(() => $r.p() ? $net.NetIpNet.$dec($r) : $nil());
   }
 
   /// Go: `var manet.Unroutable6 []*net.IPNet`.
   List<$net.NetIpNet> get unroutable6 {
-    final $r = $callSync(15976);
+    final $r = $callSync(15978);
     return $r.list(() => $r.p() ? $net.NetIpNet.$dec($r) : $nil());
   }
 
   /// Go: `func manet.WrapNetConn(nconn net.Conn) (manet.Conn, error)`.
   MultiaddrNetConn wrapNetConn($net.NetConn nconn) {
-    final $r = $callSync(15977, $W()..h(nconn));
+    final $r = $callSync(15979, $W()..h(nconn));
     return $r.hnn(MultiaddrNetConn.$h);
   }
 
   /// Go: `func manet.WrapNetListener(nl net.Listener) (manet.Listener, error)`.
   MultiaddrNetListener wrapNetListener($net.NetListener nl) {
-    final $r = $callSync(15978, $W()..h(nl));
+    final $r = $callSync(15980, $W()..h(nl));
     return $r.hnn(MultiaddrNetListener.$h);
   }
 
   /// Go: `func manet.WrapPacketConn(pc net.PacketConn) (manet.PacketConn, error)`.
   MultiaddrNetPacketConn wrapPacketConn($net.NetPacketConn pc) {
-    final $r = $callSync(15979, $W()..h(pc));
+    final $r = $callSync(15981, $W()..h(pc));
     return $r.hnn(MultiaddrNetPacketConn.$h);
   }
 }

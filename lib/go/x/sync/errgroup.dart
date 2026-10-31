@@ -19,7 +19,7 @@ class SyncErrgroupGroup extends GoHandle {
   /// each invocation (a retained callback, WIRE.md).
   Future<void> go(FutureOr<void> Function() f) async {
     await $call(
-        23834,
+        23836,
         $W()
           ..h(this)
           ..cb((r) => f(), true));
@@ -28,7 +28,7 @@ class SyncErrgroupGroup extends GoHandle {
   /// Go: `func (*errgroup.Group).SetLimit(n int)`.
   void setLimit(int n) {
     $callSync(
-        23835,
+        23837,
         $W()
           ..h(this)
           ..i64(n));
@@ -43,7 +43,7 @@ class SyncErrgroupGroup extends GoHandle {
   /// each invocation (a retained callback, WIRE.md).
   Future<bool> tryGo(FutureOr<void> Function() f) async {
     final $r = await $call(
-        23836,
+        23838,
         $W()
           ..h(this)
           ..cb((r) => f(), true));
@@ -52,6 +52,6 @@ class SyncErrgroupGroup extends GoHandle {
 
   /// Go: `func (*errgroup.Group).Wait() error`.
   void wait() {
-    $callSync(23837, $W()..h(this));
+    $callSync(23839, $W()..h(this));
   }
 }

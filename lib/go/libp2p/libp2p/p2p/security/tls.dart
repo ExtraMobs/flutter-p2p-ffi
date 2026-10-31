@@ -25,7 +25,7 @@ class Libp2pP2pSecurityTlsIdentity extends GoHandle {
   factory Libp2pP2pSecurityTlsIdentity($crypto.Libp2pCoreCryptoPrivKey privKey,
       [List<Libp2pP2pSecurityTlsIdentityOption> opts = const []]) {
     final $r = $callSync(
-        15002,
+        15004,
         $W()
           ..h(privKey)
           ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -44,7 +44,7 @@ class Libp2pP2pSecurityTlsTransport extends $sec.Libp2pCoreSecSecureTransport {
 
   /// Go: `func (*libp2ptls.Transport).ID() protocol.ID`.
   String id() {
-    final $r = $callSync(15004, $W()..h(this));
+    final $r = $callSync(15006, $W()..h(this));
     return $r.str();
   }
 
@@ -54,7 +54,7 @@ class Libp2pP2pSecurityTlsTransport extends $sec.Libp2pCoreSecSecureTransport {
   Future<$sec.Libp2pCoreSecSecureConn> secureInbound($context.Context ctx,
       $net.NetConn insecure, $peer.Libp2pCorePeerId p) async {
     final $r = await $call(
-        15005,
+        15007,
         $W()
           ..h(this)
           ..h(ctx)
@@ -69,7 +69,7 @@ class Libp2pP2pSecurityTlsTransport extends $sec.Libp2pCoreSecSecureTransport {
   Future<$sec.Libp2pCoreSecSecureConn> secureOutbound($context.Context ctx,
       $net.NetConn insecure, $peer.Libp2pCorePeerId p) async {
     final $r = await $call(
-        15006,
+        15008,
         $W()
           ..h(this)
           ..h(ctx)
@@ -85,7 +85,7 @@ extension GoLibp2pLibp2pP2pSecurityTlsApi on GoLibp2pLibp2pP2pSecurityTls {
   $pkix.CryptoX509PkixExtension generateSignedExtension(
       $crypto.Libp2pCoreCryptoPrivKey sk, GoHandle pubKey) {
     final $r = $callSync(
-        15000,
+        15002,
         $W()
           ..h(sk)
           ..h(pubKey));
@@ -98,7 +98,7 @@ extension GoLibp2pLibp2pP2pSecurityTlsApi on GoLibp2pLibp2pP2pSecurityTls {
       $crypto.Libp2pCoreCryptoPrivKey key,
       List<$upgrader.Libp2pP2pNetUpgraderStreamMuxer> muxers) {
     final $r = $callSync(
-        15001,
+        15003,
         $W()
           ..str(id)
           ..h(key)
@@ -109,7 +109,7 @@ extension GoLibp2pLibp2pP2pSecurityTlsApi on GoLibp2pLibp2pP2pSecurityTls {
   /// Go: `func libp2ptls.PubKeyFromCertChain(chain []*x509.Certificate) (crypto.PubKey, error)`.
   $crypto.Libp2pCoreCryptoPubKey pubKeyFromCertChain(
       List<$x509.CryptoX509Certificate> chain) {
-    final $r = $callSync(15003, $W()..list(chain, (w0, e0) => w0.dto(e0)));
+    final $r = $callSync(15005, $W()..list(chain, (w0, e0) => w0.dto(e0)));
     return $r.hnn($crypto.Libp2pCoreCryptoPubKey.$h);
   }
 

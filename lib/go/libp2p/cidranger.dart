@@ -18,7 +18,7 @@ mixin CidrangerRanger$ on GoHandle {
   /// Go: `func (cidranger.Ranger).ContainingNetworks(ip net.IP) ([]cidranger.RangerEntry, error)`.
   List<CidrangerRangerEntry> containingNetworks(Uint8List ip) {
     final $r = $callSync(
-        12874,
+        12876,
         $W()
           ..h(this)
           ..bytes(ip));
@@ -28,7 +28,7 @@ mixin CidrangerRanger$ on GoHandle {
   /// Go: `func (cidranger.Ranger).Contains(ip net.IP) (bool, error)`.
   bool contains(Uint8List ip) {
     final $r = $callSync(
-        12875,
+        12877,
         $W()
           ..h(this)
           ..bytes(ip));
@@ -38,7 +38,7 @@ mixin CidrangerRanger$ on GoHandle {
   /// Go: `func (cidranger.Ranger).CoveredNetworks(network net.IPNet) ([]cidranger.RangerEntry, error)`.
   List<CidrangerRangerEntry> coveredNetworks($net.NetIpNet network) {
     final $r = $callSync(
-        12876,
+        12878,
         $W()
           ..h(this)
           ..dto(network));
@@ -48,7 +48,7 @@ mixin CidrangerRanger$ on GoHandle {
   /// Go: `func (cidranger.Ranger).Insert(entry cidranger.RangerEntry) error`.
   void insert(CidrangerRangerEntry entry) {
     $callSync(
-        12877,
+        12879,
         $W()
           ..h(this)
           ..dto(entry));
@@ -56,14 +56,14 @@ mixin CidrangerRanger$ on GoHandle {
 
   /// Go: `func (cidranger.Ranger).Len() int`.
   int len() {
-    final $r = $callSync(12878, $W()..h(this));
+    final $r = $callSync(12880, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (cidranger.Ranger).Remove(network net.IPNet) (cidranger.RangerEntry, error)`.
   CidrangerRangerEntry remove($net.NetIpNet network) {
     final $r = $callSync(
-        12879,
+        12881,
         $W()
           ..h(this)
           ..dto(network));
@@ -110,25 +110,25 @@ class CidrangerErrInvalidNetworkNumberInput extends GolangException {
 extension GoLibp2pCidrangerApi on GoLibp2pCidranger {
   /// Go: `var cidranger.AllIPv4 *net.IPNet`.
   $net.NetIpNet get allIPv4 {
-    final $r = $callSync(12870);
+    final $r = $callSync(12872);
     return $r.p() ? $net.NetIpNet.$dec($r) : $nil();
   }
 
   /// Go: `var cidranger.AllIPv6 *net.IPNet`.
   $net.NetIpNet get allIPv6 {
-    final $r = $callSync(12871);
+    final $r = $callSync(12873);
     return $r.p() ? $net.NetIpNet.$dec($r) : $nil();
   }
 
   /// Go: `func cidranger.NewBasicRangerEntry(ipNet net.IPNet) cidranger.RangerEntry`.
   CidrangerRangerEntry newBasicRangerEntry($net.NetIpNet ipNet) {
-    final $r = $callSync(12872, $W()..dto(ipNet));
+    final $r = $callSync(12874, $W()..dto(ipNet));
     return $r.p() ? CidrangerRangerEntry.$dec($r) : $nil();
   }
 
   /// Go: `func cidranger.NewPCTrieRanger() cidranger.Ranger`.
   CidrangerRanger newPcTrieRanger() {
-    final $r = $callSync(12873);
+    final $r = $callSync(12875);
     return $r.hnn(CidrangerRanger.$h);
   }
 }

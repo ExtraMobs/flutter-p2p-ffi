@@ -25,7 +25,7 @@ mixin MultiaddrDnsBasicResolver$ on GoHandle {
   Future<List<$net.NetIpAddr>> lookupIpAddr(
       $context.Context ctx, String arg1) async {
     final $r = await $call(
-        15814,
+        15816,
         $W()
           ..h(this)
           ..h(ctx)
@@ -38,7 +38,7 @@ mixin MultiaddrDnsBasicResolver$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<List<String>> lookupTxt($context.Context ctx, String arg1) async {
     final $r = await $call(
-        15815,
+        15817,
         $W()
           ..h(this)
           ..h(ctx)
@@ -98,7 +98,7 @@ final class MultiaddrDnsMockResolver implements GoDto {
   Future<List<$net.NetIpAddr>> lookupIpAddr(
       $context.Context ctx, String name) async {
     final $r = await $call(
-        15818,
+        15820,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -111,7 +111,7 @@ final class MultiaddrDnsMockResolver implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<List<String>> lookupTxt($context.Context ctx, String name) async {
     final $r = await $call(
-        15819,
+        15821,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -137,7 +137,7 @@ class MultiaddrDnsResolver extends MultiaddrDnsBasicResolver
 
   /// Go: `func madns.NewResolver(opts ...madns.Option) (*madns.Resolver, error)`.
   factory MultiaddrDnsResolver([List<MultiaddrDnsOption> opts = const []]) {
-    final $r = $callSync(15820, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+    final $r = $callSync(15822, $W()..list(opts, (w0, e0) => w0.opt(e0)));
     return $r.hnn(MultiaddrDnsResolver.$h);
   }
 
@@ -147,7 +147,7 @@ class MultiaddrDnsResolver extends MultiaddrDnsBasicResolver
   Future<List<$net.NetIpAddr>> lookupIpAddr(
       $context.Context ctx, String domain) async {
     final $r = await $call(
-        15823,
+        15825,
         $W()
           ..h(this)
           ..h(ctx)
@@ -160,7 +160,7 @@ class MultiaddrDnsResolver extends MultiaddrDnsBasicResolver
   /// Asynchronous: runs in a goroutine of the service.
   Future<List<String>> lookupTxt($context.Context ctx, String txt) async {
     final $r = await $call(
-        15824,
+        15826,
         $W()
           ..h(this)
           ..h(ctx)
@@ -174,7 +174,7 @@ class MultiaddrDnsResolver extends MultiaddrDnsBasicResolver
   Future<(List<String>, Duration)> lookupTxtWithTtl(
       $context.Context ctx, String domain) async {
     final $r = await $call(
-        15825,
+        15827,
         $W()
           ..h(this)
           ..h(ctx)
@@ -188,7 +188,7 @@ class MultiaddrDnsResolver extends MultiaddrDnsBasicResolver
   Future<List<$multiaddr.Multiaddr>> resolve(
       $context.Context ctx, $multiaddr.Multiaddr maddr) async {
     final $r = await $call(
-        15826,
+        15828,
         $W()
           ..h(this)
           ..h(ctx)
@@ -211,7 +211,7 @@ mixin MultiaddrDnsTxtWithTtlResolver$ on GoHandle {
   Future<(List<String>, Duration)> lookupTxtWithTtl(
       $context.Context ctx, String name) async {
     final $r = await $call(
-        15827,
+        15829,
         $W()
           ..h(this)
           ..h(ctx)
@@ -236,19 +236,19 @@ mixin MultiaddrDnsTxtWithTtlResolver$ on GoHandle {
 extension GoMultiformatsMultiaddrDnsApi on GoMultiformatsMultiaddrDns {
   /// Go: `var madns.DefaultResolver *madns.Resolver`.
   MultiaddrDnsResolver get defaultResolver {
-    final $r = $callSync(15816);
+    final $r = $callSync(15818);
     return $r.hnn(MultiaddrDnsResolver.$h);
   }
 
   /// Go: `func madns.Matches(maddr multiaddr.Multiaddr) (matches bool)`.
   bool matches($multiaddr.Multiaddr maddr) {
-    final $r = $callSync(15817, $W()..val(maddr));
+    final $r = $callSync(15819, $W()..val(maddr));
     return $r.b();
   }
 
   /// Go: `var madns.ResolvableProtocols []multiaddr.Protocol`.
   List<$multiaddr.MultiaddrProtocol> get resolvableProtocols {
-    final $r = $callSync(15821);
+    final $r = $callSync(15823);
     return $r
         .list(() => $r.p() ? $multiaddr.MultiaddrProtocol.$dec($r) : $nil());
   }
@@ -259,7 +259,7 @@ extension GoMultiformatsMultiaddrDnsApi on GoMultiformatsMultiaddrDns {
   Future<List<$multiaddr.Multiaddr>> resolve(
       $context.Context ctx, $multiaddr.Multiaddr maddr) async {
     final $r = await $call(
-        15822,
+        15824,
         $W()
           ..h(ctx)
           ..val(maddr));

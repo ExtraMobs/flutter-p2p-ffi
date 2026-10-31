@@ -10,7 +10,7 @@ extension GoPkgErrorsApi on GoPkgErrors {
   /// Go: `func errors.Errorf(format string, args ...interface{}) error`.
   void errorf(String format, [List<Object?> args = const []]) {
     $callSync(
-        17837,
+        17839,
         $W()
           ..str(format)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -18,6 +18,6 @@ extension GoPkgErrorsApi on GoPkgErrors {
 
   /// Go: `func errors.New(message string) error`.
   void new$(String message) {
-    $callSync(17838, $W()..str(message));
+    $callSync(17840, $W()..str(message));
   }
 }

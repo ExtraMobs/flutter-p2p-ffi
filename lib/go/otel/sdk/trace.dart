@@ -125,51 +125,51 @@ class OtelSdkTraceReadOnlySpan extends GoHandle with OtelSdkTraceReadOnlySpan$ {
 mixin OtelSdkTraceReadOnlySpan$ on GoHandle {
   /// Go: `func (trace.ReadOnlySpan).Attributes() []attribute.KeyValue`.
   List<$attribute.OtelAttributeKeyValue> attributes() {
-    final $r = $callSync(19482, $W()..h(this));
+    final $r = $callSync(19484, $W()..h(this));
     return $r.list(
         () => $r.p() ? $attribute.OtelAttributeKeyValue.$dec($r) : $nil());
   }
 
   /// Go: `func (trace.ReadOnlySpan).ChildSpanCount() int`.
   int childSpanCount() {
-    final $r = $callSync(19483, $W()..h(this));
+    final $r = $callSync(19485, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (trace.ReadOnlySpan).DroppedAttributes() int`.
   int droppedAttributes() {
-    final $r = $callSync(19484, $W()..h(this));
+    final $r = $callSync(19486, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (trace.ReadOnlySpan).DroppedEvents() int`.
   int droppedEvents() {
-    final $r = $callSync(19485, $W()..h(this));
+    final $r = $callSync(19487, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (trace.ReadOnlySpan).DroppedLinks() int`.
   int droppedLinks() {
-    final $r = $callSync(19486, $W()..h(this));
+    final $r = $callSync(19488, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (trace.ReadOnlySpan).EndTime() time.Time`.
   DateTime endTime() {
-    final $r = $callSync(19487, $W()..h(this));
+    final $r = $callSync(19489, $W()..h(this));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func (trace.ReadOnlySpan).Events() []trace.Event`.
   List<OtelSdkTraceEvent> events() {
-    final $r = $callSync(19488, $W()..h(this));
+    final $r = $callSync(19490, $W()..h(this));
     return $r.list(() => $r.p() ? OtelSdkTraceEvent.$dec($r) : $nil());
   }
 
   /// Go: `func (trace.ReadOnlySpan).InstrumentationLibrary() instrumentation.Library`.
   @Deprecated("please use InstrumentationScope instead.")
   $instrumentation.OtelSdkInstrumentationScope instrumentationLibrary() {
-    final $r = $callSync(19489, $W()..h(this));
+    final $r = $callSync(19491, $W()..h(this));
     return $r.p()
         ? $instrumentation.OtelSdkInstrumentationScope.$dec($r)
         : $nil();
@@ -177,7 +177,7 @@ mixin OtelSdkTraceReadOnlySpan$ on GoHandle {
 
   /// Go: `func (trace.ReadOnlySpan).InstrumentationScope() instrumentation.Scope`.
   $instrumentation.OtelSdkInstrumentationScope instrumentationScope() {
-    final $r = $callSync(19490, $W()..h(this));
+    final $r = $callSync(19492, $W()..h(this));
     return $r.p()
         ? $instrumentation.OtelSdkInstrumentationScope.$dec($r)
         : $nil();
@@ -185,49 +185,49 @@ mixin OtelSdkTraceReadOnlySpan$ on GoHandle {
 
   /// Go: `func (trace.ReadOnlySpan).Links() []trace.Link`.
   List<OtelSdkTraceLink> links() {
-    final $r = $callSync(19491, $W()..h(this));
+    final $r = $callSync(19493, $W()..h(this));
     return $r.list(() => $r.p() ? OtelSdkTraceLink.$dec($r) : $nil());
   }
 
   /// Go: `func (trace.ReadOnlySpan).Name() string`.
   String name() {
-    final $r = $callSync(19492, $W()..h(this));
+    final $r = $callSync(19494, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (trace.ReadOnlySpan).Parent() trace.SpanContext`.
   $trace.OtelTraceSpanContext parent() {
-    final $r = $callSync(19493, $W()..h(this));
+    final $r = $callSync(19495, $W()..h(this));
     return $r.hnn($trace.OtelTraceSpanContext.$h);
   }
 
   /// Go: `func (trace.ReadOnlySpan).Resource() *resource.Resource`.
   $resource.OtelSdkResource resource() {
-    final $r = $callSync(19494, $W()..h(this));
+    final $r = $callSync(19496, $W()..h(this));
     return $r.hnn($resource.OtelSdkResource.$h);
   }
 
   /// Go: `func (trace.ReadOnlySpan).SpanContext() trace.SpanContext`.
   $trace.OtelTraceSpanContext spanContext() {
-    final $r = $callSync(19495, $W()..h(this));
+    final $r = $callSync(19497, $W()..h(this));
     return $r.hnn($trace.OtelTraceSpanContext.$h);
   }
 
   /// Go: `func (trace.ReadOnlySpan).SpanKind() trace.SpanKind`.
   int spanKind() {
-    final $r = $callSync(19496, $W()..h(this));
+    final $r = $callSync(19498, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (trace.ReadOnlySpan).StartTime() time.Time`.
   DateTime startTime() {
-    final $r = $callSync(19497, $W()..h(this));
+    final $r = $callSync(19499, $W()..h(this));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func (trace.ReadOnlySpan).Status() trace.Status`.
   OtelSdkTraceStatus status() {
-    final $r = $callSync(19498, $W()..h(this));
+    final $r = $callSync(19500, $W()..h(this));
     return $r.p() ? OtelSdkTraceStatus.$dec($r) : $nil();
   }
 
@@ -257,7 +257,7 @@ class OtelSdkTraceSampler extends GoHandle with OtelSdkTraceSampler$ {
 mixin OtelSdkTraceSampler$ on GoHandle {
   /// Go: `func (trace.Sampler).Description() string`.
   String description() {
-    final $r = $callSync(19499, $W()..h(this));
+    final $r = $callSync(19501, $W()..h(this));
     return $r.str();
   }
 
@@ -265,7 +265,7 @@ mixin OtelSdkTraceSampler$ on GoHandle {
   OtelSdkTraceSamplingResult shouldSample(
       OtelSdkTraceSamplingParameters parameters) {
     final $r = $callSync(
-        19500,
+        19502,
         $W()
           ..h(this)
           ..dto(parameters));
@@ -363,7 +363,7 @@ mixin OtelSdkTraceSpanExporter$ on GoHandle {
   Future<void> exportSpans(
       $context.Context ctx, List<OtelSdkTraceReadOnlySpan> spans) async {
     await $call(
-        19501,
+        19503,
         $W()
           ..h(this)
           ..h(ctx)
@@ -375,7 +375,7 @@ mixin OtelSdkTraceSpanExporter$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> shutdown($context.Context ctx) async {
     await $call(
-        19502,
+        19504,
         $W()
           ..h(this)
           ..h(ctx));
@@ -470,7 +470,7 @@ mixin OtelSdkTraceSpanProcessor$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> forceFlush($context.Context ctx) async {
     await $call(
-        19503,
+        19505,
         $W()
           ..h(this)
           ..h(ctx));
@@ -479,7 +479,7 @@ mixin OtelSdkTraceSpanProcessor$ on GoHandle {
   /// Go: `func (trace.SpanProcessor).OnEnd(s trace.ReadOnlySpan)`.
   void onEnd(OtelSdkTraceReadOnlySpan s) {
     $callSync(
-        19504,
+        19506,
         $W()
           ..h(this)
           ..h(s));
@@ -491,7 +491,7 @@ mixin OtelSdkTraceSpanProcessor$ on GoHandle {
   Future<void> onStart(
       $context.Context parent, OtelSdkTraceReadWriteSpan s) async {
     await $call(
-        19505,
+        19507,
         $W()
           ..h(this)
           ..h(parent)
@@ -503,7 +503,7 @@ mixin OtelSdkTraceSpanProcessor$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> shutdown($context.Context ctx) async {
     await $call(
-        19506,
+        19508,
         $W()
           ..h(this)
           ..h(ctx));
@@ -548,7 +548,7 @@ class OtelSdkTraceTracerProvider extends $trace.OtelTraceTracerProvider {
   /// Go: `func trace.NewTracerProvider(opts ...trace.TracerProviderOption) *trace.TracerProvider`.
   factory OtelSdkTraceTracerProvider(
       [List<OtelSdkTraceTracerProviderOption> opts = const []]) {
-    final $r = $callSync(19480, $W()..list(opts, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(19482, $W()..list(opts, (w0, e0) => w0.h(e0)));
     return $r.hnn(OtelSdkTraceTracerProvider.$h);
   }
 
@@ -557,7 +557,7 @@ class OtelSdkTraceTracerProvider extends $trace.OtelTraceTracerProvider {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> forceFlush($context.Context ctx) async {
     await $call(
-        19508,
+        19510,
         $W()
           ..h(this)
           ..h(ctx));
@@ -566,7 +566,7 @@ class OtelSdkTraceTracerProvider extends $trace.OtelTraceTracerProvider {
   /// Go: `func (*trace.TracerProvider).RegisterSpanProcessor(sp trace.SpanProcessor)`.
   void registerSpanProcessor(OtelSdkTraceSpanProcessor sp) {
     $callSync(
-        19509,
+        19511,
         $W()
           ..h(this)
           ..h(sp));
@@ -577,7 +577,7 @@ class OtelSdkTraceTracerProvider extends $trace.OtelTraceTracerProvider {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> shutdown($context.Context ctx) async {
     await $call(
-        19510,
+        19512,
         $W()
           ..h(this)
           ..h(ctx));
@@ -587,7 +587,7 @@ class OtelSdkTraceTracerProvider extends $trace.OtelTraceTracerProvider {
   $trace.OtelTraceTracer tracer(String name,
       [List<$trace.OtelTraceTracerOption> opts = const []]) {
     final $r = $callSync(
-        19511,
+        19513,
         $W()
           ..h(this)
           ..str(name)
@@ -598,7 +598,7 @@ class OtelSdkTraceTracerProvider extends $trace.OtelTraceTracerProvider {
   /// Go: `func (*trace.TracerProvider).UnregisterSpanProcessor(sp trace.SpanProcessor)`.
   void unregisterSpanProcessor(OtelSdkTraceSpanProcessor sp) {
     $callSync(
-        19512,
+        19514,
         $W()
           ..h(this)
           ..h(sp));
@@ -618,19 +618,19 @@ mixin OtelSdkTraceTracerProviderOption$ on GoHandle {}
 extension GoOtelSdkTraceApi on GoOtelSdkTrace {
   /// Go: `func trace.AlwaysRecord(root trace.Sampler) trace.Sampler`.
   OtelSdkTraceSampler alwaysRecord(OtelSdkTraceSampler root) {
-    final $r = $callSync(19474, $W()..h(root));
+    final $r = $callSync(19476, $W()..h(root));
     return $r.hnn(OtelSdkTraceSampler.$h);
   }
 
   /// Go: `func trace.AlwaysSample() trace.Sampler`.
   OtelSdkTraceSampler alwaysSample() {
-    final $r = $callSync(19475);
+    final $r = $callSync(19477);
     return $r.hnn(OtelSdkTraceSampler.$h);
   }
 
   /// Go: `func trace.NeverSample() trace.Sampler`.
   OtelSdkTraceSampler neverSample() {
-    final $r = $callSync(19476);
+    final $r = $callSync(19478);
     return $r.hnn(OtelSdkTraceSampler.$h);
   }
 
@@ -639,7 +639,7 @@ extension GoOtelSdkTraceApi on GoOtelSdkTrace {
       OtelSdkTraceSpanExporter exporter,
       [List<OtelSdkTraceBatchSpanProcessorOption> options = const []]) {
     final $r = $callSync(
-        19477,
+        19479,
         $W()
           ..h(exporter)
           ..list(options, (w0, e0) => w0.opt(e0)));
@@ -649,13 +649,13 @@ extension GoOtelSdkTraceApi on GoOtelSdkTrace {
   /// Go: `func trace.NewSimpleSpanProcessor(exporter trace.SpanExporter) trace.SpanProcessor`.
   OtelSdkTraceSpanProcessor newSimpleSpanProcessor(
       OtelSdkTraceSpanExporter exporter) {
-    final $r = $callSync(19478, $W()..h(exporter));
+    final $r = $callSync(19480, $W()..h(exporter));
     return $r.hnn(OtelSdkTraceSpanProcessor.$h);
   }
 
   /// Go: `func trace.NewSpanLimits() trace.SpanLimits`.
   OtelSdkTraceSpanLimits newSpanLimits() {
-    final $r = $callSync(19479);
+    final $r = $callSync(19481);
     return $r.p() ? OtelSdkTraceSpanLimits.$dec($r) : $nil();
   }
 
@@ -663,7 +663,7 @@ extension GoOtelSdkTraceApi on GoOtelSdkTrace {
   OtelSdkTraceSampler parentBased(OtelSdkTraceSampler root,
       [List<OtelSdkTraceParentBasedSamplerOption> samplers = const []]) {
     final $r = $callSync(
-        19481,
+        19483,
         $W()
           ..h(root)
           ..list(samplers, (w0, e0) => w0.h(e0)));
@@ -672,7 +672,7 @@ extension GoOtelSdkTraceApi on GoOtelSdkTrace {
 
   /// Go: `func trace.TraceIDRatioBased(fraction float64) trace.Sampler`.
   OtelSdkTraceSampler traceIdRatioBased(double fraction) {
-    final $r = $callSync(19507, $W()..f64(fraction));
+    final $r = $callSync(19509, $W()..f64(fraction));
     return $r.hnn(OtelSdkTraceSampler.$h);
   }
 }
@@ -750,7 +750,7 @@ extension GoOtelSdkTraceOptionsApi on GoOtelSdkTraceOptions {
   OtelSdkTraceTracerProviderOption withBatcher(OtelSdkTraceSpanExporter e,
       [List<OtelSdkTraceBatchSpanProcessorOption> opts = const []]) {
     final $r = $callSync(
-        19513,
+        19515,
         $W()
           ..h(e)
           ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -759,54 +759,54 @@ extension GoOtelSdkTraceOptionsApi on GoOtelSdkTraceOptions {
 
   /// Go: `func trace.WithIDGenerator(g trace.IDGenerator) trace.TracerProviderOption`.
   OtelSdkTraceTracerProviderOption withIdGenerator(OtelSdkTraceIdGenerator g) {
-    final $r = $callSync(19514, $W()..h(g));
+    final $r = $callSync(19516, $W()..h(g));
     return $r.hnn(OtelSdkTraceTracerProviderOption.$h);
   }
 
   /// Go: `func trace.WithLocalParentNotSampled(s trace.Sampler) trace.ParentBasedSamplerOption`.
   OtelSdkTraceParentBasedSamplerOption withLocalParentNotSampled(
       OtelSdkTraceSampler s) {
-    final $r = $callSync(19515, $W()..h(s));
+    final $r = $callSync(19517, $W()..h(s));
     return $r.hnn(OtelSdkTraceParentBasedSamplerOption.$h);
   }
 
   /// Go: `func trace.WithLocalParentSampled(s trace.Sampler) trace.ParentBasedSamplerOption`.
   OtelSdkTraceParentBasedSamplerOption withLocalParentSampled(
       OtelSdkTraceSampler s) {
-    final $r = $callSync(19516, $W()..h(s));
+    final $r = $callSync(19518, $W()..h(s));
     return $r.hnn(OtelSdkTraceParentBasedSamplerOption.$h);
   }
 
   /// Go: `func trace.WithRawSpanLimits(limits trace.SpanLimits) trace.TracerProviderOption`.
   OtelSdkTraceTracerProviderOption withRawSpanLimits(
       OtelSdkTraceSpanLimits limits) {
-    final $r = $callSync(19517, $W()..dto(limits));
+    final $r = $callSync(19519, $W()..dto(limits));
     return $r.hnn(OtelSdkTraceTracerProviderOption.$h);
   }
 
   /// Go: `func trace.WithRemoteParentNotSampled(s trace.Sampler) trace.ParentBasedSamplerOption`.
   OtelSdkTraceParentBasedSamplerOption withRemoteParentNotSampled(
       OtelSdkTraceSampler s) {
-    final $r = $callSync(19518, $W()..h(s));
+    final $r = $callSync(19520, $W()..h(s));
     return $r.hnn(OtelSdkTraceParentBasedSamplerOption.$h);
   }
 
   /// Go: `func trace.WithRemoteParentSampled(s trace.Sampler) trace.ParentBasedSamplerOption`.
   OtelSdkTraceParentBasedSamplerOption withRemoteParentSampled(
       OtelSdkTraceSampler s) {
-    final $r = $callSync(19519, $W()..h(s));
+    final $r = $callSync(19521, $W()..h(s));
     return $r.hnn(OtelSdkTraceParentBasedSamplerOption.$h);
   }
 
   /// Go: `func trace.WithResource(r *resource.Resource) trace.TracerProviderOption`.
   OtelSdkTraceTracerProviderOption withResource($resource.OtelSdkResource r) {
-    final $r = $callSync(19520, $W()..h(r));
+    final $r = $callSync(19522, $W()..h(r));
     return $r.hnn(OtelSdkTraceTracerProviderOption.$h);
   }
 
   /// Go: `func trace.WithSampler(s trace.Sampler) trace.TracerProviderOption`.
   OtelSdkTraceTracerProviderOption withSampler(OtelSdkTraceSampler s) {
-    final $r = $callSync(19521, $W()..h(s));
+    final $r = $callSync(19523, $W()..h(s));
     return $r.hnn(OtelSdkTraceTracerProviderOption.$h);
   }
 
@@ -814,26 +814,26 @@ extension GoOtelSdkTraceOptionsApi on GoOtelSdkTraceOptions {
   @Deprecated(
       "Use WithRawSpanLimits instead which allows setting unlimited and zero limits. This option will be kept until the next major version incremented release.")
   OtelSdkTraceTracerProviderOption withSpanLimits(OtelSdkTraceSpanLimits sl) {
-    final $r = $callSync(19522, $W()..dto(sl));
+    final $r = $callSync(19524, $W()..dto(sl));
     return $r.hnn(OtelSdkTraceTracerProviderOption.$h);
   }
 
   /// Go: `func trace.WithSpanProcessor(sp trace.SpanProcessor) trace.TracerProviderOption`.
   OtelSdkTraceTracerProviderOption withSpanProcessor(
       OtelSdkTraceSpanProcessor sp) {
-    final $r = $callSync(19523, $W()..h(sp));
+    final $r = $callSync(19525, $W()..h(sp));
     return $r.hnn(OtelSdkTraceTracerProviderOption.$h);
   }
 
   /// Go: `func trace.WithSyncer(e trace.SpanExporter) trace.TracerProviderOption`.
   OtelSdkTraceTracerProviderOption withSyncer(OtelSdkTraceSpanExporter e) {
-    final $r = $callSync(19524, $W()..h(e));
+    final $r = $callSync(19526, $W()..h(e));
     return $r.hnn(OtelSdkTraceTracerProviderOption.$h);
   }
 
   /// Go: `func trace.WithoutPanicRecording() trace.TracerProviderOption`.
   OtelSdkTraceTracerProviderOption withoutPanicRecording() {
-    final $r = $callSync(19525);
+    final $r = $callSync(19527);
     return $r.hnn(OtelSdkTraceTracerProviderOption.$h);
   }
 }

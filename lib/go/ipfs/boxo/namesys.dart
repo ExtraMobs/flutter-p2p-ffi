@@ -229,17 +229,22 @@ final class BoxoNamesysPublishOption extends GoOption {
 }
 
 /// Go: `namesys.PublishOptions`.
-///
-/// Fields that do not cross the bridge: `IPNSOptions` (functional options: they cross only as call arguments).
 final class BoxoNamesysPublishOptions implements GoDto {
-  BoxoNamesysPublishOptions({DateTime? eol, Duration? ttl, int? sequence})
+  BoxoNamesysPublishOptions(
+      {DateTime? eol,
+      Duration? ttl,
+      List<$ipns.BoxoIpnsOption>? ipnsOptions,
+      int? sequence})
       : eol = eol,
         ttl = ttl ?? Duration.zero,
+        ipnsOptions = ipnsOptions ?? [],
         sequence = sequence;
 
   BoxoNamesysPublishOptions.$dec($R r)
       : eol = r.p() ? r.time() : null,
         ttl = Duration(microseconds: r.i64() ~/ 1000),
+        ipnsOptions =
+            r.list(() => $ipns.BoxoIpnsOption.$($optHandle, $optOf(r))),
         sequence = r.p() ? r.i64() : null;
 
   /// Go: `EOL`.
@@ -247,6 +252,9 @@ final class BoxoNamesysPublishOptions implements GoDto {
 
   /// Go: `TTL`.
   Duration ttl;
+
+  /// Go: `IPNSOptions`.
+  List<$ipns.BoxoIpnsOption> ipnsOptions;
 
   /// Go: `Sequence`.
   int? sequence;
@@ -256,6 +264,7 @@ final class BoxoNamesysPublishOptions implements GoDto {
     w
       ..time(eol)
       ..i64((ttl).inMicroseconds * 1000)
+      ..list(ipnsOptions, (w0, e0) => w0.opt(e0))
       ..ptr(sequence, (w0, v0) => w0.i64(v0));
   }
 }

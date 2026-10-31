@@ -39,19 +39,19 @@ class Libp2pKadDhtProviderDualSweepingProvider
 
   /// Go: `func (*dual.SweepingProvider).Clear() int`.
   int clear() {
-    final $r = $callSync(13061, $W()..h(this));
+    final $r = $callSync(13063, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*dual.SweepingProvider).Close() error`.
   void close() {
-    $callSync(13062, $W()..h(this));
+    $callSync(13064, $W()..h(this));
   }
 
   /// Go: `func (*dual.SweepingProvider).ProvideOnce(keys ...multihash.Multihash) error`.
   void provideOnce([List<Uint8List> keys = const []]) {
     $callSync(
-        13063,
+        13065,
         $W()
           ..h(this)
           ..list(keys, (w0, e0) => w0.bytes(e0)));
@@ -59,13 +59,13 @@ class Libp2pKadDhtProviderDualSweepingProvider
 
   /// Go: `func (*dual.SweepingProvider).RefreshSchedule() error`.
   void refreshSchedule() {
-    $callSync(13064, $W()..h(this));
+    $callSync(13066, $W()..h(this));
   }
 
   /// Go: `func (*dual.SweepingProvider).StartProviding(force bool, keys ...multihash.Multihash) error`.
   void startProviding(bool force, [List<Uint8List> keys = const []]) {
     $callSync(
-        13065,
+        13067,
         $W()
           ..h(this)
           ..b(force)
@@ -75,7 +75,7 @@ class Libp2pKadDhtProviderDualSweepingProvider
   /// Go: `func (*dual.SweepingProvider).StopProviding(keys ...multihash.Multihash) error`.
   void stopProviding([List<Uint8List> keys = const []]) {
     $callSync(
-        13066,
+        13068,
         $W()
           ..h(this)
           ..list(keys, (w0, e0) => w0.bytes(e0)));
@@ -87,13 +87,13 @@ extension GoLibp2pLibp2pKadDhtProviderDualApi
     on GoLibp2pLibp2pKadDhtProviderDual {
   /// Go: `var dual.DefaultLoggerNameLAN string`.
   String get defaultLoggerNameLan {
-    final $r = $callSync(13058);
+    final $r = $callSync(13060);
     return $r.str();
   }
 
   /// Go: `var dual.DefaultLoggerNameWAN string`.
   String get defaultLoggerNameWan {
-    final $r = $callSync(13059);
+    final $r = $callSync(13061);
     return $r.str();
   }
 
@@ -101,7 +101,7 @@ extension GoLibp2pLibp2pKadDhtProviderDualApi
   Libp2pKadDhtProviderDualSweepingProvider new$($dual.Libp2pKadDhtDualDht d,
       [List<Libp2pKadDhtProviderDualOption> opts = const []]) {
     final $r = $callSync(
-        13060,
+        13062,
         $W()
           ..dto(d)
           ..list(opts, (w0, e0) => w0.opt(e0)));

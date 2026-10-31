@@ -102,7 +102,7 @@ class GoDocPackage extends GoHandle {
   /// each invocation (a retained callback, WIRE.md).
   Future<void> filter(FutureOr<bool> Function(String arg0) f) async {
     await $call(
-        23222,
+        23224,
         $W()
           ..h(this)
           ..cb((r) => f(r.str()), true));
@@ -111,7 +111,7 @@ class GoDocPackage extends GoHandle {
   /// Go: `func (*doc.Package).HTML(text string) []byte`.
   Uint8List html(String text) {
     final $r = $callSync(
-        23223,
+        23225,
         $W()
           ..h(this)
           ..str(text));
@@ -121,7 +121,7 @@ class GoDocPackage extends GoHandle {
   /// Go: `func (*doc.Package).Markdown(text string) []byte`.
   Uint8List markdown(String text) {
     final $r = $callSync(
-        23224,
+        23226,
         $W()
           ..h(this)
           ..str(text));
@@ -130,20 +130,20 @@ class GoDocPackage extends GoHandle {
 
   /// Go: `func (*doc.Package).Parser() *comment.Parser`.
   $comment.GoDocCommentParser parser() {
-    final $r = $callSync(23225, $W()..h(this));
+    final $r = $callSync(23227, $W()..h(this));
     return $r.p() ? $comment.GoDocCommentParser.$dec($r) : $nil();
   }
 
   /// Go: `func (*doc.Package).Printer() *comment.Printer`.
   $comment.GoDocCommentPrinter printer() {
-    final $r = $callSync(23226, $W()..h(this));
+    final $r = $callSync(23228, $W()..h(this));
     return $r.p() ? $comment.GoDocCommentPrinter.$dec($r) : $nil();
   }
 
   /// Go: `func (*doc.Package).Synopsis(text string) string`.
   String synopsis(String text) {
     final $r = $callSync(
-        23227,
+        23229,
         $W()
           ..h(this)
           ..str(text));
@@ -153,7 +153,7 @@ class GoDocPackage extends GoHandle {
   /// Go: `func (*doc.Package).Text(text string) []byte`.
   Uint8List text(String text) {
     final $r = $callSync(
-        23228,
+        23230,
         $W()
           ..h(this)
           ..str(text));
@@ -165,26 +165,26 @@ class GoDocPackage extends GoHandle {
 extension GoGoDocApi on GoGoDoc {
   /// Go: `func doc.Examples(testFiles ...*ast.File) []*doc.Example`.
   List<GoDocExample> examples([List<$ast.GoAstFile> testFiles = const []]) {
-    final $r = $callSync(23217, $W()..list(testFiles, (w0, e0) => w0.dto(e0)));
+    final $r = $callSync(23219, $W()..list(testFiles, (w0, e0) => w0.dto(e0)));
     return $r.list(() => $r.p() ? GoDocExample.$dec($r) : $nil());
   }
 
   /// Go: `var doc.IllegalPrefixes []string`.
   List<String> get illegalPrefixes {
-    final $r = $callSync(23218);
+    final $r = $callSync(23220);
     return $r.list(() => $r.str());
   }
 
   /// Go: `func doc.IsPredeclared(s string) bool`.
   bool isPredeclared(String s) {
-    final $r = $callSync(23219, $W()..str(s));
+    final $r = $callSync(23221, $W()..str(s));
     return $r.b();
   }
 
   /// Go: `func doc.New(pkg *ast.Package, importPath string, mode doc.Mode) *doc.Package`.
   GoDocPackage new$($ast.GoAstPackage pkg, String importPath, int mode) {
     final $r = $callSync(
-        23220,
+        23222,
         $W()
           ..dto(pkg)
           ..str(importPath)
@@ -197,7 +197,7 @@ extension GoGoDocApi on GoGoDoc {
       $token.GoTokenFileSet fset, List<$ast.GoAstFile> files, String importPath,
       [List<Object?> opts = const []]) {
     final $r = $callSync(
-        23221,
+        23223,
         $W()
           ..h(fset)
           ..list(files, (w0, e0) => w0.dto(e0))
@@ -210,7 +210,7 @@ extension GoGoDocApi on GoGoDoc {
   @Deprecated(
       "New programs should use [Package.Synopsis] instead, which handles links in text properly.")
   String synopsis(String text) {
-    final $r = $callSync(23229, $W()..str(text));
+    final $r = $callSync(23231, $W()..str(text));
     return $r.str();
   }
 
@@ -219,7 +219,7 @@ extension GoGoDocApi on GoGoDoc {
       "ToHTML cannot identify documentation links in the doc comment, because they depend on knowing what package the text came from, which is not included in this API.")
   void toHtml(GoHandle? w, String text, Map<String, String> words) {
     $callSync(
-        23230,
+        23232,
         $W()
           ..h(w)
           ..str(text)
@@ -232,7 +232,7 @@ extension GoGoDocApi on GoGoDoc {
   void toText(
       GoHandle? w, String text, String prefix, String codePrefix, int width) {
     $callSync(
-        23231,
+        23233,
         $W()
           ..h(w)
           ..str(text)

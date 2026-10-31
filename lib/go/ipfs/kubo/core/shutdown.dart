@@ -20,7 +20,7 @@ extension GoIpfsKuboCoreShutdownApi on GoIpfsKuboCoreShutdown {
   Future<void> closeWithCtx($context.Context ctx, String name,
       FutureOr<void> Function() close) async {
     await $call(
-        11679,
+        11681,
         $W()
           ..h(ctx)
           ..str(name)
@@ -29,19 +29,19 @@ extension GoIpfsKuboCoreShutdownApi on GoIpfsKuboCoreShutdown {
 
   /// Go: `func shutdown.InProgress() bool`.
   bool inProgress() {
-    final $r = $callSync(11680);
+    final $r = $callSync(11682);
     return $r.b();
   }
 
   /// Go: `func shutdown.MarkStarted() bool`.
   bool markStarted() {
-    final $r = $callSync(11681);
+    final $r = $callSync(11683);
     return $r.b();
   }
 
   /// Go: `func shutdown.StartedAt() time.Time`.
   DateTime startedAt() {
-    final $r = $callSync(11682);
+    final $r = $callSync(11684);
     return $r.p() ? $r.time() : $nil();
   }
 }

@@ -22,7 +22,7 @@ class DohResolver extends $multiaddr_dns.MultiaddrDnsBasicResolver
   /// Go: `func doh.NewResolver(url string, opts ...doh.Option) (*doh.Resolver, error)`.
   factory DohResolver(String url, [List<DohResolverOption> opts = const []]) {
     final $r = $callSync(
-        12891,
+        12893,
         $W()
           ..str(url)
           ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -35,7 +35,7 @@ class DohResolver extends $multiaddr_dns.MultiaddrDnsBasicResolver
   Future<List<$net.NetIpAddr>> lookupIpAddr(
       $context.Context ctx, String domain) async {
     final $r = await $call(
-        12892,
+        12894,
         $W()
           ..h(this)
           ..h(ctx)
@@ -48,7 +48,7 @@ class DohResolver extends $multiaddr_dns.MultiaddrDnsBasicResolver
   /// Asynchronous: runs in a goroutine of the service.
   Future<List<String>> lookupTxt($context.Context ctx, String domain) async {
     final $r = await $call(
-        12893,
+        12895,
         $W()
           ..h(this)
           ..h(ctx)
@@ -62,7 +62,7 @@ class DohResolver extends $multiaddr_dns.MultiaddrDnsBasicResolver
   Future<(List<String>, Duration)> lookupTxtWithTtl(
       $context.Context ctx, String domain) async {
     final $r = await $call(
-        12894,
+        12896,
         $W()
           ..h(this)
           ..h(ctx)

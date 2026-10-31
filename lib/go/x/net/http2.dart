@@ -28,13 +28,13 @@ class NetHttp2ClientConn extends $driver.DatabaseSqlDriverPinger
 
   /// Go: `func (*http2.ClientConn).CanTakeNewRequest() bool`.
   bool canTakeNewRequest() {
-    final $r = $callSync(23506, $W()..h(this));
+    final $r = $callSync(23508, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*http2.ClientConn).Close() error`.
   void close() {
-    $callSync(23507, $W()..h(this));
+    $callSync(23509, $W()..h(this));
   }
 
   /// Go: `func (*http2.ClientConn).Ping(ctx context.Context) error`.
@@ -42,7 +42,7 @@ class NetHttp2ClientConn extends $driver.DatabaseSqlDriverPinger
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> ping($context.Context ctx) async {
     await $call(
-        23508,
+        23510,
         $W()
           ..h(this)
           ..h(ctx));
@@ -50,14 +50,14 @@ class NetHttp2ClientConn extends $driver.DatabaseSqlDriverPinger
 
   /// Go: `func (*http2.ClientConn).ReserveNewRequest() bool`.
   bool reserveNewRequest() {
-    final $r = $callSync(23509, $W()..h(this));
+    final $r = $callSync(23511, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*http2.ClientConn).RoundTrip(req *http.Request) (*http.Response, error)`.
   $http.NetHttpResponse roundTrip($http.NetHttpRequest req) {
     final $r = $callSync(
-        23510,
+        23512,
         $W()
           ..h(this)
           ..h(req));
@@ -66,7 +66,7 @@ class NetHttp2ClientConn extends $driver.DatabaseSqlDriverPinger
 
   /// Go: `func (*http2.ClientConn).SetDoNotReuse()`.
   void setDoNotReuse() {
-    $callSync(23511, $W()..h(this));
+    $callSync(23513, $W()..h(this));
   }
 
   /// Go: `func (*http2.ClientConn).Shutdown(ctx context.Context) error`.
@@ -74,7 +74,7 @@ class NetHttp2ClientConn extends $driver.DatabaseSqlDriverPinger
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> shutdown($context.Context ctx) async {
     await $call(
-        23512,
+        23514,
         $W()
           ..h(this)
           ..h(ctx));
@@ -82,7 +82,7 @@ class NetHttp2ClientConn extends $driver.DatabaseSqlDriverPinger
 
   /// Go: `func (*http2.ClientConn).State() http2.ClientConnState`.
   NetHttp2ClientConnState state() {
-    final $r = $callSync(23513, $W()..h(this));
+    final $r = $callSync(23515, $W()..h(this));
     return $r.p() ? NetHttp2ClientConnState.$dec($r) : $nil();
   }
 }
@@ -99,7 +99,7 @@ mixin NetHttp2ClientConnPool$ on GoHandle {
   /// Go: `func (http2.ClientConnPool).GetClientConn(req *http.Request, addr string) (*http2.ClientConn, error)`.
   NetHttp2ClientConn getClientConn($http.NetHttpRequest req, String addr) {
     final $r = $callSync(
-        23514,
+        23516,
         $W()
           ..h(this)
           ..h(req)
@@ -110,7 +110,7 @@ mixin NetHttp2ClientConnPool$ on GoHandle {
   /// Go: `func (http2.ClientConnPool).MarkDead(*http2.ClientConn)`.
   void markDead(NetHttp2ClientConn clientConn) {
     $callSync(
-        23515,
+        23517,
         $W()
           ..h(this)
           ..h(clientConn));
@@ -185,25 +185,25 @@ class NetHttp2ContinuationFrame extends NetHttp2Frame {
 
   /// Go: `func (http2.FrameHeader).Header() http2.FrameHeader`.
   NetHttp2FrameHeader header() {
-    final $r = $callSync(23519, $W()..h(this));
+    final $r = $callSync(23521, $W()..h(this));
     return $r.hnn(NetHttp2FrameHeader.$h);
   }
 
   /// Go: `func (*http2.ContinuationFrame).HeaderBlockFragment() []byte`.
   Uint8List headerBlockFragment() {
-    final $r = $callSync(23520, $W()..h(this));
+    final $r = $callSync(23522, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*http2.ContinuationFrame).HeadersEnded() bool`.
   bool headersEnded() {
-    final $r = $callSync(23521, $W()..h(this));
+    final $r = $callSync(23523, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (http2.FrameHeader).String() string`.
   String string() {
-    final $r = $callSync(23522, $W()..h(this));
+    final $r = $callSync(23524, $W()..h(this));
     return $r.str();
   }
 }
@@ -214,25 +214,25 @@ class NetHttp2DataFrame extends NetHttp2Frame {
 
   /// Go: `func (*http2.DataFrame).Data() []byte`.
   Uint8List data() {
-    final $r = $callSync(23523, $W()..h(this));
+    final $r = $callSync(23525, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (http2.FrameHeader).Header() http2.FrameHeader`.
   NetHttp2FrameHeader header() {
-    final $r = $callSync(23524, $W()..h(this));
+    final $r = $callSync(23526, $W()..h(this));
     return $r.hnn(NetHttp2FrameHeader.$h);
   }
 
   /// Go: `func (*http2.DataFrame).StreamEnded() bool`.
   bool streamEnded() {
-    final $r = $callSync(23525, $W()..h(this));
+    final $r = $callSync(23527, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (http2.FrameHeader).String() string`.
   String string() {
-    final $r = $callSync(23526, $W()..h(this));
+    final $r = $callSync(23528, $W()..h(this));
     return $r.str();
   }
 }
@@ -246,7 +246,7 @@ class NetHttp2Frame extends GoHandle with NetHttp2Frame$ {
 mixin NetHttp2Frame$ on GoHandle {
   /// Go: `func (http2.Frame).Header() http2.FrameHeader`.
   NetHttp2FrameHeader header() {
-    final $r = $callSync(23528, $W()..h(this));
+    final $r = $callSync(23530, $W()..h(this));
     return $r.hnn(NetHttp2FrameHeader.$h);
   }
 
@@ -305,13 +305,13 @@ class NetHttp2FrameHeader extends NetHttp2Frame {
 
   /// Go: `func (http2.FrameHeader).Header() http2.FrameHeader`.
   NetHttp2FrameHeader header() {
-    final $r = $callSync(23529, $W()..h(this));
+    final $r = $callSync(23531, $W()..h(this));
     return $r.hnn(NetHttp2FrameHeader.$h);
   }
 
   /// Go: `func (http2.FrameHeader).String() string`.
   String string() {
-    final $r = $callSync(23530, $W()..h(this));
+    final $r = $callSync(23532, $W()..h(this));
     return $r.str();
   }
 }
@@ -324,7 +324,7 @@ class NetHttp2FrameWriteRequest extends GoHandle {
   /// Go: `func (http2.FrameWriteRequest).Consume(n int32) (http2.FrameWriteRequest, http2.FrameWriteRequest, int)`.
   (NetHttp2FrameWriteRequest, NetHttp2FrameWriteRequest, int) consume(int n) {
     final $r = $callSync(
-        23531,
+        23533,
         $W()
           ..h(this)
           ..i64(n));
@@ -337,19 +337,19 @@ class NetHttp2FrameWriteRequest extends GoHandle {
 
   /// Go: `func (http2.FrameWriteRequest).DataSize() int`.
   int dataSize() {
-    final $r = $callSync(23532, $W()..h(this));
+    final $r = $callSync(23534, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (http2.FrameWriteRequest).StreamID() uint32`.
   int streamId() {
-    final $r = $callSync(23533, $W()..h(this));
+    final $r = $callSync(23535, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (http2.FrameWriteRequest).String() string`.
   String string() {
-    final $r = $callSync(23534, $W()..h(this));
+    final $r = $callSync(23536, $W()..h(this));
     return $r.str();
   }
 }
@@ -361,7 +361,7 @@ class NetHttp2Framer extends GoHandle {
   /// Go: `func http2.NewFramer(w io.Writer, r io.Reader) *http2.Framer`.
   factory NetHttp2Framer(GoHandle? w, Object r) {
     final $r = $callSync(
-        23572,
+        23574,
         $W()
           ..h(w)
           ..reader(r));
@@ -370,19 +370,19 @@ class NetHttp2Framer extends GoHandle {
 
   /// Go: `func (*http2.Framer).ErrorDetail() error`.
   void errorDetail() {
-    $callSync(23535, $W()..h(this));
+    $callSync(23537, $W()..h(this));
   }
 
   /// Go: `func (*http2.Framer).ReadFrame() (http2.Frame, error)`.
   NetHttp2Frame readFrame() {
-    final $r = $callSync(23536, $W()..h(this));
+    final $r = $callSync(23538, $W()..h(this));
     return $r.hnn(NetHttp2Frame.$h);
   }
 
   /// Go: `func (*http2.Framer).ReadFrameForHeader(fh http2.FrameHeader) (http2.Frame, error)`.
   NetHttp2Frame readFrameForHeader(NetHttp2FrameHeader fh) {
     final $r = $callSync(
-        23537,
+        23539,
         $W()
           ..h(this)
           ..h(fh));
@@ -391,14 +391,14 @@ class NetHttp2Framer extends GoHandle {
 
   /// Go: `func (*http2.Framer).ReadFrameHeader() (http2.FrameHeader, error)`.
   NetHttp2FrameHeader readFrameHeader() {
-    final $r = $callSync(23538, $W()..h(this));
+    final $r = $callSync(23540, $W()..h(this));
     return $r.hnn(NetHttp2FrameHeader.$h);
   }
 
   /// Go: `func (*http2.Framer).SetMaxReadFrameSize(v uint32)`.
   void setMaxReadFrameSize(int v) {
     $callSync(
-        23539,
+        23541,
         $W()
           ..h(this)
           ..i64(v));
@@ -406,14 +406,14 @@ class NetHttp2Framer extends GoHandle {
 
   /// Go: `func (*http2.Framer).SetReuseFrames()`.
   void setReuseFrames() {
-    $callSync(23540, $W()..h(this));
+    $callSync(23542, $W()..h(this));
   }
 
   /// Go: `func (*http2.Framer).WriteContinuation(streamID uint32, endHeaders bool, headerBlockFragment []byte) error`.
   void writeContinuation(
       int streamId, bool endHeaders, Uint8List headerBlockFragment) {
     $callSync(
-        23541,
+        23543,
         $W()
           ..h(this)
           ..i64(streamId)
@@ -424,7 +424,7 @@ class NetHttp2Framer extends GoHandle {
   /// Go: `func (*http2.Framer).WriteData(streamID uint32, endStream bool, data []byte) error`.
   void writeData(int streamId, bool endStream, Uint8List data) {
     $callSync(
-        23542,
+        23544,
         $W()
           ..h(this)
           ..i64(streamId)
@@ -436,7 +436,7 @@ class NetHttp2Framer extends GoHandle {
   void writeDataPadded(
       int streamId, bool endStream, Uint8List data, Uint8List pad) {
     $callSync(
-        23543,
+        23545,
         $W()
           ..h(this)
           ..i64(streamId)
@@ -448,7 +448,7 @@ class NetHttp2Framer extends GoHandle {
   /// Go: `func (*http2.Framer).WriteGoAway(maxStreamID uint32, code http2.ErrCode, debugData []byte) error`.
   void writeGoAway(int maxStreamId, int code, Uint8List debugData) {
     $callSync(
-        23544,
+        23546,
         $W()
           ..h(this)
           ..i64(maxStreamId)
@@ -459,7 +459,7 @@ class NetHttp2Framer extends GoHandle {
   /// Go: `func (*http2.Framer).WriteHeaders(p http2.HeadersFrameParam) error`.
   void writeHeaders(NetHttp2HeadersFrameParam p) {
     $callSync(
-        23545,
+        23547,
         $W()
           ..h(this)
           ..dto(p));
@@ -468,7 +468,7 @@ class NetHttp2Framer extends GoHandle {
   /// Go: `func (*http2.Framer).WritePriority(streamID uint32, p http2.PriorityParam) error`.
   void writePriority(int streamId, NetHttp2PriorityParam p) {
     $callSync(
-        23546,
+        23548,
         $W()
           ..h(this)
           ..i64(streamId)
@@ -478,7 +478,7 @@ class NetHttp2Framer extends GoHandle {
   /// Go: `func (*http2.Framer).WritePriorityUpdate(streamID uint32, priority string) error`.
   void writePriorityUpdate(int streamId, String priority) {
     $callSync(
-        23547,
+        23549,
         $W()
           ..h(this)
           ..i64(streamId)
@@ -488,7 +488,7 @@ class NetHttp2Framer extends GoHandle {
   /// Go: `func (*http2.Framer).WritePushPromise(p http2.PushPromiseParam) error`.
   void writePushPromise(NetHttp2PushPromiseParam p) {
     $callSync(
-        23548,
+        23550,
         $W()
           ..h(this)
           ..dto(p));
@@ -497,7 +497,7 @@ class NetHttp2Framer extends GoHandle {
   /// Go: `func (*http2.Framer).WriteRSTStream(streamID uint32, code http2.ErrCode) error`.
   void writeRstStream(int streamId, int code) {
     $callSync(
-        23549,
+        23551,
         $W()
           ..h(this)
           ..i64(streamId)
@@ -507,7 +507,7 @@ class NetHttp2Framer extends GoHandle {
   /// Go: `func (*http2.Framer).WriteRawFrame(t http2.FrameType, flags http2.Flags, streamID uint32, payload []byte) error`.
   void writeRawFrame(int t, int flags, int streamId, Uint8List payload) {
     $callSync(
-        23550,
+        23552,
         $W()
           ..h(this)
           ..i64(t)
@@ -519,7 +519,7 @@ class NetHttp2Framer extends GoHandle {
   /// Go: `func (*http2.Framer).WriteSettings(settings ...http2.Setting) error`.
   void writeSettings([List<NetHttp2Setting> settings = const []]) {
     $callSync(
-        23551,
+        23553,
         $W()
           ..h(this)
           ..list(settings, (w0, e0) => w0.dto(e0)));
@@ -527,13 +527,13 @@ class NetHttp2Framer extends GoHandle {
 
   /// Go: `func (*http2.Framer).WriteSettingsAck() error`.
   void writeSettingsAck() {
-    $callSync(23552, $W()..h(this));
+    $callSync(23554, $W()..h(this));
   }
 
   /// Go: `func (*http2.Framer).WriteWindowUpdate(streamID uint32, incr uint32) error`.
   void writeWindowUpdate(int streamId, int incr) {
     $callSync(
-        23553,
+        23555,
         $W()
           ..h(this)
           ..i64(streamId)
@@ -547,19 +547,19 @@ class NetHttp2GoAwayFrame extends NetHttp2Frame {
 
   /// Go: `func (*http2.GoAwayFrame).DebugData() []byte`.
   Uint8List debugData() {
-    final $r = $callSync(23554, $W()..h(this));
+    final $r = $callSync(23556, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (http2.FrameHeader).Header() http2.FrameHeader`.
   NetHttp2FrameHeader header() {
-    final $r = $callSync(23555, $W()..h(this));
+    final $r = $callSync(23557, $W()..h(this));
     return $r.hnn(NetHttp2FrameHeader.$h);
   }
 
   /// Go: `func (http2.FrameHeader).String() string`.
   String string() {
-    final $r = $callSync(23556, $W()..h(this));
+    final $r = $callSync(23558, $W()..h(this));
     return $r.str();
   }
 }
@@ -570,37 +570,37 @@ class NetHttp2HeadersFrame extends NetHttp2Frame {
 
   /// Go: `func (*http2.HeadersFrame).HasPriority() bool`.
   bool hasPriority() {
-    final $r = $callSync(23557, $W()..h(this));
+    final $r = $callSync(23559, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (http2.FrameHeader).Header() http2.FrameHeader`.
   NetHttp2FrameHeader header() {
-    final $r = $callSync(23558, $W()..h(this));
+    final $r = $callSync(23560, $W()..h(this));
     return $r.hnn(NetHttp2FrameHeader.$h);
   }
 
   /// Go: `func (*http2.HeadersFrame).HeaderBlockFragment() []byte`.
   Uint8List headerBlockFragment() {
-    final $r = $callSync(23559, $W()..h(this));
+    final $r = $callSync(23561, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*http2.HeadersFrame).HeadersEnded() bool`.
   bool headersEnded() {
-    final $r = $callSync(23560, $W()..h(this));
+    final $r = $callSync(23562, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*http2.HeadersFrame).StreamEnded() bool`.
   bool streamEnded() {
-    final $r = $callSync(23561, $W()..h(this));
+    final $r = $callSync(23563, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (http2.FrameHeader).String() string`.
   String string() {
-    final $r = $callSync(23562, $W()..h(this));
+    final $r = $callSync(23564, $W()..h(this));
     return $r.str();
   }
 }
@@ -694,31 +694,31 @@ final class NetHttp2MetaHeadersFrame implements GoDto {
 
   /// Go: `func (*http2.HeadersFrame).HasPriority() bool`.
   bool hasPriority() {
-    final $r = $callSync(23563, $W()..dto(this));
+    final $r = $callSync(23565, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (http2.FrameHeader).Header() http2.FrameHeader`.
   NetHttp2FrameHeader header() {
-    final $r = $callSync(23564, $W()..dto(this));
+    final $r = $callSync(23566, $W()..dto(this));
     return $r.hnn(NetHttp2FrameHeader.$h);
   }
 
   /// Go: `func (*http2.HeadersFrame).HeaderBlockFragment() []byte`.
   Uint8List headerBlockFragment() {
-    final $r = $callSync(23565, $W()..dto(this));
+    final $r = $callSync(23567, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*http2.HeadersFrame).HeadersEnded() bool`.
   bool headersEnded() {
-    final $r = $callSync(23566, $W()..dto(this));
+    final $r = $callSync(23568, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*http2.MetaHeadersFrame).PseudoFields() []hpack.HeaderField`.
   List<$hpack.NetHttp2HpackHeaderField> pseudoFields() {
-    final $r = $callSync(23567, $W()..dto(this));
+    final $r = $callSync(23569, $W()..dto(this));
     return $r
         .list(() => $r.p() ? $hpack.NetHttp2HpackHeaderField.$dec($r) : $nil());
   }
@@ -726,7 +726,7 @@ final class NetHttp2MetaHeadersFrame implements GoDto {
   /// Go: `func (*http2.MetaHeadersFrame).PseudoValue(pseudo string) string`.
   String pseudoValue(String pseudo) {
     final $r = $callSync(
-        23568,
+        23570,
         $W()
           ..dto(this)
           ..str(pseudo));
@@ -735,20 +735,20 @@ final class NetHttp2MetaHeadersFrame implements GoDto {
 
   /// Go: `func (*http2.MetaHeadersFrame).RegularFields() []hpack.HeaderField`.
   List<$hpack.NetHttp2HpackHeaderField> regularFields() {
-    final $r = $callSync(23569, $W()..dto(this));
+    final $r = $callSync(23571, $W()..dto(this));
     return $r
         .list(() => $r.p() ? $hpack.NetHttp2HpackHeaderField.$dec($r) : $nil());
   }
 
   /// Go: `func (*http2.HeadersFrame).StreamEnded() bool`.
   bool streamEnded() {
-    final $r = $callSync(23570, $W()..dto(this));
+    final $r = $callSync(23572, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (http2.FrameHeader).String() string`.
   String string() {
-    final $r = $callSync(23571, $W()..dto(this));
+    final $r = $callSync(23573, $W()..dto(this));
     return $r.str();
   }
 }
@@ -778,19 +778,19 @@ final class NetHttp2PingFrame implements GoDto {
 
   /// Go: `func (http2.FrameHeader).Header() http2.FrameHeader`.
   NetHttp2FrameHeader header() {
-    final $r = $callSync(23575, $W()..dto(this));
+    final $r = $callSync(23577, $W()..dto(this));
     return $r.hnn(NetHttp2FrameHeader.$h);
   }
 
   /// Go: `func (*http2.PingFrame).IsAck() bool`.
   bool isAck() {
-    final $r = $callSync(23576, $W()..dto(this));
+    final $r = $callSync(23578, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (http2.FrameHeader).String() string`.
   String string() {
-    final $r = $callSync(23577, $W()..dto(this));
+    final $r = $callSync(23579, $W()..dto(this));
     return $r.str();
   }
 }
@@ -821,19 +821,19 @@ final class NetHttp2PriorityFrame implements GoDto {
 
   /// Go: `func (http2.FrameHeader).Header() http2.FrameHeader`.
   NetHttp2FrameHeader header() {
-    final $r = $callSync(23578, $W()..dto(this));
+    final $r = $callSync(23580, $W()..dto(this));
     return $r.hnn(NetHttp2FrameHeader.$h);
   }
 
   /// Go: `func (http2.PriorityParam).IsZero() bool`.
   bool isZero() {
-    final $r = $callSync(23579, $W()..dto(this));
+    final $r = $callSync(23581, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (http2.FrameHeader).String() string`.
   String string() {
-    final $r = $callSync(23580, $W()..dto(this));
+    final $r = $callSync(23582, $W()..dto(this));
     return $r.str();
   }
 }
@@ -844,7 +844,7 @@ class NetHttp2PriorityParam extends GoHandle {
 
   /// Go: `func (http2.PriorityParam).IsZero() bool`.
   bool isZero() {
-    final $r = $callSync(23581, $W()..h(this));
+    final $r = $callSync(23583, $W()..h(this));
     return $r.b();
   }
 }
@@ -883,13 +883,13 @@ final class NetHttp2PriorityUpdateFrame implements GoDto {
 
   /// Go: `func (http2.FrameHeader).Header() http2.FrameHeader`.
   NetHttp2FrameHeader header() {
-    final $r = $callSync(23582, $W()..dto(this));
+    final $r = $callSync(23584, $W()..dto(this));
     return $r.hnn(NetHttp2FrameHeader.$h);
   }
 
   /// Go: `func (http2.FrameHeader).String() string`.
   String string() {
-    final $r = $callSync(23583, $W()..dto(this));
+    final $r = $callSync(23585, $W()..dto(this));
     return $r.str();
   }
 }
@@ -934,25 +934,25 @@ class NetHttp2PushPromiseFrame extends NetHttp2Frame {
 
   /// Go: `func (http2.FrameHeader).Header() http2.FrameHeader`.
   NetHttp2FrameHeader header() {
-    final $r = $callSync(23584, $W()..h(this));
+    final $r = $callSync(23586, $W()..h(this));
     return $r.hnn(NetHttp2FrameHeader.$h);
   }
 
   /// Go: `func (*http2.PushPromiseFrame).HeaderBlockFragment() []byte`.
   Uint8List headerBlockFragment() {
-    final $r = $callSync(23585, $W()..h(this));
+    final $r = $callSync(23587, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*http2.PushPromiseFrame).HeadersEnded() bool`.
   bool headersEnded() {
-    final $r = $callSync(23586, $W()..h(this));
+    final $r = $callSync(23588, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (http2.FrameHeader).String() string`.
   String string() {
-    final $r = $callSync(23587, $W()..h(this));
+    final $r = $callSync(23589, $W()..h(this));
     return $r.str();
   }
 }
@@ -1029,13 +1029,13 @@ final class NetHttp2RstStreamFrame implements GoDto {
 
   /// Go: `func (http2.FrameHeader).Header() http2.FrameHeader`.
   NetHttp2FrameHeader header() {
-    final $r = $callSync(23588, $W()..dto(this));
+    final $r = $callSync(23590, $W()..dto(this));
     return $r.hnn(NetHttp2FrameHeader.$h);
   }
 
   /// Go: `func (http2.FrameHeader).String() string`.
   String string() {
-    final $r = $callSync(23589, $W()..dto(this));
+    final $r = $callSync(23591, $W()..dto(this));
     return $r.str();
   }
 }
@@ -1105,7 +1105,7 @@ class NetHttp2Server extends GoHandle {
   @Deprecated("Use [http.Server.Serve] or [http.Server.ServeTLS] instead.")
   void serveConn($net.NetConn c, NetHttp2ServeConnOpts opts) {
     $callSync(
-        23591,
+        23593,
         $W()
           ..h(this)
           ..h(c)
@@ -1138,13 +1138,13 @@ final class NetHttp2Setting implements GoDto {
 
   /// Go: `func (http2.Setting).String() string`.
   String string() {
-    final $r = $callSync(23592, $W()..dto(this));
+    final $r = $callSync(23594, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (http2.Setting).Valid() error`.
   void valid() {
-    $callSync(23593, $W()..dto(this));
+    $callSync(23595, $W()..dto(this));
   }
 }
 
@@ -1162,7 +1162,7 @@ class NetHttp2SettingsFrame extends NetHttp2Frame {
   Future<void> foreachSetting(
       FutureOr<void> Function(NetHttp2Setting setting) fn) async {
     await $call(
-        23594,
+        23596,
         $W()
           ..h(this)
           ..cb((r) => fn(r.p() ? NetHttp2Setting.$dec(r) : $nil()), true));
@@ -1170,32 +1170,32 @@ class NetHttp2SettingsFrame extends NetHttp2Frame {
 
   /// Go: `func (*http2.SettingsFrame).HasDuplicates() bool`.
   bool hasDuplicates() {
-    final $r = $callSync(23595, $W()..h(this));
+    final $r = $callSync(23597, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (http2.FrameHeader).Header() http2.FrameHeader`.
   NetHttp2FrameHeader header() {
-    final $r = $callSync(23596, $W()..h(this));
+    final $r = $callSync(23598, $W()..h(this));
     return $r.hnn(NetHttp2FrameHeader.$h);
   }
 
   /// Go: `func (*http2.SettingsFrame).IsAck() bool`.
   bool isAck() {
-    final $r = $callSync(23597, $W()..h(this));
+    final $r = $callSync(23599, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*http2.SettingsFrame).NumSettings() int`.
   int numSettings() {
-    final $r = $callSync(23598, $W()..h(this));
+    final $r = $callSync(23600, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*http2.SettingsFrame).Setting(i int) http2.Setting`.
   NetHttp2Setting setting(int i) {
     final $r = $callSync(
-        23599,
+        23601,
         $W()
           ..h(this)
           ..i64(i));
@@ -1204,14 +1204,14 @@ class NetHttp2SettingsFrame extends NetHttp2Frame {
 
   /// Go: `func (http2.FrameHeader).String() string`.
   String string() {
-    final $r = $callSync(23600, $W()..h(this));
+    final $r = $callSync(23602, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*http2.SettingsFrame).Value(id http2.SettingID) (v uint32, ok bool)`.
   (int, bool) value$(int id) {
     final $r = $callSync(
-        23601,
+        23603,
         $W()
           ..h(this)
           ..i64(id));
@@ -1227,14 +1227,14 @@ class NetHttp2Transport extends $http.NetHttpRoundTripper {
   /// Go: `func (*http2.Transport).CloseIdleConnections()`.
   @Deprecated("Use [http.Transport.CloseIdleConnections] instead.")
   void closeIdleConnections() {
-    $callSync(23602, $W()..h(this));
+    $callSync(23604, $W()..h(this));
   }
 
   /// Go: `func (*http2.Transport).NewClientConn(c net.Conn) (*http2.ClientConn, error)`.
   @Deprecated("Use [http.Transport.NewClientConn] instead.")
   NetHttp2ClientConn newClientConn($net.NetConn c) {
     final $r = $callSync(
-        23603,
+        23605,
         $W()
           ..h(this)
           ..h(c));
@@ -1245,7 +1245,7 @@ class NetHttp2Transport extends $http.NetHttpRoundTripper {
   @Deprecated("Use [http.Transport.RoundTrip] instead.")
   $http.NetHttpResponse roundTrip($http.NetHttpRequest req) {
     final $r = $callSync(
-        23604,
+        23606,
         $W()
           ..h(this)
           ..h(req));
@@ -1257,7 +1257,7 @@ class NetHttp2Transport extends $http.NetHttpRoundTripper {
   $http.NetHttpResponse roundTripOpt(
       $http.NetHttpRequest req, NetHttp2RoundTripOpt opt) {
     final $r = $callSync(
-        23605,
+        23607,
         $W()
           ..h(this)
           ..h(req)
@@ -1272,19 +1272,19 @@ class NetHttp2UnknownFrame extends NetHttp2Frame {
 
   /// Go: `func (http2.FrameHeader).Header() http2.FrameHeader`.
   NetHttp2FrameHeader header() {
-    final $r = $callSync(23606, $W()..h(this));
+    final $r = $callSync(23608, $W()..h(this));
     return $r.hnn(NetHttp2FrameHeader.$h);
   }
 
   /// Go: `func (*http2.UnknownFrame).Payload() []byte`.
   Uint8List payload() {
-    final $r = $callSync(23607, $W()..h(this));
+    final $r = $callSync(23609, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (http2.FrameHeader).String() string`.
   String string() {
-    final $r = $callSync(23608, $W()..h(this));
+    final $r = $callSync(23610, $W()..h(this));
     return $r.str();
   }
 }
@@ -1314,13 +1314,13 @@ final class NetHttp2WindowUpdateFrame implements GoDto {
 
   /// Go: `func (http2.FrameHeader).Header() http2.FrameHeader`.
   NetHttp2FrameHeader header() {
-    final $r = $callSync(23610, $W()..dto(this));
+    final $r = $callSync(23612, $W()..dto(this));
     return $r.hnn(NetHttp2FrameHeader.$h);
   }
 
   /// Go: `func (http2.FrameHeader).String() string`.
   String string() {
-    final $r = $callSync(23611, $W()..dto(this));
+    final $r = $callSync(23613, $W()..dto(this));
     return $r.str();
   }
 }
@@ -1336,7 +1336,7 @@ mixin NetHttp2WriteScheduler$ on GoHandle {
   /// Go: `func (http2.WriteScheduler).AdjustStream(streamID uint32, priority http2.PriorityParam)`.
   void adjustStream(int streamId, NetHttp2PriorityParam priority) {
     $callSync(
-        23612,
+        23614,
         $W()
           ..h(this)
           ..i64(streamId)
@@ -1346,7 +1346,7 @@ mixin NetHttp2WriteScheduler$ on GoHandle {
   /// Go: `func (http2.WriteScheduler).CloseStream(streamID uint32)`.
   void closeStream(int streamId) {
     $callSync(
-        23613,
+        23615,
         $W()
           ..h(this)
           ..i64(streamId));
@@ -1355,7 +1355,7 @@ mixin NetHttp2WriteScheduler$ on GoHandle {
   /// Go: `func (http2.WriteScheduler).OpenStream(streamID uint32, options http2.OpenStreamOptions)`.
   void openStream(int streamId, NetHttp2OpenStreamOptions options) {
     $callSync(
-        23614,
+        23616,
         $W()
           ..h(this)
           ..i64(streamId)
@@ -1364,14 +1364,14 @@ mixin NetHttp2WriteScheduler$ on GoHandle {
 
   /// Go: `func (http2.WriteScheduler).Pop() (wr http2.FrameWriteRequest, ok bool)`.
   (NetHttp2FrameWriteRequest, bool) pop() {
-    final $r = $callSync(23615, $W()..h(this));
+    final $r = $callSync(23617, $W()..h(this));
     return ($r.hnn(NetHttp2FrameWriteRequest.$h), $r.b());
   }
 
   /// Go: `func (http2.WriteScheduler).Push(wr http2.FrameWriteRequest)`.
   void push(NetHttp2FrameWriteRequest wr) {
     $callSync(
-        23616,
+        23618,
         $W()
           ..h(this)
           ..h(wr));
@@ -1469,7 +1469,7 @@ extension GoXNetHttp2Api on GoXNetHttp2 {
   @Deprecated("Set [http.Server.Protocols] instead.")
   void configureServer($http.NetHttpServer s, NetHttp2Server conf) {
     $callSync(
-        23516,
+        23518,
         $W()
           ..h(s)
           ..h(conf));
@@ -1478,19 +1478,19 @@ extension GoXNetHttp2Api on GoXNetHttp2 {
   /// Go: `func http2.ConfigureTransport(t1 *http.Transport) error`.
   @Deprecated("Set [http.Transport.Protocols] instead.")
   void configureTransport($http.NetHttpTransport t1) {
-    $callSync(23517, $W()..h(t1));
+    $callSync(23519, $W()..h(t1));
   }
 
   /// Go: `func http2.ConfigureTransports(t1 *http.Transport) (*http2.Transport, error)`.
   @Deprecated("Set [http.Transport.Protocols] instead.")
   NetHttp2Transport configureTransports($http.NetHttpTransport t1) {
-    final $r = $callSync(23518, $W()..h(t1));
+    final $r = $callSync(23520, $W()..h(t1));
     return $r.hnn(NetHttp2Transport.$h);
   }
 
   /// Go: `var http2.DebugGoroutines bool`.
   bool get debugGoroutines {
-    final $r = $callSync(23527);
+    final $r = $callSync(23529);
     return $r.b();
   }
 
@@ -1499,26 +1499,26 @@ extension GoXNetHttp2Api on GoXNetHttp2 {
       "The RFC 7540 write scheduler has known bugs and performance issues, and RFC 7540 prioritization was deprecated in RFC 9113.")
   NetHttp2WriteScheduler newPriorityWriteScheduler(
       NetHttp2PriorityWriteSchedulerConfig cfg) {
-    final $r = $callSync(23573, $W()..dto(cfg));
+    final $r = $callSync(23575, $W()..dto(cfg));
     return $r.hnn(NetHttp2WriteScheduler.$h);
   }
 
   /// Go: `func http2.NewRandomWriteScheduler() http2.WriteScheduler`.
   @Deprecated("User-provided write schedulers are deprecated.")
   NetHttp2WriteScheduler newRandomWriteScheduler() {
-    final $r = $callSync(23574);
+    final $r = $callSync(23576);
     return $r.hnn(NetHttp2WriteScheduler.$h);
   }
 
   /// Go: `func http2.ReadFrameHeader(r io.Reader) (http2.FrameHeader, error)`.
   NetHttp2FrameHeader readFrameHeader(Object r) {
-    final $r = $callSync(23590, $W()..reader(r));
+    final $r = $callSync(23592, $W()..reader(r));
     return $r.hnn(NetHttp2FrameHeader.$h);
   }
 
   /// Go: `var http2.VerboseLogs bool`.
   bool get verboseLogs {
-    final $r = $callSync(23609);
+    final $r = $callSync(23611);
     return $r.b();
   }
 }

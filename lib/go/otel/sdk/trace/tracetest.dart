@@ -18,7 +18,7 @@ class OtelSdkTraceTracetestInMemoryExporter
 
   /// Go: `func tracetest.NewInMemoryExporter() *tracetest.InMemoryExporter`.
   factory OtelSdkTraceTracetestInMemoryExporter() {
-    final $r = $callSync(19530);
+    final $r = $callSync(19532);
     return $r.hnn(OtelSdkTraceTracetestInMemoryExporter.$h);
   }
 
@@ -28,7 +28,7 @@ class OtelSdkTraceTracetestInMemoryExporter
   Future<void> exportSpans(
       $context.Context ctx, List<$trace.OtelSdkTraceReadOnlySpan> spans) async {
     await $call(
-        19526,
+        19528,
         $W()
           ..h(this)
           ..h(ctx)
@@ -37,14 +37,14 @@ class OtelSdkTraceTracetestInMemoryExporter
 
   /// Go: `func (*tracetest.InMemoryExporter).GetSpans() tracetest.SpanStubs`.
   List<OtelSdkTraceTracetestSpanStub> getSpans() {
-    final $r = $callSync(19527, $W()..h(this));
+    final $r = $callSync(19529, $W()..h(this));
     return $r
         .list(() => $r.p() ? OtelSdkTraceTracetestSpanStub.$dec($r) : $nil());
   }
 
   /// Go: `func (*tracetest.InMemoryExporter).Reset()`.
   void reset() {
-    $callSync(19528, $W()..h(this));
+    $callSync(19530, $W()..h(this));
   }
 
   /// Go: `func (*tracetest.InMemoryExporter).Shutdown(context.Context) error`.
@@ -52,7 +52,7 @@ class OtelSdkTraceTracetestInMemoryExporter
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> shutdown($context.Context ctx) async {
     await $call(
-        19529,
+        19531,
         $W()
           ..h(this)
           ..h(ctx));
@@ -73,7 +73,7 @@ final class OtelSdkTraceTracetestNoopExporter implements GoDto {
   Future<void> exportSpans($context.Context ctx,
       List<$trace.OtelSdkTraceReadOnlySpan> readOnlySpans) async {
     await $call(
-        19533,
+        19535,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -85,7 +85,7 @@ final class OtelSdkTraceTracetestNoopExporter implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> shutdown($context.Context ctx) async {
     await $call(
-        19534,
+        19536,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -99,13 +99,13 @@ class OtelSdkTraceTracetestSpanRecorder
 
   /// Go: `func tracetest.NewSpanRecorder() *tracetest.SpanRecorder`.
   factory OtelSdkTraceTracetestSpanRecorder() {
-    final $r = $callSync(19532);
+    final $r = $callSync(19534);
     return $r.hnn(OtelSdkTraceTracetestSpanRecorder.$h);
   }
 
   /// Go: `func (*tracetest.SpanRecorder).Ended() []trace.ReadOnlySpan`.
   List<$trace.OtelSdkTraceReadOnlySpan> ended() {
-    final $r = $callSync(19535, $W()..h(this));
+    final $r = $callSync(19537, $W()..h(this));
     return $r.list(() => $r.hnn($trace.OtelSdkTraceReadOnlySpan.$h));
   }
 
@@ -114,7 +114,7 @@ class OtelSdkTraceTracetestSpanRecorder
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> forceFlush($context.Context ctx) async {
     await $call(
-        19536,
+        19538,
         $W()
           ..h(this)
           ..h(ctx));
@@ -123,7 +123,7 @@ class OtelSdkTraceTracetestSpanRecorder
   /// Go: `func (*tracetest.SpanRecorder).OnEnd(s trace.ReadOnlySpan)`.
   void onEnd($trace.OtelSdkTraceReadOnlySpan s) {
     $callSync(
-        19537,
+        19539,
         $W()
           ..h(this)
           ..h(s));
@@ -135,7 +135,7 @@ class OtelSdkTraceTracetestSpanRecorder
   Future<void> onStart(
       $context.Context ctx, $trace.OtelSdkTraceReadWriteSpan s) async {
     await $call(
-        19538,
+        19540,
         $W()
           ..h(this)
           ..h(ctx)
@@ -144,7 +144,7 @@ class OtelSdkTraceTracetestSpanRecorder
 
   /// Go: `func (*tracetest.SpanRecorder).Reset()`.
   void reset() {
-    $callSync(19539, $W()..h(this));
+    $callSync(19541, $W()..h(this));
   }
 
   /// Go: `func (*tracetest.SpanRecorder).Shutdown(context.Context) error`.
@@ -152,7 +152,7 @@ class OtelSdkTraceTracetestSpanRecorder
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> shutdown($context.Context ctx) async {
     await $call(
-        19540,
+        19542,
         $W()
           ..h(this)
           ..h(ctx));
@@ -160,7 +160,7 @@ class OtelSdkTraceTracetestSpanRecorder
 
   /// Go: `func (*tracetest.SpanRecorder).Started() []trace.ReadWriteSpan`.
   List<$trace.OtelSdkTraceReadWriteSpan> started() {
-    final $r = $callSync(19541, $W()..h(this));
+    final $r = $callSync(19543, $W()..h(this));
     return $r.list(() => $r.hnn($trace.OtelSdkTraceReadWriteSpan.$h));
   }
 }
@@ -301,7 +301,7 @@ final class OtelSdkTraceTracetestSpanStub implements GoDto {
 
   /// Go: `func (tracetest.SpanStub).Snapshot() trace.ReadOnlySpan`.
   $trace.OtelSdkTraceReadOnlySpan snapshot() {
-    final $r = $callSync(19542, $W()..dto(this));
+    final $r = $callSync(19544, $W()..dto(this));
     return $r.hnn($trace.OtelSdkTraceReadOnlySpan.$h);
   }
 }
@@ -310,21 +310,21 @@ final class OtelSdkTraceTracetestSpanStub implements GoDto {
 extension GoOtelSdkTraceTracetestApi on GoOtelSdkTraceTracetest {
   /// Go: `func tracetest.NewNoopExporter() *tracetest.NoopExporter`.
   OtelSdkTraceTracetestNoopExporter newNoopExporter() {
-    final $r = $callSync(19531);
+    final $r = $callSync(19533);
     return $r.p() ? OtelSdkTraceTracetestNoopExporter.$dec($r) : $nil();
   }
 
   /// Go: `func tracetest.SpanStubFromReadOnlySpan(ro trace.ReadOnlySpan) tracetest.SpanStub`.
   OtelSdkTraceTracetestSpanStub spanStubFromReadOnlySpan(
       $trace.OtelSdkTraceReadOnlySpan ro) {
-    final $r = $callSync(19543, $W()..h(ro));
+    final $r = $callSync(19545, $W()..h(ro));
     return $r.p() ? OtelSdkTraceTracetestSpanStub.$dec($r) : $nil();
   }
 
   /// Go: `func tracetest.SpanStubsFromReadOnlySpans(ro []trace.ReadOnlySpan) tracetest.SpanStubs`.
   List<OtelSdkTraceTracetestSpanStub> spanStubsFromReadOnlySpans(
       List<$trace.OtelSdkTraceReadOnlySpan> ro) {
-    final $r = $callSync(19544, $W()..list(ro, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(19546, $W()..list(ro, (w0, e0) => w0.h(e0)));
     return $r
         .list(() => $r.p() ? OtelSdkTraceTracetestSpanStub.$dec($r) : $nil());
   }

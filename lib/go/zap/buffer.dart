@@ -17,7 +17,7 @@ class ZapBuffer extends $io.IoByteWriter
   /// Go: `func (*buffer.Buffer).AppendBool(v bool)`.
   void appendBool(bool v) {
     $callSync(
-        22882,
+        22884,
         $W()
           ..h(this)
           ..b(v));
@@ -26,7 +26,7 @@ class ZapBuffer extends $io.IoByteWriter
   /// Go: `func (*buffer.Buffer).AppendByte(v byte)`.
   void appendByte(int v) {
     $callSync(
-        22883,
+        22885,
         $W()
           ..h(this)
           ..i64(v));
@@ -35,7 +35,7 @@ class ZapBuffer extends $io.IoByteWriter
   /// Go: `func (*buffer.Buffer).AppendBytes(v []byte)`.
   void appendBytes(Uint8List v) {
     $callSync(
-        22884,
+        22886,
         $W()
           ..h(this)
           ..bytes(v));
@@ -44,7 +44,7 @@ class ZapBuffer extends $io.IoByteWriter
   /// Go: `func (*buffer.Buffer).AppendFloat(f float64, bitSize int)`.
   void appendFloat(double f, int bitSize) {
     $callSync(
-        22885,
+        22887,
         $W()
           ..h(this)
           ..f64(f)
@@ -54,7 +54,7 @@ class ZapBuffer extends $io.IoByteWriter
   /// Go: `func (*buffer.Buffer).AppendInt(i int64)`.
   void appendInt(int i) {
     $callSync(
-        22886,
+        22888,
         $W()
           ..h(this)
           ..i64(i));
@@ -63,7 +63,7 @@ class ZapBuffer extends $io.IoByteWriter
   /// Go: `func (*buffer.Buffer).AppendString(s string)`.
   void appendString(String s) {
     $callSync(
-        22887,
+        22889,
         $W()
           ..h(this)
           ..str(s));
@@ -72,7 +72,7 @@ class ZapBuffer extends $io.IoByteWriter
   /// Go: `func (*buffer.Buffer).AppendTime(t time.Time, layout string)`.
   void appendTime(DateTime t, String layout) {
     $callSync(
-        22888,
+        22890,
         $W()
           ..h(this)
           ..time(t)
@@ -82,7 +82,7 @@ class ZapBuffer extends $io.IoByteWriter
   /// Go: `func (*buffer.Buffer).AppendUint(i uint64)`.
   void appendUint(int i) {
     $callSync(
-        22889,
+        22891,
         $W()
           ..h(this)
           ..i64(i));
@@ -90,47 +90,47 @@ class ZapBuffer extends $io.IoByteWriter
 
   /// Go: `func (*buffer.Buffer).Bytes() []byte`.
   Uint8List bytes() {
-    final $r = $callSync(22890, $W()..h(this));
+    final $r = $callSync(22892, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*buffer.Buffer).Cap() int`.
   int cap() {
-    final $r = $callSync(22891, $W()..h(this));
+    final $r = $callSync(22893, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*buffer.Buffer).Free()`.
   void free() {
-    $callSync(22892, $W()..h(this));
+    $callSync(22894, $W()..h(this));
   }
 
   /// Go: `func (*buffer.Buffer).Len() int`.
   int len() {
-    final $r = $callSync(22893, $W()..h(this));
+    final $r = $callSync(22895, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*buffer.Buffer).Reset()`.
   void reset() {
-    $callSync(22894, $W()..h(this));
+    $callSync(22896, $W()..h(this));
   }
 
   /// Go: `func (*buffer.Buffer).String() string`.
   String string() {
-    final $r = $callSync(22895, $W()..h(this));
+    final $r = $callSync(22897, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*buffer.Buffer).TrimNewline()`.
   void trimNewline() {
-    $callSync(22896, $W()..h(this));
+    $callSync(22898, $W()..h(this));
   }
 
   /// Go: `func (*buffer.Buffer).Write(bs []byte) (int, error)`.
   int write(Uint8List bs) {
     final $r = $callSync(
-        22897,
+        22899,
         $W()
           ..h(this)
           ..bytes(bs));
@@ -140,7 +140,7 @@ class ZapBuffer extends $io.IoByteWriter
   /// Go: `func (*buffer.Buffer).WriteByte(v byte) error`.
   void writeByte(int v) {
     $callSync(
-        22898,
+        22900,
         $W()
           ..h(this)
           ..i64(v));
@@ -149,7 +149,7 @@ class ZapBuffer extends $io.IoByteWriter
   /// Go: `func (*buffer.Buffer).WriteString(s string) (int, error)`.
   int writeString(String s) {
     final $r = $callSync(
-        22899,
+        22901,
         $W()
           ..h(this)
           ..str(s));
@@ -163,13 +163,13 @@ class ZapBufferPool extends GoHandle {
 
   /// Go: `func buffer.NewPool() buffer.Pool`.
   factory ZapBufferPool() {
-    final $r = $callSync(22900);
+    final $r = $callSync(22902);
     return $r.hnn(ZapBufferPool.$h);
   }
 
   /// Go: `func (buffer.Pool).Get() *buffer.Buffer`.
   ZapBuffer get() {
-    final $r = $callSync(22901, $W()..h(this));
+    final $r = $callSync(22903, $W()..h(this));
     return $r.hnn(ZapBuffer.$h);
   }
 }

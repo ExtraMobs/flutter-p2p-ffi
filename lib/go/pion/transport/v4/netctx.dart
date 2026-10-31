@@ -21,7 +21,7 @@ class TransportV4NetctxConn extends $io.IoCloser
 
   /// Go: `func netctx.NewConn(netConn net.Conn) netctx.Conn`.
   factory TransportV4NetctxConn($net.NetConn netConn) {
-    final $r = $callSync(17485, $W()..h(netConn));
+    final $r = $callSync(17487, $W()..h(netConn));
     return $r.hnn(TransportV4NetctxConn.$h);
   }
 }
@@ -30,19 +30,19 @@ class TransportV4NetctxConn extends $io.IoCloser
 mixin TransportV4NetctxConn$ on GoHandle {
   /// Go: `func (netctx.Conn).Conn() net.Conn`.
   $net.NetConn conn() {
-    final $r = $callSync(17482, $W()..h(this));
+    final $r = $callSync(17484, $W()..h(this));
     return $r.hnn($net.NetConn.$h);
   }
 
   /// Go: `func (netctx.Conn).LocalAddr() net.Addr`.
   $net.NetAddr localAddr() {
-    final $r = $callSync(17483, $W()..h(this));
+    final $r = $callSync(17485, $W()..h(this));
     return $r.p() ? $net.NetAddr.$dec($r) : $nil();
   }
 
   /// Go: `func (netctx.Conn).RemoteAddr() net.Addr`.
   $net.NetAddr remoteAddr() {
-    final $r = $callSync(17484, $W()..h(this));
+    final $r = $callSync(17486, $W()..h(this));
     return $r.p() ? $net.NetAddr.$dec($r) : $nil();
   }
 }
@@ -58,7 +58,7 @@ class TransportV4NetctxPacketConn extends $io.IoCloser
 
   /// Go: `func netctx.NewPacketConn(pconn net.PacketConn) netctx.PacketConn`.
   factory TransportV4NetctxPacketConn($net.NetPacketConn pconn) {
-    final $r = $callSync(17486, $W()..h(pconn));
+    final $r = $callSync(17488, $W()..h(pconn));
     return $r.hnn(TransportV4NetctxPacketConn.$h);
   }
 }
@@ -67,13 +67,13 @@ class TransportV4NetctxPacketConn extends $io.IoCloser
 mixin TransportV4NetctxPacketConn$ on GoHandle {
   /// Go: `func (netctx.PacketConn).Conn() net.PacketConn`.
   $net.NetPacketConn conn() {
-    final $r = $callSync(17487, $W()..h(this));
+    final $r = $callSync(17489, $W()..h(this));
     return $r.hnn($net.NetPacketConn.$h);
   }
 
   /// Go: `func (netctx.PacketConn).LocalAddr() net.Addr`.
   $net.NetAddr localAddr() {
-    final $r = $callSync(17488, $W()..h(this));
+    final $r = $callSync(17490, $W()..h(this));
     return $r.p() ? $net.NetAddr.$dec($r) : $nil();
   }
 }
@@ -90,7 +90,7 @@ mixin TransportV4NetctxReader$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> readContext($context.Context ctx, Uint8List arg1) async {
     final $r = await $call(
-        17490,
+        17492,
         $W()
           ..h(this)
           ..h(ctx)
@@ -119,7 +119,7 @@ mixin TransportV4NetctxReaderFrom$ on GoHandle {
   Future<(int, $net.NetAddr)> readFromContext(
       $context.Context ctx, Uint8List arg1) async {
     final $r = await $call(
-        17491,
+        17493,
         $W()
           ..h(this)
           ..h(ctx)
@@ -146,7 +146,7 @@ mixin TransportV4NetctxWriter$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> writeContext($context.Context ctx, Uint8List arg1) async {
     final $r = await $call(
-        17492,
+        17494,
         $W()
           ..h(this)
           ..h(ctx)
@@ -175,7 +175,7 @@ mixin TransportV4NetctxWriterTo$ on GoHandle {
   Future<int> writeToContext(
       $context.Context ctx, Uint8List arg1, $net.NetAddr addr) async {
     final $r = await $call(
-        17493,
+        17495,
         $W()
           ..h(this)
           ..h(ctx)
@@ -204,7 +204,7 @@ class TransportV4NetctxErrClosing extends GolangException {
 extension GoPionTransportV4NetctxApi on GoPionTransportV4Netctx {
   /// Go: `func netctx.Pipe() (netctx.Conn, netctx.Conn)`.
   (TransportV4NetctxConn, TransportV4NetctxConn) pipe() {
-    final $r = $callSync(17489);
+    final $r = $callSync(17491);
     return ($r.hnn(TransportV4NetctxConn.$h), $r.hnn(TransportV4NetctxConn.$h));
   }
 }

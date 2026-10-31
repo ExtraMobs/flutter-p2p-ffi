@@ -13,7 +13,7 @@ extension GoLibp2pLibp2pP2pNetPnetApi on GoLibp2pLibp2pP2pNetPnet {
   /// Go: `func pnet.NewProtectedConn(psk pnet.PSK, conn net.Conn) (net.Conn, error)`.
   $net.NetConn newProtectedConn(Uint8List psk, $net.NetConn conn) {
     final $r = $callSync(
-        14633,
+        14635,
         $W()
           ..bytes(psk)
           ..h(conn));

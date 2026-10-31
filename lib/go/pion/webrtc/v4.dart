@@ -32,7 +32,7 @@ class WebrtcV4Api extends GoHandle {
 
   /// Go: `func webrtc.NewAPI(options ...func(*webrtc.API)) *webrtc.API`.
   factory WebrtcV4Api() {
-    final $r = $callSync(17639);
+    final $r = $callSync(17641);
     return $r.hnn(WebrtcV4Api.$h);
   }
 
@@ -40,7 +40,7 @@ class WebrtcV4Api extends GoHandle {
   WebrtcV4DtlsTransport newDtlsTransport(
       WebrtcV4IceTransport transport, List<WebrtcV4Certificate> certificates) {
     final $r = $callSync(
-        17556,
+        17558,
         $W()
           ..h(this)
           ..h(transport)
@@ -52,7 +52,7 @@ class WebrtcV4Api extends GoHandle {
   WebrtcV4DataChannel newDataChannel(
       WebrtcV4SctpTransport transport, WebrtcV4DataChannelParameters params) {
     final $r = $callSync(
-        17557,
+        17559,
         $W()
           ..h(this)
           ..h(transport)
@@ -63,7 +63,7 @@ class WebrtcV4Api extends GoHandle {
   /// Go: `func (*webrtc.API).NewICEGatherer(opts webrtc.ICEGatherOptions) (*webrtc.ICEGatherer, error)`.
   WebrtcV4IceGatherer newIceGatherer(WebrtcV4IceGatherOptions opts) {
     final $r = $callSync(
-        17558,
+        17560,
         $W()
           ..h(this)
           ..dto(opts));
@@ -73,7 +73,7 @@ class WebrtcV4Api extends GoHandle {
   /// Go: `func (*webrtc.API).NewICETransport(gatherer *webrtc.ICEGatherer) *webrtc.ICETransport`.
   WebrtcV4IceTransport newIceTransport(WebrtcV4IceGatherer gatherer) {
     final $r = $callSync(
-        17559,
+        17561,
         $W()
           ..h(this)
           ..h(gatherer));
@@ -84,7 +84,7 @@ class WebrtcV4Api extends GoHandle {
   WebrtcV4PeerConnection newPeerConnection(
       WebrtcV4Configuration configuration) {
     final $r = $callSync(
-        17560,
+        17562,
         $W()
           ..h(this)
           ..dto(configuration));
@@ -95,7 +95,7 @@ class WebrtcV4Api extends GoHandle {
   WebrtcV4RtpReceiver newRtpReceiver(
       int kind, WebrtcV4DtlsTransport transport) {
     final $r = $callSync(
-        17561,
+        17563,
         $W()
           ..h(this)
           ..i64(kind)
@@ -107,7 +107,7 @@ class WebrtcV4Api extends GoHandle {
   WebrtcV4RtpSender newRtpSender(
       WebrtcV4TrackLocal track, WebrtcV4DtlsTransport transport) {
     final $r = $callSync(
-        17562,
+        17564,
         $W()
           ..h(this)
           ..h(track)
@@ -118,7 +118,7 @@ class WebrtcV4Api extends GoHandle {
   /// Go: `func (*webrtc.API).NewSCTPTransport(dtls *webrtc.DTLSTransport) *webrtc.SCTPTransport`.
   WebrtcV4SctpTransport newSctpTransport(WebrtcV4DtlsTransport dtls) {
     final $r = $callSync(
-        17563,
+        17565,
         $W()
           ..h(this)
           ..h(dtls));
@@ -150,7 +150,7 @@ class WebrtcV4Certificate extends GoHandle {
   /// Go: `func webrtc.NewCertificate(key crypto.PrivateKey, tpl x509.Certificate) (*webrtc.Certificate, error)`.
   factory WebrtcV4Certificate(GoHandle key, $x509.CryptoX509Certificate tpl) {
     final $r = $callSync(
-        17640,
+        17642,
         $W()
           ..h(key)
           ..dto(tpl));
@@ -160,7 +160,7 @@ class WebrtcV4Certificate extends GoHandle {
   /// Go: `func (webrtc.Certificate).Equals(cert webrtc.Certificate) bool`.
   bool equals(WebrtcV4Certificate cert) {
     final $r = $callSync(
-        17564,
+        17566,
         $W()
           ..h(this)
           ..h(cert));
@@ -169,19 +169,19 @@ class WebrtcV4Certificate extends GoHandle {
 
   /// Go: `func (webrtc.Certificate).Expires() time.Time`.
   DateTime expires() {
-    final $r = $callSync(17565, $W()..h(this));
+    final $r = $callSync(17567, $W()..h(this));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func (webrtc.Certificate).GetFingerprints() ([]webrtc.DTLSFingerprint, error)`.
   List<WebrtcV4DtlsFingerprint> getFingerprints() {
-    final $r = $callSync(17566, $W()..h(this));
+    final $r = $callSync(17568, $W()..h(this));
     return $r.list(() => $r.p() ? WebrtcV4DtlsFingerprint.$dec($r) : $nil());
   }
 
   /// Go: `func (webrtc.Certificate).PEM() (string, error)`.
   String pem() {
-    final $r = $callSync(17567, $W()..h(this));
+    final $r = $callSync(17569, $W()..h(this));
     return $r.str();
   }
 }
@@ -310,19 +310,19 @@ class WebrtcV4DtlsTransport extends GoHandle {
 
   /// Go: `func (*webrtc.DTLSTransport).GetLocalParameters() (webrtc.DTLSParameters, error)`.
   WebrtcV4DtlsParameters getLocalParameters() {
-    final $r = $callSync(17577, $W()..h(this));
+    final $r = $callSync(17579, $W()..h(this));
     return $r.p() ? WebrtcV4DtlsParameters.$dec($r) : $nil();
   }
 
   /// Go: `func (*webrtc.DTLSTransport).GetRemoteCertificate() []byte`.
   Uint8List getRemoteCertificate() {
-    final $r = $callSync(17578, $W()..h(this));
+    final $r = $callSync(17580, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*webrtc.DTLSTransport).ICETransport() *webrtc.ICETransport`.
   WebrtcV4IceTransport iceTransport() {
-    final $r = $callSync(17579, $W()..h(this));
+    final $r = $callSync(17581, $W()..h(this));
     return $r.hnn(WebrtcV4IceTransport.$h);
   }
 
@@ -335,7 +335,7 @@ class WebrtcV4DtlsTransport extends GoHandle {
   /// each invocation (a retained callback, WIRE.md).
   Future<void> onStateChange(FutureOr<void> Function(int arg0) f) async {
     await $call(
-        17580,
+        17582,
         $W()
           ..h(this)
           ..cb((r) => f(r.i64()), true));
@@ -344,7 +344,7 @@ class WebrtcV4DtlsTransport extends GoHandle {
   /// Go: `func (*webrtc.DTLSTransport).Start(remoteParameters webrtc.DTLSParameters) error`.
   void start(WebrtcV4DtlsParameters remoteParameters) {
     $callSync(
-        17581,
+        17583,
         $W()
           ..h(this)
           ..dto(remoteParameters));
@@ -352,19 +352,19 @@ class WebrtcV4DtlsTransport extends GoHandle {
 
   /// Go: `func (*webrtc.DTLSTransport).State() webrtc.DTLSTransportState`.
   int state() {
-    final $r = $callSync(17582, $W()..h(this));
+    final $r = $callSync(17584, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*webrtc.DTLSTransport).Stop() error`.
   void stop() {
-    $callSync(17583, $W()..h(this));
+    $callSync(17585, $W()..h(this));
   }
 
   /// Go: `func (*webrtc.DTLSTransport).WriteRTCP(pkts []rtcp.Packet) (int, error)`.
   int writeRtcp(List<$rtcp.RtcpPacket> pkts) {
     final $r = $callSync(
-        17584,
+        17586,
         $W()
           ..h(this)
           ..list(pkts, (w0, e0) => w0.h(e0)));
@@ -380,65 +380,65 @@ class WebrtcV4DataChannel extends $io.IoCloser
 
   /// Go: `func (*webrtc.DataChannel).BufferedAmount() uint64`.
   int bufferedAmount() {
-    final $r = $callSync(17585, $W()..h(this));
+    final $r = $callSync(17587, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*webrtc.DataChannel).BufferedAmountLowThreshold() uint64`.
   int bufferedAmountLowThreshold() {
-    final $r = $callSync(17586, $W()..h(this));
+    final $r = $callSync(17588, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*webrtc.DataChannel).Close() error`.
   void close() {
-    $callSync(17587, $W()..h(this));
+    $callSync(17589, $W()..h(this));
   }
 
   /// Go: `func (*webrtc.DataChannel).Detach() (datachannel.ReadWriteCloser, error)`.
   $datachannel.DatachannelReadWriteCloser detach() {
-    final $r = $callSync(17588, $W()..h(this));
+    final $r = $callSync(17590, $W()..h(this));
     return $r.hnn($datachannel.DatachannelReadWriteCloser.$h);
   }
 
   /// Go: `func (*webrtc.DataChannel).DetachWithDeadline() (datachannel.ReadWriteCloserDeadliner, error)`.
   $datachannel.DatachannelReadWriteCloserDeadliner detachWithDeadline() {
-    final $r = $callSync(17589, $W()..h(this));
+    final $r = $callSync(17591, $W()..h(this));
     return $r.hnn($datachannel.DatachannelReadWriteCloserDeadliner.$h);
   }
 
   /// Go: `func (*webrtc.DataChannel).GracefulClose() error`.
   void gracefulClose() {
-    $callSync(17590, $W()..h(this));
+    $callSync(17592, $W()..h(this));
   }
 
   /// Go: `func (*webrtc.DataChannel).ID() *uint16`.
   int id() {
-    final $r = $callSync(17591, $W()..h(this));
+    final $r = $callSync(17593, $W()..h(this));
     return $r.p() ? $r.i64() : $nil();
   }
 
   /// Go: `func (*webrtc.DataChannel).Label() string`.
   String label() {
-    final $r = $callSync(17592, $W()..h(this));
+    final $r = $callSync(17594, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*webrtc.DataChannel).MaxPacketLifeTime() *uint16`.
   int maxPacketLifeTime() {
-    final $r = $callSync(17593, $W()..h(this));
+    final $r = $callSync(17595, $W()..h(this));
     return $r.p() ? $r.i64() : $nil();
   }
 
   /// Go: `func (*webrtc.DataChannel).MaxRetransmits() *uint16`.
   int maxRetransmits() {
-    final $r = $callSync(17594, $W()..h(this));
+    final $r = $callSync(17596, $W()..h(this));
     return $r.p() ? $r.i64() : $nil();
   }
 
   /// Go: `func (*webrtc.DataChannel).Negotiated() bool`.
   bool negotiated() {
-    final $r = $callSync(17595, $W()..h(this));
+    final $r = $callSync(17597, $W()..h(this));
     return $r.b();
   }
 
@@ -451,7 +451,7 @@ class WebrtcV4DataChannel extends $io.IoCloser
   /// each invocation (a retained callback, WIRE.md).
   Future<void> onBufferedAmountLow(FutureOr<void> Function() f) async {
     await $call(
-        17596,
+        17598,
         $W()
           ..h(this)
           ..cb((r) => f(), true));
@@ -466,7 +466,7 @@ class WebrtcV4DataChannel extends $io.IoCloser
   /// each invocation (a retained callback, WIRE.md).
   Future<void> onClose(FutureOr<void> Function() f) async {
     await $call(
-        17597,
+        17599,
         $W()
           ..h(this)
           ..cb((r) => f(), true));
@@ -481,7 +481,7 @@ class WebrtcV4DataChannel extends $io.IoCloser
   /// each invocation (a retained callback, WIRE.md).
   Future<void> onDial(FutureOr<void> Function() f) async {
     await $call(
-        17598,
+        17600,
         $W()
           ..h(this)
           ..cb((r) => f(), true));
@@ -497,7 +497,7 @@ class WebrtcV4DataChannel extends $io.IoCloser
   Future<void> onMessage(
       FutureOr<void> Function(WebrtcV4DataChannelMessage msg) f) async {
     await $call(
-        17599,
+        17601,
         $W()
           ..h(this)
           ..cb((r) => f(r.p() ? WebrtcV4DataChannelMessage.$dec(r) : $nil()),
@@ -513,7 +513,7 @@ class WebrtcV4DataChannel extends $io.IoCloser
   /// each invocation (a retained callback, WIRE.md).
   Future<void> onOpen(FutureOr<void> Function() f) async {
     await $call(
-        17600,
+        17602,
         $W()
           ..h(this)
           ..cb((r) => f(), true));
@@ -521,26 +521,26 @@ class WebrtcV4DataChannel extends $io.IoCloser
 
   /// Go: `func (*webrtc.DataChannel).Ordered() bool`.
   bool ordered() {
-    final $r = $callSync(17601, $W()..h(this));
+    final $r = $callSync(17603, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*webrtc.DataChannel).Protocol() string`.
   String protocol() {
-    final $r = $callSync(17602, $W()..h(this));
+    final $r = $callSync(17604, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*webrtc.DataChannel).ReadyState() webrtc.DataChannelState`.
   int readyState() {
-    final $r = $callSync(17603, $W()..h(this));
+    final $r = $callSync(17605, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*webrtc.DataChannel).Send(data []byte) error`.
   void send(Uint8List data) {
     $callSync(
-        17604,
+        17606,
         $W()
           ..h(this)
           ..bytes(data));
@@ -549,7 +549,7 @@ class WebrtcV4DataChannel extends $io.IoCloser
   /// Go: `func (*webrtc.DataChannel).SendText(s string) error`.
   void sendText(String s) {
     $callSync(
-        17605,
+        17607,
         $W()
           ..h(this)
           ..str(s));
@@ -558,7 +558,7 @@ class WebrtcV4DataChannel extends $io.IoCloser
   /// Go: `func (*webrtc.DataChannel).SetBufferedAmountLowThreshold(th uint64)`.
   void setBufferedAmountLowThreshold(int th) {
     $callSync(
-        17606,
+        17608,
         $W()
           ..h(this)
           ..i64(th));
@@ -566,7 +566,7 @@ class WebrtcV4DataChannel extends $io.IoCloser
 
   /// Go: `func (*webrtc.DataChannel).Transport() *webrtc.SCTPTransport`.
   WebrtcV4SctpTransport transport() {
-    final $r = $callSync(17607, $W()..h(this));
+    final $r = $callSync(17609, $W()..h(this));
     return $r.hnn(WebrtcV4SctpTransport.$h);
   }
 }
@@ -716,19 +716,19 @@ class WebrtcV4IceCandidate extends GoHandle {
 
   /// Go: `func (webrtc.ICECandidate).String() string`.
   String string() {
-    final $r = $callSync(17609, $W()..h(this));
+    final $r = $callSync(17611, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (webrtc.ICECandidate).ToICE() (cand ice.Candidate, err error)`.
   $v4.IceV4Candidate toIce() {
-    final $r = $callSync(17610, $W()..h(this));
+    final $r = $callSync(17612, $W()..h(this));
     return $r.hnn($v4.IceV4Candidate.$h);
   }
 
   /// Go: `func (webrtc.ICECandidate).ToJSON() webrtc.ICECandidateInit`.
   WebrtcV4IceCandidateInit toJson() {
-    final $r = $callSync(17611, $W()..h(this));
+    final $r = $callSync(17613, $W()..h(this));
     return $r.p() ? WebrtcV4IceCandidateInit.$dec($r) : $nil();
   }
 }
@@ -781,7 +781,7 @@ class WebrtcV4IceCandidatePair extends GoHandle {
   factory WebrtcV4IceCandidatePair(
       WebrtcV4IceCandidate local, WebrtcV4IceCandidate remote) {
     final $r = $callSync(
-        17641,
+        17643,
         $W()
           ..h(local)
           ..h(remote));
@@ -790,7 +790,7 @@ class WebrtcV4IceCandidatePair extends GoHandle {
 
   /// Go: `func (*webrtc.ICECandidatePair).String() string`.
   String string() {
-    final $r = $callSync(17612, $W()..h(this));
+    final $r = $callSync(17614, $W()..h(this));
     return $r.str();
   }
 }
@@ -1112,29 +1112,29 @@ class WebrtcV4IceGatherer extends $io.IoCloser
 
   /// Go: `func (*webrtc.ICEGatherer).Close() error`.
   void close() {
-    $callSync(17613, $W()..h(this));
+    $callSync(17615, $W()..h(this));
   }
 
   /// Go: `func (*webrtc.ICEGatherer).Gather() error`.
   void gather() {
-    $callSync(17614, $W()..h(this));
+    $callSync(17616, $W()..h(this));
   }
 
   /// Go: `func (*webrtc.ICEGatherer).GetLocalCandidates() ([]webrtc.ICECandidate, error)`.
   List<WebrtcV4IceCandidate> getLocalCandidates() {
-    final $r = $callSync(17615, $W()..h(this));
+    final $r = $callSync(17617, $W()..h(this));
     return $r.list(() => $r.hnn(WebrtcV4IceCandidate.$h));
   }
 
   /// Go: `func (*webrtc.ICEGatherer).GetLocalParameters() (webrtc.ICEParameters, error)`.
   WebrtcV4IceParameters getLocalParameters() {
-    final $r = $callSync(17616, $W()..h(this));
+    final $r = $callSync(17618, $W()..h(this));
     return $r.p() ? WebrtcV4IceParameters.$dec($r) : $nil();
   }
 
   /// Go: `func (*webrtc.ICEGatherer).GracefulClose() error`.
   void gracefulClose() {
-    $callSync(17617, $W()..h(this));
+    $callSync(17619, $W()..h(this));
   }
 
   /// Go: `func (*webrtc.ICEGatherer).OnLocalCandidate(f func(*webrtc.ICECandidate))`.
@@ -1147,7 +1147,7 @@ class WebrtcV4IceGatherer extends $io.IoCloser
   Future<void> onLocalCandidate(
       FutureOr<void> Function(WebrtcV4IceCandidate iceCandidate) f) async {
     await $call(
-        17618,
+        17620,
         $W()
           ..h(this)
           ..cb((r) => f(r.hnn(WebrtcV4IceCandidate.$h)), true));
@@ -1162,7 +1162,7 @@ class WebrtcV4IceGatherer extends $io.IoCloser
   /// each invocation (a retained callback, WIRE.md).
   Future<void> onStateChange(FutureOr<void> Function(int arg0) f) async {
     await $call(
-        17619,
+        17621,
         $W()
           ..h(this)
           ..cb((r) => f(r.i64()), true));
@@ -1170,7 +1170,7 @@ class WebrtcV4IceGatherer extends $io.IoCloser
 
   /// Go: `func (*webrtc.ICEGatherer).State() webrtc.ICEGathererState`.
   int state() {
-    final $r = $callSync(17620, $W()..h(this));
+    final $r = $callSync(17622, $W()..h(this));
     return $r.i64();
   }
 }
@@ -1239,14 +1239,14 @@ final class WebrtcV4IceServer implements GoDto {
 
   /// Go: `func (webrtc.ICEServer).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(17621, $W()..dto(this));
+    final $r = $callSync(17623, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*webrtc.ICEServer).UnmarshalJSON(b []byte) error`.
   void unmarshalJson(Uint8List b) {
     $callSync(
-        17622,
+        17624,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -1261,7 +1261,7 @@ class WebrtcV4IceTransport extends GoHandle {
   factory WebrtcV4IceTransport(WebrtcV4IceGatherer gatherer,
       $logging.LoggingLoggerFactory loggerFactory) {
     final $r = $callSync(
-        17647,
+        17649,
         $W()
           ..h(gatherer)
           ..h(loggerFactory));
@@ -1271,7 +1271,7 @@ class WebrtcV4IceTransport extends GoHandle {
   /// Go: `func (*webrtc.ICETransport).AddRemoteCandidate(remoteCandidate *webrtc.ICECandidate) error`.
   void addRemoteCandidate(WebrtcV4IceCandidate remoteCandidate) {
     $callSync(
-        17623,
+        17625,
         $W()
           ..h(this)
           ..h(remoteCandidate));
@@ -1279,31 +1279,31 @@ class WebrtcV4IceTransport extends GoHandle {
 
   /// Go: `func (*webrtc.ICETransport).GetLocalParameters() (webrtc.ICEParameters, error)`.
   WebrtcV4IceParameters getLocalParameters() {
-    final $r = $callSync(17624, $W()..h(this));
+    final $r = $callSync(17626, $W()..h(this));
     return $r.p() ? WebrtcV4IceParameters.$dec($r) : $nil();
   }
 
   /// Go: `func (*webrtc.ICETransport).GetRemoteParameters() (webrtc.ICEParameters, error)`.
   WebrtcV4IceParameters getRemoteParameters() {
-    final $r = $callSync(17625, $W()..h(this));
+    final $r = $callSync(17627, $W()..h(this));
     return $r.p() ? WebrtcV4IceParameters.$dec($r) : $nil();
   }
 
   /// Go: `func (*webrtc.ICETransport).GetSelectedCandidatePair() (*webrtc.ICECandidatePair, error)`.
   WebrtcV4IceCandidatePair getSelectedCandidatePair() {
-    final $r = $callSync(17626, $W()..h(this));
+    final $r = $callSync(17628, $W()..h(this));
     return $r.hnn(WebrtcV4IceCandidatePair.$h);
   }
 
   /// Go: `func (*webrtc.ICETransport).GetSelectedCandidatePairStats() (webrtc.ICECandidatePairStats, bool)`.
   (WebrtcV4IceCandidatePairStats, bool) getSelectedCandidatePairStats() {
-    final $r = $callSync(17627, $W()..h(this));
+    final $r = $callSync(17629, $W()..h(this));
     return ($r.p() ? WebrtcV4IceCandidatePairStats.$dec($r) : $nil(), $r.b());
   }
 
   /// Go: `func (*webrtc.ICETransport).GracefulStop() error`.
   void gracefulStop() {
-    $callSync(17628, $W()..h(this));
+    $callSync(17630, $W()..h(this));
   }
 
   /// Go: `func (*webrtc.ICETransport).OnConnectionStateChange(f func(webrtc.ICETransportState))`.
@@ -1316,7 +1316,7 @@ class WebrtcV4IceTransport extends GoHandle {
   Future<void> onConnectionStateChange(
       FutureOr<void> Function(int arg0) f) async {
     await $call(
-        17629,
+        17631,
         $W()
           ..h(this)
           ..cb((r) => f(r.i64()), true));
@@ -1333,7 +1333,7 @@ class WebrtcV4IceTransport extends GoHandle {
       FutureOr<void> Function(WebrtcV4IceCandidatePair iceCandidatePair)
           f) async {
     await $call(
-        17630,
+        17632,
         $W()
           ..h(this)
           ..cb((r) => f(r.hnn(WebrtcV4IceCandidatePair.$h)), true));
@@ -1341,14 +1341,14 @@ class WebrtcV4IceTransport extends GoHandle {
 
   /// Go: `func (*webrtc.ICETransport).Role() webrtc.ICERole`.
   int role() {
-    final $r = $callSync(17631, $W()..h(this));
+    final $r = $callSync(17633, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*webrtc.ICETransport).SetRemoteCandidates(remoteCandidates []webrtc.ICECandidate) error`.
   void setRemoteCandidates(List<WebrtcV4IceCandidate> remoteCandidates) {
     $callSync(
-        17632,
+        17634,
         $W()
           ..h(this)
           ..list(remoteCandidates, (w0, e0) => w0.h(e0)));
@@ -1356,13 +1356,13 @@ class WebrtcV4IceTransport extends GoHandle {
 
   /// Go: `func (*webrtc.ICETransport).State() webrtc.ICETransportState`.
   int state() {
-    final $r = $callSync(17633, $W()..h(this));
+    final $r = $callSync(17635, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*webrtc.ICETransport).Stop() error`.
   void stop() {
-    $callSync(17634, $W()..h(this));
+    $callSync(17636, $W()..h(this));
   }
 }
 
@@ -1373,7 +1373,7 @@ class WebrtcV4MediaEngine extends GoHandle {
   /// Go: `func (*webrtc.MediaEngine).RegisterCodec(codec webrtc.RTPCodecParameters, typ webrtc.RTPCodecType) error`.
   void registerCodec(WebrtcV4RtpCodecParameters codec, int typ) {
     $callSync(
-        17635,
+        17637,
         $W()
           ..h(this)
           ..h(codec)
@@ -1382,13 +1382,13 @@ class WebrtcV4MediaEngine extends GoHandle {
 
   /// Go: `func (*webrtc.MediaEngine).RegisterDefaultCodecs() error`.
   void registerDefaultCodecs() {
-    $callSync(17636, $W()..h(this));
+    $callSync(17638, $W()..h(this));
   }
 
   /// Go: `func (*webrtc.MediaEngine).RegisterFeedback(feedback webrtc.RTCPFeedback, typ webrtc.RTPCodecType)`.
   void registerFeedback(WebrtcV4RtcpFeedback feedback, int typ) {
     $callSync(
-        17637,
+        17639,
         $W()
           ..h(this)
           ..dto(feedback)
@@ -1400,7 +1400,7 @@ class WebrtcV4MediaEngine extends GoHandle {
       WebrtcV4RtpHeaderExtensionCapability extension, int typ,
       [List<int> allowedDirections = const []]) {
     $callSync(
-        17638,
+        17640,
         $W()
           ..h(this)
           ..dto(extension)
@@ -1458,14 +1458,14 @@ class WebrtcV4PeerConnection extends $io.IoCloser
 
   /// Go: `func webrtc.NewPeerConnection(configuration webrtc.Configuration) (*webrtc.PeerConnection, error)`.
   factory WebrtcV4PeerConnection(WebrtcV4Configuration configuration) {
-    final $r = $callSync(17651, $W()..dto(configuration));
+    final $r = $callSync(17653, $W()..dto(configuration));
     return $r.hnn(WebrtcV4PeerConnection.$h);
   }
 
   /// Go: `func (*webrtc.PeerConnection).AddICECandidate(candidate webrtc.ICECandidateInit) error`.
   void addIceCandidate(WebrtcV4IceCandidateInit candidate) {
     $callSync(
-        17657,
+        17659,
         $W()
           ..h(this)
           ..dto(candidate));
@@ -1474,7 +1474,7 @@ class WebrtcV4PeerConnection extends $io.IoCloser
   /// Go: `func (*webrtc.PeerConnection).AddTrack(track webrtc.TrackLocal) (*webrtc.RTPSender, error)`.
   WebrtcV4RtpSender addTrack(WebrtcV4TrackLocal track) {
     final $r = $callSync(
-        17658,
+        17660,
         $W()
           ..h(this)
           ..h(track));
@@ -1485,7 +1485,7 @@ class WebrtcV4PeerConnection extends $io.IoCloser
   WebrtcV4RtpTransceiver addTransceiverFromKind(int kind,
       [List<WebrtcV4RtpTransceiverInit> init = const []]) {
     final $r = $callSync(
-        17659,
+        17661,
         $W()
           ..h(this)
           ..i64(kind)
@@ -1497,7 +1497,7 @@ class WebrtcV4PeerConnection extends $io.IoCloser
   WebrtcV4RtpTransceiver addTransceiverFromTrack(WebrtcV4TrackLocal track,
       [List<WebrtcV4RtpTransceiverInit> init = const []]) {
     final $r = $callSync(
-        17660,
+        17662,
         $W()
           ..h(this)
           ..h(track)
@@ -1507,19 +1507,19 @@ class WebrtcV4PeerConnection extends $io.IoCloser
 
   /// Go: `func (*webrtc.PeerConnection).Close() error`.
   void close() {
-    $callSync(17661, $W()..h(this));
+    $callSync(17663, $W()..h(this));
   }
 
   /// Go: `func (*webrtc.PeerConnection).ConnectionState() webrtc.PeerConnectionState`.
   int connectionState() {
-    final $r = $callSync(17662, $W()..h(this));
+    final $r = $callSync(17664, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*webrtc.PeerConnection).CreateAnswer(*webrtc.AnswerOptions) (webrtc.SessionDescription, error)`.
   WebrtcV4SessionDescription createAnswer(WebrtcV4AnswerOptions answerOptions) {
     final $r = $callSync(
-        17663,
+        17665,
         $W()
           ..h(this)
           ..dto(answerOptions));
@@ -1530,7 +1530,7 @@ class WebrtcV4PeerConnection extends $io.IoCloser
   WebrtcV4DataChannel createDataChannel(
       String label, WebrtcV4DataChannelInit options) {
     final $r = $callSync(
-        17664,
+        17666,
         $W()
           ..h(this)
           ..str(label)
@@ -1541,7 +1541,7 @@ class WebrtcV4PeerConnection extends $io.IoCloser
   /// Go: `func (*webrtc.PeerConnection).CreateOffer(options *webrtc.OfferOptions) (webrtc.SessionDescription, error)`.
   WebrtcV4SessionDescription createOffer(WebrtcV4OfferOptions options) {
     final $r = $callSync(
-        17665,
+        17667,
         $W()
           ..h(this)
           ..dto(options));
@@ -1550,60 +1550,60 @@ class WebrtcV4PeerConnection extends $io.IoCloser
 
   /// Go: `func (*webrtc.PeerConnection).CurrentLocalDescription() *webrtc.SessionDescription`.
   WebrtcV4SessionDescription currentLocalDescription() {
-    final $r = $callSync(17666, $W()..h(this));
+    final $r = $callSync(17668, $W()..h(this));
     return $r.hnn(WebrtcV4SessionDescription.$h);
   }
 
   /// Go: `func (*webrtc.PeerConnection).CurrentRemoteDescription() *webrtc.SessionDescription`.
   WebrtcV4SessionDescription currentRemoteDescription() {
-    final $r = $callSync(17667, $W()..h(this));
+    final $r = $callSync(17669, $W()..h(this));
     return $r.hnn(WebrtcV4SessionDescription.$h);
   }
 
   /// Go: `func (*webrtc.PeerConnection).GetConfiguration() webrtc.Configuration`.
   WebrtcV4Configuration getConfiguration() {
-    final $r = $callSync(17668, $W()..h(this));
+    final $r = $callSync(17670, $W()..h(this));
     return $r.p() ? WebrtcV4Configuration.$dec($r) : $nil();
   }
 
   /// Go: `func (*webrtc.PeerConnection).GetReceivers() (receivers []*webrtc.RTPReceiver)`.
   List<WebrtcV4RtpReceiver> getReceivers() {
-    final $r = $callSync(17669, $W()..h(this));
+    final $r = $callSync(17671, $W()..h(this));
     return $r.list(() => $r.hnn(WebrtcV4RtpReceiver.$h));
   }
 
   /// Go: `func (*webrtc.PeerConnection).GetSenders() (result []*webrtc.RTPSender)`.
   List<WebrtcV4RtpSender> getSenders() {
-    final $r = $callSync(17670, $W()..h(this));
+    final $r = $callSync(17672, $W()..h(this));
     return $r.list(() => $r.hnn(WebrtcV4RtpSender.$h));
   }
 
   /// Go: `func (*webrtc.PeerConnection).GetTransceivers() []*webrtc.RTPTransceiver`.
   List<WebrtcV4RtpTransceiver> getTransceivers() {
-    final $r = $callSync(17671, $W()..h(this));
+    final $r = $callSync(17673, $W()..h(this));
     return $r.list(() => $r.hnn(WebrtcV4RtpTransceiver.$h));
   }
 
   /// Go: `func (*webrtc.PeerConnection).GracefulClose() error`.
   void gracefulClose() {
-    $callSync(17672, $W()..h(this));
+    $callSync(17674, $W()..h(this));
   }
 
   /// Go: `func (*webrtc.PeerConnection).ICEConnectionState() webrtc.ICEConnectionState`.
   int iceConnectionState() {
-    final $r = $callSync(17673, $W()..h(this));
+    final $r = $callSync(17675, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*webrtc.PeerConnection).ICEGatheringState() webrtc.ICEGatheringState`.
   int iceGatheringState() {
-    final $r = $callSync(17674, $W()..h(this));
+    final $r = $callSync(17676, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*webrtc.PeerConnection).LocalDescription() *webrtc.SessionDescription`.
   WebrtcV4SessionDescription localDescription() {
-    final $r = $callSync(17675, $W()..h(this));
+    final $r = $callSync(17677, $W()..h(this));
     return $r.hnn(WebrtcV4SessionDescription.$h);
   }
 
@@ -1617,7 +1617,7 @@ class WebrtcV4PeerConnection extends $io.IoCloser
   Future<void> onConnectionStateChange(
       FutureOr<void> Function(int arg0) f) async {
     await $call(
-        17676,
+        17678,
         $W()
           ..h(this)
           ..cb((r) => f(r.i64()), true));
@@ -1633,7 +1633,7 @@ class WebrtcV4PeerConnection extends $io.IoCloser
   Future<void> onDataChannel(
       FutureOr<void> Function(WebrtcV4DataChannel dataChannel) f) async {
     await $call(
-        17677,
+        17679,
         $W()
           ..h(this)
           ..cb((r) => f(r.hnn(WebrtcV4DataChannel.$h)), true));
@@ -1649,7 +1649,7 @@ class WebrtcV4PeerConnection extends $io.IoCloser
   Future<void> onIceCandidate(
       FutureOr<void> Function(WebrtcV4IceCandidate iceCandidate) f) async {
     await $call(
-        17678,
+        17680,
         $W()
           ..h(this)
           ..cb((r) => f(r.hnn(WebrtcV4IceCandidate.$h)), true));
@@ -1665,7 +1665,7 @@ class WebrtcV4PeerConnection extends $io.IoCloser
   Future<void> onIceConnectionStateChange(
       FutureOr<void> Function(int arg0) f) async {
     await $call(
-        17679,
+        17681,
         $W()
           ..h(this)
           ..cb((r) => f(r.i64()), true));
@@ -1681,7 +1681,7 @@ class WebrtcV4PeerConnection extends $io.IoCloser
   Future<void> onIceGatheringStateChange(
       FutureOr<void> Function(int arg0) f) async {
     await $call(
-        17680,
+        17682,
         $W()
           ..h(this)
           ..cb((r) => f(r.i64()), true));
@@ -1696,7 +1696,7 @@ class WebrtcV4PeerConnection extends $io.IoCloser
   /// each invocation (a retained callback, WIRE.md).
   Future<void> onNegotiationNeeded(FutureOr<void> Function() f) async {
     await $call(
-        17681,
+        17683,
         $W()
           ..h(this)
           ..cb((r) => f(), true));
@@ -1712,7 +1712,7 @@ class WebrtcV4PeerConnection extends $io.IoCloser
   Future<void> onSignalingStateChange(
       FutureOr<void> Function(int arg0) f) async {
     await $call(
-        17682,
+        17684,
         $W()
           ..h(this)
           ..cb((r) => f(r.i64()), true));
@@ -1730,7 +1730,7 @@ class WebrtcV4PeerConnection extends $io.IoCloser
               WebrtcV4TrackRemote trackRemote, WebrtcV4RtpReceiver rtpReceiver)
           f) async {
     await $call(
-        17683,
+        17685,
         $W()
           ..h(this)
           ..cb(
@@ -1741,26 +1741,26 @@ class WebrtcV4PeerConnection extends $io.IoCloser
 
   /// Go: `func (*webrtc.PeerConnection).PendingLocalDescription() *webrtc.SessionDescription`.
   WebrtcV4SessionDescription pendingLocalDescription() {
-    final $r = $callSync(17684, $W()..h(this));
+    final $r = $callSync(17686, $W()..h(this));
     return $r.hnn(WebrtcV4SessionDescription.$h);
   }
 
   /// Go: `func (*webrtc.PeerConnection).PendingRemoteDescription() *webrtc.SessionDescription`.
   WebrtcV4SessionDescription pendingRemoteDescription() {
-    final $r = $callSync(17685, $W()..h(this));
+    final $r = $callSync(17687, $W()..h(this));
     return $r.hnn(WebrtcV4SessionDescription.$h);
   }
 
   /// Go: `func (*webrtc.PeerConnection).RemoteDescription() *webrtc.SessionDescription`.
   WebrtcV4SessionDescription remoteDescription() {
-    final $r = $callSync(17686, $W()..h(this));
+    final $r = $callSync(17688, $W()..h(this));
     return $r.hnn(WebrtcV4SessionDescription.$h);
   }
 
   /// Go: `func (*webrtc.PeerConnection).RemoveTrack(sender *webrtc.RTPSender) (err error)`.
   void removeTrack(WebrtcV4RtpSender sender) {
     $callSync(
-        17687,
+        17689,
         $W()
           ..h(this)
           ..h(sender));
@@ -1768,14 +1768,14 @@ class WebrtcV4PeerConnection extends $io.IoCloser
 
   /// Go: `func (*webrtc.PeerConnection).SCTP() *webrtc.SCTPTransport`.
   WebrtcV4SctpTransport sctp() {
-    final $r = $callSync(17688, $W()..h(this));
+    final $r = $callSync(17690, $W()..h(this));
     return $r.hnn(WebrtcV4SctpTransport.$h);
   }
 
   /// Go: `func (*webrtc.PeerConnection).SetConfiguration(configuration webrtc.Configuration) error`.
   void setConfiguration(WebrtcV4Configuration configuration) {
     $callSync(
-        17689,
+        17691,
         $W()
           ..h(this)
           ..dto(configuration));
@@ -1784,7 +1784,7 @@ class WebrtcV4PeerConnection extends $io.IoCloser
   /// Go: `func (*webrtc.PeerConnection).SetIdentityProvider(string) error`.
   void setIdentityProvider(String arg0) {
     $callSync(
-        17690,
+        17692,
         $W()
           ..h(this)
           ..str(arg0));
@@ -1793,7 +1793,7 @@ class WebrtcV4PeerConnection extends $io.IoCloser
   /// Go: `func (*webrtc.PeerConnection).SetLocalDescription(desc webrtc.SessionDescription) error`.
   void setLocalDescription(WebrtcV4SessionDescription desc) {
     $callSync(
-        17691,
+        17693,
         $W()
           ..h(this)
           ..h(desc));
@@ -1802,7 +1802,7 @@ class WebrtcV4PeerConnection extends $io.IoCloser
   /// Go: `func (*webrtc.PeerConnection).SetRemoteDescription(desc webrtc.SessionDescription) error`.
   void setRemoteDescription(WebrtcV4SessionDescription desc) {
     $callSync(
-        17692,
+        17694,
         $W()
           ..h(this)
           ..h(desc));
@@ -1810,14 +1810,14 @@ class WebrtcV4PeerConnection extends $io.IoCloser
 
   /// Go: `func (*webrtc.PeerConnection).SignalingState() webrtc.SignalingState`.
   int signalingState() {
-    final $r = $callSync(17693, $W()..h(this));
+    final $r = $callSync(17695, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*webrtc.PeerConnection).WriteRTCP(pkts []rtcp.Packet) error`.
   void writeRtcp(List<$rtcp.RtcpPacket> pkts) {
     $callSync(
-        17694,
+        17696,
         $W()
           ..h(this)
           ..list(pkts, (w0, e0) => w0.h(e0)));
@@ -2091,20 +2091,20 @@ class WebrtcV4RtpReceiver extends $datachannel.DatachannelReadDeadliner {
 
   /// Go: `func (*webrtc.RTPReceiver).GetParameters() webrtc.RTPParameters`.
   WebrtcV4RtpParameters getParameters() {
-    final $r = $callSync(17695, $W()..h(this));
+    final $r = $callSync(17697, $W()..h(this));
     return $r.p() ? WebrtcV4RtpParameters.$dec($r) : $nil();
   }
 
   /// Go: `func (*webrtc.RTPReceiver).RTPTransceiver() *webrtc.RTPTransceiver`.
   WebrtcV4RtpTransceiver rtpTransceiver() {
-    final $r = $callSync(17696, $W()..h(this));
+    final $r = $callSync(17698, $W()..h(this));
     return $r.hnn(WebrtcV4RtpTransceiver.$h);
   }
 
   /// Go: `func (*webrtc.RTPReceiver).Receive(parameters webrtc.RTPReceiveParameters) error`.
   void receive(WebrtcV4RtpReceiveParameters parameters) {
     $callSync(
-        17697,
+        17699,
         $W()
           ..h(this)
           ..dto(parameters));
@@ -2113,7 +2113,7 @@ class WebrtcV4RtpReceiver extends $datachannel.DatachannelReadDeadliner {
   /// Go: `func (*webrtc.RTPReceiver).SetRTPParameters(params webrtc.RTPParameters)`.
   void setRtpParameters(WebrtcV4RtpParameters params) {
     $callSync(
-        17698,
+        17700,
         $W()
           ..h(this)
           ..dto(params));
@@ -2122,7 +2122,7 @@ class WebrtcV4RtpReceiver extends $datachannel.DatachannelReadDeadliner {
   /// Go: `func (*webrtc.RTPReceiver).SetReadDeadline(t time.Time) error`.
   void setReadDeadline(DateTime t) {
     $callSync(
-        17699,
+        17701,
         $W()
           ..h(this)
           ..time(t));
@@ -2131,7 +2131,7 @@ class WebrtcV4RtpReceiver extends $datachannel.DatachannelReadDeadliner {
   /// Go: `func (*webrtc.RTPReceiver).SetReadDeadlineSimulcast(deadline time.Time, rid string) error`.
   void setReadDeadlineSimulcast(DateTime deadline, String rid) {
     $callSync(
-        17700,
+        17702,
         $W()
           ..h(this)
           ..time(deadline)
@@ -2140,24 +2140,24 @@ class WebrtcV4RtpReceiver extends $datachannel.DatachannelReadDeadliner {
 
   /// Go: `func (*webrtc.RTPReceiver).Stop() error`.
   void stop() {
-    $callSync(17701, $W()..h(this));
+    $callSync(17703, $W()..h(this));
   }
 
   /// Go: `func (*webrtc.RTPReceiver).Track() *webrtc.TrackRemote`.
   WebrtcV4TrackRemote track() {
-    final $r = $callSync(17702, $W()..h(this));
+    final $r = $callSync(17704, $W()..h(this));
     return $r.hnn(WebrtcV4TrackRemote.$h);
   }
 
   /// Go: `func (*webrtc.RTPReceiver).Tracks() []*webrtc.TrackRemote`.
   List<WebrtcV4TrackRemote> tracks() {
-    final $r = $callSync(17703, $W()..h(this));
+    final $r = $callSync(17705, $W()..h(this));
     return $r.list(() => $r.hnn(WebrtcV4TrackRemote.$h));
   }
 
   /// Go: `func (*webrtc.RTPReceiver).Transport() *webrtc.DTLSTransport`.
   WebrtcV4DtlsTransport transport() {
-    final $r = $callSync(17704, $W()..h(this));
+    final $r = $callSync(17706, $W()..h(this));
     return $r.hnn(WebrtcV4DtlsTransport.$h);
   }
 }
@@ -2211,7 +2211,7 @@ class WebrtcV4RtpSender extends $datachannel.DatachannelReadDeadliner {
   /// Go: `func (*webrtc.RTPSender).AddEncoding(track webrtc.TrackLocal) error`.
   void addEncoding(WebrtcV4TrackLocal track) {
     $callSync(
-        17705,
+        17707,
         $W()
           ..h(this)
           ..h(track));
@@ -2219,14 +2219,14 @@ class WebrtcV4RtpSender extends $datachannel.DatachannelReadDeadliner {
 
   /// Go: `func (*webrtc.RTPSender).GetParameters() webrtc.RTPSendParameters`.
   WebrtcV4RtpSendParameters getParameters() {
-    final $r = $callSync(17706, $W()..h(this));
+    final $r = $callSync(17708, $W()..h(this));
     return $r.p() ? WebrtcV4RtpSendParameters.$dec($r) : $nil();
   }
 
   /// Go: `func (*webrtc.RTPSender).ReplaceTrack(track webrtc.TrackLocal) error`.
   void replaceTrack(WebrtcV4TrackLocal track) {
     $callSync(
-        17707,
+        17709,
         $W()
           ..h(this)
           ..h(track));
@@ -2235,7 +2235,7 @@ class WebrtcV4RtpSender extends $datachannel.DatachannelReadDeadliner {
   /// Go: `func (*webrtc.RTPSender).Send(parameters webrtc.RTPSendParameters) error`.
   void send(WebrtcV4RtpSendParameters parameters) {
     $callSync(
-        17708,
+        17710,
         $W()
           ..h(this)
           ..dto(parameters));
@@ -2244,7 +2244,7 @@ class WebrtcV4RtpSender extends $datachannel.DatachannelReadDeadliner {
   /// Go: `func (*webrtc.RTPSender).SetReadDeadline(t time.Time) error`.
   void setReadDeadline(DateTime t) {
     $callSync(
-        17709,
+        17711,
         $W()
           ..h(this)
           ..time(t));
@@ -2253,7 +2253,7 @@ class WebrtcV4RtpSender extends $datachannel.DatachannelReadDeadliner {
   /// Go: `func (*webrtc.RTPSender).SetReadDeadlineSimulcast(deadline time.Time, rid string) error`.
   void setReadDeadlineSimulcast(DateTime deadline, String rid) {
     $callSync(
-        17710,
+        17712,
         $W()
           ..h(this)
           ..time(deadline)
@@ -2262,18 +2262,18 @@ class WebrtcV4RtpSender extends $datachannel.DatachannelReadDeadliner {
 
   /// Go: `func (*webrtc.RTPSender).Stop() error`.
   void stop() {
-    $callSync(17711, $W()..h(this));
+    $callSync(17713, $W()..h(this));
   }
 
   /// Go: `func (*webrtc.RTPSender).Track() webrtc.TrackLocal`.
   WebrtcV4TrackLocal track() {
-    final $r = $callSync(17712, $W()..h(this));
+    final $r = $callSync(17714, $W()..h(this));
     return $r.hnn(WebrtcV4TrackLocal.$h);
   }
 
   /// Go: `func (*webrtc.RTPSender).Transport() *webrtc.DTLSTransport`.
   WebrtcV4DtlsTransport transport() {
-    final $r = $callSync(17713, $W()..h(this));
+    final $r = $callSync(17715, $W()..h(this));
     return $r.hnn(WebrtcV4DtlsTransport.$h);
   }
 }
@@ -2284,38 +2284,38 @@ class WebrtcV4RtpTransceiver extends GoHandle {
 
   /// Go: `func (*webrtc.RTPTransceiver).Direction() webrtc.RTPTransceiverDirection`.
   int direction() {
-    final $r = $callSync(17714, $W()..h(this));
+    final $r = $callSync(17716, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*webrtc.RTPTransceiver).Kind() webrtc.RTPCodecType`.
   int kind() {
-    final $r = $callSync(17715, $W()..h(this));
+    final $r = $callSync(17717, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*webrtc.RTPTransceiver).Mid() string`.
   String mid() {
-    final $r = $callSync(17716, $W()..h(this));
+    final $r = $callSync(17718, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*webrtc.RTPTransceiver).Receiver() *webrtc.RTPReceiver`.
   WebrtcV4RtpReceiver receiver() {
-    final $r = $callSync(17717, $W()..h(this));
+    final $r = $callSync(17719, $W()..h(this));
     return $r.hnn(WebrtcV4RtpReceiver.$h);
   }
 
   /// Go: `func (*webrtc.RTPTransceiver).Sender() *webrtc.RTPSender`.
   WebrtcV4RtpSender sender() {
-    final $r = $callSync(17718, $W()..h(this));
+    final $r = $callSync(17720, $W()..h(this));
     return $r.hnn(WebrtcV4RtpSender.$h);
   }
 
   /// Go: `func (*webrtc.RTPTransceiver).SetCodecPreferences(codecs []webrtc.RTPCodecParameters) error`.
   void setCodecPreferences(List<WebrtcV4RtpCodecParameters> codecs) {
     $callSync(
-        17719,
+        17721,
         $W()
           ..h(this)
           ..list(codecs, (w0, e0) => w0.h(e0)));
@@ -2324,7 +2324,7 @@ class WebrtcV4RtpTransceiver extends GoHandle {
   /// Go: `func (*webrtc.RTPTransceiver).SetMid(mid string) error`.
   void setMid(String mid) {
     $callSync(
-        17720,
+        17722,
         $W()
           ..h(this)
           ..str(mid));
@@ -2333,7 +2333,7 @@ class WebrtcV4RtpTransceiver extends GoHandle {
   /// Go: `func (*webrtc.RTPTransceiver).SetSender(s *webrtc.RTPSender, track webrtc.TrackLocal) error`.
   void setSender(WebrtcV4RtpSender s, WebrtcV4TrackLocal track) {
     $callSync(
-        17721,
+        17723,
         $W()
           ..h(this)
           ..h(s)
@@ -2342,7 +2342,7 @@ class WebrtcV4RtpTransceiver extends GoHandle {
 
   /// Go: `func (*webrtc.RTPTransceiver).Stop() error`.
   void stop() {
-    $callSync(17722, $W()..h(this));
+    $callSync(17724, $W()..h(this));
   }
 }
 
@@ -2394,19 +2394,19 @@ class WebrtcV4SctpTransport extends GoHandle {
 
   /// Go: `func (*webrtc.SCTPTransport).BufferedAmount() int`.
   int bufferedAmount() {
-    final $r = $callSync(17724, $W()..h(this));
+    final $r = $callSync(17726, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*webrtc.SCTPTransport).GetCapabilities() webrtc.SCTPCapabilities`.
   WebrtcV4SctpCapabilities getCapabilities() {
-    final $r = $callSync(17725, $W()..h(this));
+    final $r = $callSync(17727, $W()..h(this));
     return $r.p() ? WebrtcV4SctpCapabilities.$dec($r) : $nil();
   }
 
   /// Go: `func (*webrtc.SCTPTransport).MaxChannels() uint16`.
   int maxChannels() {
-    final $r = $callSync(17726, $W()..h(this));
+    final $r = $callSync(17728, $W()..h(this));
     return $r.i64();
   }
 
@@ -2420,7 +2420,7 @@ class WebrtcV4SctpTransport extends GoHandle {
   Future<void> onDataChannel(
       FutureOr<void> Function(WebrtcV4DataChannel dataChannel) f) async {
     await $call(
-        17727,
+        17729,
         $W()
           ..h(this)
           ..cb((r) => f(r.hnn(WebrtcV4DataChannel.$h)), true));
@@ -2436,7 +2436,7 @@ class WebrtcV4SctpTransport extends GoHandle {
   Future<void> onDataChannelOpened(
       FutureOr<void> Function(WebrtcV4DataChannel dataChannel) f) async {
     await $call(
-        17728,
+        17730,
         $W()
           ..h(this)
           ..cb((r) => f(r.hnn(WebrtcV4DataChannel.$h)), true));
@@ -2445,7 +2445,7 @@ class WebrtcV4SctpTransport extends GoHandle {
   /// Go: `func (*webrtc.SCTPTransport).Start(capabilities webrtc.SCTPCapabilities) error`.
   void start(WebrtcV4SctpCapabilities capabilities) {
     $callSync(
-        17729,
+        17731,
         $W()
           ..h(this)
           ..dto(capabilities));
@@ -2453,18 +2453,18 @@ class WebrtcV4SctpTransport extends GoHandle {
 
   /// Go: `func (*webrtc.SCTPTransport).State() webrtc.SCTPTransportState`.
   int state() {
-    final $r = $callSync(17730, $W()..h(this));
+    final $r = $callSync(17732, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*webrtc.SCTPTransport).Stop() error`.
   void stop() {
-    $callSync(17731, $W()..h(this));
+    $callSync(17733, $W()..h(this));
   }
 
   /// Go: `func (*webrtc.SCTPTransport).Transport() *webrtc.DTLSTransport`.
   WebrtcV4DtlsTransport transport() {
-    final $r = $callSync(17732, $W()..h(this));
+    final $r = $callSync(17734, $W()..h(this));
     return $r.hnn(WebrtcV4DtlsTransport.$h);
   }
 }
@@ -2475,7 +2475,7 @@ class WebrtcV4SessionDescription extends GoHandle {
 
   /// Go: `func (*webrtc.SessionDescription).Unmarshal() (*sdp.SessionDescription, error)`.
   $v3.SdpV3SessionDescription unmarshal() {
-    final $r = $callSync(17733, $W()..h(this));
+    final $r = $callSync(17735, $W()..h(this));
     return $r.p() ? $v3.SdpV3SessionDescription.$dec($r) : $nil();
   }
 }
@@ -2486,13 +2486,13 @@ class WebrtcV4SettingEngine extends GoHandle {
 
   /// Go: `func (*webrtc.SettingEngine).DetachDataChannels()`.
   void detachDataChannels() {
-    $callSync(17734, $W()..h(this));
+    $callSync(17736, $W()..h(this));
   }
 
   /// Go: `func (*webrtc.SettingEngine).DisableActiveTCP(isDisabled bool)`.
   void disableActiveTcp(bool isDisabled) {
     $callSync(
-        17735,
+        17737,
         $W()
           ..h(this)
           ..b(isDisabled));
@@ -2501,7 +2501,7 @@ class WebrtcV4SettingEngine extends GoHandle {
   /// Go: `func (*webrtc.SettingEngine).DisableCertificateFingerprintVerification(isDisabled bool)`.
   void disableCertificateFingerprintVerification(bool isDisabled) {
     $callSync(
-        17736,
+        17738,
         $W()
           ..h(this)
           ..b(isDisabled));
@@ -2510,7 +2510,7 @@ class WebrtcV4SettingEngine extends GoHandle {
   /// Go: `func (*webrtc.SettingEngine).DisableCloseByDTLS(isEnabled bool)`.
   void disableCloseByDtls(bool isEnabled) {
     $callSync(
-        17737,
+        17739,
         $W()
           ..h(this)
           ..b(isEnabled));
@@ -2519,7 +2519,7 @@ class WebrtcV4SettingEngine extends GoHandle {
   /// Go: `func (*webrtc.SettingEngine).DisableMediaEngineCopy(isDisabled bool)`.
   void disableMediaEngineCopy(bool isDisabled) {
     $callSync(
-        17738,
+        17740,
         $W()
           ..h(this)
           ..b(isDisabled));
@@ -2528,7 +2528,7 @@ class WebrtcV4SettingEngine extends GoHandle {
   /// Go: `func (*webrtc.SettingEngine).DisableMediaEngineMultipleCodecs(isDisabled bool)`.
   void disableMediaEngineMultipleCodecs(bool isDisabled) {
     $callSync(
-        17739,
+        17741,
         $W()
           ..h(this)
           ..b(isDisabled));
@@ -2537,7 +2537,7 @@ class WebrtcV4SettingEngine extends GoHandle {
   /// Go: `func (*webrtc.SettingEngine).DisableSRTCPReplayProtection(isDisabled bool)`.
   void disableSrtcpReplayProtection(bool isDisabled) {
     $callSync(
-        17740,
+        17742,
         $W()
           ..h(this)
           ..b(isDisabled));
@@ -2546,7 +2546,7 @@ class WebrtcV4SettingEngine extends GoHandle {
   /// Go: `func (*webrtc.SettingEngine).DisableSRTPReplayProtection(isDisabled bool)`.
   void disableSrtpReplayProtection(bool isDisabled) {
     $callSync(
-        17741,
+        17743,
         $W()
           ..h(this)
           ..b(isDisabled));
@@ -2555,7 +2555,7 @@ class WebrtcV4SettingEngine extends GoHandle {
   /// Go: `func (*webrtc.SettingEngine).EnableDataChannelBlockWrite(nonblockWrite bool)`.
   void enableDataChannelBlockWrite(bool nonblockWrite) {
     $callSync(
-        17742,
+        17744,
         $W()
           ..h(this)
           ..b(nonblockWrite));
@@ -2564,7 +2564,7 @@ class WebrtcV4SettingEngine extends GoHandle {
   /// Go: `func (*webrtc.SettingEngine).EnableSCTPZeroChecksum(isEnabled bool)`.
   void enableSctpZeroChecksum(bool isEnabled) {
     $callSync(
-        17743,
+        17745,
         $W()
           ..h(this)
           ..b(isEnabled));
@@ -2573,7 +2573,7 @@ class WebrtcV4SettingEngine extends GoHandle {
   /// Go: `func (*webrtc.SettingEngine).SetAnsweringDTLSRole(role webrtc.DTLSRole) error`.
   void setAnsweringDtlsRole(int role) {
     $callSync(
-        17744,
+        17746,
         $W()
           ..h(this)
           ..i64(role));
@@ -2582,7 +2582,7 @@ class WebrtcV4SettingEngine extends GoHandle {
   /// Go: `func (*webrtc.SettingEngine).SetDTLSClientAuth(clientAuth dtls.ClientAuthType)`.
   void setDtlsClientAuth(int clientAuth) {
     $callSync(
-        17745,
+        17747,
         $W()
           ..h(this)
           ..i64(clientAuth));
@@ -2591,7 +2591,7 @@ class WebrtcV4SettingEngine extends GoHandle {
   /// Go: `func (*webrtc.SettingEngine).SetDTLSClientCAs(clientCAs *x509.CertPool)`.
   void setDtlsClientCas($x509.CryptoX509CertPool clientCas) {
     $callSync(
-        17746,
+        17748,
         $W()
           ..h(this)
           ..h(clientCas));
@@ -2600,7 +2600,7 @@ class WebrtcV4SettingEngine extends GoHandle {
   /// Go: `func (*webrtc.SettingEngine).SetDTLSDisableInsecureSkipVerify(disable bool)`.
   void setDtlsDisableInsecureSkipVerify(bool disable) {
     $callSync(
-        17747,
+        17749,
         $W()
           ..h(this)
           ..b(disable));
@@ -2609,7 +2609,7 @@ class WebrtcV4SettingEngine extends GoHandle {
   /// Go: `func (*webrtc.SettingEngine).SetDTLSEllipticCurves(ellipticCurves ...elliptic.Curve)`.
   void setDtlsEllipticCurves([List<int> ellipticCurves = const []]) {
     $callSync(
-        17748,
+        17750,
         $W()
           ..h(this)
           ..list(ellipticCurves, (w0, e0) => w0.i64(e0)));
@@ -2618,7 +2618,7 @@ class WebrtcV4SettingEngine extends GoHandle {
   /// Go: `func (*webrtc.SettingEngine).SetDTLSExtendedMasterSecret(extendedMasterSecret dtls.ExtendedMasterSecretType)`.
   void setDtlsExtendedMasterSecret(int extendedMasterSecret) {
     $callSync(
-        17749,
+        17751,
         $W()
           ..h(this)
           ..i64(extendedMasterSecret));
@@ -2627,7 +2627,7 @@ class WebrtcV4SettingEngine extends GoHandle {
   /// Go: `func (*webrtc.SettingEngine).SetDTLSInsecureSkipHelloVerify(skip bool)`.
   void setDtlsInsecureSkipHelloVerify(bool skip) {
     $callSync(
-        17750,
+        17752,
         $W()
           ..h(this)
           ..b(skip));
@@ -2636,7 +2636,7 @@ class WebrtcV4SettingEngine extends GoHandle {
   /// Go: `func (*webrtc.SettingEngine).SetDTLSKeyLogWriter(writer io.Writer)`.
   void setDtlsKeyLogWriter(GoHandle? writer) {
     $callSync(
-        17751,
+        17753,
         $W()
           ..h(this)
           ..h(writer));
@@ -2645,7 +2645,7 @@ class WebrtcV4SettingEngine extends GoHandle {
   /// Go: `func (*webrtc.SettingEngine).SetDTLSReplayProtectionWindow(n uint)`.
   void setDtlsReplayProtectionWindow(int n) {
     $callSync(
-        17752,
+        17754,
         $W()
           ..h(this)
           ..i64(n));
@@ -2654,7 +2654,7 @@ class WebrtcV4SettingEngine extends GoHandle {
   /// Go: `func (*webrtc.SettingEngine).SetDTLSRetransmissionInterval(interval time.Duration)`.
   void setDtlsRetransmissionInterval(Duration interval) {
     $callSync(
-        17753,
+        17755,
         $W()
           ..h(this)
           ..i64((interval).inMicroseconds * 1000));
@@ -2663,7 +2663,7 @@ class WebrtcV4SettingEngine extends GoHandle {
   /// Go: `func (*webrtc.SettingEngine).SetDTLSRootCAs(rootCAs *x509.CertPool)`.
   void setDtlsRootCas($x509.CryptoX509CertPool rootCas) {
     $callSync(
-        17754,
+        17756,
         $W()
           ..h(this)
           ..h(rootCas));
@@ -2672,7 +2672,7 @@ class WebrtcV4SettingEngine extends GoHandle {
   /// Go: `func (*webrtc.SettingEngine).SetEphemeralUDPPortRange(portMin uint16, portMax uint16) error`.
   void setEphemeralUdpPortRange(int portMin, int portMax) {
     $callSync(
-        17755,
+        17757,
         $W()
           ..h(this)
           ..i64(portMin)
@@ -2682,7 +2682,7 @@ class WebrtcV4SettingEngine extends GoHandle {
   /// Go: `func (*webrtc.SettingEngine).SetFireOnTrackBeforeFirstRTP(fireOnTrackBeforeFirstRTP bool)`.
   void setFireOnTrackBeforeFirstRtp(bool fireOnTrackBeforeFirstRtp) {
     $callSync(
-        17756,
+        17758,
         $W()
           ..h(this)
           ..b(fireOnTrackBeforeFirstRtp));
@@ -2691,7 +2691,7 @@ class WebrtcV4SettingEngine extends GoHandle {
   /// Go: `func (*webrtc.SettingEngine).SetHostAcceptanceMinWait(t time.Duration)`.
   void setHostAcceptanceMinWait(Duration t) {
     $callSync(
-        17757,
+        17759,
         $W()
           ..h(this)
           ..i64((t).inMicroseconds * 1000));
@@ -2709,7 +2709,7 @@ class WebrtcV4SettingEngine extends GoHandle {
               $v4.IceV4Candidate remote, $v4.IceV4CandidatePair pair)
           bindingRequestHandler) async {
     await $call(
-        17758,
+        17760,
         $W()
           ..h(this)
           ..cb(
@@ -2724,7 +2724,7 @@ class WebrtcV4SettingEngine extends GoHandle {
   /// Go: `func (*webrtc.SettingEngine).SetICECredentials(usernameFragment string, password string)`.
   void setIceCredentials(String usernameFragment, String password) {
     $callSync(
-        17759,
+        17761,
         $W()
           ..h(this)
           ..str(usernameFragment)
@@ -2734,7 +2734,7 @@ class WebrtcV4SettingEngine extends GoHandle {
   /// Go: `func (*webrtc.SettingEngine).SetICEMaxBindingRequests(d uint16)`.
   void setIceMaxBindingRequests(int d) {
     $callSync(
-        17760,
+        17762,
         $W()
           ..h(this)
           ..i64(d));
@@ -2743,7 +2743,7 @@ class WebrtcV4SettingEngine extends GoHandle {
   /// Go: `func (*webrtc.SettingEngine).SetICEMulticastDNSMode(multicastDNSMode ice.MulticastDNSMode)`.
   void setIceMulticastDnsMode(int multicastDnsMode) {
     $callSync(
-        17761,
+        17763,
         $W()
           ..h(this)
           ..i64(multicastDnsMode));
@@ -2752,7 +2752,7 @@ class WebrtcV4SettingEngine extends GoHandle {
   /// Go: `func (*webrtc.SettingEngine).SetICEProxyDialer(d proxy.Dialer)`.
   void setIceProxyDialer($proxy.NetProxyDialer d) {
     $callSync(
-        17762,
+        17764,
         $W()
           ..h(this)
           ..h(d));
@@ -2761,7 +2761,7 @@ class WebrtcV4SettingEngine extends GoHandle {
   /// Go: `func (*webrtc.SettingEngine).SetICETCPMux(tcpMux ice.TCPMux)`.
   void setIcetcpMux($v4.IceV4TcpMux tcpMux) {
     $callSync(
-        17763,
+        17765,
         $W()
           ..h(this)
           ..h(tcpMux));
@@ -2771,7 +2771,7 @@ class WebrtcV4SettingEngine extends GoHandle {
   void setIceTimeouts(Duration disconnectedTimeout, Duration failedTimeout,
       Duration keepAliveInterval) {
     $callSync(
-        17764,
+        17766,
         $W()
           ..h(this)
           ..i64((disconnectedTimeout).inMicroseconds * 1000)
@@ -2782,7 +2782,7 @@ class WebrtcV4SettingEngine extends GoHandle {
   /// Go: `func (*webrtc.SettingEngine).SetICEUDPMux(udpMux ice.UDPMux)`.
   void setIceudpMux($v4.IceV4UdpMux udpMux) {
     $callSync(
-        17765,
+        17767,
         $W()
           ..h(this)
           ..h(udpMux));
@@ -2798,7 +2798,7 @@ class WebrtcV4SettingEngine extends GoHandle {
   Future<void> setIpFilter(
       FutureOr<bool> Function(Uint8List arg0) filter) async {
     await $call(
-        17766,
+        17768,
         $W()
           ..h(this)
           ..cb((r) => filter(r.bytes() ?? Uint8List(0)), true));
@@ -2807,7 +2807,7 @@ class WebrtcV4SettingEngine extends GoHandle {
   /// Go: `func (*webrtc.SettingEngine).SetIncludeLoopbackCandidate(include bool)`.
   void setIncludeLoopbackCandidate(bool include) {
     $callSync(
-        17767,
+        17769,
         $W()
           ..h(this)
           ..b(include));
@@ -2823,7 +2823,7 @@ class WebrtcV4SettingEngine extends GoHandle {
   Future<void> setInterfaceFilter(
       FutureOr<bool> Function(String arg0) filter) async {
     await $call(
-        17768,
+        17770,
         $W()
           ..h(this)
           ..cb((r) => filter(r.str()), true));
@@ -2832,7 +2832,7 @@ class WebrtcV4SettingEngine extends GoHandle {
   /// Go: `func (*webrtc.SettingEngine).SetLite(lite bool)`.
   void setLite(bool lite) {
     $callSync(
-        17769,
+        17771,
         $W()
           ..h(this)
           ..b(lite));
@@ -2841,7 +2841,7 @@ class WebrtcV4SettingEngine extends GoHandle {
   /// Go: `func (*webrtc.SettingEngine).SetMulticastDNSHostName(hostName string)`.
   void setMulticastDnsHostName(String hostName) {
     $callSync(
-        17770,
+        17772,
         $W()
           ..h(this)
           ..str(hostName));
@@ -2850,7 +2850,7 @@ class WebrtcV4SettingEngine extends GoHandle {
   /// Go: `func (*webrtc.SettingEngine).SetNAT1To1IPs(ips []string, candidateType webrtc.ICECandidateType)`.
   void setNat1To1ips(List<String> ips, int candidateType) {
     $callSync(
-        17771,
+        17773,
         $W()
           ..h(this)
           ..list(ips, (w0, e0) => w0.str(e0))
@@ -2860,7 +2860,7 @@ class WebrtcV4SettingEngine extends GoHandle {
   /// Go: `func (*webrtc.SettingEngine).SetNet(net transport.Net)`.
   void setNet($v33.TransportV3Net net) {
     $callSync(
-        17772,
+        17774,
         $W()
           ..h(this)
           ..h(net));
@@ -2869,7 +2869,7 @@ class WebrtcV4SettingEngine extends GoHandle {
   /// Go: `func (*webrtc.SettingEngine).SetNetworkTypes(candidateTypes []webrtc.NetworkType)`.
   void setNetworkTypes(List<int> candidateTypes) {
     $callSync(
-        17773,
+        17775,
         $W()
           ..h(this)
           ..list(candidateTypes, (w0, e0) => w0.i64(e0)));
@@ -2878,7 +2878,7 @@ class WebrtcV4SettingEngine extends GoHandle {
   /// Go: `func (*webrtc.SettingEngine).SetPrflxAcceptanceMinWait(t time.Duration)`.
   void setPrflxAcceptanceMinWait(Duration t) {
     $callSync(
-        17774,
+        17776,
         $W()
           ..h(this)
           ..i64((t).inMicroseconds * 1000));
@@ -2887,7 +2887,7 @@ class WebrtcV4SettingEngine extends GoHandle {
   /// Go: `func (*webrtc.SettingEngine).SetReceiveMTU(receiveMTU uint)`.
   void setReceiveMtu(int receiveMtu) {
     $callSync(
-        17775,
+        17777,
         $W()
           ..h(this)
           ..i64(receiveMtu));
@@ -2896,7 +2896,7 @@ class WebrtcV4SettingEngine extends GoHandle {
   /// Go: `func (*webrtc.SettingEngine).SetRelayAcceptanceMinWait(t time.Duration)`.
   void setRelayAcceptanceMinWait(Duration t) {
     $callSync(
-        17776,
+        17778,
         $W()
           ..h(this)
           ..i64((t).inMicroseconds * 1000));
@@ -2905,7 +2905,7 @@ class WebrtcV4SettingEngine extends GoHandle {
   /// Go: `func (*webrtc.SettingEngine).SetSCTPCwndCAStep(cwndCAStep uint32)`.
   void setSctpCwndCaStep(int cwndCaStep) {
     $callSync(
-        17777,
+        17779,
         $W()
           ..h(this)
           ..i64(cwndCaStep));
@@ -2914,7 +2914,7 @@ class WebrtcV4SettingEngine extends GoHandle {
   /// Go: `func (*webrtc.SettingEngine).SetSCTPFastRtxWnd(fastRtxWnd uint32)`.
   void setSctpFastRtxWnd(int fastRtxWnd) {
     $callSync(
-        17778,
+        17780,
         $W()
           ..h(this)
           ..i64(fastRtxWnd));
@@ -2923,7 +2923,7 @@ class WebrtcV4SettingEngine extends GoHandle {
   /// Go: `func (*webrtc.SettingEngine).SetSCTPMaxMessageSize(maxMessageSize uint32)`.
   void setSctpMaxMessageSize(int maxMessageSize) {
     $callSync(
-        17779,
+        17781,
         $W()
           ..h(this)
           ..i64(maxMessageSize));
@@ -2932,7 +2932,7 @@ class WebrtcV4SettingEngine extends GoHandle {
   /// Go: `func (*webrtc.SettingEngine).SetSCTPMaxReceiveBufferSize(maxReceiveBufferSize uint32)`.
   void setSctpMaxReceiveBufferSize(int maxReceiveBufferSize) {
     $callSync(
-        17780,
+        17782,
         $W()
           ..h(this)
           ..i64(maxReceiveBufferSize));
@@ -2941,7 +2941,7 @@ class WebrtcV4SettingEngine extends GoHandle {
   /// Go: `func (*webrtc.SettingEngine).SetSCTPMinCwnd(minCwnd uint32)`.
   void setSctpMinCwnd(int minCwnd) {
     $callSync(
-        17781,
+        17783,
         $W()
           ..h(this)
           ..i64(minCwnd));
@@ -2950,7 +2950,7 @@ class WebrtcV4SettingEngine extends GoHandle {
   /// Go: `func (*webrtc.SettingEngine).SetSCTPRTOMax(rtoMax time.Duration)`.
   void setSctprtoMax(Duration rtoMax) {
     $callSync(
-        17782,
+        17784,
         $W()
           ..h(this)
           ..i64((rtoMax).inMicroseconds * 1000));
@@ -2959,7 +2959,7 @@ class WebrtcV4SettingEngine extends GoHandle {
   /// Go: `func (*webrtc.SettingEngine).SetSDPMediaLevelFingerprints(sdpMediaLevelFingerprints bool)`.
   void setSdpMediaLevelFingerprints(bool sdpMediaLevelFingerprints) {
     $callSync(
-        17783,
+        17785,
         $W()
           ..h(this)
           ..b(sdpMediaLevelFingerprints));
@@ -2968,7 +2968,7 @@ class WebrtcV4SettingEngine extends GoHandle {
   /// Go: `func (*webrtc.SettingEngine).SetSRTCPReplayProtectionWindow(n uint)`.
   void setSrtcpReplayProtectionWindow(int n) {
     $callSync(
-        17784,
+        17786,
         $W()
           ..h(this)
           ..i64(n));
@@ -2977,7 +2977,7 @@ class WebrtcV4SettingEngine extends GoHandle {
   /// Go: `func (*webrtc.SettingEngine).SetSRTPProtectionProfiles(profiles ...dtls.SRTPProtectionProfile)`.
   void setSrtpProtectionProfiles([List<int> profiles = const []]) {
     $callSync(
-        17785,
+        17787,
         $W()
           ..h(this)
           ..list(profiles, (w0, e0) => w0.i64(e0)));
@@ -2986,7 +2986,7 @@ class WebrtcV4SettingEngine extends GoHandle {
   /// Go: `func (*webrtc.SettingEngine).SetSRTPReplayProtectionWindow(n uint)`.
   void setSrtpReplayProtectionWindow(int n) {
     $callSync(
-        17786,
+        17788,
         $W()
           ..h(this)
           ..i64(n));
@@ -2995,7 +2995,7 @@ class WebrtcV4SettingEngine extends GoHandle {
   /// Go: `func (*webrtc.SettingEngine).SetSTUNGatherTimeout(t time.Duration)`.
   void setStunGatherTimeout(Duration t) {
     $callSync(
-        17787,
+        17789,
         $W()
           ..h(this)
           ..i64((t).inMicroseconds * 1000));
@@ -3004,7 +3004,7 @@ class WebrtcV4SettingEngine extends GoHandle {
   /// Go: `func (*webrtc.SettingEngine).SetSrflxAcceptanceMinWait(t time.Duration)`.
   void setSrflxAcceptanceMinWait(Duration t) {
     $callSync(
-        17788,
+        17790,
         $W()
           ..h(this)
           ..i64((t).inMicroseconds * 1000));
@@ -3029,7 +3029,7 @@ mixin WebrtcV4TrackLocal$ on GoHandle {
   /// Go: `func (webrtc.TrackLocal).Bind(webrtc.TrackLocalContext) (webrtc.RTPCodecParameters, error)`.
   WebrtcV4RtpCodecParameters bind(WebrtcV4TrackLocalContext trackLocalContext) {
     final $r = $callSync(
-        17789,
+        17791,
         $W()
           ..h(this)
           ..h(trackLocalContext));
@@ -3038,32 +3038,32 @@ mixin WebrtcV4TrackLocal$ on GoHandle {
 
   /// Go: `func (webrtc.TrackLocal).ID() string`.
   String id() {
-    final $r = $callSync(17790, $W()..h(this));
+    final $r = $callSync(17792, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (webrtc.TrackLocal).Kind() webrtc.RTPCodecType`.
   int kind() {
-    final $r = $callSync(17791, $W()..h(this));
+    final $r = $callSync(17793, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (webrtc.TrackLocal).RID() string`.
   String rid() {
-    final $r = $callSync(17792, $W()..h(this));
+    final $r = $callSync(17794, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (webrtc.TrackLocal).StreamID() string`.
   String streamId() {
-    final $r = $callSync(17793, $W()..h(this));
+    final $r = $callSync(17795, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (webrtc.TrackLocal).Unbind(webrtc.TrackLocalContext) error`.
   void unbind(WebrtcV4TrackLocalContext trackLocalContext) {
     $callSync(
-        17794,
+        17796,
         $W()
           ..h(this)
           ..h(trackLocalContext));
@@ -3092,50 +3092,50 @@ class WebrtcV4TrackLocalContext extends GoHandle
 mixin WebrtcV4TrackLocalContext$ on GoHandle {
   /// Go: `func (webrtc.TrackLocalContext).CodecParameters() []webrtc.RTPCodecParameters`.
   List<WebrtcV4RtpCodecParameters> codecParameters() {
-    final $r = $callSync(17795, $W()..h(this));
+    final $r = $callSync(17797, $W()..h(this));
     return $r.list(() => $r.hnn(WebrtcV4RtpCodecParameters.$h));
   }
 
   /// Go: `func (webrtc.TrackLocalContext).HeaderExtensions() []webrtc.RTPHeaderExtensionParameter`.
   List<WebrtcV4RtpHeaderExtensionParameter> headerExtensions() {
-    final $r = $callSync(17796, $W()..h(this));
+    final $r = $callSync(17798, $W()..h(this));
     return $r.list(
         () => $r.p() ? WebrtcV4RtpHeaderExtensionParameter.$dec($r) : $nil());
   }
 
   /// Go: `func (webrtc.TrackLocalContext).ID() string`.
   String id() {
-    final $r = $callSync(17797, $W()..h(this));
+    final $r = $callSync(17799, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (webrtc.TrackLocalContext).RTCPReader() interceptor.RTCPReader`.
   $interceptor.InterceptorRtcpReader rtcpReader() {
-    final $r = $callSync(17798, $W()..h(this));
+    final $r = $callSync(17800, $W()..h(this));
     return $r.hnn($interceptor.InterceptorRtcpReader.$h);
   }
 
   /// Go: `func (webrtc.TrackLocalContext).SSRC() webrtc.SSRC`.
   int ssrc() {
-    final $r = $callSync(17799, $W()..h(this));
+    final $r = $callSync(17801, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (webrtc.TrackLocalContext).SSRCForwardErrorCorrection() webrtc.SSRC`.
   int ssrcForwardErrorCorrection() {
-    final $r = $callSync(17800, $W()..h(this));
+    final $r = $callSync(17802, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (webrtc.TrackLocalContext).SSRCRetransmission() webrtc.SSRC`.
   int ssrcRetransmission() {
-    final $r = $callSync(17801, $W()..h(this));
+    final $r = $callSync(17803, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (webrtc.TrackLocalContext).WriteStream() webrtc.TrackLocalWriter`.
   WebrtcV4TrackLocalWriter writeStream() {
-    final $r = $callSync(17802, $W()..h(this));
+    final $r = $callSync(17804, $W()..h(this));
     return $r.hnn(WebrtcV4TrackLocalWriter.$h);
   }
 }
@@ -3148,7 +3148,7 @@ class WebrtcV4TrackLocalStaticRtp extends WebrtcV4TrackLocal {
   factory WebrtcV4TrackLocalStaticRtp(
       WebrtcV4RtpCodecCapability c, String id, String streamId) {
     final $r = $callSync(
-        17655,
+        17657,
         $W()
           ..dto(c)
           ..str(id)
@@ -3159,7 +3159,7 @@ class WebrtcV4TrackLocalStaticRtp extends WebrtcV4TrackLocal {
   /// Go: `func (*webrtc.TrackLocalStaticRTP).Bind(trackContext webrtc.TrackLocalContext) (webrtc.RTPCodecParameters, error)`.
   WebrtcV4RtpCodecParameters bind(WebrtcV4TrackLocalContext trackContext) {
     final $r = $callSync(
-        17803,
+        17805,
         $W()
           ..h(this)
           ..h(trackContext));
@@ -3168,38 +3168,38 @@ class WebrtcV4TrackLocalStaticRtp extends WebrtcV4TrackLocal {
 
   /// Go: `func (*webrtc.TrackLocalStaticRTP).Codec() webrtc.RTPCodecCapability`.
   WebrtcV4RtpCodecCapability codec() {
-    final $r = $callSync(17804, $W()..h(this));
+    final $r = $callSync(17806, $W()..h(this));
     return $r.p() ? WebrtcV4RtpCodecCapability.$dec($r) : $nil();
   }
 
   /// Go: `func (*webrtc.TrackLocalStaticRTP).ID() string`.
   String id() {
-    final $r = $callSync(17805, $W()..h(this));
+    final $r = $callSync(17807, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*webrtc.TrackLocalStaticRTP).Kind() webrtc.RTPCodecType`.
   int kind() {
-    final $r = $callSync(17806, $W()..h(this));
+    final $r = $callSync(17808, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*webrtc.TrackLocalStaticRTP).RID() string`.
   String rid() {
-    final $r = $callSync(17807, $W()..h(this));
+    final $r = $callSync(17809, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*webrtc.TrackLocalStaticRTP).StreamID() string`.
   String streamId() {
-    final $r = $callSync(17808, $W()..h(this));
+    final $r = $callSync(17810, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*webrtc.TrackLocalStaticRTP).Unbind(t webrtc.TrackLocalContext) error`.
   void unbind(WebrtcV4TrackLocalContext t) {
     $callSync(
-        17809,
+        17811,
         $W()
           ..h(this)
           ..h(t));
@@ -3208,7 +3208,7 @@ class WebrtcV4TrackLocalStaticRtp extends WebrtcV4TrackLocal {
   /// Go: `func (*webrtc.TrackLocalStaticRTP).Write(b []byte) (n int, err error)`.
   int write(Uint8List b) {
     final $r = $callSync(
-        17810,
+        17812,
         $W()
           ..h(this)
           ..bytes(b));
@@ -3218,7 +3218,7 @@ class WebrtcV4TrackLocalStaticRtp extends WebrtcV4TrackLocal {
   /// Go: `func (*webrtc.TrackLocalStaticRTP).WriteRTP(p *rtp.Packet) error`.
   void writeRtp($rtp.RtpPacket p) {
     $callSync(
-        17811,
+        17813,
         $W()
           ..h(this)
           ..dto(p));
@@ -3233,7 +3233,7 @@ class WebrtcV4TrackLocalStaticSample extends WebrtcV4TrackLocal {
   factory WebrtcV4TrackLocalStaticSample(
       WebrtcV4RtpCodecCapability c, String id, String streamId) {
     final $r = $callSync(
-        17656,
+        17658,
         $W()
           ..dto(c)
           ..str(id)
@@ -3244,7 +3244,7 @@ class WebrtcV4TrackLocalStaticSample extends WebrtcV4TrackLocal {
   /// Go: `func (*webrtc.TrackLocalStaticSample).Bind(t webrtc.TrackLocalContext) (webrtc.RTPCodecParameters, error)`.
   WebrtcV4RtpCodecParameters bind(WebrtcV4TrackLocalContext t) {
     final $r = $callSync(
-        17812,
+        17814,
         $W()
           ..h(this)
           ..h(t));
@@ -3253,14 +3253,14 @@ class WebrtcV4TrackLocalStaticSample extends WebrtcV4TrackLocal {
 
   /// Go: `func (*webrtc.TrackLocalStaticSample).Codec() webrtc.RTPCodecCapability`.
   WebrtcV4RtpCodecCapability codec() {
-    final $r = $callSync(17813, $W()..h(this));
+    final $r = $callSync(17815, $W()..h(this));
     return $r.p() ? WebrtcV4RtpCodecCapability.$dec($r) : $nil();
   }
 
   /// Go: `func (*webrtc.TrackLocalStaticSample).GeneratePadding(samples uint32) error`.
   void generatePadding(int samples) {
     $callSync(
-        17814,
+        17816,
         $W()
           ..h(this)
           ..i64(samples));
@@ -3268,32 +3268,32 @@ class WebrtcV4TrackLocalStaticSample extends WebrtcV4TrackLocal {
 
   /// Go: `func (*webrtc.TrackLocalStaticSample).ID() string`.
   String id() {
-    final $r = $callSync(17815, $W()..h(this));
+    final $r = $callSync(17817, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*webrtc.TrackLocalStaticSample).Kind() webrtc.RTPCodecType`.
   int kind() {
-    final $r = $callSync(17816, $W()..h(this));
+    final $r = $callSync(17818, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*webrtc.TrackLocalStaticSample).RID() string`.
   String rid() {
-    final $r = $callSync(17817, $W()..h(this));
+    final $r = $callSync(17819, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*webrtc.TrackLocalStaticSample).StreamID() string`.
   String streamId() {
-    final $r = $callSync(17818, $W()..h(this));
+    final $r = $callSync(17820, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*webrtc.TrackLocalStaticSample).Unbind(t webrtc.TrackLocalContext) error`.
   void unbind(WebrtcV4TrackLocalContext t) {
     $callSync(
-        17819,
+        17821,
         $W()
           ..h(this)
           ..h(t));
@@ -3302,7 +3302,7 @@ class WebrtcV4TrackLocalStaticSample extends WebrtcV4TrackLocal {
   /// Go: `func (*webrtc.TrackLocalStaticSample).WriteSample(sample media.Sample) error`.
   void writeSample($media.WebrtcV4PkgMediaSample sample) {
     $callSync(
-        17820,
+        17822,
         $W()
           ..h(this)
           ..dto(sample));
@@ -3319,7 +3319,7 @@ mixin WebrtcV4TrackLocalWriter$ on GoHandle {
   /// Go: `func (webrtc.TrackLocalWriter).Write(b []byte) (int, error)`.
   int write(Uint8List b) {
     final $r = $callSync(
-        17821,
+        17823,
         $W()
           ..h(this)
           ..bytes(b));
@@ -3329,7 +3329,7 @@ mixin WebrtcV4TrackLocalWriter$ on GoHandle {
   /// Go: `func (webrtc.TrackLocalWriter).WriteRTP(header *rtp.Header, payload []byte) (int, error)`.
   int writeRtp($rtp.RtpHeader header, Uint8List payload) {
     final $r = $callSync(
-        17822,
+        17824,
         $W()
           ..h(this)
           ..dto(header)
@@ -3350,62 +3350,62 @@ class WebrtcV4TrackRemote extends $datachannel.DatachannelReadDeadliner {
 
   /// Go: `func (*webrtc.TrackRemote).Codec() webrtc.RTPCodecParameters`.
   WebrtcV4RtpCodecParameters codec() {
-    final $r = $callSync(17823, $W()..h(this));
+    final $r = $callSync(17825, $W()..h(this));
     return $r.hnn(WebrtcV4RtpCodecParameters.$h);
   }
 
   /// Go: `func (*webrtc.TrackRemote).HasRTX() bool`.
   bool hasRtx() {
-    final $r = $callSync(17824, $W()..h(this));
+    final $r = $callSync(17826, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*webrtc.TrackRemote).ID() string`.
   String id() {
-    final $r = $callSync(17825, $W()..h(this));
+    final $r = $callSync(17827, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*webrtc.TrackRemote).Kind() webrtc.RTPCodecType`.
   int kind() {
-    final $r = $callSync(17826, $W()..h(this));
+    final $r = $callSync(17828, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*webrtc.TrackRemote).Msid() string`.
   String msid() {
-    final $r = $callSync(17827, $W()..h(this));
+    final $r = $callSync(17829, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*webrtc.TrackRemote).PayloadType() webrtc.PayloadType`.
   int payloadType() {
-    final $r = $callSync(17828, $W()..h(this));
+    final $r = $callSync(17830, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*webrtc.TrackRemote).RID() string`.
   String rid() {
-    final $r = $callSync(17829, $W()..h(this));
+    final $r = $callSync(17831, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*webrtc.TrackRemote).RtxSSRC() webrtc.SSRC`.
   int rtxSsrc() {
-    final $r = $callSync(17830, $W()..h(this));
+    final $r = $callSync(17832, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*webrtc.TrackRemote).SSRC() webrtc.SSRC`.
   int ssrc() {
-    final $r = $callSync(17831, $W()..h(this));
+    final $r = $callSync(17833, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*webrtc.TrackRemote).SetReadDeadline(deadline time.Time) error`.
   void setReadDeadline(DateTime deadline) {
     $callSync(
-        17832,
+        17834,
         $W()
           ..h(this)
           ..time(deadline));
@@ -3413,7 +3413,7 @@ class WebrtcV4TrackRemote extends $datachannel.DatachannelReadDeadliner {
 
   /// Go: `func (*webrtc.TrackRemote).StreamID() string`.
   String streamId() {
-    final $r = $callSync(17833, $W()..h(this));
+    final $r = $callSync(17835, $W()..h(this));
     return $r.str();
   }
 }
@@ -3815,7 +3815,7 @@ class WebrtcV4ErrUnsupportedCodec extends GolangException {
 extension GoPionWebrtcV4Api on GoPionWebrtcV4 {
   /// Go: `func webrtc.CertificateFromPEM(pems string) (*webrtc.Certificate, error)`.
   WebrtcV4Certificate certificateFromPem(String pems) {
-    final $r = $callSync(17568, $W()..str(pems));
+    final $r = $callSync(17570, $W()..str(pems));
     return $r.hnn(WebrtcV4Certificate.$h);
   }
 
@@ -3823,7 +3823,7 @@ extension GoPionWebrtcV4Api on GoPionWebrtcV4 {
   WebrtcV4Certificate certificateFromX509(
       GoHandle privateKey, $x509.CryptoX509Certificate certificate) {
     final $r = $callSync(
-        17569,
+        17571,
         $W()
           ..h(privateKey)
           ..dto(certificate));
@@ -3834,7 +3834,7 @@ extension GoPionWebrtcV4Api on GoPionWebrtcV4 {
   void configureCongestionControlFeedback(WebrtcV4MediaEngine mediaEngine,
       $interceptor.InterceptorRegistry interceptorRegistry) {
     $callSync(
-        17570,
+        17572,
         $W()
           ..h(mediaEngine)
           ..h(interceptorRegistry));
@@ -3845,7 +3845,7 @@ extension GoPionWebrtcV4Api on GoPionWebrtcV4 {
       $interceptor.InterceptorRegistry interceptorRegistry,
       [List<$flexfec.InterceptorPkgFlexfecFecOption> options = const []]) {
     $callSync(
-        17571,
+        17573,
         $W()
           ..i64(payloadType)
           ..h(mediaEngine)
@@ -3857,7 +3857,7 @@ extension GoPionWebrtcV4Api on GoPionWebrtcV4 {
   void configureNack(WebrtcV4MediaEngine mediaEngine,
       $interceptor.InterceptorRegistry interceptorRegistry) {
     $callSync(
-        17572,
+        17574,
         $W()
           ..h(mediaEngine)
           ..h(interceptorRegistry));
@@ -3866,19 +3866,19 @@ extension GoPionWebrtcV4Api on GoPionWebrtcV4 {
   /// Go: `func webrtc.ConfigureRTCPReports(interceptorRegistry *interceptor.Registry) error`.
   void configureRtcpReports(
       $interceptor.InterceptorRegistry interceptorRegistry) {
-    $callSync(17573, $W()..h(interceptorRegistry));
+    $callSync(17575, $W()..h(interceptorRegistry));
   }
 
   /// Go: `func webrtc.ConfigureSimulcastExtensionHeaders(mediaEngine *webrtc.MediaEngine) error`.
   void configureSimulcastExtensionHeaders(WebrtcV4MediaEngine mediaEngine) {
-    $callSync(17574, $W()..h(mediaEngine));
+    $callSync(17576, $W()..h(mediaEngine));
   }
 
   /// Go: `func webrtc.ConfigureTWCCHeaderExtensionSender(mediaEngine *webrtc.MediaEngine, interceptorRegistry *interceptor.Registry) error`.
   void configureTwccHeaderExtensionSender(WebrtcV4MediaEngine mediaEngine,
       $interceptor.InterceptorRegistry interceptorRegistry) {
     $callSync(
-        17575,
+        17577,
         $W()
           ..h(mediaEngine)
           ..h(interceptorRegistry));
@@ -3888,7 +3888,7 @@ extension GoPionWebrtcV4Api on GoPionWebrtcV4 {
   void configureTwccSender(WebrtcV4MediaEngine mediaEngine,
       $interceptor.InterceptorRegistry interceptorRegistry) {
     $callSync(
-        17576,
+        17578,
         $W()
           ..h(mediaEngine)
           ..h(interceptorRegistry));
@@ -3896,31 +3896,31 @@ extension GoPionWebrtcV4Api on GoPionWebrtcV4 {
 
   /// Go: `func webrtc.GenerateCertificate(secretKey crypto.PrivateKey) (*webrtc.Certificate, error)`.
   WebrtcV4Certificate generateCertificate(GoHandle secretKey) {
-    final $r = $callSync(17608, $W()..h(secretKey));
+    final $r = $callSync(17610, $W()..h(secretKey));
     return $r.hnn(WebrtcV4Certificate.$h);
   }
 
   /// Go: `func webrtc.NewICECandidateType(raw string) (webrtc.ICECandidateType, error)`.
   int newIceCandidateType(String raw) {
-    final $r = $callSync(17642, $W()..str(raw));
+    final $r = $callSync(17644, $W()..str(raw));
     return $r.i64();
   }
 
   /// Go: `func webrtc.NewICEConnectionState(raw string) webrtc.ICEConnectionState`.
   int newIceConnectionState(String raw) {
-    final $r = $callSync(17643, $W()..str(raw));
+    final $r = $callSync(17645, $W()..str(raw));
     return $r.i64();
   }
 
   /// Go: `func webrtc.NewICEGatheringState(raw string) webrtc.ICEGatheringState`.
   int newIceGatheringState(String raw) {
-    final $r = $callSync(17644, $W()..str(raw));
+    final $r = $callSync(17646, $W()..str(raw));
     return $r.i64();
   }
 
   /// Go: `func webrtc.NewICEProtocol(raw string) (webrtc.ICEProtocol, error)`.
   int newIceProtocol(String raw) {
-    final $r = $callSync(17645, $W()..str(raw));
+    final $r = $callSync(17647, $W()..str(raw));
     return $r.i64();
   }
 
@@ -3928,7 +3928,7 @@ extension GoPionWebrtcV4Api on GoPionWebrtcV4 {
   $v4.IceV4TcpMux newIcetcpMux($logging.LoggingLeveledLogger logger,
       $net.NetListener listener, int readBufferSize) {
     final $r = $callSync(
-        17646,
+        17648,
         $W()
           ..h(logger)
           ..h(listener)
@@ -3938,7 +3938,7 @@ extension GoPionWebrtcV4Api on GoPionWebrtcV4 {
 
   /// Go: `func webrtc.NewICETransportPolicy(raw string) webrtc.ICETransportPolicy`.
   int newIceTransportPolicy(String raw) {
-    final $r = $callSync(17648, $W()..str(raw));
+    final $r = $callSync(17650, $W()..str(raw));
     return $r.i64();
   }
 
@@ -3946,7 +3946,7 @@ extension GoPionWebrtcV4Api on GoPionWebrtcV4 {
   $v4.IceV4UdpMux newIceudpMux(
       $logging.LoggingLeveledLogger logger, $net.NetPacketConn udpConn) {
     final $r = $callSync(
-        17649,
+        17651,
         $W()
           ..h(logger)
           ..h(udpConn));
@@ -3955,25 +3955,25 @@ extension GoPionWebrtcV4Api on GoPionWebrtcV4 {
 
   /// Go: `func webrtc.NewNetworkType(raw string) (webrtc.NetworkType, error)`.
   int newNetworkType(String raw) {
-    final $r = $callSync(17650, $W()..str(raw));
+    final $r = $callSync(17652, $W()..str(raw));
     return $r.i64();
   }
 
   /// Go: `func webrtc.NewRTPCodecType(r string) webrtc.RTPCodecType`.
   int newRtpCodecType(String r) {
-    final $r = $callSync(17652, $W()..str(r));
+    final $r = $callSync(17654, $W()..str(r));
     return $r.i64();
   }
 
   /// Go: `func webrtc.NewRTPTransceiverDirection(raw string) webrtc.RTPTransceiverDirection`.
   int newRtpTransceiverDirection(String raw) {
-    final $r = $callSync(17653, $W()..str(raw));
+    final $r = $callSync(17655, $W()..str(raw));
     return $r.i64();
   }
 
   /// Go: `func webrtc.NewSDPType(raw string) webrtc.SDPType`.
   int newSdpType(String raw) {
-    final $r = $callSync(17654, $W()..str(raw));
+    final $r = $callSync(17656, $W()..str(raw));
     return $r.i64();
   }
 
@@ -3981,7 +3981,7 @@ extension GoPionWebrtcV4Api on GoPionWebrtcV4 {
   void registerDefaultInterceptors(WebrtcV4MediaEngine mediaEngine,
       $interceptor.InterceptorRegistry interceptorRegistry) {
     $callSync(
-        17723,
+        17725,
         $W()
           ..h(mediaEngine)
           ..h(interceptorRegistry));
@@ -3989,7 +3989,7 @@ extension GoPionWebrtcV4Api on GoPionWebrtcV4 {
 
   /// Go: `func webrtc.UnmarshalStatsJSON(b []byte) (webrtc.Stats, error)`.
   WebrtcV4Stats unmarshalStatsJson(Uint8List b) {
-    final $r = $callSync(17834, $W()..bytes(b));
+    final $r = $callSync(17836, $W()..bytes(b));
     return $r.hnn(WebrtcV4Stats.$h);
   }
 }

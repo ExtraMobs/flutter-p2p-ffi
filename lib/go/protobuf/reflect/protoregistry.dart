@@ -21,7 +21,7 @@ mixin ProtobufReflectProtoregistryExtensionTypeResolver$ on GoHandle {
   $protoreflect.ProtobufReflectProtoreflectExtensionType findExtensionByName(
       String field) {
     final $r = $callSync(
-        25031,
+        25033,
         $W()
           ..h(this)
           ..str(field));
@@ -32,7 +32,7 @@ mixin ProtobufReflectProtoregistryExtensionTypeResolver$ on GoHandle {
   $protoreflect.ProtobufReflectProtoreflectExtensionType findExtensionByNumber(
       String message, int field) {
     final $r = $callSync(
-        25032,
+        25034,
         $W()
           ..h(this)
           ..str(message)
@@ -56,7 +56,7 @@ class ProtobufReflectProtoregistryFiles
   $protoreflect.ProtobufReflectProtoreflectDescriptor findDescriptorByName(
       String name) {
     final $r = $callSync(
-        25033,
+        25035,
         $W()
           ..h(this)
           ..str(name));
@@ -67,7 +67,7 @@ class ProtobufReflectProtoregistryFiles
   $protoreflect.ProtobufReflectProtoreflectFileDescriptor findFileByPath(
       String path) {
     final $r = $callSync(
-        25034,
+        25036,
         $W()
           ..h(this)
           ..str(path));
@@ -76,14 +76,14 @@ class ProtobufReflectProtoregistryFiles
 
   /// Go: `func (*protoregistry.Files).NumFiles() int`.
   int numFiles() {
-    final $r = $callSync(25035, $W()..h(this));
+    final $r = $callSync(25037, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*protoregistry.Files).NumFilesByPackage(name protoreflect.FullName) int`.
   int numFilesByPackage(String name) {
     final $r = $callSync(
-        25036,
+        25038,
         $W()
           ..h(this)
           ..str(name));
@@ -103,7 +103,7 @@ class ProtobufReflectProtoregistryFiles
                   fileDescriptor)
           f) async {
     await $call(
-        25037,
+        25039,
         $W()
           ..h(this)
           ..cb(
@@ -126,7 +126,7 @@ class ProtobufReflectProtoregistryFiles
                   fileDescriptor)
           f) async {
     await $call(
-        25038,
+        25040,
         $W()
           ..h(this)
           ..str(name)
@@ -140,7 +140,7 @@ class ProtobufReflectProtoregistryFiles
   void registerFile(
       $protoreflect.ProtobufReflectProtoreflectFileDescriptor file) {
     $callSync(
-        25039,
+        25041,
         $W()
           ..h(this)
           ..h(file));
@@ -159,7 +159,7 @@ mixin ProtobufReflectProtoregistryMessageTypeResolver$ on GoHandle {
   $protoreflect.ProtobufReflectProtoreflectMessageType findMessageByName(
       String message) {
     final $r = $callSync(
-        25042,
+        25044,
         $W()
           ..h(this)
           ..str(message));
@@ -170,7 +170,7 @@ mixin ProtobufReflectProtoregistryMessageTypeResolver$ on GoHandle {
   $protoreflect.ProtobufReflectProtoreflectMessageType findMessageByUrl(
       String url) {
     final $r = $callSync(
-        25043,
+        25045,
         $W()
           ..h(this)
           ..str(url));
@@ -195,7 +195,7 @@ class ProtobufReflectProtoregistryTypes
   $protoreflect.ProtobufReflectProtoreflectEnumType findEnumByName(
       String enum$) {
     final $r = $callSync(
-        25044,
+        25046,
         $W()
           ..h(this)
           ..str(enum$));
@@ -206,7 +206,7 @@ class ProtobufReflectProtoregistryTypes
   $protoreflect.ProtobufReflectProtoreflectExtensionType findExtensionByName(
       String field) {
     final $r = $callSync(
-        25045,
+        25047,
         $W()
           ..h(this)
           ..str(field));
@@ -217,7 +217,7 @@ class ProtobufReflectProtoregistryTypes
   $protoreflect.ProtobufReflectProtoreflectExtensionType findExtensionByNumber(
       String message, int field) {
     final $r = $callSync(
-        25046,
+        25048,
         $W()
           ..h(this)
           ..str(message)
@@ -229,7 +229,7 @@ class ProtobufReflectProtoregistryTypes
   $protoreflect.ProtobufReflectProtoreflectMessageType findMessageByName(
       String message) {
     final $r = $callSync(
-        25047,
+        25049,
         $W()
           ..h(this)
           ..str(message));
@@ -240,7 +240,7 @@ class ProtobufReflectProtoregistryTypes
   $protoreflect.ProtobufReflectProtoreflectMessageType findMessageByUrl(
       String url) {
     final $r = $callSync(
-        25048,
+        25050,
         $W()
           ..h(this)
           ..str(url));
@@ -249,20 +249,20 @@ class ProtobufReflectProtoregistryTypes
 
   /// Go: `func (*protoregistry.Types).NumEnums() int`.
   int numEnums() {
-    final $r = $callSync(25049, $W()..h(this));
+    final $r = $callSync(25051, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*protoregistry.Types).NumExtensions() int`.
   int numExtensions() {
-    final $r = $callSync(25050, $W()..h(this));
+    final $r = $callSync(25052, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*protoregistry.Types).NumExtensionsByMessage(message protoreflect.FullName) int`.
   int numExtensionsByMessage(String message) {
     final $r = $callSync(
-        25051,
+        25053,
         $W()
           ..h(this)
           ..str(message));
@@ -271,7 +271,7 @@ class ProtobufReflectProtoregistryTypes
 
   /// Go: `func (*protoregistry.Types).NumMessages() int`.
   int numMessages() {
-    final $r = $callSync(25052, $W()..h(this));
+    final $r = $callSync(25054, $W()..h(this));
     return $r.i64();
   }
 
@@ -287,7 +287,7 @@ class ProtobufReflectProtoregistryTypes
               $protoreflect.ProtobufReflectProtoreflectEnumType enumType)
           f) async {
     await $call(
-        25053,
+        25055,
         $W()
           ..h(this)
           ..cb(
@@ -309,7 +309,7 @@ class ProtobufReflectProtoregistryTypes
                   extensionType)
           f) async {
     await $call(
-        25054,
+        25056,
         $W()
           ..h(this)
           ..cb(
@@ -332,7 +332,7 @@ class ProtobufReflectProtoregistryTypes
                   extensionType)
           f) async {
     await $call(
-        25055,
+        25057,
         $W()
           ..h(this)
           ..str(message)
@@ -354,7 +354,7 @@ class ProtobufReflectProtoregistryTypes
               $protoreflect.ProtobufReflectProtoreflectMessageType messageType)
           f) async {
     await $call(
-        25056,
+        25058,
         $W()
           ..h(this)
           ..cb(
@@ -366,7 +366,7 @@ class ProtobufReflectProtoregistryTypes
   /// Go: `func (*protoregistry.Types).RegisterEnum(et protoreflect.EnumType) error`.
   void registerEnum($protoreflect.ProtobufReflectProtoreflectEnumType et) {
     $callSync(
-        25057,
+        25059,
         $W()
           ..h(this)
           ..h(et));
@@ -376,7 +376,7 @@ class ProtobufReflectProtoregistryTypes
   void registerExtension(
       $protoreflect.ProtobufReflectProtoreflectExtensionType xt) {
     $callSync(
-        25058,
+        25060,
         $W()
           ..h(this)
           ..h(xt));
@@ -386,7 +386,7 @@ class ProtobufReflectProtoregistryTypes
   void registerMessage(
       $protoreflect.ProtobufReflectProtoreflectMessageType mt) {
     $callSync(
-        25059,
+        25061,
         $W()
           ..h(this)
           ..h(mt));
@@ -406,13 +406,13 @@ class ProtobufReflectProtoregistryNotFound extends GolangException {
 extension GoProtobufReflectProtoregistryApi on GoProtobufReflectProtoregistry {
   /// Go: `var protoregistry.GlobalFiles *protoregistry.Files`.
   ProtobufReflectProtoregistryFiles get globalFiles {
-    final $r = $callSync(25040);
+    final $r = $callSync(25042);
     return $r.hnn(ProtobufReflectProtoregistryFiles.$h);
   }
 
   /// Go: `var protoregistry.GlobalTypes *protoregistry.Types`.
   ProtobufReflectProtoregistryTypes get globalTypes {
-    final $r = $callSync(25041);
+    final $r = $callSync(25043);
     return $r.hnn(ProtobufReflectProtoregistryTypes.$h);
   }
 }

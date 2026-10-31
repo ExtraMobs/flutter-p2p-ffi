@@ -40,13 +40,13 @@ final class GoAstArrayType implements GoDto {
 
   /// Go: `func (*ast.ArrayType).End() token.Pos`.
   int end() {
-    final $r = $callSync(23046, $W()..dto(this));
+    final $r = $callSync(23048, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.ArrayType).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23047, $W()..dto(this));
+    final $r = $callSync(23049, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -89,13 +89,13 @@ final class GoAstAssignStmt implements GoDto {
 
   /// Go: `func (*ast.AssignStmt).End() token.Pos`.
   int end() {
-    final $r = $callSync(23048, $W()..dto(this));
+    final $r = $callSync(23050, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.AssignStmt).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23049, $W()..dto(this));
+    final $r = $callSync(23051, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -125,13 +125,13 @@ final class GoAstBadDecl implements GoDto {
 
   /// Go: `func (*ast.BadDecl).End() token.Pos`.
   int end() {
-    final $r = $callSync(23050, $W()..dto(this));
+    final $r = $callSync(23052, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.BadDecl).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23051, $W()..dto(this));
+    final $r = $callSync(23053, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -161,13 +161,13 @@ final class GoAstBadExpr implements GoDto {
 
   /// Go: `func (*ast.BadExpr).End() token.Pos`.
   int end() {
-    final $r = $callSync(23052, $W()..dto(this));
+    final $r = $callSync(23054, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.BadExpr).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23053, $W()..dto(this));
+    final $r = $callSync(23055, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -197,13 +197,13 @@ final class GoAstBadStmt implements GoDto {
 
   /// Go: `func (*ast.BadStmt).End() token.Pos`.
   int end() {
-    final $r = $callSync(23054, $W()..dto(this));
+    final $r = $callSync(23056, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.BadStmt).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23055, $W()..dto(this));
+    final $r = $callSync(23057, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -245,13 +245,13 @@ final class GoAstBasicLit implements GoDto {
 
   /// Go: `func (*ast.BasicLit).End() token.Pos`.
   int end() {
-    final $r = $callSync(23056, $W()..dto(this));
+    final $r = $callSync(23058, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.BasicLit).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23057, $W()..dto(this));
+    final $r = $callSync(23059, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -293,13 +293,13 @@ final class GoAstBinaryExpr implements GoDto {
 
   /// Go: `func (*ast.BinaryExpr).End() token.Pos`.
   int end() {
-    final $r = $callSync(23058, $W()..dto(this));
+    final $r = $callSync(23060, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.BinaryExpr).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23059, $W()..dto(this));
+    final $r = $callSync(23061, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -335,13 +335,13 @@ final class GoAstBlockStmt implements GoDto {
 
   /// Go: `func (*ast.BlockStmt).End() token.Pos`.
   int end() {
-    final $r = $callSync(23060, $W()..dto(this));
+    final $r = $callSync(23062, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.BlockStmt).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23061, $W()..dto(this));
+    final $r = $callSync(23063, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -377,13 +377,13 @@ final class GoAstBranchStmt implements GoDto {
 
   /// Go: `func (*ast.BranchStmt).End() token.Pos`.
   int end() {
-    final $r = $callSync(23062, $W()..dto(this));
+    final $r = $callSync(23064, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.BranchStmt).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23063, $W()..dto(this));
+    final $r = $callSync(23065, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -436,13 +436,13 @@ final class GoAstCallExpr implements GoDto {
 
   /// Go: `func (*ast.CallExpr).End() token.Pos`.
   int end() {
-    final $r = $callSync(23064, $W()..dto(this));
+    final $r = $callSync(23066, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.CallExpr).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23065, $W()..dto(this));
+    final $r = $callSync(23067, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -485,13 +485,13 @@ final class GoAstCaseClause implements GoDto {
 
   /// Go: `func (*ast.CaseClause).End() token.Pos`.
   int end() {
-    final $r = $callSync(23066, $W()..dto(this));
+    final $r = $callSync(23068, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.CaseClause).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23067, $W()..dto(this));
+    final $r = $callSync(23069, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -533,13 +533,13 @@ final class GoAstChanType implements GoDto {
 
   /// Go: `func (*ast.ChanType).End() token.Pos`.
   int end() {
-    final $r = $callSync(23068, $W()..dto(this));
+    final $r = $callSync(23070, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.ChanType).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23069, $W()..dto(this));
+    final $r = $callSync(23071, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -582,13 +582,13 @@ final class GoAstCommClause implements GoDto {
 
   /// Go: `func (*ast.CommClause).End() token.Pos`.
   int end() {
-    final $r = $callSync(23070, $W()..dto(this));
+    final $r = $callSync(23072, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.CommClause).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23071, $W()..dto(this));
+    final $r = $callSync(23073, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -618,13 +618,13 @@ final class GoAstComment implements GoDto {
 
   /// Go: `func (*ast.Comment).End() token.Pos`.
   int end() {
-    final $r = $callSync(23072, $W()..dto(this));
+    final $r = $callSync(23074, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.Comment).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23073, $W()..dto(this));
+    final $r = $callSync(23075, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -646,19 +646,19 @@ final class GoAstCommentGroup implements GoDto {
 
   /// Go: `func (*ast.CommentGroup).End() token.Pos`.
   int end() {
-    final $r = $callSync(23074, $W()..dto(this));
+    final $r = $callSync(23076, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.CommentGroup).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23075, $W()..dto(this));
+    final $r = $callSync(23077, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.CommentGroup).Text() string`.
   String text() {
-    final $r = $callSync(23076, $W()..dto(this));
+    final $r = $callSync(23078, $W()..dto(this));
     return $r.str();
   }
 }
@@ -711,13 +711,13 @@ final class GoAstCompositeLit implements GoDto {
 
   /// Go: `func (*ast.CompositeLit).End() token.Pos`.
   int end() {
-    final $r = $callSync(23077, $W()..dto(this));
+    final $r = $callSync(23079, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.CompositeLit).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23078, $W()..dto(this));
+    final $r = $callSync(23080, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -746,13 +746,13 @@ final class GoAstDeclStmt implements GoDto {
 
   /// Go: `func (*ast.DeclStmt).End() token.Pos`.
   int end() {
-    final $r = $callSync(23079, $W()..dto(this));
+    final $r = $callSync(23081, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.DeclStmt).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23080, $W()..dto(this));
+    final $r = $callSync(23082, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -782,13 +782,13 @@ final class GoAstDeferStmt implements GoDto {
 
   /// Go: `func (*ast.DeferStmt).End() token.Pos`.
   int end() {
-    final $r = $callSync(23081, $W()..dto(this));
+    final $r = $callSync(23083, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.DeferStmt).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23082, $W()..dto(this));
+    final $r = $callSync(23084, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -837,19 +837,19 @@ final class GoAstDirective implements GoDto {
 
   /// Go: `func (*ast.Directive).End() token.Pos`.
   int end() {
-    final $r = $callSync(23083, $W()..dto(this));
+    final $r = $callSync(23085, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.Directive).ParseArgs() ([]ast.DirectiveArg, error)`.
   List<GoAstDirectiveArg> parseArgs() {
-    final $r = $callSync(23084, $W()..dto(this));
+    final $r = $callSync(23086, $W()..dto(this));
     return $r.list(() => $r.p() ? GoAstDirectiveArg.$dec($r) : $nil());
   }
 
   /// Go: `func (*ast.Directive).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23085, $W()..dto(this));
+    final $r = $callSync(23087, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -903,13 +903,13 @@ final class GoAstEllipsis implements GoDto {
 
   /// Go: `func (*ast.Ellipsis).End() token.Pos`.
   int end() {
-    final $r = $callSync(23086, $W()..dto(this));
+    final $r = $callSync(23088, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.Ellipsis).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23087, $W()..dto(this));
+    final $r = $callSync(23089, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -939,13 +939,13 @@ final class GoAstEmptyStmt implements GoDto {
 
   /// Go: `func (*ast.EmptyStmt).End() token.Pos`.
   int end() {
-    final $r = $callSync(23088, $W()..dto(this));
+    final $r = $callSync(23090, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.EmptyStmt).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23089, $W()..dto(this));
+    final $r = $callSync(23091, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -974,13 +974,13 @@ final class GoAstExprStmt implements GoDto {
 
   /// Go: `func (*ast.ExprStmt).End() token.Pos`.
   int end() {
-    final $r = $callSync(23090, $W()..dto(this));
+    final $r = $callSync(23092, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.ExprStmt).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23091, $W()..dto(this));
+    final $r = $callSync(23093, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -1033,13 +1033,13 @@ final class GoAstField implements GoDto {
 
   /// Go: `func (*ast.Field).End() token.Pos`.
   int end() {
-    final $r = $callSync(23092, $W()..dto(this));
+    final $r = $callSync(23094, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.Field).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23093, $W()..dto(this));
+    final $r = $callSync(23095, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -1075,19 +1075,19 @@ final class GoAstFieldList implements GoDto {
 
   /// Go: `func (*ast.FieldList).End() token.Pos`.
   int end() {
-    final $r = $callSync(23094, $W()..dto(this));
+    final $r = $callSync(23096, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.FieldList).NumFields() int`.
   int numFields() {
-    final $r = $callSync(23095, $W()..dto(this));
+    final $r = $callSync(23097, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.FieldList).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23096, $W()..dto(this));
+    final $r = $callSync(23098, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -1182,13 +1182,13 @@ final class GoAstFile implements GoDto {
 
   /// Go: `func (*ast.File).End() token.Pos`.
   int end() {
-    final $r = $callSync(23097, $W()..dto(this));
+    final $r = $callSync(23099, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.File).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23098, $W()..dto(this));
+    final $r = $callSync(23100, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -1241,13 +1241,13 @@ final class GoAstForStmt implements GoDto {
 
   /// Go: `func (*ast.ForStmt).End() token.Pos`.
   int end() {
-    final $r = $callSync(23103, $W()..dto(this));
+    final $r = $callSync(23105, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.ForStmt).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23104, $W()..dto(this));
+    final $r = $callSync(23106, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -1300,13 +1300,13 @@ final class GoAstFuncDecl implements GoDto {
 
   /// Go: `func (*ast.FuncDecl).End() token.Pos`.
   int end() {
-    final $r = $callSync(23106, $W()..dto(this));
+    final $r = $callSync(23108, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.FuncDecl).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23107, $W()..dto(this));
+    final $r = $callSync(23109, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -1336,13 +1336,13 @@ final class GoAstFuncLit implements GoDto {
 
   /// Go: `func (*ast.FuncLit).End() token.Pos`.
   int end() {
-    final $r = $callSync(23108, $W()..dto(this));
+    final $r = $callSync(23110, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.FuncLit).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23109, $W()..dto(this));
+    final $r = $callSync(23111, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -1388,13 +1388,13 @@ final class GoAstFuncType implements GoDto {
 
   /// Go: `func (*ast.FuncType).End() token.Pos`.
   int end() {
-    final $r = $callSync(23110, $W()..dto(this));
+    final $r = $callSync(23112, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.FuncType).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23111, $W()..dto(this));
+    final $r = $callSync(23113, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -1454,13 +1454,13 @@ final class GoAstGenDecl implements GoDto {
 
   /// Go: `func (*ast.GenDecl).End() token.Pos`.
   int end() {
-    final $r = $callSync(23112, $W()..dto(this));
+    final $r = $callSync(23114, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.GenDecl).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23113, $W()..dto(this));
+    final $r = $callSync(23115, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -1490,13 +1490,13 @@ final class GoAstGoStmt implements GoDto {
 
   /// Go: `func (*ast.GoStmt).End() token.Pos`.
   int end() {
-    final $r = $callSync(23114, $W()..dto(this));
+    final $r = $callSync(23116, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.GoStmt).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23115, $W()..dto(this));
+    final $r = $callSync(23117, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -1532,25 +1532,25 @@ final class GoAstIdent implements GoDto {
 
   /// Go: `func (*ast.Ident).End() token.Pos`.
   int end() {
-    final $r = $callSync(23116, $W()..dto(this));
+    final $r = $callSync(23118, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.Ident).IsExported() bool`.
   bool isExported() {
-    final $r = $callSync(23117, $W()..dto(this));
+    final $r = $callSync(23119, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*ast.Ident).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23118, $W()..dto(this));
+    final $r = $callSync(23120, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.Ident).String() string`.
   String string() {
-    final $r = $callSync(23119, $W()..dto(this));
+    final $r = $callSync(23121, $W()..dto(this));
     return $r.str();
   }
 }
@@ -1603,13 +1603,13 @@ final class GoAstIfStmt implements GoDto {
 
   /// Go: `func (*ast.IfStmt).End() token.Pos`.
   int end() {
-    final $r = $callSync(23120, $W()..dto(this));
+    final $r = $callSync(23122, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.IfStmt).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23121, $W()..dto(this));
+    final $r = $callSync(23123, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -1662,13 +1662,13 @@ final class GoAstImportSpec implements GoDto {
 
   /// Go: `func (*ast.ImportSpec).End() token.Pos`.
   int end() {
-    final $r = $callSync(23122, $W()..dto(this));
+    final $r = $callSync(23124, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.ImportSpec).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23123, $W()..dto(this));
+    final $r = $callSync(23125, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -1710,13 +1710,13 @@ final class GoAstIncDecStmt implements GoDto {
 
   /// Go: `func (*ast.IncDecStmt).End() token.Pos`.
   int end() {
-    final $r = $callSync(23124, $W()..dto(this));
+    final $r = $callSync(23126, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.IncDecStmt).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23125, $W()..dto(this));
+    final $r = $callSync(23127, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -1758,13 +1758,13 @@ final class GoAstIndexExpr implements GoDto {
 
   /// Go: `func (*ast.IndexExpr).End() token.Pos`.
   int end() {
-    final $r = $callSync(23126, $W()..dto(this));
+    final $r = $callSync(23128, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.IndexExpr).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23127, $W()..dto(this));
+    final $r = $callSync(23129, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -1807,13 +1807,13 @@ final class GoAstIndexListExpr implements GoDto {
 
   /// Go: `func (*ast.IndexListExpr).End() token.Pos`.
   int end() {
-    final $r = $callSync(23128, $W()..dto(this));
+    final $r = $callSync(23130, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.IndexListExpr).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23129, $W()..dto(this));
+    final $r = $callSync(23131, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -1850,13 +1850,13 @@ final class GoAstInterfaceType implements GoDto {
 
   /// Go: `func (*ast.InterfaceType).End() token.Pos`.
   int end() {
-    final $r = $callSync(23131, $W()..dto(this));
+    final $r = $callSync(23133, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.InterfaceType).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23132, $W()..dto(this));
+    final $r = $callSync(23134, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -1892,13 +1892,13 @@ final class GoAstKeyValueExpr implements GoDto {
 
   /// Go: `func (*ast.KeyValueExpr).End() token.Pos`.
   int end() {
-    final $r = $callSync(23135, $W()..dto(this));
+    final $r = $callSync(23137, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.KeyValueExpr).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23136, $W()..dto(this));
+    final $r = $callSync(23138, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -1934,13 +1934,13 @@ final class GoAstLabeledStmt implements GoDto {
 
   /// Go: `func (*ast.LabeledStmt).End() token.Pos`.
   int end() {
-    final $r = $callSync(23137, $W()..dto(this));
+    final $r = $callSync(23139, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.LabeledStmt).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23138, $W()..dto(this));
+    final $r = $callSync(23140, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -1976,13 +1976,13 @@ final class GoAstMapType implements GoDto {
 
   /// Go: `func (*ast.MapType).End() token.Pos`.
   int end() {
-    final $r = $callSync(23139, $W()..dto(this));
+    final $r = $callSync(23141, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.MapType).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23140, $W()..dto(this));
+    final $r = $callSync(23142, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -2041,7 +2041,7 @@ final class GoAstObject implements GoDto {
 
   /// Go: `func (*ast.Object).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23147, $W()..dto(this));
+    final $r = $callSync(23149, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -2089,13 +2089,13 @@ final class GoAstPackage implements GoDto {
 
   /// Go: `func (*ast.Package).End() token.Pos`.
   int end() {
-    final $r = $callSync(23148, $W()..dto(this));
+    final $r = $callSync(23150, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.Package).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23149, $W()..dto(this));
+    final $r = $callSync(23151, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -2131,13 +2131,13 @@ final class GoAstParenExpr implements GoDto {
 
   /// Go: `func (*ast.ParenExpr).End() token.Pos`.
   int end() {
-    final $r = $callSync(23151, $W()..dto(this));
+    final $r = $callSync(23153, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.ParenExpr).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23152, $W()..dto(this));
+    final $r = $callSync(23154, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -2211,13 +2211,13 @@ final class GoAstRangeStmt implements GoDto {
 
   /// Go: `func (*ast.RangeStmt).End() token.Pos`.
   int end() {
-    final $r = $callSync(23156, $W()..dto(this));
+    final $r = $callSync(23158, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.RangeStmt).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23157, $W()..dto(this));
+    final $r = $callSync(23159, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -2247,13 +2247,13 @@ final class GoAstReturnStmt implements GoDto {
 
   /// Go: `func (*ast.ReturnStmt).End() token.Pos`.
   int end() {
-    final $r = $callSync(23158, $W()..dto(this));
+    final $r = $callSync(23160, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.ReturnStmt).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23159, $W()..dto(this));
+    final $r = $callSync(23161, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -2280,7 +2280,7 @@ final class GoAstScope implements GoDto {
   /// Go: `func (*ast.Scope).Insert(obj *ast.Object) (alt *ast.Object)`.
   GoAstObject insert(GoAstObject obj) {
     final $r = $callSync(
-        23160,
+        23162,
         $W()
           ..dto(this)
           ..dto(obj));
@@ -2290,7 +2290,7 @@ final class GoAstScope implements GoDto {
   /// Go: `func (*ast.Scope).Lookup(name string) *ast.Object`.
   GoAstObject lookup(String name) {
     final $r = $callSync(
-        23161,
+        23163,
         $W()
           ..dto(this)
           ..str(name));
@@ -2299,7 +2299,7 @@ final class GoAstScope implements GoDto {
 
   /// Go: `func (*ast.Scope).String() string`.
   String string() {
-    final $r = $callSync(23162, $W()..dto(this));
+    final $r = $callSync(23164, $W()..dto(this));
     return $r.str();
   }
 }
@@ -2329,13 +2329,13 @@ final class GoAstSelectStmt implements GoDto {
 
   /// Go: `func (*ast.SelectStmt).End() token.Pos`.
   int end() {
-    final $r = $callSync(23163, $W()..dto(this));
+    final $r = $callSync(23165, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.SelectStmt).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23164, $W()..dto(this));
+    final $r = $callSync(23166, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -2365,13 +2365,13 @@ final class GoAstSelectorExpr implements GoDto {
 
   /// Go: `func (*ast.SelectorExpr).End() token.Pos`.
   int end() {
-    final $r = $callSync(23165, $W()..dto(this));
+    final $r = $callSync(23167, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.SelectorExpr).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23166, $W()..dto(this));
+    final $r = $callSync(23168, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -2407,13 +2407,13 @@ final class GoAstSendStmt implements GoDto {
 
   /// Go: `func (*ast.SendStmt).End() token.Pos`.
   int end() {
-    final $r = $callSync(23167, $W()..dto(this));
+    final $r = $callSync(23169, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.SendStmt).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23168, $W()..dto(this));
+    final $r = $callSync(23170, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -2480,13 +2480,13 @@ final class GoAstSliceExpr implements GoDto {
 
   /// Go: `func (*ast.SliceExpr).End() token.Pos`.
   int end() {
-    final $r = $callSync(23169, $W()..dto(this));
+    final $r = $callSync(23171, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.SliceExpr).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23170, $W()..dto(this));
+    final $r = $callSync(23172, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -2524,13 +2524,13 @@ final class GoAstStarExpr implements GoDto {
 
   /// Go: `func (*ast.StarExpr).End() token.Pos`.
   int end() {
-    final $r = $callSync(23172, $W()..dto(this));
+    final $r = $callSync(23174, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.StarExpr).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23173, $W()..dto(this));
+    final $r = $callSync(23175, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -2574,13 +2574,13 @@ final class GoAstStructType implements GoDto {
 
   /// Go: `func (*ast.StructType).End() token.Pos`.
   int end() {
-    final $r = $callSync(23174, $W()..dto(this));
+    final $r = $callSync(23176, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.StructType).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23175, $W()..dto(this));
+    final $r = $callSync(23177, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -2623,13 +2623,13 @@ final class GoAstSwitchStmt implements GoDto {
 
   /// Go: `func (*ast.SwitchStmt).End() token.Pos`.
   int end() {
-    final $r = $callSync(23176, $W()..dto(this));
+    final $r = $callSync(23178, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.SwitchStmt).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23177, $W()..dto(this));
+    final $r = $callSync(23179, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -2671,13 +2671,13 @@ final class GoAstTypeAssertExpr implements GoDto {
 
   /// Go: `func (*ast.TypeAssertExpr).End() token.Pos`.
   int end() {
-    final $r = $callSync(23178, $W()..dto(this));
+    final $r = $callSync(23180, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.TypeAssertExpr).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23179, $W()..dto(this));
+    final $r = $callSync(23181, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -2737,13 +2737,13 @@ final class GoAstTypeSpec implements GoDto {
 
   /// Go: `func (*ast.TypeSpec).End() token.Pos`.
   int end() {
-    final $r = $callSync(23180, $W()..dto(this));
+    final $r = $callSync(23182, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.TypeSpec).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23181, $W()..dto(this));
+    final $r = $callSync(23183, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -2786,13 +2786,13 @@ final class GoAstTypeSwitchStmt implements GoDto {
 
   /// Go: `func (*ast.TypeSwitchStmt).End() token.Pos`.
   int end() {
-    final $r = $callSync(23182, $W()..dto(this));
+    final $r = $callSync(23184, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.TypeSwitchStmt).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23183, $W()..dto(this));
+    final $r = $callSync(23185, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -2828,13 +2828,13 @@ final class GoAstUnaryExpr implements GoDto {
 
   /// Go: `func (*ast.UnaryExpr).End() token.Pos`.
   int end() {
-    final $r = $callSync(23184, $W()..dto(this));
+    final $r = $callSync(23186, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.UnaryExpr).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23185, $W()..dto(this));
+    final $r = $callSync(23187, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -2887,13 +2887,13 @@ final class GoAstValueSpec implements GoDto {
 
   /// Go: `func (*ast.ValueSpec).End() token.Pos`.
   int end() {
-    final $r = $callSync(23187, $W()..dto(this));
+    final $r = $callSync(23189, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*ast.ValueSpec).Pos() token.Pos`.
   int pos() {
-    final $r = $callSync(23188, $W()..dto(this));
+    final $r = $callSync(23190, $W()..dto(this));
     return $r.i64();
   }
 }
@@ -2908,7 +2908,7 @@ mixin GoAstVisitor$ on GoHandle {
   /// Go: `func (ast.Visitor).Visit(node ast.Node) (w ast.Visitor)`.
   GoAstVisitor visit(GoAstNode node) {
     final $r = $callSync(
-        23189,
+        23191,
         $W()
           ..h(this)
           ..dto(node));
@@ -2920,7 +2920,7 @@ mixin GoAstVisitor$ on GoHandle {
 extension GoGoAstApi on GoGoAst {
   /// Go: `func ast.FileExports(src *ast.File) bool`.
   bool fileExports(GoAstFile src) {
-    final $r = $callSync(23099, $W()..dto(src));
+    final $r = $callSync(23101, $W()..dto(src));
     return $r.b();
   }
 
@@ -2934,7 +2934,7 @@ extension GoGoAstApi on GoGoAst {
   Future<bool> filterDecl(
       GoAstDecl decl, FutureOr<bool> Function(String arg0) f) async {
     final $r = await $call(
-        23100,
+        23102,
         $W()
           ..h(decl)
           ..cb((r) => f(r.str()), true));
@@ -2951,7 +2951,7 @@ extension GoGoAstApi on GoGoAst {
   Future<bool> filterFile(
       GoAstFile src, FutureOr<bool> Function(String arg0) f) async {
     final $r = await $call(
-        23101,
+        23103,
         $W()
           ..dto(src)
           ..cb((r) => f(r.str()), true));
@@ -2970,7 +2970,7 @@ extension GoGoAstApi on GoGoAst {
   Future<bool> filterPackage(
       GoAstPackage pkg, FutureOr<bool> Function(String arg0) f) async {
     final $r = await $call(
-        23102,
+        23104,
         $W()
           ..dto(pkg)
           ..cb((r) => f(r.str()), true));
@@ -2991,7 +2991,7 @@ extension GoGoAstApi on GoGoAst {
       FutureOr<bool> Function(String name, $reflect.ReflectValue value)
           f) async {
     await $call(
-        23105,
+        23107,
         $W()
           ..h(w)
           ..h(fset)
@@ -3009,7 +3009,7 @@ extension GoGoAstApi on GoGoAst {
   Future<void> inspect(
       GoAstNode node, FutureOr<bool> Function(GoAstNode node) f) async {
     await $call(
-        23130,
+        23132,
         $W()
           ..dto(node)
           ..cb((r) => f(r.p() ? GoAstNode.$dec(r) : $nil()), true));
@@ -3017,13 +3017,13 @@ extension GoGoAstApi on GoGoAst {
 
   /// Go: `func ast.IsExported(name string) bool`.
   bool isExported(String name) {
-    final $r = $callSync(23133, $W()..str(name));
+    final $r = $callSync(23135, $W()..str(name));
     return $r.b();
   }
 
   /// Go: `func ast.IsGenerated(file *ast.File) bool`.
   bool isGenerated(GoAstFile file) {
-    final $r = $callSync(23134, $W()..dto(file));
+    final $r = $callSync(23136, $W()..dto(file));
     return $r.b();
   }
 
@@ -3032,7 +3032,7 @@ extension GoGoAstApi on GoGoAst {
       "this function is poorly specified and has unfixable bugs; also [Package] is deprecated.")
   GoAstFile mergePackageFiles(GoAstPackage pkg, int mode) {
     final $r = $callSync(
-        23141,
+        23143,
         $W()
           ..dto(pkg)
           ..i64(mode));
@@ -3041,14 +3041,14 @@ extension GoGoAstApi on GoGoAst {
 
   /// Go: `func ast.NewIdent(name string) *ast.Ident`.
   GoAstIdent newIdent(String name) {
-    final $r = $callSync(23142, $W()..str(name));
+    final $r = $callSync(23144, $W()..str(name));
     return $r.p() ? GoAstIdent.$dec($r) : $nil();
   }
 
   /// Go: `func ast.NewObj(kind ast.ObjKind, name string) *ast.Object`.
   GoAstObject newObj(int kind, String name) {
     final $r = $callSync(
-        23143,
+        23145,
         $W()
           ..i64(kind)
           ..str(name));
@@ -3063,7 +3063,7 @@ extension GoGoAstApi on GoGoAst {
       GoAstImporter importer,
       GoAstScope universe) {
     final $r = $callSync(
-        23144,
+        23146,
         $W()
           ..h(fset)
           ..map(files, (w0, k0) => w0.str(k0), (w0, v0) => w0.dto(v0))
@@ -3074,14 +3074,14 @@ extension GoGoAstApi on GoGoAst {
 
   /// Go: `func ast.NewScope(outer *ast.Scope) *ast.Scope`.
   GoAstScope newScope(GoAstScope outer) {
-    final $r = $callSync(23145, $W()..dto(outer));
+    final $r = $callSync(23147, $W()..dto(outer));
     return $r.p() ? GoAstScope.$dec($r) : $nil();
   }
 
   /// Go: `func ast.NotNilFilter(_ string, v reflect.Value) bool`.
   bool notNilFilter(String arg0, $reflect.ReflectValue v) {
     final $r = $callSync(
-        23146,
+        23148,
         $W()
           ..str(arg0)
           ..h(v));
@@ -3092,14 +3092,14 @@ extension GoGoAstApi on GoGoAst {
   @Deprecated(
       "use the type checker [go/types] instead of [Package]; see [Object]. Alternatively, use [FileExports].")
   bool packageExports(GoAstPackage pkg) {
-    final $r = $callSync(23150, $W()..dto(pkg));
+    final $r = $callSync(23152, $W()..dto(pkg));
     return $r.b();
   }
 
   /// Go: `func ast.ParseDirective(pos token.Pos, c string) (ast.Directive, bool)`.
   (GoAstDirective, bool) parseDirective(int pos, String c) {
     final $r = $callSync(
-        23153,
+        23155,
         $W()
           ..i64(pos)
           ..str(c));
@@ -3116,7 +3116,7 @@ extension GoGoAstApi on GoGoAst {
   Future<void> preorderStack(GoAstNode root, List<GoAstNode> stack,
       FutureOr<bool> Function(GoAstNode n, List<GoAstNode> stack) f) async {
     await $call(
-        23154,
+        23156,
         $W()
           ..dto(root)
           ..list(stack, (w0, e0) => w0.dto(e0))
@@ -3129,7 +3129,7 @@ extension GoGoAstApi on GoGoAst {
   /// Go: `func ast.Print(fset *token.FileSet, x any) error`.
   void print($token.GoTokenFileSet fset, Object? x) {
     $callSync(
-        23155,
+        23157,
         $W()
           ..h(fset)
           ..any(x));
@@ -3138,7 +3138,7 @@ extension GoGoAstApi on GoGoAst {
   /// Go: `func ast.SortImports(fset *token.FileSet, f *ast.File)`.
   void sortImports($token.GoTokenFileSet fset, GoAstFile f) {
     $callSync(
-        23171,
+        23173,
         $W()
           ..h(fset)
           ..dto(f));
@@ -3146,14 +3146,14 @@ extension GoGoAstApi on GoGoAst {
 
   /// Go: `func ast.Unparen(e ast.Expr) ast.Expr`.
   GoAstExpr unparen(GoAstExpr e) {
-    final $r = $callSync(23186, $W()..h(e));
+    final $r = $callSync(23188, $W()..h(e));
     return $r.hnn(GoAstExpr.$h);
   }
 
   /// Go: `func ast.Walk(v ast.Visitor, node ast.Node)`.
   void walk(GoAstVisitor v, GoAstNode node) {
     $callSync(
-        23190,
+        23192,
         $W()
           ..h(v)
           ..dto(node));

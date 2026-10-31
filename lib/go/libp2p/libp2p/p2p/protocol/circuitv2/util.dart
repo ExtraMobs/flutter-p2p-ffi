@@ -18,7 +18,7 @@ class Libp2pP2pProtocolCircuitv2UtilDelimitedReader
   /// Go: `func util.NewDelimitedReader(r io.Reader, maxSize int) *util.DelimitedReader`.
   factory Libp2pP2pProtocolCircuitv2UtilDelimitedReader(Object r, int maxSize) {
     final $r = $callSync(
-        14910,
+        14912,
         $W()
           ..reader(r)
           ..i64(maxSize));
@@ -27,19 +27,19 @@ class Libp2pP2pProtocolCircuitv2UtilDelimitedReader
 
   /// Go: `func (*util.DelimitedReader).Close()`.
   void close() {
-    $callSync(14907, $W()..h(this));
+    $callSync(14909, $W()..h(this));
   }
 
   /// Go: `func (*util.DelimitedReader).ReadByte() (byte, error)`.
   int readByte() {
-    final $r = $callSync(14908, $W()..h(this));
+    final $r = $callSync(14910, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*util.DelimitedReader).ReadMsg(msg proto.Message) error`.
   void readMsg($protoreflect.ProtobufReflectProtoreflectProtoMessage msg) {
     $callSync(
-        14909,
+        14911,
         $W()
           ..h(this)
           ..h(msg));
@@ -51,21 +51,21 @@ extension GoLibp2pLibp2pP2pProtocolCircuitv2UtilApi
     on GoLibp2pLibp2pP2pProtocolCircuitv2Util {
   /// Go: `func util.NewDelimitedWriter(w io.Writer) pbio.WriteCloser`.
   $pbio.MsgioPbioWriteCloser newDelimitedWriter(GoHandle? w) {
-    final $r = $callSync(14911, $W()..h(w));
+    final $r = $callSync(14913, $W()..h(w));
     return $r.hnn($pbio.MsgioPbioWriteCloser.$h);
   }
 
   /// Go: `func util.PeerInfoToPeerV2(pi peer.AddrInfo) *pb.Peer`.
   $pb.Libp2pP2pProtocolCircuitv2PbPeer peerInfoToPeerV2(
       $peer.Libp2pCorePeerAddrInfo pi) {
-    final $r = $callSync(14912, $W()..dto(pi));
+    final $r = $callSync(14914, $W()..dto(pi));
     return $r.hnn($pb.Libp2pP2pProtocolCircuitv2PbPeer.$h);
   }
 
   /// Go: `func util.PeerToPeerInfoV2(p *pb.Peer) (peer.AddrInfo, error)`.
   $peer.Libp2pCorePeerAddrInfo peerToPeerInfoV2(
       $pb.Libp2pP2pProtocolCircuitv2PbPeer p) {
-    final $r = $callSync(14913, $W()..h(p));
+    final $r = $callSync(14915, $W()..h(p));
     return $r.p() ? $peer.Libp2pCorePeerAddrInfo.$dec($r) : $nil();
   }
 }

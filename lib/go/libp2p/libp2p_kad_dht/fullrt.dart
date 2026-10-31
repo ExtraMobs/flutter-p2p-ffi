@@ -67,7 +67,7 @@ class Libp2pKadDhtFullrtFullRt extends $routing.Libp2pCoreRouting
       $host.Libp2pCoreHost h, String protocolPrefix,
       [List<Libp2pKadDhtFullrtOption> options = const []]) {
     final $r = $callSync(
-        12987,
+        12989,
         $W()
           ..h(h)
           ..str(protocolPrefix)
@@ -80,7 +80,7 @@ class Libp2pKadDhtFullrtFullRt extends $routing.Libp2pCoreRouting
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> bootstrap($context.Context ctx) async {
     await $call(
-        12968,
+        12970,
         $W()
           ..h(this)
           ..h(ctx));
@@ -92,7 +92,7 @@ class Libp2pKadDhtFullrtFullRt extends $routing.Libp2pCoreRouting
   Future<(int, int)> checkPeers($context.Context ctx,
       [List<$peer.Libp2pCorePeerId> peers = const []]) async {
     final $r = await $call(
-        12969,
+        12971,
         $W()
           ..h(this)
           ..h(ctx)
@@ -102,13 +102,13 @@ class Libp2pKadDhtFullrtFullRt extends $routing.Libp2pCoreRouting
 
   /// Go: `func (*fullrt.FullRT).Close() error`.
   void close() {
-    $callSync(12970, $W()..h(this));
+    $callSync(12972, $W()..h(this));
   }
 
   /// Go: `func (*fullrt.FullRT).FindLocal(id peer.ID) peer.AddrInfo`.
   $peer.Libp2pCorePeerAddrInfo findLocal($peer.Libp2pCorePeerId id) {
     final $r = $callSync(
-        12971,
+        12973,
         $W()
           ..h(this)
           ..val(id));
@@ -121,7 +121,7 @@ class Libp2pKadDhtFullrtFullRt extends $routing.Libp2pCoreRouting
   Future<$peer.Libp2pCorePeerAddrInfo> findPeer(
       $context.Context ctx, $peer.Libp2pCorePeerId id) async {
     final $r = await $call(
-        12972,
+        12974,
         $W()
           ..h(this)
           ..h(ctx)
@@ -135,7 +135,7 @@ class Libp2pKadDhtFullrtFullRt extends $routing.Libp2pCoreRouting
   Future<List<$peer.Libp2pCorePeerAddrInfo>> findProviders(
       $context.Context ctx, $cid.Cid c) async {
     final $r = await $call(
-        12973,
+        12975,
         $W()
           ..h(this)
           ..h(ctx)
@@ -148,7 +148,7 @@ class Libp2pKadDhtFullrtFullRt extends $routing.Libp2pCoreRouting
   Stream<$peer.Libp2pCorePeerAddrInfo> findProvidersAsync(
           $context.Context ctx, $cid.Cid key, int count) =>
       $stream(
-              12974,
+              12976,
               $W()
                 ..h(this)
                 ..h(ctx)
@@ -162,7 +162,7 @@ class Libp2pKadDhtFullrtFullRt extends $routing.Libp2pCoreRouting
   Future<List<$peer.Libp2pCorePeerId>> getClosestPeers(
       $context.Context ctx, String key) async {
     final $r = await $call(
-        12975,
+        12977,
         $W()
           ..h(this)
           ..h(ctx)
@@ -176,7 +176,7 @@ class Libp2pKadDhtFullrtFullRt extends $routing.Libp2pCoreRouting
   Future<Uint8List> getValue($context.Context ctx, String key,
       [List<$routing.Libp2pCoreRoutingOption> opts = const []]) async {
     final $r = await $call(
-        12976,
+        12978,
         $W()
           ..h(this)
           ..h(ctx)
@@ -187,13 +187,13 @@ class Libp2pKadDhtFullrtFullRt extends $routing.Libp2pCoreRouting
 
   /// Go: `func (*fullrt.FullRT).Host() host.Host`.
   $host.Libp2pCoreHost host() {
-    final $r = $callSync(12977, $W()..h(this));
+    final $r = $callSync(12979, $W()..h(this));
     return $r.hnn($host.Libp2pCoreHost.$h);
   }
 
   /// Go: `func (*fullrt.FullRT).MessageSender() dht_pb.MessageSender`.
   $pb.Libp2pKadDhtPbMessageSender messageSender() {
-    final $r = $callSync(12978, $W()..h(this));
+    final $r = $callSync(12980, $W()..h(this));
     return $r.hnn($pb.Libp2pKadDhtPbMessageSender.$h);
   }
 
@@ -202,7 +202,7 @@ class Libp2pKadDhtFullrtFullRt extends $routing.Libp2pCoreRouting
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> provide($context.Context ctx, $cid.Cid key, bool brdcst) async {
     await $call(
-        12979,
+        12981,
         $W()
           ..h(this)
           ..h(ctx)
@@ -215,7 +215,7 @@ class Libp2pKadDhtFullrtFullRt extends $routing.Libp2pCoreRouting
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> provideMany($context.Context ctx, List<Uint8List> keys) async {
     await $call(
-        12980,
+        12982,
         $W()
           ..h(this)
           ..h(ctx)
@@ -228,7 +228,7 @@ class Libp2pKadDhtFullrtFullRt extends $routing.Libp2pCoreRouting
   Future<void> putMany(
       $context.Context ctx, List<String> keys, List<Uint8List> values) async {
     await $call(
-        12981,
+        12983,
         $W()
           ..h(this)
           ..h(ctx)
@@ -242,7 +242,7 @@ class Libp2pKadDhtFullrtFullRt extends $routing.Libp2pCoreRouting
   Future<void> putValue($context.Context ctx, String key, Uint8List value,
       [List<$routing.Libp2pCoreRoutingOption> opts = const []]) async {
     await $call(
-        12982,
+        12984,
         $W()
           ..h(this)
           ..h(ctx)
@@ -253,7 +253,7 @@ class Libp2pKadDhtFullrtFullRt extends $routing.Libp2pCoreRouting
 
   /// Go: `func (*fullrt.FullRT).Ready() bool`.
   bool ready() {
-    final $r = $callSync(12983, $W()..h(this));
+    final $r = $callSync(12985, $W()..h(this));
     return $r.b();
   }
 
@@ -261,7 +261,7 @@ class Libp2pKadDhtFullrtFullRt extends $routing.Libp2pCoreRouting
   Stream<Uint8List> searchValue($context.Context ctx, String key,
           [List<$routing.Libp2pCoreRoutingOption> opts = const []]) =>
       $stream(
-              12984,
+              12986,
               $W()
                 ..h(this)
                 ..h(ctx)
@@ -271,7 +271,7 @@ class Libp2pKadDhtFullrtFullRt extends $routing.Libp2pCoreRouting
 
   /// Go: `func (*fullrt.FullRT).Stat() map[string]peer.ID`.
   Map<String, $peer.Libp2pCorePeerId> stat() {
-    final $r = $callSync(12985, $W()..h(this));
+    final $r = $callSync(12987, $W()..h(this));
     return $r.map(() => $r.str(),
         () => $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil());
   }
@@ -281,7 +281,7 @@ class Libp2pKadDhtFullrtFullRt extends $routing.Libp2pCoreRouting
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> triggerRefresh($context.Context ctx) async {
     await $call(
-        12986,
+        12988,
         $W()
           ..h(this)
           ..h(ctx));

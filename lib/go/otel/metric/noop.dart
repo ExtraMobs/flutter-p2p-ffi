@@ -18,7 +18,7 @@ class OtelMetricNoopFloat64Counter extends $metric.OtelMetricFloat64Counter {
   Future<void> add($context.Context ctx, double arg1,
       [List<$metric.OtelMetricAddOption> addOptions = const []]) async {
     await $call(
-        19380,
+        19382,
         $W()
           ..h(this)
           ..h(ctx)
@@ -31,7 +31,7 @@ class OtelMetricNoopFloat64Counter extends $metric.OtelMetricFloat64Counter {
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> enabled($context.Context ctx) async {
     final $r = await $call(
-        19381,
+        19383,
         $W()
           ..h(this)
           ..h(ctx));
@@ -48,7 +48,7 @@ class OtelMetricNoopFloat64Gauge extends $metric.OtelMetricFloat64Gauge {
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> enabled($context.Context ctx) async {
     final $r = await $call(
-        19382,
+        19384,
         $W()
           ..h(this)
           ..h(ctx));
@@ -61,7 +61,7 @@ class OtelMetricNoopFloat64Gauge extends $metric.OtelMetricFloat64Gauge {
   Future<void> record($context.Context ctx, double arg1,
       [List<$metric.OtelMetricRecordOption> recordOptions = const []]) async {
     await $call(
-        19383,
+        19385,
         $W()
           ..h(this)
           ..h(ctx)
@@ -80,7 +80,7 @@ class OtelMetricNoopFloat64Histogram
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> enabled($context.Context ctx) async {
     final $r = await $call(
-        19384,
+        19386,
         $W()
           ..h(this)
           ..h(ctx));
@@ -93,7 +93,7 @@ class OtelMetricNoopFloat64Histogram
   Future<void> record($context.Context ctx, double arg1,
       [List<$metric.OtelMetricRecordOption> recordOptions = const []]) async {
     await $call(
-        19385,
+        19387,
         $W()
           ..h(this)
           ..h(ctx)
@@ -110,7 +110,7 @@ class OtelMetricNoopFloat64Observer extends $metric.OtelMetricFloat64Observer {
   void observe(double arg0,
       [List<$metric.OtelMetricObserveOption> observeOptions = const []]) {
     $callSync(
-        19386,
+        19388,
         $W()
           ..h(this)
           ..f64(arg0)
@@ -129,7 +129,7 @@ class OtelMetricNoopFloat64UpDownCounter
   Future<void> add($context.Context ctx, double arg1,
       [List<$metric.OtelMetricAddOption> addOptions = const []]) async {
     await $call(
-        19387,
+        19389,
         $W()
           ..h(this)
           ..h(ctx)
@@ -142,7 +142,7 @@ class OtelMetricNoopFloat64UpDownCounter
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> enabled($context.Context ctx) async {
     final $r = await $call(
-        19388,
+        19390,
         $W()
           ..h(this)
           ..h(ctx));
@@ -160,7 +160,7 @@ class OtelMetricNoopInt64Counter extends $metric.OtelMetricInt64Counter {
   Future<void> add($context.Context ctx, int arg1,
       [List<$metric.OtelMetricAddOption> addOptions = const []]) async {
     await $call(
-        19389,
+        19391,
         $W()
           ..h(this)
           ..h(ctx)
@@ -173,7 +173,7 @@ class OtelMetricNoopInt64Counter extends $metric.OtelMetricInt64Counter {
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> enabled($context.Context ctx) async {
     final $r = await $call(
-        19390,
+        19392,
         $W()
           ..h(this)
           ..h(ctx));
@@ -190,7 +190,7 @@ class OtelMetricNoopInt64Gauge extends $metric.OtelMetricInt64Gauge {
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> enabled($context.Context ctx) async {
     final $r = await $call(
-        19391,
+        19393,
         $W()
           ..h(this)
           ..h(ctx));
@@ -203,7 +203,7 @@ class OtelMetricNoopInt64Gauge extends $metric.OtelMetricInt64Gauge {
   Future<void> record($context.Context ctx, int arg1,
       [List<$metric.OtelMetricRecordOption> recordOptions = const []]) async {
     await $call(
-        19392,
+        19394,
         $W()
           ..h(this)
           ..h(ctx)
@@ -221,7 +221,7 @@ class OtelMetricNoopInt64Histogram extends $metric.OtelMetricInt64Histogram {
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> enabled($context.Context ctx) async {
     final $r = await $call(
-        19393,
+        19395,
         $W()
           ..h(this)
           ..h(ctx));
@@ -234,7 +234,7 @@ class OtelMetricNoopInt64Histogram extends $metric.OtelMetricInt64Histogram {
   Future<void> record($context.Context ctx, int arg1,
       [List<$metric.OtelMetricRecordOption> recordOptions = const []]) async {
     await $call(
-        19394,
+        19396,
         $W()
           ..h(this)
           ..h(ctx)
@@ -251,7 +251,7 @@ class OtelMetricNoopInt64Observer extends $metric.OtelMetricInt64Observer {
   void observe(int arg0,
       [List<$metric.OtelMetricObserveOption> observeOptions = const []]) {
     $callSync(
-        19395,
+        19397,
         $W()
           ..h(this)
           ..i64(arg0)
@@ -270,7 +270,7 @@ class OtelMetricNoopInt64UpDownCounter
   Future<void> add($context.Context ctx, int arg1,
       [List<$metric.OtelMetricAddOption> addOptions = const []]) async {
     await $call(
-        19396,
+        19398,
         $W()
           ..h(this)
           ..h(ctx)
@@ -283,7 +283,7 @@ class OtelMetricNoopInt64UpDownCounter
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> enabled($context.Context ctx) async {
     final $r = await $call(
-        19397,
+        19399,
         $W()
           ..h(this)
           ..h(ctx));
@@ -300,7 +300,7 @@ class OtelMetricNoopMeter extends $metric.OtelMetricMeter {
       [List<$metric.OtelMetricFloat64CounterOption> float64CounterOptions =
           const []]) {
     final $r = $callSync(
-        19398,
+        19400,
         $W()
           ..h(this)
           ..str(arg0)
@@ -313,7 +313,7 @@ class OtelMetricNoopMeter extends $metric.OtelMetricMeter {
       [List<$metric.OtelMetricFloat64GaugeOption> float64GaugeOptions =
           const []]) {
     final $r = $callSync(
-        19399,
+        19401,
         $W()
           ..h(this)
           ..str(arg0)
@@ -326,7 +326,7 @@ class OtelMetricNoopMeter extends $metric.OtelMetricMeter {
       [List<$metric.OtelMetricFloat64HistogramOption> float64HistogramOptions =
           const []]) {
     final $r = $callSync(
-        19400,
+        19402,
         $W()
           ..h(this)
           ..str(arg0)
@@ -340,7 +340,7 @@ class OtelMetricNoopMeter extends $metric.OtelMetricMeter {
       [List<$metric.OtelMetricFloat64ObservableCounterOption>
           float64ObservableCounterOptions = const []]) {
     final $r = $callSync(
-        19401,
+        19403,
         $W()
           ..h(this)
           ..str(arg0)
@@ -353,7 +353,7 @@ class OtelMetricNoopMeter extends $metric.OtelMetricMeter {
       [List<$metric.OtelMetricFloat64ObservableGaugeOption>
           float64ObservableGaugeOptions = const []]) {
     final $r = $callSync(
-        19402,
+        19404,
         $W()
           ..h(this)
           ..str(arg0)
@@ -367,7 +367,7 @@ class OtelMetricNoopMeter extends $metric.OtelMetricMeter {
           [List<$metric.OtelMetricFloat64ObservableUpDownCounterOption>
               float64ObservableUpDownCounterOptions = const []]) {
     final $r = $callSync(
-        19403,
+        19405,
         $W()
           ..h(this)
           ..str(arg0)
@@ -380,7 +380,7 @@ class OtelMetricNoopMeter extends $metric.OtelMetricMeter {
       [List<$metric.OtelMetricFloat64UpDownCounterOption>
           float64UpDownCounterOptions = const []]) {
     final $r = $callSync(
-        19404,
+        19406,
         $W()
           ..h(this)
           ..str(arg0)
@@ -393,7 +393,7 @@ class OtelMetricNoopMeter extends $metric.OtelMetricMeter {
       [List<$metric.OtelMetricInt64CounterOption> int64CounterOptions =
           const []]) {
     final $r = $callSync(
-        19405,
+        19407,
         $W()
           ..h(this)
           ..str(arg0)
@@ -405,7 +405,7 @@ class OtelMetricNoopMeter extends $metric.OtelMetricMeter {
   $metric.OtelMetricInt64Gauge int64Gauge(String arg0,
       [List<$metric.OtelMetricInt64GaugeOption> int64GaugeOptions = const []]) {
     final $r = $callSync(
-        19406,
+        19408,
         $W()
           ..h(this)
           ..str(arg0)
@@ -418,7 +418,7 @@ class OtelMetricNoopMeter extends $metric.OtelMetricMeter {
       [List<$metric.OtelMetricInt64HistogramOption> int64HistogramOptions =
           const []]) {
     final $r = $callSync(
-        19407,
+        19409,
         $W()
           ..h(this)
           ..str(arg0)
@@ -431,7 +431,7 @@ class OtelMetricNoopMeter extends $metric.OtelMetricMeter {
       [List<$metric.OtelMetricInt64ObservableCounterOption>
           int64ObservableCounterOptions = const []]) {
     final $r = $callSync(
-        19408,
+        19410,
         $W()
           ..h(this)
           ..str(arg0)
@@ -444,7 +444,7 @@ class OtelMetricNoopMeter extends $metric.OtelMetricMeter {
       [List<$metric.OtelMetricInt64ObservableGaugeOption>
           int64ObservableGaugeOptions = const []]) {
     final $r = $callSync(
-        19409,
+        19411,
         $W()
           ..h(this)
           ..str(arg0)
@@ -458,7 +458,7 @@ class OtelMetricNoopMeter extends $metric.OtelMetricMeter {
       [List<$metric.OtelMetricInt64ObservableUpDownCounterOption>
           int64ObservableUpDownCounterOptions = const []]) {
     final $r = $callSync(
-        19410,
+        19412,
         $W()
           ..h(this)
           ..str(arg0)
@@ -471,7 +471,7 @@ class OtelMetricNoopMeter extends $metric.OtelMetricMeter {
       [List<$metric.OtelMetricInt64UpDownCounterOption>
           int64UpDownCounterOptions = const []]) {
     final $r = $callSync(
-        19411,
+        19413,
         $W()
           ..h(this)
           ..str(arg0)
@@ -492,7 +492,7 @@ class OtelMetricNoopMeter extends $metric.OtelMetricMeter {
           callback,
       [List<$metric.OtelMetricObservable> observables = const []]) async {
     final $r = await $call(
-        19412,
+        19414,
         $W()
           ..h(this)
           ..cb(
@@ -510,7 +510,7 @@ class OtelMetricNoopMeterProvider extends $metric.OtelMetricMeterProvider {
 
   /// Go: `func noop.NewMeterProvider() noop.MeterProvider`.
   factory OtelMetricNoopMeterProvider() {
-    final $r = $callSync(19414);
+    final $r = $callSync(19416);
     return $r.hnn(OtelMetricNoopMeterProvider.$h);
   }
 
@@ -518,7 +518,7 @@ class OtelMetricNoopMeterProvider extends $metric.OtelMetricMeterProvider {
   $metric.OtelMetricMeter meter(String arg0,
       [List<$metric.OtelMetricMeterOption> meterOptions = const []]) {
     final $r = $callSync(
-        19413,
+        19415,
         $W()
           ..h(this)
           ..str(arg0)
@@ -536,7 +536,7 @@ class OtelMetricNoopObserver extends $metric.OtelMetricObserver {
       $metric.OtelMetricFloat64Observable float64Observable, double arg1,
       [List<$metric.OtelMetricObserveOption> observeOptions = const []]) {
     $callSync(
-        19415,
+        19417,
         $W()
           ..h(this)
           ..h(float64Observable)
@@ -548,7 +548,7 @@ class OtelMetricNoopObserver extends $metric.OtelMetricObserver {
   void observeInt64($metric.OtelMetricInt64Observable int64Observable, int arg1,
       [List<$metric.OtelMetricObserveOption> observeOptions = const []]) {
     $callSync(
-        19416,
+        19418,
         $W()
           ..h(this)
           ..h(int64Observable)
@@ -563,6 +563,6 @@ class OtelMetricNoopRegistration extends $metric.OtelMetricRegistration {
 
   /// Go: `func (noop.Registration).Unregister() error`.
   void unregister() {
-    $callSync(19417, $W()..h(this));
+    $callSync(19419, $W()..h(this));
   }
 }

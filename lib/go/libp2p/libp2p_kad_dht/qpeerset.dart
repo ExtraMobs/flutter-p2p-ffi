@@ -12,7 +12,7 @@ class Libp2pKadDhtQpeersetQueryPeerset extends GoHandle {
 
   /// Go: `func qpeerset.NewQueryPeerset(key string) *qpeerset.QueryPeerset`.
   factory Libp2pKadDhtQpeersetQueryPeerset(String key) {
-    final $r = $callSync(13087, $W()..str(key));
+    final $r = $callSync(13089, $W()..str(key));
     return $r.hnn(Libp2pKadDhtQpeersetQueryPeerset.$h);
   }
 
@@ -20,7 +20,7 @@ class Libp2pKadDhtQpeersetQueryPeerset extends GoHandle {
   List<$peer.Libp2pCorePeerId> getClosestInStates(
       [List<int> states = const []]) {
     final $r = $callSync(
-        13088,
+        13090,
         $W()
           ..h(this)
           ..list(states, (w0, e0) => w0.i64(e0)));
@@ -31,7 +31,7 @@ class Libp2pKadDhtQpeersetQueryPeerset extends GoHandle {
   List<$peer.Libp2pCorePeerId> getClosestNInStates(int n,
       [List<int> states = const []]) {
     final $r = $callSync(
-        13089,
+        13091,
         $W()
           ..h(this)
           ..i64(n)
@@ -42,7 +42,7 @@ class Libp2pKadDhtQpeersetQueryPeerset extends GoHandle {
   /// Go: `func (*qpeerset.QueryPeerset).GetReferrer(p peer.ID) peer.ID`.
   $peer.Libp2pCorePeerId getReferrer($peer.Libp2pCorePeerId p) {
     final $r = $callSync(
-        13090,
+        13092,
         $W()
           ..h(this)
           ..val(p));
@@ -52,7 +52,7 @@ class Libp2pKadDhtQpeersetQueryPeerset extends GoHandle {
   /// Go: `func (*qpeerset.QueryPeerset).GetState(p peer.ID) qpeerset.PeerState`.
   int getState($peer.Libp2pCorePeerId p) {
     final $r = $callSync(
-        13091,
+        13093,
         $W()
           ..h(this)
           ..val(p));
@@ -61,20 +61,20 @@ class Libp2pKadDhtQpeersetQueryPeerset extends GoHandle {
 
   /// Go: `func (*qpeerset.QueryPeerset).NumHeard() int`.
   int numHeard() {
-    final $r = $callSync(13092, $W()..h(this));
+    final $r = $callSync(13094, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*qpeerset.QueryPeerset).NumWaiting() int`.
   int numWaiting() {
-    final $r = $callSync(13093, $W()..h(this));
+    final $r = $callSync(13095, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*qpeerset.QueryPeerset).SetState(p peer.ID, s qpeerset.PeerState)`.
   void setState($peer.Libp2pCorePeerId p, int s) {
     $callSync(
-        13094,
+        13096,
         $W()
           ..h(this)
           ..val(p)
@@ -84,7 +84,7 @@ class Libp2pKadDhtQpeersetQueryPeerset extends GoHandle {
   /// Go: `func (*qpeerset.QueryPeerset).TryAdd(p peer.ID, referredBy peer.ID) bool`.
   bool tryAdd($peer.Libp2pCorePeerId p, $peer.Libp2pCorePeerId referredBy) {
     final $r = $callSync(
-        13095,
+        13097,
         $W()
           ..h(this)
           ..val(p)

@@ -630,6 +630,8 @@ func (e *dartEmitter) dec(t *tinfo, r string, from *dartLib, opt bool) string {
 		return r + ".bytes() ?? Uint8List(0)"
 	case kError:
 		return r + ".err()"
+	case kOpts: // one Go made: its handle, sent back as is
+		return fmt.Sprintf("%s.$($optHandle, $optOf(%s))", e.ref(t, from), r)
 	case kAny:
 		return r + ".any()"
 	case kCtx: // a callback's context (pubsub's validators): its handle

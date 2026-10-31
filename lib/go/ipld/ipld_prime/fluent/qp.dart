@@ -24,7 +24,7 @@ extension GoIpldIpldPrimeFluentQpApi on GoIpldIpldPrimeFluentQp {
               $datamodel.IpldPrimeDatamodelListAssembler listAssembler)
           fn) async {
     final $r = await $call(
-        12192,
+        12194,
         $W()
           ..h(np)
           ..i64(sizeHint)
@@ -47,7 +47,7 @@ extension GoIpldIpldPrimeFluentQpApi on GoIpldIpldPrimeFluentQp {
               $datamodel.IpldPrimeDatamodelMapAssembler mapAssembler)
           fn) async {
     final $r = await $call(
-        12193,
+        12195,
         $W()
           ..h(np)
           ..i64(sizeHint)
@@ -69,7 +69,7 @@ extension GoIpldIpldPrimeFluentQpApi on GoIpldIpldPrimeFluentQp {
               $datamodel.IpldPrimeDatamodelNodeAssembler nodeAssembler)
           fn) async {
     await $call(
-        12194,
+        12196,
         $W()
           ..h(la)
           ..cb((r) => fn(r.hnn($datamodel.IpldPrimeDatamodelNodeAssembler.$h)),
@@ -90,7 +90,7 @@ extension GoIpldIpldPrimeFluentQpApi on GoIpldIpldPrimeFluentQp {
               $datamodel.IpldPrimeDatamodelNodeAssembler nodeAssembler)
           fn) async {
     await $call(
-        12195,
+        12197,
         $W()
           ..h(ma)
           ..str(k)

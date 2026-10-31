@@ -12,19 +12,19 @@ class TransportV4Deadline extends $helpers.KuboCoreNodeHelpersMetricsCtx {
 
   /// Go: `func (*deadline.Deadline).Deadline() (time.Time, bool)`.
   (DateTime, bool) deadline() {
-    final $r = $callSync(17477, $W()..h(this));
+    final $r = $callSync(17479, $W()..h(this));
     return ($r.p() ? $r.time() : $nil(), $r.b());
   }
 
   /// Go: `func (*deadline.Deadline).Err() error`.
   void err() {
-    $callSync(17478, $W()..h(this));
+    $callSync(17480, $W()..h(this));
   }
 
   /// Go: `func (*deadline.Deadline).Set(setTo time.Time)`.
   void set(DateTime setTo) {
     $callSync(
-        17479,
+        17481,
         $W()
           ..h(this)
           ..time(setTo));
@@ -33,7 +33,7 @@ class TransportV4Deadline extends $helpers.KuboCoreNodeHelpersMetricsCtx {
   /// Go: `func (*deadline.Deadline).Value(any) any`.
   Object? value$(Object? arg0) {
     final $r = $callSync(
-        17480,
+        17482,
         $W()
           ..h(this)
           ..any(arg0));
@@ -45,7 +45,7 @@ class TransportV4Deadline extends $helpers.KuboCoreNodeHelpersMetricsCtx {
 extension GoPionTransportV4DeadlineApi on GoPionTransportV4Deadline {
   /// Go: `func deadline.New() *deadline.Deadline`.
   TransportV4Deadline new$() {
-    final $r = $callSync(17481);
+    final $r = $callSync(17483);
     return $r.hnn(TransportV4Deadline.$h);
   }
 }

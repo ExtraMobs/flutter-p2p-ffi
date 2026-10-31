@@ -20,14 +20,14 @@ class StringsBuilder extends $io.IoByteWriter
 
   /// Go: `func (*strings.Builder).Cap() int`.
   int cap() {
-    final $r = $callSync(27243, $W()..h(this));
+    final $r = $callSync(27245, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*strings.Builder).Grow(n int)`.
   void grow(int n) {
     $callSync(
-        27244,
+        27246,
         $W()
           ..h(this)
           ..i64(n));
@@ -35,25 +35,25 @@ class StringsBuilder extends $io.IoByteWriter
 
   /// Go: `func (*strings.Builder).Len() int`.
   int len() {
-    final $r = $callSync(27245, $W()..h(this));
+    final $r = $callSync(27247, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*strings.Builder).Reset()`.
   void reset() {
-    $callSync(27246, $W()..h(this));
+    $callSync(27248, $W()..h(this));
   }
 
   /// Go: `func (*strings.Builder).String() string`.
   String string() {
-    final $r = $callSync(27247, $W()..h(this));
+    final $r = $callSync(27249, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*strings.Builder).Write(p []byte) (int, error)`.
   int write(Uint8List p) {
     final $r = $callSync(
-        27248,
+        27250,
         $W()
           ..h(this)
           ..bytes(p));
@@ -63,7 +63,7 @@ class StringsBuilder extends $io.IoByteWriter
   /// Go: `func (*strings.Builder).WriteByte(c byte) error`.
   void writeByte(int c) {
     $callSync(
-        27249,
+        27251,
         $W()
           ..h(this)
           ..i64(c));
@@ -72,7 +72,7 @@ class StringsBuilder extends $io.IoByteWriter
   /// Go: `func (*strings.Builder).WriteRune(r rune) (int, error)`.
   int writeRune(int r) {
     final $r = $callSync(
-        27250,
+        27252,
         $W()
           ..h(this)
           ..i64(r));
@@ -82,7 +82,7 @@ class StringsBuilder extends $io.IoByteWriter
   /// Go: `func (*strings.Builder).WriteString(s string) (int, error)`.
   int writeString(String s) {
     final $r = $callSync(
-        27251,
+        27253,
         $W()
           ..h(this)
           ..str(s));
@@ -104,20 +104,20 @@ class StringsReader extends $io.IoRuneScanner
 
   /// Go: `func strings.NewReader(s string) *strings.Reader`.
   factory StringsReader(String s) {
-    final $r = $callSync(27278, $W()..str(s));
+    final $r = $callSync(27280, $W()..str(s));
     return $r.hnn(StringsReader.$h);
   }
 
   /// Go: `func (*strings.Reader).Len() int`.
   int len() {
-    final $r = $callSync(27280, $W()..h(this));
+    final $r = $callSync(27282, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*strings.Reader).Read(b []byte) (n int, err error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        27281,
+        27283,
         $W()
           ..h(this)
           ..i64(n));
@@ -127,7 +127,7 @@ class StringsReader extends $io.IoRuneScanner
   /// Go: `func (*strings.Reader).ReadAt(b []byte, off int64) (n int, err error)`.
   Uint8List readAt(int n, int off) {
     final $r = $callSync(
-        27282,
+        27284,
         $W()
           ..h(this)
           ..i64(n)
@@ -137,20 +137,20 @@ class StringsReader extends $io.IoRuneScanner
 
   /// Go: `func (*strings.Reader).ReadByte() (byte, error)`.
   int readByte() {
-    final $r = $callSync(27283, $W()..h(this));
+    final $r = $callSync(27285, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*strings.Reader).ReadRune() (ch rune, size int, err error)`.
   (int, int) readRune() {
-    final $r = $callSync(27284, $W()..h(this));
+    final $r = $callSync(27286, $W()..h(this));
     return ($r.i64(), $r.i64());
   }
 
   /// Go: `func (*strings.Reader).Reset(s string)`.
   void reset(String s) {
     $callSync(
-        27285,
+        27287,
         $W()
           ..h(this)
           ..str(s));
@@ -159,7 +159,7 @@ class StringsReader extends $io.IoRuneScanner
   /// Go: `func (*strings.Reader).Seek(offset int64, whence int) (int64, error)`.
   int seek(int offset, int whence) {
     final $r = $callSync(
-        27286,
+        27288,
         $W()
           ..h(this)
           ..i64(offset)
@@ -169,24 +169,24 @@ class StringsReader extends $io.IoRuneScanner
 
   /// Go: `func (*strings.Reader).Size() int64`.
   int size() {
-    final $r = $callSync(27287, $W()..h(this));
+    final $r = $callSync(27289, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*strings.Reader).UnreadByte() error`.
   void unreadByte() {
-    $callSync(27288, $W()..h(this));
+    $callSync(27290, $W()..h(this));
   }
 
   /// Go: `func (*strings.Reader).UnreadRune() error`.
   void unreadRune() {
-    $callSync(27289, $W()..h(this));
+    $callSync(27291, $W()..h(this));
   }
 
   /// Go: `func (*strings.Reader).WriteTo(w io.Writer) (n int64, err error)`.
   int writeTo(GoHandle? w) {
     final $r = $callSync(
-        27290,
+        27292,
         $W()
           ..h(this)
           ..h(w));
@@ -200,14 +200,14 @@ class StringsReplacer extends GoHandle {
 
   /// Go: `func strings.NewReplacer(oldnew ...string) *strings.Replacer`.
   factory StringsReplacer([List<String> oldnew = const []]) {
-    final $r = $callSync(27279, $W()..list(oldnew, (w0, e0) => w0.str(e0)));
+    final $r = $callSync(27281, $W()..list(oldnew, (w0, e0) => w0.str(e0)));
     return $r.hnn(StringsReplacer.$h);
   }
 
   /// Go: `func (*strings.Replacer).Replace(s string) string`.
   String replace(String s) {
     final $r = $callSync(
-        27294,
+        27296,
         $W()
           ..h(this)
           ..str(s));
@@ -217,7 +217,7 @@ class StringsReplacer extends GoHandle {
   /// Go: `func (*strings.Replacer).WriteString(w io.Writer, s string) (n int, err error)`.
   int writeString(GoHandle? w, String s) {
     final $r = $callSync(
-        27295,
+        27297,
         $W()
           ..h(this)
           ..h(w)
@@ -230,14 +230,14 @@ class StringsReplacer extends GoHandle {
 extension GoStringsApi on GoStrings {
   /// Go: `func strings.Clone(s string) string`.
   String clone(String s) {
-    final $r = $callSync(27252, $W()..str(s));
+    final $r = $callSync(27254, $W()..str(s));
     return $r.str();
   }
 
   /// Go: `func strings.Compare(a string, b string) int`.
   int compare(String a, String b) {
     final $r = $callSync(
-        27253,
+        27255,
         $W()
           ..str(a)
           ..str(b));
@@ -247,7 +247,7 @@ extension GoStringsApi on GoStrings {
   /// Go: `func strings.Contains(s string, substr string) bool`.
   bool contains(String s, String substr) {
     final $r = $callSync(
-        27254,
+        27256,
         $W()
           ..str(s)
           ..str(substr));
@@ -257,7 +257,7 @@ extension GoStringsApi on GoStrings {
   /// Go: `func strings.ContainsAny(s string, chars string) bool`.
   bool containsAny(String s, String chars) {
     final $r = $callSync(
-        27255,
+        27257,
         $W()
           ..str(s)
           ..str(chars));
@@ -274,7 +274,7 @@ extension GoStringsApi on GoStrings {
   Future<bool> containsFunc(
       String s, FutureOr<bool> Function(int arg0) f) async {
     final $r = await $call(
-        27256,
+        27258,
         $W()
           ..str(s)
           ..cb((r) => f(r.i64()), true));
@@ -284,7 +284,7 @@ extension GoStringsApi on GoStrings {
   /// Go: `func strings.ContainsRune(s string, r rune) bool`.
   bool containsRune(String s, int r) {
     final $r = $callSync(
-        27257,
+        27259,
         $W()
           ..str(s)
           ..i64(r));
@@ -294,7 +294,7 @@ extension GoStringsApi on GoStrings {
   /// Go: `func strings.Count(s string, substr string) int`.
   int count(String s, String substr) {
     final $r = $callSync(
-        27258,
+        27260,
         $W()
           ..str(s)
           ..str(substr));
@@ -304,7 +304,7 @@ extension GoStringsApi on GoStrings {
   /// Go: `func strings.Cut(s string, sep string) (before string, after string, found bool)`.
   (String, String, bool) cut(String s, String sep) {
     final $r = $callSync(
-        27259,
+        27261,
         $W()
           ..str(s)
           ..str(sep));
@@ -314,7 +314,7 @@ extension GoStringsApi on GoStrings {
   /// Go: `func strings.CutPrefix(s string, prefix string) (after string, found bool)`.
   (String, bool) cutPrefix(String s, String prefix) {
     final $r = $callSync(
-        27260,
+        27262,
         $W()
           ..str(s)
           ..str(prefix));
@@ -324,7 +324,7 @@ extension GoStringsApi on GoStrings {
   /// Go: `func strings.CutSuffix(s string, suffix string) (before string, found bool)`.
   (String, bool) cutSuffix(String s, String suffix) {
     final $r = $callSync(
-        27261,
+        27263,
         $W()
           ..str(s)
           ..str(suffix));
@@ -334,7 +334,7 @@ extension GoStringsApi on GoStrings {
   /// Go: `func strings.EqualFold(s string, t string) bool`.
   bool equalFold(String s, String t) {
     final $r = $callSync(
-        27262,
+        27264,
         $W()
           ..str(s)
           ..str(t));
@@ -343,7 +343,7 @@ extension GoStringsApi on GoStrings {
 
   /// Go: `func strings.Fields(s string) []string`.
   List<String> fields(String s) {
-    final $r = $callSync(27263, $W()..str(s));
+    final $r = $callSync(27265, $W()..str(s));
     return $r.list(() => $r.str());
   }
 
@@ -357,7 +357,7 @@ extension GoStringsApi on GoStrings {
   Future<List<String>> fieldsFunc(
       String s, FutureOr<bool> Function(int arg0) f) async {
     final $r = await $call(
-        27264,
+        27266,
         $W()
           ..str(s)
           ..cb((r) => f(r.i64()), true));
@@ -367,7 +367,7 @@ extension GoStringsApi on GoStrings {
   /// Go: `func strings.HasPrefix(s string, prefix string) bool`.
   bool hasPrefix(String s, String prefix) {
     final $r = $callSync(
-        27265,
+        27267,
         $W()
           ..str(s)
           ..str(prefix));
@@ -377,7 +377,7 @@ extension GoStringsApi on GoStrings {
   /// Go: `func strings.HasSuffix(s string, suffix string) bool`.
   bool hasSuffix(String s, String suffix) {
     final $r = $callSync(
-        27266,
+        27268,
         $W()
           ..str(s)
           ..str(suffix));
@@ -387,7 +387,7 @@ extension GoStringsApi on GoStrings {
   /// Go: `func strings.Index(s string, substr string) int`.
   int index(String s, String substr) {
     final $r = $callSync(
-        27267,
+        27269,
         $W()
           ..str(s)
           ..str(substr));
@@ -397,7 +397,7 @@ extension GoStringsApi on GoStrings {
   /// Go: `func strings.IndexAny(s string, chars string) int`.
   int indexAny(String s, String chars) {
     final $r = $callSync(
-        27268,
+        27270,
         $W()
           ..str(s)
           ..str(chars));
@@ -407,7 +407,7 @@ extension GoStringsApi on GoStrings {
   /// Go: `func strings.IndexByte(s string, c byte) int`.
   int indexByte(String s, int c) {
     final $r = $callSync(
-        27269,
+        27271,
         $W()
           ..str(s)
           ..i64(c));
@@ -423,7 +423,7 @@ extension GoStringsApi on GoStrings {
   /// each invocation (a retained callback, WIRE.md).
   Future<int> indexFunc(String s, FutureOr<bool> Function(int arg0) f) async {
     final $r = await $call(
-        27270,
+        27272,
         $W()
           ..str(s)
           ..cb((r) => f(r.i64()), true));
@@ -433,7 +433,7 @@ extension GoStringsApi on GoStrings {
   /// Go: `func strings.IndexRune(s string, r rune) int`.
   int indexRune(String s, int r) {
     final $r = $callSync(
-        27271,
+        27273,
         $W()
           ..str(s)
           ..i64(r));
@@ -443,7 +443,7 @@ extension GoStringsApi on GoStrings {
   /// Go: `func strings.Join(elems []string, sep string) string`.
   String join(List<String> elems, String sep) {
     final $r = $callSync(
-        27272,
+        27274,
         $W()
           ..list(elems, (w0, e0) => w0.str(e0))
           ..str(sep));
@@ -453,7 +453,7 @@ extension GoStringsApi on GoStrings {
   /// Go: `func strings.LastIndex(s string, substr string) int`.
   int lastIndex(String s, String substr) {
     final $r = $callSync(
-        27273,
+        27275,
         $W()
           ..str(s)
           ..str(substr));
@@ -463,7 +463,7 @@ extension GoStringsApi on GoStrings {
   /// Go: `func strings.LastIndexAny(s string, chars string) int`.
   int lastIndexAny(String s, String chars) {
     final $r = $callSync(
-        27274,
+        27276,
         $W()
           ..str(s)
           ..str(chars));
@@ -473,7 +473,7 @@ extension GoStringsApi on GoStrings {
   /// Go: `func strings.LastIndexByte(s string, c byte) int`.
   int lastIndexByte(String s, int c) {
     final $r = $callSync(
-        27275,
+        27277,
         $W()
           ..str(s)
           ..i64(c));
@@ -490,7 +490,7 @@ extension GoStringsApi on GoStrings {
   Future<int> lastIndexFunc(
       String s, FutureOr<bool> Function(int arg0) f) async {
     final $r = await $call(
-        27276,
+        27278,
         $W()
           ..str(s)
           ..cb((r) => f(r.i64()), true));
@@ -506,7 +506,7 @@ extension GoStringsApi on GoStrings {
   /// each invocation (a retained callback, WIRE.md).
   Future<String> map(FutureOr<int> Function(int arg0) mapping, String s) async {
     final $r = await $call(
-        27277,
+        27279,
         $W()
           ..cb((r) => mapping(r.i64()), true, (w, v) => w.i64(v as int))
           ..str(s));
@@ -516,7 +516,7 @@ extension GoStringsApi on GoStrings {
   /// Go: `func strings.Repeat(s string, count int) string`.
   String repeat(String s, int count) {
     final $r = $callSync(
-        27291,
+        27293,
         $W()
           ..str(s)
           ..i64(count));
@@ -526,7 +526,7 @@ extension GoStringsApi on GoStrings {
   /// Go: `func strings.Replace(s string, old string, new string, n int) string`.
   String replace(String s, String old, String new$, int n) {
     final $r = $callSync(
-        27292,
+        27294,
         $W()
           ..str(s)
           ..str(old)
@@ -538,7 +538,7 @@ extension GoStringsApi on GoStrings {
   /// Go: `func strings.ReplaceAll(s string, old string, new string) string`.
   String replaceAll(String s, String old, String new$) {
     final $r = $callSync(
-        27293,
+        27295,
         $W()
           ..str(s)
           ..str(old)
@@ -549,7 +549,7 @@ extension GoStringsApi on GoStrings {
   /// Go: `func strings.Split(s string, sep string) []string`.
   List<String> split(String s, String sep) {
     final $r = $callSync(
-        27296,
+        27298,
         $W()
           ..str(s)
           ..str(sep));
@@ -559,7 +559,7 @@ extension GoStringsApi on GoStrings {
   /// Go: `func strings.SplitAfter(s string, sep string) []string`.
   List<String> splitAfter(String s, String sep) {
     final $r = $callSync(
-        27297,
+        27299,
         $W()
           ..str(s)
           ..str(sep));
@@ -569,7 +569,7 @@ extension GoStringsApi on GoStrings {
   /// Go: `func strings.SplitAfterN(s string, sep string, n int) []string`.
   List<String> splitAfterN(String s, String sep, int n) {
     final $r = $callSync(
-        27298,
+        27300,
         $W()
           ..str(s)
           ..str(sep)
@@ -580,7 +580,7 @@ extension GoStringsApi on GoStrings {
   /// Go: `func strings.SplitN(s string, sep string, n int) []string`.
   List<String> splitN(String s, String sep, int n) {
     final $r = $callSync(
-        27299,
+        27301,
         $W()
           ..str(s)
           ..str(sep)
@@ -592,34 +592,18 @@ extension GoStringsApi on GoStrings {
   @Deprecated(
       "The rule Title uses for word boundaries does not handle Unicode punctuation properly. Use golang.org/x/text/cases instead.")
   String title(String s) {
-    final $r = $callSync(27300, $W()..str(s));
+    final $r = $callSync(27302, $W()..str(s));
     return $r.str();
   }
 
   /// Go: `func strings.ToLower(s string) string`.
   String toLower(String s) {
-    final $r = $callSync(27301, $W()..str(s));
+    final $r = $callSync(27303, $W()..str(s));
     return $r.str();
   }
 
   /// Go: `func strings.ToLowerSpecial(c unicode.SpecialCase, s string) string`.
   String toLowerSpecial(List<$unicode.UnicodeCaseRange> c, String s) {
-    final $r = $callSync(
-        27302,
-        $W()
-          ..list(c, (w0, e0) => w0.dto(e0))
-          ..str(s));
-    return $r.str();
-  }
-
-  /// Go: `func strings.ToTitle(s string) string`.
-  String toTitle(String s) {
-    final $r = $callSync(27303, $W()..str(s));
-    return $r.str();
-  }
-
-  /// Go: `func strings.ToTitleSpecial(c unicode.SpecialCase, s string) string`.
-  String toTitleSpecial(List<$unicode.UnicodeCaseRange> c, String s) {
     final $r = $callSync(
         27304,
         $W()
@@ -628,16 +612,32 @@ extension GoStringsApi on GoStrings {
     return $r.str();
   }
 
+  /// Go: `func strings.ToTitle(s string) string`.
+  String toTitle(String s) {
+    final $r = $callSync(27305, $W()..str(s));
+    return $r.str();
+  }
+
+  /// Go: `func strings.ToTitleSpecial(c unicode.SpecialCase, s string) string`.
+  String toTitleSpecial(List<$unicode.UnicodeCaseRange> c, String s) {
+    final $r = $callSync(
+        27306,
+        $W()
+          ..list(c, (w0, e0) => w0.dto(e0))
+          ..str(s));
+    return $r.str();
+  }
+
   /// Go: `func strings.ToUpper(s string) string`.
   String toUpper(String s) {
-    final $r = $callSync(27305, $W()..str(s));
+    final $r = $callSync(27307, $W()..str(s));
     return $r.str();
   }
 
   /// Go: `func strings.ToUpperSpecial(c unicode.SpecialCase, s string) string`.
   String toUpperSpecial(List<$unicode.UnicodeCaseRange> c, String s) {
     final $r = $callSync(
-        27306,
+        27308,
         $W()
           ..list(c, (w0, e0) => w0.dto(e0))
           ..str(s));
@@ -647,7 +647,7 @@ extension GoStringsApi on GoStrings {
   /// Go: `func strings.ToValidUTF8(s string, replacement string) string`.
   String toValidUtf8(String s, String replacement) {
     final $r = $callSync(
-        27307,
+        27309,
         $W()
           ..str(s)
           ..str(replacement));
@@ -657,7 +657,7 @@ extension GoStringsApi on GoStrings {
   /// Go: `func strings.Trim(s string, cutset string) string`.
   String trim(String s, String cutset) {
     final $r = $callSync(
-        27308,
+        27310,
         $W()
           ..str(s)
           ..str(cutset));
@@ -673,7 +673,7 @@ extension GoStringsApi on GoStrings {
   /// each invocation (a retained callback, WIRE.md).
   Future<String> trimFunc(String s, FutureOr<bool> Function(int arg0) f) async {
     final $r = await $call(
-        27309,
+        27311,
         $W()
           ..str(s)
           ..cb((r) => f(r.i64()), true));
@@ -683,7 +683,7 @@ extension GoStringsApi on GoStrings {
   /// Go: `func strings.TrimLeft(s string, cutset string) string`.
   String trimLeft(String s, String cutset) {
     final $r = $callSync(
-        27310,
+        27312,
         $W()
           ..str(s)
           ..str(cutset));
@@ -700,7 +700,7 @@ extension GoStringsApi on GoStrings {
   Future<String> trimLeftFunc(
       String s, FutureOr<bool> Function(int arg0) f) async {
     final $r = await $call(
-        27311,
+        27313,
         $W()
           ..str(s)
           ..cb((r) => f(r.i64()), true));
@@ -710,7 +710,7 @@ extension GoStringsApi on GoStrings {
   /// Go: `func strings.TrimPrefix(s string, prefix string) string`.
   String trimPrefix(String s, String prefix) {
     final $r = $callSync(
-        27312,
+        27314,
         $W()
           ..str(s)
           ..str(prefix));
@@ -720,7 +720,7 @@ extension GoStringsApi on GoStrings {
   /// Go: `func strings.TrimRight(s string, cutset string) string`.
   String trimRight(String s, String cutset) {
     final $r = $callSync(
-        27313,
+        27315,
         $W()
           ..str(s)
           ..str(cutset));
@@ -737,7 +737,7 @@ extension GoStringsApi on GoStrings {
   Future<String> trimRightFunc(
       String s, FutureOr<bool> Function(int arg0) f) async {
     final $r = await $call(
-        27314,
+        27316,
         $W()
           ..str(s)
           ..cb((r) => f(r.i64()), true));
@@ -746,14 +746,14 @@ extension GoStringsApi on GoStrings {
 
   /// Go: `func strings.TrimSpace(s string) string`.
   String trimSpace(String s) {
-    final $r = $callSync(27315, $W()..str(s));
+    final $r = $callSync(27317, $W()..str(s));
     return $r.str();
   }
 
   /// Go: `func strings.TrimSuffix(s string, suffix string) string`.
   String trimSuffix(String s, String suffix) {
     final $r = $callSync(
-        27316,
+        27318,
         $W()
           ..str(s)
           ..str(suffix));

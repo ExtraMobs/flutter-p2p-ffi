@@ -20,7 +20,7 @@ final class NetDnsDnsmessageAaaaResource implements GoDto {
 
   /// Go: `func (*dnsmessage.AAAAResource).GoString() string`.
   String goString() {
-    final $r = $callSync(23408, $W()..dto(this));
+    final $r = $callSync(23410, $W()..dto(this));
     return $r.str();
   }
 }
@@ -37,7 +37,7 @@ final class NetDnsDnsmessageAResource implements GoDto {
 
   /// Go: `func (*dnsmessage.AResource).GoString() string`.
   String goString() {
-    final $r = $callSync(23409, $W()..dto(this));
+    final $r = $callSync(23411, $W()..dto(this));
     return $r.str();
   }
 }
@@ -49,7 +49,7 @@ class NetDnsDnsmessageBuilder extends GoHandle {
   /// Go: `func dnsmessage.NewBuilder(buf []byte, h dnsmessage.Header) dnsmessage.Builder`.
   factory NetDnsDnsmessageBuilder(Uint8List buf, NetDnsDnsmessageHeader h) {
     final $r = $callSync(
-        23445,
+        23447,
         $W()
           ..bytes(buf)
           ..dto(h));
@@ -60,7 +60,7 @@ class NetDnsDnsmessageBuilder extends GoHandle {
   void aaaaResource(
       NetDnsDnsmessageResourceHeader h, NetDnsDnsmessageAaaaResource r) {
     $callSync(
-        23410,
+        23412,
         $W()
           ..h(this)
           ..dto(h)
@@ -71,7 +71,7 @@ class NetDnsDnsmessageBuilder extends GoHandle {
   void aResource(
       NetDnsDnsmessageResourceHeader h, NetDnsDnsmessageAResource r) {
     $callSync(
-        23411,
+        23413,
         $W()
           ..h(this)
           ..dto(h)
@@ -82,7 +82,7 @@ class NetDnsDnsmessageBuilder extends GoHandle {
   void cnameResource(
       NetDnsDnsmessageResourceHeader h, NetDnsDnsmessageCnameResource r) {
     $callSync(
-        23412,
+        23414,
         $W()
           ..h(this)
           ..dto(h)
@@ -91,12 +91,12 @@ class NetDnsDnsmessageBuilder extends GoHandle {
 
   /// Go: `func (*dnsmessage.Builder).EnableCompression()`.
   void enableCompression() {
-    $callSync(23413, $W()..h(this));
+    $callSync(23415, $W()..h(this));
   }
 
   /// Go: `func (*dnsmessage.Builder).Finish() ([]byte, error)`.
   Uint8List finish() {
-    final $r = $callSync(23414, $W()..h(this));
+    final $r = $callSync(23416, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
@@ -104,7 +104,7 @@ class NetDnsDnsmessageBuilder extends GoHandle {
   void httpsResource(
       NetDnsDnsmessageResourceHeader h, NetDnsDnsmessageHttpsResource r) {
     $callSync(
-        23415,
+        23417,
         $W()
           ..h(this)
           ..dto(h)
@@ -115,7 +115,7 @@ class NetDnsDnsmessageBuilder extends GoHandle {
   void mxResource(
       NetDnsDnsmessageResourceHeader h, NetDnsDnsmessageMxResource r) {
     $callSync(
-        23416,
+        23418,
         $W()
           ..h(this)
           ..dto(h)
@@ -126,7 +126,7 @@ class NetDnsDnsmessageBuilder extends GoHandle {
   void nsResource(
       NetDnsDnsmessageResourceHeader h, NetDnsDnsmessageNsResource r) {
     $callSync(
-        23417,
+        23419,
         $W()
           ..h(this)
           ..dto(h)
@@ -137,7 +137,7 @@ class NetDnsDnsmessageBuilder extends GoHandle {
   void optResource(
       NetDnsDnsmessageResourceHeader h, NetDnsDnsmessageOptResource r) {
     $callSync(
-        23418,
+        23420,
         $W()
           ..h(this)
           ..dto(h)
@@ -148,7 +148,7 @@ class NetDnsDnsmessageBuilder extends GoHandle {
   void ptrResource(
       NetDnsDnsmessageResourceHeader h, NetDnsDnsmessagePtrResource r) {
     $callSync(
-        23419,
+        23421,
         $W()
           ..h(this)
           ..dto(h)
@@ -158,7 +158,7 @@ class NetDnsDnsmessageBuilder extends GoHandle {
   /// Go: `func (*dnsmessage.Builder).Question(q dnsmessage.Question) error`.
   void question(NetDnsDnsmessageQuestion q) {
     $callSync(
-        23420,
+        23422,
         $W()
           ..h(this)
           ..dto(q));
@@ -168,7 +168,7 @@ class NetDnsDnsmessageBuilder extends GoHandle {
   void soaResource(
       NetDnsDnsmessageResourceHeader h, NetDnsDnsmessageSoaResource r) {
     $callSync(
-        23421,
+        23423,
         $W()
           ..h(this)
           ..dto(h)
@@ -179,7 +179,7 @@ class NetDnsDnsmessageBuilder extends GoHandle {
   void srvResource(
       NetDnsDnsmessageResourceHeader h, NetDnsDnsmessageSrvResource r) {
     $callSync(
-        23422,
+        23424,
         $W()
           ..h(this)
           ..dto(h)
@@ -190,7 +190,7 @@ class NetDnsDnsmessageBuilder extends GoHandle {
   void svcbResource(
       NetDnsDnsmessageResourceHeader h, NetDnsDnsmessageSvcbResource r) {
     $callSync(
-        23423,
+        23425,
         $W()
           ..h(this)
           ..dto(h)
@@ -199,29 +199,29 @@ class NetDnsDnsmessageBuilder extends GoHandle {
 
   /// Go: `func (*dnsmessage.Builder).StartAdditionals() error`.
   void startAdditionals() {
-    $callSync(23424, $W()..h(this));
+    $callSync(23426, $W()..h(this));
   }
 
   /// Go: `func (*dnsmessage.Builder).StartAnswers() error`.
   void startAnswers() {
-    $callSync(23425, $W()..h(this));
+    $callSync(23427, $W()..h(this));
   }
 
   /// Go: `func (*dnsmessage.Builder).StartAuthorities() error`.
   void startAuthorities() {
-    $callSync(23426, $W()..h(this));
+    $callSync(23428, $W()..h(this));
   }
 
   /// Go: `func (*dnsmessage.Builder).StartQuestions() error`.
   void startQuestions() {
-    $callSync(23427, $W()..h(this));
+    $callSync(23429, $W()..h(this));
   }
 
   /// Go: `func (*dnsmessage.Builder).TXTResource(h dnsmessage.ResourceHeader, r dnsmessage.TXTResource) error`.
   void txtResource(
       NetDnsDnsmessageResourceHeader h, NetDnsDnsmessageTxtResource r) {
     $callSync(
-        23428,
+        23430,
         $W()
           ..h(this)
           ..dto(h)
@@ -232,7 +232,7 @@ class NetDnsDnsmessageBuilder extends GoHandle {
   void unknownResource(
       NetDnsDnsmessageResourceHeader h, NetDnsDnsmessageUnknownResource r) {
     $callSync(
-        23429,
+        23431,
         $W()
           ..h(this)
           ..dto(h)
@@ -257,7 +257,7 @@ final class NetDnsDnsmessageCnameResource implements GoDto {
 
   /// Go: `func (*dnsmessage.CNAMEResource).GoString() string`.
   String goString() {
-    final $r = $callSync(23430, $W()..dto(this));
+    final $r = $callSync(23432, $W()..dto(this));
     return $r.str();
   }
 }
@@ -281,7 +281,7 @@ final class NetDnsDnsmessageHttpsResource implements GoDto {
   /// Go: `func (*dnsmessage.SVCBResource).DeleteParam(key dnsmessage.SVCParamKey) bool`.
   bool deleteParam(int key) {
     final $r = $callSync(
-        23431,
+        23433,
         $W()
           ..dto(this)
           ..i64(key));
@@ -291,7 +291,7 @@ final class NetDnsDnsmessageHttpsResource implements GoDto {
   /// Go: `func (*dnsmessage.SVCBResource).GetParam(key dnsmessage.SVCParamKey) (value []byte, ok bool)`.
   (Uint8List, bool) getParam(int key) {
     final $r = $callSync(
-        23432,
+        23434,
         $W()
           ..dto(this)
           ..i64(key));
@@ -300,14 +300,14 @@ final class NetDnsDnsmessageHttpsResource implements GoDto {
 
   /// Go: `func (*dnsmessage.HTTPSResource).GoString() string`.
   String goString() {
-    final $r = $callSync(23433, $W()..dto(this));
+    final $r = $callSync(23435, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*dnsmessage.SVCBResource).SetParam(key dnsmessage.SVCParamKey, value []byte)`.
   void setParam(int key, Uint8List value) {
     $callSync(
-        23434,
+        23436,
         $W()
           ..dto(this)
           ..i64(key)
@@ -398,7 +398,7 @@ final class NetDnsDnsmessageHeader implements GoDto {
 
   /// Go: `func (*dnsmessage.Header).GoString() string`.
   String goString() {
-    final $r = $callSync(23435, $W()..dto(this));
+    final $r = $callSync(23437, $W()..dto(this));
     return $r.str();
   }
 }
@@ -428,7 +428,7 @@ final class NetDnsDnsmessageMxResource implements GoDto {
 
   /// Go: `func (*dnsmessage.MXResource).GoString() string`.
   String goString() {
-    final $r = $callSync(23436, $W()..dto(this));
+    final $r = $callSync(23438, $W()..dto(this));
     return $r.str();
   }
 }
@@ -486,7 +486,7 @@ final class NetDnsDnsmessageMessage implements GoDto {
   /// Go: `func (*dnsmessage.Message).AppendPack(b []byte) ([]byte, error)`.
   Uint8List appendPack(Uint8List b) {
     final $r = $callSync(
-        23437,
+        23439,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -495,20 +495,20 @@ final class NetDnsDnsmessageMessage implements GoDto {
 
   /// Go: `func (*dnsmessage.Message).GoString() string`.
   String goString() {
-    final $r = $callSync(23438, $W()..dto(this));
+    final $r = $callSync(23440, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*dnsmessage.Message).Pack() ([]byte, error)`.
   Uint8List pack() {
-    final $r = $callSync(23439, $W()..dto(this));
+    final $r = $callSync(23441, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*dnsmessage.Message).Unpack(msg []byte) error`.
   void unpack(Uint8List msg) {
     $callSync(
-        23440,
+        23442,
         $W()
           ..dto(this)
           ..bytes(msg));
@@ -532,7 +532,7 @@ final class NetDnsDnsmessageNsResource implements GoDto {
 
   /// Go: `func (*dnsmessage.NSResource).GoString() string`.
   String goString() {
-    final $r = $callSync(23442, $W()..dto(this));
+    final $r = $callSync(23444, $W()..dto(this));
     return $r.str();
   }
 }
@@ -555,13 +555,13 @@ final class NetDnsDnsmessageName implements GoDto {
 
   /// Go: `func (*dnsmessage.Name).GoString() string`.
   String goString() {
-    final $r = $callSync(23443, $W()..dto(this));
+    final $r = $callSync(23445, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (dnsmessage.Name).String() string`.
   String string() {
-    final $r = $callSync(23444, $W()..dto(this));
+    final $r = $callSync(23446, $W()..dto(this));
     return $r.str();
   }
 }
@@ -584,7 +584,7 @@ final class NetDnsDnsmessageOptResource implements GoDto {
 
   /// Go: `func (*dnsmessage.OPTResource).GoString() string`.
   String goString() {
-    final $r = $callSync(23447, $W()..dto(this));
+    final $r = $callSync(23449, $W()..dto(this));
     return $r.str();
   }
 }
@@ -614,7 +614,7 @@ final class NetDnsDnsmessageOption implements GoDto {
 
   /// Go: `func (*dnsmessage.Option).GoString() string`.
   String goString() {
-    final $r = $callSync(23448, $W()..dto(this));
+    final $r = $callSync(23450, $W()..dto(this));
     return $r.str();
   }
 }
@@ -636,7 +636,7 @@ final class NetDnsDnsmessagePtrResource implements GoDto {
 
   /// Go: `func (*dnsmessage.PTRResource).GoString() string`.
   String goString() {
-    final $r = $callSync(23449, $W()..dto(this));
+    final $r = $callSync(23451, $W()..dto(this));
     return $r.str();
   }
 }
@@ -647,180 +647,180 @@ class NetDnsDnsmessageParser extends GoHandle {
 
   /// Go: `func (*dnsmessage.Parser).AAAAResource() (dnsmessage.AAAAResource, error)`.
   NetDnsDnsmessageAaaaResource aaaaResource() {
-    final $r = $callSync(23450, $W()..h(this));
+    final $r = $callSync(23452, $W()..h(this));
     return $r.p() ? NetDnsDnsmessageAaaaResource.$dec($r) : $nil();
   }
 
   /// Go: `func (*dnsmessage.Parser).AResource() (dnsmessage.AResource, error)`.
   NetDnsDnsmessageAResource aResource() {
-    final $r = $callSync(23451, $W()..h(this));
+    final $r = $callSync(23453, $W()..h(this));
     return $r.p() ? NetDnsDnsmessageAResource.$dec($r) : $nil();
   }
 
   /// Go: `func (*dnsmessage.Parser).Additional() (dnsmessage.Resource, error)`.
   NetDnsDnsmessageResource additional() {
-    final $r = $callSync(23452, $W()..h(this));
+    final $r = $callSync(23454, $W()..h(this));
     return $r.p() ? NetDnsDnsmessageResource.$dec($r) : $nil();
   }
 
   /// Go: `func (*dnsmessage.Parser).AdditionalHeader() (dnsmessage.ResourceHeader, error)`.
   NetDnsDnsmessageResourceHeader additionalHeader() {
-    final $r = $callSync(23453, $W()..h(this));
+    final $r = $callSync(23455, $W()..h(this));
     return $r.p() ? NetDnsDnsmessageResourceHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dnsmessage.Parser).AllAdditionals() ([]dnsmessage.Resource, error)`.
   List<NetDnsDnsmessageResource> allAdditionals() {
-    final $r = $callSync(23454, $W()..h(this));
+    final $r = $callSync(23456, $W()..h(this));
     return $r.list(() => $r.p() ? NetDnsDnsmessageResource.$dec($r) : $nil());
   }
 
   /// Go: `func (*dnsmessage.Parser).AllAnswers() ([]dnsmessage.Resource, error)`.
   List<NetDnsDnsmessageResource> allAnswers() {
-    final $r = $callSync(23455, $W()..h(this));
+    final $r = $callSync(23457, $W()..h(this));
     return $r.list(() => $r.p() ? NetDnsDnsmessageResource.$dec($r) : $nil());
   }
 
   /// Go: `func (*dnsmessage.Parser).AllAuthorities() ([]dnsmessage.Resource, error)`.
   List<NetDnsDnsmessageResource> allAuthorities() {
-    final $r = $callSync(23456, $W()..h(this));
+    final $r = $callSync(23458, $W()..h(this));
     return $r.list(() => $r.p() ? NetDnsDnsmessageResource.$dec($r) : $nil());
   }
 
   /// Go: `func (*dnsmessage.Parser).AllQuestions() ([]dnsmessage.Question, error)`.
   List<NetDnsDnsmessageQuestion> allQuestions() {
-    final $r = $callSync(23457, $W()..h(this));
+    final $r = $callSync(23459, $W()..h(this));
     return $r.list(() => $r.p() ? NetDnsDnsmessageQuestion.$dec($r) : $nil());
   }
 
   /// Go: `func (*dnsmessage.Parser).Answer() (dnsmessage.Resource, error)`.
   NetDnsDnsmessageResource answer() {
-    final $r = $callSync(23458, $W()..h(this));
+    final $r = $callSync(23460, $W()..h(this));
     return $r.p() ? NetDnsDnsmessageResource.$dec($r) : $nil();
   }
 
   /// Go: `func (*dnsmessage.Parser).AnswerHeader() (dnsmessage.ResourceHeader, error)`.
   NetDnsDnsmessageResourceHeader answerHeader() {
-    final $r = $callSync(23459, $W()..h(this));
+    final $r = $callSync(23461, $W()..h(this));
     return $r.p() ? NetDnsDnsmessageResourceHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dnsmessage.Parser).Authority() (dnsmessage.Resource, error)`.
   NetDnsDnsmessageResource authority() {
-    final $r = $callSync(23460, $W()..h(this));
+    final $r = $callSync(23462, $W()..h(this));
     return $r.p() ? NetDnsDnsmessageResource.$dec($r) : $nil();
   }
 
   /// Go: `func (*dnsmessage.Parser).AuthorityHeader() (dnsmessage.ResourceHeader, error)`.
   NetDnsDnsmessageResourceHeader authorityHeader() {
-    final $r = $callSync(23461, $W()..h(this));
+    final $r = $callSync(23463, $W()..h(this));
     return $r.p() ? NetDnsDnsmessageResourceHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*dnsmessage.Parser).CNAMEResource() (dnsmessage.CNAMEResource, error)`.
   NetDnsDnsmessageCnameResource cnameResource() {
-    final $r = $callSync(23462, $W()..h(this));
+    final $r = $callSync(23464, $W()..h(this));
     return $r.p() ? NetDnsDnsmessageCnameResource.$dec($r) : $nil();
   }
 
   /// Go: `func (*dnsmessage.Parser).HTTPSResource() (dnsmessage.HTTPSResource, error)`.
   NetDnsDnsmessageHttpsResource httpsResource() {
-    final $r = $callSync(23463, $W()..h(this));
+    final $r = $callSync(23465, $W()..h(this));
     return $r.p() ? NetDnsDnsmessageHttpsResource.$dec($r) : $nil();
   }
 
   /// Go: `func (*dnsmessage.Parser).MXResource() (dnsmessage.MXResource, error)`.
   NetDnsDnsmessageMxResource mxResource() {
-    final $r = $callSync(23464, $W()..h(this));
+    final $r = $callSync(23466, $W()..h(this));
     return $r.p() ? NetDnsDnsmessageMxResource.$dec($r) : $nil();
   }
 
   /// Go: `func (*dnsmessage.Parser).NSResource() (dnsmessage.NSResource, error)`.
   NetDnsDnsmessageNsResource nsResource() {
-    final $r = $callSync(23465, $W()..h(this));
+    final $r = $callSync(23467, $W()..h(this));
     return $r.p() ? NetDnsDnsmessageNsResource.$dec($r) : $nil();
   }
 
   /// Go: `func (*dnsmessage.Parser).OPTResource() (dnsmessage.OPTResource, error)`.
   NetDnsDnsmessageOptResource optResource() {
-    final $r = $callSync(23466, $W()..h(this));
+    final $r = $callSync(23468, $W()..h(this));
     return $r.p() ? NetDnsDnsmessageOptResource.$dec($r) : $nil();
   }
 
   /// Go: `func (*dnsmessage.Parser).PTRResource() (dnsmessage.PTRResource, error)`.
   NetDnsDnsmessagePtrResource ptrResource() {
-    final $r = $callSync(23467, $W()..h(this));
+    final $r = $callSync(23469, $W()..h(this));
     return $r.p() ? NetDnsDnsmessagePtrResource.$dec($r) : $nil();
   }
 
   /// Go: `func (*dnsmessage.Parser).Question() (dnsmessage.Question, error)`.
   NetDnsDnsmessageQuestion question() {
-    final $r = $callSync(23468, $W()..h(this));
+    final $r = $callSync(23470, $W()..h(this));
     return $r.p() ? NetDnsDnsmessageQuestion.$dec($r) : $nil();
   }
 
   /// Go: `func (*dnsmessage.Parser).SOAResource() (dnsmessage.SOAResource, error)`.
   NetDnsDnsmessageSoaResource soaResource() {
-    final $r = $callSync(23469, $W()..h(this));
+    final $r = $callSync(23471, $W()..h(this));
     return $r.p() ? NetDnsDnsmessageSoaResource.$dec($r) : $nil();
   }
 
   /// Go: `func (*dnsmessage.Parser).SRVResource() (dnsmessage.SRVResource, error)`.
   NetDnsDnsmessageSrvResource srvResource() {
-    final $r = $callSync(23470, $W()..h(this));
+    final $r = $callSync(23472, $W()..h(this));
     return $r.p() ? NetDnsDnsmessageSrvResource.$dec($r) : $nil();
   }
 
   /// Go: `func (*dnsmessage.Parser).SVCBResource() (dnsmessage.SVCBResource, error)`.
   NetDnsDnsmessageSvcbResource svcbResource() {
-    final $r = $callSync(23471, $W()..h(this));
+    final $r = $callSync(23473, $W()..h(this));
     return $r.p() ? NetDnsDnsmessageSvcbResource.$dec($r) : $nil();
   }
 
   /// Go: `func (*dnsmessage.Parser).SkipAdditional() error`.
   void skipAdditional() {
-    $callSync(23472, $W()..h(this));
+    $callSync(23474, $W()..h(this));
   }
 
   /// Go: `func (*dnsmessage.Parser).SkipAllAdditionals() error`.
   void skipAllAdditionals() {
-    $callSync(23473, $W()..h(this));
+    $callSync(23475, $W()..h(this));
   }
 
   /// Go: `func (*dnsmessage.Parser).SkipAllAnswers() error`.
   void skipAllAnswers() {
-    $callSync(23474, $W()..h(this));
+    $callSync(23476, $W()..h(this));
   }
 
   /// Go: `func (*dnsmessage.Parser).SkipAllAuthorities() error`.
   void skipAllAuthorities() {
-    $callSync(23475, $W()..h(this));
+    $callSync(23477, $W()..h(this));
   }
 
   /// Go: `func (*dnsmessage.Parser).SkipAllQuestions() error`.
   void skipAllQuestions() {
-    $callSync(23476, $W()..h(this));
+    $callSync(23478, $W()..h(this));
   }
 
   /// Go: `func (*dnsmessage.Parser).SkipAnswer() error`.
   void skipAnswer() {
-    $callSync(23477, $W()..h(this));
+    $callSync(23479, $W()..h(this));
   }
 
   /// Go: `func (*dnsmessage.Parser).SkipAuthority() error`.
   void skipAuthority() {
-    $callSync(23478, $W()..h(this));
+    $callSync(23480, $W()..h(this));
   }
 
   /// Go: `func (*dnsmessage.Parser).SkipQuestion() error`.
   void skipQuestion() {
-    $callSync(23479, $W()..h(this));
+    $callSync(23481, $W()..h(this));
   }
 
   /// Go: `func (*dnsmessage.Parser).Start(msg []byte) (dnsmessage.Header, error)`.
   NetDnsDnsmessageHeader start(Uint8List msg) {
     final $r = $callSync(
-        23480,
+        23482,
         $W()
           ..h(this)
           ..bytes(msg));
@@ -829,13 +829,13 @@ class NetDnsDnsmessageParser extends GoHandle {
 
   /// Go: `func (*dnsmessage.Parser).TXTResource() (dnsmessage.TXTResource, error)`.
   NetDnsDnsmessageTxtResource txtResource() {
-    final $r = $callSync(23481, $W()..h(this));
+    final $r = $callSync(23483, $W()..h(this));
     return $r.p() ? NetDnsDnsmessageTxtResource.$dec($r) : $nil();
   }
 
   /// Go: `func (*dnsmessage.Parser).UnknownResource() (dnsmessage.UnknownResource, error)`.
   NetDnsDnsmessageUnknownResource unknownResource() {
-    final $r = $callSync(23482, $W()..h(this));
+    final $r = $callSync(23484, $W()..h(this));
     return $r.p() ? NetDnsDnsmessageUnknownResource.$dec($r) : $nil();
   }
 }
@@ -871,7 +871,7 @@ final class NetDnsDnsmessageQuestion implements GoDto {
 
   /// Go: `func (*dnsmessage.Question).GoString() string`.
   String goString() {
-    final $r = $callSync(23483, $W()..dto(this));
+    final $r = $callSync(23485, $W()..dto(this));
     return $r.str();
   }
 }
@@ -903,7 +903,7 @@ final class NetDnsDnsmessageResource implements GoDto {
 
   /// Go: `func (*dnsmessage.Resource).GoString() string`.
   String goString() {
-    final $r = $callSync(23484, $W()..dto(this));
+    final $r = $callSync(23486, $W()..dto(this));
     return $r.str();
   }
 }
@@ -918,7 +918,7 @@ class NetDnsDnsmessageResourceBody extends GoHandle
 mixin NetDnsDnsmessageResourceBody$ on GoHandle {
   /// Go: `func (dnsmessage.ResourceBody).GoString() string`.
   String goString() {
-    final $r = $callSync(23485, $W()..h(this));
+    final $r = $callSync(23487, $W()..h(this));
     return $r.str();
   }
 }
@@ -971,14 +971,14 @@ final class NetDnsDnsmessageResourceHeader implements GoDto {
 
   /// Go: `func (*dnsmessage.ResourceHeader).DNSSECAllowed() bool`.
   bool dnssecAllowed() {
-    final $r = $callSync(23486, $W()..dto(this));
+    final $r = $callSync(23488, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*dnsmessage.ResourceHeader).ExtendedRCode(rcode dnsmessage.RCode) dnsmessage.RCode`.
   int extendedRCode(int rcode) {
     final $r = $callSync(
-        23487,
+        23489,
         $W()
           ..dto(this)
           ..i64(rcode));
@@ -987,14 +987,14 @@ final class NetDnsDnsmessageResourceHeader implements GoDto {
 
   /// Go: `func (*dnsmessage.ResourceHeader).GoString() string`.
   String goString() {
-    final $r = $callSync(23488, $W()..dto(this));
+    final $r = $callSync(23490, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*dnsmessage.ResourceHeader).SetEDNS0(udpPayloadLen int, extRCode dnsmessage.RCode, dnssecOK bool) error`.
   void setEdns0(int udpPayloadLen, int extRCode, bool dnssecOk) {
     $callSync(
-        23489,
+        23491,
         $W()
           ..dto(this)
           ..i64(udpPayloadLen)
@@ -1065,7 +1065,7 @@ final class NetDnsDnsmessageSoaResource implements GoDto {
 
   /// Go: `func (*dnsmessage.SOAResource).GoString() string`.
   String goString() {
-    final $r = $callSync(23490, $W()..dto(this));
+    final $r = $callSync(23492, $W()..dto(this));
     return $r.str();
   }
 }
@@ -1108,7 +1108,7 @@ final class NetDnsDnsmessageSrvResource implements GoDto {
 
   /// Go: `func (*dnsmessage.SRVResource).GoString() string`.
   String goString() {
-    final $r = $callSync(23491, $W()..dto(this));
+    final $r = $callSync(23493, $W()..dto(this));
     return $r.str();
   }
 }
@@ -1149,7 +1149,7 @@ final class NetDnsDnsmessageSvcbResource implements GoDto {
   /// Go: `func (*dnsmessage.SVCBResource).DeleteParam(key dnsmessage.SVCParamKey) bool`.
   bool deleteParam(int key) {
     final $r = $callSync(
-        23492,
+        23494,
         $W()
           ..dto(this)
           ..i64(key));
@@ -1159,7 +1159,7 @@ final class NetDnsDnsmessageSvcbResource implements GoDto {
   /// Go: `func (*dnsmessage.SVCBResource).GetParam(key dnsmessage.SVCParamKey) (value []byte, ok bool)`.
   (Uint8List, bool) getParam(int key) {
     final $r = $callSync(
-        23493,
+        23495,
         $W()
           ..dto(this)
           ..i64(key));
@@ -1168,14 +1168,14 @@ final class NetDnsDnsmessageSvcbResource implements GoDto {
 
   /// Go: `func (*dnsmessage.SVCBResource).GoString() string`.
   String goString() {
-    final $r = $callSync(23494, $W()..dto(this));
+    final $r = $callSync(23496, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*dnsmessage.SVCBResource).SetParam(key dnsmessage.SVCParamKey, value []byte)`.
   void setParam(int key, Uint8List value) {
     $callSync(
-        23495,
+        23497,
         $W()
           ..dto(this)
           ..i64(key)
@@ -1208,7 +1208,7 @@ final class NetDnsDnsmessageSvcParam implements GoDto {
 
   /// Go: `func (dnsmessage.SVCParam).GoString() string`.
   String goString() {
-    final $r = $callSync(23496, $W()..dto(this));
+    final $r = $callSync(23498, $W()..dto(this));
     return $r.str();
   }
 }
@@ -1229,7 +1229,7 @@ final class NetDnsDnsmessageTxtResource implements GoDto {
 
   /// Go: `func (*dnsmessage.TXTResource).GoString() string`.
   String goString() {
-    final $r = $callSync(23497, $W()..dto(this));
+    final $r = $callSync(23499, $W()..dto(this));
     return $r.str();
   }
 }
@@ -1259,7 +1259,7 @@ final class NetDnsDnsmessageUnknownResource implements GoDto {
 
   /// Go: `func (*dnsmessage.UnknownResource).GoString() string`.
   String goString() {
-    final $r = $callSync(23498, $W()..dto(this));
+    final $r = $callSync(23500, $W()..dto(this));
     return $r.str();
   }
 }
@@ -1286,13 +1286,13 @@ class NetDnsDnsmessageErrSectionDone extends GolangException {
 extension GoXNetDnsDnsmessageApi on GoXNetDnsDnsmessage {
   /// Go: `func dnsmessage.MustNewName(name string) dnsmessage.Name`.
   NetDnsDnsmessageName mustNewName(String name) {
-    final $r = $callSync(23441, $W()..str(name));
+    final $r = $callSync(23443, $W()..str(name));
     return $r.p() ? NetDnsDnsmessageName.$dec($r) : $nil();
   }
 
   /// Go: `func dnsmessage.NewName(name string) (dnsmessage.Name, error)`.
   NetDnsDnsmessageName newName(String name) {
-    final $r = $callSync(23446, $W()..str(name));
+    final $r = $callSync(23448, $W()..str(name));
     return $r.p() ? NetDnsDnsmessageName.$dec($r) : $nil();
   }
 }

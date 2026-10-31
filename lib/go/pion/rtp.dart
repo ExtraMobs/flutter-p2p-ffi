@@ -36,20 +36,20 @@ final class RtpAbsCaptureTimeExtension implements GoDto {
 
   /// Go: `func (rtp.AbsCaptureTimeExtension).CaptureTime() time.Time`.
   DateTime captureTime() {
-    final $r = $callSync(16901, $W()..dto(this));
+    final $r = $callSync(16903, $W()..dto(this));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func (rtp.AbsCaptureTimeExtension).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(16902, $W()..dto(this));
+    final $r = $callSync(16904, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*rtp.AbsCaptureTimeExtension).Unmarshal(rawData []byte) error`.
   void unmarshal(Uint8List rawData) {
     $callSync(
-        16903,
+        16905,
         $W()
           ..dto(this)
           ..bytes(rawData));
@@ -76,7 +76,7 @@ final class RtpAbsSendTimeExtension implements GoDto {
   /// Go: `func (*rtp.AbsSendTimeExtension).Estimate(receive time.Time) time.Time`.
   DateTime estimate(DateTime receive) {
     final $r = $callSync(
-        16904,
+        16906,
         $W()
           ..dto(this)
           ..time(receive));
@@ -85,14 +85,14 @@ final class RtpAbsSendTimeExtension implements GoDto {
 
   /// Go: `func (rtp.AbsSendTimeExtension).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(16905, $W()..dto(this));
+    final $r = $callSync(16907, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*rtp.AbsSendTimeExtension).Unmarshal(rawData []byte) error`.
   void unmarshal(Uint8List rawData) {
     $callSync(
-        16906,
+        16908,
         $W()
           ..dto(this)
           ..bytes(rawData));
@@ -124,14 +124,14 @@ final class RtpAudioLevelExtension implements GoDto {
 
   /// Go: `func (rtp.AudioLevelExtension).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(16907, $W()..dto(this));
+    final $r = $callSync(16909, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*rtp.AudioLevelExtension).Unmarshal(rawData []byte) error`.
   void unmarshal(Uint8List rawData) {
     $callSync(
-        16908,
+        16910,
         $W()
           ..dto(this)
           ..bytes(rawData));
@@ -148,7 +148,7 @@ mixin RtpDepacketizer$ on GoHandle {
   /// Go: `func (rtp.Depacketizer).IsPartitionHead(payload []byte) bool`.
   bool isPartitionHead(Uint8List payload) {
     final $r = $callSync(
-        16909,
+        16911,
         $W()
           ..h(this)
           ..bytes(payload));
@@ -158,7 +158,7 @@ mixin RtpDepacketizer$ on GoHandle {
   /// Go: `func (rtp.Depacketizer).IsPartitionTail(marker bool, payload []byte) bool`.
   bool isPartitionTail(bool marker, Uint8List payload) {
     final $r = $callSync(
-        16910,
+        16912,
         $W()
           ..h(this)
           ..b(marker)
@@ -169,7 +169,7 @@ mixin RtpDepacketizer$ on GoHandle {
   /// Go: `func (rtp.Depacketizer).Unmarshal(packet []byte) ([]byte, error)`.
   Uint8List unmarshal(Uint8List packet) {
     final $r = $callSync(
-        16911,
+        16913,
         $W()
           ..h(this)
           ..bytes(packet));
@@ -322,14 +322,14 @@ final class RtpHeader implements GoDto {
 
   /// Go: `func (rtp.Header).Clone() rtp.Header`.
   RtpHeader clone() {
-    final $r = $callSync(16912, $W()..dto(this));
+    final $r = $callSync(16914, $W()..dto(this));
     return $r.p() ? RtpHeader.$dec($r) : $nil();
   }
 
   /// Go: `func (*rtp.Header).DelExtension(id uint8) error`.
   void delExtension(int id) {
     $callSync(
-        16913,
+        16915,
         $W()
           ..dto(this)
           ..i64(id));
@@ -338,7 +338,7 @@ final class RtpHeader implements GoDto {
   /// Go: `func (*rtp.Header).GetExtension(id uint8) []byte`.
   Uint8List getExtension(int id) {
     final $r = $callSync(
-        16914,
+        16916,
         $W()
           ..dto(this)
           ..i64(id));
@@ -347,26 +347,26 @@ final class RtpHeader implements GoDto {
 
   /// Go: `func (*rtp.Header).GetExtensionIDs() []uint8`.
   Uint8List getExtensionIds() {
-    final $r = $callSync(16915, $W()..dto(this));
+    final $r = $callSync(16917, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (rtp.Header).Marshal() (buf []byte, err error)`.
   Uint8List marshal() {
-    final $r = $callSync(16916, $W()..dto(this));
+    final $r = $callSync(16918, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (rtp.Header).MarshalSize() int`.
   int marshalSize() {
-    final $r = $callSync(16917, $W()..dto(this));
+    final $r = $callSync(16919, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (rtp.Header).MarshalTo(buf []byte) (n int, err error)`.
   int marshalTo(Uint8List buf) {
     final $r = $callSync(
-        16918,
+        16920,
         $W()
           ..dto(this)
           ..bytes(buf));
@@ -376,7 +376,7 @@ final class RtpHeader implements GoDto {
   /// Go: `func (*rtp.Header).SetExtension(id uint8, payload []byte) error`.
   void setExtension(int id, Uint8List payload) {
     $callSync(
-        16919,
+        16921,
         $W()
           ..dto(this)
           ..i64(id)
@@ -386,7 +386,7 @@ final class RtpHeader implements GoDto {
   /// Go: `func (*rtp.Header).Unmarshal(buf []byte) (n int, err error)`.
   int unmarshal(Uint8List buf) {
     final $r = $callSync(
-        16920,
+        16922,
         $W()
           ..dto(this)
           ..bytes(buf));
@@ -404,7 +404,7 @@ mixin RtpHeaderExtension$ on GoHandle {
   /// Go: `func (rtp.HeaderExtension).Del(id uint8) error`.
   void del(int id) {
     $callSync(
-        16922,
+        16924,
         $W()
           ..h(this)
           ..i64(id));
@@ -413,7 +413,7 @@ mixin RtpHeaderExtension$ on GoHandle {
   /// Go: `func (rtp.HeaderExtension).Get(id uint8) []byte`.
   Uint8List get(int id) {
     final $r = $callSync(
-        16923,
+        16925,
         $W()
           ..h(this)
           ..i64(id));
@@ -422,26 +422,26 @@ mixin RtpHeaderExtension$ on GoHandle {
 
   /// Go: `func (rtp.HeaderExtension).GetIDs() []uint8`.
   Uint8List getIds() {
-    final $r = $callSync(16924, $W()..h(this));
+    final $r = $callSync(16926, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (rtp.HeaderExtension).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(16925, $W()..h(this));
+    final $r = $callSync(16927, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (rtp.HeaderExtension).MarshalSize() int`.
   int marshalSize() {
-    final $r = $callSync(16926, $W()..h(this));
+    final $r = $callSync(16928, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (rtp.HeaderExtension).MarshalTo(buf []byte) (int, error)`.
   int marshalTo(Uint8List buf) {
     final $r = $callSync(
-        16927,
+        16929,
         $W()
           ..h(this)
           ..bytes(buf));
@@ -451,7 +451,7 @@ mixin RtpHeaderExtension$ on GoHandle {
   /// Go: `func (rtp.HeaderExtension).Set(id uint8, payload []byte) error`.
   void set(int id, Uint8List payload) {
     $callSync(
-        16928,
+        16930,
         $W()
           ..h(this)
           ..i64(id)
@@ -461,7 +461,7 @@ mixin RtpHeaderExtension$ on GoHandle {
   /// Go: `func (rtp.HeaderExtension).Unmarshal(buf []byte) (int, error)`.
   int unmarshal(Uint8List buf) {
     final $r = $callSync(
-        16929,
+        16931,
         $W()
           ..h(this)
           ..bytes(buf));
@@ -494,7 +494,7 @@ class RtpOneByteHeaderExtension extends RtpHeaderExtension {
   /// Go: `func (*rtp.OneByteHeaderExtension).Del(id uint8) error`.
   void del(int id) {
     $callSync(
-        16938,
+        16940,
         $W()
           ..h(this)
           ..i64(id));
@@ -503,7 +503,7 @@ class RtpOneByteHeaderExtension extends RtpHeaderExtension {
   /// Go: `func (*rtp.OneByteHeaderExtension).Get(id uint8) []byte`.
   Uint8List get(int id) {
     final $r = $callSync(
-        16939,
+        16941,
         $W()
           ..h(this)
           ..i64(id));
@@ -512,26 +512,26 @@ class RtpOneByteHeaderExtension extends RtpHeaderExtension {
 
   /// Go: `func (*rtp.OneByteHeaderExtension).GetIDs() []uint8`.
   Uint8List getIds() {
-    final $r = $callSync(16940, $W()..h(this));
+    final $r = $callSync(16942, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (rtp.OneByteHeaderExtension).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(16941, $W()..h(this));
+    final $r = $callSync(16943, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (rtp.OneByteHeaderExtension).MarshalSize() int`.
   int marshalSize() {
-    final $r = $callSync(16942, $W()..h(this));
+    final $r = $callSync(16944, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (rtp.OneByteHeaderExtension).MarshalTo(buf []byte) (int, error)`.
   int marshalTo(Uint8List buf) {
     final $r = $callSync(
-        16943,
+        16945,
         $W()
           ..h(this)
           ..bytes(buf));
@@ -541,7 +541,7 @@ class RtpOneByteHeaderExtension extends RtpHeaderExtension {
   /// Go: `func (*rtp.OneByteHeaderExtension).Set(id uint8, buf []byte) error`.
   void set(int id, Uint8List buf) {
     $callSync(
-        16944,
+        16946,
         $W()
           ..h(this)
           ..i64(id)
@@ -551,7 +551,7 @@ class RtpOneByteHeaderExtension extends RtpHeaderExtension {
   /// Go: `func (*rtp.OneByteHeaderExtension).Unmarshal(buf []byte) (int, error)`.
   int unmarshal(Uint8List buf) {
     final $r = $callSync(
-        16945,
+        16947,
         $W()
           ..h(this)
           ..bytes(buf));
@@ -597,14 +597,14 @@ final class RtpPacket implements GoDto {
 
   /// Go: `func (rtp.Packet).Clone() *rtp.Packet`.
   RtpPacket clone() {
-    final $r = $callSync(16946, $W()..dto(this));
+    final $r = $callSync(16948, $W()..dto(this));
     return $r.p() ? RtpPacket.$dec($r) : $nil();
   }
 
   /// Go: `func (*rtp.Header).DelExtension(id uint8) error`.
   void delExtension(int id) {
     $callSync(
-        16947,
+        16949,
         $W()
           ..dto(this)
           ..i64(id));
@@ -613,7 +613,7 @@ final class RtpPacket implements GoDto {
   /// Go: `func (*rtp.Header).GetExtension(id uint8) []byte`.
   Uint8List getExtension(int id) {
     final $r = $callSync(
-        16948,
+        16950,
         $W()
           ..dto(this)
           ..i64(id));
@@ -622,26 +622,26 @@ final class RtpPacket implements GoDto {
 
   /// Go: `func (*rtp.Header).GetExtensionIDs() []uint8`.
   Uint8List getExtensionIds() {
-    final $r = $callSync(16949, $W()..dto(this));
+    final $r = $callSync(16951, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (rtp.Packet).Marshal() (buf []byte, err error)`.
   Uint8List marshal() {
-    final $r = $callSync(16950, $W()..dto(this));
+    final $r = $callSync(16952, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (rtp.Packet).MarshalSize() int`.
   int marshalSize() {
-    final $r = $callSync(16951, $W()..dto(this));
+    final $r = $callSync(16953, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*rtp.Packet).MarshalTo(buf []byte) (n int, err error)`.
   int marshalTo(Uint8List buf) {
     final $r = $callSync(
-        16952,
+        16954,
         $W()
           ..dto(this)
           ..bytes(buf));
@@ -651,7 +651,7 @@ final class RtpPacket implements GoDto {
   /// Go: `func (*rtp.Header).SetExtension(id uint8, payload []byte) error`.
   void setExtension(int id, Uint8List payload) {
     $callSync(
-        16953,
+        16955,
         $W()
           ..dto(this)
           ..i64(id)
@@ -660,14 +660,14 @@ final class RtpPacket implements GoDto {
 
   /// Go: `func (rtp.Packet).String() string`.
   String string() {
-    final $r = $callSync(16954, $W()..dto(this));
+    final $r = $callSync(16956, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*rtp.Packet).Unmarshal(buf []byte) error`.
   void unmarshal(Uint8List buf) {
     $callSync(
-        16955,
+        16957,
         $W()
           ..dto(this)
           ..bytes(buf));
@@ -682,7 +682,7 @@ class RtpPacketizer extends GoHandle with RtpPacketizer$ {
   factory RtpPacketizer(int mtu, int pt, int ssrc, RtpPayloader payloader,
       RtpSequencer sequencer, int clockRate) {
     final $r = $callSync(
-        16935,
+        16937,
         $W()
           ..i64(mtu)
           ..i64(pt)
@@ -699,7 +699,7 @@ mixin RtpPacketizer$ on GoHandle {
   /// Go: `func (rtp.Packetizer).EnableAbsSendTime(value int)`.
   void enableAbsSendTime(int value) {
     $callSync(
-        16957,
+        16959,
         $W()
           ..h(this)
           ..i64(value));
@@ -708,7 +708,7 @@ mixin RtpPacketizer$ on GoHandle {
   /// Go: `func (rtp.Packetizer).GeneratePadding(samples uint32) []*rtp.Packet`.
   List<RtpPacket> generatePadding(int samples) {
     final $r = $callSync(
-        16958,
+        16960,
         $W()
           ..h(this)
           ..i64(samples));
@@ -718,7 +718,7 @@ mixin RtpPacketizer$ on GoHandle {
   /// Go: `func (rtp.Packetizer).Packetize(payload []byte, samples uint32) []*rtp.Packet`.
   List<RtpPacket> packetize(Uint8List payload, int samples) {
     final $r = $callSync(
-        16959,
+        16961,
         $W()
           ..h(this)
           ..bytes(payload)
@@ -729,7 +729,7 @@ mixin RtpPacketizer$ on GoHandle {
   /// Go: `func (rtp.Packetizer).SkipSamples(skippedSamples uint32)`.
   void skipSamples(int skippedSamples) {
     $callSync(
-        16960,
+        16962,
         $W()
           ..h(this)
           ..i64(skippedSamples));
@@ -751,7 +751,7 @@ mixin RtpPartitionHeadChecker$ on GoHandle {
   /// Go: `func (rtp.PartitionHeadChecker).IsPartitionHead([]byte) bool`.
   bool isPartitionHead(Uint8List arg0) {
     final $r = $callSync(
-        16961,
+        16963,
         $W()
           ..h(this)
           ..bytes(arg0));
@@ -805,7 +805,7 @@ mixin RtpPayloader$ on GoHandle {
   /// Go: `func (rtp.Payloader).Payload(mtu uint16, payload []byte) [][]byte`.
   List<Uint8List> payload(int mtu, Uint8List payload) {
     final $r = $callSync(
-        16962,
+        16964,
         $W()
           ..h(this)
           ..i64(mtu)
@@ -863,14 +863,14 @@ final class RtpPlayoutDelayExtension implements GoDto {
 
   /// Go: `func (rtp.PlayoutDelayExtension).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(16963, $W()..dto(this));
+    final $r = $callSync(16965, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*rtp.PlayoutDelayExtension).Unmarshal(rawData []byte) error`.
   void unmarshal(Uint8List rawData) {
     $callSync(
-        16964,
+        16966,
         $W()
           ..dto(this)
           ..bytes(rawData));
@@ -884,7 +884,7 @@ class RtpRawExtension extends RtpHeaderExtension {
   /// Go: `func (*rtp.RawExtension).Del(id uint8) error`.
   void del(int id) {
     $callSync(
-        16965,
+        16967,
         $W()
           ..h(this)
           ..i64(id));
@@ -893,7 +893,7 @@ class RtpRawExtension extends RtpHeaderExtension {
   /// Go: `func (*rtp.RawExtension).Get(id uint8) []byte`.
   Uint8List get(int id) {
     final $r = $callSync(
-        16966,
+        16968,
         $W()
           ..h(this)
           ..i64(id));
@@ -902,26 +902,26 @@ class RtpRawExtension extends RtpHeaderExtension {
 
   /// Go: `func (*rtp.RawExtension).GetIDs() []uint8`.
   Uint8List getIds() {
-    final $r = $callSync(16967, $W()..h(this));
+    final $r = $callSync(16969, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (rtp.RawExtension).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(16968, $W()..h(this));
+    final $r = $callSync(16970, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (rtp.RawExtension).MarshalSize() int`.
   int marshalSize() {
-    final $r = $callSync(16969, $W()..h(this));
+    final $r = $callSync(16971, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (rtp.RawExtension).MarshalTo(buf []byte) (int, error)`.
   int marshalTo(Uint8List buf) {
     final $r = $callSync(
-        16970,
+        16972,
         $W()
           ..h(this)
           ..bytes(buf));
@@ -931,7 +931,7 @@ class RtpRawExtension extends RtpHeaderExtension {
   /// Go: `func (*rtp.RawExtension).Set(id uint8, payload []byte) error`.
   void set(int id, Uint8List payload) {
     $callSync(
-        16971,
+        16973,
         $W()
           ..h(this)
           ..i64(id)
@@ -941,7 +941,7 @@ class RtpRawExtension extends RtpHeaderExtension {
   /// Go: `func (*rtp.RawExtension).Unmarshal(buf []byte) (int, error)`.
   int unmarshal(Uint8List buf) {
     final $r = $callSync(
-        16972,
+        16974,
         $W()
           ..h(this)
           ..bytes(buf));
@@ -1045,14 +1045,14 @@ final class RtpTransportCcExtension implements GoDto {
 
   /// Go: `func (rtp.TransportCCExtension).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(16973, $W()..dto(this));
+    final $r = $callSync(16975, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*rtp.TransportCCExtension).Unmarshal(rawData []byte) error`.
   void unmarshal(Uint8List rawData) {
     $callSync(
-        16974,
+        16976,
         $W()
           ..dto(this)
           ..bytes(rawData));
@@ -1066,7 +1066,7 @@ class RtpTwoByteHeaderExtension extends RtpHeaderExtension {
   /// Go: `func (*rtp.TwoByteHeaderExtension).Del(id uint8) error`.
   void del(int id) {
     $callSync(
-        16975,
+        16977,
         $W()
           ..h(this)
           ..i64(id));
@@ -1075,7 +1075,7 @@ class RtpTwoByteHeaderExtension extends RtpHeaderExtension {
   /// Go: `func (*rtp.TwoByteHeaderExtension).Get(id uint8) []byte`.
   Uint8List get(int id) {
     final $r = $callSync(
-        16976,
+        16978,
         $W()
           ..h(this)
           ..i64(id));
@@ -1084,26 +1084,26 @@ class RtpTwoByteHeaderExtension extends RtpHeaderExtension {
 
   /// Go: `func (*rtp.TwoByteHeaderExtension).GetIDs() []uint8`.
   Uint8List getIds() {
-    final $r = $callSync(16977, $W()..h(this));
+    final $r = $callSync(16979, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (rtp.TwoByteHeaderExtension).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(16978, $W()..h(this));
+    final $r = $callSync(16980, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (rtp.TwoByteHeaderExtension).MarshalSize() int`.
   int marshalSize() {
-    final $r = $callSync(16979, $W()..h(this));
+    final $r = $callSync(16981, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (rtp.TwoByteHeaderExtension).MarshalTo(buf []byte) (int, error)`.
   int marshalTo(Uint8List buf) {
     final $r = $callSync(
-        16980,
+        16982,
         $W()
           ..h(this)
           ..bytes(buf));
@@ -1113,7 +1113,7 @@ class RtpTwoByteHeaderExtension extends RtpHeaderExtension {
   /// Go: `func (*rtp.TwoByteHeaderExtension).Set(id uint8, buf []byte) error`.
   void set(int id, Uint8List buf) {
     $callSync(
-        16981,
+        16983,
         $W()
           ..h(this)
           ..i64(id)
@@ -1123,7 +1123,7 @@ class RtpTwoByteHeaderExtension extends RtpHeaderExtension {
   /// Go: `func (*rtp.TwoByteHeaderExtension).Unmarshal(buf []byte) (int, error)`.
   int unmarshal(Uint8List buf) {
     final $r = $callSync(
-        16982,
+        16984,
         $W()
           ..h(this)
           ..bytes(buf));
@@ -1173,20 +1173,20 @@ final class RtpVla implements GoDto {
 
   /// Go: `func (rtp.VLA).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(16983, $W()..dto(this));
+    final $r = $callSync(16985, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (rtp.VLA).String() string`.
   String string() {
-    final $r = $callSync(16984, $W()..dto(this));
+    final $r = $callSync(16986, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*rtp.VLA).Unmarshal(payload []byte) (int, error)`.
   int unmarshal(Uint8List payload) {
     final $r = $callSync(
-        16985,
+        16987,
         $W()
           ..dto(this)
           ..bytes(payload));
@@ -1255,7 +1255,7 @@ extension GoPionRtpApi on GoPionRtp {
       "this function is a temporary workaround and will be removed in pion/webrtc v5.")
   (int, int) headerAndPacketMarshalSize(RtpHeader header, Uint8List payload) {
     final $r = $callSync(
-        16921,
+        16923,
         $W()
           ..dto(header)
           ..bytes(payload));
@@ -1267,7 +1267,7 @@ extension GoPionRtpApi on GoPionRtp {
       "this function is a temporary workaround and will be removed in pion/webrtc v5.")
   int marshalPacketTo(Uint8List buf, RtpHeader header, Uint8List payload) {
     final $r = $callSync(
-        16930,
+        16932,
         $W()
           ..bytes(buf)
           ..dto(header)
@@ -1277,7 +1277,7 @@ extension GoPionRtpApi on GoPionRtp {
 
   /// Go: `func rtp.NewAbsCaptureTimeExtension(captureTime time.Time) *rtp.AbsCaptureTimeExtension`.
   RtpAbsCaptureTimeExtension newAbsCaptureTimeExtension(DateTime captureTime) {
-    final $r = $callSync(16931, $W()..time(captureTime));
+    final $r = $callSync(16933, $W()..time(captureTime));
     return $r.p() ? RtpAbsCaptureTimeExtension.$dec($r) : $nil();
   }
 
@@ -1285,7 +1285,7 @@ extension GoPionRtpApi on GoPionRtp {
   RtpAbsCaptureTimeExtension newAbsCaptureTimeExtensionWithCaptureClockOffset(
       DateTime captureTime, Duration captureClockOffset) {
     final $r = $callSync(
-        16932,
+        16934,
         $W()
           ..time(captureTime)
           ..i64((captureClockOffset).inMicroseconds * 1000));
@@ -1294,13 +1294,13 @@ extension GoPionRtpApi on GoPionRtp {
 
   /// Go: `func rtp.NewAbsSendTimeExtension(sendTime time.Time) *rtp.AbsSendTimeExtension`.
   RtpAbsSendTimeExtension newAbsSendTimeExtension(DateTime sendTime) {
-    final $r = $callSync(16933, $W()..time(sendTime));
+    final $r = $callSync(16935, $W()..time(sendTime));
     return $r.p() ? RtpAbsSendTimeExtension.$dec($r) : $nil();
   }
 
   /// Go: `func rtp.NewFixedSequencer(s uint16) rtp.Sequencer`.
   RtpSequencer newFixedSequencer(int s) {
-    final $r = $callSync(16934, $W()..i64(s));
+    final $r = $callSync(16936, $W()..i64(s));
     return $r.p() ? RtpSequencer.$dec($r) : $nil();
   }
 
@@ -1309,7 +1309,7 @@ extension GoPionRtpApi on GoPionRtp {
       int mtu, RtpPayloader payloader, RtpSequencer sequencer, int clockRate,
       [List<RtpPacketizerOption> options = const []]) {
     final $r = $callSync(
-        16936,
+        16938,
         $W()
           ..i64(mtu)
           ..h(payloader)
@@ -1321,7 +1321,7 @@ extension GoPionRtpApi on GoPionRtp {
 
   /// Go: `func rtp.NewRandomSequencer() rtp.Sequencer`.
   RtpSequencer newRandomSequencer() {
-    final $r = $callSync(16937);
+    final $r = $callSync(16939);
     return $r.p() ? RtpSequencer.$dec($r) : $nil();
   }
 
@@ -1330,7 +1330,7 @@ extension GoPionRtpApi on GoPionRtp {
       "this function is a temporary workaround and will be removed in pion/webrtc v5.")
   int packetMarshalSize(RtpHeader header, Uint8List payload) {
     final $r = $callSync(
-        16956,
+        16958,
         $W()
           ..dto(header)
           ..bytes(payload));

@@ -20,14 +20,14 @@ class InterceptorPkgRfc8888Recorder extends GoHandle {
 
   /// Go: `func rfc8888.NewRecorder() *rfc8888.Recorder`.
   factory InterceptorPkgRfc8888Recorder() {
-    final $r = $callSync(16719);
+    final $r = $callSync(16721);
     return $r.hnn(InterceptorPkgRfc8888Recorder.$h);
   }
 
   /// Go: `func (*rfc8888.Recorder).AddPacket(ts time.Time, ssrc uint32, seq uint16, ecn uint8)`.
   void addPacket(DateTime ts, int ssrc, int seq, int ecn) {
     $callSync(
-        16721,
+        16723,
         $W()
           ..h(this)
           ..time(ts)
@@ -39,7 +39,7 @@ class InterceptorPkgRfc8888Recorder extends GoHandle {
   /// Go: `func (*rfc8888.Recorder).BuildReport(now time.Time, maxSize int) *rtcp.CCFeedbackReport`.
   $rtcp.RtcpCcFeedbackReport buildReport(DateTime now, int maxSize) {
     final $r = $callSync(
-        16722,
+        16724,
         $W()
           ..h(this)
           ..time(now)
@@ -57,7 +57,7 @@ class InterceptorPkgRfc8888SenderInterceptor extends $interceptor.Interceptor
   /// Go: `func (*rfc8888.SenderInterceptor).BindRTCPWriter(writer interceptor.RTCPWriter) interceptor.RTCPWriter`.
   $interceptor.InterceptorRtcpWriter bindRtcpWriter(Object writer) {
     final $r = $callSync(
-        16723,
+        16725,
         $W()
           ..h(this)
           ..reader(writer));
@@ -68,7 +68,7 @@ class InterceptorPkgRfc8888SenderInterceptor extends $interceptor.Interceptor
   $interceptor.InterceptorRtpReader bindRemoteStream(
       $interceptor.InterceptorStreamInfo streamInfo, Object reader) {
     final $r = $callSync(
-        16724,
+        16726,
         $W()
           ..h(this)
           ..dto(streamInfo)
@@ -78,7 +78,7 @@ class InterceptorPkgRfc8888SenderInterceptor extends $interceptor.Interceptor
 
   /// Go: `func (*rfc8888.SenderInterceptor).Close() error`.
   void close() {
-    $callSync(16725, $W()..h(this));
+    $callSync(16727, $W()..h(this));
   }
 }
 
@@ -90,7 +90,7 @@ class InterceptorPkgRfc8888SenderInterceptorFactory
   /// Go: `func (*rfc8888.SenderInterceptorFactory).NewInterceptor(_ string) (interceptor.Interceptor, error)`.
   $interceptor.Interceptor newInterceptor(String arg0) {
     final $r = $callSync(
-        16726,
+        16728,
         $W()
           ..h(this)
           ..str(arg0));
@@ -108,7 +108,7 @@ extension GoPionInterceptorPkgRfc8888Api on GoPionInterceptorPkgRfc8888 {
   /// Go: `func rfc8888.NewSenderInterceptor(opts ...rfc8888.Option) (*rfc8888.SenderInterceptorFactory, error)`.
   InterceptorPkgRfc8888SenderInterceptorFactory newSenderInterceptor(
       [List<InterceptorPkgRfc8888Option> opts = const []]) {
-    final $r = $callSync(16720, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+    final $r = $callSync(16722, $W()..list(opts, (w0, e0) => w0.opt(e0)));
     return $r.hnn(InterceptorPkgRfc8888SenderInterceptorFactory.$h);
   }
 }

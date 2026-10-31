@@ -17,7 +17,7 @@ mixin GoleveldbLeveldbComparerBasicComparer$ on GoHandle {
   /// Go: `func (comparer.BasicComparer).Compare(a []byte, b []byte) int`.
   int compare(Uint8List a, Uint8List b) {
     final $r = $callSync(
-        18664,
+        18666,
         $W()
           ..h(this)
           ..bytes(a)
@@ -42,14 +42,14 @@ class GoleveldbLeveldbComparer extends GoleveldbLeveldbComparerBasicComparer
 mixin GoleveldbLeveldbComparer$ on GoHandle {
   /// Go: `func (comparer.Comparer).Name() string`.
   String name() {
-    final $r = $callSync(18665, $W()..h(this));
+    final $r = $callSync(18667, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (comparer.Comparer).Separator(dst []byte, a []byte, b []byte) []byte`.
   Uint8List separator(Uint8List dst, Uint8List a, Uint8List b) {
     final $r = $callSync(
-        18666,
+        18668,
         $W()
           ..h(this)
           ..bytes(dst)
@@ -61,7 +61,7 @@ mixin GoleveldbLeveldbComparer$ on GoHandle {
   /// Go: `func (comparer.Comparer).Successor(dst []byte, b []byte) []byte`.
   Uint8List successor(Uint8List dst, Uint8List b) {
     final $r = $callSync(
-        18667,
+        18669,
         $W()
           ..h(this)
           ..bytes(dst)

@@ -954,8 +954,8 @@ func (m *model) check(f *fn) {
 	}
 }
 
-// decodable: a result Dart can decode (a slice of options, or a DTO with
-// one in a field, cannot).
+// decodable: a value that crosses both ways, all the way down (a map of
+// options does not).
 func decodable(t *tinfo) bool { return decodableIn(t, map[*tinfo]bool{}) }
 
 func decodableIn(t *tinfo, seen map[*tinfo]bool) bool {
@@ -964,8 +964,8 @@ func decodableIn(t *tinfo, seen map[*tinfo]bool) bool {
 	}
 	seen[t] = true
 	switch t.k {
-	case kSlice:
-		return decodableIn(t.elem, seen)
+	case kSlice: // of options too (config.Config.RelayServiceOpts): those Go made go as handles
+		return t.elem.k == kOpts || decodableIn(t.elem, seen)
 	case kMap:
 		return decodableIn(t.elem, seen) && (t.mkey == nil || decodableIn(t.mkey, seen))
 	case kDTO, kSnap:

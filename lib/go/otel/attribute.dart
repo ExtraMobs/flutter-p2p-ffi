@@ -16,7 +16,7 @@ class OtelAttributeDistinct extends GoHandle {
 
   /// Go: `func (attribute.Distinct).Valid() bool`.
   bool valid() {
-    final $r = $callSync(19127, $W()..h(this));
+    final $r = $callSync(19129, $W()..h(this));
     return $r.b();
   }
 }
@@ -31,7 +31,7 @@ mixin OtelAttributeEncoder$ on GoHandle {
   /// Go: `func (attribute.Encoder).Encode(iterator attribute.Iterator) string`.
   String encode(OtelAttributeIterator iterator) {
     final $r = $callSync(
-        19129,
+        19131,
         $W()
           ..h(this)
           ..h(iterator));
@@ -40,7 +40,7 @@ mixin OtelAttributeEncoder$ on GoHandle {
 
   /// Go: `func (attribute.Encoder).ID() attribute.EncoderID`.
   OtelAttributeEncoderId id() {
-    final $r = $callSync(19130, $W()..h(this));
+    final $r = $callSync(19132, $W()..h(this));
     return $r.hnn(OtelAttributeEncoderId.$h);
   }
 }
@@ -51,13 +51,13 @@ class OtelAttributeEncoderId extends GoHandle {
 
   /// Go: `func attribute.NewEncoderID() attribute.EncoderID`.
   factory OtelAttributeEncoderId() {
-    final $r = $callSync(19162);
+    final $r = $callSync(19164);
     return $r.hnn(OtelAttributeEncoderId.$h);
   }
 
   /// Go: `func (attribute.EncoderID).Valid() bool`.
   bool valid() {
-    final $r = $callSync(19131, $W()..h(this));
+    final $r = $callSync(19133, $W()..h(this));
     return $r.b();
   }
 }
@@ -73,25 +73,25 @@ class OtelAttributeHasher extends GoHandle {
 
   /// Go: `func attribute.NewHasher() *attribute.Hasher`.
   factory OtelAttributeHasher() {
-    final $r = $callSync(19163);
+    final $r = $callSync(19165);
     return $r.hnn(OtelAttributeHasher.$h);
   }
 
   /// Go: `func (*attribute.Hasher).Distinct() attribute.Distinct`.
   OtelAttributeDistinct distinct() {
-    final $r = $callSync(19136, $W()..h(this));
+    final $r = $callSync(19138, $W()..h(this));
     return $r.hnn(OtelAttributeDistinct.$h);
   }
 
   /// Go: `func (*attribute.Hasher).Reset()`.
   void reset() {
-    $callSync(19137, $W()..h(this));
+    $callSync(19139, $W()..h(this));
   }
 
   /// Go: `func (*attribute.Hasher).Write(kv attribute.KeyValue)`.
   void write(OtelAttributeKeyValue kv) {
     $callSync(
-        19138,
+        19140,
         $W()
           ..h(this)
           ..dto(kv));
@@ -104,45 +104,45 @@ class OtelAttributeIterator extends GoHandle {
 
   /// Go: `func (*attribute.Iterator).Attribute() attribute.KeyValue`.
   OtelAttributeKeyValue attribute() {
-    final $r = $callSync(19147, $W()..h(this));
+    final $r = $callSync(19149, $W()..h(this));
     return $r.p() ? OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `func (*attribute.Iterator).IndexedAttribute() (int, attribute.KeyValue)`.
   (int, OtelAttributeKeyValue) indexedAttribute() {
-    final $r = $callSync(19148, $W()..h(this));
+    final $r = $callSync(19150, $W()..h(this));
     return ($r.i64(), $r.p() ? OtelAttributeKeyValue.$dec($r) : $nil());
   }
 
   /// Go: `func (*attribute.Iterator).IndexedLabel() (int, attribute.KeyValue)`.
   @Deprecated("Use IndexedAttribute instead.")
   (int, OtelAttributeKeyValue) indexedLabel() {
-    final $r = $callSync(19149, $W()..h(this));
+    final $r = $callSync(19151, $W()..h(this));
     return ($r.i64(), $r.p() ? OtelAttributeKeyValue.$dec($r) : $nil());
   }
 
   /// Go: `func (*attribute.Iterator).Label() attribute.KeyValue`.
   @Deprecated("Use Attribute instead.")
   OtelAttributeKeyValue label() {
-    final $r = $callSync(19150, $W()..h(this));
+    final $r = $callSync(19152, $W()..h(this));
     return $r.p() ? OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `func (*attribute.Iterator).Len() int`.
   int len() {
-    final $r = $callSync(19151, $W()..h(this));
+    final $r = $callSync(19153, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*attribute.Iterator).Next() bool`.
   bool next() {
-    final $r = $callSync(19152, $W()..h(this));
+    final $r = $callSync(19154, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*attribute.Iterator).ToSlice() []attribute.KeyValue`.
   List<OtelAttributeKeyValue> toSlice() {
-    final $r = $callSync(19153, $W()..h(this));
+    final $r = $callSync(19155, $W()..h(this));
     return $r.list(() => $r.p() ? OtelAttributeKeyValue.$dec($r) : $nil());
   }
 }
@@ -172,7 +172,7 @@ final class OtelAttributeKeyValue implements GoDto {
 
   /// Go: `func (attribute.KeyValue).Valid() bool`.
   bool valid() {
-    final $r = $callSync(19154, $W()..dto(this));
+    final $r = $callSync(19156, $W()..dto(this));
     return $r.b();
   }
 }
@@ -184,7 +184,7 @@ class OtelAttributeMergeIterator extends GoHandle {
   /// Go: `func attribute.NewMergeIterator(s1 *attribute.Set, s2 *attribute.Set) attribute.MergeIterator`.
   factory OtelAttributeMergeIterator(OtelAttributeSet s1, OtelAttributeSet s2) {
     final $r = $callSync(
-        19164,
+        19166,
         $W()
           ..h(s1)
           ..h(s2));
@@ -193,20 +193,20 @@ class OtelAttributeMergeIterator extends GoHandle {
 
   /// Go: `func (*attribute.MergeIterator).Attribute() attribute.KeyValue`.
   OtelAttributeKeyValue attribute() {
-    final $r = $callSync(19157, $W()..h(this));
+    final $r = $callSync(19159, $W()..h(this));
     return $r.p() ? OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `func (*attribute.MergeIterator).Label() attribute.KeyValue`.
   @Deprecated("Use Attribute instead.")
   OtelAttributeKeyValue label() {
-    final $r = $callSync(19158, $W()..h(this));
+    final $r = $callSync(19160, $W()..h(this));
     return $r.p() ? OtelAttributeKeyValue.$dec($r) : $nil();
   }
 
   /// Go: `func (*attribute.MergeIterator).Next() bool`.
   bool next() {
-    final $r = $callSync(19159, $W()..h(this));
+    final $r = $callSync(19161, $W()..h(this));
     return $r.b();
   }
 }
@@ -217,14 +217,14 @@ class OtelAttributeSet extends $logr.LogrMarshaler {
 
   /// Go: `func attribute.NewSet(kvs ...attribute.KeyValue) attribute.Set`.
   factory OtelAttributeSet([List<OtelAttributeKeyValue> kvs = const []]) {
-    final $r = $callSync(19165, $W()..list(kvs, (w0, e0) => w0.dto(e0)));
+    final $r = $callSync(19167, $W()..list(kvs, (w0, e0) => w0.dto(e0)));
     return $r.hnn(OtelAttributeSet.$h);
   }
 
   /// Go: `func (*attribute.Set).Encoded(encoder attribute.Encoder) string`.
   String encoded(OtelAttributeEncoder encoder) {
     final $r = $callSync(
-        19167,
+        19169,
         $W()
           ..h(this)
           ..h(encoder));
@@ -234,7 +234,7 @@ class OtelAttributeSet extends $logr.LogrMarshaler {
   /// Go: `func (*attribute.Set).Equals(o *attribute.Set) bool`.
   bool equals(OtelAttributeSet o) {
     final $r = $callSync(
-        19168,
+        19170,
         $W()
           ..h(this)
           ..h(o));
@@ -243,7 +243,7 @@ class OtelAttributeSet extends $logr.LogrMarshaler {
 
   /// Go: `func (*attribute.Set).Equivalent() attribute.Distinct`.
   OtelAttributeDistinct equivalent() {
-    final $r = $callSync(19169, $W()..h(this));
+    final $r = $callSync(19171, $W()..h(this));
     return $r.hnn(OtelAttributeDistinct.$h);
   }
 
@@ -257,7 +257,7 @@ class OtelAttributeSet extends $logr.LogrMarshaler {
   Future<(OtelAttributeSet, List<OtelAttributeKeyValue>)> filter(
       FutureOr<bool> Function(OtelAttributeKeyValue keyValue) re) async {
     final $r = await $call(
-        19170,
+        19172,
         $W()
           ..h(this)
           ..cb(
@@ -271,7 +271,7 @@ class OtelAttributeSet extends $logr.LogrMarshaler {
   /// Go: `func (*attribute.Set).Get(idx int) (attribute.KeyValue, bool)`.
   (OtelAttributeKeyValue, bool) get(int idx) {
     final $r = $callSync(
-        19171,
+        19173,
         $W()
           ..h(this)
           ..i64(idx));
@@ -281,7 +281,7 @@ class OtelAttributeSet extends $logr.LogrMarshaler {
   /// Go: `func (*attribute.Set).HasValue(k attribute.Key) bool`.
   bool hasValue(String k) {
     final $r = $callSync(
-        19172,
+        19174,
         $W()
           ..h(this)
           ..str(k));
@@ -290,38 +290,38 @@ class OtelAttributeSet extends $logr.LogrMarshaler {
 
   /// Go: `func (*attribute.Set).Iter() attribute.Iterator`.
   OtelAttributeIterator iter() {
-    final $r = $callSync(19173, $W()..h(this));
+    final $r = $callSync(19175, $W()..h(this));
     return $r.hnn(OtelAttributeIterator.$h);
   }
 
   /// Go: `func (*attribute.Set).Len() int`.
   int len() {
-    final $r = $callSync(19174, $W()..h(this));
+    final $r = $callSync(19176, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*attribute.Set).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(19175, $W()..h(this));
+    final $r = $callSync(19177, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (attribute.Set).MarshalLog() any`.
   Object? marshalLog() {
-    final $r = $callSync(19176, $W()..h(this));
+    final $r = $callSync(19178, $W()..h(this));
     return $r.any();
   }
 
   /// Go: `func (*attribute.Set).ToSlice() []attribute.KeyValue`.
   List<OtelAttributeKeyValue> toSlice() {
-    final $r = $callSync(19177, $W()..h(this));
+    final $r = $callSync(19179, $W()..h(this));
     return $r.list(() => $r.p() ? OtelAttributeKeyValue.$dec($r) : $nil());
   }
 
   /// Go: `func (*attribute.Set).Value(k attribute.Key) (attribute.Value, bool)`.
   (OtelAttributeValue, bool) value$(String k) {
     final $r = $callSync(
-        19178,
+        19180,
         $W()
           ..h(this)
           ..str(k));
@@ -335,98 +335,98 @@ class OtelAttributeValue extends GoHandle {
 
   /// Go: `func (attribute.Value).AsBool() bool`.
   bool asBool() {
-    final $r = $callSync(19186, $W()..h(this));
+    final $r = $callSync(19188, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (attribute.Value).AsBoolSlice() []bool`.
   List<bool> asBoolSlice() {
-    final $r = $callSync(19187, $W()..h(this));
+    final $r = $callSync(19189, $W()..h(this));
     return $r.list(() => $r.b());
   }
 
   /// Go: `func (attribute.Value).AsByteSlice() []byte`.
   Uint8List asByteSlice() {
-    final $r = $callSync(19188, $W()..h(this));
+    final $r = $callSync(19190, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (attribute.Value).AsFloat64() float64`.
   double asFloat64() {
-    final $r = $callSync(19189, $W()..h(this));
+    final $r = $callSync(19191, $W()..h(this));
     return $r.f64();
   }
 
   /// Go: `func (attribute.Value).AsFloat64Slice() []float64`.
   List<double> asFloat64Slice() {
-    final $r = $callSync(19190, $W()..h(this));
+    final $r = $callSync(19192, $W()..h(this));
     return $r.list(() => $r.f64());
   }
 
   /// Go: `func (attribute.Value).AsInt64() int64`.
   int asInt64() {
-    final $r = $callSync(19191, $W()..h(this));
+    final $r = $callSync(19193, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (attribute.Value).AsInt64Slice() []int64`.
   List<int> asInt64Slice() {
-    final $r = $callSync(19192, $W()..h(this));
+    final $r = $callSync(19194, $W()..h(this));
     return $r.list(() => $r.i64());
   }
 
   /// Go: `func (attribute.Value).AsInterface() any`.
   Object? asInterface() {
-    final $r = $callSync(19193, $W()..h(this));
+    final $r = $callSync(19195, $W()..h(this));
     return $r.any();
   }
 
   /// Go: `func (attribute.Value).AsMap() []attribute.KeyValue`.
   List<OtelAttributeKeyValue> asMap() {
-    final $r = $callSync(19194, $W()..h(this));
+    final $r = $callSync(19196, $W()..h(this));
     return $r.list(() => $r.p() ? OtelAttributeKeyValue.$dec($r) : $nil());
   }
 
   /// Go: `func (attribute.Value).AsSlice() []attribute.Value`.
   List<OtelAttributeValue> asSlice() {
-    final $r = $callSync(19195, $W()..h(this));
+    final $r = $callSync(19197, $W()..h(this));
     return $r.list(() => $r.hnn(OtelAttributeValue.$h));
   }
 
   /// Go: `func (attribute.Value).AsString() string`.
   String asString() {
-    final $r = $callSync(19196, $W()..h(this));
+    final $r = $callSync(19198, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (attribute.Value).AsStringSlice() []string`.
   List<String> asStringSlice() {
-    final $r = $callSync(19197, $W()..h(this));
+    final $r = $callSync(19199, $W()..h(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (attribute.Value).Emit() string`.
   @Deprecated("Use [Value.String] instead.")
   String emit() {
-    final $r = $callSync(19198, $W()..h(this));
+    final $r = $callSync(19200, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (attribute.Value).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(19199, $W()..h(this));
+    final $r = $callSync(19201, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (attribute.Value).String() string`.
   String string() {
-    final $r = $callSync(19200, $W()..h(this));
+    final $r = $callSync(19202, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (attribute.Value).Type() attribute.Type`.
   int type() {
-    final $r = $callSync(19201, $W()..h(this));
+    final $r = $callSync(19203, $W()..h(this));
     return $r.i64();
   }
 }
@@ -436,7 +436,7 @@ extension GoOtelAttributeApi on GoOtelAttribute {
   /// Go: `func attribute.Bool(k string, v bool) attribute.KeyValue`.
   OtelAttributeKeyValue bool$(String k, bool v) {
     final $r = $callSync(
-        19120,
+        19122,
         $W()
           ..str(k)
           ..b(v));
@@ -446,7 +446,7 @@ extension GoOtelAttributeApi on GoOtelAttribute {
   /// Go: `func attribute.BoolSlice(k string, v []bool) attribute.KeyValue`.
   OtelAttributeKeyValue boolSlice(String k, List<bool> v) {
     final $r = $callSync(
-        19121,
+        19123,
         $W()
           ..str(k)
           ..list(v, (w0, e0) => w0.b(e0)));
@@ -455,20 +455,20 @@ extension GoOtelAttributeApi on GoOtelAttribute {
 
   /// Go: `func attribute.BoolSliceValue(v []bool) attribute.Value`.
   OtelAttributeValue boolSliceValue(List<bool> v) {
-    final $r = $callSync(19122, $W()..list(v, (w0, e0) => w0.b(e0)));
+    final $r = $callSync(19124, $W()..list(v, (w0, e0) => w0.b(e0)));
     return $r.hnn(OtelAttributeValue.$h);
   }
 
   /// Go: `func attribute.BoolValue(v bool) attribute.Value`.
   OtelAttributeValue boolValue(bool v) {
-    final $r = $callSync(19123, $W()..b(v));
+    final $r = $callSync(19125, $W()..b(v));
     return $r.hnn(OtelAttributeValue.$h);
   }
 
   /// Go: `func attribute.ByteSlice(k string, v []byte) attribute.KeyValue`.
   OtelAttributeKeyValue byteSlice(String k, Uint8List v) {
     final $r = $callSync(
-        19124,
+        19126,
         $W()
           ..str(k)
           ..bytes(v));
@@ -477,26 +477,26 @@ extension GoOtelAttributeApi on GoOtelAttribute {
 
   /// Go: `func attribute.ByteSliceValue(v []byte) attribute.Value`.
   OtelAttributeValue byteSliceValue(Uint8List v) {
-    final $r = $callSync(19125, $W()..bytes(v));
+    final $r = $callSync(19127, $W()..bytes(v));
     return $r.hnn(OtelAttributeValue.$h);
   }
 
   /// Go: `func attribute.DefaultEncoder() attribute.Encoder`.
   OtelAttributeEncoder defaultEncoder() {
-    final $r = $callSync(19126);
+    final $r = $callSync(19128);
     return $r.hnn(OtelAttributeEncoder.$h);
   }
 
   /// Go: `func attribute.EmptySet() *attribute.Set`.
   OtelAttributeSet emptySet() {
-    final $r = $callSync(19128);
+    final $r = $callSync(19130);
     return $r.hnn(OtelAttributeSet.$h);
   }
 
   /// Go: `func attribute.Float64(k string, v float64) attribute.KeyValue`.
   OtelAttributeKeyValue float64(String k, double v) {
     final $r = $callSync(
-        19132,
+        19134,
         $W()
           ..str(k)
           ..f64(v));
@@ -506,7 +506,7 @@ extension GoOtelAttributeApi on GoOtelAttribute {
   /// Go: `func attribute.Float64Slice(k string, v []float64) attribute.KeyValue`.
   OtelAttributeKeyValue float64Slice(String k, List<double> v) {
     final $r = $callSync(
-        19133,
+        19135,
         $W()
           ..str(k)
           ..list(v, (w0, e0) => w0.f64(e0)));
@@ -515,20 +515,20 @@ extension GoOtelAttributeApi on GoOtelAttribute {
 
   /// Go: `func attribute.Float64SliceValue(v []float64) attribute.Value`.
   OtelAttributeValue float64SliceValue(List<double> v) {
-    final $r = $callSync(19134, $W()..list(v, (w0, e0) => w0.f64(e0)));
+    final $r = $callSync(19136, $W()..list(v, (w0, e0) => w0.f64(e0)));
     return $r.hnn(OtelAttributeValue.$h);
   }
 
   /// Go: `func attribute.Float64Value(v float64) attribute.Value`.
   OtelAttributeValue float64Value(double v) {
-    final $r = $callSync(19135, $W()..f64(v));
+    final $r = $callSync(19137, $W()..f64(v));
     return $r.hnn(OtelAttributeValue.$h);
   }
 
   /// Go: `func attribute.Int(k string, v int) attribute.KeyValue`.
   OtelAttributeKeyValue int$(String k, int v) {
     final $r = $callSync(
-        19139,
+        19141,
         $W()
           ..str(k)
           ..i64(v));
@@ -538,7 +538,7 @@ extension GoOtelAttributeApi on GoOtelAttribute {
   /// Go: `func attribute.Int64(k string, v int64) attribute.KeyValue`.
   OtelAttributeKeyValue int64(String k, int v) {
     final $r = $callSync(
-        19140,
+        19142,
         $W()
           ..str(k)
           ..i64(v));
@@ -548,7 +548,7 @@ extension GoOtelAttributeApi on GoOtelAttribute {
   /// Go: `func attribute.Int64Slice(k string, v []int64) attribute.KeyValue`.
   OtelAttributeKeyValue int64Slice(String k, List<int> v) {
     final $r = $callSync(
-        19141,
+        19143,
         $W()
           ..str(k)
           ..list(v, (w0, e0) => w0.i64(e0)));
@@ -557,20 +557,20 @@ extension GoOtelAttributeApi on GoOtelAttribute {
 
   /// Go: `func attribute.Int64SliceValue(v []int64) attribute.Value`.
   OtelAttributeValue int64SliceValue(List<int> v) {
-    final $r = $callSync(19142, $W()..list(v, (w0, e0) => w0.i64(e0)));
+    final $r = $callSync(19144, $W()..list(v, (w0, e0) => w0.i64(e0)));
     return $r.hnn(OtelAttributeValue.$h);
   }
 
   /// Go: `func attribute.Int64Value(v int64) attribute.Value`.
   OtelAttributeValue int64Value(int v) {
-    final $r = $callSync(19143, $W()..i64(v));
+    final $r = $callSync(19145, $W()..i64(v));
     return $r.hnn(OtelAttributeValue.$h);
   }
 
   /// Go: `func attribute.IntSlice(k string, v []int) attribute.KeyValue`.
   OtelAttributeKeyValue intSlice(String k, List<int> v) {
     final $r = $callSync(
-        19144,
+        19146,
         $W()
           ..str(k)
           ..list(v, (w0, e0) => w0.i64(e0)));
@@ -579,13 +579,13 @@ extension GoOtelAttributeApi on GoOtelAttribute {
 
   /// Go: `func attribute.IntSliceValue(v []int) attribute.Value`.
   OtelAttributeValue intSliceValue(List<int> v) {
-    final $r = $callSync(19145, $W()..list(v, (w0, e0) => w0.i64(e0)));
+    final $r = $callSync(19147, $W()..list(v, (w0, e0) => w0.i64(e0)));
     return $r.hnn(OtelAttributeValue.$h);
   }
 
   /// Go: `func attribute.IntValue(v int) attribute.Value`.
   OtelAttributeValue intValue(int v) {
-    final $r = $callSync(19146, $W()..i64(v));
+    final $r = $callSync(19148, $W()..i64(v));
     return $r.hnn(OtelAttributeValue.$h);
   }
 
@@ -593,7 +593,7 @@ extension GoOtelAttributeApi on GoOtelAttribute {
   OtelAttributeKeyValue map(String k,
       [List<OtelAttributeKeyValue> v = const []]) {
     final $r = $callSync(
-        19155,
+        19157,
         $W()
           ..str(k)
           ..list(v, (w0, e0) => w0.dto(e0)));
@@ -602,19 +602,19 @@ extension GoOtelAttributeApi on GoOtelAttribute {
 
   /// Go: `func attribute.MapValue(v ...attribute.KeyValue) attribute.Value`.
   OtelAttributeValue mapValue([List<OtelAttributeKeyValue> v = const []]) {
-    final $r = $callSync(19156, $W()..list(v, (w0, e0) => w0.dto(e0)));
+    final $r = $callSync(19158, $W()..list(v, (w0, e0) => w0.dto(e0)));
     return $r.hnn(OtelAttributeValue.$h);
   }
 
   /// Go: `func attribute.NewAllowKeysFilter(keys ...attribute.Key) attribute.Filter`.
   OtelAttributeFilter newAllowKeysFilter([List<String> keys = const []]) {
-    final $r = $callSync(19160, $W()..list(keys, (w0, e0) => w0.str(e0)));
+    final $r = $callSync(19162, $W()..list(keys, (w0, e0) => w0.str(e0)));
     return $r.hnn(OtelAttributeFilter.$h);
   }
 
   /// Go: `func attribute.NewDenyKeysFilter(keys ...attribute.Key) attribute.Filter`.
   OtelAttributeFilter newDenyKeysFilter([List<String> keys = const []]) {
-    final $r = $callSync(19161, $W()..list(keys, (w0, e0) => w0.str(e0)));
+    final $r = $callSync(19163, $W()..list(keys, (w0, e0) => w0.str(e0)));
     return $r.hnn(OtelAttributeFilter.$h);
   }
 
@@ -629,7 +629,7 @@ extension GoOtelAttributeApi on GoOtelAttribute {
       List<OtelAttributeKeyValue> kvs,
       FutureOr<bool> Function(OtelAttributeKeyValue keyValue) filter) async {
     final $r = await $call(
-        19166,
+        19168,
         $W()
           ..list(kvs, (w0, e0) => w0.dto(e0))
           ..cb((r) => filter(r.p() ? OtelAttributeKeyValue.$dec(r) : $nil()),
@@ -644,7 +644,7 @@ extension GoOtelAttributeApi on GoOtelAttribute {
   OtelAttributeKeyValue slice(String k,
       [List<OtelAttributeValue> v = const []]) {
     final $r = $callSync(
-        19179,
+        19181,
         $W()
           ..str(k)
           ..list(v, (w0, e0) => w0.h(e0)));
@@ -653,14 +653,14 @@ extension GoOtelAttributeApi on GoOtelAttribute {
 
   /// Go: `func attribute.SliceValue(v ...attribute.Value) attribute.Value`.
   OtelAttributeValue sliceValue([List<OtelAttributeValue> v = const []]) {
-    final $r = $callSync(19180, $W()..list(v, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(19182, $W()..list(v, (w0, e0) => w0.h(e0)));
     return $r.hnn(OtelAttributeValue.$h);
   }
 
   /// Go: `func attribute.String(k string, v string) attribute.KeyValue`.
   OtelAttributeKeyValue string(String k, String v) {
     final $r = $callSync(
-        19181,
+        19183,
         $W()
           ..str(k)
           ..str(v));
@@ -670,7 +670,7 @@ extension GoOtelAttributeApi on GoOtelAttribute {
   /// Go: `func attribute.StringSlice(k string, v []string) attribute.KeyValue`.
   OtelAttributeKeyValue stringSlice(String k, List<String> v) {
     final $r = $callSync(
-        19182,
+        19184,
         $W()
           ..str(k)
           ..list(v, (w0, e0) => w0.str(e0)));
@@ -679,20 +679,20 @@ extension GoOtelAttributeApi on GoOtelAttribute {
 
   /// Go: `func attribute.StringSliceValue(v []string) attribute.Value`.
   OtelAttributeValue stringSliceValue(List<String> v) {
-    final $r = $callSync(19183, $W()..list(v, (w0, e0) => w0.str(e0)));
+    final $r = $callSync(19185, $W()..list(v, (w0, e0) => w0.str(e0)));
     return $r.hnn(OtelAttributeValue.$h);
   }
 
   /// Go: `func attribute.StringValue(v string) attribute.Value`.
   OtelAttributeValue stringValue(String v) {
-    final $r = $callSync(19184, $W()..str(v));
+    final $r = $callSync(19186, $W()..str(v));
     return $r.hnn(OtelAttributeValue.$h);
   }
 
   /// Go: `func attribute.Stringer(k string, v fmt.Stringer) attribute.KeyValue`.
   OtelAttributeKeyValue stringer(String k, $fmt.FmtStringer v) {
     final $r = $callSync(
-        19185,
+        19187,
         $W()
           ..str(k)
           ..dto(v));

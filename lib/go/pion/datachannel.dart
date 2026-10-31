@@ -121,42 +121,42 @@ class DatachannelDataChannel extends $io.IoCloser
 
   /// Go: `func (*datachannel.DataChannel).BufferedAmount() uint64`.
   int bufferedAmount() {
-    final $r = $callSync(16126, $W()..h(this));
+    final $r = $callSync(16128, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*datachannel.DataChannel).BufferedAmountLowThreshold() uint64`.
   int bufferedAmountLowThreshold() {
-    final $r = $callSync(16127, $W()..h(this));
+    final $r = $callSync(16129, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*datachannel.DataChannel).BytesReceived() uint64`.
   int bytesReceived() {
-    final $r = $callSync(16128, $W()..h(this));
+    final $r = $callSync(16130, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*datachannel.DataChannel).BytesSent() uint64`.
   int bytesSent() {
-    final $r = $callSync(16129, $W()..h(this));
+    final $r = $callSync(16131, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*datachannel.DataChannel).Close() error`.
   void close() {
-    $callSync(16130, $W()..h(this));
+    $callSync(16132, $W()..h(this));
   }
 
   /// Go: `func (*datachannel.DataChannel).MessagesReceived() uint32`.
   int messagesReceived() {
-    final $r = $callSync(16131, $W()..h(this));
+    final $r = $callSync(16133, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*datachannel.DataChannel).MessagesSent() uint32`.
   int messagesSent() {
-    final $r = $callSync(16132, $W()..h(this));
+    final $r = $callSync(16134, $W()..h(this));
     return $r.i64();
   }
 
@@ -169,7 +169,7 @@ class DatachannelDataChannel extends $io.IoCloser
   /// each invocation (a retained callback, WIRE.md).
   Future<void> onBufferedAmountLow(FutureOr<void> Function() f) async {
     await $call(
-        16133,
+        16135,
         $W()
           ..h(this)
           ..cb((r) => f(), true));
@@ -184,7 +184,7 @@ class DatachannelDataChannel extends $io.IoCloser
   /// each invocation (a retained callback, WIRE.md).
   Future<void> onOpen(FutureOr<void> Function() f) async {
     await $call(
-        16134,
+        16136,
         $W()
           ..h(this)
           ..cb((r) => f(), true));
@@ -193,7 +193,7 @@ class DatachannelDataChannel extends $io.IoCloser
   /// Go: `func (*datachannel.DataChannel).Read(p []byte) (int, error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        16135,
+        16137,
         $W()
           ..h(this)
           ..i64(n));
@@ -203,7 +203,7 @@ class DatachannelDataChannel extends $io.IoCloser
   /// Go: `func (*datachannel.DataChannel).ReadDataChannel(p []byte) (int, bool, error)`.
   (int, bool) readDataChannel(Uint8List p) {
     final $r = $callSync(
-        16136,
+        16138,
         $W()
           ..h(this)
           ..bytes(p));
@@ -213,7 +213,7 @@ class DatachannelDataChannel extends $io.IoCloser
   /// Go: `func (*datachannel.DataChannel).SetBufferedAmountLowThreshold(th uint64)`.
   void setBufferedAmountLowThreshold(int th) {
     $callSync(
-        16137,
+        16139,
         $W()
           ..h(this)
           ..i64(th));
@@ -222,7 +222,7 @@ class DatachannelDataChannel extends $io.IoCloser
   /// Go: `func (*datachannel.DataChannel).SetReadDeadline(t time.Time) error`.
   void setReadDeadline(DateTime t) {
     $callSync(
-        16138,
+        16140,
         $W()
           ..h(this)
           ..time(t));
@@ -231,7 +231,7 @@ class DatachannelDataChannel extends $io.IoCloser
   /// Go: `func (*datachannel.DataChannel).SetWriteDeadline(t time.Time) error`.
   void setWriteDeadline(DateTime t) {
     $callSync(
-        16139,
+        16141,
         $W()
           ..h(this)
           ..time(t));
@@ -239,14 +239,14 @@ class DatachannelDataChannel extends $io.IoCloser
 
   /// Go: `func (*datachannel.DataChannel).StreamIdentifier() uint16`.
   int streamIdentifier() {
-    final $r = $callSync(16140, $W()..h(this));
+    final $r = $callSync(16142, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*datachannel.DataChannel).Write(p []byte) (n int, err error)`.
   int write(Uint8List p) {
     final $r = $callSync(
-        16141,
+        16143,
         $W()
           ..h(this)
           ..bytes(p));
@@ -256,7 +256,7 @@ class DatachannelDataChannel extends $io.IoCloser
   /// Go: `func (*datachannel.DataChannel).WriteDataChannel(p []byte, isString bool) (n int, err error)`.
   int writeDataChannel(Uint8List p, bool isString) {
     final $r = $callSync(
-        16142,
+        16144,
         $W()
           ..h(this)
           ..bytes(p)
@@ -275,7 +275,7 @@ mixin DatachannelReadDeadliner$ on GoHandle {
   /// Go: `func (datachannel.ReadDeadliner).SetReadDeadline(time.Time) error`.
   void setReadDeadline(DateTime time) {
     $callSync(
-        16144,
+        16146,
         $W()
           ..h(this)
           ..time(time));
@@ -577,7 +577,7 @@ mixin DatachannelReader$ on GoHandle {
   /// Go: `func (datachannel.Reader).ReadDataChannel([]byte) (int, bool, error)`.
   (int, bool) readDataChannel(Uint8List arg0) {
     final $r = $callSync(
-        16145,
+        16147,
         $W()
           ..h(this)
           ..bytes(arg0));
@@ -614,7 +614,7 @@ mixin DatachannelWriteDeadliner$ on GoHandle {
   /// Go: `func (datachannel.WriteDeadliner).SetWriteDeadline(time.Time) error`.
   void setWriteDeadline(DateTime time) {
     $callSync(
-        16148,
+        16150,
         $W()
           ..h(this)
           ..time(time));
@@ -844,7 +844,7 @@ mixin DatachannelWriter$ on GoHandle {
   /// Go: `func (datachannel.Writer).WriteDataChannel([]byte, bool) (int, error)`.
   int writeDataChannel(Uint8List arg0, bool arg1) {
     final $r = $callSync(
-        16149,
+        16151,
         $W()
           ..h(this)
           ..bytes(arg0)
@@ -934,7 +934,7 @@ extension GoPionDatachannelApi on GoPionDatachannel {
       $sctp.SctpAssociation a, DatachannelConfig config,
       [List<DatachannelDataChannel> existingChannels = const []]) {
     final $r = $callSync(
-        16124,
+        16126,
         $W()
           ..h(a)
           ..dto(config)
@@ -946,7 +946,7 @@ extension GoPionDatachannelApi on GoPionDatachannel {
   DatachannelDataChannel client(
       $sctp.SctpStream stream, DatachannelConfig config) {
     final $r = $callSync(
-        16125,
+        16127,
         $W()
           ..h(stream)
           ..dto(config));
@@ -957,7 +957,7 @@ extension GoPionDatachannelApi on GoPionDatachannel {
   DatachannelDataChannel dial(
       $sctp.SctpAssociation a, int id, DatachannelConfig config) {
     final $r = $callSync(
-        16143,
+        16145,
         $W()
           ..h(a)
           ..i64(id)
@@ -969,7 +969,7 @@ extension GoPionDatachannelApi on GoPionDatachannel {
   DatachannelDataChannel server(
       $sctp.SctpStream stream, DatachannelConfig config) {
     final $r = $callSync(
-        16146,
+        16148,
         $W()
           ..h(stream)
           ..dto(config));
@@ -978,7 +978,7 @@ extension GoPionDatachannelApi on GoPionDatachannel {
 
   /// Go: `func datachannel.TryMarshalUnmarshal(msg []byte) int`.
   int tryMarshalUnmarshal(Uint8List msg) {
-    final $r = $callSync(16147, $W()..bytes(msg));
+    final $r = $callSync(16149, $W()..bytes(msg));
     return $r.i64();
   }
 }

@@ -14,7 +14,7 @@ extension GoLibp2pLibp2pP2pCanonicallogApi on GoLibp2pLibp2pP2pCanonicallog {
       int sampleRate, $peer.Libp2pCorePeerId p, $multiaddr.Multiaddr peerAddr,
       [List<String> keyVals = const []]) {
     $callSync(
-        14327,
+        14329,
         $W()
           ..i64(sampleRate)
           ..val(p)

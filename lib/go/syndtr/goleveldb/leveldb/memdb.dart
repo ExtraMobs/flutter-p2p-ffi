@@ -16,14 +16,14 @@ class GoleveldbLeveldbMemdbDb extends GoHandle {
 
   /// Go: `func (*memdb.DB).Capacity() int`.
   int capacity() {
-    final $r = $callSync(18704, $W()..h(this));
+    final $r = $callSync(18706, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*memdb.DB).Contains(key []byte) bool`.
   bool contains(Uint8List key) {
     final $r = $callSync(
-        18705,
+        18707,
         $W()
           ..h(this)
           ..bytes(key));
@@ -33,7 +33,7 @@ class GoleveldbLeveldbMemdbDb extends GoHandle {
   /// Go: `func (*memdb.DB).Delete(key []byte) error`.
   void delete(Uint8List key) {
     $callSync(
-        18706,
+        18708,
         $W()
           ..h(this)
           ..bytes(key));
@@ -42,7 +42,7 @@ class GoleveldbLeveldbMemdbDb extends GoHandle {
   /// Go: `func (*memdb.DB).Find(key []byte) (rkey []byte, value []byte, err error)`.
   (Uint8List, Uint8List) find(Uint8List key) {
     final $r = $callSync(
-        18707,
+        18709,
         $W()
           ..h(this)
           ..bytes(key));
@@ -51,14 +51,14 @@ class GoleveldbLeveldbMemdbDb extends GoHandle {
 
   /// Go: `func (*memdb.DB).Free() int`.
   int free() {
-    final $r = $callSync(18708, $W()..h(this));
+    final $r = $callSync(18710, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*memdb.DB).Get(key []byte) (value []byte, err error)`.
   Uint8List get(Uint8List key) {
     final $r = $callSync(
-        18709,
+        18711,
         $W()
           ..h(this)
           ..bytes(key));
@@ -67,7 +67,7 @@ class GoleveldbLeveldbMemdbDb extends GoHandle {
 
   /// Go: `func (*memdb.DB).Len() int`.
   int len() {
-    final $r = $callSync(18710, $W()..h(this));
+    final $r = $callSync(18712, $W()..h(this));
     return $r.i64();
   }
 
@@ -75,7 +75,7 @@ class GoleveldbLeveldbMemdbDb extends GoHandle {
   $iterator.GoleveldbLeveldbIterator newIterator(
       $util.GoleveldbLeveldbUtilRange slice) {
     final $r = $callSync(
-        18711,
+        18713,
         $W()
           ..h(this)
           ..dto(slice));
@@ -85,7 +85,7 @@ class GoleveldbLeveldbMemdbDb extends GoHandle {
   /// Go: `func (*memdb.DB).Put(key []byte, value []byte) error`.
   void put(Uint8List key, Uint8List value) {
     $callSync(
-        18712,
+        18714,
         $W()
           ..h(this)
           ..bytes(key)
@@ -94,12 +94,12 @@ class GoleveldbLeveldbMemdbDb extends GoHandle {
 
   /// Go: `func (*memdb.DB).Reset()`.
   void reset() {
-    $callSync(18713, $W()..h(this));
+    $callSync(18715, $W()..h(this));
   }
 
   /// Go: `func (*memdb.DB).Size() int`.
   int size() {
-    final $r = $callSync(18714, $W()..h(this));
+    final $r = $callSync(18716, $W()..h(this));
     return $r.i64();
   }
 }
@@ -128,7 +128,7 @@ extension GoSyndtrGoleveldbLeveldbMemdbApi on GoSyndtrGoleveldbLeveldbMemdb {
   GoleveldbLeveldbMemdbDb new$(
       $comparer.GoleveldbLeveldbComparerBasicComparer cmp, int capacity) {
     final $r = $callSync(
-        18715,
+        18717,
         $W()
           ..h(cmp)
           ..i64(capacity));

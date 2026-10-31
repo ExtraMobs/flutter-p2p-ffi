@@ -27,7 +27,7 @@ mixin MsgioProtoioReader$ on GoHandle {
   /// Go: `func (protoio.Reader).ReadMsg(msg proto.Message) error`.
   void readMsg($proto.ProtobufProtoMessage msg) {
     $callSync(
-        15139,
+        15141,
         $W()
           ..h(this)
           ..h(msg));
@@ -60,7 +60,7 @@ mixin MsgioProtoioWriter$ on GoHandle {
   /// Go: `func (protoio.Writer).WriteMsg(proto.Message) error`.
   void writeMsg($proto.ProtobufProtoMessage message) {
     $callSync(
-        15140,
+        15142,
         $W()
           ..h(this)
           ..h(message));
@@ -78,7 +78,7 @@ extension GoLibp2pMsgioProtoioApi on GoLibp2pMsgioProtoio {
   /// Go: `func protoio.NewDelimitedReader(r io.Reader, maxSize int) protoio.ReadCloser`.
   MsgioProtoioReadCloser newDelimitedReader(Object r, int maxSize) {
     final $r = $callSync(
-        15137,
+        15139,
         $W()
           ..reader(r)
           ..i64(maxSize));
@@ -87,7 +87,7 @@ extension GoLibp2pMsgioProtoioApi on GoLibp2pMsgioProtoio {
 
   /// Go: `func protoio.NewDelimitedWriter(w io.Writer) protoio.WriteCloser`.
   MsgioProtoioWriteCloser newDelimitedWriter(GoHandle? w) {
-    final $r = $callSync(15138, $W()..h(w));
+    final $r = $callSync(15140, $W()..h(w));
     return $r.hnn(MsgioProtoioWriteCloser.$h);
   }
 }

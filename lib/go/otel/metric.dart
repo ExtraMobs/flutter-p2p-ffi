@@ -19,13 +19,13 @@ class OtelMetricAddConfig extends GoHandle {
 
   /// Go: `func metric.NewAddConfig(opts []metric.AddOption) metric.AddConfig`.
   factory OtelMetricAddConfig(List<OtelMetricAddOption> opts) {
-    final $r = $callSync(19346, $W()..list(opts, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(19348, $W()..list(opts, (w0, e0) => w0.h(e0)));
     return $r.hnn(OtelMetricAddConfig.$h);
   }
 
   /// Go: `func (metric.AddConfig).Attributes() attribute.Set`.
   $attribute.OtelAttributeSet attributes() {
-    final $r = $callSync(19272, $W()..h(this));
+    final $r = $callSync(19274, $W()..h(this));
     return $r.hnn($attribute.OtelAttributeSet.$h);
   }
 }
@@ -63,7 +63,7 @@ mixin OtelMetricFloat64Counter$ on GoHandle {
   Future<void> add($context.Context ctx, double incr,
       [List<OtelMetricAddOption> options = const []]) async {
     await $call(
-        19273,
+        19275,
         $W()
           ..h(this)
           ..h(ctx)
@@ -76,7 +76,7 @@ mixin OtelMetricFloat64Counter$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> enabled($context.Context ctx) async {
     final $r = await $call(
-        19274,
+        19276,
         $W()
           ..h(this)
           ..h(ctx));
@@ -97,19 +97,19 @@ class OtelMetricFloat64CounterConfig extends GoHandle {
   /// Go: `func metric.NewFloat64CounterConfig(opts ...metric.Float64CounterOption) metric.Float64CounterConfig`.
   factory OtelMetricFloat64CounterConfig(
       [List<OtelMetricFloat64CounterOption> opts = const []]) {
-    final $r = $callSync(19347, $W()..list(opts, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(19349, $W()..list(opts, (w0, e0) => w0.h(e0)));
     return $r.hnn(OtelMetricFloat64CounterConfig.$h);
   }
 
   /// Go: `func (metric.Float64CounterConfig).Description() string`.
   String description() {
-    final $r = $callSync(19275, $W()..h(this));
+    final $r = $callSync(19277, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (metric.Float64CounterConfig).Unit() string`.
   String unit() {
-    final $r = $callSync(19276, $W()..h(this));
+    final $r = $callSync(19278, $W()..h(this));
     return $r.str();
   }
 }
@@ -142,7 +142,7 @@ mixin OtelMetricFloat64Gauge$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> enabled($context.Context ctx) async {
     final $r = await $call(
-        19277,
+        19279,
         $W()
           ..h(this)
           ..h(ctx));
@@ -155,7 +155,7 @@ mixin OtelMetricFloat64Gauge$ on GoHandle {
   Future<void> record($context.Context ctx, double value,
       [List<OtelMetricRecordOption> options = const []]) async {
     await $call(
-        19278,
+        19280,
         $W()
           ..h(this)
           ..h(ctx)
@@ -177,19 +177,19 @@ class OtelMetricFloat64GaugeConfig extends GoHandle {
   /// Go: `func metric.NewFloat64GaugeConfig(opts ...metric.Float64GaugeOption) metric.Float64GaugeConfig`.
   factory OtelMetricFloat64GaugeConfig(
       [List<OtelMetricFloat64GaugeOption> opts = const []]) {
-    final $r = $callSync(19348, $W()..list(opts, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(19350, $W()..list(opts, (w0, e0) => w0.h(e0)));
     return $r.hnn(OtelMetricFloat64GaugeConfig.$h);
   }
 
   /// Go: `func (metric.Float64GaugeConfig).Description() string`.
   String description() {
-    final $r = $callSync(19279, $W()..h(this));
+    final $r = $callSync(19281, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (metric.Float64GaugeConfig).Unit() string`.
   String unit() {
-    final $r = $callSync(19280, $W()..h(this));
+    final $r = $callSync(19282, $W()..h(this));
     return $r.str();
   }
 }
@@ -222,7 +222,7 @@ mixin OtelMetricFloat64Histogram$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> enabled($context.Context ctx) async {
     final $r = await $call(
-        19281,
+        19283,
         $W()
           ..h(this)
           ..h(ctx));
@@ -235,7 +235,7 @@ mixin OtelMetricFloat64Histogram$ on GoHandle {
   Future<void> record($context.Context ctx, double incr,
       [List<OtelMetricRecordOption> options = const []]) async {
     await $call(
-        19282,
+        19284,
         $W()
           ..h(this)
           ..h(ctx)
@@ -257,25 +257,25 @@ class OtelMetricFloat64HistogramConfig extends GoHandle {
   /// Go: `func metric.NewFloat64HistogramConfig(opts ...metric.Float64HistogramOption) metric.Float64HistogramConfig`.
   factory OtelMetricFloat64HistogramConfig(
       [List<OtelMetricFloat64HistogramOption> opts = const []]) {
-    final $r = $callSync(19349, $W()..list(opts, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(19351, $W()..list(opts, (w0, e0) => w0.h(e0)));
     return $r.hnn(OtelMetricFloat64HistogramConfig.$h);
   }
 
   /// Go: `func (metric.Float64HistogramConfig).Description() string`.
   String description() {
-    final $r = $callSync(19283, $W()..h(this));
+    final $r = $callSync(19285, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (metric.Float64HistogramConfig).ExplicitBucketBoundaries() []float64`.
   List<double> explicitBucketBoundaries() {
-    final $r = $callSync(19284, $W()..h(this));
+    final $r = $callSync(19286, $W()..h(this));
     return $r.list(() => $r.f64());
   }
 
   /// Go: `func (metric.Float64HistogramConfig).Unit() string`.
   String unit() {
-    final $r = $callSync(19285, $W()..h(this));
+    final $r = $callSync(19287, $W()..h(this));
     return $r.str();
   }
 }
@@ -345,25 +345,25 @@ class OtelMetricFloat64ObservableCounterConfig extends GoHandle {
   /// Go: `func metric.NewFloat64ObservableCounterConfig(opts ...metric.Float64ObservableCounterOption) metric.Float64ObservableCounterConfig`.
   factory OtelMetricFloat64ObservableCounterConfig(
       [List<OtelMetricFloat64ObservableCounterOption> opts = const []]) {
-    final $r = $callSync(19350, $W()..list(opts, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(19352, $W()..list(opts, (w0, e0) => w0.h(e0)));
     return $r.hnn(OtelMetricFloat64ObservableCounterConfig.$h);
   }
 
   /// Go: `func (metric.Float64ObservableCounterConfig).Callbacks() []metric.Float64Callback`.
   List<OtelMetricFloat64Callback> callbacks() {
-    final $r = $callSync(19286, $W()..h(this));
+    final $r = $callSync(19288, $W()..h(this));
     return $r.list(() => $r.hnn(OtelMetricFloat64Callback.$h));
   }
 
   /// Go: `func (metric.Float64ObservableCounterConfig).Description() string`.
   String description() {
-    final $r = $callSync(19287, $W()..h(this));
+    final $r = $callSync(19289, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (metric.Float64ObservableCounterConfig).Unit() string`.
   String unit() {
-    final $r = $callSync(19288, $W()..h(this));
+    final $r = $callSync(19290, $W()..h(this));
     return $r.str();
   }
 }
@@ -405,25 +405,25 @@ class OtelMetricFloat64ObservableGaugeConfig extends GoHandle {
   /// Go: `func metric.NewFloat64ObservableGaugeConfig(opts ...metric.Float64ObservableGaugeOption) metric.Float64ObservableGaugeConfig`.
   factory OtelMetricFloat64ObservableGaugeConfig(
       [List<OtelMetricFloat64ObservableGaugeOption> opts = const []]) {
-    final $r = $callSync(19351, $W()..list(opts, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(19353, $W()..list(opts, (w0, e0) => w0.h(e0)));
     return $r.hnn(OtelMetricFloat64ObservableGaugeConfig.$h);
   }
 
   /// Go: `func (metric.Float64ObservableGaugeConfig).Callbacks() []metric.Float64Callback`.
   List<OtelMetricFloat64Callback> callbacks() {
-    final $r = $callSync(19289, $W()..h(this));
+    final $r = $callSync(19291, $W()..h(this));
     return $r.list(() => $r.hnn(OtelMetricFloat64Callback.$h));
   }
 
   /// Go: `func (metric.Float64ObservableGaugeConfig).Description() string`.
   String description() {
-    final $r = $callSync(19290, $W()..h(this));
+    final $r = $callSync(19292, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (metric.Float64ObservableGaugeConfig).Unit() string`.
   String unit() {
-    final $r = $callSync(19291, $W()..h(this));
+    final $r = $callSync(19293, $W()..h(this));
     return $r.str();
   }
 }
@@ -476,25 +476,25 @@ class OtelMetricFloat64ObservableUpDownCounterConfig extends GoHandle {
   /// Go: `func metric.NewFloat64ObservableUpDownCounterConfig(opts ...metric.Float64ObservableUpDownCounterOption) metric.Float64ObservableUpDownCounterConfig`.
   factory OtelMetricFloat64ObservableUpDownCounterConfig(
       [List<OtelMetricFloat64ObservableUpDownCounterOption> opts = const []]) {
-    final $r = $callSync(19352, $W()..list(opts, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(19354, $W()..list(opts, (w0, e0) => w0.h(e0)));
     return $r.hnn(OtelMetricFloat64ObservableUpDownCounterConfig.$h);
   }
 
   /// Go: `func (metric.Float64ObservableUpDownCounterConfig).Callbacks() []metric.Float64Callback`.
   List<OtelMetricFloat64Callback> callbacks() {
-    final $r = $callSync(19292, $W()..h(this));
+    final $r = $callSync(19294, $W()..h(this));
     return $r.list(() => $r.hnn(OtelMetricFloat64Callback.$h));
   }
 
   /// Go: `func (metric.Float64ObservableUpDownCounterConfig).Description() string`.
   String description() {
-    final $r = $callSync(19293, $W()..h(this));
+    final $r = $callSync(19295, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (metric.Float64ObservableUpDownCounterConfig).Unit() string`.
   String unit() {
-    final $r = $callSync(19294, $W()..h(this));
+    final $r = $callSync(19296, $W()..h(this));
     return $r.str();
   }
 }
@@ -532,7 +532,7 @@ mixin OtelMetricFloat64Observer$ on GoHandle {
   void observe(double value,
       [List<OtelMetricObserveOption> options = const []]) {
     $callSync(
-        19295,
+        19297,
         $W()
           ..h(this)
           ..f64(value)
@@ -561,7 +561,7 @@ mixin OtelMetricFloat64UpDownCounter$ on GoHandle {
   Future<void> add($context.Context ctx, double incr,
       [List<OtelMetricAddOption> options = const []]) async {
     await $call(
-        19296,
+        19298,
         $W()
           ..h(this)
           ..h(ctx)
@@ -574,7 +574,7 @@ mixin OtelMetricFloat64UpDownCounter$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> enabled($context.Context ctx) async {
     final $r = await $call(
-        19297,
+        19299,
         $W()
           ..h(this)
           ..h(ctx));
@@ -596,19 +596,19 @@ class OtelMetricFloat64UpDownCounterConfig extends GoHandle {
   /// Go: `func metric.NewFloat64UpDownCounterConfig(opts ...metric.Float64UpDownCounterOption) metric.Float64UpDownCounterConfig`.
   factory OtelMetricFloat64UpDownCounterConfig(
       [List<OtelMetricFloat64UpDownCounterOption> opts = const []]) {
-    final $r = $callSync(19353, $W()..list(opts, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(19355, $W()..list(opts, (w0, e0) => w0.h(e0)));
     return $r.hnn(OtelMetricFloat64UpDownCounterConfig.$h);
   }
 
   /// Go: `func (metric.Float64UpDownCounterConfig).Description() string`.
   String description() {
-    final $r = $callSync(19298, $W()..h(this));
+    final $r = $callSync(19300, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (metric.Float64UpDownCounterConfig).Unit() string`.
   String unit() {
-    final $r = $callSync(19299, $W()..h(this));
+    final $r = $callSync(19301, $W()..h(this));
     return $r.str();
   }
 }
@@ -665,7 +665,7 @@ mixin OtelMetricInt64Counter$ on GoHandle {
   Future<void> add($context.Context ctx, int incr,
       [List<OtelMetricAddOption> options = const []]) async {
     await $call(
-        19300,
+        19302,
         $W()
           ..h(this)
           ..h(ctx)
@@ -678,7 +678,7 @@ mixin OtelMetricInt64Counter$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> enabled($context.Context ctx) async {
     final $r = await $call(
-        19301,
+        19303,
         $W()
           ..h(this)
           ..h(ctx));
@@ -699,19 +699,19 @@ class OtelMetricInt64CounterConfig extends GoHandle {
   /// Go: `func metric.NewInt64CounterConfig(opts ...metric.Int64CounterOption) metric.Int64CounterConfig`.
   factory OtelMetricInt64CounterConfig(
       [List<OtelMetricInt64CounterOption> opts = const []]) {
-    final $r = $callSync(19354, $W()..list(opts, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(19356, $W()..list(opts, (w0, e0) => w0.h(e0)));
     return $r.hnn(OtelMetricInt64CounterConfig.$h);
   }
 
   /// Go: `func (metric.Int64CounterConfig).Description() string`.
   String description() {
-    final $r = $callSync(19302, $W()..h(this));
+    final $r = $callSync(19304, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (metric.Int64CounterConfig).Unit() string`.
   String unit() {
-    final $r = $callSync(19303, $W()..h(this));
+    final $r = $callSync(19305, $W()..h(this));
     return $r.str();
   }
 }
@@ -744,7 +744,7 @@ mixin OtelMetricInt64Gauge$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> enabled($context.Context ctx) async {
     final $r = await $call(
-        19304,
+        19306,
         $W()
           ..h(this)
           ..h(ctx));
@@ -757,7 +757,7 @@ mixin OtelMetricInt64Gauge$ on GoHandle {
   Future<void> record($context.Context ctx, int value,
       [List<OtelMetricRecordOption> options = const []]) async {
     await $call(
-        19305,
+        19307,
         $W()
           ..h(this)
           ..h(ctx)
@@ -779,19 +779,19 @@ class OtelMetricInt64GaugeConfig extends GoHandle {
   /// Go: `func metric.NewInt64GaugeConfig(opts ...metric.Int64GaugeOption) metric.Int64GaugeConfig`.
   factory OtelMetricInt64GaugeConfig(
       [List<OtelMetricInt64GaugeOption> opts = const []]) {
-    final $r = $callSync(19355, $W()..list(opts, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(19357, $W()..list(opts, (w0, e0) => w0.h(e0)));
     return $r.hnn(OtelMetricInt64GaugeConfig.$h);
   }
 
   /// Go: `func (metric.Int64GaugeConfig).Description() string`.
   String description() {
-    final $r = $callSync(19306, $W()..h(this));
+    final $r = $callSync(19308, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (metric.Int64GaugeConfig).Unit() string`.
   String unit() {
-    final $r = $callSync(19307, $W()..h(this));
+    final $r = $callSync(19309, $W()..h(this));
     return $r.str();
   }
 }
@@ -824,7 +824,7 @@ mixin OtelMetricInt64Histogram$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> enabled($context.Context ctx) async {
     final $r = await $call(
-        19308,
+        19310,
         $W()
           ..h(this)
           ..h(ctx));
@@ -837,7 +837,7 @@ mixin OtelMetricInt64Histogram$ on GoHandle {
   Future<void> record($context.Context ctx, int incr,
       [List<OtelMetricRecordOption> options = const []]) async {
     await $call(
-        19309,
+        19311,
         $W()
           ..h(this)
           ..h(ctx)
@@ -859,25 +859,25 @@ class OtelMetricInt64HistogramConfig extends GoHandle {
   /// Go: `func metric.NewInt64HistogramConfig(opts ...metric.Int64HistogramOption) metric.Int64HistogramConfig`.
   factory OtelMetricInt64HistogramConfig(
       [List<OtelMetricInt64HistogramOption> opts = const []]) {
-    final $r = $callSync(19356, $W()..list(opts, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(19358, $W()..list(opts, (w0, e0) => w0.h(e0)));
     return $r.hnn(OtelMetricInt64HistogramConfig.$h);
   }
 
   /// Go: `func (metric.Int64HistogramConfig).Description() string`.
   String description() {
-    final $r = $callSync(19310, $W()..h(this));
+    final $r = $callSync(19312, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (metric.Int64HistogramConfig).ExplicitBucketBoundaries() []float64`.
   List<double> explicitBucketBoundaries() {
-    final $r = $callSync(19311, $W()..h(this));
+    final $r = $callSync(19313, $W()..h(this));
     return $r.list(() => $r.f64());
   }
 
   /// Go: `func (metric.Int64HistogramConfig).Unit() string`.
   String unit() {
-    final $r = $callSync(19312, $W()..h(this));
+    final $r = $callSync(19314, $W()..h(this));
     return $r.str();
   }
 }
@@ -1147,25 +1147,25 @@ class OtelMetricInt64ObservableCounterConfig extends GoHandle {
   /// Go: `func metric.NewInt64ObservableCounterConfig(opts ...metric.Int64ObservableCounterOption) metric.Int64ObservableCounterConfig`.
   factory OtelMetricInt64ObservableCounterConfig(
       [List<OtelMetricInt64ObservableCounterOption> opts = const []]) {
-    final $r = $callSync(19357, $W()..list(opts, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(19359, $W()..list(opts, (w0, e0) => w0.h(e0)));
     return $r.hnn(OtelMetricInt64ObservableCounterConfig.$h);
   }
 
   /// Go: `func (metric.Int64ObservableCounterConfig).Callbacks() []metric.Int64Callback`.
   List<OtelMetricInt64Callback> callbacks() {
-    final $r = $callSync(19313, $W()..h(this));
+    final $r = $callSync(19315, $W()..h(this));
     return $r.list(() => $r.hnn(OtelMetricInt64Callback.$h));
   }
 
   /// Go: `func (metric.Int64ObservableCounterConfig).Description() string`.
   String description() {
-    final $r = $callSync(19314, $W()..h(this));
+    final $r = $callSync(19316, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (metric.Int64ObservableCounterConfig).Unit() string`.
   String unit() {
-    final $r = $callSync(19315, $W()..h(this));
+    final $r = $callSync(19317, $W()..h(this));
     return $r.str();
   }
 }
@@ -1207,25 +1207,25 @@ class OtelMetricInt64ObservableGaugeConfig extends GoHandle {
   /// Go: `func metric.NewInt64ObservableGaugeConfig(opts ...metric.Int64ObservableGaugeOption) metric.Int64ObservableGaugeConfig`.
   factory OtelMetricInt64ObservableGaugeConfig(
       [List<OtelMetricInt64ObservableGaugeOption> opts = const []]) {
-    final $r = $callSync(19358, $W()..list(opts, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(19360, $W()..list(opts, (w0, e0) => w0.h(e0)));
     return $r.hnn(OtelMetricInt64ObservableGaugeConfig.$h);
   }
 
   /// Go: `func (metric.Int64ObservableGaugeConfig).Callbacks() []metric.Int64Callback`.
   List<OtelMetricInt64Callback> callbacks() {
-    final $r = $callSync(19316, $W()..h(this));
+    final $r = $callSync(19318, $W()..h(this));
     return $r.list(() => $r.hnn(OtelMetricInt64Callback.$h));
   }
 
   /// Go: `func (metric.Int64ObservableGaugeConfig).Description() string`.
   String description() {
-    final $r = $callSync(19317, $W()..h(this));
+    final $r = $callSync(19319, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (metric.Int64ObservableGaugeConfig).Unit() string`.
   String unit() {
-    final $r = $callSync(19318, $W()..h(this));
+    final $r = $callSync(19320, $W()..h(this));
     return $r.str();
   }
 }
@@ -1365,25 +1365,25 @@ class OtelMetricInt64ObservableUpDownCounterConfig extends GoHandle {
   /// Go: `func metric.NewInt64ObservableUpDownCounterConfig(opts ...metric.Int64ObservableUpDownCounterOption) metric.Int64ObservableUpDownCounterConfig`.
   factory OtelMetricInt64ObservableUpDownCounterConfig(
       [List<OtelMetricInt64ObservableUpDownCounterOption> opts = const []]) {
-    final $r = $callSync(19359, $W()..list(opts, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(19361, $W()..list(opts, (w0, e0) => w0.h(e0)));
     return $r.hnn(OtelMetricInt64ObservableUpDownCounterConfig.$h);
   }
 
   /// Go: `func (metric.Int64ObservableUpDownCounterConfig).Callbacks() []metric.Int64Callback`.
   List<OtelMetricInt64Callback> callbacks() {
-    final $r = $callSync(19319, $W()..h(this));
+    final $r = $callSync(19321, $W()..h(this));
     return $r.list(() => $r.hnn(OtelMetricInt64Callback.$h));
   }
 
   /// Go: `func (metric.Int64ObservableUpDownCounterConfig).Description() string`.
   String description() {
-    final $r = $callSync(19320, $W()..h(this));
+    final $r = $callSync(19322, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (metric.Int64ObservableUpDownCounterConfig).Unit() string`.
   String unit() {
-    final $r = $callSync(19321, $W()..h(this));
+    final $r = $callSync(19323, $W()..h(this));
     return $r.str();
   }
 }
@@ -1420,7 +1420,7 @@ mixin OtelMetricInt64Observer$ on GoHandle {
   /// Go: `func (metric.Int64Observer).Observe(value int64, options ...metric.ObserveOption)`.
   void observe(int value, [List<OtelMetricObserveOption> options = const []]) {
     $callSync(
-        19322,
+        19324,
         $W()
           ..h(this)
           ..i64(value)
@@ -1448,7 +1448,7 @@ mixin OtelMetricInt64UpDownCounter$ on GoHandle {
   Future<void> add($context.Context ctx, int incr,
       [List<OtelMetricAddOption> options = const []]) async {
     await $call(
-        19323,
+        19325,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1461,7 +1461,7 @@ mixin OtelMetricInt64UpDownCounter$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> enabled($context.Context ctx) async {
     final $r = await $call(
-        19324,
+        19326,
         $W()
           ..h(this)
           ..h(ctx));
@@ -1482,19 +1482,19 @@ class OtelMetricInt64UpDownCounterConfig extends GoHandle {
   /// Go: `func metric.NewInt64UpDownCounterConfig(opts ...metric.Int64UpDownCounterOption) metric.Int64UpDownCounterConfig`.
   factory OtelMetricInt64UpDownCounterConfig(
       [List<OtelMetricInt64UpDownCounterOption> opts = const []]) {
-    final $r = $callSync(19360, $W()..list(opts, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(19362, $W()..list(opts, (w0, e0) => w0.h(e0)));
     return $r.hnn(OtelMetricInt64UpDownCounterConfig.$h);
   }
 
   /// Go: `func (metric.Int64UpDownCounterConfig).Description() string`.
   String description() {
-    final $r = $callSync(19325, $W()..h(this));
+    final $r = $callSync(19327, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (metric.Int64UpDownCounterConfig).Unit() string`.
   String unit() {
-    final $r = $callSync(19326, $W()..h(this));
+    final $r = $callSync(19328, $W()..h(this));
     return $r.str();
   }
 }
@@ -1535,7 +1535,7 @@ mixin OtelMetricMeter$ on GoHandle {
   OtelMetricFloat64Counter float64Counter(String name,
       [List<OtelMetricFloat64CounterOption> options = const []]) {
     final $r = $callSync(
-        19327,
+        19329,
         $W()
           ..h(this)
           ..str(name)
@@ -1547,7 +1547,7 @@ mixin OtelMetricMeter$ on GoHandle {
   OtelMetricFloat64Gauge float64Gauge(String name,
       [List<OtelMetricFloat64GaugeOption> options = const []]) {
     final $r = $callSync(
-        19328,
+        19330,
         $W()
           ..h(this)
           ..str(name)
@@ -1559,7 +1559,7 @@ mixin OtelMetricMeter$ on GoHandle {
   OtelMetricFloat64Histogram float64Histogram(String name,
       [List<OtelMetricFloat64HistogramOption> options = const []]) {
     final $r = $callSync(
-        19329,
+        19331,
         $W()
           ..h(this)
           ..str(name)
@@ -1571,7 +1571,7 @@ mixin OtelMetricMeter$ on GoHandle {
   OtelMetricFloat64ObservableCounter float64ObservableCounter(String name,
       [List<OtelMetricFloat64ObservableCounterOption> options = const []]) {
     final $r = $callSync(
-        19330,
+        19332,
         $W()
           ..h(this)
           ..str(name)
@@ -1583,7 +1583,7 @@ mixin OtelMetricMeter$ on GoHandle {
   OtelMetricFloat64ObservableGauge float64ObservableGauge(String name,
       [List<OtelMetricFloat64ObservableGaugeOption> options = const []]) {
     final $r = $callSync(
-        19331,
+        19333,
         $W()
           ..h(this)
           ..str(name)
@@ -1597,7 +1597,7 @@ mixin OtelMetricMeter$ on GoHandle {
       [List<OtelMetricFloat64ObservableUpDownCounterOption> options =
           const []]) {
     final $r = $callSync(
-        19332,
+        19334,
         $W()
           ..h(this)
           ..str(name)
@@ -1609,7 +1609,7 @@ mixin OtelMetricMeter$ on GoHandle {
   OtelMetricFloat64UpDownCounter float64UpDownCounter(String name,
       [List<OtelMetricFloat64UpDownCounterOption> options = const []]) {
     final $r = $callSync(
-        19333,
+        19335,
         $W()
           ..h(this)
           ..str(name)
@@ -1621,7 +1621,7 @@ mixin OtelMetricMeter$ on GoHandle {
   OtelMetricInt64Counter int64Counter(String name,
       [List<OtelMetricInt64CounterOption> options = const []]) {
     final $r = $callSync(
-        19334,
+        19336,
         $W()
           ..h(this)
           ..str(name)
@@ -1633,7 +1633,7 @@ mixin OtelMetricMeter$ on GoHandle {
   OtelMetricInt64Gauge int64Gauge(String name,
       [List<OtelMetricInt64GaugeOption> options = const []]) {
     final $r = $callSync(
-        19335,
+        19337,
         $W()
           ..h(this)
           ..str(name)
@@ -1645,7 +1645,7 @@ mixin OtelMetricMeter$ on GoHandle {
   OtelMetricInt64Histogram int64Histogram(String name,
       [List<OtelMetricInt64HistogramOption> options = const []]) {
     final $r = $callSync(
-        19336,
+        19338,
         $W()
           ..h(this)
           ..str(name)
@@ -1657,7 +1657,7 @@ mixin OtelMetricMeter$ on GoHandle {
   OtelMetricInt64ObservableCounter int64ObservableCounter(String name,
       [List<OtelMetricInt64ObservableCounterOption> options = const []]) {
     final $r = $callSync(
-        19337,
+        19339,
         $W()
           ..h(this)
           ..str(name)
@@ -1669,7 +1669,7 @@ mixin OtelMetricMeter$ on GoHandle {
   OtelMetricInt64ObservableGauge int64ObservableGauge(String name,
       [List<OtelMetricInt64ObservableGaugeOption> options = const []]) {
     final $r = $callSync(
-        19338,
+        19340,
         $W()
           ..h(this)
           ..str(name)
@@ -1682,7 +1682,7 @@ mixin OtelMetricMeter$ on GoHandle {
       String name,
       [List<OtelMetricInt64ObservableUpDownCounterOption> options = const []]) {
     final $r = $callSync(
-        19339,
+        19341,
         $W()
           ..h(this)
           ..str(name)
@@ -1694,7 +1694,7 @@ mixin OtelMetricMeter$ on GoHandle {
   OtelMetricInt64UpDownCounter int64UpDownCounter(String name,
       [List<OtelMetricInt64UpDownCounterOption> options = const []]) {
     final $r = $callSync(
-        19340,
+        19342,
         $W()
           ..h(this)
           ..str(name)
@@ -1714,7 +1714,7 @@ mixin OtelMetricMeter$ on GoHandle {
           f,
       [List<OtelMetricObservable> instruments = const []]) async {
     final $r = await $call(
-        19341,
+        19343,
         $W()
           ..h(this)
           ..cb(
@@ -1738,25 +1738,25 @@ class OtelMetricMeterConfig extends GoHandle {
 
   /// Go: `func metric.NewMeterConfig(opts ...metric.MeterOption) metric.MeterConfig`.
   factory OtelMetricMeterConfig([List<OtelMetricMeterOption> opts = const []]) {
-    final $r = $callSync(19361, $W()..list(opts, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(19363, $W()..list(opts, (w0, e0) => w0.h(e0)));
     return $r.hnn(OtelMetricMeterConfig.$h);
   }
 
   /// Go: `func (metric.MeterConfig).InstrumentationAttributes() attribute.Set`.
   $attribute.OtelAttributeSet instrumentationAttributes() {
-    final $r = $callSync(19342, $W()..h(this));
+    final $r = $callSync(19344, $W()..h(this));
     return $r.hnn($attribute.OtelAttributeSet.$h);
   }
 
   /// Go: `func (metric.MeterConfig).InstrumentationVersion() string`.
   String instrumentationVersion() {
-    final $r = $callSync(19343, $W()..h(this));
+    final $r = $callSync(19345, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (metric.MeterConfig).SchemaURL() string`.
   String schemaUrl() {
-    final $r = $callSync(19344, $W()..h(this));
+    final $r = $callSync(19346, $W()..h(this));
     return $r.str();
   }
 }
@@ -1781,7 +1781,7 @@ mixin OtelMetricMeterProvider$ on GoHandle {
   OtelMetricMeter meter(String name,
       [List<OtelMetricMeterOption> opts = const []]) {
     final $r = $callSync(
-        19345,
+        19347,
         $W()
           ..h(this)
           ..str(name)
@@ -2004,13 +2004,13 @@ class OtelMetricObserveConfig extends GoHandle {
 
   /// Go: `func metric.NewObserveConfig(opts []metric.ObserveOption) metric.ObserveConfig`.
   factory OtelMetricObserveConfig(List<OtelMetricObserveOption> opts) {
-    final $r = $callSync(19362, $W()..list(opts, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(19364, $W()..list(opts, (w0, e0) => w0.h(e0)));
     return $r.hnn(OtelMetricObserveConfig.$h);
   }
 
   /// Go: `func (metric.ObserveConfig).Attributes() attribute.Set`.
   $attribute.OtelAttributeSet attributes() {
-    final $r = $callSync(19364, $W()..h(this));
+    final $r = $callSync(19366, $W()..h(this));
     return $r.hnn($attribute.OtelAttributeSet.$h);
   }
 }
@@ -2041,7 +2041,7 @@ mixin OtelMetricObserver$ on GoHandle {
   void observeFloat64(OtelMetricFloat64Observable obsrv, double value,
       [List<OtelMetricObserveOption> opts = const []]) {
     $callSync(
-        19365,
+        19367,
         $W()
           ..h(this)
           ..h(obsrv)
@@ -2053,7 +2053,7 @@ mixin OtelMetricObserver$ on GoHandle {
   void observeInt64(OtelMetricInt64Observable obsrv, int value,
       [List<OtelMetricObserveOption> opts = const []]) {
     $callSync(
-        19366,
+        19368,
         $W()
           ..h(this)
           ..h(obsrv)
@@ -2074,13 +2074,13 @@ class OtelMetricRecordConfig extends GoHandle {
 
   /// Go: `func metric.NewRecordConfig(opts []metric.RecordOption) metric.RecordConfig`.
   factory OtelMetricRecordConfig(List<OtelMetricRecordOption> opts) {
-    final $r = $callSync(19363, $W()..list(opts, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(19365, $W()..list(opts, (w0, e0) => w0.h(e0)));
     return $r.hnn(OtelMetricRecordConfig.$h);
   }
 
   /// Go: `func (metric.RecordConfig).Attributes() attribute.Set`.
   $attribute.OtelAttributeSet attributes() {
-    final $r = $callSync(19367, $W()..h(this));
+    final $r = $callSync(19369, $W()..h(this));
     return $r.hnn($attribute.OtelAttributeSet.$h);
   }
 }
@@ -2109,7 +2109,7 @@ class OtelMetricRegistration extends $embedded.OtelMetricEmbeddedRegistration
 mixin OtelMetricRegistration$ on GoHandle {
   /// Go: `func (metric.Registration).Unregister() error`.
   void unregister() {
-    $callSync(19368, $W()..h(this));
+    $callSync(19370, $W()..h(this));
   }
 
   /// Go: type assertion `x.(*noop.Registration)`: null if the object is not one.
@@ -2124,27 +2124,27 @@ extension GoOtelMetricOptionsApi on GoOtelMetricOptions {
   /// Go: `func metric.WithAttributeSet(attributes attribute.Set) metric.MeasurementOption`.
   OtelMetricMeasurementOption withAttributeSet(
       $attribute.OtelAttributeSet attributes) {
-    final $r = $callSync(19369, $W()..h(attributes));
+    final $r = $callSync(19371, $W()..h(attributes));
     return $r.hnn(OtelMetricMeasurementOption.$h);
   }
 
   /// Go: `func metric.WithAttributes(attributes ...attribute.KeyValue) metric.MeasurementOption`.
   OtelMetricMeasurementOption withAttributes(
       [List<$attribute.OtelAttributeKeyValue> attributes = const []]) {
-    final $r = $callSync(19370, $W()..list(attributes, (w0, e0) => w0.dto(e0)));
+    final $r = $callSync(19372, $W()..list(attributes, (w0, e0) => w0.dto(e0)));
     return $r.hnn(OtelMetricMeasurementOption.$h);
   }
 
   /// Go: `func metric.WithDescription(desc string) metric.InstrumentOption`.
   OtelMetricInstrumentOption withDescription(String desc) {
-    final $r = $callSync(19371, $W()..str(desc));
+    final $r = $callSync(19373, $W()..str(desc));
     return $r.hnn(OtelMetricInstrumentOption.$h);
   }
 
   /// Go: `func metric.WithExplicitBucketBoundaries(bounds ...float64) metric.HistogramOption`.
   OtelMetricHistogramOption withExplicitBucketBoundaries(
       [List<double> bounds = const []]) {
-    final $r = $callSync(19372, $W()..list(bounds, (w0, e0) => w0.f64(e0)));
+    final $r = $callSync(19374, $W()..list(bounds, (w0, e0) => w0.f64(e0)));
     return $r.hnn(OtelMetricHistogramOption.$h);
   }
 
@@ -2160,7 +2160,7 @@ extension GoOtelMetricOptionsApi on GoOtelMetricOptions {
               $context.Context ctx, OtelMetricFloat64Observer float64Observer)
           callback) async {
     final $r = await $call(
-        19373,
+        19375,
         $W()
           ..cb(
               (r) => callback(r.hnn($context.Context.$h),
@@ -2172,20 +2172,20 @@ extension GoOtelMetricOptionsApi on GoOtelMetricOptions {
   /// Go: `func metric.WithInstrumentationAttributeSet(set attribute.Set) metric.MeterOption`.
   OtelMetricMeterOption withInstrumentationAttributeSet(
       $attribute.OtelAttributeSet set) {
-    final $r = $callSync(19374, $W()..h(set));
+    final $r = $callSync(19376, $W()..h(set));
     return $r.hnn(OtelMetricMeterOption.$h);
   }
 
   /// Go: `func metric.WithInstrumentationAttributes(attr ...attribute.KeyValue) metric.MeterOption`.
   OtelMetricMeterOption withInstrumentationAttributes(
       [List<$attribute.OtelAttributeKeyValue> attr = const []]) {
-    final $r = $callSync(19375, $W()..list(attr, (w0, e0) => w0.dto(e0)));
+    final $r = $callSync(19377, $W()..list(attr, (w0, e0) => w0.dto(e0)));
     return $r.hnn(OtelMetricMeterOption.$h);
   }
 
   /// Go: `func metric.WithInstrumentationVersion(version string) metric.MeterOption`.
   OtelMetricMeterOption withInstrumentationVersion(String version) {
-    final $r = $callSync(19376, $W()..str(version));
+    final $r = $callSync(19378, $W()..str(version));
     return $r.hnn(OtelMetricMeterOption.$h);
   }
 
@@ -2201,7 +2201,7 @@ extension GoOtelMetricOptionsApi on GoOtelMetricOptions {
               $context.Context ctx, OtelMetricInt64Observer int64Observer)
           callback) async {
     final $r = await $call(
-        19377,
+        19379,
         $W()
           ..cb(
               (r) => callback(r.hnn($context.Context.$h),
@@ -2212,13 +2212,13 @@ extension GoOtelMetricOptionsApi on GoOtelMetricOptions {
 
   /// Go: `func metric.WithSchemaURL(schemaURL string) metric.MeterOption`.
   OtelMetricMeterOption withSchemaUrl(String schemaUrl) {
-    final $r = $callSync(19378, $W()..str(schemaUrl));
+    final $r = $callSync(19380, $W()..str(schemaUrl));
     return $r.hnn(OtelMetricMeterOption.$h);
   }
 
   /// Go: `func metric.WithUnit(u string) metric.InstrumentOption`.
   OtelMetricInstrumentOption withUnit(String u) {
-    final $r = $callSync(19379, $W()..str(u));
+    final $r = $callSync(19381, $W()..str(u));
     return $r.hnn(OtelMetricInstrumentOption.$h);
   }
 }

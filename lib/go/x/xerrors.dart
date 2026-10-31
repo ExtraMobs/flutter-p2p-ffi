@@ -16,7 +16,7 @@ mixin XerrorsFormatter$ on GoHandle {
   /// Go: `func (xerrors.Formatter).FormatError(p xerrors.Printer) (next error)`.
   void formatError(XerrorsPrinter p) {
     $callSync(
-        24088,
+        24090,
         $W()
           ..h(this)
           ..h(p));
@@ -30,7 +30,7 @@ class XerrorsFrame extends GoHandle {
   /// Go: `func (xerrors.Frame).Format(p xerrors.Printer)`.
   void format(XerrorsPrinter p) {
     $callSync(
-        24089,
+        24091,
         $W()
           ..h(this)
           ..h(p));
@@ -46,14 +46,14 @@ class XerrorsPrinter extends GoHandle with XerrorsPrinter$ {
 mixin XerrorsPrinter$ on GoHandle {
   /// Go: `func (xerrors.Printer).Detail() bool`.
   bool detail() {
-    final $r = $callSync(24091, $W()..h(this));
+    final $r = $callSync(24093, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (xerrors.Printer).Print(args ...any)`.
   void print([List<Object?> args = const []]) {
     $callSync(
-        24092,
+        24094,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -62,7 +62,7 @@ mixin XerrorsPrinter$ on GoHandle {
   /// Go: `func (xerrors.Printer).Printf(format string, args ...any)`.
   void printf(String format, [List<Object?> args = const []]) {
     $callSync(
-        24093,
+        24095,
         $W()
           ..h(this)
           ..str(format)
@@ -74,14 +74,14 @@ mixin XerrorsPrinter$ on GoHandle {
 extension GoXXerrorsApi on GoXXerrors {
   /// Go: `func xerrors.Caller(skip int) xerrors.Frame`.
   XerrorsFrame caller(int skip) {
-    final $r = $callSync(24085, $W()..i64(skip));
+    final $r = $callSync(24087, $W()..i64(skip));
     return $r.hnn(XerrorsFrame.$h);
   }
 
   /// Go: `func xerrors.Errorf(format string, a ...any) error`.
   void errorf(String format, [List<Object?> a = const []]) {
     $callSync(
-        24086,
+        24088,
         $W()
           ..str(format)
           ..list(a, (w0, e0) => w0.any(e0)));
@@ -90,7 +90,7 @@ extension GoXXerrorsApi on GoXXerrors {
   /// Go: `func xerrors.FormatError(f xerrors.Formatter, s fmt.State, verb rune)`.
   void formatError(XerrorsFormatter f, $fmt.FmtState s, int verb) {
     $callSync(
-        24087,
+        24089,
         $W()
           ..h(f)
           ..h(s)
@@ -99,6 +99,6 @@ extension GoXXerrorsApi on GoXXerrors {
 
   /// Go: `func xerrors.New(text string) error`.
   void new$(String text) {
-    $callSync(24090, $W()..str(text));
+    $callSync(24092, $W()..str(text));
   }
 }

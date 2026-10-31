@@ -14,14 +14,14 @@ class FlowMetricsMeter extends GoHandle {
 
   /// Go: `func flow.NewMeter() *flow.Meter`.
   factory FlowMetricsMeter() {
-    final $r = $callSync(12906);
+    final $r = $callSync(12908);
     return $r.hnn(FlowMetricsMeter.$h);
   }
 
   /// Go: `func (*flow.Meter).Mark(count uint64)`.
   void mark(int count) {
     $callSync(
-        12896,
+        12898,
         $W()
           ..h(this)
           ..i64(count));
@@ -29,18 +29,18 @@ class FlowMetricsMeter extends GoHandle {
 
   /// Go: `func (*flow.Meter).Reset()`.
   void reset() {
-    $callSync(12897, $W()..h(this));
+    $callSync(12899, $W()..h(this));
   }
 
   /// Go: `func (*flow.Meter).Snapshot() flow.Snapshot`.
   FlowMetricsSnapshot snapshot() {
-    final $r = $callSync(12898, $W()..h(this));
+    final $r = $callSync(12900, $W()..h(this));
     return $r.p() ? FlowMetricsSnapshot.$dec($r) : $nil();
   }
 
   /// Go: `func (*flow.Meter).String() string`.
   String string() {
-    final $r = $callSync(12899, $W()..h(this));
+    final $r = $callSync(12901, $W()..h(this));
     return $r.str();
   }
 }
@@ -51,13 +51,13 @@ class FlowMetricsMeterRegistry extends GoHandle {
 
   /// Go: `func (*flow.MeterRegistry).Clear()`.
   void clear() {
-    $callSync(12900, $W()..h(this));
+    $callSync(12902, $W()..h(this));
   }
 
   /// Go: `func (*flow.MeterRegistry).FindIdle(since time.Time) []string`.
   List<String> findIdle(DateTime since) {
     final $r = $callSync(
-        12901,
+        12903,
         $W()
           ..h(this)
           ..time(since));
@@ -75,7 +75,7 @@ class FlowMetricsMeterRegistry extends GoHandle {
       FutureOr<void> Function(String arg0, FlowMetricsMeter meter)
           iterFunc) async {
     await $call(
-        12902,
+        12904,
         $W()
           ..h(this)
           ..cb((r) => iterFunc(r.str(), r.hnn(FlowMetricsMeter.$h)), true));
@@ -84,7 +84,7 @@ class FlowMetricsMeterRegistry extends GoHandle {
   /// Go: `func (*flow.MeterRegistry).Get(name string) *flow.Meter`.
   FlowMetricsMeter get(String name) {
     final $r = $callSync(
-        12903,
+        12905,
         $W()
           ..h(this)
           ..str(name));
@@ -94,7 +94,7 @@ class FlowMetricsMeterRegistry extends GoHandle {
   /// Go: `func (*flow.MeterRegistry).Remove(name string)`.
   void remove(String name) {
     $callSync(
-        12904,
+        12906,
         $W()
           ..h(this)
           ..str(name));
@@ -103,7 +103,7 @@ class FlowMetricsMeterRegistry extends GoHandle {
   /// Go: `func (*flow.MeterRegistry).TrimIdle(since time.Time) (trimmed int)`.
   int trimIdle(DateTime since) {
     final $r = $callSync(
-        12905,
+        12907,
         $W()
           ..h(this)
           ..time(since));
@@ -145,7 +145,7 @@ final class FlowMetricsSnapshot implements GoDto {
 
   /// Go: `func (flow.Snapshot).String() string`.
   String string() {
-    final $r = $callSync(12908, $W()..dto(this));
+    final $r = $callSync(12910, $W()..dto(this));
     return $r.str();
   }
 }
@@ -154,12 +154,12 @@ final class FlowMetricsSnapshot implements GoDto {
 extension GoLibp2pFlowMetricsApi on GoLibp2pFlowMetrics {
   /// Go: `var flow.IdleRate float64`.
   double get idleRate {
-    final $r = $callSync(12895);
+    final $r = $callSync(12897);
     return $r.f64();
   }
 
   /// Go: `func flow.SetClock(c clock.Clock)`.
   void setClock($clock.Clock c) {
-    $callSync(12907, $W()..h(c));
+    $callSync(12909, $W()..h(c));
   }
 }

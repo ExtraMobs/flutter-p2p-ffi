@@ -1304,7 +1304,7 @@ extension GoIpldIpldPrimeSchemaDmtApi on GoIpldIpldPrimeSchemaDmt {
   void compile(
       $schema.IpldPrimeSchemaTypeSystem ts, IpldPrimeSchemaDmtSchema node) {
     $callSync(
-        12556,
+        12558,
         $W()
           ..h(ts)
           ..dto(node));
@@ -1314,7 +1314,7 @@ extension GoIpldIpldPrimeSchemaDmtApi on GoIpldIpldPrimeSchemaDmt {
   IpldPrimeSchemaDmtSchema concatenateSchemas(
       IpldPrimeSchemaDmtSchema a, IpldPrimeSchemaDmtSchema b) {
     final $r = $callSync(
-        12557,
+        12559,
         $W()
           ..dto(a)
           ..dto(b));
@@ -1325,7 +1325,7 @@ extension GoIpldIpldPrimeSchemaDmtApi on GoIpldIpldPrimeSchemaDmt {
   void spawnSchemaTypes(
       $schema.IpldPrimeSchemaTypeSystem ts, IpldPrimeSchemaDmtSchema node) {
     $callSync(
-        12558,
+        12560,
         $W()
           ..h(ts)
           ..dto(node));
@@ -1333,7 +1333,7 @@ extension GoIpldIpldPrimeSchemaDmtApi on GoIpldIpldPrimeSchemaDmt {
 
   /// Go: `var schemadmt.TypeSystem schema.TypeSystem`.
   $schema.IpldPrimeSchemaTypeSystem get typeSystem {
-    final $r = $callSync(12559);
+    final $r = $callSync(12561);
     return $r.hnn($schema.IpldPrimeSchemaTypeSystem.$h);
   }
 }

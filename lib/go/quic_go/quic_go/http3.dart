@@ -27,13 +27,13 @@ class QuicGoHttp3CapsuleParser extends GoHandle {
 
   /// Go: `func http3.NewCapsuleParser(r io.Reader) *http3.CapsuleParser`.
   factory QuicGoHttp3CapsuleParser(Object r) {
-    final $r = $callSync(18360, $W()..reader(r));
+    final $r = $callSync(18362, $W()..reader(r));
     return $r.hnn(QuicGoHttp3CapsuleParser.$h);
   }
 
   /// Go: `func (*http3.CapsuleParser).Next() (http3.CapsuleType, http3.CapsuleReader, error)`.
   (int, QuicGoHttp3CapsuleReader) next() {
-    final $r = $callSync(18346, $W()..h(this));
+    final $r = $callSync(18348, $W()..h(this));
     return ($r.i64(), $r.hnn(QuicGoHttp3CapsuleReader.$h));
   }
 }
@@ -45,13 +45,13 @@ class QuicGoHttp3CapsuleReader
 
   /// Go: `func (http3.CapsuleReader).Discard() error`.
   void discard() {
-    $callSync(18347, $W()..h(this));
+    $callSync(18349, $W()..h(this));
   }
 
   /// Go: `func (http3.CapsuleReader).Read(b []byte) (int, error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        18348,
+        18350,
         $W()
           ..h(this)
           ..i64(n));
@@ -60,13 +60,13 @@ class QuicGoHttp3CapsuleReader
 
   /// Go: `func (http3.CapsuleReader).ReadByte() (byte, error)`.
   int readByte() {
-    final $r = $callSync(18349, $W()..h(this));
+    final $r = $callSync(18351, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (http3.CapsuleReader).Remaining() int64`.
   int remaining() {
-    final $r = $callSync(18350, $W()..h(this));
+    final $r = $callSync(18352, $W()..h(this));
     return $r.i64();
   }
 }
@@ -80,7 +80,7 @@ class QuicGoHttp3ClientConn extends QuicGoHttp3Settingser
   /// Go: `func (*http3.ClientConn).CloseWithError(code quic.ApplicationErrorCode, msg string) error`.
   void closeWithError(int code, String msg) {
     $callSync(
-        18351,
+        18353,
         $W()
           ..h(this)
           ..i64(code)
@@ -90,7 +90,7 @@ class QuicGoHttp3ClientConn extends QuicGoHttp3Settingser
   /// Go: `func (*http3.ClientConn).HandleBidirectionalStream(str *quic.Stream)`.
   void handleBidirectionalStream($quic_go.QuicGoStream str) {
     $callSync(
-        18352,
+        18354,
         $W()
           ..h(this)
           ..h(str));
@@ -102,7 +102,7 @@ class QuicGoHttp3ClientConn extends QuicGoHttp3Settingser
   Future<QuicGoHttp3RequestStream> openRequestStream(
       $context.Context ctx) async {
     final $r = await $call(
-        18353,
+        18355,
         $W()
           ..h(this)
           ..h(ctx));
@@ -112,7 +112,7 @@ class QuicGoHttp3ClientConn extends QuicGoHttp3Settingser
   /// Go: `func (*http3.ClientConn).RoundTrip(req *http.Request) (*http.Response, error)`.
   $http.NetHttpResponse roundTrip($http.NetHttpRequest req) {
     final $r = $callSync(
-        18354,
+        18356,
         $W()
           ..h(this)
           ..h(req));
@@ -121,7 +121,7 @@ class QuicGoHttp3ClientConn extends QuicGoHttp3Settingser
 
   /// Go: `func (*http3.ClientConn).Settings() *http3.Settings`.
   QuicGoHttp3Settings settings() {
-    final $r = $callSync(18355, $W()..h(this));
+    final $r = $callSync(18357, $W()..h(this));
     return $r.p() ? QuicGoHttp3Settings.$dec($r) : $nil();
   }
 }
@@ -135,7 +135,7 @@ class QuicGoHttp3HttpStreamer extends GoHandle with QuicGoHttp3HttpStreamer$ {
 mixin QuicGoHttp3HttpStreamer$ on GoHandle {
   /// Go: `func (http3.HTTPStreamer).HTTPStream() *http3.Stream`.
   QuicGoHttp3Stream httpStream() {
-    final $r = $callSync(18357, $W()..h(this));
+    final $r = $callSync(18359, $W()..h(this));
     return $r.hnn(QuicGoHttp3Stream.$h);
   }
 }
@@ -153,7 +153,7 @@ mixin QuicGoHttp3QuicListener$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<$quic_go.QuicGoConn> accept($context.Context ctx) async {
     final $r = await $call(
-        18361,
+        18363,
         $W()
           ..h(this)
           ..h(ctx));
@@ -162,7 +162,7 @@ mixin QuicGoHttp3QuicListener$ on GoHandle {
 
   /// Go: `func (http3.QUICListener).Addr() net.Addr`.
   $net.NetAddr addr() {
-    final $r = $callSync(18362, $W()..h(this));
+    final $r = $callSync(18364, $W()..h(this));
     return $r.p() ? $net.NetAddr.$dec($r) : $nil();
   }
 
@@ -198,7 +198,7 @@ final class QuicGoHttp3RawClientConn implements GoDto {
   /// Go: `func (*http3.ClientConn).CloseWithError(code quic.ApplicationErrorCode, msg string) error`.
   void closeWithError(int code, String msg) {
     $callSync(
-        18363,
+        18365,
         $W()
           ..dto(this)
           ..i64(code)
@@ -208,7 +208,7 @@ final class QuicGoHttp3RawClientConn implements GoDto {
   /// Go: `func (*http3.ClientConn).HandleBidirectionalStream(str *quic.Stream)`.
   void handleBidirectionalStream($quic_go.QuicGoStream str) {
     $callSync(
-        18364,
+        18366,
         $W()
           ..dto(this)
           ..h(str));
@@ -217,7 +217,7 @@ final class QuicGoHttp3RawClientConn implements GoDto {
   /// Go: `func (*http3.RawClientConn).HandleUnidirectionalStream(str *quic.ReceiveStream)`.
   void handleUnidirectionalStream($quic_go.QuicGoReceiveStream str) {
     $callSync(
-        18365,
+        18367,
         $W()
           ..dto(this)
           ..h(str));
@@ -229,7 +229,7 @@ final class QuicGoHttp3RawClientConn implements GoDto {
   Future<QuicGoHttp3RequestStream> openRequestStream(
       $context.Context ctx) async {
     final $r = await $call(
-        18366,
+        18368,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -239,7 +239,7 @@ final class QuicGoHttp3RawClientConn implements GoDto {
   /// Go: `func (*http3.ClientConn).RoundTrip(req *http.Request) (*http.Response, error)`.
   $http.NetHttpResponse roundTrip($http.NetHttpRequest req) {
     final $r = $callSync(
-        18367,
+        18369,
         $W()
           ..dto(this)
           ..h(req));
@@ -248,7 +248,7 @@ final class QuicGoHttp3RawClientConn implements GoDto {
 
   /// Go: `func (*http3.ClientConn).Settings() *http3.Settings`.
   QuicGoHttp3Settings settings() {
-    final $r = $callSync(18368, $W()..dto(this));
+    final $r = $callSync(18370, $W()..dto(this));
     return $r.p() ? QuicGoHttp3Settings.$dec($r) : $nil();
   }
 }
@@ -260,7 +260,7 @@ class QuicGoHttp3RawServerConn extends GoHandle {
   /// Go: `func (*http3.RawServerConn).CloseWithError(code quic.ApplicationErrorCode, msg string) error`.
   void closeWithError(int code, String msg) {
     $callSync(
-        18369,
+        18371,
         $W()
           ..h(this)
           ..i64(code)
@@ -270,7 +270,7 @@ class QuicGoHttp3RawServerConn extends GoHandle {
   /// Go: `func (*http3.RawServerConn).HandleRequestStream(str *quic.Stream)`.
   void handleRequestStream($quic_go.QuicGoStream str) {
     $callSync(
-        18370,
+        18372,
         $W()
           ..h(this)
           ..h(str));
@@ -279,7 +279,7 @@ class QuicGoHttp3RawServerConn extends GoHandle {
   /// Go: `func (*http3.RawServerConn).HandleUnidirectionalStream(str *quic.ReceiveStream)`.
   void handleUnidirectionalStream($quic_go.QuicGoReceiveStream str) {
     $callSync(
-        18371,
+        18373,
         $W()
           ..h(this)
           ..h(str));
@@ -301,7 +301,7 @@ class QuicGoHttp3RequestStream extends $io.IoCloser
   /// Go: `func (*http3.RequestStream).CancelRead(errorCode quic.StreamErrorCode)`.
   void cancelRead(int errorCode) {
     $callSync(
-        18372,
+        18374,
         $W()
           ..h(this)
           ..i64(errorCode));
@@ -310,7 +310,7 @@ class QuicGoHttp3RequestStream extends $io.IoCloser
   /// Go: `func (*http3.RequestStream).CancelWrite(errorCode quic.StreamErrorCode)`.
   void cancelWrite(int errorCode) {
     $callSync(
-        18373,
+        18375,
         $W()
           ..h(this)
           ..i64(errorCode));
@@ -318,13 +318,13 @@ class QuicGoHttp3RequestStream extends $io.IoCloser
 
   /// Go: `func (*http3.RequestStream).Close() error`.
   void close() {
-    $callSync(18374, $W()..h(this));
+    $callSync(18376, $W()..h(this));
   }
 
   /// Go: `func (*http3.RequestStream).Read(b []byte) (int, error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        18375,
+        18377,
         $W()
           ..h(this)
           ..i64(n));
@@ -333,7 +333,7 @@ class QuicGoHttp3RequestStream extends $io.IoCloser
 
   /// Go: `func (*http3.RequestStream).ReadResponse() (*http.Response, error)`.
   $http.NetHttpResponse readResponse() {
-    final $r = $callSync(18376, $W()..h(this));
+    final $r = $callSync(18378, $W()..h(this));
     return $r.p() ? $http.NetHttpResponse.$dec($r) : $nil();
   }
 
@@ -342,7 +342,7 @@ class QuicGoHttp3RequestStream extends $io.IoCloser
   /// Asynchronous: runs in a goroutine of the service.
   Future<Uint8List> receiveDatagram($context.Context ctx) async {
     final $r = await $call(
-        18377,
+        18379,
         $W()
           ..h(this)
           ..h(ctx));
@@ -352,7 +352,7 @@ class QuicGoHttp3RequestStream extends $io.IoCloser
   /// Go: `func (*http3.RequestStream).SendDatagram(b []byte) error`.
   void sendDatagram(Uint8List b) {
     $callSync(
-        18378,
+        18380,
         $W()
           ..h(this)
           ..bytes(b));
@@ -361,7 +361,7 @@ class QuicGoHttp3RequestStream extends $io.IoCloser
   /// Go: `func (*http3.RequestStream).SendRequestHeader(req *http.Request) error`.
   void sendRequestHeader($http.NetHttpRequest req) {
     $callSync(
-        18379,
+        18381,
         $W()
           ..h(this)
           ..h(req));
@@ -370,7 +370,7 @@ class QuicGoHttp3RequestStream extends $io.IoCloser
   /// Go: `func (*http3.RequestStream).SetDeadline(t time.Time) error`.
   void setDeadline(DateTime t) {
     $callSync(
-        18380,
+        18382,
         $W()
           ..h(this)
           ..time(t));
@@ -379,7 +379,7 @@ class QuicGoHttp3RequestStream extends $io.IoCloser
   /// Go: `func (*http3.RequestStream).SetReadDeadline(t time.Time) error`.
   void setReadDeadline(DateTime t) {
     $callSync(
-        18381,
+        18383,
         $W()
           ..h(this)
           ..time(t));
@@ -388,7 +388,7 @@ class QuicGoHttp3RequestStream extends $io.IoCloser
   /// Go: `func (*http3.RequestStream).SetWriteDeadline(t time.Time) error`.
   void setWriteDeadline(DateTime t) {
     $callSync(
-        18382,
+        18384,
         $W()
           ..h(this)
           ..time(t));
@@ -396,14 +396,14 @@ class QuicGoHttp3RequestStream extends $io.IoCloser
 
   /// Go: `func (*http3.RequestStream).StreamID() quic.StreamID`.
   int streamId() {
-    final $r = $callSync(18383, $W()..h(this));
+    final $r = $callSync(18385, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*http3.RequestStream).TryWriteAll(b []byte) error`.
   void tryWriteAll(Uint8List b) {
     $callSync(
-        18384,
+        18386,
         $W()
           ..h(this)
           ..bytes(b));
@@ -412,7 +412,7 @@ class QuicGoHttp3RequestStream extends $io.IoCloser
   /// Go: `func (*http3.RequestStream).Write(b []byte) (int, error)`.
   int write(Uint8List b) {
     final $r = $callSync(
-        18385,
+        18387,
         $W()
           ..h(this)
           ..bytes(b));
@@ -444,18 +444,18 @@ class QuicGoHttp3Server extends $io.IoCloser
 
   /// Go: `func (*http3.Server).Close() error`.
   void close() {
-    $callSync(18386, $W()..h(this));
+    $callSync(18388, $W()..h(this));
   }
 
   /// Go: `func (*http3.Server).ListenAndServe() error`.
   void listenAndServe() {
-    $callSync(18387, $W()..h(this));
+    $callSync(18389, $W()..h(this));
   }
 
   /// Go: `func (*http3.Server).ListenAndServeTLS(certFile string, keyFile string) error`.
   void listenAndServeTls(String certFile, String keyFile) {
     $callSync(
-        18388,
+        18390,
         $W()
           ..h(this)
           ..str(certFile)
@@ -465,7 +465,7 @@ class QuicGoHttp3Server extends $io.IoCloser
   /// Go: `func (*http3.Server).NewRawServerConn(conn *quic.Conn) (*http3.RawServerConn, error)`.
   QuicGoHttp3RawServerConn newRawServerConn($quic_go.QuicGoConn conn) {
     final $r = $callSync(
-        18389,
+        18391,
         $W()
           ..h(this)
           ..h(conn));
@@ -475,7 +475,7 @@ class QuicGoHttp3Server extends $io.IoCloser
   /// Go: `func (*http3.Server).Serve(conn net.PacketConn) error`.
   void serve($net.NetPacketConn conn) {
     $callSync(
-        18390,
+        18392,
         $W()
           ..h(this)
           ..h(conn));
@@ -484,7 +484,7 @@ class QuicGoHttp3Server extends $io.IoCloser
   /// Go: `func (*http3.Server).ServeListener(ln http3.QUICListener) error`.
   void serveListener(QuicGoHttp3QuicListener ln) {
     $callSync(
-        18391,
+        18393,
         $W()
           ..h(this)
           ..h(ln));
@@ -493,7 +493,7 @@ class QuicGoHttp3Server extends $io.IoCloser
   /// Go: `func (*http3.Server).ServeQUICConn(conn *quic.Conn) error`.
   void serveQuicConn($quic_go.QuicGoConn conn) {
     $callSync(
-        18392,
+        18394,
         $W()
           ..h(this)
           ..h(conn));
@@ -504,7 +504,7 @@ class QuicGoHttp3Server extends $io.IoCloser
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> shutdown($context.Context ctx) async {
     await $call(
-        18393,
+        18395,
         $W()
           ..h(this)
           ..h(ctx));
@@ -553,7 +553,7 @@ class QuicGoHttp3Settingser extends GoHandle with QuicGoHttp3Settingser$ {
 mixin QuicGoHttp3Settingser$ on GoHandle {
   /// Go: `func (http3.Settingser).Settings() *http3.Settings`.
   QuicGoHttp3Settings settings() {
-    final $r = $callSync(18394, $W()..h(this));
+    final $r = $callSync(18396, $W()..h(this));
     return $r.p() ? QuicGoHttp3Settings.$dec($r) : $nil();
   }
 
@@ -579,7 +579,7 @@ class QuicGoHttp3Stream extends $io.IoCloser
   /// Go: `func (http3.datagramStream).CancelRead(quic.StreamErrorCode)`.
   void cancelRead(int arg0) {
     $callSync(
-        18395,
+        18397,
         $W()
           ..h(this)
           ..i64(arg0));
@@ -588,7 +588,7 @@ class QuicGoHttp3Stream extends $io.IoCloser
   /// Go: `func (http3.datagramStream).CancelWrite(quic.StreamErrorCode)`.
   void cancelWrite(int arg0) {
     $callSync(
-        18396,
+        18398,
         $W()
           ..h(this)
           ..i64(arg0));
@@ -596,14 +596,14 @@ class QuicGoHttp3Stream extends $io.IoCloser
 
   /// Go: `func (http3.datagramStream).QUICStream() *quic.Stream`.
   $quic_go.QuicGoStream quicStream() {
-    final $r = $callSync(18397, $W()..h(this));
+    final $r = $callSync(18399, $W()..h(this));
     return $r.hnn($quic_go.QuicGoStream.$h);
   }
 
   /// Go: `func (*http3.Stream).Read(b []byte) (int, error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        18398,
+        18400,
         $W()
           ..h(this)
           ..i64(n));
@@ -615,7 +615,7 @@ class QuicGoHttp3Stream extends $io.IoCloser
   /// Asynchronous: runs in a goroutine of the service.
   Future<Uint8List> receiveDatagram($context.Context ctx) async {
     final $r = await $call(
-        18399,
+        18401,
         $W()
           ..h(this)
           ..h(ctx));
@@ -625,7 +625,7 @@ class QuicGoHttp3Stream extends $io.IoCloser
   /// Go: `func (*http3.Stream).SendDatagram(b []byte) error`.
   void sendDatagram(Uint8List b) {
     $callSync(
-        18400,
+        18402,
         $W()
           ..h(this)
           ..bytes(b));
@@ -634,7 +634,7 @@ class QuicGoHttp3Stream extends $io.IoCloser
   /// Go: `func (http3.datagramStream).SetDeadline(time.Time) error`.
   void setDeadline(DateTime time) {
     $callSync(
-        18401,
+        18403,
         $W()
           ..h(this)
           ..time(time));
@@ -643,7 +643,7 @@ class QuicGoHttp3Stream extends $io.IoCloser
   /// Go: `func (http3.datagramStream).SetPriority(urgency int8, incremental bool)`.
   void setPriority(int urgency, bool incremental) {
     $callSync(
-        18402,
+        18404,
         $W()
           ..h(this)
           ..i64(urgency)
@@ -653,7 +653,7 @@ class QuicGoHttp3Stream extends $io.IoCloser
   /// Go: `func (http3.datagramStream).SetReadDeadline(time.Time) error`.
   void setReadDeadline(DateTime time) {
     $callSync(
-        18403,
+        18405,
         $W()
           ..h(this)
           ..time(time));
@@ -662,7 +662,7 @@ class QuicGoHttp3Stream extends $io.IoCloser
   /// Go: `func (http3.datagramStream).SetWriteDeadline(time.Time) error`.
   void setWriteDeadline(DateTime time) {
     $callSync(
-        18404,
+        18406,
         $W()
           ..h(this)
           ..time(time));
@@ -670,14 +670,14 @@ class QuicGoHttp3Stream extends $io.IoCloser
 
   /// Go: `func (*http3.Stream).StreamID() quic.StreamID`.
   int streamId() {
-    final $r = $callSync(18405, $W()..h(this));
+    final $r = $callSync(18407, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*http3.Stream).TryWriteAll(b []byte) error`.
   void tryWriteAll(Uint8List b) {
     $callSync(
-        18406,
+        18408,
         $W()
           ..h(this)
           ..bytes(b));
@@ -686,7 +686,7 @@ class QuicGoHttp3Stream extends $io.IoCloser
   /// Go: `func (*http3.Stream).Write(b []byte) (int, error)`.
   int write(Uint8List b) {
     final $r = $callSync(
-        18407,
+        18409,
         $W()
           ..h(this)
           ..bytes(b));
@@ -702,18 +702,18 @@ class QuicGoHttp3Transport extends $io.IoCloser
 
   /// Go: `func (*http3.Transport).Close() error`.
   void close() {
-    $callSync(18408, $W()..h(this));
+    $callSync(18410, $W()..h(this));
   }
 
   /// Go: `func (*http3.Transport).CloseIdleConnections()`.
   void closeIdleConnections() {
-    $callSync(18409, $W()..h(this));
+    $callSync(18411, $W()..h(this));
   }
 
   /// Go: `func (*http3.Transport).NewClientConn(conn *quic.Conn) *http3.ClientConn`.
   QuicGoHttp3ClientConn newClientConn($quic_go.QuicGoConn conn) {
     final $r = $callSync(
-        18410,
+        18412,
         $W()
           ..h(this)
           ..h(conn));
@@ -723,7 +723,7 @@ class QuicGoHttp3Transport extends $io.IoCloser
   /// Go: `func (*http3.Transport).NewRawClientConn(conn *quic.Conn) *http3.RawClientConn`.
   QuicGoHttp3RawClientConn newRawClientConn($quic_go.QuicGoConn conn) {
     final $r = $callSync(
-        18411,
+        18413,
         $W()
           ..h(this)
           ..h(conn));
@@ -733,7 +733,7 @@ class QuicGoHttp3Transport extends $io.IoCloser
   /// Go: `func (*http3.Transport).RoundTrip(req *http.Request) (*http.Response, error)`.
   $http.NetHttpResponse roundTrip($http.NetHttpRequest req) {
     final $r = $callSync(
-        18412,
+        18414,
         $W()
           ..h(this)
           ..h(req));
@@ -744,7 +744,7 @@ class QuicGoHttp3Transport extends $io.IoCloser
   $http.NetHttpResponse roundTripOpt(
       $http.NetHttpRequest req, QuicGoHttp3RoundTripOpt opt) {
     final $r = $callSync(
-        18413,
+        18415,
         $W()
           ..h(this)
           ..h(req)
@@ -806,7 +806,7 @@ class QuicGoHttp3Error extends GolangException {
 extension GoQuicGoQuicGoHttp3Api on GoQuicGoQuicGoHttp3 {
   /// Go: `func http3.ConfigureTLSConfig(tlsConf *tls.Config) *tls.Config`.
   $tls.CryptoTlsConfig configureTlsConfig($tls.CryptoTlsConfig tlsConf) {
-    final $r = $callSync(18356, $W()..h(tlsConf));
+    final $r = $callSync(18358, $W()..h(tlsConf));
     return $r.hnn($tls.CryptoTlsConfig.$h);
   }
 
@@ -814,7 +814,7 @@ extension GoQuicGoQuicGoHttp3Api on GoQuicGoQuicGoHttp3 {
   void listenAndServeQuic(String addr, String certFile, String keyFile,
       $http.NetHttpHandler handler) {
     $callSync(
-        18358,
+        18360,
         $W()
           ..str(addr)
           ..str(certFile)
@@ -826,7 +826,7 @@ extension GoQuicGoQuicGoHttp3Api on GoQuicGoQuicGoHttp3 {
   void listenAndServeTls(String addr, String certFile, String keyFile,
       $http.NetHttpHandler handler) {
     $callSync(
-        18359,
+        18361,
         $W()
           ..str(addr)
           ..str(certFile)
@@ -838,7 +838,7 @@ extension GoQuicGoQuicGoHttp3Api on GoQuicGoQuicGoHttp3 {
   void writeCapsule(
       $quicvarint.QuicGoQuicvarintWriter w, int ct, Uint8List value) {
     $callSync(
-        18414,
+        18416,
         $W()
           ..h(w)
           ..i64(ct)

@@ -18,7 +18,7 @@ class ExpMmapReaderAt extends $io.IoCloser
   /// Go: `func (*mmap.ReaderAt).At(i int) byte`.
   int at(int i) {
     final $r = $callSync(
-        23363,
+        23365,
         $W()
           ..h(this)
           ..i64(i));
@@ -27,19 +27,19 @@ class ExpMmapReaderAt extends $io.IoCloser
 
   /// Go: `func (*mmap.ReaderAt).Close() error`.
   void close() {
-    $callSync(23364, $W()..h(this));
+    $callSync(23366, $W()..h(this));
   }
 
   /// Go: `func (*mmap.ReaderAt).Len() int`.
   int len() {
-    final $r = $callSync(23365, $W()..h(this));
+    final $r = $callSync(23367, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*mmap.ReaderAt).ReadAt(p []byte, off int64) (int, error)`.
   Uint8List readAt(int n, int off) {
     final $r = $callSync(
-        23366,
+        23368,
         $W()
           ..h(this)
           ..i64(n)
@@ -52,7 +52,7 @@ class ExpMmapReaderAt extends $io.IoCloser
 extension GoXExpMmapApi on GoXExpMmap {
   /// Go: `func mmap.Open(filename string) (*mmap.ReaderAt, error)`.
   ExpMmapReaderAt open(String filename) {
-    final $r = $callSync(23362, $W()..str(filename));
+    final $r = $callSync(23364, $W()..str(filename));
     return $r.hnn(ExpMmapReaderAt.$h);
   }
 }

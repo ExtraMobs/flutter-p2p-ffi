@@ -16,7 +16,7 @@ class ZapExpZapslogHandler extends $slog.LogSlogHandler {
   factory ZapExpZapslogHandler($zapcore.ZapZapcoreCore core,
       [List<ZapExpZapslogHandlerOption> opts = const []]) {
     final $r = $callSync(
-        22907,
+        22909,
         $W()
           ..h(core)
           ..list(opts, (w0, e0) => w0.h(e0)));
@@ -28,7 +28,7 @@ class ZapExpZapslogHandler extends $slog.LogSlogHandler {
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> enabled($context.Context ctx, int level) async {
     final $r = await $call(
-        22903,
+        22905,
         $W()
           ..h(this)
           ..h(ctx)
@@ -41,7 +41,7 @@ class ZapExpZapslogHandler extends $slog.LogSlogHandler {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> handle($context.Context ctx, $slog.LogSlogRecord record) async {
     await $call(
-        22904,
+        22906,
         $W()
           ..h(this)
           ..h(ctx)
@@ -51,7 +51,7 @@ class ZapExpZapslogHandler extends $slog.LogSlogHandler {
   /// Go: `func (*zapslog.Handler).WithAttrs(attrs []slog.Attr) slog.Handler`.
   $slog.LogSlogHandler withAttrs(List<$slog.LogSlogAttr> attrs) {
     final $r = $callSync(
-        22905,
+        22907,
         $W()
           ..h(this)
           ..list(attrs, (w0, e0) => w0.dto(e0)));
@@ -61,7 +61,7 @@ class ZapExpZapslogHandler extends $slog.LogSlogHandler {
   /// Go: `func (*zapslog.Handler).WithGroup(group string) slog.Handler`.
   $slog.LogSlogHandler withGroup(String group) {
     final $r = $callSync(
-        22906,
+        22908,
         $W()
           ..h(this)
           ..str(group));
@@ -82,25 +82,25 @@ mixin ZapExpZapslogHandlerOption$ on GoHandle {}
 extension GoZapExpZapslogOptionsApi on GoZapExpZapslogOptions {
   /// Go: `func zapslog.AddStacktraceAt(lvl slog.Level) zapslog.HandlerOption`.
   ZapExpZapslogHandlerOption addStacktraceAt(int lvl) {
-    final $r = $callSync(22902, $W()..i64(lvl));
+    final $r = $callSync(22904, $W()..i64(lvl));
     return $r.hnn(ZapExpZapslogHandlerOption.$h);
   }
 
   /// Go: `func zapslog.WithCaller(enabled bool) zapslog.HandlerOption`.
   ZapExpZapslogHandlerOption withCaller(bool enabled) {
-    final $r = $callSync(22908, $W()..b(enabled));
+    final $r = $callSync(22910, $W()..b(enabled));
     return $r.hnn(ZapExpZapslogHandlerOption.$h);
   }
 
   /// Go: `func zapslog.WithCallerSkip(skip int) zapslog.HandlerOption`.
   ZapExpZapslogHandlerOption withCallerSkip(int skip) {
-    final $r = $callSync(22909, $W()..i64(skip));
+    final $r = $callSync(22911, $W()..i64(skip));
     return $r.hnn(ZapExpZapslogHandlerOption.$h);
   }
 
   /// Go: `func zapslog.WithName(name string) zapslog.HandlerOption`.
   ZapExpZapslogHandlerOption withName(String name) {
-    final $r = $callSync(22910, $W()..str(name));
+    final $r = $callSync(22912, $W()..str(name));
     return $r.hnn(ZapExpZapslogHandlerOption.$h);
   }
 }

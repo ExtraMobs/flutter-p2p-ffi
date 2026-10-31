@@ -18,7 +18,7 @@ class LogLogger extends $grpclog.GrpcGrpclogLogger
   /// Go: `func (*log.Logger).Fatal(v ...any)`.
   void fatal([List<Object?> v = const []]) {
     $callSync(
-        25789,
+        25791,
         $W()
           ..h(this)
           ..list(v, (w0, e0) => w0.any(e0)));
@@ -27,7 +27,7 @@ class LogLogger extends $grpclog.GrpcGrpclogLogger
   /// Go: `func (*log.Logger).Fatalf(format string, v ...any)`.
   void fatalf(String format, [List<Object?> v = const []]) {
     $callSync(
-        25790,
+        25792,
         $W()
           ..h(this)
           ..str(format)
@@ -37,7 +37,7 @@ class LogLogger extends $grpclog.GrpcGrpclogLogger
   /// Go: `func (*log.Logger).Fatalln(v ...any)`.
   void fatalln([List<Object?> v = const []]) {
     $callSync(
-        25791,
+        25793,
         $W()
           ..h(this)
           ..list(v, (w0, e0) => w0.any(e0)));
@@ -45,14 +45,14 @@ class LogLogger extends $grpclog.GrpcGrpclogLogger
 
   /// Go: `func (*log.Logger).Flags() int`.
   int flags() {
-    final $r = $callSync(25792, $W()..h(this));
+    final $r = $callSync(25794, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*log.Logger).Output(calldepth int, s string) error`.
   void output(int calldepth, String s) {
     $callSync(
-        25793,
+        25795,
         $W()
           ..h(this)
           ..i64(calldepth)
@@ -62,7 +62,7 @@ class LogLogger extends $grpclog.GrpcGrpclogLogger
   /// Go: `func (*log.Logger).Panic(v ...any)`.
   void panic([List<Object?> v = const []]) {
     $callSync(
-        25794,
+        25796,
         $W()
           ..h(this)
           ..list(v, (w0, e0) => w0.any(e0)));
@@ -71,7 +71,7 @@ class LogLogger extends $grpclog.GrpcGrpclogLogger
   /// Go: `func (*log.Logger).Panicf(format string, v ...any)`.
   void panicf(String format, [List<Object?> v = const []]) {
     $callSync(
-        25795,
+        25797,
         $W()
           ..h(this)
           ..str(format)
@@ -81,7 +81,7 @@ class LogLogger extends $grpclog.GrpcGrpclogLogger
   /// Go: `func (*log.Logger).Panicln(v ...any)`.
   void panicln([List<Object?> v = const []]) {
     $callSync(
-        25796,
+        25798,
         $W()
           ..h(this)
           ..list(v, (w0, e0) => w0.any(e0)));
@@ -89,14 +89,14 @@ class LogLogger extends $grpclog.GrpcGrpclogLogger
 
   /// Go: `func (*log.Logger).Prefix() string`.
   String prefix() {
-    final $r = $callSync(25797, $W()..h(this));
+    final $r = $callSync(25799, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*log.Logger).Print(v ...any)`.
   void print([List<Object?> v = const []]) {
     $callSync(
-        25798,
+        25800,
         $W()
           ..h(this)
           ..list(v, (w0, e0) => w0.any(e0)));
@@ -105,7 +105,7 @@ class LogLogger extends $grpclog.GrpcGrpclogLogger
   /// Go: `func (*log.Logger).Printf(format string, v ...any)`.
   void printf(String format, [List<Object?> v = const []]) {
     $callSync(
-        25799,
+        25801,
         $W()
           ..h(this)
           ..str(format)
@@ -115,7 +115,7 @@ class LogLogger extends $grpclog.GrpcGrpclogLogger
   /// Go: `func (*log.Logger).Println(v ...any)`.
   void println([List<Object?> v = const []]) {
     $callSync(
-        25800,
+        25802,
         $W()
           ..h(this)
           ..list(v, (w0, e0) => w0.any(e0)));
@@ -124,7 +124,7 @@ class LogLogger extends $grpclog.GrpcGrpclogLogger
   /// Go: `func (*log.Logger).SetFlags(flag int)`.
   void setFlags(int flag) {
     $callSync(
-        25801,
+        25803,
         $W()
           ..h(this)
           ..i64(flag));
@@ -133,7 +133,7 @@ class LogLogger extends $grpclog.GrpcGrpclogLogger
   /// Go: `func (*log.Logger).SetOutput(w io.Writer)`.
   void setOutput(GoHandle? w) {
     $callSync(
-        25802,
+        25804,
         $W()
           ..h(this)
           ..h(w));
@@ -142,7 +142,7 @@ class LogLogger extends $grpclog.GrpcGrpclogLogger
   /// Go: `func (*log.Logger).SetPrefix(prefix string)`.
   void setPrefix(String prefix) {
     $callSync(
-        25803,
+        25805,
         $W()
           ..h(this)
           ..str(prefix));
@@ -153,19 +153,19 @@ class LogLogger extends $grpclog.GrpcGrpclogLogger
 extension GoLogApi on GoLog {
   /// Go: `func log.Default() *log.Logger`.
   LogLogger default$() {
-    final $r = $callSync(25784);
+    final $r = $callSync(25786);
     return $r.hnn(LogLogger.$h);
   }
 
   /// Go: `func log.Fatal(v ...any)`.
   void fatal([List<Object?> v = const []]) {
-    $callSync(25785, $W()..list(v, (w0, e0) => w0.any(e0)));
+    $callSync(25787, $W()..list(v, (w0, e0) => w0.any(e0)));
   }
 
   /// Go: `func log.Fatalf(format string, v ...any)`.
   void fatalf(String format, [List<Object?> v = const []]) {
     $callSync(
-        25786,
+        25788,
         $W()
           ..str(format)
           ..list(v, (w0, e0) => w0.any(e0)));
@@ -173,19 +173,19 @@ extension GoLogApi on GoLog {
 
   /// Go: `func log.Fatalln(v ...any)`.
   void fatalln([List<Object?> v = const []]) {
-    $callSync(25787, $W()..list(v, (w0, e0) => w0.any(e0)));
+    $callSync(25789, $W()..list(v, (w0, e0) => w0.any(e0)));
   }
 
   /// Go: `func log.Flags() int`.
   int flags() {
-    final $r = $callSync(25788);
+    final $r = $callSync(25790);
     return $r.i64();
   }
 
   /// Go: `func log.New(out io.Writer, prefix string, flag int) *log.Logger`.
   LogLogger new$(GoHandle? out, String prefix, int flag) {
     final $r = $callSync(
-        25804,
+        25806,
         $W()
           ..h(out)
           ..str(prefix)
@@ -196,7 +196,7 @@ extension GoLogApi on GoLog {
   /// Go: `func log.Output(calldepth int, s string) error`.
   void output(int calldepth, String s) {
     $callSync(
-        25805,
+        25807,
         $W()
           ..i64(calldepth)
           ..str(s));
@@ -204,13 +204,13 @@ extension GoLogApi on GoLog {
 
   /// Go: `func log.Panic(v ...any)`.
   void panic([List<Object?> v = const []]) {
-    $callSync(25806, $W()..list(v, (w0, e0) => w0.any(e0)));
+    $callSync(25808, $W()..list(v, (w0, e0) => w0.any(e0)));
   }
 
   /// Go: `func log.Panicf(format string, v ...any)`.
   void panicf(String format, [List<Object?> v = const []]) {
     $callSync(
-        25807,
+        25809,
         $W()
           ..str(format)
           ..list(v, (w0, e0) => w0.any(e0)));
@@ -218,24 +218,24 @@ extension GoLogApi on GoLog {
 
   /// Go: `func log.Panicln(v ...any)`.
   void panicln([List<Object?> v = const []]) {
-    $callSync(25808, $W()..list(v, (w0, e0) => w0.any(e0)));
+    $callSync(25810, $W()..list(v, (w0, e0) => w0.any(e0)));
   }
 
   /// Go: `func log.Prefix() string`.
   String prefix() {
-    final $r = $callSync(25809);
+    final $r = $callSync(25811);
     return $r.str();
   }
 
   /// Go: `func log.Print(v ...any)`.
   void print([List<Object?> v = const []]) {
-    $callSync(25810, $W()..list(v, (w0, e0) => w0.any(e0)));
+    $callSync(25812, $W()..list(v, (w0, e0) => w0.any(e0)));
   }
 
   /// Go: `func log.Printf(format string, v ...any)`.
   void printf(String format, [List<Object?> v = const []]) {
     $callSync(
-        25811,
+        25813,
         $W()
           ..str(format)
           ..list(v, (w0, e0) => w0.any(e0)));
@@ -243,22 +243,22 @@ extension GoLogApi on GoLog {
 
   /// Go: `func log.Println(v ...any)`.
   void println([List<Object?> v = const []]) {
-    $callSync(25812, $W()..list(v, (w0, e0) => w0.any(e0)));
+    $callSync(25814, $W()..list(v, (w0, e0) => w0.any(e0)));
   }
 
   /// Go: `func log.SetFlags(flag int)`.
   void setFlags(int flag) {
-    $callSync(25813, $W()..i64(flag));
+    $callSync(25815, $W()..i64(flag));
   }
 
   /// Go: `func log.SetOutput(w io.Writer)`.
   void setOutput(GoHandle? w) {
-    $callSync(25814, $W()..h(w));
+    $callSync(25816, $W()..h(w));
   }
 
   /// Go: `func log.SetPrefix(prefix string)`.
   void setPrefix(String prefix) {
-    $callSync(25815, $W()..str(prefix));
+    $callSync(25817, $W()..str(prefix));
   }
 }
 

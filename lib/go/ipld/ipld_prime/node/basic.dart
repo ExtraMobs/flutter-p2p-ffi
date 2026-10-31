@@ -16,7 +16,7 @@ extension GoIpldIpldPrimeNodeBasicApi on GoIpldIpldPrimeNodeBasic {
       $datamodel.IpldPrimeDatamodelLink link,
       $linking.IpldPrimeLinkingLinkContext linkContext) {
     final $r = $callSync(
-        12226,
+        12228,
         $W()
           ..h(link)
           ..dto(linkContext));
@@ -25,38 +25,38 @@ extension GoIpldIpldPrimeNodeBasicApi on GoIpldIpldPrimeNodeBasic {
 
   /// Go: `func basicnode.NewBool(value bool) datamodel.Node`.
   $datamodel.IpldPrimeDatamodelNode newBool(bool value) {
-    final $r = $callSync(12227, $W()..b(value));
+    final $r = $callSync(12229, $W()..b(value));
     return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
   }
 
   /// Go: `func basicnode.NewBytes(value []byte) datamodel.Node`.
   $datamodel.IpldPrimeDatamodelNode newBytes(Uint8List value) {
-    final $r = $callSync(12228, $W()..bytes(value));
+    final $r = $callSync(12230, $W()..bytes(value));
     return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
   }
 
   /// Go: `func basicnode.NewFloat(value float64) datamodel.Node`.
   $datamodel.IpldPrimeDatamodelNode newFloat(double value) {
-    final $r = $callSync(12229, $W()..f64(value));
+    final $r = $callSync(12231, $W()..f64(value));
     return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
   }
 
   /// Go: `func basicnode.NewInt(value int64) datamodel.Node`.
   $datamodel.IpldPrimeDatamodelNode newInt(int value) {
-    final $r = $callSync(12230, $W()..i64(value));
+    final $r = $callSync(12232, $W()..i64(value));
     return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
   }
 
   /// Go: `func basicnode.NewLink(value datamodel.Link) datamodel.Node`.
   $datamodel.IpldPrimeDatamodelNode newLink(
       $datamodel.IpldPrimeDatamodelLink value) {
-    final $r = $callSync(12231, $W()..h(value));
+    final $r = $callSync(12233, $W()..h(value));
     return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
   }
 
   /// Go: `func basicnode.NewString(value string) datamodel.Node`.
   $datamodel.IpldPrimeDatamodelNode newString(String value) {
-    final $r = $callSync(12232, $W()..str(value));
+    final $r = $callSync(12234, $W()..str(value));
     return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
   }
 }

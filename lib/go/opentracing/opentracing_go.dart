@@ -72,7 +72,7 @@ final class OpentracingGoLogData implements GoDto {
 
   /// Go: `func (*opentracing.LogData).ToLogRecord() opentracing.LogRecord`.
   OpentracingGoLogRecord toLogRecord() {
-    final $r = $callSync(16037, $W()..dto(this));
+    final $r = $callSync(16039, $W()..dto(this));
     return $r.p() ? OpentracingGoLogRecord.$dec($r) : $nil();
   }
 }
@@ -113,7 +113,7 @@ final class OpentracingGoNoopTracer implements GoDto {
   /// Go: `func (opentracing.NoopTracer).Extract(format interface{}, carrier interface{}) (opentracing.SpanContext, error)`.
   OpentracingGoSpanContext extract(Object? format, Object? carrier) {
     final $r = $callSync(
-        16038,
+        16040,
         $W()
           ..dto(this)
           ..any(format)
@@ -124,7 +124,7 @@ final class OpentracingGoNoopTracer implements GoDto {
   /// Go: `func (opentracing.NoopTracer).Inject(sp opentracing.SpanContext, format interface{}, carrier interface{}) error`.
   void inject(OpentracingGoSpanContext sp, Object? format, Object? carrier) {
     $callSync(
-        16039,
+        16041,
         $W()
           ..dto(this)
           ..h(sp)
@@ -136,7 +136,7 @@ final class OpentracingGoNoopTracer implements GoDto {
   OpentracingGoSpan startSpan(String operationName,
       [List<OpentracingGoStartSpanOption> opts = const []]) {
     final $r = $callSync(
-        16040,
+        16042,
         $W()
           ..dto(this)
           ..str(operationName)
@@ -155,7 +155,7 @@ mixin OpentracingGoSpan$ on GoHandle {
   /// Go: `func (opentracing.Span).BaggageItem(restrictedKey string) string`.
   String baggageItem(String restrictedKey) {
     final $r = $callSync(
-        16042,
+        16044,
         $W()
           ..h(this)
           ..str(restrictedKey));
@@ -164,19 +164,19 @@ mixin OpentracingGoSpan$ on GoHandle {
 
   /// Go: `func (opentracing.Span).Context() opentracing.SpanContext`.
   OpentracingGoSpanContext context() {
-    final $r = $callSync(16043, $W()..h(this));
+    final $r = $callSync(16045, $W()..h(this));
     return $r.hnn(OpentracingGoSpanContext.$h);
   }
 
   /// Go: `func (opentracing.Span).Finish()`.
   void finish() {
-    $callSync(16044, $W()..h(this));
+    $callSync(16046, $W()..h(this));
   }
 
   /// Go: `func (opentracing.Span).FinishWithOptions(opts opentracing.FinishOptions)`.
   void finishWithOptions(OpentracingGoFinishOptions opts) {
     $callSync(
-        16045,
+        16047,
         $W()
           ..h(this)
           ..dto(opts));
@@ -186,7 +186,7 @@ mixin OpentracingGoSpan$ on GoHandle {
   @Deprecated("use LogFields or LogKV")
   void log(OpentracingGoLogData data) {
     $callSync(
-        16046,
+        16048,
         $W()
           ..h(this)
           ..dto(data));
@@ -196,7 +196,7 @@ mixin OpentracingGoSpan$ on GoHandle {
   @Deprecated("use LogFields or LogKV")
   void logEvent(String event) {
     $callSync(
-        16047,
+        16049,
         $W()
           ..h(this)
           ..str(event));
@@ -206,7 +206,7 @@ mixin OpentracingGoSpan$ on GoHandle {
   @Deprecated("use LogFields or LogKV")
   void logEventWithPayload(String event, Object? payload) {
     $callSync(
-        16048,
+        16050,
         $W()
           ..h(this)
           ..str(event)
@@ -216,7 +216,7 @@ mixin OpentracingGoSpan$ on GoHandle {
   /// Go: `func (opentracing.Span).LogFields(fields ...log.Field)`.
   void logFields([List<$log.OpentracingGoLogField> fields = const []]) {
     $callSync(
-        16049,
+        16051,
         $W()
           ..h(this)
           ..list(fields, (w0, e0) => w0.h(e0)));
@@ -225,7 +225,7 @@ mixin OpentracingGoSpan$ on GoHandle {
   /// Go: `func (opentracing.Span).LogKV(alternatingKeyValues ...interface{})`.
   void logKv([List<Object?> alternatingKeyValues = const []]) {
     $callSync(
-        16050,
+        16052,
         $W()
           ..h(this)
           ..list(alternatingKeyValues, (w0, e0) => w0.any(e0)));
@@ -234,7 +234,7 @@ mixin OpentracingGoSpan$ on GoHandle {
   /// Go: `func (opentracing.Span).SetBaggageItem(restrictedKey string, value string) opentracing.Span`.
   OpentracingGoSpan setBaggageItem(String restrictedKey, String value) {
     final $r = $callSync(
-        16051,
+        16053,
         $W()
           ..h(this)
           ..str(restrictedKey)
@@ -245,7 +245,7 @@ mixin OpentracingGoSpan$ on GoHandle {
   /// Go: `func (opentracing.Span).SetOperationName(operationName string) opentracing.Span`.
   OpentracingGoSpan setOperationName(String operationName) {
     final $r = $callSync(
-        16052,
+        16054,
         $W()
           ..h(this)
           ..str(operationName));
@@ -255,7 +255,7 @@ mixin OpentracingGoSpan$ on GoHandle {
   /// Go: `func (opentracing.Span).SetTag(key string, value interface{}) opentracing.Span`.
   OpentracingGoSpan setTag(String key, Object? value) {
     final $r = $callSync(
-        16053,
+        16055,
         $W()
           ..h(this)
           ..str(key)
@@ -265,7 +265,7 @@ mixin OpentracingGoSpan$ on GoHandle {
 
   /// Go: `func (opentracing.Span).Tracer() opentracing.Tracer`.
   OpentracingGoTracer tracer() {
-    final $r = $callSync(16054, $W()..h(this));
+    final $r = $callSync(16056, $W()..h(this));
     return $r.hnn(OpentracingGoTracer.$h);
   }
 }
@@ -287,7 +287,7 @@ mixin OpentracingGoSpanContext$ on GoHandle {
   Future<void> foreachBaggageItem(
       FutureOr<bool> Function(String k, String v) handler) async {
     await $call(
-        16055,
+        16057,
         $W()
           ..h(this)
           ..cb((r) => handler(r.str(), r.str()), true));
@@ -321,7 +321,7 @@ final class OpentracingGoSpanReference implements GoDto {
   /// Go: `func (opentracing.SpanReference).Apply(o *opentracing.StartSpanOptions)`.
   void apply(OpentracingGoStartSpanOptions o) {
     $callSync(
-        16057,
+        16059,
         $W()
           ..dto(this)
           ..dto(o));
@@ -339,7 +339,7 @@ mixin OpentracingGoStartSpanOption$ on GoHandle {
   /// Go: `func (opentracing.StartSpanOption).Apply(*opentracing.StartSpanOptions)`.
   void apply(OpentracingGoStartSpanOptions startSpanOptions) {
     $callSync(
-        16059,
+        16061,
         $W()
           ..h(this)
           ..dto(startSpanOptions));
@@ -393,7 +393,7 @@ class OpentracingGoStartTime extends OpentracingGoStartSpanOption {
   /// Go: `func (opentracing.StartTime).Apply(o *opentracing.StartSpanOptions)`.
   void apply(OpentracingGoStartSpanOptions o) {
     $callSync(
-        16060,
+        16062,
         $W()
           ..h(this)
           ..dto(o));
@@ -419,7 +419,7 @@ final class OpentracingGoTag implements GoDto {
   /// Go: `func (opentracing.Tag).Apply(o *opentracing.StartSpanOptions)`.
   void apply(OpentracingGoStartSpanOptions o) {
     $callSync(
-        16061,
+        16063,
         $W()
           ..dto(this)
           ..dto(o));
@@ -428,7 +428,7 @@ final class OpentracingGoTag implements GoDto {
   /// Go: `func (opentracing.Tag).Set(s opentracing.Span)`.
   void set(OpentracingGoSpan s) {
     $callSync(
-        16062,
+        16064,
         $W()
           ..dto(this)
           ..h(s));
@@ -453,7 +453,7 @@ mixin OpentracingGoTextMapReader$ on GoHandle {
   Future<void> foreachKey(
       FutureOr<void> Function(String key, String val) handler) async {
     await $call(
-        16063,
+        16065,
         $W()
           ..h(this)
           ..cb((r) => handler(r.str(), r.str()), true));
@@ -471,7 +471,7 @@ mixin OpentracingGoTextMapWriter$ on GoHandle {
   /// Go: `func (opentracing.TextMapWriter).Set(key string, val string)`.
   void set(String key, String val) {
     $callSync(
-        16064,
+        16066,
         $W()
           ..h(this)
           ..str(key)
@@ -489,7 +489,7 @@ mixin OpentracingGoTracer$ on GoHandle {
   /// Go: `func (opentracing.Tracer).Extract(format interface{}, carrier interface{}) (opentracing.SpanContext, error)`.
   OpentracingGoSpanContext extract(Object? format, Object? carrier) {
     final $r = $callSync(
-        16065,
+        16067,
         $W()
           ..h(this)
           ..any(format)
@@ -500,7 +500,7 @@ mixin OpentracingGoTracer$ on GoHandle {
   /// Go: `func (opentracing.Tracer).Inject(sm opentracing.SpanContext, format interface{}, carrier interface{}) error`.
   void inject(OpentracingGoSpanContext sm, Object? format, Object? carrier) {
     $callSync(
-        16066,
+        16068,
         $W()
           ..h(this)
           ..h(sm)
@@ -512,7 +512,7 @@ mixin OpentracingGoTracer$ on GoHandle {
   OpentracingGoSpan startSpan(String operationName,
       [List<OpentracingGoStartSpanOption> opts = const []]) {
     final $r = $callSync(
-        16067,
+        16069,
         $W()
           ..h(this)
           ..str(operationName)
@@ -570,43 +570,43 @@ class OpentracingGoErrUnsupportedFormat extends GolangException {
 extension GoOpentracingOpentracingGoApi on GoOpentracingOpentracingGo {
   /// Go: `func opentracing.ChildOf(sc opentracing.SpanContext) opentracing.SpanReference`.
   OpentracingGoSpanReference childOf(OpentracingGoSpanContext sc) {
-    final $r = $callSync(16032, $W()..h(sc));
+    final $r = $callSync(16034, $W()..h(sc));
     return $r.p() ? OpentracingGoSpanReference.$dec($r) : $nil();
   }
 
   /// Go: `func opentracing.FollowsFrom(sc opentracing.SpanContext) opentracing.SpanReference`.
   OpentracingGoSpanReference followsFrom(OpentracingGoSpanContext sc) {
-    final $r = $callSync(16033, $W()..h(sc));
+    final $r = $callSync(16035, $W()..h(sc));
     return $r.p() ? OpentracingGoSpanReference.$dec($r) : $nil();
   }
 
   /// Go: `func opentracing.GlobalTracer() opentracing.Tracer`.
   OpentracingGoTracer globalTracer() {
-    final $r = $callSync(16034);
+    final $r = $callSync(16036);
     return $r.hnn(OpentracingGoTracer.$h);
   }
 
   /// Go: `func opentracing.InitGlobalTracer(tracer opentracing.Tracer)`.
   void initGlobalTracer(OpentracingGoTracer tracer) {
-    $callSync(16035, $W()..h(tracer));
+    $callSync(16037, $W()..h(tracer));
   }
 
   /// Go: `func opentracing.IsGlobalTracerRegistered() bool`.
   bool isGlobalTracerRegistered() {
-    final $r = $callSync(16036);
+    final $r = $callSync(16038);
     return $r.b();
   }
 
   /// Go: `func opentracing.SetGlobalTracer(tracer opentracing.Tracer)`.
   void setGlobalTracer(OpentracingGoTracer tracer) {
-    $callSync(16041, $W()..h(tracer));
+    $callSync(16043, $W()..h(tracer));
   }
 
   /// Go: `func opentracing.SpanFromContext(ctx context.Context) opentracing.Span`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<OpentracingGoSpan> spanFromContext($context.Context ctx) async {
-    final $r = await $call(16056, $W()..h(ctx));
+    final $r = await $call(16058, $W()..h(ctx));
     return $r.hnn(OpentracingGoSpan.$h);
   }
 
@@ -614,7 +614,7 @@ extension GoOpentracingOpentracingGoApi on GoOpentracingOpentracingGo {
   OpentracingGoSpan startSpan(String operationName,
       [List<OpentracingGoStartSpanOption> opts = const []]) {
     final $r = $callSync(
-        16058,
+        16060,
         $W()
           ..str(operationName)
           ..list(opts, (w0, e0) => w0.h(e0)));

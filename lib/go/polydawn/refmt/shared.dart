@@ -22,14 +22,14 @@ class RefmtSharedSlickReader extends GoHandle with RefmtSharedSlickReader$ {
 mixin RefmtSharedSlickReader$ on GoHandle {
   /// Go: `func (shared.SlickReader).NumRead() int`.
   int numRead() {
-    final $r = $callSync(17932, $W()..h(this));
+    final $r = $callSync(17934, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (shared.SlickReader).Readb(b []byte) error`.
   void readb(Uint8List b) {
     $callSync(
-        17933,
+        17935,
         $W()
           ..h(this)
           ..bytes(b));
@@ -38,7 +38,7 @@ mixin RefmtSharedSlickReader$ on GoHandle {
   /// Go: `func (shared.SlickReader).Readn(n int) ([]byte, error)`.
   Uint8List readn(int n) {
     final $r = $callSync(
-        17934,
+        17936,
         $W()
           ..h(this)
           ..i64(n));
@@ -47,14 +47,14 @@ mixin RefmtSharedSlickReader$ on GoHandle {
 
   /// Go: `func (shared.SlickReader).Readn1() (uint8, error)`.
   int readn1() {
-    final $r = $callSync(17935, $W()..h(this));
+    final $r = $callSync(17937, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (shared.SlickReader).Readnzc(n int) ([]byte, error)`.
   Uint8List readnzc(int n) {
     final $r = $callSync(
-        17936,
+        17938,
         $W()
           ..h(this)
           ..i64(n));
@@ -63,18 +63,18 @@ mixin RefmtSharedSlickReader$ on GoHandle {
 
   /// Go: `func (shared.SlickReader).StopTrack() []byte`.
   Uint8List stopTrack() {
-    final $r = $callSync(17937, $W()..h(this));
+    final $r = $callSync(17939, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (shared.SlickReader).Track()`.
   void track() {
-    $callSync(17938, $W()..h(this));
+    $callSync(17940, $W()..h(this));
   }
 
   /// Go: `func (shared.SlickReader).Unreadn1()`.
   void unreadn1() {
-    $callSync(17939, $W()..h(this));
+    $callSync(17941, $W()..h(this));
   }
 
   /// Go: type assertion `x.(*shared.SlickReaderSlice)`: null if the object is not one.
@@ -96,14 +96,14 @@ class RefmtSharedSlickReaderSlice extends RefmtSharedSlickReader {
 
   /// Go: `func (*shared.SlickReaderSlice).NumRead() int`.
   int numRead() {
-    final $r = $callSync(17940, $W()..h(this));
+    final $r = $callSync(17942, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*shared.SlickReaderSlice).Readb(bs []byte) error`.
   void readb(Uint8List bs) {
     $callSync(
-        17941,
+        17943,
         $W()
           ..h(this)
           ..bytes(bs));
@@ -112,7 +112,7 @@ class RefmtSharedSlickReaderSlice extends RefmtSharedSlickReader {
   /// Go: `func (*shared.SlickReaderSlice).Readn(n int) (bs []byte, err error)`.
   Uint8List readn(int n) {
     final $r = $callSync(
-        17942,
+        17944,
         $W()
           ..h(this)
           ..i64(n));
@@ -121,14 +121,14 @@ class RefmtSharedSlickReaderSlice extends RefmtSharedSlickReader {
 
   /// Go: `func (*shared.SlickReaderSlice).Readn1() (v uint8, err error)`.
   int readn1() {
-    final $r = $callSync(17943, $W()..h(this));
+    final $r = $callSync(17945, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*shared.SlickReaderSlice).Readnzc(n int) (bs []byte, err error)`.
   Uint8List readnzc(int n) {
     final $r = $callSync(
-        17944,
+        17946,
         $W()
           ..h(this)
           ..i64(n));
@@ -137,18 +137,18 @@ class RefmtSharedSlickReaderSlice extends RefmtSharedSlickReader {
 
   /// Go: `func (*shared.SlickReaderSlice).StopTrack() (bs []byte)`.
   Uint8List stopTrack() {
-    final $r = $callSync(17945, $W()..h(this));
+    final $r = $callSync(17947, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*shared.SlickReaderSlice).Track()`.
   void track() {
-    $callSync(17946, $W()..h(this));
+    $callSync(17948, $W()..h(this));
   }
 
   /// Go: `func (*shared.SlickReaderSlice).Unreadn1()`.
   void unreadn1() {
-    $callSync(17947, $W()..h(this));
+    $callSync(17949, $W()..h(this));
   }
 }
 
@@ -158,14 +158,14 @@ class RefmtSharedSlickReaderStream extends RefmtSharedSlickReader {
 
   /// Go: `func (*shared.SlickReaderStream).NumRead() int`.
   int numRead() {
-    final $r = $callSync(17948, $W()..h(this));
+    final $r = $callSync(17950, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*shared.SlickReaderStream).Readb(bs []byte) error`.
   void readb(Uint8List bs) {
     $callSync(
-        17949,
+        17951,
         $W()
           ..h(this)
           ..bytes(bs));
@@ -174,7 +174,7 @@ class RefmtSharedSlickReaderStream extends RefmtSharedSlickReader {
   /// Go: `func (*shared.SlickReaderStream).Readn(n int) (bs []byte, err error)`.
   Uint8List readn(int n) {
     final $r = $callSync(
-        17950,
+        17952,
         $W()
           ..h(this)
           ..i64(n));
@@ -183,14 +183,14 @@ class RefmtSharedSlickReaderStream extends RefmtSharedSlickReader {
 
   /// Go: `func (*shared.SlickReaderStream).Readn1() (b uint8, err error)`.
   int readn1() {
-    final $r = $callSync(17951, $W()..h(this));
+    final $r = $callSync(17953, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*shared.SlickReaderStream).Readnzc(n int) (bs []byte, err error)`.
   Uint8List readnzc(int n) {
     final $r = $callSync(
-        17952,
+        17954,
         $W()
           ..h(this)
           ..i64(n));
@@ -199,18 +199,18 @@ class RefmtSharedSlickReaderStream extends RefmtSharedSlickReader {
 
   /// Go: `func (*shared.SlickReaderStream).StopTrack() (bs []byte)`.
   Uint8List stopTrack() {
-    final $r = $callSync(17953, $W()..h(this));
+    final $r = $callSync(17955, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*shared.SlickReaderStream).Track()`.
   void track() {
-    $callSync(17954, $W()..h(this));
+    $callSync(17956, $W()..h(this));
   }
 
   /// Go: `func (*shared.SlickReaderStream).Unreadn1()`.
   void unreadn1() {
-    $callSync(17955, $W()..h(this));
+    $callSync(17957, $W()..h(this));
   }
 }
 
@@ -220,7 +220,7 @@ class RefmtSharedTokenPump extends GoHandle {
 
   /// Go: `func (shared.TokenPump).Run() error`.
   void run() {
-    $callSync(17956, $W()..h(this));
+    $callSync(17958, $W()..h(this));
   }
 }
 
@@ -234,7 +234,7 @@ mixin RefmtSharedTokenSink$ on GoHandle {
   /// Go: `func (shared.TokenSink).Step(consume *tok.Token) (done bool, err error)`.
   bool step($tok.RefmtTokToken consume) {
     final $r = $callSync(
-        17957,
+        17959,
         $W()
           ..h(this)
           ..dto(consume));
@@ -294,7 +294,7 @@ mixin RefmtSharedTokenSource$ on GoHandle {
   /// Go: `func (shared.TokenSource).Step(fillme *tok.Token) (done bool, err error)`.
   bool step($tok.RefmtTokToken fillme) {
     final $r = $callSync(
-        17958,
+        17960,
         $W()
           ..h(this)
           ..dto(fillme));
@@ -348,19 +348,19 @@ mixin RefmtSharedTokenSource$ on GoHandle {
 extension GoPolydawnRefmtSharedApi on GoPolydawnRefmtShared {
   /// Go: `func shared.NewBytesReader(buf *bytes.Buffer) shared.SlickReader`.
   RefmtSharedSlickReader newBytesReader($bytes.BytesBuffer buf) {
-    final $r = $callSync(17929, $W()..h(buf));
+    final $r = $callSync(17931, $W()..h(buf));
     return $r.hnn(RefmtSharedSlickReader.$h);
   }
 
   /// Go: `func shared.NewReader(r io.Reader) shared.SlickReader`.
   RefmtSharedSlickReader newReader(Object r) {
-    final $r = $callSync(17930, $W()..reader(r));
+    final $r = $callSync(17932, $W()..reader(r));
     return $r.hnn(RefmtSharedSlickReader.$h);
   }
 
   /// Go: `func shared.NewSliceReader(b []byte) shared.SlickReader`.
   RefmtSharedSlickReader newSliceReader(Uint8List b) {
-    final $r = $callSync(17931, $W()..bytes(b));
+    final $r = $callSync(17933, $W()..bytes(b));
     return $r.hnn(RefmtSharedSlickReader.$h);
   }
 }

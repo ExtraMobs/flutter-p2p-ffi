@@ -144,7 +144,7 @@ final class KuboRepoMock implements GoDto {
   /// Go: `func (*repo.Mock).BackupConfig(prefix string) (string, error)`.
   String backupConfig(String prefix) {
     final $r = $callSync(
-        11735,
+        11737,
         $W()
           ..dto(this)
           ..str(prefix));
@@ -153,31 +153,31 @@ final class KuboRepoMock implements GoDto {
 
   /// Go: `func (*repo.Mock).Close() error`.
   void close() {
-    $callSync(11736, $W()..dto(this));
+    $callSync(11738, $W()..dto(this));
   }
 
   /// Go: `func (*repo.Mock).Config() (*config.Config, error)`.
   $config.KuboConfig config() {
-    final $r = $callSync(11737, $W()..dto(this));
+    final $r = $callSync(11739, $W()..dto(this));
     return $r.p() ? $config.KuboConfig($r.json()) : $nil();
   }
 
   /// Go: `func (*repo.Mock).Datastore() repo.Datastore`.
   KuboRepoDatastore datastore() {
-    final $r = $callSync(11738, $W()..dto(this));
+    final $r = $callSync(11740, $W()..dto(this));
     return $r.hnn(KuboRepoDatastore.$h);
   }
 
   /// Go: `func (*repo.Mock).FileManager() *filestore.FileManager`.
   $filestore.BoxoFilestoreFileManager fileManager() {
-    final $r = $callSync(11739, $W()..dto(this));
+    final $r = $callSync(11741, $W()..dto(this));
     return $r.hnn($filestore.BoxoFilestoreFileManager.$h);
   }
 
   /// Go: `func (*repo.Mock).GetConfigKey(key string) (any, error)`.
   Object? getConfigKey(String key) {
     final $r = $callSync(
-        11740,
+        11742,
         $W()
           ..dto(this)
           ..str(key));
@@ -189,7 +189,7 @@ final class KuboRepoMock implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getStorageUsage($context.Context ctx) async {
     final $r = await $call(
-        11741,
+        11743,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -198,20 +198,20 @@ final class KuboRepoMock implements GoDto {
 
   /// Go: `func (*repo.Mock).Keystore() keystore.Keystore`.
   $keystore.BoxoKeystore keystore() {
-    final $r = $callSync(11742, $W()..dto(this));
+    final $r = $callSync(11744, $W()..dto(this));
     return $r.hnn($keystore.BoxoKeystore.$h);
   }
 
   /// Go: `func (*repo.Mock).Path() string`.
   String path() {
-    final $r = $callSync(11743, $W()..dto(this));
+    final $r = $callSync(11745, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*repo.Mock).SetAPIAddr(addr multiaddr.Multiaddr) error`.
   void setApiAddr($multiaddr.Multiaddr addr) {
     $callSync(
-        11744,
+        11746,
         $W()
           ..dto(this)
           ..val(addr));
@@ -220,7 +220,7 @@ final class KuboRepoMock implements GoDto {
   /// Go: `func (*repo.Mock).SetConfig(updated *config.Config) error`.
   void setConfig($config.KuboConfig updated) {
     $callSync(
-        11745,
+        11747,
         $W()
           ..dto(this)
           ..json(updated));
@@ -229,7 +229,7 @@ final class KuboRepoMock implements GoDto {
   /// Go: `func (*repo.Mock).SetConfigKey(key string, value any) error`.
   void setConfigKey(String key, Object? value) {
     $callSync(
-        11746,
+        11748,
         $W()
           ..dto(this)
           ..str(key)
@@ -239,7 +239,7 @@ final class KuboRepoMock implements GoDto {
   /// Go: `func (*repo.Mock).SetGatewayAddr(addr net.Addr) error`.
   void setGatewayAddr($net.NetAddr addr) {
     $callSync(
-        11747,
+        11749,
         $W()
           ..dto(this)
           ..dto(addr));
@@ -247,14 +247,14 @@ final class KuboRepoMock implements GoDto {
 
   /// Go: `func (*repo.Mock).SwarmKey() ([]byte, error)`.
   Uint8List swarmKey() {
-    final $r = $callSync(11748, $W()..dto(this));
+    final $r = $callSync(11750, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*repo.Mock).UserResourceOverrides() (rcmgr.PartialLimitConfig, error)`.
   $resource_manager.Libp2pP2pHostResourceManagerPartialLimitConfig
       userResourceOverrides() {
-    final $r = $callSync(11749, $W()..dto(this));
+    final $r = $callSync(11751, $W()..dto(this));
     return $r.p()
         ? $resource_manager.Libp2pP2pHostResourceManagerPartialLimitConfig.$dec(
             $r)
@@ -271,13 +271,13 @@ class KuboRepo extends $io.IoCloser with KuboRepo$ {
 mixin KuboRepo$ on GoHandle {
   /// Go: `func (io.Closer).Close() error`.
   void close() {
-    $callSync(11751, $W()..h(this));
+    $callSync(11753, $W()..h(this));
   }
 
   /// Go: `func (repo.Repo).BackupConfig(prefix string) (string, error)`.
   String backupConfig(String prefix) {
     final $r = $callSync(
-        11750,
+        11752,
         $W()
           ..h(this)
           ..str(prefix));
@@ -286,26 +286,26 @@ mixin KuboRepo$ on GoHandle {
 
   /// Go: `func (repo.Repo).Config() (*config.Config, error)`.
   $config.KuboConfig config() {
-    final $r = $callSync(11752, $W()..h(this));
+    final $r = $callSync(11754, $W()..h(this));
     return $r.p() ? $config.KuboConfig($r.json()) : $nil();
   }
 
   /// Go: `func (repo.Repo).Datastore() repo.Datastore`.
   KuboRepoDatastore datastore() {
-    final $r = $callSync(11753, $W()..h(this));
+    final $r = $callSync(11755, $W()..h(this));
     return $r.hnn(KuboRepoDatastore.$h);
   }
 
   /// Go: `func (repo.Repo).FileManager() *filestore.FileManager`.
   $filestore.BoxoFilestoreFileManager fileManager() {
-    final $r = $callSync(11754, $W()..h(this));
+    final $r = $callSync(11756, $W()..h(this));
     return $r.hnn($filestore.BoxoFilestoreFileManager.$h);
   }
 
   /// Go: `func (repo.Repo).GetConfigKey(key string) (any, error)`.
   Object? getConfigKey(String key) {
     final $r = $callSync(
-        11755,
+        11757,
         $W()
           ..h(this)
           ..str(key));
@@ -317,7 +317,7 @@ mixin KuboRepo$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getStorageUsage($context.Context ctx) async {
     final $r = await $call(
-        11756,
+        11758,
         $W()
           ..h(this)
           ..h(ctx));
@@ -326,20 +326,20 @@ mixin KuboRepo$ on GoHandle {
 
   /// Go: `func (repo.Repo).Keystore() keystore.Keystore`.
   $keystore.BoxoKeystore keystore() {
-    final $r = $callSync(11757, $W()..h(this));
+    final $r = $callSync(11759, $W()..h(this));
     return $r.hnn($keystore.BoxoKeystore.$h);
   }
 
   /// Go: `func (repo.Repo).Path() string`.
   String path() {
-    final $r = $callSync(11758, $W()..h(this));
+    final $r = $callSync(11760, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (repo.Repo).SetAPIAddr(addr multiaddr.Multiaddr) error`.
   void setApiAddr($multiaddr.Multiaddr addr) {
     $callSync(
-        11759,
+        11761,
         $W()
           ..h(this)
           ..val(addr));
@@ -348,7 +348,7 @@ mixin KuboRepo$ on GoHandle {
   /// Go: `func (repo.Repo).SetConfig(*config.Config) error`.
   void setConfig($config.KuboConfig config) {
     $callSync(
-        11760,
+        11762,
         $W()
           ..h(this)
           ..json(config));
@@ -357,7 +357,7 @@ mixin KuboRepo$ on GoHandle {
   /// Go: `func (repo.Repo).SetConfigKey(key string, value any) error`.
   void setConfigKey(String key, Object? value) {
     $callSync(
-        11761,
+        11763,
         $W()
           ..h(this)
           ..str(key)
@@ -367,7 +367,7 @@ mixin KuboRepo$ on GoHandle {
   /// Go: `func (repo.Repo).SetGatewayAddr(addr net.Addr) error`.
   void setGatewayAddr($net.NetAddr addr) {
     $callSync(
-        11762,
+        11764,
         $W()
           ..h(this)
           ..dto(addr));
@@ -375,14 +375,14 @@ mixin KuboRepo$ on GoHandle {
 
   /// Go: `func (repo.Repo).SwarmKey() ([]byte, error)`.
   Uint8List swarmKey() {
-    final $r = $callSync(11763, $W()..h(this));
+    final $r = $callSync(11765, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (repo.Repo).UserResourceOverrides() (rcmgr.PartialLimitConfig, error)`.
   $resource_manager.Libp2pP2pHostResourceManagerPartialLimitConfig
       userResourceOverrides() {
-    final $r = $callSync(11764, $W()..h(this));
+    final $r = $callSync(11766, $W()..h(this));
     return $r.p()
         ? $resource_manager.Libp2pP2pHostResourceManagerPartialLimitConfig.$dec(
             $r)

@@ -72,13 +72,13 @@ class WebrtcV4PkgMediaWriter extends GoHandle with WebrtcV4PkgMediaWriter$ {
 mixin WebrtcV4PkgMediaWriter$ on GoHandle {
   /// Go: `func (media.Writer).Close() error`.
   void close() {
-    $callSync(17835, $W()..h(this));
+    $callSync(17837, $W()..h(this));
   }
 
   /// Go: `func (media.Writer).WriteRTP(packet *rtp.Packet) error`.
   void writeRtp($rtp.RtpPacket packet) {
     $callSync(
-        17836,
+        17838,
         $W()
           ..h(this)
           ..dto(packet));

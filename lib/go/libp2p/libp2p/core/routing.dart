@@ -41,7 +41,7 @@ mixin Libp2pCoreRoutingContentDiscovery$ on GoHandle {
   Stream<$peer.Libp2pCorePeerAddrInfo> findProvidersAsync(
           $context.Context ctx, $cid.Cid cid, int arg2) =>
       $stream(
-              14284,
+              14286,
               $W()
                 ..h(this)
                 ..h(ctx)
@@ -120,7 +120,7 @@ mixin Libp2pCoreRoutingContentProviding$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> provide($context.Context ctx, $cid.Cid cid, bool arg2) async {
     await $call(
-        14285,
+        14287,
         $W()
           ..h(this)
           ..h(ctx)
@@ -258,7 +258,7 @@ final class Libp2pCoreRoutingOptions implements GoDto {
   /// Go: `func (*routing.Options).Apply(options ...routing.Option) error`.
   void apply([List<Libp2pCoreRoutingOption> options = const []]) {
     $callSync(
-        14288,
+        14290,
         $W()
           ..dto(this)
           ..list(options, (w0, e0) => w0.opt(e0)));
@@ -279,7 +279,7 @@ mixin Libp2pCoreRoutingPeerRouting$ on GoHandle {
   Future<$peer.Libp2pCorePeerAddrInfo> findPeer(
       $context.Context ctx, $peer.Libp2pCorePeerId id) async {
     final $r = await $call(
-        14289,
+        14291,
         $W()
           ..h(this)
           ..h(ctx)
@@ -332,7 +332,7 @@ mixin Libp2pCoreRoutingPubKeyFetcher$ on GoHandle {
   Future<$crypto.Libp2pCoreCryptoPubKey> getPublicKey(
       $context.Context ctx, $peer.Libp2pCorePeerId id) async {
     final $r = await $call(
-        14290,
+        14292,
         $W()
           ..h(this)
           ..h(ctx)
@@ -397,14 +397,14 @@ final class Libp2pCoreRoutingQueryEvent implements GoDto {
 
   /// Go: `func (*routing.QueryEvent).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(14292, $W()..dto(this));
+    final $r = $callSync(14294, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*routing.QueryEvent).UnmarshalJSON(b []byte) error`.
   void unmarshalJson(Uint8List b) {
     $callSync(
-        14293,
+        14295,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -432,7 +432,7 @@ mixin Libp2pCoreRouting$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> bootstrap($context.Context ctx) async {
     await $call(
-        14295,
+        14297,
         $W()
           ..h(this)
           ..h(ctx));
@@ -471,7 +471,7 @@ mixin Libp2pCoreRoutingValueStore$ on GoHandle {
   Future<Uint8List> getValue($context.Context ctx, String arg1,
       [List<Libp2pCoreRoutingOption> opts = const []]) async {
     final $r = await $call(
-        14297,
+        14299,
         $W()
           ..h(this)
           ..h(ctx)
@@ -486,7 +486,7 @@ mixin Libp2pCoreRoutingValueStore$ on GoHandle {
   Future<void> putValue($context.Context ctx, String arg1, Uint8List arg2,
       [List<Libp2pCoreRoutingOption> opts = const []]) async {
     await $call(
-        14298,
+        14300,
         $W()
           ..h(this)
           ..h(ctx)
@@ -499,7 +499,7 @@ mixin Libp2pCoreRoutingValueStore$ on GoHandle {
   Stream<Uint8List> searchValue($context.Context ctx, String arg1,
           [List<Libp2pCoreRoutingOption> opts = const []]) =>
       $stream(
-              14299,
+              14301,
               $W()
                 ..h(this)
                 ..h(ctx)
@@ -575,7 +575,7 @@ extension GoLibp2pLibp2pCoreRoutingApi on GoLibp2pLibp2pCoreRouting {
       $context.Context ctx,
       $peer.Libp2pCorePeerId p) async {
     final $r = await $call(
-        14286,
+        14288,
         $W()
           ..h(r)
           ..h(ctx)
@@ -585,7 +585,7 @@ extension GoLibp2pLibp2pCoreRoutingApi on GoLibp2pLibp2pCoreRouting {
 
   /// Go: `func routing.KeyForPublicKey(id peer.ID) string`.
   String keyForPublicKey($peer.Libp2pCorePeerId id) {
-    final $r = $callSync(14287, $W()..val(id));
+    final $r = $callSync(14289, $W()..val(id));
     return $r.str();
   }
 
@@ -595,7 +595,7 @@ extension GoLibp2pLibp2pCoreRoutingApi on GoLibp2pLibp2pCoreRouting {
   Future<void> publishQueryEvent(
       $context.Context ctx, Libp2pCoreRoutingQueryEvent ev) async {
     await $call(
-        14291,
+        14293,
         $W()
           ..h(ctx)
           ..dto(ev));
@@ -603,7 +603,7 @@ extension GoLibp2pLibp2pCoreRoutingApi on GoLibp2pLibp2pCoreRouting {
 
   /// Go: `var routing.QueryEventBufferSize int`.
   int get queryEventBufferSize {
-    final $r = $callSync(14294);
+    final $r = $callSync(14296);
     return $r.i64();
   }
 
@@ -611,7 +611,7 @@ extension GoLibp2pLibp2pCoreRoutingApi on GoLibp2pLibp2pCoreRouting {
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> subscribesToQueryEvents($context.Context ctx) async {
-    final $r = await $call(14296, $W()..h(ctx));
+    final $r = await $call(14298, $W()..h(ctx));
     return $r.b();
   }
 }

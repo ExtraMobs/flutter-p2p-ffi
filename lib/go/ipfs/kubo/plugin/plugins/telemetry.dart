@@ -11,7 +11,7 @@ extension GoIpfsKuboPluginPluginsTelemetryApi
     on GoIpfsKuboPluginPluginsTelemetry {
   /// Go: `var telemetry.Plugins []plugin.Plugin`.
   List<$plugin.KuboPlugin> get plugins {
-    final $r = $callSync(11732);
+    final $r = $callSync(11734);
     return $r.list(() => $r.hnn($plugin.KuboPlugin.$h));
   }
 }

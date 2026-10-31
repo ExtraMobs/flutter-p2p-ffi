@@ -33,7 +33,7 @@ mixin QuicGoQuicvarintPeeker$ on GoHandle {
   /// Go: `func (quicvarint.Peeker).Peek(b []byte) (int, error)`.
   int peek(Uint8List b) {
     final $r = $callSync(
-        18509,
+        18511,
         $W()
           ..h(this)
           ..bytes(b));
@@ -59,7 +59,7 @@ class QuicGoQuicvarintReader extends GoHandle with QuicGoQuicvarintReader$ {
 
   /// Go: `func quicvarint.NewReader(r io.Reader) quicvarint.Reader`.
   factory QuicGoQuicvarintReader(Object r) {
-    final $r = $callSync(18505, $W()..reader(r));
+    final $r = $callSync(18507, $W()..reader(r));
     return $r.hnn(QuicGoQuicvarintReader.$h);
   }
 }
@@ -158,7 +158,7 @@ class QuicGoQuicvarintWriter extends $io.IoByteWriter
 
   /// Go: `func quicvarint.NewWriter(w io.Writer) quicvarint.Writer`.
   factory QuicGoQuicvarintWriter(GoHandle? w) {
-    final $r = $callSync(18506, $W()..h(w));
+    final $r = $callSync(18508, $W()..h(w));
     return $r.hnn(QuicGoQuicvarintWriter.$h);
   }
 }
@@ -219,7 +219,7 @@ extension GoQuicGoQuicGoQuicvarintApi on GoQuicGoQuicGoQuicvarint {
   /// Go: `func quicvarint.Append(b []byte, i uint64) []byte`.
   Uint8List append(Uint8List b, int i) {
     final $r = $callSync(
-        18502,
+        18504,
         $W()
           ..bytes(b)
           ..i64(i));
@@ -229,7 +229,7 @@ extension GoQuicGoQuicGoQuicvarintApi on GoQuicGoQuicGoQuicvarint {
   /// Go: `func quicvarint.AppendWithLen(b []byte, i uint64, length int) []byte`.
   Uint8List appendWithLen(Uint8List b, int i, int length) {
     final $r = $callSync(
-        18503,
+        18505,
         $W()
           ..bytes(b)
           ..i64(i)
@@ -239,25 +239,25 @@ extension GoQuicGoQuicGoQuicvarintApi on GoQuicGoQuicGoQuicvarint {
 
   /// Go: `func quicvarint.Len(i uint64) int`.
   int len(int i) {
-    final $r = $callSync(18504, $W()..i64(i));
+    final $r = $callSync(18506, $W()..i64(i));
     return $r.i64();
   }
 
   /// Go: `func quicvarint.Parse(b []byte) (uint64, int, error)`.
   (int, int) parse(Uint8List b) {
-    final $r = $callSync(18507, $W()..bytes(b));
+    final $r = $callSync(18509, $W()..bytes(b));
     return ($r.i64(), $r.i64());
   }
 
   /// Go: `func quicvarint.Peek(p quicvarint.Peeker) (uint64, error)`.
   int peek(QuicGoQuicvarintPeeker p) {
-    final $r = $callSync(18508, $W()..h(p));
+    final $r = $callSync(18510, $W()..h(p));
     return $r.i64();
   }
 
   /// Go: `func quicvarint.Read(r io.ByteReader) (uint64, error)`.
   int read($io.IoByteReader r) {
-    final $r = $callSync(18510, $W()..dto(r));
+    final $r = $callSync(18512, $W()..dto(r));
     return $r.i64();
   }
 }

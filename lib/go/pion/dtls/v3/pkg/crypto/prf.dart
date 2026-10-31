@@ -69,7 +69,7 @@ final class DtlsV3PkgCryptoPrfEncryptionKeys implements GoDto {
 
   /// Go: `func (*prf.EncryptionKeys).String() string`.
   String string() {
-    final $r = $callSync(16244, $W()..dto(this));
+    final $r = $callSync(16246, $W()..dto(this));
     return $r.str();
   }
 }
@@ -85,7 +85,7 @@ extension GoPionDtlsV3PkgCryptoPrfApi on GoPionDtlsV3PkgCryptoPrf {
   Uint8List ecdhePskPreMasterSecret(
       Uint8List psk, Uint8List publicKey, Uint8List privateKey, int curve) {
     final $r = $callSync(
-        16243,
+        16245,
         $W()
           ..bytes(psk)
           ..bytes(publicKey)
@@ -98,7 +98,7 @@ extension GoPionDtlsV3PkgCryptoPrfApi on GoPionDtlsV3PkgCryptoPrf {
   Uint8List extendedMasterSecret(Uint8List preMasterSecret,
       Uint8List sessionHash, DtlsV3PkgCryptoPrfHashFunc h) {
     final $r = $callSync(
-        16245,
+        16247,
         $W()
           ..bytes(preMasterSecret)
           ..bytes(sessionHash)
@@ -116,7 +116,7 @@ extension GoPionDtlsV3PkgCryptoPrfApi on GoPionDtlsV3PkgCryptoPrf {
       int ivLen,
       DtlsV3PkgCryptoPrfHashFunc h) {
     final $r = $callSync(
-        16246,
+        16248,
         $W()
           ..bytes(masterSecret)
           ..bytes(clientRandom)
@@ -132,7 +132,7 @@ extension GoPionDtlsV3PkgCryptoPrfApi on GoPionDtlsV3PkgCryptoPrf {
   Uint8List masterSecret(Uint8List preMasterSecret, Uint8List clientRandom,
       Uint8List serverRandom, DtlsV3PkgCryptoPrfHashFunc h) {
     final $r = $callSync(
-        16247,
+        16249,
         $W()
           ..bytes(preMasterSecret)
           ..bytes(clientRandom)
@@ -145,7 +145,7 @@ extension GoPionDtlsV3PkgCryptoPrfApi on GoPionDtlsV3PkgCryptoPrf {
   Uint8List pHash(Uint8List secret, Uint8List seed, int requestedLength,
       DtlsV3PkgCryptoPrfHashFunc hashFunc) {
     final $r = $callSync(
-        16248,
+        16250,
         $W()
           ..bytes(secret)
           ..bytes(seed)
@@ -156,7 +156,7 @@ extension GoPionDtlsV3PkgCryptoPrfApi on GoPionDtlsV3PkgCryptoPrf {
 
   /// Go: `func prf.PSKPreMasterSecret(psk []byte) []byte`.
   Uint8List pskPreMasterSecret(Uint8List psk) {
-    final $r = $callSync(16249, $W()..bytes(psk));
+    final $r = $callSync(16251, $W()..bytes(psk));
     return $r.bytes() ?? Uint8List(0);
   }
 
@@ -164,7 +164,7 @@ extension GoPionDtlsV3PkgCryptoPrfApi on GoPionDtlsV3PkgCryptoPrf {
   Uint8List preMasterSecret(
       Uint8List publicKey, Uint8List privateKey, int curve) {
     final $r = $callSync(
-        16250,
+        16252,
         $W()
           ..bytes(publicKey)
           ..bytes(privateKey)
@@ -176,7 +176,7 @@ extension GoPionDtlsV3PkgCryptoPrfApi on GoPionDtlsV3PkgCryptoPrf {
   Uint8List verifyDataClient(Uint8List masterSecret, Uint8List handshakeBodies,
       DtlsV3PkgCryptoPrfHashFunc h) {
     final $r = $callSync(
-        16251,
+        16253,
         $W()
           ..bytes(masterSecret)
           ..bytes(handshakeBodies)
@@ -188,7 +188,7 @@ extension GoPionDtlsV3PkgCryptoPrfApi on GoPionDtlsV3PkgCryptoPrf {
   Uint8List verifyDataServer(Uint8List masterSecret, Uint8List handshakeBodies,
       DtlsV3PkgCryptoPrfHashFunc h) {
     final $r = $callSync(
-        16252,
+        16254,
         $W()
           ..bytes(masterSecret)
           ..bytes(handshakeBodies)

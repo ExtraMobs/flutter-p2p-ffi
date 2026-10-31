@@ -20,7 +20,7 @@ mixin Libp2pCoreProtocolNegotiator$ on GoHandle {
   /// Go: `func (protocol.Negotiator).Handle(rwc io.ReadWriteCloser) error`.
   void handle(Object rwc) {
     $callSync(
-        14256,
+        14258,
         $W()
           ..h(this)
           ..reader(rwc));
@@ -52,7 +52,7 @@ mixin Libp2pCoreProtocolRouter$ on GoHandle {
       FutureOr<void> Function(String protocol, $io.IoReadWriteCloser rwc)
           handler) async {
     await $call(
-        14257,
+        14259,
         $W()
           ..h(this)
           ..str(protocol)
@@ -72,7 +72,7 @@ mixin Libp2pCoreProtocolRouter$ on GoHandle {
       FutureOr<void> Function(String protocol, $io.IoReadWriteCloser rwc)
           handler) async {
     await $call(
-        14258,
+        14260,
         $W()
           ..h(this)
           ..str(protocol)
@@ -82,14 +82,14 @@ mixin Libp2pCoreProtocolRouter$ on GoHandle {
 
   /// Go: `func (protocol.Router).Protocols() []protocol.ID`.
   List<String> protocols() {
-    final $r = $callSync(14259, $W()..h(this));
+    final $r = $callSync(14261, $W()..h(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (protocol.Router).RemoveHandler(protocol protocol.ID)`.
   void removeHandler(String protocol) {
     $callSync(
-        14260,
+        14262,
         $W()
           ..h(this)
           ..str(protocol));
@@ -116,13 +116,13 @@ mixin Libp2pCoreProtocolSwitch$ on GoHandle {}
 extension GoLibp2pLibp2pCoreProtocolApi on GoLibp2pLibp2pCoreProtocol {
   /// Go: `func protocol.ConvertFromStrings(ids []string) (res []protocol.ID)`.
   List<String> convertFromStrings(List<String> ids) {
-    final $r = $callSync(14254, $W()..list(ids, (w0, e0) => w0.str(e0)));
+    final $r = $callSync(14256, $W()..list(ids, (w0, e0) => w0.str(e0)));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func protocol.ConvertToStrings(ids []protocol.ID) (res []string)`.
   List<String> convertToStrings(List<String> ids) {
-    final $r = $callSync(14255, $W()..list(ids, (w0, e0) => w0.str(e0)));
+    final $r = $callSync(14257, $W()..list(ids, (w0, e0) => w0.str(e0)));
     return $r.list(() => $r.str());
   }
 }

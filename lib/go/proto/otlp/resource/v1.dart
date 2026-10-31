@@ -26,47 +26,47 @@ class OtlpResourceV1Resource
   /// Go: `func (*v1.Resource).Descriptor() ([]byte, []int)`.
   @Deprecated("Use Resource.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(22554, $W()..h(this));
+    final $r = $callSync(22556, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*v1.Resource).GetAttributes() []*v1.KeyValue`.
   List<$v1.OtlpCommonV1KeyValue> getAttributes() {
-    final $r = $callSync(22555, $W()..h(this));
+    final $r = $callSync(22557, $W()..h(this));
     return $r.list(() => $r.hnn($v1.OtlpCommonV1KeyValue.$h));
   }
 
   /// Go: `func (*v1.Resource).GetDroppedAttributesCount() uint32`.
   int getDroppedAttributesCount() {
-    final $r = $callSync(22556, $W()..h(this));
+    final $r = $callSync(22558, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*v1.Resource).GetEntityRefs() []*v1.EntityRef`.
   List<$v1.OtlpCommonV1EntityRef> getEntityRefs() {
-    final $r = $callSync(22557, $W()..h(this));
+    final $r = $callSync(22559, $W()..h(this));
     return $r.list(() => $r.hnn($v1.OtlpCommonV1EntityRef.$h));
   }
 
   /// Go: `func (*v1.Resource).ProtoMessage()`.
   void protoMessage() {
-    $callSync(22558, $W()..h(this));
+    $callSync(22560, $W()..h(this));
   }
 
   /// Go: `func (*v1.Resource).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(22559, $W()..h(this));
+    final $r = $callSync(22561, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*v1.Resource).Reset()`.
   void reset() {
-    $callSync(22560, $W()..h(this));
+    $callSync(22562, $W()..h(this));
   }
 
   /// Go: `func (*v1.Resource).String() string`.
   String string() {
-    final $r = $callSync(22561, $W()..h(this));
+    final $r = $callSync(22563, $W()..h(this));
     return $r.str();
   }
 }
@@ -76,7 +76,7 @@ extension GoProtoOtlpResourceV1Api on GoProtoOtlpResourceV1 {
   /// Go: `var v1.File_opentelemetry_proto_resource_v1_resource_proto protoreflect.FileDescriptor`.
   $protoreflect.ProtobufReflectProtoreflectFileDescriptor
       get fileOpentelemetryProtoResourceV1ResourceProto {
-    final $r = $callSync(22553);
+    final $r = $callSync(22555);
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectFileDescriptor.$h);
   }
 }

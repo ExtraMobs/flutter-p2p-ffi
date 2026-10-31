@@ -73,7 +73,7 @@ final class RefmtCborDecodeOptions implements GoDto {
 
   /// Go: `func (cbor.DecodeOptions).IsDecodeOptions()`.
   void isDecodeOptions() {
-    $callSync(17857, $W()..dto(this));
+    $callSync(17859, $W()..dto(this));
   }
 }
 
@@ -86,7 +86,7 @@ class RefmtCborDecoder extends $shared.RefmtSharedTokenSink
   /// Go: `func cbor.NewDecoder(cfg cbor.DecodeOptions, r io.Reader) (d *cbor.Decoder)`.
   factory RefmtCborDecoder(RefmtCborDecodeOptions cfg, Object r) {
     final $r = $callSync(
-        17866,
+        17868,
         $W()
           ..dto(cfg)
           ..reader(r));
@@ -95,13 +95,13 @@ class RefmtCborDecoder extends $shared.RefmtSharedTokenSink
 
   /// Go: `func (*cbor.Decoder).Reset()`.
   void reset() {
-    $callSync(17858, $W()..h(this));
+    $callSync(17860, $W()..h(this));
   }
 
   /// Go: `func (*cbor.Decoder).Step(tokenSlot *tok.Token) (done bool, err error)`.
   bool step($tok.RefmtTokToken tokenSlot) {
     final $r = $callSync(
-        17859,
+        17861,
         $W()
           ..h(this)
           ..dto(tokenSlot));
@@ -119,7 +119,7 @@ final class RefmtCborEncodeOptions implements GoDto {
 
   /// Go: `func (cbor.EncodeOptions).IsEncodeOptions()`.
   void isEncodeOptions() {
-    $callSync(17860, $W()..dto(this));
+    $callSync(17862, $W()..dto(this));
   }
 }
 
@@ -131,19 +131,19 @@ class RefmtCborEncoder extends $shared.RefmtSharedTokenSink
 
   /// Go: `func cbor.NewEncoder(w io.Writer) (d *cbor.Encoder)`.
   factory RefmtCborEncoder(GoHandle? w) {
-    final $r = $callSync(17867, $W()..h(w));
+    final $r = $callSync(17869, $W()..h(w));
     return $r.hnn(RefmtCborEncoder.$h);
   }
 
   /// Go: `func (*cbor.Encoder).Reset()`.
   void reset() {
-    $callSync(17861, $W()..h(this));
+    $callSync(17863, $W()..h(this));
   }
 
   /// Go: `func (*cbor.Encoder).Step(tokenSlot *tok.Token) (done bool, err error)`.
   bool step($tok.RefmtTokToken tokenSlot) {
     final $r = $callSync(
-        17862,
+        17864,
         $W()
           ..h(this)
           ..dto(tokenSlot));
@@ -157,14 +157,14 @@ class RefmtCborMarshaller extends $refmt.RefmtMarshaller {
 
   /// Go: `func cbor.NewMarshaller(wr io.Writer) *cbor.Marshaller`.
   factory RefmtCborMarshaller(GoHandle? wr) {
-    final $r = $callSync(17868, $W()..h(wr));
+    final $r = $callSync(17870, $W()..h(wr));
     return $r.hnn(RefmtCborMarshaller.$h);
   }
 
   /// Go: `func (*cbor.Marshaller).Marshal(v interface{}) error`.
   void marshal(Object? v) {
     $callSync(
-        17865,
+        17867,
         $W()
           ..h(this)
           ..any(v));
@@ -178,7 +178,7 @@ class RefmtCborUnmarshaller extends $refmt.RefmtUnmarshaller {
   /// Go: `func cbor.NewUnmarshaller(cfg cbor.DecodeOptions, r io.Reader) *cbor.Unmarshaller`.
   factory RefmtCborUnmarshaller(RefmtCborDecodeOptions cfg, Object r) {
     final $r = $callSync(
-        17870,
+        17872,
         $W()
           ..dto(cfg)
           ..reader(r));
@@ -188,7 +188,7 @@ class RefmtCborUnmarshaller extends $refmt.RefmtUnmarshaller {
   /// Go: `func (*cbor.Unmarshaller).Unmarshal(v interface{}) error`.
   void unmarshal(Object? v) {
     $callSync(
-        17874,
+        17876,
         $W()
           ..h(this)
           ..any(v));
@@ -262,14 +262,14 @@ class RefmtCborErrNonMinimalInteger extends GolangException {
 extension GoPolydawnRefmtCborApi on GoPolydawnRefmtCbor {
   /// Go: `func cbor.Marshal(v interface{}) ([]byte, error)`.
   Uint8List marshal(Object? v) {
-    final $r = $callSync(17863, $W()..any(v));
+    final $r = $callSync(17865, $W()..any(v));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func cbor.MarshalAtlased(v interface{}, atl atlas.Atlas) ([]byte, error)`.
   Uint8List marshalAtlased(Object? v, $atlas.RefmtObjAtlas atl) {
     final $r = $callSync(
-        17864,
+        17866,
         $W()
           ..any(v)
           ..h(atl));
@@ -280,7 +280,7 @@ extension GoPolydawnRefmtCborApi on GoPolydawnRefmtCbor {
   RefmtCborMarshaller newMarshallerAtlased(
       GoHandle? wr, $atlas.RefmtObjAtlas atl) {
     final $r = $callSync(
-        17869,
+        17871,
         $W()
           ..h(wr)
           ..h(atl));
@@ -291,7 +291,7 @@ extension GoPolydawnRefmtCborApi on GoPolydawnRefmtCbor {
   RefmtCborUnmarshaller newUnmarshallerAtlased(
       RefmtCborDecodeOptions cfg, Object r, $atlas.RefmtObjAtlas atl) {
     final $r = $callSync(
-        17871,
+        17873,
         $W()
           ..dto(cfg)
           ..reader(r)
@@ -302,7 +302,7 @@ extension GoPolydawnRefmtCborApi on GoPolydawnRefmtCbor {
   /// Go: `func cbor.Unmarshal(cfg cbor.DecodeOptions, data []byte, v interface{}) error`.
   void unmarshal(RefmtCborDecodeOptions cfg, Uint8List data, Object? v) {
     $callSync(
-        17872,
+        17874,
         $W()
           ..dto(cfg)
           ..bytes(data)
@@ -313,7 +313,7 @@ extension GoPolydawnRefmtCborApi on GoPolydawnRefmtCbor {
   void unmarshalAtlased(RefmtCborDecodeOptions cfg, Uint8List data, Object? v,
       $atlas.RefmtObjAtlas atl) {
     $callSync(
-        17873,
+        17875,
         $W()
           ..dto(cfg)
           ..bytes(data)

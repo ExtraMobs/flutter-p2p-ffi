@@ -23,7 +23,7 @@ class WebtransportGoClientConn extends $http.NetHttpRoundTripper {
   /// Go: `func (*webtransport.ClientConn).RoundTrip(req *http.Request) (*http.Response, error)`.
   $http.NetHttpResponse roundTrip($http.NetHttpRequest req) {
     final $r = $callSync(
-        18511,
+        18513,
         $W()
           ..h(this)
           ..h(req));
@@ -39,7 +39,7 @@ class WebtransportGoReceiveStream
   /// Go: `func (*webtransport.ReceiveStream).CancelRead(e webtransport.StreamErrorCode)`.
   void cancelRead(int e) {
     $callSync(
-        18513,
+        18515,
         $W()
           ..h(this)
           ..i64(e));
@@ -48,7 +48,7 @@ class WebtransportGoReceiveStream
   /// Go: `func (*webtransport.ReceiveStream).Read(b []byte) (int, error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        18514,
+        18516,
         $W()
           ..h(this)
           ..i64(n));
@@ -58,7 +58,7 @@ class WebtransportGoReceiveStream
   /// Go: `func (*webtransport.ReceiveStream).SetReadDeadline(t time.Time) error`.
   void setReadDeadline(DateTime t) {
     $callSync(
-        18515,
+        18517,
         $W()
           ..h(this)
           ..time(t));
@@ -66,7 +66,7 @@ class WebtransportGoReceiveStream
 
   /// Go: `func (*webtransport.ReceiveStream).StreamID() quic.StreamID`.
   int streamId() {
-    final $r = $callSync(18516, $W()..h(this));
+    final $r = $callSync(18518, $W()..h(this));
     return $r.i64();
   }
 }
@@ -82,7 +82,7 @@ class WebtransportGoSendStream extends $io.IoCloser
   /// Go: `func (*webtransport.SendStream).CancelWrite(e webtransport.StreamErrorCode)`.
   void cancelWrite(int e) {
     $callSync(
-        18517,
+        18519,
         $W()
           ..h(this)
           ..i64(e));
@@ -90,13 +90,13 @@ class WebtransportGoSendStream extends $io.IoCloser
 
   /// Go: `func (*webtransport.SendStream).Close() error`.
   void close() {
-    $callSync(18518, $W()..h(this));
+    $callSync(18520, $W()..h(this));
   }
 
   /// Go: `func (*webtransport.SendStream).SetWriteDeadline(t time.Time) error`.
   void setWriteDeadline(DateTime t) {
     $callSync(
-        18519,
+        18521,
         $W()
           ..h(this)
           ..time(t));
@@ -104,14 +104,14 @@ class WebtransportGoSendStream extends $io.IoCloser
 
   /// Go: `func (*webtransport.SendStream).StreamID() quic.StreamID`.
   int streamId() {
-    final $r = $callSync(18520, $W()..h(this));
+    final $r = $callSync(18522, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*webtransport.SendStream).Write(b []byte) (int, error)`.
   int write(Uint8List b) {
     final $r = $callSync(
-        18521,
+        18523,
         $W()
           ..h(this)
           ..bytes(b));
@@ -127,18 +127,18 @@ class WebtransportGoServer extends $io.IoCloser
 
   /// Go: `func (*webtransport.Server).Close() error`.
   void close() {
-    $callSync(18522, $W()..h(this));
+    $callSync(18524, $W()..h(this));
   }
 
   /// Go: `func (*webtransport.Server).ListenAndServe() error`.
   void listenAndServe() {
-    $callSync(18523, $W()..h(this));
+    $callSync(18525, $W()..h(this));
   }
 
   /// Go: `func (*webtransport.Server).ListenAndServeTLS(certFile string, keyFile string) error`.
   void listenAndServeTls(String certFile, String keyFile) {
     $callSync(
-        18524,
+        18526,
         $W()
           ..h(this)
           ..str(certFile)
@@ -148,7 +148,7 @@ class WebtransportGoServer extends $io.IoCloser
   /// Go: `func (*webtransport.Server).Serve(conn net.PacketConn) error`.
   void serve($net.NetPacketConn conn) {
     $callSync(
-        18525,
+        18527,
         $W()
           ..h(this)
           ..h(conn));
@@ -157,7 +157,7 @@ class WebtransportGoServer extends $io.IoCloser
   /// Go: `func (*webtransport.Server).ServeQUICConn(conn *quic.Conn) error`.
   void serveQuicConn($quic_go.QuicGoConn conn) {
     $callSync(
-        18526,
+        18528,
         $W()
           ..h(this)
           ..h(conn));
@@ -167,7 +167,7 @@ class WebtransportGoServer extends $io.IoCloser
   WebtransportGoSession upgrade(
       $http.NetHttpResponseWriter w, $http.NetHttpRequest r) {
     final $r = $callSync(
-        18527,
+        18529,
         $W()
           ..h(this)
           ..h(w)
@@ -185,7 +185,7 @@ class WebtransportGoSession extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<WebtransportGoStream> acceptStream($context.Context ctx) async {
     final $r = await $call(
-        18528,
+        18530,
         $W()
           ..h(this)
           ..h(ctx));
@@ -198,7 +198,7 @@ class WebtransportGoSession extends GoHandle {
   Future<WebtransportGoReceiveStream> acceptUniStream(
       $context.Context ctx) async {
     final $r = await $call(
-        18529,
+        18531,
         $W()
           ..h(this)
           ..h(ctx));
@@ -208,7 +208,7 @@ class WebtransportGoSession extends GoHandle {
   /// Go: `func (*webtransport.Session).CloseWithError(code webtransport.SessionErrorCode, msg string) error`.
   void closeWithError(int code, String msg) {
     $callSync(
-        18530,
+        18532,
         $W()
           ..h(this)
           ..i64(code)
@@ -217,13 +217,13 @@ class WebtransportGoSession extends GoHandle {
 
   /// Go: `func (*webtransport.Session).LocalAddr() net.Addr`.
   $net.NetAddr localAddr() {
-    final $r = $callSync(18531, $W()..h(this));
+    final $r = $callSync(18533, $W()..h(this));
     return $r.p() ? $net.NetAddr.$dec($r) : $nil();
   }
 
   /// Go: `func (*webtransport.Session).OpenStream() (*webtransport.Stream, error)`.
   WebtransportGoStream openStream() {
-    final $r = $callSync(18532, $W()..h(this));
+    final $r = $callSync(18534, $W()..h(this));
     return $r.hnn(WebtransportGoStream.$h);
   }
 
@@ -232,7 +232,7 @@ class WebtransportGoSession extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<WebtransportGoStream> openStreamSync($context.Context ctx) async {
     final $r = await $call(
-        18533,
+        18535,
         $W()
           ..h(this)
           ..h(ctx));
@@ -241,7 +241,7 @@ class WebtransportGoSession extends GoHandle {
 
   /// Go: `func (*webtransport.Session).OpenUniStream() (*webtransport.SendStream, error)`.
   WebtransportGoSendStream openUniStream() {
-    final $r = $callSync(18534, $W()..h(this));
+    final $r = $callSync(18536, $W()..h(this));
     return $r.hnn(WebtransportGoSendStream.$h);
   }
 
@@ -251,7 +251,7 @@ class WebtransportGoSession extends GoHandle {
   Future<WebtransportGoSendStream> openUniStreamSync(
       $context.Context ctx) async {
     final $r = await $call(
-        18535,
+        18537,
         $W()
           ..h(this)
           ..h(ctx));
@@ -263,7 +263,7 @@ class WebtransportGoSession extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<Uint8List> receiveDatagram($context.Context ctx) async {
     final $r = await $call(
-        18536,
+        18538,
         $W()
           ..h(this)
           ..h(ctx));
@@ -272,14 +272,14 @@ class WebtransportGoSession extends GoHandle {
 
   /// Go: `func (*webtransport.Session).RemoteAddr() net.Addr`.
   $net.NetAddr remoteAddr() {
-    final $r = $callSync(18537, $W()..h(this));
+    final $r = $callSync(18539, $W()..h(this));
     return $r.p() ? $net.NetAddr.$dec($r) : $nil();
   }
 
   /// Go: `func (*webtransport.Session).SendDatagram(b []byte) error`.
   void sendDatagram(Uint8List b) {
     $callSync(
-        18538,
+        18540,
         $W()
           ..h(this)
           ..bytes(b));
@@ -287,7 +287,7 @@ class WebtransportGoSession extends GoHandle {
 
   /// Go: `func (*webtransport.Session).SessionState() webtransport.SessionState`.
   WebtransportGoSessionState sessionState() {
-    final $r = $callSync(18539, $W()..h(this));
+    final $r = $callSync(18541, $W()..h(this));
     return $r.p() ? WebtransportGoSessionState.$dec($r) : $nil();
   }
 }
@@ -333,7 +333,7 @@ class WebtransportGoStream extends $io.IoCloser
   /// Go: `func (*webtransport.Stream).CancelRead(e webtransport.StreamErrorCode)`.
   void cancelRead(int e) {
     $callSync(
-        18540,
+        18542,
         $W()
           ..h(this)
           ..i64(e));
@@ -342,7 +342,7 @@ class WebtransportGoStream extends $io.IoCloser
   /// Go: `func (*webtransport.Stream).CancelWrite(e webtransport.StreamErrorCode)`.
   void cancelWrite(int e) {
     $callSync(
-        18541,
+        18543,
         $W()
           ..h(this)
           ..i64(e));
@@ -350,13 +350,13 @@ class WebtransportGoStream extends $io.IoCloser
 
   /// Go: `func (*webtransport.Stream).Close() error`.
   void close() {
-    $callSync(18542, $W()..h(this));
+    $callSync(18544, $W()..h(this));
   }
 
   /// Go: `func (*webtransport.Stream).Read(b []byte) (int, error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        18543,
+        18545,
         $W()
           ..h(this)
           ..i64(n));
@@ -366,7 +366,7 @@ class WebtransportGoStream extends $io.IoCloser
   /// Go: `func (*webtransport.Stream).SetDeadline(t time.Time) error`.
   void setDeadline(DateTime t) {
     $callSync(
-        18544,
+        18546,
         $W()
           ..h(this)
           ..time(t));
@@ -375,7 +375,7 @@ class WebtransportGoStream extends $io.IoCloser
   /// Go: `func (*webtransport.Stream).SetReadDeadline(t time.Time) error`.
   void setReadDeadline(DateTime t) {
     $callSync(
-        18545,
+        18547,
         $W()
           ..h(this)
           ..time(t));
@@ -384,7 +384,7 @@ class WebtransportGoStream extends $io.IoCloser
   /// Go: `func (*webtransport.Stream).SetWriteDeadline(t time.Time) error`.
   void setWriteDeadline(DateTime t) {
     $callSync(
-        18546,
+        18548,
         $W()
           ..h(this)
           ..time(t));
@@ -392,14 +392,14 @@ class WebtransportGoStream extends $io.IoCloser
 
   /// Go: `func (*webtransport.Stream).StreamID() quic.StreamID`.
   int streamId() {
-    final $r = $callSync(18547, $W()..h(this));
+    final $r = $callSync(18549, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*webtransport.Stream).Write(b []byte) (int, error)`.
   int write(Uint8List b) {
     final $r = $callSync(
-        18548,
+        18550,
         $W()
           ..h(this)
           ..bytes(b));
@@ -415,13 +415,13 @@ class WebtransportGoTransport extends $io.IoCloser
 
   /// Go: `func (*webtransport.Transport).Close() error`.
   void close() {
-    $callSync(18549, $W()..h(this));
+    $callSync(18551, $W()..h(this));
   }
 
   /// Go: `func (*webtransport.Transport).NewClientConn(qconn *quic.Conn) (*webtransport.ClientConn, error)`.
   WebtransportGoClientConn newClientConn($quic_go.QuicGoConn qconn) {
     final $r = $callSync(
-        18550,
+        18552,
         $W()
           ..h(this)
           ..h(qconn));
@@ -496,7 +496,7 @@ class WebtransportGoStreamLimitReachedError extends GolangException {
 extension GoQuicGoWebtransportGoApi on GoQuicGoWebtransportGo {
   /// Go: `func webtransport.ConfigureHTTP3Server(s *http3.Server)`.
   void configureHttp3Server($http3.QuicGoHttp3Server s) {
-    $callSync(18512, $W()..h(s));
+    $callSync(18514, $W()..h(s));
   }
 }
 

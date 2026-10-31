@@ -174,7 +174,7 @@ class CommonExpfmtCloser extends GoHandle with CommonExpfmtCloser$ {
 mixin CommonExpfmtCloser$ on GoHandle {
   /// Go: `func (expfmt.Closer).Close() error`.
   void close() {
-    $callSync(18185, $W()..h(this));
+    $callSync(18187, $W()..h(this));
   }
 
   /// Go: type assertion `x.(*tar.Writer)`: null if the object is not one.
@@ -1534,7 +1534,7 @@ class CommonExpfmtDecoder extends GoHandle with CommonExpfmtDecoder$ {
   /// Go: `func expfmt.NewDecoder(r io.Reader, format expfmt.Format) expfmt.Decoder`.
   factory CommonExpfmtDecoder(Object r, String format) {
     final $r = $callSync(
-        18192,
+        18194,
         $W()
           ..reader(r)
           ..str(format));
@@ -1547,7 +1547,7 @@ mixin CommonExpfmtDecoder$ on GoHandle {
   /// Go: `func (expfmt.Decoder).Decode(*io_prometheus_client.MetricFamily) error`.
   void decode($go.ClientModelGoMetricFamily metricFamily) {
     $callSync(
-        18186,
+        18188,
         $W()
           ..h(this)
           ..h(metricFamily));
@@ -1562,7 +1562,7 @@ class CommonExpfmtEncoder extends GoHandle with CommonExpfmtEncoder$ {
   factory CommonExpfmtEncoder(GoHandle? w, String format,
       [List<CommonExpfmtEncoderOption> options = const []]) {
     final $r = $callSync(
-        18193,
+        18195,
         $W()
           ..h(w)
           ..str(format)
@@ -1576,7 +1576,7 @@ mixin CommonExpfmtEncoder$ on GoHandle {
   /// Go: `func (expfmt.Encoder).Encode(*io_prometheus_client.MetricFamily) error`.
   void encode($go.ClientModelGoMetricFamily metricFamily) {
     $callSync(
-        18187,
+        18189,
         $W()
           ..h(this)
           ..h(metricFamily));
@@ -1594,14 +1594,14 @@ class CommonExpfmtTextParser extends GoHandle {
 
   /// Go: `func expfmt.NewTextParser(nameValidationScheme model.ValidationScheme) expfmt.TextParser`.
   factory CommonExpfmtTextParser(int nameValidationScheme) {
-    final $r = $callSync(18196, $W()..i64(nameValidationScheme));
+    final $r = $callSync(18198, $W()..i64(nameValidationScheme));
     return $r.hnn(CommonExpfmtTextParser.$h);
   }
 
   /// Go: `func (*expfmt.TextParser).TextToMetricFamilies(in io.Reader) (map[string]*io_prometheus_client.MetricFamily, error)`.
   Map<String, $go.ClientModelGoMetricFamily> textToMetricFamilies(Object in$) {
     final $r = $callSync(
-        18197,
+        18199,
         $W()
           ..h(this)
           ..reader(in$));
@@ -1634,7 +1634,7 @@ extension GoPrometheusCommonExpfmtApi on GoPrometheusCommonExpfmt {
   List<$model.CommonModelSample> extractSamples(CommonExpfmtDecodeOptions o,
       [List<$go.ClientModelGoMetricFamily> fams = const []]) {
     final $r = $callSync(
-        18188,
+        18190,
         $W()
           ..dto(o)
           ..list(fams, (w0, e0) => w0.h(e0)));
@@ -1643,7 +1643,7 @@ extension GoPrometheusCommonExpfmtApi on GoPrometheusCommonExpfmt {
 
   /// Go: `func expfmt.FinalizeOpenMetrics(w io.Writer) (written int, err error)`.
   int finalizeOpenMetrics(GoHandle? w) {
-    final $r = $callSync(18189, $W()..h(w));
+    final $r = $callSync(18191, $W()..h(w));
     return $r.i64();
   }
 
@@ -1652,7 +1652,7 @@ extension GoPrometheusCommonExpfmtApi on GoPrometheusCommonExpfmt {
       GoHandle? out, $go.ClientModelGoMetricFamily in$,
       [List<CommonExpfmtEncoderOption> options = const []]) {
     final $r = $callSync(
-        18190,
+        18192,
         $W()
           ..h(out)
           ..h(in$)
@@ -1663,7 +1663,7 @@ extension GoPrometheusCommonExpfmtApi on GoPrometheusCommonExpfmt {
   /// Go: `func expfmt.MetricFamilyToText(out io.Writer, in *io_prometheus_client.MetricFamily) (written int, err error)`.
   int metricFamilyToText(GoHandle? out, $go.ClientModelGoMetricFamily in$) {
     final $r = $callSync(
-        18191,
+        18193,
         $W()
           ..h(out)
           ..h(in$));
@@ -1672,13 +1672,13 @@ extension GoPrometheusCommonExpfmtApi on GoPrometheusCommonExpfmt {
 
   /// Go: `func expfmt.NewFormat(t expfmt.FormatType) expfmt.Format`.
   String newFormat(int t) {
-    final $r = $callSync(18194, $W()..i64(t));
+    final $r = $callSync(18196, $W()..i64(t));
     return $r.str();
   }
 
   /// Go: `func expfmt.NewOpenMetricsFormat(version string) (expfmt.Format, error)`.
   String newOpenMetricsFormat(String version) {
-    final $r = $callSync(18195, $W()..str(version));
+    final $r = $callSync(18197, $W()..str(version));
     return $r.str();
   }
 }

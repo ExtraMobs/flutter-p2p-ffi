@@ -15,14 +15,14 @@ extension GoIoIoutilApi on GoIoIoutil {
   /// Go: `func ioutil.NopCloser(r io.Reader) io.ReadCloser`.
   @Deprecated("As of Go 1.16, this function simply calls [io.NopCloser].")
   $io.IoReadCloser nopCloser(Object r) {
-    final $r = $callSync(25777, $W()..reader(r));
+    final $r = $callSync(25779, $W()..reader(r));
     return $r.hnn($io.IoReadCloser.$h);
   }
 
   /// Go: `func ioutil.ReadAll(r io.Reader) ([]byte, error)`.
   @Deprecated("As of Go 1.16, this function simply calls [io.ReadAll].")
   Uint8List readAll(Object r) {
-    final $r = $callSync(25778, $W()..reader(r));
+    final $r = $callSync(25780, $W()..reader(r));
     return $r.bytes() ?? Uint8List(0);
   }
 
@@ -30,14 +30,14 @@ extension GoIoIoutilApi on GoIoIoutil {
   @Deprecated(
       "As of Go 1.16, [os.ReadDir] is a more efficient and correct choice: it returns a list of [fs.DirEntry] instead of [fs.FileInfo], and it returns partial results in the case of an error midway through reading a directory.")
   List<$fs.IoFsFileInfo> readDir(String dirname) {
-    final $r = $callSync(25779, $W()..str(dirname));
+    final $r = $callSync(25781, $W()..str(dirname));
     return $r.list(() => $r.hnn($fs.IoFsFileInfo.$h));
   }
 
   /// Go: `func ioutil.ReadFile(filename string) ([]byte, error)`.
   @Deprecated("As of Go 1.16, this function simply calls [os.ReadFile].")
   Uint8List readFile(String filename) {
-    final $r = $callSync(25780, $W()..str(filename));
+    final $r = $callSync(25782, $W()..str(filename));
     return $r.bytes() ?? Uint8List(0);
   }
 
@@ -45,7 +45,7 @@ extension GoIoIoutilApi on GoIoIoutil {
   @Deprecated("As of Go 1.17, this function simply calls [os.MkdirTemp].")
   String tempDir(String dir, String pattern) {
     final $r = $callSync(
-        25781,
+        25783,
         $W()
           ..str(dir)
           ..str(pattern));
@@ -56,7 +56,7 @@ extension GoIoIoutilApi on GoIoIoutil {
   @Deprecated("As of Go 1.17, this function simply calls [os.CreateTemp].")
   $os.OsFile tempFile(String dir, String pattern) {
     final $r = $callSync(
-        25782,
+        25784,
         $W()
           ..str(dir)
           ..str(pattern));
@@ -67,7 +67,7 @@ extension GoIoIoutilApi on GoIoIoutil {
   @Deprecated("As of Go 1.16, this function simply calls [os.WriteFile].")
   void writeFile(String filename, Uint8List data, int perm) {
     $callSync(
-        25783,
+        25785,
         $W()
           ..str(filename)
           ..bytes(data)

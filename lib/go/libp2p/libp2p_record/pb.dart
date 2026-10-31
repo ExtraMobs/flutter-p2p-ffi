@@ -25,47 +25,47 @@ class Libp2pRecordPbRecord
   /// Go: `func (*pb.Record).Descriptor() ([]byte, []int)`.
   @Deprecated("Use Record.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(13719, $W()..h(this));
+    final $r = $callSync(13721, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*pb.Record).GetKey() []byte`.
   Uint8List getKey() {
-    final $r = $callSync(13720, $W()..h(this));
+    final $r = $callSync(13722, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pb.Record).GetTimeReceived() string`.
   String getTimeReceived() {
-    final $r = $callSync(13721, $W()..h(this));
+    final $r = $callSync(13723, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*pb.Record).GetValue() []byte`.
   Uint8List getValue() {
-    final $r = $callSync(13722, $W()..h(this));
+    final $r = $callSync(13724, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pb.Record).ProtoMessage()`.
   void protoMessage() {
-    $callSync(13723, $W()..h(this));
+    $callSync(13725, $W()..h(this));
   }
 
   /// Go: `func (*pb.Record).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(13724, $W()..h(this));
+    final $r = $callSync(13726, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*pb.Record).Reset()`.
   void reset() {
-    $callSync(13725, $W()..h(this));
+    $callSync(13727, $W()..h(this));
   }
 
   /// Go: `func (*pb.Record).String() string`.
   String string() {
-    final $r = $callSync(13726, $W()..h(this));
+    final $r = $callSync(13728, $W()..h(this));
     return $r.str();
   }
 }
@@ -75,7 +75,7 @@ extension GoLibp2pLibp2pRecordPbApi on GoLibp2pLibp2pRecordPb {
   /// Go: `var pb.File_github_com_libp2p_go_libp2p_record_pb_record_proto protoreflect.FileDescriptor`.
   $protoreflect.ProtobufReflectProtoreflectFileDescriptor
       get fileGithubComLibp2pGoLibp2pRecordPbRecordProto {
-    final $r = $callSync(13718);
+    final $r = $callSync(13720);
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectFileDescriptor.$h);
   }
 }

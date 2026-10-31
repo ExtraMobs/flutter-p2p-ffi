@@ -410,6 +410,10 @@ func (g *goEmitter) dec(t *tinfo) string {
 		return "decBytes"
 	case t.k == kError:
 		return "decErr"
+	case t.k == kSlice && t.elem.k == kOpts: // inside a struct: with the call's request
+		return g.helper("dec:"+t.key, "dec", func(name string) string {
+			return fmt.Sprintf("func %s(r *reader) (%s, error) { return decOptsIn(r, %s) }\n", name, g.ts(t.t), g.decOpts(t.elem))
+		})
 	case t.k == kAny:
 		return "decAny"
 	case t.k == kHandle && valueStruct(t.t) == nil, t.k == kCtx:
@@ -525,6 +529,7 @@ func (g *goEmitter) decOpts(t *tinfo) string {
 				fmt.Fprintf(&b, "\t\t\tout = append(out, %s)\n", call)
 			}
 		}
+		fmt.Fprintf(&b, "\t\tcase optHandle: // one Go made, back as its handle\n\t\t\to, err := decH[%s](r)\n\t\t\tif err != nil {\n\t\t\t\treturn nil, done, err\n\t\t\t}\n\t\t\tout = append(out, o)\n", T)
 		fmt.Fprintf(&b, "\t\tdefault:\n\t\t\treturn nil, done, fmt.Errorf(\"p2p_host: unknown option %%d of %s\", i)\n\t\t}\n\t}\n\treturn out, done, r.err\n}\n", t.key)
 		return b.String()
 	})
@@ -539,6 +544,8 @@ func (g *goEmitter) enc(t *tinfo) string {
 		return "encBytes"
 	case t.k == kError:
 		return "encErr"
+	case t.k == kOpts: // an option Go made: its handle (optHandle)
+		return "encH"
 	case t.k == kAny:
 		return "encAny"
 	case t.k == kHandle && valueStruct(t.t) == nil, t.k == kCtx:

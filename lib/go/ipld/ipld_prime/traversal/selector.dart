@@ -17,7 +17,7 @@ class IpldPrimeTraversalSelectorCondition extends GoHandle {
   /// Go: `func (*selector.Condition).Match(n datamodel.Node) bool`.
   bool match($datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        12598,
+        12600,
         $W()
           ..h(this)
           ..h(n));
@@ -32,7 +32,7 @@ class IpldPrimeTraversalSelectorExploreAll extends IpldPrimeTraversalSelector {
   /// Go: `func (selector.ExploreAll).Decide(n datamodel.Node) bool`.
   bool decide($datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        12599,
+        12601,
         $W()
           ..h(this)
           ..h(n));
@@ -43,7 +43,7 @@ class IpldPrimeTraversalSelectorExploreAll extends IpldPrimeTraversalSelector {
   IpldPrimeTraversalSelector explore($datamodel.IpldPrimeDatamodelNode n,
       $datamodel.IpldPrimeDatamodelPathSegment p) {
     final $r = $callSync(
-        12600,
+        12602,
         $W()
           ..h(this)
           ..h(n)
@@ -53,7 +53,7 @@ class IpldPrimeTraversalSelectorExploreAll extends IpldPrimeTraversalSelector {
 
   /// Go: `func (selector.ExploreAll).Interests() []datamodel.PathSegment`.
   List<$datamodel.IpldPrimeDatamodelPathSegment> interests() {
-    final $r = $callSync(12601, $W()..h(this));
+    final $r = $callSync(12603, $W()..h(this));
     return $r.list(() => $r.hnn($datamodel.IpldPrimeDatamodelPathSegment.$h));
   }
 
@@ -61,7 +61,7 @@ class IpldPrimeTraversalSelectorExploreAll extends IpldPrimeTraversalSelector {
   $datamodel.IpldPrimeDatamodelNode match(
       $datamodel.IpldPrimeDatamodelNode node) {
     final $r = $callSync(
-        12602,
+        12604,
         $W()
           ..h(this)
           ..h(node));
@@ -77,7 +77,7 @@ class IpldPrimeTraversalSelectorExploreFields
   /// Go: `func (selector.ExploreFields).Decide(n datamodel.Node) bool`.
   bool decide($datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        12603,
+        12605,
         $W()
           ..h(this)
           ..h(n));
@@ -88,7 +88,7 @@ class IpldPrimeTraversalSelectorExploreFields
   IpldPrimeTraversalSelector explore($datamodel.IpldPrimeDatamodelNode n,
       $datamodel.IpldPrimeDatamodelPathSegment p) {
     final $r = $callSync(
-        12604,
+        12606,
         $W()
           ..h(this)
           ..h(n)
@@ -98,7 +98,7 @@ class IpldPrimeTraversalSelectorExploreFields
 
   /// Go: `func (selector.ExploreFields).Interests() []datamodel.PathSegment`.
   List<$datamodel.IpldPrimeDatamodelPathSegment> interests() {
-    final $r = $callSync(12605, $W()..h(this));
+    final $r = $callSync(12607, $W()..h(this));
     return $r.list(() => $r.hnn($datamodel.IpldPrimeDatamodelPathSegment.$h));
   }
 
@@ -106,7 +106,7 @@ class IpldPrimeTraversalSelectorExploreFields
   $datamodel.IpldPrimeDatamodelNode match(
       $datamodel.IpldPrimeDatamodelNode node) {
     final $r = $callSync(
-        12606,
+        12608,
         $W()
           ..h(this)
           ..h(node));
@@ -122,7 +122,7 @@ class IpldPrimeTraversalSelectorExploreIndex
   /// Go: `func (selector.ExploreIndex).Decide(n datamodel.Node) bool`.
   bool decide($datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        12607,
+        12609,
         $W()
           ..h(this)
           ..h(n));
@@ -133,7 +133,7 @@ class IpldPrimeTraversalSelectorExploreIndex
   IpldPrimeTraversalSelector explore($datamodel.IpldPrimeDatamodelNode n,
       $datamodel.IpldPrimeDatamodelPathSegment p) {
     final $r = $callSync(
-        12608,
+        12610,
         $W()
           ..h(this)
           ..h(n)
@@ -143,7 +143,7 @@ class IpldPrimeTraversalSelectorExploreIndex
 
   /// Go: `func (selector.ExploreIndex).Interests() []datamodel.PathSegment`.
   List<$datamodel.IpldPrimeDatamodelPathSegment> interests() {
-    final $r = $callSync(12609, $W()..h(this));
+    final $r = $callSync(12611, $W()..h(this));
     return $r.list(() => $r.hnn($datamodel.IpldPrimeDatamodelPathSegment.$h));
   }
 
@@ -151,7 +151,7 @@ class IpldPrimeTraversalSelectorExploreIndex
   $datamodel.IpldPrimeDatamodelNode match(
       $datamodel.IpldPrimeDatamodelNode node) {
     final $r = $callSync(
-        12610,
+        12612,
         $W()
           ..h(this)
           ..h(node));
@@ -167,7 +167,7 @@ class IpldPrimeTraversalSelectorExploreInterpretAs
   /// Go: `func (selector.ExploreInterpretAs).Decide(n datamodel.Node) bool`.
   bool decide($datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        12611,
+        12613,
         $W()
           ..h(this)
           ..h(n));
@@ -178,7 +178,7 @@ class IpldPrimeTraversalSelectorExploreInterpretAs
   IpldPrimeTraversalSelector explore($datamodel.IpldPrimeDatamodelNode n,
       $datamodel.IpldPrimeDatamodelPathSegment p) {
     final $r = $callSync(
-        12612,
+        12614,
         $W()
           ..h(this)
           ..h(n)
@@ -188,7 +188,7 @@ class IpldPrimeTraversalSelectorExploreInterpretAs
 
   /// Go: `func (selector.ExploreInterpretAs).Interests() []datamodel.PathSegment`.
   List<$datamodel.IpldPrimeDatamodelPathSegment> interests() {
-    final $r = $callSync(12613, $W()..h(this));
+    final $r = $callSync(12615, $W()..h(this));
     return $r.list(() => $r.hnn($datamodel.IpldPrimeDatamodelPathSegment.$h));
   }
 
@@ -196,7 +196,7 @@ class IpldPrimeTraversalSelectorExploreInterpretAs
   $datamodel.IpldPrimeDatamodelNode match(
       $datamodel.IpldPrimeDatamodelNode node) {
     final $r = $callSync(
-        12614,
+        12616,
         $W()
           ..h(this)
           ..h(node));
@@ -205,7 +205,7 @@ class IpldPrimeTraversalSelectorExploreInterpretAs
 
   /// Go: `func (selector.ExploreInterpretAs).NamedReifier() string`.
   String namedReifier() {
-    final $r = $callSync(12615, $W()..h(this));
+    final $r = $callSync(12617, $W()..h(this));
     return $r.str();
   }
 }
@@ -218,7 +218,7 @@ class IpldPrimeTraversalSelectorExploreRange
   /// Go: `func (selector.ExploreRange).Decide(n datamodel.Node) bool`.
   bool decide($datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        12616,
+        12618,
         $W()
           ..h(this)
           ..h(n));
@@ -229,7 +229,7 @@ class IpldPrimeTraversalSelectorExploreRange
   IpldPrimeTraversalSelector explore($datamodel.IpldPrimeDatamodelNode n,
       $datamodel.IpldPrimeDatamodelPathSegment p) {
     final $r = $callSync(
-        12617,
+        12619,
         $W()
           ..h(this)
           ..h(n)
@@ -239,7 +239,7 @@ class IpldPrimeTraversalSelectorExploreRange
 
   /// Go: `func (selector.ExploreRange).Interests() []datamodel.PathSegment`.
   List<$datamodel.IpldPrimeDatamodelPathSegment> interests() {
-    final $r = $callSync(12618, $W()..h(this));
+    final $r = $callSync(12620, $W()..h(this));
     return $r.list(() => $r.hnn($datamodel.IpldPrimeDatamodelPathSegment.$h));
   }
 
@@ -247,7 +247,7 @@ class IpldPrimeTraversalSelectorExploreRange
   $datamodel.IpldPrimeDatamodelNode match(
       $datamodel.IpldPrimeDatamodelNode node) {
     final $r = $callSync(
-        12619,
+        12621,
         $W()
           ..h(this)
           ..h(node));
@@ -263,7 +263,7 @@ class IpldPrimeTraversalSelectorExploreRecursive
   /// Go: `func (selector.ExploreRecursive).Decide(n datamodel.Node) bool`.
   bool decide($datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        12620,
+        12622,
         $W()
           ..h(this)
           ..h(n));
@@ -274,7 +274,7 @@ class IpldPrimeTraversalSelectorExploreRecursive
   IpldPrimeTraversalSelector explore($datamodel.IpldPrimeDatamodelNode n,
       $datamodel.IpldPrimeDatamodelPathSegment p) {
     final $r = $callSync(
-        12621,
+        12623,
         $W()
           ..h(this)
           ..h(n)
@@ -284,7 +284,7 @@ class IpldPrimeTraversalSelectorExploreRecursive
 
   /// Go: `func (selector.ExploreRecursive).Interests() []datamodel.PathSegment`.
   List<$datamodel.IpldPrimeDatamodelPathSegment> interests() {
-    final $r = $callSync(12622, $W()..h(this));
+    final $r = $callSync(12624, $W()..h(this));
     return $r.list(() => $r.hnn($datamodel.IpldPrimeDatamodelPathSegment.$h));
   }
 
@@ -292,7 +292,7 @@ class IpldPrimeTraversalSelectorExploreRecursive
   $datamodel.IpldPrimeDatamodelNode match(
       $datamodel.IpldPrimeDatamodelNode node) {
     final $r = $callSync(
-        12623,
+        12625,
         $W()
           ..h(this)
           ..h(node));
@@ -311,7 +311,7 @@ final class IpldPrimeTraversalSelectorExploreRecursiveEdge implements GoDto {
   /// Go: `func (selector.ExploreRecursiveEdge).Decide(n datamodel.Node) bool`.
   bool decide($datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        12624,
+        12626,
         $W()
           ..dto(this)
           ..h(n));
@@ -322,7 +322,7 @@ final class IpldPrimeTraversalSelectorExploreRecursiveEdge implements GoDto {
   IpldPrimeTraversalSelector explore($datamodel.IpldPrimeDatamodelNode n,
       $datamodel.IpldPrimeDatamodelPathSegment p) {
     final $r = $callSync(
-        12625,
+        12627,
         $W()
           ..dto(this)
           ..h(n)
@@ -332,7 +332,7 @@ final class IpldPrimeTraversalSelectorExploreRecursiveEdge implements GoDto {
 
   /// Go: `func (selector.ExploreRecursiveEdge).Interests() []datamodel.PathSegment`.
   List<$datamodel.IpldPrimeDatamodelPathSegment> interests() {
-    final $r = $callSync(12626, $W()..dto(this));
+    final $r = $callSync(12628, $W()..dto(this));
     return $r.list(() => $r.hnn($datamodel.IpldPrimeDatamodelPathSegment.$h));
   }
 
@@ -340,7 +340,7 @@ final class IpldPrimeTraversalSelectorExploreRecursiveEdge implements GoDto {
   $datamodel.IpldPrimeDatamodelNode match(
       $datamodel.IpldPrimeDatamodelNode node) {
     final $r = $callSync(
-        12627,
+        12629,
         $W()
           ..dto(this)
           ..h(node));
@@ -368,7 +368,7 @@ final class IpldPrimeTraversalSelectorExploreUnion implements GoDto {
   /// Go: `func (selector.ExploreUnion).Decide(n datamodel.Node) bool`.
   bool decide($datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        12628,
+        12630,
         $W()
           ..dto(this)
           ..h(n));
@@ -379,7 +379,7 @@ final class IpldPrimeTraversalSelectorExploreUnion implements GoDto {
   IpldPrimeTraversalSelector explore($datamodel.IpldPrimeDatamodelNode n,
       $datamodel.IpldPrimeDatamodelPathSegment p) {
     final $r = $callSync(
-        12629,
+        12631,
         $W()
           ..dto(this)
           ..h(n)
@@ -389,14 +389,14 @@ final class IpldPrimeTraversalSelectorExploreUnion implements GoDto {
 
   /// Go: `func (selector.ExploreUnion).Interests() []datamodel.PathSegment`.
   List<$datamodel.IpldPrimeDatamodelPathSegment> interests() {
-    final $r = $callSync(12630, $W()..dto(this));
+    final $r = $callSync(12632, $W()..dto(this));
     return $r.list(() => $r.hnn($datamodel.IpldPrimeDatamodelPathSegment.$h));
   }
 
   /// Go: `func (selector.ExploreUnion).Match(n datamodel.Node) (datamodel.Node, error)`.
   $datamodel.IpldPrimeDatamodelNode match($datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        12631,
+        12633,
         $W()
           ..dto(this)
           ..h(n));
@@ -423,7 +423,7 @@ final class IpldPrimeTraversalSelectorMatcher implements GoDto {
   /// Go: `func (selector.Matcher).Decide(n datamodel.Node) bool`.
   bool decide($datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        12632,
+        12634,
         $W()
           ..dto(this)
           ..h(n));
@@ -434,7 +434,7 @@ final class IpldPrimeTraversalSelectorMatcher implements GoDto {
   IpldPrimeTraversalSelector explore($datamodel.IpldPrimeDatamodelNode n,
       $datamodel.IpldPrimeDatamodelPathSegment p) {
     final $r = $callSync(
-        12633,
+        12635,
         $W()
           ..dto(this)
           ..h(n)
@@ -444,7 +444,7 @@ final class IpldPrimeTraversalSelectorMatcher implements GoDto {
 
   /// Go: `func (selector.Matcher).Interests() []datamodel.PathSegment`.
   List<$datamodel.IpldPrimeDatamodelPathSegment> interests() {
-    final $r = $callSync(12634, $W()..dto(this));
+    final $r = $callSync(12636, $W()..dto(this));
     return $r.list(() => $r.hnn($datamodel.IpldPrimeDatamodelPathSegment.$h));
   }
 
@@ -452,7 +452,7 @@ final class IpldPrimeTraversalSelectorMatcher implements GoDto {
   $datamodel.IpldPrimeDatamodelNode match(
       $datamodel.IpldPrimeDatamodelNode node) {
     final $r = $callSync(
-        12635,
+        12637,
         $W()
           ..dto(this)
           ..h(node));
@@ -468,7 +468,7 @@ class IpldPrimeTraversalSelectorParseContext extends GoHandle {
   IpldPrimeTraversalSelectorCondition parseCondition(
       $datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        12637,
+        12639,
         $W()
           ..h(this)
           ..h(n));
@@ -479,7 +479,7 @@ class IpldPrimeTraversalSelectorParseContext extends GoHandle {
   IpldPrimeTraversalSelector parseExploreAll(
       $datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        12638,
+        12640,
         $W()
           ..h(this)
           ..h(n));
@@ -490,7 +490,7 @@ class IpldPrimeTraversalSelectorParseContext extends GoHandle {
   IpldPrimeTraversalSelector parseExploreFields(
       $datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        12639,
+        12641,
         $W()
           ..h(this)
           ..h(n));
@@ -501,7 +501,7 @@ class IpldPrimeTraversalSelectorParseContext extends GoHandle {
   IpldPrimeTraversalSelector parseExploreIndex(
       $datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        12640,
+        12642,
         $W()
           ..h(this)
           ..h(n));
@@ -512,7 +512,7 @@ class IpldPrimeTraversalSelectorParseContext extends GoHandle {
   IpldPrimeTraversalSelector parseExploreInterpretAs(
       $datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        12641,
+        12643,
         $W()
           ..h(this)
           ..h(n));
@@ -523,7 +523,7 @@ class IpldPrimeTraversalSelectorParseContext extends GoHandle {
   IpldPrimeTraversalSelector parseExploreRange(
       $datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        12642,
+        12644,
         $W()
           ..h(this)
           ..h(n));
@@ -534,7 +534,7 @@ class IpldPrimeTraversalSelectorParseContext extends GoHandle {
   IpldPrimeTraversalSelector parseExploreRecursive(
       $datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        12643,
+        12645,
         $W()
           ..h(this)
           ..h(n));
@@ -545,7 +545,7 @@ class IpldPrimeTraversalSelectorParseContext extends GoHandle {
   IpldPrimeTraversalSelector parseExploreRecursiveEdge(
       $datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        12644,
+        12646,
         $W()
           ..h(this)
           ..h(n));
@@ -556,7 +556,7 @@ class IpldPrimeTraversalSelectorParseContext extends GoHandle {
   IpldPrimeTraversalSelector parseExploreUnion(
       $datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        12645,
+        12647,
         $W()
           ..h(this)
           ..h(n));
@@ -566,7 +566,7 @@ class IpldPrimeTraversalSelectorParseContext extends GoHandle {
   /// Go: `func (selector.ParseContext).ParseMatcher(n datamodel.Node) (selector.Selector, error)`.
   IpldPrimeTraversalSelector parseMatcher($datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        12646,
+        12648,
         $W()
           ..h(this)
           ..h(n));
@@ -577,7 +577,7 @@ class IpldPrimeTraversalSelectorParseContext extends GoHandle {
   IpldPrimeTraversalSelector parseSelector(
       $datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        12647,
+        12649,
         $W()
           ..h(this)
           ..h(n));
@@ -588,7 +588,7 @@ class IpldPrimeTraversalSelectorParseContext extends GoHandle {
   IpldPrimeTraversalSelectorParseContext pushParent(
       IpldPrimeTraversalSelectorParsedParent parent) {
     final $r = $callSync(
-        12648,
+        12650,
         $W()
           ..h(this)
           ..h(parent));
@@ -607,7 +607,7 @@ mixin IpldPrimeTraversalSelectorParsedParent$ on GoHandle {
   /// Go: `func (selector.ParsedParent).Link(s selector.Selector) bool`.
   bool link(IpldPrimeTraversalSelector s) {
     final $r = $callSync(
-        12650,
+        12652,
         $W()
           ..h(this)
           ..h(s));
@@ -621,13 +621,13 @@ class IpldPrimeTraversalSelectorRecursionLimit extends GoHandle {
 
   /// Go: `func (selector.RecursionLimit).Depth() int64`.
   int depth() {
-    final $r = $callSync(12651, $W()..h(this));
+    final $r = $callSync(12653, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (selector.RecursionLimit).Mode() selector.RecursionLimit_Mode`.
   int mode() {
-    final $r = $callSync(12652, $W()..h(this));
+    final $r = $callSync(12654, $W()..h(this));
     return $r.i64();
   }
 }
@@ -640,7 +640,7 @@ class IpldPrimeTraversalSelectorSegmentIterator extends GoHandle
   /// Go: `func selector.NewSegmentIterator(n datamodel.Node) selector.SegmentIterator`.
   factory IpldPrimeTraversalSelectorSegmentIterator(
       $datamodel.IpldPrimeDatamodelNode n) {
-    final $r = $callSync(12636, $W()..h(n));
+    final $r = $callSync(12638, $W()..h(n));
     return $r.hnn(IpldPrimeTraversalSelectorSegmentIterator.$h);
   }
 }
@@ -649,14 +649,14 @@ class IpldPrimeTraversalSelectorSegmentIterator extends GoHandle
 mixin IpldPrimeTraversalSelectorSegmentIterator$ on GoHandle {
   /// Go: `func (selector.SegmentIterator).Done() bool`.
   bool done() {
-    final $r = $callSync(12655, $W()..h(this));
+    final $r = $callSync(12657, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (selector.SegmentIterator).Next() (pathSegment datamodel.PathSegment, value datamodel.Node, err error)`.
   ($datamodel.IpldPrimeDatamodelPathSegment, $datamodel.IpldPrimeDatamodelNode)
       next() {
-    final $r = $callSync(12656, $W()..h(this));
+    final $r = $callSync(12658, $W()..h(this));
     return (
       $r.hnn($datamodel.IpldPrimeDatamodelPathSegment.$h),
       $r.hnn($datamodel.IpldPrimeDatamodelNode.$h)
@@ -675,7 +675,7 @@ mixin IpldPrimeTraversalSelector$ on GoHandle {
   /// Go: `func (selector.Selector).Decide(node datamodel.Node) bool`.
   bool decide($datamodel.IpldPrimeDatamodelNode node) {
     final $r = $callSync(
-        12657,
+        12659,
         $W()
           ..h(this)
           ..h(node));
@@ -686,7 +686,7 @@ mixin IpldPrimeTraversalSelector$ on GoHandle {
   IpldPrimeTraversalSelector explore($datamodel.IpldPrimeDatamodelNode node,
       $datamodel.IpldPrimeDatamodelPathSegment child) {
     final $r = $callSync(
-        12658,
+        12660,
         $W()
           ..h(this)
           ..h(node)
@@ -696,7 +696,7 @@ mixin IpldPrimeTraversalSelector$ on GoHandle {
 
   /// Go: `func (selector.Selector).Interests() []datamodel.PathSegment`.
   List<$datamodel.IpldPrimeDatamodelPathSegment> interests() {
-    final $r = $callSync(12659, $W()..h(this));
+    final $r = $callSync(12661, $W()..h(this));
     return $r.list(() => $r.hnn($datamodel.IpldPrimeDatamodelPathSegment.$h));
   }
 
@@ -704,7 +704,7 @@ mixin IpldPrimeTraversalSelector$ on GoHandle {
   $datamodel.IpldPrimeDatamodelNode match(
       $datamodel.IpldPrimeDatamodelNode node) {
     final $r = $callSync(
-        12660,
+        12662,
         $W()
           ..h(this)
           ..h(node));
@@ -780,7 +780,7 @@ final class IpldPrimeTraversalSelectorSlice implements GoDto {
   /// Go: `func (selector.Slice).Slice(n datamodel.Node) (datamodel.Node, error)`.
   $datamodel.IpldPrimeDatamodelNode slice($datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        12661,
+        12663,
         $W()
           ..dto(this)
           ..h(n));
@@ -794,26 +794,26 @@ extension GoIpldIpldPrimeTraversalSelectorApi
   /// Go: `func selector.CompileSelector(dmt datamodel.Node) (selector.Selector, error)`.
   IpldPrimeTraversalSelector compileSelector(
       $datamodel.IpldPrimeDatamodelNode dmt) {
-    final $r = $callSync(12597, $W()..h(dmt));
+    final $r = $callSync(12599, $W()..h(dmt));
     return $r.hnn(IpldPrimeTraversalSelector.$h);
   }
 
   /// Go: `func selector.ParseSelector(dmt datamodel.Node) (selector.Selector, error)`.
   IpldPrimeTraversalSelector parseSelector(
       $datamodel.IpldPrimeDatamodelNode dmt) {
-    final $r = $callSync(12649, $W()..h(dmt));
+    final $r = $callSync(12651, $W()..h(dmt));
     return $r.hnn(IpldPrimeTraversalSelector.$h);
   }
 
   /// Go: `func selector.RecursionLimitDepth(depth int64) selector.RecursionLimit`.
   IpldPrimeTraversalSelectorRecursionLimit recursionLimitDepth(int depth) {
-    final $r = $callSync(12653, $W()..i64(depth));
+    final $r = $callSync(12655, $W()..i64(depth));
     return $r.hnn(IpldPrimeTraversalSelectorRecursionLimit.$h);
   }
 
   /// Go: `func selector.RecursionLimitNone() selector.RecursionLimit`.
   IpldPrimeTraversalSelectorRecursionLimit recursionLimitNone() {
-    final $r = $callSync(12654);
+    final $r = $callSync(12656);
     return $r.hnn(IpldPrimeTraversalSelectorRecursionLimit.$h);
   }
 }

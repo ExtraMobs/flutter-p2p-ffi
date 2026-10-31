@@ -10,7 +10,7 @@ extension GoBlake3BaoApi on GoBlake3Bao {
   /// Go: `func bao.EncodedSize(dataLen int, group int, outboard bool) int`.
   int encodedSize(int dataLen, int group, bool outboard) {
     final $r = $callSync(
-        25926,
+        25928,
         $W()
           ..i64(dataLen)
           ..i64(group)
@@ -22,7 +22,7 @@ extension GoBlake3BaoApi on GoBlake3Bao {
   void extractSlice(GoHandle? dst, Object data, Object outboard, int group,
       int offset, int length) {
     $callSync(
-        25927,
+        25929,
         $W()
           ..h(dst)
           ..reader(data)

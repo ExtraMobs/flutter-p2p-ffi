@@ -294,3 +294,30 @@ func TestHandleDedup(t *testing.T) {
 		t.Fatal("o handle ficou depois do último hfree")
 	}
 }
+
+// Options inside a struct belong to the call that carries it: their done runs
+// when the call ends (invoke), and a value a callback returns cannot carry them.
+func TestDecOptsIn(t *testing.T) {
+	closed := 0
+	dec := func(q *req, r *reader) ([]int, func(), error) {
+		return []int{int(r.u8())}, func() { closed++ }, r.err
+	}
+	var got []int
+	e := entry{fn: func(q *req, r *reader, w *writer) error {
+		var err error
+		got, err = decOptsIn(r, dec)
+		if closed != 0 {
+			t.Errorf("done ran before the call ended")
+		}
+		return err
+	}}
+	if kind, data := invoke(e, 1, []byte{1}, func(uint32, byte, []byte) {}); kind != evValue {
+		t.Fatalf("invoke: %d %q", kind, data)
+	}
+	if len(got) != 1 || closed != 1 {
+		t.Errorf("got %v, done ran %d times", got, closed)
+	}
+	if _, err := decOptsIn(&reader{b: []byte{1}}, dec); err == nil {
+		t.Errorf("options outside a call: no error")
+	}
+}

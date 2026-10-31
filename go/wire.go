@@ -57,8 +57,27 @@ type sendFn func(id uint32, kind byte, data []byte)
 
 // req: a chamada em curso, para os itens de stream e os eventos de sink.
 type req struct {
-	id   uint32
-	send sendFn
+	id    uint32
+	send  sendFn
+	dones []func() // of the options read inside a struct (decOptsIn): closed with the call
+}
+
+// optHandle: the constructor index of an option Go made (a struct's field of
+// options, libp2p.Libp2pOpts.Opts), sent back by Dart as its handle (WIRE.md).
+const optHandle = 1<<32 - 1
+
+// decOptsIn: options inside a struct (config.Config.RelayServiceOpts), read by
+// [dec] with the call that carries the struct; their sinks close with the
+// call, as a parameter's.
+func decOptsIn[T any](r *reader, dec func(*req, *reader) ([]T, func(), error)) ([]T, error) {
+	if r.q == nil {
+		return nil, errors.New("p2p_host: functional options inside a value a callback returns")
+	}
+	out, done, err := dec(r.q, r)
+	if err == nil {
+		r.q.dones = append(r.q.dones, done)
+	}
+	return out, err
 }
 
 // item manda um item da stream [q.id] codificado por [enc].
@@ -200,7 +219,15 @@ const (
 // panic da chamada vira o erro.
 func invoke(e entry, id uint32, args []byte, send sendFn) (byte, []byte) {
 	w := &writer{}
-	err := try(func() error { return e.fn(&req{id: id, send: send}, &reader{b: args}, w) })
+	q := &req{id: id, send: send}
+	err := try(func() error {
+		defer func() {
+			for _, d := range q.dones {
+				d()
+			}
+		}()
+		return e.fn(q, &reader{b: args, q: q}, w)
+	})
 	switch {
 	case err != nil:
 		return evError, errData(err)
@@ -254,6 +281,7 @@ func goTry(errc chan<- error, f func() error) {
 type reader struct {
 	b   []byte
 	err error
+	q   *req // the call whose arguments these are (decOptsIn); nil otherwise
 }
 
 var errShort = errors.New("p2p_host: argumentos curtos")

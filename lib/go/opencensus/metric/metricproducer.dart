@@ -13,7 +13,7 @@ class MetricMetricproducerManager extends GoHandle {
   /// Go: `func (*metricproducer.Manager).AddProducer(producer metricproducer.Producer)`.
   void addProducer(Object producer) {
     $callSync(
-        19017,
+        19019,
         $W()
           ..h(this)
           ..reader(producer));
@@ -22,7 +22,7 @@ class MetricMetricproducerManager extends GoHandle {
   /// Go: `func (*metricproducer.Manager).DeleteProducer(producer metricproducer.Producer)`.
   void deleteProducer(Object producer) {
     $callSync(
-        19018,
+        19020,
         $W()
           ..h(this)
           ..reader(producer));
@@ -30,7 +30,7 @@ class MetricMetricproducerManager extends GoHandle {
 
   /// Go: `func (*metricproducer.Manager).GetAll() []metricproducer.Producer`.
   List<MetricMetricproducerProducer> getAll() {
-    final $r = $callSync(19019, $W()..h(this));
+    final $r = $callSync(19021, $W()..h(this));
     return $r.list(() => $r.hnn(MetricMetricproducerProducer.$h));
   }
 }
@@ -41,7 +41,7 @@ class MetricMetricproducerProducer extends GoHandle {
 
   /// Go: `func (metricproducer.Producer).Read() []*metricdata.Metric`.
   List<$metricdata.MetricMetricdataMetric> read() {
-    final $r = $callSync(19020, $W()..h(this));
+    final $r = $callSync(19022, $W()..h(this));
     return $r.list(
         () => $r.p() ? $metricdata.MetricMetricdataMetric.$dec($r) : $nil());
   }
@@ -52,7 +52,7 @@ extension GoOpencensusMetricMetricproducerApi
     on GoOpencensusMetricMetricproducer {
   /// Go: `func metricproducer.GlobalManager() *metricproducer.Manager`.
   MetricMetricproducerManager globalManager() {
-    final $r = $callSync(19016);
+    final $r = $callSync(19018);
     return $r.hnn(MetricMetricproducerManager.$h);
   }
 }

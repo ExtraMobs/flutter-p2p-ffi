@@ -66,14 +66,14 @@ class NetIpv4Conn extends GoHandle {
 
   /// Go: `func ipv4.NewConn(c net.Conn) *ipv4.Conn`.
   factory NetIpv4Conn($net.NetConn c) {
-    final $r = $callSync(23663, $W()..h(c));
+    final $r = $callSync(23665, $W()..h(c));
     return $r.hnn(NetIpv4Conn.$h);
   }
 
   /// Go: `func (*ipv4.genericOpt).SetTOS(tos int) error`.
   void setTos(int tos) {
     $callSync(
-        23649,
+        23651,
         $W()
           ..h(this)
           ..i64(tos));
@@ -82,7 +82,7 @@ class NetIpv4Conn extends GoHandle {
   /// Go: `func (*ipv4.genericOpt).SetTTL(ttl int) error`.
   void setTtl(int ttl) {
     $callSync(
-        23650,
+        23652,
         $W()
           ..h(this)
           ..i64(ttl));
@@ -90,13 +90,13 @@ class NetIpv4Conn extends GoHandle {
 
   /// Go: `func (*ipv4.genericOpt).TOS() (int, error)`.
   int tos() {
-    final $r = $callSync(23651, $W()..h(this));
+    final $r = $callSync(23653, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*ipv4.genericOpt).TTL() (int, error)`.
   int ttl() {
-    final $r = $callSync(23652, $W()..h(this));
+    final $r = $callSync(23654, $W()..h(this));
     return $r.i64();
   }
 }
@@ -139,14 +139,14 @@ final class NetIpv4ControlMessage implements GoDto {
 
   /// Go: `func (*ipv4.ControlMessage).Marshal() []byte`.
   Uint8List marshal() {
-    final $r = $callSync(23653, $W()..dto(this));
+    final $r = $callSync(23655, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*ipv4.ControlMessage).Parse(b []byte) error`.
   void parse(Uint8List b) {
     $callSync(
-        23654,
+        23656,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -154,7 +154,7 @@ final class NetIpv4ControlMessage implements GoDto {
 
   /// Go: `func (*ipv4.ControlMessage).String() string`.
   String string() {
-    final $r = $callSync(23655, $W()..dto(this));
+    final $r = $callSync(23657, $W()..dto(this));
     return $r.str();
   }
 }
@@ -263,14 +263,14 @@ final class NetIpv4Header implements GoDto {
 
   /// Go: `func (*ipv4.Header).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(23656, $W()..dto(this));
+    final $r = $callSync(23658, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*ipv4.Header).Parse(b []byte) error`.
   void parse(Uint8List b) {
     $callSync(
-        23657,
+        23659,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -278,7 +278,7 @@ final class NetIpv4Header implements GoDto {
 
   /// Go: `func (*ipv4.Header).String() string`.
   String string() {
-    final $r = $callSync(23658, $W()..dto(this));
+    final $r = $callSync(23660, $W()..dto(this));
     return $r.str();
   }
 }
@@ -290,7 +290,7 @@ class NetIpv4IcmpFilter extends GoHandle {
   /// Go: `func (*ipv4.ICMPFilter).Accept(typ ipv4.ICMPType)`.
   void accept(int typ) {
     $callSync(
-        23659,
+        23661,
         $W()
           ..h(this)
           ..i64(typ));
@@ -299,7 +299,7 @@ class NetIpv4IcmpFilter extends GoHandle {
   /// Go: `func (*ipv4.ICMPFilter).Block(typ ipv4.ICMPType)`.
   void block(int typ) {
     $callSync(
-        23660,
+        23662,
         $W()
           ..h(this)
           ..i64(typ));
@@ -308,7 +308,7 @@ class NetIpv4IcmpFilter extends GoHandle {
   /// Go: `func (*ipv4.ICMPFilter).SetAll(block bool)`.
   void setAll(bool block) {
     $callSync(
-        23661,
+        23663,
         $W()
           ..h(this)
           ..b(block));
@@ -317,7 +317,7 @@ class NetIpv4IcmpFilter extends GoHandle {
   /// Go: `func (*ipv4.ICMPFilter).WillBlock(typ ipv4.ICMPType) bool`.
   bool willBlock(int typ) {
     final $r = $callSync(
-        23662,
+        23664,
         $W()
           ..h(this)
           ..i64(typ));
@@ -345,35 +345,17 @@ class NetIpv4PacketConn extends $sync.SyncLocker
 
   /// Go: `func ipv4.NewPacketConn(c net.PacketConn) *ipv4.PacketConn`.
   factory NetIpv4PacketConn($net.NetPacketConn c) {
-    final $r = $callSync(23665, $W()..h(c));
+    final $r = $callSync(23667, $W()..h(c));
     return $r.hnn(NetIpv4PacketConn.$h);
   }
 
   /// Go: `func (*ipv4.PacketConn).Close() error`.
   void close() {
-    $callSync(23667, $W()..h(this));
+    $callSync(23669, $W()..h(this));
   }
 
   /// Go: `func (*ipv4.dgramOpt).ExcludeSourceSpecificGroup(ifi *net.Interface, group net.Addr, source net.Addr) error`.
   void excludeSourceSpecificGroup(
-      $net.NetInterface ifi, $net.NetAddr group, $net.NetAddr source) {
-    $callSync(
-        23668,
-        $W()
-          ..h(this)
-          ..dto(ifi)
-          ..dto(group)
-          ..dto(source));
-  }
-
-  /// Go: `func (*ipv4.dgramOpt).ICMPFilter() (*ipv4.ICMPFilter, error)`.
-  NetIpv4IcmpFilter icmpFilter() {
-    final $r = $callSync(23669, $W()..h(this));
-    return $r.hnn(NetIpv4IcmpFilter.$h);
-  }
-
-  /// Go: `func (*ipv4.dgramOpt).IncludeSourceSpecificGroup(ifi *net.Interface, group net.Addr, source net.Addr) error`.
-  void includeSourceSpecificGroup(
       $net.NetInterface ifi, $net.NetAddr group, $net.NetAddr source) {
     $callSync(
         23670,
@@ -384,18 +366,14 @@ class NetIpv4PacketConn extends $sync.SyncLocker
           ..dto(source));
   }
 
-  /// Go: `func (*ipv4.dgramOpt).JoinGroup(ifi *net.Interface, group net.Addr) error`.
-  void joinGroup($net.NetInterface ifi, $net.NetAddr group) {
-    $callSync(
-        23671,
-        $W()
-          ..h(this)
-          ..dto(ifi)
-          ..dto(group));
+  /// Go: `func (*ipv4.dgramOpt).ICMPFilter() (*ipv4.ICMPFilter, error)`.
+  NetIpv4IcmpFilter icmpFilter() {
+    final $r = $callSync(23671, $W()..h(this));
+    return $r.hnn(NetIpv4IcmpFilter.$h);
   }
 
-  /// Go: `func (*ipv4.dgramOpt).JoinSourceSpecificGroup(ifi *net.Interface, group net.Addr, source net.Addr) error`.
-  void joinSourceSpecificGroup(
+  /// Go: `func (*ipv4.dgramOpt).IncludeSourceSpecificGroup(ifi *net.Interface, group net.Addr, source net.Addr) error`.
+  void includeSourceSpecificGroup(
       $net.NetInterface ifi, $net.NetAddr group, $net.NetAddr source) {
     $callSync(
         23672,
@@ -406,8 +384,8 @@ class NetIpv4PacketConn extends $sync.SyncLocker
           ..dto(source));
   }
 
-  /// Go: `func (*ipv4.dgramOpt).LeaveGroup(ifi *net.Interface, group net.Addr) error`.
-  void leaveGroup($net.NetInterface ifi, $net.NetAddr group) {
+  /// Go: `func (*ipv4.dgramOpt).JoinGroup(ifi *net.Interface, group net.Addr) error`.
+  void joinGroup($net.NetInterface ifi, $net.NetAddr group) {
     $callSync(
         23673,
         $W()
@@ -416,8 +394,8 @@ class NetIpv4PacketConn extends $sync.SyncLocker
           ..dto(group));
   }
 
-  /// Go: `func (*ipv4.dgramOpt).LeaveSourceSpecificGroup(ifi *net.Interface, group net.Addr, source net.Addr) error`.
-  void leaveSourceSpecificGroup(
+  /// Go: `func (*ipv4.dgramOpt).JoinSourceSpecificGroup(ifi *net.Interface, group net.Addr, source net.Addr) error`.
+  void joinSourceSpecificGroup(
       $net.NetInterface ifi, $net.NetAddr group, $net.NetAddr source) {
     $callSync(
         23674,
@@ -428,28 +406,50 @@ class NetIpv4PacketConn extends $sync.SyncLocker
           ..dto(source));
   }
 
+  /// Go: `func (*ipv4.dgramOpt).LeaveGroup(ifi *net.Interface, group net.Addr) error`.
+  void leaveGroup($net.NetInterface ifi, $net.NetAddr group) {
+    $callSync(
+        23675,
+        $W()
+          ..h(this)
+          ..dto(ifi)
+          ..dto(group));
+  }
+
+  /// Go: `func (*ipv4.dgramOpt).LeaveSourceSpecificGroup(ifi *net.Interface, group net.Addr, source net.Addr) error`.
+  void leaveSourceSpecificGroup(
+      $net.NetInterface ifi, $net.NetAddr group, $net.NetAddr source) {
+    $callSync(
+        23676,
+        $W()
+          ..h(this)
+          ..dto(ifi)
+          ..dto(group)
+          ..dto(source));
+  }
+
   /// Go: `func (*ipv4.dgramOpt).MulticastInterface() (*net.Interface, error)`.
   $net.NetInterface multicastInterface() {
-    final $r = $callSync(23675, $W()..h(this));
+    final $r = $callSync(23677, $W()..h(this));
     return $r.p() ? $net.NetInterface.$dec($r) : $nil();
   }
 
   /// Go: `func (*ipv4.dgramOpt).MulticastLoopback() (bool, error)`.
   bool multicastLoopback() {
-    final $r = $callSync(23676, $W()..h(this));
+    final $r = $callSync(23678, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*ipv4.dgramOpt).MulticastTTL() (int, error)`.
   int multicastTtl() {
-    final $r = $callSync(23677, $W()..h(this));
+    final $r = $callSync(23679, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*ipv4.payloadHandler).ReadBatch(ms []ipv4.Message, flags int) (int, error)`.
   int readBatch(List<NetIpv4Message> ms, int flags) {
     final $r = $callSync(
-        23678,
+        23680,
         $W()
           ..h(this)
           ..list(ms, (w0, e0) => w0.dto(e0))
@@ -460,7 +460,7 @@ class NetIpv4PacketConn extends $sync.SyncLocker
   /// Go: `func (*ipv4.payloadHandler).ReadFrom(b []byte) (n int, cm *ipv4.ControlMessage, src net.Addr, err error)`.
   (int, NetIpv4ControlMessage, $net.NetAddr) readFrom(Uint8List b) {
     final $r = $callSync(
-        23679,
+        23681,
         $W()
           ..h(this)
           ..bytes(b));
@@ -474,7 +474,7 @@ class NetIpv4PacketConn extends $sync.SyncLocker
   /// Go: `func (*ipv4.dgramOpt).SetBPF(filter []bpf.RawInstruction) error`.
   void setBpf(List<$bpf.NetBpfRawInstruction> filter) {
     $callSync(
-        23680,
+        23682,
         $W()
           ..h(this)
           ..list(filter, (w0, e0) => w0.dto(e0)));
@@ -483,7 +483,7 @@ class NetIpv4PacketConn extends $sync.SyncLocker
   /// Go: `func (*ipv4.PacketConn).SetControlMessage(cf ipv4.ControlFlags, on bool) error`.
   void setControlMessage(int cf, bool on) {
     $callSync(
-        23681,
+        23683,
         $W()
           ..h(this)
           ..i64(cf)
@@ -493,7 +493,7 @@ class NetIpv4PacketConn extends $sync.SyncLocker
   /// Go: `func (*ipv4.PacketConn).SetDeadline(t time.Time) error`.
   void setDeadline(DateTime t) {
     $callSync(
-        23682,
+        23684,
         $W()
           ..h(this)
           ..time(t));
@@ -502,7 +502,7 @@ class NetIpv4PacketConn extends $sync.SyncLocker
   /// Go: `func (*ipv4.dgramOpt).SetICMPFilter(f *ipv4.ICMPFilter) error`.
   void setIcmpFilter(NetIpv4IcmpFilter f) {
     $callSync(
-        23683,
+        23685,
         $W()
           ..h(this)
           ..h(f));
@@ -511,7 +511,7 @@ class NetIpv4PacketConn extends $sync.SyncLocker
   /// Go: `func (*ipv4.dgramOpt).SetMulticastInterface(ifi *net.Interface) error`.
   void setMulticastInterface($net.NetInterface ifi) {
     $callSync(
-        23684,
+        23686,
         $W()
           ..h(this)
           ..dto(ifi));
@@ -520,7 +520,7 @@ class NetIpv4PacketConn extends $sync.SyncLocker
   /// Go: `func (*ipv4.dgramOpt).SetMulticastLoopback(on bool) error`.
   void setMulticastLoopback(bool on) {
     $callSync(
-        23685,
+        23687,
         $W()
           ..h(this)
           ..b(on));
@@ -529,7 +529,7 @@ class NetIpv4PacketConn extends $sync.SyncLocker
   /// Go: `func (*ipv4.dgramOpt).SetMulticastTTL(ttl int) error`.
   void setMulticastTtl(int ttl) {
     $callSync(
-        23686,
+        23688,
         $W()
           ..h(this)
           ..i64(ttl));
@@ -538,7 +538,7 @@ class NetIpv4PacketConn extends $sync.SyncLocker
   /// Go: `func (*ipv4.PacketConn).SetReadDeadline(t time.Time) error`.
   void setReadDeadline(DateTime t) {
     $callSync(
-        23687,
+        23689,
         $W()
           ..h(this)
           ..time(t));
@@ -547,7 +547,7 @@ class NetIpv4PacketConn extends $sync.SyncLocker
   /// Go: `func (*ipv4.genericOpt).SetTOS(tos int) error`.
   void setTos(int tos) {
     $callSync(
-        23688,
+        23690,
         $W()
           ..h(this)
           ..i64(tos));
@@ -556,7 +556,7 @@ class NetIpv4PacketConn extends $sync.SyncLocker
   /// Go: `func (*ipv4.genericOpt).SetTTL(ttl int) error`.
   void setTtl(int ttl) {
     $callSync(
-        23689,
+        23691,
         $W()
           ..h(this)
           ..i64(ttl));
@@ -565,7 +565,7 @@ class NetIpv4PacketConn extends $sync.SyncLocker
   /// Go: `func (*ipv4.PacketConn).SetWriteDeadline(t time.Time) error`.
   void setWriteDeadline(DateTime t) {
     $callSync(
-        23690,
+        23692,
         $W()
           ..h(this)
           ..time(t));
@@ -573,20 +573,20 @@ class NetIpv4PacketConn extends $sync.SyncLocker
 
   /// Go: `func (*ipv4.genericOpt).TOS() (int, error)`.
   int tos() {
-    final $r = $callSync(23691, $W()..h(this));
+    final $r = $callSync(23693, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*ipv4.genericOpt).TTL() (int, error)`.
   int ttl() {
-    final $r = $callSync(23692, $W()..h(this));
+    final $r = $callSync(23694, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*ipv4.payloadHandler).WriteBatch(ms []ipv4.Message, flags int) (int, error)`.
   int writeBatch(List<NetIpv4Message> ms, int flags) {
     final $r = $callSync(
-        23693,
+        23695,
         $W()
           ..h(this)
           ..list(ms, (w0, e0) => w0.dto(e0))
@@ -597,7 +597,7 @@ class NetIpv4PacketConn extends $sync.SyncLocker
   /// Go: `func (*ipv4.payloadHandler).WriteTo(b []byte, cm *ipv4.ControlMessage, dst net.Addr) (n int, err error)`.
   int writeTo(Uint8List b, NetIpv4ControlMessage cm, $net.NetAddr dst) {
     final $r = $callSync(
-        23694,
+        23696,
         $W()
           ..h(this)
           ..bytes(b)
@@ -629,35 +629,17 @@ class NetIpv4RawConn extends $net.NetConn
 
   /// Go: `func ipv4.NewRawConn(c net.PacketConn) (*ipv4.RawConn, error)`.
   factory NetIpv4RawConn($net.NetPacketConn c) {
-    final $r = $callSync(23666, $W()..h(c));
+    final $r = $callSync(23668, $W()..h(c));
     return $r.hnn(NetIpv4RawConn.$h);
   }
 
   /// Go: `func (*ipv4.RawConn).Close() error`.
   void close() {
-    $callSync(23696, $W()..h(this));
+    $callSync(23698, $W()..h(this));
   }
 
   /// Go: `func (*ipv4.dgramOpt).ExcludeSourceSpecificGroup(ifi *net.Interface, group net.Addr, source net.Addr) error`.
   void excludeSourceSpecificGroup(
-      $net.NetInterface ifi, $net.NetAddr group, $net.NetAddr source) {
-    $callSync(
-        23697,
-        $W()
-          ..h(this)
-          ..dto(ifi)
-          ..dto(group)
-          ..dto(source));
-  }
-
-  /// Go: `func (*ipv4.dgramOpt).ICMPFilter() (*ipv4.ICMPFilter, error)`.
-  NetIpv4IcmpFilter icmpFilter() {
-    final $r = $callSync(23698, $W()..h(this));
-    return $r.hnn(NetIpv4IcmpFilter.$h);
-  }
-
-  /// Go: `func (*ipv4.dgramOpt).IncludeSourceSpecificGroup(ifi *net.Interface, group net.Addr, source net.Addr) error`.
-  void includeSourceSpecificGroup(
       $net.NetInterface ifi, $net.NetAddr group, $net.NetAddr source) {
     $callSync(
         23699,
@@ -668,18 +650,14 @@ class NetIpv4RawConn extends $net.NetConn
           ..dto(source));
   }
 
-  /// Go: `func (*ipv4.dgramOpt).JoinGroup(ifi *net.Interface, group net.Addr) error`.
-  void joinGroup($net.NetInterface ifi, $net.NetAddr group) {
-    $callSync(
-        23700,
-        $W()
-          ..h(this)
-          ..dto(ifi)
-          ..dto(group));
+  /// Go: `func (*ipv4.dgramOpt).ICMPFilter() (*ipv4.ICMPFilter, error)`.
+  NetIpv4IcmpFilter icmpFilter() {
+    final $r = $callSync(23700, $W()..h(this));
+    return $r.hnn(NetIpv4IcmpFilter.$h);
   }
 
-  /// Go: `func (*ipv4.dgramOpt).JoinSourceSpecificGroup(ifi *net.Interface, group net.Addr, source net.Addr) error`.
-  void joinSourceSpecificGroup(
+  /// Go: `func (*ipv4.dgramOpt).IncludeSourceSpecificGroup(ifi *net.Interface, group net.Addr, source net.Addr) error`.
+  void includeSourceSpecificGroup(
       $net.NetInterface ifi, $net.NetAddr group, $net.NetAddr source) {
     $callSync(
         23701,
@@ -690,8 +668,8 @@ class NetIpv4RawConn extends $net.NetConn
           ..dto(source));
   }
 
-  /// Go: `func (*ipv4.dgramOpt).LeaveGroup(ifi *net.Interface, group net.Addr) error`.
-  void leaveGroup($net.NetInterface ifi, $net.NetAddr group) {
+  /// Go: `func (*ipv4.dgramOpt).JoinGroup(ifi *net.Interface, group net.Addr) error`.
+  void joinGroup($net.NetInterface ifi, $net.NetAddr group) {
     $callSync(
         23702,
         $W()
@@ -700,8 +678,8 @@ class NetIpv4RawConn extends $net.NetConn
           ..dto(group));
   }
 
-  /// Go: `func (*ipv4.dgramOpt).LeaveSourceSpecificGroup(ifi *net.Interface, group net.Addr, source net.Addr) error`.
-  void leaveSourceSpecificGroup(
+  /// Go: `func (*ipv4.dgramOpt).JoinSourceSpecificGroup(ifi *net.Interface, group net.Addr, source net.Addr) error`.
+  void joinSourceSpecificGroup(
       $net.NetInterface ifi, $net.NetAddr group, $net.NetAddr source) {
     $callSync(
         23703,
@@ -712,28 +690,50 @@ class NetIpv4RawConn extends $net.NetConn
           ..dto(source));
   }
 
+  /// Go: `func (*ipv4.dgramOpt).LeaveGroup(ifi *net.Interface, group net.Addr) error`.
+  void leaveGroup($net.NetInterface ifi, $net.NetAddr group) {
+    $callSync(
+        23704,
+        $W()
+          ..h(this)
+          ..dto(ifi)
+          ..dto(group));
+  }
+
+  /// Go: `func (*ipv4.dgramOpt).LeaveSourceSpecificGroup(ifi *net.Interface, group net.Addr, source net.Addr) error`.
+  void leaveSourceSpecificGroup(
+      $net.NetInterface ifi, $net.NetAddr group, $net.NetAddr source) {
+    $callSync(
+        23705,
+        $W()
+          ..h(this)
+          ..dto(ifi)
+          ..dto(group)
+          ..dto(source));
+  }
+
   /// Go: `func (*ipv4.dgramOpt).MulticastInterface() (*net.Interface, error)`.
   $net.NetInterface multicastInterface() {
-    final $r = $callSync(23704, $W()..h(this));
+    final $r = $callSync(23706, $W()..h(this));
     return $r.p() ? $net.NetInterface.$dec($r) : $nil();
   }
 
   /// Go: `func (*ipv4.dgramOpt).MulticastLoopback() (bool, error)`.
   bool multicastLoopback() {
-    final $r = $callSync(23705, $W()..h(this));
+    final $r = $callSync(23707, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*ipv4.dgramOpt).MulticastTTL() (int, error)`.
   int multicastTtl() {
-    final $r = $callSync(23706, $W()..h(this));
+    final $r = $callSync(23708, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*ipv4.packetHandler).ReadBatch(ms []ipv4.Message, flags int) (int, error)`.
   int readBatch(List<NetIpv4Message> ms, int flags) {
     final $r = $callSync(
-        23707,
+        23709,
         $W()
           ..h(this)
           ..list(ms, (w0, e0) => w0.dto(e0))
@@ -744,7 +744,7 @@ class NetIpv4RawConn extends $net.NetConn
   /// Go: `func (*ipv4.packetHandler).ReadFrom(b []byte) (h *ipv4.Header, p []byte, cm *ipv4.ControlMessage, err error)`.
   (NetIpv4Header, Uint8List, NetIpv4ControlMessage) readFrom(Uint8List b) {
     final $r = $callSync(
-        23708,
+        23710,
         $W()
           ..h(this)
           ..bytes(b));
@@ -758,7 +758,7 @@ class NetIpv4RawConn extends $net.NetConn
   /// Go: `func (*ipv4.dgramOpt).SetBPF(filter []bpf.RawInstruction) error`.
   void setBpf(List<$bpf.NetBpfRawInstruction> filter) {
     $callSync(
-        23709,
+        23711,
         $W()
           ..h(this)
           ..list(filter, (w0, e0) => w0.dto(e0)));
@@ -767,7 +767,7 @@ class NetIpv4RawConn extends $net.NetConn
   /// Go: `func (*ipv4.RawConn).SetControlMessage(cf ipv4.ControlFlags, on bool) error`.
   void setControlMessage(int cf, bool on) {
     $callSync(
-        23710,
+        23712,
         $W()
           ..h(this)
           ..i64(cf)
@@ -777,7 +777,7 @@ class NetIpv4RawConn extends $net.NetConn
   /// Go: `func (*ipv4.RawConn).SetDeadline(t time.Time) error`.
   void setDeadline(DateTime t) {
     $callSync(
-        23711,
+        23713,
         $W()
           ..h(this)
           ..time(t));
@@ -786,7 +786,7 @@ class NetIpv4RawConn extends $net.NetConn
   /// Go: `func (*ipv4.dgramOpt).SetICMPFilter(f *ipv4.ICMPFilter) error`.
   void setIcmpFilter(NetIpv4IcmpFilter f) {
     $callSync(
-        23712,
+        23714,
         $W()
           ..h(this)
           ..h(f));
@@ -795,7 +795,7 @@ class NetIpv4RawConn extends $net.NetConn
   /// Go: `func (*ipv4.dgramOpt).SetMulticastInterface(ifi *net.Interface) error`.
   void setMulticastInterface($net.NetInterface ifi) {
     $callSync(
-        23713,
+        23715,
         $W()
           ..h(this)
           ..dto(ifi));
@@ -804,7 +804,7 @@ class NetIpv4RawConn extends $net.NetConn
   /// Go: `func (*ipv4.dgramOpt).SetMulticastLoopback(on bool) error`.
   void setMulticastLoopback(bool on) {
     $callSync(
-        23714,
+        23716,
         $W()
           ..h(this)
           ..b(on));
@@ -813,7 +813,7 @@ class NetIpv4RawConn extends $net.NetConn
   /// Go: `func (*ipv4.dgramOpt).SetMulticastTTL(ttl int) error`.
   void setMulticastTtl(int ttl) {
     $callSync(
-        23715,
+        23717,
         $W()
           ..h(this)
           ..i64(ttl));
@@ -822,7 +822,7 @@ class NetIpv4RawConn extends $net.NetConn
   /// Go: `func (*ipv4.RawConn).SetReadDeadline(t time.Time) error`.
   void setReadDeadline(DateTime t) {
     $callSync(
-        23716,
+        23718,
         $W()
           ..h(this)
           ..time(t));
@@ -831,7 +831,7 @@ class NetIpv4RawConn extends $net.NetConn
   /// Go: `func (*ipv4.genericOpt).SetTOS(tos int) error`.
   void setTos(int tos) {
     $callSync(
-        23717,
+        23719,
         $W()
           ..h(this)
           ..i64(tos));
@@ -840,7 +840,7 @@ class NetIpv4RawConn extends $net.NetConn
   /// Go: `func (*ipv4.genericOpt).SetTTL(ttl int) error`.
   void setTtl(int ttl) {
     $callSync(
-        23718,
+        23720,
         $W()
           ..h(this)
           ..i64(ttl));
@@ -849,7 +849,7 @@ class NetIpv4RawConn extends $net.NetConn
   /// Go: `func (*ipv4.RawConn).SetWriteDeadline(t time.Time) error`.
   void setWriteDeadline(DateTime t) {
     $callSync(
-        23719,
+        23721,
         $W()
           ..h(this)
           ..time(t));
@@ -857,20 +857,20 @@ class NetIpv4RawConn extends $net.NetConn
 
   /// Go: `func (*ipv4.genericOpt).TOS() (int, error)`.
   int tos() {
-    final $r = $callSync(23720, $W()..h(this));
+    final $r = $callSync(23722, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*ipv4.genericOpt).TTL() (int, error)`.
   int ttl() {
-    final $r = $callSync(23721, $W()..h(this));
+    final $r = $callSync(23723, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*ipv4.packetHandler).WriteBatch(ms []ipv4.Message, flags int) (int, error)`.
   int writeBatch(List<NetIpv4Message> ms, int flags) {
     final $r = $callSync(
-        23722,
+        23724,
         $W()
           ..h(this)
           ..list(ms, (w0, e0) => w0.dto(e0))
@@ -881,7 +881,7 @@ class NetIpv4RawConn extends $net.NetConn
   /// Go: `func (*ipv4.packetHandler).WriteTo(h *ipv4.Header, p []byte, cm *ipv4.ControlMessage) error`.
   void writeTo(NetIpv4Header h, Uint8List p, NetIpv4ControlMessage cm) {
     $callSync(
-        23723,
+        23725,
         $W()
           ..h(this)
           ..dto(h)
@@ -894,13 +894,13 @@ class NetIpv4RawConn extends $net.NetConn
 extension GoXNetIpv4Api on GoXNetIpv4 {
   /// Go: `func ipv4.NewControlMessage(cf ipv4.ControlFlags) []byte`.
   Uint8List newControlMessage(int cf) {
-    final $r = $callSync(23664, $W()..i64(cf));
+    final $r = $callSync(23666, $W()..i64(cf));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func ipv4.ParseHeader(b []byte) (*ipv4.Header, error)`.
   NetIpv4Header parseHeader(Uint8List b) {
-    final $r = $callSync(23695, $W()..bytes(b));
+    final $r = $callSync(23697, $W()..bytes(b));
     return $r.p() ? NetIpv4Header.$dec($r) : $nil();
   }
 }

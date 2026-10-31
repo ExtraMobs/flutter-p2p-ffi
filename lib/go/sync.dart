@@ -21,23 +21,23 @@ class SyncCond extends GoHandle {
 
   /// Go: `func sync.NewCond(l sync.Locker) *sync.Cond`.
   factory SyncCond(SyncLocker l) {
-    final $r = $callSync(27335, $W()..h(l));
+    final $r = $callSync(27337, $W()..h(l));
     return $r.hnn(SyncCond.$h);
   }
 
   /// Go: `func (*sync.Cond).Broadcast()`.
   void broadcast() {
-    $callSync(27317, $W()..h(this));
+    $callSync(27319, $W()..h(this));
   }
 
   /// Go: `func (*sync.Cond).Signal()`.
   void signal() {
-    $callSync(27318, $W()..h(this));
+    $callSync(27320, $W()..h(this));
   }
 
   /// Go: `func (*sync.Cond).Wait()`.
   void wait() {
-    $callSync(27319, $W()..h(this));
+    $callSync(27321, $W()..h(this));
   }
 }
 
@@ -50,12 +50,12 @@ class SyncLocker extends GoHandle with SyncLocker$ {
 mixin SyncLocker$ on GoHandle {
   /// Go: `func (sync.Locker).Lock()`.
   void lock() {
-    $callSync(27320, $W()..h(this));
+    $callSync(27322, $W()..h(this));
   }
 
   /// Go: `func (sync.Locker).Unlock()`.
   void unlock() {
-    $callSync(27321, $W()..h(this));
+    $callSync(27323, $W()..h(this));
   }
 
   /// Go: type assertion `x.(*jsync.NoCopy)`: null if the object is not one.
@@ -149,13 +149,13 @@ class SyncMap extends GoHandle {
 
   /// Go: `func (*sync.Map).Clear()`.
   void clear() {
-    $callSync(27322, $W()..h(this));
+    $callSync(27324, $W()..h(this));
   }
 
   /// Go: `func (*sync.Map).CompareAndDelete(key any, old any) (deleted bool)`.
   bool compareAndDelete(Object? key, Object? old) {
     final $r = $callSync(
-        27323,
+        27325,
         $W()
           ..h(this)
           ..any(key)
@@ -166,7 +166,7 @@ class SyncMap extends GoHandle {
   /// Go: `func (*sync.Map).CompareAndSwap(key any, old any, new any) (swapped bool)`.
   bool compareAndSwap(Object? key, Object? old, Object? new$) {
     final $r = $callSync(
-        27324,
+        27326,
         $W()
           ..h(this)
           ..any(key)
@@ -178,7 +178,7 @@ class SyncMap extends GoHandle {
   /// Go: `func (*sync.Map).Delete(key any)`.
   void delete(Object? key) {
     $callSync(
-        27325,
+        27327,
         $W()
           ..h(this)
           ..any(key));
@@ -187,7 +187,7 @@ class SyncMap extends GoHandle {
   /// Go: `func (*sync.Map).Load(key any) (value any, ok bool)`.
   (Object?, bool) load(Object? key) {
     final $r = $callSync(
-        27326,
+        27328,
         $W()
           ..h(this)
           ..any(key));
@@ -197,7 +197,7 @@ class SyncMap extends GoHandle {
   /// Go: `func (*sync.Map).LoadAndDelete(key any) (value any, loaded bool)`.
   (Object?, bool) loadAndDelete(Object? key) {
     final $r = $callSync(
-        27327,
+        27329,
         $W()
           ..h(this)
           ..any(key));
@@ -207,7 +207,7 @@ class SyncMap extends GoHandle {
   /// Go: `func (*sync.Map).LoadOrStore(key any, value any) (actual any, loaded bool)`.
   (Object?, bool) loadOrStore(Object? key, Object? value) {
     final $r = $callSync(
-        27328,
+        27330,
         $W()
           ..h(this)
           ..any(key)
@@ -225,7 +225,7 @@ class SyncMap extends GoHandle {
   Future<void> range(
       FutureOr<bool> Function(Object? key, Object? value) f) async {
     await $call(
-        27329,
+        27331,
         $W()
           ..h(this)
           ..cb((r) => f(r.any(), r.any()), true));
@@ -234,7 +234,7 @@ class SyncMap extends GoHandle {
   /// Go: `func (*sync.Map).Store(key any, value any)`.
   void store(Object? key, Object? value) {
     $callSync(
-        27330,
+        27332,
         $W()
           ..h(this)
           ..any(key)
@@ -244,7 +244,7 @@ class SyncMap extends GoHandle {
   /// Go: `func (*sync.Map).Swap(key any, value any) (previous any, loaded bool)`.
   (Object?, bool) swap(Object? key, Object? value) {
     final $r = $callSync(
-        27331,
+        27333,
         $W()
           ..h(this)
           ..any(key)
@@ -261,18 +261,18 @@ class SyncMutex extends SyncLocker
 
   /// Go: `func (*sync.Mutex).Lock()`.
   void lock() {
-    $callSync(27332, $W()..h(this));
+    $callSync(27334, $W()..h(this));
   }
 
   /// Go: `func (*sync.Mutex).TryLock() bool`.
   bool tryLock() {
-    final $r = $callSync(27333, $W()..h(this));
+    final $r = $callSync(27335, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*sync.Mutex).Unlock()`.
   void unlock() {
-    $callSync(27334, $W()..h(this));
+    $callSync(27336, $W()..h(this));
   }
 }
 
@@ -289,7 +289,7 @@ class SyncOnce extends GoHandle {
   /// each invocation (a retained callback, WIRE.md).
   Future<void> do$(FutureOr<void> Function() f) async {
     await $call(
-        27336,
+        27338,
         $W()
           ..h(this)
           ..cb((r) => f(), true));
@@ -302,14 +302,14 @@ class SyncPool extends $websocket.WebsocketBufferPool {
 
   /// Go: `func (*sync.Pool).Get() any`.
   Object? get() {
-    final $r = $callSync(27337, $W()..h(this));
+    final $r = $callSync(27339, $W()..h(this));
     return $r.any();
   }
 
   /// Go: `func (*sync.Pool).Put(x any)`.
   void put(Object? x) {
     $callSync(
-        27338,
+        27340,
         $W()
           ..h(this)
           ..any(x));
@@ -324,40 +324,40 @@ class SyncRwMutex extends SyncLocker
 
   /// Go: `func (*sync.RWMutex).Lock()`.
   void lock() {
-    $callSync(27339, $W()..h(this));
+    $callSync(27341, $W()..h(this));
   }
 
   /// Go: `func (*sync.RWMutex).RLock()`.
   void rLock() {
-    $callSync(27340, $W()..h(this));
+    $callSync(27342, $W()..h(this));
   }
 
   /// Go: `func (*sync.RWMutex).RLocker() sync.Locker`.
   SyncLocker rLocker() {
-    final $r = $callSync(27341, $W()..h(this));
+    final $r = $callSync(27343, $W()..h(this));
     return $r.hnn(SyncLocker.$h);
   }
 
   /// Go: `func (*sync.RWMutex).RUnlock()`.
   void rUnlock() {
-    $callSync(27342, $W()..h(this));
+    $callSync(27344, $W()..h(this));
   }
 
   /// Go: `func (*sync.RWMutex).TryLock() bool`.
   bool tryLock() {
-    final $r = $callSync(27343, $W()..h(this));
+    final $r = $callSync(27345, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*sync.RWMutex).TryRLock() bool`.
   bool tryRLock() {
-    final $r = $callSync(27344, $W()..h(this));
+    final $r = $callSync(27346, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*sync.RWMutex).Unlock()`.
   void unlock() {
-    $callSync(27345, $W()..h(this));
+    $callSync(27347, $W()..h(this));
   }
 }
 
@@ -368,7 +368,7 @@ class SyncWaitGroup extends GoHandle {
   /// Go: `func (*sync.WaitGroup).Add(delta int)`.
   void add(int delta) {
     $callSync(
-        27346,
+        27348,
         $W()
           ..h(this)
           ..i64(delta));
@@ -376,7 +376,7 @@ class SyncWaitGroup extends GoHandle {
 
   /// Go: `func (*sync.WaitGroup).Done()`.
   void done() {
-    $callSync(27347, $W()..h(this));
+    $callSync(27349, $W()..h(this));
   }
 
   /// Go: `func (*sync.WaitGroup).Go(f func())`.
@@ -388,7 +388,7 @@ class SyncWaitGroup extends GoHandle {
   /// each invocation (a retained callback, WIRE.md).
   Future<void> go(FutureOr<void> Function() f) async {
     await $call(
-        27348,
+        27350,
         $W()
           ..h(this)
           ..cb((r) => f(), true));
@@ -396,6 +396,6 @@ class SyncWaitGroup extends GoHandle {
 
   /// Go: `func (*sync.WaitGroup).Wait()`.
   void wait() {
-    $callSync(27349, $W()..h(this));
+    $callSync(27351, $W()..h(this));
   }
 }

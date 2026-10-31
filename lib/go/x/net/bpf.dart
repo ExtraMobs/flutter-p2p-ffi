@@ -34,13 +34,13 @@ final class NetBpfAluOpConstant implements GoDto {
 
   /// Go: `func (bpf.ALUOpConstant).Assemble() (bpf.RawInstruction, error)`.
   NetBpfRawInstruction assemble() {
-    final $r = $callSync(23367, $W()..dto(this));
+    final $r = $callSync(23369, $W()..dto(this));
     return $r.p() ? NetBpfRawInstruction.$dec($r) : $nil();
   }
 
   /// Go: `func (bpf.ALUOpConstant).String() string`.
   String string() {
-    final $r = $callSync(23368, $W()..dto(this));
+    final $r = $callSync(23370, $W()..dto(this));
     return $r.str();
   }
 }
@@ -61,13 +61,13 @@ final class NetBpfAluOpX implements GoDto {
 
   /// Go: `func (bpf.ALUOpX).Assemble() (bpf.RawInstruction, error)`.
   NetBpfRawInstruction assemble() {
-    final $r = $callSync(23369, $W()..dto(this));
+    final $r = $callSync(23371, $W()..dto(this));
     return $r.p() ? NetBpfRawInstruction.$dec($r) : $nil();
   }
 
   /// Go: `func (bpf.ALUOpX).String() string`.
   String string() {
-    final $r = $callSync(23370, $W()..dto(this));
+    final $r = $callSync(23372, $W()..dto(this));
     return $r.str();
   }
 }
@@ -107,13 +107,13 @@ final class NetBpfJump implements GoDto {
 
   /// Go: `func (bpf.Jump).Assemble() (bpf.RawInstruction, error)`.
   NetBpfRawInstruction assemble() {
-    final $r = $callSync(23373, $W()..dto(this));
+    final $r = $callSync(23375, $W()..dto(this));
     return $r.p() ? NetBpfRawInstruction.$dec($r) : $nil();
   }
 
   /// Go: `func (bpf.Jump).String() string`.
   String string() {
-    final $r = $callSync(23374, $W()..dto(this));
+    final $r = $callSync(23376, $W()..dto(this));
     return $r.str();
   }
 }
@@ -155,13 +155,13 @@ final class NetBpfJumpIf implements GoDto {
 
   /// Go: `func (bpf.JumpIf).Assemble() (bpf.RawInstruction, error)`.
   NetBpfRawInstruction assemble() {
-    final $r = $callSync(23375, $W()..dto(this));
+    final $r = $callSync(23377, $W()..dto(this));
     return $r.p() ? NetBpfRawInstruction.$dec($r) : $nil();
   }
 
   /// Go: `func (bpf.JumpIf).String() string`.
   String string() {
-    final $r = $callSync(23376, $W()..dto(this));
+    final $r = $callSync(23378, $W()..dto(this));
     return $r.str();
   }
 }
@@ -197,13 +197,13 @@ final class NetBpfJumpIfX implements GoDto {
 
   /// Go: `func (bpf.JumpIfX).Assemble() (bpf.RawInstruction, error)`.
   NetBpfRawInstruction assemble() {
-    final $r = $callSync(23377, $W()..dto(this));
+    final $r = $callSync(23379, $W()..dto(this));
     return $r.p() ? NetBpfRawInstruction.$dec($r) : $nil();
   }
 
   /// Go: `func (bpf.JumpIfX).String() string`.
   String string() {
-    final $r = $callSync(23378, $W()..dto(this));
+    final $r = $callSync(23380, $W()..dto(this));
     return $r.str();
   }
 }
@@ -233,13 +233,13 @@ final class NetBpfLoadAbsolute implements GoDto {
 
   /// Go: `func (bpf.LoadAbsolute).Assemble() (bpf.RawInstruction, error)`.
   NetBpfRawInstruction assemble() {
-    final $r = $callSync(23379, $W()..dto(this));
+    final $r = $callSync(23381, $W()..dto(this));
     return $r.p() ? NetBpfRawInstruction.$dec($r) : $nil();
   }
 
   /// Go: `func (bpf.LoadAbsolute).String() string`.
   String string() {
-    final $r = $callSync(23380, $W()..dto(this));
+    final $r = $callSync(23382, $W()..dto(this));
     return $r.str();
   }
 }
@@ -269,13 +269,13 @@ final class NetBpfLoadConstant implements GoDto {
 
   /// Go: `func (bpf.LoadConstant).Assemble() (bpf.RawInstruction, error)`.
   NetBpfRawInstruction assemble() {
-    final $r = $callSync(23381, $W()..dto(this));
+    final $r = $callSync(23383, $W()..dto(this));
     return $r.p() ? NetBpfRawInstruction.$dec($r) : $nil();
   }
 
   /// Go: `func (bpf.LoadConstant).String() string`.
   String string() {
-    final $r = $callSync(23382, $W()..dto(this));
+    final $r = $callSync(23384, $W()..dto(this));
     return $r.str();
   }
 }
@@ -296,13 +296,13 @@ final class NetBpfLoadExtension implements GoDto {
 
   /// Go: `func (bpf.LoadExtension).Assemble() (bpf.RawInstruction, error)`.
   NetBpfRawInstruction assemble() {
-    final $r = $callSync(23383, $W()..dto(this));
+    final $r = $callSync(23385, $W()..dto(this));
     return $r.p() ? NetBpfRawInstruction.$dec($r) : $nil();
   }
 
   /// Go: `func (bpf.LoadExtension).String() string`.
   String string() {
-    final $r = $callSync(23384, $W()..dto(this));
+    final $r = $callSync(23386, $W()..dto(this));
     return $r.str();
   }
 }
@@ -332,13 +332,13 @@ final class NetBpfLoadIndirect implements GoDto {
 
   /// Go: `func (bpf.LoadIndirect).Assemble() (bpf.RawInstruction, error)`.
   NetBpfRawInstruction assemble() {
-    final $r = $callSync(23385, $W()..dto(this));
+    final $r = $callSync(23387, $W()..dto(this));
     return $r.p() ? NetBpfRawInstruction.$dec($r) : $nil();
   }
 
   /// Go: `func (bpf.LoadIndirect).String() string`.
   String string() {
-    final $r = $callSync(23386, $W()..dto(this));
+    final $r = $callSync(23388, $W()..dto(this));
     return $r.str();
   }
 }
@@ -359,13 +359,13 @@ final class NetBpfLoadMemShift implements GoDto {
 
   /// Go: `func (bpf.LoadMemShift).Assemble() (bpf.RawInstruction, error)`.
   NetBpfRawInstruction assemble() {
-    final $r = $callSync(23387, $W()..dto(this));
+    final $r = $callSync(23389, $W()..dto(this));
     return $r.p() ? NetBpfRawInstruction.$dec($r) : $nil();
   }
 
   /// Go: `func (bpf.LoadMemShift).String() string`.
   String string() {
-    final $r = $callSync(23388, $W()..dto(this));
+    final $r = $callSync(23390, $W()..dto(this));
     return $r.str();
   }
 }
@@ -395,13 +395,13 @@ final class NetBpfLoadScratch implements GoDto {
 
   /// Go: `func (bpf.LoadScratch).Assemble() (bpf.RawInstruction, error)`.
   NetBpfRawInstruction assemble() {
-    final $r = $callSync(23389, $W()..dto(this));
+    final $r = $callSync(23391, $W()..dto(this));
     return $r.p() ? NetBpfRawInstruction.$dec($r) : $nil();
   }
 
   /// Go: `func (bpf.LoadScratch).String() string`.
   String string() {
-    final $r = $callSync(23390, $W()..dto(this));
+    final $r = $callSync(23392, $W()..dto(this));
     return $r.str();
   }
 }
@@ -416,13 +416,13 @@ final class NetBpfNegateA implements GoDto {
 
   /// Go: `func (bpf.NegateA).Assemble() (bpf.RawInstruction, error)`.
   NetBpfRawInstruction assemble() {
-    final $r = $callSync(23391, $W()..dto(this));
+    final $r = $callSync(23393, $W()..dto(this));
     return $r.p() ? NetBpfRawInstruction.$dec($r) : $nil();
   }
 
   /// Go: `func (bpf.NegateA).String() string`.
   String string() {
-    final $r = $callSync(23392, $W()..dto(this));
+    final $r = $callSync(23394, $W()..dto(this));
     return $r.str();
   }
 }
@@ -464,13 +464,13 @@ final class NetBpfRawInstruction implements GoDto {
 
   /// Go: `func (bpf.RawInstruction).Assemble() (bpf.RawInstruction, error)`.
   NetBpfRawInstruction assemble() {
-    final $r = $callSync(23394, $W()..dto(this));
+    final $r = $callSync(23396, $W()..dto(this));
     return $r.p() ? NetBpfRawInstruction.$dec($r) : $nil();
   }
 
   /// Go: `func (bpf.RawInstruction).Disassemble() bpf.Instruction`.
   NetBpfInstruction disassemble() {
-    final $r = $callSync(23395, $W()..dto(this));
+    final $r = $callSync(23397, $W()..dto(this));
     return $r.p() ? NetBpfInstruction.$dec($r) : $nil();
   }
 }
@@ -485,13 +485,13 @@ final class NetBpfRetA implements GoDto {
 
   /// Go: `func (bpf.RetA).Assemble() (bpf.RawInstruction, error)`.
   NetBpfRawInstruction assemble() {
-    final $r = $callSync(23396, $W()..dto(this));
+    final $r = $callSync(23398, $W()..dto(this));
     return $r.p() ? NetBpfRawInstruction.$dec($r) : $nil();
   }
 
   /// Go: `func (bpf.RetA).String() string`.
   String string() {
-    final $r = $callSync(23397, $W()..dto(this));
+    final $r = $callSync(23399, $W()..dto(this));
     return $r.str();
   }
 }
@@ -512,13 +512,13 @@ final class NetBpfRetConstant implements GoDto {
 
   /// Go: `func (bpf.RetConstant).Assemble() (bpf.RawInstruction, error)`.
   NetBpfRawInstruction assemble() {
-    final $r = $callSync(23398, $W()..dto(this));
+    final $r = $callSync(23400, $W()..dto(this));
     return $r.p() ? NetBpfRawInstruction.$dec($r) : $nil();
   }
 
   /// Go: `func (bpf.RetConstant).String() string`.
   String string() {
-    final $r = $callSync(23399, $W()..dto(this));
+    final $r = $callSync(23401, $W()..dto(this));
     return $r.str();
   }
 }
@@ -533,7 +533,7 @@ mixin NetBpfSetter$ on GoHandle {
   /// Go: `func (bpf.Setter).SetBPF(filter []bpf.RawInstruction) error`.
   void setBpf(List<NetBpfRawInstruction> filter) {
     $callSync(
-        23400,
+        23402,
         $W()
           ..h(this)
           ..list(filter, (w0, e0) => w0.dto(e0)));
@@ -583,13 +583,13 @@ final class NetBpfStoreScratch implements GoDto {
 
   /// Go: `func (bpf.StoreScratch).Assemble() (bpf.RawInstruction, error)`.
   NetBpfRawInstruction assemble() {
-    final $r = $callSync(23401, $W()..dto(this));
+    final $r = $callSync(23403, $W()..dto(this));
     return $r.p() ? NetBpfRawInstruction.$dec($r) : $nil();
   }
 
   /// Go: `func (bpf.StoreScratch).String() string`.
   String string() {
-    final $r = $callSync(23402, $W()..dto(this));
+    final $r = $callSync(23404, $W()..dto(this));
     return $r.str();
   }
 }
@@ -604,13 +604,13 @@ final class NetBpfTax implements GoDto {
 
   /// Go: `func (bpf.TAX).Assemble() (bpf.RawInstruction, error)`.
   NetBpfRawInstruction assemble() {
-    final $r = $callSync(23403, $W()..dto(this));
+    final $r = $callSync(23405, $W()..dto(this));
     return $r.p() ? NetBpfRawInstruction.$dec($r) : $nil();
   }
 
   /// Go: `func (bpf.TAX).String() string`.
   String string() {
-    final $r = $callSync(23404, $W()..dto(this));
+    final $r = $callSync(23406, $W()..dto(this));
     return $r.str();
   }
 }
@@ -625,13 +625,13 @@ final class NetBpfTxa implements GoDto {
 
   /// Go: `func (bpf.TXA).Assemble() (bpf.RawInstruction, error)`.
   NetBpfRawInstruction assemble() {
-    final $r = $callSync(23405, $W()..dto(this));
+    final $r = $callSync(23407, $W()..dto(this));
     return $r.p() ? NetBpfRawInstruction.$dec($r) : $nil();
   }
 
   /// Go: `func (bpf.TXA).String() string`.
   String string() {
-    final $r = $callSync(23406, $W()..dto(this));
+    final $r = $callSync(23408, $W()..dto(this));
     return $r.str();
   }
 }
@@ -642,14 +642,14 @@ class NetBpfVm extends GoHandle {
 
   /// Go: `func bpf.NewVM(filter []bpf.Instruction) (*bpf.VM, error)`.
   factory NetBpfVm(List<NetBpfInstruction> filter) {
-    final $r = $callSync(23393, $W()..list(filter, (w0, e0) => w0.dto(e0)));
+    final $r = $callSync(23395, $W()..list(filter, (w0, e0) => w0.dto(e0)));
     return $r.hnn(NetBpfVm.$h);
   }
 
   /// Go: `func (*bpf.VM).Run(in []byte) (int, error)`.
   int run(Uint8List in$) {
     final $r = $callSync(
-        23407,
+        23409,
         $W()
           ..h(this)
           ..bytes(in$));
@@ -661,13 +661,13 @@ class NetBpfVm extends GoHandle {
 extension GoXNetBpfApi on GoXNetBpf {
   /// Go: `func bpf.Assemble(insts []bpf.Instruction) ([]bpf.RawInstruction, error)`.
   List<NetBpfRawInstruction> assemble(List<NetBpfInstruction> insts) {
-    final $r = $callSync(23371, $W()..list(insts, (w0, e0) => w0.dto(e0)));
+    final $r = $callSync(23373, $W()..list(insts, (w0, e0) => w0.dto(e0)));
     return $r.list(() => $r.p() ? NetBpfRawInstruction.$dec($r) : $nil());
   }
 
   /// Go: `func bpf.Disassemble(raw []bpf.RawInstruction) (insts []bpf.Instruction, allDecoded bool)`.
   (List<NetBpfInstruction>, bool) disassemble(List<NetBpfRawInstruction> raw) {
-    final $r = $callSync(23372, $W()..list(raw, (w0, e0) => w0.dto(e0)));
+    final $r = $callSync(23374, $W()..list(raw, (w0, e0) => w0.dto(e0)));
     return (
       $r.list(() => $r.p() ? NetBpfInstruction.$dec($r) : $nil()),
       $r.b()

@@ -40,7 +40,7 @@ final class ProtobufEncodingProtodelimMarshalOptions implements GoDto {
   int marshalTo(
       GoHandle? w, $protoreflect.ProtobufReflectProtoreflectProtoMessage m) {
     final $r = $callSync(
-        24732,
+        24734,
         $W()
           ..dto(this)
           ..h(w)
@@ -171,7 +171,7 @@ final class ProtobufEncodingProtodelimUnmarshalOptions implements GoDto {
   void unmarshalFrom(ProtobufEncodingProtodelimReader r,
       $protoreflect.ProtobufReflectProtoreflectProtoMessage m) {
     $callSync(
-        24735,
+        24737,
         $W()
           ..dto(this)
           ..h(r)
@@ -203,7 +203,7 @@ extension GoProtobufEncodingProtodelimApi on GoProtobufEncodingProtodelim {
   int marshalTo(
       GoHandle? w, $protoreflect.ProtobufReflectProtoreflectProtoMessage m) {
     final $r = $callSync(
-        24733,
+        24735,
         $W()
           ..h(w)
           ..h(m));
@@ -214,7 +214,7 @@ extension GoProtobufEncodingProtodelimApi on GoProtobufEncodingProtodelim {
   void unmarshalFrom(ProtobufEncodingProtodelimReader r,
       $protoreflect.ProtobufReflectProtoreflectProtoMessage m) {
     $callSync(
-        24734,
+        24736,
         $W()
           ..h(r)
           ..h(m));

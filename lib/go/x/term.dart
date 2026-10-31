@@ -17,7 +17,7 @@ mixin TermHistory$ on GoHandle {
   /// Go: `func (term.History).Add(entry string)`.
   void add(String entry) {
     $callSync(
-        23844,
+        23846,
         $W()
           ..h(this)
           ..str(entry));
@@ -26,7 +26,7 @@ mixin TermHistory$ on GoHandle {
   /// Go: `func (term.History).At(idx int) string`.
   String at(int idx) {
     final $r = $callSync(
-        23845,
+        23847,
         $W()
           ..h(this)
           ..i64(idx));
@@ -35,7 +35,7 @@ mixin TermHistory$ on GoHandle {
 
   /// Go: `func (term.History).Len() int`.
   int len() {
-    final $r = $callSync(23846, $W()..h(this));
+    final $r = $callSync(23848, $W()..h(this));
     return $r.i64();
   }
 }
@@ -52,7 +52,7 @@ class TermTerminal extends GoHandle {
   /// Go: `func term.NewTerminal(c io.ReadWriter, prompt string) *term.Terminal`.
   factory TermTerminal(Object c, String prompt) {
     final $r = $callSync(
-        23849,
+        23851,
         $W()
           ..reader(c)
           ..str(prompt));
@@ -61,14 +61,14 @@ class TermTerminal extends GoHandle {
 
   /// Go: `func (*term.Terminal).ReadLine() (line string, err error)`.
   String readLine() {
-    final $r = $callSync(23852, $W()..h(this));
+    final $r = $callSync(23854, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*term.Terminal).ReadPassword(prompt string) (line string, err error)`.
   String readPassword(String prompt) {
     final $r = $callSync(
-        23853,
+        23855,
         $W()
           ..h(this)
           ..str(prompt));
@@ -78,7 +78,7 @@ class TermTerminal extends GoHandle {
   /// Go: `func (*term.Terminal).SetBracketedPasteMode(on bool)`.
   void setBracketedPasteMode(bool on) {
     $callSync(
-        23854,
+        23856,
         $W()
           ..h(this)
           ..b(on));
@@ -87,7 +87,7 @@ class TermTerminal extends GoHandle {
   /// Go: `func (*term.Terminal).SetPrompt(prompt string)`.
   void setPrompt(String prompt) {
     $callSync(
-        23855,
+        23857,
         $W()
           ..h(this)
           ..str(prompt));
@@ -96,7 +96,7 @@ class TermTerminal extends GoHandle {
   /// Go: `func (*term.Terminal).SetSize(width int, height int) error`.
   void setSize(int width, int height) {
     $callSync(
-        23856,
+        23858,
         $W()
           ..h(this)
           ..i64(width)
@@ -106,7 +106,7 @@ class TermTerminal extends GoHandle {
   /// Go: `func (*term.Terminal).Write(buf []byte) (n int, err error)`.
   int write(Uint8List buf) {
     final $r = $callSync(
-        23857,
+        23859,
         $W()
           ..h(this)
           ..bytes(buf));
@@ -118,38 +118,38 @@ class TermTerminal extends GoHandle {
 extension GoXTermApi on GoXTerm {
   /// Go: `func term.GetSize(fd int) (width int, height int, err error)`.
   (int, int) getSize(int fd) {
-    final $r = $callSync(23842, $W()..i64(fd));
+    final $r = $callSync(23844, $W()..i64(fd));
     return ($r.i64(), $r.i64());
   }
 
   /// Go: `func term.GetState(fd int) (*term.State, error)`.
   TermState getState(int fd) {
-    final $r = $callSync(23843, $W()..i64(fd));
+    final $r = $callSync(23845, $W()..i64(fd));
     return $r.hnn(TermState.$h);
   }
 
   /// Go: `func term.IsTerminal(fd int) bool`.
   bool isTerminal(int fd) {
-    final $r = $callSync(23847, $W()..i64(fd));
+    final $r = $callSync(23849, $W()..i64(fd));
     return $r.b();
   }
 
   /// Go: `func term.MakeRaw(fd int) (*term.State, error)`.
   TermState makeRaw(int fd) {
-    final $r = $callSync(23848, $W()..i64(fd));
+    final $r = $callSync(23850, $W()..i64(fd));
     return $r.hnn(TermState.$h);
   }
 
   /// Go: `func term.ReadPassword(fd int) ([]byte, error)`.
   Uint8List readPassword(int fd) {
-    final $r = $callSync(23850, $W()..i64(fd));
+    final $r = $callSync(23852, $W()..i64(fd));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func term.Restore(fd int, oldState *term.State) error`.
   void restore(int fd, TermState oldState) {
     $callSync(
-        23851,
+        23853,
         $W()
           ..i64(fd)
           ..h(oldState));

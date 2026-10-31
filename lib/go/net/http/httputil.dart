@@ -24,14 +24,14 @@ class NetHttpHttputilBufferPool extends GoHandle
 mixin NetHttpHttputilBufferPool$ on GoHandle {
   /// Go: `func (httputil.BufferPool).Get() []byte`.
   Uint8List get() {
-    final $r = $callSync(26656, $W()..h(this));
+    final $r = $callSync(26658, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (httputil.BufferPool).Put([]byte)`.
   void put(Uint8List arg0) {
     $callSync(
-        26657,
+        26659,
         $W()
           ..h(this)
           ..bytes(arg0));
@@ -49,7 +49,7 @@ class NetHttpHttputilClientConn extends $io.IoCloser
   @Deprecated("Use the Client or Transport in package [net/http] instead.")
   factory NetHttpHttputilClientConn($net.NetConn c, $bufio.BufioReader r) {
     final $r = $callSync(
-        26669,
+        26671,
         $W()
           ..h(c)
           ..h(r));
@@ -58,13 +58,13 @@ class NetHttpHttputilClientConn extends $io.IoCloser
 
   /// Go: `func (*httputil.ClientConn).Close() error`.
   void close() {
-    $callSync(26658, $W()..h(this));
+    $callSync(26660, $W()..h(this));
   }
 
   /// Go: `func (*httputil.ClientConn).Do(req *http.Request) (*http.Response, error)`.
   $http.NetHttpResponse do$($http.NetHttpRequest req) {
     final $r = $callSync(
-        26659,
+        26661,
         $W()
           ..h(this)
           ..h(req));
@@ -73,20 +73,20 @@ class NetHttpHttputilClientConn extends $io.IoCloser
 
   /// Go: `func (*httputil.ClientConn).Hijack() (c net.Conn, r *bufio.Reader)`.
   ($net.NetConn, $bufio.BufioReader) hijack() {
-    final $r = $callSync(26660, $W()..h(this));
+    final $r = $callSync(26662, $W()..h(this));
     return ($r.hnn($net.NetConn.$h), $r.hnn($bufio.BufioReader.$h));
   }
 
   /// Go: `func (*httputil.ClientConn).Pending() int`.
   int pending() {
-    final $r = $callSync(26661, $W()..h(this));
+    final $r = $callSync(26663, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*httputil.ClientConn).Read(req *http.Request) (resp *http.Response, err error)`.
   $http.NetHttpResponse read($http.NetHttpRequest req) {
     final $r = $callSync(
-        26662,
+        26664,
         $W()
           ..h(this)
           ..h(req));
@@ -96,7 +96,7 @@ class NetHttpHttputilClientConn extends $io.IoCloser
   /// Go: `func (*httputil.ClientConn).Write(req *http.Request) error`.
   void write($http.NetHttpRequest req) {
     $callSync(
-        26663,
+        26665,
         $W()
           ..h(this)
           ..h(req));
@@ -130,7 +130,7 @@ final class NetHttpHttputilProxyRequest implements GoDto {
   /// Go: `func (*httputil.ProxyRequest).SetURL(target *url.URL)`.
   void setUrl($url.NetUrl target) {
     $callSync(
-        26673,
+        26675,
         $W()
           ..dto(this)
           ..dto(target));
@@ -138,7 +138,7 @@ final class NetHttpHttputilProxyRequest implements GoDto {
 
   /// Go: `func (*httputil.ProxyRequest).SetXForwarded()`.
   void setXForwarded() {
-    $callSync(26674, $W()..dto(this));
+    $callSync(26676, $W()..dto(this));
   }
 }
 
@@ -186,7 +186,7 @@ final class NetHttpHttputilReverseProxy implements GoDto {
   /// Go: `func (*httputil.ReverseProxy).ServeHTTP(rw http.ResponseWriter, req *http.Request)`.
   void serveHttp($http.NetHttpResponseWriter rw, $http.NetHttpRequest req) {
     $callSync(
-        26675,
+        26677,
         $W()
           ..dto(this)
           ..h(rw)
@@ -205,7 +205,7 @@ class NetHttpHttputilServerConn extends $io.IoCloser
   @Deprecated("Use the Server in package [net/http] instead.")
   factory NetHttpHttputilServerConn($net.NetConn c, $bufio.BufioReader r) {
     final $r = $callSync(
-        26671,
+        26673,
         $W()
           ..h(c)
           ..h(r));
@@ -214,31 +214,31 @@ class NetHttpHttputilServerConn extends $io.IoCloser
 
   /// Go: `func (*httputil.ServerConn).Close() error`.
   void close() {
-    $callSync(26676, $W()..h(this));
+    $callSync(26678, $W()..h(this));
   }
 
   /// Go: `func (*httputil.ServerConn).Hijack() (net.Conn, *bufio.Reader)`.
   ($net.NetConn, $bufio.BufioReader) hijack() {
-    final $r = $callSync(26677, $W()..h(this));
+    final $r = $callSync(26679, $W()..h(this));
     return ($r.hnn($net.NetConn.$h), $r.hnn($bufio.BufioReader.$h));
   }
 
   /// Go: `func (*httputil.ServerConn).Pending() int`.
   int pending() {
-    final $r = $callSync(26678, $W()..h(this));
+    final $r = $callSync(26680, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*httputil.ServerConn).Read() (*http.Request, error)`.
   $http.NetHttpRequest read() {
-    final $r = $callSync(26679, $W()..h(this));
+    final $r = $callSync(26681, $W()..h(this));
     return $r.hnn($http.NetHttpRequest.$h);
   }
 
   /// Go: `func (*httputil.ServerConn).Write(req *http.Request, resp *http.Response) error`.
   void write($http.NetHttpRequest req, $http.NetHttpResponse resp) {
     $callSync(
-        26680,
+        26682,
         $W()
           ..h(this)
           ..h(req)
@@ -260,7 +260,7 @@ extension GoNetHttpHttputilApi on GoNetHttpHttputil {
   /// Go: `func httputil.DumpRequest(req *http.Request, body bool) ([]byte, error)`.
   Uint8List dumpRequest($http.NetHttpRequest req, bool body) {
     final $r = $callSync(
-        26664,
+        26666,
         $W()
           ..h(req)
           ..b(body));
@@ -270,7 +270,7 @@ extension GoNetHttpHttputilApi on GoNetHttpHttputil {
   /// Go: `func httputil.DumpRequestOut(req *http.Request, body bool) ([]byte, error)`.
   Uint8List dumpRequestOut($http.NetHttpRequest req, bool body) {
     final $r = $callSync(
-        26665,
+        26667,
         $W()
           ..h(req)
           ..b(body));
@@ -280,7 +280,7 @@ extension GoNetHttpHttputilApi on GoNetHttpHttputil {
   /// Go: `func httputil.DumpResponse(resp *http.Response, body bool) ([]byte, error)`.
   Uint8List dumpResponse($http.NetHttpResponse resp, bool body) {
     final $r = $callSync(
-        26666,
+        26668,
         $W()
           ..dto(resp)
           ..b(body));
@@ -289,13 +289,13 @@ extension GoNetHttpHttputilApi on GoNetHttpHttputil {
 
   /// Go: `func httputil.NewChunkedReader(r io.Reader) io.Reader`.
   $io.IoReader newChunkedReader(Object r) {
-    final $r = $callSync(26667, $W()..reader(r));
+    final $r = $callSync(26669, $W()..reader(r));
     return $r.hnn($io.IoReader.$h);
   }
 
   /// Go: `func httputil.NewChunkedWriter(w io.Writer) io.WriteCloser`.
   $io.IoWriteCloser newChunkedWriter(GoHandle? w) {
-    final $r = $callSync(26668, $W()..h(w));
+    final $r = $callSync(26670, $W()..h(w));
     return $r.hnn($io.IoWriteCloser.$h);
   }
 
@@ -304,7 +304,7 @@ extension GoNetHttpHttputilApi on GoNetHttpHttputil {
   NetHttpHttputilClientConn newProxyClientConn(
       $net.NetConn c, $bufio.BufioReader r) {
     final $r = $callSync(
-        26670,
+        26672,
         $W()
           ..h(c)
           ..h(r));
@@ -313,7 +313,7 @@ extension GoNetHttpHttputilApi on GoNetHttpHttputil {
 
   /// Go: `func httputil.NewSingleHostReverseProxy(target *url.URL) *httputil.ReverseProxy`.
   NetHttpHttputilReverseProxy newSingleHostReverseProxy($url.NetUrl target) {
-    final $r = $callSync(26672, $W()..dto(target));
+    final $r = $callSync(26674, $W()..dto(target));
     return $r.p() ? NetHttpHttputilReverseProxy.$dec($r) : $nil();
   }
 }

@@ -10,13 +10,13 @@ import 'package:p2p_ffi/go/grpc/credentials.dart' as $credentials;
 extension GoGrpcCredentialsInsecureApi on GoGrpcCredentialsInsecure {
   /// Go: `func insecure.NewBundle() credentials.Bundle`.
   $credentials.GrpcCredentialsBundle newBundle() {
-    final $r = $callSync(24518);
+    final $r = $callSync(24520);
     return $r.hnn($credentials.GrpcCredentialsBundle.$h);
   }
 
   /// Go: `func insecure.NewCredentials() credentials.TransportCredentials`.
   $credentials.GrpcCredentialsTransportCredentials newCredentials() {
-    final $r = $callSync(24519);
+    final $r = $callSync(24521);
     return $r.hnn($credentials.GrpcCredentialsTransportCredentials.$h);
   }
 }

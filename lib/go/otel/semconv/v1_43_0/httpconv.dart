@@ -17,7 +17,7 @@ class OtelSemconvV1430HttpconvClientActiveRequests extends GoHandle {
       $metric.OtelMetricMeter m,
       [List<$metric.OtelMetricInt64UpDownCounterOption> opt = const []]) {
     final $r = $callSync(
-        22034,
+        22036,
         $W()
           ..h(m)
           ..list(opt, (w0, e0) => w0.h(e0)));
@@ -31,7 +31,7 @@ class OtelSemconvV1430HttpconvClientActiveRequests extends GoHandle {
       $context.Context ctx, int incr, String serverAddress, int serverPort,
       [List<$attribute.OtelAttributeKeyValue> attrs = const []]) async {
     await $call(
-        21949,
+        21951,
         $W()
           ..h(this)
           ..h(ctx)
@@ -47,7 +47,7 @@ class OtelSemconvV1430HttpconvClientActiveRequests extends GoHandle {
   Future<void> addSet(
       $context.Context ctx, int incr, $attribute.OtelAttributeSet set) async {
     await $call(
-        21950,
+        21952,
         $W()
           ..h(this)
           ..h(ctx)
@@ -58,7 +58,7 @@ class OtelSemconvV1430HttpconvClientActiveRequests extends GoHandle {
   /// Go: `func (httpconv.ClientActiveRequests).AttrRequestMethod(val httpconv.RequestMethodAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrRequestMethod(String val) {
     final $r = $callSync(
-        21951,
+        21953,
         $W()
           ..h(this)
           ..str(val));
@@ -68,7 +68,7 @@ class OtelSemconvV1430HttpconvClientActiveRequests extends GoHandle {
   /// Go: `func (httpconv.ClientActiveRequests).AttrURLScheme(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrUrlScheme(String val) {
     final $r = $callSync(
-        21952,
+        21954,
         $W()
           ..h(this)
           ..str(val));
@@ -78,7 +78,7 @@ class OtelSemconvV1430HttpconvClientActiveRequests extends GoHandle {
   /// Go: `func (httpconv.ClientActiveRequests).AttrURLTemplate(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrUrlTemplate(String val) {
     final $r = $callSync(
-        21953,
+        21955,
         $W()
           ..h(this)
           ..str(val));
@@ -87,25 +87,25 @@ class OtelSemconvV1430HttpconvClientActiveRequests extends GoHandle {
 
   /// Go: `func (httpconv.ClientActiveRequests).Description() string`.
   String description() {
-    final $r = $callSync(21954, $W()..h(this));
+    final $r = $callSync(21956, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (httpconv.ClientActiveRequests).Inst() metric.Int64UpDownCounter`.
   $metric.OtelMetricInt64UpDownCounter inst() {
-    final $r = $callSync(21955, $W()..h(this));
+    final $r = $callSync(21957, $W()..h(this));
     return $r.hnn($metric.OtelMetricInt64UpDownCounter.$h);
   }
 
   /// Go: `func (httpconv.ClientActiveRequests).Name() string`.
   String name() {
-    final $r = $callSync(21956, $W()..h(this));
+    final $r = $callSync(21958, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (httpconv.ClientActiveRequests).Unit() string`.
   String unit() {
-    final $r = $callSync(21957, $W()..h(this));
+    final $r = $callSync(21959, $W()..h(this));
     return $r.str();
   }
 }
@@ -122,7 +122,7 @@ class OtelSemconvV1430HttpconvClientActiveRequestsObservable
       [List<$metric.OtelMetricInt64ObservableUpDownCounterOption> opt =
           const []]) {
     final $r = $callSync(
-        22035,
+        22037,
         $W()
           ..h(m)
           ..list(opt, (w0, e0) => w0.h(e0)));
@@ -132,7 +132,7 @@ class OtelSemconvV1430HttpconvClientActiveRequestsObservable
   /// Go: `func (httpconv.ClientActiveRequestsObservable).AttrRequestMethod(val httpconv.RequestMethodAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrRequestMethod(String val) {
     final $r = $callSync(
-        21958,
+        21960,
         $W()
           ..h(this)
           ..str(val));
@@ -142,7 +142,7 @@ class OtelSemconvV1430HttpconvClientActiveRequestsObservable
   /// Go: `func (httpconv.ClientActiveRequestsObservable).AttrServerAddress(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrServerAddress(String val) {
     final $r = $callSync(
-        21959,
+        21961,
         $W()
           ..h(this)
           ..str(val));
@@ -152,7 +152,7 @@ class OtelSemconvV1430HttpconvClientActiveRequestsObservable
   /// Go: `func (httpconv.ClientActiveRequestsObservable).AttrServerPort(val int) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrServerPort(int val) {
     final $r = $callSync(
-        21960,
+        21962,
         $W()
           ..h(this)
           ..i64(val));
@@ -162,7 +162,7 @@ class OtelSemconvV1430HttpconvClientActiveRequestsObservable
   /// Go: `func (httpconv.ClientActiveRequestsObservable).AttrURLScheme(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrUrlScheme(String val) {
     final $r = $callSync(
-        21961,
+        21963,
         $W()
           ..h(this)
           ..str(val));
@@ -172,7 +172,7 @@ class OtelSemconvV1430HttpconvClientActiveRequestsObservable
   /// Go: `func (httpconv.ClientActiveRequestsObservable).AttrURLTemplate(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrUrlTemplate(String val) {
     final $r = $callSync(
-        21962,
+        21964,
         $W()
           ..h(this)
           ..str(val));
@@ -181,25 +181,25 @@ class OtelSemconvV1430HttpconvClientActiveRequestsObservable
 
   /// Go: `func (httpconv.ClientActiveRequestsObservable).Description() string`.
   String description() {
-    final $r = $callSync(21963, $W()..h(this));
+    final $r = $callSync(21965, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (httpconv.ClientActiveRequestsObservable).Inst() metric.Int64ObservableUpDownCounter`.
   $metric.OtelMetricInt64ObservableUpDownCounter inst() {
-    final $r = $callSync(21964, $W()..h(this));
+    final $r = $callSync(21966, $W()..h(this));
     return $r.hnn($metric.OtelMetricInt64ObservableUpDownCounter.$h);
   }
 
   /// Go: `func (httpconv.ClientActiveRequestsObservable).Name() string`.
   String name() {
-    final $r = $callSync(21965, $W()..h(this));
+    final $r = $callSync(21967, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (httpconv.ClientActiveRequestsObservable).Unit() string`.
   String unit() {
-    final $r = $callSync(21966, $W()..h(this));
+    final $r = $callSync(21968, $W()..h(this));
     return $r.str();
   }
 }
@@ -213,7 +213,7 @@ class OtelSemconvV1430HttpconvClientConnectionDuration extends GoHandle {
       $metric.OtelMetricMeter m,
       [List<$metric.OtelMetricFloat64HistogramOption> opt = const []]) {
     final $r = $callSync(
-        22036,
+        22038,
         $W()
           ..h(m)
           ..list(opt, (w0, e0) => w0.h(e0)));
@@ -223,7 +223,7 @@ class OtelSemconvV1430HttpconvClientConnectionDuration extends GoHandle {
   /// Go: `func (httpconv.ClientConnectionDuration).AttrNetworkPeerAddress(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrNetworkPeerAddress(String val) {
     final $r = $callSync(
-        21967,
+        21969,
         $W()
           ..h(this)
           ..str(val));
@@ -233,7 +233,7 @@ class OtelSemconvV1430HttpconvClientConnectionDuration extends GoHandle {
   /// Go: `func (httpconv.ClientConnectionDuration).AttrNetworkProtocolVersion(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrNetworkProtocolVersion(String val) {
     final $r = $callSync(
-        21968,
+        21970,
         $W()
           ..h(this)
           ..str(val));
@@ -243,7 +243,7 @@ class OtelSemconvV1430HttpconvClientConnectionDuration extends GoHandle {
   /// Go: `func (httpconv.ClientConnectionDuration).AttrURLScheme(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrUrlScheme(String val) {
     final $r = $callSync(
-        21969,
+        21971,
         $W()
           ..h(this)
           ..str(val));
@@ -252,19 +252,19 @@ class OtelSemconvV1430HttpconvClientConnectionDuration extends GoHandle {
 
   /// Go: `func (httpconv.ClientConnectionDuration).Description() string`.
   String description() {
-    final $r = $callSync(21970, $W()..h(this));
+    final $r = $callSync(21972, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (httpconv.ClientConnectionDuration).Inst() metric.Float64Histogram`.
   $metric.OtelMetricFloat64Histogram inst() {
-    final $r = $callSync(21971, $W()..h(this));
+    final $r = $callSync(21973, $W()..h(this));
     return $r.hnn($metric.OtelMetricFloat64Histogram.$h);
   }
 
   /// Go: `func (httpconv.ClientConnectionDuration).Name() string`.
   String name() {
-    final $r = $callSync(21972, $W()..h(this));
+    final $r = $callSync(21974, $W()..h(this));
     return $r.str();
   }
 
@@ -275,7 +275,7 @@ class OtelSemconvV1430HttpconvClientConnectionDuration extends GoHandle {
       $context.Context ctx, double val, String serverAddress, int serverPort,
       [List<$attribute.OtelAttributeKeyValue> attrs = const []]) async {
     await $call(
-        21973,
+        21975,
         $W()
           ..h(this)
           ..h(ctx)
@@ -291,7 +291,7 @@ class OtelSemconvV1430HttpconvClientConnectionDuration extends GoHandle {
   Future<void> recordSet(
       $context.Context ctx, double val, $attribute.OtelAttributeSet set) async {
     await $call(
-        21974,
+        21976,
         $W()
           ..h(this)
           ..h(ctx)
@@ -301,7 +301,7 @@ class OtelSemconvV1430HttpconvClientConnectionDuration extends GoHandle {
 
   /// Go: `func (httpconv.ClientConnectionDuration).Unit() string`.
   String unit() {
-    final $r = $callSync(21975, $W()..h(this));
+    final $r = $callSync(21977, $W()..h(this));
     return $r.str();
   }
 }
@@ -315,7 +315,7 @@ class OtelSemconvV1430HttpconvClientOpenConnections extends GoHandle {
       $metric.OtelMetricMeter m,
       [List<$metric.OtelMetricInt64UpDownCounterOption> opt = const []]) {
     final $r = $callSync(
-        22037,
+        22039,
         $W()
           ..h(m)
           ..list(opt, (w0, e0) => w0.h(e0)));
@@ -329,7 +329,7 @@ class OtelSemconvV1430HttpconvClientOpenConnections extends GoHandle {
       String serverAddress, int serverPort,
       [List<$attribute.OtelAttributeKeyValue> attrs = const []]) async {
     await $call(
-        21976,
+        21978,
         $W()
           ..h(this)
           ..h(ctx)
@@ -346,7 +346,7 @@ class OtelSemconvV1430HttpconvClientOpenConnections extends GoHandle {
   Future<void> addSet(
       $context.Context ctx, int incr, $attribute.OtelAttributeSet set) async {
     await $call(
-        21977,
+        21979,
         $W()
           ..h(this)
           ..h(ctx)
@@ -357,7 +357,7 @@ class OtelSemconvV1430HttpconvClientOpenConnections extends GoHandle {
   /// Go: `func (httpconv.ClientOpenConnections).AttrNetworkPeerAddress(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrNetworkPeerAddress(String val) {
     final $r = $callSync(
-        21978,
+        21980,
         $W()
           ..h(this)
           ..str(val));
@@ -367,7 +367,7 @@ class OtelSemconvV1430HttpconvClientOpenConnections extends GoHandle {
   /// Go: `func (httpconv.ClientOpenConnections).AttrNetworkProtocolVersion(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrNetworkProtocolVersion(String val) {
     final $r = $callSync(
-        21979,
+        21981,
         $W()
           ..h(this)
           ..str(val));
@@ -377,7 +377,7 @@ class OtelSemconvV1430HttpconvClientOpenConnections extends GoHandle {
   /// Go: `func (httpconv.ClientOpenConnections).AttrURLScheme(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrUrlScheme(String val) {
     final $r = $callSync(
-        21980,
+        21982,
         $W()
           ..h(this)
           ..str(val));
@@ -386,25 +386,25 @@ class OtelSemconvV1430HttpconvClientOpenConnections extends GoHandle {
 
   /// Go: `func (httpconv.ClientOpenConnections).Description() string`.
   String description() {
-    final $r = $callSync(21981, $W()..h(this));
+    final $r = $callSync(21983, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (httpconv.ClientOpenConnections).Inst() metric.Int64UpDownCounter`.
   $metric.OtelMetricInt64UpDownCounter inst() {
-    final $r = $callSync(21982, $W()..h(this));
+    final $r = $callSync(21984, $W()..h(this));
     return $r.hnn($metric.OtelMetricInt64UpDownCounter.$h);
   }
 
   /// Go: `func (httpconv.ClientOpenConnections).Name() string`.
   String name() {
-    final $r = $callSync(21983, $W()..h(this));
+    final $r = $callSync(21985, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (httpconv.ClientOpenConnections).Unit() string`.
   String unit() {
-    final $r = $callSync(21984, $W()..h(this));
+    final $r = $callSync(21986, $W()..h(this));
     return $r.str();
   }
 }
@@ -421,7 +421,7 @@ class OtelSemconvV1430HttpconvClientOpenConnectionsObservable
       [List<$metric.OtelMetricInt64ObservableUpDownCounterOption> opt =
           const []]) {
     final $r = $callSync(
-        22038,
+        22040,
         $W()
           ..h(m)
           ..list(opt, (w0, e0) => w0.h(e0)));
@@ -431,7 +431,7 @@ class OtelSemconvV1430HttpconvClientOpenConnectionsObservable
   /// Go: `func (httpconv.ClientOpenConnectionsObservable).AttrConnectionState(val httpconv.ConnectionStateAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrConnectionState(String val) {
     final $r = $callSync(
-        21985,
+        21987,
         $W()
           ..h(this)
           ..str(val));
@@ -441,7 +441,7 @@ class OtelSemconvV1430HttpconvClientOpenConnectionsObservable
   /// Go: `func (httpconv.ClientOpenConnectionsObservable).AttrNetworkPeerAddress(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrNetworkPeerAddress(String val) {
     final $r = $callSync(
-        21986,
+        21988,
         $W()
           ..h(this)
           ..str(val));
@@ -451,7 +451,7 @@ class OtelSemconvV1430HttpconvClientOpenConnectionsObservable
   /// Go: `func (httpconv.ClientOpenConnectionsObservable).AttrNetworkProtocolVersion(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrNetworkProtocolVersion(String val) {
     final $r = $callSync(
-        21987,
+        21989,
         $W()
           ..h(this)
           ..str(val));
@@ -461,7 +461,7 @@ class OtelSemconvV1430HttpconvClientOpenConnectionsObservable
   /// Go: `func (httpconv.ClientOpenConnectionsObservable).AttrServerAddress(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrServerAddress(String val) {
     final $r = $callSync(
-        21988,
+        21990,
         $W()
           ..h(this)
           ..str(val));
@@ -471,7 +471,7 @@ class OtelSemconvV1430HttpconvClientOpenConnectionsObservable
   /// Go: `func (httpconv.ClientOpenConnectionsObservable).AttrServerPort(val int) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrServerPort(int val) {
     final $r = $callSync(
-        21989,
+        21991,
         $W()
           ..h(this)
           ..i64(val));
@@ -481,7 +481,7 @@ class OtelSemconvV1430HttpconvClientOpenConnectionsObservable
   /// Go: `func (httpconv.ClientOpenConnectionsObservable).AttrURLScheme(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrUrlScheme(String val) {
     final $r = $callSync(
-        21990,
+        21992,
         $W()
           ..h(this)
           ..str(val));
@@ -490,25 +490,25 @@ class OtelSemconvV1430HttpconvClientOpenConnectionsObservable
 
   /// Go: `func (httpconv.ClientOpenConnectionsObservable).Description() string`.
   String description() {
-    final $r = $callSync(21991, $W()..h(this));
+    final $r = $callSync(21993, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (httpconv.ClientOpenConnectionsObservable).Inst() metric.Int64ObservableUpDownCounter`.
   $metric.OtelMetricInt64ObservableUpDownCounter inst() {
-    final $r = $callSync(21992, $W()..h(this));
+    final $r = $callSync(21994, $W()..h(this));
     return $r.hnn($metric.OtelMetricInt64ObservableUpDownCounter.$h);
   }
 
   /// Go: `func (httpconv.ClientOpenConnectionsObservable).Name() string`.
   String name() {
-    final $r = $callSync(21993, $W()..h(this));
+    final $r = $callSync(21995, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (httpconv.ClientOpenConnectionsObservable).Unit() string`.
   String unit() {
-    final $r = $callSync(21994, $W()..h(this));
+    final $r = $callSync(21996, $W()..h(this));
     return $r.str();
   }
 }
@@ -522,7 +522,7 @@ class OtelSemconvV1430HttpconvClientRequestBodySize extends GoHandle {
       $metric.OtelMetricMeter m,
       [List<$metric.OtelMetricInt64HistogramOption> opt = const []]) {
     final $r = $callSync(
-        22039,
+        22041,
         $W()
           ..h(m)
           ..list(opt, (w0, e0) => w0.h(e0)));
@@ -532,7 +532,7 @@ class OtelSemconvV1430HttpconvClientRequestBodySize extends GoHandle {
   /// Go: `func (httpconv.ClientRequestBodySize).AttrErrorType(val httpconv.ErrorTypeAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrErrorType(String val) {
     final $r = $callSync(
-        21995,
+        21997,
         $W()
           ..h(this)
           ..str(val));
@@ -542,7 +542,7 @@ class OtelSemconvV1430HttpconvClientRequestBodySize extends GoHandle {
   /// Go: `func (httpconv.ClientRequestBodySize).AttrNetworkProtocolName(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrNetworkProtocolName(String val) {
     final $r = $callSync(
-        21996,
+        21998,
         $W()
           ..h(this)
           ..str(val));
@@ -552,7 +552,7 @@ class OtelSemconvV1430HttpconvClientRequestBodySize extends GoHandle {
   /// Go: `func (httpconv.ClientRequestBodySize).AttrNetworkProtocolVersion(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrNetworkProtocolVersion(String val) {
     final $r = $callSync(
-        21997,
+        21999,
         $W()
           ..h(this)
           ..str(val));
@@ -562,7 +562,7 @@ class OtelSemconvV1430HttpconvClientRequestBodySize extends GoHandle {
   /// Go: `func (httpconv.ClientRequestBodySize).AttrResponseStatusCode(val int) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrResponseStatusCode(int val) {
     final $r = $callSync(
-        21998,
+        22000,
         $W()
           ..h(this)
           ..i64(val));
@@ -572,7 +572,7 @@ class OtelSemconvV1430HttpconvClientRequestBodySize extends GoHandle {
   /// Go: `func (httpconv.ClientRequestBodySize).AttrURLScheme(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrUrlScheme(String val) {
     final $r = $callSync(
-        21999,
+        22001,
         $W()
           ..h(this)
           ..str(val));
@@ -582,7 +582,7 @@ class OtelSemconvV1430HttpconvClientRequestBodySize extends GoHandle {
   /// Go: `func (httpconv.ClientRequestBodySize).AttrURLTemplate(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrUrlTemplate(String val) {
     final $r = $callSync(
-        22000,
+        22002,
         $W()
           ..h(this)
           ..str(val));
@@ -591,19 +591,19 @@ class OtelSemconvV1430HttpconvClientRequestBodySize extends GoHandle {
 
   /// Go: `func (httpconv.ClientRequestBodySize).Description() string`.
   String description() {
-    final $r = $callSync(22001, $W()..h(this));
+    final $r = $callSync(22003, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (httpconv.ClientRequestBodySize).Inst() metric.Int64Histogram`.
   $metric.OtelMetricInt64Histogram inst() {
-    final $r = $callSync(22002, $W()..h(this));
+    final $r = $callSync(22004, $W()..h(this));
     return $r.hnn($metric.OtelMetricInt64Histogram.$h);
   }
 
   /// Go: `func (httpconv.ClientRequestBodySize).Name() string`.
   String name() {
-    final $r = $callSync(22003, $W()..h(this));
+    final $r = $callSync(22005, $W()..h(this));
     return $r.str();
   }
 
@@ -614,7 +614,7 @@ class OtelSemconvV1430HttpconvClientRequestBodySize extends GoHandle {
       String serverAddress, int serverPort,
       [List<$attribute.OtelAttributeKeyValue> attrs = const []]) async {
     await $call(
-        22004,
+        22006,
         $W()
           ..h(this)
           ..h(ctx)
@@ -631,7 +631,7 @@ class OtelSemconvV1430HttpconvClientRequestBodySize extends GoHandle {
   Future<void> recordSet(
       $context.Context ctx, int val, $attribute.OtelAttributeSet set) async {
     await $call(
-        22005,
+        22007,
         $W()
           ..h(this)
           ..h(ctx)
@@ -641,7 +641,7 @@ class OtelSemconvV1430HttpconvClientRequestBodySize extends GoHandle {
 
   /// Go: `func (httpconv.ClientRequestBodySize).Unit() string`.
   String unit() {
-    final $r = $callSync(22006, $W()..h(this));
+    final $r = $callSync(22008, $W()..h(this));
     return $r.str();
   }
 }
@@ -655,7 +655,7 @@ class OtelSemconvV1430HttpconvClientRequestDuration extends GoHandle {
       $metric.OtelMetricMeter m,
       [List<$metric.OtelMetricFloat64HistogramOption> opt = const []]) {
     final $r = $callSync(
-        22040,
+        22042,
         $W()
           ..h(m)
           ..list(opt, (w0, e0) => w0.h(e0)));
@@ -665,7 +665,7 @@ class OtelSemconvV1430HttpconvClientRequestDuration extends GoHandle {
   /// Go: `func (httpconv.ClientRequestDuration).AttrErrorType(val httpconv.ErrorTypeAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrErrorType(String val) {
     final $r = $callSync(
-        22007,
+        22009,
         $W()
           ..h(this)
           ..str(val));
@@ -675,7 +675,7 @@ class OtelSemconvV1430HttpconvClientRequestDuration extends GoHandle {
   /// Go: `func (httpconv.ClientRequestDuration).AttrNetworkProtocolName(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrNetworkProtocolName(String val) {
     final $r = $callSync(
-        22008,
+        22010,
         $W()
           ..h(this)
           ..str(val));
@@ -685,7 +685,7 @@ class OtelSemconvV1430HttpconvClientRequestDuration extends GoHandle {
   /// Go: `func (httpconv.ClientRequestDuration).AttrNetworkProtocolVersion(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrNetworkProtocolVersion(String val) {
     final $r = $callSync(
-        22009,
+        22011,
         $W()
           ..h(this)
           ..str(val));
@@ -695,7 +695,7 @@ class OtelSemconvV1430HttpconvClientRequestDuration extends GoHandle {
   /// Go: `func (httpconv.ClientRequestDuration).AttrResponseStatusCode(val int) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrResponseStatusCode(int val) {
     final $r = $callSync(
-        22010,
+        22012,
         $W()
           ..h(this)
           ..i64(val));
@@ -705,7 +705,7 @@ class OtelSemconvV1430HttpconvClientRequestDuration extends GoHandle {
   /// Go: `func (httpconv.ClientRequestDuration).AttrURLScheme(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrUrlScheme(String val) {
     final $r = $callSync(
-        22011,
+        22013,
         $W()
           ..h(this)
           ..str(val));
@@ -715,7 +715,7 @@ class OtelSemconvV1430HttpconvClientRequestDuration extends GoHandle {
   /// Go: `func (httpconv.ClientRequestDuration).AttrURLTemplate(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrUrlTemplate(String val) {
     final $r = $callSync(
-        22012,
+        22014,
         $W()
           ..h(this)
           ..str(val));
@@ -724,19 +724,19 @@ class OtelSemconvV1430HttpconvClientRequestDuration extends GoHandle {
 
   /// Go: `func (httpconv.ClientRequestDuration).Description() string`.
   String description() {
-    final $r = $callSync(22013, $W()..h(this));
+    final $r = $callSync(22015, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (httpconv.ClientRequestDuration).Inst() metric.Float64Histogram`.
   $metric.OtelMetricFloat64Histogram inst() {
-    final $r = $callSync(22014, $W()..h(this));
+    final $r = $callSync(22016, $W()..h(this));
     return $r.hnn($metric.OtelMetricFloat64Histogram.$h);
   }
 
   /// Go: `func (httpconv.ClientRequestDuration).Name() string`.
   String name() {
-    final $r = $callSync(22015, $W()..h(this));
+    final $r = $callSync(22017, $W()..h(this));
     return $r.str();
   }
 
@@ -747,7 +747,7 @@ class OtelSemconvV1430HttpconvClientRequestDuration extends GoHandle {
       String serverAddress, int serverPort,
       [List<$attribute.OtelAttributeKeyValue> attrs = const []]) async {
     await $call(
-        22016,
+        22018,
         $W()
           ..h(this)
           ..h(ctx)
@@ -764,7 +764,7 @@ class OtelSemconvV1430HttpconvClientRequestDuration extends GoHandle {
   Future<void> recordSet(
       $context.Context ctx, double val, $attribute.OtelAttributeSet set) async {
     await $call(
-        22017,
+        22019,
         $W()
           ..h(this)
           ..h(ctx)
@@ -774,7 +774,7 @@ class OtelSemconvV1430HttpconvClientRequestDuration extends GoHandle {
 
   /// Go: `func (httpconv.ClientRequestDuration).Unit() string`.
   String unit() {
-    final $r = $callSync(22018, $W()..h(this));
+    final $r = $callSync(22020, $W()..h(this));
     return $r.str();
   }
 }
@@ -788,7 +788,7 @@ class OtelSemconvV1430HttpconvClientResponseBodySize extends GoHandle {
       $metric.OtelMetricMeter m,
       [List<$metric.OtelMetricInt64HistogramOption> opt = const []]) {
     final $r = $callSync(
-        22041,
+        22043,
         $W()
           ..h(m)
           ..list(opt, (w0, e0) => w0.h(e0)));
@@ -798,7 +798,7 @@ class OtelSemconvV1430HttpconvClientResponseBodySize extends GoHandle {
   /// Go: `func (httpconv.ClientResponseBodySize).AttrErrorType(val httpconv.ErrorTypeAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrErrorType(String val) {
     final $r = $callSync(
-        22019,
+        22021,
         $W()
           ..h(this)
           ..str(val));
@@ -808,7 +808,7 @@ class OtelSemconvV1430HttpconvClientResponseBodySize extends GoHandle {
   /// Go: `func (httpconv.ClientResponseBodySize).AttrNetworkProtocolName(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrNetworkProtocolName(String val) {
     final $r = $callSync(
-        22020,
+        22022,
         $W()
           ..h(this)
           ..str(val));
@@ -818,7 +818,7 @@ class OtelSemconvV1430HttpconvClientResponseBodySize extends GoHandle {
   /// Go: `func (httpconv.ClientResponseBodySize).AttrNetworkProtocolVersion(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrNetworkProtocolVersion(String val) {
     final $r = $callSync(
-        22021,
+        22023,
         $W()
           ..h(this)
           ..str(val));
@@ -828,7 +828,7 @@ class OtelSemconvV1430HttpconvClientResponseBodySize extends GoHandle {
   /// Go: `func (httpconv.ClientResponseBodySize).AttrResponseStatusCode(val int) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrResponseStatusCode(int val) {
     final $r = $callSync(
-        22022,
+        22024,
         $W()
           ..h(this)
           ..i64(val));
@@ -838,7 +838,7 @@ class OtelSemconvV1430HttpconvClientResponseBodySize extends GoHandle {
   /// Go: `func (httpconv.ClientResponseBodySize).AttrURLScheme(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrUrlScheme(String val) {
     final $r = $callSync(
-        22023,
+        22025,
         $W()
           ..h(this)
           ..str(val));
@@ -848,7 +848,7 @@ class OtelSemconvV1430HttpconvClientResponseBodySize extends GoHandle {
   /// Go: `func (httpconv.ClientResponseBodySize).AttrURLTemplate(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrUrlTemplate(String val) {
     final $r = $callSync(
-        22024,
+        22026,
         $W()
           ..h(this)
           ..str(val));
@@ -857,19 +857,19 @@ class OtelSemconvV1430HttpconvClientResponseBodySize extends GoHandle {
 
   /// Go: `func (httpconv.ClientResponseBodySize).Description() string`.
   String description() {
-    final $r = $callSync(22025, $W()..h(this));
+    final $r = $callSync(22027, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (httpconv.ClientResponseBodySize).Inst() metric.Int64Histogram`.
   $metric.OtelMetricInt64Histogram inst() {
-    final $r = $callSync(22026, $W()..h(this));
+    final $r = $callSync(22028, $W()..h(this));
     return $r.hnn($metric.OtelMetricInt64Histogram.$h);
   }
 
   /// Go: `func (httpconv.ClientResponseBodySize).Name() string`.
   String name() {
-    final $r = $callSync(22027, $W()..h(this));
+    final $r = $callSync(22029, $W()..h(this));
     return $r.str();
   }
 
@@ -880,7 +880,7 @@ class OtelSemconvV1430HttpconvClientResponseBodySize extends GoHandle {
       String serverAddress, int serverPort,
       [List<$attribute.OtelAttributeKeyValue> attrs = const []]) async {
     await $call(
-        22028,
+        22030,
         $W()
           ..h(this)
           ..h(ctx)
@@ -897,7 +897,7 @@ class OtelSemconvV1430HttpconvClientResponseBodySize extends GoHandle {
   Future<void> recordSet(
       $context.Context ctx, int val, $attribute.OtelAttributeSet set) async {
     await $call(
-        22029,
+        22031,
         $W()
           ..h(this)
           ..h(ctx)
@@ -907,7 +907,7 @@ class OtelSemconvV1430HttpconvClientResponseBodySize extends GoHandle {
 
   /// Go: `func (httpconv.ClientResponseBodySize).Unit() string`.
   String unit() {
-    final $r = $callSync(22030, $W()..h(this));
+    final $r = $callSync(22032, $W()..h(this));
     return $r.str();
   }
 }
@@ -921,7 +921,7 @@ class OtelSemconvV1430HttpconvServerActiveRequests extends GoHandle {
       $metric.OtelMetricMeter m,
       [List<$metric.OtelMetricInt64UpDownCounterOption> opt = const []]) {
     final $r = $callSync(
-        22042,
+        22044,
         $W()
           ..h(m)
           ..list(opt, (w0, e0) => w0.h(e0)));
@@ -935,7 +935,7 @@ class OtelSemconvV1430HttpconvServerActiveRequests extends GoHandle {
       $context.Context ctx, int incr, String requestMethod, String urlScheme,
       [List<$attribute.OtelAttributeKeyValue> attrs = const []]) async {
     await $call(
-        22058,
+        22060,
         $W()
           ..h(this)
           ..h(ctx)
@@ -951,7 +951,7 @@ class OtelSemconvV1430HttpconvServerActiveRequests extends GoHandle {
   Future<void> addSet(
       $context.Context ctx, int incr, $attribute.OtelAttributeSet set) async {
     await $call(
-        22059,
+        22061,
         $W()
           ..h(this)
           ..h(ctx)
@@ -962,7 +962,7 @@ class OtelSemconvV1430HttpconvServerActiveRequests extends GoHandle {
   /// Go: `func (httpconv.ServerActiveRequests).AttrServerAddress(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrServerAddress(String val) {
     final $r = $callSync(
-        22060,
+        22062,
         $W()
           ..h(this)
           ..str(val));
@@ -972,7 +972,7 @@ class OtelSemconvV1430HttpconvServerActiveRequests extends GoHandle {
   /// Go: `func (httpconv.ServerActiveRequests).AttrServerPort(val int) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrServerPort(int val) {
     final $r = $callSync(
-        22061,
+        22063,
         $W()
           ..h(this)
           ..i64(val));
@@ -981,25 +981,25 @@ class OtelSemconvV1430HttpconvServerActiveRequests extends GoHandle {
 
   /// Go: `func (httpconv.ServerActiveRequests).Description() string`.
   String description() {
-    final $r = $callSync(22062, $W()..h(this));
+    final $r = $callSync(22064, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (httpconv.ServerActiveRequests).Inst() metric.Int64UpDownCounter`.
   $metric.OtelMetricInt64UpDownCounter inst() {
-    final $r = $callSync(22063, $W()..h(this));
+    final $r = $callSync(22065, $W()..h(this));
     return $r.hnn($metric.OtelMetricInt64UpDownCounter.$h);
   }
 
   /// Go: `func (httpconv.ServerActiveRequests).Name() string`.
   String name() {
-    final $r = $callSync(22064, $W()..h(this));
+    final $r = $callSync(22066, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (httpconv.ServerActiveRequests).Unit() string`.
   String unit() {
-    final $r = $callSync(22065, $W()..h(this));
+    final $r = $callSync(22067, $W()..h(this));
     return $r.str();
   }
 }
@@ -1016,7 +1016,7 @@ class OtelSemconvV1430HttpconvServerActiveRequestsObservable
       [List<$metric.OtelMetricInt64ObservableUpDownCounterOption> opt =
           const []]) {
     final $r = $callSync(
-        22043,
+        22045,
         $W()
           ..h(m)
           ..list(opt, (w0, e0) => w0.h(e0)));
@@ -1026,7 +1026,7 @@ class OtelSemconvV1430HttpconvServerActiveRequestsObservable
   /// Go: `func (httpconv.ServerActiveRequestsObservable).AttrRequestMethod(val httpconv.RequestMethodAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrRequestMethod(String val) {
     final $r = $callSync(
-        22066,
+        22068,
         $W()
           ..h(this)
           ..str(val));
@@ -1036,7 +1036,7 @@ class OtelSemconvV1430HttpconvServerActiveRequestsObservable
   /// Go: `func (httpconv.ServerActiveRequestsObservable).AttrServerAddress(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrServerAddress(String val) {
     final $r = $callSync(
-        22067,
+        22069,
         $W()
           ..h(this)
           ..str(val));
@@ -1046,7 +1046,7 @@ class OtelSemconvV1430HttpconvServerActiveRequestsObservable
   /// Go: `func (httpconv.ServerActiveRequestsObservable).AttrServerPort(val int) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrServerPort(int val) {
     final $r = $callSync(
-        22068,
+        22070,
         $W()
           ..h(this)
           ..i64(val));
@@ -1056,7 +1056,7 @@ class OtelSemconvV1430HttpconvServerActiveRequestsObservable
   /// Go: `func (httpconv.ServerActiveRequestsObservable).AttrURLScheme(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrUrlScheme(String val) {
     final $r = $callSync(
-        22069,
+        22071,
         $W()
           ..h(this)
           ..str(val));
@@ -1065,25 +1065,25 @@ class OtelSemconvV1430HttpconvServerActiveRequestsObservable
 
   /// Go: `func (httpconv.ServerActiveRequestsObservable).Description() string`.
   String description() {
-    final $r = $callSync(22070, $W()..h(this));
+    final $r = $callSync(22072, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (httpconv.ServerActiveRequestsObservable).Inst() metric.Int64ObservableUpDownCounter`.
   $metric.OtelMetricInt64ObservableUpDownCounter inst() {
-    final $r = $callSync(22071, $W()..h(this));
+    final $r = $callSync(22073, $W()..h(this));
     return $r.hnn($metric.OtelMetricInt64ObservableUpDownCounter.$h);
   }
 
   /// Go: `func (httpconv.ServerActiveRequestsObservable).Name() string`.
   String name() {
-    final $r = $callSync(22072, $W()..h(this));
+    final $r = $callSync(22074, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (httpconv.ServerActiveRequestsObservable).Unit() string`.
   String unit() {
-    final $r = $callSync(22073, $W()..h(this));
+    final $r = $callSync(22075, $W()..h(this));
     return $r.str();
   }
 }
@@ -1097,7 +1097,7 @@ class OtelSemconvV1430HttpconvServerRequestBodySize extends GoHandle {
       $metric.OtelMetricMeter m,
       [List<$metric.OtelMetricInt64HistogramOption> opt = const []]) {
     final $r = $callSync(
-        22044,
+        22046,
         $W()
           ..h(m)
           ..list(opt, (w0, e0) => w0.h(e0)));
@@ -1107,7 +1107,7 @@ class OtelSemconvV1430HttpconvServerRequestBodySize extends GoHandle {
   /// Go: `func (httpconv.ServerRequestBodySize).AttrErrorType(val httpconv.ErrorTypeAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrErrorType(String val) {
     final $r = $callSync(
-        22074,
+        22076,
         $W()
           ..h(this)
           ..str(val));
@@ -1117,7 +1117,7 @@ class OtelSemconvV1430HttpconvServerRequestBodySize extends GoHandle {
   /// Go: `func (httpconv.ServerRequestBodySize).AttrNetworkProtocolName(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrNetworkProtocolName(String val) {
     final $r = $callSync(
-        22075,
+        22077,
         $W()
           ..h(this)
           ..str(val));
@@ -1127,7 +1127,7 @@ class OtelSemconvV1430HttpconvServerRequestBodySize extends GoHandle {
   /// Go: `func (httpconv.ServerRequestBodySize).AttrNetworkProtocolVersion(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrNetworkProtocolVersion(String val) {
     final $r = $callSync(
-        22076,
+        22078,
         $W()
           ..h(this)
           ..str(val));
@@ -1137,7 +1137,7 @@ class OtelSemconvV1430HttpconvServerRequestBodySize extends GoHandle {
   /// Go: `func (httpconv.ServerRequestBodySize).AttrResponseStatusCode(val int) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrResponseStatusCode(int val) {
     final $r = $callSync(
-        22077,
+        22079,
         $W()
           ..h(this)
           ..i64(val));
@@ -1147,7 +1147,7 @@ class OtelSemconvV1430HttpconvServerRequestBodySize extends GoHandle {
   /// Go: `func (httpconv.ServerRequestBodySize).AttrRoute(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrRoute(String val) {
     final $r = $callSync(
-        22078,
+        22080,
         $W()
           ..h(this)
           ..str(val));
@@ -1157,7 +1157,7 @@ class OtelSemconvV1430HttpconvServerRequestBodySize extends GoHandle {
   /// Go: `func (httpconv.ServerRequestBodySize).AttrServerAddress(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrServerAddress(String val) {
     final $r = $callSync(
-        22079,
+        22081,
         $W()
           ..h(this)
           ..str(val));
@@ -1167,7 +1167,7 @@ class OtelSemconvV1430HttpconvServerRequestBodySize extends GoHandle {
   /// Go: `func (httpconv.ServerRequestBodySize).AttrServerPort(val int) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrServerPort(int val) {
     final $r = $callSync(
-        22080,
+        22082,
         $W()
           ..h(this)
           ..i64(val));
@@ -1177,7 +1177,7 @@ class OtelSemconvV1430HttpconvServerRequestBodySize extends GoHandle {
   /// Go: `func (httpconv.ServerRequestBodySize).AttrUserAgentSyntheticType(val httpconv.UserAgentSyntheticTypeAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrUserAgentSyntheticType(String val) {
     final $r = $callSync(
-        22081,
+        22083,
         $W()
           ..h(this)
           ..str(val));
@@ -1186,19 +1186,19 @@ class OtelSemconvV1430HttpconvServerRequestBodySize extends GoHandle {
 
   /// Go: `func (httpconv.ServerRequestBodySize).Description() string`.
   String description() {
-    final $r = $callSync(22082, $W()..h(this));
+    final $r = $callSync(22084, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (httpconv.ServerRequestBodySize).Inst() metric.Int64Histogram`.
   $metric.OtelMetricInt64Histogram inst() {
-    final $r = $callSync(22083, $W()..h(this));
+    final $r = $callSync(22085, $W()..h(this));
     return $r.hnn($metric.OtelMetricInt64Histogram.$h);
   }
 
   /// Go: `func (httpconv.ServerRequestBodySize).Name() string`.
   String name() {
-    final $r = $callSync(22084, $W()..h(this));
+    final $r = $callSync(22086, $W()..h(this));
     return $r.str();
   }
 
@@ -1209,7 +1209,7 @@ class OtelSemconvV1430HttpconvServerRequestBodySize extends GoHandle {
       $context.Context ctx, int val, String requestMethod, String urlScheme,
       [List<$attribute.OtelAttributeKeyValue> attrs = const []]) async {
     await $call(
-        22085,
+        22087,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1225,7 +1225,7 @@ class OtelSemconvV1430HttpconvServerRequestBodySize extends GoHandle {
   Future<void> recordSet(
       $context.Context ctx, int val, $attribute.OtelAttributeSet set) async {
     await $call(
-        22086,
+        22088,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1235,7 +1235,7 @@ class OtelSemconvV1430HttpconvServerRequestBodySize extends GoHandle {
 
   /// Go: `func (httpconv.ServerRequestBodySize).Unit() string`.
   String unit() {
-    final $r = $callSync(22087, $W()..h(this));
+    final $r = $callSync(22089, $W()..h(this));
     return $r.str();
   }
 }
@@ -1249,7 +1249,7 @@ class OtelSemconvV1430HttpconvServerRequestDuration extends GoHandle {
       $metric.OtelMetricMeter m,
       [List<$metric.OtelMetricFloat64HistogramOption> opt = const []]) {
     final $r = $callSync(
-        22045,
+        22047,
         $W()
           ..h(m)
           ..list(opt, (w0, e0) => w0.h(e0)));
@@ -1259,7 +1259,7 @@ class OtelSemconvV1430HttpconvServerRequestDuration extends GoHandle {
   /// Go: `func (httpconv.ServerRequestDuration).AttrErrorType(val httpconv.ErrorTypeAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrErrorType(String val) {
     final $r = $callSync(
-        22088,
+        22090,
         $W()
           ..h(this)
           ..str(val));
@@ -1269,7 +1269,7 @@ class OtelSemconvV1430HttpconvServerRequestDuration extends GoHandle {
   /// Go: `func (httpconv.ServerRequestDuration).AttrNetworkProtocolName(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrNetworkProtocolName(String val) {
     final $r = $callSync(
-        22089,
+        22091,
         $W()
           ..h(this)
           ..str(val));
@@ -1279,7 +1279,7 @@ class OtelSemconvV1430HttpconvServerRequestDuration extends GoHandle {
   /// Go: `func (httpconv.ServerRequestDuration).AttrNetworkProtocolVersion(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrNetworkProtocolVersion(String val) {
     final $r = $callSync(
-        22090,
+        22092,
         $W()
           ..h(this)
           ..str(val));
@@ -1289,7 +1289,7 @@ class OtelSemconvV1430HttpconvServerRequestDuration extends GoHandle {
   /// Go: `func (httpconv.ServerRequestDuration).AttrResponseStatusCode(val int) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrResponseStatusCode(int val) {
     final $r = $callSync(
-        22091,
+        22093,
         $W()
           ..h(this)
           ..i64(val));
@@ -1299,7 +1299,7 @@ class OtelSemconvV1430HttpconvServerRequestDuration extends GoHandle {
   /// Go: `func (httpconv.ServerRequestDuration).AttrRoute(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrRoute(String val) {
     final $r = $callSync(
-        22092,
+        22094,
         $W()
           ..h(this)
           ..str(val));
@@ -1309,7 +1309,7 @@ class OtelSemconvV1430HttpconvServerRequestDuration extends GoHandle {
   /// Go: `func (httpconv.ServerRequestDuration).AttrServerAddress(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrServerAddress(String val) {
     final $r = $callSync(
-        22093,
+        22095,
         $W()
           ..h(this)
           ..str(val));
@@ -1319,7 +1319,7 @@ class OtelSemconvV1430HttpconvServerRequestDuration extends GoHandle {
   /// Go: `func (httpconv.ServerRequestDuration).AttrServerPort(val int) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrServerPort(int val) {
     final $r = $callSync(
-        22094,
+        22096,
         $W()
           ..h(this)
           ..i64(val));
@@ -1329,7 +1329,7 @@ class OtelSemconvV1430HttpconvServerRequestDuration extends GoHandle {
   /// Go: `func (httpconv.ServerRequestDuration).AttrUserAgentSyntheticType(val httpconv.UserAgentSyntheticTypeAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrUserAgentSyntheticType(String val) {
     final $r = $callSync(
-        22095,
+        22097,
         $W()
           ..h(this)
           ..str(val));
@@ -1338,19 +1338,19 @@ class OtelSemconvV1430HttpconvServerRequestDuration extends GoHandle {
 
   /// Go: `func (httpconv.ServerRequestDuration).Description() string`.
   String description() {
-    final $r = $callSync(22096, $W()..h(this));
+    final $r = $callSync(22098, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (httpconv.ServerRequestDuration).Inst() metric.Float64Histogram`.
   $metric.OtelMetricFloat64Histogram inst() {
-    final $r = $callSync(22097, $W()..h(this));
+    final $r = $callSync(22099, $W()..h(this));
     return $r.hnn($metric.OtelMetricFloat64Histogram.$h);
   }
 
   /// Go: `func (httpconv.ServerRequestDuration).Name() string`.
   String name() {
-    final $r = $callSync(22098, $W()..h(this));
+    final $r = $callSync(22100, $W()..h(this));
     return $r.str();
   }
 
@@ -1361,7 +1361,7 @@ class OtelSemconvV1430HttpconvServerRequestDuration extends GoHandle {
       $context.Context ctx, double val, String requestMethod, String urlScheme,
       [List<$attribute.OtelAttributeKeyValue> attrs = const []]) async {
     await $call(
-        22099,
+        22101,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1377,7 +1377,7 @@ class OtelSemconvV1430HttpconvServerRequestDuration extends GoHandle {
   Future<void> recordSet(
       $context.Context ctx, double val, $attribute.OtelAttributeSet set) async {
     await $call(
-        22100,
+        22102,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1387,7 +1387,7 @@ class OtelSemconvV1430HttpconvServerRequestDuration extends GoHandle {
 
   /// Go: `func (httpconv.ServerRequestDuration).Unit() string`.
   String unit() {
-    final $r = $callSync(22101, $W()..h(this));
+    final $r = $callSync(22103, $W()..h(this));
     return $r.str();
   }
 }
@@ -1401,7 +1401,7 @@ class OtelSemconvV1430HttpconvServerResponseBodySize extends GoHandle {
       $metric.OtelMetricMeter m,
       [List<$metric.OtelMetricInt64HistogramOption> opt = const []]) {
     final $r = $callSync(
-        22046,
+        22048,
         $W()
           ..h(m)
           ..list(opt, (w0, e0) => w0.h(e0)));
@@ -1411,7 +1411,7 @@ class OtelSemconvV1430HttpconvServerResponseBodySize extends GoHandle {
   /// Go: `func (httpconv.ServerResponseBodySize).AttrErrorType(val httpconv.ErrorTypeAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrErrorType(String val) {
     final $r = $callSync(
-        22102,
+        22104,
         $W()
           ..h(this)
           ..str(val));
@@ -1421,7 +1421,7 @@ class OtelSemconvV1430HttpconvServerResponseBodySize extends GoHandle {
   /// Go: `func (httpconv.ServerResponseBodySize).AttrNetworkProtocolName(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrNetworkProtocolName(String val) {
     final $r = $callSync(
-        22103,
+        22105,
         $W()
           ..h(this)
           ..str(val));
@@ -1431,7 +1431,7 @@ class OtelSemconvV1430HttpconvServerResponseBodySize extends GoHandle {
   /// Go: `func (httpconv.ServerResponseBodySize).AttrNetworkProtocolVersion(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrNetworkProtocolVersion(String val) {
     final $r = $callSync(
-        22104,
+        22106,
         $W()
           ..h(this)
           ..str(val));
@@ -1441,7 +1441,7 @@ class OtelSemconvV1430HttpconvServerResponseBodySize extends GoHandle {
   /// Go: `func (httpconv.ServerResponseBodySize).AttrResponseStatusCode(val int) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrResponseStatusCode(int val) {
     final $r = $callSync(
-        22105,
+        22107,
         $W()
           ..h(this)
           ..i64(val));
@@ -1451,7 +1451,7 @@ class OtelSemconvV1430HttpconvServerResponseBodySize extends GoHandle {
   /// Go: `func (httpconv.ServerResponseBodySize).AttrRoute(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrRoute(String val) {
     final $r = $callSync(
-        22106,
+        22108,
         $W()
           ..h(this)
           ..str(val));
@@ -1461,7 +1461,7 @@ class OtelSemconvV1430HttpconvServerResponseBodySize extends GoHandle {
   /// Go: `func (httpconv.ServerResponseBodySize).AttrServerAddress(val string) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrServerAddress(String val) {
     final $r = $callSync(
-        22107,
+        22109,
         $W()
           ..h(this)
           ..str(val));
@@ -1471,7 +1471,7 @@ class OtelSemconvV1430HttpconvServerResponseBodySize extends GoHandle {
   /// Go: `func (httpconv.ServerResponseBodySize).AttrServerPort(val int) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrServerPort(int val) {
     final $r = $callSync(
-        22108,
+        22110,
         $W()
           ..h(this)
           ..i64(val));
@@ -1481,7 +1481,7 @@ class OtelSemconvV1430HttpconvServerResponseBodySize extends GoHandle {
   /// Go: `func (httpconv.ServerResponseBodySize).AttrUserAgentSyntheticType(val httpconv.UserAgentSyntheticTypeAttr) attribute.KeyValue`.
   $attribute.OtelAttributeKeyValue attrUserAgentSyntheticType(String val) {
     final $r = $callSync(
-        22109,
+        22111,
         $W()
           ..h(this)
           ..str(val));
@@ -1490,19 +1490,19 @@ class OtelSemconvV1430HttpconvServerResponseBodySize extends GoHandle {
 
   /// Go: `func (httpconv.ServerResponseBodySize).Description() string`.
   String description() {
-    final $r = $callSync(22110, $W()..h(this));
+    final $r = $callSync(22112, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (httpconv.ServerResponseBodySize).Inst() metric.Int64Histogram`.
   $metric.OtelMetricInt64Histogram inst() {
-    final $r = $callSync(22111, $W()..h(this));
+    final $r = $callSync(22113, $W()..h(this));
     return $r.hnn($metric.OtelMetricInt64Histogram.$h);
   }
 
   /// Go: `func (httpconv.ServerResponseBodySize).Name() string`.
   String name() {
-    final $r = $callSync(22112, $W()..h(this));
+    final $r = $callSync(22114, $W()..h(this));
     return $r.str();
   }
 
@@ -1513,7 +1513,7 @@ class OtelSemconvV1430HttpconvServerResponseBodySize extends GoHandle {
       $context.Context ctx, int val, String requestMethod, String urlScheme,
       [List<$attribute.OtelAttributeKeyValue> attrs = const []]) async {
     await $call(
-        22113,
+        22115,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1529,7 +1529,7 @@ class OtelSemconvV1430HttpconvServerResponseBodySize extends GoHandle {
   Future<void> recordSet(
       $context.Context ctx, int val, $attribute.OtelAttributeSet set) async {
     await $call(
-        22114,
+        22116,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1539,7 +1539,7 @@ class OtelSemconvV1430HttpconvServerResponseBodySize extends GoHandle {
 
   /// Go: `func (httpconv.ServerResponseBodySize).Unit() string`.
   String unit() {
-    final $r = $callSync(22115, $W()..h(this));
+    final $r = $callSync(22117, $W()..h(this));
     return $r.str();
   }
 }
@@ -1548,97 +1548,97 @@ class OtelSemconvV1430HttpconvServerResponseBodySize extends GoHandle {
 extension GoOtelSemconvV1430HttpconvApi on GoOtelSemconvV1430Httpconv {
   /// Go: `var httpconv.ConnectionStateActive httpconv.ConnectionStateAttr`.
   String get connectionStateActive {
-    final $r = $callSync(22031);
+    final $r = $callSync(22033);
     return $r.str();
   }
 
   /// Go: `var httpconv.ConnectionStateIdle httpconv.ConnectionStateAttr`.
   String get connectionStateIdle {
-    final $r = $callSync(22032);
+    final $r = $callSync(22034);
     return $r.str();
   }
 
   /// Go: `var httpconv.ErrorTypeOther httpconv.ErrorTypeAttr`.
   String get errorTypeOther {
-    final $r = $callSync(22033);
+    final $r = $callSync(22035);
     return $r.str();
   }
 
   /// Go: `var httpconv.RequestMethodConnect httpconv.RequestMethodAttr`.
   String get requestMethodConnect {
-    final $r = $callSync(22047);
+    final $r = $callSync(22049);
     return $r.str();
   }
 
   /// Go: `var httpconv.RequestMethodDelete httpconv.RequestMethodAttr`.
   String get requestMethodDelete {
-    final $r = $callSync(22048);
+    final $r = $callSync(22050);
     return $r.str();
   }
 
   /// Go: `var httpconv.RequestMethodGet httpconv.RequestMethodAttr`.
   String get requestMethodGet {
-    final $r = $callSync(22049);
+    final $r = $callSync(22051);
     return $r.str();
   }
 
   /// Go: `var httpconv.RequestMethodHead httpconv.RequestMethodAttr`.
   String get requestMethodHead {
-    final $r = $callSync(22050);
+    final $r = $callSync(22052);
     return $r.str();
   }
 
   /// Go: `var httpconv.RequestMethodOptions httpconv.RequestMethodAttr`.
   String get requestMethodOptions {
-    final $r = $callSync(22051);
+    final $r = $callSync(22053);
     return $r.str();
   }
 
   /// Go: `var httpconv.RequestMethodOther httpconv.RequestMethodAttr`.
   String get requestMethodOther {
-    final $r = $callSync(22052);
+    final $r = $callSync(22054);
     return $r.str();
   }
 
   /// Go: `var httpconv.RequestMethodPatch httpconv.RequestMethodAttr`.
   String get requestMethodPatch {
-    final $r = $callSync(22053);
+    final $r = $callSync(22055);
     return $r.str();
   }
 
   /// Go: `var httpconv.RequestMethodPost httpconv.RequestMethodAttr`.
   String get requestMethodPost {
-    final $r = $callSync(22054);
+    final $r = $callSync(22056);
     return $r.str();
   }
 
   /// Go: `var httpconv.RequestMethodPut httpconv.RequestMethodAttr`.
   String get requestMethodPut {
-    final $r = $callSync(22055);
+    final $r = $callSync(22057);
     return $r.str();
   }
 
   /// Go: `var httpconv.RequestMethodQuery httpconv.RequestMethodAttr`.
   String get requestMethodQuery {
-    final $r = $callSync(22056);
+    final $r = $callSync(22058);
     return $r.str();
   }
 
   /// Go: `var httpconv.RequestMethodTrace httpconv.RequestMethodAttr`.
   String get requestMethodTrace {
-    final $r = $callSync(22057);
+    final $r = $callSync(22059);
     return $r.str();
   }
 
   /// Go: `var httpconv.UserAgentSyntheticTypeBot httpconv.UserAgentSyntheticTypeAttr`.
   String get userAgentSyntheticTypeBot {
-    final $r = $callSync(22116);
+    final $r = $callSync(22118);
     return $r.str();
   }
 
   /// Go: `var httpconv.UserAgentSyntheticTypeTest httpconv.UserAgentSyntheticTypeAttr`.
   String get userAgentSyntheticTypeTest {
-    final $r = $callSync(22117);
+    final $r = $callSync(22119);
     return $r.str();
   }
 }

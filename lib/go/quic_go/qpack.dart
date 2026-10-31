@@ -25,7 +25,7 @@ final class QpackDecoder implements GoDto {
   /// Go: `func (*qpack.Decoder).Decode(p []byte) qpack.DecodeFunc`.
   QpackDecodeFunc decode(Uint8List p) {
     final $r = $callSync(
-        18258,
+        18260,
         $W()
           ..dto(this)
           ..bytes(p));
@@ -41,19 +41,19 @@ class QpackEncoder extends $io.IoCloser
 
   /// Go: `func qpack.NewEncoder(w io.Writer) *qpack.Encoder`.
   factory QpackEncoder(GoHandle? w) {
-    final $r = $callSync(18263, $W()..h(w));
+    final $r = $callSync(18265, $W()..h(w));
     return $r.hnn(QpackEncoder.$h);
   }
 
   /// Go: `func (*qpack.Encoder).Close() error`.
   void close() {
-    $callSync(18259, $W()..h(this));
+    $callSync(18261, $W()..h(this));
   }
 
   /// Go: `func (*qpack.Encoder).WriteField(f qpack.HeaderField) error`.
   void writeField(QpackHeaderField f) {
     $callSync(
-        18260,
+        18262,
         $W()
           ..h(this)
           ..dto(f));
@@ -85,7 +85,7 @@ final class QpackHeaderField implements GoDto {
 
   /// Go: `func (qpack.HeaderField).IsPseudo() bool`.
   bool isPseudo() {
-    final $r = $callSync(18261, $W()..dto(this));
+    final $r = $callSync(18263, $W()..dto(this));
     return $r.b();
   }
 }
@@ -94,7 +94,7 @@ final class QpackHeaderField implements GoDto {
 extension GoQuicGoQpackApi on GoQuicGoQpack {
   /// Go: `func qpack.NewDecoder() *qpack.Decoder`.
   QpackDecoder newDecoder() {
-    final $r = $callSync(18262);
+    final $r = $callSync(18264);
     return $r.p() ? QpackDecoder.$dec($r) : $nil();
   }
 }

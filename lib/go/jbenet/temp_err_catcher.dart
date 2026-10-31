@@ -11,7 +11,7 @@ class TempErrCatcher extends GoHandle {
 
   /// Go: `func (*temperrcatcher.TempErrCatcher).Reset()`.
   void reset() {
-    $callSync(12699, $W()..h(this));
+    $callSync(12701, $W()..h(this));
   }
 }
 
@@ -28,7 +28,7 @@ class TempErrCatcherErrTemporary extends GolangException {
 extension GoJbenetTempErrCatcherApi on GoJbenetTempErrCatcher {
   /// Go: `var temperrcatcher.InitialDelay time.Duration`.
   Duration get initialDelay {
-    final $r = $callSync(12698);
+    final $r = $callSync(12700);
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 }

@@ -9,7 +9,7 @@ import 'package:p2p_ffi/src/runtime.dart';
 extension GoIpfsKuboCoreNodeLibp2pFdApi on GoIpfsKuboCoreNodeLibp2pFd {
   /// Go: `func fd.GetNumFDs() int`.
   int getNumFds() {
-    final $r = $callSync(11678);
+    final $r = $callSync(11680);
     return $r.i64();
   }
 }

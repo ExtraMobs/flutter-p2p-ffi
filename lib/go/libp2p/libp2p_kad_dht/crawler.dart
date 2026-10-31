@@ -22,7 +22,7 @@ class Libp2pKadDhtCrawlerDefaultCrawler extends Libp2pKadDhtCrawler {
   factory Libp2pKadDhtCrawlerDefaultCrawler($host.Libp2pCoreHost host,
       [List<Libp2pKadDhtCrawlerOption> opts = const []]) {
     final $r = $callSync(
-        12955,
+        12957,
         $W()
           ..h(host)
           ..list(opts, (w0, e0) => w0.opt(e0)));

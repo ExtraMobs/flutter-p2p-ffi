@@ -19,17 +19,17 @@ class SsdpAdvertiser extends $io.IoCloser
 
   /// Go: `func (*ssdp.Advertiser).Alive() error`.
   void alive() {
-    $callSync(12782, $W()..h(this));
+    $callSync(12784, $W()..h(this));
   }
 
   /// Go: `func (*ssdp.Advertiser).Bye() error`.
   void bye() {
-    $callSync(12783, $W()..h(this));
+    $callSync(12785, $W()..h(this));
   }
 
   /// Go: `func (*ssdp.Advertiser).Close() error`.
   void close() {
-    $callSync(12784, $W()..h(this));
+    $callSync(12786, $W()..h(this));
   }
 }
 
@@ -39,7 +39,7 @@ class SsdpAliveMessage extends GoHandle {
 
   /// Go: `func (*ssdp.AliveMessage).MaxAge() int`.
   int maxAge() {
-    final $r = $callSync(12785, $W()..h(this));
+    final $r = $callSync(12787, $W()..h(this));
     return $r.i64();
   }
 }
@@ -54,7 +54,7 @@ mixin SsdpLocationProvider$ on GoHandle {
   /// Go: `func (ssdp.LocationProvider).Location(from net.Addr, ifi *net.Interface) string`.
   String location($net.NetAddr from, $net.NetInterface ifi) {
     final $r = $callSync(
-        12789,
+        12791,
         $W()
           ..h(this)
           ..dto(from)
@@ -76,7 +76,7 @@ class SsdpLocationProviderFunc extends SsdpLocationProvider {
   /// Go: `func (ssdp.LocationProviderFunc).Location(from net.Addr, ifi *net.Interface) string`.
   String location($net.NetAddr from, $net.NetInterface ifi) {
     final $r = $callSync(
-        12790,
+        12792,
         $W()
           ..h(this)
           ..dto(from)
@@ -93,12 +93,12 @@ class SsdpMonitor extends $mdns.Libp2pP2pDiscoveryMdnsService
 
   /// Go: `func (*ssdp.Monitor).Close() error`.
   void close() {
-    $callSync(12792, $W()..h(this));
+    $callSync(12794, $W()..h(this));
   }
 
   /// Go: `func (*ssdp.Monitor).Start() error`.
   void start() {
-    $callSync(12793, $W()..h(this));
+    $callSync(12795, $W()..h(this));
   }
 }
 
@@ -116,7 +116,7 @@ class SsdpService extends GoHandle {
 
   /// Go: `func (*ssdp.Service).MaxAge() int`.
   int maxAge() {
-    final $r = $callSync(12796, $W()..h(this));
+    final $r = $callSync(12798, $W()..h(this));
     return $r.i64();
   }
 }
@@ -137,7 +137,7 @@ extension GoKoronSsdpApi on GoKoronSsdp {
       String st, String usn, Object? location, String server, int maxAge,
       [List<SsdpOption> opts = const []]) {
     final $r = $callSync(
-        12780,
+        12782,
         $W()
           ..str(st)
           ..str(usn)
@@ -153,7 +153,7 @@ extension GoKoronSsdpApi on GoKoronSsdp {
       int maxAge, String localAddr,
       [List<SsdpOption> opts = const []]) {
     $callSync(
-        12786,
+        12788,
         $W()
           ..str(nt)
           ..str(usn)
@@ -168,7 +168,7 @@ extension GoKoronSsdpApi on GoKoronSsdp {
   void announceBye(String nt, String usn, String localAddr,
       [List<SsdpOption> opts = const []]) {
     $callSync(
-        12787,
+        12789,
         $W()
           ..str(nt)
           ..str(usn)
@@ -178,13 +178,13 @@ extension GoKoronSsdpApi on GoKoronSsdp {
 
   /// Go: `var ssdp.Interfaces []net.Interface`.
   List<$net.NetInterface> get interfaces {
-    final $r = $callSync(12788);
+    final $r = $callSync(12790);
     return $r.list(() => $r.p() ? $net.NetInterface.$dec($r) : $nil());
   }
 
   /// Go: `var ssdp.Logger *log.Logger`.
   $log.LogLogger get logger {
-    final $r = $callSync(12791);
+    final $r = $callSync(12793);
     return $r.hnn($log.LogLogger.$h);
   }
 
@@ -192,7 +192,7 @@ extension GoKoronSsdpApi on GoKoronSsdp {
   List<SsdpService> search(String searchType, int waitSec, String localAddr,
       [List<SsdpOption> opts = const []]) {
     final $r = $callSync(
-        12795,
+        12797,
         $W()
           ..str(searchType)
           ..i64(waitSec)
@@ -203,12 +203,12 @@ extension GoKoronSsdpApi on GoKoronSsdp {
 
   /// Go: `func ssdp.SetMulticastRecvAddrIPv4(addr string) error`.
   void setMulticastRecvAddrIPv4(String addr) {
-    $callSync(12797, $W()..str(addr));
+    $callSync(12799, $W()..str(addr));
   }
 
   /// Go: `func ssdp.SetMulticastSendAddrIPv4(addr string) error`.
   void setMulticastSendAddrIPv4(String addr) {
-    $callSync(12798, $W()..str(addr));
+    $callSync(12800, $W()..str(addr));
   }
 }
 
@@ -225,19 +225,19 @@ extension GoKoronSsdpConstsApi on GoKoronSsdpConsts {
 extension GoKoronSsdpOptionsApi on GoKoronSsdpOptions {
   /// Go: `func ssdp.AdvertiseHost() ssdp.Option`.
   SsdpOption advertiseHost() {
-    final $r = $callSync(12781);
+    final $r = $callSync(12783);
     return $r.hnn(SsdpOption.$h);
   }
 
   /// Go: `func ssdp.OnlySystemInterface() ssdp.Option`.
   SsdpOption onlySystemInterface() {
-    final $r = $callSync(12794);
+    final $r = $callSync(12796);
     return $r.hnn(SsdpOption.$h);
   }
 
   /// Go: `func ssdp.TTL(ttl int) ssdp.Option`.
   SsdpOption ttl(int ttl) {
-    final $r = $callSync(12799, $W()..i64(ttl));
+    final $r = $callSync(12801, $W()..i64(ttl));
     return $r.hnn(SsdpOption.$h);
   }
 }

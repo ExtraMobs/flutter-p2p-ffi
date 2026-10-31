@@ -14,20 +14,20 @@ class ReflectMapIter extends GoHandle {
 
   /// Go: `func (*reflect.MapIter).Key() reflect.Value`.
   ReflectValue key() {
-    final $r = $callSync(27009, $W()..h(this));
+    final $r = $callSync(27011, $W()..h(this));
     return $r.hnn(ReflectValue.$h);
   }
 
   /// Go: `func (*reflect.MapIter).Next() bool`.
   bool next() {
-    final $r = $callSync(27010, $W()..h(this));
+    final $r = $callSync(27012, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*reflect.MapIter).Reset(v reflect.Value)`.
   void reset(ReflectValue v) {
     $callSync(
-        27011,
+        27013,
         $W()
           ..h(this)
           ..h(v));
@@ -35,7 +35,7 @@ class ReflectMapIter extends GoHandle {
 
   /// Go: `func (*reflect.MapIter).Value() reflect.Value`.
   ReflectValue value$() {
-    final $r = $callSync(27012, $W()..h(this));
+    final $r = $callSync(27014, $W()..h(this));
     return $r.hnn(ReflectValue.$h);
   }
 }
@@ -88,7 +88,7 @@ final class ReflectMethod implements GoDto {
 
   /// Go: `func (reflect.Method).IsExported() bool`.
   bool isExported() {
-    final $r = $callSync(27014, $W()..dto(this));
+    final $r = $callSync(27016, $W()..dto(this));
     return $r.b();
   }
 }
@@ -180,7 +180,7 @@ final class ReflectStructField implements GoDto {
 
   /// Go: `func (reflect.StructField).IsExported() bool`.
   bool isExported() {
-    final $r = $callSync(27020, $W()..dto(this));
+    final $r = $callSync(27022, $W()..dto(this));
     return $r.b();
   }
 }
@@ -194,14 +194,14 @@ class ReflectType extends GoHandle with ReflectType$ {
 mixin ReflectType$ on GoHandle {
   /// Go: `func (reflect.Type).Align() int`.
   int align() {
-    final $r = $callSync(27022, $W()..h(this));
+    final $r = $callSync(27024, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (reflect.Type).AssignableTo(u reflect.Type) bool`.
   bool assignableTo(ReflectType u) {
     final $r = $callSync(
-        27023,
+        27025,
         $W()
           ..h(this)
           ..h(u));
@@ -210,38 +210,38 @@ mixin ReflectType$ on GoHandle {
 
   /// Go: `func (reflect.Type).Bits() int`.
   int bits() {
-    final $r = $callSync(27024, $W()..h(this));
+    final $r = $callSync(27026, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (reflect.Type).CanSeq() bool`.
   bool canSeq() {
-    final $r = $callSync(27025, $W()..h(this));
+    final $r = $callSync(27027, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (reflect.Type).CanSeq2() bool`.
   bool canSeq2() {
-    final $r = $callSync(27026, $W()..h(this));
+    final $r = $callSync(27028, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (reflect.Type).ChanDir() reflect.ChanDir`.
   int chanDir() {
-    final $r = $callSync(27027, $W()..h(this));
+    final $r = $callSync(27029, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (reflect.Type).Comparable() bool`.
   bool comparable() {
-    final $r = $callSync(27028, $W()..h(this));
+    final $r = $callSync(27030, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (reflect.Type).ConvertibleTo(u reflect.Type) bool`.
   bool convertibleTo(ReflectType u) {
     final $r = $callSync(
-        27029,
+        27031,
         $W()
           ..h(this)
           ..h(u));
@@ -250,14 +250,14 @@ mixin ReflectType$ on GoHandle {
 
   /// Go: `func (reflect.Type).Elem() reflect.Type`.
   ReflectType elem() {
-    final $r = $callSync(27030, $W()..h(this));
+    final $r = $callSync(27032, $W()..h(this));
     return $r.hnn(ReflectType.$h);
   }
 
   /// Go: `func (reflect.Type).Field(i int) reflect.StructField`.
   ReflectStructField field(int i) {
     final $r = $callSync(
-        27031,
+        27033,
         $W()
           ..h(this)
           ..i64(i));
@@ -266,14 +266,14 @@ mixin ReflectType$ on GoHandle {
 
   /// Go: `func (reflect.Type).FieldAlign() int`.
   int fieldAlign() {
-    final $r = $callSync(27032, $W()..h(this));
+    final $r = $callSync(27034, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (reflect.Type).FieldByIndex(index []int) reflect.StructField`.
   ReflectStructField fieldByIndex(List<int> index) {
     final $r = $callSync(
-        27033,
+        27035,
         $W()
           ..h(this)
           ..list(index, (w0, e0) => w0.i64(e0)));
@@ -283,7 +283,7 @@ mixin ReflectType$ on GoHandle {
   /// Go: `func (reflect.Type).FieldByName(name string) (reflect.StructField, bool)`.
   (ReflectStructField, bool) fieldByName(String name) {
     final $r = $callSync(
-        27034,
+        27036,
         $W()
           ..h(this)
           ..str(name));
@@ -300,7 +300,7 @@ mixin ReflectType$ on GoHandle {
   Future<(ReflectStructField, bool)> fieldByNameFunc(
       FutureOr<bool> Function(String arg0) match) async {
     final $r = await $call(
-        27035,
+        27037,
         $W()
           ..h(this)
           ..cb((r) => match(r.str()), true));
@@ -310,7 +310,7 @@ mixin ReflectType$ on GoHandle {
   /// Go: `func (reflect.Type).Implements(u reflect.Type) bool`.
   bool implements(ReflectType u) {
     final $r = $callSync(
-        27036,
+        27038,
         $W()
           ..h(this)
           ..h(u));
@@ -320,7 +320,7 @@ mixin ReflectType$ on GoHandle {
   /// Go: `func (reflect.Type).In(i int) reflect.Type`.
   ReflectType in$(int i) {
     final $r = $callSync(
-        27037,
+        27039,
         $W()
           ..h(this)
           ..i64(i));
@@ -329,32 +329,32 @@ mixin ReflectType$ on GoHandle {
 
   /// Go: `func (reflect.Type).IsVariadic() bool`.
   bool isVariadic() {
-    final $r = $callSync(27038, $W()..h(this));
+    final $r = $callSync(27040, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (reflect.Type).Key() reflect.Type`.
   ReflectType key() {
-    final $r = $callSync(27039, $W()..h(this));
+    final $r = $callSync(27041, $W()..h(this));
     return $r.hnn(ReflectType.$h);
   }
 
   /// Go: `func (reflect.Type).Kind() reflect.Kind`.
   int kind() {
-    final $r = $callSync(27040, $W()..h(this));
+    final $r = $callSync(27042, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (reflect.Type).Len() int`.
   int len() {
-    final $r = $callSync(27041, $W()..h(this));
+    final $r = $callSync(27043, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (reflect.Type).Method(int) reflect.Method`.
   ReflectMethod method(int arg0) {
     final $r = $callSync(
-        27042,
+        27044,
         $W()
           ..h(this)
           ..i64(arg0));
@@ -364,7 +364,7 @@ mixin ReflectType$ on GoHandle {
   /// Go: `func (reflect.Type).MethodByName(string) (reflect.Method, bool)`.
   (ReflectMethod, bool) methodByName(String arg0) {
     final $r = $callSync(
-        27043,
+        27045,
         $W()
           ..h(this)
           ..str(arg0));
@@ -373,38 +373,38 @@ mixin ReflectType$ on GoHandle {
 
   /// Go: `func (reflect.Type).Name() string`.
   String name() {
-    final $r = $callSync(27044, $W()..h(this));
+    final $r = $callSync(27046, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (reflect.Type).NumField() int`.
   int numField() {
-    final $r = $callSync(27045, $W()..h(this));
+    final $r = $callSync(27047, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (reflect.Type).NumIn() int`.
   int numIn() {
-    final $r = $callSync(27046, $W()..h(this));
+    final $r = $callSync(27048, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (reflect.Type).NumMethod() int`.
   int numMethod() {
-    final $r = $callSync(27047, $W()..h(this));
+    final $r = $callSync(27049, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (reflect.Type).NumOut() int`.
   int numOut() {
-    final $r = $callSync(27048, $W()..h(this));
+    final $r = $callSync(27050, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (reflect.Type).Out(i int) reflect.Type`.
   ReflectType out(int i) {
     final $r = $callSync(
-        27049,
+        27051,
         $W()
           ..h(this)
           ..i64(i));
@@ -414,7 +414,7 @@ mixin ReflectType$ on GoHandle {
   /// Go: `func (reflect.Type).OverflowFloat(x float64) bool`.
   bool overflowFloat(double x) {
     final $r = $callSync(
-        27050,
+        27052,
         $W()
           ..h(this)
           ..f64(x));
@@ -424,7 +424,7 @@ mixin ReflectType$ on GoHandle {
   /// Go: `func (reflect.Type).OverflowInt(x int64) bool`.
   bool overflowInt(int x) {
     final $r = $callSync(
-        27051,
+        27053,
         $W()
           ..h(this)
           ..i64(x));
@@ -434,7 +434,7 @@ mixin ReflectType$ on GoHandle {
   /// Go: `func (reflect.Type).OverflowUint(x uint64) bool`.
   bool overflowUint(int x) {
     final $r = $callSync(
-        27052,
+        27054,
         $W()
           ..h(this)
           ..i64(x));
@@ -443,13 +443,13 @@ mixin ReflectType$ on GoHandle {
 
   /// Go: `func (reflect.Type).PkgPath() string`.
   String pkgPath() {
-    final $r = $callSync(27053, $W()..h(this));
+    final $r = $callSync(27055, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (reflect.Type).String() string`.
   String string() {
-    final $r = $callSync(27054, $W()..h(this));
+    final $r = $callSync(27056, $W()..h(this));
     return $r.str();
   }
 }
@@ -460,26 +460,26 @@ class ReflectValue extends GoHandle {
 
   /// Go: `func (reflect.Value).Addr() reflect.Value`.
   ReflectValue addr() {
-    final $r = $callSync(27056, $W()..h(this));
+    final $r = $callSync(27058, $W()..h(this));
     return $r.hnn(ReflectValue.$h);
   }
 
   /// Go: `func (reflect.Value).Bool() bool`.
   bool bool$() {
-    final $r = $callSync(27057, $W()..h(this));
+    final $r = $callSync(27059, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (reflect.Value).Bytes() []byte`.
   Uint8List bytes() {
-    final $r = $callSync(27058, $W()..h(this));
+    final $r = $callSync(27060, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (reflect.Value).Call(in []reflect.Value) []reflect.Value`.
   List<ReflectValue> call(List<ReflectValue> in$) {
     final $r = $callSync(
-        27059,
+        27061,
         $W()
           ..h(this)
           ..list(in$, (w0, e0) => w0.h(e0)));
@@ -489,7 +489,7 @@ class ReflectValue extends GoHandle {
   /// Go: `func (reflect.Value).CallSlice(in []reflect.Value) []reflect.Value`.
   List<ReflectValue> callSlice(List<ReflectValue> in$) {
     final $r = $callSync(
-        27060,
+        27062,
         $W()
           ..h(this)
           ..list(in$, (w0, e0) => w0.h(e0)));
@@ -498,20 +498,20 @@ class ReflectValue extends GoHandle {
 
   /// Go: `func (reflect.Value).CanAddr() bool`.
   bool canAddr() {
-    final $r = $callSync(27061, $W()..h(this));
+    final $r = $callSync(27063, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (reflect.Value).CanComplex() bool`.
   bool canComplex() {
-    final $r = $callSync(27062, $W()..h(this));
+    final $r = $callSync(27064, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (reflect.Value).CanConvert(t reflect.Type) bool`.
   bool canConvert(ReflectType t) {
     final $r = $callSync(
-        27063,
+        27065,
         $W()
           ..h(this)
           ..h(t));
@@ -520,60 +520,60 @@ class ReflectValue extends GoHandle {
 
   /// Go: `func (reflect.Value).CanFloat() bool`.
   bool canFloat() {
-    final $r = $callSync(27064, $W()..h(this));
+    final $r = $callSync(27066, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (reflect.Value).CanInt() bool`.
   bool canInt() {
-    final $r = $callSync(27065, $W()..h(this));
+    final $r = $callSync(27067, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (reflect.Value).CanInterface() bool`.
   bool canInterface() {
-    final $r = $callSync(27066, $W()..h(this));
+    final $r = $callSync(27068, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (reflect.Value).CanSet() bool`.
   bool canSet() {
-    final $r = $callSync(27067, $W()..h(this));
+    final $r = $callSync(27069, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (reflect.Value).CanUint() bool`.
   bool canUint() {
-    final $r = $callSync(27068, $W()..h(this));
+    final $r = $callSync(27070, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (reflect.Value).Cap() int`.
   int cap() {
-    final $r = $callSync(27069, $W()..h(this));
+    final $r = $callSync(27071, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (reflect.Value).Clear()`.
   void clear() {
-    $callSync(27070, $W()..h(this));
+    $callSync(27072, $W()..h(this));
   }
 
   /// Go: `func (reflect.Value).Close()`.
   void close() {
-    $callSync(27071, $W()..h(this));
+    $callSync(27073, $W()..h(this));
   }
 
   /// Go: `func (reflect.Value).Comparable() (#rv1 bool)`.
   bool comparable() {
-    final $r = $callSync(27072, $W()..h(this));
+    final $r = $callSync(27074, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (reflect.Value).Convert(t reflect.Type) reflect.Value`.
   ReflectValue convert(ReflectType t) {
     final $r = $callSync(
-        27073,
+        27075,
         $W()
           ..h(this)
           ..h(t));
@@ -582,14 +582,14 @@ class ReflectValue extends GoHandle {
 
   /// Go: `func (reflect.Value).Elem() reflect.Value`.
   ReflectValue elem() {
-    final $r = $callSync(27074, $W()..h(this));
+    final $r = $callSync(27076, $W()..h(this));
     return $r.hnn(ReflectValue.$h);
   }
 
   /// Go: `func (reflect.Value).Equal(u reflect.Value) bool`.
   bool equal(ReflectValue u) {
     final $r = $callSync(
-        27075,
+        27077,
         $W()
           ..h(this)
           ..h(u));
@@ -599,7 +599,7 @@ class ReflectValue extends GoHandle {
   /// Go: `func (reflect.Value).Field(i int) reflect.Value`.
   ReflectValue field(int i) {
     final $r = $callSync(
-        27076,
+        27078,
         $W()
           ..h(this)
           ..i64(i));
@@ -609,7 +609,7 @@ class ReflectValue extends GoHandle {
   /// Go: `func (reflect.Value).FieldByIndex(index []int) reflect.Value`.
   ReflectValue fieldByIndex(List<int> index) {
     final $r = $callSync(
-        27077,
+        27079,
         $W()
           ..h(this)
           ..list(index, (w0, e0) => w0.i64(e0)));
@@ -619,7 +619,7 @@ class ReflectValue extends GoHandle {
   /// Go: `func (reflect.Value).FieldByIndexErr(index []int) (reflect.Value, error)`.
   ReflectValue fieldByIndexErr(List<int> index) {
     final $r = $callSync(
-        27078,
+        27080,
         $W()
           ..h(this)
           ..list(index, (w0, e0) => w0.i64(e0)));
@@ -629,7 +629,7 @@ class ReflectValue extends GoHandle {
   /// Go: `func (reflect.Value).FieldByName(name string) reflect.Value`.
   ReflectValue fieldByName(String name) {
     final $r = $callSync(
-        27079,
+        27081,
         $W()
           ..h(this)
           ..str(name));
@@ -646,7 +646,7 @@ class ReflectValue extends GoHandle {
   Future<ReflectValue> fieldByNameFunc(
       FutureOr<bool> Function(String arg0) match) async {
     final $r = await $call(
-        27080,
+        27082,
         $W()
           ..h(this)
           ..cb((r) => match(r.str()), true));
@@ -655,14 +655,14 @@ class ReflectValue extends GoHandle {
 
   /// Go: `func (reflect.Value).Float() float64`.
   double float() {
-    final $r = $callSync(27081, $W()..h(this));
+    final $r = $callSync(27083, $W()..h(this));
     return $r.f64();
   }
 
   /// Go: `func (reflect.Value).Grow(n int)`.
   void grow(int n) {
     $callSync(
-        27082,
+        27084,
         $W()
           ..h(this)
           ..i64(n));
@@ -671,7 +671,7 @@ class ReflectValue extends GoHandle {
   /// Go: `func (reflect.Value).Index(i int) reflect.Value`.
   ReflectValue index(int i) {
     final $r = $callSync(
-        27083,
+        27085,
         $W()
           ..h(this)
           ..i64(i));
@@ -680,50 +680,50 @@ class ReflectValue extends GoHandle {
 
   /// Go: `func (reflect.Value).Int() int64`.
   int int$() {
-    final $r = $callSync(27084, $W()..h(this));
+    final $r = $callSync(27086, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (reflect.Value).Interface() (i any)`.
   Object? interface() {
-    final $r = $callSync(27085, $W()..h(this));
+    final $r = $callSync(27087, $W()..h(this));
     return $r.any();
   }
 
   /// Go: `func (reflect.Value).IsNil() bool`.
   bool isNil() {
-    final $r = $callSync(27086, $W()..h(this));
+    final $r = $callSync(27088, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (reflect.Value).IsValid() bool`.
   bool isValid() {
-    final $r = $callSync(27087, $W()..h(this));
+    final $r = $callSync(27089, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (reflect.Value).IsZero() bool`.
   bool isZero() {
-    final $r = $callSync(27088, $W()..h(this));
+    final $r = $callSync(27090, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (reflect.Value).Kind() reflect.Kind`.
   int kind() {
-    final $r = $callSync(27089, $W()..h(this));
+    final $r = $callSync(27091, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (reflect.Value).Len() int`.
   int len() {
-    final $r = $callSync(27090, $W()..h(this));
+    final $r = $callSync(27092, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (reflect.Value).MapIndex(key reflect.Value) reflect.Value`.
   ReflectValue mapIndex(ReflectValue key) {
     final $r = $callSync(
-        27091,
+        27093,
         $W()
           ..h(this)
           ..h(key));
@@ -732,20 +732,20 @@ class ReflectValue extends GoHandle {
 
   /// Go: `func (reflect.Value).MapKeys() []reflect.Value`.
   List<ReflectValue> mapKeys() {
-    final $r = $callSync(27092, $W()..h(this));
+    final $r = $callSync(27094, $W()..h(this));
     return $r.list(() => $r.hnn(ReflectValue.$h));
   }
 
   /// Go: `func (reflect.Value).MapRange() *reflect.MapIter`.
   ReflectMapIter mapRange() {
-    final $r = $callSync(27093, $W()..h(this));
+    final $r = $callSync(27095, $W()..h(this));
     return $r.hnn(ReflectMapIter.$h);
   }
 
   /// Go: `func (reflect.Value).Method(i int) reflect.Value`.
   ReflectValue method(int i) {
     final $r = $callSync(
-        27094,
+        27096,
         $W()
           ..h(this)
           ..i64(i));
@@ -755,7 +755,7 @@ class ReflectValue extends GoHandle {
   /// Go: `func (reflect.Value).MethodByName(name string) reflect.Value`.
   ReflectValue methodByName(String name) {
     final $r = $callSync(
-        27095,
+        27097,
         $W()
           ..h(this)
           ..str(name));
@@ -764,20 +764,20 @@ class ReflectValue extends GoHandle {
 
   /// Go: `func (reflect.Value).NumField() int`.
   int numField() {
-    final $r = $callSync(27096, $W()..h(this));
+    final $r = $callSync(27098, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (reflect.Value).NumMethod() int`.
   int numMethod() {
-    final $r = $callSync(27097, $W()..h(this));
+    final $r = $callSync(27099, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (reflect.Value).OverflowFloat(x float64) bool`.
   bool overflowFloat(double x) {
     final $r = $callSync(
-        27098,
+        27100,
         $W()
           ..h(this)
           ..f64(x));
@@ -787,7 +787,7 @@ class ReflectValue extends GoHandle {
   /// Go: `func (reflect.Value).OverflowInt(x int64) bool`.
   bool overflowInt(int x) {
     final $r = $callSync(
-        27099,
+        27101,
         $W()
           ..h(this)
           ..i64(x));
@@ -797,7 +797,7 @@ class ReflectValue extends GoHandle {
   /// Go: `func (reflect.Value).OverflowUint(x uint64) bool`.
   bool overflowUint(int x) {
     final $r = $callSync(
-        27100,
+        27102,
         $W()
           ..h(this)
           ..i64(x));
@@ -806,14 +806,14 @@ class ReflectValue extends GoHandle {
 
   /// Go: `func (reflect.Value).Recv() (x reflect.Value, ok bool)`.
   (ReflectValue, bool) recv() {
-    final $r = $callSync(27101, $W()..h(this));
+    final $r = $callSync(27103, $W()..h(this));
     return ($r.hnn(ReflectValue.$h), $r.b());
   }
 
   /// Go: `func (reflect.Value).Send(x reflect.Value)`.
   void send(ReflectValue x) {
     $callSync(
-        27102,
+        27104,
         $W()
           ..h(this)
           ..h(x));
@@ -822,7 +822,7 @@ class ReflectValue extends GoHandle {
   /// Go: `func (reflect.Value).Set(x reflect.Value)`.
   void set(ReflectValue x) {
     $callSync(
-        27103,
+        27105,
         $W()
           ..h(this)
           ..h(x));
@@ -831,7 +831,7 @@ class ReflectValue extends GoHandle {
   /// Go: `func (reflect.Value).SetBool(x bool)`.
   void setBool(bool x) {
     $callSync(
-        27104,
+        27106,
         $W()
           ..h(this)
           ..b(x));
@@ -840,7 +840,7 @@ class ReflectValue extends GoHandle {
   /// Go: `func (reflect.Value).SetBytes(x []byte)`.
   void setBytes(Uint8List x) {
     $callSync(
-        27105,
+        27107,
         $W()
           ..h(this)
           ..bytes(x));
@@ -849,7 +849,7 @@ class ReflectValue extends GoHandle {
   /// Go: `func (reflect.Value).SetCap(n int)`.
   void setCap(int n) {
     $callSync(
-        27106,
+        27108,
         $W()
           ..h(this)
           ..i64(n));
@@ -858,7 +858,7 @@ class ReflectValue extends GoHandle {
   /// Go: `func (reflect.Value).SetFloat(x float64)`.
   void setFloat(double x) {
     $callSync(
-        27107,
+        27109,
         $W()
           ..h(this)
           ..f64(x));
@@ -867,7 +867,7 @@ class ReflectValue extends GoHandle {
   /// Go: `func (reflect.Value).SetInt(x int64)`.
   void setInt(int x) {
     $callSync(
-        27108,
+        27110,
         $W()
           ..h(this)
           ..i64(x));
@@ -876,7 +876,7 @@ class ReflectValue extends GoHandle {
   /// Go: `func (reflect.Value).SetIterKey(iter *reflect.MapIter)`.
   void setIterKey(ReflectMapIter iter) {
     $callSync(
-        27109,
+        27111,
         $W()
           ..h(this)
           ..h(iter));
@@ -885,7 +885,7 @@ class ReflectValue extends GoHandle {
   /// Go: `func (reflect.Value).SetIterValue(iter *reflect.MapIter)`.
   void setIterValue(ReflectMapIter iter) {
     $callSync(
-        27110,
+        27112,
         $W()
           ..h(this)
           ..h(iter));
@@ -894,7 +894,7 @@ class ReflectValue extends GoHandle {
   /// Go: `func (reflect.Value).SetLen(n int)`.
   void setLen(int n) {
     $callSync(
-        27111,
+        27113,
         $W()
           ..h(this)
           ..i64(n));
@@ -903,7 +903,7 @@ class ReflectValue extends GoHandle {
   /// Go: `func (reflect.Value).SetMapIndex(key reflect.Value, elem reflect.Value)`.
   void setMapIndex(ReflectValue key, ReflectValue elem) {
     $callSync(
-        27112,
+        27114,
         $W()
           ..h(this)
           ..h(key)
@@ -913,7 +913,7 @@ class ReflectValue extends GoHandle {
   /// Go: `func (reflect.Value).SetString(x string)`.
   void setString(String x) {
     $callSync(
-        27113,
+        27115,
         $W()
           ..h(this)
           ..str(x));
@@ -922,7 +922,7 @@ class ReflectValue extends GoHandle {
   /// Go: `func (reflect.Value).SetUint(x uint64)`.
   void setUint(int x) {
     $callSync(
-        27114,
+        27116,
         $W()
           ..h(this)
           ..i64(x));
@@ -930,13 +930,13 @@ class ReflectValue extends GoHandle {
 
   /// Go: `func (reflect.Value).SetZero()`.
   void setZero() {
-    $callSync(27115, $W()..h(this));
+    $callSync(27117, $W()..h(this));
   }
 
   /// Go: `func (reflect.Value).Slice(i int, j int) reflect.Value`.
   ReflectValue slice(int i, int j) {
     final $r = $callSync(
-        27116,
+        27118,
         $W()
           ..h(this)
           ..i64(i)
@@ -947,7 +947,7 @@ class ReflectValue extends GoHandle {
   /// Go: `func (reflect.Value).Slice3(i int, j int, k int) reflect.Value`.
   ReflectValue slice3(int i, int j, int k) {
     final $r = $callSync(
-        27117,
+        27119,
         $W()
           ..h(this)
           ..i64(i)
@@ -958,20 +958,20 @@ class ReflectValue extends GoHandle {
 
   /// Go: `func (reflect.Value).String() string`.
   String string() {
-    final $r = $callSync(27118, $W()..h(this));
+    final $r = $callSync(27120, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (reflect.Value).TryRecv() (x reflect.Value, ok bool)`.
   (ReflectValue, bool) tryRecv() {
-    final $r = $callSync(27119, $W()..h(this));
+    final $r = $callSync(27121, $W()..h(this));
     return ($r.hnn(ReflectValue.$h), $r.b());
   }
 
   /// Go: `func (reflect.Value).TrySend(x reflect.Value) bool`.
   bool trySend(ReflectValue x) {
     final $r = $callSync(
-        27120,
+        27122,
         $W()
           ..h(this)
           ..h(x));
@@ -980,13 +980,13 @@ class ReflectValue extends GoHandle {
 
   /// Go: `func (reflect.Value).Type() reflect.Type`.
   ReflectType type() {
-    final $r = $callSync(27121, $W()..h(this));
+    final $r = $callSync(27123, $W()..h(this));
     return $r.hnn(ReflectType.$h);
   }
 
   /// Go: `func (reflect.Value).Uint() uint64`.
   int uint() {
-    final $r = $callSync(27122, $W()..h(this));
+    final $r = $callSync(27124, $W()..h(this));
     return $r.i64();
   }
 }
@@ -1014,7 +1014,7 @@ extension GoReflectApi on GoReflect {
   /// Go: `func reflect.Append(s reflect.Value, x ...reflect.Value) reflect.Value`.
   ReflectValue append(ReflectValue s, [List<ReflectValue> x = const []]) {
     final $r = $callSync(
-        26997,
+        26999,
         $W()
           ..h(s)
           ..list(x, (w0, e0) => w0.h(e0)));
@@ -1024,7 +1024,7 @@ extension GoReflectApi on GoReflect {
   /// Go: `func reflect.AppendSlice(s reflect.Value, t reflect.Value) reflect.Value`.
   ReflectValue appendSlice(ReflectValue s, ReflectValue t) {
     final $r = $callSync(
-        26998,
+        27000,
         $W()
           ..h(s)
           ..h(t));
@@ -1034,7 +1034,7 @@ extension GoReflectApi on GoReflect {
   /// Go: `func reflect.ArrayOf(length int, elem reflect.Type) reflect.Type`.
   ReflectType arrayOf(int length, ReflectType elem) {
     final $r = $callSync(
-        26999,
+        27001,
         $W()
           ..i64(length)
           ..h(elem));
@@ -1044,7 +1044,7 @@ extension GoReflectApi on GoReflect {
   /// Go: `func reflect.ChanOf(dir reflect.ChanDir, t reflect.Type) reflect.Type`.
   ReflectType chanOf(int dir, ReflectType t) {
     final $r = $callSync(
-        27000,
+        27002,
         $W()
           ..i64(dir)
           ..h(t));
@@ -1054,7 +1054,7 @@ extension GoReflectApi on GoReflect {
   /// Go: `func reflect.Copy(dst reflect.Value, src reflect.Value) int`.
   int copy(ReflectValue dst, ReflectValue src) {
     final $r = $callSync(
-        27001,
+        27003,
         $W()
           ..h(dst)
           ..h(src));
@@ -1064,7 +1064,7 @@ extension GoReflectApi on GoReflect {
   /// Go: `func reflect.DeepEqual(x any, y any) bool`.
   bool deepEqual(Object? x, Object? y) {
     final $r = $callSync(
-        27002,
+        27004,
         $W()
           ..any(x)
           ..any(y));
@@ -1075,7 +1075,7 @@ extension GoReflectApi on GoReflect {
   ReflectType funcOf(
       List<ReflectType> in$, List<ReflectType> out, bool variadic) {
     final $r = $callSync(
-        27003,
+        27005,
         $W()
           ..list(in$, (w0, e0) => w0.h(e0))
           ..list(out, (w0, e0) => w0.h(e0))
@@ -1085,14 +1085,14 @@ extension GoReflectApi on GoReflect {
 
   /// Go: `func reflect.Indirect(v reflect.Value) reflect.Value`.
   ReflectValue indirect(ReflectValue v) {
-    final $r = $callSync(27004, $W()..h(v));
+    final $r = $callSync(27006, $W()..h(v));
     return $r.hnn(ReflectValue.$h);
   }
 
   /// Go: `func reflect.MakeChan(typ reflect.Type, buffer int) reflect.Value`.
   ReflectValue makeChan(ReflectType typ, int buffer) {
     final $r = $callSync(
-        27005,
+        27007,
         $W()
           ..h(typ)
           ..i64(buffer));
@@ -1101,14 +1101,14 @@ extension GoReflectApi on GoReflect {
 
   /// Go: `func reflect.MakeMap(typ reflect.Type) reflect.Value`.
   ReflectValue makeMap(ReflectType typ) {
-    final $r = $callSync(27006, $W()..h(typ));
+    final $r = $callSync(27008, $W()..h(typ));
     return $r.hnn(ReflectValue.$h);
   }
 
   /// Go: `func reflect.MakeMapWithSize(typ reflect.Type, n int) reflect.Value`.
   ReflectValue makeMapWithSize(ReflectType typ, int n) {
     final $r = $callSync(
-        27007,
+        27009,
         $W()
           ..h(typ)
           ..i64(n));
@@ -1118,7 +1118,7 @@ extension GoReflectApi on GoReflect {
   /// Go: `func reflect.MakeSlice(typ reflect.Type, len int, cap int) reflect.Value`.
   ReflectValue makeSlice(ReflectType typ, int len, int cap) {
     final $r = $callSync(
-        27008,
+        27010,
         $W()
           ..h(typ)
           ..i64(len)
@@ -1129,7 +1129,7 @@ extension GoReflectApi on GoReflect {
   /// Go: `func reflect.MapOf(key reflect.Type, elem reflect.Type) reflect.Type`.
   ReflectType mapOf(ReflectType key, ReflectType elem) {
     final $r = $callSync(
-        27013,
+        27015,
         $W()
           ..h(key)
           ..h(elem));
@@ -1138,62 +1138,62 @@ extension GoReflectApi on GoReflect {
 
   /// Go: `func reflect.New(typ reflect.Type) reflect.Value`.
   ReflectValue new$(ReflectType typ) {
-    final $r = $callSync(27015, $W()..h(typ));
+    final $r = $callSync(27017, $W()..h(typ));
     return $r.hnn(ReflectValue.$h);
   }
 
   /// Go: `func reflect.PointerTo(t reflect.Type) reflect.Type`.
   ReflectType pointerTo(ReflectType t) {
-    final $r = $callSync(27016, $W()..h(t));
+    final $r = $callSync(27018, $W()..h(t));
     return $r.hnn(ReflectType.$h);
   }
 
   /// Go: `func reflect.PtrTo(t reflect.Type) reflect.Type`.
   @Deprecated("Superseded by [PointerTo].")
   ReflectType ptrTo(ReflectType t) {
-    final $r = $callSync(27017, $W()..h(t));
+    final $r = $callSync(27019, $W()..h(t));
     return $r.hnn(ReflectType.$h);
   }
 
   /// Go: `func reflect.Select(cases []reflect.SelectCase) (chosen int, recv reflect.Value, recvOK bool)`.
   (int, ReflectValue, bool) select(List<ReflectSelectCase> cases) {
-    final $r = $callSync(27018, $W()..list(cases, (w0, e0) => w0.dto(e0)));
+    final $r = $callSync(27020, $W()..list(cases, (w0, e0) => w0.dto(e0)));
     return ($r.i64(), $r.hnn(ReflectValue.$h), $r.b());
   }
 
   /// Go: `func reflect.SliceOf(t reflect.Type) reflect.Type`.
   ReflectType sliceOf(ReflectType t) {
-    final $r = $callSync(27019, $W()..h(t));
+    final $r = $callSync(27021, $W()..h(t));
     return $r.hnn(ReflectType.$h);
   }
 
   /// Go: `func reflect.StructOf(fields []reflect.StructField) reflect.Type`.
   ReflectType structOf(List<ReflectStructField> fields) {
-    final $r = $callSync(27021, $W()..list(fields, (w0, e0) => w0.dto(e0)));
+    final $r = $callSync(27023, $W()..list(fields, (w0, e0) => w0.dto(e0)));
     return $r.hnn(ReflectType.$h);
   }
 
   /// Go: `func reflect.TypeOf(i any) reflect.Type`.
   ReflectType typeOf(Object? i) {
-    final $r = $callSync(27055, $W()..any(i));
+    final $r = $callSync(27057, $W()..any(i));
     return $r.hnn(ReflectType.$h);
   }
 
   /// Go: `func reflect.ValueOf(i any) reflect.Value`.
   ReflectValue valueOf(Object? i) {
-    final $r = $callSync(27123, $W()..any(i));
+    final $r = $callSync(27125, $W()..any(i));
     return $r.hnn(ReflectValue.$h);
   }
 
   /// Go: `func reflect.VisibleFields(t reflect.Type) []reflect.StructField`.
   List<ReflectStructField> visibleFields(ReflectType t) {
-    final $r = $callSync(27124, $W()..h(t));
+    final $r = $callSync(27126, $W()..h(t));
     return $r.list(() => $r.p() ? ReflectStructField.$dec($r) : $nil());
   }
 
   /// Go: `func reflect.Zero(typ reflect.Type) reflect.Value`.
   ReflectValue zero(ReflectType typ) {
-    final $r = $callSync(27125, $W()..h(typ));
+    final $r = $callSync(27127, $W()..h(typ));
     return $r.hnn(ReflectValue.$h);
   }
 }

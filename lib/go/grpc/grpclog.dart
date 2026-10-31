@@ -16,7 +16,7 @@ mixin GrpcGrpclogDepthLoggerV2$ on GoHandle {
   /// Go: `func (grpclog.DepthLoggerV2).ErrorDepth(depth int, args ...any)`.
   void errorDepth(int depth, [List<Object?> args = const []]) {
     $callSync(
-        24581,
+        24583,
         $W()
           ..h(this)
           ..i64(depth)
@@ -26,7 +26,7 @@ mixin GrpcGrpclogDepthLoggerV2$ on GoHandle {
   /// Go: `func (grpclog.DepthLoggerV2).FatalDepth(depth int, args ...any)`.
   void fatalDepth(int depth, [List<Object?> args = const []]) {
     $callSync(
-        24582,
+        24584,
         $W()
           ..h(this)
           ..i64(depth)
@@ -36,7 +36,7 @@ mixin GrpcGrpclogDepthLoggerV2$ on GoHandle {
   /// Go: `func (grpclog.DepthLoggerV2).InfoDepth(depth int, args ...any)`.
   void infoDepth(int depth, [List<Object?> args = const []]) {
     $callSync(
-        24583,
+        24585,
         $W()
           ..h(this)
           ..i64(depth)
@@ -46,7 +46,7 @@ mixin GrpcGrpclogDepthLoggerV2$ on GoHandle {
   /// Go: `func (grpclog.DepthLoggerV2).WarningDepth(depth int, args ...any)`.
   void warningDepth(int depth, [List<Object?> args = const []]) {
     $callSync(
-        24584,
+        24586,
         $W()
           ..h(this)
           ..i64(depth)
@@ -65,7 +65,7 @@ mixin GrpcGrpclogLogger$ on GoHandle {
   /// Go: `func (grpclog.Logger).Fatal(args ...any)`.
   void fatal([List<Object?> args = const []]) {
     $callSync(
-        24597,
+        24599,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -74,7 +74,7 @@ mixin GrpcGrpclogLogger$ on GoHandle {
   /// Go: `func (grpclog.Logger).Fatalf(format string, args ...any)`.
   void fatalf(String format, [List<Object?> args = const []]) {
     $callSync(
-        24598,
+        24600,
         $W()
           ..h(this)
           ..str(format)
@@ -84,7 +84,7 @@ mixin GrpcGrpclogLogger$ on GoHandle {
   /// Go: `func (grpclog.Logger).Fatalln(args ...any)`.
   void fatalln([List<Object?> args = const []]) {
     $callSync(
-        24599,
+        24601,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -93,7 +93,7 @@ mixin GrpcGrpclogLogger$ on GoHandle {
   /// Go: `func (grpclog.Logger).Print(args ...any)`.
   void print([List<Object?> args = const []]) {
     $callSync(
-        24600,
+        24602,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -102,7 +102,7 @@ mixin GrpcGrpclogLogger$ on GoHandle {
   /// Go: `func (grpclog.Logger).Printf(format string, args ...any)`.
   void printf(String format, [List<Object?> args = const []]) {
     $callSync(
-        24601,
+        24603,
         $W()
           ..h(this)
           ..str(format)
@@ -112,7 +112,7 @@ mixin GrpcGrpclogLogger$ on GoHandle {
   /// Go: `func (grpclog.Logger).Println(args ...any)`.
   void println([List<Object?> args = const []]) {
     $callSync(
-        24602,
+        24604,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -133,7 +133,7 @@ class GrpcGrpclogLoggerV2 extends GoHandle with GrpcGrpclogLoggerV2$ {
   factory GrpcGrpclogLoggerV2(
       GoHandle? infoW, GoHandle? warningW, GoHandle? errorW) {
     final $r = $callSync(
-        24616,
+        24618,
         $W()
           ..h(infoW)
           ..h(warningW)
@@ -147,7 +147,7 @@ mixin GrpcGrpclogLoggerV2$ on GoHandle {
   /// Go: `func (grpclog.LoggerV2).Error(args ...any)`.
   void error([List<Object?> args = const []]) {
     $callSync(
-        24603,
+        24605,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -156,7 +156,7 @@ mixin GrpcGrpclogLoggerV2$ on GoHandle {
   /// Go: `func (grpclog.LoggerV2).Errorf(format string, args ...any)`.
   void errorf(String format, [List<Object?> args = const []]) {
     $callSync(
-        24604,
+        24606,
         $W()
           ..h(this)
           ..str(format)
@@ -166,7 +166,7 @@ mixin GrpcGrpclogLoggerV2$ on GoHandle {
   /// Go: `func (grpclog.LoggerV2).Errorln(args ...any)`.
   void errorln([List<Object?> args = const []]) {
     $callSync(
-        24605,
+        24607,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -175,7 +175,7 @@ mixin GrpcGrpclogLoggerV2$ on GoHandle {
   /// Go: `func (grpclog.LoggerV2).Fatal(args ...any)`.
   void fatal([List<Object?> args = const []]) {
     $callSync(
-        24606,
+        24608,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -184,7 +184,7 @@ mixin GrpcGrpclogLoggerV2$ on GoHandle {
   /// Go: `func (grpclog.LoggerV2).Fatalf(format string, args ...any)`.
   void fatalf(String format, [List<Object?> args = const []]) {
     $callSync(
-        24607,
+        24609,
         $W()
           ..h(this)
           ..str(format)
@@ -194,7 +194,7 @@ mixin GrpcGrpclogLoggerV2$ on GoHandle {
   /// Go: `func (grpclog.LoggerV2).Fatalln(args ...any)`.
   void fatalln([List<Object?> args = const []]) {
     $callSync(
-        24608,
+        24610,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -203,7 +203,7 @@ mixin GrpcGrpclogLoggerV2$ on GoHandle {
   /// Go: `func (grpclog.LoggerV2).Info(args ...any)`.
   void info([List<Object?> args = const []]) {
     $callSync(
-        24609,
+        24611,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -212,7 +212,7 @@ mixin GrpcGrpclogLoggerV2$ on GoHandle {
   /// Go: `func (grpclog.LoggerV2).Infof(format string, args ...any)`.
   void infof(String format, [List<Object?> args = const []]) {
     $callSync(
-        24610,
+        24612,
         $W()
           ..h(this)
           ..str(format)
@@ -222,7 +222,7 @@ mixin GrpcGrpclogLoggerV2$ on GoHandle {
   /// Go: `func (grpclog.LoggerV2).Infoln(args ...any)`.
   void infoln([List<Object?> args = const []]) {
     $callSync(
-        24611,
+        24613,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -231,7 +231,7 @@ mixin GrpcGrpclogLoggerV2$ on GoHandle {
   /// Go: `func (grpclog.LoggerV2).V(l int) bool`.
   bool v(int l) {
     final $r = $callSync(
-        24612,
+        24614,
         $W()
           ..h(this)
           ..i64(l));
@@ -241,7 +241,7 @@ mixin GrpcGrpclogLoggerV2$ on GoHandle {
   /// Go: `func (grpclog.LoggerV2).Warning(args ...any)`.
   void warning([List<Object?> args = const []]) {
     $callSync(
-        24613,
+        24615,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -250,7 +250,7 @@ mixin GrpcGrpclogLoggerV2$ on GoHandle {
   /// Go: `func (grpclog.LoggerV2).Warningf(format string, args ...any)`.
   void warningf(String format, [List<Object?> args = const []]) {
     $callSync(
-        24614,
+        24616,
         $W()
           ..h(this)
           ..str(format)
@@ -260,7 +260,7 @@ mixin GrpcGrpclogLoggerV2$ on GoHandle {
   /// Go: `func (grpclog.LoggerV2).Warningln(args ...any)`.
   void warningln([List<Object?> args = const []]) {
     $callSync(
-        24615,
+        24617,
         $W()
           ..h(this)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -271,19 +271,19 @@ mixin GrpcGrpclogLoggerV2$ on GoHandle {
 extension GoGrpcGrpclogApi on GoGrpcGrpclog {
   /// Go: `func grpclog.Component(componentName string) grpclog.DepthLoggerV2`.
   GrpcGrpclogDepthLoggerV2 component(String componentName) {
-    final $r = $callSync(24580, $W()..str(componentName));
+    final $r = $callSync(24582, $W()..str(componentName));
     return $r.hnn(GrpcGrpclogDepthLoggerV2.$h);
   }
 
   /// Go: `func grpclog.Error(args ...any)`.
   void error([List<Object?> args = const []]) {
-    $callSync(24585, $W()..list(args, (w0, e0) => w0.any(e0)));
+    $callSync(24587, $W()..list(args, (w0, e0) => w0.any(e0)));
   }
 
   /// Go: `func grpclog.ErrorDepth(depth int, args ...any)`.
   void errorDepth(int depth, [List<Object?> args = const []]) {
     $callSync(
-        24586,
+        24588,
         $W()
           ..i64(depth)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -292,7 +292,7 @@ extension GoGrpcGrpclogApi on GoGrpcGrpclog {
   /// Go: `func grpclog.Errorf(format string, args ...any)`.
   void errorf(String format, [List<Object?> args = const []]) {
     $callSync(
-        24587,
+        24589,
         $W()
           ..str(format)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -300,18 +300,18 @@ extension GoGrpcGrpclogApi on GoGrpcGrpclog {
 
   /// Go: `func grpclog.Errorln(args ...any)`.
   void errorln([List<Object?> args = const []]) {
-    $callSync(24588, $W()..list(args, (w0, e0) => w0.any(e0)));
+    $callSync(24590, $W()..list(args, (w0, e0) => w0.any(e0)));
   }
 
   /// Go: `func grpclog.Fatal(args ...any)`.
   void fatal([List<Object?> args = const []]) {
-    $callSync(24589, $W()..list(args, (w0, e0) => w0.any(e0)));
+    $callSync(24591, $W()..list(args, (w0, e0) => w0.any(e0)));
   }
 
   /// Go: `func grpclog.FatalDepth(depth int, args ...any)`.
   void fatalDepth(int depth, [List<Object?> args = const []]) {
     $callSync(
-        24590,
+        24592,
         $W()
           ..i64(depth)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -320,7 +320,7 @@ extension GoGrpcGrpclogApi on GoGrpcGrpclog {
   /// Go: `func grpclog.Fatalf(format string, args ...any)`.
   void fatalf(String format, [List<Object?> args = const []]) {
     $callSync(
-        24591,
+        24593,
         $W()
           ..str(format)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -328,18 +328,18 @@ extension GoGrpcGrpclogApi on GoGrpcGrpclog {
 
   /// Go: `func grpclog.Fatalln(args ...any)`.
   void fatalln([List<Object?> args = const []]) {
-    $callSync(24592, $W()..list(args, (w0, e0) => w0.any(e0)));
+    $callSync(24594, $W()..list(args, (w0, e0) => w0.any(e0)));
   }
 
   /// Go: `func grpclog.Info(args ...any)`.
   void info([List<Object?> args = const []]) {
-    $callSync(24593, $W()..list(args, (w0, e0) => w0.any(e0)));
+    $callSync(24595, $W()..list(args, (w0, e0) => w0.any(e0)));
   }
 
   /// Go: `func grpclog.InfoDepth(depth int, args ...any)`.
   void infoDepth(int depth, [List<Object?> args = const []]) {
     $callSync(
-        24594,
+        24596,
         $W()
           ..i64(depth)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -348,7 +348,7 @@ extension GoGrpcGrpclogApi on GoGrpcGrpclog {
   /// Go: `func grpclog.Infof(format string, args ...any)`.
   void infof(String format, [List<Object?> args = const []]) {
     $callSync(
-        24595,
+        24597,
         $W()
           ..str(format)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -356,14 +356,14 @@ extension GoGrpcGrpclogApi on GoGrpcGrpclog {
 
   /// Go: `func grpclog.Infoln(args ...any)`.
   void infoln([List<Object?> args = const []]) {
-    $callSync(24596, $W()..list(args, (w0, e0) => w0.any(e0)));
+    $callSync(24598, $W()..list(args, (w0, e0) => w0.any(e0)));
   }
 
   /// Go: `func grpclog.NewLoggerV2WithVerbosity(infoW io.Writer, warningW io.Writer, errorW io.Writer, v int) grpclog.LoggerV2`.
   GrpcGrpclogLoggerV2 newLoggerV2WithVerbosity(
       GoHandle? infoW, GoHandle? warningW, GoHandle? errorW, int v) {
     final $r = $callSync(
-        24617,
+        24619,
         $W()
           ..h(infoW)
           ..h(warningW)
@@ -375,14 +375,14 @@ extension GoGrpcGrpclogApi on GoGrpcGrpclog {
   /// Go: `func grpclog.Print(args ...any)`.
   @Deprecated("use Info.")
   void print([List<Object?> args = const []]) {
-    $callSync(24618, $W()..list(args, (w0, e0) => w0.any(e0)));
+    $callSync(24620, $W()..list(args, (w0, e0) => w0.any(e0)));
   }
 
   /// Go: `func grpclog.Printf(format string, args ...any)`.
   @Deprecated("use Infof.")
   void printf(String format, [List<Object?> args = const []]) {
     $callSync(
-        24619,
+        24621,
         $W()
           ..str(format)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -391,35 +391,35 @@ extension GoGrpcGrpclogApi on GoGrpcGrpclog {
   /// Go: `func grpclog.Println(args ...any)`.
   @Deprecated("use Infoln.")
   void println([List<Object?> args = const []]) {
-    $callSync(24620, $W()..list(args, (w0, e0) => w0.any(e0)));
+    $callSync(24622, $W()..list(args, (w0, e0) => w0.any(e0)));
   }
 
   /// Go: `func grpclog.SetLogger(l grpclog.Logger)`.
   @Deprecated("use SetLoggerV2.")
   void setLogger(GrpcGrpclogLogger l) {
-    $callSync(24621, $W()..h(l));
+    $callSync(24623, $W()..h(l));
   }
 
   /// Go: `func grpclog.SetLoggerV2(l grpclog.LoggerV2)`.
   void setLoggerV2(GrpcGrpclogLoggerV2 l) {
-    $callSync(24622, $W()..h(l));
+    $callSync(24624, $W()..h(l));
   }
 
   /// Go: `func grpclog.V(l int) bool`.
   bool v(int l) {
-    final $r = $callSync(24623, $W()..i64(l));
+    final $r = $callSync(24625, $W()..i64(l));
     return $r.b();
   }
 
   /// Go: `func grpclog.Warning(args ...any)`.
   void warning([List<Object?> args = const []]) {
-    $callSync(24624, $W()..list(args, (w0, e0) => w0.any(e0)));
+    $callSync(24626, $W()..list(args, (w0, e0) => w0.any(e0)));
   }
 
   /// Go: `func grpclog.WarningDepth(depth int, args ...any)`.
   void warningDepth(int depth, [List<Object?> args = const []]) {
     $callSync(
-        24625,
+        24627,
         $W()
           ..i64(depth)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -428,7 +428,7 @@ extension GoGrpcGrpclogApi on GoGrpcGrpclog {
   /// Go: `func grpclog.Warningf(format string, args ...any)`.
   void warningf(String format, [List<Object?> args = const []]) {
     $callSync(
-        24626,
+        24628,
         $W()
           ..str(format)
           ..list(args, (w0, e0) => w0.any(e0)));
@@ -436,6 +436,6 @@ extension GoGrpcGrpclogApi on GoGrpcGrpclog {
 
   /// Go: `func grpclog.Warningln(args ...any)`.
   void warningln([List<Object?> args = const []]) {
-    $callSync(24627, $W()..list(args, (w0, e0) => w0.any(e0)));
+    $callSync(24629, $W()..list(args, (w0, e0) => w0.any(e0)));
   }
 }
