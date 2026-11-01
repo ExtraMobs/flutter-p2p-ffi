@@ -18,8 +18,10 @@ kubo's `libp2p.Libp2pOpts.Opts`, `namesys.PublishOptions.IPNSOptions`...).
   the lock for good; the lesson says so.
 - Tests: `TestDecOptsIn` (Go); "an option Go made, read from a struct, goes back to Go"
   (kubo's `BandwidthCounter` into `libp2p.New`: the reporter counts the traffic).
-- Checked: go vet ./..., go test ./..., the generator run, the Windows build, dart analyze
-  (lib, test, tool and the three languages), the suite on Windows 121/121, the 63 lessons.
+- Checked: go vet ./..., go test ./..., gen -check, the Windows, linux and Android builds,
+  dart analyze (lib, test, tool and the three languages), the suite on Windows and linux
+  (WSL, the host cross-built) 121/121, the 63 lessons on Windows, the integration tests
+  on the emulator (Android 17, x86_64): ipfs 4/4, libp2p 1/1, network 1/1.
 
 ## Done: an interface without methods is any handle (0.30.0)
 
