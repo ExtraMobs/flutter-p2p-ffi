@@ -22,6 +22,15 @@ kubo's `libp2p.Libp2pOpts.Opts`, `namesys.PublishOptions.IPNSOptions`...).
   dart analyze (lib, test, tool and the three languages), the suite on Windows and linux
   (WSL, the host cross-built) 121/121, the 63 lessons on Windows, the integration tests
   on the emulator (Android 17, x86_64): ipfs 4/4, libp2p 1/1, network 1/1.
+- On a real phone (2026-11-01; Android 16, HyperOS, arm64, by USB, mobile data behind the
+  carrier's CGNAT, the screen kept on with `svc power stayon usb`): ipfs 4/4 (sync Noop
+  1.5 µs, async 904 µs, `block.stat` 1.75 ms), libp2p 1/1 (8.1 ms a message through the
+  Dart validator and filter; a burst of 200, 200 delivered), network 1/1 (15 peers right
+  away, DNSLink in 1.2 s and its root block in 15.8 s; after 2 min online 68 peers, 51
+  QUIC and 17 TCP, 0 inbound, 9 relay addresses announced). HyperOS refused every USB
+  install (`INSTALL_FAILED_USER_RESTRICTED`) while the app was in its blocked list; a tap
+  on the screen while the test app had no focused window raised an ANR dialog ("Wait"
+  keeps the test going).
 
 ## Done: an interface without methods is any handle (0.30.0)
 
